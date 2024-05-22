@@ -1,18 +1,22 @@
 ---
 layout: default
-title: Gsub
+title: gsub
 parent: Ingest processors
 nav_order: 130
 ---
 
-# JSON processor
+# gsub processor
 
-The `gsub` processor is used to <explain what is used to do>.
+The `gsub` processor performs a regular expression search-and-replace operation on string fields in incoming documents. If the field contains an array of strings, the operation is applied to all elements in the array. However, if the field contains non-string values, the processor throws an exception. Uses cases for the `gsub` processor include removing sensitive information from log messages or user-generated content, normalizing data formats or conventions (for example, converting date formats, removing special characters), and extracting or transforming substrings from field values for further processing or analysis.
 
 The following is the syntax for the `gsub` processor:
 
 ```json
-<insert syntax example>
+"gsub": {
+  "field": "field_name",
+  "pattern": "regex_pattern",
+  "replacement": "replacement_string"
+}
 ```
 {% include copy-curl.html %}
 
@@ -30,10 +34,22 @@ Follow these steps to use the processor in a pipeline.
 
 ### Step 1: Create a pipeline
 
-The following query creates a pipeline, named <name>, that uses the `gsub` processor to <do what?>: 
+The following query creates a pipeline named `gsub_pipeline` that uses the `gsub` processor to replace all occurrences of the word `error` with `warning` in the `message` field:
 
 ```json
-<insert pipeline code example>
+PUT _ingest/pipeline/gsub_pipeline
+{
+  "description": "Replaces 'error' with 'warning' in the 'message' field",
+  "processors": [
+    {
+      "gsub": {
+        "field": "message",
+        "pattern": "error",
+        "replacement": "warning"
+      }
+    }
+  ]
+}
 ```
 {% include copy-curl.html %}
 
@@ -45,42 +61,102 @@ It is recommended that you test your pipeline before you ingest documents.
 To test the pipeline, run the following query:
 
 ```json
-<insert code example>
+POST _ingest/pipeline/gsub_pipeline/_simulate
+{
+  "docs": [
+    {
+      "_source": {
+        "message": "This is an error message"
+      }
+    }
+  ]
+}
 ```
 {% include copy-curl.html %}
 
 #### Response
 
-The following example response confirms that the pipeline is working as expected:
+The following response confirms that the pipeline is working as expected:
 
 ```json
-<insert response example>
+{
+  "docs": [
+    {
+      "doc": {
+        "_index": "_index",
+        "_id": "_id",
+        "_source": {
+          "message": "This is an warning message"
+        },
+        "_ingest": {
+          "timestamp": "2024-05-22T19:47:00.645687211Z"
+        }
+      }
+    }
+  ]
+}
 ```
+{% include copy-curl.html %}
 
 ### Step 3: Ingest a document 
 
-The following query ingests a document into an index named `testindex1`:
+The following query ingests a document into an index named `logs`:
 
 ```json
-<insert code example>
+PUT logs/_doc/1?pipeline=gsub_pipeline
+{
+  "message": "This is an error message"
+}
 ```
 {% include copy-curl.html %}
 
 #### Response
 
-The request indexes the document into the index <index name> and will index all documents with <what does this response tell the user?>.
+The following response shows that the request indexes the document into the index named `logs`, and the `gsub` processor replaces all occurrences of the word `error` with `warning` in the `message` field:
 
 ```json
-<insert code example>
+{
+  "_index": "logs",
+  "_id": "1",
+  "_version": 1,
+  "result": "created",
+  "_shards": {
+    "total": 2,
+    "successful": 1,
+    "failed": 0
+  },
+  "_seq_no": 0,
+  "_primary_term": 1
+}
 ```
+{% include copy-curl.html %}
 
 ### Step 4 (Optional): Retrieve the document
 
 To retrieve the document, run the following query:
 
 ```json
-<insert code example>
+GET logs/_doc/1
 ```
 {% include copy-curl.html %}
 
-<Provide any other information and code examples relevant to the user or use cases.>
+#### Response
+
+The following response shows the document with the modified `message` field value:
+
+```json
+{
+  "_index": "logs",
+  "_id": "1",
+  "_version": 1,
+  "_seq_no": 0,
+  "_primary_term": 1,
+  "found": true,
+  "_source": {
+    "message": "This is an warning message"
+  }
+}
+```
+{% include copy-curl.html %}
+
+
