@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Ubi queries with sql
+title: UBI queries with sql
 parent: User behavior insights
 has_children: false
 nav_order: 7

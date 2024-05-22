@@ -6,7 +6,7 @@ has_children: false
 nav_order: 7
 ---
 
-The data structures that we use for indexing events adhere to the following nested structure that aligns with the UBI schemas. See the [schemas](.././schemas.md) for descriptions and examples of the following fields.
+The data structures that we use for indexing events adhere to the following nested structure that aligns with the UBI schemas. See the [schemas]({{site.url}}{{site.baseurl}}/search-plugins/schemas/) for descriptions and examples of the following fields.
 
 `struct UbiEvent {`
 - application

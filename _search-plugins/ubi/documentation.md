@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Ubi plugin management
+title: UBI plugin management
 parent: User behavior insights
 has_children: false
 nav_order: 2
@@ -92,7 +92,7 @@ index is used to store events, and the other index is for storing queries.
 ### OpenSearch data mappings
 UBI has 2 primary indexes:
 - **UBI Queries** stores all queries and results.
-- **UBI Events** store that the Ubi client writes events to.
+- **UBI Events** store that the UBI client writes events to.
 *Follow the [schema deep dive]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/) to understand how these two indexes make UBI into a causal framework for search.*
 
 ## Plugin API
@@ -173,5 +173,6 @@ http://localhost:9200/ecommerce/_search -H "X-ubi-store: mystore" -H "X-ubi-user
 
 With this query, when the plugin sees a query, the plugin will be able to associate the query with an individual user and know to persist the query in the UBI store `mystore`.
 
-[Sample SQL queries](documentation\queries\sql_queries.md)
-[Sample OpenSearch queries](documentation\queries\dsl_queries.md)
+[Sample SQL queries]({{site.url}}{{site.baseurl}}/search-plugins/ubi/sql-queries/)
+
+[Sample OpenSearch queries]({{site.url}}{{site.baseurl}}/search-plugins/ubi/dsl-queries/)

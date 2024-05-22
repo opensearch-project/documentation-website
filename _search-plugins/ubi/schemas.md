@@ -108,7 +108,7 @@ There are 2 separate stores for UBI:
 All underlying query information and results ([`object_id`](#object_id)'s) are stored in the **UBI Queries** store, and remains largely invisible in the background.
 The only obvious difference will be in the `ubi` stanze of the json response, *which could cause index bloat if one forgets that this is enabled*. 
 
-**UBI Queries** [schema](../src/main/resources/queries-mapping.json):
+**UBI Queries** [schema](https://github.com/o19s/opensearch-ubi/tree/2.14.0/src/main/resources/queries-mapping.json):
 Since UBI manages the **UBI Queries** store, the developer should never have to write directly to this store (except for importing data).
 
 - `timestamp`  
@@ -130,7 +130,7 @@ Since UBI manages the **UBI Queries** store, the developer should never have to 
 
 ### 2) **UBI events**
 This is the event store that the client side directly indexes events to, linking the event [`action_name`](#action_name), [`object_id`](#object_id)'s and [`query_id`](#query_id)'s together with any other important event information.
-Since this schema is dynamic, the developer can add any new fields and structures (such as *user* information, *geo-location* information) at index time that are not in the current **UBI Events** [schema](../src/main/resources/events-mapping.json):
+Since this schema is dynamic, the developer can add any new fields and structures (such as *user* information, *geo-location* information) at index time that are not in the current **UBI Events** [schema](https://github.com/o19s/opensearch-ubi/tree/2.14.0/src/main/resources/events-mapping.json):
 - `application` 
   <p id="application">
 	
