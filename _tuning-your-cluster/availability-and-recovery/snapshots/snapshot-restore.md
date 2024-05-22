@@ -312,7 +312,7 @@ Define your Azure Storage account name using the following secure setting:
 ./bin/opensearch-keystore add azure.client.default.account
 ```
 
-Then, use one of the following options to set up your account keys for Azure Blod Storage.
+Then, use one of the following options to set up your account keys for Azure Blob Storage.
 
 #### Azure storage account key
 
@@ -322,9 +322,9 @@ Use the following setting to specify your Azure Storage account key:
 ./bin/opensearch-keystore add azure.client.default.key
 ```
 
-#### Shared access signatures (SAS)
+#### Shared access signatures tokens
 
-Use the following setting when accessing Azure with an SAS token
+Use the following setting when accessing Azure with a shared access signature (SAS) token:
       
 ```bash
 ./bin/opensearch-keystore add azure.client.default.sas_token      
