@@ -1,9 +1,8 @@
 ---
 layout: default
 title: User behavior insights
-parent: Search relevance
-has_children: false
-nav_order: 1
+has_children: true
+nav_order: 90
 redirect_from:
   - /search-plugins/ubi/
 ---
@@ -15,7 +14,8 @@ It is a causal system, linking a user's query to all subsequent user interaction
 * An machine readable [schema](https://github.com/o19s/ubi) that faciliates interoperablity of the UBI specification.
 * An OpenSearch [plugin](https://github.com/o19s/opensearch-ubi) that facilitates the storage of client-side events and queries.
 * A client-side JavaScript library reference implementation that shows how to capture events and send those events to the OpenSearch UBI plugin.
-TODO: link a client implementation
+
+TODO: link a client implementation [here](#TODO-clients-link)
 {: .warn }
 
 <!-- vale off -->

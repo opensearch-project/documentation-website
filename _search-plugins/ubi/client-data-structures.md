@@ -5,8 +5,10 @@ parent: User behavior insights
 has_children: false
 nav_order: 7
 ---
+TODO: merge with data-structures.md
 
-The data structures that we use for indexing events adhere to the following nested structure that aligns with the UBI schemas. See the [schemas]({{site.url}}{{site.baseurl}}/search-plugins/schemas/) for descriptions and examples of the following fields.
+
+The data structures that we use for indexing events adhere to the following nested structure that aligns with the UBI schemas. See the [schemas]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/) for descriptions and examples of the following fields.
 
 `struct UbiEvent {`
 - application
@@ -45,7 +47,7 @@ The data structures that we use for indexing events adhere to the following nest
   </details>}
 `}`
 
-Typescript versions of these classes can be found in [ts/UbiEvent.ts](./ts/UbiEvent.ts).
+Typescript versions of these classes can be found in [here](#TODO-clients-link-ts)
 
 Example JavaScript code:
 ```js
@@ -69,7 +71,7 @@ Example JavaScript code:
     console.log(e.toJson());
 ```
 
-With very similar [Python data structures](./py/ubi.py):
+With very similar [Python data structures](#TODO-clients-link)
 ```python
 if __name__ == '__main__':
 	e = UbiEvent(application='chorus', action_name='add_to_cart', 

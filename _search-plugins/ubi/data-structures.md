@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Client data structures
+title: UBI client data structures
 parent: User behavior insights
 has_children: false
 nav_order: 7
@@ -12,14 +12,8 @@ The client data structures can be used to create events that follow the [UBI eve
 The developer provides an implementation for the following functions:
 - `getClientId()`
 - `getQueryId()`
-- `getSessionId()`
-- `getPageId()`- e.g.:
-  ```js
-    function getPageId(){
- 	 return location.pathname;
-	}
-  ```
-Other sample implementations can be found [here](#TODO).
+
+Other sample implementations can be found [here](#TODO-clients-link).
 
 ```js
 /*********************************************************************************************
@@ -74,10 +68,8 @@ export class UbiEventAttributes {
 export class UbiEvent {
   constructor(action_name, {message=null, event_attributes={}, data_object={}}={}) {
     this.action_name = action_name;
-    this.user_id = getUserId();
+    this.client_id = getClientID();
     this.query_id = getQueryId();
-    this.session_id = getSessionId();
-    this.page_id = getPageId();
     this.timestamp = Date.now();
 
     this.message_type = 'INFO';
@@ -110,6 +102,7 @@ export class UbiEvent {
   }
 }
 ```
+{% include copy.html %}
 
 # Sample usage
 
@@ -124,3 +117,4 @@ export async function logDwellTime(action_name, page, seconds){
   logEvent(e);
 }
 ```
+{% include copy.html %}
