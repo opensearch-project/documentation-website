@@ -47,4 +47,4 @@ The [`newline` codec]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/config
 
 ## EventJson
 
-The `event_json` output codec is used to convert event data and metadata into a json format that can be sent to a sent (like `s3` sink). And an `event_json` input codec can be used to read the event and it's metadata back to create an event in the DataPrepper.
+The `event_json` output codec converts event data and metadata into JSON format to send to a sink, such as an S3 sink. The `event_json` input codec reads the event and its metadata to create an event in Data Prepper.
