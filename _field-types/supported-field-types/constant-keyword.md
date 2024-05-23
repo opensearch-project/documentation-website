@@ -1,21 +1,17 @@
 ---
 layout: default
-title: Constant Keyword
+title: Constant keyword
 nav_order: 71
 has_children: false
 parent: String field types
 grand_parent: Supported field types
-redirect_from:
-  - /opensearch/supported-field-types/constant-keyword/
-  - /field-types/constant-keyword/
 ---
 
 # Constant keyword field type
 
 A constant keyword field uses the same value for documents in the index. 
 
-When a search request spans multiple indices, you can filter on a constant keyword field to match documents from indices with the given constant value, 
-but not indices with a different value.
+When a search request spans multiple indexes, you can filter on a constant keyword field to match documents from indexes with the given constant value but not indexes with a different value.
 
 ## Example
 
