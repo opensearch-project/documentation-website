@@ -1291,7 +1291,7 @@ The `cluster_manager_throttling` object contains statistics about throttled task
 Field | Field type | Description
 :--- | :--- | :---
 stats | Object | Statistics about throttled tasks on the cluster manager node.
-stats.total_throttled_tasks | Long | Total number of throttled tasks.
+stats.total_throttled_tasks | Long | The total number of throttled tasks.
 stats.throttled_tasks_per_task_type | Object | Statistics breakdown by individual task types. The object keys are individual types of tasks and their value represents the number of requests that were throttled.
 
 ### `resource_usage_stats`
