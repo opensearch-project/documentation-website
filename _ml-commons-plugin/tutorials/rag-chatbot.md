@@ -90,10 +90,6 @@ Note the model ID, you will use it in following steps.
 
 ## Step 3: Create an agent
 
-Next, create and test an agent.
-
-### Create an agent
-
 For this tutorial, you will create an agent of the `conversational` type. 
 
 Both `conversational_flow` and `conversational` agents support conversation history.
@@ -168,7 +164,7 @@ POST _plugins/_ml/agents/_register
 
 Note the agent ID; you'll use it in the next step.
 
-### Test the agent
+## Step 4: Test the agent
 
 The `conversational` agent supports a `verbose` option. You can set `verbose` to `true` to obtain detailed steps.
 
@@ -179,7 +175,7 @@ GET _plugins/_ml/memory/message/message_id/traces
 ```
 {% include copy-curl.html %}
 
-## Step 4: Start a conversation
+### Start a conversation
 
 Ask a question related to tech news:
 
@@ -293,8 +289,7 @@ In the response, note that the agent runs the `population_data_knowledge_base` t
 }
 ```
 
-
-## Step 5: Continue a conversation
+### Continue a conversation
 
 To continue a previous conversation, provide its conversation ID in the `memory_id` parameter:
 
