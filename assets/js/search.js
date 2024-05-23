@@ -222,10 +222,7 @@ import * as UBI from "./ubi.js";
             const searchResultClassName = 'top-banner-search--field-with-results--field--wrapper--search-component--search-results--result';
             if (!node || !_showingResults || node.classList.contains(CLASSNAME_HIGHLIGHTED)) return;
 
-            const link = node.querySelector('a');
-            if(link){
-                //xxyy logUbiEvent('item_hover', link);
-            }
+            // ToDo: UBI item_hover can go here...hover, but no click implies irrelevance in results
 
             elResults.querySelectorAll(`.${searchResultClassName}.highlighted`).forEach(el => {
                 el.classList.remove(CLASSNAME_HIGHLIGHTED);
@@ -288,7 +285,7 @@ import * as UBI from "./ubi.js";
         /**
          * Find item and position clicked
          * Modifies the ubi event data if the item is found
-         * @param {*} ubiEvent - UBI.UbiEventData object
+         * @param {UbiEventData} ubiEvent - UBI.UbiEventData object
          * @param {*} link - link clicked
          * @returns 
          */
@@ -326,11 +323,19 @@ import * as UBI from "./ubi.js";
         };
 
 
-        const makeUbiEvent = (name, event_type, data) => {
+        /**
+         * Helper function to populate the event structure for common
+         *   event data elements
+         * @param {*} name - name of the event to build
+         * @param {*} event_type - type of event to tease out event parameters
+         * @param {*} data - an object associated with the event
+         * @returns 
+         */
+        const makeUbiEvent = (name, event_type, data=null) => {
             let e = new UBI.UbiEvent(name);
             let t = TimeMe.getTimeOnPageInSeconds(window.location.pathname);
             if(t != null){
-                e.event_attributes['dwell_seconds'] = t;
+                e.event_attributes['dwell_time'] = t;
             }
 
             if(name == 'search'){
@@ -339,22 +344,18 @@ import * as UBI from "./ubi.js";
                 e.event_attributes.object = data;
             } else if(name == 'item_click') {
                 e = setUbiClickData(e, data);
-            } else {
-                switch(event_type) {
-                    case "event1":
-                    break;
-                    case "event2":
-                    break;
-                    default:{
-                        if(e.event_attributes.object == null)
-                            e.event_attributes.object = data;
-                    }
-                }
+            } else if(e.event_attributes.object == null){
+                e.event_attributes.object = data;
             }
             return e;
         }
 
 
+        /**
+         * A method to retrofit and funnel gtag logging to ubi
+         * @param {*} name 
+         * @param {*} data 
+         */
         const logUbiEvent = (name, data) => {
             let event = makeUbiEvent(name, 'default', data)
             UBI.logEvent(event);
