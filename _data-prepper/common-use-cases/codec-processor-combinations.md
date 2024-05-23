@@ -45,6 +45,6 @@ The [`newline` codec]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/config
 
 [Apache Avro] helps streamline streaming data pipelines. It is most efficient when used with the [`avro` codec]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/s3#avro-codec) inside an `s3` sink.
 
-## EventJson
+## `event_json`
 
 The `event_json` output codec converts event data and metadata into JSON format to send to a sink, such as an S3 sink. The `event_json` input codec reads the event and its metadata to create an event in Data Prepper.
