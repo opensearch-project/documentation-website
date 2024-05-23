@@ -130,7 +130,7 @@ Supported data types are `integer`, `long`, `boolean`, `double`, `string`, `map`
 /message typeof string
 ```
 
-#### Conditional expression
+### Conditional expression
 
 A conditional expression is used to chain together multiple expressions and/or values.
 
