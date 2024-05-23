@@ -37,5 +37,5 @@ The following table lists the parameters accepted by constant keyword field type
 
 Parameter | Description 
 :--- | :--- 
-`value` | The string value for the field for all documents in the index.
+`value` | The string field value for all documents in the index.
 
