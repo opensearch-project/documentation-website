@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Execute algorithm 
-parent: ML Commons API
+parent: ML Commons APIs
 nav_order: 30
 ---
 

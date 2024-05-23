@@ -10,3 +10,4 @@ indicators:
 exceptions:
   - k    # ignores lowercase k-NN
   - '[A-Z]{2,}' # ignores all acronyms
+  - '([A-Z][a-z0-9]+){2,}' # ignores all camel case words
