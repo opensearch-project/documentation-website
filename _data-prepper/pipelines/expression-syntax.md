@@ -115,7 +115,8 @@ null != /response
 ```
 
 ## Type check operator
-Type check operator tests if a JSON Pointer is of a certain type
+
+The type check operator tests whether a JSON Pointer is of a certain data type.
 
 ### Syntax
 ```
