@@ -329,7 +329,7 @@ To utilize Microsoft Azure Blob Storage as a snapshot repository, follow the ste
    ./bin/opensearch-keystore add azure.client.default.sas_token      
    ```
 
-   #### Azure credential token 
+   #### Azure token credential 
 
    Starting from OpenSearch 2.15.0, you have the option to configure a token credential authentication flow in `opensearch.yml`. This method is distinct from connection string authentication, which necessitates a SAS or an account key.
 
