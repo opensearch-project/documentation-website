@@ -121,7 +121,7 @@ Type check operator tests if a JSON Pointer is of a certain type
 ```
 <JSON Pointer> typeof <DataType>
 ```
-Supported <DataType> are `integer`, `long`, `boolean`, `double`, `string`, `map`, and `array`.
+Supported data types are `integer`, `long`, `boolean`, `double`, `string`, `map`, and `array`.
 
 ### Example
 ```
