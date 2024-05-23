@@ -9,7 +9,7 @@ nav_order: 56
 # write_json
 
 
-You can use the `write_json` processor to write an object in the event as JSON string. You can customize the `write_json` processor to pick the source and target field names
+The `write_json` processor converts an object in the event into a JSON string. You can customize the processor to choose the source and target field names.
 
 | Option | Description | Example |
 | :--- | :--- | :--- |
