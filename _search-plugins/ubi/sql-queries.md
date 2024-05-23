@@ -8,7 +8,7 @@ nav_order: 7
 
 # Sample UBI SQL queries
 These can be performed on the OpenSearch Dashboards/Query Workbench: 
-http://chorus-opensearch-edition.dev.o19s.com:5601/app/opensearch-query-workbench
+[http://chorus-opensearch-edition.dev.o19s.com:5601/app/opensearch-query-workbench](http://chorus-opensearch-edition.dev.o19s.com:5601/app/opensearch-query-workbench)
 
 ## Queries with zero results
 Although it's trivial on the server side to find queries with no results, we can also get the same answer by querying the event side.

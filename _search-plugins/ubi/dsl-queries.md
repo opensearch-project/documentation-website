@@ -94,4 +94,4 @@ returns
 {% include copy.html %}
 
 These can be performed on the OpenSearch Dashboards/Query Workbench: 
-http://chorus-opensearch-edition.dev.o19s.com:5601/app/opensearch-query-workbench
+[http://chorus-opensearch-edition.dev.o19s.com:5601/app/opensearch-query-workbench](http://chorus-opensearch-edition.dev.o19s.com:5601/app/opensearch-query-workbench)
