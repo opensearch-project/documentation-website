@@ -9,13 +9,13 @@ grand_parent: Supported field types
 
 # Constant keyword field type
 
-A constant keyword field uses the same value for documents in the index. 
+A constant keyword field uses the same value for all documents in the index. 
 
-When a search request spans multiple indexes, you can filter on a constant keyword field to match documents from indexes with the given constant value but not indexes with a different value.
+When a search request spans multiple indexes, you can filter on a constant keyword field to match documents from indexes with the given constant value but not from indexes with a different value.
 
 ## Example
 
-The following query creates a mapping with a constant keyword field. 
+The following query creates a mapping with a constant keyword field:
 
 ```json
 PUT romcom_movies
