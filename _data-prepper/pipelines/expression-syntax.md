@@ -124,7 +124,7 @@ The type check operator tests whether a JSON Pointer is of a certain data type.
 ```
 Supported data types are `integer`, `long`, `boolean`, `double`, `string`, `map`, and `array`.
 
-### Example
+#### Example
 ```
 /response typeof integer
 /message typeof string
