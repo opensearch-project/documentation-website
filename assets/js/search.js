@@ -333,10 +333,6 @@ import * as UBI from "./ubi.js";
          */
         const makeUbiEvent = (name, event_type, data=null) => {
             let e = new UBI.UbiEvent(name);
-            let t = TimeMe.getTimeOnPageInSeconds(window.location.pathname);
-            if(t != null){
-                e.event_attributes['dwell_time'] = t;
-            }
 
             if(name == 'search'){
                 e.message_type = 'QUERY';
@@ -360,7 +356,6 @@ import * as UBI from "./ubi.js";
             let event = makeUbiEvent(name, 'default', data)
             UBI.logEvent(event);
         };
-
 
         const recordEvent = (name, data) => {
             try {

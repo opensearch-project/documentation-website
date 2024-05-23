@@ -1,11 +1,11 @@
 
-function guiid() {
+function genGuid() {
   let id = '123456-insecure';
   try {
     id = crypto.randomUUID();
   }
   catch(error){
-    console.warn('tried to generate a guiid in an insecure context');
+    console.warn('tried to generate a guid in an insecure context');
     id ='10000000-1000-4000-8000-100000000000'.replace(/[018]/g, c =>
     (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
   }
@@ -43,7 +43,7 @@ export async function initialize(){
   try {
   
     if(!sessionStorage.hasOwnProperty('session_id')) {
-      sessionStorage.setItem('session_id', 'S-' + guiid());
+      sessionStorage.setItem('session_id', 'S-' + genGuid());
     }
 
     if(sessionStorage.hasOwnProperty('client_id')){
@@ -72,13 +72,13 @@ export async function initialize(){
 * @returns
 */
 function userError(){
-  let client_id = guiid();
+  let client_id = genGuid();
   setClientId(client_id);
   return client_id;
 }
 
 export function genQueryId(){
-  const qid = 'Q-' + guiid();
+  const qid = 'Q-' + genGuid();
   sessionStorage.setItem('query_id', qid);
   return qid;
 }
@@ -134,7 +134,7 @@ export function getSessionId(){
     return sessionStorage.getItem('session_id');
   }
 
-  let session_id = guiid();
+  let session_id = genGuid();
   sessionStorage.setItem('session_id', session_id);
   return session_id;
 }
@@ -200,7 +200,8 @@ export async function logDwellTime(action_name, page, seconds){
 export async function logEvent(event){
   try {
     //=>146.190.147.150
-    fetch('http://localhost:9200/ubi/docs', {
+    //w.i.p. dev fetch('http://localhost:9200/ubi_events/_doc', {
+    fetch('http://146.190.147.150:9200/ubi_events/_doc', {
       method: 'POST',
       headers: {
       'Accept': 'application/json, text/plain, */*',
@@ -210,7 +211,7 @@ export async function logEvent(event){
     }).then(res => res.json())
     .then(res => console.log(res))
     .catch((error) => {
-      console.log(error)
+      console.warn(error)
       });
   } catch (e) {
     console.warn('Ubi error: ' + JSON.stringify(e));
@@ -228,9 +229,6 @@ export class UbiEventData {
     this.object_id = id;
     this.description = description;
     this.object_detail = details;
-
-    //override if using key_field's and values
-    this.key_value = id;
   }
 }
 export class UbiPosition{
@@ -249,11 +247,17 @@ export class UbiPosition{
 
 export class UbiEventAttributes {
   /**
-   * Attributes, other than `object` or `position` should be in the form of
+   * Tries to prepopulate common event attributes
+   * The developer can add an `object` that the user interacted with and
+   *   the site `position` information relevant to the event
+   * 
+   * Attributes, other than `object` or `position` can be added in the form:
    * attributes['item1'] = 1
    * attributes['item2'] = '2'
    *
-   * The object member is reserved for further, relevant object payloads or classes
+   * @param {*} attributes: object with general event attributes 
+   * @param {*} object: the data object the user interacted with
+   * @param {*} position: the site position information
    */
   constructor({attributes={}, object=null, position=null}={}) {
     if(attributes != null){
@@ -284,10 +288,10 @@ export class UbiEventAttributes {
             this.position = new UbiPosition({trail:trail});
           }
         }
-        // TODO: set IP
+        // ToDo: set IP
     }
     catch(error){
-
+      console.log(error);
     }
   }
 }
