@@ -833,7 +833,7 @@ http.total_opened | Integer | The total number of HTTP connections the node has 
 [indexing_pressure](#indexing_pressure) | Object | Statistics related to the node's indexing pressure.
 [shard_indexing_pressure](#shard_indexing_pressure) | Object | Statistics related to indexing pressure at the shard level.
 [search_backpressure]({{site.url}}{{site.baseurl}}/opensearch/search-backpressure#search-backpressure-stats-api) | Object | Statistics related to search backpressure.
-[cluster_manager_throttling](#cluster_manager_throttling) | Object | Statistics related to throttled tasks on cluster manager node.
+[cluster_manager_throttling](#cluster_manager_throttling) | Object | Statistics related to throttled tasks on the cluster manager node.
 [resource_usage_stats](#resource_usage_stats) | Object | Statistics related to resource usage for the node.
 [admission_control](#admission_control) | Object | Statistics related to admission control for the node.
 [caches](#caches) | Object | Statistics related to caches on the node.
