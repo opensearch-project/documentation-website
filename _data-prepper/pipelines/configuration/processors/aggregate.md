@@ -177,4 +177,4 @@ The `aggregate` processor includes the following custom metrics.
 
 **Gauge**
 
-* `currentAggregateGroups`: The current number of groups. This gauge decreases when a group concludes and increases when an event initiates the creation of a new group.
+* `currentAggregateGroups`: This gauge represents the current number of active aggregate groups. It decreases when an aggregate group completes and its results are emitted, and increases when a new event initiates the creation of a new aggregate group.
