@@ -1286,7 +1286,7 @@ enforced | Boolean | If true, the shard indexing pressure runs in enforced mode 
 
 ### `cluster_manager_throttling`
 
-The `cluster_manager_throttling` object contains statistics about throttled tasks on the cluster manager node. It is populated only for actual cluster manager node.  
+The `cluster_manager_throttling` object contains statistics about throttled tasks on the cluster manager node. It is populated only for the node that is currently elected as the cluster manager.  
 
 Field | Field type | Description
 :--- | :--- | :---
