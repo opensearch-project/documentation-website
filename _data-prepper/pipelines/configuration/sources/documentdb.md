@@ -81,7 +81,7 @@ The following parameters enable you to configure the collection to read from the
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `collection` | Yes | String | The name of the collection.
-`export` | No | Boolean | Whether to include an export or full load. Defaults to `true`.
+`export` | No | Boolean | Whether to include an export or a full load. Defaults to `true`.
 `stream` | No | Boolean | Whether to enable a stream. Defaults to `true`.
 `partition_count` | No | Integer | Defines the number of partitions to create in Amazon S3. Defaults to `100`.
 `export_batch_size` | No | Integer | Defaults to `10,000`.
