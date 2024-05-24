@@ -55,7 +55,7 @@ Option | Required | Type | Description
 `s3_prefix` | No | String  | An optional Amazon S3 key prefix. By default, there is no key prefix.
 `s3_region` | No | String  | The AWS Region in which the S3 bucket resides.
 `aws` | Yes | AWS | The AWS configuration. See the [aws](#aws) section for more information.
-`id_key` | No | String  | When specified, the `_id` field from DocumentDB is set to the key name specified by `id_key`. You can use this when you need more information beyond the `ObjectId` string saved to your sink. By default, the `_id` is not made as part of the event.
+`id_key` | No | String  | When specified, the Amazon DocumentDB `_id` field is set to the key name specified by `id_key`. You can use this when you need more information than is provided by the `ObjectId` string saved to your sink. By default, the `_id` is not included as part of the event.
 `direct_connection` | No | Boolean  | When `true`, the MongoDB driver connects directly to the specified DocumentDB server(s) without discovering and connecting to the entire replica set. Defaults to `true`.
 `read_preference` | No | String  | Determines how to read from DocumentDB. See [Read Preference Modes](https://www.mongodb.com/docs/v3.6/reference/read-preference/#read-preference-modes) for details. Defaults to `primaryPreferred`.
 `disable_s3_read_for_leader` | No | Boolean  | When `true`, the current leader node does not read from Amazon S3. It only reads the stream. Defaults to `false`.
