@@ -196,7 +196,7 @@ pipeline:
 ```
 {% include copy-curl.html %}
 
-The following example pipeline downloads only the first 10,000 records in the objects:
+The following example pipeline retrieves only the first 10,000 records in the objects:
 
 ```json
 pipeline:
