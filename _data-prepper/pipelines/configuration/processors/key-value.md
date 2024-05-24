@@ -34,7 +34,7 @@ You can use the `key_value` processor to parse the specified field into key-valu
 | overwrite_if_destination_exists | Specifies whether to overwrite existing fields if there are key conflicts when writing parsed fields to the event. Default is `true`. | If `overwrite_if_destination_exists` is `true` and destination is `null`, `{"key1": "old_value", "message": "key1=new_value"}` will parse into `{"key1": "new_value", "message": "key1=new_value"}`. |
 | tags_on_failure | When a `kv` operation causes a runtime exception within the processor, the operation is safely stopped without crashing the processor, and the event is tagged with the provided tags. | If `tags_on_failure` is set to `["keyvalueprocessor_failure"]`, `{"tags": ["keyvalueprocessor_failure"]}` will be added to the event's metadata in the event of a runtime exception. |
 | value_grouping | Specifies whether to group values using predefined value grouping delimiters: `{...}`, `[...]', `<...>`, `(...)`, `"..."`, `'...'`, `http://... (space)`, and `https:// (space)`. If this flag is enabled, then the content between the delimiters is considered to be one entity and is not parsed for key-value pairs. Default is `false`. If `value_grouping` is `true`, then `{"key1=[a=b,c=d]&key2=value2"}` parses to `{"key1": "[a=b,c=d]", "key2": "value2"}`. |
-| drop_keys_with_no_value | Specifies whether keys should be dropped if they have a null value. Default is `false`. If `drop_keys_with_no_value` is set to `true, then `{"key1=value1&key2"}` parses to `{"key1": "value1"}`. |
+| drop_keys_with_no_value | Specifies whether keys should be dropped if they have a null value. Default is `false`. If `drop_keys_with_no_value` is set to `true`, then `{"key1=value1&key2"}` parses to `{"key1": "value1"}`. |
 
 
 
