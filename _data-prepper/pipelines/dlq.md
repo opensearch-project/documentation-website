@@ -2,7 +2,7 @@
 layout: default
 title: Dead-letter queues 
 parent: Pipelines
-nav_order: 13
+nav_order: 20
 ---
 
 # Dead-letter queues
