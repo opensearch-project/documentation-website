@@ -11,7 +11,7 @@ nav_order: 2
 The `documentdb` source reads documents from [Amazon DocumentDB](https://aws.amazon.com/documentdb/) collections.
 It can read historical data from an export and keep up to date on the data using Amazon DocumentDB [change streams](https://docs.aws.amazon.com/documentdb/latest/developerguide/change_streams.html).
 
-The `documentdb` source reads data from DocumentDB and puts that data into an [Amazon S3](https://aws.amazon.com/s3/) bucket.
+The `documentdb` source reads data from Amazon DocumentDB and puts that data into an [Amazon Simple Storage Service (Amazon S3)](https://aws.amazon.com/s3/) bucket.
 From there, other Data Prepper workers read from the Amazon S3 bucket to process data.
 
 ## Usage
