@@ -46,7 +46,7 @@ You can use the following options to configure the `documentdb` source.
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `host` | Yes | String  | The hostname of the Amazon DocumentDB cluster.
-`port` | No | Integer | The port number of the DocumentDB cluster. Defaults to `27017`.
+`port` | No | Integer | The port number of the Amazon DocumentDB cluster. Defaults to `27017`.
 `trust_store_file_path` | No | String | The path to a truststore file that contains the public certificate for the DocumentDB cluster.
 `trust_store_password` | No | String | The password for the truststore specified by `trust_store_file_path`.
 `authentication` | Yes | Authentication | The authentication configuration. See the [authentication](#authentication) section for more information.
