@@ -53,7 +53,7 @@ Option | Required | Type | Description
 `collections` | Yes | List | A list of collection configurations. Exactly one collection is required. See the [collections](#collection) section for more information.
 `s3_bucket` | Yes | String  | The S3 bucket to use for processing events from Amazon DocumentDB.
 `s3_prefix` | No | String  | An optional Amazon S3 key prefix. By default, there is no key prefix.
-`s3_region` | No | String  | The AWS region where the Amazon S3 bucket resides.
+`s3_region` | No | String  | The AWS Region in which the S3 bucket resides.
 `aws` | Yes | AWS | The AWS configuration. See the [aws](#aws) section for more information.
 `id_key` | No | String  | When specified, the `_id` field from DocumentDB is set to the key name specified by `id_key`. You can use this when you need more information beyond the `ObjectId` string saved to your sink. By default, the `_id` is not made as part of the event.
 `direct_connection` | No | Boolean  | When `true`, the MongoDB driver connects directly to the specified DocumentDB server(s) without discovering and connecting to the entire replica set. Defaults to `true`.
