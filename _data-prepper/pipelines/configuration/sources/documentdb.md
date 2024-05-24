@@ -95,4 +95,4 @@ Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `sts_role_arn` | No | String | The AWS Security Token Service (AWS STS) role to assume for requests to Amazon SQS and Amazon S3. Defaults to `null`, which uses the [standard SDK behavior for credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
 `aws_sts_header_overrides` | No | Map | A map of header overrides that the AWS Identity and Access Management (IAM) role assumes for the sink plugin.
-`sts_external_id` | No | String | An STS external ID used when Data Prepper assumes the STS role. See `ExternalID` in the [STS AssumeRole](https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html) API reference documentation.
+`sts_external_id` | No | String | An external STS ID used when Data Prepper assumes the STS role. See `ExternalID` in the [STS AssumeRole](https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html) API reference documentation.
