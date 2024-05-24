@@ -182,7 +182,7 @@ If a pipeline uses an S3 source, you can use SQL expressions to perform filterin
 
 The `s3_select` option supports objects in the [Parquet File Format](https://parquet.apache.org/docs/). It also works with objects that are compressed with GZIP or BZIP2 (for CSV and JSON objects only) and supports columnar compression for the Parquet File Format using GZIP and Snappy.
 
-The following example pipeline downloads data in incoming S3 objects, encoded in the Parquet File Format:
+The following example pipeline retrieves all data S3 objects encoded in the Parquet File Format:
 
 ```json
 pipeline:
