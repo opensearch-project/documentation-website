@@ -176,7 +176,7 @@ To meet the scale of logs produced by S3, some users require multiple SQS queues
 
 To make sure that Data Prepper can directly parse the event from the SNS topic, configure [raw message delivery](https://docs.aws.amazon.com/sns/latest/dg/sns-large-payload-raw-message-delivery.html) on the SNS to SQS subscription. Setting this option does not affect other SQS queues that are subscribed to that SNS topic.
 
-## Selective download
+## Filtering and retrieving data using Amazon S3 Select
 
 If a pipeline uses an S3 source, you can use SQL expressions to perform filtering and computations on the contents of S3 objects before ingesting them into the pipeline.
 
