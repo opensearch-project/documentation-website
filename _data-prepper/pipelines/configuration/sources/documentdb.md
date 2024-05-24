@@ -60,7 +60,7 @@ Option | Required | Type | Description
 `read_preference` | No | String  | Determines how to read from Amazon DocumentDB. See [Read Preference Modes](https://www.mongodb.com/docs/v3.6/reference/read-preference/#read-preference-modes) for more information. Defaults to `primaryPreferred`.
 `disable_s3_read_for_leader` | No | Boolean  | When `true`, the current leader node does not read from Amazon S3. It only reads the stream. Defaults to `false`.
 `partition_acknowledgment_timeout` | No | Duration  | Configures the duration for which the node holds a partition. Defaults to `2h`.
-`acknowledgments` | No | Boolean  | When set to `true`, enables [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines#end-to-end-acknowledgments) on this source after events are sent to the sinks.
+`acknowledgments` | No | Boolean  | When set to `true`, enables [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines#end-to-end-acknowledgments) on the source after events are sent to the sinks.
 `insecure` | No | Boolean | Disables TLS. Defaults to `false`. Do not use this value in production.
 `ssl_insecure_disable_verification` | No | Boolean | Disables TLS hostname verification. Defaults to `false`. Do not enable this flag in production. Instead, use the `trust_store_file_path` to verify the hostname.
 
