@@ -51,7 +51,7 @@ Option | Required | Type | Description
 `trust_store_password` | No | String | The password for the truststore specified by `trust_store_file_path`.
 `authentication` | Yes | Authentication | The authentication configuration. See the [authentication](#authentication) section for more information.
 `collections` | Yes | List | A list of collection configurations. Exactly one collection is required. See the [collections](#collection) section for more information.
-`s3_bucket` | Yes | String  | The Amazon S3 bucket to use for processing events from DocumentDB.
+`s3_bucket` | Yes | String  | The S3 bucket to use for processing events from Amazon DocumentDB.
 `s3_prefix` | No | String  | An optional key prefix in Amazon S3. By default, there is no key prefix.
 `s3_region` | No | String  | The AWS region where the Amazon S3 bucket resides.
 `aws` | Yes | AWS | The AWS configuration. See the [aws](#aws) section for more information.
