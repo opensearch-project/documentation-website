@@ -14,5 +14,5 @@ The `write_json` processor converts an object in an event into a JSON string. Yo
 | Option | Description | Example |
 | :--- | :--- | :--- |
 | source | Mandatory field that specifies the name of the field in the event containing the message or object to be parsed. | If `source` is `"message"`, `{"message": {"key1":"value1", "key2":{"key3":"value3"}}`, the `write_json` processor, generates `{"message": "{\"key1\":\"value`\", \"key2\":"{\"key3\":\"value3\"}"}"`
-| target | An optional field that specifies the name of the field where the resulting JSON string should be stored. If `target` is not specified, then the `source` field is used.
+| target | An optional field that specifies the name of the field in which the resulting JSON string should be stored. If `target` is not specified, then the `source` field is used.
 
