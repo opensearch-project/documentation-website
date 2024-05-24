@@ -7,12 +7,17 @@ nav_order: 200
 
 # Rename processor
 
-The `rename` processor is used to <explain what is used to do>.
+The `rename` processor renames a field in the input document. This can be useful when you need to standardize field names or align them with your application's data model.
 
 The following is the syntax for the `rename` processor:
 
 ```json
-<insert syntax example>
+{
+  "rename": {
+    "field": "source_field_name",
+    "target_field": "target_field_name"
+  }
+}
 ```
 {% include copy-curl.html %}
 
@@ -22,7 +27,13 @@ The following table lists the required and optional parameters for the `rename` 
 
 Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
-<insert the parameters>
+`field` | Required | The name of the field to be renamed.
+`target_field` | Required | The new name for the field.
+`description` | Optional | Description of the processor's purpose or configuration.
+`if` | Optional | Conditionally execute the processor.
+`ignore_failure` | Optional | Ignore failures for the processor. See Handling pipeline failures.
+`on_failure` | Optional | Handle failures for the processor. See Handling pipeline failures.
+`tag` | Optional | Identifier for the processor. Useful for debugging and metrics.
 
 ## Using the processor
 
