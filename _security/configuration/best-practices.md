@@ -103,7 +103,7 @@ Before making changes with `securityadmin.sh`, always create a backup of the cur
 2. Automation: `securityadmin.sh` enables automation of security configuration tasks, making it easier to deploy and manage security settings across multiple nodes or clusters.
 3. Version control: Security configurations managed through `securityadmin.sh` can be version-controlled using standard version control systems like Git. This facilitates tracking changes, auditing, and reverting to previous configurations.
 
-To prevent configuration overrides, it's important to note that changes made through the OpenSearch Dashboards UI or using the OpenSearch API provide a convenient way to modify security settings. To ensure that these updates are preserved when using the `securityadmin.sh` tool, first create a backup of the current configuration. This ensures that all configurations are captured before uploading the modified configuration with `securityadmin.sh`.
+You can prevent configuration overrides by first creating a backup of the current configuration created using OpenSearch Dashboards UI or the OpenSearch API by runnig the `securityadmin.sh` tool with `-backup` option. This ensures that all configurations are captured before uploading the modified configuration with `securityadmin.sh`.
 
 For more detailed information about using `securityadmin.sh` and managing OpenSearch security configurations, refer to the following resources:
 - [Applying changes to configuration files]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/)
