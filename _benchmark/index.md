@@ -22,7 +22,7 @@ OpenSearch Benchmark can be installed directly on a compatible host running Linu
 
 The following diagram visualizes how OpenSearch Benchmark works when run against a local host:
 
-![Benchmark workflow]({{site.url}}{{site.baseurl}}/images/benchmark/OSB-workflow.png).
+![Benchmark workflow]({{site.url}}{{site.baseurl}}/images/benchmark/osb-workflow.jpg).
 
 The OpenSearch Benchmark documentation is split into five sections:
 
