@@ -40,6 +40,7 @@ indices | Index statistics, such as size, document count, and search, index, and
 os | Statistics about the host OS, including load, memory, and swapping.
 process | Statistics about processes, including their memory consumption, open file descriptors, and CPU usage.
 jvm | Statistics about the JVM, including memory pool, buffer pool, and garbage collection, and the number of loaded classes.
+thread_pool | Statistics about each thread pool for the node.
 fs | File system statistics, such as read/write statistics, data path, and free disk space.
 transport | Transport layer statistics about send/receive in cluster communication.
 http | Statistics about the HTTP layer.
@@ -51,6 +52,7 @@ adaptive_selection | Statistics about adaptive replica selection, which selects 
 script_cache | Statistics about script cache.
 indexing_pressure | Statistics about the node's indexing pressure.
 shard_indexing_pressure | Statistics about shard indexing pressure.
+search_backpressure | Statistics related to search backpressure.
 resource_usage_stats | Node-level resource usage statistics, such as CPU and JVM memory.
 admission_control | Statistics about admission control.
 caches | Statistics about caches. 
@@ -1021,20 +1023,20 @@ cpu.load_average | Object | Statistics about load averages for the system.
 cpu.load_average.1m | Float | The load average for the system for the time period of one minute.
 cpu.load_average.5m | Float | The load average for the system for the time period of five minutes.
 cpu.load_average.15m | Float | The load average for the system for the time period of 15 minutes.
-cpu.mem | Object | Statistics about memory usage for the node.
-cpu.mem.total_in_bytes | Integer | The total amount of physical memory, in bytes.
-cpu.mem.free_in_bytes | Integer | The total amount of free physical memory, in bytes.
-cpu.mem.used_in_bytes | Integer | The total amount of used physical memory, in bytes.
-cpu.mem.free_percent | Integer | The percentage of memory that is free.
-cpu.mem.used_percent | Integer | The percentage of memory that is used.
-cpu.swap | Object | Statistics about swap space for the node.
-cpu.swap.total_in_bytes | Integer | The total amount of swap space, in bytes.
-cpu.swap.free_in_bytes | Integer | The total amount of free swap space, in bytes.
-cpu.swap.used_in_bytes | Integer | The total amount of used swap space, in bytes.
-cpu.cgroup | Object | Contains cgroup statistics for the node. Returned for Linux only.
-cpu.cgroup.cpuacct | Object | Statistics about the cpuacct control group for the node.
-cpu.cgroup.cpu | Object | Statistics about the CPU control group for the node.
-cpu.cgroup.memory | Object | Statistics about the memory control group for the node.
+mem | Object | Statistics about memory usage for the node.
+mem.total_in_bytes | Integer | The total amount of physical memory, in bytes.
+mem.free_in_bytes | Integer | The total amount of free physical memory, in bytes.
+mem.used_in_bytes | Integer | The total amount of used physical memory, in bytes.
+mem.free_percent | Integer | The percentage of memory that is free.
+mem.used_percent | Integer | The percentage of memory that is used.
+swap | Object | Statistics about swap space for the node.
+swap.total_in_bytes | Integer | The total amount of swap space, in bytes.
+swap.free_in_bytes | Integer | The total amount of free swap space, in bytes.
+swap.used_in_bytes | Integer | The total amount of used swap space, in bytes.
+cgroup | Object | Contains cgroup statistics for the node. Returned for Linux only.
+cgroup.cpuacct | Object | Statistics about the cpuacct control group for the node.
+cgroup.cpu | Object | Statistics about the CPU control group for the node.
+cgroup.memory | Object | Statistics about the memory control group for the node.
 
 ### `process`
 
@@ -1106,7 +1108,7 @@ active | Integer | The number of active threads in the pool.
 rejected | Integer | The number of tasks that have been rejected.
 largest | Integer | The peak number of threads in the pool.
 completed | Integer | The number of tasks completed.
-total_wait_time | Integer | The total amount of time tasks spent waiting in the thread pool queue. Currently, only `search`, `search_throttled`, and `index_searcher` thread pools support this metric.
+total_wait_time_in_nanos | Integer | The total amount of time that tasks spend waiting in the thread pool queue. Currently, only `search`, `search_throttled`, and `index_searcher` thread pools support this metric.
 
 ### `fs`
 
