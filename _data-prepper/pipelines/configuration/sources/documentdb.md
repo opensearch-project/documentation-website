@@ -74,7 +74,7 @@ Option | Required | Type | Description
 `password` | Yes | String | The password to use when authenticating with the Amazon DocumentDB cluster. Supports automatic refresh.
 
 
-### collection
+### `collection`
 
 The following parameters enable you to configure the collection to read from the Amazon DocumentDB cluster.
 
