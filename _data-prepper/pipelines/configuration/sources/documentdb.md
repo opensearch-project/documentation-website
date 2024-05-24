@@ -73,7 +73,6 @@ Option | Required | Type | Description
 `username` | Yes | String | The username to use when authenticating with the Amazon DocumentDB cluster. Supports automatic refresh.
 `password` | Yes | String | The password to use when authenticating with the Amazon DocumentDB cluster. Supports automatic refresh.
 
-
 ### `collection`
 
 The following parameters enable you to configure `collection` to read from the Amazon DocumentDB cluster.
