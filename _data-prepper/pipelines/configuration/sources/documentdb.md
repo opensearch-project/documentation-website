@@ -57,7 +57,7 @@ Option | Required | Type | Description
 `aws` | Yes | AWS | The AWS configuration. See the [aws](#aws) section for more information.
 `id_key` | No | String  | When specified, the Amazon DocumentDB `_id` field is set to the key name specified by `id_key`. You can use this when you need more information than is provided by the `ObjectId` string saved to your sink. By default, the `_id` is not included as part of the event.
 `direct_connection` | No | Boolean  | When `true`, the MongoDB driver connects directly to the specified Amazon DocumentDB server(s) without discovering and connecting to the entire replica set. Defaults to `true`.
-`read_preference` | No | String  | Determines how to read from DocumentDB. See [Read Preference Modes](https://www.mongodb.com/docs/v3.6/reference/read-preference/#read-preference-modes) for details. Defaults to `primaryPreferred`.
+`read_preference` | No | String  | Determines how to read from Amazon DocumentDB. See [Read Preference Modes](https://www.mongodb.com/docs/v3.6/reference/read-preference/#read-preference-modes) for more information. Defaults to `primaryPreferred`.
 `disable_s3_read_for_leader` | No | Boolean  | When `true`, the current leader node does not read from Amazon S3. It only reads the stream. Defaults to `false`.
 `partition_acknowledgment_timeout` | No | Duration  | Configures the duration for which the node holds a partition. Defaults to `2h`.
 `acknowledgments` | No | Boolean  | When set to `true`, enables [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines#end-to-end-acknowledgments) on this source after events are sent to the sinks.
