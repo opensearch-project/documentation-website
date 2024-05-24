@@ -210,7 +210,7 @@ pipeline:
 ```
 {% include copy-curl.html %}
 
-The following example pipeline checks for the minimum and maximum values of `data_value` before ingesting events into the pipeline:
+The following example pipeline retrieves records from S3 objects that have a `data_value` in the given range of 200-500. 
 
 ```json
 pipeline:
