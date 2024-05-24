@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Foreach
+title: `foreach`
 parent: Ingest processors
 nav_order: 110
 ---
 
-# Foreach processor
+# `foreach` processor
 
-The `foreach` processor is used to iterate over a list of values in an input document and perform some operation on each value. This can be useful for tasks like extracting information from a nested JSON structure or applying transformations to a collection of fields.
+The `foreach` processor is used to iterate over a list of values in an input document and apply a transformation to each value. This can be useful for tasks like processing all the elements in an array consistently, such as converting all elements in a string to lowercase or uppercase.
 
 The following is the syntax for the `foreach` processor:
 
@@ -33,12 +33,12 @@ Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
 `field` | Required | The array field to iterate over.
 `processor` | Required | The processor to execute against each field.
-`ignore_missing` | Optional | If `true` and the specified field does not exist or is 
-null, the processor will quietly exit without modifying the document.
-`if` | Optional | A conditional expression to determine whether to execute this processor.
-`on_failure` | Optional	| Specifies how to handle failures for this processor. See the documentation on [Handling failures in pipelines]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
-`ignore_failure` | Optional | If `true`, failures for this processor are ignored. See the documentation on [Handling failures in pipelines]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
-`tag` | Optional | An identifier for this processor. Useful for debugging and metrics.
+`ignore_missing` | Optional | If `true` and the specified field does not exist or is null, the processor will quietly exit without modifying the document.
+`description` | Optional | A brief description of the processor.
+`if` | Optional | A condition for running the processor.
+`ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters an error. If set to `true`, failures are ignored. Default is `false`.
+`on_failure` | Optional | A list of processors to run if the processor fails.
+`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type.
 
 ## Using the processor
 
@@ -46,26 +46,22 @@ Follow these steps to use the processor in a pipeline.
 
 ### Step 1: Create a pipeline
 
-The following query creates a pipeline named `test-foreach` that uses the `foreach` processor to extract information from a nested JSON structure: 
+The following query creates a pipeline named `test-foreach` that uses the `foreach` processor to iterate over each element in the `protocols` field: 
 
 ```json
-PUT _ingest/pipeline/test-foreach
-{
-  "description": "Extracts nested JSON data",
-  "processors": [
-    {
-      "foreach": {
-        "field": "users",
-        "processor": {
-          "json": {
-            "field": "_ingest._value",
-            "target_field": "user_data"
-          }
-        }
-      }
-    }
-  ]
-}
+PUT _ingest/pipeline/test-foreach  
+{  
+  "description": "Lowercase all the elements in an array",  
+  "processors": [  
+    {  
+      "foreach": {  
+        "field": "protocols",  
+        "processor": {  
+          "lowercase": {  
+            "field": "_ingest._value"  
+          }  
+        }  
+      }  
 ```
 {% include copy-curl.html %}
 
@@ -77,39 +73,49 @@ It is recommended that you test your pipeline before you ingest documents.
 To test the pipeline, run the following query:
 
 ```json
-<insert code example>
+POST _ingest/pipeline/test-foreach/_simulate  
+{  
+  "docs": [  
+    {  
+      "_index": "testindex1",  
+      "_id": "1",  
+      "_source": {  
+        "protocols": ["HTTP","HTTPS","TCP","UDP"]  
+      }  
+    }  
+  ]  
+} 
 ```
 {% include copy-curl.html %}
 
 #### Response
 
-The following example response confirms that the pipeline is working as expected:
+The following example response confirms that the pipeline is working as expected, showing the four elements have been lowercased:
 
 ```json
-{
-  "docs": [
-    {
-      "doc": {
-        "_index": "_index",
-        "_id": "_id",
-        "_source": {
-          "user_data": {
-            "name": "Jane Smith",
-            "age": 28
-          },
-          "users": [
-            """{"name":"John Doe","age":32}""",
-            """{"name":"Jane Smith","age":28}"""
-          ]
-        },
-        "_ingest": {
-          "_value": null,
-          "timestamp": "2024-05-22T18:27:27.299741001Z"
-        }
-      }
-    }
-  ]
-}
+{  
+  "docs": [  
+    {  
+      "doc": {  
+        "_index": "testindex1",  
+        "_id": "1",  
+        "_source": {  
+          "protocols": [  
+            "http",  
+            "https",  
+            "tcp",  
+            "udp"  
+          ]  
+        },  
+        "_ingest": {  
+          "_value": null,  
+          "timestamp": "2024-05-23T02:44:10.8201Z"  
+        }  
+      }  
+    }  
+  ]  
+}  
+
 ```
 {% include copy-curl.html %}
 
@@ -118,34 +124,31 @@ The following example response confirms that the pipeline is working as expected
 The following query ingests a document into an index named `testindex1`:
 
 ```json
-PUT testindex1/_doc/1?pipeline=test-foreach
-{
-  "users": [
-    "{\"name\":\"John Doe\",\"age\":32}",
-    "{\"name\":\"Jane Smith\",\"age\":28}"
-  ]
-}
+POST testindex1/_doc/1?pipeline=test-foreach  
+{  
+  "protocols": ["HTTP","HTTPS","TCP","UDP"]  
+}  
 ```
 {% include copy-curl.html %}
 
 #### Response
 
-The request indexes the document into the index `testindex1` and indexes all documents with the extracted JSON data from the `users` field:
+The request indexes the document into the index `testindex1` and applies the pipeline before indexing:
 
 ```json
-{
-  "_index": "testindex1",
-  "_id": "1",
-  "_version": 2,
-  "result": "updated",
-  "_shards": {
-    "total": 2,
-    "successful": 1,
-    "failed": 0
-  },
-  "_seq_no": 1,
-  "_primary_term": 1
-}
+{  
+  "_index": "testindex1",  
+  "_id": "1",  
+  "_version": 6,  
+  "result": "created",  
+  "_shards": {  
+    "total": 2,  
+    "successful": 1,  
+    "failed": 0  
+  },  
+  "_seq_no": 5,  
+  "_primary_term": 67  
+}  
 ```
 {% include copy-curl.html %}
 
@@ -163,23 +166,45 @@ GET testindex1/_doc/1
 The response shows the document with the extracted JSON data from the `users` field:
 
 ```json
-{
-  "_index": "testindex1",
-  "_id": "1",
-  "_version": 2,
-  "_seq_no": 1,
-  "_primary_term": 1,
-  "found": true,
-  "_source": {
-    "user_data": {
-      "name": "Jane Smith",
-      "age": 28
-    },
-    "users": [
-      """{"name":"John Doe","age":32}""",
-      """{"name":"Jane Smith","age":28}"""
-    ]
-  }
-}
+{  
+  "_index": "testindex1",  
+  "_id": "1",  
+  "_version": 6,  
+  "_seq_no": 5,  
+  "_primary_term": 67,  
+  "found": true,  
+  "_source": {  
+    "protocols": [  
+      "http",  
+      "https",  
+      "tcp",  
+      "udp"  
+    ]  
+  }  
+}  
+gaobinlong1 day ago
+
+{  
+  "docs": [  
+    {  
+      "doc": {  
+        "_index": "testindex1",  
+        "_id": "1",  
+        "_source": {  
+          "protocols": [  
+            "http",  
+            "https",  
+            "tcp",  
+            "udp"  
+          ]  
+        },  
+        "_ingest": {  
+          "_value": null,  
+          "timestamp": "2024-05-23T02:44:10.8201Z"  
+        }  
+      }  
+    }  
+  ]  
+}  
 ```
 {% include copy-curl.html %}
