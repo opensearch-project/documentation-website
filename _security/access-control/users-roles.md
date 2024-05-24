@@ -259,7 +259,7 @@ Admin users in OpenSearch have elevated permissions allowing them to perform var
 - Configuring permissions
 - Adjusting backend settings
 
-Admin users can perform these tasks by configuring settings in the `opensearch.yml` file, in OpenSearch Dashboards, or with the REST API. For more information about configuring users and roles, see [predefined roles](https://opensearch.org/docs/latest/security/access-control/users-roles/#predefined-roles).
+Admin users can perform these tasks by configuring settings in the `opensearch.yml` file, using OpenSearch Dashboards, or interacting with the REST API. For more information about configuring users and roles, see [predefined roles](https://opensearch.org/docs/latest/security/access-control/users-roles/#predefined-roles).
 
 ### Super admin users
 Super admins hold the highest level of administrative authority within the OpenSearch environment. This role is typically reserved for select users and is maintained carefully.
