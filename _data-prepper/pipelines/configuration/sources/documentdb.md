@@ -87,7 +87,7 @@ Option | Required | Type | Description
 `export_batch_size` | No | Integer | Defaults to `10,000`.
 `stream_batch_size` | No | Integer | Defaults to `1,000`.
 
-## aws
+## `aws`
 
 The following parameters enable you to configure your access to Amazon DocumentDB.
 
