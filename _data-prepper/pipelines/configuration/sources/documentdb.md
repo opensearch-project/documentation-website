@@ -70,7 +70,7 @@ The following parameters enable you to configure authentication for the Amazon D
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-`username` | Yes | String | The username to use when authenticating with the DocumentDB cluster. Supports automatic refresh.
+`username` | Yes | String | The username to use when authenticating with the Amazon DocumentDB cluster. Supports automatic refresh.
 `password` | Yes | String | The password to use when authenticating with the DocumentDB cluster. Supports automatic refresh.
 
 
