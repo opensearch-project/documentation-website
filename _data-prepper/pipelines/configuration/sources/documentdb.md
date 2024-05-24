@@ -76,7 +76,7 @@ Option | Required | Type | Description
 
 ### `collection`
 
-The following parameters enable you to configure the `collection` to read from the Amazon DocumentDB cluster.
+The following parameters enable you to configure `collection` to read from the Amazon DocumentDB cluster.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
