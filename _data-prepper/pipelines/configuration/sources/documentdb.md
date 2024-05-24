@@ -64,7 +64,7 @@ Option | Required | Type | Description
 `insecure` | No | Boolean | Disables TLS. Defaults to `false`. Do not use this value in production.
 `ssl_insecure_disable_verification` | No | Boolean | Disables TLS hostname verification. Defaults to `false`. Do not enable this flag in production. Instead, use the `trust_store_file_path` to verify the hostname.
 
-### authentication
+### `authentication`
 
 The following parameters enable you to configure authentication for the Amazon DocumentDB cluster.
 
