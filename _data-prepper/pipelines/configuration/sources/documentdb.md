@@ -66,7 +66,7 @@ Option | Required | Type | Description
 
 ### authentication
 
-The following parameters enable you to configure authentication for the DocumentDB cluster.
+The following parameters enable you to configure authentication for the Amazon DocumentDB cluster.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
