@@ -16,7 +16,8 @@ From there, other Data Prepper workers read from the Amazon S3 bucket to process
 
 ## Usage
 The following example pipeline uses the `documentdb` source:
-```
+
+```yaml
 version: "2"
 documentdb-pipeline:
   source:
@@ -36,6 +37,7 @@ documentdb-pipeline:
           stream: true
       acknowledgments: true
 ```
+{% include copy-curl.html %}
 
 ## Configuration
 
@@ -60,7 +62,7 @@ Option | Required | Type | Description
 `partition_acknowledgment_timeout` | No | Duration  | Configures the duration for which the node holds a partition. Defaults to `2h`.
 `acknowledgments` | No | Boolean  | When set to `true`, enables [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines#end-to-end-acknowledgments) on this source after events are sent to the sinks.
 `insecure` | No | Boolean | Disables TLS. Defaults to `false`. Do not use this value in production.
-`ssl_insecure_disable_verification` | No | Boolean | Disables TLS hostname verification. Defaults to `false`. Do not use this value in production. Use the `trust_store_file_path` to verify the hostname.
+`ssl_insecure_disable_verification` | No | Boolean | Disables TLS hostname verification. Defaults to `false`. Do not enable this flag in production. Instead, use the `trust_store_file_path` to verify the hostname.
 
 ### authentication
 
@@ -86,6 +88,8 @@ Option | Required | Type | Description
 `stream_batch_size` | No | Integer | Defaults to `1,000`.
 
 ## aws
+
+The following parameters enable you to configure your access to Amazon DocumentDB.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
