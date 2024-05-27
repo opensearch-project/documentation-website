@@ -145,20 +145,26 @@ export function getPageId(){
 
 function getTrail(){
   try {
-    const trail = JSON.parse(sessionStorage.getItem('trail'));
-    if (Array.isArray(trail)) return trail;
+    var trail = sessionStorage.getItem('trail');
+    if(trail && trail.length > 0){
+      trail = trail.split(',');
+
+     if (Array.isArray(trail)) 
+        return trail;
+  }
   } catch (ex) { /* Do nothing */ }
 
   return [];
 }
 
 function setTrail(){
-  const trail = getTrail();
+  var trail = getTrail();
   // No need to add the current pathname if it is already the last element in trail
   if (trail.length && trail[trail.length - 1] === window.location.pathname)
     return trail;
 
-  sessionStorage.setItem('trail', trail.concat(window.location.pathname));
+  trail = trail.concat(window.location.pathname);
+  sessionStorage.setItem('trail', trail);
 
   return trail;
 }
@@ -200,8 +206,9 @@ export async function logDwellTime(action_name, page, seconds){
 export async function logEvent(event){
   try {
     //=>146.190.147.150
-    //w.i.p. dev fetch('http://localhost:9200/ubi_events/_doc', {
-    fetch('http://146.190.147.150:9200/ubi_events/_doc', {
+    //w.i.p. dev 
+    fetch('http://localhost:9200/ubi_events/_doc', {
+    //fetch('http://146.190.147.150:9200/ubi_events/_doc', {
       method: 'POST',
       headers: {
       'Accept': 'application/json, text/plain, */*',
@@ -239,7 +246,9 @@ export class UbiPosition{
     if(trail)
       this.trail = trail;
     else {
-      console.log(document.referrer);
+      const trail = getTrail();
+      if(trail && trail.length > 0)
+        this.trail = trail;
     }
   }
 }
@@ -287,6 +296,7 @@ export class UbiEventAttributes {
           if(trail.length > 0){
             this.position = new UbiPosition({trail:trail});
           }
+        } 
         }
         // ToDo: set IP
     }
