@@ -204,8 +204,8 @@ PUT _ingest/pipeline/pipeline-test
      "field": "text",
      "separator": "\\s+",
      "target_field": "word"
-   },
- }
+   }
+ },
  {
    "script": {
      "lang": "painless",
