@@ -90,7 +90,7 @@ POST _ingest/pipeline/test-foreach/_simulate
 
 #### Response
 
-The following example response confirms that the pipeline is working as expected, showing the four elements have been lowercased:
+The following example response confirms that the pipeline is working as expected, showing that the four elements have been lowercased:
 
 ```json
 {  
@@ -182,7 +182,6 @@ The response shows the document with the extracted JSON data from the `users` fi
     ]  
   }  
 }  
-gaobinlong1 day ago
 
 {  
   "docs": [  
