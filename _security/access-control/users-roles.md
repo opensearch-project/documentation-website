@@ -247,7 +247,7 @@ Map the role to your user:
 
 User roles in OpenSearch are essential for controlling access to cluster resources and functionalities. Users can be categorized as regular users, admin users, or super admin users based on their access rights and responsibilities.
 
-For more information about defining a user, see [defining users](https://opensearch.org/docs/latest/security/access-control/users-roles/#defining-users). For more information about defining roles, see [defining roles](https://opensearch.org/docs/latest/security/access-control/users-roles/#defining-roles).
+For more information about defining a user, see [Defining users](https://opensearch.org/docs/latest/security/access-control/users-roles/#defining-users). For more information about defining roles, see [Defining roles](https://opensearch.org/docs/latest/security/access-control/users-roles/#defining-roles).
 
 
 ### Regular users
