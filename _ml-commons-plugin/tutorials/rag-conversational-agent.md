@@ -830,7 +830,7 @@ The response contains the answer:
 }
 ```
 
-For more information, obtain trace data by calling the [Get Message Traces API](ml-commons-plugin/api/memory-apis/get-message-traces/):
+For more information, obtain trace data by calling the [Get Message Traces API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/get-message-traces/):
 
 ```json
 GET _plugins/_ml/memory/message/s6IioI0BJhBwrVXYeYOW/traces
