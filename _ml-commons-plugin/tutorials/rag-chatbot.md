@@ -168,7 +168,7 @@ Note the agent ID; you'll use it in the next step.
 
 The `conversational` agent supports a `verbose` option. You can set `verbose` to `true` to obtain detailed steps.
 
-Alternatively, you can use the Get Trace Data API:
+Alternatively, you can call the [Get Message Traces API](ml-commons-plugin/api/memory-apis/get-message-traces/):
 
 ```json
 GET _plugins/_ml/memory/message/message_id/traces
