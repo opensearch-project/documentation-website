@@ -91,6 +91,12 @@ Options | Valid values | Description | Required
 `socket_timeout` | Time Unit | The wait time for socket reads (default 30s). | No
 `connect_timeout` | Time Unit | The wait time for remote connection timeouts (default 30s). | No
 
+The following table lists the retry policy cluster settings.
+
+Setting | Description | Default value
+:--- | :--- 
+`reindex.remote.retry.initial_backoff` | The initial backoff time for retries. Subsequent retries will follow exponential backoff based on the initial backoff time. | 500 ms
+`reindex.remote.retry.max_count` | The maximum number of retry attempts. | 15
 
 ## Reindex a subset of documents
 
@@ -198,8 +204,8 @@ PUT _ingest/pipeline/pipeline-test
      "field": "text",
      "separator": "\\s+",
      "target_field": "word"
-   },
- }
+   }
+ },
  {
    "script": {
      "lang": "painless",
@@ -221,7 +227,7 @@ After creating a pipeline, you can use the `reindex` operation:
 POST _reindex
 {
   "source": {
-    "index": "source",
+    "index": "source"
   },
   "dest": {
     "index": "destination",

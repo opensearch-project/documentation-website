@@ -5,6 +5,9 @@ nav_order: 1
 has_children: false
 has_toc: false
 nav_exclude: true
+permalink: /developer-documentation/
+redirect_from:
+  - /developer-documentation/index/
 ---
 
 # Developer documentation

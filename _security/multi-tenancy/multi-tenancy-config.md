@@ -8,7 +8,7 @@ nav_order: 145
 
 # Multi-tenancy configuration
 
-Multi-tenancy is enabled by default, but you can disable it or change its settings using `config/opensearch-security/config.yml`:
+Multi-tenancy is enabled in OpenSearch Dashboards by default. If you need to disable or change settings related to multi-tenancy, see the `kibana` settings in `config/opensearch-security/config.yml`, as shown in the following example:
 
 ```yml
 config:
@@ -27,7 +27,7 @@ config:
 | `multitenancy_enabled` | Enable or disable multi-tenancy. Default is `true`. |
 | `private_tenant_enabled` | Enable or disable the private tenant. Default is `true`. |
 | `default_tenant` | Use to set the tenant that is available when users log in. |
-| `server_username` | Must match the name of the OpenSearch Dashboards server user from `opensearch_dashboards.yml`. Default is `kibanaserver`. |
+| `server_username` | Must match the name of the OpenSearch Dashboards server user in `opensearch_dashboards.yml`. Default is `kibanaserver`. If a different user is configured, then make sure that user is mapped to the `kibana_server` role through the `role_mappings.yml` file in order to give them the appropriate permissions listed in [kibana_server role details]({{site.url}}{{site.baseurl}}/security/multi-tenancy/multi-tenancy-config/#kibana_server-role-details). |
 | `index` | Must match the name of the OpenSearch Dashboards index from `opensearch_dashboards.yml`. Default is `.kibana`. |
 | `do_not_fail_on_forbidden` | When `true`, the Security plugin removes any content that a user is not allowed to see from the search results. When `false`, the plugin returns a security exception. Default is `false`. |
 
@@ -149,3 +149,93 @@ The Security plugin scrubs these index names of special characters, so they migh
 {: .tip }
 
 To back up your OpenSearch Dashboards data, [take a snapshot]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore/) of all tenant indexes using an index pattern such as `.kibana*`.
+
+## `kibana_server` role details
+
+OpenSearch Dashboards uses the`kibana_server` role to perform necessary OpenSearch operations. By default, `kibanauser` is mapped to this role through the `role_mappings.yml` file. You can view the full list of permissions assigned to this role by sending a GET request to the `_plugins/_security/api/roles/kibana_server` API (include the admin certificate, key, and certificate authority file in the GET request).
+The following list includes the permissions assigned to this role:
+
+```
+{
+  "kibana_server" : {
+    "reserved" : true,
+    "hidden" : false,
+    "description" : "Provide the minimum permissions for the Kibana server",
+    "cluster_permissions" : [
+      "cluster_monitor",
+      "cluster_composite_ops",
+      "manage_point_in_time",
+      "indices:admin/template*",
+      "indices:admin/index_template*",
+      "indices:data/read/scroll*"
+    ],
+    "index_permissions" : [
+      {
+        "index_patterns" : [
+          ".kibana",
+          ".opensearch_dashboards"
+        ],
+        "fls" : [ ],
+        "masked_fields" : [ ],
+        "allowed_actions" : [
+          "indices_all"
+        ]
+      },
+      {
+        "index_patterns" : [
+          ".kibana-6",
+          ".opensearch_dashboards-6"
+        ],
+        "fls" : [ ],
+        "masked_fields" : [ ],
+        "allowed_actions" : [
+          "indices_all"
+        ]
+      },
+      {
+        "index_patterns" : [
+          ".kibana_*",
+          ".opensearch_dashboards_*"
+        ],
+        "fls" : [ ],
+        "masked_fields" : [ ],
+        "allowed_actions" : [
+          "indices_all"
+        ]
+      },
+      {
+        "index_patterns" : [
+          ".tasks"
+        ],
+        "fls" : [ ],
+        "masked_fields" : [ ],
+        "allowed_actions" : [
+          "indices_all"
+        ]
+      },
+      {
+        "index_patterns" : [
+          ".management-beats*"
+        ],
+        "fls" : [ ],
+        "masked_fields" : [ ],
+        "allowed_actions" : [
+          "indices_all"
+        ]
+      },
+      {
+        "index_patterns" : [
+          "*"
+        ],
+        "fls" : [ ],
+        "masked_fields" : [ ],
+        "allowed_actions" : [
+          "indices:admin/aliases*"
+        ]
+      }
+    ],
+    "tenant_permissions" : [ ],
+    "static" : true
+  }
+}
+```

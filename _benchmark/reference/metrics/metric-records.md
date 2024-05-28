@@ -68,39 +68,57 @@ OpenSearch Benchmark stores metrics in the `benchmark-metrics-*` indexes. A new 
 
 The following fields found in the `_source` section of the metric's record are configurable in the `opensearch-benchmarks-metrics-*` file.
 
+<!-- vale off -->
 ## @timestamp
+<!-- vale on -->
 
 The timestamp of when the sample was taken since the epoch, in milliseconds. For request-related metrics, such as `latency` or `service_time`, this is the timestamp of when OpenSearch Benchmark issued the request.
 
+<!-- vale off -->
 ## relative-time-ms
+<!-- vale on -->
 
 The relative time since the start of the benchmark, in milliseconds. This is useful for comparing time-series graphs across multiple tests. For example, you can compare the indexing throughput over time across multiple tests. 
 
+<!-- vale off -->
 ## test-execution-id
+<!-- vale on -->
 
 A UUID that changes on every invocation of the workload. It is intended to group all samples of a benchmarking run.
 
+<!-- vale off -->
 ## test-execution-timestamp
+<!-- vale on -->
 
 The timestamp of when the workload was invoked (always in UTC).
 
+<!-- vale off -->
 ## environment
+<!-- vale on -->
 
 The `environment` describes the origin of a metric record. This is defined when initially [configuring]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/) OpenSearch Benchmark. You can use separate environments for different benchmarks but store the metric records in the same index.
 
+<!-- vale off -->
 ## workload, test_procedure, provision-config-instance
+<!-- vale on -->
 
 The workload, test procedures, and configuration instances for which the metrics are produced.
 
+<!-- vale off -->
 ## name, value, unit
+<!-- vale on -->
 
 The actual metric name and value, with an optional unit. Depending on the nature of a metric, it is either sampled periodically by OpenSearch Benchmark, for example, CPU utilization or query latency, or measured once, for example, the final size of the index.
 
+<!-- vale off -->
 ## sample-type
+<!-- vale on -->
 
 Determines whether to configure a benchmark to run in warmup mode by setting it to `warmup` or `normal`. Only `normal` samples are considered for the results that are reported.
 
+<!-- vale off -->
 ## meta
+<!-- vale on -->
 
 The meta information for each metric record, including the following:
 

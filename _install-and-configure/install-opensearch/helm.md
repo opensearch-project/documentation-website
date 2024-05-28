@@ -98,6 +98,14 @@ You can also build the `opensearch-1.0.0.tgz` file manually:
    ```
    {% include copy.html %}
 
+For OpenSearch 2.12 or greater, customize the admin password in `values.yaml` under `extraEnvs`, as shown in the following example:
+
+```yaml
+extraEnvs:
+  - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
+    value: <custom-admin-password>
+```
+
 #### Sample output
 
   ```yaml
