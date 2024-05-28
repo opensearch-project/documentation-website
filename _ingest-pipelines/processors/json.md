@@ -35,9 +35,6 @@ Parameter | Required/Optional | Description |
 `field` | Required | The field containing the JSON data to be parsed.
 `target_field` | Optional | The field where the parsed JSON data should be stored. If not specified, the data is stored in the `field` specified. Any existing data in the `target_field` is overwritten.
 `add_to_root` | Optional | If `true`, the parsed JSON data is added to the root of the document. 
-`add_to_root_conflict_strategy` | Optional | Specifies how to handle conflicts when adding parsed JSON data to the root of the document. If set to `replace` (default), root fields that conflict with fields from the parsed JSON are overwritten. If set to `merge`, conflicting fields are merged. This parameter is only applicable when `add_to_root` is set to `true`.
-`allow_duplicate_keys` | Optional | If `true`, the JSON parser does not fail if the JSON contains duplicate keys. Instead, the parser handles the duplicate keys by keeping the last encountered value for any given key.
-`strict_json_parsing` | Optional | Controls the behavior of the JSON parser when processing the field value. When set to `true` (the default), the JSON parser strictly parses the `field` value, which means that the parser enforces strict JSON syntax rules and throws an error if the `field` value does not conform to the expected JSON format.
 `description` | Optional | A brief description of the processor.
 `if` | Optional | A condition for running the processor.
 `ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters errors. If set to `true`, failures are ignored. Default is `false`.
