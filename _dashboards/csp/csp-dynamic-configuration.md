@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Configuring `frame-ancestors` using OpenSearch Dashboards
+title: Configuring `frame-ancestors`
 nav_order: 140
 has_children: false
 ---
 
-# Configuring `frame-ancestors` using OpenSearch Dashboards
+# Configuring `frame-ancestors`
 Introduced 2.13
 {: .label .label-purple }
 
