@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Configuring the Content Security Policy `frame-ancestors` directive dynamically
-nav_order: 110
+title: Configuring `frame-ancestors` using OpenSearch Dashboards
+nav_order: 140
 has_children: false
 ---
 
-# Configuring the CSP `frame-ancestors` directive dynamically
+# Configuring `frame-ancestors` using OpenSearch Dashboards
 Introduced 2.13
 {: .label .label-purple }
 
