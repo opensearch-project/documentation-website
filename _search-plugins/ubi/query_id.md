@@ -16,6 +16,11 @@ nav_order: 7
 If the user interacts with an *object* (book, product, document) that was returned from their search, that `object_id` is logged, tying the `query_id` to the `object_id`
 
 
+<img src="{{site.url}}{{site.baseurl}}/images/ubi/query_id.png" />
+{% comment %}
+This mermaid source is converted into an png under 
+.../images/ubi/query_id.png
+
 ```mermaid
 %%{init: {'theme':'base',
  'themeVariables': {
@@ -66,6 +71,8 @@ sequenceDiagram
     deactivate UBI Client
     deactivate UBI Plugin
 ```
+{% endcomment %}
+
 <!-- vale off -->
 # The *Cute Things Animal Rescue*
 <!-- vale on -->
