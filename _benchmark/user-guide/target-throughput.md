@@ -2,6 +2,7 @@
 layout: default
 title: Target throughput
 nav_order: 150
+parent: User guide
 ---
 
 # Target throughput
