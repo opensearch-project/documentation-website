@@ -55,7 +55,7 @@ You can only create [per query and per bucket monitors]({{site.url}}{{site.baseu
 
 ## Associating monitors with visualizations
 
-You can associate certain monitor types with a visualization using **Dashboards** instead of the plugin page, This association links the monitor to automatically display alerts on the related visualization chart. 
+You can associate certain monitor types with a visualization using **Dashboards** instead of the plugin page. This association links the monitor to automatically display alerts on the related visualization chart. 
 
 Continuing with the alerting visualization created in the preceding section, associate a monitor with an altering visualization by following these steps: 
 
