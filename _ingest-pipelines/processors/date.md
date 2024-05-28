@@ -7,11 +7,14 @@ redirect_from:
    - /api-reference/ingest-apis/processors/date/
 ---
 
+This documentation describes using the `date` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `date` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/date/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.
+{: .note}
+
 # Date processor
 
 The `date` processor is used to parse dates from document fields and to add the parsed data to a new field. By default, the parsed data is stored in the `@timestamp` field. 
 
-## Syntax
+## Syntax example
 
 The following is the syntax for the `date` processor:
 
