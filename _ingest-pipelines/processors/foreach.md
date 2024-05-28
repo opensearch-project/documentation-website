@@ -33,7 +33,7 @@ Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
 `field` | Required | The array field to iterate over.
 `processor` | Required | The processor to execute against each field.
-`ignore_missing` | Optional | If `true` and the specified field does not exist or is null, the processor will quietly exit without modifying the document.
+`ignore_missing` | Optional | If `true` and the specified field does not exist or is null, then the processor will quietly exit without modifying the document.
 `description` | Optional | A brief description of the processor.
 `if` | Optional | A condition for running the processor.
 `ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters an error. If set to `true`, failures are ignored. Default is `false`.
