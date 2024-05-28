@@ -9,7 +9,7 @@ nav_order: 50
 Introduced 2.9
 {: .label .label-purple }
 
-OpenSearch Dashboards provides a consolidated view for creating, managing, and taking action on alerts through the **Dashboards** application. This feature allows you to identify and resolve issues quickly by visualizing alerts and their associated data on dashboards. 
+OpenSearch Dashboards offers a unified interface to efficiently create, manage, and respond to alerts within the **Dashboards** application. It enables rapid issue identification and resolution by visualizing alerts and related data on a centralized dashboard.
 
 ## Getting started 
 
@@ -42,30 +42,46 @@ Consider the following general requirements for setting up or creating alerting 
 - The visualization must have a valid time-based X-axis.
 - You can display up to 10 metric on the chart, with each series shown as a line.
 
-## Creating alerting monitors from within visualizations
+## Creating or associating alerting monitors from within visualizations
 
-By default, when you begin to create an alert monitor workflow using OpenSearch Dashboards, you are presented with a menu-driven interface. This interface provides a range of options that are displayed in full screen, in pop-ups, in pull-downs, or in dropdowns. These options are used to define the metrics that can be monitored, set thresholds, customize triggers that automate workflows, and generate actions when conditions are met. 
+To create a monitor through a visualization, you have two options: create a new monitor or associate an existing monitor. Choose the option that meets your use case.
 
-You can only create [per query and per bucket monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/per-query-bucket-monitors/) from within visualizations. Follow these steps:
+By default, when you create an alert monitor workflow using OpenSearch Dashboards, you are presented with a menu-driven interface. This interface provides a range of options that are displayed in full screen, in pop-ups, in pull-downs, or in dropdowns. These options are used to define the metrics that can be monitored, set thresholds, customize triggers that automate workflows, and generate actions when conditions are met. 
 
-1. Save your dashboard. If you are unfamiliar with saving dashboards, see [Saving dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/index/#saving-dashboards).
-2. Select **Alerting** from the **Options** dropdown menu.
+You can only create [per query and per bucket monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/per-query-bucket-monitors/) from within visualizations.
+{: .note}
 
-<insert-visual-representation-of-these-steps>
+### Creating monitors
 
-## Associating monitors with visualizations
+Follow these steps to create an alerting monitor:
+
+1. Before creating a new monitor, save your dashboard. If you are unfamiliar with saving dashboards, see [Saving dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/index/#saving-dashboards).
+2. From your dashboard, select the visualization from which you want to create an alert. 
+3. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/} icon on the upper-right of the visualization and then select **Alerting** from the **Options** dropdown menu, as shown in the following image.
+
+    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboard-options-context-menu.png" alt="Selecting Alerting from Options dropdown menu within a visualization" width="700"/>
+
+4. From the **Alerting** dropdown menu, select **Add alerting monitor**, as shown in the following image.
+
+    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-monitor.png" alt="Adding an alerting monitor from within a visualization" width="700"/>
+
+5. Enter the monitor details within the **Add alerting monitor** pop-up window and then save the new alerting monitor by selecting the **Create monitor** button, as shown in the following image. A new monitor is now created for the visualization.
+
+    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/save-new-monitor.png" alt="Saving an alerting monitor from within a visualization" width="700"/>
+
+### Associating monitors
 
 You can associate certain monitor types with a visualization using **Dashboards** instead of the plugin page. This association links the monitor to automatically display alerts on the related visualization chart. 
 
-Continuing with the alerting visualization created in the preceding section, associate a monitor with an altering visualization by following these steps: 
+To associate a monitor with an altering visualization, follow these steps: 
 
-1. From the visualization panel, choose the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/} icon.
+1. From your visualization, choose the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/} icon on the upper right of the visualization.
 2. Select **Associated monitors**.
-3. From the **Select monitor to associate** dropdown menu, select the monitor. Only eligible monitors are listed in the dropdown menu. 
+3. From the **Select monitor to associate** dropdown menu, select the monitor to associate to the visualization. Only eligible monitors are listed in the dropdown menu. 
 4. View the monitor's basic information. To view comprehensive details, select **View monitor page** to open the Alerting plugin page.
-5. Select **Associate monitor**. An existing monitor is associated with the visualization.
+5. Save the associated monitor by selecting the **Associate monitor** button, as shown in the following image. An existing monitor is now associated with the visualization.
 
-<insert-visual-representation-of-these-steps>
+    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/save-associated-monitor.png" alt="Associating an alerting monitor from within a visualization" width="700"/>
 
 ##  Configuring alerts through OpenSearch Dashboards
 
@@ -78,8 +94,6 @@ To configure alerts, follow these steps:
 5. Unlink or edit a monitor. 
    1. Unlink a monitor from the visualization by selecting the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/link-icon.png" class="inline-icon" alt="link icon"/>{:/} icon under **Actions**. This only unlinks the monitor from the visualization; it does not delete the monitor.
    2. Edit the monitor's metrics by selecting the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/edit-icon.png" class="inline-icon" alt="edit icon"/>{:/} icon.
-
-<insert-visual-representation-of-these-steps>
 
 ## Building alerting quieries
 
@@ -268,14 +282,12 @@ To view alerting events, follow these steps:
 6. To view more details about a specific alter instance, select the alert in the table. This opens a flyout panel with additional information such as duration, context, history, and actions taken. 
 7. Acknowledge or resolve an alert if it is in an active state.
 
-<insert-visual-representation-of-these-steps>
-
 You can also access alerting events from the main OpenSearch Dashboards interface. Follow these steps:
 
 1. Open a dashboard or visualization that has an associated alerting monitor.
-2. If there are active alerts for the associated monitor, then an alerting indicator (triangle icon) is shown on the visualization.
-3. Hover over the alert indicator to see a summary of the active alerts.
-4. Select the alert indicator to open the alert details flyout, which provides the same information as the **Alerts** tab in the Alerting plugin.
+2. If there are active alerts for the associated monitor, then the alerting indicator ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/triangle-icon.png" class="inline-icon" alt="triangle icon"/>{:/} icon) is shown on the visualization.
+3. Hover over the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/triangle-icon.png" class="inline-icon" alt="triangle icon"/>{:/} icon to see a summary of the active alerts.
+4. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/triangle-icon.png" class="inline-icon" alt="triangle icon"/>{:/} icon to open the alert details flyout. The flyout provides the same information as the **Alerts** tab in the Alerting plugin.
 
 Here's an example an alerting events dashboard.
 
