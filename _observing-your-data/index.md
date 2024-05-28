@@ -16,7 +16,7 @@ Observability in OpenSearch is collection of plugins and applications that allow
 
 If you are new to Observability in OpenSearch, the following workflow is recommended:
 
-1. Explore data using [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index).
+1. Explore data using [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/).
 2. Use [event analytics]({{site.url}}{{site.baseurl}}/observing-your-data/event-analytics) to turn data-driven events into visualizations.
   ![Sample Event Analytics View]({{site.url}}{{site.baseurl}}/images/event-analytics.png)
 3. Create [operational panels]({{site.url}}{{site.baseurl}}/observing-your-data/operational-panels) and add visualizations to compare data the way you like.
