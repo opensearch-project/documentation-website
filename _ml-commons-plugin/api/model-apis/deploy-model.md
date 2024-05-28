@@ -2,13 +2,25 @@
 layout: default
 title: Deploy model
 parent: Model APIs
-grand_parent: ML Commons API
-nav_order: 30
+grand_parent: ML Commons APIs
+nav_order: 20
 ---
 
 # Deploy a model
 
-The deploy model operation reads the model's chunks from the model index and then creates an instance of the model to cache into memory. This operation requires the `model_id`.
+The deploy model operation reads the model's chunks from the model index and then creates an instance of the model to cache in memory. This operation requires the `model_id`. 
+
+Starting with OpenSearch version 2.13, [externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index) are deployed automatically by default when you send a Predict API request for the first time. To disable automatic deployment for an externally hosted model, set `plugins.ml_commons.model_auto_deploy.enable` to `false`:
+
+```json
+PUT _cluster/settings
+{
+  "persistent": {
+    "plugins.ml_commons.model_auto_deploy.enable": "false"
+  }
+}
+```
+{% include copy-curl.html %}
 
 For information about user access for this API, see [Model access control considerations]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/#model-access-control-considerations).
 

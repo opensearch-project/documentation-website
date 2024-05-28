@@ -3,9 +3,11 @@ layout: default
 title: Creating a cluster
 nav_order: 1
 nav_exclude: true
+permalink: /tuning-your-cluster/
 redirect_from: 
   - /opensearch/cluster/
   - /tuning-your-cluster/cluster/
+  - /tuning-your-cluster/index/
 ---
 
 # Creating a cluster
@@ -137,7 +139,7 @@ Make sure to configure these settings on all of your nodes.
 
 ## Step 4: Configure discovery hosts and initial cluster manager nodes for a cluster
 
-Now that you've configured the network hosts, you need to configure the discovery hosts and specify the cluster manager nodes for the initial cluster election. 
+Now that you've configured the network hosts, you need to configure the discovery hosts and specify the cluster manager nodes for the initial cluster election. Note that this is the node name and not the IP Address, hostname, or fully-qualified hostname.
 
 For example, the setting looks like the following:
 
@@ -175,7 +177,7 @@ less /var/log/opensearch/opensearch-cluster.log
 Perform the following `_cat` query on any node to see all the nodes formed as a cluster:
 
 ```bash
-curl -XGET https://<private-ip>:9200/_cat/nodes?v -u 'admin:admin' --insecure
+curl -XGET https://<private-ip>:9200/_cat/nodes?v -u 'admin:<custom-admin-password>' --insecure
 ```
 
 ```
