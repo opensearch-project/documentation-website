@@ -5,7 +5,7 @@ parent: Ingest processors
 nav_order: 130
 ---
 
-# gsub processor
+# `gsub` processor
 
 The `gsub` processor performs a regular expression search-and-replace operation on string fields in incoming documents. If the field contains an array of strings, the operation is applied to all elements in the array. However, if the field contains non-string values, the processor throws an exception. Uses cases for the `gsub` processor include removing sensitive information from log messages or user-generated content, normalizing data formats or conventions (for example, converting date formats, removing special characters), and extracting or transforming substrings from field values for further processing or analysis.
 
@@ -26,7 +26,15 @@ The following table lists the required and optional parameters for the `gsub` pr
 
 Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
-<insert the parameters>
+`field` | Required | The field to apply the replacement.
+`pattern` | Required | The pattern to be replaced.
+`replacement` | Required | The string to replace the matching patterns with.
+`if` | Optional | A condition for running the processor.
+`ignore_missing` | Optional | If `true` and the specified field does not exist or is null, then the processor will quietly exit without modifying the document.
+`ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters an error. If set to `true`, then failures are ignored. Default is `false`.
+`on_failure` | Optional | A list of processors to run if the processor fails.
+`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type.
+`target_field` | Optional | The name of the field in which to store the parsed data. If not specified, the value is stored in place in the `field` field. Default is `field`.
 
 ## Using the processor
 
