@@ -137,10 +137,10 @@ For any engine, each shard returns `size` results to the coordinator node. Thus,
 
 The following table provides examples of the number of results returned by various engines in several scenarios.
 
-`size` 	| `k` | Number of primary shards | 	Number of segments per shard |	Engine |	Number of returned results, Faiss/NMSLIB | Number of returned results, Lucene
-10 |	1 |	1 |	4 |	Faiss/NMSLIB |	4 | 1
-10 | 10 |	1 |	4 |	Faiss/NMSLIB |	10 | 10
-10 |	1 |	2 |	4 |	Faiss/NMSLIB |	8 | 2
+`size` 	| `k` | Number of primary shards | 	Number of segments per shard | Number of returned results, Faiss/NMSLIB | Number of returned results, Lucene
+10 |	1 |	1 |	4 |	4 | 1
+10 | 10 |	1 |	4 |	10 | 10
+10 |	1 |	2 |	4 |	8 | 2
  
 Faiss/NMSLIB return the number of results different from Lucene only when `k` is smaller than `size`. If `k` and `size` are equal, all engines return the same number of results. 
 
