@@ -23,6 +23,7 @@ PUT romcom_movies
   "mappings" : {
     "properties" : {
       "genre" : {
+        "type": "constant_keyword",
         "value" : "Romantic comedy"
       }
     }
