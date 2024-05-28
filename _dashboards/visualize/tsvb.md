@@ -21,22 +21,21 @@ vis_type_timeseries.enabled: true
 ```
 {% include copy-curl.html %}
 
-**Step 1: Setting up the visualization**
+**Step 1: Connecting data sources**
 
-Once you have configured your YAML file, continue with the following steps:
+Once you have configured your YAML file, open OpenSearch Dashboards and follow these steps:
 
-1. From the OpenSearch Dashboards main menu, navigate to **Dashboards Management** > **Data sources**.
-2. Select **Create data source connection** and then add your data source, as shown in the following GIF. For this tutorial, enter `Source A` into the **Title** field.
-
-![Add data source demo]({{site.url}}{{site.baseurl}}/images/dashboards/Add_datasource.gif)
-
-3. For this tutorial, sample data is used. Go to the **Home** page and select **Add data** from the **Sample web logs** dataset.
-4. From the **Data source** dropdown menu, select `Source A`.
-5. From the main menu, select **Visualize**.
-6. From the **Visualizations** page, select the **Create visualization** button.
-7. From the pop-up, select the **TSVB** visualization type, as shown in the following image.
+1. From the **Home** page, select **Add sample data** and then select the **Add data** button for the **Sample web logs** dataset, as shown in the following GIF.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/tsvb.png" alt="TSVB pop-up screen" width="700"/>
+
+2. Select **Dashboards Management** from the main menu.
+3. Select **Data sources** from the left-side menu and then select the **Create data source** button.
+4. From the **Create data source** page, enter the connection details and endpoint URL, as shown in the following GIF.
+
+
+
+
 
 **Step 2: Specifying data sources**
 
@@ -57,5 +56,7 @@ The following image shows the TSVB visualization.
 
 **(Optional) Step 3: Add annotations**
 
-Annotations are markers that can be added to time-series visualizations. Follow these steps to add annotations  
+Annotations are markers that can be added to time-series visualizations. Follow these steps to add annotations:
+
+1. 
 
