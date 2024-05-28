@@ -15,74 +15,6 @@ to improve search relevance and user experience.
 
 ## Quick start
 
-Build the plugin. Note that you will have to match up the JDK 11 on your system to java home in the `gradle.properties` file:
-```bash
-./gradlew build
-```
-{% include copy.html %}
-
-Build the OpenSearch Docker image and add the plugin, then start the containers:
-
-```bash
-docker compose build
-docker compose up
-```
-{% include copy.html %}
-
-Or to start a three-node OpenSearch cluster:
-
-```bash
-docker compose build
-docker compose -f docker-compose-cluster.yaml up
-```
-{% include copy.html %}
-
-Initialize the `awesome` UBI store:
-
-```bash
-curl -X PUT "http://localhost:9200/_plugins/ubi/awesome?index=ecommerce&object_id=id"
-```
-{% include copy-curl.html %}
-
-Send an event to the `awesome` store:
-
-```bash
-curl -X POST http://localhost:9200/_plugins/ubi/mystore -H "Content-Type: application/json" -d '
-{
-  "action_name": "search",
-  "user_id": "98fcf189-4fa8-4322-b6f5-63fbb6b556c9",
-  "timestamp": 1705596607509
-}'
-```
-{% include copy-curl.html %}
-
-Get events:
-
-```bash
-curl -s http://localhost:9200/.awesome_events/_search | jq
-```
-{% include copy-curl.html %}
-
-Do a search of the `ecommerce` index:
-
-```bash
-curl -s http://localhost:9200/ecommerce/_search -H "X-ubi-store: awesome" | jq
-```
-{% include copy-curl.html %}
-
-Get queries:
-
-```bash
-curl -s http://localhost:9200/.awesome_queries/_search | jq
-```
-{% include copy-curl.html %}
-
-Delete the store:
-
-```bash
-curl -X DELETE http://localhost:9200/_plugins/ubi/awesome
-```
-{% include copy-curl.html %}
 
 ## UBI store
 
@@ -163,15 +95,6 @@ To make this association, queries need to have a header value that indicates the
 
 
 ### Example queries
-
-The following query tells the plugin that the query being run should be persisted to the store `mystore` and be associated with user ID `john`:
-
-```
-http://localhost:9200/ecommerce/_search -H "X-ubi-store: mystore" -H "X-ubi-user-id: 12345"
-```
-{% include copy-curl.html %}
-
-With this query, when the plugin sees a query, the plugin will be able to associate the query with an individual user and know to persist the query in the UBI store `mystore`.
 
 [Sample SQL queries]({{site.url}}{{site.baseurl}}/search-plugins/ubi/sql-queries/)
 

@@ -43,6 +43,6 @@ TODO: link a client implementation [here](#TODO-clients-link)
 | ... | teaches how to do something |
 
 <!-- vale on -->
-
-Documentation adapted using concepts from [Diátaxis](https://diataxis.fr/)
 {: .tip }
+Documentation adapted using concepts from [Diátaxis](https://diataxis.fr/)
+

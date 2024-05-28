@@ -11,12 +11,12 @@ nav_order: 7
 ## Key ID's
 UBI is not functional unless the links between the following are consistently maintained within your UBI-enabled application:
 
-- [`user_id`](#user_id) represents a unique user.  
+- [`client_id`](#client_id) represents a unique user.  
 - [`object_id`](#object_id) represents an id for whatever item the user is searching for, such as `epc`, `isbn`, `ssn`, `handle`.
 - [`query_id`](#query_id) is a unique id for the raw query language executed and the resultant `object_id`'s that the query returned.   \
 - [`action_name`](#action_name), though not technically an *id*, the `action_name` tells us what exact action (such as `click` or `add_to_cart`) was taken (or not) with this `object_id`.
 
-To summarize: the `query_id` signals the beginning of a `user_id`'s *Search Journey*, the `action_name` tells us how the user is interacting with the query results within the application, and [`event_attributes.object.object_id`](#object_id) is referring to the precise query result that the user interacts with.
+To summarize: the `query_id` signals the beginning of a `client_id`'s *Search Journey*, the `action_name` tells us how the user is interacting with the query results within the application, and [`event_attributes.object.object_id`](#object_id) is referring to the precise query result that the user interacts with.
 
 ## UBI roles
 - **Search Client**: in charge of searching, and then recieving *objects* from some document index in OpenSearch.
@@ -32,75 +32,7 @@ To summarize: the `query_id` signals the beginning of a `user_id`'s *Search Jour
   (8 and 9, following section)
 
 
-
-```mermaid
-graph LR
-style L fill:none,stroke-dasharray: 5 5
-subgraph L["`*Legend*`"]
-    style ss height:150px
-    subgraph ss["Standard Search"]
-      direction LR
-        
-      style ln1a fill:blue
-      ln1a[ ]--->ln1b[ ];
-    end
-    subgraph ubi-leg["UBI data flow"]
-      direction LR
-      
-      ln2a[ ].->|"`**UBI interaction**`"|ln2b[ ];
-      style ln1c fill:red
-      ln1c[ ]-->|<span style="font-family:Courier New">query_id</span> flow|ln1d[ ];
-    end
-end
-linkStyle 0 stroke-width:2px,stroke:#0A1CCF
-linkStyle 2 stroke-width:2px,stroke:red
-```
-```mermaid
-%%{init: {
-    "flowchart": {"htmlLabels": false},
-
-    } 
-}%%
-graph TB
-
-User--1) <i>raw search string</i>-->Search;    
-Search--2) <i>search string</i>-->Docs 
-style OS stroke-width:2px, stroke:#0A1CCF, fill:#62affb, opacity:.5
-subgraph OS[OpenSearch Cluster fa:fa-database]
-    style E stroke-width:1px,stroke:red
-    E[(&emsp;<b>UBI Events</b>&emsp;)]
-    style Docs stroke-width:1px,stroke:#0A1CCF
-    style Q stroke-width:1px,stroke:red
-    Docs[(Document Index)] -."3)  {<i>DSL</i>...} & [<i>object_id's</i>,...]".-> Q[(&emsp;<b>UBI Queries</b>&emsp;)];  
-    Q -.4) <span style="font-family:Courier New">query_id</span>.-> Docs ;   
-end
-
-Docs -- "5) <i>return</i> both <span style="font-family:Courier New">query_id</span> & [<i>objects</i>,...]" --->Search ;
-Search-.6)  <span style="font-family:Courier New">query_id</span>.->U;
-Search --7) [<i>results</i>, ...]--> User
-
-style *client-side* stroke-width:1px, stroke:#D35400
-subgraph "`*client-side*`"
-    style User stroke-width:4px, stroke:#EC636
-    User["`**User**`" fa:fa-user]
-    App
-    Search    
-    U
-    style App fill:#D35400,opacity:.35, stroke:#0A1CCF, stroke-width:2px
-    subgraph App[&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;UserApp fa:fa-store]
-        style Search stroke-width:2px, stroke:#0A1CCF
-        Search(&emsp;Search Client&emsp;)        
-        style U stroke-width:1px,stroke:red
-        U(&emsp;<b>UBI Client</b>&emsp;)
-    end
-end
-
-User -.8) <i>selects</i> <span style="font-family:Courier New">object_id:123</span>.->U;
-U-."9) <i>index</i> event:{<span style="font-family:Courier New">query_id, onClick, object_id:123</span>}".->E;
-
-linkStyle 1,2,0,6 stroke-width:2px,fill:none,stroke:#0A1CCF
-linkStyle 3,4,5,8 stroke-width:2px,fill:none,stroke:red
-```
+<img src="{{site.url}}{{site.baseurl}}/images/ubi/ubi-schema-interactions.png" />
 
 ## UBI stores
 There are 2 separate stores for UBI:
@@ -117,7 +49,7 @@ Since UBI manages the **UBI Queries** store, the developer should never have to 
 - `query_id`  	
 	&ensp; A unique ID of the query provided by the client or generated automatically. The same query text issued multiple times would generate different `query_id`.  
 	
-	- `user_id`    
+	- `client_id`    
 		&ensp; A user ID provided by the client
 
 - `session_id`    
@@ -144,10 +76,10 @@ Since this schema is dynamic, the developer can add any new fields and structure
   <p id="query_id">
 
 	&ensp;  (size 100) - ID for some query.  Either the client provides this, or the `query_id` is generated at index time by **UBI Queries**.
-- `user_id`. `session_id`, `source_id`  <p id="user_id">
+- `client_id`. `session_id`, `source_id`  <p id="client_id">
   
 	&ensp; (size 100) - are id's largely at the calling client's discretion for tracking users, sessions and sources (i.e. pages) of the event.  
-	The `user_id` must be consistent in both the **UBI Queries** and **UBI Events** stores.
+	The `client_id` must be consistent in both the **UBI Queries** and **UBI Events** stores.
 
 - `timestamp`: 
    &ensp; UTC-based, UNIX epoch time.
@@ -208,9 +140,9 @@ Since this schema is dynamic, the developer can add any new fields and structure
       
     	&ensp; optionally points to a unique id representing a successful transaction
       
-      - `event_attributes.object.to_user_id`  
+      - `event_attributes.object.to_client_id`  
     	
-    	&ensp; optionally points to another user, if they are the recipient of this object, perhaps as a gift, from the user's `user_id`
+    	&ensp; optionally points to another user, if they are the recipient of this object, perhaps as a gift, from the user's `client_id`
       - `event_attributes.object.object_detail` 
     	
     	&ensp; optional text for further data object details
