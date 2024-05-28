@@ -42,9 +42,9 @@ The OpenSearch distribution for Linux ships with a compatible [Adoptium JDK](htt
 OpenSearch Version | Compatible Java Versions | Bundled Java Version
 :---------- | :-------- | :-----------
 1.0--1.2.x    | 11, 15     | 15.0.1+9
-1.3.x          | 8, 11, 14  | 11.0.22+7
+1.3.x          | 8, 11, 14  | 11.0.23+9
 2.0.0--2.11.x    | 11, 17     | 17.0.2+8
-2.12.0         | 11, 17, 21 | 21.0.2+13
+2.12.0         | 11, 17, 21 | 21.0.3+9
 
 To use a different Java installation, set the `OPENSEARCH_JAVA_HOME` or `JAVA_HOME` environment variable to the Java install location. For example:
 ```bash
@@ -60,8 +60,7 @@ Port number | OpenSearch component
 443 | OpenSearch Dashboards in AWS OpenSearch Service with encryption in transit (TLS)
 5601 | OpenSearch Dashboards
 9200 | OpenSearch REST API
-9250 | Cross-cluster search
-9300 | Node communication and transport
+9300 | Node communication and transport (internal), cross cluster search
 9600 | Performance Analyzer
 
 ## Important settings
