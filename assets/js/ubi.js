@@ -194,7 +194,6 @@ window.addEventListener("beforeunload", function (e) {
 });
 
 export async function logDwellTime(action_name, page, seconds){
-  console.log(`${page} => ${seconds}`);
   let e = new UbiEvent(action_name, {
     message:`On page ${page} for ${seconds} seconds`,
     event_attributes:{dwell_time:seconds},
@@ -203,6 +202,21 @@ export async function logDwellTime(action_name, page, seconds){
   logEvent(e);
 }
 
+
+export async function logUbiMessage(event_type, message_type, message){
+  let e = new UbiEvent(event_type, {
+    message_type:message_type,
+    message:message
+  });
+  logEvent(e);
+}
+//expose globally with Ubi moniker @see: ubi.html
+window.logUbiMessage = logUbiMessage;
+
+/**
+ * 
+ * @param {UbiEvent} event 
+ */
 export async function logEvent(event){
   try {
     //=>146.190.147.150
@@ -297,7 +311,6 @@ export class UbiEventAttributes {
             this.position = new UbiPosition({trail:trail});
           }
         } 
-        }
         // ToDo: set IP
     }
     catch(error){
@@ -309,7 +322,7 @@ export class UbiEventAttributes {
 
 
 export class UbiEvent {
-  constructor(action_name, {message=null, event_attributes={}, data_object={}}={}) {
+  constructor(action_name, {message_type='INFO', message=null, event_attributes={}, data_object={}}={}) {
     this.action_name = action_name;
     this.client_id = getClientId();
     this.query_id = getQueryId();
@@ -317,7 +330,7 @@ export class UbiEvent {
     this.page_id = getPageId();
     this.timestamp = Date.now();
 
-    this.message_type = 'INFO';
+    this.message_type = message_type;
     if( message )
       this.message = message;
 
