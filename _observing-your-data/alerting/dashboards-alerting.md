@@ -111,7 +111,7 @@ Here is an example of the alerting query structure:
 
 ```json
 {
-  "name": "Query Name",
+  "name": "Monitor Name",
   "enabled": true,
   "schedule": {
     "interval": 10,
@@ -280,11 +280,17 @@ The following example queries show how you can use the alerting query structure 
 To view alerting events, follow these steps:
 
 1. Open your local instance of OpenSearch Dashboards.
-2. Navigate to **Alerting** from the main menu. The Alerting plugin homepage displays a list of alerts from all configured monitors. On this page, there is a dedicated tab that, when selected, redirects you to a separate page listing all the available monitors. Here's an example of the homepage.
+2. Navigate to **Alerting** from the main menu. The Alerting plugin homepage displays a list of alerts from all configured monitors. On this page, there is a dedicated tab that, when selected, redirects you to a separate page listing all the available monitors. Here's an example view of the homepage.
+
+  <img src="{{site.url}}{{site.baseurl}}/images/alerting-homepage.png" alt="Alerting homepage">
+
 3. Select the **Alerts** tab.  
 4. Explore events. The **Alerts** tab displays a list of the alert instances that have been triggered for this monitor. Each alert shows details such as start and end time, status (Active, Acknowledged, Resolved), reason, and severity.
 5. Filter and search events based on specific criteria. For example, you can filter alerts by status using the filter dropdown at the top of the alerts table. 
-6. To view more details about a specific alter instance, select the alert in the table. A flyout panel opens and is accessible from the monitor details page for per document monitors only. For other monitor types, the flyout panel is available from the Alerting homepage. Here's an example flyout. 
+6. To view more details about a specific alter instance, select the alert in the table. A flyout panel opens and is accessible from the monitor details page for per document monitors only. For other monitor types, the flyout panel is available from the Alerting homepage. Here's an example view of a flyout panel.
+    
+    <img src="{{site.url}}{{site.baseurl}}/images/monitor-flyout.png" alt="Monitor details flyout panel">
+
 7. Acknowledge or resolve an alert if it is in an active state.
 
 You can also access alerting events from the main OpenSearch Dashboards interface. Follow these steps:
