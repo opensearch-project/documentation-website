@@ -63,7 +63,7 @@ GET opensearch_dashboards_sample_data_flights/_search
 
 ### Missing
 
-By default, if a field is missing or has a null value in a document, it is ignored during computations. However, you can specify a value to be used for those missing or null fields by using the `missing` parameter, as shown in the following request:
+By default, if a field is missing or has a null value in a document, it is ignored during computation. However, you can specify a value to be used for those missing or null fields by using the `missing` parameter, as shown in the following request:
 
 ```json
 GET opensearch_dashboards_sample_data_flights/_search
