@@ -12,7 +12,7 @@ redirect_from:
 
 The `median_absolute_deviation` metric is a single-value metric aggregation that returns a median absolute deviation field. Median absolute deviation is a statistical measure of data variability. Because the median absolute deviation measures dispersion from the median, it provides a more robust measure of variability that is less affected by outliers in a dataset. 
 
-Median absolute deviation is calculated with:<br>
+Median absolute deviation is calculated as follows:<br>
 median_absolute_deviation = median(|X<sub>i</sub> - Median(X<sub>i</sub>)|)
 
 The following example calculates the median absolute deviation of the `DistanceMiles` field in the sample dataset `opensearch_dashboards_sample_data_flights`:
