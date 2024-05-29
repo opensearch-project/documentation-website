@@ -210,7 +210,7 @@ pipeline:
 ```
 {% include copy-curl.html %}
 
-The following example pipeline retrieves records from S3 objects that have a `data_value` in the given range of 200-500. 
+The following example pipeline retrieves records from S3 objects that have a `data_value` in the given range of 200--500. 
 
 ```json
 pipeline:
