@@ -42,7 +42,7 @@ Follow these steps to use the processor in a pipeline.
 
 ### Step 1: Create a pipeline
 
-The following query creates a pipeline, named <name>, that uses the `join` processor to <do what?>: 
+The following query creates a pipeline named `example-join-pipeline` that uses the `join` processor to concatenate all the values of the `uri`  field, separating them with the specified separator `/`: 
 
 ```json
 PUT _ingest/pipeline/example-join-pipeline  
