@@ -40,7 +40,7 @@ You can generate custom certificates in a few different ways. One approach is to
 
 Client certificate authentication offers a secure alternative to password authentication and is more suitable for machine-to-machine interactions. It also ensures low performance overhead because the authentication occurs at the TLS-level. Nearly all client software, such as curl and client libraries, support this authentication method.
 
-For detailed configuration instructions and additonal information about client ceritificate authentication, see [Enabling client certificate authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/client-auth/#enabling-client-certificate-authentication).
+For detailed configuration instructions and additional information about client certificate authentication, see [Enabling client certificate authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/client-auth/#enabling-client-certificate-authentication).
 
 
 ## 3. Prefer SSO using SAML or OpenID for OpenSearch Dashboards authentication
@@ -110,7 +110,7 @@ Using `securityadmin.sh` provides the following benefits:
 2. Automation: `securityadmin.sh` enables automation of security configuration tasks, making it easier to deploy and manage security settings across multiple nodes or clusters.
 3. Version control: Security configurations managed through `securityadmin.sh` can be version-controlled using standard version control systems like Git. This facilitates tracking changes, auditing, and reverting to previous configurations.
 
-You can prevent configuration overrides by first creating a backup of the current configuration created using OpenSearch Dashboards UI or the OpenSearch API by runnig the `securityadmin.sh` tool with `-backup` option. This ensures that all configurations are captured before uploading the modified configuration with `securityadmin.sh`.
+You can prevent configuration overrides by first creating a backup of the current configuration created using OpenSearch Dashboards UI or the OpenSearch API by running the `securityadmin.sh` tool with `-backup` option. This ensures that all configurations are captured before uploading the modified configuration with `securityadmin.sh`.
 
 For more detailed information about using `securityadmin.sh` and managing OpenSearch security configurations, refer to the following resources:
 - [Applying changes to configuration files]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/)
@@ -127,7 +127,7 @@ The `kibanaserver` user is a crucial component that allows OpenSearch Dashboards
 
 ## 10. Getting help
 
-If you need additonal help with OpenSearch Security, you can use the following resources:
+If you need additional help with OpenSearch Security, you can use the following resources:
 
 - Create an issue on GitHub at [OpenSearch-project/security](https://github.com/opensearch-project/security/security) or [OpenSearch-project/OpenSearch](https://github.com/opensearch-project/OpenSearch/security).
 - Ask a question on the [OpenSearch forum](https://forum.opensearch.org/tag/cve).
