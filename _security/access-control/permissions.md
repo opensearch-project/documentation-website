@@ -190,7 +190,7 @@ Cross-references to API documentation in the permissions that follow are only in
 | `indices:admin/template/get` |  Permission to [get index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/#retrieve-a-template). |
 | `indices:admin/template/put` |  Permission to [create index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/#create-a-template). |
 | `indices:data/read/scroll` |  Permission to scroll data. This setting needs to be configured as both a cluster and index level permission. |
-| `indices:data/read/scroll/clear` | Permission to clear read scroll data.  This setting needs to be configured as both a cluster and index level permission. |
+| `indices:data/read/scroll/clear` | Permission to clear read scroll data. This setting needs to be configured as both a cluster and index level permission. |
 | `indices:data/read/mget` |  Permission to run [multiple GET operations]({{site.url}}{{site.baseurl}}/api-reference/document-apis/multi-get/) in one request. |
 | `indices:data/read/mget*` |  Permission to run multiple GET operations in one request. This setting needs to be configured as both a cluster and index level permission. |
 | `indices:data/read/msearch` |  Permission to run [multiple search]({{site.url}}{{site.baseurl}}/api-reference/multi-search/) requests in a single API request. This setting needs to be configured as both a cluster and index level permission. |
