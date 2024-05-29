@@ -43,8 +43,8 @@ Just like the [bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bu
 
 All multi-search template URL parameters are optional. Some can also be applied per-search as part of each metadata line.
 
-Parameter | Type | Description | Supported in metadata line
-:--- | :--- | :---
+Parameter | Type | Description | Supported in metadata
+:--- | :--- | :---  | :---
 allow_no_indices | Boolean | Whether to ignore wildcards that don't match any indexes. Default is `true`. | Yes
 cancel_after_time_interval | Time | The time after which the search request will be canceled. Supported at both parent and child request levels. The order of precedence is: Child-level parameter, Parent-level parameter, and [Cluster setting]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings). Default is `-1`. | Yes
 css_minimize_roundtrips | Boolean | Whether OpenSearch should try to minimize the number of network round trips between the coordinating node and remote clusters (only applicable to cross-cluster search requests). Default is `true`. | No
