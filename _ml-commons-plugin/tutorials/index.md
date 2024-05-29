@@ -11,6 +11,7 @@ nav_order: 140
 Using the OpenSearch machine learning (ML) framework, you can build various applications, from implementing conversational search to building your own chatbots. To learn more, explore the following ML tutorials:
 
 - **Semantic search**:
+    - [Generating embeddings for arrays of objects]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/generate-embeddings/)
     - [Semantic search using byte quantized vectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search-byte-vectors/)
 
 - **Conversational search**:

@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Generate embeddings
+title: Generating embeddings
 parent: Tutorials
 nav_order: 55
 ---
 
-# Generate embeddings for arrays of objects
+# Generating embeddings for arrays of objects
 
 This tutorial illustrates generating embeddings for arrays of objects.
 
