@@ -46,7 +46,7 @@ All multi-search template URL parameters are optional. Some can also be applied 
 Parameter | Type | Description | Supported in metadata line
 :--- | :--- | :---
 allow_no_indices | Boolean | Whether to ignore wildcards that don't match any indexes. Default is `true`. | Yes
-cancel_after_time_interval | Time | The time after which the search request will be canceled. Supported at both parent and child request levels. The order of precedence is:<br> 1. Child-level parameter<br> 2. Parent-level parameter<br> 3. [Cluster setting]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings).<br>Default is -1. | Yes
+cancel_after_time_interval | Time | The time after which the search request will be canceled. Supported at both parent and child request levels. The order of precedence is: Child-level parameter, Parent-level parameter, and [Cluster setting]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings). Default is `-1`. | Yes
 css_minimize_roundtrips | Boolean | Whether OpenSearch should try to minimize the number of network round trips between the coordinating node and remote clusters (only applicable to cross-cluster search requests). Default is `true`. | No
 expand_wildcards | Enum | Expands wildcard expressions to concrete indexes. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. Default is `open`. | Yes
 ignore_unavailable | Boolean | If an index or shard from the indexes list doesn’t exist, whether to ignore it rather than fail the query. Default is `false`. | Yes
