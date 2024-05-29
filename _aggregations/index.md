@@ -13,7 +13,7 @@ redirect_from:
 
 # Aggregations
 
-OpenSearch's aggregations enable analyzing data and extracting statistics. Aggregations support real-time analysis, creating visualizations using OpenSearch Dashboards, and handling large dataset efficiently. However, compared to queries, aggregations consume more computational resources like CPU and memory.
+With OpenSearch aggregations, you can analyze data and extract statistics. Aggregations support real-time analysis, creating visualizations using OpenSearch Dashboards, and handling large datasets efficiently. Compared to queries, however, aggregations consume more computational resources like CPU and memory.
 
 ## Aggregations on text fields
 
