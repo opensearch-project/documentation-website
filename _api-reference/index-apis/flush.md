@@ -41,7 +41,7 @@ The Flush API supports the following query parameters.
 | `expand_wildcards` | String | Specifies the types of indexes to which wildcard expressions can expand. Supports comma-separated values. Valid values are: <br> - `all`: Expand to all open and closed indexes, including hidden indexes. <br> - `open`: Expand to open indexes. <br> - `closed`: Expand to closed indexes. <br> - `hidden`: Include hidden indexes when expanding. Must be combined with `open`, `closed`, or both. <br> - `none`: Do not accept wildcard expressions. <br> Default is `open`. |
 | `force` | Boolean | When `true`, forces a flush to occur even when no changes to the index exist in-memory. Default is `true`. |
 | `ignore_unavailable` | Boolean | When `true`, OpenSearch ignores missing or closed indexes. If `false`, OpenSearch returns an error if the force merge operation encounters missing or closed indexes. Default is `false`. |
-| `wait_if_ongoing` | Boolean | When `true`, the Flush API does not run while another flush request is active. When `false`, OpenSearch returns an error if another flush request is active. |
+| `wait_if_ongoing` | Boolean | When `true`, the Flush API does not run while another flush request is active. When `false`, OpenSearch returns an error if another flush request is active. Default is `true`. |
 
 ## Example request: Flush a specific index
 
