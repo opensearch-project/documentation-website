@@ -11,12 +11,13 @@ nav_order: 7
 ## Key ID's
 UBI is not functional unless the links between the following are consistently maintained within your UBI-enabled application:
 
-- [`client_id`](#client_id) represents a unique user.  
+- [`client_id`](#client_id) represents a unique user and their client application.  
 - [`object_id`](#object_id) represents an id for whatever item the user is searching for, such as `epc`, `isbn`, `ssn`, `handle`.
-- [`query_id`](#query_id) is a unique id for the raw query language executed and the resultant `object_id`'s that the query returned.   \
-- [`action_name`](#action_name), though not technically an *id*, the `action_name` tells us what exact action (such as `click` or `add_to_cart`) was taken (or not) with this `object_id`.
+- [`object_id_field`](#object_id) the type of `object_id`, i.e. the actual labels: "epc", "isbn", "ssn", or "handle".
+- [`query_id`](#query_id) is a unique id for the raw query language executed and the resultant `object_id`'s that the query returned.   
+- [`action_name`](#action_name), though not technically an *id*, the `action_name` tells us what exact action (such as `click` or `add_to_cart`, `watch`, `view`, `purchase`) was taken (or not) with this `object_id`.
 
-To summarize: the `query_id` signals the beginning of a `client_id`'s *Search Journey*, the `action_name` tells us how the user is interacting with the query results within the application, and [`event_attributes.object.object_id`](#object_id) is referring to the precise query result that the user interacts with.
+To summarize: the `query_id` signals the beginning of a `client_id`'s *Search Journey* every time a user queries the search index, the `action_name` tells us how the user is interacting with the query results within the application, and [`event_attributes.object.object_id`](#object_id) is referring to the precise query result that the user interacts with.
 
 ## UBI roles
 - **Search Client**: in charge of searching, and then recieving *objects* from some document index in OpenSearch.
@@ -119,19 +120,16 @@ The only obvious difference will be in the `ubi` stanze of the json response, *w
 **UBI Queries** [schema](https://github.com/o19s/opensearch-ubi/tree/2.14.0/src/main/resources/queries-mapping.json):
 Since UBI manages the **UBI Queries** store, the developer should never have to write directly to this store (except for importing data).
 
-- `timestamp`  
+- `timestamp` (events & queries) 
 	&ensp; A UNIX timestamp of when the query was received
 
-- `query_id`  	
+- `query_id`  (events & queries) 
 	&ensp; A unique ID of the query provided by the client or generated automatically. The same query text issued multiple times would generate different `query_id`.  
 	
-	- `client_id`    
-		&ensp; A user ID provided by the client
+- `client_id` (events)
+		&ensp; A user/client ID provided by the client application
 
-- `session_id`    
-		&ensp; An optional session ID provided by the client.   _This is currently under review of if we keep this_.
-
-- `query_response_objects_ids`  	
+- `query_response_objects_ids`  (queries)
 	&ensp; This is an array of the `object_id`'s.   This *could* be the same id as the `_id` but is meant to be the externally valid id of document/item/product.
 
 
@@ -152,7 +150,6 @@ Since this schema is dynamic, the developer can add any new fields and structure
   <p id="query_id">
 
 	&ensp;  (size 100) - ID for some query.  Either the client provides this, or the `query_id` is generated at index time by **UBI Queries**.
-- `client_id`. `session_id`, `source_id`  <p id="client_id">
   
 	&ensp; (size 100) - are id's largely at the calling client's discretion for tracking users, sessions and sources (i.e. pages) of the event.  
 	The `client_id` must be consistent in both the **UBI Queries** and **UBI Events** stores.
