@@ -95,7 +95,7 @@ To configure alerts, follow these steps:
    1. Unlink a monitor from the visualization by selecting the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/link-icon.png" class="inline-icon" alt="link icon"/>{:/} icon under **Actions**. This only unlinks the monitor from the visualization; it does not delete the monitor.
    2. Edit the monitor's metrics by selecting the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/edit-icon.png" class="inline-icon" alt="edit icon"/>{:/} icon.
 
-## Building alerting quieries
+## Building alerting queries
 
 An alerting query consists of the monitor, triggers, and actions: 
 
@@ -112,38 +112,44 @@ Here is an example of the alerting query structure:
 ```json
 {
   "name": "Query Name",
-  "description": "Query Description",
+  "enabled": true,
   "schedule": {
-    "interval": {
-      "period": 10,
-      "unit": "MINUTES"
-    }
+    "interval": 10,
+    "unit": "MINUTES"
   },
-  "trigger": {
-    "condition": {
-      "script": {
-        "source": "
-          // Trigger condition logic
-        "
-      }
-    }
-  },
-  "input": {
-    "search": {
-      "request": {
-        "indices": ["index-name"],
-        "body": {
-          // Search query
+  "triggers": [
+    {
+      "condition": {
+        "script": {
+          "source": "
+            // Trigger condition logic
+          "
         }
       }
     }
-  },
+  ],
+  "inputs": [
+    {
+      "search": {
+        "request": {
+          "indices": ["*"],
+          "body": {
+            "query": {
+              "match_all": {}
+            }
+          }
+        }
+      }
+    }
+  ],
   "actions": [
     {
       "name": "Action Name",
-      "type": "action-type",
-      "action-type": {
-        // Action configuration
+      "type": "email",
+      "email": {
+        "to": ["recipient@example.com"],
+        "subject": "Alert Notification",
+        "body": "An alert has been triggered."
       }
     }
   ]
@@ -158,7 +164,7 @@ In this example:
 - The `input` object contains the search query that will be executed by the monitor. The query is defined using [OpenSearch Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/) and can include aggregations, filters, and other query components.
 - The `actions` array specifies the notifications that are sent when the trigger condition is met. Each action has a type (Slack, email, webhook) and a corresponding configuration object. 
 
-#### Query examples
+#### Additional example queries
 
 The following example queries show how you can use the alerting query structure to monitor various metrics and conditions in your OpenSearch data. By adjusting the trigger conditions, input queries, and actions, you can create tailored alerting rules to suit your specific monitoring needs.
 
@@ -166,26 +172,25 @@ The following example queries show how you can use the alerting query structure 
 ```json
 {
   "name": "High CPU Usage Alert",
-  "description": "Alerts when the average CPU usage exceeds 80% in the last hour",
+  "enabled": true,
   "schedule": {
-    "interval": {
-      "period": 1,
-      "unit": "HOURS"
-    }
+    "interval": 1,
+    "unit": "HOURS"
   },
-  "trigger": {
-    "condition": {
-      "script": {
-        "source": "
-          double avgCpuUsage = ctx.payload.aggregations.avg_cpu_usage.value;
-          return avgCpuUsage > 80;
-        "
+  "triggers": [
+    {
+      "condition": {
+        "script": {
+          "source": "
+            double avgCpuUsage = ctx.payload.aggregations.avg_cpu_usage.value;
+          "
+        }
       }
     }
-  },
-  "input": {
-    "search": {
-      "request": {
+  ],
+  "inputs": [
+    {
+      "search": {
         "indices": ["system-metrics"],
         "body": {
           "size": 0,
@@ -199,7 +204,7 @@ The following example queries show how you can use the alerting query structure 
         }
       }
     }
-  },
+  ],
   "actions": [
     {
       "name": "Notify on Slack",
@@ -217,26 +222,26 @@ The following example queries show how you can use the alerting query structure 
 ```json
 {
   "name": "Low Disk Space Alert",
-  "description": "Alerts when the available disk space falls below 20%",
+  "enabled": true,
   "schedule": {
-    "interval": {
-      "period": 30,
-      "unit": "MINUTES"
-    }
+    "interval": 30,
+    "unit": "MINUTES"
   },
-  "trigger": {
-    "condition": {
-      "script": {
-        "source": "
-          double diskUsagePercentage = ctx.payload.aggregations.disk_usage_percentage.value;
-          return diskUsagePercentage > 80;
-        "
+  "triggers": [
+    {
+      "condition": {
+        "script": {
+          "source": "
+            double diskUsagePercentage = ctx.payload.aggregations.disk_usage_percentage.value;
+            return diskUsagePercentage > 80;
+          "
+        }
       }
     }
-  },
-  "input": {
-    "search": {
-      "request": {
+  ],
+  "inputs": [
+    {
+      "search": {
         "indices": ["system-metrics"],
         "body": {
           "size": 0,
@@ -254,7 +259,7 @@ The following example queries show how you can use the alerting query structure 
         }
       }
     }
-  },
+  ],
   "actions": [
     {
       "name": "Notify on Email",
@@ -262,7 +267,7 @@ The following example queries show how you can use the alerting query structure 
       "email": {
         "to": ["ops@example.com"],
         "subject": "Low Disk Space Alert",
-        "message": "Available disk space is below 20%: {{ctx.payload.aggregations.disk_usage_percentage.value}}%"
+        "body": "Available disk space is below 20%: {{ctx.payload.aggregations.disk_usage_percentage.value}}%"
       }
     }
   ]
@@ -274,12 +279,12 @@ The following example queries show how you can use the alerting query structure 
 
 To view alerting events, follow these steps:
 
-1. Open your local instance of OpenSearch Dashboards. This is typically `http://localhost:5601/app/home#/`.
-2. Navigate to **Alerting** from the main menu. You should see a list of all the alerting monitors you have configured. Select the monitor for which you want to view alerts.
-3. In the monitor details view, you'll see several tabs. Select the **Alerts** tab.  
-4. Explore events. The **Alerts** tab displays a list of all the alert instances that have been triggered for this monitor. Each alert shows details such as start and end time, status (Active, Acknowledged, Resolved), reason, and severity.
+1. Open your local instance of OpenSearch Dashboards.
+2. Navigate to **Alerting** from the main menu. The Alerting plugin homepage displays a list of alerts from all configured monitors. On this page, there is a dedicated tab that, when selected, redirects you to a separate page listing all the available monitors. Here's an example of the homepage.
+3. Select the **Alerts** tab.  
+4. Explore events. The **Alerts** tab displays a list of the alert instances that have been triggered for this monitor. Each alert shows details such as start and end time, status (Active, Acknowledged, Resolved), reason, and severity.
 5. Filter and search events based on specific criteria. For example, you can filter alerts by status using the filter dropdown at the top of the alerts table. 
-6. To view more details about a specific alter instance, select the alert in the table. This opens a flyout panel with additional information such as duration, context, history, and actions taken. 
+6. To view more details about a specific alter instance, select the alert in the table. A flyout panel opens and is accessible from the monitor details page for per document monitors only. For other monitor types, the flyout panel is available from the Alerting homepage. Here's an example flyout. 
 7. Acknowledge or resolve an alert if it is in an active state.
 
 You can also access alerting events from the main OpenSearch Dashboards interface. Follow these steps:
