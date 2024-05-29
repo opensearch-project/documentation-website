@@ -135,7 +135,7 @@ For NMSLIB and Faiss engines, `k` is the maximum number of documents returned fo
 
 For any engine, each shard returns `size` results to the coordinator node. Thus, the total number of results the coordinator node receives is `size * number of shards`. After the coordinator node consolidates the results received from all nodes, the query returns the top `size` results.
 
-The following table provides examples of the number of results returned by various engines in several scenarios.
+The following table provides examples of the number of results returned by various engines in several scenarios. For these examples, assume that the number of documents in the segments and shards is sufficient to return the number of results specified in the table.
 
 `size` 	| `k` | Number of primary shards | 	Number of segments per shard | Number of returned results, Faiss/NMSLIB | Number of returned results, Lucene
 10 |	1 |	1 |	4 |	4 | 1
