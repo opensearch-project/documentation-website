@@ -66,6 +66,7 @@ module Jekyll::LinkChecker
     'platform.openai.com', # 403s on bots
     'openai.com', # 403s on bots
     'mvnrepository.com', # 403s on bots
+    'www.intel.com', # 403s on bots
     'example.issue.link' # a fake example link from the template
   ]
 
