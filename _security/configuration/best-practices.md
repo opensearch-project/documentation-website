@@ -11,17 +11,24 @@ Setting up security in OpenSearch is crucial for protecting your data. Here are 
 
 ## 1. Use your own PKI to set up SSL/TLS
 
-Although using your own public key infrastructure (PKI), such as [AWS Certificate Manager](https://docs.aws.amazon.com/crypto/latest/userguide/awspki-service-acm.html), requires more initial effort, a custom PKI provides you with all the flexibility needed to set up SSL/TLS in the most secure and performant way.
+Although using your own public key infrastructure (PKI), such as [AWS Certificate Manager](https://docs.aws.amazon.com/crypto/latest/userguide/awspki-service-acm.html), requires more initial effort, a custom PKI provides you with the flexibility needed to set up SSL/TLS in the most secure and performant way.
 
 ### Enable SSL/TLS for node- and REST-layer traffic
 
 SSL/TLS is enabled by default on the transport layer, which is used for node-to-node communication. SSL/TLS is disabled by default on the REST layer.
 
-The following setting is required in order to enable encryption on the REST layer: `plugins.security.ssl.http.enabled: true`.
+The following setting is required in order to enable encryption on the REST layer: 
+
+```
+plugins.security.ssl.http.enabled: true
+```
+{% include copy.html %}
+
 
 For additional configuration options, such as specifying certificate paths, keys, and certificate authority files, refer to [Configuring TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/).
 
 ### Replace all demo certificates with your own PKI
+
 The certificates generated when initializing an OpenSearch cluster with `install_demo_configuration.sh` are not suitable for production. These should be replaced with your own certificates.
 
 You can generate custom certificates in a few different ways. One approach is to use OpenSSL, described in detail at [Generating self-signed certificates]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/). Alternatively, there are online tools available that can simplify the certificate creation process, such as the following:
@@ -31,11 +38,10 @@ You can generate custom certificates in a few different ways. One approach is to
 
 ## 2. Prefer client certificate authentication for API authentication
 
-Client certificate authentication offers a secure alternative to password authentication and is more suitable for machine-to-machine interactions. It also ensures low performance overhead because the authentication occurs at the TLS level. Nearly all client software, such as curl, and client libraries support this authentication method.
+Client certificate authentication offers a secure alternative to password authentication and is more suitable for machine-to-machine interactions. It also ensures low performance overhead because the authentication occurs at the TLS-level. Nearly all client software, such as curl and client libraries, support this authentication method.
 
-For detailed configuration instructions, refer to [Enabling client certificate authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/client-auth/#enabling-client-certificate-authentication).
+For detailed configuration instructions and additonal information about client ceritificate authentication, see [Enabling client certificate authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/client-auth/#enabling-client-certificate-authentication).
 
-Information about configuring client certificate authentication can be found at [Enabling client certificate authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/client-auth/#enabling-client-certificate-authentication).
 
 ## 3. Prefer SSO using SAML or OpenID for OpenSearch Dashboards authentication
 
@@ -50,7 +56,7 @@ Prioritizing fewer, more intricate user roles over numerous simplistic roles enh
 Additional best practices for role management include:
 
 1. Role granularity: Define roles based on specific job functions or access requirements to minimize unnecessary privileges.
-2. Regular review: Regularly review and audit assigned roles to ensure alignment with organizational policies and access needs.
+2. Regular role review: Regularly review and audit assigned roles to ensure alignment with organizational policies and access needs.
 
 For more information about roles, go to the documentation on [defining users and roles in OpenSearch]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/).
 
@@ -58,7 +64,8 @@ For more information about roles, go to the documentation on [defining users and
 
 If you have configured Document Level Security (DLS), Field Level Security (FLS), or field masking, make sure you double-check your role definitions, especially if a user is mapped to multiple roles. It is highly recommended that you test this by making a GET request to `_plugins/_security/authinfo`.
 
-Detailed examples and additional configurations are available at:
+Select on of the following for detailed examples and additional configurations:
+
  - [Document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/).
  - [Field-level security]({{site.url}}{{site.baseurl}}/security/access-control/field-level-security/).
  - [Field masking]({{site.url}}{{site.baseurl}}/security/access-control/field-masking/).
@@ -66,6 +73,7 @@ Detailed examples and additional configurations are available at:
 ## 6. Use only the essentials for the audit logging configuration
 
 Extensive audit logging can degrade system performance due to the following:
+
 - Each logged event adds to the processing load.
 - Audit logs can quickly grow in size, consuming significant disk space.
 
@@ -81,7 +89,7 @@ Whenever possible, adhere to these recommendations:
 
 ## 7. Consider disabling the private tenant
 
-In many cases, the use of private tenants is unnecessary, yet this feature is enabled by default. As a result, every OpenSearch Dashboards user is provided with their own private tenant and a corresponding new index in which to save objects. This can lead to a large number of unnecessary indexes. Evaluate whether this feature is needed, and, if it isn't, disable it by adding the following configuration to the `config.yml` file:
+In many cases, the use of private tenants is unnecessary, although this feature is enabled by default. As a result, every OpenSearch Dashboards user is provided with their own private tenant and a corresponding new index in which to save objects. This can lead to a large number of unnecessary indexes. Evaluate whether private tenants are needed in your cluster. If private tenants are not needed, disable the feature by adding the following configuration to the `config.yml` file:
 
 ```yaml
 config:
@@ -90,14 +98,13 @@ config:
       multitenancy_enabled: true
       private_tenant_enabled: false
 ```
+{% include copy.html %}
 
 ## 8. Manage the configuration using securityadmin.sh
 
 Use `securityadmin.sh` to manage the configuration of your clusters. `securityadmin.sh` is a command-line tool provided by OpenSearch for managing security configurations. It allows administrators to efficiently manage security settings, including roles, role mappings, and other security-related configurations within an OpenSearch cluster.
 
-Before making changes with `securityadmin.sh`, always create a backup of the current configuration to prevent potential loss. For more detailed information, visit the [security admin configuration](https://opensearch.org/docs/latest/security/configuration/security-admin/) section.
-
-### Benefits of using securityadmin.sh
+Using `securityadmin.sh` provides the following benefits:
 
 1. Consistency: By using `securityadmin.sh`, administrators can ensure consistency across security configurations within a cluster. This helps to maintain a standardized and secure environment.
 2. Automation: `securityadmin.sh` enables automation of security configuration tasks, making it easier to deploy and manage security settings across multiple nodes or clusters.
@@ -119,6 +126,8 @@ The `kibanaserver` user is a crucial component that allows OpenSearch Dashboards
 
 
 ## 10. Getting help
+
+If you need additonal help with OpenSearch Security, you can use the following resources:
 
 - Create an issue on GitHub at [OpenSearch-project/security](https://github.com/opensearch-project/security/security) or [OpenSearch-project/OpenSearch](https://github.com/opensearch-project/OpenSearch/security).
 - Ask a question on the [OpenSearch forum](https://forum.opensearch.org/tag/cve).
