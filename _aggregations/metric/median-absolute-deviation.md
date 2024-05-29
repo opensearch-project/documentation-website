@@ -111,7 +111,7 @@ GET opensearch_dashboards_sample_data_flights/_search
 
 ### Compression
 
-The median absolute deviation is calculated using the [t-digest](https://github.com/tdunning/t-digest/tree/main) data structure, which balances between performance and estimation accuracy through the `compression` parameter (default value: `1000`). Adjusting the `compression` value affects the trade-off between computational efficiency and precision. Lower `compression` values improve performance but may reduce estimation accuracy, while higher values enhance accuracy at the cost of increased computational overhead, for example, as shown in the following request:
+The median absolute deviation is calculated using the [t-digest](https://github.com/tdunning/t-digest/tree/main) data structure, which balances between performance and estimation accuracy through the `compression` parameter (default value: `1000`). Adjusting the `compression` value affects the trade-off between computational efficiency and precision. Lower `compression` values improve performance but may reduce estimation accuracy, while higher values enhance accuracy at the cost of increased computational overhead, as shown in the following request:
 
 ```json
 GET opensearch_dashboards_sample_data_flights/_search
