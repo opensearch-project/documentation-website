@@ -91,11 +91,11 @@ Follow these steps to set up your local copy of the repository:
 
 1. Navigate to your cloned repository.
 
-1. Install [Ruby](https://www.ruby-lang.org/en/) if you don't already have it. We recommend [RVM](https://rvm.io/), but you can use any method you prefer:
+1. Install [Ruby](https://www.ruby-lang.org/en/) version 3.2.4 if you don't already have it. We recommend [RVM](https://rvm.io/), but you can use any method you prefer:
 
    ```
    curl -sSL https://get.rvm.io | bash -s stable
-   rvm install 3.2
+   rvm install 3.2.4
    ruby -v
    ```
 
