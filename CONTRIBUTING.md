@@ -70,6 +70,19 @@ If you want to make minor changes to an existing file, you can use this approach
 
 If you're adding a new page or making major changes to the documentation, such as adding new images, sections, or styling, we recommend that you work in a local copy of the repository and test the rendered HTML before submitting a PR. 
 
+#### Setting up your Docker based copy of the repository
+This assumes you have Docker installed.
+
+1. [Fork this repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo) and clone your fork.
+
+1. Navigate to your cloned repository.
+
+1. Build the documentation website Jekyll image via: `docker build -t documentation-website .`
+
+1. Start Jekyll via: `docker run -p 4000:4000 -v $(pwd):/app documentation-website`
+
+Be aware that it takes a while to build the site the first time, eventually you will see ``.
+
 #### Setting up your local copy of the repository
 
 Follow these steps to set up your local copy of the repository:
