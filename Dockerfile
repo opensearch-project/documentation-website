@@ -2,7 +2,6 @@ FROM ruby:3.2.4
 
 WORKDIR /app
 
-# Odd we don't version Gemfile.lock and therefore have it here to copy in!
 COPY Gemfile Gemfile.lock ./
 
 RUN bundle install
