@@ -2,6 +2,5 @@ _site
 .sass-cache
 .jekyll-metadata
 .DS_Store
-Gemfile.lock
 .idea
 .jekyll-cache
