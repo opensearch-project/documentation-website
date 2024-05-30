@@ -7,11 +7,16 @@ nav_order: 7
 ---
 
 # Sample client data structures
-The client data structures can be used to create events that follow the [UBI event schema]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/).
+The client data structures can be used to create events that follow the [UBI event schema specification](https://github.com/o19s/opensearch-ubi), 
+which is describedin further detail [here]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/).
 
 The developer provides an implementation for the following functions:
 - `getClientId()`
 - `getQueryId()`
+  
+_Optionally_:
+- `getSessionId()`
+- `getPageId()`
 
 Other sample implementations can be found [here](#TODO-clients-link).
 
@@ -21,15 +26,14 @@ Other sample implementations can be found [here](#TODO-clients-link).
  * The following structures help ensure adherence to the UBI event schema
  *********************************************************************************************/
 
+
+
 export class UbiEventData {
-  constructor(type, id=null, description=null, details=null) {
-    this.object_type = type;
+  constructor(object_type, id=null, description=null, details=null) {
+    this.object_id_field = object_type;
     this.object_id = id;
     this.description = description;
     this.object_detail = details;
-
-    //override if using key_field's and values
-    this.key_value = id;
   }
 }
 export class UbiPosition{
@@ -37,18 +41,30 @@ export class UbiPosition{
     this.ordinal = ordinal;
     this.x = x;
     this.y = y;
-    this.trail = trail;
+    if(trail)
+      this.trail = trail;
+    else {
+      const trail = getTrail();
+      if(trail && trail.length > 0)
+        this.trail = trail;
+    }
   }
 }
 
 
 export class UbiEventAttributes {
   /**
-   * Attributes, other than `object` or `position` should be in the form of
+   * Tries to prepopulate common event attributes
+   * The developer can add an `object` that the user interacted with and
+   *   the site `position` information relevant to the event
+   * 
+   * Attributes, other than `object` or `position` can be added in the form:
    * attributes['item1'] = 1
    * attributes['item2'] = '2'
    *
-   * The object member is reserved for further, relevant object payloads or classes
+   * @param {*} attributes: object with general event attributes 
+   * @param {*} object: the data object the user interacted with
+   * @param {*} position: the site position information
    */
   constructor({attributes={}, object=null, position=null}={}) {
     if(attributes != null){
@@ -60,19 +76,54 @@ export class UbiEventAttributes {
     if(position != null && Object.keys(position).length > 0){
       this.position = position;
     }
+    this.setDefaultValues();
+  }
+
+  setDefaultValues(){
+    try{
+        if(!this.hasOwnProperty('dwell_time') && typeof TimeMe !== 'undefined'){
+          this.dwell_time = TimeMe.getTimeOnPageInSeconds(window.location.pathname);
+        }
+
+        if(!this.hasOwnProperty('browser')){
+          this.browser = window.navigator.userAgent;
+        }
+
+        if(!this.hasOwnProperty('page_id')){
+          this.page_id = window.location.pathname;
+        }
+        if(!this.hasOwnProperty('session_id')){
+          this.session_id = getSessionId();
+        }
+
+        if(!this.hasOwnProperty('page_id')){
+          this.page_id = getPageId();
+        }
+
+        if(!this.hasOwnProperty('position') || this.position == null){
+          const trail = getTrail();
+          if(trail.length > 0){
+            this.position = new UbiPosition({trail:trail});
+          }
+        } 
+        // ToDo: set IP
+    }
+    catch(error){
+      console.log(error);
+    }
   }
 }
 
 
 
 export class UbiEvent {
-  constructor(action_name, {message=null, event_attributes={}, data_object={}}={}) {
+  constructor(action_name, {message_type='INFO', message=null, event_attributes={}, data_object={}}={}) {
     this.action_name = action_name;
-    this.client_id = getClientID();
+    this.client_id = getClientId();
     this.query_id = getQueryId();
     this.timestamp = Date.now();
 
-    this.message_type = 'INFO';
+    this.message_type = message_type;
     if( message )
       this.message = message;
 
@@ -107,6 +158,14 @@ export class UbiEvent {
 # Sample usage
 
 ```js
+export async function logUbiMessage(event_type, message_type, message){
+  let e = new UbiEvent(event_type, {
+    message_type:message_type,
+    message:message
+  });
+  logEvent(e);
+}
+
 export async function logDwellTime(action_name, page, seconds){
   console.log(`${page} => ${seconds}`);
   let e = new UbiEvent(action_name, {

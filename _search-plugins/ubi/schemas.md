@@ -172,7 +172,8 @@ _TODO: How to formalize?  A list of standard ones and then custom ones._
   
 	&ensp; (size 256) - optional text message for the log entry.  For example, with a `message_type` of `INFO`, people might expect an informational or debug type text for this field, but a `message_type` of `QUERY`, we would expect the text to be more about what the user is searching on.
 
-{: .warning}  `event_attributes` has dynamic mapping, meaning if events are indexed with many custom fields, the index could bloat quickly with many new fields.
+`event_attributes` has dynamic mapping, meaning if events are indexed with many custom fields, the index could bloat quickly with many new fields.
+{: .warning}  
 
 - `event_attributes`'s structure that describes any important context about the event.  Within it, it has 2 primary structures `position` and `object`, as well as being extensible to add anymore relevant, custom, information about the event can be stored such as timing informaiton, individual user or session information, etc.   
 
@@ -223,3 +224,4 @@ _TODO: How to formalize?  A list of standard ones and then custom ones._
     	&ensp; optional text for further data object details
     	     	
       - *extensible fields*: any new fields by any other names in the `object` that one indexes will dynamically expand this schema to that use-case.
+{: .warning}  
