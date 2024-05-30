@@ -19,7 +19,8 @@ In most cases, you want to configure both authentication and authorization. You 
 
 We provide a fully functional example that can help you understand how to use an LDAP server for both authentication and authorization.
 
-1. Download and unzip [the example zip file]({{site.url}}{{site.baseurl}}/assets/examples/ldap-example.zip).
+1. Download and unzip [the example zip file]({{site.url}}{{site.baseurl}}/assets/examples/ldap-example-v2.13.zip).
+1. Update the `.env` file with a strong password for `admin` user.
 1. At the command line, run `docker-compose up`.
 1. Review the files:
 
@@ -175,10 +176,12 @@ config:
 ```yml
 config:
   pemtrustedcas_content: |-
+    -----BEGIN CERTIFICATE-----
     MIID/jCCAuagAwIBAgIBATANBgkqhkiG9w0BAQUFADCBjzETMBEGCgmSJomT8ixk
     ARkWA2NvbTEXMBUGCgmSJomT8ixkARkWB2V4YW1wbGUxGTAXBgNVBAoMEEV4YW1w
     bGUgQ29tIEluYy4xITAfBgNVBAsMGEV4YW1wbGUgQ29tIEluYy4gUm9vdCBDQTEh
     ...
+    -----END CERTIFICATE-----
 ```
 
 
@@ -204,16 +207,20 @@ or
 ```yml
 config:
   pemkey_content: |-
+    -----BEGIN PRIVATE KEY-----
     MIID2jCCAsKgAwIBAgIBBTANBgkqhkiG9w0BAQUFADCBlTETMBEGCgmSJomT8ixk
     ARkWA2NvbTEXMBUGCgmSJomT8ixkARkWB2V4YW1wbGUxGTAXBgNVBAoMEEV4YW1w
     bGUgQ29tIEluYy4xJDAiBgNVBAsMG0V4YW1wbGUgQ29tIEluYy4gU2lnbmluZyBD
     ...
+    -----END PRIVATE KEY-----
   pemkey_password: private_key_password
   pemcert_content: |-
+    -----BEGIN CERTIFICATE-----
     MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCHRZwzwGlP2FvL
     oEzNeDu2XnOF+ram7rWPT6fxI+JJr3SDz1mSzixTeHq82P5A7RLdMULfQFMfQPfr
     WXgB4qfisuDSt+CPocZRfUqqhGlMG2l8LgJMr58tn0AHvauvNTeiGlyXy0ShxHbD
     ...
+    -----END CERTIFICATE-----
 ```
 
 Name | Description

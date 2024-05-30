@@ -40,6 +40,7 @@ indices | Index statistics, such as size, document count, and search, index, and
 os | Statistics about the host OS, including load, memory, and swapping.
 process | Statistics about processes, including their memory consumption, open file descriptors, and CPU usage.
 jvm | Statistics about the JVM, including memory pool, buffer pool, and garbage collection, and the number of loaded classes.
+thread_pool | Statistics about each thread pool for the node.
 fs | File system statistics, such as read/write statistics, data path, and free disk space.
 transport | Transport layer statistics about send/receive in cluster communication.
 http | Statistics about the HTTP layer.
@@ -51,8 +52,11 @@ adaptive_selection | Statistics about adaptive replica selection, which selects 
 script_cache | Statistics about script cache.
 indexing_pressure | Statistics about the node's indexing pressure.
 shard_indexing_pressure | Statistics about shard indexing pressure.
+search_backpressure | Statistics related to search backpressure.
+cluster_manager_throttling | Statistics related to throttled tasks on the cluster manager node.
 resource_usage_stats | Node-level resource usage statistics, such as CPU and JVM memory.
 admission_control | Statistics about admission control.
+caches | Statistics about caches. 
 
 To filter the information returned for the `indices` metric, you can use specific `index_metric` values. You can use these only when you use the following query types:
 
@@ -87,6 +91,18 @@ GET _nodes/stats/indices/docs,search
 ```
 {% include copy-curl.html %}
 
+You can also use specific `index_metric` values in the `caches` metric to specify which caches will return statistics. 
+The following index metrics are supported: 
+
+- request_cache
+
+For example, the following query requests statistics for the `request_cache`: 
+
+```json
+GET _nodes/stats/caches/request_cache
+```
+{% include copy-curl.html %}
+
 ## Query parameters
 
 The following table lists the available query parameters. All query parameters are optional.
@@ -97,7 +113,7 @@ completion_fields | String | The fields to include in completion statistics. Sup
 fielddata_fields | String | The fields to include in fielddata statistics. Supports comma-separated lists and wildcard expressions. 
 fields | String | The fields to include. Supports comma-separated lists and wildcard expressions. 
 groups | String | A comma-separated list of search groups to include in the search statistics. 
-level | String | Specifies whether statistics are aggregated at the cluster, index, or shard level. Valid values are `indices`, `node`, and `shard`.
+level | String | Specifies whether statistics for the `indices` metric are aggregated at the cluster, index, or shard level. Valid values are `indices`, `node`, and `shard`. When used for the `caches` metric, `indices`, `shard`, and `tier` are valid. The `tier` value is ignored if the [tiered spillover cache]({{site.url}}{{site.baseurl}}/search-plugins/caching/tiered-cache/) is not in use. 
 timeout | Time | Sets the time limit for node response. Default is `30s`.
 include_segment_file_sizes | Boolean | If segment statistics are requested, this field specifies to return the aggregated disk usage of every Lucene index file. Default is `false`. 
 
@@ -731,7 +747,10 @@ Select the arrow to view the example response.
         "nxLWtMdXQmWA-ZBVWU8nwA": {
           "timestamp": 1698401391000,
           "cpu_utilization_percent": "0.1",
-          "memory_utilization_percent": "3.9"
+          "memory_utilization_percent": "3.9",
+          "io_usage_stats": {
+            "max_io_utilization_percent": "99.6"
+          }
         }
       },
       "admission_control": {
@@ -742,6 +761,24 @@ Select the arrow to view the example response.
               "indexing": 1
             }
           }
+        },
+        "global_io_usage": {
+          "transport": {
+            "rejection_count": {
+              "search": 3,
+              "indexing": 1
+            }
+          }
+        }
+      },
+      "caches" : {
+        "request_cache" : {
+          "size_in_bytes" : 1649,
+          "evictions" : 0,
+          "hit_count" : 0,
+          "miss_count" : 18,
+          "item_count" : 18,
+          "store_name" : "opensearch_onheap"
         }
       }
     }
@@ -796,8 +833,10 @@ http.total_opened | Integer | The total number of HTTP connections the node has 
 [indexing_pressure](#indexing_pressure) | Object | Statistics related to the node's indexing pressure.
 [shard_indexing_pressure](#shard_indexing_pressure) | Object | Statistics related to indexing pressure at the shard level.
 [search_backpressure]({{site.url}}{{site.baseurl}}/opensearch/search-backpressure#search-backpressure-stats-api) | Object | Statistics related to search backpressure.
+[cluster_manager_throttling](#cluster_manager_throttling) | Object | Statistics related to throttled tasks on the cluster manager node.
 [resource_usage_stats](#resource_usage_stats) | Object | Statistics related to resource usage for the node.
 [admission_control](#admission_control) | Object | Statistics related to admission control for the node.
+[caches](#caches) | Object | Statistics related to caches on the node.
 
 ### `indices`
 
@@ -986,20 +1025,20 @@ cpu.load_average | Object | Statistics about load averages for the system.
 cpu.load_average.1m | Float | The load average for the system for the time period of one minute.
 cpu.load_average.5m | Float | The load average for the system for the time period of five minutes.
 cpu.load_average.15m | Float | The load average for the system for the time period of 15 minutes.
-cpu.mem | Object | Statistics about memory usage for the node.
-cpu.mem.total_in_bytes | Integer | The total amount of physical memory, in bytes.
-cpu.mem.free_in_bytes | Integer | The total amount of free physical memory, in bytes.
-cpu.mem.used_in_bytes | Integer | The total amount of used physical memory, in bytes.
-cpu.mem.free_percent | Integer | The percentage of memory that is free.
-cpu.mem.used_percent | Integer | The percentage of memory that is used.
-cpu.swap | Object | Statistics about swap space for the node.
-cpu.swap.total_in_bytes | Integer | The total amount of swap space, in bytes.
-cpu.swap.free_in_bytes | Integer | The total amount of free swap space, in bytes.
-cpu.swap.used_in_bytes | Integer | The total amount of used swap space, in bytes.
-cpu.cgroup | Object | Contains cgroup statistics for the node. Returned for Linux only.
-cpu.cgroup.cpuacct | Object | Statistics about the cpuacct control group for the node.
-cpu.cgroup.cpu | Object | Statistics about the CPU control group for the node.
-cpu.cgroup.memory | Object | Statistics about the memory control group for the node.
+mem | Object | Statistics about memory usage for the node.
+mem.total_in_bytes | Integer | The total amount of physical memory, in bytes.
+mem.free_in_bytes | Integer | The total amount of free physical memory, in bytes.
+mem.used_in_bytes | Integer | The total amount of used physical memory, in bytes.
+mem.free_percent | Integer | The percentage of memory that is free.
+mem.used_percent | Integer | The percentage of memory that is used.
+swap | Object | Statistics about swap space for the node.
+swap.total_in_bytes | Integer | The total amount of swap space, in bytes.
+swap.free_in_bytes | Integer | The total amount of free swap space, in bytes.
+swap.used_in_bytes | Integer | The total amount of used swap space, in bytes.
+cgroup | Object | Contains cgroup statistics for the node. Returned for Linux only.
+cgroup.cpuacct | Object | Statistics about the cpuacct control group for the node.
+cgroup.cpu | Object | Statistics about the CPU control group for the node.
+cgroup.memory | Object | Statistics about the memory control group for the node.
 
 ### `process`
 
@@ -1071,7 +1110,7 @@ active | Integer | The number of active threads in the pool.
 rejected | Integer | The number of tasks that have been rejected.
 largest | Integer | The peak number of threads in the pool.
 completed | Integer | The number of tasks completed.
-total_wait_time | Integer | The total amount of time tasks spent waiting in the thread pool queue. Currently, only `search`, `search_throttled`, and `index_searcher` thread pools support this metric.
+total_wait_time_in_nanos | Integer | The total amount of time that tasks spend waiting in the thread pool queue. Currently, only `search`, `search_throttled`, and `index_searcher` thread pools support this metric.
 
 ### `fs`
 
@@ -1245,6 +1284,16 @@ total_rejections_breakup_shadow_mode.throughput_degradation_limits | Integer | T
 enabled | Boolean | Specifies whether the shard indexing pressure feature is turned on for the node.
 enforced | Boolean | If true, the shard indexing pressure runs in enforced mode (there are rejections). If false, the shard indexing pressure runs in shadow mode (there are no rejections, but statistics are recorded and can be retrieved in the `total_rejections_breakup_shadow_mode` object). Only applicable if shard indexing pressure is enabled. 
 
+### `cluster_manager_throttling`
+
+The `cluster_manager_throttling` object contains statistics about throttled tasks on the cluster manager node. It is populated only for the node that is currently elected as the cluster manager.  
+
+Field | Field type | Description
+:--- | :--- | :---
+stats | Object | Statistics about throttled tasks on the cluster manager node.
+stats.total_throttled_tasks | Long | The total number of throttled tasks.
+stats.throttled_tasks_per_task_type | Object | A breakdown of statistics by individual task type, specified as key-value pairs. The keys are individual task types, and their values represent the number of requests that were throttled.
+
 ### `resource_usage_stats`
 
 The `resource_usage_stats` object contains the resource usage statistics. Each entry is specified by the node ID and has the following properties.
@@ -1252,16 +1301,47 @@ The `resource_usage_stats` object contains the resource usage statistics. Each e
 Field | Field type | Description
 :--- |:-----------| :---
 timestamp | Integer    | The last refresh time for the resource usage statistics, in milliseconds since the epoch.
-cpu_utilization_percent | Float      | Statistics for the average CPU usage of OpenSearch process within the time period configured in the `node.resource.tracker.global_cpu_usage.window_duration` setting.
+cpu_utilization_percent | Float      | Statistics for the average CPU usage of any OpenSearch processes within the time period configured in the `node.resource.tracker.global_cpu_usage.window_duration` setting.
 memory_utilization_percent | Float      | The node JVM memory usage statistics within the time period configured in the `node.resource.tracker.global_jvmmp.window_duration` setting.
+max_io_utilization_percent  | Float     |  (Linux only) Statistics for the average IO usage of any OpenSearch processes within the time period configured in the `node.resource.tracker.global_io_usage.window_duration` setting.
 
 ### `admission_control`
 
 The `admission_control` object contains the rejection count of search and indexing requests based on resource consumption and has the following properties.
+
 Field | Field type | Description
 :--- | :--- | :---
-admission_control.global_cpu_usage.transport.rejection_count.search | Integer | The total number of search rejections in the transport layer when the node CPU usage limit was breached. In this case, additional search requests are rejected until the system recovers.
-admission_control.global_cpu_usage.transport.rejection_count.indexing | Integer | The total number of indexing rejections in the transport layer when the node CPU usage limit was breached. In this case, additional indexing requests are rejected until the system recovers.
+admission_control.global_cpu_usage.transport.rejection_count.search | Integer | The total number of search rejections in the transport layer when the node CPU usage limit was met. In this case, additional search requests are rejected until the system recovers. The CPU usage limit is configured in the `admission_control.search.cpu_usage.limit` setting.
+admission_control.global_cpu_usage.transport.rejection_count.indexing | Integer | The total number of indexing rejections in the transport layer when the node CPU usage limit was met. Any additional indexing requests are rejected until the system recovers. The CPU usage limit is configured in the `admission_control.indexing.cpu_usage.limit` setting.
+admission_control.global_io_usage.transport.rejection_count.search | Integer | The total number of search rejections in the transport layer when the node IO usage limit was met. Any additional search requests are rejected until the system recovers. The CPU usage limit is configured in the `admission_control.search.io_usage.limit` setting (Linux only).
+admission_control.global_io_usage.transport.rejection_count.indexing | Integer | The total number of indexing rejections in the transport layer when the node IO usage limit was met. Any additional indexing requests are rejected until the system recovers. The IO usage limit is configured in the `admission_control.indexing.io_usage.limit` setting (Linux only).
+
+### `caches`
+
+Because this API supports the experimental [tiered caching feature]({{site.url}}{{site.baseurl}}/search-plugins/caching/tiered-cache/), the responses found in this section may change. If the tiered caching feature flag is not enabled, the API will return `0` for all values.
+{: .warning}
+
+The `caches` object contains cache statistics, such as the `request_cache` statistics. The total values within each sub-metric are always returned, regardless of the value of the query parameter `level`. 
+
+Field | Field type | Description
+:--- | :--- | :---
+request_cache | Object | Statistics for the request cache. 
+request_cache.size_in_bytes | Integer | The total size, in bytes, of the request cache. 
+request_cache.evictions | Integer | The total number of evictions from the request cache. 
+request_cache.hit_count | Integer | The total hit count for the request cache.
+request_cache.miss_count | Integer | The total miss count for the request cache.
+request_cache.item_count | Integer | The total number of items in the request cache.
+request_cache.store_name | String | The name of the store type used by the request cache. See [tiered cache]({{site.url}}{{site.baseurl}}/search-plugins/caching/tiered-cache/) for more information. 
+
+If the `level` query parameter is set to one of its valid values, `indices`, `shard`, or `tier`, additional fields will be present in `caches.request_cache` that categorize the values by these levels. 
+For example, if `level=indices,tier`, the tiered cache is in use, and the node has indexes named `index0` and `index1`, then the `caches` object will contain the same five metrics for each combination of level values, as shown in the following table.
+
+Field | Field type | Description
+:--- | :--- | :---
+request_cache.indices.index0.tier.on_heap | Object | Contains the five metrics for `index0` on the heap tier. 
+request_cache.indices.index0.tier.disk | Object | Contains the five metrics for `index0` on the disk tier. 
+request_cache.indices.index1.tier.on_heap | Object | Contains the five metrics for `index1` on the heap tier. 
+request_cache.indices.index1.tier.disk | Object | Contains the five metrics for `index1` on the disk tier. 
 
 ## Required permissions
 

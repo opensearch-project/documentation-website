@@ -45,7 +45,7 @@ Deleted | The monitor or trigger associated with this alert was deleted while th
 You can follow these basic steps to create an alert monitor:
 
 1. In the **OpenSearch Plugins** main menu, choose **Alerting**.
-1. Choose **Create monitor**. See [Monitors]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) for more information about the monitor types.
+1. Choose **Create monitor**. See [Monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/) for more information about the monitor types.
 1. Enter the **Monitor details**, including monitor type, method, and schedule.  
 1. Select a data source from the dropdown list.
 1. Define the metrics in the Query section.

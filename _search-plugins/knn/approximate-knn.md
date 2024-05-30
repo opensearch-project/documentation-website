@@ -130,10 +130,10 @@ GET my-knn-index-1/_search
 `k` is the number of neighbors the search of each graph will return. You must also include the `size` option, which
 indicates how many results the query actually returns. The plugin returns `k` amount of results for each shard
 (and each segment) and `size` amount of results for the entire query. The plugin supports a maximum `k` value of 10,000.
-
+Starting in OpenSearch 2.14, in addition to using the `k` variable, both the `min_score` and `max_distance` variables can be used for [radial search]({{site.url}}{{site.baseurl}}/search-plugins/knn/radial-search-knn/).
 ### Building a k-NN index from a model
 
-For some of the algorithms that we support, the native library index needs to be trained before it can be used. It would be expensive to training every newly created segment, so, instead, we introduce the concept of a *model* that is used to initialize the native library index during segment creation. A *model* is created by calling the [Train API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-model), passing in the source of training data as well as the method definition of the model. Once training is complete, the model will be serialized to a k-NN model system index. Then, during indexing, the model is pulled from this index to initialize the segments.
+For some of the algorithms that we support, the native library index needs to be trained before it can be used. It would be expensive to training every newly created segment, so, instead, we introduce the concept of a *model* that is used to initialize the native library index during segment creation. A *model* is created by calling the [Train API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-a-model), passing in the source of training data as well as the method definition of the model. Once training is complete, the model will be serialized to a k-NN model system index. Then, during indexing, the model is pulled from this index to initialize the segments.
 
 To train a model, we first need an OpenSearch index with training data in it. Training data can come from
 any `knn_vector` field that has a dimension matching the dimension of the model you want to create. Training data can be the same data that you are going to index or have in a separate set. Let's create a training index:
@@ -248,6 +248,10 @@ To learn about using filters with k-NN search, see [k-NN search with filters]({{
 
 To learn about using k-NN search with nested fields, see [k-NN search with nested fields]({{site.url}}{{site.baseurl}}/search-plugins/knn/nested-search-knn/).
 
+### Using approximate radial search
+
+To learn more about the radial search feature, see [k-NN radial search]({{site.url}}{{site.baseurl}}/search-plugins/knn/radial-search-knn/).
+
 ## Spaces
 
 A space corresponds to the function used to measure the distance between two points in order to determine the k-nearest neighbors. From the k-NN perspective, a lower score equates to a closer and better result. This is the opposite of how OpenSearch scores results, where a greater score equates to a better result. To convert distances to OpenSearch scores, we take 1 / (1 + distance). The k-NN plugin supports the following spaces. 
@@ -287,13 +291,24 @@ Not every method supports each of these spaces. Be sure to check out [the method
     <td><b>nmslib</b> and <b>faiss:</b>\[ score = {1 \over 1 + d } \]<br><b>Lucene:</b>\[ score = {2 - d \over 2}\]</td>
   </tr>
   <tr>
-    <td>innerproduct (not supported for Lucene)</td>
-    <td>\[ d(\mathbf{x}, \mathbf{y}) = - {\mathbf{x} &middot; \mathbf{y}} = - \sum_{i=1}^n x_i y_i \]</td>
-    <td>\[ \text{If} d \ge 0, \] \[score = {1 \over 1 + d }\] \[\text{If} d < 0, score = &minus;d + 1\]</td>
+    <td>innerproduct (supported for Lucene in OpenSearch version 2.13 and later)</td>
+    <td>\[ d(\mathbf{x}, \mathbf{y}) = - {\mathbf{x} &middot; \mathbf{y}} = - \sum_{i=1}^n x_i y_i \] 
+        <br><b>Lucene:</b>
+        \[ d(\mathbf{x}, \mathbf{y}) = {\mathbf{x} &middot; \mathbf{y}} = \sum_{i=1}^n x_i y_i \]
+    </td>
+    <td>\[ \text{If} d \ge 0, \] \[score = {1 \over 1 + d }\] \[\text{If} d < 0, score = &minus;d + 1\]
+        <br><b>Lucene:</b>
+        \[ \text{If} d > 0, score = d + 1 \] \[\text{If} d \le 0\] \[score = {1 \over 1 + (-1 &middot; d) }\]
+    </td>
   </tr>
 </table>
 
 The cosine similarity formula does not include the `1 -` prefix. However, because similarity search libraries equates
 smaller scores with closer results, they return `1 - cosineSimilarity` for cosine similarity space---that's why `1 -` is
 included in the distance function.
+{: .note }
+
+With cosine similarity, it is not valid to pass a zero vector (`[0, 0, ...]`) as input. This is because the magnitude of
+such a vector is 0, which raises a `divide by 0` exception in the corresponding formula. Requests
+containing the zero vector will be rejected and a corresponding exception will be thrown.
 {: .note }

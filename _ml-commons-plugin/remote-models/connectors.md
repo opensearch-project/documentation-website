@@ -19,7 +19,7 @@ Connectors facilitate access to models hosted on third-party machine learning (M
 OpenSearch provides connectors for several platforms, for example:
 
 - [Amazon SageMaker](https://aws.amazon.com/sagemaker/) allows you to host and manage the lifecycle of text embedding models, powering semantic search queries in OpenSearch. When connected, Amazon SageMaker hosts your models and OpenSearch is used to query inferences. This benefits Amazon SageMaker users who value its functionality, such as model monitoring, serverless hosting, and workflow automation for continuous training and deployment.
-- [OpenAI ChatGPT](https://openai.com/blog/chatgpt) enables you to invoke an OpenAI chat model from inside an OpenSearch cluster.
+- [OpenAI ChatGPT](https://platform.openai.com/docs/introduction) enables you to invoke an OpenAI chat model from inside an OpenSearch cluster.
 - [Cohere](https://cohere.com/) allows you to use data from OpenSearch to power the Cohere large language models.
 - [Amazon Bedrock](https://aws.amazon.com/bedrock/) supports models like [Bedrock Titan Embeddings](https://aws.amazon.com/bedrock/titan/), which can drive semantic search and retrieval-augmented generation in OpenSearch.
 
@@ -214,20 +214,21 @@ The `parameters` section requires the following options when using `aws_sigv4` a
 
 ### Cohere connector
 
-You can use the following example request to create a standalone Cohere connector:
+You can use the following example request to create a standalone Cohere connector using the Embed V3 model. For more information, see [Cohere connector blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/cohere_connector_embedding_blueprint.md). 
 
 ```json
 POST /_plugins/_ml/connectors/_create
 {
-  "name": "<YOUR CONNECTOR NAME>",
-  "description": "<YOUR CONNECTOR DESCRIPTION>",
-  "version": "<YOUR CONNECTOR VERSION>",
+  "name": "Cohere Embed Model",
+  "description": "The connector to Cohere's public embed API",
+  "version": "1",
   "protocol": "http",
   "credential": {
-    "cohere_key": "<YOUR COHERE API KEY HERE>"
+    "cohere_key": "<ENTER_COHERE_API_KEY_HERE>"
   },
   "parameters": {
-    "model": "embed-english-v2.0",
+    "model": "embed-english-v3.0",
+    "input_type":"search_document",
     "truncate": "END"
   },
   "actions": [
@@ -236,9 +237,10 @@ POST /_plugins/_ml/connectors/_create
       "method": "POST",
       "url": "https://api.cohere.ai/v1/embed",
       "headers": {
-        "Authorization": "Bearer ${credential.cohere_key}"
+        "Authorization": "Bearer ${credential.cohere_key}",
+        "Request-Source": "unspecified:opensearch"
       },
-      "request_body": "{ \"texts\": ${parameters.texts}, \"truncate\": \"${parameters.truncate}\", \"model\": \"${parameters.model}\" }", 
+      "request_body": "{ \"texts\": ${parameters.texts}, \"truncate\": \"${parameters.truncate}\", \"model\": \"${parameters.model}\", \"input_type\": \"${parameters.input_type}\" }",
       "pre_process_function": "connector.pre_process.cohere.embedding",
       "post_process_function": "connector.post_process.cohere.embedding"
     }

@@ -6,9 +6,6 @@ nav_order: 10
 
 # Workflow steps
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/flow-framework/issues/475).    
-{: .warning}
-
 _Workflow steps_ form basic "building blocks" for process automation. Most steps directly correspond to OpenSearch or plugin API operations, such as CRUD operations on machine learning (ML) connectors, models, and agents. Some steps simplify the configuration by reusing the body expected by these APIs across multiple steps. For example, once you configure a _tool_, you can use it with multiple _agents_.  
 
 ## Workflow step fields
@@ -28,11 +25,11 @@ The following table lists the workflow step types. The `user_inputs` fields for 
 
 |Step type	|Corresponding API	|Description	|
 |---	|---	|---	|
-|`noop`	|No API	| A no-operation (no-op) step that does nothing. It may be useful in some cases for synchronizing parallel steps.	|
+| `noop` | No API | A no-operation (no-op) step that does nothing, which is useful for synchronizing parallel steps. If the `user_inputs` field contains a `delay` key, this step will wait for the specified amount of time.	|
 |`create_connector`	|[Create Connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/create-connector/)	|Creates a connector to a model hosted on a third-party platform.	|
 |`delete_connector`	|[Delete Connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/delete-connector/)	|Deletes a connector to a model hosted on a third-party platform.	|
 |`register_model_group`	|[Register Model Group]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-group-apis/register-model-group/)	|Registers a model group. The model group will be deleted automatically once no model is present in the group.	|
-|`register_remote_model`	|[Register Model (remote)]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/#register-a-model-hosted-on-a-third-party-platform)	|Registers a model hosted on a third-party platform. If the `user_inputs` field contains a `deploy` key that is set to `true`, also deploys the model.	| 
+|`register_remote_model`	|[Register Model (remote)]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/#register-a-model-hosted-on-a-third-party-platform)	| Registers a model hosted on a third-party platform. If the `user_inputs` field contains a `deploy` key that is set to `true`, the model is also deployed.	| 
 |`register_local_pretrained_model`	|[Register Model (pretrained)]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/#register-a-pretrained-text-embedding-model)	| Registers an OpenSearch-provided pretrained text embedding model that is hosted on your OpenSearch cluster. If the `user_inputs` field contains a `deploy` key that is set to `true`, also deploys the model.	|
 |`register_local_sparse_encoding_model`	|[Register Model (sparse)]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/#register-a-pretrained-sparse-encoding-model)	| Registers an OpenSearch-provided pretrained sparse encoding model that is hosted on your OpenSearch cluster. If the `user_inputs` field contains a `deploy` key that is set to `true`, also deploys the model.	|
 |`register_local_custom_model`	|[Register Model (custom)]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/#register-a-custom-model)	| Registers a custom model that is hosted on your OpenSearch cluster. If the `user_inputs` field contains a `deploy` key that is set to `true`, also deploys the model.		|
@@ -42,16 +39,20 @@ The following table lists the workflow step types. The `user_inputs` fields for 
 |`register_agent`	|[Register Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/)	|Registers an agent as part of the ML Commons Agent Framework.	|
 |`delete_agent`	|[Delete Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/)	|Deletes an agent.	|
 |`create_tool`	|No API	| A special-case non-API step encapsulating the specification of a tool for an agent in the ML Commons Agent Framework. These will be listed as `previous_node_inputs` for the appropriate register agent step, with the value set to `tools`.	|
+|`create_index`|[Create Index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/)     | Creates a new OpenSearch index. The inputs include `index_name`, which should be the name of the index to be created, and `configurations`, which contains the payload body of a regular REST request for creating an index.
+|`create_ingest_pipeline`|[Create Ingest Pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/) | Creates or updates an ingest pipeline. The inputs include `pipeline_id`, which should be the ID of the pipeline, and `configurations`, which contains the payload body of a regular REST request for creating an ingest pipeline.
+|`create_search_pipeline`|[Create Search Pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/creating-search-pipeline/) | Creates or updates a search pipeline. The inputs include `pipeline_id`, which should be the ID of the pipeline, and `configurations`, which contains the payload body of a regular REST request for creating a search pipeline.
 
 ## Additional fields
 
-You can include the following additional fields in the `user_inputs` field when indicated.
+You can include the following additional fields in the `user_inputs` field if the field is supported by the indicated step type.
 
-|Field	|Data type	|Description	|
+|Field	|Data type	| Step type | Description	|
 |---	|---	|---	|
-|`node_timeout`	|Time units	|A user-provided timeout for this step. For example, `20s` for a 20-second timeout.	|
-|`deploy`	|Boolean	|Applicable to the Register Model step type. If set to `true`, also executes the Deploy Model step.	|
-|`tools_order`	|List	|Applicable only to the Register Agent step type. Specifies the ordering of `tools`. For example, specify `["foo_tool", "bar_tool"]` to sequence those tools in that order.	|
+|`node_timeout`	| Time units	| All | A user-provided timeout for this step. For example, `20s` for a 20-second timeout.	|
+|`deploy`	| Boolean	| Register model | If set to `true`, also deploys the model.	|
+|`tools_order`	| List	| Register agent | Specifies the ordering of `tools`. For example, specify `["foo_tool", "bar_tool"]` to sequence those tools in that order.	|
+|`delay`	| Time units	| No-op | Waits for the specified amount of time. For example, `250ms` specifies to wait for 250 milliseconds before continuing the workflow.	|
 
 You can include the following additional fields in the `previous_node_inputs` field when indicated.
 

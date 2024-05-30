@@ -7,9 +7,6 @@ nav_order: 40
 
 # Get a workflow status
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/flow-framework/issues/475).    
-{: .warning}
-
 [Provisioning a workflow]({{site.url}}{{site.baseurl}}/automating-configurations/api/provision-workflow/) may take a significant amount of time, particularly when the action is associated with OpenSearch indexing operations. The Get Workflow State API permits monitoring of the provisioning deployment status until it is complete.
 
 ## Path and HTTP methods
@@ -83,7 +80,8 @@ While provisioning is in progress, OpenSearch returns a partial resource list:
     {
       "workflow_step_name": "create_connector",
       "workflow_step_id": "create_connector_1",
-      "connector_id": "NdjCQYwBLmvn802B0IwE"
+      "resource_type": "connector_id",
+      "resource_id": "NdjCQYwBLmvn802B0IwE"
     }
   ]
 }
@@ -99,12 +97,14 @@ Upon provisioning completion, OpenSearch returns the full resource list:
     {
       "workflow_step_name": "create_connector",
       "workflow_step_id": "create_connector_1",
-      "connector_id": "NdjCQYwBLmvn802B0IwE"
+      "resource_type": "connector_id",
+      "resource_id": "NdjCQYwBLmvn802B0IwE"
     },
     {
       "workflow_step_name": "register_remote_model",
       "workflow_step_id": "register_model_2",
-      "model_id": "N9jCQYwBLmvn802B0oyh"
+      "resource_type": "model_id",
+      "resource_id": "N9jCQYwBLmvn802B0oyh"
     }
   ]
 }

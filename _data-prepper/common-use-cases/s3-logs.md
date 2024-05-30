@@ -2,7 +2,7 @@
 layout: default
 title: S3 logs
 parent: Common use cases
-nav_order: 20
+nav_order: 40
 ---
 
 # S3 logs
