@@ -129,22 +129,22 @@ GET my-knn-index-1/_search
 
 ### The number of returned results
 
-In the preceding query, `k` is the number of neighbors the search of each graph returns. You must also include the `size` option, indicating the final number of results you want the query to return.  
+In the preceding query, `k` represents the number of neighbors returned by the search of each graph. You must also include the `size` option, indicating the final number of results that you want the query to return.  
 
 For NMSLIB and Faiss engines, `k` is the maximum number of documents returned for all segments of a shard. For the Lucene engine, `k` is the number of documents returned for a shard. The maximum value of `k` is 10,000.
 
-For any engine, each shard returns `size` results to the coordinator node. Thus, the total number of results the coordinator node receives is `size * number of shards`. After the coordinator node consolidates the results received from all nodes, the query returns the top `size` results.
+For any engine, each shard returns `size` results to the coordinator node. Thus, the total number of results that the coordinator node receives is `size * number of shards`. After the coordinator node consolidates the results received from all nodes, the query returns the top `size` results.
 
-The following table provides examples of the number of results returned by various engines in several scenarios. For these examples, assume that the number of documents in the segments and shards is sufficient to return the number of results specified in the table.
+The following table provides examples of the number of results returned by various engines in several scenarios. For these examples, assume that the number of documents contained in the segments and shards is sufficient to return the number of results specified in the table.
 
 `size` 	| `k` | Number of primary shards | 	Number of segments per shard | Number of returned results, Faiss/NMSLIB | Number of returned results, Lucene
 10 |	1 |	1 |	4 |	4 | 1
 10 | 10 |	1 |	4 |	10 | 10
 10 |	1 |	2 |	4 |	8 | 2
  
-Faiss/NMSLIB return the number of results different from Lucene only when `k` is smaller than `size`. If `k` and `size` are equal, all engines return the same number of results. 
+The number of results returned by Faiss/NMSLIB differs from the number of results returned by Lucene only when `k` is smaller than `size`. If `k` and `size` are equal, all engines return the same number of results. 
 
-Starting with OpenSearch 2.14, you can use `k`, `min_score`, or `max_distance` for [radial search]({{site.url}}{{site.baseurl}}/search-plugins/knn/radial-search-knn/).
+Starting in OpenSearch 2.14, you can use `k`, `min_score`, or `max_distance` for [radial search]({{site.url}}{{site.baseurl}}/search-plugins/knn/radial-search-knn/).
 
 ### Building a k-NN index from a model
 
