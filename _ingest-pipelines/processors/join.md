@@ -34,7 +34,7 @@ Parameter | Required/Optional | Description |
 `if` | Optional | Specifies to conditionally execute the processor.
 `ignore_failure` | Optional | Specifies to ignore failures for the processor. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
 `on_failure` | Optional | Specifies to handle failures for the processor. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
-`tag` | Optional | Identifier for the processor. Useful for debugging and metrics.
+`tag` | Optional | An identifier for the processor. Useful for debugging and metrics.
 
 ## Using the processor
 
