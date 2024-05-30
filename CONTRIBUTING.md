@@ -81,7 +81,7 @@ This assumes you have Docker installed.
 
 1. Start Jekyll via: `docker run -p 4000:4000 -v $(pwd):/app documentation-website`
 
-Be aware that it takes a while to build the site the first time, eventually you will see ``.
+Be aware that it takes a while to build the site the first time, eventually you will see `Server running... press ctrl-c to stop`.
 
 #### Setting up your local copy of the repository
 
