@@ -38,7 +38,7 @@ You can generate custom certificates in a few different ways. One approach is to
 
 ## 2. Prefer client certificate authentication for API authentication
 
-Client certificate authentication offers a secure alternative to password authentication and is more suitable for machine-to-machine interactions. It also ensures low performance overhead because the authentication occurs at the TLS-level. Nearly all client software, such as curl and client libraries, support this authentication method.
+Client certificate authentication offers a secure alternative to password authentication and is more suitable for machine-to-machine interactions. It also ensures low performance overhead because the authentication occurs on the TLS level. Nearly all client software, such as curl and client libraries, support this authentication method.
 
 For detailed configuration instructions and additional information about client certificate authentication, see [Enabling client certificate authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/client-auth/#enabling-client-certificate-authentication).
 
@@ -64,7 +64,7 @@ For more information about roles, go to the documentation on [defining users and
 
 If you have configured Document Level Security (DLS), Field Level Security (FLS), or field masking, make sure you double-check your role definitions, especially if a user is mapped to multiple roles. It is highly recommended that you test this by making a GET request to `_plugins/_security/authinfo`.
 
-Select on of the following for detailed examples and additional configurations:
+The following resources provide detailed examples and additional configurations:
 
  - [Document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/).
  - [Field-level security]({{site.url}}{{site.baseurl}}/security/access-control/field-level-security/).
@@ -100,7 +100,7 @@ config:
 ```
 {% include copy.html %}
 
-## 8. Manage the configuration using securityadmin.sh
+## 8. Manage the configuration using `securityadmin.sh`
 
 Use `securityadmin.sh` to manage the configuration of your clusters. `securityadmin.sh` is a command-line tool provided by OpenSearch for managing security configurations. It allows administrators to efficiently manage security settings, including roles, role mappings, and other security-related configurations within an OpenSearch cluster.
 
@@ -108,9 +108,9 @@ Using `securityadmin.sh` provides the following benefits:
 
 1. Consistency: By using `securityadmin.sh`, administrators can ensure consistency across security configurations within a cluster. This helps to maintain a standardized and secure environment.
 2. Automation: `securityadmin.sh` enables automation of security configuration tasks, making it easier to deploy and manage security settings across multiple nodes or clusters.
-3. Version control: Security configurations managed through `securityadmin.sh` can be version-controlled using standard version control systems like Git. This facilitates tracking changes, auditing, and reverting to previous configurations.
+3. Version control: Security configurations managed through `securityadmin.sh` can be version controlled using standard version control systems like Git. This facilitates tracking changes, auditing, and reverting to previous configurations.
 
-You can prevent configuration overrides by first creating a backup of the current configuration created using OpenSearch Dashboards UI or the OpenSearch API by running the `securityadmin.sh` tool with `-backup` option. This ensures that all configurations are captured before uploading the modified configuration with `securityadmin.sh`.
+You can prevent configuration overrides by first creating a backup of the current configuration created using the OpenSearch Dashboards UI or the OpenSearch API by running the `securityadmin.sh` tool with the `-backup` option. This ensures that all configurations are captured before uploading the modified configuration with `securityadmin.sh`.
 
 For more detailed information about using `securityadmin.sh` and managing OpenSearch security configurations, refer to the following resources:
 - [Applying changes to configuration files]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/)
@@ -127,7 +127,7 @@ The `kibanaserver` user is a crucial component that allows OpenSearch Dashboards
 
 ## 10. Getting help
 
-If you need additional help with OpenSearch Security, you can use the following resources:
+If you need additional help, you can do the following:
 
 - Create an issue on GitHub at [OpenSearch-project/security](https://github.com/opensearch-project/security/security) or [OpenSearch-project/OpenSearch](https://github.com/opensearch-project/OpenSearch/security).
 - Ask a question on the [OpenSearch forum](https://forum.opensearch.org/tag/cve).
