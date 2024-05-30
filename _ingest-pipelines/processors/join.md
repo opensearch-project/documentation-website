@@ -31,7 +31,7 @@ Parameter | Required/Optional | Description |
 `separator` | Required | A string separator to use when joining field values. If not specified, then the values are concatenated without a separator.
 `target_field` | Optional | The field to assign the cleaned value to. If not specified, then the field is updated in place.
 `description` | Optional | A description of the processor's purpose or configuration.
-`if` | Optional | Conditionally execute the processor.
+`if` | Optional | Specifies to conditionally execute the processor.
 `ignore_failure` | Optional | Ignore failures for the processor. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
 `on_failure` | Optional | Specifies to handle failures for the processor. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
 `tag` | Optional | Identifier for the processor. Useful for debugging and metrics.
