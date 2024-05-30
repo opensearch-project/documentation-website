@@ -138,6 +138,7 @@ For any engine, each shard returns `size` results to the coordinator node. Thus,
 The following table provides examples of the number of results returned by various engines in several scenarios. For these examples, assume that the number of documents contained in the segments and shards is sufficient to return the number of results specified in the table.
 
 `size` 	| `k` | Number of primary shards | 	Number of segments per shard | Number of returned results, Faiss/NMSLIB | Number of returned results, Lucene
+:--- | :--- | :--- | :--- | :--- | :---
 10 |	1 |	1 |	4 |	4 | 1
 10 | 10 |	1 |	4 |	10 | 10
 10 |	1 |	2 |	4 |	8 | 2
