@@ -245,8 +245,8 @@ export async function logEvent(event){
  *********************************************************************************************/
 
 export class UbiEventData {
-  constructor(type, id=null, description=null, details=null) {
-    this.object_type = type;
+  constructor(object_type, id=null, description=null, details=null) {
+    this.object_id_field = object_type;
     this.object_id = id;
     this.description = description;
     this.object_detail = details;
@@ -305,6 +305,18 @@ export class UbiEventAttributes {
           this.browser = window.navigator.userAgent;
         }
 
+        if(!this.hasOwnProperty('page_id')){
+          this.page_id = window.location.pathname;
+        }
+        if(!this.hasOwnProperty('session_id')){
+          this.session_id = getSessionId();
+        }
+
+        if(!this.hasOwnProperty('page_id')){
+          this.page_id = getPageId();
+        }
+
+
         if(!this.hasOwnProperty('position') || this.position == null){
           const trail = getTrail();
           if(trail.length > 0){
@@ -326,8 +338,6 @@ export class UbiEvent {
     this.action_name = action_name;
     this.client_id = getClientId();
     this.query_id = getQueryId();
-    this.session_id = getSessionId();
-    this.page_id = getPageId();
     this.timestamp = Date.now();
 
     this.message_type = message_type;
