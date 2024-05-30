@@ -7,17 +7,17 @@ nav_order: 250
 
 # Sort processor
 
-The `sort` processor is used to <explain what is used to do>.
+The `sort` processor sorts an array of items in either ascending or descending order. The processor takes in a field name (`field`) and a sort order (`order`), and it creates a new field (`target_field`) with the sorted array.
 
 The following is the syntax for the `sort` processor:
 
 ```json
 {
-  "description": "...",
+  "description": "Sort an array of items",
   "processors": [
     {
       "sort": {
-        "field": "my_field",
+        "field": "my_array_field",
         "order": "desc"
       }
     }
@@ -33,13 +33,13 @@ The following table lists the required and optional parameters for the `sort` pr
 | Parameter  | Required/Optional  | Description  |
 |---|---|---|
 `field`  | Required | The field to be sorted.
-`order`  | Optional | The sort order to apply. Accepts `asc` for ascending or `desc` for descending. Default is `asc`.
-`description`  | Optional  | A brief description of the processor.
-`if` | Optional | A condition for running the processor.
-`ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters an error. If set to `true`, failures are ignored. Default is `false`.
-`on_failure` | Optional | A list of processors to run if the processor fails.
+`order`  | Required | The sort order to apply. Accepts `asc` for ascending or `desc` for descending. Default is `asc`.
+`target_field` | Optional | The name of the field where the sorted array is stored. If not specified, the sorted array is stored in the same field as the original array (the `field` variable). 
+`description`  | Optional  | A description of the processor's purpose or configuration.
+`if` | Optional | Specifies to conditionally execute the processor.
+`ignore_failure` | Optional | Specifies to ignore failures for the processor. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
+`on_failure` | Optional | Specifies a list of processors to run if the processor fails during execution. These processors are executed in the order they are specified.
 `tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type.
-
 
 ## Using the processor
 
@@ -52,12 +52,13 @@ The following query creates a pipeline named `sort-pipeline` that uses the `sort
 ```json
 PUT _ingest/pipeline/sort-pipeline
 {
-  "description": "Sorts the 'my_field' in descending order and stores the result in 'sorted_field'",
+  "description": "Sort an array of items in descending order",
   "processors": [
     {
       "sort": {
-        "field": "my_field",
-        "order": "desc"
+        "field": "my_array_field",
+        "order": "desc",
+        "target_field": "sorted_array"
       }
     }
   ]
@@ -78,12 +79,7 @@ POST _ingest/pipeline/sort-pipeline/_simulate
   "docs": [
     {
       "_source": {
-        "my_field": [3, 1, 2]
-      }
-    },
-    {
-      "_source": {
-        "my_field": [5, 2, 3]
+        "my_array_field": [3, 1, 4, 1, 5, 9, 2, 6, 5]
       }
     }
   ]
@@ -103,30 +99,31 @@ The following example response confirms that the pipeline is working as expected
         "_index": "_index",
         "_id": "_id",
         "_source": {
-          "my_field": [
+          "sorted_array": [
+            9,
+            6,
+            5,
+            5,
+            4,
             3,
             2,
+            1,
             1
-          ]
-        },
-        "_ingest": {
-          "timestamp": "2024-05-28T21:12:20.082403005Z"
-        }
-      }
-    },
-    {
-      "doc": {
-        "_index": "_index",
-        "_id": "_id",
-        "_source": {
-          "my_field": [
-            5,
+          ],
+          "my_array_field": [
             3,
-            2
+            1,
+            4,
+            1,
+            5,
+            9,
+            2,
+            6,
+            5
           ]
         },
         "_ingest": {
-          "timestamp": "2024-05-28T21:12:20.082476797Z"
+          "timestamp": "2024-05-30T22:10:13.405692128Z"
         }
       }
     }
@@ -140,21 +137,21 @@ The following example response confirms that the pipeline is working as expected
 The following query ingests a document into an index named `testindex1`:
 
 ```json
-POST testindex1/_doc
+POST testindex1/_doc?pipeline=sort-pipeline
 {
-  "my_field": [5, 2, 3]
+  "my_array_field": [3, 1, 4, 1, 5, 9, 2, 6, 5]
 }
 ```
 {% include copy-curl.html %}
 
 #### Response
 
-The request indexes the document into the index `testindex1` and then indexes all documents with the `my_field` sorted in descending order, as shown in the following response:
+The request indexes the document into the index `testindex1` and then indexes and then indexes all documents with the `my_array_field` sorted in descending order, as shown in the following response:
 
 ```json
 {
   "_index": "testindex1",
-  "_id": "N1kNwY8B_I3uRxx2Y_jy",
+  "_id": "no-Py48BwFahnwl9KZzf",
   "_version": 1,
   "result": "created",
   "_shards": {
@@ -162,8 +159,8 @@ The request indexes the document into the index `testindex1` and then indexes al
     "successful": 1,
     "failed": 0
   },
-  "_seq_no": 1,
-  "_primary_term": 1
+  "_seq_no": 9,
+  "_primary_term": 2
 }
 ```
 {% include copy-curl.html %}
@@ -173,17 +170,7 @@ The request indexes the document into the index `testindex1` and then indexes al
 To retrieve the document, run the following query:
 
 ```json
-GET testindex1/_doc/Aw3456789
+GET testindex1/_doc/no-Py48BwFahnwl9KZzf
 ```
 {% include copy-curl.html %}
 
-#### Response
-
-```json
-{
-  "_index": "testindex1",
-  "_id": "Aw3456789",
-  "found": false
-}
-```
-{% include copy-curl.html %}
