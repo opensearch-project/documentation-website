@@ -7,21 +7,19 @@ nav_order: 170
 
 # JSON processor
 
-The `json` processor is used to parse and extract data from JSON-formatted documents. It can be used to flatten nested JSON structures, rename fields, and perform other transformations on the JSON data.
+The `json` processor serializes a string-valued field into a map of maps, which can be useful for various data processing and enrichment tasks.
 
 The following is the syntax for the `json` processor:
 
 ```json
 {
-  "description": "...",
-  "processors": [
-    {
-      "json": {
-        "field": "message",
-        "add_to_root": true
-      }
+  "processor": {
+    "json": {
+      "field": "<field_name>",
+      "target_field": "<target_field_name>",
+      "add_to_root": <boolean>
     }
-  ]
+  }
 }
 ```
 {% include copy-curl.html %}
@@ -32,13 +30,13 @@ The following table lists the required and optional parameters for the `json` pr
 
 Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
-`field` | Required | The field containing the JSON data to be parsed.
-`target_field` | Optional | The field where the parsed JSON data should be stored. If not specified, the data is stored in the `field` specified. Any existing data in the `target_field` is overwritten.
-`add_to_root` | Optional | If `true`, the parsed JSON data is added to the root of the document. 
-`description` | Optional | A brief description of the processor.
-`if` | Optional | A condition for running the processor.
-`ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters errors. If set to `true`, failures are ignored. Default is `false`.
-`on_failure`| Optional | A list of processors to run if the processor fails.
+`field` | Required | The name of the field containing the JSON-formatted string to be deserialized.
+`target_field` | Optional | The name of the field where the deserialized JSON data will be stored. If this parameter is not provided, the deserialized data is added to the root of the document.
+`add_to_root` | Optional | A boolean flag that determines whether the deserialized JSON data should be added to the root of the document (`true`) or stored in the target_field (`false`). Default value is `false`. 
+`description` | Optional | A description of the processor's purpose or configuration.
+`if` | Optional | Specifies to conditionally execute the processor.
+`ignore_failure` | Optional | Specifies to ignore failures for the processor. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
+`on_failure`| Optional | Specifies a list of processors to run if the processor fails during execution. These processors are executed in the order they are specified. 
 `tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type.
 
 ## Using the processor
