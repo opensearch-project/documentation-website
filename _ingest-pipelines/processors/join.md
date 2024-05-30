@@ -27,7 +27,7 @@ The following table lists the required and optional parameters for the `join` pr
 
 Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
-`field` | Required | The field name where the join operator is applied. Must be an array.
+`field` | Required | The name of the field to which the join operator is applied. Must be an array.
 `separator` | Required | A string separator to use when joining field values. If not specified, the values are concatenated without a separator.
 `target_field` | Optional | The field to assign the cleaned value to. If not specified, field is updated in-place.
 `description` | Optional | Description of the processor's purpose or configuration.
