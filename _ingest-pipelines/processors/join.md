@@ -29,7 +29,7 @@ Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
 `field` | Required | The name of the field to which the join operator is applied. Must be an array.
 `separator` | Required | A string separator to use when joining field values. If not specified, then the values are concatenated without a separator.
-`target_field` | Optional | The field to assign the cleaned value to. If not specified, field is updated in-place.
+`target_field` | Optional | The field to assign the cleaned value to. If not specified, then the field is updated in place.
 `description` | Optional | Description of the processor's purpose or configuration.
 `if` | Optional | Conditionally execute the processor.
 `ignore_failure` | Optional | Ignore failures for the processor. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
