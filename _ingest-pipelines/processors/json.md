@@ -45,17 +45,37 @@ Follow these steps to use the processor in a pipeline.
 
 ### Step 1: Create a pipeline
 
-The following query creates a pipeline named `json-pipeline` that uses the `json` processor to flatten a nested JSON structure in the message field:: 
+The following query creates a pipeline named `my-json-pipeline` that uses the `json` processor to process JSON data and enrich the documents with additional information: 
 
 ```json
-PUT _ingest/pipeline/json-pipeline
+PUT _ingest/pipeline/my-json-pipeline
 {
-  "description": "Flattens nested JSON data in the message field",
+  "description": "Example pipeline using the JsonProcessor",
   "processors": [
     {
       "json": {
-        "field": "message",
-        "add_to_root": true
+        "field": "raw_data",
+        "target_field": "parsed_data",
+        "add_to_root": false,
+        "on_failure": [
+          {
+            "set": {
+              "field": "error_message",
+              "value": "Failed to parse JSON data"
+            }
+          },
+          {
+            "fail": {
+              "message": "Failed to process JSON data"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "set": {
+        "field": "processed_timestamp",
+        "value": "{{_ingest.timestamp}}"
       }
     }
   ]
@@ -71,12 +91,17 @@ It is recommended that you test your pipeline before you ingest documents.
 To test the pipeline, run the following query:
 
 ```json
-POST _ingest/pipeline/json-pipeline/_simulate
+POST _ingest/pipeline/my-json-pipeline/_simulate
 {
   "docs": [
     {
       "_source": {
-        "message": "{\"user\":{\"name\":\"John Doe\",\"age\":32}}"
+        "raw_data": "{\"name\":\"John\",\"age\":30,\"city\":\"New York\"}"
+      }
+    },
+    {
+      "_source": {
+        "raw_data": "{\"name\":\"Jane\",\"age\":25,\"city\":\"Los Angeles\"}"
       }
     }
   ]
@@ -96,14 +121,34 @@ The following example response confirms that the pipeline is working as expected
         "_index": "_index",
         "_id": "_id",
         "_source": {
-          "message": """{"user":{"name":"John Doe","age":32}}""",
-          "user": {
-            "name": "John Doe",
-            "age": 32
+          "processed_timestamp": "2024-05-30T15:24:48.064472090Z",
+          "raw_data": """{"name":"John","age":30,"city":"New York"}""",
+          "parsed_data": {
+            "name": "John",
+            "city": "New York",
+            "age": 30
           }
         },
         "_ingest": {
-          "timestamp": "2024-05-22T18:07:27.269027084Z"
+          "timestamp": "2024-05-30T15:24:48.06447209Z"
+        }
+      }
+    },
+    {
+      "doc": {
+        "_index": "_index",
+        "_id": "_id",
+        "_source": {
+          "processed_timestamp": "2024-05-30T15:24:48.064543006Z",
+          "raw_data": """{"name":"Jane","age":25,"city":"Los Angeles"}""",
+          "parsed_data": {
+            "name": "Jane",
+            "city": "Los Angeles",
+            "age": 25
+          }
+        },
+        "_ingest": {
+          "timestamp": "2024-05-30T15:24:48.064543006Z"
         }
       }
     }
@@ -114,24 +159,24 @@ The following example response confirms that the pipeline is working as expected
 
 ### Step 3: Ingest a document 
 
-The following query ingests a document into an index named `testindex1`:
+The following query ingests a document into an index named `my-index`:
 
 ```json
-PUT testindex1/_doc/1?pipeline=json-pipeline
+POST my-index/_doc?pipeline=my-json-pipeline
 {
-  "message": "{\"user\":{\"name\":\"Jane Smith\",\"age\":28}}"
+  "raw_data": "{\"name\":\"John\",\"age\":30,\"city\":\"New York\"}"
 }
 ```
 {% include copy-curl.html %}
 
 #### Response
 
-The request indexes the document into the index <index name> and will index all documents with the flattened JSON data from the message field..
+This response confirms that the document with the JSON data from the `raw_data` field was successfully indexed:
 
 ```json
 {
-  "_index": "testindex1",
-  "_id": "1",
+  "_index": "my-index",
+  "_id": "mo8yyo8BwFahnwl9WpxG",
   "_version": 1,
   "result": "created",
   "_shards": {
@@ -139,8 +184,8 @@ The request indexes the document into the index <index name> and will index all 
     "successful": 1,
     "failed": 0
   },
-  "_seq_no": 0,
-  "_primary_term": 1
+  "_seq_no": 3,
+  "_primary_term": 2
 }
 ```
 {% include copy-curl.html %}
@@ -150,27 +195,6 @@ The request indexes the document into the index <index name> and will index all 
 To retrieve the document, run the following query:
 
 ```json
-GET testindex1/_doc/1
-```
-{% include copy-curl.html %}
-
-#### Response
-
-```json
-{
-  "_index": "testindex1",
-  "_id": "1",
-  "_version": 1,
-  "_seq_no": 0,
-  "_primary_term": 1,
-  "found": true,
-  "_source": {
-    "message": """{"user":{"name":"Jane Smith","age":28}}""",
-    "user": {
-      "name": "Jane Smith",
-      "age": 28
-    }
-  }
-}
+GET my-index/_doc/1
 ```
 {% include copy-curl.html %}
