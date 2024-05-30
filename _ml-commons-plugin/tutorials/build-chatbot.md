@@ -10,7 +10,7 @@ nav_order: 60
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/ml-commons/issues/1161).    
 {: .warning}
 
-Some questions require more than one call to an large language model (LLM) to produce an answer. For example, an LLM can't answer how many errors there are in your log index for last week because its knowledge base does not contain your proprietary data. You can use an agent to solve such complex problems. The agent can run tools to obtain more information and send the additional information to the LLM as context.
+Sometimes a large language model (LLM) cannot answer a question right away. For example, an LLM can't tell you how many errors there are in your log index for last week because its knowledge base does not contain your proprietary data. In this case, you need to provide additional information to an LLM in a subsequent call. You can use an agent to solve such complex problems. The agent can run tools to obtain more information from configured data sources and send the additional information to the LLM as context.
 
 This tutorial describes how to build your own chatbot in OpenSearch using a `conversational` agent. For more information about agents, see [Agents and tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/).
 
@@ -21,9 +21,9 @@ Replace the placeholders starting with the prefix `your_` with your own values.
 
 Log in to the OpenSearch Dashboards homepage, select **Add sample data**, and add **Sample eCommerce orders** data.
 
-## Step 1: Set up a knowledge base
+## Step 1: Configure a knowledge base
 
-Follow Prerequisite and Step 1 of the [RAG with a conversational flow agent tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/rag-conversational-agent/) to set up the `test_population_data` knowledge base index, which contains US city population data.
+Follow Prerequisite and Step 1 of the [RAG with a conversational flow agent tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/rag-conversational-agent/) to configure the `test_population_data` knowledge base index, which contains US city population data.
 
 Create an ingest pipeline:
 
@@ -93,7 +93,7 @@ POST _bulk
 
 ## Step 2: Prepare an LLM
 
-This tutorial uses the [Bedrock Claude model](https://aws.amazon.com/bedrock/claude/). You can also use other LLMs. For more information, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/).
+This tutorial uses the [Amazon Bedrock Claude model](https://aws.amazon.com/bedrock/claude/). You can also use other LLMs. For more information, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/).
 
 Create a connector for the model:
 
@@ -149,7 +149,7 @@ POST /_plugins/_ml/models/_register
 ```
 {% include copy-curl.html %}
 
-Note the LLM model ID; you'll use it to create an agent.
+Note the LLM model ID; you'll use it in the following steps.
 
 Deploy the model:
 
@@ -302,14 +302,14 @@ Note the agent ID; you'll use it in the next step.
 Note the following testing tips: 
 
 - You can view the detailed steps of an agent execution in one of the following ways:
-   - Enabling verbose mode : `"verbose": true`.
-   - Calling the Get Trace API: `GET _plugins/_ml/memory/message/your_message_id/traces`.
+   - Enable verbose mode: `"verbose": true`.
+   - Call the Get Trace API: `GET _plugins/_ml/memory/message/your_message_id/traces`.
 
-- An LLM may sometimes hallucinate. It may choose a wrong tool to solve your problem, especially when you have configured many tools. You can use these options to avoid hallucinations:
+- An LLM may sometimes hallucinate. It may choose a wrong tool to solve your problem, especially when you have configured many tools. To avoid hallucinations, try the following options:
    - Avoid configuring many tools in an agent.
    - Provide a detailed tool description to clarify what the tool can do. 
-   - Specify the tool to use in the LLM question, for example, `Can you use the PPLTool to query the opensearch_dashboards_sample_data_ecommerce index to calculate how many orders there were during last week?`.
-   - Specify the tool to use when executing an agent. For example, specify to only use the `PPLTool` and `CatIndexTool` in the current request.
+   - Specify the tool to use in the LLM question, for example, `Can you use the PPLTool to query the opensearch_dashboards_sample_data_ecommerce index so it can calculate how many orders were placed last week?`.
+   - Specify the tool to use when executing an agent. For example, specify to only use the `PPLTool` and `CatIndexTool` to process the current request.
 
 Test the agent:
 
@@ -397,7 +397,7 @@ POST _plugins/_ml/agents/your_agent_id/_execute
 ```
 {% include copy-curl.html %}
 
-The response contains detailed execution steps:
+The response contains the execution steps:
 
 ```json
 {
@@ -532,8 +532,8 @@ Assistant:"""
 
 The prompt consists of two parts:
 
-- `${parameters.prompt.prefix}`: Describes what the AI Assistant can do. You can change this parameter based on your use case. For example `You are a professional data analyst. You will always answer questions based on the tool response first. If you don't know the answer, just say you don't know.`
-- `${parameters.prompt.suffix}`: This is the main part that defines the tools, chat history, prompt format instructions, a question, and a scratchpad. 
+- `${parameters.prompt.prefix}`: A prompt prefix that describes what the AI Assistant can do. You can change this parameter based on your use case, for example, `You are a professional data analyst. You will always answer questions based on the tool response first. If you don't know the answer, just say you don't know.`
+- `${parameters.prompt.suffix}`: The main part of the prompt that defines the tools, chat history, prompt format instructions, a question, and a scratchpad. 
 
 The default `prompt.suffix` is the following:
 
@@ -564,7 +564,7 @@ The `prompt.suffix` consists of the following placeholders:
 - `${parameters.tool_descriptions}`: This placeholder will be filled with the agent's tool information: the tool name and description. If you omit this placeholder, the agent will not use any tools.
 - `${parameters.prompt.format_instruction}`: This placeholder defines the LLM response format. This placeholder is critical and we recommend not removing it.
 - `${parameters.chat_history}`: This placeholder will be filled with the message history of the current memory. If you don't set the `memory_id` when you run the agent, or there are no history messages, this placeholder will be empty. If you don't need chat history, you can remove this placeholder.
-- `${parameters.question}`: This placeholder will be filled with your question.
+- `${parameters.question}`: This placeholder will be filled with the user question.
 - `${parameters.scratchpad}`: This placeholder will be filled with the detailed steps in agent execution. These steps are the same as those you can view by specifying verbose mode or obtaining trace data (see an example in [Test the agent](#test-the-agent)). This placeholder is critical for the LLM to reason and select the next step based on the outcome of the previous steps. We recommend not removing this placeholder.
 
 ### Custom prompt examples
@@ -888,7 +888,7 @@ POST /_plugins/_ml/agents/_register
 
 Note the root chatbot agent ID, then log in to your OpenSearch server, go to the OpenSearch config folder (`$OS_HOME/config`), and run the following command:
 
-```json
+```bashx
  curl -k --cert ./kirk.pem --key ./kirk-key.pem -X PUT https://localhost:9200/.plugins-ml-config/_doc/os_chat -H 'Content-Type: application/json' -d'
  {
    "type":"os_chat_root_agent",
