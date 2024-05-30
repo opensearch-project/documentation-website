@@ -7,7 +7,7 @@ nav_order: 240
 
 # Set processor
 
-The `set` processor adds or updates fields in the source document. It sets one field and associates it with the specified value. If the field already exists, its value is replaced with the provided one.
+The `set` processor adds or updates fields in a document. It sets one field and associates it with the specified value. If the field already exists, its value is replaced with the provided one.
 
 The following is the syntax for the `set` processor:
 
@@ -32,13 +32,14 @@ The following table lists the required and optional parameters for the `set` pro
 
 Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
-`field` | Required | The field to be set or updated. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets).
+`field` | Required | The name of the field to be set or updated. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets).
 `value` | Required | The value to be assigned to the field. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets).
-`description`  | Optional  | A brief description of the processor.
-`if` | Optional | A condition for running the processor.
-`ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters errors. If set to `true`, failures are ignored. Default is `false`.
-`on_failure` | Optional | A list of processors to run if the processor fails. Refer to [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
-`override` | Optional | If `true`, the processor updates fields with pre-existing non-null-valued fields. When set to `false`, such fields are not touched. Default is `true`.
+`overrideEnabled` | Optional | A Boolean flag that determines whether the processor should override the exisitng value of the field.
+`ignoreEmptyValue` | Optional | A Boolean flag that determines whether the processor should ignore empty values.
+`description`  | Optional  | A description of the processor's purpose or configuration.
+`if` | Optional | Specifies to conditionally execute the processor.
+`ignore_failure` | Optional | Specifies to ignore failures for the processor. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
+`on_failure` | Optional | Specifies a list of processors to run if the processor fails during execution. These processors are executed in the order they are specified.
 `tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type.
 
 ## Using the processor
@@ -102,7 +103,7 @@ The following example response confirms that the pipeline is working as expected
           "new_field": "some_value"
         },
         "_ingest": {
-          "timestamp": "2024-05-28T20:46:44.984160378Z"
+          "timestamp": "2024-05-30T21:56:15.066180712Z"
         }
       }
     }
@@ -130,7 +131,7 @@ The request indexes the document into the index `testindex1` and then indexes al
 ```json
 {
   "_index": "testindex1",
-  "_id": "Nln2wI8B_I3uRxx2fPjH",
+  "_id": "1",
   "_version": 1,
   "result": "created",
   "_shards": {
@@ -149,16 +150,6 @@ The request indexes the document into the index `testindex1` and then indexes al
 To retrieve the document, run the following query:
 
 ```json
-GET testindex1/_doc/Aw3456789
+GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
-
-```json
-{
-  "_index": "testindex1",
-  "_id": "Aw3456789",
-  "found": false
-}
-```
-{% include copy-curl.html %}
-
