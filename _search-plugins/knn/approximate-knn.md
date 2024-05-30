@@ -131,7 +131,7 @@ GET my-knn-index-1/_search
 
 In the preceding query, `k` represents the number of neighbors returned by the search of each graph. You must also include the `size` option, indicating the final number of results that you want the query to return.  
 
-For NMSLIB and Faiss engines, `k` is the maximum number of documents returned for all segments of a shard. For the Lucene engine, `k` is the number of documents returned for a shard. The maximum value of `k` is 10,000.
+For the NMSLIB and Faiss engines, `k` represents the maximum number of documents returned for all segments of a shard. For the Lucene engine, `k` represents the number of documents returned for a shard. The maximum value of `k` is 10,000.
 
 For any engine, each shard returns `size` results to the coordinator node. Thus, the total number of results that the coordinator node receives is `size * number of shards`. After the coordinator node consolidates the results received from all nodes, the query returns the top `size` results.
 
