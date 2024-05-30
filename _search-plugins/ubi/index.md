@@ -29,7 +29,7 @@ TODO: link a client implementation [here](#TODO-clients-link)
 
 | Explanation & Reference | Description
 | :--------- | :------- |
-| [UBI Request/Response Specification](https://github.com/o19s/ubi/) **References UBI Draft Specification X.Y.Z**  | Schema standard for making UBI requests and responses  |
+| [UBI Request/Response Specification](https://github.com/o19s/ubi/) <br/> **References UBI Draft Specification X.Y.Z**  | Schema standard for making UBI requests and responses  |
 | [UBI OpenSearch Schema Documentation]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/) | Documentation on the individual Query and Event stores for OpenSearch |
 | [`query_id` Data Flow]({{site.url}}{{site.baseurl}}/search-plugins/ubi/query_id/) | How the `query_id` ties the search to results and user events |
 

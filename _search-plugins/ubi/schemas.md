@@ -7,22 +7,28 @@ nav_order: 7
 ---
 
 # Key User Behavior Insights concepts
-**User Behavior Insights** (UBI) **Logging** is really a matter of linking and indexing queries, results and events within OpenSearch.
+**User Behavior Insights** (UBI) **Logging** is really a matter of linking and indexing queries, results to user interactions (events) with your application.
 ## Key ID's
-UBI is not functional unless the links between the following are consistently maintained within your UBI-enabled application:
+UBI is not functional unless the links between the following fields are consistently maintained within your UBI-enabled application:
 
-- [`client_id`](#client_id) represents a unique user and their client application.  
+- [`client_id`](#client_id) represents a unique user with their client application.  
 - [`object_id`](#object_id) represents an id for whatever item the user is searching for, such as `epc`, `isbn`, `ssn`, `handle`.
-- [`object_id_field`](#object_id) the type of `object_id`, i.e. the actual labels: "epc", "isbn", "ssn", or "handle".
-- [`query_id`](#query_id) is a unique id for the raw query language executed and the resultant `object_id`'s that the query returned.   
-- [`action_name`](#action_name), though not technically an *id*, the `action_name` tells us what exact action (such as `click` or `add_to_cart`, `watch`, `view`, `purchase`) was taken (or not) with this `object_id`.
+- [`object_id_field`](#object_id) tells us the type of `object_id`, i.e. the actual labels: "epc", "isbn", "ssn", or "handle" for each `object_id`.
+- [`query_id`](#query_id) is a unique id for the raw query language executed and the resultant `object_id`'s (_hits_) that the query returned.   
+- [`action_name`](#action_name), though not technically an *id*, the `action_name` tells us what exact user action (such as `click` or `add_to_cart`, `watch`, `view`, `purchase`) that was taken (or not) with a given `object_id`.
 
 To summarize: the `query_id` signals the beginning of a `client_id`'s *Search Journey* every time a user queries the search index, the `action_name` tells us how the user is interacting with the query results within the application, and [`event_attributes.object.object_id`](#object_id) is referring to the precise query result that the user interacts with.
 
-## UBI roles
+{% comment %}
+### *************************
+# TODO: rework this section with new parameter passing framework
+### *************************
+{% endcomment %}
+
+## Important UBI roles
 - **Search Client**: in charge of searching, and then recieving *objects* from some document index in OpenSearch.
  (1, 2, *5* and 7, in following sections)
-- **User Behavior Insights** module: once activated, manages the **UBI Queries** store in the background, indexing each underlying, technical, DSL, index query with a unique [`query_id`](#query_id) along with all returned resultant [`object_id`](#object_id)'s, and then passing the `query_id` back to the **Search Client** so that events can be linked to this query.
+- **User Behavior Insights** plugin: if activated in the `ext.ubi` stanza of the search request, manages the **UBI Queries** store in the background, indexing each underlying, technical, DSL, index query with a unique [`query_id`](#query_id) along with all returned resultant [`object_id`](#object_id)'s, and then passing the `query_id` back to the **Search Client** so that events can be linked to this query.
   (3, 4 and *5*, in following sections)
 - **objects**: are whatever items the user is searching for with the queries. Activating UBI involves mapping your real-world objects (using it's `isbn`, `ssn`) to the [`object_id`](#object_id) fields in the schemas.
 - The **Search Client**, if separate from the **UBI Client**, forwards the indexed [`query_id`](#query_id) to the **UBI Client**.
@@ -144,14 +150,14 @@ Since this schema is dynamic, the developer can add any new fields and structure
 - `action_name` 
   <p id="action_name">
 	
-  &ensp; (size 100) - any name you want to call your event.  For example, with *JavaScript* events, you could include  `on_click`, `logon`, `add_to_cart`, `page_scroll`....   _This should be formalized.  A list of standard ones and then custom ones._   
+  &ensp; (size 100) - any name you want to call your event such as `click`, `watch`, `purchase`, and `add_to_cart`, but one could map these to any common *JavaScript* events, or debugging events.
+_TODO: How to formalize?  A list of standard ones and then custom ones._   
 
 - `query_id`  
   <p id="query_id">
 
-	&ensp;  (size 100) - ID for some query.  Either the client provides this, or the `query_id` is generated at index time by **UBI Queries**.
+	&ensp;  (size 100) - ID for some query.  Either the client provides this, or the `query_id` is generated at index time by the **UBI Plugin**.
   
-	&ensp; (size 100) - are id's largely at the calling client's discretion for tracking users, sessions and sources (i.e. pages) of the event.  
 	The `client_id` must be consistent in both the **UBI Queries** and **UBI Events** stores.
 
 - `timestamp`: 
@@ -159,16 +165,18 @@ Since this schema is dynamic, the developer can add any new fields and structure
 
 - `message_type`  
   
-	&ensp; (size 100) - originally thought of in terms of ERROR, INFO, WARN, but could be anything useful such as `QUERY` or `CONVERSION`.  
+	&ensp; (size 100) - originally thought of in terms of ERROR, INFO, WARN, but could be anything else useful such as `QUERY` or `CONVERSION`.  
 	Can be used to group `action_name` together in logical bins.   _Thinking this should be backend logic in analysis_
 
 - `message`  
   
 	&ensp; (size 256) - optional text message for the log entry.  For example, with a `message_type` of `INFO`, people might expect an informational or debug type text for this field, but a `message_type` of `QUERY`, we would expect the text to be more about what the user is searching on.
 
+{: .warning}  `event_attributes` has dynamic mapping, meaning if events are indexed with many custom fields, the index could bloat quickly with many new fields.
 
-- `event_attributes`'s structure is where any relevant information about the event can be stored.   
-  There are two primary structures in the `event_attributes`:
+- `event_attributes`'s structure that describes any important context about the event.  Within it, it has 2 primary structures `position` and `object`, as well as being extensible to add anymore relevant, custom, information about the event can be stored such as timing informaiton, individual user or session information, etc.   
+
+  The two primary structures in the `event_attributes`:
   - **`event_attributes.position`** - structure that contains information on the location of the event origin, such as screen *x,y* coordinates, or the *n-th* object out of 10 results, ....
   
       - `event_attributes.position.ordinal`  
@@ -201,26 +209,17 @@ Since this schema is dynamic, the developer can add any new fields and structure
         &ensp; is the id that a user could look up amd find the object instance within the **document corpus**.  Examples include: `ssn`, `isbn`, `ean`.   Variants need to be incorporated in the `object_id`, so for a t-shirt that is red, you would need SKU level as the `object_id`.
         Initializing UBI requires mapping from the **Document Index**'s primary key to this `object_id`
 
-      - `event_attributes.object.object_type`
+      - `event_attributes.object.object_id_field`
       
-    	&ensp; indicates the type/class of object.   
+    	&ensp; indicates the type/class of object _and_ the ID field of the search index.   
 
       - `event_attributes.object.description`  
       
     	&ensp; optional description of the object
       
-      - `event_attributes.object.transaction_id`  
-      
-    	&ensp; optionally points to a unique id representing a successful transaction
-      
-      - `event_attributes.object.to_client_id`  
-    	
-    	&ensp; optionally points to another user, if they are the recipient of this object, perhaps as a gift, from the user's `client_id`
+
       - `event_attributes.object.object_detail` 
     	
     	&ensp; optional text for further data object details
-    	 
-    	  - `event_attributes.object.object_detail.json`  
-      
-    	&ensp; if the user has a JSON object representing what was acted upon, it can be stored here; however, note that could lead to index bloat if the JSON objects are large.
-- *extensible fields*: any new fields by any other names in the JSON objects that one indexes will dynamically expand this schema to that use-case.
+    	     	
+      - *extensible fields*: any new fields by any other names in the `object` that one indexes will dynamically expand this schema to that use-case.
