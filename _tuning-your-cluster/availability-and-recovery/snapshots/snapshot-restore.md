@@ -449,6 +449,8 @@ We recommend ceasing write requests to a cluster before restoring from a snapsho
 
 Snapshots are only forward-compatible by one major version. If you have an old snapshot, you can sometimes restore it into an intermediate cluster, reindex all indexes, take a new snapshot, and repeat until you arrive at your desired version, but you might find it easier to just manually index your data in the new cluster.
 
+Older-version snapshots and the repositories that contain them continue to be compatible with older versions of OpenSearch. If you have a repository containing snapshots taken by an old version, you then upgrade to another version and snapshots are taken after that as well. The old snapshots can be restored to a new cluster running the same version.
+
 ## Security considerations
 
 If you're using the Security plugin, snapshots have some additional restrictions:
