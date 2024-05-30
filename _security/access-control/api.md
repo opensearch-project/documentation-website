@@ -830,7 +830,7 @@ PATCH _plugins/_security/api/roles
 ```
 {% include copy-curl.html %}
 
-You can use `-` to insert new permission to the end of the array of permissions.
+You can use `-` to insert a new permission to the end of the array of permissions.
 {: .note}
 
 #### Example response
