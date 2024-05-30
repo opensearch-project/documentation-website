@@ -7,7 +7,7 @@ nav_order: 40
 
 # Retrieval-augmented generation chatbot with a conversational flow agent
 
-This tutorial explains how to use a conversational flow agent to build a retrieval-augmented generation (RAG) application by using your OpenSearch data as knowledge base.
+This tutorial explains how to use a conversational flow agent to build a retrieval-augmented generation (RAG) application with your OpenSearch data as a knowledge base.
 
 Replace the placeholders starting with the prefix `your_` with your own values.
 {: .note}
@@ -16,7 +16,7 @@ An alternative way to build RAG conversational search is to use a RAG pipeline. 
 
 ## Prerequisite
 
-In this tutorial, you'll build a RAG application, which provides an OpenSearch [k-NN index]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/) as knowledge base for a large language model (LLM). For searching data, you'll use [semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/). For a comprehensive semantic search tutorial, see [Neural search tutorial]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/).
+In this tutorial, you'll build a RAG application, which provides an OpenSearch [k-NN index]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/) as a knowledge base for a large language model (LLM). For data retrieval, you'll use [semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/). For a comprehensive semantic search tutorial, see [Neural search tutorial]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/).
 
 First, you'll need to update cluster settings. If you don't have a dedicated ML node, set `"plugins.ml_commons.only_run_on_ml_node": false`. To avoid triggering a native memory circuit breaker, set `"plugins.ml_commons.native_memory_threshold"` to 100%:
 
@@ -50,7 +50,7 @@ POST /_plugins/_ml/models/_register
 ```
 {% include copy-curl.html %}
 
-Note the text embedding model ID; you will use it in the following steps.
+Note the text embedding model ID; you'll use it in the following steps.
 
 As an alternative, you can get the model ID by calling the [Get Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
 
@@ -82,7 +82,7 @@ For more information about using models within your OpenSearch cluster, see [Pre
 
 ### Step 1.2: Create an ingest pipeline
 
-Create an ingest pipeline with a text embedding processor, which can invoke the model created in Step 1.1 to translate text fields to embeddings:
+Create an ingest pipeline with a text embedding processor, which can invoke the model created in Step 1.1 to generate embeddings from text fields:
 
 ```json
 PUT /_ingest/pipeline/test_population_data_pipeline
@@ -133,7 +133,7 @@ PUT test_population_data
 ```
 {% include copy-curl.html %}
 
-For more information, see [k-NN index]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/).
+For more information about a k-NN index, see [k-NN index]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/).
 
 ### Step 1.4: Ingest data
 
@@ -200,7 +200,7 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-Note the connector ID ; you'll use it to register the model.
+Note the connector ID; you'll use it to register the model.
 
 ### Step 2.2: Register a model
 
@@ -217,7 +217,7 @@ POST /_plugins/_ml/models/_register
 ```
 {% include copy-curl.html %}
 
-Note the model ID for the LLM; you'll use it in the following steps.
+Note the LLM model ID; you'll use it in the following steps.
 
 ### Step 2.3: Deploy the model
 
@@ -301,7 +301,7 @@ OpenSearch responds with an agent ID:
 }
 ```
 
-Note the agent ID; you will use it in the next step. 
+Note the agent ID; you'll use it in the next step. 
 
 ## Step 4: Execute the agent
 
@@ -386,7 +386,7 @@ GET /_plugins/_ml/memory/message/gg75lI0BHcHmo_cz2acZ/traces
 
 To continue the same conversation, provide its memory ID from Step 4.1.
 
-You can provide the following parameters:
+Additionally, you can provide the following parameters:
 
 - `message_history_limit`: Specify how many historical messages you want included in the new question/answer round for an agent.
 - `prompt`: Use this parameter to customize the LLM prompt. For example, the following example adds a new instruction `always learn useful information from chat history` 
@@ -434,7 +434,7 @@ The response contains the LLM answer:
 }
 ```
 
-If you know which tool the agent should use to execute a particular Predict API request, you specify the tool when executing the agent. For example, if you want to translate the preceding answer into Chinese, you don't need to retrieve any data from the knowledge base. To only run the Claude model, specify the `bedrock_claude_model` tool in the `selected_tools` parameter.
+If you know which tool the agent should use to execute a particular Predict API request, you can specify the tool when executing the agent. For example, if you want to translate the preceding answer into Chinese, you don't need to retrieve any data from the knowledge base. To only run the Claude model, specify the `bedrock_claude_model` tool in the `selected_tools` parameter:
 
 ```json
 POST /_plugins/_ml/agents/your_agent_id/_execute
@@ -452,7 +452,7 @@ The agent will run the tools sequentially in the new order defined in `selected_
 
 ## Configuring multiple knowledge bases
 
-You can configure multiple knowledge bases for an agent. For example, if you have product description and comments data, you can configure the agent with the following two tools:
+You can configure multiple knowledge bases for an agent. For example, if you have both product description and comment data, you can configure the agent with the following two tools:
 
 ```json
 {
@@ -503,7 +503,7 @@ You can configure multiple knowledge bases for an agent. For example, if you hav
 ```
 {% include copy-curl.html %}
 
-When you run the agent, the agent will query product description and comments data and then send the query results and the question to the LLM.
+When you run the agent, the agent will query product description and comment data and then send the query results and the question to the LLM.
 
 To query a specific knowledge base, specify it in `selected_tools`. For example, if the question only relates to product comments, you can retrieve information only from `product_comments_vectordb`:
 
@@ -520,7 +520,7 @@ POST /_plugins/_ml/agents/your_agent_id/_execute
 
 ## Running queries on an index
 
-Use `SearchIndexTool` to run any OpenSearch query on any index.
+Use a `SearchIndexTool` to run any OpenSearch query on any index.
 
 ### Setup: Register an agent
 
@@ -692,7 +692,7 @@ PUT /_search/pipeline/nlp-search-pipeline
 ```
 {% include copy-curl.html %}
 
-Run an agent with hybrid search:
+Run an agent with a hybrid query:
 
 ```json
 POST /_plugins/_ml/agents/your_agent_id/_execute
@@ -755,7 +755,7 @@ The `PPLTool` has the following parameters:
 - `execute` (Boolean): If `true`, executes the generated PPL query.
 - `input` (String): You must provide the `index` and `question` as input.
 
-For this tutorial, you'll use Bedrock Claude, so set `model_type` to `CLAUDE`:
+For this tutorial, you'll use Bedrock Claude, so set the `model_type` to `CLAUDE`:
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -805,7 +805,7 @@ POST /_plugins/_ml/agents/your_agent_id/_execute
 ```
 {% include copy-curl.html %}
 
-The response contains the answer:
+The response contains the LLM answer:
 
 ```json
 {

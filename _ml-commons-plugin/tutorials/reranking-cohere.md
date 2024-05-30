@@ -165,7 +165,7 @@ POST _bulk
 
 ### Step 2.2: Create a reranking pipeline
 
-Create a reranking pipeline for reranking using the Cohere Rerank model:
+Create a reranking pipeline with the Cohere Rerank model:
 
 ```json
 PUT /_search/pipeline/rerank_pipeline_cohere
@@ -189,7 +189,7 @@ PUT /_search/pipeline/rerank_pipeline_cohere
 
 ### Step 2.3: Test the reranking
 
-To limit the number of returned results, you can specify the `size` parameter. For example, set `"size": 2` if you want to return top 2 documents:
+To limit the number of returned results, you can specify the `size` parameter. For example, set `"size": 2` to return the top 2 documents:
 
 ```json
 GET my-test-data/_search?search_pipeline=rerank_pipeline_cohere

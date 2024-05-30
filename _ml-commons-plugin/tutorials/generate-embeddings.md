@@ -91,7 +91,7 @@ PUT my_books
 
 ### Step 2.2: Create an ingest pipeline
 
-Then create a sub-pipeline to generate an embedding for one array element.
+Then create an inner pipeline to generate an embedding for one array element.
 
 This pipeline contains three processors:
 
@@ -129,7 +129,7 @@ PUT _ingest/pipeline/bedrock_embedding_pipeline
 ```
 {% include copy-curl.html %}
 
-Create an ingest pipeline with a `foreach` processor that will apply the previous pipeline to each element of the `books` array:
+Create an ingest pipeline with a `foreach` processor that will apply the `bedrock_embedding_pipeline` to each element of the `books` array:
 
 ```json
 PUT _ingest/pipeline/bedrock_embedding_foreach_pipeline
@@ -181,7 +181,7 @@ POST _ingest/pipeline/bedrock_embedding_foreach_pipeline/_simulate
 ```
 {% include copy-curl.html %}
 
-The response contains generated embeddings for both objects in the `title_embedding` fields:
+The response contains generated embeddings for both objects in their `title_embedding` fields:
 
 ```json
 {

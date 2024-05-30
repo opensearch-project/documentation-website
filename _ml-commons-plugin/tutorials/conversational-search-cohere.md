@@ -7,7 +7,7 @@ nav_order: 20
 
 # Conversational search using the Cohere Command model
 
-This tutorial illustrates using conversational search with the Cohere Command model. For more information, see [Conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/).
+This tutorial illustrates configuring conversational search using the Cohere Command model. For more information, see [Conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/).
 
 Replace the placeholders starting with the prefix `your_` with your own values.
 {: .note}
@@ -38,10 +38,10 @@ POST _bulk
 ## Step 1: Create a connector and register a model
 
 Conversational search only supports [OpenAI](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/open_ai_connector_chat_blueprint.md) 
-and [Bedrock Claude](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_anthropic_claude_blueprint.md) input/output style.
+and [Amazon Bedrock Claude](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_anthropic_claude_blueprint.md) input/output style.
 {: .important}
 
-This tutorial follows the Bedrock Claude model input/output style by:
+This tutorial follows the Amazon Bedrock Claude model input/output style by:
 - Mapping the Cohere Command `message` input parameter to the `inputs`  parameter in order to match the Cohere Claude model input style.
 - Using a post-processing function to transform the Cohere Command model output to the Claude model output style.
 
@@ -84,7 +84,7 @@ Starting with OpenSearch 2.12, you can use the default `escape` function in the 
 ```
 {% include copy-curl.html %}
 
-Note the connector ID; you will use it to create the model.
+Note the connector ID; you'll use it to register the model.
 
 Register the Cohere Command model:
 

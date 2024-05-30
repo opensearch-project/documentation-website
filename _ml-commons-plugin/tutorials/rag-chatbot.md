@@ -18,11 +18,11 @@ Replace the placeholders starting with the prefix `your_` with your own values.
 
 Follow Prerequisite and Step 1 of the [RAG with a conversational flow agent tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/rag-conversational-agent/) to set up the `test_population_data` knowledge base index, which contains US city population data.
 
-Note the embedding model ID, which you'll use in the next steps. 
+Note the embedding model ID, you'll use it in the next steps. 
 
 ## Step 1: Set up a knowledge base
 
-Create an ingest pipeline:
+First, create an ingest pipeline:
 
 ```json
 PUT /_ingest/pipeline/test_tech_news_pipeline
@@ -42,7 +42,7 @@ PUT /_ingest/pipeline/test_tech_news_pipeline
 ```
 {% include copy-curl.html %}
 
-Next, create another index named `test_tech_news`, which contains recent tech news:
+Next, create an index named `test_tech_news`, which contains recent tech news:
 
 ```json
 PUT test_tech_news
@@ -84,9 +84,9 @@ POST _bulk
 
 ## Step 2: Prepare an LLM
 
-Follow [Step 2 of the RAG with a conversational flow agent tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/rag-conversational-agent/#step-2-prepare-an-llm) to configure the Bedrock Claude model.
+Follow [Step 2 of the RAG with a conversational flow agent tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/rag-conversational-agent/#step-2-prepare-an-llm) to configure the Amazon Bedrock Claude model.
 
-Note the model ID, you will use it in following steps.
+Note the model ID, you'll use it in the following steps.
 
 ## Step 3: Create an agent
 
@@ -99,13 +99,13 @@ The `conversational_flow` and `conversational` agents differ in the following wa
 - A `conversational_flow` agent runs tools sequentially, in a predefined order.
 - A `conversational` agent dynamically chooses which tool to run next.
 
-In this tutorial, the agent includes two tools: one provides the recent population data and the other contains tech news.
+In this tutorial, the agent includes two tools: one provides recent population data and the other contains tech news.
 
-The agent contains the following parameters:
+The agent has the following parameters:
 
-- `"max_iteration": 5`: Agent runs the LLM a maximum of 5 times.
-- `"response_filter": "$.completion"` Needed to retrieve the LLM answer from the Bedrock Claude model response.
-- `"doc_size": 3` (in `population_data_knowledge_base`) specifies to return the top 3 documents.
+- `"max_iteration": 5`: The agent runs the LLM a maximum of 5 times.
+- `"response_filter": "$.completion"`: Needed to retrieve the LLM answer from the Amazon Bedrock Claude model response.
+- `"doc_size": 3` (in `population_data_knowledge_base`): Specifies to return the top 3 documents.
 
 Create an agent with the preceding specifications:
 
@@ -297,7 +297,7 @@ To continue a previous conversation, provide its conversation ID in the `memory_
 POST _plugins/_ml/agents/your_agent_id/_execute
 {
   "parameters": {
-    "question": "What's the population of Austin 2023, compare with Seattle",
+    "question": "What's the population of Austin 2023, compared with Seattle",
     "memory_id": "l7VUxI0B8vrNLhb9sRuQ",
     "verbose": true
   }
@@ -305,7 +305,7 @@ POST _plugins/_ml/agents/your_agent_id/_execute
 ```
 {% include copy-curl.html %}
 
-In the response, note that the `population_data_knowledge_base` doesn't return the population of Seattle. Instead, the agent learns the population of Seattle from the historical messages:
+In the response, note that the `population_data_knowledge_base` doesn't return the population of Seattle. Instead, the agent learns the population of Seattle from historical messages:
 
 ```json
 {
