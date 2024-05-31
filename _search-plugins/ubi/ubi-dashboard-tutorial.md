@@ -17,12 +17,12 @@ Depending on your configuration: http://localhost:5601/app/home#/
 ## 2) Create an index pattern
 http://localhost:5601/app/management/opensearch-dashboards/indexPatterns
 ![Index Patterns]({{site.url}}{{site.baseurl}}/images/ubi/index_pattern1.png "Index Patterns")
-Index patterns are how OpenSearch dashboards access your indexes. In this case, we want to access the *hidden* indexes that UBI creates, so that we can visualize your users' online, search behaviors.
+Index patterns are how OpenSearch dashboards access your indexes. In this case, we want to access the indexes that UBI creates, so that we can visualize your users' online, search behaviors.
 
-After you click on "Create index pattern" you'll see a list of indexes in your OpenSearch instance. The UBI stores are hidden by default; so, be sure to click on "Include system and hidden indexes". 
+After you click on "Create index pattern" you'll see a list of indexes in your OpenSearch instance. The UBI stores may be hidden by default; so, be sure to click on "Include system and hidden indexes". 
 ![Index Patterns]({{site.url}}{{site.baseurl}}/images/ubi/index_pattern2.png "Index Patterns")
 
-With wildcards you can group indexes into the same data source for your dashboard. Assuming the name of your UBI is `chorus`, we'll lump both the query and event stores together as `ubi_chorus*`.
+With wildcards you can group indexes into the same data source for your dashboard. So we'll lump both the query and event stores together as `ubi_*`.
 
 It will prompt you to filter on any `date` field in your schema, so that you can look at things like trending queries over the last 15 minutes. However, for your first dashboard, do not filter on any date field. 
 <img src="{{site.url}}{{site.baseurl}}/images/ubi/index_pattern3.png" alt="Index Patterns" width="400"/>
