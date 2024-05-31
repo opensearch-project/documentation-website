@@ -11,7 +11,7 @@ redirect_from:
 
 You can ingest, process, and analyze data from multiple data sources in OpenSearch Dashboards. You configure the data sources in the **Dashboards Management** > **Data sources** app, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/data-sources-management.png" alt="Dashboards Management Data sources main screen" width="700">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/data_sources_management.png" alt="Dashboards Management Data sources main screen" width="700">
 
 ## Getting started
 
@@ -26,7 +26,7 @@ To use multiple data sources, you must enable the `data_source.enabled` setting.
 3. Restart the OpenSearch Dashboards container.
 4. Verify that the configuration settings were configured properly by connecting to OpenSearch Dashboards and viewing the **Dashboards Management** navigation menu. **Data sources** appears in the sidebar. You'll see a view similar to the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/multidatasources.png" alt="Data sources in sidebar within Dashboards Management" width="700">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/data_sources_management.png" alt="Data sources in sidebar within Dashboards Management" width="700">
 
 ### Step 2: Create a new data source connection
 
@@ -38,7 +38,7 @@ To create a new data source connection:
  
 2. Add the required information to each field to configure the **Connection Details** and **Authentication Method**.
 
-    - Under **Connection Details**, enter a title and endpoint URL. For this tutorial, use the URL `http://localhost:5601/app/management/opensearch-dashboards/dataSources`. Entering a description is optional.
+    - Under **Connection Details**, enter a title and endpoint URL. For this tutorial, use the URL `https://localhost:9200/`. Entering a description is optional.
 
     - Under **Authentication Method**, select an authentication method from the dropdown list. Once an authentication method is selected, the applicable fields for that method appear. You can then enter the required details. The authentication method options are:
         - **No authentication**: No authentication is used to connect to the data source.
@@ -51,11 +51,13 @@ To create a new data source connection:
 
     - After you have entered the appropriate details in all of the required fields, the **Test connection** and **Create data source** buttons become active. You can select **Test connection** to confirm that the connection is valid.
 
-3. Select **Create data source** to save your settings. The connection is created. The active window returns to the **Data Sources** main page, and the new connection appears in the list of data sources.
+3. Select **Create data source** to save your settings. The connection is created, and the new data source appears in the list on the **Data Sources** main page. The first data source you create is marked as your default. 
 
 4. Edit or update a data source connection.
 
-    - To make changes to the data source connection, select a connection in the list on the **Data Sources** main page. The **Connection Details** window opens.
+    - On the **Data Sources** main page, select the connection you want to modify. The **Connection Details** window opens.
+
+    - To mark the selected data source as the default, select the **Set as default** option. 
 
     - To make changes to **Connection Details**, edit one or both of the **Title** and **Description** fields and select **Save changes** in the lower-right corner of the screen. You can also cancel changes here. To change the **Authentication Method**, choose a different authentication method, enter your credentials (if applicable), and then select **Save changes** in the lower-right corner of the screen. The changes are saved.
         
@@ -66,7 +68,7 @@ To create a new data source connection:
 
 An example data source connection screen is shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/data-source-connection.png" alt="Data source connection screen" width="700">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/data_source_connection.png" alt="Data source connection screen" width="700">
 
 ### Selecting multiple data sources through the Dev Tools console
 
@@ -141,9 +143,65 @@ data_source.hideLocalCluster: true
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/multidata-hide-localcluster.gif" alt="Multiple data sources hide local cluster">{: .img-fluid}
 
+## Using multiple data sources with external dashboards plugins
+Introduced 2.14
+{: .label .label-purple }
+
+The following plugins now support multiple data sources
+
+### Index management
+
+When the data source feature is enabled, you can navigate to **Index Management** under the **Management** menu. Using indexes as an example, you can view all connected data sources and select a specific one from the navigation bar on the upper right. By default, the indexes from the designated default data source are displayed. However, you can select any connected data source to view its corresponding indexes. The following GIF illustrates these steps.
+
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/ism_mds1.gif" alt="Multiple data sources in ISM list page"/>
+
+To perform operations on a specific index within a data source, select the individual index from the list. To create a new index, select the **Create Index** button, which opens a form. Fill in the required information and select the **Create** button. The index is created within the selected data source. The following GIF illustrates these steps. 
+
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/ism_mds2.gif" alt="Multiple data sources in ISM create page"/>
+
+### Anomaly detection
+
+When the data source feature is enabled, you can navigate to **Anomaly Detection** under the **OpenSearch Plugins** menu. On the navigation bar on the upper right, you can view all connected data sources and select a specific data source to view the dashboard from that source if it has detectors. If the selected data source does not have any detectors, the page prompts you to **Create detector**. The following GIF illustrates these steps.
+
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/ad_mds1.gif" alt="Multiple data sources in Anomaly Detection dashboard page"/>
+
+When you select **Detectors** from the side bar, the page displays the detectors currently configured for the selected data source. You can view and configure individual detectors by selecting them from the list. The following GIF illustrates these steps.
+
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/ad_mds2.gif" alt="Multiple data sources in Anomaly Detection detector page"/>
+
+### Security
+
+When the data source feature is enabled, you can navigate to **Security** under the **Management** menu. Using role management as an example, you can view all connected data sources in the navigation bar on the upper right and select a specific data source to view its existing roles. To create a new role, select the **Create role** button, which takes you to a new page. Enter the required information and select **Create** to add the new role to the selected data source. The following GIF illustrates these steps.
+
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/security_mds1.gif" alt="Multiple data sources in Security plugin"/>
+
+### Maps
+
+When the data source feature is enabled, you can navigate to **Maps** under the **OpenSearch Plugins** menu. To edit an existing map, select it from the maps list page, which opens the edit page. On the edit page, you can view all available data sources and the ones currently used in the map. To add a new layer, select **Add layer**, and then select **Documents** from the prompt, which opens a flyout. In the flyout, select the index pattern and geospatial field. Note that the data source name is prefixed to the index pattern name. After selecting **Update**, the new layer is added. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/database-icon.png" class="inline-icon" alt="database icon"/>{:/} icon to verify that a new data source is now being used in the map. The following GIF illustrates these steps.
+
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/maps_mds1.gif" alt="Multiple data sources in Maps plugin"/>
+
+### Machine learning
+
+When the data source feature is enabled, you can navigate to **Machine Learning** under the **OpenSearch Plugins** menu. Initially, the models within the default data source are displayed. To view models from a different data source, switch to that data source from the navigation bar. To inspect the details of a specific model, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/inspect-icon.png" class="inline-icon" alt="inspect icon"/>{:/} icon to the right of the model entry. The following GIF illustrates these steps.
+
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/ml_mds1.gif" alt="Multiple data sources in Machine Learning Plugin"/>
+
+### Notifications
+
+When the data source feature is enabled, you can navigate to **Notifications** under the **Management** menu. The page displays the notification channels configured for the currently selected data source. To view channels from a different data source, select the desired data source from the menu. To view or edit the details of an existing channel, select it from the list, which opens the channel details page. The following GIF illustrates these steps.
+
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/notification_mds1.gif" alt="Multiple data sources in Notification plugin"/>
+
+### Search relevance
+
+When the data source feature is enabled, you can navigate to **Search Relevance** under the **OpenSearch Plugins** menu. On the navigation bar on the upper right, you can view all available data sources. To compare search results between indexes from different data sources, first select a data source and an index for **Query 1**, and then select a data source and an index for **Query 2**. Select **Search** to run the queries. The following GIF illustrates these steps. 
+
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/searchrelevance_mds1.gif" alt="Multiple data sources in Search Relevance plugin"/>
+
 ## Next steps 
 
-Once you've configured your multiple data sources, you can start exploring that data. See the following resources to learn more:
+After configuring multiple data sources, you can analyze the data from each source. Refer to the following resources for more information:
 
 - Learn about [managing index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/) through OpenSearch Dashboards.
 - Learn about [indexing data using Index Management]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/) through OpenSearch Dashboards.
@@ -152,8 +210,7 @@ Once you've configured your multiple data sources, you can start exploring that 
 
 ## Limitations
 
-This feature has some limitations:
+The following features are not supported when using multiple data sources:
 
-* The multiple data sources feature is supported for index-pattern-based visualizations only.
-* The Time Series Visual Builder (TSVB) and timeline visualization types are not supported.
-* External plugins, such as `gantt-chart`, and non-visualization plugins are not supported.
+* Timeline visualization types
+* Some external plugins, such as the `gantt-chart` plugin

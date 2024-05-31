@@ -206,6 +206,96 @@ You will most likely not need to specify any parameters except for `location`. F
 
 You will most likely not need to specify any parameters except for `bucket` and `base_path`. For allowed request parameters, see [Register or update snapshot repository API](https://opensearch.org/docs/latest/api-reference/snapshots/create-repository/).
 
+
+### Registering an Azure storage account
+
+Use the following steps to register a snapshot repository backed by an Azure storage account for an OpenSearch cluster deployed using Helm.
+
+1. Create an Azure storage account. Then create a container within the storage account. For more information, see [Introduction to Azure Storage](https://learn.microsoft.com/en-us/azure/storage/common/storage-introduction).
+
+1. Create an OpenSearch keystore file using a bash script. To create the bash script, copy the contents of the following example into a file named `create-keystore.sh`:
+
+   ```bash
+   #!/bin/bash
+
+   /usr/share/opensearch/bin/opensearch-keystore create
+   echo $AZURE_SNAPSHOT_STORAGE_ACCOUNT | /usr/share/opensearch/bin/opensearch-keystore add --stdin azure.client.default.account
+   echo $AZURE_SNAPSHOT_STORAGE_ACCOUNT_KEY | /usr/share/opensearch/bin/opensearch-keystore add --stdin azure.client.default.key
+   cp /usr/share/opensearch/config/opensearch.keystore /tmp/keystore/opensearch.keystore
+   ```
+
+1. Create a Docker file. This file contains the details of your keystore, the OpenSearch instance, and the Azure repository. To create the file, copy the following example and save it as a `Dockerfile`: 
+
+   ```docker
+   FROM opensearchproject/opensearch:{{site.opensearch_version}}
+
+   RUN /usr/share/opensearch/bin/opensearch-plugin install --batch repository-azure
+   COPY --chmod=0775 create-keystore.sh create-keystore.sh
+   ```
+
+1. Use the following `docker build` command to build an OpenSearch image from your Dockerfile:
+
+   ```
+   docker build -t opensearch-custom:{{site.opensearch_version}} -f Dockerfile .
+   ```
+
+1. Create a Kubernetes secret containing the Azure storage account key by using the following manifest and command:
+
+   ```yaml
+   apiVersion: v1
+   kind: Secret
+   metadata:
+     name: opensearch
+   data:
+     azure-snapshot-storage-account-key: ### Insert base64 encoded key
+   ```
+
+1. [Deploy OpenSearch using Helm](https://opensearch.org/docs/latest/install-and-configure/install-opensearch/helm/) with the following additional values. Specify the value of the storage account in the `AZURE_SNAPSHOT_STORAGE_ACCOUNT` environment variable:
+
+   ```yaml
+   extraInitContainers:
+   - name: keystore-generator
+     image: opensearch-custom:{{site.opensearch_version}}
+     command: ["/bin/bash", "-c"]
+     args: ["bash create-keystore.sh"]
+     env:
+     - name: AZURE_SNAPSHOT_STORAGE_ACCOUNT
+       value: ### Insert storage account name
+     - name: AZURE_SNAPSHOT_STORAGE_ACCOUNT_KEY
+       valueFrom:
+         secretKeyRef:
+           name: opensearch
+           key: azure-snapshot-storage-account-key
+     volumeMounts:
+     - name: keystore
+       mountPath: /tmp/keystore
+
+   extraVolumeMounts:
+   - name: keystore
+     mountPath: /usr/share/opensearch/config/opensearch.keystore
+     subPath: opensearch.keystore
+  
+   extraVolumes:
+   - name: keystore
+     emptyDir: {}
+
+   image:
+     repository: "opensearch-custom"
+     tag: {{site.opensearch_version}}
+   ```
+
+1. Register the repository using the Snapshot API. Replace `snapshot_container` with the name you specified in step 1, as shown in the following command:
+   ```json
+   PUT /_snapshot/my-azure-snapshot
+   {
+     "type": "azure",
+     "settings": {
+       "client": "default",
+       "container": "snapshot_container"
+     }
+   }
+   ```
+
 ## Take snapshots
 
 You specify two pieces of information when you create a snapshot:
