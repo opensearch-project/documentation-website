@@ -67,4 +67,4 @@ If the workflow exists, a delete response contains the status of the deletion, w
 }
 ```
 
-If the `clear_status` parameter was `true`, also deletes the Workflow State if the provisioning status is any state other than `IN_PROGRESS`.
+Note: If the `clear_status` parameter was `true`, also deletes the Workflow State if the provisioning status is any state other than `IN_PROGRESS`.
