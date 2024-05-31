@@ -447,9 +447,9 @@ We recommend ceasing write requests to a cluster before restoring from a snapsho
 1. A write request to the now-deleted alias creates a new index with the same name as the alias.
 1. The alias from the snapshot fails to restore due to a naming conflict with the new index.
 
-Snapshots are only forward-compatible by one major version. If you have an old snapshot, you can sometimes restore it into an intermediate cluster, reindex all indexes, take a new snapshot, and repeat until you arrive at your desired version, but you might find it easier to just manually index your data in the new cluster.
+Snapshots are only forward-compatible by one major version. Snapshots taken by older OpenSearch versions can continue to be restored by the version of OpenSearch that originally took the snapshot even after a version upgrade. For example - a snapshot taken from OpenSearch 2.11.0 or lower can be used for restores with 2.11.0 clusters even after upgrading to 2.12.0.
 
-Older-version snapshots and the repositories that contain them continue to be compatible with older versions of OpenSearch. If you have a repository containing snapshots taken by an old version, you then upgrade to another version and snapshots are taken after that as well. The old snapshots can be restored to a new cluster running the same version.
+If you have an old snapshot taken from previous major OpenSearch versions, you can restore it into an intermediate cluster on one major version newer than the snapshot's version, reindex all indexes, take a new snapshot, and repeat until you arrive at your desired major version, but you might find it easier to just manually index your data in the new cluster.
 
 ## Security considerations
 
