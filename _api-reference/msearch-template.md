@@ -37,7 +37,7 @@ Query\n
 - Metadata lines include options, such as which indexes to search and the type of search.
 - Query lines use the [query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/).
 
-Just like the [bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) operation, the JSON doesn't need to be minified---spaces are fine---but it does need to be on a single line. OpenSearch uses newline characters to parse multi-search requests and requires that the request body end with a newline character.
+Like the [bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) operation, the JSON doesn't need to be minified---spaces are fine---but it does need to be on a single line. OpenSearch uses newline characters to parse multi-search requests and requires that the request body end with a newline character.
 
 ## URL parameters and metadata options
 
@@ -46,7 +46,7 @@ All multi-search template URL parameters are optional. Some can also be applied 
 Parameter | Type | Description | Supported in metadata
 :--- | :--- | :---  | :---
 allow_no_indices | Boolean | Whether to ignore wildcards that don't match any indexes. Default is `true`. | Yes
-cancel_after_time_interval | Time | The time after which the search request will be canceled. Supported at both parent and child request levels. The order of precedence is: Child-level parameter, Parent-level parameter, and [Cluster setting]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings). Default is `-1`. | Yes
+cancel_after_time_interval | Time | The time after which the search request will be canceled. Supported at both parent and child request levels. The order of precedence is: Child-level parameter, Parent-level parameter, and [Cluster setting]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings/). Default is `-1`. | Yes
 css_minimize_roundtrips | Boolean | Whether OpenSearch should try to minimize the number of network round trips between the coordinating node and remote clusters (only applicable to cross-cluster search requests). Default is `true`. | No
 expand_wildcards | Enum | Expands wildcard expressions to concrete indexes. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. Default is `open`. | Yes
 ignore_unavailable | Boolean | If an index or shard from the indexes list doesn’t exist, whether to ignore it rather than fail the query. Default is `false`. | Yes
