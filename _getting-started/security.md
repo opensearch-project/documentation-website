@@ -18,6 +18,9 @@ This script is located in `plugins/opensearch-security/tools` and performs the f
 - configures Security plugin to use internal database for authentication and authorization.
 - updates `opensearch.yml` file with basic configuration needed to get the cluster started.
 
+You can find complete details regarding demo configuration and how to get up and running quickly at [Setting up a demo configuration]({{site.url}}{{site.baseurl}}/security/configuration/demo-configuration/)
+{: .note}
+
 Prior to running the `install_demo_configuration.sh` script you must create environment variable named `OPENSEARCH_INITIAL_ADMIN_PASSWORD` set to strong password, as this will be used as password for admin user to authenticate with OpenSearch. You can use online tool [_Zxcvbn_](https://lowe.github.io/tryzxcvbn/) to test the strength of any password. Once this is set, you can execute `install_demo_configuration.sh` and follow the terminal prompt to enter necessary details.
 
 After the script is executed, you can start OpenSearch and test out the configuration by running the following command:
