@@ -84,7 +84,7 @@ This assumes you have Docker installed.
 Be aware that it takes a while to build the site the first time, eventually you will see `Server running... press ctrl-c to stop`.
 
 > __Note__: If you would like to run a hosted version of the documentation site you will need to do the following: 
-> 1. Change the URL in `_config_docker.yml` to either your hostname or ip: `url: "http://10.0.0.5:4000"`
+> 1. Change the `url` setting in `_config_docker.yml` to your URL: `url: "http://10.0.0.5:4000"`
 > 1. Change the `HOST` and `JEKYLL_ENV` variables: `docker run -p 4000:4000 -e JEKYLL_ENV=production -e HOST=0.0.0.0 -v $(pwd):/app documentation-website
 
 #### Setting up your local copy of the repository
