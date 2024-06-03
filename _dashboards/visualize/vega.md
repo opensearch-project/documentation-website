@@ -7,7 +7,9 @@ nav_order: 50
 
 # Vega
 
-[Vega](https://vega.github.io/vega/) and [Vega-Lite](https://vega.github.io/vega-lite/) are open-source, declarative language visualization tools that you can use to create custom data visualizations with your OpenSearch data and [Vega Data](https://vega.github.io/vega/docs/data/). These tools are ideal for advanced users comfortable with writing OpenSearch queries directly. Enable the `vis_type_vega` plugin in your `opensearch_dashboards.yml` file to write your [Vega specifications](https://vega.github.io/vega/docs/specification/) in either JSON or [HJSON](https://hjson.github.io/) format or to specify one or more OpenSearch queries within your Vega specification. By default, the plugin is set to `true`. The configuration is shown in the following example. For configuration details, refer to the `vis_type_vega` [README](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/src/plugins/vis_type_vega/README.md).
+[Vega](https://vega.github.io/vega/) and [Vega-Lite](https://vega.github.io/vega-lite/) are open-source, declarative language visualization tools that you can use to create custom data visualizations with your OpenSearch data and [Vega Data](https://vega.github.io/vega/docs/data/). These tools are ideal for advanced users comfortable with writing OpenSearch queries directly. Enable the `vis_type_vega` plugin in your `opensearch_dashboards.yml` file to write your [Vega specifications](https://vega.github.io/vega/docs/specification/) in either JSON or [HJSON](https://hjson.github.io/) format or to specify one or more OpenSearch queries within your Vega specification. By default, the plugin is set to `true`. 
+
+Enable the following configuration to use Vega visualizations in OpenSearch Dashboards. For configuration details, refer to the `vis_type_vega` [README](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/src/plugins/vis_type_vega/README.md).
 
 ```
 vis_type_vega.enabled: true
@@ -25,7 +27,7 @@ If you have configured [multiple data sources]({{site.url}}{{site.baseurl}}/dash
 
 The following is an example Vega specification with `Demo US Cluster` as the specified `data_source_name`:
 
-```
+```json
 {
   $schema: https://vega.github.io/schema/vega/v5.json
   config: {
@@ -192,3 +194,122 @@ The following is an example Vega specification with `Demo US Cluster` as the spe
 }
 ```
 {% include copy-curl.html %}
+
+## Creating Vega visualizations with OpenSearch Dashboards
+
+Before proceeding, ensure that the following configuration is enabled in your `opensearch_dashboards.yml` file:
+
+```yml
+vis_type_vega.enabled: true
+```
+
+### Step 1: Set up and connect data sources
+
+Open OpenSearch Dashboards and follow these steps:
+
+1. From the **Home** page, select **Add sample data**. For this tutorial, select **Sample web logs**.
+2. From the left-side menu, navigate to **Dashboards Management** and select **Data sources**. 
+3. Select **Create data source connection** and then add your data source.
+4. From the **Data source** dropdown menu, select the data source you created.
+
+### Step 2: Create the visualization
+
+1. From the left-side menu, select **Visualize**.
+2. From the **Visualizations** page, select **Create Visualization** and then select **Vega** from the pop-up window, as shown in the following images.
+
+    <img src="{{site.url}}{{site.baseurl}}/images/vega.png" alt="Visualizations selection menu" width="700">
+
+### Step 3: Add the Vega specification
+
+1. Verify that the data source you created is specified under `data_source_name`.
+2. Copy the following Vega specification.
+
+```json
+{
+  $schema: https://vega.github.io/schema/vega-lite/v5.json
+  data: {
+    url: {
+      %context%: true
+      %timefield%: @timestamp
+      index: opensearch_dashboards_sample_data_logs
+      data_source_name: YOUR_DATA_SOURCE_TITLE
+      body: {
+        aggs: {
+          1: {
+            date_histogram: {
+              field: @timestamp
+              fixed_interval: 3h
+              time_zone: America/Los_Angeles
+              min_doc_count: 1
+            }
+            aggs: {
+              2: {
+                avg: {
+                  field: bytes
+                }
+              }
+            }
+          }
+        }
+        size: 0
+      }
+    }
+    format: {
+      property: aggregations.1.buckets
+    }
+  }
+  transform: [
+    {
+      calculate: datum.key
+      as: timestamp
+    }
+    {
+      calculate: datum[2].value
+      as: bytes
+    }
+  ]
+  layer: [
+    {
+      mark: {
+        type: line
+      }
+    }
+    {
+      mark: {
+        type: circle
+        tooltip: true
+      }
+    }
+  ]
+  encoding: {
+    x: {
+      field: timestamp
+      type: temporal
+      axis: {
+        title: @timestamp
+      }
+    }
+    y: {
+      field: bytes
+      type: quantitative
+      axis: {
+        title: Average bytes
+      }
+    }
+    color: {
+      datum: Average bytes
+      type: nominal
+    }
+  }
+}
+```
+
+3. Select the **Update** button in the lower-right corner to visualize your data, as shown in the following GIF.
+
+    <img src="{{site.url}}{{site.baseurl}}images/make_vega.gif" alt="Visualizations selection menu">
+
+## Resources
+
+The following resources provide additional information about Vega visualizations in OpenSearch Dashboards:
+
+- [Improving ease of use in OpenSearch Dashboards with Vega visualizations](https://opensearch.org/blog/Improving-Dashboards-usability-with-Vega/)
