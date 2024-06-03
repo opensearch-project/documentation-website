@@ -2,7 +2,7 @@
 layout: default
 title: Generating embeddings
 parent: Tutorials
-nav_order: 55
+nav_order: 5
 ---
 
 # Generating embeddings for arrays of objects
