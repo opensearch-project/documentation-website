@@ -5,7 +5,7 @@ parent: Tutorials
 nav_order: 10
 ---
 
-# Semantic search using byte quantized vectors
+# Semantic search using byte-quantized vectors
 
 This tutorial illustrates building a semantic search using the [Cohere Embed model](https://docs.cohere.com/reference/embed) and byte-quantized vectors. For more information about using byte-quantized vectors, see [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/#lucene-byte-vector).
 
@@ -159,7 +159,7 @@ PUT /_ingest/pipeline/pipeline-cohere
 ```
 {% include copy-curl.html %}
 
-Next, create a k-NN index and set the `data_type` on the `passage_embedding` field to `byte` so it can hold quantized byte vectors:
+Next, create a k-NN index and set the `data_type` on the `passage_embedding` field to `byte` so it can hold byte-quantized vectors:
 
 ```json
 PUT my_test_data

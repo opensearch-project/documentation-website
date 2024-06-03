@@ -12,7 +12,7 @@ Using the OpenSearch machine learning (ML) framework, you can build various appl
 
 - **Semantic search**:
     - [Generating embeddings for arrays of objects]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/generate-embeddings/)
-    - [Semantic search using byte quantized vectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search-byte-vectors/)
+    - [Semantic search using byte-quantized vectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search-byte-vectors/)
 
 - **Conversational search**:
     - [Conversational search using the Cohere Command model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/conversational-search-cohere/)

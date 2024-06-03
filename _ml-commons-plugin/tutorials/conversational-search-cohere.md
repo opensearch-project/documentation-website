@@ -42,7 +42,7 @@ and [Amazon Bedrock Claude](https://github.com/opensearch-project/ml-commons/blo
 {: .important}
 
 This tutorial follows the Amazon Bedrock Claude model input/output style by:
-- Mapping the Cohere Command `message` input parameter to the `inputs`  parameter in order to match the Cohere Claude model input style.
+- Mapping the Cohere Command `message` input parameter to the `inputs` parameter in order to match the Cohere Claude model input style.
 - Using a post-processing function to transform the Cohere Command model output to the Claude model output style.
 
 Create a connector for the Cohere Command model:

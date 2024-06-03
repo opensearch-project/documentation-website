@@ -182,7 +182,7 @@ The agent is configured with the following information:
 
 - Meta information: `name`, `type`, `description`.
 - LLM information: The agent uses an LLM to reason and select the next step, including choosing an appropriate tool and preparing the tool input.
-- Tools: A tool is a function that can be executed by the agent. Each tool can define its own `name`, `description` and `parameters`.
+- Tools: A tool is a function that can be executed by the agent. Each tool can define its own `name`, `description`, and `parameters`.
 - Memory: Stores chat messages. Currently, OpenSearch only supports one memory type: `conversation_index`.
 
 The agent contains the following parameters:
@@ -190,9 +190,9 @@ The agent contains the following parameters:
 - `conversational`: This agent type has a built-in prompt. To override it with your own prompt, see [Step 4](#step-4-optional-create-an-agent-with-a-custom-prompt).
 - `app_type`: Specify this parameter for reference purposes in order to differentiate between multiple agents.
 - `llm`: Defines the LLM configuration:
-   - `"max_iteration": 5`:  The agent runs the LLM a maximum of 5 times.
+   - `"max_iteration": 5`:  The agent runs the LLM a maximum of five times.
    - `"response_filter": "$.completion"`: Needed to retrieve the LLM answer from the Bedrock Claude model response.
-   - `"message_history_limit": 5`: The agent retrieves a maximum of 5 most recent history messages and adds them to the LLM context. Set this parameter to`0` to omit message history in the context.
+   - `"message_history_limit": 5`: The agent retrieves a maximum of the five most recent history messages and adds them to the LLM context. Set this parameter to `0` to omit message history in the context.
    - `disable_trace`: If `true`, the agent does not store trace data in memory. Trace data is included in each message and provides a detailed recount of steps performed while generating the message.
 - `memory`: Defines how to store messages. Currently, OpenSearch only supports the `conversation_index` memory, which stores messages in a memory index.
 - Tools: 
@@ -305,7 +305,7 @@ Note the following testing tips:
    - Enable verbose mode: `"verbose": true`.
    - Call the Get Trace API: `GET _plugins/_ml/memory/message/your_message_id/traces`.
 
-- An LLM may sometimes hallucinate. It may choose a wrong tool to solve your problem, especially when you have configured many tools. To avoid hallucinations, try the following options:
+- An LLM may hallucinate. It may choose a wrong tool to solve your problem, especially when you have configured many tools. To avoid hallucinations, try the following options:
    - Avoid configuring many tools in an agent.
    - Provide a detailed tool description to clarify what the tool can do. 
    - Specify the tool to use in the LLM question, for example, `Can you use the PPLTool to query the opensearch_dashboards_sample_data_ecommerce index so it can calculate how many orders were placed last week?`.

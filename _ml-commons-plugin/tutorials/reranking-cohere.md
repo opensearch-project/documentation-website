@@ -81,7 +81,7 @@ POST _plugins/_ml/models/your_model_id/_predict
 }
 ```
 
-For compatibility with the rerank pipeline, the `top_n` value  must be the same as the length of the `documents` list. 
+For compatibility with the rerank pipeline, the `top_n` value must be the same as the length of the `documents` list. 
 {: .important}
 
 You can customize the number of top documents returned in the response by providing the `size` parameter. For more information, see [Step 2.3](#step-23-test-the-reranking).
@@ -189,7 +189,7 @@ PUT /_search/pipeline/rerank_pipeline_cohere
 
 ### Step 2.3: Test the reranking
 
-To limit the number of returned results, you can specify the `size` parameter. For example, set `"size": 2` to return the top 2 documents:
+To limit the number of returned results, you can specify the `size` parameter. For example, set `"size": 2` to return the top two documents:
 
 ```json
 GET my-test-data/_search?search_pipeline=rerank_pipeline_cohere

@@ -16,7 +16,6 @@ Replace the placeholders starting with the prefix `your_` with your own values.
 
 For this tutorial, you will use the [Amazon Bedrock Titan Embedding model](https://docs.aws.amazon.com/bedrock/latest/userguide/titan-embedding-models.html). 
 
-
 First, follow the [Amazon Bedrock Titan blueprint example](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_titan_embedding_blueprint.md) to register and deploy the model. 
 
 Test the model, providing the model ID:
@@ -91,7 +90,7 @@ PUT my_books
 
 ### Step 2.2: Create an ingest pipeline
 
-Then create an inner pipeline to generate an embedding for one array element.
+Then create an inner ingest pipeline to generate an embedding for one array element.
 
 This pipeline contains three processors:
 

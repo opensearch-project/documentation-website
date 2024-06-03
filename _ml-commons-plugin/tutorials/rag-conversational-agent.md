@@ -244,12 +244,12 @@ POST /_plugins/_ml/models/your_LLM_model_id/_predict
 
 ## Step 3: Register an agent
 
-OpenSearch provides the following agent types: `flow`, `conversational_flow` and `conversational`. For more information about agents, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/#agents).
+OpenSearch provides the following agent types: `flow`, `conversational_flow`, and `conversational`. For more information about agents, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/#agents).
 
 You will use a `conversational_flow` agent in this tutorial. The agent consists of:
 
 - Meta info: `name`, `type`, and `description`.
-- `app_type`: To differentiate different application types.
+- `app_type`: To differentiate application types.
 - `memory`: To store user questions and LLM responses as a conversation so an agent can retrieve conversation history from memory and continue the same conversation.
 - `tools`: To define a list of tools to use. The agent will run these tools sequentially.
 
@@ -520,7 +520,7 @@ POST /_plugins/_ml/agents/your_agent_id/_execute
 
 ## Running queries on an index
 
-Use a `SearchIndexTool` to run any OpenSearch query on any index.
+Use `SearchIndexTool` to run any OpenSearch query on any index.
 
 ### Setup: Register an agent
 
@@ -662,7 +662,7 @@ To expose the `question` parameter, see [Exposing only the `question` parameter]
 
 ### Run a hybrid search query
 
-Hybrid search combines keyword and neural search to improve search relevance. For more information, see [Hybrid Search]({{site.url}}{{site.baseurl}}/search-plugins/hybrid-search/).
+Hybrid search combines keyword and neural search to improve search relevance. For more information, see [Hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/hybrid-search/).
 
 Configure a search pipeline:
 
@@ -753,7 +753,7 @@ The `PPLTool` has the following parameters:
 
 - `model_type` (Enum): `CLAUDE`, `OPENAI`, or `FINETUNE`.
 - `execute` (Boolean): If `true`, executes the generated PPL query.
-- `input` (String): You must provide the `index` and `question` as input.
+- `input` (String): You must provide the `index` and `question` as inputs.
 
 For this tutorial, you'll use Bedrock Claude, so set the `model_type` to `CLAUDE`:
 

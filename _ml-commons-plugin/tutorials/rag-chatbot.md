@@ -103,9 +103,9 @@ In this tutorial, the agent includes two tools: one provides recent population d
 
 The agent has the following parameters:
 
-- `"max_iteration": 5`: The agent runs the LLM a maximum of 5 times.
+- `"max_iteration": 5`: The agent runs the LLM a maximum of five times.
 - `"response_filter": "$.completion"`: Needed to retrieve the LLM answer from the Amazon Bedrock Claude model response.
-- `"doc_size": 3` (in `population_data_knowledge_base`): Specifies to return the top 3 documents.
+- `"doc_size": 3` (in `population_data_knowledge_base`): Specifies to return the top three documents.
 
 Create an agent with the preceding specifications:
 
