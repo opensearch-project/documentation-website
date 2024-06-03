@@ -44,6 +44,27 @@ numeric detection string | If disabled, OpenSearch may automatically process num
 
 Dynamic templates are used to define custom mappings for dynamically added fields based on data type, field name, or field path. They allow you to define a flexible schema for your data, which can automatically adapt to changes in the structure or format of the input data.
 
+The syntax for defining a dynamic mapping template in OpenSearch looks like the following:
+
+```json
+  "dynamic_templates": [
+    {
+      "template_name": { 
+        ...  match conditions ... 
+        "mapping": { ... } 
+      }
+    },
+    ...
+  ]
+```
+{% include copy-curl.html %}
+
+Note the following: 
+
+- The template name can be any string value. 
+- The match conditions can include any of the following: `match_mapping_type`, `match`, `match_pattern`, `unmatch`, `path_match`, or `path_unmatch`. 
+- Specify the `mapping` to be used for the matched field.
+
 ## Explicit mapping
 
 If you know exactly what your field data types need to be, you can specify them in your request body when creating your index.
@@ -249,55 +270,31 @@ The response contains the specified fields:
 ```
 {% include copy-curl.html %}
 
-## Map null fields to a custom value
+## Map string fields to `text` and `keyword` types
 
-The following example maps all null fields to a custom `N/A` value:
-
-```json
-{
-  "dynamic_templates": [
-    {
-      "null_fields": {
-        "match_mapping_type": "null",
-        "mapping": {
-          "type": "text",
-          "null_value": "N/A"
-        }
-      }
-    }
-  ]
-}
-```
-{% include copy-curl.html %}
-
-## Map numeric fields
-
-The following example ensures that all float, double, and integer fields are mapped to the appropriate numeric types, rather than being treated as strings:
+This request creates an index named `movies1` with a dynamic template that maps all string fields to both `text` and `keyword` types.
 
 ```json
+PUT movies1
 {
-  "dynamic_templates": [
-    {
-      "floats": {
-        "match_mapping_type": "float",
-        "mapping": {
-          "type": "float"
-        }
-      },
-      "doubles": {
-        "match_mapping_type": "double",
-        "mapping": {
-          "type": "double"
-        }
-      },
-      "integers": {
-        "match_mapping_type": "integer",
-        "mapping": {
-          "type": "integer"
+  "mappings": {
+    "dynamic_templates": [
+      {
+        "strings": {
+          "match_mapping_type": "string",
+          "mapping": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type":  "keyword",
+                "ignore_above": 256
+              }
+            }
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }
 ```
 {% include copy-curl.html %}
