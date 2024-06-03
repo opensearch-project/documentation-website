@@ -40,6 +40,7 @@ indices | Index statistics, such as size, document count, and search, index, and
 os | Statistics about the host OS, including load, memory, and swapping.
 process | Statistics about processes, including their memory consumption, open file descriptors, and CPU usage.
 jvm | Statistics about the JVM, including memory pool, buffer pool, and garbage collection, and the number of loaded classes.
+thread_pool | Statistics about each thread pool for the node.
 fs | File system statistics, such as read/write statistics, data path, and free disk space.
 transport | Transport layer statistics about send/receive in cluster communication.
 http | Statistics about the HTTP layer.
@@ -51,6 +52,8 @@ adaptive_selection | Statistics about adaptive replica selection, which selects 
 script_cache | Statistics about script cache.
 indexing_pressure | Statistics about the node's indexing pressure.
 shard_indexing_pressure | Statistics about shard indexing pressure.
+search_backpressure | Statistics related to search backpressure.
+cluster_manager_throttling | Statistics related to throttled tasks on the cluster manager node.
 resource_usage_stats | Node-level resource usage statistics, such as CPU and JVM memory.
 admission_control | Statistics about admission control.
 caches | Statistics about caches. 
@@ -830,6 +833,7 @@ http.total_opened | Integer | The total number of HTTP connections the node has 
 [indexing_pressure](#indexing_pressure) | Object | Statistics related to the node's indexing pressure.
 [shard_indexing_pressure](#shard_indexing_pressure) | Object | Statistics related to indexing pressure at the shard level.
 [search_backpressure]({{site.url}}{{site.baseurl}}/opensearch/search-backpressure#search-backpressure-stats-api) | Object | Statistics related to search backpressure.
+[cluster_manager_throttling](#cluster_manager_throttling) | Object | Statistics related to throttled tasks on the cluster manager node.
 [resource_usage_stats](#resource_usage_stats) | Object | Statistics related to resource usage for the node.
 [admission_control](#admission_control) | Object | Statistics related to admission control for the node.
 [caches](#caches) | Object | Statistics related to caches on the node.
@@ -1021,20 +1025,20 @@ cpu.load_average | Object | Statistics about load averages for the system.
 cpu.load_average.1m | Float | The load average for the system for the time period of one minute.
 cpu.load_average.5m | Float | The load average for the system for the time period of five minutes.
 cpu.load_average.15m | Float | The load average for the system for the time period of 15 minutes.
-cpu.mem | Object | Statistics about memory usage for the node.
-cpu.mem.total_in_bytes | Integer | The total amount of physical memory, in bytes.
-cpu.mem.free_in_bytes | Integer | The total amount of free physical memory, in bytes.
-cpu.mem.used_in_bytes | Integer | The total amount of used physical memory, in bytes.
-cpu.mem.free_percent | Integer | The percentage of memory that is free.
-cpu.mem.used_percent | Integer | The percentage of memory that is used.
-cpu.swap | Object | Statistics about swap space for the node.
-cpu.swap.total_in_bytes | Integer | The total amount of swap space, in bytes.
-cpu.swap.free_in_bytes | Integer | The total amount of free swap space, in bytes.
-cpu.swap.used_in_bytes | Integer | The total amount of used swap space, in bytes.
-cpu.cgroup | Object | Contains cgroup statistics for the node. Returned for Linux only.
-cpu.cgroup.cpuacct | Object | Statistics about the cpuacct control group for the node.
-cpu.cgroup.cpu | Object | Statistics about the CPU control group for the node.
-cpu.cgroup.memory | Object | Statistics about the memory control group for the node.
+mem | Object | Statistics about memory usage for the node.
+mem.total_in_bytes | Integer | The total amount of physical memory, in bytes.
+mem.free_in_bytes | Integer | The total amount of free physical memory, in bytes.
+mem.used_in_bytes | Integer | The total amount of used physical memory, in bytes.
+mem.free_percent | Integer | The percentage of memory that is free.
+mem.used_percent | Integer | The percentage of memory that is used.
+swap | Object | Statistics about swap space for the node.
+swap.total_in_bytes | Integer | The total amount of swap space, in bytes.
+swap.free_in_bytes | Integer | The total amount of free swap space, in bytes.
+swap.used_in_bytes | Integer | The total amount of used swap space, in bytes.
+cgroup | Object | Contains cgroup statistics for the node. Returned for Linux only.
+cgroup.cpuacct | Object | Statistics about the cpuacct control group for the node.
+cgroup.cpu | Object | Statistics about the CPU control group for the node.
+cgroup.memory | Object | Statistics about the memory control group for the node.
 
 ### `process`
 
@@ -1106,7 +1110,7 @@ active | Integer | The number of active threads in the pool.
 rejected | Integer | The number of tasks that have been rejected.
 largest | Integer | The peak number of threads in the pool.
 completed | Integer | The number of tasks completed.
-total_wait_time | Integer | The total amount of time tasks spent waiting in the thread pool queue. Currently, only `search`, `search_throttled`, and `index_searcher` thread pools support this metric.
+total_wait_time_in_nanos | Integer | The total amount of time that tasks spend waiting in the thread pool queue. Currently, only `search`, `search_throttled`, and `index_searcher` thread pools support this metric.
 
 ### `fs`
 
@@ -1279,6 +1283,16 @@ total_rejections_breakup_shadow_mode.no_successful_request_limits | Integer | Th
 total_rejections_breakup_shadow_mode.throughput_degradation_limits | Integer | The total number of rejections when the node occupancy level is breaching its soft limit and there is a constant deterioration in the request turnaround at the shard level. In this case, additional indexing requests are rejected until the system recovers.
 enabled | Boolean | Specifies whether the shard indexing pressure feature is turned on for the node.
 enforced | Boolean | If true, the shard indexing pressure runs in enforced mode (there are rejections). If false, the shard indexing pressure runs in shadow mode (there are no rejections, but statistics are recorded and can be retrieved in the `total_rejections_breakup_shadow_mode` object). Only applicable if shard indexing pressure is enabled. 
+
+### `cluster_manager_throttling`
+
+The `cluster_manager_throttling` object contains statistics about throttled tasks on the cluster manager node. It is populated only for the node that is currently elected as the cluster manager.  
+
+Field | Field type | Description
+:--- | :--- | :---
+stats | Object | Statistics about throttled tasks on the cluster manager node.
+stats.total_throttled_tasks | Long | The total number of throttled tasks.
+stats.throttled_tasks_per_task_type | Object | A breakdown of statistics by individual task type, specified as key-value pairs. The keys are individual task types, and their values represent the number of requests that were throttled.
 
 ### `resource_usage_stats`
 
