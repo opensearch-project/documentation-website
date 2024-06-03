@@ -18,7 +18,7 @@ Replace the placeholders beginning with the prefix `your_` with your own values.
 
 Meet the prerequisite and follow Step 1 of the [RAG with a conversational flow agent tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/rag-conversational-agent/) to set up the `test_population_data` knowledge base index, which contains US city population data.
 
-Note the embedding model ID; you'll use it in the next steps. 
+Note the embedding model ID; you'll use it in the following steps. 
 
 ## Step 1: Set up a knowledge base
 
