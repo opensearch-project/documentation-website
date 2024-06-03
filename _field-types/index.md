@@ -40,6 +40,10 @@ keyword | A string sequence of structured characters, such as an email address o
 date detection string | Enabled by default, if new string fields match a date's format, then the string is processed as a `date` field. For example, `date: "2012/03/11"` is processed as a date.
 numeric detection string | If disabled, OpenSearch may automatically process numeric values as strings when they should be processed as numbers. When enabled, OpenSearch can process strings into `long`, `integer`, `short`, `byte`, `double`, `float`, `half_float`, `scaled_float`, and `unsigned_long`. Default is disabled.
 
+### Dynamic templates
+
+Dynamic templates are used to define custom mappings for dynamically added fields based on data type, field name, or field path. They allow you to define a flexible schema for your data, which can automatically adapt to changes in the structure or format of the input data.
+
 ## Explicit mapping
 
 If you know exactly what your field data types need to be, you can specify them in your request body when creating your index.
@@ -56,6 +60,7 @@ PUT sample-index1
   }
 }
 ```
+{% include copy-curl.html %}
 
 #### Response
 ```json
@@ -65,6 +70,7 @@ PUT sample-index1
     "index": "sample-index1"
 }
 ```
+{% include copy-curl.html %}
 
 To add mappings to an existing index or data stream, you can send a request to the `_mapping` endpoint using the `PUT` or `POST` HTTP method:
 
@@ -78,6 +84,7 @@ POST sample-index1/_mapping
   }
 }
 ```
+{% include copy-curl.html %}
 
 You cannot change the mapping of an existing field, you can only modify the field's mapping parameters. 
 {: .note}
@@ -122,6 +129,7 @@ PUT /test-index
   }
 }
 ```
+{% include copy-curl.html %}
 
 You can add a document that has a malformed IP address to your index:
 
@@ -131,6 +139,7 @@ PUT /test-index/_doc/1
   "ip_address" : "malformed ip address"
 }
 ```
+{% include copy-curl.html %}
 
 This indexed IP address does not throw an error because `ignore_malformed` is set to true. 
 
@@ -139,6 +148,7 @@ You can query the index using the following request:
 ```json
 GET /test-index/_search
 ```
+{% include copy-curl.html %}
 
 The response shows that the `ip_address` field is ignored in the indexed document:
 
@@ -174,6 +184,7 @@ The response shows that the `ip_address` field is ignored in the indexed documen
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Get a mapping
 
@@ -182,6 +193,7 @@ To get all mappings for one or more indexes, use the following request:
 ```json
 GET <index>/_mapping
 ```
+{% include copy-curl.html %}
 
 In the previous request, `<index>` may be an index name or a comma-separated list of index names. 
 
@@ -190,6 +202,7 @@ To get all mappings for all indexes, use the following request:
 ```json
 GET _mapping
 ```
+{% include copy-curl.html %}
 
 To get a mapping for a specific field, provide the index name and the field name:
 
@@ -197,6 +210,7 @@ To get a mapping for a specific field, provide the index name and the field name
 GET _mapping/field/<fields>
 GET /<index>/_mapping/field/<fields>
 ```
+{% include copy-curl.html %}
 
 Both `<index>` and `<fields>` can be specified as one value or a comma-separated list.
 
@@ -205,6 +219,7 @@ For example, the following request retrieves the mapping for the `year` and `age
 ```json
 GET sample-index1/_mapping/field/year,age
 ```
+{% include copy-curl.html %}
 
 The response contains the specified fields:
 
@@ -232,3 +247,57 @@ The response contains the specified fields:
   }
 }
 ```
+{% include copy-curl.html %}
+
+## Map null fields to a custom value
+
+The following example maps all null fields to a custom `N/A` value:
+
+```json
+{
+  "dynamic_templates": [
+    {
+      "null_fields": {
+        "match_mapping_type": "null",
+        "mapping": {
+          "type": "text",
+          "null_value": "N/A"
+        }
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+## Map numeric fields
+
+The following example ensures that all float, double, and integer fields are mapped to the appropriate numeric types, rather than being treated as strings:
+
+```json
+{
+  "dynamic_templates": [
+    {
+      "floats": {
+        "match_mapping_type": "float",
+        "mapping": {
+          "type": "float"
+        }
+      },
+      "doubles": {
+        "match_mapping_type": "double",
+        "mapping": {
+          "type": "double"
+        }
+      },
+      "integers": {
+        "match_mapping_type": "integer",
+        "mapping": {
+          "type": "integer"
+        }
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
