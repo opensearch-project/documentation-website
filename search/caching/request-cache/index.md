@@ -65,7 +65,7 @@ PUT /_cluster/settings
 ### Monitoring and management
 Monitoring the cache usage and performance is crucial for maintaining an efficient caching strategy. OpenSearch provides several APIs to help monitor the cache.
 
-#### Retrieving Cache Statistics for All Nodes:
+#### Retrieving cache statistics for all nodes:
 `GET /_nodes/stats/indices/request_cache` returns cache statistics for all nodes in the cluster.
 
 ```json
@@ -86,7 +86,7 @@ Monitoring the cache usage and performance is crucial for maintaining an efficie
 ```
 {% include copy-curl.html %}
 
-#### Retrieving Cache Statistics for a Specific Index:
+#### Retrieving cache statistics for a specific index:
 
 `GET /my_index/_stats/request_cache` returns cache statistics for a specific index.
 ```json
@@ -137,7 +137,7 @@ Monitoring the cache usage and performance is crucial for maintaining an efficie
 }
 ```
 
-### Best Practices
+### Best practices
 
 - **Appropriate Cache Size**: Configure the cache size based on query patterns. A larger cache can store more results but may consume significant resources.
 - **Query Optimization**: Ensure that frequently executed queries are optimized to benefit from caching.
