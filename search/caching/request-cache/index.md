@@ -6,13 +6,13 @@ has_children: true
 nav_order: 100
 ---
 
-# Indices Request Cache
+# Indices request cache
 
 The Indices Request Cache in OpenSearch is a specialized caching mechanism designed to enhance search performance by storing the results of frequently executed search queries at the shard level. This reduces the load on the cluster and improves response times for repeated searches. This cache is enabled by default and is particularly useful for read-heavy workloads where certain queries are executed frequently.
 
 It is important to note the cache is automatically invalidated on refresh intervals with corresponding document updates (including document deletions) and changes to index settings, thereby ensuring stale results are never returned from the cache. When the cache size exceeds its configured limit, the least recently used entries are evicted to make room for new entries.
 
-## Search Requests Eligible for Indices Request Cache
+## Search requests eligible for indices request cache
 Search requests with `size=0` are by default cached in request cache. Search requests with non-deterministic characteristics such as `Math.random()`, relative times like `now`, `new Date()` are **ineligible** for caching.
 
 You can also cache search requests selectively by setting the `request_cache` parameter to `true` in the request parameters. For example:
@@ -30,7 +30,7 @@ GET /students/_search?request_cache=true
 ## Configuration
 Configuring the Indices Request Cache involves setting parameters in the opensearch.yml configuration file or using the OpenSearch REST API.
 
-### Configuration Parameters:
+### Configuration parameters:
 
 The following table lists the settings for configuring the Indices Request Cache, configure the following settings in `opensearch.yml`:
 
@@ -62,7 +62,7 @@ PUT /_cluster/settings
 ```
 {% include copy-curl.html %}
 
-### Monitoring and Management
+### Monitoring and management
 Monitoring the cache usage and performance is crucial for maintaining an efficient caching strategy. OpenSearch provides several APIs to help monitor the cache.
 
 #### Retrieving Cache Statistics for All Nodes:
