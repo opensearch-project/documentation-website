@@ -207,7 +207,7 @@ After configuring multiple data sources, you can analyze the data from each sour
 - [Indexing data using Index Management]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/) through OpenSearch Dashboards.
 - [Connect OpenSearch and Amazon S3 through OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/management/S3-data-source/).
 - [Integrations tool]({{site.url}}{{site.baseurl}}/integrations/index/), which gives you the flexibility to use various data ingestion methods and connect data from the OpenSearch Dashboards UI.
-- Creating [Vega]() and [TSVB]() visualizations from multiple sources
+- Creating [Vega]({{site.url}}{{site.baseurl}}/dashboards/visualize/vega/) and [TSVB]({{site.url}}{{site.baseurl}}/dashboards/visualize/tsvb/) visualizations.
 
 ## Limitations
 

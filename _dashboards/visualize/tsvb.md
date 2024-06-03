@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Vega
+title: TSVB
 parent: Building data visualizations
 nav_order: 45
 ---
