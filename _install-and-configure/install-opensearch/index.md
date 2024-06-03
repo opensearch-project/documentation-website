@@ -23,12 +23,22 @@ The following table lists the operating system versions that we are currently te
 
 OS | Version
 :---------- | :-------- 
-CentOS | 7
 Rocky Linux | 8
 Alma Linux | 8
 Amazon Linux | 2/2023
 Ubuntu | 20.04
 Windows Server | 2019
+
+
+### Change Log ##
+
+<div class="table-styler"></div>
+
+| Date       | Issue | PR | Details |
+|:-----------|:-------|:-------|:--------------------------|
+| 2024-06-03 | [opensearch-build Issue 4379](https://github.com/opensearch-project/documentation-website/issues/4379) | [PR 7285](https://github.com/opensearch-project/documentation-website/pull/7285) | Remove CentOS7 as it if approaching [EOL](https://blog.centos.org/2023/04/end-dates-are-coming-for-centos-stream-8-and-centos-linux-7/) |
+| 2024-03-08 | [opensearch-build Issue 4573](https://github.com/opensearch-project/opensearch-build/issues/4573) | [PR 6637](https://github.com/opensearch-project/documentation-website/pull/6637) | Remove CentOS8, add Almalinux8/Rockylinux8, remove Ubuntu 16.04/18.04 as we currently only test on 20.04 |
+| 2023-06-06 | [documentation-website Issue 4217](https://github.com/opensearch-project/documentation-website/issues/4217) | [PR 4218](https://github.com/opensearch-project/documentation-website/pull/4218) | Support Matrix Creation |
 
 
 ## File system recommendations
