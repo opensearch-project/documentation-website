@@ -19,11 +19,11 @@ Replace the placeholders starting with the prefix `your_` with your own values.
 
 ## Prerequisite
 
-Log in to the OpenSearch Dashboards homepage, select **Add sample data**, and add **Sample eCommerce orders** data.
+Log in to the OpenSearch Dashboards home page, select **Add sample data**, and add the **Sample eCommerce orders** data.
 
 ## Step 1: Configure a knowledge base
 
-Follow Prerequisite and Step 1 of the [RAG with a conversational flow agent tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/rag-conversational-agent/) to configure the `test_population_data` knowledge base index, which contains US city population data.
+Meet the prerequisite and follow Step 1 of the [RAG with a conversational flow agent tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/rag-conversational-agent/) to configure the `test_population_data` knowledge base index, which contains US city population data.
 
 Create an ingest pipeline:
 
@@ -192,18 +192,18 @@ The agent contains the following parameters:
 - `llm`: Defines the LLM configuration:
    - `"max_iteration": 5`:  The agent runs the LLM a maximum of five times.
    - `"response_filter": "$.completion"`: Needed to retrieve the LLM answer from the Bedrock Claude model response.
-   - `"message_history_limit": 5`: The agent retrieves a maximum of the five most recent history messages and adds them to the LLM context. Set this parameter to `0` to omit message history in the context.
-   - `disable_trace`: If `true`, the agent does not store trace data in memory. Trace data is included in each message and provides a detailed recount of steps performed while generating the message.
+   - `"message_history_limit": 5`: The agent retrieves a maximum of the five most recent historical messages and adds them to the LLM context. Set this parameter to `0` to omit message history in the context.
+   - `disable_trace`: If `true`, then the agent does not store trace data in memory. Trace data is included in each message and provides a detailed recount of steps performed while generating the message.
 - `memory`: Defines how to store messages. Currently, OpenSearch only supports the `conversation_index` memory, which stores messages in a memory index.
 - Tools: 
    - An LLM will reason to decide which tool to run and will prepare the tool's input. 
    - To include the tool's output in the response, specify `"include_output_in_agent_response": true`. In this tutorial, you will include the `PPLTool` output in the response (see the example response in [Test the agent](#test-the-agent)). 
    - By default, the tool's `name` is the same as the tool's `type`, and each tool has a default description. You can override the tool's `name` and `description`.
-   - Each tool in the `tools` list must have a unique name. For example, the following demo agent defines two tools of the `VectorDBTool` type with different names (`population_data_knowledge_base` and `stock_price_data_knowledge_base`). Each tool has a custom description so the LLM can easily understand what the tool does.
+   - Each tool in the `tools` list must have a unique name. For example, the following demo agent defines two tools of the `VectorDBTool` type with different names (`population_data_knowledge_base` and `stock_price_data_knowledge_base`). Each tool has a custom description so that the LLM can easily understand what the tool does.
    
    For more information about tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
 
-This example configures several sample tools in an agent. You can configure other tools that are relevant to your use case as needed.
+This example request configures several sample tools in an agent. You can configure other tools that are relevant to your use case as needed.
 {: .note}
 
 Register the agent:
@@ -305,11 +305,11 @@ Note the following testing tips:
    - Enable verbose mode: `"verbose": true`.
    - Call the Get Trace API: `GET _plugins/_ml/memory/message/your_message_id/traces`.
 
-- An LLM may hallucinate. It may choose a wrong tool to solve your problem, especially when you have configured many tools. To avoid hallucinations, try the following options:
+- An LLM may hallucinate. It may choose the wrong tool to solve your problem, especially when you have configured many tools. To avoid hallucinations, try the following options:
    - Avoid configuring many tools in an agent.
-   - Provide a detailed tool description to clarify what the tool can do. 
+   - Provide a detailed tool description clarifying what the tool can do. 
    - Specify the tool to use in the LLM question, for example, `Can you use the PPLTool to query the opensearch_dashboards_sample_data_ecommerce index so it can calculate how many orders were placed last week?`.
-   - Specify the tool to use when executing an agent. For example, specify to only use the `PPLTool` and `CatIndexTool` to process the current request.
+   - Specify the tool to use when executing an agent. For example, specify that only `PPLTool` and `CatIndexTool` should be used to process the current request.
 
 Test the agent:
 
@@ -460,7 +460,7 @@ POST _plugins/_ml/agents/your_agent_id/_execute
 ```
 {% include copy-curl.html %}
 
-In the response, note that the `population_data_knowledge_base` doesn't return the population of Seattle. Instead, the agent learns the population of Seattle from historical messages:
+In the response, note that the `population_data_knowledge_base` doesn't return the population of Seattle. Instead, the agent learns the population of Seattle by referencing historical messages:
 
 ```json
 {
@@ -532,7 +532,7 @@ Assistant:"""
 
 The prompt consists of two parts:
 
-- `${parameters.prompt.prefix}`: A prompt prefix that describes what the AI Assistant can do. You can change this parameter based on your use case, for example, `You are a professional data analyst. You will always answer questions based on the tool response first. If you don't know the answer, just say you don't know.`
+- `${parameters.prompt.prefix}`: A prompt prefix that describes what the AI assistant can do. You can change this parameter based on your use case, for example, `You are a professional data analyst. You will always answer questions based on the tool response first. If you don't know the answer, just say you don't know.`
 - `${parameters.prompt.suffix}`: The main part of the prompt that defines the tools, chat history, prompt format instructions, a question, and a scratchpad. 
 
 The default `prompt.suffix` is the following:
@@ -562,14 +562,14 @@ ${parameters.scratchpad}"""
 The `prompt.suffix` consists of the following placeholders:
 
 - `${parameters.tool_descriptions}`: This placeholder will be filled with the agent's tool information: the tool name and description. If you omit this placeholder, the agent will not use any tools.
-- `${parameters.prompt.format_instruction}`: This placeholder defines the LLM response format. This placeholder is critical and we recommend not removing it.
-- `${parameters.chat_history}`: This placeholder will be filled with the message history of the current memory. If you don't set the `memory_id` when you run the agent, or there are no history messages, this placeholder will be empty. If you don't need chat history, you can remove this placeholder.
+- `${parameters.prompt.format_instruction}`: This placeholder defines the LLM response format. This placeholder is critical, and we do not recommend removing it.
+- `${parameters.chat_history}`: This placeholder will be filled with the message history of the current memory. If you don't set the `memory_id` when you run the agent, or if there are no history messages, then this placeholder will be empty. If you don't need chat history, you can remove this placeholder.
 - `${parameters.question}`: This placeholder will be filled with the user question.
-- `${parameters.scratchpad}`: This placeholder will be filled with the detailed steps in agent execution. These steps are the same as those you can view by specifying verbose mode or obtaining trace data (see an example in [Test the agent](#test-the-agent)). This placeholder is critical for the LLM to reason and select the next step based on the outcome of the previous steps. We recommend not removing this placeholder.
+- `${parameters.scratchpad}`: This placeholder will be filled with the detailed agent execution steps. These steps are the same as those you can view by specifying verbose mode or obtaining trace data (see an example in [Test the agent](#test-the-agent)). This placeholder is critical in order for the LLM to reason and select the next step based on the outcome of the previous steps. We do not recommend removing this placeholder.
 
 ### Custom prompt examples
 
-The following examples demonstrate customizing the prompt.
+The following examples demonstrate how to customize the prompt.
 
 #### Example 1: Customize `prompt.prefix`
 
@@ -787,7 +787,7 @@ POST _plugins/_ml/agents/your_agent_id/_execute
 ```
 {% include copy-curl.html %}
 
-The response shows that the agent runs both `population_data_knowledge_base` and `stock_price_data_knowledge_base` tools to obtain the answer:
+The response shows that the agent runs both the `population_data_knowledge_base` and `stock_price_data_knowledge_base` tools to obtain the answer:
 
 ```json
 {
@@ -886,7 +886,7 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %}
 
-Note the root chatbot agent ID, then log in to your OpenSearch server, go to the OpenSearch config folder (`$OS_HOME/config`), and run the following command:
+Note the root chatbot agent ID, log in to your OpenSearch server, go to the OpenSearch config folder (`$OS_HOME/config`), and run the following command:
 
 ```bashx
  curl -k --cert ./kirk.pem --key ./kirk-key.pem -X PUT https://localhost:9200/.plugins-ml-config/_doc/os_chat -H 'Content-Type: application/json' -d'
@@ -899,9 +899,9 @@ Note the root chatbot agent ID, then log in to your OpenSearch server, go to the
 ```
 {% include copy.html %}
 
-Go to your OpenSearch Dashboards config folder (`$OSD_HOME/config`) and edit `opensearch_dashboards.yml` by adding the following line to the end: `assistant.chat.enabled: true`.
+Go to your OpenSearch Dashboards config folder (`$OSD_HOME/config`) and edit `opensearch_dashboards.yml` by adding the following line to the end of the file: `assistant.chat.enabled: true`.
 
-Restart OpenSearch Dashboards, then select the chat icon in the upper-right corner, shown in the following image.
+Restart OpenSearch Dashboards and then select the chat icon in the upper-right corner, shown in the following image.
 
 <img width="300" src="{{site.url}}{{site.baseurl}}/images/dashboards/os-assistant-icon.png" alt="OpenSearch Assistant icon">
 

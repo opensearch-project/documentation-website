@@ -7,12 +7,12 @@ nav_order: 20
 
 # Conversational search using the Cohere Command model
 
-This tutorial illustrates configuring conversational search using the Cohere Command model. For more information, see [Conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/).
+This tutorial illustrates how to configure conversational search using the Cohere Command model. For more information, see [Conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/).
 
-Replace the placeholders starting with the prefix `your_` with your own values.
+Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}
 
-Alternatively, you can build a RAG/conversational search using agents and tools. For more information, see [Retrieval-augmented generation chatbot]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/rag-conversational-agent/)
+Alternatively, you can build a RAG/conversational search using agents and tools. For more information, see [Retrieval-augmented generation chatbot]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/rag-conversational-agent/).
 
 ## Prerequisite
 
@@ -37,13 +37,13 @@ POST _bulk
 
 ## Step 1: Create a connector and register a model
 
-Conversational search only supports [OpenAI](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/open_ai_connector_chat_blueprint.md) 
-and [Amazon Bedrock Claude](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_anthropic_claude_blueprint.md) input/output style.
+Conversational search only supports the [OpenAI](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/open_ai_connector_chat_blueprint.md) 
+and [Amazon Bedrock Claude](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_anthropic_claude_blueprint.md) input/output styles.
 {: .important}
 
 This tutorial follows the Amazon Bedrock Claude model input/output style by:
 - Mapping the Cohere Command `message` input parameter to the `inputs` parameter in order to match the Cohere Claude model input style.
-- Using a post-processing function to transform the Cohere Command model output to the Claude model output style.
+- Using a post-processing function to convert the Cohere Command model output to the Claude model output style.
 
 Create a connector for the Cohere Command model:
 
@@ -77,7 +77,7 @@ POST _plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-Starting in OpenSearch 2.12, you can use the default `escape` function in the `post_process_function` directly:
+Starting in OpenSearch 2.12, you can use the default `escape` function directly in the `post_process_function`:
 
 ```json
 "post_process_function": "    \n    def name = 'response';\n    def result = params.text;\n    def json = '{ \"name\": \"' + name + '\",' +\n                 '\"dataAsMap\": { \"completion\":  \"' + escape(result) +\n               '\"}}';\n    return json;"
@@ -99,7 +99,7 @@ POST /_plugins/_ml/models/_register?deploy=true
 ```
 {% include copy-curl.html %}
 
-Note the model ID; you will use it in the following steps.
+Note the model ID; you'll use it in the following steps.
 
 Test the model:
 

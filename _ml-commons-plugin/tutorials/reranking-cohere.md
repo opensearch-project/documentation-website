@@ -9,9 +9,9 @@ nav_order: 30
 
 A [reranking pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/) can rerank search results, providing a relevance score for each document in the search results with respect to the search query. The relevance score is calculated by a cross-encoder model. 
 
-This tutorial illustrates using the [Cohere Rerank](https://docs.cohere.com/reference/rerank-1) model in a reranking pipeline. 
+This tutorial illustrates how to use the [Cohere Rerank](https://docs.cohere.com/reference/rerank-1) model in a reranking pipeline. 
 
-Replace the placeholders starting with the prefix `your_` with your own values.
+Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}
 
 ## Step 1: Register a Cohere Rerank model
@@ -61,7 +61,7 @@ POST /_plugins/_ml/models/_register?deploy=true
 ```
 {% include copy-curl.html %}
 
-Note the model ID in the response; you will use it in the following steps.
+Note the model ID in the response; you'll use it in the following steps.
 
 Test the model by calling the Predict API:
 
@@ -81,7 +81,7 @@ POST _plugins/_ml/models/your_model_id/_predict
 }
 ```
 
-For compatibility with the rerank pipeline, the `top_n` value must be the same as the length of the `documents` list. 
+To ensure compatibility with the rerank pipeline, the `top_n` value must be the same as the length of the `documents` list. 
 {: .important}
 
 You can customize the number of top documents returned in the response by providing the `size` parameter. For more information, see [Step 2.3](#step-23-test-the-reranking).
@@ -140,7 +140,7 @@ OpenSearch responds with the inference results:
 }
 ```
 
-The response contains four `similarity` objects. For each `similarity` object, the `data` array contains a relevance score for each document with respect to the query. The `similarity` objects are provided in the order of the input documents; the first object pertains to the first document. This differs from the default output of the Cohere Rerank model, which orders documents by relevance scores. The document order is changed in the `connector.post_process.cohere.rerank` post-processing function in order to make the output compatible with a reranking pipeline.
+The response contains four `similarity` objects. For each `similarity` object, the `data` array contains a relevance score for each document with respect to the query. The `similarity` objects are provided in the order of the input documents; the first object pertains to the first document. This differs from the default output of the Cohere Rerank model, which orders documents by relevance score. The document order is changed in the `connector.post_process.cohere.rerank` post-processing function in order to make the output compatible with a reranking pipeline.
 
 ## Step 2: Configure a reranking pipeline
 
@@ -209,7 +209,7 @@ GET my-test-data/_search?search_pipeline=rerank_pipeline_cohere
 ```
 {% include copy-curl.html %}
 
-The response contains two most relevant documents:
+The response contains the two most relevant documents:
 
 ```json
 {

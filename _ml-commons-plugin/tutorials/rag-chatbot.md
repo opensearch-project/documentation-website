@@ -5,20 +5,20 @@ parent: Tutorials
 nav_order: 50
 ---
 
-# Retrieval-augmented generation chatbot
+# RAG chatbot
 
-One of the known limitations of large language models (LLMs) is that their knowledge base only contains information up to the time when the LLMs were trained. LLMs have no knowledge of recent events or your internal data. You can augment the LLM knowledge base by using retrieval-augmented generation (RAG).
+One of the known limitations of large language models (LLMs) is that their knowledge base only contains information from the period of time during which they were trained. LLMs have no knowledge of recent events or of your internal data. You can augment the LLM knowledge base by using retrieval-augmented generation (RAG).
 
-This tutorial illustrates building your own chatbot using [agents and tools](https://opensearch.org/docs/latest/ml-commons-plugin/agents-tools/index/) and RAG. RAG supplements the LLM knowledge with information contained in OpenSearch indexes.
+This tutorial illustrates how to build your own chatbot using [agents and tools](https://opensearch.org/docs/latest/ml-commons-plugin/agents-tools/index/) and RAG. RAG supplements the LLM knowledge base with information contained in OpenSearch indexes.
 
-Replace the placeholders starting with the prefix `your_` with your own values.
+Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}
 
 ## Prerequisite
 
-Follow Prerequisite and Step 1 of the [RAG with a conversational flow agent tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/rag-conversational-agent/) to set up the `test_population_data` knowledge base index, which contains US city population data.
+Meet the prerequisite and follow Step 1 of the [RAG with a conversational flow agent tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/rag-conversational-agent/) to set up the `test_population_data` knowledge base index, which contains US city population data.
 
-Note the embedding model ID, you'll use it in the next steps. 
+Note the embedding model ID; you'll use it in the next steps. 
 
 ## Step 1: Set up a knowledge base
 
@@ -84,22 +84,22 @@ POST _bulk
 
 ## Step 2: Prepare an LLM
 
-Follow [Step 2 of the RAG with a conversational flow agent tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/rag-conversational-agent/#step-2-prepare-an-llm) to configure the Amazon Bedrock Claude model.
+Follow [step 2 of the RAG with a conversational flow agent tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/rag-conversational-agent/#step-2-prepare-an-llm) to configure the Amazon Bedrock Claude model.
 
-Note the model ID, you'll use it in the following steps.
+Note the model ID; you'll use it in the following steps.
 
 ## Step 3: Create an agent
 
 For this tutorial, you will create an agent of the `conversational` type. 
 
-Both `conversational_flow` and `conversational` agents support conversation history.
+Both the `conversational_flow` and `conversational` agents support conversation history.
 
 The `conversational_flow` and `conversational` agents differ in the following ways:
 
 - A `conversational_flow` agent runs tools sequentially, in a predefined order.
 - A `conversational` agent dynamically chooses which tool to run next.
 
-In this tutorial, the agent includes two tools: one provides recent population data and the other contains tech news.
+In this tutorial, the agent includes two tools: One provides recent population data, and the other contains tech news.
 
 The agent has the following parameters:
 
@@ -305,7 +305,7 @@ POST _plugins/_ml/agents/your_agent_id/_execute
 ```
 {% include copy-curl.html %}
 
-In the response, note that the `population_data_knowledge_base` doesn't return the population of Seattle. Instead, the agent learns the population of Seattle from historical messages:
+In the response, note that the `population_data_knowledge_base` doesn't return the population of Seattle. Instead, the agent learns the population of Seattle by referencing historical messages:
 
 ```json
 {

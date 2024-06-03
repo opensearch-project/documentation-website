@@ -7,13 +7,13 @@ nav_order: 10
 
 # Semantic search using byte-quantized vectors
 
-This tutorial illustrates building a semantic search using the [Cohere Embed model](https://docs.cohere.com/reference/embed) and byte-quantized vectors. For more information about using byte-quantized vectors, see [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/#lucene-byte-vector).
+This tutorial illustrates how to build a semantic search using the [Cohere Embed model](https://docs.cohere.com/reference/embed) and byte-quantized vectors. For more information about using byte-quantized vectors, see [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/#lucene-byte-vector).
 
 The Cohere Embed v3 model supports several `embedding_types`. For this tutorial, you'll use the `INT8` type to encode byte-quantized vectors. 
 
 The Cohere Embed v3 model supports several input types. This tutorial uses the following input types:
 
-- `search_document`: Use this input type when you have text (in a form of documents) that you want to store in a vector database.
+- `search_document`: Use this input type when you have text (in the form of documents) that you want to store in a vector database.
 - `search_query`: Use this input type when structuring search queries to find the most relevant documents in your vector database.
 
 For more information about input types, see the [Cohere documentation](https://docs.cohere.com/docs/embed-api#the-input_type-parameter).
@@ -23,12 +23,12 @@ In this tutorial, you will create two models:
 - A model used for ingestion, whose `input_type` is `search_document` 
 - A model used for search, whose `input_type` is `search_query`
 
-Replace the placeholders starting with the prefix `your_` with your own values.
+Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}
 
 ## Step 1: Create an embedding model for ingestion
 
-Create a connector to the Cohere model, specifying the `search_document` input type:
+Create a connector for the Cohere model, specifying the `search_document` input type:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -63,7 +63,7 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-For compatibility with the Neural Search plugin, the `data_type` (output in the `inference_results.output.data_type` field of the response) must be set to `FLOAT32` in the post-processing function, even though the actual embedding type will be `INT8`.
+To ensure compatibility with the Neural Search plugin, the `data_type` (output in the `inference_results.output.data_type` field of the response) must be set to `FLOAT32` in the post-processing function, even though the actual embedding type will be `INT8`.
 {: .important}
 
 Note the connector ID in the response; you'll use it to register the model.
@@ -159,7 +159,7 @@ PUT /_ingest/pipeline/pipeline-cohere
 ```
 {% include copy-curl.html %}
 
-Next, create a k-NN index and set the `data_type` on the `passage_embedding` field to `byte` so it can hold byte-quantized vectors:
+Next, create a k-NN index and set the `data_type` for the `passage_embedding` field to `byte` so that it can hold byte-quantized vectors:
 
 ```json
 PUT my_test_data
@@ -209,7 +209,7 @@ POST _bulk
 
 ## Step 3: Configure semantic search
 
-Create a connector to an embedding model that has the `search_query` input type:
+Create a connector to an embedding model with the `search_query` input type:
 
 ```json
 POST /_plugins/_ml/connectors/_create

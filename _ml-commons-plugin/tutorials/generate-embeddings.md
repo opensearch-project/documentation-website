@@ -7,9 +7,9 @@ nav_order: 55
 
 # Generating embeddings for arrays of objects
 
-This tutorial illustrates generating embeddings for arrays of objects.
+This tutorial illustrates how to generate embeddings for arrays of objects.
 
-Replace the placeholders starting with the prefix `your_` with your own values.
+Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}
 
 ## Step 1: Register an embedding model
@@ -52,7 +52,7 @@ The response contains inference results:
 
 ## Step 2: Create an ingest pipeline
 
-The next set of steps will create an ingest pipeline for generating embeddings.
+Follow the next set of steps to create an ingest pipeline for generating embeddings.
 
 ### Step 2.1: Create a k-NN index
 
