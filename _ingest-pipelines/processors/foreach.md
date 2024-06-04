@@ -1,11 +1,13 @@
 ---
 layout: default
-title: `foreach`
+title: Foreach
 parent: Ingest processors
 nav_order: 110
 ---
 
-# `foreach` processor
+<!-- vale off -->
+# Foreach processor
+<!-- vale on -->
 
 The `foreach` processor is used to iterate over a list of values in an input document and apply a transformation to each value. This can be useful for tasks like processing all the elements in an array consistently, such as converting all elements in a string to lowercase or uppercase.
 
