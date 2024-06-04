@@ -137,7 +137,7 @@ plugins.security.authcz.admin_dn:
 
 For security reasons, you cannot use wildcards or regular expressions here. 
 
-For more information about admin and super admin users, see [Admin and super admin roles in OpenSearch security](https://opensearch.org/docs/latest/security/access-control/users-roles/#admin-and-super-admin-roles-in-opensearch-security) and [Configuring super admin certificates](https://opensearch.org/docs/latest/security/configuration/tls/#configuring-super-admin-certificates).
+For more information about admin and super admin users, see [Admin and super admin roles in OpenSearch security](https://opensearch.org/docs/latest/security/access-control/users-roles/#admin-and-super-admin-roles-in-opensearch-security) and [Configuring super admin certificates](https://opensearch.org/docs/latest/security/configuration/tls/#configuring-admin-certificates).
 
 
 ## (Advanced) OpenSSL
