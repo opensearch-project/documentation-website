@@ -449,7 +449,7 @@ We recommend ceasing write requests to a cluster before restoring from a snapsho
 
 Snapshots are only forward-compatible by one major version. Snapshots taken by older OpenSearch versions can continue to be restored by the version of OpenSearch that originally took the snapshot even after a version upgrade. For example - a snapshot taken from OpenSearch 2.11.0 or lower can be used snapshot restores with 2.11.0 clusters even after upgrading to 2.12.0.
 
-If you have an old snapshot taken from an older major OpenSearch version, you can restore it into an intermediate cluster on one major version newer than the snapshot's version, reindex all indexes, take a new snapshot, and repeat until you arrive at your desired major version, but you might find it easier to just manually index your data in the new cluster.
+If you have an old snapshot taken from an older major OpenSearch version, you can restore it into an intermediate cluster on one major version newer than the snapshot's version, reindex all indexes, take a new snapshot, and repeat until you arrive at your desired major version, but you might find it easier to manually index your data in the new cluster.
 
 ## Security considerations
 
