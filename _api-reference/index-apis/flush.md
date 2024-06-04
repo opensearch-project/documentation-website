@@ -10,7 +10,9 @@ nav_order: 36
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Flush API manually flushes in-memory data from an index onto disk. This ensures that any memory from the index stored in the buffer persists on disk, as opposed to writing all buffer data to the disk, which can affect the performance of your cluster.
+The Flush API takes all in-memory operations and stores them to segments on disk. Operations flushed to an index segment are no longer needed in transaction logs in the event of a cluster restart. 
+
+OpenSearch automatically performs flushes in the background based on certain conditions such as the size of the transaction log, controlled by the `index.translog.flush_threshold_size` setting. In situations when you need to flush in-memory operations, you can manually perform a flush operation.
 
 ## Path and HTTP methods
 
