@@ -53,6 +53,8 @@ script_cache | Statistics about script cache.
 indexing_pressure | Statistics about the node's indexing pressure.
 shard_indexing_pressure | Statistics about shard indexing pressure.
 search_backpressure | Statistics related to search backpressure.
+cluster_manager_throttling | Statistics related to throttled tasks on the cluster manager node.
+weighted_routing | Statistics relevant to weighted round robin requests.
 resource_usage_stats | Node-level resource usage statistics, such as CPU and JVM memory.
 admission_control | Statistics about admission control.
 caches | Statistics about caches. 
@@ -832,6 +834,8 @@ http.total_opened | Integer | The total number of HTTP connections the node has 
 [indexing_pressure](#indexing_pressure) | Object | Statistics related to the node's indexing pressure.
 [shard_indexing_pressure](#shard_indexing_pressure) | Object | Statistics related to indexing pressure at the shard level.
 [search_backpressure]({{site.url}}{{site.baseurl}}/opensearch/search-backpressure#search-backpressure-stats-api) | Object | Statistics related to search backpressure.
+[cluster_manager_throttling](#cluster_manager_throttling) | Object | Statistics related to throttled tasks on the cluster manager node.
+[weighted_routing](#weighted_routing) | Object | Statistics relevant to weighted round robin requests.
 [resource_usage_stats](#resource_usage_stats) | Object | Statistics related to resource usage for the node.
 [admission_control](#admission_control) | Object | Statistics related to admission control for the node.
 [caches](#caches) | Object | Statistics related to caches on the node.
@@ -1281,6 +1285,25 @@ total_rejections_breakup_shadow_mode.no_successful_request_limits | Integer | Th
 total_rejections_breakup_shadow_mode.throughput_degradation_limits | Integer | The total number of rejections when the node occupancy level is breaching its soft limit and there is a constant deterioration in the request turnaround at the shard level. In this case, additional indexing requests are rejected until the system recovers.
 enabled | Boolean | Specifies whether the shard indexing pressure feature is turned on for the node.
 enforced | Boolean | If true, the shard indexing pressure runs in enforced mode (there are rejections). If false, the shard indexing pressure runs in shadow mode (there are no rejections, but statistics are recorded and can be retrieved in the `total_rejections_breakup_shadow_mode` object). Only applicable if shard indexing pressure is enabled. 
+
+### `cluster_manager_throttling`
+
+The `cluster_manager_throttling` object contains statistics about throttled tasks on the cluster manager node. It is populated only for the node that is currently elected as the cluster manager.  
+
+Field | Field type | Description
+:--- | :--- | :---
+stats | Object | Statistics about throttled tasks on the cluster manager node.
+stats.total_throttled_tasks | Long | The total number of throttled tasks.
+stats.throttled_tasks_per_task_type | Object | A breakdown of statistics by individual task type, specified as key-value pairs. The keys are individual task types, and their values represent the number of requests that were throttled.
+
+### `weighted_routing`
+
+The `weighted_routing` object contains statistics about weighted round robin requests. Specifically, it contains a counter of times this node has server a request while it was "zoned out".
+
+Field | Field type | Description
+:--- |:-----------| :---
+stats | Object | Statistics about weighted routing.
+fail_open_count | Integer | Number of times a shard on this node has served a request while the routing weight for the node was set to zero.
 
 ### `resource_usage_stats`
 
