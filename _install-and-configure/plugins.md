@@ -176,7 +176,7 @@ bin/opensearch-plugin install <groupId>:<artifactId>:<version>
 ```
 
 #### Example
-```bash
+```console
 $ sudo ./opensearch-plugin install org.opensearch.plugin:opensearch-anomaly-detection:2.2.0.0
 -> Installing org.opensearch.plugin:opensearch-anomaly-detection:2.2.0.0
 -> Downloading org.opensearch.plugin:opensearch-anomaly-detection:2.2.0.0 from maven central
@@ -214,8 +214,8 @@ bin/opensearch-plugin install <plugin-name> <plugin-name> ... <plugin-name>
 ```
 
 #### Example
-```bash
-$ sudo $ ./opensearch-plugin install analysis-nori repository-s3
+```console
+$ sudo ./opensearch-plugin install analysis-nori repository-s3
 ```
 
 ## Remove
@@ -228,8 +228,8 @@ bin/opensearch-plugin remove <plugin-name>
 ```
 
 #### Example
-```bash
-$ sudo $ ./opensearch-plugin remove opensearch-anomaly-detection
+```console
+$ sudo ./opensearch-plugin remove opensearch-anomaly-detection
 -> removing [opensearch-anomaly-detection]...
 ```
 
