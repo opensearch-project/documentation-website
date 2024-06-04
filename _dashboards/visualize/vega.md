@@ -195,7 +195,7 @@ The following is an example Vega specification with `Demo US Cluster` as the spe
 ```
 {% include copy-curl.html %}
 
-## Creating Vega visualizations with OpenSearch Dashboards
+## Creating Vega visualizations using multiple data sources with OpenSearch Dashboards
 
 Before proceeding, ensure that the following configuration is enabled in your `opensearch_dashboards.yml` file:
 
