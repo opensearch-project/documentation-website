@@ -165,7 +165,7 @@ GET testindex1/_doc/1
 
 #### Response
 
-The response show the document with the `protocol` field converted to uppercase and the field name removed, as shown in the following response:
+The response shows the document with the `protocol` field converted to uppercase and the field name removed:
 
 ```json
 {  
