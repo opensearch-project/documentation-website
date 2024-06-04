@@ -7,7 +7,7 @@ nav_order: 200
 
 # Pipeline processor
 
-The `pipeline` processor allows a pipeline to reference and include another predefined pipeline. This can be useful when you have a set of common processors that need to be shared across multiple pipelines. Instead of redefining those common processors in each pipeline, you can create a separate base pipeline containing the shared processors, and then reference that base pipeline from other pipelines using the pipeline processor.
+The `pipeline` processor allows a pipeline to reference and include another predefined pipeline. This can be useful when you have a set of common processors that need to be shared across multiple pipelines. Instead of redefining those common processors in each pipeline, you can create a separate base pipeline containing the shared processors and then reference that base pipeline from other pipelines using the pipeline processor.
 
 The following is the syntax for the `pipeline` processor:
 
