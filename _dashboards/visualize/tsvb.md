@@ -27,13 +27,12 @@ Open OpenSearch Dashboards and follow these steps:
 
 1. Select **Dashboards Management** from the main menu on the left.
 2. Select **Data sources** and then select the **Create data source** button.
-3. From the **Create data source** page, enter the connection details and endpoint URL, as shown in the following GIF.
+3. From the **Create data source** page, enter the connection details and endpoint URL.
+4. From the **Home** page, select **Add sample data** and then select the **Add data** button for the **Sample web logs** dataset.
 
-  ![Create data source]({{site.url}}{{site.baseurl}}/images/dashboards/create-datasource.gif)
+The following GIF shows these steps.
 
-4. From the **Home** page, select **Add sample data** and then select the **Add data** button for the **Sample web logs** dataset, as shown in the following GIF.
-
-  <img src="{{site.url}}{{site.baseurl}}/images/dashboards/tsvb.png" alt="TSVB pop-up screen" width="700"/>
+![Create data source]({{site.url}}{{site.baseurl}}/images/dashboards/create-datasource.gif)
 
 **Step 2: Create the visualization**
 
@@ -54,7 +53,7 @@ After creating a TSVB visualization, data may appear based on your default index
 
 The following GIF shows these steps. 
 
-  ![Specifying data sources with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/dashboards/configure-tsvb.gif)
+![Specifying data sources with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/dashboards/configure-tsvb.gif)
   
 **(Optional) Step 4: Add annotations**
 
@@ -69,4 +68,4 @@ Annotations are markers that can be added to time-series visualizations. Follow 
 
 The visualization automatically updates to display your annotations, as shown in the following image.
 
-  <img src="{{site.url}}{{site.baseurl}}images/dashboards/tsvb-with-annotations.png" alt="TSVB visualization with annotations" width="700"/>
+  <img src="{{site.url}}{{site.baseurl}}/images/dashboards/tsvb-with-annotations.png" alt="TSVB visualization with annotations" width="700"/>
