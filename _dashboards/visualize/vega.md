@@ -19,7 +19,7 @@ The following image shows a custom Vega map created in OpenSearch.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/vega-2.png" alt="Map created using Vega visualization in OpenSearch Dashboards">
 
-## Visualizing data from multiple data sources
+## Creating TSVB visualizations
 Introduced 2.13
 {: .label .label-purple }
 
@@ -195,7 +195,7 @@ The following is an example Vega specification with `Demo US Cluster` as the spe
 ```
 {% include copy-curl.html %}
 
-## Creating Vega visualizations using multiple data sources with OpenSearch Dashboards
+### Creating Vega visualizations using multiple data sources with OpenSearch Dashboards
 
 Before proceeding, ensure that the following configuration is enabled in your `opensearch_dashboards.yml` file:
 
@@ -203,23 +203,28 @@ Before proceeding, ensure that the following configuration is enabled in your `o
 vis_type_vega.enabled: true
 ```
 
-### Step 1: Set up and connect data sources
+#### Step 1: Set up and connect data sources
 
 Open OpenSearch Dashboards and follow these steps:
 
-1. From the menu on the left, navigate to **Dashboards Management** and select **Data sources**. 
-2. Select **Create data source connection** and then add your data source.
-3. From the **Data source** dropdown menu, select the data source you created.
-4. From the **Home** page, select **Add sample data**. For this tutorial, select **Sample web logs**.
+1. Select **Dashboards Management** from the menu on the left.
+2. Select **Data sources** and then select the **Create data source** button.
+3. From the **Create data source** page, enter the connection details and endpoint URL, as shown in the following GIF.
 
-### Step 2: Create the visualization
+    
+   
+4. From the **Home page**, select **Add sample data**. Under **Data source**, select your newly created data source, and then select the **Add data button** for the **Sample web logs** dataset, as shown in the following GIF.
+
+    
+
+#### Step 2: Create the visualization
 
 1. From the menu on the left, select **Visualize**.
 2. From the **Visualizations** page, select **Create Visualization** and then select **Vega** from the pop-up window, as shown in the following images.
 
     <img src="{{site.url}}{{site.baseurl}}/images/vega.png" alt="Visualizations selection menu" width="700">
 
-### Step 3: Add the Vega specification
+#### Step 3: Add the Vega specification
 
 1. Verify that the data source you created is specified under `data_source_name`.
 2. Copy the following Vega specification.
