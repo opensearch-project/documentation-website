@@ -29,7 +29,7 @@ Parameter | Required/Optional | Description |
 `name` | Required	| The name of the pipeline to execute.
 `description` | Optional | A description of the processor's purpose or configuration.
 `if` | Optional | Specifies to conditionally execute the processor.
-`ignore_failure` | Optional | Specifies to ignore failures for the processor. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
+`ignore_failure` | Optional | Specifies to ignore processor failures. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
 `on_failure` | Optional | Specifies to handle failures for the processor. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
 `tag` | Optional | An identifier for the processor. Useful for debugging and metrics.
 
