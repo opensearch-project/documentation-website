@@ -14,13 +14,17 @@ This quickstart guide provides tutorials on using OpenSearch Dashboards applicat
 - **Adding sample data:** Use preloaded visualizations, dashboards, and other tools to explore OpenSearch Dashboards before adding your own data.
 - **Using the Discover application:** Analyze your data to gain insights.
 - **Using the Dashboards application:** Create and store data visualizations.
-- **Turning dark mode on or off:** Change the Dashboards theme.
+- **Customizing the appearance theme:** Quickly change the OpenSearch Dashboards appearance theme from the home page.
 
-To dock or undock the navigation pane, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/menu-icon.png" class="inline-icon" alt="menu icon"/>{:/} icon and then **Dock navigation** or **Undock navigation**. The OpenSearch Dashboards home page is shown in the following image.  
+The OpenSearch Dashboards default view is shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/opensearch-dashboards-home.png" alt="OpenSearch Dashboards home page" width="700">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/home-page-nav.png" alt="OpenSearch Dashboards interface default view" width="700">
 
-{::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/alert-icon.png" class="inline-icon" alt="alert icon"/>{:/} **Note**<br>Before you get started, make sure you've installed OpenSearch and OpenSearch Dashboards. For information about installation and configuration, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/).
+## Docking the navigation menu
+
+To dock or undock the navigation menu, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/menu-icon.png" class="inline-icon" alt="menu icon"/>{:/} icon on the upper-left toolbar and then select **Dock navigation** or **Undock navigation** on the lower left of the menu. A docked navigation menu is shown in the preceding image.
+
+Before continuing with the following tutorials, make sure you've installed OpenSearch and OpenSearch Dashboards. For information about installation and configuration, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/).
 {: .note}
 
 ## Adding sample data
@@ -33,7 +37,7 @@ To add sample data, follow these steps:
 1. On the OpenSearch Dashboards **Home** page, choose **Add sample data**. Alternatively, choose **Add data** on the upper-right toolbar.
 2. On the **Add sample data** page, choose the dataset(s) you want to add to Dashboards. The following image shows the available sample datasets.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-sample-data-2.png" alt="Adding sample data window" width="700">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-sample.png" alt="Adding sample data window" width="700">
 
 ## Using the Discover application 
 
@@ -57,7 +61,7 @@ The resulting view is shown in the following image.
 
 ## Using the Dashboards application
 
-With **Dashboards**, you can:
+With [**Dashboards**]({{site.url}}{{site.baseurl}}/dashboards/dashboard/index/), you can:
 
 - Display data in a single view.
 - Build dynamic dashboards.
@@ -71,11 +75,11 @@ The **Dashboards** application creates and stores visualizations generated from 
 3. To add other panels to the dashboard, select the **Edit** button and then choose **Add** from the toolbar. The **Add panels** window opens. 
 4. In the search toolbar in the **Add panels** window, search for and select the existing panel **[Flights] Delay Buckets**. A pop-up message confirms that you've added the panel.
 5. Select close `x` to exit the **Add panels** window.
-6. The newly added panel is now displayed on the dashboard.
+6. The newly added panel is now displayed as the last panel on the dashboard.
 
 The resulting view is shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-panel2.png" alt="Add panel tutorial screen view" width="700">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-dash-panel.png" alt="Add panel view" width="700">
 
 For information about using a specific data visualization type, such as VisBuilder, go to [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/). For information about using dashboards and visualizations in **Observability**, go to [Observability]({{site.url}}{{site.baseurl}}/observing-your-data/).
 {: .note}
@@ -86,33 +90,44 @@ Interactive dashboards allow you to analyze data in more depth and filter it in 
 
 Using the **[Flights] Global Flight Dashboard** dashboard, follow these steps to further analyze and filter the sample flight data:
 
-1. On the **[Flights] Airline Carrier** panel, choose **OpenSearch-Air**. The dashboard updates automatically.
+1. On the **[Flights] Airline Carrier** panel, choose **OpenSearch-Air**. The dashboard updates automatically, adding the filter `Carrier: OpenSearch-Air` on the upper-left filter bar. The following GIF illustrates this step.
 2. Choose **Save** to save the dashboard.
+
+![Filter data demo]({{site.url}}{{site.baseurl}}/images/dashboards/airline-carrier.gif)
 
 Alternatively, you can use the dashboard toolbar to apply filters by following these steps:
 
 1. In the dashboard toolbar, choose **Add filter**.
-2. From the **Field**, **Operator**, and **Value** dropdown lists, choose **Carrier**, **is**, and **OpenSearch-Air**, respectively, as shown in the following image.
+2. From the **Field**, **Operator**, and **Value** dropdown lists, choose **Carrier**, **is**, and **OpenSearch-Air**, respectively.
 3. Choose **Save**. The dashboard updates automatically.
 
 The resulting view is shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}//images/<insert image>" alt="Screenshot of Dashboard tutorial panel view" width="700">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/filter-data-dash.png" alt="Dashboards tutorial panel view" width="700">
 
-## Turning dark mode on or off
+## Customizing the appearance theme
+Introduced 2.14
+{: .label .label-purple }
 
-Changing the Dashboards theme requires admin permissions. If you are an admin, follow these steps:
+Light mode is the default OpenSearch Dashboards appearance theme. You can customize the appearance theme to suit your preferences. The available options include light mode, dark mode, and your browser's settings.
+
+### Enabling the appearance theme setting
+
+The appearance theme setting is enabled or disabled through **Advanced Settings** and requires admin permissions. 
+
+### Changing the appearance theme settings
+
+Admins can change the appearance theme for all users of their OpenSearch Dashboards instance through **Advanced Settings**:
 
 1. Navigate to **Management** > **Dashboards Management** > **Advanced Settings**.
-2. Scroll down to the **Appearance** section and locate the **Dark mode** option.
-3. Use the toggle switch to turn dark mode on or off for all users of your Dashboards instance, as shown in the image following these steps.
-4. Select the **Save changes** button and then the **Reload** button. The updated theme is applied immediately.
+2. Scroll to the **Appearance** section and toggle `theme:darkMode` on or off.
+3. Select the **Save changes** button and then the **Reload** button. The updated theme is applied immediately.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dark-mode.png" alt="Dark mode view" width="700">
 
 ## Next steps
 
-- Go to [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/) to learn more about Dashboards data visualizations.
+- Go to [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/) to learn more about data visualizations.
 - Go to [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/quickstart-dashboards/) to learn more about creating dashboards.
 - Go to [Analyzing data]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/) to learn more about using Dashboards to analyze data. 
-- Go to [Ingest APIs]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) and [Ingest pipelines]({{site.url}}{{site.baseurl}}/ingest-pipelines/) to learn more about using OpenSearch for data ingestion.
+- Go to [Ingest APIs]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) and [Ingest pipelines]({{site.url}}{{site.baseurl}}/ingest-pipelines/) to learn more about data ingestion using OpenSearch.
