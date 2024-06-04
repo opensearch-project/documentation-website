@@ -207,14 +207,14 @@ vis_type_vega.enabled: true
 
 Open OpenSearch Dashboards and follow these steps:
 
-1. From the left-side menu, navigate to **Dashboards Management** and select **Data sources**. 
+1. From the menu on the left, navigate to **Dashboards Management** and select **Data sources**. 
 2. Select **Create data source connection** and then add your data source.
 3. From the **Data source** dropdown menu, select the data source you created.
 4. From the **Home** page, select **Add sample data**. For this tutorial, select **Sample web logs**.
 
 ### Step 2: Create the visualization
 
-1. From the left-side menu, select **Visualize**.
+1. From the menu on the left, select **Visualize**.
 2. From the **Visualizations** page, select **Create Visualization** and then select **Vega** from the pop-up window, as shown in the following images.
 
     <img src="{{site.url}}{{site.baseurl}}/images/vega.png" alt="Visualizations selection menu" width="700">
