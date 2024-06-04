@@ -135,7 +135,7 @@ POST testindex1/_doc/1?pipeline=outer-pipeline
 
 #### Response
 
-The request indexes the document with the `protocol` field converted to uppercase and the field name removed into the index `testindex1`, as shown in the following response:
+The request indexes the document with the `protocol` field converted to uppercase and the field name removed from the index `testindex1`, as shown in the following response:
 
 ```json
 {  
