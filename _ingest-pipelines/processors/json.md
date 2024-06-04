@@ -31,8 +31,8 @@ The following table lists the required and optional parameters for the `json` pr
 Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
 `field` | Required | The name of the field containing the JSON-formatted string to be deserialized.
-`target_field` | Optional | The name of the field where the deserialized JSON data will be stored. If this parameter is not provided, the deserialized data is added to the root of the document.
-`add_to_root` | Optional | A boolean flag that determines whether the deserialized JSON data should be added to the root of the document (`true`) or stored in the target_field (`false`). Default value is `false`. 
+`target_field` | Optional | The name of the field where the deserialized JSON data will be stored. If `target_field` is unspecified, the value is stored in field. If `target_field` exists, it is overwritten.
+`add_to_root` | Optional | A boolean flag that determines whether the deserialized JSON data should be added to the root of the document (`true`) or stored in the target_field (`false`). If `add_to_root` is `true`, then `target-field` is invalid. Default value is `false`. 
 `description` | Optional | A description of the processor's purpose or configuration.
 `if` | Optional | Specifies to conditionally execute the processor.
 `ignore_failure` | Optional | Specifies to ignore failures for the processor. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
@@ -55,8 +55,7 @@ PUT _ingest/pipeline/my-json-pipeline
     {
       "json": {
         "field": "raw_data",
-        "target_field": "parsed_data",
-        "add_to_root": false,
+        "target_field": "parsed_data"
         "on_failure": [
           {
             "set": {
