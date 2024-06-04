@@ -21,38 +21,42 @@ vis_type_timeseries.enabled: true
 ```
 {% include copy-curl.html %}
 
-**Step 1: Connect data sources**
+**Step 1: Set up and connect data sources**
 
-Once you have configured your YAML file, open OpenSearch Dashboards and follow these steps:
+Open OpenSearch Dashboards and follow these steps:
 
-1. Select **Dashboards Management** from the main menu.
-2. Select **Data sources** from the menu on the left and then select the **Create data source** button.
-3. From the **Create data source** page, enter the connection details and endpoint URL, as shown in the following GIF:
+1. Select **Dashboards Management** from the main menu on the left.
+2. Select **Data sources** and then select the **Create data source** button.
+3. From the **Create data source** page, enter the connection details and endpoint URL, as shown in the following GIF.
 
-  ![Configuring and connecting data sources]({{site.url}}{{site.baseurl}}/images/dashboards/Add_datasource.gif)
+  ![Create data source]({{site.url}}{{site.baseurl}}/images/dashboards/create-datasource.gif)
 
 4. From the **Home** page, select **Add sample data** and then select the **Add data** button for the **Sample web logs** dataset, as shown in the following GIF.
 
   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/tsvb.png" alt="TSVB pop-up screen" width="700"/>
 
-**Step 2: Specify data sources**
+**Step 2: Create the visualization**
 
-TSVB uses your default index pattern to initialize the visualization. To change the index pattern or configure settings, follow these steps:
+Follow these steps to create the visualization:
+
+1. From the menu on the left, select **Visualize**.
+2. From the **Visualizations** page, select **Create Visualization** and then select **TSVB** in the pop-up window.
+3. Proceed with specifying your data source.
+
+**Step 3: Specify data sources**
+
+After creating a TSVB visualization, data may appear based on your default index pattern. To change the index pattern or configure additional settings, follow these steps to customize your visualization:
 
 1. From the **Create** window, select **Panel options**.
-2. Select the OpenSearch cluster from which to pull data from the **Data source** dropdown menu. In this case, choose `Source A`.
-3. Enter `opensearch_dashboards_sample_data_logs` in the **Index name** field.
-4. Select `@timestamp` from the **Time field** dropdown menu. This setting specifies the time range for rendering the visualization.
+2. From **Data source**, select the OpenSearch cluster from which to pull data. In this case, choose your newly created data source.
+3. From **Index name**, enter `opensearch_dashboards_sample_data_logs`.
+4. Under **Time field**, select `@timestamp`. This setting specifies the time range for rendering the visualization.
 
 The following GIF shows these steps. 
 
-  ![Specifying data sources demo]({{site.url}}{{site.baseurl}}/images/dashboards/make_tsvb.gif)
-
-The following image shows the TSVB visualization.
-
-  <img src="{{site.url}}{{site.baseurl}}/images/dashboards/tsvb-viz.png" alt="TSVB visualization" width="700"/>
-
-**(Optional) Step 3: Add annotations**
+  ![Specifying data sources with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/dashboards/configure-tsvb.gif)
+  
+**(Optional) Step 4: Add annotations**
 
 Annotations are markers that can be added to time-series visualizations. Follow these steps to add annotations:
 
@@ -63,6 +67,6 @@ Annotations are markers that can be added to time-series visualizations. Follow 
 5. In **Fields**, enter timestamp.
 6. In **Row** template, enter timestamp.
 
-The automatically updates to display your annotations, as shown in the following image.
+The visualization automatically updates to display your annotations, as shown in the following image.
 
   <img src="{{site.url}}{{site.baseurl}}images/dashboards/tsvb-with-annotations.png" alt="TSVB visualization with annotations" width="700"/>
