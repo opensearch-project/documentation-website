@@ -25,15 +25,15 @@ vis_type_timeseries.enabled: true
 
 Once you have configured your YAML file, open OpenSearch Dashboards and follow these steps:
 
-1. From the **Home** page, select **Add sample data** and then select the **Add data** button for the **Sample web logs** dataset, as shown in the following GIF.
-
-  <img src="{{site.url}}{{site.baseurl}}/images/dashboards/tsvb.png" alt="TSVB pop-up screen" width="700"/>
-
-2. Select **Dashboards Management** from the main menu.
-3. Select **Data sources** from the left-side menu and then select the **Create data source** button.
-4. From the **Create data source** page, enter the connection details and endpoint URL, as shown in the following GIF:
+1. Select **Dashboards Management** from the main menu.
+2. Select **Data sources** from the left-side menu and then select the **Create data source** button.
+3. From the **Create data source** page, enter the connection details and endpoint URL, as shown in the following GIF:
 
   ![Configuring and connecting data sources]({{site.url}}{{site.baseurl}}/images/dashboards/Add_datasource.gif)
+
+4. From the **Home** page, select **Add sample data** and then select the **Add data** button for the **Sample web logs** dataset, as shown in the following GIF.
+
+  <img src="{{site.url}}{{site.baseurl}}/images/dashboards/tsvb.png" alt="TSVB pop-up screen" width="700"/>
 
 **Step 2: Specify data sources**
 
@@ -66,4 +66,3 @@ Annotations are markers that can be added to time-series visualizations. Follow 
 The automatically updates to display your annotations, as shown in the following image.
 
   <img src="{{site.url}}{{site.baseurl}}images/dashboards/tsvb-with-annotations.png" alt="TSVB visualization with annotations" width="700"/>
-
