@@ -21,6 +21,10 @@ vis_type_timeseries.enabled: true
 ```
 {% include copy-curl.html %}
 
+Once you have configured [multiple data sources]({{site.url}}{{site.baseurl}}/dashboards/management/multi-data-sources/) in OpenSearch Dashboards, you can use Vega to query those data sources. The following GIF shows the process of creating TSVB visualizations in OpenSearch Dashboards.
+
+![Process of creating TSVB visualizations in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/dashboards/configure-tsvb.gif)
+
 **Step 1: Set up and connect data sources**
 
 Open OpenSearch Dashboards and follow these steps:
@@ -40,7 +44,7 @@ Follow these steps to create the visualization:
 
 1. From the menu on the left, select **Visualize**.
 2. From the **Visualizations** page, select **Create Visualization** and then select **TSVB** in the pop-up window.
-3. Proceed with specifying your data source.
+3. Proceed with the steps under Specify data sources.
 
 **Step 3: Specify data sources**
 
@@ -51,10 +55,6 @@ After creating a TSVB visualization, data may appear based on your default index
 3. From **Index name**, enter `opensearch_dashboards_sample_data_logs`.
 4. Under **Time field**, select `@timestamp`. This setting specifies the time range for rendering the visualization.
 
-The following GIF shows these steps. 
-
-![Specifying data sources with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/dashboards/configure-tsvb.gif)
-  
 **(Optional) Step 4: Add annotations**
 
 Annotations are markers that can be added to time-series visualizations. Follow these steps to add annotations:

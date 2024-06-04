@@ -20,7 +20,7 @@ data_source.enabled: true
 vis_type_vega.enabled: true
 ```
 
-Once you have configured [multiple data sources]({{site.url}}{{site.baseurl}}/dashboards/management/multi-data-sources/) in OpenSearch Dashboards, you can use Vega to query those data sources. The following GIF show to process of creating Vega visualizations in OpenSearch Dashboards.
+Once you have configured [multiple data sources]({{site.url}}{{site.baseurl}}/dashboards/management/multi-data-sources/) in OpenSearch Dashboards, you can use Vega to query those data sources. The following GIF shows the process of creating Vega visualizations in OpenSearch Dashboards.
 
 ![Process of creating Vega visualizations in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/dashboards/configure-vega.gif)
 
