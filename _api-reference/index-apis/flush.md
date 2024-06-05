@@ -10,9 +10,9 @@ nav_order: 36
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Flush API takes all in-memory operations and stores them to segments on disk. Operations flushed to an index segment are no longer needed in transaction logs in the event of a cluster restart. 
+The Flush API takes all in-memory operations and stores them to segments on disk. Operations flushed to an index segment are no longer needed in transaction logs in the event of a cluster restart because these operations are now stored in the Lucene Index. 
 
-OpenSearch automatically performs flushes in the background based on certain conditions such as the size of the transaction log, controlled by the `index.translog.flush_threshold_size` setting. In situations when you need to flush in-memory operations, you can manually perform a flush operation.
+OpenSearch automatically performs flushes in the background based on certain conditions such as the size of the transaction log, controlled by the `index.translog.flush_threshold_size` setting. Therefore, the use of the Flush API should only be reserved for rare instances, such as a manual cluster restart or freeing up in-memory disk space.
 
 ## Path and HTTP methods
 
