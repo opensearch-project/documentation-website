@@ -31,7 +31,7 @@ The following table lists the required and optional parameters for the `json` pr
 Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
 `field` | Required | The name of the field containing the JSON-formatted string to be deserialized.
-`target_field` | Optional | The name of the field in which the deserialized JSON data will be stored. If `target_field` is unspecified, then the value is stored in field. If `target_field` exists, it is overwritten.
+`target_field` | Optional | The name of the field in which the deserialized JSON data is stored. When not provided, the data is stored in the `field` field. If `target_field` exists, its existing value is overwritten with the new JSON data.
 `add_to_root` | Optional | A Boolean flag that determines whether the deserialized JSON data should be added to the root of the document (`true`) or stored in the target_field (`false`). If `add_to_root` is `true`, then `target-field` is invalid. Default value is `false`. 
 `description` | Optional | A description of the processor's purpose or configuration.
 `if` | Optional | Specifies to conditionally execute the processor.
