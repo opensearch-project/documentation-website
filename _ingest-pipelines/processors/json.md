@@ -35,7 +35,7 @@ Parameter | Required/Optional | Description |
 `add_to_root` | Optional | A Boolean flag that determines whether the deserialized JSON data should be added to the root of the document (`true`) or stored in the target_field (`false`). If `add_to_root` is `true`, then `target-field` is invalid. Default value is `false`. 
 `description` | Optional | A description of the processor's purpose or configuration.
 `if` | Optional | Specifies to conditionally execute the processor.
-`ignore_failure` | Optional | Specifies to ignore failures for the processor. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
+`ignore_failure` | Optional | Specifies to ignore processor failures. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
 `on_failure`| Optional | Specifies a list of processors to run if the processor fails during execution. These processors are executed in the order they are specified. 
 `tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type.
 
