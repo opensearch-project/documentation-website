@@ -12,7 +12,11 @@ The `html_strip` processor removes HTML tags from string fields in incoming docu
 The following is the syntax for the `html_strip` processor:
 
 ```json
-<insert syntax example>
+{  
+  "html_strip": {  
+    "field": "webpage"  
+  }  
+}  
 ```
 {% include copy-curl.html %}
 
@@ -24,12 +28,12 @@ Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
 `field` | Required | The string field from which to remove HTML tags.
 `target_field` | Optional | The field to assign the cleaned value to. If not specified, field is updated in-place.
-`ignore_missing` | Optional | Default is `false`. If `true`, the processor quietly exits without modifying the document when field does not exist.
-`description` | Optional | Description of the processor's purpose or configuration.
-`if` | Optional | Conditionally execute the processor.
-`ignore_failure` | Optional | Ignore failures for the processor. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
-`on_failure` | Optional | Handle failures for the processor. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
-`tag` | Optional | Identifier for the processor. Useful for debugging and metrics.
+`ignore_missing` | Optional | Specifies whether the processor should ignore documents that do not contain the specified field. Default is `false`.
+`description` | Optional | A description of the processor's purpose or configuration.
+`if` | Optional | Specifies to conditionally execute the processor.
+`ignore_failure` | Optional | Specifies to ignore processor failures. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
+`on_failure` | Optional | Specifies a list of processors to run if the processor fails during execution. These processors are executed in the order they are specified. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
+`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type.
 
 ## Using the processor
 
