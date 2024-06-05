@@ -153,5 +153,3 @@ To retrieve the document, run the following query:
 GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
-
-<Provide any other information and code examples relevant to the user or use cases.>
