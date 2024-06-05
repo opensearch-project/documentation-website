@@ -72,3 +72,5 @@ Learn more about the following features:
 - [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/actions/)
 - [Notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/)
 - [Alerting dashboards and visualizations]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/dashboards-alerting/)
+
+Learn more about creating specific monitor types in their respective documentation.
