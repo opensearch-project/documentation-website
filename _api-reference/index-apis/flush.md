@@ -61,7 +61,7 @@ The following example flushes all indexes in a cluster:
 POST /_flush
 ```
 
-## Response
+## Example response
 
 OpenSearch responds with the number of shards that acknowledged the flush request, how many shards completed the request, and how many failed:
 
