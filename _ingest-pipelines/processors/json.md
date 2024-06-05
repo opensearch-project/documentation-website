@@ -32,7 +32,7 @@ Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
 `field` | Required | The name of the field containing the JSON-formatted string to be deserialized.
 `target_field` | Optional | The name of the field in which the deserialized JSON data will be stored. If `target_field` is unspecified, then the value is stored in field. If `target_field` exists, it is overwritten.
-`add_to_root` | Optional | A boolean flag that determines whether the deserialized JSON data should be added to the root of the document (`true`) or stored in the target_field (`false`). If `add_to_root` is `true`, then `target-field` is invalid. Default value is `false`. 
+`add_to_root` | Optional | A Boolean flag that determines whether the deserialized JSON data should be added to the root of the document (`true`) or stored in the target_field (`false`). If `add_to_root` is `true`, then `target-field` is invalid. Default value is `false`. 
 `description` | Optional | A description of the processor's purpose or configuration.
 `if` | Optional | Specifies to conditionally execute the processor.
 `ignore_failure` | Optional | Specifies to ignore failures for the processor. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
