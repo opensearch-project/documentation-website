@@ -48,7 +48,7 @@ Follow these steps to use the processor in a pipeline.
 
 ### Step 1: Create a pipeline
 
-The following query creates a pipeline named <pipeline name> that uses the script processor to <do what?>: 
+The following query creates a pipeline named `my-script-pipeline` that uses the `script` processor to convert the `message` field to uppercase: 
 
 ```json
 PUT _ingest/pipeline/my-script-pipeline
@@ -126,7 +126,7 @@ POST testindex1/_doc?pipeline=my-script-pipeline
 
 #### Response
 
-This repsonse confirms that the document is indexed into `testindex1` and is indexing all documents with the `message` field transformed to uppercase.
+This response confirms that the document is indexed into `testindex1` and is indexing all documents with the `message` field converted to uppercase.
 
 ```json
 {
