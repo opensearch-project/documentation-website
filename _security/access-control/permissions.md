@@ -189,18 +189,18 @@ Cross-references to API documentation in the permissions that follow are only in
 | `indices:admin/template/delete` |  Permission to [delete index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/#delete-a-template). |
 | `indices:admin/template/get` |  Permission to [get index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/#retrieve-a-template). |
 | `indices:admin/template/put` |  Permission to [create index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/#create-a-template). |
-| `indices:data/read/scroll` |  Permission to scroll data. This setting needs to be configured as both a cluster and index level permission. |
-| `indices:data/read/scroll/clear` | Permission to clear read scroll data. This setting needs to be configured as both a cluster and index level permission. |
+| `indices:data/read/scroll` |  Permission to scroll through data. This setting must be configured as both a cluster- and index-level permission. |
+| `indices:data/read/scroll/clear` | Permission to clear read scroll data. This setting must be configured as both a cluster- and index-level permission. |
 | `indices:data/read/mget` |  Permission to run [multiple GET operations]({{site.url}}{{site.baseurl}}/api-reference/document-apis/multi-get/) in one request. |
-| `indices:data/read/mget*` |  Permission to run multiple GET operations in one request. This setting needs to be configured as both a cluster and index level permission. |
-| `indices:data/read/msearch` |  Permission to run [multiple search]({{site.url}}{{site.baseurl}}/api-reference/multi-search/) requests in a single API request. This setting needs to be configured as both a cluster and index level permission. |
-| `indices:data/read/msearch/template` |  Permission to bundle [multiple search templates]({{site.url}}{{site.baseurl}}/api-reference/search-template/#multiple-search-templates) and send them to your OpenSearch cluster in a single request. This setting needs to be configured as both a cluster and index level permission. |
-| `indices:data/read/mtv` |  Permission to retrieve multiple term vectors with a single request. This setting needs to be configured as both a cluster and index level permission. |
-| `indices:data/read/mtv*` |  Permission to retrieve multiple term vectors with a single request. This setting needs to be configured as both a cluster and index level permission. |
-| `indices:data/read/search/template/render` |  Permission to render search templates. This setting needs to be configured as both a cluster and index level permission. |
-| `indices:data/write/bulk` |  Permission to run a [bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) request. This setting needs to be configured as both a cluster and index level permission. |
-| `indices:data/write/bulk*` |  Permission to run a bulk request. This setting needs to be configured as both a cluster and index level permission. |
-| `indices:data/write/reindex` |  Permission to run a [reindex]({{site.url}}{{site.baseurl}}/im-plugin/reindex-data/). |
+| `indices:data/read/mget*` |  Permission to run multiple GET operations in one request. This setting must be configured as both a cluster- and index-level permission. |
+| `indices:data/read/msearch` |  Permission to run [multiple search]({{site.url}}{{site.baseurl}}/api-reference/multi-search/) requests in a single API request. This setting must be configured as both a cluster- and index-level permission. |
+| `indices:data/read/msearch/template` |  Permission to bundle [multiple search templates]({{site.url}}{{site.baseurl}}/api-reference/search-template/#multiple-search-templates) and send them to your OpenSearch cluster in a single request. This setting must be configured as both a cluster- and index-level permission. |
+| `indices:data/read/mtv` |  Permission to retrieve multiple term vectors with a single request. This setting must be configured as both a cluster- and index-level permission. |
+| `indices:data/read/mtv*` |  Permission to retrieve multiple term vectors with a single request. This setting must be configured as both a cluster- and index-level permission. |
+| `indices:data/read/search/template/render` |  Permission to render search templates. This setting must be configured as both a cluster- and index-level permission. |
+| `indices:data/write/bulk` |  Permission to run a [bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) request. This setting must be configured as both a cluster- and index-level permission. |
+| `indices:data/write/bulk*` |  Permission to run a bulk request. This setting must be configured as both a cluster- and index-level permission. |
+| `indices:data/write/reindex` |  Permission to run a [reindex]({{site.url}}{{site.baseurl}}/im-plugin/reindex-data/) operation. |
 
 ### Ingest API permissions
 
@@ -503,15 +503,15 @@ These permissions apply to an index or index pattern. You might want a user to h
 | `indices:data/read/field_caps*` |  Permission to run the Field Capabilities API. |
 | `indices:data/read/get` |  Permission to read index data. |
 | `indices:data/read/mget` |  Permission to run [multiple GET operations]({{site.url}}{{site.baseurl}}/api-reference/document-apis/multi-get/) in one request. |
-| `indices:data/read/mget*` |  Permission to run multiple GET operations in one request. This setting needs to be configured as both a cluster and index level permission. |
-| `indices:data/read/msearch` |  Permission to run [multiple search]({{site.url}}{{site.baseurl}}/api-reference/multi-search/)  requests into a single request. This setting needs to be configured as both a cluster and index level permission. |
-| `indices:data/read/msearch/template` |  Permission to bundle [multiple search templates]({{site.url}}{{site.baseurl}}/api-reference/search-template/#multiple-search-templates) and send them to your OpenSearch cluster in a single request. This setting needs to be configured as both a cluster and index level permission. |
-| `indices:data/read/mtv` |  Permission to retrieve multiple term vectors with a single request. This setting needs to be configured as both a cluster and index level permission. |
-| `indices:data/read/mtv*` |  Permission to retrieve multiple term vectors with a single request. This setting needs to be configured as both a cluster and index level permission. |
+| `indices:data/read/mget*` |  Permission to run multiple GET operations in one request. This setting must be configured as both a cluster- and index-level permission. |
+| `indices:data/read/msearch` |  Permission to run [multiple search]({{site.url}}{{site.baseurl}}/api-reference/multi-search/)  requests in a single request. This setting must be configured as both a cluster- and index-level permission. |
+| `indices:data/read/msearch/template` |  Permission to bundle [multiple search templates]({{site.url}}{{site.baseurl}}/api-reference/search-template/#multiple-search-templates) and send them to your OpenSearch cluster in a single request. This setting must be configured as both a cluster- and index-level permission. |
+| `indices:data/read/mtv` |  Permission to retrieve multiple term vectors with a single request. This setting must be configured as both a cluster- and index-level permission. |
+| `indices:data/read/mtv*` |  Permission to retrieve multiple term vectors with a single request. This setting must be configured as both a cluster- and index-level permission. |
 | `indices:data/read/plugins/replication/file_chunk` | Permission to check files during segment replication. |
 | `indices:data/read/plugins/replication/changes` | Permission to make changes to segment replication settings. |
-| `indices:data/read/scroll` |  Permission to scroll data. This setting needs to be configured as both a cluster and index level permission. |
-| `indices:data/read/scroll/clear` | Permission to clear read scroll data. This setting needs to be configured as both a cluster and index level permission. |
+| `indices:data/read/scroll` |  Permission to scroll through data. This setting must be configured as both a cluster- and index-level permission. |
+| `indices:data/read/scroll/clear` | Permission to clear read scroll data. This setting must be configured as both a cluster- and index-level permission. |
 | `indices:data/read/search` |  Permission to [search]({{site.url}}{{site.baseurl}}/api-reference/search/) data. |
 | `indices:data/read/search*` |  Permission to search data. |
 | `indices:data/read/search/template` |  Permission to read a search template. |
@@ -519,8 +519,8 @@ These permissions apply to an index or index pattern. You might want a user to h
 | `indices:data/write/delete` |  Permission to [delete documents]({{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-document/). |
 | `indices:data/write/delete/byquery` |  Permission to delete all documents that [match a query]({{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-by-query/). |
 | `indices:data/write/plugins/replication/changes` |  Permission to change data replication configurations and settings within indexes. |
-| `indices:data/write/bulk` |  Permission to run a [bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) request. This setting needs to be configured as both a cluster and index level permission. |
-| `indices:data/write/bulk*` |  Permission to run a bulk request. This setting needs to be configured as both a cluster and index level permission. |
+| `indices:data/write/bulk` |  Permission to run a [bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) request. This setting must be configured as both a cluster- and index-level permission. |
+| `indices:data/write/bulk*` |  Permission to run a bulk request. This setting must be configured as both a cluster- and index-level permission. |
 | `indices:data/write/index` |  Permission to add documents to existing indexes. See also [Index document]( {{site.url}}{{site.baseurl}}/api-reference/document-apis/index-document/ ). |
 | `indices:data/write/update` | Permission to update an index. |
 | `indices:data/write/update/byquery` |  Permission to run the script to update all of the documents that [match the query]({{site.url}}{{site.baseurl}}/api-reference/document-apis/update-by-query/). |
