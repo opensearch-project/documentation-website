@@ -7,7 +7,7 @@ nav_order: 170
 
 # JSON processor
 
-The `json` processor serializes a string-valued field into a map of maps, which can be useful for various data processing and enrichment tasks.
+The `json` processor serializes a string value field into a map of maps, which can be useful for various data processing and enrichment tasks.
 
 The following is the syntax for the `json` processor:
 
