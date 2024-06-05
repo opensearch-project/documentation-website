@@ -15,8 +15,6 @@ The following is the syntax for the `script` processor:
 {
   "processor": {
     "script": {
-      "tag": "<processor_tag>",
-      "description": "<processor_description>",
       "source": "<script_source>",
       "lang": "<script_language>",
       "params": {
@@ -34,13 +32,14 @@ The following table lists the required and optional parameters for the `script` 
 
 | Parameter  | Required/Optional  | Description  |
 |---|---|---|
-`source`  | Required  | The Painless script to be executed.
-`lang`  | Required  | The programming language of the script. Default is `painless`.
-`params` | Required |  The parameters that can be passed to the script.
+`source`  | Optional  | The Painless script to be executed. Either `id` or `source` must be specified, but not both. If `source` is provided, then the script is executed from the provided source code.
+`id` | Optional | The ID of a stored script that was previously created using the [Create Stored Script API]({{site.url}}{{site.baseurl}}/api-reference/script-apis/create-stored-script/). Either `id` or `source` must be specified, but not both. If `id` is provided, then the script source is retrieved from the stored script with the specified ID. 
+`lang`  | Optional  | The programming language of the script. Default is `painless`.
+`params` | Optional |  The parameters that can be passed to the script.
 `description`  | Optional  | A description of the processor's purpose or configuration.
 `if` | Optional | Specifies to conditionally execute the processor.
 `ignore_failure` | Optional | Specifies to ignore failures for the processor. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
-`on_failure` | Optional | Specifies a list of processors to run if the processor fails during execution. These processors are executed in the order they are specified.
+`on_failure` | Optional | Specifies a list of processors to run if the processor fails during execution. These processors are executed in the order they are specified. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
 `tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type.
 
 ## Using the processor
