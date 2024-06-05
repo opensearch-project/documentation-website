@@ -73,7 +73,7 @@ Follow these steps to create an alerting monitor:
 
 You can associate certain monitor types with a visualization using **Dashboards** instead of the plugin page. This association links the monitor to automatically display alerts on the related visualization chart. 
 
-To associate a monitor with an altering visualization, follow these steps: 
+To associate a monitor with an alerting visualization, follow these steps: 
 
 1. From your visualization, choose the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/} icon on the upper right of the visualization.
 2. Select **Associated monitors**.
