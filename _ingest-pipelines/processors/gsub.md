@@ -29,8 +29,7 @@ Parameter | Required/Optional | Description |
 `field` | Required | The field to apply the replacement.
 `pattern` | Required | The pattern to be replaced.
 `replacement` | Required | The string to replace the matching patterns with.
-`target_field` | Optional | The name of the field in which to store the parsed data. If `target_field` is not specified, the parsed data replaces the original data in the 
-`field` field. Default is `field`.
+`target_field` | Optional | The name of the field in which to store the parsed data. If `target_field` is not specified, the parsed data replaces the original data in the `field` field. Default is `field`.
 `if` | Optional | A condition for running the processor.
 `ignore_missing` | Optional | If `true` and the specified field does not exist or is null, then the processor will quietly exit without modifying the document.
 `ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters an error. If set to `true`, then failures are ignored. Default is `false`.
