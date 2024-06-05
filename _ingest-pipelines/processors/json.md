@@ -170,7 +170,7 @@ POST my-index/_doc?pipeline=my-json-pipeline
 
 #### Response
 
-This response confirms that the document with the JSON data from the `raw_data` field was successfully indexed:
+The response confirms that the document containing the JSON data from the `raw_data` field was successfully indexed:
 
 ```json
 {
