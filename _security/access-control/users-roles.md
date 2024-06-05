@@ -243,35 +243,35 @@ Map the role to your user:
 1. For **Internal users**, add your bulk access user.
 1. Choose **Map**.
 
-## Admin and super admin roles in OpenSearch security
+## Admin and super admin roles
 
-User roles in OpenSearch are essential for controlling access to cluster resources and functionalities. Users can be categorized as regular users, admin users, or super admin users based on their access rights and responsibilities.
+OpenSearch user roles are essential for controlling access to cluster resources. Users can be categorized as regular users, admin users, or super admin users based on their access rights and responsibilities.
 
-For more information about defining a user, see [Defining users](https://opensearch.org/docs/latest/security/access-control/users-roles/#defining-users). For more information about defining roles, see [Defining roles](https://opensearch.org/docs/latest/security/access-control/users-roles/#defining-roles).
+For more information about defining users, see [Defining users](https://opensearch.org/docs/latest/security/access-control/users-roles/#defining-users). For more information about defining roles, see [Defining roles](https://opensearch.org/docs/latest/security/access-control/users-roles/#defining-roles).
 
 
 ### Regular users
-Regular users have basic access permissions to interact with the OpenSearch cluster, such as querying data and using dashboards, but they do not have administrative privileges.
+Regular users have basic access permissions that allow them to interact with the OpenSearch cluster, such as querying data and using dashboards, but they do not have administrative privileges.
 
 ### Admin users
-Admin users in OpenSearch have elevated permissions allowing them to perform various administrative tasks within the cluster. They have broader access compared to regular users, which includes:
-- Managing users and roles
-- Configuring permissions
-- Adjusting backend settings
+Admin users have elevated permissions that allow them to perform various administrative tasks within the cluster. They have broader access compared to regular users, including permissions to:
+- Manage users and roles.
+- Configure permissions.
+- Adjust backend settings.
 
 Admin users can perform these tasks by configuring settings in the `opensearch.yml` file, using OpenSearch Dashboards, or interacting with the REST API. For more information about configuring users and roles, see [predefined roles](https://opensearch.org/docs/latest/security/access-control/users-roles/#predefined-roles).
 
 ### Super admin users
-Super admins hold the highest level of administrative authority within the OpenSearch environment. This role is typically reserved for select users and is maintained carefully.
+Super admin users have the highest level of administrative authority within the OpenSearch environment. This role is typically reserved for select users and should be managed carefully.
 
-Super admin users have unrestricted access to all settings and data within the cluster, including the following tasks:
-- Modify Security plugin configurations
-- Access and manage the security index `.opendistro_security`
-- Override any security limitations
+Super admin users have unrestricted access to all settings and data within the cluster, including permissions to:
+- Modify Security plugin configurations.
+- Access and manage the security index `.opendistro_security`.
+- Override any security limitations.
 
-#### Authentication of super admin role
+#### Authentication of the super admin role
 
-Super admins are authenticated through certificates, not passwords. The necessary certificates are defined in the `admin_dn` section of the `opensearch.yml` file and must be signed with the same root CA to verify and connect it to the cluster.
+Super admin users are authenticated through certificates, not passwords. The necessary certificates are defined in the `admin_dn` section of the `opensearch.yml` file and must be signed with the same root certificate authority (CA), as shown in the following example:
 ```
 YAML
 plugins.security.authcz.admin_dn:
