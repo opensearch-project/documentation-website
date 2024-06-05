@@ -511,7 +511,7 @@ These permissions apply to an index or index pattern. You might want a user to h
 | `indices:data/read/plugins/replication/file_chunk` | Permission to check files during segment replication. |
 | `indices:data/read/plugins/replication/changes` | Permission to make changes to segment replication settings. |
 | `indices:data/read/scroll` |  Permission to scroll through data. This setting must be configured as both a cluster- and index-level permission. |
-| `indices:data/read/scroll/clear` | Permission to clear read scroll data. This setting must be configured as both a cluster- and index-level permission. |
+| `indices:data/read/scroll/clear` | Permission to clear the scroll object. This setting must be configured as both a cluster- and index-level permission. |
 | `indices:data/read/search` |  Permission to [search]({{site.url}}{{site.baseurl}}/api-reference/search/) data. |
 | `indices:data/read/search*` |  Permission to search data. |
 | `indices:data/read/search/template` |  Permission to read a search template. |
