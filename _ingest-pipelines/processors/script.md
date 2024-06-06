@@ -7,7 +7,7 @@ nav_order: 230
 
 # `script` processor
 
-The `script` processor executes inline and stored scripts that can modify or transform data in an OpenSearch document during the ingestion process. The processor uses script caching for improved performance, as scripts may be recompiled per document. Refer to [Script APIs](https://opensearch.org/docs/latest/api-reference/script-apis/index/) for information about working with scripts in OpenSearch. 
+The `script` processor executes inline and stored scripts that can modify or transform data in an OpenSearch document during the ingestion process. The processor uses script caching for improved performance because scripts may be recompiled per document. Refer to [Script APIs](https://opensearch.org/docs/latest/api-reference/script-apis/index/) for information about working with scripts in OpenSearch. 
 
 The following is the syntax for the `script` processor:
 
