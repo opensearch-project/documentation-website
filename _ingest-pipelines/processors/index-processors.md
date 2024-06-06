@@ -24,7 +24,7 @@ To set up and deploy ingest processors, make sure you have the necessary permiss
 
 ## Supported processors
 
-Processor types and their required or optional parameters vary depending on your specific use case. OpenSearch supports the following ingest processors. For tutorials on using these processors in an OpenSerch pipeline, go to each processor's respective documentation. 
+Processor types and their required or optional parameters vary depending on your specific use case. OpenSearch supports the following ingest processors. For tutorials on using these processors in an OpenSearch pipeline, go to each processor's respective documentation. 
 
 Processor type | Description
 :--- | :--- 
