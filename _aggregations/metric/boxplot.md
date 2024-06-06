@@ -73,6 +73,78 @@ The boxplot aggregation in OpenSearch offers several advanced options to customi
 - Compression: By adjusting the compression parameter, you can control the trade-off between memory usage and approximation accuracy.
 - Missing value handling: You can specify how to treat documents with missing values in the target field.
 
-These options provide flexibility and allow you to tailor the boxplot aggregation to your specific use case and data characteristics.
+These advanced options provide more control over the boxplot aggregation, allowing you to handle complex scenarios and tailor the analysis to your specific requirements.
 
-<Developer: Please provide query examples for scripting, compression, and missing value handling>
+### Scripting
+
+You can use the `script` parameter to perform custom calculations or transformations on the fly, for example, to analyze the square root of a numeric field.
+
+#### Example request
+
+```json
+GET website_logs/_search
+{
+  "size": 0,
+  "aggs": {
+    "load_time_boxplot": {
+      "boxplot": {
+        "script": {
+          "source": "Math.sqrt(doc['load_time_ms'].value)"
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Compression
+
+The `compression` parameter controls the memory usage and accuracy trade-off for the boxplot calculation. A lower value provides better accuracy at the cost of higher memory usage, while a higher value reduces memory usage but may result in approximations. The default value is `3000`.
+
+#### Example request 
+
+```
+GET website_logs/_search
+{
+  "size": 0,
+  "aggs": {
+    "load_time_boxplot": {
+      "boxplot": {
+        "field": "load_time_ms",
+        "compression": 5000
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Missing value handling
+
+By default, documents with missing values in the `target_field` field are ignored. However, you can specify how to handle them using the missing parameter:
+
+- `missing`: Treat missing values as if they were specified explicitly.
+- `missing_inv`: Treat missing values as if they were infinite values.
+- `missing_neg_value`: Treat missing values as if they had a specified negative value.
+- `missing_pos_value`: Treat missing values as if they had a specified positive value.
+
+#### Example request
+
+```json
+GET website_logs/_search
+{
+  "size": 0,
+  "aggs": {
+    "load_time_boxplot": {
+      "boxplot": {
+        "field": "load_time_ms",
+        "missing": 0
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+In this example, missing values in the load_time_ms field will be treated as if they were zeros.
