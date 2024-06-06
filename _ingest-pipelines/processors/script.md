@@ -33,7 +33,7 @@ The following table lists the required and optional parameters for the `script` 
 | Parameter  | Required/Optional  | Description  |
 |---|---|---|
 `source`  | Optional  | The Painless script to be executed. Either `id` or `source` must be specified, but not both. If `source` is provided, then the script is executed from the provided source code.
-`id` | Optional | The ID of a stored script that was previously created using the [Create Stored Script API]({{site.url}}{{site.baseurl}}/api-reference/script-apis/create-stored-script/). Either `id` or `source` must be specified, but not both. If `id` is provided, then the script source is retrieved from the stored script with the specified ID. 
+`id` | Optional | The ID of a stored script previously created using the [Create Stored Script API]({{site.url}}{{site.baseurl}}/api-reference/script-apis/create-stored-script/). Either `id` or `source` must be specified, but not both. If `id` is specified, then the script source is retrieved from the stored script with the specified ID. 
 `lang`  | Optional  | The programming language of the script. Default is `painless`.
 `params` | Optional |  The parameters that can be passed to the script.
 `description`  | Optional  | A description of the processor's purpose or configuration.
