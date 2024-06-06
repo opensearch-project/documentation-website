@@ -120,7 +120,7 @@ PUT products/_doc/1?pipeline=strip-html-pipeline
 
 #### Response
 
-The response shows that the request has indexed the document into the index `products` and will index all documents with the `description` field containing HTML tags, while storing the cleaned version in the `cleaned_description` field.
+The response shows that the request has indexed the document into the index `products` and will index all documents with the `description` field containing HTML tags while storing the clean version in the `cleaned_description` field:
 
 ```json
 {
