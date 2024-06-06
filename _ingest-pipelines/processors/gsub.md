@@ -26,7 +26,7 @@ The following table lists the required and optional parameters for the `gsub` pr
 
 Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
-`field` | Required | The field to apply the replacement.
+`field` | Required | The field to apply the replacement to.
 `pattern` | Required | The pattern to be replaced.
 `replacement` | Required | The string to replace the matching patterns with.
 `target_field` | Optional | The name of the field in which to store the parsed data. If `target_field` is not specified, the parsed data replaces the original data in the `field` field. Default is `field`.
