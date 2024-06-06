@@ -28,7 +28,7 @@ Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
 `field` | Required | The field to apply the replacement to.
 `pattern` | Required | The pattern to be replaced.
-`replacement` | Required | The string to replace the matching patterns with.
+`replacement` | Required | The string that will replace the matching patterns.
 `target_field` | Optional | The name of the field in which to store the parsed data. If `target_field` is not specified, the parsed data replaces the original data in the `field` field. Default is `field`.
 `if` | Optional | A condition for running the processor.
 `ignore_missing` | Optional | Specifies whether the processor should ignore documents that do not contain the specified field. Default is `false`.
