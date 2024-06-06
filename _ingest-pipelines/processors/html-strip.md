@@ -150,7 +150,7 @@ GET products/_doc/1
 
 #### Response
 
-The response includes both the original `description` field and the `cleaned_description` field with HTML tags removed.
+The response includes both the original `description` field and the `cleaned_description` field with HTML tags removed:
 
 ```json
 {
