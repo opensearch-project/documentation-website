@@ -120,7 +120,7 @@ PUT logs/_doc/1?pipeline=gsub_pipeline
 
 #### Response
 
-The following response shows that the request indexes the document into the index named `logs` and that the `gsub` processor has replaced all occurrences of the word `error` with `warning` in the `message` field:
+The following response shows that the request indexed the document into the index named `logs` and that the `gsub` processor replaced all occurrences of the word `error` with the word `warning` in the `message` field:
 
 ```json
 {
