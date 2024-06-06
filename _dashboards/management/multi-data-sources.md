@@ -35,7 +35,7 @@ A data source connection specifies the parameters needed to connect to a data so
 To create a new data source connection:
 
 1. From the OpenSearch Dashboards main menu, select **Dashboards Management** > **Data sources** > **Create data source connection**.
- 
+
 2. Add the required information to each field to configure the **Connection Details** and **Authentication Method**.
 
     - Under **Connection Details**, enter a title and endpoint URL. For this tutorial, use the URL `https://localhost:9200/`. Entering a description is optional.
@@ -51,16 +51,16 @@ To create a new data source connection:
 
     - After you have entered the appropriate details in all of the required fields, the **Test connection** and **Create data source** buttons become active. You can select **Test connection** to confirm that the connection is valid.
 
-3. Select **Create data source** to save your settings. The connection is created, and the new data source appears in the list on the **Data Sources** main page. The first data source you create is marked as your default. 
+3. Select **Create data source** to save your settings. The connection is created, and the new data source appears in the list on the **Data Sources** main page. The first data source you create is marked as your default.
 
 4. Edit or update a data source connection.
 
     - On the **Data Sources** main page, select the connection you want to modify. The **Connection Details** window opens.
 
-    - To mark the selected data source as the default, select the **Set as default** option. 
+    - To mark the selected data source as the default, select the **Set as default** option.
 
     - To make changes to **Connection Details**, edit one or both of the **Title** and **Description** fields and select **Save changes** in the lower-right corner of the screen. You can also cancel changes here. To change the **Authentication Method**, choose a different authentication method, enter your credentials (if applicable), and then select **Save changes** in the lower-right corner of the screen. The changes are saved.
-        
+
         - When **Username & Password** is the selected authentication method, you can update the password by choosing **Update stored password** next to the **Password** field. In the pop-up window, enter a new password in the first field and then enter it again in the second field to confirm. Select **Update stored password** in the pop-up window. The new password is saved. Select **Test connection** to confirm that the connection is valid.
         - When **AWS SigV4** is the selected authentication method, you can update the credentials by selecting **Update stored AWS credential**. In the pop-up window, enter a new access key in the first field and a new secret key in the second field. Select **Update stored AWS credential** in the pop-up window. The new credentials are saved. Select **Test connection** in the upper-right corner of the screen to confirm that the connection is valid.
 
@@ -113,7 +113,7 @@ Follow these steps to import saved objects from a connected data source:
 Introduced 2.13
 {: .label .label-purple }
 
-A feature flag in your `opensearch_dashboards.yml` file allows you to show or hide authentication methods within the `data_source` plugin. The following example setting, shown in a 10-second demo, hides the authentication method for `AWSSigV4`. 
+A feature flag in your `opensearch_dashboards.yml` file allows you to show or hide authentication methods within the `data_source` plugin. The following example setting, shown in a 10-second demo, hides the authentication method for `AWSSigV4`.
 
 ````
 # Set enabled to false to hide the authentication method from multiple data source in OpenSearch Dashboards.
@@ -134,10 +134,10 @@ data_source.authTypes:
 Introduced 2.13
 {: .label .label-purple }
 
-A feature flag in your `opensearch_dashboards.yml` file allows you to hide the local cluster option within the `data_source` plugin. This option hides the local cluster from the data source dropdown menu and index creation page, which is ideal for environments with or without a local OpenSearch cluster. The following example setting, shown in a 20-second demo, hides the local cluster. 
+A feature flag in your `opensearch_dashboards.yml` file allows you to hide the local cluster option within the `data_source` plugin. This option hides the local cluster from the data source dropdown menu and index creation page, which is ideal for environments with or without a local OpenSearch cluster. The following example setting, shown in a 20-second demo, hides the local cluster.
 
 ````
-# hide local cluster in the data source dropdown and index pattern creation page. 
+# hide local cluster in the data source dropdown and index pattern creation page.
 data_source.hideLocalCluster: true
 ````
 
@@ -155,7 +155,7 @@ When the data source feature is enabled, you can navigate to **Index Management*
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/ism_mds1.gif" alt="Multiple data sources in ISM list page"/>
 
-To perform operations on a specific index within a data source, select the individual index from the list. To create a new index, select the **Create Index** button, which opens a form. Fill in the required information and select the **Create** button. The index is created within the selected data source. The following GIF illustrates these steps. 
+To perform operations on a specific index within a data source, select the individual index from the list. To create a new index, select the **Create Index** button, which opens a form. Fill in the required information and select the **Create** button. The index is created within the selected data source. The following GIF illustrates these steps.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/ism_mds2.gif" alt="Multiple data sources in ISM create page"/>
 
@@ -195,11 +195,40 @@ When the data source feature is enabled, you can navigate to **Notifications** u
 
 ### Search relevance
 
-When the data source feature is enabled, you can navigate to **Search Relevance** under the **OpenSearch Plugins** menu. On the navigation bar on the upper right, you can view all available data sources. To compare search results between indexes from different data sources, first select a data source and an index for **Query 1**, and then select a data source and an index for **Query 2**. Select **Search** to run the queries. The following GIF illustrates these steps. 
+When the data source feature is enabled, you can navigate to **Search Relevance** under the **OpenSearch Plugins** menu. On the navigation bar on the upper right, you can view all available data sources. To compare search results between indexes from different data sources, first select a data source and an index for **Query 1**, and then select a data source and an index for **Query 2**. Select **Search** to run the queries. The following GIF illustrates these steps.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/searchrelevance_mds1.gif" alt="Multiple data sources in Search Relevance plugin"/>
 
-## Next steps 
+
+### Security analytics
+
+When the data source feature is enabled, you can navigate to **Security analytics** under the **Opensearch Plugins** menu. Using detection rules as an example, you can view all connected data sources and select a specific one from the navigation bar on the upper right. By default, the detection rules from the designated default data source are displayed. However, you can select any connected data source to view its corresponding detection rules. The following GIF illustrates these steps.
+
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/mds_sa_detection_rules_view.gif" alt="Multiple data sources in Security analytics list page"/>
+
+To create a new detection rule, select the **Create detection rule** button, which opens a form. Fill in the required information and select the **Create detection rule** button. The detection rule is created within the selected data source. The following GIF illustrates these steps.
+
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/mds_sa_detection_rules_create.gif" alt="Multiple data sources in Security analytics create page"/>
+
+
+### Alerting
+
+When the data source feature is enabled, you can navigate to **Alerting** under the **Opensearch Plugins** menu. Using monitors as an example, you can view all connected data sources and select a specific one from the navigation bar on the upper right. By default, the monitors from the designated default data source are displayed. However, you can select any connected data source to view its corresponding monitors. The following GIF illustrates these steps.
+
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/mds_monitor_view.gif" alt="Multiple data sources in Alerting list page"/>
+
+To create a new monitor, select the **Create monitor** button, which opens a form. Fill in the required information and select the **Create** button. The monitor is created within the selected data source.
+
+### Feature anywhere
+
+When the data source feature is enabled, you can navigate to **Dashboards** under the **Opensearch Dashboards** menu. Select a dashboard from the list, click the option button of the dashboads, then click on **Alerting** -> **Associated monitors**. Then you can see the associated monitors with the selected dashboard. The following GIF illustrates these steps.
+
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/mds_feature_anywhere_view_alerting.gif" alt="Multiple data sources with Feature anywhere associated monitor"/>
+
+To add new alerting monitor for that dashboard, select the option button, which opens a flyout. Fill in the required information and select the **Create monitor** button. The alerting monitor is created within the selected data source.The following GIF illustrates these steps.
+
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/mds_feature_anywhere_create_alerting.gif" alt="Multiple data sources with Feature anywhere add associated monitor"/>
+## Next steps
 
 After configuring multiple data sources, you can analyze the data from each source. Refer to the following resources for more information:
 
