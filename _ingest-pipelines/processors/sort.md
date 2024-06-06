@@ -33,7 +33,7 @@ The following table lists the required and optional parameters for the `sort` pr
 | Parameter  | Required/Optional  | Description  |
 |---|---|---|
 `field`  | Required | The field to be sorted. Must be an array.
-`order`  | Required | The sort order to apply. Accepts `asc` for ascending or `desc` for descending. Default is `asc`.
+`order`  | Optional | The sort order to apply. Accepts `asc` for ascending or `desc` for descending. Default is `asc`.
 `target_field` | Optional | The name of the field where the sorted array is stored. If not specified, the sorted array is stored in the same field as the original array (the `field` variable). 
 `description`  | Optional  | A description of the processor's purpose or configuration.
 `if` | Optional | Specifies to conditionally execute the processor.
