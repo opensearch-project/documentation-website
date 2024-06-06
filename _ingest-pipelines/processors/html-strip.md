@@ -27,7 +27,7 @@ The following table lists the required and optional parameters for the `html_str
 Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
 `field` | Required | The string field from which to remove HTML tags.
-`target_field` | Optional | The field to assign the cleaned value to. If not specified, field is updated in-place.
+`target_field` | Optional | The field to assign the cleaned value to. If not specified, then the field is updated in-place.
 `ignore_missing` | Optional | Specifies whether the processor should ignore documents that do not contain the specified field. Default is `false`.
 `description` | Optional | A description of the processor's purpose or configuration.
 `if` | Optional | Specifies to conditionally execute the processor.
