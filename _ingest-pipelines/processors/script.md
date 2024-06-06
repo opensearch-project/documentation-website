@@ -126,7 +126,7 @@ POST testindex1/_doc?pipeline=my-script-pipeline
 
 #### Response
 
-This response confirms that the document is indexed into `testindex1` and is indexing all documents with the `message` field converted to uppercase.
+The response confirms that the document has been indexed into `testindex1` and is indexing all documents with the `message` field converted to uppercase:
 
 ```json
 {
