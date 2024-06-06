@@ -42,7 +42,7 @@ Follow these steps to use the processor in a pipeline.
 
 ### Step 1: Create a pipeline
 
-The following query creates a pipeline named `gsub_pipeline` that uses the `gsub` processor to replace all occurrences of the word `error` with `warning` in the `message` field:
+The following query creates a pipeline named `gsub_pipeline` that uses the `gsub` processor to replace all occurrences of the word `error` with the word `warning` in the `message` field:
 
 ```json
 PUT _ingest/pipeline/gsub_pipeline
