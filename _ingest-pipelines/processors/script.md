@@ -5,7 +5,7 @@ parent: Ingest processors
 nav_order: 230
 ---
 
-# `script` processor
+# Script processor
 
 The `script` processor executes inline and stored scripts that can modify or transform data in an OpenSearch document during the ingestion process. The processor uses script caching for improved performance because scripts may be recompiled per document. Refer to [Script APIs](https://opensearch.org/docs/latest/api-reference/script-apis/index/) for information about working with scripts in OpenSearch. 
 
@@ -126,7 +126,7 @@ POST testindex1/_doc?pipeline=my-script-pipeline
 
 #### Response
 
-The response confirms that the document has been indexed into `testindex1` and is indexing all documents with the `message` field converted to uppercase:
+The response confirms that the document has been indexed into `testindex1` and has indexed all documents with the `message` field converted to uppercase:
 
 ```json
 {
