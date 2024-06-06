@@ -7,7 +7,7 @@ nav_order: 140
 
 # HTML strip processor
 
-The `html_strip` processor removes HTML tags from string fields in incoming documents. The processor is useful when indexing data from web pages or other sources that may contain HTML markup. By removing the HTML tags, you can ensure that the indexed content is clean and easily searchable. HTML tags are replaced with newline characters (`\n`).
+The `html_strip` processor removes HTML tags from string fields in incoming documents. This processor is useful when indexing data from webpages or other sources that may contain HTML markup. By removing the HTML tags, you can ensure that the indexed content is clean and easily searchable. HTML tags are replaced with newline characters (`\n`).
 
 The following is the syntax for the `html_strip` processor:
 
