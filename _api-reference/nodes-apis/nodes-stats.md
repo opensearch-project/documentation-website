@@ -54,6 +54,7 @@ indexing_pressure | Statistics about the node's indexing pressure.
 shard_indexing_pressure | Statistics about shard indexing pressure.
 search_backpressure | Statistics related to search backpressure.
 cluster_manager_throttling | Statistics related to throttled tasks on the cluster manager node.
+weighted_routing | Statistics relevant to weighted round robin requests.
 resource_usage_stats | Node-level resource usage statistics, such as CPU and JVM memory.
 admission_control | Statistics about admission control.
 caches | Statistics about caches. 
@@ -834,6 +835,7 @@ http.total_opened | Integer | The total number of HTTP connections the node has 
 [shard_indexing_pressure](#shard_indexing_pressure) | Object | Statistics related to indexing pressure at the shard level.
 [search_backpressure]({{site.url}}{{site.baseurl}}/opensearch/search-backpressure#search-backpressure-stats-api) | Object | Statistics related to search backpressure.
 [cluster_manager_throttling](#cluster_manager_throttling) | Object | Statistics related to throttled tasks on the cluster manager node.
+[weighted_routing](#weighted_routing) | Object | Statistics relevant to weighted round robin requests.
 [resource_usage_stats](#resource_usage_stats) | Object | Statistics related to resource usage for the node.
 [admission_control](#admission_control) | Object | Statistics related to admission control for the node.
 [caches](#caches) | Object | Statistics related to caches on the node.
@@ -1293,6 +1295,15 @@ Field | Field type | Description
 stats | Object | Statistics about throttled tasks on the cluster manager node.
 stats.total_throttled_tasks | Long | The total number of throttled tasks.
 stats.throttled_tasks_per_task_type | Object | A breakdown of statistics by individual task type, specified as key-value pairs. The keys are individual task types, and their values represent the number of requests that were throttled.
+
+### `weighted_routing`
+
+The `weighted_routing` object contains statistics about weighted round robin requests. Specifically, it contains a counter of times this node has server a request while it was "zoned out".
+
+Field | Field type | Description
+:--- |:-----------| :---
+stats | Object | Statistics about weighted routing.
+fail_open_count | Integer | Number of times a shard on this node has served a request while the routing weight for the node was set to zero.
 
 ### `resource_usage_stats`
 
