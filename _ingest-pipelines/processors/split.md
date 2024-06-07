@@ -33,7 +33,6 @@ Parameter | Required/Optional | Description |
 `target_field` | Required | The field where the array of substrings is stored. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets).
 `ignore_missing` | Optional	| Specifies whether the processor should ignore documents that do not contain the specified 
 field. If set to `true`, the processor ignores missing values in the field and leaves the `target_field` unchanged. Default is `false`. 
-`override_target` | Optional | Determines what happens when `target_field` exists in the document. If set to `true`, the processor overwrites the existing `target_field` value with the new value. If set to `false`, the existing value remains and the processor does not overwrite it. Default is `false`.
 `description` | Optional | A brief description of the processor.
 `if` | Optional | A condition for running the processor.
 `ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters an error. If set to 
