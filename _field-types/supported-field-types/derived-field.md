@@ -13,7 +13,7 @@ redirect_from:
 - /field-types/derived/
 ---
 
-# Derived field type
+## Derived field type
 
 Derived fields enable users to create new fields dynamically by executing scripts on existing fields retrieved from the `_source` field, which contains the original document, or from a field's doc values for faster retrieval. Once defined, either in the index mapping or within a search request, these fields can be utilized like regular fields in query definitions.
 
@@ -37,8 +37,6 @@ Currently, derived fields have the following limitations:
 
 These limitations are recognized, and there are plans to address them in future releases.
 
-# Getting started
-
 ## Prerequisites
 - **Enable `_source` or Doc Values**: Ensure that either the `_source` field or doc values are enabled for the fields used in your script.
 - **Enable expensive queries**: Ensure [`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/index/#expensive-queries) is set to `true`.
@@ -50,28 +48,6 @@ These limitations are recognized, and there are plans to address them in future 
 
 ## Definition
 Derived fields can be defined in index mappings or directly within the search request. Following index and documents will be used for all examples:
-
-```json
-PUT logs
-{
-  "mappings": {
-    "properties": {
-      "request": {
-        "type": "text",
-        "fields": {
-          "keyword": {
-            "type": "keyword"
-          }
-        }
-      },
-      "client_ip": {
-        "type": "keyword"
-      }
-    }
-  }
-}
-```
-{% include copy-curl.html %}
 
 ```json
 PUT logs
@@ -112,7 +88,7 @@ POST _bulk
 
 ## Deriving fields with index mapping approach
 
-To derive fields `timestamp`, `method`, `url`, `status`, and `size` from the indexed field `request` in the `logs` index, update the mappings as follows:
+To derive fields `timestamp`, `method`, and `size` from the indexed field `request` in the `logs` index, update the mappings as follows:
 
 ```json
 PUT /logs/_mapping
@@ -131,22 +107,6 @@ PUT /logs/_mapping
       "script": {
         "source": """
         emit(doc["request.keyword"].value.splitOnToken(" ")[1])
-        """
-      }
-    },
-    "url": {
-      "type": "text",
-      "script": {
-        "source": """
-        emit(doc["request.keyword"].value.splitOnToken(" ")[2])
-        """
-      }
-    },
-    "status": {
-      "type": "keyword",
-      "script": {
-        "source": """
-        emit(doc["request.keyword"].value.splitOnToken(" ")[4])
         """
       }
     },
@@ -175,24 +135,24 @@ PUT /logs/_mapping
 
 All parameters are dynamic and can be modified without the need to reindex.
 
-#### Emitting values in script
+### Emitting values in script
 
 The `emit()` function is available only within the derived field script context. It is used to emit one or more values (for a multi-valued field) from the script for a given document on which the script runs.
 
 Here is the emit format and support for multi-valued fields for different types:
 
-| Type      | Emit Format                       | Multi-valued |
-|-----------|-----------------------------------|--------------|
-| `date`    | `emit(long timeInMilis)`          | Yes          |
-| `geo_point`| `emit(double lat, double lon)`    | Yes          |
-| `ip`      | `emit(String ip)`                 | Yes          |
-| `keyword` | `emit(String)`                    | Yes          |
-| `text`    | `emit(String)`                    | Yes          |
-| `long`    | `emit(long)`                      | Yes          |
-| `double`  | `emit(double)`                    | Yes          |
-| `float`   | `emit(float)`                     | Yes          |
-| `boolean` | `emit(boolean)`                   | No           |
-| `object`  | `emit(String json)` (valid JSON)  | Yes          |
+| Type      | Emit format                      | Multi-valued |
+|-----------|----------------------------------|--------------|
+| `date`    | `emit(long timeInMilis)`         | Yes          |
+| `geo_point`| `emit(double lat, double lon)`   | Yes          |
+| `ip`      | `emit(String ip)`                | Yes          |
+| `keyword` | `emit(String)`                   | Yes          |
+| `text`    | `emit(String)`                   | Yes          |
+| `long`    | `emit(long)`                     | Yes          |
+| `double`  | `emit(double)`                   | Yes          |
+| `float`   | `emit(float)`                    | Yes          |
+| `boolean` | `emit(boolean)`                  | No           |
+| `object`  | `emit(String json)` (valid JSON) | Yes          |
 
 In case of a mismatch between the `type` of the derived field and its emitted value, it will result in an `IllegalArgumentException`, and the search request will fail. However, if `ignore_malformed` is set, the document for which the failure occurred will be skipped, and the search request will not fail.
 
@@ -236,7 +196,7 @@ POST /logs/_search
 ```
 {% include copy-curl.html %}
 
-### Defining mappings in search request
+## Defining mappings in search request
 You can also define derived fields directly in a search request and query on them in conjunction with regular indexed fields. Here's an example:
 
 ```json
@@ -293,7 +253,7 @@ POST /logs/_search
 Fields can be retrieved using the `fields` parameter in the search request, similar to regular fields as shown in the preceding examples. Wildcards can also be used to retrieve all derived fields that match a given pattern.
 
 
-### Highlight
+**Highlight**
 For derived fields of type `text` where highlighting makes sense, the currently supported highlighter is the [Unified Highlighter]({{site.url}}{{site.baseurl}}/opensearch/search/highlight#the-unified-highlighter)
 
 ```json
@@ -335,14 +295,14 @@ POST /logs/_search
 ```
 {% include copy-curl.html %}
 
-# Performance
-Derived fields are not indexed and are computed on-the-fly by retrieving values from _source field or doc values. Consequently, they can be slow to execute. To improve performance:
+## Performance
+Derived fields are not indexed and are computed on-the-fly by retrieving values from `_source` field or doc values. Consequently, they can be slow to execute. To improve performance:
 
 - Prune the search space by adding query filters on indexed fields in conjunction with derived fields.
 - Use doc values in the script wherever available for faster access compared to `_source`.
 - Consider using `prefilter_field` to automatically prune the search space without explicit filters in the search request.
 
-### Prefilter field`
+### Prefilter field
 This technique helps prune the search space automatically without adding explicit filters in the search request. It implicitly adds a filter on the specified indexed field (`prefilter_field`) when constructing the query. `prefilter_field ` must be of text family types (`text`, `match_only_text`).
 
 For example, lets update the mapping for derived field `method` with `"prefilter_field": "request"`: 
