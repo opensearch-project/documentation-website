@@ -1047,7 +1047,7 @@ Create allowlist configuration.
 #### Request
 
 ```json
-PUT _plugins/_security/api/whitelist
+PUT _plugins/_security/api/allowlist
 {
   "enabled": true,
   "requests": {
@@ -1075,7 +1075,7 @@ Updates allowlist configuration.
 #### Request
 
 ```json
-PATCH _plugins/_security/api/whitelist
+PATCH _plugins/_security/api/allowlist
 [
   {
     "op": "add",
