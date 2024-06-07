@@ -30,7 +30,8 @@ Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
 `field` | Required | The field containing the string to be split.
 `separator` | Required | The delimiter used to split the string. This can be a regular expression pattern.
-`target_field` | Required | The field where the array of substrings is stored. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets).
+`preserve_field` | Optional | If set to `true`, preserves empty trailing fields (for example, `''`) in the resulting array. If set to `false`, empty trailing fields are removed from the resulting array. Default is `false`.
+`target_field` | Optional | The field where the array of substrings is stored. If not specified, then the field is updated in-place.
 `ignore_missing` | Optional	| Specifies whether the processor should ignore documents that do not contain the specified 
 field. If set to `true`, the processor ignores missing values in the field and leaves the `target_field` unchanged. Default is `false`. 
 `description` | Optional | A brief description of the processor.
