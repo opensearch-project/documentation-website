@@ -17,35 +17,38 @@ OpenSearch Integrations is a straightforward starting point that OpenSearch and 
 The OpenSearch Project seeks your feedback on this feature. Let us know on the [OpenSearch forum](https://forum.opensearch.org/) how OpenSearch Integrations works for you or how it can be improved.
 {: .label-yellow}
 
-## The Concept
+**The Integration Initiative**
+
 The integration initiative was envisioned as a simple, elegant and powerful way to allow users to view, query and project their data.
 Prior to Introduction of integrations the process of which users could configure their dashboards, was to undergo the following process every time:
 
-* Explore their index content and extract the structure - mapping file
-* Assemble the index pattern based on this mapping
-* Create visualization for different parts of the mapping fields
-* Compose the entire dashboard from these visualizations
-* Save the dashboard and allow export for other users to utilize (expecting the mapping to be the same)
+* Explore the raw data content and extract the mapping structure 
+* Transform & Ingest the data using the above mapping structure 
+* Assemble the index pattern based on this mapping (adding possible dynamic fields) 
+* Compose the entire dashboard that is constructed using visualization for different parts of the data schema
+* Share dashboards for others to explore (expecting a consistent format based on whatever version of whatever input pipeline is being used)
 
 This repeated bootstrap required for every single data-type is manual (error-prone) and consuming process, it also requires a degree of knowledge both of the data and of using OpenSearch API.
 
-The **Integration framework** aims for solving these manual steps simplifying and automating the process while reducing the domain learning curve to the minimal 
+The "[OpenSearch] Integrations" aims for solving these manual steps simplifying and automating the process while reducing the domain learning curve to the minimal 
 
-### What Do We support
+**What Do We support**
+
 At OpenSearch we are supporting many different type of use cases for a large variety of users:
 - Search related domain use cases - E-commerce products search for example
-- Observability monitoring and provisioning - Trace / Metrics analytics
+- Observability monitoring and provisioning - Trace or Metrics analytics
 - Security Monitoring and Threats Analysis
 
 All these use cases are accompanied by a very strong and matured community that has contributed many resources and Knowledge to these domain. The **Integration framework** is strongly aligned with these schemas and allows out of the box data mapping that corresponds to these domains. 
 
-## The Schema
-One important concept of all integrations are the actual domain schema of the data signal collected for events visualized by the integration (security / observability).
+**The Schema**
+
+One important concept of all integrations are the actual domain schema of the data signal collected for events visualized by the integration (security and observability).
 
 The [Observability OpenTelemetry](https://opentelemetry.io/) is a community managed observability protocol that is constantly evolving the monitoring and tracing agenda.
 The [OTEL protocol](https://opentelemetry.io/docs/specs/otel/) which is a key concept of the OpenTelemetry products allows the consolidation and unification of many types of observed data signals.
 
-At OpenSearch we adopted these protocol and developed the [Simple Schema For Observability](https://github.com/opensearch-project/opensearch-catalog/tree/main/docs/schema/observability) to help manifest these concepts into a concrete index mapping catalog.
+At OpenSearch we adopted these protocol and developed the [Simple Schema for Observability](https://github.com/opensearch-project/opensearch-catalog/tree/main/docs/schema/observability) to help manifest these concepts into a concrete index mapping catalog.
 
 Using the well-defined Observability schema structure simplified the assumptions on the fields names using [semantics conventions](https://opentelemetry.io/docs/concepts/semantic-conventions/).
 It allows us to build a common dashboard that reflects the behavior and provisions the different aspect of the observed resource.
@@ -66,13 +69,15 @@ Each integration contains the following metadata and assets:
 
 * Name & description
 * Source url & License
-* Schema spec (mapping / components mapping)
+* Schema spec (mapping or or components mapping)
 * Sample data (for try-out experience)
 * Assets (Dashboards, Index-Patterns , Queries, Alerts )
 
 ---
 ## Using Integrations
 Integrations can be installed directly from the default catalog which is deployed in every OpenSearch release. In addition, integrations can be manually loaded using the standard Dashboard Management console and updated to reflect the most up-to-date version or new integrations releases.
+
+- [Observability Release catalog](https://github.com/opensearch-project/opensearch-catalog/blob/main/docs/integrations/Release.md) 
 
 ## Installing An Integration 
 
