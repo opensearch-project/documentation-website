@@ -34,7 +34,7 @@ Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
 `field` | Required | The name of the field to be set or updated. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets).
 `value` | Required | The value to be assigned to the field. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets).
-`overrideEnabled` | Optional | A Boolean flag that determines whether the processor should override the exisitng value of the field.
+`override` | Optional | A Boolean flag that determines whether the processor should override the existing value of the field.
 `ignoreEmptyValue` | Optional | A Boolean flag that determines whether the processor should ignore empty values.
 `description`  | Optional  | A description of the processor's purpose or configuration.
 `if` | Optional | Specifies to conditionally execute the processor.
