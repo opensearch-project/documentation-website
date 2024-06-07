@@ -28,7 +28,7 @@ The following table lists the required and optional parameters for the `split` p
 
 Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
-`field` | Required | The field containing the string to be split. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets).
+`field` | Required | The field containing the string to be split.
 `separator` | Required | The delimiter used to split the string. This can be a regular expression pattern.
 `target_field` | Required | The field where the array of substrings is stored. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets).
 `ignore_missing` | Optional	| Specifies whether the processor should ignore documents that do not contain the specified 
