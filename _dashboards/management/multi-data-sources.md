@@ -202,7 +202,7 @@ When the data source feature is enabled, you can navigate to **Search Relevance*
 
 ### Security analytics
 
-When the data source feature is enabled, you can navigate to **Security analytics** under the **Opensearch Plugins** menu. Using detection rules as an example, you can view all connected data sources and select a specific one from the navigation bar on the upper right. By default, the detection rules from the designated default data source are displayed. However, you can select any connected data source to view its corresponding detection rules. The following GIF illustrates these steps.
+When the data source feature is enabled, you can navigate to **Security analytics** under the **OpenSearch Plugins** menu. Using detection rules as an example, you can view all connected data sources and select a specific one from the navigation bar on the upper right. By default, the detection rules from the designated default data source are displayed. However, you can select any connected data source to view its corresponding detection rules. The following GIF illustrates these steps.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/mds_sa_detection_rules_view.gif" alt="Multiple data sources in Security analytics list page"/>
 
@@ -213,7 +213,7 @@ To create a new detection rule, select the **Create detection rule** button, whi
 
 ### Alerting
 
-When the data source feature is enabled, you can navigate to **Alerting** under the **Opensearch Plugins** menu. Using monitors as an example, you can view all connected data sources and select a specific one from the navigation bar on the upper right. By default, the monitors from the designated default data source are displayed. However, you can select any connected data source to view its corresponding monitors. The following GIF illustrates these steps.
+When the data source feature is enabled, you can navigate to **Alerting** under the **OpenSearch Plugins** menu. Using monitors as an example, you can view all connected data sources and select a specific one from the navigation bar on the upper right. By default, the monitors from the designated default data source are displayed. However, you can select any connected data source to view its corresponding monitors. The following GIF illustrates these steps.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/mds_monitor_view.gif" alt="Multiple data sources in Alerting list page"/>
 
@@ -221,7 +221,7 @@ To create a new monitor, select the **Create monitor** button, which opens a for
 
 ### Feature anywhere
 
-When the data source feature is enabled, you can navigate to **Dashboards** under the **Opensearch Dashboards** menu. Select a dashboard from the list, click the option button of the dashboads, then click on **Alerting** -> **Associated monitors**. Then you can see the associated monitors with the selected dashboard. The following GIF illustrates these steps.
+When the data source feature is enabled, you can navigate to **Dashboards** under the **OpenSearch Dashboards** menu. Select a dashboard from the list, click the option button of the dashboads, then click on **Alerting** -> **Associated monitors**. Then you can see the associated monitors with the selected dashboard. The following GIF illustrates these steps.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/mds_feature_anywhere_view_alerting.gif" alt="Multiple data sources with Feature anywhere associated monitor"/>
 
