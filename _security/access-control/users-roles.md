@@ -100,7 +100,7 @@ See [YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#roles
 
 ### REST API
 
-See [Create role]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-role).
+See [Patch role]({{site.url}}{{site.baseurl}}/security/access-control/api/#patch-role).
 
 ## Mapping users to roles
 
