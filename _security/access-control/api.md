@@ -1005,6 +1005,97 @@ PATCH _plugins/_security/api/rolesmapping
 }
 ```
 
+---
+## Allowlist
+
+### Get allowlist
+
+Retrieves the current allowlist configuration
+
+#### Request
+
+```json
+GET _plugins/_security/api/allowlist
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+  "config" : {
+    "enabled" : true,
+    "requests" : {
+      "/_cat/nodes" : [
+        "GET"
+      ],
+      "/_cat/indices" : [
+        "GET"
+      ],
+      "/_plugins/_security/whoami" : [
+        "GET"
+      ]
+    }
+  }
+}
+```
+
+### Create allowlist
+
+Create allowlist configuration.
+
+#### Request
+
+```json
+PUT _plugins/_security/api/whitelist
+{
+  "enabled": true,
+  "requests": {
+    "/_cat/nodes": ["GET"],
+    "/_cat/indices": ["GET"],
+    "/_plugins/_security/whoami": ["GET"]
+  }
+}
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+  "status":"OK",
+  "message":"'config' updated."
+}
+```
+
+### Update allowlist
+
+Updates allowlist configuration.
+
+#### Request
+
+```json
+PATCH _plugins/_security/api/whitelist
+[
+  {
+    "op": "add",
+    "path": "/config/requests",
+    "value": {
+      "/_cat/nodes": ["POST"]
+    }
+  }
+]
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+  "status":"OK",
+  "message":"Resource updated."
+}
+```
 
 ---
 
