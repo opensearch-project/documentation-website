@@ -80,7 +80,7 @@ You'll need a special file, called a Compose file, that Docker Compose uses to d
 
 ## Create an index and field mappings using sample data
 
-Create an index and define field mappings using a dataset provided by the OpenSearch Project. The same fictitious e-commerce data is also used for sample visualizations in OpenSearch Dashboards. To learn more, see [Getting started with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/).
+Create an index and define field mappings using a dataset provided by the OpenSearch Project. The same fictitious e-commerce data is also used for sample visualizations in OpenSearch Dashboards. To learn more, see [Getting started with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/get-started/quickstart-dashboards/).
 
 1. Download [ecommerce-field_mappings.json](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce-field_mappings.json). This file defines a [mapping]({{site.url}}{{site.baseurl}}/opensearch/mappings/) for the sample data you will use.
     ```bash
@@ -132,7 +132,7 @@ You successfully deployed your own OpenSearch cluster with OpenSearch Dashboards
 - [About the security plugin]({{site.url}}{{site.baseurl}}/security/index/)
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/)
 - [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)
-- [Getting started with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/)
+- [Getting started with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/get-started/quickstart-dashboards/)
 - [OpenSearch tools]({{site.url}}{{site.baseurl}}/tools/index/)
 - [Index APIs]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index/)
 

@@ -11,7 +11,7 @@ Term-level queries search an index for documents that contain an exact search te
 
 When working with text data, use term-level queries for fields mapped as `keyword` only.
 
-Term-level queries are not suited for searching analyzed text fields. To return analyzed fields, use a [full-text query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text).
+Term-level queries are not suited for searching analyzed text fields. To return analyzed fields, use a [full-text query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index/).
 
 ## Term-level query types
 

@@ -9,7 +9,7 @@ nav_order: 220
 
 You can Ship Logstash events to an OpenSearch cluster and then visualize your events with OpenSearch Dashboards.
 
-Make sure you have [Logstash]({{site.url}}{{site.baseurl}}/tools/logstash/index#install-logstash), [OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/index/), and [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/index/).
+Make sure you have [Logstash]({{site.url}}{{site.baseurl}}/tools/logstash/index#install-logstash), [OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/), and [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/).
 {: .note }
 
 ## OpenSearch output plugin

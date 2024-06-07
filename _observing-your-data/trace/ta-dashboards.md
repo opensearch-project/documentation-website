@@ -9,7 +9,7 @@ redirect_from:
 
 # Trace Analytics OpenSearch Dashboards plugin
 
-The Trace Analytics plugin for OpenSearch Dashboards provides at-a-glance visibility into your application performance, along with the ability to drill down on individual traces. For installation instructions, see [Standalone OpenSearch Dashboards plugin install]({{site.url}}{{site.baseurl}}/dashboards/install/plugins/).
+The Trace Analytics plugin for OpenSearch Dashboards provides at-a-glance visibility into your application performance, along with the ability to drill down on individual traces. For installation instructions, see [Standalone OpenSearch Dashboards plugin install]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/).
 
 The **Dashboard** view groups traces together by HTTP method and path so that you can see the average latency, error rate, and trends associated with a particular operation. For a more focused view, try filtering by trace group name.
 
