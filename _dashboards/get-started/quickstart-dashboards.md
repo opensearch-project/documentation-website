@@ -31,7 +31,7 @@ Sample datasets come with visualizations, dashboards, and other tools to help yo
 
 # Exploring and inspecting data
 
-In [**Discover**](discover/index.md), you can: 
+In [**Discover**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover), you can: 
 
 - Choose data to explore, set a time range for that data, search it using [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/dql/), and filter the results.
 - Explore the data, view individual documents, and create tables summarizing the data's contents.
@@ -40,7 +40,7 @@ In [**Discover**](discover/index.md), you can:
 ## Try it: Getting familiar with Discover
 
 1. On the OpenSearch Dashboards **Home** page, choose **Discover**.
-1. Change the [time filter](time-filter.md) to **Last 7 days**, as shown in the following image.
+1. Change the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter) to **Last 7 days**, as shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/last-7--days.png" alt="Time filter interface" width="350"/>
 
@@ -79,7 +79,7 @@ Raw data can be difficult to comprehend and use. Data visualizations help you pr
 
 Continuing with the preceding dashboard, you'll create a bar chart comparing the number of canceled flights and delayed flights to delay type and then add the panel to the dashboard:
 
-1. Change the default [time range]({{site.url}}{{site.baseurl}}/dashboards/get-started/time-filter/) from **24 hours** to **Last 7 days**. 
+1. Change the default [time range]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) from **24 hours** to **Last 7 days**. 
 1. In the toolbar, choose **Edit**, then **Create new**.
 1. Select **VisBuilder** in the **New Visualizations** window.
 1. In the **Data Source** dropdown list, choose `opensearch_dashboards_sample_data_flights`.
@@ -113,5 +113,5 @@ Alternatively, you can apply filters using the dashboard toolbar:
 # Next steps
 
 - **Visualize data**. To learn more about data visualizations in OpenSearch Dashboards, see [**Building data visualizations with Visualize**]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
-- **Create dashboards**. To learn more about creating dashboards in OpenSearch Dashboards, see [**Creating dashboards with Dashboard**]({{site.url}}{{site.baseurl}}/dashboards/dashboard/).
-- **Explore data**. To learn more about exploring data in OpenSearch Dashboards, see [**Exploring data with Discover**]({{site.url}}{{site.baseurl}}/dashboards/discover/). 
+- **Create dashboards**. To learn more about creating dashboards in OpenSearch Dashboards, see [**Creating dashboards with Dashboard**]({{site.url}}{{site.baseurl}}/dashboards/dashboard/index).
+- **Explore data**. To learn more about exploring data in OpenSearch Dashboards, see [**Exploring data with Discover**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover). 

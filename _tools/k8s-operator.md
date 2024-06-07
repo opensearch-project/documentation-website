@@ -12,7 +12,7 @@ The OpenSearch Kubernetes Operator is an open-source kubernetes operator that he
 
 There are two ways to get started with the operator:
 
-- [Use a Helm chart](#use-a-helm-chartuse-a-helm).
+- [Use a Helm chart](#use-a-helm-chart).
 - [Use a local installation](#use-a-local-installation).
 
 ### Use a Helm chart

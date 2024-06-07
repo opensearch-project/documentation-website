@@ -19,7 +19,6 @@ OpenSearch Dashboards has the following installation options:
 - [Docker]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/docker/)
 - [Tarball]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/tar/)
 - [RPM]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/rpm/)
-- [Debian]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/debian/)
 - [Helm]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/helm/)
 - [Windows]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/windows/)
 

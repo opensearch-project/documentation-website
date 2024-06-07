@@ -63,8 +63,6 @@ Mitigate the risk of data loss by backing up any important files before you star
 
 Some examples include `opensearch.yml`, `opensearch_dashboards.yml`, plugin configuration files, and TLS certificates. Once you identify which files you want to back up, copy them to remote storage for safety.
 
-If you use security features, make sure to read [A word of caution]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/#a-word-of-caution) for information about backing up and restoring your security settings.
-
 ### Creating a snapshot
 
 We recommend that you back up your cluster state and indexes using [snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/). Snapshots you take before an upgrade can be used as restore points if you need to roll back the cluster to its original version.
@@ -85,7 +83,7 @@ Choose an appropriate method for upgrading your cluster to a new version of Open
 - A [rolling upgrade](#rolling-upgrade) upgrades nodes one at a time without stopping the cluster.
 - A [cluster restart upgrade](#cluster-restart-upgrade) upgrades services while the cluster is stopped.
 
-Upgrades spanning more than a single major version of OpenSearch will require additional effort due to the need for reindexing. For more information, refer to the [Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) API. See the [Lucene version reference](#lucene-version-reference) table included later in this guide for help planning your data migration.
+Upgrades spanning more than a single major version of OpenSearch will require additional effort due to the need for reindexing. For more information, refer to the [Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) API. See the [index compatibility reference](#index-compatibility-reference) table included later in this guide for help planning your data migration.
 
 ### Rolling upgrade
 
