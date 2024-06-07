@@ -15,7 +15,7 @@ The following is the syntax for the `split` processor:
 {
   "split": {
     "field": "field_to_split",
-    "separator": "delimiter",
+    "separator": "<delimiter>",
     "target_field": "split_field"
   }
 }
