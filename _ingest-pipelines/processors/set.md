@@ -117,7 +117,7 @@ The following example response confirms that the pipeline is working as expected
 The following query ingests a document into an index named `testindex1`:
 
 ```json
-POST testindex1/_doc
+POST testindex1/_doc?pipeline=set-pipeline
 {
   "existing_field": "value"
 }
