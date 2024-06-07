@@ -134,7 +134,7 @@ data_source.authTypes:
 Introduced 2.13
 {: .label .label-purple }
 
-A feature flag in your `opensearch_dashboards.yml` file allows you to hide the local cluster option within the `data_source` plugin. This option hides the local cluster from the data source dropdown menu and index creation page, which is ideal for environments with or without a local OpenSearch cluster. The following example setting, shown in a 20-second demo, hides the local cluster.
+A feature flag in your `opensearch_dashboards.yml` file allows you to hide the local cluster option within the `data_source` plugin. This option hides the local cluster from the data source dropdown menu and index creation page, which is ideal for environments with or without a local OpenSearch cluster. The following example setting, shown in a 20-second demo, hides the local cluster:
 
 ````
 # hide local cluster in the data source dropdown and index pattern creation page.
