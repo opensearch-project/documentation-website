@@ -69,7 +69,7 @@ You can create two types of maps in Dashboards: Coordinate maps and Region maps.
 
 #### Coordinate maps
 
-Coordinate maps show location-based data on a map. Use coordinate maps to visualize GPS data (latitude and longitude coordinates) on a map. For information about OpenSearch-supported coordinate field types, see [Geographic field types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-shape/) and [Cartesian field types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy/).
+Coordinate maps show location-based data on a map. Use coordinate maps to visualize GPS data (latitude and longitude coordinates) on a map. For information about OpenSearch-supported coordinate field types, see [Geographic field types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-shape/) and [artesian field types.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/coordinate-1.png" width="600" height="600" alt="Example coordinate map in OpenSearch Dashboards">
 
@@ -117,7 +117,7 @@ Timeline is a data visualization tool in Dashboards that you can use to create t
 
 ### VisBuilder
 
-VisBuilder is a drag-and-drop data visualization tool in Dashboards. It gives you an immediate view of your data without the need to preselect the data source or visualization type output. Currently, VisBuilder can be used to create the following Dashboards visualization types: Area, Bar, Line, Metric, and Data Table. See [VisBuilder]({{site.url}}{{site.baseurl}}/dashboards/visualize/visbuilder/) to learn how to create and use drag-and-drop visualizations in Dashboards.
+VisBuilder is a drag-and-drop data visualization tool in Dashboards. It gives you an immediate view of your data without the need to preselect the data source or visualization type output. Currently, VisBuilder can be used to create the following Dashboards visualization types: Area, Bar, Line, Metric, and Data Table. 
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/vis-builder-2.png" width="600" height="600" alt="Example VisBuilder in OpenSearch Dashboards">
 

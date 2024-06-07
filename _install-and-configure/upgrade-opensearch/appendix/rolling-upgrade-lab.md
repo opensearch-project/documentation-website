@@ -887,6 +887,6 @@ You need to query the ecommerce index again in order to confirm that the sample 
 Review the following resoures to learn more about how OpenSearch works:
 
 - [REST API reference]({{site.url}}{{site.baseurl}}/api-reference/index/)
-- [Quickstart guide for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/quickstart-dashboards/)
+- [Quickstart guide for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/get-started/quickstart-dashboards/)
 - [About Security in OpenSearch]({{site.url}}{{site.baseurl}}/security/index/)
 
