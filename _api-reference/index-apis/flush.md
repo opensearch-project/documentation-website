@@ -10,9 +10,9 @@ nav_order: 36
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Flush API takes all in-memory operations and stores them to segments on disk. Operations flushed to an index segment are no longer needed in transaction logs during a cluster restart because these operations are now stored in the Lucene Index. 
+The Flush API stores all in-memory operations to segments on disk. Operations flushed to an index segment are no longer needed in transaction logs during a cluster restart because these operations are now stored in the Lucene index. 
 
-OpenSearch automatically performs flushes in the background based on conditions like transaction log size, which is controlled by the `index.translog.flush_threshold_size` setting. Use the Flush API sparingly, for example, for manual restarts or freeing up memory.
+OpenSearch automatically performs flushes in the background based on conditions like transaction log size, which is controlled by the `index.translog.flush_threshold_size` setting. Use the Flush API sparingly, for example, for manual restarts or to free up memory.
 
 ## Path and HTTP methods
 
@@ -63,7 +63,7 @@ POST /_flush
 
 ## Example response
 
-OpenSearch responds with the number of shards that acknowledged the flush request, number of shards that completed the request, and number of shards that failed:
+OpenSearch responds with the number of shards that acknowledged the flush request, the number of shards that completed the request, and the number of shards that failed:
 
 ```
 {
