@@ -8,6 +8,7 @@ redirect_from:
   - /opensearch/query-dsl/compound/index/
   - /query-dsl/compound/index/
   - /query-dsl/query-dsl/compound/
+  - /query-dsl/compound/
 ---
 
 # Compound queries
