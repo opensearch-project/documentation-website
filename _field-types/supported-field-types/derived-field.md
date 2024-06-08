@@ -31,9 +31,10 @@ Despite the potential performance impact of query-time computations, the flexibi
 Currently, derived fields have the following limitations:
 
 - **Aggregation, Scoring, and Sorting**: Not supported yet.
-- **Dashboard Support**: These fields are not displayed in the list of available fields on dashboards. However, they can still be used in regular queries like standard fields.
+- **Dashboard Support**: These fields are not displayed in the list of available fields on dashboards. However, they can still be used in for filtering if derived field name is known to the user.
 - **Chained Derived Fields**: One derived field cannot be used to define another derived field.
-- **Join Field Type**: Derived fields are not supported with [Join field type]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/join/) 
+- **Join Field Type**: Derived fields are not supported with [join field type]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/join/) 
+- **Concurrent Segment Search**: Derived fields are not supported with [concurrent segment search]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search/)
 
 These limitations are recognized, and there are plans to address them in future releases.
 
@@ -130,8 +131,8 @@ PUT /logs/_mapping
 | `type`            | Type of the derived field. Supported types include `boolean`, `date`, `geo_point`, `ip`, `keyword`, `text`, `long`, `double`, `float`, and `object`.                                                                                                                                                                                                                                                                  |
 | `script`          | The script associated with derived fields. Any value emitted from the script needs to be emitted using `emit()`. The type of the emitted value must match the `type` of the derived field. Scripts have access to both `doc_values` and `_source` document if enabled. The doc value of a field can be accessed using `doc['field_name'].value`, and the source can be accessed using `params._source["field_name"]`. |
 | `format`          | The format for parsing dates. Only applicable when the type is `date`. Format can be `strict_date_time_no_millis`, `strict_date_optional_time`, or `epoch_millis`.                                                                                                                                                                                                                                                    |
-| `ignore_malformed`| A Boolean value that specifies whether to ignore malformed values and not throw an exception during query execution on derived fields.                                                                                                                                                                                                                                                                                |
-| `prefilter_field` | An indexed text field provided to boost the performance of derived fields. It adds the same query as a filter on this indexed field first and uses only matching documents on derived fields.                                                                                                                                                                                                                         |
+| `ignore_malformed`| A Boolean value that specifies whether to ignore malformed values and not throw an exception during query execution on derived fields. Default value is `false`.                                                                                                                                                                                                                                                      |
+| `prefilter_field` | An indexed text field provided to boost the performance of derived fields. It adds the same query as a filter on this indexed field first and uses only matching documents on derived fields. Check [Prefilter field](#prefilter-field)                                                                                                                                                                               |
 
 All parameters are dynamic and can be modified without the need to reindex.
 
@@ -351,3 +352,114 @@ The resulting query includes the filter on prefiltered field:
 **Note:** `profile` option can be used to analyze the performance of derived fields as well. 
 
 ## Object type
+A valid JSON object can be emitted from the script, allowing queries on subfields just like regular fields without the need to index them. The subfield type will be inferred if not explicitly provided. This is useful for large JSON objects where occasional searches on some subfields are required, but indexing them is costly, and defining derived fields for each subfield is a lot of overhead.
+
+Here is an example of its usage:
+
+```json
+PUT logs_object
+{
+  "mappings": {
+    "properties": {
+      "request_object": { "type": "text" }
+    },
+    "derived": {
+      "derived_request_object": {
+        "type": "object",
+        "script": {
+          "source": "emit(params._source[\"request_object\"])"
+        }
+      }
+    }
+  }
+}
+```
+
+Consider the following documents:
+
+```json
+POST _bulk
+{ "index" : { "_index" : "logs_object", "_id" : "1" } }
+{ "request_object": "{\"@timestamp\": 894030400, \"clientip\":\"61.177.2.0\", \"request\": \"GET /english/venues/images/venue_header.gif HTTP/1.0\", \"status\": 200, \"size\": 711}" }
+{ "index" : { "_index" : "logs_object", "_id" : "2" } }
+{ "request_object": "{\"@timestamp\": 894140400, \"clientip\":\"129.178.2.0\", \"request\": \"GET /images/home_fr_button.gif HTTP/1.1\", \"status\": 200, \"size\": 2140}" }
+{ "index" : { "_index" : "logs_object", "_id" : "3" } }
+{ "request_object": "{\"@timestamp\": 894240400, \"clientip\":\"227.177.2.0\", \"request\": \"GET /images/102384s.gif HTTP/1.0\", \"status\": 400, \"size\": 785}" }
+{ "index" : { "_index" : "logs_object", "_id" : "4" } }
+{ "request_object": "{\"@timestamp\": 894340400, \"clientip\":\"61.177.2.0\", \"request\": \"GET /english/images/venue_bu_city_on.gif HTTP/1.0\", \"status\": 400, \"size\": 1397}\n" }
+{ "index" : { "_index" : "logs_object", "_id" : "5" } }
+{ "request_object": "{\"@timestamp\": 894440400, \"clientip\":\"132.176.2.0\", \"request\": \"GET /french/news/11354.htm HTTP/1.0\", \"status\": 200, \"size\": 3460, \"is_active\": true}" }
+```
+
+**Search**
+```json
+POST /logs_object/_search
+{
+  "query": {
+    "range": {
+      "derived_request_object.@timestamp": {
+        "gte": "894030400",   
+        "lte": "894140400"
+      }
+    }
+  },
+  "fields": ["derived_request_object.@timestamp"]
+}
+```
+
+```json
+POST /logs_object/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "derived_request_object.clientip": "61.177.2.0"
+          }
+        },
+        {
+          "match": {
+            "derived_request_object.request": "images"
+          }
+        }
+      ]
+    }
+  },
+  "fields": ["derived_request_object.*"],
+  "highlight": {
+    "fields": {
+      "derived_request_object.request": {}
+    }
+  }
+}
+```
+
+### Subfields type inference
+Type inference is based on the same logic as [Dynamic mapping]({{site.url}}{{site.baseurl}}/opensearch/mappings#dynamic-mapping). Instead of inferring the type from the first document, it generates a random sample of documents. If the type isn't found in the first document, it iterates over the random sample until the subfield is found or the list is exhausted. If it's a rare field, consider defining the explicit type for the subfield, as it may result in 0 results, similar to the behavior of a missing field. A warning will be logged related to inference failure.
+
+### Subfield explicit type
+Let's define an explicit type for `derived_logs_object.is_active` as `boolean`. Since this field is only present in one of the documents, its type inference might fail, so it's important to define the explicit type using `properties` section.
+
+```json
+POST /logs_object/_search
+{
+  "derived": {
+    "derived_request_object": {
+      "type": "object",
+      "script": {
+        "source": "emit(params._source[\"request_object\"])"
+      },
+      "properties": {
+        "is_active": "boolean"
+      }
+    }
+  },
+  "query": {
+    "term": {
+      "derived_request_object.is_active": true
+    }
+  },
+  "fields": ["derived_request_object.is_active"]
+}
+```
