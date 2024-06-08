@@ -5,7 +5,6 @@ parent: Bucket aggregations
 grand_parent: Aggregations
 nav_order: 100
 redirect_from:
-  - /query-dsl/aggregations/bucket/date-histogram/
   - /query-dsl/aggregations/bucket/histogram/
 ---
 
