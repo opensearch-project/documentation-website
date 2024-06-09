@@ -5,7 +5,7 @@ parent: Logstash
 nav_order: 220
 redirect_from:
   - /clients/logstash/read-from-opensearch/
- - /clients/logstash/ship-to-opensearch/
+  - /clients/logstash/ship-to-opensearch/
 ---
 
 # Read from OpenSearch
