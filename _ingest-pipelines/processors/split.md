@@ -37,7 +37,7 @@ field. If set to `true`, then the processor ignores missing values in the field 
 `description` | Optional | A brief description of the processor.
 `if` | Optional | A condition for running the processor.
 `ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters an error. If set to 
-`true`, failures are ignored. Default is `false`.
+`true`, then failures are ignored. Default is `false`.
 `on_failure` | Optional | A list of processors to run if the processor fails.
 `tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type.
 
