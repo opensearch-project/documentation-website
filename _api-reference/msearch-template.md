@@ -2,8 +2,6 @@
 layout: default
 title: Multi-search Template 
 nav_order: 47
-redirect_from: 
- - /opensearch/rest-api/multi-search/
 ---
 
 # Multi-search Template 
