@@ -102,7 +102,7 @@ As of OpenSearch 2.15, OpenSearch nodes cannot be migrated back to document repl
    }
    ```
 
-1. Set the `cluster.remote_store.compatibility_mode` setting to `mixed` to allow remote-backed storage nodes to join the cluster. Then set `migration.direction` to `remote_store`, which allocates new indexes to remote-backed data nodes. The following example updates the aforementioned setting using the Cluster Settings API:
+1. Set the `cluster.remote_store.compatibility_mode` setting to `mixed` to allow remote-backed storage nodes to join the cluster. Then set `cluster.migration.direction` to `remote_store`, which allocates new indexes to remote-backed data nodes. The following example updates the aforementioned setting using the Cluster Settings API:
 
    ```json
    PUT "/_cluster/settings?pretty"
