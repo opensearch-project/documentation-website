@@ -7,7 +7,7 @@ nav_order: 240
 
 # Set processor
 
-The `set` processor adds or updates fields in a document. It sets one field and associates it with the specified value. If the field already exists, its value is replaced with the provided one.
+The `set` processor adds or updates fields in a document. It sets one field and associates it with the specified value. If the field already exists, then its value is replaced with the provided one unless the `override` parameter is set to `false`. When `override` is `false` and the specified field exists, the value of the field remains unchanged.
 
 The following is the syntax for the `set` processor:
 
