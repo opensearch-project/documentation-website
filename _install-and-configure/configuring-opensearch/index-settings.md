@@ -54,7 +54,7 @@ OpenSearch supports the following cluster-level index settings. All settings in 
 
 - `cluster.remote_store.index.segment_metadata.retention.max_count` (Integer): Controls the minimum number of metadata files to keep in the segment repository on a remote store. A value below `1` disables the deletion of stale segment metadata files. Default is `10`.
 
-- `cluster.remote_store.segment.transfer_timeout` (Time unit): Controls the maximum amount of time to wait for all new segments post refresh to be uploaded to remote store. If the upload doesnt complete in specified time it throws a SegmentUploadFailedException. Default is `30m`. It has a minimum constraint of `10m`.
+- `cluster.remote_store.segment.transfer_timeout` (Time unit): Controls the maximum amount of time to wait for all new segments to update post refresh to the remote store. If the upload does not complete in a specified time it throws a `SegmentUploadFailedException` error. Default is `30m`. It has a minimum constraint of `10m`.
 
 ## Index-level index settings
 
