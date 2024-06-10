@@ -70,7 +70,7 @@ Follow these steps to create an alerting monitor:
 
 ### Associating monitors
 
-You can associate certain monitor types with a visualization using **Dashboards** instead of the plugin page. This association links the monitor to automatically display alerts on the related visualization chart. 
+You can associate certain monitor types with a visualization using **Dashboards** instead of through **OpenSearch Plugins** > **Alerting**. This association links the monitor to automatically display alerts on the related visualization chart. 
 
 To link a monitor with an alerting visualization, follow these steps: 
 
