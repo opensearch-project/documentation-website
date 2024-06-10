@@ -400,7 +400,7 @@ Refer to the following frequently asked questions for more information about neu
 
 When using connectors to call a remote service like SageMaker, ingestion and search calls sometimes fail due to remote connector throttling exceptions. 
 
-To mitigate throttling exceptions, modify the connector [`client_config`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#configuration-parameters) paramters to decrease the number of maximum connections, using the `max_connection` setting, in order to prevent max concurrent connection number from exceeding the threshold of the remote service. You can also modify the retry settings to flatten the request spike during ingestion.
+To mitigate throttling exceptions, modify the connector [`client_config`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#configuration-parameters) parameter to decrease the number of maximum connections, using the `max_connection` setting, to prevent the maximum number of concurrent connections  from exceeding the threshold of the remote service. You can also modify the retry settings to flatten the request spike during ingestion.
 
 For versions before OpenSearch 2.15, the SageMaker throttling exception will be thrown as the following `"error": 
 
