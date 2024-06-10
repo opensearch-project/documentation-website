@@ -44,7 +44,7 @@ Consider the following general requirements for setting up or creating alerting 
 
 ## Creating or associating alerting monitors from within visualizations
 
-To create a monitor through a visualization, you have two options: create a new monitor or associate an existing monitor. Choose the option that meets your use case.
+To create a monitor through a visualization, you have two options: create a new monitor or associate an existing monitor with a visualization. Choose the option that meets your use case.
 
 By default, when you create an alert monitor workflow using OpenSearch Dashboards, you are presented with a menu-driven interface. This interface provides a range of options that are displayed in full screen, in pop-ups, in pull-downs, or in dropdowns. These options are used to define the metrics that can be monitored, set thresholds, customize triggers that automate workflows, and generate actions when conditions are met. 
 
