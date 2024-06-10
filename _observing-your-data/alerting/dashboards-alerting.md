@@ -36,9 +36,8 @@ Consider the following general requirements for setting up or creating alerting 
 - The visualization must contain at least a Y-axis metric aggregation.
 - The visualization must not have non-Y-axis metric aggregation types.
 - The visualization must use the date histogram aggregation type for the X-axis bucket.
-- The visualization must have an X-axis.
+- The visualization must have an valid time-based X-axis.
 - The visualization must define one X-axis aggregation bucket.
-- The visualization must have a valid time-based X-axis.
 - You can display up to 10 metric on the chart, with each series shown as a line.
 
 ## Creating or associating alerting monitors from within visualizations
