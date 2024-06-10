@@ -41,17 +41,17 @@ At OpenSearch we are supporting many different type of use cases for a large var
 
 All these use cases are accompanied by a very strong and matured community that has contributed many resources and Knowledge to these domain. The **Integration framework** is strongly aligned with these schemas and allows out of the box data mapping that corresponds to these domains. 
 
-**The Schema**
+**The Observability Schema**
 
-One important concept of all integrations are the actual domain schema of the data signal collected for events visualized by the integration (security and observability).
+Having a consistent schema for telemetry data is crucial for effective observability. It enables correlating and analyzing data across applications, services, and infrastructure components, providing a holistic view of system behavior and performance.
 
-The [Observability OpenTelemetry](https://opentelemetry.io/) is a community managed observability protocol that is constantly evolving the monitoring and tracing agenda.
-The [OTEL protocol](https://opentelemetry.io/docs/specs/otel/) which is a key concept of the OpenTelemetry products allows the consolidation and unification of many types of observed data signals.
+At OpenSearch, we adopted the [OpenTelemetry (OTel)](https://opentelemetry.io/) protocol as the foundation for our observability solution. OTel is a community-driven standard that defines a consistent schema and data collection approach for metrics, logs, and traces. It is widely supported by various APIs, SDKs, and telemetry collectors, enabling features like auto-instrumentation for easy observability integration.
 
-At OpenSearch we adopted these protocol and developed the [Simple Schema for Observability](https://github.com/opensearch-project/opensearch-catalog/tree/main/docs/schema/observability) to help manifest these concepts into a concrete index mapping catalog.
+By unifying our integrations around the OTel schema, we provide a consistent experience for users. This shared schema allows cross-correlation and analysis across different data sources, enabling deeper insights into application and infrastructure performance. For this purpose, we derived the [Simple Schema for Observability](https://github.com/opensearch-project/opensearch-catalog/tree/main/docs/schema/observability) that encodes the OTel standard as OpenSearch mappings.
 
-Using the well-defined Observability schema structure simplified the assumptions on the fields names using [semantics conventions](https://opentelemetry.io/docs/concepts/semantic-conventions/).
-It allows us to build a common dashboard that reflects the behavior and provisions the different aspect of the observed resource.
+Additionally, OpenSearch supports the [Piped Processing Language](https://opensearch.org/docs/latest/search-plugins/sql/ppl/index/), designed for high-dimensionality querying in observability contexts. PPL empowers users with advanced analysis and troubleshooting capabilities beyond traditional dashboarding.
+
+Adopting the OTel schema and leveraging its ecosystem enables our integrations to take a powerful and standardized approach to observability, helping users gain a comprehensive understanding of their systems.
 
 #### Data Ingestion for Integrations
 
