@@ -82,9 +82,10 @@ GET /_insights/top_queries?type=latency
 {% include copy-curl.html %}
 
 ## Export the top N queries data
-You can configure your desired exporter to export the top n queries data to different sinks. Currently, supported exportors are debug exporter and local index exporter.
+You can configure your desired exporter to export the top N queries data to different sinks. Currently, supported exporters are the debug exporter and the local index exporter.
 
-Configure the debug exporter for top queries by latency with
+### Configuring the debug exporter
+To export the top queries by latency using the debug exporter, use the following configuration:
 ```json
 PUT _cluster/settings
 {
@@ -95,7 +96,7 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-You can also configure the debug exporter for other metrics like cpu with
+To configure the debug exporter for other metrics such as `CPU`, use:
 ```json
 PUT _cluster/settings
 {
@@ -106,7 +107,8 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-Local index exporter is also supported to export the top n queries to local OpenSearch indices. You can configure the local index exporter with
+### Configuring the local index exporter
+The local index exporter allows you to export the top N queries to local OpenSearch indexes. To configure the local index exporter for latency, use:
 ```json
 PUT _cluster/settings
 {
@@ -118,9 +120,9 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-For a reference on the date pattern format, see the [Joda DateTimeFormat documentation](https://www.joda.org/joda-time/apidocs/org/joda/time/format/DateTimeFormat.html).
+For reference on the date pattern format, see the [DateTimeFormat documentation](https://www.joda.org/joda-time/apidocs/org/joda/time/format/DateTimeFormat.html).
 
-You can also configure the local index exporter for other metrics like cpu with
+To configure the local index exporter for other metrics such as `CPU`, use:
 ```json
 PUT _cluster/settings
 {
@@ -131,3 +133,5 @@ PUT _cluster/settings
 }
 ```
 {% include copy-curl.html %}
+
+By configuring these settings, you can direct the query insights data to the appropriate sink, allowing for better monitoring and analysis of your OpenSearch queries.
