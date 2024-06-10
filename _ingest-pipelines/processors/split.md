@@ -129,7 +129,7 @@ PUT testindex1/_doc/1?pipeline=split_pipeline
 
 #### Response
 
-The request indexes the document into the index `testindex1` and splits the `log_message` field on the comma delimiter before indexing.
+The request indexes the document into the index `testindex1` and splits the `log_message` field on the comma delimiter before indexing, as shown in the following response:
 
 ```json
 {
