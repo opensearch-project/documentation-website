@@ -33,7 +33,7 @@ The following table lists the required and optional parameters for the `set` pro
 Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
 `field` | Required | The name of the field to be set or updated. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets).
-`value` | Required | The value to be assigned to the field. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets).
+`value` | Required | The value assigned to the field. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets).
 `override` | Optional | A Boolean flag that determines whether the processor should override the existing value of the field.
 `ignore_empty_value` | Optional | A Boolean flag that determines whether the processor should ignore `null` values or empty strings. Default is `false`.
 `description`  | Optional  | A description of the processor's purpose or configuration.
