@@ -50,7 +50,7 @@ Deleted | The monitor or trigger associated with this alert was deleted while th
 
 ## Creating alerts from within OpenSearch Dashboards
 
-You can create alerts at the cluster-level and from within OpenSearch Dashboards. This documentation is about OpenSearch Dashboards. See [Alerting API](/observing-your-data/alerting/api/) for details about how to programmatically create, update, and manage monitors and alerts.
+You can create alerts at the cluster level and from within OpenSearch Dashboards. This documentation is about OpenSearch Dashboards. See [Alerting API](/observing-your-data/alerting/api/) for details about how to programmatically create, update, and manage monitors and alerts.
 
 The following steps guide you through creating a basic monitor:
 
