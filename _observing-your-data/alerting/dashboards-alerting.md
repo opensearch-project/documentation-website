@@ -76,7 +76,7 @@ To link a monitor with an alerting visualization, follow these steps:
 
 1. From your visualization, choose the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/} icon on the upper right of the visualization.
 2. Select **Associated monitors**.
-3. From the **Select monitor to associate** dropdown menu, select the monitor to associate to the visualization. Only eligible monitors are listed in the dropdown menu. 
+3. From the **Select monitor to associate** dropdown menu, select the monitor to link to the visualization. Only eligible monitors are listed in the dropdown menu. 
 4. View the monitor's basic information. To view comprehensive details, select **View monitor page** to open the Alerting plugin page.
 5. Save the associated monitor by selecting the **Associate monitor** button, as shown in the following image. An existing monitor is now associated with the visualization.
 
