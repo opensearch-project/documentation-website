@@ -4,7 +4,8 @@ title: Metric keys
 nav_order: 35
 parent: Metrics reference
 grand_parent: OpenSearch Benchmark Reference
-redirect_from: /benchmark/metrics/metric-keys/
+redirect_from:
+  - /benchmark/metrics/metric-keys/
 ---
 
 # Metric keys
