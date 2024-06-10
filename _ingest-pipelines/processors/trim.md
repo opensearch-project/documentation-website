@@ -147,7 +147,7 @@ GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-The response should include the `trimmed_text` field with the leading and trailing white space removed:
+The response includes the `trimmed_text` field with the leading and trailing white space removed:
 
 ```json
 {
