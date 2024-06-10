@@ -31,7 +31,7 @@ For detailed information about enabling and configuring this feature, see the fo
 
 ## Enabling the top N queries feature 
 
-After installing the `query-insights` plugin, you can enable the top N queries feature (which is disabled by default) by using the following dynamic setting. This setting enables the corresponding collectors and aggregators in the running cluster. For example, the below command enables top n queries by latency.
+After installing the `query-insights` plugin, you can enable the top N queries feature (which is disabled by default) by using the following dynamic setting. This setting enables the corresponding collectors and aggregators in the running cluster. For example, the following command enables top n queries by latency.
 
 ```json
 PUT _cluster/settings
@@ -43,7 +43,7 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-Other available metrics are cpu usage and memory usage. You can enable them with
+Other available metrics are CPU usage and memory usage. You can enable them with
 ```json
 PUT _cluster/settings
 {
@@ -75,7 +75,7 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-Other available metrics are cpu usage and memory usage. You can configure the window size to 60 minutes for these metrics by:
+Other available metrics are CPU usage and memory usage. You can configure the window size to 60 minutes for these metrics by:
 ```json
 PUT _cluster/settings
 {
@@ -108,7 +108,7 @@ PUT _cluster/settings
 {% include copy-curl.html %}
 
 
-Other available metrics are cpu usage and memory usage. You can configure the top n size to 10 for these metrics by:
+Other available metrics are CPU usage and memory usage. You can configure the top n size to 10 for these metrics by:
 ```json
 PUT _cluster/settings
 {
