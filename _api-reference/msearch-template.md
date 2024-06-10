@@ -15,6 +15,8 @@ The Multi-search Template API runs multiple search template requests in a single
 
 ## Path and HTTP methods
 
+The Multi-search template API uses the following paths:
+
 ```
 GET /_msearch/template
 POST /_msearch/template
