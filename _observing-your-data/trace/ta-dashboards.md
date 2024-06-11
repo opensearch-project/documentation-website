@@ -9,6 +9,8 @@ redirect_from:
 ---
 
 # Trace Analytics OpenSearch Dashboards plugin
+
+The Trace Analytics plugin offers at-a-glance visibility into application performance based on OpenTelemetry protocol data.
 Introduced 2.15
 {: .label .label-purple }
 
