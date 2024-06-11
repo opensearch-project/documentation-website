@@ -1006,11 +1006,12 @@ PATCH _plugins/_security/api/rolesmapping
 ```
 
 ---
+
 ## Allowlist
 
 ### Get allowlist
 
-Retrieves the current allowlist configuration
+Retrieves the current `allowlist` configuration.
 
 #### Request
 
@@ -1042,7 +1043,7 @@ GET _plugins/_security/api/allowlist
 
 ### Create allowlist
 
-Create allowlist configuration.
+Creates an `allowlist` configuration.
 
 #### Request
 
@@ -1070,7 +1071,7 @@ PUT _plugins/_security/api/allowlist
 
 ### Update allowlist
 
-Updates allowlist configuration.
+Updates an `allowlist` configuration.
 
 #### Request
 
