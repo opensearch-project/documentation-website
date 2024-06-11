@@ -213,7 +213,7 @@ To create a new detection rule, select the **Create detection rule** button, whi
 
 ### Alerting
 
-When the data source feature is enabled, you can navigate to **Alerting** under the **OpenSearch Plugins** menu. Using monitors as an example, you can view all connected data sources and select a specific one from the navigation bar on the upper right. By default, the monitors from the designated default data source are displayed. However, you can select any connected data source to view its corresponding monitors. The following GIF illustrates these steps.
+When the data source feature is enabled, you can navigate to **Alerting** under the **Opensearch Plugins** menu and view all connected data sources. In the data source view, the default data source and its corresponding detection rules are displayed. However, you can select any connected data source to view its corresponding detection rules from the **Data sources** dropdown. The following GIF illustrates these steps using detection rules.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/mds_monitor_view.gif" alt="Multiple data sources in Alerting list page"/>
 
@@ -221,13 +221,14 @@ To create a new monitor, select the **Create monitor** button, which opens a for
 
 ### Feature anywhere
 
-When the data source feature is enabled, you can navigate to **Dashboards** under the **OpenSearch Dashboards** menu. Select a dashboard from the list, click the option button of the dashboads, then click on **Alerting** -> **Associated monitors**. Then you can see the associated monitors with the selected dashboard. The following GIF illustrates these steps.
+When the data source feature is enabled, you can navigate to **Dashboards** under the **OpenSearch Dashboards** menu. Select a dashboard from the list, select the **Option** button on the dashboard. Then, select  **Alerting** > **Associated monitors**. You should see the associated monitors for the selected dashboard. The following GIF illustrates these steps.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/mds_feature_anywhere_view_alerting.gif" alt="Multiple data sources with Feature anywhere associated monitor"/>
 
-To add new alerting monitor for that dashboard, select the option button, which opens a flyout. Fill in the required information and select the **Create monitor** button. The alerting monitor is created within the selected data source.The following GIF illustrates these steps.
+To add new alerting monitor for that dashboard, select the **Option** button. Fill in the required information and select the **Create monitor** button. The alerting monitor is created within the selected data source.The following GIF illustrates these steps.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/mds_feature_anywhere_create_alerting.gif" alt="Multiple data sources with Feature anywhere add associated monitor"/>
+
 ## Next steps
 
 After configuring multiple data sources, you can analyze the data from each source. Refer to the following resources for more information:
