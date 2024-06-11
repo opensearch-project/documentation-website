@@ -13,7 +13,7 @@ Introduced 2.15
 {: .label .label-purple }
 
 OpenSearch Observability Trace Analytics offers an improved user experience (UX) with OpenTelemetry (OTel) protocol analytics, providing comprehensive distributed systems insights. The improved UX enables you to correlate signals, aiding in identifying relationships and root causes of issues.
-OpenTelemetry ([OTEL](https://opentelemetry.io/)) is an open-source observability framework for cloud-native software that provides standardized instrumentation to collect telemetry data.
+[OTel](https://opentelemetry.io/), an open-source observability framework, offers standardized instrumentation for collecting telemetry data from cloud-native software.
 In this improved trace-analytics experience, users can analyze and visualize key signals such as services, traces, and RED (Rate, Error, Duration) metrics.
 
 - [Services](https://opentelemetry.io/docs/specs/semconv/resource/#service) represent the different components of a distributed application, they are a significant logical term which is used to measure and monitor the application's building blocks to validate the health of the entire system.
