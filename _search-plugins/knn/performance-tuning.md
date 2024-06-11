@@ -44,6 +44,57 @@ Take the following steps to improve indexing performance, especially when you pl
 
   Keep an eye on CPU utilization and choose the correct number of threads. Because native library index construction is costly, having multiple threads can cause additional CPU load.
 
+
+* **(Expert Level) Disable storing of vector fields in source**
+  In OpenSearch, the JSON document body which is passed during indexing stored in `_source` field during indexing. The field is not indexed(aka not searchable), but returned in response in `_source` key. You can remove the vector field from this `_source` to save up the disk space.
+  ```json
+  PUT /<index_name>/_mappings
+  {
+      "_source": {
+        "excludes": ["location"]
+      },
+      "properties": {
+          "location": {
+              "type": "knn_vector",
+              "dimension": 2,
+              "method": {
+                  "name": "hnsw",
+                  "space_type": "l2",
+                  "engine": "faiss"
+              }
+          }
+      }
+  }
+  ```
+  The above setting will ensure that vector field `location` is not getting added in source.
+  {: .note}
+  After disabling the `_source` for the vector field API like update, update_by_query, reindex will not work as expected because OpenSearch has no way to know what was the vector.
+  {: .note}
+* To further improve the indexing speed and reduce disk space, you can remove vector field from `_recovery_source` starting from OpenSearch version 2.15.  
+  ```json
+  PUT /<index_name>/_mappings
+  {
+      "_source": {
+        "excludes": ["location"],
+        "recovery_source_excludes": ["location"]
+      },
+      "properties": {
+          "location": {
+              "type": "knn_vector",
+              "dimension": 2,
+              "method": {
+                  "name": "hnsw",
+                  "space_type": "l2",
+                  "engine": "faiss"
+              }
+          }
+      }
+  }
+  ```
+  {: .note}
+  This is an expert setting, where disabling the `_recovery_source` may lead to failures during peer to peer recovery. Check with your OpenSearch cluster admin/provider to know if they are doing OpenSearch flush before starting Peer to Peer recovery of shards, before disabling the `_recovery_source`.  
+  {: .note}
+
 ## Search performance tuning
 
 Take the following steps to improve search performance:
