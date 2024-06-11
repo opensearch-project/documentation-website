@@ -146,7 +146,7 @@ POST testindex1/_doc?pipeline=sort-pipeline
 
 #### Response
 
-The request indexes the document into the index `testindex1` and then indexes and then indexes all documents with the `my_array_field` sorted in descending order, as shown in the following response:
+The request indexes the document into the index `testindex1` and then indexes all documents with the `my_array_field` sorted in descending order, as shown in the following response:
 
 ```json
 {
