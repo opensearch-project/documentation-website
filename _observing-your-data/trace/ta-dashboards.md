@@ -18,7 +18,7 @@ OpenSearch Observability Trace Analytics offers an improved user experience (UX)
 
 This improved trace-analytics experience enables you to analyze and visualize services, traces, and rate, error and duration (RED) metrics.
 
-- [Services](https://opentelemetry.io/docs/specs/semconv/resource/#service) represent the different components of a distributed application, they are a significant logical term which is used to measure and monitor the application's building blocks to validate the health of the entire system.
+- [Services](https://opentelemetry.io/docs/specs/semconv/resource/#service) represent the different components of a distributed application. They are a significant logical term used to measure and monitor the application's building blocks to validate the system's health.
 - [Traces](https://opentelemetry.io/docs/concepts/signals/traces/) follow the end-to-end journey of requests as they travel through these services, offering deep insights into latency and performance issues.
 - [RED metrics](https://opentelemetry.io/docs/specs/otel/metrics/api/) help monitor the health and performance of services by focusing on three critical areas: rate (requests per second), errors (number of failed requests), and duration (time taken to process requests). 
 
