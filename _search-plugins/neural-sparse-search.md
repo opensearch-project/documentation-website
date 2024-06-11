@@ -263,8 +263,37 @@ GET my-nlp-index/_search
 }
 ```
 ## Step 5: Create and enable two-phase processor (Optional)
-'neural_sparse_two_phase_processor' is a new feature which introduced in OpenSearch 2.15. It can speed up the neural sparse query's time cost with negligible accurency loss
-For more information, you can refer to [neural-sparse-query-two-phase-processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-sparse-query-two-phase-processor/).
+
+This step is optional but strongly recommended, as it significantly improves the performance of neural sparse queries with almost no side effects.
+
+'neural_sparse_two_phase_processor' is a new feature which introduced in OpenSearch 2.15. It can speed up the neural sparse query's time cost with negligible accurency loss.
+
+You can quickly launch a pipeline based on the following API example. For more detailed information on the parameter settings and basic principles of this pipeline, please refer to [neural-sparse-query-two-phase-processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-sparse-query-two-phase-processor/).
+
+```json
+PUT /_search/pipeline/two_phase_search_pipeline
+{
+  "request_processors": [
+    {
+      "neural_sparse_two_phase_processor": {
+        "tag": "neural-sparse",
+        "description": "This processor is making two-phase processor."
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+Then choose the proper index and set the `index.search.default_pipeline` to the pipeline name. Replace the `index-name` in url with your index name.
+```json
+PUT /index-name/_settings 
+{
+  "index.search.default_pipeline" : "two_phase_search_pipeline"
+}
+```
+{% include copy-curl.html %}
+
 
 
 ## Setting a default model on an index or field

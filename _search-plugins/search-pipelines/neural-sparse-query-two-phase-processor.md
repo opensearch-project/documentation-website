@@ -9,7 +9,7 @@ grand_parent: Search pipelines
 
 # NeuralSparse query two-phase processor
 
-The `neural_sparse_two_phase_processor` search request processor is designed to set a speed-up pipeline for [neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/). It accelerates the neural sparse query by breaking down the original method of scoring all documents with all tokens into two steps. In the first step, it uses high-weight tokens to score the documents and filters out the top documents; in the second step, it uses low-weight tokens to fine-tune the scores of the top documents.
+The `neural_sparse_two_phase_processor` search request processor is designed to set a speed-up pipeline for [neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/). It accelerates the neural sparse query by breaking down the original method of scoring all documents with all tokens into two steps. In the first step, it uses high-weight tokens to score the documents and filters out the top documents; in the second step, it uses low-weight tokens to rescore the scores of the top documents.
 
 ## Request fields
 
@@ -118,7 +118,18 @@ GET /my-nlp-index/_search
 ```
 {% include copy-curl.html %}
   
-## Metrics
+## P99 Latency Metrics
+On an OpenSearch cluster set up on 3 m5.4xlarge AWS EC2 instances, we conducted neural sparse query's P99 latency tests on indexes corresponding to over ten datasets.
+### Doc-only mode latency metric
+In doc-only mode, the two-phase processor can significantly decrease query latency. Analyzing the data:
+- Average latency without 2-phase: 53.56 ms
+- Average latency with 2-phase: 38.61 ms
 
-In doc-only mode, the two-phase processor will reduce the query latency by 20% to 50%, depending on the index configuration and two-phase parameters.
-In bi-encoder mode, the two-phase processor can decrease the query latency by up to 90%, also depending on the index configuration and two-phase parameters.
+This results in an overall reduction of approximately 27.92% in latency. Most index show a significant decrease in latency with the 2-phase processor, with reductions ranging from 5.14% to 84.6%, the specific latency optimization values depend on the data distribution within the indexes.
+### Bi-encoder mode latency metric
+
+In bi-encoder mode, the two-phase processor can significantly decrease query latency. Analyzing the data:
+- Average latency without 2-phase: 300.79 ms
+- Average latency with 2-phase: 121.64 ms
+
+This results in an overall reduction of approximately 59.56% in latency. Most index show a significant decrease in latency with the 2-phase processor, with reductions ranging from 1.56% to 82.84%, the specific latency optimization values depend on the data distribution within the indexes.
