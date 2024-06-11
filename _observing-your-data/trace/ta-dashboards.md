@@ -12,6 +12,8 @@ redirect_from:
 
 The Trace Analytics plugin offers at-a-glance visibility into application performance based on [OpenTelemetry (OTel)](https://opentelemetry.io/) protocol data. OTel, an open-source observability framework, offers standardized instrumentation for collecting telemetry data from cloud-native software.
 
+An [OTel demo](#otel-demo) is provided at the end of this documentation.
+
 ## Installing the plugin
 
 Refer to [Standalone OpenSearch Dashboards plugin install]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/) for guidance about install the Trace Analytics plugin.
