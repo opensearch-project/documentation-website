@@ -76,7 +76,7 @@ Trace analytics provides multiple service visualizations (table and map) for log
 
   ![Services throughput tooltip ]({{site.url}}{{site.baseurl}}/images/trace-analytics/service-throughput-tooltip.png)
   
-  - The Service Correlation dialog displays an overview of the selected service, including its 24-hour throughput trend, and allows users to deep dive into correlated logs or traces using the serviceName field. An example is shown in the following image.
+  - The Service Correlation dialog displays an overview of the selected service, including its 24-hour throughput trend, and allows users to deep dive into correlated logs or traces using the `serviceName` field. An example is shown in the following image.
  
   ![Services service-correlation dialog ]({{site.url}}{{site.baseurl}}/images/trace-analytics/single-service-correlation-dialog.png)
 
