@@ -37,7 +37,7 @@ OpenSearch supports the following search settings:
 
 - `search.max_aggregation_rewrite_filters` (Dynamic, integer): Determines the maximum number of rewrite filters allowed during aggregation. Set this value to `0` to disable the filter rewrite optimization for aggregations.
 
-- `search.dynamic_pruning.cardinality_aggregation_threshold` (Dynamic, integer): Determines the threshold for applying dynamic pruning in cardinality aggregation. If a field’s cardinality exceeds this threshold, the aggregation will revert to the default method.
+- `search.dynamic_pruning.cardinality_aggregation.max_allowed_cardinality` (Dynamic, integer): Determines the threshold for applying dynamic pruning in cardinality aggregation. If a field’s cardinality exceeds this threshold, the aggregation will revert to the default method.
 
 ## Point in Time settings
 
