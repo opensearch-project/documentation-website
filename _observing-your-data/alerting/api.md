@@ -2076,7 +2076,7 @@ POST _plugins/_alerting/destinations/email_groups/_search
 }
 ```
 
-## Create comment (Experimental)
+## Create comment (experimental)
 
 #### Request
 
@@ -2105,7 +2105,7 @@ POST _plugins/_alerting/comments/<alert-id>
 }
 ```
 
-## Update comment (Experimental)
+## Update comment (experimental)
 
 #### Request
 
@@ -2134,7 +2134,7 @@ PUT _plugins/_alerting/comments/<comment-id>
 }
 ```
 
-## Search comments (Experimental)
+## Search comments (experimental)
 
 #### Request
 
@@ -2203,7 +2203,7 @@ GET _plugins/_alerting/comments/_search
 }
 ```
 
-## Delete comment (Experimental)
+## Delete comment (experimental)
 
 #### Request
 
