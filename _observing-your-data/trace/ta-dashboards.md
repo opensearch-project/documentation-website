@@ -25,7 +25,6 @@ This improved trace-analytics experience enables you to analyze and visualize se
 Additionally, we've added a new UX flyout allowing for correlation analysis, enabling users to identify relationships between different signals and understand the root causes of issues more effectively.
 
 
-The Trace Analytics plugin for OpenSearch Dashboards provides at-a-glance visibility into your application performance as it is projected by the OpenTelemetry protocol.
 The Trace Analytics shows multiple service-visualizations (table and map) - which allow a logical analysis of the service's behavior and correctness. 
 
 The following visualizations represent various ways that will assist the user to quickly identify anomalies and errors
