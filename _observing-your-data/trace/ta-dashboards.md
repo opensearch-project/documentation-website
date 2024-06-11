@@ -22,7 +22,7 @@ This improved trace-analytics experience enables you to analyze and visualize se
 
 - [Services](https://opentelemetry.io/docs/specs/semconv/resource/#service) represent the different components of a distributed application. They are a significant logical term used to measure and monitor the application's building blocks to validate the system's health.
 - [Traces](https://opentelemetry.io/docs/concepts/signals/traces/) provide end-to-end visibility into requests' journeys across services, offering insights into latency and performance issues.
-- [RED metrics](https://opentelemetry.io/docs/specs/otel/metrics/api/) help monitor the health and performance of services by focusing on three critical areas: rate (requests per second), errors (number of failed requests), and duration (time taken to process requests). 
+- [RED metrics](https://opentelemetry.io/docs/specs/otel/metrics/api/) RED metrics monitor service health and performance by focusing on requests per second (rate), failed requests (errors), and request processing time (duration). 
 
 Additionally, we've added a new UX flyout allowing for correlation analysis, enabling users to identify relationships between different signals and understand the root causes of issues more effectively.
 
