@@ -42,20 +42,25 @@ The following table lists the workflow step types. The `user_inputs` fields for 
 |`create_index`|[Create Index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/)     | Creates a new OpenSearch index. The inputs include `index_name`, which should be the name of the index to be created, and `configurations`, which contains the payload body of a regular REST request for creating an index.
 |`create_ingest_pipeline`|[Create Ingest Pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/) | Creates or updates an ingest pipeline. The inputs include `pipeline_id`, which should be the ID of the pipeline, and `configurations`, which contains the payload body of a regular REST request for creating an ingest pipeline.
 |`create_search_pipeline`|[Create Search Pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/creating-search-pipeline/) | Creates or updates a search pipeline. The inputs include `pipeline_id`, which should be the ID of the pipeline, and `configurations`, which contains the payload body of a regular REST request for creating a search pipeline.
-|`reindex`|[Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/)  | The reindex document API operation lets you copy all or a subset of your data from a source index into a destination index. The input includes source_index, destination_index, and the following optional parameters from the document reindex API: `refresh`, `requests_per_second`, `require_alias`, `slices`, and `max_docs`. 
-Note: Reindexing can be a resource-intensive operation, and if not managed properly, it can potentially destabilize your cluster. To ensure a smooth reindexing process and prevent cluster instability, follow these best practices:
+|`reindex`|[Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/)  | The reindex document API operation lets you copy all or a subset of your data from a source index into a destination index. The input includes source_index, destination_index, and the following optional parameters from the document reindex API: `refresh`, `requests_per_second`, `require_alias`, `slices`, and `max_docs`. For more information, see [Reindexing considerations](#reindexing-considerations).
 
-    Cluster Scaling: Before initiating a reindexing operation, ensure that your OpenSearch cluster is properly scaled to handle the additional workload. Increase the number of nodes and adjust resource allocations (CPU, memory, disk) as needed to accommodate the reindexing process without impacting other operations.
+## Reindexing considerations
 
-    Request Rate Control: Use the requests_per_second parameter to control the rate at which the reindexing requests are sent to the cluster. This helps to regulate the load on the cluster and prevent resource exhaustion. Start with a lower value and gradually increase it based on your cluster's capacity and performance.
+Reindexing can be a resource-intensive operation, and if not managed properly, it can potentially destabilize your cluster. 
 
-    Slicing and Parallelization: The slices parameter allows you to divide the reindexing process into smaller, parallel tasks. This can help distribute the workload across multiple nodes and improve overall performance. However, be cautious when increasing the number of slices, as it can also increase resource consumption.
+When using a `reindex` step, follow these best practices to ensure a smooth reindexing process and prevent cluster instability:
 
-    Monitoring and Adjustments: Closely monitor your cluster's performance metrics (CPU, memory, disk usage, thread pools, etc.) during the reindexing process. If you notice any signs of resource contention or performance degradation, adjust the reindexing parameters accordingly or consider pausing the operation until the cluster stabilizes.
+- **Cluster scaling**: Before initiating a reindexing operation, ensure that your OpenSearch cluster is properly scaled to handle the additional workload. Increase the number of nodes and adjust resource allocation (CPU, memory, and disk) as needed to accommodate the reindexing process without impacting other operations.
 
-    Prioritization and Scheduling: If possible, schedule reindexing operations during off-peak hours or periods of lower cluster utilization to minimize the impact on other operations and user traffic.
+- **Request rate control**: Use the `requests_per_second` parameter to control the rate at which the reindexing requests are sent to the cluster. This helps to regulate the load on the cluster and prevent resource exhaustion. Start with a lower value and gradually increase it based on your cluster's capacity and performance.
 
-By following these best practices and carefully managing the reindexing process, you can help ensure that your OpenSearch cluster remains stable and performant while efficiently copying data between indices.
+- **Slicing and parallelization**: The `slices` parameter allows you to divide the reindexing process into smaller, parallel tasks. This can help distribute the workload across multiple nodes and improve overall performance. However, be cautious when increasing the number of slices because adding slices can increase resource consumption.
+
+- **Monitoring and adjustments**: Closely monitor your cluster performance metrics (such as CPU, memory, disk usage, and thread pools) during the reindexing process. If you notice any signs of resource contention or performance degradation, adjust the reindexing parameters accordingly or consider pausing the operation until the cluster stabilizes.
+
+- **Prioritization and scheduling**: If possible, schedule reindexing operations during off-peak hours or periods of lower cluster utilization to minimize the impact on other operations and user traffic.
+
+By following these best practices and carefully managing the reindexing process, you can ensure that your OpenSearch cluster remains stable and performant while efficiently copying data between indexes.
 
 ## Additional fields
 
