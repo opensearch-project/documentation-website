@@ -24,7 +24,6 @@ This improved trace-analytics experience enables you to analyze and visualize se
 - [Traces](https://opentelemetry.io/docs/concepts/signals/traces/) provide end-to-end visibility into requests' journeys across services, offering insights into latency and performance issues.
 - [RED metrics](https://opentelemetry.io/docs/specs/otel/metrics/api/) RED metrics monitor service health and performance by focusing on requests per second (rate), failed requests (errors), and request processing time (duration). 
 
-Additionally, we've added a new UX flyout allowing for correlation analysis, enabling users to identify relationships between different signals and understand the root causes of issues more effectively.
 
 
 The Trace Analytics shows multiple service-visualizations (table and map) - which allow a logical analysis of the service's behavior and correctness. 
