@@ -145,6 +145,20 @@ Select the `Otel-Index` drop down and choose the Simple Schema for Observability
 ![OTEL Metrics]({{site.url}}{{site.baseurl}}/images/metrics/otel-metrics.png)
 
 
+## Accessing remote cluster to visualize its remote metrics
+Introduced 2.14
+{: .label .label-purple }
+
+Metrics Analytics has introduces the capability to federate and view remote OpenSearch cluster metrics by using the Data-Source selection drop-down and changing the local cluster into a remote one. 
+
+![Change Data Source]({{site.url}}{{site.baseurl}}/images/metrics/remote-cluster-selection.png)
+
+It is also possible to federate remote metrics visualization in addition to local metrics visualization using the **Data-Source Selection** drop down and adding the remote metrics visualization to the existing views. 
+
+![Change Data Source]({{site.url}}{{site.baseurl}}/images/metrics/otel-metrics-remote-cluster-selection.png)
+
+For additional insight into data-source multi-cluster support see [here](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/1388)
+
 ## Creating visualizations based on metrics
 
 In addition to the Metrics analytics, one can create visualizations based on Prometheus metrics and other metrics collected by your OpenSearch cluster.
