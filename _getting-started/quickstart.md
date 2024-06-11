@@ -3,6 +3,7 @@ layout: default
 title: Installation quickstart
 nav_order: 3
 redirect_from: 
+  - /about/quickstart/
   - /opensearch/install/quickstart/
   - /quickstart/
 ---
@@ -66,7 +67,7 @@ You'll need a special file, called a Compose file, that Docker Compose uses to d
     ```
     {% include copy.html %}
 
-1. In your terminal application, navigate to the directory containing the `docker-compose.yml` file you downloaded and run the following command to create and start the cluster as a background process:
+1. In your terminal application, navigate to the directory containing the `docker-compose.yml` file you downloaded, [set up a custom admin password]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#setting-a-custom-admin-password), and run the following command to create and start the cluster as a background process:
     
     ```bash
     docker-compose up -d
