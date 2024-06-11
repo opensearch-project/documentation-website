@@ -34,7 +34,7 @@ The following table lists the required and optional parameters for the `sort` pr
 |---|---|---|
 `field`  | Required | The field to be sorted. Must be an array.
 `order`  | Optional | The sort order to apply. Accepts `asc` for ascending or `desc` for descending. Default is `asc`.
-`target_field` | Optional | The name of the field where the sorted array is stored. If not specified, the sorted array is stored in the same field as the original array (the `field` variable). 
+`target_field` | Optional | The name of the field in which the sorted array is stored. If not specified, then the sorted array is stored in the same field as the original array (the `field` variable). 
 `description`  | Optional  | A description of the processor's purpose or configuration.
 `if` | Optional | Specifies to conditionally execute the processor.
 `ignore_failure` | Optional | Specifies to ignore processor failures. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
