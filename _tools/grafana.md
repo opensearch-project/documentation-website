@@ -3,6 +3,8 @@ layout: default
 title: Grafana
 nav_order: 200
 has_children: false
+redirect_from:
+  - /clients/grafana/
 ---
 
 # Grafana support

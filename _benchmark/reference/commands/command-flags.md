@@ -3,7 +3,8 @@ layout: default
 title: Command flags
 nav_order: 51
 parent: Command reference
-redirect_from: /benchmark/commands/command-flags/
+redirect_from: 
+  - /benchmark/commands/command-flags/
 grand_parent: OpenSearch Benchmark Reference
 ---
 
