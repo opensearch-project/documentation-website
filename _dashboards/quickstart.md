@@ -4,7 +4,8 @@ title: OpenSearch Dashboards quickstart guide
 nav_order: 2
 has_children: false
 redirect_from:
-   - /dashboards/quickstart-dashboards/
+  - /dashboards/get-started/quickstart-dashboards/
+  - /dashboards/quickstart-dashboards/
 ---
 
 # OpenSearch Dashboards quickstart guide
