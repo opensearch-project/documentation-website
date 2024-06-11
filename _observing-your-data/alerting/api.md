@@ -2075,4 +2075,147 @@ POST _plugins/_alerting/destinations/email_groups/_search
   }
 }
 ```
+
+## Create comment (Experimental)
+
+#### Request
+
+```json
+POST _plugins/_alerting/comments/<alert-id>
+{
+  "content": "sample comment"
+}
+```
+
+#### Example response
+
+```json
+{
+  "_id": "0U6aBJABVWc3FrmWer9s",
+  "_seq_no": 7,
+  "_primary_term": 2,
+  "comment": {
+    "entity_id": "vCZkA5ABWTh3kzuBEL_9",
+    "entity_type": "alert",
+    "content": "sample comment",
+    "created_time": 1718064151148,
+    "last_updated_time": null,
+    "user": "admin"
+  }
+}
+```
+
+## Update comment (Experimental)
+
+#### Request
+
+```json
+PUT _plugins/_alerting/comments/<comment-id>
+{
+  "content": "sample updated comment"
+}
+```
+
+#### Example response
+
+```json
+{
+  "_id": "0U6aBJABVWc3FrmWer9s",
+  "_seq_no": 8,
+  "_primary_term": 3,
+  "comment": {
+    "entity_id": "vCZkA5ABWTh3kzuBEL_9",
+    "entity_type": "alert",
+    "content": "sample updated comment",
+    "created_time": 1718064151148,
+    "last_updated_time": 1718064745485,
+    "user": "admin"
+  }
+}
+```
+
+## Search comments (Experimental)
+
+#### Request
+
+```json
+GET _plugins/_alerting/comments/_search
+{
+  "query": {
+    "match_all" : {}
+  }
+}
+```
+
+#### Example response
+
+```json
+{
+  "took": 14,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 2,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": ".opensearch-alerting-comments-history-2024.06.10-1",
+        "_id": "xE5tBJABVWc3FrmWRL5i",
+        "_version": 1,
+        "_seq_no": 3,
+        "_primary_term": 2,
+        "_score": 1,
+        "_source": {
+          "entity_id": "vCZkA5ABWTh3kzuBEL_9",
+          "entity_type": "alert",
+          "content": "a different sample comment",
+          "created_time": 1718061188191,
+          "last_updated_time": null,
+          "user": "admin"
+        }
+      },
+      {
+        "_index": ".opensearch-alerting-comments-history-2024.06.10-1",
+        "_id": "0U6aBJABVWc3FrmWer9s",
+        "_version": 3,
+        "_seq_no": 9,
+        "_primary_term": 3,
+        "_score": 1,
+        "_source": {
+          "entity_id": "vCZkA5ABWTh3kzuBEL_9",
+          "entity_type": "alert",
+          "content": "sample updated comment",
+          "created_time": 1718064151148,
+          "last_updated_time": 1718064745485,
+          "user": "admin"
+        }
+      }
+    ]
+  }
+}
+```
+
+## Delete comment (Experimental)
+
+#### Request
+
+```json
+DELETE _plugins/_alerting/comments/<comment-id>
+```
+
+#### Example response
+
+```json
+{
+  "_id": "0U6aBJABVWc3FrmWer9s"
+}
+```
 ---
