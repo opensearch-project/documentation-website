@@ -224,7 +224,7 @@ When the data source feature is enabled, you can access associated monitors for 
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/mds_feature_anywhere_view_alerting.gif" alt="Multiple data sources with Feature anywhere associated monitor"/>
 
-To add new alerting monitor for that dashboard, select the **Option** button. Fill in the required information and select the **Create monitor** button. The alerting monitor is created within the selected data source.The following GIF illustrates these steps.
+To create a new alerting monitor for a dashboard, select the **Option** button. Fill out the form and select **Create**. The monitor is created within the selected data source. The following GIF illustrates these steps.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/mds_feature_anywhere_create_alerting.gif" alt="Multiple data sources with Feature anywhere add associated monitor"/>
 
