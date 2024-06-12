@@ -49,6 +49,10 @@ The plugin expects metrics data to include rate, error, and duration (RED) indic
 
 Certain fields, such as `serviceName`, must be present for correlation analysis. These fields enable the plugin to link related telemetry data and provide a holistic view of service interactions and dependencies.
 
+### Correlation Indices
+
+Navigating from the service dialog into its corresponding traces or logs requires that (in addition to the existence of the correlating fields) the targets indices (logs for example) must follow the [Observability naming convention](https://opensearch.org/docs/latest/observing-your-data/ss4o/)  
+
 ## Trace analytics using the interface
 Introduced 2.15
 {: .label .label-purple }
