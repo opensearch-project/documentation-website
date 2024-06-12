@@ -210,7 +210,6 @@ To create a new detection rule, select **Create detection rule**. Fill out the f
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/mds_sa_detection_rules_create.gif" alt="Multiple data sources in Security analytics create page"/>
 
-
 ### Alerting
 
 When the data source feature is enabled, navigate to **Alerting** under **OpenSearch Plugins**. Here, you can view all connected data sources. By default, the primary data source and its detection rules are displayed. However, you can select any connected data source from the **Data sources** dropdown to view its corresponding detection rules. The following GIF illustrates these steps.
