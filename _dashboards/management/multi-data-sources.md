@@ -120,7 +120,7 @@ Follow these steps to import saved objects from a connected data source:
 Introduced 2.13
 {: .label .label-purple }
 
-A feature flag in your `opensearch_dashboards.yml` file allows you to show or hide authentication methods within the `data_source` plugin. The following example setting hides the authentication method for `AWSSigV4`.
+A feature flag in your `opensearch_dashboards.yml` file allows you to show or hide authentication methods within the `data_source` plugin. The following setting hides the authentication method for `AWSSigV4`.
 
 ````
 # Set enabled to false to hide the authentication method from multiple data source in OpenSearch Dashboards.
