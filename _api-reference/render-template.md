@@ -19,7 +19,7 @@ POST /_render/template/<id>
 
 ## Path parameters
 
-The Render Template API supports the following path parameter. All path parameters are optional.
+The Render Template API supports the following optional path parameter. 
 
 | Parameter | Type | Description |
 | :--- | :--- | :--- |
@@ -37,7 +37,7 @@ The following options are supported in the request body of the Render Template A
 
 ## Example request
 
-The following example requests validates a search template with the ID `play_search_template`:
+The following example request validates a search template with the ID `play_search_template`:
 
 ```json
 POST _render/template
@@ -52,7 +52,7 @@ POST _render/template
 
 ## Example response
 
-OpenSearch responds with information about the templates output:
+OpenSearch responds with information about the template's output:
 
 ```json
 {
