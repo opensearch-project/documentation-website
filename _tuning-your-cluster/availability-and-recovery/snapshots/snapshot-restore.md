@@ -327,7 +327,7 @@ Use the following setting when accessing Azure with a shared access signature (S
          
 ```bash
 ./bin/opensearch-keystore add azure.client.default.sas_token      
-   ```
+```
 
 #### Azure token credential 
 
