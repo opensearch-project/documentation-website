@@ -220,7 +220,7 @@ To create a new monitor, select **Create monitor**. Fill out the form and select
 
 ### Feature anywhere
 
-When the data source feature is enabled, you can navigate to **Dashboards** under the **OpenSearch Dashboards** menu. Select a dashboard from the list, select the **Option** button on the dashboard. Then, select  **Alerting** > **Associated monitors**. You should see the associated monitors for the selected dashboard. The following GIF illustrates these steps.
+When the data source feature is enabled, you can access associated monitors for a specific dashboard through OpenSearch Dashboards. Navigate to the **Dashboards** application under the OpenSearch Dashboards menu. From the list of available dashboards, select the one you want to view associated monitors for. Once the dashboard is open, select the **Option** button located on the dashboard itself. This will reveal a set of options, including **Alerting**. Under the **Alerting** option, choose **Associated monitors**. Upon selecting this, you should see the associated monitors displayed for the currently selected dashboard. The following GIF illustrates these steps.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/mds_feature_anywhere_view_alerting.gif" alt="Multiple data sources with Feature anywhere associated monitor"/>
 
