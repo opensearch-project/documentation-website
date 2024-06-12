@@ -427,6 +427,6 @@ Following steps are necessary to get this up and running:
   - `docker-compose.yml` defines a single OpenSearch node, OpenSearch Dashboards and Keycloak server.
   - `new-realm.json` specifies the details for the realm named `new`
   - `config.yml` configures `basic_internal_auth_domain` and `oidc_auth_domain`
-  - `opensearch_dashboards.yml` configured to point to keycloak for authentication
+  - `opensearch_dashboards.yml` configured to point to Keycloak for authentication
 5. At the command line, run `docker-compose up`.
-6. Access OpenSearch Dashboards on `http://localhost:5601` and login with user `testuser` and password `testpasword` (which is configured in `new-realm.json`). Upon login the `testuser` receives backend role `admin` from Keycloak, which is mapped to `all_access` OpenSearch role. These backend roles can be managed via Keycloak `Administrative Console` at http://localhost:8080 using username `admin` and password `admin`.
+6. Access OpenSearch Dashboards on `http://localhost:5601` and login with user `testuser` and password `testpasword` (which is configured in `new-realm.json`). Upon login the `testuser` receives backend role `admin` from Keycloak, which is mapped to `all_access` OpenSearch role. These backend roles can be managed using Keycloak `Administrative Console` at http://localhost:8080 using username `admin` and password `admin`.
