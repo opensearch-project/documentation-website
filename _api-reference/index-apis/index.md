@@ -4,6 +4,7 @@ title: Index APIs
 has_children: true
 nav_order: 35
 redirect_from:
+  - /opensearch/rest-api/index-apis/index/
   - /opensearch/rest-api/index-apis/
 ---
 
