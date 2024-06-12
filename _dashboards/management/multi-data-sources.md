@@ -202,7 +202,7 @@ When the data source feature is enabled, you can navigate to **Search Relevance*
 
 ### Security analytics
 
-When the data source feature is enabled, you can navigate to **Security analytics** under the **OpenSearch Plugins** menu. Using detection rules as an example, you can view all connected data sources and select a specific one from the navigation bar on the upper right. By default, the detection rules from the designated default data source are displayed. However, you can select any connected data source to view its corresponding detection rules. The following GIF illustrates these steps.
+When the data source feature is enabled, navigate to **Security analytics** under **OpenSearch Plugins**. For detection rules, view all connected data sources and select one from the upper-right navigation bar. By default, detection rules from the designated default data source are displayed. However, you can select any connected data source to view its corresponding detection rules. The following GIF illustrates these steps.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/mds_sa_detection_rules_view.gif" alt="Multiple data sources in Security analytics list page"/>
 
