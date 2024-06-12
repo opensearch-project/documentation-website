@@ -207,7 +207,7 @@ You will most likely not need to specify any parameters except for `location`. F
 You will most likely not need to specify any parameters except for `bucket` and `base_path`. For allowed request parameters, see [Register or update snapshot repository API](https://opensearch.org/docs/latest/api-reference/snapshots/create-repository/).
 
 
-### Registering an Azure storage account using Helm 
+### Registering a Microsoft Azure storage account using Helm 
 
 Use the following steps to register a snapshot repository backed by an Azure storage account for an OpenSearch cluster deployed using Helm.
 
@@ -298,7 +298,7 @@ Use the following steps to register a snapshot repository backed by an Azure sto
 
 ### Set up Microsoft Azure Blob Storage
 
-To utilize Microsoft Azure Blob Storage as a snapshot repository, use the following steps:
+To use Azure Blob Storage as a snapshot repository, follow these steps:
 1. Install the `repository-azure` plugin on all nodes with the following command:
 
    ```bash
@@ -311,9 +311,9 @@ To utilize Microsoft Azure Blob Storage as a snapshot repository, use the follow
    ./bin/opensearch-keystore add azure.client.default.account
    ```
 
-Choose one of the following options to set up your authentication credentials for Azure Blob Storage:
+Choose one of the following options for setting up your Azure Blob Storage authentication credentials.
 
-#### Using Azure storage account key
+#### Using an Azure Storage account key
    
 Use the following setting to specify your Azure Storage account key:
    
@@ -331,20 +331,20 @@ Use the following setting when accessing Azure with a shared access signature (S
 
 #### Azure token credential 
 
-Starting from OpenSearch 2.15, you have the option to configure a token credential authentication flow in `opensearch.yml`. This method is distinct from connection string authentication, which necessitates a SAS or an account key.
+Starting in OpenSearch 2.15, you have the option to configure a token credential authentication flow in `opensearch.yml`. This method is distinct from connection string authentication, which requires a SAS or an account key.
 
 If you choose to use token credential authentication, you will need to choose a token credential type. Although Azure offers multiple token credential types, as of OpenSearch version 2.15, only [managed identity](https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/overview) is supported.
 
-To use managed identity, add your token credential type to `opensearch.yml` using either `managed` or `managed_identity` values. This indicates that managed identity is being used to perform token credential authentication:
+To use managed identity, add your token credential type to `opensearch.yml` using either the `managed` or `managed_identity` value. This indicates that managed identity is being used to perform token credential authentication:
 
 ```yml
 azure.client.default.token_credential_type: "managed_identity"
 ``` 
 
-Remember the following information when using Azure token credentials:
+Note the following when using Azure token credentials:
 
 - Token credential support is disabled in `opensearch.yml` by default.
-- Token credentials will take precedent over Azure Storage account key or SAS when multiple options are configured. 
+- A token credential takes precedence over an Azure Storage account key or a SAS when multiple options are configured. 
 
 ## Take snapshots
 
