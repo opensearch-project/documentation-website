@@ -38,7 +38,7 @@ To create a new data source connection:
  
 2. Add the required information to each field to configure the **Connection Details** and **Authentication Method**.
 
-    - Under **Connection Details**, enter a title and endpoint URL. For this tutorial, use the URL `http://localhost:5601/app/management/opensearch-dashboards/dataSources`. Entering a description is optional.
+    - Under **Connection Details**, enter a title and endpoint URL. For this tutorial, use the URL `https://localhost:9200/`. Entering a description is optional.
 
     - Under **Authentication Method**, select an authentication method from the dropdown list. Once an authentication method is selected, the applicable fields for that method appear. You can then enter the required details. The authentication method options are:
         - **No authentication**: No authentication is used to connect to the data source.

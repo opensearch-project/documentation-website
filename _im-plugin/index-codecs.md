@@ -50,7 +50,7 @@ The `index.codec.qatmode` setting controls the behavior of the hardware accelera
 
 For information about the `index.codec.qatmode` setting's effects on snapshots, see the [Snapshots](#snapshots) section.
 
-For more information about hardware acceleration on Intel, see the [Intel (R) QAT accelerator overview](https://www.intel.com/content/www/us/en/architecture-and-technology/intel-quick-assist-technology-overview.html).
+For more information about hardware acceleration on Intel, see the [Intel (R) QAT accelerator overview](https://www.intel.com/content/www/us/en/developer/topic-technology/open/quick-assist-technology/overview.html).
 
 ## Choosing a codec 
 
