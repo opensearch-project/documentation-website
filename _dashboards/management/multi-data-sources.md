@@ -213,7 +213,7 @@ To create a new detection rule, select **Create detection rule**. Fill out the f
 
 ### Alerting
 
-When the data source feature is enabled, you can navigate to **Alerting** under the **OpenSearch Plugins** menu and view all connected data sources. In the data source view, the default data source and its corresponding detection rules are displayed. However, you can select any connected data source to view its corresponding detection rules from the **Data sources** dropdown. The following GIF illustrates these steps using detection rules.
+When the data source feature is enabled, navigate to **Alerting** under **OpenSearch Plugins**. Here, you can view all connected data sources. By default, the primary data source and its detection rules are displayed. However, you can select any connected data source from the **Data sources** dropdown to view its corresponding detection rules. The following GIF illustrates these steps.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/mds_monitor_view.gif" alt="Multiple data sources in Alerting list page"/>
 
