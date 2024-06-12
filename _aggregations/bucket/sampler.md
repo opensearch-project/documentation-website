@@ -4,6 +4,8 @@ title: Sampler
 parent: Bucket aggregations
 grand_parent: Aggregations
 nav_order: 170
+redirect_from:
+  - /query-dsl/aggregations/bucket/diversified-sampler/
 ---
 
 # Sampler aggregations
