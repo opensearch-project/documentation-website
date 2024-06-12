@@ -66,19 +66,18 @@ The remote cluster state functionality has the following limitations:
 - Unsafe bootstrap scripts cannot be run when the remote cluster state is enabled. When a majority of cluster-manager nodes are lost and the cluster goes down, the user needs to replace any remaining cluster manager nodes and reseed the nodes in order to bootstrap a new cluster.
 
 ## Remote cluster state publication
-Cluster state publication using remote - When it is enabled, the updated cluster state during any updates like creation of an index and 
-put mappings will be published through remote store, that is, the cluster manager will provide the remote location 
-and nodes will download the cluster state directly from remote location. 
-As the cluster state grows over time and there are large number of nodes in the cluster, publishing the state over local transport
-tends to add lot of overhead in terms of CPU, memory and transport thread-pool. This will reduce the overhead on cluster manager node
-to publish the updated cluster state through remote store to every other node in the cluster instead of local transport.
-Remote cluster state publication can be enabled by configuring the experimental remote publication feature. 
-Enable the feature flag for `remote_store.publication` feature by following the [experiment feature flag documentation]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
+The cluster manager node processes the updates to cluster state. It then, publishes the updated cluster state 
+over the local transport layer to all the follower nodes. With remote cluster state enabled, 
+cluster state is backed to remote store with every state update. The follower nodes can fetch the state 
+from remote store directly and reducing the overhead on the cluster manager node for publication. 
+This can be done by enabling the experimental remote publication feature.
 
-The routing table is an object within the cluster state which contains the shard allocation details for each index.
-This object can become large in case of large number of shards in the cluster. Routing table is required to be stored in
-remote store for the remote publication to work. In order to enable remote persistence of routing table, the following repository must
-be configured:
+Enable the feature flag for `remote_store.publication` feature by following the [experiment feature flag documentation]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
+This doesn't change the publication flow and follower nodes will not send acknowledgement back to cluster manager 
+until they download the updated cluster state from remote store and proceed as expected in current flow. 
+Note that enabling remote cluster state is mandatory for remote publication to work.
+Also, RoutingTable which contains the shard allocation details for each index in the cluster state requires 
+setting up the remote store repository. It can be configured as following:
 
 ```yml
 # Remote routing table repository settings
