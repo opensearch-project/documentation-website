@@ -195,7 +195,11 @@ When the data source feature is enabled, you can navigate to **Notifications** u
 
 ### Search relevance
 
-When the data source feature is enabled, you can navigate to **Search Relevance** under the **OpenSearch Plugins** menu. On the navigation bar on the upper right, you can view all available data sources. To compare search results between indexes from different data sources, first select a data source and an index for **Query 1**, and then select a data source and an index for **Query 2**. Select **Search** to run the queries. The following GIF illustrates these steps.
+When the data source feature is enabled, you can navigate to **Search Relevance** under the **OpenSearch Plugins** menu. On the navigation bar on the upper right, select the data source icon to view all available data sources. 
+
+To compare search results between indexes from different data sources, first select a data source and an index for **Query 1**, and then select a data source and an index for **Query 2**. Select **Search** to run the queries. 
+
+The following GIF illustrates these steps.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/searchrelevance_mds1.gif" alt="Multiple data sources in Search Relevance plugin"/>
 
