@@ -57,7 +57,7 @@ Your request body must contain the names of the source index and destination ind
 
 Field | Description
 :--- | :---
-conflicts | Indicates to OpenSearch what should happen if the delete by query operation runs into a version conflict. Valid options are `abort` and `proceed`. Default is abort.
+conflicts | Indicates to OpenSearch what should happen if the reindex operation runs into a version conflict. Valid options are `abort` and `proceed`. Default is abort.
 source | Information about the source index to include. Valid fields are `index`, `max_docs`, `query`, `remote`, `size`, `slice`, and `_source`.
 index | The name of the source index to copy data from.
 max_docs | The maximum number of documents to reindex.
