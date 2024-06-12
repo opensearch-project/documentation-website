@@ -413,3 +413,20 @@ config:
         authentication_backend:
           type: noop
 ```
+
+## Docker example
+
+We provide a fully configured example using Keycloak IdP.
+
+Following steps are necessary to get this up and running:
+
+1. Download and unzip the [example zip file.]({{site.url}}{{site.baseurl}}/assets/examples/oidc_example.zip)
+2. Update the `.env` file with a strong password for `admin` user.
+3. Substitute the `{IP}` placeholders in `config.yml` and `opensearch_dashboards.yml` with the IP of the local machine.
+4. Review the files:
+  - `docker-compose.yml` defines a single OpenSearch node, OpenSearch Dashboards and Keycloak server.
+  - `new-realm.json` specifies the details for the realm named `new`
+  - `config.yml` configures `basic_internal_auth_domain` and `oidc_auth_domain`
+  - `opensearch_dashboards.yml` configured to point to keycloak for authentication
+5. At the command line, run `docker-compose up`.
+6. Access OpenSearch Dashboards on `http://localhost:5601` and login with user `testuser` and password `testpasword` (which is configured in `new-realm.json`). Upon login the `testuser` receives backend role `admin` from Keycloak, which is mapped to `all_access` OpenSearch role. These backend roles can be managed via Keycloak `Administrative Console` at http://localhost:8080 using username `admin` and password `admin`.
