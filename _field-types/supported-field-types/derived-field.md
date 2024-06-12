@@ -130,7 +130,7 @@ PUT /logs/_mapping
 |-------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `type`            | Type of the derived field. Supported types include `boolean`, `date`, `geo_point`, `ip`, `keyword`, `text`, `long`, `double`, `float`, and `object`.                                                                                                                                                                                                                                                                  |
 | `script`          | The script associated with derived fields. Any value emitted from the script needs to be emitted using `emit()`. The type of the emitted value must match the `type` of the derived field. Scripts have access to both `doc_values` and `_source` document if enabled. The doc value of a field can be accessed using `doc['field_name'].value`, and the source can be accessed using `params._source["field_name"]`. |
-| `format`          | The format for parsing dates. Only applicable when the type is `date`. Format can be `strict_date_time_no_millis`, `strict_date_optional_time`, or `epoch_millis`.                                                                                                                                                                                                                                                    |
+| `format`          | The format for parsing dates. Only applicable when the type is `date`. Format can be `strict_date_time_no_millis`, `strict_date_optional_time`, or `epoch_millis`. Or any of the format supported with [date type]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date#formats)                                                                                                                                                    |
 | `ignore_malformed`| A Boolean value that specifies whether to ignore malformed values and not throw an exception during query execution on derived fields. Default value is `false`.                                                                                                                                                                                                                                                      |
 | `prefilter_field` | An indexed text field provided to boost the performance of derived fields. It adds the same query as a filter on this indexed field first and uses only matching documents on derived fields. Check [Prefilter field](#prefilter-field)                                                                                                                                                                               |
 
@@ -179,7 +179,24 @@ POST /logs/_search
 ```
 {% include copy-curl.html %}
 
-Since the `timestamp` field is defined as a `date` type in the derived field definition, you can also specify the desired date format in the search request using `format` parameter.
+Since the `timestamp` field is defined as a `date` type in the derived field definition, you can also specify the desired date format in the mapping using `format` parameter.
+
+```json
+PUT /logs/_mapping
+{
+  "derived": {
+    "timestamp": {
+      "type": "date",
+      "format": "MM/dd/yyyy",
+      "script": {
+        "source": """
+        emit(Long.parseLong(doc["request.keyword"].value.splitOnToken(" ")[0]))
+        """
+      }
+    }
+  }
+}
+```
 
 ```json
 POST /logs/_search
@@ -195,6 +212,7 @@ POST /logs/_search
   "fields": ["timestamp"]
 }
 ```
+
 {% include copy-curl.html %}
 
 ## Defining mappings in search request
@@ -208,7 +226,7 @@ POST /logs/_search
       "type": "text",
       "script": {
         "source": """
-        emit(doc["request"].value.splitOnToken(" ")[2])
+        emit(doc["request.keyword"].value.splitOnToken(" ")[2])
         """
       }
     },
@@ -216,7 +234,7 @@ POST /logs/_search
       "type": "keyword",
       "script": {
         "source": """
-        emit(doc["request"].value.splitOnToken(" ")[4])
+        emit(doc["request.keyword"].value.splitOnToken(" ")[4])
         """
       }
     }
@@ -226,7 +244,7 @@ POST /logs/_search
       "must": [
         {
           "term": {
-            "clientip": "61.177.2.0"
+            "clientip.keyword": "61.177.2.0"
           }
         },
         {
@@ -265,7 +283,7 @@ POST /logs/_search
       "type": "text",
       "script": {
         "source": """
-        emit(doc["request"].value.splitOnToken(" " )[2])
+        emit(doc["request.keyword"].value.splitOnToken(" " )[2])
         """
       }
     }
