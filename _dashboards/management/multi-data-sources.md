@@ -206,7 +206,7 @@ When the data source feature is enabled, navigate to **Security analytics** unde
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/mds_sa_detection_rules_view.gif" alt="Multiple data sources in Security analytics list page"/>
 
-To create a new detection rule, select the **Create detection rule** button, which opens a form. Fill in the required information and select the **Create detection rule** button. The detection rule is created within the selected data source. The following GIF illustrates these steps.
+To create a new detection rule, select **Create detection rule**. Fill out the form and select **Create detection rule** again. The rule will be created within the selected data source. The following GIF illustrates these steps.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/mds_sa_detection_rules_create.gif" alt="Multiple data sources in Security analytics create page"/>
 
