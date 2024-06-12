@@ -258,17 +258,20 @@ Guardrails are safety measures for large language models (LLMs). They provide a 
 
 To register an externally hosted model with guardrails, provide the `guardrails` parameter, which supports the following fields. All fields are optional.
 
-Field | Data type | Description
-:---  | :--- | :---
-`type` | String | The guardrail type. Currently, only `local_regex` is supported.
-`input_guardrail`| Object |  The guardrail for the model input. |
-`output_guardrail`| Object |  The guardrail for the model output. |
-`stop_words`| Object | The list of indexes containing stopwords used for the model input/output validation. If the model prompt/response contains a stopword contained in any of the indexes, the predict request on this model is rejected. |
-`index_name`| Object | The name of the index storing the stopwords. |
-`source_fields`| Object | The name of the field storing the stopwords. |
-`regex`| Object |  A regular expression used for input/output validation. If the model prompt/response matches the regular expression, the predict request on this model is rejected. |
+Field | Data type | Description                                                                                                                                                                                                           
+:---  |:----------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+`type` | String    | The guardrail type. Currently, we have `local_regex` and `model` types.                                                                                                                                               
+`input_guardrail`| Object    | The guardrail for the model input.                                                                                                                                                                                    |
+`output_guardrail`| Object    | The guardrail for the model output.                                                                                                                                                                                   |
+`stop_words`| Object    | The list of indexes containing stopwords used for the model input/output validation. If the model prompt/response contains a stopword contained in any of the indexes, the predict request on this model is rejected. |
+`index_name`| Object    | The name of the index storing the stopwords.                                                                                                                                                                          |
+`source_fields`| Object    | The name of the field storing the stopwords.                                                                                                                                                                          |
+`regex`| Object    | A regular expression used for input/output validation. If the model prompt/response matches the regular expression, the predict request on this model is rejected.                                                    |
+`model_id`| String    | The guardrails model to validate user input and LLM output.                                                                                                                                                           |
+`response_filter`| String    | The dotpath used to get the result from guardrails model response.                                                                                                                                                    |
+`response_accept`| String    | The regex expression to check the guradrails model result.                                                                                                                                                            |
 
-#### Example request: Externally hosted model with guardrails
+#### Example requests: Externally hosted model with guardrails
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -299,6 +302,28 @@ POST /_plugins/_ml/models/_register
       "regex": ["regex1", "regex2"]
     }
   }
+}
+```
+{% include copy-curl.html %}
+```json
+POST /_plugins/_ml/models/_register?deploy=true
+{
+    "name": "Bedrock Claude V2 model with guardrails model",
+    "function_name": "remote",
+    "model_group_id": "ppSmpo8Bi-GZ0tf1i7cD",
+    "description": "Bedrock Claude V2 model with guardrails model",
+    "connector_id": "xnJjDZABNFJeYR3IPvTO",
+    "guardrails": {
+        "input_guardrail": {
+            "model_id": "o3JaDZABNFJeYR3I2fRV",
+            "response_accept": "^\\s*\"[Aa]ccept\"\\s*$"
+        },
+        "output_guardrail": {
+            "model_id": "o3JaDZABNFJeYR3I2fRV",
+            "response_accept": "^\\s*\"[Aa]ccept\"\\s*$"
+        },
+        "type": "model"
+    }
 }
 ```
 {% include copy-curl.html %}

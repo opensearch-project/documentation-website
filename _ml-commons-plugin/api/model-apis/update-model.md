@@ -64,12 +64,13 @@ PUT /_plugins/_ml/models/T_S-cY0BKCJ3ot9qr0aP
 ```
 {% include copy-curl.html %}
 
-#### Example request: Updating the guardrails
+#### Example requests: Updating the guardrails
 
 ```json
 PUT /_plugins/_ml/models/MzcIJX8BA7mbufL6DOwl
 {
   "guardrails": {
+    "type": "local_regex",
     "input_guardrail": {
       "stop_words": [
         {
@@ -87,6 +88,24 @@ PUT /_plugins/_ml/models/MzcIJX8BA7mbufL6DOwl
         }
       ],
       "regex": ["updated_regex1", "updated_regex2"]
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+```json
+PUT /_plugins/_ml/models/9uGdCJABjaMXYrp14YRj
+{
+  "guardrails": {
+    "type": "model",
+    "input_guardrail": {
+      "model_id": "V-G1CJABjaMXYrp1QoUC",
+      "response_accept": "^\\s*[Aa]ccept\\s*$"
+    },
+    "output_guardrail": {
+      "model_id": "V-G1CJABjaMXYrp1QoUC",
+      "response_accept": "^\\s*[Aa]ccept\\s*$"
     }
   }
 }
