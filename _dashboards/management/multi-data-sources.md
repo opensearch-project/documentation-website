@@ -216,7 +216,7 @@ When the data source feature is enabled, navigate to **Alerting** under **OpenSe
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/mds_monitor_view.gif" alt="Multiple data sources in Alerting list page"/>
 
-To create a new monitor, select the **Create monitor** button, which opens a form. Fill in the required information and select the **Create** button. The monitor is created within the selected data source.
+To create a new monitor, select **Create monitor**. Fill out the form and select **Create**. The monitor is created within the selected data source.
 
 ### Feature anywhere
 
