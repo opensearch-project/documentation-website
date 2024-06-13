@@ -206,7 +206,7 @@ The following GIF illustrates these steps.
 When you set `data_source.enabled:true`, you can view and manage roles for each connected data source: 
 
 1. Navigate to **Management** > **Security** under the main menu. 
-2. Select **Roles** under the left sidebar menu and then select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/database-icon.png" class="inline-icon" alt="database icon"/>{:/} icon on the upper-right menu bar. 
+2. Select **Roles** from the left sidebar menu and then select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/database-icon.png" class="inline-icon" alt="database icon"/>{:/} icon on the upper-right menu bar. 
 3. From the dropdown, select the appropriate data source and then select the **Create role** button to add a new role.
 4. Enter the required congiguration information and select the **Create** button to save. 
 
