@@ -30,7 +30,7 @@ To use neural sparse search, follow these steps:
 1. [Create an index for ingestion](#step-2-create-an-index-for-ingestion).
 1. [Ingest documents into the index](#step-3-ingest-documents-into-the-index).
 1. [Search the index using neural search](#step-4-search-the-index-using-neural-sparse-search).
-1. [Create and enable two-phase processor (Optional)](#step-5-create-and-enable-two-phase-processor-optional).
+1. _Optional_ [Create and enable the two-phase processor](#step-5-create-and-enable-the-two-phase-processor-optional).
 
 ## Step 1: Create an ingest pipeline
 
@@ -266,9 +266,9 @@ GET my-nlp-index/_search
 
 This step is optional but strongly recommended, as it significantly improves the performance of neural sparse queries with almost no side effects.
 
-'neural_sparse_two_phase_processor' is a new feature which introduced in OpenSearch 2.15. It can speed up the neural sparse query's time cost with negligible accurency loss.
+The 'neural_sparse_two_phase_processor' is a new feature which introduced in OpenSearch 2.15. It can speed up the neural sparse query's time cost with negligible accurency loss.
 
-You can quickly launch a pipeline based on the following API example. For more detailed information on the parameter settings and basic principles of this pipeline, please refer to [neural-sparse-query-two-phase-processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-sparse-query-two-phase-processor/).
+To quickly launch a search pipeline with neural sparse search, use the following example: 
 
 ```json
 PUT /_search/pipeline/two_phase_search_pipeline
@@ -285,7 +285,7 @@ PUT /_search/pipeline/two_phase_search_pipeline
 ```
 {% include copy-curl.html %}
 
-Then choose the proper index and set the `index.search.default_pipeline` to the pipeline name. Replace the `index-name` in url with your index name.
+Then choose the index you want to set up with the search pipeline and set the `index.search.default_pipeline` to the pipeline name, as shown in the following example:
 ```json
 PUT /index-name/_settings 
 {
