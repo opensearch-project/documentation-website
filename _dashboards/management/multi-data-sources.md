@@ -316,7 +316,7 @@ To manage data source monitors from within **Dashboards**:
 
 1. Navigate to the **Dashboards** application under the main menu and then select a dashboard from the list.
 2. From the dashboard, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/} icon to open the **Options** dropdown menu and then choose **Alerting**.
-4. From the **Alerting** dropdown, choose **Associated monitors** to open the configuration window.
+4. From the **Alerting** dropdown menu, choose **Associated monitors** to open the configuration window.
 5. Select a monitor from the list to view or edit its details.
 
 The following GIF illustrates these steps.
