@@ -326,7 +326,7 @@ The following GIF illustrates these steps.
 To associate a monitor with a data source: 
 
 1. Navigate to the **Dashboards** application under the main menu and then select a dashboard from the list.
-2. From the dashboard, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/} icon to open the **Options** dropdown and choose **Alerting**.
+2. From the dashboard, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/} icon to open the **Options** dropdown menu and then choose **Alerting**.
 3. From the **Alerting** dropdown, choose **Add alerting monitor** to open the configuration window.
 4. Enter the configuration information and then select the **Create monitor** button. The monitor is now associated with the data source.  
 
