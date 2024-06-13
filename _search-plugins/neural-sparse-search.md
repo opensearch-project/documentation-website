@@ -262,7 +262,7 @@ GET my-nlp-index/_search
   }
 }
 ```
-## Step 5: Create and enable two-phase processor (Optional)
+## Step 5: Create and enable the two-phase processor (Optional)
 
 This step is optional but strongly recommended, as it significantly improves the performance of neural sparse queries with almost no side effects.
 
