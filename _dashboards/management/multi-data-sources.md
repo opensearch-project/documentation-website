@@ -194,7 +194,7 @@ You can edit the data source's associated detectors on the **Detectors** tab und
 
 1. Select **Detectors** and then select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/database-icon.png" class="inline-icon" alt="database icon"/>{:/} icon on the upper-right menu bar.
 2. From the dropdown menu, select the appropriate data source. A list of associated detectors appears.
-3. Choose a detector from the list and then select **Actions** and then the appropriate edit option from the dropdown.
+3. Choose a detector from the list, select **Actions**, and then choose the appropriate edit option from the dropdown menu.
 4. Enter the applicable settings and configuration details.  
 
 The following GIF illustrates these steps.
