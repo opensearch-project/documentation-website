@@ -301,7 +301,7 @@ Introduced 2.15
 When you set `data_source.enabled:true`, you can you can view and manage alerting monitors across multiple connected data sources: 
 
 1. Navigate to **OpenSearch Plugins** > **Alerting** under the main menu.
-2. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/database-icon.png" class="inline-icon" alt="database icon"/>{:/} icon and choose a data source from the dropdown. A list of associated monitors is displayed.
+2. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/database-icon.png" class="inline-icon" alt="database icon"/>{:/} icon and choose a data source from the dropdown menu. A list of associated monitors is displayed.
 3. Select a monitor to view its details.
 
 The following GIF illustrates these steps.
