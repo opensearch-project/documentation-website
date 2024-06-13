@@ -247,7 +247,7 @@ The following GIF illustrates these steps.
 When you set `data_source.enabled:true`, you can view and manage notification channels for different data sources:
 
 1. Navigate to **Management** > **Notifications** under the main menu.
-2. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/database-icon.png" class="inline-icon" alt="database icon"/>{:/} icon and choose a data source from the dropdown. A list of channels associated with the selected data source is displayed.
+2. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/database-icon.png" class="inline-icon" alt="database icon"/>{:/} icon and choose a data source from the dropdown menu. A list of channels associated with the selected data source is displayed.
 3. Choose a channel from the list to view or manage its settings. 
   - Edit the channel's settings by selececting the **Actions** button and choosing the **Edit** option. Enter the required information in the **Edit channel** panel and then choose **Save**.
   - Send a test message to the channel by selecting the **Send test message** button on the **Edit channel** window. Alternatively, you can select the **Actions** button on the channel details window and then choose the **Send test message** option from the dropdown.
