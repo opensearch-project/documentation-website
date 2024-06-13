@@ -180,7 +180,7 @@ To perform operations on a specific index within a data source, select the indiv
 
 ### Anomaly detection
 
-When you have set `data_source.enabled:true`, you can create or view detectors associated with a data source. 
+When you set `data_source.enabled:true`, you can create or view detectors associated with a data source: 
 
 1. Navigate to **OpenSearch Plugins** > **Anomaly Detection** under the main menu.
 2. Select the database icon on the upper-right menu bar to view a list of connected data sources.
