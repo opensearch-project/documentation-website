@@ -262,7 +262,7 @@ When you set `data_source.enabled:true`, you can compare search results across i
 
 1. Navigate to **OpenSearch Plugins** > **Search Relevance** under the main menu.
 2. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/database-icon.png" class="inline-icon" alt="database icon"/>{:/} icon and choose a data source from the dropdown menu. A list of available data sources is displayed.
-3. Under **Query 1**, select a data source and an index, and then under **Query 2**, select a data source and an index.
+3. Under both **Query 1** and **Query 2**, select a data source and an index.
 4. Select the **Search** button to run the queries. The query results are displayed in their respective results panel. 
 
 The following GIF illustrates these steps.
