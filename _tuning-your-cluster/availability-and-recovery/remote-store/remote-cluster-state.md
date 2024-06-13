@@ -57,7 +57,7 @@ Setting | Default | Description
 `cluster.remote_store.state.index_metadata.upload_timeout` | 20s | Deprecated. Use `cluster.remote_store.state.global_metadata.upload_timeout` instead.
 `cluster.remote_store.state.global_metadata.upload_timeout` | 20s | The amount of time to wait for the cluster state upload to complete.
 `cluster.remote_store.state.metadata_manifest.upload_timeout` | 20s | The amount of time to wait for the manifest file upload to complete. The manifest file contains the details of each of the files uploaded for a single cluster state, both index metadata files and global metadata files.
-`cluster.remote_store.state.cleanup_interval` | 300s | The interval for the remote state clean-up asynchronous task to run. This task deletes any old remote state files. 
+`cluster.remote_store.state.cleanup_interval` | 300s | The interval at which the asynchronous remote state clean-up task runs. This task deletes any old remote state files. 
 
 
 ## Limitations
@@ -68,11 +68,11 @@ The remote cluster state functionality has the following limitations:
 ## Remote cluster state publication
 
 
-The cluster manager node processes updates to the cluster state. It then publishes the updated cluster state over the local transport layer to all of the follower nodes. With the `remote_store.publication` feature enabled, the cluster state is backed up to the remote store with every state update. The follower nodes can then fetch the state from the remote store directly which reduces the overhead on the cluster manager node for publication. 
+The cluster manager node processes updates to the cluster state. It then publishes the updated cluster state through the local transport layer to all of the follower nodes. With the `remote_store.publication` feature enabled, the cluster state is backed up to the remote store with every state update. The follower nodes can then fetch the state from the remote store directly, which reduces the overhead on the cluster manager node for publication. 
 
-To enable the feature flag for the `remote_store.publication` feature follow the steps in [experimental feature flag documentation]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
+To enable the feature flag for the `remote_store.publication` feature, follow the steps in the [experimental feature flag documentation]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
 
-Enabling the setting does not change the publication flow and follower nodes will not send acknowledgements back to the cluster manager 
+Enabling the setting does not change the publication flow, and follower nodes will not send acknowledgements back to the cluster manager node.
 until they download the updated cluster state from the remote store.
 
 Enabling the remote cluster state feature is mandatory for remote publication to work. The routing tables repository settings contains the shard allocation details for each index in the cluster state. You can configure the remote table repository by using following settings:
@@ -85,12 +85,12 @@ node.attr.remote_store.repository.my-remote-routing-table-repo.settings.bucket: 
 node.attr.remote_store.repository.my-remote-routing-table-repo.settings.region: <Bucket region>
 ```
 
-You do not have to use different remote store repositories for state and routing, since both state and routing can use the same repository settings.
+You do not have to use different remote store repositories for state and routing because both state and routing can use the same repository settings.
 
-To configure remote publication, use the following cluster settings:
+To configure remote publication, use the following cluster settings.
 
 Setting | Default | Description
 :--- | :--- | :---
 `cluster.remote_store.state.read_timeout` | 20s | The amount of time to wait for remote state download to complete on the follower node.
-`cluster.remote_store.routing_table.path_type` | HASHED_PREFIX | Path type to be used for creating index routing path in blob store. Valid values are "FIXED", "HASHED_PREFIX", "HASHED_INFIX"
-`cluster.remote_store.routing_table.path_hash_algo` | FNV_1A_BASE64 | Algorithm to be used for constructing prefix or infix of blob store path. This setting comes into effect into if cluster.remote_store.routing_table.path_type is "hashed_prefix" or "hashed_infix". Valid values of algorithm are "FNV_1A_BASE64" or "FNV_1A_COMPOSITE_1"
+`cluster.remote_store.routing_table.path_type` | HASHED_PREFIX | The path type to be used for creating an index routing path in the blob store. Valid values are `FIXED`, `HASHED_PREFIX`, and `HASHED_INFIX`.
+`cluster.remote_store.routing_table.path_hash_algo` | FNV_1A_BASE64 | The algorithm to be used for constructing the prefix or infix of the blob store path. This setting is applied if `cluster.remote_store.routing_table.path_type` is `hashed_prefix` or `hashed_infix`. Valid algorithm values are `FNV_1A_BASE64` and `FNV_1A_COMPOSITE_1`.
