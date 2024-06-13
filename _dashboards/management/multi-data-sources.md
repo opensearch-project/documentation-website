@@ -203,7 +203,7 @@ The following GIF illustrates these steps.
 
 ### Security
 
-When you have set `data_source.enabled:true`, you can view and manage roles for each connected data source. 
+When you set `data_source.enabled:true`, you can view and manage roles for each connected data source: 
 
 1. Navigate to **Management** > **Security** under the main menu. 
 2. Select **Roles** under the left sidebar menu and then select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/database-icon.png" class="inline-icon" alt="database icon"/>{:/} icon on the upper-right menu bar. 
