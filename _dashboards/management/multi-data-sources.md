@@ -219,7 +219,7 @@ The following GIF illustrates these steps.
 When you set `data_source.enabled:true`, you can view all available data sources and the ones currently used as layers in a map:
 
 1. Navigate to **OpenSearch Plugins** > **Maps** under the main menu.
-2. From the dropdown, select the appropriate data source to edit or create an associated map layer:
+2. From the dropdown menu, select the appropriate data source to edit or create an associated map layer:
   - Edit a map layer by selecting a map layer from the **Layers** dropdown. From the pop-up window, view the settings and edit as needed.
   - Add a new layer by selecting the **Add layer** button under the dropdown and then selecting **Documents** from the pop-up window. Another pop-up window appears on the right side. Enter the required information under the **Data** tab. Note that the data source name is prefixed to the index pattern name. The **Style** and **Settings** tabs are optional information.
   - Select **Update** to save the settings.
