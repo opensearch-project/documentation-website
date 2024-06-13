@@ -143,3 +143,58 @@ GET /_insights/top_queries?type=cpu
 GET /_insights/top_queries?type=memory
 ```
 {% include copy-curl.html %}
+
+## Export the top N queries data
+You can configure your desired exporter to export the top N queries data to different sinks. Currently, supported exporters are the debug exporter and the local index exporter.
+
+### Configuring the debug exporter
+To export the top queries by latency using the debug exporter, use the following configuration:
+```json
+PUT _cluster/settings
+{
+  "persistent" : {
+     "search.insights.top_queries.latency.exporter.type" : "debug"
+  }
+}
+```
+{% include copy-curl.html %}
+
+To configure the debug exporter for other metrics such as `CPU`, use:
+```json
+PUT _cluster/settings
+{
+  "persistent" : {
+     "search.insights.top_queries.cpu.exporter.type" : "debug"
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Configuring the local index exporter
+The local index exporter allows you to export the top N queries to local OpenSearch indexes. To configure the local index exporter for latency, use:
+```json
+PUT _cluster/settings
+{
+  "persistent" : {
+    "search.insights.top_queries.latency.exporter.type" : "local_index",
+    "search.insights.top_queries.latency.exporter.config.index" : "YYYY.MM.dd"
+  }
+}
+```
+{% include copy-curl.html %}
+
+For reference on the date pattern format, see the [DateTimeFormat documentation](https://www.joda.org/joda-time/apidocs/org/joda/time/format/DateTimeFormat.html).
+
+To configure the local index exporter for other metrics such as `CPU`, use:
+```json
+PUT _cluster/settings
+{
+  "persistent" : {
+    "search.insights.top_queries.cpu.exporter.type" : "local_index",
+    "search.insights.top_queries.cpu.exporter.config.index" : "YYYY.MM.dd"
+  }
+}
+```
+{% include copy-curl.html %}
+
+By configuring these settings, you can direct the query insights data to the appropriate sink, allowing for better monitoring and analysis of your OpenSearch queries.
