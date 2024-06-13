@@ -312,7 +312,7 @@ To create a new monitor, select **Create monitor**. Fill out the form and select
 
 #### Managing alerting monitors from within the Dashboards application
 
-To manage the associated monitors for a data source from within **Dashboards**: 
+To manage data source monitors from within **Dashboards**: 
 
 1. Navigate to the **Dashboards** application under the main menu and then select a dashboard from those listed.
 2. From the dashboard, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/} icon to open the **Options** dropdown and choose **Alerting**.
