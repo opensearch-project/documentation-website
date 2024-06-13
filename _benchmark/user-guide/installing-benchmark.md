@@ -3,7 +3,8 @@ layout: default
 title: Installing OpenSearch Benchmark
 nav_order: 5
 parent: User guide
-redirect_from: /benchmark/installing-benchmark/
+redirect_from:
+  - /benchmark/installing-benchmark/
 ---
 
 # Installing OpenSearch Benchmark
