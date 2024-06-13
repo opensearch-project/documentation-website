@@ -190,7 +190,7 @@ The following GIF illustrates these steps.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/ad_mds1.gif" alt="Multiple data sources in Anomaly Detection dashboard page"/>
 
-You can edit the data source's associated detectors through the **Detectors** tab under the left side bar. 
+You can edit the data source's associated detectors on the **Detectors** tab under the left side bar. 
 
 1. Select **Detectors** and then select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/database-icon.png" class="inline-icon" alt="database icon"/>{:/} icon on the upper-right menu bar.
 2. From the dropdown, select the appropriate data source. A list of associated detecotrs appears.
