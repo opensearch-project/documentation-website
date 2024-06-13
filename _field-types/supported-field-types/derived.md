@@ -50,7 +50,7 @@ Before using a derived field, be sure to satisfy the following prerequisites:
 
 ## Defining derived fields
 
-Derived fields can be defined [in index mappings](#defining-derived-fields-in-index-mappings) or [directly within the search request](#defining-and-searching-derived-fields-in-a-search-request). 
+You can define derived fields [in index mappings](#defining-derived-fields-in-index-mappings) or [directly within the search request](#defining-and-searching-derived-fields-in-a-search-request). 
 
 ## Example setup
 
