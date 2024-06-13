@@ -3,7 +3,7 @@ layout: default
 title: Maps Stats API
 nav_order: 20
 grand_parent: Building data visualizations
-parent: Using coordinate and region maps 
+parent: Coordinate and region maps 
 has_children: false
 ---
 

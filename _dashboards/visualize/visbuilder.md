@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Using VisBuilder
+title: VisBuilder
 parent: Building data visualizations
 nav_order: 100
 redirect_from:
   - /dashboards/drag-drop-wizard/
 ---
 
-# Using VisBuilder
+# VisBuilder
 
 VisBuilder is an experimental feature and shouldn't be used in a production environment. For updates on its progress, or if you want to leave feedback that helps improve the feature, see the [GitHub issue](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/2280).
 {: .warning}
@@ -22,7 +22,7 @@ You can use the VisBuilder visualization type in OpenSearch Dashboards to create
 
 ## Try VisBuilder in the OpenSearch Dashboards playground
 
-If you'd like to try out VisBuilder without installing OpenSearch locally, you can do so in the [Dashboards playground](https://playground.opensearch.org/app/vis-builder#/). VisBuilder is enabled by default.
+If you'd like to try out VisBuilder without installing OpenSearch locally, you can do so in the [OpenSearch Dashboards playground](https://playground.opensearch.org/app/vis-builder#/). VisBuilder is enabled by default.
 
 ## Try VisBuilder locally
 
