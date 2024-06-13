@@ -34,13 +34,13 @@ Expand the following OTel demo for a comprehensive, open-source example that sim
 
 **Step 3: Explore Trace Analytics in OpenSearch Dashboards**
 
-  - **Services Table**: Go to **Services Table** to view a list of the services in your application. Use the filters to narrow your focus on specific services and analyze their performance using RED metrics.
-  - **Services Map**: Examine the **Services Map** to understand the relationships between different services. This visual representation helps identify potential problem areas based on error rates and latency.
-  - **Trace Group Dialog**: Use the **Trace Group Dialog** to group traces by HTTP method for analyzing performance trends and error rates for specific operations.
-  - **Trace Details View**: Identify a trace with an extended duration and choose it to examine its composition in the **Trace Details View**. This view offers an in-depth breakdown of each span, encompassing their attributes and related log entries.
+Trace Analytics includes the **Services** and **Traces** views:
 
-**Step 4: Perform correlation analysis**
-  - Use **Service Correlation** to uncover relationships between various telemetry signals. You can use this feature to navigate from the logical service layer to the actual metrics and logs associated with that service.
+  - **Services**: The **Services** view lists all services in the application, plus an interactive map that shows how the various services connect to each other. In contrast to the dashboard (which helps identify problems by operation), the **Service map** helps you identify problems by service based on error rates and latency. To access this view, go to **Trace Analytics** > **Services**.
+  - **Traces**: The **Traces** view groups traces together by HTTP method and path so that you can see the average latency, error rate, and trends associated with a particular operation. For a more focused view, try filtering by trace group name. To access this view, go to **Trace Analytics** > **Traces**. From the **Trace Groups** panel you can drill down on the traces that make up a trace group. From the **Traces** panel you can drill down on individual traces for a detailed summary.
+
+ **Step 4: Perform correlation analysis**
+  - Use **Services correlation** to reveal connections between various telemetry signals. This allows you to navigate from the logical service level to the associated metrics and logs for that specific service.
 
 </details>
 
@@ -64,7 +64,7 @@ The plugin requires telemetry data to follow the OTel schema conventions, includ
 For accurate service mapping and correlation analysis, adhere to the following guidelines:
 
 - Service names must be unique and consistently used across application components.
-- The `serviceName` is populated using the Data Prepper pipeline.
+- The `serviceName` field is populated using the Data Prepper pipeline.
 - Services must be ingested with predefined upstream and downstream dependencies to construct accurate service maps and understand service relationships.
 
 ### Trace and span IDs
