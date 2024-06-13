@@ -276,7 +276,7 @@ Introduced 2.15
 When you set `data_source.enabled:true`, you can view and manage security analytics resources, such as detection rules, across multiple connected data sources:
 
 1. Navigate to **OpenSearch Plugins** > **Security analytics** under the main menu.
-2. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/database-icon.png" class="inline-icon" alt="database icon"/>{:/} icon and choose a data source from the dropdown.
+2. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/database-icon.png" class="inline-icon" alt="database icon"/>{:/} icon and choose a data source from the dropdown menu.
 3. Select **Dectectors** > **Detection rules** from the left-side navigation menu. A list of detection rules is displayed.
 4. Select a rule to open the details pop-up window.
 
