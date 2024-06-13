@@ -184,7 +184,7 @@ When you set `data_source.enabled:true`, you can create or view detectors associ
 
 1. Navigate to **OpenSearch Plugins** > **Anomaly Detection** under the main menu.
 2. Select the database icon on the upper-right menu bar to view a list of connected data sources.
-3. Select a data source to view a list of associated detectors. If the selected data source does not have detectors, the **Create detector** button appears under the upper-right menu bar. See [Creating anomaly detectors]({{site.url}}{{site.baseurl}}/observing-your-data/ad/dashboards-anomaly-detection/#creating-anomaly-detectors) for steps on creating detectors through the interface.
+3. Select a data source to view a list of associated detectors. If the selected data source does not have detectors, then the **Create detector** button appears under the upper-right menu bar. See [Creating anomaly detectors]({{site.url}}{{site.baseurl}}/observing-your-data/ad/dashboards-anomaly-detection/#creating-anomaly-detectors) for instructions on creating detectors through the interface.
 
 The following GIF illustrates these steps.
 
