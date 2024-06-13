@@ -164,7 +164,7 @@ The following plugins now support multiple data sources.
 
 ### Index management
 
-When you have set `data_source.enabled:true`, you can view view and select data sources and their associated indexes directly from the interface. 
+When you set `data_source.enabled:true`, you can view and select data sources and their associated indexes directly from the interface: 
 
 1. Navigate to **Management** > **Index Management** under the main menu.
 2. Select **Indexes** from the sidebar menu and then select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/database-icon.png" class="inline-icon" alt="database icon"/>{:/} icon on the upper-right menu bar.
