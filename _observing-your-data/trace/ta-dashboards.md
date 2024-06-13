@@ -32,7 +32,7 @@ Expand the following OTel demo for a comprehensive, open-source example that sim
   - Configure the OTel collectors to send telemetry data (traces, metrics, logs) to your OpenSearch cluster, using the [pre-existing setup](https://github.com/opensearch-project/opentelemetry-demo/tree/main/src/otelcollector).
   - Confirm that [Data Prepper](https://github.com/opensearch-project/opentelemetry-demo/tree/main/src/dataprepper) is set up to process the incoming data, handle trace analytics and service map pipelines, submit data to required indexes, and perform pre-aggregated calculations.
 
-**Step 3: Explore trace analytics features**
+**Step 3: Explore Trace Analytics in OpenSearch Dashboards**
 
   - **Services Table**: Go to **Services Table** to view a list of the services in your application. Use the filters to narrow your focus on specific services and analyze their performance using RED metrics.
   - **Services Map**: Examine the **Services Map** to understand the relationships between different services. This visual representation helps identify potential problem areas based on error rates and latency.
