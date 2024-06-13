@@ -49,9 +49,9 @@ The plugin expects metrics data to include rate, error, and duration (RED) indic
 
 Certain fields, such as `serviceName`, must be present for correlation analysis. These fields enable the plugin to link related telemetry data and provide a holistic view of service interactions and dependencies.
 
-### Correlation Indices
+### Correlation indexes
 
-Navigating from the service dialog into its corresponding traces or logs requires that (in addition to the existence of the correlating fields) the targets indices (logs for example) must follow the [Observability naming convention](https://opensearch.org/docs/latest/observing-your-data/ss4o/)  
+Navigating from the service dialog to its corresponding traces or logs requires the existence of correlating fields and that the target indexes (for example, logs) follow the [Observability naming convention](https://opensearch.org/docs/latest/observing-your-data/ss4o/)  
 
 ## Trace analytics using the interface
 Introduced 2.15
@@ -130,7 +130,7 @@ To get started with the OpenSearch Dashboards Trace Analytics plugin, use the [ 
 **Step 2: Ingest telemetry data**
 
   - Configure the OpenTelemetry collectors to send telemetry data (traces, metrics, logs) to your OpenSearch cluster, using the [pre-existing setup](https://github.com/opensearch-project/opentelemetry-demo/tree/main/src/otelcollector).
-  - Ensure [Data Prepper](https://github.com/opensearch-project/opentelemetry-demo/tree/main/src/dataprepper) is set up to process the incoming data, handling trace analytics and service map pipelines, submitting data to required indices, and performing pre-aggregated calculations.
+  - Ensure [Data Prepper](https://github.com/opensearch-project/opentelemetry-demo/tree/main/src/dataprepper) is set up to process the incoming data, handling trace analytics and service map pipelines, submitting data to required indexes, and performing pre-aggregated calculations.
 
 **Step 3: Explore trace analytics features**
 
