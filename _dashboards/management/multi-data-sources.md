@@ -224,7 +224,7 @@ When you set `data_source.enabled:true`, you can view all available data sources
   - Add a new layer by selecting the **Add layer** button from the dropdown menu and then selecting **Documents** in the pop-up window. Another pop-up window appears on the right. Enter the required information on the **Data** tab. Note that the data source name is prefixed to the index pattern name. The **Style** and **Settings** tabs include optional information.
   - Select **Update** to save the settings.
 3. Select the **Save** button on the menu bar to save the edited or new layer.
-4. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/database-icon.png" class="inline-icon" alt="database icon"/>{:/} icon in the upper-right menu bar to verify that the new data source is listed in the dropdown.
+4. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/database-icon.png" class="inline-icon" alt="database icon"/>{:/} icon on the upper-right menu bar to verify that the new data source is listed in the dropdown menu.
 
 The following GIF illustrates these steps.
 
