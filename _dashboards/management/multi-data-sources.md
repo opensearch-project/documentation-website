@@ -216,7 +216,7 @@ The following GIF illustrates these steps.
 
 ### Maps
 
-When you set `data_source.enabled:true`, you can view all available data sources and the ones currently used as layers in a map:
+When you set `data_source.enabled:true`, you can view all available data sources, including the ones currently used as layers, in a map:
 
 1. Navigate to **OpenSearch Plugins** > **Maps** under the main menu.
 2. From the dropdown menu, select the appropriate data source to edit or create an associated map layer:
