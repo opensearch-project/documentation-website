@@ -338,7 +338,7 @@ The following GIF illustrates these steps.
 
 ## Next steps
 
-After configuring multiple data sources, you can analyze the data from each source. Refer to the following resources for more information:
+After configuring multiple data sources, you can analyze the data from each source. See the following resources for more information:
 
 - [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/) 
 - [Index Management]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/)
