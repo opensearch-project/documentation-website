@@ -8,6 +8,8 @@ grand_parent: Search pipelines
 ---
 
 # NeuralSparse query two-phase processor
+Introduced 2.15
+{: .label .label-purple }
 
 The `neural_sparse_two_phase_processor` search request processor is designed to set a speed-up pipeline for [neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/). It accelerates the neural sparse query by breaking down the original method of scoring all documents with all tokens into two steps. In the first step, it uses high-weight tokens to score the documents and filters out the top documents; in the second step, it uses low-weight tokens to rescore the scores of the top documents.
 
@@ -26,6 +28,8 @@ Field | Data type | Description
 `description` | String | A description of the processor. Optional.
 
 ## Example
+
+The following example request creates a search pipeline with a `neural_sparse_two_phase_processor` search request processor. 
 
 ### Create search pipeline
 
@@ -64,21 +68,28 @@ PUT /index-name/_settings
 {% include copy-curl.html %}
 
 ## Limitation
+
+The 'neural_sparse_two_phase_processor' has limitation with both OpenSearch cluster version and compound queries. In cases where compound queries are not supported, this pipeline will not alter the original logic.
+
 ### Version support
+
 `neural_sparse_two_phase_processor` is introduced in OpenSearch 2.15. You can use this pipeline in a cluster whose minimal version is greater than or equals to 2.15.
 
 ### Compound query support
-There is 6 types of [compound query]({{site.url}}{{site.baseurl}}/query-dsl/compound/index/). And we only support bool query now.
-- [x] bool (Boolean)
+There is 6 types of [compound query]({{site.url}}{{site.baseurl}}/query-dsl/compound/index/). And we only support boolean query now.
+- [x] boolean 
 - [ ] boosting 
 - [ ] constant_score
 - [ ] dis_max (disjunction max)
 - [ ] function_score
 - [ ] hybrid
 
-Notice, neural sparse query or bool query with a boost parameter (not same as boosting query) are also supported.
+Notice, neural sparse query or boolean query with a boost parameter (not same as boosting query) are also supported.
 
-#### Supported Example
+#### Supported example
+
+Both single neural sparse queries and boolean queries with a boost parameter are supported.
+
 ##### Single neural sparse query
 
 ```
@@ -88,13 +99,14 @@ GET /my-nlp-index/_search
     "neural_sparse": {
       "passage_embedding": {
         "query_text": "Hi world"
+        "model_id": <model-id>
       }
     }
   }
 }
 ```
 {% include copy-curl.html %}
-##### Neural sparse query nested in bool query
+##### Neural sparse query nested in boolean query
 
 ```
 GET /my-nlp-index/_search
