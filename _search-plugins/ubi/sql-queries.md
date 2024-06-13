@@ -11,279 +11,295 @@ These can be performed on the OpenSearch Dashboards/Query Workbench:
 [http://chorus-opensearch-edition.dev.o19s.com:5601/app/opensearch-query-workbench](http://chorus-opensearch-edition.dev.o19s.com:5601/app/opensearch-query-workbench)
 
 ## Queries with zero results
-Although it's trivial on the server side to find queries with no results, we can also get the same answer by querying the event side.
 ### Server-side
+NOTE: the search server with UBI activated logs the queries and results, so:
 ```sql
 select
-   count(0)
-from .ubi_log_queries
-where query_response_objects_ids is null
-order by user_id
+   count(*)
+from ubi_queries 
+where query_response_hit_ids is null
+
 ```
 
 ### Client event-side
+Although it's trivial on the server side to find queries with no results, we can also get the same answer by querying the event attributes that were logged.
+Both client and server-side queries should return the same number.
+
+NOTE: the search client is responsible for logging this count
+
 ```sql
-select 
-	count(0)
-from .ubi_log_events
-where action_name='on_search' and  event_attributes.data.data_detail.query_data.query_response_objects_ids is null
-order by timestamp
+select
+    count(0)
+from ubi_events
+where event_attributes.result_count > 0
 ```
 
-Both client and server-side queries should return the same number.
 
 
 
 ## Trending queries
+### Server-side
+
+```sql
+select 
+	user_query, count(0) Total  
+from ubi_queries
+group by user_query
+order by Total desc
+```
+
+### Client-side
 ```sql
 select 
 	message, count(0) Total  
-from .ubi_log_events 
+from ubi_events
 where 
 	action_name='on_search' 
 group by message 
 order by Total desc
 ```
 
-<!-- vale off -->
+
 Message|Total
 |---|---|
-Virtual flexibility systematic|143
-Virtual systematic flexibility|89
-discrete desk service Cross group|75
-Blanditiis quo sint repudiandae a sit.|75
-Optio id quis alias at.|75
-Consectetur enim sunt laborum adipisci occaecati reiciendis.|70
-Like prepare trouble consider.|68
-User Behavior Insights|65
-cheapest laptop with i9|64
-Cross group discrete service desk|63
-Laptop|61
-Amet maxime numquam libero ipsam amet.|59
-fastest laptop|54
-Voluptas iusto illum eum autem cum illum.|51
-fortalece relaciones e-business|2
-evoluciona comercio electrónico en tiempo real|2
-incentiva canales escalables|1
-incentiva ancho de banda inalámbrica|1
-implementa sistemas de siguiente generación|1
-implementa marcados eficientes|1
+User Behavior Insights|127
+best Laptop|78
+camera|21
+backpack|17
+briefcase|14
+camcorder|11
+cabinet|9
+bed|9
+box|8
+bottle|8
+calculator|8
+armchair|7
+bench|7
+blackberry|6
+bathroom|6
+User Behavior Insights Mac|5
+best Laptop Dell|5
+User Behavior Insights VTech|5
+ayoolaolafenwa|5
+User Behavior Insights Dell|4
+best Laptop Vaddio|4
+agrega modelos intuitivas|4
+bеуоnd|4
+abraza metodologías B2C|3
 
-<!-- vale on -->
+
 
 ## Event type distribution counts
 To make a pie chart like widget on all the most common events:
 ```sql
 select 
 	action_name, count(0) Total  
-from .ubi_log_events 
+from ubi_events
 group by action_name
 order by Total desc
 ```
+
 action_name|Total
 |---|---|
-on_search|3199
-brand_filter|3112
-button_click|3150
-type_filter|3149
-product_hover|3132
-product_sort|3115
-login|2458
-logout|1499
-new_user_entry|208
+on_search|5425
+brand_filter|3634
+global_click|3571
+view_search_results|3565
+product_sort|3558
+type_filter|3505
+product_hover|820
+item_click|708
+purchase|407
+declined_product|402
+add_to_cart|373
+page_exit|142
+user_feedback|123
+404_redirect|123
 
-### Events associated with queries
-Since the `query_id` is set during client-side search, all events that are associated with a query will have that same `query_id`.
-To make a pie chart like widget on the most common events preceded by a query:
+And if you like money, the following query shows distribution of margins across user actions:
+{: .warning}
+
 ```sql
 select 
-	action_name, count(0) Total  
-from .ubi_log_events
-where query_id is not null
+    action_name, 
+    count(0) total,
+    AVG( event_attributes.object.object_detail.cost ) average_cost,
+    AVG( event_attributes.object.object_detail.margin ) average_margin
+from ubi_events  
 group by action_name
-order by Total desc
+order by average_cost desc
 ```
-action_name|Total
-|---|---|
-on_search|1329
-brand_filter|669
-button_click|648
-product_hover|639
-product_sort|625
-type_filter|613
-logout|408
 
+action_name|total|average_cost|average_margin
+---|---|---|---
+declined_product|395|8457.12|6190.96
+item_click|690|7789.40|5862.70
+add_to_cart|374|6470.22|4617.09
+purchase|358|5933.83|5110.69
+global_click|3555||
+product_sort|3711||
+product_hover|779||
+page_exit|107||
+on_search|5438||
+brand_filter|3722||
+user_feedback|120||
+404_redirect|110||
+view_search_results|3639||
+type_filter|3691||
 
 ## Sample search journey
 
 Find a search in the query log:
 ```sql
-select *
-from .ubi_log_queries
-where query_id ='1065c70f-d46a-442f-8ce4-0b5e7a71a892'
-order by timestamp
+select
+  client_id, query_id, user_query, query_response_hit_ids, query_response_id, timestamp 
+from ubi_queries where query_id = '7ae52966-4fd4-4ab1-8152-0fd0b52bdadf'
 ```
+client_id|query_id|user_query|query_response_hit_ids|query_response_id|timestamp
+---|---|---|---|---|---
+a15f1ef3-6bc6-4959-9b83-6699a4d29845|7ae52966-4fd4-4ab1-8152-0fd0b52bdadf|notebook|0882780391659|6e92c90c-1eee-4dd6-b820-c522fd4126f3|2024-06-04 19:02:45.728
 
-(In this generated data, the `query` field is plain text; however in the real implementation the query will be in the internal DSL of the query and parameters.)
+NOTE: The `query` field from this `query_id` has the following nested structure:
 
-<!-- vale off -->
-query_response_id|query_id|user_id|query|query_response_objects_ids|session_id|timestamp
----|---|---|---|---|---|---
-1065c70f-d46a-442f-8ce4-0b5e7a71a892|1065c70f-d46a-442f-8ce4-0b5e7a71a892|155_7e3471ff-14c8-45cb-bc49-83a056c37192|Blanditiis quo sint repudiandae a sit.|8659955|fa6e3b1c-3212-44d2-b16b-690b4aeddbba_1975|2027-04-17 10:16:45
-<!-- vale on -->
+```json
+{
+	"query": {
+		"size": 25,
+		"query": {
+			"query_string": {
+				"query": "(title:\"notebook\" OR attr_t_device_type:\"notebook\" OR name:\"notebook\")",
+				"fields": [],
+				"type": "best_fields",
+				"default_operator": "or",
+				"max_determinized_states": 10000,
+				"enable_position_increments": true,
+				"fuzziness": "AUTO",
+				"fuzzy_prefix_length": 0,
+				"fuzzy_max_expansions": 50,
+				"phrase_slop": 0,
+				"analyze_wildcard": false,
+				"escape": false,
+				"auto_generate_synonyms_phrase_query": true,
+				"fuzzy_transpositions": true,
+				"boost": 1.0
+			}
+		},
+		"ext": {
+			"query_id": "7ae52966-4fd4-4ab1-8152-0fd0b52bdadf",
+			"user_query": "notebook",
+			"client_id": "a15f1ef3-6bc6-4959-9b83-6699a4d29845",
+			"object_id_field": "primary_ean",
+			"query_attributes": {
+				"application": "ubi-demo"
+			}
+		}
+	}
+}
+```
 
 In the event log
-Search for the events that correspond to the query above, `1065c70f-d46a-442f-8ce4-0b5e7a71a892`.
+Search for the events that correspond to the query above, `7ae52966-4fd4-4ab1-8152-0fd0b52bdadf`.
 
 ```sql
 select 
-  query_id, action_name, message_type, message, event_attributes.data.data_id, event_attributes.data.description, session_id, user_id
-from .ubi_log_events
-where query_id = '1065c70f-d46a-442f-8ce4-0b5e7a71a892'
+ application, query_id, action_name, message_type, message, client_id, timestamp
+from ubi_events
+where query_id = '7ae52966-4fd4-4ab1-8152-0fd0b52bdadf'
 order by timestamp
 ```
 
 <!-- vale off -->
 
-query_id|action_name|message_type|message|event_attributes.data.data_id|event_attributes.data.description|session_id|user_id
----|---|---|---|---|---|---|---
-1065c70f-d46a-442f-8ce4-0b5e7a71a892|product_hover|INQUERY|Focused logistical policy|1692104|HP LaserJet Color CP3525dn Printer Colour 600 x 1200 DPI A4|fa6e3b1c-3212-44d2-b16b-690b4aeddbba_1975|155_7e3471ff-14c8-45cb-bc49-83a056c37192
-1065c70f-d46a-442f-8ce4-0b5e7a71a892|brand_filter|INFO||||fa6e3b1c-3212-44d2-b16b-690b4aeddbba_1975|155_7e3471ff-14c8-45cb-bc49-83a056c37192
-1065c70f-d46a-442f-8ce4-0b5e7a71a892|type_filter|INFO|Multi-tiered client-server software|||fa6e3b1c-3212-44d2-b16b-690b4aeddbba_1975|155_7e3471ff-14c8-45cb-bc49-83a056c37192
-1065c70f-d46a-442f-8ce4-0b5e7a71a892|product_sort|PURCHASE||77499830|SES Creative Charm bracelets|fa6e3b1c-3212-44d2-b16b-690b4aeddbba_1975|155_7e3471ff-14c8-45cb-bc49-83a056c37192
-1065c70f-d46a-442f-8ce4-0b5e7a71a892|logout|ERROR||||fa6e3b1c-3212-44d2-b16b-690b4aeddbba_1975|155_7e3471ff-14c8-45cb-bc49-83a056c37192
-1065c70f-d46a-442f-8ce4-0b5e7a71a892|on_search|QUERY|Blanditiis quo sint repudiandae a sit.|1065c70f-d46a-442f-8ce4-0b5e7a71a892||fa6e3b1c-3212-44d2-b16b-690b4aeddbba_1975|155_7e3471ff-14c8-45cb-bc49-83a056c37192
-1065c70f-d46a-442f-8ce4-0b5e7a71a892|product_purchase|REJECT||1377181|Matrox G55-MDDE32LPDF graphics card GDDR|fa6e3b1c-3212-44d2-b16b-690b4aeddbba_1975|155_7e3471ff-14c8-45cb-bc49-83a056c37192
-1065c70f-d46a-442f-8ce4-0b5e7a71a892|brand_filter|WARN||||fa6e3b1c-3212-44d2-b16b-690b4aeddbba_1975|155_7e3471ff-14c8-45cb-bc49-83a056c37192
-1065c70f-d46a-442f-8ce4-0b5e7a71a892|product_sort|PURCHASE|Object-based upward-trending policy|137688|HERMA CD labels A4 Ã˜ 116 mm white paper matt opaque 200 pcs.|fa6e3b1c-3212-44d2-b16b-690b4aeddbba_1975|155_7e3471ff-14c8-45cb-bc49-83a056c37192
-1065c70f-d46a-442f-8ce4-0b5e7a71a892|product_click|INQUERY||4534016|ASUS BX700 mouse Bluetooth Laser 1200 DPI Right-hand|fa6e3b1c-3212-44d2-b16b-690b4aeddbba_1975|155_7e3471ff-14c8-45cb-bc49-83a056c37192
-1065c70f-d46a-442f-8ce4-0b5e7a71a892|product_hover|INQUERY||78314263|Tripp Lite DMCCASTER flat panel mount accessory|fa6e3b1c-3212-44d2-b16b-690b4aeddbba_1975|155_7e3471ff-14c8-45cb-bc49-83a056c37192
-1065c70f-d46a-442f-8ce4-0b5e7a71a892|product_click|INQUERY||2073|HP LaserJet 5100tn 1200 x 1200 DPI A3|fa6e3b1c-3212-44d2-b16b-690b4aeddbba_1975|155_7e3471ff-14c8-45cb-bc49-83a056c37192
-1065c70f-d46a-442f-8ce4-0b5e7a71a892|button_click|WARN||||fa6e3b1c-3212-44d2-b16b-690b4aeddbba_1975|155_7e3471ff-14c8-45cb-bc49-83a056c37192
+application|query_id|action_name|message_type|message|client_id|timestamp
+---|---|---|---|---|---|---
+ubi-demo|7ae52966-4fd4-4ab1-8152-0fd0b52bdadf|on_search|QUERY|notebook|a15f1ef3-6bc6-4959-9b83-6699a4d29845|2024-06-04 19:02:45.777
+ubi-demo|7ae52966-4fd4-4ab1-8152-0fd0b52bdadf|product_hover|INFO|orquesta soluciones uno-a-uno|a15f1ef3-6bc6-4959-9b83-6699a4d29845|2024-06-04 19:02:45.816
+ubi-demo|7ae52966-4fd4-4ab1-8152-0fd0b52bdadf|item_click|INFO|innova relaciones centrado al usuario|a15f1ef3-6bc6-4959-9b83-6699a4d29845|2024-06-04 19:02:45.86
+ubi-demo|7ae52966-4fd4-4ab1-8152-0fd0b52bdadf|add_to_cart|CONVERSION|engineer B2B platforms|a15f1ef3-6bc6-4959-9b83-6699a4d29845|2024-06-04 19:02:45.905
+ubi-demo|7ae52966-4fd4-4ab1-8152-0fd0b52bdadf|purchase|CONVERSION|Purchase item 0884420136132|a15f1ef3-6bc6-4959-9b83-6699a4d29845|2024-06-04 19:02:45.913
 
 <!-- vale on -->
 
+
 ## User sessions
-To look at more sessions from the same user above, `155_7e3471ff-14c8-45cb-bc49-83a056c37192`. 
+To look at more sessions from the same user's `client_id` above, `a15f1ef3-6bc6-4959-9b83-6699a4d29845`. 
 ```sql
-select 
-	user_id, session_id, query_id, action_name, message_type, message, event_attributes.data.data_type, timestamp 
-from .ubi_log_events
-where user_id ='155_7e3471ff-14c8-45cb-bc49-83a056c37192'
-order by timestamp
+select
+ application, event_attributes.session_id, query_id, 
+ action_name, message_type, event_attributes.dwell_time,
+ event_attributes.object.object_id, 
+ event_attributes.object.description,
+ timestamp
+from ubi_events
+where client_id = 'a15f1ef3-6bc6-4959-9b83-6699a4d29845'
+order by query_id, timestamp
 ```
 
 Results are truncated to a few sessions:
 
-<!-- vale off -->
-user_id|session_id|query_id|action_name|message_type|message|event_attributes.data.data_type|timestamp
----|---|---|---|---|---|---|---
-user_id|session_id|query_id|action_name|message_type|message|event_attributes.data.data_type|timestamp
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|2465d7cf-7123-499c-a510-f5681db2bad8_1967||new_user_entry|INFO|||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|2465d7cf-7123-499c-a510-f5681db2bad8_1967||login|ERROR|iniciativa potenciada centrado en el usuario||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|2465d7cf-7123-499c-a510-f5681db2bad8_1967|11a40012-8e70-4cb8-afcb-b7d1214aa0b0|on_search|QUERY|Blanditiis quo sint repudiandae a sit.|query|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|f8500640-1a69-41f0-b2ea-c7b2d7af5ab1_1970||login|ERROR|Switchable actuating methodology||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|f8500640-1a69-41f0-b2ea-c7b2d7af5ab1_1970||product_purchase|INQUERY|Enterprise-wide high-level circuit|product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|f8500640-1a69-41f0-b2ea-c7b2d7af5ab1_1970||product_purchase|REJECT||product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|f8500640-1a69-41f0-b2ea-c7b2d7af5ab1_1970||product_sort|PURCHASE|Enhanced content-based protocol|product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|f8500640-1a69-41f0-b2ea-c7b2d7af5ab1_1970||button_click|INFO|||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|f8500640-1a69-41f0-b2ea-c7b2d7af5ab1_1970||brand_filter|INFO|Automated solution-oriented firmware||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|f8500640-1a69-41f0-b2ea-c7b2d7af5ab1_1970||product_sort|PURCHASE||product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|f8500640-1a69-41f0-b2ea-c7b2d7af5ab1_1970||button_click|INFO|sinergia dedicada mandatorio||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|f8500640-1a69-41f0-b2ea-c7b2d7af5ab1_1970||product_sort|PURCHASE||product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|f8500640-1a69-41f0-b2ea-c7b2d7af5ab1_1970||product_click|INQUERY||product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|f8500640-1a69-41f0-b2ea-c7b2d7af5ab1_1970||type_filter|INFO|actitud maximizada virtual||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|f8500640-1a69-41f0-b2ea-c7b2d7af5ab1_1970||product_sort|INQUERY||product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|f8500640-1a69-41f0-b2ea-c7b2d7af5ab1_1970||brand_filter|ERROR|Re-contextualized zero administration complexity||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|8819a35a-7cd8-4365-8c29-6b07fe46f073_1968|71b2903a-9108-4829-96f1-a675e7a635d8|brand_filter|INFO|||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|8819a35a-7cd8-4365-8c29-6b07fe46f073_1968||login|INFO|Optional context-sensitive system engine||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|8819a35a-7cd8-4365-8c29-6b07fe46f073_1968||button_click|INFO|Sharable background knowledge user||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|8819a35a-7cd8-4365-8c29-6b07fe46f073_1968||product_hover|PURCHASE|polÃ­tica basado en necesidades multicanal|product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|8819a35a-7cd8-4365-8c29-6b07fe46f073_1968||product_click|INQUERY||product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|8819a35a-7cd8-4365-8c29-6b07fe46f073_1968||button_click|WARN|Customer-focused exuding policy||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|8819a35a-7cd8-4365-8c29-6b07fe46f073_1968||button_click|WARN|||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|8819a35a-7cd8-4365-8c29-6b07fe46f073_1968||product_sort|INQUERY|paradigma basado en el contexto opcional|product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|8819a35a-7cd8-4365-8c29-6b07fe46f073_1968|71b2903a-9108-4829-96f1-a675e7a635d8|on_search|QUERY|what is ubi?|query|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|8819a35a-7cd8-4365-8c29-6b07fe46f073_1968|71b2903a-9108-4829-96f1-a675e7a635d8|product_purchase|INQUERY|Ergonomic 24/7 solution|product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|8819a35a-7cd8-4365-8c29-6b07fe46f073_1968|71b2903a-9108-4829-96f1-a675e7a635d8|product_purchase|REJECT|Enhanced uniform methodology|product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|8819a35a-7cd8-4365-8c29-6b07fe46f073_1968|71b2903a-9108-4829-96f1-a675e7a635d8|type_filter|WARN|Seamless didactic info-mediaries||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|8819a35a-7cd8-4365-8c29-6b07fe46f073_1968|71b2903a-9108-4829-96f1-a675e7a635d8|product_sort|REJECT|algoritmo direccional visionario|product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|dc7984c6-11b1-40ad-b6a5-b96717139da2_1969||login|INFO|||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|dc7984c6-11b1-40ad-b6a5-b96717139da2_1969||button_click|WARN|Enterprise-wide 24hour focus group||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|dc7984c6-11b1-40ad-b6a5-b96717139da2_1969||type_filter|WARN|Balanced cohesive adapter||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|dc7984c6-11b1-40ad-b6a5-b96717139da2_1969||product_click|INQUERY|Ergonomic hybrid instruction set|product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|dc7984c6-11b1-40ad-b6a5-b96717139da2_1969||product_purchase|PURCHASE||product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|dc7984c6-11b1-40ad-b6a5-b96717139da2_1969||product_sort|INQUERY|Automated zero administration encoding|product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|dc7984c6-11b1-40ad-b6a5-b96717139da2_1969||product_sort|INQUERY|conjunto de instrucciones multitarea de tamaÃ±o adecuado|product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|dc7984c6-11b1-40ad-b6a5-b96717139da2_1969||type_filter|WARN|enfoque heurÃ­stica opcional||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|dc7984c6-11b1-40ad-b6a5-b96717139da2_1969||button_click|INFO|Multi-channeled optimizing neural-net||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|dc7984c6-11b1-40ad-b6a5-b96717139da2_1969||product_hover|INQUERY||product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|dc7984c6-11b1-40ad-b6a5-b96717139da2_1969||product_click|INQUERY|Programmable intangible product|product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|dc7984c6-11b1-40ad-b6a5-b96717139da2_1969||product_hover|INQUERY||product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|dc7984c6-11b1-40ad-b6a5-b96717139da2_1969||product_purchase|PURCHASE|Grass-roots client-server conglomeration|product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|dc7984c6-11b1-40ad-b6a5-b96717139da2_1969||brand_filter|ERROR|Implemented real-time standardization||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|dc7984c6-11b1-40ad-b6a5-b96717139da2_1969||product_sort|PURCHASE|funciÃ³n modular progresivo|product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|86f9c1e4-428f-4520-acef-883770c0f541_1971||login|INFO|||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|86f9c1e4-428f-4520-acef-883770c0f541_1971||type_filter|WARN|conglomeraciÃ³n maximizada seguro||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|86f9c1e4-428f-4520-acef-883770c0f541_1971||button_click|INFO|Focused regional portal||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|86f9c1e4-428f-4520-acef-883770c0f541_1971||button_click|INFO|definiciÃ³n sistÃ©mica virtual||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|86f9c1e4-428f-4520-acef-883770c0f541_1971||type_filter|INFO|||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|86f9c1e4-428f-4520-acef-883770c0f541_1971||type_filter|INFO|||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|86f9c1e4-428f-4520-acef-883770c0f541_1971||product_purchase|INQUERY||product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|86f9c1e4-428f-4520-acef-883770c0f541_1971||product_hover|INQUERY|Seamless directional database|product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|86f9c1e4-428f-4520-acef-883770c0f541_1971||product_hover|REJECT|aplicaciÃ³n dinÃ¡mica robusto|product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|86f9c1e4-428f-4520-acef-883770c0f541_1971||product_click|INQUERY|aplicaciÃ³n 4ta generaciÃ³n personalizable|product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|86f9c1e4-428f-4520-acef-883770c0f541_1971||product_click|INQUERY|alianza holÃ­stica administrado|product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|86f9c1e4-428f-4520-acef-883770c0f541_1971|0e360673-46fe-4912-a10c-0ab90bbb0513|on_search|QUERY|what is ubi?|query|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|86f9c1e4-428f-4520-acef-883770c0f541_1971|0e360673-46fe-4912-a10c-0ab90bbb0513|product_purchase|REJECT|Diverse intermediate hardware|product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|86f9c1e4-428f-4520-acef-883770c0f541_1971|0e360673-46fe-4912-a10c-0ab90bbb0513|product_click|INQUERY|Advanced contextually-based Graphical User Interface|product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|86f9c1e4-428f-4520-acef-883770c0f541_1971|0e360673-46fe-4912-a10c-0ab90bbb0513|product_purchase|PURCHASE|Ergonomic mission-critical ability|product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|86f9c1e4-428f-4520-acef-883770c0f541_1971|0e360673-46fe-4912-a10c-0ab90bbb0513|product_purchase|INQUERY|Visionary discrete groupware|product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|86f9c1e4-428f-4520-acef-883770c0f541_1971|0e360673-46fe-4912-a10c-0ab90bbb0513|logout|WARN|Compatible composite process improvement||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|c83a0f59-1ae5-4f63-a45f-b0dcefc7a7d5_1972||login|INFO|Upgradable interactive analyzer||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|c83a0f59-1ae5-4f63-a45f-b0dcefc7a7d5_1972||product_hover|REJECT|Horizontal modular database|product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|c83a0f59-1ae5-4f63-a45f-b0dcefc7a7d5_1972||product_click|INQUERY|Re-engineered interactive knowledge user|product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|c83a0f59-1ae5-4f63-a45f-b0dcefc7a7d5_1972||product_hover|INQUERY|caja de herramientas holÃ­stica orgÃ¡nico|product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|c83a0f59-1ae5-4f63-a45f-b0dcefc7a7d5_1972||brand_filter|INFO|Public-key neutral infrastructure||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|c83a0f59-1ae5-4f63-a45f-b0dcefc7a7d5_1972||brand_filter|INFO|software 24 horas programable||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|c83a0f59-1ae5-4f63-a45f-b0dcefc7a7d5_1972||product_click|INQUERY||product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|c83a0f59-1ae5-4f63-a45f-b0dcefc7a7d5_1972||product_purchase|REJECT||product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|c83a0f59-1ae5-4f63-a45f-b0dcefc7a7d5_1972||button_click|WARN|||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|c83a0f59-1ae5-4f63-a45f-b0dcefc7a7d5_1972||product_hover|REJECT||product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|c83a0f59-1ae5-4f63-a45f-b0dcefc7a7d5_1972||type_filter|INFO|||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|c83a0f59-1ae5-4f63-a45f-b0dcefc7a7d5_1972||logout|INFO|Sharable discrete policy||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|5fb20967-14fe-49e1-93e4-5ab54b0d54a7_1973||login|ERROR|||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|5fb20967-14fe-49e1-93e4-5ab54b0d54a7_1973|898fdbfb-ee8f-4a21-a0e6-8acbc46e45f6|on_search|QUERY|Amet maxime numquam libero ipsam amet.|query|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|5fb20967-14fe-49e1-93e4-5ab54b0d54a7_1973|898fdbfb-ee8f-4a21-a0e6-8acbc46e45f6|product_sort|INQUERY||product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|5fb20967-14fe-49e1-93e4-5ab54b0d54a7_1973|e3b7319c-2517-4375-bc66-7ff50bfd37f5|on_search|QUERY|Laptop|query|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|5fb20967-14fe-49e1-93e4-5ab54b0d54a7_1973|e3b7319c-2517-4375-bc66-7ff50bfd37f5|brand_filter|INFO|||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|5fb20967-14fe-49e1-93e4-5ab54b0d54a7_1973|e3b7319c-2517-4375-bc66-7ff50bfd37f5|product_sort|REJECT||product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|5fb20967-14fe-49e1-93e4-5ab54b0d54a7_1973|e3b7319c-2517-4375-bc66-7ff50bfd37f5|brand_filter|INFO|capacidad 3ra generaciÃ³n multi-capas||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|5fb20967-14fe-49e1-93e4-5ab54b0d54a7_1973|e3b7319c-2517-4375-bc66-7ff50bfd37f5|button_click|INFO|base de trabajo nueva generaciÃ³n distribuido||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|5fb20967-14fe-49e1-93e4-5ab54b0d54a7_1973|e382687a-a853-460a-99e3-9fec9806875e|on_search|QUERY|Cross group discrete service desk|query|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|4aca7a9c-895f-481c-86a0-1419cec4fbcc_1974||login|INFO|Horizontal full-range framework||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|4aca7a9c-895f-481c-86a0-1419cec4fbcc_1974||button_click|INFO|Vision-oriented motivating matrix||2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|4aca7a9c-895f-481c-86a0-1419cec4fbcc_1974||product_hover|PURCHASE|Cross-platform cohesive product|product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|4aca7a9c-895f-481c-86a0-1419cec4fbcc_1974||product_sort|INQUERY||product|2027-04-17 10:16:45
-155_7e3471ff-14c8-45cb-bc49-83a056c37192|4aca7a9c-895f-481c-86a0-1419cec4fbcc_1974||brand_filter|INFO|Multi-layered next generation process improvement||2027-04-17 10:16:45
 
-<!-- vale on -->
+application|event_attributes.session_id|query_id|action_name|message_type|event_attributes.dwell_time|event_attributes.object.object_id|event_attributes.object.description|timestamp
+---|---|---|---|---|---|---|---|---
+ubi-demo|00731779-e290-4709-8af7-d495ae42bf48|0254a9b7-1d83-4083-aa46-e12dff86ec98|on_search|QUERY|46.6398|||2024-06-04 19:06:36.239
+ubi-demo|00731779-e290-4709-8af7-d495ae42bf48|0254a9b7-1d83-4083-aa46-e12dff86ec98|product_hover|INFO|53.681877|0065030834155|USB 2.0 S-Video and Composite Video Capture Cable|2024-06-04 19:06:36.284
+ubi-demo|00731779-e290-4709-8af7-d495ae42bf48|0254a9b7-1d83-4083-aa46-e12dff86ec98|item_click|INFO|40.699997|0065030834155|USB 2.0 S-Video and Composite Video Capture Cable|2024-06-04 19:06:36.334
+ubi-demo|00731779-e290-4709-8af7-d495ae42bf48|0254a9b7-1d83-4083-aa46-e12dff86ec98|declined_product|REJECT|5.0539055|0065030834155|USB 2.0 S-Video and Composite Video Capture Cable|2024-06-04 19:06:36.373
+ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|on_search|QUERY|26.422775|||2024-06-04 19:04:40.832
+ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|on_search|QUERY|17.1094|||2024-06-04 19:04:40.837
+ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|brand_filter|FILTER|40.090374|OBJECT-6c91da98-387b-45cb-8275-e90d1ea8bc54|supplier_name|2024-06-04 19:04:40.852
+ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|type_filter|INFO|37.658962|OBJECT-32d9bb39-b17d-4611-82c1-5aaa14368060|filter_product_type|2024-06-04 19:04:40.856
+ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|product_sort|SORT|3.6380951|||2024-06-04 19:04:40.923
+ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|view_search_results|INFO|46.436115|||2024-06-04 19:04:40.942
+ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|view_search_results|INFO|46.436115|||2024-06-04 19:04:40.959
+ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|type_filter|INFO|37.658962|OBJECT-32d9bb39-b17d-4611-82c1-5aaa14368060|filter_product_type|2024-06-04 19:04:40.972
+ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|brand_filter|FILTER|40.090374|OBJECT-6c91da98-387b-45cb-8275-e90d1ea8bc54|supplier_name|2024-06-04 19:04:40.997
+ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|type_filter|INFO|37.658962|OBJECT-32d9bb39-b17d-4611-82c1-5aaa14368060|filter_product_type|2024-06-04 19:04:41.006
+ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|product_sort|SORT|3.6380951|||2024-06-04 19:04:41.031
+ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|product_sort|SORT|3.6380951|||2024-06-04 19:04:41.091
+ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|type_filter|INFO|37.658962|OBJECT-32d9bb39-b17d-4611-82c1-5aaa14368060|filter_product_type|2024-06-04 19:04:41.164
+ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|brand_filter|FILTER|40.090374|OBJECT-6c91da98-387b-45cb-8275-e90d1ea8bc54|supplier_name|2024-06-04 19:04:41.171
+ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|view_search_results|INFO|46.436115|||2024-06-04 19:04:41.179
+ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|global_click|INFO|42.45651|OBJECT-d350cc2d-b979-4aca-bd73-71709832940f|(96, 127)|2024-06-04 19:04:41.224
+ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|view_search_results|INFO|46.436115|||2024-06-04 19:04:41.24
+ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|view_search_results|INFO|46.436115|||2024-06-04 19:04:41.285
+ubi-demo|844ca4b5-b6f8-4f7b-a5ec-7f6d95788e0b|0cf185be-91a8-49cf-9401-92ad079ce43b|global_click|INFO|42.45651|OBJECT-d350cc2d-b979-4aca-bd73-71709832940f|(96, 127)|2024-06-04 19:04:41.328
+ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|on_search|QUERY|52.721157|||2024-06-04 19:03:50.8
+ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|view_search_results|INFO|26.600422|||2024-06-04 19:03:50.802
+ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|product_sort|SORT|14.839713|||2024-06-04 19:03:50.875
+ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|brand_filter|FILTER|20.876852|OBJECT-6c91da98-387b-45cb-8275-e90d1ea8bc54|supplier_name|2024-06-04 19:03:50.927
+ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|type_filter|INFO|15.212905|OBJECT-32d9bb39-b17d-4611-82c1-5aaa14368060|filter_product_type|2024-06-04 19:03:50.997
+ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|view_search_results|INFO|26.600422|||2024-06-04 19:03:51.033
+ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|global_click|INFO|11.710514|OBJECT-d350cc2d-b979-4aca-bd73-71709832940f|(96, 127)|2024-06-04 19:03:51.108
+ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|product_sort|SORT|14.839713|||2024-06-04 19:03:51.144
+ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|global_click|INFO|11.710514|OBJECT-d350cc2d-b979-4aca-bd73-71709832940f|(96, 127)|2024-06-04 19:03:51.17
+ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|brand_filter|FILTER|20.876852|OBJECT-6c91da98-387b-45cb-8275-e90d1ea8bc54|supplier_name|2024-06-04 19:03:51.205
+ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|type_filter|INFO|15.212905|OBJECT-32d9bb39-b17d-4611-82c1-5aaa14368060|filter_product_type|2024-06-04 19:03:51.228
+ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|product_sort|SORT|14.839713|||2024-06-04 19:03:51.232
+ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|type_filter|INFO|15.212905|OBJECT-32d9bb39-b17d-4611-82c1-5aaa14368060|filter_product_type|2024-06-04 19:03:51.292
+ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|2071e273-513f-46be-b835-89f452095053|type_filter|INFO|15.212905|OBJECT-32d9bb39-b17d-4611-82c1-5aaa14368060|filter_product_type|2024-06-04 19:03:51.301
+ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|23f0149a-13ae-4977-8dc9-ef61c449c140|on_search|QUERY|16.93674|||2024-06-04 19:03:50.62
+ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|23f0149a-13ae-4977-8dc9-ef61c449c140|global_click|INFO|25.897957|OBJECT-d350cc2d-b979-4aca-bd73-71709832940f|(96, 127)|2024-06-04 19:03:50.624
+ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|23f0149a-13ae-4977-8dc9-ef61c449c140|product_sort|SORT|44.345097|||2024-06-04 19:03:50.688
+ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|23f0149a-13ae-4977-8dc9-ef61c449c140|brand_filter|FILTER|19.54417|OBJECT-6c91da98-387b-45cb-8275-e90d1ea8bc54|supplier_name|2024-06-04 19:03:50.696
+ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|23f0149a-13ae-4977-8dc9-ef61c449c140|type_filter|INFO|48.79312|OBJECT-32d9bb39-b17d-4611-82c1-5aaa14368060|filter_product_type|2024-06-04 19:03:50.74
+ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|23f0149a-13ae-4977-8dc9-ef61c449c140|brand_filter|FILTER|19.54417|OBJECT-6c91da98-387b-45cb-8275-e90d1ea8bc54|supplier_name|2024-06-04 19:03:50.802
+
 
 ## List user sessions that logged out without any queries
 - This query denotes users without a query_id.  Note that this could happen if the client side is not passing the returned query to other events.
 
 ```sql
 select 
-    user_id, session_id, count(0) EventTotal
-from .ubi_log_events
+    client_id, session_id, count(0) EventTotal
+from ubi_events
 where action_name='logout' and query_id is null
-group by user_id, session_id
+group by client_id, session_id
 order by EventTotal desc
 ```
 
 <!-- vale off -->
 
-user_id|session_id|EventTotal
+client_id|session_id|EventTotal
 ---|---|---
 100_15c182f2-05db-4f4f-814f-46dc0de6b9ea|1c36712c-44b8-4fdd-8f0d-fdfeab5bd794_1290|1
 175_e5f262f1-0db3-4948-b349-c5b95ff31259|816f94d6-8966-4a8b-8984-a2641d5865b2_2251|1
@@ -311,14 +327,14 @@ Since some of these query-less logouts repeat with some users, here is a query t
 
 ```sql
 select 
-    user_id, count(0) EventTotal
-from .ubi_log_events
+    client_id, count(0) EventTotal
+from ubi_events
 where action_name='logout' and query_id is null
-group by user_id
+group by client_id
 order by EventTotal desc
 ```
 
-user_id|EventTotal
+client_id|EventTotal
 ---|---
 87_5a6e1f8c-4936-4184-a24d-beddd05c9274|8
 127_829a4246-930a-4b24-8165-caa07ee3fa47|7

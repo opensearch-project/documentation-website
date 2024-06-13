@@ -7,8 +7,8 @@ nav_order: 7
 ---
 
 # Sample client data structures
-The client data structures can be used to create events that follow the [UBI event schema specification](https://github.com/o19s/opensearch-ubi), 
-which is describedin further detail [here]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/).
+The client data structures can be used to create events that follow the [UBI event schema specification](https://github.com/o19s/ubi), 
+which is described in further detail [here]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/).
 
 The developer provides an implementation for the following functions:
 - `getClientId()`
@@ -18,7 +18,7 @@ _Optionally_:
 - `getSessionId()`
 - `getPageId()`
 
-Other sample implementations can be found [here](#TODO-clients-link).
+<!-- Not needed with this page: Other sample implementations can be found [here](#TODO-clients-link). -->
 
 ```js
 /*********************************************************************************************
@@ -158,7 +158,7 @@ export class UbiEvent {
 # Sample usage
 
 ```js
-export async function logUbiMessage(event_type, message_type, message){
+export function logUbiMessage(event_type, message_type, message){
   let e = new UbiEvent(event_type, {
     message_type:message_type,
     message:message
@@ -166,14 +166,37 @@ export async function logUbiMessage(event_type, message_type, message){
   logEvent(e);
 }
 
-export async function logDwellTime(action_name, page, seconds){
+export function logDwellTime(action_name, page, seconds){
   console.log(`${page} => ${seconds}`);
   let e = new UbiEvent(action_name, {
     message:`On page ${page} for ${seconds} seconds`,
-    event_attributes:{dwell_seconds:seconds},
+    event_attributes:{
+      session_id: getSessionId()},
+      dwell_seconds:seconds
+      },
     data_object:TimeMe
   });
   logEvent(e);
 }
+
+/**
+ * ordinal is the number within a list of results
+ * for the item that was clicked
+ */ 
+export function logItemClick(item, ordinal){
+  let e = new UbiEvent('item_click', {
+    message:`Item ${item['object_id']} was clicked`,
+    event_attributes:{session_id: getSessionId()},
+    data_object:item,    
+  });
+  e.event_attributes.position.ordinal = ordinal;
+  logEvent(e);
+}
+
+export function logEvent( event ){
+  // some configured http client 
+  return client.index( index = 'ubi_events', body = event.toJson());
+}
+
 ```
 {% include copy.html %}

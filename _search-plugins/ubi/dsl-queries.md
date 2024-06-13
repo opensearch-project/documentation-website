@@ -11,7 +11,7 @@ nav_order: 8
 
 
 ```json
-GET .ubi_log_events/_search
+GET ubi_events/_search
 {
   "size":0, 
   "aggs":{ 

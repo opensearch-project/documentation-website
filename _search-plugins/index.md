@@ -70,7 +70,7 @@ OpenSearch provides the following search relevance features:
 
 - [Querqy]({{site.url}}{{site.baseurl}}/search-plugins/querqy/): Offers query rewriting capability.
 
-- [User Behavior Insights]({{site.url}}{{site.baseurl}}/search-plugins/ubi/): Link user application behavior to their queries for improving search relevance insights.
+- [User Behavior Insights]({{site.url}}{{site.baseurl}}/search-plugins/ubi/): Link user application behavior to their queries for improving search quality.
   
 ## Search results
 
