@@ -244,7 +244,7 @@ The following GIF illustrates these steps.
 
 ### Notifications
 
-When you have set `data_source.enabled:true`, you can you can view and manage notification channels for different data sources.
+When you set `data_source.enabled:true`, you can view and manage notification channels for different data sources:
 
 1. Navigate to **Management** > **Notifications** under the main menu.
 2. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/database-icon.png" class="inline-icon" alt="database icon"/>{:/} icon and choose a data source from the dropdown. A list of channels associated with the selected data source is displayed.
