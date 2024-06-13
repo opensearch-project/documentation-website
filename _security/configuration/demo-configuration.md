@@ -49,8 +49,7 @@ If you want to disable the Security plugin when using Docker, set the `DISABLE_S
    - One digit [0--9]
    - One special character
 
-4. Ensure docker is running. 
-5. Run `docker-compose up` from the file directory where your `docker-compose.yml` file and `.env` file are located.
+4. Run `docker-compose up`.
 
 ### TAR (Linux)
 
@@ -67,11 +66,6 @@ For OpenSearch 2.12 or later, set a new custom admin password before installatio
 export OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>
 ```
 {% include copy.html %}
-
-### Mac
-Once you run `docker-compose.up` the Opensearch server will be running. 
-
-You will see the following message in the terminal `"Server running at http://0.0.0.0:5601"` Visit the link as specified to open OpenSearch and log in with the username 'admin' and the password you created in the `.env` file.
 
 ### Windows
 
