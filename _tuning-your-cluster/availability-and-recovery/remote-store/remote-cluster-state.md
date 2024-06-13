@@ -66,18 +66,15 @@ The remote cluster state functionality has the following limitations:
 - Unsafe bootstrap scripts cannot be run when the remote cluster state is enabled. When a majority of cluster-manager nodes are lost and the cluster goes down, the user needs to replace any remaining cluster manager nodes and reseed the nodes in order to bootstrap a new cluster.
 
 ## Remote cluster state publication
-The cluster manager node processes the updates to cluster state. It then, publishes the updated cluster state 
-over the local transport layer to all the follower nodes. With remote cluster state enabled, 
-cluster state is backed to remote store with every state update. The follower nodes can fetch the state 
-from remote store directly and reducing the overhead on the cluster manager node for publication. 
-This can be done by enabling the experimental remote publication feature.
 
-Enable the feature flag for `remote_store.publication` feature by following the [experiment feature flag documentation]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
-This doesn't change the publication flow and follower nodes will not send acknowledgement back to cluster manager 
-until they download the updated cluster state from remote store and proceed as expected in current flow. 
-Note that enabling remote cluster state is mandatory for remote publication to work.
-Also, RoutingTable which contains the shard allocation details for each index in the cluster state requires 
-setting up the remote store repository. It can be configured as following:
+The cluster manager node processes updates to the cluster state. It then publishes the updated cluster state  over the local transport layer to all of the follower nodes. With the `remote_store.publication` feature enabled, the cluster state is backed up to the remote store with every state update. The follower nodes can then fetch the state from the remote store directly which reduces the overhead on the cluster manager node for publication. 
+
+To enable the feature flag for the `remote_store.publication` feature follow the steps in [experimental feature flag documentation]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
+
+Enabling the setting does not change the publication flow and follower nodes will not send acknowledgements back to the cluster manager 
+until they download the updated cluster state from the remote store.
+
+Enabling the remote cluster state feature is mandatory for remote publication to work. The routing tables repository settings contains the shard allocation details for each index in the cluster state. You can configure the remote table repository by using following settings:
 
 ```yml
 # Remote routing table repository settings
@@ -86,10 +83,10 @@ node.attr.remote_store.repository.my-remote-routing-table-repo.type: s3
 node.attr.remote_store.repository.my-remote-routing-table-repo.settings.bucket: <Bucket Name 3>
 node.attr.remote_store.repository.my-remote-routing-table-repo.settings.region: <Bucket region>
 ```
-You do not have to use different remote store repositories for state and routing. 
-These stores can share the same repository.
 
-The following cluster settings can be used to configure remote publication:
+You do not have to use different remote store repositories for state and routing, since both state and routing can use the same repository settings.
+
+To configure remote publication, use the following cluster settings:
 
 Setting | Default | Description
 :--- | :--- | :---
