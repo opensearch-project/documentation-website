@@ -168,7 +168,7 @@ When you set `data_source.enabled:true`, you can view and select data sources an
 
 1. Navigate to **Management** > **Index Management** under the main menu.
 2. Select **Indexes** from the sidebar menu and then select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/database-icon.png" class="inline-icon" alt="database icon"/>{:/} icon on the upper-right menu bar.
-3. Choose the appropirate data source from the dropdown and then choose the appropriate index from those listed. By default, the indexes from your default data source are displayed. You can choose any connected data source to view its corresponding indexes.
+3. Choose the appropriate data source from the dropdown menu and then choose the appropriate index from the list. By default, the indexes from your default data source are displayed. You can choose any connected data source to view its corresponding indexes.
 
 The following GIF illustrates these steps.
 
