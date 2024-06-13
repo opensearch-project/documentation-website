@@ -235,7 +235,7 @@ The following GIF illustrates these steps.
 When you set `data_source.enabled:true`, you can view and manage machine learning models from different connected data sources: 
 
 1. Navigate to **OpenSearch Plugins** > **Machine Learning** under the main menu. 
-2. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/database-icon.png" class="inline-icon" alt="database icon"/>{:/} icon and choose a data source from the dropdown. A list of models associated with the selected data source is displayed.
+2. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/database-icon.png" class="inline-icon" alt="database icon"/>{:/} icon and choose a data source from the dropdown menu. A list of models associated with the selected data source is displayed.
 3. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/inspect-icon.png" class="inline-icon" alt="inspect icon"/>{:/} icon to the right of a listed model to view the model's configuration details for that data source.
 
 The following GIF illustrates these steps.
