@@ -73,7 +73,7 @@ Logstash supports a few common options for all filter plugins:
 Option | Description
 :--- | :---
 `add_field` | Adds one or more fields to the event.
-`remove_field` | Removes one or more events from the field.
+`remove_field` | Removes one or more fields from the event.
 `add_tag` | Adds one or more tags to the event. You can use tags to perform conditional processing on events depending on which tags they contain.
 `remove_tag` | Removes one or more tags from the event.
 
