@@ -30,7 +30,38 @@ A detector is an individual anomaly detection task. You can define multiple dete
    - Enter a name and brief description. Make sure the name is unique and descriptive enough to help you to identify the purpose of the detector.
 1. Specify the data source.   
    - For **Data source**, choose the index you want to use as the data source. You can optionally use index patterns to choose multiple indexes.
-   - (Optional) For **Data filter**, filter the index you chose as the data source. From the **Data filter** menu, choose **Add data filter**, and then design your filter query by selecting **Field**, **Operator**, and **Value**, or choose **Use query DSL** and add your own JSON filter query.
+   - (Optional) For **Data filter**, filter the index you chose as the data source. From the **Data filter** menu, choose **Add data filter**, and then design your filter query by selecting **Field**, **Operator**, and **Value**, or choose **Use query DSL** and add your own JSON filter query. Only [Boolean query]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/) are supported in the DSL.
+
+   **Example filter in DSL**
+   The query is designed to match documents that have specific values in the urlPath.keyword field. Specifically, it will match documents where the urlPath.keyword field is equal to one of the following values:
+   - /domain/{id}/short
+   - /sub_dir/{id}/short
+   - /abcd/123/{id}/xyz
+
+   ```json
+   {
+      "bool": {
+         "should": [
+               {
+                  "term": {
+                     "urlPath.keyword": "/domain/{id}/short"
+                  }
+               },
+               {
+                  "term": {
+                     "urlPath.keyword": "/sub_dir/{id}/short"
+                  }
+               },
+               {
+                  "term": {
+                     "urlPath.keyword": "/abcd/123/{id}/xyz"
+                  }
+               }
+         ]
+      }
+   }
+   ```
+
 1. Specify a timestamp.    
    - Select the **Timestamp field** in your index.
 1. Define operation settings.
@@ -45,15 +76,17 @@ A detector is an individual anomaly detection task. You can define multiple dete
       - This value tells the detector that the data is not ingested into OpenSearch in real time but with a certain delay. Set the window delay to shift the detector interval to account for this delay.
       - For example, say the detector interval is 10 minutes and data is ingested into your cluster with a general delay of 1 minute. Assume the detector runs at 2:00. The detector attempts to get the last 10 minutes of data from 1:50 to 2:00, but because of the 1-minute delay, it only gets 9 minutes of data and misses the data from 1:59 to 2:00. Setting the window delay to 1 minute shifts the interval window to 1:49--1:59, so the detector accounts for all 10 minutes of the detector interval time.
 1. Specify custom result index.
-   - If you want to store the anomaly detection results in your own index, choose **Enable custom result index** and specify the custom index to store the result. The anomaly detection plugin adds an `opensearch-ad-plugin-result-` prefix to the index name that you input. For example, if you input `abc` as the result index name, the final index name is `opensearch-ad-plugin-result-abc`.
+   - If you want to store the anomaly detection results in your own index, choose **Enable custom result index** and specify the custom index to store the result. The Anomaly Detection plugin automatically prefixes the index name you input with `opensearch-ad-plugin-result-`. For example, if you enter `abc` as the result index name, the final alias name will be `opensearch-ad-plugin-result-abc`. This alias points to an index with a name that includes the date and a sequence number, such as `opensearch-ad-plugin-result-abc-history-2024.06.12-000002`.
 
    You can use the dash “-” sign to separate the namespace to manage custom result index permissions. For example, if you use `opensearch-ad-plugin-result-financial-us-group1` as the result index, you can create a permission role based on the pattern `opensearch-ad-plugin-result-financial-us-*` to represent the "financial" department at a granular level for the "us" area.
    {: .note }
 
-      - If the custom index you specify doesn’t already exist, the Anomaly Detection plugin creates this index when you create the detector and start your real-time or historical analysis.
-      - If the custom index already exists, the plugin checks if the index mapping of the custom index matches the anomaly result file. You need to make sure the custom index has valid mapping as shown here: [anomaly-results.json](https://github.com/opensearch-project/anomaly-detection/blob/main/src/main/resources/mappings/anomaly-results.json).
+   - Using a custom result index allows you to build customized dashboards. When the Security plugin (also known as Fine-grained access control) is enabled, our default result index becomes a system index. As a result, the default result index is not accessible through the standard index/search API. You must use the anomaly detection RESTful API or the Dashboard to access its content. Consequently, you cannot build a customized dashboard using the default result index if the Security plugin is enabled.
+   - If the custom index you specify doesn’t already exist, the Anomaly Detection plugin creates this index when you create the detector and start your real-time or historical analysis.
+   - If the custom index already exists, the plugin checks if the index mapping of the custom index matches the anomaly result file. You need to make sure the custom index has valid mapping as shown here: [anomaly-results.json](https://github.com/opensearch-project/anomaly-detection/blob/main/src/main/resources/mappings/anomaly-results.json).
    - To use the custom result index option, you need the following permissions:
-      - `indices:admin/create` - If the custom index already exists, you don't need this.
+      - `indices:admin/create` - Required for the Anomaly Detection plugin to create and roll over the custom index.
+      - `indices:admin/aliases` - Required for the Anomaly Detection plugin to create and access an alias for the custom index.
       - `indices:data/write/index` - You need the `write` permission for the Anomaly Detection plugin to write results into the custom index for a single-entity detector.
       - `indices:data/read/search` - You need the `search` permission because the Anomaly Detection plugin needs to search custom result indexes to show results on the anomaly detection UI.
       - `indices:data/write/delete` - Because the detector might generate a large number of anomaly results, you need the `delete` permission to delete old data and save disk space.
@@ -61,6 +94,15 @@ A detector is an individual anomaly detection task. You can define multiple dete
    - Managing the custom result index:
       - The anomaly detection dashboard queries all detectors’ results from all custom result indexes. Having too many custom result indexes might impact the performance of the Anomaly Detection plugin.
       - You can use [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/) to rollover old result indexes. You can also manually delete or archive any old result indexes. We recommend reusing a custom result index for multiple detectors.
+      - The Anomaly Detection plugin can also be used to manage the lifecycle of custom indexes. It rolls an alias over to a new index when the custom result index meets any of the following conditions:
+
+
+      Parameter | Description | Type | Unit | Example | Required
+      :--- | :--- |:--- |:--- |:--- |:---
+      `result_index_min_size` | Specifies the minimum size of total primary shard storage (excluding replicas) required to roll over the index. For example, if `result_index_min_size` is set to 100 GiB and the index has 5 primary shards and 5 replica shards of 20 GiB each, the total size of all primary shards is 100 GiB, triggering the rollover. | `integer` | `MB` | `51200` | No
+      `result_index_min_age` |  Specifies the minimum age of the index required to roll over. The index age is calculated from its creation time to the current time. | `integer` |`day` | `7` | No
+      `result_index_ttl` | Specifies the minimum age required to permanently delete rolled over indexes. | `integer` | `day` | `60` | No
+
 1. Choose **Next**.   
 
 After you define the detector, the next step is to configure the model.
