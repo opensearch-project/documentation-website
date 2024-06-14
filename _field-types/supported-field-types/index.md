@@ -29,6 +29,7 @@ IP | [`ip`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/ip/):
 [Rank]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/rank/) | Boosts or decreases the relevance score of documents (`rank_feature`, `rank_features`).  
 k-NN vector | [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/): Allows indexing a k-NN vector into OpenSearch and performing different kinds of k-NN search.
 Percolator | [`percolator`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/percolator/): Specifies to treat this field as a query. 
+Derived | [`derived`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/derived/): Creates new fields dynamically by executing scripts on existing fields.
 
 ## Arrays
 
