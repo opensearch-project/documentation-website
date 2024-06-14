@@ -4,6 +4,7 @@ title: Neural sparse search
 nav_order: 50
 has_children: false
 redirect_from:
+  - /search-plugins/neural-sparse-search/
   - /search-plugins/sparse-search/
 ---
 
@@ -420,6 +421,30 @@ The response contains both documents:
   }
 }
 ```
+
+## Next steps
+
+- To learn more about splitting long text into passages for neural search, see [Text chunking]({{site.url}}{{site.baseurl}}/search-plugins/text-chunking/).
+
+## FAQ
+
+Refer to the following frequently asked questions for more information about neural sparse search.
+
+### How do I mitigate remote connector throttling exceptions?
+
+When using connectors to call a remote service like SageMaker, ingestion and search calls sometimes fail due to remote connector throttling exceptions. 
+
+To mitigate throttling exceptions, modify the connector's [`client_config`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#configuration-parameters) parameter to decrease the number of maximum connections, using the `max_connection` setting to prevent the maximum number of concurrent connections from exceeding the threshold of the remote service. You can also modify the retry settings to flatten the request spike during ingestion.
+
+For versions earlier than OpenSearch 2.15, the SageMaker throttling exception will be thrown as the following "error": 
+
+```
+   {
+          "type": "status_exception",
+          "reason": "Error from remote service: {\"message\":null}"
+        }
+```
+
 
 ## Next steps
 

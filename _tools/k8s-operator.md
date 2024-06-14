@@ -3,6 +3,8 @@ layout: default
 title: OpenSearch Kubernetes Operator
 nav_order: 80
 has_children: false
+redirect_from:
+  - /clients/k8s-operator/
 ---
 
 The OpenSearch Kubernetes Operator is an open-source kubernetes operator that helps automate the deployment and provisioning of OpenSearch and OpenSearch Dashboards in a containerized environment. The operator can manage multiple OpenSearch clusters that can be scaled up and down depending on your needs. 
