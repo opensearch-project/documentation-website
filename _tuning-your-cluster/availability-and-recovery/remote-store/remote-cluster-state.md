@@ -75,7 +75,7 @@ To enable the feature flag for the `remote_store.publication` feature, follow th
 Enabling the setting does not change the publication flow, and follower nodes will not send acknowledgements back to the cluster manager node.
 until they download the updated cluster state from the remote store.
 
-Enabling the remote cluster state feature is mandatory for remote publication to work. The routing tables repository settings contains the shard allocation details for each index in the cluster state. You can configure the remote table repository by using following settings:
+You must enable the remote cluster state feature in order for remote publication to work. To modify the remote publication behavior, the following routing table repository settings can be used, which contain the shard allocation details for each index in the remote cluster state:
 
 ```yml
 # Remote routing table repository settings
