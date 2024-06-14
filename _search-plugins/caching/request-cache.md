@@ -21,13 +21,13 @@ You can configure index request cache by setting the parameters in the `opensear
 
 ### Settings
 
-The following table lists the index request cache settings. All settings are dynamic. For more information about dynamic settings, see [Dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings).
+The following table lists the index request cache settings. For more information about dynamic settings, see [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/).
 
-Setting | Data type  | Default | Level | Description
-:--- |:-----------|:--------| :--- | :---
-`indices.cache.cleanup_interval` | Time unit  | `1m` (1 minute)  | Cluster | Schedules a recurring background task that cleans up expired entries from the cache at the specified interval. 
-`indices.requests.cache.size` | Percentage | `1%`      | Cluster | The cache size as a percentage of the heap size (for example, to use 1% of the heap, specify `1%`). 
-`index.requests.cache.enable` | Boolean    | `true`    | Index | Enables or disables the request cache. 
+Setting | Data type  | Default | Level | Static/Dynamic | Description
+:--- |:-----------|:--------| :--- | :--- | :---
+`indices.cache.cleanup_interval` | Time unit  | `1m` (1 minute)  | Cluster | Dynamic | Schedules a recurring background task that cleans up expired entries from the cache at the specified interval. 
+`indices.requests.cache.size` | Percentage | `1%`      | Cluster | Static | The cache size as a percentage of the heap size (for example, to use 1% of the heap, specify `1%`). 
+`index.requests.cache.enable` | Boolean    | `true`    | Index | Dynamic | Enables or disables the request cache. 
 
 
 ### REST API examples
@@ -42,13 +42,13 @@ PUT /my_index/_settings
 ```
 {% include copy-curl.html %}
 
-To update the cache size dynamically for the whole cluster, send the following request:
+To update the cache cleanup interval dynamically for the whole cluster, send the following request:
 
 ```json
 PUT /_cluster/settings
 {
   "persistent": {
-    "indices.requests.cache.size": "1%"
+    "indices.cache.cleanup_interval": "1m"
   }
 }
 ```

@@ -15,7 +15,20 @@ To learn more about static and dynamic settings, see [Configuring OpenSearch]({{
 
 ## Cluster-level index settings
 
-OpenSearch supports the following cluster-level index settings. All settings in this list are dynamic:
+There are two types of cluster settings:
+
+- [Static cluster-level index settings](#static-cluster-level-index-settings) are settings that you cannot update while the cluster is up. To update a static setting, you must stop the cluster, update the setting, and then restart the cluster. 
+- [Dynamic cluster-level index settings](#dynamic-cluster-level-index-settings) are settings that you can update at any time.
+
+### Static cluster-level index settings
+
+OpenSearch supports the following static cluster-level index settings:
+
+- `indices.requests.cache.size` (String): The cache size as a percentage of the heap size (for example, to use 1% of the heap, specify `1%`). Default is `1%`. For more information, see [Index request cache]({{site.url}}{{site.baseurl}}/search-plugins/caching/request-cache/).
+
+### Dynamic cluster-level index settings
+
+OpenSearch supports the following dynamic cluster-level index settings:
 
 - `action.auto_create_index` (Boolean): Automatically creates an index if the index doesn't already exist. Also applies any index templates that are configured. Default is `true`. 
 
@@ -36,8 +49,6 @@ OpenSearch supports the following cluster-level index settings. All settings in 
 - `indices.recovery.max_concurrent_remote_store_streams` (Integer): The number of streams to the remote repository that can be opened in parallel when recovering a remote store index. Default is `20`. 
 
 - `indices.replication.max_bytes_per_sec` (String): Limits the total inbound and outbound replication traffic for each node. If a value is not specified in the configured value the `indices.recovery.max_bytes_per_sec` setting is used, which defaults to 40 mb. If you set the replication traffic value to less than or equal to 0 mb, rate limiting is disabled, which causes replication data to be transferred at the highest possible rate.
-
-- `indices.requests.cache.size` (String): The cache size as a percentage of the heap size (for example, to use 1% of the heap, specify `1%`). Default is `1%`. For more information, see [Index request cache]({{site.url}}{{site.baseurl}}/search-plugins/caching/request-cache/).
 
 - `indices.cache.cleanup_interval` (Time unit): Schedules a recurring background task that cleans up expired entries from the cache at the specified interval. Default is `1m` (1 minute). For more information, see [Index request cache]({{site.url}}{{site.baseurl}}/search-plugins/caching/request-cache/).
 
@@ -108,9 +119,6 @@ For `zstd`, `zstd_no_dict`, `qat_lz4`, and `qat_deflate`, you can specify the co
 - `index.codec.compression_level` (Integer): The compression level setting provides a trade-off between compression ratio and speed. A higher compression level results in a higher compression ratio (smaller storage size), but slower compression and decompression speeds lead to higher indexing and search latencies. This setting can only be specified if `index.codec` is set to `zstd` and `zstd_no_dict` in OpenSearch 2.9 and later or `qat_lz4` and `qat_deflate` in OpenSearch 2.14 and later. Valid values are integers in the [1, 6] range. For more information, see [Index codec settings]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/). Optional. Default is 3.
 
 - `index.codec.qatmode` (String): The hardware acceleration mode used for the `qat_lz4` and `qat_deflate` compression codecs. Valid values are `auto` and `hardware`. For more information, see [Index codec settings]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/). Optional. Default is `auto`. 
-
-        
-
 
 - `index.routing_partition_size` (Integer): The number of shards a custom routing value can go to. Routing helps an imbalanced cluster by relocating values to a subset of shards rather than a single shard. To enable routing, set this value to greater than 1 but less than `index.number_of_shards`. Default is 1.
 
