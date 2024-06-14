@@ -130,7 +130,7 @@ GET /my-nlp-index/_search
 {% include copy-curl.html %}
   
 ## P99 latency metrics
-On an OpenSearch cluster set up on 3 m5.4xlarge Amazon Elastic Compute Cloud (Amazon EC2) instances, OpenSearch conducts neural sparse query P99 latency tests on indexes corresponding to more than 10 datasets.
+Using an OpenSearch cluster set up on three m5.4xlarge Amazon Elastic Compute Cloud (Amazon EC2) instances, OpenSearch conducts neural sparse query P99 latency tests on indexes corresponding to more than 10 datasets.
 
 ### Doc-only mode latency metric
 
