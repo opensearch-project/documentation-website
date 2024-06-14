@@ -30,7 +30,7 @@ A detector is an individual anomaly detection task. You can define multiple dete
    - Enter a name and brief description. Make sure the name is unique and descriptive enough to help you to identify the purpose of the detector.
 1. Specify the data source.   
    - For **Data source**, choose the index you want to use as the data source. You can optionally use index patterns to choose multiple indexes.
-   - (Optional) For **Data filter**, filter the index you chose as the data source. From the **Data filter** menu, choose **Add data filter**, and then design your filter query by selecting **Field**, **Operator**, and **Value**, or choose **Use query DSL** and add your own JSON filter query. Only [Boolean query]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/) are supported in the DSL.
+   - (Optional) For **Data filter**, filter the index you chose as the data source. From the **Data filter** menu, choose **Add data filter**, and then design your filter query by selecting **Field**, **Operator**, and **Value**, or choose **Use query DSL** and add your own JSON filter query. Only a [Boolean query]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/) is supported for query domain-specific language (DSL).
 
 #### Example filter using query DSL
    The query is designed to match documents that have specific values in the urlPath.keyword field. Specifically, it will match documents where the urlPath.keyword field is equal to one of the following values:
