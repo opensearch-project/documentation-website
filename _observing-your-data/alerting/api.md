@@ -2205,7 +2205,9 @@ GET _plugins/_alerting/comments/_search
 }
 ```
 
-## Delete comment (experimental)
+## Delete comment
+This is an experimental feature and is not recommended for use in a production environment.   
+{: .warning}
 
 #### Request
 
