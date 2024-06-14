@@ -10,10 +10,10 @@ grand_parent: Search pipelines
 Introduced 2.15
 {: .label .label-purple }
 
-The `neural_sparse_two_phase_processor` search processor is designed to set a speed-up search pipelines for [neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/). It accelerates the neural sparse query by breaking down the original method of scoring all documents with all tokens into two steps: 
+The `neural_sparse_two_phase_processor` search processor is designed to provide faster search pipelines for [neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/). It accelerates the neural sparse query by dividing the original method of scoring all documents with all tokens into two steps: 
 
 1. High-weight tokens score the documents and filter out the top documents.
-2. Low-weight tokens rescore the scores of the top documents.
+2. Low-weight tokens rescore the top documents.
 
 ## Request fields
 
@@ -21,7 +21,7 @@ The following table lists all available request fields.
 
 Field | Data type | Description
 :--- | :--- | :---
-`enabled` | Boolean | Controls whether two-phase is enabled. Default is `true`.
+`enabled` | Boolean | Controls whether the two-phase processor is enabled. Default is `true`.
 `two_phase_parameter` | Object | A map of key-value pairs representing the two-phase parameters and their associated values. You can specify the value of `prune_ratio`, `expansion_rate`, `max_window_size`, or any combination of these three parameters. Optional.
 `two_phase_parameter.prune_ratio` | Float | A ratio that represents how to split the high-weight tokens and low-weight tokens. The threshold is the token's max score * prune_ratio. Valid range is [0,1]. Default is `0.4`
 `two_phase_parameter.expansion_rate` | Float | A rate that specifies how many documents will be fine-tuned during the second phase. The second phase doc number equals query size (default 10) * expansion rate. Valid range is greater than 1.0. Default is `5.0`
@@ -60,7 +60,7 @@ PUT /_search/pipeline/two_phase_search_pipeline
 
 ### Set search pipeline
 
-After the two-phase pipeline is created, set the `index.search.default_pipeline` setting to the pipeline name of the index for which you want to use the pipeline:
+After the two-phase pipeline is created, set the `index.search.default_pipeline` setting to the name of the pipeline for the index on which you want to use the two-phase pipeline:
 
 ```json
 PUT /index-name/_settings 
@@ -72,15 +72,15 @@ PUT /index-name/_settings
 
 ## Limitation
 
-The 'neural_sparse_two_phase_processor' contains the following limitations:
+The `neural_sparse_two_phase_processor` has the following limitations.
 
 ### Version support
 
-`neural_sparse_two_phase_processor` can only be used with OpenSearch 2.15 or greater.
+The `neural_sparse_two_phase_processor` can only be used with OpenSearch 2.15 or later.
 
 ### Compound query support
 
-As of OpenSearch 2.15, only the Boolean [compound query]({{site.url}}{{site.baseurl}}/query-dsl/compound/index/) is supported
+As of OpenSearch 2.15, only the Boolean [compound query]({{site.url}}{{site.baseurl}}/query-dsl/compound/index/) is supported.
 
 Neural sparse queries and Boolean queries with a boost parameter (not boosting queries) are also supported.
 
@@ -105,7 +105,7 @@ GET /my-nlp-index/_search
 ```
 {% include copy-curl.html %}
 
-### Neural sparse query nested in Boolean query
+### Neural sparse query nested in a Boolean query
 
 ```
 GET /my-nlp-index/_search
@@ -129,22 +129,22 @@ GET /my-nlp-index/_search
 ```
 {% include copy-curl.html %}
   
-## P99 Latency Metrics
-On an OpenSearch cluster set up on 3 m5.4xlarge Amazon EC2 instances, OpenSearch conducts neural sparse query's P99 latency tests on indexes corresponding to over ten datasets.
+## P99 latency metrics
+On an OpenSearch cluster set up on 3 m5.4xlarge Amazon Elastic Compute Cloud (Amazon EC2) instances, OpenSearch conducts neural sparse query P99 latency tests on indexes corresponding to more than 10 datasets.
 
 ### Doc-only mode latency metric
 
 In doc-only mode, the two-phase processor can significantly decrease query latency, as shown by the following latency metrics:
 
 - Average latency without 2-phase: 53.56 ms
-- Average latency with 2-phase: 38.61 ms
+- Average latency with the two-phase processor: 38.61 ms
 
-This results in an overall reduction of approximately 27.92% in latency. Most indexes show a significant decrease in latency with the 2-phase processor, with reductions ranging from 5.14% to 84.6. The specific latency optimization values depend on the data distribution within the indexes.
+This results in an overall latency reduction of approximately 27.92%. Most indexes show a significant latency reduction when using the two-phase processor, with reductions ranging from 5.14 to 84.6%. The specific latency optimization values depend on the data distribution within the indexes.
 
 ### Bi-encoder mode latency metric
 
-In bi-encoder mode, the two-phase processor can significantly decrease query latency. Analyzing the data:
-- Average latency without 2-phase: 300.79 ms
-- Average latency with 2-phase: 121.64 ms
+In bi-encoder mode, the two-phase processor can significantly decrease query latency, as shown by the following latency metrics:
+- Average latency without the two-phase processor: 300.79 ms
+- Average latency with the two-phase processor: 121.64 ms
 
-This results in an overall reduction of approximately 59.56% in latency. Most indexes show a significant decrease in latency with the 2-phase processor, with reductions ranging from 1.56% to 82.84%. The specific latency optimization values depend on the data distribution within the indexes.
+This results in an overall latency reduction of approximately 59.56%. Most indexes show a significant latency reduction when using the two-phase processor, with reductions ranging from 1.56 to 82.84%. The specific latency optimization values depend on the data distribution within the indexes.

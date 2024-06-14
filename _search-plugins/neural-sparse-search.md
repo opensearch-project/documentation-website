@@ -267,7 +267,7 @@ GET my-nlp-index/_search
 
 The 'neural_sparse_two_phase_processor' is a new feature which introduced in OpenSearch 2.15. Using the two-phase processor can significantly improve the performance of neural sparse queries.
 
-To quickly launch a search pipeline with neural sparse search, use the following example: 
+To quickly launch a search pipeline with neural sparse search, use the following example pipeline: 
 
 ```json
 PUT /_search/pipeline/two_phase_search_pipeline
@@ -284,7 +284,7 @@ PUT /_search/pipeline/two_phase_search_pipeline
 ```
 {% include copy-curl.html %}
 
-Then choose the index you want to set up with the search pipeline and set the `index.search.default_pipeline` to the pipeline name, as shown in the following example:
+Then choose the index you want to configure with the search pipeline and set the `index.search.default_pipeline` to the pipeline name, as shown in the following example:
 ```json
 PUT /index-name/_settings 
 {
