@@ -25,7 +25,7 @@ Field | Data type | Description
 `two_phase_parameter` | Object | A map of key-value pairs representing the two-phase parameters and their associated values. You can specify the value of `prune_ratio`, `expansion_rate`, `max_window_size`, or any combination of these three parameters. Optional.
 `two_phase_parameter.prune_ratio` | Float | A ratio that represents how to split the high-weight tokens and low-weight tokens. The threshold is the token's maximum score multiplied by its `prune_ratio`. Valid range is [0,1]. Default is `0.4`
 `two_phase_parameter.expansion_rate` | Float | The rate at which documents will be fine-tuned during the second phase. The second-phase document number equals the query size (default is 10) multiplied by its expansion rate. Valid range is greater than 1.0. Default is `5.0`
-`two_phase_parameter.max_window_size` | Int | A limit number of the two-phase fine-tune documents. Valid range is greater than 50. Default is `10000`.
+`two_phase_parameter.max_window_size` | Int | The maximum number of documents that can be processed using the two-phase processor. Valid range is greater than 50. Default is `10000`.
 `tag` | String | The processor's identifier. Optional.
 `description` | String | A description of the processor. Optional.
 
