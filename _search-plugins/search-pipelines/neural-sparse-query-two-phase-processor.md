@@ -136,7 +136,7 @@ On an OpenSearch cluster set up on 3 m5.4xlarge Amazon Elastic Compute Cloud (Am
 
 In doc-only mode, the two-phase processor can significantly decrease query latency, as shown by the following latency metrics:
 
-- Average latency without 2-phase: 53.56 ms
+- Average latency without the two-phase processor: 53.56 ms
 - Average latency with the two-phase processor: 38.61 ms
 
 This results in an overall latency reduction of approximately 27.92%. Most indexes show a significant latency reduction when using the two-phase processor, with reductions ranging from 5.14 to 84.6%. The specific latency optimization values depend on the data distribution within the indexes.
