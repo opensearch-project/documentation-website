@@ -85,7 +85,7 @@ A detector is an individual anomaly detection task. You can define multiple dete
    - If the custom index you specify does not exist, the Anomaly Detection plugin will create it when you create the detector and start your real-time or historical analysis.
    - If the custom index already exists, the plugin will verify that the index mapping matches the required structure for anomaly results. In this case, ensure that the custom index has a valid mapping as defined in the [`anomaly-results.json`](https://github.com/opensearch-project/anomaly-detection/blob/main/src/main/resources/mappings/anomaly-results.json) file.
    - To use the custom result index option, you need the following permissions:
-      - `indices:admin/create` - Required for the Anomaly Detection plugin to create and roll over the custom index.
+      - `indices:admin/create` - The Anomaly Detection plugin requires the ability to create and roll over the custom index.
       - `indices:admin/aliases` - Required for the Anomaly Detection plugin to create and access an alias for the custom index.
       - `indices:data/write/index` - You need the `write` permission for the Anomaly Detection plugin to write results into the custom index for a single-entity detector.
       - `indices:data/read/search` - You need the `search` permission because the Anomaly Detection plugin needs to search custom result indexes to show results on the anomaly detection UI.
