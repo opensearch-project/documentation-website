@@ -83,7 +83,7 @@ A detector is an individual anomaly detection task. You can define multiple dete
 
    - When the Security plugin (fine-grained access control) is enabled, the default result index becomes a system index and is no longer accessible through the standard Index or Search API. To access its content, you must use the anomaly detection RESTful API or the dashboard. As a result, you cannot build customized dashboards using the default result index if the Security plugin is enabled. However, you can create a custom result index to build customized dashboards.
    - If the custom index you specify does not exist, the Anomaly Detection plugin will create it when you create the detector and start your real-time or historical analysis.
-   - If the custom index already exists, the plugin checks if the index mapping of the custom index matches the anomaly result file. You need to make sure the custom index has valid mapping as shown here: [anomaly-results.json](https://github.com/opensearch-project/anomaly-detection/blob/main/src/main/resources/mappings/anomaly-results.json).
+   - If the custom index already exists, the plugin will verify that the index mapping matches the required structure for anomaly results. In this case, ensure that the custom index has a valid mapping as defined in the [`anomaly-results.json`](https://github.com/opensearch-project/anomaly-detection/blob/main/src/main/resources/mappings/anomaly-results.json) file.
    - To use the custom result index option, you need the following permissions:
       - `indices:admin/create` - Required for the Anomaly Detection plugin to create and roll over the custom index.
       - `indices:admin/aliases` - Required for the Anomaly Detection plugin to create and access an alias for the custom index.
