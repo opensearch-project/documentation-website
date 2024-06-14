@@ -10,7 +10,7 @@ parent: Supported field types
 **Introduced 2.14**
 {: .label .label-purple }
 
-Derived fields allow you to create new fields dynamically by executing scripts on existing fields. The existing fields can be either retrieved from the `_source` field, which contains the original document, or from a field's doc values for faster retrieval. Once you define a derived field either in the index mapping or within a search request, you can use this field in a query in the same way you use regular fields.
+Derived fields allow you to create new fields dynamically by executing scripts on existing fields. The existing fields can be either retrieved from the `_source` field, which contains the original document, or from a field's doc values. Once you define a derived field either in an index mapping or within a search request, you can use the field in a query in the same way you would use a regular field.
 
 ## When to use derived fields
 
@@ -28,11 +28,11 @@ Despite the potential performance impact of query-time computations, the flexibi
 
 Currently, derived fields have the following limitations:
 
-- **Aggregation, scoring, and sorting**: Not supported yet.
+- **Aggregation, scoring, and sorting**: Not yet supported.
 - **Dashboard support**: These fields are not displayed in the list of available fields in OpenSearch Dashboards. However, you can still use them for filtering if you know the derived field name.
 - **Chained derived fields**: One derived field cannot be used to define another derived field.
-- **Join field type**: Derived fields are not supported with [join field type]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/join/).
-- **Concurrent segment search**: Derived fields are not supported with [concurrent segment search]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search/).
+- **Join field type**: Derived fields are not supported for the [join field type]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/join/).
+- **Concurrent segment search**: Derived fields are not supported for [concurrent segment search]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search/).
 
 We are planning to address these limitations in future versions.
 
@@ -40,21 +40,21 @@ We are planning to address these limitations in future versions.
 
 Before using a derived field, be sure to satisfy the following prerequisites:
 
-- **Enable `_source` or `doc_values`**: Ensure that either the `_source` field or doc values are enabled for the fields used in your script.
-- **Enable expensive queries**: Ensure [`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/index/#expensive-queries) is set to `true`.
-- **Feature control**: Derived fields are enabled by default. You enable or disable derived fields using the following settings:
+- **Enable `_source` or `doc_values`**: Ensure that either the `_source` field or doc values is enabled for the fields used in your script.
+- **Enable expensive queries**: Ensure that [`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/index/#expensive-queries) is set to `true`.
+- **Feature control**: Derived fields are enabled by default. You can enable or disable derived fields by using the following settings:
     - **Index level**: Update the `index.query.derived_field.enabled` setting.
     - **Cluster level**: Update the `search.derived_field.enabled` setting.
-    Both settings are dynamic, so they can be changed without requiring reindexing or node restarts.
-- **Performance considerations**: Before using derived fields, evaluate the [performance implications](#performance) to ensure derived fields meet your scale requirements.
+    Both settings are dynamic, so they can be changed without reindexing or node restarts.
+- **Performance considerations**: Before using derived fields, evaluate the [performance implications](#performance) to ensure that derived fields meet your scale requirements.
 
 ## Defining derived fields
 
-You can define derived fields [in index mappings](#defining-derived-fields-in-index-mappings) or [directly within the search request](#defining-and-searching-derived-fields-in-a-search-request). 
+You can define derived fields [in index mappings](#defining-derived-fields-in-index-mappings) or [directly within a search request](#defining-and-searching-derived-fields-in-a-search-request). 
 
 ## Example setup
 
-To try out the examples on this page, first create the following `logs` index:
+To try the examples on this page, first create the following `logs` index:
 
 ```json
 PUT logs
@@ -97,7 +97,7 @@ POST _bulk
 
 ## Defining derived fields in index mappings
 
-To derive the `timestamp`, `method`, and `size` fields from the `request` indexed field in the `logs` index, configure the following mappings:
+To derive the `timestamp`, `method`, and `size` fields from the `request` field indexed in the `logs` index, configure the following mappings:
 
 ```json
 PUT /logs/_mapping
@@ -133,7 +133,7 @@ PUT /logs/_mapping
 ```
 {% include copy-curl.html %}
 
-Note that the `timestamp` field has an additional `format` parameter that specifies the format to display `date` fields. If you don't include a `format` parameter, the format defaults to `strict_date_time_no_millis`. For more information about supported date formats, see [Parameters](#parameters).
+Note that the `timestamp` field has an additional `format` parameter that specifies the format in which to display `date` fields. If you don't include a `format` parameter, then the format defaults to `strict_date_time_no_millis`. For more information about supported date formats, see [Parameters](#parameters).
 
 ## Parameters
 
@@ -142,14 +142,14 @@ The following table lists the parameters accepted by `derived` field types. All 
 | Parameter | Required/Optional | Description | 
 | :--- | :--- | :--- |
 | `type` | Required | The type of the derived field. Supported types are `boolean`, `date`, `geo_point`, `ip`, `keyword`, `text`, `long`, `double`, `float`, and `object`. |
-| `script` | Required | The script associated with derived fields. Any value emitted from the script needs to be emitted using `emit()`. The type of the emitted value must match the `type` of the derived field. Scripts have access to both `doc_values` and `_source` fields if those are enabled. The doc value of a field can be accessed using `doc['field_name'].value`, and the source can be accessed using `params._source["field_name"]`. |
-| `format` | Optional | The format for parsing dates. Only applicable for the fields whose type is `date`. Valid values are `strict_date_time_no_millis`, `strict_date_optional_time`, or `epoch_millis`. For more information, see [Formats]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/#formats).|
-| `ignore_malformed`| Optional | A Boolean value that specifies whether to ignore malformed values when running a query on derived fields. Default value is `false` (throw an exception when encountering malformed values). |
+| `script` | Required | The script associated with the derived field. Any value emitted from the script must be emitted using `emit()`. The type of the emitted value must match the `type` of the derived field. Scripts have access to both the `doc_values` and `_source` fields if those are enabled. The doc value of a field can be accessed using `doc['field_name'].value`, and the source can be accessed using `params._source["field_name"]`. |
+| `format` | Optional | The format used for parsing dates. Only applicable to `date` fields. Valid values are `strict_date_time_no_millis`, `strict_date_optional_time`, and `epoch_millis`. For more information, see [Formats]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/#formats).|
+| `ignore_malformed`| Optional | A Boolean value that specifies whether to ignore malformed values when running a query on a derived field. Default value is `false` (throw an exception when encountering malformed values). |
 | `prefilter_field` | Optional | An indexed text field provided to boost the performance of derived fields. It adds the same query as a filter on this indexed field first and uses only matching documents on derived fields. For more information, see [Prefilter field](#prefilter-field). |
 
 ## Emitting values in scripts
 
-The `emit()` function is available only within the derived field script context. It is used to emit one value or multiple values (for a multi-valued field) from the script for a document on which the script runs.
+The `emit()` function is available only within the derived field script context. It is used to emit one or multiple (for a multi-valued field) script values for a document on which the script runs.
 
 The following table lists the emit formats.
 
@@ -166,7 +166,7 @@ The following table lists the emit formats.
 | `boolean` | `emit(boolean)`                  | No           |
 | `object`  | `emit(String json)` (valid JSON) | Yes          |
 
-By default, a type mismatch between the derived field and its emitted value will result in the search request failing with an error. If `ignore_malformed` is set to `true`, the failing document is skipped and the search request succeeds.
+By default, a type mismatch between a derived field and its emitted value will result in the search request failing with an error. If `ignore_malformed` is set to `true`, then the failing document is skipped and the search request succeeds.
 {: .note}
 
 The size limit of the emitted values is 1 MB per document.
@@ -407,7 +407,7 @@ The response contains the matching documents:
 ```
 </details>
 
-Derived fields use the default analyzer set in the index analysis settings during search. You can override the default analyzer or specify a search analyzer within a search request in the same way as you do for regular fields. For more information, see [Analyzers]({{site.url}}{{site.baseurl}}/analyzers/).
+Derived fields use the default analyzer specified in the index analysis settings during search. You can override the default analyzer or specify a search analyzer within a search request in the same way as with regular fields. For more information, see [Analyzers]({{site.url}}{{site.baseurl}}/analyzers/).
 {: .note}
 
 When both an index mapping and a search definition are present for a field, the search definition takes precedence.
@@ -415,7 +415,7 @@ When both an index mapping and a search definition are present for a field, the 
 
 ### Retrieving fields
 
-You can retrieve derived fields using the `fields` parameter in the search request in the same way as regular fields, as shown in the preceding examples. You can also use wildcards to retrieve all derived fields that match a given pattern.
+You can retrieve derived fields using the `fields` parameter in the search request in the same way as with regular fields, as shown in the preceding examples. You can also use wildcards to retrieve all derived fields that match a given pattern.
 
 ### Highlighting
 
@@ -546,12 +546,12 @@ The response contains highlighting in the `url` field:
 Derived fields are not indexed but are computed dynamically by retrieving values from the `_source` field or doc values. Thus, they can be slow to execute. To improve performance, try the following:
 
 - Prune the search space by adding query filters on indexed fields together with derived fields.
-- Prefer using doc values over `_source` in the script for faster access, whenever applicable.
+- Use doc values instead of `_source` in the script for faster access, whenever applicable.
 - Consider using a [`prefilter_field`](#prefilter-field) to automatically prune the search space without explicit filters in the search request.
 
 ### Prefilter field
 
-Specifying a prefilter field helps prune the search space automatically without adding explicit filters in the search request. The prefilter field specifies an existing indexed field (`prefilter_field`) on which to filter implicitly when constructing the query. The `prefilter_field` must be a text field (either [`text`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) or [`match_only_text`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/match-only-text/)).
+Specifying a prefilter field helps to prune the search space automatically without adding explicit filters in the search request. The prefilter field specifies an existing indexed field (`prefilter_field`) on which to filter implicitly when constructing the query. The `prefilter_field` must be a text field (either [`text`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) or [`match_only_text`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/match-only-text/)).
 
 For example, first update the mapping for the `method` derived field by specifying to prefilter on the `request` field: 
 
@@ -597,12 +597,12 @@ OpenSearch implicitly adds a filter on the `request` field to your query:
 "#request:GET #DerivedFieldQuery (Query: [ method:GET])"
 ```
 
-You can use the `profile` option can to analyze the derived field performance, as shown in the preceding example.
+You can use the `profile` option to analyze derived field performance, as shown in the preceding example.
 {: .tip} 
 
-## Dervied object fields
+## Derived object fields
 
-A script can emit a valid JSON object so you can query subfields without indexing them, in the same way as regular fields. This is useful for large JSON objects where occasional searches on some subfields are required. In this case, indexing the subfields is expensive while defining derived fields for each subfield also adds a lot of resource overhead. If you don't [explicitly provide the subfield type](#explicit-subfield-type), the subfield type is [inferred](#inferred-subfield-type).
+A script can emit a valid JSON object so that you can query subfields without indexing them, in the same way as with regular fields. This is useful for large JSON objects that require occasional searches on some subfields. In this case, indexing the subfields is expensive, while defining derived fields for each subfield also adds a lot of resource overhead. If you don't [explicitly provide the subfield type](#explicit-subfield-type), then the subfield type is [inferred](#inferred-subfield-type).
 
 For example, the following request defines a `derived_request_object` derived field as an `object` type:
 
