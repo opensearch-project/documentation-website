@@ -26,7 +26,7 @@ It is a causal system, linking a user's query to all subsequent user interaction
 
 | Explanation & Reference | Description
 | :--------- | :------- |
-| [UBI Request/Response Specification](https://github.com/o19s/ubi/) <br/> **References UBI Draft Specification X.Y.Z**  | Industry standard schema for making UBI requests and responses  |
+| [UBI Request/Response Specification](https://github.com/o19s/ubi/) <br/> **References UBI Specification 1.0.0**  | Industry standard schema for making UBI requests and responses  |
 | [UBI OpenSearch Schema Documentation]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/) | Documentation on the individual Query and Event stores for OpenSearch |
 
 
