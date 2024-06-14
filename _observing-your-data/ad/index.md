@@ -95,7 +95,7 @@ The query is designed to retrieve documents where the `urlPath.keyword` field ma
    - Managing the custom result index:
       - The anomaly detection dashboard queries all detectors’ results from all custom result indexes. Having too many custom result indexes might impact the performance of the Anomaly Detection plugin.
       - You can use [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/) to rollover old result indexes. You can also manually delete or archive any old result indexes. We recommend reusing a custom result index for multiple detectors.
-      - The Anomaly Detection plugin can also be used to manage the lifecycle of custom indexes. It rolls an alias over to a new index when the custom result index meets any of the following conditions:
+      - The Anomaly Detection plugin also provides lifecycle management for custom indexes. It rolls an alias over to a new index when the custom result index meets any of the following conditions:
 
 
       Parameter | Description | Type | Unit | Example | Required
