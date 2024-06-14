@@ -545,7 +545,7 @@ The response specifies highlighting in the `url` field:
 
 Derived fields are not indexed but are computed dynamically by retrieving values from the `_source` field or doc values. Thus, they run more slowly. To improve performance, try the following:
 
-- Prune the search space by adding query filters on indexed fields together with derived fields.
+- Prune the search space by adding query filters on indexed fields in conjunction with derived fields.
 - Use doc values instead of `_source` in the script for faster access, whenever applicable.
 - Consider using a [`prefilter_field`](#prefilter-field) to automatically prune the search space without explicit filters in the search request.
 
