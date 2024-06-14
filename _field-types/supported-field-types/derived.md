@@ -460,7 +460,7 @@ POST /logs/_search
 ```
 {% include copy-curl.html %}
 
-The response contains highlighting in the `url` field:
+The response specifies highlighting in the `url` field:
 
 <details markdown="block">
   <summary>
