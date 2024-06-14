@@ -18,11 +18,11 @@ This topic also provides recommendations for comparing approximate k-NN to exact
 
 ## Indexing performance tuning
 
-Take any of the following steps to improve indexing performance, especially when you plan to index a large number of vectors at once:
+Take any of the following steps to improve indexing performance, especially when you plan to index a large number of vectors at once.
 
 ### Disable the refresh interval
 
-Either disable the refresh interval (default = 1 sec), or set a long duration for the refresh interval to avoid creating multiple small segments:
+Either disable the refresh interval (default = 1 sec) or set a long duration for the refresh interval to avoid creating multiple small segments:
 
    ```json
    PUT /<index_name>/_settings
@@ -33,22 +33,22 @@ Either disable the refresh interval (default = 1 sec), or set a long duration fo
    }
    ```
 
-Make sure to reenable `refresh_interval` after indexing finishes.
+Make sure to reenable `refresh_interval` after indexing is complete.
 
 ### Disable replicas (no OpenSearch replica shard)
 
-   Set replicas to `0` to prevent duplicate construction of native library indexes in both primary and replica shards. When you enable replicas after indexing finishes, the serialized native library indexes are directly copied. If you have no replicas, losing nodes might cause data loss, so it's important that the data lives elsewhere so this initial load can be retried in case of an issue.
+   Set replicas to `0` to prevent duplicate construction of native library indexes in both primary and replica shards. When you enable replicas after indexing completes, the serialized native library indexes are copied directly. If you have no replicas, losing nodes might cause data loss, so it's important that the data be stored elsewhere so that this initial load can be retried in the event of an issue.
 
 ### Increase the number of indexing threads
 
-If the hardware you choose has multiple cores, you can allow multiple threads in native library index construction by speeding up the indexing process. Determine the number of threads to allot with the [knn.algo_param.index_thread_qty]({{site.url}}{{site.baseurl}}/search-plugins/knn/settings#cluster-settings) setting.
+If your hardware has multiple cores, you can allow multiple threads in native library index construction by speeding up the indexing process. Determine the number of threads to allot with the [knn.algo_param.index_thread_qty]({{site.url}}{{site.baseurl}}/search-plugins/knn/settings#cluster-settings) setting.
 
-Keep an eye on CPU utilization and choose the correct number of threads. Because native library index construction is costly, having multiple threads can cause additional CPU load.
+Monitor CPU utilization and choose the correct number of threads. Because native library index construction is costly, choosing more threads then you need can cause additional CPU load.
 
 
-### (Expert-level) Disable storing of vector fields in source
+### (Expert-level) Disable vector field storage in the source field
 
-The `_source` field contains the original JSON document body that was passed at index time. This field is not indexed and is not searchable but is stored so that it can be returned when executing fethc requests such as `get` and `search`. When using vector fields within the source, you can remove the vector field to save up disk space, as shown in the following example where the `location` vector is excluded:
+The `_source` field contains the original JSON document body that was passed at index time. This field is not indexed and is not searchable but is stored so that it can be returned when executing fetch requests such as `get` and `search`. When using vector fields within the source, you can remove the vector field to save disk space, as shown in the following example where the `location` vector is excluded:
 
   ```json
   PUT /<index_name>/_mappings
@@ -71,9 +71,9 @@ The `_source` field contains the original JSON document body that was passed at 
   ```
 
 
-Disabling the `_source` field can cause certain featues to become not supported, such as `update`, `update_by_query`, and `reindex` APIs and the ability to debug queries or aggregations by using the original document at index time.
+Disabling the `_source` field can cause certain features to become unavailable, such as the `update`, `update_by_query`, and `reindex` APIs and the ability to debug queries or aggregations by using the original document at index time.
 
-In OpenSearch 2.15 or great, you can further improve the indexing speed and reduce disk space, by removing remove vector field from `_recovery_source`, as shown in the following example:
+In OpenSearch 2.15 or later, you can further improve indexing speed and reduce disk space by removing the vector field from the `_recovery_source`, as shown in the following example:
 
   ```json
   PUT /<index_name>/_mappings
@@ -96,7 +96,7 @@ In OpenSearch 2.15 or great, you can further improve the indexing speed and redu
   }
   ```
 
-This is an expert-level setting. Disabling the `_recovery_source` may lead to failures during peer to peer recovery. Before disabling the `_recovery_source`, check with your OpenSearch cluster admin to know see if your cluster performs regular flushes before starting the peer to peer recovery of shards before disabling the `_recovery_source`.  
+This is an expert-level setting. Disabling the `_recovery_source` may lead to failures during peer-to-peer recovery. Before disabling the `_recovery_source`, check with your OpenSearch cluster admin to determine whether your cluster performs regular flushes before starting the peer-to-peer recovery of shards before disabling the `_recovery_source`.  
 {: .warning}
 
 ## Search performance tuning
@@ -132,7 +132,7 @@ Take the following steps to improve search performance:
 
    The warmup API operation loads all native library indexes for all shards (primary and replica) for the specified indexes into the cache, so there's no penalty to load native library indexes during initial searches.
 
-This API operation only loads the segments of the indexes it ***sees*** into the cache. If a merge or refresh operation finishes after the API runs, or if you add new documents, you need to rerun the API to load those native library indexes into memory.
+This API operation only loads the segments of active indexes into the cache. If a merge or refresh operation finishes after the API runs, or if you add new documents, you need to rerun the API to load those native library indexes into memory.
 {: .warning}
 
 
