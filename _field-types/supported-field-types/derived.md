@@ -543,7 +543,7 @@ The response specifies highlighting in the `url` field:
 
 ## Performance
 
-Derived fields are not indexed but are computed dynamically by retrieving values from the `_source` field or doc values. Thus, they can be slow to execute. To improve performance, try the following:
+Derived fields are not indexed but are computed dynamically by retrieving values from the `_source` field or doc values. Thus, they run more slowly. To improve performance, try the following:
 
 - Prune the search space by adding query filters on indexed fields together with derived fields.
 - Use doc values instead of `_source` in the script for faster access, whenever applicable.
