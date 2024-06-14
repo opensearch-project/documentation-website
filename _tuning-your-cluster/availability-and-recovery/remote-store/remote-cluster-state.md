@@ -68,7 +68,7 @@ The remote cluster state functionality has the following limitations:
 ## Remote cluster state publication
 
 
-The cluster manager node processes updates to the cluster state. It then publishes the updated cluster state through the local transport layer to all of the follower nodes. With the `remote_store.publication` feature enabled, the cluster state is backed up to the remote store with every state update. The follower nodes can then fetch the state from the remote store directly, which reduces the overhead on the cluster manager node for publication. 
+The cluster manager node processes updates to the cluster state. It then publishes the updated cluster state through the local transport layer to all of the follower nodes. With the `remote_store.publication` feature enabled, the cluster state is backed up to the remote store during every state update. The follower nodes can then fetch the state from the remote store directly, which reduces the overhead on the cluster manager node for publication. 
 
 To enable the feature flag for the `remote_store.publication` feature, follow the steps in the [experimental feature flag documentation]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
 
