@@ -10,7 +10,7 @@ grand_parent: Search pipelines
 Introduced 2.15
 {: .label .label-purple }
 
-The `neural_sparse_two_phase_processor` search processer is designed to set a speed-up search pipelines for [neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/). It accelerates the neural sparse query by breaking down the original method of scoring all documents with all tokens into two steps: 
+The `neural_sparse_two_phase_processor` search processor is designed to set a speed-up search pipelines for [neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/). It accelerates the neural sparse query by breaking down the original method of scoring all documents with all tokens into two steps: 
 
 1. High-weight tokens score the documents and filter out the top documents.
 2. Low-weight tokens rescore the scores of the top documents.
@@ -82,13 +82,13 @@ The 'neural_sparse_two_phase_processor' contains the following limitations:
 
 As of OpenSearch 2.15, only the Boolean [compound query]({{site.url}}{{site.baseurl}}/query-dsl/compound/index/) is supported
 
-Neural sparse queries and boolean queries with a boost parameter (not a boosting query) are also supported.
+Neural sparse queries and Boolean queries with a boost parameter (not boosting queries) are also supported.
 
-#### Supported example
+## Examples
 
 The following examples show neural sparse queries with the supported query types.
 
-##### Single neural sparse query
+### Single neural sparse query
 
 ```
 GET /my-nlp-index/_search
@@ -105,7 +105,7 @@ GET /my-nlp-index/_search
 ```
 {% include copy-curl.html %}
 
-##### Neural sparse query nested in boolean query
+### Neural sparse query nested in Boolean query
 
 ```
 GET /my-nlp-index/_search
