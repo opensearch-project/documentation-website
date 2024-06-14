@@ -25,12 +25,11 @@ The following table lists the index request cache settings. For more information
 
 Setting | Data type  | Default | Level | Static/Dynamic | Description
 :--- |:-----------|:--------| :--- | :--- | :---
-`indices.cache.cleanup_interval` | Time unit  | `1m` (1 minute)  | Cluster | Dynamic | Schedules a recurring background task that cleans up expired entries from the cache at the specified interval. 
+`indices.cache.cleanup_interval` | Time unit  | `1m` (1 minute)  | Cluster | Static | Schedules a recurring background task that cleans up expired entries from the cache at the specified interval. 
 `indices.requests.cache.size` | Percentage | `1%`      | Cluster | Static | The cache size as a percentage of the heap size (for example, to use 1% of the heap, specify `1%`). 
 `index.requests.cache.enable` | Boolean    | `true`    | Index | Dynamic | Enables or disables the request cache. 
 
-
-### REST API examples
+### Example
 
 To disable the request cache for an index, send the following request:
 
@@ -38,18 +37,6 @@ To disable the request cache for an index, send the following request:
 PUT /my_index/_settings
 {
   "index.requests.cache.enable": false
-}
-```
-{% include copy-curl.html %}
-
-To update the cache cleanup interval dynamically for the whole cluster, send the following request:
-
-```json
-PUT /_cluster/settings
-{
-  "persistent": {
-    "indices.cache.cleanup_interval": "1m"
-  }
 }
 ```
 {% include copy-curl.html %}
