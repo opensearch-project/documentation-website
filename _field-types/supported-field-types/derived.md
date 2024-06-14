@@ -6,7 +6,7 @@ has_children: false
 parent: Supported field types
 ---
 
-## Derived field type
+# Derived field type
 **Introduced 2.14**
 {: .label .label-purple }
 
