@@ -265,7 +265,7 @@ GET my-nlp-index/_search
 ## Step 5: Create and enable the two-phase processor (Optional)
 
 
-The 'neural_sparse_two_phase_processor' is a new feature which introduced in OpenSearch 2.15. Using the two-phase processor can significantly improve the performance of neural sparse queries.
+The `neural_sparse_two_phase_processor` is a new feature introduced in OpenSearch 2.15. Using the two-phase processor can significantly improve the performance of neural sparse queries.
 
 To quickly launch a search pipeline with neural sparse search, use the following example pipeline: 
 
