@@ -31,6 +31,7 @@ To use neural sparse search, follow these steps:
 1. [Create an index for ingestion](#step-2-create-an-index-for-ingestion).
 1. [Ingest documents into the index](#step-3-ingest-documents-into-the-index).
 1. [Search the index using neural search](#step-4-search-the-index-using-neural-sparse-search).
+1. _Optional_ [Create and enable the two-phase processor](#step-5-create-and-enable-the-two-phase-processor-optional).
 
 ## Step 1: Create an ingest pipeline
 
@@ -262,6 +263,38 @@ GET my-nlp-index/_search
   }
 }
 ```
+## Step 5: Create and enable the two-phase processor (Optional)
+
+
+The `neural_sparse_two_phase_processor` is a new feature introduced in OpenSearch 2.15. Using the two-phase processor can significantly improve the performance of neural sparse queries.
+
+To quickly launch a search pipeline with neural sparse search, use the following example pipeline: 
+
+```json
+PUT /_search/pipeline/two_phase_search_pipeline
+{
+  "request_processors": [
+    {
+      "neural_sparse_two_phase_processor": {
+        "tag": "neural-sparse",
+        "description": "This processor is making two-phase processor."
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+Then choose the index you want to configure with the search pipeline and set the `index.search.default_pipeline` to the pipeline name, as shown in the following example:
+```json
+PUT /index-name/_settings 
+{
+  "index.search.default_pipeline" : "two_phase_search_pipeline"
+}
+```
+{% include copy-curl.html %}
+
+
 
 ## Setting a default model on an index or field
 
