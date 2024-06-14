@@ -33,7 +33,8 @@ A detector is an individual anomaly detection task. You can define multiple dete
    - (Optional) For **Data filter**, filter the index you chose as the data source. From the **Data filter** menu, choose **Add data filter**, and then design your filter query by selecting **Field**, **Operator**, and **Value**, or choose **Use query DSL** and add your own JSON filter query. Only a [Boolean query]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/) is supported for query domain-specific language (DSL).
 
 #### Example filter using query DSL
-   The query is designed to match documents that have specific values in the urlPath.keyword field. Specifically, it will match documents where the urlPath.keyword field is equal to one of the following values:
+The query is designed to retrieve documents where the `urlPath.keyword` field matches one of the following specified values:
+   
    - /domain/{id}/short
    - /sub_dir/{id}/short
    - /abcd/123/{id}/xyz
