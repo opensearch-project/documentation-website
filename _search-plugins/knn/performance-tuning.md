@@ -18,11 +18,11 @@ This topic also provides recommendations for comparing approximate k-NN to exact
 
 ## Indexing performance tuning
 
-Take the following steps to improve indexing performance, especially when you plan to index a large number of vectors at once:
+Take any of the following steps to improve indexing performance, especially when you plan to index a large number of vectors at once:
 
-* **Disable the refresh interval**
+### Disable the refresh interval
 
-   Either disable the refresh interval (default = 1 sec), or set a long duration for the refresh interval to avoid creating multiple small segments:
+Either disable the refresh interval (default = 1 sec), or set a long duration for the refresh interval to avoid creating multiple small segments:
 
    ```json
    PUT /<index_name>/_settings
@@ -32,21 +32,24 @@ Take the following steps to improve indexing performance, especially when you pl
        }
    }
    ```
-   **Note**: Make sure to reenable `refresh_interval` after indexing finishes.
 
-* **Disable replicas (no OpenSearch replica shard)**
+Make sure to reenable `refresh_interval` after indexing finishes.
+
+### Disable replicas (no OpenSearch replica shard)
 
    Set replicas to `0` to prevent duplicate construction of native library indexes in both primary and replica shards. When you enable replicas after indexing finishes, the serialized native library indexes are directly copied. If you have no replicas, losing nodes might cause data loss, so it's important that the data lives elsewhere so this initial load can be retried in case of an issue.
 
-* **Increase the number of indexing threads**
+### Increase the number of indexing threads
 
-   If the hardware you choose has multiple cores, you can allow multiple threads in native library index construction by speeding up the indexing process. Determine the number of threads to allot with the [knn.algo_param.index_thread_qty]({{site.url}}{{site.baseurl}}/search-plugins/knn/settings#cluster-settings) setting.
+If the hardware you choose has multiple cores, you can allow multiple threads in native library index construction by speeding up the indexing process. Determine the number of threads to allot with the [knn.algo_param.index_thread_qty]({{site.url}}{{site.baseurl}}/search-plugins/knn/settings#cluster-settings) setting.
 
-  Keep an eye on CPU utilization and choose the correct number of threads. Because native library index construction is costly, having multiple threads can cause additional CPU load.
+Keep an eye on CPU utilization and choose the correct number of threads. Because native library index construction is costly, having multiple threads can cause additional CPU load.
 
 
-* **(Expert Level) Disable storing of vector fields in source**
-  In OpenSearch, the JSON document body which is passed during indexing stored in `_source` field during indexing. The field is not indexed(aka not searchable), but returned in response in `_source` key. You can remove the vector field from this `_source` to save up the disk space.
+### (Expert-level) Disable storing of vector fields in source
+
+The `_source` field contains the original JSON document body that was passed at index time. This field is not indexed and is not searchable but is stored so that it can be returned when executing fethc requests such as `get` and `search`. When using vector fields within the source, you can remove the vector field to save up disk space, as shown in the following example where the `location` vector is excluded:
+
   ```json
   PUT /<index_name>/_mappings
   {
@@ -66,11 +69,12 @@ Take the following steps to improve indexing performance, especially when you pl
       }
   }
   ```
-  The above setting will ensure that vector field `location` is not getting added in source.
-  {: .note}
-  After disabling the `_source` for the vector field API like update, update_by_query, reindex will not work as expected because OpenSearch has no way to know what was the vector.
-  {: .note}
-* To further improve the indexing speed and reduce disk space, you can remove vector field from `_recovery_source` starting from OpenSearch version 2.15.  
+
+
+Disabling the `_source` field can cause certain featues to become not supported, such as `update`, `update_by_query`, and `reindex` APIs and the ability to debug queries or aggregations by using the original document at index time.
+
+In OpenSearch 2.15 or great, you can further improve the indexing speed and reduce disk space, by removing remove vector field from `_recovery_source`, as shown in the following example:
+
   ```json
   PUT /<index_name>/_mappings
   {
@@ -91,15 +95,15 @@ Take the following steps to improve indexing performance, especially when you pl
       }
   }
   ```
-  {: .note}
-  This is an expert setting, where disabling the `_recovery_source` may lead to failures during peer to peer recovery. Check with your OpenSearch cluster admin/provider to know if they are doing OpenSearch flush before starting Peer to Peer recovery of shards, before disabling the `_recovery_source`.  
-  {: .note}
+
+This is an expert-level setting. Disabling the `_recovery_source` may lead to failures during peer to peer recovery. Before disabling the `_recovery_source`, check with your OpenSearch cluster admin to know see if your cluster performs regular flushes before starting the peer to peer recovery of shards before disabling the `_recovery_source`.  
+{: .warning}
 
 ## Search performance tuning
 
 Take the following steps to improve search performance:
 
-* **Reduce segment count**
+### Reduce segment count
 
    To improve search performance, you must keep the number of segments under control. Lucene's IndexSearcher searches over all of the segments in a shard to find the 'size' best results.
 
@@ -107,7 +111,7 @@ Take the following steps to improve search performance:
 
    You can control the number of segments by choosing a larger refresh interval, or during indexing by asking OpenSearch to slow down segment creation by disabling the refresh interval.
 
-* **Warm up the index**
+### Warm up the index
 
    Native library indexes are constructed during indexing, but they're loaded into memory during the first search. In Lucene, each segment is searched sequentially (so, for k-NN, each segment returns up to k nearest neighbors of the query point), and the top 'size' number of results based on the score are returned from all the results returned by segments at a shard level (higher score = better result).
 
@@ -128,13 +132,15 @@ Take the following steps to improve search performance:
 
    The warmup API operation loads all native library indexes for all shards (primary and replica) for the specified indexes into the cache, so there's no penalty to load native library indexes during initial searches.
 
-   **Note**: This API operation only loads the segments of the indexes it ***sees*** into the cache. If a merge or refresh operation finishes after the API runs, or if you add new documents, you need to rerun the API to load those native library indexes into memory.
+This API operation only loads the segments of the indexes it ***sees*** into the cache. If a merge or refresh operation finishes after the API runs, or if you add new documents, you need to rerun the API to load those native library indexes into memory.
+{: .warning}
 
-* **Avoid reading stored fields**
+
+### Avoid reading stored fields
 
    If your use case is simply to read the IDs and scores of the nearest neighbors, you can disable reading stored fields, which saves time retrieving the vectors from stored fields.
 
-* **Use `mmap` file I/O**
+### Use `mmap` file I/O
 
    For the Lucene-based approximate k-NN search, there is no dedicated cache layer that speeds up read/write operations. Instead, the plugin relies on the existing caching mechanism in OpenSearch core. In versions 2.4 and earlier of the Lucene-based approximate k-NN search, read/write operations were based on Java NIO by default, which can be slow, depending on the Lucene version and number of segments per shard. Starting with version 2.5, k-NN enables [`mmap`](https://en.wikipedia.org/wiki/Mmap) file I/O by default when the store type is `hybridfs` (the default store type in OpenSearch). This leads to fast file I/O operations and improves the overall performance of both data ingestion and search. The two file extensions specific to vector values that use `mmap` are `.vec` and `.vem`. For more information about these file extensions, see [the Lucene documentation](https://lucene.apache.org/core/9_0_0/core/org/apache/lucene/codecs/lucene90/Lucene90HnswVectorsFormat.html).
 
