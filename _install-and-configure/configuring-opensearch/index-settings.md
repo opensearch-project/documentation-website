@@ -17,7 +17,7 @@ To learn more about static and dynamic settings, see [Configuring OpenSearch]({{
 
 There are two types of cluster settings:
 
-- [Static cluster-level index settings](#static-cluster-level-index-settings) are settings that you cannot update while the cluster is up. To update a static setting, you must stop the cluster, update the setting, and then restart the cluster. 
+- [Static cluster-level index settings](#static-cluster-level-index-settings) are settings that you cannot update while the cluster is running. To update a static setting, you must stop the cluster, update the setting, and then restart the cluster. 
 - [Dynamic cluster-level index settings](#dynamic-cluster-level-index-settings) are settings that you can update at any time.
 
 ### Static cluster-level index settings

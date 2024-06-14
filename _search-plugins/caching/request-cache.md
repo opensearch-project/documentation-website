@@ -8,7 +8,7 @@ nav_order: 5
 
 # Index request cache
 
-The index request cache in OpenSearch is a specialized caching mechanism designed to enhance search performance by storing the results of frequently executed search queries at the shard level. This reduces the load on the cluster and improves response times for repeated searches. This cache is enabled by default and is particularly useful for read-heavy workloads where certain queries are executed frequently.
+The OpenSearch index request cache is a specialized caching mechanism designed to enhance search performance by storing the results of frequently executed search queries at the shard level. This reduces cluster load and improves response times for repeated searches. This cache is enabled by default and is particularly useful for read-heavy workloads where certain queries are executed frequently.
 
 The cache is automatically invalidated at the configured refresh interval. The invalidation includes document updates (including document deletions) and changes to index settings. This ensures that stale results are never returned from the cache. When the cache size exceeds its configured limit, the least recently used entries are evicted to make room for new entries.
 
@@ -17,7 +17,7 @@ Search requests with `size=0` are cached in the request cache by default. Search
 
 ## Configuring request caching
 
-You can configure index request cache by setting the parameters in the `opensearch.yml` configuration file or using the REST API. For more information, see [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/).
+You can configure the index request cache by setting the parameters in the `opensearch.yml` configuration file or using the REST API. For more information, see [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/).
 
 ### Settings
 
@@ -43,7 +43,7 @@ PUT /my_index/_settings
 
 ## Caching specific requests
 
-In addition to providing index-level or cluster-level settings for request cache, you can also cache specific search requests selectively by setting the `request_cache` query parameter to `true`:
+In addition to providing index-level or cluster-level settings for the request cache, you can also cache specific search requests selectively by setting the `request_cache` query parameter to `true`:
 
 ```json
 GET /students/_search?request_cache=true
@@ -59,11 +59,11 @@ GET /students/_search?request_cache=true
 
 ## Monitoring the request cache
 
-Monitoring cache usage and performance is crucial for maintaining an efficient caching strategy. OpenSearch provides several APIs to help monitor the cache.
+Monitoring cache usage and performance is crucial to maintaining an efficient caching strategy. OpenSearch provides several APIs to help monitor the cache.
 
 ### Retrieving cache statistics for all nodes
 
-The [Nodes Stats API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/) returns cache statistics for all nodes in the cluster:
+The [Nodes Stats API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/) returns cache statistics for all nodes in a cluster:
 
 ```json
 GET /_nodes/stats/indices/request_cache
@@ -151,8 +151,8 @@ The response contains the request cache statistics:
 
 ## Best practices
 
-When using index request cache, consider the following best practices:
+When using the index request cache, consider the following best practices:
 
 - **Appropriate cache size**: Configure the cache size based on your query patterns. A larger cache can store more results but may consume significant resources.
-- **Query optimization**: Ensure that frequently executed queries are optimized so they can benefit from caching.
+- **Query optimization**: Ensure that frequently executed queries are optimized so that they can benefit from caching.
 - **Monitoring**: Regularly monitor cache hit and cache miss rates to understand cache efficiency and make necessary adjustments.
