@@ -72,7 +72,7 @@ The cluster manager node processes updates to the cluster state. It then publish
 
 To enable the feature flag for the `remote_store.publication` feature, follow the steps in the [experimental feature flag documentation]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
 
-Enabling the setting does not change the publication flow, and follower nodes will not send acknowledgements back to the cluster manager node.
+Enabling the setting does not change the publication flow, and follower nodes will not send acknowledgements back to the cluster manager node
 until they download the updated cluster state from the remote store.
 
 You must enable the remote cluster state feature in order for remote publication to work. To modify the remote publication behavior, the following routing table repository settings can be used, which contain the shard allocation details for each index in the remote cluster state:
