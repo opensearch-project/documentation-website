@@ -145,26 +145,26 @@ The following table lists the parameters accepted by `derived` field types. All 
 | `script` | Required | The script associated with the derived field. Any value emitted from the script must be emitted using `emit()`. The type of the emitted value must match the `type` of the derived field. Scripts have access to both the `doc_values` and `_source` fields if those are enabled. The doc value of a field can be accessed using `doc['field_name'].value`, and the source can be accessed using `params._source["field_name"]`. |
 | `format` | Optional | The format used for parsing dates. Only applicable to `date` fields. Valid values are `strict_date_time_no_millis`, `strict_date_optional_time`, and `epoch_millis`. For more information, see [Formats]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/#formats).|
 | `ignore_malformed`| Optional | A Boolean value that specifies whether to ignore malformed values when running a query on a derived field. Default value is `false` (throw an exception when encountering malformed values). |
-| `prefilter_field` | Optional | An indexed text field provided to boost the performance of derived fields. It adds the same query as a filter on this indexed field first and uses only matching documents on derived fields. For more information, see [Prefilter field](#prefilter-field). |
+| `prefilter_field` | Optional | An indexed text field provided to boost the performance of derived fields. Specifies an existing indexed field on which to filter prior to filtering on the derived field. For more information, see [Prefilter field](#prefilter-field). |
 
 ## Emitting values in scripts
 
 The `emit()` function is available only within the derived field script context. It is used to emit one or multiple (for a multi-valued field) script values for a document on which the script runs.
 
-The following table lists the emit formats.
+The following table lists the `emit()` function formats for the supported field types.
 
 | Type      | Emit format                      | Multi-valued fields supported|
 |-----------|----------------------------------|--------------|
+| `boolean` | `emit(boolean)`                  | No           |
+| `double`  | `emit(double)`                   | Yes          |
 | `date`    | `emit(long timeInMilis)`         | Yes          |
+| `float`   | `emit(float)`                    | Yes          |
 | `geo_point`| `emit(double lat, double lon)`   | Yes          |
 | `ip`      | `emit(String ip)`                | Yes          |
 | `keyword` | `emit(String)`                   | Yes          |
-| `text`    | `emit(String)`                   | Yes          |
 | `long`    | `emit(long)`                     | Yes          |
-| `double`  | `emit(double)`                   | Yes          |
-| `float`   | `emit(float)`                    | Yes          |
-| `boolean` | `emit(boolean)`                  | No           |
 | `object`  | `emit(String json)` (valid JSON) | Yes          |
+| `text`    | `emit(String)`                   | Yes          |
 
 By default, a type mismatch between a derived field and its emitted value will result in the search request failing with an error. If `ignore_malformed` is set to `true`, then the failing document is skipped and the search request succeeds.
 {: .note}
@@ -174,7 +174,7 @@ The size limit of the emitted values is 1 MB per document.
 
 ## Searching derived fields defined in index mappings
 
-To search derived fields, use the same syntax as regular fields. For example, the following request searches for documents whose derived `timestamp` field in the specified range:
+To search derived fields, use the same syntax as when searching regular fields. For example, the following request searches for documents with derived `timestamp` field in the specified range:
 
 ```json
 POST /logs/_search
@@ -551,9 +551,9 @@ Derived fields are not indexed but are computed dynamically by retrieving values
 
 ### Prefilter field
 
-Specifying a prefilter field helps to prune the search space automatically without adding explicit filters in the search request. The prefilter field specifies an existing indexed field (`prefilter_field`) on which to filter implicitly when constructing the query. The `prefilter_field` must be a text field (either [`text`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) or [`match_only_text`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/match-only-text/)).
+Specifying a prefilter field helps to prune the search space without adding explicit filters in the search request. The prefilter field specifies an existing indexed field (`prefilter_field`) on which to filter automatically when constructing the query. The `prefilter_field` must be a text field (either [`text`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) or [`match_only_text`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/match-only-text/)).
 
-For example, first update the mapping for the `method` derived field by specifying to prefilter on the `request` field: 
+For example, you can add a `prefilter_field` to the `method` derived field. Update the index mapping, specifying to prefilter on the `request` field: 
 
 ```json
 PUT /logs/_mapping
@@ -591,7 +591,7 @@ POST /logs/_search
 ```
 {% include copy-curl.html %}
 
-OpenSearch implicitly adds a filter on the `request` field to your query:
+OpenSearch automatically adds a filter on the `request` field to your query:
 
 ```json
 "#request:GET #DerivedFieldQuery (Query: [ method:GET])"
@@ -827,11 +827,11 @@ The response adds highlighting to the `derived_request_object.request` field:
 
 ### Inferred subfield type 
 
-Type inference is based on the same logic as [Dynamic mapping]({{site.url}}{{site.baseurl}}/opensearch/mappings#dynamic-mapping). Instead of inferring the subfield type from the first document, a random sample of documents is used to infer the type. If the subfield isn't found in any documents from the random sample, type inference fails and logs a warning. For subfields that seldom occur in documents, consider defining the explicit field type. Using dynamic type inference for such subfields may result in a query returning no results, a behavior similar to that of a missing field. 
+Type inference is based on the same logic as [Dynamic mapping]({{site.url}}{{site.baseurl}}/opensearch/mappings#dynamic-mapping). Instead of inferring the subfield type from the first document, a random sample of documents is used to infer the type. If the subfield isn't found in any documents from the random sample, type inference fails and logs a warning. For subfields that seldom occur in documents, consider defining the explicit field type. Using dynamic type inference for such subfields may result in a query returning no results, like for a missing field. 
 
 ### Explicit subfield type
 
-To define the explicit subfield type, provide the `type` parameter in the `properties` object. The following example defines an explicit type for the `derived_logs_object.is_active` field as `boolean`. Because this field is only present in one of the documents, its type inference might fail, so it's important to define the explicit type:
+To define the explicit subfield type, provide the `type` parameter in the `properties` object. In the following example, the `derived_logs_object.is_active` field is defined as `boolean`. Because this field is only present in one of the documents, its type inference might fail, so it's important to define the explicit type:
 
 ```json
 POST /logs_object/_search
