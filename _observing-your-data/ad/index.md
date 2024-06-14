@@ -99,7 +99,7 @@ A detector is an individual anomaly detection task. You can define multiple dete
 
       Parameter | Description | Type | Unit | Example | Required
       :--- | :--- |:--- |:--- |:--- |:---
-      `result_index_min_size` | Specifies the minimum size of total primary shard storage (excluding replicas) required to roll over the index. For example, if `result_index_min_size` is set to 100 GiB and the index has 5 primary shards and 5 replica shards of 20 GiB each, the total size of all primary shards is 100 GiB, triggering the rollover. | `integer` | `MB` | `51200` | No
+      `result_index_min_size` | The minimum total size of primary shards (excluding replicas) required for index rollover. If set to 100 GiB and the index has 5 primary and 5 replica shards of 20 GiB each, the total primary shard size is 100 GiB, triggering the rollover. | `integer` | `MB` | `51200` | No
       `result_index_min_age` |  Specifies the minimum age of the index required to roll over. The index age is calculated from its creation time to the current time. | `integer` |`day` | `7` | No
       `result_index_ttl` | Specifies the minimum age required to permanently delete rolled over indexes. | `integer` | `day` | `60` | No
 
