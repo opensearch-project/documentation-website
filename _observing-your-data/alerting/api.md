@@ -2105,7 +2105,9 @@ POST _plugins/_alerting/comments/<alert-id>
 }
 ```
 
-## Update comment (experimental)
+## Update comment
+This is an experimental feature and is not recommended for use in a production environment.   
+{: .warning}
 
 #### Request
 
