@@ -70,7 +70,7 @@ Each integration contains the following metadata and assets:
 * Name and description
 * Source URL and license
 * Schema specification, for example, mapping or components mapping
-* Sample data (for try-out experience)
+* Sample data to test the feature
 * Assets (Dashboards, Index-Patterns , Queries, Alerts )
 
 ---
