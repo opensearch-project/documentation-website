@@ -105,7 +105,7 @@ This example shows how you can navigate and explore the [default catalog](https:
 ![]({{site.url}}{{site.baseurl}}/images/integrations/nginx-integration-dashboard.png)
 
 
-### Loading a new integration using the Dashboard Management console :
+### Loading new integrations
 
 To load a new Integration which was not deployed as part of the OpenSearch release, you need to download a new integration from the [catalog repository](https://github.com/opensearch-project/opensearch-catalog/blob/main/docs/integrations/Release.md) and navigate to the _DashboardManagement_ and import the new integration.
 
