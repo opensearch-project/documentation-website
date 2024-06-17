@@ -111,7 +111,7 @@ To load a new integration not included in the OpenSearch release, download it fr
 
 The following tutorial shows how to download and install a new release or updated integration version from the catalog page to the OpenSearch available integration.
 
-1) Download a new integration artifact (see the [catalog page](https://github.com/opensearch-project/opensearch-catalog/blob/main/docs/integrations/Release.md))
+1. Download a new integration artifact from the [catalog repository](https://github.com/opensearch-project/opensearch-catalog/blob/main/docs/integrations/Release.md).
    ![]({{site.url}}{{site.baseurl}}/images/integrations/integration-catalog-release-page.png)
 
 2) Go to the DashboardManagement -> savedObjects
