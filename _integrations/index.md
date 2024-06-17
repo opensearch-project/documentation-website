@@ -124,7 +124,6 @@ The following tutorial shows how to download and install a new release or update
    ![]({{site.url}}{{site.baseurl}}/images/integrations/select-uploaded-integration.png)
 
 
-***
 
 ## Additional information
 
