@@ -33,7 +33,6 @@ This repeated bootstrapping process for every data type was manual, error-prone,
 
 OpenSearch Integrations aims to simplify and automate the manual steps, reducing the required domain knowledge to a minimum.
 
-**What Do We support**
 
 At OpenSearch we are supporting many different type of use cases for a large variety of users:
 - Search related domain use cases - E-commerce products search for example
