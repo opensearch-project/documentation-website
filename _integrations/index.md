@@ -51,7 +51,7 @@ Unifying the integrations around the OTel schema provides a consistent experienc
 
 Additionally, OpenSearch supports the [Piped Processing Language (PPL)](https://opensearch.org/docs/latest/search-plugins/sql/ppl/index/), designed for high-dimensionality querying in observability contexts, empowering you with advanced analysis and troubleshooting capabilities beyond traditional dashboarding.
 
-Adopting the OTel schema and leveraging its ecosystem enables our integrations to take a powerful and standardized approach to observability, helping users gain a comprehensive understanding of their systems.
+Adopting the OTel schema and leveraging its ecosystem enables OpenSearch Integrations to take a powerful, standardized approach to observability, providing you with comprehensive system insights.
 
 #### Data Ingestion for Integrations
 
