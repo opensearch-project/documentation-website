@@ -104,7 +104,6 @@ This example shows how you can navigate and explore the [default catalog](https:
 4. Preview the data visualizations and sample data details.  
 ![]({{site.url}}{{site.baseurl}}/images/integrations/nginx-integration-dashboard.png)
 
-This sample showed how the user can navigate and explore the existing default Integration release catalog that are bundled with OpenSearch release and select the appropriate resource that are part of its system.
 
 ### Loading a new integration using the Dashboard Management console :
 
