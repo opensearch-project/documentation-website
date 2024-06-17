@@ -129,7 +129,7 @@ The following tutorial shows how to download and install a new release or update
 
 For the latest developer resources, including sample code, articles, tutorials, and API reference, see the following:
 
-- [Integrations repository](https://github.com/opensearch-project/opensearch-catalog)
+- [OpenSearch Integrations repository](https://github.com/opensearch-project/opensearch-catalog)
 - [Integration Documentation Reference](https://github.com/opensearch-project/opensearch-catalog/tree/main/docs/integrations)
 - [Integration Catalog Page](https://htmlpreview.github.io/?https://github.com/opensearch-project/opensearch-catalog/blob/main/integrations/observability/catalog.html)
 - [Integration Release Page](https://github.com/opensearch-project/opensearch-catalog/blob/main/docs/integrations/Release.md)
