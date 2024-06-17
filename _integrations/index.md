@@ -55,7 +55,7 @@ Adopting the OTel schema and leveraging its ecosystem enables OpenSearch Integra
 
 ### Ingesting data
 
-Integrations and its dashboards depend on data ingested into OpenSearch which corresponds with the supported schema, such data pipeline that are compatible:
+Integrations and their dashboards rely on data ingested into OpenSearch conforming to the supported schemas. Compatible data pipelines are required, such as the following:
 
 - [OpenSearch Data-Prepper](https://github.com/opensearch-project/data-prepper)
 - [OTEL collector](https://github.com/open-telemetry/opentelemetry-collector)
