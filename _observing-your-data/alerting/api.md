@@ -15,6 +15,12 @@ Use the Alerting API to programmatically create, update, and manage monitors and
 
 Query-level monitors run the query and check whether or not the results should trigger an alert. Query-level monitors can only trigger one alert at a time. For more information about query-level and bucket-level monitors, see [Creating monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/).
 
+<details markdown="block">
+  <summary>
+    Select to expand example request
+  </summary>
+  {: .text-delta}
+  
 #### Example request
 ```json
 POST _plugins/_alerting/monitors
@@ -80,8 +86,16 @@ POST _plugins/_alerting/monitors
 ```
 {% include copy-curl.html %}
 
-If you use a custom webhook for your destination and need to embed JSON in the message body, be sure to escape your quotes:
+</details>
 
+If you use a custom webhook for your destination and need to embed JSON in the message body, be sure to escape your quotes.
+
+<details markdown="block">
+  <summary>
+    Select to expand example request
+  </summary>
+  {: .text-delta}
+  
 ```json
 {
   "message_template": {
@@ -90,6 +104,8 @@ If you use a custom webhook for your destination and need to embed JSON in the m
 }
 ```
 {% include copy-curl.html %}
+
+</details>
 
 Optionally, to specify a backend role, you can add the `rbac_roles` parameter and backend role names to the bottom of your create monitor request.
 
