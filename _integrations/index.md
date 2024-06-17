@@ -19,7 +19,7 @@ The OpenSearch Project seeks your feedback on this feature. Let us know on the [
 
 ## Introducing OpenSearch Integrations
 
-The integration initiative was envisioned as a simple, elegant and powerful way to allow users to view, query and project their data.
+The Integrations initiative aimed to provide a simple and powerful way for users to view, query, and project their data. Before the initiative, users had to follow these steps each time to configure their dashboards:
 
 * Explore the raw data content and extract the mapping structure 
 * Transform & Ingest the data using the above mapping structure 
