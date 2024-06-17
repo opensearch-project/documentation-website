@@ -109,10 +109,14 @@ If you use a custom webhook for your destination and need to embed JSON in the m
 
 Optionally, to specify a backend role, you can add the `rbac_roles` parameter and backend role names to the bottom of your create monitor request.
 
-The following request creates a query-level monitor and provides two backend roles, `role1` and `role2`. The section at the bottom of the request shows the line that specifies the roles with this syntax: `"rbac_roles": ["role1", "role2"]`. 
+The following request creates a query-level monitor and provides two backend roles, `role1` and `role2`. The section at the bottom of the request shows the line that specifies the roles with this syntax: `"rbac_roles": ["role1", "role2"]`. To learn about using backend roles to limit access, see [(Advanced) Limit access by backend role]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/security/#advanced-limit-access-by-backend-role).
 
-To learn about using backend roles to limit access, see [(Advanced) Limit access by backend role]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/security/#advanced-limit-access-by-backend-role).
-
+<details markdown="block">
+  <summary>
+    Select to expand example request
+  </summary>
+  {: .text-delta}
+  
 #### Example request
 ```json
 POST _plugins/_alerting/monitors
@@ -179,6 +183,14 @@ POST _plugins/_alerting/monitors
 ```
 {% include copy-curl.html %}
 
+</details>
+
+<details markdown="block">
+  <summary>
+    Select to expand example request
+  </summary>
+  {: .text-delta}
+  
 #### Example response
 ```json
 {
@@ -257,6 +269,8 @@ POST _plugins/_alerting/monitors
 }
 ```
 {% include copy-curl.html %}
+
+</details>
 
 To specify a time zone, you can do so by including a [cron expression]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/) with a time zone name in the `schedule` section of your request.
 
