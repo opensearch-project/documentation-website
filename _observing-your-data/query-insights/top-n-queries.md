@@ -126,7 +126,7 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-For more information about date formats, see the [DateTimeFormat](https://www.joda.org/joda-time/apidocs/org/joda/time/format/DateTimeFormat.html).
+The default index pattern for top N queries is `top_queries-YYYY.MM.dd`. This means that all top queries for the same day will be saved to the same index, and a new index will be created for the following day. For more information on date formats, refer to the [DateTimeFormat](https://www.joda.org/joda-time/apidocs/org/joda/time/format/DateTimeFormat.html).
 
 To configure a local index exporter for other monitoring types, use the `search.insights.top_queries.cpu.exporter.type`  or `search.insights.top_queries.memory.exporter.type` settings.
 
