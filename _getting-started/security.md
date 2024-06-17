@@ -190,3 +190,9 @@ To upload a configuration, the following command can be used with the admin cert
 ./plugins/opensearch-security/tools/securityadmin.sh -cd "config/opensearch-security" -icl -key "../kirk-key.pem" -cert "../kirk.pem" -cacert "../root-ca.pem" -nhnv
 ```
 {% include copy.html %}
+
+## Next steps
+
+The [Best practices for OpenSearch security]({{site.url}}{{site.baseurl}}/security/configuration/best-practices/)  guide covers 10 things to consider when getting started with OpenSearch security.
+
+The [Security configuration]({{site.url}}{{site.baseurl}}/security/configuration/index/) overview provides the basic steps for setting up security in your OpenSearch implementation and includes links to information about customizing security for your business needs. 
