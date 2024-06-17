@@ -23,7 +23,7 @@ The Integrations initiative aimed to provide a simple and powerful way for users
 
 * Explore the raw data content and extract the mapping structure.
 * Transform and ingest the data using the extracted mapping structure. 
-* Assemble the index pattern based on this mapping (adding possible dynamic fields) 
+* Assemble the index pattern based on this mapping, adding possible dynamic fields. 
 * Compose the entire dashboard that is constructed using visualization for different parts of the data schema
 * Share dashboards for others to explore (expecting a consistent format based on whatever version of whatever input pipeline is being used)
 
