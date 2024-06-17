@@ -2076,7 +2076,9 @@ POST _plugins/_alerting/destinations/email_groups/_search
 }
 ```
 
-## Create comment (experimental)
+## Create comment
+This is an experimental feature and is not recommended for use in a production environment.   
+{: .warning}
 
 #### Request
 
@@ -2136,7 +2138,9 @@ PUT _plugins/_alerting/comments/<comment-id>
 }
 ```
 
-## Search comments (experimental)
+## Search comments
+This is an experimental feature and is not recommended for use in a production environment.   
+{: .warning}
 
 #### Request
 
