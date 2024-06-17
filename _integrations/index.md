@@ -78,7 +78,7 @@ Each integration contains the following metadata and assets:
 Integrations can be installed directly from the [default catalog](https://github.com/opensearch-project/opensearch-catalog/blob/main/docs/integrations/Release.md) shipped with every OpenSearch release. Additionally, they can be manually loaded and updated using the **Dashboards Management** console to reflect the latest versions or new releases.
 
 
-## Installing An Integration 
+### Installing an integration 
 
 If no integrations are installed, you are prompted to install them from the Integrations interface. The **Available** window lists supported integrations from the default catalog.
  
