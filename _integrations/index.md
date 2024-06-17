@@ -71,7 +71,7 @@ Each integration contains the following metadata and assets:
 * Source URL and license
 * Schema specification, for example, mapping or components mapping
 * Sample data to test the feature
-* Assets (Dashboards, Index-Patterns , Queries, Alerts )
+* Assets such as dashboards, index patterns, queries, and alerts
 
 ---
 ## Using Integrations
