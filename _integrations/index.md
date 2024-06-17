@@ -34,7 +34,7 @@ This repeated bootstrapping process for every data type was manual, error-prone,
 OpenSearch Integrations aims to simplify and automate the manual steps, reducing the required domain knowledge to a minimum.
 
 
-At OpenSearch we are supporting many different type of use cases for a large variety of users:
+OpenSearch supports a range of use cases for different user types, such as the following:
 - Search related domain use cases - E-commerce products search for example
 - Observability monitoring and provisioning - Trace or Metrics analytics
 - Security Monitoring and Threats Analysis
