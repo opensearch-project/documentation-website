@@ -87,7 +87,8 @@ If no integrations are installed, you are prompted to install them from the Inte
 To add an integration, select the desired prepackaged assets. OpenSearch Integrations offers the following options: **Add** or **Try it**. The following image shows the **Try it** flow:
 ![integrations-observability-catalog.png](/images/integrations/integrations-observability-catalog.png)
 
-Integration **"Available"** dialog also allows filtering the list of integrations using the filter `Categories` drop down:
+The **Available** dialog window allows filtering the list of integrations using the **Categories** dropdown menu, as shown in the following image:
+
 ![cloud-integrations-filter.png]({{site.url}}{{site.baseurl}}/images/integrations/cloud-integrations-filter.png)
 
 1. On the **Integrations** page, select **NginX Dashboard**.
