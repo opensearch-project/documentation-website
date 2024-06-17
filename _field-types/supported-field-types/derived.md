@@ -7,7 +7,7 @@ parent: Supported field types
 ---
 
 # Derived field type
-**Introduced 2.14**
+**Introduced 2.15**
 {: .label .label-purple }
 
 Derived fields allow you to create new fields dynamically by executing scripts on existing fields. The existing fields can be either retrieved from the `_source` field, which contains the original document, or from a field's doc values. Once you define a derived field either in an index mapping or within a search request, you can use the field in a query in the same way you would use a regular field.
