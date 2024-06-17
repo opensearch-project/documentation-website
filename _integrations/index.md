@@ -58,7 +58,7 @@ Adopting the OTel schema and leveraging its ecosystem enables OpenSearch Integra
 Integrations and their dashboards rely on data ingested into OpenSearch conforming to the supported schemas. Compatible data pipelines are required, such as the following:
 
 - [Data Prepper](https://github.com/opensearch-project/data-prepper)
-- [OTEL collector](https://github.com/open-telemetry/opentelemetry-collector)
+- [OpenTelemetry Collector](https://github.com/open-telemetry/opentelemetry-collector)
 - [Fluent-Bit](https://docs.fluentbit.io/manual/pipeline/outputs/opensearch)
 
 Each one of these pipelines support the OTEL schema (or directly using the simple schema ) so that they index the signal documents into the [correct index](https://github.com/opensearch-project/opensearch-catalog/blob/main/docs/schema/observability/Naming-convention.md) which represents the Observed resource signals.
