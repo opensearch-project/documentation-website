@@ -61,7 +61,7 @@ Integrations and their dashboards rely on data ingested into OpenSearch conformi
 - [OpenTelemetry Collector](https://github.com/open-telemetry/opentelemetry-collector)
 - [Fluent Bit OpenSearch](https://docs.fluentbit.io/manual/pipeline/outputs/opensearch)
 
-Each one of these pipelines support the OTEL schema (or directly using the simple schema ) so that they index the signal documents into the [correct index](https://github.com/opensearch-project/opensearch-catalog/blob/main/docs/schema/observability/Naming-convention.md) which represents the Observed resource signals.
+These pipelines support the OTel schema (or a simple schema) to index signal documents into the correct index representing the observed resource signals. See [Naming Convention](https://github.com/opensearch-project/opensearch-catalog/blob/main/docs/schema/observability/Naming-convention.md) for index naming standards. 
 
 #### Ingestion structure
 
