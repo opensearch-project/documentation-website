@@ -8,7 +8,7 @@ grand_parent: Availability and recovery
 
 # Migrating to remote-backed storage
 
-Introduced 2.14
+Introduced 2.15
 {: .label .label-purple }
 
 Remote-backed storage offers a new way to protect against data loss by automatically creating backups of all index transactions and sending them to remote storage. To use this feature, [segment replication]({{site.url}}{{site.baseurl}}/opensearch/segment-replication/) must be enabled.
@@ -21,9 +21,9 @@ Rolling upgrades, sometimes referred to as *node replacement upgrades*, can be p
 
 Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/index/) for recommendations about backing up your configuration files and creating a snapshot of the cluster state and indexes before you make any changes to your OpenSearch cluster.
 
-Before migrating to remote-backed storage, upgrade to OpenSearch 2.15.
+Before migrating to remote-backed storage, upgrade to OpenSearch 2.15 or later.
 
-As of OpenSearch 2.15, OpenSearch nodes cannot be migrated back to document replication. If you need to revert the migration, then you will need to perform a fresh installation of OpenSearch and restore the cluster from a snapshot. Take a snapshot and store it in a remote repository before beginning the upgrade procedure.
+Before upgrading to OpenSearch 2.15, take a cluster snapshot and store it remotely. OpenSearch 2.15 nodes cannot revert to document replication. If migration needs to be undone, perform a fresh OpenSearch installation and restore from the remote snapshot. Securely storing the snapshot remotely allows retrieving and restoring it if issues arise during migration.
 {: .important}
 
 ## Performing the upgrade
