@@ -125,7 +125,7 @@ The following tutorial shows how to download and install a new release or update
 
 
 
-## Additional information
+## Developer resources
 
 For the latest developer information, including sample code, articles, tutorials, and an API reference, see the following resources:
 
