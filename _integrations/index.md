@@ -35,7 +35,7 @@ OpenSearch Integrations aims to simplify and automate the manual steps, reducing
 
 
 OpenSearch supports a range of use cases for different user types, such as the following:
-- Search related domain use cases - E-commerce products search for example
+- Search-related domain use cases, for example, e-commerce products search
 - Observability monitoring and provisioning - Trace or Metrics analytics
 - Security Monitoring and Threats Analysis
 
