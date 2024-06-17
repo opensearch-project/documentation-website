@@ -67,7 +67,7 @@ These pipelines support the OTel schema (or a simple schema) to index signal doc
 
 Each integration contains the following metadata and assets:
 
-* Name & description
+* Name and description
 * Source url & License
 * Schema spec (mapping or or components mapping)
 * Sample data (for try-out experience)
