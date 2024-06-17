@@ -98,7 +98,7 @@ This example shows how you can navigate and explore the [default catalog](https:
 
 2. Select the **Try it** button. _The Try it flow automatically creates a sample index template, adds sample data to the template, and then creates the integration based on that data._
 
-4. View the asset list and select a dashboard asset.
+3. View the asset list and select a dashboard asset.
 ![]({{site.url}}{{site.baseurl}}/images/integrations/nginx-installed-integration-assets.png)
 
 4. Preview the data visualizations and sample data details.  
