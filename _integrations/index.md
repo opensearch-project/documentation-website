@@ -123,7 +123,6 @@ The following tutorial shows how to download and install a new release or update
 4. Open the loaded integration template.
    ![]({{site.url}}{{site.baseurl}}/images/integrations/select-uploaded-integration.png)
 
-This sample showed how a user can download a new release or updated integration version from the catalog page and load it to OpenSearch available integration to install.
 
 ***
 
