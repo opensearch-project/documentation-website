@@ -50,4 +50,4 @@ plugins.anomaly_detection.max_concurrent_preview | 2 | The maximum number of con
 plugins.anomaly_detection.model_max_size_percent | 0.1 | The upper bound of the memory percentage for a model.
 plugins.anomaly_detection.door_keeper_in_cache.enabled | False | When set to `true`, OpenSearch places a bloom filter in front of an inactive entity cache to filter out items that are not likely to appear more than once.
 plugins.anomaly_detection.hcad_cold_start_interpolation.enabled | False | When set to true, enables interpolation for high-cardinality anomaly detection (HCAD) during the initial cold start period.
-plugins.anomaly_detection.jvm_heap_usage_threshold | 95 | Specifies the JVM memory usage threshold, as a percentage, at which anomaly detectors will be disabled. The default value is 95%, meaning detectors will be disabled when JVM heap usage reaches 95%.
+plugins.anomaly_detection.jvm_heap_usage_threshold | 95 | Specifies the JVM memory usage threshold, as a percentage, at which anomaly detectors will be disabled. The default value is 95%, meaning that detectors will be disabled when JVM heap usage reaches 95%.
