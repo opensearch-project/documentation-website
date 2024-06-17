@@ -91,6 +91,8 @@ The **Available** dialog window allows filtering the list of integrations using 
 
 ![cloud-integrations-filter.png]({{site.url}}{{site.baseurl}}/images/integrations/cloud-integrations-filter.png)
 
+This example shows how you can navigate and explore the [default catalog](https://github.com/opensearch-project/opensearch-catalog/blob/main/docs/integrations/Release.md) bundled with the OpenSearch release and select the appropriate resources for your system.
+
 1. On the **Integrations** page, select **NginX Dashboard**.
 ![]({{site.url}}{{site.baseurl}}/images/integrations/nginx-integration.png)
 
