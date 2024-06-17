@@ -235,7 +235,7 @@ openid_auth_domain:
   transport_enabled: true
   order: 0
   http_authenticator:
-    type: openid
+    type: openid # use the OpenID Connect domain, as JWT is part of this authentication.
     challenge: false
     config:
       subject_key: preferred_username
