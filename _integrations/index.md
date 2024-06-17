@@ -132,7 +132,7 @@ For the latest developer resources, including sample code, articles, tutorials, 
 - [OpenSearch Integrations repository](https://github.com/opensearch-project/opensearch-catalog)
 - [OpenSearch Integrations reference documentation](https://github.com/opensearch-project/opensearch-catalog/tree/main/docs/integrations)
 - [OpenSearch Observability Catalog](https://htmlpreview.github.io/?https://github.com/opensearch-project/opensearch-catalog/blob/main/integrations/observability/catalog.html)
-- [Integration Release Page](https://github.com/opensearch-project/opensearch-catalog/blob/main/docs/integrations/Release.md)
+- [OpenSearch Observability Catalog release page](https://github.com/opensearch-project/opensearch-catalog/blob/main/docs/integrations/Release.md)
 - [Integration Observability Catalog](https://github.com/opensearch-project/opensearch-catalog/tree/main/docs/schema/observability)
 
 
