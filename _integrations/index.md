@@ -41,7 +41,7 @@ OpenSearch supports a range of use cases for different user types, such as the f
 
 For each of these use cases, a strong and mature community has contributed substantial resources and knowledge to their respective domains. The Integrations framework is closely aligned with these established schemas, enabling out-of-the-box data mapping tailored to these domains.
 
-**The Observability Schema**
+### Using the Observability schema
 
 Having a consistent schema for telemetry data is crucial for effective observability. It enables correlating and analyzing data across applications, services, and infrastructure components, providing a holistic view of system behavior and performance.
 
