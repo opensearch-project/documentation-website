@@ -49,7 +49,7 @@ OpenSearch adopted the [OpenTelemetry (OTel)](https://opentelemetry.io/) protoco
 
 Unifying the integrations around the OTel schema provides a consistent experience for users. This shared schema allows cross-correlation and analysis across different data sources, enabling deeper insights into application and infrastructure performance. To this end, OpenSearch derived the [Simple Schema for Observability](https://github.com/opensearch-project/opensearch-catalog/tree/main/docs/schema/observability), which encodes the OTel standard as OpenSearch mappings.
 
-Additionally, OpenSearch supports the [Piped Processing Language](https://opensearch.org/docs/latest/search-plugins/sql/ppl/index/), designed for high-dimensionality querying in observability contexts. PPL empowers users with advanced analysis and troubleshooting capabilities beyond traditional dashboarding.
+Additionally, OpenSearch supports the [Piped Processing Language (PPL)](https://opensearch.org/docs/latest/search-plugins/sql/ppl/index/), designed for high-dimensionality querying in observability contexts, empowering you with advanced analysis and troubleshooting capabilities beyond traditional dashboarding.
 
 Adopting the OTel schema and leveraging its ecosystem enables our integrations to take a powerful and standardized approach to observability, helping users gain a comprehensive understanding of their systems.
 
