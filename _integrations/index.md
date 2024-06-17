@@ -17,7 +17,7 @@ OpenSearch Integrations is a straightforward starting point that OpenSearch and 
 The OpenSearch Project seeks your feedback on this feature. Let us know on the [OpenSearch forum](https://forum.opensearch.org/) how OpenSearch Integrations works for you or how it can be improved.
 {: .label-yellow}
 
-**The Integration Initiative**
+## Introducing OpenSearch Integrations
 
 The integration initiative was envisioned as a simple, elegant and powerful way to allow users to view, query and project their data.
 Prior to Introduction of integrations the process of which users could configure their dashboards, was to undergo the following process every time:
