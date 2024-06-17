@@ -29,7 +29,9 @@ The Integrations initiative aimed to provide a simple and powerful way for users
 
 This repeated bootstrapping process for every data type was manual, error-prone, and time-consuming. It also required knowledge of both the data and the OpenSearch API.
 
-The "[OpenSearch] Integrations" aims for solving these manual steps simplifying and automating the process while reducing the domain learning curve to the minimal 
+### Unlocking diverse use cases
+
+OpenSearch Integrations aims to simplify and automate the manual steps, reducing the required domain knowledge to a minimum.
 
 **What Do We support**
 
