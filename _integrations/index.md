@@ -81,7 +81,8 @@ Integrations can be installed directly from the [default catalog](https://github
 
 ## Installing An Integration 
 
-If you have not installed any integrations, you'll be prompted to install them from the Integrations interface. Supported integrations are listed in the **Available** window and present the default Integration release catalog.  
+If no integrations are installed, you are prompted to install them from the Integrations interface. The **Available** window lists supported integrations from the default catalog.
+ 
 ![]({{site.url}}{{site.baseurl}}/images/integrations/empty-installed-integrations.png)
 
 To add an integration, select the desired prepackaged assets. Currently, OpenSearch Integrations has two flows: Add or Try it. The following example uses the "Try it" flow:
