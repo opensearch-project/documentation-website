@@ -25,7 +25,7 @@ In general, exact match queries (like [`term`]({{site.url}}{{site.baseurl}}/quer
 Create a mapping with a `wildcard` field:
 
 ```json
-PUT movies
+PUT logs
 {
   "mappings" : {
     "properties" : {
