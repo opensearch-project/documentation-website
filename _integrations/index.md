@@ -39,7 +39,7 @@ OpenSearch supports a range of use cases for different user types, such as the f
 - Observability monitoring and provisioning, such as trace or metrics analytics
 - Security monitoring and threat analysis
 
-All these use cases are accompanied by a very strong and matured community that has contributed many resources and Knowledge to these domain. The **Integration framework** is strongly aligned with these schemas and allows out of the box data mapping that corresponds to these domains. 
+For each of these use cases, a strong and mature community has contributed substantial resources and knowledge to their respective domains. The Integrations framework is closely aligned with these established schemas, enabling out-of-the-box data mapping tailored to these domains.
 
 **The Observability Schema**
 
