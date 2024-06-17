@@ -25,7 +25,7 @@ The Integrations initiative aimed to provide a simple and powerful way for users
 * Transform and ingest the data using the extracted mapping structure. 
 * Assemble the index pattern based on this mapping, adding possible dynamic fields. 
 * Compose the entire dashboard using visualizations for different parts of the data schema.
-* Share dashboards for others to explore (expecting a consistent format based on whatever version of whatever input pipeline is being used)
+* Share dashboards for others to explore, expecting a consistent format based on the input pipeline version used.
 
 This repeated bootstrap required for every single data-type is manual (error-prone) and consuming process, it also requires a degree of knowledge both of the data and of using OpenSearch API.
 
