@@ -11,31 +11,15 @@ redirect_from:
 
 Use the Alerting API to programmatically create, update, and manage monitors and alerts. For APIs that support the composite monitor specifically, see [Managing composite monitors with the API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/composite-monitors/#managing-composite-monitors-with-the-api). 
 
----
-
-<details markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-- TOC
-{:toc}
-</details>
-
----
-
 ## Create a query-level monitor
 
 Query-level monitors run the query and check whether or not the results should trigger an alert. Query-level monitors can only trigger one alert at a time. For more information about query-level and bucket-level monitors, see [Creating monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/).
-
-#### Example request
 
 <details markdown="block">
   <summary>
     Example request
   </summary>
   {: .text-delta}
-
 ```json
 POST _plugins/_alerting/monitors
 {
@@ -99,7 +83,6 @@ POST _plugins/_alerting/monitors
 }
 ```
 {% include copy-curl.html %}
-
 </details>
 
 If you use a custom webhook for your destination and need to embed JSON in the message body, be sure to escape your quotes:
