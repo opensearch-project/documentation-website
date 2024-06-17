@@ -27,7 +27,7 @@ The Integrations initiative aimed to provide a simple and powerful way for users
 * Compose the entire dashboard using visualizations for different parts of the data schema.
 * Share dashboards for others to explore, expecting a consistent format based on the input pipeline version used.
 
-This repeated bootstrap required for every single data-type is manual (error-prone) and consuming process, it also requires a degree of knowledge both of the data and of using OpenSearch API.
+This repeated bootstrapping process for every data type was manual, error-prone, and time-consuming. It also required knowledge of both the data and the OpenSearch API.
 
 The "[OpenSearch] Integrations" aims for solving these manual steps simplifying and automating the process while reducing the domain learning curve to the minimal 
 
