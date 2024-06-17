@@ -117,7 +117,7 @@ The following tutorial shows how to download and install a new release or update
 2. Go to **Dashboards Management** > **Saved objects**.
    ![]({{site.url}}{{site.baseurl}}/images/integrations/import-saved-objects.png)
 
-3) Once there select import to load the recently downloaded integration artifact ( a file with `*.ndjson` suffix)
+3. Select **Import** in the upper-right corner to load your new integration artifact (a file with .ndjson extension).
    ![]({{site.url}}{{site.baseurl}}/images/integrations/integration-import-file.png)
 
 4) Select and open the loaded integration template
