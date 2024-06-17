@@ -114,7 +114,7 @@ The following tutorial shows how to download and install a new release or update
 1. Download a new integration artifact from the [catalog repository](https://github.com/opensearch-project/opensearch-catalog/blob/main/docs/integrations/Release.md).
    ![]({{site.url}}{{site.baseurl}}/images/integrations/integration-catalog-release-page.png)
 
-2) Go to the DashboardManagement -> savedObjects
+2. Go to **Dashboards Management** > **Saved objects**.
    ![]({{site.url}}{{site.baseurl}}/images/integrations/import-saved-objects.png)
 
 3) Once there select import to load the recently downloaded integration artifact ( a file with `*.ndjson` suffix)
