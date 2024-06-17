@@ -53,7 +53,7 @@ Additionally, OpenSearch supports the [Piped Processing Language (PPL)](https://
 
 Adopting the OTel schema and leveraging its ecosystem enables OpenSearch Integrations to take a powerful, standardized approach to observability, providing you with comprehensive system insights.
 
-#### Data Ingestion for Integrations
+### Ingesting data
 
 Integrations and its dashboards depend on data ingested into OpenSearch which corresponds with the supported schema, such data pipeline that are compatible:
 
