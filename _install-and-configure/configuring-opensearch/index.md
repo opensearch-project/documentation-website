@@ -25,12 +25,55 @@ Certain operations are static and require you to modify the `opensearch.yml` [co
 
 ## Specifying settings as environment variables
 
+You can specify environment variables in different ways.
+
+### Arguments as start up
+
 You can specify environment variables as arguments using `-E` when launching OpenSearch:
 
 ```bash
 ./opensearch -Ecluster.name=opensearch-cluster -Enode.name=opensearch-node1 -Ehttp.host=0.0.0.0 -Ediscovery.type=single-node
 ```
 {% include copy.html %}
+
+### Directly in the shell environment
+
+You can configure the environment variables directly in shell before starting OpenSearch:
+
+```bash
+export OPENSEARCH_JAVA_OPTS="-Xms2g -Xmx2g"
+export OPENSEARCH_PATH_CONF="/etc/opensearch"
+./opensearch
+```
+{% include copy.html %}
+
+### Systemd Service File
+
+When running OpenSearch as a service managed by systemd, you can specify environment variables in the service file:
+
+```bash
+# /etc/systemd/system/opensearch.service.d/override.conf
+[Service]
+Environment="OPENSEARCH_JAVA_OPTS=-Xms2g -Xmx2g"
+Environment="OPENSEARCH_PATH_CONF=/etc/opensearch"
+```
+After creating or modifying the file, reload the systemd configuration and restart the service:
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl restart opensearch
+```
+{% include copy.html %}
+
+### Docker Environment Variables
+
+When running OpenSearch in Docker, you can specify environment variables using the -e option with docker run:
+
+```bash
+docker run -e "OPENSEARCH_JAVA_OPTS=-Xms2g -Xmx2g" -e "OPENSEARCH_PATH_CONF=/usr/share/opensearch/config" opensearchproject/opensearch:latest
+```
+{% include copy.html %}
+
 
 ## Updating cluster settings using the API
 
