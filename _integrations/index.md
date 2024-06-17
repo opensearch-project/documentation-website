@@ -84,7 +84,7 @@ If no integrations are installed, you are prompted to install them from the Inte
  
 ![]({{site.url}}{{site.baseurl}}/images/integrations/empty-installed-integrations.png)
 
-To add an integration, select the desired prepackaged assets. Currently, OpenSearch Integrations has two flows: Add or Try it. The following example uses the "Try it" flow:
+To add an integration, select the desired prepackaged assets. OpenSearch Integrations offers the following options: **Add** or **Try it**. The following image shows the **Try it** flow:
 ![integrations-observability-catalog.png](/images/integrations/integrations-observability-catalog.png)
 
 Integration **"Available"** dialog also allows filtering the list of integrations using the filter `Categories` drop down:
