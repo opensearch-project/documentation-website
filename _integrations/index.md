@@ -120,7 +120,7 @@ The following tutorial shows how to download and install a new release or update
 3. Select **Import** in the upper-right corner to load your new integration artifact (a file with .ndjson extension).
    ![]({{site.url}}{{site.baseurl}}/images/integrations/integration-import-file.png)
 
-4) Select and open the loaded integration template
+4. Open the loaded integration template.
    ![]({{site.url}}{{site.baseurl}}/images/integrations/select-uploaded-integration.png)
 
 This sample showed how a user can download a new release or updated integration version from the catalog page and load it to OpenSearch available integration to install.
