@@ -107,7 +107,9 @@ This example shows how you can navigate and explore the [default catalog](https:
 
 ### Loading new integrations
 
-To load a new Integration which was not deployed as part of the OpenSearch release, you need to download a new integration from the [catalog repository](https://github.com/opensearch-project/opensearch-catalog/blob/main/docs/integrations/Release.md) and navigate to the _DashboardManagement_ and import the new integration.
+To load a new integration not included in the OpenSearch release, download it from the [catalog repository](https://github.com/opensearch-project/opensearch-catalog/blob/main/docs/integrations/Release.md), navigate to **Dashboards Management**, and import the new integration.
+
+The following tutorial shows how to download and install a new release or updated integration version from the catalog page to the OpenSearch available integration.
 
 1) Download a new integration artifact (see the [catalog page](https://github.com/opensearch-project/opensearch-catalog/blob/main/docs/integrations/Release.md))
    ![]({{site.url}}{{site.baseurl}}/images/integrations/integration-catalog-release-page.png)
