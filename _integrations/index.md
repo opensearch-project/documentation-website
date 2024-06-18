@@ -18,7 +18,7 @@ You can use **Integrations** to visualize and understand log and metric data for
 The OpenSearch Project seeks your feedback on this feature. Post on the [OpenSearch forum](https://forum.opensearch.org/) to let us know how OpenSearch Integrations works for you or how it can be improved.
 {: .label-yellow}
 
-## Introducing Integrations
+## Introducing Integrations for OpenSearch Dashboards
 
 **Integrations** provides a user-friendly and robust platform for data visualization, querying, and projection, eliminating the need for the multiple redundant steps previously required to configure dashboards.
 
