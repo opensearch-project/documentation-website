@@ -184,9 +184,10 @@ Even though all three vectors nearest to the query vector are in document 1, the
 }
 ```
 
-## InnerHit with nested fields
-If you want to retrieve only the matched documents in nested fields, you can use `inner_hits` in your query. 
-The following example returns only the `color` field of the matched documents within the nested fields.
+## Inner hits 
+
+When you retrieve documents based on matches in nested fields, by default, the response does not contain information about which inner objects matched the query. Thus, it is not apparent why the document is a match. To include information about the matching nested fields in the response, you can provide the `inner_hits` object in your query. To return only certain fields of the matching documents within `inner_hits`, specify the document fields in the `fields` array. The following example returns only the `color` inner field of the `nested_field`:
+
 ```json
 GET my-knn-index-1/_search
 {
@@ -212,7 +213,8 @@ GET my-knn-index-1/_search
 ```
 {% include copy-curl.html %}
 
-`inner_hits` contains only the matched documents from the nested fields.
+The response contains matching documents. For each matching document, the `inner_hits` object contains only the `nested_field.color` fields of the matched documents in the `fields` array:
+
 ```json
 {
   "took": 4,
