@@ -8,6 +8,7 @@ permalink: /integrations/
 redirect_from:
   - /integrations/index/
 ---
+
 # OpenSearch Integrations
 Introduced 2.9
 {: .label .label-purple }
@@ -19,27 +20,17 @@ The OpenSearch Project seeks your feedback on this feature. Let us know on the [
 
 ## Introducing OpenSearch Integrations
 
-The Integrations initiative aimed to provide a simple and powerful way for users to view, query, and project their data. Before the initiative, users had to follow these steps each time to configure their dashboards:
-
-* Explore the raw data content and extract the mapping structure.
-* Transform and ingest the data using the extracted mapping structure. 
-* Assemble the index pattern based on this mapping, adding possible dynamic fields. 
-* Compose the entire dashboard using visualizations for different parts of the data schema.
-* Share dashboards for others to explore, expecting a consistent format based on the input pipeline version used.
-
-This repeated bootstrapping process for every data type was manual, error-prone, and time-consuming. It also required knowledge of both the data and the OpenSearch API.
+The OpenSearch Integrations application provides a user-friendly and robust platform for data visualization, querying, and projection, eliminating the need for the redundant, multiple steps previously required to configure dashboards.
 
 ### Unlocking diverse use cases
 
-OpenSearch Integrations aims to simplify and automate the manual steps, reducing the required domain knowledge to a minimum.
-
-
 OpenSearch supports a range of use cases for different user types, such as the following:
+
 - Search-related domain use cases, for example, e-commerce products search
 - Observability monitoring and provisioning, such as trace or metrics analytics
 - Security monitoring and threat analysis
 
-For each of these use cases, a strong and mature community has contributed substantial resources and knowledge to their respective domains. The Integrations framework is closely aligned with these established schemas, enabling out-of-the-box data mapping tailored to these domains.
+For each of these use cases, the OpenSearch community has contributed substantial resources and knowledge to their respective domains. The OpenSearch Integrations framework is closely aligned with established schemas, enabling out-of-the-box data mapping tailored to the domains.
 
 ### Using the Observability schema
 
@@ -47,15 +38,13 @@ A consistent telemetry data schema is crucial for effective observability, enabl
 
 OpenSearch adopted the [OpenTelemetry (OTel)](https://opentelemetry.io/) protocol as the foundation for its observability solution. OTel is a community-driven standard defining a consistent schema and data collection approach for metrics, logs, and traces. It is widely supported by APIs, software development kits (SDKs), and telemetry collectors, enabling features like auto-instrumentation for seamless observability integration.
 
-Unifying the integrations around the OTel schema provides a consistent experience for users. This shared schema allows cross-correlation and analysis across different data sources, enabling deeper insights into application and infrastructure performance. To this end, OpenSearch derived the [Simple Schema for Observability](https://github.com/opensearch-project/opensearch-catalog/tree/main/docs/schema/observability), which encodes the OTel standard as OpenSearch mappings.
+Adopting the OTel schema and leveraging its ecosystem enables OpenSearch Integrations to take a powerful, standardized approach to observability, providing you with comprehensive system insights. This shared schema allows cross-correlation and analysis across different data sources, enabling deeper insights into application and infrastructure performance. To this end, OpenSearch derived the [Simple Schema for Observability](https://github.com/opensearch-project/opensearch-catalog/tree/main/docs/schema/observability), which encodes the OTel standard as OpenSearch mappings.
 
 Additionally, OpenSearch supports the [Piped Processing Language (PPL)](https://opensearch.org/docs/latest/search-plugins/sql/ppl/index/), designed for high-dimensionality querying in observability contexts, empowering you with advanced analysis and troubleshooting capabilities beyond traditional dashboarding.
 
-Adopting the OTel schema and leveraging its ecosystem enables OpenSearch Integrations to take a powerful, standardized approach to observability, providing you with comprehensive system insights.
-
 ### Ingesting data
 
-Integrations and their dashboards rely on data ingested into OpenSearch conforming to the supported schemas. Compatible data pipelines are required, such as the following:
+Integrations and associated dashboards rely on data ingested into OpenSearch conforming to the supported schemas. Compatible data pipelines are required, such as the following:
 
 - [Data Prepper](https://github.com/opensearch-project/data-prepper)
 - [OpenTelemetry Collector](https://github.com/open-telemetry/opentelemetry-collector)
@@ -74,13 +63,14 @@ Each integration contains the following metadata and assets:
 * Assets such as dashboards, index patterns, queries, and alerts
 
 ---
-## Using Integrations
-Integrations can be installed directly from the [default catalog](https://github.com/opensearch-project/opensearch-catalog/blob/main/docs/integrations/Release.md) shipped with every OpenSearch release. Additionally, they can be manually loaded and updated using the **Dashboards Management** console to reflect the latest versions or new releases.
 
+## Using OpenSearch Integrations
+
+OpenSearch Integrations can be installed directly from the [default catalog](https://github.com/opensearch-project/opensearch-catalog/blob/main/docs/integrations/Release.md) that is shipped with every OpenSearch release. Additionally, integrations can be manually loaded and updated using the **Dashboards Management** console to reflect the latest versions or new releases.
 
 ### Installing an integration 
 
-If no integrations are installed, you are prompted to install them from the Integrations interface. The **Available** window lists supported integrations from the default catalog.
+If no integration is installed, you are prompted to install one from the **Integrations** interface. The **Available** dialog window lists supported integrations from the default catalog.
  
 ![]({{site.url}}{{site.baseurl}}/images/integrations/empty-installed-integrations.png)
 
@@ -94,16 +84,15 @@ The **Available** dialog window allows filtering the list of integrations using 
 This example shows how you can navigate and explore the [default catalog](https://github.com/opensearch-project/opensearch-catalog/blob/main/docs/integrations/Release.md) bundled with the OpenSearch release and select the appropriate resources for your system.
 
 1. On the **Integrations** page, select **NginX Dashboard**.
-![]({{site.url}}{{site.baseurl}}/images/integrations/nginx-integration.png)
+  ![]({{site.url}}{{site.baseurl}}/images/integrations/nginx-integration.png)
 
 2. Select the **Try it** button. _The Try it flow automatically creates a sample index template, adds sample data to the template, and then creates the integration based on that data._
 
 3. View the asset list and select a dashboard asset.
-![]({{site.url}}{{site.baseurl}}/images/integrations/nginx-installed-integration-assets.png)
+  ![]({{site.url}}{{site.baseurl}}/images/integrations/nginx-installed-integration-assets.png)
 
 4. Preview the data visualizations and sample data details.  
-![]({{site.url}}{{site.baseurl}}/images/integrations/nginx-integration-dashboard.png)
-
+  ![]({{site.url}}{{site.baseurl}}/images/integrations/nginx-integration-dashboard.png)
 
 ### Loading new integrations
 
@@ -115,15 +104,15 @@ The following tutorial shows how to download and install a new release or update
    ![]({{site.url}}{{site.baseurl}}/images/integrations/integration-catalog-release-page.png)
 
 2. Go to **Dashboards Management** > **Saved objects**.
-   ![]({{site.url}}{{site.baseurl}}/images/integrations/import-saved-objects.png)
+  ![]({{site.url}}{{site.baseurl}}/images/integrations/import-saved-objects.png)
 
 3. Select **Import** in the upper-right corner to load your new integration artifact (a file with .ndjson extension).
-   ![]({{site.url}}{{site.baseurl}}/images/integrations/integration-import-file.png)
+  ![]({{site.url}}{{site.baseurl}}/images/integrations/integration-import-file.png)
 
 4. Open the loaded integration template.
-   ![]({{site.url}}{{site.baseurl}}/images/integrations/select-uploaded-integration.png)
+  ![]({{site.url}}{{site.baseurl}}/images/integrations/select-uploaded-integration.png)
 
-
+---
 
 ## Developer resources
 
@@ -135,6 +124,7 @@ For the latest developer resources, including sample code, articles, tutorials, 
 - [OpenSearch Observability Catalog release page](https://github.com/opensearch-project/opensearch-catalog/blob/main/docs/integrations/Release.md)
 - [Simple Schema for Observability](https://github.com/opensearch-project/opensearch-catalog/tree/main/docs/schema/observability)
 
+---
 
 ## Community contribution
 
