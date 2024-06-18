@@ -19,7 +19,7 @@ Comments can be accessed through the alerts table view by selecting the comment 
 
 ## Viewing comment authors
 
-If the Security plugin is installed, the comment's author is displayed. Otherwise, `Unknown` is displayed.
+If the Security plugin is installed, then the comment's author is displayed. Otherwise, `Unknown` is displayed.
 
 ## Assigning permissions
 
