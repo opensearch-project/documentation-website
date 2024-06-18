@@ -637,8 +637,7 @@ Path parameter | Description | Usage
 
 ### Create a document-level monitor
 
-You can create a document-level monitor with a POST request that provides the monitor details in the request body.
-At a minimum, you need to provide the following details: specify the queries or combinations by tag with the `inputs` field, a valid trigger condition, and provide the notification message in the `action` field.
+You can create a document-level monitor with a POST request that provides the monitor details in the request body. At a minimum, you need to provide the following details: specify the queries or combinations by tag with the `inputs` field, a valid trigger condition, and provide the notification message in the `action` field.
 
 The following table provides the syntax to use for each trigger option.
 
@@ -744,7 +743,7 @@ If you run a document-level query while the index is getting reindexed, the API 
 
 ## Update monitor
 
-When updating a monitor, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing monitor or the monitor doesn't exist, the Alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
+When updating a monitor, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers do not match the existing monitor or the monitor doesn't exist, the Alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
 
 #### Example request
 ```json
@@ -1524,6 +1523,8 @@ POST _plugins/_alerting/monitors/<monitor-id>/_acknowledge/alerts
 
 ## Create destination
 
+Define and configure various destinations for receiving alert notifications. These destinations can be of different types, such as Slack, custom webhooks, or email, and are used to specify where and how alerts should be delivered.
+
 #### Example request
 ```json
 POST _plugins/_alerting/destinations
@@ -1608,7 +1609,7 @@ POST _plugins/_alerting/destinations
 
 ## Update destination
 
-When updating a destination, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing destination or the destination doesn't exist, the Alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
+When updating a destination, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers do not match the existing destination or the destination doesn't exist, the Alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
 
 #### Example request
 ```json
@@ -1666,7 +1667,7 @@ PUT _plugins/_alerting/destinations/<destination-id>?if_seq_no=3&if_primary_term
 
 Retrieve one destination.
 
-#### Exampe request
+#### Example request
 ```json
 GET _plugins/_alerting/destinations/<destination-id>
 ```
@@ -1770,6 +1771,8 @@ GET _plugins/_alerting/destinations
 
 ## Delete destination
 
+To remove a specific destination from the alerting system, you can use the delete destination API endpoint.
+
 #### Example request
 ```
 DELETE _plugins/_alerting/destinations/<destination-id>
@@ -1808,6 +1811,8 @@ DELETE _plugins/_alerting/destinations/<destination-id>
 ---
 
 ## Create email account
+
+To set up a new email account for sending alert notifications, you can use the create email account API endpoint.
 
 #### Example request
 ```json
@@ -1906,6 +1911,8 @@ PUT _plugins/_alerting/destinations/email_accounts/<email_account_id>?if_seq_no=
 
 ## Get email account
 
+You can retrieve the details of a specific email account configured for alerting purposes by using the GET email account API endpoint.
+
 #### Example request
 ```json
 GET _plugins/_alerting/destinations/email_accounts/<email_account_id>
@@ -1949,6 +1956,8 @@ GET _plugins/_alerting/destinations/email_accounts/<email_account_id>
 
 ## Delete email account
 
+If you need to remove an existing email account configuration from the alerting system, you can use the DELETE email account API endpoint.
+
 #### Example request
 ```
 DELETE _plugins/_alerting/destinations/email_accounts/<email_account_id>
@@ -1985,6 +1994,8 @@ DELETE _plugins/_alerting/destinations/email_accounts/<email_account_id>
 </details>
 
 ## Search email account
+
+The search email account functionality allows you to retrieve information about the configured email accounts used for email-based alerting by sending a search request to the designated API endpoint.
 
 #### Example request
 ```json
@@ -2060,6 +2071,8 @@ POST _plugins/_alerting/destinations/email_accounts/_search
 ---
 
 ## Create email group
+
+To define a new group of email recipients for alerts, you can use the create email group API endpoint.
 
 #### Example request
 ```json
@@ -2157,6 +2170,8 @@ PUT _plugins/_alerting/destinations/email_groups/<email_group_id>?if_seq_no=16&i
 
 ## Get email group
 
+To retrieve the details of a specific email group destination, you can make a GET request to the `_plugins/_alerting/destinations/email_groups/<email_group_id>` endpoint, passing the ID of the email group you want to fetch.
+
 #### Example request
 ```json
 GET _plugins/_alerting/destinations/email_groups/<email_group_id>
@@ -2200,6 +2215,8 @@ GET _plugins/_alerting/destinations/email_groups/<email_group_id>
 
 ## Delete email group
 
+To remove an existing email group from the list of destinations for alerts, you can use the DELETE email group API endpoint.
+
 #### Example request
 ```
 DELETE _plugins/_alerting/destinations/email_groups/<email_group_id>
@@ -2236,6 +2253,8 @@ DELETE _plugins/_alerting/destinations/email_groups/<email_group_id>
 </details>
 
 ## Search email group
+
+The search email group functionality allows you to query and retrieve information about existing email groups used for alerting purposes, enabling you to filter and sort the results based on various criteria.
 
 #### Example request
 ```json
@@ -2313,6 +2332,8 @@ POST _plugins/_alerting/destinations/email_groups/_search
 This is an experimental feature and is not recommended for use in a production environment.   
 {: .warning}
 
+The Create Comment API allows you to add comments to a specific alert, providing additional context or notes related to that alert.
+
 #### Example request
 ```json
 POST _plugins/_alerting/comments/<alert-id>
@@ -2352,6 +2373,8 @@ POST _plugins/_alerting/comments/<alert-id>
 ## Update comment
 This is an experimental feature and is not recommended for use in a production environment.   
 {: .warning}
+
+The Update Comment API allows you to modify the content of a previously added comment associated with an alert.
 
 #### Example request
 
@@ -2393,6 +2416,8 @@ PUT _plugins/_alerting/comments/<comment-id>
 ## Search comment
 This is an experimental feature and is not recommended for use in a production environment.   
 {: .warning}
+
+The Search Comment API allows you to query and retrieve existing comments associated with alerts.
 
 #### Example request
 ```json
@@ -2473,6 +2498,8 @@ GET _plugins/_alerting/comments/_search
 ## Delete comment
 This is an experimental feature and is not recommended for use in a production environment.   
 {: .warning}
+
+The Delete Comment API allows you to remove a specific comment associated with an alert.
 
 #### Example request
 ```json
