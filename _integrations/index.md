@@ -1,6 +1,6 @@
 ---
 layout: default
-title: OpenSearch Integrations
+title: Integrations for OpenSearch Dashboards
 nav_order: 1
 has_children: false
 nav_exclude: true
@@ -9,7 +9,7 @@ redirect_from:
   - /integrations/index/
 ---
 
-# OpenSearch Integrations
+# Integrations for OpenSearch Dashboards
 Introduced 2.9
 {: .label .label-purple }
 
