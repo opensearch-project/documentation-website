@@ -269,7 +269,7 @@ Field | Data type | Description
 `regex`| Object    | A regular expression used for input/output validation. If the model prompt/response matches the regular expression, the predict request on this model is rejected.                                                    |
 `model_id`| String    | The guardrails model to validate user input and LLM output.                                                                                                                                                           |
 `response_filter`| String    | The dotpath used to get the result from guardrails model response.                                                                                                                                                    |
-`response_accept`| String    | The regex expression to check the guradrails model result.                                                                                                                                                            |
+`response_validation_regex`| String    | The regex expression to check the guradrails model result.                                                                                                                                                            |
 
 #### Example requests: Externally hosted model with guardrails
 
@@ -316,11 +316,11 @@ POST /_plugins/_ml/models/_register?deploy=true
     "guardrails": {
         "input_guardrail": {
             "model_id": "o3JaDZABNFJeYR3I2fRV",
-            "response_accept": "^\\s*\"[Aa]ccept\"\\s*$"
+            "response_validation_regex": "^\\s*\"[Aa]ccept\"\\s*$"
         },
         "output_guardrail": {
             "model_id": "o3JaDZABNFJeYR3I2fRV",
-            "response_accept": "^\\s*\"[Aa]ccept\"\\s*$"
+            "response_validation_regex": "^\\s*\"[Aa]ccept\"\\s*$"
         },
         "type": "model"
     }

@@ -101,11 +101,11 @@ PUT /_plugins/_ml/models/9uGdCJABjaMXYrp14YRj
     "type": "model",
     "input_guardrail": {
       "model_id": "V-G1CJABjaMXYrp1QoUC",
-      "response_accept": "^\\s*[Aa]ccept\\s*$"
+      "response_validation_regex": "^\\s*[Aa]ccept\\s*$"
     },
     "output_guardrail": {
       "model_id": "V-G1CJABjaMXYrp1QoUC",
-      "response_accept": "^\\s*[Aa]ccept\\s*$"
+      "response_validation_regex": "^\\s*[Aa]ccept\\s*$"
     }
   }
 }
