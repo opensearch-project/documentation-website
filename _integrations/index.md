@@ -128,4 +128,4 @@ See the following developer resources for sample code, articles, tutorials, and 
 
 ## Community contribution
 
-Contribute to the project by submitting an [integration request](https://github.com/opensearch-project/dashboards-observability/issues/new?assignees=&labels=integration%2C+untriaged&projects=&template=integration_request.md&title=%5BIntegration%5D). Contributions help improve the product and enhance productivity.
+Contribute to the project by submitting an [integration request](https://github.com/opensearch-project/dashboards-observability/issues/new?assignees=&labels=integration%2C+untriaged&projects=&template=integration_request.md&title=%5BIntegration%5D).
