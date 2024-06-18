@@ -77,7 +77,7 @@ If no integration is installed, then you are prompted to install one through the
 To add an integration, select the desired prepackaged assets. OpenSearch Integrations offers the following options: **Add** or **Try it**. The following image shows the **Try it** flow.
 ![integrations-observability-catalog.png](/images/integrations/integrations-observability-catalog.png)
 
-The **Available** dialog window allows filtering the list of integrations using the **Categories** dropdown menu, as shown in the following image:
+The **Available** dialog window allows you to filter the list of integrations using the **Categories** dropdown menu, as shown in the following image.
 
 ![cloud-integrations-filter.png]({{site.url}}{{site.baseurl}}/images/integrations/cloud-integrations-filter.png)
 
