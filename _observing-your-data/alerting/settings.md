@@ -51,7 +51,7 @@ Setting | Default | Description
 `plugins.alerting.alert_history_max_age` | 30d | The oldest document to store in the `.opendistro-alert-history-<date>` index before creating a new index. If the number of alerts in this time period does not exceed `alert_history_max_docs`, alerting creates one history index per period (e.g. one index every 30 days).
 `plugins.alerting.alert_history_max_docs` | 1000 | The maximum number of alerts to store in the `.opendistro-alert-history-<date>` index before creating a new index.
 `plugins.alerting.alert_history_enabled` | true | Whether to create `.opendistro-alerting-alert-history-<date>` indexes.
-`plugins.alerting.alert_history_retention_period` | 60d | The amount of time to keep history indexes before automatically deleting them.
+`plugins.alerting.alert_history_retention_period` | 60d | The amount of time to store history indexes before automatically deleting them.
 `plugins.alerting.destination.allow_list` | ["chime", "slack", "custom_webhook", "email", "test_action"] | The list of allowed destinations. If you don't want to allow users to a certain type of destination, you can remove it from this list, but we recommend leaving this setting as-is.
 `plugins.alerting.filter_by_backend_roles` | "false" | Restricts access to monitors by backend role. See [Alerting security]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/security/).
 `plugins.alerting.cross_cluster_monitoring_enabled` | "false" | Toggles whether cluster metrics monitors support running against remote clusters.
