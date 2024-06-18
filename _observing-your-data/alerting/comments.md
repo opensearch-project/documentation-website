@@ -15,7 +15,7 @@ This is an experimental feature and is not recommended for use in a production e
 
 When an alert is generated, add comments to share information about its root cause and facilitate resolution. Comments are enabled by setting `plugins.alerting.comments_enabled` to `true` using the [`cluster/settings` API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/settings/).
 
-Comments can be accessed through the alerts table view by selecting on the comment icon within an alert's row. From there, comments can be added, edited, and deleted. An Alerting Comments API is also available for programmatic comments management. For details, see the [Alerting API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api/).
+Comments can be accessed through the alerts table view by selecting the comment icon within an alert's row. From there, comments can be added, edited, or deleted. An Alerting Comments API is also available for programmatic comment management. For more information, see [Alerting API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api/).
 
 ## Viewing comment authors
 
