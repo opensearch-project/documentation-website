@@ -23,7 +23,7 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
 
 Before migrating to remote-backed storage, upgrade to OpenSearch 2.15 or later.
 
-Before upgrading to OpenSearch 2.15, take a cluster snapshot and store it remotely. OpenSearch 2.15 nodes cannot revert to document replication. If migration needs to be undone, perform a fresh OpenSearch installation and restore from the remote snapshot. Securely storing the snapshot remotely allows retrieving and restoring it if issues arise during migration.
+Before upgrading to OpenSearch 2.15, take a cluster snapshot and store it remotely. OpenSearch 2.15 nodes cannot revert to document replication. If a migration needs to be undone, perform a fresh OpenSearch installation and restore from the remote snapshot. Storing the snapshot remotely allows you to retrieve and restore it if issues arise during migration.
 {: .important}
 
 ## Performing the upgrade
