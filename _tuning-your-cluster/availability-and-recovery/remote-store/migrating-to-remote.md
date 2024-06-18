@@ -260,5 +260,5 @@ Use the following cluster settings to enable migration to a remote-backed cluste
 | Field                                     | Data type | Description |
 |:------------------------------------------|:--- |:---|
 | `cluster.remote_store.compatibility_mode` | String  | When set to `strict`, only allows the creation of either non-remote or remote nodes, depending on the initial cluster type. When set to `mixed`, allows both remote and non-remote nodes to join the cluster. Default is `strict`. |  
-| `cluster.migration.direction`             | String |  Creates new shards only on remote-backed storage nodes.  Default is `None`. |                                                                                                                                                                                            
+| `cluster.migration.direction`             | String |  Creates new shards only on remote-backed storage nodes. Default is `None`. |                                                                                                                                                                                            
 
