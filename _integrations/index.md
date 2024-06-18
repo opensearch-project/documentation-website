@@ -26,7 +26,7 @@ The OpenSearch Project seeks your feedback on this feature. Post on the [OpenSea
 
 **Integrations** aligns with established data schemas across multiple domains, enabling seamless data mapping and integration for various use cases, such as e-commerce product search, observability monitoring (for example, tracing and metrics analysis), and security monitoring and threat analysis.
 
-### Using the Observability schema
+### Observability schema
 
 A consistent telemetry data schema is crucial for effective observability, enabling data correlation and analysis across applications, services, and infrastructure components to provide a holistic view of system behavior and performance.
 
