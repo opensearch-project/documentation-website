@@ -640,7 +640,7 @@ Path parameter | Description | Usage
 You can create a document-level monitor with a POST request that provides the monitor details in the request body.
 At a minimum, you need to provide the following details: specify the queries or combinations by tag with the `inputs` field, a valid trigger condition, and provide the notification message in the `action` field.
 
-The following table shows the syntax to use for each trigger option.
+The following table provides the syntax to use for each trigger option.
 
 Trigger options | Definition | Syntax
 :--- | :--- : :---
