@@ -928,6 +928,8 @@ PUT _plugins/_alerting/monitors/<monitor_id>?if_seq_no=3&if_primary_term=1
 
 ## GET monitor
 
+To retrieve the details of a specific monitor, you can use the GET monitor API endpoint.
+
 #### Example request
 ```
 GET _plugins/_alerting/monitors/<monitor_id>
@@ -1205,6 +1207,8 @@ GET _plugins/_alerting/<node-id>/stats/<metric>
 
 ## DELETE monitor
 
+To delete a monitor, you can send a DELETE request to the following endpoint.
+
 #### Example request
 ```
 DELETE _plugins/_alerting/monitors/<monitor_id>
@@ -1242,6 +1246,8 @@ DELETE _plugins/_alerting/monitors/<monitor_id>
 ---
 
 ## Search monitors
+
+The search monitors functionality allows you to query and retrieve information about existing monitors based on specific criteria, such as the monitor name.
 
 #### Example request
 ```json
@@ -1482,7 +1488,7 @@ GET _plugins/_alerting/monitors/alerts
 
 ## Acknowledge alert
 
-[After getting your alerts](#get-alerts), you can acknowledge any number of active alerts in one call. If the alert is already in an ERROR, COMPLETED, or ACKNOWLEDGED state, it appears in the `failed` array.
+[After getting your alerts](#get-alerts), you can acknowledge any number of active alerts in one call. If the alert is already in an `ERROR`, `COMPLETED`, or `ACKNOWLEDGED` state, it appears in the `failed` array.
 
 #### Example request
 ```json
@@ -2384,7 +2390,7 @@ PUT _plugins/_alerting/comments/<comment-id>
 
 </details>
 
-## Search comments
+## Search comment
 This is an experimental feature and is not recommended for use in a production environment.   
 {: .warning}
 
