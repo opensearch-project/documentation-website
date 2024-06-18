@@ -37,17 +37,11 @@ Follow these steps to create a new visualization using VisBuilder in your enviro
     - If you're not running the Security plugin, go to http://localhost:5601.
     - If you're running the Security plugin, go to https://localhost:5601 and log in with your username and password (default is admin/admin).
 
-2. Confirm that the **Enable experimental visualizations** option is turned on.
-   - From the top menu, select **Management** > **Dashboards Management** > **Advanced Settings**.
-   - Select **Visualization** and verify that the option is turned on.
-   
-   <img src="{{site.url}}{{site.baseurl}}/images/enable-experimental-viz.png" alt="Enable experimental visualizations" width="600">
-
-3. From the top menu, select **Visualize** **>** **Create visualization** **>** **VisBuilder**.
+1. From the top menu, select **Visualize** **>** **Create visualization** **>** **VisBuilder**.
 
    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/vis-builder-1.png" alt="Select the VisBuilder visualization type" width="550">  
 
-4. Drag and drop field names from the left column into the **Configuration** panel to generate a visualization.
+1. Drag and drop field names from the left column into the **Configuration** panel to generate a visualization.
 
 Here’s an example visualization. Your visualization will look different depending on your data and the fields you select.
 
