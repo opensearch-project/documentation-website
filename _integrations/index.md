@@ -22,7 +22,7 @@ The OpenSearch Project seeks your feedback on this feature. Post on the [OpenSea
 
 The OpenSearch Integrations application provides a user-friendly and robust platform for data visualization, querying, and projection, eliminating the need for the multiple redundant steps previously required to configure dashboards.
 
-### Unlocking diverse use cases
+### Use cases
 
 OpenSearch supports a range of use cases for different user types, such as the following:
 
