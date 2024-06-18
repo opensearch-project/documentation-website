@@ -81,7 +81,7 @@ POST _plugins/_alerting/monitors
 {% include copy-curl.html %}
 
 
-If you use a custom webhook for your destination and need to embed JSON in the message body, be sure to escape your quotes.
+If you use a custom webhook for your destination and need to embed JSON in the message body, be sure to escape the quotation marks:
  
 ```json
 {
