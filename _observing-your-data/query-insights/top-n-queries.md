@@ -11,7 +11,7 @@ Monitoring the top N queries in query insights features can help you gain real-t
 
 ## Configuring top N query monitoring
 
-You can configure monitoring top N queries by the following metric types:
+You can configure top N query monitoring by the following metric types:
 
 - `latency`
 - `cpu`
@@ -19,8 +19,8 @@ You can configure monitoring top N queries by the following metric types:
 
 Each metric has a set of corresponding settings:
 
-- `search.insights.top_queries.<metric>.enabled`: Set to `true` to [enable top N query monitoring by the metric](#enabling-top-n-query-monitoring).
-- `search.insights.top_queries.<metric>.window_size`: [Configure the window size the top N queries by the metric](#configuring-the-window-size). 
+- `search.insights.top_queries.<metric>.enabled`: Set to `true` to [enable top N query monitoring](#enabling-top-n-query-monitoring) by the metric.
+- `search.insights.top_queries.<metric>.window_size`: [Configure the window size of the top N queries](#configuring-the-window-size) by the metric. 
 - `search.insights.top_queries.<metric>.top_n_size`: [Specify the value of N for the top N queries by the metric](#configuring-the-value-of-n).
 
 For example, to enable top N query monitoring by CPU usage, set `search.insights.top_queries.cpu.enabled` to `true`. For more information about ways to specify dynamic settings, see [Dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings).
@@ -30,7 +30,7 @@ It's important to exercise caution when enabling this feature because it can con
 
 ## Enabling top N query monitoring 
 
-When you install the `query-insights` plugin, top N query monitoring is disabled by default. To enable top N query monitoring, update the dynamic settings for the desired metric types. These settings enable the corresponding collectors and aggregators in the running cluster. For example, to enable monitoring top N queries by latency, update the `search.insights.top_queries.latency.enabled` setting:
+When you install the `query-insights` plugin, top N query monitoring is disabled by default. To enable top N query monitoring, update the dynamic settings for the desired metric types. These settings enable the corresponding collectors and aggregators in the running cluster. For example, to enable top N query monitoring by latency, update the `search.insights.top_queries.latency.enabled` setting:
 
 ```json
 PUT _cluster/settings
@@ -72,7 +72,7 @@ PUT _cluster/settings
 
 ## Monitoring the top N queries 
 
-You can use the Insights API endpoint to obtain top N queries for all metric types:
+You can use the Insights API endpoint to obtain the top N queries for all metric types:
 
 ```json
 GET /_insights/top_queries
@@ -98,7 +98,7 @@ GET /_insights/top_queries?type=memory
 
 ## Exporting top N query data
 
-You can configure your desired exporter to export top N query data to different sinks, allowing for better monitoring and analysis of your OpenSearch queries. Currently, the supported exporters are:
+You can configure your desired exporter to export top N query data to different sinks, allowing for better monitoring and analysis of your OpenSearch queries. Currently, the following exporters are supported:
 - [Debug exporter](#configuring-a-debug-exporter)
 - [Local index exporter](#configuring-a-local-index-exporter)
 
@@ -118,9 +118,9 @@ PUT _cluster/settings
 
 ### Configuring a local index exporter
 
-A local index exporter allows you to export the top N queries to local OpenSearch indexes. The default index pattern for top N query indexes is `top_queries-YYYY.MM.dd`. All top queries for the same day are saved to the same index, and a new index is created every day. You can change the default index pattern to use other date formats. For more information about supported formats, see [DateTimeFormat](https://www.joda.org/joda-time/apidocs/org/joda/time/format/DateTimeFormat.html).
+A local index exporter allows you to export the top N queries to local OpenSearch indexes. The default index pattern for top N query indexes is `top_queries-YYYY.MM.dd`. All top queries from the same day are saved to the same index, and a new index is created each day. You can change the default index pattern to use other date formats. For more information about supported formats, see [DateTimeFormat](https://www.joda.org/joda-time/apidocs/org/joda/time/format/DateTimeFormat.html).
 
-To configure the local index exporter for the top N queiries by latency, send the following request:
+To configure the local index exporter for the top N queries by latency, send the following request:
 
 ```json
 PUT _cluster/settings
