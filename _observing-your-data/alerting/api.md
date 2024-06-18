@@ -925,9 +925,9 @@ PUT _plugins/_alerting/monitors/<monitor_id>?if_seq_no=3&if_primary_term=1
 
 ---
 
-## GET monitor
+## Get monitor
 
-To retrieve the details of a specific monitor, you can use the GET monitor API endpoint.
+Retrieve the details of a specific monitor using the following request.
 
 #### Example request
 ```
@@ -1204,9 +1204,9 @@ GET _plugins/_alerting/<node-id>/stats/<metric>
 
 ---
 
-## DELETE monitor
+## Delete monitor
 
-To delete a monitor, you can send a DELETE request to the following endpoint.
+Delete a monitor using the following request.
 
 #### Example request
 ```
@@ -1246,7 +1246,7 @@ DELETE _plugins/_alerting/monitors/<monitor_id>
 
 ## Search monitors
 
-The search monitors functionality allows you to query and retrieve information about existing monitors based on specific criteria, such as the monitor name.
+Query and retrieve information about existing monitors based on specific criteria, such as the monitor name, using the following request.
 
 #### Example request
 ```json
@@ -1393,7 +1393,7 @@ POST _plugins/_alerting/monitors/<monitor_id>/_execute
 
 ## Get alerts
 
-Returns an array of all alerts.
+Return an array of all alerts.
 
 #### Path parameters
 
@@ -1523,7 +1523,7 @@ POST _plugins/_alerting/monitors/<monitor-id>/_acknowledge/alerts
 
 ## Create destination
 
-Define and configure various destinations for receiving alert notifications. These destinations can be of different types, such as Slack, custom webhooks, or email, and are used to specify where and how alerts should be delivered.
+Define and configure various destinations for receiving alert notifications using the following request. These destinations can be of different types, such as Slack, custom webhooks, or email, and are used to specify where and how alerts should be delivered.
 
 #### Example request
 ```json
@@ -1665,7 +1665,7 @@ PUT _plugins/_alerting/destinations/<destination-id>?if_seq_no=3&if_primary_term
 
 ## Get destination
 
-Retrieve one destination.
+Retrieve one destination using the following request.
 
 #### Example request
 ```json
@@ -1718,7 +1718,7 @@ GET _plugins/_alerting/destinations/<destination-id>
 
 ## Get destinations
 
-Retrieve all destinations.
+Retrieve all destinations using the following request.
 
 #### Example request
 ```json
@@ -1771,7 +1771,7 @@ GET _plugins/_alerting/destinations
 
 ## Delete destination
 
-To remove a specific destination from the alerting system, you can use the delete destination API endpoint.
+Remove a specific destination from the alerting system using the following request.
 
 #### Example request
 ```
@@ -1812,7 +1812,7 @@ DELETE _plugins/_alerting/destinations/<destination-id>
 
 ## Create email account
 
-To set up a new email account for sending alert notifications, you can use the create email account API endpoint.
+Set up a new email account for sending alert notifications using the following request.
 
 #### Example request
 ```json
@@ -1911,7 +1911,7 @@ PUT _plugins/_alerting/destinations/email_accounts/<email_account_id>?if_seq_no=
 
 ## Get email account
 
-You can retrieve the details of a specific email account configured for alerting purposes by using the GET email account API endpoint.
+Retrieve the details of a specific email account configured for alerting purposes by using the following request.
 
 #### Example request
 ```json
@@ -1956,7 +1956,7 @@ GET _plugins/_alerting/destinations/email_accounts/<email_account_id>
 
 ## Delete email account
 
-If you need to remove an existing email account configuration from the alerting system, you can use the DELETE email account API endpoint.
+Remove an existing email account configuration from the alerting system using the following request.
 
 #### Example request
 ```
@@ -1995,7 +1995,7 @@ DELETE _plugins/_alerting/destinations/email_accounts/<email_account_id>
 
 ## Search email account
 
-The search email account functionality allows you to retrieve information about the configured email accounts used for email-based alerting by sending a search request to the designated API endpoint.
+Retrieve information about the configured email accounts used for email-based alerting using the following request.
 
 #### Example request
 ```json
@@ -2072,7 +2072,7 @@ POST _plugins/_alerting/destinations/email_accounts/_search
 
 ## Create email group
 
-To define a new group of email recipients for alerts, you can use the create email group API endpoint.
+Define a new group of email recipients for alerts using the following request.
 
 #### Example request
 ```json
@@ -2170,7 +2170,7 @@ PUT _plugins/_alerting/destinations/email_groups/<email_group_id>?if_seq_no=16&i
 
 ## Get email group
 
-To retrieve the details of a specific email group destination, you can make a GET request to the `_plugins/_alerting/destinations/email_groups/<email_group_id>` endpoint, passing the ID of the email group you want to fetch.
+Retrieve the details of a specific email group destination using the following request, passing the ID of the email group you want to fetch.
 
 #### Example request
 ```json
@@ -2215,7 +2215,7 @@ GET _plugins/_alerting/destinations/email_groups/<email_group_id>
 
 ## Delete email group
 
-To remove an existing email group from the list of destinations for alerts, you can use the DELETE email group API endpoint.
+Remove an existing email group from the list of destinations for alerts using the following request.
 
 #### Example request
 ```
@@ -2254,7 +2254,7 @@ DELETE _plugins/_alerting/destinations/email_groups/<email_group_id>
 
 ## Search email group
 
-The search email group functionality allows you to query and retrieve information about existing email groups used for alerting purposes, enabling you to filter and sort the results based on various criteria.
+Query and retrieve information about existing email groups used for alerting purposes, enabling you to filter and sort the results based on various criteria. An example is shown in the following request.
 
 #### Example request
 ```json
@@ -2332,7 +2332,7 @@ POST _plugins/_alerting/destinations/email_groups/_search
 This is an experimental feature and is not recommended for use in a production environment.   
 {: .warning}
 
-The Create Comment API allows you to add comments to a specific alert, providing additional context or notes related to that alert.
+Add comments to a specific alert, providing additional context or notes related to that alert using the following request.
 
 #### Example request
 ```json
@@ -2374,7 +2374,7 @@ POST _plugins/_alerting/comments/<alert-id>
 This is an experimental feature and is not recommended for use in a production environment.   
 {: .warning}
 
-The Update Comment API allows you to modify the content of a previously added comment associated with an alert.
+Modify the content of a previously added comment associated with an alert using the following request.
 
 #### Example request
 
@@ -2417,7 +2417,7 @@ PUT _plugins/_alerting/comments/<comment-id>
 This is an experimental feature and is not recommended for use in a production environment.   
 {: .warning}
 
-The Search Comment API allows you to query and retrieve existing comments associated with alerts.
+Query and retrieve existing comments associated with alerts using the following request.
 
 #### Example request
 ```json
@@ -2499,7 +2499,7 @@ GET _plugins/_alerting/comments/_search
 This is an experimental feature and is not recommended for use in a production environment.   
 {: .warning}
 
-The Delete Comment API allows you to remove a specific comment associated with an alert.
+Remove a specific comment associated with an alert using the following request.
 
 #### Example request
 ```json
