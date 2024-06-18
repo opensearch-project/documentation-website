@@ -15,7 +15,7 @@ Introduced 2.9
 
 You can use OpenSearch Integrations to visualize and understand log and metric data for a particular resource in OpenSearch or OpenSearch Dashboards, such as NGINX or Amazon Virtual Private Cloud (Amazon VPC) flow logs. An _integration_ contains a bundle of metadata, data mappings, and visualizations that make it simple to monitor data from the resource.
 
-The OpenSearch Project seeks your feedback on this feature. Let us know on the [OpenSearch forum](https://forum.opensearch.org/) how OpenSearch Integrations works for you or how it can be improved.
+The OpenSearch Project seeks your feedback on this feature. Post on the [OpenSearch forum](https://forum.opensearch.org/) to let us know how OpenSearch Integrations works for you or how it can be improved.
 {: .label-yellow}
 
 ## Introducing OpenSearch Integrations
