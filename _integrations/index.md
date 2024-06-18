@@ -20,7 +20,7 @@ The OpenSearch Project seeks your feedback on this feature. Post on the [OpenSea
 
 ## Introducing OpenSearch Integrations
 
-The OpenSearch Integrations application provides a user-friendly and robust platform for data visualization, querying, and projection, eliminating the need for the redundant, multiple steps previously required to configure dashboards.
+The OpenSearch Integrations application provides a user-friendly and robust platform for data visualization, querying, and projection, eliminating the need for the multiple redundant steps previously required to configure dashboards.
 
 ### Unlocking diverse use cases
 
