@@ -24,7 +24,7 @@ Expand the following OTel demo for a comprehensive, open-source example that sim
 
 **Step 1: Set up OpenTelemetry Demo**
   
-  - Clone [OpenTelemetry Demo with OpenSearch](https://github.com/opensearch-project/opentelemetry-demo) repository: `git clone https://github.com/opensearch-project/opentelemetry-demo`.
+  - Clone the [OpenTelemetry Demo with OpenSearch](https://github.com/opensearch-project/opentelemetry-demo) repository: `git clone https://github.com/opensearch-project/opentelemetry-demo`.
   - Follow the [Getting Started](https://github.com/opensearch-project/opentelemetry-demo/blob/main/tutorial/GettingStarted.md) instructions to deploy the demo application using Docker, which runs multiple microservices generating telemetry data.
 
 **Step 2: Ingest telemetry data**
@@ -34,13 +34,13 @@ Expand the following OTel demo for a comprehensive, open-source example that sim
 
 **Step 3: Explore Trace Analytics in OpenSearch Dashboards**
 
-Trace Analytics includes the **Services** and **Traces** views:
+The **Trace Analytics** application includes two options: **Services** and **Traces**:
 
-  - **Services**: The **Services** view lists all services in the application, plus an interactive map that shows how the various services connect to each other. In contrast to the dashboard (which helps identify problems by operation), the **Service map** helps you identify problems by service based on error rates and latency. To access this view, go to **Trace Analytics** > **Services**.
-  - **Traces**: The **Traces** view groups traces together by HTTP method and path so that you can see the average latency, error rate, and trends associated with a particular operation. For a more focused view, try filtering by trace group name. To access this view, go to **Trace Analytics** > **Traces**. From the **Trace Groups** panel you can drill down on the traces that make up a trace group. From the **Traces** panel you can drill down on individual traces for a detailed summary.
+  - **Services** lists all services in the application, plus an interactive map that shows how the various services connect to each other. In contrast to the dashboard (which helps identify problems by operation), the **Service map** helps you identify problems by service based on error rates and latency. To access this option, go to **Trace Analytics** > **Services**.
+  - **Traces** groups traces together by HTTP method and path so that you can see the average latency, error rate, and trends associated with a particular operation. For a more focused view, try filtering by trace group name. To acces this option, go to **Trace Analytics** > **Traces**. From the **Trace Groups** panel you can drill down on the traces that make up a trace group. From the **Traces** panel you can drill down on individual traces for a detailed summary.
 
  **Step 4: Perform correlation analysis**
-  - Use **Services correlation** to reveal connections between various telemetry signals. This allows you to navigate from the logical service level to the associated metrics and logs for that specific service.
+  - Select **Services correlation** to reveal connections between various telemetry signals. This allows you to navigate from the logical service level to the associated metrics and logs for that specific service.
 
 </details>
 
@@ -50,20 +50,20 @@ See [Standalone OpenSearch Dashboards plugin install]({{site.url}}{{site.baseurl
 
 ## Schema dependencies and assumptions
 
-The plugin requires [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/) to process and visualize OTel data. It relies on the following Data Prepper pipelines for OTel correlations and service map calculations:
+The plugin requires [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/) to process and visualize OTel data and relies on the following Data Prepper pipelines for OTel correlations and service map calculations:
 
 - [Trace analytics pipeline]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/trace-analytics/)
 - [Service map pipeline]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/service-map-stateful/)
 
 ### Standardized telemetry data
 
-The plugin requires telemetry data to follow the OTel schema conventions, including the structure and naming of spans, traces, and metrics as specified by OTel, and to be implemented using the [Simple Schema for Observability (SS4O)]({{site.url}}{{site.baseurl}}/observing-your-data/ss4o/).
+The plugin requires telemetry data to follow the OTel schema conventions, including the structure and naming of spans, traces, and metrics as specified by OTel, and to be implemented using [Simple Schema for Observability (SS4O)]({{site.url}}{{site.baseurl}}/observing-your-data/ss4o/).
 
 ### Service names and dependency map
 
 For accurate service mapping and correlation analysis, adhere to the following guidelines:
 
-- Service names must be unique and consistently used across application components.
+- Service names must be unique and used consistently across application components.
 - The `serviceName` field is populated using the Data Prepper pipeline.
 - Services must be ingested with predefined upstream and downstream dependencies to construct accurate service maps and understand service relationships.
 
@@ -90,15 +90,15 @@ Introduced 2.15
 Trace analytics with OTel protocol analytics in OpenSearch Dashboards provides comprehensive insights into distributed systems. OpenSearch Dashboards gives you a capabilities to correlate signals, identify relationships, and uncover root causes of issues in a single interface. You can analyze and visualize the following:
 
 - [Service](https://opentelemetry.io/docs/specs/semconv/resource/#service): The components of a distributed application. These components are significant logical terms used to measure and monitor the application's building blocks to validate the system's health.
-- [Traces](https://opentelemetry.io/docs/concepts/signals/traces/): The end-to-end visibility into requests' journeys across Services, offering insights into latency and performance issues.
+- [Traces](https://opentelemetry.io/docs/concepts/signals/traces/): The end-to-end visibility into requests' journeys across services, offering insights into latency and performance issues.
 - [RED metrics](https://opentelemetry.io/docs/specs/otel/metrics/api/): The metrics for service health and performance, measured as requests per second (rate), failed requests (errors), and request processing time (duration). 
 
 ### Trace analytics visualizations
 
-Service visualizations, such as a table or map, help you logically analyze service behavior and accuracy. The following visualizations can help you identify anomalies and errors:
+Services visualizations, such as a table or map, help you logically analyze service behavior and accuracy. The following visualizations can help you identify anomalies and errors:
 
 - **Services table**
-  - A RED indicator, along with connected upstream and downstream services, and other actions, is indicated in each table column. The following image is an example **Services** table.
+  - A RED indicator, along with connected upstream and downstream services and other actions, is indicated in each table column. The following image is an example **Services** table.
 
   ![Services table]({{site.url}}{{site.baseurl}}/images/trace-analytics/services-table.png)
     
@@ -142,6 +142,6 @@ Service visualizations, such as a table or map, help you logically analyze servi
   
   ![Trace group dialog window]({{site.url}}{{site.baseurl}}/images/ta-dashboard.png)
 
-  - The Trace details window displays a breakdown of a single trace, including its corresponding spans, associated service names, and a waterfall chart of the spans' time and duration interactions. The following image shows this view.
+  - The **Trace details** window displays a breakdown of a single trace, including its corresponding spans, associated service names, and a waterfall chart of the spans' time and duration interactions. The following image shows this view.
     
   ![Trace details window]({{site.url}}{{site.baseurl}}/images/ta-trace.png)
