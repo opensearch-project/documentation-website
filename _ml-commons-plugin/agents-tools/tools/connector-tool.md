@@ -18,7 +18,7 @@ The `ConnectorTool` runs `execute` action in a connector.
 
 ## Step 1: Register a connector with execute action
 
-`ConnectorTool` can only run `execute` action in a connector. So you need to create a connector with `execute` action. It's very similar to the `predict` action in connector. For example, create a connector to execute an AWS Lambda function with [Function URL](https://docs.aws.amazon.com/lambda/latest/dg/lambda-urls.html).
+`ConnectorTool` can only run `execute` action in a connector. So you need to create a [connector](https://opensearch.org/docs/latest/ml-commons-plugin/remote-models/connectors/) with `execute` action. It's very similar to the `predict` action in connector. For example, create a connector to execute an AWS Lambda function with [Function URL](https://docs.aws.amazon.com/lambda/latest/dg/lambda-urls.html).
 The Lambda function accepts two integer numbers and returns the sum.
 
 ```
@@ -68,7 +68,7 @@ Suppose the Lambda function will return such response
   "result": 10
 }
 ```
-Need to set `response_filter` to retrieve the result `10` with json path `$.result`.
+Connector tool will return of of `response` field. In this example the model raw response doesn't have `response` field, so need to set `response_filter` to retrieve the result `10` with json path `$.result`, the filtered result will be put into `response` field.
 
 ```json
 POST /_plugins/_ml/agents/_register
