@@ -252,7 +252,7 @@ POST _plugins/_alerting/monitors
 </details>
 
 
-To specify a time zone, you can do so by including a [cron expression]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/) with a time zone name in the `schedule` section of your request. The following example creates a monitor that runs at 12:10 PM Pacific Time on the 1st day of every month.
+To specify a time zone, you can do so by including a [cron expression]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/) with a time zone name in the `schedule` section of your request. The following example creates a monitor that runs at 12:10 PM Pacific Time on the first day of each month.
 
 #### Example request
 ```json
