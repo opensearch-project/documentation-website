@@ -44,7 +44,7 @@ Additionally, OpenSearch supports the [Piped Processing Language (PPL)](https://
 
 ### Ingesting data
 
-Integrations and associated dashboards rely on data ingested into OpenSearch conforming to the supported schemas. Compatible data pipelines are required, such as the following:
+Data ingested into OpenSearch must conform to the supported schemas for integrations and associated dashboards. Compatible data pipelines are required, such as the following:
 
 - [Data Prepper](https://github.com/opensearch-project/data-prepper)
 - [OpenTelemetry Collector](https://github.com/open-telemetry/opentelemetry-collector)
