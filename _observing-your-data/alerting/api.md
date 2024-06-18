@@ -15,12 +15,6 @@ Use the Alerting API to programmatically create, update, and manage monitors and
 
 Query-level monitors run the query and check whether or not the results should trigger an alert. Query-level monitors can only trigger one alert at a time. For more information about query-level and bucket-level monitors, see [Creating monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/).
 
-<details markdown="block">
-  <summary>
-    Select to expand example request
-  </summary>
-  {: .text-delta}
-  
 #### Example request
 ```json
 POST _plugins/_alerting/monitors
@@ -86,16 +80,9 @@ POST _plugins/_alerting/monitors
 ```
 {% include copy-curl.html %}
 
-</details>
 
 If you use a custom webhook for your destination and need to embed JSON in the message body, be sure to escape your quotes.
-
-<details markdown="block">
-  <summary>
-    Select to expand example request
-  </summary>
-  {: .text-delta}
-  
+ 
 ```json
 {
   "message_template": {
@@ -105,18 +92,11 @@ If you use a custom webhook for your destination and need to embed JSON in the m
 ```
 {% include copy-curl.html %}
 
-</details>
 
 Optionally, to specify a backend role, you can add the `rbac_roles` parameter and backend role names to the bottom of your create monitor request.
 
 The following request creates a query-level monitor and provides two backend roles, `role1` and `role2`. The section at the bottom of the request shows the line that specifies the roles with this syntax: `"rbac_roles": ["role1", "role2"]`. To learn about using backend roles to limit access, see [(Advanced) Limit access by backend role]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/security/#advanced-limit-access-by-backend-role).
-
-<details markdown="block">
-  <summary>
-    Select to expand example request
-  </summary>
-  {: .text-delta}
-  
+ 
 #### Example request
 ```json
 POST _plugins/_alerting/monitors
@@ -183,11 +163,9 @@ POST _plugins/_alerting/monitors
 ```
 {% include copy-curl.html %}
 
-</details>
-
 <details markdown="block">
   <summary>
-    Select to expand example request
+    Select to expand example response
   </summary>
   {: .text-delta}
   
@@ -272,6 +250,7 @@ POST _plugins/_alerting/monitors
 
 </details>
 
+
 To specify a time zone, you can do so by including a [cron expression]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/) with a time zone name in the `schedule` section of your request.
 
 The following example creates a monitor that runs at 12:10 PM Pacific Time on the 1st day of every month.
@@ -339,6 +318,7 @@ The following example creates a monitor that runs at 12:10 PM Pacific Time on th
 }
 ```
 {% include copy-curl.html %}
+
 
 For a full list of time zone names, see [List of tz database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). The Alerting plugin uses the Java [TimeZone](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/TimeZone.html) class to convert a [`ZoneId`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/ZoneId.html) to a valid time zone.
 
@@ -465,6 +445,13 @@ POST _plugins/_alerting/monitors
 ```
 {% include copy-curl.html %}
 
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
+ 
 #### Example response
 ```json
 {
@@ -606,6 +593,8 @@ POST _plugins/_alerting/monitors
 ```
 {% include copy-curl.html %}
 
+</details>
+
 ---
 
 ## Document-level monitors
@@ -659,6 +648,7 @@ Trigger options | Definition | Syntax
 Tag | Creates alerts for documents that match a multiple query with this tag applied. If you group multiple queries by a single tag, then you can set it to trigger an alert if the results are returned by this tag name.| `query[tag=<tag-name>]`
 Query by name | Creates alerts for documents matched or returned by the named query.  | `query[name=<query-name>]`
 Query by ID | Creates alerts for documents that were returned by the identified query. | `query[id=<query-id>]`
+
 
 #### Example request
 ```json
@@ -746,6 +736,7 @@ POST _plugins/_alerting/monitors
 ```
 {% include copy-curl.html %}
 
+
 ### Limitations
 
 If you run a document-level query while the index is getting reindexed, the API response will not return the reindexed results. To get updates, wait until the reindexing process completes, then rerun the query.
@@ -756,7 +747,7 @@ If you run a document-level query while the index is getting reindexed, the API 
 
 When updating a monitor, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing monitor or the monitor doesn't exist, the Alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
 
-#### Request
+#### Example request
 ```json
 PUT _plugins/_alerting/monitors/<monitor_id>
 {
@@ -864,6 +855,13 @@ PUT _plugins/_alerting/monitors/<monitor_id>?if_seq_no=3&if_primary_term=1
 ```
 {% include copy-curl.html %}
 
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
+
 #### Example response
 ```json
 {
@@ -925,6 +923,8 @@ PUT _plugins/_alerting/monitors/<monitor_id>?if_seq_no=3&if_primary_term=1
 ```
 {% include copy-curl.html %}
 
+</details>
+
 ---
 
 ## GET monitor
@@ -934,6 +934,12 @@ PUT _plugins/_alerting/monitors/<monitor_id>?if_seq_no=3&if_primary_term=1
 GET _plugins/_alerting/monitors/<monitor_id>
 ```
 {% include copy-curl.html %}
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
 
 #### Example response
 ```json
@@ -996,6 +1002,8 @@ GET _plugins/_alerting/monitors/<monitor_id>
 ```
 {% include copy-curl.html %}
 
+</details>
+
 ---
 
 ## Monitor stats
@@ -1010,6 +1018,12 @@ GET _plugins/_alerting/<node-id>/stats
 GET _plugins/_alerting/<node-id>/stats/<metric>
 ```
 {% include copy-curl.html %}
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
 
 #### Example response
 ```json
@@ -1184,6 +1198,8 @@ GET _plugins/_alerting/<node-id>/stats/<metric>
 ```
 {% include copy-curl.html %}
 
+</details>
+
 ---
 
 ## DELETE monitor
@@ -1194,6 +1210,12 @@ DELETE _plugins/_alerting/monitors/<monitor_id>
 ```
 {% include copy-curl.html %}
 
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
+  
 #### Example response
 ```json
 {
@@ -1213,6 +1235,8 @@ DELETE _plugins/_alerting/monitors/<monitor_id>
 ```
 {% include copy-curl.html %}
 
+</details>
+
 ---
 
 ## Search monitors
@@ -1230,6 +1254,12 @@ GET _plugins/_alerting/monitors/_search
 ```
 {% include copy-curl.html %}
 
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
+  
 #### Example response
 ```json
 {
@@ -1309,6 +1339,8 @@ GET _plugins/_alerting/monitors/_search
 ```
 {% include copy-curl.html %}
 
+</details>
+
 ---
 
 ## Run monitor
@@ -1320,6 +1352,12 @@ You can add the optional `?dryrun=true` parameter to the URL to show the results
 POST _plugins/_alerting/monitors/<monitor_id>/_execute
 ```
 {% include copy-curl.html %}
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
 
 #### Example response
 ```json
@@ -1339,6 +1377,8 @@ POST _plugins/_alerting/monitors/<monitor_id>/_execute
 }
 ```
 {% include copy-curl.html %}
+
+</details>
 
 ---
 
@@ -1368,6 +1408,13 @@ The following table lists the available path parameters. All path parameters are
 GET _plugins/_alerting/monitors/alerts
 ```
 {% include copy-curl.html %}
+
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
 
 #### Response
 ```json
@@ -1425,6 +1472,8 @@ GET _plugins/_alerting/monitors/alerts
 ```
 {% include copy-curl.html %}
 
+</details>
+
 ---
 
 ## Acknowledge alert
@@ -1440,6 +1489,13 @@ POST _plugins/_alerting/monitors/<monitor-id>/_acknowledge/alerts
 ```
 {% include copy-curl.html %}
 
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
+
 #### Example response
 ```json
 {
@@ -1450,6 +1506,8 @@ POST _plugins/_alerting/monitors/<monitor-id>/_acknowledge/alerts
 }
 ```
 {% include copy-curl.html %}
+
+</details>
 
 ---
 
@@ -1507,6 +1565,12 @@ POST _plugins/_alerting/destinations
 ```
 {% include copy-curl.html %}
 
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
+
 #### Example response
 ```json
 {
@@ -1525,6 +1589,8 @@ POST _plugins/_alerting/destinations
 }
 ```
 {% include copy-curl.html %}
+
+</details>
 
 ---
 
@@ -1554,6 +1620,13 @@ PUT _plugins/_alerting/destinations/<destination-id>?if_seq_no=3&if_primary_term
 ```
 {% include copy-curl.html %}
 
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
+
 #### Example response
 ```json
 {
@@ -1573,6 +1646,8 @@ PUT _plugins/_alerting/destinations/<destination-id>?if_seq_no=3&if_primary_term
 ```
 {% include copy-curl.html %}
 
+</details>
+
 ---
 
 ## Get destination
@@ -1584,6 +1659,12 @@ Retrieve one destination.
 GET _plugins/_alerting/destinations/<destination-id>
 ```
 {% include copy-curl.html %}
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
 
 #### Example response
 ```json
@@ -1616,6 +1697,8 @@ GET _plugins/_alerting/destinations/<destination-id>
 }
 ```
 {% include copy-curl.html %}
+
+</details>
 
 ---
 
@@ -1629,6 +1712,12 @@ GET _plugins/_alerting/destinations
 ```
 {% include copy-curl.html %}
 
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
+
 #### Example response
 ```json
 {
@@ -1661,6 +1750,8 @@ GET _plugins/_alerting/destinations
 ```
 {% include copy-curl.html %}
 
+</details>
+
 ---
 
 ## Delete destination
@@ -1670,6 +1761,12 @@ GET _plugins/_alerting/destinations
 DELETE _plugins/_alerting/destinations/<destination-id>
 ```
 {% include copy-curl.html %}
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
 
 #### Example response
 ```json
@@ -1691,6 +1788,8 @@ DELETE _plugins/_alerting/destinations/<destination-id>
 ```
 {% include copy-curl.html %}
 
+</details>
+
 ---
 
 ## Create email account
@@ -1707,6 +1806,12 @@ POST _plugins/_alerting/destinations/email_accounts
 }
 ```
 {% include copy-curl.html %}
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
 
 #### Example response
 ```json
@@ -1726,6 +1831,8 @@ POST _plugins/_alerting/destinations/email_accounts
 }
 ```
 {% include copy-curl.html %}
+
+</details>
 
 ## Update email account
 
@@ -1753,6 +1860,12 @@ PUT _plugins/_alerting/destinations/email_accounts/<email_account_id>?if_seq_no=
 ```
 {% include copy-curl.html %}
 
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
+
 #### Example response
 ```json
 {
@@ -1772,6 +1885,8 @@ PUT _plugins/_alerting/destinations/email_accounts/<email_account_id>?if_seq_no=
 ```
 {% include copy-curl.html %}
 
+</details>
+
 ## Get email account
 
 #### Request
@@ -1786,6 +1901,12 @@ GET _plugins/_alerting/destinations/email_accounts/<email_account_id>
 }
 ```
 {% include copy-curl.html %}
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
 
 #### Example response
 ```json
@@ -1806,6 +1927,8 @@ GET _plugins/_alerting/destinations/email_accounts/<email_account_id>
 ```
 {% include copy-curl.html %}
 
+</details>
+
 ## Delete email account
 
 #### Request
@@ -1813,6 +1936,12 @@ GET _plugins/_alerting/destinations/email_accounts/<email_account_id>
 DELETE _plugins/_alerting/destinations/email_accounts/<email_account_id>
 ```
 {% include copy-curl.html %}
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
 
 #### Example response
 ```json
@@ -1834,6 +1963,8 @@ DELETE _plugins/_alerting/destinations/email_accounts/<email_account_id>
 ```
 {% include copy-curl.html %}
 
+</details>
+
 ## Search email account
 
 #### Request
@@ -1853,6 +1984,12 @@ POST _plugins/_alerting/destinations/email_accounts/_search
 }
 ```
 {% include copy-curl.html %}
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
 
 #### Example response
 ```json
@@ -1898,6 +2035,8 @@ POST _plugins/_alerting/destinations/email_accounts/_search
 ```
 {% include copy-curl.html %}
 
+</details>
+
 ---
 
 ## Create email group
@@ -1913,6 +2052,12 @@ POST _plugins/_alerting/destinations/email_groups
 }
 ```
 {% include copy-curl.html %}
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
 
 #### Example response
 ```json
@@ -1933,6 +2078,8 @@ POST _plugins/_alerting/destinations/email_groups
 }
 ```
 {% include copy-curl.html %}
+
+</details>
 
 ## Update email group
 
@@ -1958,6 +2105,12 @@ PUT _plugins/_alerting/destinations/email_groups/<email_group_id>?if_seq_no=16&i
 ```
 {% include copy-curl.html %}
 
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
+  
 #### Example response
 ```json
 {
@@ -1977,6 +2130,8 @@ PUT _plugins/_alerting/destinations/email_groups/<email_group_id>?if_seq_no=16&i
 }
 ```
 {% include copy-curl.html %}
+
+</details>
 
 ## Get email group
 
@@ -1992,6 +2147,12 @@ GET _plugins/_alerting/destinations/email_groups/<email_group_id>
 ```
 {% include copy-curl.html %}
 
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
+  
 #### Example response
 ```json
 {
@@ -2012,6 +2173,8 @@ GET _plugins/_alerting/destinations/email_groups/<email_group_id>
 ```
 {% include copy-curl.html %}
 
+</details>
+
 ## Delete email group
 
 #### Request
@@ -2020,6 +2183,12 @@ DELETE _plugins/_alerting/destinations/email_groups/<email_group_id>
 ```
 {% include copy-curl.html %}
 
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
+  
 #### Example response
 ```json
 {
@@ -2039,6 +2208,8 @@ DELETE _plugins/_alerting/destinations/email_groups/<email_group_id>
 }
 ```
 {% include copy-curl.html %}
+
+</details>
 
 ## Search email group
 
@@ -2060,6 +2231,12 @@ POST _plugins/_alerting/destinations/email_groups/_search
 ```
 {% include copy-curl.html %}
 
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
+  
 #### Example response
 ```json
 {
@@ -2105,6 +2282,8 @@ POST _plugins/_alerting/destinations/email_groups/_search
 ```
 {% include copy-curl.html %}
 
+</details>
+
 ## Create comment
 This is an experimental feature and is not recommended for use in a production environment.   
 {: .warning}
@@ -2118,6 +2297,12 @@ POST _plugins/_alerting/comments/<alert-id>
 ```
 {% include copy-curl.html %}
 
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
+  
 #### Example response
 ```json
 {
@@ -2152,6 +2337,12 @@ PUT _plugins/_alerting/comments/<comment-id>
 ```
 {% include copy-curl.html %}
 
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
+  
 #### Example response
 ```json
 {
@@ -2170,6 +2361,8 @@ PUT _plugins/_alerting/comments/<comment-id>
 ```
 {% include copy-curl.html %}
 
+</details>
+
 ## Search comments
 This is an experimental feature and is not recommended for use in a production environment.   
 {: .warning}
@@ -2185,6 +2378,12 @@ GET _plugins/_alerting/comments/_search
 ```
 {% include copy-curl.html %}
 
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
+  
 #### Example response
 ```json
 {
@@ -2241,6 +2440,8 @@ GET _plugins/_alerting/comments/_search
 ```
 {% include copy-curl.html %}
 
+</details>
+
 ## Delete comment
 This is an experimental feature and is not recommended for use in a production environment.   
 {: .warning}
@@ -2251,6 +2452,12 @@ DELETE _plugins/_alerting/comments/<comment-id>
 ```
 {% include copy-curl.html %}
 
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
+
 #### Example response
 ```json
 {
@@ -2258,3 +2465,6 @@ DELETE _plugins/_alerting/comments/<comment-id>
 }
 ```
 {% include copy-curl.html %}
+
+</details>
+
