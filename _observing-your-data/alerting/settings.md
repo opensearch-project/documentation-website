@@ -67,4 +67,4 @@ Setting | Default | Description
 `plugins.alerting.comments_history_retention_period` | 60d | The amount of time to keep comment history indexes before automatic deletion.
 `plugins.alerting.max_comment_character_length` | 2000 | The maximum character length of a comment.
 `plugins.alerting.max_comments_per_alert` | 500 | The maximum number of comments that can be posted on an alert.
-`plugins.alerting.max_comments_per_notification` | 3 | The maximum number of comments per alert to include in the `ctx` mustache template variable for alert notifications.
+`plugins.alerting.max_comments_per_notification` | 3 | The maximum number of comments per alert to include in the `ctx` Mustache template variable for alert notifications.
