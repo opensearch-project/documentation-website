@@ -27,7 +27,7 @@ The OpenSearch Integrations application provides a user-friendly and robust plat
 OpenSearch supports a range of use cases for different user types, such as the following:
 
 - Search-related domain use cases, for example, e-commerce product search
-- Observability monitoring and provisioning, such as trace or metrics analytics
+- Observability monitoring and provisioning, such as trace or metrics analysis
 - Security monitoring and threat analysis
 
 For each of these use cases, the OpenSearch community has contributed substantial resources and knowledge to their respective domains. The OpenSearch Integrations framework is closely aligned with established schemas, enabling out-of-the-box data mapping tailored to the domains.
