@@ -116,7 +116,7 @@ Use the following steps to download and install a new release or updated integra
 
 ## Developer resources
 
-For the latest developer resources, including sample code, articles, tutorials, and API reference, see the following:
+See the following developer resources for sample code, articles, tutorials, and an API reference:
 
 - [OpenSearch Integrations repository](https://github.com/opensearch-project/opensearch-catalog)
 - [OpenSearch Integrations reference documentation](https://github.com/opensearch-project/opensearch-catalog/tree/main/docs/integrations)
