@@ -19,17 +19,9 @@ You can use the VisBuilder visualization type in OpenSearch Dashboards to create
 
 ## Try VisBuilder in the OpenSearch Dashboards playground
 
-If you'd like to try out VisBuilder without installing OpenSearch locally, you can do so in the [Dashboards playground](https://playground.opensearch.org/app/vis-builder#/). VisBuilder is enabled by default.
+If you'd like to try out VisBuilder without installing OpenSearch locally, you can do so in the [Dashboards playground](https://playground.opensearch.org/app/vis-builder#/). 
 
 ## Try VisBuilder locally
-
-VisBuilder is enabled by default. If you want to disable it, set the feature `flag vis_builder.enabled:` to `false` in the `opensearch_dashboards.yml` file as follows:
-
-```
-# Set the value of this setting to false to disable VisBuilder
-# functionality in Visualization.
-vis_builder.enabled: false
-``` 
 
 Follow these steps to create a new visualization using VisBuilder in your environment:
 
@@ -37,7 +29,7 @@ Follow these steps to create a new visualization using VisBuilder in your enviro
     - If you're not running the Security plugin, go to http://localhost:5601.
     - If you're running the Security plugin, go to https://localhost:5601 and log in with your username and password (default is admin/admin).
 
-1. From the top menu, select **Visualize** **>** **Create visualization** **>** **VisBuilder**.
+1. From the top menu, select **Visualize > Create visualization > VisBuilder**.
 
    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/vis-builder-1.png" alt="Select the VisBuilder visualization type" width="550">  
 
@@ -45,4 +37,4 @@ Follow these steps to create a new visualization using VisBuilder in your enviro
 
 Here’s an example visualization. Your visualization will look different depending on your data and the fields you select.
 
-<img src="{{site.url}}{{site.baseurl}}/images/drag-drop-generated-viz.png" alt="Visualization generated using sample data">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/drag-drop-generated-viz.png" alt="Visualization generated using sample data">
