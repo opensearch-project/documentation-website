@@ -23,4 +23,4 @@ If the Security plugin is installed, then the comment's author is displayed. Oth
 
 ## Assigning permissions
 
-Comment permissions are determined by the backend roles associated with the alert. These backend roles are inherited from the monitor that generated the alert. For more details on how to limit access based on backend roles, see [Limit access by backend role]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/security/#advanced-limit-access-by-backend-role).
+Comment permissions are determined by the backend roles associated with the alert. These backend roles are inherited from the monitor that generated the alert. For more information about how to limit access based on backend roles, see [Limit access by backend role]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/security/#advanced-limit-access-by-backend-role).
