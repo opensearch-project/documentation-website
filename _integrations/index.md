@@ -70,7 +70,7 @@ OpenSearch Integrations can be installed directly from the [default catalog](htt
 
 ### Installing an integration 
 
-If no integration is installed, then you are prompted to install one through the **Integrations** interface. The **Available** dialog window lists supported integrations from the default catalog.
+If no integration is installed, then you are prompted to install one through the **Integrations** interface. The **Available** dialog window lists supported integrations from the default catalog. This window is shown in the following image.
  
 ![]({{site.url}}{{site.baseurl}}/images/integrations/empty-installed-integrations.png)
 
