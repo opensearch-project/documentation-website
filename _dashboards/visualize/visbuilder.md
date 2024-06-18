@@ -9,9 +9,6 @@ redirect_from:
 
 # Using VisBuilder
 
-VisBuilder is an experimental feature and shouldn't be used in a production environment. For updates on its progress, or if you want to leave feedback that helps improve the feature, see the [GitHub issue](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/2280).
-{: .warning}
-
 You can use the VisBuilder visualization type in OpenSearch Dashboards to create data visualizations by using a drag-and-drop gesture. With VisBuilder you have:
 
 * An immediate view of your data without the need to preselect the visualization output.
