@@ -36,7 +36,7 @@ OpenSearch Integrations is closely aligned with established schemas, enabling ou
 
 A consistent telemetry data schema is crucial for effective observability, enabling data correlation and analysis across applications, services, and infrastructure components to provide a holistic view of system behavior and performance.
 
-OpenSearch adopted the [OpenTelemetry (OTel)](https://opentelemetry.io/) protocol as the foundation for its observability solution. OTel is a community-driven standard defining a consistent schema and data collection approach for metrics, logs, and traces. It is widely supported by APIs, software development kits (SDKs), and telemetry collectors, enabling features like auto-instrumentation for seamless observability integration.
+OpenSearch adopted the [OpenTelemetry (OTel)](https://opentelemetry.io/) protocol as the foundation for its observability solution. OTel is a community-driven standard that defines a consistent schema and data collection approach for metrics, logs, and traces. It is widely supported by APIs, SDKs, and telemetry collectors, enabling features like auto-instrumentation for seamless observability integration.
 
 Adopting the OTel schema and leveraging its ecosystem enables OpenSearch Integrations to take a powerful, standardized approach to observability, providing you with comprehensive system insights. This shared schema allows cross-correlation and analysis across different data sources, enabling deeper insights into application and infrastructure performance. To this end, OpenSearch derived the [Simple Schema for Observability](https://github.com/opensearch-project/opensearch-catalog/tree/main/docs/schema/observability), which encodes the OTel standard as OpenSearch mappings.
 
