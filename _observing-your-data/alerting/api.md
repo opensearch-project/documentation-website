@@ -624,7 +624,7 @@ GET /_plugins/_alerting/findings/_search?findingId=gKQhj8WJit3BxjGfiOXC
 
 The response returns the number of individual finding entries in the `total_findings` field.
 
-To get more specific results in a findings search, you can use any of the optional path parameters that are defined in the following table.
+To get more specific results in a findings search, you can use any of the optional path parameters defined in the following table.
 
 Path parameter | Description | Usage
 :--- | :--- : :---
