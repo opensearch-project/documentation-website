@@ -114,7 +114,7 @@ Trace analytics with OTel protocol analytics in OpenSearch Dashboards provides c
  
   ![Services RED metrics for duration]({{site.url}}{{site.baseurl}}/images/trace-analytics/single-service-RED-metrics.png)
 
-  - The **Span details** dialog window provides a trace's details. You can use this information to further analyze a trace's elements, such as attributes and associated logs. The following image shows this window.
+  - The **Span details** dialog window provides the details of a trace. You can use this information to further analyze a trace's elements, such as attributes and associated logs. The following image shows this window.
 
   ![Services Span details dialog window]({{site.url}}{{site.baseurl}}/images/trace-analytics/span-details-fly-out.png)
 
