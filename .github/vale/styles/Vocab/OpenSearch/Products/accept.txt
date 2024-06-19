@@ -88,7 +88,6 @@ Simple Schema for Observability
 Tableau
 TorchScript
 Tribuo
-User Behavior Insights
 VisBuilder
 Winlogbeat
 Zstandard

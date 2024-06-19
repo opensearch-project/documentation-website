@@ -82,6 +82,3 @@ You can filter event messages containing the word "\*laptop\*" by adding wildcar
 
 You now have a basic dashboard that lets you look at the data. 
 
-
-
-In the next tutorial we'll focus on some typical ecommerce driven scenarios.
