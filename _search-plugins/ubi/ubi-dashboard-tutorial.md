@@ -14,11 +14,11 @@ To view the resulting dashboard without following the tutorial, follow these ste
 Just go to Dashboards > Dashboard Management > Saved Objects, and then import this [UBI dashboard]({{site.url}}{{site.baseurl}}/assets/examples/ubi-dashboard.ndjson).
 
 ## 1. Start OpenSearch Dashboards.
-Depending on your configuration: http://localhost:5601/app/home#/
+Depending on your configuration: `http://{server}:5601/app/home#/`
 ![Dashboard Home]({{site.url}}{{site.baseurl}}/images/ubi/home.png "Dashboards")
 
 ## 2. Create an index pattern
-http://localhost:5601/app/management/OpenSearch-dashboards/indexPatterns
+`http://{server}:5601/app/management/OpenSearch-dashboards/indexPatterns`
 ![Index Patterns]({{site.url}}{{site.baseurl}}/images/ubi/index_pattern1.png "Index Patterns")
 OpenSearch Dashboards access your indexes using index patterns. To visualize your users' online search behavior, you must create an index pattern in order to access the indexes that UBI creates. For more information, see [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/).
 
@@ -35,6 +35,7 @@ After selecting **Create index pattern, you're ready to start building a dashboa
 
 ## 3. Create a new dashboard
 To create a new dashboard, on the top menu go to **OpenSearch Dashboards > Dashboards**, then select **Create > Dashboard** and choose **Create new**.
+You should see something like the following:
 
 ![First Dashboard]({{site.url}}{{site.baseurl}}/images/ubi/first_dashboard.png "First Dashboard")
 
