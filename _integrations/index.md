@@ -62,17 +62,16 @@ Each integration contains the following metadata and assets:
 
 **Integrations** can be installed directly from the [default catalog](https://github.com/opensearch-project/opensearch-catalog/blob/main/docs/integrations/Release.md) shipped with every OpenSearch release. Additionally, **Integrations** can be manually loaded and updated using the **Dashboards Management** console.
 
-### Installing integrations 
+### Installing Integrations 
 
-If no integration is installed, then you are prompted to install one. Go to **Integrations** > **Available** to view the supported integrations available from the default catalog. This feature is shown in the following image.
- 
-![]({{site.url}}{{site.baseurl}}/images/integrations/empty-installed-integrations.png)
+If no **Integrations** are installed, then you are prompted to install one. 
 
-To add an integration, select the desired prepackaged asset. **Integrations** offers the following options: **Add** or **Try it**. You can choose **Add** to add or configure a new data integration by selecting a prepackaged integration asset. You can choose **Try it** to to test or explore the integration before fully adding it. This feature is shown in the following image.
+1. Go to **Integrations** > **Available** to view the available options.
+2. Select the desired prepackaged asset, such as **Nginx** or **Amazon VPC**. You can choose **Add** to add or configure a new data integration by selecting a prepackaged integration asset. You can choose **Try it** to to test or explore the integration before fully adding it. This feature is shown in the following image.
 
 ![integrations-observability-catalog.png](/images/integrations/integrations-observability-catalog.png)
 
-On the **Available** page, select the **Categories** dropdown menu to filter the list of integrations. This feature is shown in the following image.
+3. On the **Available** page, select the **Categories** dropdown menu to filter the list of integrations. This feature is shown in the following image.
 
 ![cloud-integrations-filter.png]({{site.url}}{{site.baseurl}}/images/integrations/cloud-integrations-filter.png)
 
