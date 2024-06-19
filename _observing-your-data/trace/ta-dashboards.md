@@ -94,7 +94,7 @@ Trace analytics with OTel protocol analytics provide comprehensive insights into
 **Services** visualizations, such as a table or map, help you logically analyze service behavior and accuracy. The following visualizations can help you identify anomalies and errors:
 
 - **Services table**
-  - A RED indicator, along with connected upstream and downstream services and other actions, is indicated in each table column. The following image is an example **Services** table.
+  - A RED indicator, along with connected upstream and downstream services and other actions, is indicated in each table column. An example **Services** table is shown in the following image.
 
   ![Services table]({{site.url}}{{site.baseurl}}/images/trace-analytics/services-table.png)
     
