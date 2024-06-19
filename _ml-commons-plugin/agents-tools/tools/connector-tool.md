@@ -14,14 +14,17 @@ grand_parent: Agents and tools
 {: .label .label-purple }
 <!-- vale on -->
 
-The `ConnectorTool` runs `execute` action in a connector.
+The `ConnectorTool` uses a [connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/) to call any REST API function. For example, you can use a `ConnectorTool` to call a Lambda function through its REST API interface.
 
-## Step 1: Register a connector with execute action
+## Step 1: Register a connector with an execute action
 
-`ConnectorTool` can only run `execute` action in a connector. So you need to create a [connector](https://opensearch.org/docs/latest/ml-commons-plugin/remote-models/connectors/) with `execute` action. It's very similar to the `predict` action in connector. For example, create a connector to execute an AWS Lambda function with [Function URL](https://docs.aws.amazon.com/lambda/latest/dg/lambda-urls.html).
-The Lambda function accepts two integer numbers and returns the sum.
+The `ConnectorTool` can only run an `execute` action within a connector. Before you can create a `ConnectorTool`, configure a connector and provide an `execute` action in the `actions` array. The `execute` action is used to invoke a function at a REST API endpoint. It is similar to the `predict` action, which is used to invoke a machine learning (ML) model. 
 
-```
+For this example, you'll create a connector for a simple AWS Lambda function that accepts two integers and returns their sum. This function is hosted on a dedicated endpoint with a specific URL, which you'll provide in the `url` parameter. For more information, see [Lambda function URLs](https://docs.aws.amazon.com/lambda/latest/dg/lambda-urls.html).
+
+To create a connector, send the following request:
+
+```json
 POST _plugins/_ml/connectors/_create
 {
   "name": "Lambda connector of simple calculator",
@@ -50,7 +53,9 @@ POST _plugins/_ml/connectors/_create
   ]
 }
 ```
-OpenSearch responds with an agent ID:
+{% include copy-curl.html %} 
+
+OpenSearch responds with a connector ID:
 
 ```json
 {
@@ -60,15 +65,17 @@ OpenSearch responds with an agent ID:
 
 ## Step 2: Register a flow agent that will run the ConnectorTool
 
-A flow agent runs a sequence of tools in order and returns the last tool's output. To create a flow agent, send the following register agent request:
+For this example, the Lambda function adds the two input numbers and returns their sum in the `result` field:
 
-Suppose the Lambda function will return such response
 ```json
 {
-  "result": 10
+  "result": 5
 }
 ```
-Connector tool will return of of `response` field. In this example the model raw response doesn't have `response` field, so need to set `response_filter` to retrieve the result `10` with json path `$.result`, the filtered result will be put into `response` field.
+
+By default, the `ConnectorTool` expects the response from the Lambda function to contain a field named `response`. However, in this example the Lambda function response doesn't include a `response` field. To retrieve the result from the `result` field instead, you need to provide a `response_filter`, specifying the dot path to the `result` field (`$.result`). Using the `response_filter`, the `ConnectorTool` will retrieve the result from the `result` field of the Lambda function response and return it in the OpenSearch response.
+
+To configure running the Lambda function, create a flow agent. A flow agent runs a sequence of tools in order and returns the last tool's output. To create a flow agent, send the following register agent request, providing the connector ID from the previous step and a response filter:
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -103,7 +110,6 @@ OpenSearch responds with an agent ID:
 
 ## Step 3: Run the agent
 
-
 Then, run the agent by sending the following request:
 
 ```json
@@ -117,7 +123,7 @@ POST /_plugins/_ml/agents/9X7xWI0Bpc3sThaJdY9i/_execute
 ```
 {% include copy-curl.html %} 
 
-OpenSearch returns the index information:
+OpenSearch returns the output of the Lambda function run. In the output, the field name is `response`, and the `result` field contains the Lambda function result:
 
 ```json
 {
@@ -140,9 +146,23 @@ The following table lists all tool parameters that are available when registerin
 
 Parameter | Type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`connector_id` | String | Required | A connector which has execute action.
-`response_filter` | String | Optional | A json path to retrieve target result.
+`connector_id` | String | Required | A connector ID of a connector configured with an `execute` action that invokes an API.
+`response_filter` | String | Optional | A JSON dot path to the response field that contains the result of invoking the API.
 
 ## Execute parameters
 
-You can use any parameter defined in your connector `execute` action `request_body`.
+When running the agent, you can define any parameter needed for the API call in the `request_body` of your connector's `execute` action. In this example, the parameters are `number1` and `number2`:
+
+```json
+"actions": [
+    {
+      "action_type": "execute",
+      "method": "POST",
+      "url": "YOUR LAMBDA FUNCTION URL",
+      "headers": {
+        "content-type": "application/json"
+      },
+      "request_body": "{ \"number1\":\"${parameters.number1}\", \"number2\":\"${parameters.number2}\" }"
+    }
+  ]
+```
