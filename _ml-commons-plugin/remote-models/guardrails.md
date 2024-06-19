@@ -548,7 +548,7 @@ The response contains the connector ID that you'll use in the next steps:
 
 ### Step 6: Register and deploy the chat model with guardrails
 
-To register and deploy the Anthropic Claude chat model, send the following request. Note that the `guardrails` object contains a `resonse_validation_regex` parameter, which specifies to only treat the input/output as valid if the guardrail model responds with a variant of the word `accept`:
+To register and deploy the Anthropic Claude chat model, send the following request. Note that the `guardrails` object contains a `response_validation_regex` parameter, which specifies to only treat the input/output as valid if the guardrail model responds with a variant of the word `accept`:
 
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
@@ -561,11 +561,11 @@ POST /_plugins/_ml/models/_register?deploy=true
     "guardrails": {
         "input_guardrail": {
             "model_id": "o3JaDZABNFJeYR3I2fRV",
-            "resonse_validation_regex": "^\\s*\"[Aa]ccept\"\\s*$"
+            "response_validation_regex": "^\\s*\"[Aa]ccept\"\\s*$"
         },
         "output_guardrail": {
             "model_id": "o3JaDZABNFJeYR3I2fRV",
-            "resonse_validation_regex": "^\\s*\"[Aa]ccept\"\\s*$"
+            "response_validation_regex": "^\\s*\"[Aa]ccept\"\\s*$"
         },
         "type": "model"
     }
