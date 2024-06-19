@@ -15,7 +15,7 @@ You must provide an implementation for the following functions:
 - `getClientId()`
 - `getQueryId()`
   
-_Optionally_:
+You can also optionally provide an implementation for the following functions:
 - `getSessionId()`
 - `getPageId()`
 
