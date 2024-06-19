@@ -124,7 +124,7 @@ Trace analytics with OTel protocol analytics provide comprehensive insights into
 
   ![Services map tooltip]({{site.url}}{{site.baseurl}}/images/trace-analytics/service-details-tooltip.png)
   
-  - You can select a node to open a detailed dialog window for that service. This interactive map visualizes service interconnections, helping identify problems by service, unlike dashboards that identify issues by operation. You can sort by error rate or latency to pinpoint potential problem areas.
+  - You can select a node to open a detailed dialog window for its associated service. This interactive map visualizes service interconnections, helping identify problems by service, unlike dashboards that identify issues by operation. You can sort by error rate or latency to pinpoint potential problem areas.
 
   - In the **Service map** dialog window, nodes represent connected downstream services dependent on the selected service. The node color indicates the RED indicator severity for that service and its downstream dependencies. The following image shows this dialog window.
   
