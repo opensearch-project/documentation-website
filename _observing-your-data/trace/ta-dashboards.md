@@ -58,7 +58,7 @@ The plugin requires telemetry data to follow the OTel schema conventions, includ
 For accurate service mapping and correlation analysis, adhere to the following guidelines:
 
 - Service names must be unique and used consistently across application components.
-- The `serviceName` field is populated using the Data Prepper pipeline.
+- The `serviceName` field must be populated using the Data Prepper pipeline.
 - Services must be ingested with predefined upstream and downstream dependencies to construct accurate service maps and understand service relationships.
 
 ### Trace and span IDs
