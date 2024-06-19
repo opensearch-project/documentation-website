@@ -147,7 +147,7 @@ The following table lists all tool parameters that are available when registerin
 Parameter | Type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `connector_id` | String | Required | A connector ID of a connector configured with an `execute` action that invokes an API.
-`response_filter` | String | Optional | A JSON dot path to the response field that contains the result of invoking the API. If `response_filter` is not specified, the `ConnectorTool` expects the API response in a field named `response`.
+`response_filter` | String | Optional | A JSON dot path to the response field that contains the result of invoking the API. If a `response_filter` is not specified, the `ConnectorTool` expects the API response in a field named `response`.
 
 ## Execute parameters
 
