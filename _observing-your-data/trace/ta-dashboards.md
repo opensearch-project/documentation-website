@@ -51,7 +51,7 @@ The plugin requires you to use [Data Prepper]({{site.url}}{{site.baseurl}}/data-
 
 ### Standardized telemetry data
 
-The plugin requires telemetry data to follow the OTel schema conventions, including the structure and naming of spans, traces, and metrics as specified by OTel, and to be implemented using [Simple Schema for Observability (SS4O)]({{site.url}}{{site.baseurl}}/observing-your-data/ss4o/).
+The plugin requires telemetry data to follow the OTel schema conventions, including the structure and naming of spans, traces, and metrics as specified by OTel, and to be implemented using the [Simple Schema for Observability]({{site.url}}{{site.baseurl}}/observing-your-data/ss4o/).
 
 ### Service names and dependency map
 
