@@ -14,7 +14,7 @@ The Trace Analytics plugin offers at-a-glance visibility into application perfor
 
 ## Installing the plugin
 
-See [Standalone OpenSearch Dashboards plugin install]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/) for guidance about installing the Trace Analytics plugin.
+See [Standalone OpenSearch Dashboards plugin install]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/) for instructions on how to install the Trace Analytics plugin.
 
 ## Setting up the OpenTelemetry Demo
 
