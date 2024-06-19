@@ -12,6 +12,12 @@ redirect_from:
 
 The Trace Analytics plugin offers at-a-glance visibility into application performance based on [OpenTelemetry (OTel)](https://opentelemetry.io/) protocol data that standardizes instrumentation for collecting telemetry data from cloud-native software. 
 
+## Installing the plugin
+
+See [Standalone OpenSearch Dashboards plugin install]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/) for guidance about installing the Trace Analytics plugin.
+
+## Setting up the OpenTelemetry Demo
+
 To get started, set up the OpenTelemetry Demo with OpenSearch, which simulates a distributed application generating real-time telemetry data. This demo provides a practical environment to explore the Trace Analytics plugin's features before implementation.
 
 **Step 1: Set up OpenTelemetry Demo**
@@ -33,12 +39,6 @@ The **Trace Analytics** application includes two options: **Services** and **Tra
 
  **Step 4: Perform correlation analysis**
   - Select **Services correlation** to reveal connections between various telemetry signals. This allows you to navigate from the logical service level to the associated metrics and logs for that specific service.
-
----
-
-## Installing the plugin
-
-See [Standalone OpenSearch Dashboards plugin install]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/) for guidance about installing the Trace Analytics plugin.
 
 ---
 
