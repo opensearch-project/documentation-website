@@ -77,7 +77,7 @@ For example, let's see how the click position changes when there is a purchase, 
 ![Product Purchase]({{site.url}}{{site.baseurl}}/images/ubi/product_purchase.png "Product Purchase")
 
 
-Or let's see what event messages include "\*laptop\*" somewhere between the wildcards.
+You can filter event messages containing the word "\*laptop\*" by adding wildcards, as shown in the following image.
 ![Laptop]({{site.url}}{{site.baseurl}}/images/ubi/laptop.png "Laptop").
 
 You now have a basic dashboard that lets you look at the data. 
