@@ -91,7 +91,7 @@ Trace analytics with OTel protocol analytics in OpenSearch Dashboards provides c
 
 ### Trace analytics visualizations
 
-Services visualizations, such as a table or map, help you logically analyze service behavior and accuracy. The following visualizations can help you identify anomalies and errors:
+**Services** visualizations, such as a table or map, help you logically analyze service behavior and accuracy. The following visualizations can help you identify anomalies and errors:
 
 - **Services table**
   - A RED indicator, along with connected upstream and downstream services and other actions, is indicated in each table column. The following image is an example **Services** table.
