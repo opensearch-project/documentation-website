@@ -134,7 +134,7 @@ Trace analytics with OTel protocol analytics in OpenSearch Dashboards provides c
 
   ![Trace Groups window]({{site.url}}{{site.baseurl}}/images/trace-analytics/trace-group-RED-metrics.png)
 
-  - In the **Trace Groups** window, you can filter by group name and other filters. You can also analyze associated traces. To drill down on the traces that make up a group, select the number of traces in the right column, then choose an individual trace for a detailed summary.
+  - In the **Trace Groups** window, you can filter by group name and other filters. You can also analyze associated traces. To drill down on the traces that comprise a group, select the number of traces in the right-hand column and then choose an individual trace to see a detailed summary.
   
   ![Trace group dialog window]({{site.url}}{{site.baseurl}}/images/ta-dashboard.png)
 
