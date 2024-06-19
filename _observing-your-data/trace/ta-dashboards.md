@@ -18,7 +18,7 @@ See [Standalone OpenSearch Dashboards plugin install]({{site.url}}{{site.baseurl
 
 ## Setting up the OpenTelemetry Demo
 
-To get started, set up the OpenTelemetry Demo with OpenSearch, which simulates a distributed application generating real-time telemetry data. This demo provides a practical environment to explore the Trace Analytics plugin's features before implementation.
+Set up the OpenTelemetry Demo with OpenSearch, which simulates a distributed application generating real-time telemetry data. This demo provides a practical environment to explore the Trace Analytics plugin's features before implementation.
 
 **Step 1: Set up OpenTelemetry Demo**
   
