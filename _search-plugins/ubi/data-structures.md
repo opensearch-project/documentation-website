@@ -11,7 +11,7 @@ The client data structures can be used to create events that follow the [UBI eve
 For more information about the schema, see [UBI index schemas]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/).
 
 
-The developer provides an implementation for the following functions:
+You must provide an implementation for the following functions:
 - `getClientId()`
 - `getQueryId()`
   
