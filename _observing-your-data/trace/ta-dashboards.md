@@ -71,7 +71,7 @@ The plugin expects metric data to include rate, error, and duration (RED) indica
 
 ### Correlation fields
 
-Certain fields, such as `serviceName`, must be present for correlation analysis. These fields enable the plugin to link related telemetry data and provide a holistic view of service interactions and dependencies.
+Certain fields, such as `serviceName`, must be present to perform correlation analysis. These fields enable the plugin to link related telemetry data and provide a holistic view of service interactions and dependencies.
 
 ### Correlation indexes
 
