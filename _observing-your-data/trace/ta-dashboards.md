@@ -119,7 +119,7 @@ Trace analytics with OTel protocol analytics in OpenSearch Dashboards provides c
   ![Services Span details dialog window]({{site.url}}{{site.baseurl}}/images/trace-analytics/span-details-fly-out.png)
 
 - **Service map**
-  - The **Service map** displays nodes, each representing a service. Node color indicates the RED indicator severity for that service and its dependencies. The following image shows a map.
+  - The **Service map** displays nodes, each representing a service. The node color indicates the RED indicator severity for that service and its dependencies. The following image shows a map.
 
   ![Services map tooltip]({{site.url}}{{site.baseurl}}/images/trace-analytics/service-details-tooltip.png)
   
