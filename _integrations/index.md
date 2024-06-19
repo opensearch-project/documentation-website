@@ -86,7 +86,7 @@ To load a custom integration asset, follow these steps:
 2. Go to **Dashboards Management** > **Saved objects**.
 3. Select **Import** on the upper-right toolbar menu, navigate to the folder where you saved the integration artifact, and then choose the file (a file with an .ndjson extension). An example of this step is shown in the following image.
   ![Import folder window]({{site.url}}{{site.baseurl}}/images/integrations/integration-import-file.png)
-4. Select the saved object you uploaded to confirm it is uploaded to **Saved objects**. An example of this step is shown in the following image.
+4. Select the saved object you uploaded to confirm that it was uploaded to **Saved objects**. An example of this step is shown in the following image.
   ![List of integrations saved objects]({{site.url}}{{site.baseurl}}/images/integrations/select-uploaded-integration.png)
 
 ---
