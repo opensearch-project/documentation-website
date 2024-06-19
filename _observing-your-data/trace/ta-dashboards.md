@@ -38,7 +38,7 @@ The **Trace Analytics** application includes two options: **Services** and **Tra
   - **Traces** groups traces together by HTTP method and path so that you can see the average latency, error rate, and trends associated with a particular operation. For a more focused view, try filtering by trace group name. To access this option, go to **Trace Analytics** > **Traces**. From the **Trace Groups** panel, you can drill down on the traces that comprise a trace group. From the **Traces** panel you can drill down on individual traces for a detailed summary.
 
  **Step 4: Perform correlation analysis**
-  - Select **Services correlation** to reveal connections between various telemetry signals. This allows you to navigate from the logical service level to the associated metrics and logs for that specific service.
+  - Select **Services correlation** to display connections between various telemetry signals. This allows you to navigate from the logical service level to the associated metrics and logs for that specific service.
 
 ---
 
