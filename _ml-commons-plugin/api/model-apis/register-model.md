@@ -258,20 +258,26 @@ Guardrails are safety measures for large language models (LLMs). They provide a 
 
 To register an externally hosted model with guardrails, provide the `guardrails` parameter, which supports the following fields. All fields are optional.
 
-Field | Data type | Description                                                                                                                                                                                                           
-:---  |:----------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-`type` | String    | The guardrail type. Currently, we have `local_regex` and `model` types.                                                                                                                                               
-`input_guardrail`| Object    | The guardrail for the model input.                                                                                                                                                                                    |
-`output_guardrail`| Object    | The guardrail for the model output.                                                                                                                                                                                   |
-`stop_words`| Object    | The list of indexes containing stopwords used for the model input/output validation. If the model prompt/response contains a stopword contained in any of the indexes, the predict request on this model is rejected. |
-`index_name`| Object    | The name of the index storing the stopwords.                                                                                                                                                                          |
-`source_fields`| Object    | The name of the field storing the stopwords.                                                                                                                                                                          |
-`regex`| Object    | A regular expression used for input/output validation. If the model prompt/response matches the regular expression, the predict request on this model is rejected.                                                    |
-`model_id`| String    | The guardrails model to validate user input and LLM output.                                                                                                                                                           |
-`response_filter`| String    | The dotpath used to get the result from guardrails model response.                                                                                                                                                    |
-`response_validation_regex`| String    | The regex expression to check the guradrails model result.                                                                                                                                                            |
+Field | Data type | Description
+:---  | :--- | :---
+`type` | String | The guardrail type. Valid values are [`local_regex`](#example-request-local-regex) and [`model`](#example-request-model). Using `local_regex`, you can specify a regular expression or stop words  
+`input_guardrail`| Object |  The guardrail for the model input. 
+`output_guardrail`| Object |  The guardrail for the model output. 
+`stop_words`| Object | The list of indexes containing stopwords used for the model input/output validation. If the model prompt/response contains a stopword contained in any of the indexes, the predict request on this model is rejected. 
+`index_name`| Object | The name of the index storing the stopwords. 
+`source_fields`| Object | The name of the field storing the stopwords. 
+`regex`| Object |  A regular expression used for input/output validation. If the model prompt/response matches the regular expression, the predict request on this model is rejected. 
+`model_id`| String  | The guardrail model used to validate user input and LLM output. 
+`response_filter`| String | The dot path of the field containing the guardrail model response. 
+`response_accept`| String | The regular expression used to validate the guardrail model response.     
 
-#### Example requests: Externally hosted model with guardrails
+## Examples
+
+The following examples configure an externally hosted model with guardrails.
+
+#### Example request: Regex and stopword validation
+
+The following example uses a regular expression and a set of stopwords to validate the LLM response:
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -305,6 +311,13 @@ POST /_plugins/_ml/models/_register
 }
 ```
 {% include copy-curl.html %}
+
+For a complete example, see [Validating input/output using stopwords and regex]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/guardrails/#validating-inputoutput-using-stopwords-and-regex).
+
+#### Example request: Guardrail model validation
+
+The following example uses a guardrail model to validate the LLM response:
+
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
 {
@@ -328,7 +341,7 @@ POST /_plugins/_ml/models/_register?deploy=true
 ```
 {% include copy-curl.html %}
 
-For a complete example, see [Guardrails]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/guardrails/).
+For a complete example, see [Validating input/output using a guardrail model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/guardrails/#validating-inputoutput-using-a-guardrail-model).
 
 #### Example response
 
