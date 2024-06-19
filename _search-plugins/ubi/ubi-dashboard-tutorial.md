@@ -10,7 +10,7 @@ nav_order: 7
 # Build an analytic dashboard for UBI
 Whether you've been collecting user events and queries for a while, or [you uploaded some sample events](https://github.com/o19s/chorus-OpenSearch-edition/blob/main/katas/003_import_preexisting_event_data.md), now you're ready to visualize them in an OpenSearch Dashboards dashboard using User Behavior Insights (UBI).
 
-NOTE: To check your work, we have a pre-built dashboard.
+To view the resulting dashboard without following the tutorial, follow these steps:
 Just go to Dashboards > Dashboard Management > Saved Objects, and then import this [UBI dashboard]({{site.url}}{{site.baseurl}}/assets/examples/ubi-dashboard.ndjson).
 
 ## 1. Start OpenSearch Dashboards.
