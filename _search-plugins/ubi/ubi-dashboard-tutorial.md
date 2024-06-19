@@ -11,7 +11,12 @@ nav_order: 7
 Whether you've been collecting user events and queries for a while, or [you uploaded some sample events](https://github.com/o19s/chorus-OpenSearch-edition/blob/main/katas/003_import_preexisting_event_data.md), now you're ready to visualize them in an OpenSearch Dashboards dashboard using User Behavior Insights (UBI).
 
 To view the resulting dashboard without following the tutorial, follow these steps:
-Just go to Dashboards > Dashboard Management > Saved Objects, and then import this [UBI dashboard]({{site.url}}{{site.baseurl}}/assets/examples/ubi-dashboard.ndjson).
+1. Download and save the [sample UBI dashboard]({{site.url}}{{site.baseurl}}/assets/examples/ubi-dashboard.ndjson).
+1. On the top menu, go to **Management > Dashboard Management**.
+1. From the **Dashboards** panel, choose **Saved objects**.
+1. In the upper right corner, select **Import**.
+1. In the **Select file** panel, choose **Import**.
+1. Select the UBI dashboard file that you downloaded and select the **Import** button.
 
 ## 1. Start OpenSearch Dashboards.
 Depending on your configuration: `http://{server}:5601/app/home#/`
