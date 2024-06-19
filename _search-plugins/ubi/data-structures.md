@@ -7,7 +7,7 @@ nav_order: 7
 ---
 
 # Sample client data structures
-The client data structures can be used to create events that follow the [UBI event schema specification](https://github.com/o19s/ubi).
+The following client data structures can be used to create events that follow the [UBI event schema specification](https://github.com/o19s/ubi).
 For more information about the schema, see [UBI index schemas]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/).
 
 
@@ -21,6 +21,7 @@ You can also optionally provide an implementation for the following functions:
 
 <!-- Not needed with this page: Other sample implementations can be found [here](#TODO-clients-link). -->
 
+These **JavaScript** structures below give you a starter implementation that serializes into JSON.
 ```js
 /*********************************************************************************************
  * Ubi Event data structures
