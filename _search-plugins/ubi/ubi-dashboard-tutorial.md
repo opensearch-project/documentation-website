@@ -66,8 +66,6 @@ You should now have two visualizations on your dashboard.
 ## 5) Add one more visualization of a histogram of item clicks
 To add a histogram, first, add a vertical bar chart.
 
-<img src="{{site.url}}{{site.baseurl}}/images/ubi/visualizations2.png" alt="Vertical Bar Chart" width="300"/>
-
 The data field you want to examine is `event_attributes.position.ordinal`. This field contains the position of the item in a list that the user selected. For the histogram visualization, the x-axis will be the ordinal number of the selected item (n). The y-axis will be the number of times that the nth item was clicked, as shown in the following image. 
 
 ![Vertical Bar Chart]({{site.url}}{{site.baseurl}}/images/ubi/histogram.png "Vertical Bar Chart")
