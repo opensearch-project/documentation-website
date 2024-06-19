@@ -23,7 +23,7 @@ Available OpenSearch Dashboards integration assets are shown in the following im
 
 ## Use cases
 
-**Integrations** considers established data schemas across multiple domains to give you seamless data mapping and integration for various use cases, such as e-commerce product search, observability monitoring (for example, tracing and metrics analysis), and security monitoring and threat analysis. 
+**Integrations** considers established data schemas across multiple domains to give you seamless data mapping and integration for various use cases, such as e-commerce product search, observability monitoring (for example, trace and metrics analytics), and security monitoring and threat analysis. 
 
 ## OpenTelemetry protocol for observability
 
