@@ -2332,7 +2332,7 @@ POST _plugins/_alerting/destinations/email_groups/_search
 This is an experimental feature and is not recommended for use in a production environment.   
 {: .warning}
 
-Add comments to a specific alert, providing additional context or notes related to that alert using the following request.
+Add comments to a specific alert, providing additional context or notes related to that alert, using the following request.
 
 #### Example request
 ```json
