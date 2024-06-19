@@ -14,16 +14,16 @@ UBI is not functional unless the links between the following fields are consiste
 
 - [`query_id`](#query_id) is a unique id for the raw query language executed and the resultant `object_id`'s (_hits_) that the query returned.  
 - [`client_id`](#client_id) represents a unique source of queries. Typically this will be a web browser used by a unique user. 
-- [`object_id`](#object_id) represents an id for whatever object the user is recieving in response to a query. For example, if you are search books, it might be a _ISBN_ code of a book such as `978-3-16-148410-0`.
+- [`object_id`](#object_id) represents an id for whatever object the user is recieving in response to a query. For example, if you search for books, it might be a ISBN code of a book such as `978-3-16-148410-0`.
 - [`object_id_field`](#object_id_field) tells us the name of the field in your index that provides the `object_id`. For the book example, the value might be `isbn_code`.
-- [`action_name`](#action_name), though not technically an *id*, the `action_name` tells us what exact user action (such as `click`, `add_to_cart`, `watch`, `view`, or `purchase`) that was taken (or not) with a given `object_id`.
+- [`action_name`](#action_name), though not technically an ID, the `action_name` specifies the exact user action (such as `click`, `add_to_cart`, `watch`, `view`, or `purchase`) that was taken (or not taken) for an object with a given `object_id`.
 
-To summarize: the `query_id` signals the beginning of unique *Search* for a client tracked via `client_id`, returning various `object_id`'s. Every time a user performs an interaction, the `action_name` tells us what the user is performing, and is connected to the specific `object_id`'s. We can differentiate between types of objects by looking at the `object_id_field`.  
+To summarize, the `query_id` signals the beginning of a unique *search* for a client tracked through a `client_id`. The search returns various objects, each with a unique`object_id`. Every time a user performs an interaction, the `action_name` specifies what action the user is performing and is connected to the objects, each with a specific `object_id`. You can differentiate between types of objects by inspecting the `object_id_field`.  
 
-Typically you will infer the user's overall *Search Journey* by looking at all the data for a `client_id` and looking at individual `query_id` data. Each application decides what makes a *Search Session* by looking at the data in the backend.
+Typically, you can infer the user's overall *search journey* by retrieving all the data for the user's `client_id` and inspecting individual `query_id` data. Each application decides what makes a *search session* by examining the data in the backend.
 
 ## Important UBI roles
-- **Search Client**: in charge of searching, and then recieving *objects* from some document index in OpenSearch.
+- The **search client** is in charge of searching and then receiving *objects* from a document index in OpenSearch (1, 2, **5** and 7 in the following diagram).
  (1, 2, **5** and 7, in the following diagram)
 - **User Behavior Insights** plugin: if activated in the `ext.ubi` stanza of the search request, manages the **UBI Queries** store in the background, indexing each query, ensuring a unique [`query_id`](#query_id) along with all returned resultant [`object_id`](#object_id)'s, and then passing the `query_id` back to the **Search Client** so that events can be linked to this query.
  (3, 4 and **5**, in following diagram)
