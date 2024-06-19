@@ -35,7 +35,7 @@ Set up the OpenTelemetry Demo with OpenSearch, which simulates a distributed app
 The **Trace Analytics** application includes two options: **Services** and **Traces**:
 
   - **Services** lists all services in the application, plus an interactive map that shows how the various services connect to each other. In contrast to the dashboard (which helps identify problems by operation), the **Service map** helps you identify problems by service based on error rates and latency. To access this option, go to **Trace Analytics** > **Services**.
-  - **Traces** groups traces together by HTTP method and path so that you can see the average latency, error rate, and trends associated with a particular operation. For a more focused view, try filtering by trace group name. To acces this option, go to **Trace Analytics** > **Traces**. From the **Trace Groups** panel you can drill down on the traces that make up a trace group. From the **Traces** panel you can drill down on individual traces for a detailed summary.
+  - **Traces** groups traces together by HTTP method and path so that you can see the average latency, error rate, and trends associated with a particular operation. For a more focused view, try filtering by trace group name. To access this option, go to **Trace Analytics** > **Traces**. From the **Trace Groups** panel, you can drill down on the traces that comprise a trace group. From the **Traces** panel you can drill down on individual traces for a detailed summary.
 
  **Step 4: Perform correlation analysis**
   - Select **Services correlation** to reveal connections between various telemetry signals. This allows you to navigate from the logical service level to the associated metrics and logs for that specific service.
