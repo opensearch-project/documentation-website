@@ -14,7 +14,7 @@ redirect_from:
 **References UBI Specification 1.0.0**
 {: .label .label-purple }
 
-User Behavior Insights, or UBI, is a plugin for capturing client-side events and queries for the purposes of improving search relevance and user experience.
+User Behavior Insights (UBI) is a plugin that captures client-side events and queries for the purposes of improving search relevance and user experience.
 It is a causal system, linking a user's query to all subsequent user interactions with your application until they perform another search.
 
 
