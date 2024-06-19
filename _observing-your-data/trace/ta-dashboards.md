@@ -86,7 +86,7 @@ Introduced 2.15
 Trace analytics with OTel protocol analytics provide comprehensive insights into distributed systems. You can visualize and analyze the following:
 
 - [Service](https://opentelemetry.io/docs/specs/semconv/resource/#service): The components of a distributed application. These components are significant logical terms used to measure and monitor the application's building blocks in order to validate the system's health.
-- [Traces](https://opentelemetry.io/docs/concepts/signals/traces/): The end-to-end visibility into requests' journeys across services, offering insights into latency and performance issues.
+- [Traces](https://opentelemetry.io/docs/concepts/signals/traces/): A visual representation of a request's path across services into requests' journeys across services, offering insights into latency and performance issues.
 - [RED metrics](https://opentelemetry.io/docs/specs/otel/metrics/api/): Metrics for service health and performance, measured as requests per second (rate), failed requests (errors), and request processing time (duration). 
 
 ### Trace analytics visualizations
