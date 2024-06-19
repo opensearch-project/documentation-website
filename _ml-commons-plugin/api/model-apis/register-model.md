@@ -260,7 +260,7 @@ To register an externally hosted model with guardrails, provide the `guardrails`
 
 Field | Data type | Description
 :---  | :--- | :---
-`type` | String | The guardrail type. Valid values are [`local_regex`](#example-request-local-regex) and [`model`](#example-request-model). Using `local_regex`, you can specify a regular expression or stop words  
+`type` | String | The guardrail type. Valid values are [`local_regex`](#example-request-regex-and-stopword-validation) and [`model`](#example-request-guardrail-model-validation). Using `local_regex`, you can specify a regular expression or stop words. Using `model`, you can specify a guardrail model. For more information, see [Guardrails]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/guardrails/). 
 `input_guardrail`| Object |  The guardrail for the model input. 
 `output_guardrail`| Object |  The guardrail for the model output. 
 `stop_words`| Object | The list of indexes containing stopwords used for the model input/output validation. If the model prompt/response contains a stopword contained in any of the indexes, the predict request on this model is rejected. 
