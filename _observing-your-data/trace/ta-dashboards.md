@@ -84,7 +84,7 @@ Navigating from the service dialog to its corresponding traces or logs requires 
 Introduced 2.15
 {: .label .label-purple }
 
-Trace analytics with OTel protocol analytics provide comprehensive insights into distributed systems. You can visualize and analyze the following:
+Trace analytics with OTel protocol analytics provide comprehensive insights into distributed systems. You can visualize and analyze the following assets:
 
 - [Service](https://opentelemetry.io/docs/specs/semconv/resource/#service): The components of a distributed application. These components are significant logical terms used to measure and monitor the application's building blocks in order to validate the system's health.
 - [Traces](https://opentelemetry.io/docs/concepts/signals/traces/): A visual representation of a request's path across services into requests' journeys across services, offering insights into latency and performance issues.
