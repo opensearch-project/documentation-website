@@ -10,17 +10,9 @@ redirect_from:
 
 # Trace Analytics plugin for OpenSearch Dashboards
 
-The Trace Analytics plugin offers at-a-glance visibility into application performance based on [OpenTelemetry (OTel)](https://opentelemetry.io/) protocol data. OTel, an open-source observability framework, offers standardized instrumentation for collecting telemetry data from cloud-native software. 
+The Trace Analytics plugin offers at-a-glance visibility into application performance based on [OpenTelemetry (OTel)](https://opentelemetry.io/) protocol data that standardizes instrumentation for collecting telemetry data from cloud-native software. 
 
-To get started with the using the Trace Analytics plugin with OpenSearch Dashboards, follow the instructions in [OpenTelemetry Demo with OpenSearch](https://github.com/opensearch-project/opentelemetry-demo). 
-
-Expand the following OTel demo for a comprehensive, open-source example that simulates a distributed web astronomy shop application and generates real-time telemetry data.
-
-<details markdown="block">
-  <summary>
-    Demo
-  </summary>
-  {: .text-delta}
+To get started, set up the OpenTelemetry Demo with OpenSearch, which simulates a distributed application generating real-time telemetry data. This demo provides a practical environment to explore the Trace Analytics plugin's features before implementation.
 
 **Step 1: Set up OpenTelemetry Demo**
   
@@ -42,11 +34,13 @@ The **Trace Analytics** application includes two options: **Services** and **Tra
  **Step 4: Perform correlation analysis**
   - Select **Services correlation** to reveal connections between various telemetry signals. This allows you to navigate from the logical service level to the associated metrics and logs for that specific service.
 
-</details>
+---
 
 ## Installing the plugin
 
 See [Standalone OpenSearch Dashboards plugin install]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/) for guidance about installing the Trace Analytics plugin.
+
+---
 
 ## Schema dependencies and assumptions
 
@@ -82,6 +76,8 @@ Certain fields, such as `serviceName`, must be present for correlation analysis.
 ### Correlation indexes
 
 Navigating from the service dialog to its corresponding traces or logs requires the existence of correlating fields and that the target indexes (for example, logs) follow the naming conventions, as described in [Simple Schema for Observability](https://opensearch.org/docs/latest/observing-your-data/ss4o/).  
+
+---
 
 ## Trace analytics with OTel protocol analytics
 Introduced 2.15
