@@ -1911,7 +1911,7 @@ PUT _plugins/_alerting/destinations/email_accounts/<email_account_id>?if_seq_no=
 
 ## Get email account
 
-Retrieve the details of a specific email account configured for alerting purposes by using the following request.
+Retrieve the details of a specific email account configured for alerting purposes using the following request.
 
 #### Example request
 ```json
