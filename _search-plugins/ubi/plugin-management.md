@@ -7,13 +7,11 @@ nav_order: 2
 ---
 
 
-# OpenSearch User Behavior Insights
+# UBI plugin management
 
-This *repository* contains the OpenSearch plugin for the User Behavior Insights (UBI) capability. This plugin
+This [*repository*](https://github.com/opensearch-project/user-behavior-insights) contains the OpenSearch plugin for the User Behavior Insights (UBI) capability. This plugin
 facilitates persisting client-side events (e.g. item clicks, scroll depth) and OpenSearch queries for the purpose of analyzing the data
 to improve search relevance and user experience.
-
-## Quick start
 
 
 ## UBI store

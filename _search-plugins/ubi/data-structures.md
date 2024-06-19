@@ -7,14 +7,15 @@ nav_order: 7
 ---
 
 # Sample client data structures
-The client data structures can be used to create events that follow the [UBI event schema specification](https://github.com/o19s/ubi), 
-which is described in further detail [here]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/).
+The client data structures can be used to create events that follow the [UBI event schema specification](https://github.com/o19s/ubi).
+For more information about the schema, see [UBI index schemas]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/).
 
-The developer provides an implementation for the following functions:
+
+You must provide an implementation for the following functions:
 - `getClientId()`
 - `getQueryId()`
   
-_Optionally_:
+You can also optionally provide an implementation for the following functions:
 - `getSessionId()`
 - `getPageId()`
 
