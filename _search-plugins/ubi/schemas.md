@@ -143,36 +143,36 @@ Since this schema is dynamic, the developer can add any new fields and structure
  <p id="application"> </p>
 
 - `application` 
- &ensp; (size 100) - name of the application tracking UBI events (e.g. `amazon-shop`, `ABC-microservice`)
+ &ensp; (size 100) - The name of the application tracking UBI events (for example, `amazon-shop` or `ABC-microservice`).
  
  <p id="action_name"> </p>
 
 - `action_name` 
- &ensp; (size 100) - The name of the action that triggered the event. The UBI specification defines some common action names, but any name can be used.
+ &ensp; (size 100) - The name of the action that triggered the event. The UBI specification defines some common action names, but you can use any name.
 
  <p id="query_id"> </p>
 
 - `query_id` 
   &ensp; (size 100) - The unique identifier of a query, typically a UUID, but can be any string.
-  &ensp;Either the client provides this, or the `query_id` is generated at index time by the **UBI Plugin** and must be consistent in both the **UBI Queries** and **UBI Events** indexes.
+  &ensp;The `query_id` is either provided by the client or generated at index time by the UBI Plugin. The `query_id` values in both the **UBI Queries** and **UBI Events** indexes must be consistent.
 
 <p id="client_id"> </p>
 
 - `client_id`
-  &ensp; The client issuing the query. Typically this will be a web browser used by a unique user.
-  &ensp;The `client_id` must be consistent in both the **UBI Queries** and **UBI Events** indexes.
+  &ensp; The client issuing the query. Typically, the client is a web browser used by a unique user.
+  &ensp;The `client_id` in both the **UBI Queries** and **UBI Events** indexes must be consistent.
 
 - `timestamp`: 
   &ensp; When the event took place, typically in the `2018-11-13T20:20:39+00:00` format.
 
 - `message_type` 
-	&ensp; (size 100) - Group various `action_name`'s into logical bins such as `QUERY` or `CONVERSION`. 
+	&ensp; (size 100) - A logical bin for grouping actions (each with an `action_name`). For example, `QUERY` or `CONVERSION`. 
 
 - `message` 
-	&ensp; (size 1024) - Optional text message for the log entry. For example, for a `message_type` of `QUERY`, we would expect the text to be about what the user is searching on.
+	&ensp; (size 1024) - An optional text message for the log entry. For example, for a `message_type` of `QUERY`, the `message` can contain the text related to a user's search.
 
-- `event_attributes`'s 
-  &ensp;Extensible structure that describes any important context about the event. Within it, it has 2 primary structures `position` and `object`, as well as being extensible to add anymore relevant, custom, information about the event can be stored such as timing information, individual user or session information.
+- `event_attributes`
+  &ensp; An extensible structure that describes any important context about the event. This structure consists of two primary structures: `position` and `object`. The structure is extensible so you can add custom information about the event, such as the event's timing, user, or session.
   
   &ensp; Since this has a dynamic mapping, the index _could_ become bloated with many new fields
   {: .warning} 
