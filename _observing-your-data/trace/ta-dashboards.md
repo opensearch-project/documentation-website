@@ -20,7 +20,7 @@ See [Standalone OpenSearch Dashboards plugin install]({{site.url}}{{site.baseurl
 
 Set up the OpenTelemetry Demo with OpenSearch, which simulates a distributed application generating real-time telemetry data. This demo provides a practical environment in which to explore the Trace Analytics plugin's features before implementation.
 
-**Step 1: Set up OpenTelemetry Demo**
+**Step 1: Set up the OpenTelemetry Demo**
   
   - Clone the [OpenTelemetry Demo with OpenSearch](https://github.com/opensearch-project/opentelemetry-demo) repository: `git clone https://github.com/opensearch-project/opentelemetry-demo`.
   - Follow the [Getting Started](https://github.com/opensearch-project/opentelemetry-demo/blob/main/tutorial/GettingStarted.md) instructions to deploy the demo application using Docker, which runs multiple microservices generating telemetry data.
