@@ -49,22 +49,22 @@ Most of the visualization require some sort of aggregate function on an bucket/f
 
 Save that visualization and it will be added to your new dashboard. Now that you have a visualization on your dashboard, you can save your dashboard.
 
-## 4) Add a "tag cloud" vizualization to your dashboard
-Let's add a word cloud for trending searches.  Choose the Tag Cloud visualization of the terms in the `message` field where the javascript client logs the raw text that the user searches on.  (Note: the true query, as processed by OpenSearch with filters, boosting, etc. will be in the `ubi_queries` index, but what we are looking at is the `message` field of the `ubi_events` index, where the javascript client captures what the user actually typed. )
+## 4. Add a tag cloud visualization
+Now you'll add a word cloud for trending searches by creating a new visualization, similar to the previous step.  In the **New Visualization** window, select **Tag Cloud**. Then select the index pattern you created in Step 2. Choose the Tag Cloud visualization of the terms in the `message` field where the Javascript client logs the raw text that the user searches on.  (Note: The true query, as processed by OpenSearch with filters, boosting, and so on, resides in the `ubi_queries` index. However, you'll view the `message` field of the `ubi_events` index, where the Javascript client captures the text that the user actually typed.) The following image shows the tag cloud visualization on the `message` field.
 ![Word Cloud]({{site.url}}{{site.baseurl}}/images/ubi/tag_cloud1.png "Word Cloud")
 
-NOTE: The underlying queries can be found under [SQL trending queries]({{site.url}}{{site.baseurl}}/search-plugins/ubi/sql-queries/#trending-queries)
+NOTE: The underlying queries can be found under [SQL trending queries]({{site.url}}{{site.baseurl}}/search-plugins/ubi/sql-queries/#trending-queries).
 
 
-**But there's a problem!** The `message` field is on *every* event --not only query/search events-- and can be used in anyway the client developer decides to use it; so, it can contain error messages, debug messages, click information, and so on.
-We need to add a filter to only see search terms on query events. Since the developer gave a `message_type` of `QUERY` for each search event, we will filter on that message type to isolate the specific users' searches. 
+However, this visualization is not exactly what you're looking for. The `message` field is updated on every event---not only query/search events---and can be used in any way the client developer decides to use it. As a result, it can contain error messages, debug messages, click information, and other data.
+To view only search terms on query events, you need to add a filter to your visualization. Since the developer provided a `message_type` of `QUERY` for each search event, you can filter on that message type to isolate the specific users' searches. To do this, select **Add filter** and then select **QUERY** in the **Edit filter** panel, as shown in the following image. 
 ![Word Cloud]({{site.url}}{{site.baseurl}}/images/ubi/tag_cloud2.png "Word Cloud")
 
-You should now have two visualizations on your dashboard.
+You should now have two visualizations on your dashboard (the pie chart and the tag cloud), as shown in the following image.
 ![UBI Dashboard]({{site.url}}{{site.baseurl}}/images/ubi/dashboard2.png "UBI Dashboard")
 
 ## 5) Add one more visualization of a histogram of item clicks
-To add a histogram, first, add a vertical bar chart.
+Now you'll add a histogram visualization to your dashboard, similar to the previous step. In the **New Visualization** window, select **Vertical Bar**. Then select the index pattern you created in Step 2. 
 
 The data field you want to examine is `event_attributes.position.ordinal`. This field contains the position of the item in a list that the user selected. For the histogram visualization, the x-axis will be the ordinal number of the selected item (n). The y-axis will be the number of times that the nth item was clicked, as shown in the following image. 
 
