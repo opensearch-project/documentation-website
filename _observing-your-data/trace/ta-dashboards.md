@@ -98,7 +98,7 @@ Trace analytics with OTel protocol analytics provide comprehensive insights into
 
   ![Services table]({{site.url}}{{site.baseurl}}/images/trace-analytics/services-table.png)
     
-  - General-purpose filter selection is used for any field or filter composition. The following image shows this filter.
+  - General-purpose filter selection is used for field or filter composition. The following image shows this filter.
 
   ![Services filter selection]({{site.url}}{{site.baseurl}}/images/trace-analytics/services-filter-selection.png)
 
