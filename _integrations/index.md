@@ -46,7 +46,7 @@ Data ingested into OpenSearch must conform to the supported schemas for data int
 
 These pipelines use the OTel schema (or a simple schema) to index signal documents into the correct index representing the observed resource signals. See [Naming Convention](https://github.com/opensearch-project/opensearch-catalog/blob/main/docs/schema/observability/Naming-convention.md) for index naming conventions. 
 
-### Applying the ingestion structure
+### Ingestion structure
 
 Each integration contains the following metadata and assets:
 
