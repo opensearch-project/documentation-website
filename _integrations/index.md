@@ -105,6 +105,6 @@ See the following developer resources for sample code, articles, tutorials, and 
 
 ## Community contribution
 
-The OpenSearch Project seeks your feedback on this feature. Post on the [OpenSearch forum](https://forum.opensearch.org/) to let us know how OpenSearch Integrations works for you or how it can be improved.
+The OpenSearch Project seeks your feedback on this feature. Post on the [OpenSearch forum](https://forum.opensearch.org/) to let us know how **Integrations** works for you or how it can be improved.
  
 Contribute to the project by submitting an [integration request](https://github.com/opensearch-project/dashboards-observability/issues/new?assignees=&labels=integration%2C+untriaged&projects=&template=integration_request.md&title=%5BIntegration%5D).
