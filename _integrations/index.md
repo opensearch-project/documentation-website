@@ -15,7 +15,7 @@ Introduced 2.9
 
 The **Integrations** application in OpenSearch Dashboards provides a user-friendly platform for data visualization, querying, and projection of your resource data, such as flow logs. An _integration asset_, such NGINX or Amazon VPC, contains a bundle of metadata, data mappings, and visualizations, streamlining the monitoring of resource data without redundant configuration steps. 
 
-Available integration assets in OpenSearch Dashboards are shown in the following image.
+Available OpenSearch Dashboards integration assets are shown in the following image.
 
 ![Integrations assets available in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/dashboards/integrations-assets.png)
 
