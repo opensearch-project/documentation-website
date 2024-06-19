@@ -68,7 +68,7 @@ Traces and spans must have consistently generated and maintained unique identifi
 
 ### RED metrics adherence
 
-The plugin expects metric data to include rate, error, and duration (RED) indicators for each service, either preaggregated using the Data Prepper pipeline or calculated dynamically based on spans. This allows for effective computation and display of key performance indicators.
+The plugin expects metric data to include rate, error, and duration (RED) indicators for each service, either preaggregated using the Data Prepper pipeline or calculated dynamically based on spans. This allows you to effectively compute and display key performance indicators.
 
 ### Correlation fields
 
