@@ -222,3 +222,139 @@ GET /_plugins/_security_analytics/findings/correlate?finding=425dce0b-f5ee-4889-
 | `detector_type` | String | The log type associated with the finding. |
 | `score` | Number | The correlation score for the correlated finding. The score is based on the proximity of relevant findings in the threat scenario defined by the correlation rule. |
 
+## List correlation Alerts
+
+This API is used to list correlations alerts
+
+```json
+
+GET /_plugins/_security_analytics/correlationAlerts
+
+```
+
+### Query parameters
+
+| Parameter | Type | Description |
+| :--- | :--- |:--- |
+| `correlation_rule_id` | String | The correlation Rule ID. | Optional
+
+#### Example request
+
+```json
+GET /_plugins/_security_analytics/correlations?correlation_rule_id=VjY0MpABPzR_pcEveVRq
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+    "correlationAlerts": [
+        {
+            "correlated_finding_ids": [
+                "4f867df9-c9cb-4dc1-84bb-6c8b575f1a54"
+            ],
+            "correlation_rule_id": "VjY0MpABPzR_pcEveVRq",
+            "correlation_rule_name": "rule-corr",
+            "user": null,
+            "id": "8532c08b-3ab5-4e95-a1c2-5884c4cd41a5",
+            "version": 1,
+            "schema_version": 1,
+            "trigger_name": "trigger1",
+            "state": "ACTIVE",
+            "error_message": null,
+            "severity": "1",
+            "action_execution_results": [],
+            "start_time": "2024-06-19T20:37:08.257Z",
+            "end_time": "2024-06-19T20:42:08.257Z",
+            "acknowledged_time": null
+        },
+        {
+            "correlated_finding_ids": [
+                "30d2109f-76bb-44ad-8f68-6daa905e018d"
+            ],
+            "correlation_rule_id": "VjY0MpABPzR_pcEveVRq",
+            "correlation_rule_name": "rule-corr",
+            "user": null,
+            "id": "8bba85d9-a7fc-4c87-b35e-a7236b87159f",
+            "version": 1,
+            "schema_version": 1,
+            "trigger_name": "trigger1",
+            "state": "ACTIVE",
+            "error_message": null,
+            "severity": "1",
+            "action_execution_results": [],
+            "start_time": "2024-06-19T20:43:08.208Z",
+            "end_time": "2024-06-19T20:48:08.208Z",
+            "acknowledged_time": null
+        }
+    ],
+    "total_alerts": 2
+}
+```
+
+## List correlation Alerts
+
+This API is used to acknowledge list of correlations alerts
+
+### Example request
+
+```json
+
+POST /_plugins/_security_analytics/_acknowledge/correlationAlerts
+
+{
+   "alertIds": ["8532c08b-3ab5-4e95-a1c2-5884c4cd41a5", "8bba85d9-a7fc-4c87-b35e-a7236b87159f"]
+}
+
+```
+
+#### Example response
+
+```json
+{
+    "acknowledged": [
+        {
+            "correlated_finding_ids": [
+                "4f867df9-c9cb-4dc1-84bb-6c8b575f1a54"
+            ],
+            "correlation_rule_id": "VjY0MpABPzR_pcEveVRq",
+            "correlation_rule_name": "rule-corr",
+            "user": null,
+            "id": "8532c08b-3ab5-4e95-a1c2-5884c4cd41a5",
+            "version": 1,
+            "schema_version": 1,
+            "trigger_name": "trigger1",
+            "state": "ACTIVE",
+            "error_message": null,
+            "severity": "1",
+            "action_execution_results": [],
+            "start_time": "2024-06-19T20:37:08.257Z",
+            "end_time": "2024-06-19T20:42:08.257Z",
+            "acknowledged_time": null
+        },
+        {
+            "correlated_finding_ids": [
+                "30d2109f-76bb-44ad-8f68-6daa905e018d"
+            ],
+            "correlation_rule_id": "VjY0MpABPzR_pcEveVRq",
+            "correlation_rule_name": "rule-corr",
+            "user": null,
+            "id": "8bba85d9-a7fc-4c87-b35e-a7236b87159f",
+            "version": 1,
+            "schema_version": 1,
+            "trigger_name": "trigger1",
+            "state": "ACTIVE",
+            "error_message": null,
+            "severity": "1",
+            "action_execution_results": [],
+            "start_time": "2024-06-19T20:43:08.208Z",
+            "end_time": "2024-06-19T20:48:08.208Z",
+            "acknowledged_time": null
+        }
+    ],
+    "failed": []
+}
+
+```
+
