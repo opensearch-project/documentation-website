@@ -67,7 +67,7 @@ To install an asset, follow these steps:
 2. Select a tool, such as **Nginx** or **Amazon VPC**. You can choose **Add** to add or configure a new data integration using a prepackaged integration asset. You can choose **Try it** to test or explore the integration before fully adding it.
 3. On the **Available** page, select the **Categories** dropdown menu to filter the list of integrations.
 
-### Try out demo
+### Try it demo
 
 To try a prepackaged integration asset, follow these steps:
 
