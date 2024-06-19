@@ -13,7 +13,13 @@ redirect_from:
 Introduced 2.9
 {: .label .label-purple }
 
-The **Integrations** application in OpenSearch Dashboards provides a user-friendly platform for data visualization, querying, and projection of your resource data, such as flow logs. An _integration tool_, such NGINX or Amazon VPC, contains a bundle of metadata, data mappings, and visualizations, streamlining the monitoring of resource data without redundant configuration steps. 
+The **Integrations** application in OpenSearch Dashboards provides a user-friendly platform for data visualization, querying, and projection of your resource data, such as flow logs. An _integration asset_, such NGINX or Amazon VPC, contains a bundle of metadata, data mappings, and visualizations, streamlining the monitoring of resource data without redundant configuration steps. 
+
+Available integration assets in OpenSearch Dashboards are shown in the following image.
+
+![Integrations assets available in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/dashboards/integrations-assets.png)
+
+---
 
 ## Use cases
 
@@ -23,7 +29,9 @@ The **Integrations** application in OpenSearch Dashboards provides a user-friend
 
 A consistent telemetry data schema is crucial for effective observability, enabling data correlation and analysis across applications, services, and infrastructure components to provide a holistic view of system behavior and performance.
 
-OpenSearch adopted the [OpenTelemetry (OTel)](https://opentelemetry.io/) protocol as the foundation for its observability solution. OTel is a community-driven standard that defines a consistent schema and data collection approach for metrics, logs, and traces. It is widely supported by APIs, SDKs, and telemetry collectors, enabling features like auto-instrumentation for seamless observability integration. This shared schema allows cross-correlation and analysis across different data sources. To this end, OpenSearch derived the [Simple Schema for Observability](https://github.com/opensearch-project/opensearch-catalog/tree/main/docs/schema/observability), which encodes the OTel standard as OpenSearch mappings. OpenSearch also supports the [Piped Processing Language (PPL)](https://opensearch.org/docs/latest/search-plugins/sql/ppl/index/), which is designed for high-dimensionality querying in observability use cases.
+OpenSearch adopted the [OpenTelemetry (OTel)](https://opentelemetry.io/) protocol as the foundation for its observability solution. OTel is a community-driven standard that defines a consistent schema and data collection approach for metrics, logs, and traces. It is widely supported by APIs, SDKs, and telemetry collectors, enabling features like auto-instrumentation for seamless observability integration. 
+
+This shared schema allows cross-correlation and analysis across different data sources. To this end, OpenSearch derived the [Simple Schema for Observability](https://github.com/opensearch-project/opensearch-catalog/tree/main/docs/schema/observability), which encodes the OTel standard as OpenSearch mappings. OpenSearch also supports the [Piped Processing Language (PPL)](https://opensearch.org/docs/latest/search-plugins/sql/ppl/index/), which is designed for high-dimensionality querying in observability use cases.
 
 ---
 
@@ -39,7 +47,7 @@ These pipelines use the OTel schema (or a simple schema) to index signal documen
 
 ### Ingestion structure
 
-Each integration tool contains the following metadata and assets:
+Each integration asset contains the following metadata and assets:
 
 * Name and description
 * Source URL and license
@@ -49,42 +57,37 @@ Each integration tool contains the following metadata and assets:
 
 ---
 
-## Using Integrations
+## Installing an integration asset 
 
-**Integrations** can be installed directly from the [default catalog](https://github.com/opensearch-project/opensearch-catalog/blob/main/docs/integrations/Release.md) shipped with every OpenSearch release. Alternatively, **Integrations** can be manually loaded and updated through the **Dashboards Management** console.
+Integration assets can be installed directly from the [default catalog](https://github.com/opensearch-project/opensearch-catalog/blob/main/docs/integrations/Release.md) shipped with every OpenSearch release.
 
-### Installing Integrations 
+To install an asset, follow these steps:
 
-If no integration tool is installed, then you are prompted to install one. Several integration tools are available in OpenSearch Dashboards.
-
-1. Go to **Integrations** > **Available** to view the available options. The available integation tools are shown in the following image. 
-
-  ![integrations-observability-catalog.png](/images/integrations/integrations-observability-catalog.png)
-   
-2. Select an integration tool, such as **Nginx** or **Amazon VPC**. You can choose **Add** to add or configure a new data integration by selecting a prepackaged integration asset. You can choose **Try it** to to test or explore the integration before fully adding it.
+1. Go to **Integrations** > **Available** to view the available options. 
+2. Select a tool, such as **Nginx** or **Amazon VPC**. You can choose **Add** to add or configure a new data integration using a prepackaged integration asset. You can choose **Try it** to test or explore the integration before fully adding it.
 3. On the **Available** page, select the **Categories** dropdown menu to filter the list of integrations.
 
-To try out a prepackaged integration tool, follow these steps:
+### Try out demo
+
+To try out a prepackaged integration asset, follow these steps:
 
 1. On the **Integrations** page, select **Nginx**.
-2. Select the **Try it** button. _The Try it flow automatically creates a sample index template, adds sample data to the template, and then creates the integration based on that data._
+2. Select the **Try it** button. The **Try it** option automatically creates a sample index template, adds sample data to the template, and then creates the integration based on that data.
 3. Select an asset from the **Asset List**. Assets include dashboards, index patterns, and visualizations.
 4. Preview the data visualizations and sample data details. An example is shown in the following image.
 
-  ![]({{site.url}}{{site.baseurl}}/images/integrations/nginx-integration-dashboard.png)
+  ![Integrations dashboard with visualizations]({{site.url}}{{site.baseurl}}/images/integrations/nginx-integration-dashboard.png)
 
-### Loading custom integrations
+## Loading custom integration assets
 
-To load a custom integration, follow these steps: 
+To load a custom integration asset, follow these steps: 
 
 1. Download an integration artifact from the [catalog repository](https://github.com/opensearch-project/opensearch-catalog/blob/main/docs/integrations/Release.md).
 2. Go to **Dashboards Management** > **Saved objects**.
-3. Select **Import** on the upper-right toolbar menu and navigate to the folder where you saved the integration artifact and the choose choose the file (a file with an .ndjson extension). An example of this step is shown in the following image.
-   
-  ![]({{site.url}}{{site.baseurl}}/images/integrations/integration-import-file.png)
-
+3. Select **Import** on the upper-right toolbar menu and navigate to the folder where you saved the integration artifact and then choose the file (a file with an .ndjson extension). An example of this step is shown in the following image.
+  ![Import folder window]({{site.url}}{{site.baseurl}}/images/integrations/integration-import-file.png)
 4. Select the saved object you uploaded to confirm it is uploaded to **Saved objects**. An example of this step is shown in the following image.
-  ![]({{site.url}}{{site.baseurl}}/images/integrations/select-uploaded-integration.png)
+  ![List of integrations saved objects]({{site.url}}{{site.baseurl}}/images/integrations/select-uploaded-integration.png)
 
 ---
 
