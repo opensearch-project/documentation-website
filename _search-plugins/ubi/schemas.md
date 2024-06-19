@@ -25,7 +25,7 @@ Typically, you can infer the user's overall *search journey* by retrieving all t
 ## Important UBI roles
 - The **search client** is in charge of searching and then receiving *objects* from a document index in OpenSearch (1, 2, **5** and 7 in the following diagram).
  (1, 2, **5** and 7, in the following diagram)
-- **User Behavior Insights** plugin: if activated in the `ext.ubi` stanza of the search request, manages the **UBI Queries** store in the background, indexing each query, ensuring a unique [`query_id`](#query_id) along with all returned resultant [`object_id`](#object_id)'s, and then passing the `query_id` back to the **Search Client** so that events can be linked to this query.
+- **User Behavior Insights** plugin: if activated in the `ext.ubi` stanza of the search request, manages the **UBI Queries** store in the background, indexing each query, ensuring a unique [`query_id`](#query_id) along with all returned resultant objects, each with an [`object_id`](#object_id), and then passing the `query_id` back to the **Search Client** so that events can be linked to this query (3, 4 and **5**, in following diagram).
  (3, 4 and **5**, in following diagram)
 - **objects**: are whatever items the user is searching for with the queries. Activating UBI involves mapping your real-world objects (using it's identifiers such as an `isbn` or  `sku`) to the [`object_id`](#object_id) fields in the index that is being searched.
 - The **Search Client**, if separate from the **UBI Client**, forwards the indexed [`query_id`](#query_id) to the **UBI Client**.
