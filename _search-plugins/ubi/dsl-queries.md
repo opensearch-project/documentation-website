@@ -7,8 +7,8 @@ nav_order: 8
 ---
 
 # Sample UBI using OpenSearch DSL queries
-
-
+Below is a sample UBI query using [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/). 
+For more extensive, analytic queries, see the [SQL queries ]({{site.url}}{{site.baseurl}}/search-plugins/ubi/sql-queries/). 
 
 ```json
 GET ubi_events/_search
