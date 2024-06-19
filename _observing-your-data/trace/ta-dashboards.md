@@ -125,7 +125,7 @@ Trace analytics with OTel protocol analytics in OpenSearch Dashboards provides c
   
   - Selecting a node opens a detailed dialog window for that service. This interactive map visualizes service interconnections, helping identify problems by service, unlike dashboards that identify issues by operation. Sort by error rate or latency to pinpoint potential problem areas.
 
-  - In the **Service map** dialog window, nodes represent connected downstream services dependent on the selected service. Node color indicates the RED indicator severity for that service and its downstream dependencies. The following image shows this dialog window.
+  - In the **Service map** dialog window, nodes represent connected downstream services dependent on the selected service. The node color indicates the RED indicator severity for that service and its downstream dependencies. The following image shows this dialog window.
   
   ![Service map dialog window]({{site.url}}{{site.baseurl}}/images/trace-analytics/single-service-fly-out.png)
 
