@@ -69,7 +69,7 @@ To install an asset, follow these steps:
 
 ### Try out demo
 
-To try out a prepackaged integration asset, follow these steps:
+To try a prepackaged integration asset, follow these steps:
 
 1. On the **Integrations** page, select **Nginx**.
 2. Select the **Try it** button. The **Try it** option automatically creates a sample index template, adds sample data to the template, and then creates the integration based on that data.
