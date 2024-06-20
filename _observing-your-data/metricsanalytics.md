@@ -65,7 +65,7 @@ POST _plugins/_query/_datasources
 ```
 {% include copy-curl.html %}
 
-After configuring the connection from Prometheus to OpenSearch, you can view Prometheus metrics in OpenSearch Dashboards. To access these metrics, navigate to **Observability** > **Metrics analytics**. The Prometheus metrics will be displayed in this window, as shown in the following image.
+After setting up the Prometheus to OpenSearch connection, you can view Prometheus metrics in OpenSearch Dashboards by going to the **Observability** > **Metrics analytics** page, where the metrics will be displayed, similar to the following image.
 
 ![Prometheus metrics dashboard]({{site.url}}{{site.baseurl}}/images/metrics/metrics1.png)
 
