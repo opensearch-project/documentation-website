@@ -31,7 +31,7 @@ The following image displays an observability dashboard that visualizes metrics 
 
 ## Configuring Prometheus to send metrics data to OpenSearch
 
-To view metrics collected from Prometheus in OpenSearch Dashboards, create a connection from [Prometheus](https://prometheus.io/) to OpenSearch using the [SQL plugin](https://github.com/opensearch-project/sql). To configure a connection to Prometheus, you can use the `_datasources` configuration API endpoint. 
+To view metrics collected from Prometheus in OpenSearch Dashboards, first create a connection from [Prometheus](https://prometheus.io/) to OpenSearch using the [SQL plugin](https://github.com/opensearch-project/sql). To configure a connection to Prometheus, you can use the `_datasources` configuration API endpoint. 
 
 The following example request configures a Prometheus data source with no authentication:
 
