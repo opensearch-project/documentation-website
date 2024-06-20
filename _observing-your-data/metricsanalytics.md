@@ -47,7 +47,7 @@ POST _plugins/_query/_datasources
 ```
 {% include copy-curl.html %}
 
-The following example request configures a Prometheus data source with AWS Signature Version 4 (SigV4) authentication:
+The following example shows how to set up a Prometheus data source using AWS Signature Version 4 (SigV4) authentication:
 
 ```json
 POST _plugins/_query/_datasources
