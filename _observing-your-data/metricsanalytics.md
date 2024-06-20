@@ -178,7 +178,7 @@ You can see metrics from remote OpenSearch clusters by using the **Metrics analy
 
 ![Switching clusters]({{site.url}}{{site.baseurl}}/images/metrics/remote-cluster-selection.png)
 
-You can also federate remote metrics visualization alongside local metrics visualization. From the **DATA SOURCES** dropdown menu choose the remote metrics visualization to add it to the group of visualizations already shown on the dashboard. An example dashboard is shown in the following image.
+You can also view metrics visualizations from other sources together with local metrics visualizations. From the **DATA SOURCES** dropdown menu, choose the remote metrics visualization to add it to the group of visualizations already shown on the dashboard. An example dashboard is shown in the following image.
 
 ![Metrics dashboard]({{site.url}}{{site.baseurl}}/images/metrics/otel-metrics-remote-cluster-selection.png)
 
