@@ -219,7 +219,7 @@ Using this schema, you'll specify the `model_input` as follows:
  "model_input": "{ \"text_docs\": ${input_map.text_docs}, \"return_number\": ${model_config.return_number}, \"target_response\": ${model_config.target_response} }"
 ```
 
-The model converts the text in the `text_docs` field to embeddings so it expects an ingested document to contain a `text_docs` field. In this example, ingested documents do not contain a `text_docs` field. The `model_input` specifies to source the `text_docs` field from the `input_map`. The `input_map`, in turn, specifies that the input text resides at the `book.*.chunk.text.*.context` JSON path:
+In the `input_map`, you'll map the the document `book.*.chunk.text.*.context` field to the `text_docs` field expected by the model:
 
 ```json
 "input_map": [
@@ -235,7 +235,7 @@ Because you're specifying the field to convert into embeddings as a JSON path, y
 "full_response_path": true
 ```
 
-An ingested document will look as follows. The text in the `context` field will be used to generate embeddings:
+The documents you'll index will look as follows. The text in the `context` field will be used to generate embeddings:
 
 ```json
 "book": [
@@ -278,7 +278,7 @@ The Predict API request returns the following response:
 }
 ```
 
-The model records embeddings in the `data` field at the output path `$.inference_results.*.output.*.data`. The `output_map` specifies to record the resulting embeddings in the `context_embedding` field of an ingested document at the same path as the `context` field:
+The model generates embeddings in the `$.inference_results.*.output.*.data` field. The `output_map` maps this field to the newly created `book.*.chunk.text.*.context_embedding` field in the ingested document: 
 
 ```json
 "output_map": [
