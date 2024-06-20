@@ -25,7 +25,7 @@ The following image shows the flow for retrieving metrics from Prometheus and di
 
 The following image shows OTel metrics stored in an OpenSearch index, using metrics analytics for querying and visualizing the data.
 
-![Otel metrics]({{site.url}}{{site.baseurl}}/images/metrics/otel-metrics.png)
+![OTel metrics]({{site.url}}{{site.baseurl}}/images/metrics/otel-metrics.png)
 
 ---
 
