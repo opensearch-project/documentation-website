@@ -219,7 +219,7 @@ Using this schema, you'll specify the `model_input` as follows:
  "model_input": "{ \"text_docs\": ${input_map.text_docs}, \"return_number\": ${model_config.return_number}, \"target_response\": ${model_config.target_response} }"
 ```
 
-In the `input_map`, you'll map the the document `book.*.chunk.text.*.context` field to the `text_docs` field expected by the model:
+In the `input_map`, you'll map the document `book.*.chunk.text.*.context` field to the `text_docs` field expected by the model:
 
 ```json
 "input_map": [
