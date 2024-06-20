@@ -7,7 +7,7 @@ nav_order: 46
 
 # Working with alerts
 
-The **Alerts** window provides features to view and manage alerts. It consists of:
+The **Alerts** window provides features for viewing and managing alerts. It consists of:
 
 - A bar graph displaying alert counts, dates, and statuses or severities.
 - Two tabs:
