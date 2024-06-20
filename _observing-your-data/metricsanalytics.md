@@ -160,7 +160,7 @@ Configure the [Data Prepper pipeline](https://github.com/opensearch-project/open
 
 **Step 5: Ingest metrics data into OpenSearch**
 
-Once the demo starts producing data, the metrics signals will be ingested into the OpenSearch OTel metrics schema-compatible index.
+As the demo starts generating data, the metrics signals will be added to the OpenSearch index that supports the OTel Metrics schema format.
 
 **Step 6: View metrics data**
 
