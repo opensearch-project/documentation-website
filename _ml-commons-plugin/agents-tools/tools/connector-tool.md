@@ -73,7 +73,7 @@ For this example, the Lambda function adds the two input numbers and returns the
 }
 ```
 
-By default, the `ConnectorTool` expects the response from the Lambda function to contain a field named `response`. However, in this example the Lambda function response doesn't include a `response` field. To retrieve the result from the `result` field instead, you need to provide a `response_filter`, specifying the dot path to the `result` field (`$.result`). Using the `response_filter`, the `ConnectorTool` will retrieve the result from the `result` field of the Lambda function response and return it in the OpenSearch response.
+By default, the `ConnectorTool` expects the response from the Lambda function to contain a field named `response`. However, in this example the Lambda function response doesn't include a `response` field. To retrieve the result from the `result` field instead, you need to provide a `response_filter`, specifying the [JSON path](https://github.com/json-path/JsonPath) to the `result` field (`$.result`). Using the `response_filter`, the `ConnectorTool` will retrieve the result with the specified JSON path and return it in the `response` field.
 
 To configure running the Lambda function, create a flow agent. A flow agent runs a sequence of tools in order and returns the last tool's output. To create a flow agent, send the following register agent request, providing the connector ID from the previous step and a `response_filter`:
 
