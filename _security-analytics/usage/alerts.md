@@ -43,7 +43,7 @@ An example window is shown in the following image.
 
 As an alternative, you can select an option in the **Commonly used** section (see the preceding image of the calendar dropdown menu) to conveniently set a date range. Options include **Today**, **Yesterday**, **this week**, and **week to date**. 
 
-When a commonly used date range is selected, you can select the **Show dates** label in the date range field to populate the ranges. You can then select either the start date or end date to specify by an absolute, relative, or current date and time setting. For absolute and relative changes, select the **Update** button to apply the changes.
+When a commonly used date range is selected, you can select the **Show dates** label in the date range field to populate the ranges. You can then select either the start date or end date to specify an absolute, relative, or current date and time setting. For absolute and relative changes, select the **Update** button to apply the changes.
 
 You can also select an option from the **Recently used date ranges** section to go back to a previous setting.
 
