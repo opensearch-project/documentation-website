@@ -182,7 +182,7 @@ You can also view metrics visualizations from other sources together with local 
 
 ![Metrics dashboard]({{site.url}}{{site.baseurl}}/images/metrics/otel-metrics-remote-cluster-selection.png)
 
-To learn more about multi-cluster support for data sources, see [this GitHub issue](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/1388).
+To learn about multi-cluster support for data sources, see [Enable OpenSearch Dashboards to support multiple OpenSearch clusters](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/1388).
 
 ## Creating visualizations based on custom metrics
 
