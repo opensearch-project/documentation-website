@@ -188,7 +188,7 @@ To learn more about multi-cluster support for data sources, see [this GitHub iss
 
 You can create visuals from the metrics data collected by your OpenSearch cluster, including Prometheus metrics and custom metrics.
 
-To create a visualization based on custom metrics, follow these steps:
+To create these visualizations, follow these steps:
 
 1. From the OpenSearch Dashboards main menu, navigate to **Observability** > **Metrics** > **Available Metrics**.
 2. Choose the metrics to add to your visualization and then select **Save**.
