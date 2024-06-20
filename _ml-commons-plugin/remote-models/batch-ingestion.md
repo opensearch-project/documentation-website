@@ -2,11 +2,9 @@
 layout: default
 title: Batch ingestion
 has_children: false
-nav_order: 71 
+nav_order: 80
 parent: Connecting to externally hosted models 
 grand_parent: Integrating ML models
-redirect_from:
-  - /ml-commons-plugin/extensibility/batch-ingestion/
 ---
 
 # Using externally hosted ML model for batch ingestion
@@ -16,9 +14,9 @@ redirect_from:
 
 To ingest multiple documents which involve generating embeddings through external machine learning services, you can use OpenSearch's batch ingestion feature to achieve improved ingestion performance.
 
-The `_bulk` API accepts a `batch_size` parameter to indicate that documents in the bulk request should be grouped into batches with a size equal to the value of `batch_size`. Processors that support batch ingestion and connect to external machine learning services will consolidate documents from the same batch and send them in one request to the external service for inferencing.
+The [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) accepts a `batch_size` parameter that indicates to process documents in batches of the specified size. Processors that support batch ingestion will send each batch of documents to an externally hosted model in a single request.
 
-The `text_embedding` and `sparse_encoding` processors are two processors that support batch ingestion. When using these processors, setting the `batch_size` parameter in `_bulk` request allows them to take advantage of batched requests to the downstream machine learning services to improve ingestion throughput.
+The processors that support batch ingestion are the [`text_embedding`]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-embedding/) and [`sparse_encoding`]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/sparse-encoding/) processors.
 
 ## Step 1: Register a model group
 
@@ -29,7 +27,7 @@ To register a model, you have the following options:
 
 To register a model group, send the following request:
 
-```
+```json
 POST /_plugins/_ml/model_groups/_register
 {
   "name": "remote_model_group",
@@ -40,21 +38,21 @@ POST /_plugins/_ml/model_groups/_register
 
 The response contains the model group ID that you'll use to register a model to this model group:
 
-```
+```json
 {
  "model_group_id": "wlcnb4kBJ1eYAeTMHlV6",
  "status": "CREATED"
 }
 ```
 
-To learn more about model groups, see [Model access control](https://github.com/opensearch-project/documentation-website/blob/7c4fe91ec9a16bb75e33726c2c86441edd56e08a/_ml-commons-plugin/remote-models/%7B%7Bsite.url%7D%7D%7B%7Bsite.baseurl%7D%7D/ml-commons-plugin/model-access-control).
+To learn more about model groups, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).
 
 ## Step 2: Create a connector
 
 You can create a standalone connector that can be reused for multiple models. Alternatively, you can specify a connector when creating a model so that it can be used only for that model. For more information and example connectors, see [Connectors](https://github.com/opensearch-project/documentation-website/blob/7c4fe91ec9a16bb75e33726c2c86441edd56e08a/_ml-commons-plugin/remote-models/%7B%7Bsite.url%7D%7D%7B%7Bsite.baseurl%7D%7D/ml-commons-plugin/remote-models/connectors).
 The Connectors Create API, `/_plugins/_ml/connectors/_create`, creates connectors that facilitate registering and deploying external models in OpenSearch. Using the `endpoint` parameter, you can connect ML Commons to any supported ML tool by using its specific API endpoint. For example, you can connect to a ChatGPT model by using the `api.openai.com` endpoint:
 
-```
+```json
 POST /_plugins/_ml/connectors/_create
 {
     "name": "OpenAI Chat Connector",
@@ -84,10 +82,11 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-`parameters.input_docs_processed_step_size` is used to set the maximum batched documents sent to remote server. It can be set to the maximum batch size remote server can support or number less than that which can give you the optimal inferencing performance.
+The `parameters.input_docs_processed_step_size`parameter is used to set the maximum batch size for documents sent to a remote server. You can set this parameter to the maximum batch size the remote server can support or a smaller number for optimal performance.
+
 The response contains the connector ID for the newly created connector:
 
-```
+```json
 {
   "connector_id": "a1eMb4kBJ1eYAeTMAljY"
 }
@@ -97,7 +96,7 @@ The response contains the connector ID for the newly created connector:
 
 To register an externally hosted model to the model group created in step 1, provide the model group ID from step 1 and the connector ID from step 2 in the following request. You must specify the `function_name` as `remote`:
 
-```
+```json
 POST /_plugins/_ml/models/_register
 {
     "name": "openAI-gpt-3.5-turbo",
@@ -111,23 +110,23 @@ POST /_plugins/_ml/models/_register
 
 OpenSearch returns the task ID of the register operation:
 
-```
+```json
 {
   "task_id": "cVeMb4kBJ1eYAeTMFFgj",
   "status": "CREATED"
 }
 ```
 
-To check the status of the operation, provide the task ID to the [Tasks API](https://github.com/opensearch-project/documentation-website/blob/7c4fe91ec9a16bb75e33726c2c86441edd56e08a/_ml-commons-plugin/remote-models/%7B%7Bsite.url%7D%7D%7B%7Bsite.baseurl%7D%7D/ml-commons-plugin/api/tasks-apis/get-task):
+To check the status of the operation, provide the task ID to the [Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
 
-```
+```json
 GET /_plugins/_ml/tasks/cVeMb4kBJ1eYAeTMFFgj
 ```
 {% include copy-curl.html %}
 
 When the operation is complete, the state changes to `COMPLETED`:
 
-```
+```json
 {
   "model_id": "cleMb4kBJ1eYAeTMFFg4",
   "task_type": "REGISTER_MODEL",
@@ -148,7 +147,7 @@ Take note of the returned `model_id` because you’ll need it to deploy the mode
 
 Starting with OpenSearch version 2.13, externally hosted models are deployed automatically by default when you send a Predict API request for the first time. To disable automatic deployment for an externally hosted model, set `plugins.ml_commons.model_auto_deploy.enable` to `false`:
 
-```
+```json
 PUT _cluster/settings
 {
   "persistent": {
@@ -158,7 +157,7 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-To undeploy the model, use the [Undeploy API](https://github.com/opensearch-project/documentation-website/blob/7c4fe91ec9a16bb75e33726c2c86441edd56e08a/_ml-commons-plugin/remote-models/%7B%7Bsite.url%7D%7D%7B%7Bsite.baseurl%7D%7D/ml-commons-plugin/api/model-apis/undeploy-model).
+To undeploy the model, use the [Undeploy API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/undeploy-model/).
 
 ```
 POST /_plugins/_ml/models/cleMb4kBJ1eYAeTMFFg4/_deploy
@@ -176,14 +175,14 @@ The response contains the task ID that you can use to check the status of the de
 
 As in the previous step, check the status of the operation by calling the Tasks API:
 
-```
+```json
 GET /_plugins/_ml/tasks/vVePb4kBJ1eYAeTM7ljG
 ```
 {% include copy-curl.html %}
 
 When the operation is complete, the state changes to `COMPLETED`:
 
-```
+```json
 {
   "model_id": "cleMb4kBJ1eYAeTMFFg4",
   "task_type": "DEPLOY_MODEL",
@@ -200,7 +199,7 @@ When the operation is complete, the state changes to `COMPLETED`:
 
 ## Step 5:  Create an ingest pipeline
 
-The following example request creates an ingest pipeline with `text_embedding` processor where the text from passage_text will be converted into text embeddings and the embeddings will be stored in passage_embedding:
+The following example request creates an ingest pipeline with a `text_embedding` processor. The processor converts the text in the `passage_text` field into text embeddings and stores the embeddings in `passage_embedding`:
 
 ```
 PUT /_ingest/pipeline/nlp-ingest-pipeline
@@ -220,9 +219,9 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
 ```
 {% include copy-curl.html %}
 
-## Step 6: Bulk indexing
+## Step 6: Perform bulk indexing
 
-We call `_bulk` API to ingest multiple documents with `batch_size` parameter and `pipeline` parameter explicitly. If `pipeline` parameter is not set, the default pipeline attached to the index will be used.
+To ingest documents in bulk, call the Bulk API and provide a `batch_size` and `pipeline` parameters. If you don't provide a `pipeline` parameter, the default ingest pipeline for the index will be used for ingestion:
 
 ```
 POST _bulk?batch_size=5&pipeline=nlp-ingest-pipeline
