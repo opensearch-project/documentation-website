@@ -28,7 +28,7 @@ Processor types and their required or optional parameters vary depending on your
 
 ### Batch-enabled processors
 
-Some processors support batch ingestion in a way that they can handle multiple docs in a batch at the same time. Usually, these batch-enabled processors could have better performance through batch processing. The batch processing needs to be triggered through `_bulk` API with `batch_size` parameter. All batched processors are implemented with both batch mode and single mode. When ingesting via the `PUT` API, the processor's single mode will be activated and process the document in series. Currently, `text_embedding` and `sparse_encoding` processors are batch-enabled processors. For other processors, even documents are ingested through `_bulk` API with `batch_size` parameter set, documents are processed one by one by them.
+Some processors support batch ingestion: they can process multiple documents at the same time as a batch. Usually, these batch-enabled processors provide better performance through batch processing. For batch processing, use the [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) and provide a `batch_size` parameter. All batch-enabled processors have a batch mode and a single-document mode. When you ingest documents using the `PUT` method, the processor functions in a single-document mode and processes documents in series. Currently, only the `text_embedding` and `sparse_encoding` processors are batch-enabled. All other processors process documents one by one.
 
 
 Processor type | Description

@@ -7,12 +7,12 @@ parent: Connecting to externally hosted models
 grand_parent: Integrating ML models
 ---
 
-# Using externally hosted ML model for batch ingestion
+# Using externally hosted ML models for batch ingestion
 
 **Introduced 2.15**
 {: .label .label-purple }
 
-To ingest multiple documents which involve generating embeddings through external machine learning services, you can use OpenSearch's batch ingestion feature to achieve improved ingestion performance.
+If you are ingesting multiple documents and generating embeddings by invoking an externally hosted model, you can use batch ingestion to improve performance.
 
 The [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) accepts a `batch_size` parameter that indicates to process documents in batches of the specified size. Processors that support batch ingestion will send each batch of documents to an externally hosted model in a single request.
 
@@ -49,7 +49,8 @@ To learn more about model groups, see [Model access control]({{site.url}}{{site.
 
 ## Step 2: Create a connector
 
-You can create a standalone connector that can be reused for multiple models. Alternatively, you can specify a connector when creating a model so that it can be used only for that model. For more information and example connectors, see [Connectors](https://github.com/opensearch-project/documentation-website/blob/7c4fe91ec9a16bb75e33726c2c86441edd56e08a/_ml-commons-plugin/remote-models/%7B%7Bsite.url%7D%7D%7B%7Bsite.baseurl%7D%7D/ml-commons-plugin/remote-models/connectors).
+You can create a standalone connector that can be reused for multiple models. Alternatively, you can specify a connector when creating a model so that it can be used only for that model. For more information and example connectors, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
+
 The Connectors Create API, `/_plugins/_ml/connectors/_create`, creates connectors that facilitate registering and deploying external models in OpenSearch. Using the `endpoint` parameter, you can connect ML Commons to any supported ML tool by using its specific API endpoint. For example, you can connect to a ChatGPT model by using the `api.openai.com` endpoint:
 
 ```json
@@ -159,14 +160,14 @@ PUT _cluster/settings
 
 To undeploy the model, use the [Undeploy API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/undeploy-model/).
 
-```
+```json
 POST /_plugins/_ml/models/cleMb4kBJ1eYAeTMFFg4/_deploy
 ```
 {% include copy-curl.html %}
 
 The response contains the task ID that you can use to check the status of the deploy operation:
 
-```
+```json
 {
   "task_id": "vVePb4kBJ1eYAeTM7ljG",
   "status": "CREATED"
@@ -201,7 +202,7 @@ When the operation is complete, the state changes to `COMPLETED`:
 
 The following example request creates an ingest pipeline with a `text_embedding` processor. The processor converts the text in the `passage_text` field into text embeddings and stores the embeddings in `passage_embedding`:
 
-```
+```json
 PUT /_ingest/pipeline/nlp-ingest-pipeline
 {
   "description": "A text embedding pipeline",
