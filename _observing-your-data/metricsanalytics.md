@@ -19,7 +19,7 @@ Before this feature, you could only ingest and visualize logs and traces from yo
  - An OpenSearch cluster containing an [OpenTelemetry (OTel)-compatible metrics index](https://github.com/opensearch-project/opensearch-catalog/tree/main/docs/schema/observability/metrics) with OTel-based signals. See [What is OpenTelemetry?](https://opentelemetry.io/docs/what-is-opentelemetry/) for an overview of OTel.
  - An OpenSearch cluster containing a [Prometheus data source](https://github.com/opensearch-project/sql/blob/main/docs/dev/datasource-prometheus.md) connected to a Prometheus server. 
 
-The following images show the flow for retrieving metrics from Prometheus and displaying them on a visualization dashboard.
+The following image shows the flow for retrieving metrics from Prometheus and displaying them on a visualization dashboard.
 
 ![Prometheus and metrics]({{site.url}}{{site.baseurl}}/images/metrics/prom-metrics.png)
 
