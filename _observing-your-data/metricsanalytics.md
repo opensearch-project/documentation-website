@@ -170,7 +170,7 @@ On the **Metrics analytics** page, choose `Otel-Index` from the **Data sources**
 
 ---
 
-## Accessing remote clusters to visualize remote metrics
+## Visualizing metrics within remote clusters
 Introduced 2.14
 {: .label .label-purple }
 
