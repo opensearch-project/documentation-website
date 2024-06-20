@@ -84,7 +84,7 @@ See the following developer resources for sample code, articles, tutorials, and 
 
 The OpenSearch [`opentelemetry-demo` repository](https://github.com/opensearch-project/opentelemetry-demo) is a practical demonstration of collecting, processing, and visualizing metrics data through **OTel Metrics** from OpenTelemetry, following OpenTelemetry standards, and using the **Metrics analytics** tool in OpenSearch Dashboards.
 
-### Visualizing OTel metrics in OpenSearch
+### Visualizing OTel metrics within OpenSearch
 
 To visualize OTel metrics in OpenSearch, follow these steps: 
 
