@@ -206,7 +206,7 @@ source = my_prometheus.prometheus_http_requests_total | stats avg(@value) by spa
 ```
 {% include copy-curl.html %}
 
-### Creating a custom visualization 
+### Creating a custom visualization based on the PPL query
 
 To create a custom visualization based on the PPL query, follow these steps:
 
