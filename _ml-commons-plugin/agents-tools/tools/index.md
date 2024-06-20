@@ -33,7 +33,7 @@ Each tool takes a list of parameters specific to that tool. In the preceding exa
 |:---	|:---	|
 |[`AgentTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/agent-tool/)	|Runs any agent. |
 |[`CatIndexTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/cat-index-tool/)	|Retrieves index information for the OpenSearch cluster. |
-|[`ConnectorTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/connector-tool/)	|Run execute action in connector. |
+|[`ConnectorTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/connector-tool/)	| Uses a [connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/) to call any REST API function. |
 |[`IndexMappingTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index-mapping-tool/)	|Retrieves index mapping and setting information for an index. |
 |[`MLModelTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/ml-model-tool/)	|Runs machine learning models.	|
 |[`NeuralSparseSearchTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/neural-sparse-tool/)	| Performs sparse vector retrieval. |
