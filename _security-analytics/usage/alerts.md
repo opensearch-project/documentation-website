@@ -29,7 +29,7 @@ You can use the **Quick select** settings to specify a date range.
 * Select either **Last** or **Next** from the first dropdown menu to set the date range to either behind the current setting or ahead of the current setting.
 * Select a number from the second dropdown menu to define a value for the range.
 * Select a unit of time from the third dropdown menu. Available options are seconds, minutes, hours, days, weeks, months, and years.
-* Select the **Apply** button to apply the time range to the graph. Information on the graph updates immediately
+* Select the **Apply** button to apply the time range to the graph. The graph is immediately updated.
 
 An example window is shown in the following image.
 
