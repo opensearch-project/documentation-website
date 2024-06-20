@@ -223,7 +223,7 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
 
 To ingest documents in bulk, call the Bulk API and provide a `batch_size` and `pipeline` parameters. If you don't provide a `pipeline` parameter, the default ingest pipeline for the index will be used for ingestion:
 
-```
+```json
 POST _bulk?batch_size=5&pipeline=nlp-ingest-pipeline
 { "create": { "_index": "testindex1", "_id": "2" } }
 { "passage_text": "hello world" }
