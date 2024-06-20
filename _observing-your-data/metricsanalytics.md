@@ -193,7 +193,7 @@ To create these visualizations, follow these steps:
 1. From the OpenSearch Dashboards main menu, navigate to **Observability** > **Metrics** > **Available Metrics**.
 2. Choose the metrics to add to your visualization and then select **Save**.
 3. When prompted for a **Custom operational dashboards/application**, choose one of the listed options. You can edit the predefined name values in the **Metric Name** field.
-4. Select **Save** to save your visualization.
+4. Select **Save** to save your visualization. An example visualization is shown in the following image.
 
 The following image is an example of the visualizations displayed in the **Observability** > **Metrics analytics** window.
 
