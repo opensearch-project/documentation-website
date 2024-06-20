@@ -302,7 +302,7 @@ GET /_plugins/_security_analytics/correlations?correlation_rule_id=VjY0MpABPzR_p
 
 ## Acknowledge correlation alerts
 
-You can use the following API to acknowledge the correlation alerts:
+You can use the following API to acknowledge the correlation alerts.
 
 ### Example request
 
