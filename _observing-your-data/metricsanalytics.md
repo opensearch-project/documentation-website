@@ -24,7 +24,7 @@ The following images show the flow for retrieving metrics from Prometheus and di
 
 The following image shows OTel metrics stored in an OpenSearch index, using metrics analytics for querying and visualizing the data.
 
-![OTEL Metrics]({{site.url}}{{site.baseurl}}/images/metrics/otel-metrics.png)
+![Otel metrics]({{site.url}}{{site.baseurl}}/images/metrics/otel-metrics.png)
 
 ---
 
@@ -79,29 +79,25 @@ See the following developer resources for sample code, articles, tutorials, and 
 
 ---
 
-## Using OTel Metrics OpenSearch index to store and analyze data 
+## Experimenting with OTel Metrics in the OpenSearch demo environment 
 
-OTel Metrics is an OpenTelemetry component for metrics data collection. Supported sources include remote OpenSearch clusters and Prometheus. The **Metrics analytics** tool allows you to monitor and visualize OTEL metrics signals from various sources in a unified view.
+**OTel Metrics** is an OpenTelemetry component for metrics data collection. The OpenSearch [`opentelemetry-demo` repository](https://github.com/opensearch-project/opentelemetry-demo) provides a practical demonstration of how to use OpenSearch components to collect, process, and visualize telemetry data in accordance with the OpenTelemetry standards. You can use the  **Metrics analytics** tool in OpenSearch Dashboards to monitor and visualize OTel Metrics signals.
 
-OpenTelemetry has a demo staging environment specifically designed to demonstrate the telemetry collection and export process, allowing you to experiment with various tools and capabilities. The OpenSearch [`opentelemetry-demo` repository](https://github.com/opensearch-project/opentelemetry-demo) provides a practical demon of how to use OpenSearch components to collect, process, and visualize telemetry data in accordance with the OpenTelemetry standards.
+### Visualizing OTel metrics in OpenSearch
 
----
+To visualize OTel metrics in OpenSearch, follow these steps: 
 
-## Visualizing OTel metrics in OpenSearch
+**Step 1: Install the demo**
 
-To visualize OpenTelemetry metrics using the `opentelemetry-demo`, follow these steps: 
+Install the OpenSearch [`opentelemetry-demo` repository](https://github.com/opensearch-project/opentelemetry-demo). See the [Getting Started](https://github.com/opensearch-project/opentelemetry-demo/blob/main/tutorial/GettingStarted.md) guide for instructions.
 
-**Step 1: Install demo**
+**Step 2: Collect the OTel signals**
 
-Install `opentelemetry-demo`. See the [Getting Started](https://github.com/opensearch-project/opentelemetry-demo/blob/main/tutorial/GettingStarted.md) guide for instructions.
+Collect the OTel signals, including metrics signals. See the [OTel Collector](https://opentelemetry.io/docs/collector/) guide for instructions.  
 
-**Step 2: Collect OTel signals**
+**Step 3: Configure the OTel pipeline**
 
-Use the OTel Collector to collect OTel signals, including metrics signals. See the [OTel Collector](https://opentelemetry.io/docs/collector/) guide for instructions.  
-
-**Step 3: Configure OTel pipeline**
-
-Set up the OTel pipeline to emit metrics signals by configuring the service attribute. See the [OTEL Collector Pipeline](https://github.com/opensearch-project/opentelemetry-demo/tree/main/src/otelcollector) guide for instructions.
+Configure the OTel pipeline to emit metrics signals. See the [OTEL Collector Pipeline](https://github.com/opensearch-project/opentelemetry-demo/tree/main/src/otelcollector) guide for instructions.
 
 #### Example YAML config file
 
@@ -165,7 +161,7 @@ Configure the [Data Prepper pipeline](https://github.com/opensearch-project/open
 
 Once the demo starts producing data, the metrics signals will be ingested into the OpenSearch OTel metrics schema-compatible index.
 
-**Step 6: View the metrics data**
+**Step 6: View metrics data**
 
 On the **Metrics analytics** page, choose `Otel-Index` from the **Data sources** dropdown menu and `Simple Schema for Observability Index` from the **Otel Index** dropdown menu. This step is shown in the following image.
 
@@ -177,7 +173,7 @@ On the **Metrics analytics** page, choose `Otel-Index` from the **Data sources**
 Introduced 2.14
 {: .label .label-purple }
 
-Metrics analytics enables you to federate and view metrics from remote OpenSearch clusters. Select the dastabase icon on the upper-right toolbar and the choose the desired cluster listed in the **DATA SOURCES** dropdown menu as shown in the following image. You can switch from the local cluster to a remote cluster.
+You can federate and view metrics from remote OpenSearch clusters by using the **Metrics analytics** tool. Select the dastabase icon on the upper-right toolbar and choose the desired cluster listed in the **DATA SOURCES** dropdown menu, as shown in the following image. You can switch from a local cluster to a remote cluster.
 
 ![Switching clusters]({{site.url}}{{site.baseurl}}/images/metrics/remote-cluster-selection.png)
 
@@ -187,11 +183,11 @@ You can also federate remote metrics visualization alongside local metrics visua
 
 To learn more about multi-cluster support for data sources, see [this GitHub issue](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/1388).
 
-## Creating visualizations based on metrics
+## Creating visualizations based on custom metrics
 
-In addition to metrics analytics, you can create visualizations based on Prometheus metrics and other metrics collected by your OpenSearch cluster.
+You can create visualizations based on Prometheus metrics and custom metrics collected by your OpenSearch cluster.
 
-To create a visualization, follow these steps:
+To create a visualization based on custom metrics, follow these steps:
 
 1. From the OpenSearch Dashboards main menu, navigate to **Observability** > **Metrics** > **Available Metrics**.
 2. Choose the metrics to add to your visualization and then select **Save**.
@@ -204,7 +200,7 @@ The following image is an example of the visualizations displayed in the **Obser
 
 ## Defining PPL queries for Prometheus metrics
 
-You can define [Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index) queries to interact with metrics collected by Prometheus. The following example demonstrates a metric-selecting query with specific dimensions:
+You can define [Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index) queries to interact with metrics collected by Prometheus. The following example shows a metric-selecting query with specific dimensions:
 
 ```
 source = my_prometheus.prometheus_http_requests_total | stats avg(@value) by span(@timestamp,15s), handler, code
