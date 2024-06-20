@@ -12,7 +12,7 @@ The **Alerts** window provides features for viewing and managing alerts. It cons
 - A bar graph displaying alert counts, dates, and statuses or severities.
 - Two tabs:
   - **Findings**: Lists detector-generated alerts, showing details such as alert time, trigger name, and the detector that triggered the alert.
-  - **Correlations**: Lists correlation rule-generated alerts, showing details such as alert time, trigger name, and correlation rule that triggered the alert.
+  - **Correlations**: Lists correlation-rule-generated alerts, showing details such as alert time, trigger name, and the correlation rule that triggered the alert.
 
 You can select the **Refresh** button to refresh information on the **Alerts** page.
 
