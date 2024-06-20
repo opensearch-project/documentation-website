@@ -82,7 +82,7 @@ See the following developer resources for sample code, articles, tutorials, and 
 
 ## Experimenting with OTel Metrics in the OpenSearch demo environment 
 
-**OTel Metrics** is an OpenTelemetry component for metrics data collection. The OpenSearch [`opentelemetry-demo` repository](https://github.com/opensearch-project/opentelemetry-demo) provides a practical demonstration of how to use OpenSearch components to collect, process, and visualize telemetry data in accordance with the OpenTelemetry standards. You can use the  **Metrics analytics** tool in OpenSearch Dashboards to monitor and visualize OTel Metrics signals.
+The OpenSearch [`opentelemetry-demo` repository](https://github.com/opensearch-project/opentelemetry-demo) is a practical demonstration of collecting, processing, and visualizing metrics data through **OTel Metrics** from OpenTelemetry, following OpenTelemetry standards, and using the **Metrics analytics** tool in OpenSearch Dashboards.
 
 ### Visualizing OTel metrics in OpenSearch
 
