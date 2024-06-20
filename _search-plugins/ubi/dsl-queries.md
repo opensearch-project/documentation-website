@@ -96,4 +96,4 @@ The response contains the number of times each `action_name` event occurred.
 {% include copy.html %}
 
 These can be performed on the OpenSearch Dashboards/Query Workbench: 
-[http://chorus-opensearch-edition.dev.o19s.com:5601/app/opensearch-query-workbench](http://chorus-opensearch-edition.dev.o19s.com:5601/app/opensearch-query-workbench)
+[http://chorus-opensearch-edition.dev.o19s.com:5601/app/OpenSearch-query-workbench](http://chorus-OpenSearch-edition.dev.o19s.com:5601/app/OpenSearch-query-workbench)
