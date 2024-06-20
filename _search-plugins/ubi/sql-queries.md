@@ -7,11 +7,14 @@ nav_order: 7
 ---
 
 # Sample UBI SQL queries
+
 These can be performed on the OpenSearch Dashboards/Query Workbench: 
 [http://chorus-opensearch-edition.dev.o19s.com:5601/app/opensearch-query-workbench](http://chorus-opensearch-edition.dev.o19s.com:5601/app/opensearch-query-workbench)
 
 ## Queries with zero results
+
 ### Server-side
+
 NOTE: the search server with UBI activated logs the queries and results, so:
 ```sql
 select
@@ -22,6 +25,7 @@ where query_response_hit_ids is null
 ```
 
 ### Client event-side
+
 Although it's trivial on the server side to find queries with no results, we can also get the same answer by querying the event attributes that were logged.
 Both client and server-side queries should return the same number.
 
@@ -38,6 +42,7 @@ where event_attributes.result_count > 0
 
 
 ## Trending queries
+
 ### Server-side
 
 ```sql
@@ -49,6 +54,7 @@ order by Total desc
 ```
 
 ### Client-side
+
 ```sql
 select 
 	message, count(0) Total  
@@ -90,6 +96,7 @@ abraza metodologías B2C|3
 
 
 ## Event type distribution counts
+
 To make a pie chart like widget on all the most common events:
 ```sql
 select 
@@ -222,6 +229,7 @@ ubi-demo|7ae52966-4fd4-4ab1-8152-0fd0b52bdadf|purchase|CONVERSION|Purchase item 
 
 
 ## User sessions
+
 To look at more sessions from the same user's `client_id` above, `a15f1ef3-6bc6-4959-9b83-6699a4d29845`. 
 ```sql
 select
@@ -286,6 +294,7 @@ ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|23f0149a-13ae-4977-8dc9-ef61c449c1
 
 
 ## List user sessions that logged out without any queries
+
 - This query denotes users without a query_id.  Note that this could happen if the client side is not passing the returned query to other events.
 
 ```sql
