@@ -54,6 +54,6 @@ You can also select an option from the **Recently used date ranges** section to 
 The **Alerts list** displays all alerts, with two tabs for different types of alerts:
 
 - **Findings**: The **Alerts list** displays all findings according to the time when the alert was triggered, the alert's trigger name, the detector that triggered the alert, the alert status, and the alert severity.
-- **Correlations**:  The **Alerts list** displays all correlations according to the rule and rule time window when the alert was triggered, the alert's trigger name, the correlation rule name that triggered the alert, the alert status, and the alert severity.
+- **Correlations**:  The **Alerts list** displays all correlations, including the correlation rule and time window, the alert's trigger name, the correlation rule name that triggered the alert, the alert status, and the alert severity.
 
 Use the **Alert severity** dropdown menu to filter the list of alerts by severity. Use the **Status** dropdown menu to filter the list by alert status.
