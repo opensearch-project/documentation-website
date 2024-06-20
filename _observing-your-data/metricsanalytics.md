@@ -174,7 +174,7 @@ On the **Metrics analytics** page, choose `Otel-Index` from the **Data sources**
 Introduced 2.14
 {: .label .label-purple }
 
-You can federate and view metrics from remote OpenSearch clusters by using the **Metrics analytics** tool. Select the dastabase icon on the upper-right toolbar and choose the desired cluster listed in the **DATA SOURCES** dropdown menu, as shown in the following image. You can switch from a local cluster to a remote cluster.
+You can federate and view metrics from remote OpenSearch clusters by using the **Metrics analytics** tool. Select the database icon on the upper-right toolbar and choose the desired cluster listed in the **DATA SOURCES** dropdown menu, as shown in the following image. You can switch from a local cluster to a remote cluster.
 
 ![Switching clusters]({{site.url}}{{site.baseurl}}/images/metrics/remote-cluster-selection.png)
 
