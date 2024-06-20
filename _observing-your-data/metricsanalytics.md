@@ -12,7 +12,7 @@ Introduced 2.4
 
 With the release of OpenSearch 2.4, you can now ingest and visualize metrics data stored directly within the OpenSearch. This equips you with tools to analyze and correlate data across logs, traces, and metrics.
 
-Previously, you could ingest and visualize only logs and traces from your monitored environments. With this feature, you can observe your digital assets with more granularity, gain deeper insight into the health of your infrastructure, and better inform your root cause analysis.
+Before this feature, you could only ingest and visualize logs and traces from your monitored environments. With this feature, you can now observe your digital assets with more granularity, gain deeper insight into the health of your infrastructure, and better inform your root cause analysis.
 
 The **Metrics analytics** tool offers federated visualization capabilities on top of any of the following:
 
