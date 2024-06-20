@@ -208,7 +208,7 @@ source = my_prometheus.prometheus_http_requests_total | stats avg(@value) by spa
 
 ### Creating a custom visualization 
 
-To create a custom visualization based on your PPL query, follow these steps:
+To create a custom visualization based on the PPL query, follow these steps:
 
 1. From the **Events Analytics** window, enter your PPL query and select **Refresh**. This will display the **Explorer** page.
 2. On the **Explorer** page, select **Save**.
