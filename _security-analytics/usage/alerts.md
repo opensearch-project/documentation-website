@@ -26,7 +26,7 @@ To specify a date range, select the calendar icon to activate the dropdown menu.
 <br><img src="{{site.url}}{{site.baseurl}}/images/Security/find-date-pick.png" alt="Date selector for findings graph" width="55%">
 
 You can use the **Quick select** settings to specify a date range.
-* Select either **Last** or **Next** from the first dropdown list to set the date range behind the current setting or ahead of the current setting.
+* Select either **Last** or **Next** from the first dropdown menu to set the date range to either behind the current setting or ahead of the current setting.
 * Select a number from the second dropdown list to define a value for the range.
 * Select a unit of time from the third dropdown list. Available options are seconds, minutes, hours, days, weeks, months, and years.
 * Select the **Apply** button to apply the time range to the graph. Information on the graph updates immediately
