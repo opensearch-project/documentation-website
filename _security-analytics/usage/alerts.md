@@ -45,7 +45,7 @@ As an alternative, you can select an option in the **Commonly used** section (se
 
 When a commonly used date range is selected, you can select the **Show dates** label in the date range field to populate the ranges. You can then select either the start date or end date to specify an absolute, relative, or current date and time setting. For absolute and relative changes, select the **Update** button to apply the changes.
 
-You can also select an option from the **Recently used date ranges** section to go back to a previous setting.
+You can also select an option from the **Recently used date ranges** section to revert to a previous setting.
 
 ---
 
