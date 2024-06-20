@@ -195,7 +195,6 @@ To create these visualizations, follow these steps:
 3. When prompted for a **Custom operational dashboards/application**, choose one of the listed options. You can edit the predefined name values in the **Metric Name** field.
 4. Select **Save** to save your visualization. An example visualization is shown in the following image.
 
-The following image is an example of the visualizations displayed in the **Observability** > **Metrics analytics** window.
 
 ![Visualizations displayed in the Metric analytics window]({{site.url}}{{site.baseurl}}/images/metrics/metrics2.png)
 
