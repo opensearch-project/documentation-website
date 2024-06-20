@@ -27,7 +27,8 @@ GET ubi_events/_search
 ```
 {% include copy.html %}
 
-returns
+The response contains the number of times each `action_name` event occurred.
+
 ```json
 {
   "took": 1,

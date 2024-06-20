@@ -1,6 +1,6 @@
 ---
 layout: default
-title: UBI queries with sql
+title: Sample UBI SQL queries
 parent: User behavior insights
 has_children: false
 nav_order: 7
@@ -8,14 +8,20 @@ nav_order: 7
 
 # Sample UBI SQL queries
 
-These can be performed on the OpenSearch Dashboards/Query Workbench: 
+These can be performed on an OpenSearch Dashboards/[Query Workbench]({{site.url}}{{site.baseurl}}/dashboards/query-workbench/) sandbox application: 
+
 [http://chorus-opensearch-edition.dev.o19s.com:5601/app/opensearch-query-workbench](http://chorus-opensearch-edition.dev.o19s.com:5601/app/opensearch-query-workbench)
 
 ## Queries with zero results
 
+Queries can be executed on either the server-side (`ubi_queries`) or on the client-side (`ubi_events`).
+
 ### Server-side
 
-NOTE: the search server with UBI activated logs the queries and results, so:
+The search server with UBI activated logs the queries and results; so, in order to find all queries with no results, 
+the developer needs to search for empty `query_response_hit_ids`:
+{: .note}
+
 ```sql
 select
    count(*)
@@ -26,10 +32,11 @@ where query_response_hit_ids is null
 
 ### Client event-side
 
-Although it's trivial on the server side to find queries with no results, we can also get the same answer by querying the event attributes that were logged.
-Both client and server-side queries should return the same number.
+Although it's trivial to find queries with no results on the server side, you can also obtain the same result by querying the event attributes that were logged.
+Both client- and server-side queries return the same results.
 
-NOTE: the search client is responsible for logging this count
+The search client is responsible for populating the `result_count` field.
+{: .note}
 
 ```sql
 select
@@ -42,6 +49,8 @@ where event_attributes.result_count > 0
 
 
 ## Trending queries
+
+Trending queries can be found with either query below.
 
 ### Server-side
 
@@ -97,7 +106,7 @@ abraza metodologías B2C|3
 
 ## Event type distribution counts
 
-To make a pie chart like widget on all the most common events:
+To make a pie chart widget visualizing the most common events, run the following query:
 ```sql
 select 
 	action_name, count(0) Total  
@@ -123,8 +132,8 @@ page_exit|142
 user_feedback|123
 404_redirect|123
 
-And if you like money, the following query shows distribution of margins across user actions:
-{: .warning}
+The following query shows distribution of margins across user actions.
+
 
 ```sql
 select 
@@ -166,7 +175,8 @@ client_id|query_id|user_query|query_response_hit_ids|query_response_id|timestamp
 ---|---|---|---|---|---
 a15f1ef3-6bc6-4959-9b83-6699a4d29845|7ae52966-4fd4-4ab1-8152-0fd0b52bdadf|notebook|0882780391659|6e92c90c-1eee-4dd6-b820-c522fd4126f3|2024-06-04 19:02:45.728
 
-NOTE: The `query` field from this `query_id` has the following nested structure:
+The `query` field from this `query_id` has the following nested structure:
+{: .note} 
 
 ```json
 {
@@ -204,8 +214,7 @@ NOTE: The `query` field from this `query_id` has the following nested structure:
 }
 ```
 
-In the event log
-Search for the events that correspond to the query above, `7ae52966-4fd4-4ab1-8152-0fd0b52bdadf`.
+In the event log, `ubi_events`, search for the events that correspond to the  preceding query (whose query ID is `7ae52966-4fd4-4ab1-8152-0fd0b52bdadf`):
 
 ```sql
 select 
@@ -230,7 +239,7 @@ ubi-demo|7ae52966-4fd4-4ab1-8152-0fd0b52bdadf|purchase|CONVERSION|Purchase item 
 
 ## User sessions
 
-To look at more sessions from the same user's `client_id` above, `a15f1ef3-6bc6-4959-9b83-6699a4d29845`. 
+To find more sessions from the same user (with the client ID `a15f1ef3-6bc6-4959-9b83-6699a4d29845`), run the following query:
 ```sql
 select
  application, event_attributes.session_id, query_id, 
@@ -293,9 +302,9 @@ ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|23f0149a-13ae-4977-8dc9-ef61c449c1
 ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|23f0149a-13ae-4977-8dc9-ef61c449c140|brand_filter|FILTER|19.54417|OBJECT-6c91da98-387b-45cb-8275-e90d1ea8bc54|supplier_name|2024-06-04 19:03:50.802
 
 
-## List user sessions that logged out without any queries
+## List user sessions for users who logged out without any queries
 
-- This query denotes users without a query_id.  Note that this could happen if the client side is not passing the returned query to other events.
+The following query searches for users who don't have an associated `query_id`.  Note that this could happen if the client side is not passing the returned query to other events:
 
 ```sql
 select 
@@ -332,7 +341,7 @@ client_id|session_id|EventTotal
 
 <!-- vale on -->
 
-Since some of these query-less logouts repeat with some users, here is a query to see which users do this the most:
+You may be interested in users with multiple logouts without submitting a query. The following query lets you see which users do this the most:
 
 ```sql
 select 
@@ -342,6 +351,8 @@ where action_name='logout' and query_id is null
 group by client_id
 order by EventTotal desc
 ```
+
+Below are user's client id's and the number of logouts without any queries.
 
 client_id|EventTotal
 ---|---

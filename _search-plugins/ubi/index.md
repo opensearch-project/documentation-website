@@ -24,7 +24,8 @@ UBI includes the following elements:
 
 <!-- vale off -->
 UBI documentation is organized in the following categories.
-| Explanation & Reference | Description
+
+| Explanation & Reference | Description |
 | :--------- | :------- |
 | [UBI Request/Response Specification](https://github.com/o19s/ubi/) <br/> **References UBI Specification 1.0.0**  | Industry-standard schema for making UBI requests and responses  |
 | [UBI OpenSearch Schema Documentation]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/) | Documentation on the individual Query and Event stores for OpenSearch |

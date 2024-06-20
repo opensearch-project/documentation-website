@@ -23,11 +23,17 @@ To view the resulting dashboard without following the tutorial, follow these ste
 
 Depending on your configuration: `http://{server}:5601/app/home#/`
 ![Dashboard Home]({{site.url}}{{site.baseurl}}/images/ubi/home.png "Dashboards")
+{: .note} 
 
 ## 2. Create an index pattern
 
+Within OpenSearch Management navigate to **Dashboards Management > Index patterns**.
+
 `http://{server}:5601/app/management/OpenSearch-dashboards/indexPatterns`
+
+It will look something like the following.
 ![Index Patterns]({{site.url}}{{site.baseurl}}/images/ubi/index_pattern1.png "Index Patterns")
+
 OpenSearch Dashboards access your indexes using index patterns. To visualize your users' online search behavior, you must create an index pattern in order to access the indexes that UBI creates. For more information, see [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/).
 
 After you select **Create index pattern**, you'll see a list of indexes in your OpenSearch instance. The UBI stores may be hidden by default, so be sure to select **Include system and hidden indexes**, as shown in the following image. 
@@ -44,9 +50,13 @@ After selecting **Create index pattern, you're ready to start building a dashboa
 ## 3. Create a new dashboard
 
 To create a new dashboard, on the top menu go to **OpenSearch Dashboards > Dashboards**, then select **Create > Dashboard** and choose **Create new**.
-You should see something like the following:
-
+If you haven't previously created a dashboard, you should see something like the following:
 ![First Dashboard]({{site.url}}{{site.baseurl}}/images/ubi/first_dashboard.png "First Dashboard")
+
+Otherwise, you will see previously created dashboards here.
+{: .note} 
+
+
 
 In the **New Visualization** window, select **Pie** to create a new pie chart. Then select the index pattern you created in Step 2.
 
@@ -64,7 +74,8 @@ Save that visualization so it is added to your new dashboard. Now that you have 
 Now you'll add a word cloud for trending searches by creating a new visualization, similar to the previous step.  In the **New Visualization** window, select **Tag Cloud**. Then select the index pattern you created in Step 2. Choose the Tag Cloud visualization of the terms in the `message` field where the Javascript client logs the raw text that the user searches on.  (Note: The true query, as processed by OpenSearch with filters, boosting, and so on, resides in the `ubi_queries` index. However, you'll view the `message` field of the `ubi_events` index, where the Javascript client captures the text that the user actually typed.) The following image shows the tag cloud visualization on the `message` field.
 ![Word Cloud]({{site.url}}{{site.baseurl}}/images/ubi/tag_cloud1.png "Word Cloud")
 
-NOTE: The underlying queries can be found under [SQL trending queries]({{site.url}}{{site.baseurl}}/search-plugins/ubi/sql-queries/#trending-queries).
+The underlying queries can be found under [SQL trending queries]({{site.url}}{{site.baseurl}}/search-plugins/ubi/sql-queries/#trending-queries).
+{: .note} 
 
 
 However, this visualization is not exactly what you're looking for. The `message` field is updated on every event---not only query/search events---and can be used in any way the client developer decides to use it. As a result, it can contain error messages, debug messages, click information, and other data.
@@ -90,6 +101,5 @@ Now you can further filter the displayed data. For example, let's see how the cl
 
 You can filter event messages containing the word "\*laptop\*" by adding wildcards, as shown in the following image.
 ![Laptop]({{site.url}}{{site.baseurl}}/images/ubi/laptop.png "Laptop").
-
-You now have a basic dashboard that lets you look at the data. 
+ 
 
