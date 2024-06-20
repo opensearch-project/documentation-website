@@ -63,4 +63,4 @@ Every three hours on the first day of every other month:
 
 ## API
 
-For an example of how to use a custom cron expression in an API call, see the [create monitor API operation]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/api#request-1).
+For an example of how to use a custom cron expression in an API call, see the [create monitor API operation]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/api/#example-request-2).
