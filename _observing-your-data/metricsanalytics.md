@@ -166,7 +166,7 @@ As the demo starts generating data, the metrics signals will be added to the Ope
 
 On the **Metrics analytics** page, choose `Otel-Index` from the **Data sources** dropdown menu and `Simple Schema for Observability Index` from the **Otel index** dropdown menu. This step is shown in the following image.
 
-![Metrics analytics page with dropdown menus]({{site.url}}{{site.baseurl}}/images/metrics/otel-metrics.png)
+![Metrics analytics page with OTel sources dropdown menus]({{site.url}}{{site.baseurl}}/images/metrics/otel-metrics.png)
 
 ---
 
