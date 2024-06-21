@@ -22,7 +22,7 @@ To generate a report from the interface:
    Reports generate asynchronously in the background and might take a few minutes, depending on the size of the report. A notification appears when your report is ready to download.
    {: .label}
 
-3. To create a schedule-based report, choose **Create report definition**. Then proceed to [Create reports using a definition](#create-reports-using-a-definition). This option pre-fills many of the fields for you based on the visualization, dashboard, or data you were viewing.
+3. To create a schedule-based report, choose **Create report definition**. Then proceed to the next step. This option pre-fills many of the fields for you based on the visualization, dashboard, or data you were viewing.
 
 
 ## Creating reports using a definition

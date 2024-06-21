@@ -11,7 +11,7 @@ OpenSearch is a distributed search and analytics engine based on [Apache Lucene]
 
 Unsurprisingly, people often use search engines like OpenSearch as the backend for a search application---think [Wikipedia](https://en.wikipedia.org/wiki/Wikipedia:FAQ/Technical#What_software_is_used_to_run_Wikipedia?) or an online store. It offers excellent performance and can scale up and down as the needs of the application grow or shrink.
 
-An equally popular, but less obvious use case is log analytics, in which you take the logs from an application, feed them into OpenSearch, and use the rich search and visualization functionality to identify issues. For example, a malfunctioning web server might throw a 500 error 0.5% of the time, which can be hard to notice unless you have a real-time graph of all HTTP status codes that the server has thrown in the past four hours. You can use [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/) to build these sorts of visualizations from data in OpenSearch.
+An equally popular, but less obvious use case is log analytics, in which you take the logs from an application, feed them into OpenSearch, and use the rich search and visualization functionality to identify issues. For example, a malfunctioning web server might throw a 500 error 0.5% of the time, which can be hard to notice unless you have a real-time graph of all HTTP status codes that the server has thrown in the past four hours. You can use OpenSearch Dashboards to build these sorts of visualizations from data in OpenSearch.
 
 
 ## Clusters and nodes

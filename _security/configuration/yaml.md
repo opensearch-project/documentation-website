@@ -330,9 +330,7 @@ _meta:
 
 ## tenants.yml
 
-You can use this file to specify and add any number of OpenSearch Dashboards tenants to your OpenSearch cluster. For more information about tenants, see [OpenSearch Dashboards multi-tenancy]({{site.url}}{{site.baseurl}}/security/multi-tenancy/tenant-index).
-
-Like all of the other YAML files, we recommend you use `tenants.yml` to add any tenants you must have in your cluster, and then use OpenSearch Dashboards or the [REST API]({{site.url}}{{site.baseurl}}/security/access-control/api/#tenants) if you need to further configure or create any other tenants.
+You can use this file to specify and add any number of OpenSearch Dashboards tenants to your OpenSearch cluster. Like all of the other YAML files, we recommend you use `tenants.yml` to add any tenants you must have in your cluster, and then use OpenSearch Dashboards or the [REST API]({{site.url}}{{site.baseurl}}/security/access-control/api/#tenants) if you need to further configure or create any other tenants.
 
 ```yml
 ---
