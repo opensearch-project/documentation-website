@@ -350,9 +350,6 @@ If you use the logout POST binding, you also need to ad the logout endpoint to y
 server.xsrf.allowlist: ["/_plugins/_security/saml/acs", "/_plugins/_security/saml/logout"]
 ```
 
-To include SAML with other authentication types in the Dashboards sign-in window, see [Configuring sign-in options]({{site.url}}{{site.baseurl}}/security/configuration/multi-auth/).
-{: .note }
-
 ### IdP-initiated SSO
 
 To use IdP-initiated SSO, set the Assertion Consumer Service endpoint of your IdP to this:

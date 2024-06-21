@@ -56,7 +56,7 @@ The following table lists all available metric groups.
 
 Metric | Description
 :--- |:----
-settings | A node's settings. This is a combination of the default settings, custom settings from the [configuration file]({{site.url}}{{site.baseurl}}/opensearch/configuration/#configuration-file), and dynamically [updated settings]({{site.url}}{{site.baseurl}}/opensearch/configuration/#update-cluster-settings-using-the-api).
+settings | A node's settings. This is a combination of the default settings, custom settings from the [configuration file]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/#configuration-file), and dynamically [updated settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/#update-cluster-settings-using-the-api).
 os | Static information about the host OS, including version, processor architecture, and available/allocated processors.
 process | Contains the process ID.
 jvm | Detailed static information about the running JVM, including arguments.

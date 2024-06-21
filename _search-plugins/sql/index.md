@@ -10,7 +10,7 @@ redirect_from:
 
 # SQL and PPL
 
-OpenSearch SQL lets you write queries in SQL rather than the [OpenSearch query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text). If you're already familiar with SQL and don't want to learn the query DSL, this feature is a great option.
+OpenSearch SQL lets you write queries in SQL rather than the [OpenSearch query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index). If you're already familiar with SQL and don't want to learn the query DSL, this feature is a great option.
 
 ## Contributing
 
