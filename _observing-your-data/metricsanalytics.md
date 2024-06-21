@@ -200,6 +200,6 @@ To create a custom visualization based on the PPL query, follow these steps:
 3. When prompted to choose a **Custom Operational Dashboards/Application**, select one of the listed options. Optionally, you can edit the predefined name values in the **Metric Name** fields and can choose to save the visualization as a metric.
 5. Select **Save** to save your custom visualization. 
 
-Only queries that include a time-series visualization and statistics or span information can be saved as a metric, similar to the following image.
+Only queries that include a time-series visualization and statistics or span information can be saved as a metric, as shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/metrics/metrics3.png" alt="Saving queries as metrics" width="700"/>
