@@ -29,7 +29,7 @@ The following image displays an observability dashboard that visualizes metric d
 
 ---
 
-## Configuring Prometheus to send metrics data to OpenSearch
+## Configuring Prometheus to send metric data to OpenSearch
 
 You must first create a connection from [Prometheus](https://prometheus.io/) to OpenSearch using the [SQL plugin](https://github.com/opensearch-project/sql). You can then configure a connection to Prometheus by using the `_datasources` configuration API endpoint. 
 
