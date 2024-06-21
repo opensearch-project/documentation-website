@@ -263,10 +263,10 @@ Field | Data type | Description
 `type` | String | The guardrail type. Valid values are [`local_regex`](#example-request-regex-and-stopword-validation) and [`model`](#example-request-guardrail-model-validation). Using `local_regex`, you can specify a regular expression or stop words. Using `model`, you can specify a guardrail model. For more information, see [Guardrails]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/guardrails/). 
 `input_guardrail`| Object |  The guardrail for the model input. 
 `output_guardrail`| Object |  The guardrail for the model output. 
-`stop_words`| Object | The list of indexes containing stopwords used for the model input/output validation. If the model prompt/response contains a stopword contained in any of the indexes, the predict request on this model is rejected. 
+`stop_words`| Object | The list of indexes containing stopwords used for model input/output validation. If the model prompt/response contains a stopword contained in any of the indexes, then the predict request on the model is rejected. 
 `index_name`| Object | The name of the index storing the stopwords. 
 `source_fields`| Object | The name of the field storing the stopwords. 
-`regex`| Object |  A regular expression used for input/output validation. If the model prompt/response matches the regular expression, the predict request on this model is rejected. 
+`regex`| Object |  A regular expression used for input/output validation. If the model prompt/response matches the regular expression, then the predict request on the model is rejected. 
 `model_id`| String  | The guardrail model used to validate user input and LLM output. 
 `response_filter`| String | The dot path of the field containing the guardrail model response. 
 `response_validation_regex`| String | The regular expression used to validate the guardrail model response.     

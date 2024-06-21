@@ -306,12 +306,12 @@ Guardrails are also triggered when a prompt matches the supplied regular express
 {: .label .label-purple }
 
 For more advanced validation, you can configure a guardrail model---a separate LLM whose purpose is to validate the user input and the LLM output. In this example, you'll configure two models:
-- Chat model: An Anthropic Claude model hosted on Amazon Bedrock, whose purpose is to hold a conversation with a user
-- Guardrail model: An OpenAI model, whose purpose is to validate the user input and Anthropic Claude output.
+- Chat model: An Anthropic Claude model hosted on Amazon Bedrock whose purpose is to hold a conversation with a user.
+- Guardrail model: An OpenAI model whose purpose is to validate the user input and Anthropic Claude output.
 
 ### Step 1: Create a connector for the guardrail model
 
-First, create a connector to the OpenAI guardrail model. Note that the OpenAI prompt instructs the model to respond only with the words `accept` or `reject`, depending on whether the input/output is acceptable. Additionally, the request contains the `response_filter` parameter that specifies the field in which the guardrail model will provide the validation result: 
+First, create a connector to the OpenAI guardrail model. Note that the OpenAI prompt instructs the model to respond only with the words `accept` or `reject`, depending on whether the input/output is acceptable. Additionally, the request contains the `response_filter` parameter, which specifies the field in which the guardrail model will provide the validation result: 
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -346,7 +346,7 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-The response contains the connector ID that you'll use in the next steps:
+The response contains the connector ID used in the next steps:
 
 ```json
 {
@@ -367,7 +367,7 @@ POST /_plugins/_ml/model_groups/_register
 ```
 {% include copy-curl.html %}
 
-The response contains the model group ID that you'll use to register a model to this model group:
+The response contains the model group ID used to register a model to this model group:
 
 ```json
 {
@@ -430,7 +430,7 @@ When the operation is complete, the state changes to `COMPLETED`:
 
 ### Step 4 (Optional): Test the guardrail model
 
-You can test the guardrail model user input validation by sending requests that do an do not contain offensive words. 
+You can test the guardrail model user input validation by sending requests that do and do not contain offensive words. 
 
 First, send a request that does not contain offensive words:
 
@@ -538,7 +538,7 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-The response contains the connector ID that you'll use in the next steps:
+The response contains the connector ID used in the next steps:
 
 ```json
 {
@@ -548,7 +548,7 @@ The response contains the connector ID that you'll use in the next steps:
 
 ### Step 6: Register and deploy the chat model with guardrails
 
-To register and deploy the Anthropic Claude chat model, send the following request. Note that the `guardrails` object contains a `response_validation_regex` parameter, which specifies to only treat the input/output as valid if the guardrail model responds with a variant of the word `accept`:
+To register and deploy the Anthropic Claude chat model, send the following request. Note that the `guardrails` object contains a `response_validation_regex` parameter that specifies to only treat the input/output as valid if the guardrail model responds with a variant of the word `accept`:
 
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
@@ -585,7 +585,7 @@ OpenSearch returns the task ID of the register operation and the model ID of the
 
 ### Step 7 (Optional): Test the chat model with guardrails
 
-You can test the Anthropic Claude chat model with guardrails by sending predict requests that do an do not contain offensive words. 
+You can test the Anthropic Claude chat model with guardrails by sending predict requests that do and do not contain offensive words. 
 
 First, send a request that does not contain offensive words:
 
