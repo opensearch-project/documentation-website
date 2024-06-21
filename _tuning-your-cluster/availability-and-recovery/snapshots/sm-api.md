@@ -185,7 +185,7 @@ Parameter | Type | Description
 `snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`indices` | String | The names of the indexes in the snapshot. Multiple index names are separated by `,`. Supports wildcards (`*`). Optional. Default is `*` (all indexes).
 `snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`repository` | String | The repository in which to store snapshots. Required.
 `snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`ignore_unavailable` | Boolean | Do you want to ignore unavailable indexes? Optional. Default is `false`.
-`snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`include_global_state` | Boolean | Do you want to include cluster state? Optional. Default is `true` because of [Security plugin considerations]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore/#security-plugin-considerations).
+`snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`include_global_state` | Boolean | Do you want to include cluster state? Optional. Default is `true` because of [Security plugin considerations]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore/#security-considerations).
 `snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`partial` | Boolean | Do you want to allow partial snapshots? Optional. Default is `false`.
 `snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`metadata` | Object | Metadata in the form of key/value pairs. Optional.
 `creation` | Object | Configuration for snapshot creation. Required.
@@ -199,7 +199,7 @@ Parameter | Type | Description
 `deletion`<br>&nbsp;&nbsp;&nbsp;&nbsp;`delete_condition`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`max_age` | String | The maximum time a snapshot is retained. Optional.
 `deletion`<br>&nbsp;&nbsp;&nbsp;&nbsp;`delete_condition`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`min_count` | Integer | The minimum number of snapshots to be retained. Optional. Default is one.
 `notification` | Object | Defines notifications for SM events. Optional.
-`notification`<br>&nbsp;&nbsp;&nbsp;&nbsp;`channel` | Object | Defines a channel for notifications. You must [create and configure a notification channel]({{site.url}}{{site.baseurl}}/notifications-plugin/api) before setting up SM notifications. Required.
+`notification`<br>&nbsp;&nbsp;&nbsp;&nbsp;`channel` | Object | Defines a channel for notifications. You must create and configure a notification channel before setting up SM notifications. Required.
 `notification`<br>&nbsp;&nbsp;&nbsp;&nbsp;`channel`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`id` | String | The channel ID of the channel used for notifications. To get the channel IDs of all created channels, use `GET _plugins/_notifications/configs`. Required.
 `notification`<br>&nbsp;&nbsp;&nbsp;&nbsp;`conditions` | Object | SM events you want to be notified about. Set the ones you are interested in to `true`.
 `notification`<br>&nbsp;&nbsp;&nbsp;&nbsp;`conditions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`creation` | Boolean | Do you want notifications about snapshot creation? Optional. Default is `true`.

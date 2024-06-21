@@ -9,7 +9,7 @@ nav_order: 7
 
 Deletes a snapshot from a repository.
 
-* To learn more about snapshots, see [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index).
+* To learn more about snapshots, see [Snapshots]({{site.url}}{{site.baseurl}}/api-reference/snapshots/index).
 
 * To view a list of your repositories, see [cat repositories]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-repositories).
 

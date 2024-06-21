@@ -18,7 +18,7 @@ Index | Purpose
 :--- | :---
 `.opendistro-alerting-alerts` | Stores ongoing alerts.
 `.opendistro-alerting-alert-history-<date>` | Stores a history of completed alerts.
-`.opendistro-alerting-config` | Stores monitors, triggers, and destinations. [Take a snapshot]({{site.url}}{{site.baseurl}}/opensearch/snapshot-restore) of this index to back up your alerting configuration.
+`.opendistro-alerting-config` | Stores monitors, triggers, and destinations. [Take a snapshot]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-snapshot/) of this index to back up your alerting configuration.
 `.opendistro-alerting-alert-history-write` (alias) | Provides a consistent URI for the `.opendistro-alerting-alert-history-<date>` index.
 
 All alerting indices are hidden by default. For a summary, make the following request:

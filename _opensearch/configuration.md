@@ -65,7 +65,7 @@ PUT _cluster/settings
 }
 ```
 
-For more information about the Cluster Settings API, see [Cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings/).
+For more information about the Cluster Settings API, see [Cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/).
 
 
 ---

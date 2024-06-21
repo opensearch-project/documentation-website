@@ -18,6 +18,6 @@ You *can* start OpenSearch Dashboards using `docker run` after [creating a Docke
 
 1. Run `docker-compose up`.
 
-   Wait for the containers to start. Then see the [OpenSearch Dashboards documentation]({{site.url}}{{site.baseurl}}/dashboards/index/).
+   Wait for the containers to start. Then see the [OpenSearch Dashboards documentation]({{site.url}}{{site.baseurl}}/dashboards/dashboard/index/).
 
 1. When finished, run `docker-compose down`.
