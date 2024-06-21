@@ -90,7 +90,7 @@ To visualize OTel metrics in OpenSearch, follow these steps:
 
 1. Install the [`opentelemetry-demo` repository](https://github.com/opensearch-project/opentelemetry-demo). See the [Getting Started](https://github.com/opensearch-project/opentelemetry-demo/blob/main/tutorial/GettingStarted.md) guide for instructions.
 2. Collect the OTel signals, including metric signals. See the [OTel Collector](https://opentelemetry.io/docs/collector/) guide for instructions.  
-3. Configure the OTel pipeline to emit metrics signals. See the [OTel Collector Pipeline](https://github.com/opensearch-project/opentelemetry-demo/tree/main/src/otelcollector) guide for instructions.
+3. Configure the OTel pipeline to emit metric signals. See the [OTel Collector Pipeline](https://github.com/opensearch-project/opentelemetry-demo/tree/main/src/otelcollector) guide for instructions.
 
 #### Example YAML config file
 
