@@ -14,7 +14,7 @@ With the release of OpenSearch 2.4, you can now ingest and visualize metric data
 
 Before the introduction of this feature, you could only ingest and visualize logs and traces from your monitored environments. With the **Metrics** tool, you can now observe your digital assets with more granularity, gain deeper insight into the health of your infrastructure, and better inform your root cause analysis.
 
-**Metrics analytics** offers federated visualization capabilities on top of the following:
+The **Metrics** tool offers federated visualization capabilities in addition to the following:
 
  - An OpenSearch cluster containing an [OpenTelemetry (OTel)-compatible metrics index](https://github.com/opensearch-project/opensearch-catalog/tree/main/docs/schema/observability/metrics) with OTel-based signals. See [What is OpenTelemetry?](https://opentelemetry.io/docs/what-is-opentelemetry/) for an overview of OTel.
  - An OpenSearch cluster containing a [Prometheus data source](https://github.com/opensearch-project/sql/blob/main/docs/dev/datasource-prometheus.md) connected to a Prometheus server. 
