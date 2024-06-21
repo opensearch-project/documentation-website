@@ -13,7 +13,7 @@ The Time-Series Visual Builder (TSVB) is a powerful data visualization tool in O
 Introduced 2.14
 {: .label .label-purple }
 
-Before proceeding, ensure that the following configurations are enabled. These can be found in `config/opensearch_dasboards.yaml`:
+Before proceeding, ensure that the following configuration settings are enabled in the `config/opensearch_dasboards.yaml` file:
 
 ```yaml
 data_source.enabled: true
