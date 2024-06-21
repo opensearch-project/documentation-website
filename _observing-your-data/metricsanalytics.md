@@ -23,7 +23,7 @@ The following image displays the flow for retrieving metrics from Prometheus and
 
 <img src="{{site.url}}{{site.baseurl}}/images/metrics/prom-metrics.png" alt="Prometheus data source" width="700"/>
 
-The following image displays an observability dashboard that visualizes metrics data from the OpenSearch index using OTel queries.
+The following image displays an observability dashboard that visualizes metric data from the OpenSearch index using OTel queries.
 
 <img src="{{site.url}}{{site.baseurl}}/images/metrics/otel-metrics.png" alt="OTel data source" width="700"/>
 
