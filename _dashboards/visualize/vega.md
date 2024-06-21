@@ -13,7 +13,7 @@ nav_order: 50
 Introduced 2.13
 {: .label .label-purple }
 
-Before proceeding, ensure that the following configurations are enabled. These can be found in `config/opensearch_dasboards.yaml`. For configuration details, refer to the `vis_type_vega` [README](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/src/plugins/vis_type_vega/README.md).
+Before proceeding, ensure that the following configuration settings are enabled in the `config/opensearch_dasboards.yaml` file. For configuration details, refer to the `vis_type_vega` [README](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/src/plugins/vis_type_vega/README.md).
 
 ```
 data_source.enabled: true
