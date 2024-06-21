@@ -6,7 +6,7 @@ redirect_from:
   - /observing-your-data/metricsanalytics/
 ---
 
-# Metrics analytics
+# Metric analytics
 Introduced 2.4
 {: .label .label-purple }
 
