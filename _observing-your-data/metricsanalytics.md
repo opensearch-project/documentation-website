@@ -159,7 +159,7 @@ To visualize OTel metrics in OpenSearch, follow these steps:
 Introduced 2.14
 {: .label .label-purple }
 
-You can see metrics from remote OpenSearch clusters by using the **Metrics analytics** tool. Select the database icon on the upper-right toolbar and choose the cluster you want from **DATA SOURCES** dropdown menu, as shown in the following image. You can switch from a local cluster to a remote cluster.
+You can view metrics from remote OpenSearch clusters by using the **Metrics** tool. Select the database icon on the upper-right toolbar and choose a cluster from the **DATA SOURCES** dropdown menu, as shown in the following image. You can switch from a local cluster to a remote cluster.
 
 <img src="{{site.url}}{{site.baseurl}}/images/metrics/remote-cluster-selection.png" alt="Switching clusters using the Metrics analytics tool" width="700"/>
 
