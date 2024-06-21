@@ -34,7 +34,7 @@ In OpenSearch 2.0, the Alerting plugin is now integrated with new plugins for No
 
 ### Drop support for JDK 8
 
-A Lucene upgrade forced OpenSearch to drop support for JDK 8. As a consequence, the [Java high-level REST client]({{site.url}}{{site.baseurl}}/clients/java-rest-high-level/) no longer supports JDK 8. Restoring JDK 8 support is currently an `opensearch-java` proposal [#156](https://github.com/opensearch-project/opensearch-java/issues/156) and will require removing OpenSearch core as a dependency from the Java client (issue [#262](https://github.com/opensearch-project/opensearch-java/issues/262)).
+A Lucene upgrade forced OpenSearch to drop support for JDK 8. As a consequence, the Java high-level REST client no longer supports JDK 8. Restoring JDK 8 support is currently an `opensearch-java` proposal [#156](https://github.com/opensearch-project/opensearch-java/issues/156) and will require removing OpenSearch core as a dependency from the Java client (issue [#262](https://github.com/opensearch-project/opensearch-java/issues/262)).
 
 
 ## 2.5.0
