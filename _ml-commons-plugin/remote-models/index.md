@@ -319,7 +319,7 @@ The response contains the inference results provided by the OpenAI model:
 ```
 ## Step 6: Use the model for batch ingestion
 
-To learn how to use the model for batch ingestion to improve ingestion performance, see [Using externally hosted ML model for batch ingestion]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/batch-ingestion/).
+To learn how to use the model for batch ingestion in order to improve ingestion performance, see [Using externally hosted ML models for batch ingestion]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/batch-ingestion/).
 
 ## Step 7: Use the model for search
 

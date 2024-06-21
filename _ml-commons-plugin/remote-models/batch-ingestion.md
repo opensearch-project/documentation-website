@@ -14,16 +14,16 @@ grand_parent: Integrating ML models
 
 If you are ingesting multiple documents and generating embeddings by invoking an externally hosted model, you can use batch ingestion to improve performance.
 
-The [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) accepts a `batch_size` parameter that indicates to process documents in batches of the specified size. Processors that support batch ingestion will send each batch of documents to an externally hosted model in a single request.
+The [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) accepts a `batch_size` parameter that specifies to process documents in batches of a specified size. Processors that support batch ingestion will send each batch of documents to an externally hosted model in a single request.
 
-The processors that support batch ingestion are the [`text_embedding`]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-embedding/) and [`sparse_encoding`]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/sparse-encoding/) processors.
+The [`text_embedding`]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-embedding/) and [`sparse_encoding`]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/sparse-encoding/) processors currently support batch ingestion.
 
 ## Step 1: Register a model group
 
-To register a model, you have the following options:
+You can register a model in two ways:
 
 * You can use `model_group_id` to register a model version to an existing model group.
-* If you do not use `model_group_id`, ML Commons creates a model with a new model group.
+* If you do not use `model_group_id`, then ML Commons creates a model with a new model group.
 
 To register a model group, send the following request:
 
@@ -83,7 +83,7 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-The `parameters.input_docs_processed_step_size`parameter is used to set the maximum batch size for documents sent to a remote server. You can set this parameter to the maximum batch size the remote server can support or a smaller number for optimal performance.
+The `parameters.input_docs_processed_step_size` parameter is used to set the maximum batch size for documents sent to a remote server. You can set this parameter to the maximum batch size supported by the remote server or to a smaller number for optimal performance.
 
 The response contains the connector ID for the newly created connector:
 
@@ -146,7 +146,7 @@ Take note of the returned `model_id` because you’ll need it to deploy the mode
 
 ## Step 4: Deploy the model
 
-Starting with OpenSearch version 2.13, externally hosted models are deployed automatically by default when you send a Predict API request for the first time. To disable automatic deployment for an externally hosted model, set `plugins.ml_commons.model_auto_deploy.enable` to `false`:
+Starting in OpenSearch version 2.13, externally hosted models are deployed automatically when you send a Predict API request for the first time. To disable automatic deployment for an externally hosted model, set `plugins.ml_commons.model_auto_deploy.enable` to `false`:
 
 ```json
 PUT _cluster/settings
@@ -158,14 +158,14 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-To undeploy the model, use the [Undeploy API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/undeploy-model/).
+To undeploy the model, use the [Undeploy API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/undeploy-model/):
 
 ```json
 POST /_plugins/_ml/models/cleMb4kBJ1eYAeTMFFg4/_deploy
 ```
 {% include copy-curl.html %}
 
-The response contains the task ID that you can use to check the status of the deploy operation:
+The response contains the task ID, which you can use to check the status of the deploy operation:
 
 ```json
 {
@@ -198,7 +198,7 @@ When the operation is complete, the state changes to `COMPLETED`:
 }
 ```
 
-## Step 5:  Create an ingest pipeline
+## Step 5: Create an ingest pipeline
 
 The following example request creates an ingest pipeline with a `text_embedding` processor. The processor converts the text in the `passage_text` field into text embeddings and stores the embeddings in `passage_embedding`:
 
@@ -222,7 +222,7 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
 
 ## Step 6: Perform bulk indexing
 
-To ingest documents in bulk, call the Bulk API and provide a `batch_size` and `pipeline` parameters. If you don't provide a `pipeline` parameter, the default ingest pipeline for the index will be used for ingestion:
+To ingest documents in bulk, call the Bulk API and provide the `batch_size` and `pipeline` parameters. If you don't provide a `pipeline` parameter, the default ingest pipeline for the index will be used for ingestion:
 
 ```json
 POST _bulk?batch_size=5&pipeline=nlp-ingest-pipeline
