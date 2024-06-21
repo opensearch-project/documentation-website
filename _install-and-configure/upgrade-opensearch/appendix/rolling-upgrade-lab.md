@@ -309,7 +309,7 @@ In this section you will be:
 
 ### Creating a snapshot
 
-Snapshots are backups of a cluster’s indexes and state. See [Snapshots]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/index/) to learn more.
+Snapshots are backups of a cluster’s indexes and state. See [Snapshots]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/) to learn more.
 
 1. Create a snapshot that includes all indexes and the cluster state:
    ```bash
