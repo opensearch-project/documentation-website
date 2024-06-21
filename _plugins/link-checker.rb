@@ -247,7 +247,6 @@ module Jekyll::LinkChecker
 
   def self.check_internal(url, location)
     Jekyll.logger.info "LinkChecker: [Info] Checking #{url}".cyan
-    Jekyll.logger.info "LinkChecker: [Info] Checking #{url} (#{location})".cyan
     return true if @ignored_paths =~ url
 
     path, hash = url.split('#')
