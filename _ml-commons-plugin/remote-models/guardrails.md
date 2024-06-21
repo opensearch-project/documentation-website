@@ -438,7 +438,7 @@ First, send a request that does not contain offensive words:
 POST /_plugins/_ml/models/o3JaDZABNFJeYR3I2fRV/_predict
 {
   "parameters": {
-    "question": "how many indices"
+    "question": "how many indices do i have in my cluster"
   }
 }
 ```
