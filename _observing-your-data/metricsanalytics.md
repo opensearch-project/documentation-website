@@ -33,7 +33,7 @@ The following image displays an observability dashboard that visualizes metric d
 
 You must first create a connection from [Prometheus](https://prometheus.io/) to OpenSearch using the [SQL plugin](https://github.com/opensearch-project/sql). You can then configure a connection to Prometheus by using the `_datasources` API endpoint. 
 
-The following example shows a request that sets up a Prometheus data source without any authentication:
+The following example shows a request that configures a Prometheus data source without any authentication:
 
 ```json
 POST _plugins/_query/_datasources 
