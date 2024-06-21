@@ -39,7 +39,7 @@ These methods are described in the following sections.
 Prefix matching finds documents that matches the last term in the query string.
 
 For example, assume that the user types “qui” into a search UI. To autocomplete this phrase, use the `match_phrase_prefix` query to search all `text_entry` fields that begin with the prefix "qui."
-To make the word order and relative positions flexible, specify a `slop` value. To learn about the `slop` option, see the [Multi-match query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text#multi-match).
+To make the word order and relative positions flexible, specify a `slop` value. To learn about the `slop` option, see the [Multi-match query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index/#multi-match).
 
 #### Sample Request
 
@@ -60,7 +60,7 @@ GET shakespeare/_search
 Prefix matching doesn’t require any special mappings. It works with your data as-is.
 However, it’s a fairly resource-intensive operation. A prefix of `a` could match hundreds of thousands of terms and not be useful to your user.
 
-To limit the impact of prefix expansion, set `max_expansions` to a reasonable number. To learn about the `max_expansions` option, see [Advanced filter options]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text#advanced-filter-options).
+To limit the impact of prefix expansion, set `max_expansions` to a reasonable number. To learn about the `max_expansions` option, see [Advanced filter options]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index/#advanced-filter-options).
 
 #### Sample Request
 

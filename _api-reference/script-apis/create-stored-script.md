@@ -13,7 +13,7 @@ For additional information about Painless scripting, see:
 
 * [k-NN Painless Scripting extensions]({{site.url}}{{site.baseurl}}/search-plugins/knn/painless-functions/).
 
-* [k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/inswz/).
+* [k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/).
 
 
 ### Path parameters

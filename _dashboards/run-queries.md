@@ -93,7 +93,7 @@ To use auto indent, select the queries that you want to format, select the wrenc
 
 Auto indenting a collapsed query expands it.
 
-Auto indenting a well-formatted query puts the request body on a single line. This is useful for working with [bulk APIs]({{site.url}}{{site.baseurl}}/opensearch/api-reference/document-apis/bulk/).
+Auto indenting a well-formatted query puts the request body on a single line. This is useful for working with [bulk APIs]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/).
 {: .tip}
 
 ## Viewing your request history
