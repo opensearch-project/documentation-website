@@ -155,7 +155,7 @@ To visualize OTel metrics in OpenSearch, follow these steps:
 
 ---
 
-## Visualizing metrics within remote clusters
+## Visualizing metrics in remote clusters
 Introduced 2.14
 {: .label .label-purple }
 
