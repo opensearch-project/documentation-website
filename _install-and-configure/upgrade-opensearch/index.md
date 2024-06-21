@@ -43,7 +43,7 @@ It's important to determine how the new version of OpenSearch will integreate wi
 
 ### Reviewing the OpenSearch tools compatibility matrices
 
-If your OpenSearch cluster interacts with other services in your environment, like Logstash or Beats, then you should check the [OpenSearch tools compatibility matrices]({{site.url}}{{site.baseurl}}/tools/index/#compatibility-matrices) to determine whether other components will need to be upgraded.
+If your OpenSearch cluster interacts with other services in your environment, like Logstash or Beats, then you should check the [OpenSearch tools compatibility matrices]({{site.url}}{{site.baseurl}}/clients/agents-and-ingestion-tools/index/#compatibility-matrices) to determine whether other components will need to be upgraded.
 
 ### Reviewing plugin compatibility
 

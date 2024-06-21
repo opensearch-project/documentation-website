@@ -185,7 +185,7 @@ Parameter | Type | Description
 `snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`indices` | String | The names of the indexes in the snapshot. Multiple index names are separated by `,`. Supports wildcards (`*`). Optional. Default is `*` (all indexes).
 `snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`repository` | String | The repository in which to store snapshots. Required.
 `snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`ignore_unavailable` | Boolean | Do you want to ignore unavailable indexes? Optional. Default is `false`.
-`snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`include_global_state` | Boolean | Do you want to include cluster state? Optional. Default is `true` because of [Security plugin considerations]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore/#security-plugin-considerations).
+`snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`include_global_state` | Boolean | Do you want to include cluster state? Optional. Default is `true` because of [Security plugin considerations]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore/#security-considerations).
 `snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`partial` | Boolean | Do you want to allow partial snapshots? Optional. Default is `false`.
 `snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`metadata` | Object | Metadata in the form of key/value pairs. Optional.
 `creation` | Object | Configuration for snapshot creation. Required.
