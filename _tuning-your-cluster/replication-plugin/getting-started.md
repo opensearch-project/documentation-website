@@ -268,7 +268,7 @@ curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://loc
 
 When replication resumes, the follower index picks up any changes that were made to the leader index while replication was paused.
 
-Note that you can't resume replication after it's been paused for more than 12 hours. You must [stop replication]({{site.url}}{{site.baseurl}}/replication-plugin/api/#stop-replication), delete the follower index, and restart replication of the leader.
+Note that you can't resume replication after it's been paused for more than 12 hours. You must [stop replication](#stop-replication), delete the follower index, and restart replication of the leader.
 
 ## Stop replication
 
