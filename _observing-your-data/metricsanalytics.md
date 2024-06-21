@@ -197,7 +197,7 @@ To create a custom visualization based on the PPL query, follow these steps:
 
 1. In the **Event Analytics** window, enter your PPL query and select **Refresh**. This will display the **Explorer** page.
 2. On the **Explorer** page, select **Save**.
-3. When prompted to choose a **Custom Operational Dashboards/Application**, select one of the listed options. Optionally, you can edit the predefined name values under the **Metric Name** fields and can choose to save the visualization as a metric.
+3. When prompted to choose a **Custom Operational Dashboards/Application**, select one of the listed options. Optionally, you can edit the predefined name values in the **Metric Name** fields and can choose to save the visualization as a metric.
 5. Select **Save** to save your custom visualization. 
 
 Only queries that include a time-series visualization and statistics or span information can be saved as a metric, similar to the following image.
