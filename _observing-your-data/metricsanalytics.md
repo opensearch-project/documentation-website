@@ -86,7 +86,7 @@ The OpenSearch [`opentelemetry-demo` repository](https://github.com/opensearch-p
 
 ### Visualizing OTel metrics in OpenSearch
 
-To visualize OTel metrics in OpenSearch, follow these steps: 
+To visualize OTel metric data in OpenSearch, follow these steps: 
 
 1. Install the [`opentelemetry-demo` repository](https://github.com/opensearch-project/opentelemetry-demo). See the [Getting Started](https://github.com/opensearch-project/opentelemetry-demo/blob/main/tutorial/GettingStarted.md) guide for instructions.
 2. Collect the OTel signals, including metric signals. See the [OTel Collector](https://opentelemetry.io/docs/collector/) guide for instructions.  
