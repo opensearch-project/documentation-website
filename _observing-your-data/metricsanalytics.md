@@ -19,13 +19,13 @@ Before this feature, you could only ingest and visualize logs and traces from yo
  - An OpenSearch cluster containing an [OpenTelemetry (OTel)-compatible metrics index](https://github.com/opensearch-project/opensearch-catalog/tree/main/docs/schema/observability/metrics) with OTel-based signals. See [What is OpenTelemetry?](https://opentelemetry.io/docs/what-is-opentelemetry/) for an overview of OTel.
  - An OpenSearch cluster containing a [Prometheus data source](https://github.com/opensearch-project/sql/blob/main/docs/dev/datasource-prometheus.md) connected to a Prometheus server. 
 
-The following image shows the flow for retrieving metrics from Prometheus and displaying them on a visualization dashboard.
+The following image displays the flow for retrieving metrics from Prometheus and displaying them on a visualization dashboard.
 
-![Prometheus and metrics]({{site.url}}{{site.baseurl}}/images/metrics/prom-metrics.png)
+<img src="{{site.url}}{{site.baseurl}}/images/metrics/prom-metrics.png" alt="Prometheus data source" width="700"/>
 
 The following image displays an observability dashboard that visualizes metrics data from the OpenSearch index using OTel queries.
 
-![OTel metrics]({{site.url}}{{site.baseurl}}/images/metrics/otel-metrics.png)
+<img src="{{site.url}}{{site.baseurl}}/images/metrics/otel-metrics.png" alt="OTel data source" width="700"/>
 
 ---
 
@@ -47,7 +47,7 @@ POST _plugins/_query/_datasources
 ```
 {% include copy-curl.html %}
 
-The following example shows how to set up a Prometheus data source using AWS Signature Version 4 (SigV4) authentication:
+The following example shows how to set up a Prometheus data source using AWS Signature Version 4 authentication:
 
 ```json
 POST _plugins/_query/_datasources
@@ -67,7 +67,7 @@ POST _plugins/_query/_datasources
 
 After setting up the Prometheus to OpenSearch connection, you can view Prometheus metrics in OpenSearch Dashboards by going to the **Observability** > **Metrics analytics** page, where the metrics will be displayed, similar to the following image.
 
-![Prometheus metrics dashboard]({{site.url}}{{site.baseurl}}/images/metrics/metrics1.png)
+<img src="{{site.url}}{{site.baseurl}}/images/metrics/metrics1.png" alt="Prometheus metrics displayed on a dashboard" width="700"/>
 
 ### Developer resources
 
@@ -75,7 +75,7 @@ See the following developer resources for sample code, articles, tutorials, and 
 
 * [Datasource Settings](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/datasources.rst), which contains information about authentication and authorization of data source APIs.
 * [Prometheus Connector](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/connectors/prometheus_connector.rst), which contains configuration information.
-* [Simple Schema for Observability](https://github.com/opensearch-project/opensearch-catalog/tree/main/docs/schema/observability), which contains information about the OTel schema and ingestion pipeline.
+* [Simple Schema for Observability](https://github.com/opensearch-project/opensearch-catalog/tree/main/docs/schema/observability), which contains information about the OTel schema and ingest pipeline.
 * [OTel Metrics Source](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/otel-metrics-source), which contains information about the Data Prepper metrics pipeline and ingestion.
 
 ---
@@ -88,17 +88,9 @@ The OpenSearch [`opentelemetry-demo` repository](https://github.com/opensearch-p
 
 To visualize OTel metrics in OpenSearch, follow these steps: 
 
-**Step 1: Install the demo**
-
-Install the [`opentelemetry-demo` repository](https://github.com/opensearch-project/opentelemetry-demo). See the [Getting Started](https://github.com/opensearch-project/opentelemetry-demo/blob/main/tutorial/GettingStarted.md) guide for instructions.
-
-**Step 2: Collect the OTel signals**
-
-Collect the OTel signals, including metrics signals. See the [OTel Collector](https://opentelemetry.io/docs/collector/) guide for instructions.  
-
-**Step 3: Configure the OTel pipeline**
-
-Configure the OTel pipeline to emit metrics signals. See the [OTEL Collector Pipeline](https://github.com/opensearch-project/opentelemetry-demo/tree/main/src/otelcollector) guide for instructions.
+1. Install the [`opentelemetry-demo` repository](https://github.com/opensearch-project/opentelemetry-demo). See the [Getting Started](https://github.com/opensearch-project/opentelemetry-demo/blob/main/tutorial/GettingStarted.md) guide for instructions.
+2. Collect the OTel signals, including metrics signals. See the [OTel Collector](https://opentelemetry.io/docs/collector/) guide for instructions.  
+3. Configure the OTel pipeline to emit metrics signals. See the [OTel Collector Pipeline](https://github.com/opensearch-project/opentelemetry-demo/tree/main/src/otelcollector) guide for instructions.
 
 #### Example YAML config file
 
@@ -121,9 +113,7 @@ Configure the OTel pipeline to emit metrics signals. See the [OTEL Collector Pip
 ```
 {% include copy-curl.html %}
     
-**Step 4: Export metrics signals to OpenSearch**
-
-Configure the [Data Prepper pipeline](https://github.com/opensearch-project/opentelemetry-demo/blob/main/src/dataprepper/pipelines.yaml) to emit the collected metrics signals into the OpenSearch metrics index.
+4. Configure the [Data Prepper pipeline](https://github.com/opensearch-project/opentelemetry-demo/blob/main/src/dataprepper/pipelines.yaml) to emit the collected metrics signals into the OpenSearch metrics index.
 
 #### Example YAML config file
 
@@ -158,15 +148,10 @@ Configure the [Data Prepper pipeline](https://github.com/opensearch-project/open
 ```
 {% include copy-curl.html %}
 
-**Step 5: Ingest metrics data into OpenSearch**
+5. Ingest metrics data into OpenSearch. As the demo starts generating data, the metrics signals will be added to the OpenSearch index that supports the OTel Metrics schema format.
+6. On the **Metrics analytics** page, choose `Otel-Index` from the **Data sources** dropdown menu and `Simple Schema for Observability Index` from the **Otel index** dropdown menu. A visualization is displayed, similar to the following image.
 
-As the demo starts generating data, the metrics signals will be added to the OpenSearch index that supports the OTel Metrics schema format.
-
-**Step 6: View metrics data**
-
-On the **Metrics analytics** page, choose `Otel-Index` from the **Data sources** dropdown menu and `Simple Schema for Observability Index` from the **Otel index** dropdown menu. This step is shown in the following image.
-
-![Metrics analytics page with OTel sources dropdown menus]({{site.url}}{{site.baseurl}}/images/metrics/otel-metrics.png)
+<img src="{{site.url}}{{site.baseurl}}/images/metrics/otel-metrics.png" alt="OTel metrics dashboard" width="700"/>
 
 ---
 
@@ -176,11 +161,11 @@ Introduced 2.14
 
 You can see metrics from remote OpenSearch clusters by using the **Metrics analytics** tool. Select the database icon on the upper-right toolbar and choose the cluster you want from **DATA SOURCES** dropdown menu, as shown in the following image. You can switch from a local cluster to a remote cluster.
 
-![Switching clusters]({{site.url}}{{site.baseurl}}/images/metrics/remote-cluster-selection.png)
+<img src="{{site.url}}{{site.baseurl}}/images/metrics/remote-cluster-selection.png" alt="Switching clusters using the Metrics analytics tool" width="700"/>
 
 You can also view metrics visualizations from other sources together with local metrics visualizations. From the **DATA SOURCES** dropdown menu, choose the remote metrics visualization to add it to the group of visualizations already shown on the dashboard. An example dashboard is shown in the following image.
 
-![Metrics dashboard]({{site.url}}{{site.baseurl}}/images/metrics/otel-metrics-remote-cluster-selection.png)
+<img src="{site.url}}{{site.baseurl}}/images/metrics/otel-metrics-remote-cluster-selection.png" alt="Metrics dashboard" width="700"/>
 
 To learn about multi-cluster support for data sources, see [Enable OpenSearch Dashboards to support multiple OpenSearch clusters](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/1388).
 
@@ -195,11 +180,11 @@ To create these visualizations, follow these steps:
 3. When prompted for a **Custom operational dashboards/application**, choose one of the listed options. You can edit the predefined name values in the **Metric Name** field.
 4. Select **Save** to save your visualization. An example visualization is shown in the following image.
 
-![Visualizations displayed in the Metric analytics window]({{site.url}}{{site.baseurl}}/images/metrics/metrics2.png)
+<img src="{{site.url}}{{site.baseurl}}/images/metrics/metrics2.png" alt="Metrics analytics dashboard with visualizations" width="700"/>
 
 ## Defining PPL queries for Prometheus metrics
 
-You can define [Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index) queries to interact with metrics collected by Prometheus. The following example shows a metric-selecting query with specific dimensions:
+You can define [Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/) queries to interact with metrics collected by Prometheus. The following is an example PPL query for a Prometheus metric:
 
 ```
 source = my_prometheus.prometheus_http_requests_total | stats avg(@value) by span(@timestamp,15s), handler, code
@@ -215,6 +200,6 @@ To create a custom visualization based on the PPL query, follow these steps:
 3. When prompted to choose a **Custom Operational Dashboards/Application**, select one of the listed options. Optionally, you can edit the predefined name values under the **Metric Name** fields and can choose to save the visualization as a metric.
 5. Select **Save** to save your custom visualization. 
 
-Only queries that include a time-series visualization and statistics or span information can be saved as a metric, as shown in the following image.
+Only queries that include a time-series visualization and statistics or span information can be saved as a metric, similar to the following image.
 
-![Saving queries as metrics]({{site.url}}{{site.baseurl}}/images/metrics/metrics3.png)
+<img src="{{site.url}}{{site.baseurl}}/images/metrics/metrics3.png" alt="Saving queries as metrics" width="700"/>
