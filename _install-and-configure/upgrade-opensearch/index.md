@@ -65,7 +65,7 @@ Some examples include `opensearch.yml`, `opensearch_dashboards.yml`, plugin conf
 
 ### Creating a snapshot
 
-We recommend that you back up your cluster state and indexes using [snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/). Snapshots you take before an upgrade can be used as restore points if you need to roll back the cluster to its original version.
+We recommend that you back up your cluster state and indexes using [snapshots]({{site.url}}{{site.baseurl}}/api-reference/snapshots/index/). Snapshots you take before an upgrade can be used as restore points if you need to roll back the cluster to its original version.
 
 You can further reduce the risk of data loss by storing your snapshots on external storage, such as a mounted Network File System (NFS) or a cloud storage solution like those listed in the following table.
 

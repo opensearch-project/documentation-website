@@ -622,7 +622,7 @@ For information on writing cron expressions, see [Cron expression reference]({{s
 ## Error notifications
 
 The `error_notification` operation sends you a notification if your managed index fails.
-It notifies a single destination or [notification channel]({{site.url}}{{site.baseurl}}/notifications-plugin/index) with a custom message.
+It notifies a single destination or notification channel with a custom message.
 
 Set up error notifications at the policy level:
 

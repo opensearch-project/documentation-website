@@ -41,7 +41,7 @@ Data tables, or tables, show your raw data in tabular form.
 
 ### Gantt charts
 
-Gantt charts show the start, end, and duration of unique events in a sequence. Gantt charts are useful in trace analytics, telemetry, and anomaly detection use cases where you want to understand interactions and dependencies between various events in a schedule. **Gantt chart** is currently a plugin, instead of built-in, visualization type in Dashboards. See [Gantt charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/gantt/) to learn how to create and use them in Dashboards.
+Gantt charts show the start, end, and duration of unique events in a sequence. Gantt charts are useful in trace analytics, telemetry, and anomaly detection use cases where you want to understand interactions and dependencies between various events in a schedule. **Gantt chart** is currently a plugin, instead of built-in, visualization type in Dashboards. 
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/gantt-chart.png" width="600" height="600" alt="Example Gantt chart in OpenSearch Dashboards">
 
@@ -75,7 +75,7 @@ Coordinate maps show location-based data on a map. Use coordinate maps to visual
 
 #### Region maps
 
-Region maps show patterns and trends across geographic locations. A region map is one of the basemaps in Dashboards. For information about creating custom vector maps in Dashboards, see [Using coordinate and region maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/geojson-regionmaps/) to learn how to create and use maps in Dashboards.
+Region maps show patterns and trends across geographic locations. A region map is one of the basemaps in Dashboards. 
 
 <img src="{{site.url}}{{site.baseurl}}/images/map-1.png" width="600" height="600" alt="Example region map in OpenSearch Dashboards">
 
