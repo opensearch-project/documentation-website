@@ -149,7 +149,7 @@ To visualize OTel metrics in OpenSearch, follow these steps:
 {% include copy-curl.html %}
 
 5. Ingest metric data into OpenSearch. As the demo starts generating data, the metric signals will be added to the OpenSearch index that supports the OTel Metrics schema format.
-6. On the **Metrics analytics** page, choose `Otel-Index` from the **Data sources** dropdown menu and `Simple Schema for Observability Index` from the **Otel index** dropdown menu. A visualization is displayed, similar to the following image.
+6. On the **Metrics** page, choose `Otel-Index` from the **Data sources** dropdown menu and `Simple Schema for Observability Index` from the **Otel index** dropdown menu. A visualization is displayed, as shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/metrics/otel-metrics.png" alt="OTel metrics dashboard" width="700"/>
 
