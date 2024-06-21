@@ -3,6 +3,7 @@ layout: default
 title: Installation quickstart
 nav_order: 3
 redirect_from: 
+  - /about/quickstart/
   - /opensearch/install/quickstart/
   - /quickstart/
 ---

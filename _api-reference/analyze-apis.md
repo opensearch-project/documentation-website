@@ -4,6 +4,7 @@ title: Analyze API
 has_children: true
 nav_order: 7
 redirect_from:
+  - /api-reference/analyze-apis/perform-text-analysis/
   - /opensearch/rest-api/analyze-apis/
   - /api-reference/analyze-apis/
 ---

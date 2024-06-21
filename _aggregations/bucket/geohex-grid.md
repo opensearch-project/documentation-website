@@ -5,6 +5,8 @@ parent: Bucket aggregations
 grand_parent: Aggregations
 nav_order: 85
 redirect_from:
+  - /opensearch/geohexgrid-agg/
+  - /query-dsl/aggregations/geohexgrid-agg/
   - /aggregations/geohexgrid/
   - /query-dsl/aggregations/geohexgrid/
   - /query-dsl/aggregations/bucket/geohex-grid/

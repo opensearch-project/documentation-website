@@ -6,11 +6,12 @@ redirect_from:
  - /opensearch/rest-api/multi-search/
 ---
 
-# Multi-search
+# Multi-search 
 **Introduced 1.0**
 {: .label .label-purple }
 
 As the name suggests, the multi-search operation lets you bundle multiple search requests into a single request. OpenSearch then executes the searches in parallel, so you get back the response more quickly compared to sending one request per search. OpenSearch executes each search independently, so the failure of one doesn't affect the others.
+
 
 ## Example
 
@@ -27,13 +28,14 @@ GET _msearch
 
 ## Path and HTTP methods
 
+The Multi-search API uses the following paths:
+
 ```
 GET _msearch
 GET <index>/_msearch
 POST _msearch
 POST <index>/_msearch
 ```
-
 
 ## Request body
 
