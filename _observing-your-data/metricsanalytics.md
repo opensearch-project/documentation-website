@@ -113,7 +113,7 @@ To visualize OTel metrics in OpenSearch, follow these steps:
 ```
 {% include copy-curl.html %}
     
-4. Configure the [Data Prepper pipeline](https://github.com/opensearch-project/opentelemetry-demo/blob/main/src/dataprepper/pipelines.yaml) to emit the collected metrics signals into the OpenSearch metrics index.
+4. Configure the [Data Prepper pipeline](https://github.com/opensearch-project/opentelemetry-demo/blob/main/src/dataprepper/pipelines.yaml) to emit the collected metric signals into the OpenSearch metrics index.
 
 #### Example YAML config file
 
