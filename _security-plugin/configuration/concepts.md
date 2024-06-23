@@ -3,6 +3,7 @@ layout: default
 title: Authentication flow
 parent: Configuration
 nav_order: 1
+canonical_url: https://opensearch.org/docs/latest/security/authentication-backends/authc-index/
 ---
 
 # Authentication flow

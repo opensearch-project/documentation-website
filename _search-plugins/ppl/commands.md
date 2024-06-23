@@ -3,6 +3,7 @@ layout: default
 title: Commands
 parent: Piped processing language
 nav_order: 4
+canonical_url: https://opensearch.org/docs/latest/search-plugins/sql/sql/functions/
 ---
 
 

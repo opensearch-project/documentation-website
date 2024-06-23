@@ -3,6 +3,7 @@ layout: default
 title: Protocol
 parent: Piped processing language
 nav_order: 2
+canonical_url: https://opensearch.org/docs/latest/search-plugins/sql/response-formats/
 ---
 
 # Protocol

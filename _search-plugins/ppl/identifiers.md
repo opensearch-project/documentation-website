@@ -3,6 +3,7 @@ layout: default
 title: Identifiers
 parent: Piped processing language
 nav_order: 7
+canonical_url: https://opensearch.org/docs/latest/search-plugins/sql/identifiers/
 ---
 
 

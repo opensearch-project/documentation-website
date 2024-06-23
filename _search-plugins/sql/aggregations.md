@@ -3,6 +3,7 @@ layout: default
 title: Aggregation Functions
 parent: SQL
 nav_order: 11
+canonical_url: https://opensearch.org/docs/latest/search-plugins/sql/sql/aggregations/
 ---
 
 # Aggregation functions

@@ -3,6 +3,7 @@ layout: default
 title: Audit log field reference
 parent: Audit Logs
 nav_order: 1
+canonical_url: https://opensearch.org/docs/latest/security/audit-logs/field-reference/
 ---
 
 # Audit log field reference

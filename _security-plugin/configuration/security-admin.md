@@ -3,6 +3,7 @@ layout: default
 title: Apply changes with securityadmin.sh
 parent: Configuration
 nav_order: 20
+canonical_url: https://opensearch.org/docs/latest/security/configuration/security-admin/
 ---
 
 # Apply changes using securityadmin.sh
