@@ -2,6 +2,7 @@
 layout: default
 title: Configuration
 nav_order: 5
+canonical_url: https://opensearch.org/docs/latest/install-and-configure/configuring-opensearch/index/
 ---
 
 # OpenSearch configuration

@@ -3,6 +3,7 @@ layout: default
 title: Get settings
 parent: Index APIs
 nav_order: 100
+canonical_url: https://opensearch.org/docs/latest/api-reference/index-apis/get-settings/
 ---
 
 # Get settings
