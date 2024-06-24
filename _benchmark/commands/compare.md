@@ -3,6 +3,7 @@ layout: default
 title: compare
 nav_order: 55
 parent: Command reference
+canonical_url: https://opensearch.org/docs/latest/benchmark/reference/commands/compare/
 ---
 
 # compare

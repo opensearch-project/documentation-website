@@ -2,6 +2,7 @@
 layout: default
 title: Managing search telemetry settings
 nav_order: 100
+canonical_url: https://opensearch.org/docs/latest/dashboards/search-telemetry/
 ---
 
 

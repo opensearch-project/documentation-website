@@ -6,6 +6,7 @@ grand_parent: Ingest APIs
 nav_order: 13
 redirect_from:
   - /opensearch/rest-api/ingest-apis/delete-ingest/
+canonical_url: https://opensearch.org/docs/latest/ingest-pipelines/delete-ingest/
 ---
 
 # Delete pipeline
