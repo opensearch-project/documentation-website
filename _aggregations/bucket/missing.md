@@ -6,6 +6,7 @@ grand_parent: Aggregations
 nav_order: 120
 redirect_from:
   - /query-dsl/aggregations/bucket/missing/
+canonical_url: https://opensearch.org/docs/latest/aggregations/bucket/missing/
 ---
 
 # Missing aggregations

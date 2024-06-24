@@ -4,6 +4,7 @@ title: Range
 parent: Term-level queries
 grand_parent: Query DSL
 nav_order: 50
+canonical_url: https://opensearch.org/docs/latest/query-dsl/term/range/
 ---
 
 # Range query

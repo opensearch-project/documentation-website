@@ -6,6 +6,7 @@ nav_exclude: true
 permalink: /field-types/
 redirect_from: 
   - /opensearch/mappings/
+canonical_url: https://opensearch.org/docs/latest/field-types/
 ---
 
 # Mappings and field types

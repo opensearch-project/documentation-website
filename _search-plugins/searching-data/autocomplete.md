@@ -5,6 +5,7 @@ parent: Searching data
 nav_order: 24
 redirect_from:
   - /opensearch/search/autocomplete/
+canonical_url: https://opensearch.org/docs/latest/search-plugins/searching-data/autocomplete/
 ---
 
 # Autocomplete functionality

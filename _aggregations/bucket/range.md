@@ -6,6 +6,7 @@ grand_parent: Aggregations
 nav_order: 150
 redirect_from:
   - /query-dsl/aggregations/bucket/range/
+canonical_url: https://opensearch.org/docs/latest/aggregations/bucket/range/
 ---
 
 # Range aggregations
