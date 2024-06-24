@@ -6,6 +6,7 @@ grand_parent: Aggregations
 nav_order: 130
 redirect_from:
   - /query-dsl/aggregations/metric/top-hits/
+canonical_url: https://opensearch.org/docs/latest/aggregations/metric/top-hits/
 ---
 
 # Top hits aggregations

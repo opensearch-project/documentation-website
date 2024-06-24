@@ -5,6 +5,7 @@ parent: Ingest processors
 nav_order: 30
 redirect_from:
    - /api-reference/ingest-apis/processors/convert/
+canonical_url: https://opensearch.org/docs/latest/ingest-pipelines/processors/convert/
 ---
 
 # Convert processor

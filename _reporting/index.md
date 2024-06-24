@@ -7,6 +7,7 @@ nav_exclude: true
 permalink: /reporting/
 redirect_from:
   - /reporting/index/
+canonical_url: https://opensearch.org/docs/latest/reporting/
 ---
 
 # Reporting

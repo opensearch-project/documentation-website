@@ -8,6 +8,7 @@ parent: Connecting to externally hosted models
 grand_parent: Integrating ML models
 redirect_from: 
   - /ml-commons-plugin/extensibility/connectors/
+canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/remote-models/connectors/
 ---
 
 # Creating connectors for third-party ML platforms

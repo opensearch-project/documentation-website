@@ -4,6 +4,7 @@ title: http_source
 parent: Sources
 grand_parent: Pipelines
 nav_order: 5
+canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/sources/http-source/
 ---
 
 # http_source
