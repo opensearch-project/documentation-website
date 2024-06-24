@@ -4,6 +4,7 @@ title: Rank field types
 nav_order: 60
 has_children: false
 parent: Supported field types
+canonical_url: https://opensearch.org/docs/latest/field-types/supported-field-types/rank/
 ---
 
 # Rank field types

@@ -6,6 +6,7 @@ has_children: true
 redirect_from:
   - /opensearch/query-dsl/
   - /docs/opensearch/query-dsl/
+canonical_url: https://opensearch.org/docs/latest/query-dsl/
 ---
 
 {%- comment -%}The `/docs/opensearch/query-dsl/` redirect is specifically to support the UI links in OpenSearch Dashboards 1.0.0.{%- endcomment -%}

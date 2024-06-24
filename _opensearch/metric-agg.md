@@ -4,6 +4,7 @@ title: Metric aggregations
 parent: Aggregations
 nav_order: 1
 has_children: false
+canonical_url: https://opensearch.org/docs/latest/aggregations/metric/index/
 ---
 
 # Metric aggregations

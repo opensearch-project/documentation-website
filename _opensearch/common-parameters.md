@@ -2,6 +2,7 @@
 layout: default
 title: Common REST Parameters
 nav_order: 93
+canonical_url: https://opensearch.org/docs/latest/api-reference/common-parameters/
 ---
 
 # Common REST parameters
