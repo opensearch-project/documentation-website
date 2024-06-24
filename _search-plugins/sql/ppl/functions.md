@@ -6,6 +6,7 @@ grand_parent: SQL and PPL
 nav_order: 2
 redirect_from:
  - /search-plugins/ppl/commands/
+canonical_url: https://opensearch.org/docs/latest/search-plugins/sql/ppl/functions/
 ---
 
 # Commands

@@ -4,6 +4,7 @@ title: Terms
 parent: Bucket aggregations
 grand_parent: Aggregations
 nav_order: 200
+canonical_url: https://opensearch.org/docs/latest/aggregations/bucket/terms/
 ---
 
 # Terms aggregations

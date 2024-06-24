@@ -3,6 +3,7 @@ layout: default
 title: Stats 
 parent: ML Commons APIs
 nav_order: 50
+canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/api/stats/
 ---
 
 # Stats
