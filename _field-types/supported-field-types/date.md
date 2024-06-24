@@ -7,6 +7,7 @@ parent: Date field types
 grand_parent: Supported field types
 redirect_from:
   - /opensearch/supported-field-types/date/
+canonical_url: https://opensearch.org/docs/latest/field-types/supported-field-types/date/
 ---
 
 # Date field type

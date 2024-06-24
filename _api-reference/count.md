@@ -2,6 +2,7 @@
 layout: default
 title: Count
 nav_order: 21
+canonical_url: https://opensearch.org/docs/latest/api-reference/count/
 ---
 
 # Count

@@ -6,6 +6,7 @@ has_children: false
 redirect_from:
   - /opensearch/index-data/
   - /im-plugin/
+canonical_url: https://opensearch.org/docs/latest/im-plugin/
 ---
 
 # Managing indexes

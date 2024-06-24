@@ -4,6 +4,7 @@ title: CAT thread pool
 parent: CAT API
 nav_order: 75
 has_children: false
+canonical_url: https://opensearch.org/docs/latest/api-reference/cat/cat-thread-pool/
 ---
 
 # CAT thread pool
