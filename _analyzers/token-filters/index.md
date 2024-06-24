@@ -4,6 +4,7 @@ title: Token filters
 nav_order: 70
 has_children: true
 has_toc: false
+canonical_url: https://opensearch.org/docs/latest/analyzers/token-filters/index/
 ---
 
 # Token filters

@@ -6,6 +6,7 @@ nav_order: 125
 redirect_from:
  - /security/access-control/authorization-tokens/
  - /security-plugin/access-control/authorization-tokens/
+canonical_url: https://opensearch.org/docs/latest/security/access-control/authentication-tokens/
 ---
 
 # Authorization tokens

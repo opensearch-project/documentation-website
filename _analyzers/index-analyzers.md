@@ -2,6 +2,7 @@
 layout: default
 title: Index analyzers
 nav_order: 20
+canonical_url: https://opensearch.org/docs/latest/analyzers/index-analyzers/
 ---
 
 # Index analyzers

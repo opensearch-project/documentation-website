@@ -3,6 +3,7 @@ layout: default
 title: Configuring Content Security Policy rules dynamically
 nav_order: 110
 has_children: false
+canonical_url: https://opensearch.org/docs/latest/dashboards/csp/csp-dynamic-configuration/
 ---
 
 # Configuring Content Security Policy rules dynamically
