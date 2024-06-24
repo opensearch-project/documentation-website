@@ -4,6 +4,7 @@ title: Data Prepper
 nav_order: 120
 has_children: true
 has_toc: false
+canonical_url: https://opensearch.org/docs/latest/data-prepper/
 ---
 
 # Data Prepper

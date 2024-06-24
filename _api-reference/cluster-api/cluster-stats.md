@@ -4,6 +4,7 @@ title: Cluster stats
 nav_order: 60
 parent: Cluster APIs
 has_children: false
+canonical_url: https://opensearch.org/docs/latest/api-reference/cluster-api/cluster-stats/
 ---
 
 # Cluster stats

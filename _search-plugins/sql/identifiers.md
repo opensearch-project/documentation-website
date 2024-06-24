@@ -3,6 +3,7 @@ layout: default
 title: Identifiers
 parent: SQL and PPL
 nav_order: 6
+canonical_url: https://opensearch.org/docs/latest/search-plugins/sql/identifiers/
 ---
 
 
