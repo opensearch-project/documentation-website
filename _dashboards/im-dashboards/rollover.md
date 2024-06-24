@@ -5,6 +5,7 @@ parent: Index management in Dashboards
 nav_order: 40
 redirect_from:
   - /dashboards/admin-ui-index/rollover/
+canonical_url: https://opensearch.org/docs/latest/dashboards/im-dashboards/rollover/
 ---
 
 # Rollover

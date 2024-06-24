@@ -2,6 +2,7 @@
 layout: default
 title: Simple Schema for Observability
 nav_order: 120
+canonical_url: https://opensearch.org/docs/latest/observing-your-data/ss4o/
 ---
 
 # Simple Schema for Observability

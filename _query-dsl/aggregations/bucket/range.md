@@ -4,6 +4,7 @@ title: Range
 parent: Bucket aggregations
 grand_parent: Aggregations
 nav_order: 150
+canonical_url: https://opensearch.org/docs/latest/aggregations/bucket/range/
 ---
 
 # Range aggregations

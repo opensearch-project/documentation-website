@@ -7,6 +7,7 @@ nav_order: 25
 permalink: /query-dsl/full-text/query-string/
 redirect_from:
   - /opensearch/query-dsl/full-text/query-string/
+canonical_url: https://opensearch.org/docs/latest/query-dsl/full-text/query-string/
 ---
 
 # Query string queries

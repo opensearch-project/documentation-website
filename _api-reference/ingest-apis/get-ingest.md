@@ -5,6 +5,7 @@ parent: Ingest APIs
 nav_order: 10
 redirect_from:
   - /opensearch/rest-api/ingest-apis/get-ingest/
+canonical_url: https://opensearch.org/docs/latest/ingest-pipelines/get-ingest/
 ---
 
 ## Get ingest pipeline

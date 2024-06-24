@@ -7,6 +7,7 @@ permalink: /aggregations/pipeline-agg/
 has_children: false
 redirect_from:
   - /opensearch/pipeline-agg/
+canonical_url: https://opensearch.org/docs/latest/aggregations/pipeline-agg/
 ---
 
 # Pipeline aggregations
