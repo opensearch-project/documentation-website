@@ -3,6 +3,7 @@ layout: default
 title: Term-level and full-text queries compared
 parent: Query DSL
 nav_order: 10
+canonical_url: https://opensearch.org/docs/latest/query-dsl/term-vs-full-text/
 ---
 
 # Term-level and full-text queries compared

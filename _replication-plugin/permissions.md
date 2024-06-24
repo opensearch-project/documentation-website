@@ -2,6 +2,7 @@
 layout: default
 title: Replication security
 nav_order: 30
+canonical_url: https://opensearch.org/docs/latest/tuning-your-cluster/replication-plugin/permissions/
 ---
 
 # Cross-cluster replication security

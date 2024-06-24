@@ -3,6 +3,7 @@ layout: default
 title: Autocomplete
 parent: Searching data
 nav_order: 24
+canonical_url: https://opensearch.org/docs/latest/field-types/supported-field-types/autocomplete/
 ---
 
 # Autocomplete functionality

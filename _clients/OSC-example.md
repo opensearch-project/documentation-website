@@ -6,6 +6,7 @@ has_children: false
 parent: .NET clients
 nav_exclude: true
 redirect_to: https://opensearch.org/docs/latest/clients/OSC-example/
+canonical_url: https://opensearch.org/docs/latest/clients/OSC-example/
 ---
 
 # More advanced features of the high-level .NET client (OpenSearch.Client)
