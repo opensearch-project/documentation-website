@@ -5,6 +5,7 @@ nav_order: 64
 has_children: true
 redirect_from:
   - /opensearch/segment-replication/
+canonical_url: https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/segment-replication/index/
 ---
 
 # Segment replication

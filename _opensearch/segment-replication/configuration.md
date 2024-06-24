@@ -3,6 +3,7 @@ layout: default
 title: Segment replication configuration
 nav_order: 12
 parent: Segment replication
+canonical_url: https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/segment-replication/index/
 ---
 
 # Segment replication configuration

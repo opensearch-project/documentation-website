@@ -2,6 +2,7 @@
 layout: default
 title: Index aliases
 nav_order: 12
+canonical_url: https://opensearch.org/docs/latest/im-plugin/index-alias/
 ---
 
 # Index aliases

@@ -3,6 +3,7 @@ layout: default
 title: Did-you-mean
 parent: Searching data
 nav_order: 25
+canonical_url: https://opensearch.org/docs/latest/search-plugins/searching-data/did-you-mean/
 ---
 
 # Did-you-mean

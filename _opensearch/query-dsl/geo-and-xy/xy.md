@@ -4,6 +4,7 @@ title: xy queries
 parent: Geographic and xy queries
 grand_parent: Query DSL
 nav_order: 50
+canonical_url: https://opensearch.org/docs/latest/query-dsl/geo-and-xy/xy/
 ---
 
 # xy queries

@@ -3,6 +3,7 @@ layout: default
 title: Cross-cluster search
 parent: Access control
 nav_order: 105
+canonical_url: https://opensearch.org/docs/latest/search-plugins/cross-cluster-search/
 ---
 
 # Cross-cluster search

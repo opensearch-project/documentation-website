@@ -6,6 +6,7 @@ parent: Alerting
 has_children: false
 redirect_from:
   - /monitoring-plugins/alerting/monitors/
+canonical_url: https://opensearch.org/docs/latest/observing-your-data/alerting/monitors/
 ---
 
 # Monitors
