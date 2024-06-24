@@ -5,6 +5,7 @@ nav_order: 40
 parent: Availability and Recovery
 redirect_from: 
   - /opensearch/remote/
+canonical_url: https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/remote-store/index/
 ---
 
 # Remote-backed storage

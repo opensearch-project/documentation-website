@@ -3,6 +3,7 @@ layout: default
 title: Functions
 parent: SQL and PPL
 nav_order: 10
+canonical_url: https://opensearch.org/docs/latest/search-plugins/sql/functions/
 ---
 
 # Functions

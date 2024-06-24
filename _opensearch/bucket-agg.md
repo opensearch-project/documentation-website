@@ -4,6 +4,7 @@ title: Bucket Aggregations
 parent: Aggregations
 nav_order: 2
 has_children: false
+canonical_url: https://opensearch.org/docs/latest/aggregations/bucket/index/
 ---
 
 # Bucket aggregations

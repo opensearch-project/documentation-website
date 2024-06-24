@@ -5,6 +5,7 @@ parent: CAT API
 
 nav_order: 45
 has_children: false
+canonical_url: https://opensearch.org/docs/latest/api-reference/cat/cat-pending-tasks/
 ---
 
 # CAT pending tasks
