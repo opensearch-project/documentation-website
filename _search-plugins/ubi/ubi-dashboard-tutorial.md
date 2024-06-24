@@ -32,7 +32,6 @@ Within OpenSearch Management navigate to **Dashboards Management > Index pattern
 `http://{server}:5601/app/management/OpenSearch-dashboards/indexPatterns`
 
 It will look something like the following.
-![Index Patterns]({{site.url}}{{site.baseurl}}/images/ubi/index_pattern1.png "Index Patterns")
 
 OpenSearch Dashboards access your indexes using index patterns. To visualize your users' online search behavior, you must create an index pattern in order to access the indexes that UBI creates. For more information, see [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/).
 
