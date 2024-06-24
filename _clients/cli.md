@@ -3,6 +3,7 @@ layout: default
 title: OpenSearch CLI
 nav_order: 52
 has_children: false
+canonical_url: https://opensearch.org/docs/latest/tools/cli/
 ---
 
 # OpenSearch CLI

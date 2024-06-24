@@ -3,6 +3,7 @@ layout: default
 title: Migrating from Open Distro Data Prepper
 parent: Data Prepper
 nav_order: 2
+canonical_url: https://opensearch.org/docs/latest/data-prepper/migrate-open-distro/
 ---
 
 # Migrating from Open Distro Data Prepper

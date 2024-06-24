@@ -6,6 +6,7 @@ has_children: true
 has_toc: false
 redirect_from:
   - /security/configuration/
+canonical_url: https://opensearch.org/docs/latest/security/configuration/index/
 ---
 
 # Security configuration
