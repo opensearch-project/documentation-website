@@ -8,6 +8,7 @@ has_toc: false
 redirect_from:
   - /search-plugins/sql/sql/index/
 
+canonical_url: https://opensearch.org/docs/latest/search-plugins/sql/sql/index/
 ---
 
 # SQL

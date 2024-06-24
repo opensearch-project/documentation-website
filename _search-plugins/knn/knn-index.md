@@ -5,6 +5,7 @@ nav_order: 5
 parent: k-NN search
 grand_parent: Search methods
 has_children: false
+canonical_url: https://opensearch.org/docs/latest/search-plugins/knn/knn-index/
 ---
 
 # k-NN index

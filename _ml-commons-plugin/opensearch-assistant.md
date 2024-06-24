@@ -4,6 +4,7 @@ title: OpenSearch Assistant Toolkit
 has_children: false
 has_toc: false
 nav_order: 28
+canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/opensearch-assistant/
 ---
 
 # OpenSearch Assistant Toolkit
