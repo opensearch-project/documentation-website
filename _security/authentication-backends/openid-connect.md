@@ -414,7 +414,7 @@ config:
           type: noop
 ```
 
-## Docker example
+## Docker example with Keycloak
 
 The following steps use Docker and [Keycloak IdP](https://www.keycloak.org/) to set up a basic authentication backend:
 
