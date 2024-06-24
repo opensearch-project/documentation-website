@@ -5,6 +5,7 @@ nav_order: 52
 has_children: false
 redirect_from:
   - /clients/cli/
+canonical_url: https://opensearch.org/docs/latest/tools/cli/
 ---
 
 # OpenSearch CLI

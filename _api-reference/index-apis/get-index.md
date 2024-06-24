@@ -3,6 +3,7 @@ layout: default
 title: Get index
 parent: Index APIs
 nav_order: 20
+canonical_url: https://opensearch.org/docs/latest/api-reference/index-apis/get-index/
 ---
 
 # Get index

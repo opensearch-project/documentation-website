@@ -2,6 +2,7 @@
 layout: default
 title: Get started
 nav_order: 10
+canonical_url: https://opensearch.org/docs/latest/tuning-your-cluster/replication-plugin/getting-started/
 ---
 
 # Get started with cross-cluster replication
