@@ -8,6 +8,7 @@ redirect_from:
   - /security-plugin/
   - /security-plugin/index/
   - /security/
+canonical_url: https://opensearch.org/docs/latest/security/
 ---
 
 # About Security in OpenSearch

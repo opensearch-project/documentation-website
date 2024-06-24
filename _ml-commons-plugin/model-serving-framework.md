@@ -3,6 +3,7 @@ layout: default
 title: Model-serving framework 
 has_children: true
 nav_order: 110
+canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/using-ml-models/
 ---
 
 # Model-serving framework
