@@ -5,6 +5,7 @@ nav_order: 58
 has_children: true
 redirect_from:
   - /monitoring-plugins/pa/
+canonical_url: https://opensearch.org/docs/latest/monitoring-your-cluster/pa/index/
 ---
 
 # Performance Analyzer

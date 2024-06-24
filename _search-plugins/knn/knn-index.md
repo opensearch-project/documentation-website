@@ -4,6 +4,7 @@ title: k-NN Index
 nav_order: 1
 parent: k-NN
 has_children: false
+canonical_url: https://opensearch.org/docs/latest/search-plugins/knn/knn-index/
 ---
 
 # k-NN Index

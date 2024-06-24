@@ -5,6 +5,9 @@ nav_order: 1
 has_children: false
 redirect_from:
   - /clients/
+canonical_url: https://opensearch.org/docs/latest/clients/
+redirect_to: https://opensearch.org/docs/latest/clients/
+nav_exclude: true
 ---
 
 # OpenSearch client compatibility

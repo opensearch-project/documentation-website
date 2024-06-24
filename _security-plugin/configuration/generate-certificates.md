@@ -3,6 +3,7 @@ layout: default
 title: Generate certificates
 parent: Configuration
 nav_order: 11
+canonical_url: https://opensearch.org/docs/latest/security/configuration/generate-certificates/
 ---
 
 # Generate certificates

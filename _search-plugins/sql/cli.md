@@ -3,6 +3,7 @@ layout: default
 title: SQL CLI
 parent: SQL
 nav_order: 2
+canonical_url: https://opensearch.org/docs/latest/search-plugins/sql/cli/
 ---
 
 # SQL CLI

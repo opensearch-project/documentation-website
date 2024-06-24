@@ -2,6 +2,7 @@
 layout: default
 title: Search experience
 nav_order: 55
+canonical_url: https://opensearch.org/docs/latest/search-plugins/searching-data/index/
 ---
 
 # Search experience
