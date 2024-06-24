@@ -55,13 +55,7 @@ If you haven't previously created a dashboard, you should see something like the
 Otherwise, you will see previously created dashboards here.
 {: .note} 
 
-
-
 In the **New Visualization** window, select **Pie** to create a new pie chart. Then select the index pattern you created in Step 2.
-
-|Create new|Visualizations|
-|---|---|
-|![New Chart]({{site.url}}{{site.baseurl}}/images/ubi/new_widget.png "New Chart")|<img src="{{site.url}}{{site.baseurl}}/images/ubi/visualizations.png" alt="Pie Chart" width="300"/>|
 
 Most visualizations require some sort of aggregate function on an bucket/facet/aggregatable field (numeric or keyword). You'll add a `Terms` aggregation on the `action_name` field so that you can view the distribution of event names. Change the **Size** to the number of slices you want to display, as shown in the following image.
 ![Pie Chart]({{site.url}}{{site.baseurl}}/images/ubi/pie.png "Pie Chart")
