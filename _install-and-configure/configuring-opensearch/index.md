@@ -47,7 +47,7 @@ export OPENSEARCH_PATH_CONF="/etc/opensearch"
 ```
 {% include copy.html %}
 
-### Systemd Service File
+### Systemd service file
 
 When running OpenSearch as a service managed by systemd, you can specify environment variables in the service file:
 
@@ -65,9 +65,9 @@ sudo systemctl restart opensearch
 ```
 {% include copy.html %}
 
-### Docker Environment Variables
+### Docker environment variables
 
-When running OpenSearch in Docker, you can specify environment variables using the -e option with docker run:
+When running OpenSearch in Docker, you can specify environment variables using the -e option with Docker run:
 
 ```bash
 docker run -e "OPENSEARCH_JAVA_OPTS=-Xms2g -Xmx2g" -e "OPENSEARCH_PATH_CONF=/usr/share/opensearch/config" opensearchproject/opensearch:latest
