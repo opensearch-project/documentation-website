@@ -3,6 +3,7 @@ layout: default
 title: Creating custom workloads
 nav_order: 10
 has_children: false
+canonical_url: https://opensearch.org/docs/latest/benchmark/user-guide/creating-custom-workloads/
 ---
 
 # Creating custom workloads

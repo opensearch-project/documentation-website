@@ -12,6 +12,7 @@ redirect_from:
   - /search-plugins/ppl/index/
   - /search-plugins/ppl/endpoint/
   - /search-plugins/ppl/protocol/
+canonical_url: https://opensearch.org/docs/latest/search-plugins/sql/ppl/index/
 ---
 
 # PPL

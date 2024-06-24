@@ -5,6 +5,7 @@ parent: SQL and PPL
 nav_order: 10
 redirect_from:
   - /search-plugins/sql/functions/
+canonical_url: https://opensearch.org/docs/latest/search-plugins/sql/functions/
 ---
 
 # Functions
