@@ -4,6 +4,7 @@ title: Multi-match
 parent: Full-text queries
 grand_parent: Query DSL
 nav_order: 50
+canonical_url: https://opensearch.org/docs/latest/query-dsl/full-text/multi-match/
 ---
 
 # Multi-match queries

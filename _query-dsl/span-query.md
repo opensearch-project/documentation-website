@@ -5,6 +5,7 @@ nav_order: 60
 redirect_from: 
   - /opensearch/query-dsl/span-query/
   - /query-dsl/query-dsl/span-query/
+canonical_url: https://opensearch.org/docs/latest/query-dsl/span-query/
 ---
 
 # Span queries
