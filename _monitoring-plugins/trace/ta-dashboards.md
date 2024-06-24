@@ -3,6 +3,7 @@ layout: default
 title: OpenSearch Dashboards plugin
 parent: Trace analytics
 nav_order: 50
+canonical_url: https://opensearch.org/docs/latest/observing-your-data/trace/ta-dashboards/
 ---
 
 # Trace Analytics OpenSearch Dashboards plugin

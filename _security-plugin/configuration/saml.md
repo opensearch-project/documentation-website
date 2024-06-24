@@ -3,6 +3,7 @@ layout: default
 title: SAML
 parent: Configuration
 nav_order: 31
+canonical_url: https://opensearch.org/docs/latest/security/authentication-backends/saml/
 ---
 
 # SAML

@@ -3,6 +3,7 @@ layout: default
 title: JDBC Driver
 parent: SQL
 nav_order: 71
+canonical_url: https://opensearch.org/docs/latest/search-plugins/sql/sql/jdbc/
 ---
 
 # JDBC driver

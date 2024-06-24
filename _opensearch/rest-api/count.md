@@ -3,6 +3,7 @@ layout: default
 title: Count
 parent: REST API reference
 nav_order: 150
+canonical_url: https://opensearch.org/docs/latest/api-reference/count/
 ---
 
 # Count

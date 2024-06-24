@@ -4,6 +4,7 @@ title: JNI library
 nav_order: 6
 parent: k-NN
 has_children: false
+canonical_url: https://opensearch.org/docs/latest/search-plugins/knn/jni-libraries/
 ---
 
 # JNI library

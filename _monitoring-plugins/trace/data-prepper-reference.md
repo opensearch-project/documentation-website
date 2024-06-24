@@ -3,6 +3,7 @@ layout: default
 title: Configuration reference
 parent: Trace analytics
 nav_order: 25
+canonical_url: https://opensearch.org/docs/latest/data-prepper/managing-data-prepper/configuring-data-prepper/
 ---
 
 # Data Prepper configuration reference

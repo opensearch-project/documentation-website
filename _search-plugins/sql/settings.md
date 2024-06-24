@@ -3,6 +3,7 @@ layout: default
 title: Settings
 parent: SQL
 nav_order: 16
+canonical_url: https://opensearch.org/docs/latest/search-plugins/sql/settings/
 ---
 
 # Settings

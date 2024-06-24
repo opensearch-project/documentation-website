@@ -2,6 +2,7 @@
 layout: default
 title: Reporting
 nav_order: 20
+canonical_url: https://opensearch.org/docs/latest/reporting/report-dashboard-index/
 ---
 
 

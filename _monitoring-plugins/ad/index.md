@@ -5,6 +5,7 @@ nav_order: 46
 has_children: true
 redirect_from:
   - /monitoring-plugins/ad/
+canonical_url: https://opensearch.org/docs/latest/observing-your-data/ad/index/
 ---
 
 # Anomaly detection

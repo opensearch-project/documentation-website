@@ -3,6 +3,7 @@ layout: default
 title: Settings
 parent: k-NN
 nav_order: 7
+canonical_url: https://opensearch.org/docs/latest/search-plugins/knn/settings/
 ---
 
 # k-NN settings
