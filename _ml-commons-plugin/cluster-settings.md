@@ -303,12 +303,12 @@ This setting automatically redeploys deployed or partially deployed models upon 
 ### Setting
 
 ```
-plugins.ml_commons.model_auto_redeploy.enable: false
+plugins.ml_commons.model_auto_redeploy.enable: true 
 ```
 
 ### Values
 
-- Default value: false
+- Default value: true
 - Valid values: `false`, `true`
 
 ## Set retires for auto redeploy

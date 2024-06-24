@@ -4,6 +4,8 @@ _Describe what this change achieves._
 ### Issues Resolved
 _List any issues this PR will resolve, e.g. Closes [...]._
 
+### Version
+_List the OpenSearch version to which this PR applies, e.g. 2.14, 2.12--2.14, or all._
 
 ### Checklist
 - [ ] By submitting this pull request, I confirm that my contribution is made under the terms of the Apache 2.0 license and subject to the [Developers Certificate of Origin](https://github.com/opensearch-project/OpenSearch/blob/main/CONTRIBUTING.md#developer-certificate-of-origin).
