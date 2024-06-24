@@ -4,6 +4,7 @@ title: Get ingest pipeline
 parent: Ingest APIs
 grand_parent: REST API reference
 nav_order: 10
+canonical_url: https://opensearch.org/docs/latest/ingest-pipelines/get-ingest/
 ---
 
 ## Get ingest pipeline

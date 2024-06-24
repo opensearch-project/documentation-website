@@ -4,6 +4,7 @@ title: Delete document
 parent: Document APIs
 grand_parent: REST API reference
 nav_order: 15
+canonical_url: https://opensearch.org/docs/latest/api-reference/document-apis/delete-document/
 ---
 
 # Delete document

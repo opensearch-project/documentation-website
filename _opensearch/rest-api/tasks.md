@@ -3,6 +3,7 @@ layout: default
 title: Tasks
 parent: REST API reference
 nav_order: 80
+canonical_url: https://opensearch.org/docs/latest/api-reference/tasks/
 ---
 
 # Tasks

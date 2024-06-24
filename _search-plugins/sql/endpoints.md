@@ -3,6 +3,7 @@ layout: default
 title: Endpoint
 parent: SQL
 nav_order: 13
+canonical_url: https://opensearch.org/docs/latest/search-plugins/sql/sql-ppl-api/
 ---
 
 

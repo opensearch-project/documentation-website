@@ -3,6 +3,7 @@ layout: default
 title: Backend configuration
 parent: Configuration
 nav_order: 2
+canonical_url: https://opensearch.org/docs/latest/security/configuration/configuration/
 ---
 
 # Backend configuration

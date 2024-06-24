@@ -3,6 +3,7 @@ layout: default
 title: Client certificate authentication
 parent: Configuration
 nav_order: 50
+canonical_url: https://opensearch.org/docs/latest/security/authentication-backends/client-auth/
 ---
 
 # Client certificate authentication

@@ -6,6 +6,7 @@ nav_order: 100
 has_children: true
 redirect_from:
   - /opensearch/catapis/
+canonical_url: https://opensearch.org/docs/latest/api-reference/cat/index/
 ---
 
 # cat API
