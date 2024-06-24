@@ -3,6 +3,7 @@ layout: default
 title: Create or update ingest pipeline
 parent: Ingest APIs
 nav_order: 11
+canonical_url: https://opensearch.org/docs/latest/ingest-pipelines/create-ingest/
 ---
 
 # Create and update a pipeline

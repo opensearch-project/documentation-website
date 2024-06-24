@@ -2,6 +2,7 @@
 layout: default
 title: Running queries in the Dev Tools Console
 nav_order: 110
+canonical_url: https://opensearch.org/docs/latest/dashboards/dev-tools/run-queries/
 ---
 
 # Running queries in the console

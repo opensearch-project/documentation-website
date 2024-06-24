@@ -2,6 +2,7 @@
 layout: default
 title: JavaScript client
 nav_order: 40
+canonical_url: https://opensearch.org/docs/latest/clients/javascript/index/
 ---
 
 # JavaScript client

@@ -8,6 +8,7 @@ grand_parent: Supported field types
 redirect_from:
   - /opensearch/supported-field-types/completion/
   - /field-types/completion/
+canonical_url: https://opensearch.org/docs/latest/field-types/supported-field-types/completion/
 ---
 
 # Completion field type

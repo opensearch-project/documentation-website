@@ -6,6 +6,7 @@ grand_parent: Aggregations
 nav_order: 100
 redirect_from:
   - /query-dsl/aggregations/metric/scripted-metric/
+canonical_url: https://opensearch.org/docs/latest/aggregations/metric/scripted-metric/
 ---
 
 # Scripted metric aggregations

@@ -3,6 +3,7 @@ layout: default
 title: User impersonation
 parent: Access control
 nav_order: 100
+canonical_url: https://opensearch.org/docs/latest/security/access-control/impersonation/
 ---
 
 # User impersonation
