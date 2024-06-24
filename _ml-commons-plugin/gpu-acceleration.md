@@ -3,6 +3,7 @@ layout: default
 title: GPU acceleration
 parent: ML framework
 nav_order: 150
+canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/gpu-acceleration/
 ---
 
 

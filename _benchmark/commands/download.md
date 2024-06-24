@@ -3,6 +3,7 @@ layout: default
 title: download
 nav_order: 60
 parent: Command reference
+canonical_url: https://opensearch.org/docs/latest/benchmark/reference/commands/download/
 ---
 
 # download

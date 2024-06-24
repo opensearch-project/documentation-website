@@ -3,6 +3,7 @@ layout: default
 title: Term-level queries
 has_children: true
 nav_order: 20
+canonical_url: https://opensearch.org/docs/latest/query-dsl/term/index/
 ---
 
 # Term-level queries
