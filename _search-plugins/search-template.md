@@ -4,6 +4,7 @@ title: Search templates
 nav_order: 50
 redirect_from:
   - /opensearch/search-template/
+canonical_url: https://opensearch.org/docs/latest/api-reference/search-template/
 ---
 
 # Search templates

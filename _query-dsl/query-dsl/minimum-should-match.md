@@ -3,6 +3,7 @@ layout: default
 title: Minimum should match
 parent: Query DSL
 nav_order: 70
+canonical_url: https://opensearch.org/docs/latest/query-dsl/minimum-should-match/
 ---
 
 # Minimum should match 

@@ -4,6 +4,7 @@ title: Perform text analysis
 parent: Analyze API
 
 nav_order: 2
+canonical_url: https://opensearch.org/docs/latest/api-reference/analyze-apis/
 ---
 
 # Perform text analysis

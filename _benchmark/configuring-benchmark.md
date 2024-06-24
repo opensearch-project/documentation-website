@@ -3,6 +3,7 @@ layout: default
 title: Configuring OpenSearch Benchmark
 nav_order: 7
 has_children: false
+canonical_url: https://opensearch.org/docs/latest/benchmark/user-guide/configuring-benchmark/
 ---
 
 # Configuring OpenSearch Benchmark

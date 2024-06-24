@@ -4,6 +4,7 @@ title: API
 nav_order: 30
 parent: k-NN
 has_children: false
+canonical_url: https://opensearch.org/docs/latest/search-plugins/knn/api/
 ---
 
 # k-NN plugin API
