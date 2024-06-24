@@ -2,6 +2,7 @@
 layout: default
 title: Remote cluster information
 nav_order: 67
+canonical_url: https://opensearch.org/docs/latest/api-reference/remote-info/
 ---
 
 # Remote cluster information

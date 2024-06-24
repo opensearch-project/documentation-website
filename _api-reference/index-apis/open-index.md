@@ -3,6 +3,7 @@ layout: default
 title: Open index
 parent: Index APIs
 nav_order: 40
+canonical_url: https://opensearch.org/docs/latest/api-reference/index-apis/open-index/
 ---
 
 # Open index

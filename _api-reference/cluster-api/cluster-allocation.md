@@ -4,6 +4,7 @@ title: Cluster allocation explain
 nav_order: 10
 parent: Cluster APIs
 has_children: false
+canonical_url: https://opensearch.org/docs/latest/api-reference/cluster-api/cluster-allocation/
 ---
 
 # Cluster allocation explain

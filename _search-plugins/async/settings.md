@@ -3,6 +3,7 @@ layout: default
 title: Settings
 parent: Asynchronous search
 nav_order: 4
+canonical_url: https://opensearch.org/docs/latest/search-plugins/async/settings/
 ---
 
 # Settings

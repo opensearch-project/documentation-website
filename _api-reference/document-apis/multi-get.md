@@ -3,6 +3,7 @@ layout: default
 title: Multi-get document
 parent: Document APIs
 nav_order: 30
+canonical_url: https://opensearch.org/docs/latest/api-reference/document-apis/multi-get/
 ---
 
 # Multi-get documents
