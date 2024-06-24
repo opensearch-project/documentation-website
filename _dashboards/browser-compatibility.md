@@ -2,6 +2,7 @@
 layout: default
 title: Browser compatibility
 nav_order: 3
+canonical_url: https://opensearch.org/docs/latest/install-and-configure/install-dashboards/index/
 ---
 
 # Browser compatibility

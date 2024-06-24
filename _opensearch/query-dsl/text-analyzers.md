@@ -3,6 +3,7 @@ layout: default
 title: Text analyzers
 parent: Query DSL
 nav_order: 75
+canonical_url: https://opensearch.org/docs/latest/analyzers/
 ---
 
 

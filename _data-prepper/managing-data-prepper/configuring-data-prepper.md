@@ -3,6 +3,7 @@ layout: default
 title: Configuring Data Prepper
 parent: Managing Data Prepper
 nav_order: 5
+canonical_url: https://opensearch.org/docs/latest/data-prepper/managing-data-prepper/configuring-data-prepper/
 ---
 
 # Configuring Data Prepper
