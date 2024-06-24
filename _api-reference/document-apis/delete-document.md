@@ -3,6 +3,7 @@ layout: default
 title: Delete document
 parent: Document APIs
 nav_order: 15
+canonical_url: https://opensearch.org/docs/latest/api-reference/document-apis/delete-document/
 ---
 
 # Delete document

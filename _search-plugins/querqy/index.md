@@ -5,6 +5,7 @@ has_children: false
 redirect_from:
   - /search-plugins/querqy/
 nav_order: 210
+canonical_url: https://opensearch.org/docs/latest/search-plugins/querqy/index/
 ---
 
 # Querqy

@@ -3,6 +3,7 @@ layout: default
 title: Intro to OpenSearch
 nav_order: 2
 permalink: /intro/
+canonical_url: https://opensearch.org/docs/latest/getting-started/intro/
 ---
 
 # Introduction to OpenSearch

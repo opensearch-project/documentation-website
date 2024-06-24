@@ -6,6 +6,7 @@ nav_order: 12
 has_children: false
 redirect_from:
   - /opensearch/supported-field-types/binary/
+canonical_url: https://opensearch.org/docs/latest/field-types/supported-field-types/binary/
 ---
 
 # Binary field type

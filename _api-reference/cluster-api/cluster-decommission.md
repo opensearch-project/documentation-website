@@ -6,6 +6,7 @@ parent: Cluster APIs
 has_children: false
 redirect_from: 
   - /api-reference/cluster-decommission/
+canonical_url: https://opensearch.org/docs/latest/api-reference/cluster-api/cluster-decommission/
 ---
 
 # Cluster decommission
