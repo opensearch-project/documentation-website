@@ -4,6 +4,8 @@ title: Pipelines
 parent: Data Prepper
 nav_order: 2
 canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/pipelines/
+redirect_to: https://opensearch.org/docs/latest/data-prepper/pipelines/pipelines/
+nav_exclude: true
 ---
 
 # Pipelines

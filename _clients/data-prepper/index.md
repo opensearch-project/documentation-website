@@ -6,6 +6,7 @@ has_children: true
 has_toc: false
 nav_exclude: true
 canonical_url: https://opensearch.org/docs/latest/data-prepper/
+redirect_to: https://opensearch.org/docs/latest/data-prepper/
 ---
 
 # Data Prepper
