@@ -8,6 +8,7 @@ has_toc: false
 permalink: /benchmark/
 redirect_from:
   - /benchmark/index/
+canonical_url: https://opensearch.org/docs/latest/benchmark/
 ---
 
 # OpenSearch Benchmark

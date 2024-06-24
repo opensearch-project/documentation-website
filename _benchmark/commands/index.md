@@ -3,6 +3,7 @@ layout: default
 title: Command reference
 nav_order: 50
 has_children: true
+canonical_url: https://opensearch.org/docs/latest/benchmark/reference/index/
 ---
 
 # OpenSearch Benchmark command reference

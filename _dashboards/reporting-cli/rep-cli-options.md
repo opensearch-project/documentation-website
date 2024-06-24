@@ -4,6 +4,7 @@ title: Reporting CLI options
 nav_order: 30
 parent: Creating reports with the Reporting CLI
 
+canonical_url: https://opensearch.org/docs/latest/reporting/rep-cli-options/
 ---
 
 # Reporting CLI options

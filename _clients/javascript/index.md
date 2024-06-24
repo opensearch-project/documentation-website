@@ -5,6 +5,7 @@ has_children: true
 nav_order: 40
 redirect_from:
   - /clients/javascript/
+canonical_url: https://opensearch.org/docs/latest/clients/javascript/index/
 ---
 
 # JavaScript client
