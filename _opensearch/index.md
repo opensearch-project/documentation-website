@@ -7,6 +7,7 @@ has_toc: false
 redirect_from:
   - /docs/opensearch/
   - /opensearch/
+canonical_url: https://opensearch.org/docs/latest/getting-started/
 ---
 
 {%- comment -%}The `/docs/opensearch/` redirect is specifically to support the UI links in OpenSearch Dashboards 1.0.0.{%- endcomment -%}

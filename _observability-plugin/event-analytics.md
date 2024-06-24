@@ -2,6 +2,7 @@
 layout: default
 title: Event analytics
 nav_order: 10
+canonical_url: https://opensearch.org/docs/latest/observing-your-data/event-analytics/
 ---
 
 # Event analytics

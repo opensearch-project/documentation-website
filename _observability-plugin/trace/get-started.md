@@ -3,6 +3,7 @@ layout: default
 title: Get Started
 parent: Trace analytics
 nav_order: 1
+canonical_url: https://opensearch.org/docs/latest/observing-your-data/trace/getting-started/
 ---
 
 # Get started with Trace Analytics

@@ -2,6 +2,7 @@
 layout: default
 title: Log analytics
 nav_order: 70
+canonical_url: https://opensearch.org/docs/latest/observing-your-data/log-ingestion/
 ---
 
 # Log Ingestion

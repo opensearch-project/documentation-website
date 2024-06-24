@@ -2,6 +2,7 @@
 layout: default
 title: Operational panels
 nav_order: 30
+canonical_url: https://opensearch.org/docs/latest/observing-your-data/operational-panels/
 ---
 
 # Operational panels

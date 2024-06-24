@@ -3,6 +3,7 @@ layout: default
 title: Data Types
 parent: Piped processing language
 nav_order: 6
+canonical_url: https://opensearch.org/docs/latest/search-plugins/sql/datatypes/
 ---
 
 

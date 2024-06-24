@@ -5,6 +5,7 @@ nav_order: 2
 redirect_from:
   - /opensearch/install/
 has_children: true
+canonical_url: https://opensearch.org/docs/latest/install-and-configure/
 ---
 
 # Install and configure OpenSearch

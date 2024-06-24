@@ -3,6 +3,7 @@ layout: default
 title: Get Started
 parent: Data Prepper
 nav_order: 1
+canonical_url: https://opensearch.org/docs/latest/data-prepper/getting-started/
 ---
 
 # Get started with Data Prepper
