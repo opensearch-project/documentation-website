@@ -6,6 +6,7 @@ has_children: false
 has_toc: false
 redirect_from:
   - /clients/agents-and-ingestion-tools/
+canonical_url: https://opensearch.org/docs/latest/tools/
 ---
 
 # Agents and ingestion tools

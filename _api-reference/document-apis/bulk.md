@@ -3,6 +3,7 @@ layout: default
 title: Bulk
 parent: Document APIs
 nav_order: 20
+canonical_url: https://opensearch.org/docs/latest/api-reference/document-apis/bulk/
 ---
 
 # Bulk

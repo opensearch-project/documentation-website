@@ -3,6 +3,7 @@ layout: default
 title: Sort results
 parent: Searching data
 nav_order: 22
+canonical_url: https://opensearch.org/docs/latest/search-plugins/searching-data/sort/
 ---
 
 ## Sort results

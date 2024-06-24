@@ -6,6 +6,7 @@ has_children: true
 has_toc: false
 nav_exclude: true
 redirect_to: https://opensearch.org/docs/latest/clients/dot-net/
+canonical_url: https://opensearch.org/docs/latest/clients/dot-net/
 ---
 
 # .NET clients

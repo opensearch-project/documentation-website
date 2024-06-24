@@ -5,6 +5,7 @@ parent: Installing OpenSearch Dashboards
 nav_order: 50
 redirect_from: 
   - /dashboards/install/plugins
+canonical_url: https://opensearch.org/docs/latest/install-and-configure/install-dashboards/plugins/
 ---
 
 # Standalone plugin install

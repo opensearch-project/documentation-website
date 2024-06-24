@@ -7,6 +7,7 @@ redirect_from:
   - /clients/
 nav_exclude: true
 redirect_to: https://opensearch.org/docs/latest/clients/
+canonical_url: https://opensearch.org/docs/latest/clients/
 ---
 
 # OpenSearch language clients

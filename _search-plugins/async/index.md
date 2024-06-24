@@ -5,6 +5,7 @@ nav_order: 51
 has_children: true
 redirect_from:
   - /search-plugins/async/
+canonical_url: https://opensearch.org/docs/latest/search-plugins/async/index/
 ---
 
 # Asynchronous search

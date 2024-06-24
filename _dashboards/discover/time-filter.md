@@ -3,6 +3,7 @@ layout: default
 title: Setting the time filter
 parent: Exploring data
 nav_order: 10
+canonical_url: https://opensearch.org/docs/latest/dashboards/discover/time-filter/
 ---
 
 # Setting the time filter
