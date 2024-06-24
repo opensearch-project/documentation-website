@@ -6,6 +6,7 @@ grand_parent: Query DSL
 nav_order: 30
 redirect_from:
   - /query-dsl/query-dsl/compound/boosting/
+canonical_url: https://opensearch.org/docs/latest/query-dsl/compound/boosting/
 ---
 
 # Boosting queries

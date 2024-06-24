@@ -4,6 +4,7 @@ title: Significant terms
 parent: Bucket aggregations
 grand_parent: Aggregations
 nav_order: 180
+canonical_url: https://opensearch.org/docs/latest/aggregations/bucket/significant-terms/
 ---
 
 # Significant terms aggregations

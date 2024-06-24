@@ -4,6 +4,7 @@ title: Append
 parent: Ingest processors 
 grand_parent: Ingest APIs
 nav_order: 10
+canonical_url: https://opensearch.org/docs/latest/ingest-pipelines/processors/append/
 ---
 
 # Append
