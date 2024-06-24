@@ -4,6 +4,7 @@ title: Cron
 nav_order: 20
 parent: Alerting
 has_children: false
+canonical_url: https://opensearch.org/docs/latest/observing-your-data/alerting/cron/
 ---
 
 # Cron expression reference

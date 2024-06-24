@@ -2,6 +2,7 @@
 layout: default
 title: Gantt charts
 nav_order: 10
+canonical_url: https://opensearch.org/docs/latest/dashboards/visualize/gantt/
 ---
 
 # Gantt charts

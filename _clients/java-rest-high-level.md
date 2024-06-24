@@ -4,6 +4,7 @@ title: Elasticsearch OSS Java high-level REST client
 nav_order: 60
 nav_exclude: true
 redirect_to: https://opensearch.org/docs/latest/clients/java-rest-high-level/
+canonical_url: https://opensearch.org/docs/latest/clients/java-rest-high-level/
 ---
 
 # Elasticsearch OSS Java high-level REST client

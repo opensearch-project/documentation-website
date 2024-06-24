@@ -3,6 +3,7 @@ layout: default
 title: Create index
 parent: REST API reference
 nav_order: 3
+canonical_url: https://opensearch.org/docs/latest/api-reference/index-apis/create-index/
 ---
 
 # Create index

@@ -3,7 +3,8 @@ layout: default
 title: JavaScript client
 nav_order: 90
 nav_exclude: true
-redirect_to: https://opensearch.org/docs/latest/clients/javascript/
+redirect_to: https://opensearch.org/docs/latest/clients/javascript/index/
+canonical_url: https://opensearch.org/docs/latest/clients/javascript/index/
 ---
 
 # JavaScript client

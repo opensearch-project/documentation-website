@@ -3,6 +3,7 @@ layout: default
 title: Field-level security
 parent: Access control
 nav_order: 11
+canonical_url: https://opensearch.org/docs/latest/security/access-control/field-level-security/
 ---
 
 # Field-level security

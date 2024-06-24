@@ -3,6 +3,7 @@ layout: default
 title: Delete
 parent: SQL
 nav_order: 12
+canonical_url: https://opensearch.org/docs/latest/search-plugins/sql/sql/delete/
 ---
 
 

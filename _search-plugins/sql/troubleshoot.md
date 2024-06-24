@@ -3,6 +3,7 @@ layout: default
 title: Troubleshooting
 parent: SQL
 nav_order: 17
+canonical_url: https://opensearch.org/docs/latest/search-plugins/sql/troubleshoot/
 ---
 
 # Troubleshooting
