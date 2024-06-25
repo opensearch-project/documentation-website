@@ -8,6 +8,7 @@ Amazon SageMaker
 Ansible
 Auditbeat
 AWS Cloud
+Cohere Command
 Cognito
 Dashboards Query Language
 Data Prepper

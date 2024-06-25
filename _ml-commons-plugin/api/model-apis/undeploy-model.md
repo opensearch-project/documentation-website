@@ -56,3 +56,35 @@ POST /_plugins/_ml/models/_undeploy
   }
 }
 ```
+### Automatically undeploy a model based on TTL
+
+Starting with OpenSearch  2.14, models can be automatically undeployed from memory based on the predefined time-to-live (TTL) when the model was last accessed or used. To define a TTL that automatically undeploys a model, include the following `ModelDeploySetting` in your machine learning (ML) model. Note that model TTLs are checked periodically by a `syn_up` cron job, so the maximum time that a model lives in memory could be TTL + the `sync_up_job_` interval. The default cron job interval is 10 seconds. To update the cron job internally, use the following cluster setting:
+
+```json
+PUT /_cluster/settings
+{
+    "persistent": {
+        "plugins.ml_commons.sync_up_job_interval_in_seconds": 10
+    }
+}
+```
+
+#### Example request: Creating a model with a TTL
+```json
+POST /_plugins/_ml/models/_register
+ {
+   "name": "Sample Model Name",
+   "function_name": "remote",
+   "description": "test model",
+   "connector_id": "-g1nOo8BOaAC5MIJ3_4R",
+   "deploy_setting": {"model_ttl_minutes": 100}
+ }
+```
+
+#### Example request: Updating a model with a TTL when the model is undeployed
+```json
+PUT /_plugins/_ml/models/COj7K48BZzNMh1sWedLK
+{
+    "deploy_setting": {"model_ttl_minutes" : 100}
+}
+```

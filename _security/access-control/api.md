@@ -815,17 +815,23 @@ Creates, updates, or deletes multiple roles in a single call.
 PATCH _plugins/_security/api/roles
 [
   {
-    "op": "replace", "path": "/role1/index_permissions/0/fls", "value": ["test1", "test2"]
+    "op": "replace", "path": "/role1/index_permissions/0/fls", "value": ["myfield*", "~myfield1"]
   },
   {
     "op": "remove", "path": "/role1/index_permissions/0/dls"
   },
   {
-    "op": "add", "path": "/role2/cluster_permissions", "value": ["manage_snapshots"]
+    "op": "add", "path": "/role2/cluster_permissions/-", "value": {
+      "index_patterns": ["test_index"],
+      "allowed_actions": ["indices:data/read/scroll/clear"]
+    }
   }
 ]
 ```
 {% include copy-curl.html %}
+
+You can use `-` to insert a new permission to the end of the array of permissions.
+{: .note}
 
 #### Example response
 
@@ -1005,6 +1011,98 @@ PATCH _plugins/_security/api/rolesmapping
 }
 ```
 
+---
+
+## Allowlist
+
+### Get allowlist
+
+Retrieves the current `allowlist` configuration.
+
+#### Request
+
+```json
+GET _plugins/_security/api/allowlist
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+  "config" : {
+    "enabled" : true,
+    "requests" : {
+      "/_cat/nodes" : [
+        "GET"
+      ],
+      "/_cat/indices" : [
+        "GET"
+      ],
+      "/_plugins/_security/whoami" : [
+        "GET"
+      ]
+    }
+  }
+}
+```
+
+### Create allowlist
+
+Creates an `allowlist` configuration.
+
+#### Request
+
+```json
+PUT _plugins/_security/api/allowlist
+{
+  "enabled": true,
+  "requests": {
+    "/_cat/nodes": ["GET"],
+    "/_cat/indices": ["GET"],
+    "/_plugins/_security/whoami": ["GET"]
+  }
+}
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+  "status":"OK",
+  "message":"'config' updated."
+}
+```
+
+### Update allowlist
+
+Updates an `allowlist` configuration.
+
+#### Request
+
+```json
+PATCH _plugins/_security/api/allowlist
+[
+  {
+    "op": "add",
+    "path": "/config/requests",
+    "value": {
+      "/_cat/nodes": ["POST"]
+    }
+  }
+]
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+  "status":"OK",
+  "message":"Resource updated."
+}
+```
 
 ---
 
