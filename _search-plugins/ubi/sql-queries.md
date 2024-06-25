@@ -8,7 +8,7 @@ nav_order: 7
 
 # Sample UBI SQL queries
 
-These can be performed on an OpenSearch Dashboards/[Query Workbench]({{site.url}}{{site.baseurl}}/dashboards/query-workbench/) sandbox application: 
+You can run the following sample SQL queries in an OpenSearch Dashboards [Query Workbench]({{site.url}}{{site.baseurl}}/dashboards/query-workbench/) sandbox application:  
 
 [http://chorus-opensearch-edition.dev.o19s.com:5601/app/opensearch-query-workbench](http://chorus-opensearch-edition.dev.o19s.com:5601/app/opensearch-query-workbench)
 
@@ -16,7 +16,7 @@ These can be performed on an OpenSearch Dashboards/[Query Workbench]({{site.url}
 
 Queries can be executed on either the server-side (`ubi_queries`) or on the client-side (`ubi_events`).
 
-### Server-side
+### Server-side queries
 
 The search server with UBI activated logs the queries and results; so, in order to find all queries with no results, 
 the developer needs to search for empty `query_response_hit_ids`:
@@ -30,7 +30,7 @@ where query_response_hit_ids is null
 
 ```
 
-### Client event-side
+### Client-side events
 
 Although it's trivial to find queries with no results on the server side, you can also obtain the same result by querying the event attributes that were logged.
 Both client- and server-side queries return the same results.
@@ -50,7 +50,7 @@ where event_attributes.result_count > 0
 
 ## Trending queries
 
-Trending queries can be found with either query below.
+Trending queries can be found with either following query.
 
 ### Server-side
 
@@ -107,6 +107,7 @@ abraza metodologías B2C|3
 ## Event type distribution counts
 
 To make a pie chart widget visualizing the most common events, run the following query:
+
 ```sql
 select 
 	action_name, count(0) Total  
@@ -166,6 +167,7 @@ type_filter|3691||
 ## Sample search journey
 
 Find a search in the query log:
+
 ```sql
 select
   client_id, query_id, user_query, query_response_hit_ids, query_response_id, timestamp 
@@ -240,6 +242,7 @@ ubi-demo|7ae52966-4fd4-4ab1-8152-0fd0b52bdadf|purchase|CONVERSION|Purchase item 
 ## User sessions
 
 To find more sessions from the same user (with the client ID `a15f1ef3-6bc6-4959-9b83-6699a4d29845`), run the following query:
+
 ```sql
 select
  application, event_attributes.session_id, query_id, 
@@ -352,7 +355,7 @@ group by client_id
 order by EventTotal desc
 ```
 
-Below are user's client id's and the number of logouts without any queries.
+Following are user's client id's and the number of logouts without any queries.
 
 client_id|EventTotal
 ---|---
