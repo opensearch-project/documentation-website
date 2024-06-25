@@ -1,6 +1,6 @@
 ---
 layout: default
-title: script
+title: Script
 parent: Ingest processors
 nav_order: 230
 ---
