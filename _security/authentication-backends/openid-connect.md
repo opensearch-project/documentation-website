@@ -428,4 +428,6 @@ The following steps use Docker and [Keycloak IdP](https://www.keycloak.org/) to 
   - `config.yml` configures `basic_internal_auth_domain` and `oidc_auth_domain`.
   - `opensearch_dashboards.yml` should point to Keycloak for authentication. Make sure that the `opensearch_security.openid.connect_url` setting points to the URL of the realm.
 5. At the command line, run `docker-compose up`.
-6. Access OpenSearch Dashboards on `http://localhost:5601` and login with user `testuser` and password `testpassword` configured in `new-realm.json`. After logging in the `testuser` receives backend role `admin` from Keycloak, which is mapped to the `all_access` OpenSearch role. These backend roles can be managed using the Keycloak Administrative Console at http://localhost:8080, using username `admin` and password `admin`.
+6. Access OpenSearch Dashboards on `http://localhost:5601` and login with user `testuser` and password `testpassword` configured in the `new-realm.json` file. 
+
+After logging in the `testuser` receives backend role `admin` from Keycloak, which is mapped to the `all_access` OpenSearch role. These backend roles can be managed using the Keycloak Administrative Console at http://localhost:8080, using username `admin` and password `admin`.
