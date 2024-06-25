@@ -4,6 +4,7 @@ title: Policies
 nav_order: 1
 parent: Index State Management
 has_children: false
+canonical_url: https://opensearch.org/docs/latest/im-plugin/ism/policies/
 ---
 
 # Policies

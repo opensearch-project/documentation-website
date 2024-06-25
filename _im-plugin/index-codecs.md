@@ -3,6 +3,7 @@ layout: default
 title: Index codecs
 nav_order: 3
 parent: Index settings
+canonical_url: https://opensearch.org/docs/latest/im-plugin/index-codecs/
 ---
 
 # Index codecs

@@ -3,6 +3,7 @@ layout: default
 title: Grafana
 nav_order: 200
 has_children: false
+canonical_url: https://opensearch.org/docs/latest/tools/grafana/
 ---
 
 # Grafana support

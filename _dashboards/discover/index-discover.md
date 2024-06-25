@@ -3,6 +3,7 @@ layout: default
 title: Discover
 nav_order: 20
 has_children: true
+canonical_url: https://opensearch.org/docs/latest/dashboards/discover/index-discover/
 ---
 
 # Discover

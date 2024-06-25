@@ -4,6 +4,7 @@ title: Model APIs
 parent: ML Commons API
 has_children: true
 nav_order: 10
+canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/api/model-apis/index/
 ---
 
 # Model APIs

@@ -8,6 +8,7 @@ nav_order: 60
 redirect_from:
   - /opensearch/query-dsl/full-text/query-string/
   - /query-dsl/query-dsl/full-text/query-string/
+canonical_url: https://opensearch.org/docs/latest/query-dsl/full-text/query-string/
 ---
 
 # Query string query

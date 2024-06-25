@@ -6,6 +6,7 @@ parent: User guide
 redirect_from: 
   - /benchmark/creating-custom-workloads/
   - /benchmark/user-guide/creating-custom-workloads
+canonical_url: https://opensearch.org/docs/latest/benchmark/user-guide/creating-custom-workloads/
 ---
 
 # Creating custom workloads

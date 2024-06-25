@@ -4,6 +4,7 @@ title: Intervals
 nav_order: 80
 parent: Full-text queries
 grand_parent: Query DSL
+canonical_url: https://opensearch.org/docs/latest/query-dsl/full-text/intervals/
 ---
 
 # Intervals query
