@@ -2,6 +2,7 @@
 layout: default
 title: Ingest data
 nav_order: 40
+canonical_url: https://opensearch.org/docs/latest/getting-started/ingest-data/
 ---
 
 # Ingest your data into OpenSearch

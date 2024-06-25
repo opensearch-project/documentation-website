@@ -4,6 +4,7 @@ title: Match phrase prefix
 parent: Full-text queries
 grand_parent: Query DSL
 nav_order: 40
+canonical_url: https://opensearch.org/docs/latest/query-dsl/full-text/match-phrase-prefix/
 ---
 
 # Match phrase prefix query
