@@ -6,6 +6,7 @@ nav_order: 40
 redirect_from: 
   - /opensearch/query-dsl/compound/index/
   - /query-dsl/query-dsl/compound/
+canonical_url: https://opensearch.org/docs/latest/query-dsl/compound/index/
 ---
 
 # Compound queries

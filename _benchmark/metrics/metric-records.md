@@ -3,6 +3,7 @@ layout: default
 title: Metric records
 nav_order: 30
 parent: Metrics
+canonical_url: https://opensearch.org/docs/latest/benchmark/reference/metrics/metric-records/
 ---
 
 # Metric records

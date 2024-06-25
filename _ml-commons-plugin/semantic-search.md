@@ -3,6 +3,7 @@ layout: default
 title: Semantic search
 has_children: false
 nav_order: 140
+canonical_url: https://opensearch.org/docs/latest/search-plugins/neural-search-tutorial/
 ---
 
 # Semantic search

@@ -3,6 +3,7 @@ layout: default
 title: ML extensibility 
 has_children: true
 nav_order: 60
+canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/remote-models/index/
 ---
 
 # ML extensibility
