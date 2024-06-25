@@ -10,7 +10,7 @@ redirect_from:
 
 # http
 
-The `http` plugin that accepts HTTP requests from clients. Currently, `http` only supports the JSON UTF-8 codec for incoming requests, such as `[{"key1": "value1"}, {"key2": "value2"}]`. The following table describes options you can use to configure the `http` source.
+The `http` plugin accepts HTTP requests from clients. Currently, `http` only supports the JSON UTF-8 codec for incoming requests, such as `[{"key1": "value1"}, {"key2": "value2"}]`. The following table describes options you can use to configure the `http` source.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
