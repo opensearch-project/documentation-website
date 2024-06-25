@@ -210,7 +210,7 @@ plugins.security.ssl.http.clientauth_mode | The TLS client authentication mode t
 
 You can limit the allowed ciphers and TLS protocols for the REST layer. For example, you can only allow strong ciphers and limit the TLS versions to the most recent ones.
 
-If this setting is not enabled, the ciphers and TLS versions are negotiated between the browser and the Security plugin automatically, which in some cases can lead to a weaker cipher suite being used. You can configure the ciphers and protocols using the following settings.
+If this setting is not enabled, the ciphers and TLS versions are negotiated between the browser and the Security plugin automatically, which in some cases can lead to a [weaker cipher suite](https://stellastra.com/cipher-suite) being used. You can configure the ciphers and protocols using the following settings.
 
 Name | Data type | Description
 :--- | :--- | :---
