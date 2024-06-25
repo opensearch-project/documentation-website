@@ -8,8 +8,9 @@ nav_order: 7
 
 # Sample UBI SQL queries
 
-You can run the following sample SQL queries in an OpenSearch Dashboards [Query Workbench]({{site.url}}{{site.baseurl}}/dashboards/query-workbench/) sandbox application:  
+You can run the following sample SQL queries in an OpenSearch Dashboards [Query Workbench]({{site.url}}{{site.baseurl}}/dashboards/query-workbench/).
 
+A demo workbench with synthetic data can be found here to query: 
 [http://chorus-opensearch-edition.dev.o19s.com:5601/app/opensearch-query-workbench](http://chorus-opensearch-edition.dev.o19s.com:5601/app/opensearch-query-workbench)
 
 ## Queries with zero results
