@@ -4,6 +4,7 @@ title: execute-test
 nav_order: 65
 parent: Command reference
 canonical_url: https://opensearch.org/docs/latest/benchmark/reference/commands/execute-test/
+redirect_to: https://opensearch.org/docs/latest/benchmark/reference/commands/execute-test/
 ---
 
 # execute-test
