@@ -112,7 +112,7 @@ You cannot change the mapping of an existing field, you can only modify the fiel
 
 ## Mapping parameters
 
-Mapping parameters are used to configure the behavior of fields in an index. See the [Mapping parameters](inert-link-to-page) page for more information.
+Mapping parameters are used to configure the behavior of fields in an index. See the [Mappings and field types]({{site.url}}{{site.baseurl}}//field-types/) page for more information.
 
 ## Mapping limit settings
 
