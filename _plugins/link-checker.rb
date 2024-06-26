@@ -60,7 +60,7 @@ module Jekyll::LinkChecker
 
   ##
   # Pattern of local paths to ignore
-  @ignored_paths = %r{(^/javadocs|^mailto:)}.freeze
+  @ignored_paths = %r{(^/javadocs|^mailto:|^/clients|^/data-prepper|^/benchmark)}.freeze
 
   ##
   # Holds the list of failures
