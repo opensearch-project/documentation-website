@@ -124,7 +124,9 @@ All actions support the same metadata: `_index`, `_id`, and `_require_alias`. If
   { "doc" : { "title": "World War Z" }, "doc_as_upsert": true }
   ```
 
-  You can specify a script for more complex document updates:
+  You can specify a script for more complex document updates by defining the script with the `source` or `id` from a document: 
+
+
 
   - Script
   ```json
