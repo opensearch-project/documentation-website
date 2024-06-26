@@ -176,7 +176,7 @@ bin/opensearch-plugin install <groupId>:<artifactId>:<version>
 ```
 
 #### Example
-```bash
+```console
 $ sudo ./opensearch-plugin install org.opensearch.plugin:opensearch-anomaly-detection:2.2.0.0
 -> Installing org.opensearch.plugin:opensearch-anomaly-detection:2.2.0.0
 -> Downloading org.opensearch.plugin:opensearch-anomaly-detection:2.2.0.0 from maven central
@@ -214,8 +214,8 @@ bin/opensearch-plugin install <plugin-name> <plugin-name> ... <plugin-name>
 ```
 
 #### Example
-```bash
-$ sudo $ ./opensearch-plugin install analysis-nori repository-s3
+```console
+$ sudo ./opensearch-plugin install analysis-nori repository-s3
 ```
 
 ## Remove
@@ -228,8 +228,8 @@ bin/opensearch-plugin remove <plugin-name>
 ```
 
 #### Example
-```bash
-$ sudo $ ./opensearch-plugin remove opensearch-anomaly-detection
+```console
+$ sudo ./opensearch-plugin remove opensearch-anomaly-detection
 -> removing [opensearch-anomaly-detection]...
 ```
 
@@ -285,6 +285,7 @@ The following plugins are bundled with all OpenSearch distributions except for m
 | Job Scheduler | [opensearch-job-scheduler](https://github.com/opensearch-project/job-scheduler) | 1.0.0 |
 | k-NN | [opensearch-knn](https://github.com/opensearch-project/k-NN) | 1.0.0 |
 | ML Commons | [opensearch-ml](https://github.com/opensearch-project/ml-commons) | 1.3.0 |
+| Skills | [opensearch-skills](https://github.com/opensearch-project/skills) | 2.12.0 |
 | Neural Search | [neural-search](https://github.com/opensearch-project/neural-search) | 2.4.0 |
 | Observability | [opensearch-observability](https://github.com/opensearch-project/observability) | 1.2.0 |
 | Performance Analyzer<sup>2</sup> | [opensearch-performance-analyzer](https://github.com/opensearch-project/performance-analyzer) | 1.0.0 |
