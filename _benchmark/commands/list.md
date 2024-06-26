@@ -4,6 +4,7 @@ title: list
 nav_order: 80
 parent: Command reference
 canonical_url: https://opensearch.org/docs/latest/benchmark/reference/commands/list/
+redirect_to: https://opensearch.org/docs/latest/benchmark/reference/commands/list/
 ---
 
 # list
