@@ -6,6 +6,7 @@ redirect_from:
   - /about/quickstart/
   - /opensearch/install/quickstart/
   - /quickstart/
+canonical_url: https://opensearch.org/docs/latest/getting-started/quickstart/
 ---
 
 # Installation quickstart

@@ -6,6 +6,7 @@ grand_parent: Aggregations
 nav_order: 200
 redirect_from:
   - /query-dsl/aggregations/bucket/terms/
+canonical_url: https://opensearch.org/docs/latest/aggregations/bucket/terms/
 ---
 
 # Terms aggregations

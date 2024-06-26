@@ -4,6 +4,7 @@ title: Predict
 parent: Train and Predict APIs
 grand_parent: ML Commons APIs
 nav_order: 20
+canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/api/train-predict/predict/
 ---
 
 # Predict

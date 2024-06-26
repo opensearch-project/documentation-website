@@ -4,6 +4,7 @@ title: Workflow APIs
 nav_order: 40
 has_children: true
 has_toc: false
+canonical_url: https://opensearch.org/docs/latest/automating-configurations/api/index/
 ---
 
 # Workflow APIs
