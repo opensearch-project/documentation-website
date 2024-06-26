@@ -4,6 +4,7 @@ title: indices
 parent: Workload reference
 nav_order: 65
 canonical_url: https://opensearch.org/docs/latest/benchmark/reference/workloads/indices/
+redirect_to: https://opensearch.org/docs/latest/benchmark/reference/workloads/indices/
 ---
 
 # indices

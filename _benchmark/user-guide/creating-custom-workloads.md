@@ -5,6 +5,7 @@ nav_order: 10
 parent: User guide
 redirect_from: /benchmark/creating-custom-workloads/
 canonical_url: https://opensearch.org/docs/latest/benchmark/user-guide/creating-custom-workloads/
+redirect_to: https://opensearch.org/docs/latest/benchmark/user-guide/creating-custom-workloads/
 ---
 
 # Creating custom workloads
