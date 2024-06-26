@@ -24,7 +24,7 @@ To set up and deploy ingest processors, make sure you have the necessary permiss
 
 ## Supported processors
 
-Processor types and their required or optional parameters vary depending on your specific use case. OpenSearch supports the following ingest processors. For tutorials on using these processors in an OpenSerch pipeline, go to each processor's respective documentation. 
+Processor types and their required or optional parameters vary depending on your specific use case. OpenSearch supports the following ingest processors. For tutorials on using these processors in an OpenSearch pipeline, go to each processor's respective documentation. 
 
 Processor type | Description
 :--- | :--- 
@@ -67,3 +67,7 @@ Processor type | Description
 `uppercase` | Converts text in a specific field to uppercase letters.
 `urldecode` | Decodes a string from URL-encoded format.
 `user_agent` | Extracts details from the user agent sent by a browser to its web requests. 
+
+## Batch-enabled processors
+
+Some processors support batch ingestion---they can process multiple documents at the same time as a batch. These batch-enabled processors usually provide better performance when using batch processing. For batch processing, use the [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) and provide a `batch_size` parameter. All batch-enabled processors have a batch mode and a single-document mode. When you ingest documents using the `PUT` method, the processor functions in single-document mode and processes documents in series. Currently, only the `text_embedding` and `sparse_encoding` processors are batch enabled. All other processors process documents one at a time.
