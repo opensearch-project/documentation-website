@@ -19,19 +19,19 @@ You can configure the `add_entries` processor with the following options.
 | `entries` | Yes | A list of entries to add to an event. |
 | `key` | No | The key of the new entry to be added. Some examples of keys include `my_key`, `myKey`, and `object/sub_Key`. The key can also be a format expression, for example, `${/key1}` to use the value of field `key1` as the key. |
 | `metadata_key` | No | The key for the new metadata attribute. The argument must be a literal string key and not a JSON Pointer. Either one string key or `metadata_key` is required. |
-| `value` | No | The value of the new entry to be added. You can use the following data types: strings, Booleans, numbers, null, nested objects, and arrays. |
+| `value` | No | The value of the new entry to be added, which can be used with any of the following data types: strings, Booleans, numbers, null, nested objects, and arrays. |
 | `format` | No | A format string to use as the value of the new entry, for example, `${key1}-${key2}`, where `key1` and `key2` are existing keys in the event. Required if neither `value` nor `value_expression` is specified. |
 | `value_expression` | No | An expression string to use as the value of the new entry. For example, `/key` is an existing key in the event with a type of either a number, a string, or a Boolean. Expressions can also contain functions returning number/string/integer. For example, `length(/key)` will return the length of the key in the event when the key is a string. For more information about keys, see [Expression syntax](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/).  |
 | `add_when` | No | A [conditional expression](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/), such as `/some-key == "test"'`, that will be evaluated to determine whether the processor will be run on the event. |
 | `overwrite_if_key_exists` | No | When set to `true`, the existing value is overwritten if `key` already exists in the event. The default value is `false`. |
-| `append_if_key_exists` | No | When set to `true`, the existing value will be appended if `key` already exists in the event. An array will be created if the existing value is not an array. The default value is `false`. |
+| `append_if_key_exists` | No | When set to `true`, the existing value will be appended if a `key` already exists in the event. An array will be created if the existing value is not an array. Default is `false`. |
 
 
 ## Usage
 
 The following examples show how the `add_entries` processor can be used in different cases.
 
-### Example: add entries with simple values
+### Example: Add entries with simple values
 
 The following example shows how you can configure the processor to add entries with simple values:
 
@@ -60,7 +60,7 @@ The processed event will contain the following data:
 {"message": "hello", "name": "John", "age": 20}
 ```
 
-### Example: add entries using format strings
+### Example: Add entries using format strings
 
 The following example shows how you can configure the processor to add entries with values from other fields:
 
@@ -87,7 +87,7 @@ The processed event will contain the following data:
 {"month": "Dec", "day": 1, "date": "Dec-1"}
 ```
 
-### Example: add entries using value expressions
+### Example: Add entries using value expressions
 
 The following example shows how you can configure the processor to use the `value_expression` option:
 
@@ -114,7 +114,7 @@ The processed event will contain the following data:
 {"message": "hello", "length": 5}
 ```
 
-### Example: add metadata
+### Example: Add metadata
 
 The following example shows how you can configure the processor to add metadata to events:
 
@@ -138,7 +138,7 @@ When the input event contains the following data:
 The processed event will have the same data, but it will also have metadata `{"length": 5}` attached so that you can use subsequently in the pipeline with expressions like `getMetadata("length")` (see [`getMetadata` function](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/#getmetadata) for more details).
 
 
-### Example: add dynamic key
+### Example: Add dynamic key
 
 The following example shows how you can configure the processor to add metadata to events:
 
@@ -165,7 +165,7 @@ The processed event will contain the following data:
 {"param_name": "cpu", "param_value": 50, "cpu": 50}
 ```
 
-### Example: overwrite existing entries
+### Example: Overwrite existing entries
 
 The following example shows how you can configure the processor to overwrite existing entries:
 
@@ -195,7 +195,7 @@ The processed event will contain the following data:
 
 If `overwrite_if_key_exists` is not set to `true`, the above input event will not be changed after going through the processor.
 
-### Example: append to existing entries
+### Example: Append to existing entries
 
 The following example shows how you can configure the processor to overwrite existing entries:
 
