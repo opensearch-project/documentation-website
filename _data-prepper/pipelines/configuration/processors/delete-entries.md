@@ -5,6 +5,7 @@ parent: Processors
 grand_parent: Pipelines
 nav_order: 41
 canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/delete-entries/
+redirect_to: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/delete-entries/
 ---
 
 # delete_entries
