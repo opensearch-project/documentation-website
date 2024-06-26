@@ -4,6 +4,7 @@ title: Metric keys
 nav_order: 35
 parent: Metrics
 canonical_url: https://opensearch.org/docs/latest/benchmark/reference/metrics/metric-keys/
+redirect_to: https://opensearch.org/docs/latest/benchmark/reference/metrics/metric-keys/
 ---
 
 # Metric keys
