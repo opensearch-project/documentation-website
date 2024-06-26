@@ -5,6 +5,7 @@ has_children: true
 parent: Pipelines
 nav_order: 25
 canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/processors/
+redirect_to: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/processors/
 ---
 
 # Processors
