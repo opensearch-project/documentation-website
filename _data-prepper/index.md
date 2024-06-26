@@ -8,6 +8,7 @@ redirect_from:
   - /clients/data-prepper/index/
   - /data-prepper/
 canonical_url: https://opensearch.org/docs/latest/data-prepper/
+redirect_to: https://opensearch.org/docs/latest/data-prepper/
 ---
 
 # Data Prepper
