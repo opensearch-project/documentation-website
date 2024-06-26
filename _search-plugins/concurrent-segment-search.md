@@ -82,6 +82,14 @@ The `search.concurrent.max_slice_count` setting can take the following valid val
 - `0`: Use the default Lucene mechanism.
 - Positive integer: Use the max target slice count mechanism. Usually, a value between 2 and 8 should be sufficient.
 
+## General guidelines
+Concurrent segment search helps to improve the performance of search requests at the cost of consuming more resources, such as CPU or JVM heap. It is important to test your workload in order to understand whether the cluster is sized correctly for concurrent segment search. We recommend adhering to the following concurrent segment search guidelines:
+
+* Start with a slice count of 2 and measure the performance of your workload. If resource utilization exceeds the recommended values, then consider scaling your cluster. Based on our testing, we have observed that if your workload is already consuming more than 50% of your CPU resources, then you need to scale your cluster for concurrent segment search.
+* If your slice count is 2 and you still have available resources in the cluster, then you can increase the slice count to a higher number, such as 4 or 6, while monitoring search latency and resource utilization in the cluster. 
+* When many clients send search requests in parallel, a lower slice count usually works better. This is reflected in CPU utilization because a higher number of clients leads to more queries per second, which translates to higher resource usage.
+
+
 ## Limitations
 
 The following aggregations do not support the concurrent search model. If a search request contains one of these aggregations, the request will be executed using the non-concurrent path even if concurrent segment search is enabled at the cluster level or index level.
