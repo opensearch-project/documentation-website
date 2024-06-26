@@ -5,6 +5,7 @@ parent: Processors
 grand_parent: Pipelines
 nav_order: 105
 canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/string-converter/
+redirect_to: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/string-converter/
 ---
 
 # string_converter
