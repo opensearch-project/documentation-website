@@ -4,6 +4,7 @@ title: Helper methods
 parent: JavaScript client
 nav_order: 2
 canonical_url: https://opensearch.org/docs/latest/clients/javascript/helpers/
+redirect_to: https://opensearch.org/docs/latest/clients/javascript/helpers/
 ---
 
 # Helper methods
