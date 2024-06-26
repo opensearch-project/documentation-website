@@ -5,6 +5,7 @@ nav_order: 10
 redirect_from: 
   - /clients/python/
 canonical_url: https://opensearch.org/docs/latest/clients/python-low-level/
+redirect_to: https://opensearch.org/docs/latest/clients/python-low-level/
 ---
 
 # Low-level Python client

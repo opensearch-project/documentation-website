@@ -3,6 +3,7 @@ layout: default
 title: Migrating from Open Distro
 nav_order: 30
 canonical_url: https://opensearch.org/docs/latest/data-prepper/migrate-open-distro/
+redirect_to: https://opensearch.org/docs/latest/data-prepper/migrate-open-distro/
 ---
 
 # Migrating from Open Distro
