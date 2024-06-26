@@ -2,8 +2,6 @@
 layout: default
 title: Metric analytics
 nav_order: 40
-redirect_from:
-  - /observing-your-data/metricsanalytics/
 ---
 
 # Metric analytics
