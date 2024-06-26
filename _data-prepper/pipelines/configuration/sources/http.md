@@ -1,14 +1,16 @@
 ---
 layout: default
-title: http_source
+title: http
 parent: Sources
 grand_parent: Pipelines
 nav_order: 5
+redirect_from:
+  - /data-prepper/pipelines/configuration/sources/http-source/
 ---
 
-# http_source
+# http
 
-`http_source` is a source plugin that supports HTTP. Currently, `http_source` only supports the JSON UTF-8 codec for incoming requests, such as `[{"key1": "value1"}, {"key2": "value2"}]`. The following table describes options you can use to configure the `http_source` source.
+The `http` plugin accepts HTTP requests from clients. Currently, `http` only supports the JSON UTF-8 codec for incoming requests, such as `[{"key1": "value1"}, {"key2": "value2"}]`. The following table describes options you can use to configure the `http` source.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
@@ -19,6 +21,7 @@ request_timeout | No | Integer | The request timeout, in milliseconds. Default v
 thread_count | No | Integer | The number of threads to keep in the ScheduledThreadPool. Default value is `200`.
 max_connection_count | No | Integer | The maximum allowed number of open connections. Default value is `500`.
 max_pending_requests | No | Integer | The maximum allowed number of tasks in the `ScheduledThreadPool` work queue. Default value is `1024`.
+max_request_length | No | ByteCount | The maximum number of bytes allowed in the payload of a single HTTP request. Default value is `10mb`.
 authentication | No | Object | An authentication configuration. By default, this creates an unauthenticated server for the pipeline. This uses pluggable authentication for HTTPS. To use basic authentication define the `http_basic` plugin with a `username` and `password`. To provide customer authentication, use or create a plugin that implements [ArmeriaHttpAuthenticationProvider](https://github.com/opensearch-project/data-prepper/blob/1.2.0/data-prepper-plugins/armeria-common/src/main/java/com/amazon/dataprepper/armeria/authentication/ArmeriaHttpAuthenticationProvider.java).
 ssl | No | Boolean | Enables TLS/SSL. Default value is false.
 ssl_certificate_file | Conditionally | String | SSL certificate chain file path or Amazon Simple Storage Service (Amazon S3) path. Amazon S3 path example `s3://<bucketName>/<path>`. Required if `ssl` is set to true and `use_acm_certificate_for_ssl` is set to false.
@@ -35,7 +38,7 @@ Content will be added to this section.--->
 
 ## Metrics
 
-The `http_source` source includes the following metrics.
+The `http` source includes the following metrics.
 
 ### Counters
 

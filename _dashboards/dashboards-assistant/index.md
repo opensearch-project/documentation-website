@@ -19,14 +19,14 @@ The OpenSearch Assistant toolkit helps you create AI-powered assistants for Open
 
 To enable **OpenSearch Assistant** in OpenSearch Dashboards, locate your copy of the `opensearch_dashboards.yml` file and set the following option:
 
-```
+```yaml
 assistant.chat.enabled: true
 ```
 {% include copy-curl.html %}
 
 Then configure the root `agent_id` through the following API:
 
-```
+```json
 PUT .plugins-ml-config/_doc/os_chat
 {
     "type":"os_chat_root_agent",
@@ -36,6 +36,8 @@ PUT .plugins-ml-config/_doc/os_chat
 }
 ```
 {% include copy-curl.html %}
+
+For more information about configuring the root agent, see the [Build your own chatbot tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/build-chatbot/#step-5-configure-a-root-chatbot-agent-in-opensearch-dashboards).
 
 This example shows a system index. In security-enabled domains, only super admins have permission to execute this code. For information about making super admin calls, see the [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/) guide. For access permission, contact your IT administrator.
 {: .warning}
