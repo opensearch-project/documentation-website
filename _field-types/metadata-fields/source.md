@@ -31,7 +31,7 @@ Disabling the `_source` field can cause certain featues to become not supported,
 
 ## Including or excluding fields
 
-You can prune contents of the `_source` field after the document has been indexed but before the field is stored. You can use the `includes` and excludes` parameters to control which field are included in the stored `_source` field, as shown in the following example:
+You can prune contents of the `_source` field after the document has been indexed but before the field is stored. You can use the `includes` and `excludes` parameters to control which field are included in the stored `_source` field, as shown in the following example:
 
 ```json
 PUT logs
