@@ -5,6 +5,7 @@ nav_order: 10
 has_children: false
 parent: .NET clients
 canonical_url: https://opensearch.org/docs/latest/clients/OSC-dot-net/
+redirect_to: https://opensearch.org/docs/latest/clients/OSC-dot-net/
 ---
 
 # Getting started with the high-level .NET client (OpenSearch.Client)
