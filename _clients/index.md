@@ -6,6 +6,7 @@ has_children: false
 redirect_from:
   - /clients/
 canonical_url: https://opensearch.org/docs/latest/clients/
+redirect_to: https://opensearch.org/docs/latest/clients/
 ---
 
 # OpenSearch language clients
