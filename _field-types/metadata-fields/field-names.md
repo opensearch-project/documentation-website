@@ -15,10 +15,11 @@ The `field_names` only indexes field names when both `doc_values` and `norms` ar
 ## Mapping example
 
 {
-  "mappings": {
+    "mappings": {
+       "_field_names": {
+        "enabled": "true"
+      },
     "properties": {
-      "field_names": {
-        "type": "keyword"
       },
       "title": {
         "type": "text",
