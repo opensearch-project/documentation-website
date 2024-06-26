@@ -7,13 +7,26 @@ nav_order: 15
 
 # Deriving metrics from logs
 
-You can use Data Prepper to derive metrics from logs. The following example pipeline receives incoming logs using the [`http` source plugin]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/http-source) and the [`grok` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/grok/). It then uses the [`aggregate` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/aggregate/) to extract the metric bytes aggregated during a 30-second window and derives histograms from the results.
+You can use Data Prepper to derive metrics from logs. 
 
-The primary pipeline contains two pipelines:
+The following example pipeline receives incoming logs using the [`http` source plugin]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/http-source) and the [`grok` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/grok/). It then uses the [`aggregate` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/aggregate/) to extract the metric bytes aggregated during a 30-second window and derives histograms from the results.
 
-- `apache-log-pipeline-with-metrics` -- Receives logs through an HTTP client like FluentBit, uses `grok` to extract important values from the logs by matching the value in the `log` key against the [Apache Common Log Format](https://httpd.apache.org/docs/2.4/logs.html#accesslog), and then forwards the grokked logs to both the `log-to-metrics-pipeline` pipeline and to an OpenSearch index named `logs`.
+This pipeline writes data to two different OpenSearch indexes:
 
-- `log-to-metrics-pipeline` -- Receives the grokked logs from the `apache-log-pipeline-with-metrics` pipeline, aggregates the logs, and derives histogram metrics of `bytes` based on the values in the `clientip` and `request` keys. Finally, it sends the histogram metrics to an OpenSearch index named `histogram_metrics`.
+- `logs`: This index stores the original, un-aggregated log events after being processed by the `grok` processor.
+- `histogram_metrics`: This index stores the derived histogram metrics extracted from the log events using the `aggregate` processor.
+
+The pipeline contains two sub-pipelines:
+
+- `apache-log-pipeline-with-metrics`: Receives logs through an HTTP client like FluentBit, uses `grok` to extract important values from the logs by matching the value in the log
+ key against the [Apache Common Log Format](https://httpd.apache.org/docs/2.4/logs.html#accesslog). It then forwards the grokked logs to two destinations:
+
+ - An OpenSearch index named `logs` to store the original log events.
+ - The `log-to-metrics-pipeline` for further aggregation and metric derivation.
+
+- `log-to-metrics-pipeline`: Receives the grokked logs from the `apache-log-pipeline-with-metrics` pipeline, aggregates the logs, and derives histogram metrics of bytes based on the values in the `clientip` and `request` keys. Finally, it sends the derived histogram metrics to an OpenSearch index named `histogram_metrics`.
+  
+#### Example pipeline
 
 ```json
 apache-log-pipeline-with-metrics:
