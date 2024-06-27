@@ -193,7 +193,7 @@ The processed event will contain the following data:
 {"message": "bye"}
 ```
 
-If `overwrite_if_key_exists` is not set to `true`, the above input event will not be changed after going through the processor.
+If `overwrite_if_key_exists` is not set to `true`, the input event will not be changed after going through the processor.
 
 ### Example: Append to existing entries
 
