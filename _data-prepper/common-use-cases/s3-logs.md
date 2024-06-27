@@ -90,7 +90,7 @@ If your S3 objects or SQS queues do not use KMS, you can remove the `kms:Decrypt
 
 ### SQS dead-letter queue
 
-The two options for how to handle errors resulting from processing S3 objects are as follows:
+The following two options can be used to handle S3 object processing errors:
 
 - Use an SQS dead-letter queue (DLQ) to track the failure. This is the recommended approach.
 - Delete the message from SQS. You must manually find the S3 object and correct the error.
