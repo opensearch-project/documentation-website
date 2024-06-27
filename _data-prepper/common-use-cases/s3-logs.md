@@ -166,7 +166,7 @@ s3-log-pipeline:
 
 ## Multiple Data Prepper pipelines
 
-It is recommended that you have one SQS queue per Data Prepper pipeline. In addition, you can have multiple nodes in the same cluster reading from the same SQS queue, which doesn't require additional configuration with Data Prepper.
+It is recommended that you have one SQS queue per Data Prepper pipeline. In addition, you can have multiple nodes in the same cluster reading from the same SQS queue, which doesn't require additional Data Prepper configuration.
 
 If you have multiple pipelines, you must create multiple SQS queues for each pipeline, even if both pipelines use the same S3 bucket.
 
