@@ -185,7 +185,7 @@ The `s3_select` option supports objects in the [Parquet File Format](https://par
 Refer to [Filtering and retrieving data using Amazon S3 Select](https://docs.aws.amazon.com/AmazonS3/latest/userguide/selecting-content-from-objects.html) and [SQL reference for Amazon S3 Select](https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-select-sql-reference.html) for comprehensive information about using Amazon S3 Select.
 {: .note}
 
-The following example pipeline retrieves all data S3 objects encoded in the Parquet File Format:
+The following example pipeline retrieves all data from S3 objects encoded in the Parquet File Format:
 
 ```json
 pipeline:
