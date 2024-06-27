@@ -207,7 +207,7 @@ You will most likely not need to specify any parameters except for `location`. F
 You will most likely not need to specify any parameters except for `bucket` and `base_path`. For allowed request parameters, see [Register or update snapshot repository API](https://opensearch.org/docs/latest/api-reference/snapshots/create-repository/).
 
 
-### Registering an Azure storage account
+### Registering a Microsoft Azure storage account using Helm 
 
 Use the following steps to register a snapshot repository backed by an Azure storage account for an OpenSearch cluster deployed using Helm.
 
@@ -295,6 +295,56 @@ Use the following steps to register a snapshot repository backed by an Azure sto
      }
    }
    ```
+
+### Set up Microsoft Azure Blob Storage
+
+To use Azure Blob Storage as a snapshot repository, follow these steps:
+1. Install the `repository-azure` plugin on all nodes with the following command:
+
+   ```bash
+   ./bin/opensearch-plugin install repository-azure
+   ```
+
+1. After the `repository-azure` plugin is installed, define your Azure Blob Storage settings before initializing the node. Start by defining your Azure Storage account name using the following secure setting:
+
+   ```bash
+   ./bin/opensearch-keystore add azure.client.default.account
+   ```
+
+Choose one of the following options for setting up your Azure Blob Storage authentication credentials.
+
+#### Using an Azure Storage account key
+   
+Use the following setting to specify your Azure Storage account key:
+   
+```bash 
+./bin/opensearch-keystore add azure.client.default.key
+```
+
+#### Shared access signature
+   
+Use the following setting when accessing Azure with a shared access signature (SAS):
+         
+```bash
+./bin/opensearch-keystore add azure.client.default.sas_token      
+```
+
+#### Azure token credential 
+
+Starting in OpenSearch 2.15, you have the option to configure a token credential authentication flow in `opensearch.yml`. This method is distinct from connection string authentication, which requires a SAS or an account key.
+
+If you choose to use token credential authentication, you will need to choose a token credential type. Although Azure offers multiple token credential types, as of OpenSearch version 2.15, only [managed identity](https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/overview) is supported.
+
+To use managed identity, add your token credential type to `opensearch.yml` using either the `managed` or `managed_identity` value. This indicates that managed identity is being used to perform token credential authentication:
+
+```yml
+azure.client.default.token_credential_type: "managed_identity"
+``` 
+
+Note the following when using Azure token credentials:
+
+- Token credential support is disabled in `opensearch.yml` by default.
+- A token credential takes precedence over an Azure Storage account key or a SAS when multiple options are configured. 
 
 ## Take snapshots
 
@@ -447,7 +497,9 @@ We recommend ceasing write requests to a cluster before restoring from a snapsho
 1. A write request to the now-deleted alias creates a new index with the same name as the alias.
 1. The alias from the snapshot fails to restore due to a naming conflict with the new index.
 
-Snapshots are only forward-compatible by one major version. If you have an old snapshot, you can sometimes restore it into an intermediate cluster, reindex all indexes, take a new snapshot, and repeat until you arrive at your desired version, but you might find it easier to just manually index your data in the new cluster.
+Snapshots are only forward compatible by one major version. Snapshots taken by earlier OpenSearch versions can continue to be restored by the version of OpenSearch that originally took the snapshot, even after a version upgrade. For example, a snapshot taken by OpenSearch 2.11 or earlier can continue to be restored by a 2.11 cluster even after upgrading to 2.12.
+
+If you have an old snapshot taken from an earlier major OpenSearch version, you can restore it to an intermediate cluster one major version newer than the snapshot's version, reindex all indexes, take a new snapshot, and repeat until you arrive at your desired major version, but you may find it easier to manually index your data in the new cluster.
 
 ## Security considerations
 
