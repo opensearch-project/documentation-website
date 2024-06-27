@@ -107,7 +107,6 @@ in | 1
 the | 1, 2
 eye | 1
 of | 1
-the | 1
 beholder | 1
 and | 2
 beast | 2 
