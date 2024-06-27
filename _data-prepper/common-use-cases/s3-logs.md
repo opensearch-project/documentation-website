@@ -19,7 +19,7 @@ The following diagram shows the overall architecture of the components involved.
 
 <img src="{{site.url}}{{site.baseurl}}/images/data-prepper/s3-source/s3-architecture.jpg" alt="S3 source architecture">{: .img-fluid}
 
-The data flow involving the components is as follows:
+The component data flow is as follows:
 
 1. A system produces logs into the S3 bucket.
 2. S3 creates an S3 event notification in the SQS queue.
