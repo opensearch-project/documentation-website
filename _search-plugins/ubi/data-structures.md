@@ -20,7 +20,6 @@ You can also optionally provide an implementation for the following functions:
 - `getSessionId()`
 - `getPageId()`
 
-<!-- Not needed with this page: Other sample implementations can be found [here](#TODO-clients-link). -->
 
 These **JavaScript** following structures give you a starter implementation that will serialize UBI events into schema-compatible JSON.
 ```js

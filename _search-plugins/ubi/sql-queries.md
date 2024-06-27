@@ -75,7 +75,7 @@ group by message
 order by Total desc
 ```
 
-Results include the distribution of search strings:
+Both queries return the distribution of search strings:
 
 Message|Total
 |---|---|
@@ -223,7 +223,7 @@ The `query` field from this `query_id` has the following nested structure:
 }
 ```
 
-In the event log, `ubi_events`, search for the events that correspond to the  preceding query (whose query ID is `7ae52966-4fd4-4ab1-8152-0fd0b52bdadf`):
+In the event log, `ubi_events`, search for the events that correspond to the preceding query (whose query ID is `7ae52966-4fd4-4ab1-8152-0fd0b52bdadf`):
 
 ```sql
 select 
@@ -234,6 +234,8 @@ order by timestamp
 ```
 
 <!-- vale off -->
+
+Results include all events that are associated with the user's query:
 
 application|query_id|action_name|message_type|message|client_id|timestamp
 ---|---|---|---|---|---|---
@@ -262,7 +264,7 @@ where client_id = 'a15f1ef3-6bc6-4959-9b83-6699a4d29845'
 order by query_id, timestamp
 ```
 
-Results are truncated to a few sessions:
+Results are truncated to show a few sessions:
 
 
 application|event_attributes.session_id|query_id|action_name|message_type|event_attributes.dwell_time|event_attributes.object.object_id|event_attributes.object.description|timestamp
