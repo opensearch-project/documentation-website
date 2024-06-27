@@ -135,12 +135,12 @@ When the input event contains the following data:
 {"message": "hello"}
 ```
 
-The processed event will have the same data, but it will also have metadata `{"length": 5}` attached so that you can use subsequently in the pipeline with expressions like `getMetadata("length")` (see [`getMetadata` function](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/#getmetadata) for more details).
+The processed event will have the same data wit the metadata, `{"length": 5}`, attached. You can subsequently use expressions like `getMetadata("length")` in the pipeline. For more information, see the [`getMetadata` function](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/#getmetadata) documentation.
 
 
 ### Example: Add dynamic key
 
-The following example shows how you can configure the processor to add metadata to events:
+The following example shows how you can configure the processor to add metadata to events using a dynamic key:
 
 ```yaml
 ... 
