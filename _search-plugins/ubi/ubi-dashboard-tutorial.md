@@ -1,7 +1,7 @@
 ---
 layout: default
 title: UBI Dashboard Tutorial
-parent: User behavior insights
+parent: User Behavior Insights
 has_children: false
 nav_order: 7
 ---
