@@ -13,7 +13,7 @@ redirect_from:
 
 ---
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Table of contents
   </summary>

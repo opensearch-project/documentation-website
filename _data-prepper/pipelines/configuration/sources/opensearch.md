@@ -200,6 +200,26 @@ Option | Required | Type    | Description
 `sts_role_arn` | No | String  | The AWS Security Token Service (AWS STS) role to assume for requests to Amazon OpenSearch Service and Amazon OpenSearch Serverless. Default is `null`, which will use the [standard SDK behavior for credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
 `serverless` | No | Boolean | Should be set to `true` when processing from an Amazon OpenSearch Serverless collection. Defaults to `false`.
 
+## Metrics
+
+The `opensearch` source includes the following metrics.
+
+### Counters
+
+- `documentsProcessed`: Measures the total number of documents processed by the `opensearch` source plugin.
+- `indicesProcessed`: Measures the total number of indexes processed by the `opensearch` source plugin.
+- `processingErrors`: Measures the total number of index processing errors made by the `opensearch` source plugin.
+- `credentialsChanged`: Measures the number of times that the `opensearch` source refreshes basic credentials (username/password).
+- `clientRefreshErrors`: Measures the number of errors encountered when generating a new client due to the `opensearch` source refreshing basic credentials.
+
+### Timers
+
+- `indexProcessingTime`: Measures the `opensearch` source plugin index processing latency, in seconds.
+
+### Distribution summaries
+
+- `bytesReceived`: Measures the size distribution of incoming documents, in bytes, received by the `opensearch` source plugin.
+- `bytesProcessed`: Measures the size distribution of incoming document, in bytes, successfully processed by the `opensearch` source plugin.
 
 ## OpenSearch cluster security
 

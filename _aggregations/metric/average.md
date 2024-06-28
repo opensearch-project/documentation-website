@@ -50,7 +50,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
     "hits": []
   },
   "aggregations": {
-    "sum_taxful_total_price": {
+    "avg_taxful_total_price": {
       "value": 75.05542864304813
     }
   }

@@ -1,0 +1,35 @@
+# OpenSearch Documentation Website 2.13.0 Release Notes
+
+The OpenSearch 2.13.0 documentation includes the following additions and updates.
+
+## New documentation for 2.13.0
+
+- Add example to text chunking processor documentation [#6794](https://github.com/opensearch-project/documentation-website/pull/6794)
+- Add documentation for default use cases [#6767](https://github.com/opensearch-project/documentation-website/pull/6767)
+- Add documentation for IO Based AdmissionController Stats [#6755](https://github.com/opensearch-project/documentation-website/pull/6755)
+- Add the supported metric types [#6754](https://github.com/opensearch-project/documentation-website/pull/6754)
+- Add guardrails for remote model [#6750](https://github.com/opensearch-project/documentation-website/pull/6750)
+- Add qa model and new settings in ml-commons [#6749](https://github.com/opensearch-project/documentation-website/pull/6749)
+- Update documentation for automatic remote model deployment [#6748](https://github.com/opensearch-project/documentation-website/pull/6748)
+- Add client_config parameter documentation [#6746](https://github.com/opensearch-project/documentation-website/pull/6746)
+- Remove experimental feature labels and flags for OS Assistant [#6745](https://github.com/opensearch-project/documentation-website/pull/6745)
+- Remove experimental feature warning for Flow Framework plugin docs [#6741](https://github.com/opensearch-project/documentation-website/pull/6741)
+- Add documentation for new workflow steps [#6740](https://github.com/opensearch-project/documentation-website/pull/6740)
+- Add documentation for optional param for get workflow step API [#6736](https://github.com/opensearch-project/documentation-website/pull/6736)
+- Update plugins.md with semver range support specification [#6733](https://github.com/opensearch-project/documentation-website/pull/6733)
+- Remove feature flag requirement for fuzzy filter settings [#6731](https://github.com/opensearch-project/documentation-website/pull/6731)
+- Update doc for decoupling of remote cluster state with remote backed data storage [#6730](https://github.com/opensearch-project/documentation-website/pull/6730)
+- Add static setting for checkPendingFlushUpdate functionality of lucene index writer [#6728](https://github.com/opensearch-project/documentation-website/pull/6728)
+- Add documentation for retry settings for Remote reindex [#6726](https://github.com/opensearch-project/documentation-website/pull/6726)
+- Add Default Model Id for Neural Sparse Search Query in neural_query_enricher [#6725](https://github.com/opensearch-project/documentation-website/pull/6725)
+- Add post_filter is supported in hybrid search [#6724](https://github.com/opensearch-project/documentation-website/pull/6724)
+- Update deb/rpm autorestart service after upgrade documentation [#6720](https://github.com/opensearch-project/documentation-website/pull/6720)
+- Add documentation page for Vega Visualizations [#6711](https://github.com/opensearch-project/documentation-website/pull/6711)
+- Add documentation for text chunking processor [#6707](https://github.com/opensearch-project/documentation-website/pull/6707)
+- Update documentation to support InnerProduct with k-NN Lucene Engine [#6703](https://github.com/opensearch-project/documentation-website/pull/6703)
+- Add documentation for kuromoji_completion filter [#6699](https://github.com/opensearch-project/documentation-website/pull/6699)
+- Add note about not passing 0 vector for cosine sim in k-NN [#6698](https://github.com/opensearch-project/documentation-website/pull/6698)
+- Update the multiple data source documentation [Multiple Data Source][2.13.0]  [#6689](https://github.com/opensearch-project/documentation-website/pull/6689)
+- Add document on how to configure XContent codepoint limit (YAML) [#6666](https://github.com/opensearch-project/documentation-website/pull/6666)
+- Add force-merge API supports primary_only parameter [#6664](https://github.com/opensearch-project/documentation-website/pull/6664)
+- Add aggregations to Search-Hybrid search section [#6661](https://github.com/opensearch-project/documentation-website/pull/6661)

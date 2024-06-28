@@ -91,7 +91,7 @@ GET testindex/_search
 
 The query is constructed as `wind AND rise` and returns document 1 as the matching document:
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>
@@ -151,7 +151,7 @@ GET testindex/_search
 
 Now documents are required to match both terms, so only document 1 is returned (this is equivalent to the `and` operator):
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>
@@ -210,7 +210,7 @@ GET testindex/_search
 
 The `english` analyzer removes the stopword `the` and performs stemming, producing the tokens `wind` and `rise`. The latter token matches document 1, which is returned in the results:
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>
@@ -315,7 +315,7 @@ GET testindex/_search
 
 The token `wnid` matches `wind` and the query returns documents 1 and 2:
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>

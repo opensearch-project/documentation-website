@@ -4,7 +4,7 @@ title: Delete
 parent: SQL
 grand_parent: SQL and PPL
 nav_order: 12
-Redirect_from:
+redirect_from:
   - /search-plugins/sql/delete/
 ---
 

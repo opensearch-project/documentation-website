@@ -82,7 +82,7 @@ GET testindex/_search
 
 The response contains the matching document:
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>

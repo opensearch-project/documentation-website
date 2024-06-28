@@ -8,6 +8,7 @@ Amazon SageMaker
 Ansible
 Auditbeat
 AWS Cloud
+Cohere Command
 Cognito
 Dashboards Query Language
 Data Prepper
@@ -59,6 +60,8 @@ Open Distro
 OpenAI
 OpenID Connect
 OpenSearch
+OpenSearch Assistant
+OpenSearch Assistant Toolkit
 OpenSearch Benchmark
 OpenSearch Dashboards
 OpenSearch Playground
@@ -88,3 +91,4 @@ TorchScript
 Tribuo
 VisBuilder
 Winlogbeat
+Zstandard

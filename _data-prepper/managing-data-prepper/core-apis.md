@@ -83,4 +83,4 @@ processorShutdownTimeout: "PT15M"
 sinkShutdownTimeout: 30s
 ```
 
-The values for these parameters are parsed into a `Duration` object through the [Data Prepper Duration Deserializer](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-core/src/main/java/org/opensearch/dataprepper/parser/DataPrepperDurationDeserializer.java). 
+The values for these parameters are parsed into a `Duration` object through the [Data Prepper Duration Deserializer](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-pipeline-parser/src/main/java/org/opensearch/dataprepper/pipeline/parser/DataPrepperDurationDeserializer.java). 

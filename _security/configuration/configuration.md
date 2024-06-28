@@ -11,7 +11,7 @@ redirect_from:
 
 One of the first steps when setting up the Security plugin is deciding which authentication backend to use. The role played by the backend in authentication is covered in [steps 2 and 3 of the authentication flow]({{site.url}}{{site.baseurl}}/security/authentication-backends/authc-index/#authentication-flow). The plugin has an internal user database, but many people prefer to use an existing authentication backend, such as an LDAP server, or some combination of the two.
 
-The primary file used to configure an authentication and authorization backend is `config/opensearch-security/config.yml`. This file defines how the Security plugin retrieves user credentials, how it verifies the credentials, and how it fetches additional roles when the backend selected for authentication and authorization supports this feature. This topic provides a basic overview of the configuration file and its requirements for setting up security. For information about configuring a specific backend, see [Authentication backends]({{site.url}}{{site.baseurl}}/security/authentication-backends/authc-index/).
+The primary file used to configure the authentication and authorization backend is `/usr/share/opensearch/config/opensearch-security/config.yml`. This file defines how the Security plugin retrieves user credentials, how the plugin verifies the credentials, and how the plugin fetches additional roles when the backend selected for authentication and authorization supports this feature. This topic provides a basic overview of the configuration file and its requirements for setting up security. For information about configuring a specific backend, see [Authentication backends]({{site.url}}{{site.baseurl}}/security/authentication-backends/authc-index/).
 
 The `config.yml` file includes three main parts:
 
@@ -46,14 +46,13 @@ http:
 
 The settings used in this configuration are described in the following table.
 
-| Setting | Description |
-| :--- | :--- |
-| `anonymous_auth_enabled` | Either enables or disables anonymous authentication. When `true`, HTTP authenticators try to find user credentials in the HTTP request. If credentials are found, the user is authenticated. If none are found, the user is authenticated as an "anonymous" user. This user then has the username "anonymous" and one role named "anonymous_backendrole". When you enable anonymous authentication, all defined [HTTP authenticators](#authentication) are non-challenging. Also see [The challenge setting]({{site.url}}{{site.baseurl}}/security/authentication-backends/basic-authc/#the-challenge-setting). |
-| `xff` | Used to configure proxy-based authentication. For more information about this backend, see [Proxy-based authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/proxy/). |
+| Setting | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| :--- |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `anonymous_auth_enabled` | Either enables or disables anonymous authentication. When `true`, HTTP authenticators try to find user credentials in the HTTP request. If credentials are found, the user is authenticated. If none are found, the user is authenticated as an _anonymous_ user. This user then has the username `anonymous` and one role named `anonymous_backendrole`. When you enable anonymous authentication, all defined HTTP authenticators are non-challenging. For more information, see [The challenge setting]({{site.url}}{{site.baseurl}}/security/authentication-backends/basic-authc/#the-challenge-setting). |
+| `xff` | Used to configure proxy-based authentication. For more information about this backend, see [Proxy-based authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/proxy/).                                                                                                                                                                                                                                                                                                                                                                                                                           |
 
-If you disable anonymous authentication, the Security plugin won't initialize if you have not provided at least one `authc`.
+For instructions on how to configure anonymous authentication, see [Anonymous authentication]({{site.url}}{{site.baseurl}}/security/access-control/anonymous-authentication/).  
 {: .important }
-
 
 ## Authentication
 

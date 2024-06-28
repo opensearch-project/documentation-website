@@ -7,7 +7,7 @@ nav_order: 120
 ---
 
 # Custom local models
-**Generally available 2.9**
+**Introduced 2.9**
 {: .label .label-purple }
 
 To use a custom model locally, you can upload it to the OpenSearch cluster.
@@ -18,9 +18,16 @@ As of OpenSearch 2.6, OpenSearch supports local text embedding models.
 
 As of OpenSearch 2.11, OpenSearch supports local sparse encoding models.
 
+As of OpenSearch 2.12, OpenSearch supports local cross-encoder models.
+
+As of OpenSearch 2.13, OpenSearch supports local question answering models.
+
+Running local models on the CentOS 7 operating system is not supported. Moreover, not all local models can run on all hardware and operating systems.
+{: .important}
+
 ## Preparing a model
 
-For both text embedding and sparse encoding models, you must provide a tokenizer JSON file within the model zip file.
+For all the models, you must provide a tokenizer JSON file within the model zip file.
 
 For sparse encoding models, make sure your output format is `{"output":<sparse_vector>}` so that ML Commons can post-process the sparse vector.
 
@@ -152,7 +159,7 @@ POST /_plugins/_ml/models/_register
 ```
 {% include copy.html %}
 
-For a description of Register API parameters, see [Register a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/).
+For descriptions of Register API parameters, see [Register a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/). The `model_task_type` corresponds to the model type. For text embedding models, set this parameter to `TEXT_EMBEDDING`. For sparse encoding models, set this parameter to `SPARSE_ENCODING` or `SPARSE_TOKENIZE`. For cross-encoder models, set this parameter to `TEXT_SIMILARITY`. For question answering models, set this parameter to `QUESTION_ANSWERING`.
 
 OpenSearch returns the task ID of the register operation:
 
@@ -315,4 +322,61 @@ The response contains the tokens and weights:
 
 ## Step 5: Use the model for search
 
-To learn how to use the model for vector search, see [Set up neural search]({{site.url}}{{site.baseurl}}http://localhost:4000/docs/latest/search-plugins/neural-search/#set-up-neural-search).
+To learn how to use the model for vector search, see [Using an ML model for neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/#using-an-ml-model-for-neural-search).
+
+## Question answering models
+
+A question answering model extracts the answer to a question from a given context. ML Commons supports context in `text` format.
+
+To register a question answering model, send a request in the following format. Specify the `function_name` as `QUESTION_ANSWERING`:
+
+```json
+POST /_plugins/_ml/models/_register
+{
+    "name": "question_answering",
+    "version": "1.0.0",
+    "function_name": "QUESTION_ANSWERING",
+    "description": "test model",
+    "model_format": "TORCH_SCRIPT",
+    "model_group_id": "lN4AP40BKolAMNtR4KJ5",
+    "model_content_hash_value": "e837c8fc05fd58a6e2e8383b319257f9c3859dfb3edc89b26badfaf8a4405ff6",
+    "model_config": { 
+        "model_type": "bert",
+        "framework_type": "huggingface_transformers"
+    },
+    "url": "https://github.com/opensearch-project/ml-commons/blob/main/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/question_answering/question_answering_pt.zip?raw=true"
+}
+```
+{% include copy-curl.html %}
+
+Then send a request to deploy the model:
+
+```json
+POST _plugins/_ml/models/<model_id>/_deploy
+```
+{% include copy-curl.html %}
+
+To test a question answering model, send the following request. It requires a `question` and the relevant `context` from which the answer will be generated:
+
+```json
+POST /_plugins/_ml/_predict/question_answering/<model_id>
+{
+  "question": "Where do I live?"
+  "context": "My name is John. I live in New York"
+}
+```
+{% include copy-curl.html %}
+
+The response provides the answer based on the context:
+
+```json
+{
+  "inference_results": [
+    {
+      "output": [
+        {
+          "result": "New York"
+        }
+    }
+}
+```

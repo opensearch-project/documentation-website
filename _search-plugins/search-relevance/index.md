@@ -14,6 +14,8 @@ Search relevance evaluates the accuracy of the search results returned by a quer
 
 OpenSearch provides the following search relevance features:
 
-- [Compare Search Results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/compare-search-results/) in OpenSearch Dashboards lets you compare results from two queries side by side. 
+- [Comparing search results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/compare-search-results/) from two queries side by side in OpenSearch Dashboards. 
 
-- [Querqy]({{site.url}}{{site.baseurl}}/search-plugins/querqy/) offers query rewriting capability.
+- [Reranking search results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/) using a cross-encoder reranker. 
+
+- Rewriting queries using [Querqy]({{site.url}}{{site.baseurl}}/search-plugins/querqy/).

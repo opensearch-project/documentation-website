@@ -1,10 +1,11 @@
 ---
 layout: default
 title: Time filter
-parent: Discover
+parent: Analyzing data
 nav_order: 20
 redirect_from:
   - /dashboards/get-started/time-filter/
+  - /dashboards/discover/time-filter/
 ---
 
 # Time filter
@@ -16,7 +17,7 @@ The default time range is **Last 15 minutes**. You can change the time range at 
 
 To change the time range at the dashboard level, follow these steps:
 
-1. From an OpenSearch Dashboards application (Discover, Dashboards, or Visualize), select the calendar icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/calendar-icon.png" class="inline-icon" alt="calendar icon"/>{:/}) on the right of the search bar.
+1. From an OpenSearch Dashboards application (Discover, Dashboards, or Visualize), select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/calendar-icon.png" class="inline-icon" alt="calendar icon"/>{:/} icon on the right of the search bar.
 2. Select one of the time filter options, as shown in the following image:
    - **Quick select:** Choose a time based on the last or next number of seconds, minutes, hours, days, or another time unit. 
    - **Commonly used:** Choose a common time range like **Today**, **Last 7 days**, or **Last 30 days**. 

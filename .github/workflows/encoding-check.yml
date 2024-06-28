@@ -1,0 +1,27 @@
+name: Encoding Checker
+
+on: [pull_request]
+
+jobs:
+  encoding-checker:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Check for possible file that does not follow utf-8 encoding
+      run: |
+          set +e
+          IFS=$(echo -en "\n\b")
+          COUNTER=0
+          for i in `find . -type f \( -name "*.txt" -o -name "*.md" -o -name "*.markdown" -o -name "*.html" \) | grep -vE "^./.git"`;
+          do
+              grep -axv '.*' "$i"
+              if [ "$?" -eq 0 ]; then
+                  echo -e "######################\n$i\n######################"
+                  COUNTER=$(( COUNTER + 1 ))
+              fi
+          done
+          if [ "$COUNTER" != 0 ]; then
+              echo "Found files that is not following utf-8 encoding, exit 1"
+              exit 1
+          fi

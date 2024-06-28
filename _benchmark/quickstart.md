@@ -18,7 +18,7 @@ To perform the Quickstart steps, you'll need to fulfill the following prerequisi
 
 ## Set up an OpenSearch cluster
 
-If you don't already have an active OpenSearch cluster, you can launch a new OpenSearch cluster to use with OpenSerch Benchmark.
+If you don't already have an active OpenSearch cluster, you can launch a new OpenSearch cluster to use with OpenSearch Benchmark.
 
 - Using **Docker Compose**. For instructions on how to use Docker Compose, see [OpenSearch Quickstart]({{site.url}}{{site.baseurl}}/quickstart/).
 - Using **Tar**. For instructions on how to install OpenSearch with Tar, see [Installing OpenSearch > Tarball]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/tar#step-1-download-and-unpack-opensearch).
@@ -31,7 +31,7 @@ After installation, you can verify OpenSearch is running by going to `localhost:
 Use the following command to verify OpenSearch is running with SSL certificate checks disabled:
 
 ```bash
-curl -k -u admin:admin https://localhost:9200			# the "-k" option skips SSL certificate checks
+curl -k -u admin:<custom-admin-password> https://localhost:9200			# the "-k" option skips SSL certificate checks
 
 {
   "name" : "147ddae31bf8.opensearch.org",

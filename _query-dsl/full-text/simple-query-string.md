@@ -109,7 +109,7 @@ GET /customers/_search
 
 However, the results include not only the expected document, but all four documents:
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>
@@ -213,7 +213,7 @@ GET /customers/_search
 
 The preceding query returns document 2:
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>

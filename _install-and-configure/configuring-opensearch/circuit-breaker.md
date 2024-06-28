@@ -15,7 +15,7 @@ To learn more about static and dynamic settings, see [Configuring OpenSearch]({{
 
 OpenSearch supports the following parent circuit breaker settings:
 
-- `indices.breaker.total.use_real_memory` (Static, Boolean): If `true`, the parent circuit breaker considers the actual memory usage. Otherwise, the parent circuit breaker considers the amount of memory reserved by the child circuit breakers. Default is `false`.
+- `indices.breaker.total.use_real_memory` (Static, Boolean): If `true`, the parent circuit breaker considers the actual memory usage. Otherwise, the parent circuit breaker considers the amount of memory reserved by the child circuit breakers. Default is `true`.
 
 - `indices.breaker.total.limit` (Dynamic, percentage): Specifies the initial memory limit for the parent circuit breaker. If `indices.breaker.total.use_real_memory` is `true`, defaults to 95% of the JVM heap. If `indices.breaker.total.use_real_memory` is `false`, defaults to 70% of the JVM heap.
 

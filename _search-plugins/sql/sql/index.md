@@ -7,7 +7,6 @@ has_children: true
 has_toc: false
 redirect_from:
   - /search-plugins/sql/sql/index/
-
 ---
 
 # SQL
@@ -61,7 +60,7 @@ POST _plugins/_sql
 To run the preceding query in the command line, use the [curl](https://curl.haxx.se/) command:
 
 ```bash
-curl -XPOST https://localhost:9200/_plugins/_sql -u 'admin:admin' -k -H 'Content-Type: application/json' -d '{"query": "SELECT * FROM my-index* LIMIT 50"}'
+curl -XPOST https://localhost:9200/_plugins/_sql -u 'admin:<custom-admin-password>' -k -H 'Content-Type: application/json' -d '{"query": "SELECT * FROM my-index* LIMIT 50"}'
 ```
 {% include copy.html %}
 

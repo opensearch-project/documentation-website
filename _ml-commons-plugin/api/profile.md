@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Profile
-parent: ML Commons API
+parent: ML Commons APIs
 nav_order: 40
 ---
 

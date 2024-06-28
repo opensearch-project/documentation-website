@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Token count
-nav_order: 48
+nav_order: 70
 has_children: false
 parent: String field types
 grand_parent: Supported field types

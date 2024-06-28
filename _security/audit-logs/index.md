@@ -13,7 +13,7 @@ redirect_from:
 
 ---
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Table of contents
   </summary>
@@ -26,7 +26,7 @@ redirect_from:
 
 Audit logs let you track access to your OpenSearch cluster and are useful for compliance purposes or in the aftermath of a security breach. You can configure the categories to be logged, the detail level of the logged messages, and where to store the logs.
 
-To enable audit logging:
+Audit logging is disabled by default. To enable audit logging:
 
 1. Add the following line to `opensearch.yml` on each node:
 
@@ -219,4 +219,8 @@ The default setting is `10`. Setting this value to `0` disables the thread pool,
 ```yml
 plugins.security.audit.config.threadpool.max_queue_len: 100000
 ```
+
+## Disabling audit logs
+
+To disable audit logs after they've been enabled, remove the `plugins.security.audit.type: internal_opensearch` setting from `opensearch.yml`, or switch off the **Enable audit logging** check box in OpenSearch Dashboards.
 

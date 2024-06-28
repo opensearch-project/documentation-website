@@ -129,5 +129,46 @@ By default, OpenSearch Dashboards, like OpenSearch, binds to `localhost` when yo
     sudo systemctl restart opensearch-dashboards
     ```
 1. From a web browser, navigate to OpenSearch Dashboards. The default port is 5601.
-1. Log in with the default username `admin` and the default password `admin`.
+1. Log in with the default username `admin` and the default password `admin`. (For OpenSearch 2.12 and later, the password should be the custom admin password)
 1. Visit [Getting started with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/) to learn more.
+
+
+## Upgrade to a newer version
+
+OpenSearch Dashboards instances installed using `dpkg` or `apt-get` can be easily upgraded to a newer version.
+
+### Manual upgrade with DPKG
+
+Download the Debian package for the desired upgrade version directly from the [OpenSearch Project downloads page](https://opensearch.org/downloads.html){:target='\_blank'}.
+
+Navigate to the directory containing the distribution and run the following command:
+
+```bash
+sudo dpkg -i opensearch-dashboards-{{site.opensearch_version}}-linux-x64.deb
+```
+{% include copy.html %}
+
+### APT-GET
+
+To upgrade to the latest version of OpenSearch Dashboards using `apt-get`, run the following command:
+
+```bash
+sudo apt-get upgrade opensearch-dashboards
+```
+{% include copy.html %}
+
+You can also upgrade to a specific OpenSearch Dashboards version by providing the version number:
+
+```bash
+sudo apt-get upgrade opensearch-dashboards=<version>
+```
+{% include copy.html %}
+
+### Automatically restart the service after a package upgrade (2.13.0+)
+
+To automatically restart OpenSearch Dashboards after a package upgrade, enable the `opensearch-dashboards.service` through `systemd`:
+
+```bash
+sudo systemctl enable opensearch-dashboards.service
+```
+{% include copy.html %}

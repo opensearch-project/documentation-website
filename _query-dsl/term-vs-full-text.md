@@ -3,12 +3,13 @@ layout: default
 title: Term-level and full-text queries compared
 nav_order: 10
 redirect_from:
-- /query-dsl/query-dsl/term-vs-full-text
+  - /query-dsl/query-dsl/term-vs-full-text/
+  - /opensearch/query-dsl/term-vs-full-text/
 ---
 
 # Term-level and full-text queries compared
 
-You can use both term-level and full-text queries to search text, but while term-level queries are usually used to search structured data, full-text queries are used for full-text search. The main difference between term-level and full-text queries is that term-level queries search documents for an exact specified term, while full-text queries analyze the query string. The following table summarizes the differences between term-level and full-text queries.
+You can use both term-level and full-text queries to search text, but while term-level queries are usually used to search structured data, full-text queries are used for full-text search. The main difference between term-level and full-text queries is that term-level queries search documents for an exact specified term, while full-text queries [analyze]({{site.url}}{{site.baseurl}}/analyzers/) the query string. The following table summarizes the differences between term-level and full-text queries.
 
 | | Term-level queries | Full-text queries
 :--- | :--- | :---

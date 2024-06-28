@@ -57,7 +57,7 @@ Your request body must contain the names of the source index and destination ind
 
 Field | Description
 :--- | :---
-conflicts | Indicates to OpenSearch what should happen if the delete by query operation runs into a version conflict. Valid options are `abort` and `proceed`. Default is abort.
+conflicts | Indicates to OpenSearch what should happen if the Reindex operation runs into a version conflict. Valid options are `abort` and `proceed`. Default is `abort`.
 source | Information about the source index to include. Valid fields are `index`, `max_docs`, `query`, `remote`, `size`, `slice`, and `_source`.
 index | The name of the source index to copy data from.
 max_docs | The maximum number of documents to reindex.
@@ -73,10 +73,11 @@ slice | Whether to manually or automatically slice the reindex operation so it e
 _source | Whether to reindex source fields. Specify a list of fields to reindex or true to reindex all fields. Default is true.
 id | The ID to associate with manual slicing.
 max | Maximum number of slices.
-dest | Information about the destination index. Valid values are `index`, `version_type`, and `op_type`.
+dest | Information about the destination index. Valid values are `index`, `version_type`, `op_type`, and `pipeline`.
 index | Name of the destination index.
 version_type | The indexing operation's version type. Valid values are `internal`, `external`, `external_gt` (retrieve the document if the specified version number is greater than the document’s current version), and `external_gte` (retrieve the document if the specified version number is greater or equal to than the document’s current version).
 op_type | Whether to copy over documents that are missing in the destination index. Valid values are `create` (ignore documents with the same ID from the source index) and `index` (copy everything from the source index).
+pipeline | Which ingest pipeline to utilize during the reindex.
 script | A script that OpenSearch uses to apply transformations to the data during the reindex operation.
 source | The actual script that OpenSearch runs.
 lang | The scripting language. Valid options are `painless`, `expression`, `mustache`, and `java`.

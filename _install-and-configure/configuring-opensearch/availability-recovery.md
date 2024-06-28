@@ -31,7 +31,7 @@ For security-related snapshot settings, see [Security settings]({{site.url}}{{si
 
 ### File system settings
 
-For information about Amazon S3 repository settings, see [Amazon S3]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#shared-file-system).
+For information about file system settings, see [Shared file system]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#shared-file-system).
 
 ### Amazon S3 settings
 

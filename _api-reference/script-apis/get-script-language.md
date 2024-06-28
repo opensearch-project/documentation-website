@@ -9,7 +9,7 @@ nav_order: 6
 **Introduced 1.0**
 {: .label .label-purple }
 
-The get script language API operation retrieves all supported script languages and their contexts.
+The get script language API operation retrieves all supported script languages and the contexts in which they may be used.
 
 #### Example request
 

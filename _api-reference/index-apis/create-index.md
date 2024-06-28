@@ -75,3 +75,4 @@ PUT /sample-index1
   }
 }
 ```
+{% include copy-curl.html %}

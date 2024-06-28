@@ -146,4 +146,8 @@ The response contains the matching document:
 
 ## Parameters
 
-The query accepts the name of the field (`<field>`) as a top-level parameter. 
+The query accepts the name of the field (`<field>`) as a top-level parameter.
+
+Parameter | Data type | Description
+:--- | :--- | :---
+`boost` | Floating-point | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field’s relevance. Values between 0.0 and 1.0 decrease the field’s relevance. Default is 1.0.

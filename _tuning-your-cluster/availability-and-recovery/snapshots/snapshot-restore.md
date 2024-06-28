@@ -24,7 +24,7 @@ If you need to delete a snapshot, be sure to use the OpenSearch API rather than 
 
 ---
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Table of contents
   </summary>
@@ -100,6 +100,8 @@ You will most likely not need to specify any parameters except for `location`. F
    ```
 
    After the Docker cluster starts, skip to step 7.
+
+   If you're using [AWS IAM instance profile](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html) to allow OpenSearch nodes on AWS EC2 instances to inherit roles for policies when granting access to AWS S3 buckets, skip to step 8.
 
 1. Add your AWS access and secret keys to the OpenSearch keystore:
 
@@ -203,6 +205,146 @@ You will most likely not need to specify any parameters except for `location`. F
    {% include copy-curl.html %}
 
 You will most likely not need to specify any parameters except for `bucket` and `base_path`. For allowed request parameters, see [Register or update snapshot repository API](https://opensearch.org/docs/latest/api-reference/snapshots/create-repository/).
+
+
+### Registering a Microsoft Azure storage account using Helm 
+
+Use the following steps to register a snapshot repository backed by an Azure storage account for an OpenSearch cluster deployed using Helm.
+
+1. Create an Azure storage account. Then create a container within the storage account. For more information, see [Introduction to Azure Storage](https://learn.microsoft.com/en-us/azure/storage/common/storage-introduction).
+
+1. Create an OpenSearch keystore file using a bash script. To create the bash script, copy the contents of the following example into a file named `create-keystore.sh`:
+
+   ```bash
+   #!/bin/bash
+
+   /usr/share/opensearch/bin/opensearch-keystore create
+   echo $AZURE_SNAPSHOT_STORAGE_ACCOUNT | /usr/share/opensearch/bin/opensearch-keystore add --stdin azure.client.default.account
+   echo $AZURE_SNAPSHOT_STORAGE_ACCOUNT_KEY | /usr/share/opensearch/bin/opensearch-keystore add --stdin azure.client.default.key
+   cp /usr/share/opensearch/config/opensearch.keystore /tmp/keystore/opensearch.keystore
+   ```
+
+1. Create a Docker file. This file contains the details of your keystore, the OpenSearch instance, and the Azure repository. To create the file, copy the following example and save it as a `Dockerfile`: 
+
+   ```docker
+   FROM opensearchproject/opensearch:{{site.opensearch_version}}
+
+   RUN /usr/share/opensearch/bin/opensearch-plugin install --batch repository-azure
+   COPY --chmod=0775 create-keystore.sh create-keystore.sh
+   ```
+
+1. Use the following `docker build` command to build an OpenSearch image from your Dockerfile:
+
+   ```
+   docker build -t opensearch-custom:{{site.opensearch_version}} -f Dockerfile .
+   ```
+
+1. Create a Kubernetes secret containing the Azure storage account key by using the following manifest and command:
+
+   ```yaml
+   apiVersion: v1
+   kind: Secret
+   metadata:
+     name: opensearch
+   data:
+     azure-snapshot-storage-account-key: ### Insert base64 encoded key
+   ```
+
+1. [Deploy OpenSearch using Helm](https://opensearch.org/docs/latest/install-and-configure/install-opensearch/helm/) with the following additional values. Specify the value of the storage account in the `AZURE_SNAPSHOT_STORAGE_ACCOUNT` environment variable:
+
+   ```yaml
+   extraInitContainers:
+   - name: keystore-generator
+     image: opensearch-custom:{{site.opensearch_version}}
+     command: ["/bin/bash", "-c"]
+     args: ["bash create-keystore.sh"]
+     env:
+     - name: AZURE_SNAPSHOT_STORAGE_ACCOUNT
+       value: ### Insert storage account name
+     - name: AZURE_SNAPSHOT_STORAGE_ACCOUNT_KEY
+       valueFrom:
+         secretKeyRef:
+           name: opensearch
+           key: azure-snapshot-storage-account-key
+     volumeMounts:
+     - name: keystore
+       mountPath: /tmp/keystore
+
+   extraVolumeMounts:
+   - name: keystore
+     mountPath: /usr/share/opensearch/config/opensearch.keystore
+     subPath: opensearch.keystore
+  
+   extraVolumes:
+   - name: keystore
+     emptyDir: {}
+
+   image:
+     repository: "opensearch-custom"
+     tag: {{site.opensearch_version}}
+   ```
+
+1. Register the repository using the Snapshot API. Replace `snapshot_container` with the name you specified in step 1, as shown in the following command:
+   ```json
+   PUT /_snapshot/my-azure-snapshot
+   {
+     "type": "azure",
+     "settings": {
+       "client": "default",
+       "container": "snapshot_container"
+     }
+   }
+   ```
+
+### Set up Microsoft Azure Blob Storage
+
+To use Azure Blob Storage as a snapshot repository, follow these steps:
+1. Install the `repository-azure` plugin on all nodes with the following command:
+
+   ```bash
+   ./bin/opensearch-plugin install repository-azure
+   ```
+
+1. After the `repository-azure` plugin is installed, define your Azure Blob Storage settings before initializing the node. Start by defining your Azure Storage account name using the following secure setting:
+
+   ```bash
+   ./bin/opensearch-keystore add azure.client.default.account
+   ```
+
+Choose one of the following options for setting up your Azure Blob Storage authentication credentials.
+
+#### Using an Azure Storage account key
+   
+Use the following setting to specify your Azure Storage account key:
+   
+```bash 
+./bin/opensearch-keystore add azure.client.default.key
+```
+
+#### Shared access signature
+   
+Use the following setting when accessing Azure with a shared access signature (SAS):
+         
+```bash
+./bin/opensearch-keystore add azure.client.default.sas_token      
+```
+
+#### Azure token credential 
+
+Starting in OpenSearch 2.15, you have the option to configure a token credential authentication flow in `opensearch.yml`. This method is distinct from connection string authentication, which requires a SAS or an account key.
+
+If you choose to use token credential authentication, you will need to choose a token credential type. Although Azure offers multiple token credential types, as of OpenSearch version 2.15, only [managed identity](https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/overview) is supported.
+
+To use managed identity, add your token credential type to `opensearch.yml` using either the `managed` or `managed_identity` value. This indicates that managed identity is being used to perform token credential authentication:
+
+```yml
+azure.client.default.token_credential_type: "managed_identity"
+``` 
+
+Note the following when using Azure token credentials:
+
+- Token credential support is disabled in `opensearch.yml` by default.
+- A token credential takes precedence over an Azure Storage account key or a SAS when multiple options are configured. 
 
 ## Take snapshots
 
@@ -355,7 +497,9 @@ We recommend ceasing write requests to a cluster before restoring from a snapsho
 1. A write request to the now-deleted alias creates a new index with the same name as the alias.
 1. The alias from the snapshot fails to restore due to a naming conflict with the new index.
 
-Snapshots are only forward-compatible by one major version. If you have an old snapshot, you can sometimes restore it into an intermediate cluster, reindex all indexes, take a new snapshot, and repeat until you arrive at your desired version, but you might find it easier to just manually index your data in the new cluster.
+Snapshots are only forward compatible by one major version. Snapshots taken by earlier OpenSearch versions can continue to be restored by the version of OpenSearch that originally took the snapshot, even after a version upgrade. For example, a snapshot taken by OpenSearch 2.11 or earlier can continue to be restored by a 2.11 cluster even after upgrading to 2.12.
+
+If you have an old snapshot taken from an earlier major OpenSearch version, you can restore it to an intermediate cluster one major version newer than the snapshot's version, reindex all indexes, take a new snapshot, and repeat until you arrive at your desired major version, but you may find it easier to manually index your data in the new cluster.
 
 ## Security considerations
 

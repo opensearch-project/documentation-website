@@ -255,7 +255,26 @@ Geohash grid aggregation requests support the following parameters.
 Parameter | Data type | Description
 :--- | :--- | :---
 field | String | The field on which aggregation is performed. This field must be mapped as a `geo_point` or `geo_shape` field. If the field contains an array, all array values are aggregated. Required.
-precision | Integer | The zoom level used to determine grid cells for bucketing results. Valid values are in the [0, 15] range. Optional. Default is 5. 
+precision | Integer | The granularity level used to determine grid cells for bucketing results. Cells cannot exceed the specified size (diagonal) of the required precision. Valid values are in the [0, 12] range. Optional. Default is 5. 
 bounds | Object | The bounding box for filtering geopoints and geoshapes. The bounding box is defined by the upper-left and lower-right vertices. Only shapes that intersect with this bounding box or are completely enclosed by this bounding box are included in the aggregation output. The vertices are specified as geopoints in one of the following formats: <br>- An object with a latitude and longitude<br>- An array in the [`longitude`, `latitude`] format<br>- A string in the "`latitude`,`longitude`" format<br>- A geohash <br>- WKT<br> See the [geopoint formats]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point#formats) for formatting examples. Optional.
 size | Integer | The maximum number of buckets to return. When there are more buckets than `size`, OpenSearch returns buckets with more documents. Optional. Default is 10,000.
 shard_size | Integer | The maximum number of buckets to return from each shard. Optional. Default is max (10, `size` &middot; number of shards), which provides a more accurate count of more highly prioritized buckets.
+
+## Geohash precision
+
+The relationship between geohash precision and the approximate grid cell dimensions is described in the following table.
+
+Precision /<br>geohash length | Latitude bits | Longitude bits | Latitude error | Longitude error | Cell height | Cell width
+:---:|:-------------:|:--------------:|:--------------:|:---------------:|:-----------:|:----------:
+  1  |       2       |       3        |      ±23       |       ±23       |  4992.6 km  | 5009.4 km  
+  2  |       5       |       5        |      ±2.8      |      ±5.6       |  624.1 km   | 1252.3 km  
+  3  |       7       |       8        |     ±0.70      |      ±0.70      |   156 km    |  156.5 km  
+  4  |      10       |       10       |     ±0.087     |      ±0.18      |   19.5 km   |  39.1 km   
+  5  |      12       |       13       |     ±0.022     |     ±0.022      |   4.9 km    |   4.9 km   
+  6  |      15       |       15       |    ±0.0027     |     ±0.0055     |   609.4 m   |   1.2 km   
+  7  |      17       |       18       |    ±0.00068    |    ±0.00068     |   152.5 m   |  152.9 m   
+  8  |      20       |       20       |    ±0.00086    |    ±0.000172    |    19 m     |   38.2 m   
+  9  |      22       |       23       |   ±0.000021    |    ±0.000021    |    4.8 m    |   4.8 m    
+ 10  |      25       |       25       |  ±0.00000268   |   ±0.00000536   |   59.5 cm   |   1.2 m    
+ 11  |      27       |       28       |  ±0.00000067   |   ±0.00000067   |   14.9 cm   |  14.9 cm   
+ 12  |      30       |       30       |  ±0.00000008   |   ±0.00000017   |   1.9 cm    |   3.7 cm   

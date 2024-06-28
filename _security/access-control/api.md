@@ -29,6 +29,13 @@ plugins.security.restapi.roles_enabled: ["<role>", ...]
 ```
 {% include copy.html %}
 
+If you're working with APIs that manage `Distinguished names` or `Certificates` that require super admin access, enable the REST API admin configuration in your `opensearch.yml` file as shown in the following setting example:
+
+```yml
+plugins.security.restapi.admin.enabled: true
+```
+{% include copy.html %}
+
 These roles can now access all APIs. To prevent access to certain APIs:
 
 ```yml
@@ -808,17 +815,23 @@ Creates, updates, or deletes multiple roles in a single call.
 PATCH _plugins/_security/api/roles
 [
   {
-    "op": "replace", "path": "/role1/index_permissions/0/fls", "value": ["test1", "test2"]
+    "op": "replace", "path": "/role1/index_permissions/0/fls", "value": ["myfield*", "~myfield1"]
   },
   {
     "op": "remove", "path": "/role1/index_permissions/0/dls"
   },
   {
-    "op": "add", "path": "/role2/cluster_permissions", "value": ["manage_snapshots"]
+    "op": "add", "path": "/role2/cluster_permissions/-", "value": {
+      "index_patterns": ["test_index"],
+      "allowed_actions": ["indices:data/read/scroll/clear"]
+    }
   }
 ]
 ```
 {% include copy-curl.html %}
+
+You can use `-` to insert a new permission to the end of the array of permissions.
+{: .note}
 
 #### Example response
 
@@ -998,6 +1011,98 @@ PATCH _plugins/_security/api/rolesmapping
 }
 ```
 
+---
+
+## Allowlist
+
+### Get allowlist
+
+Retrieves the current `allowlist` configuration.
+
+#### Request
+
+```json
+GET _plugins/_security/api/allowlist
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+  "config" : {
+    "enabled" : true,
+    "requests" : {
+      "/_cat/nodes" : [
+        "GET"
+      ],
+      "/_cat/indices" : [
+        "GET"
+      ],
+      "/_plugins/_security/whoami" : [
+        "GET"
+      ]
+    }
+  }
+}
+```
+
+### Create allowlist
+
+Creates an `allowlist` configuration.
+
+#### Request
+
+```json
+PUT _plugins/_security/api/allowlist
+{
+  "enabled": true,
+  "requests": {
+    "/_cat/nodes": ["GET"],
+    "/_cat/indices": ["GET"],
+    "/_plugins/_security/whoami": ["GET"]
+  }
+}
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+  "status":"OK",
+  "message":"'config' updated."
+}
+```
+
+### Update allowlist
+
+Updates an `allowlist` configuration.
+
+#### Request
+
+```json
+PATCH _plugins/_security/api/allowlist
+[
+  {
+    "op": "add",
+    "path": "/config/requests",
+    "value": {
+      "/_cat/nodes": ["POST"]
+    }
+  }
+]
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+  "status":"OK",
+  "message":"Resource updated."
+}
+```
 
 ---
 
@@ -1289,6 +1394,91 @@ PATCH _plugins/_security/api/securityconfig
   "message": "Resource updated."
 }
 ```
+
+### Configuration upgrade check
+
+Introduced 2.14
+{: .label .label-purple }
+
+Checks the current configuration bundled with the host's Security plugin and compares it to the version of the OpenSearch Security plugin the user downloaded. Then, the API responds indicating whether or not an upgrade can be performed and what resources can be updated.
+
+With each new OpenSearch version, there are changes to the default security configuration. This endpoint helps cluster operators determine whether the cluster is missing defaults or has stale definitions of defaults.
+{: .note}
+
+#### Request
+
+```json
+GET _plugins/_security/api/_upgrade_check
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+  "status" : "OK",
+  "upgradeAvailable" : true,
+  "upgradeActions" : {
+    "roles" : {
+      "add" : [ "flow_framework_full_access" ]
+    }
+  }
+}
+```
+
+#### Response fields
+
+| Field    | Data type  | Description                   |
+|:---------|:-----------|:------------------------------|
+| `upgradeAvailable`   | Boolean     | Responds with `true` when an upgrade to the security configuration is available.  |
+| `upgradeActions`  | Object list    | A list of security objects that would be modified when upgrading the host's Security plugin.  |
+
+### Configuration upgrade
+
+Introduced 2.14
+{: .label .label-purple }
+
+Adds and updates resources on a host's existing security configuration from the configuration bundled with the latest version of the Security plugin.
+
+These bundled configuration files can be found in the `<OPENSEARCH_HOME>/security/config` directory. Default configuration files are updated when OpenSearch is upgraded, whereas the cluster configuration is only updated by the cluster operators. This endpoint helps cluster operator upgrade missing defaults and stale default definitions. 
+
+
+#### Request
+
+```json
+POST _plugins/_security/api/_upgrade_perform
+{
+  "configs" : [ "roles" ]
+}
+```
+{% include copy-curl.html %}
+
+#### Request fields
+
+| Field           | Data type  | Description                                                                                                       | Required |
+|:----------------|:-----------|:------------------------------------------------------------------------------------------------------------------|:---------|
+| `configs`              | Array    | Specifies the configurations to be upgraded. This field can include any combination of the following configurations: `actiongroups`,`allowlist`, `audit`, `internalusers`, `nodesdn`, `roles`, `rolesmappings`, `tenants`.<br>  Default is all supported configurations.  | No      |
+
+
+#### Example response
+
+```json
+{
+  "status" : "OK",
+  "upgrades" : {
+    "roles" : {
+      "add" : [ "flow_framework_full_access" ]
+    }
+  }
+}
+```
+
+#### Response fields
+
+| Field    | Data type  | Description                   |
+|:---------|:-----------|:------------------------------|
+| `upgrades`    | Object    | A container for the upgrade results, organized by configuration type, such as `roles`. Each changed configuration type will be represented as a key in this object.           |
+| `roles`     | Object    | Contains a list of role-based action keys of objects modified by the upgrade. |
 
 ---
 

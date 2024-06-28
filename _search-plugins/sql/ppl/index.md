@@ -12,6 +12,8 @@ redirect_from:
   - /search-plugins/ppl/index/
   - /search-plugins/ppl/endpoint/
   - /search-plugins/ppl/protocol/
+  - /search-plugins/sql/ppl/index/
+  - /observability-plugin/ppl/index/
 ---
 
 # PPL
@@ -45,3 +47,4 @@ Developers can find information in the following resources:
 - [OpenSearch PPL Reference Manual](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/index.rst)
 - [Observability](https://github.com/opensearch-project/dashboards-observability/) using [PPL-based visualizations](https://github.com/opensearch-project/dashboards-observability#event-analytics)
 - PPL [Data Types](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/general/datatypes.rst)
+- [Cross-cluster search](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/cross_cluster_search.rst#using-cross-cluster-search-in-ppl) in PPL

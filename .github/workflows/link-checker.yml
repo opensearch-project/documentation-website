@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: "30 11 * * 0"
 jobs:
-  check:
+  link-checker:
     if: github.repository == 'opensearch-project/documentation-website'
     runs-on: ubuntu-latest
     steps:

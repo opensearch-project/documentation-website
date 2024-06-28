@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Stats 
-parent: ML Commons API
+parent: ML Commons APIs
 nav_order: 50
 ---
 

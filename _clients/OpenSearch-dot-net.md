@@ -400,7 +400,7 @@ internal class Program
             FirstName = "Paulo", 
             LastName = "Santos", 
             Gpa = 3.93, 
-            GradYear = 2021 };v
+            GradYear = 2021 };
         var response = client.Index<StringResponse>("students", "100",  
                                         PostData.Serializable(student));
         Console.WriteLine(response.Body);

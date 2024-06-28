@@ -64,6 +64,9 @@ module Jekyll::LinkChecker
     'crates.io', # 404s on bots
     'www.cloudflare.com', # 403s on bots
     'platform.openai.com', # 403s on bots
+    'openai.com', # 403s on bots
+    'mvnrepository.com', # 403s on bots
+    'www.intel.com', # 403s on bots
     'example.issue.link' # a fake example link from the template
   ]
 
@@ -258,7 +261,7 @@ module Jekyll::LinkChecker
   # Check if an internal link is accessible
 
   def self.check_internal(url, location)
-    Jekyll.logger.info "LinkChecker: [Info] Checking #{url}".cyan
+    Jekyll.logger.info "LinkChecker: [Info] Checking #{url} (#{location})".cyan
     return true if @ignored_paths =~ url
 
     path, hash = url.split('#')

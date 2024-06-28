@@ -111,10 +111,31 @@ For a callout with multiple paragraphs or lists, use `>`:
 
 ## Collapsible blocks
 
-To insert a collapsible block, use the `<details>` element as follows:
+To insert an open collapsible block, use the `<details>` element as follows:
 
 ````html
 <details open markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
+
+```json
+{
+  "_nodes" : {
+    "total" : 1,
+    "successful" : 1,
+    "failed" : 0
+  }
+}
+```
+</details>
+````
+
+To insert a closed collapsible block, omit the `open` state:
+
+````html
+<details markdown="block">
   <summary>
     Response
   </summary>

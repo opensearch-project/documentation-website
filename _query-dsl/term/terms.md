@@ -39,7 +39,7 @@ The query accepts the following parameters. All parameters are optional.
 Parameter | Data type | Description
 :--- | :--- | :---
 `<field>` | String | The field in which to search. A document is returned in the results only if its field value exactly matches at least one term, with the correct spacing and capitalization.
-`boost` | Floating-point | Boosts the query by the given multiplier. Useful for searches that contain more than one query. Values in the [0, 1) range decrease relevance, and values greater than 1 increase relevance. Default is `1`. 
+`boost` | Floating-point | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field’s relevance. Values between 0.0 and 1.0 decrease the field’s relevance. Default is 1.0.
 
 ## Terms lookup
 
@@ -250,3 +250,4 @@ Parameter | Data type | Description
 `id` | String | The document ID of the document from which to fetch field values. Required.
 `path` | String | The name of the field from which to fetch field values. Specify nested fields using dot path notation. Required.
 `routing` | String | Custom routing value of the document from which to fetch field values. Optional. Required if a custom routing value was provided when the document was indexed.
+`boost` | Floating-point | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field’s relevance. Values between 0.0 and 1.0 decrease the field’s relevance. Default is 1.0.
