@@ -1,16 +1,16 @@
 ---
 layout: default
-title: Example UBI queries
+title: Example UBI query DSL queries
 parent: User Behavior Insights
 has_children: false
 nav_order: 15
 ---
 
-# Example UBI queries
+# Example UBI query DSL queries
 
-You can use the OpenSearch search query language, [query DSL,]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/), to write queries against UBI data. The following example returns the number of times each `action_name` event occurs.
-For more extensive analytic queries, see [SQL queries ]({{site.url}}{{site.baseurl}}/search-plugins/ubi/sql-queries/). 
-
+You can use the OpenSearch search query language, [query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/), to write UBI queries. The following example returns the number of times each `action_name` event occurs.
+For more extensive analytic queries, see [Sample UBI SQL queries ]({{site.url}}{{site.baseurl}}/search-plugins/ubi/sql-queries/). 
+#### Example request
 ```json
 GET ubi_events/_search
 {

@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Sample UBI SQL queries
+title: Example UBI SQL queries
 parent: User Behavior Insights
 has_children: false
 nav_order: 20
 ---
 
-# Sample UBI SQL queries
+# Example UBI SQL queries
 
 You can run sample UBI SQL queries in the OpenSearch Dashboards [Query Workbench]({{site.url}}{{site.baseurl}}/dashboards/query-workbench/).
 
