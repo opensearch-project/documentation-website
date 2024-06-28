@@ -7,7 +7,7 @@ nav_order: 7
 ---
 
 
-# Build an analytic dashboard for UBI
+# UBI dashboard tutorial
 
 Whether you've been collecting user events and queries for a while, or [you've uploaded some sample events](https://github.com/o19s/chorus-OpenSearch-edition/blob/main/katas/003_import_preexisting_event_data.md), you're now ready to visualize the data collected through UBI in a dashboard in OpenSearch.
 
