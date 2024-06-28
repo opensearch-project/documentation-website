@@ -71,7 +71,7 @@ The underlying queries can be found under [SQL trending queries]({{site.url}}{{s
 {: .note} 
 
 
-However, this visualization is not exactly what you're looking for. The `message` field is updated on every event---not only query/search events---and can be used in any way the client developer decides to use it. As a result, it can contain error messages, debug messages, click information, and other data.
+The resulting visualization may not be exactly what you're looking for. The `message` field is updated on every event---not only query/search events---and can be used in any way the client developer decides to use it. As a result, it can contain error messages, debug messages, click information, and other unwanted data.
 To view only search terms on query events, you need to add a filter to your visualization. Since the developer provided a `message_type` of `QUERY` for each search event, you can filter on that message type to isolate the specific users' searches. To do this, select **Add filter** and then select **QUERY** in the **Edit filter** panel, as shown in the following image. 
 ![Word Cloud]({{site.url}}{{site.baseurl}}/images/ubi/tag_cloud2.png "Word Cloud")
 
