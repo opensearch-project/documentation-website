@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Sample UBI SQL queries
-parent: User behavior insights
+parent: User Behavior Insights
 has_children: false
 nav_order: 20
 ---
