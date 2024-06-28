@@ -9,7 +9,7 @@ nav_order: 15
 # Example UBI query DSL queries
 
 You can use the OpenSearch search query language, [query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/), to write UBI queries. The following example returns the number of times each `action_name` event occurs.
-For more extensive analytic queries, see [Sample UBI SQL queries ]({{site.url}}{{site.baseurl}}/search-plugins/ubi/sql-queries/). 
+For more extensive analytic queries, see [Sample UBI SQL queries]({{site.url}}{{site.baseurl}}/search-plugins/ubi/sql-queries/). 
 #### Example request
 ```json
 GET ubi_events/_search
