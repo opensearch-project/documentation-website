@@ -1,6 +1,6 @@
 ---
 layout: default
-title: User behavior insights
+title: User Behavior Insights
 has_children: true
 nav_order: 90
 redirect_from:
@@ -20,10 +20,10 @@ It is a causal system, linking a user's query to all subsequent user interaction
 UBI includes the following elements:
 * A machine-readable [schema](https://github.com/o19s/ubi) that faciliates interoperablity of the UBI specification.
 * An OpenSearch [plugin](https://github.com/opensearch-project/user-behavior-insights) that facilitates the storage of client-side events and queries.
-* A client-side JavaScript [ example ]({{site.url}}{{site.baseurl}}/search-plugins/ubi/data-structures/) reference implementation that shows how to capture events and send those events to the OpenSearch UBI plugin.
+* A client-side JavaScript [example reference implementation]({{site.url}}{{site.baseurl}}/search-plugins/ubi/data-structures/) that shows how to capture events and send those events to the OpenSearch UBI plugin.
 
 <!-- vale off -->
-UBI documentation is organized in the following categories.
+The UBI documentation is organized in the following categories.
 
 | Explanation and Reference | Description |
 | :--------- | :------- |
