@@ -27,7 +27,7 @@ Depending on your configuration: `http://{server}:5601/app/home#/`
 
 ## 2. Create an index pattern
 
-Within OpenSearch Management navigate to **Dashboards Management > Index patterns**.
+Within OpenSearch Management, navigate to **Dashboards Management > Index patterns**.
 
 `http://{server}:5601/app/management/OpenSearch-dashboards/indexPatterns`
 
