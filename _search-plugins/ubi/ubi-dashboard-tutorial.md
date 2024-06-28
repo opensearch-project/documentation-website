@@ -62,18 +62,22 @@ Save that visualization so it is added to your new dashboard. Now that you have 
 
 ## 4. Add a tag cloud visualization
 
-Now you'll add a word cloud for trending searches by creating a new visualization, similar to the previous step.  In the **New Visualization** window, select **Tag Cloud**. Then select the index pattern you created in Step 2. Choose the Tag Cloud visualization of the terms in the `message` field where the JavaScript client logs the raw text that the user searches on.  (Note: The true query, as processed by OpenSearch with filters, boosting, and so on, resides in the `ubi_queries` index. However, you'll view the `message` field of the `ubi_events` index, where the Javascript client captures the text that the user actually typed.) The following image shows the tag cloud visualization on the `message` field.
+Now you'll add a word cloud for trending searches by creating a new visualization, similar to the previous step.  
+
+In the **New Visualization** window, select **Tag Cloud**, then select the index pattern you created in Step 2. Choose the Tag Cloud visualization of the terms in the `message` field where the JavaScript client logs the raw text that the user searches on.  (Note: The true query, as processed by OpenSearch with filters, boosting, and so on, resides in the `ubi_queries` index. However, you'll view the `message` field of the `ubi_events` index, where the JavaScript client captures the text that the user actually typed.) 
+
+The following image shows the tag cloud visualization on the `message` field.
 ![Word Cloud]({{site.url}}{{site.baseurl}}/images/ubi/tag_cloud1.png "Word Cloud")
 
 The underlying queries can be found under [SQL trending queries]({{site.url}}{{site.baseurl}}/search-plugins/ubi/sql-queries/#trending-queries).
 {: .note} 
 
 
-However, this visualization is not exactly what you're looking for. The `message` field is updated on every event---not only query/search events---and can be used in any way the client developer decides to use it. As a result, it can contain error messages, debug messages, click information, and other data.
+The resulting visualization may not be exactly what you're looking for. The `message` field is updated on every event---not only query/search events---and can be used in any way the client developer decides to use it. As a result, it can contain error messages, debug messages, click information, and other unwanted data.
 To view only search terms on query events, you need to add a filter to your visualization. Since the developer provided a `message_type` of `QUERY` for each search event, you can filter on that message type to isolate the specific users' searches. To do this, select **Add filter** and then select **QUERY** in the **Edit filter** panel, as shown in the following image. 
 ![Word Cloud]({{site.url}}{{site.baseurl}}/images/ubi/tag_cloud2.png "Word Cloud")
 
-You should now have two visualizations on your dashboard (the pie chart and the tag cloud), as shown in the following image.
+You should now have two visualizations (the pie chart and the tag cloud) on your dashboard, as shown in the following image.
 ![UBI Dashboard]({{site.url}}{{site.baseurl}}/images/ubi/dashboard2.png "UBI Dashboard")
 
 ## 5. Add a histogram of item clicks
