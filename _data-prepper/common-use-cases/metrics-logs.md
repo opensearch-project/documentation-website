@@ -18,7 +18,7 @@ This pipeline writes data to two different OpenSearch indexes:
 
 The pipeline contains two sub-pipelines:
 
-- `apache-log-pipeline-with-metrics`: Receives logs through an HTTP client like FluentBit, uses `grok` to extract important values from the logs by matching the value in the log key against the [Apache Common Log Format](https://httpd.apache.org/docs/2.4/logs.html#accesslog). It then forwards the grokked logs to two destinations:
+- `apache-log-pipeline-with-metrics`: Receives logs through an HTTP client like FluentBit, using `grok` to extract important values from the logs by matching the value in the log key against the [Apache Common Log Format](https://httpd.apache.org/docs/2.4/logs.html#accesslog). It then forwards the grokked logs to two destinations:
 
  - An OpenSearch index named `logs` to store the original log events.
  - The `log-to-metrics-pipeline` for further aggregation and metric derivation.
