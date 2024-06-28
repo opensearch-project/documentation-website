@@ -28,7 +28,7 @@ The UBI documentation is organized in the following categories.
 | Explanation and Reference | Description |
 | :--------- | :------- |
 | [UBI Request/Response Specification](https://github.com/o19s/ubi/) | The industry-standard schema for making UBI requests and responses. The current version references UBI Specification 1.0.0.  |
-| [UBI OpenSearch Schema Documentation]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/) | Documentation on the individual Query and Event stores for OpenSearch |
+| [UBI OpenSearch schema documentation]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/) | Documentation on the individual query and event stores for OpenSearch. |
 
 
 | Tutorials and how-to guides | Description
@@ -36,9 +36,9 @@ The UBI documentation is organized in the following categories.
 | [UBI plugin ](https://github.com/opensearch-project/user-behavior-insights) | How to install and use the UBI plugin. |
 | [ JavaScript client structures ]({{site.url}}{{site.baseurl}}/search-plugins/ubi/data-structures/)  | Sample JavaScript structures for populating the event store. |
 | [UBI SQL queries]({{site.url}}{{site.baseurl}}/search-plugins/ubi/sql-queries/)  | How to write analytic queries for UBI data in SQL. |
-| [UBI Dashboard Tutorial]({{site.url}}{{site.baseurl}}/search-plugins/ubi/ubi-dashboard-tutorial/) | Teaches you how to build an OpenSearch dashboard with UBI data |
-| [Chorus Opensearch Edition](https://github.com/o19s/chorus-opensearch-edition/?tab=readme-ov-file#structured-learning-using-chorus-opensearch-edition) katas | A series of structured tutorials that teach you how to UBI with OpenSearch using a demo Ecommerce Store. |
+| [UBI Dashboard tutorial]({{site.url}}{{site.baseurl}}/search-plugins/ubi/ubi-dashboard-tutorial/) | How to build an OpenSearch Dashboards dashboard containing UBI data. |
+| [Chorus Opensearch Edition](https://github.com/o19s/chorus-opensearch-edition/?tab=readme-ov-file#structured-learning-using-chorus-opensearch-edition) katas | A series of structured tutorials that teach you how to UBI with OpenSearch using a demo e-commerce store. |
 
 <!-- vale on -->
-Documentation categories adapted using concepts from [Diátaxis](https://diataxis.fr/)
+Documentation categories adapted using concepts from [Diátaxis](https://diataxis.fr/).
 {: .tip }
