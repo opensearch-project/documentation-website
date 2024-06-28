@@ -44,12 +44,14 @@ Relational operators compare numeric values or JSON pointers that resolve to num
 <Number | JSON Pointer> > <Number | JSON Pointer>
 <Number | JSON Pointer> >= <Number | JSON Pointer>
 ```
+{% include copy-curl.html %}
 
 For example, to check if the vlaue of the `status_code` field in an event is within the range of successful HTTTP responses (200 to 299), you can use the following expression:
 
 ```
 /status_code >= 200 and /status_code < 300
 ```
+{% include copy-curl.html %}
 
 ### Equality operators
 
@@ -59,6 +61,7 @@ Equality operators are used to test whether two values are equivalent. These ope
 <Any> == <Any>
 <Any> != <Any>
 ```
+{% include copy-curl.html %}
 
 The following are some examples of using equality operators:
 
@@ -75,6 +78,7 @@ Conditional expressions allow you to combine multiple expressions or values usin
 <Any> or <Any>
 not <Any>
 ```
+{% include copy-curl.html %}
 
 The following are some examples of using conditional expressions: 
 
@@ -85,6 +89,7 @@ not /status_code in {200, 202}
 /response == null
 /response != null
 ```
+{% include copy-curl.html %}
 
 ### Reserved symbols
 
@@ -94,14 +99,6 @@ Reserved symbols refer to a set of symbols that are not currently used in the ex
 
 Syntax components are the building blocks of expressions in Data Prepper. They allow you to define sets, specify evaluation order, reference values within events, use literal values, and follow specific white space rules. Understanding these components is crucial for creating and working with expressions effectively in Data Prepper pipelines.
 
-### Set initializers
-
-Set initializers define sets or terms and expressions. They are enclosed in curly brackets `{}`. Set initializer syntax examples include:
-
-- HTTP status codes: `{200, 201, 202}`
--  HTTP response payloads: `{"Created", "Accepted"}`
-- Multiple event types with different keys: `{/request_payload, /request_message}`
-
 ### Priority expressions
 
 Priority expressions specify the order of evaluation of expressions. They are enclosed in parentheses `()`. Priority expressions must contain an expression or value (empty parentheses are not supported). The following is an example:
@@ -109,6 +106,7 @@ Priority expressions specify the order of evaluation of expressions. They are en
 ```
 /is_cool == (/name == "Steven")
 ```
+{% include copy-curl.html %}
 
 ### JSON pointers
 
@@ -122,7 +120,8 @@ The shorthand syntax for a JSON pointer can be expressed using the following reg
 
 ```
 /\w+(/\w+)*`
-``` 
+```
+{% include copy-curl.html %}
  
  Where `\w` represents any word character (A--Z, a-z, 0--9, or underscore).
 
@@ -131,6 +130,7 @@ Here is an example of this shorthand syntax:
 ```
 /Hello/World/0
 ```
+{% include copy-curl.html %}
 
 #### Escaped syntax
 
@@ -139,6 +139,7 @@ The escaped syntax for a JSON pointer can be expressed as follows:
 ```
 "/<Valid String Characters | Escaped Character>(/<Valid String Characters | Escaped Character>)*"
 ```
+{% include copy-curl.html %}
 
 Here is an example of an escaped JSON pointer:
 
@@ -147,6 +148,7 @@ Here is an example of an escaped JSON pointer:
 # { "Hello - 'world/" : [{ "\"JsonPointer\"": true }] }
 "/Hello - 'world\//0/\"JsonPointer\""
 ```
+{% include copy-curl.html %}
 
 ### Literals
 
@@ -174,15 +176,6 @@ White space is optional around relational operators, regex equality operators, e
 | `and`, `or`, `not`   | Conditional operators    | Yes                  | `/a<300 and /b>200`                                            | `/b<300and/b>200`                     |
 | `,`                  | Set value delimiter      | No                   | `/a in {200, 202}`<br>`/a in {200,202}`<br>`/a in {200 , 202}` | `/a in {200,}`                        |
 
-## Functions
+## Related articles
 
-Data Prepper supports the following built-in functions that can be used in an expression.
-
-Function | Definition
----------|-----------
-`length()` | Takes one argument of the JSON pointer type and returns the length of the value passed. For example, `length(/message)` returns a length of `10` when a key message exists in the event and has a value of `1234567890`.
-`hasTags()` | Takes one or more string type arguments and returns `true` if all of the arguments passed are present in an event's tags. When an argument does not exist in the event's tags, the function returns `false`. For example, if you use the expression `hasTags("tag1")` and the event contains `tag1`, Data Prepper returns `true`. If you use the expression `hasTags("tag2")` but the event only contains `tag1`, Data Prepper returns `false`.
-`getMetadata()` | Takes one literal string argument to look up specific keys in a an event's metadata. If the key contains a `/`, then the function looks up the metadata recursively. When passed, the expression returns the value corresponding to the key. The value returned can be of any type. For example, if the metadata contains `{"key1": "value2", "key2": 10}`, then the function, `getMetadata("key1")`, returns `value2`. The function, `getMetadata("key2")`, returns 10.
-`contains()` | Takes two string arguments and determines whether either a literal string or a JSON pointer is contained within an event. When the second argument contains a substring of the first argument, such as `contains("abcde", "abcd")`, the function returns `true`. If the second argument does not contain any substrings, such as `contains("abcde", "xyz")`, it returns `false`.
-`cidrContains()` | Takes two or more arguments. The first argument is a JSON pointer, which represents the key to the IP address that is checked. It supports both IPv4 and IPv6 addresses. Every argument that comes after the key is a string type that represents CIDR blocks that are checked against.If the IP address in the first argument is in the range of any of the given CIDR blocks, the function returns `true`. If the IP address is not in the range of the CIDR blocks, the function returns `false`. For example, `cidrContains(/sourceIp,"192.0.2.0/24","10.0.1.0/16")` will return `true` if the `sourceIp` field indicated in the JSON pointer has a value of `192.0.2.5`.
-`join()`| Joins elements of a list to form a string. The function takes a JSON pointer, which represents the key to a list or a map where values are of the list type, and joins the lists as strings using commas (`,`), the default delimiter between strings. If `{"source": [1, 2, 3]}` is the input data, for example,`{"source": {"key1": [1, 2, 3], "key2": ["a", "b", "c"]}}`. Then `join(/source)` will return `"1,2,3"` in the following format: `{"key1": "1,2,3", "key2": "a,b,c"}`. You can also specify a delimiter other than the default inside the expression, for example, `join("-", /source)` joins each `source` field using a hyphen as the delimiter.
+- [Functions](insert-link)
