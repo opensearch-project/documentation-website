@@ -1,7 +1,7 @@
 ---
 layout: default
 title: UBI index schemas
-parent: User behavior insights
+parent: User Behavior Insights
 has_children: false
 nav_order: 7
 ---
@@ -14,23 +14,23 @@ User Behavior Insights (UBI) data collection is about linking user queries to su
 
 UBI is not functional unless the links between the following fields are consistently maintained within a UBI-enabled application:
 
-- [`object_id`](#object_id) represents an id for whatever object the user is recieving in response to a query. For example, if you search for books, it might be a ISBN code of a book such as `978-3-16-148410-0`.
-- [`query_id`](#query_id) is a unique id for the raw query language executed and the `object_id`'s (_hits_) that the user's query returned.  
+- [`object_id`](#object_id) represents an ID for whatever object the user is receiving in response to a query. For example, if you search for books, it might be an ISBN code of a book such as `978-3-16-148410-0`.
+- [`query_id`](#query_id) is a unique ID for the raw query language executed and the `object_id`'s (_hits_) that the user's query returned.  
 - [`client_id`](#client_id) represents a unique source of queries. Typically, this is a web browser used by a unique user.
 - [`object_id_field`](#object_id_field) specifies the name of the field in your index that provides the `object_id`. For the book example, the value might be `isbn_code`.
-- [`action_name`](#action_name), though not technically an ID, the `action_name` specifies the exact user action (such as `click`, `add_to_cart`, `watch`, `view`, or `purchase`) that was taken (or not taken) for an object with a given `object_id`.
+- [`action_name`](#action_name), though not technically an ID, specifies the exact user action (such as `click`, `add_to_cart`, `watch`, `view`, or `purchase`) that was taken (or not taken) for an object with a given `object_id`.
 
-To summarize, the `query_id` signals the beginning of a unique *search* for a client tracked through a `client_id`. The search returns various objects, each with a unique`object_id`. Every time a user performs an interaction, the `action_name` specifies what action the user is performing and is connected to the objects, each with a specific `object_id`. You can differentiate between types of objects by inspecting the `object_id_field`.  
+To summarize, the `query_id` signals the beginning of a unique search for a client tracked through a `client_id`. The search returns various objects, each with a unique `object_id`. Every time a user performs an interaction, the `action_name` specifies what action the user is performing and is connected to the objects, each with a specific `object_id`. You can differentiate between types of objects by inspecting the `object_id_field`.  
 
-Typically, you can infer the user's overall *search journey* by retrieving all the data for the user's `client_id` and inspecting individual `query_id` data. Each application decides what makes a *search session* by examining the data in the backend.
+Typically, you can infer the user's overall search journey by retrieving all the data for the user's `client_id` and inspecting the individual `query_id` data. Each application decides what makes a search session by examining the data in the backend.
 
 ## Important UBI roles
 
-The following diagram illustrates how the **User** interacts with the **Search Client** and **UBI Client**, 
-and how those, in turn, interact with the **OpenSearch Cluster**, which houses the **UBI Events** and **UBI Queries** indexes.  
+The following diagram illustrates how the **user** interacts with the **Search client** and **UBI client**, 
+and how those, in turn, interact with the **OpenSearch cluster**, which houses the **UBI events** and **UBI queries** indexes.  
 
 Blue arrows illustrate standard search. <br/>
-Bold, dashed lines illustrates UBI-specific additions.<br/>
+Bold, dashed lines illustrate UBI-specific additions.<br/>
 Red arrows illustrate the flow of the [`query_id`](#query_id) to and from OpenSearch.
 
 <img src="{{site.url}}{{site.baseurl}}/images/ubi/ubi-schema-interactions_legend.png" />
@@ -111,20 +111,20 @@ linkStyle 3,4,5,8 stroke-width:2px,fill:none,stroke:red
 ```
 {% endcomment %}
 
-- The **Search Client** is in charge of searching and then receiving *objects* from a document index in OpenSearch.
+- The **Search client** is in charge of searching and then receiving *objects* from a document index in OpenSearch.
   <br/>(1, 2, **5** and 7, in the preceding diagram)
 
 Step **5** is in bold because it denotes UBI-specific additions like [`query_id`](#query_id) to standard OpenSearch interactions.
  {: .note}
-- If activated in the `ext.ubi` stanza of the search request, the **User Behavior Insights** plugin manages the **UBI Queries** store in the background, indexing each query, ensuring a unique [`query_id`](#query_id) along with all returned resultant [`object_id`](#object_id)'s, and then passing the `query_id` back to the **Search Client** so that events can be linked to this query.
+- If activated in the `ext.ubi` stanza of the search request, the **User Behavior Insights** plugin manages the **UBI queries** store in the background, indexing each query, ensuring a unique [`query_id`](#query_id) along with all returned resultant [`object_id`](#object_id)'s, and then passing the `query_id` back to the **Search client** so that events can be linked to this query.
  <br/>(3, 4 and **5**, in preceding diagram)
 - **Objects** represent the items that the user is searching for using the queries. Activating UBI involves mapping your real-world objects (using their identifiers such as an `isbn` or  `sku`) to the [`object_id`](#object_id) fields in the index that is searched.
-- The **Search Client**, if separate from the **UBI Client**, forwards the indexed [`query_id`](#query_id) to the **UBI Client**.
+- The **Search client**, if separate from the **UBI client**, forwards the indexed [`query_id`](#query_id) to the **UBI client**.
     Even though the the roles of *search* and *UBI event indexing* are separated on this diagram, many implementations can use the same OpenSearch client instance for both roles of searching and index writing. 
     <br/>(6 in the preceding diagram).
     {: .note} 
-- The **UBI Client** then indexes all user events with the specified [`query_id`](#query_id) until a new search is performed. At this time, a new `query_id` is generated by **User Behavior Insights** plugin and passed back to the **UBI Client**.
-- If the **UBI Client** interacts with a result **object**, such as during an add to cart event, then the [`object_id`](#object_id), `add_to_cart` [`action_name`](#action_name) and `query_id` are all indexed together, signaling the causal link between the *search* and the *object*.
+- The **UBI client** then indexes all user events with the specified [`query_id`](#query_id) until a new search is performed. At this time, a new `query_id` is generated by **User Behavior Insights** plugin and passed back to the **UBI client**.
+- If the **UBI client** interacts with a result **object**, such as during an add to cart event, then the [`object_id`](#object_id), `add_to_cart` [`action_name`](#action_name) and `query_id` are all indexed together, signaling the causal link between the *search* and the *object*.
  <br/>(8 and 9, preceding diagram)
 
 

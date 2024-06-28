@@ -1,14 +1,14 @@
 ---
 layout: default
 title: UBI client data structures
-parent: User behavior insights
+parent: User Behavior Insights
 has_children: false
 nav_order: 7
 ---
 
-# Sample client data structures
+# UBI client data structures
 
-The following client data structures can be used to create events that follow the [UBI event schema specification](https://github.com/o19s/ubi).
+Data structures are used to create events that follow the [UBI event schema specification](https://github.com/o19s/ubi).
 For more information about the schema, see [UBI index schemas]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/).
 
 
@@ -21,7 +21,7 @@ You can also optionally provide an implementation for the following functions:
 - `getPageId()`
 
 
-These **JavaScript** following structures give you a starter implementation that will serialize UBI events into schema-compatible JSON.
+The following JavaScript structures can be used as a starter implementation to serialize UBI events into schema-compatible JSON.
 ```js
 /*********************************************************************************************
  * Ubi Event data structures
