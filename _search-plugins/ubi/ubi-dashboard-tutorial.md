@@ -35,7 +35,7 @@ It will look something like the following.
 
 OpenSearch Dashboards access your indexes using index patterns. To visualize your users' online search behavior, you must create an index pattern in order to access the indexes that UBI creates. For more information, see [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/).
 
-After you select **Create index pattern**, you'll see a list of indexes in your OpenSearch instance. The UBI stores may be hidden by default, so be sure to select **Include system and hidden indexes**, as shown in the following image. 
+After you select **Create index pattern**, a list of indexes in your OpenSearch instance is displayed. The UBI stores may be hidden by default, so make sure to select **Include system and hidden indexes**, as shown in the following image. 
 ![Index Patterns]({{site.url}}{{site.baseurl}}/images/ubi/index_pattern2.png "Index Patterns")
 
 You can group indexes into the same data source for your dashboard using wildcards. For this tutorial we'll combine the query and event stores into the `ubi_*` pattern.
