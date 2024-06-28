@@ -1,9 +1,9 @@
 ---
 layout: default
 title: Sample UBI using OpenSearch DSL queries
-parent: User behavior insights
+parent: User Behavior Insights
 has_children: false
-nav_order: 8
+nav_order: 15
 ---
 
 # Sample UBI using OpenSearch DSL queries

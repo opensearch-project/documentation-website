@@ -6,7 +6,7 @@ nav_order: 90
 redirect_from:
   - /search-plugins/ubi/
 ---
-# Overview
+# User Behavior Insights
 
 **Introduced 2.15**
 {: .label .label-purple }
@@ -40,5 +40,5 @@ The UBI documentation is organized in the following categories.
 | [Chorus Opensearch Edition](https://github.com/o19s/chorus-opensearch-edition/?tab=readme-ov-file#structured-learning-using-chorus-opensearch-edition) katas | A series of structured tutorials that teach you how to UBI with OpenSearch using a demo e-commerce store. |
 
 <!-- vale on -->
-Documentation categories adapted using concepts from [Diátaxis](https://diataxis.fr/).
+The documentation categories were adapted using concepts based on [Diátaxis](https://diataxis.fr/).
 {: .tip }

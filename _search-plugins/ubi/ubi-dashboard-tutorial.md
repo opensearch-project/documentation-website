@@ -1,9 +1,9 @@
 ---
 layout: default
-title: UBI Dashboard Tutorial
+title: UBI dashboard tutorial
 parent: User Behavior Insights
 has_children: false
-nav_order: 7
+nav_order: 25
 ---
 
 
@@ -11,7 +11,7 @@ nav_order: 7
 
 Whether you've been collecting user events and queries for a while, or [you've uploaded some sample events](https://github.com/o19s/chorus-OpenSearch-edition/blob/main/katas/003_import_preexisting_event_data.md), you're now ready to visualize the data collected through UBI in a dashboard in OpenSearch.
 
-To quickly view a dashboard without following the tutorial, follow these steps:
+To quickly view a dashboard without doing the full tutorial, do the following:
 1. Download and save the [sample UBI dashboard]({{site.url}}{{site.baseurl}}/assets/examples/ubi-dashboard.ndjson).
 1. On the top menu, go to **Management > Dashboard Management**.
 1. From the **Dashboards** panel, choose **Saved objects**.
@@ -42,13 +42,12 @@ OpenSearch Dashboards prompts you to filter on any `date` field in your schema, 
 <img src="{{site.url}}{{site.baseurl}}/images/ubi/index_pattern3.png" alt="Index Patterns" width="400"/>
 
 
-After selecting **Create index pattern, you're ready to start building a dashboard that displays the UBI store data.
+After selecting **Create index pattern**, you're ready to start building a dashboard that displays the UBI store data.
 
 ## 3. Create a new dashboard
 
 To create a new dashboard, on the top menu select **OpenSearch Dashboards > Dashboards**, then **Create > Dashboard** > **Create new**.
 If you haven't previously created a dashboard, you are presented with the option to create a new dashboard. Otherwise, previously created dashboards are displayed.
-![First Dashboard]({{site.url}}{{site.baseurl}}/images/ubi/first_dashboard.png "First Dashboard")
 
 
 In the **New Visualization** window, select **Pie** to create a new pie chart. Then select the index pattern you created in Step 2.
@@ -56,7 +55,7 @@ In the **New Visualization** window, select **Pie** to create a new pie chart. T
 Most visualizations require some sort of aggregate function on an bucket/facet/aggregatable field (numeric or keyword). You'll add a `Terms` aggregation on the `action_name` field so that you can view the distribution of event names. Change the **Size** to the number of slices you want to display, as shown in the following image.
 ![Pie Chart]({{site.url}}{{site.baseurl}}/images/ubi/pie.png "Pie Chart")
 
-Save that visualization so it is added to your new dashboard. Now that you have a visualization on your dashboard, you can save your dashboard.
+Save the visualization so it's added to your new dashboard. Now that you have a visualization on your dashboard, you can save the dashboard.
 
 ## 4. Add a tag cloud visualization
 

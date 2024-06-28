@@ -3,7 +3,7 @@ layout: default
 title: UBI client data structures
 parent: User Behavior Insights
 has_children: false
-nav_order: 7
+nav_order: 10
 ---
 
 # UBI client data structures
