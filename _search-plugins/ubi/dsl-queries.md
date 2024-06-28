@@ -1,14 +1,14 @@
 ---
 layout: default
-title: Sample UBI using OpenSearch DSL queries
+title: Example UBI queries
 parent: User Behavior Insights
 has_children: false
 nav_order: 15
 ---
 
-# Sample UBI using OpenSearch DSL queries
+# Example UBI queries
 
-The following example UBI query uses the OpenSearch [query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/). 
+You can use the OpenSearch search query language, [query DSL,]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/), to write queries against UBI data. The following example returns the number of times each `action_name` event occurs.
 For more extensive analytic queries, see [SQL queries ]({{site.url}}{{site.baseurl}}/search-plugins/ubi/sql-queries/). 
 
 ```json
@@ -27,7 +27,7 @@ GET ubi_events/_search
 ```
 {% include copy.html %}
 
-The response contains the number of times each `action_name` event occurred.
+#### Example response
 
 ```json
 {
