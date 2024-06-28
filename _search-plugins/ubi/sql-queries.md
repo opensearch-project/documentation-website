@@ -3,25 +3,24 @@ layout: default
 title: Sample UBI SQL queries
 parent: User behavior insights
 has_children: false
-nav_order: 7
+nav_order: 20
 ---
 
 # Sample UBI SQL queries
 
-You can run the following sample SQL queries in an OpenSearch Dashboards [Query Workbench]({{site.url}}{{site.baseurl}}/dashboards/query-workbench/).
+You can run sample UBI SQL queries in the OpenSearch Dashboards [Query Workbench]({{site.url}}{{site.baseurl}}/dashboards/query-workbench/).
 
-A demo workbench with synthetic data can be found here to query: 
+To query a demo workbench with synthetic data, see 
 [http://chorus-opensearch-edition.dev.o19s.com:5601/app/opensearch-query-workbench](http://chorus-opensearch-edition.dev.o19s.com:5601/app/opensearch-query-workbench)
 
 ## Queries with zero results
 
-Queries can be executed on either the server-side (`ubi_queries`) or on the client-side (`ubi_events`).
+Queries can be executed on events on either the server (`ubi_queries`) or client (`ubi_events`) side.
 
-### Server-side queries
+### Server-side events
 
-The search server with UBI activated logs the queries and results; so, in order to find all queries with no results, 
+The UBI-activated search server logs the queries and results, so in order to find all queries with no results, 
 the developer needs to search for empty `query_response_hit_ids`:
-{: .note}
 
 ```sql
 select
@@ -51,7 +50,7 @@ where event_attributes.result_count > 0
 
 ## Trending queries
 
-Trending queries can be found with either following query.
+Trending queries can be found with either of the following queries.
 
 ### Server-side
 
@@ -118,7 +117,7 @@ group by action_name
 order by Total desc
 ```
 
-Results include distribution across actions:
+The results include a distribution across actions:
 
 action_name|Total
 |---|---|
@@ -137,7 +136,7 @@ page_exit|142
 user_feedback|123
 404_redirect|123
 
-The following query shows distribution of margins across user actions.
+The following query shows the distribution of margins across user actions.
 
 
 ```sql
@@ -151,7 +150,7 @@ group by action_name
 order by average_cost desc
 ```
 
-Results include actions and the distribution across cost and margins:
+The results include actions and the distribution across cost and margins:
 
 action_name|total|average_cost|average_margin
 ---|---|---|---
@@ -172,7 +171,7 @@ type_filter|3691||
 
 ## Sample search journey
 
-Find a search in the query log:
+To find a search in the query log:
 
 ```sql
 select
@@ -235,7 +234,7 @@ order by timestamp
 
 <!-- vale off -->
 
-Results include all events that are associated with the user's query:
+The results include all events that are associated with the user's query:
 
 application|query_id|action_name|message_type|message|client_id|timestamp
 ---|---|---|---|---|---|---
@@ -264,7 +263,7 @@ where client_id = 'a15f1ef3-6bc6-4959-9b83-6699a4d29845'
 order by query_id, timestamp
 ```
 
-Results are truncated to show a few sessions:
+The results are truncated to show a few sessions:
 
 
 application|event_attributes.session_id|query_id|action_name|message_type|event_attributes.dwell_time|event_attributes.object.object_id|event_attributes.object.description|timestamp
@@ -364,7 +363,7 @@ group by client_id
 order by EventTotal desc
 ```
 
-Following are user's client id's and the number of logouts without any queries.
+The following table shows user's client id's and the number of logouts without any queries.
 
 client_id|EventTotal
 ---|---
