@@ -8,7 +8,9 @@ nav_order: 7
 
 # UBI index schemas
 
-User Behavior Insights (UBI) data collection is about linking user queries to subsequent user actions (events) taken in response to the search results.
+User Behavior Insights (UBI) data collection is about linking user queries to subsequent user actions (events) taken in response to the search results. There are two UBI index schemas:
+* The [query index](#ubi-queries-index), which stores the searches and results
+* The [event index](#ubi-events-index), which stores all subsequent user actions after the user's query 
 
 ## Key identifiers
 
