@@ -12,7 +12,7 @@ redirect_from:
 
 Pipelines are a critical component that streamlines the process of acquiring, transforming, and loading data from various sources into a centralized data repository or processing system. The following diagram illustrates how Data Prepper ingests your data into OpenSearch.
 
-<img src="{{site.url}}{{site.baseurl}}/images/data-prepper-pipeline.png" alt="Data Prepper ingest process">{: .img-fluid}
+<img src="{{site.url}}{{site.baseurl}}/images/data-prepper-pipeline.png" alt="Data Prepper pipeline">{: .img-fluid}
 
 ## Configuring Data Prepper pipelines
 
