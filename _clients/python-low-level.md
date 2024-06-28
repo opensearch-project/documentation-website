@@ -16,7 +16,7 @@ This getting started guide illustrates how to connect to OpenSearch, index docum
 - [User guides](https://github.com/opensearch-project/opensearch-py/tree/main/guides)
 - [Samples](https://github.com/opensearch-project/opensearch-py/tree/main/samples)
 
-If you have any questions or would like to contribute, you can [create an issue](https://github.com/opensearch-project/opensearch-py/issues ) to interact with the OpenSearch Python team directly. 
+If you have any questions or would like to contribute, you can [create an issue](https://github.com/opensearch-project/opensearch-py/issues) to interact with the OpenSearch Python team directly. 
 
 ## Setup
 
