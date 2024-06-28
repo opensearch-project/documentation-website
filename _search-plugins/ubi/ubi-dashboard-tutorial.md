@@ -31,7 +31,7 @@ Within OpenSearch Management, navigate to **Dashboards Management > Index patter
 
 `http://{server}:5601/app/management/OpenSearch-dashboards/indexPatterns`
 
-OpenSearch Dashboards access your indexes using index patterns. To visualize your users' online search behavior, you must create an index pattern in order to access the indexes that UBI creates. For more information, see [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/).
+OpenSearch Dashboards accesses your indexes using index patterns. To visualize your users' online search behavior, you must create an index pattern in order to access the indexes that UBI creates. For more information, see [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/).
 
 After you select **Create index pattern**, a list of indexes in your OpenSearch instance is displayed. The UBI stores may be hidden by default, so make sure to select **Include system and hidden indexes**, as shown in the following image. 
 ![Index Patterns]({{site.url}}{{site.baseurl}}/images/ubi/index_pattern2.png "Index Patterns")
