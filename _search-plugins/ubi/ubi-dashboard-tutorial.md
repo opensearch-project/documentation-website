@@ -47,7 +47,7 @@ After selecting **Create index pattern, you're ready to start building a dashboa
 ## 3. Create a new dashboard
 
 To create a new dashboard, on the top menu select **OpenSearch Dashboards > Dashboards**, then **Create > Dashboard** > **Create new**.
-If you haven't previously created a dashboard, you should see something like the following:
+If you haven't previously created a dashboard, you are presented with the option to create a new dashboard. Otherwise, previously created dashboards are displayed.
 ![First Dashboard]({{site.url}}{{site.baseurl}}/images/ubi/first_dashboard.png "First Dashboard")
 
 
