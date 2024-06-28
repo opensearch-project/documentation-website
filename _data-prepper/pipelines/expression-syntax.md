@@ -2,7 +2,7 @@
 layout: default
 title: Expression syntax
 parent: Pipelines
-nav_order: 15
+nav_order: 5
 ---
 
 # Expression syntax  
@@ -178,4 +178,4 @@ White space is optional around relational operators, regex equality operators, e
 
 ## Related articles
 
-- [Functions](insert-link)
+- [Functions]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/functions/)
