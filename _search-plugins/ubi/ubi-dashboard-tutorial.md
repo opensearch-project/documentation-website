@@ -52,8 +52,6 @@ To create a new dashboard, on the top menu select **OpenSearch Dashboards > Dash
 If you haven't previously created a dashboard, you should see something like the following:
 ![First Dashboard]({{site.url}}{{site.baseurl}}/images/ubi/first_dashboard.png "First Dashboard")
 
-Otherwise, you will see previously created dashboards here.
-{: .note} 
 
 In the **New Visualization** window, select **Pie** to create a new pie chart. Then select the index pattern you created in Step 2.
 
