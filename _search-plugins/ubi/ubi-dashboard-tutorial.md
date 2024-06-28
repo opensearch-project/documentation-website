@@ -75,7 +75,7 @@ However, this visualization is not exactly what you're looking for. The `message
 To view only search terms on query events, you need to add a filter to your visualization. Since the developer provided a `message_type` of `QUERY` for each search event, you can filter on that message type to isolate the specific users' searches. To do this, select **Add filter** and then select **QUERY** in the **Edit filter** panel, as shown in the following image. 
 ![Word Cloud]({{site.url}}{{site.baseurl}}/images/ubi/tag_cloud2.png "Word Cloud")
 
-You should now have two visualizations on your dashboard (the pie chart and the tag cloud), as shown in the following image.
+You should now have two visualizations (the pie chart and the tag cloud) on your dashboard, as shown in the following image.
 ![UBI Dashboard]({{site.url}}{{site.baseurl}}/images/ubi/dashboard2.png "UBI Dashboard")
 
 ## 5. Add a histogram of item clicks
