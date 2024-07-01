@@ -14,7 +14,6 @@ Every PPL query starts with the `search` command. It specifies the index to sear
 
 Subsequent commands can follow in any order.
 
-{: .note}
 
 ## Syntax
 
