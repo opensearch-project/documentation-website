@@ -4,6 +4,7 @@ title: Get started
 nav_order: 1
 redirect_from: /404.html
 permalink: /
+canonical_url: https://opensearch.org/docs/latest/about/
 ---
 
 # OpenSearch documentation
