@@ -33,9 +33,28 @@ The following options are supported in the request body of the Render Template A
 | :--- | :--- | :--- | :--- |
 | `id` | Conditional | String | The ID of the search template to render. Is not required if the ID is provided in the path or if an inline template is specified by the `source`. | 
 | `params` | No | Object | A list of key value pairs which replace Mustache variables found in the search template. The key value pairs must exist inside the documents being searched. |
-| `source` | Conditional | Object | An inline search template to render if a search template is not specified. Supports the same parameters as a [Search]({{site.url}}{{site.baseurl}}/api-reference/search/) API request, as well as [Mustache](https://mustache.github.io/mustache.5.html) variables. | 
+| `source` | Conditional | Object | An inline search template to render if a search template is not specified. Supports the same parameters as a [Search]({{site.url}}{{site.baseurl}}/api-reference/search/) API request and [Mustache](https://mustache.github.io/mustache.5.html) variables. | 
 
 ## Example request
+
+Both of the following request examples use the following search template with the template ID `play_search_template`:
+
+```json
+{
+  "source": {
+    "query": {
+      "match": {
+        "play_name": "{{play_name}}"
+      }
+    }
+  },
+  "params": {
+    "play_name": "Henry IV"
+  }
+}
+```
+
+### Render template using template ID
 
 The following example request validates a search template with the ID `play_search_template`:
 
@@ -43,6 +62,28 @@ The following example request validates a search template with the ID `play_sear
 POST _render/template
 {
   "id": "play_search_template",
+  "params": {
+    "play_name": "Henry IV"
+  }
+}
+```
+{% include copy.html %}
+
+### Render template using `_source`
+
+If you don't want to use a saved template, or want to test a template before saving, you can test a template using `_source` parameter using [Mustache](https://mustache.github.io/mustache.5.html) variables, as shown in the following example:
+
+```
+{
+  "source": {
+    "from": "{{from}}{{^from}}10{{/from}}",
+    "size": "{{size}}{{^size}}10{{/size}}",
+    "query": {
+      "match": {
+        "play_name": "{{play_name}}"
+      }
+    }
+  },
   "params": {
     "play_name": "Henry IV"
   }
