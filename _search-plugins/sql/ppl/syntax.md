@@ -16,15 +16,15 @@ Currently, `PPL` supports only one `search` command, which can be omitted to sim
 ## Syntax
 
 ```sql
-search source=<index> [boolean-expression]
-source=<index> [boolean-expression]
+search source=<index> [where-filter]
+source=<index> [where-filter]
 ```
 
 Field | Description | Required
 :--- | :--- |:---
 `search` | Specifies search keywords. | Yes
 `index` | Specifies which index to query from. | No
-`bool-expression` | Specifies an expression that evaluates to a Boolean value. | No
+`where-filter` | A boolean expression that filters searches exactly like a `where` command. | No
 
 ## Examples
 
