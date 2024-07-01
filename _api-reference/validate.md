@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Validate query
+title: Validate Query
 nav_order: 87
 ---
 
@@ -45,10 +45,93 @@ allow_partial_search_results | Boolean | Whether to return partial results if th
 `rewrite` | Determines how OpenSearch rewrites and scores multi-term queries. Valid values are `constant_score`, `scoring_boolean`, `constant_score_boolean`, `top_terms_N`, `top_terms_boost_N`, and `top_terms_blended_freqs_N`. Default is `constant_score`.
 `q` | String | Query in the Lucene query string syntax.
 
+## Example request
 
-## Example Responses
+This example uses an index named `Hamlet`, created using the following `bulk` request:
 
-The following examples show how the [Explain](#explain), [Rewrite](#rewrite), and [all_shards](#rewrite-and-all_shards) query options affect the response:
+```
+PUT hamlet/_bulk?refresh
+{"index":{"_id":1}}
+{"user" : { "id": "hamlet" }, "@timestamp" : "2099-11-15T14:12:12", "message" : "To Search or Not To Search"}
+{"index":{"_id":2}}
+{"user" : { "id": "hamlet" }, "@timestamp" : "2099-11-15T14:12:13", "message" : "My dad says that I'm such a ham."}
+```
+{% include copy.html %}
+
+Then, you can use the Validate Query API to validate a query made against the index, as shown in the following example:
+
+```
+GET hamlet/_validate/query?q=user.id:hamlet
+```
+{% include copy.html %}
+
+The query can also be sent as a request body, as shown in the following example:
+
+```
+GET hamlet/_validate/query
+{
+  "query" : {
+    "bool" : {
+      "must" : {
+        "query_string" : {
+          "query" : "*:*"
+        }
+      },
+      "filter" : {
+        "term" : { "user.id" : "hamlet" }
+      }
+    }
+  }
+}
+```
+{% include copy.html %}
+
+
+## Example responses
+
+Depending on the validity of the request query, OpenSearch responds that the query is true, as shown in the following example response where the `valid` parameter is shown as `true`:
+
+```
+{
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "failed": 0
+  },
+  "valid": true
+}
+```
+
+If the query does not pass validation, OpenSearch responds that the query is false. The following example uses a request query that includes a dynamic mapping not configured in the `hamlet` index:
+
+```
+GET hamlet/_validate/query
+{
+  "query": {
+    "query_string": {
+      "query": "@timestamp:foo",
+      "lenient": false
+    }
+  }
+}
+```
+
+Which OpenSearch responds with the following, where the `valid` parameters is shown as `false`:
+
+```
+{
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "failed": 0
+  },
+  "valid": false
+}
+```
+
+
+
+Certain query parameters can also affect what OpenSearch shows in the response. The following examples show how the [Explain](#explain), [Rewrite](#rewrite), and [all_shards](#rewrite-and-all_shards) query options affect the response:
 
 ### Explain 
 
@@ -110,10 +193,12 @@ When both the `rewrite` and `all_shards` options are set to `true`, the Validate
       "index": "my-index-000001",
       "shard": 0,
       "valid": true,
-      "explanation": "(user.id:hamlet)^0.6333333 user.id:kimchy"
+      "explanation": "(user.id:hamlet)^0.6333333"
     }
   ]
 }
+```
+
 
 
 
