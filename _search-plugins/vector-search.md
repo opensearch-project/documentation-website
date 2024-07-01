@@ -8,14 +8,14 @@ has_toc: false
 
 # Vector search
 
-You can use OpenSearch as a vector database in two ways:
+You can use OpenSearch as a vector database by generating vector embeddings, storing these embeddings in an index, and using them for vector search. Choose one of the following options:
 
-- [k-NN vector search](#k-nn-vector-search) provides traditional vector database capability in OpenSearch. When using this option, you must generate vectors using a library of your choice before ingesting them into OpenSearch. Once you ingest vectors into an index, you can perform a vector similarity search on the vector space. 
-- [Neural search](#neural-search) is built on top of k-NN search and provides the ability to generate vectors from text at ingestion time and at search time. At ingestion time, neural search transforms text into vector embeddings and indexes both the text and its vector embeddings in a vector index. At search time, neural search converts the query text into vector embeddings and uses vector search to return the most relevant results.
+- Generate embeddings using a library of your choice before ingesting them into OpenSearch. Once you ingest vectors into an index, you can perform a vector similarity search on the vector space. For more information, see [Working with embeddings generated outside of OpenSearch](#working-with-embeddings-generated-outside-of-opensearch). 
+- Automatically generate embeddings within OpenSearch. [Neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/) provides the ability to generate vectors from text at ingestion time and at search time. At ingestion time, neural search transforms text into vector embeddings and indexes both the text and its vector embeddings in a vector index. At search time, neural search converts the query text into vector embeddings and uses vector search to return the most relevant results. For more information, see [Generating vector embeddings within OpenSearch](#generating-vector-embeddings-within-opensearch).
 
-## k-NN vector search
+## Working with embeddings generated outside of OpenSearch
 
-After you generate vectors, upload them into an OpenSearch index and search this index using vector search.
+After you generate vector embeddings, upload them into an OpenSearch index and search this index using vector search.
 
 ### k-NN index and k-NN vector
 
@@ -109,9 +109,9 @@ In general, select NMSLIB and Faiss for large-scale use cases. Lucene is a good 
 
 For information about vector search with filtering, see [k-NN search with filters]({{site.url}}{{site.baseurl}}/search-plugins/knn/filter-search-knn/).
 
-## Neural search
+## Generating vector embeddings within OpenSearch
 
-Neural search is built on top of k-NN search. It transforms text into vector embeddings and indexes both the text and its vector embeddings in a vector index. When you use a neural query during search, neural search converts the query text into vector embeddings and uses vector search to return the most relevant results.
+[Neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/) transforms text into vector embeddings and indexes both the text and its vector embeddings in a vector index. When you use a neural query during search, neural search converts the query text into vector embeddings and uses vector search to return the most relevant results.
 
 ### Choosing a model
 
