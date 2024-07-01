@@ -827,3 +827,89 @@ The results contain the three matching blog posts:
 }
 ```
 </details>
+
+## Named functions
+
+You can specify `_name` parameter for every function top level definition. This parameter is used to identify the function in the response. The name is useful for debugging and understanding the scoring process. Once specified, it is returned back as a part of explanation whenever it dims possible (it applies to functions, filters and queries).
+
+### Example
+
+The following request sets `explain: true` for debugging purpose to retrieve the explanation of the scoring process in the response. For the ease of identifying unambiguously the functions, the `_name` parameter is set for each function:
+
+```json
+GET blogs/_search
+{
+  "explain": true,
+  "query": {
+    "function_score": {
+      "functions": [
+        {
+          "script_score": {
+            "_name": "likes_function",
+            "script": {
+              "lang": "painless",
+              "source": "return doc['likes'].value >= 800;"
+            },
+            "weight": 0.7
+          }
+        },
+        {
+          "field_value_factor": {
+            "_name": "views_function",
+            "field": "views",
+            "factor": 1.5,
+            "modifier": "log1p",
+            "missing": 1
+          },
+          "weight": 0.3
+        }
+      ]
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response will contain the explanation of the scoring process with the names of the functions in it:
+
+<details open markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
+
+```json
+{
+  "took": 14,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 3,
+      "relation": "eq"
+    },
+    "max_score": 31.191923,
+    "hits": [
+      {
+        "_index": "blogs",
+        "_id": "3",
+        "_score": 31.191923,
+        "_source": {
+          "name": "Distributed tracing with Data Prepper",
+          "views": 800,
+          "likes": 50,
+          "comments": 5,
+          "date_posted": "2022-04-25"
+        },
+        "_explanation": {}
+      }
+    ]
+  }
+}
+```
+</details>
