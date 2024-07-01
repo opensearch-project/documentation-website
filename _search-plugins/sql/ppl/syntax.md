@@ -24,7 +24,7 @@ Field | Description | Required
 :--- | :--- |:---
 `search` | Specifies search keywords. | Yes
 `index` | Specifies which index to query from. | No
-`where-filter` | A boolean expression that filters searches exactly like a `where` command. | No
+`where-filter` | A Boolean expression that filters searches exactly like a `where` command. | No
 
 ## Examples
 
