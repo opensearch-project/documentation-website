@@ -1,4 +1,7 @@
+import * as UBI from "./ubi.js";
+
 (() => {
+
     document.addEventListener('DOMContentLoaded', () => {
         //
         // Search field behaviors
@@ -66,6 +69,10 @@
             highlightResult(e.target?.closest('.top-banner-search--field-with-results--field--wrapper--search-component--search-results--result'));
         }, true);
 
+        elResults.addEventListener('click', e => {
+            clickResult(e.target?.closest('.top-banner-search--field-with-results--field--wrapper--search-component--search-results--result'));
+        }, true);
+
         const debounceInput = () => {
             clearTimeout(debounceTimer);
             debounceTimer = setTimeout(doSearch, 300);
@@ -97,6 +104,7 @@
             lastQuery = query;
 
             abortPreviousCalls();
+            UBI.clearCache();
 
             elSpinner?.classList.add(CLASSNAME_SPINNING);
             if (!_showingResults) document.documentElement.classList.add('search-active');
@@ -118,10 +126,18 @@
                 if (!Array.isArray(data?.results) || data.results.length === 0) {
                     return showNoResults();
                 }
+                const [qid, result_ids] = UBI.cacheQueryResults(data.results);
+                let ubi_event = makeUbiEvent('search', 'search_results', {
+                    id:UBI.hash(query),
+                    query:query,
+                    result_ids:result_ids
+                });
+                UBI.logEvent(ubi_event);
+
                 const chunks = data.results.map(result => result
                     ? `
                     <div class="${searchResultClassName}">
-                        <a href="${sanitizeAttribute(result.url)}">
+                        <a id="${UBI.hash(result.url)}" href="${sanitizeAttribute(result.url)}"> 
                             <cite>${getBreadcrumbs(result)}</cite>
                             ${sanitizeText(result.title || 'Unnamed Document')}
                         </a>
@@ -206,6 +222,8 @@
             const searchResultClassName = 'top-banner-search--field-with-results--field--wrapper--search-component--search-results--result';
             if (!node || !_showingResults || node.classList.contains(CLASSNAME_HIGHLIGHTED)) return;
 
+            // ToDo: UBI item_hover can go here...hover, but no click implies irrelevance in results
+
             elResults.querySelectorAll(`.${searchResultClassName}.highlighted`).forEach(el => {
                 el.classList.remove(CLASSNAME_HIGHLIGHTED);
             });
@@ -247,14 +265,102 @@
             }
         };
 
+        const clickResult = node => {
+            const searchResultClassName = 'top-banner-search--field-with-results--field--wrapper--search-component--search-results--result';
+            if (!node || !_showingResults) return;
+
+            const link = node.querySelector('a');
+            if(link){
+                logUbiEvent('item_click', link);
+            }
+
+            return true;
+        };
+
         const navToHighlightedResult = () => {
             const searchResultClassName = 'top-banner-search--field-with-results--field--wrapper--search-component--search-results--result';
             elResults.querySelector(`.${searchResultClassName}.highlighted a[href]`)?.click?.();
         };
 
+        /**
+         * Find item and position clicked
+         * Modifies the ubi event data if the item is found
+         * @param {UbiEventData} ubiEvent - UBI.UbiEventData object
+         * @param {*} link - link clicked
+         * @returns 
+         */
+        const setUbiClickData = (ubiEvent, link) => {
+            ubiEvent.event_attributes.position = new UBI.UbiPosition({x:link.offsetLeft, y:link.offsetTop});
+
+            if(link.hasAttribute('id')){
+                let id = link.id;
+                //try to find the item ordinal within the result list
+                let resultIds = sessionStorage.getItem('result_ids');
+                if(resultIds != null && resultIds.length > 0){
+                    resultIds = resultIds.split(',');
+                    let ordinal = resultIds.findIndex( i => i===id );
+                    //if found, ordinal starts at 1
+                    if(ordinal != -1){
+                        ubiEvent.event_attributes.position.ordinal = ordinal + 1;
+                        if(ubiEvent.message == undefined || ubi_event.message == null){
+                            ubiEvent.message = `Clicked item ${ordinal+1} out of ${resultIds.length}`
+                        }
+                        
+                        try{
+                            let searchResults = JSON.parse(sessionStorage.getItem('search_results'));
+                            let obj = searchResults[id];
+                            if(obj != null){
+                                ubiEvent.event_attributes.object = obj;
+                                ubiEvent.event_attributes.position.trail = getBreadcrumbs(obj);
+                            }
+                        }catch(e){
+                            console.warn(e);
+                        }
+                    }
+                }
+            }
+            return ubiEvent;
+        };
+
+
+        /**
+         * Helper function to populate the event structure for common
+         *   event data elements
+         * @param {*} name - name of the event to build
+         * @param {*} event_type - type of event to tease out event parameters
+         * @param {*} data - an object associated with the event
+         * @returns 
+         */
+        const makeUbiEvent = (name, event_type, data=null) => {
+            let e = new UBI.UbiEvent(name);
+
+            if(name == 'search'){
+                e.message_type = 'QUERY';
+                e.message = data.search_term;
+                e.event_attributes.object = data;
+            } else if(name == 'item_click') {
+                e = setUbiClickData(e, data);
+            } else if(e.event_attributes.object == null){
+                e.event_attributes.object = data;
+            }
+            return e;
+        }
+
+
+        /**
+         * A method to retrofit and funnel gtag logging to ubi
+         * @param {*} name 
+         * @param {*} data 
+         */
+        const logUbiEvent = (name, data) => {
+            let event = makeUbiEvent(name, 'default', data)
+            UBI.logEvent(event);
+        };
+
         const recordEvent = (name, data) => {
             try {
                 gtag?.('event', name, data);
+                logUbiEvent(name, data);
             } catch (e) {
                 // Do nothing
             }

@@ -1,0 +1,19 @@
+<!--*****************************************
+  Add an include of ubi.html to the markdown file 
+	to log page loads or redirect errors
+***************************************** -->
+<script type="module" src="{{ '/assets/js/ubi.js' | relative_url }}"></script>
+<script>
+	window.addEventListener("DOMContentLoaded", function (e) {
+		try{
+			if(document.getElementById('oops-this-isnt-the-page-youre-looking-for')){
+				logUbiMessage('404_redirect', 'ERROR', `Loaded ${document.title} instead of ${window.location.href}`);
+			}
+			else {
+				logUbiMessage('page_load', 'INFO',`Loaded ${document.title} from ${window.location.pathname}`);
+			}
+		} catch(error){
+		  console.warn('UBI error: ' + error);
+		}
+	  });
+</script>
