@@ -125,7 +125,7 @@ When you use a rerank processor in conjunction with a [normalization processor](
 The processing order is as follows: 
 
 - Normalization processor: This processor normalizes the document scores based on the configured normalization method. For more information, see [Normalization processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/).
-- Rerank processor: Following the normalization, the rerank processor further adjusts the document scores. This adjustment can significantly impact the final ordering of search results.
+- Rerank processor: Following normalization, the rerank processor further adjusts the document scores. This adjustment can significantly impact the final ordering of search results.
 
 This processing order has the following implications:
 
