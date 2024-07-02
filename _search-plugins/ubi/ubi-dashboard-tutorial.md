@@ -21,9 +21,8 @@ To quickly view a dashboard without completing the full tutorial, do the followi
 
 ## 1. Start OpenSearch Dashboards
 
-Start OpenSearch Dashboards, for example, go to `http://{server}:5601/app/home#/`. For more information, see [OpenSearch Dashboards}({{site.url}}{{site.baseurl}}/dashboards/).
+Start OpenSearch Dashboards. For example, go to `http://{server}:5601/app/home#/`. For more information, see [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/). The following image shows the home page:
 ![Dashboard Home]({{site.url}}{{site.baseurl}}/images/ubi/home.png "Dashboards")
-{: .note} 
 
 ## 2. Create an index pattern
 
@@ -68,7 +67,7 @@ The underlying queries can be found at [SQL trending queries]({{site.url}}{{site
 {: .note} 
 
 
-The resulting visualization may not be exactly what you're looking for. The `message` field is updated with every event---not only query/search events---and can be used in any way desired. As a result, it can contain error messages, debug messages, click information, and other unwanted data.
+The resulting visualization may not be exactly what you're looking for. The `message` field is updated with every ---not only query/search s---and can be used in any way desired. As a result, it can contain error messages, debug messages, click information, and other unwanted data.
 To view only search terms for query events, you need to add a filter to your visualization. Because the developer provided a `message_type` of `QUERY` for each search event, you can filter by that message type to isolate the specific users' searches. To do this, select **Add filter** and then select **QUERY** in the **Edit filter** panel, as shown in the following image. 
 ![Word Cloud]({{site.url}}{{site.baseurl}}/images/ubi/tag_cloud2.png "Word Cloud")
 
