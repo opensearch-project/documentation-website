@@ -29,7 +29,7 @@ To get started, choose **Index Management** in OpenSearch Dashboards.
 
 A policy is a set of rules that describes how an index should be managed. For information about creating a policy, see [Policies]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/).
 
-You can use the visual editor or JSON editor to create policies. Compared to the JSON editor, the visual editor offers a more structured way of defining policies by separating the process into creating error notifications, defining ISM templates, and adding states. We recommend using the visual editor if you want to see pre-defined fields, such as which actions you can assign to a state or under what conditions a state can transition into a destination state.
+You can use the visual editor or JSON editor to create policies. Compared to the JSON editor, the visual editor offers a more structured way of defining policies by separating the process into creating error notifications, defining ISM templates, and adding states. We recommend using the visual editor if you want to see predefined fields, such as which actions you can assign to a state or under what conditions a state can transition into a destination state.
 
 #### Visual editor
 
@@ -120,3 +120,527 @@ Make sure that the alias that you enter already exists. For more information abo
 5. To retry a policy, choose your policy, and then choose **Retry policy**.
 
 For information about managing your policies, see [Managed indexes]({{site.url}}{{site.baseurl}}/im-plugin/ism/managedindexes/).
+
+---
+
+## Examples
+
+To illustrate ISM's practical applications and use cases, the following examples demonstrate its capabilities and functionality in action.
+
+In each of the following examples, the policy defines the different states an index can transition through based on age conditions. The actions specified in each state, like rollover, force merge, change replica counts, make indexes read-only or delete, are executed automatically by the ISM plugin.
+
+The `ism_template` section specifies the index patterns to which this policy applies, so any newly created index matching that pattern will automatically have the policy attached.
+
+You can attach these policies to existing indexes as well using the OpenSearch Dashboards user interface or APIs. The ISM plugin then runs periodic jobs to evaluate and execute the policies.
+
+#### Log management
+
+In log analytics, new data is constantly being generated and older logs become less relevant over time. You could create an ISM policy that:
+
+- Rolls over the index every day/week to a new write index
+- Transitions older indexes to read-only after 30 days
+- Deletes indexes older than 90 days
+
+```json
+PUT _plugins/_ism/policies/metrics_management
+{
+  "policy": {
+    "description": "Manage monthly metrics indices",
+    "default_state": "hot",
+    "states": [
+      {
+        "name": "hot",
+        "actions": [
+          {
+            "rollover": {
+              "min_size": "50GB"
+            }
+          }
+        ],
+        "transitions": [
+          {
+            "state_name": "warm",
+            "conditions": {
+              "min_index_age": "30d"
+            }
+          }
+        ]
+      },
+      {
+        "name": "warm",
+        "actions": [
+          {
+            "force_merge": {
+              "max_num_segments": 1
+            }
+          }
+        ],
+        "transitions": [
+          {
+            "state_name": "warm",
+            "conditions": {
+              "min_index_age": "30d"
+            }
+          }
+        ]
+      },
+      {
+        "name": "delete",
+        "actions": [
+          {
+            "delete": {}
+          }
+        ]
+      }
+    ],
+    "ism_template": {
+      "index_patterns": [
+        "metrics-*"
+      ]
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+
+<details markdown="block">
+  <summary>
+    Select to expand response 
+  </summary>
+  {: .text-delta}
+
+```json
+{
+  "_id": "metrics_management",
+  "_version": 1,
+  "_primary_term": 1,
+  "_seq_no": 0,
+  "policy": {
+    "policy": {
+      "policy_id": "metrics_management",
+      "description": "Manage monthly metrics indices",
+      "last_updated_time": 1719870314383,
+      "schema_version": 1,
+      "error_notification": null,
+      "default_state": "hot",
+      "states": [
+        {
+          "name": "hot",
+          "actions": [
+            {
+              "retry": {
+                "count": 3,
+                "backoff": "exponential",
+                "delay": "1m"
+              },
+              "rollover": {
+                "min_size": "50gb",
+                "copy_alias": false
+              }
+            }
+          ],
+          "transitions": [
+            {
+              "state_name": "warm",
+              "conditions": {
+                "min_index_age": "30d"
+              }
+            }
+          ]
+        },
+        {
+          "name": "warm",
+          "actions": [
+            {
+              "retry": {
+                "count": 3,
+                "backoff": "exponential",
+                "delay": "1m"
+              },
+              "force_merge": {
+                "max_num_segments": 1
+              }
+            }
+          ],
+          "transitions": [
+            {
+              "state_name": "warm",
+              "conditions": {
+                "min_index_age": "30d"
+              }
+            }
+          ]
+        },
+        {
+          "name": "delete",
+          "actions": [
+            {
+              "retry": {
+                "count": 3,
+                "backoff": "exponential",
+                "delay": "1m"
+              },
+              "delete": {}
+            }
+          ],
+          "transitions": []
+        }
+      ],
+      "ism_template": [
+        {
+          "index_patterns": [
+            "metrics-*"
+          ],
+          "priority": 0,
+          "last_updated_time": 1719870314383
+        }
+      ]
+    }
+  }
+}
+```
+
+</details>
+
+
+#### Time-series metrics
+
+For an application that collects operational metrics (CPU, memory), the priority is usually on the newest data points for monitoring purposes. A policy could:
+
+- Rollover the index monthly
+- Force merge older indexes for better query performance
+- Delete indexes older than 1 year
+
+```json
+PUT _plugins/_ism/policies/test_metrics_management
+{
+  "policy": {
+    "description": "Manage monthly metrics indices",
+    "default_state": "hot",
+    "states": [
+      {
+        "name": "hot",
+        "actions": [
+          {
+            "rollover": {
+              "min_size": "50GB"
+            }
+          }
+        ],
+        "transitions": [
+          {
+            "state_name": "warm",
+            "conditions": {
+              "min_index_age": "30d"
+            }
+          }
+        ]
+      },
+      {
+        "name": "warm",
+        "actions": [
+          {
+            "force_merge": {
+              "max_num_segments": 1
+            }
+          }
+        ],
+        "transitions": [
+          {
+            "state_name": "delete",
+            "conditions": {
+              "min_index_age": "365d"
+            }
+          }
+        ]
+      },
+      {
+        "name": "delete",
+        "actions": [
+          {
+            "delete": {}
+          }
+        ]
+      }
+    ],
+    "ism_template": {
+      "index_patterns": [
+        "metrics-*"
+      ],
+      "priority": 100
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+
+<details markdown="block">
+  <summary>
+    Select to expand response
+  </summary>
+  {: .text-delta}
+
+```json
+{
+  "_id": "test_metrics_management",
+  "_version": 1,
+  "_primary_term": 1,
+  "_seq_no": 88,
+  "policy": {
+    "policy": {
+      "policy_id": "test_metrics_management",
+      "description": "Manage monthly metrics indices",
+      "last_updated_time": 1719874966725,
+      "schema_version": 1,
+      "error_notification": null,
+      "default_state": "hot",
+      "states": [
+        {
+          "name": "hot",
+          "actions": [
+            {
+              "retry": {
+                "count": 3,
+                "backoff": "exponential",
+                "delay": "1m"
+              },
+              "rollover": {
+                "min_size": "50gb",
+                "copy_alias": false
+              }
+            }
+          ],
+          "transitions": [
+            {
+              "state_name": "warm",
+              "conditions": {
+                "min_index_age": "30d"
+              }
+            }
+          ]
+        },
+        {
+          "name": "warm",
+          "actions": [
+            {
+              "retry": {
+                "count": 3,
+                "backoff": "exponential",
+                "delay": "1m"
+              },
+              "force_merge": {
+                "max_num_segments": 1
+              }
+            }
+          ],
+          "transitions": [
+            {
+              "state_name": "delete",
+              "conditions": {
+                "min_index_age": "365d"
+              }
+            }
+          ]
+        },
+        {
+          "name": "delete",
+          "actions": [
+            {
+              "retry": {
+                "count": 3,
+                "backoff": "exponential",
+                "delay": "1m"
+              },
+              "delete": {}
+            }
+          ],
+          "transitions": []
+        }
+      ],
+      "ism_template": [
+        {
+          "index_patterns": [
+            "metrics-*"
+          ],
+          "priority": 100,
+          "last_updated_time": 1719874966725
+        }
+      ]
+    }
+  }
+}
+```
+
+</details>
+
+
+#### E-commerce data
+
+An e-commerce site may want to keep order data hot/searchable for a certain period, then reduce operational overhead. You could implement:
+
+- A policy that adds replica counts for recent orders (last 3 months)
+- Transition older indexes to fewer replicas after 3 months
+- Delete order data older than 2 years
+
+```json
+PUT _plugins/_ism/policies/orders_management
+{
+  "policy": {
+    "description": "Manage e-commerce order indices",
+    "default_state": "hot",
+    "states": [
+      {
+        "name": "hot",
+        "actions": [
+          {
+            "replica_count": {
+              "number_of_replicas": 2
+            }
+          }
+        ],
+        "transitions": [
+          {
+            "state_name": "warm",
+            "conditions": {
+              "min_index_age": "90d"
+            }
+          }
+        ]
+      },
+      {
+        "name": "warm",
+        "actions": [
+          {
+            "replica_count": {
+              "number_of_replicas": 1
+            }
+          }
+        ],
+        "transitions": [
+          {
+            "state_name": "delete",
+            "conditions": {
+              "min_index_age": "730d"
+            }
+          }
+        ]
+      },
+      {
+        "name": "delete",
+        "actions": [
+          {
+            "delete": {}
+          }
+        ]
+      }
+    ],
+    "ism_template": {
+      "index_patterns": [
+        "orders-*"
+      ]
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+
+<details markdown="block">
+  <summary>
+    Select to expand response
+  </summary>
+  {: .text-delta}
+
+```json
+{
+  "_id": "orders_management",
+  "_version": 1,
+  "_primary_term": 1,
+  "_seq_no": 118,
+  "policy": {
+    "policy": {
+      "policy_id": "orders_management",
+      "description": "Manage e-commerce order indices",
+      "last_updated_time": 1719875866391,
+      "schema_version": 1,
+      "error_notification": null,
+      "default_state": "hot",
+      "states": [
+        {
+          "name": "hot",
+          "actions": [
+            {
+              "retry": {
+                "count": 3,
+                "backoff": "exponential",
+                "delay": "1m"
+              },
+              "replica_count": {
+                "number_of_replicas": 2
+              }
+            }
+          ],
+          "transitions": [
+            {
+              "state_name": "warm",
+              "conditions": {
+                "min_index_age": "90d"
+              }
+            }
+          ]
+        },
+        {
+          "name": "warm",
+          "actions": [
+            {
+              "retry": {
+                "count": 3,
+                "backoff": "exponential",
+                "delay": "1m"
+              },
+              "replica_count": {
+                "number_of_replicas": 1
+              }
+            }
+          ],
+          "transitions": [
+            {
+              "state_name": "delete",
+              "conditions": {
+                "min_index_age": "730d"
+              }
+            }
+          ]
+        },
+        {
+          "name": "delete",
+          "actions": [
+            {
+              "retry": {
+                "count": 3,
+                "backoff": "exponential",
+                "delay": "1m"
+              },
+              "delete": {}
+            }
+          ],
+          "transitions": []
+        }
+      ],
+      "ism_template": [
+        {
+          "index_patterns": [
+            "orders-*"
+          ],
+          "priority": 0,
+          "last_updated_time": 1719875866390
+        }
+      ]
+    }
+  }
+}
+```
+
+</details>
