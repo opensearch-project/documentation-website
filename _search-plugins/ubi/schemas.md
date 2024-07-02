@@ -153,10 +153,10 @@ Because UBI manages the `ubi_queries` index, you should never have to write dire
 The client side directly indexes events to the `ubi_events` index, linking the event [`action_name`](#action_name), objects (each with an [`object_id`](#object_id)), and queries (each with a [`query_id`](#query_id)), along with any other important event information.
 Because this schema is dynamic, you can add any new fields or structures (such as user information or geolocation information) that are not in the current **UBI events** [schema](https://github.com/opensearch-project/user-behavior-insights/tree/main/src/main/resources/events-mapping.json) at index time.
 
-The following are the predefined, minimal fields in the `ubi_events` index:
-
 Developers may define new fields under [`event_attributes`](#event_attributes).
 {: .note}
+
+The following are the predefined, minimal fields in the `ubi_events` index:
 
  <p id="application"> </p>
 
