@@ -40,7 +40,7 @@ The following GIF shows the steps required for setting up and connecting a data 
 ### Step 2: Create the visualization
 
 1. From the menu on the left, select **Visualize**.
-2. From the **Visualizations** page, select **Create Visualization** and then select **Vega** from the pop-up window.
+2. On the **Visualizations** page, select **Create Visualization** and then select **Vega** in the pop-up window.
 
 ### Step 3: Add the Vega specification
 
