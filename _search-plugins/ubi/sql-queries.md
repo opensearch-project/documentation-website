@@ -17,10 +17,9 @@ To query a demo workbench with synthetic data, see
 
 Queries can be executed on events on either the server (`ubi_queries`) or client (`ubi_events`) side.
 
-### Server-side events
+### Server-side queries
 
-The UBI-activated search server logs the queries and results, so in order to find all queries with no results, 
-the developer needs to search for empty `query_response_hit_ids`:
+The UBI-activated search server logs the queries and their results, so in order to find all queries with *no* results, search for empty `query_response_hit_ids`:
 
 ```sql
 select
@@ -32,11 +31,8 @@ where query_response_hit_ids is null
 
 ### Client-side events
 
-Although it's trivial to find queries with no results on the server side, you can also obtain the same result by querying the event attributes that were logged.
-Both client- and server-side queries return the same results.
-
-The search client is responsible for populating the `result_count` field.
-{: .note}
+Although it's relatively straightforward to find queries with no results on the server side, you can also get the same result by querying the *event attributes* that were logged on the client side.
+Both client- and server-side queries return the same results. Use the following query to search for queries with no results: 
 
 ```sql
 select
