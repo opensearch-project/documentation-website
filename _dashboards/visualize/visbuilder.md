@@ -22,7 +22,7 @@ You can use the VisBuilder visualization type in OpenSearch Dashboards to create
 
 ## Try VisBuilder in the OpenSearch Dashboards playground
 
-If you'd like to try out VisBuilder without installing OpenSearch locally, you can do so in the [OpenSearch Dashboards playground](https://playground.opensearch.org/app/vis-builder#/). VisBuilder is enabled by default.
+You can try VisBuilder without installing OpenSearch locally by using [OpenSearch Dashboards Playground](https://playground.opensearch.org/app/vis-builder#/). VisBuilder is enabled by default.
 
 ## Try VisBuilder locally
 
