@@ -51,7 +51,7 @@ After creating a TSVB visualization, data may appear based on your default index
 
 1. In the **Create** window, select **Panel options**.
 2. Under **Data source**, select the OpenSearch cluster from which to pull data. In this case, choose your newly created data source.
-3. From **Index name**, enter `opensearch_dashboards_sample_data_logs`.
+3. Under **Index name**, enter `opensearch_dashboards_sample_data_logs`.
 4. Under **Time field**, select `@timestamp`. This setting specifies the time range for rendering the visualization.
 
 **(Optional) Step 4: Add annotations**
