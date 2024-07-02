@@ -97,5 +97,5 @@ GET ubi_events/_search
 
 You can run the preceding queries in the OpenSearch Dashboards [Query Workbench]({{site.url}}{{site.baseurl}}/search-plugins/sql/workbench/). 
 
-A demo workbench with data can be found here: 
+A demo workbench with sample data can be found here: 
 [http://chorus-opensearch-edition.dev.o19s.com:5601/app/OpenSearch-query-workbench](http://chorus-OpenSearch-edition.dev.o19s.com:5601/app/OpenSearch-query-workbench).
