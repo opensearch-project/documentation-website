@@ -10,11 +10,13 @@ redirect_from:
 
 # Alerting
 
-To create an alert, do the following: 
+Alerting in OpenSearch enables proactive monitoring and timely response to potential issues or anomalies within your data and applications. Whether you're building and maintaining applications or ensuring the smooth operation of systems, alerting has a crucial role in maintaining system health and minimizing downtime.
 
-- Configure a _monitor_, which is a job that runs on a defined schedule and queries OpenSearch indexes. Required.
-- Configure one or more _triggers_, which define the conditions that generate events. Optional.
-- Configure _actions_, which is what happens after an alert is triggered. Optional.
+In OpenSearch, you can configure alerts by creating monitors that run on a defined schedule and query indexes. You define triggers that specify conditions for generating alert events, such as thresholds on a specific field. You can also configure actions for the alerts, such as sending notifications through email, Slack, or custom webhooks. OpenSearch Dashboards brings alerting and monitoring directly into the dashboard experience, allowing you to overlay alerts and anomalies visually on time-series charts for enhanced insights. 
+
+Here is an example configuration.
+
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/alerting-config.png" alt="Alerting monitor configuration" width="500"/>
 
 ## Key terms
 
@@ -23,34 +25,52 @@ The following table lists alerting terminology commonly used in OpenSearch and t
 Term | Definition
 :--- | :---
 Monitor | Job that runs on a defined schedule and queries OpenSearch indexes. The results of these queries are then used as input for one or more triggers.
-Trigger | Conditions that, if met, generate alerts. See [Triggers]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/).
+Trigger | Conditions that, if met, generate alerts.
 Alert | Event associated with a trigger. When an alert is created, the trigger performs actions, including sending notifications.
-Action | Specific task that is performed when an alert is triggered. See [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/actions/).
-Notification | Message that is sent to users when an alert is triggered. See [Notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/).
+Action | Specific task that is performed when an alert is triggered.
+Notification | Message that is sent to users when an alert is triggered.
 
-## Alert states
+## Alerting settings
+
+Some key alerting settings in OpenSearch include the ability to customize trigger conditions, severity levels, notification channels, and recurrence intervals for monitors. You can modify settings like notification message templates, throttling to avoid duplicate alerts, and status expiration periods. 
+
+See [Triggers]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/#trigger-variables) and [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/actions/) for deeper discussion of the settings.
+
+## Alerting states
 
 The following table lists the alert states. 
 
 State | Description
 :--- | :---
-Active | The alert is ongoing and unacknowledged. Alerts remain in this state until you acknowledge them, delete the trigger associated with the alert, or delete the monitor entirely. Alerts also can be moved out of the active state if the trigger condition is no longer met. For example, if an index has 4,000 documents and a trigger condition is `numOfDocs > 5000`, an active alert is generated when 3,000 documents are added to the index. If the added 3,000 documents are then deleted from the index, the alert changes to the completed state because the condition is no longer triggered.
-Acknowledged | The alert is acknowledged but the root cause is not fixed.
-Completed | The alert is no longer ongoing. Alerts enter this state after the corresponding trigger evaluates to `false`.
-Error | An error occurred while executing the trigger---usually the result of a bad trigger or destination.
+`active` | The alert is ongoing and unacknowledged. Alerts remain in this state until you acknowledge them, delete the trigger associated with the alert, or delete the monitor entirely. Alerts also can be moved out of the active state if the trigger condition is no longer met. For example, if an index has 4,000 documents and a trigger condition is `numOfDocs > 5000`, an active alert is generated when 3,000 documents are added to the index. If the added 3,000 documents are then deleted from the index, the alert changes to the completed state because the condition is no longer triggered.
+`acknowledged` | The alert is acknowledged but the root cause is not fixed.
+`completed` | The alert is no longer ongoing. Alerts enter this state after the corresponding trigger evaluates to `false`.
+`error` | An error occurred while executing the trigger---usually the result of a bad trigger or destination.
 Deleted | The monitor or trigger associated with this alert was deleted while the alert was ongoing.
 
-## Creating an alert monitor
+## Creating alerts from within OpenSearch Dashboards
 
-You can follow these basic steps to create an alert monitor:
+You can create alerts at the cluster level and from within OpenSearch Dashboards. This documentation is about OpenSearch Dashboards. See [Alerting API](/observing-your-data/alerting/api/) for details about how to programmatically create, update, and manage monitors and alerts.
+
+The following steps guide you through creating a basic monitor:
 
 1. In the **OpenSearch Plugins** main menu, choose **Alerting**.
-1. Choose **Create monitor**. See [Monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/) for more information about the monitor types.
-1. Enter the **Monitor details**, including monitor type, method, and schedule.  
-1. Select a data source from the dropdown list.
-1. Define the metrics in the Query section.
-1. Add a trigger. See [Triggers]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/) for more information about triggers.
-1. Add an action. See [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/actions/) for more information about actions. 
-1. Select **Create**.
+2. Choose **Create monitor**.
+3. Enter the **Monitor details**, including monitor type, method, and schedule.
+4. Select a data source from the dropdown list.	
+5. Define the metrics in the Query section.	
+6. Add a trigger.
+7. Add an action.
+8. Select **Create**.
+
+## Next steps
+
+Learn more about the following features:
+
+- [Monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/)
+- [Triggers]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/)
+- [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/actions/)
+- [Notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/)
+- [Alerting dashboards and visualizations]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/dashboards-alerting/)
 
 Learn more about creating specific monitor types in their respective documentation.
