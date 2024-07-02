@@ -15,7 +15,7 @@ The `date` processor adds a default timestamp to an event, parses timestamp fiel
 
 The following table describes the options you can use to configure the `date` processor.
 
-<!-- vale off -->
+
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `match` | Conditionally | [Match](#Match) | The date match configuration. This option cannot be defined at the same time as `from_time_received`. There is no default value.
@@ -27,7 +27,7 @@ Option | Required | Type | Description
 `source_timezone` | No | String | The time zone used to parse dates, including when the zone or offset cannot be extracted from the value. If the zone or offset are part of the value, then the time zone is ignored. A list of all the available time zones is contained in the **TZ database name** column of [the list of database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List).
 `destination_timezone` | No | String | The time zone used for storing the timestamp in the `destination` field. A list of all the available time zones is contained in the **TZ database name** column of [the list of database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List).
 `locale` | No | String | The location used for parsing dates. Commonly used for parsing month names (`MMM`). The value can contain language, country, or variant fields in IETF BCP 47, such as `en-US`, or a string representation of the [locale](https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html) object, such as `en_US`. A full list of locale fields, including language, country, and variant, can be found in [the language subtag registry](https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry). Default is `Locale.ROOT`.
-<!-- vale on -->
+
 
 ### Match
 
