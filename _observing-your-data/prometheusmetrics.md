@@ -2,8 +2,6 @@
 layout: default
 title: Metric analytics
 nav_order: 40
-redirect_from:
-  - /observing-your-data/metricsanalytics/
 ---
 
 # Metric analytics
@@ -165,7 +163,7 @@ You can view metrics from remote OpenSearch clusters by using the **Metrics** to
 
 You can also view metric visualizations from other sources alongside local metric visualizations. From the **DATA SOURCES** dropdown menu, choose the remote metric visualization to add it to the group of visualizations already shown on the dashboard. An example dashboard is shown in the following image.
 
-<img src="{site.url}}{{site.baseurl}}/images/metrics/otel-metrics-remote-cluster-selection.png" alt="Metrics dashboard" width="700"/>
+<img src="{{site.url}}{{site.baseurl}}/images/metrics/otel-metrics-remote-cluster-selection.png" alt="Metrics dashboard" width="700"/>
 
 To learn about multi-cluster support for data sources, see [Enable OpenSearch Dashboards to support multiple OpenSearch clusters](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/1388).
 
