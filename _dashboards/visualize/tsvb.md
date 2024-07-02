@@ -47,7 +47,7 @@ Follow these steps to create the visualization:
 
 **Step 3: Specify data sources**
 
-After creating a TSVB visualization, data may appear based on your default index pattern. To change the index pattern or configure additional settings, follow these steps to customize your visualization:
+After creating a TSVB visualization, data may appear based on your default index pattern. To change the index pattern or configure additional settings, follow these steps:
 
 1. From the **Create** window, select **Panel options**.
 2. From **Data source**, select the OpenSearch cluster from which to pull data. In this case, choose your newly created data source.
