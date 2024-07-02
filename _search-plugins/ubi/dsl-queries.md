@@ -8,7 +8,7 @@ nav_order: 15
 
 # Example UBI query DSL queries
 
-You can use the OpenSearch search query language, [query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/), to write UBI queries. The following example returns the number of times each `action_name` event occurs.
+You can use the OpenSearch search query language, [query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/), to write User Behavior Insights (UBI) queries. The following example returns the number of times that each `action_name` event occurs.
 For more extensive analytic queries, see [Example UBI SQL queries]({{site.url}}{{site.baseurl}}/search-plugins/ubi/sql-queries/). 
 #### Example request
 ```json
@@ -98,4 +98,4 @@ GET ubi_events/_search
 You can run the preceding queries in the OpenSearch Dashboards [Query Workbench]({{site.url}}{{site.baseurl}}/search-plugins/sql/workbench/). 
 
 A demo workbench with data can be found here: 
-[http://chorus-opensearch-edition.dev.o19s.com:5601/app/OpenSearch-query-workbench](http://chorus-OpenSearch-edition.dev.o19s.com:5601/app/OpenSearch-query-workbench)
+[http://chorus-opensearch-edition.dev.o19s.com:5601/app/OpenSearch-query-workbench](http://chorus-OpenSearch-edition.dev.o19s.com:5601/app/OpenSearch-query-workbench).

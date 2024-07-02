@@ -8,7 +8,7 @@ nav_order: 10
 
 # UBI client data structures
 
-Data structures are used to create events that follow the [UBI event schema specification](https://github.com/o19s/ubi).
+Data structures are used to create events that follow the [User Behavior Insights (UBI) event schema specification](https://github.com/o19s/ubi).
 For more information about the schema, see [UBI index schemas]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/).
 
 
@@ -21,7 +21,7 @@ You can also optionally provide an implementation for the following functions:
 - `getPageId()`
 
 
-The following JavaScript structures can be used as a starter implementation to serialize UBI events into schema-compatible JSON.
+The following JavaScript structures can be used as a starter implementation to serialize UBI events into schema-compatible JSON:
 ```js
 /*********************************************************************************************
  * Ubi Event data structures
