@@ -27,19 +27,22 @@ UBI includes the following elements:
 The UBI documentation is organized into two categories: *Explanation and reference* and *Tutorials and how-to guides*:   
 
 **Explanation and reference** 
+
 | Link | Description |
 | :--------- | :------- |
 | [UBI Request/Response Specification](https://github.com/o19s/ubi/) | The industry-standard schema for UBI requests and responses. The current version references UBI Specification 1.0.0.  |
-| [UBI OpenSearch schema documentation]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/) | Documentation on the individual OpenSearch query and event stores. |
+| [UBI index schema]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/) | Documentation on the individual OpenSearch query and event stores. |
 
 
 **Tutorials and how-to guides**
+
 | Link | Description |
 | :--------- | :------- |
 | [UBI plugin](https://github.com/opensearch-project/user-behavior-insights) | How to install and use the UBI plugin. |
-| [JavaScript client structures]({{site.url}}{{site.baseurl}}/search-plugins/ubi/data-structures/)  | Sample JavaScript structures for populating the event store. |
-| [UBI SQL queries]({{site.url}}{{site.baseurl}}/search-plugins/ubi/sql-queries/)  | How to write analytic queries for UBI data in SQL. |
-| [UBI Ddshboard tutorial]({{site.url}}{{site.baseurl}}/search-plugins/ubi/ubi-dashboard-tutorial/) | How to build a dashboard containing UBI data. |
+| [UBI client data structures]({{site.url}}{{site.baseurl}}/search-plugins/ubi/data-structures/)  | Sample JavaScript structures for populating the event store. |
+| [Example UBI query DSL queries]({{site.url}}{{site.baseurl}}/search-plugins/ubi/dsl-queries/)  | How to write queries for UBI data in OpenSearch query DSL. |
+| [Example UBI SQL queries]({{site.url}}{{site.baseurl}}/search-plugins/ubi/sql-queries/)  | How to write analytic queries for UBI data in SQL. |
+| [UBI dashboard tutorial]({{site.url}}{{site.baseurl}}/search-plugins/ubi/ubi-dashboard-tutorial/) | How to build a dashboard containing UBI data. |
 | [Chorus Opensearch Edition](https://github.com/o19s/chorus-opensearch-edition/?tab=readme-ov-file#structured-learning-using-chorus-opensearch-edition) katas | A series of structured tutorials that teach you how to use UBI with OpenSearch through a demo e-commerce store. |
 
 <!-- vale on -->
