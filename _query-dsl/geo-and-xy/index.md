@@ -12,7 +12,7 @@ redirect_from:
 
 # Geographic and xy queries
 
-Geographic and xy queries let you search fields that contain points and shapes on a map or coordinate plane. Geographic queries work on geospatial data, while xy queries work on two-dimensional coordinate data. Out of all geographic queries, the geoshape query is very similar to the xy query, but the former searches [geographic fields]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geographic), while the latter searches [Cartesian fields]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy).
+Geographic and xy queries let you search fields that contain points and shapes on a map or coordinate plane. Geographic queries work on geospatial data, while xy queries work on two-dimensional coordinate data. Out of all geographic queries, the geoshape query is very similar to the xy query, but the former searches [geographic fields]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geographic/), while the latter searches [Cartesian fields]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy).
 
 ## xy queries
 
@@ -24,7 +24,7 @@ xy queries return documents that contain:
 
 ## Geographic queries
 
-Geographic queries search for documents that contain geospatial geometries. These geometries can be specified in [`geo_point`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point) fields, which support points on a map, and [`geo_shape`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-shape) fields, which support points, lines, circles, and polygons. 
+Geographic queries search for documents that contain geospatial geometries. These geometries can be specified in [`geo_point`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/) fields, which support points on a map, and [`geo_shape`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-shape/) fields, which support points, lines, circles, and polygons. 
 
 OpenSearch provides the following geographic query types:
 
