@@ -33,7 +33,7 @@ The following examples show how the `add_entries` processor can be used in diffe
 
 ### Example: Add entries with simple values
 
-The following example shows how you can configure the processor to add entries with simple values:
+The following example shows you how to configure the processor to add entries with simple values:
 
 ```yaml
 ... 
@@ -62,7 +62,7 @@ The processed event will contain the following data:
 
 ### Example: Add entries using format strings
 
-The following example shows how you can configure the processor to add entries with values from other fields:
+The following example shows you how to configure the processor to add entries with values from other fields:
 
 ```yaml
 ... 
@@ -89,7 +89,7 @@ The processed event will contain the following data:
 
 ### Example: Add entries using value expressions
 
-The following example shows how you can configure the processor to use the `value_expression` option:
+The following example shows you how to configure the processor to use the `value_expression` option:
 
 ```yaml
 ... 
@@ -116,7 +116,7 @@ The processed event will contain the following data:
 
 ### Example: Add metadata
 
-The following example shows how you can configure the processor to add metadata to events:
+The following example shows you how to configure the processor to add metadata to events:
 
 ```yaml
 ... 
@@ -135,12 +135,12 @@ When the input event contains the following data:
 {"message": "hello"}
 ```
 
-The processed event will have the same data wit the metadata, `{"length": 5}`, attached. You can subsequently use expressions like `getMetadata("length")` in the pipeline. For more information, see the [`getMetadata` function](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/#getmetadata) documentation.
+The processed event will have the same data, with the metadata, `{"length": 5}`, attached. You can subsequently use expressions like `getMetadata("length")` in the pipeline. For more information, see the [`getMetadata` function](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/#getmetadata) documentation.
 
 
-### Example: Add dynamic key
+### Example: Add a dynamic key
 
-The following example shows how you can configure the processor to add metadata to events using a dynamic key:
+The following example shows you how to configure the processor to add metadata to events using a dynamic key:
 
 ```yaml
 ... 
@@ -167,7 +167,7 @@ The processed event will contain the following data:
 
 ### Example: Overwrite existing entries
 
-The following example shows how you can configure the processor to overwrite existing entries:
+The following example shows you how to configure the processor to overwrite existing entries:
 
 ```yaml
 ... 
@@ -193,11 +193,11 @@ The processed event will contain the following data:
 {"message": "bye"}
 ```
 
-If `overwrite_if_key_exists` is not set to `true`, the input event will not be changed after going through the processor.
+If `overwrite_if_key_exists` is not set to `true`, then the input event will not be changed after processing.
 
-### Example: Append to existing entries
+### Example: Append values to existing entries
 
-The following example shows how you can configure the processor to overwrite existing entries:
+The following example shows you how to configure the processor to append values to existing entries:
 
 ```yaml
 ... 
