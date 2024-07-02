@@ -61,7 +61,7 @@ Annotations are markers that can be added to time-series visualizations. Follow 
 1. On the upper-left corner of the page, select **Time Series**.
 2. Select the **Annotations** tab and then **Add data source**.
 3. In the **Index** name field, specify the appropriate index. In this case, continue using the same index from the previous steps, that is, `opensearch_dashboards_sample_data_logs`.
-4. From **Time** field, select **@timestamp**.
+4. From **Time** field, select `@timestamp`.
 5. In the **Fields** field, enter `timestamp`.
 6. In the **Row template** field, enter `timestamp`.
 
