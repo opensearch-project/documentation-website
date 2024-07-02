@@ -12,13 +12,13 @@ redirect_from:
 
 # xy query
 
-To search for documents that contain [xy point]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy-point) and [xy shape]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy-shape) fields, use an xy query. 
+To search for documents that contain [xy point]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy-point/) and [xy shape]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy-shape/) fields, use an xy query. 
 
 ## Spatial relations
 
 When you provide an xy shape to the xy query, the xy fields are matched using the following spatial relations to the provided shape.
 
-Relation | Description | Supporting xy Field Type
+Relation | Description | Supporting xy field type
 :--- | :--- | :--- 
 `INTERSECTS` | (Default) Matches documents whose xy point or xy shape intersects the shape provided in the query. | `xy_point`, `xy_shape`
 `DISJOINT` | Matches documents whose xy shape does not intersect with the shape provided in the query. | `xy_shape`
