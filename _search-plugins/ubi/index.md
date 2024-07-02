@@ -26,7 +26,7 @@ UBI includes the following elements:
 
 The UBI documentation is organized into two categories: *Explanation and reference* and *Tutorials and how-to guides*:   
 
-**Explanation and reference** 
+*Explanation and reference*
 
 | Link | Description |
 | :--------- | :------- |
@@ -34,7 +34,7 @@ The UBI documentation is organized into two categories: *Explanation and referen
 | [UBI index schema]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/) | Documentation on the individual OpenSearch query and event stores. |
 
 
-**Tutorials and how-to guides**
+*Tutorials and how-to guides*
 
 | Link | Description |
 | :--------- | :------- |
