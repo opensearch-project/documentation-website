@@ -8,7 +8,7 @@ redirect_from:
   - /dashboards/selfhost-maps-server/
 ---
 
-# Using self-host maps servers
+# Using self-hosted map servers
 
 The self-host maps server for OpenSearch Dashboards allows users to access the default maps service in air-gapped environments. OpenSearch-compatible map URLs include a map manifest with map tiles and vectors, the map tiles, and the map vectors.
 
