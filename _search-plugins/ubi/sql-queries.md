@@ -6,12 +6,12 @@ has_children: false
 nav_order: 20
 ---
 
-# Example UBI SQL queries
+# Sample UBI SQL queries
 
-You can run sample UBI SQL queries in the OpenSearch Dashboards [Query Workbench]({{site.url}}{{site.baseurl}}/dashboards/query-workbench/).
+You can run sample User Behavior Insights (UBI) SQL queries in the OpenSearch Dashboards [Query Workbench]({{site.url}}{{site.baseurl}}/dashboards/query-workbench/).
 
 To query a demo workbench with synthetic data, see 
-[http://chorus-opensearch-edition.dev.o19s.com:5601/app/opensearch-query-workbench](http://chorus-opensearch-edition.dev.o19s.com:5601/app/opensearch-query-workbench)
+[http://chorus-opensearch-edition.dev.o19s.com:5601/app/opensearch-query-workbench](http://chorus-opensearch-edition.dev.o19s.com:5601/app/opensearch-query-workbench).
 
 ## Queries with zero results
 
@@ -46,7 +46,7 @@ where event_attributes.result_count > 0
 
 ## Trending queries
 
-Trending queries can be found with either of the following queries.
+Trending queries can be found by using either of the following queries.
 
 ### Server-side
 
@@ -70,7 +70,7 @@ group by message
 order by Total desc
 ```
 
-Both queries return the distribution of search strings:
+Both queries return the distribution of search strings, as shown in the following table.
 
 Message|Total
 |---|---|
@@ -103,7 +103,7 @@ abraza metodologías B2C|3
 
 ## Event type distribution counts
 
-To make a pie chart widget visualizing the most common events, run the following query:
+To create a pie chart widget visualizing the most common events, run the following query:
 
 ```sql
 select 
@@ -113,7 +113,7 @@ group by action_name
 order by Total desc
 ```
 
-The results include a distribution across actions:
+The results include a distribution across actions, as shown in the following table.
 
 action_name|Total
 |---|---|
@@ -132,7 +132,7 @@ page_exit|142
 user_feedback|123
 404_redirect|123
 
-The following query shows the distribution of margins across user actions.
+The following query shows the distribution of margins across user actions:
 
 
 ```sql
@@ -146,7 +146,7 @@ group by action_name
 order by average_cost desc
 ```
 
-The results include actions and the distribution across cost and margins:
+The results include actions and the distribution across average costs and margins, as shown in the following table.
 
 action_name|total|average_cost|average_margin
 ---|---|---|---
@@ -167,7 +167,7 @@ type_filter|3691||
 
 ## Sample search journey
 
-To find a search in the query log:
+To find a search in the query log, run the following query:
 
 ```sql
 select
@@ -179,7 +179,7 @@ client_id|query_id|user_query|query_response_hit_ids|query_response_id|timestamp
 ---|---|---|---|---|---
 a15f1ef3-6bc6-4959-9b83-6699a4d29845|7ae52966-4fd4-4ab1-8152-0fd0b52bdadf|notebook|0882780391659|6e92c90c-1eee-4dd6-b820-c522fd4126f3|2024-06-04 19:02:45.728
 
-The `query` field from this `query_id` has the following nested structure:
+The `query` field in `query_id` has the following nested structure:
 {: .note} 
 
 ```json
@@ -230,7 +230,7 @@ order by timestamp
 
 <!-- vale off -->
 
-The results include all events that are associated with the user's query:
+The results include all events associated with the user's query, as shown in the following table.
 
 application|query_id|action_name|message_type|message|client_id|timestamp
 ---|---|---|---|---|---|---
@@ -245,7 +245,7 @@ ubi-demo|7ae52966-4fd4-4ab1-8152-0fd0b52bdadf|purchase|CONVERSION|Purchase item 
 
 ## User sessions
 
-To find more sessions from the same user (with the client ID `a15f1ef3-6bc6-4959-9b83-6699a4d29845`), run the following query:
+To find more of the same user's sessions (with the client ID `a15f1ef3-6bc6-4959-9b83-6699a4d29845`), run the following query:
 
 ```sql
 select
@@ -259,7 +259,7 @@ where client_id = 'a15f1ef3-6bc6-4959-9b83-6699a4d29845'
 order by query_id, timestamp
 ```
 
-The results are truncated to show a few sessions:
+The results are truncated to show a few sessions, as shown in the following table.
 
 
 application|event_attributes.session_id|query_id|action_name|message_type|event_attributes.dwell_time|event_attributes.object.object_id|event_attributes.object.description|timestamp
@@ -311,7 +311,7 @@ ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|23f0149a-13ae-4977-8dc9-ef61c449c1
 
 ## List user sessions for users who logged out without any queries
 
-The following query searches for users who don't have an associated `query_id`.  Note that this could happen if the client side is not passing the returned query to other events:
+The following query searches for users who don't have an associated `query_id`. Note that this may happen if the client side does not pass the returned query to other events:
 
 ```sql
 select 
@@ -348,7 +348,7 @@ client_id|session_id|EventTotal
 
 <!-- vale on -->
 
-You may be interested in users with multiple logouts without submitting a query. The following query lets you see which users do this the most:
+You may want to identify users who logged out multiple times without submitting a query. The following query lets you see which users do this the most:
 
 ```sql
 select 
@@ -359,7 +359,7 @@ group by client_id
 order by EventTotal desc
 ```
 
-The following table shows user's client id's and the number of logouts without any queries.
+The following table shows user client IDs and the number of logouts without any queries.
 
 client_id|EventTotal
 ---|---
