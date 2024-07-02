@@ -63,7 +63,7 @@ POST <index>/_alias/<alias name>
 ```
 {% include copy-curl.html %}
 
-The `<index>` in the above requests can be an index name, a comma-separated list of index names, or a wildcard expression. Use `_all` to refer to all indexes.
+The `<index>` in the preceding requests can be an index name, a comma-separated list of index names, or a wildcard expression. Use `_all` to refer to all indexes.
 
 To check if `alias1` refers to `index-1`, run one of the following commands:
 
@@ -272,3 +272,58 @@ DELETE index-1/_alias/alias1
 {% include copy-curl.html %}
 
 After running the request, `alias1` no longer refers to `index-1` but still refers to `index-2`.
+
+## Overlapping field names
+
+When querying an alias that points to multiple indexes with overlapping field names of different data types, OpenSearch attempts to merge the data from these indexes. However, due to the conflicting data types, OpenSearch performs implicit casting or type conversion on the field values to reconcile the differences.
+
+Here's an example:
+
+```json
+PUT /index1
+{
+  "mappings": {
+    "properties": {
+      "field1": {
+        "type": "text"
+      }
+    }
+  }
+}
+
+PUT /index2
+{
+  "mappings": {
+    "properties": {
+      "field1": {
+        "type": "long"
+      }
+    }
+  }
+}
+
+POST /_aliases
+{
+  "actions": [
+    {
+      "add": {
+        "index": "index1",
+        "alias": "my_alias"
+      }
+    },
+    {
+      "add": {
+        "index": "index2",
+        "alias": "my_alias"
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+In this example, the two indexes (`index1` and `index2`) have a field named `field1`, but with different data types (`text` and `long`, respectively). The index alias `my_alias` is then created to point to both indexes.
+
+When querying this alias, OpenSearch attempts to merge the data from both indexes. If a document in `index1` has a string value for `field1`, and a document in `index2` has a numeric value for the same field, OpenSearch performs implicit casting to reconcile the data types.
+
+Note that this implicit casting can lead to unexpected results or data loss. For example, if a string value cannot be cast to a numeric type, it may be treated as a missing value or cause an error.
