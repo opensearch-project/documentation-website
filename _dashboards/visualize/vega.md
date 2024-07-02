@@ -45,7 +45,7 @@ The following GIF shows the steps required for setting up and connecting a data 
 
 ### Step 3: Add the Vega specification
 
-By default, queries use data from the local cluster. You can assign individual `data_source_name` values to each OpenSearch query within your Vega specification. This allows you to query multiple indexes across different data sources in a single visualization.
+By default, queries use data from the local cluster. You can assign individual `data_source_name` values to each OpenSearch query in your Vega specification. This allows you to query multiple indexes across different data sources in a single visualization.
 
 1. Verify that the data source you created is specified under `data_source_name`. Alternatively, within your Vega specification, add the `data_source_name` field under the `url` property to target a specific data source by name.
 2. Copy the following Vega specification and then select the **Update** button in the lower-right corner. The visualization should appear. 
