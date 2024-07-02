@@ -183,7 +183,7 @@ When the operation is complete, the state changes to `COMPLETED`:
 {
   "model_id": "cleMb4kBJ1eYAeTMFFg4",
   "task_type": "REGISTER_MODEL",
-  "function_name": "REMOTE",
+  "function_name": "TEXT_EMBEDDING",
   "state": "COMPLETED",
   "worker_node": [
     "XPcXLV7RQoi5m8NI_jEOVQ"
@@ -229,7 +229,7 @@ When the operation is complete, the state changes to `COMPLETED`:
 {
   "model_id": "cleMb4kBJ1eYAeTMFFg4",
   "task_type": "DEPLOY_MODEL",
-  "function_name": "REMOTE",
+  "function_name": "TEXT_EMBEDDING",
   "state": "COMPLETED",
   "worker_node": [
     "n-72khvBTBi3bnIIR8FTTw"
