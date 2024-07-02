@@ -180,7 +180,7 @@ The following are the predefined, minimal fields in the `ubi_events` index:
 
 - `message_type` (size 100): A logical bin for grouping actions (each with an `action_name`). For example, `QUERY` or `CONVERSION`. 
 
-- `message` (size 1024): An optional text message for the log entry. For example, for a `message_type` `QUERY`, the `message` can contain the text related to a user's search.
+- `message` (size 1,024): An optional text message for the log entry. For example, for a `message_type` `QUERY`, the `message` can contain the text related to a user's search.
 
  <p id="event_attributes"> </p>
 
