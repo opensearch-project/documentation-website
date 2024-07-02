@@ -30,7 +30,7 @@ The UBI documentation is organized into two categories: *Explanation and referen
 | Link | Description |
 | :--------- | :------- |
 | [UBI Request/Response Specification](https://github.com/o19s/ubi/) | The industry-standard schema for UBI requests and responses. The current version references UBI Specification 1.0.0.  |
-| [UBI OpenSearch schema documentation]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/) | Documentation on the individual query and event stores for OpenSearch. |
+| [UBI OpenSearch schema documentation]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/) | Documentation on the individual OpenSearch query and event stores. |
 
 
 **Tutorials and how-to guides**

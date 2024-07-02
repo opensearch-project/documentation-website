@@ -21,15 +21,13 @@ To quickly view a dashboard without completing the full tutorial, do the followi
 
 ## 1. Start OpenSearch Dashboards
 
-Depending on your configuration: `http://{server}:5601/app/home#/`
+Start OpenSearch Dashboards, for example, go to `http://{server}:5601/app/home#/`. For more information, see [OpenSearch Dashboards}({{site.url}}{{site.baseurl}}/dashboards/).
 ![Dashboard Home]({{site.url}}{{site.baseurl}}/images/ubi/home.png "Dashboards")
 {: .note} 
 
 ## 2. Create an index pattern
 
-In OpenSearch Management, navigate to **Dashboards Management > Index patterns**.
-
-`http://{server}:5601/app/management/OpenSearch-dashboards/indexPatterns`
+In OpenSearch Management, navigate to **Dashboards Management > Index patterns** or navigate with a URL, such as `http://{server}:5601/app/management/OpenSearch-dashboards/indexPatterns`.
 
 OpenSearch Dashboards accesses your indexes using index patterns. To visualize your users' online search behavior, you must create an index pattern in order to access the indexes that UBI creates. For more information, see [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/).
 
