@@ -109,7 +109,7 @@ To learn more about model groups, see [Model access control]({{site.url}}{{site.
 
 ## Step 2: Register a local model
 
-To register a remote model to the model group created in step 1, provide the model group ID from step 1 in the following request:
+To register a local model to the model group created in step 1, provide the model group ID from step 1 in the following request:
 
 ```json
 POST /_plugins/_ml/models/_register
