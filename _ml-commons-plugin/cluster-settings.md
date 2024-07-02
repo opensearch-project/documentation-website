@@ -469,7 +469,7 @@ When set to `true`, this setting enables the search processors for retrieval-aug
 ### Setting
 
 ```
-plugins.ml_commons.agent_framework_enabled: true
+plugins.ml_commons.rag_pipeline_feature_enabled: true
 ```
 
 ### Values
