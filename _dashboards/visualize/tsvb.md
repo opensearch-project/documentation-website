@@ -43,7 +43,7 @@ The following GIF shows the steps required to set up and connect a data source.
 Follow these steps to create the visualization:
 
 1. From the menu on the left, select **Visualize**.
-2. From the **Visualizations** page, select **Create Visualization** and then select **TSVB** in the pop-up window.
+2. On the **Visualizations** page, select **Create Visualization** and then select **TSVB** in the pop-up window.
 
 **Step 3: Specify data sources**
 
