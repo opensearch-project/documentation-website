@@ -23,15 +23,18 @@ UBI includes the following elements:
 * A client-side JavaScript [example reference implementation]({{site.url}}{{site.baseurl}}/search-plugins/ubi/data-structures/) that shows how to capture events and send them to the OpenSearch UBI plugin.
 
 <!-- vale off -->
-The UBI documentation is organized into the following categories.
 
-| Explanation and reference | Description |
+The UBI documentation is organized into two categories: *Explanation and reference* and *Tutorials and how-to guides*:   
+
+**Explanation and reference** 
+| Link | Description |
 | :--------- | :------- |
 | [UBI Request/Response Specification](https://github.com/o19s/ubi/) | The industry-standard schema for UBI requests and responses. The current version references UBI Specification 1.0.0.  |
 | [UBI OpenSearch schema documentation]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/) | Documentation on the individual query and event stores for OpenSearch. |
 
 
-| Tutorials and how-to guides | Description
+**Tutorials and how-to guides**
+| Link | Description |
 | :--------- | :------- |
 | [UBI plugin](https://github.com/opensearch-project/user-behavior-insights) | How to install and use the UBI plugin. |
 | [JavaScript client structures]({{site.url}}{{site.baseurl}}/search-plugins/ubi/data-structures/)  | Sample JavaScript structures for populating the event store. |
