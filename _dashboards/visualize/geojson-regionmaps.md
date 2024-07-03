@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Using coordinate and region maps
+title: Coordinate and region maps
 parent: Building data visualizations
 has_children: true
 nav_order: 15
@@ -12,7 +12,7 @@ redirect_from:
 
 OpenSearch has a standard set of GeoJSON files that provide a vector map with each region map. OpenSearch Dashboards also provides basic map tiles with a standard vector map to create region maps. You can configure the base map tiles using [Web Map Service (WMS)](https://www.ogc.org/standards/wms). For more information, see [Configuring WMS in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/maptiles/). 
 
-For air gapped environments, OpenSearch Dashboards provides a self-host maps server. For more information, see [Using the self-host maps server]({{site.url}}{{site.baseurl}}/dashboards/selfhost-maps-server/)
+For air-gapped environments, OpenSearch Dashboards provides a self-host maps server. For more information, see [Using the self-host maps server]({{site.url}}{{site.baseurl}}/dashboards/selfhost-maps-server/).
 
 While you can't configure a server to support user-defined vector map layers, you can configure your own GeoJSON file and upload it for this purpose. 
 {: .note}
@@ -35,7 +35,7 @@ You can use [geojson.io](https://geojson.io/#map=2/20.0/0.0) to extract GeoJSON 
 
 To create your own custom vector map, upload a JSON file that contains GEO data for your customized regional maps. The JSON file contains vector layers for visualization.
 
-1. Prepare a JSON file to upload. Make sure the file has either a .geojson or .json extension.
+1. Prepare a JSON file to upload. Make sure the file has either a `.geojson` or `.json` extension.
 1. On the top menu bar, go to **OpenSearch Dashboards > Visualize**.
 1. Select the **Create Visualization** button.
 1. Select **Region Map**.
