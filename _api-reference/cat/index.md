@@ -24,7 +24,7 @@ GET _cat
 ```
 {% include copy-curl.html %}
 
-The response is an ASCII cat (`=^.^=`) and a list of operations.
+The response is an ASCII cat (`=^.^=`) and a list of operations:
 
 ```
 =^.^=
@@ -70,7 +70,7 @@ Parameter | Description
 `v` |  Provides verbose output by adding headers to the columns. It also adds some formatting to help align each of the columns together. All examples in this section include the `v` parameter.
 `help` | Lists the default and other available headers for a given operation.
 `h`  |  Limits the output to specific headers.
-`format` |  Returns the result in JSON, YAML, CBOR, or Smile formats.
+`format` |  The format in which to return the result. Valid values are `json`, `yaml`, `cbor`, and `smile`.
 `s` | Sorts the output by the specified columns.
 
 ### Query parameter usage examples
@@ -108,12 +108,14 @@ To see all the available headers, use the `help` parameter:
 GET _cat/<operation_name>?help
 ```
 
-For example, the aliases help contains all available headers.
+For example, to see the available headers for the CAT aliases operation, send the following request:
 
 ```json
 GET _cat/aliases?help
 ```
 {% include copy-curl.html %}
+
+The response contains the available headers:
 
 ```
 alias          | a                | alias name
@@ -132,12 +134,14 @@ To limit the output to a subset of headers, use the `h` parameter:
 GET _cat/<operation_name>?h=<header_name_1>,<header_name_2>&v
 ```
 
-For example, to limit aliases to only the alias name and index.
+For example, to limit aliases to only the alias name and index, send the following request:
 
 ```json
 GET _cat/aliases?h=alias,index
 ```
 {% include copy-curl.html %}
+
+The response contains the requested information:
 
 ```
 .kibana .kibana_1
@@ -150,16 +154,18 @@ Typically, for any operation you can find out what headers are available using t
 
 To sort the output by a header, use the `s` parameter:
 
-```
+```json
 GET _cat/<operation_name>?s=<header_name_1>,<header_name_2>
 ```
 
-For example, to sort aliases by alias then index.
+For example, to sort aliases by alias and then index, send the following request:
 
 ```json
 GET _cat/aliases?s=i,a
 ```
 {% include copy-curl.html %}
+
+The response contains the requested information:
 
 ```
 sample-alias2 sample-index-1
@@ -168,20 +174,22 @@ sample-alias1 sample-index-2
 
 ### Retrieve data in JSON format
 
-By default the CAT APIs return `text/plain` data.
+By default, CAT APIs return data in `text/plain` format.
 
-To retrieve data in the JSON format, use the `format=json` parameter:
+To retrieve data in JSON format, use the `format=json` parameter:
 
-```
+```json
 GET _cat/<operation_name>?format=json
 ```
 
-For example, to retrieve aliases in JSON format.
+For example, to retrieve aliases in JSON format, send the following request:
 
 ```json
 GET _cat/aliases?format=json
 ```
 {% include copy-curl.html %}
+
+The response contains data in JSON format:
 
 ```json
 [
