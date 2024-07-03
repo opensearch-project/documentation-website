@@ -24,7 +24,7 @@ For UBI to function properly, the connections between the following fields must 
 
 To summarize, the `query_id` signals the beginning of a unique search for a client tracked through a `client_id`. The search returns various objects, each with a unique `object_id`. The `action_name` specifies what action the user is performing and is connected to the objects, each with a specific `object_id`. You can differentiate between types of objects by inspecting the `object_id_field`.  
 
-Typically, you can infer the user's overall search history by retrieving all the data for the user's `client_id` and inspecting the individual `query_id` data. Each application decides what makes a search session by examining the data in the backend.
+Typically, you can infer the user's overall search history by retrieving all the data for the user's `client_id` and inspecting the individual `query_id` data. Each application determines what constitutes a search session by examining the backend data
 
 ## Important UBI roles
 
