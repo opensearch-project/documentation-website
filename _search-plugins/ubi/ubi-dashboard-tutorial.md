@@ -21,12 +21,12 @@ To quickly view a dashboard without completing the full tutorial, do the followi
 
 ## 1. Start OpenSearch Dashboards
 
-Start OpenSearch Dashboards. For example, go to `http://{server}:5601/app/home#/`. For more information, see [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/). The following image shows the home page:
+Start OpenSearch Dashboards. For example, go to `http://{server}:5601/app/home#/`. For more information, see [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/). The following image shows the home page.
 ![Dashboard Home]({{site.url}}{{site.baseurl}}/images/ubi/home.png "Dashboards")
 
 ## 2. Create an index pattern
 
-In OpenSearch Management, navigate to **Dashboards Management > Index patterns** or navigate with a URL, such as `http://{server}:5601/app/management/OpenSearch-dashboards/indexPatterns`.
+In OpenSearch Management, navigate to **Dashboards Management > Index patterns** or navigate using a URL, such as `http://{server}:5601/app/management/OpenSearch-dashboards/indexPatterns`.
 
 OpenSearch Dashboards accesses your indexes using index patterns. To visualize your users' online search behavior, you must create an index pattern in order to access the indexes that UBI creates. For more information, see [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/).
 
@@ -67,8 +67,8 @@ The underlying queries can be found at [SQL trending queries]({{site.url}}{{site
 {: .note} 
 
 
-The resulting visualization may not be exactly what you're looking for. The `message` field is updated with every event, and as a result, it can contain error messages, debug messages, click information, and other unwanted data.
-To view only search terms for query events, you need to add a filter to your visualization. Because the developer provided a `message_type` of `QUERY` for each search event, you can filter by that message type to isolate the specific users' searches. To do this, select **Add filter** and then select **QUERY** in the **Edit filter** panel, as shown in the following image. 
+The resulting visualization may contain different information than you're looking for. The `message` field is updated with every event, and as a result, it can contain error messages, debug messages, click information, and other unwanted data.
+To view only search terms for query events, you need to add a filter to your visualization. Because during setup you provided a `message_type` of `QUERY` for each search event, you can filter by that message type to isolate the specific users' searches. To do this, select **Add filter** and then select **QUERY** in the **Edit filter** panel, as shown in the following image. 
 ![Word Cloud]({{site.url}}{{site.baseurl}}/images/ubi/tag_cloud2.png "Word Cloud")
 
 There should now be two visualizations (the pie chart and the tag cloud) displayed on your dashboard, as shown in the following image.

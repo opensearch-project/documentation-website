@@ -174,7 +174,7 @@ select
   client_id, query_id, user_query, query_response_hit_ids, query_response_id, timestamp 
 from ubi_queries where query_id = '7ae52966-4fd4-4ab1-8152-0fd0b52bdadf'
 ```
-The following table shows the results of the preceding query:
+The following table shows the results of the preceding query.
 client_id|query_id|user_query|query_response_hit_ids|query_response_id|timestamp
 ---|---|---|---|---|---
 a15f1ef3-6bc6-4959-9b83-6699a4d29845|7ae52966-4fd4-4ab1-8152-0fd0b52bdadf|notebook|0882780391659|6e92c90c-1eee-4dd6-b820-c522fd4126f3|2024-06-04 19:02:45.728
@@ -259,7 +259,7 @@ where client_id = 'a15f1ef3-6bc6-4959-9b83-6699a4d29845'
 order by query_id, timestamp
 ```
 
-The results are truncated to show a few sessions, as shown in the following table.
+The results are truncated to show a sample of sessions, as shown in the following table.
 
 
 application|event_attributes.session_id|query_id|action_name|message_type|event_attributes.dwell_time|event_attributes.object.object_id|event_attributes.object.description|timestamp
@@ -309,7 +309,7 @@ ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|23f0149a-13ae-4977-8dc9-ef61c449c1
 ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|23f0149a-13ae-4977-8dc9-ef61c449c140|brand_filter|FILTER|19.54417|OBJECT-6c91da98-387b-45cb-8275-e90d1ea8bc54|supplier_name|2024-06-04 19:03:50.802
 
 
-## List user sessions for users who logged out without any queries
+## List user sessions for users who logged out without submitting any queries
 
 The following query searches for users who don't have an associated `query_id`. Note that this may happen if the client side does not pass the returned query to other events:
 
