@@ -312,7 +312,7 @@ ubi-demo|33bd0ee2-60b7-4c25-b62c-1aa1580da73c|23f0149a-13ae-4977-8dc9-ef61c449c1
 
 ## List user sessions for users who logged out without submitting any queries
 
-The following query searches for users who don't have an associated `query_id`. Note that this may happen if the client side does not pass the returned query to other events:
+The following query searches for users who don't have an associated `query_id`. Note that this may happen if the client side does not pass the returned query to other events.
 
 ```sql
 select 
@@ -324,6 +324,8 @@ order by EventTotal desc
 ```
 
 <!-- vale off -->
+
+The following table shows the client ID, session ID, and that there was 1 event,`logout`. 
 
 client_id|session_id|EventTotal
 ---|---|---
