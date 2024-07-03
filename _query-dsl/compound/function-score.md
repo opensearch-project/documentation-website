@@ -840,28 +840,39 @@ The following request sets `explain: true` for debugging purpose to retrieve the
 GET blogs/_search
 {
   "explain": true,
+  "size": 1,
   "query": {
     "function_score": {
       "functions": [
         {
+          "_name": "likes_function",
           "script_score": {
-            "_name": "likes_function",
             "script": {
               "lang": "painless",
-              "source": "return doc['likes'].value >= 800;"
-            },
-            "weight": 0.7
-          }
+              "source": "return doc['likes'].value * 2;"
+            }
+          },
+          "weight": 0.6
         },
         {
+          "_name": "views_function",
           "field_value_factor": {
-            "_name": "views_function",
             "field": "views",
             "factor": 1.5,
             "modifier": "log1p",
             "missing": 1
           },
           "weight": 0.3
+        },
+        {
+          "_name": "comments_function",
+          "gauss": {
+            "comments": {
+              "origin": 1000,
+              "scale": 800
+            }
+          },
+          "weight": 0.1
         }
       ]
     }
