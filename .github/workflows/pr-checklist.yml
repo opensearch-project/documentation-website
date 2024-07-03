@@ -1,0 +1,30 @@
+name: PR Checklist
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  add-checklist-and-assignees:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Comment PR with checklist
+        uses: peter-evans/create-or-update-comment@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            Thank you for submitting your PR. The PR states are Tech review -> Doc review -> Editorial review. If you're a developer submitting documentation for a feature you implemented, have the documentation reviewed by your team. If you need a tech review, let us know. Here's a checklist of the PR progression:
+            
+            ### PR Checklist
+            - [x] Tech Review
+            - [ ] Doc Review
+            - [ ] Editorial Review
+
+      - name: Add assignees to the PR
+        uses: peter-evans/create-or-update-comment@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.pull_request.number }}
+          assignees: ${{ github.actor }}, kolchfa-aws
