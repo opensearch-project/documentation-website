@@ -174,13 +174,14 @@ select
   client_id, query_id, user_query, query_response_hit_ids, query_response_id, timestamp 
 from ubi_queries where query_id = '7ae52966-4fd4-4ab1-8152-0fd0b52bdadf'
 ```
+
 The following table shows the results of the preceding query.
+
 client_id|query_id|user_query|query_response_hit_ids|query_response_id|timestamp
 ---|---|---|---|---|---
 a15f1ef3-6bc6-4959-9b83-6699a4d29845|7ae52966-4fd4-4ab1-8152-0fd0b52bdadf|notebook|0882780391659|6e92c90c-1eee-4dd6-b820-c522fd4126f3|2024-06-04 19:02:45.728
 
 The `query` field in `query_id` has the following nested structure:
-{: .note} 
 
 ```json
 {
