@@ -12,7 +12,7 @@ redirect_from:
 
 # xy query
 
-To search for documents that contain [xy point]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy-point/) and [xy shape]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy-shape/) fields, use an xy query. 
+To search for documents that contain [xy point]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy-point/) or [xy shape]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy-shape/) fields, use an xy query. 
 
 ## Spatial relations
 
