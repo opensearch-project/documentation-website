@@ -32,5 +32,5 @@ OpenSearch provides the following geographic query types:
 - [**Geodistance queries**]({{site.url}}{{site.baseurl}}/query-dsl/geo-and-xy/geodistance/): Return documents with geopoints that are within a specified distance from the provided geopoint.
 - **Geopolygon queries**: Return documents with geopoints that are within a polygon.
 - **Geoshape queries**: Return documents that contain:
-    - geoshapes and geopoints that have one of four spatial relations to the provided shape: `INTERSECTS`, `DISJOINT`, `WITHIN`, or `CONTAINS`.
-    - geopoints that intersect the provided shape.
+    - Geoshapes and geopoints that have one of four spatial relations to the provided shape: `INTERSECTS`, `DISJOINT`, `WITHIN`, or `CONTAINS`.
+    - Geopoints that intersect the provided shape.
