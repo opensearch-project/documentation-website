@@ -98,7 +98,8 @@ The [sample docker-compose.yml]({{site.url}}{{site.baseurl}}/install-and-configu
 
   Sets the size of the Java heap (we recommend half of system RAM).
   
-  It's important to note that OpenSearch defaults to `-Xms1g -Xmx1g` for heap memory allocation, which take precedence over configurations specified using percentage notation (`-XX:MinRAMPercentage`, `-XX:MaxRAMPercentage`). For example, if you set `OPENSEARCH_JAVA_OPTS=-XX:MinRAMPercentage=30 -XX:MaxRAMPercentage=70`, the predefined `-Xms1g -Xmx1g` values will override these settings. When using `OPENSEARCH_JAVA_OPTS` to define memory allocation, ensure you use the `-Xms` and `-Xmx` notation.
+ OpenSearch defaults to `-Xms1g -Xmx1g` for heap memory allocation, which takes precedence over configurations specified using percentage notation (`-XX:MinRAMPercentage`, `-XX:MaxRAMPercentage`). For example, if you set `OPENSEARCH_JAVA_OPTS=-XX:MinRAMPercentage=30 -XX:MaxRAMPercentage=70`, the predefined `-Xms1g -Xmx1g` values will override these settings. When using `OPENSEARCH_JAVA_OPTS` to define memory allocation, make sure you use the `-Xms` and `-Xmx` notation.
+{: .note}
 
 - `nofile 65536`
 
