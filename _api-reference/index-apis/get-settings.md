@@ -4,6 +4,7 @@ title: Get settings
 parent: Index APIs
 nav_order: 45
 redirect_from:
+  - /opensearch/rest-api/index-apis/get-settings/
   - /opensearch/rest-api/index-apis/get-index/
 ---
 

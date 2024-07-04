@@ -6,6 +6,7 @@ nav_order: 5
 nav_exclude: true
 permalink: /aggregations/
 redirect_from:
+  - /query-dsl/aggregations/aggregations/
   - /opensearch/aggregations/
   - /query-dsl/aggregations/
   - /aggregations/index/
