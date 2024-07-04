@@ -20,9 +20,9 @@ You can include placeholder expressions in the value of workflow step fields. Fo
 
 Once a workflow is created, provide its `workflow_id` to other APIs.
 
-The `POST` method creates a new workflow. The `PUT` method updates an existing workflow. 
+The `POST` method creates a new workflow. The `PUT` method updates an existing workflow. With the `update_fields` parameter, only the included fields are updated.
 
-You can only update a workflow if it has not yet been provisioned.
+You can only update a complete workflow if it has not yet been provisioned.
 {: .note}
 
 ## Path and HTTP methods
@@ -53,6 +53,15 @@ When set to `true`, the [Provision Workflow API]({{site.url}}{{site.baseurl}}/au
 
 By default, workflows are validated when they are created to ensure that the syntax is valid and that the graph does not contain cycles. This behavior can be controlled with the `validation` query parameter. If `validation` is set to `all`, OpenSearch performs a complete template validation. Any other value of the `validation` parameter suppresses validation, allowing an incomplete/work-in-progress template to be saved. To disable template validation, set `validation` to `none`:
 
+You can not update a full workflow that has been provisioned, but you can update fields other than the `workflows` field, such as the name and description.
+
+```json
+PUT /_plugins/_flow_framework/workflow/<workflow_id>?update_fields=true
+```
+{% include copy-curl.html %}
+
+You can not use both the `provision` and `update_fields` parameters at the same time.
+
 ```json
 POST /_plugins/_flow_framework/workflow?validation=none
 ```
@@ -63,6 +72,7 @@ The following table lists the available query parameters. All query parameters a
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | `provision` | Boolean | Whether to provision the workflow as part of the request. Default is `false`. |
+| `update_fields` | Boolean | Whether to update only the fields included in the request body. Default is `false`. |
 | `validation` | String | Whether to validate the workflow. Valid values are `all` (validate the template) and `none` (do not validate the template). Default is `all`. |
 | User-provided substitution expressions | String | Parameters matching substitution expressions in the template. Only allowed if `provision` is set to `true`. Optional. If `provision` is set to `false`, you can pass these parameters in the [Provision Workflow API query parameters]({{site.url}}{{site.baseurl}}/automating-configurations/api/provision-workflow/#query-parameters). |
 
