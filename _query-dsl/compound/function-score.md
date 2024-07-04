@@ -1019,5 +1019,6 @@ The response will contain the explanation of the scoring process with the names 
 }
 ```
 </details>
+{% include copy-curl.html %}
 
 As you can see, the explanation contains the name in the respective function's description.
