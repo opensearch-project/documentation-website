@@ -904,23 +904,120 @@ The response will contain the explanation of the scoring process with the names 
       "value": 3,
       "relation": "eq"
     },
-    "max_score": 31.191923,
+    "max_score": 6.1600614,
     "hits": [
       {
+        "_shard": "[blogs][0]",
+        "_node": "_yndTaZHQWimcDgAfOfRtQ",
         "_index": "blogs",
-        "_id": "3",
-        "_score": 31.191923,
+        "_id": "1",
+        "_score": 6.1600614,
         "_source": {
-          "name": "Distributed tracing with Data Prepper",
-          "views": 800,
-          "likes": 50,
-          "comments": 5,
-          "date_posted": "2022-04-25"
+          "name": "Semantic search in OpenSearch",
+          "views": 1200,
+          "likes": 150,
+          "comments": 16,
+          "date_posted": "2022-04-17"
         },
-        "_explanation": {}
+        "_explanation": {
+          "value": 6.1600614,
+          "description": "function score, product of:",
+          "details": [
+            {
+              "value": 1,
+              "description": "*:*",
+              "details": []
+            },
+            {
+              "value": 6.1600614,
+              "description": "min of:",
+              "details": [
+                {
+                  "value": 6.1600614,
+                  "description": "function score, score mode [multiply]",
+                  "details": [
+                    {
+                      "value": 180,
+                      "description": "product of:",
+                      "details": [
+                        {
+                          "value": 300,
+                          "description": "script score function(_name: likes_function), computed with script:\"Script{type=inline, lang='painless', idOrCode='return doc['likes'].value * 2;', options={}, params={}}\"",
+                          "details": [
+                            {
+                              "value": 1,
+                              "description": "_score: ",
+                              "details": [
+                                {
+                                  "value": 1,
+                                  "description": "*:*",
+                                  "details": []
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "value": 0.6,
+                          "description": "weight",
+                          "details": []
+                        }
+                      ]
+                    },
+                    {
+                      "value": 0.9766541,
+                      "description": "product of:",
+                      "details": [
+                        {
+                          "value": 3.2555137,
+                          "description": "field value function(_name: views_function): log1p(doc['views'].value?:1.0 * factor=1.5)",
+                          "details": []
+                        },
+                        {
+                          "value": 0.3,
+                          "description": "weight",
+                          "details": []
+                        }
+                      ]
+                    },
+                    {
+                      "value": 0.035040613,
+                      "description": "product of:",
+                      "details": [
+                        {
+                          "value": 0.35040614,
+                          "description": "Function for field comments:",
+                          "details": [
+                            {
+                              "value": 0.35040614,
+                              "description": "exp(-0.5*pow(MIN[Math.max(Math.abs(16.0(=doc value) - 1000.0(=origin))) - 0.0(=offset), 0)],2.0)/461662.4130844683, _name: comments_function)",
+                              "details": []
+                            }
+                          ]
+                        },
+                        {
+                          "value": 0.1,
+                          "description": "weight",
+                          "details": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "value": 3.4028235e+38,
+                  "description": "maxBoost",
+                  "details": []
+                }
+              ]
+            }
+          ]
+        }
       }
     ]
   }
 }
 ```
 </details>
+
+As you can see, the explanation contains the name in the respective function's description.
