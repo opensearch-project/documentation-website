@@ -830,7 +830,7 @@ The results contain the three matching blog posts:
 
 ## Named functions
 
-You can specify `_name` parameter for every function top level definition. This parameter is used to identify the function in the response. The name is useful for debugging and understanding the scoring process. Once specified, it is returned back as a part of explanation whenever it dims possible (it applies to functions, filters and queries).
+You can specify `_name` parameter for every function top level definition. This parameter is used to identify the function in the response. The name is useful for debugging and understanding the scoring process. Once specified, it is returned back as a part of the explanation whenever it dims possible (it applies to functions, filters and queries).
 
 ### Example
 
