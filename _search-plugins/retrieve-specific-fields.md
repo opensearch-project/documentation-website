@@ -6,9 +6,18 @@ nav_order: 250
 
 # Retrieve specific fields
 
-When you run a basic search in OpenSearch, by default, the original JSON objects that were used during indexing are also returned for each hit. It is returned under `_source` field in the response. This can be very large amount of data that is being transferred through network without adding any additional benefit to the user, increasing latency and cost. There are different ways to limit the responses to only the required information.
+When you run a basic search in OpenSearch, by default, the original JSON objects that were used during indexing are also returned in response for each hit under the `_source` field. This can be large amounts of data that is being transferred through network without adding any additional benefit to the user, increasing latency and cost. There are different ways to limit the responses to only the required information.
 
-## disabling `_source`
+---
+
+#### Table of contents
+1. TOC
+{:toc}
+
+
+---
+
+## Disabling _source
 
 You can include `"_source": false` line in the search request to prevent the `_source` field from being included in the response. See following example:
 
@@ -23,6 +32,7 @@ GET "/index1/_search?pretty"
 ```
 
 As no fields were selected in the previous search, the retrieved hits will only include `_index`, `_id` and `_score` of the hits. As can be seen in the following example:
+
 ```
 {
   "hits" : {
@@ -50,6 +60,7 @@ As no fields were selected in the previous search, the retrieved hits will only 
 ## Specifying the fields to retrieve
 
 You can list the fields of interest in the search request using `fields` parameter. Wildcard patterns are also accepted. See following example:
+
 ```
 GET "/index1/_search?pretty"
 {
@@ -60,7 +71,9 @@ GET "/index1/_search?pretty"
   }
 }
 ```
+
 Example response:
+
 ```
 {
   "hits" : {
@@ -101,9 +114,11 @@ Example response:
 }
 ```
 
-You can also use object notation, to apply a custom format for the chosen field, see following example:
+### Extracting fields with custom format
 
-Imagine your document looks like this:
+You can also use object notation, to apply a custom format to the chosen field, see following example.
+
+If you have the following document:
 
 ```
 {
@@ -116,7 +131,9 @@ Imagine your document looks like this:
   }
 }
 ```
-You can query with fields Parameter and Custom Format:
+
+You can query with `fields` parameter and custom format:
+
 ```
 GET /my_index/_search
 {
@@ -132,64 +149,64 @@ GET /my_index/_search
 }
 ```
 
+Additionally, you can also use [most fields]({{site.url}}{{site.baseurl}}/query-dsl/full-text/multi-match/#most-fields) and [field aliases]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/alias/) with `fields` parameter, as it queries both document `_source` and `_mappings` of the index.
 
-Additionally, you can also use [Most fields]({{site.url}}{{site.baseurl}}/query-dsl/full-text/multi-match/#most-fields) and [field aliases]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/alias/) with `fields`, as it queries both document `_source` and `_mapping` of the index.
+## Searching with docvalue_fields
 
-## Docvalue_fields
-
-`docvalue_fields` is another parameter you can use in OpenSearch to retrieve specific fields from the index, but it works slightly differently compared to the `fields` parameter. `docvalue_fields` retrieves field values from doc values rather than from the `_source` field, which is more efficient for certain types of fields, especially for keyword, date, and numeric fields. Doc values are a columnar storage format optimized for efficient sorting and aggregations. It stores the values on disk in a way that is easy to read. When you use `docvalue_fields`, OpenSearch reads the values directly from this optimized storage format. It is useful for retrieving values of fields that are primarily used for sorting, aggregations, and for use in scripts. It is particularly efficient for fields that are not analyzed (like keyword fields)
+`docvalue_fields` is another parameter you can use in OpenSearch to retrieve specific fields from the index, but it works slightly differently compared to the `fields` parameter. The `docvalue_fields` parameter retrieves details from doc values rather than from the `_source` field, which is more efficient for fields that are not analyzed, like keyword, date, and numeric fields. Doc values are a columnar storage format optimized for efficient sorting and aggregations. It stores the values on disk in a way that is easy to read. When you use `docvalue_fields`, OpenSearch reads the values directly from this optimized storage format. It is useful for retrieving values of fields that are primarily used for sorting, aggregations, and for use in scripts.
 
 To better understand `docvalue_fields` see following example.
 
 
 1. Create index `my_index` with the following mappings:
 
-```
-PUT my_index
-{
-  "mappings": {
-    "properties": {
-      "title": { "type": "text" },
-      "author": { "type": "keyword" },
-      "publication_date": { "type": "date" },
-      "price": { "type": "double" }
+    ```
+    PUT my_index
+    {
+      "mappings": {
+        "properties": {
+          "title": { "type": "text" },
+          "author": { "type": "keyword" },
+          "publication_date": { "type": "date" },
+          "price": { "type": "double" }
+        }
+      }
     }
-  }
-}
-```
+    ```
 
 2. Index the following documents using the newly created index:
-```
-POST my_index/_doc/1
-{
-  "title": "OpenSearch Basics",
-  "author": "John Doe",
-  "publication_date": "2021-01-01",
-  "price": 29.99
-}
-
-POST my_index/_doc/2
-{
-  "title": "Advanced OpenSearch",
-  "author": "Jane Smith",
-  "publication_date": "2022-01-01",
-  "price": 39.99
-}
-```
+    ```
+    POST my_index/_doc/1
+    {
+      "title": "OpenSearch Basics",
+      "author": "John Doe",
+      "publication_date": "2021-01-01",
+      "price": 29.99
+    }
+    
+    POST my_index/_doc/2
+    {
+      "title": "Advanced OpenSearch",
+      "author": "Jane Smith",
+      "publication_date": "2022-01-01",
+      "price": 39.99
+    }
+    ```
 3. Retrieve only the `author` and `publication_date` fields using `docvalue_fields`:
 
-```
-POST my_index/_search
-{
-  "_source": false,
-  "docvalue_fields": ["author", "publication_date"],
-  "query": {
-    "match_all": {}
-  }
-}
-```
+    ```
+    POST my_index/_search
+    {
+      "_source": false,
+      "docvalue_fields": ["author", "publication_date"],
+      "query": {
+        "match_all": {}
+      }
+    }
+    ```
 
 Expected response:
+
 ```
 {
   "hits": {
@@ -222,69 +239,72 @@ Expected response:
 }
 ```
 
-### Docvalue_fields with nested objects
+### Using docvalue_fields with nested objects
 
 In OpenSearch, if you want to retrieve doc values for nested objects, you cannot directly use the `docvalue_fields` parameter because it will return an empty array. Instead, you should use the `inner_hits` parameter with its own `docvalue_fields` property, see following example.
 
 1. Define the Index and Mappings.
-```
-PUT my_index
-{
-  "mappings": {
-    "properties": {
-      "title": { "type": "text" },
-      "author": { "type": "keyword" },
-      "comments": {
-        "type": "nested",
+    ```
+    PUT my_index
+    {
+      "mappings": {
         "properties": {
-          "username": { "type": "keyword" },
-          "content": { "type": "text" },
-          "created_at": { "type": "date" }
+          "title": { "type": "text" },
+          "author": { "type": "keyword" },
+          "comments": {
+            "type": "nested",
+            "properties": {
+              "username": { "type": "keyword" },
+              "content": { "type": "text" },
+              "created_at": { "type": "date" }
+            }
+          }
         }
       }
     }
-  }
-}
-```
+    ```
+
 2. Index your data.
-```
-POST my_index/_doc/1
-{
-  "title": "OpenSearch Basics",
-  "author": "John Doe",
-  "comments": [
+    ```
+    POST my_index/_doc/1
     {
-      "username": "alice",
-      "content": "Great article!",
-      "created_at": "2023-01-01T12:00:00Z"
-    },
-    {
-      "username": "bob",
-      "content": "Very informative.",
-      "created_at": "2023-01-02T12:00:00Z"
+      "title": "OpenSearch Basics",
+      "author": "John Doe",
+      "comments": [
+        {
+          "username": "alice",
+          "content": "Great article!",
+          "created_at": "2023-01-01T12:00:00Z"
+        },
+        {
+          "username": "bob",
+          "content": "Very informative.",
+          "created_at": "2023-01-02T12:00:00Z"
+        }
+      ]
     }
-  ]
-}
-```
+    ```
+
 3. Perform a Search with `inner_hits` and `docvalue_fields`
-```
-POST my_index/_search
-{
-  "query": {
-    "nested": {
-      "path": "comments",
+    ```
+    POST my_index/_search
+    {
       "query": {
-        "match_all": {}
-      },
-      "inner_hits": {
-        "docvalue_fields": ["username", "created_at"]
+        "nested": {
+          "path": "comments",
+          "query": {
+            "match_all": {}
+          },
+          "inner_hits": {
+            "docvalue_fields": ["username", "created_at"]
+          }
+        }
       }
     }
-  }
-}
-```
+    ```
 
-Expected response:
+  Expected response:
+
 ```
 {
   "hits": {
@@ -357,67 +377,70 @@ Expected response:
 }
 ```
 
-## Stored fields 
+## Searching with stored fields 
 
 `stored_fields` is another feature in OpenSearch that allows you to explicitly store and retrieve specific fields from documents, separate from the `_source` field. By default, OpenSearch stores the entire document in the `_source` field and uses it to return document contents in search results. However, sometimes you might want to store certain fields separately for more efficient retrieval.
 
 Unlike `_source`, `stored_fields` must be explicitly defined in the mappings for fields you want to store separately. It can be useful if you frequently need to retrieve only a small subset of fields and want to avoid retrieving the entire `_source` field. See following example.
 
 1. Create index and mappings
-```
-PUT my_index
-{
-  "mappings": {
-    "properties": {
-      "title": {
-        "type": "text",
-        "store": true  // Store the title field separately
-      },
-      "author": {
-        "type": "keyword",
-        "store": true  // Store the author field separately
-      },
-      "publication_date": {
-        "type": "date"
-      },
-      "price": {
-        "type": "double"
+    ```
+    PUT my_index
+    {
+      "mappings": {
+        "properties": {
+          "title": {
+            "type": "text",
+            "store": true  // Store the title field separately
+          },
+          "author": {
+            "type": "keyword",
+            "store": true  // Store the author field separately
+          },
+          "publication_date": {
+            "type": "date"
+          },
+          "price": {
+            "type": "double"
+          }
+        }
       }
     }
-  }
-}
-```
+    ```
 
 2. Index your data
-```
-POST my_index/_doc/1
-{
-  "title": "OpenSearch Basics",
-  "author": "John Doe",
-  "publication_date": "2022-01-01",
-  "price": 29.99
-}
+    ```
+    POST my_index/_doc/1
+    {
+      "title": "OpenSearch Basics",
+      "author": "John Doe",
+      "publication_date": "2022-01-01",
+      "price": 29.99
+    }
+    
+    POST my_index/_doc/2
+    {
+      "title": "Advanced OpenSearch",
+      "author": "Jane Smith",
+      "publication_date": "2023-01-01",
+      "price": 39.99
+    }
+    ```
 
-POST my_index/_doc/2
-{
-  "title": "Advanced OpenSearch",
-  "author": "Jane Smith",
-  "publication_date": "2023-01-01",
-  "price": 39.99
-}
-```
 3. Perform a Search with `stored_fields`
-```
-POST my_index/_search
-{
-  "_source": false,
-  "stored_fields": ["title", "author"],
-  "query": {
-    "match_all": {}
-  }
-}
-```
+    ```
+    POST my_index/_search
+    {
+      "_source": false,
+      "stored_fields": ["title", "author"],
+      "query": {
+        "match_all": {}
+      }
+    }
+    ```
+
 Expected response:
+
 ```
 {
   "hits": {
@@ -453,72 +476,73 @@ Expected response:
 Stored_fields can be disabled completely in search request using `"stored_fields": "_none_"`.
 {: .note}
 
-### Stored fields with nested objects
+### Searching stored fields with nested objects
 
 In OpenSearch, if you want to retrieve `stored_fields` for nested objects, you cannot directly use the `stored_fields` parameter because no data will be returned. Instead, you should use the `inner_hits` parameter with its own `stored_fields` property, see following example.
 
 1. Create index and mappings
-```
-PUT my_index
-{
-  "mappings": {
-    "properties": {
-      "title": { "type": "text" },
-      "author": { "type": "keyword" },
-      "comments": {
-        "type": "nested",
+    ```
+    PUT my_index
+    {
+      "mappings": {
         "properties": {
-          "username": { "type": "keyword", "store": true },
-          "content": { "type": "text", "store": true },
-          "created_at": { "type": "date", "store": true }
+          "title": { "type": "text" },
+          "author": { "type": "keyword" },
+          "comments": {
+            "type": "nested",
+            "properties": {
+              "username": { "type": "keyword", "store": true },
+              "content": { "type": "text", "store": true },
+              "created_at": { "type": "date", "store": true }
+            }
+          }
         }
       }
     }
-  }
-}
-```
+    ```
 
 2. Index your data
-```
-POST my_index/_doc/1
-{
-  "title": "OpenSearch Basics",
-  "author": "John Doe",
-  "comments": [
+    ```
+    POST my_index/_doc/1
     {
-      "username": "alice",
-      "content": "Great article!",
-      "created_at": "2023-01-01T12:00:00Z"
-    },
-    {
-      "username": "bob",
-      "content": "Very informative.",
-      "created_at": "2023-01-02T12:00:00Z"
+      "title": "OpenSearch Basics",
+      "author": "John Doe",
+      "comments": [
+        {
+          "username": "alice",
+          "content": "Great article!",
+          "created_at": "2023-01-01T12:00:00Z"
+        },
+        {
+          "username": "bob",
+          "content": "Very informative.",
+          "created_at": "2023-01-02T12:00:00Z"
+        }
+      ]
     }
-  ]
-}
-```
+    ```
 
 3. Perform a Search with `inner_hits` and `stored_fields`
-```
-POST my_index/_search
-{
-  "_source": false,
-  "query": {
-    "nested": {
-      "path": "comments",
+    ```
+    POST my_index/_search
+    {
+      "_source": false,
       "query": {
-        "match_all": {}
-      },
-      "inner_hits": {
-        "stored_fields": ["comments.username", "comments.content", "comments.created_at"]
+        "nested": {
+          "path": "comments",
+          "query": {
+            "match_all": {}
+          },
+          "inner_hits": {
+            "stored_fields": ["comments.username", "comments.content", "comments.created_at"]
+          }
+        }
       }
     }
-  }
-}
-```
+    ```
 
 Expected response:
+
 ```
 {
   "hits": {
@@ -577,7 +601,7 @@ Expected response:
 }
 ```
 
-## Source filtering
+## Using source filtering
 
 Source filtering in OpenSearch is a way to control which parts of the `_source` field are included in the search response. This can help reduce the amount of data transferred over the network and improve performance by including only the necessary fields in the response.
 
@@ -604,7 +628,9 @@ POST my_index/_search
   }
 }
 ```
+
 Expected response:
+
 ```
 {
   "hits": {
@@ -645,6 +671,7 @@ POST my_index/_search
 ```
 
 Expected response:
+
 ```
 {
   "hits": {
@@ -729,6 +756,7 @@ GET /products/_search
 ```
 
 Expected response:
+
 ```
 {
   "hits": {
@@ -764,7 +792,7 @@ Expected response:
 }
 ```
 
-## Scripted fields
+## Using scripted fields
 
 The `script_fields` parameter in OpenSearch allows you to include custom fields in your search results, where the values of these fields are computed using scripts. This can be useful for calculating values on the fly based on the data in the document.
 
@@ -773,7 +801,7 @@ Following example demonstrates the power of `script_fields`.
 Let's say you have an index of products, and each product document contains the fields `price` and `discount_percentage`. You want to include a custom field in the search results that shows the discounted price of each product.
 
 
-1. Index the data:
+1. Index the data.
 ```
 PUT /products/_doc/123
 {
@@ -785,7 +813,8 @@ PUT /products/_doc/123
   "description": "A powerful smartphone with a sleek design."
 }
 ```
-2. Search using scripted field
+
+2. Search using scripted field.
 You can now use the `script_fields` parameter to include a custom field called `discounted_price` in the search results. This field will be calculated based on the `price` and `discount_percentage` fields using a script. See following example:
 ```
 GET /products/_search
@@ -800,12 +829,13 @@ GET /products/_search
     "discounted_price": {
       "script": {
         "lang": "painless",
-        "source": "doc['price'].value * (1 - doc['discount_percentage'].value / 100)"
+        "source": "doc[\"price\"].value * (1 - doc[\"discount_percentage\"].value / 100)"
       }
     }
   }
 }
 ```
+
 Example response:
 ```
 {
