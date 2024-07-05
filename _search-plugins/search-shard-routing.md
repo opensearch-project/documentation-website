@@ -8,6 +8,15 @@ nav_order: 210
 
 To ensure redundancy and improve search performance, OpenSearch replicates index data across various shards located on different nodes. When a search query is executed, OpenSearch routes the request to a node containing either primary or replica shard of the index. This technique is known as _search shard routing_.
 
+---
+
+#### Table of contents
+1. TOC
+{:toc}
+
+
+---
+
 ## Adaptive replica selection
 
 In OpenSearch, in order to improve latency, search requests are routed using _Adaptive replica selection_, which chooses appropriate nodes based on number of factors, such as:
@@ -18,18 +27,19 @@ In OpenSearch, in order to improve latency, search requests are routed using _Ad
 
 You can turn off this feature using following curl command with user which has permissions to call REST APIs, mode details on REST API can be found at [REST management API settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/#rest-management-api-settings):
 
-```json
-curl -X PUT "https://<opensearch-host>:<port>/_cluster/settings" -u admin:<password> -H "Content-Type: application/json" -d '{
+```
+PUT /_cluster/settings
+{
   "persistent": {
     "cluster.routing.use_adaptive_replica_selection": false
   }
-}'
+}
 ```
 
 In this case, OpenSearch routing will use _round-robin_ which can impact the search latency negatively.
 {: .note}
 
-## Selecting nodes/shards for searches
+## Node/shard selection during searches
 
 OpenSearch uses all nodes to choose best routing for search requests, however, there might be reasons why you want to manually select which nodes or shards the search request is sent to, possible reasons could be:
 
@@ -37,7 +47,7 @@ OpenSearch uses all nodes to choose best routing for search requests, however, t
 - Dedicating specific hardware for searches.
 - Using only local nodes for searches.
 
-You can use the _preference_ parameter in the search query to indicate the destination for the search, see example below:
+You can use the `preference` parameter in the search query to indicate the destination for the search, see example below:
 
 1. `_primary`: Forces the search to execute only on primary shards.
 ```
@@ -78,27 +88,26 @@ GET /my-index/_search?preference=custom_string
 
 ## Custom routing during index and search
 
-### Indexing with routing
+### Routing during indexing
 When you index a document, OpenSearch calculates a hash of the routing value and uses this hash to determine the shard on which the document will be stored. If you don't specify a routing value, OpenSearch uses the document's ID to calculate the hash.
 
 Following is an example index operation using a routing value:
 ```
-curl -X POST "https://<opensearch-host>:<port>/index1/_doc/1?routing=user1" -H 'Content-Type: application/json' -d'
+POST /index1/_doc/1?routing=user1
 {
   "name": "John Doe",
   "age": 20
 }
-'
 ```
 In the above example, the document with ID 1 is indexed with the routing value user1. All documents with the same routing value will be stored on the same shard.
 
-### Searching with routing
+### Routing during searches
 
 When you search for documents, specifying the same routing value ensures that the search request is routed to the appropriate shard. This can significantly improve performance by reducing the number of shards that need to be queried.
 
 Here’s an example of searching with a specific routing value:
 ```
-curl -X GET "https://<opensearch-host>:<port>/index1/_search?routing=user1" -H 'Content-Type: application/json' -d'
+GET /index1/_search?routing=user1
 {
   "query": {
     "match": {
@@ -106,7 +115,7 @@ curl -X GET "https://<opensearch-host>:<port>/index1/_search?routing=user1" -H '
     }
   }
 }
-'
+
 ```
 In the above example, the search query is routed to the shard that contains documents indexed with the routing value user1.
 
@@ -119,13 +128,12 @@ Hitting a large number of shards simultaneously during a search can significantl
 You can use parameter `max_concurrent_shard_requests` with the search request to limit it to maximum number of shards that can be queried, see the following example:
 
 ```
-curl -X GET "https://<opensearch-host>:<port>/index1/_search?max_concurrent_shard_requests=12" -u admin:<password> -H 'Content-Type: application/json' -d'
+GET /index1/_search?max_concurrent_shard_requests=12
 {
   "query": {
     "match_all": {}
   }
 }
-'
 ```
 
 ### action.search.shard_count.limit
@@ -133,7 +141,7 @@ curl -X GET "https://<opensearch-host>:<port>/index1/_search?max_concurrent_shar
 You can define `action.search.shard_count.limit` in `opensearch.yml` file or dynamically using cluster settings. Any search request that attempts to query more than 1000 shards will be rejected with an error. This helps prevent a single search request from consuming too many resources, which can degrade the performance of the entire cluster. See example below:
 
 ```
-curl -X PUT "https://<opensearch-host>:<port>/_cluster/settings" -u admin:<password> -H 'Content-Type: application/json' -d'
+PUT /_cluster/settings
 {
   "transient": {
     "action.search.shard_count.limit": 1000
@@ -152,13 +160,16 @@ thread_pool.search.queue_size: 1000
 
 #### How They Work Together
 
-**Thread Assignment**: If there are available threads in the search thread pool, the request is immediately assigned to a thread and begins processing.
+Thread Assignment: 
+If there are available threads in the search thread pool, the request is immediately assigned to a thread and begins processing.
 
-**Queueing**: If all threads in the search thread pool are busy, the request is placed in the queue.
+Queueing:
+If all threads in the search thread pool are busy, the request is placed in the queue.
 
-**Rejection**: If the queue is full (i.e., the number of queued requests reaches the queue_size limit), additional incoming search requests are rejected until there is space available in the queue.
+Rejection:
+If the queue is full (i.e., the number of queued requests reaches the queue_size limit), additional incoming search requests are rejected until there is space available in the queue.
 
 You can check the currently configured search thread pool by running the following curl request:
 ```
-curl -X GET "https://localhost:9200/_cat/thread_pool/search?v&h=id,name,active,rejected,completed,size,queue_size" -u admin:<password>
+GET /_cat/thread_pool/search?v&h=id,name,active,rejected,completed,size,queue_size
 ```
