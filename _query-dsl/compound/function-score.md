@@ -830,11 +830,11 @@ The results contain the three matching blog posts:
 
 ## Named functions
 
-You can specify `_name` parameter for every function top level definition. This parameter is used to identify the function in the response. The name is useful for debugging and understanding the scoring process. Once specified, it is returned back as a part of the explanation whenever it dims possible (it applies to functions, filters and queries).
+When defining a function, you can specify its name using the `_name` parameter at the top level. This name is useful for debugging and understanding the scoring process. Once specified, the function name is included in the score calculation explanation whenever possible (this applies to functions, filters, and queries). You can identify the function by its `_name` in the response.
 
 ### Example
 
-The following request sets `explain: true` for debugging purpose to retrieve the explanation of the scoring process in the response. For the ease of identifying unambiguously the functions, the `_name` parameter is set for each function:
+The following request sets `explain` to `true` for debugging purposes in order to obtain scoring explanation in the response. Each function contains a `_name` parameter so you can identify the function unambiguously:
 
 ```json
 GET blogs/_search
@@ -881,7 +881,7 @@ GET blogs/_search
 ```
 {% include copy-curl.html %}
 
-The response will contain the explanation of the scoring process with the names of the functions in it:
+The response explains the scoring process. For each function, the explanation contains the function `_name` in its `description`:
 
 <details open markdown="block">
   <summary>
@@ -1019,6 +1019,5 @@ The response will contain the explanation of the scoring process with the names 
 }
 ```
 </details>
-{% include copy-curl.html %}
 
 As you can see, the explanation contains the name in the respective function's description.
