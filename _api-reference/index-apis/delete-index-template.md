@@ -2,7 +2,7 @@
 layout: default
 title: Delete Index Template
 parent: Index APIs
-nav_order: 27
+nav_order: 28
 ---
 
 # Delete Index Template
