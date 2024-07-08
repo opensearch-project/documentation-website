@@ -36,6 +36,7 @@ Parameter | Type | Description
 :--- | :--- | :---
 `create` | Boolean | When true, the API cannot replace or update any existing index templates. Default is `false`.
 `cluster_manager_timeout` | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
+`timeout` | Time | How long the operation should wait for a response. Default is `30s`.
 
 ## Request body options
 
