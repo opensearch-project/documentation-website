@@ -49,7 +49,7 @@ Note the model inference endpoint; you'll use it to create a connector in the ne
 
 ## Step 1: Create a connector and register the model
 
-First, create a connector for the model, provide the inference endpoint and your AWS credentials:
+First, create a connector for the model, providing the inference endpoint and your AWS credentials:
 
 ```json
 POST /_plugins/_ml/connectors/_create
