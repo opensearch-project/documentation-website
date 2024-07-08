@@ -7,7 +7,7 @@ nav_order: 26
 
 # Create Index Template
 
-The Create Index Template API lets you initialize indexes with predefined mappings and settings.
+The Create Index Template API lets you initialize indexes with predefined mappings and settings, as well as update existing index template.
 
 ## Path and HTTP methods
 
