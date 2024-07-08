@@ -181,6 +181,7 @@ When the query is valid, the explanation response option shows the string repres
 
 When both the `rewrite` and `all_shards` options are set to `true`, the Validate API responds with detailed information from all available shards as opposed to the default of one shard, as shown in the following response:
 
+```
 {
   "valid": true,
   "_shards": {
