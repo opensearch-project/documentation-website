@@ -19,7 +19,7 @@ DELETE /_index_template/<template-name>
 
 Parameter | Type | Description
 :--- | :--- | :---
-`template-name` | String | Name of the index template. You can delete multiple template in one request names by seperating the template names with a comma. When multiple template names are used in the request, wildcards are not supported.
+`template-name` | String | Name of the index template. You can delete multiple template in one request names by separating the template names with a comma. When multiple template names are used in the request, wildcards are not supported.
 
 ## Query parameters
 
