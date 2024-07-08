@@ -52,15 +52,9 @@ GET /my_index/_search
 ```
 {% include copy-curl.html %}
 
-The response should be similar to the following example:
-
-<details markdown="block">
-  <summary>
-    Response
-  </summary>
-  {: .text-delta}
-
 #### Example response
+
+The response should be similar to the following example:
 
 ```json
 {
@@ -114,6 +108,5 @@ The response should be similar to the following example:
       ]
     }
   }
+}
 ```
-</details>
-
