@@ -6,10 +6,12 @@ nav_order: 55
 ---
 
 # Fingerprint processor
+Introduced 2.16
+{: .label .label-purple }
 
-The `fingerprint` processor is used to generate hash value for the specified fields or all fields in a document, the hash value can be used to deduplicate documents within a index and collapse search results.
+The `fingerprint` processor is used to generate a hash value for the specified fields or all fields in a document. The hash value can be used to deduplicate documents within a index and collapse search results.
 
-To generate hash value for the specified fields, field name, the length of field value and field value are concatenated and separated by `|`, e.g: `|field1|3:value1|field2|10:value2|`, for object fields, the field name is flattened, e.g: `|root_field.sub_field1|1:value1|root_field.sub_field2|100:value2|`.
+For each field, the field name, length of the field value, and the field value itself are concatenated and separated by the pipe character `|`. For example, if the field name is `field1` and the value is `value1`, then the concatenated string would be`|field1|3:value1|field2|10:value2|`. For object fields, the field name is flattened by joining the nested field names with a period `.`. For instance, if the object field is `root_field` with a sub-field `sub_field1` having the value `value1` and another sub-field `sub_field2` with the value `value2`, the concatenated string would be `|root_field.sub_field1|1:value1|root_field.sub_field2|100:value2|`.
 
 The following is the `fingerprint` processor syntax:
 
@@ -30,10 +32,10 @@ The following table lists the required and optional parameters for the `fingerpr
 
 Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
-`fields`  | Optional  | The field list used to generate hash value.  |
-`exclude_fields`  | Optional  | All fields other than the fields in this excluding list are used to generate hash value. The `exclude_fields` and `fields` options are mutually exclusive. If `fields` and `exclude_fields` are both empty or null, it means `include all fields`, all fields will be used to generate hash value.|
-`hash_method`  | Optional  | One of MD5@2.16.0, SHA-1@2.16.0, SHA-256@2.16.0 or SHA3-256@2.16.0. Defaults to SHA-1@2.16.0. This processor is introduced in 2.16.0, we append the OpenSearch version to the hash method name to ensure that this processor always generates same hash value based on a specific hash method, if the processing logic of this processor changes in future version, then this parameter will support new hash method with new version. |
-`target_field`  | Optional  | The name of the field in which to store the hash value. Default target field is `fingerprint`. |
+`fields`  | Optional  | A list of fields used to generate a hash value.  |
+`exclude_fields`  | Optional  | Specifies the fields to be excluded from hash value generation. It is mutually exclusive with the `fields` parameter; if both `exclude_fields` and `fields` are empty or null, all fields are included in the hash value calculation. |
+`hash_method`  | Optional  | Specifies the hashing algorithm to be used, with options being `MD5@2.16.0`, `SHA-1@2.16.0`, `SHA-256@2.16.0`, or `SHA3-256@2.16.0`. Default is `SHA-1@2.16.0`. The version number is appended to ensure consistent hashing across OpenSearch versions, and new versions will support new hash methods. |
+`target_field`  | Optional  | Specifies the name of the field where the generated hash value will be stored. If not provided, the hash value is stored in the `fingerprint` field by default. |
 `ignore_missing`  | Optional  | Specifies whether the processor should exit quietly if one of the required fields is missing. Default is `false`. |
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running the processor. |
@@ -47,7 +49,7 @@ Follow these steps to use the processor in a pipeline.
 
 **Step 1: Create a pipeline**
 
-The following query creates a pipeline named `fingerprint_pipeline` that uses the `fingerprint` processor to generate a hash value for some specified fields in the document: 
+The following query creates a pipeline named `fingerprint_pipeline` that uses the `fingerprint` processor to generate a hash value for specified fields in the document: 
 
 ```json
 PUT /_ingest/pipeline/fingerprint_pipeline
