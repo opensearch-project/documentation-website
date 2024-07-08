@@ -37,11 +37,15 @@ PPL filters, transforms, and aggregates data using a series of commands. See [Co
 
 ## Using PPL within OpenSearch
 
-You can run PPL queries interactively in OpenSearch Dashboards or programmatically using the ``_ppl`` endpoint.
+The SQL plugin is required to run PPL queries in OpenSearch. If you're running a minimal distribution of OpenSearch, you might have to [install the SQL plugin]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) before using PPL.
+{: .note}
+
+You can run PPL queries interactively in OpenSearch Dashboards or programmatically using the ``_ppl`` endpoint. 
 
 In OpenSearch Dashboards, the [Query Workbench tool](https://playground.opensearch.org/app/opensearch-query-workbench#/) provides an interactive testing environment, documented in [Query Workbench documentation]({{site.url}}{{site.baseurl}}/dashboards/query-workbench/).
 
 To run a PPL query using the API, see [SQL and PPL API]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql-ppl-api/).
+
 
 ## Developer documentation
 
