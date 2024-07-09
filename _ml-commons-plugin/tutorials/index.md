@@ -19,6 +19,7 @@ Using the OpenSearch machine learning (ML) framework, you can build various appl
 
 - **Reranking search results**:
     - [Reranking search results using the Cohere Rerank model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/reranking-cohere/)
+    - [Reranking search results using the MS MARCO cross-encoder model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/reranking-cross-encoder/)
 
 - **Agents and tools**:
     - [Retrieval-augmented generation (RAG) chatbot]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/rag-chatbot/)
