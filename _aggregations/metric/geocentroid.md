@@ -122,7 +122,7 @@ When you nest the `geo_centroid` aggregation under the `geohash_grid` aggregatio
 
 #### Example 
 
-In this example, the `geohash_grid` aggregation with a `precision` of `3` creates buckets based on geohash prefixes of length `3`. Since each document has multiple geopoints, they may be assigned to multiple buckets, even if some of the geopoints fall outside the bucket boundaries.
+In this example, the `geohash_grid` aggregation with a `precision` of `3` creates buckets based on geohash prefixes of length `3`. Because each document has multiple geopoints, they may be assigned to multiple buckets, even if some of the geopoints fall outside the bucket boundaries.
 
 The `geo_centroid` subaggregation calculates the centroid for each bucket using all geopoints assigned to that bucket, including those outside the bucket boundaries. This means that the resulting centroid locations may not necessarily lie within the geographic area represented by the corresponding geohash bucket.
 
