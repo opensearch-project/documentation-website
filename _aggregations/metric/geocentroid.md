@@ -8,7 +8,7 @@ nav_order: 45
 
 # Geocentroid
 
-The `geo_centroid` aggregation in OpenSearch is a powerful tool that allows you to calculate the weighted geographic center or focal point of a set of spatial data points. This metric aggregation operates on `geo_point` fields and returns the centroid location as a latitude-longitude pair.
+The OpenSearch `geo_centroid` aggregation is a powerful tool that allows you to calculate the weighted geographic center or focal point of a set of spatial data points. This metric aggregation operates on `geo_point` fields and returns the centroid location as a latitude-longitude pair.
 
 ## Using the aggregation
 
