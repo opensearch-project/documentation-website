@@ -16,7 +16,7 @@ The weighted average is calculated as `(sum of value * weight) / (sum of weights
 
 ## Parameters
 
-When using the `weighted_avg` aggregation you must define the following parameters:
+When using the `weighted_avg` aggregation, you must define the following parameters:
 
 - `value`: The field or script to get the numeric values to average
 - `weight`: The field or script to get the weight for each value
