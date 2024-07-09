@@ -13,7 +13,7 @@ The `fingerprint` processor is used to generate a hash value for either certain 
 
 For each field, the field name, the length of the field value, and the field value itself are concatenated and separated by the pipe character `|`. For example, if the field name is `field1` and the value is `value1`, then the concatenated string would be `|field1|3:value1|field2|10:value2|`. For object fields, the field name is flattened by joining the nested field names with a period `.`. For instance, if the object field is `root_field` with a sub-field `sub_field1` having the value `value1` and another sub-field `sub_field2` with the value `value2`, then the concatenated string would be `|root_field.sub_field1|1:value1|root_field.sub_field2|100:value2|`.
 
-The following is the `fingerprint` processor syntax:
+The following is the syntax for the `fingerprint` processor:
 
 ```json
 {
