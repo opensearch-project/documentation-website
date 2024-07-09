@@ -62,6 +62,13 @@ When run, the `obfuscate` processor parses the fields into the following output:
 
 Use the following configuration options with the `obfuscate` processor.
 
+<!-- 
+This table is auto generated.
+- name: obfuscate.
+- pluginType: Processor.
+- source: https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/obfuscate-processor/src/main/java/org/opensearch/dataprepper/plugins/processor/obfuscation/ObfuscationProcessorConfig.java
+-->
+
 | Parameter | Required | Description |
 | :--- | :---  | :---  |
 | `source` | Yes | The source field to obfuscate. |
