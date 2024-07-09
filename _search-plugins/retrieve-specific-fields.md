@@ -243,7 +243,7 @@ Expected response:
 
 In OpenSearch, if you want to retrieve doc values for nested objects, you cannot directly use the `docvalue_fields` parameter because it will return an empty array. Instead, you should use the `inner_hits` parameter with its own `docvalue_fields` property, see following example.
 
-1. Define the Index and Mappings.
+1. Define the Index and Mappings:
     ```
     PUT my_index
     {
@@ -264,7 +264,7 @@ In OpenSearch, if you want to retrieve doc values for nested objects, you cannot
     }
     ```
 
-2. Index your data.
+2. Index your data:
     ```
     POST my_index/_doc/1
     {
@@ -285,7 +285,7 @@ In OpenSearch, if you want to retrieve doc values for nested objects, you cannot
     }
     ```
 
-3. Perform a Search with `inner_hits` and `docvalue_fields`
+3. Perform a search with `inner_hits` and `docvalue_fields`:
     ```
     POST my_index/_search
     {
@@ -303,7 +303,7 @@ In OpenSearch, if you want to retrieve doc values for nested objects, you cannot
     }
     ```
 
-  Expected response:
+Expected response:
 
 ```
 {
@@ -383,7 +383,7 @@ In OpenSearch, if you want to retrieve doc values for nested objects, you cannot
 
 Unlike `_source`, `stored_fields` must be explicitly defined in the mappings for fields you want to store separately. It can be useful if you frequently need to retrieve only a small subset of fields and want to avoid retrieving the entire `_source` field. See following example.
 
-1. Create index and mappings
+1. Create index and mappings:
     ```
     PUT my_index
     {
@@ -427,7 +427,7 @@ Unlike `_source`, `stored_fields` must be explicitly defined in the mappings for
     }
     ```
 
-3. Perform a Search with `stored_fields`
+3. Perform a search with `stored_fields`
     ```
     POST my_index/_search
     {
@@ -476,11 +476,11 @@ Expected response:
 Stored_fields can be disabled completely in search request using `"stored_fields": "_none_"`.
 {: .note}
 
-### Searching stored fields with nested objects
+### Searching `stored_fields` with nested objects
 
 In OpenSearch, if you want to retrieve `stored_fields` for nested objects, you cannot directly use the `stored_fields` parameter because no data will be returned. Instead, you should use the `inner_hits` parameter with its own `stored_fields` property, see following example.
 
-1. Create index and mappings
+1. Create index and mappings:
     ```
     PUT my_index
     {
@@ -501,7 +501,7 @@ In OpenSearch, if you want to retrieve `stored_fields` for nested objects, you c
     }
     ```
 
-2. Index your data
+2. Index your data:
     ```
     POST my_index/_doc/1
     {
@@ -522,7 +522,7 @@ In OpenSearch, if you want to retrieve `stored_fields` for nested objects, you c
     }
     ```
 
-3. Perform a Search with `inner_hits` and `stored_fields`
+3. Perform a search with `inner_hits` and `stored_fields`:
     ```
     POST my_index/_search
     {
@@ -607,27 +607,27 @@ Source filtering in OpenSearch is a way to control which parts of the `_source` 
 
 You can include or exclude specific fields from the `_source` field in the search response using complete field names or simple wildcard patterns. See following example:
 
-1. Index your data
-```
-PUT my_index/_doc/1
-{
-  "title": "OpenSearch Basics",
-  "author": "John Doe",
-  "publication_date": "2021-01-01",
-  "price": 29.99
-}
-```
+1. Index your data:
+    ```
+    PUT my_index/_doc/1
+    {
+      "title": "OpenSearch Basics",
+      "author": "John Doe",
+      "publication_date": "2021-01-01",
+      "price": 29.99
+    }
+    ```
 
-2. Perform a search using source filtering
-```
-POST my_index/_search
-{
-  "_source": ["title", "author"],
-  "query": {
-    "match_all": {}
-  }
-}
-```
+2. Perform a search using source filtering:
+    ```
+    POST my_index/_search
+    {
+      "_source": ["title", "author"],
+      "query": {
+        "match_all": {}
+      }
+    }
+    ```
 
 Expected response:
 
@@ -738,7 +738,7 @@ If you have an index `products` with the following document:
 }
 ```
 
-Assuming you want to perform a search, but in the response you only want to include the `name`, `price`, `reviews`, and `supplier` fields and exclude any `contact_email` fields from the `supplier` object, and `comment` fields from the `reviews` object. Following is the search you can run:
+If you want to perform a search, but in the response you only want to include the `name`, `price`, `reviews`, and `supplier` fields and exclude any `contact_email` fields from the `supplier` object, and `comment` fields from the `reviews` object. Following is the search you can run:
 
 ```
 GET /products/_search
@@ -801,20 +801,20 @@ Following example demonstrates the power of `script_fields`.
 Let's say you have an index of products, and each product document contains the fields `price` and `discount_percentage`. You want to include a custom field in the search results that shows the discounted price of each product.
 
 
-1. Index the data.
-```
-PUT /products/_doc/123
-{
-  "product_id": "123",
-  "name": "Smartphone",
-  "price": 699.99,
-  "discount_percentage": 10,
-  "category": "Electronics",
-  "description": "A powerful smartphone with a sleek design."
-}
-```
+1. Index the data:
+    ```
+    PUT /products/_doc/123
+    {
+      "product_id": "123",
+      "name": "Smartphone",
+      "price": 699.99,
+      "discount_percentage": 10,
+      "category": "Electronics",
+      "description": "A powerful smartphone with a sleek design."
+    }
+    ```
 
-2. Search using scripted field.
+2. Search using `script_fields`:
 You can now use the `script_fields` parameter to include a custom field called `discounted_price` in the search results. This field will be calculated based on the `price` and `discount_percentage` fields using a script. See following example:
 ```
 GET /products/_search
