@@ -150,7 +150,7 @@ POST /locations/_bulk?refresh
 {"name": "Point B", "coordinates": ["48.8566, 2.3522", "34.0522, -118.2437"]}
 ```
 
-Then, run `geohash_grid` with `geo_centroid` subaggregation:
+Then, run `geohash_grid` with the `geo_centroid` subaggregation:
 
 ```json
 GET /locations/_search
