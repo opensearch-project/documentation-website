@@ -35,7 +35,7 @@ Parameter | Required/Optional | Description |
 `fields`  | Optional  | A list of fields used to generate a hash value.  |
 `exclude_fields`  | Optional  | Specifies the fields to be excluded from hash value generation. It is mutually exclusive with the `fields` parameter; if both `exclude_fields` and `fields` are empty or null, then all fields are included in the hash value calculation. |
 `hash_method`  | Optional  | Specifies the hashing algorithm to be used, with options being `MD5@2.16.0`, `SHA-1@2.16.0`, `SHA-256@2.16.0`, or `SHA3-256@2.16.0`. Default is `SHA-1@2.16.0`. The version number is appended to ensure consistent hashing across OpenSearch versions, and new versions will support new hash methods. |
-`target_field`  | Optional  | Specifies the name of the field where the generated hash value will be stored. If not provided, the hash value is stored in the `fingerprint` field by default. |
+`target_field`  | Optional  | Specifies the name of the field in which the generated hash value will be stored. If not provided, then the hash value is stored in the `fingerprint` field by default. |
 `ignore_missing`  | Optional  | Specifies whether the processor should exit quietly if one of the required fields is missing. Default is `false`. |
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running the processor. |
