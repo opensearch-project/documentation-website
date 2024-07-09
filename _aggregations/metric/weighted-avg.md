@@ -26,7 +26,7 @@ Optionally, you can specify the following parameters:
 - `format`: A numeric format to apply to the output value
 - `value_type`: A type hint for the values if using scripts or unmapped fields
 
-For the value or weight, you can specify:
+For the value or weight, you can specify the following parameters:
 
 - `field`: The document field to use
 - `missing`: A value or weight to use if the field is missing
