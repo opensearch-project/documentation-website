@@ -54,7 +54,7 @@ POST /restaurants/_bulk?refresh
 
 **3. Run the `geo_centroid` aggregation**
 
-To caluculate the centroid location across all documents, run a search with the `geo_cetnroid` aggregation on the `geo_point` field. For example, run the following example:
+To caluculate the centroid location across all documents, run a search with the `geo_centroid` aggregation on the `geo_point` field. For example, use the following request:
 
 ```json
 GET /restaurants/_search
