@@ -16,7 +16,7 @@ Follow these steps to use the `geo_centroid` aggregation:
 
 **1. Create an index with a `geopoint` field**
 
-First, you need to create an index with a `geo_point` field type. This field stores the geographic coordinates you want to analyze. For example, to create an index called `restaurants` with a `location` field of type `geo_point`, use the following example:
+First, you need to create an index with a `geo_point` field type. This field stores the geographic coordinates you want to analyze. For example, to create an index called `restaurants` with a `location` field of type `geo_point`, use the following request:
 
 ```json
 PUT /restaurants
