@@ -64,8 +64,8 @@ Use the following configuration options with the `obfuscate` processor.
 
 <!-- 
 This table is auto-generated.
-- name: obfuscate.
-- pluginType: processor.
+- name: obfuscate
+- pluginType: processor
 - source: https://github.com/opensearch-project/data-prepper/blob/253e59245fd9c39c959c1c8caaeff1b226a5a0ab/data-prepper-plugins/obfuscate-processor/src/main/java/org/opensearch/dataprepper/plugins/processor/obfuscation/ObfuscationProcessorConfig.java
 -->
 
