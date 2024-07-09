@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Reranking with MS Marco cross-encoder
+title: Reranking with the MS MARCO cross-encoder
 parent: Tutorials
 nav_order: 35
 ---
 
-# Reranking search results using the MS Marco cross-encoder model
+# Reranking search results using the MS MARCO cross-encoder model
 
 A [reranking pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/) can rerank search results, providing a relevance score for each document in the search results with respect to the search query. The relevance score is calculated by a cross-encoder model. 
 
@@ -135,7 +135,7 @@ POST _plugins/_ml/_predict/text_similarity/your_model_id
 
 The connector `pre_process_function` transforms the input into the format required by the `inputs` parameter shown in the previous Predict API request.
 
-By default, the SageMaker model output has the following format:
+By default, the SageMaker model output is in the following format:
 
 ```json
 [
@@ -150,7 +150,7 @@ By default, the SageMaker model output has the following format:
 ]
 ```
 
-The connector `pre_process_function` transforms the model output into the following format that the [rerank processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/) can interpret:
+The connector `pre_process_function` transforms the model output into the following format that can be interpreted by the [rerank processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/):
 
 ```json
 {
@@ -184,7 +184,7 @@ The connector `pre_process_function` transforms the model output into the follow
 }
 ```
 
-The response contains two `similarity` outputs. For each `similarity` output, the `data` array contains a relevance score of each document against the query. The `similarity` outputs are provided in the order of the input documents: the first similarity result pertains to the first document.
+The response contains two `similarity` outputs. For each `similarity` output, the `data` array contains a relevance score for each document against the query. The `similarity` outputs are provided in the order of the input documents: The first similarity result pertains to the first document.
 
 ## Step 2: Configure a reranking pipeline
 
@@ -209,7 +209,7 @@ POST _bulk
 
 ### Step 2.2: Create a reranking pipeline
 
-Create a reranking pipeline with the MS Marco cross-encoder model:
+Create a reranking pipeline using the MS MARCO cross-encoder model:
 
 ```json
 PUT /_search/pipeline/rerank_pipeline_sagemaker
@@ -231,7 +231,7 @@ PUT /_search/pipeline/rerank_pipeline_sagemaker
 ```
 {% include copy-curl.html %}
 
-If you provide multiple field names in `document_fields`, the values of all fields are first concatenated and then reranking is performed.
+If you provide multiple field names in `document_fields`, then the values of all fields are first concatenated, after which reranking is performed.
 {: .note}
 
 ### Step 2.3: Test the reranking
