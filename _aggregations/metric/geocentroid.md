@@ -112,7 +112,7 @@ GET /restaurants/_search
 
 This returns a centroid location for each city bucket, allowing you to analyze the geographic center of data points in different cities.
 
-## Using `geo_centroid` with `geohash_grid` aggregation
+## Using `geo_centroid` with the `geohash_grid` aggregation
 
 The `geohash_grid` aggregation partitions geospatial data into buckets based on geohash prefixes. 
 
