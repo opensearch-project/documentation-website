@@ -13,7 +13,7 @@ An index template can be constructed from multiple component templates. To incor
 
 If any settings or mappings are directly defined in the index template or the index creation request, those settings will take precedence over the settings or mappings specified in a component template.
 
-Component templates are utilized solely during the process of index creation. For data streams, this includes the creation of the data stream itself and the creation of the backing indexes that support the stream. Modifications made to component templates will not affect existing indices, including the backing indices of a data stream.
+Component templates are utilized solely during the process of index creation. For data streams, this includes the creation of the data stream itself and the creation of the backing indexes that support the stream. Modifications made to component templates will not affect existing indexes, including the backing indexes of a data stream.
 
 ## Path and HTTP Methods
 
