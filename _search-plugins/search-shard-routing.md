@@ -23,7 +23,7 @@ In OpenSearch, in order to improve latency, search requests are routed using _Ad
 
 - The time it took particular node to run previous requests.
 - Latency between coordinating node and selected node.
-- The size of the queue of node's search threadpool.
+- The size of the queue of node's search thread pool.
 
 You can turn off this feature using following curl command with user which has permissions to call REST APIs, mode details on REST API can be found at [REST management API settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/#rest-management-api-settings):
 
@@ -39,7 +39,7 @@ PUT /_cluster/settings
 In this case, OpenSearch routing will use _round-robin_ which can impact the search latency negatively.
 {: .note}
 
-## Node/shard selection during searches
+## Node and shard selection during searches
 
 OpenSearch uses all nodes to choose best routing for search requests, however, there might be reasons why you want to manually select which nodes or shards the search request is sent to, possible reasons could be:
 
@@ -47,7 +47,7 @@ OpenSearch uses all nodes to choose best routing for search requests, however, t
 - Dedicating specific hardware for searches.
 - Using only local nodes for searches.
 
-You can use the `preference` parameter in the search query to indicate the destination for the search, see example below:
+You can use the `preference` parameter in the search query to indicate the destination for the search. The following is the complete list of available options:
 
 1. `_primary`: Forces the search to execute only on primary shards.
 ```
@@ -88,6 +88,8 @@ GET /my-index/_search?preference=custom_string
 
 ## Custom routing during index and search
 
+You can specify routing during both indexing and searching operations.
+
 ### Routing during indexing
 When you index a document, OpenSearch calculates a hash of the routing value and uses this hash to determine the shard on which the document will be stored. If you don't specify a routing value, OpenSearch uses the document's ID to calculate the hash.
 
@@ -99,7 +101,7 @@ POST /index1/_doc/1?routing=user1
   "age": 20
 }
 ```
-In the above example, the document with ID 1 is indexed with the routing value user1. All documents with the same routing value will be stored on the same shard.
+In this example, the document with ID 1 is indexed with the routing value user1. All documents with the same routing value will be stored on the same shard.
 
 ### Routing during searches
 
@@ -117,7 +119,7 @@ GET /index1/_search?routing=user1
 }
 
 ```
-In the above example, the search query is routed to the shard that contains documents indexed with the routing value user1.
+In this example, the search query is routed to the shard that contains documents indexed with the routing value user1.
 
 ## Concurrent shard request
 
@@ -138,7 +140,7 @@ GET /index1/_search?max_concurrent_shard_requests=12
 
 ### action.search.shard_count.limit
 
-You can define `action.search.shard_count.limit` in `opensearch.yml` file or dynamically using cluster settings. Any search request that attempts to query more than 1000 shards will be rejected with an error. This helps prevent a single search request from consuming too many resources, which can degrade the performance of the entire cluster. See example below:
+You can define `action.search.shard_count.limit` in `opensearch.yml` file or dynamically using cluster settings. Any search request that attempts to query more than 1000 shards will be rejected with an error. This helps prevent a single search request from consuming too many resources, which can degrade the performance of the entire cluster. See following example:
 
 ```
 PUT /_cluster/settings
@@ -158,7 +160,7 @@ thread_pool.search.size: 100
 thread_pool.search.queue_size: 1000
 ```
 
-#### How They Work Together
+#### How thread pools work
 
 Thread Assignment: 
 If there are available threads in the search thread pool, the request is immediately assigned to a thread and begins processing.
