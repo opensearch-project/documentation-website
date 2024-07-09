@@ -834,7 +834,7 @@ When defining a function, you can specify its name using the `_name` parameter a
 
 ### Example
 
-The following request sets `explain` to `true` for debugging purposes in order to obtain scoring explanation in the response. Each function contains a `_name` parameter so you can identify the function unambiguously:
+The following request sets `explain` to `true` for debugging purposes in order to obtain a scoring explanation in the response. Each function contains a `_name` parameter so that you can identify the function unambiguously:
 
 ```json
 GET blogs/_search
@@ -1020,4 +1020,3 @@ The response explains the scoring process. For each function, the explanation co
 ```
 </details>
 
-As you can see, the explanation contains the name in the respective function's description.
