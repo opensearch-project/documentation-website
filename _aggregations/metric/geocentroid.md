@@ -126,7 +126,7 @@ In this example, the `geohash_grid` aggregation with a `precision` of `3` create
 
 The `geo_centroid` subaggregation calculates the centroid for each bucket using all geopoints assigned to that bucket, including those outside the bucket boundaries. This means that the resulting centroid locations may not necessarily lie within the geographic area represented by the corresponding geohash bucket.
 
-First, create an index and then index documents with multiple geopoints: 
+First, create an index and index documents containing multiple geopoints: 
 
 ```json
 PUT /locations
