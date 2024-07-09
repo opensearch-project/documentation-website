@@ -447,7 +447,7 @@ from | The starting transform to return. Default is 0. | No
 size | Specifies the number of transforms to return. Default is 10. | No
 search |The search term to use to filter results. | No
 sortField | The field to sort results with. | No
-sortDirection | Specifies the direction to sort results in. Can be `ASC` or `DESC`. Default is ASC. | No
+sortDirection | Specifies the direction to sort results in. Can be `ASC` or `DESC`. Default is `ASC`. | No
 
 #### Sample Request
 

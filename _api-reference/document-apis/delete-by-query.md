@@ -44,7 +44,7 @@ allow_no_indices | Boolean | Whether to ignore wildcards that don’t match any 
 analyzer | String | The analyzer to use in the query string.
 analyze_wildcard | Boolean | Specifies whether to analyze wildcard and prefix queries. Default is `false`.
 conflicts | String | Indicates to OpenSearch what should happen if the delete by query operation runs into a version conflict. Valid options are `abort` and `proceed`. Default is `abort`.
-default_operator | String | Indicates whether the default operator for a string query should be AND or OR. Default is OR.
+default_operator | String | Indicates whether the default operator for a string query should be `AND` or `OR`. Default is `OR`.
 df | String | The default field in case a field prefix is not provided in the query string.
 expand_wildcards | String | Specifies the type of index that wildcard expressions can match. Supports comma-separated values. Valid values are `all` (match any index), `open` (match open, non-hidden indexes), `closed` (match closed, non-hidden indexes), `hidden` (match hidden indexes), and `none` (deny wildcard expressions). Default is `open`.
 from | Integer | The starting index to search from. Default is 0.
