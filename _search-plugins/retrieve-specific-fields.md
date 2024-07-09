@@ -17,7 +17,7 @@ When you run a basic search in OpenSearch, by default, the original JSON objects
 
 ---
 
-## Disabling _source
+## Disabling `_source`
 
 You can include `"_source": false` line in the search request to prevent the `_source` field from being included in the response. See following example:
 
