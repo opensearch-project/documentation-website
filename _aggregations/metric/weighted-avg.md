@@ -8,7 +8,7 @@ nav_order: 150
 
 # Weighted average
 
-The `weighted_avg` aggregation calculates the weighted average of numeric values across documents. This is useful when you want to calculate an average, but weight some data points more heavily than others.
+The `weighted_avg` aggregation calculates the weighted average of numeric values across documents. This is useful when you want to calculate an average but weight some data points more heavily than others.
 
 ## Weighted average calculation
 
