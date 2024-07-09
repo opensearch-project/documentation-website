@@ -51,7 +51,7 @@ PUT /test-index
           "space_type": "l2",
           "parameters": {
             "encoder": {
-              "name": "sq",
+              "name": "sq"
             },
             "ef_construction": 256,
             "m": 8
