@@ -151,7 +151,7 @@ GET /my_index/_search
 
 Additionally, you can also use [most fields]({{site.url}}{{site.baseurl}}/query-dsl/full-text/multi-match/#most-fields) and [field aliases]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/alias/) with `fields` parameter, as it queries both document `_source` and `_mappings` of the index.
 
-## Searching with docvalue_fields
+## Searching with `docvalue_fields`
 
 `docvalue_fields` is another parameter you can use in OpenSearch to retrieve specific fields from the index, but it works slightly differently compared to the `fields` parameter. The `docvalue_fields` parameter retrieves details from doc values rather than from the `_source` field, which is more efficient for fields that are not analyzed, like keyword, date, and numeric fields. Doc values are a columnar storage format optimized for efficient sorting and aggregations. It stores the values on disk in a way that is easy to read. When you use `docvalue_fields`, OpenSearch reads the values directly from this optimized storage format. It is useful for retrieving values of fields that are primarily used for sorting, aggregations, and for use in scripts.
 
@@ -239,7 +239,7 @@ Expected response:
 }
 ```
 
-### Using docvalue_fields with nested objects
+### Using `docvalue_fields` with nested objects
 
 In OpenSearch, if you want to retrieve doc values for nested objects, you cannot directly use the `docvalue_fields` parameter because it will return an empty array. Instead, you should use the `inner_hits` parameter with its own `docvalue_fields` property, see following example.
 
@@ -377,7 +377,7 @@ Expected response:
 }
 ```
 
-## Searching with stored fields 
+## Searching with `stored_fields` 
 
 `stored_fields` is another feature in OpenSearch that allows you to explicitly store and retrieve specific fields from documents, separate from the `_source` field. By default, OpenSearch stores the entire document in the `_source` field and uses it to return document contents in search results. However, sometimes you might want to store certain fields separately for more efficient retrieval.
 
@@ -408,7 +408,7 @@ Unlike `_source`, `stored_fields` must be explicitly defined in the mappings for
     }
     ```
 
-2. Index your data
+2. Index your data:
     ```
     POST my_index/_doc/1
     {
@@ -427,7 +427,7 @@ Unlike `_source`, `stored_fields` must be explicitly defined in the mappings for
     }
     ```
 
-3. Perform a search with `stored_fields`
+3. Perform a search with `stored_fields`:
     ```
     POST my_index/_search
     {
