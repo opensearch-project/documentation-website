@@ -73,4 +73,219 @@ The following examples show how the Recover Index API works.
 
 ### Recover information from several or all indexes
 
-The following example request returns recovery information about several indexes 
+The following example request returns recovery information about several indexes in a [human-readable format](https://opensearch.org/docs/latest/api-reference/common-parameters/#human-readable-output):
+
+```
+GET index1,index2/_recovery?human
+```
+{% include copy-curl.html %}
+
+The following example returns recovery information about all indexes in a human-readable format:
+
+```
+GET /_recovery?human
+```
+{% include copy-curl.html %}
+
+### Recover detailed information
+
+The following example recover detailed recovery information:
+
+```
+GET _recovery?human&detailed=true
+```
+{% include copy-curl.html %}
+
+## Example response
+
+The following response returns detailed recovery information about an index named `shakespeare`:
+
+```json
+{
+  "shakespeare": {
+    "shards": [
+      {
+        "id": 0,
+        "type": "EXISTING_STORE",
+        "stage": "DONE",
+        "primary": true,
+        "start_time": "2024-07-01T18:06:47.415Z",
+        "start_time_in_millis": 1719857207415,
+        "stop_time": "2024-07-01T18:06:47.538Z",
+        "stop_time_in_millis": 1719857207538,
+        "total_time": "123ms",
+        "total_time_in_millis": 123,
+        "source": {
+          "bootstrap_new_history_uuid": false
+        },
+        "target": {
+          "id": "uerS7REgRQCbBF3ImY8wOQ",
+          "host": "172.18.0.3",
+          "transport_address": "172.18.0.3:9300",
+          "ip": "172.18.0.3",
+          "name": "opensearch-node2"
+        },
+        "index": {
+          "size": {
+            "total": "17.8mb",
+            "total_in_bytes": 18708764,
+            "reused": "17.8mb",
+            "reused_in_bytes": 18708764,
+            "recovered": "0b",
+            "recovered_in_bytes": 0,
+            "percent": "100.0%"
+          },
+          "files": {
+            "total": 7,
+            "reused": 7,
+            "recovered": 0,
+            "percent": "100.0%",
+            "details": [
+              {
+                "name": "_1.cfs",
+                "length": "9.8mb",
+                "length_in_bytes": 10325945,
+                "reused": true,
+                "recovered": "0b",
+                "recovered_in_bytes": 0
+              },
+              {
+                "name": "_0.cfe",
+                "length": "479b",
+                "length_in_bytes": 479,
+                "reused": true,
+                "recovered": "0b",
+                "recovered_in_bytes": 0
+              },
+              {
+                "name": "_0.si",
+                "length": "333b",
+                "length_in_bytes": 333,
+                "reused": true,
+                "recovered": "0b",
+                "recovered_in_bytes": 0
+              },
+              {
+                "name": "_1.cfe",
+                "length": "479b",
+                "length_in_bytes": 479,
+                "reused": true,
+                "recovered": "0b",
+                "recovered_in_bytes": 0
+              },
+              {
+                "name": "_1.si",
+                "length": "333b",
+                "length_in_bytes": 333,
+                "reused": true,
+                "recovered": "0b",
+                "recovered_in_bytes": 0
+              },
+              {
+                "name": "_0.cfs",
+                "length": "7.9mb",
+                "length_in_bytes": 8380790,
+                "reused": true,
+                "recovered": "0b",
+                "recovered_in_bytes": 0
+              },
+              {
+                "name": "segments_3",
+                "length": "405b",
+                "length_in_bytes": 405,
+                "reused": true,
+                "recovered": "0b",
+                "recovered_in_bytes": 0
+              }
+            ]
+          },
+          "total_time": "6ms",
+          "total_time_in_millis": 6,
+          "source_throttle_time": "-1",
+          "source_throttle_time_in_millis": 0,
+          "target_throttle_time": "-1",
+          "target_throttle_time_in_millis": 0
+        },
+        "translog": {
+          "recovered": 0,
+          "total": 0,
+          "percent": "100.0%",
+          "total_on_start": 0,
+          "total_time": "113ms",
+          "total_time_in_millis": 113
+        },
+        "verify_index": {
+          "check_index_time": "0s",
+          "check_index_time_in_millis": 0,
+          "total_time": "0s",
+          "total_time_in_millis": 0
+        }
+      },
+      {
+        "id": 0,
+        "type": "PEER",
+        "stage": "DONE",
+        "primary": false,
+        "start_time": "2024-07-01T18:06:47.693Z",
+        "start_time_in_millis": 1719857207693,
+        "stop_time": "2024-07-01T18:06:47.744Z",
+        "stop_time_in_millis": 1719857207744,
+        "total_time": "50ms",
+        "total_time_in_millis": 50,
+        "source": {
+          "id": "uerS7REgRQCbBF3ImY8wOQ",
+          "host": "172.18.0.3",
+          "transport_address": "172.18.0.3:9300",
+          "ip": "172.18.0.3",
+          "name": "opensearch-node2"
+        },
+        "target": {
+          "id": "HFYKietmTO6Ud9COgP0k9Q",
+          "host": "172.18.0.2",
+          "transport_address": "172.18.0.2:9300",
+          "ip": "172.18.0.2",
+          "name": "opensearch-node1"
+        },
+        "index": {
+          "size": {
+            "total": "0b",
+            "total_in_bytes": 0,
+            "reused": "0b",
+            "reused_in_bytes": 0,
+            "recovered": "0b",
+            "recovered_in_bytes": 0,
+            "percent": "0.0%"
+          },
+          "files": {
+            "total": 0,
+            "reused": 0,
+            "recovered": 0,
+            "percent": "0.0%",
+            "details": []
+          },
+          "total_time": "1ms",
+          "total_time_in_millis": 1,
+          "source_throttle_time": "-1",
+          "source_throttle_time_in_millis": 0,
+          "target_throttle_time": "-1",
+          "target_throttle_time_in_millis": 0
+        },
+        "translog": {
+          "recovered": 0,
+          "total": 0,
+          "percent": "100.0%",
+          "total_on_start": -1,
+          "total_time": "42ms",
+          "total_time_in_millis": 42
+        },
+        "verify_index": {
+          "check_index_time": "0s",
+          "check_index_time_in_millis": 0,
+          "total_time": "0s",
+          "total_time_in_millis": 0
+        }
+      }
+    ]
+  }
+}
+```
