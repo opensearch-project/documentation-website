@@ -114,7 +114,7 @@ This returns a centroid location for each city bucket, allowing you to analyze t
 
 ## Using `geo_centroid` with `geohash_grid` aggregation
 
-The `geohash_grid` aggregation partitions geo-spatial data into buckets based on geohash prefixes. 
+The `geohash_grid` aggregation partitions geospatial data into buckets based on geohash prefixes. 
 
 When a document contains multiple geopoint values in a field, the `geohash_grid` aggregation assigns the document to multiple buckets, even if one or more of its geopoints are outside the bucket boundaries. This behavior is different from how individual geopoints are treated, where only those within the bucket boundaries are considered.
 
