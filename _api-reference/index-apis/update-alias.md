@@ -37,7 +37,7 @@ POST /<target>/_aliases/<alias-name>
 PUT /<target>/_aliases/<alias-name>
 POST /_aliases/<alias-name>
 PUT /_aliases/<alias-name>
-POST /<target>/_aliases
+PUT /<target>/_alias
 PUT /<target>/_aliases
 PUT /_alias
 ```
@@ -53,7 +53,7 @@ PUT /_alias
 
 All query parameters are optional.
 
-Parameter | Data Type | Description
+Parameter | Data type | Description
 :--- | :--- | :---
 cluster_manager_timeout | Time | The amount of time to wait for a response from the cluster manager node. Default is `30s`.
 timeout | Time | The amount of time to wait for a response from the cluster. Default is `30s`.
@@ -62,9 +62,9 @@ timeout | Time | The amount of time to wait for a response from the cluster. Def
 
 In the request body, you can specify the index name, the alias name, and the settings for the alias. All fields are optional.
 
-Field | Data Type | Description
+Field | Data type | Description
 :--- | :--- | :--- | :---
-index | String | Comma-delimited list of data streams orindexes you want to associate with the alias. If this field is set, it will override the index name specified in the URL path.
+index | String | Comma-delimited list of data streams or indexes you want to associate with the alias. If this field is set, it will override the index name specified in the URL path.
 alias | String | The name of the alias. If this field is set, it will override the alias name specified in the URL path.
 is_write_index | Boolean | Specifies whether the index should be a write index. An alias can only have one write index at a time. If a write request is submitted to a alias that links to multiple indexes, OpenSearch executes the request only on the write index.
 routing | String | Used to assign a custom value to a shard for specific operations. 
