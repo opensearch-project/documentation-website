@@ -88,7 +88,7 @@ GET /products/_search
 
 ## Handling missing values
 
-The `missing` parameter allows you to specify default values for documents that are missing the `value` field or the `weight` field instead of excluding them from the calculation.
+The `missing` parameter allows you to specify default values for documents missing the `value` field or the `weight` field instead of excluding them from the calculation.
 
 Here's an example of this behavior. First, create an index and add sample documents. This example has five documents with different combinations of missing values for the `rating` and `num_reviews` fields. 
 
