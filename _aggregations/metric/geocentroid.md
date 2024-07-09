@@ -37,7 +37,7 @@ PUT /restaurants
 
 **2. Index documents with spatial data**
 
-Next, index your documents containing the spatial data points you want to analyze. Make sure to include the `geo_point` field with the appropriate latitude-longitude coordinates. For example, index your documents using the following example:
+Next, index your documents containing the spatial data points you want to analyze. Make sure to include the `geo_point` field with the appropriate latitude-longitude coordinates. For example, index your documents using the following request:
 
 ```json
 POST /restaurants/_bulk?refresh
