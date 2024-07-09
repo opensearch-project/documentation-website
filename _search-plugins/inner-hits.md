@@ -13,63 +13,64 @@ In OpenSearch, when you perform a search using parent-join or nested objects, th
 
 Nested objects allow you to index an array of objects and maintain their relationship within the same document. See the following example of using `inner_hits` parameter to retrieve underlying inner hits:
 
-1. Create index mapping with nested object
-```
-PUT /my_index
-{
-  "mappings": {
-    "properties": {
-      "user": {
-        "type": "nested",
+1. Create index mapping with nested object:
+    ```
+    PUT /my_index
+    {
+      "mappings": {
         "properties": {
-          "name": { "type": "text" },
-          "age": { "type": "integer" }
+          "user": {
+            "type": "nested",
+            "properties": {
+              "name": { "type": "text" },
+              "age": { "type": "integer" }
+            }
+          }
         }
       }
     }
-  }
-}
-```
+    ```
 
-2. Index data
-```
-POST /my_index/_doc/1
-{
-  "group": "fans",
-  "user": [
+2. Index data:
+    ```
+    POST /my_index/_doc/1
     {
-      "name": "John Doe",
-      "age": 28
-    },
-    {
-      "name": "Jane Smith",
-      "age": 34
-    }
-  ]
-}
-```
-
-3. Querying with `inner_hits`
-```
-GET /my_index/_search
-{
-  "query": {
-    "nested": {
-      "path": "user",
-      "query": {
-        "bool": {
-          "must": [
-            { "match": { "user.name": "John" } }
-          ]
+      "group": "fans",
+      "user": [
+        {
+          "name": "John Doe",
+          "age": 28
+        },
+        {
+          "name": "Jane Smith",
+          "age": 34
         }
-      },
-      "inner_hits": {}
+      ]
     }
-  }
-}
-```
+    ```
+
+3. Query with `inner_hits`:
+    ```
+    GET /my_index/_search
+    {
+      "query": {
+        "nested": {
+          "path": "user",
+          "query": {
+            "bool": {
+              "must": [
+                { "match": { "user.name": "John" } }
+              ]
+            }
+          },
+          "inner_hits": {}
+        }
+      }
+    }
+    ```
 
 This query searches for nested user objects with the name "John" and returns the matching nested documents within the inner_hits section of the response. The following is the retrieved result:
+
 ```
 {
   "hits" : {
@@ -132,65 +133,64 @@ This query searches for nested user objects with the name "John" and returns the
 
 Parent-join relationships allow you to create relationships between documents of different types within the same index. See following example using search with `inner_hits` with parent/child objects:
 
-1. Create index with parent-join field
-  ```
-  PUT /my_index
-  {
-    "mappings": {
-      "properties": {
-        "my_join_field": {
-          "type": "join",
-          "relations": {
-            "parent": "child"
+1. Create index with parent-join field:
+    ```
+    PUT /my_index
+    {
+      "mappings": {
+        "properties": {
+          "my_join_field": {
+            "type": "join",
+            "relations": {
+              "parent": "child"
+            }
+          },
+          "text": {
+            "type": "text"
           }
-        },
-        "text": {
-          "type": "text"
         }
       }
     }
-  }
-  ```
+    ```
 
-2. Index data
+2. Index data:
 
-  ```
-  # Index a parent document
-  PUT /my_index/_doc/1
-  {
-    "text": "This is a parent document",
-    "my_join_field": "parent"
-  }
-  
-  # Index a child document
-  PUT /my_index/_doc/2?routing=1
-  {
-    "text": "This is a child document",
-    "my_join_field": {
-      "name": "child",
-      "parent": "1"
+    ```
+    # Index a parent document
+    PUT /my_index/_doc/1
+    {
+      "text": "This is a parent document",
+      "my_join_field": "parent"
     }
-  }
-  ```
-
-3. Searching
-  The following is a search query using `inner_hits` to retrieve child documents that match a query and are associated with a specific parent.
-  ```
-  GET /my_index/_search
-  {
-    "query": {
-      "has_child": {
-        "type": "child",
-        "query": {
-          "match": {
-            "text": "child"
-          }
-        },
-        "inner_hits": {}
+    
+    # Index a child document
+    PUT /my_index/_doc/2?routing=1
+    {
+      "text": "This is a child document",
+      "my_join_field": {
+        "name": "child",
+        "parent": "1"
       }
     }
-  }
-  ```
+    ```
+
+3. Search with `inner_hits`:
+    ```
+    GET /my_index/_search
+    {
+      "query": {
+        "has_child": {
+          "type": "child",
+          "query": {
+            "match": {
+              "text": "child"
+            }
+          },
+          "inner_hits": {}
+        }
+      }
+    }
+    ```
 
 This query searches for parent documents that have a child document matching the query criteria (`"child"` in this case) and returns the matching child documents within the `inner_hits` section of the response. See the following expected result:
 ```
@@ -246,88 +246,88 @@ This query searches for parent documents that have a child document matching the
 
 Combining both features into a comprehensive example:
 
-1. Create the index with mapping
-```
-PUT /my_index
-{
-  "mappings": {
-    "properties": {
-      "my_join_field": {
-        "type": "join",
-        "relations": {
-          "parent": "child"
-        }
-      },
-      "text": {
-        "type": "text"
-      },
-      "comments": {
-        "type": "nested",
+1. Create the index with mapping:
+    ```
+    PUT /my_index
+    {
+      "mappings": {
         "properties": {
-          "user": { "type": "text" },
-          "message": { "type": "text" }
+          "my_join_field": {
+            "type": "join",
+            "relations": {
+              "parent": "child"
+            }
+          },
+          "text": {
+            "type": "text"
+          },
+          "comments": {
+            "type": "nested",
+            "properties": {
+              "user": { "type": "text" },
+              "message": { "type": "text" }
+            }
+          }
         }
       }
     }
-  }
-}
-```
+    ```
 
-2. Index data
-```
-# Index a parent document
-PUT /my_index/_doc/1
-{
-  "text": "This is a parent document",
-  "my_join_field": "parent"
-}
-
-# Index a child document with nested comments
-PUT /my_index/_doc/2?routing=1
-{
-  "text": "This is a child document",
-  "my_join_field": {
-    "name": "child",
-    "parent": "1"
-  },
-  "comments": [
+2. Index data:
+    ```
+    # Index a parent document
+    PUT /my_index/_doc/1
     {
-      "user": "John",
-      "message": "This is a comment"
-    },
-    {
-      "user": "Jane",
-      "message": "Another comment"
+      "text": "This is a parent document",
+      "my_join_field": "parent"
     }
-  ]
-}
-```
+    
+    # Index a child document with nested comments
+    PUT /my_index/_doc/2?routing=1
+    {
+      "text": "This is a child document",
+      "my_join_field": {
+        "name": "child",
+        "parent": "1"
+      },
+      "comments": [
+        {
+          "user": "John",
+          "message": "This is a comment"
+        },
+        {
+          "user": "Jane",
+          "message": "Another comment"
+        }
+      ]
+    }
+    ```
 
-3. Query with inner_hits
-```
-GET /my_index/_search
-{
-  "query": {
-    "has_child": {
-      "type": "child",
+3. Query with `inner_hits`:
+    ```
+    GET /my_index/_search
+    {
       "query": {
-        "nested": {
-          "path": "comments",
+        "has_child": {
+          "type": "child",
           "query": {
-            "bool": {
-              "must": [
-                { "match": { "comments.user": "John" } }
-              ]
+            "nested": {
+              "path": "comments",
+              "query": {
+                "bool": {
+                  "must": [
+                    { "match": { "comments.user": "John" } }
+                  ]
+                }
+              },
+              "inner_hits": {}
             }
           },
           "inner_hits": {}
         }
-      },
-      "inner_hits": {}
+      }
     }
-  }
-}
-```
+    ```
 
 In this query you can see how search for parent documents that have child documents containing comments made by "John". The `inner_hits` feature is used to return the matching child documents and their nested comments.
 Expected result:
