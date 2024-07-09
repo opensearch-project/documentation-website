@@ -171,7 +171,7 @@ If all threads in the search thread pool are busy, the request is placed in the 
 Rejection:
 If the queue is full (i.e., the number of queued requests reaches the queue_size limit), additional incoming search requests are rejected until there is space available in the queue.
 
-You can check the currently configured search thread pool by running the following curl request:
+You can check the currently configured search thread pool by running the following request:
 ```
 GET /_cat/thread_pool/search?v&h=id,name,active,rejected,completed,size,queue_size
 ```
