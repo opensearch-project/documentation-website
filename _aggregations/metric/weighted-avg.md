@@ -36,7 +36,7 @@ For the value or weight, you can specify the following parameters:
 
 Follow these steps to use the `weighted_avg` aggregation:
 
-**1. Create an index and then index some documents**
+**1. Create an index and index some documents**
 
 ```json
 PUT /products
