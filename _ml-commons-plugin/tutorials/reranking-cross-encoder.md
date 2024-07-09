@@ -9,7 +9,7 @@ nav_order: 35
 
 A [reranking pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/) can rerank search results, providing a relevance score for each document in the search results with respect to the search query. The relevance score is calculated by a cross-encoder model. 
 
-This tutorial illustrates how to use the [Hugging Face Cross-Encoder for MS Marco](https://huggingface.co/cross-encoder/ms-marco-MiniLM-L-6-v2) model in a reranking pipeline. 
+This tutorial illustrates how to use the [Hugging Face `ms-marco-MiniLM-L-6-v2` model](https://huggingface.co/cross-encoder/ms-marco-MiniLM-L-6-v2) in a reranking pipeline. 
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}
