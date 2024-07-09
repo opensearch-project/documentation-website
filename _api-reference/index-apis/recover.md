@@ -35,7 +35,7 @@ GET /<index-name>/recovery/
 
 Parameter | Type | Description 
 :--- | :--- 
-`index-name` | String | The index name. Must conform to the [index naming restrictions](#index-naming-restrictions). Required. 
+`index-name` | String | The name(s) of the index(es) you want recovery information about.  
 
 
 ## Query parameters
