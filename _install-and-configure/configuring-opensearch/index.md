@@ -27,7 +27,7 @@ Certain operations are static and require you to modify the `opensearch.yml` [co
 
 You can specify environment variables in the following ways.
 
-### Arguments as start up
+### Arguments at startup
 
 You can specify environment variables as arguments using `-E` when launching OpenSearch:
 
@@ -67,7 +67,7 @@ sudo systemctl restart opensearch
 
 ### Docker environment variables
 
-When running OpenSearch in Docker, you can specify environment variables using the -e option with Docker run, as shown in the following command:
+When running OpenSearch in Docker, you can specify environment variables using the `-e` option with `docker run` command, as shown in the following command:
 
 ```bash
 docker run -e "OPENSEARCH_JAVA_OPTS=-Xms2g -Xmx2g" -e "OPENSEARCH_PATH_CONF=/usr/share/opensearch/config" opensearchproject/opensearch:latest
