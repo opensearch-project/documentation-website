@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Create Component Template
+title: Create or Update Component Template
 parent: Index APIs
 nav_order: 29
 ---
 
-# Create Component Template
+# Create or Update Component Template
 
 The Create Component Template API creates and updates a component template. Component templates are pieces of index templates which mappings, index settings, and aliases.
 
