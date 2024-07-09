@@ -63,10 +63,10 @@ When run, the `obfuscate` processor parses the fields into the following output:
 Use the following configuration options with the `obfuscate` processor.
 
 <!-- 
-This table is auto generated.
+This table is auto-generated.
 - name: obfuscate.
-- pluginType: Processor.
-- source: https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/obfuscate-processor/src/main/java/org/opensearch/dataprepper/plugins/processor/obfuscation/ObfuscationProcessorConfig.java
+- pluginType: processor.
+- source: https://github.com/opensearch-project/data-prepper/blob/253e59245fd9c39c959c1c8caaeff1b226a5a0ab/data-prepper-plugins/obfuscate-processor/src/main/java/org/opensearch/dataprepper/plugins/processor/obfuscation/ObfuscationProcessorConfig.java
 -->
 
 | Parameter | Required | Description |
