@@ -24,7 +24,7 @@ When using the `weighted_avg` aggregation you must define the following paramete
 Optionally, you can specify the following parameters:
 
 - `format`: A numeric format to apply to the output value
-- `value_type`: A type hint for the values if using scripts or unmapped fields
+- `value_type`: A type hint for the values when using scripts or unmapped fields
 
 For the value or weight, you can specify the following parameters:
 
