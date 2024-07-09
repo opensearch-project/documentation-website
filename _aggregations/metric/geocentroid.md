@@ -86,7 +86,7 @@ The response includes a `centroid` object with `lat` and `lon` properties repres
 
 **4. Nest under other aggregations (optional)**
 
-You can also nest the `geo_centroid` aggregation under other bucket aggregations such as `terms` to calculate the centroid for subsets of your data. For example, to find the centroid location for each city, use the following example:
+You can also nest the `geo_centroid` aggregation under other bucket aggregations, such as `terms`, to calculate the centroid for subsets of your data. For example, to find the centroid location for each city, use the following request:
 
 ```json
 GET /restaurants/_search
