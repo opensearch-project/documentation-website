@@ -43,8 +43,8 @@ All cluster allocation explain parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :---
-include_yes_decisions | Boolean | OpenSearch makes a series of yes or no decisions when trying to allocate a shard to a node. If this parameter is true, OpenSearch includes the (generally more numerous) "yes" decisions in its response. Default is false.
-include_disk_info | Boolean | Whether to include information about disk usage in the response. Default is false.
+include_yes_decisions | Boolean | OpenSearch makes a series of yes or no decisions when trying to allocate a shard to a node. If this parameter is true, OpenSearch includes the (generally more numerous) "yes" decisions in its response. Default is `false`.
+include_disk_info | Boolean | Whether to include information about disk usage in the response. Default is `false`.
 
 
 ## Request body

@@ -42,9 +42,9 @@ The request body is optional.
 Field | Data type | Description
 :--- | :--- | :---
 `indices` | String | The indices you want to include in the snapshot. You can use `,` to create a list of indices, `*` to specify an index pattern, and `-` to exclude certain indices. Don't put spaces between items. Default is all indices.
-`ignore_unavailable` | Boolean | If an index from the `indices` list doesn't exist, whether to ignore it rather than fail the snapshot. Default is false.
-`include_global_state` | Boolean | Whether to include cluster state in the snapshot. Default is true.
-`partial` | Boolean | Whether to allow partial snapshots. Default is false, which fails the entire snapshot if one or more shards fails to stor
+`ignore_unavailable` | Boolean | If an index from the `indices` list doesn't exist, whether to ignore it rather than fail the snapshot. Default is `false`.
+`include_global_state` | Boolean | Whether to include cluster state in the snapshot. Default is `true`.
+`partial` | Boolean | Whether to allow partial snapshots. Default is `false`, which fails the entire snapshot if one or more shards fails to stor
 
 #### Example requests
 
