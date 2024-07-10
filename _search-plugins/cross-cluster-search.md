@@ -285,7 +285,7 @@ curl -XGET -k -u 'admin:<custom-admin-password>' 'https://opensearch-domain-1:92
 ## Sample Kubernetes/Helm setup
 If you are using Kubernetes clusters to deploy OpenSearch, you need to configure the remote cluster using either the `LoadBalancer` or `Ingress`. The Kubernetes services created using the following [Helm]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/helm/) example are of the `ClusterIP` type and are only accessible from within the cluster; therefore, you must use an externally accessible endpoint:
 
-```json
+```bash
 curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://opensearch-domain-1:9200/_cluster/settings' -d '
 {
   "persistent": {
@@ -297,3 +297,68 @@ curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-passwo
   }
 }'
 ```
+
+## Proxy settings
+
+You can configure cross-cluster search on a cluster running behind a proxy. There are many ways to configure a reverse proxy and various proxies to choose from. The following example demonstrates the basic NGINX reverse proxy configuration without TLS termination, though there are many proxies and reverse proxies to choose from. For this example to work, OpenSearch must have both transport and HTTP TLS encryption enabled. For more information about configuring TLS encryption, see [Configuring TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/).
+
+### Prerequisites
+
+To use proxy mode, fulfill the following prerequisites:
+
+- Make sure that the source cluster's nodes are able to connect to the configured `proxy_address`. 
+- Make sure that the proxy can route connections to the remote cluster nodes.
+
+### Proxy configuration
+
+The following is the basic NGINX configuration for HTTP and transport communication:
+
+```
+stream {
+    upstream opensearch-transport {
+        server <opensearch>:9300;
+    }
+    upstream opensearch-http {
+        server <opensearch>:9200;
+    }
+    server {
+        listen 8300;
+        ssl_certificate /.../{{site.opensearch_version}}/config/esnode.pem;
+        ssl_certificate_key /.../{{site.opensearch_version}}/config/esnode-key.pem;
+        ssl_trusted_certificate /.../{{site.opensearch_version}}/config/root-ca.pem;
+        proxy_pass opensearch-transport;
+        ssl_preread on;
+    }
+    server {
+        listen 443;
+        listen [::]:443;
+        ssl_certificate /.../{{site.opensearch_version}}/config/esnode.pem;
+        ssl_certificate_key /.../{{site.opensearch_version}}/config/esnode-key.pem;
+        ssl_trusted_certificate /.../{{site.opensearch_version}}/config/root-ca.pem;
+        proxy_pass opensearch-http;
+        ssl_preread on;
+    }
+}
+```
+
+The listening ports for HTTP and transport communication are set to `443` and `8300`, respectively. 
+
+### OpenSearch configuration
+
+The remote cluster can be configured to point to the `proxy` by using the following command:
+
+```bash
+curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://opensearch:9200/_cluster/settings' -d '
+{
+  "persistent": {
+    "cluster.remote": {
+      "opensearch-remote-cluster": {
+        "mode": "proxy",
+        "proxy_address": "<remote-cluster-proxy>:8300"
+      }
+    }
+  }
+}'
+```
+
+Note the previously configured port `8300` in the [Proxy configuration]({{site.url}}{{site.baseurl}}/search-plugins/cross-cluster-search/#proxy-configuration) section.

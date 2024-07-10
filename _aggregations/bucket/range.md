@@ -5,6 +5,7 @@ parent: Bucket aggregations
 grand_parent: Aggregations
 nav_order: 150
 redirect_from:
+  - /query-dsl/aggregations/bucket/date-range/
   - /query-dsl/aggregations/bucket/range/
 ---
 

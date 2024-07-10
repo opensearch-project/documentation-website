@@ -52,11 +52,11 @@ The following settings configure the location and password of your keystore and 
 
 Name | Description
 :--- | :---
-`plugins.security.ssl.transport.keystore_type` | The type of the keystore file, JKS or PKCS12/PFX. Optional. Default is JKS.
+`plugins.security.ssl.transport.keystore_type` | The type of the keystore file, `JKS` or `PKCS12/PFX`. Optional. Default is `JKS`.
 `plugins.security.ssl.transport.keystore_filepath` | Path to the keystore file, which must be under the `config` directory, specified using a relative path. Required.
 `plugins.security.ssl.transport.keystore_alias` | The alias name of the keystore. Optional. Default is the first alias.
 `plugins.security.ssl.transport.keystore_password` | Keystore password. Default is `changeit`.
-`plugins.security.ssl.transport.truststore_type` | The type of the truststore file, JKS or PKCS12/PFX. Default is JKS.
+`plugins.security.ssl.transport.truststore_type` | The type of the truststore file, `JKS` or `PKCS12/PFX`. Default is `JKS`.
 `plugins.security.ssl.transport.truststore_filepath` | Path to the truststore file, which must be under the `config` directory, specified using a relative path. Required.
 `plugins.security.ssl.transport.truststore_alias` | The alias name of the truststore. Optional. Default is all certificates.
 `plugins.security.ssl.transport.truststore_password` | Truststore password. Default is `changeit`.
@@ -65,7 +65,7 @@ Name | Description
 
 Name | Description
 :--- | :---
-`plugins.security.ssl.http.enabled` | Whether to enable TLS on the REST layer. If enabled, only HTTPS is allowed. Optional. Default is false.
+`plugins.security.ssl.http.enabled` | Whether to enable TLS on the REST layer. If enabled, only HTTPS is allowed. Optional. Default is `false`.
 `plugins.security.ssl.http.keystore_type` | The type of the keystore file, JKS or PKCS12/PFX. Optional. Default is JKS.
 `plugins.security.ssl.http.keystore_filepath` | Path to the keystore file, which must be under the `config` directory, specified using a relative path. Required.
 `plugins.security.ssl.http.keystore_alias` | The alias name of the keystore. Optional. Default is the first alias.
@@ -128,14 +128,16 @@ If your node certificates have an Object ID (OID) identifier in the SAN section,
 
 ## Configuring admin certificates
 
-Admin certificates are regular client certificates that have elevated rights to perform administrative tasks. You need an admin certificate to change the Security plugin configuration using [`plugins/opensearch-security/tools/securityadmin.sh`]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/) or the REST API. Admin certificates are configured in `opensearch.yml` by stating their DN(s):
+Super admin certificates are regular client certificates that have elevated rights to perform administrative security tasks. You need an admin certificate to change the Security plugin configuration using [`plugins/opensearch-security/tools/securityadmin.sh`]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/) or the REST API. Super admin certificates are configured in `opensearch.yml` by stating their DN(s):
 
 ```yml
 plugins.security.authcz.admin_dn:
   - CN=admin,OU=SSL,O=Test,L=Test,C=DE
 ```
 
-For security reasons, you can't use wildcards or regular expressions here.
+For security reasons, you cannot use wildcards or regular expressions as values for the `admin_dn` setting.
+
+For more information about admin and super admin user roles, see [Admin and super admin roles](https://opensearch.org/docs/latest/security/access-control/users-roles/#admin-and-super-admin-roles) and [Configuring super admin certificates](https://opensearch.org/docs/latest/security/configuration/tls/#configuring-admin-certificates).
 
 
 ## (Advanced) OpenSSL
@@ -148,8 +150,8 @@ If OpenSSL is enabled, but for one reason or another the installation does not w
 
 Name | Description
 :--- | :---
-`plugins.security.ssl.transport.enable_openssl_if_available` | Enable OpenSSL on the transport layer if available. Optional. Default is true.
-`plugins.security.ssl.http.enable_openssl_if_available` | Enable OpenSSL on the REST layer if available. Optional. Default is true.
+`plugins.security.ssl.transport.enable_openssl_if_available` | Enable OpenSSL on the transport layer if available. Optional. Default is `true`.
+`plugins.security.ssl.http.enable_openssl_if_available` | Enable OpenSSL on the REST layer if available. Optional. Default is `true`.
 
 {% comment %}
 1. Install [OpenSSL 1.1.0](https://www.openssl.org/community/binaries.html) on every node.
@@ -177,8 +179,8 @@ In addition, when `resolve_hostname` is enabled, the Security plugin resolves th
 
 Name | Description
 :--- | :---
-`plugins.security.ssl.transport.enforce_hostname_verification` | Whether to verify hostnames on the transport layer. Optional. Default is true.
-`plugins.security.ssl.transport.resolve_hostname` | Whether to resolve hostnames against DNS on the transport layer. Optional. Default is true. Only works if hostname verification is also enabled.
+`plugins.security.ssl.transport.enforce_hostname_verification` | Whether to verify hostnames on the transport layer. Optional. Default is `true`.
+`plugins.security.ssl.transport.resolve_hostname` | Whether to resolve hostnames against DNS on the transport layer. Optional. Default is `true`. Only works if hostname verification is also enabled.
 
 
 ## (Advanced) Client authentication
@@ -236,7 +238,6 @@ plugins.security.ssl.http.enabled_protocols:
   - "TLSv1.1"
   - "TLSv1.2"
 ```
-
 
 ## (Advanced) Disabling client initiated renegotiation for Java 8
 

@@ -2,9 +2,11 @@
 layout: default
 title: Using maps 
 grand_parent: Building data visualizations
-parent: Using coordinate and region maps
+parent: Coordinate and region maps
 nav_order: 10
 redirect_from:
+  - /dashboards/maps-plugin/
+  - /dashboards/visualize/maps/
   - /dashboards/maps/
 ---
 
