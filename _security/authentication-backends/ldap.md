@@ -60,8 +60,21 @@ We provide a fully functional example that can help you understand how to use an
 
 To enable LDAP authentication and authorization, add the following lines to `config/opensearch-security/config.yml`:
 
+The internal user database authentication should also be enabled as OpenSearch Dashboards connects to OpenSearch using `kibanaserver` user
+{: .note}
+
 ```yml
 authc:
+  internal_auth:
+    order: 0
+    description: "HTTP basic authentication using the internal user database"
+    http_enabled: true
+    transport_enabled: true
+    http_authenticator:
+      type: basic
+      challenge: false
+    authentication_backend:
+      type: internal
   ldap:
     http_enabled: true
     transport_enabled: true
