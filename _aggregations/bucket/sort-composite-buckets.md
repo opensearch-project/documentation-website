@@ -1,46 +1,46 @@
 ---
 layout: default
-title: Working with subaggregations
+title: Sorting composite buckets
 parent: Composite
 grand_parent: Bucket aggregations
 great_grand_parent: Aggregations
-nav_order: 30
+nav_order: 15
 ---
 
-# Working with subaggregations
+# Sorting composite buckets
 
-Composite aggregations support the use of subaggregations, which allows you to compute additional buckets or statistics for each composite bucket created by the parent aggregation. Subaggregations provide a powerful way to analyze and summarize your data at multiple levels within a single query.
+By default, composite buckets are sorted in natural ascending order based on their values. However, you can customize the sort order for each [value source]({{site.url}}{{site.baseurl}}/aggregations/bucket/value-sources/) within a composite bucket aggregation.
 
 ## Syntax
 
-To include subaggregations in a composite aggregation, you need to add an `aggregations` field within the composite aggregation definition. This field should contain the subaggregation(s) you want to compute for each composite bucket. See the following example definition:
+The `order` parameter is used to specify the sort direction for a value source within the `sources` array of the composite aggregation. It accepts two values:
+
+- `asc` (default): Sort in ascending order
+- `desc`: Sort in descending order
 
 ```json
-{
-  "aggs": {
-    "my_buckets": {
-      "composite": {
-        "sources": [
-          { "SOURCE_NAME": { "AGGREGATION": { ... } } },
-          ...
-        ]
-      },
-      "aggregations": {
-        "SUB_AGGREGATION_NAME": {
-          "AGGREGATION_TYPE": { ... }
+"composite": {
+  "sources": [
+    {
+      "NAME": {
+        "AGGREGATION": {
+          "field": "FIELD",
+          "order": "asc|desc"
         }
       }
-    }
-  }
+    },
+    ...
+  ]
 }
 ```
 {% include copy-curl.html %}
+
 
 ---
 
 ## Example
 
-Consider an index `sales` with fields `timestamp` (date), `product` (keyword), and `price` (float). You can composite aggregate sales by `day` and `product`, then calculate the average price for each resulting bucket with the following query:
+For example, the following query groups documents by day (`date_histogram`) in descending order, and then by product name (`terms`) in ascending order:
 
 ```json
 GET /sales/_search
@@ -68,13 +68,6 @@ GET /sales/_search
             }
           }
         ]
-      },
-      "aggregations": {
-        "avg_price": {
-          "avg": {
-            "field": "price"
-          }
-        }
       }
     }
   }
@@ -83,11 +76,16 @@ GET /sales/_search
 {% include copy-curl.html %}
 
 
+In this example, 
+
+- The `day` source uses a `date_histogram` aggregation on the `timestamp` field, with a calendar interval of 1 day, sorted in descending order.
+- The `product` source uses a `terms` aggregation on the `product` field, sorted in ascending order.
+
 #### Example response
 
 ```json
 {
-  "took": 12,
+  "took": 65,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -115,30 +113,21 @@ GET /sales/_search
             "day": 1680393600000,
             "product": "Product A"
           },
-          "doc_count": 1,
-          "avg_price": {
-            "value": null
-          }
+          "doc_count": 1
         },
         {
           "key": {
             "day": 1680307200000,
             "product": "Product A"
           },
-          "doc_count": 1,
-          "avg_price": {
-            "value": null
-          }
+          "doc_count": 1
         },
         {
           "key": {
             "day": 1680307200000,
             "product": "Product B"
           },
-          "doc_count": 1,
-          "avg_price": {
-            "value": null
-          }
+          "doc_count": 1
         }
       ]
     }
