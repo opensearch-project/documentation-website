@@ -27,7 +27,7 @@ Follow these steps to create a new visualization using VisBuilder in your enviro
 
 1. Open Dashboards:
     - If you're not running the Security plugin, go to http://localhost:5601.
-    - If you're running the Security plugin, go to https://localhost:5601 and log in with your username and password (default is admin/admin).
+    - If you're running the Security plugin, go to https://localhost:5601 and log in with your username and password (default is `admin/admin`).
 
 1. From the top menu, select **Visualize > Create visualization > VisBuilder**.
 

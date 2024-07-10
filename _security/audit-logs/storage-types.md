@@ -53,8 +53,8 @@ If you use `external_opensearch` and the remote cluster also uses the Security p
 
 Name | Data type | Description
 :--- | :--- | :---
-`plugins.security.audit.config.enable_ssl` | Boolean | If you enabled SSL/TLS on the receiving cluster, set to true. The default is false.
-`plugins.security.audit.config.verify_hostnames` |  Boolean | Whether to verify the hostname of the SSL/TLS certificate of the receiving cluster. Default is true.
+`plugins.security.audit.config.enable_ssl` | Boolean | If you enabled SSL/TLS on the receiving cluster, set to true. The Default is `false`.
+`plugins.security.audit.config.verify_hostnames` |  Boolean | Whether to verify the hostname of the SSL/TLS certificate of the receiving cluster. Default is `true`.
 `plugins.security.audit.config.pemtrustedcas_filepath` | String | The trusted root certificate of the external OpenSearch cluster, relative to the `config` directory.
 `plugins.security.audit.config.pemtrustedcas_content` | String | Instead of specifying the path (`plugins.security.audit.config.pemtrustedcas_filepath`), you can configure the Base64-encoded certificate content directly.
 `plugins.security.audit.config.enable_ssl_client_auth` | Boolean | Whether to enable SSL/TLS client authentication. If you set this to true, the audit log module sends the node's certificate along with the request. The receiving cluster can use this certificate to verify the identity of the caller.
