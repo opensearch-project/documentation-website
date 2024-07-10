@@ -191,6 +191,10 @@ Adaptive | `adaptive-level` | The default setting that allows OpenSearch to auto
 
 OpenSearch combines all DLS queries with the logical `OR` operator. However, when a role that uses DLS is combined with another security role that doesn't use DLS, the query results are filtered to display only documents matching the DLS from the first role. This filter rule also applies to roles that do not grant read documents.
 
+### DLS and write permissions
+
+It is recommended to always ensure that the user which has DLS configured roles does not have write permissions. If write permissions are added, the user will be able to index documents which they will not be able to retrieve due to DLS filtering.
+
 ### When to enable `plugins.security.dfm_empty_overrides_all`
 
 When to enable the `plugins.security.dfm_empty_overrides_all` setting depends on whether you want to restrict user access to documents without DLS. 
