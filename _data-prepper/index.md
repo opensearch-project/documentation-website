@@ -31,7 +31,7 @@ Each pipeline contains two required components: `source` and `sink`. If a `buffe
 
 ## Basic pipeline configurations
 
-To understand how the pipeline components function within a Data Prepper configuration, see the following examples. Each pipeline configuration uses a `yaml` file format. See[Configuring Data Prepper pipelines]({site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines/#configuring-data-prepper-pipelines) for more detailed information and examples.
+To understand how the pipeline components function within a Data Prepper configuration, see the following examples. Each pipeline configuration uses a `yaml` file format. See [Configuring Data Prepper pipelines]({site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines/#configuring-data-prepper-pipelines) for more information and examples.
 
 ### Minimal configuration
 
