@@ -324,7 +324,7 @@ Members of the OpenSearch community have built countless plugins for the service
 | store-smb | 1.0.0 |
 | transport-nio | 1.0.0 |
 
-For more information about the additional plugins visit [built-in plugins]({{site.url}}{{site.baseurl}}/install-and-configure/built-in-plugins/)
+For more information about the additional plugins visit [built-in plugins]({{site.url}}{{site.baseurl}}/install-and-configure/built-in-plugins/index/)
 
 ## Related links
 
