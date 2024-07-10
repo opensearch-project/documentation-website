@@ -193,7 +193,7 @@ OpenSearch combines all DLS queries with the logical `OR` operator. However, whe
 
 ### DLS and write permissions
 
-It is recommended to always ensure that the user which has DLS configured roles does not have write permissions. If write permissions are added, the user will be able to index documents which they will not be able to retrieve due to DLS filtering.
+Make sure that a user that has DLS-configured roles does not have write permissions. If write permissions are added, the user will be able to index documents which they will not be able to retrieve due to DLS filtering.
 
 ### When to enable `plugins.security.dfm_empty_overrides_all`
 
