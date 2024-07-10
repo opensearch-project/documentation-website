@@ -197,7 +197,7 @@ Parameter | Type | Description
 `deletion.delete_condition` | Object | Conditions for snapshot deletion. Optional. 
 `deletion.delete_condition.max_count` | Integer | The maximum number of snapshots to be retained. Optional.
 `deletion.delete_condition.max_age` | String | The maximum time a snapshot is retained. Optional.
-`deletion.delete_condition.min_count` | Integer | The minimum number of snapshots to be retained. Optional. Default is 1.
+`deletion.delete_condition.min_count` | Integer | The minimum number of snapshots to be retained. Optional. Default is `1`.
 `notification` | Object | Defines notifications for SM events. Optional.
 `notification.channel` | Object | Defines a channel for notifications. You must [create and configure a notification channel]({{site.url}}{{site.baseurl}}/notifications-plugin/api) before setting up SM notifications. Required.
 `notification.channel.id` | String | The channel ID of the channel used for notifications. To get the channel IDs of all created channels, use `GET _plugins/_notifications/configs`. Required.
