@@ -14,7 +14,11 @@ redirect_from:
 
 You can define how documents and their fields are stored and indexed by creating a _mapping_. The mapping specifies the list of fields for a document. Every field in the document has a _field type_, which defines the type of data the field contains. For example, you may want to specify that the `year` field should be of type `date`. To learn more, see [Supported field types]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/index/).
 
-If you're starting to build out your cluster and data, you may not know exactly how your data should be stored. In those cases, you can use dynamic mappings, which tell OpenSearch to dynamically add data and its fields. However, if you know exactly what types your data falls under and want to enforce that standard, then you can use explicit mappings.
+If you're starting to build out your cluster and data, you may not know exactly how your data should be stored. In those cases, you can use dynamic mappings, which tell OpenSearch to dynamically add data and its fields. However, it is important to note that dynamic mappings can have performance implications, especially for large datasets or high-volume indexing operations.
+
+While dynamic mappings provide convenience and flexibility, it is generally recommended to use explicit mappings whenever possible. With explicit mappings, you define the exact structure and data types of your fields upfront, enforcing a consistent standard across your data. This approach not only ensures data integrity but also optimizes performance by allowing OpenSearch to efficiently store and query your data.
+
+If you know exactly what types your data falls under and want to enforce that standard, then you should use explicit mappings. Even if you are unsure about your data structure initially, it is advisable to switch to explicit mappings once you have a better understanding of your data to avoid potential performance issues and maintain data consistency.
 
 For example, if you want to indicate that `year` should be of type `text` instead of an `integer`, and `age` should be an `integer`, you can do so with explicit mappings. By using dynamic mapping, OpenSearch might interpret both `year` and `age` as integers.
 
