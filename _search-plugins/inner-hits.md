@@ -140,7 +140,7 @@ This query searches for nested user objects with the name "John" and returns the
 }
 ```
 
-## Inner_hits with parent/child objects
+## `inner_hits` with parent-child objects
 
 Parent-join relationships allow you to create relationships between documents of different types within the same index. See following example using search with `inner_hits` with parent/child objects:
 
