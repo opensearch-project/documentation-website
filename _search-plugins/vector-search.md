@@ -13,7 +13,7 @@ OpenSearch is a comprehensive search platform that supports a variety of data ty
 In OpenSearch, you can generate vector embeddings, store those embeddings in an index, and use them for vector search. Choose one of the following options:
 
 - Generate embeddings using a library of your choice before ingesting them into OpenSearch. Once you ingest vectors into an index, you can perform a vector similarity search on the vector space. For more information, see [Working with embeddings generated outside of OpenSearch](#working-with-embeddings-generated-outside-of-opensearch). 
-- Automatically generate embeddings within OpenSearch. To use embeddings for semantic search, the ingested text (the corpus) and the query need to be embedded using the same model. [Neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/) packages this functionality, eliminating the need to manage the internal details. For more information, see [Generating vector embeddings within OpenSearch](#generating-vector-embeddings-within-opensearch).
+- Automatically generate embeddings within OpenSearch. To use embeddings for semantic search, the ingested text (the corpus) and the query need to be embedded using the same model. [Neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/) packages this functionality, eliminating the need to manage the internal details. For more information, see [Generating vector embeddings within OpenSearch](#generating-vector-embeddings-in-opensearch).
 
 ## Working with embeddings generated outside of OpenSearch
 
