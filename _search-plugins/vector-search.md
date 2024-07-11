@@ -10,14 +10,14 @@ has_toc: false
 
 OpenSearch is a comprehensive search platform that supports a variety of data types, including vectors. OpenSearch vector database functionality is seamlessly integrated with its generic database function.
 
-In OpenSearch, you can generate vector embeddings, store these embeddings in an index, and use them for vector search. Choose one of the following options:
+In OpenSearch, you can generate vector embeddings, store those embeddings in an index, and use them for vector search. Choose one of the following options:
 
 - Generate embeddings using a library of your choice before ingesting them into OpenSearch. Once you ingest vectors into an index, you can perform a vector similarity search on the vector space. For more information, see [Working with embeddings generated outside of OpenSearch](#working-with-embeddings-generated-outside-of-opensearch). 
 - Automatically generate embeddings within OpenSearch. To use embeddings for semantic search, the ingested text (the corpus) and the query need to be embedded using the same model. [Neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/) packages this functionality, eliminating the need to manage the internal details. For more information, see [Generating vector embeddings within OpenSearch](#generating-vector-embeddings-within-opensearch).
 
 ## Working with embeddings generated outside of OpenSearch
 
-After you generate vector embeddings, upload them into an OpenSearch index and search this index using vector search. For a complete example, see [Example](#example).
+After you generate vector embeddings, upload them to an OpenSearch index and search the index using vector search. For a complete example, see [Example](#example).
 
 ### k-NN index
 
@@ -55,7 +55,7 @@ PUT test-index
 
 ### k-NN vector
 
-You must designate the field that will hold vectors as a [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/) field type. OpenSearch supports vectors of up to 16,000 dimensions, each of which is represented as a 32-bit or 16-bit float. 
+You must designate the field that will store vectors as a [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/) field type. OpenSearch supports vectors of up to 16,000 dimensions, each of which is represented as a 32-bit or 16-bit float. 
 
 To save storage space, you can use `byte` vectors. For more information, see [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector).
 
@@ -63,15 +63,15 @@ To save storage space, you can use `byte` vectors. For more information, see [Lu
 
 Vector search finds the vectors in your database that are most similar to the query vector. OpenSearch supports the following search methods:
 
-- [Approximate search](#approximate-search) (approximate k-NN, or ANN): Returns approximate nearest neighbors to the query vector. Usually, approximate search algorithms sacrifice indexing speed and search accuracy in return for performance benefits such as lower latency, smaller memory footprints, and more scalable search. For most use cases, approximate search is the best option.
+- [Approximate search](#approximate-search) (approximate k-NN, or ANN): Returns approximate nearest neighbors to the query vector. Usually, approximate search algorithms sacrifice indexing speed and search accuracy in exchange for performance benefits such as lower latency, smaller memory footprints, and more scalable search. For most use cases, approximate search is the best option.
 
-- Exact search (exact k-NN): A brute-force, exact k-NN search over vector fields. OpenSearch supports the following types of exact search: 
-  - [Exact k-NN with scoring script]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-score-script/): Using the k-NN scoring script, you can apply a filter on an index before executing the nearest neighbor search. 
-  - [Painless extensions]({{site.url}}{{site.baseurl}}/search-plugins/knn/painless-functions/): Adds the distance functions as Painless extensions that you can use in more complex combinations. You can use this method to perform a brute force, exact k-NN search across an index, which also supports pre-filtering. 
+- Exact search (exact k-NN): A brute-force, exact k-NN search of vector fields. OpenSearch supports the following types of exact search: 
+  - [Exact k-NN with scoring script]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-score-script/): Using the k-NN scoring script, you can apply a filter to an index before executing the nearest neighbor search. 
+  - [Painless extensions]({{site.url}}{{site.baseurl}}/search-plugins/knn/painless-functions/): Adds the distance functions as Painless extensions that you can use in more complex combinations. You can use this method to perform a brute-force, exact k-NN search of an index, which also supports pre-filtering. 
 
 ### Approximate search
 
-OpenSearch supports several algorithms for approximate vector search, each with its advantages. For the complete documentation, see [Approximate search]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/). For more information about the search methods and engines, see [Method definitions]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#method-definitions). For method recommendations, see [Choosing the right method]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#choosing-the-right-method).
+OpenSearch supports several algorithms for approximate vector search, each with its own advantages. For complete documentation, see [Approximate search]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/). For more information about the search methods and engines, see [Method definitions]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#method-definitions). For method recommendations, see [Choosing the right method]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#choosing-the-right-method).
 
 To use approximate vector search, specify one of the following search methods (algorithms) in the `method` parameter:
 
@@ -93,15 +93,15 @@ IVF | Faiss
 
 ### Engine recommendations
 
-In general, select NMSLIB and Faiss for large-scale use cases. Lucene is a good option for smaller deployments but offers benefits like smart filtering where the optimal filtering strategy—pre-filtering, post-filtering, or exact k-NN—is automatically applied depending on the situation. The following table summarizes the differences between each option.
+In general, select NMSLIB or Faiss for large-scale use cases. Lucene is a good option for smaller deployments and offers benefits like smart filtering, where the optimal filtering strategy—pre-filtering, post-filtering, or exact k-NN—is automatically applied depending on the situation. The following table summarizes the differences between each option.
 
 | |  NMSLIB/HNSW |  Faiss/HNSW |  Faiss/IVF |  Lucene/HNSW |
 |:---|:---|:---|:---|:---|
 |  Max dimensions |  16,000  |  16,000 |  16,000 |  1,024 |
-|  Filter |  Post filter |  Post filter |  Post filter |  Filter while search |
+|  Filter |  Post-filter |  Post-filter |  Post-filter |  Filter during search |
 |  Training required |  No |  No |  Yes |  No |
 |  Similarity metrics |  `l2`, `innerproduct`, `cosinesimil`, `l1`, `linf`  |  `l2`, `innerproduct` |  `l2`, `innerproduct` |  `l2`, `cosinesimil` |
-|  Number of vectors   |  Tens of billions |  Tens of billions |  Tens of billions |  Less than ten million |
+|  Number of vectors   |  Tens of billions |  Tens of billions |  Tens of billions |  Less than 10 million |
 |  Indexing latency |  Low |  Low  |  Lowest  |  Low  |
 |  Query latency and quality  |  Low latency and high quality |  Low latency and high quality  |  Low latency and low quality  |  High latency and high quality  |
 |  Vector compression  |  Flat |  Flat <br>Product quantization |  Flat <br>Product quantization |  Flat  |
@@ -113,7 +113,7 @@ In this example, you'll create a k-NN index, add data to the index, and search t
 
 #### Step 1: Create a k-NN index
 
-First, create an index that will hold hotel data. Set `index.knn` to `true` and specify the `location` field as a `knn_vector`:
+First, create an index that will store sample hotel data. Set `index.knn` to `true` and specify the `location` field as a `knn_vector`:
 
 ```json
 PUT /hotels-index
@@ -168,7 +168,7 @@ POST /_bulk
 
 #### Step 3: Search your data
 
-Now search for hotels closest to the pin location `[5, 4]`. This location is labeled `Pin` in the following image. Every hotel is labeled with its document number.
+Now search for hotels closest to the pin location `[5, 4]`. This location is labeled `Pin` in the following image. Each hotel is labeled with its document number.
 
 ![Hotels on a coordinate plane]({{site.url}}{{site.baseurl}}/images/k-nn-search-hotels.png/)
 
@@ -254,7 +254,7 @@ The response contains the hotels closest to the specified pin location:
 
 For information about vector search with filtering, see [k-NN search with filters]({{site.url}}{{site.baseurl}}/search-plugins/knn/filter-search-knn/).
 
-## Generating vector embeddings within OpenSearch
+## Generating vector embeddings in OpenSearch
 
 [Neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/) encapsulates the infrastructure needed to perform semantic vector searches. After you integrate an inference (embedding) service, neural search functions like lexical search, accepting a textual query and returning relevant documents.
 
@@ -270,7 +270,7 @@ For a step-by-step tutorial, see [Neural search tutorial]({{site.url}}{{site.bas
 
 ### Search methods
 
-You can choose one of the following search methods to use your model for neural search:
+Choose one of the following search methods to use your model for neural search:
 
 - [Semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/): Uses dense retrieval based on text embedding models to search text data. 
 
