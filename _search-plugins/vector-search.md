@@ -84,7 +84,7 @@ Additionally, specify the engine (library) that implements this method in the `e
 - [Facebook AI Similarity Search (Faiss)](https://github.com/facebookresearch/faiss)
 - Lucene
 
-The following table lists the combination of search methods and libraries that the k-NN engine supports for approximate vector search.
+The following table lists the combinations of search methods and libraries supported by the k-NN engine for approximate vector search.
 
 Method | Engine
 :--- | :---
