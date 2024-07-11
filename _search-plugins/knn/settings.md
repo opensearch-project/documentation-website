@@ -29,6 +29,8 @@ Setting | Static/Dynamic | Default | Description
 `knn.model.cache.size.limit` | Dynamic | `10%` |  Model cache limit cannot exceed 25% of the JVM heap.
 `knn.faiss.avx2.disabled` | Static | `false` | A static setting that specifies whether to disable the SIMD-based `libopensearchknn_faiss_avx2.so` library and load the non-optimized `libopensearchknn_faiss.so` library for the Faiss engine on machines with x64 architecture. For more information, see [SIMD optimization for the Faiss engine]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#simd-optimization-for-the-faiss-engine).
 
+## Index settings
+
 The following table lists all available index-level k-NN settings. All settings are static. For information about updating static index-level settings, see [Updating a static index setting]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#updating-a-static-index-setting).
 
 Setting | Default | Description
