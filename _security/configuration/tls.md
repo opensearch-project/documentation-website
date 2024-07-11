@@ -52,11 +52,11 @@ The following settings configure the location and password of your keystore and 
 
 Name | Description
 :--- | :---
-`plugins.security.ssl.transport.keystore_type` | The type of the keystore file, JKS or PKCS12/PFX. Optional. Default is JKS.
+`plugins.security.ssl.transport.keystore_type` | The type of the keystore file, `JKS` or `PKCS12/PFX`. Optional. Default is `JKS`.
 `plugins.security.ssl.transport.keystore_filepath` | Path to the keystore file, which must be under the `config` directory, specified using a relative path. Required.
 `plugins.security.ssl.transport.keystore_alias` | The alias name of the keystore. Optional. Default is the first alias.
 `plugins.security.ssl.transport.keystore_password` | Keystore password. Default is `changeit`.
-`plugins.security.ssl.transport.truststore_type` | The type of the truststore file, JKS or PKCS12/PFX. Default is JKS.
+`plugins.security.ssl.transport.truststore_type` | The type of the truststore file, `JKS` or `PKCS12/PFX`. Default is `JKS`.
 `plugins.security.ssl.transport.truststore_filepath` | Path to the truststore file, which must be under the `config` directory, specified using a relative path. Required.
 `plugins.security.ssl.transport.truststore_alias` | The alias name of the truststore. Optional. Default is all certificates.
 `plugins.security.ssl.transport.truststore_password` | Truststore password. Default is `changeit`.
@@ -65,7 +65,7 @@ Name | Description
 
 Name | Description
 :--- | :---
-`plugins.security.ssl.http.enabled` | Whether to enable TLS on the REST layer. If enabled, only HTTPS is allowed. Optional. Default is false.
+`plugins.security.ssl.http.enabled` | Whether to enable TLS on the REST layer. If enabled, only HTTPS is allowed. Optional. Default is `false`.
 `plugins.security.ssl.http.keystore_type` | The type of the keystore file, JKS or PKCS12/PFX. Optional. Default is JKS.
 `plugins.security.ssl.http.keystore_filepath` | Path to the keystore file, which must be under the `config` directory, specified using a relative path. Required.
 `plugins.security.ssl.http.keystore_alias` | The alias name of the keystore. Optional. Default is the first alias.
@@ -150,8 +150,8 @@ If OpenSSL is enabled, but for one reason or another the installation does not w
 
 Name | Description
 :--- | :---
-`plugins.security.ssl.transport.enable_openssl_if_available` | Enable OpenSSL on the transport layer if available. Optional. Default is true.
-`plugins.security.ssl.http.enable_openssl_if_available` | Enable OpenSSL on the REST layer if available. Optional. Default is true.
+`plugins.security.ssl.transport.enable_openssl_if_available` | Enable OpenSSL on the transport layer if available. Optional. Default is `true`.
+`plugins.security.ssl.http.enable_openssl_if_available` | Enable OpenSSL on the REST layer if available. Optional. Default is `true`.
 
 {% comment %}
 1. Install [OpenSSL 1.1.0](https://www.openssl.org/community/binaries.html) on every node.
@@ -179,8 +179,8 @@ In addition, when `resolve_hostname` is enabled, the Security plugin resolves th
 
 Name | Description
 :--- | :---
-`plugins.security.ssl.transport.enforce_hostname_verification` | Whether to verify hostnames on the transport layer. Optional. Default is true.
-`plugins.security.ssl.transport.resolve_hostname` | Whether to resolve hostnames against DNS on the transport layer. Optional. Default is true. Only works if hostname verification is also enabled.
+`plugins.security.ssl.transport.enforce_hostname_verification` | Whether to verify hostnames on the transport layer. Optional. Default is `true`.
+`plugins.security.ssl.transport.resolve_hostname` | Whether to resolve hostnames against DNS on the transport layer. Optional. Default is `true`. Only works if hostname verification is also enabled.
 
 
 ## (Advanced) Client authentication

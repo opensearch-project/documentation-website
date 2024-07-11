@@ -50,9 +50,9 @@ In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-refe
 
 Parameter | Type | Description
 :--- | :--- | :---
-active_only | Boolean | Whether to only include ongoing shard recoveries. Default is false.
+active_only | Boolean | Whether to only include ongoing shard recoveries. Default is `false`.
 bytes | Byte size | Specify the units for byte size. For example, `7kb` or `6gb`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
-detailed | Boolean | Whether to include detailed information about shard recoveries. Default is false.
+detailed | Boolean | Whether to include detailed information about shard recoveries. Default is `false`.
 time | Time | Specify the units for time. For example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
 
 ## Response
