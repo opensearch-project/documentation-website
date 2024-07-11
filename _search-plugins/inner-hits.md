@@ -20,7 +20,7 @@ In OpenSearch, when you perform a search using parent-join or nested objects, th
 
 ---
 
-## Inner_hits with nested objects
+## `inner_hits` with nested objects
 
 Nested objects allow you to index an array of objects and maintain their relationship within the same document. See the following example of using `inner_hits` parameter to retrieve underlying inner hits:
 
@@ -427,6 +427,12 @@ Expected result:
   }
 }
 ```
+
+You can also use inner_hits with following features:
+
+  - [Highlight query matches]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/highlight/)
+  - [Explain]({{site.url}}{{site.baseurl}}/api-reference/explain/)
+
 
 ## `inner_hits` options
 
