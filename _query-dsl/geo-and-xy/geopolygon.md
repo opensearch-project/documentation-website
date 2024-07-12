@@ -10,7 +10,7 @@ nav_order: 30
 
 A geopolygon query returns documents with geopoints that are within the specified polygon. A document with multiple geopoints matches the query if at least one geopoint matches the query.
 
-A polygon is specified by a list of vertices in coordinate form. Unlike specifying a polygon for a geoshape field, the polygon does not have to be closed (you don't have to specify the first and last points as the same). Though points do not have to follow either clockwise or counterclockwise order, it is recommended that you list them in either of these orders. This will ensure the correct polygon is captured.
+A polygon is specified by a list of vertices in coordinate form. Unlike specifying a polygon for a geoshape field, the polygon does not have to be closed (specifying the first and last points as the same is unnecessary). Though points do not have to follow either clockwise or counterclockwise order, it is recommended that you list them in either of these orders. This will ensure the correct polygon is captured.
 
 The searched document field must be mapped as `geo_point`.
 {: .note}
