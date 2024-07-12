@@ -122,6 +122,9 @@ The Security plugin supports the following expert-level settings:
 
 - `plugins.security.check_snapshot_restore_write_privileges` (Static): Enforces write privilege evaluation when creating snapshots. Default is `true`.
 
+If you change any of the following password hashing properties, you must rehash all internal passwords to ensure compatibility and security.
+{: .warning}
+
 - `plugins.security.password.hashing.algorithm`: (Static): Specifies the password hashing algorithm to use.
 
   Valid values are:
@@ -153,8 +156,6 @@ The Security plugin supports the following expert-level settings:
 
 - `plugins.security.password.hashing.pbkdf2.length` (Static): Specifies the desired length of the final derived key. Default is `256`.
 
-If you change any of these password hashing properties, you must rehash all internal passwords to ensure compatibility and security.
-{:warning}
 
 ## Audit log settings
 
