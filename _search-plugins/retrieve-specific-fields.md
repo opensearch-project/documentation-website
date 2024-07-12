@@ -57,6 +57,17 @@ As no fields were selected in the previous search, the retrieved hits will only 
 }
 ```
 
+The `_source` can also be disabled in mappings for the index using the following configuration:
+```
+"mappings": {
+  "_source": {
+    "enabled": false
+  }
+}
+```
+
+In such case, using methods like [searching with `docvalue_files`]({{site.url}}{{site.baseurl}}/search-plugins/retrieve-specific-fields/#searching-with-docvalue_fields) and [searching with `stored fields`]({{site.url}}{{site.baseurl}}/search-plugins/retrieve-specific-fields/#searching-with-stored_fields) become extremely useful.
+
 ## Specifying the fields to retrieve
 
 You can list the fields of interest in the search request using `fields` parameter. Wildcard patterns are also accepted. See following example:
@@ -794,7 +805,7 @@ Expected response:
 
 ## Using scripted fields
 
-The `script_fields` parameter in OpenSearch allows you to include custom fields in your search results, where the values of these fields are computed using scripts. This can be useful for calculating values on the fly based on the data in the document.
+The `script_fields` parameter in OpenSearch allows you to include custom fields in your search results, where the values of these fields are computed using scripts. This can be useful for calculating values on the fly based on the data in the document. You can also retrieve `derived fields` using similar approach, see [Retrieving fields]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/derived/#retrieving-fields) for further details.
 
 Following example demonstrates the power of `script_fields`.
 
