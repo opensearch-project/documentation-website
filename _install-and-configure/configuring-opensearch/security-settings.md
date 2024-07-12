@@ -153,7 +153,7 @@ The Security plugin supports the following expert-level settings:
 
 - `plugins.security.password.hashing.pbkdf2.length` (Static): Specifies the desired length of the final derived key. Default is `256`.
 
-If you change any of these hashing properties, you must rehash all internal passwords to ensure compatibility and security.
+If you change any of these password hashing properties, you must rehash all internal passwords to ensure compatibility and security.
 {:warning}
 
 ## Audit log settings
