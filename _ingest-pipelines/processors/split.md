@@ -28,7 +28,7 @@ The following table lists the required and optional parameters for the `split` p
 
 Parameter  | Required/Optional  | Description 
 :--- | :--- | :--- 
-`field` | Required | The field containing the string to be split. |
+`field` | Required | The field containing the string to be split. 
 `separator` | Required | The delimiter used to split the string. This can be a regular expression pattern. 
 `preserve_field` | Optional | If set to `true`, preserves empty trailing fields (for example, `''`) in the resulting array. If set to `false`, empty trailing fields are removed from the resulting array. Default is `false`. 
 `target_field` | Optional | The field where the array of substrings is stored. If not specified, then the field is updated in-place. 
