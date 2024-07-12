@@ -70,18 +70,23 @@ If you want to make minor changes to an existing file, you can use this approach
 
 If you're adding a new page or making major changes to the documentation, such as adding new images, sections, or styling, we recommend that you work in a local copy of the repository and test the rendered HTML before submitting a PR. 
 
-#### Setting up your Docker based copy of the repository
-This assumes you have Docker installed.
+#### Setting up a Docker-based copy of the repository
 
-1. [Fork this repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo) and clone your fork.
+If you have Docker installed, you can use Docker to test any major changes to the documentation website locally by using the following steps:
+
+1. [Fork this repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo) and clone your fork in the directory of your choice.
 
 1. Navigate to your cloned repository.
 
-1. Build the documentation website Jekyll image via: `docker build -t documentation-website .`
+1. Build the documentation website Jekyll image by using the following command: 
 
-1. Start Jekyll via: `docker run -p 4000:4000 -v $(pwd):/app documentation-website`
+    ```
+    docker build -t documentation-website .
+    ```
 
-Be aware that it takes a while to build the site the first time, eventually you will see `Server running... press ctrl-c to stop`.
+1. Start Jekyll from inside the image using the following command: 
+
+When building the site for the first time, it'll take some time for the site to build. When your Jekyll instance is ready, you will see `Server running... press ctrl-c to stop`.
 
 > __Note__: If you would like to run a hosted version of the documentation site you will need to do the following: 
 > 1. Change the `url` setting in `_config_docker.yml` to your URL: `url: "http://10.0.0.5:4000"`
