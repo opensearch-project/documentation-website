@@ -122,6 +122,40 @@ The Security plugin supports the following expert-level settings:
 
 - `plugins.security.check_snapshot_restore_write_privileges` (Static): Enforces write privilege evaluation when creating snapshots. Default is `true`.
 
+- `plugins.security.password.hashing.algorithm`: (Static): Specifies the password hashing algorithm to use.
+
+  Valid values are:
+  
+  - `BCrypt` (Default)
+  - `PBKDF2` 
+
+- `plugins.security.password.hashing.bcrypt.rounds` (Static): Specifies the number of rounds to use for password hashing with BCrypt. Valid values are from `4` to `31`. Default is `12`.
+
+- `plugins.security.password.hashing.bcrypt.minor` (Static): Specifies the minor version of the BCrypt algorithm to use for password hashing.
+
+  Valid values are:
+
+  - `A`
+  - `B`
+  - `Y` (Default)
+
+- `plugins.security.password.hashing.pbkdf2.function` (Static): Specifies the pseudo-random function applied to the password.
+
+  Valid values are:
+
+  - `SHA1`
+  - `SHA224`
+  - `SHA256` (Default)
+  - `SHA384`
+  - `SHA512`
+
+- `plugins.security.password.hashing.pbkdf2.iterations` (Static): Specifies the number of times the pseudo-random function is applied to the password. Default is `600,000`.
+
+- `plugins.security.password.hashing.pbkdf2.length` (Static): Specifies the desired length of the final derived key. Default is `256`.
+
+If you change any of these hashing properties, you must rehash all internal passwords to ensure compatibility and security.
+{:warning}
+
 ## Audit log settings
 
 The Security plugin supports the following audit log settings:
