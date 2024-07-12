@@ -8,9 +8,9 @@ nav_order: 30
 
 # Geopolygon query
 
-A geopolygon query returns documents with geopoints that are within the specified polygon. A document with multiple geopoints matches the query if at least one geopoint matches the query.
+A geopolygon query returns documents containing geopoints that are within the specified polygon. A document containing multiple geopoints matches the query if at least one geopoint matches the query.
 
-A polygon is specified by a list of vertices in coordinate form. Unlike specifying a polygon for a geoshape field, the polygon does not have to be closed (specifying the first and last points as the same is unnecessary). Though points do not have to follow either clockwise or counterclockwise order, it is recommended that you list them in either of these orders. This will ensure the correct polygon is captured.
+A polygon is specified by a list of vertices in coordinate form. Unlike specifying a polygon for a geoshape field, the polygon does not have to be closed (specifying the first and last points at the same is unnecessary). Though points do not have to follow either clockwise or counterclockwise order, it is recommended that you list them in either of these orders. This will ensure that the correct polygon is captured.
 
 The searched document field must be mapped as `geo_point`.
 {: .note}
@@ -74,7 +74,7 @@ GET /testindex1/_search
 ```
 {% include copy-curl.html %}
 
-The polygon specified in the preceding request is a quadrilateral depicted in the following image. The matching document is within this quadrilateral. The coordinates of the quadrilateral vertices are specified in the `(latitude, longitude)` format.
+The polygon specified in the preceding request is the quadrilateral depicted in the following image. The matching document is within this quadrilateral. The coordinates of the quadrilateral vertices are specified in `(latitude, longitude)` format.
 
 ![Search for points within the specified quadrilateral]({{site.url}}{{site.baseurl}}/images/geopolygon-query.png)
 
