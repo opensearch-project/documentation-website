@@ -26,7 +26,7 @@ The following is the syntax for the `split` processor:
 
 The following table lists the required and optional parameters for the `split` processor.
 
-| Parameter  | Required/Optional  | Description  |
+Parameter  | Required/Optional  | Description 
 |---|---|---|
 `field` | Required | The field containing the string to be split. |
 `separator` | Required | The delimiter used to split the string. This can be a regular expression pattern. |
