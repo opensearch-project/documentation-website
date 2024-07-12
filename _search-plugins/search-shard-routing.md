@@ -121,9 +121,9 @@ GET /index1/_search?routing=user1
 ```
 In this example, the search query is routed to the shard that contains documents indexed with the routing value `user1`.
 
-Additional consideration needs to be taken when using custom routing in order to prevent _hotspots_ and _data skew_.
+Additional consideration needs to be taken when using custom routing in order to prevent _hot spots_ and _data skew_.
 
- - _Hotspots_ occurs when a disproportionate number of documents are routed to a single shard. This can lead to that shard becoming a bottleneck, as it will have to handle more read and write operations compared to other shards. Consequently, this shard may experience higher CPU, memory, and I/O usage, leading to performance degradation
+ - _Hot spot_ occurs when a disproportionate number of documents are routed to a single shard. This can lead to that shard becoming a bottleneck, as it will have to handle more read and write operations compared to other shards. Consequently, this shard may experience higher CPU, memory, and I/O usage, leading to performance degradation
 
  - _Data skew_ refers to an uneven distribution of data across shards. If routing values are not evenly distributed, some shards may end up storing significantly more data than others. This can result in imbalanced storage usage, where certain nodes have much higher disk utilization compared to others.
 
