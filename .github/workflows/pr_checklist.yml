@@ -2,7 +2,7 @@ name: PR Checklist
 
 on:
   pull_request:
-    types: [opened]
+#    types: [opened]
 
 jobs:
   add-checklist:
@@ -25,9 +25,16 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
+            let assignee = context.payload.pull_request.user.login;
+            const prOwners = ['Naarcha-AWS', 'kolchfa-aws', 'vagimeli', 'natebower'];
+            
+            if (!prOwners.includes(assignee)) {
+              assignee = 'hdhalter'
+            }
+
             github.rest.issues.addAssignees({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              assignees: 'hdhalter'
-            })
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                assignees: [assignee]
+              });
