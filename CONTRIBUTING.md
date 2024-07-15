@@ -102,7 +102,7 @@ Follow these steps to set up your local copy of the repository:
 
 Try the following troubleshooting steps if you encounter an error when trying to build the documentation website:  
 
-- If you see the `Error running '__rvm_make -j10'`error when running `rvm install 3.2`, you can resolve it by running `rvm install 3.2.0 -C --with-openssl-dir=/opt/homebrew/opt/openssl@3.2` instead of `rvm install 3.2`.
+- If you see the `Error running '__rvm_make -j10'` error when running `rvm install 3.2`, you can resolve it by running `rvm install 3.2.0 -C --with-openssl-dir=/opt/homebrew/opt/openssl@3.2` instead of `rvm install 3.2`.
 - If you see the `bundle install`: `An error occurred while installing posix-spawn (0.3.15), and Bundler cannot continue.` error when trying to run `bundle install`, you can resolve it by running `gem install posix-spawn -v 0.3.15 -- --with-cflags=\"-Wno-incompatible-function-pointer-types\"` and then `bundle install`.
  
 
