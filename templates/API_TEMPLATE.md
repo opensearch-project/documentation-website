@@ -18,11 +18,15 @@ POST /_example/endpoint/
 POST /_example/endpoint/<path_parameter>
 ```
 
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:example/permission/name`.
+
 ## Path parameters
 
 The following table lists the available path parameters. All path parameters are optional.
 
-| Parameter | Data type | Description |
+| Parameter | Type | Description |
 | :--- | :--- | :--- |
 | `path_parameter` | Type | Example path parameter description. Default is ... |
 
@@ -30,21 +34,25 @@ The following table lists the available path parameters. All path parameters are
 
 The following table lists the available query parameters. All query parameters are optional.
 
-| Parameter | Data type | Description |
+| Parameter | Type | Description |
 | :--- | :--- | :--- |
 | `query_parameter` | String | Example query parameter description. Default is ... |
 
-## Request fields
+## Request body options
 
-The following table lists the available request fields.
+The following table lists the available request body options.
 
-| Field | Data type | Description |
+| Field | Type | Description |
 | :--- | :--- | :--- |
 | `example_object` | Object | Example object description. |
 | `example_object.required_request_field` | Type | Required request field description. Required. |
 | `example_object.optional_request_field` | Type | Optional request field description. Optional. Default is ... |
 
-#### Example request
+## Example request
+
+**TIP:** If multiple examples exist for the request, seperate those examples using an `h3` header underneath this section. Some request examples will also require an additional explanation.
+
+The following example shows an API request: 
 
 ```json
 POST /_example/endpoint/
@@ -57,7 +65,19 @@ POST /_example/endpoint/
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Response body options
+
+The following table lists all response body options.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `response_field` | Type | Response field description. |
+
+## Example response
+
+**TIP:** If multiple response examples exist for the request, seperate those examples using an `h3` header underneath this section. Some example responses will require an additional explanation. 
+
+The following example shows an API response:
 
 <details open markdown="block">
   <summary>
@@ -76,14 +96,4 @@ POST /_example/endpoint/
 ```
 </details>
 
-## Response fields
 
-The following table lists all response fields.
-
-| Field | Data type | Description |
-| :--- | :--- | :--- |
-| `response_field` | Type | Response field description. |
-
-## Required permissions
-
-If you use the Security plugin, make sure you have the appropriate permissions: `cluster:example/permission/name`.
