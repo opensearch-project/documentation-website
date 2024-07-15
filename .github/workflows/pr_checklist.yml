@@ -4,6 +4,9 @@ on:
   pull_request:
     types: [opened]
 
+permissions:
+  pull-requests: write
+
 jobs:
   add-checklist:
     runs-on: ubuntu-latest
