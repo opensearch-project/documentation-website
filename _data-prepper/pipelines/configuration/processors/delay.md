@@ -6,7 +6,7 @@ grand_parent: Pipelines
 nav_order: 41
 ---
 
-# `delay`
+# delay
 
 This processor will add a delay into the processor chain. Typically, you should use this only for testing, experimenting, and debugging.
 
