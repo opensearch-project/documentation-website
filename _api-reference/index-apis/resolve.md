@@ -45,7 +45,7 @@ allow_partial_search_results | Boolean | Whether to return partial results if th
 `ignore_unavailable` |  Boolean | Specifies whether to include missing or closed indexes in the response and ignores unavailable shards during the search request. Default is `false`.
 `ignore_throttled` | Boolean | Whether to ignore concrete, expanded, or indexes with aliases if indexes are frozen. Default is `true`.
 
-## Example Request
+## Example request
 
 The following example lists all indexes that start with the letter `h`, from a remote cluster named `bar`, with all wildcards expanded:
 
