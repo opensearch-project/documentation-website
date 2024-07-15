@@ -121,3 +121,7 @@ The response contains the `search_pipelines` object that lists the available req
 
 In addition to the processors provided by OpenSearch, additional processors may be provided by plugins.
 {: .note}
+
+## Selectively enabling processors
+
+Processors defined by the [search-pipeline-common module](https://github.com/opensearch-project/OpenSearch/blob/2.x/modules/search-pipeline-common/src/main/java/org/opensearch/search/pipeline/common/SearchPipelineCommonModulePlugin.java) are selectively enabled through the following cluster settings: `search.pipeline.common.request.processors.allowed`, `search.pipeline.common.response.processors.allowed`, or `search.pipeline.common.search.phase.results.processors.allowed`. If unspecified, then all processors are enabled. An empty list disables all processors. Removing enabled processors causes pipelines using them to fail after a node restart.

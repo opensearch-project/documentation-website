@@ -25,8 +25,8 @@ documentdb-pipeline:
       host: "docdb-mycluster.cluster-random.us-west-2.docdb.amazonaws.com"
       port: 27017
       authentication:
-        username: ${{aws_secrets:secret:username}}
-        password: ${{aws_secrets:secret:password}}
+        {% raw %}username: ${{aws_secrets:secret:username}}
+        password: ${{aws_secrets:secret:password}}{% endraw %}
       aws:
         sts_role_arn: "arn:aws:iam::123456789012:role/MyRole"
       s3_bucket: my-bucket

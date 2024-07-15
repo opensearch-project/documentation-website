@@ -5,12 +5,13 @@ parent: PPL
 grand_parent: SQL and PPL
 nav_order: 2
 redirect_from:
- - /search-plugins/ppl/commands/
+  - /observability-plugin/ppl/commands/
+  - /search-plugins/ppl/commands/
 ---
 
 # Commands
 
-`PPL` supports all [`SQL` common]({{site.url}}{{site.baseurl}}/search-plugins/sql/functions/) functions, including [relevance search]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text/), but also introduces few more functions (called `commands`) which are available in `PPL` only.
+`PPL` supports most [`SQL` common]({{site.url}}{{site.baseurl}}/search-plugins/sql/functions/) functions, including [relevance search]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text/), but also introduces few more functions (called `commands`) which are available in `PPL` only.
 
 ## dedup
 

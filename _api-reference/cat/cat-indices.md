@@ -52,9 +52,9 @@ Parameter | Type | Description
 :--- | :--- | :---
 bytes | Byte size | Specify the units for byte size. For example, `7kb` or `6gb`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
 health | String | Limit indexes based on their health status. Supported values are `green`, `yellow`, and `red`.
-include_unloaded_segments | Boolean | Whether to include information from segments not loaded into memory. Default is false.
+include_unloaded_segments | Boolean | Whether to include information from segments not loaded into memory. Default is `false`.
 cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
-pri | Boolean | Whether to return information only from the primary shards. Default is false.
+pri | Boolean | Whether to return information only from the primary shards. Default is `false`.
 time | Time | Specify the units for time. For example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
 expand_wildcards | Enum | Expands wildcard expressions to concrete indexes. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. Default is `open`.
 

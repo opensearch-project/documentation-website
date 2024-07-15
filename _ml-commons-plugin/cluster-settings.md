@@ -108,7 +108,7 @@ plugins.ml_commons.sync_up_job_interval_in_seconds: 3
 - Default value: `3`
 - Value range: [0, 86,400]
 
-## Predict monitoring requests
+## Monitoring predict requests
 
 Controls how many predict requests are monitored on one node. If set to `0`, OpenSearch clears all monitoring predict requests in cache and does not monitor for new predict requests.
 
@@ -303,12 +303,12 @@ This setting automatically redeploys deployed or partially deployed models upon 
 ### Setting
 
 ```
-plugins.ml_commons.model_auto_redeploy.enable: false
+plugins.ml_commons.model_auto_redeploy.enable: true 
 ```
 
 ### Values
 
-- Default value: false
+- Default value: true
 - Valid values: `false`, `true`
 
 ## Set retires for auto redeploy
@@ -468,7 +468,7 @@ When set to `true`, this setting enables the search processors for retrieval-aug
 ### Setting
 
 ```
-plugins.ml_commons.agent_framework_enabled: true
+plugins.ml_commons.rag_pipeline_feature_enabled: true
 ```
 
 ### Values

@@ -200,7 +200,7 @@ config | Object |	Contains all relevant information, such as channel name, confi
 name | String |	Name of the channel. | Yes
 description |	String | The channel's description. | No
 config_type |	String | The destination of your notification. Valid options are `sns`, `slack`, `chime`, `webhook`, `smtp_account`, `ses_account`, `email_group`, and `email`. | Yes
-is_enabled | Boolean | Indicates whether the channel is enabled for sending and receiving notifications. Default is true.	| No
+is_enabled | Boolean | Indicates whether the channel is enabled for sending and receiving notifications. Default is `true`.	| No
 
 The create channel operation accepts multiple `config_types` as possible notification destinations, so follow the format for your preferred `config_type`.
 
