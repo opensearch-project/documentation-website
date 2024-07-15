@@ -58,7 +58,7 @@ POST /_plugins/_flow_framework/workflow?validation=none
 ```
 {% include copy-curl.html %}
 
-You cannot update a full workflow once it has been provisioned, but you can update fields other than the `workflows` field, such as `name` and `description`.
+You cannot update a full workflow once it has been provisioned, but you can update fields other than the `workflows` field, such as `name` and `description`:
 
 ```json
 PUT /_plugins/_flow_framework/workflow/<workflow_id>?update_fields=true
