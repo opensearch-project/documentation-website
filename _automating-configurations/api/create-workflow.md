@@ -53,20 +53,24 @@ When set to `true`, the [Provision Workflow API]({{site.url}}{{site.baseurl}}/au
 
 By default, workflows are validated when they are created to ensure that the syntax is valid and that the graph does not contain cycles. This behavior can be controlled with the `validation` query parameter. If `validation` is set to `all`, OpenSearch performs a complete template validation. Any other value of the `validation` parameter suppresses validation, allowing an incomplete/work-in-progress template to be saved. To disable template validation, set `validation` to `none`:
 
+```json
+POST /_plugins/_flow_framework/workflow?validation=none
+```
+{% include copy-curl.html %}
+
 You cannot update a full workflow once it has been provisioned, but you can update fields other than the `workflows` field, such as `name` and `description`.
 
 ```json
 PUT /_plugins/_flow_framework/workflow/<workflow_id>?update_fields=true
+{
+  "name": "new-template-name",
+  "description": "A new description for the existing template"
+}
 ```
 {% include copy-curl.html %}
 
 You cannot specify both the `provision` and `update_fields` parameters at the same time.
 {: .note}
-
-```json
-POST /_plugins/_flow_framework/workflow?validation=none
-```
-{% include copy-curl.html %}
 
 The following table lists the available query parameters. All query parameters are optional. User-provided parameters are only allowed if the `provision` parameter is set to `true`.
 
