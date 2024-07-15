@@ -20,7 +20,7 @@ POST /<rollover-target>/_rollover/<target-index>
 
 ## Types of rollovers
 
-You can rollover a data stream, an index alias with one index, or an index alias with a write index.
+You can roll over a data stream, an index alias with one index, or an index alias with a write index.
 
 ### A data stream
 
@@ -40,7 +40,7 @@ During the rollover process of an index alias, you have the option to provide a 
 
 ## Using date math with index rollovers
 
-When utilizing an index alias for time-series data, you can leverage [date math](https://opensearch.org/docs/latest/field-types/supported-field-types/date/) in the index name to keep track of the rollover date. For instance, you could create an alias that points to an index named `my-index-{now/d}-000001`. If you create this index on June 11, 2029, the resulting index name would be my-index-2029.06.11-000001. Subsequently, if you perform a rollover on this alias on June 12, 2029, the new index created would be named my-index-2029.06.12-000002. For a practical example demonstrating this concept, see [Roll over an index alias with a write index](#rolling-over-an-index-alias-with-a-write-index).
+When utilizing an index alias for time-series data, you can leverage [date math](https://opensearch.org/docs/latest/field-types/supported-field-types/date/) in the index name to keep track of the rollover date. For instance, you could create an alias that points to an index named `my-index-{now/d}-000001`. If you create this index on June 11, 2029, the resulting index name would be `my-index-2029.06.11-000001`. Subsequently, if you perform a rollover on this alias on June 12, 2029, the new index created would be named `my-index-2029.06.12-000002`. For a practical example demonstrating this concept, see [Roll over an index alias with a write index](#rolling-over-an-index-alias-with-a-write-index).
 
 ## Path parameters
 
@@ -107,7 +107,7 @@ The following example requests and responses illustrate how to use the Rollover 
 
 - The index was created 5 or more days ago.
 - The index contains 500 or more documents.
-- The index’s largest primary shard is 100GB or larger.
+- The index’s largest primary shard is 100 GB or larger.
 
 ### Rolling over a data stream
 
@@ -171,7 +171,7 @@ POST my-alias/_rollover
 {% include copy-curl.html %}
 
 
-## Example Response
+## Example response
 
 OpenSearch returns the following response, where all conditions were met as true:
 
