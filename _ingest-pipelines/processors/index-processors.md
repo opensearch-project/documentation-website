@@ -40,6 +40,7 @@ Processor type | Description
 `dot_expander` | Expands a field with dots into an object field. 
 `drop` |Drops a document without indexing it or raising any errors.
 `fail` | Raises an exception and stops the execution of a pipeline. 
+`fingerprint` | Generates a hash value for either certain specified fields or all fields in a document. 
 `foreach` | Allows for another processor to be applied to each element of an array or an object field in a document.
 `geoip` | Adds information about the geographical location of an IP address.
 `geojson-feature` | Indexes GeoJSON data into a geospatial field.
@@ -71,3 +72,7 @@ Processor type | Description
 ## Batch-enabled processors
 
 Some processors support batch ingestion---they can process multiple documents at the same time as a batch. These batch-enabled processors usually provide better performance when using batch processing. For batch processing, use the [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) and provide a `batch_size` parameter. All batch-enabled processors have a batch mode and a single-document mode. When you ingest documents using the `PUT` method, the processor functions in single-document mode and processes documents in series. Currently, only the `text_embedding` and `sparse_encoding` processors are batch enabled. All other processors process documents one at a time.
+
+## Selectively enabling processors
+
+Processors defined by the [ingest-common module](https://github.com/opensearch-project/OpenSearch/blob/2.x/modules/ingest-common/src/main/java/org/opensearch/ingest/common/IngestCommonPlugin.java) can be selectively enabled by providing the `ingest-common.processors.allowed` cluster setting. If not provided, then all processors are enabled by default. Specifying an empty list disables all processors. If the setting is changed to remove previously enabled processors, then any pipeline using a disabled processor will fail after node restart when the new setting takes effect.
