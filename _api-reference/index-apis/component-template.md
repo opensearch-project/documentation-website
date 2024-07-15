@@ -5,7 +5,7 @@ parent: Index APIs
 nav_order: 29
 ---
 
-# Create or Update Component Template
+# Create or update a component template
 
 The Create/update component template API creates and updates a component template. Component templates are pieces of index templates which mappings, index settings, and aliases.
 
