@@ -8,7 +8,7 @@ nav_order: 41
 
 # delay
 
-This processor will add a delay into the processor chain. Typically you should use this only for testing, experimenting, and debugging.
+This processor will add a delay into the processor chain. Typically, you should use this only for testing, experimenting, and debugging.
 
 ## Configuration
 
