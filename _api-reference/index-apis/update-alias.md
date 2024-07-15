@@ -9,22 +9,8 @@ nav_order: 5
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Create or Update Alias API adds a data stream or index to an alias or updates the settings for an existing alias.
+The Create or update alias API adds a data stream or index to an alias or updates the settings for an existing alias. For more Alias API operations, see [Index aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias/).
 
-
-## Example
-
-```json
-POST sample-index/_alias/sample-alias
-```
-
-```json
-POST sample-index/_alias/sample-alias
-{
-  "routing":"test"
-}
-```
-{% include copy-curl.html %}
 
 ## Path and HTTP methods
 
@@ -72,7 +58,19 @@ Field | Type | Description
 `search_routing` | String | Assigns a custom value to a shard only for search operations. 
 `filter` | Object | A filter to use with the alias, so the alias points to a filtered part of the index.
 
-## Response
+## Example request
+
+The following example request adss a sample alias with a custom routing value:
+
+```json
+POST sample-index/_alias/sample-alias
+{
+  "routing":"test"
+}
+```
+{% include copy-curl.html %}
+
+## Example response
 
 ```json
 {
