@@ -7,7 +7,7 @@ nav_order: 29
 
 # Create or Update Component Template
 
-The Create Component Template API creates and updates a component template. Component templates are pieces of index templates which mappings, index settings, and aliases.
+The Create/update component template API creates and updates a component template. Component templates are pieces of index templates which mappings, index settings, and aliases.
 
 An index template can be constructed from multiple component templates. To incorporate a component template into an index template, you need to list it in the `composed_of` section of the index template. Component templates are only applied to newly created data streams and indexes that match the criteria specified in the index template.
 
