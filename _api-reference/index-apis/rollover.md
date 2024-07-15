@@ -9,7 +9,7 @@ nav_order: 63
 Introduced 1.0
 {: .label .label-purple }
 
-The Rollover Index API creates a new index for a data stream or index alias is subject to the `wait_for_active_shards` setting.
+The Rollover index API creates a new index for a data stream or index alias is subject to the `wait_for_active_shards` setting.
 
 ## Path and HTTP methods
 
@@ -101,7 +101,7 @@ Parameter | Type | Description
 
 Any configuration options for the index. For more information, see [Index settings](https://opensearch.org/docs/latest/install-and-configure/configuring-opensearch/index-settings/).
 
-## Examples
+## Example requests
 
 The following example requests and responses illustrate how to use the Rollover Index API. All examples use the following roll over conditions, if one or more of which are met, a roll over occurs:
 
@@ -173,7 +173,7 @@ POST my-alias/_rollover
 
 ## Example response
 
-OpenSearch returns the following response, where all conditions were met as true:
+OpenSearch returns the following response, where all but one condition, the `max_primary_shard_size`, was met:
 
 ```
 {
