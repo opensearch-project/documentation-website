@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Validate Query
+title: Validate query
 nav_order: 87
 ---
 
-# Validate Query
+# Validate query
 
 The Validate Query API checks if a large query will run without running the query. The query can be sent either as a path parameter or in the request body.
 
