@@ -20,7 +20,7 @@ You can include placeholder expressions in the value of workflow step fields. Fo
 
 Once a workflow is created, provide its `workflow_id` to other APIs.
 
-The `POST` method creates a new workflow. The `PUT` method updates an existing workflow. With the `update_fields` parameter, only the included fields are updated.
+The `POST` method creates a new workflow. The `PUT` method updates an existing workflow. You can specify the `update_fields` parameter to update specific fields.
 
 You can only update a complete workflow if it has not yet been provisioned.
 {: .note}
