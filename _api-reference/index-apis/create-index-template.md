@@ -5,7 +5,7 @@ parent: Index APIs
 nav_order: 26
 ---
 
-# Create or Update Index Template
+# Create or update an index template
 
 The Create Index Template API lets you initialize indexes with predefined mappings and settings, as well as update existing index template.
 
