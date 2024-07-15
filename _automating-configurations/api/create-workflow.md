@@ -60,7 +60,8 @@ PUT /_plugins/_flow_framework/workflow/<workflow_id>?update_fields=true
 ```
 {% include copy-curl.html %}
 
-You can not use both the `provision` and `update_fields` parameters at the same time.
+You cannot specify both the `provision` and `update_fields` parameters at the same time.
+{: .note}
 
 ```json
 POST /_plugins/_flow_framework/workflow?validation=none
