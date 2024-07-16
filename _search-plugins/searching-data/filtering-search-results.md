@@ -3,7 +3,6 @@ layout: default
 title: Filter results
 parent: Searching data
 nav_order: 21
-  - /opensearch/search/filter/
 ---
 # Filtering search results in OpenSearch
 
