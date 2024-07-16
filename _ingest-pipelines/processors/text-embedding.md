@@ -41,6 +41,7 @@ The following table lists the required and optional parameters for the `text_emb
 `field_map.<vector_field>`  | String | Required | The name of the vector field in which to store the generated text embeddings.
 `description`  | String | Optional  | A brief description of the processor.  |
 `tag` | String | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
+`batch_size` | Integer | Optional | Specifies the number of documents to be batched and processed each time. Default value is 1. |
 
 ## Using the processor
 
