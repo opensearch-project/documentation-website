@@ -8,9 +8,15 @@ redirect_from:
 
 # Low-level Python client
 
-The OpenSearch low-level Python client (`opensearch-py`) provides wrapper methods for the OpenSearch REST API so that you can interact with your cluster more naturally in Python. Rather than sending raw HTTP requests to a given URL, you can create an OpenSearch client for your cluster and call the client's built-in functions. For the client's complete API documentation and additional examples, see the [`opensearch-py` API documentation](https://opensearch-project.github.io/opensearch-py/).
+The OpenSearch low-level Python client (`opensearch-py`) provides wrapper methods for the OpenSearch REST API so that you can interact with your cluster more naturally in Python. Rather than sending raw HTTP requests to a given URL, you can create an OpenSearch client for your cluster and call the client's built-in functions. 
 
-This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [`opensearch-py` repo](https://github.com/opensearch-project/opensearch-py).
+This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For additional information, see the following resources: 
+- [OpenSearch Python repo](https://github.com/opensearch-project/opensearch-py)
+- [API reference](https://opensearch-project.github.io/opensearch-py/api-ref.html) 
+- [User guides](https://github.com/opensearch-project/opensearch-py/tree/main/guides)
+- [Samples](https://github.com/opensearch-project/opensearch-py/tree/main/samples)
+
+If you have any questions or would like to contribute, you can [create an issue](https://github.com/opensearch-project/opensearch-py/issues) to interact with the OpenSearch Python team directly. 
 
 ## Setup
 

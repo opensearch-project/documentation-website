@@ -29,7 +29,7 @@ Path parameters are optional.
 
 | Parameter | Data type | Description | 
 :--- | :--- | :---
-| cluster_manager_timeout | Time | Amount of time to wait for a connection to the master node. Optional, defaults to `30s`. |
+| cluster_manager_timeout | Time | Amount of time to wait for a connection to the cluster manager node. Optional, defaults to `30s`. |
 | timeout | Time | The period of time to wait for a response. If a response is not received before the timeout value, the request fails and returns an error. Defaults to `30s`. |
 
 #### Example request
