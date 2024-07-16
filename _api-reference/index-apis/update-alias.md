@@ -60,7 +60,7 @@ Field | Type | Description
 
 ## Example request
 
-The following example request adss a sample alias with a custom routing value:
+The following example request adds a sample alias with a custom routing value:
 
 ```json
 POST sample-index/_alias/sample-alias
