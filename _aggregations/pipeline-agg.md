@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Pipeline aggregations
+parent: Aggregations
 nav_order: 5
 has_children: false
 redirect_from:
