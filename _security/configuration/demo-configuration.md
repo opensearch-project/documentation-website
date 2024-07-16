@@ -49,7 +49,7 @@ If you want to disable the Security plugin when using Docker, set the `DISABLE_S
    - One digit [0--9]
    - One special character
 
-4. Ensure Docker is running. 
+4. Make sure that Docker is running on your local machine
 5. Run `docker-compose up` from the file directory where your `docker-compose.yml` file and `.env` file are located.
 
 ### TAR (Linux)
