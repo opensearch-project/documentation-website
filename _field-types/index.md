@@ -12,17 +12,11 @@ redirect_from:
 
 # Mappings and field types
 
-You can define how documents and their fields are stored and indexed by creating a _mapping_. The mapping specifies the list of fields for a document. Every field in the document has a _field type_, which defines the type of data the field contains. For example, you may want to specify that the `year` field should be of type `date`. To learn more, see [Supported field types]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/index/).
+Mappings define how documents and their fields are stored and indexed in OpenSearch. You can specify field types (for example, `year` as `date`) to ensure efficient storage and querying. While dynamic mappings automatically add data and fields, explicit mappings are recommended for enforcing consistent data structures and optimizing performance, especially for large datasets or high-volume indexing operations.
 
-If you're starting to build out your cluster and data, you may not know exactly how your data should be stored. In those cases, you can use dynamic mappings, which tell OpenSearch to dynamically add data and its fields. However, it is important to note that dynamic mappings can have performance implications, especially for large datasets or high-volume indexing operations.
+Explicit mappings allow you to define the exact structure and data types of your fields upfront, ensuring data integrity and efficient storage and querying. Even if you are unsure about your data structure initially, it is advisable to switch to explicit mappings once you have a better understanding of your data to avoid potential performance issues and maintain consistency.
 
-While dynamic mappings provide convenience and flexibility, it is generally recommended to use explicit mappings whenever possible. With explicit mappings, you define the exact structure and data types of your fields upfront, enforcing a consistent standard across your data. This approach not only ensures data integrity but also optimizes performance by allowing OpenSearch to efficiently store and query your data.
-
-If you know exactly what types your data falls under and want to enforce that standard, then you should use explicit mappings. Even if you are unsure about your data structure initially, it is advisable to switch to explicit mappings once you have a better understanding of your data to avoid potential performance issues and maintain data consistency.
-
-For example, if you want to indicate that `year` should be of type `text` instead of an `integer`, and `age` should be an `integer`, you can do so with explicit mappings. By using dynamic mapping, OpenSearch might interpret both `year` and `age` as integers.
-
-This documentation provides an example for how to create an index mapping and how to add a document to it that will get `ip_range` validated.
+For example, with explicit mappings, you can ensure that year is treated as text and age as an integer, preventing OpenSearch from interpreting both as integers through dynamic mapping.
 
 ## Dynamic mapping
 
@@ -32,15 +26,15 @@ When you index a document, OpenSearch adds fields automatically with dynamic map
 
 Type | Description
 :--- | :---
-null | A `null` field can't be indexed or searched. When a field is set to null, OpenSearch behaves as if that field has no values.
-boolean | OpenSearch accepts `true` and `false` as Boolean values. An empty string is equal to `false.`
-float | A single-precision 32-bit floating point number.
-double | A double-precision 64-bit floating point number.
-integer | A signed 32-bit number.
-object | Objects are standard JSON objects, which can have fields and mappings of their own. For example, a `movies` object can have additional properties such as `title`, `year`, and `director`.
-array | OpenSearch does not have a specific array data type. Arrays are represented as a set of values of the same data type (for example, integers or strings) associated with a field. When indexing, you can pass multiple values for a field, and OpenSearch will treat it as an array. Empty arrays are valid and recognized as array fields with zero elements, not as fields with no values. OpenSearch supports querying and filtering arrays, including checking for values, range queries, and array operations like concatenation and intersection. Nested arrays, containing complex objects or other arrays, are also supported for advanced data modeling. 
-text | A string sequence of characters that represent full-text values.
-keyword | A string sequence of structured characters, such as an email address or ZIP code.
+`null` | A `null` field can't be indexed or searched. When a field is set to null, OpenSearch behaves as if that field has no values.
+`boolean` | OpenSearch accepts `true` and `false` as Boolean values. An empty string is equal to `false.`
+`float` | A single-precision 32-bit floating point number.
+`double` | A double-precision 64-bit floating point number.
+`integer` | A signed 32-bit number.
+`object` | Objects are standard JSON objects, which can have fields and mappings of their own. For example, a `movies` object can have additional properties such as `title`, `year`, and `director`.
+`array` | OpenSearch does not have a specific array data type. Arrays are represented as a set of values of the same data type (for example, integers or strings) associated with a field. When indexing, you can pass multiple values for a field, and OpenSearch will treat it as an array. Empty arrays are valid and recognized as array fields with zero elements, not as fields with no values. OpenSearch supports querying and filtering arrays, including checking for values, range queries, and array operations like concatenation and intersection. Nested arrays, containing complex objects or other arrays, are also supported for advanced data modeling. 
+`text` | A string sequence of characters that represent full-text values.
+`keyword` | A string sequence of structured characters, such as an email address or ZIP code.
 date detection string | Enabled by default, if new string fields match a date's format, then the string is processed as a `date` field. For example, `date: "2012/03/11"` is processed as a date.
 numeric detection string | If disabled, OpenSearch may automatically process numeric values as strings when they should be processed as numbers. When enabled, OpenSearch can process strings into `long`, `integer`, `short`, `byte`, `double`, `float`, `half_float`, `scaled_float`, and `unsigned_long`. Default is disabled.
 
@@ -48,26 +42,43 @@ numeric detection string | If disabled, OpenSearch may automatically process num
 
 Dynamic templates are used to define custom mappings for dynamically added fields based on data type, field name, or field path. They allow you to define a flexible schema for your data, which can automatically adapt to changes in the structure or format of the input data.
 
-The syntax for defining a dynamic mapping template in OpenSearch looks like the following:
+You can use the following syntax to define a dynamic mapping template:
 
 ```json
-  "dynamic_templates": [
-    {
-      "template_name": { 
-        ...  match conditions ... 
-        "mapping": { ... } 
-      }
-    },
-    ...
-  ]
+PUT index
+{
+  "mappings": {
+    "dynamic_templates": [
+        {
+          "fields": {
+            "mapping": {
+              "type": "short"
+            },
+            "match_mapping_type": "string",
+            "path_match": "status*"
+          }
+        }
+    ]
+  }
+}
 ```
 {% include copy-curl.html %}
 
-Note the following: 
+This mapping configuration dynamically maps any field with a name starting with `status` (for example, `status_code`) to the `short` data type if the initial value provided during indexing is a string.
 
-- The template name can be any string value. 
-- The match conditions can include any of the following: `match_mapping_type`, `match`, `match_pattern`, `unmatch`, `path_match`, or `path_unmatch`. 
-- Specify the `mapping` to be used for the matched field.
+### Dynamic mapping parameters
+
+The `dynamic_templates` support the following parameters for matching conditions and mapping rules:
+
+Parameter | Description |
+----------|-------------|
+`match_mapping_type` | Specifies the JSON data type (for example, string, long, double, object, binary, Boolean, date) that triggers the mapping.
+`match` | A regular expression to match field names and apply the mapping.
+`unmatch` | A regular expression to exclude field names from the mapping.
+`match_pattern` | Determines the pattern matching behavior, either `regex` or `simple`. Default is `simple`.
+`path_match` | Allows matching nested field paths using a regular expression.
+`path_unmatch` | Excludes nested field paths from the mapping using a regular expression.
+`mapping` | The mapping configuration to apply for matching fields.
 
 ## Explicit mapping
 
@@ -131,85 +142,8 @@ OpenSearch has certain limits or settings related to mappings, such as the setti
 | index.mapping.field_name_length.limit | 50000 | [1,50000] | Dynamic | Limits the maximum length of field names that can be defined in an index mapping. |
 | index.mapper.dynamic | true | {true,false} | Dynamic | Determines whether new fields should be added dynamically to the mapping when they are encountered in a document. |
 
+
 ---
-
-## Mapping example usage
-
-The following example shows how to create a mapping to specify that OpenSearch should ignore any documents with malformed IP addresses that do not conform to the [`ip`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/ip/) data type. You accomplish this by setting the `ignore_malformed` parameter to `true`.
-
-### Create an index with an `ip` mapping
-
-To create an index, use a PUT request:
-
-```json
-PUT /test-index 
-{
-  "mappings" : {
-    "properties" :  {
-      "ip_address" : {
-        "type" : "ip",
-        "ignore_malformed": true
-      }
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-You can add a document that has a malformed IP address to your index:
-
-```json
-PUT /test-index/_doc/1 
-{
-  "ip_address" : "malformed ip address"
-}
-```
-{% include copy-curl.html %}
-
-This indexed IP address does not throw an error because `ignore_malformed` is set to true. 
-
-You can query the index using the following request:
-
-```json
-GET /test-index/_search
-```
-{% include copy-curl.html %}
-
-The response shows that the `ip_address` field is ignored in the indexed document:
-
-```json
-{
-  "took": 14,
-  "timed_out": false,
-  "_shards": {
-    "total": 1,
-    "successful": 1,
-    "skipped": 0,
-    "failed": 0
-  },
-  "hits": {
-    "total": {
-      "value": 1,
-      "relation": "eq"
-    },
-    "max_score": 1,
-    "hits": [
-      {
-        "_index": "test-index",
-        "_id": "1",
-        "_score": 1,
-        "_ignored": [
-          "ip_address"
-        ],
-        "_source": {
-          "ip_address": "malformed ip address"
-        }
-      }
-    ]
-  }
-}
-```
-{% include copy-curl.html %}
 
 ## Get a mapping
 
@@ -237,9 +171,7 @@ GET /<index>/_mapping/field/<fields>
 ```
 {% include copy-curl.html %}
 
-Both `<index>` and `<fields>` can be specified as one value or a comma-separated list.
-
-For example, the following request retrieves the mapping for the `year` and `age` fields in `sample-index1`:
+Both `<index>` and `<fields>` can be specified as one value or a comma-separated list. For example, the following request retrieves the mapping for the `year` and `age` fields in `sample-index1`:
 
 ```json
 GET sample-index1/_mapping/field/year,age
@@ -274,31 +206,6 @@ The response contains the specified fields:
 ```
 {% include copy-curl.html %}
 
-## Map string fields to `text` and `keyword` types
+## Mappings use cases
 
-This request creates an index named `movies1` with a dynamic template that maps all string fields to both `text` and `keyword` types.
-
-```json
-PUT movies1
-{
-  "mappings": {
-    "dynamic_templates": [
-      {
-        "strings": {
-          "match_mapping_type": "string",
-          "mapping": {
-            "type": "text",
-            "fields": {
-              "keyword": {
-                "type":  "keyword",
-                "ignore_above": 256
-              }
-            }
-          }
-        }
-      }
-    ]
-  }
-}
-```
-{% include copy-curl.html %}
+See use case examples, including mapping string fields and ignoring malformed IP addresses, in [Mappings use cases](). 
