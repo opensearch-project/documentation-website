@@ -10,7 +10,7 @@ parent: Metadata fields
 
 The `_field_names` field indexes the names of fields within a document that contain non-null values. This field support the `exists` query, which identifies documents with or without non-null values for a specified field. 
 
-The `field_names` only indexes field names when both `doc_values` and `norms` are disabled for those fields. If either `doc_values` or `norms` are enabled, the `exists` query remains functional but does not rely on `field_names`.
+`_field_names` only indexes field names when both `doc_values` and `norms` are disabled for those fields. If either `doc_values` or `norms` are enabled, the `exists` query remains functional but does not rely on `field_names`.
 
 ## Mapping example
 
