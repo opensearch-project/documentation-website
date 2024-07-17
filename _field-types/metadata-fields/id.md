@@ -79,7 +79,8 @@ The following response shows that this query returns both documents with `_id` v
   ```
   {% include copy-curl.html %}
   
-
+A unique `_id` is automatically generated and assigned if you do not provide one.
+{: .note}
 ## Querying on the `_id` field
 
 While the `_id` field is accessible in various queries, it is restricted from use in aggregations, sorting, and scripting. See [IDs query]({{site.url}}{{site.baseurl}}/query-dsl/term/ids/) for an example of the field's usage. If you need to sort or aggregate on the `_id` field, it is recommended to duplicate the content of the `_id` field into another field that has `doc_values` enabled.
