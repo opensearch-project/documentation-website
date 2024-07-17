@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Create Anomaly Detector tool
+title: CreateAnomalyDetectorTool
 has_children: false
 has_toc: false
 nav_order: 70
@@ -9,7 +9,7 @@ grand_parent: Agents and tools
 ---
 
 <!-- vale off -->
-# Create Anomaly Detectors tool
+# CreateAnomalyDetectorTool
 **Introduced 2.16**
 {: .label .label-purple }
 <!-- vale on -->
@@ -17,12 +17,14 @@ grand_parent: Agents and tools
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/skills/issues/337).    
 {: .warning}
 
-The `CreateAnomalyDetectorTool` helps to create an anomaly detector based on the given index, it will get the mappings of the index and let LLM give the suggested category field, aggregation field and correspond aggregation method which are required by the create
-anomaly detector API. For more information about anomaly detectors, see [Anomaly detection]({{site.url}}{{site.baseurl}}/observing-your-data/ad/index/).
+The `CreateAnomalyDetectorTool` helps create anomaly detectors based on your provided index. This tool retrieves the index mappings and enables the language learning model (LLM) to recommend category fields, aggregation fields, and their corresponding aggregation methods, which are required by the Create Anomaly Detector API. 
 
-## Step 1: Register a flow agent that will run the CreateAnomalyDetectorTool
+For comprehensive information about anomaly detectors, see [Anomaly detection]({{site.url}}{{site.baseurl}}/observing-your-data/ad/index/).
+{: .tip}
 
-A flow agent runs a sequence of tools in order and returns the last tool's output. To create a flow agent, send the following register agent request:
+## Step 1: Register a flow agent that runs the CreateAnomalyDetectorTool
+
+A flow agent runs a sequence of tools in order, returning the output of the last tool. To create a flow agent, send the following register agent request:
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -46,13 +48,14 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %} 
 
-OpenSearch responds with an agent ID:
+OpenSearch responds with an agent ID, for example, as follows:
 
 ```json
 {
   "agent_id": "EuJYYo0B9RaBCvhuy1q8"
 }
 ```
+{% include copy-curl.html %} 
 
 ## Step 2: Run the agent
 
@@ -68,7 +71,7 @@ POST /_plugins/_ml/agents/EuJYYo0B9RaBCvhuy1q8/_execute
 ```
 {% include copy-curl.html %} 
 
-OpenSearch responds with a JSON string containg all the suggested parameters for creating anomaly detector:
+OpenSearch responds with a JSON string containing all of the recommended parameters for creating an anomaly detector, such as the string shown in the following example repsonse:
 
 ```json
 {
@@ -84,7 +87,9 @@ OpenSearch responds with a JSON string containg all the suggested parameters for
   ]
 }
 ```
-, then you can create an anomaly detector by the suggested parameters by LLM:
+{% include copy-curl.html %} 
+
+You can then create an anomaly detector containing the recommended parameters with a request similar to the following example: 
 
 ```json
 POST _plugins/_anomaly_detection/detectors
@@ -144,20 +149,21 @@ POST _plugins/_anomaly_detection/detectors
   }
 }
 ```
+{% include copy-curl.html %} 
 
 ## Register parameters
 
-The following table lists all tool parameters that are available when registering an agent.
+The following table lists the available tool parameters for agent registration.
 
 Parameter	| Type | Required/Optional | Description	
 :--- | :--- | :--- | :---
-`model_id` | String | Required | The model ID of the large language model (LLM) to use for suggesting required parameters of the creating anomaly detector API.
-`model_type` | String | Optional | The model type. Valid values are `CLAUDE` (Anthropic Claude model), `OPENAI` (OpenAI models). 
+`model_id` | String | Required | The LLM model ID used for suggesting the Creating Anomaly Detector API's required parameters.
+`model_type` | String | Optional | The model type. Valid values are `CLAUDE` (Anthropic Claude models) and `OPENAI` (OpenAI models). 
 
 ## Execute parameters
 
-The following table lists all tool parameters that are available when running the agent.
+The following table lists the available tool parameters for running the agent.
 
 Parameter	| Type | Required/Optional | Description	
 :--- | :--- | :--- | :---
-`index` | String | Required | The index name, supports wildcards like `weblogs-*`, if wildcards is used, the tool will fetch the mappings of the first resolved index and then send the mappings to LLM. 
+`index` | String | Required | Index name. Supports wildcards (for example, `weblogs-*`). If wildcards are used, the tool fetches mappings from the first resolved index and sends them to the LLM. 
