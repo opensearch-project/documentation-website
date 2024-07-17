@@ -181,7 +181,7 @@ Parameter | Type | Description
 `enabled` | Boolean | Should this SM policy be enabled at creation? Optional.
 `snapshot_config` | Object | The configuration options for snapshot creation. Required.
 `snapshot_config.date_format` | String | Snapshot names have the format `<policy_name>-<date>-<random number>`. `date_format` specifies the format for the date in the snapshot name. Supports all date formats supported by OpenSearch. Optional. Default is "yyyy-MM-dd'T'HH:mm:ss".
-`snapshot_config.date_format_timezone` | String | Snapshot names have the format `<policy_name>-<date>-<random number>`. `date_format_timezone` specifies the time zone for the date in the snapshot name. Optional. Default is UTC.
+`snapshot_config.date_format_timezone` | String | Snapshot names have the format `<policy_name>-<date>-<random number>`. `date_format_timezone` specifies the time zone for the date in the snapshot name. Optional. Default is `UTC`.
 `snapshot_config.indices` | String | The names of the indexes in the snapshot. Multiple index names are separated by `,`. Supports wildcards (`*`). Optional. Default is `*` (all indexes).
 `snapshot_config.repository` | String | The repository in which to store snapshots. Required.
 `snapshot_config.ignore_unavailable` | Boolean | Do you want to ignore unavailable indexes? Optional. Default is `false`.
@@ -197,7 +197,7 @@ Parameter | Type | Description
 `deletion.delete_condition` | Object | Conditions for snapshot deletion. Optional. 
 `deletion.delete_condition.max_count` | Integer | The maximum number of snapshots to be retained. Optional.
 `deletion.delete_condition.max_age` | String | The maximum time a snapshot is retained. Optional.
-`deletion.delete_condition.min_count` | Integer | The minimum number of snapshots to be retained. Optional. Default is one.
+`deletion.delete_condition.min_count` | Integer | The minimum number of snapshots to be retained. Optional. Default is `1`.
 `notification` | Object | Defines notifications for SM events. Optional.
 `notification.channel` | Object | Defines a channel for notifications. You must [create and configure a notification channel]({{site.url}}{{site.baseurl}}/notifications-plugin/api) before setting up SM notifications. Required.
 `notification.channel.id` | String | The channel ID of the channel used for notifications. To get the channel IDs of all created channels, use `GET _plugins/_notifications/configs`. Required.
