@@ -3,9 +3,9 @@ The `dynamic` parameter specifies whether new detected fields can be added dynam
 Parameter | Description 
 :--- | :--- 
 `true`  | New fields can be added to the mapping dynamically. This is the default.
-`false` | New fields cannot be added to the mapping dynamically. If a new field is detected, it is not indexed or searchable. However, it is still retrievable from the _source field.
+`false` | New fields cannot be added to the mapping dynamically. If a new field is detected, it is not indexed or searchable. However, it is still retrievable from the `_source` field.
 `strict` | Throws exception and fail the indexing operation when new fields are detected.
-`strict_allow_templates` | If the new detected fields can match any pre-defined dynamic template in the mapping, then they will be added to the mapping, if not match an exception will be thrown as same as `strict`.
+`strict_allow_templates` | If the new detected fields can match any predefined dynamic template in the mapping, then they will be added to the mapping, if not match an exception will be thrown as same as `strict`.
 
 ## Example 1
 Create an index with setting `dynamic` to `true`(or do not set):
@@ -303,9 +303,9 @@ PUT testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-, index this document succeeds because the new detected field `room` can match the pre-defined dynamic templates.
+, index this document succeeds because the new detected field `room` can match the predefined dynamic templates.
 
-But index the following document fails because the new detected field `floor` cannot match the pre-defined dynamic templates and was not set explicitly in the mapping.
+But index the following document fails because the new detected field `floor` cannot match the predefined dynamic templates and was not set explicitly in the mapping.
 
 ```json
 PUT testindex1/_doc/1

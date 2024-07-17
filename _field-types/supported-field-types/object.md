@@ -149,7 +149,7 @@ Value | Description
 `true` | New fields can be added to the mapping dynamically. This is the default.
 `false` | New fields cannot be added to the mapping dynamically. If a new field is detected, it is not indexed or searchable. However, it is still retrievable from the _source field. 
 `strict` | When new fields are added to the mapping dynamically, an exception is thrown. To add a new field to an object, you have to add it to the mapping first.
-`strict_allow_templates` | If the new detected fields can match any pre-defined dynamic template in the mapping, then they will be added to the mapping, if not match an exception will be thrown as same as `strict`.
+`strict_allow_templates` | If the new detected fields can match any predefined dynamic template in the mapping, then they will be added to the mapping, if not match an exception will be thrown as same as `strict`.
 
 Inner objects inherit the `dynamic` parameter value from their parent unless they declare their own `dynamic` parameter value.
 {: .note }
