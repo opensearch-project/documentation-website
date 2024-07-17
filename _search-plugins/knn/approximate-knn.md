@@ -142,7 +142,7 @@ The following table provides examples of the number of results returned by vario
 10 |	1 |	1 |	4 |	4 | 1
 10 | 10 |	1 |	4 |	10 | 10
 10 |	1 |	2 |	4 |	8 | 2
- 
+
 The number of results returned by Faiss/NMSLIB differs from the number of results returned by Lucene only when `k` is smaller than `size`. If `k` and `size` are equal, all engines return the same number of results. 
 
 Starting in OpenSearch 2.14, you can use `k`, `min_score`, or `max_distance` for [radial search]({{site.url}}{{site.baseurl}}/search-plugins/knn/radial-search-knn/).
@@ -255,6 +255,50 @@ POST _bulk
 ```
 
 After data is ingested, it can be search just like any other `knn_vector` field!
+
+### Additional query parameters
+Starting with version 2.16, k-NN plugin supports additional method parameters to tune search results. This can be done by providing the right values in `method_parameters` section of the query. Here is an example of the query
+
+```json
+GET my-knn-index-1/_search
+{
+  "size": 2,
+  "query": {
+    "knn": {
+      "my_vector2": {
+        "vector": [2, 3, 5, 6],
+        "k": 2,
+        "method_parameters" : {
+          "ef_search": 100
+        }
+      }
+    }
+  }
+}
+```
+These parameters are dependent on the combination of engine and method used to build the index. The tables will help with the valid set of parameters. Invalid combination of parameters will throw an error
+
+#### HNSW
+
+`ef_search`
+
+Explores the `ef_search` number of vectors to find top k nearest neighbors. Higher value will help improve recall at the cost of search latency. The value must be greater than 0
+
+Supported engines | Radial query support | Notes
+:--- | :--- | :---
+Nmslib | no | Overrides the value in index settings if present in search query
+Faiss | yes | Overrides the value in index settings if present in search query
+Lucene | no | Engine supports `k` or `ef_search`. The final result can be controlled by `size`. k-NN plugin will pick `max(k, ef_search)`
+
+#### IVF
+
+`nprobes`
+
+Explores `nprobes` number of clusters to find the top k nearest neighbors. Higher value will help improve recall at the cost of search latency. The value must be greater than 0
+
+Supported engines | Notes
+:--- | :--- 
+faiss | Overrides the value in index settings if present in search query
 
 ### Using approximate k-NN with filters
 
