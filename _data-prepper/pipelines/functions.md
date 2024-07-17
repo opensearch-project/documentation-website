@@ -12,7 +12,7 @@ Data Prepper offers a range of built-in functions that can be used within expres
 
 - [`cidrContains()`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/cidrcontains/)
 - [`contains()`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/contains/)
-- [`getMetadata()`]({{site.url}}{{site.baseurl}})
-- [`hasTags()`]({{site.url}}{{site.baseurl}})
-- [`join()`]({{site.url}}{{site.baseurl}})
-- [`length()`]({{site.url}}{{site.baseurl}})
+- [`getMetadata()`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/get-metadata/)
+- [`hasTags()`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/has-tags/)
+- [`join()`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/join/)
+- [`length()`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/length/)
