@@ -1,12 +1,8 @@
 ---
 layout: default
 title: Filter results
-<<<<<<< Updated upstream:_search-plugins/searching-data/filtering-search-results.md
 parent: Searching data
-nav_order: 21
-=======
 nav_order: 139
->>>>>>> Stashed changes:_dashboards/filtering-search-results.md
 ---
 # Filtering search results in OpenSearch Dashboards
 
