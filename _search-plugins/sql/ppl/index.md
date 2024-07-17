@@ -18,7 +18,7 @@ redirect_from:
 
 # PPL
 
-Piped Processing Language (PPL) is a query language that focuses on processing data in a sequential, step-by-step manner. PPL uses the pipe (`|`) operator to combine commands to find and retrieve data. It is particularly well-suited for analyzing observability data, such as logs, metrics, and traces, due to its ability to handle semi-structured data efficiently.
+Piped Processing Language (PPL) is a query language that focuses on processing data in a sequential, step-by-step manner. PPL uses the pipe (`|`) operator to combine commands to find and retrieve data. It is particularly well suited for analyzing observability data, such as logs, metrics, and traces, due to its ability to handle semi-structured data efficiently.
 
 ## PPL syntax
 
