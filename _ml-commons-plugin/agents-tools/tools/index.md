@@ -35,7 +35,7 @@ Each tool takes a list of parameters specific to that tool. In the preceding exa
 |[`CatIndexTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/cat-index-tool/)	|Retrieves index information for the OpenSearch cluster. |
 |[`ConnectorTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/connector-tool/)	| Uses a [connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/) to call any REST API function. |
 |[`IndexMappingTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index-mapping-tool/)	|Retrieves index mapping and setting information for an index. |
-|[`CreateAnomalyDetectorTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/create-anomaly-detector/)	| Let LLM to give suggested parameters for creating anomaly detector. |
+|[`CreateAnomalyDetectorTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/create-anomaly-detector/)	| Enables an LLM to suggest required parameters for creating an anomaly detector. |
 |[`MLModelTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/ml-model-tool/)	|Runs machine learning models.	|
 |[`NeuralSparseSearchTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/neural-sparse-tool/)	| Performs sparse vector retrieval. |
 |[`PPLTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/ppl-tool/)	|Translates natural language into a Piped Processing Language (PPL) query.	|
