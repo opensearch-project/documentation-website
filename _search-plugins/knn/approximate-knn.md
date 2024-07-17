@@ -3,7 +3,6 @@ layout: default
 title: Approximate k-NN search
 nav_order: 15
 parent: k-NN search
-grand_parent: Search methods
 has_children: false
 has_math: true
 ---
