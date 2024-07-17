@@ -2,7 +2,6 @@
 layout: default
 title: Value count
 parent: Metric aggregations
-grand_parent: Aggregations
 nav_order: 140
 redirect_from:
   - /query-dsl/aggregations/metric/value-count/
