@@ -73,7 +73,7 @@ The following table lists the parameters accepted by object field types. All par
 
 Parameter | Description 
 :--- | :--- 
-[`dynamic`](#the-dynamic-parameter) | Specifies whether new fields can be dynamically added to this object. Valid values are `true`, `false`, and `strict`. Default is `true`.
+[`dynamic`](#the-dynamic-parameter) | Specifies whether new fields can be dynamically added to this object. Valid values are `true`, `false`, `strict` and `strict_allow_templates`. Default is `true`.
 `enabled` | A Boolean value that specifies whether the JSON contents of the object should be parsed. If `enabled` is set to `false`, the object's contents are not indexed or searchable, but they are still retrievable from the _source field. Default is `true`.
 `properties` | Fields of this object, which can be of any supported type. New properties can be dynamically added to this object if `dynamic` is set to `true`.
 
@@ -149,6 +149,7 @@ Value | Description
 `true` | New fields can be added to the mapping dynamically. This is the default.
 `false` | New fields cannot be added to the mapping dynamically. If a new field is detected, it is not indexed or searchable. However, it is still retrievable from the _source field. 
 `strict` | When new fields are added to the mapping dynamically, an exception is thrown. To add a new field to an object, you have to add it to the mapping first.
+`strict_allow_templates` | If the new detected fields can match any pre-defined dynamic template in the mapping, then they will be added to the mapping, if not match an exception will be thrown as same as `strict`.
 
 Inner objects inherit the `dynamic` parameter value from their parent unless they declare their own `dynamic` parameter value.
 {: .note }
