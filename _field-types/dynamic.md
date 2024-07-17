@@ -1,3 +1,13 @@
+---
+layout: default
+title: Dynamic parameter
+nav_order: 10
+redirect_from:
+  - /opensearch/dynamic/
+---
+
+# Dynamic parameter
+
 The `dynamic` parameter specifies whether new detected fields can be added dynamically, it accepts four parameters:
 
 Parameter | Description 
