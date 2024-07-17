@@ -2,7 +2,6 @@
 layout: default
 title: Regexp
 parent: Term-level queries
-grand_parent: Query DSL
 nav_order: 60
 ---
 
