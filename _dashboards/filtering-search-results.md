@@ -54,7 +54,7 @@ This will display only the flights that have been cancelled with a destination o
 
 ## Using Query DSL for advanced filtering
 
-OpenSearch Query DSL (Domain Specific Language) allows for more complex and powerful queries. You can combine multiple conditions and use advanced logic to filter data. The DSL queries can be run in the Dev Tools, see the [Running queries in the Dev Tools console]()https://opensearch.org/docs/latest/dashboards/dev-tools/run-queries/], in the documentation for more information. Alternatively, DSL queries can also be run in the DSL query bar too. 
+OpenSearch Query DSL (Domain Specific Language) allows for more complex and powerful queries. You can combine multiple conditions and use advanced logic to filter data. The DSL queries can be run in the Dev Tools, see the [Running queries in the Dev Tools console](https://opensearch.org/docs/latest/dashboards/dev-tools/run-queries/), in the documentation for more information. Alternatively, DSL queries can also be run in the DSL query bar too. 
 
 
 ### Example of Query DSL filtering
