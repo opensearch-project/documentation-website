@@ -2,7 +2,6 @@
 layout: default
 title: Median absolute deviation
 parent: Metric aggregations
-grand_parent: Aggregations
 nav_order: 65
 redirect_from:
   - /query-dsl/aggregations/metric/median-absolute-deviation/
