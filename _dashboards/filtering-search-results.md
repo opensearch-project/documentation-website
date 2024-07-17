@@ -1,10 +1,14 @@
 ---
 layout: default
 title: Filter results
+<<<<<<< Updated upstream:_search-plugins/searching-data/filtering-search-results.md
 parent: Searching data
 nav_order: 21
+=======
+nav_order: 139
+>>>>>>> Stashed changes:_dashboards/filtering-search-results.md
 ---
-# Filtering search results in OpenSearch
+# Filtering search results in OpenSearch Dashboards
 
 Filtering the search results in OpenSearch allows you to refine the results returned. Specifying criteria to filter the indexes/documents by, allows you to refine the returned results. You can filter the results based on ranges, conditions or specific terms to refine the returned results. This is helpful when you have large datasets and allows you to interpret and understand larger datasets more easily.
 
@@ -37,7 +41,7 @@ This will display only the flights arriving at Zurich Airport.
 ### Example: Filter by flight delay
 
 To filter flights that have been cancelled in the last 100 days:
-- Click on the timeframe to update the time selection.
+- Click on the time frame to update the time selection.
 - Under the 'Relative' time tab.
 - Change the unit to '1'.
 - From the dropdown select 'Days ago'.
@@ -54,19 +58,16 @@ This will display only the flights that have been cancelled with a destination o
 
 ## Using Query DSL for advanced filtering
 
-OpenSearch Query DSL (Domain Specific Language) allows for more complex and powerful queries. You can combine multiple conditions and use advanced logic to filter data.
+OpenSearch Query DSL (Domain Specific Language) allows for more complex and powerful queries. You can combine multiple conditions and use advanced logic to filter data. The DSL queries can be run in the Dev Tools, see the [Running queries in the Dev Tools console]()https://opensearch.org/docs/latest/dashboards/dev-tools/run-queries/], in the documentation for more information. Alternatively, DSL queries can also be run in the DSL query bar too. 
+
 
 ### Example of Query DSL filtering
 
-To use Query DSL, you need to define your queries in JSON format.
+DQL is a filtering language for OpenSearch Dashboards. There are 3 main ways to filter in OSD.
 
-To begin filtering via DSL in OpenSearch Dashboards, follow these steps:
-
-1. Navigate to the OpenSearch Dashboards UI.
-2. Click on `Dev Tools` in the sidebar.
-3. Write your DSL query in the dev tools left window.
-4. Highlight the query and click the play button to run the query.
-5. The answer is outputted in the right half of the dev tools window.
+1. DQL or Lucene in the query bar
+2. The Filter button which provides both a form to create a new filter and an advanced view to enter Query DSL directly
+3. The time range picker
 
 ### Example: Filter flights with delay greater than 60 minutes
 
