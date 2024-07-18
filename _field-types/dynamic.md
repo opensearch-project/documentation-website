@@ -19,7 +19,7 @@ Parameter | Description
 
 --- 
 
-## Example: Create index with dynamic parameter set to `true`
+## Example: Create an index with `dynamic` set to `true`
 
 1. Create an index with `dynamic` set as `true` using the following request:
 
