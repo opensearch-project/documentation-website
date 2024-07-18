@@ -241,7 +241,7 @@ PUT testindex1
 ```
 {% include copy-curl.html %}
 
-2. Index a document with an object field `patient` containing two string fields, and additional unmapped fields using the following request:
+2. Index a document with an object field `patient` containing two string fields and additional unmapped fields by sending the following request:
 
 ```json
 PUT testindex1/_doc/1
