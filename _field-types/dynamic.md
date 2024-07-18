@@ -21,7 +21,7 @@ Parameter | Description
 
 ## Example: Create an index with `dynamic` set to `true`
 
-1. Create an index with `dynamic` set as `true` using the following request:
+1. Create an index with `dynamic` set to `true` by sending the following request:
 
 ```json
 PUT testindex1
