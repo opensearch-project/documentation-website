@@ -166,4 +166,4 @@ The following table lists the available tool parameters for running the agent.
 
 Parameter	| Type | Required/Optional | Description	
 :--- | :--- | :--- | :---
-`index` | String | Required | Index name. Supports wildcards (for example, `weblogs-*`). If wildcards are used, the tool fetches mappings from the first resolved index and sends them to the LLM. 
+`index` | String | Required | The index name. Supports wildcards (for example, `weblogs-*`). If wildcards are used, then the tool fetches mappings from the first resolved index and sends them to the LLM. 
