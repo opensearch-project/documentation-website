@@ -8,7 +8,7 @@ redirect_from:
 
 # Dynamic parameter
 
-The `dynamic` parameter specifies whether new detected fields can be added dynamically to the mapping. It accepts the parameters listed in the following table.
+The `dynamic` parameter specifies whether newly detected fields can be added dynamically to a mapping. It accepts the parameters listed in the following table.
 
 Parameter | Description 
 :--- | :--- 
