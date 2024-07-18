@@ -163,7 +163,7 @@ The following response shows that the new fields `room` and `floor` were not add
 }
 ```
 
-4. Get the unmapped fields `room` and `floor` from the document using the following request:
+4. Get the unmapped fields `room` and `floor` from the document by sending the following request:
 
 ```json
 PUT testindex1/_doc/1
