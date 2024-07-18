@@ -217,7 +217,7 @@ The response returns no results:
 
 ## Example: Create an index with `dynamic` set to `strict`
 
-1. Create an index with `dynamic` set to `strict` and explicit mappings using the following request:
+1. Create an index with `dynamic` set to `strict` and explicit mappings by sending the following request:
 
 ```json
 PUT testindex1
