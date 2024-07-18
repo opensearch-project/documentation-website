@@ -19,7 +19,8 @@ In most cases, you want to configure both authentication and authorization. You 
 
 We provide a fully functional example that can help you understand how to use an LDAP server for both authentication and authorization.
 
-1. Download and unzip [the example zip file]({{site.url}}{{site.baseurl}}/assets/examples/ldap-example.zip).
+1. Download and unzip [the example zip file]({{site.url}}{{site.baseurl}}/assets/examples/ldap-example-v2.13.zip).
+1. Update the `.env` file with a strong password for `admin` user.
 1. At the command line, run `docker-compose up`.
 1. Review the files:
 
@@ -60,8 +61,21 @@ We provide a fully functional example that can help you understand how to use an
 
 To enable LDAP authentication and authorization, add the following lines to `config/opensearch-security/config.yml`:
 
+The internal user database authentication should also be enabled because OpenSearch Dashboards connects to OpenSearch using the `kibanaserver` internal user.
+{: .note}
+
 ```yml
 authc:
+  internal_auth:
+    order: 0
+    description: "HTTP basic authentication using the internal user database"
+    http_enabled: true
+    transport_enabled: true
+    http_authenticator:
+      type: basic
+      challenge: false
+    authentication_backend:
+      type: internal
   ldap:
     http_enabled: true
     transport_enabled: true

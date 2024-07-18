@@ -3,7 +3,6 @@ layout: default
 title: k-NN vector quantization
 nav_order: 27
 parent: k-NN search
-grand_parent: Search methods
 has_children: false
 has_math: true
 ---
@@ -51,7 +50,7 @@ PUT /test-index
           "space_type": "l2",
           "parameters": {
             "encoder": {
-              "name": "sq",
+              "name": "sq"
             },
             "ef_construction": 256,
             "m": 8

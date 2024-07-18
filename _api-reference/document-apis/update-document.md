@@ -53,7 +53,7 @@ Parameter | Type | Description | Required
 if_seq_no | Integer | Only perform the update operation if the document has the specified sequence number. | No
 if_primary_term | Integer | Perform the update operation if the document has the specified primary term. | No
 lang | String | Language of the script. Default is `painless`. | No
-require_alias | Boolean | Specifies whether the destination must be an index alias. Default is false. | No
+require_alias | Boolean | Specifies whether the destination must be an index alias. Default is `false`. | No
 refresh | Enum | If true, OpenSearch refreshes shards to make the operation visible to searching. Valid options are `true`, `false`, and `wait_for`, which tells OpenSearch to wait for a refresh before executing the operation. Default is `false`. | No
 retry_on_conflict | Integer | The amount of times OpenSearch should retry the operation if there's a document conflict. Default is 0. | No
 routing | String | Value to route the update operation to a specific shard. | No

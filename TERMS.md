@@ -1,6 +1,6 @@
 # OpenSearch terms
 
-This is how we use our terms, but we’re always open to hearing your suggestions.
+This is how we use our terms, but we're always open to hearing your suggestions.
 
 ## A
 
@@ -38,7 +38,7 @@ A plugin that notifies you when data from one or more OpenSearch indexes meets c
 
 Use allow when the user must have security permissions in order to complete the task.
 
-Avoid using allow to refer to making something possible for the user. Instead, rewrite to focus on what’s important from the user’s point of view.
+Avoid using allow to refer to making something possible for the user. Instead, rewrite to focus on what's important from the user's point of view.
 
 **allow list**
 
@@ -101,7 +101,7 @@ Use on first appearance. On subsequent appearances, *Signature Version 4* may be
 
 **below**
 
-Use only for physical space or screen descriptions, such as “the outlet below the vent,” or “the button below the bar pane.”
+Use only for physical space or screen descriptions, such as "the outlet below the vent," or "the button below the bar pane."
 
 For orientation within a document, use *following* or *later*.
 
@@ -134,11 +134,11 @@ OpenSearch style:
 
 **bottom**
 
-Use only as a general screen reference, such as “scroll to the bottom of the page.” Don’t use for window, page, or pane references to features or controls. Rather, use *lower* instead. For example, you can use the following wording: “Choose the button on the lower left.”
+Use only as a general screen reference, such as "scroll to the bottom of the page." Don't use for window, page, or pane references to features or controls. Rather, use *lower* instead. For example, you can use the following wording: "Choose the button on the lower left."
 
 **browse**
 
-Use when referring to scanning information or browsing the web. Don’t use when describing how to navigate to a particular item on our site or a computer. Instead, use *see* or *navigate to*.
+Use when referring to scanning information or browsing the web. Don't use when describing how to navigate to a particular item on our site or a computer. Instead, use *see* or *navigate to*.
 
 **build (n., v.)**
 
@@ -152,7 +152,7 @@ certificate authority
 
 **certs, certificates**
 
-Use _certificates_ on first mention. It’s OK to use _certs_ thereafter.
+Use _certificates_ on first mention. It's OK to use _certs_ thereafter.
 
 **checkbox, checkboxes**
 
@@ -186,13 +186,13 @@ A plugin that replicates indexes, mappings, and metadata from one OpenSearch clu
 
 **cyber**
 
-Except when dictated by open standards, use as a prefix in a closed compound: don’t use spaces or hyphens between _cyber_ and the rest of the word.
+Except when dictated by open standards, use as a prefix in a closed compound: don't use spaces or hyphens between _cyber_ and the rest of the word.
 
 ## D
 
 **data**
 
-Use data is, not data are. Don’t use datas. Use pieces of data or equivalent to describe individual items within a set of data.
+Use data is, not data are. Don't use datas. Use pieces of data or equivalent to describe individual items within a set of data.
 
 **data center**
 
@@ -210,8 +210,8 @@ Two words when used generically, but one word when referring to the VMware produ
 
 Use one of the following date formats:
 
-- When a human-readable date format is preferred, spell out the date using the Month D, YYYY format (for example, _October 1, 2022_). Do not use an ordinal number for the day (use _1_, not _1st_). If the context is clear, you can omit the year on subsequent mention. If the specific day isn’t known, use the Month YYYY format (for example, _October 2022_).
-- When a numeric, lexicographically sortable date is required, use the YYYY-MM-DD format (for example, _2022-10-01_). Make sure to add a zero (0) in front of a single-digit month and day. This is the ISO 8601 standard date format. Make sure also that you use a hyphen (-) and avoid omitting the year. Doing so avoids the ambiguity that’s caused by the common, locally used formats of MM/DD and DD/MM.
+- When a human-readable date format is preferred, spell out the date using the Month D, YYYY format (for example, _October 1, 2022_). Do not use an ordinal number for the day (use _1_, not _1st_). If the context is clear, you can omit the year on subsequent mention. If the specific day isn't known, use the Month YYYY format (for example, _October 2022_).
+- When a numeric, lexicographically sortable date is required, use the YYYY-MM-DD format (for example, _2022-10-01_). Make sure to add a zero (0) in front of a single-digit month and day. This is the ISO 8601 standard date format. Make sure also that you use a hyphen (-) and avoid omitting the year. Doing so avoids the ambiguity that's caused by the common, locally used formats of MM/DD and DD/MM.
 
 **demilitarized zone (DMZ)**
 
@@ -219,7 +219,7 @@ Avoid using. Use *perimeter network* or *perimeter zone* instead.
 
 **deny list**
 
-Use to describe a list of items that aren’t allowed (blocked). Do not use _blacklist_.
+Use to describe a list of items that aren't allowed (blocked). Do not use _blacklist_.
 
 **disable**
 
@@ -234,7 +234,7 @@ Do not use *disable* to refer to users.
 
 **double-click**
 
-Always hyphenated. Don’t use _double click_.
+Always hyphenated. Don't use _double click_.
 
 **downvote**
 
@@ -242,7 +242,7 @@ Always hyphenated. Don’t use _double click_.
 
 **due to**
 
-Don’t use. Use _because of_ instead.
+Don't use. Use _because of_ instead.
 
 ## E
 
@@ -250,11 +250,11 @@ Don’t use. Use _because of_ instead.
 
 Avoid the use of *easy*, *easier*, or *easily* if possible when describing or comparing an OpenSearch Project product, feature, or procedure in technical content. Use of these terms is audience dependent. These terms are potentially misleading or inaccurate and might be perceived as condescending by some technical users. Instead, describe what the user can do.
 
-On documentation landing pages, it’s acceptable to use *easy*, *easier*, or *easily* within the service description only.
+On documentation landing pages, it's acceptable to use *easy*, *easier*, or *easily* within the service description only.
 
 **effect**
 
-_Effect_ as a noun refers to something that’s caused by something else. _Effect_ as a verb means to bring about. Do not confuse with _affect_.
+_Effect_ as a noun refers to something that's caused by something else. _Effect_ as a verb means to bring about. Do not confuse with _affect_.
 
 **e.g.**
 
@@ -264,7 +264,7 @@ Avoid. Use _for example_ or _such as_ instead.
 
 **email**
 
-Use as a singular noun or adjective to refer to the collective concept, and use _message_ or _mail_ for individual items. Use _send email_ as the verb form. Don’t use the plural form because it’s a collective noun.
+Use as a singular noun or adjective to refer to the collective concept, and use _message_ or _mail_ for individual items. Use _send email_ as the verb form. Don't use the plural form because it's a collective noun.
 
 **enable**
 
@@ -275,7 +275,7 @@ Use *enable* to describe making a feature or command available. For example:
 
 Note that alternatives to *enable*—such as *activate*, *turn on*, or *start*—are acceptable usage where appropriate and may be found in existing documentation. In all cases, use language that corresponds to the language used in the UI, if applicable.
 
-Avoid using *enable* to refer to making something possible for the user. Instead, rewrite to focus on what's important from the user's point of view. For example, “With ABC, you can do XYZ” is a stronger statement than “ABC enables you to XYZ.” Additionally, using a task-based statement is usually more clear than the vague “…enables you to….”
+Avoid using *enable* to refer to making something possible for the user. Instead, rewrite to focus on what's important from the user's point of view. For example, "With ABC, you can do XYZ" is a stronger statement than "ABC enables you to XYZ." Additionally, using a task-based statement is usually more clear than the vague "…enables you to…."
 
 **enter**
 
@@ -285,7 +285,7 @@ In general, use in preference to _type_ when a user adds text or other input (su
 
 Do not use.
 
-Generally speaking, etc. and its equivalents (such as and more or and so on) aren’t necessary.
+Generally speaking, etc. and its equivalents (such as and more or and so on) aren't necessary.
 
 **execute**
 
@@ -397,7 +397,7 @@ Avoid using. Use *not valid* instead.
 
 **IP address**
 
-Don’t abbreviate as _IP only_.
+Don't abbreviate as _IP only_.
 
 ## J
 
@@ -435,7 +435,7 @@ You _start_ an application but _launch_ an instance, environment, or cluster.
 
 **let**
 
-Avoid using _let_ to refer to making something in a service or feature possible for the user. Instead, rewrite to focus on what’s important from the user’s point of view.
+Avoid using _let_ to refer to making something in a service or feature possible for the user. Instead, rewrite to focus on what's important from the user's point of view.
 
 **leverage**
 
@@ -449,7 +449,7 @@ One word in reference to software.
 
 OK to use to call out something for comparison.
 
-As a general rule, if you can replace like with similar to, it’s OK to use like. But, if you can replace _like_ with _such as_, use _such as_.
+As a general rule, if you can replace like with similar to, it's OK to use like. But, if you can replace _like_ with _such as_, use _such as_.
 
 **LLM**
 
@@ -505,9 +505,9 @@ Avoid. Use _can_ or _might_ instead.
 
 **must, shall, should**
 
-_Must_ and _shall_ refer to requirements. If the reader doesn’t follow the instruction, something won’t work right.
+_Must_ and _shall_ refer to requirements. If the reader doesn't follow the instruction, something won't work right.
 
-_Should_ is used with recommendations. If the reader doesn’t follow the instruction, it might be harder or slower, but it’ll work.
+_Should_ is used with recommendations. If the reader doesn't follow the instruction, it might be harder or slower, but it'll work.
 
 ## N 
 
@@ -517,7 +517,7 @@ Not navigate _in_.
 
 **near real time (n.), near real-time (adj.) (NRT)**
 
-Use _near real time_ as a noun; use near real-time as an adjective. Don’t add a hyphen between _near_ and _real time_ or _real-time_.
+Use _near real time_ as a noun; use near real-time as an adjective. Don't add a hyphen between _near_ and _real time_ or _real-time_.
 
 Spell out _near real time_ on first mention; _NRT_ can be used on subsequent mentions.
 
@@ -543,7 +543,7 @@ The default visualization tool for data in OpenSearch. On first appearance, use 
 
 open source (n.), open-source (adj.)
 
-Use _open source_ as a noun (for example, “The code used throughout this tutorial is open source and can be freely modified”). Use _open-source_ as an adjective _(open-source software)_.
+Use _open source_ as a noun (for example, "The code used throughout this tutorial is open source and can be freely modified"). Use _open-source_ as an adjective _(open-source software)_.
 
 **OpenSearch Playground**
 
@@ -554,9 +554,9 @@ Do not precede with _the_. OpenSearch Playground provides a central location for
 When referencing operating systems in documentation, follow these guidelines:
 
 - In general, if your docs or procedures apply to both Linux and macOS, you can also include Unix.
-- Unix and UNIX aren’t the same. UNIX is a trademarked name that’s owned by The Open Group. In most cases, you should use Unix.
-- When referring to the Mac operating system, use macOS. Don’t say Mac, Mac OS, or OS X.
-- When referring to Windows, it’s not necessary to prefix with Microsoft.
+- Unix and UNIX aren't the same. UNIX is a trademarked name that's owned by The Open Group. In most cases, you should use Unix.
+- When referring to the Mac operating system, use macOS. Don't say Mac, Mac OS, or OS X.
+- When referring to Windows, it's not necessary to prefix with Microsoft.
 - If you need to reference multiple Unix-like operating systems, you should separate by commas and use the following order: Linux, macOS, or Unix.
 
 **or earlier, or later**
@@ -567,7 +567,7 @@ OK to use with software versions.
 
 **Painless**
 
-The default scripting language for OpenSearch, either used inline or stored for repeat use. Similar to Java’s language specification.
+The default scripting language for OpenSearch, either used inline or stored for repeat use. Similar to Java's language specification.
 
 **per**
 
@@ -598,7 +598,7 @@ Avoid using except in quoted text.
 
 **plugin**
 
-Tools inside of OpenSearch that can be customized to enhance OpenSearch’s functionality. For a list of core plugins, see the [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/) page. Capitalize if it appears as part of the product name in the UI.
+Tools inside of OpenSearch that can be customized to enhance OpenSearch's functionality. For a list of core plugins, see the [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/) page. Capitalize if it appears as part of the product name in the UI.
 
 **pop-up**
 
@@ -630,7 +630,7 @@ A call used to request information about your data.
 
 **real time (n.) real-time (adj.)**
 
-Use with caution; this term can imply a degree of responsiveness or speed that may not be true. When needed, use _real time_ as a noun (for example “The request is sent in real time”). Use _real-time_ as an adjective (“A real-time feed is displayed...”).
+Use with caution; this term can imply a degree of responsiveness or speed that may not be true. When needed, use _real time_ as a noun (for example "The request is sent in real time"). Use _real-time_ as an adjective ("A real-time feed is displayed...").
 
 **recall**
 
@@ -672,7 +672,7 @@ The following examples of settings illustrate key-value pairs with a colon separ
 
 **set up (v.), setup (n., adj.)**
 
-Use _set up_ as a verb (“To set up a new user...”). Use _setup_ as a noun or adjective (“To begin setup...”).
+Use _set up_ as a verb ("To set up a new user..."). Use _setup_ as a noun or adjective ("To begin setup...").
 
 **shard**
 
@@ -684,7 +684,7 @@ Don't use. Both *simple* and *simply* are not neutral in tone and might sound co
 
 **since**
 
-Use only to describe time events. Don’t use in place of because.
+Use only to describe time events. Don't use in place of *because*.
 
 **slave**
 
@@ -702,7 +702,7 @@ You _start_ an application but _launch_ an instance, environment, or cluster.
 
 **startup (n.), start up (v.)**
 
-Never hyphenated. Use _startup_ as a noun (for example, “The following startup procedure guides you through...”). Use _start up_ as a verb (“You can start up the instances by...”).
+Never hyphenated. Use _startup_ as a noun (for example, "The following startup procedure guides you through..."). Use _start up_ as a verb ("You can start up the instances by...").
 
 **Stochastic Gradient Descent (SGD)**
 
@@ -716,7 +716,7 @@ A numerical statistic that is intended to reflect how important a word is to a d
 
 **time out (verb), timeout (noun, adjective)**
 
-Never hyphenate. Use _time out_ as a verb (“The request will time out if the server doesn’t respond”). Use _timeout_ as a noun or adjective (“You can set the timeout interval by entering a number into...”).
+Never hyphenate. Use _time out_ as a verb ("The request will time out if the server doesn't respond"). Use _timeout_ as a noun or adjective ("You can set the timeout interval by entering a number into...").
 
 **time frame**
 
@@ -792,7 +792,7 @@ Never _web site_.
 
 **while, although, whereas**
 
-Only use _while_ to mean “during an interval of time.” Don’t use it to mean although because it is often ambiguous. _Whereas_ is a better alternative to although in many cases, but it can sound overly formal.
+Only use _while_ to mean "during an interval of time." Don't use it to mean although because it is often ambiguous. _Whereas_ is a better alternative to although in many cases, but it can sound overly formal.
 
 **white day**
 
@@ -806,9 +806,9 @@ Do not use. Use *allow list* instead.
 
 **wish, want, desire, need**
 
-_Wish_ and _desire_ are indirect and nuanced versions of _want_. Don’t use them. Be direct.
+_Wish_ and _desire_ are indirect and nuanced versions of _want_. Don't use them. Be direct.
 
-Do not confuse wants with needs. Use the term that’s appropriate to the situation. _Need_ connotes a requirement or obligation, whereas _want_ indicates that you have an intent but still a choice of valid actions.
+Do not confuse wants with needs. Use the term that's appropriate to the situation. _Need_ connotes a requirement or obligation, whereas _want_ indicates that you have an intent but still a choice of valid actions.
 
 ## Y 
 

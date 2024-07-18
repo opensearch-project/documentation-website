@@ -46,7 +46,7 @@ timeout | Time | How long to wait for a response from the cluster. Default is `3
 wait_for_active_shards | String | The number of active shards that must be available before OpenSearch processes the reindex request. Default is 1 (only the primary shard). Set to `all` or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have two replicas distributed across two additional nodes for the operation to succeed.
 wait_for_completion | Boolean | Waits for the matching tasks to complete. Default is `false`.
 requests_per_second | Integer | Specifies the request’s throttling in sub-requests per second. Default is -1, which means no throttling.
-require_alias | Boolean | Whether the destination index must be an index alias. Default is false.
+require_alias | Boolean | Whether the destination index must be an index alias. Default is `false`.
 scroll | Time | How long to keep the search context open. Default is `5m`.
 slices | Integer | Number of sub-tasks OpenSearch should divide this task into. Default is 1, which means OpenSearch should not divide this task. Setting this parameter to `auto` indicates to OpenSearch that it should automatically decide how many slices to split the task into.
 max_docs | Integer | How many documents the update by query operation should process at most. Default is all documents.
@@ -57,7 +57,7 @@ Your request body must contain the names of the source index and destination ind
 
 Field | Description
 :--- | :---
-conflicts | Indicates to OpenSearch what should happen if the delete by query operation runs into a version conflict. Valid options are `abort` and `proceed`. Default is abort.
+conflicts | Indicates to OpenSearch what should happen if the Reindex operation runs into a version conflict. Valid options are `abort` and `proceed`. Default is `abort`.
 source | Information about the source index to include. Valid fields are `index`, `max_docs`, `query`, `remote`, `size`, `slice`, and `_source`.
 index | The name of the source index to copy data from.
 max_docs | The maximum number of documents to reindex.
@@ -70,7 +70,7 @@ socket_timeout | The wait time for socket reads. Default is 30s.
 connect_timeout | The wait time for remote connection timeouts. Default is 30s.
 size | The number of documents to reindex.
 slice | Whether to manually or automatically slice the reindex operation so it executes in parallel. Setting this field to `auto` allows OpenSearch to control the number of slices to use, which is one slice per shard, up to a maximum of 20. If there are multiple sources, the number of slices used are based on the index or backing index with the smallest number of shards.
-_source | Whether to reindex source fields. Specify a list of fields to reindex or true to reindex all fields. Default is true.
+_source | Whether to reindex source fields. Specify a list of fields to reindex or true to reindex all fields. Default is `true`.
 id | The ID to associate with manual slicing.
 max | Maximum number of slices.
 dest | Information about the destination index. Valid values are `index`, `version_type`, `op_type`, and `pipeline`.
@@ -79,7 +79,6 @@ version_type | The indexing operation's version type. Valid values are `internal
 op_type | Whether to copy over documents that are missing in the destination index. Valid values are `create` (ignore documents with the same ID from the source index) and `index` (copy everything from the source index).
 pipeline | Which ingest pipeline to utilize during the reindex.
 script | A script that OpenSearch uses to apply transformations to the data during the reindex operation.
-source | The actual script that OpenSearch runs.
 lang | The scripting language. Valid options are `painless`, `expression`, `mustache`, and `java`.
 
 ## Response
