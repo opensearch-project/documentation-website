@@ -50,4 +50,4 @@ Each tool takes a list of parameters specific to that tool. In the preceding exa
 
 ## Developer information
 
-The agents and tools framework offers flexibility and extensibility. Explore the [Tools library](https://github.com/opensearch-project/skills/tree/main/src/main/java/org/opensearch/agent/tools) for OpenSearch-provided tools. Implement the [**Tool** interface](https://github.com/opensearch-project/ml-commons/blob/2.x/spi/src/main/java/org/opensearch/ml/common/spi/tools/Tool.java) to build custom tools for different use cases.
+The agents and tools framework offers flexibility and extensibility. See the [tools library](https://github.com/opensearch-project/skills/tree/main/src/main/java/org/opensearch/agent/tools) for OpenSearch-provided tools. Implement the [**Tool** interface](https://github.com/opensearch-project/ml-commons/blob/2.x/spi/src/main/java/org/opensearch/ml/common/spi/tools/Tool.java) to build custom tools for different use cases.
