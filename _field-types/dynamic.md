@@ -177,7 +177,7 @@ PUT testindex1/_doc/1
 }
 ```
 
-The following request searches the fields `room` or `floor`, with a response confirming no results returned:
+The following request searches the fields `room` or `floor`:
 
 ```json
 POST testindex1/_search
