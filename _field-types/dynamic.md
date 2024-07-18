@@ -46,7 +46,7 @@ PUT testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-3. Check the mapping using the following request:
+3. Check the mapping by sending the following request:
 
 ```json
 GET testindex1/_mapping
