@@ -278,7 +278,7 @@ Note that an exception is thrown, as shown in the following response:
 
 ## Example: Create an index with `dynamic` set to `strict_allow_templates`
 
-1. Create an index with `dynamic` set to `strict_allow_templates` and dynamic templates using the following request: 
+1. Create an index with `dynamic` set to `strict_allow_templates` and predefined dynamic templates by sending the following request: 
 
 ```json
 PUT testindex1
