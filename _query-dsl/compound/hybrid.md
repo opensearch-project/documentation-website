@@ -2,7 +2,6 @@
 layout: default
 title: Hybrid
 parent: Compound queries
-grand_parent: Query DSL
 nav_order: 70
 ---
 
