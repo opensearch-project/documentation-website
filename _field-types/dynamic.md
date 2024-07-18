@@ -190,7 +190,7 @@ POST testindex1/_search
 }
 ```
 
-The following response confirms no returned results:
+The response returns no results:
 
 ```json
 {
