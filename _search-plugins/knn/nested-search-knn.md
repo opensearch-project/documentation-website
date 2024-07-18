@@ -3,7 +3,6 @@ layout: default
 title: k-NN search with nested fields
 nav_order: 21
 parent: k-NN search
-grand_parent: Search methods
 has_children: false
 has_math: true
 ---

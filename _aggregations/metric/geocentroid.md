@@ -2,7 +2,6 @@
 layout: default
 title: Geocentroid
 parent: Metric aggregations
-grand_parent: Aggregations
 nav_order: 45
 ---
 
