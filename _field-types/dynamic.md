@@ -15,7 +15,7 @@ Parameter | Description
 `true`  | Specfies that new fields can be added dynamically to the mapping. Default is `true`.
 `false` | Specifies that new fields cannot be added dynamically to the mapping. If a new field is detected, then it is not indexed or searchable but can be retrieved from the `_source` field.
 `strict` | Throws an exception. The indexing operation fails when new fields are detected.
-`strict_allow_templates` | Adds new fields matching dynamic templates if the new fields match predefined dynamic templates in the mapping; otherwise, indexing fails.
+`strict_allow_templates` | Adds new fields if they match predefined dynamic templates in the mapping.
 
 --- 
 
@@ -46,7 +46,7 @@ PUT testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-3. Check the mapping by sending the following request:
+3. Confirm the mapping works as expected by sending the following request:
 
 ```json
 GET testindex1/_mapping
@@ -93,7 +93,7 @@ The object field `patient` and two subfields `name` and `id` are added to the ma
 
 ## Example: Create an index with `dynamic` set to `false`
 
-1. Create an index with `dynamic` set to `false` and explicit mappings by sending the following request:
+1. Create an index with explicit mappings and `dynamic` set to `false` by sending the following request:
 
 ```json
 PUT testindex1
@@ -132,7 +132,7 @@ PUT testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-3. Check the mapping by sending the following request:
+3.  Confirm the mapping works as expected by sending the following request:
 
 ```json
 GET testindex1/_mapping
@@ -177,7 +177,7 @@ PUT testindex1/_doc/1
 }
 ```
 
-The following request searches the fields `room` or `floor`:
+The following request searches for the fields `room` and `floor`:
 
 ```json
 POST testindex1/_search
@@ -217,7 +217,7 @@ The response returns no results:
 
 ## Example: Create an index with `dynamic` set to `strict`
 
-1. Create an index with `dynamic` set to `strict` and explicit mappings by sending the following request:
+1. Create an index with explicit mappings and `dynamic` set to `strict` by sending the following request:
 
 ```json
 PUT testindex1
@@ -278,7 +278,7 @@ Note that an exception is thrown, as shown in the following response:
 
 ## Example: Create an index with `dynamic` set to `strict_allow_templates`
 
-1. Create an index with `dynamic` set to `strict_allow_templates` and predefined dynamic templates by sending the following request: 
+1. Create an index with predefined dynamic templates and `dynamic` set to `strict_allow_templates` by sending the following request: 
 
 ```json
 PUT testindex1
@@ -313,7 +313,7 @@ PUT testindex1
 ```
 {% include copy-curl.html %}
 
-2. Index a document with an object field `patient` containing two string fields and a new field `room` that matches the dynamic templates by sending the following request:
+2. Index a document with an object field `patient` containing two string fields and a new field `room` that matches one of the dynamic templates by sending the following request:
 
 ```json
 PUT testindex1/_doc/1
@@ -327,7 +327,7 @@ PUT testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-Indexing succeeds because the new field `room` matches the dynamic templates. However, indexing fails for the new field `floor` because it does not match the dynamic templates and is not explicitly mapped, as shown in the following response:
+Indexing succeeds because the new field `room` matches the dynamic templates. However, indexing fails for the new field `floor` because it does not match one of the dynamic templates and is not explicitly mapped, as shown in the following response:
 
 ```json
 PUT testindex1/_doc/1
