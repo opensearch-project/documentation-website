@@ -5,11 +5,11 @@ parent: Index APIs
 nav_order: 62
 ---
 
-# Recover Index 
+# Recover an index 
 Introduced 1.0
 {: .label .label-purple }
 
-The Recover Index API gives information about any completed or ongoing shard recoveries for one or more indexes. If a data stream is listed, the API returns information about that data stream's backing index. 
+The Recover index API gives information about any completed or ongoing shard recoveries for one or more indexes. If a data stream is listed, the API returns information about that data stream's backing index. 
 
 Shard recovery is the process of starting a shard copy for restoring a primary shard from a snapshot or syncing a replica shard. Once a shard recovery is complete, the recovered shard becomes available for searching and indexing operations.
 
@@ -24,7 +24,7 @@ Shard recovery occurs automatically in the following scenarios:
 The Recover Index API provides information only about completed recoveries for shard copies that currently exist in the cluster. It reports only the most recent recovery for each shard copy and does not include historical information about previous recoveries or information about recoveries of shard copies that no longer exist. Consequently, if a shard copy completes a recovery and is subsequently relocated to a different node, the information about the original recovery will not be displayed in the Recover Index API.
 
 
-## HTTP and Path Methods
+## HTTP and Path methods
 
 ```
 GET /_recovery
@@ -61,7 +61,7 @@ Parameter | Type | Description
 `start_time` | String | The timestamp for when the recovery started. 
 `stop_time` | String | The timestamp for when the recovery finished. 
 `total_time_in_millis` | String | The total time to recover shard in milliseconds. 
-`source` | Object | The recovery source. This can include  repository description if recovery is from a snapshot or a description of source node. 
+`source` | Object | The recovery source. This can include a repository description if recovery is from a snapshot or a description of source node. 
 `target` | Object | The destination node. 
 `index` | Object | The statistics about physical index recovery. 
 `translog` | Object | The statistics about translog recovery. 
