@@ -3,7 +3,6 @@ layout: default
 title: Radial search
 nav_order: 28
 parent: k-NN search
-grand_parent: Search methods
 has_children: false
 has_math: true
 ---
