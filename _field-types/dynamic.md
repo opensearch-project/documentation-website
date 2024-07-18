@@ -53,7 +53,7 @@ GET testindex1/_mapping
 ```
 {% include copy-curl.html %}
 
-Object field `patient` and two subfields `name` and `id` are added to the mapping, as shown in the following response:
+The object field `patient` and two subfields `name` and `id` are added to the mapping, as shown in the following response:
 
 ```json
 {
