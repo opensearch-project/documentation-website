@@ -157,7 +157,7 @@ The following table lists the available tool parameters for agent registration.
 
 Parameter	| Type | Required/Optional | Description	
 :--- | :--- | :--- | :---
-`model_id` | String | Required | The LLM model ID used for suggesting the Creating Anomaly Detector API's required parameters.
+`model_id` | String | Required | The LLM model ID used for suggesting required Create Anomaly Detector API parameters.
 `model_type` | String | Optional | The model type. Valid values are `CLAUDE` (Anthropic Claude models) and `OPENAI` (OpenAI models). 
 
 ## Execute parameters
