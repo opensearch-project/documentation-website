@@ -89,7 +89,7 @@ OpenSearch responds with a JSON string containing all of the recommended paramet
 ```
 {% include copy-curl.html %} 
 
-You can then create an anomaly detector containing the recommended parameters with a request similar to the following example: 
+You can then create an anomaly detector containing the recommended parameters by sending a request similar to the following: 
 
 ```json
 POST _plugins/_anomaly_detection/detectors
