@@ -91,7 +91,7 @@ The object field `patient` and two subfields `name` and `id` are added to the ma
 
 ---
 
-## Example: Create index with dynamic parameter set to `false`
+## Example: Create an index with `dynamic` set to `false`
 
 1. Create an index with `dynamic` set to `false` and explicit mappings using the following request:
 
