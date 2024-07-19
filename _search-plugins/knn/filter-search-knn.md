@@ -3,7 +3,6 @@ layout: default
 title: k-NN search with filters
 nav_order: 20
 parent: k-NN search
-grand_parent: Search methods
 has_children: false
 has_math: true
 ---

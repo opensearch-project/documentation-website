@@ -181,8 +181,8 @@ config:
 
 Name | Description
 :--- | :---
-`enable_ssl` | Whether to use TLS. Default is false.
-`verify_hostnames` | Whether to verify the hostnames of the IdP's TLS certificate. Default is true.
+`enable_ssl` | Whether to use TLS. Default is `false`.
+`verify_hostnames` | Whether to verify the hostnames of the IdP's TLS certificate. Default is `true`.
 
 
 ### Certificate validation
@@ -252,7 +252,7 @@ config:
 
 Name | Description
 :--- | :---
-`enable_ssl_client_auth` | Whether to send the client certificate to the IdP server. Default is false.
+`enable_ssl_client_auth` | Whether to send the client certificate to the IdP server. Default is `false`.
 `pemcert_filepath` | Absolute path to the client certificate.
 `pemcert_content` | The content of the client certificate. Cannot be used when `pemcert_filepath` is set.
 `pemkey_filepath` | Absolute path to the file containing the private key of the client certificate.

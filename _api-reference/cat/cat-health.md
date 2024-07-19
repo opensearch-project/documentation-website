@@ -36,7 +36,7 @@ All CAT health URL parameters are optional.
 Parameter | Type | Description
 :--- | :--- | :---
 time | Time | Specify the units for time. For example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
-ts | Boolean | If true, returns HH:MM:SS and Unix epoch timestamps. Default is true.
+ts | Boolean | If true, returns HH:MM:SS and Unix epoch timestamps. Default is `true`.
 
 ## Response
 
