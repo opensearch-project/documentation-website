@@ -38,11 +38,11 @@ The following table lists the available query parameters. All query parameters a
 | :--- | :--- | :--- |
 | `query_parameter` | String | Example query parameter description. Default is ... |
 
-## Request body options
+## Request body fields
 
-The following table lists the available request body options.
+The following table lists the available request body fields.
 
-| Field | Type | Description |
+| Field | Data type | Description |
 | :--- | :--- | :--- |
 | `example_object` | Object | Example object description. |
 | `example_object.required_request_field` | Type | Required request field description. Required. |
@@ -65,7 +65,7 @@ POST /_example/endpoint/
 ```
 {% include copy-curl.html %}
 
-## Response body options
+## Response body 
 
 The following table lists all response body options.
 
