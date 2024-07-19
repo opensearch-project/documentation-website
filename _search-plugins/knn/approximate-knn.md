@@ -256,6 +256,7 @@ POST _bulk
 After data is ingested, it can be searched just like any other `knn_vector` field.
 
 ### Additional query parameters
+
 Starting with version 2.16, k-NN plugin supports additional method parameters to tune search results. This can be done by providing the right values in `method_parameters` section of the query. Here is an example of the query
 
 ```json
