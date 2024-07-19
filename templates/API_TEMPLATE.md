@@ -18,10 +18,6 @@ POST /_example/endpoint/
 POST /_example/endpoint/<path_parameter>
 ```
 
-## Required permissions
-
-If you use the Security plugin, make sure you have the appropriate permissions: `cluster:example/permission/name`.
-
 ## Path parameters
 
 The following table lists the available path parameters. All path parameters are optional.
@@ -95,5 +91,9 @@ The following example shows an API response:
 }
 ```
 </details>
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:example/permission/name`.
 
 
