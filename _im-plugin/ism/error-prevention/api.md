@@ -12,7 +12,7 @@ The ISM Error Prevention API allows you to enable Index State Management (ISM) e
 
 ## Enable error prevention validation
 
-You can configure error prevention validation by setting the `plugins.index_state_management.validation_service.enabled` parameter.
+You can configure error prevention validation by setting the `plugins.index_state_management.action_validation.enabled` parameter.
 
 #### Example request
 
@@ -20,7 +20,7 @@ You can configure error prevention validation by setting the `plugins.index_stat
 PUT _cluster/settings
 {
    "persistent":{
-      "plugins.index_state_management.validation_action.enabled": true
+      "plugins.index_state_management.action_validation.enabled": true
    }
 }
 ```
