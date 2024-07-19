@@ -98,7 +98,7 @@ Parameter | Type | Description
 
 ### `settings`
 
-Any configuration options for the index. For more information, see [Index settings](https://opensearch.org/docs/latest/install-and-configure/configuring-opensearch/index-settings/).
+The `settings` parameter specifies the index configuration options. See [Index settings](https://opensearch.org/docs/latest/install-and-configure/configuring-opensearch/index-settings/) for more details.
 
 ## Example requests
 
