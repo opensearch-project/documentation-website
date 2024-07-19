@@ -30,20 +30,20 @@ The following example demonstrates using a search pipeline with a `sort` process
 
 ### Setup
 
-Create an index named `my_index` and index a document with the field `message`:
+Create an index named `my_index` and index a document with the field `message` that contains an array of strings:
 
 ```json
 POST /my_index/_doc/1
 {
   "message": ["one", "two", "three", "four"], 
-  "visibility":"public"
+  "visibility": "public"
 }
 ```
 {% include copy-curl.html %}
 
 ### Creating a search pipeline 
 
-The following request creates a search pipeline with a `sort` response processor that sorts the field `message` in `sorted_message`:
+Create a search pipeline with a `sort` response processor that sorts the `message` field and stores the sorted results in the `sorted_message` field:
 
 ```json
 PUT /_search/pipeline/my_pipeline
@@ -76,6 +76,7 @@ The response contains the field `message`:
     Response
   </summary>
   {: .text-delta}
+
 ```json
 {
   "took": 1,
@@ -120,13 +121,14 @@ GET /my_index/_search?search_pipeline=my_pipeline
 ```
 {% include copy-curl.html %}
 
-The `message` field has been sorted in `sorted_message`:
+The `sorted_message` field contains the strings from the `message` field sorted alphabetically:
 
 <details open markdown="block">
   <summary>
     Response
   </summary>
   {: .text-delta}
+
 ```json
 {
   "took": 3,
@@ -175,18 +177,19 @@ You can also use the `fields` option to search for specific fields in a document
 ```json
 POST /my_index/_search?pretty&search_pipeline=my_pipeline
 {
-    "fields":["visibility", "message"]
+    "fields": ["visibility", "message"]
 }
 ``` 
 {% include copy-curl.html %}
 
-In the response, the field `message` has been sorted to `sorted_message`:
+In the response, the `message` field is sorted and the results are stored in the `sorted_message` field:
 
 <details open markdown="block">
   <summary>
     Response
   </summary>
   {: .text-delta}
+
 ```json
 {
   "took": 2,

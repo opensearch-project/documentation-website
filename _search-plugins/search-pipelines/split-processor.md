@@ -9,7 +9,7 @@ grand_parent: Search pipelines
 
 # Split processor
 
-The `split` processor is used to split a string field into an array of substrings based on a specified delimiter.
+The `split` processor splits a string field into an array of substrings based on a specified delimiter.
 
 ## Request fields
 
@@ -18,9 +18,9 @@ The following table lists all available request fields.
 Field | Data type | Description
 :--- | :--- | :---
 `field` | String | The field containing the string to be split. Required.
-`separator` | String | The delimiter used to split the string. This can be a regular expression pattern. Required.
+`separator` | String | The delimiter used to split the string. Specify either a single separator character or a regular expression pattern. Required.
 `preserve_trailing` | Boolean | If set to `true`, preserves empty trailing fields (for example, `''`) in the resulting array. If set to `false`, empty trailing fields are removed from the resulting array. Default is `false`. 
-`target_field` | String | The field where the array of substrings is stored. If not specified, then the field is updated in-place. 
+`target_field` | String | The field where the array of substrings is stored. If not specified, then the field is updated in place. 
 `tag` | String | The processor's identifier. 
 `description` | String | A description of the processor. 
 `ignore_failure` | Boolean | If `true`, OpenSearch [ignores any failure]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/creating-search-pipeline/#ignoring-processor-failures) of this processor and continues to run the remaining processors in the search pipeline. Optional. Default is `false`.
@@ -37,14 +37,14 @@ Create an index named `my_index` and index a document with the field `message`:
 POST /my_index/_doc/1
 {
   "message": "ingest, search, visualize, and analyze data",
-  "visibility":"public"
+  "visibility": "public"
 }
 ```
 {% include copy-curl.html %}
 
 ### Creating a search pipeline 
 
-The following request creates a search pipeline with a `split` response processor that splits the field `message` in `split_message`:
+The following request creates a search pipeline with a `split` response processor that splits the `message` field and stores the results in the `split_message` field:
 
 ```json
 PUT /_search/pipeline/my_pipeline
@@ -117,13 +117,14 @@ GET /my_index/_search?search_pipeline=my_pipeline
 ```
 {% include copy-curl.html %}
 
-The `message` field has been split in `split_message`:
+The `message` field is split and the results are stored in the `split_message` field:
 
 <details open markdown="block">
   <summary>
     Response
   </summary>
   {: .text-delta}
+
 ```json
 {
   "took": 6,
@@ -167,18 +168,19 @@ You can also use the `fields` option to search for specific fields in a document
 ```json
 POST /my_index/_search?pretty&search_pipeline=my_pipeline
 {
-    "fields":["visibility", "message"]
+    "fields": ["visibility", "message"]
 }
 ``` 
 {% include copy-curl.html %}
 
-In the response, the field `message` has been split to `sorted_message`:
+In the response, the `message` field is split and the results are stored in the `split_message` field:
 
 <details open markdown="block">
   <summary>
     Response
   </summary>
   {: .text-delta}
+
 ```json
 {
   "took": 7,
