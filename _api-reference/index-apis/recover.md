@@ -5,11 +5,11 @@ parent: Index APIs
 nav_order: 62
 ---
 
-# Recover an index 
+# Recovery API
 Introduced 1.0
 {: .label .label-purple }
 
-The Recover index API gives information about any completed or ongoing shard recoveries for one or more indexes. If a data stream is listed, the API returns information about that data stream's backing index. 
+The Recovery API gives information about any completed or ongoing shard recoveries for one or more indexes. If a data stream is listed, the API returns information about that data stream's backing indexes. 
 
 Shard recovery is the process of starting a shard copy for restoring a primary shard from a snapshot or syncing a replica shard. Once a shard recovery is complete, the recovered shard becomes available for searching and indexing operations.
 
@@ -35,7 +35,7 @@ GET /<index-name>/recovery/
 
 Parameter | Type | Description 
 :--- | :--- 
-`index-name` | String | The name(s) of the index(es) you want recovery information about.  
+`index-name` |  String | A comma-separated list of indexes, data streams, or index aliases to which the operation is applied. Supports wildcard expressions (`*`). Use `_all` or `*` to specify all indexes and data streams in a cluster. |
 
 
 ## Query parameters
