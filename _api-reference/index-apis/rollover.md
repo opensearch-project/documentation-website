@@ -18,7 +18,7 @@ POST /<rollover-target>/_rollover/
 POST /<rollover-target>/_rollover/<target-index>
 ```
 
-## Types of rollovers
+## Rollover types
 
 You can roll over a data stream, an index alias with one index, or an index alias with a write index.
 
