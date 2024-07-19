@@ -76,8 +76,8 @@ If you don't want to use a saved template, or want to test a template before sav
 ```
 {
   "source": {
-    "from": "{{from}}{{^from}}10{{/from}}",
-    "size": "{{size}}{{^size}}10{{/size}}",
+     "from": "{% raw %}{{from}}{{^from}}0{{/from}}{% endraw %}",
+     "size": "{% raw %}{{size}}{{^size}}10{{/size}}{% endraw %}",
     "query": {
       "match": {
         "play_name": "{{play_name}}"
