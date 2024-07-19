@@ -61,9 +61,9 @@ POST /_example/endpoint/
 ```
 {% include copy-curl.html %}
 
-## Response body 
+## Response body fields
 
-The following table lists all response body options.
+The following table lists all response body fields.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
