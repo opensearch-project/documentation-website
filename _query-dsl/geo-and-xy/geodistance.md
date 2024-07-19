@@ -2,7 +2,6 @@
 layout: default
 title: Geodistance
 parent: Geographic and xy queries
-grand_parent: Query DSL
 nav_order: 20
 ---
 
