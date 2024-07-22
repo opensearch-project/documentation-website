@@ -2,7 +2,6 @@
 layout: default
 title: Boolean
 parent: Compound queries
-grand_parent: Query DSL
 nav_order: 10
 redirect_from:
   - /opensearch/query-dsl/compound/bool/

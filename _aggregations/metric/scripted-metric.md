@@ -2,7 +2,6 @@
 layout: default
 title: Scripted metric
 parent: Metric aggregations
-grand_parent: Aggregations
 nav_order: 100
 redirect_from:
   - /query-dsl/aggregations/metric/scripted-metric/
