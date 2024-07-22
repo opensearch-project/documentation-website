@@ -44,7 +44,7 @@ Both of the following request examples use the search template with the template
   "source": {
     "query": {
       "match": {
-        "play_name": "{% raw %{{play_name}}{% endraw %}"
+        "play_name": "{% raw %}{{play_name}}{% endraw %}"
       }
     }
   },
