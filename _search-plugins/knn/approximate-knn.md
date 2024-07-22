@@ -282,7 +282,6 @@ These parameters are dependent on the combination of engine and method used to c
 
 #### `ef_search`
 
-
 You can provide the `ef_search` parameter when searching an index created using the `hnsw` method. The `ef_search` parameter specifies the number of vectors to examine in order to find the top k nearest neighbors. Higher `ef_search` values improve recall at the cost of increased search latency. The value must be positive.
 
 The following table provides information about the `ef_search` parameter for the supported engines.
@@ -294,7 +293,6 @@ Engine | Radial query support | Notes
 `lucene` | No | When creating a search query, you must specify `k`. If you provide both `k` and `ef_search`, then the larger value is passed to the engine. If `ef_search` is larger than `k`, you can provide the `size` parameter to limit the final number of results to `k`. 
 
 #### `nprobes`
-
 
 You can provide the `nprobes` parameter when searching an index created using the `ivf` method. The `nprobes` parameter specifies the number of `nprobes` clusters to examine in order to find the top k nearest neighbors. Higher `nprobes` values improve recall at the cost of increased search latency. The value must be positive.
 
