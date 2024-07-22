@@ -20,7 +20,7 @@ Field | Data type | Description
 `field` | String | The field containing the string to be split. Required.
 `separator` | String | The delimiter used to split the string. Specify either a single separator character or a regular expression pattern. Required.
 `preserve_trailing` | Boolean | If set to `true`, preserves empty trailing fields (for example, `''`) in the resulting array. If set to `false`, then empty trailing fields are removed from the resulting array. Default is `false`. 
-`target_field` | String | The field where the array of substrings is stored. If not specified, then the field is updated in place. 
+`target_field` | String | The field in which the array of substrings is stored. If not specified, then the field is updated in place. 
 `tag` | String | The processor's identifier. 
 `description` | String | A description of the processor. 
 `ignore_failure` | Boolean | If `true`, OpenSearch [ignores any failure]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/creating-search-pipeline/#ignoring-processor-failures) of this processor and continues to run the remaining processors in the search pipeline. Optional. Default is `false`.
