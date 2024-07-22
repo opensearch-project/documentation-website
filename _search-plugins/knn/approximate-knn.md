@@ -276,6 +276,8 @@ GET my-knn-index-1/_search
   }
 }
 ```
+{% include copy-curl.html %}
+
 These parameters are dependent on the combination of engine and method used to create the index. The following sections provide information about the supported `method_parameters`.
 
 #### HNSW
