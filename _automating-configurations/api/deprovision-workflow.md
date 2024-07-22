@@ -11,7 +11,7 @@ When you no longer need a workflow, you can deprovision its resources. Most work
 
 The workflow executes the provisioning workflow steps in reverse order. If failures occur because of resource dependencies, such as preventing deletion of a registered model if it is still deployed, the workflow retries as long as at least one resource was deleted.
 
-To prevent data loss, resources created with `create_index`, `create_search_pipeline`, and `create_ingest_pipeline` steps require the resource ID to be included in the `allow_delete` parameter.
+To prevent data loss, resources created using the `create_index`, `create_search_pipeline`, and `create_ingest_pipeline` steps require the resource ID to be included in the `allow_delete` parameter.
 
 ## Path and HTTP methods
 
