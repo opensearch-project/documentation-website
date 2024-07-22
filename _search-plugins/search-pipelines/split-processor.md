@@ -31,7 +31,7 @@ The following example demonstrates using a search pipeline with a `split` proces
 
 ### Setup
 
-Create an index named `my_index` and index a document with the field `message`:
+Create an index named `my_index` and index a document containing the field `message`:
 
 ```json
 POST /my_index/_doc/1
