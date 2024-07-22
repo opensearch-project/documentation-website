@@ -56,7 +56,7 @@ If deprovisioning did not completely remove all resources, OpenSearch responds w
 In some cases, the failure happens because of another dependent resource that took some time to be removed. In this case, you can attempt to send the same request again.
 {: .tip}
 
-If deprovisioning required the `allow_delete` parameter, OpenSearch responds with a `403 (FORBIDDEN)` status and identifies the resources that were not deprovisioned:
+If deprovisioning required the `allow_delete` parameter, then OpenSearch responds with a `403 (FORBIDDEN)` status and identifies the resources that were not deprovisioned:
 
 ```json
 {
