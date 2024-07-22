@@ -9,7 +9,7 @@ nav_order: 70
 
 When you no longer need a workflow, you can deprovision its resources. Most workflow steps that create a resource have corresponding workflow steps to reverse that action. To retrieve all resources currently created for a workflow, call the [Get Workflow Status API]({{site.url}}{{site.baseurl}}/automating-configurations/api/get-workflow-status/). When you call the Deprovision Workflow API, resources included in the `resources_created` field of the Get Workflow Status API response will be removed using a workflow step corresponding to the one that provisioned them.
 
-The workflow executes the provisioning workflow steps in reverse order. If failures occur because of resource dependencies, such as preventing deletion of a registered model if it is still deployed, the workflow retries as long as at least one resource was deleted.
+The workflow executes the provisioning steps in reverse order. If a failure occurs because of a resource dependency, such as trying to delete a registered model that is still deployed, then the workflow retries the failing step as long as at least one resource was deleted.
 
 To prevent data loss, resources created using the `create_index`, `create_search_pipeline`, and `create_ingest_pipeline` steps require the resource ID to be included in the `allow_delete` parameter.
 
