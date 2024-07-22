@@ -26,7 +26,7 @@ The following table lists the available path parameters.
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | `workflow_id` | String | The ID of the workflow to be deprovisioned. Required. |
-| `allow-delete` | String | A comma separated list of resource IDs to be deprovisioned. Required if deleting resources of type `index_name` or `pipeline_id`. |
+| `allow-delete` | String | A comma-separated list of resource IDs to be deprovisioned. Required if deleting resources of type `index_name` or `pipeline_id`. |
 
 ### Example request
 
