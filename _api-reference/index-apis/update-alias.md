@@ -11,6 +11,7 @@ nav_order: 5
 
 The Create or update alias API adds a data stream or index to an alias or updates the settings for an existing alias. For more Alias API operations, see [Index aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias/).
 
+Different from the [Alias API]({{site.url}}{{site.baseurl}}/opensearch/rest-api/alias/) which supports adding aliases, removing aliases and removing indexes, this API only supports adding or updating an alias, the URL path and request body parameters of these two APIs are also different, so be careful to use them.
 
 ## Path and HTTP methods
 
