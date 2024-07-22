@@ -9,7 +9,7 @@ redirect_from:
 
 # Cross-cluster search
 
-You can use the cross-cluster search feature in OpenSearch to search and analyze data across multiple clusters, enabling you to gain insights from distributed data sources. Cross-cluster search is available by default with the Security plugin, but you need to configure each cluster to allow remote connections from other clusters. This involves setting up remote cluster connections and configuring access permissions.
+You can use cross-cluster search (CCS) in OpenSearch to search and analyze data across multiple clusters, enabling you to gain insights from distributed data sources. Cross-cluster search is available by default with the Security plugin, but you need to configure each cluster to allow remote connections from other clusters. This involves setting up remote cluster connections and configuring access permissions.
 
 ---
 
