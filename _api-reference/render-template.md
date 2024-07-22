@@ -80,7 +80,7 @@ If you don't want to use a saved template, or want to test a template before sav
      "size": "{% raw %}{{size}}{{^size}}10{{/size}}{% endraw %}",
     "query": {
       "match": {
-        "play_name": "{% raw %{{play_name}}{% endraw %}"
+        "play_name": "{% raw %}{{play_name}}{% endraw %}"
       }
     }
   },
