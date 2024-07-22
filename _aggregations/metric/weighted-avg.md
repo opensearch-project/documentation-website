@@ -2,7 +2,6 @@
 layout: default
 title: Weighted average
 parent: Metric aggregations
-grand_parent: Aggregations
 nav_order: 150
 ---
 
