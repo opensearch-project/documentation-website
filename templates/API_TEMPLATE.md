@@ -61,13 +61,6 @@ POST /_example/endpoint/
 ```
 {% include copy-curl.html %}
 
-## Response body fields
-
-The following table lists all response body fields.
-
-| Field | Data type | Description |
-| :--- | :--- | :--- |
-| `response_field` | Type | Response field description. |
 
 ## Example response
 
@@ -91,6 +84,14 @@ The following example shows an API response:
 }
 ```
 </details>
+
+## Response body fields
+
+The following table lists all response body fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `response_field` | Type | Response field description. |
 
 ## Required permissions
 
