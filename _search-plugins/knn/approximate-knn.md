@@ -302,7 +302,7 @@ The following table provides information about the `nprobes` parameter for the s
 
 Engine | Notes
 :--- | :--- 
-faiss | Overrides the value in index settings if present in search query
+`faiss` | If `nprobes` is present in a query, it overrides the value provided when creating the index.
 
 ### Using approximate k-NN with filters
 
