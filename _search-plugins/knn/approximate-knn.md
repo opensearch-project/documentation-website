@@ -253,7 +253,7 @@ POST _bulk
 ...
 ```
 
-After data is ingested, it can be searched just like any other `knn_vector` field.
+After data is ingested, it can be searched in the same way as any other `knn_vector` field.
 
 ### Additional query parameters
 
@@ -283,7 +283,7 @@ These parameters are dependent on the combination of engine and method used to c
 #### `ef_search`
 
 
-You can provide the `ef_search` parameter when searching an index created using the `hnsw` method. The `ef_search` parameter specifies to explore the `ef_search` number of vectors to find the top k nearest neighbors. Higher value of `ef_search` improves recall at the cost of increased search latency. The value must be positive.
+You can provide the `ef_search` parameter when searching an index created using the `hnsw` method. The `ef_search` parameter specifies the number of vectors to examine in order to find the top k nearest neighbors. Higher `ef_search` values improve recall at the cost of increased search latency. The value must be positive.
 
 The following table provides information about the `ef_search` parameter for the supported engines.
 
@@ -296,7 +296,7 @@ Engine | Radial query support | Notes
 #### `nprobes`
 
 
-You can provide the `nprobes` parameter when searching an index created using the `ivf` method. The `nprobes` parameter specifies to explore the `nprobes` number of clusters to find the top k nearest neighbors. Higher value of `nprobes` improves recall at the cost of increased search latency. The value must be positive.
+You can provide the `nprobes` parameter when searching an index created using the `ivf` method. The `nprobes` parameter specifies the number of `nprobes` clusters to examine in order to find the top k nearest neighbors. Higher `nprobes` values improve recall at the cost of increased search latency. The value must be positive.
 
 The following table provides information about the `nprobes` parameter for the supported engines.
 
