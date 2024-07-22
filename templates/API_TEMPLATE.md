@@ -22,7 +22,7 @@ POST /_example/endpoint/<path_parameter>
 
 The following table lists the available path parameters. All path parameters are optional.
 
-| Parameter | Type | Description |
+| Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | `path_parameter` | Type | Example path parameter description. Default is ... |
 
@@ -30,7 +30,7 @@ The following table lists the available path parameters. All path parameters are
 
 The following table lists the available query parameters. All query parameters are optional.
 
-| Parameter | Type | Description |
+| Parameter |  Data type | Description |
 | :--- | :--- | :--- |
 | `query_parameter` | String | Example query parameter description. Default is ... |
 
