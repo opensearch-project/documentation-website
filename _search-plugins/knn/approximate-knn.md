@@ -280,7 +280,7 @@ GET my-knn-index-1/_search
 
 These parameters are dependent on the combination of engine and method used to create the index. The following sections provide information about the supported `method_parameters`.
 
-#### HNSW
+#### `ef_search`
 
 
 You can provide the `ef_search` parameter when searching an index created using the `hnsw` method. The `ef_search` parameter specifies to explore the `ef_search` number of vectors to find the top k nearest neighbors. Higher value of `ef_search` improves recall at the cost of increased search latency. The value must be positive.
