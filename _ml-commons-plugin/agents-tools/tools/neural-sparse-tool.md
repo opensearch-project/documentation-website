@@ -212,6 +212,7 @@ Parameter	| Type | Required/Optional | Description
 `name` | String  | Optional | The tool name. Useful when an LLM needs to select an appropriate tool for a task.
 `description` | String | Optional | A description of the tool. Useful when an LLM needs to select an appropriate tool for a task.
 `doc_size` | Integer | Optional | The number of documents to fetch. Default is `2`.
+`nested_path` | String | Optional | The path to the nested object for the nested query. Only used for nested fields. Default is `null`.
 
 ## Execute parameters
 
