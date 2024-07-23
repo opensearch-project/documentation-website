@@ -33,7 +33,7 @@ GET /<index-name>/recovery/
 
 ## Path parameters
 
-Parameter | Type | Description 
+Parameter | Data type | Description 
 :--- | :--- 
 `index-name` |  String | A comma-separated list of indexes, data streams, or index aliases to which the operation is applied. Supports wildcard expressions (`*`). Use `_all` or `*` to specify all indexes and data streams in a cluster. |
 
@@ -42,7 +42,7 @@ Parameter | Type | Description
 
 All of the following query parameters are optional.
 
-Parameter | Type | Description 
+Parameter | Data type | Description 
 :--- | :--- | :---  
 `active_only` | Boolean | When `true`, the response only includes active shard recoveries. Default is `false`.
 `detailed` | Boolean | When `true`, gives detailed information about shard recoveries. Default is `false`.
@@ -52,7 +52,7 @@ Parameter | Type | Description
 
 The API responds with the following information about the recovery shard:
 
-Parameter | Type | Description 
+Parameter | Data type | Description 
 :--- | :--- | :--- 
 `id` | Integer | The ID of the shard. 
 `type` | String | The recovery source for the shard. Returned values include: <br> - `EMPTY_STORE`: An empty store. Indicates a new primary shard or the forced allocation of an empty primary shard using the cluster reroute API. <br> - `EXISTING_STORE`: The store of an existing primary shard. Indicates that the recovery is related to node startup or the allocation of an existing primary shard. <br> - `LOCAL_SHARDS`: Shards of another index on the same node. Indicates that the recovery is related to a clone, shrink, or split operation. <br> - `PEER`: A primary shard on another node. Indicates that the recovery is related to shard replication. <br> - `SNAPSHOT`: A snapshot. Indicates that the recovery is related to a snapshot restore operation. 
@@ -70,6 +70,7 @@ Parameter | Type | Description
 ## Example requests
 
 The following examples represent how to recover information using the Recovery API.
+
 ### Recover information from several or all indexes
 
 The following example request returns recovery information about several indexes in a [human-readable format](https://opensearch.org/docs/latest/api-reference/common-parameters/#human-readable-output):
