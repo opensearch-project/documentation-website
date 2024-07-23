@@ -11,7 +11,7 @@ Introduced 1.0
 
 The Recovery API provides information about any completed or ongoing shard recoveries for one or more indexes. If a data stream is listed, the API returns information about that data stream's backing indexes. 
 
-Shard recovery is the process of starting a shard copy for restoring a primary shard from a snapshot or syncing a replica shard. Once a shard recovery is complete, the recovered shard becomes available for searching and indexing operations.
+Shard recovery involves creating a shard copy to restore a primary shard from a snapshot or to synchronize a replica shard. After the shard recovery process completes, the recovered shard becomes available for use in search and index operations.
 
 Shard recovery occurs automatically in the following scenarios:
 
