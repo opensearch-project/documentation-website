@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Validate query
+title: Validate Query
 nav_order: 87
 ---
 
-# Validate query
+# Validate Query
 
 You can use the Validate Query API to validate a query without running it. The query can be sent as a path parameter or in the request body.
 
