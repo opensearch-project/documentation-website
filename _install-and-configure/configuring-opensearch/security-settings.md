@@ -132,9 +132,9 @@ If you change any of the following password hashing properties, you must rehash 
   - `BCrypt` (Default)
   - `PBKDF2` 
 
-- `plugins.security.password.hashing.bcrypt.rounds` (Static): Specifies the number of rounds to use for password hashing with BCrypt. Valid values are from `4` to `31`, inclusive. Default is `12`.
+- `plugins.security.password.hashing.bcrypt.rounds` (Static): Specifies the number of rounds to use for password hashing with `BCrypt`. Valid values are from`4` to `31`, inclusive. Default is `12`.
 
-- `plugins.security.password.hashing.bcrypt.minor` (Static): Specifies the minor version of the BCrypt algorithm to use for password hashing.
+- `plugins.security.password.hashing.bcrypt.minor` (Static): Specifies the minor version of the `BCrypt` algorithm to use for password hashing.
 
   Valid values are:
 
