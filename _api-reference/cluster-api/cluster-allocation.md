@@ -59,7 +59,7 @@ primary | Boolean | Whether to provide an explanation for the primary shard (tru
 shard | Integer | The shard ID that you want an explanation for.
 
 
-## Response
+## Example response
 
 ```json
 {

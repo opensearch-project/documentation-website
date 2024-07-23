@@ -55,7 +55,7 @@ wait_for_no_initializing_shards | Boolean | Whether to wait until there are no i
 wait_for_status | Enum | Wait until the cluster health reaches the specified status or better. Supported values are `green`, `yellow`, and `red`.
 weights | JSON object | Assigns weights to attributes within the request body of the PUT request. Weights can be set in any ration, for example, 2:3:5. In a 2:3:5 ratio with three zones, for every 100 requests sent to the cluster, each zone would receive either 20, 30, or 50 search requests in a random order. When assigned a weight of `0`, the zone does not receive any search traffic. 
 
-#### Example request
+## Example request
 
 The following example request retrieves cluster health for all indexes in the cluster:
 
@@ -64,7 +64,7 @@ GET _cluster/health
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 The response contains cluster health information:
 

@@ -32,25 +32,6 @@ include_defaults (GET only) | Boolean | Whether to include default settings as p
 cluster_manager_timeout | Time unit | The amount of time to wait for a response from the cluster manager node. Default is `30 seconds`.
 timeout (PUT only) | Time unit | The amount of time to wait for a response from the cluster. Default is `30 seconds`.
 
-
-#### Example request
-
-```json
-GET _cluster/settings?include_defaults=true
-```
-{% include copy-curl.html %}
-
-#### Example response
-
-```json
-PUT _cluster/settings
-{
-   "persistent":{
-      "action.auto_create_index": false
-   }
-}
-```
-
 ## Request fields
 
 The GET operation has no request body options. All cluster setting field parameters are optional.
@@ -60,9 +41,22 @@ Not all cluster settings can be updated using the cluster settings API. You will
 
 For a listing of all cluster settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
-#### Example request
 
-For a PUT operation, the request body must contain `transient` or `persistent`, along with the setting you want to update:
+## Example requests
+
+### Check default cluster settings
+
+The following example request checks for default cluster settings:
+
+```json
+GET _cluster/settings?include_defaults=true
+```
+{% include copy-curl.html %}
+
+### Update cluster setting
+
+The following example updates the `cluster.max_shards_per_node` setting. For a PUT operation, the request body must contain `transient` or `persistent`, along with the setting you want to update:
+
 
 ```json
 PUT _cluster/settings
@@ -76,7 +70,9 @@ PUT _cluster/settings
 
 For more information about transient settings, persistent settings, and precedence, see [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/).
 
-#### Example response
+## Example response
+
+The following example response shows that the persistent cluster setting, `max_shard_per_node`, has been updated:
 
 ```json
 {

@@ -41,7 +41,7 @@ Parameter | Type | Description
   Although the `master` node is now called `cluster_manager` for version 2.0, we retained the `master` field for backwards compatibility. If you have a node that has either a `master` role or a `cluster_manager` role, the `count` increases for both fields by 1. To see an example node count increase, see the Response sample.
    {: .note }
 
-## Response
+## Example response
 
 ```json
 {

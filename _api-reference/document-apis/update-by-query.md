@@ -102,7 +102,7 @@ To update your indexes and documents by query, you must include a [query]({{site
 }
 ```
 
-## Response
+## Example response
 ```json
 {
   "took": 21,

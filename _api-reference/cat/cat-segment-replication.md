@@ -47,11 +47,11 @@ Parameter | Data type  | Description
 `v` | Boolean    | If `true`, the response includes column headings. Defaults to `false`.
 `s` | String     | Specifies to sort the results. For example, `s=shardId:desc` sorts by shardId in descending order.
 
-## Example
+## Example requests
 
 The following examples illustrate various segment replication responses.
 
-#### Example 1: No active segment replication events
+### No active segment replication events
 
 The following query requests segment replication metrics with column headings for all indexes:
 
@@ -67,7 +67,7 @@ shardId target_node target_host checkpoints_behind bytes_behind current_lag last
 [index-1][0] runTask-1 127.0.0.1 0 0b 0s 7ms 0
 ```
 
-#### Example 2: Shard ID specified
+###  Shard ID specified
 
 The following query requests segment replication metrics with column headings for shards with the ID `0` from indexes `index1` and `index2`:
 
@@ -84,7 +84,7 @@ shardId target_node target_host checkpoints_behind bytes_behind current_lag last
 [index-2][0] runTask-1 127.0.0.1 0 0b 0s 5ms 0
 ```
 
-#### Example 3: Detailed response
+###  Detailed response
 
 The following query requests detailed segment replication metrics with column headings for all indexes:
 
@@ -101,7 +101,7 @@ shardId target_node target_host checkpoints_behind bytes_behind current_lag last
 [index-2][0] runTask-1 127.0.0.1 0 0b 0s 5ms 0 done 7ms 3 100.0% 3664 100.0% 2023-03-16T13:53:33.466Z 2023-03-16T13:53:33.474Z 3 3 3.5kb 3.5kb 0s 1ms 0s 2ms 2ms
 ```
 
-#### Example 4: Sorting the results
+###  Sorting the results
 
 The following query requests segment replication metrics with column headings for all indexes, sorted by shard ID in descending order:
 
@@ -118,7 +118,7 @@ shardId    target_node  target_host checkpoints_behind bytes_behind current_lag 
 [test6][0] runTask-2   127.0.0.1   0                  0b           0s          4ms                0
 ```
 
-#### Example 5: Using a metric alias 
+### Using a metric alias 
 
 In a request, you can either use a metric's full name or one of its aliases. The following query is the same as the preceding query, but it uses the alias `s` instead of `shardID` for sorting:
 
@@ -127,7 +127,7 @@ GET /_cat/segment_replication?v&s=s:desc
 ```
 {% include copy-curl.html %}
 
-## Response metrics
+## Example response metrics
 
 The following table lists the response metrics that are returned for all requests. When referring to a metric in a query parameter, you can provide either the metric's full name or any of its aliases, as shown in the previous [example](#example-5-using-a-metric-alias).
 
