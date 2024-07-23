@@ -189,7 +189,7 @@ PUT testindex/_doc/4
 ```
 {% include copy-curl.html %}
 
-In OpenSearch, you can specify a polygon by listing its vertices clockwise or counterclockwise. This works well for polygons that do not cross the date line (are narrower than 180&deg;). However, a polygon that crosses the date line (is wider than 180&deg;) might be ambiguous because WKT does not impose a specific order on vertices. Thus, you must specify polygons that cross the date line by listing their vertices counterclockwise. 
+You can specify a polygon in OpenSearch by listing its vertices in clockwise or counterclockwise order. This works well for polygons that do not cross the date line (that are narrower than 180&deg;). However, a polygon that crosses the date line (is wider than 180&deg;) might be ambiguous because WKT does not impose a specific order on vertices. Thus, you must specify polygons that cross the date line by listing their vertices in counterclockwise order. 
 
 You can define an [`orientation`](#parameters) parameter to specify the vertex traversal order at mapping time:
 
@@ -410,5 +410,5 @@ Parameter | Description
 :--- | :--- 
 `coerce` | A Boolean value that specifies whether to automatically close unclosed linear rings. Default is `false`.
 `ignore_malformed` | A Boolean value that specifies to ignore malformed GeoJSON or WKT geoshapes and not to throw an exception. Default is `false` (throw an exception when geoshapes are malformed).
-`ignore_z_value` | Specific to points with three coordinates. If `ignore_z_value` is `true`, the third coordinate is not indexed but is still stored in the `_source` field. If `ignore_z_value` is `false`, an exception is thrown. Default is `true`.
+`ignore_z_value` | Specific to points with three coordinates. If `ignore_z_value` is `true`, then the third coordinate is not indexed but is still stored in the `_source` field. If `ignore_z_value` is `false`, then an exception is thrown. Default is `true`.
 `orientation` | Specifies the traversal order of the vertices in the geoshape's list of coordinates. `orientation` takes the following values: <br> 1. RIGHT: counterclockwise. Specify RIGHT orientation by using one of the following strings (uppercase or lowercase): `right`, `counterclockwise`, `ccw`. <br> 2. LEFT: clockwise. Specify LEFT orientation by using one of the following strings (uppercase or lowercase): `left`, `clockwise`, `cw`.  This value can be overridden by individual documents.<br> Default is `RIGHT`.
