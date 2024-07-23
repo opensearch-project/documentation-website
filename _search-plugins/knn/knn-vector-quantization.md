@@ -17,6 +17,111 @@ OpenSearch supports many varieties of quantization. In general, the level of qua
 
 Starting with k-NN plugin version 2.9, you can use `byte` vectors with the `lucene` engine in order to reduce the amount of required memory. This requires quantizing the vectors outside of OpenSearch before ingesting them into an OpenSearch index. For more information, see [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector).
 
+## Lucene scalar quantization
+
+Starting with version 2.16, the k-NN plugin supports inbuilt scalar quantization for Lucene engine within OpenSearch. Unlike [lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector), the scalar quantizer in lucene engine quantizes the input vectors from 32-bit float to 7-bit int vectors without any need for quantizing the vectors outside of OpenSearch. 
+The scalar quantizer in lucene dynamically quantizes the input 32-bit floating-point vectors into 7-bit integer vectors in each segment using the minQuantile and maxQuantile computed using the `confidence_interval` parameter.
+
+During search, the query vector is also quantized in each segment using the minQuantile and maxQuantile of that segment to compute the distance against quantized input vectors of that segment. The quantization can decrease the memory footprint by a factor of 4 at the cost of some recall. But, there is a slight increase
+in the disk usage due to the overhead of storing the input raw vectors and quantized vectors.
+
+### Using Lucene scalar quantization
+
+To use the scalar quantizer, set the k-NN vector field’s `method.parameters.encoder.name` to `sq` when creating a k-NN index:
+```json
+PUT /test-index
+{
+  "settings": {
+    "index": {
+      "knn": true
+    }
+  },
+  "mappings": {
+    "properties": {
+      "my_vector1": {
+        "type": "knn_vector",
+        "dimension": 2,
+        "method": {
+          "name": "hnsw",
+          "engine": "lucene",
+          "space_type": "l2",
+          "parameters": {
+            "encoder": {
+              "name": "sq"
+            },
+            "ef_construction": 256,
+            "m": 8
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Optionally, you can specify the parameters in `method.parameters.encoder` shown below:
+* `bits` - Determines the size of the quantized vector after quantizing the input float vectors. For instance, 7 bits will quantize input float vectors into 7-bit integer vectors. As of OpenSearch 2.16, only `7` bits are supported. Default value is `7`.
+* `confidence_interval` - used to compute the `minQuantile` and `maxQuantile` parameters which are used to quantize the vectors. The accepted values are: 
+  - It can be any value between and including `0.9` to `1.0`. For example, if we set it to `0.9` then it will consider the middle 90% of the vector values for computing the min and max Quantiles excluding the minimum and maximum 5% of the values.
+  - It can be also set to `0`. It is the dynamic confidence interval which will dynamically compute the min and max quantiles with some oversampling and additional computation of input data (unlike the above one which will statically compute using the provided confidence interval).
+  - By default, when this parameter is not set it will be computed from the dimension of the vector as `Max(0.9, 1 - (1 / (1 + d)))`.
+
+The lucene scalar quantization doesn't work when `data_type` is set to `byte` or any other data type except `float` (the default type).
+{: .warning}
+
+The following example method definition specifies the Lucene sq encoder with `confidence_interval` as `1.0` which will consider all the input vectors for computing the min and max Quantiles and quantizes them (to `7` bits by default).
+```json
+PUT /test-index
+{
+  "settings": {
+    "index": {
+      "knn": true
+    }
+  },
+  "mappings": {
+    "properties": {
+      "my_vector1": {
+        "type": "knn_vector",
+        "dimension": 2,
+        "method": {
+          "name": "hnsw",
+          "engine": "lucene",
+          "space_type": "l2",
+          "parameters": {
+            "encoder": {
+              "name": "sq",
+              "parameters": {
+                "confidence_interval": 1.0
+              }
+            },
+            "ef_construction": 256,
+            "m": 8
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+There are no changes to ingestion or query mapping and no range limitations for the input vectors. 
+
+### Memory estimation
+
+In the best-case scenario, 7-bit vectors produced by the Lucene scalar quantizer require 25% of the memory that 32-bit vectors require.
+
+#### HNSW memory estimation
+
+The memory required for Hierarchical Navigable Small Worlds (HNSW) is estimated to be `1.1 * (dimension + 8 * M)` bytes/vector.
+
+As an example, assume that you have 1 million vectors with a dimension of 256 and M of 16. The memory requirement can be estimated as follows:
+
+```bash
+1.1 * (256 + 8 * 16) * 1,000,000 ~= 0.4 GB
+```
+
 ## Faiss 16-bit scalar quantization 
  
 Starting with version 2.13, the k-NN plugin supports performing scalar quantization for the Faiss engine within OpenSearch. Within the Faiss engine, a scalar quantizer (SQfp16) performs the conversion between 32-bit and 16-bit vectors. At ingestion time, when you upload 32-bit floating-point vectors to OpenSearch, SQfp16 quantizes them into 16-bit floating-point vectors and stores the quantized vectors in a k-NN index. 
