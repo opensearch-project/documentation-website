@@ -6,9 +6,9 @@ nav_order: 87
 
 # Validate query
 
-The Validate Query API checks if a large query will run without running the query. The query can be sent either as a path parameter or in the request body.
+You can use the Validate Query API to validate a query without running it. The query can be sent as a path parameter or in the request body.
 
-## Paths and HTTP Methods
+## Path and HTTP methods
 
 The Validate Query API contains the following paths:
 
@@ -20,21 +20,21 @@ GET <index>/_validate/query
 
 All path parameters are optional.
 
-Option | Type | Description
+Parameter | Data type | Description
 :--- | :--- | :---
 `index` | String | The index to validate the query against. If you don't specify an index or multiple indexes as part of the URL (or want to override the URL value for an individual search), you can include it here. Examples include `"logs-*"` and `["my-store", "sample_data_ecommerce"]`.
 `query` | Query object | The query using [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/).
 
 ## Query parameters
 
-You can use the following options in the query.
+The following table lists the available query parameters. All query parameters are optional.
 
-Parameter | Type | Description
+Parameter | Data type | Description
 :--- | :--- | :---
 `all_shards` | Boolean | When `true`, validation is run against all shards instead of one shard per index. Default is `false`.
 `allow_no_indices` | Boolean | Whether to ignore wildcards that don’t match any indexes. Default is `true`.
 allow_partial_search_results | Boolean | Whether to return partial results if the request runs into an error or times out. Default is `true`.
-`analyzer` | String | The analyzer to use in the query string. This should only be used with `q` option.
+`analyzer` | String | The analyzer to use in the query string. This should only be used with the `q` option.
 `analyze_wildcard` | Boolean | Specifies whether to analyze wildcard and prefix queries. Default is `false`. 
 `default_operator` | String | Indicates whether the default operator for a string query should be `AND` or `OR`. Default is `OR`.
 `df` | String | The default field in case a field prefix is not provided in the query string.
@@ -47,7 +47,7 @@ allow_partial_search_results | Boolean | Whether to return partial results if th
 
 ## Example request
 
-This example uses an index named `Hamlet`, created using the following `bulk` request:
+The following example uses an index named `Hamlet`, created using the following `bulk` request:
 
 ```
 PUT hamlet/_bulk?refresh
@@ -58,7 +58,7 @@ PUT hamlet/_bulk?refresh
 ```
 {% include copy.html %}
 
-Then, you can use the Validate Query API to validate a query made against the index, as shown in the following example:
+You can then use the Validate Query API to validate a query made against the index, as shown in the following example:
 
 ```
 GET hamlet/_validate/query?q=user.id:hamlet
@@ -116,7 +116,7 @@ GET hamlet/_validate/query
 }
 ```
 
-Which OpenSearch responds with the following, where the `valid` parameters is shown as `false`:
+OpenSearch responds with the following, where the `valid` parameter is shown as `false`:
 
 ```
 {
@@ -135,7 +135,7 @@ Certain query parameters can also affect what OpenSearch shows in the response. 
 
 ### Explain 
 
-The `explain` option gives information about why a query failed inside the explanations response option, as shown in the following response example:
+The `explain` option returns information about why the query inside the explanations response option failed, as shown in the following response example:
 
 ```
 {
@@ -156,7 +156,7 @@ The `explain` option gives information about why a query failed inside the expla
 
 ### Rewrite
 
-When the query is valid, the explanation response option shows the string representation of the query. When `rewrite:` is set to `true`:, the explanation is more detailed showing the actual Lucene query that will be executed.
+When the query is valid, the explanation response option shows the string representation of the query. When `rewrite:` is set to `true`:, the explanation is more detailed showing the actual Lucene query that is executed.
 
 ```
 {
@@ -179,7 +179,7 @@ When the query is valid, the explanation response option shows the string repres
 
 ### Rewrite and all_shards
 
-When both the `rewrite` and `all_shards` options are set to `true`, the Validate API responds with detailed information from all available shards as opposed to the default of one shard, as shown in the following response:
+When both the `rewrite` and `all_shards` options are set to `true`, the Validate Query API responds with detailed information from all available shards as opposed to the default of one shard, as shown in the following response:
 
 ```
 {
