@@ -129,9 +129,7 @@ OpenSearch responds with the following, where the `valid` parameter is shown as 
 }
 ```
 
-
-
-Certain query parameters can also affect what OpenSearch shows in the response. The following examples show how the [Explain](#explain), [Rewrite](#rewrite), and [all_shards](#rewrite-and-all_shards) query options affect the response:
+Certain query parameters can also affect what OpenSearch shows in the response. The following examples show how the [Explain](#explain), [Rewrite](#rewrite), and [all_shards](#rewrite-and-all_shards) query options affect the response.
 
 ### Explain 
 
