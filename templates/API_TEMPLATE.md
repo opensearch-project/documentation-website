@@ -44,11 +44,13 @@ The following table lists the available request body fields.
 | `example_object.required_request_field` | Type | Required request field description. Required. |
 | `example_object.optional_request_field` | Type | Optional request field description. Optional. Default is ... |
 
-## Example request
+## Example request(s)
 
-**TIP:** If multiple examples exist for the request, seperate those examples using an `h3` header underneath this section. Some request examples will also require an additional explanation.
+**TIP:** If multiple examples exist for the request, seperate those examples using an `h3` header underneath this section.
 
-The following example shows an API request: 
+### Request with an example object
+
+The following example shows an API request with an example object: 
 
 ```json
 POST /_example/endpoint/
@@ -61,10 +63,19 @@ POST /_example/endpoint/
 ```
 {% include copy-curl.html %}
 
+## Request without an example object
+
+The following example shows an API request without an example object:
+
+```json
+POST /_example/endpoint/
+```
+{% include copy-curl.html %}
+
 
 ## Example response
 
-**TIP:** If multiple response examples exist for the request, seperate those examples using an `h3` header underneath this section. Some example responses will require an additional explanation. 
+**TIP:** If multiple response examples exist for the request, seperate those examples using an `h3` header underneath this section, similar to the [Example requests](#example-requests).
 
 The following example shows an API response:
 
