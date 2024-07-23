@@ -579,7 +579,7 @@ By default, the standard hybrid search without sorting returns search results th
 With the release of this feature, you can now sort the hybrid search results by providing the `sort` criteria in the search request. For more information on the sort criteria, see [sort results](https://opensearch.org/docs/latest/search-plugins/searching-data/sort/).
 Moreover, hybrid search when sorting applied fetches results from the shards on the basis of sort criteria passed in the search request, therefore, the search results will be sorted as per sort criteria and the scores will be `null`. Scores will be present in the hybrid search sorting results if the sort criteria is by `_score`. 
 
-In continuation with example mentioned above in aggregations section, add the sort criteria for `doc_price` in the search request
+In earlier example from aggregations section, add the sort criteria for `doc_price` in the search request
 
 ```json
 GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
