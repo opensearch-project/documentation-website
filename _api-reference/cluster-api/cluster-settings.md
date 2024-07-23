@@ -44,6 +44,8 @@ For a listing of all cluster settings, see [Configuring OpenSearch]({{site.url}}
 
 ## Example requests
 
+The following example request show how to use the cluster settings API.
+
 ### Check default cluster settings
 
 The following example request checks for default cluster settings:

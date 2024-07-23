@@ -15,12 +15,6 @@ redirect_from:
 
 The cluster stats API operation returns statistics about your cluster.
 
-## Example
-
-```json
-GET _cluster/stats/nodes/_cluster_manager
-```
-{% include copy-curl.html %}
 
 ## Path and HTTP methods
 
@@ -40,6 +34,15 @@ Parameter | Type | Description
 
   Although the `master` node is now called `cluster_manager` for version 2.0, we retained the `master` field for backwards compatibility. If you have a node that has either a `master` role or a `cluster_manager` role, the `count` increases for both fields by 1. To see an example node count increase, see the Response sample.
    {: .note }
+
+## Example request
+
+The following example requests returns information about the cluster manager node:
+
+```json
+GET _cluster/stats/nodes/_cluster_manager
+```
+{% include copy-curl.html %}
 
 ## Example response
 
