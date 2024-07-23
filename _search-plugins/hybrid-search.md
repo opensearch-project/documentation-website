@@ -571,15 +571,15 @@ The response contains the matching documents and the aggregation results:
 }
 ```
 
-## Hybrid search with sorting
+## Using Sorting with hybrid query
 **Introduced 2.16**
 {: .label .label-purple }
 
 By default, the standard hybrid search without sorting returns search results that are ordered by scores in decreasing order.
-With the release of this feature, you can now sort the hybrid search results by providing the `sort` criteria in the search request. For more information on the sort criteria, see [sort results](https://opensearch.org/docs/latest/search-plugins/searching-data/sort/).
-Moreover, hybrid search when sorting applied fetches results from the shards on the basis of sort criteria passed in the search request, therefore, the search results will be sorted as per sort criteria and the scores will be `null`. Scores will be present in the hybrid search sorting results if the sort criteria is by `_score`. 
+You can apply sorting to hybrid query results by providing the `sort` criteria in the search request. For more information on the sort criteria, see [sort results](https://opensearch.org/docs/latest/search-plugins/searching-data/sort/).
+When sorting is applied to hybrid search, results are fetched from the shards based on the specified sort criteria. As a result, the search results will be sorted accordingly, and the scores will be `null`. Scores will only be present in the hybrid search sorting results if the sort criteria is by `_score`. 
 
-In earlier example from aggregations section, add the sort criteria for `doc_price` in the search request
+In the following example, we use `doc_price` as the sort criteria in the hybrid query search request.
 
 ```json
 GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
@@ -701,7 +701,7 @@ The response contains the matching documents sorted by `doc_price` in decreasing
 }
 ```
 
-Sort by `_id`
+Here is another example of a search query where we apply sorting by `_id`.
 
 ```json
 GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
@@ -831,7 +831,7 @@ You can control sorting results by applying `search_after` condition that provid
 
 By applying `search_after` condition in the sort queries mentioned above, we can paginate the sort results.
 
-Sort by `doc_price` and `search_after` condition applied on it
+In the following example, sorting is applied by `doc_price` with a `search_after` condition:
 
 ```json
 GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
@@ -926,7 +926,7 @@ The response contains the matching documents that are after `200` and sorted by 
 }
 ```
 
-Sort by `id` and `search_after` condition applied on it 
+In the following example, sorting is applied by `id` with a `search_after` condition:
 
 ```json
 GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
