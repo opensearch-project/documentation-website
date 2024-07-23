@@ -21,7 +21,7 @@ Shard recovery occurs automatically in the following scenarios:
 - Restoration of a snapshot.
 - Clone, shrink, or split operations.
 
-The Recover Index API provides information only about completed recoveries for shard copies that currently exist in the cluster. It reports only the most recent recovery for each shard copy and does not include historical information about previous recoveries or information about recoveries of shard copies that no longer exist. Consequently, if a shard copy completes a recovery and is subsequently relocated to a different node, the information about the original recovery will not be displayed in the Recover Index API.
+The Recovery API provides information only about completed recoveries for shard copies that currently exist in the cluster. It reports only the most recent recovery for each shard copy and does not include historical information about previous recoveries or information about recoveries of shard copies that no longer exist. Consequently, if a shard copy completes a recovery and is subsequently relocated to a different node, the information about the original recovery will not be displayed in the Recovery API.
 
 
 ## HTTP and Path methods
@@ -69,8 +69,6 @@ Parameter | Type | Description
 
 ## Example requests
 
-The following examples show how the Recover Index API works.
-
 ### Recover information from several or all indexes
 
 The following example request returns recovery information about several indexes in a [human-readable format](https://opensearch.org/docs/latest/api-reference/common-parameters/#human-readable-output):
@@ -89,7 +87,7 @@ GET /_recovery?human
 
 ### Recover detailed information
 
-The following example recover detailed recovery information:
+The following example returns detailed recovery information:
 
 ```
 GET _recovery?human&detailed=true
