@@ -48,7 +48,7 @@ Parameter | Type | Description
 `detailed` | Boolean | When `true`, gives detailed information about shard recoveries. Default is `false`.
 `index`  | String | A comma-separated list or wildcard expression of index names used to limit the request.
 
-## Response body
+## Response fields
 
 The API responds with the following information about the recovery shard:
 
