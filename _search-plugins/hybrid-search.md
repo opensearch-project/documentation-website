@@ -827,7 +827,7 @@ The response contains the matching documents sorted by `_id` in decreasing order
 **Introduced 2.16**
 {: .label .label-purple }
 
-You can control sorting results by applying `search_after` condition that provides a live cursor that uses the previous page’s results to obtain the next page’s results. For more information on `search_after`, see [search_after](https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/#the-search_after-parameter).
+You can control sorting results by applying `search_after` condition that provides a live cursor and uses the previous page’s results to obtain the next page’s results. For more information on `search_after`, see [search_after](https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/#the-search_after-parameter).
 
 By applying `search_after` condition in the sort queries mentioned above, we can paginate the sort results.
 
