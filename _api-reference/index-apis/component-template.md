@@ -15,7 +15,7 @@ If any settings or mappings are directly defined in the index template or the in
 
 Component templates are utilized solely during the process of index creation. For data streams, this includes the creation of the data stream itself and the creation of the backing indexes that support the stream. Modifications made to component templates will not affect existing indexes, including the backing indexes of a data stream.
 
-## Path and HTTP Methods
+## Path and HTTP methods
 
 ```
 PUT _component_template/<component-template-name>
@@ -24,7 +24,7 @@ GET _component_template/<component-template-name>
 
 ## Path parameters
 
-Parameter | Type | Description
+Parameter | Data type | Description
 :--- | :--- | :---
 `component-template-name` | String | The name of the component template.
 
@@ -38,14 +38,14 @@ Parameter | Type | Description
 `cluster_manager_timeout` | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
 `timeout` | Time | How long the operation should wait for a response. Default is `30s`.
 
-## Request body options
+## Request fields
 
 The following options can be used in the request body to customize the index template:
 
 
-Parameter | Type | Description
+Parameter | Data type | Description
 :--- | :--- | :---
-`template` | Object | The template which includes the `aliases`, `mappings`, or `settings` for the index. For more information, see [#template]. Required.
+`template` | Object | The template that includes the `aliases`, `mappings`, or `settings` for the index. For more information, see [#template]. Required.
 `version` | Integer | The version number used to manage index templates. Version numbers are not automatically set by OpenSearch. Optional.
 `_meta` | Object | The optional metadata that gives details about the index template. Optional.
 `allow_auto_create` | Boolean | When `true`, indexes can be automatically created with this template even if the `actions.auto_create_index` is disabled. When `false`, indexes and data streams matching the template cannot be automatically created. Optional.
@@ -60,16 +60,16 @@ You can use the following objects with the `template` option in the request body
 
 The alias name as the key. Required when the `template` option exists in the request body.
 
-The object body contains the following optional options for the alias:
+The object body contains the following optional parameters for the alias:
 
 Parameter | Type | Description
 :--- | :--- | :---
-`filter` | Query DSL object | The query that limits documents the alias can access.
-`index_routing` | String | The value which routes indexing operations to a specific shard. When specified, overwrites the `routing` value for indexing operations.
+`filter` | Query DSL object | The query that limits the documents that the alias can access.
+`index_routing` | String | The value that routes the indexing operations to a specific shard. When specified, overwrites the `routing` value for the indexing operations.
 `is_hidden` | Boolean | When `true`, the alias is hidden. Default is false. All indexes for the alias must have matching values for this setting.
 `is_write_index` | Boolean | When `true`, the index is the [write index] for the alias. Default is `false`.
 `routing` | String | The value used to route index and search operations to a specific shard.
-`search_routing` | String | The value used to write specifically search operations to a specific shard. When specified, this option overwrites the `routing` value for search operations.
+`search_routing` | String | The value used to write search operations to a specific shard. When specified, this option overwrites the `routing` value for the search operations.
 
 #### `mappings`
 

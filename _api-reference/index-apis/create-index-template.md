@@ -235,6 +235,6 @@ PUT /_index_template/template_1
 {% include copy-curl.html %}
 
 
-Recurse merging is used for mapping definition and root options such as `dynamic_templates` and `meta`, meaning that one an earlier component contains a `meta` block, then new `meta` entries are added to the end of metadata in the index. Any entries with the same key that already exist are overwritten.
+Recursive merging is used for mapping definition and root options such as `dynamic_templates` and `meta`, meaning that one an earlier component contains a `meta` block, then new `meta` entries are added to the end of metadata in the index. Any entries with the same key that already exist are overwritten.
 
 
