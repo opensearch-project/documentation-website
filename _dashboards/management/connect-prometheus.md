@@ -9,7 +9,7 @@ nav_order: 20
 
 This documentation focuses on using the OpenSeach Dashboards interface to connect to Prometheus. 
 
-## Prerequisites and Permissions
+## Prerequisites and permissions
 
 Make sure you followed and configured [Prerequisites]({{site.url}}{{site.baseurl}}/dashboards/management/data-sources/#prerequisites) and [Permissions]({{site.url}}{{site.baseurl}}/dashboards/management/data-sources/#permissions).
 
