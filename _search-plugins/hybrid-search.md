@@ -570,3 +570,453 @@ The response contains the matching documents and the aggregation results:
   }
 }
 ```
+
+## Hybrid search with sorting
+**Introduced 2.16**
+{: .label .label-purple }
+
+By default, the standard hybrid search without sorting returns search results that are ordered by scores in decreasing order.
+With the release of this feature, you can now sort the hybrid search results by providing the `sort` criteria in the search request. For more information on the sort criteria, see [sort results](https://opensearch.org/docs/latest/search-plugins/searching-data/sort/).
+Moreover, hybrid search when sorting applied fetches results from the shards on the basis of sort criteria passed in the search request, therefore, the search results will be sorted as per sort criteria and the scores will be `null`. Scores will be present in the hybrid search sorting results if the sort criteria is by `_score`. 
+
+In continuation with example mentioned above in aggregations section, add the sort criteria for `doc_price` in the search request
+
+```json
+GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
+{
+  "query": {
+    "hybrid": {
+      "queries": [
+        {
+          "term": {
+            "category": "permission"
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+                "term": {
+                  "category": "editor"
+                }
+              },
+              {
+                "term": {
+                  "category": "statement"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }, 
+    "sort":[
+       {
+         "doc_price": {
+             "order": "desc"
+         }
+       }
+    ]
+}
+```
+{% include copy-curl.html %}
+
+The response contains the matching documents sorted by `doc_price` in decreasing order:
+
+```json
+{
+    "took": 35,
+    "timed_out": false,
+    "_shards": {
+        "total": 3,
+        "successful": 3,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": {
+            "value": 4,
+            "relation": "eq"
+        },
+        "max_score": 0.5,
+        "hits": [
+            {
+                "_index": "my-nlp-index",
+                "_id": "7yaM4JABZkI1FQv8AwoN",
+                "_score": null,
+                "_source": {
+                    "category": "statement",
+                    "doc_keyword": "entire",
+                    "doc_index": 8242,
+                    "doc_price": 350
+                },
+                "sort": [
+                    350
+                ]
+            },
+            {
+                "_index": "my-nlp-index",
+                "_id": "8CaM4JABZkI1FQv8AwoN",
+                "_score": null,
+                "_source": {
+                    "category": "statement",
+                    "doc_keyword": "idea",
+                    "doc_index": 5212,
+                    "doc_price": 200
+                },
+                "sort": [
+                    200
+                ]
+            },
+            {
+                "_index": "my-nlp-index",
+                "_id": "6yaM4JABZkI1FQv8AwoM",
+                "_score": null,
+                "_source": {
+                    "category": "permission",
+                    "doc_keyword": "workable",
+                    "doc_index": 4976,
+                    "doc_price": 100
+                },
+                "sort": [
+                    100
+                ]
+            },
+            {
+                "_index": "my-nlp-index",
+                "_id": "7iaM4JABZkI1FQv8AwoN",
+                "_score": null,
+                "_source": {
+                    "category": "editor",
+                    "doc_index": 9871,
+                    "doc_price": 30
+                },
+                "sort": [
+                    30
+                ]
+            }
+        ]
+    }
+}
+```
+
+Sort by `_id`
+
+```json
+GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
+{
+  "query": {
+    "hybrid": {
+      "queries": [
+        {
+          "term": {
+            "category": "permission"
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+                "term": {
+                  "category": "editor"
+                }
+              },
+              {
+                "term": {
+                  "category": "statement"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "sort":[
+     {
+        "_id": {
+          "order": "desc"   
+        }
+     } 
+  ]
+}
+```
+{% include copy-curl.html %}
+
+The response contains the matching documents sorted by `_id` in decreasing order:
+
+```json
+{
+    "took": 33,
+    "timed_out": false,
+    "_shards": {
+        "total": 3,
+        "successful": 3,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": {
+            "value": 4,
+            "relation": "eq"
+        },
+        "max_score": 0.5,
+        "hits": [
+            {
+                "_index": "my-nlp-index",
+                "_id": "8CaM4JABZkI1FQv8AwoN",
+                "_score": null,
+                "_source": {
+                    "category": "statement",
+                    "doc_keyword": "idea",
+                    "doc_index": 5212,
+                    "doc_price": 200
+                },
+                "sort": [
+                    "8CaM4JABZkI1FQv8AwoN"
+                ]
+            },
+            {
+                "_index": "my-nlp-index",
+                "_id": "7yaM4JABZkI1FQv8AwoN",
+                "_score": null,
+                "_source": {
+                    "category": "statement",
+                    "doc_keyword": "entire",
+                    "doc_index": 8242,
+                    "doc_price": 350
+                },
+                "sort": [
+                    "7yaM4JABZkI1FQv8AwoN"
+                ]
+            },
+            {
+                "_index": "my-nlp-index",
+                "_id": "7iaM4JABZkI1FQv8AwoN",
+                "_score": null,
+                "_source": {
+                    "category": "editor",
+                    "doc_index": 9871,
+                    "doc_price": 30
+                },
+                "sort": [
+                    "7iaM4JABZkI1FQv8AwoN"
+                ]
+            },
+            {
+                "_index": "my-nlp-index",
+                "_id": "6yaM4JABZkI1FQv8AwoM",
+                "_score": null,
+                "_source": {
+                    "category": "permission",
+                    "doc_keyword": "workable",
+                    "doc_index": 4976,
+                    "doc_price": 100
+                },
+                "sort": [
+                    "6yaM4JABZkI1FQv8AwoM"
+                ]
+            }
+        ]
+    }
+}
+```
+
+## Hybrid search with search after
+**Introduced 2.16**
+{: .label .label-purple }
+
+You can control sorting results by applying `search_after` condition that provides a live cursor that uses the previous page’s results to obtain the next page’s results. For more information on `search_after`, see [search_after](https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/#the-search_after-parameter).
+
+By applying `search_after` condition in the sort queries mentioned above, we can paginate the sort results.
+
+Sort by `doc_price` and `search_after` condition applied on it
+
+```json
+GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
+{
+  "query": {
+    "hybrid": {
+      "queries": [
+        {
+          "term": {
+            "category": "permission"
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+                "term": {
+                  "category": "editor"
+                }
+              },
+              {
+                "term": {
+                  "category": "statement"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "sort":[
+     {
+        "_id": {
+          "order": "desc"   
+        }
+     } 
+  ],
+  "search_after":[200]
+}
+```
+{% include copy-curl.html %}
+
+The response contains the matching documents that are after `200` and sorted by `doc_price` in decreasing order:
+
+```json
+{
+    "took": 8,
+    "timed_out": false,
+    "_shards": {
+        "total": 3,
+        "successful": 3,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": {
+            "value": 4,
+            "relation": "eq"
+        },
+        "max_score": 0.5,
+        "hits": [
+            {
+                "_index": "my-nlp-index",
+                "_id": "6yaM4JABZkI1FQv8AwoM",
+                "_score": null,
+                "_source": {
+                    "category": "permission",
+                    "doc_keyword": "workable",
+                    "doc_index": 4976,
+                    "doc_price": 100
+                },
+                "sort": [
+                    100
+                ]
+            },
+            {
+                "_index": "my-nlp-index",
+                "_id": "7iaM4JABZkI1FQv8AwoN",
+                "_score": null,
+                "_source": {
+                    "category": "editor",
+                    "doc_index": 9871,
+                    "doc_price": 30
+                },
+                "sort": [
+                    30
+                ]
+            }
+        ]
+    }
+}
+```
+
+Sort by `id` and `search_after` condition applied on it 
+
+```json
+GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
+{
+  "query": {
+    "hybrid": {
+      "queries": [
+        {
+          "term": {
+            "category": "permission"
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+                "term": {
+                  "category": "editor"
+                }
+              },
+              {
+                "term": {
+                  "category": "statement"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "sort":[
+     {
+        "_id": {
+          "order": "desc"   
+        }
+     } 
+  ],
+  "search_after":["7yaM4JABZkI1FQv8AwoN"]
+}
+```
+{% include copy-curl.html %}
+
+The response contains the matching documents that are after `7yaM4JABZkI1FQv8AwoN` and sorted by `id` in decreasing order:
+
+```json
+{
+    "took": 17,
+    "timed_out": false,
+    "_shards": {
+        "total": 3,
+        "successful": 3,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": {
+            "value": 4,
+            "relation": "eq"
+        },
+        "max_score": 0.5,
+        "hits": [
+            {
+                "_index": "my-nlp-index",
+                "_id": "7iaM4JABZkI1FQv8AwoN",
+                "_score": null,
+                "_source": {
+                    "category": "editor",
+                    "doc_index": 9871,
+                    "doc_price": 30
+                },
+                "sort": [
+                    "7iaM4JABZkI1FQv8AwoN"
+                ]
+            },
+            {
+                "_index": "my-nlp-index",
+                "_id": "6yaM4JABZkI1FQv8AwoM",
+                "_score": null,
+                "_source": {
+                    "category": "permission",
+                    "doc_keyword": "workable",
+                    "doc_index": 4976,
+                    "doc_price": 100
+                },
+                "sort": [
+                    "6yaM4JABZkI1FQv8AwoM"
+                ]
+            }
+        ]
+    }
+}
+```
