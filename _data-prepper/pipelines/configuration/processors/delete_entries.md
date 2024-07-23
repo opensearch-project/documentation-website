@@ -3,7 +3,7 @@ layout: default
 title: delete_entries
 parent: Processors
 grand_parent: Pipelines
-nav_order: 41
+nav_order: 43
 ---
 
 # delete_entries

@@ -2,7 +2,6 @@
 layout: default
 title: Sum
 parent: Metric aggregations
-grand_parent: Aggregations
 nav_order: 120
 redirect_from:
   - /query-dsl/aggregations/metric/sum/

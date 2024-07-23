@@ -20,9 +20,9 @@ You can include placeholder expressions in the value of workflow step fields. Fo
 
 Once a workflow is created, provide its `workflow_id` to other APIs.
 
-The `POST` method creates a new workflow. The `PUT` method updates an existing workflow. 
+The `POST` method creates a new workflow. The `PUT` method updates an existing workflow. You can specify the `update_fields` parameter to update specific fields.
 
-You can only update a workflow if it has not yet been provisioned.
+You can only update a complete workflow if it has not yet been provisioned.
 {: .note}
 
 ## Path and HTTP methods
@@ -58,11 +58,26 @@ POST /_plugins/_flow_framework/workflow?validation=none
 ```
 {% include copy-curl.html %}
 
+You cannot update a full workflow once it has been provisioned, but you can update fields other than the `workflows` field, such as `name` and `description`:
+
+```json
+PUT /_plugins/_flow_framework/workflow/<workflow_id>?update_fields=true
+{
+  "name": "new-template-name",
+  "description": "A new description for the existing template"
+}
+```
+{% include copy-curl.html %}
+
+You cannot specify both the `provision` and `update_fields` parameters at the same time.
+{: .note}
+
 The following table lists the available query parameters. All query parameters are optional. User-provided parameters are only allowed if the `provision` parameter is set to `true`.
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | `provision` | Boolean | Whether to provision the workflow as part of the request. Default is `false`. |
+| `update_fields` | Boolean | Whether to update only the fields included in the request body. Default is `false`. |
 | `validation` | String | Whether to validate the workflow. Valid values are `all` (validate the template) and `none` (do not validate the template). Default is `all`. |
 | User-provided substitution expressions | String | Parameters matching substitution expressions in the template. Only allowed if `provision` is set to `true`. Optional. If `provision` is set to `false`, you can pass these parameters in the [Provision Workflow API query parameters]({{site.url}}{{site.baseurl}}/automating-configurations/api/provision-workflow/#query-parameters). |
 
