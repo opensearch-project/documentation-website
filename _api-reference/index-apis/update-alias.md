@@ -34,7 +34,7 @@ PUT /_alias
 
 | Parameter | Type | Description |
 :--- | :--- | :---
-| `target` | String | A comma-delimited list of data streams, indexes. Wildcard expressions (`*`) are supported. To target all data streams and indexes in a cluster, use `_all` or `*`. Optional. |
+| `target` | String | A comma-delimited list of data streams and indexes. Wildcard expressions (`*`) are supported. To target all data streams and indexes in a cluster, use `_all` or `*`. Optional. |
 | `alias-name` | String | The alias name to be created or updated. Optional. |
 
 ## Query parameters
