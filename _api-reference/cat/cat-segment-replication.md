@@ -129,7 +129,7 @@ GET /_cat/segment_replication?v&s=s:desc
 
 ## Example response metrics
 
-The following table lists the response metrics that are returned for all requests. When referring to a metric in a query parameter, you can provide either the metric's full name or any of its aliases, as shown in the previous [example](#example-5-using-a-metric-alias).
+The following table lists the response metrics that are returned for all requests. When referring to a metric in a query parameter, you can provide either the metric's full name or any of its aliases, as shown in the previous [example](#using-a-metric-alias).
 
 Metric | Alias | Description
 :--- | :--- | :---
