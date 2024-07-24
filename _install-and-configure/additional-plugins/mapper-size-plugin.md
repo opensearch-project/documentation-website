@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Mapper-size plugin
-parent: Installing Plugins
+parent: Installing plugins
 nav_order: 20
 
 ---
