@@ -9,7 +9,6 @@ nav_order: 4
 
 Welcome to the OpenSearch Security plugin demo configuration setup guide. This tool provides a quick and easy way to replicate a production environment for testing purposes. The demo configuration includes the setup of security-related components, such as internal users, roles, role mappings, audit configuration, basic authentication, tenants, and allow lists.
 
-
 The demo configuration tool performs the following tasks:
 
 1. Configures security settings, which are then loaded into the security index.
@@ -23,6 +22,8 @@ The demo configuration is automatically called as part of the setup for each sup
 **Note**: Starting with OpenSearch 2.12, a custom admin password is required in order to install the demo configuration. If none is provided, the cluster will fail to start. Note that this change only affects new clusters. Existing clusters are not affected because they already have `opensearch.yml` configured, so the installation tool will not run. 
 
 ### Docker
+
+**Note**: Any specific Linux or Unix instructions also work on Mac.
 
 Use the following steps to set up the Security plugin using Docker:
 
@@ -67,11 +68,6 @@ For OpenSearch 2.12 or later, set a new custom admin password before installatio
 export OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>
 ```
 {% include copy.html %}
-
-### Mac
-Once you run `docker-compose.up` the OpenSearch server will be running. 
-
-You will see the following message in the terminal `"Server running at http://0.0.0.0:5601"` Visit the link as specified to open OpenSearch and log in with the username 'admin' and the password you created in the `.env` file.
 
 ### Windows
 
