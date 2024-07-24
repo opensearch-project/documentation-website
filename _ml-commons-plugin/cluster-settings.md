@@ -260,7 +260,7 @@ plugins.ml_commons.jvm_heap_memory_threshold: 85
 
 Sets a disk circuit breaker that checks disk usage before running an ML task. If the disk free space exceeds the threshold, OpenSearch triggers a circuit breaker and throws an exception to maintain optimal performance.
 
-Values are in byte unit and default value is 5G, to disable this circuit breaker, set the value to 0.
+Values are in byte unit and default value is 5G, to disable this circuit breaker, set the value to -1.
 
 ### Setting
 
@@ -271,6 +271,7 @@ plugins.ml_commons.disk_free_space_threshold: 5G
 ### Values
 
 - Default value: 5G
+- Value range: [-1, Long.MAX_VALUE]
 
 ## Exclude node names
 
