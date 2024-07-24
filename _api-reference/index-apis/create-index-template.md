@@ -5,7 +5,7 @@ parent: Index APIs
 nav_order: 26
 ---
 
-# Create or update an index template
+# Create or update index template
 
 The Create/update index template API lets you initialize indexes with predefined mappings and settings, as well as update existing index template.
 
@@ -26,7 +26,7 @@ Parameter | Type | Description
 
 The following optional query parameters are supported:
 
-Parameter | Type | Description
+Parameter | Data type | Description
 :--- | :--- | :---
 `create` | Boolean | When true, the API cannot replace or update any existing index templates. Default is `false`.
 `cluster_manager_timeout` | Time | The time to wait for a connection to the cluster manager node. Default is `30s`.
@@ -53,7 +53,7 @@ You can use the following objects with the `template` option in the request body
 
 #### `alias`
 
-The alias name as the key. Required when the `template` option exists in the request body.
+The name of the alias to associate with the template as a key. Required when the `template` option exists in the request body. This option supports multiple aliases.
 
 The object body contains the following optional parameters for the alias:
 

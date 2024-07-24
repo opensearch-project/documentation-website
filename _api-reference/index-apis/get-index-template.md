@@ -22,7 +22,7 @@ The following optional query parameters are supported:
 Parameter | Type | Description
 :--- | :--- | :---
 `create` | Boolean | When true, the API cannot replace or update any existing index templates. Default is `false`.
-`cluster_manager_timeout` | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
+`cluster_manager_timeout` | Time | The time to wait for a connection to the cluster manager node. Default is `30s`.
 `flat_settings` | Boolean | Whether to return settings in the flat form, which can improve readability, especially for heavily nested settings. For example, the flat form of “index”: { “creation_date”: “123456789” } is “index.creation_date”: “123456789”.
 
 ## Example requests

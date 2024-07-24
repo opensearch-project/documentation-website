@@ -47,7 +47,7 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `template` | Object | The template that includes the `aliases`, `mappings`, or `settings` for the index. For more information, see [#template]. Required.
 `version` | Integer | The version number used to manage index templates. Version numbers are not automatically set by OpenSearch. Optional.
-`_meta` | Object | The optional metadata that gives details about the index template. Optional.
+`_meta` | Object | The metadata that gives details about the index template. Optional.
 `allow_auto_create` | Boolean | When `true`, indexes can be automatically created with this template even if the `actions.auto_create_index` is disabled. When `false`, indexes and data streams matching the template cannot be automatically created. Optional.
 `deprecated` | Boolean | When `true`, the component template is deprecated. If deprecated, OpenSearch will output a warning whenever the template is referenced.
 
@@ -58,7 +58,7 @@ You can use the following objects with the `template` option in the request body
 
 #### `alias`
 
-The alias name as the key. Required when the `template` option exists in the request body.
+The name of the alias to associate with the template as a key. Required when the `template` option exists in the request body. This option supports multiple aliases.
 
 The object body contains the following optional parameters for the alias:
 
