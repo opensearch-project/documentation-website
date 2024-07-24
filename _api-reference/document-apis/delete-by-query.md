@@ -88,7 +88,7 @@ To search your index for specific documents, you must include a [query]({{site.u
 }
 ```
 
-## Response
+## Example response
 ```json
 {
   "took": 143,

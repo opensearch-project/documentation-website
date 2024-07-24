@@ -14,26 +14,6 @@ redirect_from:
 
 The CAT indices operation lists information related to indexes, that is, how much disk space they are using, how many shards they have, their health status, and so on.
 
-## Example
-
-```
-GET _cat/indices?v
-```
-{% include copy-curl.html %}
-
-To limit the information to a specific index, add the index name after your query.
-
-```
-GET _cat/indices/<index>?v
-```
-{% include copy-curl.html %}
-
-If you want to get information for more than one index, separate the indexes with commas:
-
-```json
-GET _cat/indices/index1,index2,index3
-```
-{% include copy-curl.html %}
 
 ## Path and HTTP methods
 
@@ -58,8 +38,29 @@ pri | Boolean | Whether to return information only from the primary shards. Defa
 time | Time | Specify the units for time. For example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
 expand_wildcards | Enum | Expands wildcard expressions to concrete indexes. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. Default is `open`.
 
+## Example requests
 
-## Response
+```
+GET _cat/indices?v
+```
+{% include copy-curl.html %}
+
+To limit the information to a specific index, add the index name after your query.
+
+```
+GET _cat/indices/<index>?v
+```
+{% include copy-curl.html %}
+
+If you want to get information for more than one index, separate the indexes with commas:
+
+```json
+GET _cat/indices/index1,index2,index3
+```
+{% include copy-curl.html %}
+
+
+## Example response
 
 ```json
 health | status | index | uuid | pri | rep | docs.count | docs.deleted | store.size | pri.store.size
