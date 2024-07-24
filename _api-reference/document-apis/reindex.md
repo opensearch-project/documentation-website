@@ -81,7 +81,7 @@ pipeline | Which ingest pipeline to utilize during the reindex.
 script | A script that OpenSearch uses to apply transformations to the data during the reindex operation.
 lang | The scripting language. Valid options are `painless`, `expression`, `mustache`, and `java`.
 
-## Response
+## Example response
 ```json
 {
     "took": 28829,

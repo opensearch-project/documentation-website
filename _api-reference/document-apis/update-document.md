@@ -195,7 +195,7 @@ After the upsert operation, the document's `first_name` and `last_name` fields a
 }
 ```
 
-## Response
+## Example response
 ```json
 {
   "_index": "sample-index1",

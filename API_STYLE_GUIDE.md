@@ -115,7 +115,7 @@ Include a table with these columns:
 Field | Data type | Description
 :--- | :--- | :--- 
 
-#### Example request
+## Example request
 
 Provide a sentence that describes what is shown in the example, followed by a cut-and-paste-ready API request in JSON format. Make sure that you test the request yourself in the Dashboards Dev Tools console to make sure it works. See the following examples.
 
@@ -139,7 +139,7 @@ POST _reindex
 }
 ```
 
-#### Example response
+## Example response
 
 Include a JSON example response to show what the API returns. See the following examples.
 

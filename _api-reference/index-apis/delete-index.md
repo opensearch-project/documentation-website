@@ -38,7 +38,7 @@ cluster_manager_timeout | Time | How long to wait for a connection to the cluste
 timeout | Time | How long to wait for the response to return. Default is `30s`.
 
 
-## Response
+## Example response
 ```json
 {
   "acknowledged": true
