@@ -57,7 +57,7 @@ All request body parameters are optional.
 * Ingest pipelines
 * Index lifecycle policies
 
-#### Example request
+## Example request
 
 The following request restores the `opendistro-reports-definitions` index from `my-first-snapshot`. The `rename_pattern` and `rename_replacement` combination causes the index to be renamed to `opendistro-reports-definitions_restored` because duplicate open index names in a cluster are not allowed.
 
@@ -73,7 +73,7 @@ POST /_snapshot/my-opensearch-repo/my-first-snapshot/_restore
 }
 ````
 
-#### Example response
+## Example response
 
 Upon success, the response returns the following JSON object:
 

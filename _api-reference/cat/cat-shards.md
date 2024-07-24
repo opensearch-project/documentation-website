@@ -15,26 +15,6 @@ redirect_from:
 
 The CAT shards operation lists the state of all primary and replica shards and how they are distributed.
 
-## Example
-
-```
-GET _cat/shards?v
-```
-{% include copy-curl.html %}
-
-To see only the information about shards of a specific index, add the index name after your query.
-
-```
-GET _cat/shards/<index>?v
-```
-{% include copy-curl.html %}
-
-If you want to get information for more than one index, separate the indexes with commas:
-
-```
-GET _cat/shards/index1,index2,index3
-```
-{% include copy-curl.html %}
 
 ## Path and HTTP methods
 
@@ -55,8 +35,30 @@ local | Boolean | Whether to return information from the local node only instead
 cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
 time | Time | Specify the units for time. For example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
 
+## Example requests
 
-## Response
+The following example requests returns information about shards:
+
+```
+GET _cat/shards?v
+```
+{% include copy-curl.html %}
+
+To see only the information about shards of a specific index, add the index name after your query.
+
+```
+GET _cat/shards/<index>?v
+```
+{% include copy-curl.html %}
+
+If you want to get information for more than one index, separate the indexes with commas:
+
+```
+GET _cat/shards/index1,index2,index3
+```
+{% include copy-curl.html %}
+
+## Example response
 
 ```json
 index | shard | prirep | state   | docs | store | ip |       | node
