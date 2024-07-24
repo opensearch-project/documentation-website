@@ -61,7 +61,6 @@ PUT /test-index
 {% include copy-curl.html %}
 
 Optionally, you can specify the parameters in `method.parameters.encoder` shown below:
-* `bits` - Determines the size of the quantized vector after quantizing the input float vectors. For instance, 7 bits will quantize input float vectors into 7-bit integer vectors. As of OpenSearch 2.16, only `7` bits are supported. Default value is `7`.
 * `confidence_interval` - used to compute the `minQuantile` and `maxQuantile` parameters which are used to quantize the vectors. The accepted values are: 
   - It can be any value between and including `0.9` to `1.0`. For example, if we set it to `0.9` then it will consider the middle 90% of the vector values for computing the min and max Quantiles excluding the minimum and maximum 5% of the values.
   - It can be also set to `0`. It is the dynamic confidence interval which will dynamically compute the min and max quantiles with some oversampling and additional computation of input data (unlike the above one which will statically compute using the provided confidence interval).
