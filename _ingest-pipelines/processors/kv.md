@@ -7,6 +7,9 @@ redirect_from:
    - /api-reference/ingest-apis/processors/lowercase/
 ---
 
+This documentation describes using the `kv` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `key_value` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/key-value/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.
+{: .note}
+
 # KV processor
 
 The `kv` processor automatically extracts specific event fields or messages that are in a `key=value` format. This structured format organizes your data by grouping it together based on keys and values. It's helpful for analyzing, visualizing, and using data, such as user behavior analytics, performance optimizations, or security investigations. 

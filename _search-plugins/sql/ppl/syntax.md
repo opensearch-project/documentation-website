@@ -8,10 +8,12 @@ nav_order: 1
 
 # PPL syntax
 
-Every PPL query starts with the `search` command. It specifies the index to search and retrieve documents from. Subsequent commands can follow in any order.
+Every PPL query starts with the `search` command. It specifies the index to search and retrieve documents from.
 
-Currently, `PPL` supports only one `search` command, which can be omitted to simplify the query.
-{ : .note}
+`PPL` supports exactly one `search` command per PPL query, and it is always the first command. The word `search` can be omitted.
+
+Subsequent commands can follow in any order.
+
 
 ## Syntax
 
@@ -22,8 +24,7 @@ source=<index> [boolean-expression]
 
 Field | Description | Required
 :--- | :--- |:---
-`search` | Specifies search keywords. | Yes
-`index` | Specifies which index to query from. | No
+`index` | Specifies the index to query. | No
 `bool-expression` | Specifies an expression that evaluates to a Boolean value. | No
 
 ## Examples

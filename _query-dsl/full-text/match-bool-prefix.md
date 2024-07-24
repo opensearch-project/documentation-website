@@ -2,7 +2,6 @@
 layout: default
 title: Match Boolean prefix
 parent: Full-text queries
-grand_parent: Query DSL
 nav_order: 20
 ---
 

@@ -7,7 +7,6 @@ has_children: true
 has_toc: false
 redirect_from:
   - /search-plugins/sql/sql/index/
-
 ---
 
 # SQL

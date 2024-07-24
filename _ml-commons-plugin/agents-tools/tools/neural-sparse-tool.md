@@ -10,12 +10,9 @@ grand_parent: Agents and tools
 
 <!-- vale off -->
 # Neural Sparse Search tool
-**Introduced 2.12**
+**Introduced 2.13**
 {: .label .label-purple }
 <!-- vale on -->
-
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/ml-commons/issues/1161).    
-{: .warning}
 
 The `NeuralSparseSearchTool` performs sparse vector retrieval. For more information about neural sparse search, see [Neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
 
@@ -215,6 +212,7 @@ Parameter	| Type | Required/Optional | Description
 `name` | String  | Optional | The tool name. Useful when an LLM needs to select an appropriate tool for a task.
 `description` | String | Optional | A description of the tool. Useful when an LLM needs to select an appropriate tool for a task.
 `doc_size` | Integer | Optional | The number of documents to fetch. Default is `2`.
+`nested_path` | String | Optional | The path to the nested object for the nested query. Only used for nested fields. Default is `null`.
 
 ## Execute parameters
 

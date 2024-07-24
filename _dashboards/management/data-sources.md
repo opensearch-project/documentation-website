@@ -19,13 +19,19 @@ Once you have installed OpenSearch and OpenSearch Dashboards, you can use Dashbo
 
 Configuration of the [YAML files]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/#configuration-file) and installation of the `dashboards-observability` and `opensearch-sql` plugins is necessary. For more information, see [OpenSearch plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
 
+## Permissions
+
+To work with data sources in OpenSearch Dashboards, make sure that the user has been assigned the correct cluster-level [data source permission]({{site.url}}{{site.baseurl}}/security/access-control/permissions#data-source-permissions).
+
+
+
 ## Create a data source connection
 
 A data source connection specifies the parameters needed to connect to a data source. These parameters form a connection string for the data source. Using Dashboards, you can add new data source connections or manage existing ones.
 
 The following steps guide you through the basics of creating a data source connection:
 
-1. From the OpenSearch Dashboards main menu, select **Dashboards Management** > **Data sources** > **Create data source connection**. The UI is shown in the following image.
+1. From the OpenSearch Dashboards main menu, select **Management** > **Data sources** > **Create data source connection**. The UI is shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/data-source-UI.png" alt="Connecting a data source UI" width="700"/>
 

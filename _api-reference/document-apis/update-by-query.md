@@ -49,14 +49,14 @@ Parameter | Type | Description
 &lt;index&gt; | String | Comma-separated list of indexes to update. To update all indexes, use * or omit this parameter.
 allow_no_indices | Boolean | Whether to ignore wildcards that don’t match any indexes. Default is `true`.
 analyzer | String | Analyzer to use in the query string.
-analyze_wildcard | Boolean | Whether the update operation should include wildcard and prefix queries in the analysis. Default is false.
+analyze_wildcard | Boolean | Whether the update operation should include wildcard and prefix queries in the analysis. Default is `false`.
 conflicts | String | Indicates to OpenSearch what should happen if the update by query operation runs into a version conflict. Valid options are `abort` and `proceed`. Default is `abort`.
 default_operator | String | Indicates whether the default operator for a string query should be `AND` or `OR`. Default is `OR`.
 df | String | The default field if a field prefix is not provided in the query string.
 expand_wildcards | String | Specifies the type of index that wildcard expressions can match. Supports comma-separated values. Valid values are `all` (match any index), `open` (match open, non-hidden indexes), `closed` (match closed, non-hidden indexes), `hidden` (match hidden indexes), and `none` (deny wildcard expressions). Default is `open`.
 from | Integer | The starting index to search from. Default is 0.
-ignore_unavailable | Boolean | Whether to exclude missing or closed indexes in the response. Default is false.
-lenient | Boolean | Specifies whether OpenSearch should accept requests if queries have format errors (for example, querying a text field for an integer). Default is false.
+ignore_unavailable | Boolean | Whether to exclude missing or closed indexes in the response and ignores unavailable shards during the search request. Default is `false`.
+lenient | Boolean | Specifies whether OpenSearch should accept requests if queries have format errors (for example, querying a text field for an integer). Default is `false`.
 max_docs | Integer | How many documents the update by query operation should process at most. Default is all documents.
 pipeline | String | ID of the pipeline to use to process documents.
 preference | String | Specifies which shard or node OpenSearch should perform the update by query operation on.
@@ -102,7 +102,7 @@ To update your indexes and documents by query, you must include a [query]({{site
 }
 ```
 
-## Response
+## Example response
 ```json
 {
   "took": 21,

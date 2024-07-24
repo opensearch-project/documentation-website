@@ -4,20 +4,19 @@ title: Document-level security
 parent: Access control
 nav_order: 85
 redirect_from:
- - /security/access-control/document-level-security/
- - /security-plugin/access-control/document-level-security/
+- /security/access-control/document-level-security/
+- /security-plugin/access-control/document-level-security/
 ---
 
-# Document-level security (DLS)
-
-Document-level security lets you restrict a role to a subset of documents in an index. The easiest way to get started with document- and field-level security is to open OpenSearch Dashboards and choose **Security**. Then choose **Roles**, create a new role, and review the **Index permissions** section.
+# Document-level security
+Document-level security lets you restrict a role to a subset of documents in an index. The easiest way to get started with document- and field-level security is to open OpenSearch Dashboards and choose **Security**. Then choose **Roles**, create a new role, and review the **Index Permissions** section, shown in the following image.
 
 ![Document- and field-level security screen in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/security-dls.png)
 
 
 ## Simple roles
 
-Document-level security uses the OpenSearch query DSL to define which documents a role grants access to. In OpenSearch Dashboards, choose an index pattern and provide a query in the **Document level security** section:
+Document-level security uses OpenSearch query domain-specific language (DSL) to define which documents a role grants access to. In OpenSearch Dashboards, choose an index pattern and provide a query in the **Document-level security** section:
 
 ```json
 {
@@ -33,7 +32,9 @@ Document-level security uses the OpenSearch query DSL to define which documents 
 
 This query specifies that for the role to have access to a document, its `genres` field must include `Comedy`.
 
-A typical request to the `_search` API includes `{ "query": { ... } }` around the query, but in this case, you only need to specify the query itself.
+A typical request sent to the `_search` API includes `{ "query": { ... } }` around the query, but in this case, you only need to specify the query itself.
+
+## Updating roles by accessing the REST API 
 
 In the REST API, you provide the query as a string, so you must escape your quotes. This role allows a user to read any document in any index with the field `public` set to `true`:
 
@@ -189,6 +190,10 @@ Adaptive | `adaptive-level` | The default setting that allows OpenSearch to auto
 ## DLS and multiple roles
 
 OpenSearch combines all DLS queries with the logical `OR` operator. However, when a role that uses DLS is combined with another security role that doesn't use DLS, the query results are filtered to display only documents matching the DLS from the first role. This filter rule also applies to roles that do not grant read documents.
+
+### DLS and write permissions
+
+Make sure that a user that has DLS-configured roles does not have write permissions. If write permissions are added, the user will be able to index documents which they will not be able to retrieve due to DLS filtering.
 
 ### When to enable `plugins.security.dfm_empty_overrides_all`
 

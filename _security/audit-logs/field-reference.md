@@ -40,6 +40,7 @@ Name | Description
 `audit_rest_request_headers` | The HTTP headers, if any.
 `audit_request_initiating_user` | The user that initiated the request. Only logged if it differs from the effective user.
 `audit_request_body` | The HTTP request body, if any (and if request body logging is enabled).
+`audit_rest_request_method` | The HTTP request method.
 
 
 ## REST AUTHENTICATED attributes
@@ -52,6 +53,7 @@ Name | Description
 `audit_rest_request_params` | The HTTP request parameters, if any.
 `audit_rest_request_headers` | The HTTP headers, if any.
 `audit_request_body` | The HTTP request body, if any (and if request body logging is enabled).
+`audit_rest_request_method` | The HTTP request method.
 
 
 ## REST SSL_EXCEPTION attributes

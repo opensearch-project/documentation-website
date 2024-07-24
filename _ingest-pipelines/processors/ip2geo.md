@@ -208,7 +208,7 @@ POST _ingest/pipeline/my-pipeline/_simulate
       "_index": "testindex1",
       "_id": "1",
       "_source": {
-        "ip": "172.0.0.1",
+        "ip": "172.0.0.1"
       }
     }
   ]
@@ -249,7 +249,7 @@ The following response confirms that the pipeline is working as expected:
 The following query ingests a document into an index named `my-index`:
 
 ```json
-PUT /my-index/_doc/my-id?pipeline=ip2geo
+PUT /my-index/_doc/my-id?pipeline=my-pipeline
 {
   "ip": "172.0.0.1"
 }

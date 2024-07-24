@@ -7,7 +7,7 @@ nav_order: 120
 ---
 
 # OpenSearch-provided pretrained models
-**Generally available 2.9**
+**Introduced 2.9**
 {: .label .label-purple }
 
 OpenSearch provides a variety of open-source pretrained models that can assist with a range of machine learning (ML) search and analytics use cases. You can upload any supported model to the OpenSearch cluster and use it locally.
@@ -126,7 +126,7 @@ To learn more about model groups, see [Model access control]({{site.url}}{{site.
 
 ## Step 2: Register a local OpenSearch-provided model
 
-To register a remote model to the model group created in step 1, provide the model group ID from step 1 in the following request.
+To register an OpenSearch-provided model to the model group created in step 1, provide the model group ID from step 1 in the following request.
 
 Because pretrained models originate from the ML Commons model repository, you only need to provide the `name`, `version`, `model_group_id`, and `model_format` in the register API request:  
 
@@ -163,7 +163,7 @@ When the operation is complete, the state changes to `COMPLETED`:
 {
   "model_id": "cleMb4kBJ1eYAeTMFFg4",
   "task_type": "REGISTER_MODEL",
-  "function_name": "REMOTE",
+  "function_name": "TEXT_EMBEDDING",
   "state": "COMPLETED",
   "worker_node": [
     "XPcXLV7RQoi5m8NI_jEOVQ"
@@ -209,7 +209,7 @@ When the operation is complete, the state changes to `COMPLETED`:
 {
   "model_id": "cleMb4kBJ1eYAeTMFFg4",
   "task_type": "DEPLOY_MODEL",
-  "function_name": "REMOTE",
+  "function_name": "TEXT_EMBEDDING",
   "state": "COMPLETED",
   "worker_node": [
     "n-72khvBTBi3bnIIR8FTTw"

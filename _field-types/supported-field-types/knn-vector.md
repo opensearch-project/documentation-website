@@ -68,7 +68,7 @@ PUT test-index
 ## Model IDs
 
 Model IDs are used when the underlying Approximate k-NN algorithm requires a training step. As a prerequisite, the
-model has to be created with the [Train API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-model). The
+model has to be created with the [Train API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-a-model). The
 model contains the information needed to initialize the native library segment files.
 
 ```json

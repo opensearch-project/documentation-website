@@ -45,7 +45,7 @@ ignore_unlabeled | Defaults to `false`. Unlabeled documents are ignored when set
 template_id | Template ID.
 params | Parameters used in the template.
 
-#### Example request
+## Example request
 
 ````json
 GET shakespeare/_rank_eval
@@ -76,7 +76,7 @@ GET shakespeare/_rank_eval
 ````
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ````json
 {

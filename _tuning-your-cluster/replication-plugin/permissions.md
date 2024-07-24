@@ -32,7 +32,7 @@ If you don't want to use the default roles, you can combine individual replicati
 The [start replication]({{site.url}}{{site.baseurl}}/replication-plugin/api/#start-replication) and [create replication rule]({{site.url}}{{site.baseurl}}/replication-plugin/api/#create-replication-rule) operations are special cases. They involve background processes on the leader and follower clusters that must be associated with roles. When you perform one of these actions, you must explicitly pass the `leader_cluster_role` and
 `follower_cluster_role` in the request, which OpenSearch then uses in all backend replication tasks.
 
-To enable non-admins to start replication and create replication rules, create an identical user on each cluster (for example, `replication_user`) and map them to the `cross_cluster_replication_leader_full_access` role on the remote cluster and `cross_cluster_replication_follower_full_access` on the follower cluster. For instructions, see [Map users to roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#map-users-to-roles).
+To enable non-admins to start replication and create replication rules, create an identical user on each cluster (for example, `replication_user`) and map them to the `cross_cluster_replication_leader_full_access` role on the remote cluster and `cross_cluster_replication_follower_full_access` on the follower cluster. For a tutorial, see [Mapping users to roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#mapping-users-to-roles).
 
 Then add those roles to the request, and sign it with the appropriate credentials:
 

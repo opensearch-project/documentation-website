@@ -4,6 +4,7 @@ title: Neural sparse search
 nav_order: 50
 has_children: false
 redirect_from:
+  - /search-plugins/neural-sparse-search/
   - /search-plugins/sparse-search/
 ---
 
@@ -15,8 +16,8 @@ Introduced 2.11
 
 When selecting a model, choose one of the following options:
 
-- Use a sparse encoding model at both ingestion time and search time (high performance, relatively high latency).
-- Use a sparse encoding model at ingestion time and a tokenizer model at search time (low performance, relatively low latency).
+- Use a sparse encoding model at both ingestion time and search time for better search relevance at the expense of relatively high latency.
+- Use a sparse encoding model at ingestion time and a tokenizer at search time for lower search latency at the expense of relatively lower search relevance. Tokenization doesn't involve model inference, so you can deploy and invoke a tokenizer using the ML Commons Model API for a more streamlined experience.
 
 **PREREQUISITE**<br>
 Before using neural sparse search, make sure to set up a [pretrained sparse embedding model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sparse-encoding-models) or your own sparse embedding model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
@@ -29,7 +30,8 @@ To use neural sparse search, follow these steps:
 1. [Create an ingest pipeline](#step-1-create-an-ingest-pipeline).
 1. [Create an index for ingestion](#step-2-create-an-index-for-ingestion).
 1. [Ingest documents into the index](#step-3-ingest-documents-into-the-index).
-1. [Search the index using neural search](#step-4-search-the-index-using-neural-search).
+1. [Search the index using neural search](#step-4-search-the-index-using-neural-sparse-search).
+1. _Optional_ [Create and enable the two-phase processor](#step-5-create-and-enable-the-two-phase-processor-optional).
 
 ## Step 1: Create an ingest pipeline
 
@@ -55,7 +57,8 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline-sparse
 ```
 {% include copy-curl.html %}
 
-To split long text into passages, use the `text_chunking` ingest processor before the `sparse_encoding` processor. For more information, see [Chaining text chunking and embedding processors]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-chunking/#chaining-text-chunking-and-embedding-processors).
+To split long text into passages, use the `text_chunking` ingest processor before the `sparse_encoding` processor. For more information, see [Text chunking]({{site.url}}{{site.baseurl}}/search-plugins/text-chunking/).
+
 
 ## Step 2: Create an index for ingestion
 
@@ -143,11 +146,11 @@ PUT /my-nlp-index/_doc/2
 
 Before the document is ingested into the index, the ingest pipeline runs the `sparse_encoding` processor on the document, generating vector embeddings for the `passage_text` field. The indexed document includes the `passage_text` field, which contains the original text, and the `passage_embedding` field, which contains the vector embeddings. 
 
-## Step 4: Search the index using neural search
+## Step 4: Search the index using neural sparse search
 
 To perform a neural sparse search on your index, use the `neural_sparse` query clause in [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/) queries. 
 
-The following example request uses a `neural_sparse` query to search for relevant documents:
+The following example request uses a `neural_sparse` query to search for relevant documents using a raw text query:
 
 ```json
 GET my-nlp-index/_search
@@ -239,6 +242,59 @@ The response contains the matching documents:
   }
 }
 ```
+
+You can also use the `neural_sparse` query with sparse vector embeddings:
+```json
+GET my-nlp-index/_search
+{
+  "query": {
+    "neural_sparse": {
+      "passage_embedding": {
+        "query_tokens": {
+          "hi" : 4.338913,
+          "planets" : 2.7755864,
+          "planet" : 5.0969057,
+          "mars" : 1.7405145,
+          "earth" : 2.6087382,
+          "hello" : 3.3210192
+        }
+      }
+    }
+  }
+}
+```
+## Step 5: Create and enable the two-phase processor (Optional)
+
+
+The `neural_sparse_two_phase_processor` is a new feature introduced in OpenSearch 2.15. Using the two-phase processor can significantly improve the performance of neural sparse queries.
+
+To quickly launch a search pipeline with neural sparse search, use the following example pipeline: 
+
+```json
+PUT /_search/pipeline/two_phase_search_pipeline
+{
+  "request_processors": [
+    {
+      "neural_sparse_two_phase_processor": {
+        "tag": "neural-sparse",
+        "description": "This processor is making two-phase processor."
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+Then choose the index you want to configure with the search pipeline and set the `index.search.default_pipeline` to the pipeline name, as shown in the following example:
+```json
+PUT /index-name/_settings 
+{
+  "index.search.default_pipeline" : "two_phase_search_pipeline"
+}
+```
+{% include copy-curl.html %}
+
+
 
 ## Setting a default model on an index or field
 
@@ -365,3 +421,31 @@ The response contains both documents:
   }
 }
 ```
+
+## Next steps
+
+- To learn more about splitting long text into passages for neural search, see [Text chunking]({{site.url}}{{site.baseurl}}/search-plugins/text-chunking/).
+
+## FAQ
+
+Refer to the following frequently asked questions for more information about neural sparse search.
+
+### How do I mitigate remote connector throttling exceptions?
+
+When using connectors to call a remote service like SageMaker, ingestion and search calls sometimes fail due to remote connector throttling exceptions. 
+
+To mitigate throttling exceptions, modify the connector's [`client_config`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#configuration-parameters) parameter to decrease the number of maximum connections, using the `max_connection` setting to prevent the maximum number of concurrent connections from exceeding the threshold of the remote service. You can also modify the retry settings to flatten the request spike during ingestion.
+
+For versions earlier than OpenSearch 2.15, the SageMaker throttling exception will be thrown as the following "error": 
+
+```
+   {
+          "type": "status_exception",
+          "reason": "Error from remote service: {\"message\":null}"
+        }
+```
+
+
+## Next steps
+
+- To learn more about splitting long text into passages for neural search, see [Text chunking]({{site.url}}{{site.baseurl}}/search-plugins/text-chunking/).

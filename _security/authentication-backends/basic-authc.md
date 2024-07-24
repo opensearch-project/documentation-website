@@ -12,17 +12,23 @@ redirect_from:
 HTTP basic authentication provides a simple challenge-and-response process for gaining access to OpenSearch and its resources that prompts you to sign in with a username and password. You enable HTTP basic authentication in the `http_authenticator` section of the configuration by specifying `type` as `basic`, as shown in the following example:
 
 ```yml
-authc:
-  basic_internal_auth_domain:
-    description: "Authenticate using HTTP basic against the internal users database"
-    http_enabled: true
-    transport_enabled: true
-    order: 1
-    http_authenticator:
-      type: basic
-      challenge: true
-    authentication_backend:
-      type: internal
+_meta:
+  type: "config"
+  config_version: 2
+
+config:
+  dynamic:
+    authc:
+      basic_internal_auth_domain:
+        description: "Authenticate using HTTP basic against the internal users database"
+        http_enabled: true
+        transport_enabled: true
+        order: 1
+        http_authenticator:
+          type: basic
+          challenge: true
+        authentication_backend:
+          type: internal
 ```
 
 Additionally, you can specify the internal user database as the authentication backend by specifying `internal` as the type for `authentication_backend`. See [The internal user database](#the-internal-user-database) for information about this backend.

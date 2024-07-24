@@ -49,6 +49,42 @@ GET /_plugins/_notifications/features
 }
 ```
 
+## List all notification channels
+
+To retrieve a list of all notification channels, send a GET request to the `channels` resource.
+
+#### Example request
+
+```json
+GET /_plugins/_notifications/channels
+```
+
+#### Example response
+
+```json
+{
+  "start_index" : 0,
+  "total_hits" : 2,
+  "total_hit_relation" : "eq",
+  "channel_list" : [
+    {
+      "config_id" : "sample-id",
+      "name" : "Sample Slack Channel",
+      "description" : "This is a Slack channel",
+      "config_type" : "slack",
+      "is_enabled" : true
+    },
+    {
+      "config_id" : "sample-id2",
+      "name" : "Test chime channel",
+      "description" : "A test chime channel",
+      "config_type" : "chime",
+      "is_enabled" : true
+    }
+  ]
+}
+```
+
 ## List all notification configurations
 
 To retrieve a list of all notification configurations, send a GET request to the `configs` resource.
@@ -164,7 +200,7 @@ config | Object |	Contains all relevant information, such as channel name, confi
 name | String |	Name of the channel. | Yes
 description |	String | The channel's description. | No
 config_type |	String | The destination of your notification. Valid options are `sns`, `slack`, `chime`, `webhook`, `smtp_account`, `ses_account`, `email_group`, and `email`. | Yes
-is_enabled | Boolean | Indicates whether the channel is enabled for sending and receiving notifications. Default is true.	| No
+is_enabled | Boolean | Indicates whether the channel is enabled for sending and receiving notifications. Default is `true`.	| No
 
 The create channel operation accepts multiple `config_types` as possible notification destinations, so follow the format for your preferred `config_type`.
 

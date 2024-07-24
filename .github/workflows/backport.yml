@@ -16,6 +16,7 @@ jobs:
     # See https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request_target.
     if: >
       github.event.pull_request.merged
+      && github.repository == 'opensearch-project/documentation-website'
       && (
         github.event.action == 'closed'
         || (
@@ -38,3 +39,25 @@ jobs:
         with:
           github_token: ${{ steps.github_app_token.outputs.token }}
           head_template: backport/backport-<%= number %>-to-<%= base %>
+
+      - name: Label new backport PR with backport-automerge label
+        run: |
+          PR_LABELS=`echo "${{ toJson(github.event.pull_request.labels.*.name) }}" | sed -e 's/\[//g;s/\]//g;s/^\s*//g;s/\s*$//g' | tr -d '\n'`
+          echo $PR_LABELS
+          OLDIFS=$IFS
+          export IFS=','
+          for label in $PR_LABELS
+          do
+            if [[ "$label" == "backport"* ]]; then
+              echo "Found label \"$label\""
+              PR_REPO="opensearch-project/documentation-website"
+              PR_BRANCH=backport/backport-${{ github.event.pull_request.number }}-to-`echo $label | cut -d ' ' -f2`
+              PR_NUMBER=`gh pr list -R $PR_REPO --json "number,headRefName" --state open | jq -r ".[] | select(.headRefName == \"$PR_BRANCH\") | .number"`
+              echo "Update Backport PR '#$PR_NUMBER' on branch '$PR_BRANCH' with 'backport-automerge' label"
+              gh issue edit -R $PR_REPO $PR_NUMBER --add-label backport-automerge
+              echo "Auto approve $PR_REPO PR #$PR_NUMBER with opensearch-trigger-bot"
+              gh pr review -R $PR_REPO $PR_NUMBER --approve
+            fi
+          done
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

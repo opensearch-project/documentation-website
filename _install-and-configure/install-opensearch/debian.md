@@ -37,21 +37,23 @@ This guide assumes that you are comfortable working from the Linux command line 
 ### Install OpenSearch from a package
 
 1. Download the Debian package for the desired version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}. The Debian package can be downloaded for both **x64** and **arm64** architectures.
-1. From the CLI, install using `dpkg`.
-   ```bash
-   # x64
-   sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-x64.deb
-   
-   # arm64
-   sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-arm64.deb
-   ```
-   For OpenSearch 2.12 and greater, a custom admin password is required in order to set up a security demo configuration.  To set a custom admin password, use one the following commands:
+1. From the CLI, install the package using `dpkg`:
+
+   For new installations of OpenSearch 2.12 and later, you must define a custom admin password in order to set up a demo security configuration. Use one of the following commands to define a custom admin password:
    ```bash
    # x64
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> dpkg -i opensearch-{{site.opensearch_version}}-linux-x64.deb
    
    # arm64
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> dpkg -i opensearch-{{site.opensearch_version}}-linux-arm64.deb
+   ```
+   Use the following command for OpenSearch versions 2.11 and earlier:
+   ```bash
+   # x64
+   sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-x64.deb
+   
+   # arm64
+   sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-arm64.deb
    ```
 
 1. After the installation succeeds, enable OpenSearch as a service.
@@ -136,14 +138,27 @@ APT, the primary package management tool for Debian–based operating systems, a
 
 1. Choose the version of OpenSearch you want to install: 
    - Unless otherwise indicated, the latest available version of OpenSearch is installed.
+
    ```bash
+   # For new installations of OpenSearch 2.12 and later, you must define a custom admin password in order to set up a demo security configuration.
+   # Use one of the following commands to define a custom admin password:
+   sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> apt-get install opensearch
+
+   # Use the following command for OpenSearch versions 2.11 and earlier:
    sudo apt-get install opensearch
    ```
    {% include copy.html %}
 
    - To install a specific version of OpenSearch:
+
    ```bash
    # Specify the version manually using opensearch=<version>
+
+   # For new installations of OpenSearch 2.12 and later, you must define a custom admin password in order to set up a demo security configuration.
+   # Use one of the following commands to define a custom admin password:
+   sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> apt-get install opensearch={{site.opensearch_version}}
+
+   # Use the following command for OpenSearch versions 2.11 and earlier:
    sudo apt-get install opensearch={{site.opensearch_version}}
    ```
 

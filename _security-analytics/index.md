@@ -39,7 +39,7 @@ For information about configuring detectors, see [Creating detectors]({{site.url
 
 ### Log types
 
-Log types provide the data used to evaluate events occurring in a system. OpenSearch supports several types of logs and provides out-of-the-box mappings for the most common log sources. See [Supported log types]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/log-types/) for a list of log types currently supported by Security Analytics.
+[Log types]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/log-types/) provide the data used to evaluate events occurring in a system. OpenSearch supports several types of logs and provides out-of-the-box mappings for the most common log sources.
 
 Log types are specified during the creation of detectors, including steps for mapping log fields to the detector. Security Analytics also automatically selects an appropriate set of rules based on a specific log type and populates them for the detector.
 

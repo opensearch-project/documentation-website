@@ -1,5 +1,5 @@
 extends: existence
-message: "There should be once space between words in '%s'."
+message: "There should be one space between words in '%s'."
 level: error
 nonword: true
 tokens:
