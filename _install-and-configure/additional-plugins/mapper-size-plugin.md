@@ -1,17 +1,16 @@
 ---
 layout: default
-title: mapper-size plugin
-parent: Additional Plugins
-nav_order: 10
-redirect_from:
-  - /additional-plugins/mapper-size-plugin/
+title: Mapper-size plugin
+parent: Installing Plugins
+nav_order: 20
+
 ---
 
-# mapper-size Plugin
+# Mapper-size plugin
 
-The `mapper-size` plugin enables the use of the `_size` field in OpenSearch indices. This field stores the size in bytes of each document.
+The `mapper-size` plugin enables the use of the `_size` field in OpenSearch indexes. This field stores the size in bytes of each document.
 
-## Installation
+## Installing the plugin
 
 You can install the `mapper-size` plugin using:
 
@@ -19,11 +18,11 @@ You can install the `mapper-size` plugin using:
 ./bin/opensearch-plugin install mapper-size
 ```
 
-## Usage
+## Examples
 
-After starting up a cluster, create an index with size mapping enabled, index a document, and search for documents:
+After starting up a cluster, you can create an index with size mapping enabled, index a document, and search for documents.
 
-### Create an Index with Size Mapping Enabled
+### Create an index with size mapping enabled
 
 ```sh
 curl -XPUT example-index -H "Content-Type: application/json" -d '{
@@ -43,7 +42,7 @@ curl -XPUT example-index -H "Content-Type: application/json" -d '{
 }'
 ```
 
-### Index a Document
+### Index a document
 
 ```sh
 curl -XPOST example-index/_doc -H "Content-Type: application/json" -d '{
@@ -52,7 +51,7 @@ curl -XPOST example-index/_doc -H "Content-Type: application/json" -d '{
 }'
 ```
 
-### Query the Index
+### Query the index
 
 ```sh
 curl -XGET example-index/_search -H "Content-Type: application/json" -d '{
@@ -63,7 +62,9 @@ curl -XGET example-index/_search -H "Content-Type: application/json" -d '{
 }'
 ```
 
-### Query Results
+### Query results
+
+In this example, the `_size` field is included in the query results and shows the size in bytes of the indexed document.
 
 ```json
 {
@@ -97,4 +98,3 @@ curl -XGET example-index/_search -H "Content-Type: application/json" -d '{
 }
 ```
 
-In this example, the `_size` field is included in the query results. The `_size` field shows the size in bytes of the indexed document.

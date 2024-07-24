@@ -1,16 +1,14 @@
 ---
 layout: default
-title: Additional Plugins
+title: Additional plugins
 parent: Installing plugins
-has_children: true
-nav_order: 20
-redirect_from:
-  - /additional-plugins/index/
+nav_order: 10
+
 ---
 
 # Additional plugins
 
-Members of the OpenSearch community have built countless plugins for the service. Although it isn't possible to build an exhaustive list of every plugin, since many plugins are not maintained within the OpenSearch GitHub repository, the following list of plugins are available to be installed by name using `bin/opensearch-plugin install <plugin-name>`.
+Members of the OpenSearch community have built countless plugins for OpenSearch. While it isn't possible to build an exhaustive list of plugins since many of them are not maintained in the OpenSearch GitHub repository, here are many of them that can be installed by name using `bin/opensearch-plugin install <plugin-name>`.
 
 | Plugin name | Earliest available version |
 | :--- | :--- |
@@ -27,7 +25,7 @@ Members of the OpenSearch community have built countless plugins for the service
 | ingest-attachment | 1.0.0 |
 | mapper-annotated-text | 1.0.0 |
 | mapper-murmur3 | 1.0.0 |
-| mapper-size | 1.0.0 |
+| [`mapper-size`]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/mapper-size-plugin/) | 1.0.0 |
 | query-insights | 2.12.0 |
 | repository-azure | 1.0.0 |
 | repository-gcs | 1.0.0 |
@@ -35,9 +33,3 @@ Members of the OpenSearch community have built countless plugins for the service
 | repository-s3 | 1.0.0 |
 | store-smb | 1.0.0 |
 | transport-nio | 1.0.0 |
-
-### `mapper-size` Plugin
-
-The `mapper-size` plugin enables the use of the `_size` field in OpenSearch indices. This field stores the size in bytes of each document.
-
-See [`mapper-size` Plugin]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/mapper-size-plugin/) for more information about the `mapper-size` plugin.
