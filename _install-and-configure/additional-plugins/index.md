@@ -39,4 +39,4 @@ Members of the OpenSearch community have built countless plugins for the service
 
 The `mapper-size` plugin enables the use of the `_size` field in OpenSearch indices. This field stores the size in bytes of each document.
 
-See [`mapper-size` Plugin]({{site.url}}{{site.baseurl}}/install-and-configure/built-in-plugins/mapper-size-plugin/) for more information about the `mapper-size` plugin.
+See [`mapper-size` Plugin]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/mapper-size-plugin/) for more information about the `mapper-size` plugin.
