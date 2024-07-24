@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Built-In Plugins
+title: Additional Plugins
 nav_order: 20
 has_children: true
 redirect_from:
-  - /built-in-plugins/index/
+  - /additional-plugins/index/
 ---
 
 # Built-in plugins
