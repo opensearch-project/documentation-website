@@ -50,7 +50,7 @@ Parameter | Data type | Description
 `size_in_bytes` | Integer | Disk space used by the segment, such as `50kb`. 
 `memory_in_bytes` | Integer | The amount of segment data, measured in bytes, that is kept in memory to facilitate efficient search operations, such as `1264`. A value of `-1` indicates that OpenSearch was unable to compute this number. 
 `committed` | Boolean | When `true`, the segments are synced to disk. Segments that are synced to disk can survive a hard reboot. If `false`, the data from uncommitted segments is also stored in the transaction log so that OpenSearch can replay the changes on the next start. 
-`search` | Boolean | When `true`, the segment is searchable. If false, the segment has most likely been written to disk but needs a refresh to be searchable. 
+`search` | Boolean | When `true`, the segment is searchable. If false, the segment will likely be written to disk and will need a refresh to be searchable.
 `version` | String | The version of Lucene used to write the segment. 
 `compound` | Boolean | When `true`, Lucene merged all of the files from the segment into a single file to save the file descriptors. 
 `attributes` | Object | Shows whether high compression was enabled. 
