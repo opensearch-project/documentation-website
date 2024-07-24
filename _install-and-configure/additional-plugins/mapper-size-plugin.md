@@ -1,8 +1,10 @@
 ---
 layout: default
 title: mapper-size plugin
-parent: Built-In Plugins
+parent: Additional Plugins
 nav_order: 10
+redirect_from:
+  - /additional-plugins/mapper-size-plugin/
 ---
 
 # mapper-size Plugin

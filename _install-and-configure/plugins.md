@@ -2,6 +2,7 @@
 layout: default
 title: Installing plugins
 nav_order: 90
+has_children: true
 redirect_from:
    - /opensearch/install/plugins/
    - /install-and-configure/install-opensearch/plugins/
