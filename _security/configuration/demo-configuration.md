@@ -23,8 +23,6 @@ The demo configuration is automatically called as part of the setup for each sup
 
 ### Docker
 
-**Note**: Any specific Linux or Unix instructions also work on Mac.
-
 Use the following steps to set up the Security plugin using Docker:
 
 1. Download [docker-compose.yml](https://opensearch.org/downloads.html).
@@ -53,7 +51,7 @@ If you want to disable the Security plugin when using Docker, set the `DISABLE_S
 4. Make sure that Docker is running on your local machine
 5. Run `docker-compose up` from the file directory where your `docker-compose.yml` file and `.env` file are located.
 
-### TAR (Linux)
+### TAR (Linux) & Mac OS 
 
 For TAR distributions on Linux, download the Linux setup files from the OpenSearch [Download & Get Started](https://opensearch.org/downloads.html) page. Then use the following command to run the demo configuration: 
 
