@@ -51,7 +51,7 @@ If you want to disable the Security plugin when using Docker, set the `DISABLE_S
 4. Make sure that Docker is running on your local machine
 5. Run `docker-compose up` from the file directory where your `docker-compose.yml` file and `.env` file are located.
 
-### TAR (Linux) & Mac OS 
+### TAR (Linux) and Mac OS 
 
 For TAR distributions on Linux, download the Linux setup files from the OpenSearch [Download & Get Started](https://opensearch.org/downloads.html) page. Then use the following command to run the demo configuration: 
 
