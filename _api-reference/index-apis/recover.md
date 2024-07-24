@@ -26,7 +26,7 @@ The Recovery API reports solely on completed recoveries for shard copies present
 
 ## Path and HTTP methods
 
-```
+```json
 GET /_recovery
 GET /<index-name>/recovery/
 ```
