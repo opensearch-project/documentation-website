@@ -28,4 +28,4 @@ The following optional query parameters are supported:
 Parameter | Type | Description
 :--- | :--- | :---
 `cluster_manager_timeout` | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
-`timeout` | Time | How long the operation should wait for a response. Default is `30s`.
+`timeout` | Time | The time an operation should wait for a response. Default is `30s`.

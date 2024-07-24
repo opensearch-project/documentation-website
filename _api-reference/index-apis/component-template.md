@@ -32,7 +32,7 @@ Parameter | Data type | Description
 
 The following optional query parameters are supported:
 
-Parameter | Type | Description
+Parameter | Data type | Description
 :--- | :--- | :---
 `create` | Boolean | When true, the API cannot replace or update any existing index templates. Default is `false`.
 `cluster_manager_timeout` | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
@@ -62,7 +62,7 @@ The alias name as the key. Required when the `template` option exists in the req
 
 The object body contains the following optional parameters for the alias:
 
-Parameter | Type | Description
+Parameter | Data type | Description
 :--- | :--- | :---
 `filter` | Query DSL object | The query that limits the documents that the alias can access.
 `index_routing` | String | The value that routes the indexing operations to a specific shard. When specified, overwrites the `routing` value for the indexing operations.

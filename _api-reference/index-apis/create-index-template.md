@@ -29,7 +29,7 @@ The following optional query parameters are supported:
 Parameter | Type | Description
 :--- | :--- | :---
 `create` | Boolean | When true, the API cannot replace or update any existing index templates. Default is `false`.
-`cluster_manager_timeout` | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
+`cluster_manager_timeout` | Time | The time to wait for a connection to the cluster manager node. Default is `30s`.
 
 ## Request body options
 
@@ -38,12 +38,12 @@ The following options can be used in the request body to customize the index tem
 
 Parameter | Type | Description
 :--- | :--- | :---
-`index_patterns` | String array | An array of wildcard expressions which match the names of data streams and indexes during template creation. Required.
+`index_patterns` | String array | An array of wildcard expressions that match the names of data streams and indexes during template creation. Required.
 `composed_of` | String array | An ordered list of component template names. These templates are merged using the order specified. For more information, see [Using multiple component templates](#using-multiple-component-templates). Optional.
 `data_stream` | Object | When used, the request creates data streams and any backing indexes based on the template. This setting requires a matching index template. It can as be used with the `hidden` setting, which, when set to `true` hides the data streams backing indexes. Optional.
 `_meta` | Object | The optional metadata that gives details about the index template. Optional.
-`priority` | Integer | A number which determines which index templates take precedence during the creation of a new index or data stream. OpenSearch chooses the template with highest priority. When no priority is given, the template is assigned a `0`, signifying the lowest priority.  Optional.
-`template` | Object | The template which includes the `aliases`, `mappings`, or `settings` for the index. For more information, see [#template]. Optional.
+`priority` | Integer | A number which determines which index templates take precedence during the creation of a new index or data stream. OpenSearch chooses the template with the highest priority. When no priority is given, the template is assigned a `0`, signifying the lowest priority. Optional.
+`template` | Object | The template that includes the `aliases`, `mappings`, or `settings` for the index. For more information, see [#template]. Optional.
 `version` | Integer | The version number used to manage index templates. Version numbers are not automatically set by OpenSearch. Optional.
 
 
@@ -55,9 +55,9 @@ You can use the following objects with the `template` option in the request body
 
 The alias name as the key. Required when the `template` option exists in the request body.
 
-The object body contains the following optional options for the alias:
+The object body contains the following optional parameters for the alias:
 
-Parameter | Type | Description
+Parameter | Data type | Description
 :--- | :--- | :---
 `filter` | Query DSL object | The query that limits documents the alias can access.
 `index_routing` | String | The value which routes indexing operations to a specific shard. When specified, overwrites the `routing` value for indexing operations.
@@ -143,7 +143,7 @@ PUT /_index_template/template_two
 
 For indexes that start with `ha`, the `_source` is enabled. Since only `template_two` is applied, the index will have two primary shards and one replica.
 
-Overlapping index patterns given the same priority are not allowed. An error will occur when attempting to create a template matching an existing index template at identical priorities.
+Overlapping index patterns given the same priority are not allowed. An error will occur when attempting to create a template matching an existing index template with identical priorities.
 {: .note}
 
 ### Adding template versioning
@@ -203,7 +203,7 @@ PUT /_index_template/template_1
 
 ## Using multiple component templates
 
-When using multiple component templates with the `composed_of` field, the component templates merged in the order specified, with later component template superseding earlier templates in the request body. Next, all mappings, settings, or aliases from the parent index template of the component are merged. Lastly, any configuration options added into the index requests are merged.
+When using multiple component templates with the `composed_of` field, the component templates are merged in the order specified, with later component template superseding earlier templates in the request body. Next, all mappings, settings, or aliases from the parent index template of the component are merged. Lastly, any configuration options added into the index requests are merged.
 
 In the following example, an index with `h*` has two primary shards merged. If the order in the request body were reversed, the index would have one primary shard:
 
@@ -235,6 +235,6 @@ PUT /_index_template/template_1
 {% include copy-curl.html %}
 
 
-Recursive merging is used for mapping definition and root options such as `dynamic_templates` and `meta`, meaning that one an earlier component contains a `meta` block, then new `meta` entries are added to the end of metadata in the index. Any entries with the same key that already exist are overwritten.
+Recursive merging is used for mapping definition and root options such as `dynamic_templates` and `meta`, meaning that when an earlier component contains a `meta` block, then new `meta` entries are added to the end of the metadata in the index. Any entries with the same key that already exist are overwritten.
 
 
