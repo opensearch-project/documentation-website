@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Create or Update Index Template
+title: Create or update index template
 parent: Index APIs
 nav_order: 26
 ---
 
 # Create or update index template
 
-The Create/update index template API lets you initialize indexes with predefined mappings and settings, as well as update existing index template.
+You can use the Create or update index template API to create indexes with predefined mappings and settings, as well as update existing index templates.
 
 ## Path and HTTP methods
 
@@ -18,7 +18,7 @@ POST _index_template/<template-name>
 
 ## Path parameters
 
-Parameter | Type | Description
+Parameter | Data type | Description
 :--- | :--- | :---
 `template-name` | String | Name of the index template.
 
@@ -76,7 +76,7 @@ Any configuration options for the index. For more information, see [Index settin
 
 ## Example requests
 
-The following examples show how to use the Create Index Template API.
+The following examples show how to use the Create or update index template API.
 
 ### Index template with index aliases
 

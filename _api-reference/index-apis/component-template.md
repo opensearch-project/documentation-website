@@ -5,7 +5,7 @@ parent: Index APIs
 nav_order: 29
 ---
 
-# Create or update a component template
+# Create or update component template
 
 You use the Create Component Template API to create or update a component template. A component template is a reusable building block that defines settings, mappings, and aliases that can be shared across multiple index templates. 
 
@@ -81,7 +81,7 @@ Any configuration options for the index. For more information, see [Index settin
 
 ## Example requests
 
-The following example requests show how to use the Create Component template API.
+The following example requests show how to use the Create or update component template API.
 
 ### Create with index aliases
 

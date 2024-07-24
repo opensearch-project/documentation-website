@@ -34,7 +34,7 @@ OpenSearch indexes have the following naming restrictions:
 
 ## Path parameters
 
-Parameter | Type | Description
+Parameter | Data type | Description
 :--- | :--- | :---
 index | String | The index name. Must conform to the [index naming restrictions](#index-naming-restrictions). Required. 
 

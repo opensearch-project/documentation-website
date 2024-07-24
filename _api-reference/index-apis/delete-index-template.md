@@ -7,9 +7,9 @@ nav_order: 28
 
 # Delete index template
 
-The Delete Index Template API deletes one of more index templates.
+The Delete index template API deletes one of more index templates.
 
-## Path and HTTP Methods
+## Path and HTTP methods
 
 ```
 DELETE /_index_template/<template-name>
@@ -27,5 +27,5 @@ The following optional query parameters are supported:
 
 Parameter | Type | Description
 :--- | :--- | :---
-`cluster_manager_timeout` | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
+`cluster_manager_timeout` | Time | The time to wait for a connection to the cluster manager node. Default is `30s`.
 `timeout` | Time | The time an operation should wait for a response. Default is `30s`.
