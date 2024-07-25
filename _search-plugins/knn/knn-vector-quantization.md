@@ -19,9 +19,9 @@ Starting with k-NN plugin version 2.9, you can use `byte` vectors with the Lucen
 
 ## Lucene scalar quantization
 
-Starting with version 2.16, the k-NN plugin supports built-in scalar quantization for the Lucene engine. Unlike the [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector), which requires you to compress vectors before ingesting the documents, the Lucene scalar quantizer compresses input vectors within OpenSearch during ingestion. The Lucene scalar quantizer converts 32-bit floating-point input vectors into 7-bit integer vectors in each segment using the minimum and maximum quantiles computed based on the `confidence_interval` parameter.
+Starting with version 2.16, the k-NN plugin supports built-in scalar quantization for the Lucene engine. Unlike the [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector), which requires you to quantize vectors before ingesting the documents, the Lucene scalar quantizer compresses input vectors within OpenSearch during ingestion. The Lucene scalar quantizer converts 32-bit floating-point input vectors into 7-bit integer vectors in each segment using the minimum and maximum quantiles computed based on the `confidence_interval` parameter.
 
-During search, the query vector is quantized in each segment using the minimum and maximum quantiles of that segment. Then, OpenSearch computes distances from the quantized query vector to the quantized input vectors of that segment. Quantization can decrease the memory footprint by a factor of 4 in exchange for some loss in recall. Additionally, quantization slightly increases disk usage because  it requires storing both the raw input vectors and the quantized vectors.
+During search, the query vector is quantized in each segment using the segment's minimum and maximum quantiles in order to compute the distance of the query vector to the segment's quantized input vectors. Quantization can decrease the memory footprint by a factor of 4 in exchange for some loss in recall. Additionally, quantization slightly increases disk usage because it requires storing both the raw input vectors and the quantized vectors.
 
 ### Using Lucene scalar quantization
 
@@ -67,7 +67,7 @@ The `confidence_interval` is used to compute the minimum and maximum quantiles i
 - Setting `confidence_interval` to `0` specifies to compute the quantiles dynamically, which involves oversampling and additional computations performed on the input data.
 - When `confidence_interval` is not set, it is computed based on the vector dimension $$d$$ using the formula $$max(0.9, 1 - \frac{1}{1 + d})$$.
 
-Lucene scalar quantization applies only to `float` vectors. If you change the default value of the `data_type` parameter from `float` to `byte` or any other type when mapping a [k-NN vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/), Lucene scalar quantization is not applied.
+Lucene scalar quantization is applied only to `float` vectors. If you change the default value of the `data_type` parameter from `float` to `byte` or any other type when mapping a [k-NN vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/), the request is rejected.
 {: .warning}
 
 The following example method definition specifies the Lucene `sq` encoder with the `confidence_interval` set to `1.0`. This `confidence_interval` specifies to consider all the input vectors for computing the minimum and maximum quantiles. Vectors are quantized to 7 bits by default:
