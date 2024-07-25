@@ -54,7 +54,11 @@ _source.excludes | Array | Specifies which fields to exclude in the query respon
 ids | Array | IDs of the documents to retrieve. Only allowed when an index is specified in the URL. | No
 
 
-#### Example without specifying index in URL
+## Example requests
+
+### Specify an index in the request body
+
+The following example requests does specifies an index in the request body:
 
 ```json
 GET _mget
@@ -76,7 +80,9 @@ GET _mget
 ```
 {% include copy-curl.html %}
 
-#### Example of specifying index in URL
+### Specify an index the URL
+
+The following example specifies an index in the URL:
 
 ```json
 GET sample-index1/_mget
@@ -95,7 +101,10 @@ GET sample-index1/_mget
 ```
 {% include copy-curl.html %}
 
-#### Example Response 
+## Example response 
+
+The following example response returns information about multiple documents:
+
 ```json
 {
   "docs": [

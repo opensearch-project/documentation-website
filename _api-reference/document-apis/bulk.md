@@ -134,7 +134,7 @@ All actions support the same metadata: `_index`, `_id`, and `_require_alias`. If
   { "script" : { "source": "ctx._source.title = \"World War Z\"" } }
   ```
 
-## Response
+## Example response
 
 In the response, pay particular attention to the top-level `errors` boolean. If true, you can iterate over the individual actions for more detailed information.
 
