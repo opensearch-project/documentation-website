@@ -719,7 +719,7 @@ The response returns document 1:
 }
 ```
 
-Note that when you indexed the geopoints, you specified their coordinates in the  `"latitude, longitude"` format. When you search for matching documents, the coordinate array is in the `[longitude, latitude]` format. Thus, document 1 is returned in the results but document 2 is not.
+Note that when you indexed the geopoints, you specified their coordinates in the `"latitude, longitude"` format. When you search for matching documents, the coordinate array is in the `[longitude, latitude]` format. Thus, document 1 is returned in the results but document 2 is not.
 
 ## Request fields
 
