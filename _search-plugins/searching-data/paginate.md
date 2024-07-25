@@ -157,8 +157,7 @@ Because open search contexts consume a lot of memory, we suggest you don't use t
 
 ## The `search_after` parameter
 
-The `search_after` parameter provides a live cursor that uses the previous page's results to obtain the next page's results. It is similar to the `scroll` operation in that it is meant to scroll many queries in parallel. 
-This feature is exclusively used when sort condition is applied.
+The `search_after` parameter provides a live cursor that uses the previous page's results to obtain the next page's results. It is similar to the `scroll` operation in that it is meant to scroll many queries in parallel. You can use `search_after` only when sorting is applied.
 
 For example, the following query sorts all lines from the play "Hamlet" by the speech number and then the ID and retrieves the first three results:
 

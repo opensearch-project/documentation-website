@@ -571,15 +571,14 @@ The response contains the matching documents and the aggregation results:
 }
 ```
 
-## Using Sorting with hybrid query
+## Using sorting with a hybrid query
 **Introduced 2.16**
 {: .label .label-purple }
 
-By default, the standard hybrid search without sorting returns search results that are ordered by scores in decreasing order.
-You can apply sorting to hybrid query results by providing the `sort` criteria in the search request. For more information on the sort criteria, see [sort results](https://opensearch.org/docs/latest/search-plugins/searching-data/sort/).
-When sorting is applied to hybrid search, results are fetched from the shards based on the specified sort criteria. As a result, the search results will be sorted accordingly, and the scores will be `null`. Scores will only be present in the hybrid search sorting results if the sort criteria is by `_score`. 
+By default, hybrid search returns results ordered by scores in descending order. You can apply sorting to hybrid query results by providing the `sort` criteria in the search request. For more information about sort criteria, see [Sort results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/sort/).
+When sorting is applied to a hybrid search, results are fetched from the shards based on the specified sort criteria. As a result, the search results are sorted accordingly, and the document scores are `null`. Scores are only present in the hybrid search sorting results if documents are sorted by `_score`. 
 
-In the following example, we use `doc_price` as the sort criteria in the hybrid query search request.
+In the following example, sorting is applied by `doc_price` in the hybrid query search request:
 
 ```json
 GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
@@ -701,7 +700,7 @@ The response contains the matching documents sorted by `doc_price` in decreasing
 }
 ```
 
-Here is another example of a search query where we apply sorting by `_id`.
+In the following example, sorting is applied by `_id`:
 
 ```json
 GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
@@ -823,13 +822,13 @@ The response contains the matching documents sorted by `_id` in decreasing order
 }
 ```
 
-## Hybrid search with search after
+## Hybrid search with search_after
 **Introduced 2.16**
 {: .label .label-purple }
 
-You can control sorting results by applying `search_after` condition that provides a live cursor and uses the previous page’s results to obtain the next page’s results. For more information on `search_after`, see [search_after](https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/#the-search_after-parameter).
+You can control sorting results by applying a `search_after` condition that provides a live cursor and uses the previous page’s results to obtain the next page’s results. For more information about `search_after`, see [The search_after parameter]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#the-search_after-parameter).
 
-By applying `search_after` condition in the sort queries mentioned above, we can paginate the sort results.
+You can paginate the sorted results by applying a `search_after` condition in the sort queries.
 
 In the following example, sorting is applied by `doc_price` with a `search_after` condition:
 
@@ -875,7 +874,7 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 ```
 {% include copy-curl.html %}
 
-The response contains the matching documents that are after `200` and sorted by `doc_price` in decreasing order:
+The response contains the matching documents that are listed after the `200` sort value, sorted by `doc_price` in decreasing order:
 
 ```json
 {
@@ -970,7 +969,7 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 ```
 {% include copy-curl.html %}
 
-The response contains the matching documents that are after `7yaM4JABZkI1FQv8AwoN` and sorted by `id` in decreasing order:
+The response contains the matching documents that are listed after the `7yaM4JABZkI1FQv8AwoN` sort value, sorted by `id` in decreasing order:
 
 ```json
 {
