@@ -1,11 +1,12 @@
 ---
 layout: default
-title: Create or Update Alias
+title: Create or update alias
 parent: Index APIs
 nav_order: 5
 ---
 
 # Create or Update Alias
+
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -16,7 +17,7 @@ The Create or Update Alias API is distinct from the [Alias API]({{site.url}}{{si
 
 ## Path and HTTP methods
 
-```
+```json
 POST /<target>/_alias/<alias-name>
 PUT /<target>/_alias/<alias-name>
 POST /_alias/<alias-name>
