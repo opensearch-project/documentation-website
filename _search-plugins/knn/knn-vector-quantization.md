@@ -115,7 +115,7 @@ In the ideal scenario, 7-bit vectors created by the Lucene scalar quantizer use 
 
 #### HNSW memory estimation
 
-The memory required for the Hierarchical Navigable Small World (HNSW) graph is approximately `1.1 * (dimension + 8 * M)` bytes/vector.
+The memory required for the Hierarchical Navigable Small World (HNSW) graph can be estimated as `1.1 * (dimension + 8 * M)` bytes/vector, where `M` is the maximum number of bi-directional links created for each element during the construction of the graph.
 
 As an example, assume that you have 1 million vectors with a dimension of 256 and M of 16. The memory requirement can be estimated as follows:
 
