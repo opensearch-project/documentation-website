@@ -43,16 +43,16 @@ Parameter | Data type | Description
 
 Parameter | Data type | Description 
  :--- | :--- | :--- 
-`<segment>` | String | The name of the segment, such as `_segment`. The name is generated during the creation of the segment and used to create internal file names in the shard directory. 
-`generation` | Integer | The generation number, such as `0`. OpenSearch increments this generation number for each segment written. OpenSearch then uses this number to derive the segment name. 
-`num_docs` | Integer | The number of documents as reported by Lucene. It counts nested documents separately from their parents, and excludes deleted documents and documents that were indexed recently and do not yet belong to a segment. 
-`deleted_docs` | Integer | The number of deleted documents as reported by Lucene, which may be higher or lower than the number of delete operations you have performed. This number excludes deletes that were performed recently and do not yet belong to a segment. Deleted documents are cleaned up by the automatic merge process if it makes sense to do so. Also, OpenSearch creates extra deleted documents to internally track the recent history of operations on a shard. 
+`<segment>` | String | The name of the segment made during segment creation and used to create internal file names inside of the shard directory. 
+`generation` | Integer | The generation number, such as `0` incremented for each segment written and used this number to derive the segment name. 
+`num_docs` | Integer | The number of documents as reported by Lucene. This setting counts nested documents separately from their parents, and excludes deleted documents and documents that were indexed recently and do not yet belong to a segment. 
+`deleted_docs` | Integer | The number of deleted documents as reported by Lucene, which does not necessarily match the number of delete operations performed. The count excludes documents that were deleted recently and do not yet belong to a segment. Deleted documents are cleaned up by the automatic merge process when it makes sense to do so. OpenSearch will occasionally delete extra documents to internally track the recent history of operations on a shard. 
 `size_in_bytes` | Integer | Disk space used by the segment, such as `50kb`. 
 `memory_in_bytes` | Integer | The amount of segment data, measured in bytes, that is kept in memory to facilitate efficient search operations, such as `1264`. A value of `-1` indicates that OpenSearch was unable to compute this number. 
 `committed` | Boolean | When `true`, the segments are synced to disk. Segments that are synced to disk can survive a hard reboot. If `false`, the data from uncommitted segments is also stored in the transaction log so that OpenSearch can replay the changes on the next start. 
-`search` | Boolean | When `true`, the segment is searchable. If false, the segment will likely be written to disk and will need a refresh to be searchable.
+`search` | Boolean | When `true`, the segment is searchable. Otherwise, the segment will likely be written to disk. Any segments written to disk must be refreshed to be searchable.
 `version` | String | The version of Lucene used to write the segment. 
-`compound` | Boolean | When `true`, Lucene merged all of the files from the segment into a single file to save the file descriptors. 
+`compound` | Boolean | When `true`, Lucene merged all of the files from the segment into a single file to save any file descriptions.
 `attributes` | Object | Shows whether high compression was enabled. 
 
 ## Example requests
