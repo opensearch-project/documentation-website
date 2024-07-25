@@ -9,7 +9,7 @@ nav_order: 6
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Blocks API limits which operations are available on the specified index. OpenSearch provides different types of blocks that allow you to restrict write, read, or metadata operations on an index.  When adding a write block through the API, it ensures that all shards of the index have properly accounted for the block before returning a successful response to the user. This means that any in-flight write operations to the index have been completed before the write block takes effect.
+The Blocks API limits which operations are available on the specified index. OpenSearch provides different types of blocks that allow you to restrict write, read, or metadata operations on an index. When adding a write block through the API, it ensures that all shards of the index have properly accounted for the block before returning a successful response to the user. This means that any in-flight write operations to the index have been completed before the write block takes effect.
 
 ## Path and HTTP methods
 
