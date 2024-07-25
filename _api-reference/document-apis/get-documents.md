@@ -49,7 +49,7 @@ version | Integer | The version of the document to return, which must match the 
 version_type | Enum | Retrieves a specifically typed document. Available options are `external` (retrieve the document if the specified version number is greater than the document's current version) and `external_gte` (retrieve the document if the specified version number is greater than or equal to the document's current version). For example, to retrieve version 3 of a document, use `/_doc/1?version=3&version_type=external`.
 
 
-## Response
+## Example response
 ```json
 {
   "_index": "sample-index1",
