@@ -10,22 +10,26 @@ redirect_from:
 
 # Installing plugins
 
-You can install individual plugins for OpenSearch based on your needs. For a list of the available plugins, see [Available plugins](#available-plugins).
+OpenSearch is comprised of a number of plugins that add features and capabilities to the core platform. The plugins that are available to you are dependent on how OpenSearch was installed and which plugins were subsequently added or removed. For example, the minimal distribution option of OpenSearch enables only core functionality, such as search. Using the minimal distribution of OpenSearch is beneficial when working in a testing environment, you have custom plugins, or are intending to integrate OpenSearch with other services.  
 
-For a plugin to work properly with OpenSearch, it must have the ability to access data and metadata in the cluster. Consequently, to safeguard your cluster's data integrity, it is crucial that you understand a plugin's functionality before installation. Additionally, when opting for a custom plugin, ensure that the source is trustworthy and reliable.
+The standard distribution of OpenSearch has a lot more functionality bundled in. You can choose to add additional plugins or remove any of the plugins you don't need. 
+
+For a sampling of the available plugins, see [Available plugins](#available-plugins).
+
+For a plugin to work properly with OpenSearch, it must have the ability to access data and metadata in the cluster. Consequently, to safeguard your cluster's data integrity, it is crucial that you understand a plugin's functionality before installation. Additionally, when opting for a community-provided plugin, ensure that the source is trustworthy and reliable.
 {: .warning}
 
 ## Managing plugins
 
-OpenSearch uses a command line tool called `opensearch-plugin` for managing plugins. This tool allows you to:
+To manage plugins in OpenSearch, you can use a command line tool called `opensearch-plugin`. This tool allows you to:
 
 - [List](#list) installed plugins.
 - [Install](#install) plugins.
 - [Remove](#remove) an installed plugin.
 
-Print help text by passing `-h` or `--help`. Depending on your host configuration, you might also need to run the command with `sudo` privileges.
+You can print help text by passing `-h` or `--help`. Depending on your host configuration, you might also need to run the command with `sudo` privileges.
 
-If you are running OpenSearch in a Docker container, plugins must be installed, removed, and configured by modifying the Docker image. For more information, see [Working with plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker#working-with-plugins).
+If you're running OpenSearch in a Docker container, plugins must be installed, removed, and configured by modifying the Docker image. For more information, see [Working with plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker#working-with-plugins).
 {: .note}
 
 ## List
@@ -92,7 +96,7 @@ There are three ways to install plugins using the `opensearch-plugin`:
 
 ### Install a plugin by name
 
-For a list of plugins that can be installed by name, see [Additional plugins](#additional-plugins).
+You can install plugins that aren't already prebuilt in your installation by using the plugin name. For a sampling of plugins that may not be pre-installed, see [Additional plugins](#additional-plugins).
 
 #### Usage
 ```bash
@@ -118,6 +122,11 @@ bin/opensearch-plugin install <zip-file>
 ```
 
 #### Example
+<details markdown="block">
+  <summary>
+    Select to expand the example 
+  </summary>
+  {: .text-delta}
 ```bash
 # Zip file is hosted on a remote server - in this case, Maven central repository.
 $ sudo ./opensearch-plugin install https://repo1.maven.org/maven2/org/opensearch/plugin/opensearch-anomaly-detection/2.2.0.0/opensearch-anomaly-detection-2.2.0.0.zip
@@ -167,6 +176,7 @@ for descriptions of what these permissions allow and the associated risks.
 Continue with installation? [y/N]y
 -> Installed opensearch-anomaly-detection with folder name opensearch-anomaly-detection
 ```
+</details>
 
 ### Install a plugin using Maven coordinates
 
@@ -178,6 +188,13 @@ bin/opensearch-plugin install <groupId>:<artifactId>:<version>
 ```
 
 #### Example
+
+<details markdown="block">
+  <summary>
+    Select to expand the example 
+  </summary>
+  {: .text-delta}
+
 ```console
 $ sudo ./opensearch-plugin install org.opensearch.plugin:opensearch-anomaly-detection:2.2.0.0
 -> Installing org.opensearch.plugin:opensearch-anomaly-detection:2.2.0.0
@@ -202,6 +219,7 @@ for descriptions of what these permissions allow and the associated risks.
 Continue with installation? [y/N]y
 -> Installed opensearch-anomaly-detection with folder name opensearch-anomaly-detection
 ```
+</details>
 
 Restart your OpenSearch node after installing a plugin.
 {: .note}
@@ -249,11 +267,11 @@ bin/opensearch-plugin install --batch <plugin-name>
 
 ## Available plugins
 
-OpenSearch provides several bundled and additional plugins. All available plugins need to be installed as instructed above (see [Install](#Install)), but there is an additional step of downloading a zip file before installing any of the additional plugins.  
+OpenSearch provides several bundled and additional plugins. Bundled plugins are available for use immediately with all OpenSearch distributions except the minimal distribution. The additional plugins are available, but must be installed separately with one of the installation options.  
 
 ### Bundled plugins
 
-The following plugins are bundled with all OpenSearch distributions except for the minimum distribution packages. 
+The following plugins are bundled with all OpenSearch distributions except for the minimum distribution packages. If you have the minimum distribution, you can add them using one of the installation methods, or remove, as required.
 
 | Plugin name | Repository | Earliest available version |
 | :--- | :--- | :--- |
@@ -285,7 +303,7 @@ _<sup>2</sup>Performance Analyzer is not available on Windows._
 
 ### Additional plugins
 
-Members of the OpenSearch community have built countless plugins for OpenSearch. For a list of additional plugins, see [Additional plugins]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/index/).
+There are many more plugins available on top of what is provided by default. These additional plugins have been built by OpenSearch developers or members of the OpenSearch community. For a sampling of additional plugins you can install, see [Additional plugins]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/index/).
 
 ## Plugin compatibility
 
