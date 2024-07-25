@@ -10,9 +10,9 @@ redirect_from:
 
 # Installing plugins
 
-You can install individual plugins for OpenSearch based on your needs. For information about available plugins, see [Available plugins](#available-plugins).
+You can install individual plugins for OpenSearch based on your needs. For a list of the available plugins, see [Available plugins](#available-plugins).
 
-For plugins to work properly with OpenSearch, all plugins must have the ability to access the data in the cluster, including metadata about cluster operations. Therefore, to protect your cluster's data and preserve its integrity, first be sure you understand the function of a plugin before installing it on your OpenSearch cluster. Second, when selecting a custom plugin, make sure the plugin's source is a reliable one.
+For a plugin to work properly with OpenSearch, it must have the ability to access data and metadata in the cluster. Consequently, to safeguard your cluster's data integrity, it is crucial that you understand a plugin's functionality before installation. Additionally, when opting for a custom plugin, ensure that the source is trustworthy and reliable.
 {: .warning}
 
 ## Managing plugins
@@ -25,7 +25,7 @@ OpenSearch uses a command line tool called `opensearch-plugin` for managing plug
 
 Print help text by passing `-h` or `--help`. Depending on your host configuration, you might also need to run the command with `sudo` privileges.
 
-If you are running OpenSearch in a Docker container, plugins must be installed, removed, and configured by modifying the Docker image. For information, see [Working with plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker#working-with-plugins)
+If you are running OpenSearch in a Docker container, plugins must be installed, removed, and configured by modifying the Docker image. For more information, see [Working with plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker#working-with-plugins).
 {: .note}
 
 ## List
@@ -58,9 +58,10 @@ opensearch-security
 opensearch-sql
 ```
 
+## List (with CAT API)
 You can also list installed plugins by using the [CAT API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-plugins/).
 
-#### Path and HTTP method
+#### Usage
 
 ```bash
 GET _cat/plugins
@@ -86,10 +87,10 @@ opensearch-node1 opensearch-notifications-core        2.0.1.0
 There are three ways to install plugins using the `opensearch-plugin`:
 
 - [Install a plugin by name](#install-a-plugin-by-name).
-- [Install a plugin from a ZIP file](#install-a-plugin-from-a-zip-file).
+- [Install a plugin from a zip file](#install-a-plugin-from-a-zip-file).
 - [Install a plugin using Maven coordinates](#install-a-plugin-using-maven-coordinates).
 
-### Install a plugin by name:
+### Install a plugin by name
 
 For a list of plugins that can be installed by name, see [Additional plugins](#additional-plugins).
 
@@ -205,7 +206,7 @@ Continue with installation? [y/N]y
 Restart your OpenSearch node after installing a plugin.
 {: .note}
 
-### Installing multiple plugins
+## Installing multiple plugins
 
 Multiple plugins can be installed in a single invocation.
 
@@ -268,7 +269,7 @@ You can specify only one of the `opensearch.version` or `dependencies` propertie
 
 ### Bundled plugins
 
-The following plugins are bundled with all OpenSearch distributions except for minimum distribution packages.
+The following plugins are bundled with all OpenSearch distributions except for the minimum distribution packages.
 
 | Plugin name | Repository | Earliest available version |
 | :--- | :--- | :--- |
@@ -300,7 +301,7 @@ _<sup>2</sup>Performance Analyzer is not available on Windows._
 
 ### Additional plugins
 
-Members of the OpenSearch community have built countless plugins for the service. Although it isn't possible to build an exhaustive list of every plugin, since many plugins are not maintained within the OpenSearch GitHub project. For more information visit [additional plugins]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/index/)
+Members of the OpenSearch community have built countless plugins for OpenSearch. For a list of additional plugins, see [Additional plugins]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/index/).
 
 ## Related links
 
