@@ -17,16 +17,6 @@ The most basic cluster health request returns a simple status of the health of y
 
 To get the status of a specific index, provide the index name.
 
-## Example
-
-This request waits 50 seconds for the cluster to reach the yellow status or better:
-
-```
-GET _cluster/health?wait_for_status=yellow&timeout=50s
-```
-{% include copy-curl.html %}
-
-If the cluster health becomes yellow or green before 50 seconds elapse, it returns a response immediately. Otherwise it returns a response as soon as it exceeds the timeout.
 
 ## Path and HTTP methods
 
@@ -55,7 +45,18 @@ wait_for_no_initializing_shards | Boolean | Whether to wait until there are no i
 wait_for_status | Enum | Wait until the cluster health reaches the specified status or better. Supported values are `green`, `yellow`, and `red`.
 weights | JSON object | Assigns weights to attributes within the request body of the PUT request. Weights can be set in any ration, for example, 2:3:5. In a 2:3:5 ratio with three zones, for every 100 requests sent to the cluster, each zone would receive either 20, 30, or 50 search requests in a random order. When assigned a weight of `0`, the zone does not receive any search traffic. 
 
-#### Example request
+## Example requests
+
+The following examples show how to use the cluster health API.
+
+This request waits 50 seconds for the cluster to reach the yellow status or better:
+
+```
+GET _cluster/health?wait_for_status=yellow&timeout=50s
+```
+{% include copy-curl.html %}
+
+If the cluster health becomes yellow or green before 50 seconds elapse, it returns a response immediately. Otherwise it returns a response as soon as it exceeds the timeout.
 
 The following example request retrieves cluster health for all indexes in the cluster:
 
@@ -64,7 +65,7 @@ GET _cluster/health
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 The response contains cluster health information:
 

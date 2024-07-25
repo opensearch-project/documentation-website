@@ -15,19 +15,6 @@ redirect_from:
 
 The CAT templates operation lists the names, patterns, order numbers, and version numbers of index templates.
 
-## Example
-
-```
-GET _cat/templates?v
-```
-{% include copy-curl.html %}
-
-If you want to get information for a specific template or pattern:
-
-```
-GET _cat/templates/<template_name_or_pattern>
-```
-{% include copy-curl.html %}
 
 ## Path and HTTP methods
 
@@ -47,8 +34,24 @@ Parameter | Type | Description
 local | Boolean | Whether to return information from the local node only instead of from the cluster manager node. Default is `false`.
 cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
 
+## Example requests
 
-## Response
+The following example request returns information about all templates:
+
+```
+GET _cat/templates?v
+```
+{% include copy-curl.html %}
+
+If you want to get information for a specific template or pattern:
+
+```
+GET _cat/templates/<template_name_or_pattern>
+```
+{% include copy-curl.html %}
+
+
+## Example response
 
 ```
 name | index_patterns order version composed_of
