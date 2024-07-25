@@ -170,7 +170,7 @@ Continue with installation? [y/N]y
 
 ### Install a plugin using Maven coordinates
 
-The `opensearch-plugin install` tool also accepts Maven coordinates for available artifacts and versions hosted on [Maven Central](https://search.maven.org/search?q=org.opensearch.plugin). `opensearch-plugin` will parse the Maven coordinates you provide and construct a URL. As a result, the host must be able to connect directly to [Maven Central](https://search.maven.org/search?q=org.opensearch.plugin). The plugin installation will fail if you pass coordinates to a proxy or local repository.
+The `opensearch-plugin install` tool also accepts Maven coordinates for available artifacts and versions hosted on [Maven Central](https://search.maven.org/search?q=org.opensearch.plugin). `opensearch-plugin` parses the Maven coordinates you provide and construct a URL. As a result, the host must be able to connect directly to [Maven Central](https://search.maven.org/search?q=org.opensearch.plugin). The plugin installation fails if you pass coordinates to a proxy or local repository.
 
 #### Usage
 ```bash
@@ -240,7 +240,7 @@ Restart your OpenSearch node after removing a plugin.
 
 ## Batch mode
 
-When installing plugins that require additional privileges not included by default, the plugins will prompt the user for confirmation of the required privileges. To grant all requested privileges, use batch mode to skip the confirmation prompt.
+When installing plugins that require additional privileges that are not included by default, the plugins will prompt the user for confirmation of the required privileges. To grant all requested privileges, use batch mode to skip the confirmation prompt.
 
 To force batch mode when installing plugins, add the `-b` or `--batch` option:
 ```bash
@@ -249,27 +249,11 @@ bin/opensearch-plugin install --batch <plugin-name>
 
 ## Available plugins
 
-OpenSearch provides several bundled and additional plugins.
-
-### Plugin compatibility
-
-A plugin can explicitly specify compatibility with a specific OpenSearch version by listing that version in its `plugin-descriptor.properties` file. For example, a plugin with the following property is compatible only with OpenSearch 2.3.0:
-
-```properties
-opensearch.version=2.3.0
-```
-Alternatively, a plugin can specify a range of compatible OpenSearch versions by setting the `dependencies` property in its `plugin-descriptor.properties` file using one of the following notations:
-- `dependencies={ opensearch: "2.3.0" }`: The plugin is compatible only with OpenSearch version 2.3.0.
-- `dependencies={ opensearch: "=2.3.0" }`: The plugin is compatible only with OpenSearch version 2.3.0.
-- `dependencies={ opensearch: "~2.3.0" }`: The plugin is compatible with all versions starting from 2.3.0 up to the next minor version, in this example, 2.4.0 (exclusive).
-- `dependencies={ opensearch: "^2.3.0" }`: The plugin is compatible with all versions starting from 2.3.0 up to the next major version, in this example, 3.0.0 (exclusive).
-
-You can specify only one of the `opensearch.version` or `dependencies` properties.
-{: .note}
+OpenSearch provides several bundled and additional plugins. All available plugins need to be installed as instructed above (see [Install](#Install)), but there is an additional step of downloading a zip file before installing any of the additional plugins.  
 
 ### Bundled plugins
 
-The following plugins are bundled with all OpenSearch distributions except for the minimum distribution packages.
+The following plugins are bundled with all OpenSearch distributions except for the minimum distribution packages. 
 
 | Plugin name | Repository | Earliest available version |
 | :--- | :--- | :--- |
@@ -303,19 +287,35 @@ _<sup>2</sup>Performance Analyzer is not available on Windows._
 
 Members of the OpenSearch community have built countless plugins for OpenSearch. For a list of additional plugins, see [Additional plugins]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/index/).
 
+## Plugin compatibility
+
+A plugin can explicitly specify compatibility with a specific OpenSearch version by listing that version in its `plugin-descriptor.properties` file. For example, a plugin with the following property is compatible only with OpenSearch 2.3.0:
+
+```properties
+opensearch.version=2.3.0
+```
+Alternatively, a plugin can specify a range of compatible OpenSearch versions by setting the `dependencies` property in its `plugin-descriptor.properties` file using one of the following notations:
+- `dependencies={ opensearch: "2.3.0" }`: The plugin is compatible only with OpenSearch version 2.3.0.
+- `dependencies={ opensearch: "=2.3.0" }`: The plugin is compatible only with OpenSearch version 2.3.0.
+- `dependencies={ opensearch: "~2.3.0" }`: The plugin is compatible with all versions starting from 2.3.0 up to the next minor version, in this example, 2.4.0 (exclusive).
+- `dependencies={ opensearch: "^2.3.0" }`: The plugin is compatible with all versions starting from 2.3.0 up to the next major version, in this example, 3.0.0 (exclusive).
+
+You can specify only one of the `opensearch.version` or `dependencies` properties.
+{: .note}
+
 ## Related links
 
-- [About Observability]({{site.url}}{{site.baseurl}}/observability-plugin/index/)
-- [About security analytics]({{site.url}}{{site.baseurl}}/security-analytics/index/)
-- [About the Security plugin]({{site.url}}{{site.baseurl}}/security/index/)
+- [Observability]({{site.url}}{{site.baseurl}}/observability-plugin/index/)
+- [Security Analytics]({{site.url}}{{site.baseurl}}/security-analytics/index/)
+- [Security]({{site.url}}{{site.baseurl}}/security/index/)
 - [Alerting]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/index/)
 - [Anomaly detection]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/index/)
 - [Asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/index/)
 - [Cross-cluster replication]({{site.url}}{{site.baseurl}}/replication-plugin/index/)
 - [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/)
-- [k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/)
-- [ML Commons plugin]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/)
-- [Neural Search]({{site.url}}{{site.baseurl}}/neural-search-plugin/index/)
+- [k-NN search]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/)
+- [ML Commons]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/)
+- [Neural search]({{site.url}}{{site.baseurl}}/neural-search-plugin/index/)
 - [Notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/)
 - [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/)
 - [Performance Analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/)
