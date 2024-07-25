@@ -8,7 +8,7 @@ nav_order: 10
 
 # Additional plugins
 
-There are many more plugins available on top of what is provided by the standard distribution of OpenSearch. These additional plugins have been built by OpenSearch developers or members of the OpenSearch community. While it isn't possible to provide an exhaustive list (since many plugins are not maintained in an OpenSearch GitHub repository), these are some of the plugins that can be installed by name using one of the installation options, for example, using the command `bin/opensearch-plugin install <plugin-name>`.
+There are many more plugins available on top of what is provided by the standard distribution of OpenSearch. These additional plugins have been built by OpenSearch developers or members of the OpenSearch community. While it isn't possible to provide an exhaustive list (since many plugins are not maintained in an OpenSearch GitHub repository), these are some of the plugins that can be installed using one of the installation options, for example, using the command `bin/opensearch-plugin install <plugin-name>`.
 
 | Plugin name | Earliest available version |
 | :--- | :--- |

@@ -88,7 +88,7 @@ opensearch-node1 opensearch-notifications-core        2.0.1.0
 
 ## Install
 
-There are three ways to install plugins using the `opensearch-plugin`:
+There are three ways to install plugins using the `opensearch-plugin` tool:
 
 - [Install a plugin by name](#install-a-plugin-by-name).
 - [Install a plugin from a zip file](#install-a-plugin-from-a-zip-file).
@@ -114,7 +114,7 @@ $ sudo ./opensearch-plugin install analysis-icu
 
 ### Install a plugin from a zip file
 
-Remote zip files can be installed by replacing `<zip-file>` with the URL of the hosted file. The tool only supports downloading over HTTP/HTTPS protocols. For local zip files, replace `<zip-file>` with `file:` followed by the absolute or relative path to the plugin zip file as in the second example below.
+Remote zip files can be installed by replacing `<zip-file>` with the URL of the hosted file. The tool only supports downloading over HTTP/HTTPS protocols. For local zip files, replace `<zip-file>` with `file:` followed by the absolute or relative path to the plugin zip file as in the second example that follows.
 
 #### Usage
 ```bash
