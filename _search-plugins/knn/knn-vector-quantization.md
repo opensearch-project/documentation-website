@@ -15,19 +15,18 @@ OpenSearch supports many varieties of quantization. In general, the level of qua
 
 ## Lucene byte vector
 
-Starting with k-NN plugin version 2.9, you can use `byte` vectors with the `lucene` engine in order to reduce the amount of required memory. This requires quantizing the vectors outside of OpenSearch before ingesting them into an OpenSearch index. For more information, see [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector).
+Starting with k-NN plugin version 2.9, you can use `byte` vectors with the Lucene engine in order to reduce the amount of required memory. This requires quantizing the vectors outside of OpenSearch before ingesting them into an OpenSearch index. For more information, see [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector).
 
 ## Lucene scalar quantization
 
-Starting with version 2.16, the k-NN plugin supports inbuilt scalar quantization for Lucene engine within OpenSearch. Unlike [lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector), the scalar quantizer in lucene engine quantizes the input vectors from 32-bit float to 7-bit int vectors without any need for quantizing the vectors outside of OpenSearch. 
-The scalar quantizer in lucene dynamically quantizes the input 32-bit floating-point vectors into 7-bit integer vectors in each segment using the minQuantile and maxQuantile computed using the `confidence_interval` parameter.
+Starting with version 2.16, the k-NN plugin supports built-in scalar quantization for the Lucene engine. Unlike the [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector), which requires you to compress vectors before ingesting the documents, the Lucene scalar quantizer compresses input vectors within OpenSearch during ingestion. The Lucene scalar quantizer converts 32-bit floating-point input vectors into 7-bit integer vectors in each segment using the minimum and maximum quantiles computed based on the `confidence_interval` parameter.
 
-During search, the query vector is also quantized in each segment using the minQuantile and maxQuantile of that segment to compute the distance against quantized input vectors of that segment. The quantization can decrease the memory footprint by a factor of 4 at the cost of some recall. But, there is a slight increase
-in the disk usage due to the overhead of storing the input raw vectors and quantized vectors.
+During search, the query vector is quantized in each segment using the minimum and maximum quantiles of that segment. Then, OpenSearch computes distances from the quantized query vector to the quantized input vectors of that segment. Quantization can decrease the memory footprint by a factor of 4 in exchange for some loss in recall. Additionally, quantization slightly increases disk usage because  it requires storing both the raw input vectors and the quantized vectors.
 
 ### Using Lucene scalar quantization
 
-To use the scalar quantizer, set the k-NN vector field’s `method.parameters.encoder.name` to `sq` when creating a k-NN index:
+To use the Lucene scalar quantizer, set the k-NN vector field’s `method.parameters.encoder.name` to `sq` when creating a k-NN index:
+
 ```json
 PUT /test-index
 {
@@ -60,16 +59,19 @@ PUT /test-index
 ```
 {% include copy-curl.html %}
 
-Optionally, you can specify the parameters in `method.parameters.encoder` shown below:
-* `confidence_interval` - used to compute the `minQuantile` and `maxQuantile` parameters which are used to quantize the vectors. The accepted values are: 
-  - It can be any value between and including `0.9` to `1.0`. For example, if we set it to `0.9` then it will consider the middle 90% of the vector values for computing the min and max Quantiles excluding the minimum and maximum 5% of the values.
-  - It can be also set to `0`. It is the dynamic confidence interval which will dynamically compute the min and max quantiles with some oversampling and additional computation of input data (unlike the above one which will statically compute using the provided confidence interval).
-  - By default, when this parameter is not set it will be computed from the dimension of the vector as `Max(0.9, 1 - (1 / (1 + d)))`.
+### Confidence interval
 
-The lucene scalar quantization doesn't work when `data_type` is set to `byte` or any other data type except `float` (the default type).
+Optionally, you can specify the `confidence_interval` parameter in the `method.parameters.encoder` object.
+The `confidence_interval` is used to compute the minimum and maximum quantiles in order to quantize the vectors:
+- If you set the `confidence_interval` to a value in `0.9` to `1.0` range, inclusive, then the quantiles are calculated statically. For example, setting the `confidence_interval` to `0.9` specifies to compute the minimum and maximum quantiles based on the middle 90% of the vector values, excluding the minimum 5% and maximum 5% of the values. 
+- Setting `confidence_interval` to `0` specifies to compute the quantiles dynamically, which involves oversampling and additional computations performed on the input data.
+- When `confidence_interval` is not set, it is computed based on the vector dimension $$d$$ using the formula $$max(0.9, 1 - \frac{1}{1 + d})$$.
+
+Lucene scalar quantization applies only to `float` vectors. If you change the default value of the `data_type` parameter from `float` to `byte` or any other type when mapping a [k-NN vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/), Lucene scalar quantization is not applied.
 {: .warning}
 
-The following example method definition specifies the Lucene sq encoder with `confidence_interval` as `1.0` which will consider all the input vectors for computing the min and max Quantiles and quantizes them (to `7` bits by default).
+The following example method definition specifies the Lucene `sq` encoder with the `confidence_interval` set to `1.0`. This `confidence_interval` specifies to consider all the input vectors for computing the minimum and maximum quantiles. Vectors are quantized to 7 bits by default:
+
 ```json
 PUT /test-index
 {
@@ -109,15 +111,15 @@ There are no changes to ingestion or query mapping and no range limitations for 
 
 ### Memory estimation
 
-In the best-case scenario, 7-bit vectors produced by the Lucene scalar quantizer require 25% of the memory that 32-bit vectors require.
+In the ideal scenario, 7-bit vectors created by the Lucene scalar quantizer use only 25% of the memory required by 32-bit vectors.
 
 #### HNSW memory estimation
 
-The memory required for Hierarchical Navigable Small Worlds (HNSW) is estimated to be `1.1 * (dimension + 8 * M)` bytes/vector.
+The memory required for the Hierarchical Navigable Small World (HNSW) graph is approximately `1.1 * (dimension + 8 * M)` bytes/vector.
 
 As an example, assume that you have 1 million vectors with a dimension of 256 and M of 16. The memory requirement can be estimated as follows:
 
-```bash
+```r
 1.1 * (256 + 8 * 16) * 1,000,000 ~= 0.4 GB
 ```
 
@@ -252,7 +254,7 @@ The memory required for Hierarchical Navigable Small Worlds (HNSW) is estimated 
 
 As an example, assume that you have 1 million vectors with a dimension of 256 and M of 16. The memory requirement can be estimated as follows:
 
-```bash
+```r
 1.1 * (2 * 256 + 8 * 16) * 1,000,000 ~= 0.656 GB
 ```
 
@@ -262,7 +264,7 @@ The memory required for IVF is estimated to be `1.1 * (((2 * dimension) * num_ve
 
 As an example, assume that you have 1 million vectors with a dimension of 256 and `nlist` of 128. The memory requirement can be estimated as follows:
 
-```bash
+```r
 1.1 * (((2 * 256) * 1,000,000) + (4 * 128 * 256))  ~= 0.525 GB
 ```
 
@@ -295,8 +297,8 @@ The memory required for HNSW with PQ is estimated to be `1.1*(((pq_code_size / 8
 
 As an example, assume that you have 1 million vectors with a dimension of 256, `hnsw_m` of 16, `pq_m` of 32, `pq_code_size` of 8, and 100 segments. The memory requirement can be estimated as follows:
 
-```bash
-1.1*((8 / 8 * 32 + 24 + 8 * 16) * 1000000 + 100 * (2^8 * 4 * 256)) ~= 0.215 GB
+```r
+1.1 * ((8 / 8 * 32 + 24 + 8 * 16) * 1000000 + 100 * (2^8 * 4 * 256)) ~= 0.215 GB
 ```
 
 #### IVF memory estimation
@@ -305,6 +307,6 @@ The memory required for IVF with PQ is estimated to be `1.1*(((pq_code_size / 8)
 
 For example, assume that you have 1 million vectors with a dimension of 256, `ivf_nlist` of 512, `pq_m` of 32, `pq_code_size` of 8, and 100 segments. The memory requirement can be estimated as follows:
 
-```bash
+```r
 1.1*((8 / 8 * 64 + 24) * 1000000  + 100 * (2^8 * 4 * 256 + 4 * 512 * 256))  ~= 0.171 GB
 ```
