@@ -267,3 +267,182 @@ else:
 return Byte(bval)
 ```
 {% include copy.html %}
+
+## Binary vector
+By switching from float to binary vectors, users can reduce memory costs by a factor of 32.
+Using binary type vector indices can lower operational costs, and maintain high recall performance, making large-scale deployment more economical and efficient.
+
+### Supported Capabilities
+
+- **Approximate k-NN**: The binary format support is currently available only for the Faiss engine with HNSW and IVF algorithms supported.
+- **Script Score k-NN**: Enables the use of binary vectors in script scoring.
+- **Painless Extensions**: Allows the use of binary vectors with Painless scripting extensions.
+
+### Requirements
+There are several requirements for using binary vectors in OpenSearch k-NN plugin:
+
+#### Data Type
+The `data_type` of the binary vector index must be `binary`.
+
+#### Space Type
+
+The `space_type` of the binary vector index must be `hamming`.
+
+#### Dimension
+
+The `dimension` of the binary vector index must be a multiple of 8.
+
+#### Input Vector
+
+User should encode their binary data into bytes (int8). For example, the binary sequence `0, 1, 1, 0, 0, 0, 1, 1` should be packed into the byte value 99 as binary format vector input.
+
+### Examples
+The following example demonstrates how to create a binary vector index with the Faiss engine and HNSW algorithm:
+
+```json
+PUT test-binary-hnsw
+{
+  "settings": {
+    "index": {
+      "knn": true
+    }
+  },
+  "mappings": {
+    "properties": {
+      "my_vector1": {
+        "type": "knn_vector",
+        "dimension": 8,
+        "data_type": "binary",
+        "method": {
+          "name": "hnsw",
+          "space_type": "hamming",
+          "engine": "faiss",
+          "parameters": {
+            "ef_construction": 128,
+            "m": 24
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Then ingest some documents with binary vectors:
+
+```json
+PUT _bulk?refresh=true
+{"index": {"_index": "test-binary-hnsw", "_id": "1"}}
+{"my_vector": [7], "price": 4.4}
+{"index": {"_index": "test-binary-hnsw", "_id": "2"}}
+{"my_vector": [10], "price": 14.2}
+{"index": {"_index": "test-binary-hnsw", "_id": "3"}}
+{"my_vector": [15], "price": 19.1}
+{"index": {"_index": "test-binary-hnsw", "_id": "4"}}
+{"my_vector": [99], "price": 1.2}
+{"index": {"_index": "test-binary-hnsw", "_id": "5"}}
+{"my_vector": [80], "price": 16.5}
+```
+{% include copy-curl.html %}
+
+
+When querying, be sure to use a binary vector:
+
+```json
+GET test-binary-hnsw/_search
+{
+  "size": 2,
+  "query": {
+    "knn": {
+      "my_vector1": {
+        "vector": [9],
+        "k": 2
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The follow example demonstrates how to create a binary vector index with the Faiss engine and IVF algorithm:
+
+Firstly, we need create the training index and model in binary format. For convenience, we use above `test-binary-hnsw` index and `my_vector1` field as the training index and field to train model.
+
+```json
+POST _plugins/_knn/models/test-binary-model/_train
+{
+  "training_index": "test-binary-hnsw",
+  "training_field": "my_vector",
+  "dimension": 8,
+  "description": "My model description",
+  "data_type": "binary",
+  "method": {
+    "name": "ivf",
+    "engine": "faiss",
+    "space_type": "hamming",
+    "parameters": {
+      "nlist": 1,
+      "nprobes":1
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Then create IVF index with the trained model:
+
+```json
+PUT test-binary-ivf
+{
+  "settings": {
+    "index": {
+      "knn": true
+    }
+  },
+  "mappings": {
+    "properties": {
+      "my_vector1": {
+        "type": "knn_vector",
+        "model_id": "test-binary-model"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Then ingest some documents with binary vectors:
+
+```json
+PUT _bulk?refresh=true
+{"index": {"_index": "test-binary-ivf", "_id": "1"}}
+{"my_vector": [7], "price": 4.4}
+{"index": {"_index": "test-binary-ivf", "_id": "2"}}
+{"my_vector": [10], "price": 14.2}
+{"index": {"_index": "test-binary-ivf", "_id": "3"}}
+{"my_vector": [15], "price": 19.1}
+{"index": {"_index": "test-binary-ivf", "_id": "4"}}
+{"my_vector": [99], "price": 1.2}
+{"index": {"_index": "test-binary-ivf", "_id": "5"}}
+{"my_vector": [80], "price": 16.5}
+```
+{% include copy-curl.html %}
+
+When querying, be sure to use a binary vector:
+
+```json
+GET test-binary-ivf/_search
+{
+  "size": 2,
+  "query": {
+    "knn": {
+      "my_vector1": {
+        "vector": [9],
+        "k": 2
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}

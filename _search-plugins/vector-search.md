@@ -57,7 +57,7 @@ PUT test-index
 
 You must designate the field that will store vectors as a [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/) field type. OpenSearch supports vectors of up to 16,000 dimensions, each of which is represented as a 32-bit or 16-bit float. 
 
-To save storage space, you can use `byte` vectors. For more information, see [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector).
+To save storage space, you can use `byte` or `binary` vectors. For more information, see [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector) and [Binary vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-vector).
 
 ### k-NN vector search
 
