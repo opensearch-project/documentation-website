@@ -45,7 +45,7 @@ Parameter | Data type | Description
  :--- | :--- | :--- 
 `<segment>` | String | The name of the segment, such as `_segment`. The name is generated during the creation of the segment and used to create internal file names in the shard directory. 
 `generation` | Integer | The generation number, such as `0`. OpenSearch increments this generation number for each segment written. OpenSearch then uses this number to derive the segment name. 
-`num_docs` | Integer | The number of documents as reported by Lucene. This excludes deleted documents and counts any nested documents separately from their parents. It also excludes documents that were indexed recently and do not yet belong to a segment. 
+`num_docs` | Integer | The number of documents as reported by Lucene. It counts nested documents separately from their parents, and excludes deleted documents and documents that were indexed recently and do not yet belong to a segment. 
 `deleted_docs` | Integer | The number of deleted documents as reported by Lucene, which may be higher or lower than the number of delete operations you have performed. This number excludes deletes that were performed recently and do not yet belong to a segment. Deleted documents are cleaned up by the automatic merge process if it makes sense to do so. Also, OpenSearch creates extra deleted documents to internally track the recent history of operations on a shard. 
 `size_in_bytes` | Integer | Disk space used by the segment, such as `50kb`. 
 `memory_in_bytes` | Integer | The amount of segment data, measured in bytes, that is kept in memory to facilitate efficient search operations, such as `1264`. A value of `-1` indicates that OpenSearch was unable to compute this number. 
