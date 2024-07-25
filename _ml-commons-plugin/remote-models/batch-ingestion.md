@@ -224,7 +224,7 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
 
 ## Step 6: Perform bulk indexing
 
-To ingest documents in bulk, call the Bulk API and provide the `pipeline` parameter. If you don't provide a `pipeline` parameter, the default ingest pipeline for the index will be used for ingestion:
+To ingest documents in bulk, call the Bulk API and provide the `pipeline` parameter. If you don't provide a `pipeline` parameter, then the default ingest pipeline for the index will be used for ingestion:
 
 ```json
 POST _bulk?batch_size=5&pipeline=nlp-ingest-pipeline
