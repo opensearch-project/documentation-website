@@ -5,10 +5,10 @@ parent: Query insights
 nav_order: 65
 ---
 
-# Query Metrics
+# Query metrics
 
 Query Metrics involves comprehensive instrumentation along the search path to capture key [metrics](#metrics) such as types of aggregations, query types, latency and resource usage per query type.
-Open Telemetry is used to instrument the above and the telemetry data can be consumed using the [otel metrics exporters]({{site.url}}{{site.baseurl}}/observing-your-data/trace/distributed-tracing/).
+Open Telemetry is used as the framework for instrumentation and the telemetry data can be consumed using the [oTel metrics exporters]({{site.url}}{{site.baseurl}}/observing-your-data/trace/distributed-tracing/).
 
 
 ## Configuring query metrics
@@ -16,14 +16,14 @@ Open Telemetry is used to instrument the above and the telemetry data can be con
 The following are needed to configure query metrics:
 
 - [Enable Query Insights plugin](#enable-query-insights-plugin)
-- [Enable Otel plugin](#enable-otel-plugin)
+- [Enable OTel plugin](#enable-otel-plugin)
 - [Configuration](#configuration)
 
-### Enable Query Insights plugin
+### Enable query insights plugin
 - Need to install the query-insights plugin. See the [following]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/index/) for more details.
 
-### Enable OpenTelemetry plugin
-- Need to install the telemetry-otel plugin. See the [following]({{site.url}}{{site.baseurl}}/observing-your-data/trace/distributed-tracing/) for more details.
+### Enable openTelemetry plugin
+- Need to install the `telemetry-otel` plugin. See the [following]({{site.url}}{{site.baseurl}}/observing-your-data/trace/distributed-tracing/) for more details.
 
 ### Configuration
 Configuration to enable the query metrics feature:
@@ -69,16 +69,16 @@ telemetry.otel.metrics.exporter.class: io.opentelemetry.exporter.otlp.metrics.Ot
 Following instrumentation has been added as part of this feature:
 - Count of the number of queries per query type (Eg: count of match, regex queries)
 - Count of the number of queries per aggregation type (Eg: count of TermsAggregation queries)
-- Count of the number of queries per sort order (Eg: count of asc, desc sort queries)
-- Histogram for the latency per query type, aggregation type and sort order
-- Histogram for the cpu per query type, aggregation type and sort order
-- Histogram for the memory query type, aggregation type and sort order
+- Count of the number of queries per sort order (Eg: count of ascending, descending sort queries)
+- Histogram for the `latency` per query type, aggregation type and sort order
+- Histogram for the `cpu` per query type, aggregation type and sort order
+- Histogram for the `memory` query type, aggregation type and sort order
 
-## Default Logging Exporter
+## Default logging exporter
 If no grpc exporters are configured the metrics and traces are exported to the logs files by default.
 Under `opensearch/logs` the telemetry data can be found in the following files:
-1. opensearch_otel_metrics.log
-2. opensearch_otel_traces.log
+1. `opensearch_otel_metrics.log`
+2. `opensearch_otel_traces.log`
 
 
 
