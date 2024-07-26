@@ -23,7 +23,7 @@ GET <index>/_doc/<_id>
 HEAD <index>/_doc/<_id>
 ```
 
-Use `_source` to retrieve just the document source or verify that it exists.
+Use `_source` to retrieve the document source or verify that it exists.
 
 ```
 GET <index>/_source/<_id>
@@ -61,10 +61,10 @@ GET test-index/_doc/0?_source=false
 
 #### `source` includes and excludes
 
-If you only need specific fields from the `_source`, use the `_source_includes` or `_source_excludes` parameters to include or exclude particular fields, respectively. This can be beneficial for large documents, as retrieving only the required fields can reduce network overhead. Both parameters accept a comma-separated list of fields or wildcard expressions, as shown in the following example:
+If you only need specific fields from the `_source`, use the `_source_includes` or `_source_excludes` parameters to include or exclude particular fields, respectively. This can be beneficial for large documents, as retrieving only the required fields can reduce network overhead. Both parameters accept a comma-separated list of fields or wildcard expressions, as shown in the following example where any `_source` that contains `*.play` is included in the response, but excludes sources with the field `entities`:
 
 ```
-GET test-index/_doc/0?_source_includes=*.id&_source_excludes=entities
+GET test-index/_doc/0?_source_includes=*.play&_source_excludes=entities
 ```
 
 #### Shorter notation
