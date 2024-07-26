@@ -114,7 +114,7 @@ $ sudo ./opensearch-plugin install analysis-icu
 
 ### Install a plugin from a zip file
 
-Remote zip files can be installed by replacing `<zip-file>` with the URL of the hosted file. The tool only supports downloading over HTTP/HTTPS protocols. For local zip files, replace `<zip-file>` with `file:` followed by the absolute or relative path to the plugin zip file as in the second example that follows.
+You can install remote zip files by replacing `<zip-file>` with the URL of the hosted file. The tool supports downloading over HTTP/HTTPS protocols only. For local zip files, replace `<zip-file>` with `file:` followed by the absolute or relative path to the plugin zip file, as in the second example that follows.
 
 #### Usage
 ```bash
@@ -180,7 +180,7 @@ Continue with installation? [y/N]y
 
 ### Install a plugin using Maven coordinates
 
-The `opensearch-plugin install` tool also accepts Maven coordinates for available artifacts and versions hosted on [Maven Central](https://search.maven.org/search?q=org.opensearch.plugin). `opensearch-plugin` parses the Maven coordinates you provide and construct a URL. As a result, the host must be able to connect directly to [Maven Central](https://search.maven.org/search?q=org.opensearch.plugin). The plugin installation fails if you pass coordinates to a proxy or local repository.
+The `opensearch-plugin install` tool also allows you to specify Maven coordinates for available artifacts and versions hosted on [Maven Central](https://search.maven.org/search?q=org.opensearch.plugin). The tool parses the Maven coordinates you provide and constructs a URL. As a result, the host must be able to connect directly to the Maven Central site. The plugin installation fails if you pass coordinates to a proxy or local repository.
 
 #### Usage
 ```bash
