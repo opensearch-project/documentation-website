@@ -53,7 +53,6 @@ Authentication against Kerberos through a browser on an HTTP level is achieved u
 As with [HTTP Basic Authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/basic-authc/), this flag determines how the Security plugin should react when no `Authorization` header is found in the HTTP request or if this header does not equal `negotiate`.
 If set to `true`, the Security plugin sends a response with status code 401 and a `WWW-Authenticate` header set to `negotiate`. This tells the client (browser) to resend the request with the `Authorization` header set. If set to `false`, the Security plugin cannot extract the credentials from the request, and authentication fails. Setting `challenge` to `false` thus makes sense only if the Kerberos credentials are sent in the initial request.
 
-
 Name | Description
 :--- | :---
 `krb_debug` | As the name implies, setting it to `true` will output Kerberos-specific debugging messages to `stdout`. Use this setting if you encounter problems with your Kerberos integration.
