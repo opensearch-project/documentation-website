@@ -157,10 +157,10 @@ The default `config/opensearch-security/config.yml` file included in your OpenSe
 To learn about configuring the authentication backends, see the [Authentication backends]({{site.url}}{{site.baseurl}}/security/authentication-backends/) documentation. Alternatively, you can view documentation for a specific backend by using the links in the following list of topics:
 
 * [HTTP basic authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/basic-authc/)
-* [Kerberos authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/kerberos/)
 * [JSON Web Token]({{site.url}}{{site.baseurl}}/security/authentication-backends/jwt/)
 * [OpenID Connect]({{site.url}}{{site.baseurl}}/security/authentication-backends/openid-connect/)
 * [SAML]({{site.url}}{{site.baseurl}}/security/authentication-backends/saml/)
 * [Active Directory and LDAP]({{site.url}}{{site.baseurl}}/security/authentication-backends/ldap/)
 * [Proxy-based authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/proxy/)
 * [Client certificate authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/client-auth/)
+* [Kerberos authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/kerberos/)
