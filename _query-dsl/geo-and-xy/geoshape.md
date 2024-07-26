@@ -612,7 +612,7 @@ The response contains both documents:
 
 You can also use a geoshape query to search for documents containing geopoints. 
 
-Geoshape queries on geopoints only support the default `INTERSECTS` spatial relation, so you don't need to provide the `relation` parameter.
+Geoshape queries on geopoint fields only support the default `INTERSECTS` spatial relation, so you don't need to provide the `relation` parameter.
 {: .note}
 
 {: .important }
