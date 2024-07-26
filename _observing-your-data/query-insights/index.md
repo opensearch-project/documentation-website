@@ -36,3 +36,4 @@ For information about installing plugins, see [Installing plugins]({{site.url}}{
 Query insights features support the following settings:
 
 - [Top n queries]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/)
+- [Query Metrics]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/query-metrics/)
