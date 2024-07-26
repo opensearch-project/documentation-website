@@ -16,7 +16,7 @@ The standard distribution of OpenSearch has a lot more functionality bundled in.
 
 For a sampling of the available plugins, see [Available plugins](#available-plugins).
 
-For a plugin to work properly with OpenSearch, it must have the ability to access data and metadata in the cluster. Consequently, to safeguard your cluster's data integrity, it is crucial that you understand a plugin's functionality before installation. Additionally, when opting for a community-provided plugin, ensure that the source is trustworthy and reliable.
+For a plugin to work properly with OpenSearch, it may request certain permissions as part of the installation process. Please review the requested permissions and proceed accordingly. It is important that you understand a plugin's functionality before installation. When opting for a community-provided plugin, ensure that the source is trustworthy and reliable.
 {: .warning}
 
 ## Managing plugins
