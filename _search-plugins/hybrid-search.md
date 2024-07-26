@@ -621,7 +621,7 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 ```
 {% include copy-curl.html %}
 
-The response contains the matching documents sorted by `doc_price` in decreasing order:
+The response contains the matching documents sorted by `doc_price` in descending order:
 
 ```json
 {
@@ -743,7 +743,7 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 ```
 {% include copy-curl.html %}
 
-The response contains the matching documents sorted by `_id` in decreasing order:
+The response contains the matching documents sorted by `_id` in descending order:
 
 ```json
 {
@@ -826,7 +826,7 @@ The response contains the matching documents sorted by `_id` in decreasing order
 **Introduced 2.16**
 {: .label .label-purple }
 
-You can control sorting results by applying a `search_after` condition that provides a live cursor and uses the previous page’s results to obtain the next page’s results. For more information about `search_after`, see [The search_after parameter]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#the-search_after-parameter).
+You can control sorting results by applying a `search_after` condition that provides a live cursor and uses the previous page's results to obtain the next page's results. For more information about `search_after`, see [The search_after parameter]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#the-search_after-parameter).
 
 You can paginate the sorted results by applying a `search_after` condition in the sort queries.
 
@@ -874,7 +874,7 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 ```
 {% include copy-curl.html %}
 
-The response contains the matching documents that are listed after the `200` sort value, sorted by `doc_price` in decreasing order:
+The response contains the matching documents that are listed after the `200` sort value, sorted by `doc_price` in descending order:
 
 ```json
 {
@@ -969,7 +969,7 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 ```
 {% include copy-curl.html %}
 
-The response contains the matching documents that are listed after the `7yaM4JABZkI1FQv8AwoN` sort value, sorted by `id` in decreasing order:
+The response contains the matching documents that are listed after the `7yaM4JABZkI1FQv8AwoN` sort value, sorted by `id` in descending order:
 
 ```json
 {
