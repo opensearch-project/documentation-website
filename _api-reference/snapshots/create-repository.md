@@ -48,7 +48,7 @@ Request field | Description
 `remote_store_index_shallow_copy` | Boolean | Determines whether the snapshot of the remote store indexes are captured as a shallow copy. Default is `false`.
 `readonly` | Whether the repository is read-only. Useful when migrating from one cluster (`"readonly": false` when registering) to another cluster (`"readonly": true` when registering). Optional.
 
-#### Example request
+## Example request
 
 The following example registers an `fs` repository using the local directory `/mnt/snapshots` as `location`.
 
@@ -85,7 +85,7 @@ Request field | Description
 For the `base_path` parameter, do not enter the `s3://` prefix when entering your S3 bucket details. Only the name of the bucket is required.
 {: .note}
 
-#### Example request
+## Example request
 
 The following request registers a new S3 repository called `my-opensearch-repo` in an existing bucket called `my-open-search-bucket`. By default, all snapshots are stored in the `my/snapshot/directory`.
 
@@ -101,7 +101,7 @@ PUT /_snapshot/my-opensearch-repo
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 Upon success, the following JSON object is returned:
 
