@@ -304,7 +304,7 @@ _<sup>2</sup>Performance Analyzer is not available on Windows._
 
 ### Additional plugins
 
-There are many more plugins available on top of what is provided by default. These additional plugins have been built by OpenSearch developers or members of the OpenSearch community. For a sampling of additional plugins you can install, see [Additional plugins]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/index/).
+There are many more plugins available on top of what is provided in the default distribution. These additional plugins have been built by OpenSearch developers or members of the OpenSearch community. For a sampling of additional plugins you can install, see [Additional plugins]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/index/).
 
 ## Plugin compatibility
 
