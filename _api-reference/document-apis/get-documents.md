@@ -14,67 +14,6 @@ redirect_from:
 After adding a JSON document to your index, you can use the Get Document API operation to retrieve the document's information and data.
 
 
-## Realtime
-
-The Get Document API in OpenSearch operates in realtime mode by default, meaning it retrieves the latest version of the document regardless of the index's refresh rate (which determines when new data becomes searchable). However, if you request stored fields (using the `stored_fields` parameter) for a document that has been updated but not yet refreshed, the Get Document API needs to parse and analyze the document's source to extract those stored fields. To disable this realtime behavior and retrieve the document based on the last refreshed state of the index, set the `realtime` parameter to false.
-
-## Source filtering
-
-By default, the Get Document API returns the entire contents of the `_source` field for the requested document. However, you can choose to exclude the `_source` field from the response by using the `_source` URL parameter and setting it to false, as shown in the following example:
-
-```json
-GET test-index/_doc/0?_source=false
-```
-
-### `source` includes and excludes
-
-If you only need specific fields from the `_source`, use the `_source_includes` or `_source_excludes` parameters to include or exclude particular fields, respectively. This can be beneficial for large documents, as retrieving only the required fields can reduce network overhead. Both parameters accept a comma-separated list of fields or wildcard expressions, as shown in the following example:
-
-```
-GET test-index/_doc/0?_source_includes=*.id&_source_excludes=entities
-```
-
-### Shorter notation
-
-If only want to include certain fields and don't need to exclude any, you can use a shorter notation by specifying the desired fields directly in the `_source` parameter:
-
-```json
-GET test-index/_doc/0?_source=*.id
-```
-
-### Routing
-
-If routing is used during indexing, the routing value also needs to be specified to retrieve a document. For example:
-
-```json
-GET test-index/_doc/2?routing=user1
-```
-
-This request gets the document with id 2, but it is routed based on the user. The document is not fetched if the correct routing is not specified.
-
-### Preference
-
-Controls a preference of which shard replicas to execute the get request on. By default, the operation is randomized between the shard replicas.
-
-The preference can be set to:
-
-- `_local`: The operation will prefer to be executed on a local allocated shard if possible.
-- Custom (string) value: A custom value will be used to guarantee that the same shards will be used for the same custom value. This can help with "jumping values" when hitting different shards in different refresh states. A sample value can be something like the web session id, or the user name.
-
-### Refresh
-
-The refresh parameter can be set to true in order to refresh the relevant shard before the get operation and make it searchable. Setting it to true should be done after careful thought and verification that this does not cause a heavy load on the system (and slows down indexing).
-
-### Distributed
-
-The get operation gets hashed into a specific shard id. It then gets redirected to one of the replicas within that shard id and returns the result. The replicas are the primary shard and its replicas within that shard id group. This means that the more replicas we have, the better GET scaling we will have.
-
-### Versioning support
-
-You can use the version parameter to retrieve the document only if its current version is equal to the specified one.
-
-Internally, OpenSearch has marked the old document as deleted and added an entirely new document. The old version of the document doesn't disappear immediately, although you won't be able to access it. OpenSearch cleans up deleted documents in the background as you continue to index more data.
-
 ## Path and HTTP methods
 
 Use the GET method to retrieve a document and its source or stored fields from a particular index. Use the HEAD method to verify that a document exists. 
