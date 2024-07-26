@@ -16,12 +16,12 @@ The standard distribution of OpenSearch has a lot more functionality bundled in.
 
 For a sampling of the available plugins, see [Available plugins](#available-plugins).
 
-For a plugin to work properly with OpenSearch, it may request certain permissions as part of the installation process. Please review the requested permissions and proceed accordingly. It is important that you understand a plugin's functionality before installation. When opting for a community-provided plugin, ensure that the source is trustworthy and reliable.
+For a plugin to work properly with OpenSearch, it may request certain permissions as part of the installation process. Review the requested permissions and proceed accordingly. It is important that you understand a plugin's functionality before installation. When opting for a community-provided plugin, ensure that the source is trustworthy and reliable.
 {: .warning}
 
 ## Managing plugins
 
-To manage plugins in OpenSearch, you can use a command line tool called `opensearch-plugin`. This tool allows you to:
+To manage plugins in OpenSearch, you can use a command line tool called `opensearch-plugin`. This tool allows you to perform the following actions:
 
 - [List](#list) installed plugins.
 - [Install](#install) plugins.
@@ -114,7 +114,7 @@ $ sudo ./opensearch-plugin install analysis-icu
 
 ### Install a plugin from a zip file
 
-You can install remote zip files by replacing `<zip-file>` with the URL of the hosted file. The tool supports downloading over HTTP/HTTPS protocols only. For local zip files, replace `<zip-file>` with `file:` followed by the absolute or relative path to the plugin zip file, as in the second example that follows.
+You can install remote zip files by replacing `<zip-file>` with the URL of the hosted file. The tool supports downloading over HTTP/HTTPS protocols only. For local zip files, replace `<zip-file>` with `file:` followed by the absolute or relative path to the plugin zip file, as shown in the second example that follows.
 
 #### Usage
 ```bash
@@ -127,6 +127,7 @@ bin/opensearch-plugin install <zip-file>
     Select to expand the example 
   </summary>
   {: .text-delta}
+  
 ```bash
 # Zip file is hosted on a remote server - in this case, Maven central repository.
 $ sudo ./opensearch-plugin install https://repo1.maven.org/maven2/org/opensearch/plugin/opensearch-anomaly-detection/2.2.0.0/opensearch-anomaly-detection-2.2.0.0.zip

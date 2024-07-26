@@ -8,11 +8,11 @@ nav_order: 20
 
 # Mapper-size plugin
 
-The `mapper-size` plugin enables the use of the `_size` field in OpenSearch indexes. This field stores the size in bytes of each document.
+The `mapper-size` plugin enables the use of the `_size` field in OpenSearch indexes. The `_size` field stores size, in bytes, of each document.
 
 ## Installing the plugin
 
-You can install the `mapper-size` plugin using:
+You can install the `mapper-size` plugin using the following command:
 
 ```sh
 ./bin/opensearch-plugin install mapper-size
@@ -20,7 +20,7 @@ You can install the `mapper-size` plugin using:
 
 ## Examples
 
-After starting up a cluster, you can create an index with size mapping enabled, index a document, and search for documents.
+After starting up a cluster, you can create an index with size mapping enabled, index a document, and search for documents, as shown in the following examples.
 
 ### Create an index with size mapping enabled
 
@@ -64,7 +64,7 @@ curl -XGET example-index/_search -H "Content-Type: application/json" -d '{
 
 ### Query results
 
-In this example, the `_size` field is included in the query results and shows the size in bytes of the indexed document.
+In this example, the `_size` field is included in the query results and shows the size, in bytes, of the indexed document.
 
 ```json
 {
