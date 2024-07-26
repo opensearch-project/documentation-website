@@ -12,7 +12,6 @@ A fuzzy query searches for documents containing terms that are similar to the se
 - Replacements: **c**at to **b**at
 - Insertions: cat to cat**s**
 - Deletions: **c**at to at
-- Transpositions: **ca**t to **ac**t
 
 A fuzzy query creates a list of all possible expansions of the search term that fall within the Levenshtein distance. You can specify the maximum number of such expansions in the `max_expansions` field. Then it searches for documents that match any of the expansions.
 
