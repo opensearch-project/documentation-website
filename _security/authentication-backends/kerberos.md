@@ -26,10 +26,10 @@ plugins.security.kerberos.acceptor_principal: 'HTTP/localhost'
 Name | Description
 :--- | :---
 `krb5_filepath` | the path to your Kerberos configuration file. This file contains various settings regarding your Kerberos installation, for example, the realm names, hostnames, and ports of the Kerberos key distribution center (KDC).
-`acceptor_keytab_filepath` | the path to the keytab file, which contains the principal that the Security plugin uses to issue requests against Kerberos.
-`acceptor_principal` | defines the principal that the Security plugin uses to issue requests against Kerberos. This value must be present in the keytab file.
+`acceptor_keytab_filepath` | the path to the `keytab` file, which contains the principal that the Security plugin uses to issue requests against Kerberos.
+`acceptor_principal` | defines the principal that the Security plugin uses to issue requests against Kerberos. This value must be present in the `keytab` file.
 
-Due to security restrictions, the keytab file must be placed in `config` or a subdirectory, and the path in `opensearch.yml` must be relative, not absolute.
+Due to security restrictions, the `keytab` file must be placed in `config` or a subdirectory, and the path in `opensearch.yml` must be relative, not absolute.
 {: .note }
 
 ## Cluster security configuration
