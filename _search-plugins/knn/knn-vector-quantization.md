@@ -19,13 +19,13 @@ Starting with k-NN plugin version 2.9, you can use `byte` vectors with the Lucen
 
 ## Lucene scalar quantization
 
-Starting with version 2.16, the k-NN plugin supports built-in scalar quantization for the Lucene engine. Unlike the [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector), which requires you to quantize vectors before ingesting the documents, the Lucene scalar quantizer quantizes input vectors within OpenSearch during ingestion. The Lucene scalar quantizer converts 32-bit floating-point input vectors into 7-bit integer vectors in each segment using the minimum and maximum quantiles computed based on the [`confidence_interval`](#confidence-interval) parameter. During search, the query vector is quantized in each segment using the segment’s minimum and maximum quantiles in order to compute the distance between the query vector and the segment’s quantized input vectors. 
+Starting with version 2.16, the k-NN plugin supports built-in scalar quantization for the Lucene engine. Unlike the [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector), which requires you to quantize vectors before ingesting the documents, the Lucene scalar quantizer quantizes input vectors in OpenSearch during ingestion. The Lucene scalar quantizer converts 32-bit floating-point input vectors into 7-bit integer vectors in each segment using the minimum and maximum quantiles computed based on the [`confidence_interval`](#confidence-interval) parameter. During search, the query vector is quantized in each segment using the segment's minimum and maximum quantiles in order to compute the distance between the query vector and the segment's quantized input vectors. 
 
 Quantization can decrease the memory footprint by a factor of 4 in exchange for some loss in recall. Additionally, quantization slightly increases disk usage because it requires storing both the raw input vectors and the quantized vectors.
 
 ### Using Lucene scalar quantization
 
-To use the Lucene scalar quantizer, set the k-NN vector field’s `method.parameters.encoder.name` to `sq` when creating a k-NN index:
+To use the Lucene scalar quantizer, set the k-NN vector field's `method.parameters.encoder.name` to `sq` when creating a k-NN index:
 
 ```json
 PUT /test-index
@@ -63,14 +63,14 @@ PUT /test-index
 
 Optionally, you can specify the `confidence_interval` parameter in the `method.parameters.encoder` object.
 The `confidence_interval` is used to compute the minimum and maximum quantiles in order to quantize the vectors:
-- If you set the `confidence_interval` to a value in `0.9` to `1.0` range, inclusive, then the quantiles are calculated statically. For example, setting the `confidence_interval` to `0.9` specifies to compute the minimum and maximum quantiles based on the middle 90% of the vector values, excluding the minimum 5% and maximum 5% of the values. 
+- If you set the `confidence_interval` to a value in the `0.9` to `1.0` range, inclusive, then the quantiles are calculated statically. For example, setting the `confidence_interval` to `0.9` specifies to compute the minimum and maximum quantiles based on the middle 90% of the vector values, excluding the minimum 5% and maximum 5% of the values. 
 - Setting `confidence_interval` to `0` specifies to compute the quantiles dynamically, which involves oversampling and additional computations performed on the input data.
 - When `confidence_interval` is not set, it is computed based on the vector dimension $$d$$ using the formula $$max(0.9, 1 - \frac{1}{1 + d})$$.
 
-Lucene scalar quantization is applied only to `float` vectors. If you change the default value of the `data_type` parameter from `float` to `byte` or any other type when mapping a [k-NN vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/), the request is rejected.
+Lucene scalar quantization is applied only to `float` vectors. If you change the default value of the `data_type` parameter from `float` to `byte` or any other type when mapping a [k-NN vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/), then the request is rejected.
 {: .warning}
 
-The following example method definition specifies the Lucene `sq` encoder with the `confidence_interval` set to `1.0`. This `confidence_interval` specifies to consider all the input vectors for computing the minimum and maximum quantiles. Vectors are quantized to 7 bits by default:
+The following example method definition specifies the Lucene `sq` encoder with the `confidence_interval` set to `1.0`. This `confidence_interval` specifies to consider all the input vectors when computing the minimum and maximum quantiles. Vectors are quantized to 7 bits by default:
 
 ```json
 PUT /test-index
