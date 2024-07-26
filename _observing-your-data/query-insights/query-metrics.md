@@ -16,7 +16,7 @@ Open Telemetry is used as the framework for instrumentation and the telemetry da
 The following are needed to configure query metrics:
 
 - [Enable Query Insights plugin](#enable-query-insights-plugin)
-- [Enable OTel plugin](#enable-otel-plugin)
+- [Enable OTel plugin](#enable-opentelemetry-plugin)
 - [Configuration](#configuration)
 
 ### Enable query insights plugin
