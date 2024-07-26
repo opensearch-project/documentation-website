@@ -18,7 +18,7 @@ When you provide a geoshape to the geoshape query, the geopoint and geoshape fie
 
 Relation | Description | Supporting geographic field type
 :--- | :--- | :--- 
-`INTERSECTS` | (Default) Matches documents whose geopoint or geoshape intersects the shape provided in the query. | `geo_point`, `geo_shape`
+`INTERSECTS` | (Default) Matches documents whose geopoint or geoshape intersects with the shape provided in the query. | `geo_point`, `geo_shape`
 `DISJOINT` | Matches documents whose geoshape does not intersect with the shape provided in the query. | `geo_shape`
 `WITHIN` | Matches documents whose geoshape is completely within the shape provided in the query. | `geo_shape`
 `CONTAINS` | Matches documents whose geoshape completely contains the shape provided in the query. | `geo_shape`
@@ -35,7 +35,7 @@ The following example illustrates searching for documents containing geoshapes t
 
 #### Step 1: Create an index
 
-First, create an index and map the `location` field as an `geo_shape`:
+First, create an index and map the `location` field as a `geo_shape`:
 
 ```json
 PUT /testindex
@@ -53,7 +53,7 @@ PUT /testindex
 
 ### Step 2: Index documents
 
-Index a document containing a point and a document containing a polygon:
+Index one document containing a point and another containing a polygon:
 
 ```json
 PUT testindex/_doc/1
@@ -251,7 +251,7 @@ Linestring geoshape queries do not support the `WITHIN` relation.
 
 #### Polygon
 
-In GeoJSON format, you must list the vertices of the polygon counterclockwise and close the polygon so the first vertex and the last vertex are the same.
+In GeoJSON format, you must list the vertices of the polygon in counterclockwise order and close the polygon so that the first vertex and the last vertex are the same.
 
 Search for documents whose geoshape fields are within the provided polygon:
 
@@ -432,12 +432,12 @@ The `indexed_shape` object supports the following parameters.
 
 Parameter | Required/Optional | Description
 :--- | :--- | :---
-`id` | Required | The document ID of the document that contains the pre-indexed shape. 
-`index` | Optional | The name of the index that contains the pre-indexed shape. Default is `shapes`.
-`path` | Optional | The field name of the field that contains the pre-indexed shape as a path. Default is `shape`.
+`id` | Required | The document ID of the document containing the pre-indexed shape. 
+`index` | Optional | The name of the index containing the pre-indexed shape. Default is `shapes`.
+`path` | Optional | The field name of the field containing the pre-indexed shape as a path. Default is `shape`.
 `routing` | Optional | The routing of the document containing the pre-indexed shape.
 
-The following example illustrates referencing the name of a shape pre-indexed in another index. In this example, the index `pre-indexed-shapes` contains the shape that defines the boundaries, and the index `testindex` contains the shapes that are checked against those boundaries.
+The following example illustrates how to reference the name of a shape pre-indexed in another index. In this example, the index `pre-indexed-shapes` contains the shape that defines the boundaries, and the index `testindex` contains the shapes that are checked against those boundaries.
 
 First, create the `pre-indexed-shapes` index and map the `boundaries` field for this index as a `geo_shape`:
 
@@ -458,7 +458,7 @@ PUT /pre-indexed-shapes
 
 For more information about specifying a different vertex orientation for polygons, see [Polygon]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/geo-shape/#polygon). 
 
-Index a polygon that specifies the search boundaries into the `pre-indexed-shapes` index. The polygon's ID is `search_triangle`. In this example, you'll index the polygon in WKT format:
+Index a polygon specifying the search boundaries into the `pre-indexed-shapes` index. The polygon's ID is `search_triangle`. In this example, you'll index the polygon in WKT format:
 
 ```json
 PUT /pre-indexed-shapes/_doc/search_triangle
@@ -469,7 +469,7 @@ PUT /pre-indexed-shapes/_doc/search_triangle
 ```
 {% include copy-curl.html %}
 
-If you haven't already done so, index a document containing a point and a document containing a polygon into the `testindex` index:
+If you haven't already done so, index one document containing a point and another document containing a polygon into the `testindex` index:
 
 ```json
 PUT /testindex/_doc/1
@@ -610,19 +610,19 @@ The response contains both documents:
 
 ## Querying geopoints
 
-You can also use a geoshape query to search for documents that contain geopoints. 
+You can also use a geoshape query to search for documents containing geopoints. 
 
 Geoshape queries on geopoints only support the default `INTERSECTS` spatial relation, so you don't need to provide the `relation` parameter.
 {: .note}
 
 {: .important }
-> Geoshape queries on geopoints do not support the following geoshapes:
+> Geoshape queries on geopoint fields do not support the following geoshapes:
 > 
-> - Point
-> - Linestring
-> - Multipoint
-> - Multilinestring
-> - Geometry collection that contains one of the preceding geoshape types
+> - Points
+> - Linestrings
+> - Multipoints
+> - Multilinestrings
+> - Geometry collections containing one of the preceding geoshape types
 
 Create a mapping where `location` is a `geo_point`:
 
@@ -719,7 +719,7 @@ The response returns document 1:
 }
 ```
 
-Note that when you indexed the geopoints, you specified their coordinates in the `"latitude, longitude"` format. When you search for matching documents, the coordinate array is in the `[longitude, latitude]` format. Thus, document 1 is returned in the results but document 2 is not.
+Note that when you indexed the geopoints, you specified their coordinates in `"latitude, longitude"` format. When you search for matching documents, the coordinate array is in `[longitude, latitude]` format. Thus, document 1 is returned in the results but document 2 is not.
 
 ## Request fields
 
