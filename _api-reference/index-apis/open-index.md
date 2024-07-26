@@ -43,7 +43,7 @@ wait_for_completion | Boolean | When set to `false`, the request returns immedia
 task_execution_timeout | Time | The explicit task execution timeout. Only useful when wait_for_completion is set to `false`. Default is `1h`.
 
 
-## Response
+## Example response
 ```json
 {
   "acknowledged": true,
