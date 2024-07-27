@@ -14,7 +14,7 @@ A fuzzy query searches for documents containing terms that are similar to the se
 - Deletions: **c**at to at
 - Transpositions: **ca**t to **ac**t
 
-A fuzzy query creates a list of all possible expansions of the search term that fall within the Damerau-Levenshtein distance. If you set the `transpositions` field equal to `false`, your search will use the classical [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance). You can specify the maximum number of such expansions in the `max_expansions` field. Then it searches for documents that match any of the expansions.
+A fuzzy query creates a list of all possible expansions of the search term that fall within the Damerau-Levenshtein distance (by the way, if you set the `transpositions` field equal to `false`, your search will use the classical [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance)). You can specify the maximum number of such expansions in the `max_expansions` field. Then it searches for documents that match any of the expansions.
 
 The following example query searches for the speaker `HALET` (misspelled `HAMLET`). The maximum edit distance is not specified, so the default `AUTO` edit distance is used:
 
