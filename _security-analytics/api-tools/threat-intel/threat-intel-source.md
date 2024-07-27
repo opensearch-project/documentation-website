@@ -20,7 +20,7 @@ POST _plugins/_security_analytics/threat_intel/sources
 
 ### Request fields
 
-You can specify the following fields when creating a threat intel source.
+The following fields are used to create a threat intelligence source.
 
 ### Request Fields
 
