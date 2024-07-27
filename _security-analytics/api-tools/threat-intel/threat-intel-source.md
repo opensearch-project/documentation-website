@@ -8,10 +8,11 @@ nav_order: 50
 # Threat Intelligence Source Configuration APIs
 
 The following APIs can be used for tasks related to threat intelligence source configurations.
+
 ---
 ## Create Threat intel source API
 
-Creates a new threat intel source.
+Creates a new threat intel source and loads IoC's from source.
 
 ```
 POST _plugins/_security_analytics/threat_intel/sources
@@ -436,7 +437,7 @@ PUT _plugins/_security_analytics/threat_intel/sources/
 
 ## Get threat intel source API
 
-The Get Threat Intel Source API retrieves the threat intel source configuration details. Use the mandatory path parameter threat intel source ID 
+The Get Threat Intel Source API retrieves the threat intel source configuration details. Use the mandatory path parameter threat intel source ID.
 
 ### Parameters
 
@@ -501,7 +502,7 @@ GET /_plugins/_security_analytics/threat_intel/sources/<threat intel source Id>
 
 The Search Threat Intel Sources API searches for threat intel source matches based on search query passed.
 
-The request expects a search source similar to the _search query in OpenSearch
+The request expects a search source similar to the _search query in OpenSearch.
 
 ### Example request
 
@@ -613,7 +614,7 @@ DELETE /_plugins/_security_analytics/threat_intel/sources/<threat_intel_source I
 ---
 ## Refresh threat intel source API
 
-This API uses the threat intel source ID to donwload the iocs from a threat intel source on-demand. Only supported for S3_CUSTOM type source
+This API uses the threat intel source ID to donwload the iocs from a threat intel source on-demand. Only supported for S3_CUSTOM type source.
 
 ### Path and HTTP methods
 
