@@ -61,7 +61,7 @@ You can specify the following fields when creating a threat intel source.
 
 ### Response Fields
 
-| Field                                       | Type              | Description                                                                                                     |
+| Field                                       | Data type              | Description                                                                                                     |
 |:--------------------------------------------|:------------------|:----------------------------------------------------------------------------------------------------------------|
  | `_id`                                       | String            | The unique identifier for the threat intelligence source. Example: `pnf65pABgRuG4FjXQuJ1`.                      |
  | `_version`                                  | Integer           | The version number of the threat intelligence source. Example: `2`.                                             |
