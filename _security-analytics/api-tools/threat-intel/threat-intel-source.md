@@ -5,7 +5,7 @@ parent: API tools
 nav_order: 50
 ---
 
-# Threat Intelligence Source Configuration APIs
+# Threat intelligence source APIs
 
 The following APIs can be used for tasks related to threat intelligence source configurations.
 
