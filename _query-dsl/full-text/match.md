@@ -289,7 +289,7 @@ GET testindex/_search
 
 To account for typos, you can specify `fuzziness` for your query as either of the following:
 
-- An integer that specifies the maximum allowed [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance) for this edit. 
+- An integer that specifies the maximum allowed [Damerau–Levenshtein distance](https://en.wikipedia.org/wiki/Damerau–Levenshtein_distance) for this edit. 
 - `AUTO`: 
   - Strings of 0–2 characters must match exactly.
   - Strings of 3–5 characters allow 1 edit.
