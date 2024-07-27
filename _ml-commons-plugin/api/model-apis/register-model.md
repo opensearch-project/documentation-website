@@ -369,7 +369,7 @@ The input and output fields will be evaluated against the separately provided JS
 
 Specifically, for users' convenience, we have provided a set of predefined model interface that can be generated automatically during model registration, if the user choose to follow the [connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/). 
 The predefined model interface is generated based on the connector blueprint and the model's metadata, so user needs to follow the blueprint to create the connector strictly in order to avoid exceptions.
-The list of connector blueprints we currently support predefined model interface are:
+The following are the currently supported connector blueprints for creating predefined model interfaces:
 
 - [Amazon Comprehend connector blueprint]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/amazon_comprehend_connector_blueprint.md)
 - [Amazon Textract connector blueprint]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/amazon_textract_connector_blueprint.md) (Note that a predefined model interface is only available for the `DetectDocumentText` API; the `DetectEnities` API is not currently supported).
