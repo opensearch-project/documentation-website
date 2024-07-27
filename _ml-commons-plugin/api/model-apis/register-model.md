@@ -367,7 +367,7 @@ Field | Data type | Description
 
 The input and output fields will be evaluated against the separately provided JSON schema. You do not necessarily need to provide both input and output fields simultaneously.
 
-Specifically, for users' convenience, we have provided a set of predefined model interface that can be generated automatically during model registration, if the user choose to follow the [connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/). 
+Specifically, for users' convenience, we have provided a set of predefined model interfaces that can be generated automatically during model registration if the user chooses to follow the [connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/). 
 The predefined model interface is generated based on the connector blueprint and the model's metadata, so user needs to follow the blueprint to create the connector strictly in order to avoid exceptions.
 The following are the currently supported connector blueprints for creating predefined model interfaces:
 
