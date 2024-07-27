@@ -372,7 +372,7 @@ The predefined model interface is generated based on the connector blueprint and
 The list of connector blueprints we currently support predefined model interface are:
 
 - [amazon comprehend connector blueprint]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/amazon_comprehend_connector_blueprint.md)
-- [amazon textract connector blueprint]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/amazon_textract_connector_blueprint.md) (Please note that predefined model interface is only available for the `DetectDocumentText` API, `DetectEnities` API is not supported currently)
+- [Amazon Textract connector blueprint]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/amazon_textract_connector_blueprint.md) (Note that a predefined model interface is only available for the `DetectDocumentText` API; the `DetectEnities` API is not currently supported).
 - [bedrock connector ai21labs jurassic blueprint]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/bedrock_connector_ai21labs_jurassic_blueprint.md)
 - [bedrock connector anthropic claude3 blueprint]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/bedrock_connector_anthropic_claude3_blueprint.md)
 - [bedrock connector anthropic claude blueprint]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/bedrock_connector_anthropic_claude_blueprint.md)
