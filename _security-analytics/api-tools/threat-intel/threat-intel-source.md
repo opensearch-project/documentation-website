@@ -9,7 +9,6 @@ nav_order: 50
 
 The following APIs can be used for tasks related to threat intelligence source configurations.
 
----
 ## Create Threat intel source API
 
 Creates a new threat intel source and loads IoC's from source.
