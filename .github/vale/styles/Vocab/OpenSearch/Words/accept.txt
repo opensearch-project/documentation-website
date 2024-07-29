@@ -93,7 +93,8 @@ pebibyte
 [Pp]reprocess
 [Pp]retrain
 [Pp]seudocode
-[Quantiz](e|ation|ing|er)
+[Qq]uantiles?
+[Qq]uantiz(e|ation|ing|er)
 [Rr]ebalance
 [Rr]ebalancing
 [Rr]edownload

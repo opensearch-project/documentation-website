@@ -2,7 +2,6 @@
 layout: default
 title: Matrix stats
 parent: Metric aggregations
-grand_parent: Aggregations
 nav_order: 50
 redirect_from:
   - /query-dsl/aggregations/metric/matrix-stats/

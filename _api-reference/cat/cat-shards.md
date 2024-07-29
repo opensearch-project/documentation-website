@@ -15,7 +15,29 @@ redirect_from:
 
 The CAT shards operation lists the state of all primary and replica shards and how they are distributed.
 
-## Example
+
+## Path and HTTP methods
+
+```
+GET _cat/shards
+```
+
+## URL parameters
+
+All cat shards URL parameters are optional.
+
+In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
+
+Parameter | Type | Description
+:--- | :--- | :---
+bytes | Byte size | Specify the units for byte size. For example, `7kb` or `6gb`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
+local | Boolean | Whether to return information from the local node only instead of from the cluster manager node. Default is `false`.
+cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
+time | Time | Specify the units for time. For example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
+
+## Example requests
+
+The following example requests returns information about shards:
 
 ```
 GET _cat/shards?v
@@ -36,27 +58,7 @@ GET _cat/shards/index1,index2,index3
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
-
-```
-GET _cat/shards
-```
-
-## URL parameters
-
-All cat shards URL parameters are optional.
-
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
-
-Parameter | Type | Description
-:--- | :--- | :---
-bytes | Byte size | Specify the units for byte size. For example, `7kb` or `6gb`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
-local | Boolean | Whether to return information from the local node only instead of from the cluster_manager node. Default is false.
-cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster_manager node. Default is 30 seconds.
-time | Time | Specify the units for time. For example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
-
-
-## Response
+## Example response
 
 ```json
 index | shard | prirep | state   | docs | store | ip |       | node

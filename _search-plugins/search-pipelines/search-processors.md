@@ -37,12 +37,15 @@ The following table lists all supported search response processors.
 
 Processor | Description | Earliest available version
 :--- | :--- | :---
+[`collapse`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/collapse-processor/)| Deduplicates search hits based on a field value, similarly to `collapse` in a search request. | 2.12
 [`personalize_search_ranking`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/personalize-search-ranking/) | Uses [Amazon Personalize](https://aws.amazon.com/personalize/) to rerank search results (requires setting up the Amazon Personalize service). | 2.9
-[`retrieval_augmented_generation`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rag-processor/) | Used for retrieval-augmented generation (RAG) in [conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/). | 2.10 (generally available in 2.12)
 [`rename_field`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rename-field-processor/)| Renames an existing field. | 2.8
 [`rerank`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/)| Reranks search results using a cross-encoder model. | 2.12
-[`collapse`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/collapse-processor/)| Deduplicates search hits based on a field value, similarly to `collapse` in a search request. | 2.12
+[`retrieval_augmented_generation`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rag-processor/) | Used for retrieval-augmented generation (RAG) in [conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/). | 2.10 (generally available in 2.12)
+[`sort`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/sort-processor/)| Sorts an array of items in either ascending or descending order. | 2.16
+[`split`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/split-processor/)| Splits a string field into an array of substrings based on a specified delimiter. | 2.16
 [`truncate_hits`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/truncate-hits-processor/)| Discards search hits after a specified target count is reached. Can undo the effect of the `oversample` request processor.  | 2.12
+
 
 ## Search phase results processors
 

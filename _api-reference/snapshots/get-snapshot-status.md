@@ -42,7 +42,7 @@ Using the API to return state for other than currently running snapshots can be 
 :--- | :--- | :---
 | ignore_unavailable | Boolean | How to handles requests for unavailable snapshots. If `false`, the request returns an error for unavailable snapshots. If `true`, the request ignores unavailable snapshots, such as those that are corrupted or temporarily cannot be returned. Defaults to `false`.|
 
-#### Example request
+## Example request
 
 The following request returns the status of `my-first-snapshot` in the `my-opensearch-repo` repository. Unavailable snapshots are ignored.
 
@@ -54,7 +54,7 @@ GET _snapshot/my-opensearch-repo/my-first-snapshot/_status
 ````
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 The example that follows corresponds to the request above in the [Example request](#example-request) section.
 
