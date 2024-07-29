@@ -14,7 +14,7 @@ OpenSearch comprises of a number of plugins that add features and capabilities t
 
 The standard distribution of OpenSearch has much more functionality included. You can choose to add additional plugins or remove any of the plugins you don't need. 
 
-For a sampling of the available plugins, see [Available plugins](#available-plugins).
+For a list of the available plugins, see [Available plugins](#available-plugins).
 
 For a plugin to work properly with OpenSearch, it may request certain permissions as part of the installation process. Review the requested permissions and proceed accordingly. It is important that you understand a plugin's functionality before installation. When opting for a community-provided plugin, ensure that the source is trustworthy and reliable.
 {: .warning}
@@ -96,7 +96,7 @@ There are three ways to install plugins using the `opensearch-plugin` tool:
 
 ### Install a plugin by name
 
-You can install plugins that aren't already prebuilt in your installation by using the plugin name. For a sampling of plugins that may not be pre-installed, see [Additional plugins](#additional-plugins).
+You can install plugins that aren't already preinstalled in your installation by using the plugin name. For a list of plugins that may not be preinstalled, see [Additional plugins](#additional-plugins).
 
 #### Usage
 ```bash
@@ -272,7 +272,7 @@ OpenSearch provides several bundled plugins that are available for immediate use
 
 ### Bundled plugins
 
-The following plugins are bundled with all OpenSearch distributions except for the minimum distribution packages. If you have the minimum distribution, you can add them using one of the installation methods, or remove, as required.
+The following plugins are bundled with all OpenSearch distributions except for the minimal distribution. If you are using the minimal distribution, you can add these plugins by using one of the installation methods.
 
 | Plugin name | Repository | Earliest available version |
 | :--- | :--- | :--- |
@@ -304,11 +304,11 @@ _<sup>2</sup>Performance Analyzer is not available on Windows._
 
 ### Additional plugins
 
-There are many more plugins available on top of what is provided in the default distribution. These additional plugins have been built by OpenSearch developers or members of the OpenSearch community. For a sampling of additional plugins you can install, see [Additional plugins]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/index/).
+There are many more plugins available in addition to those provided by the default distribution. These additional plugins have been built by OpenSearch developers or members of the OpenSearch community. For a list of additional plugins you can install, see [Additional plugins]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/index/).
 
 ## Plugin compatibility
 
-A plugin can explicitly specify compatibility with a specific OpenSearch version by listing that version in its `plugin-descriptor.properties` file. For example, a plugin with the following property is compatible only with OpenSearch 2.3.0:
+A plugin can specify compatibility with a particular OpenSearch version by listing that version in its `plugin-descriptor.properties` file. For example, a plugin with the following property is compatible only with OpenSearch 2.3.0:
 
 ```properties
 opensearch.version=2.3.0
@@ -316,8 +316,8 @@ opensearch.version=2.3.0
 Alternatively, a plugin can specify a range of compatible OpenSearch versions by setting the `dependencies` property in its `plugin-descriptor.properties` file using one of the following notations:
 - `dependencies={ opensearch: "2.3.0" }`: The plugin is compatible only with OpenSearch version 2.3.0.
 - `dependencies={ opensearch: "=2.3.0" }`: The plugin is compatible only with OpenSearch version 2.3.0.
-- `dependencies={ opensearch: "~2.3.0" }`: The plugin is compatible with all versions starting from 2.3.0 up to the next minor version, in this example, 2.4.0 (exclusive).
-- `dependencies={ opensearch: "^2.3.0" }`: The plugin is compatible with all versions starting from 2.3.0 up to the next major version, in this example, 3.0.0 (exclusive).
+- `dependencies={ opensearch: "~2.3.0" }`: The plugin is compatible with all versions from 2.3.0 up to the next minor version, in this example, 2.4.0 (exclusive).
+- `dependencies={ opensearch: "^2.3.0" }`: The plugin is compatible with all versions from 2.3.0 up to the next major version, in this example, 3.0.0 (exclusive).
 
 You can specify only one of the `opensearch.version` or `dependencies` properties.
 {: .note}
