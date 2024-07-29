@@ -64,7 +64,7 @@ curl -XGET example-index/_search -H "Content-Type: application/json" -d '{
 
 ### Query results
 
-In this example, the `_size` field is included in the query results and shows the size, in bytes, of the indexed document.
+In the following example, the `_size` field is included in the query results and shows the size, in bytes, of the indexed document:
 
 ```json
 {
