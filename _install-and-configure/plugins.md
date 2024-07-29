@@ -308,7 +308,7 @@ There are many more plugins available in addition to those provided by the defau
 
 ## Plugin compatibility
 
-A plugin can specify compatibility with a particular OpenSearch version by listing that version in its `plugin-descriptor.properties` file. For example, a plugin with the following property is compatible only with OpenSearch 2.3.0:
+You can specify plugin compatibility with a particular OpenSearch version in the `plugin-descriptor.properties` file. For example, a plugin with the following property is compatible only with OpenSearch 2.3.0:
 
 ```properties
 opensearch.version=2.3.0
