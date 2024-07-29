@@ -268,7 +268,7 @@ bin/opensearch-plugin install --batch <plugin-name>
 
 ## Available plugins
 
-OpenSearch provides several bundled and additional plugins. Bundled plugins are available for use immediately with all OpenSearch distributions except the minimal distribution. The additional plugins are available, but must be installed separately with one of the installation options.  
+OpenSearch provides several bundled plugins that are available for immediate use with all OpenSearch distributions except for the minimal distribution. Additional plugins are available but must be installed separately using one of the installation options.  
 
 ### Bundled plugins
 
