@@ -367,15 +367,49 @@ GET test-binary-hnsw/_search
 
 The follow example demonstrates how to create a binary vector index with the Faiss engine and IVF algorithm:
 
-Firstly, we need create the training index and model in binary format. For convenience, we use above `test-binary-hnsw` index and `my_vector1` field as the training index and field to train model.
+Firstly, we need create the training index with binary format data type:
+```json
+PUT train-index
+{
+  "mappings": {
+    "properties": {
+      "train-field": {
+        "type": "knn_vector",
+        "dimension": 8,
+        "data_type": "binary"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}'
+
+Then, ingest some documents with binary vectors to the training index:
+```json
+PUT _bulk
+{ "index": { "_index": "train-index", "_id": "1" } }
+{ "train-field": [1] }
+{ "index": { "_index": "train-index", "_id": "2" } }
+{ "train-field": [2] }
+{ "index": { "_index": "train-index", "_id": "3" } }
+{ "train-field": [3] }
+{ "index": { "_index": "train-index", "_id": "4" } }
+{ "train-field": [4] }
+{ "index": { "_index": "train-index", "_id": "5" } }
+{ "train-field": [5] }
+...
+```
+{% include copy-curl.html %}
+
+Then, train the model with the training index and field in binary format, and specify the method space type as `hamming`:
 
 ```json
 POST _plugins/_knn/models/test-binary-model/_train
 {
-  "training_index": "test-binary-hnsw",
-  "training_field": "my_vector",
+  "training_index": "train-index",
+  "training_field": "train-field",
   "dimension": 8,
-  "description": "My model description",
+  "description": "model with binary data",
   "data_type": "binary",
   "method": {
     "name": "ivf",
@@ -390,7 +424,13 @@ POST _plugins/_knn/models/test-binary-model/_train
 ```
 {% include copy-curl.html %}
 
-Then create IVF index with the trained model:
+Then, make sure the model state is `created`:
+```json
+GET _plugins/_knn/models/test-binary-model?filter_path=state
+```
+{% include copy-curl.html %}
+
+Then, create IVF index with the trained model:
 
 ```json
 PUT test-binary-ivf
@@ -402,7 +442,7 @@ PUT test-binary-ivf
   },
   "mappings": {
     "properties": {
-      "my_vector1": {
+      "my_vector": {
         "type": "knn_vector",
         "model_id": "test-binary-model"
       }

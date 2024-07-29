@@ -368,7 +368,7 @@ Not every method supports each of these spaces. Be sure to check out [the method
     </td>
   </tr>
   <tr>
-    <td>hammingbit</td>
+    <td>hamming</td>
     <td>\[ d(\mathbf{x}, \mathbf{y}) = \text{countSetBits}(\mathbf{x} \oplus \mathbf{y})\]</td>
     <td>\[ score = {1 \over 1 + d } \]</td>
   </tr>
@@ -383,3 +383,6 @@ With cosine similarity, it is not valid to pass a zero vector (`[0, 0, ...]`) as
 such a vector is 0, which raises a `divide by 0` exception in the corresponding formula. Requests
 containing the zero vector will be rejected and a corresponding exception will be thrown.
 {: .note }
+
+The `hamming` space type is supported for binary format vectors only in OpenSearch 2.16 and later, see [Binary vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-vector).
+{: .note}
