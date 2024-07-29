@@ -17,7 +17,9 @@ Component templates are utilized solely during the process of index creation. Fo
 
 ## Path and HTTP methods
 
-```
+The PUT method adds a component tempalte accepts both query parameters and a request body. The GET method retrieves information about an existing component template and accepts only query parameters.
+
+```json
 PUT _component_template/<component-template-name>
 GET _component_template/<component-template-name>
 ```
@@ -87,7 +89,7 @@ The following example requests show how to use the Create or update component te
 
 The following example creates a component template that includes index aliases:
 
-```
+```json
 PUT _component_template/alias_template
 {
   "template": {
@@ -113,7 +115,7 @@ PUT _component_template/alias_template
 
 The following example adds a `version` number to a component template which simplifies template management for external systems:
 
-```
+```json
 PUT /_component_template/version_template
 {
   "template": {
@@ -130,7 +132,7 @@ PUT /_component_template/version_template
 
 The following example uses the `meta` parameter to add metadata to the index template. All metadata is stored in the cluster state:
 
-```
+```json
 PUT /_component_template/meta_template
 {
   "template": {
