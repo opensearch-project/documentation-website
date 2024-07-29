@@ -259,7 +259,7 @@ Restart your OpenSearch node after removing a plugin.
 
 ## Batch mode
 
-When installing plugins that require additional privileges that are not included by default, the plugins will prompt the user for confirmation of the required privileges. To grant all requested privileges, use batch mode to skip the confirmation prompt.
+When installing a plugin that requires additional privileges that are not included by default, the plugin will prompt you for confirmation of the required privileges. To grant all requested privileges, use batch mode to skip the confirmation prompt.
 
 To force batch mode when installing plugins, add the `-b` or `--batch` option:
 ```bash
