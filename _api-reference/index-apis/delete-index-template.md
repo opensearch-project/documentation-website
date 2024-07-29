@@ -11,7 +11,7 @@ The Delete index template API deletes one of more index templates.
 
 ## Path and HTTP methods
 
-```
+```json
 DELETE /_index_template/<template-name>
 ```
 
