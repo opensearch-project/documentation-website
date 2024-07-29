@@ -212,7 +212,7 @@ PUT /plugins/security_analytics/threat_intel/alerts/status?state=COMPLETED&alert
 
 ## Get findings
 
-The Get findings API returns threat intelligence ioc findings - when threat intel monitor finds a malicious IoC during a scan of data a finding is created.
+The Get findings API returns threat intelligence ioc findings - when threat intelligence monitor finds a malicious IoC during a scan of data a finding is created.
 
 ### Parameters
 
@@ -250,7 +250,7 @@ GET /_plugins/_security_analytics/threat_intel/findings/_search?size=3
         }
       ],
       "monitor_id": "B8p88ZAB1vBjq44wkjEy",
-      "monitor_name": "Threat intel monitor",
+      "monitor_name": "Threat intelligence monitor",
       "ioc_value": "example-has00001",
       "ioc_type": "hashes",
       "timestamp": 1722038394501,
@@ -270,7 +270,7 @@ GET /_plugins/_security_analytics/threat_intel/findings/_search?size=3
         }
       ],
       "monitor_id": "B8p88ZAB1vBjq44wkjEy",
-      "monitor_name": "Threat intel monitor",
+      "monitor_name": "Threat intelligence monitor",
       "ioc_value": "example-has00001",
       "ioc_type": "hashes",
       "timestamp": 1722039165824,
@@ -290,7 +290,7 @@ GET /_plugins/_security_analytics/threat_intel/findings/_search?size=3
         }
       ],
       "monitor_id": "B8p88ZAB1vBjq44wkjEy",
-      "monitor_name": "Threat intel monitor",
+      "monitor_name": "Threat intelligence monitor",
       "ioc_value": "example-has00001",
       "ioc_type": "hashes",
       "timestamp": 1722039182616,

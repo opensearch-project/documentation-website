@@ -11,7 +11,7 @@ The following APIs can be used for tasks related to threat intelligence source c
 
 ## Create threat intelligence source API
 
-Creates a new threat intel source and loads IoC's from source.
+Creates a new threat intelligence source and loads IoC's from source.
 
 ```
 POST _plugins/_security_analytics/threat_intel/sources
@@ -29,7 +29,7 @@ The following fields are used to create a threat intelligence source.
  | `name`                                | String           | The name of the threat intelligence source.                                                                                                                        |
  | `format`                              | String           | The format of the threat intelligence data. Example: `STIX2`.                                                                                                      |
  | `description`                         | String           | A description of the threat intelligence source.                                                                                                                   |
- | `enabled`                             | Boolean          | Indicates whether scheduled refresh of iocs from source is enabled i.e. the threat intel iocs downloaded from the source should be refreshed on a schedule or not. |
+ | `enabled`                             | Boolean          | Indicates whether scheduled refresh of iocs from source is enabled i.e. the threat intelligence iocs downloaded from the source should be refreshed on a schedule or not. |
  | `ioc_types`                           | Array of Strings | The STIX2 types of IOCs that the source supports. Supported ioc types: `["hashes", "domain-name","ipv4-addr", "ipv6-addr"]`.                                       |
  | `source`                              | Object           | Contains the source details for the threat intelligence data.                                                                                                      |
  | `source.ioc_upload`                   | Object           | Details for IOC upload. Applicable for the `IOC_UPLOAD` type.                                                                                                           |
@@ -266,9 +266,9 @@ POST _plugins/_security_analytics/threat_intel/sources/
 }
 ```
 ---
-## Update Threat Intel Source API
+## Update Threat intelligence Source API
 
-Updates an existing threat intel source.
+Updates an existing threat intelligence source.
 
 ```
 PUT _plugins/_security_analytics/threat_intel/sources/<threat_intel_source_id>
@@ -276,7 +276,7 @@ PUT _plugins/_security_analytics/threat_intel/sources/<threat_intel_source_id>
 
 ### Request fields
 
-You can specify the following fields when updating a threat intel source.
+You can specify the following fields when updating a threat intelligence source.
 
 ### Request Fields
 
@@ -285,7 +285,7 @@ You can specify the following fields when updating a threat intel source.
 | `name`                                | String           | The name of the threat intelligence source.                                                                                                                        |
 | `format`                              | String           | The format of the threat intelligence data. Example: `STIX2`.                                                                                                      |
 | `description`                         | String           | A description of the threat intelligence source.                                                                                                                   |
-| `enabled`                             | Boolean          | Indicates whether scheduled refresh of iocs from source is enabled i.e. the threat intel iocs downloaded from the source should be refreshed on a schedule or not. |
+| `enabled`                             | Boolean          | Indicates whether scheduled refresh of iocs from source is enabled i.e. the threat intelligence iocs downloaded from the source should be refreshed on a schedule or not. |
 | `ioc_types`                           | Array of Strings | The STIX2 types of IOCs that the source supports. Supported ioc types: `["hashes", "domain-name","ipv4-addr", "ipv6-addr"]`.                                       |
 | `source`                              | Object           | Contains the source details for the threat intelligence data.                                                                                                      |
 | `source.ioc_upload`                   | Object           | Details for IOC upload.                                                                                                                                            |
@@ -434,9 +434,9 @@ PUT _plugins/_security_analytics/threat_intel/sources/
 ```
 ---
 
-## Get threat intel source API
+## Get threat intelligence source API
 
-The Get Threat Intel Source API retrieves the threat intel source configuration details. Use the mandatory path parameter threat intel source ID.
+The Get Threat intelligence Source API retrieves the threat intelligence source configuration details. Use the mandatory path parameter threat intelligence source ID.
 
 ### Parameters
 
@@ -449,7 +449,7 @@ GET /_plugins/_security_analytics/threat_intel/sources/a-jnfjkAF_uQjn8Weo4
 ### Example request
 
 ```
-GET /_plugins/_security_analytics/threat_intel/sources/<threat intel source Id>
+GET /_plugins/_security_analytics/threat_intel/sources/<threat intelligence source Id>
 ```
 {% include copy-curl.html %}
 
@@ -497,15 +497,15 @@ GET /_plugins/_security_analytics/threat_intel/sources/<threat intel source Id>
 ```
 ---
 
-## Search Threat Intel Sources API
+## Search Threat intelligence Sources API
 
-The Search Threat Intel Sources API searches for threat intel source matches based on search query passed.
+The Search Threat intelligence Sources API searches for threat intelligence source matches based on search query passed.
 
 The request expects a search source similar to the _search query in OpenSearch.
 
 ### Example request
 
-    **Threat intel source config type**
+    **Threat intelligence source config type**
 POST /_plugins/_security_analytics/threat_intel/sources/_search
 ```json
 {
@@ -553,7 +553,7 @@ POST /_plugins/_security_analytics/threat_intel/sources/_search
                         "created_by_user": null,
                         "source": {
                             "s3": {
-                                "bucket_name": "threat-intel-s3-test-bucket",
+                                "bucket_name": "threat-intelligence-s3-test-bucket",
                                 "object_key": "bd",
                                 "region": "us-west-2",
                                 "role_arn": "arn:aws:iam::540654354201:role/threat_intel_s3_test_role"
@@ -586,9 +586,9 @@ POST /_plugins/_security_analytics/threat_intel/sources/_search
 }
 ```
 ---
-## Delete threat intel source API
+## Delete threat intelligence source API
 
-This API uses the threat intel source ID to specify and delete a threat intel source.
+This API uses the threat intelligence source ID to specify and delete a threat intelligence source.
 
 ### Path and HTTP methods
 
@@ -611,9 +611,9 @@ DELETE /_plugins/_security_analytics/threat_intel/sources/<threat_intel_source I
 }
 ```
 ---
-## Refresh threat intel source API
+## Refresh threat intelligence source API
 
-This API uses the threat intel source ID to donwload the iocs from a threat intel source on-demand. Only supported for S3_CUSTOM type source.
+This API uses the threat intelligence source ID to donwload the iocs from a threat intelligence source on-demand. Only supported for S3_CUSTOM type source.
 
 ### Path and HTTP methods
 
