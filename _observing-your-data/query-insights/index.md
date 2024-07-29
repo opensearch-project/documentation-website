@@ -33,7 +33,7 @@ For information about installing plugins, see [Installing plugins]({{site.url}}{
 
 ## Query insights settings
 
-Query insights features support the following settings:
+You can obtain the following information using Query Insights:
 
 - [Top n queries]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/)
-- [Query Metrics]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/query-metrics/)
+- [Query metrics]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/query-metrics/)
