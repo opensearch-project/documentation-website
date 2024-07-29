@@ -32,7 +32,7 @@ HEAD <index>/_source/<_id>
 
 ## Query parameters
 
-All get document URL parameters are optional.
+All query parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :---
@@ -49,7 +49,9 @@ version_type | Enum | Retrieves a specifically typed document. Available options
 
 ### Realtime
 
-The Get Document API in OpenSearch operates in realtime mode by default, meaning it retrieves the latest version of the document regardless of the index's refresh rate (which determines when new data becomes searchable). However, if you request stored fields (using the `stored_fields` parameter) for a document that has been updated but not yet refreshed, the Get Document API needs to parse and analyze the document's source to extract those stored fields. To disable this realtime behavior and retrieve the document based on the last refreshed state of the index, set the `realtime` parameter to false.
+The Get Document API in OpenSearch operates in real time by default, which means that it retrieves the latest version of the document regardless of the index's refresh rate, or the rate at which new data becomes searchable. However, if you request stored fields (using the `stored_fields` parameter) for a document that has been updated but not yet refreshed, the Get Document API parses and analyzes the document's source to extract those stored fields. 
+
+To disable the real-time behavior and retrieve the document based on the last refreshed state of the index, set the `realtime` parameter to `false`.
 
 ### Source filtering
 
@@ -61,7 +63,9 @@ GET test-index/_doc/0?_source=false
 
 #### `source` includes and excludes
 
-If you only need specific fields from the `_source`, use the `_source_includes` or `_source_excludes` parameters to include or exclude particular fields, respectively. This can be beneficial for large documents, as retrieving only the required fields can reduce network overhead. Both parameters accept a comma-separated list of fields or wildcard expressions, as shown in the following example where any `_source` that contains `*.play` is included in the response, but excludes sources with the field `entities`:
+If you only want to retrieve specific fields from the source, use the `_source_includes` or `_source_excludes` parameters to include or exclude particular fields, respectively. This can be beneficial for large documents, as retrieving only the required fields can reduce network overhead. 
+
+Both parameters accept a comma-separated list of fields and wildcard expressions, as shown in the following example where any `_source` that contains `*.play` is included in the response, but excludes sources with the field `entities`:
 
 ```
 GET test-index/_doc/0?_source_includes=*.play&_source_excludes=entities
@@ -77,13 +81,13 @@ GET test-index/_doc/0?_source=*.id
 
 ### Routing
 
-When indexing documents in OpenSearch, specify a `routing` value to control the shard assignment for those documents. If routing was used during indexing, you must provide the same routing value when retrieving the document using the Get Document API, as shown in the following example:
+When indexing documents in OpenSearch, you can specify a `routing` value to control the shard assignment for the documents. If routing was used during indexing, you must provide the same routing value when retrieving the document using the Get Document API, as shown in the following example:
 
 ```json
 GET test-index/_doc/1?routing=user1
 ```
 
-This request retrieves the document with the ID `1`, but it uses the routing value "user1" to determine the shard where the document is stored. If the correct routing value is not specified, the Get Document API will not be able to locate and fetch the requested document.
+This request retrieves the document with the ID `1`, but it uses the routing value "user1" to determine the shard where the document is stored. If the correct routing value is not specified, the Get Document API is not able to locate and fetch the requested document.
 
 ### Preference
 
@@ -91,8 +95,8 @@ The Get Document API allows you to control which shard replica should handle the
 
 However, you can specify a preference to influence the replica selection. The preference can be set to one of the following values:
 
-- `_local`: The operation will try to execute on a locally allocated shard replica, if possible. This can improve performance by reducing network overhead.
-- Custom (string) value: Specifying a custom string value ensures that requests with the same value will be routed to the same set of shards. This consistency can be beneficial when dealing with shards in different refresh states, as it prevents "jumping values" that may occur when hitting shards with varying data visibility. A common practice is to use a web session ID or a user name as the custom value.
+- `_local`: The operation tries to execute on a locally allocated shard replica, if possible. This can improve performance by reducing network overhead.
+- Custom (string) value: Specifying a custom string value ensures that requests with the same value are routed to the same set of shards. This consistency can be beneficial when dealing with shards in different refresh states, as it prevents "jumping values" that may occur when hitting shards with varying data visibility. A common practice is to use a web session ID or a user name as the custom value.
 
 
 ### Refresh
@@ -109,11 +113,11 @@ Having more replicas for a shard improves the scalability and performance of GET
 
 Use the `version` parameter to retrieve a document only if its current version matches the specified version number. This can be useful for ensuring data consistency and preventing conflicts when working with versioned documents.
 
-Internally, when a document is updated in OpenSearch, the old version is marked as deleted, and a new version of the document is added. However, the old version doesn't immediately disappear from the system. While you won't be able to access the old version through the Get Document API, OpenSearch handles the cleanup of deleted document versions in the background as you continue indexing new data.
+Internally, when a document is updated in OpenSearch, the original version is marked as deleted, and a new version of the document is added. However, the original version doesn't immediately disappear from the system. While you won't be able to access it through the Get Document API, OpenSearch handles the cleanup of deleted document versions in the background as you continue indexing new data.
 
 ## Example request
 
-The following example request information about a document named `1`:
+The following example requests information about a document named `1`:
 
 ```json
 GET sample-index1/_doc/1
