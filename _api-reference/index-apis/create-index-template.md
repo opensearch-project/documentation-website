@@ -82,7 +82,7 @@ The following examples show how to use the Create or update index template API.
 
 The following example includes index aliases inside the template:
 
-```
+```json
 PUT _index_template/alias-template
 {
   "index_patterns" : ["sh*"],
@@ -109,7 +109,7 @@ PUT _index_template/alias-template
 
 When multiple index templates match the name of a new index or data stream, the template with the highest priority is used. For example, the following two Create Template requests create index templates with different priorities: 
 
-```
+```json
 PUT /_index_template/template_one
 {
   "index_patterns" : ["h*"],
@@ -150,7 +150,7 @@ Overlapping index patterns given the same priority are not allowed. An error wil
 
 The following example adds a `version` number to an index template which simplifies template management for external systems:
 
-```
+```json
 PUT /_index_template/template_one
 {
   "index_patterns" : ["mac", "cheese"],
@@ -170,7 +170,7 @@ PUT /_index_template/template_one
 
 The following example uses the `meta` parameter to add metadata to the index template. All metadata is stored in the cluster state:
 
-```
+```json
 PUT /_index_template/template_one
 {
   "index_patterns": ["rom", "juliet"],
@@ -193,7 +193,7 @@ PUT /_index_template/template_one
 
 Include a `data_stream` object to use an index template for data streams, as shown in the following example:
 
-```
+```json
 PUT /_index_template/template_1
 {
   "index_patterns": ["logs-*"],
@@ -207,7 +207,7 @@ When using multiple component templates with the `composed_of` field, the compon
 
 In the following example, an index with `h*` has two primary shards merged. If the order in the request body were reversed, the index would have one primary shard:
 
-```
+```json
 PUT /_component_template/template_with_1_shard
 {
   "template": {
