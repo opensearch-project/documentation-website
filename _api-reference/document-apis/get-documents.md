@@ -47,7 +47,7 @@ _source_includes | String | A comma-separated list of source fields to include i
 version | Integer | The version of the document to return, which must match the current version of the document.
 version_type | Enum | Retrieves a specifically typed document. Available options are `external` (retrieve the document if the specified version number is greater than the document's current version) and `external_gte` (retrieve the document if the specified version number is greater than or equal to the document's current version). For example, to retrieve version 3 of a document, use `/_doc/1?version=3&version_type=external`.
 
-### Realtime
+### Real time
 
 The Get Document API in OpenSearch operates in real time by default, which means that it retrieves the latest version of the document regardless of the index's refresh rate, or the rate at which new data becomes searchable. However, if you request stored fields (using the `stored_fields` parameter) for a document that has been updated but not yet refreshed, the Get Document API parses and analyzes the document's source to extract those stored fields. 
 
