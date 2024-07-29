@@ -62,7 +62,7 @@ Parameter | Data type | Description
 `filter` | Query DSL object | The query that limits documents the alias can access.
 `index_routing` | String | The value which routes indexing operations to a specific shard. When specified, overwrites the `routing` value for indexing operations.
 `is_hidden` | Boolean | When `true`, the alias is hidden. Default is false. All indexes for the alias must have matching values for this setting.
-`is_write_index` | Boolean | When `true`, the index is the [write index] for the alias. Default is `false`.
+`is_write_index` | Boolean | When `true`, the index is the write index for the alias. Default is `false`.
 `routing` | String | The value used to route index and search operations to a specific shard.
 `search_routing` | String | The value used to write specifically search operations to a specific shard. When specified, this option overwrites the `routing` value for search operations.
 
@@ -107,7 +107,7 @@ PUT _index_template/alias-template
 
 ### Using multiple matching templates
 
-When multiple index templates match the name of a new index or data stream, the template with the highest priority is used. For example, the following two Create Template requests create index templates with different priorities: 
+When multiple index templates match the name of a new index or data stream, the template with the highest priority is used. For example, the following two requests create index templates with different priorities: 
 
 ```json
 PUT /_index_template/template_one
