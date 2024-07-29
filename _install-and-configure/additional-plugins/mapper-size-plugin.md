@@ -8,7 +8,7 @@ nav_order: 20
 
 # Mapper-size plugin
 
-The `mapper-size` plugin enables the use of the `_size` field in OpenSearch indexes. The `_size` field stores size, in bytes, of each document.
+The `mapper-size` plugin enables the use of the `_size` field in OpenSearch indexes. The `_size` field stores the size, in bytes, of each document.
 
 ## Installing the plugin
 
