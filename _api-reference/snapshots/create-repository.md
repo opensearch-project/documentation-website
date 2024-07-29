@@ -36,6 +36,11 @@ repository | String | Repository name |
 
 Request parameters depend on the type of repository: `fs` or `s3`.
 
+### common parameters
+Request field | Description
+:--- | :---
+`prefix_mode_verification` | When enabled, it will add hashed value of a random seed to the prefix for repository verification. For remote store enabled clusters, a user can add `setting.prefix_mode_verification` to the node attributes for the supplied repository. This will also work for existing repository when supplied. Optional.
+
 ### fs repository
 
 Request field | Description
