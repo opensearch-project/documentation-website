@@ -57,7 +57,7 @@ If set to `true`, the Security plugin sends a response with status code 401 and 
 
 Name | Description
 :--- | :---
-`krb_debug` | As the name implies, setting it to `true` will output Kerberos-specific debugging messages to `stdout`. Use this setting if you encounter problems with your Kerberos integration.
-`strip_realm_from_principal` | If you set it to `true`, the Security plugin strips the realm from the user name.
+`krb_debug` | As the name implies, setting it to `true` will output Kerberos-specific debugging messages to `stdout`. Use this setting if you encounter problems with your Kerberos integration. Default: `false`.
+`strip_realm_from_principal` | If you set it to `true`, the Security plugin strips the realm from the user name. Default: `true`.
 
 Because Kerberos/SPNEGO authenticates users on an HTTP level, no additional `authentication_backend` is needed. Set this value to `noop`.
