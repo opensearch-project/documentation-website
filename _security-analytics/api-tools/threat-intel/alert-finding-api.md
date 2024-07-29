@@ -84,7 +84,7 @@ Alerts persist until you resolve the root cause and have the following states:
 
 **Mark ACTIVE alerts as ACKNOWLEDGED**
 
-API to update Alert status of alerts by their ids to ACKNOWLEDGED. Only alerts in ACTIVE state can be updated to state ACKNOWLEDGED. 
+API to update Alert status of alerts by their ids to `ACKNOWLEDGED`. Only alerts in ACTIVE state can be updated to state ACKNOWLEDGED. 
 
 ### Example request
 
@@ -147,7 +147,7 @@ PUT /plugins/security_analytics/threat_intel/alerts/status?state=ACKNOWLEDGED&al
 
 **Mark ACKNOWLEDGED alerts as COMPLETED**
 
-API to update Alert status of alerts by their ids to COMPLETED. Only alerts in ACKNOWLEDGED state can be updated to state COMPLETED.
+API to update Alert status of alerts by their ids to `COMPLETED`. Only alerts in `ACKNOWLEDGED` state can be updated to state `COMPLETED`.
 
 ### Example request
 

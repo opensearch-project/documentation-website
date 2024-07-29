@@ -23,23 +23,23 @@ The following fields are used to create a threat intelligence source.
 
 ### Request Fields
 
-| Field                                 | Type             | Description                                                                                                                                                        |
-|:--------------------------------------|:-----------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
- | `type`                                | String           | The type of the threat intelligence source. Supported formats: `S3_CUSTOM`, `IOC_UPLOAD`.                                                                          |
- | `name`                                | String           | The name of the threat intelligence source.                                                                                                                        |
- | `format`                              | String           | The format of the threat intelligence data. Example: `STIX2`.                                                                                                      |
- | `description`                         | String           | A description of the threat intelligence source.                                                                                                                   |
+| Field                                 | Type             | Description                                                                                                                                                               |
+|:--------------------------------------|:-----------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+ | `type`                                | String           | The type of the threat intelligence source. Supported formats: `S3_CUSTOM`, `IOC_UPLOAD`.                                                                                 |
+ | `name`                                | String           | The name of the threat intelligence source.                                                                                                                               |
+ | `format`                              | String           | The format of the threat intelligence data. Example: `STIX2`.                                                                                                             |
+ | `description`                         | String           | A description of the threat intelligence source.                                                                                                                          |
  | `enabled`                             | Boolean          | Indicates whether scheduled refresh of iocs from source is enabled i.e. the threat intelligence iocs downloaded from the source should be refreshed on a schedule or not. |
- | `ioc_types`                           | Array of Strings | The STIX2 types of IOCs that the source supports. Supported ioc types: `["hashes", "domain-name","ipv4-addr", "ipv6-addr"]`.                                       |
- | `source`                              | Object           | Contains the source details for the threat intelligence data.                                                                                                      |
- | `source.ioc_upload`                   | Object           | Details for IOC upload. Applicable for the `IOC_UPLOAD` type.                                                                                                           |
- | `source.ioc_upload.file_name`         | String           | The name of the file containing IOCs. Example: `test`. Applicable for the`IOC_UPLOAD` type.                                                                             |
- | `source.ioc_upload.iocs`              | Array of Objects | List of IOCs in STIX2 format.Applicable for `IOC_UPLOAD` type                                                                                                      |
-| `source_config.source.s3`             | Object           | Contains details about the S3 source.    Applicable for `S3_CUSTOM` type                                                                                           |
-| `source_config.source.s3.bucket_name` | String           | The name of the S3 bucket. Example: `threat-intel-s3-test-bucket`. Applicable for `S3_CUSTOM` type                                                                 |
-| `source_config.source.s3.object_key`  | String           | The key of the object in the S3 bucket. Example: `alltypess3object`. Applicable for `S3_CUSTOM` type                                                               |
-| `source_config.source.s3.region`      | String           | The region where the S3 bucket is located. Example: `us-west-2`. Applicable for `S3_CUSTOM` type                                                                   |
-| `source_config.source.s3.role_arn`    | String           | The ARN of the role used to access the S3 bucket. Example: `arn:aws:iam::248279774929:role/threat_intel_s3_test_role`. Applicable for `S3_CUSTOM` type             |
+ | `ioc_types`                           | Array of Strings | The STIX2 types of IOCs that the source supports. Supported ioc types: `["hashes", "domain-name","ipv4-addr", "ipv6-addr"]`.                                              |
+ | `source`                              | Object           | Contains the source details for the threat intelligence data.                                                                                                             |
+ | `source.ioc_upload`                   | Object           | Details for IOC upload. Applicable for the `IOC_UPLOAD` type.                                                                                                             |
+ | `source.ioc_upload.file_name`         | String           | The name of the file containing IOCs. Example: `test`. Applicable for the`IOC_UPLOAD` type.                                                                               |
+ | `source.ioc_upload.iocs`              | Array of Objects | List of IOCs in STIX2 format.Applicable for `IOC_UPLOAD` type                                                                                                             |
+| `source_config.source.s3`             | Object           | Contains details about the S3 source.    Applicable for `S3_CUSTOM` type                                                                                                  |
+| `source_config.source.s3.bucket_name` | String           | The name of the S3 bucket. Example: `threat-intel-s3-test-bucket`. Applicable for `S3_CUSTOM` type                                                                        |
+| `source_config.source.s3.object_key`  | String           | The key of the object in the S3 bucket. Example: `alltypess3object`. Applicable for `S3_CUSTOM` type                                                                      |
+| `source_config.source.s3.region`      | String           | The region where the S3 bucket is located. Example: `us-west-2`. Applicable for `S3_CUSTOM` type                                                                          |
+| `source_config.source.s3.role_arn`    | String           | The ARN of the role used to access the S3 bucket. Example: `arn:aws:iam::248279774929:role/threat_intel_s3_test_role`. Applicable for `S3_CUSTOM` type                    |
 
 #### IOC Fields (STIX2)       
 
@@ -60,7 +60,7 @@ The following fields are used to create a threat intelligence source.
 
 ### Response Fields
 
-| Field                                       | Data type              | Description                                                                                                     |
+| Field                                       | Data type         | Description                                                                                                     |
 |:--------------------------------------------|:------------------|:----------------------------------------------------------------------------------------------------------------|
  | `_id`                                       | String            | The unique identifier for the threat intelligence source. Example: `pnf65pABgRuG4FjXQuJ1`.                      |
  | `_version`                                  | Integer           | The version number of the threat intelligence source. Example: `2`.                                             |
@@ -280,22 +280,22 @@ You can specify the following fields when updating a threat intelligence source.
 
 ### Request Fields
 
-| Field                                 | Type             | Description                                                                                                                                                        |
-|:--------------------------------------|:-----------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `name`                                | String           | The name of the threat intelligence source.                                                                                                                        |
-| `format`                              | String           | The format of the threat intelligence data. Example: `STIX2`.                                                                                                      |
-| `description`                         | String           | A description of the threat intelligence source.                                                                                                                   |
+| Field                                 | Type             | Description                                                                                                                                                               |
+|:--------------------------------------|:-----------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `name`                                | String           | The name of the threat intelligence source.                                                                                                                               |
+| `format`                              | String           | The format of the threat intelligence data. Example: `STIX2`.                                                                                                             |
+| `description`                         | String           | A description of the threat intelligence source.                                                                                                                          |
 | `enabled`                             | Boolean          | Indicates whether scheduled refresh of iocs from source is enabled i.e. the threat intelligence iocs downloaded from the source should be refreshed on a schedule or not. |
-| `ioc_types`                           | Array of Strings | The STIX2 types of IOCs that the source supports. Supported ioc types: `["hashes", "domain-name","ipv4-addr", "ipv6-addr"]`.                                       |
-| `source`                              | Object           | Contains the source details for the threat intelligence data.                                                                                                      |
-| `source.ioc_upload`                   | Object           | Details for IOC upload.                                                                                                                                            |
-| `source.ioc_upload.file_name`         | String           | The name of the file containing IOCs. Example: `test`.                                                                                                             |
-| `source.ioc_upload.iocs`              | Array of Objects | List of IOCs in STIX2 format.                                                                                                                                      |
-| `source_config.source.s3`             | Object           | Contains details about the S3 source.                                                                                                                              |
-| `source_config.source.s3.bucket_name` | String           | The name of the S3 bucket. Example: `threat-intel-s3-test-bucket`.                                                                                                 |
-| `source_config.source.s3.object_key`  | String           | The key of the object in the S3 bucket. Example: `alltypess3object`.                                                                                               |
-| `source_config.source.s3.region`      | String           | The region where the S3 bucket is located. Example: `us-west-2`.                                                                                                   |
-| `source_config.source.s3.role_arn`    | String           | The ARN of the role used to access the S3 bucket. Example: `arn:aws:iam::248279774929:role/threat_intel_s3_test_role`.                                             |
+| `ioc_types`                           | Array of Strings | The STIX2 types of IOCs that the source supports. Supported ioc types: `["hashes", "domain-name","ipv4-addr", "ipv6-addr"]`.                                              |
+| `source`                              | Object           | Contains the source details for the threat intelligence data.                                                                                                             |
+| `source.ioc_upload`                   | Object           | Details for IOC upload.                                                                                                                                                   |
+| `source.ioc_upload.file_name`         | String           | The name of the file containing IOCs. Example: `test`.                                                                                                                    |
+| `source.ioc_upload.iocs`              | Array of Objects | List of IOCs in STIX2 format.                                                                                                                                             |
+| `source_config.source.s3`             | Object           | Contains details about the S3 source.                                                                                                                                     |
+| `source_config.source.s3.bucket_name` | String           | The name of the S3 bucket. Example: `threat-intel-s3-test-bucket`.                                                                                                        |
+| `source_config.source.s3.object_key`  | String           | The key of the object in the S3 bucket. Example: `alltypess3object`.                                                                                                      |
+| `source_config.source.s3.region`      | String           | The region where the S3 bucket is located. Example: `us-west-2`.                                                                                                          |
+| `source_config.source.s3.role_arn`    | String           | The ARN of the role used to access the S3 bucket. Example: `arn:aws:iam::248279774929:role/threat_intel_s3_test_role`.                                                    |
 
 #### IOC Fields (STIX2)
 
