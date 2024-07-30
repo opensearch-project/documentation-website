@@ -492,3 +492,14 @@ plugins.ml_commons.rag_pipeline_feature_enabled: true
 
 - Default value: `true`
 - Valid values: `false`, `true`
+
+### Setting
+
+```
+plugins.skills.ppl_execution_enabled: false
+```
+
+### Values
+
+- Default value: `false`
+- Valid values: `false`, `true`
