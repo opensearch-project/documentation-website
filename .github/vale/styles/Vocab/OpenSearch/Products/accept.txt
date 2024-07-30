@@ -8,6 +8,7 @@ Amazon SageMaker
 Ansible
 Auditbeat
 AWS Cloud
+Cohere Command
 Cognito
 Dashboards Query Language
 Data Prepper
@@ -75,7 +76,6 @@ Painless
 Peer Forwarder
 Performance Analyzer
 Piped Processing Language
-Point in Time
 Powershell
 Python
 PyTorch
@@ -86,6 +86,7 @@ RPM Package Manager
 Ruby
 Simple Schema for Observability
 Tableau
+Textract
 TorchScript
 Tribuo
 VisBuilder

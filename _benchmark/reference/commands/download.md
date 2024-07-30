@@ -4,7 +4,8 @@ title: download
 nav_order: 60
 parent: Command reference
 grand_parent: OpenSearch Benchmark Reference
-redirect_from: /benchmark/commands/download/
+redirect_from:
+  - /benchmark/commands/download/
 ---
 
 <!-- vale off -->

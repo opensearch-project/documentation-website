@@ -2,8 +2,9 @@
 layout: default
 title: Terms
 parent: Bucket aggregations
-grand_parent: Aggregations
 nav_order: 200
+redirect_from:
+  - /query-dsl/aggregations/bucket/terms/
 ---
 
 # Terms aggregations
