@@ -15,7 +15,7 @@ redirect_from:
 
 This section details how to install OpenSearch on your host, including which [ports to open](#network-requirements) and which [important settings](#important-settings) to configure on your host.
 
-For operating system compatibility, see [Compatiable operating systems]({{site.url}}{{site.baseurl}}/install-and-configure/os-comp/)
+For operating system compatibility, see [Compatible operating systems]({{site.url}}{{site.baseurl}}/install-and-configure/os-comp/)
 
 
 ## File system recommendations
