@@ -44,7 +44,7 @@ thread_pool | Statistics about each thread pool for the node.
 fs | File system statistics, such as read/write statistics, data path, and free disk space.
 transport | Transport layer statistics about send/receive in cluster communication.
 http | Statistics about the HTTP layer.
-breaker | Statistics about the field data circuit breakers.
+breakers | Statistics about the field data circuit breakers.
 script | Statistics about scripts, such as compilations and cache evictions. 
 discovery | Statistics about cluster states.
 ingest | Statistics about ingest pipelines.
@@ -118,14 +118,14 @@ level | String | Specifies whether statistics for the `indices` metric are aggre
 timeout | Time | Sets the time limit for node response. Default is `30s`.
 include_segment_file_sizes | Boolean | If segment statistics are requested, this field specifies to return the aggregated disk usage of every Lucene index file. Default is `false`. 
 
-#### Example request
+## Example request
 
 ```json
 GET _nodes/stats/
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 Select the arrow to view the example response.
 

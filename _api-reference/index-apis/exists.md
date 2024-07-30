@@ -40,6 +40,6 @@ ignore_unavailable | Boolean | If true, OpenSearch does not search for missing o
 local | Boolean | Whether to return information from only the local node instead of from the cluster manager node. Default is `false`.
 
 
-## Response
+## Example response
 
 The index exists API operation returns only one of two possible response codes: `200` -- the index exists, and `404` -- the index does not exist.

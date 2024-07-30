@@ -3,7 +3,6 @@ layout: default
 title: Approximate k-NN search
 nav_order: 15
 parent: k-NN search
-grand_parent: Search methods
 has_children: false
 has_math: true
 ---
@@ -142,7 +141,7 @@ The following table provides examples of the number of results returned by vario
 10 |	1 |	1 |	4 |	4 | 1
 10 | 10 |	1 |	4 |	10 | 10
 10 |	1 |	2 |	4 |	8 | 2
- 
+
 The number of results returned by Faiss/NMSLIB differs from the number of results returned by Lucene only when `k` is smaller than `size`. If `k` and `size` are equal, all engines return the same number of results. 
 
 Starting in OpenSearch 2.14, you can use `k`, `min_score`, or `max_distance` for [radial search]({{site.url}}{{site.baseurl}}/search-plugins/knn/radial-search-knn/).
@@ -254,7 +253,54 @@ POST _bulk
 ...
 ```
 
-After data is ingested, it can be search just like any other `knn_vector` field!
+After data is ingested, it can be searched in the same way as any other `knn_vector` field.
+
+### Additional query parameters
+
+Starting with version 2.16, you can provide `method_parameters` in a search request:
+
+```json
+GET my-knn-index-1/_search
+{
+  "size": 2,
+  "query": {
+    "knn": {
+      "my_vector2": {
+        "vector": [2, 3, 5, 6],
+        "k": 2,
+        "method_parameters" : {
+          "ef_search": 100
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+These parameters are dependent on the combination of engine and method used to create the index. The following sections provide information about the supported `method_parameters`.
+
+#### `ef_search`
+
+You can provide the `ef_search` parameter when searching an index created using the `hnsw` method. The `ef_search` parameter specifies the number of vectors to examine in order to find the top k nearest neighbors. Higher `ef_search` values improve recall at the cost of increased search latency. The value must be positive.
+
+The following table provides information about the `ef_search` parameter for the supported engines.
+
+Engine | Radial query support | Notes
+:--- | :--- | :---
+`nmslib` | No | If `ef_search` is present in a query, it overrides the `index.knn.algo_param.ef_search` index setting.
+`faiss` | Yes | If `ef_search` is present in a query, it overrides the `index.knn.algo_param.ef_search` index setting.
+`lucene` | No | When creating a search query, you must specify `k`. If you provide both `k` and `ef_search`, then the larger value is passed to the engine. If `ef_search` is larger than `k`, you can provide the `size` parameter to limit the final number of results to `k`. 
+
+#### `nprobes`
+
+You can provide the `nprobes` parameter when searching an index created using the `ivf` method. The `nprobes` parameter specifies the number of `nprobes` clusters to examine in order to find the top k nearest neighbors. Higher `nprobes` values improve recall at the cost of increased search latency. The value must be positive.
+
+The following table provides information about the `nprobes` parameter for the supported engines.
+
+Engine | Notes
+:--- | :--- 
+`faiss` | If `nprobes` is present in a query, it overrides the value provided when creating the index.
 
 ### Using approximate k-NN with filters
 
