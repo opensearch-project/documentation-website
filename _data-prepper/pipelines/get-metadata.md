@@ -8,11 +8,11 @@ nav_order: 15
 
 # getMetadata()
 
-The `getMetadata()` function takes one literal string argument to look up specific keys in an event’s metadata. 
+The `getMetadata()` function takes one literal string argument and looks up specific keys in event metadata. 
 
 If the key contains a `/`, then the function looks up the metadata recursively. When passed, the expression returns the value corresponding to the key. 
 
-The value returned can be of any type. For example, if the metadata contains `{"key1": "value2", "key2": 10}`, then the function, `getMetadata("key1")`, returns `value2`. The function, `getMetadata("key2")`, returns `10`.
+The value returned can be of any type. For example, if the metadata contains `{"key1": "value2", "key2": 10}`, then the function `getMetadata("key1")` returns `value2`. The function `getMetadata("key2")` returns `10`.
 
 #### Example 
 

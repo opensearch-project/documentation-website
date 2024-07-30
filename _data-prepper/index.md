@@ -27,7 +27,7 @@ Data Prepper ingests data through customizable [pipelines]({{site.url}}{{site.ba
 - (Optional) One [buffer]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/buffers/buffers/)
 - (Optional) One or more [processors]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/processors/)
 
-Each pipeline contains two required components: `source` and `sink`. If a `buffer`, a `processor`, or both are missing from the pipeline, Data Prepper uses the default `bounded_blocking` buffer and a no-op processor. Note that a single instance of Data Prepper can have one or more pipelines. 
+Each pipeline contains two required components: `source` and `sink`. If a `buffer`, a `processor`, or both are missing from the pipeline, then Data Prepper uses the default `bounded_blocking` buffer and a no-op processor. Note that a single instance of Data Prepper can have one or more pipelines. 
 
 ## Basic pipeline configurations
 
@@ -49,7 +49,7 @@ sample-pipeline:
 
 ### Comprehensive configuration
 
-The following comprehensive pipeline configuration uses required and optional components.
+The following comprehensive pipeline configuration uses both required and optional components:
 
 ```yml
 sample-pipeline:
@@ -70,7 +70,7 @@ sample-pipeline:
        path: <path/to/output-file>
 ```
 
-In the given pipeline configuration, the `source` component reads string events from the `input-file` and pushes the data to a bounded buffer with a maximum size of `1024`. The `workers` component specifies `4` concurrent threads that will process events from the buffer, each reading a maximum of `256` events from the buffer every `100` milliseconds. Each `workers` runs the `string_converter` processor, which converts the strings to uppercase, and writes the processed output to `output-file`.
+In the given pipeline configuration, the `source` component reads string events from the `input-file` and pushes the data to a bounded buffer with a maximum size of `1024`. The `workers` component specifies `4` concurrent threads that will process events from the buffer, each reading a maximum of `256` events from the buffer every `100` milliseconds. Each `workers` component runs the `string_converter` processor, which converts the strings to uppercase and writes the processed output to the `output-file`.
 
 ## Next steps
 
