@@ -39,7 +39,7 @@ The following table describes common [Abstract processor](https://github.com/ope
 | `recordsOut` | Counter | Metric representing the egress of records from a pipeline component. |
 | `timeElapsed` | Timer | Metric representing the time elapsed during execution of a pipeline component. |
 
-The `service-map-stateful` processor includes following custom metrics:
+The `service_map` processor includes following custom metrics:
 
 * `traceGroupCacheCount`: The number of trace groups in the trace group cache.
 * `spanSetCount`: The number of span sets in the span set collection.
