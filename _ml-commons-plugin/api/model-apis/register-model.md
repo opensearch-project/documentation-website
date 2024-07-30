@@ -366,7 +366,7 @@ Field | Data type | Description
 `input`| Object | The JSON schema for the model input. |
 `output`| Object | The JSON schema for the model output. |
 
-The input and output fields are evaluated against the provided JSON schema. You do not need to provide both input and output fields simultaneously.
+The input and output fields are evaluated against the provided JSON schema. You do not need to provide both fields simultaneously.
 
 #### Connector model interfaces
 
