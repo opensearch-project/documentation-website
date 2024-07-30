@@ -120,6 +120,17 @@ The following screenshot shows a saved conversation, along with actions you can 
 
 <img width="700" src="{{site.url}}{{site.baseurl}}/images/dashboards/opensearch-assistant-save-notebook.png" alt="Notebooks interface with saved OpenSearch Assistant conversations">
 
+## Enabling Experimental Assistant Features
+**Introduced 2.16**
+{: .label .label-purple }
+
+To enable experimental assistant features such as text to visualization feature or other contextual assistant features, locate your copy of the `opensearch_dashboards.yml` file and set the following option:
+
+```yaml
+assistant.next.enabled: true
+```
+{% include copy-curl.html %}
+
 ## Related articles
 
 - [Getting started guide for OpenSearch Assistant in OpenSearch Dashboards](https://github.com/opensearch-project/dashboards-assistant/blob/main/GETTING_STARTED_GUIDE.md)
