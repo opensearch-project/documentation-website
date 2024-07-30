@@ -32,11 +32,11 @@ For the `zstd` and `zstd_no_dict` codecs, you can optionally specify a compressi
 When an index segment is created, it uses the current index codec for compression. If you update the index codec, any segment created after the update will use the new compression algorithm. For specific operation considerations, see [Index codec considerations for index operations](#index-codec-considerations-for-index-operations).
 {: .note}
 
-As of OpenSearch 2.14, hardware-accelerated compression codecs for the `DEFLATE` and `LZ4` compression algorithms are available. These hardware-accelerated codecs are available on the latest 4th and 5th Gen Intel®️ Xeon®️ processors running Linux kernel 3.10 and later. For all other systems and platforms, the codecs use that platform's corresponding software implementations. 
+As of OpenSearch 2.15, hardware-accelerated compression codecs for the `DEFLATE` and `LZ4` compression algorithms are available. These hardware-accelerated codecs are available on the latest 4th and 5th Gen Intel®️ Xeon®️ processors running Linux kernel 3.10 and later. For all other systems and platforms, the codecs use that platform's corresponding software implementations. 
 
 The new hardware-accelerated codecs can be used by setting one of the following `index.codec` values:
-* `qat_lz4` (OpenSearch 2.14 and later): Hardware-accelerated `LZ4`
-* `qat_deflate` (OpenSearch 2.14 and later): Hardware-accelerated `DEFLATE`
+* `qat_lz4` (OpenSearch 2.15 and later): Hardware-accelerated `LZ4`
+* `qat_deflate` (OpenSearch 2.15 and later): Hardware-accelerated `DEFLATE`
 
 `qat_deflate` offers a much better compression ratio than `qat_lz4`, with a modest drop in compression and decompression speed.
 {: .note}
@@ -78,7 +78,7 @@ When creating a [snapshot]({{site.url}}{{site.baseurl}}/tuning-your-cluster/avai
 
 When you restore the indexes from a snapshot of a cluster to another cluster, it is important to verify that the target cluster supports the codecs of the segments in the source snapshot. For example, if the source snapshot contains segments of the `zstd` or `zstd_no_dict` codecs (introduced in OpenSearch 2.9), you won't be able to restore the snapshot to a cluster that runs on an older OpenSearch version because it doesn't support these codecs. 
 
-For hardware-accelerated compression codecs, available in OpenSearch 2.14 and later, the value of `index.codec.qatmode` affects how snapshots and restores are performed. If the value is `auto` (the default), then snapshots and restores work without issue. However, if the value is `hardware`, then it must be reset to `auto` in order for the restore process to succeed on systems lacking the hardware accelerator.
+For hardware-accelerated compression codecs, available in OpenSearch 2.15 and later, the value of `index.codec.qatmode` affects how snapshots and restores are performed. If the value is `auto` (the default), then snapshots and restores work without issue. However, if the value is `hardware`, then it must be reset to `auto` in order for the restore process to succeed on systems lacking the hardware accelerator.
 
 You can modify the value of `index.codec.qatmode` during the restore process by setting its value as follows: `"index_settings": {"index.codec.qatmode": "auto"}`.
 {: .note}
