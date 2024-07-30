@@ -13,7 +13,7 @@ ML Commons can predict large datasets in an offline asynchronous mode with your 
 For information about user access for this API, see [Model access control considerations]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/#model-access-control-considerations).
 
 
-For information about connectors and remote models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/).
+For information about connectors and remote models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/). For more details of the connector blurprints for batch predict, see [GitHub docs](https://github.com/opensearch-project/ml-commons/tree/main/docs/remote_inference_blueprints)
 
 ## Required connector setup for batch predict
 ```json
@@ -25,7 +25,7 @@ POST /_plugins/_ml/connectors/_create
   "protocol": "http",
   "parameters": {
     "model": "text-embedding-ada-002",
-    "input_file_id": "<your input file id>",
+    "input_file_id": "<your input file id in OpenAI>",
     "endpoint": "/v1/embeddings"
   },
   "credential": {
@@ -96,6 +96,7 @@ POST /_plugins/_ml/models/lyjxwZABNrAVdFa9zrcZ/_batch_predict
 }
 ```
 {% include copy-curl.html %}
+The parameters in the batch_predict request will override those defined in the connector.
 
 #### Example response
 

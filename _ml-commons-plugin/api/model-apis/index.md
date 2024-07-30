@@ -19,7 +19,7 @@ ML Commons supports the following model-level APIs:
 - [Undeploy model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/undeploy-model/)
 - [Delete model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/delete-model/)
 - [Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) (invokes a model)
-- [Batch Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/batch-predict/) (offline batch inference for a model)
+- [Batch Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/batch-predict/) (experimental)
 
 ## Model access control considerations
 
