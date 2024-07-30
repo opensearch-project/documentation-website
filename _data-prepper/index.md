@@ -20,7 +20,7 @@ With Data Prepper you can build custom pipelines to improve the operational view
 
 ## Key concepts and fundamentals
 
-Data Prepper ingests data through customizable [pipelines]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines/). These pipelines consist of pluggable components that you can customize to fit your own needs, allowing you to even plug in your own implementations. A Data Prepper pipeline has the following components: 
+Data Prepper ingests data through customizable [pipelines]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines/). These pipelines consist of pluggable components that you can customize to fit your needs, even allowing you to plug in your own implementations. A Data Prepper pipeline consists of the following components: 
 
 - One [source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/sources/)
 - One or more [sinks]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/sinks/)
