@@ -150,7 +150,7 @@ output {
 - service_name (string, default => "es") - Defines the service name to be used for `aws_iam` authentication.
 - legacy_template (boolean, default => true) - Selects the OpenSearch template API. When `true`, uses legacy templates via the _template API. When `false`, uses composable templates via the _index_template API.
 - default_server_major_version (number) - The OpenSearch server major version to use when it's not available from the OpenSearch root URL. If not set, the plugin throws an exception when the version can't be fetched.
-- target_bulk_bytes (number) - number of maximum bytes in the buffer. After this has been reached it will flush the data. Useful when the bulk requests are too large for the opensearch cluster.
+- target_bulk_bytes (number) - The maximum number of bytes in the buffer. When the maximum is reached Opensearch will flush the data. This is useful for when the bulk requests are too large for the OpenSearch cluster.
 
 ## Data streams
 
