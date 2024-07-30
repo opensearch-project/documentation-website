@@ -83,7 +83,7 @@ Any configuration options for the index. For more information, see [Index settin
 
 ## Example requests
 
-The following example requests show how to use the Create or update component template API.
+The following example requests show how to use the Component template API.
 
 ### Create with index aliases
 
