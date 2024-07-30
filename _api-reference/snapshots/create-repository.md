@@ -42,7 +42,7 @@ The following table lists parameters that can be used with both the `fs` and `s3
 
 Request field | Description
 :--- | :---
-`prefix_mode_verification` | When enabled, adds a hashed value of a random seed to the prefix for repository verification. For remote store enabled clusters, you can add the `setting.prefix_mode_verification` setting to the node attributes for the supplied repository. This field works with both existing and new repositories. Optional.
+`prefix_mode_verification` | When enabled, adds a hashed value of a random seed to the prefix for repository verification. For remote-store-enabled clusters, you can add the `setting.prefix_mode_verification` setting to the node attributes for the supplied repository. This field works with both new and existing repositories. Optional.
 
 ### fs repository
 
@@ -83,7 +83,7 @@ For the `base_path` parameter, do not enter the `s3://` prefix when entering you
 
 ### `fs`
 
-The following example registers an `fs` repository using the local directory `/mnt/snapshots` as `location`.
+The following example registers an `fs` repository using the local directory `/mnt/snapshots` as `location`:
 
 ```json
 PUT /_snapshot/my-fs-repository
@@ -99,7 +99,7 @@ PUT /_snapshot/my-fs-repository
 ### `s3`
 
 
-The following request registers a new S3 repository called `my-opensearch-repo` in an existing bucket called `my-open-search-bucket`. By default, all snapshots are stored in the `my/snapshot/directory`.
+The following request registers a new S3 repository called `my-opensearch-repo` in an existing bucket called `my-open-search-bucket`. By default, all snapshots are stored in the `my/snapshot/directory`:
 
 ```json
 PUT /_snapshot/my-opensearch-repo
