@@ -148,10 +148,10 @@ output {
 
 The following list provides details on the credential resolution logic:
 
-    - A user passes `aws_access_key_id` and `aws_secret_access_key` in the configuration.
-    - Environment variables, such `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` are recommended since they are recognized by all the AWS SDKs and CLIs except for `.NET`. You can also use `AWS_ACCESS_KEY` and `AWS_SECRET_KEY` which are recgonized by the Java SDK.
-    - The credential profiles file found in the `~/.aws/credentials` directory, is shared by all AWS SDKs and the AWS CLI.
-    - Instance profile credentials are delivered through the Amazon EC2 metadata service.
+- A user passes `aws_access_key_id` and `aws_secret_access_key` in the configuration.
+- Environment variables, such `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` are recommended since they are recognized by all the AWS SDKs and CLIs except for `.NET`. You can also use `AWS_ACCESS_KEY` and `AWS_SECRET_KEY` which are recgonized by the Java SDK.
+- The credential profiles file found in the `~/.aws/credentials` directory, is shared by all AWS SDKs and the AWS CLI.
+- Instance profile credentials are delivered through the Amazon EC2 metadata service.
 
 ## Data streams
 
