@@ -17,7 +17,7 @@ Component templates are utilized solely during the process of index creation. Fo
 
 ## Path and HTTP methods
 
-The PUT method adds a component tempalte accepts both query parameters and a request body. The GET method retrieves information about an existing component template and accepts only query parameters.
+The PUT method adds a component template and accepts both query parameters and a request body. The GET method retrieves information about an existing component template and accepts only query parameters.
 
 ```json
 PUT _component_template/<component-template-name>
@@ -37,8 +37,8 @@ The following optional query parameters are supported:
 Parameter | Data type | Description
 :--- | :--- | :---
 `create` | Boolean | When true, the API cannot replace or update any existing index templates. Default is `false`.
-`cluster_manager_timeout` | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
-`timeout` | Time | How long the operation should wait for a response. Default is `30s`.
+`cluster_manager_timeout` | Time | The amount of time to wait for a connection to the cluster manager node. Default is `30s`.
+`timeout` | Time | The amount of time for the operation to wait for a response. Default is `30s`.
 
 ## Request fields
 
@@ -130,7 +130,7 @@ PUT /_component_template/version_template
 
 ## Adding template metadata
 
-The following example uses the `meta` parameter to add metadata to the index template. All metadata is stored in the cluster state:
+The following example uses the `meta` parameter to add metadata to the index template. All metadata is stored in the cluster state.
 
 ```json
 PUT /_component_template/meta_template
