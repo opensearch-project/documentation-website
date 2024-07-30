@@ -13,22 +13,9 @@ redirect_from:
 
 # Installing OpenSearch
 
-This section details how to install OpenSearch on your host, including which operating systems are [compatible with OpenSearch](#operating-system-compatibility), which [ports to open](#network-requirements), and which [important settings](#important-settings) to configure on your host.
+This section provides information about how to install OpenSearch on your host, including which [ports to open](#network-requirements) and which [important settings](#important-settings) to configure on your host.
 
-## Operating system compatibility
-
-OpenSearch and OpenSearch Dashboards are compatible with Red Hat Enterprise Linux (RHEL) and Debian-based Linux distributions that use [`systemd`](https://en.wikipedia.org/wiki/Systemd), such as Amazon Linux, and Ubuntu Long-Term Support (LTS). While OpenSearch and OpenSearch Dashboards should work on most Linux distributions, we only test a subset. 
-
-The following table lists the operating system versions that we are currently testing on: 
-
-OS | Version
-:---------- | :-------- 
-CentOS | 7
-Rocky Linux | 8
-Alma Linux | 8
-Amazon Linux | 2/2023
-Ubuntu | 20.04
-Windows Server | 2019
+For operating system compatibility, see [Compatible operating systems]({{site.url}}{{site.baseurl}}/install-and-configure/os-comp/).
 
 
 ## File system recommendations
