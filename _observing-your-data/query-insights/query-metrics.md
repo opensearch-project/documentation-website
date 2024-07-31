@@ -38,7 +38,7 @@ The following is a complete sample configuration that includes a telemetry confi
 search.query.metrics.enabled: true
 telemetry.feature.metrics.enabled: true
 
-# oTel-related confuration
+# OTel-related configuration
 opensearch.experimental.feature.telemetry.enabled: true
 telemetry.tracer.sampler.probability: 1.0
 telemetry.feature.tracer.enabled: true
