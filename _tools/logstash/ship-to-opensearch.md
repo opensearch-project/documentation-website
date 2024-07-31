@@ -138,7 +138,7 @@ output {
 ### Optional Parameters
 
 - `template` (path): You can set the path to your own template here. If no template is specified, the plugin uses the default template.
-- `template_name` (string, default => "logstash"): Defines how the template is named inside OpenSearch.
+- `template_name` (string, default => `logstash`): Defines how the template is named inside OpenSearch.
 - `service_name` (string): Defines the service name to be used for `aws_iam` authentication.
 - `legacy_template` Bboolean, default => `true`): Selects the OpenSearch template API. When `true`, uses legacy templates derived from the `_template` API. When `false`, uses the `index_template` API.
 - `default_server_major_version` (number): The OpenSearch server major version to use when it's not available from the OpenSearch root URL. If not set, the plugin throws an exception when the version can't be fetched.
