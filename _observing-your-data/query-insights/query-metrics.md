@@ -7,7 +7,7 @@ nav_order: 20
 
 # Query metrics
 
-Key query [metrics](https://github.com/opensearch-project/documentation-website/pull/7846#metrics), such as aggregation types, query types, latency, and resource usage per query type, are captured along the search path by using the OpenTelemetry (OTel) instrumentation framework. The telemetry data can be consumed using OTel metrics [exporters]({{site.url}}{{site.baseurl}}/observing-your-data/trace/distributed-tracing/#exporters).
+Key query [metrics](#metrics), such as aggregation types, query types, latency, and resource usage per query type, are captured along the search path by using the OpenTelemetry (OTel) instrumentation framework. The telemetry data can be consumed using OTel metrics [exporters]({{site.url}}{{site.baseurl}}/observing-your-data/trace/distributed-tracing/#exporters).
 
 ## Configuring query metric generation
 
