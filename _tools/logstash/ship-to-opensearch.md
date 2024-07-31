@@ -32,7 +32,7 @@ output {
 
 ## Sample walkthrough
 
-The following walkthrough shows an example of how the ship a logstash event.
+The following walkthrough shows an example of how the ship a Logstash event.
 
 1.  Open the `config/pipeline.conf` file and add in the following configuration:
 
@@ -54,7 +54,7 @@ The following walkthrough shows an example of how the ship a logstash event.
     }
     ```
 
-    The Logstash pipeline accepts JSON input through the terminal and ships the events to an OpenSearch cluster running locally. Logstash writes the events to an index with the `logstash-logs-%{+YYYY.MM.dd}` naming convention.
+The Logstash pipeline accepts JSON input through the terminal and ships the events to an OpenSearch cluster running locally. Logstash writes the events to an index with the `logstash-logs-%{+YYYY.MM.dd}` naming convention.
 
 2. Start Logstash:
 
@@ -101,8 +101,8 @@ output {
 The following parameters are supported in the `auth_type` setting:
 
 - `type` (string): The type of authentication.
-- 'user': A user name.
-- `password: The password used for basic authentication.
+- `user`: A user name.
+- `password`: The password used for basic authentication.
 
 ## Configuration for AWS IAM Authentication
 
@@ -132,15 +132,15 @@ output {
     - `aws_access_key_id` (string): AWS access key.
     - `aws_secret_access_key` (string): AWS secret access key.
     - `region` (string, :default => "us-east-1"): The region in which the domain is located.
-- port (string): AmazonOpensearchService listens on port 443 for HTTPS
-- protocol (string): The protocol used to connect. For `AmazonOpensearchService`, the protocol is 'https'.
+- port (string): AmazonOpensearchService listens on port 443 for `HTTPS`.
+- protocol (string): The protocol used to connect. For `AmazonOpensearchService`, the protocol is `https`.
 
 ### Optional Parameters
 
 - `template` (path): You can set the path to your own template here. If no template is specified, the plugin uses the default template.
-- `template_name` (string, default => "logstash"): Defines how the template is named inside Opensearch
+- `template_name` (string, default => "logstash"): Defines how the template is named inside OpenSearch.
 - `service_name` (string, default => "es"): Defines the service name to be used for `aws_iam` authentication.
-- `legacy_template` (boolean, default => true): Selects the OpenSearch template API. When `true`, uses legacy templates via the _template API. When `false`, uses composable templates via the _index_template API.
+- `legacy_template` (boolean, default => `true`): Selects the OpenSearch template API. When `true`, uses legacy templates via the _template API. When `false`, uses composable templates via the _index_template API.
 - `default_server_major_version` (number): The OpenSearch server major version to use when it's not available from the OpenSearch root URL. If not set, the plugin throws an exception when the version can't be fetched.
 - `target_bulk_bytes` (number): The maximum number of bytes in the buffer. When the maximum is reached, Logstash will flush the data to OpenSearch. This is useful when the bulk requests are too large for the OpenSearch cluster and the cluster returns a `429` error.
 
