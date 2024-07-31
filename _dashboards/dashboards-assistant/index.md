@@ -120,7 +120,7 @@ The following screenshot shows a saved conversation, along with actions you can 
 
 <img width="700" src="{{site.url}}{{site.baseurl}}/images/dashboards/opensearch-assistant-save-notebook.png" alt="Notebooks interface with saved OpenSearch Assistant conversations">
 
-## Enabling Experimental Assistant Features
+## Enabling Dashboards Assistant experimental features
 **Introduced 2.16**
 {: .label .label-purple }
 
