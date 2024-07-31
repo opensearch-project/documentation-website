@@ -106,7 +106,7 @@ The following parameters are supported in the `auth_type` setting:
 
 ## Configuration for AWS IAM Authentication
 
-To run the Logstash Output Opensearch plugin using `aws_iam` authentication, add the following configuration:
+To run the Logstash Output OpenSearch plugin using `aws_iam` authentication, add the following configuration:
 
 ```yml
 output {        
@@ -139,8 +139,8 @@ output {
 
 - `template` (path): You can set the path to your own template here. If no template is specified, the plugin uses the default template.
 - `template_name` (string, default => "logstash"): Defines how the template is named inside OpenSearch.
-- `service_name` (string, default => "es"): Defines the service name to be used for `aws_iam` authentication.
-- `legacy_template` (boolean, default => `true`): Selects the OpenSearch template API. When `true`, uses legacy templates via the _template API. When `false`, uses composable templates via the _index_template API.
+- `service_name` (string): Defines the service name to be used for `aws_iam` authentication.
+- `legacy_template` Bboolean, default => `true`): Selects the OpenSearch template API. When `true`, uses legacy templates derived from the `_template` API. When `false`, uses the `index_template` API.
 - `default_server_major_version` (number): The OpenSearch server major version to use when it's not available from the OpenSearch root URL. If not set, the plugin throws an exception when the version can't be fetched.
 - `target_bulk_bytes` (number): The maximum number of bytes in the buffer. When the maximum is reached, Logstash will flush the data to OpenSearch. This is useful when the bulk requests are too large for the OpenSearch cluster and the cluster returns a `429` error.
 
@@ -149,7 +149,7 @@ output {
 The following list provides details on the credential resolution logic:
 
 - A user passes `aws_access_key_id` and `aws_secret_access_key` in the configuration.
-- Environment variables, such `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` are recommended since they are recognized by all the AWS SDKs and CLIs except for `.NET`. You can also use `AWS_ACCESS_KEY` and `AWS_SECRET_KEY` which are recgonized by the Java SDK.
+- Environment variables, such `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` are recommended since they are recognized by all the AWS SDKs and CLIs except for `.NET`. You can also use `AWS_ACCESS_KEY` and `AWS_SECRET_KEY` which are recognized by the Java SDK.
 - The credential profiles file found in the `~/.aws/credentials` directory, is shared by all AWS SDKs and the AWS CLI.
 - Instance profile credentials are delivered through the Amazon EC2 metadata service.
 
