@@ -13,7 +13,7 @@ ML Commons can predict large datasets in an offline asynchronous mode with your 
 For information about user access for this API, see [Model access control considerations]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/#model-access-control-considerations).
 
 
-For information about connectors and remote models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/). For more details of the connector blurprints for batch predict, see [GitHub docs](https://github.com/opensearch-project/ml-commons/tree/main/docs/remote_inference_blueprints)
+For information about connectors and remote models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/). For more details of the connector blurprints for batch predict, see [GitHub docs](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/batch_inference_openAI_connector_blueprint.md)
 
 ## Required connector setup for batch predict
 ```json
