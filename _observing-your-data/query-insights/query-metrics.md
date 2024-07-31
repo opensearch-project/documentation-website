@@ -7,11 +7,11 @@ nav_order: 20
 
 # Query metrics
 
-Query metrics involves comprehensive instrumentation along the search path to capture key [metrics](#metrics), such as aggregation types, query types, latency, and resource usage per query type. Open Telemetry (oTel) is the instrumentation framework. The telemetry data can be consumed using oTel metrics [exporters]({{site.url}}{{site.baseurl}}/observing-your-data/trace/distributed-tracing/#exporters).
+Query metrics involves comprehensive instrumentation along the search path to capture key [metrics](#metrics), such as aggregation types, query types, latency, and resource usage per query type. OpenTelemetry (OTel) is the instrumentation framework. The telemetry data can be consumed using OTel metrics [exporters]({{site.url}}{{site.baseurl}}/observing-your-data/trace/distributed-tracing/#exporters).
 
-## Configuring query metrics
+## Configuring query metric generation
 
-To configure query metrics, use the following steps.
+To configure query metric generation, use the following steps.
 
 ### Step 1: Install the Query Insights plugin
 
@@ -31,7 +31,7 @@ search.query.metrics.enabled: true
 ```
 {% include copy.html %}
 
-The following is a complete sample configuration that includes telemetry configuration:
+The following is a complete sample configuration that includes a telemetry configuration:
 
 ```yaml
 # Enable query metrics feature
@@ -45,7 +45,7 @@ telemetry.feature.tracer.enabled: true
 ```
 {% include copy.html %}
 
-Alternatively, you can configure query metrics using the API:
+Alternatively, you can configure query metric generation using the API:
 
 ```json
 PUT _cluster/settings
@@ -67,18 +67,18 @@ telemetry.otel.metrics.exporter.class: io.opentelemetry.exporter.otlp.metrics.Ot
 
 ## Metrics
 
-Query metrics support the following measurements:
+Query metrics provide the following measurements:
 
-- The number of queries per query type (for example, the number of `match` or `regex` queries).
-- The number of queries per aggregation type (for example, the number of `terms` aggregation queries).
-- The number of queries per sort order (for example, the number of ascending and descending `sort` queries).
-- Histograms of `latency` for each query type, aggregation type, and sort order.
-- Histograms of `cpu` for each query type, aggregation type, and sort order.
-- Histograms of `memory` for each query type, aggregation type, and sort order.
+- The number of queries per query type (for example, the number of `match` or `regex` queries)
+- The number of queries per aggregation type (for example, the number of `terms` aggregation queries)
+- The number of queries per sort order (for example, the number of ascending and descending `sort` queries)
+- Histograms of `latency` for each query type, aggregation type, and sort order
+- Histograms of `cpu` for each query type, aggregation type, and sort order
+- Histograms of `memory` for each query type, aggregation type, and sort order
 
 ## Default logging exporter
 
-By default, if no gRPC exporters are configured, then the metrics and traces are exported to log files. The data is saved under the `opensearch/logs` directory in the following files:
+By default, if no gRPC exporters are configured, then the metrics and traces are exported to log files. The data is saved in the `opensearch/logs` directory in the following files:
 
 - `opensearch_otel_metrics.log`
 - `opensearch_otel_traces.log`

@@ -31,7 +31,7 @@ bin/opensearch-plugin install query-insights
 ```
 For information about installing plugins, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
 
-## Query insights settings
+## Query Insights settings
 
 You can obtain the following information using Query Insights:
 
