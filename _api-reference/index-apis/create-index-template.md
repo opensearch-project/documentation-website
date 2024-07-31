@@ -7,11 +7,11 @@ nav_order: 26
 
 # Create or update index template
 
-You can use the Create or update index template API to create indexes with predefined mappings and settings, as well as update existing index templates.
+You can use the Create or Update Index Template API to create indexes with predefined mappings and settings as well as update existing index templates.
 
 ## Path and HTTP methods
 
-```
+```json
 PUT _index_template/<template-name>
 POST _index_template/<template-name>
 ```
@@ -20,51 +20,51 @@ POST _index_template/<template-name>
 
 Parameter | Data type | Description
 :--- | :--- | :---
-`template-name` | String | Name of the index template.
+`template-name` | String | The name of the index template.
 
 ## Query parameters
 
-The following optional query parameters are supported:
+The following optional query parameters are supported.
 
 Parameter | Data type | Description
 :--- | :--- | :---
 `create` | Boolean | When true, the API cannot replace or update any existing index templates. Default is `false`.
-`cluster_manager_timeout` | Time | The time to wait for a connection to the cluster manager node. Default is `30s`.
+`cluster_manager_timeout` | Time | The amount of time to wait for a connection to the cluster manager node. Default is `30s`.
 
 ## Request body options
 
-The following options can be used in the request body to customize the index template:
+The following options can be used in the request body to customize the index template.
 
 
 Parameter | Type | Description
 :--- | :--- | :---
-`index_patterns` | String array | An array of wildcard expressions that match the names of data streams and indexes during template creation. Required.
-`composed_of` | String array | An ordered list of component template names. These templates are merged using the order specified. For more information, see [Using multiple component templates](#using-multiple-component-templates). Optional.
-`data_stream` | Object | When used, the request creates data streams and any backing indexes based on the template. This setting requires a matching index template. It can as be used with the `hidden` setting, which, when set to `true` hides the data streams backing indexes. Optional.
-`_meta` | Object | The optional metadata that gives details about the index template. Optional.
-`priority` | Integer | A number which determines which index templates take precedence during the creation of a new index or data stream. OpenSearch chooses the template with the highest priority. When no priority is given, the template is assigned a `0`, signifying the lowest priority. Optional.
+`index_patterns` | String array | An array of wildcard expressions that match the names of data streams and indexes created during template creation. Required.
+`composed_of` | String array | An ordered list of component template names. These templates are merged using the specified order. For more information, see [Using multiple component templates](#using-multiple-component-templates). Optional.
+`data_stream` | Object | When used, the request creates data streams and any backing indexes based on the template. This setting requires a matching index template. It can also be used with the `hidden` setting, which, when set to `true`, hides the data stream backing indexes. Optional.
+`_meta` | Object | Optional metadata that provides details about the index template. Optional.
+`priority` | Integer | A number that determines which index templates take precedence during the creation of a new index or data stream. OpenSearch chooses the template with the highest priority. When no priority is given, the template is assigned a `0`, signifying the lowest priority. Optional.
 `template` | Object | The template that includes the `aliases`, `mappings`, or `settings` for the index. For more information, see [#template]. Optional.
 `version` | Integer | The version number used to manage index templates. Version numbers are not automatically set by OpenSearch. Optional.
 
 
 ### Template
 
-You can use the following objects with the `template` option in the request body:
+You can use the following objects with the `template` option in the request body.
 
 #### `alias`
 
 The name of the alias to associate with the template as a key. Required when the `template` option exists in the request body. This option supports multiple aliases.
 
-The object body contains the following optional parameters for the alias:
+The object body contains the following optional alias parameters.
 
 Parameter | Data type | Description
 :--- | :--- | :---
-`filter` | Query DSL object | The query that limits documents the alias can access.
-`index_routing` | String | The value which routes indexing operations to a specific shard. When specified, overwrites the `routing` value for indexing operations.
-`is_hidden` | Boolean | When `true`, the alias is hidden. Default is false. All indexes for the alias must have matching values for this setting.
+`filter` | Query DSL object | The query that limits the number of documents that the alias can access.
+`index_routing` | String | The value that routes indexing operations to a specific shard. When specified, overwrites the `routing` value for indexing operations.
+`is_hidden` | Boolean | When `true`, the alias is hidden. Default is `false`. All alias indexes must have matching values for this setting.
 `is_write_index` | Boolean | When `true`, the index is the write index for the alias. Default is `false`.
 `routing` | String | The value used to route index and search operations to a specific shard.
-`search_routing` | String | The value used to write specifically search operations to a specific shard. When specified, this option overwrites the `routing` value for search operations.
+`search_routing` | String | The value used to write specific search operations to a specific shard. When specified, this option overwrites the `routing` value for search operations.
 
 #### `mappings`
 
@@ -76,11 +76,11 @@ Any configuration options for the index. For more information, see [Index settin
 
 ## Example requests
 
-The following examples show how to use the Create or update index template API.
+The following examples show how to use the Create or Update Index Template API.
 
 ### Index template with index aliases
 
-The following example includes index aliases inside the template:
+The following example request includes index aliases in the template:
 
 ```json
 PUT _index_template/alias-template
@@ -141,14 +141,14 @@ PUT /_index_template/template_two
 ```
 {% include copy-curl.html %}
 
-For indexes that start with `ha`, the `_source` is enabled. Since only `template_two` is applied, the index will have two primary shards and one replica.
+For indexes that start with `ha`, the `_source` is enabled. Because only `template_two` is applied, the index will have two primary shards and one replica.
 
 Overlapping index patterns given the same priority are not allowed. An error will occur when attempting to create a template matching an existing index template with identical priorities.
 {: .note}
 
 ### Adding template versioning
 
-The following example adds a `version` number to an index template which simplifies template management for external systems:
+The following example request adds a `version` number to an index template, which simplifies template management for external systems:
 
 ```json
 PUT /_index_template/template_one
@@ -168,7 +168,7 @@ PUT /_index_template/template_one
 
 ### Adding template metadata
 
-The following example uses the `meta` parameter to add metadata to the index template. All metadata is stored in the cluster state:
+The following example request uses the `meta` parameter to add metadata to the index template. All metadata is stored in the cluster state:
 
 ```json
 PUT /_index_template/template_one
@@ -191,7 +191,7 @@ PUT /_index_template/template_one
 
 ### Data stream definition
 
-Include a `data_stream` object to use an index template for data streams, as shown in the following example:
+Include a `data_stream` object to use an index template for data streams, as shown in the following example request:
 
 ```json
 PUT /_index_template/template_1
@@ -203,9 +203,9 @@ PUT /_index_template/template_1
 
 ## Using multiple component templates
 
-When using multiple component templates with the `composed_of` field, the component templates are merged in the order specified, with later component template superseding earlier templates in the request body. Next, all mappings, settings, or aliases from the parent index template of the component are merged. Lastly, any configuration options added into the index requests are merged.
+When using multiple component templates with the `composed_of` field, the component templates are merged in the specified order. Next, all mappings, settings, and aliases from the parent index template of the component are merged. Lastly, any configuration options added to the index requests are merged.
 
-In the following example, an index with `h*` has two primary shards merged. If the order in the request body were reversed, the index would have one primary shard:
+In the following example request, an index with `h*` has two merged primary shards. If the order in the request body were reversed, then the index would have one primary shard:
 
 ```json
 PUT /_component_template/template_with_1_shard
@@ -235,6 +235,6 @@ PUT /_index_template/template_1
 {% include copy-curl.html %}
 
 
-Recursive merging is used for mapping definition and root options such as `dynamic_templates` and `meta`, meaning that when an earlier component contains a `meta` block, then new `meta` entries are added to the end of the metadata in the index. Any entries with the same key that already exist are overwritten.
+Recursive merging is used for mapping definition and root options such as `dynamic_templates` and `meta`, meaning that when an earlier component contains a `meta` block, new `meta` entries are added to the end of the metadata in the index. Any entries containing a preexisting key are overwritten.
 
 

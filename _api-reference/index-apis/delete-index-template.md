@@ -7,7 +7,7 @@ nav_order: 28
 
 # Delete index template
 
-The Delete index template API deletes one of more index templates.
+The Delete Index Template API deletes one or more index templates.
 
 ## Path and HTTP methods
 
@@ -19,13 +19,13 @@ DELETE /_index_template/<template-name>
 
 Parameter | Type | Description
 :--- | :--- | :---
-`template-name` | String | Name of the index template. You can delete multiple template in one request names by separating the template names with a comma. When multiple template names are used in the request, wildcards are not supported.
+`template-name` | String | The name of the index template. You can delete multiple templates in one request by separating the template names with commas. When multiple template names are used in the request, wildcards are not supported.
 
 ## Query parameters
 
-The following optional query parameters are supported:
+The following optional query parameters are supported.
 
 Parameter | Type | Description
 :--- | :--- | :---
-`cluster_manager_timeout` | Time | The time to wait for a connection to the cluster manager node. Default is `30s`.
-`timeout` | Time | The time an operation should wait for a response. Default is `30s`.
+`cluster_manager_timeout` | Time | The amount of time to wait for a connection to the cluster manager node. Default is `30s`.
+`timeout` | Time | The amount of time that the operation will wait for a response. Default is `30s`.
