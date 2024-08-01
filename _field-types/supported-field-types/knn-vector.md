@@ -358,7 +358,7 @@ GET /test-binary-hnsw/_search
 
 ### Example: IVF
 
-The IVF method requires a training step that creates and trains the model that is used to initialize the native library index during segment creation. For more information, see [Building a k-NN index from a model]({{site.url}}{{site.baseurl}}/search-plugins/approximate-knn/#building-a-k-nn-index-from-a-model). 
+The IVF method requires a training step that creates and trains the model that is used to initialize the native library index during segment creation. For more information, see [Building a k-NN index from a model]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model). 
 
 First, create an index that will contain binary vector training data. Specify the Faiss engine and IVF algorithm and make sure the `dimension` matches the dimension of the model you want to create:
 
