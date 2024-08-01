@@ -475,10 +475,10 @@ POST /_snapshot/my-repository/2/_restore
 Request parameters | Description
 :--- | :---
 `indices` | The indexes you want to restore. You can use `,` to create a list of indexes, `*` to specify an index pattern, and `-` to exclude certain indexes. Don't put spaces between items. Default is all indexes.
-`ignore_unavailable` | If an index from the `indices` list doesn't exist, whether to ignore it rather than fail the restore operation. Default is false.
-`include_global_state` | Whether to restore the cluster state. Default is false.
-`include_aliases` | Whether to restore aliases alongside their associated indexes. Default is true.
-`partial` | Whether to allow the restoration of partial snapshots. Default is false.
+`ignore_unavailable` | If an index from the `indices` list doesn't exist, whether to ignore it rather than fail the restore operation. Default is `false`.
+`include_global_state` | Whether to restore the cluster state. Default is `false`.
+`include_aliases` | Whether to restore aliases alongside their associated indexes. Default is `true`.
+`partial` | Whether to allow the restoration of partial snapshots. Default is `false`.
 `rename_pattern` | If you want to rename indexes as you restore them, use this option to specify a regular expression that matches all indexes you want to restore. Use capture groups (`()`) to reuse portions of the index name.
 `rename_replacement` | If you want to rename indexes as you restore them, use this option to specify the replacement pattern. Use `$0` to include the entire matching index name, `$1` to include the content of the first capture group, and so on.
 `index_settings` | If you want to change [index settings]({{site.url}}{{site.baseurl}}/im-plugin/index-settings/) applied during the restore operation, specify them here. You cannot change `index.number_of_shards`.

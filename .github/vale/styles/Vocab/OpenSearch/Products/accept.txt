@@ -76,7 +76,6 @@ Painless
 Peer Forwarder
 Performance Analyzer
 Piped Processing Language
-Point in Time
 Powershell
 Python
 PyTorch
@@ -87,6 +86,7 @@ RPM Package Manager
 Ruby
 Simple Schema for Observability
 Tableau
+Textract
 TorchScript
 Tribuo
 VisBuilder
