@@ -13,7 +13,7 @@ The [k-NN plugin]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/) introd
 
 ## Example
 
-For example, to map `my_vector1` as a `knn_vector`, use the following request:
+For example, to map `my_vector` as a `knn_vector`, use the following request:
 
 ```json
 PUT test-index
@@ -26,7 +26,7 @@ PUT test-index
   },
   "mappings": {
     "properties": {
-      "my_vector1": {
+      "my_vector": {
         "type": "knn_vector",
         "dimension": 3,
         "method": {
@@ -110,7 +110,7 @@ PUT test-index
   },
   "mappings": {
     "properties": {
-      "my_vector1": {
+      "my_vector": {
         "type": "knn_vector",
         "dimension": 3,
         "data_type": "byte",
@@ -135,7 +135,7 @@ Then ingest documents as usual. Make sure each dimension in the vector is in the
 ```json
 PUT test-index/_doc/1
 {
-  "my_vector1": [-126, 28, 127]
+  "my_vector": [-126, 28, 127]
 }
 ```
 {% include copy-curl.html %}
@@ -143,7 +143,7 @@ PUT test-index/_doc/1
 ```json
 PUT test-index/_doc/2
 {
-  "my_vector1": [100, -128, 0]
+  "my_vector": [100, -128, 0]
 }
 ```
 {% include copy-curl.html %}
@@ -156,7 +156,7 @@ GET test-index/_search
   "size": 2,
   "query": {
     "knn": {
-      "my_vector1": {
+      "my_vector": {
         "vector": [26, -120, 99],
         "k": 2
       }
@@ -301,7 +301,7 @@ PUT /test-binary-hnsw
   },
   "mappings": {
     "properties": {
-      "my_vector1": {
+      "my_vector": {
         "type": "knn_vector",
         "dimension": 8,
         "data_type": "binary",
@@ -363,11 +363,11 @@ GET /test-binary-hnsw/_search
 ```
 {% include copy-curl.html %}
 
-Query results will be returned:
+The response contains two vectors closest to the query vector:
 
 <details markdown="block">
   <summary>
-    Results
+    Response
   </summary>
   {: .text-delta}
 
@@ -413,7 +413,7 @@ Query results will be returned:
     ]
   }
 }
-  ```
+```
 </details>
 
 ### Example: IVF
@@ -442,7 +442,7 @@ Ingest training data containing binary vectors into the training index:
 
 <details markdown="block">
   <summary>
-    Bulk ingest for train index
+    Bulk ingest request
   </summary>
   {: .text-delta}
 
@@ -588,14 +588,8 @@ PUT test-binary-ivf
 
 Ingest the data containing the binary vectors that you want to search into the created index:
 
-<details markdown="block">
-  <summary>
-    Bulk ingest for test-binary-ivf
-  </summary>
-  {: .text-delta}
-
 ```json
-PUT _bulk?refresh=true\
+PUT _bulk?refresh=true
 {"index": {"_index": "test-binary-ivf", "_id": "1"}}
 {"my_vector": [7], "price": 4.4}
 {"index": {"_index": "test-binary-ivf", "_id": "2"}}
@@ -608,7 +602,6 @@ PUT _bulk?refresh=true\
 {"my_vector": [80], "price": 16.5}
 ```
 {% include copy-curl.html %}
-</details>
 
 Finally, search the data. Be sure to provide a binary vector in the k-NN vector field:
 
@@ -618,7 +611,7 @@ GET test-binary-ivf/_search
   "size": 2,
   "query": {
     "knn": {
-      "my_vector1": {
+      "my_vector": {
         "vector": [8],
         "k": 2
       }
@@ -628,15 +621,16 @@ GET test-binary-ivf/_search
 ```
 {% include copy-curl.html %}
 
-Query results will be returned:
+The response contains two vectors closest to the query vector:
 
 <details markdown="block">
   <summary>
-    Results
+    Response
   </summary>
   {: .text-delta}
 
 ```json
+GET /_plugins/_knn/models/my-model?filter_path=state
 {
   "took": 7,
   "timed_out": false,
@@ -646,35 +640,35 @@ Query results will be returned:
     "skipped": 0,
     "failed": 0
   },
-"hits": {
+  "hits": {
     "total": {
-        "value": 2,
-        "relation": "eq"
+      "value": 2,
+      "relation": "eq"
     },
     "max_score": 0.5,
     "hits": [
-        {
-            "_index": "test-binary-ivf",
-            "_id": "2",
-            "_score": 0.5,
-            "_source": {
-                "my_vector1": [
-                    10
-                ],
-                "price": 14.2
-            }
-        },
-        {
-            "_index": "test-binary-ivf",
-            "_id": "3",
-            "_score": 0.25,
-            "_source": {
-                "my_vector1": [
-                    15
-                ],
-                "price": 19.1
-            }
+      {
+        "_index": "test-binary-ivf",
+        "_id": "2",
+        "_score": 0.5,
+        "_source": {
+          "my_vector": [
+            10
+          ],
+          "price": 14.2
         }
+      },
+      {
+        "_index": "test-binary-ivf",
+        "_id": "3",
+        "_score": 0.25,
+        "_source": {
+          "my_vector": [
+            15
+          ],
+          "price": 19.1
+        }
+      }
     ]
   }
 }
