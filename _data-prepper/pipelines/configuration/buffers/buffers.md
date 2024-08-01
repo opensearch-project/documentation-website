@@ -12,6 +12,4 @@ The `buffer` component acts as an intermediary layer between the `source` and `s
 
 If not explicitly specified in the pipeline configuration, Data Prepper uses the default `bounded_blocking` buffer, which is an in-memory queue bounded by the number of events it can store. The `bounded_blocking` buffer is a convenient option when the event volume and processing rates are manageable within the available memory constraints. 
 
-Data Prepper also provides the flexibility to configure alternative buffer types based on your specific requirements. For example, <SME: What are the alternative types?>
-
 
