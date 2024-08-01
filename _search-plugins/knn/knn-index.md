@@ -45,6 +45,10 @@ PUT /test-index
 
 Starting with k-NN plugin version 2.9, you can use `byte` vectors with the `lucene` engine to reduce the amount of storage space needed. For more information, see [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector).
 
+## Binary vector
+
+Starting with k-NN plugin version 2.16, you can use `binary` vectors with the `faiss` engine to reduce the amount of required storage space. For more information, see [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-k-nn-vectors).
+
 ## SIMD optimization for the Faiss engine
 
 Starting with version 2.13, the k-NN plugin supports [Single Instruction Multiple Data (SIMD)](https://en.wikipedia.org/wiki/Single_instruction,_multiple_data) processing if the underlying hardware supports SIMD instructions (AVX2 on x64 architecture and Neon on ARM64 architecture). SIMD is supported by default on Linux machines only for the Faiss engine. SIMD architecture helps boost overall performance by improving indexing throughput and reducing search latency.
@@ -105,11 +109,14 @@ An index created in OpenSearch version 2.11 or earlier will still use the old `e
 ### Supported Faiss methods
 
 Method name | Requires training | Supported spaces | Description
-:--- | :--- | :--- | :---
-`hnsw` | false | l2, innerproduct | Hierarchical proximity graph approach to approximate k-NN search.
-`ivf` | true | l2, innerproduct | Stands for _inverted file index_. Bucketing approach where vectors are assigned different buckets based on clustering and, during search, only a subset of the buckets is searched.
+:--- | :--- |:---| :---
+`hnsw` | false | l2, innerproduct, hamming | Hierarchical proximity graph approach to approximate k-NN search.
+`ivf` | true | l2, innerproduct, hamming  | Stands for _inverted file index_. Bucketing approach where vectors are assigned different buckets based on clustering and, during search, only a subset of the buckets is searched.
 
 For hnsw, "innerproduct" is not available when PQ is used.
+{: .note}
+
+The `hamming` space type is supported for binary vectors in OpenSearch version 2.16 and later. For more information, see [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-k-nn-vectors).
 {: .note}
 
 #### HNSW parameters
