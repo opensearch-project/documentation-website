@@ -71,7 +71,7 @@ This section contains the settings that can be customized in the OpenSearch Benc
 | `local.dataset.cache` | String | The directory in which benchmark datasets are stored. Depending on the benchmarks that are run, this directory may contain hundreds of GB of data. Default path is `$HOME/.benchmark/benchmarks/data`. |
 
 <!-- vale off -->
-## results_publishing
+## reporting
 <!-- vale on -->
 
 This section defines how benchmark metrics are stored.
@@ -109,7 +109,7 @@ You can use the following examples to set reporting values in your cluster.
 This example defines an unprotected metrics store in the local network:
 
 ```
-[results_publishing]
+[reporting]
 datastore.type = opensearch
 datastore.host = 192.168.10.17
 datastore.port = 9200
@@ -121,7 +121,7 @@ datastore.password =
 This example defines a secure connection to a metrics store in the local network with a self-signed certificate:
 
 ```
-[results_publishing]
+[reporting]
 datastore.type = opensearch
 datastore.host = 192.168.10.22
 datastore.port = 9200

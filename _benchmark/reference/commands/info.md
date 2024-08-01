@@ -43,7 +43,7 @@ Showing details for workload [nyc_taxis]:
 TestProcedure [searchable-snapshot]
 ===================================
 
-Measuring performance for Searchable Snapshot feature. Based on the default test procedure 'append-no-conflicts'.
+Measuring performance for Searchable Snapshot feature. Based on the default scenario 'append-no-conflicts'.
 
 Schedule: 
 ----------
@@ -158,6 +158,6 @@ You can use the following options with the `info` command:
 - `--workload-path`: Defines the path to a downloaded or custom workload. 
 - `--workload-revision`: Defines a specific revision from the workload source tree that OpenSearch Benchmark should use.
 - `--workload`: Defines the workload to use based on the workload's name. You can find a list of preloaded workloads using `opensearch-benchmark list workloads`. 
-- `--test-procedure`: Defines a test procedure to use. You can find a list of test procedures using `opensearch-benchmark list test_procedures`.
-- `--include-tasks`: Defines a comma-separated list of test procedure tasks to run. By default, all tasks listed in a test procedure array are run.
-- `--exclude-tasks`: Defines a comma-separated list of test procedure tasks not to run. 
+- `--scenario`: Defines a scenario to use. You can find a list of scenarios using `opensearch-benchmark list scenarios`.
+- `--include-tasks`: Defines a comma-separated list of scenario tasks to run. By default, all tasks listed in a scenario array are run.
+- `--exclude-tasks`: Defines a comma-separated list of scenario tasks not to run. 

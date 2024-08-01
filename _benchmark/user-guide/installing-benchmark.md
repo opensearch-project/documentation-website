@@ -106,7 +106,7 @@ You can find the official Docker images for OpenSearch Benchmark on [Docker Hub]
 
 Some OpenSearch Benchmark functionality is unavailable when you run OpenSearch Benchmark in a Docker container. Specifically, the following restrictions apply:
 
-- OpenSearch Benchmark cannot distribute load from multiple hosts, such as load worker coordinator hosts.
+- OpenSearch Benchmark cannot distribute load from multiple hosts, such as worker IPs.
 - OpenSearch Benchmark cannot provision OpenSearch nodes and can only run tests on previously existing clusters. You can only invoke OpenSearch Benchmark commands using the `benchmark-only` pipeline.
 
 ### Pulling the Docker images
@@ -146,7 +146,7 @@ Use the `-v` option to specify a local directory to mount and a directory in the
 The following example command creates a volume in a user's home directory, mounts the volume to the OpenSearch Benchmark container at `/opensearch-benchmark/.benchmark`, and then runs a test benchmark using the geonames workload. Some client options are also specified:
 
 ```bash
-docker run -v $HOME/benchmarks:/opensearch-benchmark/.benchmark opensearchproject/opensearch-benchmark execute-test --target-hosts https://198.51.100.25:9200 --pipeline benchmark-only --workload geonames --client-options basic_auth_user:admin,basic_auth_password:admin,verify_certs:false --test-mode
+docker run -v $HOME/benchmarks:/opensearch-benchmark/.benchmark opensearchproject/opensearch-benchmark run --target-hosts https://198.51.100.25:9200 --pipeline benchmark-only --workload geonames --client-options basic_auth_user:admin,basic_auth_password:admin,verify_certs:false --test-mode
 ```
 {% include copy.html %}
 
@@ -157,7 +157,7 @@ See [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/co
 OpenSearch Benchmark is compatible with JDK versions 17, 16, 15, 14, 13, 12, 11, and 8.
 {: .note}
 
-If you installed OpenSearch with PyPi, you can also provision a new OpenSearch cluster by specifying a `distribution-version` in the `execute-test` command.
+If you installed OpenSearch with PyPi, you can also provision a new OpenSearch cluster by specifying a `distribution-version` in the `run` command.
 
 If you plan on having Benchmark provision a cluster, you'll need to inform Benchmark of the location of the `JAVA_HOME` path for the Benchmark cluster. To set the `JAVA_HOME` path and provision a cluster:
 
@@ -165,10 +165,10 @@ If you plan on having Benchmark provision a cluster, you'll need to inform Bench
 
 2. Set your corresponding JDK version environment variable by entering the path from the previous step. Enter `export JAVA17_HOME=<Java Path>`.
 
-3. Run the `execute-test` command and indicate the distribution version of OpenSearch you want to use: 
+3. Run the `run` command and indicate the distribution version of OpenSearch you want to use: 
 
   ```bash
-  opensearch-benchmark execute-test --distribution-version=2.3.0 --workload=geonames --test-mode 
+  opensearch-benchmark run --distribution-version=2.3.0 --workload=geonames --test-mode 
   ```
 
 ## Directory structure
@@ -185,7 +185,7 @@ After running OpenSearch Benchmark for the first time, you can search through al
 │   ├── distributions
 │   │   ├── opensearch-1.0.0-linux-x64.tar.gz
 │   │   └── opensearch-2.3.0-linux-x64.tar.gz
-│   ├── test_executions
+│   ├── test_runs
 │   │   ├── 0279b13b-1e54-49c7-b1a7-cde0b303a797
 │   │   └── 0279c542-a856-4e88-9cc8-04306378cd38
 │   └── workloads
@@ -199,7 +199,7 @@ After running OpenSearch Benchmark for the first time, you can search through al
 * `benchmark.ini`: Contains any adjustable configurations for tests. For information about how to configure OpenSearch Benchmark, see [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/).
 * `data`: Contains all the data corpora and documents related to OpenSearch Benchmark's [official workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/geonames).
 * `distributions`: Contains all the OpenSearch distributions downloaded from [OpenSearch.org](http://opensearch.org/) and used to provision clusters.
-* `test_executions`: Contains all the test `execution_id`s from previous runs of OpenSearch Benchmark.
+* `test_runs`: Contains all the test `execution_id`s from previous runs of OpenSearch Benchmark.
 * `workloads`: Contains all files related to workloads, except for the data corpora.
 * `logging.json`: Contains all of the configuration options related to how logging is performed within OpenSearch Benchmark.
 * `logs`: Contains all the logs from OpenSearch Benchmark runs. This can be helpful when you've encountered errors during runs.

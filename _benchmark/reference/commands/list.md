@@ -17,8 +17,8 @@ The `list` command lists the following elements used by OpenSearch Benchmark:
 - `telemetry`: Telemetry devices  
 - `workloads`: Workloads 
 - `pipelines`: Pipelines
-- `test_executions`: Single run of a workload 
-- `provision_config_instances`: Provisioned configuration instances
+- `test_runs`: Single run of a workload 
+- `cluster_configs`: Provisioned configuration instances
 - `opensearch-plugins`: OpenSearch plugins 
 
 
@@ -27,13 +27,13 @@ The `list` command lists the following elements used by OpenSearch Benchmark:
 The following example lists any workload test runs and detailed information about each test:
 
 ```
-`opensearch-benchmark list test_executions
+`opensearch-benchmark list test_runs
 ```
 
 OpenSearch Benchmark returns information about each test. 
 
 ```
-benchmark list test_executions
+benchmark list test_runs
 
    ____                  _____                      __       ____                  __                         __
   / __ \____  ___  ____ / ___/___  ____ ___________/ /_     / __ )___  ____  _____/ /_  ____ ___  ____ ______/ /__
@@ -43,9 +43,9 @@ benchmark list test_executions
     /_/
 
 
-Recent test_executions:
+Recent test_runs:
 
-TestExecution ID                      TestExecution Timestamp    Workload    Workload Parameters    TestProcedure        ProvisionConfigInstance    User Tags    workload Revision    Provision Config Revision
+TestRun ID                      TestRun Timestamp    Workload    Workload Parameters    TestProcedure        ProvisionConfigInstance    User Tags    workload Revision    Provision Config Revision
 ------------------------------------  -------------------------  ----------  ---------------------  -------------------  -------------------------  -----------  -------------------  ---------------------------
 729291a0-ee87-44e5-9b75-cc6d50c89702  20230524T181718Z           geonames                           append-no-conflicts  4gheap                                  30260cf
 f91c33d0-ec93-48e1-975e-37476a5c9fe5  20230524T170134Z           geonames                           append-no-conflicts  4gheap                                  30260cf

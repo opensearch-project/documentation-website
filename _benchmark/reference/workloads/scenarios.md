@@ -1,25 +1,27 @@
 ---
 layout: default
-title: test_procedures
+title: Scenarios
 parent: Workload reference
 grand_parent: OpenSearch Benchmark Reference
 nav_order: 110
+redirect_from:
+  - /benchmark/workloads/test-procedures/
 ---
 
 <!-- vale off -->
-# test_procedures
+# Scenarios
 <!-- vale on -->
 
-If your workload only defines one benchmarking scenario, specify the schedule at the top level. Use the `test-procedures` element to specify additional properties, such as a name or description. A test procedure is like a benchmarking scenario. If you have multiple test procedures, you can define a variety of challenges.
+If your workload only defines one benchmarking scenario, specify the schedule at the top level. Use the `scenarios` element to specify additional properties, such as a name or description. A scenario is like a benchmarking scenario. If you have multiple scenarios, you can define a variety of challenges.
 
-The following table lists test procedures for the benchmarking scenarios in this dataset. A test procedure can reference all operations that are defined in the operations section.
+The following table lists scenarios for the benchmarking scenarios in this dataset. A scenario can reference all operations that are defined in the operations section.
 
 Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
-`name` | Yes | String | The name of the test procedure. When naming the test procedure, do not use spaces; this ensures that the name can be easily entered on the command line.
-`description` | No | String |  Describes the test procedure in a human-readable format.
+`name` | Yes | String | The name of the scenario. When naming the scenario, do not use spaces; this ensures that the name can be easily entered on the command line.
+`description` | No | String |  Describes the scenario in a human-readable format.
 `user-info` | No | String | Outputs a message at the start of the test to notify you about important test-related information, for example, deprecations.
-`default` | No | Boolean | When set to `true`, selects the default test procedure if you did not specify a test procedure on the command line. If the workload only defines one test procedure, it is implicitly selected as the default. Otherwise, you must define `"default": true` on exactly one challenge.
+`default` | No | Boolean | When set to `true`, selects the default scenario if you did not specify a scenario on the command line. If the workload only defines one scenario, it is implicitly selected as the default. Otherwise, you must define `"default": true` on exactly one challenge.
 [`schedule`](#Schedule) | Yes | Array |  Defines the order in which workload tasks are run.
 
 <!-- vale off -->

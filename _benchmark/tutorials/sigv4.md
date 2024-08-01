@@ -34,10 +34,10 @@ OpenSearch Benchmark supports AWS Signature Version 4 authentication. To run Ben
 
   If you're testing against Amazon OpenSearch Serverless, set `OSB_SERVICE` to `aoss`.
 
-3. Customize and run the following `execute-test` command with the ` --client-options=amazon_aws_log_in:environment` flag. This flag tells OpenSearch Benchmark the location of your exported credentials.
+3. Customize and run the following `run` command with the ` --client-options=amazon_aws_log_in:environment` flag. This flag tells OpenSearch Benchmark the location of your exported credentials.
 
    ```bash
-   opensearch-benchmark execute-test \
+   opensearch-benchmark run \
    --target-hosts=<CLUSTER ENDPOINT> \
    --pipeline=benchmark-only \
    --workload=geonames \

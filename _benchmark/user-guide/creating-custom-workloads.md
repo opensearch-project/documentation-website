@@ -21,8 +21,8 @@ OpenSearch Benchmark (OSB) includes a set of [workloads](https://github.com/open
   - [Invoking your custom workload](#invoking-your-custom-workload)
   - [Advanced options](#advanced-options)
     - [Test mode](#test-mode)
-    - [Adding variance to test procedures](#adding-variance-to-test-procedures)
-    - [Separate operations and test procedures](#separate-operations-and-test-procedures)
+    - [Adding variance to scenarios](#adding-variance-to-scenarios)
+    - [Separate operations and scenarios](#separate-operations-and-scenarios)
   - [Next steps](#next-steps)
 
 ## Creating a workload from an existing cluster
@@ -158,7 +158,7 @@ To build a workload with source files, create a directory for your workload and 
    - `corpora`: Defines the corpora and the source file, including the:
       - `document-count`: The number of documents in `<index>-documents.json`. To get an accurate number of documents, run `wc -l <index>-documents.json`.
       - `uncompressed-bytes`: The number of bytes inside the index. To get an accurate number of bytes, run `stat -f %z <index>-documents.json` on macOS or `stat -c %s <index>-documents.json` on GNU/Linux. Alternatively, run `ls -lrt | grep <index>-documents.json`.
-   - `schedule`: Defines the sequence of operations and available test procedures for the workload.
+   - `schedule`: Defines the sequence of operations and available scenarios for the workload.
 
 The following example `workload.json` file provides the entry point for the `movies` workload. The `indices` section creates an index called `movies`. The corpora section refers to the source file created in step one, `movie-documents.json`, and provides the document count and the amount of uncompressed bytes. Lastly, the schedule section defines a few operations the workload performs when invoked, including:
 
@@ -260,7 +260,7 @@ opensearch-benchmark list workloads --workload-path=</path/to/workload/>
 
 ## Invoking your custom workload
 
-Use the `opensearch-benchmark execute-test` command to invoke your new workload and run a benchmark test against your OpenSearch cluster, as shown in the following example. Replace `--workload-path` with the path to your custom workload, `--target-host` with the `host:port` pairs for your cluster, and `--client-options` with any authorization options required to access the cluster.
+Use the `opensearch-benchmark run` command to invoke your new workload and run a benchmark test against your OpenSearch cluster, as shown in the following example. Replace `--workload-path` with the path to your custom workload, `--target-host` with the `host:port` pairs for your cluster, and `--client-options` with any authorization options required to access the cluster.
 
 ```
 opensearch-benchmark execute_test \
@@ -278,7 +278,7 @@ You can enhance your custom workload's functionality with the following advanced
 
 ### Test mode
 
-If you want run the test in test mode to make sure your workload operates as intended, add the `--test-mode` option to the `execute-test` command. Test mode ingests only the first 1000 documents from each index provided and runs query operations against them.
+If you want run the test in test mode to make sure your workload operates as intended, add the `--test-mode` option to the `run` command. Test mode ingests only the first 1000 documents from each index provided and runs query operations against them.
 
 To use test mode, create a `<index>-documents-1k.json` file that contains the first 1000 documents from `<index>-documents.json` using the following command:
 
@@ -286,7 +286,7 @@ To use test mode, create a `<index>-documents-1k.json` file that contains the fi
 head -n 1000 <index>-documents.json > <index>-documents-1k.json
 ```
 
-Then, run `opensearch-benchmark execute-test` with the option `--test-mode`. Test mode runs a quick version of the workload test.
+Then, run `opensearch-benchmark run` with the option `--test-mode`. Test mode runs a quick version of the workload test.
 
 ```
 opensearch-benchmark execute_test \
@@ -297,19 +297,19 @@ opensearch-benchmark execute_test \
 --test-mode
 ```
 
-### Adding variance to test procedures
+### Adding variance to scenarios
 
-After using your custom workload several times, you might want to use the same workload but perform the workload's operations in a different order. Instead of creating a new workload or reorganizing the procedures directly, you can provide test procedures to vary workload operations.
+After using your custom workload several times, you might want to use the same workload but perform the workload's operations in a different order. Instead of creating a new workload or reorganizing the procedures directly, you can provide scenarios to vary workload operations.
 
-To add variance to your workload operations, go to your `workload.json` file and replace the `schedule` section with a `test_procedures` array, as shown in the following example. Each item in the array contains the following:
+To add variance to your workload operations, go to your `workload.json` file and replace the `schedule` section with a `scenarios` array, as shown in the following example. Each item in the array contains the following:
 
-- `name`: The name of the test procedure.
-- `default`: When set to `true`, OpenSearch Benchmark defaults to the test procedure specified as `default` in the workload if no other test procedures are specified.
-- `schedule`: All the operations the test procedure will run.
+- `name`: The name of the scenario.
+- `default`: When set to `true`, OpenSearch Benchmark defaults to the scenario specified as `default` in the workload if no other scenarios are specified.
+- `schedule`: All the operations the scenario will run.
 
 
 ```json
-"test_procedures": [
+"scenarios": [
     {
       "name": "index-and-query",
       "default": true,
@@ -367,11 +367,11 @@ To add variance to your workload operations, go to your `workload.json` file and
 }
 ```
 
-### Separate operations and test procedures
+### Separate operations and scenarios
 
-If you want to make your `workload.json` file more readable, you can separate your operations and test procedures into different directories and reference the path to each in `workload.json`. To separate operations and procedures, perform the following steps:
+If you want to make your `workload.json` file more readable, you can separate your operations and scenarios into different directories and reference the path to each in `workload.json`. To separate operations and procedures, perform the following steps:
 
-1. Add all test procedures to a single file. You can give the file any name. Because the `movies` workload in the preceding contains and index task and queries, this step names the test procedures file `index-and-query.json`.
+1. Add all scenarios to a single file. You can give the file any name. Because the `movies` workload in the preceding contains and index task and queries, this step names the scenarios file `index-and-query.json`.
 2. Add all operations to a file named `operations.json`.
 3. Reference the new files in `workloads.json` by adding the following syntax, replacing `parts` with the relative path to each file, as shown in the following example:
 
@@ -379,9 +379,9 @@ If you want to make your `workload.json` file more readable, you can separate yo
     "operations": [
         {% raw %}{{ benchmark.collect(parts="operations/*.json") }}{% endraw %}
     ]
-    # Reference test procedure files in workload.json
-    "test_procedures": [
-        {% raw %}{{ benchmark.collect(parts="test_procedures/*.json") }}{% endraw %}
+    # Reference scenario files in workload.json
+    "scenarios": [
+        {% raw %}{{ benchmark.collect(parts="scenarios/*.json") }}{% endraw %}
     ]
     ```
 

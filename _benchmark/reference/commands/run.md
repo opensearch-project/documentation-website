@@ -1,25 +1,26 @@
 ---
 layout: default
-title: execute-test
+title: run
 nav_order: 65
 parent: Command reference
 grand_parent: OpenSearch Benchmark Reference
 redirect_from:
+  - /benchmark/commands/run/
   - /benchmark/commands/execute-test/
 ---
 
 <!-- vale off -->
-# execute-test
+# run
 <!-- vale on -->
 
-Whether you're using the included [OpenSearch Benchmark workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) or a [custom workload]({{site.url}}{{site.baseurl}}/benchmark/creating-custom-workloads/), use the `execute-test` command to gather data about the performance of your OpenSearch cluster according to the selected workload. 
+Whether you're using the included [OpenSearch Benchmark workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) or a [custom workload]({{site.url}}{{site.baseurl}}/benchmark/creating-custom-workloads/), use the `run` command to gather data about the performance of your OpenSearch cluster according to the selected workload. 
 
 ## Usage
 
-The following example executes a test using the `geonames` workload in test mode: 
+The following example tests a run using the `geonames` workload in test mode: 
 
 ```
-opensearch-benchmark execute-test --workload=geonames --test-mode 
+opensearch-benchmark run --workload=geonames --test-mode 
 ```
 
 After the test runs, OpenSearch Benchmark responds with a summary of the benchmark metrics: 
@@ -86,11 +87,11 @@ After the test runs, OpenSearch Benchmark responds with a summary of the benchma
 
 ## Options
 
-Use the following options to customize the `execute-test` command for your use case. Options in this section are categorized by their use case. 
+Use the following options to customize the `run` command for your use case. Options in this section are categorized by their use case. 
 
 ## General settings
 
-The following options shape how each test runs and how results appear: 
+The following options customize each run and affects how run results appear: 
 
 - `--test-mode`: Runs the given workload in test mode, which is useful when checking a workload for errors.
 - `--user-tag`: Defines user-specific key-value pairs to be used in metric record as meta information, for example, `intention:baseline-ticket-12345`.
@@ -102,11 +103,11 @@ The following options shape how each test runs and how results appear:
 
 ### Distributions
 
-The following options set which version of OpenSearch and the OpenSearch plugins the benchmark test uses: 
+The following options set which version of OpenSearch and the OpenSearch plugins the benchmark run uses: 
 
 - `--distribution-version`: Downloads the specified OpenSearch distribution based on version number. For a list of released OpenSearch versions, see [Version history](https://opensearch.org/docs/version-history/). 
 - `--distribution-repository`: Defines the repository from where the OpenSearch distribution should be downloaded. Default is `release`.
-- `--revision`: Defines the current source code revision to use for running a benchmark test. Default is `current`.
+- `--revision`: Defines the current source code revision to use for running a benchmark run. Default is `current`.
    - `current`: Uses the source tree's current revision based on your OpenSearch distribution. 
    - `latest`: Fetches the latest revision from the main branch of the source tree. 
    - You can also use a timestamp or commit ID from the source tree. When using a timestamp, specify `@ts`, where "ts" is a valid ISO 8601 timestamp, for example, `@2013-07-27T10:37:00Z`. 
@@ -126,7 +127,7 @@ The following option relates to the target cluster of the benchmark.
 
 The following options help those who want to use multiple hosts to generate load to the benchmark cluster: 
 
-- `--load-worker-coordinator-hosts`: Defines a comma-separated list of hosts that coordinate loads. Default is `localhost`.
+- `--worker-ips`: Defines a comma-separated list of hosts that coordinate loads. Default is `localhost`.
 - `--enable-worker-coordinator-profiling`: Enables an analysis of the performance of OpenSearch Benchmark's worker coordinator. Default is `false`.
 
 ### Provisioning
@@ -142,21 +143,21 @@ The following options help customize how OpenSearch Benchmark provisions OpenSea
 
 ### Workload
 
-The following options determine which workload is used to run the test:
+The following options determine which workload is used during the run:
 
 - `--workload-repository`: Defines the repository from which OpenSearch Benchmark loads workloads. 
 - `--workload-path`: Defines the path to a downloaded or custom workload.
 - `--workload-revision`: Defines a specific revision from the workload source tree that OpenSearch Benchmark should use.
 - `--workload`: Defines the workload to use based on the workload's name. You can find a list of preloaded workloads using `opensearch-benchmark list workloads`.
 
-### Test procedures
+### Run procedures
 
-The following options define what test procedures the test uses and which operations are contained inside the procedure: 
+The following options define what run procedures the run uses and which operations are contained inside the procedure: 
 
-- `--test-execution-id`: Defines a unique ID for this test run.
-Defines the test procedures to use with each workload. You can find a list of test procedures that the workload supports by specifying the workload in the `info` command, for example, `opensearch-benchmark info --workload=<workload_name>`. To look up information on a specific test procedure, use the command `opensearch-benchmark info --workload=<workload_name> --test-procedure=<test-procedure>`.
-- `--include-tasks`: Defines a comma-separated list of test procedure tasks to run. By default, all tasks listed in a test procedure array are run.
-- `--exclude-tasks`: Defines a comma-separated list of test procedure tasks not to run.
+- `--test-run-id`: Defines a unique ID for this run.
+Defines the run procedures to use with each workload. You can find a list of run procedures that the workload supports by specifying the workload in the `info` command, for example, `opensearch-benchmark info --workload=<workload_name>`. To look up information on a specific run procedure, use the command `opensearch-benchmark info --workload=<workload_name> --scenario=<scenario>`.
+- `--include-tasks`: Defines a comma-separated list of run procedure tasks. By default, all tasks listed in a run procedure array are included.
+- `--exclude-tasks`: Defines a comma-separated list of run procedure tasks not to run.
 - `--enable-assertions`: Enables assertion checks for tasks. Default is `false`. 
 
 ### Pipelines
@@ -174,10 +175,10 @@ The following options enable telemetry devices on OpenSearch Benchmark:
 
 ### Errors
 
-The following options set how OpenSearch Benchmark handles errors when running tests: 
+The following options set how OpenSearch Benchmark handles errors during runs: 
 
 - `--on-error`: Controls how OpenSearch Benchmark responds to errors. Default is `continue`. 
-  - `continue`: Continues to run the test despite the error.
-  - `abort`: Aborts the test when an error occurs.
+  - `continue`: Continues to run despite the error.
+  - `abort`: Aborts the run when an error occurs.
 - `--preserve-install`: Keeps the Benchmark candidate and its index. Default is `false`.
 - `--kill-running-processes`: When set to `true`, stops any OpenSearch Benchmark processes currently running and allows OpenSearch Benchmark to continue to run. Default is `false`. 

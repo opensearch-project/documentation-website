@@ -13,14 +13,14 @@ After a workload completes, OpenSearch Benchmark stores all metric records withi
 
 ## Storing metrics
 
-You can specify whether metrics are stored in memory or in a metrics store while running the benchmark by setting the [`datastore.type`](https://opensearch.org/docs/latest/benchmark/configuring-benchmark/#results_publishing) parameter in your `benchmark.ini` file. 
+You can specify whether metrics are stored in memory or in a metrics store while running the benchmark by setting the [`datastore.type`](https://opensearch.org/docs/latest/benchmark/configuring-benchmark/#reporting) parameter in your `benchmark.ini` file. 
 
 ### In memory
 
-If you want to store metrics in memory while running the benchmark, provide the following settings in the `results_publishing` section of `benchmark.ini`:
+If you want to store metrics in memory while running the benchmark, provide the following settings in the `reporting` section of `benchmark.ini`:
 
 ```ini
-[results_publishing]
+[reporting]
 datastore.type = in-memory
 datastore.host = <host-url>
 datastore.port = <host-port>
@@ -32,10 +32,10 @@ datastore.password = <password>
 
 ### OpenSearch
 
-If you want to store metrics in an external OpenSearch memory store while running the benchmark, provide the following settings in the `results_publishing` section of `benchmark.ini`:
+If you want to store metrics in an external OpenSearch memory store while running the benchmark, provide the following settings in the `reporting` section of `benchmark.ini`:
 
 ```ini
-[results_publishing]
+[reporting]
 datastore.type = opensearch
 datastore.host = <opensearch endpoint>
 datastore.port = 443
@@ -52,7 +52,7 @@ After you run OpenSearch Benchmark configured to use OpenSearch as a data store,
 
 - `benchmark-metrics-YYYY-MM`: Holds granular metric and telemetry data.
 - `benchmark-results-YYYY-MM`: Holds data based on final results.
-- `benchmark-test-executions-YYYY-MM`: Holds data about `execution-ids`.
+- `benchmark-test-runs-YYYY-MM`: Holds data about `execution-ids`.
 
 You can visualize data inside these indexes in OpenSearch Dashboards.
 
