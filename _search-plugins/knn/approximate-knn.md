@@ -316,7 +316,7 @@ To learn more about the radial search feature, see [k-NN radial search]({{site.u
 
 ### Using approximate k-NN with binary vectors
 
-To learn more about using binary vectors with k-NN search, see [k-NN search with binary vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-vector).
+To learn more about using binary vectors with k-NN search, see [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-k-nn-vectors).
 
 ## Spaces
 
@@ -329,9 +329,9 @@ Not every method supports each of these spaces. Be sure to check out [the method
 <table>
   <thead style="text-align: center">
   <tr>
-    <th>spaceType</th>
-    <th>Distance Function (d)</th>
-    <th>OpenSearch Score</th>
+    <th>Space type</th>
+    <th>Distance function (d)</th>
+    <th>OpenSearch score</th>
   </tr>
   </thead>
   <tr>
@@ -368,7 +368,7 @@ Not every method supports each of these spaces. Be sure to check out [the method
     </td>
   </tr>
   <tr>
-    <td>hamming</td>
+    <td>hamming (supported for binary vectors in OpenSearch version 2.16 and later)</td>
     <td>\[ d(\mathbf{x}, \mathbf{y}) = \text{countSetBits}(\mathbf{x} \oplus \mathbf{y})\]</td>
     <td>\[ score = {1 \over 1 + d } \]</td>
   </tr>
@@ -384,5 +384,5 @@ such a vector is 0, which raises a `divide by 0` exception in the corresponding 
 containing the zero vector will be rejected and a corresponding exception will be thrown.
 {: .note }
 
-The `hamming` space type is supported for binary format vectors only in OpenSearch 2.16 and later, see [Binary vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-vector).
+The `hamming` space type is supported for binary vectors in OpenSearch version 2.16 and later. For more information, see [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-k-nn-vectors).
 {: .note}

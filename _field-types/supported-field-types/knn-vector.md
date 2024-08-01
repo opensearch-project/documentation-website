@@ -67,8 +67,7 @@ PUT test-index
 
 ## Model IDs
 
-Model IDs are used when the underlying Approximate k-NN algorithm requires a training step. As a prerequisite, the
-model has to be created with the [Train API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-a-model). The
+Model IDs are used when the underlying Approximate k-NN algorithm requires a training step. As a prerequisite, the model has to be created with the [Train API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-a-model). The
 model contains the information needed to initialize the native library segment files.
 
 ```json
@@ -268,39 +267,32 @@ return Byte(bval)
 ```
 {% include copy.html %}
 
-## Binary vector
-By switching from float to binary vectors, users can reduce memory costs by a factor of 32.
-Using binary type vector indices can lower operational costs, and maintain high recall performance, making large-scale deployment more economical and efficient.
+## Binary k-NN vectors
 
-### Supported Capabilities
+You can reduce memory costs by a factor of 32 by switching from float to binary vectors.
+Using binary vector indexes can lower operational costs while maintaining high recall performance, making large-scale deployment more economical and efficient.
 
-- **Approximate k-NN**: The binary format support is currently available only for the Faiss engine with HNSW and IVF algorithms supported.
-- **Script Score k-NN**: Enables the use of binary vectors in script scoring.
-- **Painless Extensions**: Allows the use of binary vectors with Painless scripting extensions.
+Binary format is available for the following k-NN search types:
 
-### Requirements
+- [Approximate k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/): Supports binary vectors only for the Faiss engine with HNSW and IVF algorithms.
+- [Script score k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-score-script/): Enables the use of binary vectors in script scoring.
+- [Painless extensions]({{site.url}}{{site.baseurl}}/search-plugins/knn/painless-functions/): Allows the use of binary vectors with Painless scripting extensions.
+
+### Requirements 
+
 There are several requirements for using binary vectors in OpenSearch k-NN plugin:
 
-#### Data Type
-The `data_type` of the binary vector index must be `binary`.
+- The `data_type` of the binary vector index must be `binary`.
+- The `space_type` of the binary vector index must be `hamming`.
+- The `dimension` of the binary vector index must be a multiple of 8.
+- You must convert your binary data into 8-bit signed integers (`int8`) in the [-128, 127] range. For example, the binary sequence of eight bits `0, 1, 1, 0, 0, 0, 1, 1` must be converted into its equivalent byte value of `99` to be used as a binary vector input.
 
-#### Space Type
+### Example: HNSW
 
-The `space_type` of the binary vector index must be `hamming`.
-
-#### Dimension
-
-The `dimension` of the binary vector index must be a multiple of 8.
-
-#### Input Vector
-
-User should encode their binary data into bytes (int8). For example, the binary sequence `0, 1, 1, 0, 0, 0, 1, 1` should be packed into the byte value 99 as binary format vector input.
-
-### Examples
-The following example demonstrates how to create a binary vector index with the Faiss engine and HNSW algorithm:
+To create a binary vector index with the Faiss engine and HNSW algorithm, send the following request:
 
 ```json
-PUT test-binary-hnsw
+PUT /test-binary-hnsw
 {
   "settings": {
     "index": {
@@ -329,7 +321,7 @@ PUT test-binary-hnsw
 ```
 {% include copy-curl.html %}
 
-Then ingest some documents with binary vectors:
+Then ingest some documents containing binary vectors:
 
 ```json
 PUT _bulk?refresh=true
@@ -346,11 +338,10 @@ PUT _bulk?refresh=true
 ```
 {% include copy-curl.html %}
 
-
 When querying, be sure to use a binary vector:
 
 ```json
-GET test-binary-hnsw/_search
+GET /test-binary-hnsw/_search
 {
   "size": 2,
   "query": {
@@ -365,9 +356,12 @@ GET test-binary-hnsw/_search
 ```
 {% include copy-curl.html %}
 
-The follow example demonstrates how to create a binary vector index with the Faiss engine and IVF algorithm:
+### Example: IVF
 
-Firstly, we need create the training index with binary format data type:
+The IVF method requires a training step that creates and trains the model that is used to initialize the native library index during segment creation. For more information, see [Building a k-NN index from a model]({{site.url}}{{site.baseurl}}/search-plugins/approximate-knn/#building-a-k-nn-index-from-a-model). 
+
+First, create an index that will contain binary vector training data. Specify the Faiss engine and IVF algorithm and make sure the `dimension` matches the dimension of the model you want to create:
+
 ```json
 PUT train-index
 {
@@ -382,9 +376,10 @@ PUT train-index
   }
 }
 ```
-{% include copy-curl.html %}'
+{% include copy-curl.html %}
 
-Then, ingest some documents with binary vectors to the training index:
+Ingest training data containing binary vectors to the training index:
+
 ```json
 PUT _bulk
 { "index": { "_index": "train-index", "_id": "1" } }
@@ -397,11 +392,10 @@ PUT _bulk
 { "train-field": [4] }
 { "index": { "_index": "train-index", "_id": "5" } }
 { "train-field": [5] }
-...
 ```
 {% include copy-curl.html %}
 
-Then, train the model with the training index and field in binary format, and specify the method space type as `hamming`:
+Then, create and train the model named `test-binary-model`. The model will train using the training data from the `train_field` in the `train-index`. Specify the `binary` data type and `hamming` space type:
 
 ```json
 POST _plugins/_knn/models/test-binary-model/_train
@@ -417,20 +411,23 @@ POST _plugins/_knn/models/test-binary-model/_train
     "space_type": "hamming",
     "parameters": {
       "nlist": 1,
-      "nprobes":1
+      "nprobes": 1
     }
   }
 }
 ```
 {% include copy-curl.html %}
 
-Then, make sure the model state is `created`:
+To check the model training status, call the Get Model API:
+
 ```json
 GET _plugins/_knn/models/test-binary-model?filter_path=state
 ```
 {% include copy-curl.html %}
 
-Then, create IVF index with the trained model:
+Once the training is complete, the `state` changes to `created`.
+
+Next, create an index that will initialize its native library indexes using the trained model:
 
 ```json
 PUT test-binary-ivf
@@ -452,7 +449,7 @@ PUT test-binary-ivf
 ```
 {% include copy-curl.html %}
 
-Then ingest some documents with binary vectors:
+Ingest the data that contains binary vectors you want to search into the created index:
 
 ```json
 PUT _bulk?refresh=true
@@ -469,7 +466,7 @@ PUT _bulk?refresh=true
 ```
 {% include copy-curl.html %}
 
-When querying, be sure to use a binary vector:
+Finally, search the data. Be sure to provide a binary vector in the k-NN vector field:
 
 ```json
 GET test-binary-ivf/_search

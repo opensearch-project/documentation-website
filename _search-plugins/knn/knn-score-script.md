@@ -319,12 +319,10 @@ A space corresponds to the function used to measure the distance between two poi
     </td>
   </tr>
   <tr>
-    <td>hammingbit</td>
-    <td>\[ d(\mathbf{x}, \mathbf{y}) = \text{countSetBits}(\mathbf{x} \oplus \mathbf{y})\]</td>
-    <td>\[ score = {1 \over 1 + d } \]</td>
-  </tr>
-  <tr>
-    <td>hamming</td>
+    <td>
+      hammingbit (supported for binary and long vectors) <br>
+      hamming (supported for binary vectors in OpenSearch version 2.16 and later)
+    </td>
     <td>\[ d(\mathbf{x}, \mathbf{y}) = \text{countSetBits}(\mathbf{x} \oplus \mathbf{y})\]</td>
     <td>\[ score = {1 \over 1 + d } \]</td>
   </tr>
@@ -338,5 +336,5 @@ such a vector is 0, which raises a `divide by 0` exception in the corresponding 
 containing the zero vector will be rejected and a corresponding exception will be thrown.
 {: .note }
 
-The `hamming` space type is supported for binary format vectors only in OpenSearch 2.16 and later, see [Binary vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-vector).
+The `hamming` space type is supported for binary vectors in OpenSearch version 2.16 and later. For more information, see [Binary k-NN vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-k-nn-vector).
 {: .note}
