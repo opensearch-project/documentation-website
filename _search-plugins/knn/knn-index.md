@@ -47,7 +47,7 @@ Starting with k-NN plugin version 2.9, you can use `byte` vectors with the `luce
 
 ## Binary vector
 
-Starting with k-NN plugin version 2.16, you can use `binary` vectors with the `faiss` engine to reduce the amount of storage space needed. For more information, see [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-k-nn-vectors).
+Starting with k-NN plugin version 2.16, you can use `binary` vectors with the `faiss` engine to reduce the amount of required storage space. For more information, see [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-k-nn-vectors).
 
 ## SIMD optimization for the Faiss engine
 
