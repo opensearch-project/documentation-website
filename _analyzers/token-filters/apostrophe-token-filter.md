@@ -112,5 +112,5 @@ Expected result:
 }
 ```
 
-The built in `apostrophe` token filter is not suitable for languages such as French, as the apostrophes are used at the beginning of the words, for example "C'est l'amour de l'école" will result in four tokens: "C", "l", "de", "l".
+The built in `apostrophe` token filter is not suitable for languages such as French, as the apostrophes are used at the beginning of the words, for example `"C'est l'amour de l'école"` will result in four tokens: "C", "l", "de", "l".
 {: .note}
