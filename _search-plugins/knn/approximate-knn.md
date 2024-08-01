@@ -314,6 +314,10 @@ To learn about using k-NN search with nested fields, see [k-NN search with neste
 
 To learn more about the radial search feature, see [k-NN radial search]({{site.url}}{{site.baseurl}}/search-plugins/knn/radial-search-knn/).
 
+### Using approximate k-NN with binary vectors
+
+To learn more about using binary vectors with k-NN search, see [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-k-nn-vectors).
+
 ## Spaces
 
 A space corresponds to the function used to measure the distance between two points in order to determine the k-nearest neighbors. From the k-NN perspective, a lower score equates to a closer and better result. This is the opposite of how OpenSearch scores results, where a greater score equates to a better result. To convert distances to OpenSearch scores, we take 1 / (1 + distance). The k-NN plugin supports the following spaces. 
@@ -325,9 +329,9 @@ Not every method supports each of these spaces. Be sure to check out [the method
 <table>
   <thead style="text-align: center">
   <tr>
-    <th>spaceType</th>
-    <th>Distance Function (d)</th>
-    <th>OpenSearch Score</th>
+    <th>Space type</th>
+    <th>Distance function (d)</th>
+    <th>OpenSearch score</th>
   </tr>
   </thead>
   <tr>
@@ -363,6 +367,11 @@ Not every method supports each of these spaces. Be sure to check out [the method
         \[ \text{If} d > 0, score = d + 1 \] \[\text{If} d \le 0\] \[score = {1 \over 1 + (-1 &middot; d) }\]
     </td>
   </tr>
+  <tr>
+    <td>hamming (supported for binary vectors in OpenSearch version 2.16 and later)</td>
+    <td>\[ d(\mathbf{x}, \mathbf{y}) = \text{countSetBits}(\mathbf{x} \oplus \mathbf{y})\]</td>
+    <td>\[ score = {1 \over 1 + d } \]</td>
+  </tr>
 </table>
 
 The cosine similarity formula does not include the `1 -` prefix. However, because similarity search libraries equates
@@ -374,3 +383,6 @@ With cosine similarity, it is not valid to pass a zero vector (`[0, 0, ...]`) as
 such a vector is 0, which raises a `divide by 0` exception in the corresponding formula. Requests
 containing the zero vector will be rejected and a corresponding exception will be thrown.
 {: .note }
+
+The `hamming` space type is supported for binary vectors in OpenSearch version 2.16 and later. For more information, see [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-k-nn-vectors).
+{: .note}
