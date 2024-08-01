@@ -323,12 +323,6 @@ PUT /test-binary-hnsw
 
 Then ingest some documents containing binary vectors:
 
-<details markdown="block">
-  <summary>
-    Bulk ingest for test-binary-hnsw
-  </summary>
-  {: .text-delta}
-
 ```json
 PUT _bulk
 {"index": {"_index": "test-binary-hnsw", "_id": "1"}}
@@ -343,7 +337,6 @@ PUT _bulk
 {"my_vector": [80], "price": 16.5}
 ```
 {% include copy-curl.html %}
-</details>
 
 When querying, be sure to use a binary vector:
 
