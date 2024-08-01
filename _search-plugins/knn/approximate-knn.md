@@ -271,7 +271,7 @@ GET my-knn-index-1/_search
   "size": 2,
   "query": {
     "knn": {
-      "my_vector": {
+      "target-field": {
         "vector": [2, 3, 5, 6],
         "k": 2,
         "method_parameters" : {
