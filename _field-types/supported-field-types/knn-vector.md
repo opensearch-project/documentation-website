@@ -323,8 +323,14 @@ PUT /test-binary-hnsw
 
 Then ingest some documents containing binary vectors:
 
+<details markdown="block">
+  <summary>
+    Bulk ingest for test-binary-hnsw
+  </summary>
+  {: .text-delta}
+
 ```json
-PUT _bulk?refresh=true
+PUT _bulk
 {"index": {"_index": "test-binary-hnsw", "_id": "1"}}
 {"my_vector": [7], "price": 4.4}
 {"index": {"_index": "test-binary-hnsw", "_id": "2"}}
@@ -337,6 +343,7 @@ PUT _bulk?refresh=true
 {"my_vector": [80], "price": 16.5}
 ```
 {% include copy-curl.html %}
+</details>
 
 When querying, be sure to use a binary vector:
 
@@ -346,7 +353,7 @@ GET /test-binary-hnsw/_search
   "size": 2,
   "query": {
     "knn": {
-      "my_vector1": {
+      "my_vector": {
         "vector": [9],
         "k": 2
       }
@@ -355,6 +362,59 @@ GET /test-binary-hnsw/_search
 }
 ```
 {% include copy-curl.html %}
+
+Query results will be returned:
+
+<details markdown="block">
+  <summary>
+    Results
+  </summary>
+  {: .text-delta}
+
+```json
+{
+  "took": 8,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 2,
+      "relation": "eq"
+    },
+    "max_score": 0.5,
+    "hits": [
+      {
+        "_index": "test-binary-hnsw",
+        "_id": "2",
+        "_score": 0.5,
+        "_source": {
+          "my_vector": [
+            10
+          ],
+          "price": 14.2
+        }
+      },
+      {
+        "_index": "test-binary-hnsw",
+        "_id": "5",
+        "_score": 0.25,
+        "_source": {
+          "my_vector": [
+            80
+          ],
+          "price": 16.5
+        }
+      }
+    ]
+  }
+}
+  ```
+</details>
 
 ### Example: IVF
 
@@ -380,6 +440,12 @@ PUT train-index
 
 Ingest training data containing binary vectors into the training index:
 
+<details markdown="block">
+  <summary>
+    Bulk ingest for train index
+  </summary>
+  {: .text-delta}
+
 ```json
 PUT _bulk
 { "index": { "_index": "train-index", "_id": "1" } }
@@ -392,8 +458,79 @@ PUT _bulk
 { "train-field": [4] }
 { "index": { "_index": "train-index", "_id": "5" } }
 { "train-field": [5] }
+{ "index": { "_index": "train-index", "_id": "6" } }
+{ "train-field": [6] }
+{ "index": { "_index": "train-index", "_id": "7" } }
+{ "train-field": [7] }
+{ "index": { "_index": "train-index", "_id": "8" } }
+{ "train-field": [8] }
+{ "index": { "_index": "train-index", "_id": "9" } }
+{ "train-field": [9] }
+{ "index": { "_index": "train-index", "_id": "10" } }
+{ "train-field": [10] }
+{ "index": { "_index": "train-index", "_id": "11" } }
+{ "train-field": [11] }
+{ "index": { "_index": "train-index", "_id": "12" } }
+{ "train-field": [12] }
+{ "index": { "_index": "train-index", "_id": "13" } }
+{ "train-field": [13] }
+{ "index": { "_index": "train-index", "_id": "14" } }
+{ "train-field": [14] }
+{ "index": { "_index": "train-index", "_id": "15" } }
+{ "train-field": [15] }
+{ "index": { "_index": "train-index", "_id": "16" } }
+{ "train-field": [16] }
+{ "index": { "_index": "train-index", "_id": "17" } }
+{ "train-field": [17] }
+{ "index": { "_index": "train-index", "_id": "18" } }
+{ "train-field": [18] }
+{ "index": { "_index": "train-index", "_id": "19" } }
+{ "train-field": [19] }
+{ "index": { "_index": "train-index", "_id": "20" } }
+{ "train-field": [20] }
+{ "index": { "_index": "train-index", "_id": "21" } }
+{ "train-field": [21] }
+{ "index": { "_index": "train-index", "_id": "22" } }
+{ "train-field": [22] }
+{ "index": { "_index": "train-index", "_id": "23" } }
+{ "train-field": [23] }
+{ "index": { "_index": "train-index", "_id": "24" } }
+{ "train-field": [24] }
+{ "index": { "_index": "train-index", "_id": "25" } }
+{ "train-field": [25] }
+{ "index": { "_index": "train-index", "_id": "26" } }
+{ "train-field": [26] }
+{ "index": { "_index": "train-index", "_id": "27" } }
+{ "train-field": [27] }
+{ "index": { "_index": "train-index", "_id": "28" } }
+{ "train-field": [28] }
+{ "index": { "_index": "train-index", "_id": "29" } }
+{ "train-field": [29] }
+{ "index": { "_index": "train-index", "_id": "30" } }
+{ "train-field": [30] }
+{ "index": { "_index": "train-index", "_id": "31" } }
+{ "train-field": [31] }
+{ "index": { "_index": "train-index", "_id": "32" } }
+{ "train-field": [32] }
+{ "index": { "_index": "train-index", "_id": "33" } }
+{ "train-field": [33] }
+{ "index": { "_index": "train-index", "_id": "34" } }
+{ "train-field": [34] }
+{ "index": { "_index": "train-index", "_id": "35" } }
+{ "train-field": [35] }
+{ "index": { "_index": "train-index", "_id": "36" } }
+{ "train-field": [36] }
+{ "index": { "_index": "train-index", "_id": "37" } }
+{ "train-field": [37] }
+{ "index": { "_index": "train-index", "_id": "38" } }
+{ "train-field": [38] }
+{ "index": { "_index": "train-index", "_id": "39" } }
+{ "train-field": [39] }
+{ "index": { "_index": "train-index", "_id": "40" } }
+{ "train-field": [40] }
 ```
 {% include copy-curl.html %}
+</details>
 
 Then, create and train the model named `test-binary-model`. The model will be trained using the training data from the `train_field` in the `train-index`. Specify the `binary` data type and `hamming` space type:
 
@@ -451,8 +588,14 @@ PUT test-binary-ivf
 
 Ingest the data containing the binary vectors that you want to search into the created index:
 
+<details markdown="block">
+  <summary>
+    Bulk ingest for test-binary-ivf
+  </summary>
+  {: .text-delta}
+
 ```json
-PUT _bulk?refresh=true
+PUT _bulk?refresh=true\
 {"index": {"_index": "test-binary-ivf", "_id": "1"}}
 {"my_vector": [7], "price": 4.4}
 {"index": {"_index": "test-binary-ivf", "_id": "2"}}
@@ -465,6 +608,7 @@ PUT _bulk?refresh=true
 {"my_vector": [80], "price": 16.5}
 ```
 {% include copy-curl.html %}
+</details>
 
 Finally, search the data. Be sure to provide a binary vector in the k-NN vector field:
 
@@ -475,7 +619,7 @@ GET test-binary-ivf/_search
   "query": {
     "knn": {
       "my_vector1": {
-        "vector": [9],
+        "vector": [8],
         "k": 2
       }
     }
@@ -483,3 +627,56 @@ GET test-binary-ivf/_search
 }
 ```
 {% include copy-curl.html %}
+
+Query results will be returned:
+
+<details markdown="block">
+  <summary>
+    Results
+  </summary>
+  {: .text-delta}
+
+```json
+{
+  "took": 7,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+"hits": {
+    "total": {
+        "value": 2,
+        "relation": "eq"
+    },
+    "max_score": 0.5,
+    "hits": [
+        {
+            "_index": "test-binary-ivf",
+            "_id": "2",
+            "_score": 0.5,
+            "_source": {
+                "my_vector1": [
+                    10
+                ],
+                "price": 14.2
+            }
+        },
+        {
+            "_index": "test-binary-ivf",
+            "_id": "3",
+            "_score": 0.25,
+            "_source": {
+                "my_vector1": [
+                    15
+                ],
+                "price": 19.1
+            }
+        }
+    ]
+  }
+}
+```
+</details>
