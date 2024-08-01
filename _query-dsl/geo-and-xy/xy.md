@@ -2,9 +2,7 @@
 layout: default
 title: xy
 parent: Geographic and xy queries
-grand_parent: Query DSL
 nav_order: 50
-
 redirect_from: 
   - /opensearch/query-dsl/geo-and-xy/xy/
   - /query-dsl/query-dsl/geo-and-xy/xy/

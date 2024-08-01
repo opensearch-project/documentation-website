@@ -17,17 +17,6 @@ The most basic cluster allocation explain request finds an unassigned shard and 
 If you add some options, you can instead get information on a specific shard, including why OpenSearch assigned it to its current node.
 
 
-## Example
-
-```json
-GET _cluster/allocation/explain?include_yes_decisions=true
-{
-  "index": "movies",
-  "shard": 0,
-  "primary": true
-}
-```
-{% include copy-curl.html %}
 
 ## Path and HTTP methods
 
@@ -58,8 +47,20 @@ index | String | The name of the shard's index.
 primary | Boolean | Whether to provide an explanation for the primary shard (true) or its first replica (false), which share the same shard ID.
 shard | Integer | The shard ID that you want an explanation for.
 
+## Example request
 
-## Response
+```json
+GET _cluster/allocation/explain?include_yes_decisions=true
+{
+  "index": "movies",
+  "shard": 0,
+  "primary": true
+}
+```
+{% include copy-curl.html %}
+
+
+## Example response
 
 ```json
 {

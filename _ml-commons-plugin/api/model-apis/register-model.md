@@ -357,7 +357,8 @@ OpenSearch responds with the `task_id`, task `status`, and `model_id`:
 
 ### The `interface` parameter
 
-The model interface provides a highly flexible way to add arbitrary metadata annotations to all local deep learning models and remote models in a JSON schema syntax. This annotation initiates a validation check on the input and output fields of the model during the model's invocation. The validation check ensures that the input and output fields are in the correct format both before and after the model performs a prediction.
+The model interface provides a highly flexible way to add arbitrary metadata annotations to all local deep learning models and externally hosted models in a JSON schema syntax. This annotation initiates a validation check on the input and output fields of the model during the model's invocation. The validation check ensures that the input and output fields are in the correct format both before and after the model performs inference.
+
 To register a model with a model interface, provide the `interface` parameter, which supports the following fields.
 
 Field | Data type | Description                         
@@ -365,9 +366,25 @@ Field | Data type | Description
 `input`| Object | The JSON schema for the model input. |
 `output`| Object | The JSON schema for the model output. |
 
-The input and output fields will be evaluated against the separately provided JSON schema. You do not necessarily need to provide both input and output fields simultaneously.
+The input and output fields are evaluated against the provided JSON schema. You do not need to provide both fields simultaneously.
 
-To learn more about the JSON schema syntax, see [Understanding JSON Schema](https://json-schema.org/understanding-json-schema/).
+#### Connector model interfaces
+
+To simplify your workflow, you can register an externally hosted model using a connector in one of the [connector blueprint]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/) formats. If you do so, a predefined model interface for this connector is generated automatically during model registration. The predefined model interface is generated based on the connector blueprint and the model's metadata, so you must strictly follow the blueprint when creating the connector in order to avoid errors.
+
+The following connector blueprints currently support creating predefined model interfaces:
+
+- [Amazon Comprehend](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/amazon_comprehend_connector_blueprint.md)
+- [Amazon Textract](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/amazon_textract_connector_blueprint.md) (Note that a predefined model interface is only available for the `DetectDocumentText` API; the `DetectEnities` API is not currently supported).
+- [Amazon Bedrock AI21 Labs Jurassic](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_ai21labs_jurassic_blueprint.md)
+- [Amazon Bedrock Anthropic Claude 3](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_anthropic_claude3_blueprint.md)
+- [Amazon Bedrock Anthropic Claude](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_anthropic_claude_blueprint.md)
+- [Amazon Bedrock Cohere Embed English v3](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_cohere_cohere.embed-english-v3_blueprint.md)
+- [Amazon Bedrock Cohere Embed Multilingual v3](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_cohere_cohere.embed-multilingual-v3_blueprint.md)
+- [Amazon Bedrock Titan Text Embeddings](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_titan_embedding_blueprint.md)
+- [Amazon Bedrock Titan Multimodal Embeddings](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_titan_multimodal_embedding_blueprint.md)
+
+To learn more about connector blueprints, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
 
 #### Example request: Externally hosted model with an interface
 

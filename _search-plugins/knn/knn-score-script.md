@@ -3,7 +3,6 @@ layout: default
 title: Exact k-NN with scoring script
 nav_order: 10
 parent: k-NN search
-grand_parent: Search methods
 has_children: false
 has_math: true
 ---
