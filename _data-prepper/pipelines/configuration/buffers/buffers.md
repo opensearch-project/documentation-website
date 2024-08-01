@@ -14,6 +14,4 @@ If not explicitly specified in the pipeline configuration, Data Prepper uses the
 
 Data Prepper also provides the flexibility to configure alternative buffer types based on your specific requirements. For example, <SME: What are the alternative types?>
 
-## Next steps
 
-- Learn more about the buffer types listed in the Related Articles section.

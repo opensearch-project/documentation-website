@@ -13,6 +13,4 @@ Processors are components within a Data Prepper pipeline that enable you to filt
 Prior to Data Prepper 1.3, these components were named *preppers*. In Data Prepper 1.3, the term *prepper* was deprecated in favor of *processor*. In Data Prepper 2.0, the term *prepper* was removed.
 {: .note }
 
-## Next steps
 
-- Learn about the processor types listed in the Related Articles section.

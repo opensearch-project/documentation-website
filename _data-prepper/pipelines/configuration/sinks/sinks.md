@@ -21,6 +21,4 @@ Option | Required | Type        | Description
 `include_keys` | No | String list | When specified, provides only the listed keys in the data sent to the sink. Some codecs and sinks may not support this field. 
 `exclude_keys` | No | String list | When specified, excludes the listed keys from the data sent to the sink. Some codecs and sinks may not support this field.
 
-## Next steps
 
-- Learn more about the sink types listed in the Related Articles section.
