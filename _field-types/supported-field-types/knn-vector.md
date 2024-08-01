@@ -363,7 +363,7 @@ GET /test-binary-hnsw/_search
 ```
 {% include copy-curl.html %}
 
-The response contains two vectors closest to the query vector:
+The response contains the two vectors closest to the query vector:
 
 <details markdown="block">
   <summary>
@@ -621,7 +621,7 @@ GET test-binary-ivf/_search
 ```
 {% include copy-curl.html %}
 
-The response contains two vectors closest to the query vector:
+The response contains the two vectors closest to the query vector:
 
 <details markdown="block">
   <summary>
