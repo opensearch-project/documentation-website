@@ -25,9 +25,9 @@ You can configure `asciifolding` token filter using parameter `preserve_original
 
 ## Example
 
-Following is an example of how you can define an analyzer with the `asciifolding` filter with `preserve_original` set to `true`.
+Following is an example of how you can define an analyzer with the `asciifolding` filter with `preserve_original` set to `true`:
 
-```
+```json
 PUT /example_index
 {
   "settings": {
@@ -51,24 +51,25 @@ PUT /example_index
     }
   }
 }
-
 ```
+{% include copy-curl.html %}
 
 ## Generated tokens
 
-You can use the following command to examine the tokens being generated using the created analyzer.
+You can use the following command to examine the tokens being generated using the created analyzer:
 
-```
+```json
 POST /example_index/_analyze
 {
   "analyzer": "custom_ascii_analyzer",
   "text": "Résumé café naïve coördinate"
 }
 ```
+{% include copy-curl.html %}
 
-Expected result:
+The response contains the generated tokens:
 
-```
+```json
 {
   "tokens": [
     {
