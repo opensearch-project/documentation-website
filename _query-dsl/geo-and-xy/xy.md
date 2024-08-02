@@ -33,7 +33,7 @@ You can define the shape in an xy query either by providing a new shape definiti
 
 To provide a new shape to an xy query, define it in the `xy_shape` field.
 
-The following example illustrates searching for documents containing xy shapes that match an xy shape defined at query time.
+The following example illustrates how to search for documents containing xy shapes that match an xy shape defined at query time.
 
 First, create an index and map the `geometry` field as an `xy_shape`:
 
