@@ -21,7 +21,7 @@ When sending cURL requests in a terminal, the request format varies depending on
 If you're not using the Security plugin, send the following request:
 
 ```bash
-curl -XGET "http://localhost:9200/_cluster/health"
+curl -X GET "http://localhost:9200/_cluster/health"
 ```
 {% include copy.html %}
 
@@ -37,7 +37,7 @@ The default username is `admin`, and the password is set in your `docker-compose
 OpenSearch generally returns responses in a flat JSON format by default. For a human-readable response body, provide the `pretty` query parameter:
 
 ```bash
-curl -XGET "http://localhost:9200/_cluster/health?pretty"
+curl -X GET "http://localhost:9200/_cluster/health?pretty"
 ```
 {% include copy.html %}
 
@@ -46,7 +46,7 @@ For more information about `pretty` and other useful query parameters, see [Comm
 For requests that contain a body, specify the `Content-Type` header and provide the request payload in the `-d` (data) option:
 
 ```json
-curl -XGET "http://localhost:9200/students/_search?pretty" -H 'Content-Type: application/json' -d'
+curl -X GET "http://localhost:9200/students/_search?pretty" -H 'Content-Type: application/json' -d'
 {
   "query": {
     "match_all": {}
@@ -135,7 +135,7 @@ OpenSearch responds with the field `type` for each field:
 
 OpenSearch mapped the numeric fields to the `float` and `long` types. Notice that OpenSearch mapped the `name` text field to `text` and added a `name.keyword` subfield mapped to `keyword`. Fields mapped to `text` are analyzed (lowercased and split into terms) and can be used for full-text search. Fields mapped to `keyword` are used for exact term search.
 
-OpenSearch mapped the `grad_year` field to `long`. If you want to map it to the `date` type instead, you need to [delete the index](#deleting-an-index) and then recreate it, explicitly specifying the mappings. For instructions on how to explicitly specify mappings, see [Index settings and mappings](#index-mappings-and-settings).
+OpenSearch mapped the `grad_year` field to `long`. If you want to map it to the `date` type instead, you need to [delete the index](#deleting-an-index) and then recreate it, explicitly specifying the mappings. For instructions on how to explicitly specify mappings, see [Index mappings and settings](#index-mappings-and-settings).
 
 ## Searching for documents
 
