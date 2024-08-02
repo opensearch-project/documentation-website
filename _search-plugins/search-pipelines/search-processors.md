@@ -25,10 +25,10 @@ Processor | Description | Earliest available version
 :--- | :--- | :---
 [`filter_query`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/filter-query-processor/) | Adds a filtering query that is used to filter requests. | 2.8
 [`ml_inference`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/ml-inference-search-request/) | Invokes registered machine learning (ML) models in order to rewrite queries. | 2.16 
-[`neural_query_enricher`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-query-enricher/) | Sets a default model for neural search and neural sparse search at the index or field level. | 2.11(neural), 2.13(neural sparse)
-[`script`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/script-processor/) | Adds a script that is run on newly indexed documents. | 2.8
+[`neural_query_enricher`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-query-enricher/) | Sets a default model for neural search and neural sparse search at the index or field level. | 2.11 (neural), 2.13 (neural sparse)
+[`neural_sparse_two_phase_processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-sparse-two-phase-processor/) | Accelerates the neural sparse query. | 2.15
 [`oversample`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/oversample-processor/) | Increases the search request `size` parameter, storing the original value in the pipeline state.  | 2.12
-
+[`script`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/script-processor/) | Adds a script that is run on newly indexed documents. | 2.8
 
 ## Search response processors
 

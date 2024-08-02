@@ -8,6 +8,8 @@ grand_parent: Search pipelines
 ---
 
 # Sort processor
+Introduced 2.16
+{: .label .label-purple }
 
 The `sort` processor sorts an array of items in either ascending or descending order. Numeric arrays are sorted numerically, while string or mixed arrays (strings and numbers) are sorted lexicographically. The processor throws an error if the input is not an array.
 

@@ -8,6 +8,8 @@ grand_parent: Search pipelines
 ---
 
 # Truncate hits processor
+Introduced 2.12
+{: .label .label-purple }
 
 The `truncate_hits` response processor discards returned search hits after a given hit count is reached. The `truncate_hits` processor is designed to work with the [`oversample` request processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/oversample-processor/) but may be used on its own.
 

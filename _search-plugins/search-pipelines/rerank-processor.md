@@ -8,6 +8,8 @@ grand_parent: Search pipelines
 ---
 
 # Rerank processor
+Introduced 2.12
+{: .label .label-purple }
 
 The `rerank` search request processor intercepts search results and passes them to a cross-encoder model to be reranked. The model reranks the results, taking into account the scoring context. Then the processor orders documents in the search results based on their new scores.
 

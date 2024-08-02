@@ -8,6 +8,8 @@ grand_parent: Search pipelines
 ---
 
 # Filter query processor
+Introduced 2.8
+{: .label .label-purple }
 
 The `filter_query` search request processor intercepts a search request and applies an additional query to the request, filtering the results. This is useful when you don't want to rewrite existing queries in your application but need additional filtering of the results.
 

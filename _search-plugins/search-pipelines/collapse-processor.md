@@ -8,6 +8,8 @@ grand_parent: Search pipelines
 ---
 
 # Collapse processor
+Introduced 2.12
+{: .label .label-purple }
 
 The `collapse` response processor discards hits that have the same value for a particular field as a previous document in the result set.
 This is similar to passing the `collapse` parameter in a search request, but the response processor is applied to the

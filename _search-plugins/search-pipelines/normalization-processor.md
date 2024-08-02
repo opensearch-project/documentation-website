@@ -8,6 +8,8 @@ grand_parent: Search pipelines
 ---
 
 # Normalization processor
+Introduced 2.10
+{: .label .label-purple }
 
 The `normalization-processor` is a search phase results processor that runs between the query and fetch phases of search execution. It intercepts the query phase results and then normalizes and combines the document scores from different query clauses before passing the documents to the fetch phase.
 
