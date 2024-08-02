@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Apostrophe token filter
+title: Apostrophe
 parent: Token filters
 nav_order: 110
 ---
 
-# Apostrophe token filter
+# Apostrophe
 
 The `apostrophe` token filter's primary function is to remove possessive apostrophes and anything following them. This can be very useful in analyzing text in languages which rely heavily on apostrophes, such as Turkish, where apostrophes serves to separate the root word from suffixes, including possessive suffixes, case markers, and other grammatical endings.
 

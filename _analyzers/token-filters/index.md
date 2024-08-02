@@ -13,7 +13,7 @@ Token filters receive the stream of tokens from the tokenizer and add, remove, o
 The following table lists all token filters that OpenSearch supports.
 
 Token filter | Underlying Lucene token filter|  Description
-[`apostrophe`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/apostrophe-token-filter/) | [ApostropheFilter](https://lucene.apache.org/core/9_10_0/analysis/common/org/apache/lucene/analysis/tr/ApostropheFilter.html) | In each token that contains an apostrophe, the `apostrophe` token filter removes the apostrophe itself and all characters following the apostrophe. 
+[`apostrophe`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/apostrophe/) | [ApostropheFilter](https://lucene.apache.org/core/9_10_0/analysis/common/org/apache/lucene/analysis/tr/ApostropheFilter.html) | In each token that contains an apostrophe, the `apostrophe` token filter removes the apostrophe itself and all characters following the apostrophe. 
 `asciifolding` | [ASCIIFoldingFilter](https://lucene.apache.org/core/9_10_0/analysis/common/org/apache/lucene/analysis/miscellaneous/ASCIIFoldingFilter.html) | Converts alphabetic, numeric, and symbolic characters.
 `cjk_bigram` | [CJKBigramFilter](https://lucene.apache.org/core/9_10_0/analysis/common/org/apache/lucene/analysis/cjk/CJKBigramFilter.html) | Forms bigrams of Chinese, Japanese, and Korean (CJK) tokens. 
 `cjk_width` | [CJKWidthFilter](https://lucene.apache.org/core/9_10_0/analysis/common/org/apache/lucene/analysis/cjk/CJKWidthFilter.html) | Normalizes Chinese, Japanese, and Korean (CJK) tokens according to the following rules: <br> - Folds full-width ASCII character variants into the equivalent basic Latin characters. <br> - Folds half-width Katakana character variants into the equivalent Kana characters.
