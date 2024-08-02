@@ -27,7 +27,7 @@ The CJK Width token filter in OpenSearch normalizes Chinese, Japanese, and Korea
 
 ## Example
 
-Following is an example of how you can define an analyzer with the `cjk_bigram_filter` filter with `ignore_scripts` set to `deva`:
+Following is an example of how you can define an analyzer with the `cjk_width` filter:
 
 ```json
 PUT /cjk_width_example_index
