@@ -8,12 +8,16 @@ nav_order: 20
 
 # Batch inference
 
-ML Commons can predict large datasets in an offline asynchronous mode with your remote model deployed in external model servers. To use the Batch_Predict API, the `model_id` for a remote model is required. This new API is released as an experimental feature in the OpenSearch version 2.16, and only SageMaker, Cohere, and OpenAI are verified as the external servers that support this features.
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/ml-commons/issues/2488).
+
+ML Commons can perform inference on large datasets in an offline asynchronous mode using a model deployed  on external model servers. To use the Batch Predict API, you must provide the `model_id` for an externally hosted model. This new API is released as experimental in OpenSearch version 2.16, and only Amazon SageMaker, Cohere, and OpenAI are verified as the external servers that support this feature.
 
 For information about user access for this API, see [Model access control considerations]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/#model-access-control-considerations).
 
 
-For information about connectors and remote models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/). For more details of the connector blurprints for batch predict, see [GitHub docs](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/batch_inference_openAI_connector_blueprint.md)
+For information about externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/). For the batch predict operation connector blueprints, see:
+- [Amazon SageMaker batch predict connector blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/batch_inference_sagemaker_connector_blueprint.md).
+- [OpenAI batch predict connector blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/batch_inference_openAI_connector_blueprint.md).
 
 ## Required connector setup for batch predict
 ```json
@@ -54,7 +58,7 @@ POST /_plugins/_ml/connectors/_create
     }
   ]
 }
-
+{% include copy-curl.html %}
 # response
 {
   "connector_id": "XU5UiokBpXT9icfOM0vt"
@@ -69,7 +73,7 @@ POST /_plugins/_ml/models/_register?deploy=true
     "description": "OpenAI text embedding model",
     "connector_id": "XU5UiokBpXT9icfOM0vt"
 }
-
+{% include copy-curl.html %}
 # response
 {
   "task_id": "rMormY8B8aiZvtEZIO_j",
@@ -77,7 +81,7 @@ POST /_plugins/_ml/models/_register?deploy=true
   "model_id": "lyjxwZABNrAVdFa9zrcZ"
 }
 ```
-
+To check the status of the operation, provide the task ID to the [Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/). Once the registration is complete, the task `state` changes to `COMPLETED`.
 
 ## Path and HTTP methods
 
@@ -86,17 +90,16 @@ POST /_plugins/_ml/models/<model_id>/_batch_predict
 ```
 
 #### Example request
-
+Once you completed the prerequisite steps, you can call the Batch Predict API. The parameters in the batch predict request override those defined in the connector:
 ```json
 POST /_plugins/_ml/models/lyjxwZABNrAVdFa9zrcZ/_batch_predict
 {
   "parameters": {
-    "model": "text-embedding-ada-002"
+    "model": "text-embedding-3-large"
   }
 }
 ```
 {% include copy-curl.html %}
-The parameters in the batch_predict request will override those defined in the connector.
 
 #### Example response
 
