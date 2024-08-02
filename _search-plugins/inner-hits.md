@@ -9,7 +9,7 @@ nav_order: 215
 
 # Inner_hits
 
-In OpenSearch, when you perform a search using parent-join or nested objects, the underlying hits that resulted in the hits being returned (child documents or nested inner objects) are hidden by default. Whether you are using parent/child, nested objects or both, there could different reasons why retrieving these underlying hits is important. This is achieved using `inner_hits` parameter in the search query.
+In OpenSearch, when you perform a search using parent-join or nested objects (for more information see [Join field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) and [Nested field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/nested/)), the underlying hits that resulted in the hits being returned (child documents or nested inner objects) are hidden by default. Whether you are using parent/child, nested objects or both, there could be different reasons why retrieving these underlying hits is important. This is achieved using `inner_hits` parameter in the search query.
 
 ---
 
@@ -645,6 +645,15 @@ Expected result:
         "parent": "1"
       }
     }
+
+    PUT /company/_doc/4?routing=1
+    {
+      "description": "Update project",
+      "my_join_field": {
+        "name": "task",
+        "parent": "1"
+      }
+    }
     ```
 
 3. Query with Inner Hits Options:
@@ -659,7 +668,7 @@ Expected result:
           },
           "inner_hits": {
             "from": 0,
-            "size": 1,
+            "size": 10,
             "sort": [
               { "description.keyword": { "order": "asc" } }
             ],
@@ -679,38 +688,54 @@ Expected result:
       "relation" : "eq"
     },
     "max_score" : 1.0,
-    "hits" : [
+    "hits": [
       {
-        "_index" : "company",
-        "_id" : "1",
-        "_score" : 1.0,
-        "_source" : {
-          "name" : "Alice",
-          "my_join_field" : "employee"
+        "_index": "company",
+        "_id": "1",
+        "_score": 1,
+        "_source": {
+          "name": "Alice",
+          "my_join_field": "employee"
         },
-        "inner_hits" : {
-          "related_tasks" : {
-            "hits" : {
-              "total" : {
-                "value" : 1,
-                "relation" : "eq"
+        "inner_hits": {
+          "related_tasks": {
+            "hits": {
+              "total": {
+                "value": 2,
+                "relation": "eq"
               },
-              "max_score" : null,
-              "hits" : [
+              "max_score": null,
+              "hits": [
                 {
-                  "_index" : "company",
-                  "_id" : "2",
-                  "_score" : null,
-                  "_routing" : "1",
-                  "_source" : {
-                    "description" : "Complete the project",
-                    "my_join_field" : {
-                      "name" : "task",
-                      "parent" : "1"
+                  "_index": "company",
+                  "_id": "2",
+                  "_score": null,
+                  "_routing": "1",
+                  "_source": {
+                    "description": "Complete the project",
+                    "my_join_field": {
+                      "name": "task",
+                      "parent": "1"
                     }
                   },
-                  "sort" : [
+                  "sort": [
                     "Complete the project"
+                  ]
+                },
+                {
+                  "_index": "company",
+                  "_id": "4",
+                  "_score": null,
+                  "_routing": "1",
+                  "_source": {
+                    "description": "Update project",
+                    "my_join_field": {
+                      "name": "task",
+                      "parent": "1"
+                    }
+                  },
+                  "sort": [
+                    "Update project"
                   ]
                 }
               ]
