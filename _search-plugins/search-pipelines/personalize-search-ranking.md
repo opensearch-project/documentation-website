@@ -8,6 +8,8 @@ grand_parent: Search pipelines
 ---
 
 # Personalize search ranking processor
+Introduced 2.9
+{: .label .label-purple }
 
 The `personalize_search_ranking` search response processor intercepts a search response and uses [Amazon Personalize](https://aws.amazon.com/personalize/) to rerank search results according to their Amazon Personalize ranking. This ranking is based on the user's past behavior and metadata about the search items and the user.
 
