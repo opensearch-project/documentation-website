@@ -11,7 +11,7 @@ grand_parent: Search pipelines
 Introduced 2.16
 {: .label .label-purple }
 
-The `ml_inference` search response processor is used to invoke registered machine learning (ML) models registered in order to incorporate their outputs as new fields in the documents within the search results.
+The `ml_inference` search response processor is used to invoke registered machine learning (ML) models in order to incorporate their outputs as new fields in documents within search results.
 
 **PREREQUISITE**<br>
 Before using the `ml_inference` search response processor, you must have either a local ML model hosted on your OpenSearch cluster or an externally hosted model connected to your OpenSearch cluster through the ML Commons plugin. For more information about local models, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/). For more information about externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/).
@@ -58,15 +58,15 @@ The following table lists the required and optional parameters for the `ml-infer
 | `function_name`        | String    | Optional for externally hosted models<br/><br/>Required for local models | The function name of the ML model configured in the processor. For local models, valid values are `sparse_encoding`, `sparse_tokenize`, `text_embedding`, and `text_similarity`. For externally hosted models, valid value is `remote`. Default is `remote`. |
 | `model_config`         | Object    | Optional   | Custom configuration options for the ML model. For more information, see [The `model_config` object]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/#the-model_config-object).|
 | `model_input`          | String    | Optional for externally hosted models<br/><br/>Required for local models | A template that defines the input field format expected by the model. Each local model type might use a different set of inputs. For externally hosted models, default is `"{ \"parameters\": ${ml_inference.parameters} }`. |
-| `input_map`            | Array | Optional for externally hosted models<br/><br/>Required for local models | An array specifying how to map document fields in search response to the model input fields. Each element of the array is a map in the `"<model_input_field>": "<document_field>"` format and corresponds to one model invocation for a document field. If no input mapping is specified for an externally hosted model, then all fields from the document are passed to the model directly as input. The `input_map` size indicates the number of times the model is invoked (the number of Predict API requests). |
+| `input_map`            | Array | Optional for externally hosted models<br/><br/>Required for local models | An array specifying how to map document fields in the search response to the model input fields. Each element of the array is a map in the `"<model_input_field>": "<document_field>"` format and corresponds to one model invocation of a document field. If no input mapping is specified for an externally hosted model, then all document fields are passed to the model directly as input. The `input_map` size indicates the number of times the model is invoked (the number of Predict API requests). |
 | `<model_input_field>`  | String    | Optional for externally hosted models<br/><br/>Required for local models  | The model input field name. |
-| `<document_field>`     | String    | Optional for externally hosted models<br/><br/>Required for local models | The name or JSON path of the document field in search response used as the model input.  |
+| `<document_field>`     | String    | Optional for externally hosted models<br/><br/>Required for local models | The name or JSON path of the document field in the search response used as the model input.  |
 | `output_map`           | Array | Optional for externally hosted models<br/><br/>Required for local models | An array specifying how to map the model output fields to new fields in the search response document. Each element of the array is a map in the `"<new_document_field>": "<model_output_field>"` format. |
 | `<new_document_field>` | String    | Optional for externally hosted models<br/><br/>Required for local models | The name of the new field in the document in which the model's output (specified by `model_output`) is stored. If no output mapping is specified for externally hosted models, then all fields from the model output are added to the new document field.  |
 | `<model_output_field>` | String    | Optional for externally hosted models<br/><br/>Required for local models | The name or JSON path of the field in the model output to be stored in the `new_document_field`.  |
 | `full_response_path`   | Boolean   | Optional   | Set this parameter to `true` if the `model_output_field` contains a full JSON path to the field instead of the field name. The model output will then be fully parsed to get the value of the field. Default is `true` for local models and `false` for externally hosted models.  |
 | `ignore_missing`       | Boolean   | Optional  | If `true` and any of the input fields defined in the `input_map` or `output_map` are missing, then the missing fields are ignored. Otherwise, a missing field causes a failure. Default is `false`. |
-| `ignore_failure`       | Boolean   | Optional  | Specifies whether the processor continues execution even if it encounters an error. If `true`, then any failure is ignored and search continues. If `false`, then any failure causes search to be canceled. Default is `false`. |
+| `ignore_failure`       | Boolean   | Optional  | Specifies whether the processor continues execution even if it encounters an error. If `true`, then any failure is ignored and the search continues. If `false`, then any failure causes the search to be canceled. Default is `false`. |
 | `override`             | Boolean   | Optional   | Relevant if a document in the response already contains a field with the name specified in `<new_document_field>`. If `override` is `false`, then the input field is skipped. If `true`, then the existing field value is overridden by the new model output. Default is `false`.  |
 | `max_prediction_tasks` | Integer   | Optional  | The maximum number of concurrent model invocations that can run during document search. Default is `10`.  |
 | `one_to_one`           | Boolean    | Optional  | Set this parameter to `true` to invoke the model once (make one Predict API request) for each document. Default value (`false`) specifies to invoke the model with all documents from the search response, making one Predict API request. |
@@ -98,11 +98,11 @@ For remote models, the `model_input` field is optional, and its default value is
 
 ### Example: Externally hosted model
 
-The following example configures an `ml_inference` search response processor with an externally hosted model.
+The following example shows you how to configure an `ml_inference` search response processor with an externally hosted model.
 
 **Step 1: Create a pipeline**
 
-The following example creates a search pipeline for an externally hosted text embedding model. The model requires an `input` field and generates results in a `data` field. It converts the text in the `passage_text` field into text embeddings and stores the embeddings in the `passage_embedding` field. The `function_name` is not explicitly specified in the processor configuration, so it defaults to `remote`, signifying an externally hosted model:
+The following example shows you how to create a search pipeline for an externally hosted text embedding model. The model requires an `input` field and generates results in a `data` field. It converts the text in the `passage_text` field into text embeddings and stores the embeddings in the `passage_embedding` field. The `function_name` is not explicitly specified in the processor configuration, so it defaults to `remote`, signifying an externally hosted model:
 
 ```json
 PUT /_search/pipeline/ml_inference_pipeline
@@ -156,7 +156,7 @@ When specifying the `input_map` for an externally hosted model, you can directly
 
 **Step 2: Run the pipeline**
 
-Run the following query providing the pipeline name in the request:
+Run the following query, providing the pipeline name in the request:
 
 ```json
 GET /my_index/_search?search_pipeline=ml_inference_pipeline_local
@@ -211,13 +211,13 @@ The response confirms that the processor has generated text embeddings in the `p
 
 ### Example: Local model
 
-The following example configures an `ml_inference` search response processor with a local model.
+The following example shows you how to configure an `ml_inference` search response processor with a local model.
 
 **Step 1: Create a pipeline**
 
-The following example creates an search pipeline for the `huggingface/sentence-transformers/all-distilroberta-v1` local model. The model is a sentence transformer [pretrained model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sentence-transformers) hosted in your OpenSearch cluster.
+The following example shows you how to create a search pipeline for the `huggingface/sentence-transformers/all-distilroberta-v1` local model. The model is a [pretrained sentence transformer model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sentence-transformers) hosted in your OpenSearch cluster.
 
-If you invoke the model using the Predict API, then the request looks like this:
+If you invoke the model using the Predict API, then the request appears as follows:
 
 ```json
 POST /_plugins/_ml/_predict/text_embedding/cleMb4kBJ1eYAeTMFFg4
@@ -244,7 +244,7 @@ In the `input_map`, map the `passage_text` document field to the `text_docs` fie
 ]
 ```
 
-Because you specified the field to convert into embeddings as a JSON path, you need to set the `full_response_path` to `true` so that the full JSON document is parsed to obtain the input field:
+Because you specified the field to be converted into embeddings as a JSON path, you need to set the `full_response_path` to `true`. Then the full JSON document is parsed in order to obtain the input field:
 
 ```json
 "full_response_path": true
@@ -296,7 +296,7 @@ The model generates embeddings in the `$.inference_results.*.output.*.data` fiel
 
 To configure an `ml_inference` search response processor with a local model, specify the `function_name` explicitly. In this example, the `function_name` is `text_embedding`. For information about valid `function_name` values, see [Request fields](#request-fields).
 
-The final configuration of the `ml_inference` search response processor with the local model is the following:
+The following is the final configuration of the `ml_inference` search response processor with the local model:
 
 ```json
 PUT /_search/pipeline/ml_inference_pipeline_local
@@ -334,7 +334,7 @@ PUT /_search/pipeline/ml_inference_pipeline_local
 
 **Step 2: Run the pipeline**
 
-Run the following query providing the pipeline name in the request:
+Run the following query, providing the pipeline name in the request:
 
 ```json
 GET /my_index/_search?search_pipeline=ml_inference_pipeline_local
