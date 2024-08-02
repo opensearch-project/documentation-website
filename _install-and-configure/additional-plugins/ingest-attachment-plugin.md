@@ -8,7 +8,9 @@ nav_order: 20
 
 # Ingest-attachment plugin
 
-The `ingest-attachment` plugin enables OpenSearch to extract content and other information from files using the Apache text extraction library [Tika](https://tika.apache.org/).
+The `ingest-attachment` plugin enables OpenSearch to extract content and other
+information from files using the Apache text extraction library
+[Tika](https://tika.apache.org/).
 Supported document formats include PPT, PDF, RTF, ODF and many more.
 
 The input field must be a base64 encoded binary.
@@ -32,7 +34,7 @@ You can install the `ingest-attachment` plugin using the following command:
 | indexed_chars_field | no | `null` | Field name from which you can overwrite the number of chars being used for extraction. See `indexed_chars`. |
 | ignore_missing | no | `false` | If `true` and field does not exist, the processor quietly exits without modifying the document. |
 
-## Examples
+## Basic Example
 
 After starting up a cluster, you can create an index, add an attachment and search, as shown in following examples.
 
@@ -84,7 +86,9 @@ const base64File = await fs.readFile(filePath, { encoding: "base64" });
 console.log(base64File);
 ```
 
-The following base64 string is for an `.rtf` file containing the text `Lorem ipsum dolor sit amet`: `e1xydGYxXGFuc2kNCkxvcmVtIGlwc3VtIGRvbG9yIHNpdCBhbWV0DQpccGFyIH0=`.
+The following base64 string is for an `.rtf` file containing the text
+`Lorem ipsum dolor sit amet`:
+`e1xydGYxXGFuc2kNCkxvcmVtIGlwc3VtIGRvbG9yIHNpdCBhbWV0DQpccGFyIH0=`.
 
 ```json
 PUT example-attachment-index/_doc/lorem_rtf?pipeline=attachment
@@ -143,5 +147,86 @@ The search will create a hit like this.
       }
     ]
   }
+}
+```
+
+## Extracted Information
+
+There are several fields, which can be extracted from the given binary.
+
+- `content`
+- `language`
+- `date`
+- `title`
+- `author`
+- `keywords`
+- `content_type`
+- `content_length`
+
+To extract only a subset of these fields, define them in the `properties` of the
+pipelines processor
+
+```json
+PUT _ingest/pipeline/attachment
+{
+  "description" : "Extract attachment information",
+  "processors" : [
+    {
+      "attachment" : {
+        "field" : "data",
+        "properties": ["content", "title", "author"]
+      }
+    }
+  ]
+}
+```
+
+## Limit the extracted content
+
+To prevent extracting too many chars and overload the node memory,
+the number of chars being used for extraction is limited by default to `100_000`.
+You can change this value by setting `indexed_chars`.
+Use `-1` for unlimited chars but ensure when setting this that your node
+will have enough HEAP to extract the content of very big documents.
+
+You can also define this limit per document by extracting from a given field
+the limit to set.
+If the document has that field, it will overwrite the `indexed_chars` setting.
+To set this field, define the `indexed_chars_field` setting.
+
+The example pipeline
+
+```json
+PUT _ingest/pipeline/attachment
+{
+  "description" : "Extract attachment information",
+  "processors" : [
+    {
+      "attachment" : {
+        "field" : "data",
+        "indexed_chars" : 10,
+        "indexed_chars_field" : "max_chars",
+      }
+    }
+  ]
+}
+```
+
+can be used without specifying `max_chars` limiting the content to have `10` chars,
+
+```json
+PUT example-attachment-index/_doc/lorem_rtf?pipeline=attachment
+{
+  "data": "e1xydGYxXGFuc2kNCkxvcmVtIGlwc3VtIGRvbG9yIHNpdCBhbWV0DQpccGFyIH0="
+}
+```
+
+or with `max_chars` set individually for this one document limiting to `15` chars.
+
+```json
+PUT example-attachment-index/_doc/lorem_rtf?pipeline=attachment
+{
+  "data": "e1xydGYxXGFuc2kNCkxvcmVtIGlwc3VtIGRvbG9yIHNpdCBhbWV0DQpccGFyIH0=",
+  "max_chars": 15
 }
 ```
