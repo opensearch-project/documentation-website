@@ -12,9 +12,9 @@ The `apostrophe` token filter's primary function is to remove possessive apostro
 
 ## Example
 
-Following example can be used to create new index `custom_text_index` with custom analyzer configured in `settings` and used in `mappings`.
+Following example can be used to create new index `custom_text_index` with custom analyzer configured in `settings` and used in `mappings`:
 
-```
+```json
 PUT /custom_text_index
 {
   "settings": {
@@ -41,22 +41,24 @@ PUT /custom_text_index
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Check generated tokens
 
-You can use the following command to examine the tokens being generated using the created analyzer.
+You can use the following command to examine the tokens being generated using the created analyzer:
 
-```
+```json
 POST /custom_text_index/_analyze
 {
   "analyzer": "custom_analyzer",
   "text": "John's car is faster than Peter's bike"
 }
 ```
+{% include copy-curl.html %}
 
-Expected result:
+The response contains the generated tokens:
 
-```
+```json
 {
   "tokens": [
     {
