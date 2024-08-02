@@ -5,7 +5,7 @@ parent: Token filters
 nav_order: 130
 ---
 
-# CJK bigram
+# CJK bigram token filter
 
 The `cjk_bigram` token filter in OpenSearch is designed specifically for processing East Asian languages, such as Chinese, Japanese, and Korean (CJK), which typically don't use spaces to separate words. A bigram is a sequence of two adjacent elements from a string of tokens, which can be characters or words. For CJK languages, bigrams help in approximating word boundaries and capturing significant character pairs that can convey meaning
 
