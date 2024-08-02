@@ -14,7 +14,7 @@ To search for documents that contain [xy point]({{site.url}}{{site.baseurl}}/ope
 
 ## Spatial relations
 
-When you provide an xy shape to the xy query, the xy fields are matched using the following spatial relations to the provided shape.
+When you provide an xy shape to the xy query, the xy fields in the documents are matched using the following spatial relations to the provided shape.
 
 Relation | Description | Supporting xy field type
 :--- | :--- | :--- 
@@ -33,7 +33,7 @@ You can define the shape in an xy query either by providing a new shape definiti
 
 To provide a new shape to an xy query, define it in the `xy_shape` field.
 
-The following example illustrates searching for documents with xy shapes that match an xy shape defined at query time.
+The following example illustrates searching for documents containing xy shapes that match an xy shape defined at query time.
 
 First, create an index and map the `geometry` field as an `xy_shape`:
 

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Rename field
-nav_order: 20
+nav_order: 100
 has_children: false
 parent: Search processors
 grand_parent: Search pipelines

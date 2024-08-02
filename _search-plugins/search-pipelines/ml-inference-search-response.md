@@ -1,14 +1,17 @@
 ---
 layout: default
-title: ML inference search response processor
-nav_order: 8
+title: ML inference (response) 
+nav_order: 40
 has_children: false
 parent: Search processors
 grand_parent: Search pipelines
 ---
 
 # ML inference search response processor
-The `ml_inference` search response processor is used to invoke machine learning (ML) models registered in the [OpenSearch ML Commons plugin]({{site.url}}{{site.baseurl}}/ml-commons-plugin/). The model outputs are added as new fields to the documents in the search responses.
+Introduced 2.16
+{: .label .label-purple }
+
+The `ml_inference` search response processor is used to invoke registered machine learning (ML) models registered in order to incorporate their outputs as new fields in the documents within the search results.
 
 **PREREQUISITE**<br>
 Before using the `ml_inference` search response processor, you must have either a local ML model hosted on your OpenSearch cluster or an externally hosted model connected to your OpenSearch cluster through the ML Commons plugin. For more information about local models, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/). For more information about externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/).
@@ -16,7 +19,7 @@ Before using the `ml_inference` search response processor, you must have either 
 
 ## Syntax
 
-The following is the syntax for the `ml-inference` processor:
+The following is the syntax for the `ml-inference` search response processor:
 
 ```json
 {
@@ -45,30 +48,30 @@ The following is the syntax for the `ml-inference` processor:
 ```
 {% include copy-curl.html %}
 
-## Configuration parameters
+## Request fields
 
-The following table lists the required and optional parameters for the `ml-inference` processor.
+The following table lists the required and optional parameters for the `ml-inference` search response processor.
 
-| Parameter              | Data type | Required/Optional | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-|:-----------------------| :--- | :--- |:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `model_id`             | String | Required | The ID of the ML model used by the processor.                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| `function_name`        | String    | Optional for externally hosted models<br/><br/>Required for local models | The function name of the ML model configured in the processor. For local models, valid values are `sparse_encoding`, `sparse_tokenize`, `text_embedding`, and `text_similarity`. For externally hosted models, valid value is `remote`. Default is `remote`.                                                                                                                                                                                                                                                        |
-| `model_config`         | Object    | Optional   | Custom configuration options for the ML model. For more information, see [The `model_config` object]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/#the-model_config-object).                                                                                                                                                                                                                                                                                                        |
-| `model_input`          | String    | Optional for externally hosted models<br/><br/>Required for local models | A template that defines the input field format expected by the model. Each local model type might use a different set of inputs. For externally hosted models, default is `"{ \"parameters\": ${ml_inference.parameters} }`.                                                                                                                                                                                                                                                                                        |
+| Parameter | Data type | Required/Optional | Description  |
+|:--| :--- | :--- |:---|
+| `model_id` | String | Required | The ID of the ML model used by the processor. |
+| `function_name`        | String    | Optional for externally hosted models<br/><br/>Required for local models | The function name of the ML model configured in the processor. For local models, valid values are `sparse_encoding`, `sparse_tokenize`, `text_embedding`, and `text_similarity`. For externally hosted models, valid value is `remote`. Default is `remote`. |
+| `model_config`         | Object    | Optional   | Custom configuration options for the ML model. For more information, see [The `model_config` object]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/#the-model_config-object).|
+| `model_input`          | String    | Optional for externally hosted models<br/><br/>Required for local models | A template that defines the input field format expected by the model. Each local model type might use a different set of inputs. For externally hosted models, default is `"{ \"parameters\": ${ml_inference.parameters} }`. |
 | `input_map`            | Array | Optional for externally hosted models<br/><br/>Required for local models | An array specifying how to map document fields in search response to the model input fields. Each element of the array is a map in the `"<model_input_field>": "<document_field>"` format and corresponds to one model invocation for a document field. If no input mapping is specified for an externally hosted model, then all fields from the document are passed to the model directly as input. The `input_map` size indicates the number of times the model is invoked (the number of Predict API requests). |
-| `<model_input_field>`  | String    | Optional for externally hosted models<br/><br/>Required for local models  | The model input field name.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `<document_field>`     | String    | Optional for externally hosted models<br/><br/>Required for local models | The name or JSON path of the document field in search response used as the model input.                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| `output_map`           | Array | Optional for externally hosted models<br/><br/>Required for local models | An array specifying how to map the model output fields to new fields in the search response document. Each element of the array is a map in the `"<new_document_field>": "<model_output_field>"` format.                                                                                                                                                                                                                                                                                                            |
-| `<new_document_field>` | String    | Optional for externally hosted models<br/><br/>Required for local models | The name of the new field in the document in which the model's output (specified by `model_output`) is stored. If no output mapping is specified for externally hosted models, then all fields from the model output are added to the new document field.                                                                                                                                                                                                                                                           |
-| `<model_output_field>` | String    | Optional for externally hosted models<br/><br/>Required for local models | The name or JSON path of the field in the model output to be stored in the `new_document_field`.                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| `full_response_path`   | Boolean   | Optional   | Set this parameter to `true` if the `model_output_field` contains a full JSON path to the field instead of the field name. The model output will then be fully parsed to get the value of the field. Default is `true` for local models and `false` for externally hosted models.                                                                                                                                                                                                                                   |
-| `ignore_missing`       | Boolean   | Optional  | If `true` and any of the input fields defined in the `input_map` or `output_map` are missing, then the missing fields are ignored. Otherwise, a missing field causes a failure. Default is `false`.                                                                                                                                                                                                                                                                                                                 |
-| `ignore_failure`       | Boolean   | Optional  | Specifies whether the processor continues execution even if it encounters an error. If `true`, then any failure is ignored and search continues. If `false`, then any failure causes search to be canceled. Default is `false`.                                                                                                                                                                                                                                                                                     |
-| `override`             | Boolean   | Optional   | Relevant if a document in the response already contains a field with the name specified in `<new_document_field>`. If `override` is `false`, then the input field is skipped. If `true`, then the existing field value is overridden by the new model output. Default is `false`.                                                                                                                                                                                                                                   |
-| `max_prediction_tasks` | Integer   | Optional  | The maximum number of concurrent model invocations that can run during document search. Default is `10`.                                                                                                                                                                                                                                                                                                                                                                                                            |
-| `one_to_one`           | Boolean    | Optional  | Set this parameter to `true` when one document is used to make one predictons. Default is false to take all documents from the search response to make one prediction.                                                                                                                                                                                                                                                                                                                                              |
-| `description`          | String    | Optional  | A brief description of the processor.                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| `tag`                  | String    | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type.                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `<model_input_field>`  | String    | Optional for externally hosted models<br/><br/>Required for local models  | The model input field name. |
+| `<document_field>`     | String    | Optional for externally hosted models<br/><br/>Required for local models | The name or JSON path of the document field in search response used as the model input.  |
+| `output_map`           | Array | Optional for externally hosted models<br/><br/>Required for local models | An array specifying how to map the model output fields to new fields in the search response document. Each element of the array is a map in the `"<new_document_field>": "<model_output_field>"` format. |
+| `<new_document_field>` | String    | Optional for externally hosted models<br/><br/>Required for local models | The name of the new field in the document in which the model's output (specified by `model_output`) is stored. If no output mapping is specified for externally hosted models, then all fields from the model output are added to the new document field.  |
+| `<model_output_field>` | String    | Optional for externally hosted models<br/><br/>Required for local models | The name or JSON path of the field in the model output to be stored in the `new_document_field`.  |
+| `full_response_path`   | Boolean   | Optional   | Set this parameter to `true` if the `model_output_field` contains a full JSON path to the field instead of the field name. The model output will then be fully parsed to get the value of the field. Default is `true` for local models and `false` for externally hosted models.  |
+| `ignore_missing`       | Boolean   | Optional  | If `true` and any of the input fields defined in the `input_map` or `output_map` are missing, then the missing fields are ignored. Otherwise, a missing field causes a failure. Default is `false`. |
+| `ignore_failure`       | Boolean   | Optional  | Specifies whether the processor continues execution even if it encounters an error. If `true`, then any failure is ignored and search continues. If `false`, then any failure causes search to be canceled. Default is `false`. |
+| `override`             | Boolean   | Optional   | Relevant if a document in the response already contains a field with the name specified in `<new_document_field>`. If `override` is `false`, then the input field is skipped. If `true`, then the existing field value is overridden by the new model output. Default is `false`.  |
+| `max_prediction_tasks` | Integer   | Optional  | The maximum number of concurrent model invocations that can run during document search. Default is `10`.  |
+| `one_to_one`           | Boolean    | Optional  | Set this parameter to `true` to invoke the model once (make one Predict API request) for each document. Default value (`false`) specifies to invoke the model with all documents from the search response, making one Predict API request. |
+| `description`          | String    | Optional  | A brief description of the processor. |
+| `tag`                  | String    | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
 
 The `input_map` and `output_map` mappings support standard [JSON path](https://github.com/json-path/JsonPath) notation for specifying complex data structures.
 {: .note}
@@ -83,8 +86,6 @@ POST /my_index/_doc/1
   "passage_text": "hello world"
 }
 ```
-
-
 {% include copy-curl.html %}
 
 ## Using the processor
@@ -128,7 +129,7 @@ PUT /_search/pipeline/ml_inference_pipeline
 ```
 {% include copy-curl.html %}
 
-For a Predict API request to an externally hosted model, all fields are usually nested inside the `parameters` object:
+When making a Predict API request to an externally hosted model, all necessary fields and parameters are usually contained within a `parameters` object:
 
 ```json
 POST /_plugins/_ml/models/cleMb4kBJ1eYAeTMFFg4/_predict
@@ -155,21 +156,18 @@ When specifying the `input_map` for an externally hosted model, you can directly
 
 **Step 2: Run the pipeline**
 
-To run the following query with pipeline name:
+Run the following query providing the pipeline name in the request:
 
 ```json
 GET /my_index/_search?search_pipeline=ml_inference_pipeline_local
 {
-"query": {
-"match_all": {
+  "query": {
+    "match_all": {
+    }
+  }
 }
-}
-}
-
 ```
 {% include copy-curl.html %}
-
-#### Response
 
 The response confirms that the processor has generated text embeddings in the `passage_embedding` field. The document within `_source` now contains both the `passage_text` and `passage_embedding` fields:
 
@@ -252,9 +250,10 @@ Because you specified the field to convert into embeddings as a JSON path, you n
 "full_response_path": true
 ```
 
-The original search response as follows. The text in the `passage_text` field will be used to generate embeddings:
+The text in the `passage_text` field will be used to generate embeddings:
+
 ```json
-  {
+{
   "passage_text": "hello world"
 }
 ```
@@ -295,10 +294,9 @@ The model generates embeddings in the `$.inference_results.*.output.*.data` fiel
 ]
 ```
 
+To configure an `ml_inference` search response processor with a local model, specify the `function_name` explicitly. In this example, the `function_name` is `text_embedding`. For information about valid `function_name` values, see [Request fields](#request-fields).
 
-To configure a `ml_inference` search response processor with a local model, specify the `function_name` explicitly. In this example, `function_name` is `text_embedding`. For information about valid `function_name` values, see [Configuration parameters](#configuration-parameters).
-
-In this example, the final configuration of the `ml_inference` search response processor with the local model is as follows:
+The final configuration of the `ml_inference` search response processor with the local model is the following:
 
 ```json
 PUT /_search/pipeline/ml_inference_pipeline_local
@@ -334,7 +332,9 @@ PUT /_search/pipeline/ml_inference_pipeline_local
 ```
 {% include copy-curl.html %}
 
-To run the following query with pipeline name:
+**Step 2: Run the pipeline**
+
+Run the following query providing the pipeline name in the request:
 
 ```json
 GET /my_index/_search?search_pipeline=ml_inference_pipeline_local
@@ -347,17 +347,14 @@ GET /my_index/_search?search_pipeline=ml_inference_pipeline_local
     }
   }
 }
-
 ```
-
 {% include copy-curl.html %}
 
 #### Response
 
-The response confirms that the processor has generated text embeddings in the `passage_embedding` field. 
+The response confirms that the processor has generated text embeddings in the `passage_embedding` field:
 
 ```json
-
 {
   "took": 288,
   "timed_out": false,

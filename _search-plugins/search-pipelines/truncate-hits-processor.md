@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Truncate hits
-nav_order: 35
+nav_order: 150
 has_children: false
 parent: Search processors
 grand_parent: Search pipelines

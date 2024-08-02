@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Normalization
-nav_order: 15
+nav_order: 70
 has_children: false
 parent: Search processors
 grand_parent: Search pipelines

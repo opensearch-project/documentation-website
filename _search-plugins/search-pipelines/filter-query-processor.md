@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Filter query
-nav_order: 10
+nav_order: 20
 has_children: false
 parent: Search processors
 grand_parent: Search pipelines

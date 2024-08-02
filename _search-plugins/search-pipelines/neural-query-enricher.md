@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Neural query enricher
-nav_order: 12
+nav_order: 50
 has_children: false
 parent: Search processors
 grand_parent: Search pipelines

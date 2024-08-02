@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Sort
-nav_order: 32
+nav_order: 130
 has_children: false
 parent: Search processors
 grand_parent: Search pipelines

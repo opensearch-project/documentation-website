@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Oversample
-nav_order: 17
+nav_order: 80
 has_children: false
 parent: Search processors
 grand_parent: Search pipelines

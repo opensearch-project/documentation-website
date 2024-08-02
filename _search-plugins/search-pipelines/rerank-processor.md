@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Rerank
-nav_order: 25
+nav_order: 110
 has_children: false
 parent: Search processors
 grand_parent: Search pipelines
