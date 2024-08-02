@@ -6,7 +6,7 @@ nav_order: 36
 
 # Filter search results
 
-In OpenSearch, filtering search results can be achieved through two main approaches: using a [DSL boolean query](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-bool-query.html) with a filter clause. The boolean query filtering approach applies filters to both search hits and aggregations.
+In OpenSearch, filtering search results can be achieved using a DSL Boolean query with a filter clause. The boolean query filtering approach applies filters to both search hits and aggregations.
 
 You can also filter search results with the `post_filter` parameter in the search API, which applies filters only to search hits, not aggregations.
 
