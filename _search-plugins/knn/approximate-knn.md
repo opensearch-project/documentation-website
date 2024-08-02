@@ -78,7 +78,7 @@ PUT my-knn-index-1
 ```
 {% include copy-curl.html %}
 
-In the preceding example, both `knn_vector` fields are configured from method definitions. Additionally, `knn_vector` fields can also be configured from models. For more information, see [k-NN vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/) section.
+In the preceding example, both `knn_vector` fields are configured from method definitions. Additionally, `knn_vector` fields can also be configured from models. For more information, see [k-NN vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/).
 
 The `knn_vector` data type supports a vector of floats that can have a dimension count of up to 16,000 for the NMSLIB, Faiss, and Lucene engines, as set by the dimension mapping parameter.
 
@@ -150,7 +150,7 @@ Starting in OpenSearch 2.14, you can use `k`, `min_score`, or `max_distance` for
 
 ### Building a k-NN index from a model
 
-For some of the algorithms that the k-NN plugin support, the native library index needs to be trained before it can be used. It would be expensive to train every newly created segment, so, instead, the plugin introduces the concept of a *model* used to initialize the native library index during segment creation. You can create a model by calling the [Train API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-a-model) and passing in the source of training data and the method definition of the model. Once training is complete, the model is serialized to a k-NN model system index. Then, during indexing, the model is pulled from this index to initialize the segments.
+For some of the algorithms that the k-NN plugin supports, the native library index needs to be trained before it can be used. It would be expensive to train every newly created segment, so instead, the plugin introduces the concept of a *model* that initializes the native library index during segment creation. You can create a model by calling the [Train API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-a-model) and passing in the source of the training data and the method definition of the model. Once training is complete, the model is serialized to a k-NN model system index. Then, during indexing, the model is pulled from this index to initialize the segments.
 
 To train a model, you first need an OpenSearch index with training data in it. Training data can come from any `knn_vector` field that has a dimension matching the dimension of the model you want to create. Training data can be the same data that you are going to index or data in a separate set. To create a training index, send the following request:
 
@@ -244,7 +244,7 @@ PUT /target-index
 ```
 {% include copy-curl.html %}
 
-Lastly, you can add the documents we want to be searched to the index:
+Lastly, you can add the documents you want to be searched to the index:
 
 ```json
 POST _bulk
