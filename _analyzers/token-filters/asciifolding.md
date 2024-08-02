@@ -1,11 +1,11 @@
 ---
 layout: default
-title: ASCIIFolding token filter
+title: ASCIIFolding
 parent: Token filters
 nav_order: 120
 ---
 
-# ASCIIFolding token filter
+# ASCIIFolding
 
 `asciifolding` is a token filter that converts non-ASCII characters into their closest ASCII equivalents, for example é becomes e, ü becomes u and ñ becomes n. This process is also known as "transliteration."
 
