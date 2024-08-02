@@ -10,7 +10,7 @@ redirect_from:
 
 # Installation quickstart
 
-To get started using OpenSearch and OpenSearch Dashboards quickly, deploy your containers using [Docker](https://www.docker.com/). For all installation guides, see [Install and upgrade OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/).
+To quickly get started using OpenSearch and OpenSearch Dashboards, deploy your containers using [Docker](https://www.docker.com/). For all installation guides, see [Install and upgrade OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/).
 
 Before proceeding, you need to install [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://github.com/docker/compose) on your local machine. 
 
