@@ -335,6 +335,11 @@ img {
   }
 }
 
+// Needed so the panel and copy-button-wrap panel blend together
+div.highlighter-rouge {
+  border-radius: 0;
+}
+
 .copy-button-wrap {
   background-color: $sidebar-color;
   padding: 0.25rem 2rem 0.5rem 2rem;
