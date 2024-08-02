@@ -370,7 +370,7 @@ The `date` processor can generate timestamps for incoming events if you specify 
 
 ### Deriving punctuation patterns
 
-The [`substitute_string`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/substitute_string/) processor (which is one of the mutate string processors) lets you derive a punctuation pattern from incoming events. In the following example pipeline, the processor will scan incoming Apache log events and derive punctuation patterns from them:
+The [`substitute_string`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/substitute-string/) processor (which is one of the mutate string processors) lets you derive a punctuation pattern from incoming events. In the following example pipeline, the processor will scan incoming Apache log events and derive punctuation patterns from them:
 
 ```yaml
 processor:  
