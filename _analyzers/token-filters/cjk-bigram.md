@@ -48,9 +48,9 @@ This option, when set to `true`, outputs both unigrams (single characters) and b
 
 ## Example
 
-Following is an example of how you can define an analyzer with the `cjk_bigram_filter` filter with `ignore_scripts` set to `deva`.
+Following is an example of how you can define an analyzer with the `cjk_bigram_filter` filter with `ignore_scripts` set to `deva`:
 
-```
+```json
 PUT /devanagari_example_index
 {
   "settings": {
@@ -76,22 +76,24 @@ PUT /devanagari_example_index
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Generated tokens
 
-You can use the following command to examine the tokens being generated using the created analyzer.
+You can use the following command to examine the tokens being generated using the created analyzer:
 
-```
+```json
 POST /devanagari_example_index/_analyze
 {
   "analyzer": "cjk_deva_analyzer",
   "text": "यह एक उदाहरण है 中文文本" // Devanagari text followed by Chinese
 }
 ```
+{% include copy-curl.html %}
 
-Expected result:
+The response contains the generated tokens:
 
-```
+```json
 {
   "tokens": [
     {
