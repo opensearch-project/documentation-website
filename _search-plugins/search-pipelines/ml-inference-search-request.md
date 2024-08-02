@@ -154,7 +154,7 @@ The following example configures an `ml_inference` processor with an externally 
 
 **Step 1: Create a pipeline**
 
-The following example creates a search pipeline for an externally hosted text embedding model to rewrite query value in 
+The following example creates a search pipeline for an externally hosted sentimental analysis model to rewrite query value in 
 a term query. The model requires an `inputs` field and generates sentimental analysis results in a `label` field. 
 The term query value is rewritten with the model output result. The `function_name` is not explicitly specified
 in the processor configuration, so it defaults to `remote`, signifying an externally hosted model:
@@ -163,7 +163,7 @@ For `ml_inference` search request processor, it requires `input_map` and `output
 model input, and assign model output to the query string.
 
 
-For example, if a `ml_inference` search request processor is used for the following term query:
+In this example, if a `ml_inference` search request processor is used for the following term query:
 
 ```json
  {
@@ -181,7 +181,7 @@ For example, if a `ml_inference` search request processor is used for the follow
 
 {% include copy-curl.html %}
 
-
+Here is the sample config to create a search pipeline to rewrite the term query. 
 ```json
 PUT /_search/pipeline/ml_inference_pipeline
 {
@@ -233,7 +233,7 @@ POST /_plugins/_ml/models/cywgD5EB6KAJXDLxyDp1/_predict
   }
 }
 ```
-
+The sample response is as following: 
 ```json
 {
   "inference_results": [
@@ -264,7 +264,7 @@ providing its dot path `parameters.inputs`:
 ]
 ```
 
-Once you have created an search pipeline, you can run your search query with the search pipeline.
+Once you have created a search pipeline, you can run your search query with the search pipeline.
 
 ```json
 GET /my_index/_search?search_pipeline=my_pipeline_request_review
@@ -333,11 +333,11 @@ The response will include `label` that includes `POSITIVE` value.
 
 ### Example: Local model
 
-The following example configures an `ml_inference` processor with a local model.
+The following example configures an `ml_inference` processor with a local model and rewrite term query into knn query.
 
 **Step 1: Create a pipeline**
 
-The following example creates an search pipeline for the `huggingface/sentence-transformers/all-distilroberta-v1` local
+The following example creates a search pipeline for the `huggingface/sentence-transformers/all-distilroberta-v1` local
 model. The model is a sentence
 transformer [pretrained model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sentence-transformers)
 hosted in your OpenSearch cluster.
@@ -368,7 +368,7 @@ In the `input_map`, map the `query.term.passage_embedding.value` query field to 
 ```json
 "input_map": [
 {
-"text_docs": "passage_text"
+"text_docs": "query.term.passage_embedding.value"
 }
 ]
 ```
@@ -380,11 +380,11 @@ to `true` so that the full JSON document is parsed to obtain the input field:
 "full_response_path": true
 ```
 
-The documents you index will appear as follows. The text in the `query.term.passage_embedding.value` field will be used to generate embeddings:
+The text in the `query.term.passage_embedding.value` field will be used to generate embeddings:
 
 ```json
 {
-  "passage_text": "happy passage"
+  "text_docs": "happy passage"
 }
 ```
 
@@ -415,7 +415,7 @@ The Predict API request returns the following response:
 ```
 
 The model generates embeddings in the `$.inference_results.*.output.*.data` field. The `output_map` maps this field to
-the query field in the query:
+the query field in the query template:
 
 ```json
 "output_map": [
@@ -452,7 +452,7 @@ PUT /_search/pipeline/ml_inference_pipeline_local
         "size": 2,
         "query": {
           "knn": {
-            "review_embedding": {
+            "passage_embedding": {
               "vector": ${modelPredictionOutcome},
               "k": 5
               }
@@ -479,9 +479,9 @@ PUT /_search/pipeline/ml_inference_pipeline_local
 
 {% include copy-curl.html %}
 
-**Step 2 (Optional): Test the pipeline**
+**Step 2: Run the pipeline**
 
-To test the pipeline, run the following query:
+To run the following query with pipeline name:
 
 ```json
 GET /my_index/_search?search_pipeline=ml_inference_pipeline_local
@@ -529,7 +529,12 @@ The response confirms that the processor conduct knn query that match id 1 with 
         "_source": {
           "passage_text": "I am exicited",
           "passage_language": "en",
-          "label": "POSITIVE"
+          "label": "POSITIVE",
+          "passage_embedding": [
+            2.3886719,
+            0.032714844,
+            -0.22229004
+            ...]
         }
       },
       {
