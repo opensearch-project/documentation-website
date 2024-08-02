@@ -15,12 +15,6 @@ redirect_from:
 
 The CAT pending tasks operation lists the progress of all pending tasks, including task priority and time in queue.
 
-## Example
-
-```
-GET _cat/pending_tasks?v
-```
-{% include copy-curl.html %}
 
 ## Path and HTTP methods
 
@@ -40,7 +34,16 @@ local | Boolean | Whether to return information from the local node only instead
 cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
 time | Time | Specify the units for time. For example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
 
-## Response
+## Example request
+
+The following example request lists the progress of all pending node tasks:
+
+```
+GET _cat/pending_tasks?v
+```
+{% include copy-curl.html %}
+
+## Example response
 
 ```json
 insertOrder | timeInQueue | priority | source

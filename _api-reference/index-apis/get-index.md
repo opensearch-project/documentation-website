@@ -41,7 +41,7 @@ local | Boolean | Whether to return information from only the local node instead
 cluster_manager_timeout | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
 
 
-## Response
+## Example response
 ```json
 {
   "sample-index1": {

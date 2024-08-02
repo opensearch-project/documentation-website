@@ -141,7 +141,7 @@ The following table provides examples of the number of results returned by vario
 10 |	1 |	1 |	4 |	4 | 1
 10 | 10 |	1 |	4 |	10 | 10
 10 |	1 |	2 |	4 |	8 | 2
- 
+
 The number of results returned by Faiss/NMSLIB differs from the number of results returned by Lucene only when `k` is smaller than `size`. If `k` and `size` are equal, all engines return the same number of results. 
 
 Starting in OpenSearch 2.14, you can use `k`, `min_score`, or `max_distance` for [radial search]({{site.url}}{{site.baseurl}}/search-plugins/knn/radial-search-knn/).
@@ -253,7 +253,54 @@ POST _bulk
 ...
 ```
 
-After data is ingested, it can be search just like any other `knn_vector` field!
+After data is ingested, it can be searched in the same way as any other `knn_vector` field.
+
+### Additional query parameters
+
+Starting with version 2.16, you can provide `method_parameters` in a search request:
+
+```json
+GET my-knn-index-1/_search
+{
+  "size": 2,
+  "query": {
+    "knn": {
+      "my_vector2": {
+        "vector": [2, 3, 5, 6],
+        "k": 2,
+        "method_parameters" : {
+          "ef_search": 100
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+These parameters are dependent on the combination of engine and method used to create the index. The following sections provide information about the supported `method_parameters`.
+
+#### `ef_search`
+
+You can provide the `ef_search` parameter when searching an index created using the `hnsw` method. The `ef_search` parameter specifies the number of vectors to examine in order to find the top k nearest neighbors. Higher `ef_search` values improve recall at the cost of increased search latency. The value must be positive.
+
+The following table provides information about the `ef_search` parameter for the supported engines.
+
+Engine | Radial query support | Notes
+:--- | :--- | :---
+`nmslib` | No | If `ef_search` is present in a query, it overrides the `index.knn.algo_param.ef_search` index setting.
+`faiss` | Yes | If `ef_search` is present in a query, it overrides the `index.knn.algo_param.ef_search` index setting.
+`lucene` | No | When creating a search query, you must specify `k`. If you provide both `k` and `ef_search`, then the larger value is passed to the engine. If `ef_search` is larger than `k`, you can provide the `size` parameter to limit the final number of results to `k`. 
+
+#### `nprobes`
+
+You can provide the `nprobes` parameter when searching an index created using the `ivf` method. The `nprobes` parameter specifies the number of `nprobes` clusters to examine in order to find the top k nearest neighbors. Higher `nprobes` values improve recall at the cost of increased search latency. The value must be positive.
+
+The following table provides information about the `nprobes` parameter for the supported engines.
+
+Engine | Notes
+:--- | :--- 
+`faiss` | If `nprobes` is present in a query, it overrides the value provided when creating the index.
 
 ### Using approximate k-NN with filters
 
@@ -267,6 +314,10 @@ To learn about using k-NN search with nested fields, see [k-NN search with neste
 
 To learn more about the radial search feature, see [k-NN radial search]({{site.url}}{{site.baseurl}}/search-plugins/knn/radial-search-knn/).
 
+### Using approximate k-NN with binary vectors
+
+To learn more about using binary vectors with k-NN search, see [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-k-nn-vectors).
+
 ## Spaces
 
 A space corresponds to the function used to measure the distance between two points in order to determine the k-nearest neighbors. From the k-NN perspective, a lower score equates to a closer and better result. This is the opposite of how OpenSearch scores results, where a greater score equates to a better result. To convert distances to OpenSearch scores, we take 1 / (1 + distance). The k-NN plugin supports the following spaces. 
@@ -278,9 +329,9 @@ Not every method supports each of these spaces. Be sure to check out [the method
 <table>
   <thead style="text-align: center">
   <tr>
-    <th>spaceType</th>
-    <th>Distance Function (d)</th>
-    <th>OpenSearch Score</th>
+    <th>Space type</th>
+    <th>Distance function (d)</th>
+    <th>OpenSearch score</th>
   </tr>
   </thead>
   <tr>
@@ -316,6 +367,11 @@ Not every method supports each of these spaces. Be sure to check out [the method
         \[ \text{If} d > 0, score = d + 1 \] \[\text{If} d \le 0\] \[score = {1 \over 1 + (-1 &middot; d) }\]
     </td>
   </tr>
+  <tr>
+    <td>hamming (supported for binary vectors in OpenSearch version 2.16 and later)</td>
+    <td>\[ d(\mathbf{x}, \mathbf{y}) = \text{countSetBits}(\mathbf{x} \oplus \mathbf{y})\]</td>
+    <td>\[ score = {1 \over 1 + d } \]</td>
+  </tr>
 </table>
 
 The cosine similarity formula does not include the `1 -` prefix. However, because similarity search libraries equates
@@ -327,3 +383,6 @@ With cosine similarity, it is not valid to pass a zero vector (`[0, 0, ...]`) as
 such a vector is 0, which raises a `divide by 0` exception in the corresponding formula. Requests
 containing the zero vector will be rejected and a corresponding exception will be thrown.
 {: .note }
+
+The `hamming` space type is supported for binary vectors in OpenSearch version 2.16 and later. For more information, see [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-k-nn-vectors).
+{: .note}

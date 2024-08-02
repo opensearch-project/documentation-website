@@ -15,26 +15,6 @@ redirect_from:
 
 The CAT recovery operation lists all completed and ongoing index and shard recoveries.
 
-## Example
-
-```
-GET _cat/recovery?v
-```
-{% include copy-curl.html %}
-
-To see only the recoveries of a specific index, add the index name after your query.
-
-```
-GET _cat/recovery/<index>?v
-```
-{% include copy-curl.html %}
-
-If you want to get information for more than one index, separate the indexes with commas:
-
-```json
-GET _cat/recovery/index1,index2,index3
-```
-{% include copy-curl.html %}
 
 ## Path and HTTP methods
 
@@ -55,7 +35,28 @@ bytes | Byte size | Specify the units for byte size. For example, `7kb` or `6gb`
 detailed | Boolean | Whether to include detailed information about shard recoveries. Default is `false`.
 time | Time | Specify the units for time. For example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
 
-## Response
+## Example requests
+
+```
+GET _cat/recovery?v
+```
+{% include copy-curl.html %}
+
+To see only the recoveries of a specific index, add the index name after your query.
+
+```
+GET _cat/recovery/<index>?v
+```
+{% include copy-curl.html %}
+
+If you want to get information for more than one index, separate the indexes with commas:
+
+```json
+GET _cat/recovery/index1,index2,index3
+```
+{% include copy-curl.html %}
+
+## Example response
 
 ```json
 index | shard | time | type | stage | source_host | source_node | target_host | target_node | repository | snapshot | files | files_recovered | files_percent | files_total | bytes | bytes_recovered | bytes_percent | bytes_total | translog_ops | translog_ops_recovered | translog_ops_percent

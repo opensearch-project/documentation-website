@@ -46,7 +46,7 @@ Field | Data type | Description
 `include_global_state` | Boolean | Whether to include cluster state in the snapshot. Default is `true`.
 `partial` | Boolean | Whether to allow partial snapshots. Default is `false`, which fails the entire snapshot if one or more shards fails to stor
 
-#### Example requests
+## Example requests
 
 ##### Request without a body
 
@@ -72,7 +72,7 @@ PUT _snapshot/my-s3-repository/2
 ```
 {% include copy-curl.html %}
 
-#### Example responses
+## Example responses
 
 Upon success, the response content depends on whether you include the `wait_for_completion` query parameter.
 
