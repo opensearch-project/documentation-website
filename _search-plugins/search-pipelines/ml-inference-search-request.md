@@ -83,7 +83,6 @@ For local models, you must provide a `model_input` field that specifies the mode
 
 For externally hosted models, the `model_input` field is optional, and its default value
 is `"{ \"parameters\": ${ml_inference.parameters} }`.
-{: .note}
 
 ### Setup
 
