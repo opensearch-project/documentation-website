@@ -493,6 +493,9 @@ plugins.ml_commons.rag_pipeline_feature_enabled: true
 - Default value: `true`
 - Valid values: `false`, `true`
 
+## Enable PPL execution in PPLTool
+PPLTool is one of the tools in agent framework, this tool can generate PPL based on natrual language and execute the generated PPL. This setting provides cluster level control on whether execute PPL. When set to false, PPL will not execute, when set to true, PPLTool honers the `execute` parameter in PPLTool itself.
+
 ### Setting
 
 ```
