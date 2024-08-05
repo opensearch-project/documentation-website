@@ -1,13 +1,15 @@
 ---
 layout: default
 title: Split
-nav_order: 33
+nav_order: 140
 has_children: false
 parent: Search processors
 grand_parent: Search pipelines
 ---
 
 # Split processor
+Introduced 2.16
+{: .label .label-purple }
 
 The `split` processor splits a string field into an array of substrings based on a specified delimiter.
 
