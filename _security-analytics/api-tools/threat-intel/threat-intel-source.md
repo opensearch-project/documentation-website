@@ -5,90 +5,94 @@ parent: API tools
 nav_order: 50
 ---
 
-# Threat intelligence source APIs
+# Source API
 
-The following APIs can be used for tasks related to threat intelligence source configurations.
+The threat intelligence Source API updates and returns information about tasks related to threat intelligence source configurations.
 
-## Create threat intelligence source API
+## Create or update threat intelligence source
 
-Creates a new threat intelligence source and loads IoC's from source.
+Creates or updates a threat intelligence source and loads IoC's from that source.
 
-```
+### Path and HTTP method
+
+```json
 POST _plugins/_security_analytics/threat_intel/sources
+PUT _plugins/_security_analytics/threat_intel/sources/<threat_intel_source_id>
 ```
-
-### Request fields
-
-The following fields are used to create a threat intelligence source.
 
 ### Request Fields
 
-| Field                                 | Type             | Description                                                                                                                                                               |
-|:--------------------------------------|:-----------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
- | `type`                                | String           | The type of the threat intelligence source. Supported formats: `S3_CUSTOM`, `IOC_UPLOAD`.                                                                                 |
- | `name`                                | String           | The name of the threat intelligence source.                                                                                                                               |
- | `format`                              | String           | The format of the threat intelligence data. Example: `STIX2`.                                                                                                             |
- | `description`                         | String           | A description of the threat intelligence source.                                                                                                                          |
- | `enabled`                             | Boolean          | Indicates whether scheduled refresh of iocs from source is enabled i.e. the threat intelligence iocs downloaded from the source should be refreshed on a schedule or not. |
- | `ioc_types`                           | Array of Strings | The STIX2 types of IOCs that the source supports. Supported ioc types: `["hashes", "domain-name","ipv4-addr", "ipv6-addr"]`.                                              |
- | `source`                              | Object           | Contains the source details for the threat intelligence data.                                                                                                             |
- | `source.ioc_upload`                   | Object           | Details for IOC upload. Applicable for the `IOC_UPLOAD` type.                                                                                                             |
- | `source.ioc_upload.file_name`         | String           | The name of the file containing IOCs. Example: `test`. Applicable for the`IOC_UPLOAD` type.                                                                               |
- | `source.ioc_upload.iocs`              | Array of Objects | List of IOCs in STIX2 format.Applicable for `IOC_UPLOAD` type                                                                                                             |
-| `source_config.source.s3`             | Object           | Contains details about the S3 source.    Applicable for `S3_CUSTOM` type                                                                                                  |
-| `source_config.source.s3.bucket_name` | String           | The name of the S3 bucket. Example: `threat-intel-s3-test-bucket`. Applicable for `S3_CUSTOM` type                                                                        |
-| `source_config.source.s3.object_key`  | String           | The key of the object in the S3 bucket. Example: `alltypess3object`. Applicable for `S3_CUSTOM` type                                                                      |
-| `source_config.source.s3.region`      | String           | The region where the S3 bucket is located. Example: `us-west-2`. Applicable for `S3_CUSTOM` type                                                                          |
-| `source_config.source.s3.role_arn`    | String           | The ARN of the role used to access the S3 bucket. Example: `arn:aws:iam::248279774929:role/threat_intel_s3_test_role`. Applicable for `S3_CUSTOM` type                    |
+| Field  | Type  | Description  |
+| :---  | :--- | :---- |
+| `type`  | String | The type of the threat intelligence source, such as `S3_CUSTOM` or `IOC_UPLOAD`.   |
+| `name`  | String   | The name of the threat intelligence source.   |
+| `format`  | String   | The format of the threat intelligence data such as `STIX2`.   |
+| `description`    | String   | The description of the threat intelligence source.  |
+| `enabled`   | Boolean | Indicates whether the scheduled refresh of IoCs from source is enabled. |
+| `ioc_types` | Array of Strings | The `STIX2` types of IOCs that the source supports, `hashes`, `domain-name`, `ipv4-addr` or `ipv6-addr`.`.                                              |
+| `source`  | Object   | The source details for the threat intelligence data.   |
+| `source.ioc_upload`   | Object   | The details for IOC upload. Applicable for the `IOC_UPLOAD` type.  |
+| `source.ioc_upload.file_name`  | String   | The name of the file containing IOCs, such as `test`. Applicable for the`IOC_UPLOAD` type.  |
+| `source.ioc_upload.iocs`   | Array of Objects | List of IOCs in STIX2 format.Applicable for `IOC_UPLOAD` type. |
+| `source_config.source.s3`   | Object   | The details about the S3 source.  Applicable for `S3_CUSTOM` type.   |
+| `source_config.source.s3.bucket_name` | String  | The name of the S3 bucket, such as `threat-intel-s3-test-bucket`. Applicable for `S3_CUSTOM` type                                                                        |
+| `source_config.source.s3.object_key`  | String   | The key of the object in the S3 bucket, such `alltypess3object`. Applicable for `S3_CUSTOM` type.   |
+| `source_config.source.s3.region`  | String | The region where the S3 bucket is located. Example: `us-west-2`. Applicable for `S3_CUSTOM` type.  |
+| `source_config.source.s3.role_arn`    | String   | The ARN of the role used to access the S3 bucket, such as `arn:aws:iam::248279774929:role/threat_intel_s3_test_role`. Applicable for `S3_CUSTOM` type. |
 
-#### IOC Fields (STIX2)       
+#### IOC Fields (STIX2)  
 
-| Field          | Type             | Description                                                                                                                                          |
-|:---------------|:-----------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------|
- | `id`           | String           | A unique identifier for the IOC. Example: `1`.                                                                                                       |
- | `name`         | String           | A human-readable name for the IOC. Example: `uldzafothwgik`.                                                                                         |
- | `type`         | String           | The type of IOC, such as `hashes`.                                                                                                                   |
- | `value`        | String           | The value of the IOC, such as a hash value. Example: `gof`.                                                                                          |
- | `severity`     | String           | The severity level of the IOC. Example: `thvvz`.                                                                                                     |
- | `created`      | Integer/String   | The timestamp when the IOC was created, either in UNIX epoch format or ISO 8601 format. Example: `1719519073` or `2024-06-20T01:06:20.562008Z`.      |
- | `modified`     | Integer/String   | The timestamp when the IOC was last modified, either in UNIX epoch format or ISO 8601 format. Example: `1719519073` or `2024-06-20T02:06:20.56201Z`. |
- | `description`  | String           | A description of the IOC. Example: `first one here`.                                                                                                 |
- | `labels`       | Array of Strings | Labels or tags associated with the IOC. Example: `["ik"]`.                                                                                           |
- | `feed_id`      | String           | A unique identifier for the feed to which the IOC belongs. Example: `jl`.                                                                            |
- | `spec_version` | String           | The specification version used for the IOC. Example: `gavvnespe`.                                                                                    |
- | `version`      | Integer          | A version number for the IOC. Example: `-4356924786557562654`.                                                                                       |
+The following fields modify the `ioc_types` option:
+
+| Field  | Type  | Description   |
+| :--- | :---- | :----  |
+| `id`  | String  | A unique identifier for the IOC, such as `1`.  |
+| `name`   | String   | A human-readable name for the IOC, such as `ioc-name`.  |
+| `type`  | String  | The type of IOC, such as `hashes`. |
+| `value`   | String  | The value of the IOC, which can be hash value, such as `gof`.  <!---should we use a hash value as an example ----->    |
+| `severity`     | String   | The severity level of the IOC. Example: `thvvz`.  How are severity levels set?    |
+| `created`  | Integer/String   | The timestamp showing when the IOC was created, either in UNIX epoch format or ISO_8601 format, for example, `1719519073` or `2024-06-20T01:06:20.562008Z`.   |
+| `modified` | Integer/String   | The timestamp when the IOC was last modified, either in UNIX epoch format or ISO_8601 format, for example, `1719519073` or `2024-06-20T01:06:20.562008Z. |
+| `description`  | String     | A description of the IOC.    |
+| `labels`   | Array of Strings | Any labels or tags associated with the IOC.  |
+| `feed_id`   | String           | A unique identifier for the feed to which the IOC belongs.    |
+| `spec_version` | String           | The specification version used for the IOC.    |
+| `version`      | Integer    | A version number for the IOC.    |
 
 ### Response Fields
 
-| Field                                       | Data type         | Description                                                                                                     |
-|:--------------------------------------------|:------------------|:----------------------------------------------------------------------------------------------------------------|
- | `_id`                                       | String            | The unique identifier for the threat intelligence source. Example: `pnf65pABgRuG4FjXQuJ1`.                      |
- | `_version`                                  | Integer           | The version number of the threat intelligence source. Example: `2`.                                             |
- | `source_config`                             | Object            | Contains configuration details of the threat intelligence source.                                               |
- | `source_config.name`                        | String            | The name of the threat intelligence source. Example: `my_custom_feed`.                                          |
- | `source_config.format`                      | String            | The format of the threat intelligence data. Example: `STIX2`.                                                   |
- | `source_config.type`                        | String            | The type of the threat intelligence source. Supported formats: `IOC_UPLOAD`.                                    |
- | `source_config.ioc_types`                   | Array of Strings  | The types of IOCs supported by the source. Example: `["hashes"]`.                                               |
- | `source_config.description`                 | String            | A description of the threat intelligence source. Example: `this is the description`.                            |
- | `source_config.created_by_user`             | String or Null    | The user who created the threat intelligence source. Example: `null`.                                           |
- | `source_config.created_at`                  | String (DateTime) | The date and time when the threat intelligence source was created. Example: `2024-07-24T23:01:19.093081Z`.      |
- | `source_config.source`                      | Object            | Contains details about the source of the threat intelligence data.                                              |
- | `source_config.source.ioc_upload`           | Object            | Contains details about the IOC upload.                                                                          |
- | `source_config.source.ioc_upload.file_name` | String            | The name of the file uploaded. Example: `test`.                                                                 |
- | `source_config.source.ioc_upload.iocs`      | Array of Objects  | Will always be an empty array if stored successfully.                                                           |
- | `source_config.enabled`                     | Boolean           | Indicates whether the threat intelligence source is enabled. Example: `false`.                                  |
- | `source_config.enabled_time`                | String or Null    | The date and time when the source was enabled. Example: `null`.                                                 |
- | `source_config.last_update_time`            | String (DateTime) | The date and time when the threat intelligence source was last updated. Example: `2024-07-24T23:01:19.846154Z`. |
- | `source_config.schedule`                    | String or Null    | The schedule for the threat intelligence source. Example: `null`.                                               |
- | `source_config.state`                       | String            | The current state of the threat intelligence source. Example: `AVAILABLE`.                                      |
- | `source_config.refresh_type`                | String            | The type of refresh applied to the source. Example: `FULL`.                                                     |
- | `source_config.last_refreshed_user`         | String or Null    | The user who last refreshed the source. Example: `null`.                                                        |
- | `source_config.last_refreshed_time`         | String (DateTime) | The date and time when the source was last refreshed. Example: `2024-07-24T23:01:19.338184Z`.                   |
+| Field     | Data type   | Description   |
+| :---- | :--- |:----- |
+| `_id`     | String    | The unique identifier for the threat intelligence source.     |
+| `_version`  | Integer           | The version number of the threat intelligence source.   |
+| `source_config`    | Object   | The configuration details of the threat intelligence source.    |
+| `source_config.name`    | String    | The name of the threat intelligence source.   |
+| `source_config.format`   | String     | The format of the threat intelligence data.    |
+| `source_config.type`   | String   | The type of the threat intelligence source.   |
+| `source_config.ioc_types`  | Array of Strings  | The types of IoCs supported by the source.   |
+| `source_config.description`   | String  | The description of the threat intelligence source.  |
+| `source_config.created_by_user`  | String or Null    | The user who created the threat intelligence source.    |
+| `source_config.created_at`    | String (DateTime) | The date and time when the threat intelligence source was created.      |
+| `source_config.source`  | Object   | Contains details about the source of the threat intelligence data.   |
+| `source_config.source.ioc_upload`    | Object    | The details about the IoC upload.   |
+| `source_config.source.ioc_upload.file_name` | String   | The name of the file uploaded. Example: `test`. |
+| `source_config.source.ioc_upload.iocs`      | Array of Objects  | Any additional information about the IoC upload. When the IoC is stored successfully, this appears as an empty array.   |
+| `source_config.enabled`   | Boolean    | Indicates whether the threat intelligence source is enabled. Example: `false`.  |
+| `source_config.enabled_time`    | String or Null    | The date and time when the source was enabled.   |
+| `source_config.last_update_time`  | String (DateTime) | The date and time when the threat intelligence source was last updated.  |
+| `source_config.schedule`  | String or Null    | The schedule for the threat intelligence source.  |
+| `source_config.state`    | String    | The current state of the threat intelligence source.  |
+| `source_config.refresh_type`    | String   | The type of refresh applied to the source.  |
+| `source_config.last_refreshed_user`   | String or Null    | The user who last refreshed the source. |
+| `source_config.last_refreshed_time`         | String (DateTime) | The date and time when the source was last refreshed. |
 
-### Example request for IOC_UPLOAD type
+### Example requests 
 
-POST _plugins/_security_analytics/threat_intel/sources/
+
+#### IOC_UPLOAD type
+
 ```json
+POST _plugins/_security_analytics/threat_intel/sources/
 {
   "type": "IOC_UPLOAD",
   "name": "my_custom_feed",
@@ -142,7 +146,42 @@ POST _plugins/_security_analytics/threat_intel/sources/
 ```
 {% include copy-curl.html %}
 
-### Example response for IOC_UPLOAD type
+#### S3_CUSTOM type source
+
+```json
+POST _plugins/_security_analytics/threat_intel/sources/
+{
+ "type": "S3_CUSTOM",
+ "name": "example-ipv4-from-SAP-account",
+ "format": "STIX2",
+ "store_type": "OS",
+ "enabled": "true",
+ "schedule": {
+  "interval": {
+   "start_time": 1717097122,
+   "period": "10",
+   "unit": "DAYS"
+  }
+ },
+ "source": {
+  "s3": {
+   "bucket_name": "threat-intel-s3-test-bucket",
+   "object_key": "alltypess3object",
+   "region": "us-west-2",
+   "role_arn": "arn:aws:iam::248279774929:role/threat_intel_s3_test_role"
+  }
+ },
+ "ioc_types": [
+  "domain-name",
+  "ipv4-addr"
+ ]
+}
+```
+{% include copy-curl.html %}
+
+### Example responses
+
+#### IOC_UPLOAD type
 
 ```json
 {
@@ -176,40 +215,7 @@ POST _plugins/_security_analytics/threat_intel/sources/
 }
 ```
 
-### Example request for S3_CUSTOM type source
-
-POST _plugins/_security_analytics/threat_intel/sources/
-```json
-{
- "type": "S3_CUSTOM",
- "name": "example-ipv4-from-SAP-account",
- "format": "STIX2",
- "store_type": "OS",
- "enabled": "true",
- "schedule": {
-  "interval": {
-   "start_time": 1717097122,
-   "period": "10",
-   "unit": "DAYS"
-  }
- },
- "source": {
-  "s3": {
-   "bucket_name": "threat-intel-s3-test-bucket",
-   "object_key": "alltypess3object",
-   "region": "us-west-2",
-   "role_arn": "arn:aws:iam::248279774929:role/threat_intel_s3_test_role"
-  }
- },
- "ioc_types": [
-  "domain-name",
-  "ipv4-addr"
- ]
-}
-```
-{% include copy-curl.html %}
-
-### Example response for S3_CUSTOM type source
+#### S3_CUSTOM type source
 
 ```json
 {
@@ -265,191 +271,24 @@ POST _plugins/_security_analytics/threat_intel/sources/
  "last_refreshed_time": "2024-07-25T20:58:17.131Z"
 }
 ```
----
-## Update Threat intelligence Source API
 
-Updates an existing threat intelligence source.
-
-```
-PUT _plugins/_security_analytics/threat_intel/sources/<threat_intel_source_id>
-```
-
-### Request fields
-
-You can specify the following fields when updating a threat intelligence source.
-
-### Request Fields
-
-| Field                                 | Type             | Description                                                                                                                                                               |
-|:--------------------------------------|:-----------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `name`                                | String           | The name of the threat intelligence source.                                                                                                                               |
-| `format`                              | String           | The format of the threat intelligence data. Example: `STIX2`.                                                                                                             |
-| `description`                         | String           | A description of the threat intelligence source.                                                                                                                          |
-| `enabled`                             | Boolean          | Indicates whether scheduled refresh of iocs from source is enabled i.e. the threat intelligence iocs downloaded from the source should be refreshed on a schedule or not. |
-| `ioc_types`                           | Array of Strings | The STIX2 types of IOCs that the source supports. Supported ioc types: `["hashes", "domain-name","ipv4-addr", "ipv6-addr"]`.                                              |
-| `source`                              | Object           | Contains the source details for the threat intelligence data.                                                                                                             |
-| `source.ioc_upload`                   | Object           | Details for IOC upload.                                                                                                                                                   |
-| `source.ioc_upload.file_name`         | String           | The name of the file containing IOCs. Example: `test`.                                                                                                                    |
-| `source.ioc_upload.iocs`              | Array of Objects | List of IOCs in STIX2 format.                                                                                                                                             |
-| `source_config.source.s3`             | Object           | Contains details about the S3 source.                                                                                                                                     |
-| `source_config.source.s3.bucket_name` | String           | The name of the S3 bucket. Example: `threat-intel-s3-test-bucket`.                                                                                                        |
-| `source_config.source.s3.object_key`  | String           | The key of the object in the S3 bucket. Example: `alltypess3object`.                                                                                                      |
-| `source_config.source.s3.region`      | String           | The region where the S3 bucket is located. Example: `us-west-2`.                                                                                                          |
-| `source_config.source.s3.role_arn`    | String           | The ARN of the role used to access the S3 bucket. Example: `arn:aws:iam::248279774929:role/threat_intel_s3_test_role`.                                                    |
-
-#### IOC Fields (STIX2)
-
-| Field          | Type             | Description                                                                                                                                          |
-|:---------------|:-----------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| `id`           | String           | A unique identifier for the IOC. Example: `1`.                                                                                                       |
-| `name`         | String           | A human-readable name for the IOC. Example: `uldzafothwgik`.                                                                                         |
-| `type`         | String           | The type of IOC, such as `hashes`.                                                                                                                   |
-| `value`        | String           | The value of the IOC, such as a hash value. Example: `gof`.                                                                                          |
-| `severity`     | String           | The severity level of the IOC. Example: `thvvz`.                                                                                                     |
-| `created`      | Integer/String   | The timestamp when the IOC was created, either in UNIX epoch format or ISO 8601 format. Example: `1719519073` or `2024-06-20T01:06:20.562008Z`.      |
-| `modified`     | Integer/String   | The timestamp when the IOC was last modified, either in UNIX epoch format or ISO 8601 format. Example: `1719519073` or `2024-06-20T02:06:20.56201Z`. |
-| `description`  | String           | A description of the IOC. Example: `first one here`.                                                                                                 |
-| `labels`       | Array of Strings | Labels or tags associated with the IOC. Example: `["ik"]`.                                                                                           |
-| `feed_id`      | String           | A unique identifier for the feed to which the IOC belongs. Example: `jl`.                                                                            |
-| `spec_version` | String           | The specification version used for the IOC. Example: `gavvnespe`.                                                                                    |
-| `version`      | Integer          | A version number for the IOC. Example: `-4356924786557562654`.                                                                                       |
-
-### Response Fields
-
-| Field                                       | Type              | Description                                                                                                     |
-|:--------------------------------------------|:------------------|:----------------------------------------------------------------------------------------------------------------|
-| `_id`                                       | String            | The unique identifier for the threat intelligence source. Example: `pnf65pABgRuG4FjXQuJ1`.                      |
-| `_version`                                  | Integer           | The version number of the threat intelligence source. Example: `2`.                                             |
-| `source_config`                             | Object            | Contains configuration details of the threat intelligence source.                                               |
-| `source_config.name`                        | String            | The name of the threat intelligence source. Example: `my_custom_feed`.                                          |
-| `source_config.format`                      | String            | The format of the threat intelligence data. Example: `STIX2`.                                                   |
-| `source_config.type`                        | String            | The type of the threat intelligence source. Supported formats: `IOC_UPLOAD`.                                    |
-| `source_config.ioc_types`                   | Array of Strings  | The types of IOCs supported by the source. Example: `["hashes"]`.                                               |
-| `source_config.description`                 | String            | A description of the threat intelligence source. Example: `this is the description`.                            |
-| `source_config.created_by_user`             | String or Null    | The user who created the threat intelligence source. Example: `null`.                                           |
-| `source_config.created_at`                  | String (DateTime) | The date and time when the threat intelligence source was created. Example: `2024-07-24T23:01:19.093081Z`.      |
-| `source_config.source`                      | Object            | Contains details about the source of the threat intelligence data.                                              |
-| `source_config.source.ioc_upload`           | Object            | Contains details about the IOC upload.                                                                          |
-| `source_config.source.ioc_upload.file_name` | String            | The name of the file uploaded. Example: `test`.                                                                 |
-| `source_config.source.ioc_upload.iocs`      | Array of Objects  | Will always be an empty array if stored successfully.                                                           |
-| `source_config.enabled`                     | Boolean           | Indicates whether the threat intelligence source is enabled. Example: `false`.                                  |
-| `source_config.enabled_time`                | String or Null    | The date and time when the source was enabled. Example: `null`.                                                 |
-| `source_config.last_update_time`            | String (DateTime) | The date and time when the threat intelligence source was last updated. Example: `2024-07-24T23:01:19.846154Z`. |
-| `source_config.schedule`                    | String or Null    | The schedule for the threat intelligence source. Example: `null`.                                               |
-| `source_config.state`                       | String            | The current state of the threat intelligence source. Example: `AVAILABLE`.                                      |
-| `source_config.refresh_type`                | String            | The type of refresh applied to the source. Example: `FULL`.                                                     |
-| `source_config.last_refreshed_user`         | String or Null    | The user who last refreshed the source. Example: `null`.                                                        |
-| `source_config.last_refreshed_time`         | String (DateTime) | The date and time when the source was last refreshed. Example: `2024-07-24T23:01:19.338184Z`.                   |
-
-### Example request for IOC_UPLOAD type
-
-PUT _plugins/_security_analytics/threat_intel/sources/
-```json
-{
- "_id": "2c0u7JAB9IJUg27gcjUp",
-  "type": "IOC_UPLOAD",
-  "name": "my_custom_feed",
-  "format": "STIX2",
-  "description": "this is the description",
-  "store_type": "OS",
-  "enabled": "false",
-  "ioc_types": [
-    "hashes"
-  ],
-  "source": {
-    "ioc_upload": {
-      "file_name": "test",
-      "iocs": [
-        {
-          "id": "1",
-          "name": "uldzafothwgik",
-          "type": "hashes",
-          "value": "gof",
-          "severity": "thvvz",
-          "created": 1719519073,
-          "modified": 1719519073,
-          "description": "first one here",
-          "labels": [
-            "ik"
-          ],
-          "feed_id": "jl",
-          "spec_version": "gavvnespe",
-          "version": -4356924786557562654
-        },
-        {
-          "id": "2",
-          "name": "uldzafothwgik",
-          "type": "hashes",
-          "value": "example-has00001",
-          "severity": "thvvz",
-          "created": "2024-06-20T01:06:20.562008Z",
-          "modified": "2024-06-20T02:06:20.56201Z",
-          "description": "first one here",
-          "labels": [
-            "ik"
-          ],
-          "feed_id": "jl",
-          "spec_version": "gavvnespe",
-          "version": -4356924786557562654
-        }
-      ]
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-### Example response for IOC_UPLOAD type
-
-```json
-{
-  "_id": "2c0u7JAB9IJUg27gcjUp",
-  "_version": 2,
-  "source_config": {
-    "name": "my_custom_feed",
-    "format": "STIX2",
-    "type": "IOC_UPLOAD",
-    "ioc_types": [
-      "hashes"
-    ],
-    "description": "this is the description",
-    "created_by_user": null,
-    "created_at": "2024-07-25T23:16:25.257697Z",
-    "source": {
-      "ioc_upload": {
-        "file_name": "test",
-        "iocs": []
-      }
-    },
-    "enabled": false,
-    "enabled_time": null,
-    "last_update_time": "2024-07-25T23:16:26.011774Z",
-    "schedule": null,
-    "state": "AVAILABLE",
-    "refresh_type": "FULL",
-    "last_refreshed_user": null,
-    "last_refreshed_time": "2024-07-25T23:16:25.522735Z"
-  }
-}
-```
 ---
 
-## Get threat intelligence source API
+## Get threat intelligence source
 
-The Get Threat intelligence Source API retrieves the threat intelligence source configuration details. Use the mandatory path parameter threat intelligence source ID.
+Retrieves the threat intelligence source configuration details
 
-### Parameters
+### Path and HTTP method
 
-You can specify the following filtering parameters when listing threat intelligence sources.
 
-```
-GET /_plugins/_security_analytics/threat_intel/sources/a-jnfjkAF_uQjn8Weo4
+```json
+GET /_plugins/_security_analytics/threat_intel/sources/<source-id>
 ```
 
 ### Example request
 
 ```
-GET /_plugins/_security_analytics/threat_intel/sources/<threat intelligence source Id>
+GET /_plugins/_security_analytics/threat_intel/sources/<source-id>
 ```
 {% include copy-curl.html %}
 
@@ -499,15 +338,18 @@ GET /_plugins/_security_analytics/threat_intel/sources/<threat intelligence sour
 
 ## Search Threat intelligence Sources API
 
-The Search Threat intelligence Sources API searches for threat intelligence source matches based on search query passed.
+Searches for threat intelligence source matches based on the search query. The request expects a search source similar to the _search query in OpenSearch.
 
-The request expects a search source similar to the _search query in OpenSearch.
+### Path and HTTP method
+
+```json
+POST /_plugins/_security_analytics/threat_intel/sources/_search
+```
 
 ### Example request
 
-    **Threat intelligence source config type**
-POST /_plugins/_security_analytics/threat_intel/sources/_search
 ```json
+POST /_plugins/_security_analytics/threat_intel/sources/_search
 {
     "query": {
         "match": {
@@ -585,21 +427,21 @@ POST /_plugins/_security_analytics/threat_intel/sources/_search
     }
 }
 ```
----
+
 ## Delete threat intelligence source API
 
-This API uses the threat intelligence source ID to specify and delete a threat intelligence source.
+Deletes a threat intelligence source
 
 ### Path and HTTP methods
 
 ```
-DELETE /_plugins/_security_analytics/threat_intel/sources/IJAXz4QBrmVplM4JYxx_
+DELETE /_plugins/_security_analytics/threat_intel/sources/<source-id>
 ```
 
 ### Example request
 
 ```
-DELETE /_plugins/_security_analytics/threat_intel/sources/<threat_intel_source Id>
+DELETE /_plugins/_security_analytics/threat_intel/sources/2c0u7JAB9IJUg27gcjUp
 ```
 {% include copy-curl.html %}
 
@@ -613,12 +455,12 @@ DELETE /_plugins/_security_analytics/threat_intel/sources/<threat_intel_source I
 ---
 ## Refresh threat intelligence source API
 
-This API uses the threat intelligence source ID to donwload the iocs from a threat intelligence source on-demand. Only supported for S3_CUSTOM type source.
+Downloads any IoCs from the threat intelligence source. Only supports for the `S3_CUSTOM` type source.
 
 ### Path and HTTP methods
 
 ```
-POST /_plugins/_security_analytics/threat_intel/sources/<threat_intel_source Id>/_refresh
+POST /_plugins/_security_analytics/threat_intel/sources/<source-id>/_refresh
 ```
 
 ### Example request
