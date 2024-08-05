@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Alerts and Findings
-parent: API tools
+parent: Threat intelligence APIs
 nav_order: 50
 ---
 
