@@ -72,5 +72,5 @@ The `hamming` space type is supported for binary vectors in OpenSearch version 2
 
    Because scores can only be positive, this script ranks documents with vector fields higher than those without.
 
-With cosine similarity, it is not valid to pass a zero vector (`[0, 0, ...]`) as input. This is because the magnitude of such a vector is 0, which raises a `divide by 0` exception in the corresponding formula. Requests containing the zero vector will be rejected and a corresponding exception will be thrown.
+With cosine similarity, it is not valid to pass a zero vector (`[0, 0, ...]`) as input. This is because the magnitude of such a vector is 0, which raises a `divide by 0` exception in the corresponding formula. Requests containing the zero vector will be rejected, and a corresponding exception will be thrown.
 {: .note }
