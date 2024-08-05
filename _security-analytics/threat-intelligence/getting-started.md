@@ -26,10 +26,14 @@ The file should have contain IoC's in the `STIX2` format. The supported IoC Type
 
 ## Step 2: Configure Threat Intelligence Monitor
 
-Threat Intelligence Monitor will be configured with your aliases or data streams. It runs every minute (by default or at a configurable periodicity) and scans the newly ingested data in your indices to match against the IoC's present in threat intelligence feeds connected to OpenSearch. 
-If any malicious IoC's are matched OpenSearch creates findings. Optionally, you can configure triggers in monitor to create alerts and send notifications to your desired webhooks and endpoints
-For every alias or data stream configured in the monitor, you must mention which fields are to be scanned for each type of IoC.
-For instance, if an alias called `my-logs` has 2 fields called `src_ip` and `dst_ip` which contain ipv4-addresses, you must mention them during monitor creation/update under the `ipv4-addr` section.
+You can configure threat intelligence monitors to use with your aliases and data streams. The monitor scans for newly ingested data from your indexes and matches tat data against any IoC's present in threat intelligence monitors. By default, the scan runs every minute.
+
+When malicious IoC's are found, OpenSearch creates **findings**, which gives information about the threat. You can also configure triggers with the monitors to create alerts, which sends notifications to configured webhooks or endpoints.
+
+For every alias or data stream configured in the monitor, you're required to mention any fields that must be scanned for each of IoC. For example, if an alias has two fields called `src_ip` and `dst_ip` which contain `ipv4` addresses, those fields must be entered into the `ipv4-addr` section of the monitor request.
+
+<!--- is there a way to do this in the UI--->
+
 
 ### Step 3: Findings Alerts and Notifications
 
