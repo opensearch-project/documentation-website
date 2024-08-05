@@ -1,40 +1,40 @@
 ---
 layout: default
-title: Alerts and findings APIs
+title: Alerts and Findings
 parent: API tools
 nav_order: 50
 ---
 
 
-# Threat Intelligence Alerts and findings APIs
+# Alerts and Findings
 
-The following APIs can be used for tasks related to alerts and findings.
+The Threat Intelligence Alerts and Findings API helps retrieve information about alerts and findings found from threat intelligence feeds.
 
 
 ---
 
 ## Get threat intelligence alerts
 
-Provides an option for retrieving alerts related to a threat intelligence based monitor.
+Retrieves any alerts related to threat intelligence monitors.
 
 ### Parameters
 
 You can specify the following parameters when requesting an alert.
 
-| Parameter       | Description                                                                                                      |
-|:----------------|:-----------------------------------------------------------------------------------------------------------------|
-| `severityLevel` | Used to filter by alert severity level. Optional.                                                                |
-| `alertState`    | Used to filter by alert state. Possible values are ACTIVE, ACKNOWLEDGED, COMPLETED, ERROR, or DELETED. Optional. |
-| `sortString`    | This field specifies which string Security Analytics uses to sort the alerts. Optional.                          |
-| `sortOrder`     | The order used to sort the list of alerts. Possible values are `asc` or `desc`. Optional.                        |
-| `missing`       | A list of fields for which there are no found alias mappings. Optional.                                          |
-| `size`          | An optional limit for the maximum number of results returned in the response. Optional.                          |
-| `startIndex`    | The pagination indicator. Optional.                                                                              |
-| `searchString`  | The alert attribute you want returned in the search. Optional.                                                   |
+Parameter | Description 
+:--- | :---- 
+`severityLevel` | Filter alerts by severity level. Optional.        
+`alertState`    | Used to filter by alert state. Possible values are ACTIVE, ACKNOWLEDGED, COMPLETED, ERROR, or DELETED. Optional. 
+`sortString`    | This field specifies which string Security Analytics uses to sort the alerts. Optional.                          
+`sortOrder`     | The order used to sort the list of alerts. Possible values are `asc` or `desc`. Optional.                        
+`missing`       | A list of fields for which there are no found alias mappings. Optional.                                          
+`size`          | An optional limit for the maximum number of results returned in the response. Optional.                          
+ `startIndex`    | The pagination indicator. Optional.  
+| `searchString`  | The alert attribute you want returned in the search. Optional. 
 
 ### Example request
 
-```
+```json
 GET /_plugins/_security_analytics/threat_intel/alerts
 ```
 
@@ -67,29 +67,36 @@ GET /_plugins/_security_analytics/threat_intel/alerts
 }
 ```
 
-#### Response fields
+### Response fields
 
-Alerts persist until you resolve the root cause and have the following states:
+Threat intelligence alerts can have one of the following status.
 
-| State          | Description                                                                                                                                                                    |
-|:---------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `ACTIVE`       | The alert is ongoing and unacknowledged. Alerts remain in this state until you acknowledge them, delete the trigger associated with the alert, or delete the monitor entirely. |
-| `ACKNOWLEDGED` | Someone has acknowledged the alert but not fixed the root cause.                                                                                                               |
-| `COMPLETED`    | The alert is no longer ongoing. Alerts enter this state after the corresponding trigger evaluates to false.                                                                    |
-| `DELETED`      | Someone deleted the monitor or trigger associated with this alert while the alert was ongoing.                                                                                 |
+| State  | Description  |
+| :---- | :--- |
+| `ACTIVE`   | The alert is ongoing and unacknowledged. Alerts remain in this state they are acknowledged, the trigger associated with the alert is deleted, or threat intelligence monitor is deleted entirely. |
+| `ACKNOWLEDGED` | The alert is acknowledged but the root cause of the alert has still not been addressed.  |
+| `COMPLETED` | The alert is no longer ongoing. Alerts enter this state after the corresponding trigger evaluates to `false`.   |
+| `DELETED` | The monitor or trigger for the alert was deleted while the alert was active .  |
 
 ---
 
 ## Update alerts status API 
 
-**Mark ACTIVE alerts as ACKNOWLEDGED**
+Updates the status of the specified alerts to  `ACKNOWLEDGED` or `COMPLETED`. Only alerts in the `ACTIVE` state can be updated. 
 
-API to update Alert status of alerts by their ids to `ACKNOWLEDGED`. Only alerts in ACTIVE state can be updated to state ACKNOWLEDGED. 
+### Example requests
 
-### Example request
+The following example updates status of the specified alerts to `ACKNOWLEDGED`:
 
+```json
+PUT /plugins/security_analytics/threat_intel/alerts/status?state=ACKNOWLEDGED&alert_ids=<alert-id>,<alert-id>
 ```
-PUT /plugins/security_analytics/threat_intel/alerts/status?state=ACKNOWLEDGED&alert_ids=906669ee-56e8-4f40-a12f-ab4c274d7521,56e8-4f40-a12f-ab4c274d7521-906669ee
+
+The following example updates status of the specified alerts to `COMPLETED`:
+
+```json
+PUT /plugins/security_analytics/threat_intel/alerts/status?state=COMPLETED&alert_ids=alert_ids=<alert-id>,<alert-id>
+
 ```
 
 ### Example response
@@ -145,78 +152,15 @@ PUT /plugins/security_analytics/threat_intel/alerts/status?state=ACKNOWLEDGED&al
 ```
 ---
 
-**Mark ACKNOWLEDGED alerts as COMPLETED**
 
-API to update Alert status of alerts by their ids to `COMPLETED`. Only alerts in `ACKNOWLEDGED` state can be updated to state `COMPLETED`.
-
-### Example request
-
-```
-PUT /plugins/security_analytics/threat_intel/alerts/status?state=COMPLETED&alert_ids=alert_ids=906669ee-56e8-4f40-a12f-ab4c274d7521,56e8-4f40-a12f-ab4c274d7521-906669ee
-
-```
-
-### Example response
-
-```json
-{
-  "updated_alerts": [
-    {
-      "id": "906669ee-56e8-4f40-a12f-ab4c274d7521",
-      "version": 1,
-      "schema_version": 0,
-      "seq_no": 2,
-      "primary_term": 1,
-      "trigger_id": "regwarg",
-      "trigger_name": "regwarg",
-      "state": "COMPLETED",
-      "error_message": null,
-      "ioc_value": "example-has00001",
-      "ioc_type": "hashes",
-      "severity": "high",
-      "finding_ids": [
-        "a9c10094-6139-42b3-81a8-867dffbe381d"
-      ],
-      "acknowledged_time": 1722039091209,
-      "last_updated_time": 1722039091209,
-      "start_time": 1722038395105,
-      "end_time": null
-    },
-    {
-      "id": "56e8-4f40-a12f-ab4c274d7521-906669ee",
-      "version": 1,
-      "schema_version": 0,
-      "seq_no": 2,
-      "primary_term": 1,
-      "trigger_id": "regwarg",
-      "trigger_name": "regwarg",
-      "state": "COMPLETED",
-      "error_message": null,
-      "ioc_value": "example-has00001",
-      "ioc_type": "hashes",
-      "severity": "high",
-      "finding_ids": [
-        "a9c10094-6139-42b3-81a8-867dffbe381d"
-      ],
-      "acknowledged_time": 1722039091209,
-      "last_updated_time": 1722039091209,
-      "start_time": 1722038395105,
-      "end_time": null
-    }
-  ],
-  "failure_messages": []
-}
-```
 
 ---
 
 ## Get findings
 
-The Get findings API returns threat intelligence ioc findings - when threat intelligence monitor finds a malicious IoC during a scan of data a finding is created.
+The threat intelligence Get Findings API returns threat intelligence Indicators of compromise (IoCs) findings. When the threat intelligence monitor finds a malicious IoC during a scan of data, a finding is automatically added to the threat intelligence feed.
 
-### Parameters
-
-You can specify the following parameters when getting findings.
+### Parameters 
 
 | Parameter      | Description                                                                                 |
 |:---------------|:--------------------------------------------------------------------------------------------|
@@ -228,7 +172,8 @@ You can specify the following parameters when getting findings.
 | `searchString` | The alert attribute you want returned in the search. Optional.                              |
 
 ### Example request
-```
+
+```json
 GET /_plugins/_security_analytics/threat_intel/findings/_search?size=3
 ```
 
