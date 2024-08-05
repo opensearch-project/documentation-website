@@ -28,15 +28,15 @@ Predict APIs are used to invoke machine learning (ML) models. ML Commons support
 
 # Train API
 
-The ML Commons Train API lets you train machine learning (ML) algorithms synchronously and asynchronously:
+The ML Commons Train API lets you train ML algorithms synchronously and asynchronously:
 
 - [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/train/)
 
 To train tasks through the API, three inputs are required: 
 
-- Algorithm name: Must be one of a [FunctionName](https://github.com/opensearch-project/ml-commons/blob/1.3/common/src/main/java/org/opensearch/ml/common/parameter/FunctionName.java). This determines what algorithm the ML Engine runs. To add a new function, see [How To Add a New Function](https://github.com/opensearch-project/ml-commons/blob/main/docs/how-to-add-new-function.md).
+- Algorithm name: Must be a [FunctionName](https://github.com/opensearch-project/ml-commons/blob/1.3/common/src/main/java/org/opensearch/ml/common/parameter/FunctionName.java). This determines what algorithm the ML model runs. To add a new function, see [How To Add a New Function](https://github.com/opensearch-project/ml-commons/blob/main/docs/how-to-add-new-function.md).
 - Model hyperparameters: Adjust these parameters to improve model accuracy.  
-- Input data: The data that trains the ML model, or applies the ML models to predictions. You can input data in two ways, query against your index or use a data frame.
+- Input data: The data that trains the ML model or applies it to predictions. You can input data in two ways: query against your index or use a data frame.
 
 # Train and Predict API
 
