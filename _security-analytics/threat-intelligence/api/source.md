@@ -11,7 +11,7 @@ The threat intelligence Source API updates and returns information about tasks r
 
 ## Create or update threat intelligence source
 
-Creates or updates a threat intelligence source and loads IoC's from that source.
+Creates or updates a threat intelligence source and loads Indicators of Compromise (IoCs) from that source.
 
 ### Path and HTTP method
 
