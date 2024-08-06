@@ -2,12 +2,12 @@
 layout: default
 title: CJK bigram
 parent: Token filters
-nav_order: 130
+nav_order: 30
 ---
 
 # CJK bigram token filter
 
-The `cjk_bigram` token filter in OpenSearch is designed specifically for processing East Asian languages, such as Chinese, Japanese, and Korean (CJK), which typically don't use spaces to separate words. A bigram is a sequence of two adjacent elements from a string of tokens, which can be characters or words. For CJK languages, bigrams help in approximating word boundaries and capturing significant character pairs that can convey meaning
+The `cjk_bigram` token filter in OpenSearch is designed specifically for processing East Asian languages, such as Chinese, Japanese, and Korean (CJK), which typically don't use spaces to separate words. A bigram is a sequence of two adjacent elements from a string of tokens, which can be characters or words. For CJK languages, bigrams help in approximating word boundaries and capturing significant character pairs that can convey meaning.
 
 
 ## Parameters
@@ -48,7 +48,7 @@ This option, when set to `true`, outputs both unigrams (single characters) and b
 
 ## Example
 
-Following is an example of how you can define an analyzer with the `cjk_bigram_filter` filter with `ignore_scripts` set to `deva`:
+The following example request creates a new index named `devanagari_example_index` and defines an analyzer with the `cjk_bigram_filter` filter and `ignore_scripts` parameter set to `deva`:
 
 ```json
 PUT /devanagari_example_index
@@ -80,7 +80,7 @@ PUT /devanagari_example_index
 
 ## Generated tokens
 
-You can use the following command to examine the tokens being generated using the created analyzer:
+Use the following request to examine the tokens generated using the created analyzer:
 
 ```json
 POST /devanagari_example_index/_analyze
