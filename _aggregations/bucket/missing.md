@@ -2,7 +2,6 @@
 layout: default
 title: Missing
 parent: Bucket aggregations
-grand_parent: Aggregations
 nav_order: 120
 redirect_from:
   - /query-dsl/aggregations/bucket/missing/

@@ -4,6 +4,7 @@ title: Analyze API
 has_children: true
 nav_order: 7
 redirect_from:
+  - /api-reference/analyze-apis/perform-text-analysis/
   - /opensearch/rest-api/analyze-apis/
   - /api-reference/analyze-apis/
 ---
@@ -60,7 +61,7 @@ Field | Data type | Description
 :--- | :--- | :---
 text | String or Array of Strings | Text to analyze. If you provide an array of strings, the text is analyzed as a multi-value field.
 
-#### Example requests
+## Example requests
 
 [Analyze array of text strings](#analyze-array-of-text-strings)
 

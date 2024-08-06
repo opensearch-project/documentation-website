@@ -27,3 +27,4 @@ Security plugin
 Security Analytics plugin
 SQL plugin
 Trace Analytics plugin
+User Behavior Insights

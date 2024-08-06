@@ -24,7 +24,7 @@ Parameter | Data type | Description
 repository | String | Repostory that contains the snapshot. |
 snapshot | String | Snapshot to delete. |
 
-#### Example request
+## Example request
 
 The following request deletes a snapshot called `my-first-snapshot` from the `my-opensearch-repo` repository:
 
@@ -33,7 +33,7 @@ DELETE _snapshot/my-opensearch-repo/my-first-snapshot
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 Upon success, the response returns the following JSON object:
 
