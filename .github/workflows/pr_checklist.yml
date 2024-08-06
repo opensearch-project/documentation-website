@@ -32,7 +32,7 @@ jobs:
             const prOwners = ['Naarcha-AWS', 'kolchfa-aws', 'vagimeli', 'natebower'];
             
             if (!prOwners.includes(assignee)) {
-              assignee = 'hdhalter'
+              assignee = 'kolchfa-aws'
             }
 
             github.rest.issues.addAssignees({
