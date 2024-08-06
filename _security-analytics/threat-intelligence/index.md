@@ -7,7 +7,7 @@ has_children: true
 
 # Threat intelligence
 
-You can use the threat intelligence feature in OpenSearch to integrate your threat intelligence feeds. Feeds are comprised of Indicators of Compromise (IOCs), which search for malicious indicators in your data. Through monitors, findings are generated, and notifications are sent when malicious IPs, domains, or hashes referenced from the threat intelligence feeds match your data.
+Threat intelligence in Security Analytics offers the capability to integrate your threat intelligence feeds. Feeds are comprised Indicators of Compromise (IOCs), which search for malicious indicators within your data by setting up a threat intelligence monitor. These monitors generate findings and can send notifications when malicious IPs, domains, or hashes referenced from the threat intelligence feeds match your data.
 
 To access threat intelligence, log into OpenSearch Dashboards, and select **Security Analytics** > **Threat Intelligence**.
 
