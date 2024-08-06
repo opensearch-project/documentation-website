@@ -27,7 +27,7 @@ PUT _plugins/_security_analytics/threat_intel/sources/<source_id>
 | :---  | :--- | :---- |
 | `type`  | String | The type of the threat intelligence source, such as `S3_CUSTOM` or `IOC_UPLOAD`.   |
 | `name`  | String   | The name of the threat intelligence source.   |
-| `format`  | String   | The format of the threat intelligence data such as `STIX2`.   |
+| `format`  | String   | The format of the threat intelligence data, such as `STIX2`.   |
 | `description`    | String   | The description of the threat intelligence source.  |
 | `enabled`   | Boolean | Indicates whether the scheduled refresh of IoCs from source is enabled. |
 | `ioc_types` | Array of Strings | The `STIX2` types of IOCs that the source supports, `hashes`, `domain-name`, `ipv4-addr` or `ipv6-addr`.`.                                              |
