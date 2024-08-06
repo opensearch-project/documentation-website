@@ -8,16 +8,14 @@ nav_order: 20
 
 # Ingest-attachment plugin
 
-The `ingest-attachment` plugin enables OpenSearch to extract content and other
-information from files using the Apache text extraction library
-[Tika](https://tika.apache.org/).
+The Ingest-attachment plugin enables OpenSearch to extract content and other information from files using the Apache text extraction library [Tika](https://tika.apache.org/).
 Supported document formats include PPT, PDF, RTF, ODF and many more ([Tika Supported Document Formats](https://tika.apache.org/2.9.2/formats.html)).
 
-The input field must be a base64 encoded binary.
+The input field must be a base64-encoded binary.
 
 ## Installing the plugin
 
-You can install the `ingest-attachment` plugin using the following command:
+Install the `ingest-attachment` plugin using the following command:
 
 ```sh
 ./bin/opensearch-plugin install ingest-attachment
@@ -27,18 +25,20 @@ You can install the `ingest-attachment` plugin using the following command:
 
 | Name | Required | Default | Description |
 | :--- | :--- | :--- | :--- |
-| field | yes | - | The field to get base64 encoded binary from. |
-| target_field | no | attachment | The field that will hold the attachment information. |
-| properties | no | all properties | Array of properties, which should be stored. Can be `content`, `language`, `date`, `title`, `author`, `keywords`, `content_type`, `content_length` |
-| indexed_chars | no | `100_000` | The number of chars being used for extraction to prevent huge fields. Use `-1` for no limit. |
-| indexed_chars_field | no | `null` | Field name from which you can overwrite the number of chars being used for extraction. See `indexed_chars`. |
-| ignore_missing | no | `false` | If `true` and field does not exist, the processor quietly exits without modifying the document. |
+| `field` | yes | - | The field to get base64 encoded binary from. |
+| `target_field` | no | attachment | The field that holds the attachment information. |
+| `properties` | no | all properties | An array of properties, which should be stored. Can be `content`, `language`, `date`, `title`, `author`, `keywords`, `content_type`, `content_length`. |
+| `indexed_chars` | no | `100_000` | The number of character used for extraction to prevent fields from becoming to large. Use `-1` for no limit. |
+| `indexed_chars_field` | no | `null` | The field name from which you can overwrite the number of chars being used for extraction, for example, `indexed_chars`. |
+| `ignore_missing` | no | `false` | When `true`, the processor exits without modifying the document when the specified field doesn't exist. |
 
-## Basic Example
+## Example
 
-After starting up a cluster, you can create an index, add an attachment and search, as shown in following examples.
+The following steps show how to get started with the Ingest-attachment plugin.
 
-### Create an index to store your attachments to
+### Create an index to store your attachments
+
+The following command creates an index for storing your attachments:
 
 ```json
 PUT /example-attachment-index
@@ -50,6 +50,8 @@ PUT /example-attachment-index
 ```
 
 ### Create a pipeline with attachment processor
+
+The following command creates a pipeline wihch contains the attachment processor:
 
 ```json
 PUT _ingest/pipeline/attachment
@@ -67,14 +69,15 @@ PUT _ingest/pipeline/attachment
 
 ### Store an attachment
 
-Convert the attachment to base64 string, to pass it as `data`.
-In this example usage of in Unix-like system is shown using `base64` command.
+Convert the attachment to base64 string, to pass it as `data`. 
+The following example `base64` command passes a attachment file `lorem.rtf`:
+
 
 ```sh
 base64 lorem.rtf
 ```
 
-In NodeJs you could read a file to base64 like this.
+You can use Node.js to read the `base64` file, as shown in the following commands: 
 
 ```typescript
 import * as fs from "node:fs/promises";
@@ -87,6 +90,7 @@ console.log(base64File);
 ```
 
 The following base64 string is for an `.rtf` file containing the text
+
 `Lorem ipsum dolor sit amet`:
 `e1xydGYxXGFuc2kNCkxvcmVtIGlwc3VtIGRvbG9yIHNpdCBhbWV0DQpccGFyIH0=`.
 
@@ -99,7 +103,7 @@ PUT example-attachment-index/_doc/lorem_rtf?pipeline=attachment
 
 ### Query results
 
-Searching now by `content` works as shown below.
+With the attachment processed, you can now search through the data using search queries, as shown in the following example:
 
 ```json
 POST example-attachment-index/_search
@@ -112,7 +116,7 @@ POST example-attachment-index/_search
 }
 ```
 
-The search will create a hit like this.
+OpenSearch responds with the following:
 
 ```json
 {
@@ -152,7 +156,7 @@ The search will create a hit like this.
 
 ## Extracted Information
 
-There are several fields, which can be extracted from the given binary.
+The following fields can be extracted using the plugin:
 
 - `content`
 - `language`
@@ -164,7 +168,7 @@ There are several fields, which can be extracted from the given binary.
 - `content_length`
 
 To extract only a subset of these fields, define them in the `properties` of the
-pipelines processor
+pipelines processor, as shown in the following example:
 
 ```json
 PUT _ingest/pipeline/attachment
@@ -183,18 +187,12 @@ PUT _ingest/pipeline/attachment
 
 ## Limit the extracted content
 
-To prevent extracting too many chars and overload the node memory,
-the number of chars being used for extraction is limited by default to `100_000`.
-You can change this value by setting `indexed_chars`.
-Use `-1` for unlimited chars but ensure when setting this that your node
-will have enough HEAP to extract the content of very big documents.
+To prevent extracting too many characters and overload the node memory, the default limit is `100_000`.
+You can change this value using the setting `indexed_chars`. For example, you can use `-1` for unlimited characters but you need to make sure you have enough of a HEAP size to extract the content of large documents.
 
-You can also define this limit per document by extracting from a given field
-the limit to set.
-If the document has that field, it will overwrite the `indexed_chars` setting.
-To set this field, define the `indexed_chars_field` setting.
 
-The example pipeline
+You can also define this limit per document using the `indexed_chars_field` request field.
+If a document contains `indexed_chars_field, it will overwrite the `indexed_chars` setting, as shown in the following example:
 
 ```json
 PUT _ingest/pipeline/attachment
@@ -212,7 +210,7 @@ PUT _ingest/pipeline/attachment
 }
 ```
 
-can be used without specifying `max_chars` limiting the content to have `10` chars,
+With the attachment pipeline set, you can extract 10 characters with specifying max character in the request, as shown in the following example:
 
 ```json
 PUT example-attachment-index/_doc/lorem_rtf?pipeline=attachment
@@ -221,7 +219,7 @@ PUT example-attachment-index/_doc/lorem_rtf?pipeline=attachment
 }
 ```
 
-or with `max_chars` set individually for this one document limiting to `15` chars.
+Alternatively, you can change the `max_char` per document, as shown in the following example:
 
 ```json
 PUT example-attachment-index/_doc/lorem_rtf?pipeline=attachment
