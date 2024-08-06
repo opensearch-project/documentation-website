@@ -15,7 +15,19 @@ redirect_from:
 
 The CAT count operation lists the number of documents in your cluster.
 
-## Example
+
+## Path and HTTP methods
+
+```
+GET _cat/count?v
+GET _cat/count/<index>?v
+```
+
+## URL parameters
+
+All CAT count URL parameters are optional. You can specify any of the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index).
+
+## Example requests
 
 ```json
 GET _cat/count?v
@@ -36,19 +48,7 @@ GET _cat/count/index_or_alias_1,index_or_alias_2,index_or_alias_3
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
-
-```
-GET _cat/count?v
-GET _cat/count/<index>?v
-```
-
-## URL parameters
-
-All CAT count URL parameters are optional. You can specify any of the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index).
-
-
-## Response
+## Example response
 
 The following response shows the overall document count as 1625:
 

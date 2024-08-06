@@ -2,7 +2,6 @@
 layout: default
 title: Disjunction max
 parent: Compound queries
-grand_parent: Query DSL
 nav_order: 50
 redirect_from:
   - /query-dsl/query-dsl/compound/disjunction-max/
