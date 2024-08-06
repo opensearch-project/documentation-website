@@ -21,6 +21,7 @@ Read/write access to OpenSearch should be configured using Security plugin [perm
 You must have the Security plugin enabled to use REST layer authorization.
 {: .note }
 
+
 ## NamedRoute
 
 REST layer authorization provides cluster administrators with the ability to grant or revoke access to specific endpoints in a cluster. To achieve this, the route to the resource uses a unique name.
