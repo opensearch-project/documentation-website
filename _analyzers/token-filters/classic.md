@@ -2,20 +2,20 @@
 layout: default
 title: classic
 parent: Token filters
-nav_order: 150
+nav_order: 50
 ---
 
 # Classic token filter
 
-The primary function of the `classic` token filter is to work along side `classic` tokenizer and process tokens by applying several common transformations that help in text analysis and search. The transformations include:
- - Removal of possessive endings such as "'s", for example: "John's" becomes "John".
- - Separating words on internal hyphens, making terms like "co-operate" become tokens "co" and "operate".
- - Removal of "." from acronyms, for example: "D.A.R.P.A." becomes "DARPA".
+The primary function of the classic token filter is to work alongside the classic tokenizer. It processes tokens by applying several common transformations. These transformations aid in text analysis and search. These include:
+ - Removal of possessive endings such as *'s*, for example: *John's* becomes *John*.
+ - Separating words on internal hyphens, making terms like *co-operate* become tokens *co* and *operate*.
+ - Removal of *.* from acronyms, for example: *D.A.R.P.A.* becomes *DARPA*.
 
 
 ## Example
 
-Following is an example of how you can define an analyzer with the `classic` filter:
+The following example request creates a new index named `custom_classic_filter` and configures an analyzer with the `classic` filter:
 
 ```json
 PUT /custom_classic_filter
@@ -37,7 +37,7 @@ PUT /custom_classic_filter
 
 ## Generated tokens
 
-You can use the following command to examine the tokens being generated using the created analyzer:
+Use the following request to examine the tokens generated using the created analyzer:
 
 ```json
 POST /custom_classic_filter/_analyze
