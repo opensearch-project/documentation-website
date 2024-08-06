@@ -8,13 +8,13 @@ nav_order: 35
 
 # Monitor APIs
 
-The threat intelligence monitor API creates, searches, and updates monitors using the monitor's ID.
+The threat intelligence Monitor API creates, searches, and updates monitors using the monitor's ID.
 
 
 ---
 ## Create or update a threat intelligence monitor
 
-Creates or updates a new Threat Intelligence Monitor.
+Creates or updates a new threat intelligence monitor.
 
 ### Path and HTTP methods
 
@@ -229,7 +229,7 @@ DELETE /_plugins/_security_analytics/threat_intel/monitors/B8p88ZAB1vBjq44wkjEy
 
 ## Search monitors
 
-Searches for an existing monitors using a query. Any options or queries supported by the [Search API] are supported.
+Searches for an existing monitors using a query. The request body expects a search query. For query options, see [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/).
  
 ### Example request
 
