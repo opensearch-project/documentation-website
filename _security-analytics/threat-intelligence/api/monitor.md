@@ -10,7 +10,6 @@ nav_order: 35
 
 The threat intelligence monitor API creates, searches, and updates monitors using the monitor's ID.
 
-The following API threat intelligence monitors, from creating monitors to updating and searching for monitors. Many API calls use the monitor ID in the request, which can be retrieved using the [Search monitors operation](#search-monitors).
 
 ---
 ## Create or update a threat intelligence monitor

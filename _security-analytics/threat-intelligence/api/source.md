@@ -1,6 +1,6 @@
 ---
 layout: default
-title:  Source 
+title:  Source API
 parent: Threat intelligence APIs
 grand_parent: Threat intelligence
 nav_order: 50
