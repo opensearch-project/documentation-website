@@ -2,6 +2,7 @@
 layout: default
 title: Workflow templates
 nav_order: 25
+canonical_url: https://opensearch.org/docs/latest/automating-configurations/workflow-templates/
 ---
 
 # Workflow templates

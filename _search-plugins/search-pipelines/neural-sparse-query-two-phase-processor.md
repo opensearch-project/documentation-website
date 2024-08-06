@@ -4,6 +4,7 @@ title: Neural sparse query two-phase
 nav_order: 13
 parent: Search processors
 grand_parent: Search pipelines
+canonical_url: https://opensearch.org/docs/latest/search-plugins/search-pipelines/neural-sparse-query-two-phase-processor/
 ---
 
 # Neural sparse query two-phase processor

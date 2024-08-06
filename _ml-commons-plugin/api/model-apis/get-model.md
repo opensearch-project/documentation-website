@@ -4,6 +4,7 @@ title: Get model
 parent: Model APIs
 grand_parent: ML Commons APIs
 nav_order: 30
+canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/api/model-apis/get-model/
 ---
 
 # Get a model
