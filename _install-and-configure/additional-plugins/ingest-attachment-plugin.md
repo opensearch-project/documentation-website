@@ -51,7 +51,7 @@ PUT /example-attachment-index
 
 ### Create a pipeline with attachment processor
 
-The following command creates a pipeline wihch contains the attachment processor:
+The following command creates a pipeline which contains the attachment processor:
 
 ```json
 PUT _ingest/pipeline/attachment
