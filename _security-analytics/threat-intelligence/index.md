@@ -11,3 +11,7 @@ Threat Intelligence in Security Analytics offers the capability to integrate you
 
 To access threat intelligence, log into OpenSearch Dashboards, and select **Security Analytics** > **Threat Intelligence**.
 
+You can interact with threat intelligence in the following ways:
+
+- [Threat intelligence API]({{site.url}}{{site.baseurl}}/security-analytics/threat-intelligence/api/threat-intel-api/).
+- [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/security-analytics/threat-intelligence/getting-started/)
