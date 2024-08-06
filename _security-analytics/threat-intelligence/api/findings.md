@@ -165,7 +165,6 @@ PUT /plugins/security_analytics/threat_intel/alerts/status?state=COMPLETED&alert
   "failure_messages": []
 }
 ```
----
 
 
 
@@ -185,7 +184,7 @@ GET /_plugins/_security_analytics/threat_intel/findings/
 
 | Parameter      | Description                                                                                 |
 |:---------------|:--------------------------------------------------------------------------------------------|
-| `sortString`   | This field specifies which string Security Analytics uses to sort the alerts. Optional.     |
+| `sortString`   | Specifies which string Security Analytics uses to sort the alerts. Optional.     |
 | `sortOrder`    | The order used to sort the list of findings. Possible values are `asc` or `desc`. Optional. |
 | `missing`      | A list of fields for which there are no found alias mappings. Optional.                     |
 | `size`         | An optional limit for the maximum number of results returned in the response. Optional.     |

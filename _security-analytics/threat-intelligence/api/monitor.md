@@ -8,7 +8,7 @@ nav_order: 35
 
 # Monitor API
 
-The threat intelligence Monitor API creates, searches, and updates [monitors](https://opensearch.org/docs/latest/observing-your-data/alerting/monitors/) using the monitor's ID.
+You can use the threat intelligence Monitor API to create, search, and update [monitors](https://opensearch.org/docs/latest/observing-your-data/alerting/monitors/) for your threat intelligence feeds.
 
 
 ---
@@ -43,7 +43,7 @@ You can specify the following fields in the request body.
 | `user.custom_attribute_names`   | Array   | Custom attribute names associated with the user. Optional.   |
 | `user.user_requested_tenant`   | String  | The tenant requested by the user. Optional.   |
 | `indices`   | Array   | The log data sources used for the monitor. Required.  |
-| `per_ioc_type_scan_input_list`  | Array   | A list of inputs for scanning based on indicator of compromise (IoC) types. Required.   |
+| `per_ioc_type_scan_input_list`  | Array   | A list of inputs to scan based on the indicator of compromise (IOC) types. Required.   |
 | `per_ioc_type_scan_input_list.ioc_type`   | String  | The type of IOC (for example, hashes). Required.  |
 | `per_ioc_type_scan_input_list.index_to_fields_map`  | Object  |The index field mappings that contain values for the given IOC type. Required. |
 | `per_ioc_type_scan_input_list.index_to_fields_map.<index>` | Array   | A list of fields contained in the specified index. Required.   |

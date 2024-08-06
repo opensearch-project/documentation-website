@@ -21,7 +21,7 @@ POST _plugins/_security_analytics/threat_intel/sources
 PUT _plugins/_security_analytics/threat_intel/sources/<source_id>
 ```
 
-### Request Fields
+### Request fields
 
 | Field  | Type  | Description  |
 | :---  | :--- | :---- |
