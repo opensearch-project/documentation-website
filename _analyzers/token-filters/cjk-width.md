@@ -2,7 +2,7 @@
 layout: default
 title: CJK width
 parent: Token filters
-nav_order: 140
+nav_order: 40
 ---
 
 # CJK width token filter
@@ -24,10 +24,9 @@ The CJK Width token filter in OpenSearch normalizes Chinese, Japanese, and Korea
         Normalized (Full-Width "Katakana"): カタカナ
 
 
-
 ## Example
 
-Following is an example of how you can define an analyzer with the `cjk_width` filter:
+The following example request creates a new index named `cjk_width_example_index` and defines an analyzer with the `cjk_width` filter:
 
 ```json
 PUT /cjk_width_example_index
@@ -49,7 +48,7 @@ PUT /cjk_width_example_index
 
 ## Generated tokens
 
-You can use the following command to examine the tokens being generated using the created analyzer:
+Use the following request to examine the tokens generated using the created analyzer:
 
 ```json
 POST /cjk_width_example_index/_analyze
