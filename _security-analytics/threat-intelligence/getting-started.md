@@ -42,7 +42,7 @@ After all the relevant information has been entered, select **Add threat intel s
 
 Local files uploaded as the threat intelligence source must use the following specifications:
 
-- Upload as a JSON file in the STIX2 format. For an example STIX2 file, [download the following example file]({{site.url}}{{site.baseurl}}/assets/examples/all-IOC-type-examples.json), which contains example formatting for all IOC types.
+- Upload as a JSON file in the STIX2 format. For an example STIX2 file, [download the following example file]({{site.url}}{{site.baseurl}}/assets/examples/all-ioc-type-examples.json), which contains example formatting for all IOC types.
 - Be less than 500 kB.
 
 
