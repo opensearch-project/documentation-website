@@ -50,10 +50,10 @@ The following fields modify the `ioc_types` option:
 | `id`  | String  | A unique identifier for the IOC, such as `1`.  |
 | `name`   | String   | A human-readable name for the IOC, such as `ioc-name`.  |
 | `type`  | String  | The type of IOC, such as `hashes`. |
-| `value`   | String  | The value of the IOC, which can be hash value, such as `gof`.  <!---should we use a hash value as an example ----->    |
+| `value`   | String  | The value of the IOC, which can be hash value, such as `gof`.   |
 | `severity`     | String   | The severity level of the IOC. Example: `thvvz`.  How are severity levels set?    |
 | `created`  | Integer/String   | The timestamp showing when the IOC was created, either in UNIX epoch format or ISO_8601 format, for example, `1719519073` or `2024-06-20T01:06:20.562008Z`.   |
-| `modified` | Integer/String   | The timestamp when the IOC was last modified, either in UNIX epoch format or ISO_8601 format, for example, `1719519073` or `2024-06-20T01:06:20.562008Z. |
+| `modified` | Integer/String   | The timestamp when the IOC was last modified, either in UNIX epoch format or ISO_8601 format, for example, `1719519073` or `2024-06-20T01:06:20.562008Z.` |
 | `description`  | String     | A description of the IOC.    |
 | `labels`   | Array of Strings | Any labels or tags associated with the IOC.  |
 | `feed_id`   | String           | A unique identifier for the feed to which the IOC belongs.    |
@@ -427,6 +427,8 @@ POST /_plugins/_security_analytics/threat_intel/sources/_search
     }
 }
 ```
+
+---
 
 ## Delete threat intelligence source API
 
