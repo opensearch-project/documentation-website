@@ -2,7 +2,6 @@
 layout: default
 title: Percentile
 parent: Metric aggregations
-grand_parent: Aggregations
 nav_order: 90
 redirect_from:
   - /query-dsl/aggregations/metric/percentile/

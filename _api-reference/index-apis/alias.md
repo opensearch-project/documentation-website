@@ -75,7 +75,7 @@ routing | String | Used to assign a custom value to a shard for specific operati
 index_routing | String | Assigns a custom value to a shard only for index operations. | No
 search_routing | String | Assigns a custom value to a shard only for search operations. | No
 
-## Response
+## Example response
 
 ```json
 {

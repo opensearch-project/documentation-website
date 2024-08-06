@@ -108,7 +108,7 @@ plugins.ml_commons.sync_up_job_interval_in_seconds: 3
 - Default value: `3`
 - Value range: [0, 86,400]
 
-## Predict monitoring requests
+## Monitoring predict requests
 
 Controls how many predict requests are monitored on one node. If set to `0`, OpenSearch clears all monitoring predict requests in cache and does not monitor for new predict requests.
 
@@ -256,6 +256,23 @@ plugins.ml_commons.jvm_heap_memory_threshold: 85
 - Default value: 85
 - Value range: [0, 100]
 
+## Set a disk free space threshold
+
+Sets a disk circuit breaker that checks disk usage before running an ML task. If the amount of disk free space exceeds the threshold, then OpenSearch triggers a circuit breaker and throws an exception to maintain optimal performance.
+
+Valid values are in byte units. To disable the circuit breaker, set this value to -1.
+
+### Setting
+
+```
+plugins.ml_commons.disk_free_space_threshold: 5G
+```
+
+### Values
+
+- Default value: 5G
+- Value range: [-1, Long.MAX_VALUE]
+
 ## Exclude node names
 
 Use this setting to specify the names of nodes on which you don't want to run ML tasks. The value should be a valid node name or a comma-separated node name list.
@@ -303,12 +320,12 @@ This setting automatically redeploys deployed or partially deployed models upon 
 ### Setting
 
 ```
-plugins.ml_commons.model_auto_redeploy.enable: false
+plugins.ml_commons.model_auto_redeploy.enable: true 
 ```
 
 ### Values
 
-- Default value: false
+- Default value: true
 - Valid values: `false`, `true`
 
 ## Set retires for auto redeploy
@@ -468,7 +485,7 @@ When set to `true`, this setting enables the search processors for retrieval-aug
 ### Setting
 
 ```
-plugins.ml_commons.agent_framework_enabled: true
+plugins.ml_commons.rag_pipeline_feature_enabled: true
 ```
 
 ### Values

@@ -8,13 +8,31 @@ redirect_from:
 - /opensearch/rest-api/cat/cat-field-data/
 ---
 
-# CAT fielddata
+# CAT Field Data
 **Introduced 1.0**
 {: .label .label-purple }
 
-The CAT fielddata operation lists the memory size used by each field per node.
+The CAT Field Data operation lists the memory size used by each field per node.
 
-## Example
+
+## Path and HTTP methods
+
+```
+GET _cat/fielddata?v
+GET _cat/fielddata/<field_name>?v
+```
+
+## URL parameters
+
+All CAT fielddata URL parameters are optional.
+
+In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameter:
+
+Parameter | Type | Description
+:--- | :--- | :---
+bytes | Byte size | Specify the units for byte size. For example, `7kb` or `6gb`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
+
+## Example requests
 
 ```json
 GET _cat/fielddata?v
@@ -35,24 +53,7 @@ GET _cat/fielddata/field_name_1,field_name_2,field_name_3
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
-
-```
-GET _cat/fielddata?v
-GET _cat/fielddata/<field_name>?v
-```
-
-## URL parameters
-
-All CAT fielddata URL parameters are optional.
-
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameter:
-
-Parameter | Type | Description
-:--- | :--- | :---
-bytes | Byte size | Specify the units for byte size. For example, `7kb` or `6gb`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
-
-## Response
+## Example response
 
 The following response shows the memory size for all fields as 284 bytes:
 
