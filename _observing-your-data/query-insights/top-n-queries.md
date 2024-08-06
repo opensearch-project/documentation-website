@@ -2,7 +2,7 @@
 layout: default
 title: Top N queries
 parent: Query insights
-nav_order: 65
+nav_order: 10
 ---
 
 # Top N queries
