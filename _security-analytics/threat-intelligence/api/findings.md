@@ -7,7 +7,7 @@ nav_order: 50
 ---
 
 
-# Alerts and Findings
+# Alerts and Findings API
 
 The threat intelligence Alerts and Findings API helps retrieve information about alerts and findings found from threat intelligence feeds.
 
