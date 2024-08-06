@@ -9,6 +9,6 @@ has_toc: true
 
 # Threat intelligence APIs
 
-Use the following APIs to interact with threat intelligence in Security Analytics. 
+OpenSearch provides several APIs that allow you to set up and interact with your threat intelligence feeds. 
 
 

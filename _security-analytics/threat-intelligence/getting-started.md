@@ -31,7 +31,7 @@ On the threat intelligence source page, add the following information:
   - **Remote data store location**: Connects to a custom data store. As of OpenSearch 2.16, only the `S3_SOURCE` type is supported. This setting also gives you the ability to set a download schedule, where OpenSearch downloads the newest STIX2 file from the data store. For more information, see [S3_SOURCE connection details](#s3_source-connection-details).
   - **Local file upload**: Uploads a custom threat intelligence IoC file. Custom files cannot be set to download schedule and must be uploaded manually in order to update the IoCs. For more information, see  [Local file upload](#local-file-upload).
 - **Types of malicious indicators**: Determines the malicious IoCs to pull from the STIX2 file. The following IoCs are supported:
-  - IPV4-Address
+  - IPv4-Address
   - IPv6-Address
   - Domains
   - File hash
