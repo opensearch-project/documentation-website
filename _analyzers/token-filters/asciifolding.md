@@ -2,15 +2,15 @@
 layout: default
 title: ASCIIFolding
 parent: Token filters
-nav_order: 120
+nav_order: 20
 ---
 
 # ASCIIFolding token filter
 
-`asciifolding` is a token filter that converts non-ASCII characters into their closest ASCII equivalents, for example é becomes e, ü becomes u and ñ becomes n. This process is also known as "transliteration."
+`asciifolding` is a token filter that converts non-ASCII characters into their closest ASCII equivalents. For example *é* becomes *e*, *ü* becomes *u* and *ñ* becomes *n*. This process is also known as *transliteration*.
 
 
-`asciifolding` token filter offers a number of benefits.
+`asciifolding` token filter offers a number of benefits:
 
   - __Enhanced Search Flexibility__: Users often omit accents or special characters when typing queries. ASCIIFolding ensures that such queries still return relevant results.
   - __Normalization__: Standardizes the indexing process by ensuring that accented characters are consistently converted to their ASCII equivalents.
@@ -25,7 +25,7 @@ You can configure `asciifolding` token filter using parameter `preserve_original
 
 ## Example
 
-Following is an example of how you can define an analyzer with the `asciifolding` filter with `preserve_original` set to `true`:
+Following example request creates a new index named `example_index` and defines an analyzer with the `asciifolding` filter and `preserve_original` parameter set to `true`:
 
 ```json
 PUT /example_index
@@ -56,7 +56,7 @@ PUT /example_index
 
 ## Generated tokens
 
-You can use the following command to examine the tokens being generated using the created analyzer:
+Use the following request to examine the tokens generated using the created analyzer:
 
 ```json
 POST /example_index/_analyze
