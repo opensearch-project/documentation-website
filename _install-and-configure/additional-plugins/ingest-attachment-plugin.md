@@ -28,7 +28,7 @@ You can install the `ingest-attachment` plugin using the following command:
 | Name | Required | Default | Description |
 | :--- | :--- | :--- | :--- |
 | field | yes | - | The field to get base64 encoded binary from. |
-| target_field| no | attachment | The field that will hold the attachment information. |
+| target_field | no | attachment | The field that will hold the attachment information. |
 | properties | no | all properties | Array of properties, which should be stored. Can be `content`, `language`, `date`, `title`, `author`, `keywords`, `content_type`, `content_length` |
 | indexed_chars | no | `100_000` | The number of chars being used for extraction to prevent huge fields. Use `-1` for no limit. |
 | indexed_chars_field | no | `null` | Field name from which you can overwrite the number of chars being used for extraction. See `indexed_chars`. |
