@@ -7,12 +7,12 @@ nav_order: 110
 
 # Apostrophe token filter
 
-The `apostrophe` token filter's primary function is to remove possessive apostrophes and anything following them. This can be very useful in analyzing text in languages which rely heavily on apostrophes, such as Turkish, where apostrophes serves to separate the root word from suffixes, including possessive suffixes, case markers, and other grammatical endings.
+The `apostrophe` token filter's primary function is to remove possessive apostrophes and anything following them. This can be very useful in analyzing text in languages that rely heavily on apostrophes, such as Turkish, in which apostrophes separate the root word from suffixes, including possessive suffixes, case markers, and other grammatical endings.
 
 
 ## Example
 
-The following example creates a new index named `custom_text_index` with a custom analyzer configured in `settings` and used in `mappings`:
+The following example request creates a new index named `custom_text_index` with a custom analyzer configured in `settings` and used in `mappings`:
 
 ```json
 PUT /custom_text_index
@@ -114,5 +114,5 @@ The response contains the generated tokens:
 }
 ```
 
-The built-in `apostrophe` token filter is not suitable for languages such as French, in which apostrophes are used at the beginning of the words. For example, `"C'est l'amour de l'école"` will result in four tokens: "C", "l", "de", "l".
+The built-in `apostrophe` token filter is not suitable for languages such as French, in which apostrophes are used at the beginning of words. For example, `"C'est l'amour de l'école"` will result in four tokens: "C", "l", "de", and "l".
 {: .note}
