@@ -13,5 +13,5 @@ To access threat intelligence, log into OpenSearch Dashboards, and select **Secu
 
 You can interact with threat intelligence in the following ways:
 
-- [Threat intelligence API]({{site.url}}{{site.baseurl}}/security-analytics/threat-intelligence/api/threat-intel-api/).
+- [Threat intelligence API]({{site.url}}{{site.baseurl}}/security-analytics/threat-intelligence/api/threat-intel-api/)
 - [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/security-analytics/threat-intelligence/getting-started/)

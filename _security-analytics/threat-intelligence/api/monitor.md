@@ -8,7 +8,7 @@ nav_order: 35
 
 # Monitor API
 
-The threat intelligence Monitor API creates, searches, and updates monitors using the monitor's ID.
+The threat intelligence Monitor API creates, searches, and updates [monitors](https://opensearch.org/docs/latest/observing-your-data/alerting/monitors/) using the monitor's ID.
 
 
 ---
@@ -30,12 +30,12 @@ PUT _plugins/_security_analytics/threat_intel/monitors/<monitor_id>
 You can specify the following fields in the request body.
 
 | Field  | Type | Description  |
-| :---- | :--- |:--- |
+| :--- |  :---  | :--- |
 | `name`  | String  | The name of the monitor. Required. |
 | `schedule`  | Object  | The schedule that determines how often the monitor runs. Required.  |
 | `schedule.period` | Object  | Details for the frequency of the schedule. Required.  |
 | `schedule.period.interval`   | Integer | The interval at which the monitor runs. Required.   |
-| `schedule.period.unit`   | String  | The unit of time for the the interval.  |
+| `schedule.period.unit`   | String  | The unit of time for the interval.  |
 | `enabled| Object  | Details about the user who created the monitor. Required.    |
 | `user.name`  | String  | The name of the user. Optional.   |
 | `user.backend_roles`   | Array   | The backend roles associated with the user. Optional.  |
@@ -44,13 +44,13 @@ You can specify the following fields in the request body.
 | `user.user_requested_tenant`   | String  | The tenant requested by the user. Optional.   |
 | `indices`   | Array   | The log data sources used for the monitor. Required.  |
 | `per_ioc_type_scan_input_list`  | Array   | List of inputs for scanning based on indicator of compromise (IoC) types. Required.   |
-| `per_ioc_type_scan_input_list.ioc_type`   | String  | The type of IOC (e.g., hashes). Required.  |
+| `per_ioc_type_scan_input_list.ioc_type`   | String  | The type of IOC (for example, hashes). Required.  |
 | `per_ioc_type_scan_input_list.index_to_fields_map`  | Object  |The index field mappings that contain values for the given IoC type. Required. |
 | `per_ioc_type_scan_input_list.index_to_fields_map.<index>` | Array   | A list of fields contained in the specified index. Required.   |
 | `triggers`  | Array   | The trigger settings for alerts. Required.   |
 | `triggers.data_sources`   | Array   | A list of data sources associated with the trigger. Required.  |
 | `triggers.name`  | String  | The name of the trigger. Required.  |
-| `triggers.severity`  | String  | The severity level of the trigger (e.g., high, medium, low). Required.  |
+| `triggers.severity`  | String  | The severity level of the trigger (for example, high, medium, or low). Required.  |
 
 ### Example requests
 

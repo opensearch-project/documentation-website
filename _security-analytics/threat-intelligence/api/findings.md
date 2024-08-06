@@ -9,7 +9,7 @@ nav_order: 50
 
 # Alerts and Findings API
 
-The threat intelligence Alerts and Findings API helps retrieve information about alerts and findings found from threat intelligence feeds.
+The threat intelligence Alerts and Findings API retrieves information about alerts and findings found in threat intelligence feeds.
 
 
 ---
@@ -34,9 +34,9 @@ Parameter | Description
 :--- | :---- 
 `severityLevel` | Filter alerts by severity level. Optional.        
 `alertState`    | Used to filter by alert state. Possible values are `ACTIVE`, `ACKNOWLEDGED`, `COMPLETED`, `ERROR`, or `DELETED`. Optional. 
-`sortString`    | This field specifies which string Security Analytics uses to sort the alerts. Optional.                          
+`sortString`    | The string Security Analytics uses to sort the alerts. Optional.                          
 `sortOrder`     | The order used to sort the list of alerts. Possible values are `asc` or `desc`. Optional.                        
-`missing`       | A list of fields for which there are no found alias mappings. Optional.                                          
+`missing`       | A list of fields for which no alias mappings are found. Optional.                                          
 `size`          | An optional limit for the maximum number of results returned in the response. Optional.                          
 `startIndex`    | The pagination indicator. Optional.  
 `searchString`  | The alert attribute you want returned in the search. Optional. 
@@ -79,14 +79,14 @@ GET /_plugins/_security_analytics/threat_intel/alerts
 
 ### Response fields
 
-Threat intelligence alerts can have one of the following status.
+Threat intelligence alerts can have one of the following states.
 
 | State  | Description  |
 | :---- | :--- |
-| `ACTIVE`   | The alert is ongoing and unacknowledged. Alerts remain in this state they are acknowledged, the trigger associated with the alert is deleted, or threat intelligence monitor is deleted entirely. |
-| `ACKNOWLEDGED` | The alert is acknowledged but the root cause of the alert has still not been addressed.  |
+| `ACTIVE`   | The alert is ongoing and unacknowledged. Alerts remain in this state until they are acknowledged, the trigger associated with the alert is deleted, or the threat intelligence monitor is deleted entirely. |
+| `ACKNOWLEDGED` | The alert is acknowledged but the root cause of the alert has not been addressed.  |
 | `COMPLETED` | The alert is no longer ongoing. Alerts enter this state after the corresponding trigger evaluates to `false`.   |
-| `DELETED` | The monitor or trigger for the alert was deleted while the alert was active .  |
+| `DELETED` | The monitor or trigger for the alert was deleted while the alert was active.  |
 
 ---
 
