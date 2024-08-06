@@ -32,7 +32,7 @@ You can specify the following fields in the request body.
 
 | Field  | Type | Description  |
 | :---- | :--- |:--- |
-| `name`  | String  | The Name of the monitor. Required. |
+| `name`  | String  | The name of the monitor. Required. |
 | `schedule`  | Object  | The schedule that determines how often the monitor runs. Required.  |
 | `schedule.period` | Object  | Details for the frequency of the schedule. Required.  |
 | `schedule.period.interval`   | Integer | The interval at which the monitor runs. Required.   |
@@ -44,7 +44,7 @@ You can specify the following fields in the request body.
 | `user.custom_attribute_names`   | Array   | Custom attribute names associated with the user. Optional.   |
 | `user.user_requested_tenant`   | String  | The tenant requested by the user. Optional.   |
 | `indices`   | Array   | The log data sources used for the monitor. Required.  |
-| `per_ioc_type_scan_input_list`  | Array   | List of inputs for scanning based on indicator of compromise (IOC) types. Required.   |
+| `per_ioc_type_scan_input_list`  | Array   | List of inputs for scanning based on indicator of compromise (IoC) types. Required.   |
 | `per_ioc_type_scan_input_list.ioc_type`   | String  | The type of IOC (e.g., hashes). Required.  |
 | `per_ioc_type_scan_input_list.index_to_fields_map`  | Object  |The index field mappings that contain values for the given IoC type. Required. |
 | `per_ioc_type_scan_input_list.index_to_fields_map.<index>` | Array   | A list of fields contained in the specified index. Required.   |
@@ -230,8 +230,8 @@ DELETE /_plugins/_security_analytics/threat_intel/monitors/B8p88ZAB1vBjq44wkjEy
 
 ## Search monitors
 
-Searches for an existing monitors using a query. <!----Are any query request body options supported----!>
-
+Searches for an existing monitors using a query. Any options or queries supported by the [Search API] are supported.
+ 
 ### Example request
 
 The following example request usings a match query with the monitor's ID to search for the monitor:

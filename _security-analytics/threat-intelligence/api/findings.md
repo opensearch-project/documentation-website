@@ -30,8 +30,8 @@ Parameter | Description
 `sortOrder`     | The order used to sort the list of alerts. Possible values are `asc` or `desc`. Optional.                        
 `missing`       | A list of fields for which there are no found alias mappings. Optional.                                          
 `size`          | An optional limit for the maximum number of results returned in the response. Optional.                          
- `startIndex`    | The pagination indicator. Optional.  
-| `searchString`  | The alert attribute you want returned in the search. Optional. 
+`startIndex`    | The pagination indicator. Optional.  
+`searchString`  | The alert attribute you want returned in the search. Optional. 
 
 ### Example request
 

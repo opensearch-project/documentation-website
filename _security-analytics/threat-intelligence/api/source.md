@@ -18,7 +18,7 @@ Creates or updates a threat intelligence source and loads Indicators of Compromi
 
 ```json
 POST _plugins/_security_analytics/threat_intel/sources
-PUT _plugins/_security_analytics/threat_intel/sources/<threat_intel_source_id>
+PUT _plugins/_security_analytics/threat_intel/sources/<source_id>
 ```
 
 ### Request Fields
@@ -34,7 +34,7 @@ PUT _plugins/_security_analytics/threat_intel/sources/<threat_intel_source_id>
 | `source`  | Object   | The source details for the threat intelligence data.   |
 | `source.ioc_upload`   | Object   | The details for IOC upload. Applicable for the `IOC_UPLOAD` type.  |
 | `source.ioc_upload.file_name`  | String   | The name of the file containing IOCs, such as `test`. Applicable for the`IOC_UPLOAD` type.  |
-| `source.ioc_upload.iocs`   | Array of Objects | List of IOCs in STIX2 format.Applicable for `IOC_UPLOAD` type. |
+| `source.ioc_upload.iocs`   | Array of Objects | List of IOCs in the `STIX2` format. Applicable for `IOC_UPLOAD` type. |
 | `source_config.source.s3`   | Object   | The details about the S3 source.  Applicable for `S3_CUSTOM` type.   |
 | `source_config.source.s3.bucket_name` | String  | The name of the S3 bucket, such as `threat-intel-s3-test-bucket`. Applicable for `S3_CUSTOM` type                                                                        |
 | `source_config.source.s3.object_key`  | String   | The key of the object in the S3 bucket, such `alltypess3object`. Applicable for `S3_CUSTOM` type.   |
@@ -78,7 +78,7 @@ The following fields modify the `ioc_types` option:
 | `source_config.source.ioc_upload`    | Object    | The details about the IoC upload.   |
 | `source_config.source.ioc_upload.file_name` | String   | The name of the file uploaded. Example: `test`. |
 | `source_config.source.ioc_upload.iocs`      | Array of Objects  | Any additional information about the IoC upload. When the IoC is stored successfully, this appears as an empty array.   |
-| `source_config.enabled`   | Boolean    | Indicates whether the threat intelligence source is enabled. Example: `false`.  |
+| `source_config.enabled`   | Boolean    | Indicates whether the threat intelligence source is enabled.  |
 | `source_config.enabled_time`    | String or Null    | The date and time when the source was enabled.   |
 | `source_config.last_update_time`  | String (DateTime) | The date and time when the threat intelligence source was last updated.  |
 | `source_config.schedule`  | String or Null    | The schedule for the threat intelligence source.  |

@@ -13,38 +13,68 @@ Use the following steps to get started with threat intelligence in OpenSearch Da
 
 You can interact with threat intelligence in the following ways:
 
-- OpenSearch Dashboards
 - [Threat intelligence API]({{site.url}}{{site.baseurl}}/security-analytics/threat-intelligence/api/threat-intel-api/).
+
+If you want to simply try out threat intelligence, you use the default IP reputation feed from [AlienVault OTX](https://otx.alienvault.com/). This feed comes prepackaged with the OpenSearch download.
 
 ## Step 1: Set up threat intelligence sources
 
-If you want to simply try out threat intelligence, you use the default IP reputation feed from [AlienVault OTX](https://otx.alienvault.com/). <!----what does this mean?----!>
+To add a threat intelligence source, select **Add threat intel source** from the threat intelligence page. The **Add custom threat intelligence source** page appears. 
 
-You can add a custom threat intelligence source, use the `S3_CUSTOM` type <!---how does one set the type---!>, using the following steps:
+On the threat intelligence source page, add the following information:
 
-To add a custom threat intelligence source, select **Add threat intel source** from the threat intelligence page. The **Add custom threat intelligence source** page appears. 
+- **Name**: A name for the source.
+- **Description**: An optional description for the source.
+- **Threat intel source type**: The source type determines where the `STIX2` file is stored. You can choose one of the following options:
+  - **Remote data store location**: Connects to a custom data store. As of OpenSearch 2.16, only the `S3_SOURCE` type is supported. This setting also gives you the ability to set a download schedule, where OpenSearch downloads the newest STIX2 file from the data store. For more information, see [S3_SOURCE connection details](#s3_source-connection-details)
+  - **Local file upload**: Uploads a custom threat intelligence IoC file. Custom files cannot be set to download schedule and must be uploaded manually in order to update the IoCs. For more information, see  [Local file upload](#local-file-upload).
+- **Types of malicious indicators**: Determines the malicious IoCs to pull from the STIX2 file. The following IoCs are supported:
+  - IPV4-Address
+  - IPV6-Address
+  - Domains
+  - File hash
 
-1. Upload threat intelligence feed as files to your S3 account and provide OpenSearch with the IAM Role ARN to access that file. The file should contain IoC's in the `STIX2` format. The supported IoC Types are `hashes`, `ipv4-addr`, `domain-name`, `ipv6-addr`. 
-2. In OpenSearch Dashboards, create a threat intelligence source with following information: 
-   - The S3 bucket details 
-   - The IAM Role ARN 
-3. With the source created, connect and download IoC's into OpenSearch using one of the following methods: 
-   - Define a refresh schedule and periodically upload the latest batch of IoC's to S3 and replace the old file. During the refresh period, OpenSearch downloads the latest IoC's. 
-   - Upload a one-time file using the `IOC_UPLOAD` type. This type does not have a refresh schedule and must use the [Source API]({{site.url}}{{site.baseurl}}/security-analytics/threat-intelligence/api/source/).
+After all the relevant information has been entered, select **Add threat intel source**.
 
-## Step 2: Configure Threat Intelligence Monitor
+### Local file upload
 
-You can configure threat intelligence monitors to use with your aliases and data streams. The monitor scans for newly ingested data from your indexes and matches tat data against any IoC's present in threat intelligence monitors. By default, the scan runs every minute.
+Local files uploaded as the threat intelligence source must use the following specifications:
+
+- Upload as a JSON file in the STIX2 format. For an example STIX2 file, [download the following example].
+- Be less than 500 kB.
+
+
+### S3_SOURCE connection details 
+
+When using the `S3_SOURCE` as a remote store, the following connection details must be provided:
+
+- **IAM Role ARN**: The Amazon Resource Name (ARN) for an IAM role.
+- **S3 bucket directory**: The S3 bucket name where the STIX2 file is stored.
+- **Specify a directory or file**: The object key or directory path for STIX2 file inside the S3 bucket.
+- **Region**: The region for the S3 bucket.
+
+You can also set the **Download schedule** which determines where OpenSearch downloads an updated STIX2 file from the connect S3 bucket. The default interval is once a day. Only day intervals are supported. 
+
+Alternatively, you can check the **Download on demand** option, which prevents new data from the bucket from being automatically downloaded.
+
+
+## Step 2: Set up the scan for your log sources
+
+You can configure threat intelligence monitors to scan your aliases and data streams. The monitor scans for newly ingested data from your indexes and matches tat data against any IoC's present in threat intelligence monitors. The scan applies to all threat intelligence source added to OpenSearch. By default, the scan runs every minute.
+
+To add or a scan configuration:
+
+1. From the threat intelligence view, select **Add scan configuration** or **Edit scan configuration**.
+2. Select the indexes or alias to scan.
+3. Select the **fields** from your indexes and alias to scan based on their IoC type. For example, if an alias has two fields called `src_ip` and `dst_ip` which contain `ipv4` addresses, those fields must be entered into the `ipv4-addr` section of the monitor request.
+4. Determine a **Scan schedule**, which decides the frequency of the scan against the indicated indexes and aliases. By default, OpenSearch scans for IoCs every minute.
+5. Set up any alert triggers and trigger conditions.
 
 When malicious IoC's are found, OpenSearch creates **findings**, which gives information about the threat. You can also configure triggers with the monitors to create alerts, which sends notifications to configured webhooks or endpoints.
 
-For every alias or data stream configured in the monitor, you're required to mention any fields that must be scanned for each of IoC. For example, if an alias has two fields called `src_ip` and `dst_ip` which contain `ipv4` addresses, those fields must be entered into the `ipv4-addr` section of the monitor request.
 
-<!--- is there a way to do this in the UI--->
+## Viewing alerts and findings 
 
-
-### Step 3: Findings Alerts and Notifications
-
-You can view the findings and alerts generated by threat intelligence monitors to analyze which malicious indicators have occurred in their security logs.
+You can view the findings and alerts generated by threat intelligence monitors to analyze which malicious indicators have occurred in their security logs. To view alerts or findings, select **View findings** or **View alerts** from the Threat intelligence view.
 
 Alerts can be acknowledged or marked as completed. Notifications sent out to any configured destinations will contain information about alerts, monitor, data sources, IoC values, and types. Notification message can be customize using a [mustache template](https://mustache.github.io/mustache.5.html).
