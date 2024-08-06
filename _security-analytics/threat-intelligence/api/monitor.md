@@ -6,7 +6,7 @@ grand_parent: Threat intelligence
 nav_order: 35
 ---
 
-# Monitor APIs
+# Monitor API
 
 The threat intelligence Monitor API creates, searches, and updates monitors using the monitor's ID.
 
