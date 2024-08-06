@@ -29,7 +29,7 @@ All multi-get URL parameters are optional.
 Parameter | Type | Description
 :--- | :--- | :--- | :---
 &lt;index&gt; | String | Name of the index to retrieve documents from.
-preference | String | Specifies the nodes or shards OpenSearch should execute the multi-get operation on. Default is random.
+preference | String | Specifies the nodes or shards OpenSearch should execute the multi-get operation on. Default is `random`.
 realtime | Boolean | Specifies whether the operation should run in realtime. If false, the operation waits for the index to refresh to analyze the source to retrieve data, which makes the operation near-realtime. Default is `true`.
 refresh | Boolean | If true, OpenSearch refreshes shards to make the multi-get operation available to search results. Valid options are `true`, `false`, and `wait_for`, which tells OpenSearch to wait for a refresh before executing the operation. Default is `false`.
 routing | String | Value used to route the multi-get operation to a specific shard.
@@ -54,7 +54,11 @@ _source.excludes | Array | Specifies which fields to exclude in the query respon
 ids | Array | IDs of the documents to retrieve. Only allowed when an index is specified in the URL. | No
 
 
-#### Example without specifying index in URL
+## Example requests
+
+### Specify an index in the request body
+
+The following example requests does specifies an index in the request body:
 
 ```json
 GET _mget
@@ -76,7 +80,9 @@ GET _mget
 ```
 {% include copy-curl.html %}
 
-#### Example of specifying index in URL
+### Specify an index the URL
+
+The following example specifies an index in the URL:
 
 ```json
 GET sample-index1/_mget
@@ -95,7 +101,10 @@ GET sample-index1/_mget
 ```
 {% include copy-curl.html %}
 
-#### Example Response 
+## Example response 
+
+The following example response returns information about multiple documents:
+
 ```json
 {
   "docs": [

@@ -42,7 +42,7 @@ version_type | Enum | Retrieves a specifically typed document. Available options
 wait_for_active_shards | String | The number of active shards that must be available before OpenSearch processes the delete request. Default is 1 (only the primary shard). Set to `all` or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have two replicas distributed across two additional nodes for the operation to succeed. | No
 
 
-## Response
+## Example response
 ```json
 {
   "_index": "sample-index1",
