@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Monitor APIs
+title: Monitor API
 parent: Threat intelligence APIs
 grand_parent: Threat intelligence
 nav_order: 35
