@@ -10,7 +10,7 @@ nav_order: 50
 The primary function of the classic token filter is to work alongside the classic tokenizer. It processes tokens by applying several common transformations. These transformations aid in text analysis and search. These include:
  - Removal of possessive endings such as *'s*, for example: *John's* becomes *John*.
  - Separating words on internal hyphens, making terms like *co-operate* become tokens *co* and *operate*.
- - Removal of *.* from acronyms, for example: *D.A.R.P.A.* becomes *DARPA*.
+ - Removal of periods from acronyms, for example: *D.A.R.P.A.* becomes *DARPA*.
 
 
 ## Example
