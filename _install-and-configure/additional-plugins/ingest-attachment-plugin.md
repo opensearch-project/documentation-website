@@ -67,7 +67,7 @@ PUT _ingest/pipeline/attachment
 
 ### Store an attachment
 
-Convert the attachment to base64 string, to pass it as `data`.\
+Convert the attachment to base64 string, to pass it as `data`.
 In this example usage of in Unix-like system is shown using `base64` command.
 
 ```sh
