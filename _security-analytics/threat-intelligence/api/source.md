@@ -25,21 +25,21 @@ PUT _plugins/_security_analytics/threat_intel/sources/<source_id>
 
 | Field  | Type  | Description  |
 | :---  | :--- | :---- |
-| `type`  | String | The type of the threat intelligence source, such as `S3_CUSTOM` or `IOC_UPLOAD`.   |
+| `type`  | String | The type of threat intelligence source, such as `S3_CUSTOM` or `IOC_UPLOAD`.   |
 | `name`  | String   | The name of the threat intelligence source.   |
 | `format`  | String   | The format of the threat intelligence data, such as `STIX2`.   |
 | `description`    | String   | The description of the threat intelligence source.  |
 | `enabled`   | Boolean | Indicates whether the scheduled refresh of IoCs from source is enabled. |
-| `ioc_types` | Array of Strings | The `STIX2` types of IOCs that the source supports, `hashes`, `domain-name`, `ipv4-addr` or `ipv6-addr`.`.                                              |
+| `ioc_types` | Array of Strings | The `STIX2` types of IOCs that the source supports, for example, `hashes`, `domain-name`, `ipv4-addr`, or `ipv6-addr`.                                             |
 | `source`  | Object   | The source details for the threat intelligence data.   |
 | `source.ioc_upload`   | Object   | The details for IOC upload. Applicable for the `IOC_UPLOAD` type.  |
 | `source.ioc_upload.file_name`  | String   | The name of the file containing IOCs, such as `test`. Applicable for the`IOC_UPLOAD` type.  |
 | `source.ioc_upload.iocs`   | Array of Objects | List of IOCs in the `STIX2` format. Applicable for `IOC_UPLOAD` type. |
-| `source_config.source.s3`   | Object   | The details about the S3 source.  Applicable for `S3_CUSTOM` type.   |
-| `source_config.source.s3.bucket_name` | String  | The name of the S3 bucket, such as `threat-intel-s3-test-bucket`. Applicable for `S3_CUSTOM` type                                                                        |
-| `source_config.source.s3.object_key`  | String   | The key of the object in the S3 bucket, such `alltypess3object`. Applicable for `S3_CUSTOM` type.   |
-| `source_config.source.s3.region`  | String | The region where the S3 bucket is located. Example: `us-west-2`. Applicable for `S3_CUSTOM` type.  |
-| `source_config.source.s3.role_arn`    | String   | The ARN of the role used to access the S3 bucket, such as `arn:aws:iam::248279774929:role/threat_intel_s3_test_role`. Applicable for `S3_CUSTOM` type. |
+| `source_config.source.s3`   | Object   | The details about the S3 source. Applicable for the `S3_CUSTOM` type.   |
+| `source_config.source.s3.bucket_name` | String  | The name of the S3 bucket, such as `threat-intel-s3-test-bucket`. Applicable for the `S3_CUSTOM` type.                                                                        |
+| `source_config.source.s3.object_key`  | String   | The key of the object in the S3 bucket, such `alltypess3object`. Applicable for the `S3_CUSTOM` type.   |
+| `source_config.source.s3.region`  | String | The region where the S3 bucket is located. Example: `us-west-2`. Applicable for the `S3_CUSTOM` type.  |
+| `source_config.source.s3.role_arn`    | String   | The ARN of the role used to access the S3 bucket, such as `arn:aws:iam::248279774929:role/threat_intel_s3_test_role`. Applicable for the `S3_CUSTOM` type. |
 
 #### IOC Fields (STIX2)  
 
@@ -60,7 +60,7 @@ The following fields modify the `ioc_types` option:
 | `spec_version` | String           | The specification version used for the IOC.    |
 | `version`      | Integer    | A version number for the IOC.    |
 
-### Response Fields
+### Response fields
 
 | Field     | Data type   | Description   |
 | :---- | :--- |:----- |
@@ -277,7 +277,7 @@ POST _plugins/_security_analytics/threat_intel/sources/
 
 ## Get threat intelligence source
 
-Retrieves the threat intelligence source configuration details
+Retrieves the threat intelligence source configuration details.
 
 ### Path and HTTP method
 
@@ -337,7 +337,7 @@ GET /_plugins/_security_analytics/threat_intel/sources/<source-id>
 ```
 ---
 
-## Search Threat intelligence Sources API
+## Search threat intelligence source 
 
 Searches for threat intelligence source matches based on the search query. The request body expects a search query. For query options, see [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/).
 ### Path and HTTP method
@@ -430,7 +430,7 @@ POST /_plugins/_security_analytics/threat_intel/sources/_search
 
 ## Delete threat intelligence source API
 
-Deletes a threat intelligence source
+Deletes a threat intelligence source.
 
 ### Path and HTTP methods
 
@@ -454,9 +454,9 @@ DELETE /_plugins/_security_analytics/threat_intel/sources/2c0u7JAB9IJUg27gcjUp
 ```
 ---
 
-## Refresh Source 
+## Refresh source 
 
-Downloads any IoCs from the threat intelligence source. Only supports for the `S3_CUSTOM` type source.
+Downloads any IOCs from the threat intelligence source. Only supports the `S3_CUSTOM` type source.
 
 ### Path and HTTP methods
 
