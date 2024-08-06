@@ -12,7 +12,7 @@ The `apostrophe` token filter's primary function is to remove possessive apostro
 
 ## Example
 
-Following example can be used to create new index `custom_text_index` with custom analyzer configured in `settings` and used in `mappings`:
+The following example creates a new index named `custom_text_index` with a custom analyzer configured in `settings` and used in `mappings`:
 
 ```json
 PUT /custom_text_index
@@ -45,7 +45,7 @@ PUT /custom_text_index
 
 ## Generated tokens
 
-You can use the following command to examine the tokens being generated using the created analyzer:
+Use the following request to examine the tokens generated using the created analyzer:
 
 ```json
 POST /custom_text_index/_analyze
@@ -114,5 +114,5 @@ The response contains the generated tokens:
 }
 ```
 
-The built in `apostrophe` token filter is not suitable for languages such as French, as the apostrophes are used at the beginning of the words, for example `"C'est l'amour de l'école"` will result in four tokens: "C", "l", "de", "l".
+The built-in `apostrophe` token filter is not suitable for languages such as French, in which apostrophes are used at the beginning of the words. For example, `"C'est l'amour de l'école"` will result in four tokens: "C", "l", "de", "l".
 {: .note}
