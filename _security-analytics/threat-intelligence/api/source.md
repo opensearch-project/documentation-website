@@ -2,7 +2,7 @@
 layout: default
 title:  Source 
 parent: Threat intelligence APIs
-grand_parent: Threat Intelligence
+grand_parent: Threat intelligence
 nav_order: 50
 ---
 
@@ -14,7 +14,7 @@ The threat intelligence Source API updates and returns information about tasks r
 
 Creates or updates a threat intelligence source and loads Indicators of Compromise (IoCs) from that source.
 
-### Path and HTTP method
+### Path and HTTP methods
 
 ```json
 POST _plugins/_security_analytics/threat_intel/sources
@@ -339,8 +339,7 @@ GET /_plugins/_security_analytics/threat_intel/sources/<source-id>
 
 ## Search Threat intelligence Sources API
 
-Searches for threat intelligence source matches based on the search query. The request expects a search source similar to the _search query in OpenSearch.
-
+Searches for threat intelligence source matches based on the search query. The request body expects a search query. For query options, see [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/).
 ### Path and HTTP method
 
 ```json
@@ -454,19 +453,20 @@ DELETE /_plugins/_security_analytics/threat_intel/sources/2c0u7JAB9IJUg27gcjUp
 }
 ```
 ---
-## Refresh threat intelligence source API
+
+## Refresh Source 
 
 Downloads any IoCs from the threat intelligence source. Only supports for the `S3_CUSTOM` type source.
 
 ### Path and HTTP methods
 
-```
+```json
 POST /_plugins/_security_analytics/threat_intel/sources/<source-id>/_refresh
 ```
 
 ### Example request
 
-```
+```json
 POST /_plugins/_security_analytics/threat_intel/sources/IJAXz4QBrmVplM4JYxx_/_refresh
 ```
 {% include copy-curl.html %}

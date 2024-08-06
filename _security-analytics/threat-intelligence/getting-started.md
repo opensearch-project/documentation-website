@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Getting started
-parent: Threat Intelligence
+parent: Threat intelligence
 nav_order: 41
 ---
 

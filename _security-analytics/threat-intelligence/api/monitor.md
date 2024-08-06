@@ -2,7 +2,7 @@
 layout: default
 title: Monitor APIs
 parent: Threat intelligence APIs
-grand_parent: Threat Intelligence
+grand_parent: Threat intelligence
 nav_order: 35
 ---
 
@@ -17,7 +17,7 @@ The following API threat intelligence monitors, from creating monitors to updati
 
 Creates or updates a new Threat Intelligence Monitor.
 
-### Path and HTTP method
+### Path and HTTP methods
 
 The `POST` method creates a new monitor. The `PUT` method updates the monitor.
 

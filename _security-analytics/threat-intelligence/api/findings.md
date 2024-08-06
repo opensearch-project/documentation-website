@@ -2,14 +2,14 @@
 layout: default
 title: Alerts and Findings
 parent: Threat intelligence APIs
-grand_parent: Threat Intelligence
+grand_parent: Threat intelligence
 nav_order: 50
 ---
 
 
 # Alerts and Findings
 
-The Threat Intelligence Alerts and Findings API helps retrieve information about alerts and findings found from threat intelligence feeds.
+The threat intelligence Alerts and Findings API helps retrieve information about alerts and findings found from threat intelligence feeds.
 
 
 ---
@@ -18,14 +18,22 @@ The Threat Intelligence Alerts and Findings API helps retrieve information about
 
 Retrieves any alerts related to threat intelligence monitors.
 
-### Parameters
+### Path and HTTP methods
+
+```json
+GET /_plugins/_security_analytics/threat_intel/alerts
+```
+{% include copy-curl.html %}
+
+
+### Path parameters
 
 You can specify the following parameters when requesting an alert.
 
 Parameter | Description 
 :--- | :---- 
 `severityLevel` | Filter alerts by severity level. Optional.        
-`alertState`    | Used to filter by alert state. Possible values are ACTIVE, ACKNOWLEDGED, COMPLETED, ERROR, or DELETED. Optional. 
+`alertState`    | Used to filter by alert state. Possible values are `ACTIVE`, `ACKNOWLEDGED`, `COMPLETED`, `ERROR`, or `DELETED`. Optional. 
 `sortString`    | This field specifies which string Security Analytics uses to sort the alerts. Optional.                          
 `sortOrder`     | The order used to sort the list of alerts. Possible values are `asc` or `desc`. Optional.                        
 `missing`       | A list of fields for which there are no found alias mappings. Optional.                                          
@@ -38,6 +46,7 @@ Parameter | Description
 ```json
 GET /_plugins/_security_analytics/threat_intel/alerts
 ```
+{% include copy-curl.html %}
 
 ### Example response
 
@@ -85,6 +94,12 @@ Threat intelligence alerts can have one of the following status.
 
 Updates the status of the specified alerts to  `ACKNOWLEDGED` or `COMPLETED`. Only alerts in the `ACTIVE` state can be updated. 
 
+## Path and HTTP methods
+
+```json
+PUT /plugins/security_analytics/threat_intel/alerts/status
+```
+
 ### Example requests
 
 The following example updates status of the specified alerts to `ACKNOWLEDGED`:
@@ -97,7 +112,6 @@ The following example updates status of the specified alerts to `COMPLETED`:
 
 ```json
 PUT /plugins/security_analytics/threat_intel/alerts/status?state=COMPLETED&alert_ids=alert_ids=<alert-id>,<alert-id>
-
 ```
 
 ### Example response
@@ -157,11 +171,17 @@ PUT /plugins/security_analytics/threat_intel/alerts/status?state=COMPLETED&alert
 
 ---
 
-## Get findings
+## Get Findings
 
-The threat intelligence Get Findings API returns threat intelligence Indicators of compromise (IoCs) findings. When the threat intelligence monitor finds a malicious IoC during a scan of data, a finding is automatically added to the threat intelligence feed.
+The threat intelligence Get Findings API returns threat intelligence Indicators of compromise (IoCs) findings. When the threat intelligence monitor finds a malicious IoC during a data scan, a finding is automatically added to the threat intelligence feed.
 
-### Parameters 
+### Path and HTTP method
+
+```json
+GET /_plugins/_security_analytics/threat_intel/findings/
+```
+
+### Path parameters 
 
 | Parameter      | Description                                                                                 |
 |:---------------|:--------------------------------------------------------------------------------------------|

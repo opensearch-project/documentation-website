@@ -2,7 +2,7 @@
 layout: default
 title: Threat intelligence APIs
 nav_order: 50
-parent: Threat Intelligence
+parent: Threat intelligence
 has_children: true
 has_toc: true
 ---
