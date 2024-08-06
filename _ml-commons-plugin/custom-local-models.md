@@ -109,7 +109,11 @@ To learn more about model groups, see [Model access control]({{site.url}}{{site.
 
 ## Step 2: Register a local model
 
-To register a remote model to the model group created in step 1, provide the model group ID from step 1 in the following request:
+To register a local model to the model group created in step 1, send a Register Model API request. For descriptions of Register Model API parameters, see [Register a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/). 
+
+The `function_name` corresponds to the model type. For text embedding models, set this parameter to `TEXT_EMBEDDING`. For sparse encoding models, set this parameter to `SPARSE_ENCODING` or `SPARSE_TOKENIZE`. For cross-encoder models, set this parameter to `TEXT_SIMILARITY`. For question answering models, set this parameter to `QUESTION_ANSWERING`. In this example, set `function_name` to `TEXT_EMBEDDING` because you're registering a text embedding model. 
+
+Provide the model group ID from step 1 and send the following request:
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -118,7 +122,7 @@ POST /_plugins/_ml/models/_register
   "version": "1.0.1",
   "model_group_id": "wlcnb4kBJ1eYAeTMHlV6",
   "description": "This is a port of the DistilBert TAS-B Model to sentence-transformers model: It maps sentences & paragraphs to a 768 dimensional dense vector space and is optimized for the task of semantic search.",
-  "model_task_type": "TEXT_EMBEDDING",
+  "function_name": "TEXT_EMBEDDING",
   "model_format": "TORCH_SCRIPT",
   "model_content_size_in_bytes": 266352827,
   "model_content_hash_value": "acdc81b652b83121f914c5912ae27c0fca8fabf270e6f191ace6979a19830413",
@@ -143,7 +147,7 @@ POST /_plugins/_ml/models/_register
   "version": "1.0.1",
   "model_group_id": "wlcnb4kBJ1eYAeTMHlV6",
   "description": "This is a port of the DistilBert TAS-B Model to sentence-transformers model: It maps sentences & paragraphs to a 768 dimensional dense vector space and is optimized for the task of semantic search.",
-  "model_task_type": "TEXT_EMBEDDING",
+  "function_name": "TEXT_EMBEDDING",
   "model_format": "TORCH_SCRIPT",
   "model_content_size_in_bytes": 266352827,
   "model_content_hash_value": "acdc81b652b83121f914c5912ae27c0fca8fabf270e6f191ace6979a19830413",
@@ -158,8 +162,6 @@ POST /_plugins/_ml/models/_register
 }
 ```
 {% include copy.html %}
-
-For descriptions of Register API parameters, see [Register a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/). The `model_task_type` corresponds to the model type. For text embedding models, set this parameter to `TEXT_EMBEDDING`. For sparse encoding models, set this parameter to `SPARSE_ENCODING` or `SPARSE_TOKENIZE`. For cross-encoder models, set this parameter to `TEXT_SIMILARITY`. For question answering models, set this parameter to `QUESTION_ANSWERING`.
 
 OpenSearch returns the task ID of the register operation:
 
@@ -183,7 +185,7 @@ When the operation is complete, the state changes to `COMPLETED`:
 {
   "model_id": "cleMb4kBJ1eYAeTMFFg4",
   "task_type": "REGISTER_MODEL",
-  "function_name": "REMOTE",
+  "function_name": "TEXT_EMBEDDING",
   "state": "COMPLETED",
   "worker_node": [
     "XPcXLV7RQoi5m8NI_jEOVQ"
@@ -229,7 +231,7 @@ When the operation is complete, the state changes to `COMPLETED`:
 {
   "model_id": "cleMb4kBJ1eYAeTMFFg4",
   "task_type": "DEPLOY_MODEL",
-  "function_name": "REMOTE",
+  "function_name": "TEXT_EMBEDDING",
   "state": "COMPLETED",
   "worker_node": [
     "n-72khvBTBi3bnIIR8FTTw"

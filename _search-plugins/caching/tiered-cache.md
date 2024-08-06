@@ -44,7 +44,7 @@ In OpenSearch 2.14, a request cache can be used in a tiered cache. To begin, con
 To use the OpenSearch-provided tiered spillover cache implementation, set the cache store name to `tiered_spillover`, as shown in the following example:
 
 ```yaml
-indices.request.cache.store.name: tiered_spillover: true
+indices.request.cache.store.name: tiered_spillover
 ```
 {% include copy.html %}
 
@@ -90,3 +90,21 @@ Setting | Data type | Default | Description
 :--- | :--- | :--- | :---
 `indices.request.cache.tiered_spillover.disk.store.policies.took_time.threshold` | Time unit | `10ms` | A policy used to determine whether to cache a query into a disk cache based on its took time. This is a dynamic setting. Optional.
 `indices.request.cache.tiered_spillover.disk.store.enabled` | Boolean | `True` | Enables or disables the disk cache dynamically within a tiered spillover cache. Note: After disabling a disk cache, entries are not removed automatically and requires the cache to be manually cleared. Optional.
+
+### Delete stale entries settings
+
+The following table lists the settings related to the deletion of stale entries from the cache.
+
+Setting | Data type | Default | Description
+:--- | :--- |:--------| :---
+`indices.requests.cache.cleanup.staleness_threshold` | String | `0%`    | Defines the percentage of stale keys in the cache post. After identification, all stale cache entries are deleted. Optional.
+`indices.requests.cache.cleanup.interval` | Time unit | `1m`  | Defines the frequency at which the request cache's stale entries are deleted. Optional.
+
+## Getting statistics for the `tiered_spillover` store 
+
+To assess the impact of using the tiered spillover cache, use the [Node Stats API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/#caches), as shown in the following example: 
+
+```json
+GET /_nodes/stats/caches/request_cache?level=tier
+```
+
