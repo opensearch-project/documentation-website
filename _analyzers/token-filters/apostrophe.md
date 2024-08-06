@@ -43,7 +43,7 @@ PUT /custom_text_index
 ```
 {% include copy-curl.html %}
 
-## Check generated tokens
+## Generated tokens
 
 You can use the following command to examine the tokens being generated using the created analyzer:
 
