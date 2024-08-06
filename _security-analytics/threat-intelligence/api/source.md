@@ -34,7 +34,7 @@ PUT _plugins/_security_analytics/threat_intel/sources/<source_id>
 | `source`  | Object   | The source details for the threat intelligence data.   |
 | `source.ioc_upload`   | Object   | The details for IOC upload. Applicable for the `IOC_UPLOAD` type.  |
 | `source.ioc_upload.file_name`  | String   | The name of the file containing IOCs, such as `test`. Applicable for the`IOC_UPLOAD` type.  |
-| `source.ioc_upload.iocs`   | Array of Objects | List of IOCs in the `STIX2` format. Applicable for `IOC_UPLOAD` type. |
+| `source.ioc_upload.iocs`   | Array of Objects | The list of IOCs in the `STIX2` format. Applicable for the `IOC_UPLOAD` type. |
 | `source_config.source.s3`   | Object   | The details about the S3 source. Applicable for the `S3_CUSTOM` type.   |
 | `source_config.source.s3.bucket_name` | String  | The name of the S3 bucket, such as `threat-intel-s3-test-bucket`. Applicable for the `S3_CUSTOM` type.                                                                        |
 | `source_config.source.s3.object_key`  | String   | The key of the object in the S3 bucket, such `alltypess3object`. Applicable for the `S3_CUSTOM` type.   |

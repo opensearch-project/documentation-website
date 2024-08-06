@@ -45,7 +45,7 @@ You can specify the following fields in the request body.
 | `indices`   | Array   | The log data sources used for the monitor. Required.  |
 | `per_ioc_type_scan_input_list`  | Array   | A list of inputs for scanning based on indicator of compromise (IoC) types. Required.   |
 | `per_ioc_type_scan_input_list.ioc_type`   | String  | The type of IOC (for example, hashes). Required.  |
-| `per_ioc_type_scan_input_list.index_to_fields_map`  | Object  |The index field mappings that contain values for the given IoC type. Required. |
+| `per_ioc_type_scan_input_list.index_to_fields_map`  | Object  |The index field mappings that contain values for the given IOC type. Required. |
 | `per_ioc_type_scan_input_list.index_to_fields_map.<index>` | Array   | A list of fields contained in the specified index. Required.   |
 | `triggers`  | Array   | The trigger settings for alerts. Required.   |
 | `triggers.data_sources`   | Array   | A list of data sources associated with the trigger. Required.  |

@@ -173,7 +173,7 @@ PUT /plugins/security_analytics/threat_intel/alerts/status?state=COMPLETED&alert
 
 ## Get Findings
 
-The threat intelligence Get Findings API returns threat intelligence Indicators of compromise (IoCs) findings. When the threat intelligence monitor finds a malicious IoC during a data scan, a finding is automatically added to the threat intelligence feed.
+The threat intelligence Get Findings API returns threat intelligence Indicators of compromise (IOCs) findings. When the threat intelligence monitor finds a malicious IoC during a data scan, a finding is automatically added to the threat intelligence feed.
 
 ### Path and HTTP method
 
