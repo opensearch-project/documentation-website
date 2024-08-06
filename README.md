@@ -34,8 +34,7 @@ This project has adopted an [Open Source Code of Conduct](https://opensearch.org
 
 ## Security
 
-If you discover a potential security issue in this project, we ask that you notify AWS/Amazon Security using our [vulnerability reporting page](http://aws.amazon.com/security/vulnerability-reporting/). Do **not** create a public GitHub issue.
-
+If you discover a potential security issue in this project, notify OpenSearch Security directly by emailing security@opensearch.org. To prevent any additional risk caused by the potential issue, do **not** create a public GitHub issue.
 
 ## License
 

@@ -106,7 +106,7 @@ scroll | Time | Specifies the amount of time the search context is maintained.
 scroll_id | String | The scroll ID for the search.
 rest_total_hits_as_int | Boolean | Whether the `hits.total` property is returned as an integer (`true`) or an object (`false`). Default is `false`.
 
-## Response
+## Example response
 
 ```json
 {
