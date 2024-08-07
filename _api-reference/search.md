@@ -71,7 +71,7 @@ search_type | String | Whether OpenSearch should use global term and document fr
 seq_no_primary_term | Boolean | Whether to return sequence number and primary term of the last operation of each document hit.
 size | Integer | How many results to include in the response.
 sort | List | A comma-separated list of &lt;field&gt; : &lt;direction&gt; pairs to sort by.
-_source | String | Whether to include the `_source` field in the response.
+_source | String | Filters which fields from the `_source`, including Booleans and string arrays, are included in the response.  When not specified, OpenSearch includes all fields present from the entire JSON object when the index document was ingested.
 _source_excludes | List | A comma-separated list of source fields to exclude from the response.
 _source_includes | List | A comma-separated list of source fields to include in the response.
 stats | String | Value to associate with the request for additional logging.
