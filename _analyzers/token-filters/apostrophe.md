@@ -22,7 +22,7 @@ PUT /custom_text_index
       "analyzer": {
         "custom_analyzer": {
           "type": "custom",
-          "tokenizer": "standard"
+          "tokenizer": "standard",
           "filter": [
             "lowercase",
             "apostrophe"
