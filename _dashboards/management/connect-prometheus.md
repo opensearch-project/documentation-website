@@ -20,9 +20,7 @@ A data source connection specifies the parameters needed to connect to a data so
 
 The following steps guide you through the basics of creating a **Prometheus** data source connection:
 
-1. From the OpenSearch Dashboards main menu, select **Management** > **Data sources** > **Create data source connection** > **Prometheus**. The UI is shown in the following image.
-
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/data-source-Prometheus.png" alt="Connecting a data source UI" width="700"/>
+1. From the OpenSearch Dashboards main menu, select **Management** > **Data sources** > **New data source** > **Prometheus**. 
 
 2. Create the data source connection by entering the appropriate information into the **Configure Prometheus data source** fields. 
    
