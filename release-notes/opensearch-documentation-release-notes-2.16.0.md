@@ -30,7 +30,6 @@ The OpenSearch 2.16.0 documentation includes the following additions and updates
 - Update docs for new clause count setting [#7391](https://github.com/opensearch-project/documentation-website/pull/7391)
 - Add Threat Intelligence Section [#7905](https://github.com/opensearch-project/documentation-website/pull/7905)
 
-
 ## Documentation for 2.16.0 experimental features
 
 - Ml commons batch inference [#7899](https://github.com/opensearch-project/documentation-website/pull/7899)
