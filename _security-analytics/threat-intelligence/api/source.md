@@ -183,6 +183,7 @@ POST _plugins/_security_analytics/threat_intel/sources/
 ### Example responses
 
 The following example responses show what OpenSearch returns after a successful request.
+The following example responses show what OpenSearch returns after a successful request.
 #### IOC_UPLOAD type
 
 ```json
