@@ -342,6 +342,7 @@ GET /_plugins/_security_analytics/threat_intel/sources/<source-id>
 
 Searches for threat intelligence source matches based on the search query. The request body expects a search query. For query options, see [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/).
 
+
 ### Path and HTTP methods
 
 ```json
