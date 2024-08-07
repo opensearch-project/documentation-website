@@ -37,7 +37,6 @@ You can specify the following fields in the request body.
 | `schedule.period.interval`   | Integer | The interval at which the monitor runs. Required.   |
 | `schedule.period.unit`   | String  | The unit of time for the interval.  |
 | `enabled` | Object  | Details about the user who created the monitor. Required.    |
-| `user.name`  | String  | The name of the user. Optional.   |
 | `user.backend_roles`   | Array   | The backend roles associated with the user. Optional.  |
 | `user.roles`   | Array   | The roles associated with the user. Optional. |
 | `user.custom_attribute_names`   | Array   | Custom attribute names associated with the user. Optional.   |

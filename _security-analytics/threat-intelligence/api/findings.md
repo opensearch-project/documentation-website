@@ -172,7 +172,7 @@ PUT /plugins/security_analytics/threat_intel/alerts/status?state=COMPLETED&alert
 
 ## Get findings
 
-Returns threat intelligence Indicators of compromise (IOCs) findings. When the threat intelligence monitor finds a malicious IoC during a data scan, a finding is automatically added to the threat intelligence feed.
+Returns threat intelligence indicators of compromise (IOCs) findings. When the threat intelligence monitor finds a malicious IOC during a data scan, a finding is automatically generated.
 
 ### Path and HTTP method
 
@@ -187,7 +187,7 @@ GET /_plugins/_security_analytics/threat_intel/findings/
 | `sortString`   | Specifies which string Security Analytics uses to sort the alerts. Optional.     |
 | `sortOrder`    | The order used to sort the list of findings. Possible values are `asc` or `desc`. Optional. |
 | `missing`      | A list of fields for which there are no found alias mappings. Optional.                     |
-| `size`         | An optional limit for the maximum number of results returned in the response. Optional.     |
+| `size`         |  Limits for the maximum number of results returned in the response. Optional.     |
 | `startIndex`   | The pagination indicator. Optional.                                                         |
 | `searchString` | The alert attribute you want returned in the search. Optional.                              |
 
