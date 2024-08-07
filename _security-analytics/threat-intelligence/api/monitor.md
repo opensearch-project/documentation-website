@@ -53,6 +53,8 @@ You can specify the following fields in the request body.
 
 ### Example requests
 
+The following section provides example requests for the Monitor API.
+
 The following section provides examples for the Monitor API.
 
 #### Create a monitor
