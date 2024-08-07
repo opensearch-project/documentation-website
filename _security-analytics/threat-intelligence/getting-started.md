@@ -7,16 +7,16 @@ nav_order: 41
 
 # Getting started
 
-To get started with threat intelligence, you'll need to set up your threat intelligent sources and set up monitors to scan your log sources. The following tutorial describes how you can get started using OpenSearch Dashboards. Alternatively, you can use the [API](({{site.url}}{{site.baseurl}}/security-analytics/threat-intelligence/api/threat-intel-api/). 
+To get started with threat intelligence, you'll need to set up your threat intelligence sources and set up monitors to scan your log sources. The following tutorial shows you how to get started using OpenSearch Dashboards. Alternatively, you can use the [API](({{site.url}}{{site.baseurl}}/security-analytics/threat-intelligence/api/threat-intel-api/). 
 
 ## Threat intelligence view
 
-To access threat intelligence, log into OpenSearch Dashboards, and select **Security Analytics** > **Threat Intelligence**.
+To access threat intelligence, log in to OpenSearch Dashboards and select **Security Analytics** > **Threat Intelligence**.
 
 In the threat intelligence view, you can access the following tabs:
 
-- **Threat intel sources**: Shows a list of all active and inactive threat intelligence sources, including the default IP reputation feed [AlienVault OTX](https://otx.alienvault.com/), which comes prepackaged when downloading OpenSearch.
-- **Scan configuration**: Shows an overview of your scan configuration, including the **Log sources**, **Scan schedule**, and **Alert triggers** configured. From the **Actions** dropdown, you can also **Stop scan**, **Edit scan configuration**, or **Delete scan configuration**.
+- **Threat intel sources**: Shows a list of all active and inactive threat intelligence sources, including the default IP reputation feed, [AlienVault OTX](https://otx.alienvault.com/), which comes prepackaged when downloading OpenSearch.
+- **Scan configuration**: Shows an overview of your scan configuration, including the configured **Log sources**, **Scan schedule**, and **Alert triggers**. From the **Actions** dropdown list, you can also **Stop scan**, **Edit scan configuration**, or **Delete scan configuration**.
 
 
 ## Step 1: Set up threat intelligence sources
@@ -26,11 +26,11 @@ To add a threat intelligence source, select **Add threat intel source** from the
 On the threat intelligence source page, add the following information:
 
 - **Name**: A name for the source.
-- **Description**: An optional description for the source.
+- **Description**: An optional description of the source.
 - **Threat intel source type**: The source type determines where the `STIX2` file is stored. You can choose one of the following options:
-  - **Remote data store location**: Connects to a custom data store. As of OpenSearch 2.16, only the `S3_SOURCE` type is supported. This setting also gives you the ability to set a download schedule, where OpenSearch downloads the newest STIX2 file from the data store. For more information, see [S3_SOURCE connection details](#s3_source-connection-details)
-  - **Local file upload**: Uploads a custom threat intelligence IOC file. Custom files cannot be set to download schedule and must be uploaded manually in order to update the IOCs. For more information, see  [Local file upload](#local-file-upload).
-- **Types of malicious indicators**: Determines the malicious IOCs to pull from the STIX2 file. The following IOCs are supported:
+  - **Remote data store location**: Connects to a custom data store. As of OpenSearch 2.16, only the `S3_SOURCE` type is supported. This setting also gives you the ability to set a download schedule, where OpenSearch downloads the newest `STIX2` file from the data store. For more information, see [S3_SOURCE connection details](#s3_source-connection-details).
+  - **Local file upload**: Uploads a custom threat intelligence IOC file. Custom files cannot be downloaded based on a schedule and must be uploaded manually in order to update the IOCs. For more information, see [Local file upload](#local-file-upload).
+- **Types of malicious indicators**: Determines the types of malicious IOCs to pull from the `STIX2` file. The following IOCs are supported:
   - IPv4-Address
   - IPv6-Address
   - Domains
@@ -42,44 +42,44 @@ After all the relevant information has been entered, select **Add threat intel s
 
 Local files uploaded as the threat intelligence source must use the following specifications:
 
-- Upload as a JSON file in the STIX2 format. For an example STIX2 file, [download the following example file]({{site.url}}{{site.baseurl}}/assets/examples/all-ioc-type-examples.json), which contains example formatting for all supported IOC types.
+- Upload as a JSON file in the `STIX2` format. For an example `STIX2` file, download [this file]({{site.url}}{{site.baseurl}}/assets/examples/all-ioc-type-examples.json), which contains example formatting for all supported IOC types.
 - Be less than 500 kB.
 
 
-### S3_SOURCE connection details 
+### S3_SOURCE connection information
 
-When using the `S3_SOURCE` as a remote store, the following connection details must be provided:
+When using the `S3_SOURCE` as a remote store, the following connection information must be provided:
 
-- **IAM Role ARN**: The Amazon Resource Name (ARN) for an IAM role.
-- **S3 bucket directory**: The S3 bucket name where the STIX2 file is stored.
-- **Specify a directory or file**: The object key or directory path for STIX2 file inside the S3 bucket.
-- **Region**: The region for the S3 bucket.
+- **IAM Role ARN**: The Amazon Resource Name (ARN) for an AWS Identity and Access Management (IAM) role.
+- **S3 bucket directory**: The name of the Amazon Simple Storage Service (Amazon S3) bucket in which the `STIX2` file is stored.
+- **Specify a directory or file**: The object key or directory path for the `STIX2` file in the S3 bucket.
+- **Region**: The AWS Region for the S3 bucket.
 
-You can also set the **Download schedule** which determines where OpenSearch downloads an updated STIX2 file from the connect S3 bucket. The default interval is once a day. Only day intervals are supported. 
+You can also set the **Download schedule**, which determines to where OpenSearch downloads an updated `STIX2` file from the connected S3 bucket. The default interval is once a day. Only daily intervals are supported. 
 
 Alternatively, you can check the **Download on demand** option, which prevents new data from the bucket from being automatically downloaded.
 
 
-## Step 2: Set up the scan for your log sources
+## Step 2: Set up scanning for your log sources
 
-You can configure threat intelligence monitors to scan your aliases and data streams. The monitor scans for newly ingested data from your indexes and matches tat data against any IOC's present in threat intelligence monitors. The scan applies to all threat intelligence source added to OpenSearch. By default, the scan runs every minute.
+You can configure threat intelligence monitors to scan your aliases and data streams. The monitor scans for newly ingested data from your indexes and matches that data against any IOCs present in the threat intelligence sources. The scan applies to all threat intelligence sources added to OpenSearch. By default, the scan runs once each minute.
 
-To add or a scan configuration:
+To add or edit a scan configuration:
 
 1. From the threat intelligence view, select **Add scan configuration** or **Edit scan configuration**.
-2. Select the indexes or alias to scan.
-3. Select the **fields** from your indexes and alias to scan based on their IOC type. For example, if an alias has two fields called `src_ip` and `dst_ip` which contain `ipv4` addresses, those fields must be entered into the `ipv4-addr` section of the monitor request.
-4. Determine a **Scan schedule**, which decides the frequency of the scan against the indicated indexes and aliases. By default, OpenSearch scans for IOCs every minute.
-5. Set up any alert triggers and trigger conditions. You can add multiple triggers.
+2. Select the indexes or aliases to scan.
+3. Select the **fields** from your indexes or aliases to scan based on their IOC type. For example, if an alias has two fields called `src_ip` and `dst_ip` that contain `ipv4` addresses, then those fields must be entered into the `ipv4-addr` section of the monitor request.
+4. Determine a **Scan schedule** for the indicated indexes or aliases. By default, OpenSearch scans for IOCs once each minute.
+5. Set up any alert triggers and trigger conditions. You can add multiple triggers:
    1. Add a name for the trigger.
-   2. Pick an indicator type. The indicator type matches the IOC types.
+   2. Choose an indicator type. The indicator type matches the IOC type.
    3. Select a severity for the alert. 
-   4. Select whether to send a notification when the alert triggers. When enabled, you can customize which channels the notification is sent to, and the notification message. Notification message can be customized using a [mustache template](https://mustache.github.io/mustache.5.html).
-6. With your settings complete, select **Save and start monitoring**.
+   4. Select whether to send a notification when the alert is triggered. When enabled, you can customize which channels the notification is sent to as well as the notification message. The notification message can be customized using a [Mustache template](https://mustache.github.io/mustache.5.html).
+6. Once your settings have been entered, select **Save and start monitoring**.
 
-When malicious IOC's are found, OpenSearch creates **findings**, which gives information about the threat. You can also configure triggers with the monitors to create alerts, which sends notifications to configured webhooks or endpoints.
+When malicious IOCs are found, OpenSearch creates **findings**, which provide information about the threat. You can also configure triggers to create alerts, which send notifications to configured webhooks or endpoints.
 
 
 ## Viewing alerts and findings 
 
-You can view the findings and alerts generated by threat intelligence monitors to analyze which malicious indicators have occurred in their security logs. To view alerts or findings, select **View findings** or **View alerts** from the threat intelligence view.
+You can view the alerts and findings generated by threat intelligence monitors to analyze which malicious indicators have occurred in their security logs. To view alerts or findings, select **View findings** or **View alerts** from the threat intelligence view.

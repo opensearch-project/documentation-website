@@ -18,7 +18,7 @@ Creates or updates a threat intelligence monitor.
 
 ### Path and HTTP methods
 
-The `POST` method creates a new monitor. The `PUT` method updates the monitor.
+The `POST` method creates a new monitor. The `PUT` method updates a monitor.
 
 ```json
 POST _plugins/_security_analytics/threat_intel/monitors
@@ -33,10 +33,10 @@ You can specify the following fields in the request body.
 | :--- |  :---  | :--- |
 | `name`  | String  | The name of the monitor. Required. |
 | `schedule`  | Object  | The schedule that determines how often the monitor runs. Required.  |
-| `schedule.period` | Object  | Details for the frequency of the schedule. Required.  |
+| `schedule.period` | Object  | Information about the frequency of the schedule. Required.  |
 | `schedule.period.interval`   | Integer | The interval at which the monitor runs. Required.   |
 | `schedule.period.unit`   | String  | The unit of time for the interval.  |
-| `enabled` | Object  | Details about the user who created the monitor. Required.    |
+| `enabled` | Object  | Information about the user who created the monitor. Required.    |
 | `user.backend_roles`   | Array   | The backend roles associated with the user. Optional.  |
 | `user.roles`   | Array   | The roles associated with the user. Optional. |
 | `user.custom_attribute_names`   | Array   | Custom attribute names associated with the user. Optional.   |
@@ -52,6 +52,8 @@ You can specify the following fields in the request body.
 | `triggers.severity`  | String  | The severity level of the trigger (for example, high, medium, or low). Required.  |
 
 ### Example requests
+
+The following section provides examples for the Monitor API.
 
 #### Create a monitor
 
@@ -200,7 +202,7 @@ You can specify the following fields in the request body.
 ```
 ---
 
-## Delete monitor
+## Delete a monitor
 
 Deletes an existing threat intelligence monitor.
 
@@ -228,13 +230,13 @@ DELETE /_plugins/_security_analytics/threat_intel/monitors/B8p88ZAB1vBjq44wkjEy
 
 ## Search monitors
 
-Searches for an existing monitors using a query. The request body expects a search query. For query options, see [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/).
+Searches for an existing monitor using a query. The request body expects a search query. For query options, see [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/).
  
 ### Example request
 
 The following example request using a match query with the monitor's ID to search for the monitor:
 
-```
+```json
 POST /_plugins/_security_analytics/detectors/_search
 {
     "query": {

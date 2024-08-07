@@ -9,7 +9,7 @@ nav_order: 50
 
 # Alerts and Findings API
 
-The threat intelligence Alerts and Findings API retrieves information about alerts and findings found in threat intelligence feeds.
+The threat intelligence Alerts and Findings API retrieves information about alerts and findings from threat intelligence feeds.
 
 
 ---
@@ -37,7 +37,7 @@ Parameter | Description
 `sortString`    | The string Security Analytics uses to sort the alerts. Optional.                          
 `sortOrder`     | The order used to sort the list of alerts. Possible values are `asc` or `desc`. Optional.                        
 `missing`       | A list of fields for which no alias mappings are found. Optional.                                          
-`size`          | An optional limit for the maximum number of results returned in the response. Optional.                          
+`size`          | An optional maximum number of results to be returned in the response. Optional.                          
 `startIndex`    | The pagination indicator. Optional.  
 `searchString`  | The alert attribute you want returned in the search. Optional. 
 
@@ -79,22 +79,22 @@ GET /_plugins/_security_analytics/threat_intel/alerts
 
 ### Response fields
 
-Threat intelligence alerts can have one of the following states.
+A threat intelligence alert can have one of the following states.
 
 | State  | Description  |
 | :---- | :--- |
 | `ACTIVE`   | The alert is ongoing and unacknowledged. Alerts remain in this state until they are acknowledged, the trigger associated with the alert is deleted, or the threat intelligence monitor is deleted entirely. |
-| `ACKNOWLEDGED` | The alert is acknowledged but the root cause of the alert has not been addressed.  |
+| `ACKNOWLEDGED` | The alert is acknowledged, but the root cause of the alert has not been addressed.  |
 | `COMPLETED` | The alert is no longer ongoing. Alerts enter this state after the corresponding trigger evaluates to `false`.   |
 | `DELETED` | The monitor or trigger for the alert was deleted while the alert was active.  |
 
 ---
 
-## Update alerts status API 
+## Update Alerts Status API 
 
-Updates the status of the specified alerts to  `ACKNOWLEDGED` or `COMPLETED`. Only alerts in the `ACTIVE` state can be updated. 
+Updates the status of the specified alerts to `ACKNOWLEDGED` or `COMPLETED`. Only alerts in the `ACTIVE` state can be updated. 
 
-## Path and HTTP methods
+### Path and HTTP methods
 
 ```json
 PUT /plugins/security_analytics/threat_intel/alerts/status
@@ -102,13 +102,13 @@ PUT /plugins/security_analytics/threat_intel/alerts/status
 
 ### Example requests
 
-The following example updates status of the specified alerts to `ACKNOWLEDGED`:
+The following example updates the status of the specified alerts to `ACKNOWLEDGED`:
 
 ```json
 PUT /plugins/security_analytics/threat_intel/alerts/status?state=ACKNOWLEDGED&alert_ids=<alert-id>,<alert-id>
 ```
 
-The following example updates status of the specified alerts to `COMPLETED`:
+The following example updates the status of the specified alerts to `COMPLETED`:
 
 ```json
 PUT /plugins/security_analytics/threat_intel/alerts/status?state=COMPLETED&alert_ids=alert_ids=<alert-id>,<alert-id>
@@ -172,9 +172,9 @@ PUT /plugins/security_analytics/threat_intel/alerts/status?state=COMPLETED&alert
 
 ## Get findings
 
-Returns threat intelligence indicators of compromise (IOCs) findings. When the threat intelligence monitor finds a malicious IOC during a data scan, a finding is automatically generated.
+Returns threat intelligence indicator of compromise (IOC) findings. When the threat intelligence monitor finds a malicious IOC during a data scan, a finding is automatically generated.
 
-### Path and HTTP method
+### Path and HTTP methods
 
 ```json
 GET /_plugins/_security_analytics/threat_intel/findings/
@@ -186,8 +186,8 @@ GET /_plugins/_security_analytics/threat_intel/findings/
 |:---------------|:--------------------------------------------------------------------------------------------|
 | `sortString`   | Specifies which string Security Analytics uses to sort the alerts. Optional.     |
 | `sortOrder`    | The order used to sort the list of findings. Possible values are `asc` or `desc`. Optional. |
-| `missing`      | A list of fields for which there are no found alias mappings. Optional.                     |
-| `size`         |  Limits for the maximum number of results returned in the response. Optional.     |
+| `missing`      | A list of fields for which there were no alias mappings found. Optional.                     |
+| `size`         | The maximum number of results to be returned in the response. Optional.     |
 | `startIndex`   | The pagination indicator. Optional.                                                         |
 | `searchString` | The alert attribute you want returned in the search. Optional.                              |
 
