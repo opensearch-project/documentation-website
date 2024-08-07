@@ -58,8 +58,8 @@ PUT /devanagari_example_index
       "filter": {
         "cjk_bigram_filter": {
           "type": "cjk_bigram",
-          "ignore_scripts": ["deva"],  // Ignore Devanagari script
-          "output_unigrams": false     // Do not output unigrams
+          "ignore_scripts": ["deva"],
+          "output_unigrams": false
         }
       },
       "analyzer": {
