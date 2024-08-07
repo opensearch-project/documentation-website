@@ -28,7 +28,7 @@ On the threat intelligence source page, add the following information:
 - **Name**: A name for the source.
 - **Description**: An optional description of the source.
 - **Threat intel source type**: The source type determines where the `STIX2` file is stored. You can choose one of the following options:
-  - **Remote data store location**: Connects to a custom data store. As of OpenSearch 2.16, only the `S3_SOURCE` type is supported. This setting also gives you the ability to set a download schedule, where OpenSearch downloads the newest `STIX2` file from the data store. For more information, see [S3_SOURCE connection details](#s3_source-connection-details).
+  - **Remote data store location**: Connects to a custom data store. As of OpenSearch 2.16, only the `S3_SOURCE` type is supported. This setting also gives you the ability to set a download schedule, where OpenSearch downloads the newest `STIX2` file from the data store. For more information, see [S3_SOURCE connection details](#s3_source-connection-information).
   - **Local file upload**: Uploads a custom threat intelligence IOC file. Custom files cannot be downloaded based on a schedule and must be uploaded manually in order to update the IOCs. For more information, see [Local file upload](#local-file-upload).
 - **Types of malicious indicators**: Determines the types of malicious IOCs to pull from the `STIX2` file. The following IOCs are supported:
   - IPv4-Address
