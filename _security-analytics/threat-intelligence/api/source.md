@@ -89,7 +89,8 @@ The following fields modify the `ioc_types` option.
 
 ### Example requests 
 
-The following examples show how to use the Source API.
+The following example requests show you how to use the Source API.
+
 #### IOC_UPLOAD type
 
 ```json
@@ -183,7 +184,8 @@ POST _plugins/_security_analytics/threat_intel/sources/
 ### Example responses
 
 The following example responses show what OpenSearch returns after a successful request.
-The following example responses show what OpenSearch returns after a successful request.
+
+
 #### IOC_UPLOAD type
 
 ```json
@@ -277,7 +279,7 @@ The following example responses show what OpenSearch returns after a successful 
 
 ---
 
-## Get threat intelligence source
+## Get threat intelligence source configuration details
 
 Retrieves the threat intelligence source configuration details.
 

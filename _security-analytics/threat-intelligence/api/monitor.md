@@ -55,7 +55,6 @@ You can specify the following fields in the request body.
 
 The following section provides example requests for the Monitor API.
 
-The following section provides examples for the Monitor API.
 
 #### Create a monitor
 
@@ -230,7 +229,7 @@ DELETE /_plugins/_security_analytics/threat_intel/monitors/B8p88ZAB1vBjq44wkjEy
 }
 ```
 
-## Search monitors
+## Search for a monitor
 
 Searches for an existing monitor using a query. The request body expects a search query. For query options, see [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/).
  
