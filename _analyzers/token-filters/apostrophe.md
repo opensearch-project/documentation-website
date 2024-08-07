@@ -2,7 +2,7 @@
 layout: default
 title: Apostrophe
 parent: Token filters
-nav_order: 110
+nav_order: 10
 ---
 
 # Apostrophe token filter
