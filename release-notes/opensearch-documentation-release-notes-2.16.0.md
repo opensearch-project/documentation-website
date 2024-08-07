@@ -28,10 +28,8 @@ The OpenSearch 2.16.0 documentation includes the following additions and updates
 - Add fingerprint processor [#7631](https://github.com/opensearch-project/documentation-website/pull/7631)
 - Document new ingest and search pipeline allowlist settings [#7414](https://github.com/opensearch-project/documentation-website/pull/7414)
 - Update docs for new clause count setting [#7391](https://github.com/opensearch-project/documentation-website/pull/7391)
-
-## In progress documentation for 2.16.0
-
 - Add Threat Intelligence Section [#7905](https://github.com/opensearch-project/documentation-website/pull/7905)
+
 
 ## Documentation for 2.16.0 experimental features
 
