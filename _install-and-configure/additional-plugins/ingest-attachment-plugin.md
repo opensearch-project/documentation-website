@@ -69,15 +69,14 @@ PUT _ingest/pipeline/attachment
 
 ### Store an attachment
 
-Convert the attachment to base64 string, to pass it as `data`. 
-The following example `base64` command passes a attachment file `lorem.rtf`:
-
+Convert the attachment to base64 string, to pass it as `data`.
+In this example the Unix-like system `base64` command converts the file `lorem.rtf`:
 
 ```sh
 base64 lorem.rtf
 ```
 
-You can use Node.js to read the `base64` file, as shown in the following commands: 
+Alternatively you can use Node.js to read the file to `base64`, as shown in the following commands:
 
 ```typescript
 import * as fs from "node:fs/promises";
@@ -188,11 +187,10 @@ PUT _ingest/pipeline/attachment
 ## Limit the extracted content
 
 To prevent extracting too many characters and overload the node memory, the default limit is `100_000`.
-You can change this value using the setting `indexed_chars`. For example, you can use `-1` for unlimited characters but you need to make sure you have enough of a HEAP size to extract the content of large documents.
-
+You can change this value using the setting `indexed_chars`. For example, you can use `-1` for unlimited characters but you need to make sure you have enough HEAP space on your OpenSearch-Node to extract the content of large documents.
 
 You can also define this limit per document using the `indexed_chars_field` request field.
-If a document contains `indexed_chars_field, it will overwrite the `indexed_chars` setting, as shown in the following example:
+If a document contains `indexed_chars_field`, it will overwrite the `indexed_chars` setting, as shown in the following example:
 
 ```json
 PUT _ingest/pipeline/attachment
@@ -210,7 +208,7 @@ PUT _ingest/pipeline/attachment
 }
 ```
 
-With the attachment pipeline set, you can extract 10 characters with specifying max character in the request, as shown in the following example:
+With the attachment pipeline set, you can extract the above defaulted `10` characters without specifying `max_chars` in the request, as shown in the following example:
 
 ```json
 PUT example-attachment-index/_doc/lorem_rtf?pipeline=attachment
@@ -219,7 +217,7 @@ PUT example-attachment-index/_doc/lorem_rtf?pipeline=attachment
 }
 ```
 
-Alternatively, you can change the `max_char` per document, as shown in the following example:
+Alternatively, you can change the `max_char` per document to extract up to `15` characters, as shown in the following example:
 
 ```json
 PUT example-attachment-index/_doc/lorem_rtf?pipeline=attachment
