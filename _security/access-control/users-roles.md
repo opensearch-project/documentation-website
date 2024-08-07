@@ -136,7 +136,7 @@ As with any role in OpenSearch, a read-only role can be configured using the fol
 - Using the Cluster Settings API 
 
 The simplest way to get familiar with roles and role mappings is to use OpenSearch Dashboards. The interface simplifies creating roles and assigning those roles to users, with an easy-to-navigate workflow. 
-{ .tip}
+{: .tip}
 
 ### Defining a basic read-only role
 
