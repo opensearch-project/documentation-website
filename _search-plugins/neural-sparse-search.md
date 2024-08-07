@@ -14,9 +14,9 @@ Introduced 2.11
 
 [Semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/) relies on dense retrieval that is based on text embedding models. However, dense methods use k-NN search, which consumes a large amount of memory and CPU resources. An alternative to semantic search, neural sparse search is implemented using an inverted index and is thus as efficient as BM25. Neural sparse search is facilitated by sparse embedding models. When you perform a neural sparse search, it creates a sparse vector (a list of `token: weight` key-value pairs representing an entry and its weight) and ingests data into a rank features index.
 
-Neural sparse search can also be combined with dense [semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/) to further boost the search relevance via [hybrid query]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/).
+Neural sparse search can also be combined with dense [semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/) to further boost the search relevance using [hybrid query]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/).
 
-## Tutorial Overview
+## Tutorial overview
 
 The tutorials include using neural sparse search with OpenSearch built-in pipelines and using neural sparse search with raw sparse vectors. You can follow the tutorials using your command line or the OpenSearch Dashboards [Dev Tools console]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/run-queries/).
 
@@ -39,7 +39,7 @@ For this tutorial, you'll use neural sparse search with OpenSearch's built-in ML
 
 ### Using neural sparse search with raw sparse vectors
 
-If you're using self-hosted sparse embedding models, neural sparse search supports ingestion and search via raw sparse vectors. This tutorial consists of the following steps:
+If you're using self-hosted sparse embedding models, neural sparse search supports ingestion and search using raw sparse vectors. This tutorial consists of the following steps:
 
 1. [**Ingest data with neural sparse search**](#step-1-ingest-data-with-neural-sparse-search).
     1. [Create an index](#step-1a-create-an-index).
@@ -52,7 +52,7 @@ If you're using self-hosted sparse embedding models, neural sparse search suppor
 
 ## Step 1: Set up an ML sparse encoding model
 
-Neural sparse search requires a sparse encoding model to generate sparse vector embeddings from text fields during ingestion. At query time, it operates in two modes: doc-only and bi-encoder. In the **doc-only mode**, neural sparse search simply tokenizes queries and retrieves their weights from a lookup table, **balancing search relevance and efficiency**. In the **bi-encoder mode**, a sparse encoding model generates sparse vector embeddings for queries, **providing extreme search relevance**. When selecting a model, first choose the working mode that best suits your workload.
+Neural sparse search requires a sparse encoding model to generate sparse vector embeddings from text fields during ingestion. At query time, it operates in two modes: doc-only and bi-encoder. In the **doc-only mode**, neural sparse search only tokenizes queries and retrieves their weights from a lookup table, **balancing search relevance and efficiency**. In the **bi-encoder mode**, a sparse encoding model generates sparse vector embeddings for queries, **providing extreme search relevance**. When selecting a model, first choose the working mode that best suits your workload.
 
 In the doc-only mode, tokenization does not involve model inference; however, a tokenizer is still deployed and invoked using the ML Commons Model API for a more streamlined experience.
 
@@ -85,9 +85,9 @@ For a [custom local model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/custom
 
 ### Step 1(a): Choose a sparse encoding model
 
-For this tutorial, you'll use the pre-trained sparse encoding models provided by OpenSearch. You'll need the model's name and version to register it. You can find this information in the [pretrained model table]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sparse-encoding-models). To select the appropriate models during ingestion and search, OpenSearch offers the following combinations:
+For this tutorial, you'll use the pretrained sparse encoding models provided by OpenSearch. You'll need the model's name and version to register it. You can find this information in the [pretrained model table]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sparse-encoding-models). To select the appropriate models during ingestion and search, OpenSearch offers the following combinations:
 
-| Mode      | Ingestion Model                                               | Search Model                                                  | Avg Search Relevance on BEIR | Model Parameters |
+| Mode      | Ingestion model                                               | Search model                                                  | Avg search relevance on BEIR | Model parameters |
 |-----------|---------------------------------------------------------------|---------------------------------------------------------------|------------------------------|------------------|
 | doc-only  | amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v1 | amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1    | 0.49                         | 133M             |
 | bi-encoder| amazon/neural-sparse/opensearch-neural-sparse-encoding-v1     | amazon/neural-sparse/opensearch-neural-sparse-encoding-v1     | 0.524                        | 133M             |
