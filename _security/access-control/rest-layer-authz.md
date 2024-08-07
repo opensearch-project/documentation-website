@@ -16,7 +16,7 @@ Developers, on the other hand, will need to understand the ideas behind `NamedRo
 
 The benefits of using the REST layer for authorization include the ability to authorize requests at the REST layer and filter out unauthorized requests. As a result, this decreases the processing burden on the transport layer while allowing granular control over access to APIs.
 
-Read/write access to OpenSearch should be configured using Security plugin [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/), instead of allowing/blocking HTTP request verbs like GET or POST, as some of the search operations require POST operations. For example searching using [scroll]({{site.url}}{{site.baseurl}}/api-reference/scroll/) will fail is POST operation is blocked, as the state is being set for future use.
+Some read operations manage state (for example [scroll]({{site.url}}{{site.baseurl}}/api-reference/scroll/). It is, therefore, recommended to control read and write access using Security plugin [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/), instead of allowing/blocking HTTP request verbs.
 
 You must have the Security plugin enabled to use REST layer authorization.
 {: .note }
