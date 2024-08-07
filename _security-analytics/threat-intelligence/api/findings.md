@@ -36,7 +36,7 @@ Parameter | Description
 `alertState`    | Used to filter by alert state. Possible values are `ACTIVE`, `ACKNOWLEDGED`, `COMPLETED`, `ERROR`, or `DELETED`. Optional. 
 `sortString`    | The string Security Analytics uses to sort the alerts. Optional.                          
 `sortOrder`     | The order used to sort the list of alerts. Possible values are `asc` or `desc`. Optional.                        
-`missing`       | A list of fields for which no alias mappings are found. Optional.                                          
+`missing`       | A list of fields for which no alias mappings were found. Optional.                                          
 `size`          | An optional maximum number of results to be returned in the response. Optional.                          
 `startIndex`    | The pagination indicator. Optional.  
 `searchString`  | The alert attribute you want returned in the search. Optional. 
