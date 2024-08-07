@@ -14,7 +14,7 @@ You can use the threat intelligence Monitor API to create, search, and update [m
 ---
 ## Create or update a threat intelligence monitor
 
-Creates or updates a new threat intelligence monitor.
+Creates or updates a threat intelligence monitor.
 
 ### Path and HTTP methods
 
@@ -232,7 +232,7 @@ Searches for an existing monitors using a query. The request body expects a sear
  
 ### Example request
 
-The following example request usings a match query with the monitor's ID to search for the monitor:
+The following example request using a match query with the monitor's ID to search for the monitor:
 
 ```
 POST /_plugins/_security_analytics/detectors/_search
