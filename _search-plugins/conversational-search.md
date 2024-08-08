@@ -5,6 +5,7 @@ has_children: false
 nav_order: 70
 redirect_from:
   - /ml-commons-plugin/conversational-search/
+canonical_url: https://opensearch.org/docs/latest/search-plugins/conversational-search/
 ---
 
 # Conversational search

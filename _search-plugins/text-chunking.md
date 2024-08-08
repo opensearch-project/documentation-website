@@ -2,6 +2,7 @@
 layout: default
 title: Text chunking
 nav_order: 65
+canonical_url: https://opensearch.org/docs/latest/search-plugins/text-chunking/
 ---
 
 # Text chunking
