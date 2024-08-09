@@ -18,29 +18,26 @@ The `cjk_bigram` token filter can be additionally configured with two parameters
 
 This option allows you to specify whether the filter should ignore certain scripts (like Latin, Cyrillic) and only tokenize CJK text into bigrams. The default is to ignore non-CJK scripts. See following list of possible options:
 
- - `"arab"`: Arabic script
- - `"armn"`: Armenian script
- - `"beng"`: Bengali script
- - `"cyrl"`: Cyrillic script
- - `"deva"`: Devanagari script
- - `"grek"`: Greek script
- - `"gujr"`: Gujarati script
- - `"guru"`: Gurmukhi script
- - `"hani"`: Han script (used for Chinese characters)
- - `"hans"`: Simplified Han script
- - `"hant"`: Traditional Han script
- - `"hebr"`: Hebrew script
- - `"hrkt"`: Hiragana and Katakana scripts
- - `"kana"`: Katakana script
- - `"hang"`: Hangul script (Korean)
- - `"jpan"`: Japanese script (combination of Kanji, Hiragana, Katakana)
- - `"knda"`: Kannada script
- - `"latn"`: Latin script
- - `"mlym"`: Malayalam script
- - `"orya"`: Oriya script
- - `"taml"`: Tamil script
- - `"telg"`: Telugu script
- - `"thai"`: Thai script
+1. `han` Token Filter
+
+    The `han` token filter is used to handle Han characters, which are the logograms used in the written languages of China, Japan, and Korea.
+    The filter can help in text processing tasks like tokenizing, normalizing, or stemming text written in Chinese, Japanese Kanji, or Korean Hanja.
+
+2. `hangul` Token Filter
+
+    The `hangul` token filter is specific to the Hangul script, which is the alphabet used to write the Korean language.
+    This filter is useful for processing Korean text by handling Hangul syllables, which are unique to Korean and do not exist in other East Asian scripts.
+
+3. `hiragana` Token Filter
+
+    The `hiragana` token filter is used for processing Hiragana, one of the two syllabaries used in the Japanese writing system.
+    Hiragana is typically used for native Japanese words, grammatical elements, and certain forms of punctuation.
+
+4. `katakana` Token Filter
+
+    The `katakana` token filter is for Katakana, the other syllabary used in Japanese.
+    Katakana is mainly used for foreign loanwords, onomatopoeia, scientific names, and certain Japanese words.
+
 
 ### `output_unigrams`
 
