@@ -48,25 +48,23 @@ This option, when set to `true`, outputs both unigrams (single characters) and b
 The following example request creates a new index named `devanagari_example_index` and defines an analyzer with the `cjk_bigram_filter` filter and `ignore_scripts` parameter set to `deva`:
 
 ```json
-PUT /devanagari_example_index
+PUT /cjk_bigram_example
 {
   "settings": {
     "analysis": {
-      "filter": {
-        "cjk_bigram_filter": {
-          "type": "cjk_bigram",
-          "ignore_scripts": ["deva"],
-          "output_unigrams": false
+      "analyzer": {
+        "cjk_bigrams_no_katakana": {
+          "tokenizer": "standard",
+          "filter": [ "cjk_bigrams_no_katakana_filter" ]
         }
       },
-      "analyzer": {
-        "cjk_deva_analyzer": {
-          "type": "custom",
-          "tokenizer": "standard",
-          "filter": [
-            "lowercase",
-            "cjk_bigram_filter"
-          ]
+      "filter": {
+        "cjk_bigrams_no_katakana_filter": {
+          "type": "cjk_bigram",
+          "ignored_scripts": [
+            "katakana"
+          ],
+          "output_unigrams": true
         }
       }
     }
@@ -80,13 +78,19 @@ PUT /devanagari_example_index
 Use the following request to examine the tokens generated using the created analyzer:
 
 ```json
-POST /devanagari_example_index/_analyze
+POST /cjk_bigram_example/_analyze
 {
-  "analyzer": "cjk_deva_analyzer",
-  "text": "यह एक उदाहरण है 中文文本" // Devanagari text followed by Chinese
+  "analyzer": "cjk_bigrams_no_katakana",
+  "text": "東京タワーに行く"
 }
 ```
 {% include copy-curl.html %}
+
+Sample Text: "東京タワーに行く"
+
+    東京 (Kanji for "Tokyo")
+    タワー (Katakana for "Tower")
+    に行く (Hiragana and Kanji for "go to")
 
 The response contains the generated tokens:
 
@@ -94,45 +98,69 @@ The response contains the generated tokens:
 {
   "tokens": [
     {
-      "token": "यह",
+      "token": "東",
       "start_offset": 0,
-      "end_offset": 3,
-      "type": "<ALPHANUM>",
+      "end_offset": 1,
+      "type": "<SINGLE>",
       "position": 0
     },
     {
-      "token": "एक",
-      "start_offset": 4,
-      "end_offset": 7,
-      "type": "<ALPHANUM>",
+      "token": "東京",
+      "start_offset": 0,
+      "end_offset": 2,
+      "type": "<DOUBLE>",
+      "position": 0,
+      "positionLength": 2
+    },
+    {
+      "token": "京",
+      "start_offset": 1,
+      "end_offset": 2,
+      "type": "<SINGLE>",
       "position": 1
     },
     {
-      "token": "उदाहरण",
-      "start_offset": 8,
-      "end_offset": 16,
-      "type": "<ALPHANUM>",
+      "token": "タワー",
+      "start_offset": 2,
+      "end_offset": 5,
+      "type": "<KATAKANA>",
       "position": 2
     },
     {
-      "token": "है",
-      "start_offset": 17,
-      "end_offset": 19,
-      "type": "<ALPHANUM>",
+      "token": "に",
+      "start_offset": 5,
+      "end_offset": 6,
+      "type": "<SINGLE>",
       "position": 3
     },
     {
-      "token": "中文",
-      "start_offset": 20,
-      "end_offset": 22,
-      "type": "<ALPHANUM>",
+      "token": "に行",
+      "start_offset": 5,
+      "end_offset": 7,
+      "type": "<DOUBLE>",
+      "position": 3,
+      "positionLength": 2
+    },
+    {
+      "token": "行",
+      "start_offset": 6,
+      "end_offset": 7,
+      "type": "<SINGLE>",
       "position": 4
     },
     {
-      "token": "文本",
-      "start_offset": 22,
-      "end_offset": 24,
-      "type": "<ALPHANUM>",
+      "token": "行く",
+      "start_offset": 6,
+      "end_offset": 8,
+      "type": "<DOUBLE>",
+      "position": 4,
+      "positionLength": 2
+    },
+    {
+      "token": "く",
+      "start_offset": 7,
+      "end_offset": 8,
+      "type": "<SINGLE>",
       "position": 5
     }
   ]
