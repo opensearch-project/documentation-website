@@ -1,3 +1,5 @@
+import * as UBI from "./ubi.js";
+
 const yesButton = document.getElementById('yes');
 const noButton = document.getElementById('no');
 const numCharsLabel = document.getElementById('num-chars');
@@ -48,7 +50,7 @@ function updateTextArea() {
     }
 
     // calculate the number of characters remaining
-    counter = 350 - commentTextArea.value.length;
+    const counter = 350 - commentTextArea.value.length;
     numCharsLabel.innerText = counter + " characters left";
 }
 
@@ -67,6 +69,22 @@ function sendFeedback() {
     }
 
     if (helpful === 'none' && comment === 'none') return;
+
+    try{
+        let e = new UBI.UbiEvent('user_feedback', {
+            message: `Relevance: ${helpful}, Comment: ${comment}`,
+            event_attributes:{
+                url:location.pathname,
+                helpful:helpful,
+                comment:comment
+            }
+          });
+          e.message_type = 'USER';
+          UBI.logEvent(e);
+
+    } catch(e){
+        console.warn(`UBI Error: ${e}`)
+    }
 
     // split the comment into 100-char parts because of GA limitation on custom dimensions
     const commentLines = ["", "", "", ""];
