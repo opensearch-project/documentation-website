@@ -82,7 +82,7 @@ If `detailed-results` is `true`, the following metadata is returned:
 ## create-index
 <!-- vale on -->
 
-The `create-index` operation runs the [Create Index API]({{site.url}}{{site.baseurl}}//api-reference/index-apis/create-index/). It supports the following two modes of index creation:
+The `create-index` operation runs the [Create Index API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/). It supports the following two modes of index creation:
 
 - Creating all indexes specified in the workloads `indices` section
 - Creating one specific index defined within the operation itself
