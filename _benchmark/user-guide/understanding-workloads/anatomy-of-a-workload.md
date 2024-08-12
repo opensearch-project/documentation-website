@@ -13,8 +13,8 @@ All workloads contain the following files and directories:
 - [workload.json](#workloadjson): Contains all of the workload settings.
 - [index.json](#indexjson): Contains the document mappings and parameters as well as index settings.
 - [files.txt](#filestxt): Contains the data corpora file names.
-- [_test-procedures](#_operations-and-_test-procedures): Most workloads contain only one default test procedure, which is configured in `default.json`.
-- [_operations](#_operations-and-_test-procedures): Contains all of the operations used in test procedures.
+- [_scenarios](#_operations-and-_scenarios): Most workloads contain only one default scenario, which is configured in `default.json`.
+- [_operations](#_operations-and-_scenarios): Contains all of the operations used in scenarios.
 - workload.py: Adds more dynamic functionality to the test.
 
 ## workload.json
@@ -86,7 +86,7 @@ A workload usually includes the following elements:
 
 - [indices]({{site.url}}{{site.baseurl}}/benchmark/workloads/indices/): Defines the relevant indexes and index templates used for the workload.
 - [corpora]({{site.url}}{{site.baseurl}}/benchmark/workloads/corpora/): Defines all document corpora used for the workload.
-- `schedule`: Defines operations and the order in which the operations run inline. Alternatively, you can use `operations` to group operations and the `test_procedures` parameter to specify the order of operations.
+- `schedule`: Defines operations and the order in which the operations run inline. Alternatively, you can use `operations` to group operations and the `scenarios` parameter to specify the order of operations.
 - `operations`: **Optional**. Describes which operations are available for the workload and how they are parameterized.
 
 ### Indices
@@ -268,11 +268,11 @@ When OpenSearch Benchmark creates an index for the workload, it uses the index s
 
 The `files.txt` file lists the files that store the workload data, which are typically stored in a zipped JSON file.
 
-## _operations and _test-procedures
+## _operations and _scenarios
 
-To make the workload more human-readable, `_operations` and `_test-procedures` are separated into two directories. 
+To make the workload more human-readable, `_operations` and `_scenarios` are separated into two directories. 
 
-The `_operations` directory contains a `default.json` file that lists all of the supported operations that the test procedure can use. Some workloads, such as `nyc_taxis`, contain an additional `.json` file that lists feature-specific operations, such as `snapshot` operations. The following JSON example shows a list of operations from the `nyc_taxis` workload:
+The `_operations` directory contains a `default.json` file that lists all of the supported operations that the scenario can use. Some workloads, such as `nyc_taxis`, contain an additional `.json` file that lists feature-specific operations, such as `snapshot` operations. The following JSON example shows a list of operations from the `nyc_taxis` workload:
 
 ```json
     {
@@ -632,12 +632,12 @@ The `_operations` directory contains a `default.json` file that lists all of the
     }
 ```
 
-The `_test-procedures` directory contains a `default.json` file that sets the order of operations performed by the workload. Similar to the `_operations` directory, the `_test-procedures` directory can also contain feature-specific test procedures, such as `searchable_snapshots.json` for `nyc_taxis`. The following examples show the searchable snapshots test procedures for `nyc_taxis`:
+The `_scenarios` directory contains a `default.json` file that sets the order of operations performed by the workload. Similar to the `_operations` directory, the `_scenarios` directory can also contain feature-specific scenarios, such as `searchable_snapshots.json` for `nyc_taxis`. The following examples show the searchable snapshots scenarios for `nyc_taxis`:
 
 ```json
  {
       "name": "searchable-snapshot",
-      "description": "Measuring performance for Searchable Snapshot feature. Based on the default test procedure 'append-no-conflicts'.",
+      "description": "Measuring performance for Searchable Snapshot feature. Based on the default scenario 'append-no-conflicts'.",
       "schedule": [
         {
           "operation": "delete-index"

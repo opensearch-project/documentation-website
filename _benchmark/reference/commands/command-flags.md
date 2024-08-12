@@ -19,7 +19,7 @@ opensearch-benchmark <command> --<command-flag>
 
 Flags that accept comma-separated values, such `--telemetry`, can also accept a JSON array. This can be defined by passing a file path ending in `.json` or inline as a JSON string.
 
-- Comma-seperated values: `opensearch-benchmark ... --test-procedure="ingest-only,search-aggregations"`
+- Comma-seperated values: `opensearch-benchmark ... --scenario="ingest-only,search-aggregations"`
 - JSON file: `opensearch-benchmark ... --workload-params="params.json"`
 - JSON inline string: `opensearch-benchmark  ... --telemetry='["node-stats", "recovery-stats"]'`
 
@@ -54,13 +54,13 @@ Defines the workload to use based on the workload's name. You can find a list of
 Defines which variables to inject into the workload. Variables injected must be available in the workload. To see which parameters are valid in the official workloads, select the workload from [the workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads).
 
 <!-- vale off -->
-## test-procedure
+## scenario
 <!-- vale on -->
 
-Defines the test procedures to use with each workload. You can find a list of test procedures that the workload supports by specifying the workload in the `info` command, for example, `opensearch-benchmark info --workload=<workload_name>`. To look up information on a specific test procedure, use the command `opensearch-benchmark info --workload=<workload_name> --test-procedure=<test-procedure>`.
+Defines the scenarios to use with each workload. You can find a list of scenarios that the workload supports by specifying the workload in the `info` command, for example, `opensearch-benchmark info --workload=<workload_name>`. To look up information on a specific scenario, use the command `opensearch-benchmark info --workload=<workload_name> --scenario=<scenario>`.
 
 <!-- vale off -->
-## test-execution-id
+## test-run-id
 <!-- vale on -->
 
 Defines a unique ID for the test run.
@@ -69,9 +69,9 @@ Defines a unique ID for the test run.
 ## include-tasks
 <!-- vale on -->
 
-Defines a comma-separated list of test procedure tasks to run. By default, all tasks listed in a test procedure array are run.
+Defines a comma-separated list of scenario tasks to run. By default, all tasks listed in a scenario array are run.
 
-Tests are executed in the order they are defined in `test-procedure`---not in the order they are defined in the command. 
+Tests are executed in the order they are defined in `scenario`---not in the order they are defined in the command. 
 
 All task filters are case sensitive.
 
@@ -79,19 +79,19 @@ All task filters are case sensitive.
 ## exclude-tasks
 <!-- vale on -->
 
-Defines a comma-separated list of test procedure tasks not to run.
+Defines a comma-separated list of scenario tasks not to run.
 
 <!-- vale off -->
 ## baseline
 <!-- vale on -->
 
-The baseline TestExecution ID used to compare the contender TestExecution.  
+The baseline TestRun ID used to compare the contender TestRun.  
 
 <!-- vale off -->
 ## contender
 <!-- vale on -->
 
-The TestExecution ID for the contender being compared to the baseline. 
+The TestRun ID for the contender being compared to the baseline. 
 
 <!-- vale off -->
 ## results-format
@@ -217,7 +217,7 @@ The major version of JDK to use.
 Defines a comma-separated list of clients to use. All options are passed to the OpenSearch Python client. Default is `timeout:60`.
 
 <!-- vale off -->
-## load-worker-coordinator-hosts
+## worker-ips
 <!-- vale on -->
 
 Defines a comma-separated list of hosts that coordinate loads. Default is `localhost`.

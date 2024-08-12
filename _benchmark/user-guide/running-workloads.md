@@ -22,21 +22,21 @@ A list of all workloads supported by OpenSearch Benchmark appears. Review the li
 
 ## Step 2: Running the test
 
-After you've selected the workload, you can invoke the workload using the `opensearch-benchmark execute-test` command. Replace  `--target-host` with the `host:port` pairs for your cluster and `--client-options` with any authorization options required to access the cluster. The following example runs the `nyc_taxis` workload on a localhost for testing purposes. 
+After you've selected the workload, you can invoke the workload using the `opensearch-benchmark run` command. Replace  `--target-host` with the `host:port` pairs for your cluster and `--client-options` with any authorization options required to access the cluster. The following example runs the `nyc_taxis` workload on a localhost for testing purposes. 
 
 If you want to run a test on an external cluster, see [Running the workload on your own cluster](#running-a-workload-on-an-external-cluster).
 
 ```bash
-opensearch-benchmark execute-test --pipeline=benchmark-only --workload=nyc_taxis --target-host=https://localhost:9200 --client-options=basic_auth_user:admin,basic_auth_password:admin,verify_certs:false
+opensearch-benchmark run --pipeline=benchmark-only --workload=nyc_taxis --target-host=https://localhost:9200 --client-options=basic_auth_user:admin,basic_auth_password:admin,verify_certs:false
 ```
 {% include copy.html %}
 
 
-Results from the test appear in the directory set by the `--output-path` option in the `execute-test` command.
+Results from the test appear in the directory set by the `--output-path` option in the `run` command.
 
 ### Test mode
 
-If you want to run the test in test mode to make sure that your workload operates as intended, add the `--test-mode` option to the `execute-test` command. Test mode ingests only the first 1,000 documents from each index provided and runs query operations against them.
+If you want to run the test in test mode to make sure that your workload operates as intended, add the `--test-mode` option to the `run` command. Test mode ingests only the first 1,000 documents from each index provided and runs query operations against them.
 
 ## Step 3: Validate the test
 
@@ -163,6 +163,6 @@ Now that you're familiar with running OpenSearch Benchmark on a local cluster, y
 You can copy the following command template to use it in your own terminal:
 
 ```bash
-opensearch-benchmark execute-test --pipeline=benchmark-only --workload=nyc_taxis --target-host=<OpenSearch Cluster Endpoint> --client-options=basic_auth_user:admin,basic_auth_password:admin
+opensearch-benchmark run --pipeline=benchmark-only --workload=nyc_taxis --target-host=<OpenSearch Cluster Endpoint> --client-options=basic_auth_user:admin,basic_auth_password:admin
 ```
 {% include copy.html %}

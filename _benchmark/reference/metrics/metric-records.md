@@ -21,11 +21,11 @@ OpenSearch Benchmark stores metrics in the `benchmark-metrics-*` indexes. A new 
   "_source": {
     "@timestamp": 1691702842821,
     "relative-time-ms": 65.90720731765032,
-    "test-execution-id": "8c43ee4c-cb34-494b-81b2-181be244f832",
-    "test-execution-timestamp": "20230810T212711Z",
+    "test-run-id": "8c43ee4c-cb34-494b-81b2-181be244f832",
+    "test-run-timestamp": "20230810T212711Z",
     "environment": "local",
     "workload": "geonames",
-    "test_procedure": "append-no-conflicts",
+    "scenario": "append-no-conflicts",
     "provision-config-instance": "external",
     "name": "service_time",
     "value": 607.8001195564866,
@@ -49,7 +49,7 @@ OpenSearch Benchmark stores metrics in the `benchmark-metrics-*` indexes. A new 
     "@timestamp": [
       "2023-08-10T21:27:22.821Z"
     ],
-    "test-execution-timestamp": [
+    "test-run-timestamp": [
       "2023-08-10T21:27:11.000Z"
     ]
   },
@@ -82,13 +82,13 @@ The timestamp of when the sample was taken since the epoch, in milliseconds. For
 The relative time since the start of the benchmark, in milliseconds. This is useful for comparing time-series graphs across multiple tests. For example, you can compare the indexing throughput over time across multiple tests. 
 
 <!-- vale off -->
-## test-execution-id
+## test-run-id
 <!-- vale on -->
 
 A UUID that changes on every invocation of the workload. It is intended to group all samples of a benchmarking run.
 
 <!-- vale off -->
-## test-execution-timestamp
+## test-run-timestamp
 <!-- vale on -->
 
 The timestamp of when the workload was invoked (always in UTC).
@@ -100,10 +100,10 @@ The timestamp of when the workload was invoked (always in UTC).
 The `environment` describes the origin of a metric record. This is defined when initially [configuring]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/) OpenSearch Benchmark. You can use separate environments for different benchmarks but store the metric records in the same index.
 
 <!-- vale off -->
-## workload, test_procedure, provision-config-instance
+## workload, scenario, provision-config-instance
 <!-- vale on -->
 
-The workload, test procedures, and configuration instances for which the metrics are produced.
+The workload, scenarios, and configuration instances for which the metrics are produced.
 
 <!-- vale off -->
 ## name, value, unit
