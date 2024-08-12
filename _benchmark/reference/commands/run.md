@@ -17,7 +17,7 @@ Whether you're using the included [OpenSearch Benchmark workloads](https://githu
 
 ## Usage
 
-The following example tests a run using the `geonames` workload in test mode: 
+The following example performs a quick test using the `geonames` workload in test mode: 
 
 ```
 opensearch-benchmark run --workload=geonames --test-mode 
@@ -91,7 +91,7 @@ Use the following options to customize the `run` command for your use case. Opti
 
 ## General settings
 
-The following options customize each run and affects how run results appear: 
+The following options customize each test run and affects how run results appear: 
 
 - `--test-mode`: Runs the given workload in test mode, which is useful when checking a workload for errors.
 - `--user-tag`: Defines user-specific key-value pairs to be used in metric record as meta information, for example, `intention:baseline-ticket-12345`.
@@ -143,16 +143,16 @@ The following options help customize how OpenSearch Benchmark provisions OpenSea
 
 ### Workload
 
-The following options determine which workload is used during the run:
+The following options determine which workload is used during the test:
 
 - `--workload-repository`: Defines the repository from which OpenSearch Benchmark loads workloads. 
 - `--workload-path`: Defines the path to a downloaded or custom workload.
 - `--workload-revision`: Defines a specific revision from the workload source tree that OpenSearch Benchmark should use.
 - `--workload`: Defines the workload to use based on the workload's name. You can find a list of preloaded workloads using `opensearch-benchmark list workloads`.
 
-### Run procedures
+### Scenerios
 
-The following options define what run procedures the run uses and which operations are contained inside the procedure: 
+The following options define what scenarios the test uses and which operations are contained inside the procedure: 
 
 - `--test-run-id`: Defines a unique ID for this run.
 Defines the run procedures to use with each workload. You can find a list of run procedures that the workload supports by specifying the workload in the `info` command, for example, `opensearch-benchmark info --workload=<workload_name>`. To look up information on a specific run procedure, use the command `opensearch-benchmark info --workload=<workload_name> --scenario=<scenario>`.
