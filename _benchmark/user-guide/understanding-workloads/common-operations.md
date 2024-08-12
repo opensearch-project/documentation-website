@@ -8,7 +8,7 @@ parent: Understanding workloads
 
 # Common operations
 
-[Test procedures]({{site.url}}{{site.baseurl}}/benchmark/user-guide/understanding-workloads/anatomy-of-a-workload#operations-and-_test-procedures) use a variety of operations, found inside the `operations` directory of a workload. This page details the most common operations found inside Benchmark workloads.
+[Test procedures]({{site.url}}{{site.baseurl}}/benchmark/user-guide/understanding-workloads/anatomy-of-a-workload#_operations-and-_test-procedures) use a variety of operations, found inside the `operations` directory of a workload. This page details the most common operations found inside Benchmark workloads.
 
 - [Common operations](#common-operations)
   - [bulk](#bulk)
