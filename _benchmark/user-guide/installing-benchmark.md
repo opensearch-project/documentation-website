@@ -165,7 +165,7 @@ If you plan on having Benchmark provision a cluster, you'll need to inform Bench
 
 2. Set your corresponding JDK version environment variable by entering the path from the previous step. Enter `export JAVA17_HOME=<Java Path>`.
 
-3. Run the `run` command and indicate the distribution version of OpenSearch you want to use: 
+3. Use the `run` command and indicate the distribution version of OpenSearch you want to use: 
 
   ```bash
   opensearch-benchmark run --distribution-version=2.3.0 --workload=geonames --test-mode 
@@ -199,7 +199,7 @@ After running OpenSearch Benchmark for the first time, you can search through al
 * `benchmark.ini`: Contains any adjustable configurations for tests. For information about how to configure OpenSearch Benchmark, see [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/).
 * `data`: Contains all the data corpora and documents related to OpenSearch Benchmark's [official workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/geonames).
 * `distributions`: Contains all the OpenSearch distributions downloaded from [OpenSearch.org](http://opensearch.org/) and used to provision clusters.
-* `test_runs`: Contains all the test `execution_id`s from previous runs of OpenSearch Benchmark.
+* `test_runs`: Contains all the test `test_run_id`s from previous runs of OpenSearch Benchmark.
 * `workloads`: Contains all files related to workloads, except for the data corpora.
 * `logging.json`: Contains all of the configuration options related to how logging is performed within OpenSearch Benchmark.
 * `logs`: Contains all the logs from OpenSearch Benchmark runs. This can be helpful when you've encountered errors during runs.
