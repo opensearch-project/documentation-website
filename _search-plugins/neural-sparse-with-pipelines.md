@@ -10,9 +10,9 @@ has_children: false
 
 Generating sparse vector embeddings within OpenSearch enables neural sparse search to function like lexical search. To take advantage of this encapsulation, set up an ingest pipeline to create and store sparse vector embeddings from document text during ingestion. At query time, input plain text, which will be automatically converted into vector embeddings for search.
 
-For this tutorial, you’ll use neural sparse search with OpenSearch’s built-in ML model hosting and ingest pipelines. Because the transformation of text to embeddings is performed within OpenSearch, you'll use text when ingesting and searching documents. 
+For this tutorial, you'll use neural sparse search with OpenSearch's built-in machine learning (ML) model hosting and ingest pipelines. Because the transformation of text to embeddings is performed within OpenSearch, you'll use text when ingesting and searching documents. 
 
-At ingestion time, neural sparse search uses a sparse encoding to generate sparse vector embeddings from text fields during ingestion. 
+At ingestion time, neural sparse search uses a sparse encoding model to generate sparse vector embeddings from text fields. 
 
 At query time, neural sparse search operates in one of two search modes: 
 
@@ -27,14 +27,14 @@ For more information about choosing the neural sparse search mode that best suit
 This tutorial consists of the following steps:
 
 1. [**Configure a sparse encoding model/tokenizer**](#step-1-configure-a-sparse-encoding-modeltokenizer).
-    1. [Choose the search mode](#step-1a-choose-the-search-mode).
-    1. [Register the model/tokenizer](#step-1b-register-the-modeltokenizer).
-    1. [Deploy the model/tokenizer](#step-1c-deploy-the-modeltokenizer).
-1. [**Ingest data**](#step-2-ingest-data).
-    1. [Create an ingest pipeline](#step-2a-create-an-ingest-pipeline).
-    1. [Create an index for ingestion](#step-2b-create-an-index-for-ingestion).
-    1. [Ingest documents into the index](#step-2c-ingest-documents-into-the-index).
-1. [**Search the data**](#step-3-search-the-data).
+    1. [Choose the search mode](#step-1a-choose-the-search-mode)
+    1. [Register the model/tokenizer](#step-1b-register-the-modeltokenizer)
+    1. [Deploy the model/tokenizer](#step-1c-deploy-the-modeltokenizer)
+1. [**Ingest data**](#step-2-ingest-data)
+    1. [Create an ingest pipeline](#step-2a-create-an-ingest-pipeline)
+    1. [Create an index for ingestion](#step-2b-create-an-index-for-ingestion)
+    1. [Ingest documents into the index](#step-2c-ingest-documents-into-the-index)
+1. [**Search the data**](#step-3-search-the-data)
 
 ### Prerequisites
 
@@ -42,7 +42,7 @@ Before you start, complete the [prerequisites]({{site.url}}{{site.baseurl}}/sear
 
 ## Step 1: Configure a sparse encoding model/tokenizer
 
-Both bi-encoder and doc-only search modes require configuring a sparse encoding model. Doc-only mode requires configuring a tokenizer in addition to the model.
+Both the bi-encoder and doc-only search modes require you to configure a sparse encoding model. Doc-only mode requires you to configure a tokenizer in addition to the model.
 
 ### Step 1(a): Choose the search mode
 
@@ -52,7 +52,7 @@ Choose the search mode and the appropriate model/tokenizer combination:
 
 - **Doc-only**: Use the `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v1` model during ingestion and the `amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1` tokenizer during search.
 
-The following table provides search relevance comparison for the two search modes so you can choose the best mode for your use case.
+The following table provides a search relevance comparison for the two search modes so that you can choose the best mode for your use case.
 
 | Mode      | Ingestion model                                               | Search model                                                  | Avg search relevance on BEIR | Model parameters |
 |-----------|---------------------------------------------------------------|---------------------------------------------------------------|------------------------------|------------------|
@@ -65,7 +65,7 @@ When you register a model/tokenizer, OpenSearch creates a model group for the mo
 
 #### Bi-encoder mode
 
-For the bi-encoder mode, you need to register only the `amazon/neural-sparse/opensearch-neural-sparse-encoding-v1` model.
+When using bi-encoder mode, you only need to register the `amazon/neural-sparse/opensearch-neural-sparse-encoding-v1` model.
 
 Register the sparse encoding model:
 
@@ -79,7 +79,7 @@ POST /_plugins/_ml/models/_register?deploy=true
 ```
 {% include copy-curl.html %}
 
-Registering a model is an asynchronous task. OpenSearch sends back a task ID for every model you register:
+Registering a model is an asynchronous task. OpenSearch returns a task ID for every model you register:
 
 ```json
 {
@@ -95,7 +95,7 @@ GET /_plugins/_ml/tasks/aFeif4oB5Vm0Tdw8yoN7
 ```
 {% include copy-curl.html %}
 
-Once the task is complete, the task state will be `COMPLETED` and the Tasks API response will contain a model ID for the registered model:
+Once the task is complete, the task state will change to `COMPLETED` and the Tasks API response will contain the model ID of the registered model:
 
 ```json
 {
@@ -116,7 +116,7 @@ Note the `model_id` of the model you've created; you'll need it for the followin
 
 #### Doc-only mode
 
-For the doc-only mode, you need to register the `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v1` model that you'll use at ingestion time and the `amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1` tokenizer that you'll use at search time.
+When using doc-only mode, you need to register the `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v1` model, which you'll use at ingestion time, and the `amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1` tokenizer, which you'll use at search time.
 
 Register the sparse encoding model:
 
@@ -157,7 +157,7 @@ POST /_plugins/_ml/models/<bi-encoder model ID>/_deploy
 ```
 {% include copy-curl.html %}
 
-Like the register operation, the deploy operation is asynchronous, so you'll get a task ID in the response:
+As with the register operation, the deploy operation is asynchronous, so you'll get a task ID in the response:
 
 ```json
 {
@@ -173,7 +173,7 @@ GET /_plugins/_ml/tasks/ale6f4oB5Vm0Tdw8NINO
 ```
 {% include copy-curl.html %}
 
-Once the task is complete, the task state will be `COMPLETED`:
+Once the task is complete, the task state will change to `COMPLETED`:
 
 ```json
 {
@@ -206,11 +206,11 @@ POST /_plugins/_ml/models/<tokenizer ID>/_deploy
 ```
 {% include copy-curl.html %}
 
-Like fo the bi-encoder mode, you can check the status of both deploy tasks by using the Tasks API. Once the task is complete, the task state will be `COMPLETED`.
+As with bi-encoder mode, you can check the status of both deploy tasks by using the Tasks API. Once the task is complete, the task state will change to `COMPLETED`.
 
 ## Step 2: Ingest data 
 
-In both the bi-encoder and the doc-only modes, you'll use a sparse encoding model at ingestion time to generate sparse vector embeddings.
+In both the bi-encoder and doc-only modes, you'll use a sparse encoding model at ingestion time to generate sparse vector embeddings.
 
 ### Step 2(a): Create an ingest pipeline
 
@@ -240,9 +240,9 @@ To split long text into passages, use the `text_chunking` ingest processor befor
 
 ### Step 2(b): Create an index for ingestion
 
-In order to use the sparse encoding processor defined in your pipeline, create a rank features index, adding the pipeline created in the previous step as the default pipeline. Ensure that the fields defined in the `field_map` are mapped as correct types. Continuing with the example, the `passage_embedding` field must be mapped as [`rank_features`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/rank/#rank-features). Similarly, the `passage_text` field should be mapped as `text`.
+In order to use the sparse encoding processor defined in your pipeline, create a rank features index, adding the pipeline created in the previous step as the default pipeline. Ensure that the fields defined in the `field_map` are mapped as correct types. Continuing with the example, the `passage_embedding` field must be mapped as [`rank_features`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/rank/#rank-features). Similarly, the `passage_text` field must be mapped as `text`.
 
-The following example request creates a rank features index that is set up with a default ingest pipeline:
+The following example request creates a rank features index configured with a default ingest pipeline:
 
 ```json
 PUT /my-nlp-index
@@ -328,7 +328,7 @@ Before the document is ingested into the index, the ingest pipeline runs the `sp
 
 To perform a neural sparse search on your index, use the `neural_sparse` query clause in [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/) queries. 
 
-The following example request uses a `neural_sparse` query to search for relevant documents using a raw text query. Provide the model ID for the bi-encoder mode or the tokenizer ID for the doc-only mode:
+The following example request uses a `neural_sparse` query to search for relevant documents using a raw text query. Provide the model ID for bi-encoder mode or the tokenizer ID for doc-only mode:
 
 ```json
 GET my-nlp-index/_search
@@ -423,14 +423,14 @@ The response contains the matching documents:
 
 ## Accelerating neural sparse search
 
-To learn more about improving retrieval time in neural sparse search, see [Accelerating neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/#accelerating-neural-sparse-search).
+To learn more about improving retrieval time for neural sparse search, see [Accelerating neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/#accelerating-neural-sparse-search).
 
 ## Creating a search pipeline for neural sparse search
 
-You can create a search pipeline that augments neural sparse search functionality:
+You can create a search pipeline that augments neural sparse search functionality by:
 
-- Accelerates neural sparse search for faster retrieval.
-- Sets the default model ID on an index for easier use. 
+- Accelerating neural sparse search for faster retrieval.
+- Setting the default model ID on an index for easier use. 
 
 To configure the pipeline, add a [`neural_sparse_two_phase_processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-sparse-query-two-phase-processor/) or a [`neural_query_enricher`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-query-enricher/) processor. The following request creates a pipeline with both processors:
 

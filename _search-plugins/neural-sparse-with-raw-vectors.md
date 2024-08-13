@@ -14,19 +14,19 @@ If you're using self-hosted sparse embedding models, you can ingest raw sparse v
 
 This tutorial consists of the following steps:
 
-1. [**Ingest sparse vectors**](#step-1-ingest-sparse-vectors).
-    1. [Create an index](#step-1a-create-an-index).
-    1. [Ingest documents into the index](#step-1b-ingest-documents-into-the-index).
+1. [**Ingest sparse vectors**](#step-1-ingest-sparse-vectors)
+    1. [Create an index](#step-1a-create-an-index)
+    1. [Ingest documents into the index](#step-1b-ingest-documents-into-the-index)
 1. [**Search the data using raw sparse vector**](#step-2-search-the-data-using-a-sparse-vector).
 
 
 ## Step 1: Ingest sparse vectors
 
-Once you have generated sparse vector embeddings, you can ingest them into OpenSearch directly.
+Once you have generated sparse vector embeddings, you can directly ingest them into OpenSearch.
 
 ### Step 1(a): Create an index
 
-In order to ingest documents of raw sparse vectors, create a rank features index:
+In order to ingest documents containing raw sparse vectors, create a rank features index:
 
 ```json
 PUT /my-nlp-index
@@ -96,4 +96,4 @@ GET my-nlp-index/_search
 
 ## Accelerating neural sparse search
 
-To learn more about improving retrieval time in neural sparse search, see [Accelerating neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/#accelerating-neural-sparse-search).
+To learn more about improving retrieval time for neural sparse search, see [Accelerating neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/#accelerating-neural-sparse-search).
