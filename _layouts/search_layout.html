@@ -27,12 +27,11 @@ layout: table_wrappers
         </head>
         <div class="search-page">
             <aside class="search-page--sidebar">
-                <h2>Refine Your Search</h2>
+                <h2>Filter results</h2>
                 <div class="version-selector-wrapper" id="version-panel">
                     <version-selector selected="{{ site.data.versions.current }}"></version-selector>
                 </div>
                 <form class="search-page--sidebar--category-filter">
-                    <label>Category:</label>
                     <div class="search-page--sidebar--category-filter--checkbox">
                         <div>
                             <input type="checkbox" id="categoryAll" name="categoryGroup" value="All" class="category-checkbox" checked>
@@ -48,10 +47,15 @@ layout: table_wrappers
                         </div>
                     </div>
                 </form>
-                <button class="search-page--sidebar--search-button" id="searchButton" type="button">Start Searching</button>
             </aside>
             <div class="search-page--results">
-                <input type="text" class="search-page--results--input" id="searchPageInput" placeholder="Search from results page" aria-label="Search {{ site.title }}" autocomplete="off">
+                <div class="search-page--results--input">
+                    <input type="text" class="search-page--results--input-box" id="searchPageInput" placeholder="Search for anything" aria-label="Search {{ site.title }}" autocomplete="off">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="search-page--results--input-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </div>
                 <main class="search-page--results--diplay">
                     <h1 class="search-page--results--diplay--header" id="searchPageResultsHeader"></h1>
                     <div class="search-page--results--diplay--container" id="searchPageResultsContainer">
@@ -67,20 +71,6 @@ layout: table_wrappers
 </div>
 
 {% include footer.html %}
-<script>
-    const checkboxes = document.querySelectorAll('.category-checkbox');
-    checkboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
-            if (this.checked) {
-                checkboxes.forEach(cb => {
-                    if (cb !== this) {
-                        cb.checked = false;
-                    }
-                });
-            }
-        });
-    });
-</script>
 <script src="{{ '/assets/js/search.js' | relative_url }}"></script>
 <script src="{{ '/assets/js/home-listener.js' | relative_url }}"></script>
 <script>
@@ -103,30 +93,34 @@ layout: table_wrappers
 </script>
 <script>
     const searchInput = document.getElementById('searchPageInput');
-    const searchButton = document.getElementById('searchButton');
+    const checkboxes = document.querySelectorAll('.category-checkbox');
 
+    function getSelectedCategory() {
+        const allCheckbox = document.getElementById('categoryAll');
+        if (allCheckbox.checked) {
+            return "All";
+        }
+        return document.querySelector('input[name="categoryGroup"]:checked').value;
+    }
+    
     function triggerSearch(query) {
       const searchResultsHeader = document.getElementById('searchPageResultsHeader');
 
       if (query) {
         trucatedQuery = truncateSentence(query, 20);
-        const selectedCategory = document.querySelector('input[name="categoryGroup"]:checked').value;
+        const selectedCategory = getSelectedCategory();
         const searchType = selectedCategory == ("Documentation") ? "docs" : selectedCategory == ("News") ? "proj" : "all";
         const urlPath = window.location.pathname;
         const versionMatch = urlPath.match(/(\d+\.\d+)/);
         const docsVersion = versionMatch ? versionMatch[1] : "latest";
 
-        searchResultsHeader.textContent = `Search Results for "${trucatedQuery}"`;
+        searchResultsHeader.textContent = `Search results for "${trucatedQuery}"`;
         doResultsPageSearch(query, searchType, docsVersion);
       } else {
         searchResultsHeader.textContent = 'Please input a Query for searching.';
         document.getElementById('searchPageResultsContainer').innerHTML = '';
       }
     }
-
-    searchButton.addEventListener('click', function() {
-      triggerSearch(searchInput.value.trim());
-    });
 
     searchInput.addEventListener('keydown', function(event) {
       if (event.key === 'Enter') {
@@ -135,6 +129,45 @@ layout: table_wrappers
       }
     });
       
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const categoryAll = document.getElementById('categoryAll');
+        const categoryDocumentation = document.getElementById('categoryDocumentation');
+        const categoryNews = document.getElementById('categoryNews');
+        const searchInput = document.getElementById('searchPageInput');
+
+        function updateAllCheckbox() {
+            if (categoryDocumentation.checked && categoryNews.checked) {
+                categoryAll.checked = true;
+            } else {
+                categoryAll.checked = false;
+            }
+        }
+
+        function updateChildCheckboxes() {
+            if (categoryAll.checked) {
+                categoryDocumentation.checked = true;
+                categoryNews.checked = true;
+            } else {
+                categoryDocumentation.checked = false;
+                categoryNews.checked = false;
+            }
+        }
+
+        categoryAll.addEventListener('change', () => {
+            updateChildCheckboxes(); 
+            triggerSearch(searchInput.value.trim());
+        });
+        categoryDocumentation.addEventListener('change',  () => {
+            updateAllCheckbox(); 
+            triggerSearch(searchInput.value.trim());
+        });
+        categoryNews.addEventListener('change', () => {
+            updateAllCheckbox(); 
+            triggerSearch(searchInput.value.trim());
+        });
+    });
 </script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {

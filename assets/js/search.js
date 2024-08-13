@@ -293,20 +293,34 @@ window.doResultsPageSearch = async (query, type, version) => {
               const resultElement = document.createElement('div');
               resultElement.classList.add('search-page--results--diplay--container--item');
 
+              const contentCite = document.createElement('cite');
+              const crumbs = [...result.ancestors];
+              if (result.type === 'DOCS') crumbs.unshift(`OpenSearch ${result.versionLabel || result.version}`);
+              else if (result.type) crumbs.unshift(result.type);
+              contentCite.textContent = crumbs.join(' › ')?.replace?.(/</g, '&lt;');
+              contentCite.style.fontSize = '.8em';
+
               const titleLink = document.createElement('a');
               titleLink.href = result.url;
               titleLink.textContent = result.title;
               titleLink.style.fontSize = '1.5em';
+              titleLink.style.fontWeight = 'bold';
+              titleLink.style.display = "block";
 
               const contentSpan = document.createElement('span');
               contentSpan.textContent = result.content;
-              contentSpan.style.display = 'block';
+              contentSpan.style.display = "block";
 
+              resultElement.appendChild(contentCite);
               resultElement.appendChild(titleLink);
               resultElement.appendChild(contentSpan);
 
               // Append the result element to the searchResultsContainer
               searchResultsContainer.appendChild(resultElement);
+
+              const breakline = document.createElement('hr');
+              breakline.style.border = '.5px solid #ccc';
+              searchResultsContainer.appendChild(breakline);
             });
         } else {
           const noResultsElement = document.createElement('div');
