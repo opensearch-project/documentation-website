@@ -27,7 +27,7 @@ For more information about choosing the neural sparse search mode that best suit
 This tutorial consists of the following steps:
 
 1. [**Configure a sparse encoding model/tokenizer**](#step-1-configure-a-sparse-encoding-modeltokenizer).
-    1. [Choose a sparse encoding model](#step-1a-choose-the-search-mode).
+    1. [Choose the search mode](#step-1a-choose-the-search-mode).
     1. [Register the model/tokenizer](#step-1b-register-the-modeltokenizer).
     1. [Deploy the model/tokenizer](#step-1c-deploy-the-modeltokenizer).
 1. [**Ingest data**](#step-2-ingest-data).
