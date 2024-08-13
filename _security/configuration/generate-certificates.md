@@ -115,7 +115,7 @@ openssl req -new -key node1-key.pem -out node1.csr
 For all host and client certificates, you should specify a subject alternative name (SAN) to ensure compliance with [RFC 2818 (HTTP Over TLS)](https://datatracker.ietf.org/doc/html/rfc2818). The SAN should match the corresponding CN so that both refer to the same DNS A record.
 {: .note }
 
-Before generating a signed certificate, create a SAN extension file that describes the DNS A record for the host. If you're connecting to a host that only has an IP address, either IPv4 and IPv6, use the `IP` syntax:
+Before generating a signed certificate, create a SAN extension file that describes the DNS A record for the host. If you're connecting to a host that only has an IP address, either IPv4 or IPv6, use the `IP` syntax:
 
 **No IP**
 
