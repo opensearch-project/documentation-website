@@ -14,7 +14,7 @@ This documentation focuses on using the OpenSeach Dashboards interface to connec
 Make sure you followed and configured [Prerequisites]({{site.url}}{{site.baseurl}}/dashboards/management/data-sources/#prerequisites) and [Permissions]({{site.url}}{{site.baseurl}}/dashboards/management/data-sources/#permissions).
 
 
-## Create a Prometheus data source connection
+## Creating a Prometheus data source connection
 
 A data source connection specifies the parameters needed to connect to a data source. These parameters form a connection string for the data source. Using Dashboards, you can add new **Amazon S3** or **Prometheus** data source connections or manage existing ones.
 
@@ -34,7 +34,7 @@ The following steps guide you through the basics of creating a **Prometheus** da
 
 3. When you have entered all the details, select **Review Configuration** > **Connect to Prometheus** to save your settings. The connection is created. The active window returns to the **Data sources** main page, and the new connection appears in the list of data sources.
 
-### Modify a data source connection
+### Modifying a data source connection
 
 To make changes to a data source connection, select a connection in the list on the **Data sources** main page. The **Connection Details** window opens.
 
@@ -46,6 +46,6 @@ When **AWS Signature Version 4** is the selected authentication method, you can 
 
 To delete the data source connection, select the delete icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-icon.png" class="inline-icon" alt="delete icon"/>{:/}).
 
-## Create an index pattern
+## Creating an index pattern
 
 Once you've created a data source connection, you can create an index pattern for the data source. An _index pattern_ is a template that OpenSearch uses to create indexes for data from the data source. See [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/) for more information and a tutorial. 
