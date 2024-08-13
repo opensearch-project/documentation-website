@@ -305,11 +305,11 @@ window.doResultsPageSearch = async (query, type, version) => {
               titleLink.textContent = result.title;
               titleLink.style.fontSize = '1.5em';
               titleLink.style.fontWeight = 'bold';
-              titleLink.style.display = "block";
+              titleLink.style.display = 'block';
 
               const contentSpan = document.createElement('span');
               contentSpan.textContent = result.content;
-              contentSpan.style.display = "block";
+              contentSpan.style.display = 'block';
 
               resultElement.appendChild(contentCite);
               resultElement.appendChild(titleLink);
@@ -320,6 +320,7 @@ window.doResultsPageSearch = async (query, type, version) => {
 
               const breakline = document.createElement('hr');
               breakline.style.border = '.5px solid #ccc';
+              breakline.style.margin = 'auto';
               searchResultsContainer.appendChild(breakline);
             });
         } else {
