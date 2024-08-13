@@ -157,7 +157,7 @@ The `create-index` operation returns the following metadata:
 ## delete-index
 <!-- vale on -->
 
-The `delete-index` operation runs the [Delete Index API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/delete-index/). Like with the [`create-index`](#create-index) operation, you can delete all indexes found in the `indices` section of the workload or delete one or more indexes based on the string passed in the `index` setting.
+The `delete-index` operation runs the [Delete Index API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/delete-index/). As with the [`create-index`](#create-index) operation, you can delete all indexes found in the `indices` section of the workload or delete one or more indexes based on the string passed in the `index` setting.
 
 ### Usage
 
@@ -215,7 +215,7 @@ The `delete-index` operation returns the following metadata:
 ## cluster-health
 <!-- vale on -->
 
-The `cluster-health` operation runs the [Cluster Health API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/), which checks the cluster health status and returns the expected status according to the parameters set for `request-params`. If an unexpected cluster health status is returned, the operation reports a failure. You can use the `--on-error` option in the OpenSearch Benchmark `execute-test` command to control how OpenSearch Benchmark behaves when the health check fails.
+The `cluster-health` operation runs the [Cluster Health API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/), which checks the cluster health status and returns the expected status according to the parameters set for `request-params`. If an unexpected cluster health status is returned, then the operation reports a failure. You can use the `--on-error` option in the OpenSearch Benchmark `execute-test` command to control how OpenSearch Benchmark behaves when the health check fails.
 
 
 ### Usage
