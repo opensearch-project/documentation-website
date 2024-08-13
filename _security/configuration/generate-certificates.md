@@ -115,13 +115,21 @@ openssl req -new -key node1-key.pem -out node1.csr
 For all host and client certificates, you should specify a subject alternative name (SAN) to ensure compliance with [RFC 2818 (HTTP Over TLS)](https://datatracker.ietf.org/doc/html/rfc2818). The SAN should match the corresponding CN so that both refer to the same DNS A record.
 {: .note }
 
-Before generating a signed certificate, create a SAN extension file which describes the DNS A record for the host:
+Before generating a signed certificate, create a SAN extension file that describes the DNS A record for the host. If you're connecting to a host that only has an IP address, either IPv4 or IPv6, use the `IP` syntax:
+
+**No IP**
 
 ```bash
 echo 'subjectAltName=DNS:node1.dns.a-record' > node1.ext
 ```
 
-Generate the certificate:
+**With IP**
+
+```bash
+echo subjectAltName=IP:127.0.0.1 > node1.ext
+```
+
+With the DNS A record described, generate the certificate:
 
 ```bash
 openssl x509 -req -in node1.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out node1.pem -days 730 -extfile node1.ext
