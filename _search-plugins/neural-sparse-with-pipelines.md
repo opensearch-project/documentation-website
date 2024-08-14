@@ -279,7 +279,7 @@ PUT /my-nlp-index
     "default_pipeline": "nlp-ingest-pipeline-sparse"
   },
   "mappings": {
-      "_source": {
+    "_source": {
       "excludes": [
         "passage_embedding"
       ]
@@ -423,6 +423,28 @@ The response contains the matching documents:
   }
 }
 ```
+
+To reduce the latency of disk I/O and network I/O about sparse embedding source , you can exclude the embedding vector source in query as follows:
+
+```json
+GET my-nlp-index/_search
+{
+  "_source": {
+    "excludes": [
+      "passage_embedding"
+    ]
+  },
+  "query": {
+    "neural_sparse": {
+      "passage_embedding": {
+        "query_text": "Hi world",
+        "model_id": "<bi-encoder or tokenizer ID>"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
 
 ## Accelerating neural sparse search
 
