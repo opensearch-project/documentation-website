@@ -325,7 +325,7 @@ window.doResultsPageSearch = async (query, type, version) => {
             });
         } else {
           const noResultsElement = document.createElement('div');
-          noResultsElement.textContent = 'No results found!';
+          noResultsElement.textContent = 'No results found.';
           noResultsElement.style.fontSize = '2em';
           searchResultsContainer.appendChild(noResultsElement);
         }

@@ -37,11 +37,11 @@ layout: table_wrappers
                             <input type="checkbox" id="categoryAll" name="categoryGroup" value="All" class="category-checkbox" checked>
                             <label for="categoryAll">All</label>
                         </div>
-                        <div>
+                        <div class="search-page--sidebar--category-filter--checkbox-child">
                             <input type="checkbox" id="categoryDocumentation" name="categoryGroup" value="Documentation" class="category-checkbox">
                             <label for="categoryDocumentation">Documentation</label>
                         </div>
-                        <div>
+                        <div class="search-page--sidebar--category-filter--checkbox-child">
                             <input type="checkbox" id="categoryNews" name="categoryGroup" value="News" class="category-checkbox">
                             <label for="categoryNews">News</label>
                         </div>
@@ -100,7 +100,7 @@ layout: table_wrappers
         if (allCheckbox.checked) {
             return "All";
         }
-        return document.querySelector('input[name="categoryGroup"]:checked').value;
+        return document.querySelector('input[name="categoryGroup"]:checked');
     }
     
     function triggerSearch(query) {
@@ -108,7 +108,12 @@ layout: table_wrappers
 
       if (query) {
         trucatedQuery = truncateSentence(query, 20);
-        const selectedCategory = getSelectedCategory();
+        if (getSelectedCategory() == null) {
+            searchResultsHeader.textContent = 'Select the result type for your search.';
+            document.getElementById('searchPageResultsContainer').innerHTML = '';
+            return;
+        }
+        const selectedCategory = getSelectedCategory().value;
         const searchType = selectedCategory == ("Documentation") ? "docs" : selectedCategory == ("News") ? "proj" : "all";
         const urlPath = window.location.pathname;
         const versionMatch = urlPath.match(/(\d+\.\d+)/);
