@@ -192,6 +192,7 @@ OpenSearch uses thread pools to manage the execution of various tasks, including
 thread_pool.search.size: 100
 thread_pool.search.queue_size: 1000
 ```
+This setting is static, for further details on how to configure dynamic and static settings see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/)
 
 #### How thread pools work
 
