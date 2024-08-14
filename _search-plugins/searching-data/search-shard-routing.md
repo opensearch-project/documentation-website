@@ -1,21 +1,14 @@
 ---
 layout: default
+parent: Searching data
 title: Search shard routing
-nav_order: 210
+nav_order: 70
 ---
 
 # Search shard routing
 
 To ensure redundancy and improve search performance, OpenSearch distributes index data across multiple primary shards, with each primary shard having one or more replica shards. When a search query is executed, OpenSearch routes the request to a node containing either primary or replica shard of the index. This technique is known as _search shard routing_.
 
----
-
-#### Table of contents
-1. TOC
-{:toc}
-
-
----
 
 ## Adaptive replica selection
 
@@ -51,41 +44,67 @@ OpenSearch uses all nodes to choose the best routing for search requests. Howeve
 You can use the `preference` parameter in the search query to indicate the destination for the search. The following is the complete list of available options:
 
 1. `_primary`: Forces the search to execute only on primary shards.
-```
-GET /my-index/_search?preference=_primary
-```
+
+    ```json
+    GET /my-index/_search?preference=_primary
+    ```
+    {% include copy-curl.html %}
+
 2. `_primary_first`: Prefers primary shards but will use replica shards if the primary is not available.
-```
-GET /my-index/_search?preference=_primary_first
-```
+
+    ```json
+    GET /my-index/_search?preference=_primary_first
+    ```
+    {% include copy-curl.html %}
+
 3. `_replica`: Forces the search to execute only on replica shards.
-```
-GET /my-index/_search?preference=_replica
-```
+
+    ```json
+    GET /my-index/_search?preference=_replica
+    ```
+    {% include copy-curl.html %}
+
 4. `_replica_first`: Prefers replica shards but will use primary shards if no replicas are available.
-```
-GET /my-index/_search?preference=_replica_first
-```
+
+    ```json
+    GET /my-index/_search?preference=_replica_first
+    ```
+    {% include copy-curl.html %}
+
 5. `_only_nodes:<node-id>,<node-id>`: Limits the search to execute only on specific nodes by their IDs.
-```
-GET /my-index/_search?preference=_only_nodes:node-1,node-2
-```
+
+    ```json
+    GET /my-index/_search?preference=_only_nodes:node-1,node-2
+    ```
+    {% include copy-curl.html %}
+
 6. `_prefer_nodes:<node-id>,<node-id>`: Prefers to execute the search on specific nodes but will use other nodes if the preferred ones are not available.
-```
-GET /my-index/_search?preference=_prefer_nodes:node-1,node-2
-```
+
+    ```json
+    GET /my-index/_search?preference=_prefer_nodes:node-1,node-2
+    ```
+    {% include copy-curl.html %}
+
 7. `_shards:<shard-id>,<shard-id>`: Limits the search to specific shards.
-```
-GET /my-index/_search?preference=_shards:0,1
-```
+
+    ```json
+    GET /my-index/_search?preference=_shards:0,1
+    ```
+    {% include copy-curl.html %}
+
 8. `_local`: Executes the search on the local node if the data is available there, which can reduce latency.
-```
-GET /my-index/_search?preference=_local
-```
+
+    ```json
+    GET /my-index/_search?preference=_local
+    ```
+    {% include copy-curl.html %}
+
 9. Custom string: You can use any custom string as the preference value. This custom string ensures that requests containing the same string are routed to the same shards consistently, which can be useful for caching.
-```
-GET /my-index/_search?preference=custom_string
-```
+
+    ```json
+    GET /my-index/_search?preference=custom_string
+    ```
+    {% include copy-curl.html %}
 
 ## Custom routing during index and search
 
@@ -95,13 +114,16 @@ You can specify routing during both indexing and search operations.
 When you index a document, OpenSearch calculates a hash of the routing value and uses this hash to determine the shard on which the document will be stored. If you don't specify a routing value, OpenSearch uses the document's ID to calculate the hash.
 
 The following is an example index operation with a routing value:
-```
+
+```json
 POST /index1/_doc/1?routing=user1
 {
   "name": "John Doe",
   "age": 20
 }
 ```
+{% include copy-curl.html %}
+
 In this example, the document with ID 1 is indexed with the routing value user1. All documents with the same routing value will be stored on the same shard.
 
 ### Routing during searches
@@ -109,7 +131,8 @@ In this example, the document with ID 1 is indexed with the routing value user1.
 When you search for documents, specifying the same routing value ensures that the search request is routed to the appropriate shard. This can significantly improve performance by reducing the number of shards that need to be queried.
 
 Here’s an example of searching with a specific routing value:
-```
+
+```json
 GET /index1/_search?routing=user1
 {
   "query": {
@@ -118,8 +141,9 @@ GET /index1/_search?routing=user1
     }
   }
 }
-
 ```
+{% include copy-curl.html %}
+
 In this example, the search query is routed to the shard that contains documents indexed with the routing value `user1`.
 
 Additional consideration needs to be taken when using custom routing in order to prevent hot spots and data skew:
@@ -136,7 +160,7 @@ Hitting a large number of shards simultaneously during a search can significantl
 
 You can use the `max_concurrent_shard_requests` parameter in the search request to limit it to a maximum number of shards that can be queried. For example, the following request limits the number of concurrent shard requests to 12:
 
-```
+```json
 GET /index1/_search?max_concurrent_shard_requests=12
 {
   "query": {
@@ -144,12 +168,14 @@ GET /index1/_search?max_concurrent_shard_requests=12
   }
 }
 ```
+{% include copy-curl.html %}
+
 
 ### Define a search shard count limit
 
 You can define the dynamic `action.search.shard_count.limit` setting in `opensearch.yml` file or using the REST API. Any search request that attempts to query the number of shards that exceeds this limit will be rejected with an error. This helps prevent a single search request from consuming too many resources, which can degrade the performance of the entire cluster. The following example updates this cluster setting using the API:
 
-```
+```json
 PUT /_cluster/settings
 {
   "transient": {
@@ -157,6 +183,7 @@ PUT /_cluster/settings
   }
 }
 ```
+{% include copy-curl.html %}
 
 ### Search thread pool
 
@@ -168,16 +195,17 @@ thread_pool.search.queue_size: 1000
 
 #### How thread pools work
 
-Thread Assignment: 
-If there are available threads in the search thread pool, the request is immediately assigned to a thread and begins processing.
+There following three states describe how the thread pools work.
 
-Queueing:
-If all threads in the search thread pool are busy, the request is placed in the queue.
+ - _Thread Assignment_: If there are available threads in the search thread pool, the request is immediately assigned to a thread and begins processing.
 
-Rejection:
-If the queue is full (for example, the number of queued requests reaches the queue size limit), additional incoming search requests are rejected until there is space available in the queue.
+ - _Queueing_: If all threads in the search thread pool are busy, the request is placed in the queue.
+
+ - _Rejection_: If the queue is full (for example, the number of queued requests reaches the queue size limit), additional incoming search requests are rejected until there is space available in the queue.
 
 You can check the currently configured search thread pool by running the following request:
-```
+
+```json
 GET /_cat/thread_pool/search?v&h=id,name,active,rejected,completed,size,queue_size
 ```
+{% include copy-curl.html %}
