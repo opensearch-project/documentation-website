@@ -16,9 +16,9 @@ At ingestion time, neural sparse search uses a sparse encoding model to generate
 
 At query time, neural sparse search operates in one of two search modes: 
 
-- **Bi-encoder mode** (requires a sparse encoding model): A sparse encoding model generates sparse vector embeddings from query text. This approach provides better search relevance at the cost of a slight increase in latency. 
+- **Bi-encoder mode** (requires a sparse encoding model): A sparse encoding model generates sparse vector embeddings from both documents and query text. This approach provides better search relevance at the cost of an increase in latency. 
 
-- **Doc-only mode** (requires a sparse encoding model and a tokenizer): A sparse encoding model generates sparse vector embeddings from query text. In this mode, neural sparse search tokenizes query text using a tokenizer and obtains the token weights from a lookup table. This approach provides faster retrieval at the cost of a slight decrease in search relevance. The tokenizer is deployed and invoked using the [Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/) for a uniform neural sparse search experience.
+- **Doc-only mode** (requires a sparse encoding model and a tokenizer): A sparse encoding model generates sparse vector embeddings from documents. In this mode, neural sparse search tokenizes query text using a tokenizer and obtains the token weights from a lookup table. This approach provides faster retrieval at the cost of a slight decrease in search relevance. The tokenizer is deployed and invoked using the [Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/) for a uniform neural sparse search experience.
 
 For more information about choosing the neural sparse search mode that best suits your workload, see [Choose the search mode](#step-1a-choose-the-search-mode).
 
@@ -48,32 +48,35 @@ Both the bi-encoder and doc-only search modes require you to configure a sparse 
 
 Choose the search mode and the appropriate model/tokenizer combination:
 
-- **Bi-encoder**: Use the `amazon/neural-sparse/opensearch-neural-sparse-encoding-v1` model during both ingestion and search. 
+- **Bi-encoder**: Use the `amazon/neural-sparse/opensearch-neural-sparse-encoding-v2-distill` model during both ingestion and search. 
 
-- **Doc-only**: Use the `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v1` model during ingestion and the `amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1` tokenizer during search.
+- **Doc-only**: Use the `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v2-distill` model during ingestion and the `amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1` tokenizer during search.
 
-The following table provides a search relevance comparison for the two search modes so that you can choose the best mode for your use case.
+The following table provides a search relevance comparison for all available combinations of the two search modes so that you can choose the best combination for your use case.
 
 | Mode      | Ingestion model                                               | Search model                                                  | Avg search relevance on BEIR | Model parameters |
 |-----------|---------------------------------------------------------------|---------------------------------------------------------------|------------------------------|------------------|
 | Doc-only  | `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v1` | `amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1`    | 0.49                         | 133M             |
+| Doc-only  | `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v2-distill` | `amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1`    | 0.504                         | 67M             |
+| Doc-only  | `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v2-mini` | `amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1`    | 0.497                         | 23M             |
 | Bi-encoder| `amazon/neural-sparse/opensearch-neural-sparse-encoding-v1`     | `amazon/neural-sparse/opensearch-neural-sparse-encoding-v1`     | 0.524                        | 133M             |
+| Bi-encoder| `amazon/neural-sparse/opensearch-neural-sparse-encoding-v2-distill`     | `amazon/neural-sparse/opensearch-neural-sparse-encoding-v2-distill`     | 0.528                        | 67M             |
 
-### Step 1(b): Register the model/tokenizer 
+### Step 1(b): Register the model/tokenizer
 
 When you register a model/tokenizer, OpenSearch creates a model group for the model/tokenizer. You can also explicitly create a model group before registering models. For more information, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).
 
 #### Bi-encoder mode
 
-When using bi-encoder mode, you only need to register the `amazon/neural-sparse/opensearch-neural-sparse-encoding-v1` model.
+When using bi-encoder mode, you only need to register the `amazon/neural-sparse/opensearch-neural-sparse-encoding-v2-distill` model.
 
 Register the sparse encoding model:
 
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
 {
-  "name": "amazon/neural-sparse/opensearch-neural-sparse-encoding-v1",
-  "version": "1.0.1",
+  "name": "amazon/neural-sparse/opensearch-neural-sparse-encoding-v2-distill",
+  "version": "1.0.0",
   "model_format": "TORCH_SCRIPT"
 }
 ```
@@ -116,15 +119,15 @@ Note the `model_id` of the model you've created; you'll need it for the followin
 
 #### Doc-only mode
 
-When using doc-only mode, you need to register the `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v1` model, which you'll use at ingestion time, and the `amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1` tokenizer, which you'll use at search time.
+When using doc-only mode, you need to register the `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v2-distill` model, which you'll use at ingestion time, and the `amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1` tokenizer, which you'll use at search time.
 
 Register the sparse encoding model:
 
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
 {
-  "name": "amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v1",
-  "version": "1.0.1",
+  "name": "amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v2-distill",
+  "version": "1.0.0",
   "model_format": "TORCH_SCRIPT"
 }
 ```
