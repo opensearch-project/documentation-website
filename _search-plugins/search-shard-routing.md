@@ -19,15 +19,15 @@ To ensure redundancy and improve search performance, OpenSearch distributes inde
 
 ## Adaptive replica selection
 
-In OpenSearch, in order to improve latency, search requests are routed using _Adaptive replica selection_, which chooses appropriate nodes based on number of factors, such as:
+In OpenSearch, in order to improve latency, search requests are routed using _adaptive replica selection_, which chooses the nodes based on the following factors:
 
-- The time it took particular node to run previous requests.
-- Latency between coordinating node and selected node.
-- The size of the queue of node's search thread pool.
+- The time it took a particular node to run previous requests.
+- The latency between the coordinating node and selected node.
+- The size of the queue of the node's search thread pool.
 
-You can turn off this feature using following curl command with user which has permissions to call REST APIs, mode details on REST API can be found at [REST management API settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/#rest-management-api-settings):
+If you have permissions to call the OpenSearch REST APIs, you can turn off search shard routing. For more information about the REST API user access, see [REST management API settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/#rest-management-api-settings). To disable search shard routing, update the cluster settings as follows:
 
-```
+```json
 PUT /_cluster/settings
 {
   "persistent": {
@@ -35,15 +35,16 @@ PUT /_cluster/settings
   }
 }
 ```
+{% include copy-curl.html %}
 
-In this case, OpenSearch routing will use _round-robin_ which can impact the search latency negatively.
+If you turn off search shard routing, OpenSearch will use round-robin routing, which can negatively impact search latency.
 {: .note}
 
 ## Node and shard selection during searches
 
-OpenSearch uses all nodes to choose best routing for search requests, however, there might be reasons why you want to manually select which nodes or shards the search request is sent to, possible reasons could be:
+OpenSearch uses all nodes to choose the best routing for search requests. However, there might be reasons why you want to manually select the nodes or shards to which the search request is sent. Some of these reasons are:
 
-- Using caching of previous searches.
+- Using cached previous searches.
 - Dedicating specific hardware for searches.
 - Using only local nodes for searches.
 
@@ -81,19 +82,19 @@ GET /my-index/_search?preference=_shards:0,1
 ```
 GET /my-index/_search?preference=_local
 ```
-9. Custom string: You can use any custom string as the preference value. This custom string ensures that requests with the same string are routed to the same shards consistently, which can be useful for caching.
+9. Custom string: You can use any custom string as the preference value. This custom string ensures that requests containing the same string are routed to the same shards consistently, which can be useful for caching.
 ```
 GET /my-index/_search?preference=custom_string
 ```
 
 ## Custom routing during index and search
 
-You can specify routing during both indexing and searching operations.
+You can specify routing during both indexing and search operations.
 
 ### Routing during indexing
 When you index a document, OpenSearch calculates a hash of the routing value and uses this hash to determine the shard on which the document will be stored. If you don't specify a routing value, OpenSearch uses the document's ID to calculate the hash.
 
-Following is an example index operation using a routing value:
+The following is an example index operation with a routing value:
 ```
 POST /index1/_doc/1?routing=user1
 {
@@ -121,19 +122,19 @@ GET /index1/_search?routing=user1
 ```
 In this example, the search query is routed to the shard that contains documents indexed with the routing value `user1`.
 
-Additional consideration needs to be taken when using custom routing in order to prevent _hot spots_ and _data skew_.
+Additional consideration needs to be taken when using custom routing in order to prevent hot spots and data skew:
 
- - _Hot spot_ occurs when a disproportionate number of documents are routed to a single shard. This can lead to that shard becoming a bottleneck, as it will have to handle more read and write operations compared to other shards. Consequently, this shard may experience higher CPU, memory, and I/O usage, leading to performance degradation
+ - A _hot spot_ occurs when a disproportionate number of documents are routed to a single shard. This can lead to that shard becoming a bottleneck, because it will have to handle more read and write operations compared to other shards. Consequently, this shard may experience higher CPU, memory, and I/O usage, leading to performance degradation.
 
- - _Data skew_ refers to an uneven distribution of data across shards. If routing values are not evenly distributed, some shards may end up storing significantly more data than others. This can result in imbalanced storage usage, where certain nodes have much higher disk utilization compared to others.
+ - _Data skew_ refers to an uneven distribution of data across shards. If routing values are not evenly distributed, some shards may end up storing significantly more data than others. This can result in an imbalanced storage use, where certain nodes have a much higher disk utilization compared to others.
 
 ## Concurrent shard request
 
-Hitting a large number of shards simultaneously during a search can significantly impact the CPU and memory consumption. By default, OpenSearch does not reject these requests, however there are number of methods that can be used to mitigate this risk.
+Hitting a large number of shards simultaneously during a search can significantly impact the CPU and memory consumption. By default, OpenSearch does not reject these requests. However, there are number of methods that you can use to mitigate this risk. The following sections describe these methods.
 
-### max_concurrent_shard_requests
+### Limit the number of shards that can be queried
 
-You can use parameter `max_concurrent_shard_requests` with the search request to limit it to maximum number of shards that can be queried, see the following example:
+You can use the `max_concurrent_shard_requests` parameter in the search request to limit it to a maximum number of shards that can be queried. For example, the following request limits the number of concurrent shard requests to 12:
 
 ```
 GET /index1/_search?max_concurrent_shard_requests=12
@@ -144,9 +145,9 @@ GET /index1/_search?max_concurrent_shard_requests=12
 }
 ```
 
-### action.search.shard_count.limit
+### Define a search shard count limit
 
-You can define `action.search.shard_count.limit` in `opensearch.yml` file or dynamically using cluster settings. Any search request that attempts to query more than 1000 shards will be rejected with an error. This helps prevent a single search request from consuming too many resources, which can degrade the performance of the entire cluster. See following example:
+You can define the dynamic `action.search.shard_count.limit` setting in `opensearch.yml` file or using the REST API. Any search request that attempts to query the number of shards that exceeds this limit will be rejected with an error. This helps prevent a single search request from consuming too many resources, which can degrade the performance of the entire cluster. The following example updates this cluster setting using the API:
 
 ```
 PUT /_cluster/settings
@@ -159,8 +160,7 @@ PUT /_cluster/settings
 
 ### Search thread pool
 
-OpenSearch uses thread pools to manage the execution of various tasks, including search operations. The search thread pool is specifically used for search requests. You can adjust the size and queue capacity of the search thread pool by adding the following configuration to `opensearch.yml`
-file:
+OpenSearch uses thread pools to manage the execution of various tasks, including search operations. The search thread pool is specifically used for search requests. You can adjust the size and queue capacity of the search thread pool by adding the following settings to `opensearch.yml`:
 ```
 thread_pool.search.size: 100
 thread_pool.search.queue_size: 1000
@@ -175,7 +175,7 @@ Queueing:
 If all threads in the search thread pool are busy, the request is placed in the queue.
 
 Rejection:
-If the queue is full (i.e., the number of queued requests reaches the queue_size limit), additional incoming search requests are rejected until there is space available in the queue.
+If the queue is full (for example, the number of queued requests reaches the queue size limit), additional incoming search requests are rejected until there is space available in the queue.
 
 You can check the currently configured search thread pool by running the following request:
 ```
