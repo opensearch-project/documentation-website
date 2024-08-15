@@ -26,7 +26,7 @@ POST /_scripts/painless/_execute
 | context | A context for the script. Optional. Default is `painless_test`. |
 | context_setup | Specifies additional parameters for the context. Optional.| 
 
-#### Example request
+## Example request
 
 The following request uses the default `painless_context` for the script:
 
@@ -44,7 +44,7 @@ GET /_scripts/painless/_execute
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 The response contains the average of two script parameters:
 

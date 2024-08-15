@@ -45,7 +45,7 @@ ignore_unavailable | Boolean | If true, OpenSearch does not include missing or c
 local | Boolean | Whether to return information from the local node only instead of the cluster manager node. Default is `false`.
 cluster_manager_timeout | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
 
-## Response
+## Example response
 
 ```json
 {

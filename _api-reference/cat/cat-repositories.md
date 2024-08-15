@@ -15,13 +15,6 @@ redirect_from:
 
 The CAT repositories operation lists all snapshot repositories for a cluster.
 
-## Example
-
-```
-GET _cat/repositories?v
-```
-{% include copy-curl.html %}
-
 ## Path and HTTP methods
 
 ```
@@ -39,8 +32,17 @@ Parameter | Type | Description
 local | Boolean | Whether to return information from the local node only instead of from the cluster manager node. Default is `false`.
 cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
 
+## Example request
 
-## Response
+The following example request lists all snapshot repositories in the cluster:
+
+```
+GET _cat/repositories?v
+```
+{% include copy-curl.html %}
+
+
+## Example response
 
 ```json
 id    type

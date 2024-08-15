@@ -19,14 +19,14 @@ The username rate limiting configuration limits login attempts by username. When
 
 ```yml
 auth_failure_listeners:
-      internal_authentication_backend_limiting:
-        type: username
-        authentication_backend: internal
-        allowed_tries: 3
-        time_window_seconds: 60
-        block_expiry_seconds: 60
-        max_blocked_clients: 100000
-        max_tracked_clients: 100000
+  internal_authentication_backend_limiting:
+    type: username
+    authentication_backend: internal
+    allowed_tries: 3
+    time_window_seconds: 60
+    block_expiry_seconds: 60
+    max_blocked_clients: 100000
+    max_tracked_clients: 100000
 ```
 {% include copy.html %}
 
@@ -61,13 +61,13 @@ Second, configure the IP address rate limiting settings. The following example s
 
 ```yml
 auth_failure_listeners:
-      ip_rate_limiting:
-        type: ip
-        allowed_tries: 1
-        time_window_seconds: 20
-        block_expiry_seconds: 180
-        max_blocked_clients: 100000
-        max_tracked_clients: 100000
+  ip_rate_limiting:
+    type: ip
+    allowed_tries: 1
+    time_window_seconds: 20
+    block_expiry_seconds: 180
+    max_blocked_clients: 100000
+    max_tracked_clients: 100000
 ```
 {% include copy.html %}
 
@@ -81,4 +81,5 @@ The following table describes the individual settings for this type of configura
 | `block_expiry_seconds` | The window of time during which login attempts remain blocked after a failed login. After this time elapses, login is reset and the IP address can attempt to log in again. |
 | `max_blocked_clients` | The maximum number of blocked IP addresses. This limits heap usage to avoid a potential DoS attack. |
 | `max_tracked_clients` | The maximum number of tracked IP addresses with failed login attempts. This limits heap usage to avoid a potential DoS attack. |
+| `ignore_hosts` | A list of IP addresses or hostname patterns to ignore for rate limiting. `config.dynamic.hosts_resolver_mode` must be set to `ip-hostname` to support hostname matching. |
 
