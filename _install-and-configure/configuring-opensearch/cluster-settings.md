@@ -106,7 +106,7 @@ OpenSearch supports the following cluster-level routing and shard allocation set
 
 OpenSearch supports the following cluster-level shard, block, and task settings:
 
-- `action.search.shard_count.limit` (Integer): Limit maximum number of shards to be hit during search, requests that exceed this limit will be rejected.
+- `action.search.shard_count.limit` (Integer): Limits the maximum number of shards to be hit during search. Requests that exceed this limit will be rejected.
 
 - `cluster.blocks.read_only` (Boolean): Sets the entire cluster to read-only. Default is `false`. 
 
