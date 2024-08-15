@@ -424,7 +424,7 @@ The response contains the matching documents:
 }
 ```
 
-To reduce the latency of disk I/O and network I/O about sparse embedding source , you can exclude the embedding vector source in query as follows:
+To minimize disk and network I/O latency related to sparse embedding sources, you can exclude the embedding vector source from the query as follows:
 
 ```json
 GET my-nlp-index/_search
