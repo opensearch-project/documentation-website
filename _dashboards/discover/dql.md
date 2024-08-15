@@ -14,7 +14,7 @@ Dashboards Query Language (DQL) is a simple text-based query language for filter
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dql-interface.png" alt="Search term using DQL toolbar in Dashboard" width="500">
 
-DQL and query string query (Lucene) language are the two search bar language options in Discover and Dashboards. To compare these language options, see [Discover and Dashboard search bar]({{site.url}}{{site.baseurl}}/dashboards/index/#discover-and-dashboard-search-bar).
+DQL and query string query (Lucene) language are the two search bar language options in Discover and Dashboards. 
 {: .tip}
 
 ## Setup
