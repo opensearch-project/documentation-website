@@ -7,7 +7,7 @@ nav_order: 70
 
 # Search shard routing
 
-To ensure redundancy and improve search performance, OpenSearch distributes index data across multiple primary shards, with each primary shard having one or more replica shards. When a search query is executed, OpenSearch routes the request to a node containing either a primary or replica shard of the index. This technique is known as _search shard routing_.
+To ensure redundancy and improve search performance, OpenSearch distributes index data across multiple primary shards, with each primary shard having one or more replica shards. When a search query is executed, OpenSearch routes the request to a node containing either a primary or replica index shard. This technique is known as _search shard routing_.
 
 
 ## Adaptive replica selection
