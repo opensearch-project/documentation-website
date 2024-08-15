@@ -6,7 +6,7 @@ nav_order: 3
 
 # Collapse search results
 
-The collapse parameter in OpenSearch enables you to group search results by a particular field value, returning only the top document within each group. This feature is especially beneficial for reducing redundancy and enhancing performance when handling large datasets. By grouping these documents, you can streamline the search results and focus on unique entries, avoiding duplicates.
+The collapse parameter in OpenSearch enables you to group search results by a particular field value, returning only the top document within each group. This feature is useful for reducing redundancy in search results by eliminating duplicates.
 
 ### Example of collapsing search results
 
@@ -39,7 +39,6 @@ The following query will retrieve the top 5 items per bakery `item_name`, sorted
 ``
 
 ```json
-GET /bakery-items/_search
 GET /bakery-items/_search
 {
   "query": {
