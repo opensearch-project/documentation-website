@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Neural sparse query two-phase
-nav_order: 13
+nav_order: 60
 parent: Search processors
 grand_parent: Search pipelines
 ---
