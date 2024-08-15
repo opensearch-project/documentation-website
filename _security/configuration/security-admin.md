@@ -197,7 +197,7 @@ If you run a default OpenSearch installation, which listens on port 9200 and use
 Name | Description
 :--- | :---
 `-h` | OpenSearch hostname. Default is `localhost`.
-`-p` | OpenSearch port. Default is 9200 - not the HTTP port.
+`-p` | OpenSearch port. Default is 9200
 `-cn` | Cluster name. Default is `opensearch`.
 `-icl` | Ignore cluster name.
 `-sniff` | Sniff cluster nodes. Sniffing detects available nodes using the OpenSearch `_cluster/state` API.
