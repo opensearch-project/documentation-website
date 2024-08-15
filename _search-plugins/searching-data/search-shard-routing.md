@@ -50,7 +50,7 @@ You can use the `preference` parameter in the search query to indicate the searc
     ```
     {% include copy-curl.html %}
 
-2. `_primary_first`: Prefers primary shards but will use replica shards if the primary is not available.
+2. `_primary_first`: Prefers primary shards but will use replica shards if the primary shards are not available.
 
     ```json
     GET /my-index/_search?preference=_primary_first
@@ -124,7 +124,7 @@ POST /index1/_doc/1?routing=user1
 ```
 {% include copy-curl.html %}
 
-In this example, the document with ID 1 is indexed with the routing value user1. All documents with the same routing value will be stored on the same shard.
+In this example, the document with ID `1` is indexed with the routing value `user1`. All documents with the same routing value will be stored on the same shard.
 
 ### Routing during searches
 
@@ -158,7 +158,7 @@ Hitting a large number of shards simultaneously during a search can significantl
 
 ### Limit the number of shards that can be queried concurrently
 
-You can use the `max_concurrent_shard_requests` parameter in the search request to limit the number of shards that can be queried concurrently. For example, the following request limits the number of concurrent shard requests to 12:
+You can use the `max_concurrent_shard_requests` parameter in the search request to limit the number of shards that can be queried concurrently. For example, the following request limits the number of concurrent shard requests to `12`:
 
 ```json
 GET /index1/_search?max_concurrent_shard_requests=12
@@ -173,7 +173,7 @@ GET /index1/_search?max_concurrent_shard_requests=12
 
 ### Define a search shard count limit
 
-You can define the dynamic `action.search.shard_count.limit` setting either in your `opensearch.yml` file or by using the REST API. Any search request that exceeds this limit will be rejected with an error. This helps to prevent a single search request from consuming too many resources, which can degrade the performance of the entire cluster. The following example request updates this cluster setting using the API:
+You can define the dynamic `action.search.shard_count.limit` setting either in your `opensearch.yml` file or by using the REST API. Any search request that exceeds this limit will be rejected and throw an error. This helps to prevent a single search request from consuming too many resources, which can degrade the performance of the entire cluster. The following example request updates this cluster setting using the API:
 
 ```json
 PUT /_cluster/settings
@@ -204,7 +204,7 @@ The following three states describe thread pool operations:
 
  - _Rejection_: If the queue is full (for example, the number of queued requests reaches the queue size limit), then additional incoming search requests are rejected until there is space available in the queue.
 
-You can check the currently configured search thread pool by running the following request:
+You can check the current configuration of the search thread pool by running the following request:
 
 ```json
 GET /_cat/thread_pool/search?v&h=id,name,active,rejected,completed,size,queue_size
