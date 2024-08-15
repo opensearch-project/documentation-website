@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Inner hits
+parent: Searching data
 has_children: false
-nav_order: 215
+nav_order: 70
 ---
 
 
@@ -11,21 +12,14 @@ nav_order: 215
 
 In OpenSearch, when you perform a search using parent-join or nested objects (for more information see [Join field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) and [Nested field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/nested/)), the underlying hits that resulted in the hits being returned (child documents or nested inner objects) are hidden by default. Whether you are using parent/child, nested objects or both, there could be different reasons why retrieving these underlying hits is important. This is achieved using `inner_hits` parameter in the search query.
 
----
-
-#### Table of contents
-1. TOC
-{:toc}
-
-
----
-
-## `inner_hits` with nested objects
-
+<!-- vale off -->
+## Inner_hits with nested objects
+<!-- vale on -->
 Nested objects allow you to index an array of objects and maintain their relationship within the same document. See the following example of using `inner_hits` parameter to retrieve underlying inner hits:
 
 1. Create index mapping with nested object:
-    ```
+
+    ```json
     PUT /my_index
     {
       "mappings": {
@@ -41,9 +35,11 @@ Nested objects allow you to index an array of objects and maintain their relatio
       }
     }
     ```
+    {% include copy-curl.html %}
 
 2. Index data:
-    ```
+
+    ```json
     POST /my_index/_doc/1
     {
       "group": "fans",
@@ -59,9 +55,11 @@ Nested objects allow you to index an array of objects and maintain their relatio
       ]
     }
     ```
+    {% include copy-curl.html %}
 
 3. Query with `inner_hits`:
-    ```
+
+    ```json
     GET /my_index/_search
     {
       "query": {
@@ -79,10 +77,11 @@ Nested objects allow you to index an array of objects and maintain their relatio
       }
     }
     ```
+    {% include copy-curl.html %}
 
 This query searches for nested user objects with the name "John" and returns the matching nested documents within the inner_hits section of the response. The following is the retrieved result:
 
-```
+```json
 {
   "hits" : {
     "total" : {
@@ -139,13 +138,14 @@ This query searches for nested user objects with the name "John" and returns the
   }
 }
 ```
-
-## `inner_hits` with parent-child objects
-
+<!-- vale off -->
+## Inner_hits with parent-child objects
+<!-- vale on -->
 Parent-join relationships allow you to create relationships between documents of different types within the same index. See following example using search with `inner_hits` with parent/child objects:
 
 1. Create index with parent-join field:
-    ```
+
+    ```json
     PUT /my_index
     {
       "mappings": {
@@ -163,10 +163,11 @@ Parent-join relationships allow you to create relationships between documents of
       }
     }
     ```
+    {% include copy-curl.html %}
 
 2. Index data:
 
-    ```
+    ```json
     # Index a parent document
     PUT /my_index/_doc/1
     {
@@ -184,9 +185,11 @@ Parent-join relationships allow you to create relationships between documents of
       }
     }
     ```
+    {% include copy-curl.html %}
 
 3. Search with `inner_hits`:
-    ```
+
+    ```json
     GET /my_index/_search
     {
       "query": {
@@ -202,9 +205,11 @@ Parent-join relationships allow you to create relationships between documents of
       }
     }
     ```
+    {% include copy-curl.html %}
 
 This query searches for parent documents that have a child document matching the query criteria (`"child"` in this case) and returns the matching child documents within the `inner_hits` section of the response. See the following expected result:
-```
+
+```json
 {
   "hits" : {
     "total" : {
@@ -258,7 +263,8 @@ This query searches for parent documents that have a child document matching the
 Combining both features into a comprehensive example:
 
 1. Create the index with mapping:
-    ```
+
+    ```json
     PUT /my_index
     {
       "mappings": {
@@ -283,9 +289,11 @@ Combining both features into a comprehensive example:
       }
     }
     ```
+    {% include copy-curl.html %}
 
 2. Index data:
-    ```
+
+    ```json
     # Index a parent document
     PUT /my_index/_doc/1
     {
@@ -313,9 +321,11 @@ Combining both features into a comprehensive example:
       ]
     }
     ```
+    {% include copy-curl.html %}
 
 3. Query with `inner_hits`:
-    ```
+
+    ```json
     GET /my_index/_search
     {
       "query": {
@@ -339,11 +349,12 @@ Combining both features into a comprehensive example:
       }
     }
     ```
+    {% include copy-curl.html %}
 
 In this query you can see how search for parent documents that have child documents containing comments made by "John". The `inner_hits` feature is used to return the matching child documents and their nested comments.
 Expected result:
 
-```
+```json
 {
   "hits" : {
     "total" : {
@@ -433,20 +444,21 @@ You can also use inner_hits with following features:
   - [Highlight query matches]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/highlight/)
   - [Explain]({{site.url}}{{site.baseurl}}/api-reference/explain/)
 
-
-## `inner_hits` options
-
-There are additional options that can be passed to search with `inner_hits` using both nested objects and parent-join relationships in OpenSearch. Such as `from`, `size`, `sort` and `name`.
+<!-- vale off -->
+## Inner_hits parameters
+<!-- vale on -->
+There are additional parameters that can be passed to search with `inner_hits` using both nested objects and parent-join relationships in OpenSearch. Such as `from`, `size`, `sort` and `name`.
 
 * `from`: The offset from where to start fetching hits within the inner_hits results.
 * `size`: The maximum number of inner hits to return.
 * `sort`: The sorting order for the inner hits.
 * `name`: A custom name for the inner hits in the response. This is useful to differentiate between multiple inner hits in a single query.
-
-### Example of `inner_hits` options with nested objects
-
+<!-- vale off -->
+### Example of inner_hits parameters with nested objects
+<!-- vale on -->
 1. Create index and mappings:
-    ```
+
+    ```json
     PUT /products
     {
       "mappings": {
@@ -464,9 +476,11 @@ There are additional options that can be passed to search with `inner_hits` usin
       }
     }
     ```
+    {% include copy-curl.html %}
 
 2. Index data:
-    ```
+
+    ```json
     POST /products/_doc/1
     {
       "product_name": "Smartphone",
@@ -486,9 +500,11 @@ There are additional options that can be passed to search with `inner_hits` usin
       ]
     }
     ```
+    {% include copy-curl.html %}
 
 3. Query with `inner_hits` options:
-    ```
+
+    ```json
     GET /products/_search
     {
       "query": {
@@ -509,9 +525,11 @@ There are additional options that can be passed to search with `inner_hits` usin
       }
     }
     ```
+    {% include copy-curl.html %}
 
 Expected result:
-```
+
+```json
 {
   "hits" : {
     "total" : {
@@ -591,11 +609,12 @@ Expected result:
   }
 }
 ```
-
-### Example of `inner_hits` options with Parent-Join Relationship
-
+<!-- vale off -->
+### Example of inner_hits parameters with Parent-Join Relationship
+<!-- vale on -->
 1. Create index and mappings:
-    ```
+
+    ```json
     PUT /company
     {
       "mappings": {
@@ -617,9 +636,11 @@ Expected result:
       }
     }
     ```
+    {% include copy-curl.html %}
 
 2. Index data:
-    ```
+
+    ```json
     # Index a parent document
     PUT /company/_doc/1
     {
@@ -655,9 +676,11 @@ Expected result:
       }
     }
     ```
+    {% include copy-curl.html %}
 
-3. Query with Inner Hits Options:
-    ```
+3. Query with `inner_hits` parameters:
+
+    ```json
     GET /company/_search
     {
       "query": {
@@ -678,9 +701,11 @@ Expected result:
       }
     }
     ```
+    {% include copy-curl.html %}
 
 Expected result:
-```
+
+```json
 {
   "hits" : {
     "total" : {
@@ -747,9 +772,9 @@ Expected result:
   }
 }
 ```
-
-## Benefits of using `inner_hits`
-
+<!-- vale off -->
+## Benefits of using inner_hits
+<!-- vale on -->
 * **Detailed Query Results**
 
     `inner_hits` allows you to retrieve detailed information about matching nested or child documents directly within the parent document's search result. This is particularly useful for understanding the context and specifics of the match without having to perform additional queries.
