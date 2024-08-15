@@ -7,7 +7,7 @@ nav_order: 80
 
 # Decimal digit token filter
 
-The `decimal_digit` token filter in OpenSearch is used to normalize characters that are decimal digits (--0-9--) from various scripts into their ASCII equivalents. This is useful when you want to ensure that all digits are treated uniformly in text analysis, regardless of the script in which they are written.
+The `decimal_digit` token filter in OpenSearch is used to normalize characters that are decimal digits (0--9) from various scripts into their ASCII equivalents. This is useful when you want to ensure that all digits are treated uniformly in text analysis, regardless of the script in which they are written.
 
 
 ## Example
