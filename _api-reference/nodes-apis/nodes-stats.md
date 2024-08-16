@@ -893,7 +893,7 @@ search.suggest_total | Integer | The total number of shard suggest operations.
 search.suggest_time_in_millis | Integer | The total amount of time for all shard suggest operations, in milliseconds.
 search.suggest_current | Integer | The number of shard suggest operations that are currently running.
 search.request | Object | Statistics about coordinator search operations for the node.
-search.request.took.time_in_millis | Integer | The total amount of time for all search requests, in milliseconds.
+search.request.took.time_in_millis | Integer | The total amount of time taken for all search requests, in milliseconds.
 search.request.took.current | Integer | The number of search requests that are currently running.
 search.request.took.total | Integer | The total number of search requests completed.
 search.request.dfs_pre_query.time_in_millis | Integer | The total amount of time for all coordinator depth-first search (DFS) prequery operations, in milliseconds.
