@@ -107,8 +107,6 @@ Follow these steps to create an index pattern for your index:
 1. In **Time field**, select `I don't want to use the time filter`.
 1. Select **Create index pattern**.
 
-For more information about index patterns, see [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/).
-
 **Step 4: Navigate to Discover and select the index pattern**
 
 On the main menu, select **Discover**. In the upper-left corner, select `testindex*` from the **Index patterns** dropdown list. The main panel displays the documents in the index, and you can now try out the DQL queries described on this page.
