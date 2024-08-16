@@ -4,9 +4,9 @@ title: Edge ngram
 parent: Token filters
 nav_order: 120
 ---
-
+<!-- vale off -->
 # Edge ngram token filter
-
+<!-- vale on -->
 The `edge_ngram` token filter generates n-grams (substrings) from the beginning (edge) of a token. It's particularly useful in scenarios like autocomplete or prefix matching, where you want to match the start of words or phrases as the user types.
 
 ## Parameters
