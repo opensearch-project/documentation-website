@@ -229,7 +229,7 @@ White space is optional around relational operators, regex equality operators, e
 | `<`, `<=`, `>`, `>=` | Relational operators     | No                   | `/status < 300`<br>`/status>=300`                              |                                       |
 | `+`                  | String concatenation operator   | No                   | `/status_code + /message + "suffix"`
 | `+`, `-`             | Arithmetic Add and Subtract operators | No      | `/status_code + length(/message) - 2`
-| `*`, `/`             | Multiply and Divide operators | No              | `/status_code * length(/message) / 3`
+| `*`, `/`             | Multiplication and division operators | No              | `/status_code * length(/message) / 3`
 | `=~`, `!~`           | Regex equality operators | No                   | `/msg =~ "^\w*$"`<br>`/msg=~"^\w*$"`                           |                                       |
 | `==`, `!=`           | Equality operators       | No                   | `/status == 200`<br>`/status_code==200`                        |                                       |
 | `and`, `or`, `not`   | Conditional operators    | Yes                  | `/a<300 and /b>200`                                            | `/b<300and/b>200`                     |
