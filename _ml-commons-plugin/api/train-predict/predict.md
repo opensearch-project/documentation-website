@@ -1,9 +1,9 @@
 ---
 layout: default
 title: Predict
-parent: Train and Predict APIs
+parent: Model APIs
 grand_parent: ML Commons APIs
-nav_order: 20
+nav_order: 60
 ---
 
 # Predict
