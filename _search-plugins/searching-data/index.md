@@ -18,3 +18,4 @@ Feature | Description
 [Paginate results]({{site.url}}{{site.baseurl}}/opensearch/search/paginate/) | Rather than a single, long list, separate search results into pages.
 [Sort results]({{site.url}}{{site.baseurl}}/opensearch/search/sort/) | Allow sorting of results by different criteria.
 [Highlight query matches]({{site.url}}{{site.baseurl}}/opensearch/search/highlight/) | Highlight the search term in the results.
+[Retrieve specific fields]({{site.url}}{{site.baseurl}}search-plugins/searching-data/retrieve-specific-fields/) | Retrieve only the specific fields
