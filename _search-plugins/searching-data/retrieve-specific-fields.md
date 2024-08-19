@@ -7,7 +7,7 @@ nav_order: 60
 
 # Retrieve specific fields
 
-When you run a basic search in OpenSearch, by default, the original JSON objects that were used during indexing are also returned in the response for each hit in the `_source` object. This can lead to large amounts of data transferred through the network, increasing latency and cost. There are different ways to limit the responses to only the required information.
+When you run a basic search in OpenSearch, by default, the original JSON objects that were used during indexing are also returned in the response for each hit in the `_source` object. This can lead to large amounts of data being transferred through the network, increasing latency and costs. There are several ways to limit the responses to only the required information.
 
 <!-- vale off -->
 ## Disabling _source
@@ -51,7 +51,7 @@ Because no fields were selected in the preceding search, the retrieved hits will
 }
 ```
 
-The `_source` can also be disabled in mappings for the index using the following configuration:
+The `_source` can also be disabled in index mappings by using the following configuration:
 
 ```json
 "mappings": {
@@ -65,7 +65,7 @@ If source is disabled in the index mappings, [searching with docvalue fields]({{
 
 ## Specifying the fields to retrieve
 
-You can list the fields you want to be returned in the `fields` parameter. Wildcard patterns are also accepted:
+You can list the fields you want to retrieve in the `fields` parameter. Wildcard patterns are also accepted:
 
 ```json
 GET "/index1/_search?pretty"
@@ -121,7 +121,7 @@ The response contains the `name` and `age` fields:
 }
 ```
 
-### Extracting fields with custom format
+### Extracting fields with a custom format
 
 You can also use object notation to apply a custom format to the chosen field.
 
@@ -139,7 +139,7 @@ If you have the following document:
 }
 ```
 
-You can query using the `fields` parameter and custom format:
+Then you can query using the `fields` parameter and a custom format:
 
 ```json
 GET /my_index/_search
@@ -157,13 +157,13 @@ GET /my_index/_search
 ```
 {% include copy-curl.html %}
 
-Additionally, you can use [most fields]({{site.url}}{{site.baseurl}}/query-dsl/full-text/multi-match/#most-fields) and [field aliases]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/alias/) in the `fields` parameter because it queries both document `_source` and `_mappings` of the index.
+Additionally, you can use [most fields]({{site.url}}{{site.baseurl}}/query-dsl/full-text/multi-match/#most-fields) and [field aliases]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/alias/) in the `fields` parameter because it queries both the document `_source` and `_mappings` of the index.
 <!-- vale off -->
 ## Searching with docvalue_fields
 <!-- vale on -->
-To retrieve specific fields from the index, you can also use the `docvalue_fields` parameter. This parameter works slightly differently compared to the `fields` parameter. It retrieves details from doc values rather than from the `_source` field, which is more efficient for fields that are not analyzed, like keyword, date, and numeric fields. Doc values have a columnar storage format optimized for efficient sorting and aggregations. It stores the values on disk in a way that is easy to read. When you use `docvalue_fields`, OpenSearch reads the values directly from this optimized storage format. It is useful for retrieving values of fields that are primarily used for sorting, aggregations, and for use in scripts.
+To retrieve specific fields from the index, you can also use the `docvalue_fields` parameter. This parameter works slightly differently as compared to the `fields` parameter. It retrieves information from doc values rather than from the `_source` field, which is more efficient for fields that are not analyzed, like keyword, date, and numeric fields. Doc values have a columnar storage format optimized for efficient sorting and aggregations. It stores the values on disk in a way that is easy to read. When you use `docvalue_fields`, OpenSearch reads the values directly from this optimized storage format. It is useful for retrieving values of fields that are primarily used for sorting, aggregations, and for use in scripts.
 
-To better understand `docvalue_fields` see the following example.
+The following example demonstrates how to use the `docvalue_fields` parameter.
 
 
 1. Create an index with the following mappings:
@@ -322,7 +322,7 @@ In OpenSearch, if you want to retrieve doc values for nested objects, you cannot
     ```
     {% include copy-curl.html %}
 
-Expected response:
+The following is the expected response:
 
 ```json
 {
@@ -398,9 +398,9 @@ Expected response:
 <!-- vale off -->
 ## Searching with stored_fields
 <!-- vale on -->
-By default, OpenSearch stores the entire document in the `_source` field and uses it to return document contents in search results. However, sometimes you might want to store certain fields separately for more efficient retrieval. You can explicitly store and retrieve specific fields from documents separately from the `_source` field using `stored_fields`. 
+By default, OpenSearch stores the entire document in the `_source` field and uses it to return document contents in search results. However, you might also want to store certain fields separately for more efficient retrieval. You can explicitly store and retrieve specific document fields separately from the `_source` field by using `stored_fields`. 
 
-Unlike `_source`, `stored_fields` must be explicitly defined in the mappings for fields you want to store separately. It can be useful if you frequently need to retrieve only a small subset of fields and want to avoid retrieving the entire `_source` field. The following example shows using `stored_fields`.
+Unlike `_source`, `stored_fields` must be explicitly defined in the mappings for fields you want to store separately. It can be useful if you frequently need to retrieve only a small subset of fields and want to avoid retrieving the entire `_source` field. The following example demonstrates how to use the `stored_fields` parameter.
 
 1. Create an index with the following mappings:
 
@@ -464,7 +464,7 @@ Unlike `_source`, `stored_fields` must be explicitly defined in the mappings for
     ```
     {% include copy-curl.html %}
 
-Expected response:
+The following is the expected response:
 
 ```json
 {
@@ -498,12 +498,12 @@ Expected response:
 }
 ```
 
-Stored_fields can be disabled completely in search request by setting `stored_fields` to `_none_`.
+The `stored_fields` parameter can be disabled completely by setting `stored_fields` to `_none_`.
 {: .note}
 <!-- vale off -->
 ### Searching stored_fields with nested objects
 <!-- vale on -->
-In OpenSearch, if you want to retrieve `stored_fields` for nested objects, you cannot directly use the `stored_fields` parameter because no data will be returned. Instead, you should use the `inner_hits` parameter with its own `stored_fields` property, see following example.
+In OpenSearch, if you want to retrieve `stored_fields` for nested objects, you cannot directly use the `stored_fields` parameter because no data will be returned. Instead, you should use the `inner_hits` parameter with its own `stored_fields` property, as shown in the following example.
 
 1. Create index and mappings:
 
@@ -572,7 +572,7 @@ In OpenSearch, if you want to retrieve `stored_fields` for nested objects, you c
     ```
     {% include copy-curl.html %}
 
-Expected response:
+The following is the expected response:
 
 ```json
 {
@@ -634,9 +634,9 @@ Expected response:
 
 ## Using source filtering
 
-Source filtering in OpenSearch is a way to control which parts of the `_source` field are included in the search response. Including only the necessary fields in the response can help reduce the amount of data transferred over the network and improve performance.
+Source filtering is a way to control which parts of the `_source` field are included in the search response. Including only the necessary fields in the response can help reduce the amount of data transferred over the network and improve performance.
 
-You can include or exclude specific fields from the `_source` field in the search response using complete field names or simple wildcard patterns. The following example demonstrates including specific fields.
+You can include or exclude specific fields from the `_source` field in the search response using complete field names or simple wildcard patterns. The following example demonstrates how to include specific fields.
 
 1. Index your data:
 
@@ -664,7 +664,7 @@ You can include or exclude specific fields from the `_source` field in the searc
     ```
     {% include copy-curl.html %}
 
-Expected response:
+The following is the expected response:
 
 ```json
 {
@@ -691,7 +691,7 @@ Expected response:
 
 ### Excluding fields with source filtering
 
-You can choose to exclude fields using `"excludes"` parameter in search request, see following example:
+You can choose to exclude fields by using the `"excludes"` parameter in a search request, as shown in the following example:
 
 ```json
 POST my_index/_search
@@ -706,7 +706,7 @@ POST my_index/_search
 ```
 {% include copy-curl.html %}
 
-Expected response:
+The following is the expected response:
 
 ```json
 {
@@ -734,9 +734,9 @@ Expected response:
 
 ### Including and excluding fields in the same search
 
-There might be cases where both `include` and `exclude` parameters are necessary. The following examples demonstrate the usefulness of this option.
+In some cases, both the `include` and `exclude` parameters may be necessary. The following examples demonstrate how to include and exclude fields in the same search.
 
-Consider a`products` index containing the following document:
+Consider a `products` index containing the following document:
 
 ```json
 {
@@ -793,7 +793,7 @@ GET /products/_search
 ```
 {% include copy-curl.html %}
 
-Expected response:
+The following is the expected response:
 
 ```json
 {
@@ -832,9 +832,9 @@ Expected response:
 
 ## Using scripted fields
 
-The `script_fields` parameter allows you to include custom fields whose values are computed using scripts in your search results. This can be useful for calculating values dynamically based on the data in the document. You can also retrieve `derived fields` using a similar approach. For more information, see [Retrieving fields]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/derived/#retrieving-fields).
+The `script_fields` parameter allows you to include custom fields whose values are computed using scripts in your search results. This can be useful for calculating values dynamically based on the document data. You can also retrieve `derived fields` by using a similar approach. For more information, see [Retrieving fields]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/derived/#retrieving-fields).
 
-The following example demonstrates using `script_fields`.
+The following example demonstrates how to use the `script_fields` parameter.
 
 Let's say you have an index of products, and each product document contains the fields `price` and `discount_percentage`. You want to include a custom field in the search results that shows the discounted price of each product.
 
@@ -877,7 +877,7 @@ GET /products/_search
 ```
 {% include copy-curl.html %}
 
-You should get back the following response:
+You should receive the following response:
 
 ```json
 {
