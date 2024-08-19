@@ -448,10 +448,12 @@ You can pass the following additional parameters to a search with `inner_hits` u
 * `size`: The maximum number of inner hits to return.
 * `sort`: The sorting order for the inner hits.
 * `name`: A custom name for the inner hits in the response. This is useful to differentiate between multiple inner hits in a single query.
+
 <!-- vale off -->
 ### Example of inner_hits parameters with nested objects
 <!-- vale on -->
-1. Create index and mappings:
+
+1. Create an index with the following mappings:
 
     ```json
     PUT /products
@@ -497,7 +499,7 @@ You can pass the following additional parameters to a search with `inner_hits` u
     ```
     {% include copy-curl.html %}
 
-3. Query with `inner_hits` options:
+3. Query with `inner_hits` and provide additional parameters:
 
     ```json
     GET /products/_search
@@ -770,7 +772,7 @@ Expected result:
 <!-- vale off -->
 ## Benefits of using inner_hits
 <!-- vale on -->
-* **Detailed Query Results**
+* **Detailed query results**
 
     `inner_hits` allows you to retrieve detailed information about matching nested or child documents directly within the parent document's search result. This is particularly useful for understanding the context and specifics of the match without having to perform additional queries.
     
