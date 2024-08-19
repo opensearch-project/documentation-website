@@ -30,7 +30,7 @@ The following table lists the supported operators. Operators are listed in order
 |----------------------|-------------------------------------------------------|---------------|
 | `()`                 | Priority expression                                   | Left to right |
 | `not`<br> `+`<br>  `-`| Unary logical NOT<br>Unary positive<br>Unary negative | Right to left |
-| `*`, `/`             | Multiplication and Division operators                 | Left to right |
+| `*`, `/`             | Multiplication and division operators                 | Left to right |
 | `+`, `-`             | Addition and subtraction operators                    | Left to right |
 | `+`                  | String concatenation operator                         | Left to right |
 | `<`, `<=`, `>`, `>=` | Relational operators                                  | Left to right |
