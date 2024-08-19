@@ -61,7 +61,7 @@ The `_source` can also be disabled in index mappings by using the following conf
 }
 ```
 
-If source is disabled in the index mappings, [searching with docvalue fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#searching-with-docvalue_fields) and [searching with stored fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#searching-with-stored_fields) become extremely useful.
+If `_source` is disabled in the index mappings, [searching with docvalue fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#searching-with-docvalue_fields) and [searching with stored fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#searching-with-stored_fields) become extremely useful.
 
 ## Specifying the fields to retrieve
 
@@ -505,7 +505,7 @@ The `stored_fields` parameter can be disabled completely by setting `stored_fiel
 <!-- vale on -->
 In OpenSearch, if you want to retrieve `stored_fields` for nested objects, you cannot directly use the `stored_fields` parameter because no data will be returned. Instead, you should use the `inner_hits` parameter with its own `stored_fields` property, as shown in the following example.
 
-1. Create index and mappings:
+1. Create an index with the following mappings:
 
     ```json
     PUT my_index
@@ -775,7 +775,7 @@ Consider a `products` index containing the following document:
 }
 ```
 
-You want to perform a search on this index but include only the `name`, `price`, `reviews`, and `supplier` fields in the response. Additionally, you want to exclude any `contact_email` fields from the `supplier` object and `comment` fields from the `reviews` object. To achieve this, run the following search:
+To perform a search on this index while including only the `name`, `price`, `reviews`, and `supplier` fields in the response, and excluding the `contact_email` field from the `supplier` object and the `comment` field from the `reviews` object, execute the following search:
 
 ```json
 GET /products/_search
@@ -834,9 +834,7 @@ The following is the expected response:
 
 The `script_fields` parameter allows you to include custom fields whose values are computed using scripts in your search results. This can be useful for calculating values dynamically based on the document data. You can also retrieve `derived fields` by using a similar approach. For more information, see [Retrieving fields]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/derived/#retrieving-fields).
 
-The following example demonstrates how to use the `script_fields` parameter.
-
-Let's say you have an index of products, and each product document contains the fields `price` and `discount_percentage`. You want to include a custom field in the search results that shows the discounted price of each product.
+If you have an index of products, where each product document contains the `price` and `discount_percentage` fields. You can use `script_fields` parameter to include a custom field in the search results that displays the discounted price of each product. The following example demonstrates how to use the `script_fields` parameter:
 
 
 1. Index the data:
