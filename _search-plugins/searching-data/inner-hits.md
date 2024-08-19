@@ -774,24 +774,24 @@ Expected result:
 <!-- vale on -->
 * **Detailed query results**
 
-    `inner_hits` allows you to retrieve detailed information about matching nested or child documents directly within the parent document's search result. This is particularly useful for understanding the context and specifics of the match without having to perform additional queries.
+    Using `inner_hits` allows you to retrieve detailed information about matching nested or child documents directly within the parent document's search results. This is particularly useful for understanding the context and specifics of the match without having to perform additional queries.
     
-    Example use case: In a blog post index, you have comments as nested objects. When searching for blog posts with specific comments, you can retrieve the relevant comments that matched the search criteria along with the post details.
+    Example use case: In a blog post index, you have comments as nested objects. When searching for blog posts containing specific comments, you can retrieve the relevant comments that matched the search criteria along with the post details.
 
-* **Optimized Performance**
+* **Optimized performance**
 
-    Without `inner_hits`, you might need to perform multiple queries to fetch related documents. `inner_hits` consolidates this into a single query, reducing the number of round trips to the OpenSearch server and improving overall performance.
+    Without `inner_hits`, you might need to run multiple queries to fetch related documents. Using `inner_hits` consolidates these into a single query, reducing the number of round trips to the OpenSearch server and improving overall performance.
 
     Example use case: In an e-commerce application, you have products as parent documents and reviews as child documents. A single query with `inner_hits` can fetch products with their relevant reviews, avoiding multiple separate queries.
 
-* **Simplified Query Logic**
+* **Simplified query logic**
 
-    Combining parent and child or nested documents logic in a single query simplifies the application code and reduces complexity. It helps maintain cleaner and more maintainable code by centralizing the query logic within OpenSearch.
+    Combining parent/child or nested document logic in a single query simplifies the application code and reduces complexity. It helps ensure the code is cleaner and more maintainable by centralizing the query logic within OpenSearch.
 
     Example use case: In a job portal, jobs are parent documents, and applications are nested or child documents. Fetching jobs along with specific applications in one query keeps the application logic simple.
 
-* **Contextual Relevance**
+* **Contextual relevance**
 
-    `inner_hits` provides contextual relevance by showing exactly which nested or child documents matched the query criteria. This is crucial for applications where the relevance of results depends on the specific part of the document that matched the query.
+    Using `inner_hits` provides contextual relevance by showing exactly which nested or child documents matched the query criteria. This is crucial for applications in which the relevance of results depends on a specific part of the document that matched the query.
 
-    Example use case: In a customer support system, tickets are parent documents, and comments or updates are nested or child documents. Knowing which specific comment matched the search helps in understanding the context of the ticket search.
+    Example use case: In a customer support system, tickets are parent documents, and comments or updates are nested or child documents. Knowing which specific comment matched the search helps understand the context of the ticket search.
