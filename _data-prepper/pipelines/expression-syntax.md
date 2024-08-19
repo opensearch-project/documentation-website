@@ -228,7 +228,7 @@ White space is optional around relational operators, regex equality operators, e
 | `in`, `not in`       | Set operators            | Yes                  | `/a in {200}`<br>`/a not in {400}`                             | `/a in{200, 202}`<br>`/a not in{400}` |
 | `<`, `<=`, `>`, `>=` | Relational operators     | No                   | `/status < 300`<br>`/status>=300`                              |                                       |
 | `+`                  | String concatenation operator   | No                   | `/status_code + /message + "suffix"`
-| `+`, `-`             | Arithmetic Add and Subtract operators | No      | `/status_code + length(/message) - 2`
+| `+`, `-`             | Arithmetic addition and subtraction operators | No      | `/status_code + length(/message) - 2`
 | `*`, `/`             | Multiplication and division operators | No              | `/status_code * length(/message) / 3`
 | `=~`, `!~`           | Regex equality operators | No                   | `/msg =~ "^\w*$"`<br>`/msg=~"^\w*$"`                           |                                       |
 | `==`, `!=`           | Equality operators       | No                   | `/status == 200`<br>`/status_code==200`                        |                                       |
