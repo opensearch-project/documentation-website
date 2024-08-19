@@ -18,3 +18,4 @@ Feature | Description
 [Paginate results]({{site.url}}{{site.baseurl}}/opensearch/search/paginate/) | Rather than a single, long list, separate search results into pages.
 [Sort results]({{site.url}}{{site.baseurl}}/opensearch/search/sort/) | Allow sorting of results by different criteria.
 [Highlight query matches]({{site.url}}{{site.baseurl}}/opensearch/search/highlight/) | Highlight the search term in the results.
+[Retrieve inner hits]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/inner-hits/) | Retrieving underlying hits in nested and parent-join objects.

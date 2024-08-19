@@ -6,11 +6,14 @@ has_children: false
 nav_order: 70
 ---
 
-
-
 # Inner_hits
 
 In OpenSearch, when you perform a search using [nested objects]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/nested/) or [parent-join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/), the underlying hits that matched the query and resulted in the hits being returned (nested inner objects or child documents) are hidden by default. Whether you are using parent/child, nested objects, or both, there could be different reasons why retrieving these underlying hits is important. You can retrieve inner hits using the `inner_hits` parameter in the search query.
+
+You can also use `inner_hits` with the following features:
+
+  - [Highlight query matches]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/highlight/)
+  - [Explain]({{site.url}}{{site.baseurl}}/api-reference/explain/)
 
 ## Inner hits with nested objects
 Nested objects allow you to index an array of objects and maintain their relationship within the same document. The following example uses the `inner_hits` parameter to retrieve the underlying inner hits.
@@ -434,11 +437,6 @@ In this query, you are searching for parent documents that have child documents 
 }
 ```
 
-You can also use `inner_hits` with the following features:
-
-  - [Highlight query matches]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/highlight/)
-  - [Explain]({{site.url}}{{site.baseurl}}/api-reference/explain/)
-
 <!-- vale off -->
 ## inner_hits parameters
 <!-- vale on -->
@@ -487,7 +485,10 @@ You can pass the following additional parameters to a search with `inner_hits` u
         { "user": "Charlie", "comment": "Excellent", "rating": 4 }
       ]
     }
-    
+    ```
+    {% include copy-curl.html %}
+
+    ```json
     POST /products/_doc/2
     {
       "product_name": "Laptop",
@@ -524,7 +525,7 @@ You can pass the following additional parameters to a search with `inner_hits` u
     ```
     {% include copy-curl.html %}
 
-Expected result:
+The following is the expected result:
 
 ```json
 {
@@ -646,7 +647,10 @@ Expected result:
       "name": "Alice",
       "my_join_field": "employee"
     }
+    ```
+    {% include copy-curl.html %}
     
+    ```json
     # Index child documents
     PUT /company/_doc/2?routing=1
     {
@@ -656,7 +660,10 @@ Expected result:
         "parent": "1"
       }
     }
+    ```
+    {% include copy-curl.html %}
     
+    ```json
     PUT /company/_doc/3?routing=1
     {
       "description": "Prepare the report",
@@ -665,7 +672,10 @@ Expected result:
         "parent": "1"
       }
     }
+    ```
+    {% include copy-curl.html %}
 
+    ```json
     PUT /company/_doc/4?routing=1
     {
       "description": "Update project",
@@ -702,7 +712,7 @@ Expected result:
     ```
     {% include copy-curl.html %}
 
-Expected result:
+The following is the expected result:
 
 ```json
 {
