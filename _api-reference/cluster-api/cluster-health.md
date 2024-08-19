@@ -25,12 +25,13 @@ GET _cluster/health
 GET _cluster/health/<index>
 ```
 
-## URL Parameters
-The following table lists the available URL parameters. All URL parameters are optional.
+## Path parameters
 
-Parameter | Type | Description
+The following table lists the available path parameters. All path parameters are optional.
+
+Parameter | Data type | Description
 :--- | :--- | :---
-&lt;index-name&gt; | String | Limit health reporting to a specific index. Can be a comma-separated list of multiple index names.
+&lt;index-name&gt; | String | Limits health reporting to a specific index. Can be a single index or a comma-separated list of index names.
 
 ## Query parameters
 
