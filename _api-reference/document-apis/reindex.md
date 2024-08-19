@@ -79,10 +79,9 @@ version_type | The indexing operation's version type. Valid values are `internal
 op_type | Whether to copy over documents that are missing in the destination index. Valid values are `create` (ignore documents with the same ID from the source index) and `index` (copy everything from the source index).
 pipeline | Which ingest pipeline to utilize during the reindex.
 script | A script that OpenSearch uses to apply transformations to the data during the reindex operation.
-source | The actual script that OpenSearch runs.
 lang | The scripting language. Valid options are `painless`, `expression`, `mustache`, and `java`.
 
-## Response
+## Example response
 ```json
 {
     "took": 28829,
