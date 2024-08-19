@@ -15,7 +15,7 @@ This document lists the maintainers in this repo. See [opensearch-project/.githu
 | Stephen Crawford | [scraw99](https://github.com/stephen-crawford)        | Amazon      |
 | Eric Pugh        | [epugh](https://github.com/epugh)               | OpenSource Connections  | 
 
-# Emeritus
+## Emeritus
 
 | Maintainer       | GitHub ID                                       | Affiliation |
 | ---------------- | ----------------------------------------------- | ----------- |
