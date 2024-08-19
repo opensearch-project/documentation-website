@@ -137,10 +137,9 @@ The preceding query searches for nested user objects with the name John and retu
 }
 ```
 ## Inner hits with parent-child objects
-<!-- vale on -->
-Parent-join relationships allow you to create relationships between documents of different types within the same index. See following example using search with `inner_hits` with parent/child objects:
+Parent-join relationships allow you to create relationships between documents of different types within the same index. The following example demonstrates searching with `inner_hits` using parent/child objects.
 
-1. Create index with parent-join field:
+1. Create an index with a parent-join field:
 
     ```json
     PUT /my_index
@@ -204,7 +203,7 @@ Parent-join relationships allow you to create relationships between documents of
     ```
     {% include copy-curl.html %}
 
-This query searches for parent documents that have a child document matching the query criteria (`"child"` in this case) and returns the matching child documents within the `inner_hits` section of the response. See the following expected result:
+The preceding query searches for parent documents that have a child document matching the query criteria (in this case, the term `"child"`). It returns the matching child documents within the `inner_hits` section of the response:
 
 ```json
 {
@@ -255,11 +254,11 @@ This query searches for parent documents that have a child document matching the
 }
 ```
 
-## Full example using both parent-join and nested object with inner_hits
+## Using both parent-join and nested objects with inner hits
 
-Combining both features into a comprehensive example:
+The following example demonstrates using both parent-join and nested objects with inner hits.
 
-1. Create the index with mapping:
+1. Create an index with the following mapping:
 
     ```json
     PUT /my_index
@@ -348,8 +347,7 @@ Combining both features into a comprehensive example:
     ```
     {% include copy-curl.html %}
 
-In this query you can see how search for parent documents that have child documents containing comments made by "John". The `inner_hits` feature is used to return the matching child documents and their nested comments.
-Expected result:
+In this query, you are searching for parent documents that have child documents containing comments made by John. Specifying `inner_hits` ensures that the matching child documents and their nested comments are returned:
 
 ```json
 {
@@ -436,17 +434,17 @@ Expected result:
 }
 ```
 
-You can also use inner_hits with following features:
+You can also use `inner_hits` with the following features:
 
   - [Highlight query matches]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/highlight/)
   - [Explain]({{site.url}}{{site.baseurl}}/api-reference/explain/)
 
 <!-- vale off -->
-## Inner_hits parameters
+## inner_hits parameters
 <!-- vale on -->
-There are additional parameters that can be passed to search with `inner_hits` using both nested objects and parent-join relationships in OpenSearch. Such as `from`, `size`, `sort` and `name`.
+You can pass the following additional parameters to a search with `inner_hits` using both nested objects and parent-join relationships:
 
-* `from`: The offset from where to start fetching hits within the inner_hits results.
+* `from`: The offset from where to start fetching hits within the `inner_hits` results.
 * `size`: The maximum number of inner hits to return.
 * `sort`: The sorting order for the inner hits.
 * `name`: A custom name for the inner hits in the response. This is useful to differentiate between multiple inner hits in a single query.
