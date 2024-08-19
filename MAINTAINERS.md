@@ -12,7 +12,7 @@ This document lists the maintainers in this repo. See [opensearch-project/.githu
 | Melissa Vagi     | [vagimeli](https://github.com/vagimeli)         | Amazon      |
 | Miki Barahmand   | [AMoo-Miki](https://github.com/AMoo-Miki)       | Amazon      |
 | David Venable    | [dlvenable](https://github.com/dlvenable)       | Amazon      | 
-| Stephen Crawford | [scraw99](https://github.com/stephen-crawford)        | Amazon      |
+| Stephen Crawford | [stephen-crawford](https://github.com/stephen-crawford) | Amazon      |
 | Eric Pugh        | [epugh](https://github.com/epugh)               | OpenSource Connections  | 
 
 ## Emeritus
