@@ -6,7 +6,6 @@ This document lists the maintainers in this repo. See [opensearch-project/.githu
 
 | Maintainer       | GitHub ID                                       | Affiliation |
 | ---------------- | ----------------------------------------------- | ----------- |
-| Heather Halter   | [hdhalter](https://github.com/hdhalter)         | Amazon      |
 | Fanit Kolchina   | [kolchfa-aws](https://github.com/kolchfa-aws)   | Amazon      |
 | Nate Archer      | [Naarcha-AWS](https://github.com/Naarcha-AWS)   | Amazon      |
 | Nathan Bower     | [natebower](https://github.com/natebower)       | Amazon      |
@@ -15,3 +14,9 @@ This document lists the maintainers in this repo. See [opensearch-project/.githu
 | David Venable    | [dlvenable](https://github.com/dlvenable)       | Amazon      | 
 | Stephen Crawford | [scraw99](https://github.com/scrawfor99)        | Amazon      |
 | Eric Pugh        | [epugh](https://github.com/epugh)               | OpenSource Connections  | 
+
+# Emeritus
+
+| Maintainer       | GitHub ID                                       | Affiliation |
+| ---------------- | ----------------------------------------------- | ----------- |
+| Heather Halter   | [hdhalter](https://github.com/hdhalter)         | Amazon      |
