@@ -606,10 +606,12 @@ Expected result:
   }
 }
 ```
+
 <!-- vale off -->
-### Example of inner_hits parameters with Parent-Join Relationship
+### Example of inner_hits parameters with a parent-join relationship
 <!-- vale on -->
-1. Create index and mappings:
+
+1. Create an index with the following mappings:
 
     ```json
     PUT /company
