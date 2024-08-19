@@ -10,14 +10,12 @@ nav_order: 70
 
 # Inner_hits
 
-In OpenSearch, when you perform a search using parent-join or nested objects (for more information see [Join field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) and [Nested field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/nested/)), the underlying hits that resulted in the hits being returned (child documents or nested inner objects) are hidden by default. Whether you are using parent/child, nested objects or both, there could be different reasons why retrieving these underlying hits is important. This is achieved using `inner_hits` parameter in the search query.
+In OpenSearch, when you perform a search using [nested objects]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/nested/) or [parent-join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/), the underlying hits that matched the query and resulted in the hits being returned (nested inner objects or child documents) are hidden by default. Whether you are using parent/child, nested objects, or both, there could be different reasons why retrieving these underlying hits is important. You can retrieve inner hits using the `inner_hits` parameter in the search query.
 
-<!-- vale off -->
-## Inner_hits with nested objects
-<!-- vale on -->
-Nested objects allow you to index an array of objects and maintain their relationship within the same document. See the following example of using `inner_hits` parameter to retrieve underlying inner hits:
+## Inner hits with nested objects
+Nested objects allow you to index an array of objects and maintain their relationship within the same document. The following example uses the `inner_hits` parameter to retrieve the underlying inner hits.
 
-1. Create index mapping with nested object:
+1. Create an index mapping with a nested object:
 
     ```json
     PUT /my_index
@@ -79,7 +77,7 @@ Nested objects allow you to index an array of objects and maintain their relatio
     ```
     {% include copy-curl.html %}
 
-This query searches for nested user objects with the name "John" and returns the matching nested documents within the inner_hits section of the response. The following is the retrieved result:
+The preceding query searches for nested user objects with the name John and returns the matching nested documents within the `inner_hits` section of the response:
 
 ```json
 {
@@ -138,8 +136,7 @@ This query searches for nested user objects with the name "John" and returns the
   }
 }
 ```
-<!-- vale off -->
-## Inner_hits with parent-child objects
+## Inner hits with parent-child objects
 <!-- vale on -->
 Parent-join relationships allow you to create relationships between documents of different types within the same index. See following example using search with `inner_hits` with parent/child objects:
 
