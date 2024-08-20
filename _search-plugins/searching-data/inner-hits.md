@@ -6,9 +6,9 @@ has_children: false
 nav_order: 70
 ---
 
-# Inner_hits
+# Inner hits
 
-In OpenSearch, when you perform a search using [nested objects]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/nested/) or [parent-join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/), the underlying hits that match the query and result in the hits being returned (nested inner objects or child documents) are hidden by default. You can retrieve inner hits using the `inner_hits` parameter in the search query.
+In OpenSearch, when you perform a search using [nested objects]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/nested/) or [parent-join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/), the underlying hits (nested inner objects or child documents) are hidden by default. You can retrieve inner hits using the `inner_hits` parameter in the search query.
 
 You can also use `inner_hits` with the following features:
 
@@ -140,7 +140,7 @@ The preceding query searches for nested user objects containing the name John an
 }
 ```
 ## Inner hits with parent-child objects
-Parent-join relationships allow you to create relationships between documents of different types within the same index. The following example request searches with `inner_hits` using parent/child objects.
+Parent-join relationships allow you to create relationships between documents of different types within the same index. The following example request searches with `inner_hits` using parent-child objects.
 
 1. Create an index with a parent-join field:
 
@@ -257,9 +257,9 @@ The preceding query searches for parent documents that have child documents matc
 }
 ```
 
-## Using both parent-join and nested objects with inner hits
+## Using both parent-join and nested objects with `inner_hits`
 
-The following example demonstrates using both parent-join and nested objects with inner hits.
+The following example demonstrates using both parent-join and nested objects with `inner_hits`.
 
 1. Create an index with the following mapping:
 
@@ -448,7 +448,7 @@ You can pass the following additional parameters to a search with `inner_hits` u
 * `name`: A custom name for the inner hits in the response. This is useful in differentiating between multiple inner hits in a single query.
 
 <!-- vale off -->
-### Example of inner_hits parameters with nested objects
+### Example: inner_hits parameters with nested objects
 <!-- vale on -->
 
 1. Create an index with the following mappings:
@@ -609,7 +609,7 @@ The following is the expected result:
 ```
 
 <!-- vale off -->
-### Example of inner_hits parameters with a parent-join relationship
+### Example: inner_hits parameters with a parent-join relationship
 <!-- vale on -->
 
 1. Create an index with the following mappings:
@@ -798,7 +798,7 @@ The following is the expected result:
 
 * **Simplified query logic**
 
-    You can combine parent/child or nested document logic in a single query to simplify the application code and reduce complexity. This helps to ensure that the code is cleaner and more maintainable by centralizing the query logic in OpenSearch.
+    You can combine parent/child or nested document logic in a single query to simplify the application code and reduce complexity. This helps to ensure that the code is more maintainable and consistent by centralizing the query logic in OpenSearch
 
     Example use case: In a job portal, you have jobs as parent documents and applications as nested or child documents. You can simplify the application logic by fetching jobs along with specific applications in one query.
 
