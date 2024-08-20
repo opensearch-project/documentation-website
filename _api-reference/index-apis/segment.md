@@ -34,7 +34,6 @@ The Segment API supports the following optional query parameters.
 Parameter | Data type | Description
 :--- | :--- | :---
 `allow_no_indices` | Boolean | Whether to ignore wildcards that don't match any indexes. Default is `true`.
-`allow_partial_search_results` | Boolean | Whether to return partial results if the request encounters an error or times out. Default is `true`.
 `expand_wildcards` | String | Specifies the type of index that wildcard expressions can match. Supports comma-separated values. Valid values are `all` (match any index), `open` (match open, non-hidden indexes), `closed` (match closed, non-hidden indexes), `hidden` (match hidden indexes), and `none` (deny wildcard expressions). Default is `open`.
 `ignore_unavailable` | Boolean | When `true`, OpenSearch ignores missing or closed indexes. If `false`, OpenSearch returns an error if the force merge operation encounters missing or closed indexes. Default is `false`.
 `verbose` | Boolean | When `true`, provides information about Lucene's memory usage. Default is `false`.
