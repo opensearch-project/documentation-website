@@ -226,9 +226,3 @@ This query searches for documents in the `cakes` category and groups the search 
 The expansion of the group is done by sending an additional query for each inner hit request for each collapsed hit returned in the response. This can significantly slow down the process if there are too many groups and/or inner hit requests. The max_concurrent_group_searches request parameter can be used to control the maximum number of concurrent searches allowed in this phase. The default is based on the number of data nodes and the default search thread pool size.
 
 By using collapsing and inner hits effectively, you can manage large datasets in your bakery inventory, reduce redundancy, and focus on the most relevant information. This technique helps streamline search results, providing a clear and concise view of your data.
-
-
-
-
-
-
