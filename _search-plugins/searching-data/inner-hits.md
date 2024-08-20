@@ -8,7 +8,7 @@ nav_order: 70
 
 # Inner hits
 
-In OpenSearch, when you perform a search using [nested objects]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/nested/) or [parent-join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/), the underlying hits (nested inner objects or child documents) are hidden by default. You can retrieve inner hits using the `inner_hits` parameter in the search query.
+In OpenSearch, when you perform a search using [nested objects]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/nested/) or [parent-join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/), the underlying hits (nested inner objects or child documents) are hidden by default. You can retrieve inner hits by using the `inner_hits` parameter in the search query.
 
 You can also use `inner_hits` with the following features:
 
