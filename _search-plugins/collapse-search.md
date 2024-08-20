@@ -8,7 +8,7 @@ nav_order: 3
 
 The collapse parameter in OpenSearch enables you to group search results by a particular field value, returning only the top document within each group. This feature is useful for reducing redundancy in search results by eliminating duplicates.
 
-The collapse feature requires the field to to be collapsed to be either a `keyword` or a `numeric` type.
+The collapse feature requires the field to be collapsed to be either a `keyword` or a `numeric` type.
 
 ## Example of collapsing search results
 
@@ -64,9 +64,9 @@ GET /bakery-items/_search
 }
 ```
 
-The query above will return the uncollapsed search results, showing all the documents, including both entries for "Chocolate Cake."
+The previous query will return the uncollapsed search results, showing all the documents, including both entries for "Chocolate Cake."
 
-#### Search the index & collapse results
+#### Search the index and collapse the results
 
 To collapse search results by the `item` field and sort them by `price`, you can use the following query:
 
@@ -153,21 +153,7 @@ GET /bakery-items/_search
 
 The collapsed search results example will show only one "Chocolate Cake" entry, demonstrating how collapsing works in reducing redundancy.
 
-Collapsing affects only the top search results and does not change any aggregation results. The total number of hits shown in the response reflects all matching documents before collapsing is applied, including duplicates. However, the response doesn't tell you the exact number of unique groups formed by collapsing. 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Collapsing affects only the top search results and does not change any aggregation results. The total number of hits shown in the response reflects all matching documents before collapsing is applied, including duplicates. However, the response doesn't tell you the exact number of unique groups formed by collapsing.
 
 ### Expanding collapsed results
 
@@ -203,7 +189,7 @@ GET /bakery-items/_search
 
 ```
 
-### Multiple Inner Hits for Each Collapsed Hit
+### Multiple inner hits for each collapsed hit
 
 To obtain several groups of inner hits for each collapsed result, you can set different criteria for each group. For example, you could request the three least expensive items and the three most recent items for every bakery item.
 
