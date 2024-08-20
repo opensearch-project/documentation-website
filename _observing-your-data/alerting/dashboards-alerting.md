@@ -32,7 +32,7 @@ Alerting visualizations are displayed as time-series charts that provide a visua
 
 Consider the following general requirements for setting up or creating alerting visualizations: 
 
-- The visualization must use the [Vizlib Line Chart](https://documentation.insightsoftware.com/vizlibdocumentation/Content/Library/Line_Chart/Vizlib_Line_Chart_-_Overview.htm) extension.
+- The visualization type must be a line chart.
 - The visualization must contain at least a Y-axis metric aggregation.
 - The visualization must not have non-Y-axis metric aggregation types.
 - The visualization must use the date histogram aggregation type for the X-axis bucket.
