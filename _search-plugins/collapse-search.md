@@ -8,13 +8,14 @@ nav_order: 3
 
 The collapse parameter in OpenSearch enables you to group search results by a particular field value, returning only the top document within each group. This feature is useful for reducing redundancy in search results by eliminating duplicates.
 
-### Example of collapsing search results
+The collapse feature requires the field to to be collapsed to be either a `keyword` or a `numeric` type.
 
-In OpenSearch, the collapse feature requires the field to be either a `keyword` or a `numeric` type.
+## Example of collapsing search results
 
 To populate our index with the data needed, we will define our index mappings and define an `item` field indexed as a `keyword`. 
 
 #### Define the index mappings
+
 ```json
 PUT /bakery-items
 {
@@ -38,6 +39,7 @@ PUT /bakery-items
 ```
 
 #### Populate the index
+
 ```json
 POST /bakery-items/_bulk
 { "index": {} }
@@ -49,7 +51,7 @@ POST /bakery-items/_bulk
 ```
 
 #### Search the index, returning all results
-##### Uncollapsed Query
+
 ```json
 GET /bakery-items/_search
 {
@@ -62,15 +64,14 @@ GET /bakery-items/_search
 }
 ```
 
-##### Uncollapsed result
-
-The uncollapsed search results example will show all the documents, including both entries for "Chocolate Cake."
+The query above will return the uncollapsed search results, showing all the documents, including both entries for "Chocolate Cake."
 
 #### Search the index & collapse results
 
 To collapse search results by the `item` field and sort them by `price`, you can use the following query:
 
-##### Collapsed search query
+**Search query that collapses the results on the item field**
+
 ```json
 GET /bakery-items/_search
 {
@@ -86,7 +87,7 @@ GET /bakery-items/_search
 }
 ```
 
-##### Collapsed search result
+**Results collapsed on item field**
 
 ```json
 {
@@ -152,7 +153,7 @@ GET /bakery-items/_search
 
 The collapsed search results example will show only one "Chocolate Cake" entry, demonstrating how collapsing works in reducing redundancy.
 
-Collapsing affects only the top search results and does not change any aggregation results. The total number of hits shown in the response reflects all matching documents before collapsing is applied, including duplicates. However, the response doesn't tell you the exact number of unique groups formed by collapsing. To use collapsing, the field you want to collapse by must be a single-valued `keyword` or `numeric type` with `doc_values` enabled.
+Collapsing affects only the top search results and does not change any aggregation results. The total number of hits shown in the response reflects all matching documents before collapsing is applied, including duplicates. However, the response doesn't tell you the exact number of unique groups formed by collapsing. 
 
 
 
