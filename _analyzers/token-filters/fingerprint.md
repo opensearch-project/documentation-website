@@ -7,7 +7,7 @@ nav_order: 140
 
 # Fingerprint token filter
 
-The OpenSearch fingerprint token filter is used to standardize and deduplicate text. This is particularly useful for tasks where consistency in text processing is crucial. `fingerprint` token filter achieves this by processing text using the following steps:
+The OpenSearch `fingerprint` token filter is used to standardize and deduplicate text. This is particularly useful for tasks where consistency in text processing is crucial. `fingerprint` token filter achieves this by processing text using the following steps:
 
 1. **Lowercasing**: Converts all text to lowercase.
 2. **Splitting**: Breaks the text into words.
