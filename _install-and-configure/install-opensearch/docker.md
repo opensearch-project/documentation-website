@@ -106,7 +106,7 @@ Before continuing, you should verify that Docker is working correctly by deployi
     ```
 1. Send a request to port 9200. The default username and password are `admin`.
     ```bash
-    curl https://localhost:9200 -ku 'admin:<custom-admin-password>'
+    curl https://localhost:9200 -ku admin:<custom-admin-password>
     ```
     {% include copy.html %}
 
