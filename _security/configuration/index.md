@@ -17,9 +17,9 @@ The plugin includes demo certificates so that you can get up and running quickly
 - OpenSearch ships with demo certificates intended for quick setup and testing purposes. For a production environment, it's critical to replace these with your own trusted certificates to ensure secure communication.
   
 - Steps:
-  - Generate your own certificates: Use tools like OpenSSL or a certificate authority (CA) to generate your own certificates.
-  - Place generated certificates and private key to the appropriate OpenSearch directory.
-  - Update file permissions: Ensure the files are accessible by the OpenSearch service user and have proper permissions set to avoid unauthorized access.
+  - Generate your own certificates: Use tools like OpenSSL or a certificate authority (CA) to generate your own certificates. For further guidance on generating certificates with OpenSSL visit: [Generating self-signed certificates](https://opensearch.org/docs/latest/security/configuration/generate-certificates/).
+  - Place generated certificates and private key to the appropriate directory. Typically they are placed in `<OPENSEARCH_HOME>/config/`, for more information see: [Add certificate files to opensearch.yml](https://opensearch.org/docs/latest/security/configuration/generate-certificates/#add-certificate-files-to-opensearchyml).
+  - Ensure the files are accessible by the OpenSearch service user and have proper permissions set to avoid unauthorized access.
 
 2. [Reconfigure `opensearch.yml` to use your certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls). 
 - The `opensearch.yml` file is the main configuration file for OpenSearch. Update this file to point to your custom certificates for secure communication.
@@ -35,10 +35,10 @@ plugins.security.ssl.http.pemcert_filepath: /path/to/your/cert.pem
 plugins.security.ssl.http.pemkey_filepath: /path/to/your/key.pem
 plugins.security.ssl.http.pemtrustedcas_filepath: /path/to/your/ca.pem
 ```
-3. [Reconfigure `config.yml` to use your authentication backend]({{site.url}}{{site.baseurl}}/security/configuration/configuration/) (if you don't plan to use the internal user database).
+3. [Reconfigure `config.yml` to use your authentication backend]({{site.url}}{{site.baseurl}}/security/configuration/configuration/).
 - The `config.yml` file allows you to configure the authentication and authorization mechanisms for OpenSearch.
 - Update the authentication backend settings in `config/opensearch-security/config.yml` according to your requirements. For example, to use LDAP:
-    ```json
+    ```
     authc:
     ldap:
     http_enabled: true
