@@ -31,7 +31,7 @@ The following table lists the available query parameters. All query parameters a
 
 Parameter | Data type | Description
 :--- | :--- | :---
-`all_shards` | Boolean | When `true`, validation is run against [all shards](#rewrite-and-all_shards) instead of one shard per index. Default is `false`.
+`all_shards` | Boolean | When `true`, validation is run against [all shards](#rewrite-and-all_shards) instead of against one shard per index. Default is `false`.
 `allow_no_indices` | Boolean | Whether to ignore wildcards that don't match any indexes. Default is `true`.
 allow_partial_search_results | Boolean | Whether to return partial results if the request encounters an error or times out. Default is `true`.
 `analyzer` | String | The analyzer to use in the query string. This should only be used with the `q` option.
