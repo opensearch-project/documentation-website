@@ -154,7 +154,7 @@ The `explain` option returns information about why the query inside the explanat
 
 ### Rewrite
 
-When the query is valid, the explanation response option shows the string representation of the query. When `rewrite:` is set to `true`:, the explanation is more detailed showing the actual Lucene query that is executed.
+When the `rewrite` option is set to `true` in the request, the `explanations` option shows the Lucene query that is executed as a string, as shown in the following response:
 
 ```
 {
