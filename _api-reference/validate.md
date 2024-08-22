@@ -12,7 +12,7 @@ You can use the Validate Query API to validate a query without running it. The q
 
 The Validate Query API contains the following path:
 
-```
+```json
 GET <index>/_validate/query
 ```
 
@@ -32,24 +32,24 @@ The following table lists the available query parameters. All query parameters a
 Parameter | Data type | Description
 :--- | :--- | :---
 `all_shards` | Boolean | When `true`, validation is run against [all shards](#rewrite-and-all_shards) instead of one shard per index. Default is `false`.
-`allow_no_indices` | Boolean | Whether to ignore wildcards that don’t match any indexes. Default is `true`.
-allow_partial_search_results | Boolean | Whether to return partial results if the request runs into an error or times out. Default is `true`.
+`allow_no_indices` | Boolean | Whether to ignore wildcards that don't match any indexes. Default is `true`.
+allow_partial_search_results | Boolean | Whether to return partial results if the request encounters an error or times out. Default is `true`.
 `analyzer` | String | The analyzer to use in the query string. This should only be used with the `q` option.
 `analyze_wildcard` | Boolean | Specifies whether to analyze wildcard and prefix queries. Default is `false`. 
 `default_operator` | String | Indicates whether the default operator for a string query should be `AND` or `OR`. Default is `OR`.
-`df` | String | The default field in case a field prefix is not provided in the query string.
+`df` | String | The default field if a field prefix is not provided in the query string.
 `expand_wildcards` | String | Specifies the type of index that wildcard expressions can match. Supports comma-separated values. Valid values are `all` (match any index), `open` (match open, non-hidden indexes), `closed` (match closed, non-hidden indexes), `hidden` (match hidden indexes), and `none` (deny wildcard expressions). Default is `open`.
-`explain` | Boolean | Whether to return details about how OpenSearch computed the [document's score](#explain). Default is `false`.
+`explain` | Boolean | Whether to return information about how OpenSearch computed the [document's score](#explain). Default is `false`.
 `ignore_unavailable` |  Boolean | Specifies whether to include missing or closed indexes in the response and ignores unavailable shards during the search request. Default is `false`.
-`lenient` | Boolean | Specifies whether OpenSearch should ignore format-based query failures (for example, querying a text field for an integer). Default is `false`. 
+`lenient` | Boolean | Specifies whether OpenSearch should ignore format-based query failures (for example, as a result of querying a text field for an integer). Default is `false`. 
 `rewrite` | Determines how OpenSearch [rewrites](#rewrite) and scores multi-term queries. Valid values are `constant_score`, `scoring_boolean`, `constant_score_boolean`, `top_terms_N`, `top_terms_boost_N`, and `top_terms_blended_freqs_N`. Default is `constant_score`.
-`q` | String | Query in the Lucene query string syntax.
+`q` | String | A query in the Lucene string syntax.
 
 ## Example request
 
-The following example uses an index named `Hamlet`, created using the following `bulk` request:
+The following example request uses an index named `Hamlet` created using a `bulk` request:
 
-```
+```json
 PUT hamlet/_bulk?refresh
 {"index":{"_id":1}}
 {"user" : { "id": "hamlet" }, "@timestamp" : "2099-11-15T14:12:12", "message" : "To Search or Not To Search"}
@@ -58,16 +58,16 @@ PUT hamlet/_bulk?refresh
 ```
 {% include copy.html %}
 
-You can then use the Validate Query API to validate a query made against the index, as shown in the following example:
+You can then use the Validate Query API to validate an index query, as shown in the following example:
 
-```
+```json
 GET hamlet/_validate/query?q=user.id:hamlet
 ```
 {% include copy.html %}
 
 The query can also be sent as a request body, as shown in the following example:
 
-```
+```json
 GET hamlet/_validate/query
 {
   "query" : {
@@ -129,7 +129,7 @@ OpenSearch responds with the following, where the `valid` parameter is shown as 
 }
 ```
 
-Certain query parameters can also affect what OpenSearch shows in the response. The following examples show how the [Explain](#explain), [Rewrite](#rewrite), and [all_shards](#rewrite-and-all_shards) query options affect the response.
+Certain query parameters can also affect what is included in the response. The following examples show how the [Explain](#explain), [Rewrite](#rewrite), and [all_shards](#rewrite-and-all_shards) query options affect the response.
 
 ### Explain 
 
@@ -177,7 +177,7 @@ When the query is valid, the explanation response option shows the string repres
 
 ### Rewrite and all_shards
 
-When both the `rewrite` and `all_shards` options are set to `true`, the Validate Query API responds with detailed information from all available shards as opposed to the default of one shard, as shown in the following response:
+When both the `rewrite` and `all_shards` options are set to `true`, the Validate Query API responds with detailed information from all available shards as opposed to only one shard (the default), as shown in the following response:
 
 ```
 {
