@@ -6,11 +6,11 @@ nav_order: 87
 
 # Validate Query
 
-You can use the Validate Query API to validate a query without running it. The query can be sent as a path parameter or in the request body.
+You can use the Validate Query API to validate a query without running it. The query can be sent as a path parameter or included in the request body.
 
 ## Path and HTTP methods
 
-The Validate Query API contains the following paths:
+The Validate Query API contains the following path:
 
 ```
 GET <index>/_validate/query
@@ -31,7 +31,7 @@ The following table lists the available query parameters. All query parameters a
 
 Parameter | Data type | Description
 :--- | :--- | :---
-`all_shards` | Boolean | When `true`, validation is run against all shards instead of one shard per index. Default is `false`.
+`all_shards` | Boolean | When `true`, validation is run against [all shards](#rewrite-and-all_shards) instead of one shard per index. Default is `false`.
 `allow_no_indices` | Boolean | Whether to ignore wildcards that don’t match any indexes. Default is `true`.
 allow_partial_search_results | Boolean | Whether to return partial results if the request runs into an error or times out. Default is `true`.
 `analyzer` | String | The analyzer to use in the query string. This should only be used with the `q` option.
@@ -39,10 +39,10 @@ allow_partial_search_results | Boolean | Whether to return partial results if th
 `default_operator` | String | Indicates whether the default operator for a string query should be `AND` or `OR`. Default is `OR`.
 `df` | String | The default field in case a field prefix is not provided in the query string.
 `expand_wildcards` | String | Specifies the type of index that wildcard expressions can match. Supports comma-separated values. Valid values are `all` (match any index), `open` (match open, non-hidden indexes), `closed` (match closed, non-hidden indexes), `hidden` (match hidden indexes), and `none` (deny wildcard expressions). Default is `open`.
-`explain` | Boolean | Whether to return details about how OpenSearch computed the document's score. Default is `false`.
+`explain` | Boolean | Whether to return details about how OpenSearch computed the [document's score](#explain). Default is `false`.
 `ignore_unavailable` |  Boolean | Specifies whether to include missing or closed indexes in the response and ignores unavailable shards during the search request. Default is `false`.
 `lenient` | Boolean | Specifies whether OpenSearch should ignore format-based query failures (for example, querying a text field for an integer). Default is `false`. 
-`rewrite` | Determines how OpenSearch rewrites and scores multi-term queries. Valid values are `constant_score`, `scoring_boolean`, `constant_score_boolean`, `top_terms_N`, `top_terms_boost_N`, and `top_terms_blended_freqs_N`. Default is `constant_score`.
+`rewrite` | Determines how OpenSearch [rewrites](#rewrite) and scores multi-term queries. Valid values are `constant_score`, `scoring_boolean`, `constant_score_boolean`, `top_terms_N`, `top_terms_boost_N`, and `top_terms_blended_freqs_N`. Default is `constant_score`.
 `q` | String | Query in the Lucene query string syntax.
 
 ## Example request
