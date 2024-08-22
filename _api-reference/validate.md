@@ -133,7 +133,7 @@ Certain query parameters can also affect what is included in the response. The f
 
 ### Explain 
 
-The `explain` option returns information about why the query inside the explanations response option failed, as shown in the following response example:
+The explain option returns information about the query failure in the explanations field, as shown in the following example response:
 
 ```
 {
