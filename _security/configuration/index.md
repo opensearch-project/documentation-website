@@ -53,17 +53,16 @@ plugins.security.ssl.http.pemtrustedcas_filepath: /path/to/your/ca.pem
     ```
   
 4. [Modify the configuration YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml).
+- Determine which additional YAML files need modification, for example the `roles.yml`, `roles_mapping.yml`, `internal_users.yml`, etc.
+- Edit the files with any additional configuration needed.
 
-Determine which additional YAML files need modification, for example the `roles.yml`, `roles_mapping.yml`, `internal_users.yml`, etc.
-Edit the files: Open each required file in your preferred text editor and make the necessary adjustments. For example, adding roles or updating role mappings:
-
-5. If you plan to use the internal user database, [set a password policy in `opensearch.yml`]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#opensearchyml).
-- If you opt to use the internal user database for authentication, it is advisable to enforce a password policy to ensure strong passwords.
-  1. Open `opensearch.yml` and add or update the password policy settings.
+5. Set a password policy
+- When using the internal user database, it is advisable to enforce a password policy to ensure strong passwords, see: [set a password policy in `opensearch.yml`]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#opensearchyml).
+-  Open `opensearch.yml` and add or update the password policy settings.
 
 6. [Apply changes using the `securityadmin` script]({{site.url}}{{site.baseurl}}/security/configuration/security-admin).
 - After configuring the necessary settings, apply changes to OpenSearch using the securityadmin script.
-- Locate the securityadmin script: Typically found in the OpenSearch plugins directory e.g., `plugins/opensearch-security/tools/securityadmin.sh`.
+- The securityadmin script is typically found in the OpenSearch plugins directory e.g., `plugins/opensearch-security/tools/securityadmin.sh`.
 -  Run the script with the appropriate parameters to apply the changes. For example: 
 
     ```
@@ -71,14 +70,20 @@ Edit the files: Open each required file in your preferred text editor and make t
     ```
 
 - Verify changes: Check the OpenSearch logs and configuration to ensure that the changes have been successfully applied.
-- For further information see the documentation [Backup restore and migrate](https://opensearch.org/docs/latest/security/configuration/security-admin#backup-restore-and-migrate)
+- For further information see the documentation: [Backup restore and migrate](https://opensearch.org/docs/latest/security/configuration/security-admin#backup-restore-and-migrate)
 
 7. Start OpenSearch.
 
 
 8. [Add users, roles, role mappings, and tenants]({{site.url}}{{site.baseurl}}/security/access-control/index/).
 
-If you don't want to use the plugin, see [Disable security]({{site.url}}{{site.baseurl}}/security/configuration/disable-enable-security/).
+If you don't want to use the Security plugin, you can disable it by editing the `opensearch.yml` file:
+```
+plugins.security.disabled: true
+```
+You can then enable the plugin by removing the `plugins.security.disabled` setting.
+
+For further information on disabling the security plugin check the documentation: [Disable security]({{site.url}}{{site.baseurl}}/security/configuration/disable-enable-security/).
 
 The Security plugin has several default users, roles, action groups, permissions, and settings for OpenSearch Dashboards that use kibana in their names. We will change these names in a future release.
 {: .note }
