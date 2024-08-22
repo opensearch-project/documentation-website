@@ -89,7 +89,7 @@ GET hamlet/_validate/query
 
 ## Example responses
 
-Depending on the validity of the request query, OpenSearch responds that the query is true, as shown in the following example response where the `valid` parameter is shown as `true`:
+If the query passes validation, then the response indicates that the query is `true`, as shown in the following example response, where the `valid` parameter is `true`:
 
 ```
 {
@@ -102,9 +102,9 @@ Depending on the validity of the request query, OpenSearch responds that the que
 }
 ```
 
-If the query does not pass validation, OpenSearch responds that the query is false. The following example uses a request query that includes a dynamic mapping not configured in the `hamlet` index:
+If the query does not pass validation, then OpenSearch responds that the query is `false`. The following example request query includes a dynamic mapping not configured in the `hamlet` index:
 
-```
+```json
 GET hamlet/_validate/query
 {
   "query": {
@@ -116,7 +116,7 @@ GET hamlet/_validate/query
 }
 ```
 
-OpenSearch responds with the following, where the `valid` parameter is shown as `false`:
+OpenSearch responds with the following, where the `valid` parameter is `false`:
 
 ```
 {
