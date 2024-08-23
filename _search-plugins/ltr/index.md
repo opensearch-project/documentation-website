@@ -11,7 +11,7 @@ redirect_from:
 # LTR search
 
 Short for *Learning to Rank*, the LTR plugin enables you use machine learning and behavioral data to tune the relevance of documents. 
-It uses models from the XGBoost and Ranklib libraries to rescore the search results that takes into account query dependent features such as click-through data or field matchings, which can further improve relevance.
+It uses models from the XGBoost and Ranklib libraries to rescore the search results that takes into account query dependent features such as click-through data or field matches, which can further improve relevance.
 
 [Learning to
 Rank](http://opensourceconnections.com/blog/2017/02/24/what-is-learning-to-rank/)

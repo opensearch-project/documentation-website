@@ -6,9 +6,9 @@ parent: LTR search
 has_children: false
 ---
 
-# How does the plugin fit in?
+# How does the plugin fit in
 
-In [core concepts]({{site.url}}{{site.baseurl}}/search-plugins/ltr/core-concepts) we mentioned a couple
+In [core concepts]({{site.url}}{{site.baseurl}}/search-plugins/ltr/core-concepts/) we mentioned a couple
 of activities you undertake when implementing learning to rank:
 
 1.  Judgement List Development
@@ -30,19 +30,19 @@ development.
 Then other tools take over. With a logged set of features for documents,
 you join data with your Judgement lists you've developed on your own.
 You've now got a training set you can use to test/train ranking models.
-Using of a tool like Ranklib or XGboost, you'll hopefully arrive at a
+Using of a tool like Ranklib or XGBoost, you'll hopefully arrive at a
 satisfactory model.
 
 With a ranking model, you turn back to the plugin. You upload the model
 and give it a name. The model is associated with the set of features
 used to generate the training data. You can then search with the model,
 using a custom OpenSearch Query DSL primitive that executes the
-model. Hopefully this lets you deliver better search to users!
+model. Hopefully this lets you deliver better search to users.
 
 ## What the plugin is NOT
 
 The plugin does not help with Judgement list creation. This is work you
-must do and can be very domain specific. Wikimedia Foundation wrote a
+must do and can be very domain specific. The Wikimedia Foundation wrote a
 [great
 article](https://blog.wikimedia.org/2017/09/19/search-relevance-survey/)
 on how they arrive at Judgement lists for people searching articles.

@@ -208,7 +208,7 @@ Generally speaking there's a couple of families of models:
 list. Tends to not be useful outside of toy examples. See [this blog article](http://opensourceconnections.com/blog/2017/04/01/learning-to-rank-linear-models/).
 
 As with any technology, model selection can be as much about what a team
-has experience with, not just with what performs best.
+has experience with, not only with what performs best.
 
 
 ## Testing: is our model any good?  
@@ -223,7 +223,7 @@ training data, and not as useful.
 To avoid overfitting, you hide some of your judgement lists from the
 training process. You then use these to test your model. This side data
 set is known as the "test set." When evaluating models you'll hear
-about statistics such as "test NDCG" vs "training NDCG." The former
+about statistics such as "test NDCG" compared to "training NDCG." The former
 reflects how your model will perform against scenarios it hasn't seen
 before. You hope as you train, your test search quality metrics continue
 to reflect high quality search. Further: after you deploy a model,
@@ -248,8 +248,8 @@ out.
 -   What infrastructure do you need to collect and log user behavior and
     features?
 -   How will you detect when/whether your model needs to be retrained?
--   How will you A/B test your model vs your current solution? What KPIs
+-   How will you A/B test your model compared to your current solution? What KPIs
     will determine success in your search system.
 
 Next up, see how exactly this plugin's functionality fits into a
-learning to rank system: [How does the plugin fit in?]({{site.url}}{{site.baseurl}}/search-plugins/ltr/fits-in)
+learning to rank system: [How does the plugin fit in?]({{site.url}}{{site.baseurl}}/search-plugins/ltr/fits-in/)
