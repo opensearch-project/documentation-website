@@ -41,7 +41,7 @@ Clients should send HTTP `POST` requests to the endpoint `/log/ingest`.
 
 `http` only supports the JSON UTF-8 codec for incoming requests, for example, `[{"key1": "value1"}, {"key2": "value2"}]`.
 
-**Example: Ingest data with cURL**
+#### Example: Ingest data with cURL
 
 The following example shows ingesting data with cURL:
 
