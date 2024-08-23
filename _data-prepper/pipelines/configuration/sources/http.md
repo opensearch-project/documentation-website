@@ -37,7 +37,7 @@ aws_region | Conditionally | String | AWS region used by ACM or Amazon S3. Requi
 Content will be added to this section.--->
 
 ## Ingestion
-Clients should send HTTP `POST` requests to the endpoint `/log/ingest`
+Clients should send HTTP `POST` requests to the endpoint `/log/ingest`.
 
 Currently, `http` only supports the JSON UTF-8 codec for incoming requests, such as `[{"key1": "value1"}, {"key2": "value2"}]`.
 
