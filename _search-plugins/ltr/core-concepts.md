@@ -6,22 +6,22 @@ parent: LTR search
 has_children: false
 ---
 
-# Core Concepts
+# Core concepts
 
-Welcome! You're here if you're interested in adding machine learning
+Welcome. You're here if you're interested in adding machine learning
 ranking capabilities to your OpenSearch system. This guidebook is
 intended for OpenSearch developers and data scientists.
 
-## What is Learning to Rank?
+## What is learning to rank
 
 *Learning to Rank* (LTR) applies machine learning to search relevance
 ranking. How does relevance ranking differ from other machine learning
 problems? Regression is one classic machine learning problem. In
 *regression*, you're attempting to predict a variable (such as a stock
 price) as a function of known information (such as number of company
-employees, the company's revenue, etc). In these cases, you're
+employees or the company's revenue). In these cases, you're
 building a function, say *f*, that can take what's known
-(*numEmployees*, *revenue*), and have
+(*number of Employees*, *revenue*), and have
 *f* output an approximate stock price.
 
 Classification is another machine learning problem. With classification,
@@ -35,7 +35,7 @@ We want a function *f* that comes as close as possible to
 our user's sense of the ideal ordering of documents dependent on a
 query. The value output by *f* itself has no meaning (it's
 not a stock price or a category). It's more a prediction of a users'
-sense of the relative usefulnes of a document given a query.
+sense of the relative usefulness of a document given a query.
 
 Here, we'll briefly walk through the 10,000 meter view of Learning to
 Rank. For more information, we recommend blog articles [How is Search
@@ -75,7 +75,7 @@ And of course many movies are not even close:
 
 Judgement lists apply "grades" to documents for a keyword, this helps
 establish the ideal ordering for a given keyword. For example, if we
-grade documents from 0-4, where 4 is exactly relevant. The above would
+grade documents from 0-4, where 4 is exactly relevant. The preceding would
 turn into the judgement list:
 
     grade,keywords,movie
@@ -93,7 +93,7 @@ A search system that approximates this ordering for the search query
 well. Metrics such as
 [NDCG](https://en.wikipedia.org/wiki/Discounted_cumulative_gain) and
 [ERR](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.157.4509&rep=rep1&type=pdf)
-evaluate a query's actual ordering vs the ideal judgement list.
+evaluate a query's actual ordering compared to the ideal judgement list.
 
 Our ranking function *f* needs to rank search results as
 close as possible to our judgement lists. We want to maximize quality
@@ -103,12 +103,12 @@ return results listings that will be maximally useful to users.
 
 ## Features: the raw material of relevance
 
-Above in the example of a stock market predictor, our ranking function
+Previously in the example of a stock market predictor, our ranking function
 *f* used variables such as the number of employees, revenue,
-etc to arrive at a predicted stock price. These are *features* of the
+and so on to arrive at a predicted stock price. These are *features* of the
 company. Here our ranking function must do the same: using features that
 describe the document, the query, or some relationship between the
-document and the query (such as query keyword's TF\*IDF score in a
+document and the query (such as query keyword's [term frequency/inverse document frequency (TF/IDF)](https://en.wikipedia.org/wiki/Tf%E2%80%93idf) score in a
 field).
 
 Features for movies, for example, might include:
@@ -139,7 +139,7 @@ better ranking decisions.
 Selecting and experimenting with features is a core piece of learning to
 rank. Good judgements with poor features that don't help predict
 patterns in the predicted grades and won't create a good search
-experience. Just like any other machine learning problem: garbage
+experience. Like any other machine learning problem: garbage
 in-garbage out!
 
 For more on the art of creating features for search, check out the book
@@ -149,7 +149,7 @@ Turnbull and John Berryman.
 ## Logging features: completing the training set
 
 With a set of features we want to use, we need to annotate the judgement
-list above with values of each feature. This data will be used once
+list with values of each feature. This data will be used once
 training commences.
 
 In other words, we need to transfer:
@@ -174,7 +174,7 @@ Many learning to rank models are familiar with a file format introduced
 by SVM Rank, an early learning to rank method. Queries are given ids,
 and the actual document identifier can be removed for the training
 process. Features in this file format are labeled with ordinals starting
-at 1. For the above example, we'd have the file format:
+at 1. For the previous example, we'd have the file format:
 
     4   qid:1   1:0.0   2:21.5  3:100,...
     4   qid:1   1:42.5  2:21.5  3:95,...
