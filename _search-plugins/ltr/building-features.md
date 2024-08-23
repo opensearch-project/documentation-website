@@ -97,7 +97,7 @@ For now, we'll simply focus on typical keyword searches.
 
 OpenSearch LTR gives you an interface for creating and manipulating
 features. Once created, then you can have access to a set of feature for
-logging. Logged features when combined with your judgment list, can be
+logging. Logged features when combined with your judgement list, can be
 trained into a model. Finally, that model can then be uploaded to
 OpenSearch LTR and executed as a search.
 
@@ -308,4 +308,4 @@ features) are listed in `advanced-functionality`{.interpreted-text
 role="doc"}.
 
 Next-up, we'll talk about some specific use cases you\'ll run into when
-`feature-engineering`{.interpreted-text role="doc"}.
+[Feature Engineering]({{site.url}}{{site.baseurl}}/search-plugins/ltr/feature-engineering/).
