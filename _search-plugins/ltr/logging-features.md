@@ -295,7 +295,7 @@ ability to retrain a model with the same featureset later.
 ## Modifying an existing feature set and logging
 
 Feature sets can be appended to. As mentioned in
-[Working with Features]({{site.url}}{{site.baseurl}}/search-plugins/ltr/buiding-features/), you saw if you want
+[Working with Features]({{site.url}}{{site.baseurl}}/search-plugins/ltr/building-features/), you saw if you want
 to incorporate a new feature, such as `user_rating`, we can append that
 query to our featureset `more_movie_features`:
 
@@ -448,5 +448,5 @@ train with production data and confirm the performance is still
 satisfactory.
 
 Next up, let's briefly talk about training a model in
-`training-models`{.interpreted-text role="doc"} in tools outside
+[Uploading A Trained Model]({{site.url}}{{site.baseurl}}/search-plugins/ltr/training-models/) in tools outside
 OpenSearch LTR.
