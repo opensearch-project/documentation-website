@@ -15,13 +15,15 @@ The plugin includes demo certificates so that you can get up and running quickly
 
 1. [Replace the demo certificates]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#configuring-basic-security-settings).
 - OpenSearch ships with demo certificates intended for quick setup and testing purposes. For a production environment, it's critical to replace these with your own trusted certificates to ensure secure communication.
-  
-- Steps:
-  - Generate your own certificates: Use tools like OpenSSL or a certificate authority (CA) to generate your own certificates. For further guidance on generating certificates with OpenSSL visit: [Generating self-signed certificates](https://opensearch.org/docs/latest/security/configuration/generate-certificates/).
-  - Place generated certificates and private key to the appropriate directory. Typically they are placed in `<OPENSEARCH_HOME>/config/`, for more information see: [Add certificate files to opensearch.yml](https://opensearch.org/docs/latest/security/configuration/generate-certificates/#add-certificate-files-to-opensearchyml).
-  - Ensure the files are accessible by the OpenSearch service user and have proper permissions set to avoid unauthorized access.
 
-2. [Reconfigure `opensearch.yml` to use your certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls). 
+**Steps**:
+- **Generate your own certificates:** Use tools like OpenSSL or a certificate authority (CA) to generate your own certificates. For further guidance on generating certificates with OpenSSL, visit: [Generating self-signed certificates](https://opensearch.org/docs/latest/security/configuration/generate-certificates/).
+- **Place the generated certificates and private key in the appropriate directory:** Typically they are placed in `<OPENSEARCH_HOME>/config/`, for more information see: [Add certificate files to opensearch.yml](https://opensearch.org/docs/latest/security/configuration/generate-certificates/#add-certificate-files-to-opensearchyml/).
+- **Set proper file permissions:**
+  - **Recommended File Mode:** Set both the public certificates (.crt, .pem) and private keys (.key) to 644 (readable by everyone, writable only by the owner). This ensures that the OpenSearch service can read the files while preventing unauthorized modifications.
+  - **Ownership**: Ensure the files are owned by the OpenSearch service user (opensearch or similar).
+
+2. [Reconfigure `opensearch.yml` to use your certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/). 
 - The `opensearch.yml` file is the main configuration file for OpenSearch. Update this file to point to your custom certificates for secure communication.
 - Steps:
   - Open `opensearch.yml`: Locate and open the `opensearch.yml` file in your preferred text editor.
@@ -52,17 +54,17 @@ plugins.security.ssl.http.pemtrustedcas_filepath: /path/to/your/ca.pem
     config:
     ```
   
-4. [Modify the configuration YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml).
-- Determine which additional YAML files need modification, for example the `roles.yml`, `roles_mapping.yml`, `internal_users.yml`, etc.
+4. [Modify the configuration YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/).
+- Determine which additional YAML files need modification, for example the `roles.yml`, `roles_mapping.yml`, `internal_users.yml`.
 - Edit the files with any additional configuration needed.
 
 5. Set a password policy
 - When using the internal user database, it is advisable to enforce a password policy to ensure strong passwords, see: [set a password policy in `opensearch.yml`]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#opensearchyml).
 -  Open `opensearch.yml` and add or update the password policy settings.
 
-6. [Apply changes using the `securityadmin` script]({{site.url}}{{site.baseurl}}/security/configuration/security-admin).
-- After configuring the necessary settings, apply changes to OpenSearch using the securityadmin script.
-- The securityadmin script is typically found in the OpenSearch plugins directory e.g., `plugins/opensearch-security/tools/securityadmin.sh`.
+6. [Apply changes using the `securityadmin` script]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/).
+- After configuring the necessary settings, apply changes to OpenSearch using the `securityadmin` script.
+- The`securityadmin` script is typically found in the OpenSearch plugins directory e.g., `plugins/opensearch-security/tools/securityadmin.sh`.
 -  Run the script with the appropriate parameters to apply the changes. For example: 
 
     ```
@@ -70,7 +72,7 @@ plugins.security.ssl.http.pemtrustedcas_filepath: /path/to/your/ca.pem
     ```
 
 - Verify changes: Check the OpenSearch logs and configuration to ensure that the changes have been successfully applied.
-- For further information see the documentation: [Backup restore and migrate](https://opensearch.org/docs/latest/security/configuration/security-admin#backup-restore-and-migrate)
+- For further information see the documentation: [Backup restore and migrate](https://opensearch.org/docs/latest/security/configuration/security-admin#backup-restore-and-migrate/)
 
 7. Start OpenSearch.
 
