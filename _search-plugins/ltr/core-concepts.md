@@ -238,7 +238,7 @@ on, we want to point out some crucial decisions everyone encounters in
 building learning to rank systems. We invite you to watch a talk with
 [Doug Turnbull and Jason
 Kowalewski](https://www.youtube.com/watch?v=JqqtWfZQUTU&list=PLq-odUc2x7i-9Nijx-WfoRMoAfHC9XzTt&index=5)
-where the painful lessons of real Learning to Rank systems are brought
+where the painful lessons of real learning to rank systems are brought
 out.
 
 -   How do you get accurate judgement lists that reflect your users real
@@ -252,4 +252,4 @@ out.
     will determine success in your search system.
 
 Next up, see how exactly this plugin's functionality fits into a
-learning to rank system: `fits-in`{.interpreted-text role="doc"}.
+learning to rank system: [How does the plugin fit in?]({{site.url}}{{site.baseurl}}/search-plugins/ltr/fits-in)
