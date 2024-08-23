@@ -24,6 +24,10 @@ OpenSearch supports the following search methods:
 
 - **Machine learning (ML)-powered search**
 
+    - **LTR search**
+        
+        - [LTR search]({{site.url}}{{site.baseurl}}/search-plugins/ltr/): Uses ML to learn a ranking function that can effectively order a set of search results based on their relevance to the user's query that are query dependent.
+    
     - **Vector search**
 
         - [k-NN search]({{site.url}}{{site.baseurl}}/search-plugins/knn/): Searches for k-nearest neighbors to a search term across an index of vectors.
