@@ -97,7 +97,7 @@ In general, select NMSLIB or Faiss for large-scale use cases. Lucene is a good o
 
 | |  NMSLIB/HNSW |  Faiss/HNSW |  Faiss/IVF |  Lucene/HNSW |
 |:---|:---|:---|:---|:---|
-|  Max dimensions |  16,000  |  16,000 |  16,000 |  1,024 |
+|  Max dimensions |  16,000  |  16,000 |  16,000 |  16,000 |
 |  Filter |  Post-filter |  Post-filter |  Post-filter |  Filter during search |
 |  Training required |  No |  No |  Yes |  No |
 |  Similarity metrics |  `l2`, `innerproduct`, `cosinesimil`, `l1`, `linf`  |  `l2`, `innerproduct` |  `l2`, `innerproduct` |  `l2`, `cosinesimil` |
