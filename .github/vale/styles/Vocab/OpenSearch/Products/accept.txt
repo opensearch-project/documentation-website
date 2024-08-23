@@ -88,6 +88,8 @@ Query Workbench
 RCF Summarize
 RPM Package Manager
 Ruby
+Ranklib
+XGBoost
 Simple Schema for Observability
 Tableau
 Textract
