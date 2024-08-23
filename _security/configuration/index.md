@@ -62,16 +62,19 @@ plugins.security.ssl.http.pemtrustedcas_filepath: /path/to/your/ca.pem
 - When using the internal user database, it is advisable to enforce a password policy to ensure strong passwords, see: [set a password policy in `opensearch.yml`]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#opensearchyml).
 -  Open `opensearch.yml` and add or update the password policy settings.
 
-6. [Apply changes using the `securityadmin` script]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/).
-- After configuring the necessary settings, apply changes to OpenSearch using the `securityadmin` script.
-- The`securityadmin` script is typically found in the OpenSearch plugins directory e.g., `plugins/opensearch-security/tools/securityadmin.sh`.
--  Run the script with the appropriate parameters to apply the changes. For example: 
+6. [Apply changes using the `securityadmin` script]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/)
 
+    **Note:** The steps below are not required for first-time use because the security index is automatically initialized from the YAML configuration files when OpenSearch starts.
+
+- After initial setup, if you make changes to your security configuration or if you disable automatic initialization by setting `plugins.security.allow_default_init_securityindex` to `false` (setting to prevent security index initializing from yaml files), you need to manually apply changes using the `securityadmin` script.
+- The `securityadmin` script is typically found in the OpenSearch plugins directory: `plugins/opensearch-security/tools/securityadmin.sh`. 
+  - **Note for 1.x users:** the `securityadmin` script was located in the `plugins/opendistro_security/tools/` directory. 
+- Run the script with the appropriate parameters to apply the changes:
     ```
     ./securityadmin.sh -cd ../securityconfig/ -icl -key /path/to/admin-key.pem -cert /path/to/admin-cert.pem -cacert /path/to/root-ca.pem -nhnv
     ```
 
-- Verify changes: Check the OpenSearch logs and configuration to ensure that the changes have been successfully applied.
+- Check the OpenSearch logs and configuration to ensure that the changes have been successfully applied.
 - For further information see the documentation: [Backup restore and migrate](https://opensearch.org/docs/latest/security/configuration/security-admin#backup-restore-and-migrate/)
 
 7. Start OpenSearch.
