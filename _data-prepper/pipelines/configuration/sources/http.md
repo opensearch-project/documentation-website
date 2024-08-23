@@ -43,7 +43,7 @@ Clients should send HTTP `POST` requests to the endpoint `/log/ingest`.
 
 #### Example: Ingest data with cURL
 
-The following example shows ingesting data with cURL:
+The following example shows how to use the cURL command to ingest data:
 
 `curl "http://localhost:2021/log/ingest" --data '[{"key1": "value1"}, {"key2": "value2"}]'`
 
