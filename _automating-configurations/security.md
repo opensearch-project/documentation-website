@@ -4,22 +4,21 @@ title: Workflow security
 nav_order: 25
 ---
 
-# Flow Framework security
+# Flow Framework Security
 
-You can use the Security plugin with flow framework in OpenSearch to limit non-admin users to specific actions. For example, you might want some users to only be able to create, update, or delete workflows, while others to only view workflows.
+You can use the Security plugin with the Flow Framework plugin in OpenSearch to limit non-admin users to specific actions. For example, you might want some users to only be able to create, update, or delete workflows, while others may only view workflows.
 
-All flow framework indexes are protected as system indexes. Only a super admin user or an admin user with a TLS certificate can access system indexes. For more information, see [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/).
+All Flow Framework indices are protected as system indices. Only a super admin user or an admin user with a TLS certificate can access system indices. For more information, see [System indices]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/).
 
-
-Security for flow framework works the same as [security for anomaly detection]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/security/).
+Security for Flow Framework works the same as [security for anomaly detection]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/security/).
 
 ## Basic permissions
 
 As an admin user, you can use the Security plugin to assign specific permissions to users based on which APIs they need access to. For a list of supported APIs, see [Flow Framework API]({{site.url}}{{site.baseurl}}/automating-configurations/api/index/).
 
-The Security plugin has two built-in roles that cover most flow framework use cases: `flow_framework_full_access` and `flow_framework_read_access`. For descriptions of each, see [Predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles).
+The Security plugin has two built-in roles that cover most Flow Framework use cases: `flow_framework_full_access` and `flow_framework_read_access`. For descriptions of each, see [Predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles).
 
-If these roles don't meet your needs, mix and match individual flow framework [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/) to suit your use case. Each action corresponds to an operation in the REST API. For example, the `cluster:admin/opensearch/flow_framework/workflow/search` permission lets you search workflows.
+If these roles don't meet your needs, mix and match individual Flow Framework [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/) to suit your use case. Each action corresponds to an operation in the REST API. For example, the `cluster:admin/opensearch/flow_framework/workflow/search` permission lets you search workflows.
 
 ### A note fine-grained access control
 
@@ -42,7 +41,7 @@ PUT _cluster/settings
 }
 ```
 
-Now when users view flow framework resources in OpenSearch Dashboards (or make REST API calls), they only see workflows created by users who share at least one backend role.
+Now when users view Flow Framework resources in OpenSearch Dashboards (or make REST API calls), they only see workflows created by users who share at least one backend role.
 For example, consider two users: `alice` and `bob`.
 
 `alice` has an analyst backend role:
@@ -71,7 +70,7 @@ PUT _plugins/_security/api/internalusers/bob
 }
 ```
 
-Both `alice` and `bob` have full access to flow framework:
+Both `alice` and `bob` have full access to Flow Framework:
 
 ```json
 PUT _plugins/_security/api/rolesmapping/flow_framework_full_access
@@ -87,4 +86,4 @@ PUT _plugins/_security/api/rolesmapping/flow_framework_full_access
 
 Because they have different backend roles, `alice` and `bob` cannot view each other's workflows or their results.
 
-If users do not have backend roles, they still can view other users' flow framework results as long as they have `flow_framework_read_access`. This is the same for users who have `flow_framework_full_access`, as it includes all of the permissions as `flow_framework_read_access`. Administrators should inform users that having `flow_framework_read_access` allows for viewing of the results from any workflow in the cluster, including data not directly accessible to them. To limit access to the workflows results, administrators should use backend role filters at the time the workflow is created. This ensures only users with matching backend roles can access results from those particular workflows.
+If users do not have backend roles, they still can view other users' Flow Framework results as long as they have `flow_framework_read_access`. This is the same for users who have `flow_framework_full_access`, as it includes all of the permissions as `flow_framework_read_access`. Administrators should inform users that having `flow_framework_read_access` allows for viewing of the results from any workflow in the cluster, including data not directly accessible to them. To limit access to the workflows results, administrators should use backend role filters at the time the workflow is created. This ensures only users with matching backend roles can access results from those particular workflows.
