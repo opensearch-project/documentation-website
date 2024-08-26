@@ -197,11 +197,11 @@ If you run a default OpenSearch installation, which listens on port 9200 and use
 Name | Description
 :--- | :---
 `-h` | OpenSearch hostname. Default is `localhost`.
-`-p` | OpenSearch port. Default is 9200 - not the HTTP port.
+`-p` | OpenSearch port. Default is 9200
 `-cn` | Cluster name. Default is `opensearch`.
 `-icl` | Ignore cluster name.
 `-sniff` | Sniff cluster nodes. Sniffing detects available nodes using the OpenSearch `_cluster/state` API.
-`-arc,--accept-red-cluster` | Execute `securityadmin.sh` even if the cluster state is red. Default is false, which means the script will not execute on a red cluster.
+`-arc,--accept-red-cluster` | Execute `securityadmin.sh` even if the cluster state is red. Default is `false`, which means the script will not execute on a red cluster.
 
 
 ### Certificate validation settings
@@ -210,7 +210,7 @@ Use the following options to control certificate validation.
 
 Name | Description
 :--- | :---
-`-nhnv` | Do not validate hostname. Default is false.
+`-nhnv` | Do not validate hostname. Default is `false`.
 `-nrhn` | Do not resolve hostname. Only relevant if `-nhnv` is not set.
 
 

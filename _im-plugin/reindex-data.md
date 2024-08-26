@@ -204,8 +204,8 @@ PUT _ingest/pipeline/pipeline-test
      "field": "text",
      "separator": "\\s+",
      "target_field": "word"
-   },
- }
+   }
+ },
  {
    "script": {
      "lang": "painless",
@@ -227,7 +227,7 @@ After creating a pipeline, you can use the `reindex` operation:
 POST _reindex
 {
   "source": {
-    "index": "source",
+    "index": "source"
   },
   "dest": {
     "index": "destination",

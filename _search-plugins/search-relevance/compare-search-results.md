@@ -3,7 +3,7 @@ layout: default
 title: Comparing search results
 nav_order: 55
 parent: Search relevance
-has_children: true
+has_children: false
 has_toc: false
 redirect_from:
   - /search-plugins/search-relevance/

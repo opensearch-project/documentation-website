@@ -315,9 +315,9 @@ The following table lists the parameters accepted by the fuzzy completion sugges
 
 Parameter | Description 
 :--- | :--- 
-`fuzziness` | Fuzziness can be set as one of the following: <br> 1. An integer that specifies the maximum allowed [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance) for this edit. <br> 2. `AUTO`: Strings of 0–2 characters must match exactly, strings of 3–5 characters allow 1 edit, and strings longer than 5 characters allow 2 edits.<br> Default is `AUTO`.
+`fuzziness` | Fuzziness can be set as one of the following: <br> 1. An integer that specifies the maximum allowed [Damerau–Levenshtein distance](https://en.wikipedia.org/wiki/Damerau–Levenshtein_distance) for this edit. <br> 2. `AUTO`: Strings of 0–2 characters must match exactly, strings of 3–5 characters allow 1 edit, and strings longer than 5 characters allow 2 edits.<br> Default is `AUTO`.
 `min_length` | An integer that specifies the minimum length the input must be to start returning suggestions. If the search term is shorter than `min_length`, no suggestions are returned. Default is 3.
-`prefix_length` | An integer that specifies the minimum length the matched prefix must be to start returning suggestions. If the prefix of `prefix_length` is not matched, but the search term is still within the Levenshtein distance, no suggestions are returned. Default is 1.
+`prefix_length` | An integer that specifies the minimum length the matched prefix must be to start returning suggestions. If the prefix of `prefix_length` is not matched, but the search term is still within the Damerau–Levenshtein distance, no suggestions are returned. Default is 1.
 `transpositions` | A Boolean value that specifies to count transpositions (interchanges of adjacent characters) as one edit instead of two. Example: The suggestion's `input` parameter is `abcde` and the `fuzziness` is 1. If `transpositions` is set to `true`, `abdce` will match, but if `transpositions` is set to `false`, `abdce` will not match.  Default is `true`.
 `unicode_aware` | A Boolean value that specifies whether to use Unicode code points when measuring the edit distance, transposition, and length. If `unicode_aware` is set to `true`, the measurement is slower. Default is `false`, in which case distances are measured in bytes.
 

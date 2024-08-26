@@ -18,7 +18,7 @@ An _agent_ is a coordinator that uses a large language model (LLM) to solve a pr
 
 - [_Flow agent_](#flow-agents): Runs tools sequentially, in the order specified in its configuration. The workflow of a flow agent is fixed. Useful for retrieval-augmented generation (RAG).
 - [_Conversational flow agent_](#conversational-flow-agents): Runs tools sequentially, in the order specified in its configuration. The workflow of a conversational flow agent is fixed. Stores conversation history so that users can ask follow-up questions. Useful for creating a chatbot.
-- [_Conversational agent_](#conversational-agents): Reasons in order to provide a response based on the available knowledge, including the LLM knowledge base and a set of tools provided to the LLM. Stores conversation history so that users can ask follow-up questions. The workflow of a conversational agent is variable, based on follow-up questions. For specific questions, uses the Chain-of-Thought (CoT) process to select the best tool from the configured tools for providing a response to the question. Useful for creating a chatbot that employs RAG.
+- [_Conversational agent_](#conversational-agents): Reasons in order to provide a response based on the available knowledge, including the LLM knowledge base and a set of tools provided to the LLM. The LLM reasons iteratively to decide what action to take until it obtains the final answer or reaches the iteration limit. Stores conversation history so that users can ask follow-up questions. The workflow of a conversational agent is variable, based on follow-up questions. For specific questions, uses the Chain-of-Thought (CoT) process to select the best tool from the configured tools for providing a response to the question. Useful for creating a chatbot that employs RAG.
 
 ### Flow agents
 
@@ -130,7 +130,7 @@ POST /_plugins/_ml/agents/_register
     {
       "type": "VectorDBTool",
       "name": "VectorDBTool",
-      "description": "A tool to search opensearch index with natural language quesiotn. If you don't know answer for some question, you should always try to search data with this tool. Action Input: <natrual language question>",
+      "description": "A tool to search opensearch index with natural language question. If you don't know answer for some question, you should always try to search data with this tool. Action Input: <natural language question>",
       "parameters": {
         "model_id": "YOUR_TEXT_EMBEDDING_MODEL_ID",
         "index": "my_test_data",

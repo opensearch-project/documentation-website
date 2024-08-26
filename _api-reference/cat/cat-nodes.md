@@ -16,12 +16,6 @@ The CAT nodes operation lists node-level information, including node roles and l
 
 A few important node metrics are `pid`, `name`, `cluster_manager`, `ip`, `port`, `version`, `build`, `jdk`, along with `disk`, `heap`, `ram`, and `file_desc`.
 
-## Example
-
-```
-GET _cat/nodes?v
-```
-{% include copy-curl.html %}
 
 ## Path and HTTP methods
 
@@ -39,13 +33,21 @@ Parameter | Type | Description
 :--- | :--- | :---
 bytes | Byte size | Specify the units for byte size. For example, `7kb` or `6gb`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
 full_id | Boolean | If true, return the full node ID. If false, return the shortened node ID. Defaults to false.
-local | Boolean | Whether to return information from the local node only instead of from the cluster_manager node. Default is false.
 cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
 time | Time | Specify the units for time. For example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
-include_unloaded_segments | Boolean | Whether to include information from segments not loaded into memory. Default is false.
+include_unloaded_segments | Boolean | Whether to include information from segments not loaded into memory. Default is `false`.
+
+## Example request
+
+The following example request lists node level information:
+
+```
+GET _cat/nodes?v
+```
+{% include copy-curl.html %}
 
 
-## Response
+## Example response
 
 ```json
 ip       |   heap.percent | ram.percent | cpu load_1m | load_5m | load_15m | node.role | node.roles |     cluster_manager |  name

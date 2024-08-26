@@ -553,13 +553,13 @@ Introduced 2.4
 
 ISM allows you to run an action automatically. However, running an action can fail for a variety of reasons. You can use error prevention validation to test an action in order to rule out failures.
 
-To enable error prevention validation, set the `plugins.index_state_management.validation_service.enabled` setting to `true`:
+To enable error prevention validation, set the `plugins.index_state_management.action_validation.enabled` setting to `true`:
 
 ```bash
 PUT _cluster/settings
 {
    "persistent":{
-      "plugins.index_state_management.validation_action.enabled": true
+      "plugins.index_state_management.action_validation.enabled": true
    }
 }
 ```

@@ -2,9 +2,7 @@
 layout: default
 title: xy
 parent: Geographic and xy queries
-grand_parent: Query DSL
 nav_order: 50
-
 redirect_from: 
   - /opensearch/query-dsl/geo-and-xy/xy/
   - /query-dsl/query-dsl/geo-and-xy/xy/
@@ -12,13 +10,13 @@ redirect_from:
 
 # xy query
 
-To search for documents that contain [xy point]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy-point) and [xy shape]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy-shape) fields, use an xy query. 
+To search for documents that contain [xy point]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy-point/) or [xy shape]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy-shape/) fields, use an xy query. 
 
 ## Spatial relations
 
-When you provide an xy shape to the xy query, the xy fields are matched using the following spatial relations to the provided shape.
+When you provide an xy shape to the xy query, the xy fields in the documents are matched using the following spatial relations to the provided shape.
 
-Relation | Description | Supporting xy Field Type
+Relation | Description | Supporting xy field type
 :--- | :--- | :--- 
 `INTERSECTS` | (Default) Matches documents whose xy point or xy shape intersects the shape provided in the query. | `xy_point`, `xy_shape`
 `DISJOINT` | Matches documents whose xy shape does not intersect with the shape provided in the query. | `xy_shape`
@@ -35,7 +33,7 @@ You can define the shape in an xy query either by providing a new shape definiti
 
 To provide a new shape to an xy query, define it in the `xy_shape` field.
 
-The following example illustrates searching for documents with xy shapes that match an xy shape defined at query time.
+The following example illustrates how to search for documents containing xy shapes that match an xy shape defined at query time.
 
 First, create an index and map the `geometry` field as an `xy_shape`:
 
@@ -51,6 +49,7 @@ PUT testindex
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index a document with a point and a document with a polygon:
 
@@ -62,7 +61,10 @@ PUT testindex/_doc/1
     "coordinates": [0.5, 3.0]
   }
 }
+```
+{% include copy-curl.html %}
 
+```json
 PUT testindex/_doc/2
 {
   "geometry" : {
@@ -77,6 +79,7 @@ PUT testindex/_doc/2
   }
 }
 ```
+{% include copy-curl.html %}
 
 Define an [`envelope`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy-shape#envelope)&mdash;a bounding rectangle in the `[[minX, maxY], [maxX, minY]]` format. Search for documents with xy points or shapes that intersect that envelope:
 
@@ -96,6 +99,7 @@ GET testindex/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 The following image depicts the example. Both the point and the polygon are within the bounding envelope.
 
@@ -200,6 +204,7 @@ PUT pre-indexed-shapes
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index an envelope that specifies the boundaries and name it `rectangle`:
 
@@ -212,6 +217,7 @@ PUT pre-indexed-shapes/_doc/rectangle
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index a document with a point and a document with a polygon into the index `testindex`:
 
@@ -223,7 +229,10 @@ PUT testindex/_doc/1
     "coordinates": [0.5, 3.0]
   }
 }
+```
+{% include copy-curl.html %}
 
+```json
 PUT testindex/_doc/2
 {
   "geometry" : {
@@ -238,6 +247,7 @@ PUT testindex/_doc/2
   }
 }
 ```
+{% include copy-curl.html %}
 
 Search for documents with shapes that intersect `rectangle` in the index `testindex` using a filter:
 
@@ -261,6 +271,7 @@ GET testindex/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 The preceding query uses the default spatial relation `INTERSECTS` and returns both the point and the polygon:
 
@@ -352,6 +363,7 @@ PUT testindex1
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index three points:
 
@@ -360,17 +372,24 @@ PUT testindex1/_doc/1
 {
   "point": "1.0, 1.0" 
 }
+```
+{% include copy-curl.html %}
 
+```json
 PUT testindex1/_doc/2
 {
   "point": "2.0, 0.0" 
 }
+```
+{% include copy-curl.html %}
 
+```json
 PUT testindex1/_doc/3
 {
   "point": "-2.0, 2.0" 
 }
 ```
+{% include copy-curl.html %}
 
 Search for points that lie within the circle with the center at (0, 0) and a radius of 2:
 
@@ -390,6 +409,7 @@ GET testindex1/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 xy point only supports the default `INTERSECTS` spatial relation, so you don't need to provide the `relation` parameter.
 {: .note}
