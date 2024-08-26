@@ -37,6 +37,7 @@ aws_region | Conditionally | String | AWS region used by ACM or Amazon S3. Requi
 Content will be added to this section.--->
 
 ## Ingestion
+
 Clients should send HTTP `POST` requests to the endpoint `/log/ingest`.
 
 `http` only supports the JSON UTF-8 codec for incoming requests, for example, `[{"key1": "value1"}, {"key2": "value2"}]`.
@@ -46,6 +47,7 @@ Clients should send HTTP `POST` requests to the endpoint `/log/ingest`.
 The following example shows how to use the cURL command to ingest data:
 
 `curl "http://localhost:2021/log/ingest" --data '[{"key1": "value1"}, {"key2": "value2"}]'`
+{% include copy-curl.html %}
 
 ## Metrics
 
