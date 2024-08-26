@@ -15,7 +15,7 @@ The plugin includes demo certificates so that you can get up and running quickly
 
 ### [Replace the demo certificates]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#configuring-basic-security-settings).
 
-1. OpenSearch ships with demo certificates intended for quick setup and testing purposes. For a production environment, it's critical to replace these with your own trusted certificates to ensure secure communication.
+1. OpenSearch ships with demo certificates intended for quick setup and demonstration purposes. For a production environment, it's critical to replace these with your own trusted certificates to ensure secure communication.
 2. **Generate your own certificates:** Use tools like OpenSSL or a certificate authority (CA) to generate your own certificates. For further guidance on generating certificates with OpenSSL, visit: [Generating self-signed certificates](https://opensearch.org/docs/latest/security/configuration/generate-certificates/).
  3. **Place the generated certificates and private key in the appropriate directory:** Typically they are placed in `<OPENSEARCH_HOME>/config/`, for more information see: [Add certificate files to opensearch.yml](https://opensearch.org/docs/latest/security/configuration/generate-certificates/#add-certificate-files-to-opensearchyml/).
  4. **Set proper file permissions:**
