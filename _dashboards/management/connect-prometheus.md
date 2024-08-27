@@ -48,4 +48,4 @@ To delete the data source connection, select the {::nomarkdown}<img src="{{site.
 
 ## Creating an index pattern
 
-After creating a data source connection, the next step is to create an index pattern for that data source. For more information and a tutorial on index patterns. refer to [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/). 
+After creating a data source connection, the next step is to create an index pattern for that data source. For more information and a tutorial on index patterns, refer to [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/). 
