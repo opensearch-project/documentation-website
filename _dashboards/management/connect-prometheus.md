@@ -24,7 +24,7 @@ The following steps guide you through the basics of creating a **Prometheus** da
 
 2. Create the data source connection by entering the appropriate information into the **Configure Prometheus data source** fields. 
    
-   - Under **Data source details**, enter a title and, optionally, a description for this data source.
+   - Under **Data source details**, enter a title for this data source. Entering a description is optional.
    - Under **Prometheus data location**, enter the Prometheus URI.
    - Under **Authentication details**, select an authentication method from the dropdown list. Once an authentication method is selected, the applicable fields for that method appear. You can then enter the required details. The authentication method options are:
        - **Basic authentication**: A basic username and password are used to connect to the data source.
