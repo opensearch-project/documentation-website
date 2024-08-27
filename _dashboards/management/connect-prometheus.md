@@ -39,10 +39,10 @@ Follow these steps to connect your data source:
 To modify a data source connection, follow these steps: 
 
 1. Select the desired connection from the list on the **Data sources** main page. This will open the **Connection Details** window.
-2. Within the **Connection Details** window, you can edit the **Title** and **Description** fields and then select the **Save changes** button to apply the changes.
-3. To update the **Authentication Method**, choose a different method from the dropdown list, enter the required credentials (if applicable), and then select **Save changes** to apply the changes.
-4. To update the **Basic authentication** authentication method, select the **Update stored password** button. Within the pop-up window, enter the updated password and confirm it and select **Update stored password** to save the changes. To test the connection, select the **Test connection** button.
-5. To update the **AWS Signature Version 4** authentication method, select the **Update stored AWS credential** button. Within the pop-up window, enter the updated access and secret keys and select **Update stored AWS credential** to save the changes. To test the connection, select the **Test connection** button.
+2. Within the **Connection Details** window, edit the **Title** and **Description** fields. Select the **Save changes** button to apply the changes.
+3. To update the **Authentication Method**, choose the method from the dropdown list and enter the required credentials (if applicable). Select **Save changes** to apply the changes.
+    - To update the **Basic authentication** authentication method, select the **Update stored password** button. Within the pop-up window, enter the updated password and confirm it and select **Update stored password** to save the changes. To test the connection, select the **Test connection** button.
+    - To update the **AWS Signature Version 4** authentication method, select the **Update stored AWS credential** button. Within the pop-up window, enter the updated access and secret keys and select **Update stored AWS credential** to save the changes. To test the connection, select the **Test connection** button.
 
 ### Delete a data source connection
 
