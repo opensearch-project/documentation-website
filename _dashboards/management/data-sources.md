@@ -32,7 +32,7 @@ Generating 12 bytes results in a hexadecimal string that is 12 * 2 = 24 characte
 
 ## Permissions
 
-To work with data sources in OpenSearch Dashboards, make sure that the user has been assigned the correct cluster-level [data source permission]({{site.url}}{{site.baseurl}}/security/access-control/permissions#data-source-permissions).
+To work with data sources in OpenSearch Dashboards, make sure that the user has been assigned the correct cluster-level [data source permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions#data-source-permissions).
 
 ## Types of data streams
 
