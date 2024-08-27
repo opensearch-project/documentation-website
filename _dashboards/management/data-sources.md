@@ -13,7 +13,7 @@ This documentation focuses on using the OpenSeach Dashboards interface to connec
 
 ## Prerequisites
 
-The first step in connecting your data sources to OpenSearch is to install OpenSearch and OpenSearch Dashboards on your system. You can follow the installation instructions in the [OpenSearch documentation]({{site.url}}{{site.baseurl}}/install-and-configure/index/) to install these tools.
+The first step in connecting your data sources to OpenSearch is to install OpenSearch and OpenSearch Dashboards on your system. Refer to the [installation instructions]({{site.url}}{{site.baseurl}}/install-and-configure/index/) for information.
 
 Once you have installed OpenSearch and OpenSearch Dashboards, you can use Dashboards to connect your data sources to OpenSearch and then use Dashboards to manage data sources, create index patterns based on those data sources, run queries against a specific data source, and combine visualizations in one dashboard.
 
