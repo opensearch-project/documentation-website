@@ -23,20 +23,20 @@ To securely store and encrypt data source connections in OpenSearch, you must ad
 
 `plugins.query.datasources.encryption.masterkey: "YOUR_GENERATED_MASTER_KEY_HERE"`
 
-The key must be 16, 24, or 32 characters long. You can use the following command to generate a 24-character key:
+The key must be 16, 24, or 32 characters. You can use the following command to generate a 24-character key:
 
 `openssl rand -hex 12`
 
-Generating 12 bytes results in a hexadecimal string that is 12 * 2 = 24 characters long.
+Generating 12 bytes results in a hexadecimal string that is 12 * 2 = 24 characters.
 {: .note}
 
 ## Permissions
 
-To work with data sources in OpenSearch Dashboards, make sure that the user has been assigned the correct cluster-level [data source permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions#data-source-permissions).
+To work with data sources in OpenSearch Dashboards, you must be assigned the correct cluster-level [data source permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions#data-source-permissions).
 
 ## Types of data streams
 
-To configure data sources through OpenSearch Dashboards, go to **Management** > **Dashboards Management** > **Data sources**. This flow can be used for OpenSearch data stream connections. See [Configuring and using multiple data sources]({{site.url}}{{site.baseurl}}/dashboards/management/multi-data-sources/) for more information.
+To configure data sources through OpenSearch Dashboards, go to **Management** > **Dashboards Management** > **Data sources**. This flow can be used for OpenSearch data stream connections. See [Configuring and using multiple data sources]({{site.url}}{{site.baseurl}}/dashboards/management/multi-data-sources/).
 
 Alternatively, if you are running OpenSearch Dashboards 2.16 or later, go to **Management** > **Data sources**. This flow can be used to connect Amazon Simple Storage Service (Amazon S3) and Prometheus. See [Connecting Amazon S3 to OpenSearch]({{site.url}}{{site.baseurl}}/dashboards/management/S3-data-source/) and [Connecting Prometheus to OpenSearch]({{site.url}}{{site.baseurl}}/dashboards/management/connect-prometheus/) for more information.
 
@@ -45,5 +45,5 @@ Alternatively, if you are running OpenSearch Dashboards 2.16 or later, go to **M
 - Learn about [managing index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/) through OpenSearch Dashboards.
 - Learn about [indexing data using Index Management]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/) through OpenSearch Dashboards.
 - Learn about how to connect [multiple data sources]({{site.url}}{{site.baseurl}}/dashboards/management/multi-data-sources/).
-- Learn about how to connect [OpenSearch and Amazon S3]({{site.url}}{{site.baseurl}}/dashboards/management/S3-data-source/) and [OpenSearch and Prometheus]({{site.url}}{{site.baseurl}}/dashboards/management/S3-data-source/prometheus) using the OpenSearch Dashboards interface. 
+- Learn about how to connect [OpenSearch and Amazon S3]({{site.url}}{{site.baseurl}}/dashboards/management/S3-data-source/) and [OpenSearch and Prometheus]({{site.url}}{{site.baseurl}}/dashboards/management//connect-prometheus/) using the OpenSearch Dashboards interface. 
 - Learn about the [Integrations]({{site.url}}{{site.baseurl}}/integrations/index/) plugin, which gives you the flexibility to use various data ingestion methods and connect data to OpenSearch Dashboards.
