@@ -27,7 +27,7 @@ The key must be 16, 24, or 32 characters long. You can use the following command
 
 `openssl rand -hex 12`
 
-Generating 12 bytes results in a hexadecimal string that is 12 * 2 = 24 characters long
+Generating 12 bytes results in a hexadecimal string that is 12 * 2 = 24 characters long.
 {: .note}
 
 ## Permissions
