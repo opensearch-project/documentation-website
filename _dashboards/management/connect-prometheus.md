@@ -42,7 +42,7 @@ To modify a data source connection, follow these steps:
 2. Within the **Connection Details** window, you can edit the **Title** and **Description** fields and then select the **Save changes** button to apply the changes.
 3. To update the **Authentication Method**, choose a different method from the dropdown list, enter the required credentials (if applicable), and then select **Save changes** to apply the changes.
 4. To update **Username & Password** authentication, choose **Update stored password** next to the **Password** field. Within the pop-up window, enter the new password and confirm it, then select **Update stored password** to save the changes. Select **Test connection** to confirm that the connection is valid.
-6. To update **AWS Signature Version 4** authentication, select **Update stored AWS credential**. Within the pop-up window, enter the new access key and the new secret key and select **Update stored AWS credential** to save the changes. Select **Test connection** to confirm that the connection is valid.
+5. To update **AWS Signature Version 4** authentication, select **Update stored AWS credential**. Within the pop-up window, enter the new access key and the new secret key and select **Update stored AWS credential** to save the changes. Select **Test connection** to confirm that the connection is valid.
 
 ### Delete a data source connection
 
