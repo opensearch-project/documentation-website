@@ -27,7 +27,7 @@ Follow these steps to connect **Prometheus** to OpenSearch:
    - Under **Prometheus data location**, enter the Prometheus URI.
    - Under **Authentication details**, select the appropriate authentication method from the dropdown list and enter the required details:
        - **Basic authentication**: Enter a username and password.
-       - **AWS Signature Version 4**: Specify the specify the **Region**, select the OpenSearch service from the **Service Name** list (**Amazon OpenSearch Service** or **Amazon OpenSearch Serverless**), and enter the **Access Key** and **Secret Key**.
+       - **AWS Signature Version 4**: Specify the **Region**, select the OpenSearch service from the **Service Name** list (**Amazon OpenSearch Service** or **Amazon OpenSearch Serverless**), and enter the **Access Key** and **Secret Key**.
    - Under **Query permissions**, choose the role needed to search and index data. If you select **Restricted**, additional fields will become available to configure the required role.
 
 3. Select **Review Configuration** > **Connect to Prometheus** to save your settings. The new connection will appear in the list of data sources.
