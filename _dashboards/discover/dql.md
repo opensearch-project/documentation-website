@@ -31,7 +31,7 @@ Use the following steps to prepare sample data for querying.
 
 **Step 1: Set up mappings for the index**
 
-On the main menu, select **Management** > **Dev Tools** to open [Dev Tools]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/run-queries/). Send the following request to create index mappings:
+On the main menu, select **Management** > **Dev Tools** to open [Dev Tools]({{site.url}}{{site.baseurl}}/dashboards/run-queries/). Send the following request to create index mappings:
 
 ```json
 PUT testindex
@@ -106,8 +106,6 @@ Follow these steps to create an index pattern for your index:
 1. In **Index pattern name**, enter `testindex*`. Select **Next step**.
 1. In **Time field**, select `I don't want to use the time filter`.
 1. Select **Create index pattern**.
-
-For more information about index patterns, see [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/).
 
 **Step 4: Navigate to Discover and select the index pattern**
 
