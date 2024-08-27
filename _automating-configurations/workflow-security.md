@@ -6,7 +6,7 @@ nav_order: 50
 
 # Flow Framework security
 
-In OpenSearch, automated workflow configurations are provided by the Flow Framework plugin. You can use the Security plugin together with the Flow Framework plugin in OpenSearch to limit non-admin users to specific actions. For example, you might want some users to only be able to create, update, or delete workflows, while others may only view workflows.
+In OpenSearch, automated workflow configurations are provided by the Flow Framework plugin. You can use the Security plugin together with the Flow Framework plugin to limit non-admin users to specific actions. For example, you might want some users to only be able to create, update, or delete workflows, while others may only be able to view workflows.
 
 All Flow Framework indexes are protected as system indexes. Only a superadmin user or an admin user with a TLS certificate can access system indexes. For more information, see [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/).
 
@@ -22,7 +22,7 @@ If these roles don't meet your needs, you can assign users individual Flow Frame
 
 ### Fine-grained access control
 
-To reduce the chances of unintended users viewing metadata that describes an index, we recommend that administrators enable role-based access control when assigning permissions to the intended group of users. For more information , see [Limit access by backend role](#advanced-limit-access-by-backend-role).
+To reduce the chances of unintended users viewing metadata that describes an index, we recommend that administrators enable role-based access control when assigning permissions to the intended user group. For more information, see [Limit access by backend role](#advanced-limit-access-by-backend-role).
 
 ## (Advanced) Limit access by backend role
 
@@ -46,7 +46,7 @@ Now when users view workflow resources in OpenSearch Dashboards (or make REST AP
 
 For example, consider two users: `alice` and `bob`.
 
-`alice` has an analyst backend role:
+`alice` has an `analyst` backend role:
 
 ```json
 PUT _plugins/_security/api/internalusers/alice
@@ -59,7 +59,7 @@ PUT _plugins/_security/api/internalusers/alice
 }
 ```
 
-`bob` has a human-resources backend role:
+`bob` has a `human-resources` backend role:
 
 ```json
 PUT _plugins/_security/api/internalusers/bob
@@ -72,7 +72,7 @@ PUT _plugins/_security/api/internalusers/bob
 }
 ```
 
-Both `alice` and `bob` have full access to Flow Framework APIs:
+Both `alice` and `bob` have full access to the Flow Framework APIs:
 
 ```json
 PUT _plugins/_security/api/rolesmapping/flow_framework_full_access
@@ -88,6 +88,6 @@ PUT _plugins/_security/api/rolesmapping/flow_framework_full_access
 
 Because they have different backend roles, `alice` and `bob` cannot view each other's workflows or their results.
 
-Users without backend roles can still view other users' workflow results if they have `flow_framework_read_access`. This also applies to users who have `flow_framework_full_access`, because this permission includes all of the permissions of `flow_framework_read_access`. 
+Users without backend roles can still view other users' workflow results if they have `flow_framework_read_access`. This also applies to users who have `flow_framework_full_access` because this permission includes all of the permissions of `flow_framework_read_access`. 
 
-Administrators should inform users that the `flow_framework_read_access` permission allows them to view the results of any workflow in the cluster, including data not directly accessible to them. To limit access to results of a specific workflow, administrators should apply backend role filters when creating the workflow. This ensures that only users with matching backend roles can access that workflow's results.
+Administrators should inform users that the `flow_framework_read_access` permission allows them to view the results of any workflow in a cluster, including data not directly accessible to them. To limit access to the results of a specific workflow, administrators should apply backend role filters when creating the workflow. This ensures that only users with matching backend roles can access that workflow's results.
