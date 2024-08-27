@@ -38,7 +38,7 @@ To work with data sources in OpenSearch Dashboards, make sure that the user has 
 
 To configure data sources through OpenSearch Dashboards, go to **Management** > **Dashboards Management** > **Data sources**. This flow can be used for OpenSearch data stream connections. See [Configuring and using multiple data sources]({{site.url}}{{site.baseurl}}/dashboards/management/multi-data-sources/) for more information.
 
-Alternatively, if you are running OpenSearch Dashboards 2.16 or later, go to **Management** > **Data sources**. This flow can be used to connect Amazon S3 and Prometheus. See [Connecting Amazon S3 to OpenSearch]({{site.url}}{{site.baseurl}}/dashboards/management/S3-data-source/) and [Connecting Prometheus to OpenSearch]({{site.url}}{{site.baseurl}}/dashboards/management/connect-prometheus/) for more information.
+Alternatively, if you are running OpenSearch Dashboards 2.16 or later, go to **Management** > **Data sources**. This flow can be used to connect Amazon Simple Storage Service (Amazon S3) and Prometheus. See [Connecting Amazon S3 to OpenSearch]({{site.url}}{{site.baseurl}}/dashboards/management/S3-data-source/) and [Connecting Prometheus to OpenSearch]({{site.url}}{{site.baseurl}}/dashboards/management/connect-prometheus/) for more information.
 
 ## Next steps
 
