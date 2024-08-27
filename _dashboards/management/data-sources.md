@@ -45,5 +45,5 @@ Alternatively, if you are running OpenSearch Dashboards 2.16 or later, go to **M
 - Learn about [managing index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/) through OpenSearch Dashboards.
 - Learn about [indexing data using Index Management]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/) through OpenSearch Dashboards.
 - Learn about how to connect [multiple data sources]({{site.url}}{{site.baseurl}}/dashboards/management/multi-data-sources/).
-- Learn about how to [connect OpenSearch and Amazon S3 through OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/management/S3-data-source/).
+- Learn about how to connect [OpenSearch and Amazon S3]({{site.url}}{{site.baseurl}}/dashboards/management/S3-data-source/) and [OpenSearch and Prometheus]({{site.url}}{{site.baseurl}}/dashboards/management/S3-data-source/prometheus) using the OpenSearch Dashboards interface. 
 - Learn about the [Integrations]({{site.url}}{{site.baseurl}}/integrations/index/) plugin, which gives you the flexibility to use various data ingestion methods and connect data to OpenSearch Dashboards.
