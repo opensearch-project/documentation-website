@@ -11,7 +11,7 @@ This documentation covers the key steps to connect Prometheus to OpenSearch usin
 
 ## Prerequisites and permissions
 
-Ensure you have configured the necessary [Prerequisites]({{site.url}}{{site.baseurl}}/dashboards/management/data-sources/#prerequisites) and [Permissions]({{site.url}}{{site.baseurl}}/dashboards/management/data-sources/#permissions).
+Before connecting a data source, ensure you have met the [Prerequisites]({{site.url}}{{site.baseurl}}/dashboards/management/data-sources/#prerequisites) and have the necessary [Permissions]({{site.url}}{{site.baseurl}}/dashboards/management/data-sources/#permissions).
 
 ## Create a Prometheus data source connection
 
