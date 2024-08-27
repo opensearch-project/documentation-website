@@ -40,7 +40,7 @@ Within the **Connection Details** window, you can edit the **Title** and **Descr
 
 To update the **Authentication Method**, choose a different method from the dropdown list, enter the required credentials (if applicable), and then select **Save changes** to apply the changes.
 
-If the selected authentication method is **Username & Password**, you can update the password by choosing **Update stored password** next to the **Password** field. In the pop-up window, enter the new password and then confirm it, then select **Update stored password** to save the changes. Select **Test connection** to confirm that the connection is valid.
+If the selected authentication method is **Username & Password**, you can update the password by choosing **Update stored password** next to the **Password** field. In the pop-up window, enter the new password and confirm it, then select **Update stored password** to save the changes. Select **Test connection** to confirm that the connection is valid.
 
 For **AWS Signature Version 4** authentication, you can update the credentials by selecting **Update stored AWS credential**. In the pop-up window, enter the new access key and the new secret key. Select **Update stored AWS credential** to save the changes. Select **Test connection** to confirm that the connection is valid.
 
