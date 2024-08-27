@@ -19,9 +19,16 @@ The plugin includes demo certificates so that you can get up and running quickly
 2. **Generate your own certificates:** Use tools like OpenSSL or a certificate authority (CA) to generate your own certificates. For further guidance on generating certificates with OpenSSL, visit: [Generating self-signed certificates](https://opensearch.org/docs/latest/security/configuration/generate-certificates/).
  3. **Place the generated certificates and private key in the appropriate directory:** Typically they are placed in `<OPENSEARCH_HOME>/config/`, for more information see: [Add certificate files to opensearch.yml](https://opensearch.org/docs/latest/security/configuration/generate-certificates/#add-certificate-files-to-opensearchyml/).
  4. **Set proper file permissions:**
-    - **Recommended File Mode:** Set both the public certificates (.crt, .pem) and private keys (.key) to 644 (readable by everyone, writable only by the owner). This ensures that the OpenSearch service can read the files while preventing unauthorized modifications.
-    - **Ownership**: Ensure the files are owned by the OpenSearch service user (OpenSearch or similar).
-
+    - Private Key (.key files): Set the file mode to 600. This restricts access so that only the file owner (the OpenSearch service user) can read and write to the file, ensuring that the private key remains secure and inaccessible to unauthorized users.
+    - Public Certificates (.crt, .pem files): Set the file mode to 644. This allows the file owner to read and write the file, while other users can only read it.
+    - Ownership: Ensure the files are owned by the OpenSearch service user (OpenSearch or similar).
+    - Refer to the table below for file mode guidance
+        
+        | Item        | Sample              | Numeric | Bitwise      |
+        |-------------|---------------------|---------|--------------|
+        | Public Key  | `~/.ssh/id_rsa.pub` | `644`   | `-rw-r--r--` |
+        | Private Key | `~/.ssh/id_rsa`     | `600`   | `-rw-------` |
+        | SSH Folder  | `~/.ssh`            | `700`   | `drwx------` |
 
 ### [Reconfigure `opensearch.yml` to use your certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/). 
 
@@ -42,17 +49,16 @@ The plugin includes demo certificates so that you can get up and running quickly
 1.  The `config.yml` file allows you to configure the authentication and authorization mechanisms for OpenSearch.
 2. Update the authentication backend settings in `config/opensearch-security/config.yml` according to your requirements. For example, to use LDAP:
    ```
-   authc:
-   ldap:
-   http_enabled: true
-   transport_enabled: true
-   order: 1
-   http_authenticator:
-   type: basic
-   challenge: true
-   authentication_backend:
-   type: ldap
-   config:
+    authc:
+      basic_internal_auth:
+        http_enabled: true
+        transport_enabled: true
+        order: 1
+        http_authenticator:
+          type: basic
+          challenge: true
+        authentication_backend:
+          type: internal
    ```
 
 ### [Modify the configuration YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/).
