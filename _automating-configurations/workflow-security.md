@@ -1,14 +1,14 @@
 ---
 layout: default
-title: Workflow security
-nav_order: 25
+title: Flow Framework security
+nav_order: 50
 ---
 
-# Workflow security
+# Flow Framework security
 
-You can use the Security plugin together with the Flow Framework plugin in OpenSearch to limit non-admin users to specific actions. For example, you might want some users to only be able to create, update, or delete workflows, while others may only view workflows.
+In OpenSearch, automated workflow configurations are provided by the Flow Framework plugin. You can use the Security plugin together with the Flow Framework plugin in OpenSearch to limit non-admin users to specific actions. For example, you might want some users to only be able to create, update, or delete workflows, while others may only view workflows.
 
-All Flow Framework indexes are protected as system indexes. Only a superadmin user or an admin user with a TLS certificate can access system indexes. For more information, see [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indexes/).
+All Flow Framework indexes are protected as system indexes. Only a superadmin user or an admin user with a TLS certificate can access system indexes. For more information, see [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/).
 
 Security for Flow Framework is set up similarly to [security for anomaly detection]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/security/).
 
@@ -20,7 +20,7 @@ The Security plugin has two built-in roles that cover most Flow Framework use ca
 
 If these roles don't meet your needs, you can assign users individual Flow Framework [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/) to suit your use case. Each action corresponds to an operation in the REST API. For example, the `cluster:admin/opensearch/flow_framework/workflow/search` permission lets you search workflows.
 
-### A note on fine-grained access control
+### Fine-grained access control
 
 To reduce the chances of unintended users viewing metadata that describes an index, we recommend that administrators enable role-based access control when assigning permissions to the intended group of users. For more information , see [Limit access by backend role](#advanced-limit-access-by-backend-role).
 
@@ -72,7 +72,7 @@ PUT _plugins/_security/api/internalusers/bob
 }
 ```
 
-Both `alice` and `bob` have full access to workflow APIs:
+Both `alice` and `bob` have full access to Flow Framework APIs:
 
 ```json
 PUT _plugins/_security/api/rolesmapping/flow_framework_full_access
