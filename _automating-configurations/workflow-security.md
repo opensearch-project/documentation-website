@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Flow Framework security
+title: Workflow template security
 nav_order: 50
 ---
 
-# Flow Framework security
+# Workflow template security
 
 In OpenSearch, automated workflow configurations are provided by the Flow Framework plugin. You can use the Security plugin together with the Flow Framework plugin to limit non-admin users to specific actions. For example, you might want some users to only be able to create, update, or delete workflows, while others may only be able to view workflows.
 
