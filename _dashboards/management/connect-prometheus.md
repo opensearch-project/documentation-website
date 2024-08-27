@@ -7,45 +7,45 @@ nav_order: 20
 
 # Connecting Prometheus to OpenSearch
 
-This documentation focuses on using the OpenSeach Dashboards interface to connect to Prometheus. 
+This documentation covers the key steps to connect Prometheus to OpenSearch using the OpenSearch Dashboards interface, including setting up the data source connection, modifying the connection details, and creating an index pattern for the Prometheus data. 
 
 ## Prerequisites and permissions
 
-Make sure you followed and configured [Prerequisites]({{site.url}}{{site.baseurl}}/dashboards/management/data-sources/#prerequisites) and [Permissions]({{site.url}}{{site.baseurl}}/dashboards/management/data-sources/#permissions).
+Ensure you have configured the necessary [Prerequisites]({{site.url}}{{site.baseurl}}/dashboards/management/data-sources/#prerequisites) and [Permissions]({{site.url}}{{site.baseurl}}/dashboards/management/data-sources/#permissions).
 
+## Create a Prometheus data source connection
 
-## Creating a Prometheus data source connection
+A data source connection specifies the parameters needed to connect to a data source. These parameters form a connection string for the data source. Using OpenSearch Dashboards, you can add new **Amazon S3** or **Prometheus** data source connections or manage existing ones.
 
-A data source connection specifies the parameters needed to connect to a data source. These parameters form a connection string for the data source. Using Dashboards, you can add new **Amazon S3** or **Prometheus** data source connections or manage existing ones.
+Follow these steps to connect **Prometheus** to OpenSearch:
 
-The following steps guide you through the basics of creating a **Prometheus** data source connection:
+1. From the OpenSearch Dashboards main menu, go to **Management** > **Data sources** > **New data source** > **Prometheus**. 
 
-1. From the OpenSearch Dashboards main menu, select **Management** > **Data sources** > **New data source** > **Prometheus**. 
-
-2. Create the data source connection by entering the appropriate information into the **Configure Prometheus data source** fields. 
+2. From the **Configure Prometheus data source** section: 
    
-   - Under **Data source details**, enter a title for this data source. Entering a description is optional.
+   - Under **Data source details**, provide a title and optional description.
    - Under **Prometheus data location**, enter the Prometheus URI.
-   - Under **Authentication details**, select an authentication method from the dropdown list. Once an authentication method is selected, the applicable fields for that method appear. You can then enter the required details. The authentication method options are:
-       - **Basic authentication**: A basic username and password are used to connect to the data source.
-       - **AWS Signature Version 4**: An AWS Signature Version 4 authenticating request is used to connect to the data source. AWS Signature Version 4 requires an access key and a secret key. 
-         - For AWS Signature Version 4 authentication, first specify the **Region**. Next, select the OpenSearch service in the **Service Name** list. The options are **Amazon OpenSearch Service** and **Amazon OpenSearch Serverless**. Lastly, enter the **Access Key** and **Secret Key** for authorization.
-   - Under **Query permissions**, choose which role is needed to search and index data from this data source. If **Restricted** is selected, additional field will become available which is used to configure the required role.
+   - Under **Authentication details**, select the appropriate authentication method from the dropdown list and enter the required details:
+       - **Basic authentication**: Enter a username and password.
+       - **AWS Signature Version 4**: Specify the specify the **Region**, select the OpenSearch service from the **Service Name** list (**Amazon OpenSearch Service** or **Amazon OpenSearch Serverless**), and enter the **Access Key** and **Secret Key**.
+   - Under **Query permissions**, choose the role needed to search and index data. If you select **Restricted**, additional fields will become available to configure the required role.
 
-3. When you have entered all the details, select **Review Configuration** > **Connect to Prometheus** to save your settings. The connection is created. The active window returns to the **Data sources** main page, and the new connection appears in the list of data sources.
+3. Select **Review Configuration** > **Connect to Prometheus** to save your settings. The new connection will appear in the list of data sources.
 
-### Modifying a data source connection
+### Modify a data source connection
 
-To make changes to a data source connection, select a connection in the list on the **Data sources** main page. The **Connection Details** window opens.
+To modify a data source connection, select the desired connection from the list on the **Data sources** main page. This will open the **Connection Details** window.
 
-To make changes to **Connection Details**, edit one or both of the **Title** and **Description** fields and select **Save changes** in the lower-right corner of the screen. You can also cancel changes here. To change the **Authentication Method**, choose a different authentication method, enter your credentials (if applicable), and then select **Save changes** in the lower-right corner of the screen. The changes are saved.
+Within the **Connection Details** window, you can edit the **Title** and **Description** fields and then select **Save changes** in the lower-right corner to apply the changes. 
 
-When **Username & Password** is the selected authentication method, you can update the password by choosing **Update stored password** next to the **Password** field. In the pop-up window, enter a new password in the first field and then enter it again in the second field to confirm. Select **Update stored password** in the pop-up window. The new password is saved. Select **Test connection** to confirm that the connection is valid.
+To update the **Authentication Method**, choose a different method from the dropdown list, enter the required credentials (if applicable), and then select **Save changes** to apply the changes.
 
-When **AWS Signature Version 4** is the selected authentication method, you can update the credentials by selecting **Update stored AWS credential**. In the pop-up window, enter a new access key in the first field and a new secret key in the second field. Select **Update stored AWS credential** in the pop-up window. The new credentials are saved. Select **Test connection** in the upper-right corner of the screen to confirm that the connection is valid.
+If the selected authentication methos is **Username & Password**, you can update the password by choosing **Update stored password** next to the **Password** field. In the pop-up window, enter the new password and then confirm it, then select **Update stored password** to save the changes. Select **Test connection** to confirm that the connection is valid.
+
+For **AWS Signature Version 4** authentication, you can update the credentials by selecting **Update stored AWS credential**. In the pop-up window, enter the new access key and the new secret key. Select **Update stored AWS credential** to save the changes. Select **Test connection** to confirm that the connection is valid.
 
 To delete the data source connection, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-icon.png" class="inline-icon" alt="delete icon"/>{:/} icon.
 
 ## Creating an index pattern
 
-Once you've created a data source connection, you can create an index pattern for the data source. An _index pattern_ is a template that OpenSearch uses to create indexes for data from the data source. See [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/) for more information and a tutorial. 
+After creating a data source connection, the next step is to create an index pattern for that data source. For more information and a tutorial on index patterns. refer to [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/). 
