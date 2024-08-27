@@ -17,7 +17,7 @@ Before connecting a data source, ensure you have met the [Prerequisites]({{site.
 
 ## Create a Prometheus data source connection
 
-A data source connection specifies the parameters needed to connect to a data source. These parameters form a connection string for the data source. Using OpenSearch Dashboards, you can add new **Amazon S3** or **Prometheus** data source connections or manage existing ones.
+A data source connection specifies the parameters needed to connect to a data source. These parameters form a connection string for the data source. Using OpenSearch Dashboards, you can add new **Prometheus** data source connections or manage existing ones.
 
 Follow these steps to connect **Prometheus** to OpenSearch:
 
