@@ -36,17 +36,17 @@ Follow these steps to connect your data source:
 
 ### Modify a data source connection
 
-To modify a data source connection, select the desired connection from the list on the **Data sources** main page. This will open the **Connection Details** window.
+To modify a data source connection, follow these steps: 
 
-Within the **Connection Details** window, you can edit the **Title** and **Description** fields and then select the **Save changes** button to apply the changes. 
+1. Select the desired connection from the list on the **Data sources** main page. This will open the **Connection Details** window.
+2. Within the **Connection Details** window, you can edit the **Title** and **Description** fields and then select the **Save changes** button to apply the changes.
+3. To update the **Authentication Method**, choose a different method from the dropdown list, enter the required credentials (if applicable), and then select **Save changes** to apply the changes.
+4. To update **Username & Password** authentication, choose **Update stored password** next to the **Password** field. Within the pop-up window, enter the new password and confirm it, then select **Update stored password** to save the changes. Select **Test connection** to confirm that the connection is valid.
+6. To update **AWS Signature Version 4** authentication, select **Update stored AWS credential**. Within the pop-up window, enter the new access key and the new secret key and select **Update stored AWS credential** to save the changes. Select **Test connection** to confirm that the connection is valid.
 
-To update the **Authentication Method**, choose a different method from the dropdown list, enter the required credentials (if applicable), and then select **Save changes** to apply the changes.
+### Delete a data source connection
 
-If the selected authentication method is **Username & Password**, you can update the password by choosing **Update stored password** next to the **Password** field. Within the pop-up window, enter the new password and confirm it, then select **Update stored password** to save the changes. Select **Test connection** to confirm that the connection is valid.
-
-For **AWS Signature Version 4** authentication, you can update the credentials by selecting **Update stored AWS credential**. Within the pop-up window, enter the new access key and the new secret key. Select **Update stored AWS credential** to save the changes. Select **Test connection** to confirm that the connection is valid.
-
-To delete the data source connection, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-icon.png" class="inline-icon" alt="delete icon"/>{:/} icon.
+Tondelete the data source connection, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-icon.png" class="inline-icon" alt="delete icon"/>{:/} icon.
 
 ## Creating an index pattern
 
