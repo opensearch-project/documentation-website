@@ -6,6 +6,8 @@ nav_order: 20
 ---
 
 # Connecting Prometheus to OpenSearch
+Introduced 2.16
+{: .label .label-purple }
 
 This documentation covers the key steps to connect Prometheus to OpenSearch using the OpenSearch Dashboards interface, including setting up the data source connection, modifying the connection details, and creating an index pattern for the Prometheus data. 
 
