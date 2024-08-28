@@ -2,7 +2,6 @@
 layout: default
 title: Index
 nav_order: 25
-has_children: false
 parent: Metadata fields
 ---
 
