@@ -68,7 +68,7 @@ This mapping configuration dynamically maps any field with a name starting with 
 
 ### Dynamic mapping parameters
 
-The `dynamic_templates` support the following parameters for matching conditions and mapping rules. The default vaule is `null`.
+The `dynamic_templates` support the following parameters for matching conditions and mapping rules. The default value is `null`.
 
 Parameter | Description |
 ----------|-------------|
