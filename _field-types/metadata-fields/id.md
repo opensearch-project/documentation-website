@@ -9,6 +9,9 @@ parent: Metadata fields
 
 Each document in OpenSearch has a unique `_id` field that identifies it. This field is indexed, allowing you to retrieve documents using the `GET` API or the [`ids` query]({{site.url}}{{site.baseurl}}/query-dsl/term/ids/).
 
+If you do not provide an `_id` value, then OpenSearch automatically generates a unique one for the document.
+{: .note}
+
 The following example creates an index `test-index1` and adds two documents with different `_id` values:
 
 ```json
@@ -24,7 +27,7 @@ PUT test-index1/_doc/2?refresh=true
 ```
 {% include copy-curl.html %}
 
-You can then query the documents using the `_id` field:
+You can then query the documents using the `_id` field, as shown in the following request:
 
 ```json
 GET test-index1/_search
@@ -38,7 +41,7 @@ GET test-index1/_search
 ```
 {% include copy-curl.html %}
 
-This returns both documents with `_id` values of `1` and `2`.
+This returns both documents with `_id` values of `1` and `2`, as shown in the following response:
 
 ```json
 {
@@ -77,9 +80,6 @@ This returns both documents with `_id` values of `1` and `2`.
   }
 ```
 {% include copy-curl.html %}
-  
-If you do not provide an `_id` value, then OpenSearch automatically generates a unique one for the document.
-{: .note}
 
 ## Limitations of the `_id` field
 
