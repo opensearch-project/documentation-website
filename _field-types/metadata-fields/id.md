@@ -38,7 +38,7 @@ GET test-index1/_search
 ```
 {% include copy-curl.html %}
 
-This returns returns both documents with `_id` values of `1` and `2`.
+This returns both documents with `_id` values of `1` and `2`.
 
 ```json
 {
