@@ -110,7 +110,7 @@ Your request body must contain the information you want to index.
 }
 ```
 
-## Response
+## Example response
 ```json
 {
   "_index": "sample-index",

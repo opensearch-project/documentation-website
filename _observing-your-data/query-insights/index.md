@@ -31,8 +31,9 @@ bin/opensearch-plugin install query-insights
 ```
 For information about installing plugins, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
 
-## Query insights settings
+## Query Insights settings
 
-Query insights features support the following settings:
+You can obtain the following information using Query Insights:
 
 - [Top n queries]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/)
+- [Query metrics]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/query-metrics/)

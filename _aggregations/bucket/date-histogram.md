@@ -2,7 +2,6 @@
 layout: default
 title: Date histogram
 parent: Bucket aggregations
-grand_parent: Aggregations
 nav_order: 20
 redirect_from:
   - /query-dsl/aggregations/bucket/date-histogram/
