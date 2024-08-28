@@ -8,16 +8,11 @@ parent: Metadata fields
 
 # Meta
 
-The `_meta` field is a mapping property that allows you to associate custom metadata with your index mappings. This metadata is not used by OpenSearch itself, but can be used by your application to store information that is relevant to your use case. The `meta` field can be useful for a variety of scenarios, such as the following: 
-
-- **Versioning**: Store the version of your application or index schema, making it easier to manage changes over time.
-- **Ownership**: Identify the owner or author of an index, which can be helpful for maintenance and collaboration.
-- **Categorization**: Classify indexes based on the application or domain they belong to, making it easier to organize and manage your data.
-- **Auditing**: Track changes to the index metadata over time, providing a history of modifications.
+The `_meta` field is a mapping property that allows you to attach custom metadata to your index mappings. This metadata can be used by your application to store information relevant to your use case, such as versioning, ownership, categorization, or auditing.
 
 ## Usage
 
-You can define the `_meta` field when creating a new index or updating an existing index's mapping, as shown in the following example: 
+You can define the `_meta` field when creating a new index or updating an existing index's mapping, for example, as shown in the following request: 
 
 ```json
 PUT my-index
@@ -44,7 +39,7 @@ PUT my-index
 
 In this example, three custom metadata fields are added: application, version, and author. These fields can be used by your application to store any relevant information about the index, such as the application it belongs to, the version of the application, or the author of the index.
 
-You can update the `_meta` field using the [put mapping API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/put-mapping/) operation, as shown in the following example:
+You can update the `_meta` field using the [put mapping API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/put-mapping/) operation, for example, as shown in the following request:
 
 ```json
 PUT my-index/_mapping
@@ -60,14 +55,14 @@ PUT my-index/_mapping
 
 ## Retrieving meta information
 
-You can retrieve the `_meta` information for an index using the [get mapping API]({{site.url}}{{site.baseurl}}/field-types/#get-a-mapping) operation, as shown in the following example:
+You can retrieve the `_meta` information for an index using the [get mapping API]({{site.url}}{{site.baseurl}}/field-types/#get-a-mapping) operation, for example, as shown in the following request:
 
 ```json
 GET my-index/_mapping
 ```
 {% include copy-curl.html %}
 
-This returns the full mapping for the index, including the `_meta` field, as shown in the following example: 
+This returns the full mapping for the index, including the `_meta` field, for example, as shown in the following response: 
 
 ```json
 {
