@@ -92,8 +92,7 @@ snapshotrestore:
 ```
 
 ## opensearch.yml
-Typically found at `/path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml`.
-In addition to many OpenSearch settings, this file contains paths to TLS certificates and their attributes, such as distinguished names and trusted certificate authorities.
+Typically found at `/path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml`. In addition to many OpenSearch settings, this file contains paths to TLS certificates and their attributes, such as distinguished names and trusted certificate authorities.
 
 ```yml
 plugins.security.ssl.transport.pemcert_filepath: esnode.pem
@@ -195,8 +194,7 @@ The following example shows the response from the [Create user]({{site.url}}{{si
 ```
 
 ## allowlist.yml
-Typically found at `/path/to/opensearch-{{site.opensearch_version}}/plugins/opensearch-security/securityconfig/allowlist.yml`,
-this file can be used to add any endpoints and HTTP requests to a list of allowed endpoints and requests. If enabled, all users except the super admin are allowed access to only the specified endpoints and HTTP requests, and all other HTTP requests associated with the endpoint are denied. For example, if GET `_cluster/settings` is added to the allow list, users cannot submit PUT requests to `_cluster/settings` to update cluster settings.
+Typically found at `/path/to/opensearch-{{site.opensearch_version}}/plugins/opensearch-security/securityconfig/allowlist.yml`, this file can be used to add any endpoints and HTTP requests to a list of allowed endpoints and requests. If enabled, all users except the super admin are allowed access to only the specified endpoints and HTTP requests, and all other HTTP requests associated with the endpoint are denied. For example, if GET `_cluster/settings` is added to the allow list, users cannot submit PUT requests to `_cluster/settings` to update cluster settings.
 
 Note that while you can configure access to endpoints this way, for most cases, it is still best to configure permissions using the Security plugin's users and roles, which have more granular settings.
 
@@ -248,8 +246,7 @@ requests: # Only allow GET requests to /sample-index1/_doc/1 and /sample-index2/
 
 ## roles.yml
 
-Typically found at `/path/to/opensearch-{{site.opensearch_version}}/plugins/opensearch-security/securityconfig/roles.yml`,
-this file contains any initial roles that you want to add to the Security plugin. Aside from some metadata, the default file is empty, because the Security plugin has a number of static roles that it adds automatically.
+Typically found at `/path/to/opensearch-{{site.opensearch_version}}/plugins/opensearch-security/securityconfig/roles.yml`, this file contains any initial roles that you want to add to the Security plugin. Aside from some metadata, the default file is empty, because the Security plugin has a number of static roles that it adds automatically.
 
 ```yml
 ---

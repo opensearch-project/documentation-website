@@ -29,7 +29,7 @@ Running `securityadmin.sh` **overwrites** one or more portions of the `.opendist
 
 1. You initialize the `.opendistro_security` index.
 1. You create ten users using the REST API.
-1. You decide to create a new [reserved user]({{site.url}}{{site.baseurl}}/security/access-control/api/#reserved-and-hidden-resources) using `internal_users.yml`(Typically found at `/plugins/opensearch-security/securityconfig/internal_users.yml`)
+1. You decide to create a new [reserved user]({{site.url}}{{site.baseurl}}/security/access-control/api/#reserved-and-hidden-resources) using `internal_users.yml` (Typically found at `/plugins/opensearch-security/securityconfig/internal_users.yml`)
 1. You run `securityadmin.sh` again to load the new reserved user into the index.
 1. You lose all ten users that you created using the REST API.
 
