@@ -12,7 +12,7 @@ The `_ignored` field helps you manage and understand issues related to malformed
 
 The `_ignored` field allows you to search and identify documents that contain fields that were ignored, as well as the specific field names that were ignored. The can be useful for troubleshooting and understadning issues related to malformed data in your documents. 
 
-You can query the `_ignored` field using `term`, `terms`, and `exists` queries, and the results will be included in the search hits.
+You can query the `_ignored` field using the `term`, `terms`, and `exists` queries, and the results will be included in the search hits.
 
 The `_ignored` field is only populated when the `ignore_malformed` setting is enabled in your index mapping. If `ignore_malformed` is set to `false` (the default value), then malformed fields will cause the entire document to be rejected, and the `_ignored` field will not be populated.
 {: .note}
