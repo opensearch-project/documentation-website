@@ -8,9 +8,9 @@ parent: Metadata fields
 
 # ID
 
-Each document has an `_id` field that uniquely identifies it. This field is indexed, allowing documents to be retrieved either through the `GET` API or the [`ids` query]({{site.url}}{{site.baseurl}}/query-dsl/term/ids/).
+Each document in OpenSearch has a unique `_id` field that identifies it. This field is indexed, allowing you to retrieve documents using the `GET` API or the [`ids` query]({{site.url}}{{site.baseurl}}/query-dsl/term/ids/).
 
-The following examples creates an index `test-index1` and add two documents with different `_id` values:
+The following example creates an index `test-index1` and adds two documents with different `_id` values:
 
 ```json
 PUT test-index1/_doc/1
@@ -25,7 +25,7 @@ PUT test-index1/_doc/2?refresh=true
 ```
 {% include copy-curl.html %}
 
-Now, you can query the documents using the `_id` field:
+You can then query the documents using the `_id` field:
 
 ```json
 GET test-index1/_search
@@ -39,7 +39,7 @@ GET test-index1/_search
 ```
 {% include copy-curl.html %}
 
-The following response shows that this query returns both documents with `_id` values of `1` and `2`.
+This returns returns both documents with `_id` values of `1` and `2`.
 
 ```json
 {
@@ -79,8 +79,9 @@ The following response shows that this query returns both documents with `_id` v
   ```
   {% include copy-curl.html %}
   
-A unique `_id` is automatically generated and assigned if you do not provide one.
+If you do not provide an `_id` value, then OpenSearch automatically generates a unique one for the document.
 {: .note}
-## Querying on the `_id` field
 
-While the `_id` field is accessible in various queries, it is restricted from use in aggregations, sorting, and scripting. See [IDs query]({{site.url}}{{site.baseurl}}/query-dsl/term/ids/) for an example of the field's usage. If you need to sort or aggregate on the `_id` field, it is recommended to duplicate the content of the `_id` field into another field that has `doc_values` enabled.
+## Limitations of the `_id` field
+
+While the `_id` field can be used in various queries, it is restricted from use in aggregations, sorting, and scripting. If you need to sort or aggregate on the `_id` field, it is recommended to duplicate the `_id` content into another field with `doc_values` enabled. Refer to [IDs query]({{site.url}}{{site.baseurl}}/query-dsl/term/ids/) for an example of using the field.
