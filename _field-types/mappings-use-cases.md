@@ -45,7 +45,7 @@ PUT /test-index/_doc/1
 ```
 {% include copy-curl.html %}
 
-This indexed IP address does not throw an error because `ignore_malformed` is set to true. 
+This indexed IP address does not throw an error because `ignore_malformed` is set to `true`. 
 
 You can query the index using the following request:
 
