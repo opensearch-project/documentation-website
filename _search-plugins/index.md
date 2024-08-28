@@ -28,7 +28,7 @@ OpenSearch supports the following machine learning (ML)-powered search methods:
 
 - **Vector search**
 
-    - [k-NN search]({{site.url}}{{site.baseurl}}/search-plugins/knn/): Searches for k-nearest neighbors to a search term across an index of vectors.
+    - [k-NN search]({{site.url}}{{site.baseurl}}/search-plugins/knn/): Searches for the k-nearest neighbors to a search term across an index of vectors.
 
 - **Neural search**: [Neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/) facilitates generating vector embeddings at ingestion time and searching them at search time. Neural search lets you integrate ML models into your search and serves as a framework for implementing other search methods. The following search methods are built on top of neural search:
 
