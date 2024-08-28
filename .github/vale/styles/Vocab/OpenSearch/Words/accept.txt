@@ -127,6 +127,7 @@ stdout
 [Ss]ubvector
 [Ss]ubwords?
 [Ss]uperset
+[Ss]uperadmins?
 [Ss]yslog
 tebibyte
 [Tt]emplated
