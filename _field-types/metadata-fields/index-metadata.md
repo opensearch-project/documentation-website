@@ -71,7 +71,7 @@ In this example:
 
 ## Querying on the `_index` field
 
-The `_index` field is a special field that represents the index a document was indexed into. You can use this field in your queries to filter, aggregate, sort, or retrieve index information for your search results.
+The `_index` field represents the index a document was indexed into. You can use this field in your queries to filter, aggregate, sort, or retrieve index information for your search results.
 
 Since the `_index` field is automatically added to every document, you can use it in your queries like any other field. For example, you can use the `terms` query to match documents from multiple indexes. The following query example returns all documents from the `products` and `customers` indexes:
 
