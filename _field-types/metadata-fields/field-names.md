@@ -13,6 +13,7 @@ However, `_field_names` only indexes field names when both `doc_values` and `nor
 
 ## Mapping example
 
+```json
 {
     "mappings": {
        "_field_names": {
@@ -38,4 +39,5 @@ However, `_field_names` only indexes field names when both `doc_values` and `nor
     }
   }
 }
+```
 {% include copy-curl.html %}
