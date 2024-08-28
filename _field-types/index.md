@@ -207,4 +207,4 @@ The response contains the specified fields:
 
 ## Mappings use cases
 
-See use case examples, including mapping string fields and ignoring malformed IP addresses, in [Mappings use cases](). 
+See use case examples, including mapping string fields and ignoring malformed IP addresses, in [Mappings use cases]({{site.url}}{{site.baseurl}}/field-types/mappings-use-cases/). 
