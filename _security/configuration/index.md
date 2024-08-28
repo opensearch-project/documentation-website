@@ -89,7 +89,8 @@ After initial setup, if you make changes to your security configuration or if yo
    ```
 
 3. Check the OpenSearch logs and configuration to ensure that the changes have been successfully applied.
-4. For further information see the documentation: [Backup restore and migrate](https://opensearch.org/docs/latest/security/configuration/security-admin#backup-restore-and-migrate/)
+
+For further information about using the `securityadmin.sh` script, see [Backup restore and migrate](https://opensearch.org/docs/latest/security/configuration/security-admin#backup-restore-and-migrate/)
 
 
 ### Start OpenSearch.
