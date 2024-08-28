@@ -8,16 +8,16 @@ parent: Metadata fields
 
 # Ignored
 
-The `_ignored` field indexes and stores the name of fields within a document that were ignored during the indexing process due to being malformed. This functionality is enabled with the `ignore_malformed` setting is turned on in the [index mapping]({{site.url}}{{site.baseurl}}/field-types/#mapping-example-usage). 
+The `_ignored` field helps you manage and understand issues related to malformed data in your documents. This field is used to index and store the name of fields within a document that were ignored during the indexing process, when the `ignore_malformed` setting is enabled in the [index mapping]({{site.url}}{{site.baseurl}}/field-types/#mapping-example-usage). 
 
 The `_ignored` field allows you to search and identify documents that contain fields that were ignored, as well as the specific field names that were ignored. The can be useful for troubleshooting and understadning issues related to malformed data in your documents. 
 
-You can query the `_ignored` field using `term`, `terms`, and `exists` queries, and the results will be in the search hits.
+You can query the `_ignored` field using `term`, `terms`, and `exists` queries, and the results will be included in the search hits.
 
-The `_ignored` field is only populated when the `ignore_malformed` setting is enabled in your index mapping. If `ignore_malformed` is set to `false` (the default value), malformed fields will cause the entire document to be rejected, and the `_ignored` field will not be populated.
+The `_ignored` field is only populated when the `ignore_malformed` setting is enabled in your index mapping. If `ignore_malformed` is set to `false` (the default value), then malformed fields will cause the entire document to be rejected, and the `_ignored` field will not be populated.
 {: .note}
 
-The basic syntax for a request with `_ignored` is as follows:
+The following request is an example of how to use the `_ignored` field:
 
 ```json
 GET _search
@@ -35,7 +35,7 @@ GET _search
 
 #### Example indexing request with `_ignored` field
 
-The following example request adds a new document to the `test-ignored` index, with `ignore_malformed` set to `true` so that no error is thrown during indexing: 
+The following request is an example of how to add a new document to the `test-ignored` index with `ignore_malformed` set to `true` so that no error is thrown during indexing: 
 
 ```json
 PUT test-ignored
@@ -110,7 +110,7 @@ GET test-ignored/_search
 
 ## Ignoring a specified field
 
-Similarly, you can use a term query to find documents where a specific field, such as created_at, was ignored, as shown in the following example request:
+You can use a `term` query to find documents where a specific field was ignored, for example, as in the following request:
 
 ```json
 GET _search
