@@ -80,6 +80,7 @@ Levenshtein
 [Oo]versamples?
 [Oo]nboarding
 pebibyte
+p\d{2}
 [Pp]erformant
 [Pp]laintext
 [Pp]luggable
@@ -126,6 +127,7 @@ stdout
 [Ss]ubvector
 [Ss]ubwords?
 [Ss]uperset
+[Ss]uperadmins?
 [Ss]yslog
 tebibyte
 [Tt]emplated
