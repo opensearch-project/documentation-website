@@ -24,7 +24,7 @@ Before connecting a data source, verify the following requirements are met:
 
 To connect your data source, follow these steps:
 
-1. From the OpenSearch Dashboards main menu, go to **Management** > **Data sources**.
+1. From the OpenSearch Dashboards main menu, go to **Management** > **Dashboards Management** > **Data sources**.
 2. On the **Data sources** page, select **New data source** > **S3**.
 3. On the **Configure Amazon S3 data source** page, enter the necessary details under **Data source details**, **AWS Glue authentication details**, **AWS Glue index store details**, and **Query permissions**.
 4. Verify the configuration by selecting **Review Configuration**.
