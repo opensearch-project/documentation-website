@@ -30,7 +30,7 @@ Follow these steps to connect your data source:
    - Under **Authentication details**, select the appropriate authentication method from the dropdown list and enter the required details:
        - **Basic authentication**: Enter a username and password.
        - **AWS Signature Version 4**: Specify the **Region**, select the OpenSearch service from the **Service Name** list (**Amazon OpenSearch Service** or **Amazon OpenSearch Serverless**), and enter the **Access Key** and **Secret Key**.
-   - Under **Query permissions**, choose the role needed to search and index data. If you select **Restricted**, additional fields will become available to configure the required role.
+   - Under **Query permissions**, choose the role needed to search and index data. If you select **Restricted**, an additional field will become available to configure the required role.
 
 3. Select **Review Configuration** > **Connect to Prometheus** to save your settings. The new connection will appear in the list of data sources.
 
@@ -40,7 +40,7 @@ To modify a data source connection, follow these steps:
 
 1. Select the desired connection from the list on the **Data sources** main page. This will open the **Connection Details** window.
 2. Within the **Connection Details** window, edit the **Title** and **Description** fields. Select the **Save changes** button to apply the changes.
-3. To update the **Authentication Method**, choose the method from the dropdown list and enter the required credentials (if applicable). Select **Save changes** to apply the changes.
+3. To update the **Authentication Method**, choose the method from the dropdown list and enter any necessary credentials. Select **Save changes** to apply the changes.
     - To update the **Basic authentication** authentication method, select the **Update stored password** button. Within the pop-up window, enter the updated password and confirm it and select **Update stored password** to save the changes. To test the connection, select the **Test connection** button.
     - To update the **AWS Signature Version 4** authentication method, select the **Update stored AWS credential** button. Within the pop-up window, enter the updated access and secret keys and select **Update stored AWS credential** to save the changes. To test the connection, select the **Test connection** button.
 
