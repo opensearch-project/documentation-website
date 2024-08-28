@@ -75,8 +75,8 @@ This returns returns both documents with `_id` values of `1` and `2`.
       }
     ]
   }
-  ```
-  {% include copy-curl.html %}
+```
+{% include copy-curl.html %}
   
 If you do not provide an `_id` value, then OpenSearch automatically generates a unique one for the document.
 {: .note}
