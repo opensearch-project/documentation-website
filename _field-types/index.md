@@ -16,7 +16,7 @@ Mappings tell OpenSearch how to store and index your documents and their fields.
 
 While dynamic mappings automatically add new data and fields, using explicit mappings is recommended. Explicit mappings let you define the exact structure and data types upfront. This helps maintain data consistency and optimize performance, especially for large datasets or high-volume indexing operations.
 
-Even if you are unsure about your data structure at first, switching to explicit mappings later is a good idea once you understand your data better. This helps avoid potential performance problems and keeps your data consistent. For example, with explicit mappings, you can ensure that `year` is treated as text and `age` as an integer, instead of both being interpreted as integers by dynamic mapping.
+Even if you are unsure about your data structure at first, switching to explicit mappings later is recommended once you understand your data better. This helps avoid potential performance problems and keeps your data consistent. For example, with explicit mappings, you can ensure that `year` is treated as text and `age` as an integer, instead of both being interpreted as integers by dynamic mapping.
 
 ## Dynamic mapping
 
@@ -82,7 +82,7 @@ Parameter | Description |
 
 ## Explicit mapping
 
-If you know exactly what your field data types need to be, you can specify them in your request body when creating your index, for example, as shown in the following request:
+If you know exactly what your field data types need to be, then you can specify them in your request body when creating your index, for example, as shown in the following request:
 
 ```json
 PUT sample-index1
@@ -127,7 +127,7 @@ You cannot change the mapping of an existing field, you can only modify the fiel
 
 ## Mapping parameters
 
-Mapping parameters are used to configure the behavior of fields in an index. See the [Mappings and field types]({{site.url}}{{site.baseurl}}/field-types/) page for more information.
+Mapping parameters are used to configure the behavior of fields in an index. See [Mappings and field types]({{site.url}}{{site.baseurl}}/field-types/) for more information.
 
 ## Mapping limit settings
 
@@ -135,12 +135,12 @@ OpenSearch has certain limits or settings related to mappings, such as the setti
 
 | Setting | Default value | Allowed value | Type | Description |
 |-|-|-|-|-|
-| index.mapping.nested_fields.limit | 50 | [0,) | Dynamic | Limits the maximum number of nested fields that can be defined in an index mapping. |
-| index.mapping.nested_objects.limit | 10000 | [0,) | Dynamic | Limits the maximum number of nested objects that can be created within a single document. |
-| index.mapping.total_fields.limit | 1000 | [0,) | Dynamic | Limits the maximum number of fields that can be defined in an index mapping. |
-| index.mapping.depth.limit | 20 | [1,100] | Dynamic | Limits the maximum depth of nested objects and nested fields that can be defined in an index mapping. |
-| index.mapping.field_name_length.limit | 50000 | [1,50000] | Dynamic | Limits the maximum length of field names that can be defined in an index mapping. |
-| index.mapper.dynamic | true | {true,false} | Dynamic | Determines whether new fields should be added dynamically to the mapping when they are encountered in a document. |
+| `index.mapping.nested_fields.limit` | 50 | [0,) | Dynamic | Limits the maximum number of nested fields that can be defined in an index mapping. |
+| `index.mapping.nested_objects.limit` | 10000 | [0,) | Dynamic | Limits the maximum number of nested objects that can be created within a single document. |
+| `index.mapping.total_fields.limit` | 1000 | [0,) | Dynamic | Limits the maximum number of fields that can be defined in an index mapping. |
+| `index.mapping.depth.limit` | 20 | [1,100] | Dynamic | Limits the maximum depth of nested objects and nested fields that can be defined in an index mapping. |
+| `index.mapping.field_name_length.limit` | 50000 | [1,50000] | Dynamic | Limits the maximum length of field names that can be defined in an index mapping. |
+| `index.mapper.dynamic` | true | {true,false} | Dynamic | Determines whether new fields should be added dynamically to the mapping when they are encountered in a document. |
 
 ---
 
