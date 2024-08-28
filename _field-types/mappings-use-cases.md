@@ -18,7 +18,7 @@ The following example shows how to create a mapping to specify that OpenSearch s
 
 ### Create an index with an `ip` mapping
 
-To create an index, use a PUT request:
+To create an index with an `ip` mapping, use a PUT request, like the following request:
 
 ```json
 PUT /test-index 
@@ -35,7 +35,7 @@ PUT /test-index
 ```
 {% include copy-curl.html %}
 
-You can add a document that has a malformed IP address to your index:
+You can then add a document with a malformed IP address, like the following request:
 
 ```json
 PUT /test-index/_doc/1 
@@ -45,16 +45,14 @@ PUT /test-index/_doc/1
 ```
 {% include copy-curl.html %}
 
-This indexed IP address does not throw an error because `ignore_malformed` is set to `true`. 
-
-You can query the index using the following request:
+When you query the index, the `ip_address` field will be ignored. You can query the index using the following request:
 
 ```json
 GET /test-index/_search
 ```
 {% include copy-curl.html %}
 
-The response shows that the `ip_address` field is ignored in the indexed document:
+#### Response
 
 ```json
 {
@@ -90,12 +88,11 @@ The response shows that the `ip_address` field is ignored in the indexed documen
 ```
 {% include copy-curl.html %}
 
-
 ---
 
 ## Mapping string fields to `text` and `keyword` types
 
-This request creates an index named `movies1` with a dynamic template that maps all string fields to both `text` and `keyword` types.
+To create an index named `movies1` with a dynamic template that maps all string fields to both `text` and `keyword` types, you can use the following request:
 
 ```json
 PUT movies1
@@ -121,3 +118,5 @@ PUT movies1
 }
 ```
 {% include copy-curl.html %}
+
+This dynamic template ensures that any string fields in your documents will be indexed as both a full-text `text` type and a `keyword` type.
