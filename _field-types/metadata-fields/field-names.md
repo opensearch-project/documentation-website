@@ -1,6 +1,6 @@
 ---
 layout: default
-title: _field_names
+title: Field names
 nav_order: 10
 parent: Metadata fields
 ---
