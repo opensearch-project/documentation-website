@@ -12,11 +12,11 @@ redirect_from:
 
 # Mappings and field types
 
-Mappings define how documents and their fields are stored and indexed in OpenSearch. You can specify field types (for example, `year` as `date`) to ensure efficient storage and querying. While dynamic mappings automatically add data and fields, explicit mappings are recommended for enforcing consistent data structures and optimizing performance, especially for large datasets or high-volume indexing operations.
+Mappings tell OpenSearch how to store and index your documents and their fields. You can specify the data type for each field (for example, `year` as `date`) to make storage and querying more efficient. 
 
-Explicit mappings allow you to define the exact structure and data types of your fields upfront, ensuring data integrity and efficient storage and querying. Even if you are unsure about your data structure initially, it is advisable to switch to explicit mappings once you have a better understanding of your data to avoid potential performance issues and maintain consistency.
+While dynamic mappings automatically add new data and fields, using explicit mappings is recommended. Explicit mappings let you define the exact structure and data types upfront. This helps maintain data consistency and optimize performance, especially for large datasets or high-volume indexing operations.
 
-For example, with explicit mappings, you can ensure that year is treated as text and age as an integer, preventing OpenSearch from interpreting both as integers through dynamic mapping.
+Even if you are unsure about your data structure at first, switching to explicit mappings later is a good idea once you understand your data better. This helps avoid potential performance problems and keeps your data consistent. For example, with explicit mappings, you can ensure that `year` is treated as text and `age` as an integer, instead of both being interpreted as integers by dynamic mapping.
 
 ## Dynamic mapping
 
@@ -68,7 +68,7 @@ This mapping configuration dynamically maps any field with a name starting with 
 
 ### Dynamic mapping parameters
 
-The `dynamic_templates` support the following parameters for matching conditions and mapping rules:
+The `dynamic_templates` support the following parameters for matching conditions and mapping rules. The default vaule is `null`.
 
 Parameter | Description |
 ----------|-------------|
@@ -82,7 +82,7 @@ Parameter | Description |
 
 ## Explicit mapping
 
-If you know exactly what your field data types need to be, you can specify them in your request body when creating your index.
+If you know exactly what your field data types need to be, you can specify them in your request body when creating your index, for example, as shown in the following request:
 
 ```json
 PUT sample-index1
@@ -108,7 +108,7 @@ PUT sample-index1
 ```
 {% include copy-curl.html %}
 
-To add mappings to an existing index or data stream, you can send a request to the `_mapping` endpoint using the `PUT` or `POST` HTTP method:
+To add mappings to an existing index or data stream, you can send a request to the `_mapping` endpoint using the `PUT` or `POST` HTTP method, for example, as shown in the following request:
 
 ```json
 POST sample-index1/_mapping
@@ -141,7 +141,6 @@ OpenSearch has certain limits or settings related to mappings, such as the setti
 | index.mapping.depth.limit | 20 | [1,100] | Dynamic | Limits the maximum depth of nested objects and nested fields that can be defined in an index mapping. |
 | index.mapping.field_name_length.limit | 50000 | [1,50000] | Dynamic | Limits the maximum length of field names that can be defined in an index mapping. |
 | index.mapper.dynamic | true | {true,false} | Dynamic | Determines whether new fields should be added dynamically to the mapping when they are encountered in a document. |
-
 
 ---
 
