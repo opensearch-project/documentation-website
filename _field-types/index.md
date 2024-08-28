@@ -16,7 +16,7 @@ Mappings tell OpenSearch how to store and index your documents and their fields.
 
 While [dynamic mappings](#dynamic-mapping) automatically add new data and fields, using explicit mappings is recommended. Explicit mappings let you define the exact structure and data types upfront. This helps maintain data consistency and optimize performance, especially for large datasets or high-volume indexing operations.
 
-Even if you are unsure about your data structure at first, switching to explicit mappings later is recommended once you understand your data better. This helps avoid potential performance problems and keeps your data consistent. For example, with explicit mappings, you can ensure that `year` is treated as text and `age` as an integer, instead of both being interpreted as integers by dynamic mapping.
+For example, with explicit mappings, you can ensure that `year` is treated as text and `age` as an integer, instead of both being interpreted as integers by dynamic mapping.
 
 ## Dynamic mapping
 
