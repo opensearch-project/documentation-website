@@ -10,7 +10,7 @@ parent: Metadata fields
 
 When querying across multiple indexes, you may need to filter results based on the index a document was indexed into. The `index` field matches documents based on their index. 
 
-The following example creates two indexes, `products` and `customers`, and adds a document to each index:
+The following request is an example of how to create two indexes, `products` and `customers`, and add a document to each index:
 
 ```json
 PUT products/_doc/1
@@ -25,7 +25,7 @@ PUT customers/_doc/2
 ```
 {% include copy-curl.html %}
 
-Now, you can query both indexes and filter the results using the `_index` field, as shown in the following example:
+You can then query both indexes and filter the results using the `_index` field, as shown in the following request:
 
 ```json
 GET products,customers/_search
@@ -71,16 +71,9 @@ In this example:
 
 ## Querying on the `_index` field
 
-The `_index` field is a special field in OpenSearch that represents the index a document was indexed into. You can use this field in your queries to filter results based on the index.
+The `_index` field is a special field that represents the index a document was indexed into. You can use this field in your queries to filter, aggregate, sort, or retrieve index information for your search results.
 
-Some common use cases for querying on the `_index` field include:
-
-- Filtering search results to only include documents from specific indexes.
-- Performing aggregations to get counts or statistics for each index.
-- Sorting search results by the index they belong to.
-- Retrieving the index name for each document in the search results.
-
-The `_index` field is automatically added to every document, so you can use it in your queries like any other field. For instance, you can use the `terms` query to match documents from multiple indexes, as shown in the following example:
+Since the `_index` field is automatically added to every document, you can use it in your queries like any other field. For example, you can use the `terms` query to match documents from multiple indexes. The following query example returns all documents from the `products` and `customers` indexes:
 
 ```json
  {
@@ -92,5 +85,3 @@ The `_index` field is automatically added to every document, so you can use it i
 }
 ```
 {% include copy-curl.html %}
-
-This query returns all documents from the `products` and `customers` indexes.
