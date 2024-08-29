@@ -35,7 +35,7 @@ PUT /test-index
 ```
 {% include copy-curl.html %}
 
-You can then add a document with a malformed IP address, like the following request:
+Then add a document with a malformed IP address:
 
 ```json
 PUT /test-index/_doc/1 
