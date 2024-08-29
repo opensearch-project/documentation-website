@@ -8,7 +8,7 @@ nav_exclude: true
 
 # Mappings use cases
 
-Mappings in OpenSearch provide control over how data is indexed and queried, enabling optimized performance and efficient storage for a range of use cases.
+Mappings provide control over how data is indexed and queried, enabling optimized performance and efficient storage for a range of use cases.
 
 ---
 
