@@ -36,7 +36,7 @@ PUT my-index
 ```
 {% include copy-curl.html %}
 
-In this example, three custom metadata fields are added: application, version, and author. These fields can be used by your application to store any relevant information about the index, such as the application it belongs to, the version of the application, or the author of the index.
+In this example, three custom metadata fields are added: `application`, `version`, and `author`. These fields can be used by your application to store any relevant information about the index, such as the application it belongs to, the application version, or the author of the index.
 
 You can update the `_meta` field using the [put mapping API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/put-mapping/) operation, for example, as shown in the following request:
 
