@@ -66,7 +66,7 @@ The `config.yml` file allows you to configure the authentication and authorizati
           type: internal
    ```
 
-### [Modify the configuration YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/).
+### [Modify the configuration YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/)
 
 Determine if any additional YAML files need modification, for example the `roles.yml`, `roles_mapping.yml`, `internal_users.yml`. Edit the files with any additional configuration needed.
 
@@ -93,9 +93,8 @@ After initial setup, if you make changes to your security configuration or if yo
 For further information about using the `securityadmin.sh` script, see [Backup restore and migrate](https://opensearch.org/docs/latest/security/configuration/security-admin#backup-restore-and-migrate/)
 
 
-### Start OpenSearch.
 
-### [Add users, roles, role mappings, and tenants]({{site.url}}{{site.baseurl}}/security/access-control/index/).
+### [Add users, roles, role mappings, and tenants]({{site.url}}{{site.baseurl}}/security/access-control/index/)
 
 If you don't want to use the Security plugin, you can disable it by adding the following setting to the `opensearch.yml` file:
 
