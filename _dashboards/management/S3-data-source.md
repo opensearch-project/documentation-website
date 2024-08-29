@@ -35,7 +35,7 @@ To connect your data source, follow these steps:
 To manage your data source, follow these steps:
 
 1. On the **Manage data sources** tab, choose a date source from the list. 
-2. On the data source's page, you can manage the data source, choose a use case, and configure access controls. 
+2. On the page for the data source, you can manage the data source, choose a use case, and configure access controls. 
 3. (Optional) Explore the Amazon S3 use cases, including querying your data and optimizing query performance. Refer to the [**Next steps**](#next-steps) section to learn more about each use case.
 
 ## Limitations
