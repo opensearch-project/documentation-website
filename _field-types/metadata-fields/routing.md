@@ -40,7 +40,7 @@ GET sample-index1/_doc/1?routing=JohnDoe1
 
 ## Querying by routing
 
-You can query documents based in their routing value using the `_routing` field, as shown in the following example. This query only searches the shard(s) associated with the `JohnDoe1` routing value.
+You can query documents based on their routing value by using the `_routing` field, as shown in the following example. This query only searches the shard(s) associated with the `JohnDoe1` routing value:
 
 ```json
 GET sample-index1/_search
