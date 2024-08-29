@@ -27,7 +27,7 @@ PUT test-index1/_doc/2?refresh=true
 ```
 {% include copy-curl.html %}
 
-You can then query the documents using the `_id` field, as shown in the following request:
+You can then query the documents using the `_id` field, as shown in the following example request:
 
 ```json
 GET test-index1/_search
