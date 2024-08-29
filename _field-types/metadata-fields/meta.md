@@ -54,7 +54,7 @@ PUT my-index/_mapping
 
 ## Retrieving `meta` information
 
-You can retrieve the `_meta` information for an index using the [get mapping API]({{site.url}}{{site.baseurl}}/field-types/#get-a-mapping) operation, as shown in the following example request:
+You can retrieve the `_meta` information for an index using the [Get Mapping API]({{site.url}}{{site.baseurl}}/field-types/#get-a-mapping) operation, as shown in the following example request:
 
 ```json
 GET my-index/_mapping
