@@ -83,4 +83,4 @@ The response returns both documents with `_id` values of `1` and `2`:
 
 ## Limitations of the `_id` field
 
-While the `_id` field can be used in various queries, it is restricted from use in aggregations, sorting, and scripting. If you need to sort or aggregate on the `_id` field, it is recommended to duplicate the `_id` content into another field with `doc_values` enabled. Refer to [IDs query]({{site.url}}{{site.baseurl}}/query-dsl/term/ids/) for an example of using the field.
+While the `_id` field can be used in various queries, it is restricted from use in aggregations, sorting, and scripting. If you need to sort or aggregate on the `_id` field, it is recommended to duplicate the `_id` content into another field with `doc_values` enabled. Refer to [IDs query]({{site.url}}{{site.baseurl}}/query-dsl/term/ids/) for an example.
