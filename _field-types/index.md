@@ -40,7 +40,7 @@ numeric detection string | If disabled, OpenSearch may automatically process num
 
 ### Dynamic templates
 
-Dynamic templates are used to define custom mappings for dynamically added fields based on data type, field name, or field path. They allow you to define a flexible schema for your data, which can automatically adapt to changes in the structure or format of the input data.
+Dynamic templates are used to define custom mappings for dynamically added fields based on the data type, field name, or field path. They allow you to define a flexible schema for your data that can automatically adapt to changes in the structure or format of the input data.
 
 You can use the following syntax to define a dynamic mapping template:
 
