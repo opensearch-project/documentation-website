@@ -9,7 +9,7 @@ parent: Metadata fields
 
 When querying across multiple indexes, you may need to filter results based on the index into which a document was indexed. The `index` field matches documents based on their index. 
 
-The following request is an example of how to create two indexes, `products` and `customers`, and add a document to each index:
+The following example request creates two indexes, `products` and `customers`, and adds a document to each index:
 
 ```json
 PUT products/_doc/1
