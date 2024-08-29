@@ -78,7 +78,7 @@ Parameter | Description |
 `match_pattern` | Determines the pattern matching behavior, either `regex` or `simple`. Default is `simple`.
 `path_match` | Allows you to match nested field paths using a regular expression.
 `path_unmatch` | Excludes nested field paths from the mapping using a regular expression.
-`mapping` | The mapping configuration to apply for matching fields.
+`mapping` | The mapping configuration to apply.
 
 ## Explicit mapping
 
