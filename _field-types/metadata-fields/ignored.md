@@ -32,7 +32,7 @@ GET _search
 
 --- 
 
-#### Example indexing request with `_ignored` field
+#### Example indexing request with the `_ignored` field
 
 The following request is an example of how to add a new document to the `test-ignored` index with `ignore_malformed` set to `true` so that no error is thrown during indexing: 
 
