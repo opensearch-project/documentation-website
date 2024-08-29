@@ -17,5 +17,5 @@ Metadata field | Description
 `_id` |  The unique identifier assigned to each document. 
 `_index` | The index in which the document is stored.
 `_meta` | Stores custom metadata or additional information specific to the application or use case.
-`_routing` | Allows you to specify a custom value that determines the shard assignment for the document within the OpenSearch cluster.
+`_routing` | Allows you to specify a custom value that determines the shard assignment for a document in an OpenSearch cluster.
 `_source` | Contains the original JSON representation of the document's data.
