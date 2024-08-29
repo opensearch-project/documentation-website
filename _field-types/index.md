@@ -136,7 +136,7 @@ OpenSearch has certain mapping limits and settings, such as the settings listed 
 | Setting | Default value | Allowed value | Type | Description |
 |-|-|-|-|-|
 | `index.mapping.nested_fields.limit` | 50 | [0,) | Dynamic | Limits the maximum number of nested fields that can be defined in an index mapping. |
-| `index.mapping.nested_objects.limit` | 10000 | [0,) | Dynamic | Limits the maximum number of nested objects that can be created within a single document. |
+| `index.mapping.nested_objects.limit` | 10,000 | [0,) | Dynamic | Limits the maximum number of nested objects that can be created in a single document. |
 | `index.mapping.total_fields.limit` | 1000 | [0,) | Dynamic | Limits the maximum number of fields that can be defined in an index mapping. |
 | `index.mapping.depth.limit` | 20 | [1,100] | Dynamic | Limits the maximum depth of nested objects and nested fields that can be defined in an index mapping. |
 | `index.mapping.field_name_length.limit` | 50000 | [1,50000] | Dynamic | Limits the maximum length of field names that can be defined in an index mapping. |
