@@ -9,7 +9,7 @@ parent: Metadata fields
 
 Each document in OpenSearch has a unique `_id` field. This field is indexed, allowing you to retrieve documents using the `GET` API or the [`ids` query]({{site.url}}{{site.baseurl}}/query-dsl/term/ids/).
 
-If you do not provide an `_id` value, then OpenSearch automatically generates a unique one for the document.
+If you do not provide an `_id` value, then OpenSearch automatically generates one for the document.
 {: .note}
 
 The following example creates an index `test-index1` and adds two documents with different `_id` values:
