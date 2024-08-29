@@ -51,4 +51,4 @@ PUT logs
 ```
 {% include copy-curl.html %}
 
-Although these fields are not stored in the `_source`, you can still search on them, as the data is still indexed.
+These fields are not stored in the `_source`, but you can still search them because the data remains indexed.
