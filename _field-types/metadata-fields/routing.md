@@ -7,7 +7,7 @@ parent: Metadata fields
 
 # Routing
 
-OpenSearch uses a hashing algorithm to route documents to specific shards within an index. By default, the document's `_id` field is used as the routing value, but you can also specify a custom routing value for each document.
+OpenSearch uses a hashing algorithm to route documents to specific shards in an index. By default, the document's `_id` field is used as the routing value, but you can also specify a custom routing value for each document.
 
 ## Default routing
 
