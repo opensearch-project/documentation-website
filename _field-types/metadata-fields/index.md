@@ -10,7 +10,7 @@ has_toc: false
 
 OpenSearch provides built-in metadata fields that allow you to access information about the documents in an index. These fields can be used in your queries as needed.
 
-Metadata fields | Description
+Metadata field | Description
 :--- | :---
 `_field_names` | The fields within the document that hold non-empty or non-null values.   
 `_ignored` | The fields in the document that were disregarded during the indexing process due to the presence of malformed data, as specified by the `ignore_malformed` setting.
