@@ -7,7 +7,7 @@ nav_order: 190
 
 # Keep words token filter
 
-The `keep_words` token filter is designed to include only certain words in the analysis process. This filter is useful when if you have a large body of text but are only interested in certain keywords or terms, this filter helps you retain just those terms while ignoring the rest.
+The `keep_words` token filter is designed to include only certain words in the analysis process. This filter is useful if you have a large body of text but are only interested in certain keywords or terms.
 
 ## Parameters
 
