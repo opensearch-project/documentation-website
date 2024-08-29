@@ -127,7 +127,7 @@ You cannot change the mapping of an existing field, you can only modify the fiel
 
 ## Mapping parameters
 
-Mapping parameters are used to configure the behavior of fields in an index. See [Mappings and field types]({{site.url}}{{site.baseurl}}/field-types/) for more information.
+Mapping parameters are used to configure the behavior of index fields. See [Mappings and field types]({{site.url}}{{site.baseurl}}/field-types/) for more information.
 
 ## Mapping limit settings
 
