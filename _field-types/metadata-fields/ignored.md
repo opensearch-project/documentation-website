@@ -109,7 +109,7 @@ GET test-ignored/_search
 
 ## Ignoring a specified field
 
-You can use a `term` query to find documents where a specific field was ignored, for example, as in the following request:
+You can use a `term` query to find documents in which a specific field was ignored, as shown in the following example request:
 
 ```json
 GET _search
