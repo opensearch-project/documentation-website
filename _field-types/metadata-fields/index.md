@@ -8,7 +8,7 @@ has_toc: false
 
 # Metadata fields
 
-OpenSearch provides built-in metadata fields that allow you to access information about the documents in an an index. These fields can be used in your queries as needed.
+OpenSearch provides built-in metadata fields that allow you to access information about the documents in an index. These fields can be used in your queries as needed.
 
 Metadata fields | Description
 :--- | :---
