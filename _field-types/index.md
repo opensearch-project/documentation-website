@@ -14,7 +14,7 @@ redirect_from:
 
 Mappings tell OpenSearch how to store and index your documents and their fields. You can specify the data type for each field (for example, `year` as `date`) to make storage and querying more efficient. 
 
-While [dynamic mappings](#dynamic-mapping) automatically add new data and fields, using explicit mappings is recommended. Explicit mappings let you define the exact structure and data types upfront. This helps maintain data consistency and optimize performance, especially for large datasets or high-volume indexing operations.
+While [dynamic mappings](#dynamic-mapping) automatically add new data and fields, using explicit mappings is recommended. Explicit mappings let you define the exact structure and data types upfront. This helps to maintain data consistency and optimize performance, especially for large datasets or high-volume indexing operations.
 
 For example, with explicit mappings, you can ensure that `year` is treated as text and `age` as an integer, instead of both being interpreted as integers by dynamic mapping.
 
