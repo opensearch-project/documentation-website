@@ -73,7 +73,7 @@ The `dynamic_templates` support the following parameters for matching conditions
 Parameter | Description |
 ----------|-------------|
 `match_mapping_type` | Specifies the JSON data type (for example, string, long, double, object, binary, Boolean, date) that triggers the mapping.
-`match` | A regular expression to match field names and apply the mapping.
+`match` | A regular expression used to match field names and apply the mapping.
 `unmatch` | A regular expression to exclude field names from the mapping.
 `match_pattern` | Determines the pattern matching behavior, either `regex` or `simple`. Default is `simple`.
 `path_match` | Allows matching nested field paths using a regular expression.
