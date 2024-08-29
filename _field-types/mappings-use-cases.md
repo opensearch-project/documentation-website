@@ -92,7 +92,7 @@ GET /test-index/_search
 
 ## Mapping string fields to `text` and `keyword` types
 
-To create an index named `movies1` with a dynamic template that maps all string fields to both `text` and `keyword` types, you can use the following request:
+To create an index named `movies1` with a dynamic template that maps all string fields to both the `text` and `keyword` types, you can use the following request:
 
 ```json
 PUT movies1
