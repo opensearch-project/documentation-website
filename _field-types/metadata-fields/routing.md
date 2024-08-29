@@ -72,7 +72,9 @@ PUT sample-index2
 
 ## Routing to specific shards
 
-You can configure an index to route documents to a subset of shards rather than a single shard by using the `index.routing_partition_size` setting, as shown in the following example request: 
+You can configure an index to route custom values to a subset of shards rather than a single shard. This is done by setting `index.routing_partition_size` at the time of index creation. With this setting, the formula for calculating the shard is `shard_num = (hash(_routing) + hash(_id)) % routing_partition_size) % num_primary_shards`.
+
+The following example request routes documents to one of four shards in the index:
 
 ```json
 PUT sample-index3
@@ -88,6 +90,3 @@ PUT sample-index3
 }
 ```
 {% include copy-curl.html %}
-
-In this example, the documents are routed to one of four shards in the index, based on a combination of the `_routing` and `_id` fields.
-
