@@ -82,7 +82,7 @@ Parameter | Description |
 
 ## Explicit mapping
 
-If you know exactly what your field data types need to be, then you can specify them in your request body when creating your index, for example, as shown in the following request:
+If you know exactly which field data types you need to use, then you can specify them in your request body when creating your index, as shown in the following example request:
 
 ```json
 PUT sample-index1
