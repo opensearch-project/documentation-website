@@ -7,7 +7,7 @@ parent: Metadata fields
 
 # ID
 
-Each document in OpenSearch has a unique `_id` field. This field is indexed, allowing you to retrieve documents using the `GET` API or the [`ids` query]({{site.url}}{{site.baseurl}}/query-dsl/term/ids/).
+Each document in OpenSearch has a unique `_id` field. This field is indexed, allowing you to retrieve documents using the GET API or the [`ids` query]({{site.url}}{{site.baseurl}}/query-dsl/term/ids/).
 
 If you do not provide an `_id` value, then OpenSearch automatically generates one for the document.
 {: .note}
