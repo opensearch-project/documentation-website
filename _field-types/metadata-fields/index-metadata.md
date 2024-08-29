@@ -66,7 +66,7 @@ In this example:
 - The `query` section uses a `terms` query to match documents from the `products` and `customers` indexes.
 - The `aggs` section performs a `terms` aggregation on the `_index` field, grouping the results by index.
 - The `sort` section sorts the results by the `_index` field in ascending order.
-- The `script_fields` section adds a new field `index_name` to the search results that contains the value of the `_index` field for each document.
+- The `script_fields` section adds a new field called `index_name` to the search results containing the `_index` field value for each document.
 
 ## Querying on the `_index` field
 
