@@ -40,7 +40,7 @@ To manage your data source, follow these steps:
 
 ## Limitations
 
-This feature is under development, including the data integration functionality. For up-to-date information, refer to the [developer documentation on GitHub](https://github.com/opensearch-project/opensearch-spark/blob/main/docs/index.md#limitations).
+This feature is currently under development, including the data integration functionality. For up-to-date information, refer to the [developer documentation on GitHub](https://github.com/opensearch-project/opensearch-spark/blob/main/docs/index.md#limitations).
 
 ## Next steps
 
