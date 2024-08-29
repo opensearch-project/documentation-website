@@ -52,7 +52,7 @@ PUT my-index/_mapping
 ```
 {% include copy-curl.html %}
 
-## Retrieving meta information
+## Retrieving `meta` information
 
 You can retrieve the `_meta` information for an index using the [get mapping API]({{site.url}}{{site.baseurl}}/field-types/#get-a-mapping) operation, for example, as shown in the following request:
 
