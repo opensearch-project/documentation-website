@@ -76,7 +76,7 @@ Parameter | Description |
 `match` | A regular expression used to match field names and apply the mapping.
 `unmatch` | A regular expression used to exclude field names from the mapping.
 `match_pattern` | Determines the pattern matching behavior, either `regex` or `simple`. Default is `simple`.
-`path_match` | Allows matching nested field paths using a regular expression.
+`path_match` | Allows you to match nested field paths using a regular expression.
 `path_unmatch` | Excludes nested field paths from the mapping using a regular expression.
 `mapping` | The mapping configuration to apply for matching fields.
 
