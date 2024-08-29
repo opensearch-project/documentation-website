@@ -9,7 +9,7 @@ parent: Metadata fields
 
 The `_ignored` field helps you manage issues related to malformed data in your documents. This field is used to index and store field names that were ignored during the indexing process as a result of the `ignore_malformed` setting being enabled in the [index mapping]({{site.url}}{{site.baseurl}}/field-types/). 
 
-The `_ignored` field allows you to search and identify documents that contain fields that were ignored, as well as the specific field names that were ignored. The can be useful for troubleshooting and understanding issues related to malformed data in your documents. 
+The `_ignored` field allows you to search for and identify documents containing fields that were ignored as well as for the specific field names that were ignored. This can be useful for troubleshooting. 
 
 You can query the `_ignored` field using the `term`, `terms`, and `exists` queries, and the results will be included in the search hits.
 
