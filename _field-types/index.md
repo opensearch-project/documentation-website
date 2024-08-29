@@ -170,7 +170,7 @@ GET /<index>/_mapping/field/<fields>
 ```
 {% include copy-curl.html %}
 
-Both `<index>` and `<fields>` can be specified as one value or a comma-separated list. For example, the following request retrieves the mapping for the `year` and `age` fields in `sample-index1`:
+Both `<index>` and `<fields>` can be specified as either one value or a comma-separated list. For example, the following request retrieves the mapping for the `year` and `age` fields in `sample-index1`:
 
 ```json
 GET sample-index1/_mapping/field/year,age
