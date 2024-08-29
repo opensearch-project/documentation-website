@@ -56,7 +56,7 @@ GET sample-index1/_search
 
 ## Required routing
 
-You can make custom routing a required field for all CRUD operations on an index, as shown in the following example. If you try to index a document without providing a routing value, OpenSearch throws an exception.
+You can make custom routing a required field for all CRUD operations on an index, as shown in the following example request. If you try to index a document without providing a routing value, OpenSearch will throw an exception.
 .
 
 ```json
