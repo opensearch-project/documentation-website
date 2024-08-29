@@ -38,7 +38,7 @@ PUT my-index
 
 In this example, three custom metadata fields are added: `application`, `version`, and `author`. These fields can be used by your application to store any relevant information about the index, such as the application it belongs to, the application version, or the author of the index.
 
-You can update the `_meta` field using the [put mapping API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/put-mapping/) operation, for example, as shown in the following request:
+You can update the `_meta` field using the [put mapping API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/put-mapping/) operation, as shown in the following example request:
 
 ```json
 PUT my-index/_mapping
