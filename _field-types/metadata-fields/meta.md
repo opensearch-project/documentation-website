@@ -11,7 +11,7 @@ The `_meta` field is a mapping property that allows you to attach custom metadat
 
 ## Usage
 
-You can define the `_meta` field when creating a new index or updating an existing index's mapping, for example, as shown in the following request: 
+You can define the `_meta` field when creating a new index or updating an existing index's mapping, as shown in the following example request: 
 
 ```json
 PUT my-index
