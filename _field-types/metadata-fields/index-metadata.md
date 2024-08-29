@@ -72,7 +72,7 @@ In this example:
 
 The `_index` field represents the index into which a document was indexed. You can use this field in your queries to filter, aggregate, sort, or retrieve index information for your search results.
 
-Since the `_index` field is automatically added to every document, you can use it in your queries like any other field. For example, you can use the `terms` query to match documents from multiple indexes. The following query example returns all documents from the `products` and `customers` indexes:
+Because the `_index` field is automatically added to every document, you can use it in your queries like any other field. For example, you can use the `terms` query to match documents from multiple indexes. The following example query returns all documents from the `products` and `customers` indexes:
 
 ```json
  {
