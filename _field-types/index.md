@@ -108,7 +108,7 @@ PUT sample-index1
 ```
 {% include copy-curl.html %}
 
-To add mappings to an existing index or data stream, you can send a request to the `_mapping` endpoint using the `PUT` or `POST` HTTP method, for example, as shown in the following request:
+To add mappings to an existing index or data stream, you can send a request to the `_mapping` endpoint using the `PUT` or `POST` HTTP method, as shown in the following example request:
 
 ```json
 POST sample-index1/_mapping
