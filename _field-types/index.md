@@ -131,7 +131,7 @@ Mapping parameters are used to configure the behavior of index fields. See [Mapp
 
 ## Mapping limit settings
 
-OpenSearch has certain limits or settings related to mappings, such as the settings listed in the following table. Settings can be configured based on your requirements. 
+OpenSearch has certain mapping limits and settings, such as the settings listed in the following table. Settings can be configured based on your requirements. 
 
 | Setting | Default value | Allowed value | Type | Description |
 |-|-|-|-|-|
