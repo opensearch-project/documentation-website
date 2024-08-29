@@ -24,7 +24,7 @@ PUT customers/_doc/2
 ```
 {% include copy-curl.html %}
 
-You can then query both indexes and filter the results using the `_index` field, as shown in the following request:
+You can then query both indexes and filter the results using the `_index` field, as shown in the following example request:
 
 ```json
 GET products,customers/_search
