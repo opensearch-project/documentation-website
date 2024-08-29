@@ -16,7 +16,7 @@ You can query the `_ignored` field using the `term`, `terms`, and `exists` queri
 The `_ignored` field is only populated when the `ignore_malformed` setting is enabled in your index mapping. If `ignore_malformed` is set to `false` (the default value), then malformed fields will cause the entire document to be rejected, and the `_ignored` field will not be populated.
 {: .note}
 
-The following request is an example of how to use the `_ignored` field:
+The following example request shows you how to use the `_ignored` field:
 
 ```json
 GET _search
