@@ -31,7 +31,7 @@ PUT sample-index1/_doc/1?routing=JohnDoe1
 
 In this example, the document is routed using the value `JohnDoe1` instead of the default `_id`.
 
-You must provide the same routing value when retrieving, deleting, or updating the document, as shown in the following example:
+You must provide the same routing value when retrieving, deleting, or updating the document, as shown in the following example request:
 
 ```json
 GET sample-index1/_doc/1?routing=JohnDoe1
