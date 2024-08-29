@@ -19,7 +19,7 @@ shard_num = hash(_routing) % num_primary_shards
 
 ## Custom routing
 
-You can specify a custom routing value when indexing a document, as shown in the following example: 
+You can specify a custom routing value when indexing a document, as shown in the following example request: 
 
 ```json
 PUT sample-index1/_doc/1?routing=JohnDoe1
