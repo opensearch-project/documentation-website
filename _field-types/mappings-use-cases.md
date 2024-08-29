@@ -18,7 +18,7 @@ The following example shows you how to create a mapping specifying that OpenSear
 
 ### Create an index with an `ip` mapping
 
-To create an index with an `ip` mapping, use a PUT request, like the following request:
+To create an index with an `ip` mapping, use a PUT request:
 
 ```json
 PUT /test-index 
