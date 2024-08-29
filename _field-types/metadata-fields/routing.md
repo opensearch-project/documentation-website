@@ -91,4 +91,3 @@ PUT sample-index3
 
 In this example, the documents are routed to one of four shards in the index, based on a combination of the `_routing` and `_id` fields.
 
-Index partitioning has limitations, such as not supporting `join` field relationships in the mappings.
