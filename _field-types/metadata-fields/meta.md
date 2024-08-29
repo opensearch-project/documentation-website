@@ -61,7 +61,7 @@ GET my-index/_mapping
 ```
 {% include copy-curl.html %}
 
-This returns the full mapping for the index, including the `_meta` field, for example, as shown in the following response: 
+The response returns the full index mapping, including the `_meta` field: 
 
 ```json
 {
