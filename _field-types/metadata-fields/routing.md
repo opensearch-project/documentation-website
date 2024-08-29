@@ -70,7 +70,7 @@ PUT sample-index2
 ```
 {% include copy-curl.html %}
 
-## Routing to index partitions
+## Routing to specific shards
 
 You can configure an index to route documents to a subset of shards, rather than a single shard. This is done using the `index.routing_partition_size` setting, as shown in the following example: 
 
