@@ -140,7 +140,7 @@ OpenSearch has certain mapping limits and settings, such as the settings listed 
 | `index.mapping.total_fields.limit` | 1,000 | [0,) | Dynamic | Limits the maximum number of fields that can be defined in an index mapping. |
 | `index.mapping.depth.limit` | 20 | [1,100] | Dynamic | Limits the maximum depth of nested objects and nested fields that can be defined in an index mapping. |
 | `index.mapping.field_name_length.limit` | 50,000 | [1,50000] | Dynamic | Limits the maximum length of field names that can be defined in an index mapping. |
-| `index.mapper.dynamic` | true | {true,false} | Dynamic | Determines whether new fields should be added dynamically to the mapping when they are encountered in a document. |
+| `index.mapper.dynamic` | true | {true,false} | Dynamic | Determines whether new fields should be dynamically added to a mapping. |
 
 ---
 
