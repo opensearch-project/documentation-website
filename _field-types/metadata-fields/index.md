@@ -12,7 +12,7 @@ OpenSearch provides built-in metadata fields that allow you to access informatio
 
 Metadata field | Description
 :--- | :---
-`_field_names` | The fields within the document that hold non-empty or non-null values.   
+`_field_names` | The document fields with non-empty or non-null values.   
 `_ignored` | The fields in the document that were disregarded during the indexing process due to the presence of malformed data, as specified by the `ignore_malformed` setting.
 `_id` |  The unique identifier assigned to each individual document. 
 `_index` | The specific index within the OpenSearch database where the document is stored and organized.
