@@ -28,7 +28,7 @@ Type | Description
 :--- | :---
 `null` | A `null` field can't be indexed or searched. When a field is set to null, OpenSearch behaves as if the field has no value.
 `boolean` | OpenSearch accepts `true` and `false` as Boolean values. An empty string is equal to `false.`
-`float` | A single-precision 32-bit floating point number.
+`float` | A single-precision, 32-bit floating-point number.
 `double` | A double-precision 64-bit floating point number.
 `integer` | A signed 32-bit number.
 `object` | Objects are standard JSON objects, which can have fields and mappings of their own. For example, a `movies` object can have additional properties such as `title`, `year`, and `director`.
