@@ -34,7 +34,7 @@ Follow these steps to connect your data source:
 
 3. Select **Review Configuration** > **Connect to Prometheus** to save your settings. The new connection will appear in the list of data sources.
 
-### Modify a data source connection
+## Modify a data source connection
 
 To modify a data source connection, follow these steps: 
 
@@ -44,10 +44,10 @@ To modify a data source connection, follow these steps:
     - To update the **Basic authentication** authentication method, select the **Update stored password** button. Within the pop-up window, enter the updated password and confirm it and select **Update stored password** to save the changes. To test the connection, select the **Test connection** button.
     - To update the **AWS Signature Version 4** authentication method, select the **Update stored AWS credential** button. Within the pop-up window, enter the updated access and secret keys and select **Update stored AWS credential** to save the changes. To test the connection, select the **Test connection** button.
 
-### Delete a data source connection
+## Delete a data source connection
 
-Tondelete the data source connection, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-icon.png" class="inline-icon" alt="delete icon"/>{:/} icon.
+To delete the data source connection, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-icon.png" class="inline-icon" alt="delete icon"/>{:/} icon.
 
-## Creating an index pattern
+## Create an index pattern
 
 After creating a data source connection, the next step is to create an index pattern for that data source. For more information and a tutorial on index patterns, refer to [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/). 
