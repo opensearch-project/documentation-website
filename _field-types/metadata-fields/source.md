@@ -11,7 +11,7 @@ The `_source` field contains the original JSON document body that was indexed. W
 
 ## Disabling the field
 
-You can disable the `_source` field by setting the `enabled` parameter to `false`, as shown in the following request:
+You can disable the `_source` field by setting the `enabled` parameter to `false`, as shown in the following example request:
 
 ```json
 PUT sample-index1
