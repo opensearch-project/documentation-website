@@ -23,13 +23,13 @@ The `securityadmin.sh` script requires SSL/TLS HTTP to be enabled for your OpenS
 
 ## A word of caution
 
-If you make changes to the configuration files in `config/opensearch-security`, OpenSearch does _not_ automatically apply these changes. Instead, you must run `securityadmin.sh` to load the updated files into the index. The `securityadmin.sh` file can typically be found at `/tools/securityadmin.sh`
+If you make changes to the configuration files in `config/opensearch-security`, OpenSearch does _not_ automatically apply these changes. Instead, you must run `securityadmin.sh` to load the updated files into the index. The `securityadmin.sh` file can typically be found at `<OPENSEARCH_HOME>/plugins/opensearch-security/tools/securityadmin.[sh|bat]`
 
 Running `securityadmin.sh` **overwrites** one or more portions of the `.opendistro_security` index. Run it with extreme care to avoid losing your existing resources. Consider the following example:
 
 1. You initialize the `.opendistro_security` index.
 1. You create ten users using the REST API.
-1. You decide to create a new [reserved user]({{site.url}}{{site.baseurl}}/security/access-control/api/#reserved-and-hidden-resources) using `internal_users.yml` (Typically found at `/plugins/opensearch-security/securityconfig/internal_users.yml`)
+1. You decide to create a new [reserved user]({{site.url}}{{site.baseurl}}/security/access-control/api/#reserved-and-hidden-resources) using `internal_users.yml` (Typically found at `<OPENSEARCH_HOME>/config/opensearch-security/internal_users.yml`)
 1. You run `securityadmin.sh` again to load the new reserved user into the index.
 1. You lose all ten users that you created using the REST API.
 
