@@ -11,7 +11,7 @@ OpenSearch uses a hashing algorithm to route documents to specific shards in an 
 
 ## Default routing
 
-The following formula is the default routing formula used in OpenSearch. The `_routing` value is the document's `_id`. 
+The following is the default OpenSearch routing formula. The `_routing` value is the document's `_id`. 
 
 ```json
 shard_num = hash(_routing) % num_primary_shards
