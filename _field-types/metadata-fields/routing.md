@@ -91,4 +91,4 @@ PUT sample-index3
 
 In this example, the documents are routed to one of four routing partitions in the index, based on a combination of the `_routing` and `_id` fields.
 
-Partitioned indexes have some limitations, such as not supporting `join` field relationships in the mappings.
+Index partitioning has limitations, such as not supporting `join` field relationships in the mappings.
