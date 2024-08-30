@@ -18,7 +18,7 @@ The plugin includes demo certificates so that you can get up and running quickly
 OpenSearch ships with demo certificates intended for quick setup and demonstration purposes. For a production environment, it's critical to replace these with your own trusted certificates to ensure secure communication by using the following steps:
 
 1. **Generate your own certificates:** Use tools like OpenSSL or a certificate authority (CA) to generate your own certificates. For more information about generating certificates with OpenSSL, see [Generating self-signed certificates]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/).
-2. **Place the generated certificates and private key in the appropriate directory:** Generated certificates are typically placed in `<OPENSEARCH_HOME>/config/`. For more information, see [Add certificate files to opensearch.yml](https://opensearch.org/docs/latest/security/configuration/generate-certificates/#add-certificate-files-to-opensearchyml/).
+2. **Place the generated certificates and private key in the appropriate directory:** Generated certificates are typically placed in `<OPENSEARCH_HOME>/config/`. For more information, see [Add certificate files to opensearch.yml]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/#add-certificate-files-to-opensearchyml).
 3. **Set following proper file permissions:**
     - Private Key (.key files): Set the file mode to `600`. This restricts access so that only the file owner (the OpenSearch user) can read and write to the file, ensuring that the private key remains secure and inaccessible to unauthorized users.
     - Public Certificates (.crt, .pem files): Set the file mode to `644`. This allows the file owner to read and write the file, while other users can only read it.
@@ -95,7 +95,7 @@ After initial setup, if you make changes to your security configuration or if yo
 
 3. Check the OpenSearch logs and configuration to ensure that the changes have been successfully applied.
 
-For further information about using the `securityadmin.sh` script, see [Backup restore and migrate]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/#backup-restore-and-migrate/)
+For further information about using the `securityadmin.sh` script, see [Backup restore and migrate]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/#backup-restore-and-migrate)
 
 
 
