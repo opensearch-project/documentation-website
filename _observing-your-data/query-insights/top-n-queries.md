@@ -72,14 +72,12 @@ PUT _cluster/settings
 
 ## Monitoring the top N queries 
 
-You can use the Insights API endpoint to obtain the top N queries for all metric types:
+You can use the Insights API endpoint to obtain the top N queries. Specify the `type` parameter to get top N results for each metric type. Calling this API without `type` returns top N `latency` results by default.
 
 ```json
 GET /_insights/top_queries
 ```
 {% include copy-curl.html %}
-
-Specify a metric type to filter the response:
 
 ```json
 GET /_insights/top_queries?type=latency
@@ -95,6 +93,9 @@ GET /_insights/top_queries?type=cpu
 GET /_insights/top_queries?type=memory
 ```
 {% include copy-curl.html %}
+
+If you are not seeing results, verify top N is enabled for the target metric type and ensure search requests were sent during the current time window.
+{: .important}
 
 ## Exporting top N query data
 
