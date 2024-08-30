@@ -70,9 +70,9 @@ The `config.yml` file allows you to configure the authentication and authorizati
 
 Determine if any additional YAML files need modification, for example the `roles.yml`, `roles_mapping.yml`, `internal_users.yml`. Edit the files with any additional configuration needed.
 
-### [Set a password policy]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#password-settings/)
+### [Set a password policy]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#password-settings)
 
-When using the internal user database, we recommend enforcing a password policy to make sure that strong passwords are used. For information strong password policies, see [set a password policy in `opensearch.yml`]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#opensearchyml).
+When using the internal user database, we recommend enforcing a password policy to make sure that strong passwords are used. For information strong password policies, see [Password settings]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#password-settings).
 
 ### [Apply changes using the `securityadmin` script]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/)
 
@@ -95,7 +95,7 @@ After initial setup, if you make changes to your security configuration or if yo
 
 3. Check the OpenSearch logs and configuration to ensure that the changes have been successfully applied.
 
-For further information about using the `securityadmin.sh` script, see [Backup restore and migrate](https://opensearch.org/docs/latest/security/configuration/security-admin#backup-restore-and-migrate/)
+For further information about using the `securityadmin.sh` script, see [Backup restore and migrate]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/#backup-restore-and-migrate/)
 
 
 
