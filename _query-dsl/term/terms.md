@@ -250,3 +250,74 @@ Parameter | Data type | Description
 `path` | String | The name of the field from which to fetch field values. Specify nested fields using dot path notation. Required.
 `routing` | String | Custom routing value of the document from which to fetch field values. Optional. Required if a custom routing value was provided when the document was indexed.
 `boost` | Floating-point | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field’s relevance. Values between 0.0 and 1.0 decrease the field’s relevance. Default is 1.0.
+
+## Bitmap filtering
+
+Terms query can filter for multiple terms at the same time, however, when the size of the input filter become huge like 10k+ terms, the associated network and memory overhead can become too large to make it barely usable. For such case, you may consider encode your large terms filter into a [RoaringBitmap](https://github.com/RoaringBitmap/RoaringBitmap), and use that to do the filtering.
+
+### Example
+
+In this example, we have a main index `products` which contains all the products a company owned. And a separate index `customers` which saves the filters that each represents a customer who owns certain products.
+
+First, we create a RoaringBitmap for the filter on the client side, serialize and encode it using base64.
+
+```py
+bm = BitMap([111, 222, 333]) # product ids owned by a customer
+encoded = base64.b64encode(BitMap.serialize(bm))
+```
+
+Then we can index this bitmap filter into a [binary field](https://opensearch.org/docs/latest/field-types/supported-field-types/binary/).
+Here `customer_filter` is the binary field of the index (`customers`).
+
+```sh
+# index mapping using binary field with stored field enabled
+{
+    "mappings": {
+        "properties": {
+            "customer_filter": {
+                "type": "binary",
+                "store": true
+            }
+        }
+    }
+}
+
+# The id of the document is the identifier of the customer
+POST customers/_doc/customer123
+{
+  "customer_filter": "OjAAAAEAAAAAAAEAEAAAAG8A3gA=" <-- base64 encoded bitmap
+}
+```
+
+Now we can do a terms lookup query on the products index (`products`) with a lookup on `customers` of certain customer id.
+
+```sh
+POST products/_search
+{
+  "query": {
+    "terms": {
+      "product_id": {
+        "index": "customers",
+        "id": "customer123",
+        "path": "customer_filter",
+        "store": true               <-- lookup on the stored field, instead of _source
+      },
+      "value_type": "bitmap"        <-- specify the data type of the terms values input
+    }
+  }
+}
+```
+
+We can also directly pass the bitmap to the terms query.
+
+```sh
+POST products/_search
+{
+  "query": {
+    "terms": {
+      "product_id": "<customer_filter_bitmap>",
+      "value_type": "bitmap"
+    }
+  }
+}
+```
