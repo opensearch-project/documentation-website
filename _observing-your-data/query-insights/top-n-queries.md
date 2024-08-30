@@ -104,7 +104,7 @@ GET /_insights/top_queries?from=2024-08-25T15:00:00.000Z&to=2024-08-30T17:00:00.
 ```
 {% include copy-curl.html %}
 
-If you have [local index exporter enabled](#configuring-a-local-index-exporter), historical queries stored in local OpenSearch indexes will also be included within the specified time range. 
+If you have a [local index exporter enabled](#configuring-a-local-index-exporter), historical queries stored in local OpenSearch indexes will also be included within the specified time range. 
 
 ## Exporting top N query data
 
