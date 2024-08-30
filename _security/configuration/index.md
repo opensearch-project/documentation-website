@@ -81,11 +81,16 @@ The following steps are not required for first-time user because the security in
 
 After initial setup, if you make changes to your security configuration or if you disable automatic initialization by setting `plugins.security.allow_default_init_securityindex` to `false` (setting to prevent security index initializing from `yaml` files), you need to manually apply changes using the `securityadmin` script.
 
-1. Find the `securityadmin` script. The script is typically found in the OpenSearch plugins directory, `plugins/opensearch-security/tools/securityadmin.sh`. If you're using OpenSearch 1.x, the `securityadmin` script was located in the `plugins/opendistro_security/tools/` directory. 
+1. Find the `securityadmin` script. The script is typically found in the OpenSearch plugins directory, `plugins/opensearch-security/tools/securityadmin.sh`. If you're using OpenSearch 1.x, the `securityadmin` script was located in the `plugins/opendistro_security/tools/` directory. For additional information refer to [Applying changes to configuration files](https://opensearch.org/docs/latest/security/configuration/security-admin/), or if in need of further assistance visit [securityadmin.sh Troubleshooting](https://opensearch.org/docs/latest/troubleshoot/security-admin/).
 2. Run the script with the appropriate parameters by using the following command:
 
    ```
-   ./securityadmin.sh -cd ../securityconfig/ -icl -key /path/to/admin-key.pem -cert /path/to/admin-cert.pem -cacert /path/to/root-ca.pem -nhnv
+    ./securityadmin[.sh|.bat] -backup my-backup-directory \
+    -icl \
+    -nhnv \
+    -cacert ../../../config/root-ca.pem \
+    -cert ../../../config/kirk.pem \
+    -key ../../../config/kirk-key.pem
    ```
 
 3. Check the OpenSearch logs and configuration to ensure that the changes have been successfully applied.
