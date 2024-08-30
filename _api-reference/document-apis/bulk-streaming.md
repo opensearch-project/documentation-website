@@ -16,7 +16,7 @@ This is an experimental feature and is not recommended for use in a production e
 
 The streaming bulk operation lets you add, update, or delete multiple documents in by streaming the request and getting the results as streaming response. In comparison to the traditional [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/), streaming ingestion eliminates the need to guess the batch size (which is affected by the cluster operational state at any given time) and naturally applies the backpressure between many clients and the cluster. The streaming works over HTTP/2 or HTTP 1.1 (using chunked transfer encoding), depending on the capabilities of the clients and the cluster.
 
-The default HTTP transport method does not support streaming. You must install the [`transport-reactor-netty4`]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/network-settings/#selecting-the-transport) HTTP transport plugin and use it as the default HTTP transport method. Both the transport method and the Streaming Bulk API are experimental.
+The default HTTP transport method does not support streaming. You must install the [`transport-reactor-netty4`]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/network-settings/#selecting-the-transport) HTTP transport plugin and use it as the default HTTP transport method. Both the `transport-reactor-netty4` plugin and the Streaming Bulk API are experimental.
 {: .note}
 
 ## Path and HTTP methods
