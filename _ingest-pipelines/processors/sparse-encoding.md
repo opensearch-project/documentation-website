@@ -41,6 +41,7 @@ The following table lists the required and optional parameters for the `sparse_e
 `field_map.<vector_field>`  | String | Required | The name of the vector field in which to store the generated vector embeddings.
 `description`  | String | Optional  | A brief description of the processor.  |
 `tag` | String | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
+`batch_size` | Integer | Optional | Specifies the number of documents to be batched and processed each time. Default is `1`. |
 
 ## Using the processor
 
@@ -140,7 +141,7 @@ The response confirms that in addition to the `passage_text` field, the processo
 }
 ```
 
-Once you have created an ingest pipeline, you need to create an index for ingestion and ingest documents into the index. To learn more, see [Step 2: Create an index for ingestion]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/#step-2-create-an-index-for-ingestion) and [Step 3: Ingest documents into the index]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/#step-3-ingest-documents-into-the-index) of [Neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
+Once you have created an ingest pipeline, you need to create an index for ingestion and ingest documents into the index. To learn more, see [Create an index for ingestion]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-with-pipelines/#step-2b-create-an-index-for-ingestion) and [Step 3: Ingest documents into the index]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-with-pipelines/#step-2c-ingest-documents-into-the-index) of [Neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
 
 ---
 

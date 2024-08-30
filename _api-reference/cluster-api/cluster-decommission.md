@@ -54,7 +54,7 @@ DELETE /_cluster/decommission/awareness
 ```
 {% include copy-curl.html %}
 
-#### Response
+#### Example response
 
 
 ```json
@@ -74,7 +74,7 @@ GET /_cluster/decommission/awareness/zone/_status
 ```
 {% include copy-curl.html %}
 
-#### Response
+#### Example response
 
 ```json
 {

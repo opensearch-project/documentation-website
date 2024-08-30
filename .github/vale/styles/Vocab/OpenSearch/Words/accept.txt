@@ -80,6 +80,7 @@ Levenshtein
 [Oo]versamples?
 [Oo]nboarding
 pebibyte
+p\d{2}
 [Pp]erformant
 [Pp]laintext
 [Pp]luggable
@@ -93,7 +94,8 @@ pebibyte
 [Pp]reprocess
 [Pp]retrain
 [Pp]seudocode
-[Quantiz](e|ation|ing|er)
+[Qq]uantiles?
+[Qq]uantiz(e|ation|ing|er)
 [Rr]ebalance
 [Rr]ebalancing
 [Rr]edownload
@@ -125,6 +127,7 @@ stdout
 [Ss]ubvector
 [Ss]ubwords?
 [Ss]uperset
+[Ss]uperadmins?
 [Ss]yslog
 tebibyte
 [Tt]emplated

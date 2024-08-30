@@ -40,6 +40,7 @@ Processor type | Description
 `dot_expander` | Expands a field with dots into an object field. 
 `drop` |Drops a document without indexing it or raising any errors.
 `fail` | Raises an exception and stops the execution of a pipeline. 
+`fingerprint` | Generates a hash value for either certain specified fields or all fields in a document. 
 `foreach` | Allows for another processor to be applied to each element of an array or an object field in a document.
 `geoip` | Adds information about the geographical location of an IP address.
 `geojson-feature` | Indexes GeoJSON data into a geospatial field.

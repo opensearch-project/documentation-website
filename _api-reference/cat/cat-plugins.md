@@ -15,12 +15,6 @@ redirect_from:
 
 The CAT plugins operation lists the names, components, and versions of the installed plugins.
 
-## Example
-
-```
-GET _cat/plugins?v
-```
-{% include copy-curl.html %}
 
 ## Path and HTTP methods
 
@@ -36,10 +30,19 @@ In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-refe
 
 Parameter | Type | Description
 :--- | :--- | :---
-local | Boolean | Whether to return information from the local node only instead of from the cluster_manager node. Default is false.
-cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster_manager node. Default is 30 seconds.
+local | Boolean | Whether to return information from the local node only instead of from the cluster manager node. Default is `false`.
+cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
 
-## Response
+## Example requests
+
+The following example request lists all installed plugins:
+
+```
+GET _cat/plugins?v
+```
+{% include copy-curl.html %}
+
+## Example response
 
 ```json
 name       component                       version
