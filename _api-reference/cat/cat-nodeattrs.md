@@ -14,12 +14,6 @@ redirect_from:
 
 The CAT nodeattrs operation lists the attributes of custom nodes.
 
-## Example
-
-```
-GET _cat/nodeattrs?v
-```
-{% include copy-curl.html %}
 
 ## Path and HTTP methods
 
@@ -35,11 +29,20 @@ In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-refe
 
 Parameter | Type | Description
 :--- | :--- | :---
-local | Boolean | Whether to return information from the local node only instead of from the cluster_manager node. Default is false.
+local | Boolean | Whether to return information from the local node only instead of from the cluster manager node. Default is `false`.
 cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
 
+## Example request
 
-## Response
+The following example request returns attributes about custom nodes:
+
+```
+GET _cat/nodeattrs?v
+```
+{% include copy-curl.html %}
+
+
+## Example response
 
 ```json
 node | host | ip | attr | value

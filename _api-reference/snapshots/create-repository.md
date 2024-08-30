@@ -30,11 +30,19 @@ PUT /_snapshot/my-first-repo/
 
 Parameter | Data type | Description
 :--- | :--- | :---
-repository | String | Repository name |
+`repository` | String | Repository name |
 
 ## Request parameters
 
 Request parameters depend on the type of repository: `fs` or `s3`.
+
+### Common parameters
+
+The following table lists parameters that can be used with both the `fs` and `s3` repositories. 
+
+Request field | Description
+:--- | :---
+`prefix_mode_verification` | When enabled, adds a hashed value of a random seed to the prefix for repository verification. For remote-store-enabled clusters, you can add the `setting.prefix_mode_verification` setting to the node attributes for the supplied repository. This field works with both new and existing repositories. Optional.
 
 ### fs repository
 
@@ -48,20 +56,6 @@ Request field | Description
 `remote_store_index_shallow_copy` | Boolean | Determines whether the snapshot of the remote store indexes are captured as a shallow copy. Default is `false`.
 `readonly` | Whether the repository is read-only. Useful when migrating from one cluster (`"readonly": false` when registering) to another cluster (`"readonly": true` when registering). Optional.
 
-#### Example request
-
-The following example registers an `fs` repository using the local directory `/mnt/snapshots` as `location`.
-
-```json
-PUT /_snapshot/my-fs-repository
-{
-  "type": "fs",
-  "settings": {
-    "location": "/mnt/snapshots"
-  }
-}
-```
-{% include copy-curl.html %}
 
 #### s3 repository
 
@@ -79,15 +73,33 @@ Request field | Description
 `max_snapshot_bytes_per_sec` | The maximum rate at which snapshots take. Default is 40 MB per second (`40m`). Optional.
 `readonly` | Whether the repository is read-only. Useful when migrating from one cluster (`"readonly": false` when registering) to another cluster (`"readonly": true` when registering). Optional.
 `remote_store_index_shallow_copy` | Boolean | Whether the snapshot of the remote store indexes is captured as a shallow copy. Default is `false`.
-`server_side_encryption` | Whether to encrypt snapshot files in the S3 bucket. This setting uses AES-256 with S3-managed keys. See [Protecting data using server-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html). Default is false. Optional.
+`server_side_encryption` | Whether to encrypt snapshot files in the S3 bucket. This setting uses AES-256 with S3-managed keys. See [Protecting data using server-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html). Default is `false`. Optional.
 `storage_class` | Specifies the [S3 storage class](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html) for the snapshots files. Default is `standard`. Do not use the `glacier` and `deep_archive` storage classes. Optional.
 
 For the `base_path` parameter, do not enter the `s3://` prefix when entering your S3 bucket details. Only the name of the bucket is required.
 {: .note}
 
-#### Example request
+## Example requests
 
-The following request registers a new S3 repository called `my-opensearch-repo` in an existing bucket called `my-open-search-bucket`. By default, all snapshots are stored in the `my/snapshot/directory`.
+### `fs`
+
+The following example registers an `fs` repository using the local directory `/mnt/snapshots` as `location`:
+
+```json
+PUT /_snapshot/my-fs-repository
+{
+  "type": "fs",
+  "settings": {
+    "location": "/mnt/snapshots"
+  }
+}
+```
+{% include copy-curl.html %}
+
+### `s3`
+
+
+The following request registers a new S3 repository called `my-opensearch-repo` in an existing bucket called `my-open-search-bucket`. By default, all snapshots are stored in the `my/snapshot/directory`:
 
 ```json
 PUT /_snapshot/my-opensearch-repo
@@ -101,7 +113,7 @@ PUT /_snapshot/my-opensearch-repo
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 Upon success, the following JSON object is returned:
 

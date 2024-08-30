@@ -26,7 +26,7 @@ A slice is the unit of work that can be executed by a thread. Each query can be 
 
 In general, the max/min/avg slice time captures statistics across all slices for a timing type. For example, when profiling aggregations, the `max_slice_time_in_nanos` field in the `aggregations` section shows the maximum time consumed by the aggregation operation and its children across all slices. 
 
-#### Example request: Non-concurrent search
+## Example request: Non-concurrent search
 
 To use the Profile API, include the `profile` parameter set to `true` in the search request sent to the `_search` endpoint:
 
