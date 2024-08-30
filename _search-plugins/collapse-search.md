@@ -6,13 +6,15 @@ nav_order: 3
 
 # Collapse search results
 
-The collapse parameter in OpenSearch enables you to group search results by a particular field value, returning only the top document within each group. This feature is useful for reducing redundancy in search results by eliminating duplicates.
+The collapse parameter groups search results by a particular field value. This returns only the top document within each group, which helps reduce redundancy by eliminating duplicates.
 
-The collapse feature requires the field to be collapsed to be either a `keyword` or a `numeric` type.
+The collapse feature requires the field being collapsed to be either a `keyword` or a `numeric` type.
 
-## Example of collapsing search results
+---
 
-To populate our index with the data needed, we will define our index mappings and define an `item` field indexed as a `keyword`. 
+## Collapsing search results
+
+To populate the index with the data needed, define the index mappings and an `item` field indexed as a `keyword`. The following example requests shows how to define index mappings, populate the index, and then search it:
 
 #### Define the index mappings
 
@@ -64,13 +66,13 @@ GET /bakery-items/_search
 }
 ```
 
-The previous query will return the uncollapsed search results, showing all the documents, including both entries for "Chocolate Cake."
+This query returns the uncollapsed search results, showing all the documents, including both entries for "Chocolate Cake."
 
 #### Search the index and collapse the results
 
 To collapse search results by the `item` field and sort them by `price`, you can use the following query:
 
-**Search query that collapses the results on the item field**
+**Collapsed search results on item field**
 
 ```json
 GET /bakery-items/_search
@@ -87,7 +89,7 @@ GET /bakery-items/_search
 }
 ```
 
-**Results collapsed on item field**
+**Response**
 
 ```json
 {
@@ -155,11 +157,13 @@ The collapsed search results example will show only one "Chocolate Cake" entry, 
 
 Collapsing affects only the top search results and does not change any aggregation results. The total number of hits shown in the response reflects all matching documents before collapsing is applied, including duplicates. However, the response doesn't tell you the exact number of unique groups formed by collapsing.
 
-### Expanding collapsed results
+---
+
+## Expanding collapsed results
 
 You can expand each collapsed top hit with the `inner_hits` property. 
 
-To demonstrate multiple inner hits, we'll retrieve the cheapest and most recent items for each type of cake.
+The following example request applies `inner_hits` to retrieve the lowest priced and most recent items for each type of cake.
 
 ```json
 GET /bakery-items/_search
