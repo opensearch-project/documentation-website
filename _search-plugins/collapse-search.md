@@ -223,5 +223,5 @@ GET /bakery-items/_search
 ```
 This query searches for documents in the `cakes` category and groups the search results by the `item_name` field. For each `item_name`, it retrieves the top 3 cheapest items and the top 3 most recent items, sorted by the `baked_date` in descending order.
 
-The expansion of the group is done by sending an additional query for each inner hit request for each collapsed hit returned in the response. This can significantly slow down the process if there are too many groups and/or inner hit requests. The max_concurrent_group_searches request parameter can be used to control the maximum number of concurrent searches allowed in this phase. The default is based on the number of data nodes and the default search thread pool size.
+Expanding the groups is done by sending an additional query for each inner hit request for each collapsed hit returned in the response. This can significantly slow down the process if there are too many groups or inner hit requests. The `max_concurrent_group_searches` request parameter can be used to control the maximum number of concurrent searches allowed in this phase. The default is based on the number of data nodes and the default search thread pool size.
 
