@@ -8,7 +8,7 @@ nav_order: 15
 
 # Auto-date histogram
 
-The `auto_date_histogram` aggregation automatically creates date histogram buckets based on the time range of your data. This aggregation is particularly useful when you are working with time-series data and want to visualize or analyze data over different time intervals without having to specify the bucket size manually.
+The `auto_date_histogram` aggregation automatically creates date histogram buckets based on the time range of your data. This aggregation is particularly useful when you are working with time-series data and want to visualize or analyze data over different time intervals without specifying the bucket size manually.
 
 To use the `auto_date_histogram` aggregation, you need to specify the field containing the date or timestamp values. Additionally, you can provide optional parameters to customize the behavior of the aggregation.
 
