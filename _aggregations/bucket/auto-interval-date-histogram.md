@@ -12,7 +12,7 @@ The `auto_date_histogram` aggregation automatically creates date histogram bucke
 
 To use the `auto_date_histogram` aggregation, you need to specify the field containing the date or timestamp values. Additionally, you can provide optional parameters to customize the behavior of the aggregation.
 
-For example, you can use the `auto_date_histogram` aggregation to create date-based buckets:
+For example, you can use the following `auto_date_histogram` aggregation to create date-based buckets:
 
 ```json
 GET /sample-index/_search
