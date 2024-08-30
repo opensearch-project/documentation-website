@@ -39,6 +39,7 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `<field>` | String | The field in which to search. A document is returned in the results only if its field value exactly matches at least one term, with the correct spacing and capitalization.
 `boost` | Floating-point | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field’s relevance. Values between 0.0 and 1.0 decrease the field’s relevance. Default is 1.0.
+`value_type` | String | Specifies the type of the values that are being used for filtering. Valid values are <>. Default is <>.
 
 ## Terms lookup
 
@@ -252,47 +253,107 @@ Parameter | Data type | Description
 `boost` | Floating-point | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field’s relevance. Values between 0.0 and 1.0 decrease the field’s relevance. Default is 1.0.
 
 ## Bitmap filtering
+**Introduced 2.17**
+{: .label .label-purple }
 
-Terms query can filter for multiple terms at the same time, however, when the size of the input filter become huge like 10k+ terms, the associated network and memory overhead can become too large to make it barely usable. For such case, you may consider encode your large terms filter into a [RoaringBitmap](https://github.com/RoaringBitmap/RoaringBitmap), and use that to do the filtering.
+The `terms` query can filter for multiple terms simultaneously. However, when the number of terms in the input filter increases to a large value (around 10,000), the resulting network and memory overhead can become significant, making the query inefficient. In such cases, consider encoding your large terms filter using a [roaring bitmap](https://github.com/RoaringBitmap/RoaringBitmap) for more efficient filtering. 
 
-### Example
+For example, you have two indexes: the `products` index, which contains all the products a company sells, and the `customers` index, which stores filters representing customers who own specific products. 
 
-In this example, we have a main index `products` which contains all the products a company owned. And a separate index `customers` which saves the filters that each represents a customer who owns certain products.
+First, create a `products` index and map `product_id` as a `keyword`:
 
-First, we create a RoaringBitmap for the filter on the client side, serialize and encode it using base64.
+```json
+PUT /products
+{
+  "mappings": {
+    "properties": {
+      "product_id": { "type": "keyword" }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Next, index three documents that correspond to products:
+
+```json
+PUT students/_doc/1
+{
+  "name": "Product 1",
+  "product_id" : "111"
+}
+```
+{% include copy-curl.html %}
+
+```json
+PUT students/_doc/2
+{
+  "name": "Product 2",
+  "product_id" : "222"
+}
+```
+{% include copy-curl.html %}
+
+```json
+PUT students/_doc/3
+{
+  "name": "Product 3",
+  "product_id" : "333"
+}
+```
+{% include copy-curl.html %}
+
+To store customer bitmap filters, you'll create a `customer_filter` [binary field](https://opensearch.org/docs/latest/field-types/supported-field-types/binary/) in the `customers` index. Specify `store` as `true` to store the field:
+
+```json
+PUT /customers
+{
+  "mappings": {
+    "properties": {
+      "customer_filter": {
+        "type": "binary",
+        "store": true
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+For each customer, you need to generate a bitmap that represents the product IDs of the products the customer owns. This bitmap effectively encodes the filter criteria for that customer. To illustrate the process, you'll create a `terms` filter for a customer whose ID is `customer123` and who owns products `111`, `222`, and `333`.
+
+To encode a `terms` filter for the customer, first create a roaring bitmap for the filter. This example creates a bitmap using the [PyRoaringBitMap] library so first run `pip install pyroaring` to install the library. Then serialize the bitmap and encode it using a [Base64](https://en.wikipedia.org/wiki/Base64) encoding scheme:
 
 ```py
+from pyroaring import BitMap
+import base64
+
+# Create a bitmap, serialize it into a byte string, and encode into Base64
 bm = BitMap([111, 222, 333]) # product ids owned by a customer
 encoded = base64.b64encode(BitMap.serialize(bm))
+
+# Convert the Base64-encoded bytes to a string for storage or transmission
+encoded_bm_str = encoded.decode('utf-8')
+
+# Print the encoded bitmap
+print(f"Encoded Bitmap: {encoded_bm_str}")
 ```
+{% include copy.html %}
 
-Then we can index this bitmap filter into a [binary field](https://opensearch.org/docs/latest/field-types/supported-field-types/binary/).
-Here `customer_filter` is the binary field of the index (`customers`).
+Next, index the customer filter into the `customers` index. The document ID for the filter is the customer ID for the corresponding customer (in this example, `customer123`). The `customer_filter` field contains the bitmap you generated for this customer:
 
-```sh
-# index mapping using binary field with stored field enabled
-{
-    "mappings": {
-        "properties": {
-            "customer_filter": {
-                "type": "binary",
-                "store": true
-            }
-        }
-    }
-}
-
-# The id of the document is the identifier of the customer
+```json
 POST customers/_doc/customer123
 {
-  "customer_filter": "OjAAAAEAAAAAAAEAEAAAAG8A3gA=" <-- base64 encoded bitmap
+  "customer_filter": "OjAAAAEAAAAAAAIAEAAAAG8A3gBNAQ==" 
 }
 ```
+{% include copy-curl.html %}
 
-Now we can do a terms lookup query on the products index (`products`) with a lookup on `customers` of certain customer id.
+Now you can run a `terms` query on the `products` index to look up a specific customer in the `customers` index. Because you're looking up a stored field instead of `_source`, set `store` to `true`. In the `value_type`, specify the data type of the `terms` input as `bitmap`:
 
-```sh
-POST products/_search
+```json
+POST /products/_search
 {
   "query": {
     "terms": {
@@ -300,24 +361,26 @@ POST products/_search
         "index": "customers",
         "id": "customer123",
         "path": "customer_filter",
-        "store": true               <-- lookup on the stored field, instead of _source
+        "store": true               
       },
-      "value_type": "bitmap"        <-- specify the data type of the terms values input
+      "value_type": "bitmap"      
     }
   }
 }
 ```
+{% include copy-curl.html %}
 
-We can also directly pass the bitmap to the terms query.
+You can also directly pass the bitmap to the `terms` query. In this example, the `product_id` field contains the customer filter bitmap for the customer whose ID is `customer123`:
 
-```sh
-POST products/_search
+```json
+POST /products/_search
 {
   "query": {
     "terms": {
-      "product_id": "<customer_filter_bitmap>",
+      "product_id": "OjAAAAEAAAAAAAIAEAAAAG8A3gBNAQ==",
       "value_type": "bitmap"
     }
   }
 }
 ```
+{% include copy-curl.html %}
