@@ -95,8 +95,8 @@ Field | Data type | Required/Optional | Description
 ```json
 POST /_plugins/_ml/models/_register
 {
-    "name": "amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v1",
-    "version": "1.0.1",
+    "name": "amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v2-distill",
+    "version": "1.0.0",
     "model_group_id": "Z1eQf4oB5Vm0Tdw8EIP2",
     "model_format": "TORCH_SCRIPT"
 }
