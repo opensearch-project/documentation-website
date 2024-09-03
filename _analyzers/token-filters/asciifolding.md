@@ -7,25 +7,25 @@ nav_order: 20
 
 # ASCIIFolding token filter
 
-`asciifolding` is a token filter that converts non-ASCII characters into their closest ASCII equivalents. For example *é* becomes *e*, *ü* becomes *u* and *ñ* becomes *n*. This process is also known as *transliteration*.
+The `asciifolding` oken filter converts non-ASCII characters into their closest ASCII equivalents. For example *é* becomes *e*, *ü* becomes *u* and *ñ* becomes *n*. This process is known as *transliteration*.
 
 
-`asciifolding` token filter offers a number of benefits:
+The `asciifolding` token filter offers a number of benefits:
 
-  - __Enhanced Search Flexibility__: Users often omit accents or special characters when typing queries. ASCIIFolding ensures that such queries still return relevant results.
-  - __Normalization__: Standardizes the indexing process by ensuring that accented characters are consistently converted to their ASCII equivalents.
-  - __Internationalization__: Particularly useful for applications dealing with multiple languages and character sets.
+  - **Enhanced search flexibility**: Users often omit accents or special characters when typing queries. The `asciifolding` token filter ensures that such queries still return relevant results.
+  - **Normalization**: Standardizes the indexing process by ensuring that accented characters are consistently converted to their ASCII equivalents.
+  - **Internationalization**: Particularly useful for applications dealing with multiple languages and character sets.
 
-*Loss of Information*: While ASCIIFolding can simplify searches, it might also lead to loss of specific information, particularly if the distinction between accented and non-accented characters is significant in the dataset.
+While the `asciifolding` token filter can simplify searches, it might also lead to loss of specific information, particularly if the distinction between accented and non-accented characters is significant in the dataset.
 {: .warning}
 
 ## Parameters
 
-You can configure `asciifolding` token filter using parameter `preserve_original`. Setting this option to `true` keeps both the original token and the ASCII-folded version in the token stream. This can be particularly useful in scenarios where you want to match both the original (with accents) and the normalized (without accents) versions of a term in search queries. Default is `false`.
+You can configure `asciifolding` token filter using the `preserve_original` parameter. Setting this parameter to `true` keeps both the original token and its ASCII-folded version in the token stream. This can be particularly useful in scenarios where you want to match both the original (with accents) and the normalized (without accents) versions of a term in search queries. Default is `false`.
 
 ## Example
 
-Following example request creates a new index named `example_index` and defines an analyzer with the `asciifolding` filter and `preserve_original` parameter set to `true`:
+The following example request creates a new index named `example_index` and defines an analyzer with the `asciifolding` filter and `preserve_original` parameter set to `true`:
 
 ```json
 PUT /example_index
