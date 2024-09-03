@@ -194,6 +194,7 @@ The following example shows the response from the [Create user]({{site.url}}{{si
 ```
 
 ## allowlist.yml
+
 This file can be used to add any endpoints and HTTP requests to a list of allowed endpoints and requests. If enabled, all users except the super admin are allowed access to only the specified endpoints and HTTP requests, and all other HTTP requests associated with the endpoint are denied. For example, if GET `_cluster/settings` is added to the allow list, users cannot submit PUT requests to `_cluster/settings` to update cluster settings. You can find the `allowlist.yml` file in `<OPENSEARCH_HOME>/config/opensearch-security/allowlist.yml`.
 
 Note that while you can configure access to endpoints this way, for most cases, it is still best to configure permissions using the Security plugin's users and roles, which have more granular settings.
