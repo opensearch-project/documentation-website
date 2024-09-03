@@ -71,9 +71,9 @@ Processor type | Description
 
 ## Processor limit settings
 
-We can configure the limits on the number of ingest processors that should be used. The limit can be configured using the cluster setting `cluster.ingest.max_number_processors`. The sum of the number of processors and the number of `on_failure` processors are considered for counting the total number of processors on which the limit would be applied.
+Configure limits on the number of ingest processors using the cluster setting `cluster.ingest.max_number_processors`. The total number of processors includes both the number of processors and the number of [`on_failure`]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/) processors.
 
-The default value for `cluster.ingest.max_number_processors` is `Integer.MAX_VALUE`. If you try to add a number of processors greater than the value configured in `cluster.ingest.max_number_processors`, an `IllegalStateException` will be thrown.
+The default value for `cluster.ingest.max_number_processors` is `Integer.MAX_VALUE`. Adding more processors than the configured value in `cluster.ingest.max_number_processors` will throw an `IllegalStateException`.
 
 ## Batch-enabled processors
 
