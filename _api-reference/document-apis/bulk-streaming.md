@@ -57,7 +57,7 @@ The streaming bulk API request body is fully compatible with the [Bulk API reque
 
 ## Example request
 
-```
+```json
 curl -X POST "http://localhost:9200/_bulk/stream" -H "Transfer-Encoding: chunked" -H "Content-Type: application/json" -d'
 { "delete": { "_index": "movies", "_id": "tt2229499" } }
 { "index": { "_index": "movies", "_id": "tt1979320" } }
