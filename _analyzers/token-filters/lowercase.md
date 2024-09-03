@@ -7,35 +7,32 @@ nav_order: 260
 
 # Lowercase token filter
 
-The `lowercase` token filter in OpenSearch is used to limit the number of tokens that are passed through the analysis chain.
+The `lowercase` token filter in OpenSearch is used to convert all characters in the token stream to lowercase, making searches case-insensitive.
 
 ## Parameters
 
-The `lowercase` token filter in OpenSearch can be configured with the following parameters:
-
-- `max_token_count`: Maximum number of tokens that will be generated. Default is `1` (Integer, _Optional_)
-- `consume_all_tokens`: Use all token, even if result exceeds `max_token_count`. Default is `false` (Boolean, _Optional_)
- 
+The `lowercase` token filter in OpenSearch can be configured with parameter `language`. The possible options are: [`greek`](https://lucene.apache.org/core/8_7_0/analyzers-common/org/apache/lucene/analysis/el/GreekLowerCaseFilter.html), [`irish`](https://lucene.apache.org/core/8_7_0/analyzers-common/org/apache/lucene/analysis/ga/IrishLowerCaseFilter.html) and [`turkish`](https://lucene.apache.org/core/8_7_0/analyzers-common/org/apache/lucene/analysis/tr/TurkishLowerCaseFilter.html). Default is [Lucene’s LowerCaseFilter](https://lucene.apache.org/core/8_7_0/analyzers-common/org/apache/lucene/analysis/core/LowerCaseFilter.html). (String, _Optional_)
 
 ## Example
 
-The following example request creates a new index named `my_index` and configures an analyzer with `lowercase` filter:
+The following example request creates a new index named `custom_lowercase_example` and configures an analyzer with `lowercase` filter with greek `language`:
 
 ```json
-PUT my_index
+PUT /custom_lowercase_example
 {
   "settings": {
     "analysis": {
       "analyzer": {
-        "three_token_limit": {
+        "greek_lowercase_example": {
+          "type": "custom",
           "tokenizer": "standard",
-          "filter": [ "custom_token_limit" ]
+          "filter": ["greek_lowercase"]
         }
       },
       "filter": {
-        "custom_token_limit": {
-          "type": "limit",
-          "max_token_count": 3
+        "greek_lowercase": {
+          "type": "lowercase",
+          "language": "greek"
         }
       }
     }
@@ -49,10 +46,10 @@ PUT my_index
 Use the following request to examine the tokens generated using the created analyzer:
 
 ```json
-GET /my_index/_analyze
+GET /custom_lowercase_example/_analyze
 {
-  "analyzer": "three_token_limit",
-  "text": "OpenSearch is a powerful and flexible search engine."
+  "analyzer": "greek_lowercase_example",
+  "text": "Αθήνα ΕΛΛΑΔΑ"
 }
 ```
 {% include copy-curl.html %}
@@ -63,25 +60,18 @@ The response contains the generated tokens:
 {
   "tokens": [
     {
-      "token": "OpenSearch",
+      "token": "αθηνα",
       "start_offset": 0,
-      "end_offset": 10,
+      "end_offset": 5,
       "type": "<ALPHANUM>",
       "position": 0
     },
     {
-      "token": "is",
-      "start_offset": 11,
-      "end_offset": 13,
+      "token": "ελλαδα",
+      "start_offset": 6,
+      "end_offset": 12,
       "type": "<ALPHANUM>",
       "position": 1
-    },
-    {
-      "token": "a",
-      "start_offset": 14,
-      "end_offset": 15,
-      "type": "<ALPHANUM>",
-      "position": 2
     }
   ]
 }
