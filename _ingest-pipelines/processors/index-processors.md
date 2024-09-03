@@ -69,9 +69,9 @@ Processor type | Description
 `urldecode` | Decodes a string from URL-encoded format.
 `user_agent` | Extracts details from the user agent sent by a browser to its web requests. 
 
-## Validations on Processors
+## Processor limit settings
 
-We can configure the limits on the number of ingest processors that should be used. The limit can be configured using the attribute `cluster.ingest.max_number_processors`. The sum of the number of processors and the number of `on_failure` processors are considered for counting the total number of processors on which the limit would be applied.
+We can configure the limits on the number of ingest processors that should be used. The limit can be configured using the cluster setting `cluster.ingest.max_number_processors`. The sum of the number of processors and the number of `on_failure` processors are considered for counting the total number of processors on which the limit would be applied.
 
 The default value for `cluster.ingest.max_number_processors` is `Integer.MAX_VALUE`. If you try to add a number of processors greater than the value configured in `cluster.ingest.max_number_processors`, an `IllegalStateException` will be thrown.
 
