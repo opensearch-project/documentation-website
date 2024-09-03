@@ -6,23 +6,17 @@ nav_order: 36
 
 # Filter search results
 
-In OpenSearch, filtering search results can be achieved using a DSL Boolean query with a filter clause. The Boolean query filtering approach applies filters to both search hits and aggregations.
-
-You can also filter search results with the `post_filter` parameter in the search API, which applies filters only to search hits, not aggregations.
-
-#### Table of contents
-1. TOC
-   {:toc}
-
----
+Filter search results by using a DSL Boolean query with a filter clause. Boolean query filtering applies filters to both search hits and aggregations. Alternatively, filter search results using the `post_filter` parameter in the Search API. This applies filters only to search hits, not aggregations.
 
 ## Using `post_filter` to filter search results
 
-Using the `post_filter` parameter to filter search results allows for calculating aggregations based on a broader result set before narrowing down the search hits. It can also improve relevance of results and reorder results by rescoring hits after applying the post filter.
+The `post_filter` parameter filters search results by calculating aggregations based on a broader result set before narrowing down the search hits. This also improves result relevance and reorders results by rescoring hits after applying the post filter.
 
-### Example of filtering search results
+---
 
-1. Create an index of products
+#### Example: Filtering search results
+
+1. Create an index:
 
 ```
 PUT /electronics
@@ -37,6 +31,7 @@ PUT /electronics
   }
 }
 ```
+{% include copy-curl.html %}
 
 2. Index data:
 
@@ -65,8 +60,9 @@ PUT /electronics/_doc/3?refresh
   "features": ["5G", "Triple Camera"]
 }
 ```
+{% include copy-curl.html %}
 
-3. Perform a `boolean  filter` to show only smartphones from BrandX
+3. Use a Boolean filter query to display only smartphones from BrandX:
 
 ```
 GET /electronics/_search
@@ -81,8 +77,9 @@ GET /electronics/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
-Alternatively, to refine search results further, for example, you may have a category field that allows users to limit their search results to BrandX smartphones or tablets, you can utilize a `terms aggregation`:
+Alternatively, refine search results using a terms aggregation. For example, use a category field to limit search results to BrandX smartphones or tablets:
 
 ```
 GET /electronics/_search
@@ -102,9 +99,11 @@ GET /electronics/_search
   }
 }
 ```
-This returns the most popular categories of products from BrandX that are smartphones.
+{% include copy-curl.html %}
 
-To display how many BrandX products are available in different price ranges, use a `post_filter`:
+This query returns the most popular categories of BrandX smartphones.
+
+Then, use the `post_filter` parameter to show how many BrandX products are available in different price ranges:
 
 ```
 GET /electronics/_search
@@ -149,14 +148,23 @@ GET /electronics/_search
     "term": { "category": "Smartphone" }
   }
 }
-
 ```
-This query finds all products from BrandX. The `category_smartphone` aggregation limits the price range. The `price_ranges` aggregation returns price ranges for all BrandX products and the `post_filter` narrows the search hits to `smartphones`.
+{% include copy-curl.html %}
 
-### Rescoring filtered search results
+This query finds all products from BrandX. The `category_smartphone` aggregation limits the price range. The `price_ranges` aggregation returns price ranges for all BrandX products. The `post_filter` narrows the search hits to `smartphones`.
+
+---
+
+## Rescoring filtered search results
+
 Rescoring is a tool to improve the accuracy of the returned search results. Rescoring focuses on the top results rather than applying the complex algorithm to the entire dataset, optimizing efficiency. Each shard processes the rescore request before the final results are aggregated and sorted by the coordinating node.
 
-Example of using a rescore query:
+---
+
+#### Example: Using a rescore query
+
+Use the following query with the `rescore` parameter to reorder the top 50 smartphones from BrandX that include 5G features:
+
 ```
 GET /electronics/_search
 {
@@ -184,19 +192,20 @@ GET /electronics/_search
     }
   }
 }
-
 ```
-In this example, the rescore section reorders the top 50 smartphones from BrandX based on whether their features include "5G".
+{% include copy-curl.html %}
 
-When using pagination, avoid changing window_size with each page step, as it may cause shifting results, which could confuse users.
+Avoid changing `window_size` with each page step because it may cause shifting results and confuse users.
 
 ### Query rescorer
 
-In OpenSearch, the query rescorer refines search results by applying an additional query to the top results obtained from the initial search. Instead of evaluating every document, the rescorer focuses only on a subset defined by the window_size parameter, which defaults to 10. This approach enhances the efficiency of relevance adjustments.
+The query rescorer refines search results by applying an additional query to the top results obtained from the initial search. Instead of evaluating every document, the rescorer focuses on a subset defined by the `window_size` parameter, which defaults to `10`. This approach enhances the efficiency of relevance adjustments.
 
-The rescore query’s influence is balanced with the original query through the `query_weight` and `rescore_query_weight` parameters, both set to 1 by default.
+The influence of the rescore query is balanced with the original query through the `query_weight` and `rescore_query_weight` parameters. Default for both is `1`.
 
-#### Query rescorer example
+---
+
+#### Example: Using the query rescorer
 
 1. Create an index and add sample data:
 
@@ -212,6 +221,7 @@ PUT /articles
   }
 }
 ```
+{% include copy-curl.html %}
 
 2. Add sample documents:
 
@@ -236,12 +246,12 @@ POST /articles/_doc/3
   "content": "Optimize the performance of your OpenSearch cluster.",
   "views": 450
 }
-
 ```
+{% include copy-curl.html %}
 
-3. Perform a search with query rescorer:
+3. Perform a search using the query rescorer:
 
-This example query uses the query rescorer. It refines the results based on a phrase match for the content field. Documents that match "OpenSearch" in the content field are further rescored based on a phrase match, giving more weight to exact phrases.
+This example query uses the query rescorer to refines the results based on a phrase match for the content field. Documents that match "OpenSearch" in the content field are further rescored based on a phrase match, giving more weight to exact phrases.
 
 ```
 POST /articles/_search
@@ -268,9 +278,12 @@ POST /articles/_search
   }
 }
 ```
-4. Perform a search with multiple rescorers:
+{% include copy-curl.html %}
 
-In this example, we first apply a phrase match rescorer and then a function score rescorer to adjust the final relevance based on the number of views.
+4. Perform a search using multiple rescorers:
+
+This example query first applies a phrase match rescorer and then a function score rescorer to adjust the final relevance based on the number of views.
+
 ```
 POST /articles/_search
 {
@@ -312,5 +325,5 @@ POST /articles/_search
     }
   ]
 }
-
 ```
+{% include copy-curl.html %}
