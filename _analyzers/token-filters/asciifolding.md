@@ -1,11 +1,11 @@
 ---
 layout: default
-title: ASCIIFolding
+title: ASCII Folding
 parent: Token filters
 nav_order: 20
 ---
 
-# ASCIIFolding token filter
+# ASCII Folding token filter
 
 The `asciifolding` oken filter converts non-ASCII characters into their closest ASCII equivalents. For example *é* becomes *e*, *ü* becomes *u* and *ñ* becomes *n*. This process is known as *transliteration*.
 
