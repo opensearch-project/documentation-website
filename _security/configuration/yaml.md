@@ -17,7 +17,7 @@ The approach we recommend for using the YAML files is to first configure [reserv
 
 ## action_groups.yml
 
-This file contains any role mappings required for your security configuration. You can find the `role_mapping.yml` file in <OPENSEARCH_HOME>/config/opensearch-security/roles_mapping.yml.
+This file contains any role mappings required for your security configuration. You can find the `role_mapping.yml` file in `<OPENSEARCH_HOME>/config/opensearch-security/roles_mapping.yml`.
 
 Aside from some metadata, the default file is empty, because the Security plugin has a number of static action groups that it adds automatically. These static action groups cover a wide variety of use cases and are a great way to get started with the plugin.
 
