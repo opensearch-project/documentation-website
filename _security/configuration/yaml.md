@@ -92,7 +92,7 @@ snapshotrestore:
 ```
 
 ## opensearch.yml
-In addition to many OpenSearch settings, the `opensearch.yml` file contains paths to TLS certificates and their attributes, such as distinguished names and trusted certificate authorities. You can this file in  `<OPENSEARCH_HOME>/config/`.
+In addition to many OpenSearch settings, the `opensearch.yml` file contains paths to TLS certificates and their attributes, such as distinguished names and trusted certificate authorities. You can find this file in  `<OPENSEARCH_HOME>/config/`.
 
 ```yml
 plugins.security.ssl.transport.pemcert_filepath: esnode.pem
