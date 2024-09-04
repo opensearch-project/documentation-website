@@ -39,7 +39,7 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `<field>` | String | The field in which to search. A document is returned in the results only if its field value exactly matches at least one term, with the correct spacing and capitalization.
 `boost` | Floating-point | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field’s relevance. Values between 0.0 and 1.0 decrease the field’s relevance. Default is 1.0.
-`value_type` | String | Specifies the type of the values that are being used for filtering. Valid values are <>. Default is <>.
+`value_type` | String | Specifies the type of values used for filtering. Valid values are `default` and `bitmap`. If omitted, the value defaults to `default`.
 
 ## Terms lookup
 
