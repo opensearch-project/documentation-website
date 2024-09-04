@@ -72,6 +72,16 @@ PUT /_plugins/_flow_framework/workflow/<workflow_id>?update_fields=true
 You cannot specify both the `provision` and `update_fields` parameters at the same time.
 {: .note}
 
+You can create and provision a workflow using a [Workflow Template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/).
+
+```json
+POST /_plugins/_flow_framework/workflow?use_case=<use_case>&provision=true
+{
+    "create_connector.credential.key" : "<YOUR API KEY>"
+}
+```
+{% include copy-curl.html %}
+
 The following table lists the available query parameters. All query parameters are optional. User-provided parameters are only allowed if the `provision` parameter is set to `true`.
 
 | Parameter | Data type | Description |
@@ -79,6 +89,7 @@ The following table lists the available query parameters. All query parameters a
 | `provision` | Boolean | Whether to provision the workflow as part of the request. Default is `false`. |
 | `update_fields` | Boolean | Whether to update only the fields included in the request body. Default is `false`. |
 | `validation` | String | Whether to validate the workflow. Valid values are `all` (validate the template) and `none` (do not validate the template). Default is `all`. |
+| `use_case` | String | The name of a [Workflow Template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/#supported-workflow-templates) to use. |
 | User-provided substitution expressions | String | Parameters matching substitution expressions in the template. Only allowed if `provision` is set to `true`. Optional. If `provision` is set to `false`, you can pass these parameters in the [Provision Workflow API query parameters]({{site.url}}{{site.baseurl}}/automating-configurations/api/provision-workflow/#query-parameters). |
 
 ## Request fields
@@ -89,7 +100,7 @@ The following table lists the available request fields.
 |:---	|:---	|:---	|:---	|
 |`name`	|String	|Required	|The name of the workflow.	|
 |`description`	|String	|Optional	|A description of the workflow.	|
-|`use_case`	|String	|Optional	| A use case, which can be used with the Search Workflow API to find related workflows. In the future, OpenSearch may provide some standard use cases to ease categorization, but currently you can use this field to specify custom values.	|
+|`use_case`	|String	|Optional	| A user-provided use case, which can be used with the Search Workflow API to find related workflows. You can use this field to specify custom values. This is distinct from the `use_case` query parameter. |
 |`version`	|Object	|Optional	| A key-value map with two fields: `template`, which identifies the template version, and `compatibility`, which identifies a list of minimum required OpenSearch versions.	|
 |`workflows`	|Object	|Optional	|A map of workflows. Presently, only the `provision` key is supported. The value for the workflow key is a key-value map that includes fields for `user_params` and lists of `nodes` and `edges`.	|
 
