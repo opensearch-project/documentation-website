@@ -60,7 +60,7 @@ Additionally, for Top N query groups, aggregate statistics are now available. Fo
 1. If Top N by latency is enabled:
    - `Total latency`
    - `Count`
-2. If Top N by cpu is enabled:
+2. If Top N by CPU is enabled:
    - `Total cpu`
    - `Count`
 3. If Top N by memory is enabled:
