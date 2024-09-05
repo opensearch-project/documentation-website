@@ -34,7 +34,7 @@ See [Managing indexes]({{site.url}}{{site.baseurl}}/im-plugin/index/) to learn a
 
 ## Running SQL queries within Query Workbench
  
- The following steps guide you through running SQL queries against your OpenSearch data using Query Workbench:
+ The following steps guide you through running SQL queries against OpenSearch data:
 
 1. Access Query Workbench.
     - To access Query Workbench, go to OpenSearch Dashboards and choose **OpenSearch Plugins** > **Query Workbench** from the main menu.
@@ -69,7 +69,7 @@ See [Managing indexes]({{site.url}}{{site.baseurl}}/im-plugin/index/) to learn a
 
 ## Running PPL queries within Query Workbench
 
-Follow these steps to learn how to run PPL queries against your OpenSearch data using Query Workbench:
+Follow these steps to learn how to run PPL queries against OpenSearch data:
 
 1. Access Query Workbench.
     - To access Query Workbench, go to OpenSearch Dashboards and choose **OpenSearch Plugins** > **Query Workbench** from the main menu.
