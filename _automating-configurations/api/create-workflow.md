@@ -58,7 +58,7 @@ POST /_plugins/_flow_framework/workflow?validation=none
 ```
 {% include copy-curl.html %}
 
-In a workflow that has not been provisioned, you can update fields other than the `workflows` field, such as `name` and `description`:
+In a workflow that has not been provisioned, you can update fields other than the `workflows` field. For example, you can update the `name` and `description` fields as follows:
 
 ```json
 PUT /_plugins/_flow_framework/workflow/<workflow_id>?update_fields=true
