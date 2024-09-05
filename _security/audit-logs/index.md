@@ -226,9 +226,33 @@ To disable audit logs after they've been enabled, remove the `plugins.security.a
 
 ## Audit user account manipulation
 
-To enable user account creation/removal audit make sure the following audit compliance settings are set:
+To enable user account creation/removal audit use similar `audit.yml`:
 ```
-write_metadata_only: false
-write_log_diffs: true
-write_watched_indices: [".opendistro_security"]
+_meta:
+  type: "audit"
+  config_version: 2
+
+config:
+  # enable/disable audit logging
+  enabled: true
+
+  ...
+
+
+  compliance:
+    # enable/disable compliance
+    enabled: true
+
+    # Log updates to internal security changes
+    internal_config: true
+
+    # Log only metadata of the document for write events
+    write_metadata_only: false
+
+    # Log only diffs for document updates
+    write_log_diffs: true
+
+    # List of indices to watch for write events. Wildcard patterns are supported
+    # write_watched_indices: ["twitter", "logs-*"]
+    write_watched_indices: [".opendistro_security"]
 ```
