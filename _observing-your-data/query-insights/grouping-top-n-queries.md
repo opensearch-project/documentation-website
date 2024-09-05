@@ -5,10 +5,10 @@ parent: Query insights
 nav_order: 10
 ---
 
-# Grouping Top N queries
+# Grouping top N queries
 
 The [Top n queries feature]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/#configuring-top-n-query-monitoring) is a powerful 
-tool for identifying the most resource-intensive queries based on latency, CPU, and memory usage over a specified timeframe. 
+tool for identifying the most resource-intensive queries based on latency, CPU, and memory usage over a specified time window. 
 However, if a single expensive query is executed multiple times, it can dominate all the Top N query slots, potentially 
 obscuring other costly queries. 
 To address this issue, you can group Top N queries, which provides a clearer view of various high-impact query groups by consolidating similar ones.
@@ -58,18 +58,18 @@ For the [top n queries feature]({{site.url}}{{site.baseurl}}/observing-your-data
 you can retrieve latency, CPU, and memory metrics for individual Top N queries. 
 Additionally, for Top N query groups, aggregate statistics are now available. For each query group, the response will include:
 1. If Top N by latency is enabled:
-   - Total latency
-   - Count
+   - `Total latency`
+   - `Count`
 2. If Top N by cpu is enabled:
-   - Total cpu
-   - Count
+   - `Total cpu`
+   - `Count`
 3. If Top N by memory is enabled:
-   - Total memory
-   - Count
+   - `Total memory`
+   - `Count`
 
 These metrics allow for the calculation of average latency, CPU, and memory usage per query group. 
 The response will also include one example query from the query group. 
-For more details, please refer to the [examples](#examples) section.
+For more details, refer to the [examples](#examples) section.
 
 ## Configuring grouping top N queries
 To configure grouping for Top N queries, follow these steps:
