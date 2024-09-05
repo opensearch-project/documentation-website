@@ -299,3 +299,27 @@ Example response:
 }
 ```
 {% include copy-curl.html %}
+
+## Response fields
+
+The response includes the following fields.
+
+Field | Data type        | Description
+:--- |:-----------------| :---
+`top_queries` | Array of objects | Array contains list of top query groups
+`top_queries.timestamp` | Integer          | Execution timestamp for the first query in the query group
+`top_queries.source` | Object           | The actual query for the first query in the query group
+`top_queries.phase_latency_map` | Object           | The phase latency map for the first query in the query group
+`top_queries.total_shards` | Integer          | The number of shards for the first query in the query group
+`top_queries.node_id` | String           | The node_id for the first query in the query group
+`top_queries.query_hashcode` | String           | The hashcode for the query group to uniquely identify the group. This is essentially the hash of the [query structure](#grouping-queries-by-similarity)
+`top_queries.task_resource_usages` | Array of objects | The resource usage breakdown for the various tasks for the first query in the query group
+`top_queries.indices` | Array of String  | The indices for the first query in the query group
+`top_queries.labels` | Object           | Used to label the top query
+`top_queries.search_type` | String           | Type of the search request
+`top_queries.labels` | Object           | Used to label the top query
+`top_queries.measurements` | Object           | The aggregate measurements for the query group
+`top_queries.measurements.latency` | Object           | The aggregate latency measurements for the query group
+`top_queries.measurements.latency.number` | Integer          | The sum of total latency for the query group
+`top_queries.measurements.latency.count` | Integer          | The count of the number of queries in the query group
+`top_queries.measurements.latency.aggregationType` | String           | The aggregation Type for the current entry. If grouping by similarity is enabled `aggregateType` will be `AVERAGE`. If not enabled `aggregationType` will be `NONE`. 
