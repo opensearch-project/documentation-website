@@ -226,54 +226,9 @@ To disable audit logs after they've been enabled, remove the `plugins.security.a
 
 ## Audit user account manipulation
 
-By default, audit of user account creation/removal is off (`AUTHENTICATED` audit events disabled). To enable it, issue a similar request:
+To enable user account creation/removal audit make sure the following audit compliance settings are set:
 ```
-PUT /_opendistro/_security/api/audit/config
-{
-  "compliance": {
-    "enabled": true,
-    "write_log_diffs": false,
-    "read_watched_fields": {},
-    "read_ignore_users": [
-      "elastiflow",
-      "filebeats",
-      "kibanaserver",
-      "nagios"
-    ],
-    "write_watched_indices": [],
-    "write_ignore_users": [
-      "elastiflow",
-      "filebeats",
-      "kibanaserver",
-      "nagios"
-    ],
-    "read_metadata_only": true,
-    "write_metadata_only": true,
-    "external_config": false,
-    "internal_config": true
-  },
-  "enabled": true,
-  "audit": {
-    "ignore_users": [
-      "elastiflow",
-      "filebeats",
-      "kibanaserver",
-      "nagios"
-    ],
-    "ignore_requests": [],
-    "disabled_rest_categories": [
-      "GRANTED_PRIVILEGES"
-    ],
-    "disabled_transport_categories": [
-      "GRANTED_PRIVILEGES"
-    ],
-    "log_request_body": true,
-    "resolve_indices": true,
-    "resolve_bulk_requests": false,
-    "exclude_sensitive_headers": true,
-    "enable_transport": true,
-    "enable_rest": true
-  }
-}
+write_metadata_only: false
+write_log_diffs: true
+write_watched_indices: [".opendistro_security"]
 ```
-The provided request enables all `AUTHENTICATED` events for all users besides the ones specified in the `*ignore_users` blocks
