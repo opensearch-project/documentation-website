@@ -76,7 +76,7 @@ To configure grouping for Top N queries, follow these steps:
 
 1. Enable Top N Metrics
 
-Ensure that Top N is enabled for at least one of the metrics: latency, CPU, or memory. For details on configuring Top N query monitoring, see [configuring Top N query monitoring]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/configuring-top-n-query-monitoring).
+Ensure that Top N is enabled for at least one of the metrics: latency, CPU, or memory. For details on configuring Top N query monitoring, see [configuring Top N query monitoring]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/#configuring-top-n-query-monitoring).
 Example configuration for enabling latency with default settings:
 ```json
 PUT _cluster/settings
@@ -120,8 +120,8 @@ PUT _cluster/settings
 
 The default value for `max_groups_excluding_topn` is `100`, and it can be set between 0 and 10,000.
 
-This setting limits the number of query groups tracked, excluding those that are part of the [Top N]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/configuring-the-value-of-n). 
-This is important for managing the query groups within the [window]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/configuring-the-window-size) and maintaining performance.
+This setting limits the number of query groups tracked, excluding those that are part of the [Top N]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/#configuring-the-value-of-n). 
+This is important for managing the query groups within the [window]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/#configuring-the-window-size) and maintaining performance.
 
 ## Examples
 
