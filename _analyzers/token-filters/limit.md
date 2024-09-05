@@ -14,7 +14,7 @@ The `limit` token filter in OpenSearch is used to limit the number of tokens tha
 The `limit` token filter in OpenSearch can be configured with the following parameter:
 
 - `max_token_count`: Maximum number of tokens to be generated. Default is `1` (Integer, _Optional_)
- 
+- `consume_all_tokens`: (Expect level setting) Use all tokens from tokenizer, even if result exceeds `max_token_count`. The output will still only contain the number of tokens specified in `max_token_count`, however all of the token from tokenizer will be processed. Default is `false` (Boolean, _Optional_)
 
 ## Example
 
