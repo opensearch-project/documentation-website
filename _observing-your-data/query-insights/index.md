@@ -36,4 +36,5 @@ For information about installing plugins, see [Installing plugins]({{site.url}}{
 You can obtain the following information using Query Insights:
 
 - [Top n queries]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/)
+- [Grouping Top N queries]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/grouping-top-n-queries/)
 - [Query metrics]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/query-metrics/)
