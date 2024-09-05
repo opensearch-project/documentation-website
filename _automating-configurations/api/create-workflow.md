@@ -80,7 +80,6 @@ PUT /_plugins/_flow_framework/workflow/<workflow_id>?reprovision=true
   <updated complete template>
 }
 ```
-{% include copy-curl.html %}
 
 You can add new steps to the workflow but not delete them. Only steps for index settings, search pipelines, and ingest pipelines are currently supported for updating.
 {: .note}
