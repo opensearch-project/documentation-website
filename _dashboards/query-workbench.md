@@ -8,7 +8,7 @@ redirect_from:
 
 # Query Workbench
 
-Query Workbench is a tool within OpenSearch Dashboards. You can use Query Workbench to run on-demand [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql/index/) and [PPL]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/) queries, translate queries into their equivalent REST API calls, and view and save results in different [response formats]({{site.url}}{{site.baseurl}}/search-plugins/sql/response-formats/).
+You can use Query Workbench in OpenSearch Dashboards to run on-demand [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql/index/) and [PPL]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/) queries, translate queries into their equivalent REST API calls, and view and save results in different [response formats]({{site.url}}{{site.baseurl}}/search-plugins/sql/response-formats/).
 
 Query Workbench does not support delete or update operations through SQL or PPL. Access to data is read-only.
 {: .important}
@@ -94,4 +94,3 @@ Follow these steps to learn how to run PPL queries against your OpenSearch data 
 
 5. Examine how the query is processed.
     - Select the **Explain** button to examine how OpenSearch processes the query, including the steps involved and order of operations.
-    
