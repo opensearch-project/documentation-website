@@ -1,31 +1,24 @@
 ---
 layout: default
-title: Grouping Top N queries
+title: Grouping top N queries
 parent: Query insights
-nav_order: 10
+nav_order: 20
 ---
 
 # Grouping top N queries
+**Introduced 2.17**
+{: .label .label-purple }
 
-The [Top n queries feature]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/#configuring-top-n-query-monitoring) is a powerful 
-tool for identifying the most resource-intensive queries based on latency, CPU, and memory usage over a specified time window. 
-However, if a single expensive query is executed multiple times, it can dominate all the Top N query slots, potentially 
-obscuring other costly queries. 
-To address this issue, you can group Top N queries, which provides a clearer view of various high-impact query groups by consolidating similar ones.
+Monitoring the [top N queries]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/) helps identify the most resource-intensive queries based on latency, CPU, and memory usage over a specified time window. However, if a single computationally-expensive query is executed multiple times, it can occupy all top N query slots, potentially preventing other expensive queries from appearing in the list. To address this issue, you can group similar queries, gaining insight into various high-impact query groups.
 
+Starting with OpenSearch version 2.17, top N queries can be grouped by `similarity`, with additional grouping options planned for future releases. 
 
-## Introduction
+## Grouping queries by similarity
 
-To enable the grouping feature for Top N queries, you must first enable Top N for a metric type and configure the
-`search.insights.top_queries.group_by` cluster setting. By default, this setting is set to none. 
-Currently, Top N queries can be grouped by `similarity`, with additional grouping options planned for future releases.
-For detailed instructions on configuring grouping for Top N queries, refer to the [configuring grouping top N queries](#configuring-grouping-top-n-queries) section.
+Grouping queries by `similarity` organizes them based on the query structure, stripping out everything except the core query operations.
 
+For example, the following query:
 
-## Group by similarity
-Grouping by `similarity` organizes queries based on the `shape` of the query, stripping out everything except the core query operations.
-
-For example, consider the following query:
 ```json
 {
   "query": {
@@ -40,44 +33,41 @@ For example, consider the following query:
   }
 }
 ```
-{% include copy-curl.html %}
 
-The corresponding query shape is:
-```json
+Has the following corresponding query structure:
+
+```c
 bool
   must
     exists
   query_string
 ```
 
-When queries share the same query shape, they are grouped together, ensuring that all similar queries belong to the same group.
+When queries share the same query structure, they are grouped together, ensuring that all similar queries belong to the same group.
 
 
 ## Aggregate metrics per group
-For the [top n queries feature]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/#configuring-top-n-query-monitoring),  
-you can retrieve latency, CPU, and memory metrics for individual Top N queries. 
-Additionally, for Top N query groups, aggregate statistics are now available. For each query group, the response will include:
-1. If Top N by latency is enabled:
-   - `Total latency`
-   - `Count`
-2. If Top N by CPU is enabled:
-   - `Total cpu`
-   - `Count`
-3. If Top N by memory is enabled:
-   - `Total memory`
-   - `Count`
 
-These metrics allow for the calculation of average latency, CPU, and memory usage per query group. 
-The response will also include one example query from the query group. 
-For more details, refer to the [examples](#examples) section.
+In addition to retrieving latency, CPU, and memory metrics for individual top N queries, you can obtain aggregate statistics for the
+top N query groups. For each query group, the response includes the following statistics:
+- The total latency, CPU usage, or memory usage (depending on the configured metric type) 
+- The total query count
 
-## Configuring grouping top N queries
+Using these statistics, you can calculate the average latency, CPU usage, or memory usage for each query group. 
+The response also includes one example query from the query group. 
+
+## Configuring query grouping
+
+Before you enable query grouping, you must enable top N query monitoring for a metric type of your choice. For more information, see [Configuring top N query monitoring]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/#configuring-top-n-query-monitoring).
+
 To configure grouping for Top N queries, follow these steps:
 
-1. Enable Top N Metrics
+### Step 1: Enable top N query monitoring 
 
-Ensure that Top N is enabled for at least one of the metrics: latency, CPU, or memory. For details on configuring Top N query monitoring, see [configuring Top N query monitoring]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/#configuring-top-n-query-monitoring).
-Example configuration for enabling latency with default settings:
+Ensure that Top N is enabled for at least one of the metrics: latency, CPU, or memory. For more information, see [Configuring Top N query monitoring]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/#configuring-top-n-query-monitoring).
+
+For example, to enable top N query monitoring by latency with default settings, send the following request:
+
 ```json
 PUT _cluster/settings
 {
@@ -88,9 +78,10 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-2. Configure Grouping for Top N Queries
+### Step 2: Configure query grouping
 
-Set the desired grouping method using the following cluster setting:
+Set the desired grouping method by updating the following cluster setting:
+
 ```json
 PUT _cluster/settings
 {
@@ -101,13 +92,14 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-The default value for the `group_by` setting is `none`, which disables grouping. 
-Currently, the supported values for group_by are `similarity` and `none`.
+The default value for the `group_by` setting is `none`, which disables grouping. As of OpenSearch 2.17, the supported values for group_by are `similarity` and `none`.
 
-3. (Optional) Set the Maximum Number of Groups Excluding Top N
+### Step 3 (Optional): Set a limit on the number of query groups to monitor
 
-You can define a maximum number of query groups to track, excluding those that are part of the Top N. 
-This helps manage the tracking of query groups based on workload and query window size. For example:
+Optionally, you can set a limit on the number of query groups to monitor. Queries that are already part of the top N query list (the most resource-intensive queries) will not count toward that limit. Essentially, the maximum applies only to other query groups, and the top N queries are tracked separately. This helps manage the tracking of query groups based on workload and query window size. 
+
+To limit tracking to 100 query groups, send the following request:
+
 ```json
 PUT _cluster/settings
 {
@@ -118,39 +110,19 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-The default value for `max_groups_excluding_topn` is `100`, and it can be set between 0 and 10,000.
+The default value for `max_groups_excluding_topn` is `100`, and you can set it to any value between `0` and `10,000`, inclusive.
 
-This setting limits the number of query groups tracked, excluding those that are part of the [Top N]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/#configuring-the-value-of-n). 
-This is important for managing the query groups within the [window]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/#configuring-the-window-size) and maintaining performance.
+## Monitoring query groups
 
-## Examples
+To view the top N query groups, send the following request:
 
-To enable grouping for Top N queries by similarity, use the following command:
 ```json
-curl -X PUT "localhost:9200/_cluster/settings" -H 'Content-Type: application/json' -d'
-{
-  "persistent": {
-    "search.insights.top_queries.group_by": "similarity"
-  }
-}
-'
-```
-{% include copy-curl.html %}
-
-
-The response will be:
-```json
-{"acknowledged":true,"persistent":{"search":{"insights":{"top_queries":{"group_by":"similarity"}}}},"transient":{}}%
-```
-{% include copy-curl.html %}
-
-To get the Top N query groups, execute the following request:
-```json
-curl -XGET "http://localhost:9200/_insights/top_queries"
+GET /_insights/top_queries
 ```
 {% include copy-curl.html %}
 
 Example response:
+
 ```json
 {
   "top_queries": [
