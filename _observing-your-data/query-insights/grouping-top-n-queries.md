@@ -7,7 +7,7 @@ nav_order: 10
 
 # Grouping Top N queries
 
-The [Top n queries feature]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/) is a powerful 
+The [Top n queries feature]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries) is a powerful 
 tool for identifying the most resource-intensive queries based on latency, CPU, and memory usage over a specified timeframe. 
 However, if a single expensive query is executed multiple times, it can dominate all the Top N query slots, potentially 
 obscuring other costly queries. 
@@ -54,7 +54,7 @@ When queries share the same query shape, they are grouped together, ensuring tha
 
 
 ## Aggregate metrics per group
-For the [top n queries feature](({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/)),  
+For the [top n queries feature](({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries)),  
 you can retrieve latency, CPU, and memory metrics for individual Top N queries. 
 Additionally, for Top N query groups, aggregate statistics are now available. For each query group, the response will include:
 1. If Top N by latency is enabled:
