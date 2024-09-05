@@ -268,6 +268,7 @@ return Byte(bval)
 {% include copy.html %}
 
 ## Faiss byte vector
+
 Faiss engine is recommended for use cases that requires ingestion on a large scale. But, for these large scale workloads using the default `float` vectors requires a lot of memory usage as each dimension is 4 bytes. If you want to reduce this memory and storage requirements,
 you can use `byte` vectors with the `faiss` engine. In a `byte` vector, each dimension is a signed 8-bit integer in the [-128, 127] range.
 

@@ -14,7 +14,8 @@ By default, the k-NN plugin supports the indexing and querying of vectors of typ
 OpenSearch supports many varieties of quantization. In general, the level of quantization will provide a trade-off between the accuracy of the nearest neighbor search and the size of the memory footprint consumed by the vector search. The supported types include byte vectors, 16-bit scalar quantization, and product quantization (PQ).
 
 ## Faiss byte vector
-Starting with version 2.17, the k-NN plugin supports `byte` vectors with the Faiss engine which helps to reduce the memory requirements. For more information, see [Faiss byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#faiss-byte-vector).
+
+Starting with version 2.17, the k-NN plugin supports `byte` vectors with the Faiss engine in order to reduce the amount of required memory. For more information, see [Faiss byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#faiss-byte-vector).
 
 ## Lucene byte vector
 
