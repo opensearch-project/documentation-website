@@ -72,7 +72,7 @@ PUT /_plugins/_flow_framework/workflow/<workflow_id>?update_fields=true
 You cannot specify both the `provision` and `update_fields` parameters at the same time.
 {: .note}
 
-You can create and provision a workflow using a [Workflow Template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/).
+You can create and provision a workflow using a [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/) as follows:
 
 ```json
 POST /_plugins/_flow_framework/workflow?use_case=<use_case>&provision=true
