@@ -7,7 +7,7 @@ nav_order: 10
 
 # Top N queries
 
-Monitoring the top N queries in query insights features can help you gain real-time insights into the top queries with high latency within a certain time frame (for example, the last hour). 
+Monitoring the top N queries using query insights allows you to gain real-time visibility into the queries with the greatest latency or resource consumption over a specified time period (for example, the last hour).
 
 ## Configuring top N query monitoring
 
@@ -72,12 +72,14 @@ PUT _cluster/settings
 
 ## Monitoring the top N queries 
 
-You can use the Insights API endpoint to obtain the top N queries. Specify the `type` parameter to get top N results for each metric type. Calling this API without `type` returns top N `latency` results by default.
+You can use the Insights API endpoint to retrieve the top N queries. This API returns top N `latency` results by default.
 
 ```json
 GET /_insights/top_queries
 ```
 {% include copy-curl.html %}
+
+Specify the `type` parameter to retrieve the top N results for other metric types. The results will be sorted in descending order based on the specified metric type.
 
 ```json
 GET /_insights/top_queries?type=latency
@@ -94,7 +96,7 @@ GET /_insights/top_queries?type=memory
 ```
 {% include copy-curl.html %}
 
-If you are not seeing results, verify top N is enabled for the target metric type and ensure search requests were sent during the current time window.
+If your query returns no results, ensure that top N is enabled for the target metric type and that search requests were made within the current [time window](#configuring-the-window-size).
 {: .important}
 
 ## Exporting top N query data
