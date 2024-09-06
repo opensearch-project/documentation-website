@@ -226,7 +226,7 @@ To disable audit logs after they've been enabled, remove the `plugins.security.a
 
 ## Audit user account manipulation
 
-To enable user account creation/removal audit use similar `audit.yml`:
+To enable audit logging on changes to the security index (i.e. changes to roles mappings, creation/deletion of roles, etc.), use the following settings in the `compliance:` portion of the audit log configuration.
 ```
 _meta:
   type: "audit"
