@@ -170,6 +170,26 @@ The response provides information about the analyzers for each field:
 }
 ```
 
+## Normalizers
+While tokenization divides text into individual terms, it doesn’t address variations in token forms. Normalization resolves these issues by converting tokens into a standard format. This ensures that similar terms are matched appropriately, even if they aren’t identical.
+
+### Normalization techniques
+1. **Case normalization**: Converts all tokens to lowercase to ensure case-insensitive matching. For example, "Hello" is normalized to "hello".
+
+2. **Stemming**: Reduces words to their root form. For instance, "cars" is stemmed to "car", and "running" is normalized to "run".
+
+3. **Synonym handling:** Treats synonyms as equivalent. For example, "jogging" and "running" can be indexed under a common term, such as "run".
+
+### Normalization
+
+A search for `Hello` will match documents containing `hello` due to case normalization.
+
+Searching for `cars` will also match documents with `car` because of stemming.
+
+A query for `running` can retrieve documents containing `jogging` through synonym handling.
+
+Normalization ensures that searches are not limited to exact term matches, allowing for more relevant results. For instance, a search for `Cars running` can be normalized to match `car run`.
+
 ## Next steps
 
 - Learn more about specifying [index analyzers]({{site.url}}{{site.baseurl}}/analyzers/index-analyzers/) and [search analyzers]({{site.url}}{{site.baseurl}}/analyzers/search-analyzers/).
