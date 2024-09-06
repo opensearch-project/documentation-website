@@ -29,7 +29,7 @@ A detector is an individual anomaly detection task. You can define multiple dete
 1. Add in the detector details.
    - Enter a name and brief description. Make sure the name is unique and descriptive enough to help you to identify the purpose of the detector.
 1. Specify the data source.   
-   - For **Data source**, choose the index/indices you want to use as the data source. You can also optionally use an alias or an index patterns to choose multiple indexes. 
+   - For **Data source**, choose the index or indexes you want to use as the data source. You can also optionally use an alias or an index patterns to choose multiple indexes. 
    - Detectors also support remote indices, you can utilize the same `cluster-name:index-name` pattern used by [cross-cluster search](https://opensearch.org/docs/latest/search-plugins/cross-cluster-search/) or by utilizing OpenSearch Dashboards 2.17 or later to choose the clusters and indices you want to use.
    - (Optional) For **Data filter**, filter the index you chose as the data source. From the **Data filter** menu, choose **Add data filter**, and then design your filter query by selecting **Field**, **Operator**, and **Value**, or choose **Use query DSL** and add your own JSON filter query. Only [Boolean queries]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/) are supported for query domain-specific language (DSL).
 
