@@ -226,7 +226,8 @@ To disable audit logs after they've been enabled, remove the `plugins.security.a
 
 ## Audit user account manipulation
 
-To enable audit logging on changes to the security index (i.e. changes to roles mappings, creation/deletion of roles, etc.), use the following settings in the `compliance:` portion of the audit log configuration.
+To enable audit logging on changes to a security index, such as changes to roles mappings and role creation or deletion, use the following settings in the `compliance:` portion of the audit log configuration, as shown in the following example:
+
 ```
 _meta:
   type: "audit"
