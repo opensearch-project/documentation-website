@@ -422,7 +422,7 @@ GET /testindex/_search
 Geoshape queries whose geometry collection contains a linestring or a multilinestring do not support the `WITHIN` relation.
 {: .note}
 
-### Using a pre-indexed shape definition
+## Using a pre-indexed shape definition
 
 When constructing a geoshape query, you can also reference the name of a shape pre-indexed in another index. Using this method, you can define a geoshape at index time and refer to it by name at search time. 
 
