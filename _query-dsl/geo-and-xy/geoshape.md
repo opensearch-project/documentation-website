@@ -25,15 +25,15 @@ Relation | Description | Supporting geographic field type
 
 ## Defining the shape in a geoshape query
 
-You can define the shape to filter documents in a geoshape query either by providing a new shape definition at query time or by referencing the name of a shape pre-indexed in another index.  
+You can define the shape to filter documents in a geoshape query either by [providing a new shape definition at query time](#using-a-new-shape-definition) or by [referencing the name of a shape pre-indexed in another index](#using-a-pre-indexed-shape-definition).  
 
-### Using a new shape definition
+## Using a new shape definition
 
 To provide a new shape to a geoshape query, define it in the `geo_shape` field. You must define the geoshape in [GeoJSON format](https://geojson.org/). 
 
 The following example illustrates searching for documents containing geoshapes that match a geoshape defined at query time.
 
-#### Step 1: Create an index
+### Step 1: Create an index
 
 First, create an index and map the `location` field as a `geo_shape`:
 
