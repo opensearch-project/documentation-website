@@ -80,6 +80,81 @@ Field | Description
 `model_id` | A unique ID that identifies a model. If a detector is a single-stream detector (with no category field), it has only one model. If a detector is a high-cardinality detector (with one or more category fields), it might have multiple models, one for each entity.
 `threshold` | One of the criteria for a detector to classify a data point as an anomaly is that its `anomaly_score` must surpass a dynamic threshold. This field records the current threshold.
 
+When the imputation option is enabled, the anomaly result output will include a `feature_imputed` array, indicating whether each feature has been imputed. This information helps you understand which features were modified during the anomaly detection process due to missing data. If no features were imputed, the feature_imputed array will be omitted from the results.
+
+In the following example, the feature processing_bytes_max was imputed, as indicated by the `imputed: true` status:
+
+```json
+{
+    "detector_id": "kzcZ43wBgEQAbjDnhzGF",
+    "schema_version": 5,
+    "data_start_time": 1635898161367,
+    "data_end_time": 1635898221367,
+    "feature_data": [
+        {
+            "feature_id": "processing_bytes_max",
+            "feature_name": "processing bytes max",
+            "data": 2322
+        },
+        {
+            "feature_id": "processing_bytes_avg",
+            "feature_name": "processing bytes avg",
+            "data": 1718.6666666666667
+        },
+        {
+            "feature_id": "processing_bytes_min",
+            "feature_name": "processing bytes min",
+            "data": 1375
+        },
+        {
+            "feature_id": "processing_bytes_sum",
+            "feature_name": "processing bytes sum",
+            "data": 5156
+        },
+        {
+            "feature_id": "processing_time_max",
+            "feature_name": "processing time max",
+            "data": 31198
+        }
+    ],
+    "execution_start_time": 1635898231577,
+    "execution_end_time": 1635898231622,
+    "anomaly_score": 1.8124904404395776,
+    "anomaly_grade": 0,
+    "confidence": 0.9802940756605277,
+    "entity": [
+        {
+            "name": "process_name",
+            "value": "process_3"
+        }
+    ],
+    "model_id": "kzcZ43wBgEQAbjDnhzGF_entity_process_3",
+    "threshold": 1.2368549346675202,
+    "feature_imputed": [
+        {
+            "feature_id": "processing_bytes_max",
+            "imputed": true
+        },
+        {
+            "feature_id": "processing_bytes_avg",
+            "imputed": false
+        },
+        {
+            "feature_id": "processing_bytes_min",
+            "imputed": false
+        },
+        {
+            "feature_id": "processing_bytes_sum",
+            "imputed": false
+        },
+        {
+            "feature_id": "processing_time_max",
+            "imputed": false
+        }
+    ]
+}
+```
+
 If an anomaly detector detects an anomaly, the result has the following format:
 
 ```json

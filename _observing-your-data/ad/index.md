@@ -76,6 +76,8 @@ The query is designed to retrieve documents in which the `urlPath.keyword` field
    - (Optional) To add extra processing time for data collection, specify a **Window delay** value.
       - This value tells the detector that the data is not ingested into OpenSearch in real time but with a certain delay. Set the window delay to shift the detector interval to account for this delay.
       - For example, say the detector interval is 10 minutes and data is ingested into your cluster with a general delay of 1 minute. Assume the detector runs at 2:00. The detector attempts to get the last 10 minutes of data from 1:50 to 2:00, but because of the 1-minute delay, it only gets 9 minutes of data and misses the data from 1:59 to 2:00. Setting the window delay to 1 minute shifts the interval window to 1:49--1:59, so the detector accounts for all 10 minutes of the detector interval time.
+      - To avoid missing any data, set the **Window delay** to the upper bound of the expected ingestion delay. This ensures the detector accounts for all data during its interval, reducing the chances of missing relevant information. While setting a longer window delay helps capture all data, setting it too high can hinder real-time anomaly detection, as the detector will always be looking further back in time. Strike a balance to maintain both data accuracy and timely detection.
+
 1. Specify custom results index.
    - The Anomaly Detection plugin allows you to store anomaly detection results in a custom index of your choice. To enable this, select **Enable custom results index** and provide a name for your index, for example, `abc`. The plugin then creates an alias prefixed with `opensearch-ad-plugin-result-` followed by your chosen name, for example, `opensearch-ad-plugin-result-abc`. This alias points to an actual index with a name containing the date and a sequence number, like `opensearch-ad-plugin-result-abc-history-2024.06.12-000002`, where your results are stored.
 
@@ -164,7 +166,44 @@ This formula serves as a starting point. Make sure to test it with a representat
 
 Set the number of aggregation intervals from your data stream to consider in a detection window. It’s best to choose this value based on your actual data to see which one leads to the best results for your use case.
 
-The anomaly detector expects the shingle size to be in the range of 1 and 60. The default shingle size is 8. We recommend that you don't choose 1 unless you have two or more features. Smaller values might increase [recall](https://en.wikipedia.org/wiki/Precision_and_recall) but also false positives. Larger values might be useful for ignoring noise in a signal.
+The anomaly detector expects the shingle size to be in the range of 1 and 128. The default shingle size is 8. We recommend that you don't choose 1 unless you have two or more features. Smaller values might increase [recall](https://en.wikipedia.org/wiki/Precision_and_recall) but also false positives. Larger values might be useful for ignoring noise in a signal.
+
+#### (Advanced settings) Set an imputation option
+
+The Imputation option allows you to address missing data in your streams. You can choose from the following methods to handle gaps:
+
+- **Ignore Missing Data (Default):** The system continues without factoring in missing data points, maintaining the existing data flow.
+- **Fill with Custom Values:** Specify a custom value for each feature to replace missing data points, allowing for targeted imputation tailored to your data.
+- **Fill with Zeros:** Replace missing values with zeros, ideal when the absence of data itself indicates a significant event, such as a drop to zero in event counts.
+- **Use Previous Values:** Fill gaps with the last observed value, maintaining continuity in your time series data. This method treats missing data as non-anomalous, carrying forward the previous trend.
+
+Using these options can improve recall in anomaly detection. For instance, if you're monitoring for drops in event counts, including both partial and complete drops, filling missing values with zeros helps detect significant data absences, improving detection recall.
+
+Note: Be cautious when imputing extensively missing data, as excessive gaps can compromise model accuracy. Remember, quality input is critical—poor data quality will lead to poor model performance. You can determine whether a feature value has been imputed using the `feature_imputed` field in the anomaly result index.  For more information, see [Anomaly result mapping]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/result-mapping).
+
+#### (Advanced settings) Suppressing Anomalies with Threshold-Based Rules
+
+You can suppress anomalies by setting rules that define acceptable differences between the expected and actual values, either as an absolute value or a relative percentage. This helps reduce false anomalies caused by minor fluctuations, allowing you to focus on significant deviations.
+
+Suppose you want to detect substantial changes in log volume while ignoring small variations that aren't meaningful. Without customized settings, the system might generate false alerts for minor changes, making it difficult to identify true anomalies. By setting suppression rules, you can filter out minor deviations and hone in on genuinely anomalous patterns.
+
+If you want to suppress anomalies for deviations smaller than 30% from the expected value, you can set the following rules:
+
+```
+Ignore anomalies for feature logVolume when the actual value is no more than 30% above the expected value.
+Ignore anomalies for feature logVolume when the actual value is no more than 30% below the expected value.
+```
+
+Note: Ensure that a feature (e.g., logVolume) is properly defined in your model, as suppression rules are tied to specific features.
+
+If you expect that the log volume should differ by at least 10,000 from the expected value before being considered an anomaly, you can set absolute thresholds:
+
+```
+Ignore anomalies for feature logVolume when the actual value is no more than 10000 above the expected value.
+Ignore anomalies for feature logVolume when the actual value is no more than 10000 below the expected value.
+```
+
+If no custom suppression rules are set, the system defaults to a filter that ignores anomalies with deviations of less than 20% from the expected value for each enabled feature.
 
 #### Preview sample anomalies
 
