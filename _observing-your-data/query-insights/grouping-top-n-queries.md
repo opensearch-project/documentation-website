@@ -328,4 +328,4 @@ Field | Data type        | Description
 `top_queries.measurements.latency` | Object           | The aggregate latency measurements for the query group.
 `top_queries.measurements.latency.number` | Integer          | The total latency for the query group.
 `top_queries.measurements.latency.count` | Integer          | The number of queries in the query group.
-`top_queries.measurements.latency.aggregationType` | String           | The aggregation type for the current entry. If grouping by similarity is enabled, then `aggregateType` is `AVERAGE`. If not enabled, then `aggregationType` is `NONE`. 
+`top_queries.measurements.latency.aggregationType` | String           | The aggregation type for the current entry. If grouping by similarity is enabled, then `aggregationType` is `AVERAGE`. If not enabled, then `aggregationType` is `NONE`. 
