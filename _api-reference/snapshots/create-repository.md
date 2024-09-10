@@ -51,7 +51,7 @@ The following values are supported in the `shard_path_type` setting:
 
 - `FIXED`: Keeps the path structure in the existing hierarchical manner, such as, `<ROOT>/<BASE_PATH>/indices/<index-id>/0/<SHARD_BLOBS>`
 - `HASHED_PREFIX`: Prepends a hashed prefix at the start of path for each unique shard ID, for example, `<ROOT>/<HASH-OF-INDEX-ID-AND-SHARD-ID>/<BASE_PATH>/indices/<index-id>/0/<SHARD_BLOBS>`.
-- `HASHED_INFIX` - Appends a hashed prefix after the base path for each unique shard ID, for example, `<ROOT>/<BASE-PATH>/<HASH-OF-INDEX-ID-AND-SHARD-ID>/indices/<index-id>/0/<SHARD_BLOBS>`. The hash method used is `fnv_1a_composite_1, which uses the `FNV1a` hash function and generates a custom-encoded 64-bit hash value that scales well with most remote store options. `FNV1a` takes the most significant 6 bits to create a url-safe base64 character and the next 14 bits to create a binary string.
+- `HASHED_INFIX`: Appends a hashed prefix after the base path for each unique shard ID, for example, `<ROOT>/<BASE-PATH>/<HASH-OF-INDEX-ID-AND-SHARD-ID>/indices/<index-id>/0/<SHARD_BLOBS>`. The hash method used is `fnv_1a_composite_1, which uses the `FNV1a` hash function and generates a custom-encoded 64-bit hash value that scales well with most remote store options. `FNV1a` takes the most significant 6 bits to create a url-safe base64 character and the next 14 bits to create a binary string.
 
 ### fs repository
 
