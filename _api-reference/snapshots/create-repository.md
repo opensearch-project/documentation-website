@@ -38,7 +38,7 @@ Request parameters depend on the type of repository: `fs` or `s3`.
 
 ### Common parameters
 
-The following table lists parameters that can be used with both the `fs` and `s3` repositories. 
+The following table lists parameters that can be used with both the `fs` and `s3` repositories.
 
 Request field | Description
 :--- | :---
@@ -54,6 +54,7 @@ Request field | Description
 `max_restore_bytes_per_sec` | The maximum rate at which snapshots restore. Default is 40 MB per second (`40m`). Optional.
 `max_snapshot_bytes_per_sec` | The maximum rate at which snapshots take. Default is 40 MB per second (`40m`). Optional.
 `remote_store_index_shallow_copy` | Boolean | Determines whether the snapshot of the remote store indexes are captured as a shallow copy. Default is `false`.
+`shallow_snapshot_v2` | Boolean | Determines whether the snapshot of the remote store indexes are captured as a shallow copy v2. Default is `false`.
 `readonly` | Whether the repository is read-only. Useful when migrating from one cluster (`"readonly": false` when registering) to another cluster (`"readonly": true` when registering). Optional.
 
 
@@ -73,6 +74,7 @@ Request field | Description
 `max_snapshot_bytes_per_sec` | The maximum rate at which snapshots take. Default is 40 MB per second (`40m`). Optional.
 `readonly` | Whether the repository is read-only. Useful when migrating from one cluster (`"readonly": false` when registering) to another cluster (`"readonly": true` when registering). Optional.
 `remote_store_index_shallow_copy` | Boolean | Whether the snapshot of the remote store indexes is captured as a shallow copy. Default is `false`.
+`shallow_snapshot_v2` | Boolean | Determines whether the snapshot of the remote store indexes are captured as a shallow copy v2. Default is `false`.
 `server_side_encryption` | Whether to encrypt snapshot files in the S3 bucket. This setting uses AES-256 with S3-managed keys. See [Protecting data using server-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html). Default is `false`. Optional.
 `storage_class` | Specifies the [S3 storage class](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html) for the snapshots files. Default is `standard`. Do not use the `glacier` and `deep_archive` storage classes. Optional.
 
