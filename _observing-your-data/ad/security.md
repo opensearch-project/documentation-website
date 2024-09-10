@@ -26,7 +26,7 @@ The Security plugin has two built-in roles that cover most anomaly detection use
 If you are using OpenSearch Dashboards to create your anomaly detectors you might notice issues creating a detector even with `anomaly_full_access`, this has been mitigated in OpenSearch 2.17. In order to mitigate this issue in prior versions, you should add these additional permissions:
 
 - `indices:data/read/search` - You need the search permission because the Anomaly Detection plugin needs to search the data source in order to validate if there is enough data to train the model.
-- `indices:admin/mappings/fields/get` and `indices:admin/mappings/fields/get*` - You need field mapping permissions since as part of detector creation we validate if the given data source has a valid timefield and categorical field (in case of creating a high cardinality detector)
+- `indices:admin/mappings/fields/get` and `indices:admin/mappings/fields/get*` - You need field mapping permissions since as part of detector creation we validate if the given data source has a valid timestamp field and categorical field (in case of creating a high cardinality detector)
 
 If these roles don't meet your needs, mix and match individual anomaly detection [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/) to suit your use case. Each action corresponds to an operation in the REST API. For example, the `cluster:admin/opensearch/ad/detector/delete` permission lets you delete detectors.
 
@@ -37,9 +37,9 @@ When a trigger generates an alert, the detector and monitor configurations, the 
 To reduce the chances of unintended users viewing metadata that could describe an index, we recommend that administrators enable role-based access control and keep these kinds of design elements in mind when assigning permissions to the intended group of users. See [Limit access by backend role](#advanced-limit-access-by-backend-role) for details.
 
 
-### Selecting remote indices with fine-grained access control
+### Selecting remote indexes with fine-grained access control
 
-In order to specify a remote index as the data source for a detector you must follow similar instruction as mentioned in the cross-cluster search documentation. By utilizing a role that exists in the both the remote and local cluster.The remote cluster will need to have the mapping between the chosen role and the same user name as in the local cluster. 
+In order to specify a remote index as the data source for a detector you must follow similar instruction as mentioned in the cross-cluster search [documentation]({{site.url}}{{site.baseurl}}/search-plugins/cross-cluster-search/#authentication-flow). By utilizing a role that exists in the both the remote and local cluster.The remote cluster will need to have the mapping between the chosen role and the same user name as in the local cluster. 
 
 For example:
 
@@ -64,7 +64,7 @@ curl -XPUT -k -u 'admin:<custom-admin-password>' -H 'Content-Type: application/j
 
 ### Custom result index
 
-In order to use a custom result index users will need to have additional permissions that aren't part of the default roles that opensearch security plugin offers. Users will have to add additional permissions as mentioned in the custom result index setup [step](https://opensearch.org/docs/latest/observing-your-data/ad/index/#example-filter-using-query-dsl:~:text=Specify%20custom%20results%20index.).
+In order to use a custom result index users will need to have additional permissions that aren't part of the default roles that OpenSearch Security plugin offers. Users will have to add additional permissions as mentioned in the custom result index set up step in [define detector]({{site.url}}{{site.baseurl}}/observing-your-data/ad/index/#step-1-define-a-detector).
 
 ## (Advanced) Limit access by backend role
 
