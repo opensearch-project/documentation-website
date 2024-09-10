@@ -39,7 +39,7 @@ OpenSearch supports the following search settings:
 
 - `search.dynamic_pruning.cardinality_aggregation.max_allowed_cardinality` (Dynamic, integer): Determines the threshold for applying dynamic pruning in cardinality aggregation. If a field’s cardinality exceeds this threshold, the aggregation reverts to the default method. This is an experimental feature and may change or be removed in future versions.
 
-- `search.keyword_index_or_doc_values_enabled` (Dynamic, Boolean): Determined whether to use `IndexOrDocValuesQuery` when running `MultiTermQueries` on `Keyword` fields. Default value is `false`.
+- `search.keyword_index_or_doc_values_enabled` (Dynamic, Boolean): Determines whether to use the index or doc values when running `multi_term` queries on `keyword` fields. Default value is `false`.
 
 ## Point in Time settings
 
