@@ -22,7 +22,7 @@ Without concurrent segment search, Lucene executes a request sequentially across
 
 ## Enabling concurrent segment search at the index or cluster level
 
-In 2.17, OpenSearch is introducing a new setting `search.concurrent_segment_search.mode` to control concurrent segment search setup on the cluster. The existing `search.concurrent_segment_search.enabled` setting is set to be deprecated in future releases in favor of the new setting.
+Starting with OpenSearch version 2.17, you can use the `search.concurrent_segment_search.mode` setting to configure concurrent segment search on your cluster. The existing `search.concurrent_segment_search.enabled` setting will be deprecated in future releases in favor of the new setting.
 
 By default, concurrent segment search is disabled on the cluster. You can enable concurrent segment search at two levels:
 
@@ -32,16 +32,16 @@ By default, concurrent segment search is disabled on the cluster. You can enable
 The index-level setting takes priority over the cluster-level setting. Thus, if the cluster setting is enabled but the index setting is disabled, then concurrent segment search will be disabled for that index. Because of this, the index-level setting is not evaluated unless it is explicitly set, regardless of the default value configured for the setting. You can retrieve the current value of the index-level setting by calling the [Index Settings API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/get-settings/) and omitting the `?include_defaults` query parameter.
 {: .note}
 
-Both the cluster and index level `search.concurrent_segment_search.mode` settings accept the following values:
+Both the cluster- and index-level `search.concurrent_segment_search.mode` settings accept the following values:
 
-`all`: Enables concurrent segment search across all search requests. This is equivalent to setting `search.concurrent_segment_search.enabled: true`.
+- `all`: Enables concurrent segment search across all search requests. This is equivalent to setting `search.concurrent_segment_search.enabled` to `true`.
 
-`none`: Disables concurrent segment search for all search requests, effectively turning off the feature. This is equivalent to `search.concurrent_segment_search.enabled: false` setting. This is the **default** behavior.
+- `none`: Disables concurrent segment search for all search requests, effectively turning off the feature. This is equivalent to setting`search.concurrent_segment_search.enabled` to `false`. This is the **default** behavior.
 
-`auto`: In this mode, OpenSearch will use the pluggable `ConcurrentSearchRequestDecider` to decide whether to use concurrent or sequential path for the search request based on the query evaluation and whether aggregations are present in the request. By default, if there are no deciders configured by any plugin, then the decision to use concurrent search will be made based on the presence of aggregations in the request.
-For more information about the pluggable decider semantics see [Pluggable concurrent search deciders](#pluggable-concurrent-search-deciders-concurrentsearchrequestdecider)
+- `auto`: In this mode, OpenSearch will use the pluggable _concurrent search decider_ to decide whether to use concurrent or sequential path for the search request based on the query evaluation and the presence of aggregations in the request. By default, if there are no deciders configured by any plugin, then the decision to use concurrent search will be made based on the presence of aggregations in the request. For more information about the pluggable decider semantics, see [Pluggable concurrent search deciders](#pluggable-concurrent-search-deciders-concurrentsearchrequestdecider).
 
-To enable concurrent segment search for all indexes in the cluster with `all` mode, set the following dynamic cluster setting:
+To enable concurrent segment search for all search requests across every index in the cluster, send the following request:
+
 ```json
 PUT _cluster/settings
 {
@@ -52,7 +52,7 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-To enable concurrent segment search in `all` mode for a particular index, specify the index name in the endpoint:
+To enable concurrent segment search for all search requests on a particular index, specify the index name in the endpoint:
 
 ```json
 PUT <index-name>/_settings
@@ -62,7 +62,7 @@ PUT <index-name>/_settings
 ```
 {% include copy-curl.html %}
 
-You can still continue to use the existing `search.concurrent_segment_search.enabled` to enable concurrent segment search for all indexes in the cluster using the following dynamic cluster setting:
+You can continue to use the existing `search.concurrent_segment_search.enabled` setting to enable concurrent segment search for all indexes in the cluster as follows:
 ```json
 PUT _cluster/settings
 {
@@ -85,12 +85,11 @@ PUT <index-name>/_settings
 
 
 When evaluating whether concurrent segment search is enabled on a cluster, the `search.concurrent_segment_search.mode` setting takes precedence over `search.concurrent_segment_search.enabled` setting.
-In cases where the `search.concurrent_segment_search.mode` setting is not explicitly set, the `search.concurrent_segment_search.enabled` setting will be checked to enable concurrent search.
+If the `search.concurrent_segment_search.mode` is not explicitly set, the `search.concurrent_segment_search.enabled` setting will be evaluated to determine whether to enable concurrent segment search.
 
-For example, clusters upgrading from an older version that already have the existing setting `search.concurrent_segment_search.enabled` set, this will continue to be honored. Once the `search.concurrent_segment_search.mode` is set, then this new setting will be used to enable/disable concurrent search with specified mode.
-Once the `search.concurrent_segment_search.mode` setting is set, it is recommended to unset the `search.concurrent_segment_search.enabled` setting.
+For clusters upgrading from an older version with the existing `search.concurrent_segment_search.enabled` setting, this setting will continue to be honored. However, once the `search.concurrent_segment_search.mode` is set, it will override the previous setting, enabling or disabling concurrent search based on the specified mode.
+We recommend setting `search.concurrent_segment_search.enabled` to `null` on your cluster once you configure `search.concurrent_segment_search.mode`:
 
-To unset the setting (setting it to `null`) for all indexes in the cluster, use the following dynamic setting:
 ```json
 PUT _cluster/settings
 {
@@ -101,7 +100,7 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-To unset the setting for a particular index, specify the index name in the endpoint:
+To disable the old setting for a particular index, specify the index name in the endpoint:
 ```json
 PUT <index-name>/_settings
 {
@@ -132,7 +131,7 @@ To use the max slice count mechanism instead, you can set the slice count for co
 - Cluster level
 - Index level
 
-To configure the slice count for all indexes in the cluster, set the following dynamic cluster setting:
+To configure the slice count for all indexes in the cluster, use the following dynamic cluster setting:
 
 ```json
 PUT _cluster/settings
@@ -154,7 +153,7 @@ PUT <index-name>/_settings
 ```
 {% include copy-curl.html %}
 
-Both the cluster and index level `search.concurrent.max_slice_count` setting can take the following valid values:
+Both the cluster- and index-level `search.concurrent.max_slice_count` settings can take the following valid values:
 - `0`: Use the default Lucene mechanism.
 - Positive integer: Use the max target slice count mechanism. Usually, a value between 2 and 8 should be sufficient.
 
@@ -193,7 +192,7 @@ Non-concurrent search calculates the document count error and returns it in the 
 For more information about how `shard_size` can affect both `doc_count_error_upper_bound` and collected buckets, see [this GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/11680#issuecomment-1885882985).
 
 
-## Developer information: 
+## Developer information
 
 The following sections provide additional information for developers.
 
@@ -208,5 +207,5 @@ To ensure that a custom plugin-based `Aggregator` implementation works with the 
 Introduced 2.17
 {: .label .label-purple }
 
-Plugin developers can customize the concurrent search decision-making for `auto` mode by implementing the [`ConcurrentSearchRequestDecider`](https://github.com/opensearch-project/OpenSearch/blob/2.x/server/src/main/java/org/opensearch/search/deciders/ConcurrentSearchRequestDecider.java) and registering its factory via [`SearchPlugin#getConcurrentSearchRequestFactories()`](https://github.com/opensearch-project/OpenSearch/blob/2.x/server/src/main/java/org/opensearch/plugins/SearchPlugin.java#L148). The deciders are evaluated only if requests doesn't fall under the category called out in [Limitations](#limitations) or [Other Considerations](#other-considerations) section. For more information about the decider implementation see [this GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/15259)
-The search request is parsed using a `QueryBuilderVisitor` which calls [`ConcurrentSearchRequestDecider#evaluateForQuery()`](https://github.com/opensearch-project/OpenSearch/blob/2.x/server/src/main/java/org/opensearch/search/deciders/ConcurrentSearchRequestDecider.java#L36) of all the configured deciders for every node of the `QueryBuilder` tree in the search request. The final concurrent search decision is obtained by combining the decision from each decider returned by the [`ConcurrentSearchRequestDecider#getConcurrentSearchDecision()`](https://github.com/opensearch-project/OpenSearch/blob/2.x/server/src/main/java/org/opensearch/search/deciders/ConcurrentSearchRequestDecider.java#L44)
+Plugin developers can customize the concurrent search decision making for `auto` mode by extending [`ConcurrentSearchRequestDecider`](https://github.com/opensearch-project/OpenSearch/blob/2.x/server/src/main/java/org/opensearch/search/deciders/ConcurrentSearchRequestDecider.java) and registering its factory through [`SearchPlugin#getConcurrentSearchRequestFactories()`](https://github.com/opensearch-project/OpenSearch/blob/2.x/server/src/main/java/org/opensearch/plugins/SearchPlugin.java#L148). The deciders are evaluated only if a request does not belong to any category listed in the [Limitations](#limitations) and [Other considerations](#other-considerations) sections. For more information about the decider implementation, see [the corresponding GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/15259).
+The search request is parsed using a `QueryBuilderVisitor`, which calls the [`ConcurrentSearchRequestDecider#evaluateForQuery()`](https://github.com/opensearch-project/OpenSearch/blob/2.x/server/src/main/java/org/opensearch/search/deciders/ConcurrentSearchRequestDecider.java#L36) method of all the configured deciders for every node of the `QueryBuilder` tree in the search request. The final concurrent search decision is obtained by combining the decision from each decider returned by the [`ConcurrentSearchRequestDecider#getConcurrentSearchDecision()`](https://github.com/opensearch-project/OpenSearch/blob/2.x/server/src/main/java/org/opensearch/search/deciders/ConcurrentSearchRequestDecider.java#L44) method.
