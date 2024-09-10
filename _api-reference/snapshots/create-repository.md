@@ -43,14 +43,15 @@ The following table lists parameters that can be used with both the `fs` and `s3
 Request field | Description
 :--- | :---
 `prefix_mode_verification` | When enabled, adds a hashed value of a random seed to the prefix for repository verification. For remote-store-enabled clusters, you can add the `setting.prefix_mode_verification` setting to the node attributes for the supplied repository. This field works with both new and existing repositories. Optional.
-`shard_path_type` | This setting is used to control the path stucture of shard level blobs. Defaults to fixed. There are 2 other possible values - 1. `hashed_prefix` 2. `hashed_infix`. More details are shared below. Optional.
+`shard_path_type` | Controls the path stucture of shard-level blobs. Supported values are `FIXED`, `HASHED_PREFIX`, or `HASHED_INFIX`. For more information about each value, see [shard_path_type values](#shard_path_type-values)/. Default is `FIXED`. Optional.
 
-##### shard_path_type values
-1. FIXED - This keep the path structure in the existing hierarchical manner. eg - `<ROOT>/<BASE_PATH>/indices/<index-id>/0/<SHARD_BLOBS>`
-2. HASHED_PREFIX - This prepends a hashed prefix at the start of path for each unique shard id. eg - `<ROOT>/<HASH-OF-INDEX-ID-AND-SHARD-ID>/<BASE_PATH>/indices/<index-id>/0/<SHARD_BLOBS>`
-3. HASHED_INFIX - This appends a hashed prefix after the base path for each unique shard id. eg - `<ROOT>/<BASE-PATH>/<HASH-OF-INDEX-ID-AND-SHARD-ID>/indices/<index-id>/0/<SHARD_BLOBS>`
+#### shard_path_type values
 
-Note - The hash method used is `fnv_1a_composite_1`. It uses the FNV1a hash function and generates a custom encoded hash value that scales well with most remote store options. The FNV1a function generates 64-bit value. The custom encoding uses the most significant 6 bits to create a url-safe base64 character and the next 14 bits to create a binary string.
+The following values are supported in the `shard_path_type` setting:
+
+- `FIXED`: Keeps the path structure in the existing hierarchical manner, such as, `<ROOT>/<BASE_PATH>/indices/<index-id>/0/<SHARD_BLOBS>`
+- `HASHED_PREFIX`: Prepends a hashed prefix at the start of path for each unique shard ID, for example, `<ROOT>/<HASH-OF-INDEX-ID-AND-SHARD-ID>/<BASE_PATH>/indices/<index-id>/0/<SHARD_BLOBS>`.
+- `HASHED_INFIX` - Appends a hashed prefix after the base path for each unique shard ID, for example, `<ROOT>/<BASE-PATH>/<HASH-OF-INDEX-ID-AND-SHARD-ID>/indices/<index-id>/0/<SHARD_BLOBS>`. The hash method used is `fnv_1a_composite_1, which uses the `FNV1a` hash function and generates a custom-encoded 64-bit hash value that scales well with most remote store options. `FNV1a` takes the most significant 6 bits to create a url-safe base64 character and the next 14 bits to create a binary string.
 
 ### fs repository
 
