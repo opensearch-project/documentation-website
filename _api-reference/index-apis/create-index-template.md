@@ -45,7 +45,7 @@ Parameter | Type | Description
 `priority` | Integer | A number that determines which index templates take precedence during the creation of a new index or data stream. OpenSearch chooses the template with the highest priority. When no priority is given, the template is assigned a `0`, signifying the lowest priority. Optional.
 `template` | Object | The template that includes the `aliases`, `mappings`, or `settings` for the index. For more information, see [#template]. Optional.
 `version` | Integer | The version number used to manage index templates. Version numbers are not automatically set by OpenSearch. Optional.
-
+`context` | Object | For more information, see [index-context]({{site.url}}{{site.baseurl}}/opensearch/index-context/). Amongst all settings and mappings declared for an index template, the ones coming from context will hold highest priority. As of OpenSearch 2.17, this is an experimental feature. Optional
 
 ### Template
 

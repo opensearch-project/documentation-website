@@ -67,9 +67,6 @@ GET /my-metrics-index
         "mappings": {},
         "settings": {
             "index": {
-                "replication": {
-                    "type": "DOCUMENT"
-                },
                 "codec": "zstd_no_dict",
                 "refresh_interval": "60s",
                 "number_of_shards": "1",
@@ -120,8 +117,38 @@ PUT _index_template/my-logs
         "my-logs-*"
     ]
 }
+```
 {% include copy-curl.html %}
 ````
+
+````
+```json
+GET _index_template/my-logs
+```
+{% include copy-curl.html %}
+````
+
+````
+```json
+{
+    "index_templates": [
+        {
+            "name": "my-logs2",
+            "index_template": {
+                "index_patterns": [
+                    "my-logs1-*"
+                ],
+                "context": {
+                    "name": "logs",
+                    "version": "1"
+                }
+            }
+        }
+    ]
+}
+```
+````
+
 
 This will create an index template with the context information as `logs`, and all indices created via this index template will get the metadata provided by the associated component template.
 If there is any overlap between settings/mappings/aliases declared by your template directly and the same coming through the backing component template for the context, the latter gets higher priority during index creation.
