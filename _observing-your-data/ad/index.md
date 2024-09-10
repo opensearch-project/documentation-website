@@ -10,30 +10,36 @@ redirect_from:
 
 # Anomaly detection
 
-An anomaly in OpenSearch is any unusual behavior change in your time-series data. Anomalies can provide valuable insights into your data. For example, for IT infrastructure data, an anomaly in the memory usage metric might help you uncover early signs of a system failure.
+An _anomaly_ in OpenSearch is any unusual behavior change in your time-series data. Anomalies can provide valuable insights into your data. For example, for IT infrastructure data, an anomaly in the memory usage metric might help you identify early signs of a system failure.
 
-It can be challenging to discover anomalies using conventional methods such as creating visualizations and dashboards. You could configure an alert based on a static threshold, but this requires prior domain knowledge and isn't adaptive to data that exhibits organic growth or seasonal behavior.
+It can be challenging to discover anomalies using conventional methods such as creating visualizations and dashboards. You could configure an alert based on a static threshold, but this requires prior domain knowledge and is not adaptive to data that exhibits organic growth or seasonal behavior.
 
 Anomaly detection automatically detects anomalies in your OpenSearch data in near real-time using the Random Cut Forest (RCF) algorithm. RCF is an unsupervised machine learning algorithm that models a sketch of your incoming data stream to compute an `anomaly grade` and `confidence score` value for each incoming data point. These values are used to differentiate an anomaly from normal variations. For more information about how RCF works, see [Random Cut Forests](https://www.semanticscholar.org/paper/Robust-Random-Cut-Forest-Based-Anomaly-Detection-on-Guha-Mishra/ecb365ef9b67cd5540cc4c53035a6a7bd88678f9).
 
 You can pair the Anomaly Detection plugin with the [Alerting plugin]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/) to notify you as soon as an anomaly is detected.
 
-To get started, choose **Anomaly Detection** in OpenSearch Dashboards.
-To first test with sample streaming data, you can try out one of the preconfigured detectors with one of the sample datasets.
+## Using OpenSearch Dashboards anomaly detection
+
+To get started, go to **OpenSearch Dashboards** > **OpenSearch Plugins** > **Anomaly Detection**. OpenSearch Dashboards contains sample datasets. You can use these datasets with their preconfigured detectors to try out the feature.
+
+The following tutorial guides you through using anomaly detection with your OpenSearch data.
 
 ## Step 1: Define a detector
 
-A detector is an individual anomaly detection task. You can define multiple detectors, and all the detectors can run simultaneously, with each analyzing data from different sources.
+A _detector_ is an individual anomaly detection task. You can define multiple detectors. All the detectors can run simultaneously, with each analyzing data from different sources.
 
 1. Choose **Create detector**.
-1. Add in the detector details.
-   - Enter a name and brief description. Make sure the name is unique and descriptive enough to help you to identify the purpose of the detector.
-1. Specify the data source.   
+1. Add the detector details.
+   - Enter a name and brief description. Make sure the name is unique and descriptive enough to help you to identify the detector's purpose.
+1. Specify the data source.
    - For **Data source**, choose the index you want to use as the data source. You can optionally use index patterns to choose multiple indexes.
    - (Optional) For **Data filter**, filter the index you chose as the data source. From the **Data filter** menu, choose **Add data filter**, and then design your filter query by selecting **Field**, **Operator**, and **Value**, or choose **Use query DSL** and add your own JSON filter query. Only [Boolean queries]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/) are supported for query domain-specific language (DSL).
 
-#### Example filter using query DSL
-The query is designed to retrieve documents in which the `urlPath.keyword` field matches one of the following specified values:
+---
+
+#### Example: Filter using query DSL
+
+The following example query retrieves documents where the `urlPath.keyword` field matches any of the specified values:
    
    - /domain/{id}/short
    - /sub_dir/{id}/short
@@ -62,9 +68,12 @@ The query is designed to retrieve documents in which the `urlPath.keyword` field
       }
    }
    ```
+   {% include copy-curl.html %}
 
-1. Specify a timestamp.    
-   - Select the **Timestamp field** in your index.
+---
+
+1. Specify a timestamp.
+   - Select the **Timestamp field** in the index.
 1. Define operation settings.
    - For **Operation settings**, define the **Detector interval**, which is the time interval at which the detector collects data.
       - The detector aggregates the data in this interval, then feeds the aggregated result into the anomaly detection model.
@@ -76,7 +85,7 @@ The query is designed to retrieve documents in which the `urlPath.keyword` field
    - (Optional) To add extra processing time for data collection, specify a **Window delay** value.
       - This value tells the detector that the data is not ingested into OpenSearch in real time but with a certain delay. Set the window delay to shift the detector interval to account for this delay.
       - For example, say the detector interval is 10 minutes and data is ingested into your cluster with a general delay of 1 minute. Assume the detector runs at 2:00. The detector attempts to get the last 10 minutes of data from 1:50 to 2:00, but because of the 1-minute delay, it only gets 9 minutes of data and misses the data from 1:59 to 2:00. Setting the window delay to 1 minute shifts the interval window to 1:49--1:59, so the detector accounts for all 10 minutes of the detector interval time.
-      - To avoid missing any data, set the **Window delay** to the upper bound of the expected ingestion delay. This ensures the detector accounts for all data during its interval, reducing the chances of missing relevant information. While setting a longer window delay helps capture all data, setting it too high can hinder real-time anomaly detection, as the detector will always be looking further back in time. Strike a balance to maintain both data accuracy and timely detection.
+      - To avoid missing any data, set the **Window delay** to the upper limit of the expected ingestion delay. This ensures the detector captures all data during its interval, reducing the risk of missing relevant information. While a longer window delay helps capture all data, setting it too high can hinder real-time anomaly detection, as the detector will look further back in time. Find a balance to maintain both data accuracy and timely detection.
 
 1. Specify custom results index.
    - The Anomaly Detection plugin allows you to store anomaly detection results in a custom index of your choice. To enable this, select **Enable custom results index** and provide a name for your index, for example, `abc`. The plugin then creates an alias prefixed with `opensearch-ad-plugin-result-` followed by your chosen name, for example, `opensearch-ad-plugin-result-abc`. This alias points to an actual index with a name containing the date and a sequence number, like `opensearch-ad-plugin-result-abc-history-2024.06.12-000002`, where your results are stored.
@@ -111,31 +120,32 @@ After you define the detector, the next step is to configure the model.
 
 ## Step 2: Configure the model
 
-#### Add features to your detector
+1. Add features to your detector.
 
-A feature is the field in your index that you want to check for anomalies. A detector can discover anomalies across one or more features. You must choose an aggregation method for each feature: `average()`, `count()`, `sum()`, `min()`, or `max()`. The aggregation method determines what constitutes an anomaly.
+A _feature_ is the field in your index that you want to analyze for anomalies. A detector can discover anomalies across one or more features. You must choose an aggregation method for each feature: `average()`, `count()`, `sum()`, `min()`, or `max()`. The aggregation method determines what constitutes an anomaly.
 
 For example, if you choose `min()`, the detector focuses on finding anomalies based on the minimum values of your feature. If you choose `average()`, the detector finds anomalies based on the average values of your feature.
 
 A multi-feature model correlates anomalies across all its features. The [curse of dimensionality](https://en.wikipedia.org/wiki/Curse_of_dimensionality) makes it less likely for multi-feature models to identify smaller anomalies as compared to a single-feature model. Adding more features might negatively impact the [precision and recall](https://en.wikipedia.org/wiki/Precision_and_recall) of a model. A higher proportion of noise in your data might further amplify this negative impact. Selecting the optimal feature set is usually an iterative process. By default, the maximum number of features for a detector is 5. You can adjust this limit with the `plugins.anomaly_detection.max_anomaly_features` setting.
-{: .note }
+{: .note}
 
 To configure an anomaly detection model based on an aggregation method, follow these steps:
 
-1. On the **Configure Model** page, enter the **Feature name** and check **Enable feature**.
+1. On the **Configure model** page, enter the **Feature name** and select the **Enable feature** checkbox.
 1. For **Find anomalies based on**, select **Field Value**.
 1. For **aggregation method**, select either **average()**, **count()**, **sum()**, **min()**, or **max()**.
 1. For **Field**, select from the available options.
 
 To configure an anomaly detection model based on a JSON aggregation query, follow these steps:
-1. On the **Configure Model** page, enter the **Feature name** and check **Enable feature**.
-1. For **Find anomalies based on**, select **Custom expression**. You will see the JSON editor window open up.
+
+1. On the **Configure Model** page, enter the **Feature name** and select the **Enable feature** checkbox.
+1. For **Find anomalies based on**, select **Custom expression**. The JSON editor window will open.
 1. Enter your JSON aggregation query in the editor.
 
 For acceptable JSON query syntax, see [OpenSearch Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/)
-{: .note }
+{: .note}
 
-#### (Optional) Set category fields for high cardinality
+### (Optional) Set category fields for high cardinality
 
 You can categorize anomalies based on a keyword or IP field type.
 
@@ -162,39 +172,41 @@ If the actual total number of unique entities is higher than the number that you
 This formula serves as a starting point. Make sure to test it with a representative workload. You can find more information in the [Improving Anomaly Detection: One million entities in one minute](https://opensearch.org/blog/one-million-enitities-in-one-minute/) blog post.
 {: .note }
 
-#### (Advanced settings) Set a shingle size
+### (Advanced settings) Set a shingle size
 
 Set the number of aggregation intervals from your data stream to consider in a detection window. It’s best to choose this value based on your actual data to see which one leads to the best results for your use case.
 
-The anomaly detector expects the shingle size to be in the range of 1 and 128. The default shingle size is 8. We recommend that you don't choose 1 unless you have two or more features. Smaller values might increase [recall](https://en.wikipedia.org/wiki/Precision_and_recall) but also false positives. Larger values might be useful for ignoring noise in a signal.
+The anomaly detector expects the shingle size to be in the range of 1 and 128. The default shingle size is `8`. Choose `1` only if you have two or more features. Smaller values might increase [recall](https://en.wikipedia.org/wiki/Precision_and_recall) but also increase false positives. Larger values might be useful for ignoring noise in a signal.
 
-#### (Advanced settings) Set an imputation option
+### (Advanced settings) Set an imputation option
 
-The Imputation option allows you to address missing data in your streams. You can choose from the following methods to handle gaps:
+The imputation option allows you to address missing data in your streams. You can choose from the following methods to handle gaps:
 
-- **Ignore Missing Data (Default):** The system continues without factoring in missing data points, maintaining the existing data flow.
+- **Ignore Missing Data (Default):** The system continues without considering missing data points, keeping the existing data flow.
 - **Fill with Custom Values:** Specify a custom value for each feature to replace missing data points, allowing for targeted imputation tailored to your data.
-- **Fill with Zeros:** Replace missing values with zeros, ideal when the absence of data itself indicates a significant event, such as a drop to zero in event counts.
-- **Use Previous Values:** Fill gaps with the last observed value, maintaining continuity in your time series data. This method treats missing data as non-anomalous, carrying forward the previous trend.
+- **Fill with Zeros:** Replace missing values with zeros. This is ideal when the absence of data indicates a significant event, such as a drop to zero in event counts.
+- **Use Previous Values:** Fill gaps with the last observed value to maintain continuity in your time-series data. This method treats missing data as non-anomalous, carrying forward the previous trend.
 
-Using these options can improve recall in anomaly detection. For instance, if you're monitoring for drops in event counts, including both partial and complete drops, filling missing values with zeros helps detect significant data absences, improving detection recall.
+Using these options can improve recall in anomaly detection. For instance, if you are monitoring for drops in event counts, including both partial and complete drops, filling missing values with zeros helps detect significant data absences, improving detection recall.
 
-Note: Be cautious when imputing extensively missing data, as excessive gaps can compromise model accuracy. Remember, quality input is critical—poor data quality will lead to poor model performance. You can determine whether a feature value has been imputed using the `feature_imputed` field in the anomaly result index.  For more information, see [Anomaly result mapping]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/result-mapping).
+Be cautious when imputing extensively missing data, as excessive gaps can compromise model accuracy. Quality input is critical---poor data quality leads to poor model performance. You can check whether a feature value has been imputed using the `feature_imputed` field in the anomaly result index. See [Anomaly result mapping]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/result-mapping) for more information.
+{: note}
 
-#### (Advanced settings) Suppressing Anomalies with Threshold-Based Rules
+### (Advanced settings) Suppressing anomalies with threshold-based rules
 
 You can suppress anomalies by setting rules that define acceptable differences between the expected and actual values, either as an absolute value or a relative percentage. This helps reduce false anomalies caused by minor fluctuations, allowing you to focus on significant deviations.
 
-Suppose you want to detect substantial changes in log volume while ignoring small variations that aren't meaningful. Without customized settings, the system might generate false alerts for minor changes, making it difficult to identify true anomalies. By setting suppression rules, you can filter out minor deviations and hone in on genuinely anomalous patterns.
+Suppose you want to detect substantial changes in log volume while ignoring small variations that are not meaningful. Without customized settings, the system might generate false alerts for minor changes, making it difficult to identify true anomalies. By setting suppression rules, you can ignore minor deviations and focus on real anomalous patterns.
 
-If you want to suppress anomalies for deviations smaller than 30% from the expected value, you can set the following rules:
+To suppress anomalies for deviations smaller than 30% from the expected value, you can set the following rules:
 
 ```
 Ignore anomalies for feature logVolume when the actual value is no more than 30% above the expected value.
 Ignore anomalies for feature logVolume when the actual value is no more than 30% below the expected value.
 ```
 
-Note: Ensure that a feature (e.g., logVolume) is properly defined in your model, as suppression rules are tied to specific features.
+Ensure that a feature, for example, `logVolume`, is properly defined in your model. Suppression rules are tied to specific features.
+{: .note}
 
 If you expect that the log volume should differ by at least 10,000 from the expected value before being considered an anomaly, you can set absolute thresholds:
 
@@ -203,9 +215,9 @@ Ignore anomalies for feature logVolume when the actual value is no more than 100
 Ignore anomalies for feature logVolume when the actual value is no more than 10000 below the expected value.
 ```
 
-If no custom suppression rules are set, the system defaults to a filter that ignores anomalies with deviations of less than 20% from the expected value for each enabled feature.
+If no custom suppression rules are set, then the system defaults to a filter that ignores anomalies with deviations of less than 20% from the expected value for each enabled feature.
 
-#### Preview sample anomalies
+### Preview sample anomalies
 
 Preview sample anomalies and adjust the feature settings if needed.
 For sample previews, the Anomaly Detection plugin selects a small number of data samples---for example, one data point every 30 minutes---and uses interpolation to estimate the remaining data points to approximate the actual feature data. It loads this sample dataset into the detector. The detector uses this sample dataset to generate a sample preview of anomaly results.

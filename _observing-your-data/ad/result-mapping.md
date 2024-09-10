@@ -9,9 +9,9 @@ redirect_from:
 
 # Anomaly result mapping
 
-If you enabled custom result index, the anomaly detection plugin stores the results in your own index.
+If you enabled custom result index, the Anomaly Detection plugin stores the results in your own index.
 
-If the anomaly detector doesn’t detect an anomaly, the result has the following format:
+If the anomaly detector does not detect an anomaly, the result has the following format:
 
 ```json
 {
@@ -80,9 +80,9 @@ Field | Description
 `model_id` | A unique ID that identifies a model. If a detector is a single-stream detector (with no category field), it has only one model. If a detector is a high-cardinality detector (with one or more category fields), it might have multiple models, one for each entity.
 `threshold` | One of the criteria for a detector to classify a data point as an anomaly is that its `anomaly_score` must surpass a dynamic threshold. This field records the current threshold.
 
-When the imputation option is enabled, the anomaly result output will include a `feature_imputed` array, indicating whether each feature has been imputed. This information helps you understand which features were modified during the anomaly detection process due to missing data. If no features were imputed, the feature_imputed array will be omitted from the results.
+When the imputation option is enabled, the anomaly result output includes a `feature_imputed` array, showing which features have been imputed. This information helps you identify which features were modified during the anomaly detection process due to missing data. If no features were imputed, then the `feature_imputed` array is excluded from the results.
 
-In the following example, the feature processing_bytes_max was imputed, as indicated by the `imputed: true` status:
+In this example, the feature `processing_bytes_max` was imputed, as indicated by the `imputed: true` status:
 
 ```json
 {
