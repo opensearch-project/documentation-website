@@ -183,6 +183,8 @@ Set the number of aggregation intervals from your data stream to consider in a d
 
 The anomaly detector requires the shingle size to be between 1 and 128. The default is `8`. Use `1` only if you have at least two features. Values less than `8` may increase [recall](https://en.wikipedia.org/wiki/Precision_and_recall), but also increase false positives. Values greater than `8` may be useful for ignoring noise in a signal.
 
+To set the shingle size, select **Show** on the **Advanced settings** pane. Enter the desired size in the **intervals** field.
+
 ### (Advanced settings) Set an imputation option
 
 The imputation option allows you to address missing data in your streams. You can choose from the following methods to handle gaps:
