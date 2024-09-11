@@ -76,7 +76,7 @@ Follow these steps to set up your local copy of the repository:
 
 1. [Fork this repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo) and clone your fork.
 
-2. Navigate to your cloned repository.
+1. Navigate to your cloned repository.
 
 ##### Building with locally-installed packages 
 
@@ -88,13 +88,13 @@ Follow these steps to set up your local copy of the repository:
    ruby -v
    ```
 
-2. Install [Bundler](https://bundler.io/) if you don't already have it:
+1. Install [Bundler](https://bundler.io/) if you don't already have it:
 
    ```
    gem install bundler
    ```
 
-3. Install Jekyll and all the dependencies:
+1. Install Jekyll and all the dependencies:
 
    ```
    bundle install
