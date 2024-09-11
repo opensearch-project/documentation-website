@@ -42,7 +42,7 @@ To use a remote index as a data source for a detector, see [Authentication flow]
 
 ---
 
-#### Example: Create new user on local cluster
+#### Example: Create a new user on local cluster
 
 1. Create a new user on the local cluster to use for creating detectors:
 
