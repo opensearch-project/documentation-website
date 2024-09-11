@@ -76,7 +76,9 @@ Follow these steps to set up your local copy of the repository:
 
 1. [Fork this repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo) and clone your fork.
 
-1. Navigate to your cloned repository.
+2. Navigate to your cloned repository.
+
+##### Building with locally-installed packages 
 
 1. Install [Ruby](https://www.ruby-lang.org/en/) if you don't already have it. We recommend [RVM](https://rvm.io/), but you can use any method you prefer:
 
@@ -86,16 +88,24 @@ Follow these steps to set up your local copy of the repository:
    ruby -v
    ```
 
-1. Install [Bundler](https://bundler.io/) if you don't already have it:
+2. Install [Bundler](https://bundler.io/) if you don't already have it:
 
    ```
    gem install bundler
    ```
 
-1. Install Jekyll and all the dependencies:
+3. Install Jekyll and all the dependencies:
 
    ```
    bundle install
+   ```
+
+##### Building with containerization
+
+1. Assuming you have `docker-compose` installed, execute
+
+   ```
+   docker compose -f docker-compose.dev.yml up
    ```
 
 #### Troubleshooting
