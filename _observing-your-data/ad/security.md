@@ -49,7 +49,7 @@ Create a new user on the local cluster from which you’ll create detectors from
 curl -XPUT -k -u 'admin:<custom-admin-password>' 'https://localhost:9200/_plugins/_security/api/internalusers/anomalyuser' -H 'Content-Type: application/json' -d '{"password":"password"}'
 ```
 
-Map the new user to the anomaly_full_access role:
+Map the new user to the `anomaly_full_access` role:
 
 ```
 curl -XPUT -k -u 'admin:<custom-admin-password>' -H 'Content-Type: application/json' 'https://localhost:9200/_plugins/_security/api/rolesmapping/anomaly_full_access' -d '{"users" : ["anomalyuser"]}'
