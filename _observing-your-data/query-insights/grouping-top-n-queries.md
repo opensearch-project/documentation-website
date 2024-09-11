@@ -9,13 +9,13 @@ nav_order: 20
 **Introduced 2.17**
 {: .label .label-purple }
 
-Monitoring the [top N queries]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/) helps identify the most resource-intensive queries based on latency, CPU, and memory usage over a specified time window. However, if a single computationally-expensive query is executed multiple times, it can occupy all top N query slots, potentially preventing other expensive queries from appearing in the list. To address this issue, you can group similar queries, gaining insight into various high-impact query groups.
+Monitoring the [top N queries]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/) can help you to identify the most resource-intensive queries based on latency, CPU, and memory usage in a specified time window. However, if a single computationally expensive query is executed multiple times, it can occupy all top N query slots, potentially preventing other expensive queries from appearing in the list. To address this issue, you can group similar queries, gaining insight into various high-impact query groups.
 
-Starting with OpenSearch version 2.17, top N queries can be grouped by `similarity`, with additional grouping options planned for future releases. 
+Starting with OpenSearch version 2.17, the top N queries can be grouped by `similarity`, with additional grouping options planned for future version releases. 
 
 ## Grouping queries by similarity
 
-Grouping queries by `similarity` organizes them based on the query structure, stripping out everything except the core query operations.
+Grouping queries by `similarity` organizes them based on the query structure, removing everything except the core query operations.
 
 For example, the following query:
 
@@ -60,13 +60,13 @@ The response also includes one example query from the query group.
 
 Before you enable query grouping, you must enable top N query monitoring for a metric type of your choice. For more information, see [Configuring top N query monitoring]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/#configuring-top-n-query-monitoring).
 
-To configure grouping for Top N queries, follow these steps:
+To configure grouping for top N queries, use the following steps.
 
 ### Step 1: Enable top N query monitoring 
 
-Ensure that Top N is enabled for at least one of the metrics: latency, CPU, or memory. For more information, see [Configuring Top N query monitoring]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/#configuring-top-n-query-monitoring).
+Ensure that top N query monitoring is enabled for at least one of the metrics: latency, CPU, or memory. For more information, see [Configuring Top N query monitoring]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/#configuring-top-n-query-monitoring).
 
-For example, to enable top N query monitoring by latency with default settings, send the following request:
+For example, to enable top N query monitoring by latency with the default settings, send the following request:
 
 ```json
 PUT _cluster/settings
@@ -92,11 +92,11 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-The default value for the `group_by` setting is `none`, which disables grouping. As of OpenSearch 2.17, the supported values for group_by are `similarity` and `none`.
+The default value for the `group_by` setting is `none`, which disables grouping. As of OpenSearch 2.17, the supported values for `group_by` are `similarity` and `none`.
 
-### Step 3 (Optional): Set a limit on the number of query groups to monitor
+### Step 3 (Optional): Limit the number of monitored query groups
 
-Optionally, you can set a limit on the number of query groups to monitor. Queries that are already part of the top N query list (the most resource-intensive queries) will not count toward that limit. Essentially, the maximum applies only to other query groups, and the top N queries are tracked separately. This helps manage the tracking of query groups based on workload and query window size. 
+Optionally, you can limit the number of monitored query groups. Queries already included in the top N query list (the most resource-intensive queries) will not be considered in determining the limit. Essentially, the maximum applies only to other query groups, and the top N queries are tracked separately. This helps manage the tracking of query groups based on workload and query window size. 
 
 To limit tracking to 100 query groups, send the following request:
 
@@ -316,12 +316,12 @@ Field | Data type        | Description
 `top_queries` | Array | The list of top query groups.
 `top_queries.timestamp` | Integer          | The execution timestamp for the first query in the query group.
 `top_queries.source` | Object           | The first query in the query group.
-`top_queries.phase_latency_map` | Object           | The phase latency map for the first query in the query group. The map includes the times in milliseconds the query spent in `expand`, `query`, and `fetch` phases.
+`top_queries.phase_latency_map` | Object           | The phase latency map for the first query in the query group. The map includes the amount of time, in milliseconds, that the query spent in the `expand`, `query`, and `fetch` phases.
 `top_queries.total_shards` | Integer          | The number of shards on which the first query was executed.
 `top_queries.node_id` | String           | The node ID of the node that coordinated the execution of the first query in the query group.
-`top_queries.query_hashcode` | String           | The hashcode that uniquely identifies the query group. This is essentially the hash of the [query structure](#grouping-queries-by-similarity).
-`top_queries.task_resource_usages` | Array of objects | The resource usage breakdown for the various tasks for the first query in the query group.
-`top_queries.indices` | Array | The indexes which the first query in the query group is searching.
+`top_queries.query_hashcode` | String           | The hash code that uniquely identifies the query group. This is essentially the hash of the [query structure](#grouping-queries-by-similarity).
+`top_queries.task_resource_usages` | Array of objects | The resource usage breakdown for the various tasks belonging to the first query in the query group.
+`top_queries.indices` | Array | The indexes searched by the first query in the query group.
 `top_queries.labels` | Object           | Used to label the top query.
 `top_queries.search_type` | String           | The search request execution type (`query_then_fetch` or `dfs_query_then_fetch`). For more information, see the `search_type` parameter in the [Search API documentation]({{site.url}}{{site.baseurl}}/api-reference/search/#url-parameters).
 `top_queries.measurements` | Object           | The aggregate measurements for the query group.
