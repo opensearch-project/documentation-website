@@ -8,14 +8,14 @@ redirect_from:
 
 # Index context
 
-Context can be used to declare the use case for which you are building your index. 
-Using the context information, OpenSearch can apply a pre-determined set of settings, and mappings to do the heavy-lifting around ensuring:
+Context can be used to declare the use case the index is built for. 
+Using the context information, OpenSearch will apply the pre-determined set of settings, and mappings to do the heavy-lifting to ensure:
 
-1. Available performance optimizations are applied for the index.
+1. Optimized performance for the index.
 2. Existing settings are tuned according to the use-case.
-3. Mappings/Aliases based on [OpenSearch Integrations]({{site.url}}{{site.baseurl}}/integrations/)  are applied on the index if applicable.
+3. Accurate Mappings/Aliases based on [OpenSearch Integrations]({{site.url}}{{site.baseurl}}/integrations/)  are applied on the index if applicable.
 
-These metadata parameters applied are backed by component templates which are automatically loaded when your cluster comes up. These component templates are prefixed with `@abc_template@`, and can only be used based on the usage pattern outlined in this document.
+These settings and metadata configuration that are applied is powered by component templates which are automatically loaded when your cluster comes up. These component templates are prefixed with `@abc_template@`, and can only be used based on the usage pattern outlined in this document.
 {: .important}
 
 The `context` parameter is available on indices and index templates as an experimental feature starting OpenSearch 2.17
@@ -34,7 +34,7 @@ In order to use the `context` field while creating an index or index-template:
 
 ### Create Index
 
-For example, if you are using your indices to store metrics data, you can declare `metrics` as a context on your index:
+For example, if you are using your indices to store metrics data, you can declare `metrics` as the context on your index:
 
 ````
 ```json
@@ -49,7 +49,7 @@ PUT /my-metrics-index
 ````
 
 
-After creation, the index will have the context added to it, and also few settings applied:
+After creation, the index will have the context added to it, and also have few settings applied:
 
 
 ````
@@ -155,7 +155,7 @@ If there is any overlap between settings/mappings/aliases declared by your templ
 
 ## Available Templates for Context
 
-Following templates are available to be used through the `context` parameter as of today:
+Following templates are available to be used through the `context` parameter as of OpenSearch 2.17:
 
 1. logs
 2. metrics
