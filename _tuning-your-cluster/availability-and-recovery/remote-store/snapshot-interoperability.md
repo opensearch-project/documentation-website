@@ -46,7 +46,7 @@ Starting with OpenSearch 2.17, the shallow snapshot feature has been improved wi
 * Minimized cluster state updates: Shallow snapshot v2  minimizes the number of cluster state updates required during snapshot operations, reducing overhead and improving performance.
 * Scalability: Shallow snapshot v2 allows snapshot operations to scale independently of the number of shards in the cluster, enabling better performance and efficiency for large datasets.
 
-Shallow snapshot v2 must be enabled seperately from shallow copies to receive these benefits.
+Shallow snapshot v2 must be enabled separately from shallow copies to receive these benefits.
 
 ### Enabling Shallow Snapshot v2
 
