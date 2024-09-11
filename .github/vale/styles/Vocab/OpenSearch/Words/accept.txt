@@ -102,6 +102,7 @@ p\d{2}
 [Rr]eenable
 [Rr]eindex
 [Rr]eingest
+[Rr]eprovision(ed|ing)?
 [Rr]erank(er|ed|ing)?
 [Rr]epo
 [Rr]ewriter
