@@ -1,6 +1,6 @@
 ---
 layout: default
-title: ASCII Folding
+title: ASCII folding
 parent: Token filters
 nav_order: 20
 ---
@@ -12,7 +12,7 @@ The `asciifolding` token filter converts non-ASCII characters to their closest A
 
 The `asciifolding` token filter offers a number of benefits:
 
-  - **Enhanced search flexibility**: Users often omit accents or special characters when typing queries. The `asciifolding` token filter ensures that such queries still return relevant results.
+  - **Enhanced search flexibility**: Users often omit accents or special characters when entering queries. The `asciifolding` token filter ensures that such queries still return relevant results.
   - **Normalization**: Standardizes the indexing process by ensuring that accented characters are consistently converted to their ASCII equivalents.
   - **Internationalization**: Particularly useful for applications including multiple languages and character sets.
 
@@ -56,7 +56,7 @@ PUT /example_index
 
 ## Generated tokens
 
-Use the following request to examine the tokens generated using the created analyzer:
+Use the following request to examine the tokens generated using the analyzer:
 
 ```json
 POST /example_index/_analyze
