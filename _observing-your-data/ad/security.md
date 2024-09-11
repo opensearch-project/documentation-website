@@ -62,7 +62,7 @@ curl -XPUT -k -u 'admin:<custom-admin-password>' 'https://localhost:9250/_plugin
 curl -XPUT -k -u 'admin:<custom-admin-password>' -H 'Content-Type: application/json' 'https://localhost:9250/_plugins/_security/api/rolesmapping/anomaly_full_access' -d '{"users" : ["anomalyuser"]}'
 ```
 
-### Custom result index
+### Custom results index
 
 In order to use a custom result index users will need to have additional permissions that aren't part of the default roles that OpenSearch Security plugin offers. Users will have to add additional permissions as mentioned in the custom result index set up step in [define detector]({{site.url}}{{site.baseurl}}/observing-your-data/ad/index/#step-1-define-a-detector).
 
