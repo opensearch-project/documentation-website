@@ -55,7 +55,7 @@ Map the new user to the anomaly_full_access role:
 curl -XPUT -k -u 'admin:<custom-admin-password>' -H 'Content-Type: application/json' 'https://localhost:9200/_plugins/_security/api/rolesmapping/anomaly_full_access' -d '{"users" : ["anomalyuser"]}'
 ```
 
-On the remote cluster, create the same user, and map anomaly_full_access to that role:
+On the remote cluster, create the same user and map `anomaly_full_access` to that role:
 
 ```
 curl -XPUT -k -u 'admin:<custom-admin-password>' 'https://localhost:9250/_plugins/_security/api/internalusers/anomalyuser' -H 'Content-Type: application/json' -d '{"password":"password"}'
