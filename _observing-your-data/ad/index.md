@@ -30,7 +30,7 @@ A _detector_ is an individual anomaly detection task. You can define multiple de
 
 1. Choose **Create detector**.
 1. Add the detector details.
-   - Enter a name and brief description. Make sure the name is unique and descriptive enough to help you to identify the detector's purpose.
+   - Enter a name that describes the detector's intended use.
 1. Specify the data source.
    - For **Data source**, choose the index you want to use as the data source. You can optionally use index patterns to choose multiple indexes.
    - (Optional) For **Data filter**, filter the index you chose as the data source. From the **Data filter** menu, choose **Add data filter**, and then design your filter query by selecting **Field**, **Operator**, and **Value**, or choose **Use query DSL** and add your own JSON filter query. Only [Boolean queries]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/) are supported for query domain-specific language (DSL).
