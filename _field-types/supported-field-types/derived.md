@@ -69,7 +69,7 @@ PUT logs
           }
         }
       },
-      "client_ip": {
+      "clientip": {
         "type": "keyword"
       }
     }
