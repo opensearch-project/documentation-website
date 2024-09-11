@@ -38,11 +38,11 @@ To reduce the chances of unintended users viewing metadata that could describe a
 
 ### Selecting remote indexes with fine-grained access control
 
-To use a remote index as a data source for a detector, see [Authentication flow]({{site.url}}{{site.baseurl}}/search-plugins/cross-cluster-search/#authentication-flow) in [Cross-cluster search]({{site.url}}{{site.baseurl}}/search-plugins/cross-cluster-search/). You must use a role that exists in both the remote and local clusters. The remote cluster must map the chosen role to the same username as in the local cluster.
+To use a remote index as a data source for a detector, see the setup steps in [Authentication flow]({{site.url}}{{site.baseurl}}/search-plugins/cross-cluster-search/#authentication-flow) in [Cross-cluster search]({{site.url}}{{site.baseurl}}/search-plugins/cross-cluster-search/). You must use a role that exists in both the remote and local clusters. The remote cluster must map the chosen role to the same username as in the local cluster.
 
 ---
 
-#### Example: Create new user on local cluster
+#### Example: Create a new user on local cluster
 
 1. Create a new user on the local cluster to use for creating detectors:
 
