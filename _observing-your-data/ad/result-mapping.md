@@ -9,7 +9,7 @@ redirect_from:
 
 # Anomaly result mapping
 
-If you enabled custom result index, the Anomaly Detection plugin stores the results in your own index.
+If **Custom result index** is enabled, the Anomaly Detection plugin stores the results in your own index.
 
 If the anomaly detector does not detect an anomaly, the result has the following format:
 
