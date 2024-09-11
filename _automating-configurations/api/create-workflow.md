@@ -72,6 +72,18 @@ PUT /_plugins/_flow_framework/workflow/<workflow_id>?update_fields=true
 You cannot specify both the `provision` and `update_fields` parameters at the same time.
 {: .note}
 
+If a workflow has been provisioned, you can update and reprovision the full template:
+
+```json
+PUT /_plugins/_flow_framework/workflow/<workflow_id>?reprovision=true
+{
+  <updated complete template>
+}
+```
+
+You can add new steps to the workflow but cannot delete them. Only index setting, search pipeline, and ingest pipeline steps can currently be updated.
+{: .note}
+
 You can create and provision a workflow using a [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/) as follows:
 
 ```json
