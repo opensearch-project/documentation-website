@@ -137,7 +137,7 @@ To configure an anomaly detection model based on an aggregation method, follow t
 4. Enter a name in the **Feature name** field and select the **Enable feature** checkbox.
 5. Select **Field value** from the dropdown menu under **Find anomalies based on**.
 6. Select the desired aggregation from the dropdown menu under **Aggregation method**.
-7. Select the desired field from the available options in the dropdown menu under **Field**.
+7. Select the desired field from the available options listed in the dropdown menu under **Field**.
 8. Select the **Save changes** button.
 
 To configure an anomaly detection model based on a JSON aggregation query, follow these steps:
