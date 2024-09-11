@@ -23,7 +23,7 @@ As an admin user, you can use the Security plugin to assign specific permissions
 
 The Security plugin has two built-in roles that cover most anomaly detection use cases: `anomaly_full_access` and `anomaly_read_access`. For descriptions of each, see [Predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles).
 
-If you are using OpenSearch Dashboards to create your anomaly detectors you might notice issues creating a detector even with `anomaly_full_access`, this has been mitigated in OpenSearch 2.17. In order to mitigate this issue in prior versions, you should add these additional permissions:
+If you are using OpenSearch Dashboards to create your anomaly detectors, you may experience issues even with `anomaly_full_access`. This has been mitigated in OpenSearch 2.17. In order to mitigate this issue in prior versions, you should add these additional permissions:
 
 - `indices:data/read/search` - You need the search permission because the Anomaly Detection plugin needs to search the data source in order to validate if there is enough data to train the model.
 - `indices:admin/mappings/fields/get` and `indices:admin/mappings/fields/get*` - You need field mapping permissions since as part of detector creation we validate if the given data source has a valid timestamp field and categorical field (in case of creating a high cardinality detector)
