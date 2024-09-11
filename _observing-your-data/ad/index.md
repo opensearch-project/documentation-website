@@ -133,7 +133,6 @@ To configure an anomaly detection model based on an aggregation method, follow t
 
 1. On the **Detectors** page, select the desired detector from the listed options.
 2. One the detector's details page,  select the **Actions** button to activate the dropdown menu and then select **Edit model configuration**.
-2. From the dropdown menu, select **Edit model configuration**.
 3. On the **Edit model configuration** page, select the **Add another feature** button. 
 4. Enter a name in the **Feature name** field and select the **Enable feature** checkbox.
 5. For **Find anomalies based on**, select **Field Value**.
