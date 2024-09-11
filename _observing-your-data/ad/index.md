@@ -142,7 +142,8 @@ To configure an anomaly detection model based on an aggregation method, follow t
 
 To configure an anomaly detection model based on a JSON aggregation query, follow these steps:
 
-1. On the **Configure Model** page, enter the **Feature name** and select the **Enable feature** checkbox.
+1. On the **Edit model configuration** page, select the **Add another feature** button. 
+2. Enter a name in the **Feature name** field and select the **Enable feature** checkbox..
 1. For **Find anomalies based on**, select **Custom expression**. The JSON editor window will open.
 1. Enter your JSON aggregation query in the editor.
 
