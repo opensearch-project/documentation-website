@@ -100,6 +100,4 @@ Setting | Default  | Description
 `cluster.remote_store.index_metadata.path_type` | `HASHED_PREFIX`  | The path type used for creating an index metadata path in the blob store. Valid values are `FIXED`, `HASHED_PREFIX`, and `HASHED_INFIX`.
 `cluster.remote_store.index_metadata.path_hash_algo` | `FNV_1A_BASE64 `  | The algorithm that constructs the prefix or infix for the index metadata path in the blob store. This setting is applied if the ``cluster.remote_store.index_metadata.path_type` setting is `HASHED_PREFIX` or `HASHED_INFIX`. Valid algorithm values are `FNV_1A_BASE64` and `FNV_1A_COMPOSITE_1`.
 `cluster.remote_store.routing_table.path.prefix` | "" (Empty string) | The fixed prefix to add for the index routing files in the blob store.
-`cluster.remote_store.routing_table.path_type` | `HASHED_PREFIX`     | The path type used for creating an index routing path in the blob store. Valid values are `FIXED`, `HASHED_PREFIX`, and `HASHED_INFIX`.
-`cluster.remote_store.routing_table.path_hash_algo` | `FNV_1A_BASE64`  | The algorithm that constructs the prefix or infix of the index routing path in the blob store. This setting is applied if the `cluster.remote_store.routing_table.path_type` setting is `hashed_prefix` or `hashed_infix`. Valid algorithm values are `FNV_1A_BASE64` and `FNV_1A_COMPOSITE_1`.
   
