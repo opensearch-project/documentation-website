@@ -81,7 +81,7 @@ PUT /_plugins/_flow_framework/workflow/<workflow_id>?reprovision=true
 }
 ```
 
-You can add new steps to the workflow but not delete them. Only steps for index settings, search pipelines, and ingest pipelines are currently supported for updating.
+You can add new steps to the workflow but cannot delete them. Only index setting, search pipeline, and ingest pipeline steps can currently be updated.
 {: .note}
 
 The following table lists the available query parameters. All query parameters are optional. User-provided parameters are only allowed if the `provision` parameter is set to `true`.
