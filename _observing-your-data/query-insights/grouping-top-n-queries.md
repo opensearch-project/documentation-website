@@ -64,7 +64,7 @@ To configure grouping for top N queries, use the following steps.
 
 ### Step 1: Enable top N query monitoring 
 
-Ensure that top N query monitoring is enabled for at least one of the metrics: latency, CPU, or memory. For more information, see [Configuring Top N query monitoring]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/#configuring-top-n-query-monitoring).
+Ensure that top N query monitoring is enabled for at least one of the metrics: latency, CPU, or memory. For more information, see [Configuring top N query monitoring]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/#configuring-top-n-query-monitoring).
 
 For example, to enable top N query monitoring by latency with the default settings, send the following request:
 
