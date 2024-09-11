@@ -27,7 +27,7 @@ PUT /_snapshot/snap_repo
 ```
 {% include copy-curl.html %}
 
-Once enabled, all requests using the [Snapshot API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/index/) will remain the same for all snapshots. After the setting is enabled, we recommend not disabling the setting. Doing so could affect data durability.
+Once enabled, all requests using the [Snapshot API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/index/) will remain the same for all snapshots. Therefore, do not disable the shallow snapshot setting after it has been enabled since disabling the setting could affect data durability.
 
 ## Considerations
 
@@ -40,20 +40,22 @@ Consider the following before using shallow copy snapshots:
 
 ## Shallow snapshot v2 
 
-Starting with OpenSearch version 2.17, the shallow snapshot feature has been improved with a new version called shallow snapshot v2. This improvement aims to make snapshot operations more efficient and scalable by introducing the following enhancements:
+Starting with OpenSearch 2.17, the shallow snapshot feature has been improved with a new version called `shallow snapshot v2`. Shallow snapshot v2 aims to makes snapshot operations more efficient and scalable by introducing the following enhancements:
 
-* Deterministic Snapshot Operations: Shallow snapshot v2 makes snapshot operations more deterministic, ensuring consistent and predictable behavior.
-* Minimized Cluster State Updates: The improvement minimizes the number of cluster state updates required during snapshot operations, reducing overhead and improving performance.
+* Deterministic snapshot operations: Shallow snapshot v2 makes snapshot operations are more deterministic, ensuring consistent and predictable behavior.
+* Minimized cluster state updates: Shallow snapshot v2  minimizes the number of cluster state updates required during snapshot operations, reducing overhead and improving performance.
 * Scalability: Shallow snapshot v2 allows snapshot operations to scale independently of the number of shards in the cluster, enabling better performance and efficiency for large datasets.
 
-## Enabling Shallow Snapshot v2
+Shallow snapshot v2 must be enabled seperately from shallow copies to receive these benefits.
 
-To enable the shallow snapshot v2, you need to set two repository settings:
+### Enabling Shallow Snapshot v2
 
-1. remote_store_index_shallow_copy: Set this to true to enable the existing shallow snapshot feature.
-2. shallow_snapshot_v2: Set this to true to enable the shallow snapshot v2 improvement.
+To enable the shallow snapshot v2, enable the following repository settings:
 
-Here's an example of how to create a repository with both settings enabled:
+- `remote_store_index_shallow_copy: true`
+- `shallow_snapshot_v2: true`
+
+The following example creates a shallow snapshot v2 repository:
 
 ```bash
 PUT /_snapshot/snap_repo
@@ -69,7 +71,9 @@ PUT /_snapshot/snap_repo
 ```
 {% include copy-curl.html %}
 
-## Limitations and Caveats
+### Limitations 
 
-* Shallow snapshot v2 only work for remote-backed indexes.
+Shallow snapshots v2 have the following limitations:
+
+* Shallow snapshot v2 only works for remote-backed indexes.
 * All nodes in the cluster must use OpenSearch 2.17 or later to take advantage of shallow snapshot v2.
