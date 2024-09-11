@@ -48,7 +48,7 @@ Starting with OpenSearch 2.17, the shallow snapshot feature has been improved wi
 
 Shallow snapshot v2 must be enabled separately from shallow copies to receive these benefits.
 
-### Enabling Shallow Snapshot v2
+### Enabling shallow nnapshot v2
 
 To enable the shallow snapshot v2, enable the following repository settings:
 
