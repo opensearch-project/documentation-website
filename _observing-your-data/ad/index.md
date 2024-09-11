@@ -10,7 +10,7 @@ redirect_from:
 
 # Anomaly detection
 
-An anomaly in OpenSearch is any unusual behavior change in your time-series data. Anomalies can provide valuable insights into your data. For example, for IT infrastructure data, an anomaly in the memory usage metric might help you uncover early signs of a system failure.
+An _anomaly_ in OpenSearch is any unusual behavior change in your time-series data. Anomalies can provide valuable insights into your data. For example, for IT infrastructure data, an anomaly in the memory usage metric might help you uncover early signs of a system failure.
 
 It can be challenging to discover anomalies using conventional methods such as creating visualizations and dashboards. You could configure an alert based on a static threshold, but this requires prior domain knowledge and isn't adaptive to data that exhibits organic growth or seasonal behavior.
 
@@ -29,7 +29,7 @@ A detector is an individual anomaly detection task. You can define multiple dete
 1. Add in the detector details.
    - Enter a name and brief description. Make sure the name is unique and descriptive enough to help you to identify the purpose of the detector.
 1. Specify the data source.   
-   - For **Data source**, choose one or more indexes to use as the data source. Alternatively, you can use an alias or index patterns to choose multiple indexes. 
+   - For **Data source**, choose one or more indexes to use as the data source. Alternatively, you can use an alias or index pattern to choose multiple indexes. 
    - Detectors can use remote indexes. You can access them using the `cluster-name:index-name` pattern, as used in [cross-cluster search]({{site.url}}{{site.baseurl}}/search-plugins/cross-cluster-search/). Alternatively, you can select clusters and indexes in OpenSearch Dashboards 2.17 or later. For more information about configuring remote indexes with the Security plugin enabled, see [here]({{site.url}}{{site.baseurl}}/observing-your-data/ad/security/#selecting-remote-indexes-with-fine-grained-access-control).
    - (Optional) For **Data filter**, filter the index you chose as the data source. From the **Data filter** menu, choose **Add data filter**, and then design your filter query by selecting **Field**, **Operator**, and **Value**, or choose **Use query DSL** and add your own JSON filter query. Only [Boolean queries]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/) are supported for query domain-specific language (DSL).
 

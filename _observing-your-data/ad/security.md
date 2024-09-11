@@ -25,8 +25,8 @@ The Security plugin has two built-in roles that cover most anomaly detection use
 
 If you are using OpenSearch Dashboards to create your anomaly detectors, you may experience issues even with `anomaly_full_access`. This has been mitigated in OpenSearch 2.17. In order to mitigate this issue in prior versions, you should add these additional permissions:
 
-- `indices:data/read/search` - You need the search permission because the Anomaly Detection plugin needs to search the data source in order to validate if there is enough data to train the model.
-- `indices:admin/mappings/fields/get` and `indices:admin/mappings/fields/get*` - You need field mapping permissions since as part of detector creation we validate if the given data source has a valid timestamp field and categorical field (in case of creating a high cardinality detector)
+- `indices:data/read/search` -- You need this permission because the Anomaly Detection plugin needs to search the data source in order to validate whether there is enough data to train the model.
+- `indices:admin/mappings/fields/get` and `indices:admin/mappings/fields/get*` -- You need these permissions to validate whether the given data source has a valid timestamp field and categorical field (in the case of creating a high-cardinality detector).
 
 If these roles don't meet your needs, mix and match individual anomaly detection [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/) to suit your use case. Each action corresponds to an operation in the REST API. For example, the `cluster:admin/opensearch/ad/detector/delete` permission lets you delete detectors.
 
@@ -36,35 +36,41 @@ When a trigger generates an alert, the detector and monitor configurations, the 
 
 To reduce the chances of unintended users viewing metadata that could describe an index, we recommend that administrators enable role-based access control and keep these kinds of design elements in mind when assigning permissions to the intended group of users. See [Limit access by backend role](#advanced-limit-access-by-backend-role) for details.
 
-
 ### Selecting remote indexes with fine-grained access control
 
-In order to specify a remote index as the data source for a detector you must follow similar instruction as mentioned in the cross-cluster search [documentation]({{site.url}}{{site.baseurl}}/search-plugins/cross-cluster-search/#authentication-flow). By utilizing a role that exists in the both the remote and local cluster.The remote cluster will need to have the mapping between the chosen role and the same user name as in the local cluster. 
+To use a remote index as a data source for a detector, see [Authentication flow]({{site.url}}{{site.baseurl}}/search-plugins/cross-cluster-search/#authentication-flow) in [Cross-cluster search]({{site.url}}{{site.baseurl}}/search-plugins/cross-cluster-search/). You must use a role that exists in both the remote and local clusters. The remote cluster must map the chosen role to the same username as in the local cluster.
 
-For example:
+---
 
-Create a new user on the local cluster from which you’ll create detectors from:
+#### Example: Create new user on local cluster
+
+1. Create a new user on the local cluster to use for creating detectors:
 
 ```
 curl -XPUT -k -u 'admin:<custom-admin-password>' 'https://localhost:9200/_plugins/_security/api/internalusers/anomalyuser' -H 'Content-Type: application/json' -d '{"password":"password"}'
 ```
+{% include copy-curl.html %}
 
-Map the new user to the `anomaly_full_access` role:
+2. Map the new user to the `anomaly_full_access` role:
 
 ```
 curl -XPUT -k -u 'admin:<custom-admin-password>' -H 'Content-Type: application/json' 'https://localhost:9200/_plugins/_security/api/rolesmapping/anomaly_full_access' -d '{"users" : ["anomalyuser"]}'
 ```
+{% include copy-curl.html %}
 
-On the remote cluster, create the same user and map `anomaly_full_access` to that role:
+3. On the remote cluster, create the same user and map `anomaly_full_access` to that role:
 
 ```
 curl -XPUT -k -u 'admin:<custom-admin-password>' 'https://localhost:9250/_plugins/_security/api/internalusers/anomalyuser' -H 'Content-Type: application/json' -d '{"password":"password"}'
 curl -XPUT -k -u 'admin:<custom-admin-password>' -H 'Content-Type: application/json' 'https://localhost:9250/_plugins/_security/api/rolesmapping/anomaly_full_access' -d '{"users" : ["anomalyuser"]}'
 ```
+{% include copy-curl.html %}
+
+---
 
 ### Custom results index
 
-In order to use a custom results index, users need additional permissions that aren't included in the default roles provided by the OpenSearch Security plugin. Users need to add additional permissions, as mentioned in the custom result index setup step in [define detector]({{site.url}}{{site.baseurl}}/observing-your-data/ad/index/#step-1-define-a-detector).
+To use a custom results index, you need additional permissions not included in the default roles provided by the OpenSearch Security plugin. To add these permission, see [Step 1: Define a detector]({{site.url}}{{site.baseurl}}/observing-your-data/ad/index/#step-1-define-a-detector) of the [Anomaly detection]({{site.url}}{{site.baseurl}}/observing-your-data/ad/index/) documentation.
 
 ## (Advanced) Limit access by backend role
 
