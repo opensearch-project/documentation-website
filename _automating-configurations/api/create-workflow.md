@@ -82,6 +82,16 @@ POST /_plugins/_flow_framework/workflow?use_case=<use_case>&provision=true
 ```
 {% include copy-curl.html %}
 
+You can create and provision a workflow using a [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/) as follows:
+
+```json
+POST /_plugins/_flow_framework/workflow?use_case=<use_case>&provision=true
+{
+    "create_connector.credential.key" : "<YOUR API KEY>"
+}
+```
+{% include copy-curl.html %}
+
 The following table lists the available query parameters. All query parameters are optional. User-provided parameters are only allowed if the `provision` parameter is set to `true`.
 
 | Parameter | Data type | Description |
