@@ -176,7 +176,7 @@ This formula serves as a starting point. Make sure to test it with a representat
 
 Set the number of aggregation intervals from your data stream to consider in a detection window. It’s best to choose this value based on your actual data to see which one leads to the best results for your use case.
 
-The anomaly detector expects the shingle size to be in the range of 1 and 128. The default shingle size is `8`. Choose `1` only if you have two or more features. Smaller values might increase [recall](https://en.wikipedia.org/wiki/Precision_and_recall) but also increase false positives. Larger values might be useful for ignoring noise in a signal.
+The anomaly detector requires the shingle size to be between 1 and 128. The default is `8`. Use `1` only if you have at least two features. Values less than `8` may increase [recall](https://en.wikipedia.org/wiki/Precision_and_recall), but also increase false positives. Values greater than `8` may be useful for ignoring noise in a signal.
 
 ### (Advanced settings) Set an imputation option
 
