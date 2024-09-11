@@ -132,7 +132,7 @@ A multi-feature model correlates anomalies across all its features. The [curse o
 To configure an anomaly detection model based on an aggregation method, follow these steps:
 
 1. On the **Configure model** page, enter the **Feature name** and select the **Enable feature** checkbox.
-1. For **Find anomalies based on**, select **Field Value**.
+5. For **Find anomalies based on**, select **Field Value**.
 1. For **aggregation method**, select either **average()**, **count()**, **sum()**, **min()**, or **max()**.
 1. For **Field**, select from the available options.
 
