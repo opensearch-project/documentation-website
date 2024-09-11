@@ -7,7 +7,7 @@ nav_order: 10
 
 # Top N queries
 
-Monitoring the top N queries using query insights allows you to gain real-time visibility into the queries with the greatest latency or resource consumption over a specified time period (for example, the last hour).
+Monitoring the top N queries using query insights allows you to gain real-time visibility into the queries with the highest latency or resource consumption in a specified time period (for example, the last hour).
 
 ## Configuring top N query monitoring
 
@@ -96,7 +96,7 @@ GET /_insights/top_queries?type=memory
 ```
 {% include copy-curl.html %}
 
-If your query returns no results, ensure that top N is enabled for the target metric type and that search requests were made within the current [time window](#configuring-the-window-size).
+If your query returns no results, ensure that top N query monitoring is enabled for the target metric type and that search requests were made within the current [time window](#configuring-the-window-size).
 {: .important}
 
 ## Exporting top N query data
