@@ -38,7 +38,7 @@ Consider the following before using shallow copy snapshots:
 - The `incremental` file count and size between the current snapshot and the last snapshot is `0` when using shallow copy snapshots.
 - Searchable snapshots are not supported inside shallow copy snapshots.
 
-# Shallow Snapshot v2 (OpenSearch 2.17+)
+## Shallow snapshot v2 
 
 Starting with OpenSearch version 2.17, the shallow snapshot feature has been improved with a new version called shallow snapshot v2. This improvement aims to make snapshot operations more efficient and scalable by introducing the following enhancements:
 
