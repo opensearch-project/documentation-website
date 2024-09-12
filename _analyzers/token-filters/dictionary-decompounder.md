@@ -50,7 +50,7 @@ PUT /decompound_example
 
 ## Generated tokens
 
-Use the following request to examine the tokens generated using the created analyzer:
+Use the following request to examine the tokens generated using the analyzer:
 
 ```json
 POST /decompound_example/_analyze
