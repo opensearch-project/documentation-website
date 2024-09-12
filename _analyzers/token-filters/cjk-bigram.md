@@ -16,26 +16,16 @@ The `cjk_bigram` token filter can be configured with two parameters: `ignore_scr
 
 ### `ignore_scripts`
 
-The `cjk-bigram` token filter ignores all non-CJK scripts (writing systems like Latin or Cyrillic) and tokenizes only CJK text into bigrams. Use this option to specify CJK scripts to be ignored.  This option takes the following valid values:
+The `cjk-bigram` token filter ignores all non-CJK scripts (writing systems like Latin or Cyrillic) and tokenizes only CJK text into bigrams. Use this option to specify CJK scripts to be ignored. This option takes the following valid values:
 
-1. `han` Token Filter
+- `han`: The `han` script is used to handle han characters. [Han characters](https://simple.wikipedia.org/wiki/Chinese_characters) are logograms used in the written languages of China, Japan, and Korea. The filter can help in text processing tasks like tokenizing, normalizing, or stemming text written in Chinese, Japanese Kanji, or Korean Hanja.
 
-    The `han` script is used to handle han characters. [Han characters](https://simple.wikipedia.org/wiki/Chinese_characters) are logograms used in the written languages of China, Japan, and Korea.
-    The filter can help in text processing tasks like tokenizing, normalizing, or stemming text written in Chinese, Japanese Kanji, or Korean Hanja.
+- `hangul`: The `hangul` script is specific to the Hangul script, which is the alphabet used to write the Korean language. This filter is useful for processing Korean text by handling Hangul syllables, which are unique to Korean and do not exist in other East Asian scripts.
 
-2. `hangul` Token Filter
-
-    The `hangul` token filter is specific to the Hangul script, which is the alphabet used to write the Korean language.
-    This filter is useful for processing Korean text by handling Hangul syllables, which are unique to Korean and do not exist in other East Asian scripts.
-
-3. `hiragana` Token Filter
-
-    The `hiragana` token filter is used for processing Hiragana, one of the two syllabaries used in the Japanese writing system.
+- `hiragana`: The `hiragana` script is used for processing Hiragana, one of the two syllabaries used in the Japanese writing system.
     Hiragana is typically used for native Japanese words, grammatical elements, and certain forms of punctuation.
 
-4. `katakana` Token Filter
-
-    The `katakana` token filter is for Katakana, the other syllabary used in Japanese.
+- `katakana`: The `katakana` script is for Katakana, the other syllabary used in Japanese.
     Katakana is mainly used for foreign loanwords, onomatopoeia, scientific names, and certain Japanese words.
 
 
