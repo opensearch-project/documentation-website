@@ -48,7 +48,7 @@ PUT /edge_ngram_example
 
 ## Generated tokens
 
-Use the following request to examine the tokens generated using the created analyzer:
+Use the following request to examine the tokens generated using the analyzer:
 
 ```json
 POST /edge_ngram_example/_analyze
