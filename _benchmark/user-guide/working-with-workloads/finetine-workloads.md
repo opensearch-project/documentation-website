@@ -2,7 +2,10 @@
 layout: default
 title: Fine-tuning custom workloads
 nav_order: 12
-parent: User guide
+grand_parent: User guide
+parent: Working with workloads
+redirect_from: 
+  - /benchmark/user-guide/fine-workloads/
 ---
 
 # Fine-tuning custom workloads
