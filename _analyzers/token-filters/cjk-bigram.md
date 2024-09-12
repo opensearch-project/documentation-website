@@ -65,7 +65,7 @@ PUT /cjk_bigram_example
 
 ## Generated tokens
 
-Use the following request to examine the tokens generated using the created analyzer:
+Use the following request to examine the tokens generated using the analyzer:
 
 ```json
 POST /cjk_bigram_example/_analyze
