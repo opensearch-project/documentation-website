@@ -81,7 +81,7 @@ its average is `5.33`, and monkey has average `2.5` for
 positions [1, 4]. So the returned average is `3.91`, computed
 by `(5.33 + 2.5)/2`.
 
-Finally a special stat exists for just counting the number of search
+Finally a special stat exists for only counting the number of search
 terms. That stat is `unique_terms_count`.
 
 ## Document-specific features

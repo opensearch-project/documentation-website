@@ -6,16 +6,16 @@ parent: LTR search
 has_children: false
 ---
 
-# Uploading A Trained Model
+# Uploading a trained model
 
 Training models occurs outside OpenSearch LTR. You use the plugin to
 log features (as mentioned in [Logging Feature Scores]({{site.url}}{{site.baseurl}}/search-plugins/ltr/logging-features/)). Then with whichever technology you choose, you train a
 ranking model. You upload a model to OpenSearch LTR in the available
-serialization formats (RankLib, XGboost, and others). Let's first
+serialization formats (RankLib, XGBoost, and others). Let's first
 talk briefly about training in supported technologies (though not at all
 an extensive overview) and then dig into uploading a model.
 
-## Ranklib training
+## RankLib training
 
 We provide two demos for training a model. A fully-fledged [Ranklib
 Demo](http://github.com/o19s/elasticsearch-learning-to-rank/tree/master/demo)
@@ -24,7 +24,7 @@ how features are
 [logged](http://github.com/o19s/elasticsearch-learning-to-rank-learning-to-rank/tree/master/demo/collectFeatures.py)
 and how models are
 [trained](http://github.com/o19s/elasticsearch-learning-to-rank-learning-to-rank/tree/master/demo/train.py)
-. In particular, you\'ll note that logging create a ranklib consumable
+. In particular, you\'ll note that logging create a RankLib consumable
 judgment file that looks like:
 
     4   qid:1   1:9.8376875 2:12.318446 # 7555  rambo
@@ -68,12 +68,12 @@ score. You'll note features are referred to by ordinal, starting by
 "1" with Ranklib (this corresponds to the 0th feature in your feature
 set). Ranklib does not use feature names when training.
 
-## XGBoost Example
+## XGBoost example
 
 There's also an example of how to train a model [using
 XGBoost](http://github.com/o19s/elasticsearch-learning-to-rank/tree/master/demo/xgboost-demo).
-Examining this demo, you'll see the difference in how Ranklib is
-executed vs XGBoost. XGBoost will output a serialization format for
+Examining this demo, you'll see the difference in how RankLib is
+executed compared to XGBoost. XGBoost will output a serialization format for
 gradient boosted decision tree that looks like:
 
 ```json
@@ -83,11 +83,11 @@ gradient boosted decision tree that looks like:
         ...
 ```
 
-## XGBoost Parameters
+## XGBoost parameters
 
 Additional parameters can optionally be passed for an XGBoost model.
 This can be done by specifying the definition as an object, with the
-decision trees as the 'splits' field. See the example below.
+decision trees as the 'splits' field. See the following example.
 
 Currently supported parameters:
 
@@ -103,7 +103,7 @@ Currently supported values: 'binary:logistic', 'binary:logitraw',
 
 ## Simple linear models                                                 |
 
-Many types of models simply output linear weights of each feature such as linear SVM. The LTR model supports simple linear weights for each features, such as those learned from an SVM model or linear regression:
+Many types of models naively output linear weights of each feature such as linear SVM. The LTR model supports simple linear weights for each features, such as those learned from an SVM model or linear regression:
 
 ```json
 {
@@ -290,7 +290,7 @@ sets.
 The associated features are *copied into* the model. This is for your
 safety: modifying the feature set or deleting the feature set after
 model creation doesn't have an impact on a model in production. For
-example, if we delete the feature set above:
+example, if we delete the feature we previously created:
 
     DELETE _ltr/_featureset/more_movie_features
 

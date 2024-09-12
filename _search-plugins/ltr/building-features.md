@@ -15,7 +15,7 @@ what this plugin does to help you use OpenSearch as a learning to
 rank system.
 
 This section covers the functionality built into the OpenSearch LTR
-plugin to build & upload features with the plugin.
+plugin to build and upload features with the plugin.
 
 ## What is a feature in OpenSearch LTR
 
@@ -91,7 +91,7 @@ This lets you inject various query or user-specific variables into the
 search template. Perhaps information about the user for personalization?
 Or the location of the searcher's phone?
 
-For now, we'll simply focus on typical keyword searches.
+For now, we'll focus on typical keyword searches.
 
 ## Uploading and Naming Features
 
@@ -108,7 +108,7 @@ Let's look how to work with sets of features.
 A *feature store* corresponds to an OpenSearch index used to store
 metadata about the features and models. Typically, one feature store
 corresponds to a major search site/implementation. For example,
-[wikipedia](http://wikipedia.org) vs [wikitravel](http://wikitravel.org)
+[wikipedia](http://wikipedia.org) compared to [wikitravel](http://wikitravel.org)
 
 For most use cases, you can simply get by with the single, default
 feature store and never think about feature stores ever again. This

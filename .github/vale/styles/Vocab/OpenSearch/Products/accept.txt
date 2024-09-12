@@ -88,7 +88,7 @@ Query Workbench
 RCF Summarize
 RPM Package Manager
 Ruby
-Ranklib
+RankLib
 XGBoost
 Simple Schema for Observability
 Tableau
