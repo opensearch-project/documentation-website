@@ -1,6 +1,6 @@
 # Sycamore
 
-[Sycamore](https://github.com/aryn-ai/sycamore) is an open source, AI-powered document processing engine to prepare unstructured data for RAG and semantic search using Python. Sycamore can chunk and enrich a wide range of complex document types including reports, presentations, transcripts, manuals, and more, and it can extract and process embedded tables, figures, graphs, and other infographics. It can then load a target index, including vector and keyword indexes, using a connector (like the [OpenSearch connector](https://sycamore.readthedocs.io/en/stable/sycamore/connectors/opensearch.html)). 
+[Sycamore](https://github.com/aryn-ai/sycamore) is an open-source, AI-powered document processing engine designed to prepare unstructured data for retrieval-augmented generation (RA)G and semantic search using Python. Sycamore supports chunking and enriching a wide range of complex document types, including reports, presentations, transcripts, and manuals. Additionally, Sycamore can extract and process embedded elements, such as tables, figures, graphs, and other infographics. It can then load the data into target indexes, including vector and keyword indexes, using a connector like the [OpenSearch connector](https://sycamore.readthedocs.io/en/stable/sycamore/connectors/opensearch.html). 
 
 [Visit the Sycamore documentation](https://sycamore.readthedocs.io/en/stable/sycamore/get_started.html) to get started.
 
