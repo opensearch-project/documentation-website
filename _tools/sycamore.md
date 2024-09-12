@@ -1,4 +1,4 @@
-# Sycamore ETL
+# Sycamore
 
 [Sycamore](https://github.com/aryn-ai/sycamore) is an open source, AI-powered document processing engine to prepare unstructured data for RAG and semantic search using Python. Sycamore can chunk and enrich a wide range of complex document types including reports, presentations, transcripts, manuals, and more, and it can extract and process embedded tables, figures, graphs, and other infographics. It can then load a target index, including vector and keyword indexes, using a connector (like the [OpenSearch connector](https://sycamore.readthedocs.io/en/stable/sycamore/connectors/opensearch.html)). 
 
