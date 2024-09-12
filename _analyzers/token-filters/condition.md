@@ -56,7 +56,7 @@ PUT /my_conditional_index
 
 ## Generated tokens
 
-Use the following request to examine the tokens generated using the created analyzer:
+Use the following request to examine the tokens generated using the analyzer:
 
 ```json
 GET /my_conditional_index/_analyze
