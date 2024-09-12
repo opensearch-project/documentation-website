@@ -26,7 +26,7 @@ The following tutorial guides you through using anomaly detection with your Open
 
 ## Step 1: Define a detector
 
-A _detector_ is an individual anomaly detection task. You can define multiple detectors. All the detectors can run simultaneously, with each analyzing data from different sources.
+A _detector_ is an individual anomaly detection task. You can define multiple detectors, and all detectors can run simultaneously, with each analyzing data from different sources.
 
 1. Choose **Create detector**.
 1. Add the detector details.
