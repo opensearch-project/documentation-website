@@ -75,9 +75,13 @@ You can include the following additional fields in the `user_inputs` field if th
 
 You can include the following additional fields in the `previous_node_inputs` field when indicated.
 
-|Field	|Data type	|Description	|
-|---	|---	|---	|
-|`model_id`	|String	|The `model_id` is used as an input for several steps. As a special case for the Register Agent step type, if an `llm.model_id` field is not present in the `user_inputs` and not present in `previous_node_inputs`, the `model_id` field from the previous node may be used as a backup for the model ID.	|
+| Field	          |Data type	| Description	                                                                                                                                                                                                                                                                                               |
+|-----------------|---	|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `model_id`	     |String	| The `model_id` is used as an input for several steps. As a special case for the Register Agent step type, if an `llm.model_id` field is not present in the `user_inputs` and not present in `previous_node_inputs`, the `model_id` field from the previous node may be used as a backup for the model ID.	 |
+| `agent_id`	     |String	| The `agend_id` is used as an input for `delete_agent` and `create_tool` step.                                                                                                                                                                                                                              |
+| `connector_id`	 |String	| The `connector_id` is used as an input for `delete_connector`, `register_remote_model` and `create_tool` steps.                                                                                                                                                                                            |
+
+
 
 ## Example workflow steps
 
