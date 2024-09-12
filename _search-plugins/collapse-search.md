@@ -40,7 +40,7 @@ PUT /bakery-items
 }
 ```
 
-#### Populate the index
+#### Populate an index
 
 ```json
 POST /bakery-items/_bulk
