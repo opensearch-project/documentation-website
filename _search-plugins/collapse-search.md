@@ -163,7 +163,7 @@ The `collapse` parameter affects only the top search results and does not change
 
 You can expand each collapsed top hit with the `inner_hits` property. 
 
-The following example request applies `inner_hits` to retrieve the lowest priced and most recent items for each type of cake.
+The following example request applies `inner_hits` to retrieve the lowest-priced and most recent items for each type of cake:
 
 ```json
 GET /bakery-items/_search
