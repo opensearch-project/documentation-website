@@ -15,7 +15,7 @@ The `lowercase` token filter in OpenSearch can be configured with parameter `lan
 
 ## Example
 
-The following example request creates a new index named `custom_lowercase_example` and configures an analyzer with `lowercase` filter with greek `language`:
+The following example request creates a new index named `custom_lowercase_example` and configures an analyzer with `lowercase` filter with Greek `language`:
 
 ```json
 PUT /custom_lowercase_example
@@ -43,7 +43,7 @@ PUT /custom_lowercase_example
 
 ## Generated tokens
 
-Use the following request to examine the tokens generated using the created analyzer:
+Use the following request to examine the tokens generated using the analyzer:
 
 ```json
 GET /custom_lowercase_example/_analyze
