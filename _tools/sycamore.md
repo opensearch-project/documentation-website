@@ -4,7 +4,7 @@
 
 To get started, visit the [Sycamore documentation](https://sycamore.readthedocs.io/en/stable/sycamore/get_started.html).
 
-# Structure of an ETL Pipeline
+# Sycamore ETL pipeline structure
 
 A Sycamore ETL pipeline is a series of transformations on a [DocSet](https://sycamore.readthedocs.io/en/stable/sycamore/get_started/concepts.html#docsets), which is a collection of documents and their constintuent elements (e.g. a table, block of text, or header). At the end of the pipeline, the DocSet is loaded into OpenSearch vector and keyword indexes.
 
