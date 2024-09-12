@@ -15,21 +15,21 @@ A typical pipeline for preparing unstructured data for vector or hybrid search i
 * Extract metadata, filter and clean data using [transforms](https://sycamore.readthedocs.io/en/stable/sycamore/APIs/docset.html)
 * Create [chunks](https://sycamore.readthedocs.io/en/stable/sycamore/transforms/merge.html) from groups of elements
 * Embed the chunks using the model of your choice
-* [Load](https://sycamore.readthedocs.io/en/stable/sycamore/connectors/opensearch.html) OpenSearch
+* [Load](https://sycamore.readthedocs.io/en/stable/sycamore/connectors/opensearch.html) the embeddings, metadata, and text into OpenSearch vector and keyword indexes
 
 For an example pipeline that follows this flow, see [this notebook](https://github.com/aryn-ai/sycamore/blob/main/notebooks/opensearch_docs_etl.ipynb).
 
 
 # Install Sycamore
 
-We recommend installing the Sycamore library using `pip`. The connector for OpenSearch can be installed via extras. For example:
+We recommend installing the Sycamore library using `pip`. The connector for OpenSearch can be specified and installed via extras. For example:
 
 ```bash
 pip install sycamore-ai[opensearch]
 ```
 {% include copy.html %}
 
-By default, Sycamore works with the Aryn Partitioning Service to process PDFs. To run inference locally for partitioning or embedding, install the `local-inference` extra as follows:
+By default, Sycamore works with the Aryn Partitioning Service to process PDFs. To run inference locally for partitioning or embedding, install Sycamore with the `local-inference` extra as follows:
 
 ```bash
 pip install sycamore-ai[opensearch,local-inference]
