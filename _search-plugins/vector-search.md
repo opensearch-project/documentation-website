@@ -37,9 +37,9 @@ PUT test-index
       "my_vector1": {
         "type": "knn_vector",
         "dimension": 1024,
+        "space_type": "l2",
         "method": {
           "name": "hnsw",
-          "space_type": "l2",
           "engine": "nmslib",
           "parameters": {
             "ef_construction": 128,
@@ -131,9 +131,9 @@ PUT /hotels-index
       "location": {
         "type": "knn_vector",
         "dimension": 2,
+        "space_type": "l2",
         "method": {
           "name": "hnsw",
-          "space_type": "l2",
           "engine": "lucene",
           "parameters": {
             "ef_construction": 100,

@@ -25,9 +25,9 @@ PUT /test-index
       "my_vector1": {
         "type": "knn_vector",
         "dimension": 3,
+        "space_type": "l2",
         "method": {
           "name": "hnsw",
-          "space_type": "l2",
           "engine": "lucene",
           "parameters": {
             "ef_construction": 128,
@@ -83,7 +83,7 @@ A method definition will always contain the name of the method, the space_type t
 Mapping parameter | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
 `name` | true | n/a | false | The identifier for the nearest neighbor method.
-`space_type` | false | l2 | false | The vector space used to calculate the distance between vectors.
+`space_type` | false | l2 | false | The vector space used to calculate the distance between vectors. Note that this can also be specified in the top level of the mapping.
 `engine` | false | nmslib | false | The approximate k-NN library to use for indexing and search. The available libraries are faiss, nmslib, and Lucene.
 `parameters` | false | null | false | The parameters used for the nearest neighbor method.
 
@@ -168,7 +168,6 @@ An index created in OpenSearch version 2.11 or earlier will still use the old `e
 "method": {
     "name":"hnsw",
     "engine":"lucene",
-    "space_type": "l2",
     "parameters":{
         "m":2048,
         "ef_construction": 245
@@ -186,7 +185,6 @@ The following example method definition specifies the `hnsw` method and a `pq` e
 "method": {
   "name":"hnsw",
   "engine":"faiss",
-  "space_type": "l2",
   "parameters":{
     "encoder":{
       "name":"pq",
@@ -232,7 +230,6 @@ The following example uses the `ivf` method  without specifying an encoder (by d
 "method": {
   "name":"ivf",
   "engine":"faiss",
-  "space_type": "l2",
   "parameters":{
     "nlist": 4,
     "nprobes": 2
@@ -246,7 +243,6 @@ The following example uses the `ivf` method with a `pq` encoder:
 "method": {
   "name":"ivf",
   "engine":"faiss",
-  "space_type": "l2",
   "parameters":{
     "encoder":{
       "name":"pq",
@@ -265,7 +261,6 @@ The following example uses the `hnsw` method without specifying an encoder (by d
 "method": {
   "name":"hnsw",
   "engine":"faiss",
-  "space_type": "l2",
   "parameters":{
     "ef_construction": 256,
     "m": 8
@@ -279,7 +274,6 @@ The following example uses the `hnsw` method with an `sq` encoder of type `fp16`
 "method": {
   "name":"hnsw",
   "engine":"faiss",
-  "space_type": "l2",
   "parameters":{
     "encoder": {
       "name": "sq",
@@ -300,7 +294,6 @@ The following example uses the `ivf` method with an `sq` encoder of type `fp16`:
 "method": {
   "name":"ivf",
   "engine":"faiss",
-  "space_type": "l2",
   "parameters":{
     "encoder": {
       "name": "sq",

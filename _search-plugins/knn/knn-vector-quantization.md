@@ -40,10 +40,10 @@ PUT /test-index
       "my_vector1": {
         "type": "knn_vector",
         "dimension": 2,
+        "space_type": "l2",
         "method": {
           "name": "hnsw",
           "engine": "lucene",
-          "space_type": "l2",
           "parameters": {
             "encoder": {
               "name": "sq"
@@ -85,10 +85,10 @@ PUT /test-index
       "my_vector1": {
         "type": "knn_vector",
         "dimension": 2,
+        "space_type": "l2",
         "method": {
           "name": "hnsw",
           "engine": "lucene",
-          "space_type": "l2",
           "parameters": {
             "encoder": {
               "name": "sq",
@@ -150,10 +150,10 @@ PUT /test-index
       "my_vector1": {
         "type": "knn_vector",
         "dimension": 3,
+        "space_type": "l2",
         "method": {
           "name": "hnsw",
           "engine": "faiss",
-          "space_type": "l2",
           "parameters": {
             "encoder": {
               "name": "sq"
@@ -194,10 +194,10 @@ PUT /test-index
       "my_vector1": {
         "type": "knn_vector",
         "dimension": 3,
+        "space_type": "l2",
         "method": {
           "name": "hnsw",
           "engine": "faiss",
-          "space_type": "l2",
           "parameters": {
             "encoder": {
               "name": "sq",

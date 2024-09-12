@@ -22,8 +22,7 @@ PUT test-index
 {
   "settings": {
     "index": {
-      "knn": true,
-      "knn.algo_param.ef_search": 100
+      "knn": true
     }
   },
   "mappings": {
@@ -31,9 +30,9 @@ PUT test-index
       "my_vector": {
         "type": "knn_vector",
         "dimension": 3,
+        "space_type": "l2",
         "method": {
           "name": "hnsw",
-          "space_type": "l2",
           "engine": "lucene",
           "parameters": {
             "ef_construction": 128,
@@ -55,9 +54,9 @@ PUT test-index
 "my_vector": {
   "type": "knn_vector",
   "dimension": 4,
+  "space_type": "l2",
   "method": {
     "name": "hnsw",
-    "space_type": "l2",
     "engine": "nmslib",
     "parameters": {
       "ef_construction": 128,
@@ -73,6 +72,7 @@ Model IDs are used when the underlying Approximate k-NN algorithm requires a tra
 model contains the information needed to initialize the native library segment files.
 
 ```json
+"my_vector": {
   "type": "knn_vector",
   "model_id": "my-model"
 }
@@ -80,6 +80,7 @@ model contains the information needed to initialize the native library segment f
 
 However, if you intend to use Painless scripting or a k-NN score script, you only need to pass the dimension.
  ```json
+"my_vector": {
    "type": "knn_vector",
    "dimension": 128
  }
@@ -116,9 +117,9 @@ PUT test-index
         "type": "knn_vector",
         "dimension": 3,
         "data_type": "byte",
+        "space_type": "l2",
         "method": {
           "name": "hnsw",
-          "space_type": "l2",
           "engine": "lucene",
           "parameters": {
             "ef_construction": 128,
@@ -307,9 +308,9 @@ PUT /test-binary-hnsw
         "type": "knn_vector",
         "dimension": 8,
         "data_type": "binary",
+        "space_type": "hamming",
         "method": {
           "name": "hnsw",
-          "space_type": "hamming",
           "engine": "faiss",
           "parameters": {
             "ef_construction": 128,
@@ -537,10 +538,10 @@ POST _plugins/_knn/models/test-binary-model/_train
   "dimension": 8,
   "description": "model with binary data",
   "data_type": "binary",
+  "space_type": "hamming",
   "method": {
     "name": "ivf",
     "engine": "faiss",
-    "space_type": "hamming",
     "parameters": {
       "nlist": 1,
       "nprobes": 1

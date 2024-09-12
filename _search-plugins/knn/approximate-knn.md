@@ -49,9 +49,9 @@ PUT my-knn-index-1
         "my_vector1": {
           "type": "knn_vector",
           "dimension": 2,
+          "space_type": "l2",
           "method": {
             "name": "hnsw",
-            "space_type": "l2",
             "engine": "nmslib",
             "parameters": {
               "ef_construction": 128,
@@ -62,9 +62,9 @@ PUT my-knn-index-1
         "my_vector2": {
           "type": "knn_vector",
           "dimension": 4,
+          "space_type": "innerproduct",
           "method": {
             "name": "hnsw",
-            "space_type": "innerproduct",
             "engine": "faiss",
             "parameters": {
               "ef_construction": 256,
@@ -199,10 +199,10 @@ POST /_plugins/_knn/models/my-model/_train
   "training_field": "train-field",
   "dimension": 4,
   "description": "My model description",
+  "space_type": "l2",
   "method": {
     "name": "ivf",
     "engine": "faiss",
-    "space_type": "l2",
     "parameters": {
       "nlist": 4,
       "nprobes": 2
