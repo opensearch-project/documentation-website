@@ -6,7 +6,7 @@ nav_order: 3
 
 # Collapse search results
 
-The collapse parameter groups search results by a particular field value. This returns only the top document within each group, which helps reduce redundancy by eliminating duplicates.
+The `collapse` parameter groups search results by a particular field value. This returns only the top document within each group, which helps reduce redundancy by eliminating duplicates.
 
 The collapse feature requires the field being collapsed to be either a `keyword` or a `numeric` type.
 
