@@ -41,9 +41,9 @@ PUT /test-index
 ```
 {% include copy-curl.html %}
 
-## Lucene byte vector
+## Byte vector
 
-Starting with k-NN plugin version 2.9, you can use `byte` vectors with the `lucene` engine to reduce the amount of storage space needed. For more information, see [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector).
+Starting with k-NN plugin version 2.17, you can use `byte` vectors with the `faiss` and `lucene` engine to reduce the amount of memory and storage space needed. For more information, see [Byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#Byte-vector).
 
 ## Binary vector
 
@@ -324,7 +324,7 @@ If you want to use less memory and increase indexing speed as compared to HNSW w
 
 If memory is a concern, consider adding a PQ encoder to your HNSW or IVF index. Because PQ is a lossy encoding, query quality will drop.
 
-You can reduce the memory footprint by a factor of 2, with a minimal loss in search quality, by using the [`fp_16` encoder]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization/#faiss-16-bit-scalar-quantization). If your vector dimensions are within the [-128, 127] byte range, we recommend using the [byte quantizer]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/#lucene-byte-vector) to reduce the memory footprint by a factor of 4. To learn more about vector quantization options, see [k-NN vector quantization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization/). 
+You can reduce the memory footprint by a factor of 2, with a minimal loss in search quality, by using the [`fp_16` encoder]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization/#faiss-16-bit-scalar-quantization). If your vector dimensions are within the [-128, 127] byte range, we recommend using the [byte quantizer]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/#byte-vector) to reduce the memory footprint by a factor of 4. To learn more about vector quantization options, see [k-NN vector quantization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization/). 
 
 ### Memory estimation
 

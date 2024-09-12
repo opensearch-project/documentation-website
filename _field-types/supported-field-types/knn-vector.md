@@ -83,9 +83,9 @@ However, if you intend to use Painless scripting or a k-NN score script, you onl
  }
  ```
 
-## Lucene byte vector
+## Byte vector
 
-By default, k-NN vectors are `float` vectors, where each dimension is 4 bytes. If you want to save storage space, you can use `byte` vectors with the `lucene` engine. In a `byte` vector, each dimension is a signed 8-bit integer in the [-128, 127] range. 
+By default, k-NN vectors are `float` vectors, where each dimension is 4 bytes. If you want to save storage space, you can use `byte` vectors with the `faiss` and `lucene` engine. In a `byte` vector, each dimension is a signed 8-bit integer in the [-128, 127] range. 
  
 Byte vectors are supported only for the `lucene` and `faiss` engines. They are not supported for the `nmslib` engine.
 {: .note}
@@ -94,11 +94,17 @@ In [k-NN benchmarking tests](https://github.com/opensearch-project/k-NN/tree/mai
 
 When using `byte` vectors, expect some loss of precision in the recall compared to using `float` vectors. Byte vectors are useful in large-scale applications and use cases that prioritize a reduced memory footprint in exchange for a minimal loss of recall.
 {: .important}
- 
+
+When using `byte` vectors with `faiss` engine, it is recommended to use with [SIMD optimization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#simd-optimization-for-the-faiss-engine), which helps to significantly reduce search latencies and improve indexing throughput.
+{: .important} 
+
 Introduced in k-NN plugin version 2.9, the optional `data_type` parameter defines the data type of a vector. The default value of this parameter is `float`.
 
 To use a `byte` vector, set the `data_type` parameter to `byte` when creating mappings for an index:
 
+### Example: HNSW
+
+Here is an example to create a byte vector index with the Lucene engine and HNSW algorithm:
  ```json
 PUT test-index
 {
@@ -158,189 +164,6 @@ GET test-index/_search
     "knn": {
       "my_vector": {
         "vector": [26, -120, 99],
-        "k": 2
-      }
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-### Quantization techniques
-
-If your vectors are of the type `float`, you need to first convert them to the `byte` type before ingesting the documents. This conversion is accomplished by _quantizing the dataset_---reducing the precision of its vectors. There are many quantization techniques, such as scalar quantization or product quantization (PQ), which is used in the Faiss engine. The choice of quantization technique depends on the type of data you're using and can affect the accuracy of recall values. The following sections describe the scalar quantization algorithms that were used to quantize the [k-NN benchmarking test](https://github.com/opensearch-project/k-NN/tree/main/benchmarks/perf-tool) data for the [L2](#scalar-quantization-for-the-l2-space-type) and [cosine similarity](#scalar-quantization-for-the-cosine-similarity-space-type) space types. The provided pseudocode is for illustration purposes only.
-
-#### Scalar quantization for the L2 space type
-
-The following example pseudocode illustrates the scalar quantization technique used for the benchmarking tests on Euclidean datasets with the L2 space type. Euclidean distance is shift invariant. If you shift both $$x$$ and $$y$$ by the same $$z$$, then the distance remains the same ($$\lVert x-y\rVert =\lVert (x-z)-(y-z)\rVert$$).
-
-```python
-# Random dataset (Example to create a random dataset)
-dataset = np.random.uniform(-300, 300, (100, 10))
-# Random query set (Example to create a random queryset)
-queryset = np.random.uniform(-350, 350, (100, 10))
-# Number of values
-B = 256
-
-# INDEXING:
-# Get min and max
-dataset_min = np.min(dataset)
-dataset_max = np.max(dataset)
-# Shift coordinates to be non-negative
-dataset -= dataset_min
-# Normalize into [0, 1]
-dataset *= 1. / (dataset_max - dataset_min)
-# Bucket into 256 values
-dataset = np.floor(dataset * (B - 1)) - int(B / 2)
-
-# QUERYING:
-# Clip (if queryset range is out of datset range)
-queryset = queryset.clip(dataset_min, dataset_max)
-# Shift coordinates to be non-negative
-queryset -= dataset_min
-# Normalize
-queryset *= 1. / (dataset_max - dataset_min)
-# Bucket into 256 values
-queryset = np.floor(queryset * (B - 1)) - int(B / 2)
-```
-{% include copy.html %}
-
-#### Scalar quantization for the cosine similarity space type
-
-The following example pseudocode illustrates the scalar quantization technique used for the benchmarking tests on angular datasets with the cosine similarity space type. Cosine similarity is not shift invariant ($$cos(x, y) \neq cos(x-z, y-z)$$). 
-
-The following pseudocode is for positive numbers:
-
-```python
-# For Positive Numbers
-
-# INDEXING and QUERYING:
-
-# Get Max of train dataset
-max = np.max(dataset)
-min = 0
-B = 127
-
-# Normalize into [0,1]
-val = (val - min) / (max - min)
-val = (val * B)
-
-# Get int and fraction values
-int_part = floor(val)
-frac_part = val - int_part
-
-if 0.5 < frac_part:
- bval = int_part + 1
-else:
- bval = int_part
-
-return Byte(bval)
-```
-{% include copy.html %}
-
-The following pseudocode is for negative numbers:
-
-```python
-# For Negative Numbers
-
-# INDEXING and QUERYING:
-
-# Get Min of train dataset
-min = 0
-max = -np.min(dataset)
-B = 128
-
-# Normalize into [0,1]
-val = (val - min) / (max - min)
-val = (val * B)
-
-# Get int and fraction values
-int_part = floor(var)
-frac_part = val - int_part
-
-if 0.5 < frac_part:
- bval = int_part + 1
-else:
- bval = int_part
-
-return Byte(bval)
-```
-{% include copy.html %}
-
-## Faiss byte vector
-
-Faiss engine is recommended for use cases that requires ingestion on a large scale. But, for these large scale workloads using the default `float` vectors requires a lot of memory usage as each dimension is 4 bytes. If you want to reduce this memory and storage requirements,
-you can use `byte` vectors with the `faiss` engine. In a `byte` vector, each dimension is a signed 8-bit integer in the [-128, 127] range.
-
-Faiss directly doesn't support byte datatype to store byte vectors. To achieve this functionality we are using a scalar quantizer (SQ8_direct_signed) which accepts float vectors in 
-8-bit signed integer range and encodes them as byte sized vectors. These quantized byte sized vectors are stored in a k-NN index which reduces the memory footprint by a factor of 4.
-When used with [SIMD optimization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#simd-optimization-for-the-faiss-engine), SQ8_direct_signed quantization can also significantly reduce search latencies and improve indexing throughput.
-
-When using `byte` vectors, expect some loss of precision in the recall compared to using `float` vectors. Byte vectors are useful in large-scale applications and use cases that prioritize a reduced memory footprint in exchange for a minimal loss of recall.
-{: .important}
-
-To use a `byte` vector, set the `data_type` parameter to `byte` when creating mappings for an index.
-
-### Example: HNSW
-
-Here is an example to create a byte vector index with the Faiss engine and HNSW algorithm:
-```json
-PUT test-index
-{
-  "settings": {
-    "index": {
-      "knn": true
-    }
-  },
-  "mappings": {
-    "properties": {
-      "my_vector": {
-        "type": "knn_vector",
-        "dimension": 2,
-        "data_type": "byte",
-        "method": {
-          "name": "hnsw",
-          "space_type": "l2",
-          "engine": "faiss",
-          "parameters": {
-            "ef_construction": 128,
-            "m": 24
-          }
-        }
-      }
-    }
-  }
-}
-
-```
-{% include copy-curl.html %}
-
-Then ingest documents as usual. But, make sure each dimension in the vector is in the supported [-128, 127] range:
-```json
-PUT test-index/_doc/1
-{
-  "my_vector": [-126, 28]
-}
-```
-{% include copy-curl.html %}
-
-```json
-PUT test-index/_doc/2
-{
-  "my_vector": [100, -128]
-}
-```
-{% include copy-curl.html %}
-
-When querying, be sure to use a byte vector:
-```json
-GET test-index/_search
-{
-  "size": 2,
-  "query": {
-    "knn": {
-      "my_vector": {
-        "vector": [26, -120],
         "k": 2
       }
     }
@@ -498,6 +321,108 @@ As an example, assume that you have 1 million vectors with a dimension of 256 an
 ```r
 1.1 * ((256 * 1,000,000) + (4 * 128 * 256))  ~= 0.27 GB
 ```
+
+
+### Quantization techniques
+
+If your vectors are of the type `float`, you need to first convert them to the `byte` type before ingesting the documents. This conversion is accomplished by _quantizing the dataset_---reducing the precision of its vectors. There are many quantization techniques, such as scalar quantization or product quantization (PQ), which is used in the Faiss engine. The choice of quantization technique depends on the type of data you're using and can affect the accuracy of recall values. The following sections describe the scalar quantization algorithms that were used to quantize the [k-NN benchmarking test](https://github.com/opensearch-project/k-NN/tree/main/benchmarks/perf-tool) data for the [L2](#scalar-quantization-for-the-l2-space-type) and [cosine similarity](#scalar-quantization-for-the-cosine-similarity-space-type) space types. The provided pseudocode is for illustration purposes only.
+
+#### Scalar quantization for the L2 space type
+
+The following example pseudocode illustrates the scalar quantization technique used for the benchmarking tests on Euclidean datasets with the L2 space type. Euclidean distance is shift invariant. If you shift both $$x$$ and $$y$$ by the same $$z$$, then the distance remains the same ($$\lVert x-y\rVert =\lVert (x-z)-(y-z)\rVert$$).
+
+```python
+# Random dataset (Example to create a random dataset)
+dataset = np.random.uniform(-300, 300, (100, 10))
+# Random query set (Example to create a random queryset)
+queryset = np.random.uniform(-350, 350, (100, 10))
+# Number of values
+B = 256
+
+# INDEXING:
+# Get min and max
+dataset_min = np.min(dataset)
+dataset_max = np.max(dataset)
+# Shift coordinates to be non-negative
+dataset -= dataset_min
+# Normalize into [0, 1]
+dataset *= 1. / (dataset_max - dataset_min)
+# Bucket into 256 values
+dataset = np.floor(dataset * (B - 1)) - int(B / 2)
+
+# QUERYING:
+# Clip (if queryset range is out of datset range)
+queryset = queryset.clip(dataset_min, dataset_max)
+# Shift coordinates to be non-negative
+queryset -= dataset_min
+# Normalize
+queryset *= 1. / (dataset_max - dataset_min)
+# Bucket into 256 values
+queryset = np.floor(queryset * (B - 1)) - int(B / 2)
+```
+{% include copy.html %}
+
+#### Scalar quantization for the cosine similarity space type
+
+The following example pseudocode illustrates the scalar quantization technique used for the benchmarking tests on angular datasets with the cosine similarity space type. Cosine similarity is not shift invariant ($$cos(x, y) \neq cos(x-z, y-z)$$). 
+
+The following pseudocode is for positive numbers:
+
+```python
+# For Positive Numbers
+
+# INDEXING and QUERYING:
+
+# Get Max of train dataset
+max = np.max(dataset)
+min = 0
+B = 127
+
+# Normalize into [0,1]
+val = (val - min) / (max - min)
+val = (val * B)
+
+# Get int and fraction values
+int_part = floor(val)
+frac_part = val - int_part
+
+if 0.5 < frac_part:
+ bval = int_part + 1
+else:
+ bval = int_part
+
+return Byte(bval)
+```
+{% include copy.html %}
+
+The following pseudocode is for negative numbers:
+
+```python
+# For Negative Numbers
+
+# INDEXING and QUERYING:
+
+# Get Min of train dataset
+min = 0
+max = -np.min(dataset)
+B = 128
+
+# Normalize into [0,1]
+val = (val - min) / (max - min)
+val = (val * B)
+
+# Get int and fraction values
+int_part = floor(var)
+frac_part = val - int_part
+
+if 0.5 < frac_part:
+ bval = int_part + 1
+else:
+ bval = int_part
+
+return Byte(bval)
+```
+{% include copy.html %}
 
 ## Binary k-NN vectors
 

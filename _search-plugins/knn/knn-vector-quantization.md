@@ -13,17 +13,13 @@ By default, the k-NN plugin supports the indexing and querying of vectors of typ
 
 OpenSearch supports many varieties of quantization. In general, the level of quantization will provide a trade-off between the accuracy of the nearest neighbor search and the size of the memory footprint consumed by the vector search. The supported types include byte vectors, 16-bit scalar quantization, and product quantization (PQ).
 
-## Faiss byte vector
+## Byte vector
 
-Starting with version 2.17, the k-NN plugin supports `byte` vectors with the Faiss engine in order to reduce the amount of required memory. For more information, see [Faiss byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#faiss-byte-vector).
-
-## Lucene byte vector
-
-Starting with k-NN plugin version 2.9, you can use `byte` vectors with the Lucene engine in order to reduce the amount of required memory. This requires quantizing the vectors outside of OpenSearch before ingesting them into an OpenSearch index. For more information, see [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector).
+Starting with version 2.17, the k-NN plugin supports `byte` vectors with the `faiss` and `lucene` engine in order to reduce the amount of required memory. This requires quantizing the vectors outside of OpenSearch before ingesting them into an OpenSearch index. For more information, see [Byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#byte-vector).
 
 ## Lucene scalar quantization
 
-Starting with version 2.16, the k-NN plugin supports built-in scalar quantization for the Lucene engine. Unlike the [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector), which requires you to quantize vectors before ingesting the documents, the Lucene scalar quantizer quantizes input vectors in OpenSearch during ingestion. The Lucene scalar quantizer converts 32-bit floating-point input vectors into 7-bit integer vectors in each segment using the minimum and maximum quantiles computed based on the [`confidence_interval`](#confidence-interval) parameter. During search, the query vector is quantized in each segment using the segment's minimum and maximum quantiles in order to compute the distance between the query vector and the segment's quantized input vectors. 
+Starting with version 2.16, the k-NN plugin supports built-in scalar quantization for the Lucene engine. Unlike the [Byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#byte-vector), which requires you to quantize vectors before ingesting the documents, the Lucene scalar quantizer quantizes input vectors in OpenSearch during ingestion. The Lucene scalar quantizer converts 32-bit floating-point input vectors into 7-bit integer vectors in each segment using the minimum and maximum quantiles computed based on the [`confidence_interval`](#confidence-interval) parameter. During search, the query vector is quantized in each segment using the segment's minimum and maximum quantiles in order to compute the distance between the query vector and the segment's quantized input vectors. 
 
 Quantization can decrease the memory footprint by a factor of 4 in exchange for some loss in recall. Additionally, quantization slightly increases disk usage because it requires storing both the raw input vectors and the quantized vectors.
 
