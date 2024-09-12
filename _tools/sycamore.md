@@ -33,3 +33,4 @@ By default, Sycamore works with the Aryn Partitioning Service to process PDFs. T
 ```bash
 pip install sycamore-ai[opensearch,local-inference]
 ```
+{% include copy.html %}
