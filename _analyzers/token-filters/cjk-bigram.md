@@ -7,20 +7,20 @@ nav_order: 30
 
 # CJK bigram token filter
 
-The `cjk_bigram` token filter in OpenSearch is designed specifically for processing East Asian languages, such as Chinese, Japanese, and Korean (CJK), which typically don't use spaces to separate words. A bigram is a sequence of two adjacent elements from a string of tokens, which can be characters or words. For CJK languages, bigrams help in approximating word boundaries and capturing significant character pairs that can convey meaning.
+The `cjk_bigram` token filter is designed specifically for processing East Asian languages, such as Chinese, Japanese, and Korean (CJK), which typically don't use spaces to separate words. A bigram is a sequence of two adjacent elements from a string of tokens, which can be characters or words. For CJK languages, bigrams help approximate word boundaries and capture significant character pairs that can convey meaning.
 
 
 ## Parameters
 
-The `cjk_bigram` token filter can be additionally configured with two parameters `ignore_scripts` and `output_unigrams`.
+The `cjk_bigram` token filter can be configured with two parameters: `ignore_scripts`and `output_unigrams`.
 
 ### `ignore_scripts`
 
-This option allows you to specify whether the filter should ignore certain scripts (like Latin, Cyrillic) and only tokenize CJK text into bigrams. The default is to ignore non-CJK scripts. See following list of possible options:
+The `cjk-bigram` token filter ignores all non-CJK scripts (writing systems like Latin or Cyrillic) and tokenizes only CJK text into bigrams. Use this option to specify CJK scripts to be ignored.  This option takes the following valid values:
 
 1. `han` Token Filter
 
-    The `han` token filter is used to handle Han characters, which are the logograms used in the written languages of China, Japan, and Korea.
+    The `han` script is used to handle han characters. [Han characters](https://simple.wikipedia.org/wiki/Chinese_characters) are logograms used in the written languages of China, Japan, and Korea.
     The filter can help in text processing tasks like tokenizing, normalizing, or stemming text written in Chinese, Japanese Kanji, or Korean Hanja.
 
 2. `hangul` Token Filter
@@ -45,7 +45,7 @@ This option, when set to `true`, outputs both unigrams (single characters) and b
 
 ## Example
 
-The following example request creates a new index named `devanagari_example_index` and defines an analyzer with the `cjk_bigram_filter` filter and `ignore_scripts` parameter set to `deva`:
+The following example request creates a new index named `devanagari_example_index` and defines an analyzer with the `cjk_bigram_filter` filter and `ignored_scripts` parameter set to `katakana`:
 
 ```json
 PUT /cjk_bigram_example
