@@ -24,7 +24,7 @@ You can see an example pipeline with this flow in [this notebook](https://github
 
 We recommend installing the Sycamore library using `pip`. The connector for OpenSearch can be installed via extras. For example:
 
-```
+```bash
 pip install sycamore-ai[opensearch]
 ```
 
