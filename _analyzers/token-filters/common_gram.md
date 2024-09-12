@@ -4,9 +4,9 @@ title: common_grams
 parent: Token filters
 nav_order: 60
 ---
-
+<!-- vale off -->
 # Common_grams token filter
-
+<!-- vale on -->
 The `common_grams` token filter in OpenSearch improves search relevance by keeping commonly occurring phrases (common grams) in the text. This is useful when dealing with languages or datasets where certain word combinations frequently occur and can impact the search relevance if treated as separate tokens.
 
 Using this token filter improves search relevance by keeping common phrases intact, it can help in matching queries more accurately, particularly for frequent word combinations. It also improves search precision by reducing the number of irrelevant matches.
@@ -59,7 +59,7 @@ PUT /my_common_grams_index
 
 ## Generated tokens
 
-Use the following request to examine the tokens generated using the created analyzer:
+Use the following request to examine the tokens generated using the analyzer:
 
 ```json
 GET /my_common_grams_index/_analyze
