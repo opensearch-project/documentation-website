@@ -155,7 +155,7 @@ GET /bakery-items/_search
 
 The collapsed search results will show only one "Chocolate Cake" entry, demonstrating how the `collapse` parameter reduces redundancy.
 
-Collapsing affects only the top search results and does not change any aggregation results. The total number of hits shown in the response reflects all matching documents before collapsing is applied, including duplicates. However, the response doesn't tell you the exact number of unique groups formed by collapsing.
+The `collapse` parameter affects only the top search results and does not change any aggregation results. The total number of hits shown in the response reflects all matching documents before the parameter is applied, including duplicates. However, the response doesn't indicate the exact number of unique groups formed by the operation.
 
 ---
 
