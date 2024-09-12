@@ -14,7 +14,7 @@ A typical pipeline for preparing unstructured data for vector or hybrid search i
 * [Partition documents](https://sycamore.readthedocs.io/en/stable/sycamore/transforms/partition.html) into structured JSON elements
 * Extract metadata, filter and clean data using [transforms](https://sycamore.readthedocs.io/en/stable/sycamore/APIs/docset.html)
 * Create [chunks](https://sycamore.readthedocs.io/en/stable/sycamore/transforms/merge.html) from groups of elements
-* Embed with the model of your choice
+* Embed the chunks using the model of your choice
 * [Load](https://sycamore.readthedocs.io/en/stable/sycamore/connectors/opensearch.html) OpenSearch
 
 You can see an example pipeline with this flow in [this notebook](https://github.com/aryn-ai/sycamore/blob/main/notebooks/opensearch_docs_etl.ipynb).
