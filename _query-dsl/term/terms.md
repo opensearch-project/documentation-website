@@ -39,7 +39,7 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `<field>` | String | The field in which to search. A document is returned in the results only if its field value exactly matches at least one term, with the correct spacing and capitalization.
 `boost` | Floating-point | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field’s relevance. Values between 0.0 and 1.0 decrease the field’s relevance. Default is 1.0.
-`value_type` | String | Specifies the type of values used for filtering. Valid values are `default` and `bitmap`. If omitted, the value defaults to `default`.
+`value_type` | String | Specifies the types of values used for filtering. Valid values are `default` and `bitmap`. If omitted, the value defaults to `default`.
 
 ## Terms lookup
 
@@ -258,7 +258,7 @@ Parameter | Data type | Description
 
 The `terms` query can filter for multiple terms simultaneously. However, when the number of terms in the input filter increases to a large value (around 10,000), the resulting network and memory overhead can become significant, making the query inefficient. In such cases, consider encoding your large terms filter using a [roaring bitmap](https://github.com/RoaringBitmap/RoaringBitmap) for more efficient filtering. 
 
-For example, you have two indexes: the `products` index, which contains all the products a company sells, and the `customers` index, which stores filters representing customers who own specific products. 
+The following example assumes that you have two indexes: a `products` index, which contains all the products sold by a company, and a `customers` index, which stores filters representing customers who own specific products. 
 
 First, create a `products` index and map `product_id` as a `keyword`:
 
@@ -320,9 +320,9 @@ PUT /customers
 ```
 {% include copy-curl.html %}
 
-For each customer, you need to generate a bitmap that represents the product IDs of the products the customer owns. This bitmap effectively encodes the filter criteria for that customer. To illustrate the process, you'll create a `terms` filter for a customer whose ID is `customer123` and who owns products `111`, `222`, and `333`.
+For each customer, you need to generate a bitmap that represents the product IDs of the products the customer owns. This bitmap effectively encodes the filter criteria for that customer. In this example, you'll create a `terms` filter for a customer whose ID is `customer123` and who owns products `111`, `222`, and `333`.
 
-To encode a `terms` filter for the customer, first create a roaring bitmap for the filter. This example creates a bitmap using the [PyRoaringBitMap] library so first run `pip install pyroaring` to install the library. Then serialize the bitmap and encode it using a [Base64](https://en.wikipedia.org/wiki/Base64) encoding scheme:
+To encode a `terms` filter for the customer, first create a roaring bitmap for the filter. This example creates a bitmap using the [PyRoaringBitMap] library, so first run `pip install pyroaring` to install the library. Then serialize the bitmap and encode it using a [Base64](https://en.wikipedia.org/wiki/Base64) encoding scheme:
 
 ```py
 from pyroaring import BitMap
@@ -340,7 +340,7 @@ print(f"Encoded Bitmap: {encoded_bm_str}")
 ```
 {% include copy.html %}
 
-Next, index the customer filter into the `customers` index. The document ID for the filter is the customer ID for the corresponding customer (in this example, `customer123`). The `customer_filter` field contains the bitmap you generated for this customer:
+Next, index the customer filter into the `customers` index. The document ID for the filter is the same as the ID for the corresponding customer (in this example, `customer123`). The `customer_filter` field contains the bitmap you generated for this customer:
 
 ```json
 POST customers/_doc/customer123
@@ -350,7 +350,7 @@ POST customers/_doc/customer123
 ```
 {% include copy-curl.html %}
 
-Now you can run a `terms` query on the `products` index to look up a specific customer in the `customers` index. Because you're looking up a stored field instead of `_source`, set `store` to `true`. In the `value_type`, specify the data type of the `terms` input as `bitmap`:
+Now you can run a `terms` query on the `products` index to look up a specific customer in the `customers` index. Because you're looking up a stored field instead of `_source`, set `store` to `true`. In the `value_type` field, specify the data type of the `terms` input as `bitmap`:
 
 ```json
 POST /products/_search
