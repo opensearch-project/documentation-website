@@ -35,6 +35,8 @@ Field | Data type | Required/Optional | Description
 `min_score` | Float | Optional | The minimum score threshold for the search results. Only one variable, either `k`, `min_score`, or `max_distance`, can be specified. For more information, see [k-NN radial search]({{site.url}}{{site.baseurl}}/search-plugins/knn/radial-search-knn/).
 `max_distance` | Float | Optional | The maximum distance threshold for the search results. Only one variable, either `k`, `min_score`, or `max_distance`, can be specified. For more information, see [k-NN radial search]({{site.url}}{{site.baseurl}}/search-plugins/knn/radial-search-knn/).
 `filter` | Object | Optional | A query that can be used to reduce the number of documents considered. For more information about filter usage, see [k-NN search with filters]({{site.url}}{{site.baseurl}}/search-plugins/knn/filter-search-knn/). **Important**: Filter can only be used with the `faiss` or `lucene` engines.
+`method_parameters` | Object | Optional | Parameters passed to the k-NN index during search. See [k-NN additional query parameters]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#additional-query-parameters).
+`rescore` | Object | Optional | Parameters to configure rescoring functionality for k-NN indices built with quantization. See [k-NN result rescoring]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#rescoring-quantized-results-with-full-precision). **Important**: Filter can only be used with the `faiss` or `lucene` engines.
 
 #### Example request
 
