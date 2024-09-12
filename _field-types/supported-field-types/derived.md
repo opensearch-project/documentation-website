@@ -29,7 +29,7 @@ Despite the potential performance impact of query-time computations, the flexibi
 Currently, derived fields have the following limitations:
 
 - **Scoring and sorting**: Not yet supported.
-- **With 2.17 Aggregations are supported with limitations**: Unsupported aggregation types: Geo, Significant Terms/Text and Scripted Metric
+- **Aggregations**: Starting with OpenSearch version 2.17, derived fields support most aggregation types. The following aggregations are not supported: geographic, significant terms, significant text, and scripted metric.
 - **Dashboard support**: These fields are not displayed in the list of available fields in OpenSearch Dashboards. However, you can still use them for filtering if you know the derived field name.
 - **Chained derived fields**: One derived field cannot be used to define another derived field.
 - **Join field type**: Derived fields are not supported for the [join field type]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/join/).
@@ -543,8 +543,12 @@ The response specifies highlighting in the `url` field:
 
 ## Aggregations
 
-Most aggregation types are supported with derived fields since 2.17. Geo Aggregations, Significant Terms/Text and Scripted Metric are not supported.
-For example, the following request creates a simple terms aggregation on the `method` derived field:
+Starting with OpenSearch version 2.17, derived fields support most aggregation types. 
+
+Geographic, significant terms, significant text, and scripted metric aggregations are not supported.
+{: .note}
+
+For example, the following request creates a simple `terms` aggregation on the `method` derived field:
 
 ```json
 POST /logs/_search
@@ -560,6 +564,7 @@ POST /logs/_search
 }
 ```
 {% include copy-curl.html %}
+
 The response contains the following buckets:
 
 <details markdown="block">
