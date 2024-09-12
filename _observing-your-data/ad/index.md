@@ -129,6 +129,8 @@ For example, if you choose `min()`, the detector focuses on finding anomalies ba
 A multi-feature model correlates anomalies across all its features. The [curse of dimensionality](https://en.wikipedia.org/wiki/Curse_of_dimensionality) makes it less likely for multi-feature models to identify smaller anomalies as compared to a single-feature model. Adding more features might negatively impact the [precision and recall](https://en.wikipedia.org/wiki/Precision_and_recall) of a model. A higher proportion of noise in your data might further amplify this negative impact. Selecting the optimal feature set is usually an iterative process. By default, the maximum number of features for a detector is 5. You can adjust this limit with the `plugins.anomaly_detection.max_anomaly_features` setting.
 {: .note}
 
+### Configuring a model based on an aggregation method
+
 To configure an anomaly detection model based on an aggregation method, follow these steps:
 
 1. On the **Detectors** page, select the desired detector from the listed options.
