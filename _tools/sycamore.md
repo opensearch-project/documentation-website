@@ -12,7 +12,7 @@ A typical pipeline for preparing unstructured data for vector or hybrid search i
 
 * Read documents into a [DocSet](https://sycamore.readthedocs.io/en/stable/sycamore/get_started/concepts.html#docsets)
 * [Partition documents](https://sycamore.readthedocs.io/en/stable/sycamore/transforms/partition.html) into structured JSON elements
-* Extract metadata, filter, and clean data with [transforms](https://sycamore.readthedocs.io/en/stable/sycamore/APIs/docset.html)
+* Extract metadata, filter and clean data using [transforms](https://sycamore.readthedocs.io/en/stable/sycamore/APIs/docset.html)
 * Create [chunks](https://sycamore.readthedocs.io/en/stable/sycamore/transforms/merge.html) from groups of elements
 * Embed with the model of your choice
 * [Load](https://sycamore.readthedocs.io/en/stable/sycamore/connectors/opensearch.html) OpenSearch
