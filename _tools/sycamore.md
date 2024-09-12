@@ -27,6 +27,7 @@ We recommend installing the Sycamore library using `pip`. The connector for Open
 ```bash
 pip install sycamore-ai[opensearch]
 ```
+{% include copy.html %}
 
 By default, Sycamore works with the Aryn Partitioning Service to process PDFs. To run inference locally for partitioning or embedding, install the `local-inference` extra as follows:
 
