@@ -17,7 +17,7 @@ A typical pipeline for preparing unstructured data for vector or hybrid search i
 * Embed the chunks using the model of your choice
 * [Load](https://sycamore.readthedocs.io/en/stable/sycamore/connectors/opensearch.html) OpenSearch
 
-You can see an example pipeline with this flow in [this notebook](https://github.com/aryn-ai/sycamore/blob/main/notebooks/opensearch_docs_etl.ipynb).
+For an example pipeline that follows this flow, see [this notebook](https://github.com/aryn-ai/sycamore/blob/main/notebooks/opensearch_docs_etl.ipynb).
 
 
 # Install Sycamore
