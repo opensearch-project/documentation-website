@@ -36,7 +36,7 @@ PUT /custom_classic_filter
 
 ## Generated tokens
 
-Use the following request to examine the tokens generated using the created analyzer:
+Use the following request to examine the tokens generated using the analyzer:
 
 ```json
 POST /custom_classic_filter/_analyze
