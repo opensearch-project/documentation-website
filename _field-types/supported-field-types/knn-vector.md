@@ -85,9 +85,9 @@ However, if you intend to use Painless scripting or a k-NN score script, you onl
  }
  ```
 
-## Byte vector
+## Byte vectors
 
-By default, k-NN vectors are `float` vectors, where each dimension is 4 bytes. If you want to save storage space, you can use `byte` vectors with the `faiss` and `lucene` engine. In a `byte` vector, each dimension is a signed 8-bit integer in the [-128, 127] range. 
+By default, k-NN vectors are `float` vectors, in which each dimension is 4 bytes. If you want to save storage space, you can use `byte` vectors with the `faiss` or `lucene` engine. In a `byte` vector, each dimension is a signed 8-bit integer in the [-128, 127] range. 
  
 Byte vectors are supported only for the `lucene` and `faiss` engines. They are not supported for the `nmslib` engine.
 {: .note}
@@ -97,7 +97,7 @@ In [k-NN benchmarking tests](https://github.com/opensearch-project/k-NN/tree/mai
 When using `byte` vectors, expect some loss of precision in the recall compared to using `float` vectors. Byte vectors are useful in large-scale applications and use cases that prioritize a reduced memory footprint in exchange for a minimal loss of recall.
 {: .important}
 
-When using `byte` vectors with `faiss` engine, it is recommended to use with [SIMD optimization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#simd-optimization-for-the-faiss-engine), which helps to significantly reduce search latencies and improve indexing throughput.
+When using `byte` vectors with the `faiss` engine, it is recommended to use [SIMD optimization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#simd-optimization-for-the-faiss-engine), which helps to significantly reduce search latencies and improve indexing throughput.
 {: .important} 
 
 Introduced in k-NN plugin version 2.9, the optional `data_type` parameter defines the data type of a vector. The default value of this parameter is `float`.
@@ -106,8 +106,9 @@ To use a `byte` vector, set the `data_type` parameter to `byte` when creating ma
 
 ### Example: HNSW
 
-Here is an example to create a byte vector index with the Lucene engine and HNSW algorithm:
- ```json
+The following example creates a byte vector index with the `lucene` engine and `hnsw` algorithm:
+
+```json
 PUT test-index
 {
   "settings": {
@@ -138,7 +139,7 @@ PUT test-index
 ```
 {% include copy-curl.html %}
 
-Then ingest documents as usual. Make sure each dimension in the vector is in the supported [-128, 127] range:
+After creating the index, ingest documents as usual. Make sure each dimension in the vector is in the supported [-128, 127] range:
 
 ```json
 PUT test-index/_doc/1
@@ -176,9 +177,9 @@ GET test-index/_search
 
 ### Example: IVF
 
-The IVF method requires a training step that creates and trains the model used to initialize the native library index during segment creation. For more information, see [Building a k-NN index from a model]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model).
+The `ivf` method requires a training step that creates and trains the model used to initialize the native library index during segment creation. For more information, see [Building a k-NN index from a model]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model).
 
-First, create an index that will contain byte vector training data. Specify the Faiss engine and IVF algorithm and make sure that the `dimension` matches the dimension of the model you want to create:
+First, create an index that will contain byte vector training data. Specify the `faiss` engine and `ivf` algorithm and make sure that the `dimension` matches the dimension of the model you want to create:
 
 ```json
 PUT train-index
@@ -426,7 +427,7 @@ return Byte(bval)
 ```
 {% include copy.html %}
 
-## Binary k-NN vectors
+## Binary vectors
 
 You can reduce memory costs by a factor of 32 by switching from float to binary vectors.
 Using binary vector indexes can lower operational costs while maintaining high recall performance, making large-scale deployment more economical and efficient.
