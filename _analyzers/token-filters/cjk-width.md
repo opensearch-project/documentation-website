@@ -7,21 +7,21 @@ nav_order: 40
 
 # CJK width token filter
 
-The CJK Width token filter in OpenSearch normalizes Chinese, Japanese, and Korean (CJK) tokens by converting full-width ASCII Character to their standard (half-width) ASCII equivalents and half-width Katakana characters to their full-width.
+The CJK Width token filter normalizes Chinese, Japanese, and Korean (CJK) tokens by converting full-width ASCII characters to their standard (half-width) ASCII equivalents and half-width katakana characters to their full-width equivalents.
 
  - **Converting full-width ASCII Character**: In CJK texts, ASCII characters (such as letters and numbers) can appear in full-width form, which occupies the space of two half-width characters. Full-width ASCII characters are typically used in East Asian typography to align with the width of CJK characters. However, for the purpose of indexing and searching, these full-width characters need to be normalized to their standard (half-width) ASCII equivalents.
 
-    See following example:
+The following example illustrates ASCII character normalization:
 
         Full-Width: ＡＢＣＤＥ １２３４５
-        Normalized: (Half-Width): ABCDE 12345
+        Normalized (half-width): ABCDE 12345
 
- - **Converting half-width Katakana characters**: The CJK Width token filter converts half-width Katakana characters to their full-width counterparts, which are the standard form used in Japanese text. This normalization is important for consistency in text processing and searching.
+ - **Converting half-width katakana characters**: The CJK width token filter converts half-width katakana characters to their full-width counterparts, which are the standard form used in Japanese text. This normalization is important for consistency in text processing and searching.
 
-    See following example:
+The following example illustrates ASCII converting half-width katakana characters:
 
-        Half-Width "Katakana": ｶﾀｶﾅ
-        Normalized (Full-Width "Katakana"): カタカナ
+        Half-Width katakana: ｶﾀｶﾅ
+        Normalized (full-width) katakana: カタカナ
 
 
 ## Example
