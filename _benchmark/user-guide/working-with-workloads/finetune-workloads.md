@@ -5,7 +5,7 @@ nav_order: 12
 grand_parent: User guide
 parent: Working with workloads
 redirect_from: 
-  - /benchmark/user-guide/finetune-workloads/
+  - /benchmark/user-guide/finetine-workloads/
 ---
 
 # Fine-tuning custom workloads
