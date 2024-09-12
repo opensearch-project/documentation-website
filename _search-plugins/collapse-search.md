@@ -66,7 +66,7 @@ GET /bakery-items/_search
 }
 ```
 
-This query returns the uncollapsed search results, showing all the documents, including both entries for "Chocolate Cake."
+This query returns the uncollapsed search results, showing all documents, including both entries for "Chocolate Cake".
 
 #### Search the index and collapse the results
 
