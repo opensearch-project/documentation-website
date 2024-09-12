@@ -42,6 +42,9 @@ The following table lists the required and optional parameters for the `text_chu
 | `description`	              | String	    | Optional	 | A brief description of the processor. |
 | `tag`	| String	    | Optional	 | An identifier tag for the processor. Useful when debugging in order to distinguish between processors of the same type.	|
 
+If you wish to perform chunking on nested map values, please specify `input_field` and `output_field` in a map-like format and not use `.`. Instead of `"field_map": { "foo.bar": "foo.bar_chunk"}`, you should use `"field_map": { "foo": { "bar": "bar_chunk"} }`.
+{: .note}
+
 ### Fixed token length algorithm
 
 The following table lists the optional parameters for the `fixed_token_length` algorithm.
