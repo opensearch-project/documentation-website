@@ -31,9 +31,10 @@ PUT test-index
         "type": "knn_vector",
         "dimension": 3,
         "space_type": "l2",
+        "mode": "in_memory",
+        "compression_level": "2x",
         "method": {
           "name": "hnsw",
-          "engine": "lucene",
           "parameters": {
             "ef_construction": 128,
             "m": 24
@@ -45,6 +46,26 @@ PUT test-index
 }
 ```
 {% include copy-curl.html %}
+
+## Vector workload modes
+
+The field of Vector Search contains a significant number of tradeoffs. Some users want very low-latency search, others want low-cost search. The `mode` mapping parameter of the `knn_vector` type allows users to indicate what tradeoffs they would like to default to. The `mode` that is set will dictate what different defaults are resolved to. Users can fine tune their index by overriding other parameters in the k-NN field mapping.
+
+Right now, 2 modes are supported:
+* `in_memory` (default) - the `in_memory` mode represents the current default for vector search in OpenSearch. By default, it will use the `nmslib` engine and not configure any compression_level. This mode should be preferred if low-latency is required for your application.
+* `on_disk` - the `on_disk` mode is used to provide low-cost vector search while maintaining strong recall. The `on_disk` mode by default uses "32x" compression via binary quantization and a default rescoring oversample factor of 2.0. This mode should be used if the workload requires a lower cost. `on_disk` is only supported for `float` vector types. 
+
+## Compression levels
+
+`compression_level` is a mapping parameter that selects a quantization encoder that will reduce the memory consumption of the vectors by the given factor. Valid values are:
+- "1x" (supported by nmslib, lucene and faiss engines)
+- "2x" (supported by faiss engine)
+- "4x" (supported by lucene engine)
+- "8x" (supported by faiss engine)
+- "16x" (supported by faiss engine)
+- "32x" (supported by faiss engine)
+
+If the `compression_level` parameter is set, an `encoder` cannot be specifed in the `method` mapping. `compression_level` greater than 1x are only supported for `float` vector types.
 
 ## Method definitions
 
