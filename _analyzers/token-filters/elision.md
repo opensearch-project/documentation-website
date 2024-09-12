@@ -59,7 +59,7 @@ PUT /french_texts
 
 ## Generated tokens
 
-Use the following request to examine the tokens generated using the created analyzer:
+Use the following request to examine the tokens generated using the analyzer:
 
 ```json
 POST /french_texts/_analyze
