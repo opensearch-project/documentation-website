@@ -16,7 +16,7 @@ The `collapse` parameter requires the field being collapsed to be of either a `k
 
 To populate an index with data, define the index mappings and an `item` field indexed as a `keyword`. The following example request shows you how to define index mappings, populate an index, and then search it.
 
-#### Define the index mappings
+#### Define index mappings
 
 ```json
 PUT /bakery-items
