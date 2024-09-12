@@ -39,7 +39,7 @@ The following table lists the available query parameters. All query parameters a
 Parameter | Data type | Description
 :--- | :--- | :---
 `pipeline` | String | The pipeline ID for preprocessing documents.
-`refresh` | Enum | Whether to refresh the affected shards after performing the indexing operations. Default is `false`. `true` makes the changes show up in search results immediately, but hurts cluster performance. `wait_for` waits for a refresh. Requests take longer to return, but cluster performance doesn't suffer.
+`refresh` | Enum | Whether to refresh the affected shards after performing the indexing operations. Default is `false`. `true` causes the changes show up in search results immediately but degrades cluster performance. `wait_for` waits for a refresh. Requests take longer to return, but cluster performance isn't degraded.
 `require_alias` | Boolean | Set to `true` to require that all actions target an index alias rather than an index. Default is `false`.
 `routing` | String | Routes the request to the specified shard.
 `timeout` | Time | How long to wait for the request to return. Default is `1m`.
