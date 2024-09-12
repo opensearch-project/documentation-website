@@ -14,15 +14,18 @@ The CJK Width token filter normalizes Chinese, Japanese, and Korean (CJK) tokens
 In CJK texts, ASCII characters (such as letters and numbers) can appear in full-width form, which occupies the space of two half-width characters. Full-width ASCII characters are typically used in East Asian typography to align with the width of CJK characters. However, for the purpose of indexing and searching, these full-width characters need to be normalized to their standard (half-width) ASCII equivalents.
 
 The following example illustrates ASCII character normalization:
+
 ```
         Full-Width:              ＡＢＣＤＥ １２３４５
         Normalized (half-width): ABCDE 12345
 ```
+
 ### Converting half-width katakana characters
 
 The CJK width token filter converts half-width katakana characters to their full-width counterparts, which are the standard form used in Japanese text. This normalization is important for consistency in text processing and searching.
 
 The following example illustrates ASCII converting half-width katakana characters:
+
 ```
         Half-Width katakana:               ｶﾀｶﾅ
         Normalized (full-width) katakana:  カタカナ
