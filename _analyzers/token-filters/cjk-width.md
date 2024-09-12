@@ -52,7 +52,7 @@ PUT /cjk_width_example_index
 
 ## Generated tokens
 
-Use the following request to examine the tokens generated using the created analyzer:
+Use the following request to examine the tokens generated using the analyzer:
 
 ```json
 POST /cjk_width_example_index/_analyze
