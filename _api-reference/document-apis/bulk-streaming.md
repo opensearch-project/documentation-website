@@ -14,7 +14,7 @@ redirect_from:
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/9065).    
 {: .warning}
 
-The streaming bulk operation lets you add, update, or delete multiple documents in by streaming the request and getting the results as streaming response. In comparison to the traditional [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/), streaming ingestion eliminates the need to guess the batch size (which is affected by the cluster operational state at any given time) and naturally applies the backpressure between many clients and the cluster. The streaming works over HTTP/2 or HTTP/1.1 (using chunked transfer encoding), depending on the capabilities of the clients and the cluster.
+The streaming bulk operation lets you add, update, or delete multiple documents by streaming the request and getting the results as a streaming response. In comparison to the traditional [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/), streaming ingestion eliminates the need to estimate the batch size (which is affected by the cluster operational state at any given time) and naturally applies backpressure between many clients and the cluster. The streaming works over HTTP/2 or HTTP/1.1 (using chunked transfer encoding), depending on the capabilities of the clients and the cluster.
 
 The default HTTP transport method does not support streaming. You must install the [`transport-reactor-netty4`]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/network-settings/#selecting-the-transport) HTTP transport plugin and use it as the default HTTP transport layer. Both the `transport-reactor-netty4` plugin and the Streaming Bulk API are experimental.
 {: .note}
@@ -28,7 +28,7 @@ POST <index>/_bulk/stream
 
 If you specify the index in the path, then you don't need to include it in the [request body chunks]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/#request-body).
 
-OpenSearch also accepts PUT requests to the `_bulk/stream` path, but we highly recommend using POST. The accepted usage of PUT---adding or replacing a single resource at a given path---doesn't make sense for streaming bulk requests.
+OpenSearch also accepts PUT requests to the `_bulk/stream` path, but we highly recommend using POST. The accepted usage of PUT---adding or replacing a single resource on a given path---doesn't make sense for streaming bulk requests.
 {: .note }
 
 
@@ -48,12 +48,12 @@ Parameter | Data type | Description
 `batch_interval` | Time | Specifies how long bulk operations should be accumulated into batch before sending over to data nodes.
 `batch_size` | Time | Specifies how many bulk operations should be accumulated into batch before sending over to data nodes. Default `1`.
 {% comment %}_source | List | asdf
-`_source_excludes` | list | asdf
-`_source_includes` | list | asdf{% endcomment %}
+`_source_excludes` | List | asdf
+`_source_includes` | List | asdf{% endcomment %}
 
 ## Request body
 
-The streaming bulk API request body is fully compatible with the [Bulk API request body]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/#request-body), where each bulk operation (create/index/update/delete) is sent as a separate chunk.  
+The Streaming Bulk API request body is fully compatible with the [Bulk API request body]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/#request-body), where each bulk operation (create/index/update/delete) is sent as a separate chunk.  
 
 ## Example request
 
@@ -72,7 +72,7 @@ curl -X POST "http://localhost:9200/_bulk/stream" -H "Transfer-Encoding: chunked
 
 ## Example response
 
-Depending on the batch settings, each streamed response chunk may report the results of one or many (batch) bulk operations, for example for the preceding request with no batching (default), the streaming response may look like this:
+Depending on the batch settings, each streamed response chunk may report the results of one or many (batch) bulk operations. For example, for the preceding request with no batching (default), the streaming response may appear as follows:
 
 ```json
 {"took": 11, "errors": false, "items": [ { "index": {"_index": "movies", "_id": "tt1979320", "_version": 1, "result": "created", "_shards": { "total": 2 "successful": 1, "failed": 0 }, "_seq_no": 1, "_primary_term": 1, "status": 201 } } ] }
