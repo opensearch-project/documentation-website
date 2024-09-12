@@ -308,6 +308,48 @@ Engine | Notes
 :--- | :--- 
 `faiss` | If `nprobes` is present in a query, it overrides the value provided when creating the index.
 
+### Rescoring quantized results with full precision
+
+Quantization can be used to significantly reduce the memory footprint of a k-NN index. For more information about quantization, see [k-NN Vector Quantization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization). Because some precision of the vector representations is lost during quantization, the distances computed will be approximate. This causes the overall recall of the search to go down. In order to improve the recall, while still reaping the memory savings that quantization provides, a two-phased search approach can be taken up. In the first phase, `oversample_factor*k` results are collected from an index using quantized vectors. These scores are approximated. Then, in the second phase, the full-precision vectors of the `oversample_factor*k` results are mapped into memory from disk and the scores are recomputed against the full precision query vector and the results are reduced to the top k. To execute this query on a quantized index, the following query can be run:
+```json
+GET my-knn-index-1/_search
+{
+  "size": 2,
+  "query": {
+    "knn": {
+      "target-field": {
+        "vector": [2, 3, 5, 6],
+        "k": 2,
+        "rescore" : {
+          "oversample_factor: 1.2
+        }
+      }
+    }
+  }
+}
+```
+
+or
+```json
+GET my-knn-index-1/_search
+{
+  "size": 2,
+  "query": {
+    "knn": {
+      "target-field": {
+        "vector": [2, 3, 5, 6],
+        "k": 2,
+        "rescore" : true
+      }
+    }
+  }
+}
+```
+
+The `oversample_factor` is a floating point number between 0.0 and 100.0. `oversample_factor*k` will always be greater than or equal to 100 and less than or equal to 10,000.
+
+Rescoring is not needed if quantization is not used because the scores returned are already completely precise.
+
 ### Using approximate k-NN with filters
 
 To learn about using filters with k-NN search, see [k-NN search with filters]({{site.url}}{{site.baseurl}}/search-plugins/knn/filter-search-knn/).
