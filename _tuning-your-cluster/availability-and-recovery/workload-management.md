@@ -58,3 +58,135 @@ Setting | Default | Description
 `wlm.query_group.node.memory_cancellation_threshold` | `0.9` | The memory-based cancellation threshold for query groups at the node level. Tasks that exceed this threshold will be canceled. The maximum allowed value is `0.95`.  
 `wlm.query_group.node.cpu_rejection_threshold` | `0.8` | The CPU-based rejection threshold for query groups at the node level. Tasks that exceed this threshold will be rejected. The maximum allowed value is `0.9`.  
 `wlm.query_group.node.cpu_cancellation_threshold` | `0.9` | The CPU-based cancellation threshold for query groups at the node level. Tasks that exceed this threshold will be canceled. The maximum allowed value is `0.95`.
+
+## Query group lifecycle APIs
+Below are the APIs that can be used to manage the lifecycle of Query groups
+
+### Create Query Group
+Creates a new Query group with the specified properties.
+
+#### Example request
+```json
+PUT _wlm/query_group
+{
+  "name": "analytics",
+  "resiliency_mode": "enforced",
+  "resource_limits": {
+    "cpu": 0.4,
+    "memory": 0.2
+  }
+}
+```
+
+#### Example response
+```json
+{
+  "_id":"preXpc67RbKKeCyka72_Gw",
+  "name":"analytics",
+  "resiliency_mode":"enforced",
+  "resource_limits":{
+    "cpu":0.4,
+    "memory":0.2
+  },
+  "updated_at":1726270184642
+}
+```
+
+### Update Query Group
+Updates the properties of an existing Query Group.
+
+#### Example request
+```json
+PUT _wlm/query_group/analytics
+{
+  "resiliency_mode": "monitor",
+  "resource_limits": {
+    "cpu" : 0.41,
+    "memory" : 0.21
+  }
+}
+```
+#### Example response
+```json
+{
+  "_id":"preXpc67RbKKeCyka72_Gw",
+  "name":"analytics",
+  "resiliency_mode":"monitor",
+  "resource_limits":{
+    "cpu":0.41,
+    "memory":0.21
+  },
+  "updated_at":1726270333804
+}
+```
+### Get Query Group
+Retrieves the properties of the provided Query Group.
+
+#### Example request
+```json
+GET _wlm/query_group/analytics
+```
+#### Example response
+```json
+{
+  "query_groups" : [
+    {
+      "_id" : "preXpc67RbKKeCyka72_Gw",
+      "name" : "analytics",
+      "resiliency_mode" : "monitor",
+      "resource_limits" : {
+        "cpu" : 0.41,
+        "memory" : 0.21
+      },
+      "updated_at" : 1726270333804
+    }
+  ]
+}
+```
+### Get All Query Groups
+Retrieves the properties of all Query groups in the cluster.
+
+#### Example request
+```json
+GET _wlm/query_group
+```
+#### Example response
+```json
+{
+  "query_groups" : [
+    {
+      "_id" : "preXpc67RbKKeCyka72_Gw",
+      "name" : "analytics",
+      "resiliency_mode" : "monitor",
+      "resource_limits" : {
+        "cpu" : 0.41,
+        "memory" : 0.21
+      },
+      "updated_at" : 1726270333804
+    },
+    {
+      "_id" : "pviC2vuep2Kc84yka43_Np",
+      "name" : "analytics_2",
+      "resiliency_mode" : "monitor",
+      "resource_limits" : {
+        "cpu" : 0.15,
+        "memory" : 0.3
+      },
+      "updated_at" : 1726270840583
+    }
+  ]
+}
+```
+### Delete Query Group
+Delete the provided Query group.
+
+#### Example request
+```json
+DELETE _wlm/query_group/analytics
+```
+#### Example response
+```json
+{
+  "acknowledged":true
+}
+```
