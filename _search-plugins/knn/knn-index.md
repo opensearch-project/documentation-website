@@ -43,7 +43,7 @@ PUT /test-index
 
 ## Byte vectors
 
-Starting with k-NN plugin version 2.17, you can use `byte` vectors with the `faiss` and `lucene` engine to reduce the amount of memory and storage space needed. For more information, see [Byte vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#byte-vectors).
+Starting with k-NN plugin version 2.17, you can use `byte` vectors with the `faiss` and `lucene` engines to reduce the amount of required memory and storage space. For more information, see [Byte vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#byte-vectors).
 
 ## Binary vectors
 

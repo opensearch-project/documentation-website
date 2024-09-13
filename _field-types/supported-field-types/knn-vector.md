@@ -97,7 +97,7 @@ In [k-NN benchmarking tests](https://github.com/opensearch-project/k-NN/tree/mai
 When using `byte` vectors, expect some loss of precision in the recall compared to using `float` vectors. Byte vectors are useful in large-scale applications and use cases that prioritize a reduced memory footprint in exchange for a minimal loss of recall.
 {: .important}
 
-When using `byte` vectors with the `faiss` engine, it is recommended to use [SIMD optimization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#simd-optimization-for-the-faiss-engine), which helps to significantly reduce search latencies and improve indexing throughput.
+When using `byte` vectors with the `faiss` engine, we recommend using [SIMD optimization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#simd-optimization-for-the-faiss-engine), which helps to significantly reduce search latencies and improve indexing throughput.
 {: .important} 
 
 Introduced in k-NN plugin version 2.9, the optional `data_type` parameter defines the data type of a vector. The default value of this parameter is `float`.
@@ -197,7 +197,7 @@ PUT train-index
 ```
 {% include copy-curl.html %}
 
-Ingest training data containing byte vectors into the training index:
+First, ingest training data containing byte vectors into the training index:
 
 ```json
 PUT _bulk
@@ -303,7 +303,7 @@ GET test-byte-ivf/_search
 
 ### Memory estimation
 
-In the best-case scenario, byte vectors require 25% of the memory that 32-bit vectors require.
+In the best-case scenario, byte vectors require 25% of the memory required by 32-bit vectors.
 
 #### HNSW memory estimation
 
