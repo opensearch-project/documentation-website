@@ -54,11 +54,11 @@ Vector search involves tradeoffs between low-latency and low-cost search. Specif
 Currently, the following modes are supported:
 
 - `in_memory` (Default): The `in_memory` mode prioritizes low-latency search. This mode uses the `nmslib` engine without any `compression_level` applied. It is configured with the default parameter values for vector search in OpenSearch. 
-- `on_disk`: The `on_disk` mode  prioritizes low-cost vector search while maintaining strong recall. By default, it pplies 32x compression using binary quantization and a rescoring oversample factor of 2.0. The `on_disk` mode supports only `float` vector types. 
+- `on_disk`: The `on_disk` mode  prioritizes low-cost vector search while maintaining strong recall. By default, it pplies 32x compression using binary quantization and a rescoring oversample factor of 3.0. The `on_disk` mode supports only `float` vector types. Because the `on_disk` mode requires quantization with rescoring, the `1x` compression level is not supported for this mode. 
 
 ## Compression levels
 
-The `compression_level` mapping parameter selects a quantization encoder that reduces memory consumption of the vectors by the given factor. Valid values are:
+The `compression_level` mapping parameter selects a quantization encoder that reduces memory consumption of the vectors by the given factor. Specify `compression_level` as a string (for example, `compression_level: "1x"`). Valid values are:
 
 - `1x` (supported by `nmslib`, `lucene` and `faiss` engines)
 - `2x` (supported by `faiss` engine)
@@ -66,6 +66,8 @@ The `compression_level` mapping parameter selects a quantization encoder that re
 - `8x` (supported by `faiss` engine)
 - `16x` (supported by `faiss` engine)
 - `32x` (supported by `faiss` engine)
+
+For example, if a `compression_level` of `32x` is passed for a `float32` index of 768-dimensional vectors, the per-vector memory is reduced from `4 * 768 = 3072` bytes to `3072 / 32 = 846` bytes. Internally, binary quantization (which maps a `float` to a `bit`) may be used to achieve this compression.
 
 If you set the `compression_level` parameter, then you cannot specify an `encoder` in the `method` mapping. Compression levels greater than `1x` are only supported for `float` vector types.
 {: .note}
