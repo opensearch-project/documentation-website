@@ -185,7 +185,7 @@ On the **Advanced settings** pane, you can set the imputation option. This allow
 
 Using these options can improve recall in anomaly detection. For instance, if you are monitoring for drops in event counts, including both partial and complete drops, then filling missing values with zeros helps detect significant data absences, improving detection recall.
 
-Be cautious when imputing extensively missing data, as excessive gaps can compromise model accuracy. Quality input is critical---poor data quality leads to poor model performance. You can check whether a feature value has been imputed using the `feature_imputed` field in the anomaly result index. See [Anomaly result mapping]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/result-mapping) for more information.
+Be cautious when imputing extensively missing data, as excessive gaps can compromise model accuracy. Quality input is critical---poor data quality leads to poor model performance. You can check whether a feature value has been imputed using the `feature_imputed` field in the anomaly result index. See [Anomaly result mapping]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/result-mapping/) for more information.
 {: note}
 
 ### Suppressing anomalies with threshold-based rules
