@@ -10,34 +10,29 @@ redirect_from:
 
 # Anomaly detection
 
-An _anomaly_ in OpenSearch is any unusual behavior change in your time-series data. Anomalies can provide valuable insights into your data. For example, for IT infrastructure data, an anomaly in the memory usage metric might help you identify early signs of a system failure.
+An _anomaly_ in OpenSearch is any unusual behavior change in your time-series data. Anomalies can provide valuable insights into your data. For example, for IT infrastructure data, an anomaly in the memory usage metric can help identify early signs of a system failure.
 
 Conventional techniques like visualizations and dashboards can make it difficult to uncover anomalies. Configuring alerts based on static thresholds is possible, but this approach requires prior domain knowledge and may not adapt to data with organic growth or seasonal trends.
 
-Anomaly detection automatically detects anomalies in your OpenSearch data in near real-time using the Random Cut Forest (RCF) algorithm. RCF is an unsupervised machine learning algorithm that models a sketch of your incoming data stream to compute an `anomaly grade` and `confidence score` value for each incoming data point. These values are used to differentiate an anomaly from normal variations. For more information about how RCF works, see [Random Cut Forests](https://www.semanticscholar.org/paper/Robust-Random-Cut-Forest-Based-Anomaly-Detection-on-Guha-Mishra/ecb365ef9b67cd5540cc4c53035a6a7bd88678f9).
+Anomaly detection automatically detects anomalies in your OpenSearch data in near real time using the Random Cut Forest (RCF) algorithm. RCF is an unsupervised machine learning algorithm that models a sketch of your incoming data stream to compute an _anomaly grade_ and _confidence score_ value for each incoming data point. These values are used to differentiate an anomaly from normal variations. For more information about how RCF works, see [Random Cut Forests](https://www.semanticscholar.org/paper/Robust-Random-Cut-Forest-Based-Anomaly-Detection-on-Guha-Mishra/ecb365ef9b67cd5540cc4c53035a6a7bd88678f9).
 
 You can pair the Anomaly Detection plugin with the [Alerting plugin]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/) to notify you as soon as an anomaly is detected.
+{: .note}
 
-## Using OpenSearch Dashboards anomaly detection
+## Getting started with anomaly detection in OpenSearch Dashboards
 
-To get started, go to **OpenSearch Dashboards** > **OpenSearch Plugins** > **Anomaly Detection**. OpenSearch Dashboards contains sample datasets. You can use these datasets with their preconfigured detectors to try out the feature.
-
-The following tutorial guides you through using anomaly detection with your OpenSearch data.
+To get started, go to **OpenSearch Dashboards** > **OpenSearch Plugins** > **Anomaly Detection**. 
 
 ## Step 1: Define a detector
 
 A _detector_ is an individual anomaly detection task. You can define multiple detectors, and all detectors can run simultaneously, with each analyzing data from different sources.
 
-1. Choose **Create detector**.
-1. Add the detector details.
-   - Enter a name that describes the detector's intended use.
-1. Specify the data source.
-   - For **Data source**, choose the index you want to use as the data source. You can optionally use index patterns to choose multiple indexes.
-   - (Optional) For **Data filter**, filter the index you chose as the data source. From the **Data filter** menu, choose **Add data filter**, and then design your filter query by selecting **Field**, **Operator**, and **Value**, or choose **Use query DSL** and add your own JSON filter query. Only [Boolean queries]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/) are supported for query domain-specific language (DSL).
+1. On the **Anomaly detection** page, select the **Create detector** button.
+2. On the **Define detector** page, enter the required information on the **Detector details** pane.
+3. On the **Select data** pane, specify the data source by choosing a source from the **Index** dropdown menu. You can choose an index, index patterns, or alias.
+4. (Optional) Filter the data source by selecting **Add data filter** and then entering the conditions for **Field**, **Operator**, and **Value**. Alternatively, you can choose **Use query DSL** and add your JSON filter query. Only [Boolean queries]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/) are supported for query domain-specific language (DSL).
 
----
-
-#### Example: Filter using query DSL
+#### Example: Filtering data using query DSL
 
 The following example query retrieves documents where the `urlPath.keyword` field matches any of the specified values:
    
@@ -70,43 +65,36 @@ The following example query retrieves documents where the `urlPath.keyword` fiel
    ```
    {% include copy-curl.html %}
 
----
+5. On the **Timestamp** pane, select a field from the **Timestamp field** dropdown menu.
 
-1. Specify a timestamp.
-   - Select the **Timestamp field** in the index.
-1. Define operation settings.
-   - For **Operation settings**, define the **Detector interval**, which is the time interval at which the detector collects data.
-      - The detector aggregates the data in this interval, then feeds the aggregated result into the anomaly detection model.
-      The shorter you set this interval, the fewer data points the detector aggregates.
-      The anomaly detection model uses a shingling process, a technique that uses consecutive data points to create a sample for the model. This process needs a certain number of aggregated data points from contiguous intervals.
-
-      - We recommend setting the detector interval based on your actual data. If it's too long it might delay the results, and if it's too short it might miss some data. It also won't have a sufficient number of consecutive data points for the shingle process.
-
-   - (Optional) To add extra processing time for data collection, specify a **Window delay** value.
+6. On the **Operation settings** pane, define the **Detector interval**, which is the time interval at which the detector collects data.
+    - The detector aggregates the data in this interval, then feeds the aggregated result into the anomaly detection model. The shorter you set this interval, the fewer data points the detector aggregates. The anomaly detection model uses a shingling process, a technique that uses consecutive data points to create a sample for the model. This process needs a certain number of aggregated data points from contiguous intervals.
+    - You should set the detector interval based on your actual data. If the detector interval is too long, then it might delay the results. If the detector interval is too short, then it might miss some data. The detector interval also will not have a sufficient number of consecutive data points for the shingle process.
+    - (Optional) To add extra processing time for data collection, specify a **Window delay** value.
       - This value tells the detector that the data is not ingested into OpenSearch in real time but with a certain delay. Set the window delay to shift the detector interval to account for this delay.
-      - For example, say the detector interval is 10 minutes and data is ingested into your cluster with a general delay of 1 minute. Assume the detector runs at 2:00. The detector attempts to get the last 10 minutes of data from 1:50 to 2:00, but because of the 1-minute delay, it only gets 9 minutes of data and misses the data from 1:59 to 2:00. Setting the window delay to 1 minute shifts the interval window to 1:49--1:59, so the detector accounts for all 10 minutes of the detector interval time.
+      - For example, the detector interval is 10 minutes and data is ingested into your cluster with a general delay of 1 minute. Assume the detector runs at 2:00. The detector attempts to get the last 10 minutes of data from 1:50 to 2:00, but because of the 1-minute delay, it only gets 9 minutes of data and misses the data from 1:59 to 2:00. Setting the window delay to 1 minute shifts the interval window to 1:49--1:59, so the detector accounts for all 10 minutes of the detector interval time.
       - To avoid missing any data, set the **Window delay** to the upper limit of the expected ingestion delay. This ensures the detector captures all data during its interval, reducing the risk of missing relevant information. While a longer window delay helps capture all data, setting it too high can hinder real-time anomaly detection, as the detector will look further back in time. Find a balance to maintain both data accuracy and timely detection.
 
-1. Specify custom results index.
-   - The Anomaly Detection plugin allows you to store anomaly detection results in a custom index of your choice. To enable this, select **Enable custom results index** and provide a name for your index, for example, `abc`. The plugin then creates an alias prefixed with `opensearch-ad-plugin-result-` followed by your chosen name, for example, `opensearch-ad-plugin-result-abc`. This alias points to an actual index with a name containing the date and a sequence number, like `opensearch-ad-plugin-result-abc-history-2024.06.12-000002`, where your results are stored.
+7. Specify custom results index.
+   - The Anomaly Detection plugin allows you to store anomaly detection results in a custom index of your choice. Select **Enable custom results index** and provide a name for your index, for example, `abc`. The plugin then creates an alias prefixed with `opensearch-ad-plugin-result-` followed by your chosen name, for example, `opensearch-ad-plugin-result-abc`. This alias points to an actual index with a name containing the date and a sequence number, such as `opensearch-ad-plugin-result-abc-history-2024.06.12-000002`, where your results are stored.
 
-   You can use the dash “-” sign to separate the namespace to manage custom results index permissions. For example, if you use `opensearch-ad-plugin-result-financial-us-group1` as the results index, you can create a permission role based on the pattern `opensearch-ad-plugin-result-financial-us-*` to represent the "financial" department at a granular level for the "us" area.
+   You can use `-` to separate the namespace to manage custom results index permissions. For example, if you use `opensearch-ad-plugin-result-financial-us-group1` as the results index, you can create a permission role based on the pattern `opensearch-ad-plugin-result-financial-us-*` to represent the `financial` department at a granular level for the `us` group.
    {: .note }
 
    - When the Security plugin (fine-grained access control) is enabled, the default results index becomes a system index and is no longer accessible through the standard Index or Search APIs. To access its content, you must use the Anomaly Detection RESTful API or the dashboard. As a result, you cannot build customized dashboards using the default results index if the Security plugin is enabled. However, you can create a custom results index in order to build customized dashboards.
    - If the custom index you specify does not exist, the Anomaly Detection plugin will create it when you create the detector and start your real-time or historical analysis.
    - If the custom index already exists, the plugin will verify that the index mapping matches the required structure for anomaly results. In this case, ensure that the custom index has a valid mapping as defined in the [`anomaly-results.json`](https://github.com/opensearch-project/anomaly-detection/blob/main/src/main/resources/mappings/anomaly-results.json) file.
-   - To use the custom results index option, you need the following permissions:
-      - `indices:admin/create` - The Anomaly Detection plugin requires the ability to create and roll over the custom index.
-      - `indices:admin/aliases` - The Anomaly Detection plugin requires access to create and manage an alias for the custom index.
-      - `indices:data/write/index` - You need the `write` permission for the Anomaly Detection plugin to write results into the custom index for a single-entity detector.
-      - `indices:data/read/search` - You need the `search` permission because the Anomaly Detection plugin needs to search custom results indexes to show results on the Anomaly Detection UI.
-      - `indices:data/write/delete` - Because the detector might generate a large number of anomaly results, you need the `delete` permission to delete old data and save disk space.
-      - `indices:data/write/bulk*` -  You need the `bulk*` permission because the Anomaly Detection plugin uses the bulk API to write results into the custom index.
-   - Managing the custom results index:
-      - The anomaly detection dashboard queries all detectors’ results from all custom results indexes. Having too many custom results indexes might impact the performance of the Anomaly Detection plugin.
-      - You can use [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/) to rollover old results indexes. You can also manually delete or archive any old results indexes. We recommend reusing a custom results index for multiple detectors.
-      - The Anomaly Detection plugin also provides lifecycle management for custom indexes. It rolls an alias over to a new index when the custom results index meets any of the conditions in the following table.
+   - To use the custom results index option, you must have the following permissions:
+      - `indices:admin/create` - The `create` permission is required in order to create and roll over the custom index.
+      - `indices:admin/aliases` - The `aliases` permission is required in order to create and manage an alias for the custom index.
+      - `indices:data/write/index` - The `write` permission is required in order to write results into the custom index for a single-entity detector.
+      - `indices:data/read/search` - The `search` permission is required in order to search custom results indexes to show results on the Anomaly Detection interface.
+      - `indices:data/write/delete` - The detector may generate many anomaly results. The `delete` permission is required to delete old data and save disk space.
+      - `indices:data/write/bulk*` -  The `bulk*` permission is required because the plugin uses the bulk API to write results into the custom index.
+   - When managing the custom results index, consider the following:
+      - The anomaly detection dashboard queries all detector results from all custom results indexes. Having too many custom results indexes can impact the plugin's performance.
+      - You can use [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/) to roll over old results indexes. You can also manually delete or archive any old results indexes. Reusing a custom results index for multiple detectors is recommended.
+      - The plugin provides lifecycle management for custom indexes. It rolls over an alias to a new index when the custom results index meets any of the conditions in the following table.
 
       Parameter | Description | Type | Unit | Example | Required
       :--- | :--- |:--- |:--- |:--- |:---
@@ -114,7 +102,7 @@ The following example query retrieves documents where the `urlPath.keyword` fiel
       `result_index_min_age` |  The minimum index age required for rollover, calculated from its creation time to the current time. | `integer` |`day` | `7` | No
       `result_index_ttl` | The minimum age required to permanently delete rolled-over indexes. | `integer` | `day` | `60` | No
 
-1. Choose **Next**.   
+8. Choose **Next**.   
 
 After you define the detector, the next step is to configure the model.
 
@@ -126,7 +114,7 @@ A _feature_ is the field in your index that you want to analyze for anomalies. A
 
 For example, if you choose `min()`, the detector focuses on finding anomalies based on the minimum values of your feature. If you choose `average()`, the detector finds anomalies based on the average values of your feature.
 
-A multi-feature model correlates anomalies across all its features. The [curse of dimensionality](https://en.wikipedia.org/wiki/Curse_of_dimensionality) makes it less likely for multi-feature models to identify smaller anomalies as compared to a single-feature model. Adding more features might negatively impact the [precision and recall](https://en.wikipedia.org/wiki/Precision_and_recall) of a model. A higher proportion of noise in your data might further amplify this negative impact. Selecting the optimal feature set is usually an iterative process. By default, the maximum number of features for a detector is 5. You can adjust this limit with the `plugins.anomaly_detection.max_anomaly_features` setting.
+A multi-feature model correlates anomalies across all its features. The [curse of dimensionality](https://en.wikipedia.org/wiki/Curse_of_dimensionality) makes it less likely for multi-feature models to identify smaller anomalies as compared to a single-feature model. Adding more features can negatively impact the [precision and recall](https://en.wikipedia.org/wiki/Precision_and_recall) of a model. A higher proportion of noise in your data can further amplify this negative impact. Selecting the optimal feature set is usually an iterative process. By default, the maximum number of features for a detector is `5`. You can adjust this limit with the `plugins.anomaly_detection.max_anomaly_features` setting.
 {: .note}
 
 ### Configuring a model based on an aggregation method
@@ -149,18 +137,17 @@ To configure an anomaly detection model based on a JSON aggregation query, follo
 1. On the **Edit model configuration** page, select the **Add another feature** button. 
 2. Enter a name in the **Feature name** field and select the **Enable feature** checkbox.
 3. Select **Custom expression** from the dropdown menu under **Find anomalies based on**. The JSON editor window will open.
-1. Enter your JSON aggregation query in the editor.
+4. Enter your JSON aggregation query in the editor.
+5. Select the **Save changes** button.
 
 For acceptable JSON query syntax, see [OpenSearch Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/)
 {: .note}
 
-### (Optional) Set category fields for high cardinality
+### Setting category fields for high cardinality
 
-You can categorize anomalies based on a keyword or IP field type.
+You can categorize anomalies based on a keyword or IP field type. The category field categorizes or slices the source time series with a dimension, such as IP addresses, product IDs, and country codes. This gives you a granular view of anomalies within each entity of the category field to help isolate and debug issues.
 
-The category field categorizes or slices the source time series with a dimension like IP addresses, product IDs, country codes, and so on. This helps to see a granular view of anomalies within each entity of the category field to isolate and debug issues.
-
-To set a category field, choose **Enable a category field** and select a field. You can’t change the category fields after you create the detector.
+To set a category field, choose **Enable a category field** and select a field. You cannot change the category fields after you create the detector.
 
 Only a certain number of unique entities are supported in the category field. Use the following equation to calculate the recommended total number of entities supported in a cluster:
 
@@ -168,44 +155,42 @@ Only a certain number of unique entities are supported in the category field. Us
 (data nodes * heap size * anomaly detection maximum memory percentage) / (entity model size of a detector)
 ```
 
-To get the entity model size of a detector, use the [profile detector API]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/api/#profile-detector). You can adjust the maximum memory percentage with the `plugins.anomaly_detection.model_max_size_percent` setting.
+To get the detector's entity model size, use the [Profile Detector API]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/api/#profile-detector). You can adjust the maximum memory percentage with the `plugins.anomaly_detection.model_max_size_percent` setting.
 
-Consider a cluster with 3 data nodes, each with 8 GB of JVM heap size and the default 10% memory allocation. With an entity model size of 1 MB, the following formula calculates the estimated number of unique entities: 
+Consider a cluster with three data nodes, each with 8 GB of JVM heap size and the default 10% memory allocation. With an entity model size of 1 MB, the following formula calculates the estimated number of unique entities: 
 
 ```
 (8096 MB * 0.1 / 1 MB ) * 3 = 2429
 ```
 
-If the actual total number of unique entities is higher than the number that you calculate (in this case, 2,429), the anomaly detector will attempt to model the extra entities. The detector prioritizes entities that occur more often and are more recent.
+If the actual total number of unique entities is higher than the number that you calculate (in this case, 2,429), the anomaly detector attempts to model the extra entities. The detector prioritizes entities that occur more often and are more recent.
 
-This formula serves as a starting point. Make sure to test it with a representative workload. You can find more information in the [Improving Anomaly Detection: One million entities in one minute](https://opensearch.org/blog/one-million-enitities-in-one-minute/) blog post.
+This formula serves as a starting point. Make sure to test it with a representative workload. See the OpenSearch blog [Improving Anomaly Detection: One million entities in one minute](https://opensearch.org/blog/one-million-enitities-in-one-minute/).
 {: .note }
 
-### (Advanced settings) Set a shingle size
+### Setting a shingle size
 
-Set the number of aggregation intervals from your data stream to consider in a detection window. It’s best to choose this value based on your actual data to see which one leads to the best results for your use case.
+On the **Advanced settings** pane, you can set the number of aggregation intervals from your data stream to include in the detection window. Choose this value based on your actual data to find the optimal setting for your use case. To set the shingle size, select **Show** on the **Advanced settings** pane. Enter the desired size in the **intervals** field.
 
-The anomaly detector requires the shingle size to be between 1 and 128. The default is `8`. Use `1` only if you have at least two features. Values less than `8` may increase [recall](https://en.wikipedia.org/wiki/Precision_and_recall), but also increase false positives. Values greater than `8` may be useful for ignoring noise in a signal.
+The anomaly detector requires the shingle size to be between 1 and 128. The default is `8`. Use `1` only if you have at least two features. Values less than `8` may increase [recall](https://en.wikipedia.org/wiki/Precision_and_recall) but also may increase false positives. Values greater than `8` may be useful for ignoring noise in a signal.
 
-To set the shingle size, select **Show** on the **Advanced settings** pane. Enter the desired size in the **intervals** field.
+### Setting an imputation option
 
-### (Advanced settings) Set an imputation option
-
-The imputation option allows you to address missing data in your streams. You can choose from the following methods to handle gaps:
+On the **Advanced settings** pane, you can set the imputation option. This allows you to handle missing data in your streams. The options include the following:
 
 - **Ignore Missing Data (Default):** The system continues without considering missing data points, keeping the existing data flow.
 - **Fill with Custom Values:** Specify a custom value for each feature to replace missing data points, allowing for targeted imputation tailored to your data.
 - **Fill with Zeros:** Replace missing values with zeros. This is ideal when the absence of data indicates a significant event, such as a drop to zero in event counts.
 - **Use Previous Values:** Fill gaps with the last observed value to maintain continuity in your time-series data. This method treats missing data as non-anomalous, carrying forward the previous trend.
 
-Using these options can improve recall in anomaly detection. For instance, if you are monitoring for drops in event counts, including both partial and complete drops, filling missing values with zeros helps detect significant data absences, improving detection recall.
+Using these options can improve recall in anomaly detection. For instance, if you are monitoring for drops in event counts, including both partial and complete drops, then filling missing values with zeros helps detect significant data absences, improving detection recall.
 
 Be cautious when imputing extensively missing data, as excessive gaps can compromise model accuracy. Quality input is critical---poor data quality leads to poor model performance. You can check whether a feature value has been imputed using the `feature_imputed` field in the anomaly result index. See [Anomaly result mapping]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/result-mapping) for more information.
 {: note}
 
-### (Advanced settings) Suppressing anomalies with threshold-based rules
+### Suppressing anomalies with threshold-based rules
 
-You can suppress anomalies by setting rules that define acceptable differences between the expected and actual values, either as an absolute value or a relative percentage. This helps reduce false anomalies caused by minor fluctuations, allowing you to focus on significant deviations.
+On the **Advanced settings** pane, you can suppress anomalies by setting rules that define acceptable differences between the expected and actual values, either as an absolute value or a relative percentage. This helps reduce false anomalies caused by minor fluctuations, allowing you to focus on significant deviations.
 
 Suppose you want to detect substantial changes in log volume while ignoring small variations that are not meaningful. Without customized settings, the system might generate false alerts for minor changes, making it difficult to identify true anomalies. By setting suppression rules, you can ignore minor deviations and focus on real anomalous patterns.
 
@@ -228,69 +213,58 @@ Ignore anomalies for feature logVolume when the actual value is no more than 100
 
 If no custom suppression rules are set, then the system defaults to a filter that ignores anomalies with deviations of less than 20% from the expected value for each enabled feature.
 
-### Preview sample anomalies
+### Previewing sample anomalies
 
-Preview sample anomalies and adjust the feature settings if needed.
-For sample previews, the Anomaly Detection plugin selects a small number of data samples---for example, one data point every 30 minutes---and uses interpolation to estimate the remaining data points to approximate the actual feature data. It loads this sample dataset into the detector. The detector uses this sample dataset to generate a sample preview of anomaly results.
-
-Examine the sample preview and use it to fine-tune your feature configurations (for example, enable or disable features) to get more accurate results.
+You can preview anomalies based on a sample feature input and adjust the feature settings as needed. The Anomaly Detection plugin selects a small number of data samples---for example, one data point every 30 minutes---and uses interpolation to estimate the remaining data points to approximate the actual feature data. The sample dataset is loaded into the detector that then uses the sample dataset to generate a preview of the anomalies.
 
 1. Choose **Preview sample anomalies**.
-    - If you don't see any sample anomaly result, check the detector interval and make sure you have more than 400 data points for some entities during the preview date range.
-1. Choose **Next**.
+    - If sample anomaly results are not displayed, then check the detector interval to verify that 400 or more data points are set for the entities during the preview date range.
+2. Select the **Next** button.
 
-## Step 3: Set up detector jobs
+## Step 3: Setting up detector jobs
 
-To start a real-time detector to find anomalies in your data in near real-time, check **Start real-time detector automatically (recommended)**.
+To start a real-time detector to find anomalies in your data in near real time, check **Start real-time detector automatically (recommended)**.
 
-Alternatively, if you want to perform historical analysis and find patterns in long historical data windows (weeks or months), check **Run historical analysis detection** and select a date range (at least 128 detection intervals).
+Alternatively, if you want to perform historical analysis and find patterns in long historical data windows (weeks or months), select the **Run historical analysis detection** box and select a date range (at least 128 detection intervals).
 
-Analyzing historical data helps you get familiar with the Anomaly Detection plugin. You can also evaluate the performance of a detector with historical data to further fine-tune it.
+Analyzing historical data familiarizes you with the Anomaly Detection plugin. For example, you can evaluate the performance of a detector with historical data to fine-tune it.
 
-We recommend experimenting with historical analysis with different feature sets and checking the precision before moving on to real-time detectors.
+You can experiment with historical analysis using different feature sets and checking the precision before moving on to real-time detectors.
 
-## Step 4: Review and create
+## Step 4: Reviewing detector settings 
 
-Review your detector settings and model configurations to make sure that they're valid and then select **Create detector**.
+Review your detector settings and model configurations to confirm they are valid and then select **Create detector**.
 
-![Anomaly detection results]({{site.url}}{{site.baseurl}}/images/review_ad.png)
-
-If you see any validation errors, edit the settings to fix the errors and then return back to this page.
+If validation errors occur, then edit the settings to fix the error and return to the detector page.
 {: .note }
 
-## Step 5: Observe the results
+## Step 5: Observing the results
 
-Choose the **Real-time results** or **Historical analysis** tab. For real-time results, you need to wait for some time to see the anomaly results. If the detector interval is 10 minutes, the detector might take more than an hour to start, because its waiting for sufficient data to generate anomalies. 
+Choose the **Real-time results** or **Historical analysis** tab. For real-time results, it will take time to display the anomaly results. For example, if the detector interval is 10 minutes, then the detector may take an hour to start because it is waiting for sufficient data to generate anomalies. 
 
-A shorter interval means the model passes the shingle process more quickly and starts to generate the anomaly results sooner.
-Use the [profile detector]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/api#profile-detector) operation to make sure you have sufficient data points.
+A shorter interval means the model passes the shingle process more quickly and starts to generate the anomaly results sooner. You can use the [profile detector]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/api#profile-detector) operation to ensure you have enough data points.
 
-If you see the detector pending in "initialization" for longer than a day, aggregate your existing data using the detector interval to check for any missing data points. If you find a lot of missing data points from the aggregated data, consider increasing the detector interval.
+If the detector is pending in "initialization" for longer than a day, aggregate your existing data using the detector interval to check for any missing data points. If you find many missing data points from the aggregated data, consider increasing the detector interval.
 
-Choose and drag over the anomaly line chart to zoom in and see a more detailed view of an anomaly.
+Choose and drag over the anomaly line chart to zoom in and see a detailed view of an anomaly.
 {: .note }
 
-Analyze anomalies with the following visualizations:
+You can analyze anomalies with the following visualizations:
 
-- **Live anomalies** (for real-time results) displays live anomaly results for the last 60 intervals. For example, if the interval is 10, it shows results for the last 600 minutes. The chart refreshes every 30 seconds.
-- **Anomaly overview** (for real-time results) / **Anomaly history**  (for historical analysis in the **Historical analysis** tab)  plots the anomaly grade with the corresponding measure of confidence. This pane includes:
+- **Live anomalies** (for real-time results) displays live anomaly results for the last 60 intervals. For example, if the interval is `10`, it shows results for the last 600 minutes. The chart refreshes every 30 seconds.
+- **Anomaly overview** (for real-time results) or **Anomaly history**  (for historical analysis in the **Historical analysis** tab)  plots the anomaly grade with the corresponding measure of confidence. The pane includes:
     - The number of anomaly occurrences based on the given data-time range. 
-    - The **Average anomaly grade**, a number between 0 and 1 that indicates how anomalous a data point is. An anomaly grade of 0 represents “not an anomaly,” and a non-zero value represents the relative severity of the anomaly. 
+    - The **Average anomaly grade**, a number between 0 and 1 that indicates how anomalous a data point is. An anomaly grade of `0` represents “not an anomaly,” and a non-zero value represents the relative severity of the anomaly. 
     - **Confidence** estimate of the probability that the reported anomaly grade matches the expected anomaly grade. Confidence increases as the model observes more data and learns the data behavior and trends. Note that confidence is distinct from model accuracy.
     - **Last anomaly occurrence** is the time at which the last anomaly occurred.
 
-Underneath **Anomaly overview**/**Anomaly history** are:
+Underneath **Anomaly overview** or **Anomaly history** are:
 
 - **Feature breakdown** plots the features based on the aggregation method. You can vary the date-time range of the detector. Selecting a point on the feature line chart shows the **Feature output**, the number of times a field appears in your index, and the **Expected value**, a predicted value for the feature output. Where there is no anomaly, the output and expected values are equal.
-
-    ![Anomaly detection results]({{site.url}}{{site.baseurl}}/images/feature-contribution-ad.png)
 
 - **Anomaly occurrences** shows the `Start time`, `End time`, `Data confidence`, and `Anomaly grade` for each detected anomaly.
 
 Selecting a point on the anomaly line chart shows **Feature Contribution**, the percentage of a feature that contributes to the anomaly
-
-![Anomaly detection results]({{site.url}}{{site.baseurl}}/images/feature-contribution-ad.png)
-
 
 If you set the category field, you see an additional **Heat map** chart. The heat map correlates results for anomalous entities. This chart is empty until you select an anomalous entity. You also see the anomaly and feature line chart for the time period of the anomaly (`anomaly_grade` > 0).
 
@@ -311,7 +285,7 @@ To see all the configuration settings for a detector, choose the **Detector conf
 
 1. To make any changes to the detector configuration, or fine tune the time interval to minimize any false positives, go to the **Detector configuration** section and choose **Edit**.
 - You need to stop real-time and historical analysis to change its configuration. Confirm that you want to stop the detector and proceed.
-1. To enable or disable features, in the **Features** section, choose **Edit** and adjust the feature settings as needed. After you make your changes, choose **Save and start detector**.
+2. To enable or disable features, in the **Features** section, choose **Edit** and adjust the feature settings as needed. After you make your changes, choose **Save and start detector**.
 
 ## Step 8: Manage your detectors
 
