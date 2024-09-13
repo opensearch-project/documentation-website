@@ -13,13 +13,13 @@ By default, the k-NN plugin supports the indexing and querying of vectors of typ
 
 OpenSearch supports many varieties of quantization. In general, the level of quantization will provide a trade-off between the accuracy of the nearest neighbor search and the size of the memory footprint consumed by the vector search. The supported types include byte vectors, 16-bit scalar quantization, and product quantization (PQ).
 
-## Lucene byte vector
+## Byte vectors
 
-Starting with k-NN plugin version 2.9, you can use `byte` vectors with the Lucene engine in order to reduce the amount of required memory. This requires quantizing the vectors outside of OpenSearch before ingesting them into an OpenSearch index. For more information, see [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector).
+Starting with version 2.17, the k-NN plugin supports `byte` vectors with the `faiss` and `lucene` engines in order to reduce the amount of required memory. This requires quantizing the vectors outside of OpenSearch before ingesting them into an OpenSearch index. For more information, see [Byte vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#byte-vectors).
 
 ## Lucene scalar quantization
 
-Starting with version 2.16, the k-NN plugin supports built-in scalar quantization for the Lucene engine. Unlike the [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector), which requires you to quantize vectors before ingesting the documents, the Lucene scalar quantizer quantizes input vectors in OpenSearch during ingestion. The Lucene scalar quantizer converts 32-bit floating-point input vectors into 7-bit integer vectors in each segment using the minimum and maximum quantiles computed based on the [`confidence_interval`](#confidence-interval) parameter. During search, the query vector is quantized in each segment using the segment's minimum and maximum quantiles in order to compute the distance between the query vector and the segment's quantized input vectors. 
+Starting with version 2.16, the k-NN plugin supports built-in scalar quantization for the Lucene engine. Unlike [byte vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#byte-vectors), which require you to quantize vectors before ingesting documents, the Lucene scalar quantizer quantizes input vectors in OpenSearch during ingestion. The Lucene scalar quantizer converts 32-bit floating-point input vectors into 7-bit integer vectors in each segment using the minimum and maximum quantiles computed based on the [`confidence_interval`](#confidence-interval) parameter. During search, the query vector is quantized in each segment using the segment's minimum and maximum quantiles in order to compute the distance between the query vector and the segment's quantized input vectors. 
 
 Quantization can decrease the memory footprint by a factor of 4 in exchange for some loss in recall. Additionally, quantization slightly increases disk usage because it requires storing both the raw input vectors and the quantized vectors.
 
@@ -115,7 +115,7 @@ In the ideal scenario, 7-bit vectors created by the Lucene scalar quantizer use 
 
 #### HNSW memory estimation
 
-The memory required for the Hierarchical Navigable Small World (HNSW) graph can be estimated as `1.1 * (dimension + 8 * M)` bytes/vector, where `M` is the maximum number of bidirectional links created for each element during the construction of the graph.
+The memory required for the Hierarchical Navigable Small World (HNSW) graph can be estimated as `1.1 * (dimension + 8 * m)` bytes/vector, where `m` is the maximum number of bidirectional links created for each element during the construction of the graph.
 
 As an example, assume that you have 1 million vectors with a dimension of 256 and M of 16. The memory requirement can be estimated as follows:
 
@@ -250,9 +250,9 @@ In the best-case scenario, 16-bit vectors produced by the Faiss SQfp16 quantizer
 
 #### HNSW memory estimation
 
-The memory required for Hierarchical Navigable Small Worlds (HNSW) is estimated to be `1.1 * (2 * dimension + 8 * M)` bytes/vector.
+The memory required for Hierarchical Navigable Small Worlds (HNSW) is estimated to be `1.1 * (2 * dimension + 8 * m)` bytes/vector, where `m` is the maximum number of bidirectional links created for each element during the construction of the graph.
 
-As an example, assume that you have 1 million vectors with a dimension of 256 and M of 16. The memory requirement can be estimated as follows:
+As an example, assume that you have 1 million vectors with a dimension of 256 and an `m` of 16. The memory requirement can be estimated as follows:
 
 ```r
 1.1 * (2 * 256 + 8 * 16) * 1,000,000 ~= 0.656 GB
@@ -260,9 +260,9 @@ As an example, assume that you have 1 million vectors with a dimension of 256 an
 
 #### IVF memory estimation
 
-The memory required for IVF is estimated to be `1.1 * (((2 * dimension) * num_vectors) + (4 * nlist * d))` bytes/vector.
+The memory required for IVF is estimated to be `1.1 * (((2 * dimension) * num_vectors) + (4 * nlist * dimension))` bytes/vector, where `nlist` is the number of buckets to partition vectors into.
 
-As an example, assume that you have 1 million vectors with a dimension of 256 and `nlist` of 128. The memory requirement can be estimated as follows:
+As an example, assume that you have 1 million vectors with a dimension of 256 and an `nlist` of 128. The memory requirement can be estimated as follows:
 
 ```r
 1.1 * (((2 * 256) * 1,000,000) + (4 * 128 * 256))  ~= 0.525 GB
