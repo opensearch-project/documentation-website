@@ -24,7 +24,7 @@ Path parameters are optional.
 :--- | :--- | :---
 | repository | String | Repository containing the snapshot. |
 | snapshot | List | Snapshot(s) to return. |
-| index | List | Index/Indices to include in the response. |
+| index | List | Indexes to include in the response. |
 
 Three request variants provide flexibility:
 
@@ -34,10 +34,10 @@ Three request variants provide flexibility:
 
 * `GET _snapshot/<repository>/<snapshot>/_status` returns detailed status information for a specific snapshot(s) in the specified repository, regardless of whether it's currently running or not. 
 
-* `GET /_snapshot/<repository>/<snapshot>/<index>/_status` returns detailed status information only for the specified indices in a specific snapshot in the specified repository, for completed snapshots. Note that this variant works only for indices of a specific snapshot.
+* `GET /_snapshot/<repository>/<snapshot>/<index>/_status` returns detailed status information only for the specified indexes in a specific snapshot for the specified repository. Note that this endpoint works only for indexes of a specific snapshot.
 
 Using the API to return state for other than currently running snapshots can be very costly for (1) machine machine resources and (2) processing time if running in the cloud. For each snapshot, each request causes file reads from all of the snapshot's shards. 
-Accordingly, the API call works only if the total number of shards across the requested resources (snapshot(s)/indices of a snapshot) is less than the limit specified by the following cluster setting
+Snapshot API calls only work if the total number of shards across the requested resources, such as snapshots and indexes created from snapshots, is less than the limit specified by the following cluster setting:
 - `snapshot.max_shards_allowed_in_status_api`(Dynamic, integer): The maximum number of shards that can be included in the snapshot status API response. Default value is `200000`. Not applicable for [Shallow V2 Snapshots]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/snapshot-interoperability##shallow-snapshot-v2), where the total number and size of files are returned as 0. 
 {: .warning}
 
@@ -45,7 +45,7 @@ Accordingly, the API call works only if the total number of shards across the re
 
 | Field | Data type | Description | 
 :--- | :--- | :---
-| ignore_unavailable | Boolean | How to handle requests for unavailable snapshots and indices. If `false`, the request returns an error for unavailable snapshots and indices. If `true`, the request ignores unavailable snapshots and indices, such as those that are corrupted or temporarily cannot be returned. Defaults to `false`.|
+| ignore_unavailable | Boolean | How to handle requests for unavailable snapshots and indexes. If `false`, the request returns an error for unavailable snapshots and indexes. If `true`, the request ignores unavailable snapshots and indices, such as those that are corrupted or temporarily cannot be returned. Defaults to `false`.|
 
 ## Example request
 
@@ -379,8 +379,8 @@ The `GET _snapshot/my-opensearch-repo/my-first-snapshot/_status` request returns
 | Field | Data type | Description | 
 :--- | :--- | :---
 | repository | String | Name of repository that contains the snapshot. |
-| snapshot | String | Snapshot's name. |
-| uuid | String | Snapshot's Universally unique identifier (UUID). |
+| snapshot | String | Snapshot name. |
+| uuid | String | A snapshot's universally unique identifier (UUID). |
 | state | String | Snapshot's current status. See [Snapshot states](#snapshot-states).  |
 | include_global_state | Boolean | Whether the current cluster state is included in the snapshot. |
 | shards_stats | Object | Snapshot's shard counts. See [Shard stats](#shard-stats). |
