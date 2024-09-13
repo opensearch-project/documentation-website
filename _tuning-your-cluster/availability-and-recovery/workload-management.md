@@ -4,21 +4,21 @@ title: Workload management
 nav_order: 60
 has_children: false
 parent: Availability and recovery
-redirect_from: 
-  - /opensearch/workload-management/
 ---
 
 # Workload management
 
-Workload management is a mechanism that allows administrators to organize queries into distinct groups, referred to as Query Groups. These Query Groups enable admins to limit the cumulative resource usage of each group, ensuring more balanced and fair resource distribution. This mechanism provides greater control over resource consumption, helping ensure that no single group can monopolize cluster resources at the expense of others.
+Workload management is a mechanism that allows administrators to organize queries into distinct groups, referred to as _query groups_. These query groups enable admins to limit the cumulative resource usage of each group, ensuring more balanced and fair resource distribution between them. This mechanism provides greater control over resource consumption, so that no single group can monopolize cluster resources at the expense of others.
 
 ## Query group
 
-A Query Group is a logical construct designed to manage search requests within defined virtual resource limits. The Query Group service tracks and aggregates resource usage at the node level for different groups, enforcing restrictions to ensure that no group exceeds its allocated resources. Depending on the configured containment mode, the system can limit or terminate tasks that surpass these predefined thresholds.
+A query group is a logical construct designed to manage search requests within defined virtual resource limits. The query group service tracks and aggregates resource usage at the node level for different groups, enforcing restrictions to ensure that no group exceeds its allocated resources. Depending on the configured containment mode, the system can limit or terminate tasks that surpass these predefined thresholds.
 
-Since the definition of a Query Group is stored in the cluster state, these resource limits are enforced consistently across all nodes in the cluster.
+Since the definition of a query group is stored in the cluster state, these resource limits are enforced consistently across all nodes in the cluster.
 
 ### Schema
+
+Query groups use the following schema:
 
 ```json
 {
@@ -35,23 +35,26 @@ Since the definition of a Query Group is stored in the cluster state, these reso
 
 ### Resource type
 
-Resource type represents the various system resources that are monitored and managed across different query groups. The following Resource Types are supported:
+Resource type represents the various system resources that are monitored and managed across different query groups. The following resource types are supported:
+
 - CPU usage
 - JVM memory usage
 
 ### Resiliency mode
 
-Resiliency mode determines how the assigned resource limits relate to the actual allowed resource usage
-- Soft mode - query group can consume more than query group resource limits if node is not in duress
-- Enforced mode - query group will never breach the assigned limits and will cancel as soon as the limits are breached
-- Monitor mode - query group will not cause any cancellation and only log the eligible task cancellations
+Resiliency mode determines how the assigned resource limits relate to the actual allowed resource usage. The following resiliency modes are supported:
+
+- **Soft mode** - The query group can consume more than query group resource limits if the node is not in duress.
+- **Enforced mode** - The query group will never breach the assigned limits and will cancel as soon as the limits are breached.
+- **Monitor mode** - The query group will not cause any cancellation and only log the eligible task cancellations.
 
 ## Workload management settings
-Workload management setting allows you to define thresholds for rejecting or canceling tasks based on resource usage. Adjusting these settings helps maintain optimal performance and stability within your OpenSearch cluster.
+
+Workload management setting allows you to define thresholds for rejecting or canceling tasks based on resource usage. Adjusting the following settings helps maintain optimal performance and stability within your OpenSearch cluster.
 
 Setting | Default | Description
 :--- | :--- | :---
-`wlm.query_group.node.memory_rejection_threshold` | `0.8` | The memory-based rejection threshold for query groups at the node level. Tasks that exceed this threshold will be rejected. The maximum allowed value is `0.9`.  
-`wlm.query_group.node.memory_cancellation_threshold` | `0.9` | The memory-based cancellation threshold for query groups at the node level. Tasks that exceed this threshold will be canceled. The maximum allowed value is `0.95`.  
-`wlm.query_group.node.cpu_rejection_threshold` | `0.8` | The CPU-based rejection threshold for query groups at the node level. Tasks that exceed this threshold will be rejected. The maximum allowed value is `0.9`.  
-`wlm.query_group.node.cpu_cancellation_threshold` | `0.9` | The CPU-based cancellation threshold for query groups at the node level. Tasks that exceed this threshold will be canceled. The maximum allowed value is `0.95`.
+`wlm.query_group.node.memory_rejection_threshold` | `0.8` | The memory-based rejection threshold for query groups at the node-level. Tasks that exceed this threshold will be rejected. The maximum allowed value is `0.9`.  
+`wlm.query_group.node.memory_cancellation_threshold` | `0.9` | The memory-based cancellation threshold for query groups at the node-level. Tasks that exceed this threshold will be canceled. The maximum allowed value is `0.95`.  
+`wlm.query_group.node.cpu_rejection_threshold` | `0.8` | The CPU-based rejection threshold for query groups at the node-level. Tasks that exceed this threshold will be rejected. The maximum allowed value is `0.9`.  
+`wlm.query_group.node.cpu_cancellation_threshold` | `0.9` | The CPU-based cancellation threshold for query groups at the node-level. Tasks that exceed this threshold will be canceled. The maximum allowed value is `0.95`.
