@@ -7,7 +7,7 @@ nav_order: 290
 
 # Ngram token filter
 
-The `ngram` token filter is a powerful tool for breaking down text into smaller components, known as n-grams, which can improve partial matching and fuzzy search capabilities. It works by splitting a token into smaller substrings of defined lengths. These filters are commonly used in search applications to support autocomplete, partial matches, and typo-tolerant search
+The `ngram` token filter is a powerful tool for breaking down text into smaller components, known as n-grams, which can improve partial matching and fuzzy search capabilities. It works by splitting a token into smaller substrings of defined lengths. These filters are commonly used in search applications to support autocomplete, partial matches, and typo-tolerant search.
 
 ## Parameters
 
