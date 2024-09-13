@@ -7,7 +7,7 @@ nav_order: 30
 
 # CJK bigram token filter
 
-The `cjk_bigram` token filter is designed specifically for processing East Asian languages, such as Chinese, Japanese, and Korean (CJK), which typically don't use spaces to separate words. A bigram is a sequence of two adjacent elements from a string of tokens, which can be characters or words. For CJK languages, bigrams help approximate word boundaries and capture significant character pairs that can convey meaning.
+The `cjk_bigram` token filter is designed specifically for processing East Asian languages, such as Chinese, Japanese, and Korean (CJK), which typically don't use spaces to separate words. A bigram is a sequence of two adjacent elements in a string of tokens, which can be characters or words. For CJK languages, bigrams help approximate word boundaries and capture significant character pairs that can convey meaning.
 
 
 ## Parameters
@@ -18,14 +18,14 @@ The `cjk_bigram` token filter can be configured with two parameters: `ignore_scr
 
 The `cjk-bigram` token filter ignores all non-CJK scripts (writing systems like Latin or Cyrillic) and tokenizes only CJK text into bigrams. Use this option to specify CJK scripts to be ignored. This option takes the following valid values:
 
-- `han`: The `han` script is used to handle han characters. [Han characters](https://simple.wikipedia.org/wiki/Chinese_characters) are logograms used in the written languages of China, Japan, and Korea. The filter can help in text processing tasks like tokenizing, normalizing, or stemming text written in Chinese, Japanese Kanji, or Korean Hanja.
+- `han`: The `han` script processes Han characters. [Han characters](https://simple.wikipedia.org/wiki/Chinese_characters) are logograms used in the written languages of China, Japan, and Korea. The filter can help with text processing tasks like tokenizing, normalizing, or stemming text written in Chinese, Japanese kanji, or Korean Hanja.
 
-- `hangul`: The `hangul` script is specific to the Hangul script, which is the alphabet used to write the Korean language. This filter is useful for processing Korean text by handling Hangul syllables, which are unique to Korean and do not exist in other East Asian scripts.
+- `hangul`: The `hangul` script processes Hangul characters, which are unique to the Korean language and do not exist in other East Asian scripts.
 
-- `hiragana`: The `hiragana` script is used for processing Hiragana, one of the two syllabaries used in the Japanese writing system.
+- `hiragana`: The `hiragana` script processes hiragana, one of the two syllabaries used in the Japanese writing system.
     Hiragana is typically used for native Japanese words, grammatical elements, and certain forms of punctuation.
 
-- `katakana`: The `katakana` script is for Katakana, the other syllabary used in Japanese.
+- `katakana`: The `katakana` script processes katakana, the other Japanese syllabary.
     Katakana is mainly used for foreign loanwords, onomatopoeia, scientific names, and certain Japanese words.
 
 
@@ -76,7 +76,7 @@ POST /cjk_bigram_example/_analyze
 ```
 {% include copy-curl.html %}
 
-Sample Text: "東京タワーに行く"
+Sample text: "東京タワーに行く"
 
     東京 (Kanji for "Tokyo")
     タワー (Katakana for "Tower")
