@@ -11,6 +11,8 @@ redirect_from:
 ---
 
 # Keyword field type
+**Introduced 1.0**
+{: .label .label-purple }
 
 A keyword field type contains a string that is not analyzed. It allows only exact, case-sensitive matches.
 
