@@ -9,7 +9,7 @@ redirect_from:
 
 # Anomaly result mapping
 
-When you select the **Enable custom result index** box on the **Custom result index** pane, the Anomaly Detection plugin will store the results in your own index. When the anomaly detector does not detect an anomaly, the result format is as follows:
+When you select the **Enable custom result index** box on the **Custom result index** pane, the Anomaly Detection plugin will save the results to an index of your choosing. When the anomaly detector does not detect an anomaly, the result format is as follows:
 
 ```json
 {
