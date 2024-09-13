@@ -79,7 +79,7 @@ Field | Description
 `model_id` | A unique ID that identifies a model. If a detector is a single-stream detector (with no category field), it has only one model. If a detector is a high-cardinality detector (with one or more category fields), it might have multiple models, one for each entity.
 `threshold` | One of the criteria for a detector to classify a data point as an anomaly is that its `anomaly_score` must surpass a dynamic threshold. This field records the current threshold.
 
-When the imputation option is enabled, the anomaly result includes a `feature_imputed` array, showing which features were modified due to missing data. If no features were imputed, then this is excluded.
+When the imputation option is enabled, the anomaly results include a `feature_imputed` array showing which features were modified due to missing data. If no features were imputed, then this is excluded.
 
 In the following example anomaly result output, the `processing_bytes_max` feature was imputed, as shown by the `imputed: true` status:
 
@@ -155,7 +155,7 @@ In the following example anomaly result output, the `processing_bytes_max` featu
 ```
 {% include copy-curl.html %}
 
-When an anomaly is detected, the result has the following format:
+When an anomaly is detected, the result is provided in the following format:
 
 ```json
 {
@@ -256,21 +256,21 @@ When an anomaly is detected, the result has the following format:
 ```
 {% include copy-curl.html %}
 
-Note that the result includes the following additional field: 
+Note that the result includes the following additional field.
 
 Field | Description
 :--- | :---
 `relevant_attribution` | Represents the contribution of each input variable. The sum of the attributions is normalized to 1.
 `expected_values` | The expected value for each feature.
 
-The detector may detect an anomaly late. For example, the detector observes a sequence of data that alternates between "slow weeks" (represented by the triples {1, 2, 3}) and "busy weeks" (represented by the triples {2, 4, 5}). If the detector comes across a pattern {2, 2, X}, where it has not yet seen the value that X will take, the detector infers that the pattern is anomalous. However, it cannot determine which of the 2's is the cause. If X = 3, then the first 2 is the anomaly. If X = 5, then the second 2 is the anomaly. If it is the first 2, then the detector would detect the anomaly late.
+The detector may be late in detecting an anomaly. For example: The detector observes a sequence of data that alternates between "slow weeks" (represented by the triples {1, 2, 3}) and "busy weeks" (represented by the triples {2, 4, 5}). If the detector comes across a pattern {2, 2, X}, where it has not yet seen the value that X will take, then the detector infers that the pattern is anomalous. However, it cannot determine which 2 is the cause. If X = 3, then the first 2 is the anomaly. If X = 5, then the second 2 is the anomaly. If it is the first 2, then the detector will be late in detecting the anomaly.
 
-When a detector detects an anomaly late, the result includes the following additional fields:
+When a detector is late in detecting an anomaly, the result includes the following additional fields.
 
 Field | Description
 :--- | :---
-`past_values` | The actual input that triggered an anomaly. If `past_values` is null, then the attributions or expected values are from the current input. If `past_values` is not null, then the attributions or expected values are from a past input (for example, the previous two steps of the data [1,2,3]).
-`approx_anomaly_start_time` | The approximate time of the actual input that triggers an anomaly. This field helps you understand when a detector flags an anomaly. Both single-stream and high-cardinality detectors do not query previous anomaly results because these queries are costly operations. The cost is especially high for high-cardinality detectors that may have many entities. If the data is not continuous, then the accuracy of this field is low and the actual time that the detector detects an anomaly can be earlier.
+`past_values` | The actual input that triggered an anomaly. If `past_values` is `null`, then the attributions or expected values are from the current input. If `past_values` is not `null`, then the attributions or expected values are from a past input (for example, the previous two steps of the data [1,2,3]).
+`approx_anomaly_start_time` | The approximate time of the actual input that triggered an anomaly. This field helps you understand the time at which a detector flags an anomaly. Both single-stream and high-cardinality detectors do not query previous anomaly results because these queries are costly operations. The cost is especially high for high-cardinality detectors that may have many entities. If the data is not continuous, then the accuracy of this field is low and the actual time at which the detector detects an anomaly can be earlier.
 
 ```json
 {
