@@ -3,7 +3,7 @@ layout: default
 title: http
 parent: Sources
 grand_parent: Pipelines
-nav_order: 5
+nav_order: 30
 redirect_from:
   - /data-prepper/pipelines/configuration/sources/http-source/
 ---
