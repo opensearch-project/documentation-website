@@ -59,3 +59,25 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
   }
 }
 ```
+
+You can choose the mechanism by which the aggregation is executed with the `execution_hint` setting. This setting accepts two values:
+
+1. `direct`: Use field values directly.
+2. `ordinals`: Use ordinals of the field.
+
+If not specified, mechanism that is appropriate for the field is selected. Note that specifying `ordinals` on a non-ordinal field will have no effect. Similarly, `direct` will have no effect on ordinal fields.
+
+```json
+GET opensearch_dashboards_sample_data_ecommerce/_search
+{
+  "size": 0,
+  "aggs": {
+    "unique_products": {
+      "cardinality": {
+        "field": "products.product_id",
+        "execution_hint": "ordinals"
+      }
+    }
+  }
+}
+```
