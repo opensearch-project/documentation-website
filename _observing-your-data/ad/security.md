@@ -44,7 +44,7 @@ To use a remote index as a data source for a detector, see the setup steps in [A
 
 #### Example: Create a new user on the local cluster
 
-1. Create a new user on the local cluster to use for creating detectors:
+1. Create a new user on the local cluster to use for detector creation:
 
 ```
 curl -XPUT -k -u 'admin:<custom-admin-password>' 'https://localhost:9200/_plugins/_security/api/internalusers/anomalyuser' -H 'Content-Type: application/json' -d '{"password":"password"}'
