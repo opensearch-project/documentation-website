@@ -46,14 +46,15 @@ PUT test-index
 
 Vector search involves tradeoffs between low-latency and low-cost search. Specify the `mode` mapping parameter of the `knn_vector` type to indicate what search mode you want to prioritize. The `mode` dictates the default values for k-NN parameters. You can further fine-tune your index by overriding the default parameter values in the k-NN field mapping.
 
-Currently, the following modes are supported:
+Currently, the following modes are supported.
 
-| Mode                  | Default Engine | Description                                                                                                                                                                                                                                                              |
-|:----------------------|:---------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `in_memory` (default) | `nmslib`       | The `in_memory` mode prioritizes low-latency search. This mode uses the `nmslib` engine without any quantization applied. It is configured with the default parameter values for vector search in OpenSearch.                                                            |
-| `on_disk`             | `faiss`        | The `on_disk` mode  prioritizes low-cost vector search while maintaining strong recall. By default, `on_disk` mode will uses quantization and re-scoring to execute a two-pass approach to get the top neighbors. The `on_disk` mode supports only `float` vector types. |
+| Mode    | Default engine | Description  |
+|:---|:---|:---|
+| `in_memory` (Default) | `nmslib`       | Prioritizes low-latency search. This mode uses the `nmslib` engine without any quantization applied. It is configured with the default parameter values for vector search in OpenSearch.                                                            |
+| `on_disk`             | `faiss`        | Prioritizes low-cost vector search while maintaining strong recall. By default, the `on_disk` mode uses quantization and rescoring to execute a two-pass approach to retrieve the top neighbors. The `on_disk` mode supports only `float` vector types. |
 
-This is how an index for a particular mode is created:
+To create a k-NN index with the `on_disk` mode for low-cost search, send the following request:
+
 ```json
 PUT test-index
 {
@@ -74,15 +75,15 @@ PUT test-index
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Compression levels
 
-The `compression_level` mapping parameter selects a quantization encoder that reduces memory consumption of the vectors by the given factor. Specify `compression_level` as a string (for example, `compression_level: "1x"`). Valid values are:
+The `compression_level` mapping parameter selects a quantization encoder that reduces memory consumption of the vectors by the given factor. The following tables lists the available `compression_level` values.
 
-
-| Compression Level | Supported Engines              |
+| Compression level | Supported engines              |
 |:------------------|:-------------------------------|
-| `1x`              | `faiss`, `lucene` and `nmslib` |
+| `1x`              | `faiss`, `lucene`, and `nmslib` |
 | `2x`              | `faiss`                        |
 | `4x`              | `lucene`                       |
 | `8x`              | `faiss`                        |
@@ -94,15 +95,16 @@ For example, if a `compression_level` of `32x` is passed for a `float32` index o
 If you set the `compression_level` parameter, then you cannot specify an `encoder` in the `method` mapping. Compression levels greater than `1x` are only supported for `float` vector types.
 {: .note}
 
-The default compression for each mode is
+The following table lists the default `compression_level` values for the available workload modes.
 
-| Mode | Default Compression Level    |
+| Mode | Default compression level    |
 |:------------------|:-------------------------------|
 | `in_memory`       | `1x` |
 | `on_disk`         | `32x` |
 
 
-This is how an index is created with a particular `compression_level`. This will override the default compression level for the `on_disk` mode from `32x` to `16x`, given a bump in recall and accuracy at the expense of a larger memory footprint.
+To create a vector field with a `compression_level` of `16x`, specify the `compression_level` parameter in the mappings. This parameter overrides the default compression level for the `on_disk` mode from `32x` to `16x`, producing higher recall and accuracy at the expense of a larger memory footprint:
+
 ```json
 PUT test-index
 {
@@ -124,7 +126,7 @@ PUT test-index
   }
 }
 ```
-
+{% include copy-curl.html %}
 
 ## Method definitions
 
