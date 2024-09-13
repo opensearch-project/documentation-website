@@ -8,6 +8,8 @@ grand_parent: Supported field types
 ---
 
 # Constant keyword field type
+**Introduced 2.14**
+{: .label .label-purple }
 
 A constant keyword field uses the same value for all documents in the index. 
 

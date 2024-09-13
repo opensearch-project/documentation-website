@@ -8,19 +8,14 @@ redirect_from:
 
 # Query Workbench
 
-Query Workbench is a tool within OpenSearch Dashboards. You can use Query Workbench to run on-demand [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql/index/) and [PPL]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/) queries, translate queries into their equivalent REST API calls, and view and save results in different [response formats]({{site.url}}{{site.baseurl}}/search-plugins/sql/response-formats/). 
+You can use Query Workbench in OpenSearch Dashboards to run on-demand [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql/index/) and [PPL]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/) queries, translate queries into their equivalent REST API calls, and view and save results in different [response formats]({{site.url}}{{site.baseurl}}/search-plugins/sql/response-formats/).
 
-A view of the Query Workbench interface within OpenSearch Dashboards is shown in the following image.
+Query Workbench does not support delete or update operations through SQL or PPL. Access to data is read-only.
+{: .important}
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/query-workbench-ui.png" alt="Query Workbench interface within OpenSearch Dashboards"  width="700">
+## Prerequisites
 
-## Prerequisites 
-
-Before getting started, make sure you have [indexed your data]({{site.url}}{{site.baseurl}}/im-plugin/index/). 
-
-For this tutorial, you can index the following sample documents. Alternatively, you can use the [OpenSearch Playground](https://playground.opensearch.org/app/opensearch-query-workbench#/), which has preloaded indexes that you can use to try out Query Workbench.
-
-To index sample documents, send the following [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) request:
+Before getting started with this tutorial, index the sample documents by sending the following [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) request:
 
 ```json
 PUT accounts/_bulk?refresh
@@ -35,9 +30,11 @@ PUT accounts/_bulk?refresh
 ```
 {% include copy-curl.html %}
 
-## Running SQL queries within Query Workbench
+See [Managing indexes]({{site.url}}{{site.baseurl}}/im-plugin/index/) to learn about indexing your own data. 
 
-Follow these steps to learn how to run SQL queries against your OpenSearch data using Query Workbench:
+## Running SQL queries within Query Workbench
+ 
+ The following steps guide you through running SQL queries against OpenSearch data:
 
 1. Access Query Workbench.
     - To access Query Workbench, go to OpenSearch Dashboards and choose **OpenSearch Plugins** > **Query Workbench** from the main menu.
@@ -64,23 +61,15 @@ Follow these steps to learn how to run SQL queries against your OpenSearch data 
 3. View the results.
     - View the results in the **Results** pane, which presents the query output in tabular format. You can filter and download the results as needed.
 
-   The following image shows the query editor pane and results pane for the preceding SQL query:
-
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/query-workbench-query-step2.png" alt="Query Workbench SQL query input and results output panes" width="800">
-
 4. Clear the query editor.  
     - Select the **Clear** button to clear the query editor and run a new query. 
 
 5. Examine how the query is processed.
-    - Select the **Explain** button to examine how OpenSearch processes the query, including the steps involved and order of operations. 
-
-    The following image shows the explanation of the SQL query that was run in step 2.
-
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/query-explain.png" alt="Query Workbench SQL query explanation pane" width="500">
+    - Select the **Explain** button to examine how OpenSearch processes the query, including the steps involved and order of operations.
 
 ## Running PPL queries within Query Workbench
 
-Follow these steps to learn how to run PPL queries against your OpenSearch data using Query Workbench:
+Follow these steps to learn how to run PPL queries against OpenSearch data:
 
 1. Access Query Workbench.
     - To access Query Workbench, go to OpenSearch Dashboards and choose **OpenSearch Plugins** > **Query Workbench** from the main menu.
@@ -100,19 +89,8 @@ Follow these steps to learn how to run PPL queries against your OpenSearch data 
 3. View the results.
     - View the results in the **Results** pane, which presents the query output in tabular format.
 
-   The following image shows the query editor pane and results pane for the PPL query that was run in step 2:
-
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/query-workbench-ppl.png" alt="Query Workbench PPL query input and results output panes">
-
 4. Clear the query editor.  
     - Select the **Clear** button to clear the query editor and run a new query. 
 
 5. Examine how the query is processed.
-    - Select the **Explain** button to examine how OpenSearch processes the query, including the steps involved and order of operations. 
-
-    The following image shows the explanation of the PPL query that was run in step 2.
-
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/query-PPL-explain.png" alt="Query Workbench PPL query explanation pane" width="500">
-
-Query Workbench does not support delete or update operations through SQL or PPL. Access to data is read-only.
-{: .important}
+    - Select the **Explain** button to examine how OpenSearch processes the query, including the steps involved and order of operations.

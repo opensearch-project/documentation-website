@@ -141,7 +141,7 @@ The response confirms that in addition to the `passage_text` field, the processo
 }
 ```
 
-Once you have created an ingest pipeline, you need to create an index for ingestion and ingest documents into the index. To learn more, see [Step 2: Create an index for ingestion]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/#step-2-create-an-index-for-ingestion) and [Step 3: Ingest documents into the index]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/#step-3-ingest-documents-into-the-index) of [Neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
+Once you have created an ingest pipeline, you need to create an index for ingestion and ingest documents into the index. To learn more, see [Create an index for ingestion]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-with-pipelines/#step-2b-create-an-index-for-ingestion) and [Step 3: Ingest documents into the index]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-with-pipelines/#step-2c-ingest-documents-into-the-index) of [Neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
 
 ---
 
