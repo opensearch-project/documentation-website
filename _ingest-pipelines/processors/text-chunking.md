@@ -42,7 +42,7 @@ The following table lists the required and optional parameters for the `text_chu
 | `description`	              | String	    | Optional	 | A brief description of the processor. |
 | `tag`	| String	    | Optional	 | An identifier tag for the processor. Useful when debugging in order to distinguish between processors of the same type.	|
 
-To perform chunking on nested fields, specify `input_field` and `output_field` values as JSON objects. Providing a dot path of the nested field is not supported. For example, use `"field_map": { "foo": { "bar": "bar_chunk"} }` instead of `"field_map": { "foo.bar": "foo.bar_chunk"}`.
+To perform chunking on nested fields, specify `input_field` and `output_field` values as JSON objects. Dot paths of nested fields are not supported. For example, use `"field_map": { "foo": { "bar": "bar_chunk"} }` instead of `"field_map": { "foo.bar": "foo.bar_chunk"}`.
 {: .note}
 
 ### Fixed token length algorithm
