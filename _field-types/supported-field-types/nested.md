@@ -11,6 +11,8 @@ redirect_from:
 ---
 
 # Nested field type
+**Introduced 1.0**
+{: .label .label-purple }
 
 A nested field type is a special type of [object field type]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/object/). 
 

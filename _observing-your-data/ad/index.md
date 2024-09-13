@@ -10,7 +10,7 @@ redirect_from:
 
 # Anomaly detection
 
-An anomaly in OpenSearch is any unusual behavior change in your time-series data. Anomalies can provide valuable insights into your data. For example, for IT infrastructure data, an anomaly in the memory usage metric might help you uncover early signs of a system failure.
+An _anomaly_ in OpenSearch is any unusual behavior change in your time-series data. Anomalies can provide valuable insights into your data. For example, for IT infrastructure data, an anomaly in the memory usage metric might help you uncover early signs of a system failure.
 
 It can be challenging to discover anomalies using conventional methods such as creating visualizations and dashboards. You could configure an alert based on a static threshold, but this requires prior domain knowledge and isn't adaptive to data that exhibits organic growth or seasonal behavior.
 
@@ -29,8 +29,13 @@ A detector is an individual anomaly detection task. You can define multiple dete
 1. Add in the detector details.
    - Enter a name and brief description. Make sure the name is unique and descriptive enough to help you to identify the purpose of the detector.
 1. Specify the data source.   
-   - For **Data source**, choose the index you want to use as the data source. You can optionally use index patterns to choose multiple indexes.
+   - For **Data source**, choose one or more indexes to use as the data source. Alternatively, you can use an alias or index pattern to choose multiple indexes. 
+   - Detectors can use remote indexes. You can access them using the `cluster-name:index-name` pattern. See [Cross-cluster search]({{site.url}}{{site.baseurl}}/search-plugins/cross-cluster-search/) for more information. Alternatively, you can select clusters and indexes in OpenSearch Dashboards 2.17 or later. To learn about configuring remote indexes with the Security plugin enabled, see [Selecting remote indexes with fine-grained access control]({{site.url}}{{site.baseurl}}/observing-your-data/ad/security/#selecting-remote-indexes-with-fine-grained-access-control) in the [Anomaly detection security](observing-your-data/ad/security/) documentation.
    - (Optional) For **Data filter**, filter the index you chose as the data source. From the **Data filter** menu, choose **Add data filter**, and then design your filter query by selecting **Field**, **Operator**, and **Value**, or choose **Use query DSL** and add your own JSON filter query. Only [Boolean queries]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/) are supported for query domain-specific language (DSL).
+
+
+To create a cross-cluster detector in OpenSearch Dashboards, the following [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/) are required: `indices:data/read/field_caps`, `indices:admin/resolve/index`, and `cluster:monitor/remote/info`.
+{: .note}
 
 #### Example filter using query DSL
 The query is designed to retrieve documents in which the `urlPath.keyword` field matches one of the following specified values:
