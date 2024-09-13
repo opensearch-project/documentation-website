@@ -68,7 +68,7 @@ Use the following options to configure the `newline` codec.
 Option | Required | Type    | Description
 :--- | :--- |:--------| :---
 `skip_lines` | No | Integer | The number of lines to skip before creating events. You can use this configuration to skip common header rows. Default is `0`.
-`header_destination` | No | String  | A key value to assign to the header line of the S3 object. If this option is specified, then each event will contain a `header_destination` field.
+`header_destination` | No | String  | A key value to assign to the header line of the stream event. If this option is specified, then each event will contain a `header_destination` field.
 
 ### polling
 Option | Required | Type    | Description
@@ -103,15 +103,15 @@ The following are the minimum required permissions for running `kinesis` as a so
     {
       "Effect": "Allow",
       "Action": [
-        "kinesis:PutRecord",
-        "kinesis:DescribeStreamSummary",
-        "kinesis:PutRecords",
-        "kinesis:DescribeStreamConsumer",
-        "kinesis:GetShardIterator",
-        "kinesis:GetRecords",
         "kinesis:DescribeStream",
-        "kinesis:RegisterStreamConsumer",
+        "kinesis:DescribeStreamConsumer",
+        "kinesis:DescribeStreamSummary",
+        "kinesis:GetRecords",
+        "kinesis:GetShardIterator",
         "kinesis:ListShards",
+        "kinesis:ListStreams",
+        "kinesis:ListStreamConsumers",
+        "kinesis:RegisterStreamConsumer",
         "kinesis:SubscribeToShard"
       ],
       "Resource": [
