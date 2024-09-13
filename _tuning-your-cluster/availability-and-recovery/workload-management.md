@@ -60,9 +60,10 @@ Setting | Default | Description
 `wlm.query_group.node.cpu_cancellation_threshold` | `0.9` | The CPU-based cancellation threshold for query groups at the node level. Tasks that exceed this threshold will be canceled. The maximum allowed value is `0.95`.
 
 ## Query group lifecycle APIs
-Below are the APIs that can be used to manage the lifecycle of Query groups
 
-### Create Query Group
+The following APIs can be used to manage the lifecycle of Query groups.
+
+### Create query group
 Creates a new Query group with the specified properties.
 
 #### Example request
@@ -92,7 +93,7 @@ PUT _wlm/query_group
 }
 ```
 
-### Update Query Group
+### Update query group
 Updates the properties of an existing Query Group.
 
 #### Example request
@@ -101,8 +102,8 @@ PUT _wlm/query_group/analytics
 {
   "resiliency_mode": "monitor",
   "resource_limits": {
-    "cpu" : 0.41,
-    "memory" : 0.21
+    "cpu": 0.41,
+    "memory": 0.21
   }
 }
 ```
@@ -119,7 +120,7 @@ PUT _wlm/query_group/analytics
   "updated_at":1726270333804
 }
 ```
-### Get Query Group
+### Get query group
 Retrieves the properties of the provided Query Group.
 
 #### Example request
@@ -129,21 +130,21 @@ GET _wlm/query_group/analytics
 #### Example response
 ```json
 {
-  "query_groups" : [
+  "query_groups": [
     {
-      "_id" : "preXpc67RbKKeCyka72_Gw",
-      "name" : "analytics",
-      "resiliency_mode" : "monitor",
-      "resource_limits" : {
-        "cpu" : 0.41,
-        "memory" : 0.21
+      "_id": "preXpc67RbKKeCyka72_Gw",
+      "name": "analytics",
+      "resiliency_mode": "monitor",
+      "resource_limits": {
+        "cpu": 0.41,
+        "memory": 0.21
       },
-      "updated_at" : 1726270333804
+      "updated_at": 1726270333804
     }
   ]
 }
 ```
-### Get All Query Groups
+### Get all query groups
 Retrieves the properties of all Query groups in the cluster.
 
 #### Example request
@@ -153,31 +154,31 @@ GET _wlm/query_group
 #### Example response
 ```json
 {
-  "query_groups" : [
+  "query_groups": [
     {
-      "_id" : "preXpc67RbKKeCyka72_Gw",
-      "name" : "analytics",
-      "resiliency_mode" : "monitor",
-      "resource_limits" : {
-        "cpu" : 0.41,
-        "memory" : 0.21
+      "_id": "preXpc67RbKKeCyka72_Gw",
+      "name": "analytics",
+      "resiliency_mode": "monitor",
+      "resource_limits": {
+        "cpu": 0.41,
+        "memory": 0.21
       },
-      "updated_at" : 1726270333804
+      "updated_at": 1726270333804
     },
     {
-      "_id" : "pviC2vuep2Kc84yka43_Np",
-      "name" : "analytics_2",
-      "resiliency_mode" : "monitor",
-      "resource_limits" : {
-        "cpu" : 0.15,
-        "memory" : 0.3
+      "_id": "pviC2vuep2Kc84yka43_Np",
+      "name": "analytics_2",
+      "resiliency_mode": "monitor",
+      "resource_limits": {
+        "cpu": 0.15,
+        "memory": 0.3
       },
-      "updated_at" : 1726270840583
+      "updated_at": 1726270840583
     }
   ]
 }
 ```
-### Delete Query Group
+### Delete query group
 Delete the provided Query group.
 
 #### Example request
