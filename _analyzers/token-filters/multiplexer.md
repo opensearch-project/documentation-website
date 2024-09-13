@@ -71,7 +71,7 @@ POST /multiplexer_index/_analyze
 ```
 {% include copy-curl.html %}
 
-The response contains the generated tokens, however the tokens are not human readable:
+The response contains the generated tokens:
 
 ```json
 {
