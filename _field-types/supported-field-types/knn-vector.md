@@ -307,9 +307,9 @@ In the best-case scenario, byte vectors require 25% of the memory required by 32
 
 #### HNSW memory estimation
 
-The memory required for Hierarchical Navigable Small Worlds (HNSW) is estimated to be `1.1 * (dimension + 8 * M)` bytes/vector.
+The memory required for Hierarchical Navigable Small Worlds (HNSW) is estimated to be `1.1 * (dimension + 8 * m)` bytes/vector.
 
-As an example, assume that you have 1 million vectors with a dimension of 256 and M of 16. The memory requirement can be estimated as follows:
+As an example, assume that you have 1 million vectors with a dimension of 256 and an `m` of 16. The memory requirement can be estimated as follows:
 
 ```r
 1.1 * (256 + 8 * 16) * 1,000,000 ~= 0.39 GB
@@ -319,7 +319,7 @@ As an example, assume that you have 1 million vectors with a dimension of 256 an
 
 The memory required for IVF is estimated to be `1.1 * ((dimension * num_vectors) + (4 * nlist * d))` bytes/vector.
 
-As an example, assume that you have 1 million vectors with a dimension of 256 and `nlist` of 128. The memory requirement can be estimated as follows:
+As an example, assume that you have 1 million vectors with a dimension of 256 and an `nlist` of 128. The memory requirement can be estimated as follows:
 
 ```r
 1.1 * ((256 * 1,000,000) + (4 * 128 * 256))  ~= 0.27 GB
