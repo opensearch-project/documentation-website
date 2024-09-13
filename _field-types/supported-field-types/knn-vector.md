@@ -49,23 +49,26 @@ PUT test-index
 
 ## Vector workload modes
 
-The field of Vector Search contains a significant number of tradeoffs. Some users want very low-latency search, others want low-cost search. The `mode` mapping parameter of the `knn_vector` type allows users to indicate what tradeoffs they would like to default to. The `mode` that is set will dictate what different defaults are resolved to. Users can fine tune their index by overriding other parameters in the k-NN field mapping.
+Vector search involves tradeoffs between low-latency and low-cost search. Specify the `mode` mapping parameter of the `knn_vector` type to indicate what search mode you want to prioritize. The `mode` dictates the default values for k-NN parameters. You can further fine-tune your index by overriding the default parameter values in the k-NN field mapping.
 
-Right now, 2 modes are supported:
-* `in_memory` (default) - the `in_memory` mode represents the current default for vector search in OpenSearch. By default, it will use the `nmslib` engine and not configure any compression_level. This mode should be preferred if low-latency is required for your application.
-* `on_disk` - the `on_disk` mode is used to provide low-cost vector search while maintaining strong recall. The `on_disk` mode by default uses "32x" compression via binary quantization and a default rescoring oversample factor of 2.0. This mode should be used if the workload requires a lower cost. `on_disk` is only supported for `float` vector types. 
+Currently, the following modes are supported:
+
+- `in_memory` (Default): The `in_memory` mode prioritizes low-latency search. This mode uses the `nmslib` engine without any `compression_level` applied. It is configured with the default parameter values for vector search in OpenSearch. 
+- `on_disk`: The `on_disk` mode  prioritizes low-cost vector search while maintaining strong recall. By default, it pplies 32x compression using binary quantization and a rescoring oversample factor of 2.0. The `on_disk` mode supports only `float` vector types. 
 
 ## Compression levels
 
-`compression_level` is a mapping parameter that selects a quantization encoder that will reduce the memory consumption of the vectors by the given factor. Valid values are:
-- "1x" (supported by nmslib, lucene and faiss engines)
-- "2x" (supported by faiss engine)
-- "4x" (supported by lucene engine)
-- "8x" (supported by faiss engine)
-- "16x" (supported by faiss engine)
-- "32x" (supported by faiss engine)
+The `compression_level` mapping parameter selects a quantization encoder that reduces memory consumption of the vectors by the given factor. Valid values are:
 
-If the `compression_level` parameter is set, an `encoder` cannot be specifed in the `method` mapping. `compression_level` greater than 1x are only supported for `float` vector types.
+- `1x` (supported by `nmslib`, `lucene` and `faiss` engines)
+- `2x` (supported by `faiss` engine)
+- `4x` (supported by `lucene` engine)
+- `8x` (supported by `faiss` engine)
+- `16x` (supported by `faiss` engine)
+- `32x` (supported by `faiss` engine)
+
+If you set the `compression_level` parameter, then you cannot specify an `encoder` in the `method` mapping. Compression levels greater than `1x` are only supported for `float` vector types.
+{: .note}
 
 ## Method definitions
 

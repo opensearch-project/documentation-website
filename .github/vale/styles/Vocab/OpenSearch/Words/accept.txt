@@ -105,6 +105,7 @@ p\d{2}
 [Rr]eprovision(ed|ing)?
 [Rr]erank(er|ed|ing)?
 [Rr]epo
+[Rr]escor(e|ed|ing)?
 [Rr]ewriter
 [Rr]ollout
 [Rr]ollup

@@ -308,9 +308,14 @@ Engine | Notes
 :--- | :--- 
 `faiss` | If `nprobes` is present in a query, it overrides the value provided when creating the index.
 
-### Rescoring quantized results with full precision
+### Rescoring quantized results using full precision
 
-Quantization can be used to significantly reduce the memory footprint of a k-NN index. For more information about quantization, see [k-NN Vector Quantization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization). Because some precision of the vector representations is lost during quantization, the distances computed will be approximate. This causes the overall recall of the search to go down. In order to improve the recall, while still reaping the memory savings that quantization provides, a two-phased search approach can be taken up. In the first phase, `oversample_factor*k` results are collected from an index using quantized vectors. These scores are approximated. Then, in the second phase, the full-precision vectors of the `oversample_factor*k` results are mapped into memory from disk and the scores are recomputed against the full precision query vector and the results are reduced to the top k. To execute this query on a quantized index, the following query can be run:
+Quantization can be used to significantly reduce the memory footprint of a k-NN index. For more information about quantization, see [k-NN vector quantization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization). Because some precision of the vector representations is lost during quantization, the distances computed will be approximate. This causes the overall recall of the search to decrease. 
+
+To improve recall while maintaining the memory savings of quantization, you can use a two-phased search approach. In the first phase, `oversample_factor * k` results are retrieved from an index using quantized vectors and the scores are approximated. In the second phase, the full-precision vectors of those `oversample_factor * k` results are loaded into memory from disk, and scores are recomputed against the full-precision query vector. The results are then reduced to the top k. 
+
+To apply rescoring, provide the `rescore` parameter in a query on a quantized index and specify the `oversample_factor`:
+
 ```json
 GET my-knn-index-1/_search
 {
@@ -321,15 +326,17 @@ GET my-knn-index-1/_search
         "vector": [2, 3, 5, 6],
         "k": 2,
         "rescore" : {
-          "oversample_factor: 1.2
+          "oversample_factor": 1.2
         }
       }
     }
   }
 }
 ```
+{% include copy-curl.html %}
 
-or
+Alternatively, set the `rescore` parameter to `true` to use the default `oversample_factor` of `1.0`:
+
 ```json
 GET my-knn-index-1/_search
 {
@@ -345,10 +352,12 @@ GET my-knn-index-1/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
-The `oversample_factor` is a floating point number between 0.0 and 100.0. `oversample_factor*k` will always be greater than or equal to 100 and less than or equal to 10,000.
+The `oversample_factor` is a floating-point number between 1.0 and 100.0, inclusive. Thus, `oversample_factor * k` is always between 100 and 10,000, inclusive.
 
-Rescoring is not needed if quantization is not used because the scores returned are already completely precise.
+Rescoring is not needed if quantization is not used because the scores returned are already fully precise.
+{: .note}
 
 ### Using approximate k-NN with filters
 
