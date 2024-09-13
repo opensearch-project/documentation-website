@@ -70,7 +70,7 @@ curl -XPUT -k -u 'admin:<custom-admin-password>' -H 'Content-Type: application/j
 
 ### Custom results index
 
-To use a custom results index, you need additional permissions not included in the default roles provided by the OpenSearch Security plugin. To add these permission, see [Step 1: Define a detector]({{site.url}}{{site.baseurl}}/observing-your-data/ad/index/#step-1-define-a-detector) of the [Anomaly detection]({{site.url}}{{site.baseurl}}/observing-your-data/ad/index/) documentation.
+To use a custom results index, you need additional permissions not included in the default roles provided by the OpenSearch Security plugin. To add these permissions, see [Step 1: Define a detector]({{site.url}}{{site.baseurl}}/observing-your-data/ad/index/#step-1-define-a-detector) in the [Anomaly detection]({{site.url}}{{site.baseurl}}/observing-your-data/ad/index/) documentation.
 
 ## (Advanced) Limit access by backend role
 
