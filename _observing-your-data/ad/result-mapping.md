@@ -9,9 +9,7 @@ redirect_from:
 
 # Anomaly result mapping
 
-If **Custom result index** is enabled, the Anomaly Detection plugin stores the results in your own index.
-
-If the anomaly detector does not detect an anomaly, the result has the following format:
+When you select the **Enable custom result index** box on the **Custom result index** pane, the Anomaly Detection plugin will store the results in your own index. When the anomaly detector does not detect an anomaly, the result format is as follows:
 
 ```json
 {
@@ -61,6 +59,7 @@ If the anomaly detector does not detect an anomaly, the result has the following
   "threshold": 1.2368549346675202
 }
 ```
+{% include copy-curl.html %}
 
 ## Response body fields
 
@@ -80,9 +79,9 @@ Field | Description
 `model_id` | A unique ID that identifies a model. If a detector is a single-stream detector (with no category field), it has only one model. If a detector is a high-cardinality detector (with one or more category fields), it might have multiple models, one for each entity.
 `threshold` | One of the criteria for a detector to classify a data point as an anomaly is that its `anomaly_score` must surpass a dynamic threshold. This field records the current threshold.
 
-When the imputation option is enabled, the anomaly result output includes a `feature_imputed` array, showing which features have been imputed. This information helps you identify which features were modified during the anomaly detection process due to missing data. If no features were imputed, then the `feature_imputed` array is excluded from the results.
+When the imputation option is enabled, the anomaly result includes a `feature_imputed` array, showing which features were modified due to missing data. If no features were imputed, then this is excluded.
 
-In this example, the feature `processing_bytes_max` was imputed, as indicated by the `imputed: true` status:
+In the following example anomaly result output, the `processing_bytes_max` feature was imputed, as shown by the `imputed: true` status:
 
 ```json
 {
@@ -154,8 +153,9 @@ In this example, the feature `processing_bytes_max` was imputed, as indicated by
     ]
 }
 ```
+{% include copy-curl.html %}
 
-If an anomaly detector detects an anomaly, the result has the following format:
+When an anomaly is detected, the result has the following format:
 
 ```json
 {
@@ -254,24 +254,23 @@ If an anomaly detector detects an anomaly, the result has the following format:
   "execution_start_time": 1635898427803
 }
 ```
+{% include copy-curl.html %}
 
-You can see the following additional fields:
+Note that the result includes the following additional field: 
 
 Field | Description
 :--- | :---
 `relevant_attribution` | Represents the contribution of each input variable. The sum of the attributions is normalized to 1.
 `expected_values` | The expected value for each feature.
 
-At times, the detector might detect an anomaly late.
-Let's say the detector sees a random mix of the triples {1, 2, 3} and {2, 4, 5} that correspond to `slow weeks` and `busy weeks`, respectively. For example 1, 2, 3, 1, 2, 3, 2, 4, 5, 1, 2, 3, 2, 4, 5, ... and so on.
-If the detector comes across a pattern {2, 2, X} and it's yet to see X, the detector infers that the pattern is anomalous, but it can't determine at this point which of the 2's is the cause. If X = 3, then the detector knows it's the first 2 in that unfinished triple, and if X = 5, then it's the second 2. If it's the first 2, then the detector detects the anomaly late.
+The detector may detect an anomaly late. For example, the detector observes a sequence of data that alternates between "slow weeks" (represented by the triples {1, 2, 3}) and "busy weeks" (represented by the triples {2, 4, 5}). If the detector comes across a pattern {2, 2, X}, where it has not yet seen the value that X will take, the detector infers that the pattern is anomalous. However, it cannot determine which of the 2's is the cause. If X = 3, then the first 2 is the anomaly. If X = 5, then the second 2 is the anomaly. If it is the first 2, then the detector would detect the anomaly late.
 
-If a detector detects an anomaly late, the result has the following additional fields:
+When a detector detects an anomaly late, the result includes the following additional fields:
 
 Field | Description
 :--- | :---
-`past_values` | The actual input that triggered an anomaly. If `past_values` is null, the attributions or expected values are from the current input. If `past_values` is not null, the attributions or expected values are from a past input (for example, the previous two steps of the data [1,2,3]).
-`approx_anomaly_start_time` | The approximate time of the actual input that triggers an anomaly. This field helps you understand when a detector flags an anomaly. Both single-stream and high-cardinality detectors don't query previous anomaly results because these queries are expensive operations. The cost is especially high for high-cardinality detectors that might have a lot of entities. If the data is not continuous, the accuracy of this field is low and the actual time that the detector detects an anomaly can be earlier.
+`past_values` | The actual input that triggered an anomaly. If `past_values` is null, then the attributions or expected values are from the current input. If `past_values` is not null, then the attributions or expected values are from a past input (for example, the previous two steps of the data [1,2,3]).
+`approx_anomaly_start_time` | The approximate time of the actual input that triggers an anomaly. This field helps you understand when a detector flags an anomaly. Both single-stream and high-cardinality detectors do not query previous anomaly results because these queries are costly operations. The cost is especially high for high-cardinality detectors that may have many entities. If the data is not continuous, then the accuracy of this field is low and the actual time that the detector detects an anomaly can be earlier.
 
 ```json
 {
@@ -394,3 +393,4 @@ Field | Description
   "approx_anomaly_start_time": 1635883620000
 }
 ```
+{% include copy-curl.html %}
