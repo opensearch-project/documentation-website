@@ -35,6 +35,17 @@ A _detector_ is an individual anomaly detection task. You can define multiple de
 #### Example: Filtering data using query DSL
 
 The following example query retrieves documents in which the `urlPath.keyword` field matches any of the specified values:
+=======
+1. Choose **Create detector**.
+1. Add in the detector details.
+   - Enter a name and brief description. Make sure the name is unique and descriptive enough to help you to identify the purpose of the detector.
+1. Specify the data source.   
+   - For **Data source**, choose one or more indexes to use as the data source. Alternatively, you can use an alias or index pattern to choose multiple indexes. 
+   - Detectors can use remote indexes. You can access them using the `cluster-name:index-name` pattern. See [Cross-cluster search]({{site.url}}{{site.baseurl}}/search-plugins/cross-cluster-search/) for more information. Alternatively, you can select clusters and indexes in OpenSearch Dashboards 2.17 or later. To learn about configuring remote indexes with the Security plugin enabled, see [Selecting remote indexes with fine-grained access control]({{site.url}}{{site.baseurl}}/observing-your-data/ad/security/#selecting-remote-indexes-with-fine-grained-access-control) in the [Anomaly detection security](observing-your-data/ad/security/) documentation.
+   - (Optional) For **Data filter**, filter the index you chose as the data source. From the **Data filter** menu, choose **Add data filter**, and then design your filter query by selecting **Field**, **Operator**, and **Value**, or choose **Use query DSL** and add your own JSON filter query. Only [Boolean queries]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/) are supported for query domain-specific language (DSL).
+
+To create a cross-cluster detector in OpenSearch Dashboards, the following [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/) are required: `indices:data/read/field_caps`, `indices:admin/resolve/index`, and `cluster:monitor/remote/info`.
+{: .note}
    
    - /domain/{id}/short
    - /sub_dir/{id}/short
