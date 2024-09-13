@@ -11,6 +11,8 @@ redirect_from:
 ---
 
 # Completion field type
+**Introduced 1.0**
+{: .label .label-purple }
 
 A completion field type provides autocomplete functionality through a completion suggester. The completion suggester is a prefix suggester, so it matches the beginning of text only. A completion suggester creates an in-memory data structure, which provides faster lookups but leads to increased memory usage. You need to upload a list of all possible completions into the index before using this feature.
 

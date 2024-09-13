@@ -16,6 +16,7 @@ Availability and recovery settings include settings for the following:
 - [Shard indexing backpressure](#shard-indexing-backpressure-settings)
 - [Segment replication](#segment-replication-settings)
 - [Cross-cluster replication](#cross-cluster-replication-settings)
+- [Workload management](#workload-management-settings)
 
 To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
@@ -70,3 +71,7 @@ For information about segment replication backpressure settings, see [Segment re
 ## Cross-cluster replication settings
 
 For information about cross-cluster replication settings, see [Replication settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/settings/).
+
+## Workload management settings
+
+Workload management is a mechanism that allows administrators to organize queries into distinct groups. For more information, see [Workload management settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/#workload-management-settings).
