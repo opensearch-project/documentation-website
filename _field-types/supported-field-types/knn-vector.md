@@ -31,14 +31,9 @@ PUT test-index
         "type": "knn_vector",
         "dimension": 3,
         "space_type": "l2",
-        "mode": "in_memory",
-        "compression_level": "2x",
         "method": {
           "name": "hnsw",
-          "parameters": {
-            "ef_construction": 128,
-            "m": 24
-          }
+          "engine": "faiss"
         }
       }
     }
@@ -53,24 +48,83 @@ Vector search involves tradeoffs between low-latency and low-cost search. Specif
 
 Currently, the following modes are supported:
 
-- `in_memory` (Default): The `in_memory` mode prioritizes low-latency search. This mode uses the `nmslib` engine without any `compression_level` applied. It is configured with the default parameter values for vector search in OpenSearch. 
-- `on_disk`: The `on_disk` mode  prioritizes low-cost vector search while maintaining strong recall. By default, it pplies 32x compression using binary quantization and a rescoring oversample factor of 3.0. The `on_disk` mode supports only `float` vector types. Because the `on_disk` mode requires quantization with rescoring, the `1x` compression level is not supported for this mode. 
+| Mode                  | Default Engine | Description                                                                                                                                                                                                                                                              |
+|:----------------------|:---------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `in_memory` (default) | `nmslib`       | The `in_memory` mode prioritizes low-latency search. This mode uses the `nmslib` engine without any quantization applied. It is configured with the default parameter values for vector search in OpenSearch.                                                            |
+| `on_disk`             | `faiss`        | The `on_disk` mode  prioritizes low-cost vector search while maintaining strong recall. By default, `on_disk` mode will uses quantization and re-scoring to execute a two-pass approach to get the top neighbors. The `on_disk` mode supports only `float` vector types. |
+
+This is how an index for a particular mode is created:
+```json
+PUT test-index
+{
+  "settings": {
+    "index": {
+      "knn": true
+    }
+  },
+  "mappings": {
+    "properties": {
+      "my_vector": {
+        "type": "knn_vector",
+        "dimension": 3,
+        "space_type": "l2",
+        "mode": "on_disk"
+      }
+    }
+  }
+}
+```
 
 ## Compression levels
 
 The `compression_level` mapping parameter selects a quantization encoder that reduces memory consumption of the vectors by the given factor. Specify `compression_level` as a string (for example, `compression_level: "1x"`). Valid values are:
 
-- `1x` (supported by `nmslib`, `lucene` and `faiss` engines)
-- `2x` (supported by `faiss` engine)
-- `4x` (supported by `lucene` engine)
-- `8x` (supported by `faiss` engine)
-- `16x` (supported by `faiss` engine)
-- `32x` (supported by `faiss` engine)
+
+| Compression Level | Supported Engines              |
+|:------------------|:-------------------------------|
+| `1x`              | `faiss`, `lucene` and `nmslib` |
+| `2x`              | `faiss`                        |
+| `4x`              | `lucene`                       |
+| `8x`              | `faiss`                        |
+| `16x`             | `faiss`                        |
+| `32x`             | `faiss`                        |
 
 For example, if a `compression_level` of `32x` is passed for a `float32` index of 768-dimensional vectors, the per-vector memory is reduced from `4 * 768 = 3072` bytes to `3072 / 32 = 846` bytes. Internally, binary quantization (which maps a `float` to a `bit`) may be used to achieve this compression.
 
 If you set the `compression_level` parameter, then you cannot specify an `encoder` in the `method` mapping. Compression levels greater than `1x` are only supported for `float` vector types.
 {: .note}
+
+The default compression for each mode is
+
+| Mode | Default Compression Level    |
+|:------------------|:-------------------------------|
+| `in_memory`       | `1x` |
+| `on_disk`         | `32x` |
+
+
+This is how an index is created with a particular `compression_level`. This will override the default compression level for the `on_disk` mode from `32x` to `16x`, given a bump in recall and accuracy at the expense of a larger memory footprint.
+```json
+PUT test-index
+{
+  "settings": {
+    "index": {
+      "knn": true
+    }
+  },
+  "mappings": {
+    "properties": {
+      "my_vector": {
+        "type": "knn_vector",
+        "dimension": 3,
+        "space_type": "l2",
+        "mode": "on_disk",
+        "compression_level": "16x"
+      }
+    }
+  }
+}
+```
+
 
 ## Method definitions
 
@@ -85,8 +139,8 @@ If you set the `compression_level` parameter, then you cannot specify an `encode
     "name": "hnsw",
     "engine": "nmslib",
     "parameters": {
-      "ef_construction": 128,
-      "m": 24
+      "ef_construction": 100,
+      "m": 16
     }
   }
 }
@@ -148,8 +202,8 @@ PUT test-index
           "name": "hnsw",
           "engine": "lucene",
           "parameters": {
-            "ef_construction": 128,
-            "m": 24
+            "ef_construction": 100,
+            "m": 16
           }
         }
       }
@@ -337,11 +391,7 @@ PUT /test-binary-hnsw
         "space_type": "hamming",
         "method": {
           "name": "hnsw",
-          "engine": "faiss",
-          "parameters": {
-            "ef_construction": 128,
-            "m": 24
-          }
+          "engine": "faiss"
         }
       }
     }
@@ -569,7 +619,7 @@ POST _plugins/_knn/models/test-binary-model/_train
     "name": "ivf",
     "engine": "faiss",
     "parameters": {
-      "nlist": 1,
+      "nlist": 16,
       "nprobes": 1
     }
   }

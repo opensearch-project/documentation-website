@@ -312,9 +312,23 @@ Engine | Notes
 
 Quantization can be used to significantly reduce the memory footprint of a k-NN index. For more information about quantization, see [k-NN vector quantization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization). Because some precision of the vector representations is lost during quantization, the distances computed will be approximate. This causes the overall recall of the search to decrease. 
 
-To improve recall while maintaining the memory savings of quantization, you can use a two-phased search approach. In the first phase, `oversample_factor * k` results are retrieved from an index using quantized vectors and the scores are approximated. In the second phase, the full-precision vectors of those `oversample_factor * k` results are loaded into memory from disk, and scores are recomputed against the full-precision query vector. The results are then reduced to the top k. 
+To improve recall while maintaining the memory savings of quantization, you can use a two-phased search approach. In the first phase, `oversample_factor * k` results are retrieved from an index using quantized vectors and the scores are approximated. In the second phase, the full-precision vectors of those `oversample_factor * k` results are loaded into memory from disk, and scores are recomputed against the full-precision query vector. The results are then reduced to the top k.
 
-To apply rescoring, provide the `rescore` parameter in a query on a quantized index and specify the `oversample_factor`:
+The default re-scoring behavior is determined by the `mode` and `compression_level` of the backing k-NN vector field.
+
+When the mode is `in_memory`, no re-scoring will take place by default.
+
+When the mode is `on_disk`, by default, re-scoring will happen based on the configured `compression_level`
+
+| Compression Level | Default Rescore Oversample Factor |
+|:------------------|:----------------------------------|
+| `32x` (default)   | 3.0                               |
+| `16x`             | 2.0                               |
+| `8x`              | 2.0                               |
+| `4x`              | No default re-scoring             |
+| `2x`              | No default re-scoring             |
+
+To explicitly apply rescoring, provide the `rescore` parameter in a query on a quantized index and specify the `oversample_factor`:
 
 ```json
 GET my-knn-index-1/_search
@@ -335,7 +349,7 @@ GET my-knn-index-1/_search
 ```
 {% include copy-curl.html %}
 
-Alternatively, set the `rescore` parameter to `true` to use the default `oversample_factor` of `1.0`:
+Alternatively, set the `rescore` parameter to `true` to use a default `oversample_factor` of `1.0`:
 
 ```json
 GET my-knn-index-1/_search
@@ -354,7 +368,9 @@ GET my-knn-index-1/_search
 ```
 {% include copy-curl.html %}
 
-The `oversample_factor` is a floating-point number between 1.0 and 100.0, inclusive. Thus, `oversample_factor * k` is always between 100 and 10,000, inclusive.
+The `oversample_factor` is a floating-point number between 1.0 and 100.0, inclusive. Additionally, the number of first pass results will be the minmum of the maximum of `oversample_factor*k`, 100 and 10,000.
+
+Re-scoring is only supported for the `faiss` engine.
 
 Rescoring is not needed if quantization is not used because the scores returned are already fully precise.
 {: .note}
