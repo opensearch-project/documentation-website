@@ -317,7 +317,7 @@ As an example, assume that you have 1 million vectors with a dimension of 256 an
 
 #### IVF memory estimation
 
-The memory required for IVF is estimated to be `1.1 * ((dimension * num_vectors) + (4 * nlist * dimension))` bytes/vector, , where `nlist` is the number of buckets to partition vectors into.
+The memory required for IVF is estimated to be `1.1 * ((dimension * num_vectors) + (4 * nlist * dimension))` bytes/vector, where `nlist` is the number of buckets to partition vectors into.
 
 As an example, assume that you have 1 million vectors with a dimension of 256 and an `nlist` of 128. The memory requirement can be estimated as follows:
 
