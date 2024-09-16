@@ -40,7 +40,7 @@ Use the `context` setting with the Index API to add use-case-specific context.
 Consider the following when using the `context` parameter during index creation:
 
 1. If you use the `context` parameter to create an index, you cannot include any settings declared in the index context during index creation or dynamic settings updates.
-2. Context becomes permanent when set on an index or index-template.
+2. The index context becomes permanent when set on an index or index template.
 
 When you adhere to these limitations, suggested configurations or mappings are uniformly applied on indexed data within the specified context.
 
@@ -106,7 +106,7 @@ GET /my-metrics-index
 ```
 
 
-#### Create an index templates
+#### Create an index template
 
 You can also use the `context` parameter when creating an index template. The following example request creates an index template with the context information as `logs`:
 
