@@ -63,7 +63,7 @@ PUT /my-metrics-index
 ```
 {% include copy-curl.html %}
 
-After creation, the index will have the context added to it, and also have few settings applied:
+After creation, the index will have the context added to it, and also have corresponding settings applied:
 
 
 **GET request**
