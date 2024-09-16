@@ -310,14 +310,14 @@ Engine | Notes
 
 ### Rescoring quantized results using full precision
 
-Quantization can be used to significantly reduce the memory footprint of a k-NN index. For more information about quantization, see [k-NN vector quantization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization). Because some precision of the vector representations is lost during quantization, the distances computed will be approximate. This causes the overall recall of the search to decrease. 
+Quantization can be used to significantly reduce the memory footprint of a k-NN index. For more information about quantization, see [k-NN vector quantization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization). Because some vector representation is lost during quantization, the computed distances will be approximate. This causes the overall recall of the search to decrease. 
 
-To improve recall while maintaining the memory savings of quantization, you can use a two-phased search approach. In the first phase, `oversample_factor * k` results are retrieved from an index using quantized vectors and the scores are approximated. In the second phase, the full-precision vectors of those `oversample_factor * k` results are loaded into memory from disk, and scores are recomputed against the full-precision query vector. The results are then reduced to the top k.
+To improve recall while maintaining the memory savings of quantization, you can use a two-phase search approach. In the first phase, `oversample_factor * k` results are retrieved from an index using quantized vectors and the scores are approximated. In the second phase, the full-precision vectors of those `oversample_factor * k` results are loaded into memory from disk, and scores are recomputed against the full-precision query vector. The results are then reduced to the top k.
 
 The default rescoring behavior is determined by the `mode` and `compression_level` of the backing k-NN vector field:
 
-- For the `in_memory` mode, no rescoring is applied by default.
-- For the `on_disk` mode, default rescoring is based on the configured `compression_level`. Each `compression_level` provides a default `oversample_factor`, specified in the following table.
+- For `in_memory` mode, no rescoring is applied by default.
+- For `on_disk` mode, default rescoring is based on the configured `compression_level`. Each `compression_level` provides a default `oversample_factor`, specified in the following table.
 
 | Compression level | Default rescore `oversample_factor` |
 |:------------------|:----------------------------------|
@@ -367,7 +367,7 @@ GET my-knn-index-1/_search
 ```
 {% include copy-curl.html %}
 
-The `oversample_factor` is a floating-point number between 1.0 and 100.0, inclusive. The number of results in the first pass is calculated as `oversample_factor * k` and is guaranteed to be between 100 and 10,000, inclusive. If the calculated number of results is less than 100, the number of results is set to 100. If the calculated number of results is greater than 10,000, the number of results is set to 10,000.
+The `oversample_factor` is a floating-point number between 1.0 and 100.0, inclusive. The number of results in the first pass is calculated as `oversample_factor * k` and is guaranteed to be between 100 and 10,000, inclusive. If the calculated number of results is smaller than 100, then the number of results is set to 100. If the calculated number of results is greater than 10,000, then the number of results is set to 10,000.
 
 Rescoring is only supported for the `faiss` engine.
 

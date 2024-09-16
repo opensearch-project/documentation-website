@@ -83,7 +83,7 @@ A method definition will always contain the name of the method, the space_type t
 Mapping parameter | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
 `name` | true | n/a | false | The identifier for the nearest neighbor method.
-`space_type` | false | l2 | false | The vector space used to calculate the distance between vectors. Note that this can also be specified in the top level of the mapping.
+`space_type` | false | l2 | false | The vector space used to calculate the distance between vectors. Note: This value can also be specified at the top level of the mapping.
 `engine` | false | nmslib | false | The approximate k-NN library to use for indexing and search. The available libraries are faiss, nmslib, and Lucene.
 `parameters` | false | null | false | The parameters used for the nearest neighbor method.
 

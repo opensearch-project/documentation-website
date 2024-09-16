@@ -351,7 +351,7 @@ Request parameter |  Description
 `search_size` | The training data is pulled from the training index using scroll queries. This parameter defines the number of results to return per scroll query. Default is `10000`. Optional.
 `description` | A user-provided description of the model. Optional.
 `method` | The configuration of the approximate k-NN method used for search operations. For more information about the available methods, see [k-NN index method definitions]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#method-definitions). The method requires training to be valid.
-`space_type` | The space type for which this model is trained, for example, Euclidean or cosine. Note - this value can be set in the method as well
+`space_type` | The space type for which this model is trained, for example, Euclidean or cosine. Note: This value can also be set in the `method` parameter.
    
 #### Usage
 

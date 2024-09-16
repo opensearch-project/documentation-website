@@ -44,16 +44,16 @@ PUT test-index
 
 ## Vector workload modes
 
-Vector search involves tradeoffs between low-latency and low-cost search. Specify the `mode` mapping parameter of the `knn_vector` type to indicate what search mode you want to prioritize. The `mode` dictates the default values for k-NN parameters. You can further fine-tune your index by overriding the default parameter values in the k-NN field mapping.
+Vector search involves trade-offs between low-latency and low-cost search. Specify the `mode` mapping parameter of the `knn_vector` type to indicate which search mode you want to prioritize. The `mode` dictates the default values for k-NN parameters. You can further fine-tune your index by overriding the default parameter values in the k-NN field mapping.
 
-Currently, the following modes are supported.
+The following modes are currently supported.
 
 | Mode    | Default engine | Description  |
 |:---|:---|:---|
 | `in_memory` (Default) | `nmslib`       | Prioritizes low-latency search. This mode uses the `nmslib` engine without any quantization applied. It is configured with the default parameter values for vector search in OpenSearch.                                                            |
 | `on_disk`             | `faiss`        | Prioritizes low-cost vector search while maintaining strong recall. By default, the `on_disk` mode uses quantization and rescoring to execute a two-pass approach to retrieve the top neighbors. The `on_disk` mode supports only `float` vector types. |
 
-To create a k-NN index with the `on_disk` mode for low-cost search, send the following request:
+To create a k-NN index that uses the `on_disk` mode for low-cost search, send the following request:
 
 ```json
 PUT test-index
@@ -79,7 +79,7 @@ PUT test-index
 
 ## Compression levels
 
-The `compression_level` mapping parameter selects a quantization encoder that reduces memory consumption of the vectors by the given factor. The following tables lists the available `compression_level` values.
+The `compression_level` mapping parameter selects a quantization encoder that reduces vector memory consumption by the given factor. The following table lists the available `compression_level` values.
 
 | Compression level | Supported engines              |
 |:------------------|:-------------------------------|
