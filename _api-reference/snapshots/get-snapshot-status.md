@@ -45,7 +45,7 @@ Snapshot API calls only work if the total number of shards across the requested 
 
 | Field | Data type | Description | 
 :--- | :--- | :---
-| ignore_unavailable | Boolean | How to handle requests for unavailable snapshots and indexes. If `false`, the request returns an error for unavailable snapshots and indexes. If `true`, the request ignores unavailable snapshots and indices, such as those that are corrupted or temporarily cannot be returned. Defaults to `false`.|
+| ignore_unavailable | Boolean | How to handle requests for unavailable snapshots and indexes. If `false`, the request returns an error for unavailable snapshots and indexes. If `true`, the request ignores unavailable snapshots and indexes, such as those that are corrupted or temporarily cannot be returned. Defaults to `false`.|
 
 ## Example request
 
