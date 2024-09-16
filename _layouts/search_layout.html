@@ -38,12 +38,16 @@ layout: table_wrappers
                             <label for="categoryAll">All</label>
                         </div>
                         <div class="search-page--sidebar--category-filter--checkbox-child">
-                            <input type="checkbox" id="categoryDocumentation" name="categoryGroup" value="Documentation" class="category-checkbox">
+                            <input type="checkbox" id="categoryDocumentation" name="categoryGroup" value="docs" class="category-checkbox" checked>
                             <label for="categoryDocumentation">Documentation</label>
                         </div>
                         <div class="search-page--sidebar--category-filter--checkbox-child">
-                            <input type="checkbox" id="categoryNews" name="categoryGroup" value="News" class="category-checkbox">
-                            <label for="categoryNews">News</label>
+                            <input type="checkbox" id="categoryBlog" name="categoryGroup" value="blogs" class="category-checkbox" checked>
+                            <label for="categoryBlog">Blog</label>
+                        </div>
+                        <div class="search-page--sidebar--category-filter--checkbox-child">
+                            <input type="checkbox" id="categoryEvent" name="categoryGroup" value="events" class="category-checkbox" checked>
+                            <label for="categoryEvent">Event</label>
                         </div>
                     </div>
                 </form>
@@ -97,10 +101,7 @@ layout: table_wrappers
 
     function getSelectedCategory() {
         const allCheckbox = document.getElementById('categoryAll');
-        if (allCheckbox.checked) {
-            return "All";
-        }
-        return document.querySelector('input[name="categoryGroup"]:checked');
+        return document.querySelectorAll('input[name="categoryGroup"]:checked');
     }
     
     function triggerSearch(query) {
@@ -108,13 +109,13 @@ layout: table_wrappers
 
       if (query) {
         trucatedQuery = truncateSentence(query, 20);
-        if (getSelectedCategory() == null) {
+        if (getSelectedCategory().length === 0) {
             searchResultsHeader.textContent = 'Select the result type for your search.';
             document.getElementById('searchPageResultsContainer').innerHTML = '';
             return;
         }
-        const selectedCategory = getSelectedCategory().value;
-        const searchType = selectedCategory == ("Documentation") ? "docs" : selectedCategory == ("News") ? "proj" : "all";
+        const selectedCategory = getSelectedCategory();
+        const searchType = Array.from(selectedCategory).map(element => element.value).join(',');
         const urlPath = window.location.pathname;
         const versionMatch = urlPath.match(/(\d+\.\d+)/);
         const docsVersion = versionMatch ? versionMatch[1] : "latest";
@@ -139,11 +140,12 @@ layout: table_wrappers
     document.addEventListener('DOMContentLoaded', function() {
         const categoryAll = document.getElementById('categoryAll');
         const categoryDocumentation = document.getElementById('categoryDocumentation');
-        const categoryNews = document.getElementById('categoryNews');
+        const categoryBlog = document.getElementById('categoryBlog');
+        const categoryEvent = document.getElementById('categoryEvent');
         const searchInput = document.getElementById('searchPageInput');
 
         function updateAllCheckbox() {
-            if (categoryDocumentation.checked && categoryNews.checked) {
+            if (categoryDocumentation.checked && categoryBlog.checked && categoryEvent.checked) {
                 categoryAll.checked = true;
             } else {
                 categoryAll.checked = false;
@@ -153,10 +155,12 @@ layout: table_wrappers
         function updateChildCheckboxes() {
             if (categoryAll.checked) {
                 categoryDocumentation.checked = true;
-                categoryNews.checked = true;
+                categoryBlog.checked = true;
+                categoryEvent.checked = true;
             } else {
                 categoryDocumentation.checked = false;
-                categoryNews.checked = false;
+                categoryBlog.checked = false;
+                categoryEvent.checked = false;
             }
         }
 
@@ -168,7 +172,11 @@ layout: table_wrappers
             updateAllCheckbox(); 
             triggerSearch(searchInput.value.trim());
         });
-        categoryNews.addEventListener('change', () => {
+        categoryBlog.addEventListener('change', () => {
+            updateAllCheckbox(); 
+            triggerSearch(searchInput.value.trim());
+        });
+        categoryEvent.addEventListener('change', () => {
             updateAllCheckbox(); 
             triggerSearch(searchInput.value.trim());
         });
