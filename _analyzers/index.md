@@ -171,7 +171,7 @@ The response provides information about the analyzers for each field:
 ```
 
 ## Normalizers
-While tokenization divides text into individual terms, it doesn’t address variations in token forms. Normalization resolves these issues by converting tokens into a standard format. This ensures that similar terms are matched appropriately, even if they aren’t identical.
+Tokenization divides text into individual terms, but it does not address variations in token forms. Normalization resolves these issues by converting tokens into a standard format. This ensures that similar terms are matched appropriately, even if they are not identical.
 
 ### Normalization techniques
 1. **Case normalization**: Converts all tokens to lowercase to ensure case-insensitive matching. For example, "Hello" is normalized to "hello".
