@@ -49,7 +49,7 @@ When you adhere to these limitations, suggested configurations or mappings are u
 The following examples show how to use index context.
 
 
-#### Create Index
+#### Create index
 
 The following example request creates an index to store metrics data by declaring a `metrics` mapping as the context:
 
@@ -157,7 +157,7 @@ GET _index_template/my-logs
 If there is any overlap between any settings, mappings, or aliases declared by your template directly and the backing component template for the context, the latter gets higher priority during index creation.
 
 
-## Available templates for context
+## Available context templates
 
 The following templates are available to be used through the `context` parameter as of OpenSearch 2.17:
 
