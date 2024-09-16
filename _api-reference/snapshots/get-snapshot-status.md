@@ -36,9 +36,12 @@ Three request variants provide flexibility:
 
 * `GET /_snapshot/<repository>/<snapshot>/<index>/_status` returns detailed status information only for the specified indexes in a specific snapshot for the specified repository. Note that this endpoint works only for indexes of a specific snapshot.
 
-Using the API to return state for other than currently running snapshots can be very costly for (1) machine machine resources and (2) processing time if running in the cloud. For each snapshot, each request causes file reads from all of the snapshot's shards. 
 Snapshot API calls only work if the total number of shards across the requested resources, such as snapshots and indexes created from snapshots, is less than the limit specified by the following cluster setting:
+
 - `snapshot.max_shards_allowed_in_status_api`(Dynamic, integer): The maximum number of shards that can be included in the snapshot status API response. Default value is `200000`. Not applicable for [Shallow V2 Snapshots]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/snapshot-interoperability##shallow-snapshot-v2), where the total number and size of files are returned as 0. 
+
+
+Using the API to return state for other than currently running snapshots can be very costly for (1) machine resources and (2) processing time if running in the cloud. For each snapshot, each request causes file reads from all of the snapshot's shards. 
 {: .warning}
 
 ## Request fields
