@@ -18,7 +18,7 @@ This section provides documentation for OpenSearch-supported tools, including:
 - [OpenSearch CLI](#opensearch-cli)
 - [OpenSearch Kubernetes operator](#opensearch-kubernetes-operator)
 - [OpenSearch upgrade, migration, and comparison tools](#opensearch-upgrade-migration-and-comparison-tools)
-- [Sycamore](#sycamore) for AI-powered ETL on complex documents for vector and hybrid search
+- [Sycamore](#sycamore) for AI-powered extract, transform, load (ETL) on complex documents for vector and hybrid search
 
 For information about Data Prepper, the server-side data collector for filtering, enriching, transforming, normalizing, and aggregating data for downstream analytics and visualization, see [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/index/).
 
