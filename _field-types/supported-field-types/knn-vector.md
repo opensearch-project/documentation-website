@@ -22,8 +22,7 @@ PUT test-index
 {
   "settings": {
     "index": {
-      "knn": true,
-      "knn.algo_param.ef_search": 100
+      "knn": true
     }
   },
   "mappings": {
@@ -31,15 +30,97 @@ PUT test-index
       "my_vector": {
         "type": "knn_vector",
         "dimension": 3,
+        "space_type": "l2",
         "method": {
           "name": "hnsw",
-          "space_type": "l2",
-          "engine": "lucene",
-          "parameters": {
-            "ef_construction": 128,
-            "m": 24
-          }
+          "engine": "faiss"
         }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+## Vector workload modes
+
+Vector search involves trade-offs between low-latency and low-cost search. Specify the `mode` mapping parameter of the `knn_vector` type to indicate which search mode you want to prioritize. The `mode` dictates the default values for k-NN parameters. You can further fine-tune your index by overriding the default parameter values in the k-NN field mapping.
+
+The following modes are currently supported.
+
+| Mode    | Default engine | Description  |
+|:---|:---|:---|
+| `in_memory` (Default) | `nmslib`       | Prioritizes low-latency search. This mode uses the `nmslib` engine without any quantization applied. It is configured with the default parameter values for vector search in OpenSearch.                                                            |
+| `on_disk`             | `faiss`        | Prioritizes low-cost vector search while maintaining strong recall. By default, the `on_disk` mode uses quantization and rescoring to execute a two-pass approach to retrieve the top neighbors. The `on_disk` mode supports only `float` vector types. |
+
+To create a k-NN index that uses the `on_disk` mode for low-cost search, send the following request:
+
+```json
+PUT test-index
+{
+  "settings": {
+    "index": {
+      "knn": true
+    }
+  },
+  "mappings": {
+    "properties": {
+      "my_vector": {
+        "type": "knn_vector",
+        "dimension": 3,
+        "space_type": "l2",
+        "mode": "on_disk"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+## Compression levels
+
+The `compression_level` mapping parameter selects a quantization encoder that reduces vector memory consumption by the given factor. The following table lists the available `compression_level` values.
+
+| Compression level | Supported engines              |
+|:------------------|:-------------------------------|
+| `1x`              | `faiss`, `lucene`, and `nmslib` |
+| `2x`              | `faiss`                        |
+| `4x`              | `lucene`                       |
+| `8x`              | `faiss`                        |
+| `16x`             | `faiss`                        |
+| `32x`             | `faiss`                        |
+
+For example, if a `compression_level` of `32x` is passed for a `float32` index of 768-dimensional vectors, the per-vector memory is reduced from `4 * 768 = 3072` bytes to `3072 / 32 = 846` bytes. Internally, binary quantization (which maps a `float` to a `bit`) may be used to achieve this compression.
+
+If you set the `compression_level` parameter, then you cannot specify an `encoder` in the `method` mapping. Compression levels greater than `1x` are only supported for `float` vector types.
+{: .note}
+
+The following table lists the default `compression_level` values for the available workload modes.
+
+| Mode | Default compression level    |
+|:------------------|:-------------------------------|
+| `in_memory`       | `1x` |
+| `on_disk`         | `32x` |
+
+
+To create a vector field with a `compression_level` of `16x`, specify the `compression_level` parameter in the mappings. This parameter overrides the default compression level for the `on_disk` mode from `32x` to `16x`, producing higher recall and accuracy at the expense of a larger memory footprint:
+
+```json
+PUT test-index
+{
+  "settings": {
+    "index": {
+      "knn": true
+    }
+  },
+  "mappings": {
+    "properties": {
+      "my_vector": {
+        "type": "knn_vector",
+        "dimension": 3,
+        "space_type": "l2",
+        "mode": "on_disk",
+        "compression_level": "16x"
       }
     }
   }
@@ -55,13 +136,13 @@ PUT test-index
 "my_vector": {
   "type": "knn_vector",
   "dimension": 4,
+  "space_type": "l2",
   "method": {
     "name": "hnsw",
-    "space_type": "l2",
     "engine": "nmslib",
     "parameters": {
-      "ef_construction": 128,
-      "m": 24
+      "ef_construction": 100,
+      "m": 16
     }
   }
 }
@@ -73,6 +154,7 @@ Model IDs are used when the underlying Approximate k-NN algorithm requires a tra
 model contains the information needed to initialize the native library segment files.
 
 ```json
+"my_vector": {
   "type": "knn_vector",
   "model_id": "my-model"
 }
@@ -80,6 +162,7 @@ model contains the information needed to initialize the native library segment f
 
 However, if you intend to use Painless scripting or a k-NN score script, you only need to pass the dimension.
  ```json
+"my_vector": {
    "type": "knn_vector",
    "dimension": 128
  }
@@ -123,13 +206,13 @@ PUT test-index
         "type": "knn_vector",
         "dimension": 3,
         "data_type": "byte",
+        "space_type": "l2",
         "method": {
           "name": "hnsw",
-          "space_type": "l2",
           "engine": "lucene",
           "parameters": {
-            "ef_construction": 128,
-            "m": 24
+            "ef_construction": 100,
+            "m": 16
           }
         }
       }
@@ -465,14 +548,10 @@ PUT /test-binary-hnsw
         "type": "knn_vector",
         "dimension": 8,
         "data_type": "binary",
+        "space_type": "hamming",
         "method": {
           "name": "hnsw",
-          "space_type": "hamming",
-          "engine": "faiss",
-          "parameters": {
-            "ef_construction": 128,
-            "m": 24
-          }
+          "engine": "faiss"
         }
       }
     }
@@ -695,12 +774,12 @@ POST _plugins/_knn/models/test-binary-model/_train
   "dimension": 8,
   "description": "model with binary data",
   "data_type": "binary",
+  "space_type": "hamming",
   "method": {
     "name": "ivf",
     "engine": "faiss",
-    "space_type": "hamming",
     "parameters": {
-      "nlist": 1,
+      "nlist": 16,
       "nprobes": 1
     }
   }
