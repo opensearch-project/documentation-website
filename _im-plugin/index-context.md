@@ -11,7 +11,7 @@ redirect_from:
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress the feature or if you want to leave feedback, join the discussion in the [OpenSearch forum](https://forum.opensearch.org/).    
 {: .warning}
 
-Index Context declares the use case for an index. Using the context information, OpenSearch applies a pre-determined set of settings and mappings to do the heavy-lifting to ensure. When given the correct context, context provides indexes with:
+Index Context declares the use case for an index. Using the context information, OpenSearch applies a pre-determined set of settings and mappings, which gives the following benefits:
 
 - Optimized performance.
 - Settings tuned to your specific use case.
