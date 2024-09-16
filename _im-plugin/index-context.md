@@ -46,6 +46,9 @@ When you adhere to these limitations, suggested configurations or mappings are u
 
 ### Examples
 
+The following examples show how to use index context.
+
+
 #### Create Index
 
 The following example request creates an index to store metrics data by declaring a `metrics` mapping as the context:
