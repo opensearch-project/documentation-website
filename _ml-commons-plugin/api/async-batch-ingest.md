@@ -11,7 +11,7 @@ nav_order: 35
 **Introduced 2.17**
 {: .label .label-purple }
 
-Use the Asynchronous Batch Ingestion API to ingest data into your OpenSearch cluster from your files in remote file servers, such as S3 or OpenAI. For detailed configuration steps, see [Asynchronous batch ingestion]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/async-batch-ingestion/).
+Use the Asynchronous Batch Ingestion API to ingest data into your OpenSearch cluster from your files on remote file servers, such as Amazon Simple Storage Service (Amazon S3) or OpenAI. For detailed configuration steps, see [Asynchronous batch ingestion]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/async-batch-ingestion/).
 
 ## Path and HTTP methods
 
@@ -30,7 +30,7 @@ Field | Data type | Required/Optional | Description
 `ingest_fields` | Array | Optional | Lists fields from the source file that should be ingested directly into the OpenSearch index without any additional mapping. 
 `credential` | Object | Required | Contains the authentication information for accessing external data sources, such as Amazon S3 or OpenAI.
 `data_source` | Object | Required | Specifies the type and location of the external file(s) from which the data is ingested.
-`data_source.type` | String | Required | Specifies the type of the external data source. Valid values are `s3`, `openAI`.
+`data_source.type` | String | Required | Specifies the type of the external data source. Valid values are `s3` and `openAI`.
 `data_source.source` | Array | Required | Specifies one or more file locations from which the data is ingested. For `s3`, specify the file path to the Amazon S3 bucket (for example, `["s3://offlinebatch/output/sagemaker_batch.json.out"]`). For `openAI`, specify the file IDs for input or output files (for example, `["file-<your output file id>", "file-<your input file id>", "file-<your other file>"]`).
 
 ## Example request: Ingesting a single file
