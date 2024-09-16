@@ -17,7 +17,7 @@ Index Context declares the use case for an index. Using the context information,
 - Settings tuned to your specific use case.
 - Accurate mappings and aliases based on [OpenSearch Integrations]({{site.url}}{{site.baseurl}}/integrations/).
 
-The settings and metadata configuration that are applied using component templates are automatically loaded when your cluster starts. These component templates start with `@abc_template@` or Application Based Configuration (ABC) templates. To prevent potential configuration issues, you can only use ABC templates the way it’s described on this page, through a `context` object declaration.
+The settings and metadata configuration that are applied using component templates are automatically loaded when your cluster starts. Component templates that start with `@abc_template@` or Application Based Configuration (ABC) templates can only be used through a `context` object declaration, in order to prevent configuration issues.
 {: .warning}
 
 
