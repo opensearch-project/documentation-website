@@ -194,7 +194,11 @@ To better understand and monitor your cluster, use the [CAT API]({{site.url}}{{s
 
 ### Shard allocation awareness
 
-If your nodes are spread across several geographical zones, you can configure shard allocation awareness to allocate all replica shards to a zone that’s different from their primary shard.
+You can set custom node attributes on OpenSearch nodes to be used for shard allocation.
+
+For example, you can set the `zone` attribute on each node to represent the zone in which the node is located and use this attribute as shard allocation awareness attribute to ensure that primary and its replica shards are allocated in a balanced manner across available distinct zones i.e. maximum shard copies per zone = `ceil (number_of_shard_copies/number_of_distinct_zones)`.
+
+If your index has total 5 shard copies (1 primary and 4 replicas) and nodes in only 3 distinct zones, then OpenSearch will not allocate more than 2 shards per zone, so you need at least 2 nodes in 2 zones each and at least 1 node in the 3rd zone to allocate all 5 shard copies. If you have 3 nodes in 1st zone and 1 node in remaining zones each, then OpenSearch will only allocate 2,1,1 shard copies leaving the 5th copy unallocated.
 
 With shard allocation awareness, if the nodes in one of your zones fail, you can be assured that your replica shards are spread across your other zones. It adds a layer of fault tolerance to ensure your data survives a zone failure beyond just individual node failures.
 
@@ -218,6 +222,8 @@ PUT _cluster/settings
   }
 }
 ```
+
+You can also use multiple attributes as the shard allocation awareness attributes, provide the attributes as a comma separated string in preceding setting e.g. 'zone,rack'
 
 You can either use `persistent` or `transient` settings. We recommend the `persistent` setting because it persists through a cluster reboot. Transient settings don't persist through a cluster reboot.
 
