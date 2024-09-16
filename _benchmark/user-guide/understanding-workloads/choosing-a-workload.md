@@ -22,8 +22,8 @@ Consider the following criteria when deciding which workload would work best for
 
 ## General search clusters
 
-For benchmarking clusters built for general search use cases, start with the `[nyc_taxis]`(https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/nyc_taxis) workload. This workload contains data about the rides taken in yellow taxis in New York City in 2015. 
+For benchmarking clusters built for general search use cases, start with the [nyc_taxis](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/nyc_taxis) workload. This workload contains data about the rides taken in yellow taxis in New York City in 2015. 
 
 ## Log data
 
-For benchmarking clusters built for indexing and search with log data, use the [`http_logs`](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/http_logs) workload. This workload contains data about the 1998 World Cup.
+For benchmarking clusters built for indexing and search with log data, use the [http_logs](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/http_logs) workload. This workload contains data about the 1998 World Cup.
