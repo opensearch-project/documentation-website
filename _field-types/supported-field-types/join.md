@@ -11,6 +11,8 @@ redirect_from:
 ---
 
 # Join field type
+**Introduced 1.0**
+{: .label .label-purple }
 
 A join field type establishes a parent/child relationship between documents in the same index. 
 
