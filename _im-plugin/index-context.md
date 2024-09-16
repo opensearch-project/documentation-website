@@ -8,16 +8,16 @@ redirect_from:
 
 # Index context
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress the feature or if you want to leave feedback, join the discussion in the [OpenSearch forum](https://forum.opensearch.org/).    
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
 {: .warning}
 
-Index Context declares the use case for an index. Using the context information, OpenSearch applies a pre-determined set of settings and mappings, which gives the following benefits:
+Index context declares the use case for an index. Using the context information, OpenSearch applies a predetermined set of settings and mappings, which provides the following benefits:
 
-- Optimized performance.
-- Settings tuned to your specific use case.
-- Accurate mappings and aliases based on [OpenSearch Integrations]({{site.url}}{{site.baseurl}}/integrations/).
+- Optimized performance
+- Settings tuned to your specific use case
+- Accurate mappings and aliases based on [OpenSearch Integrations]({{site.url}}{{site.baseurl}}/integrations/)
 
-The settings and metadata configuration that are applied using component templates are automatically loaded when your cluster starts. Component templates that start with `@abc_template@` or Application Based Configuration (ABC) templates can only be used through a `context` object declaration, in order to prevent configuration issues.
+The settings and metadata configuration that are applied using component templates are automatically loaded when your cluster starts. Component templates that start with `@abc_template@` or Application-Based Configuration (ABC) templates can only be used through a `context` object declaration, in order to prevent configuration issues.
 {: .warning}
 
 
@@ -25,7 +25,7 @@ The settings and metadata configuration that are applied using component templat
 
 To install the index context feature:
 
-1. Install the `opensearch-system-templates` plugin on all nodes in your cluster using one of the [installation methods]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#install)
+1. Install the `opensearch-system-templates` plugin on all nodes in your cluster using one of the [installation methods]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#install).
 
 2. Set the feature flag `opensearch.experimental.feature.application_templates.enabled` to `true`. For more information about enabling and disabling feature flags, see [Enabling experimental features]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
 
@@ -33,13 +33,13 @@ To install the index context feature:
 
 ## Using the `context` setting
 
-Use the `context` setting with the Index API to add use-case specific context.
+Use the `context` setting with the Index API to add use-case-specific context.
 
 ### Considerations
 
 Consider the following when using the `context` parameter during index creation:
 
-1. If you use the `context` field to create an index, you cannot include any settings declared in context during index creation or dynamic settings updates.
+1. If you use the `context` parameter to create an index, you cannot include any settings declared in the index context during index creation or dynamic settings updates.
 2. Context becomes permanent when set on an index or index-template.
 
 When you adhere to these limitations, suggested configurations or mappings are uniformly applied on indexed data within the specified context.
@@ -49,9 +49,9 @@ When you adhere to these limitations, suggested configurations or mappings are u
 The following examples show how to use index context.
 
 
-#### Create index
+#### Create an index
 
-The following example request creates an index to store metrics data by declaring a `metrics` mapping as the context:
+The following example request creates an index in which to store metric data by declaring a `metrics` mapping as the context:
 
 ```json
 PUT /my-metrics-index
@@ -63,7 +63,7 @@ PUT /my-metrics-index
 ```
 {% include copy-curl.html %}
 
-After creation, the index will have the context added to it, and also have corresponding settings applied:
+After creation, the context is added to the index and the corresponding settings are applied:
 
 
 **GET request**
@@ -106,9 +106,9 @@ GET /my-metrics-index
 ```
 
 
-#### Create index templates
+#### Create an index templates
 
-You can also use the `context` parameter when creating an index template. The following example request creates an index template with the context information as `logs`.
+You can also use the `context` parameter when creating an index template. The following example request creates an index template with the context information as `logs`:
 
 ```json
 PUT _index_template/my-logs
@@ -124,7 +124,7 @@ PUT _index_template/my-logs
 ```
 {% include copy-curl.html %}
 
-All indexes created using this index template will get the metadata provided by the associated component template. The following request and response shows how `context` is added to the template:
+All indexes created using this index template will get the metadata provided by the associated component template. The following request and response show how `context` is added to the template:
 
 **Get index template**
 
@@ -154,7 +154,7 @@ GET _index_template/my-logs
 }
 ```
 
-If there is any overlap between any settings, mappings, or aliases declared by your template directly and the backing component template for the context, the latter gets higher priority during index creation.
+If there is any conflict between any settings, mappings, or aliases directly declared by your template and the backing component template for the context, the latter gets higher priority during index creation.
 
 
 ## Available context templates
