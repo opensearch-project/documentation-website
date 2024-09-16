@@ -2,7 +2,7 @@
 layout: default
 title: Time filter
 parent: Analyzing data
-nav_order: 20
+nav_order: 50
 redirect_from:
   - /dashboards/get-started/time-filter/
   - /dashboards/discover/time-filter/
