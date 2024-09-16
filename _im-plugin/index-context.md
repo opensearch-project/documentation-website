@@ -31,7 +31,7 @@ To install the index context feature:
 
 3. Set the `cluster.application_templates.enabled` setting to `true`. For instructions on how to configure OpenSearch, see [configuring settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#static-settings).
 
-## Using the `context` setting.
+## Using the `context` setting
 
 Use the `context` setting with the Index API to add use-case specific context.
 
