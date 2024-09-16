@@ -38,7 +38,7 @@ Three request variants provide flexibility:
 
 Snapshot API calls only work if the total number of shards across the requested resources, such as snapshots and indexes created from snapshots, is smaller than the limit specified by the following cluster setting:
 
-- `snapshot.max_shards_allowed_in_status_api`(Dynamic, integer): The maximum number of shards that can be included in the Snapshot Status API response. Default value is `200000`. Not applicable for [shallow  snapshots v2]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/snapshot-interoperability##shallow-snapshot-v2), where the total number and sizes of files are returned as 0. 
+- `snapshot.max_shards_allowed_in_status_api`(Dynamic, integer): The maximum number of shards that can be included in the Snapshot Status API response. Default value is `200000`. Not applicable for [shallow snapshots v2]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/snapshot-interoperability##shallow-snapshot-v2), where the total number and sizes of files are returned as 0. 
 
 
 Using the API to return state for other than currently running snapshots can be very costly for (1) machine resources and (2) processing time if running in the cloud. For each snapshot, each request causes file reads from all of the snapshot's shards. 
