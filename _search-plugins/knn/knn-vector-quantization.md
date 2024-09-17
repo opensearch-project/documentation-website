@@ -368,6 +368,7 @@ PUT my-vector-index
 }
 ```
 {% include copy-curl.html %}
+
 The following example futher fine-tunes the configuration by defining `ef_construction` , `encoder` and the number of bits `bits`:
 
 ```json
