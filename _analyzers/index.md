@@ -184,11 +184,11 @@ The following normalization techniques can help address variations in token form
 
 ### Normalization
 
-A search for `Hello` will match documents containing `hello` due to case normalization.
+A search for `Hello` will match documents containing `hello` because of case normalization.
 
-Searching for `cars` will also match documents with `car` because of stemming.
+A search for `cars` will also match documents containing `car` because of stemming.
 
-A query for `running` can retrieve documents containing `jogging` through synonym handling.
+A query for `running` can retrieve documents containing `jogging` using synonym handling.
 
 Normalization ensures that searches are not limited to exact term matches, allowing for more relevant results. For instance, a search for `Cars running` can be normalized to match `car run`.
 
