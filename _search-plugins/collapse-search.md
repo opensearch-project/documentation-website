@@ -195,7 +195,7 @@ GET /bakery-items/_search
 
 ### Multiple inner hits for each collapsed hit
 
-To obtain several groups of inner hits for each collapsed result, you can set different criteria for each group. For example, you could request the three lowest-priced items and the three most recent items for every bakery item:
+To obtain several groups of inner hits for each collapsed result, you can set different criteria for each group. For example, you could request the three lowest-priced items and the three most recent items:
 
 ```json
 GET /bakery-items/_search
