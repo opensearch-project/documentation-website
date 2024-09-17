@@ -5,6 +5,7 @@ nav_order: 22
 parent: User guide
 ---
 
+# Understanding benchmark results
 
 At the end of each test run, OpenSearch Benchmark creates a summary of test result metrics like service time, throughput, latency, and more. These metrics provide insights into how the selected workload performed on a benchmarked OpenSearch cluster.
 
