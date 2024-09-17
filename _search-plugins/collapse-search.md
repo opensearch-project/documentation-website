@@ -163,7 +163,7 @@ The `collapse` parameter affects only the top search results and does not change
 
 You can expand each collapsed top hit with the `inner_hits` property. 
 
-The following example request applies `inner_hits` to retrieve the lowest-priced and most recent items for each type of cake:
+The following example request applies `inner_hits` to retrieve the lowest-priced and most recent item, for each type of cake:
 
 ```json
 GET /bakery-items/_search
@@ -195,7 +195,7 @@ GET /bakery-items/_search
 
 ### Multiple inner hits for each collapsed hit
 
-To obtain several groups of inner hits for each collapsed result, you can set different criteria for each group. For example, you could request the three lowest-priced items and the three most recent items:
+To obtain several groups of inner hits for each collapsed result, you can set different criteria for each group. For example, lets request the three most recent items for every bakery item:
 
 ```json
 GET /bakery-items/_search
@@ -227,5 +227,5 @@ GET /bakery-items/_search
 ```
 This query searches for documents in the `cakes` category and groups the search results by the `item_name` field. For each `item_name`, it retrieves the top three lowest-priced items and the top three most recent items, sorted by `baked_date` in descending order.
 
-You can expand the groups by sending an additional query for each inner hit request for each collapsed hit returned in the response. This can significantly slow down the process if there are too many groups or inner hit requests. The `max_concurrent_group_searches` request parameter can be used to control the maximum number of concurrent searches allowed in this phase. The default is based on the number of data nodes and the default search thread pool size.
+You can expand the groups by sending an additional query for each inner hit request corresponding to each collapsed hit in the response. This can significantly slow down the process if there are too many groups or inner hit requests. The `max_concurrent_group_searches` request parameter can be used to control the maximum number of concurrent searches allowed in this phase. The default is based on the number of data nodes and the default search thread pool size.
 
