@@ -3,7 +3,7 @@ layout: default
 title: otel_trace_source
 parent: Sources
 grand_parent: Pipelines
-nav_order: 15
+nav_order: 80
 redirect_from:
   - /data-prepper/pipelines/configuration/sources/otel-trace/
 ---
