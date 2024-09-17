@@ -210,7 +210,7 @@ Alternatively, if you have 3 nodes in the 1st zone and 1 node each remaining zon
 
 The final shard copy will remain unallocated due to the lack of nodes. 
 
-With shard allocation awareness, if the nodes in one of your zones fail, you can be assured that your replica shards are spread across your other zones, adding a layer of fault tolerance to ensure your data survives zone failures.
+With shard allocation awareness, if the nodes in one of your zones fail, you can be assured that your replica shards are spread across your other zones, adding a layer of fault tolerance to ensure that your data survives zone failures.
 
 To configure shard allocation awareness, add zone attributes to `opensearch-d1` and `opensearch-d2`, respectively:
 
