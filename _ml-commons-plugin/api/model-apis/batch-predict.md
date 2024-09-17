@@ -31,7 +31,7 @@ POST /_plugins/_ml/models/<model_id>/_batch_predict
 
 ## Prerequisites
 
-Before using the Batch Predict API, you need to create a connector to the externally hosted model.  For every action, specify the  `action_type` parameter that describes the action:
+Before using the Batch Predict API, you need to create a connector to the externally hosted model. For each action, specify the `action_type` parameter that describes the action:
 
 - `batch_predict`: Runs the batch predict operation.
 - `batch_predict_status`: Checks the batch predict operation status.
