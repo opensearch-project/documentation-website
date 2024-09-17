@@ -203,7 +203,7 @@ Shard allocation awareness attempts to separate primary and replica shards acros
 - Allocate less than 2 shards per zone, which means you'll need at least 2 nodes in 2 zones.
 - Allocate the last shard in the 3rd zone, with at least one node needed in the 3rd zone.
 
-Alternatively, if you have 3 nodes in the 1st zone and 1 node each remaining zone , then OpenSearch will allocate:
+Alternatively, if you have 3 nodes in the first zone and 1 node in each remaining zone, then OpenSearch will allocate:
 
 - 2 shard copies in the first zone.
 - 1 shard copy in the remaining 2 zones.
