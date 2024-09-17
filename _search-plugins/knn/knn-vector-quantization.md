@@ -355,7 +355,7 @@ PUT my-vector-index
         "dimension": 8,
         "space_type": "l2",
         "data_type": "float",
-        "mode": "on-disk",
+        "mode": "on_disk",
         "compression_level": "16x",
         "method": {
             "params": {
@@ -454,6 +454,7 @@ The memory required for the Hierarchical Navigable Small World (HNSW) graph can 
 As an example, assume that you have 1 million vectors with a dimension of 256 and an `m` of 16. The following sections provide memory requirement estimations for various compression values.
 
 ##### 1-bit quantization (32x compression)
+
 In 1-bit quantization, each dimension is represented using 1 bit, equivalent to a 32x compression factor. The memory requirement can be estimated as follows:
 
 ```r
@@ -462,6 +463,7 @@ Memory = 1.1 * ((256 * 1 / 8) + 8 * 16) * 1,000,000
 ```
 
 ##### 2-bit quantization (16x compression)
+
 In 2-bit quantization, each dimension is represented using 2 bits, equivalent to a 16x compression factor. The memory requirement can be estimated as follows:
 
 ```r
