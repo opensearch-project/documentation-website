@@ -8,6 +8,8 @@ grand_parent: Supported field types
 ---
 
 # Date nanoseconds field type
+**Introduced 1.0**
+{: .label .label-purple }
 
 The `date_nanos` field type is similar to the [`date`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/) field type in that it holds a date. However, `date` stores the date in millisecond resolution, while `date_nanos` stores the date in nanosecond resolution. Dates are stored as `long` values that correspond to nanoseconds since the epoch. Therefore, the range of supported dates is approximately 1970--2262.
 
