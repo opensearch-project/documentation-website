@@ -311,7 +311,7 @@ For example, assume that you have 1 million vectors with a dimension of 256, `iv
 1.1*((8 / 8 * 64 + 24) * 1000000  + 100 * (2^8 * 4 * 256 + 4 * 512 * 256))  ~= 0.171 GB
 ```
 
-## Binary Quantization
+## Binary quantization
 
 Starting with version 2.17, OpenSearch supports BQ with binary vector support for the Faiss engine. BQ compresses vectors into a binary format (0s and 1s), making it highly efficient in terms of memory usage. You can choose to represent each vector dimension using 1, 2, or 4 bits, depending on the desired precision. One of the advantages of using BQ is that the training process is handled automatically during indexing. This means that no separate training step is required, unlike other quantization techniques such as PQ.
 
