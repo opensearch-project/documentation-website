@@ -313,10 +313,10 @@ For example, assume that you have 1 million vectors with a dimension of 256, `iv
 
 ## Binary Quantization
 
-Starting with the version 2.17, OpenSearch supports binary quantization (BQ) with binary vector support for the Faiss engine. Binary quantization compresses vectors into a binary format (0s and 1s), making it highly efficient in terms of memory usage. You can choose to represent each vector dimension using 1, 2, or 4 bits, depending on the desired precision. One of the advantages of using binary quantization is that the training process is handled automatically during indexing. This means that no separate training step is required, unlike other quantization techniques such as product quantization.
+Starting with version 2.17, OpenSearch supports BQ with binary vector support for the Faiss engine. BQ compresses vectors into a binary format (0s and 1s), making it highly efficient in terms of memory usage. You can choose to represent each vector dimension using 1, 2, or 4 bits, depending on the desired precision. One of the advantages of using BQ is that the training process is handled automatically during indexing. This means that no separate training step is required, unlike other quantization techniques such as PQ.
 
-### Using binary quantization
-To configure binary quantization for the Faiss engine, define a `knn_vector` field and specify the `mode` as `on_disk`. This configuration defaults to 1-bit binary quantization and both `ef_search` and `ef_construction` set to `100`:
+### Using BQ
+To configure BQ for the Faiss engine, define a `knn_vector` field and specify the `mode` as `on_disk`. This configuration defaults to 1-bit BQ and both `ef_search` and `ef_construction` set to `100`:
 
 ```json
 PUT my-vector-index
@@ -336,7 +336,7 @@ PUT my-vector-index
 ```
 {% include copy-curl.html %}
 
-To further optimize the configuration, you can specify additional parameters such as the compression level and fine-tune the search parameters. For example, you can override the `ef_construction` value or define the compression level, which corresponds to the number of bits used for quantization:
+To further optimize the configuration, you can specify additional parameters, such as the compression level, and fine-tune the search parameters. For example, you can override the `ef_construction` value or define the compression level, which corresponds to the number of bits used for quantization:
 
 - **32x compression** for 1-bit quantization
 - **16x compression** for 2-bit quantization
@@ -370,7 +370,7 @@ PUT my-vector-index
 ```
 {% include copy-curl.html %}
 
-The following example futher fine-tunes the configuration by defining `ef_construction` , `encoder` and the number of bits `bits` (which can be `1`, `2`, or `4`):
+The following example further fine-tunes the configuration by defining `ef_construction`, `encoder`, and the number of `bits` (which can be `1`, `2`, or `4`):
 
 ```json
 PUT my-vector-index
@@ -422,8 +422,8 @@ GET my-vector-index/_search
 ```
 {% include copy-curl.html %}
 
-You can also fine-tune search by providing the `ef_search` and `oversample_factor` parameters
-The `oversample_factor` parameter controls the factor by which the search oversamples the candidate vectors before ranking them. A higher oversample factor means more candidates will be considered before ranking, improving accuracy but also increasing search time. When selecting the `oversample_factor` value, consider the trade-off between accuracy and efficiency. For example, setting the `oversample_factor` to `2.0` will double the number of candidates considered during the ranking phase, which may help achieve better results. 
+You can also fine-tune search by providing the `ef_search` and `oversample_factor` parameters.
+The `oversample_factor` parameter controls the factor by which the search oversamples the candidate vectors before ranking them. Using a higher oversample factor means that more candidates will be considered before ranking, improving accuracy but also increasing search time. When selecting the `oversample_factor` value, consider the trade-off between accuracy and efficiency. For example, setting the `oversample_factor` to `2.0` will double the number of candidates considered during the ranking phase, which may help achieve better results. 
 
 The following request specifies the `ef_search` and `oversample_factor` parameters:
 
@@ -476,7 +476,7 @@ Memory = 1.1 * ((256 * 2 / 8) + 8 * 16) * 1,000,000
 
 ##### 4-bit quantization (8x compression)
 
-In 4-bit quantization, each dimension is represented using 4 bits, equivalent to a 8x compression factor. The memory requirement can be estimated as follows:
+In 4-bit quantization, each dimension is represented using 4 bits, equivalent to an 8x compression factor. The memory requirement can be estimated as follows:
 
 ```r
 Memory = 1.1 * ((256 * 4 / 8) + 8 * 16) * 1,000,000
