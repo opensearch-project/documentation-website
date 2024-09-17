@@ -370,7 +370,7 @@ PUT my-vector-index
 ```
 {% include copy-curl.html %}
 
-The following example futher fine-tunes the configuration by defining `ef_construction` , `encoder` and the number of bits `bits`:
+The following example futher fine-tunes the configuration by defining `ef_construction` , `encoder` and the number of bits `bits` (which can be `1`, `2`, or `4`):
 
 ```json
 PUT my-vector-index
@@ -390,7 +390,7 @@ PUT my-vector-index
               "encoder": {
                 "name": "binary",
                 "parameters": {
-                  "bits": 1  // Can be 1, 2, or 4
+                  "bits": 1 
                 }
               }
             }
@@ -403,6 +403,7 @@ PUT my-vector-index
 {% include copy-curl.html %}
 
 ### Search using binary quantized vectors
+
 You can perform a k-NN search on your index by providing a vector and specifying the number of nearest neighbors (k) to return:
 
 ```json
