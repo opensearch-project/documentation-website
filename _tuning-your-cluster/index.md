@@ -206,7 +206,7 @@ Shard allocation awareness attempts to separate primary and replica shards acros
 Alternatively, if you have 3 nodes in the 1st zone and 1 node each remaining zone , then OpenSearch will allocate:
 
 - 2 shard copies in the 1st zone
-- 1 shard copy in the remaining two zones
+- 1 shard copy in the remaining 2 zones.
 
 The final shard copy will remain unallocated due to the lack of nodes. 
 
