@@ -6,9 +6,9 @@ nav_order: 91
 ---
 
 # HTML strip character filter
-The `html_strip` character filter removes HTML elements from the input text, ensuring that only the visible text is passed for further analysis. This is particularly useful for documents that contain rich formatting, like web pages or emails, where you want to ignore the HTML tags but retain the visible content for indexing and search.
+The `html_strip` character filter removes HTML elements from the input text, and generating the visible text with the tags rendered.
 
-The `html_strip` character filter identifies and removes all HTML tags, such as <div>, <p>, and <a>, from the input text. It allows the document content to be analyzed without being affected by HTML markup. The filter can also be configured to preserve certain tags or decode specific HTML entities like &nbsp; into spaces.
+The `html_strip` character filter identifies and removes all HTML tags, such as `<div>`, `<p>`, and `<a>`, from the input text. The filter can also be configured to preserve certain tags or decode specific HTML entities like `&nbsp;` into spaces.
 
 For example, a document containing:
 ```html

@@ -6,7 +6,9 @@ nav_order: 90
 
 # Character filters
 
-Character filters are an essential component of text analysis in OpenSearch. They process the text before tokenization, modifying or cleaning the input to prepare it for further analysis. Unlike token filters, which operate on tokens (words or terms), character filters work directly on the raw input string. They are especially useful when dealing with structured text that may include unwanted characters or patterns, such as HTML tags or special symbols.
+Character filters process the text before tokenization, modifying or cleaning the input to prepare it for further analysis. 
+
+Unlike token filters, which operate on tokens (words or terms), character filters work on the raw input text before tokenization. They are especially useful for cleaning or transforming structured text with unwanted characters, like HTML tags or special symbols. Character filters help strip or replace these elements, ensuring the text is properly formatted for analysis.
 
 Use cases for character filters include:
 1. **HTML stripping:** Removing HTML tags from content, ensuring only the visible text is indexed.
