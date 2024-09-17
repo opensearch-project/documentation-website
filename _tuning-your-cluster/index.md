@@ -192,7 +192,7 @@ To better understand and monitor your cluster, use the [CAT API]({{site.url}}{{s
 
 ## (Advanced) Step 6: Configure shard allocation awareness or forced awareness
 
-To futher fine-tune your shard allocation, you can set custom node attributes for shard allocation awareness or forced awareness.
+To further fine-tune your shard allocation, you can set custom node attributes for shard allocation awareness or forced awareness.
 
 ### Shard allocation awareness
 
@@ -202,7 +202,7 @@ Shard allocation awareness attempts to separate primary and replica shards acros
 
 If you have 3 nodes in the 1st zone and 1 node each in every remaining zone, then OpenSearch will only allocate 2,1,1 shard copies leaving the 5th copy unallocated.
 
-With shard allocation awareness, if the nodes in one of your zones fail, you can be assured that your replica shards are spread across your other zones, adding a layer of fault tolerance to ensure your data survices zone failures.
+With shard allocation awareness, if the nodes in one of your zones fail, you can be assured that your replica shards are spread across your other zones, adding a layer of fault tolerance to ensure your data survives zone failures.
 
 To configure shard allocation awareness, add zone attributes to `opensearch-d1` and `opensearch-d2`, respectively:
 
