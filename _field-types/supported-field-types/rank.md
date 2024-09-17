@@ -10,6 +10,8 @@ redirect_from:
 ---
 
 # Rank field types
+**Introduced 1.0**
+{: .label .label-purple }
 
 The following table lists all rank field types that OpenSearch supports.
 
