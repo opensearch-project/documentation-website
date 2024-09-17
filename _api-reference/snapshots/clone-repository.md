@@ -64,7 +64,6 @@ PUT /_snapshot/my-opensearch-repo/my_snapshot/_clone/my_new_snapshot
 
 ## Example response
 
-
 Upon success, the request returns the following json object:
 
 ```json
