@@ -233,7 +233,7 @@ PUT _cluster/settings
 }
 ```
 
-You can also use multiple attributes for shard allocation awareness by providing the attributes as a comma separated string, for example `zone,rack`.
+You can also use multiple attributes for shard allocation awareness by providing the attributes as a comma-separated string, for example, `zone,rack`.
 
 You can either use `persistent` or `transient` settings. We recommend the `persistent` setting because it persists through a cluster reboot. Transient settings don't persist through a cluster reboot.
 
