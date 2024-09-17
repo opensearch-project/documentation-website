@@ -317,6 +317,7 @@ Starting with the version 2.17, OpenSearch supports binary quantization (BQ) wit
 
 ### Using binary quantization
 To configure binary quantization for the Faiss engine, define a `knn_vector` field and specify the `mode` as `on_disk`. This configuration defaults to 1-bit binary quantization and both `ef_search` and `ef_construction` set to `100`:
+
 ```json
 PUT my-vector-index
 {
