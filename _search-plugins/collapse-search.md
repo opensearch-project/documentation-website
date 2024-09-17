@@ -72,7 +72,7 @@ This query returns the uncollapsed search results, showing all documents, includ
 
 To group search results by the `item` field and sort them by `price`, you can use the following query:
 
-**Collapsed search results on item field**
+**Collapsed `item` field search results**
 
 ```json
 GET /bakery-items/_search
