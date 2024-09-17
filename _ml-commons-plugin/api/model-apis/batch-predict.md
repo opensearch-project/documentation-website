@@ -31,7 +31,7 @@ POST /_plugins/_ml/models/<model_id>/_batch_predict
 
 ## Prerequisites
 
-Before using the Batch Predict API, you need to create a connector to the externally hosted model. For example, to create a connector to an OpenAI `text-embedding-ada-002` model, send the following request:
+Before using the Batch Predict API, you need to create a connector to the externally hosted model. For example, to create a connector to an OpenAI `text-embedding-ada-002` model, send the following request. The optional `action_type` paramter supports cancelling the batch job that is running on openAI:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -77,7 +77,6 @@ POST /_plugins/_ml/connectors/_create
         "Authorization": "Bearer ${credential.openAI_key}"
       }
     },
-    // The below action type is to support cancelling the batch job running on openAI. It is optional and can be skipped if you do not want to have this capability
     {
       "action_type": "cancel_batch_predict",
       "method": "POST",
@@ -149,7 +148,7 @@ The response contains the task ID for the batch predict operation:
 }
 ```
 
-To check the status of the batch job operation, provide the task ID to the [Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/). You can find all the details of the job under `remote_job` field in the task. Once the prediction is complete, the task `state` changes to `COMPLETED`.
+To check the status of the batch job operation, provide the task ID to the [Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/). You can find the job details in the `remote_job` field in the task. Once the prediction is complete, the task `state` changes to `COMPLETED`.
 
 #### Example request
 
@@ -160,7 +159,7 @@ GET /_plugins/_ml/tasks/KYZSv5EBqL2d0mFvs80C
 
 #### Example response
 
-The response contains the batch predict operation details under `remote_job` field:
+The response contains the batch predict operation details in the `remote_job` field:
 
 ```json
 {
@@ -206,8 +205,9 @@ The response contains the batch predict operation details under `remote_job` fie
 
 For the definition of each field in the result, see [OpenAI Batch API](https://platform.openai.com/docs/guides/batch). Once the batch inference is complete, you can download the output by calling the [OpenAI Files API](https://platform.openai.com/docs/api-reference/files) and providing the file name specified in the `id` field of the response.
 
-### Cancel batch prediction job
-You can also cancel the batch predict operation running on the remote platform using the above task ID. To add this capability, make sure to add the `cancel_batch_predict` action_type to connector configuration when creating the connector.  
+### Canceling a batch predict job
+
+You can also cancel the batch predict operation running on the remote platform using the task ID returned by the batch predict request. To add this capability, set the `action_type` to `cancel_batch_predict` in the connector configuration when creating the connector.  
 
 #### Example request
 
