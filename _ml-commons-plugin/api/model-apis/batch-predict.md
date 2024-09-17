@@ -31,7 +31,13 @@ POST /_plugins/_ml/models/<model_id>/_batch_predict
 
 ## Prerequisites
 
-Before using the Batch Predict API, you need to create a connector to the externally hosted model. For example, to create a connector to an OpenAI `text-embedding-ada-002` model, send the following request. The optional `action_type` parameter supports canceling the batch job running on OpenAI:
+Before using the Batch Predict API, you need to create a connector to the externally hosted model.  For every action, specify the  `action_type` parameter that describes the action:
+
+- `batch_predict`: Runs the batch predict operation.
+- `batch_predict_status`: Checks the batch predict operation status.
+- `cancel_batch_predict`: Cancels the batch predict operation.
+
+For example, to create a connector to an OpenAI `text-embedding-ada-002` model, send the following request. The `cancel_batch_predict` action is optional and supports canceling the batch job running on OpenAI:
 
 ```json
 POST /_plugins/_ml/connectors/_create
