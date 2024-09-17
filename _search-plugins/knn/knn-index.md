@@ -60,14 +60,19 @@ SIMD optimization is applicable only if the vector dimension is a multiple of 8.
 ### x64 architecture
 <!-- vale on -->
 
-For the x64 architecture, two different versions of the Faiss library are built and shipped with the artifact:
+For the x64 architecture, three different versions of the Faiss library are built and shipped with the artifact:
 
 - `libopensearchknn_faiss.so`: The non-optimized Faiss library without SIMD instructions. 
-- `libopensearchknn_faiss_avx2.so`: The Faiss library that contains AVX2 SIMD instructions. 
+- `libopensearchknn_faiss_avx2.so`: The Faiss library that contains AVX2 SIMD instructions.
+- `libopensearchknn_faiss_avx512.so`: The Faiss library that contains AVX512 SIMD instructions. 
 
 If your hardware supports AVX2, the k-NN plugin loads the `libopensearchknn_faiss_avx2.so` library at runtime.
 
-To disable AVX2 and load the non-optimized Faiss library (`libopensearchknn_faiss.so`), specify the `knn.faiss.avx2.disabled` static setting as `true` in `opensearch.yml` (default is `false`). Note that to update a static setting, you must stop the cluster, change the setting, and restart the cluster. For more information, see [Static settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#static-settings).
+If your hardware supports AVX512, the k-NN plugin loads the `libopensearchknn_faiss_avx512.so` library at runtime.
+
+To disable AVX2 and AVX512 and load the non-optimized Faiss library (`libopensearchknn_faiss.so`), specify the `knn.faiss.avx2.disabled` and `knn.faiss.avx512.disabled` static settings as `true` in `opensearch.yml` (defaults are `false`). 
+
+Note that to update a static setting, you must stop the cluster, change the setting, and restart the cluster. For more information, see [Static settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#static-settings).
 
 ### ARM64 architecture
 
