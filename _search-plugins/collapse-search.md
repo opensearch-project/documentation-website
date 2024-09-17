@@ -70,7 +70,7 @@ This query returns the uncollapsed search results, showing all documents, includ
 
 #### Search the index and collapse the results
 
-To collapse search results by the `item` field and sort them by `price`, you can use the following query:
+To group search results by the `item` field and sort them by `price`, you can use the following query:
 
 **Collapsed search results on item field**
 
