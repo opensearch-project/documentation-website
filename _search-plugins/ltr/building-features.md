@@ -294,7 +294,7 @@ without creating an error.
 You'll notice we *appended* to the feature set. Feature sets perhaps
 ought to be really called "lists". Each feature has an ordinal (its
 place in the list) in addition to a name. Some LTR training
-applications, such as Ranklib, refer to a feature by ordinal (the
+applications, such as RankLib, refer to a feature by ordinal (the
 "1st" feature, the "2nd" feature). Others more conveniently refer to
 the name. So you may need both/either. You'll see that when features
 are logged, they give you a list of features back to preserve the
@@ -304,8 +304,7 @@ ordinal.
 
 Feature engineering is a complex part of OpenSearch Learning to Rank,
 and additional features (such as features that can be derived from other
-features) are listed in `advanced-functionality`{.interpreted-text
-role="doc"}.
+features) are listed in [advanced functionality]({{site.url}}{{site.baseurl}}/search-plugins/ltr/advanced-functionality/).
 
 Next-up, we'll talk about some specific use cases you\'ll run into when
 [Feature Engineering]({{site.url}}{{site.baseurl}}/search-plugins/ltr/feature-engineering/).

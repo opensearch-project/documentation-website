@@ -25,9 +25,9 @@ OpenSearch.
 
 -   Want a quickstart? Check out the demo in
     [hello-ltr](https://github.com/o19s/hello-ltr).
--   Brand new to learning to rank? head to
-    `core-concepts`{.interpreted-text role="doc"}.
--   Otherwise, start with `fits-in`{.interpreted-text role="doc"}
+-   Brand new to learning to rank? Head to
+    [core concepts]({{site.url}}{{site.baseurl}}/search-plugins/ltr/core-concepts/).
+-   Otherwise, start with how the plugin [fits in]({{site.url}}{{site.baseurl}}/search-plugins/ltr/fits-in/).
 
 ## Installing
 

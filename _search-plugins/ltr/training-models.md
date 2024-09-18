@@ -17,9 +17,9 @@ an extensive overview) and then dig into uploading a model.
 
 ## RankLib training
 
-We provide two demos for training a model. A fully-fledged [Ranklib
+We provide two demos for training a model. A fully-fledged [RankLib
 Demo](http://github.com/o19s/elasticsearch-learning-to-rank/tree/master/demo)
-uses Ranklib to train a model from OpenSearch queries. You can see
+uses RankLib to train a model from OpenSearch queries. You can see
 how features are
 [logged](http://github.com/o19s/elasticsearch-learning-to-rank-learning-to-rank/tree/master/demo/collectFeatures.py)
 and how models are
@@ -36,16 +36,16 @@ Here for query id 1 (Rambo) we've logged features 1 (a title `TF*IDF`
 score) and feature 2 (a description `TF*IDF` score) for a set of
 documents. In
 [train.py](http://github.com/o19s/elasticsearch-learning-to-rank/demo/train.py)
-you'll see how we call Ranklib to train one of it's supported models
+you'll see how we call RankLib to train one of it's supported models
 on this line:
 
     cmd = "java -jar RankLib-2.8.jar -ranker %s -train%rs -save %s -frate 1.0" % (whichModel, judgmentsWithFeaturesFile, modelOutput)
 
 Our "judgmentsWithFeatureFile" is the input to RankLib. Other
-parameters are passed, which you can read about in [Ranklib's
+parameters are passed, which you can read about in [RankLib's
 documentation](https://sourceforge.net/p/lemur/wiki/RankLib/).
 
-Ranklib will output a model in it's own serialization format. For
+RankLib will output a model in it's own serialization format. For
 example a LambdaMART model is an ensemble of regression trees. It looks
 like:
 
@@ -65,8 +65,8 @@ like:
 Notice how each tree examines the value of features, makes a decision
 based on the value of a feature, then ultimately outputs the relevance
 score. You'll note features are referred to by ordinal, starting by
-"1" with Ranklib (this corresponds to the 0th feature in your feature
-set). Ranklib does not use feature names when training.
+"1" with RankLib (this corresponds to the 0th feature in your feature
+set). RankLib does not use feature names when training.
 
 ## XGBoost example
 
@@ -130,10 +130,10 @@ to upload it to OpenSearch LTR. Models are uploaded specifying the
 following arguments
 
 -   The feature set that was trained against
--   The type of model (such as ranklib or xgboost)
+-   The type of model (such as RankLib or XGBoost)
 -   The model contents
 
-Uploading a Ranklib model trained against `more_movie_features` looks
+Uploading a RankLib model trained against `more_movie_features` looks
 like:
 
 ```json

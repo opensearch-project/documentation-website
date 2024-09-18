@@ -185,7 +185,7 @@ In actual systems, you might log these values after the fact, gathering
 them to annotate a judgement list with feature values. In others the
 judgement list might come from user analytics, so it may be logged as the
 user interacts with the search application. More on this when we cover
-it in `logging-features`{.interpreted-text role="doc"}.
+it in [logging features]({{site.url}}{{site.baseurl}}/search-plugins/ltr/logging-features/).
 
 ## Training a ranking function 
 

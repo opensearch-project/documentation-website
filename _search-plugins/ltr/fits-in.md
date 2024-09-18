@@ -30,7 +30,7 @@ development.
 Then other tools take over. With a logged set of features for documents,
 you join data with your Judgement lists you've developed on your own.
 You've now got a training set you can use to test/train ranking models.
-Using of a tool like Ranklib or XGBoost, you'll hopefully arrive at a
+Using of a tool like RankLib or XGBoost, you'll hopefully arrive at a
 satisfactory model.
 
 With a ranking model, you turn back to the plugin. You upload the model
@@ -52,7 +52,7 @@ company or mechanical turk.
 
 The plugin does not train or test models. This also happens offline in
 tools appropriate to the task. Instead the plugin uses models generated
-by XGboost and Ranklib libraries. Training and testing models is CPU
+by XGboost and RankLib libraries. Training and testing models is CPU
 intensive task that, involving data scientist supervision and offline
 testing. Most organizations want some data science supervision on model
 development. And you would not want this running in your production
@@ -60,4 +60,4 @@ Elasticsearch cluster!
 
 The rest of this guide is dedicated to walking you through how the
 plugin works to get you there. Continue on to
-`building-features`{.interpreted-text role="doc"}.
+[building features]({{site.url}}{{site.baseurl}}/search-plugins/ltr/building-features/).
