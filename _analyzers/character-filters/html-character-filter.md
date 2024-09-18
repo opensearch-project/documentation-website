@@ -10,12 +10,95 @@ The `html_strip` character filter removes HTML elements from the input text, and
 
 The `html_strip` character filter identifies and removes all HTML tags, such as `<div>`, `<p>`, and `<a>`, from the input text. The filter can also be configured to preserve certain tags or decode specific HTML entities like `&nbsp;` into spaces.
 
-For example, a document containing:
-```html
-<p>The <strong>quick</strong> brown fox <a href="#">jumps</a> over the lazy dog.</p>
+For example running the following in the Dev Tools:=
+```
+GET /_analyze
+{
+  "tokenizer": "keyword",
+  "char_filter": [
+    "html_strip"
+  ],
+  "text": "<p>Commonly used calculus symbols include &alpha;, &beta; and &theta; </p>"
+}
 ```
 Would be filtered to:
 ```
-The quick brown fox jumps over the lazy dog.
+Commonly used calculus symbols include α, β and θ 
 ```
-This ensures that when tokenization occurs, only the textual content is processed.
+
+## Custom analyzer with html_strip and lowercase filter
+
+Let's create a custom analyzer that strips HTML tags and then converts the remaining text to lowercase.
+```
+PUT /html_strip_and_lowercase_analyzer
+{
+  "settings": {
+    "analysis": {
+      "char_filter": {
+        "html_filter": {
+          "type": "html_strip"
+        }
+      },
+      "analyzer": {
+        "html_strip_analyzer": {
+          "type": "custom",
+          "char_filter": ["html_filter"],
+          "tokenizer": "standard",
+          "filter": ["lowercase"]
+        }
+      }
+    }
+  }
+}
+```
+Testing our analyzer `html_strip_and_lowercase_analyzer`
+```
+GET /html_strip_and_lowercase_analyzer/_analyze
+{
+  "analyzer": "html_strip_analyzer",
+  "text": "<h1>Welcome to <strong>OpenSearch</strong>!</h1>"
+}
+```
+Gives the result
+```
+welcome to opensearch!
+```
+The HTML tags have been removed and the output is in lowercase.
+
+## Custom analyzer preserving specific HTML tags
+Let's create our custom analyzer
+```
+PUT /html_strip_preserve_analyzer
+{
+  "settings": {
+    "analysis": {
+      "char_filter": {
+        "html_filter": {
+          "type": "html_strip",
+          "escaped_tags": ["b", "i"]
+        }
+      },
+      "analyzer": {
+        "html_strip_analyzer": {
+          "type": "custom",
+          "char_filter": ["html_filter"],
+          "tokenizer": "keyword"
+        }
+      }
+    }
+  }
+}
+```
+We can test our `html_strip_preserve_analyzer`  
+```
+GET /html_strip_preserve_example/_analyze
+{
+  "analyzer": "html_strip_analyzer",
+  "text": "<p>This is a <b>bold</b> and <i>italic</i> text.</p>"
+}
+
+```
+We get the results as seen. The italic and bold tags have been retained as we specified this in our custom analyzer.
+```
+This is a <b>bold</b> and <i>italic</i> text.
+```
