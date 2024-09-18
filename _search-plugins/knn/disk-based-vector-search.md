@@ -32,9 +32,9 @@ PUT my-vector-index
 }
 ```
 
-Internally, `on_disk` mode will by default configure the index to use the `faiss`'s `hnsw` algorithm with a [`compression_level`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/#compression-levels) of `32x`. This will reduce the amount of memory the vectors occupy by a factor of 32! Then, in order to preserve the search recall, re-scoring will be enabled by default. This will setup the index to run a two-phased search, where the compressed in memory index is searched, and then the results are re-scored with the full-precision vectors loaded from disk.
+Internally, `on_disk` mode will by default configure the index to use the `faiss` `hnsw` implementation with a [`compression_level`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/#compression-levels) of `32x`. This will reduce the amount of memory the vectors occupy by a factor of 32! Then, in order to preserve the search recall, re-scoring will be enabled by default. This will setup the index to run a two-phased search, where the compressed index is searched first, and then the results are re-scored with the full-precision vectors loaded from disk.
 
-For some use cases, `32x` be too aggressive of a compression rate. If this is the case, it can be easily overriden by also setting the `compression_level` parameter:
+For some use cases, `32x` might be too aggressive of a compression rate. If this is the case, it can be easily overriden by also setting the `compression_level` parameter:
 
 ```json
 PUT my-vector-index
@@ -109,7 +109,7 @@ POST _bulk
 
 ## Search
 
-Search also works the same as other index configurations. The key difference is that by default, the `oversample_factor` of the rescore parameter will be set to X (unless compression_level is overridden - see this [table]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#rescoring-quantized-results-using-full-precision)). To run a query, run:
+Search also works the same as other index configurations. The key difference is that by default, the `oversample_factor` of the rescore parameter will be set to 3.0 (unless compression_level is overridden - see this [table]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#rescoring-quantized-results-using-full-precision)). To run a query, run:
 ```json
 GET my-vector-index/_search
 {
@@ -165,5 +165,7 @@ POST /_plugins/_knn/models/_train/test-model
 }
 ```
 
-This command assumes that training data has been ingested into the `train-index-name` index. See [here]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model) for more details
+This command assumes that training data has been ingested into the `train-index-name` index. See [here]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model) for more details.
 {: .note}
+
+Compression level can be overridden in the same way as it is for index creation.
