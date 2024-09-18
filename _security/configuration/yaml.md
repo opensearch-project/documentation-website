@@ -265,7 +265,7 @@ kibana_server:
 
 ## roles.yml
 
-This file contains any initial roles that you want to add to the Security plugin. By default, this file contains pre-defined roles that grant usage to plugins within the default distribution of OpenSearch. The Security plugin will also add a number of static roles automatically.
+This file contains any initial roles that you want to add to the Security plugin. By default, this file contains predefined roles that grant usage to plugins within the default distribution of OpenSearch. The Security plugin will also add a number static roles automatically.
 
 ```yml
 ---
