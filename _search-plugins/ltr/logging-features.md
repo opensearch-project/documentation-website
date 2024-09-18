@@ -22,7 +22,7 @@ every feature-query to retrieve the scores of features.
 
 For the sake of discussing logging, let's say we created a feature set
 like so that works with the TMDB data set from the
-[demo](https://github.com/o19s/OpenSearch-learning-to-rank/tree/master/demo):
+[demo](http://github.com/opensearch-project/opensearch-learning-to-rank-base/tree/main/demo/):
 
 ```json
 PUT _ltr/_featureset/more_movie_features

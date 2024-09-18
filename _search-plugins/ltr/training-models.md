@@ -18,12 +18,12 @@ an extensive overview) and then dig into uploading a model.
 ## RankLib training
 
 We provide two demos for training a model. A fully-fledged [RankLib
-Demo](http://github.com/o19s/elasticsearch-learning-to-rank/tree/master/demo)
+Demo](http://github.com/opensearch-project/opensearch-learning-to-rank-base/tree/main/demo/)
 uses RankLib to train a model from OpenSearch queries. You can see
 how features are
-[logged](http://github.com/o19s/elasticsearch-learning-to-rank-learning-to-rank/tree/master/demo/collectFeatures.py)
+[logged](http://github.com/opensearch-project/opensearch-learning-to-rank-base/tree/main/demo/collectFeatures.py)
 and how models are
-[trained](http://github.com/o19s/elasticsearch-learning-to-rank-learning-to-rank/tree/master/demo/train.py)
+[trained](http://github.com/opensearch-project/opensearch-learning-to-rank-base/tree/main/demo/train.py)
 . In particular, you\'ll note that logging create a RankLib consumable
 judgment file that looks like:
 
@@ -35,7 +35,7 @@ judgment file that looks like:
 Here for query id 1 (Rambo) we've logged features 1 (a title `TF*IDF`
 score) and feature 2 (a description `TF*IDF` score) for a set of
 documents. In
-[train.py](http://github.com/o19s/elasticsearch-learning-to-rank/demo/train.py)
+[train.py](http://github.com/opensearch-project/opensearch-learning-to-rank-base/tree/main/demo/train.py)
 you'll see how we call RankLib to train one of it's supported models
 on this line:
 
@@ -71,7 +71,7 @@ set). RankLib does not use feature names when training.
 ## XGBoost example
 
 There's also an example of how to train a model [using
-XGBoost](http://github.com/o19s/elasticsearch-learning-to-rank/tree/master/demo/xgboost-demo).
+XGBoost](http://github.com/opensearch-project/opensearch-learning-to-rank-base/tree/main/demo/xgboost-demo).
 Examining this demo, you'll see the difference in how RankLib is
 executed compared to XGBoost. XGBoost will output a serialization format for
 gradient boosted decision tree that looks like:

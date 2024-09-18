@@ -48,7 +48,7 @@ Rank?](http://opensourceconnections.com/blog/2017/02/24/what-is-learning-to-rank
 
 Judgement lists, sometimes referred to as "golden sets", grade
 individual search results for a keyword search. For example, our
-[demo](http://github.com/o19s/elasticsearch-learning-to-rank/tree/master/demo/)
+[demo](http://github.com/opensearch-project/opensearch-learning-to-rank-base/tree/main/demo/)
 uses [TheMovieDB](http://themoviedb.org). When users search for
 "Rambo" we can indicate which movies ought to come back for "Rambo"
 based on our user's expectations of search.
