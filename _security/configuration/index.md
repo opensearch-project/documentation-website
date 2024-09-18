@@ -13,7 +13,7 @@ redirect_from:
 
 The plugin includes demo certificates so that you can get up and running quickly. To use OpenSearch in a production environment, you must configure it manually.
 
-### [Replace the demo certificates]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#configuring-basic-security-settings)
+## Replace the demo certificates
 
 OpenSearch ships with demo certificates intended for quick setup and demonstration purposes. For a production environment, it's critical to replace these with your own trusted certificates to ensure secure communication by using the following steps:
 
@@ -32,7 +32,9 @@ For additional guidance on file modes, see the following table.
         | Private key | `~/.ssh/id_rsa`     | `600`   | `-rw-------` |
         | SSH folder  | `~/.ssh`            | `700`   | `drwx------` |
 
-### [Reconfigure `opensearch.yml` to use your certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/) 
+For more information, see [Configuring basic security settings.]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#configuring-basic-security-settings)
+
+## Reconfigure `opensearch.yml` to use your certificates
 
 The `opensearch.yml` file is the main configuration file for OpenSearch. Use the following steps to update this file to point to your custom certificates for secure communication:
 
@@ -48,8 +50,10 @@ The `opensearch.yml` file is the main configuration file for OpenSearch. Use the
    plugins.security.ssl.http.pemkey_filepath: /path/to/your/key.pem
    plugins.security.ssl.http.pemtrustedcas_filepath: /path/to/your/ca.pem
    ```
+For more information, see [Configuring TLS certificates.
+]({{site.url}}{{site.baseurl}}/security/configuration/tls/)
 
-### [Reconfigure `config.yml` to use your authentication backend]({{site.url}}{{site.baseurl}}/security/configuration/configuration/)
+## Reconfigure `config.yml` to use your authentication backend
 
 The `config.yml` file allows you to configure the authentication and authorization mechanisms for OpenSearch. Update the authentication backend settings in `config/opensearch-security/config.yml` according to your requirements. For example, to use LDAP as your authentication backend, add the following settings:
 
@@ -65,16 +69,17 @@ The `config.yml` file allows you to configure the authentication and authorizati
         authentication_backend:
           type: internal
    ```
+For more information, see [Configuring the Security backend.]({{site.url}}{{site.baseurl}}/security/configuration/configuration/)
 
-### [Modify the configuration YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/)
+## [Modify the configuration YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/)
 
 Determine whether any additional YAML files need modification, for example, the `roles.yml`, `roles_mapping.yml`, or `internal_users.yml` files. Update the files with any additional configuration information.
 
-### [Set a password policy]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#password-settings)
+## [Set a password policy]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#password-settings)
 
 When using the internal user database, we recommend enforcing a password policy to ensure that strong passwords are used. For information about strong password policies, see [Password settings]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#password-settings).
 
-### [Apply changes using the `securityadmin` script]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/)
+## [Apply changes using the `securityadmin` script]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/)
 
 The following steps do not apply to first-time users because the security index is automatically initialized from the YAML configuration files when OpenSearch starts.
 {: .note}
@@ -90,9 +95,7 @@ After initial setup, if you make changes to your security configuration or disab
 
 For more information about using the `securityadmin.sh` script, see [Backup restore and migrate]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/#backup-restore-and-migrate).
 
-
-
-### [Add users, roles, role mappings, and tenants]({{site.url}}{{site.baseurl}}/security/access-control/index/)
+## [Add users, roles, role mappings, and tenants]({{site.url}}{{site.baseurl}}/security/access-control/index/)
 
 If you don't want to use the Security plugin, you can disable it by adding the following setting to the `opensearch.yml` file:
 
@@ -107,5 +110,5 @@ For more information about disabling the Security plugin, see [Disable security]
 The Security plugin has several default users, roles, action groups, permissions, and settings for OpenSearch Dashboards that contain "Kibana" in their names. We will change these names in a future version.
 {: .note }
 
-For a full list of `opensearch.yml` Security plugin settings, Security plugin settings, see [Security settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/).
+For a full list of `opensearch.yml` Security plugin settings, see [Security settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/).
 {: .note}
