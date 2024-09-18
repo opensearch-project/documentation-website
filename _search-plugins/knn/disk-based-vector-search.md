@@ -7,7 +7,7 @@ has_children: false
 has_math: true
 ---
 
-# Disk Base Vector Search
+# Disk Based Vector Search
 
 For low-memory environments, the [mode]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/#vector-workload-modes) parameter should be set to `on_disk` for your vector field type. This parameter will setup your index to use secondary storage to extend memory. This allows users to trade some search latency for large memory savings while providing a strong recall value.
 
@@ -148,4 +148,22 @@ GET my-vector-index/_search
 [Radial search]({{site.url}}{{site.baseurl}}/search-plugins/knn/radial-search-knn/) is not available with disk-based vector search.
 {: .note}
 
+## Model-based indices
 
+For [model based indices]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model), the `on_disk` parameter can be specified in the training request similar to the index creation. By default, `on_disk` mode will resolve to use [faiss's IVF method]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#supported-faiss-methods) and a compression level of `32x`. To run the training API, run:
+```json
+POST /_plugins/_knn/models/_train/test-model
+{
+    "training_index": "train-index-name",
+    "training_field": "train-field-name",
+    "dimension": 8,
+    "max_training_vector_count": 1200,
+    "search_size": 100,
+    "description": "My model",
+    "space_type": "innerproduct",
+    "mode": "on_disk"
+}
+```
+
+This command assumes that training data has been ingested into the `train-index-name` index. See [here]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model) for more details
+{: .note}
