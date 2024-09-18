@@ -35,7 +35,7 @@ you almost certainly don't want to run *sltr* this way :)
 In reality you would never want to use the `sltr` query this way. Why?
 This model executes on *every result in your index*. These models are
 CPU intensive. You'll quickly make your OpenSearch cluster crawl
-with the query above.
+with the preceeding query.
 
 More often, you'll execute your model on the top N of a baseline
 relevance query. You can do this using OpenSearch's built in
@@ -113,7 +113,7 @@ selected features which in this case is title_query
 
 ## Models! Filters! Even more!
 
-One advantage of having `sltr` as just another OpenSearch query is
+One advantage of having `sltr` as another OpenSearch query is
 you can mix/match it with business logic and other. We won't dive into
 these examples here, but we want to invite you to think creatively about
 scenarios, such as
