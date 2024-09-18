@@ -52,7 +52,7 @@ PUT /html_strip_and_lowercase_analyzer
   }
 }
 ```
-Testing our `html_strip_and_lowercase_analyzer`
+### Testing our `html_strip_and_lowercase_analyzer`
 ```
 GET /html_strip_and_lowercase_analyzer/_analyze
 {
@@ -90,9 +90,9 @@ PUT /html_strip_preserve_analyzer
   }
 }
 ```
-We can test our `html_strip_preserve_analyzer`  
+### Testing the `html_strip_preserve_analyzer`  
 ```
-GET /html_strip_preserve_example/_analyze
+GET /html_strip_preserve_analyzer/_analyze
 {
   "analyzer": "html_strip_analyzer",
   "text": "<p>This is a <b>bold</b> and <i>italic</i> text.</p>"
