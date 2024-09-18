@@ -10,7 +10,7 @@ The `html_strip` character filter removes HTML elements from the input text, and
 
 The `html_strip` character filter identifies and removes all HTML tags, such as `<div>`, `<p>`, and `<a>`, from the input text. The filter can also be configured to preserve certain tags or decode specific HTML entities like `&nbsp;` into spaces.
 
-For example running the following in the Dev Tools:=
+## Example of the HTML analyzer
 ```
 GET /_analyze
 {
@@ -21,14 +21,15 @@ GET /_analyze
   "text": "<p>Commonly used calculus symbols include &alpha;, &beta; and &theta; </p>"
 }
 ```
-Would be filtered to:
+Using the HTML analyzer, we can convert the HTML character entity references into their corresponding symbols. The returned processed text would read:
+
 ```
 Commonly used calculus symbols include α, β and θ 
 ```
 
-## Custom analyzer with html_strip and lowercase filter
+## Example of a custom analyzer 
 
-Let's create a custom analyzer that strips HTML tags and then converts the remaining text to lowercase.
+Let's create a custom analyzer that strips HTML tags and then converts the remaining text to lowercase using the `html_strip` analyszer and `lowercase` filter.
 ```
 PUT /html_strip_and_lowercase_analyzer
 {
@@ -51,7 +52,7 @@ PUT /html_strip_and_lowercase_analyzer
   }
 }
 ```
-Testing our analyzer `html_strip_and_lowercase_analyzer`
+Testing our `html_strip_and_lowercase_analyzer`
 ```
 GET /html_strip_and_lowercase_analyzer/_analyze
 {
@@ -65,7 +66,7 @@ welcome to opensearch!
 ```
 The HTML tags have been removed and the output is in lowercase.
 
-## Custom analyzer preserving specific HTML tags
+## Example of a custom analyzer preserving HTML tags
 Let's create our custom analyzer
 ```
 PUT /html_strip_preserve_analyzer
