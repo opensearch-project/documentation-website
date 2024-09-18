@@ -5,6 +5,7 @@ nav_order: 20
 parent: k-NN search
 has_children: false
 has_math: true
+canonical_url: https://opensearch.org/docs/latest/search-plugins/knn/filter-search-knn/
 ---
 
 # k-NN search with filters

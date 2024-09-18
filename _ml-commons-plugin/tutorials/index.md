@@ -4,6 +4,7 @@ title: Tutorials
 has_children: true
 has_toc: false
 nav_order: 140
+canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/tutorials/index/
 ---
 
 # Tutorials

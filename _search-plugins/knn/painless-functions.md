@@ -5,6 +5,7 @@ nav_order: 25
 parent: k-NN search
 has_children: false
 has_math: true
+canonical_url: https://opensearch.org/docs/latest/search-plugins/knn/painless-functions/
 ---
 
 # k-NN Painless Scripting extensions

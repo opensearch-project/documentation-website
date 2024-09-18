@@ -7,6 +7,7 @@ has_toc: false
 redirect_from:
   - /security/authentication-backends/
   - /security-plugin/configuration/concepts/
+canonical_url: https://opensearch.org/docs/latest/security/authentication-backends/authc-index/
 ---
 
 # Authentication backends
