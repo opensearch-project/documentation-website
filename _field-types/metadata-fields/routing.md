@@ -3,6 +3,7 @@ layout: default
 title: Routing
 nav_order: 35
 parent: Metadata fields
+canonical_url: https://opensearch.org/docs/latest/field-types/metadata-fields/routing/
 ---
 
 # Routing

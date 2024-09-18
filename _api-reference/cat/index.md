@@ -6,6 +6,7 @@ has_children: true
 redirect_from:
   - /opensearch/catapis/
   - /opensearch/rest-api/cat/index/
+canonical_url: https://opensearch.org/docs/latest/api-reference/cat/index/
 ---
 
 # CAT API

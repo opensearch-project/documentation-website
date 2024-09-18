@@ -6,6 +6,7 @@ has_children: false
 redirect_from:
   - /dashboards/get-started/quickstart-dashboards/
   - /dashboards/quickstart-dashboards/
+canonical_url: https://opensearch.org/docs/latest/dashboards/quickstart/
 ---
 
 # OpenSearch Dashboards quickstart guide

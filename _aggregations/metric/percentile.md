@@ -5,6 +5,7 @@ parent: Metric aggregations
 nav_order: 90
 redirect_from:
   - /query-dsl/aggregations/metric/percentile/
+canonical_url: https://opensearch.org/docs/latest/aggregations/metric/percentile/
 ---
 
 # Percentile aggregations

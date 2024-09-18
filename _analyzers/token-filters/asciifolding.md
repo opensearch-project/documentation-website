@@ -3,6 +3,7 @@ layout: default
 title: ASCII folding
 parent: Token filters
 nav_order: 20
+canonical_url: https://opensearch.org/docs/latest/analyzers/token-filters/asciifolding/
 ---
 
 # ASCII folding token filter
