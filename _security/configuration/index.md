@@ -47,8 +47,7 @@ In `opensearch.yml`, set the correct paths for your certificates and keys, as sh
    plugins.security.ssl.http.pemkey_filepath: /path/to/your/key.pem
    plugins.security.ssl.http.pemtrustedcas_filepath: /path/to/your/ca.pem
    ```
-For more information, see [Configuring TLS certificates.
-]({{site.url}}{{site.baseurl}}/security/configuration/tls/)
+For more information, see [Configuring TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/).
 
 ## Reconfigure `config.yml` to use your authentication backend
 
