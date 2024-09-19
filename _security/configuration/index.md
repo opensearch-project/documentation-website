@@ -11,11 +11,11 @@ redirect_from:
 
 # Security configuration
 
-The plugin includes demo certificates so that you can get up and running quickly. To use OpenSearch in a production environment, you must configure it manually.
+The Security plugin includes demo certificates so that you can get up and running quickly. To use OpenSearch with the Security plugin in a production environment, you must make changes to the demo certificates and other configuration options manually.
 
 ## Replace the demo certificates
 
-OpenSearch ships with demo certificates intended for quick setup and demonstration purposes. For a production environment, it's critical to replace these with your own trusted certificates to ensure secure communication.
+OpenSearch ships with demo certificates intended for quick setup and demonstration purposes. For a production environment, it's critical to replace these with your own trusted certificates, using the following steps, to ensure secure communication:
 
 1. **Generate your own certificates:** Use tools like OpenSSL or a certificate authority (CA) to generate your own certificates. For more information about generating certificates with OpenSSL, see [Generating self-signed certificates]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/).
 2. **Store the generated certificates and private key in the appropriate directory:** Generated certificates are typically stored in `<OPENSEARCH_HOME>/config/`. For more information, see [Add certificate files to opensearch.yml]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/#add-certificate-files-to-opensearchyml).
