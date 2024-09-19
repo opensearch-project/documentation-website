@@ -196,7 +196,7 @@ To further fine-tune your shard allocation, you can set custom node attributes f
 
 ### Shard allocation awareness
 
-You can set custom node attributes on OpenSearch nodes to be used for shard allocation awareness. For example, you can set the `zone` attribute on each node to represent the zone in which the node is located. You can also use the `zone` attribute to ensure that the primary shard and its replica shards are allocated in a balanced manner across available, distinct zones. So maximum shard copies per zone would equal `ceil (number_of_shard_copies/number_of_distinct_zones)`.
+You can set custom node attributes on OpenSearch nodes to be used for shard allocation awareness. For example, you can set the `zone` attribute on each node to represent the zone in which the node is located. You can also use the `zone` attribute to ensure that the primary shard and its replica shards are allocated in a balanced manner across available, distinct zones. In this scenario, maximum shard copies per zone would equal `ceil (number_of_shard_copies/number_of_distinct_zones)`.
 
 OpenSearch, by default, allocates shard copies of a single shard across different nodes. When only 1 zone is available, such as after a zone failure, OpenSearch allocates replica shards to the only remaining zone i.e. it considers only available zones (attribute values) for calculating maximum allowed shard copies per zone.
 For example, if your index has a total of 5 shard copies (1 primary and 4 replicas) and nodes in 3 distinct zones, then OpenSearch will perform the following to allocate all 5 shard copies:
