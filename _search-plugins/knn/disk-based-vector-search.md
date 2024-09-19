@@ -4,16 +4,19 @@ title: Disk based vector search
 nav_order: 16
 parent: k-NN search
 has_children: false
-has_math: true
 ---
 
-# Disk Based Vector Search
+# Disk-based vector search
+**Introduced 2.17**
+{: .label .label-purple}
 
-For low-memory environments, the [mode]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/#vector-workload-modes) parameter should be set to `on_disk` for your vector field type. This parameter will setup your index to use secondary storage to extend memory. This allows users to trade some search latency for large memory savings while providing a strong recall value.
+For low-memory environments, OpenSearch provides _disk-based vector search_, which significantly reduces the operational costs for vector workloads. Disk-based vector search uses [binary quantization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization/#binary-quantization), compressing vectors and thereby reducing the memory requirements. This memory optimization provides large memory savings at the cost of slightly increased search latency, while still maintaining strong recall.
 
-## Index Creation
+To use disk-based vector search, set the [`mode`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/#vector-workload-modes) parameter to `on_disk` for your vector field type. This parameter will configure your index to use secondary storage. 
 
-To create an index, run the following:
+## Creating an index for disk-based vector search
+
+To create an index for disk-based vector search, send the following request:
 
 ```json
 PUT my-vector-index
@@ -31,10 +34,11 @@ PUT my-vector-index
   }
 }
 ```
+{% inculde copy-curl.html %}
 
-Internally, `on_disk` mode will by default configure the index to use the `faiss` `hnsw` implementation with a [`compression_level`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/#compression-levels) of `32x`. This will reduce the amount of memory the vectors occupy by a factor of 32! Then, in order to preserve the search recall, re-scoring will be enabled by default. This will setup the index to run a two-phased search, where the compressed index is searched first, and then the results are re-scored with the full-precision vectors loaded from disk.
+By default, the `on_disk` mode configures the index to use the `faiss` engine and `hnsw` method. The default [`compression_level`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/#compression-levels) of `32x` reduces the amount of memory the vectors require by a factor of 32. To preserve the search recall, rescoring is enabled by default. The search on a disk-optimized index runs in two phases: the compressed index is searched first, and then the results are rescored using full-precision vectors loaded from disk.
 
-For some use cases, `32x` might be too aggressive of a compression rate. If this is the case, it can be easily overriden by also setting the `compression_level` parameter:
+To reduce the compression level, provide the `compression_level` parameter when creating the index mapping: 
 
 ```json
 PUT my-vector-index
@@ -53,10 +57,12 @@ PUT my-vector-index
   }
 }
 ```
+{% inculde copy-curl.html %}
 
-Valid values are `2x`, `4x`, `8x` and `16x`. Note for `4x` compression, the `lucene` engine will be used.
+For more information about the `compression_level` parameter, see [Compression levels]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/#compression-levels). Note that for `4x` compression, the `lucene` engine will be used.
+{: .note}
 
-Additionally, if more fine-tuning is required, users can override parameters in the method definition. For instance, if a user wants to increase the `ef_construction` parameter to improve recall, they can specify the following:
+If you need more granular fine-tuning, you can override additional k-NN parameters in the method definition. For instance, to improve recall, increase the `ef_construction` parameter value:
 
 ```json
 PUT my-vector-index
@@ -79,12 +85,15 @@ PUT my-vector-index
   }
 }
 ```
+{% inculde copy-curl.html %}
 
-Note that `on_disk` mode will only work with the `float` data_type.
+The `on_disk` mode only works with the `float` data type.
+{: .note}
 
 ## Ingestion
 
-Ingestion works the same way as other Vector indices. To index a few documents via bulk ingestion, run the following:
+Once you create a disk-optimized vector index, you can ingest documents into it the same way as a regular vector index. To index several documents in bulk, send the following request:
+
 ```json
 POST _bulk
 { "index": { "_index": "my-vector-index", "_id": "1" } }
@@ -106,10 +115,12 @@ POST _bulk
 { "index": { "_index": "my-vector-index", "_id": "9" } }
 { "my_vector_field": [9.5, 9.5, 9.5, 9.5, 9.5, 9.5, 9.5, 9.5], "price": 8.9 }
 ```
+{% inculde copy-curl.html %}
 
 ## Search
 
-Search also works the same as other index configurations. The key difference is that by default, the `oversample_factor` of the rescore parameter will be set to 3.0 (unless compression_level is overridden - see this [table]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#rescoring-quantized-results-using-full-precision)). To run a query, run:
+Search also works the same way as in other index configurations. The key difference is that by default, the `oversample_factor` of the rescore parameter is set to `3.0`, unless you override `compression_level`. For more information, see [Rescoring quantuzed results using full precision]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#rescoring-quantized-results-using-full-precision). To perform vector search on a disk-optimized index, provide the search vector:
+
 ```json
 GET my-vector-index/_search
 {
@@ -123,8 +134,10 @@ GET my-vector-index/_search
   }
 }
 ```
+{% inculde copy-curl.html %}
 
-Similar to other index configurations, parameters can be overridden. To run a query while overriding parameters, run:
+Similar to other index configurations, you can override k-NN parameters in the search request:
+
 ```json
 GET my-vector-index/_search
 {
@@ -144,13 +157,15 @@ GET my-vector-index/_search
   }
 }
 ```
+{% inculde copy-curl.html %}
 
-[Radial search]({{site.url}}{{site.baseurl}}/search-plugins/knn/radial-search-knn/) is not available with disk-based vector search.
+[Radial search]({{site.url}}{{site.baseurl}}/search-plugins/knn/radial-search-knn/) does not support disk-based vector search.
 {: .note}
 
-## Model-based indices
+## Model-based indexes
 
-For [model based indices]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model), the `on_disk` parameter can be specified in the training request similar to the index creation. By default, `on_disk` mode will resolve to use [faiss's IVF method]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#supported-faiss-methods) and a compression level of `32x`. To run the training API, run:
+For [model based indexes]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model), you can specify the `on_disk` parameter in the training request similarly to providing them during index creation. By default, `on_disk` mode will resolve to use the [Faiss IVF method]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#supported-faiss-methods) and a compression level of `32x`. To run the training API, send the following request:
+
 ```json
 POST /_plugins/_knn/models/_train/test-model
 {
@@ -164,8 +179,15 @@ POST /_plugins/_knn/models/_train/test-model
     "mode": "on_disk"
 }
 ```
+{% inculde copy-curl.html %}
 
-This command assumes that training data has been ingested into the `train-index-name` index. See [here]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model) for more details.
+This command assumes that training data has been ingested into the `train-index-name` index. For more information, see [Building a k-NN index from a model]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model).
 {: .note}
 
-Compression level can be overridden in the same way as it is for index creation.
+You can override `compression_level` for disk-optimized indexes in the same way as for regular k-NN indexes.
+
+
+## Next steps
+
+- For more information about binary quantization, see [Binary quantization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization/#binary-quantization).
+- For more information about k-NN vector workload modes, see [Vector workload modes]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/#vector-workload-modes).
