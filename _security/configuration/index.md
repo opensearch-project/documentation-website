@@ -31,11 +31,11 @@ For additional guidance on file modes, see the following table.
         | Private key | `~/.ssh/id_rsa`     | `600`   | `-rw-------` |
         | SSH folder  | `~/.ssh`            | `700`   | `drwx------` |
 
-For more information, see [Configuring basic security settings.]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#configuring-basic-security-settings)
+For more information, see [Configuring basic security settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#configuring-basic-security-settings).
 
 ## Reconfigure `opensearch.yml` to use your certificates
 
-The `opensearch.yml` file is the main configuration file for OpenSearch, you can find the `opensearch.yml` at `<OPENSEARCH_HOME>/config/opensearch.yml`. Use the following steps to update this file to point to your custom certificates for secure communication:
+The `opensearch.yml` file is the main configuration file for OpenSearch; you can find the file at `<OPENSEARCH_HOME>/config/opensearch.yml`. Use the following steps to update this file to point to your custom certificates:
 
 In `opensearch.yml`, set the correct paths for your certificates and keys, as shown in the following example:
    ```
@@ -68,11 +68,11 @@ For example, to use LDAP as your authentication backend, add the following setti
         authentication_backend:
           type: internal
    ```
-For more information, see [Configuring the Security backend.]({{site.url}}{{site.baseurl}}/security/configuration/configuration/)
+For more information, see [Configuring the Security backend]({{site.url}}{{site.baseurl}}/security/configuration/configuration/).
 
 ## Modify the configuration YAML files
 
-Determine whether any additional YAML files need modification, for example, the `roles.yml`, `roles_mapping.yml`, or `internal_users.yml` files. Update the files with any additional configuration information. For further information, see [Modifying the YAML files.]({{site.url}}{{site.baseurl}}/security/configuration/yaml/)
+Determine whether any additional YAML files need modification, for example, the `roles.yml`, `roles_mapping.yml`, or `internal_users.yml` files. Update the files with any additional configuration information. For more information, see [Modifying the YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/).
 
 ## Set a password policy
 
@@ -111,6 +111,6 @@ For more information about disabling the Security plugin, see [Disable security]
 The Security plugin has several default users, roles, action groups, permissions, and settings for OpenSearch Dashboards that contain "Kibana" in their names. We will change these names in a future version.
 {: .note }
 
-For a full list of `opensearch.yml` security plugin settings, see the [Security settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/) documentation page.
+For a full list of `opensearch.yml` Security plugin settings, see [Security settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/).
 {: .note}
 
