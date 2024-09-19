@@ -34,7 +34,7 @@ PUT my-vector-index
   }
 }
 ```
-{% inculde copy-curl.html %}
+{% include copy-curl.html %}
 
 By default, the `on_disk` mode configures the index to use the `faiss` engine and `hnsw` method. The default [`compression_level`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/#compression-levels) of `32x` reduces the amount of memory the vectors require by a factor of 32. To preserve the search recall, rescoring is enabled by default. The search on a disk-optimized index runs in two phases: the compressed index is searched first, and then the results are rescored using full-precision vectors loaded from disk.
 
@@ -57,7 +57,7 @@ PUT my-vector-index
   }
 }
 ```
-{% inculde copy-curl.html %}
+{% include copy-curl.html %}
 
 For more information about the `compression_level` parameter, see [Compression levels]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/#compression-levels). Note that for `4x` compression, the `lucene` engine will be used.
 {: .note}
@@ -85,7 +85,7 @@ PUT my-vector-index
   }
 }
 ```
-{% inculde copy-curl.html %}
+{% include copy-curl.html %}
 
 The `on_disk` mode only works with the `float` data type.
 {: .note}
@@ -115,7 +115,7 @@ POST _bulk
 { "index": { "_index": "my-vector-index", "_id": "9" } }
 { "my_vector_field": [9.5, 9.5, 9.5, 9.5, 9.5, 9.5, 9.5, 9.5], "price": 8.9 }
 ```
-{% inculde copy-curl.html %}
+{% include copy-curl.html %}
 
 ## Search
 
@@ -134,7 +134,7 @@ GET my-vector-index/_search
   }
 }
 ```
-{% inculde copy-curl.html %}
+{% include copy-curl.html %}
 
 Similar to other index configurations, you can override k-NN parameters in the search request:
 
@@ -157,7 +157,7 @@ GET my-vector-index/_search
   }
 }
 ```
-{% inculde copy-curl.html %}
+{% include copy-curl.html %}
 
 [Radial search]({{site.url}}{{site.baseurl}}/search-plugins/knn/radial-search-knn/) does not support disk-based vector search.
 {: .note}
@@ -179,7 +179,7 @@ POST /_plugins/_knn/models/_train/test-model
     "mode": "on_disk"
 }
 ```
-{% inculde copy-curl.html %}
+{% include copy-curl.html %}
 
 This command assumes that training data has been ingested into the `train-index-name` index. For more information, see [Building a k-NN index from a model]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model).
 {: .note}
