@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Disk based vector search
+title: Disk-based vector search
 nav_order: 16
 parent: k-NN search
 has_children: false
