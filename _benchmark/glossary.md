@@ -13,7 +13,7 @@ The following terms are commonly used in OpenSearch Benchmark:
 - **Metric keys**: The metrics that OpenSearch Benchmark stores, based on the configuration in the [metrics record]({{site.url}}{{site.baseurl}}/benchmark/metrics/metric-records/).
 - **Operations**: In workloads, a list of API operations performed by a workload.
 - **Pipeline**: A series of steps occurring before and after a workload is run that determines benchmark results.
-- **Schedule**: In workloads, a list of operations in a specific order.
+- **Schedule**: A list of two or more operations performed in the order they appear when a workload is run.
 - **Service time**: The amount of time that it takes for `opensearch-py`, the primary client for OpenSearch Benchmark, to send a request and receive a response from the OpenSearch cluster. It includes the amount of time that it takes for the server to process a request and also network latency, load balancer overhead, and deserialization/serialization.
 - **Summary report**: A report output at the end a test based on the metric keys defined in the workload.
 - **Test**: A single invocation of the OpenSearch Benchmark binary.
