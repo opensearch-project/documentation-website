@@ -9,7 +9,7 @@ nav_order: 10
 The following terms are commonly used in OpenSearch Benchmark:
 
 - **Corpora**: A collection of documents.
-- **Latency**: If `target-throughput` is disabled (has no value or a value of `0)`, then latency is equivalent to service time. If `target-throughput` is enabled (has a value of 1 or greater), then latency is equal to the service time plus the amount of time the request waits in the queue before being sent.
+- **Latency**: If `target-throughput` is disabled (has no value or a value of `0)`, then latency is equal to service time. If `target-throughput` is enabled (has a value of 1 or greater), then latency is equal to the service time plus the amount of time the request waits in the queue before being sent.
 - **Metric keys**: The metrics stored by OpenSearch Benchmark, based on the configuration in the [metrics record]({{site.url}}{{site.baseurl}}/benchmark/metrics/metric-records/).
 - **Operations**: In workloads, a list of API operations performed by a workload.
 - **Pipeline**: A series of steps occurring both before and after running a workload that determines benchmark results.
