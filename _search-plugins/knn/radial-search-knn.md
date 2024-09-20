@@ -53,9 +53,9 @@ PUT knn-index-test
       "my_vector": {
         "type": "knn_vector",
         "dimension": 2,
+        "space_type": "l2",
         "method": {
             "name": "hnsw",
-            "space_type": "l2",
             "engine": "faiss",
             "parameters": {
               "ef_construction": 100,
