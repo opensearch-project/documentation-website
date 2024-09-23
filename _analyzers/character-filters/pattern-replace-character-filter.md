@@ -37,3 +37,40 @@ There are two parameters needed to configure the pattern replace filter:
 1. Pattern: Provide a regular expression (regex) to match parts of the input text. The filter will identify and match this pattern in the input for replacement. 
 2. Replacement: Specify the string that will replace any matches found by the pattern. If you want to remove the matched text, use an empty string as the replacement.
 
+## Example of a custom analyzer 
+The pattern replace character filter can be used to remove currency symbols and spaces from a string.
+```
+GET /_analyze
+{
+  "tokenizer": "standard",
+  "char_filter": [
+    {
+      "type": "pattern_replace",
+      "pattern": "[\\$,€]",
+      "replacement": ""
+    },
+    {
+      "type": "pattern_replace",
+      "pattern": "[\\s,]+",
+      "replacement": " "
+    }
+  ],
+  "text": "Total: $ 1,200.50 and € 1.100,75"
+}
+```
+This request includes 2 pattern filters:
+1. `"pattern": "[\\$,€]":`
+   This pattern removes the currency symbols ($, €) by replacing them with an empty string.
+2. `"pattern": "[\\s,]+":`
+This pattern matches any sequence of spaces and commas, replacing them with a single space. This ensures the numbers are formatted correctly and separated from other text. 
+
+Summary of the outputted response text
+```
+Total
+1200.50
+and
+1100.75
+ ```
+
+By applying these filters, the input text is normalized by removing unwanted characters and preserving the correct spacing between numbers and words.
+
