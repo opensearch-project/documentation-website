@@ -161,9 +161,9 @@ However, if you specify the vertices in the following order:
 
 The response returns no results.
 
-## Request fields
+## Parameters
 
-Geopolygon queries accept the following fields.
+Geopolygon queries accept the following parameters.
 
 Field | Data type | Description
 :--- | :--- | :--- 

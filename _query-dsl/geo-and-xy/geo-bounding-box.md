@@ -173,9 +173,9 @@ GET testindex1/_search
 ```
 {% include copy-curl.html %}
 
-## Request fields
+## Parameters
 
-Geo-bounding box queries accept the following fields.
+Geo-bounding box queries accept the following parameters.
 
 Field | Data type | Description
 :--- | :--- | :--- 

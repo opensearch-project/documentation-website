@@ -721,9 +721,9 @@ The response returns document 1:
 
 Note that when you indexed the geopoints, you specified their coordinates in `"latitude, longitude"` format. When you search for matching documents, the coordinate array is in `[longitude, latitude]` format. Thus, document 1 is returned in the results but document 2 is not.
 
-## Request fields
+## Parameters
 
-Geoshape queries accept the following fields.
+Geoshape queries accept the following parameters.
 
 Field | Data type | Description
 :--- | :--- | :--- 

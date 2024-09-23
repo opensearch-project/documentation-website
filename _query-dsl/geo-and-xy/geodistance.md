@@ -103,9 +103,9 @@ The response contains the matching document:
 }
 ```
 
-## Request fields
+## Parameters
 
-Geodistance queries accept the following fields.
+Geodistance queries accept the following parameters.
 
 Field | Data type | Description
 :--- | :--- | :--- 
