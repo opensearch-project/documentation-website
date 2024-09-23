@@ -2,7 +2,7 @@
 layout: default
 title: HTML Character Filter
 parent: Character Filters
-nav_order: 91
+nav_order: 100
 ---
 
 # HTML strip character filter
