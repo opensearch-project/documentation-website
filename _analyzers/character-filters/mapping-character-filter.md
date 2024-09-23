@@ -2,7 +2,7 @@
 layout: default
 title: Mapping Character Filter
 parent: Character Filters
-nav_order: 95
+nav_order: 120
 ---
 
 # Mapping character filter
