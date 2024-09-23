@@ -107,7 +107,7 @@ The response contains the matching document:
 
 Geodistance queries accept the following parameters.
 
-Field | Data type | Description
+Parameter | Data type | Description
 :--- | :--- | :--- 
 `_name` | String | The name of the filter. Optional.
 `distance` | String | The distance within which to match the points. This distance is the radius of a circle centered at the specified point. For supported distance units, see [Distance units]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#distance-units). Required.

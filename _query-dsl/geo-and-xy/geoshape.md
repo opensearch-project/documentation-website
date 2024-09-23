@@ -725,6 +725,6 @@ Note that when you indexed the geopoints, you specified their coordinates in `"l
 
 Geoshape queries accept the following parameters.
 
-Field | Data type | Description
+Parameter | Data type | Description
 :--- | :--- | :--- 
 `ignore_unmapped` | Boolean | Specifies whether to ignore an unmapped field. If set to `true`, then the query does not return any documents that contain an unmapped field. If set to `false`, then an exception is thrown when the field is unmapped. Optional. Default is `false`.

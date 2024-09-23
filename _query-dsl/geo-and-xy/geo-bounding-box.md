@@ -177,7 +177,7 @@ GET testindex1/_search
 
 Geo-bounding box queries accept the following parameters.
 
-Field | Data type | Description
+Parameter | Data type | Description
 :--- | :--- | :--- 
 `_name` | String | The name of the filter. Optional.
 `validation_method` | String | The validation method. Valid values are `IGNORE_MALFORMED` (accept geopoints with invalid coordinates), `COERCE` (try to coerce coordinates to valid values), and `STRICT` (return an error when coordinates are invalid). Default is `STRICT`.
