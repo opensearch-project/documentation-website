@@ -2,7 +2,7 @@
 layout: default
 title: Pattern Replace Character Filter
 parent: Character Filters
-nav_order: 200
+nav_order: 130
 ---
 
 # Pattern Replace Character Filter
