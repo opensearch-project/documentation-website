@@ -155,22 +155,22 @@ Use the following steps to reinstall the plugin:
 
 1. Disable shard allocation and stop all nodes so that shards don't move when the cluster is restarted:
 
-  ```json
-  curl -XPUT "http://localhost:9200/_cluster/settings" -H 'Content-Type: application/json' -d '{
-    "transient": {
-      "cluster.routing.allocation.enable": "none"
-      }
-   }'
-  ```
-  {% include copy.html %}
+    ```json
+    curl -XPUT "http://localhost:9200/_cluster/settings" -H 'Content-Type: application/json' -d '{
+      "transient": {
+        "cluster.routing.allocation.enable": "none"
+        }
+     }'
+    ```
+    {% include copy.html %}
  
 2. Install the Security plugin on all nodes in your cluster using one of the [installation methods]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#install):
 
-  ```bash
-  bin/opensearch-plugin install opensearch-security
-  ```
-  {% include copy.html %}
-  
+    ```bash
+    bin/opensearch-plugin install opensearch-security
+    ```
+    {% include copy.html %}
+    
 3. Add the necessary configuration to `opensearch.yml` for TLS encryption. See
 [Configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/) for information about the settings that need to be configured.
 
