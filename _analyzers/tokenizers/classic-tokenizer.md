@@ -30,12 +30,3 @@ Summary of the outputted response text:
  "Send", "an", "email", "to", "john.doe", "example.com", "or", "call", "555-1234" 
 ```
 The tokenizer keeps the email address `john.doe@example.com` and the phone number `555-1234` as single tokens, while splitting the rest of the sentence at punctuation marks.
-
-
-
-
-
-
-
-
-
