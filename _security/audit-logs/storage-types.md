@@ -16,6 +16,7 @@ Setting | Description
 :--- | :---
 debug | Outputs to stdout. Useful for testing and debugging.
 internal_opensearch | Writes to an audit index on the current OpenSearch cluster.
+internal_opensearch_data_stream | Writes to an audit datastream on the current OpenSearch cluster.
 external_opensearch | Writes to an audit index on a remote OpenSearch cluster.
 webhook | Sends events to an arbitrary HTTP endpoint.
 log4j | Writes the events to a Log4j logger. You can use any Log4j [appender](https://logging.apache.org/log4j/2.x/manual/appenders.html), such as SNMP, JDBC, Cassandra, and Kafka.
@@ -23,10 +24,30 @@ log4j | Writes the events to a Log4j logger. You can use any Log4j [appender](ht
 You configure the output location in `opensearch.yml`:
 
 ```
-plugins.security.audit.type: <debug|internal_opensearch|external_opensearch|webhook|log4j>
+plugins.security.audit.type: <debug|internal_opensearch|internal_opensearch_data_stream|external_opensearch|webhook|log4j>
 ```
 
-`external_opensearch`, `webhook`, and `log4j` all have additional configuration options. Details follow.
+`internal_opensearch_data_stream`, `external_opensearch`, `webhook`, and `log4j` all have additional configuration options. Details follow.
+
+
+## Internal Opensearch Data Stream
+
+The type `internal_opensearch_data_stream` have some additional configuration paramters
+
+### Basics settings
+
+Name | Data type | Description
+:--- | :--- | :---
+`plugins.security.audit.config.data_stream.name` | String | Name of the auditlog Data Stream. The Default is `opensearch-security-auditlog`.
+
+### Template settings
+
+Name | Data type | Description
+:--- | :--- | :---
+`plugins.security.audit.config.data_stream.template.manage` | Boolean | If enabled, the template for the Data Stream is managed by Opensearch. The Default is `true`.
+`plugins.security.audit.config.data_stream.template.name` | String | Name of the template. The Default is `opensearch-security-auditlog`.
+`plugins.security.audit.config.data_stream.template.number_of_replicas` | Integer | Number of replicas for the Data Stream. The default is `0`.
+`plugins.security.audit.config.data_stream.template.number_of_shards` | Integer | Number of Shards for the Data Stream. The default is `3`.
 
 
 ## External OpenSearch
