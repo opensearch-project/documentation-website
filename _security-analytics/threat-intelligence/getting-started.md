@@ -50,9 +50,43 @@ Local files uploaded as the threat intelligence source must use the following sp
 
 When using the `S3_SOURCE` as a remote store, the following connection information must be provided:
 
-- **IAM Role ARN**: The Amazon Resource Name (ARN) for an AWS Identity and Access Management (IAM) role.
-- **S3 bucket directory**: The name of the Amazon Simple Storage Service (Amazon S3) bucket in which the `STIX2` file is stored.
-- **Specify a directory or file**: The object key or directory path for the `STIX2` file in the S3 bucket.
+- **IAM Role ARN**: The Amazon Resource Name (ARN) for an AWS Identity and Access Management (IAM) role. Please note that, when using AWS OpenSearch Service, this role ARN needs to be in the same account as the OpenSearch domain. E.g.,
+  1. Create a new role with a custom trust policy. The following example trust policy adds OpenSearch as a trusted entity.
+      ```azure
+      { 
+         "Version": "2012-10-17",
+          "Statement": [
+              {
+                  "Effect": "Allow",
+                  "Principal": {
+                      "Service": [
+                          "opensearchservice.amazonaws.com"
+                      ]
+                  },
+                  "Action": "sts:AssumeRole"
+              }
+          ]
+      }
+      ```
+  2. Click the Next button to progress to the Permissions policies page, and add the `AmazonS3ReadOnlyAccess` permission.
+  3. Finish creation of the new role on the following page by providing a name, and description.
+- **S3 bucket directory**: The name of the Amazon Simple Storage Service (Amazon S3) bucket in which the `STIX2` file is stored. Please note that the trust policy for this bucket needs to give the role ARN mentioned above permission to read from the object. E.g.,
+    ```azure
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+         {
+                "Effect": "Allow",
+                "Principal": {
+                    "AWS": "arn:aws:iam::123456789012:role/my-threat-intel-role"
+                },
+              "Action": "s3:*",
+                "Resource": "arn:aws:s3:::my-threat-intel-bucket/*"
+         }
+     ]
+    }
+    ```
+- **Specify a file**: The object key for the `STIX2` file in the S3 bucket.
 - **Region**: The AWS Region for the S3 bucket.
 
 You can also set the **Download schedule**, which determines to where OpenSearch downloads an updated `STIX2` file from the connected S3 bucket. The default interval is once a day. Only daily intervals are supported. 
