@@ -33,7 +33,7 @@ PUT /example_index
 ```
 {% include copy-curl.html %}
 
-In this example, you'll configure an index contains documents representing products and their brands. 
+In this example, you'll configure an index that contains documents representing products and their brands. 
 
 First, create the index and establish the parent-child relationship between `brand` and `product`:
 
