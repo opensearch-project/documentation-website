@@ -14,7 +14,7 @@ The `has_child` query is slower than other queries because of the join operation
 
 ## Example 
 
-Before you can run a `has_child` query, your index must contain a [join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) field to establish parent-child relationships. The index mapping request is in the following format:
+Before you can run a `has_child` query, your index must contain a [join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) field in order to establish parent-child relationships. The index mapping request uses the following format:
 
 ```json
 PUT /example_index
@@ -187,14 +187,14 @@ The following table lists all top-level parameters supported by `has_child` quer
 | `ignore_unmapped` | Optional | Indicates whether to ignore unmapped `type` fields and not return documents instead of throwing an error. You can provide this parameter when querying multiple indexes, some of which may not contain the `type` field. Default is `false`. |
 | `max_children` | Optional | The maximum number of matching child documents for a parent document. If exceeded, the parent document is excluded from the search results. |
 | `min_children` | Optional | The minimum number of matching child documents required for a parent document to be included in the results. If not met, the parent is excluded. Default is `1`.|
-| `score_mode` | Optional | Defines how scores of matching child documents influence the parent document's score. Valid values are: <br> - `none`: Ignores the relevance scores of child documents and assigns a score of `0` to the parent document. <br> - `avg`: Uses the average relevance score of all matching child documents. <br> - `max`: Assigns the highest relevance score from the matching child documents to the parent. <br> - `min`: Assigns the lowest relevance score from the matching child documents to the parent. <br> - `sum`: Sums up the relevance scores of all matching child documents. <br> Default is `none`. |
+| `score_mode` | Optional | Defines how scores of matching child documents influence the parent document's score. Valid values are: <br> - `none`: Ignores the relevance scores of child documents and assigns a score of `0` to the parent document. <br> - `avg`: Uses the average relevance score of all matching child documents. <br> - `max`: Assigns the highest relevance score from the matching child documents to the parent. <br> - `min`: Assigns the lowest relevance score from the matching child documents to the parent. <br> - `sum`: Sums the relevance scores of all matching child documents. <br> Default is `none`. |
 
 
 ## Sorting limitations
 
-The `has_child` query does not support [sorting results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/sort/) using standard sorting options. If you need to sort parent documents by fields in their child documents, you can use a [`function_score` query]({{site.url}}{{site.baseurl}}/query-dsl/compound/function-score/) and sort by the parent document’s score. 
+The `has_child` query does not support [sorting results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/sort/) using standard sorting options. If you need to sort parent documents by fields in their child documents, you can use a [`function_score` query]({{site.url}}{{site.baseurl}}/query-dsl/compound/function-score/) and sort by the parent document's score. 
 
-For the preceding example, you can sort parent documents (brands) based on the `sales_count` of their child products. This query multiplies the score by the `sales_count` field of the child documents and assigns the highest relevance score from the matching child documents to the parent:
+In the preceding example, you can sort parent documents (brands) based on the `sales_count` of their child products. This query multiplies the score by the `sales_count` field of the child documents and assigns the highest relevance score from the matching child documents to the parent:
 
 ```json
 GET testindex1/_search

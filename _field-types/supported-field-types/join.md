@@ -61,7 +61,7 @@ PUT testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-When indexing child documents, you have to specify the `routing` query parameter because parent and child documents in the same relation have to be indexed on the same shard. For more information, see [Routing]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/routing/). Each child document refers to its parent's ID in the `parent` field.
+When indexing child documents, you need to specify the `routing` query parameter because parent and child documents in the same parent/child hierarchy must be indexed on the same shard. For more information, see [Routing]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/routing/). Each child document refers to its parent's ID in the `parent` field.
 
 Index two child documents, one for each parent:
 
