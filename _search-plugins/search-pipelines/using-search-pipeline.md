@@ -27,8 +27,32 @@ GET /my_index/_search?search_pipeline=my_pipeline
 For a complete example of using a search pipeline with a `filter_query` processor, see [`filter_query` processor example]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/filter-query-processor#example).
 
 ## Using a temporary search pipeline for a request
+1. You can provide a search pipeline id in the search request:
 
-As an alternative to creating a search pipeline, you can define a temporary search pipeline to be used for only the current query:
+```json
+GET /my-index/_search
+{
+    "query": {
+        "match_all": {}
+    },
+    "from": 0,
+    "size": 10,
+    "search_pipeline": "my_pipeline"
+}
+```
+
+or for msearch
+```json
+GET /_msearch
+{ "index": "test"}
+{ "query": { "match_all": {} }, "from": 0, "size": 10, "search_pipeline": "my_pipeline"}
+{ "index": "test-1", "search_type": "dfs_query_then_fetch"}
+{ "query": { "match_all": {} }, "search_pipeline": "my_pipeline1" }
+
+```
+{% include copy-curl.html %}
+
+2. As an alternative to creating a search pipeline, you can define a temporary search pipeline to be used for only the current query:
 
 ```json
 POST /my-index/_search
