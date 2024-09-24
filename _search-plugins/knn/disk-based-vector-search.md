@@ -146,7 +146,7 @@ GET my-vector-index/_search
       "my_vector_field": {
         "vector": [1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5],
         "k": 5,
-        "method_params": {
+        "method_parameters": {
             "ef_search": 512
         },
         "rescore": {
