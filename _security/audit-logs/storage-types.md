@@ -32,7 +32,7 @@ plugins.security.audit.type: <debug|internal_opensearch|internal_opensearch_data
 
 ## Internal Opensearch Data Stream
 
-The type `internal_opensearch_data_stream` have some additional configuration paramters
+The type `internal_opensearch_data_stream` have some additional configuration paramters.
 
 ### Basics settings
 
