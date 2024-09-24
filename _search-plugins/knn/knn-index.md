@@ -66,9 +66,9 @@ For the x64 architecture, three different versions of the Faiss library are buil
 - `libopensearchknn_faiss_avx512.so`: The Faiss library that contains AVX512 SIMD instructions. 
 - `libopensearchknn_faiss_avx2.so`: The Faiss library that contains AVX2 SIMD instructions.
 
+The Faiss library order of performance is AVX512, AVX2, generic.
 If your hardware supports AVX512, the k-NN plugin loads the `libopensearchknn_faiss_avx512.so` library at runtime.
-
-If your hardware supports AVX2, the k-NN plugin loads the `libopensearchknn_faiss_avx2.so` library at runtime.
+If your hardware supports AVX2 but doesn't support AVX512, the k-NN plugin loads the `libopensearchknn_faiss_avx2.so` library at runtime.
 
 To disable AVX512 and AVX2 and load the non-optimized Faiss library (`libopensearchknn_faiss.so`), specify the `knn.faiss.avx512.disabled` and `knn.faiss.avx2.disabled` static settings as `true` in `opensearch.yml` (defaults are `false`).
 
