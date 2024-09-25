@@ -70,7 +70,7 @@ When using the `S3_SOURCE` as a remote store, the following connection informati
       ```
   2. Click the Next button to progress to the Permissions policies page, and add the `AmazonS3ReadOnlyAccess` permission.
   3. Finish creation of the new role on the following page by providing a name, and description.
-- **S3 bucket directory**: The name of the Amazon Simple Storage Service (Amazon S3) bucket in which the `STIX2` file is stored. Please note that the trust policy for this bucket needs to give the role ARN mentioned above permission to read from the object. E.g.,
+- **S3 bucket directory**: The name of the Amazon Simple Storage Service (Amazon S3) bucket in which the `STIX2` file is stored. To access a bucket in a different AWS account, please note that the trust policy for that bucket needs to give the role ARN created above permission to read from the object. E.g.,
     ```azure
     {
         "Version": "2012-10-17",
@@ -78,10 +78,10 @@ When using the `S3_SOURCE` as a remote store, the following connection informati
          {
                 "Effect": "Allow",
                 "Principal": {
-                    "AWS": "arn:aws:iam::123456789012:role/my-threat-intel-role"
+                    "AWS": "arn:aws:iam::123456789012:role/account-1-threat-intel-role"
                 },
               "Action": "s3:*",
-                "Resource": "arn:aws:s3:::my-threat-intel-bucket/*"
+                "Resource": "arn:aws:s3:::account-2-threat-intel-bucket/*"
          }
      ]
     }
