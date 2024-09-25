@@ -18,7 +18,7 @@ OpenSearch Benchmark has two testing modes, both of which are related to through
 
 When `target-throughput` is set to `0`, OpenSearch Benchmark latency tests are performed in *benchmarking mode*. In this mode, the OpenSearch client sends requests to the OpenSearch cluster as fast as possible. After the cluster receives a response from the previous request, OpenSearch Benchmark immediately sends the next request to the OpenSearch client. In this testing mode, latency is identical to service time.
 
-OpenSearch Benchmark issues one request at a time for a single-client thread, which is specified as `search-clients` in the workload parameters. 
+OpenSearch Benchmark issues one request at a time per a single client. The number of clients is set by the `search-clients` setting in the workload parameters. 
 
 ## Throughput-throttled mode
 
