@@ -70,22 +70,7 @@ When using the `S3_SOURCE` as a remote store, the following connection informati
       ```
   2. Click the Next button to progress to the Permissions policies page, and add the `AmazonS3ReadOnlyAccess` permission.
   3. Finish creation of the new role on the following page by providing a name, and description.
-- **S3 bucket directory**: The name of the Amazon Simple Storage Service (Amazon S3) bucket in which the `STIX2` file is stored. To access a bucket in a different AWS account, please note that the trust policy for that bucket needs to give the role ARN created above permission to read from the object. E.g.,
-    ```azure
-    {
-        "Version": "2012-10-17",
-        "Statement": [
-         {
-                "Effect": "Allow",
-                "Principal": {
-                    "AWS": "arn:aws:iam::123456789012:role/account-1-threat-intel-role"
-                },
-              "Action": "s3:*",
-                "Resource": "arn:aws:s3:::account-2-threat-intel-bucket/*"
-         }
-     ]
-    }
-    ```
+- **S3 bucket directory**: The name of the Amazon Simple Storage Service (Amazon S3) bucket in which the `STIX2` file is stored. To access an S3 bucket in a different AWS account, [see below](#configuring-cross-account-s3-bucket-connection).
 - **Specify a file**: The object key for the `STIX2` file in the S3 bucket.
 - **Region**: The AWS Region for the S3 bucket.
 
@@ -93,6 +78,25 @@ You can also set the **Download schedule**, which determines to where OpenSearch
 
 Alternatively, you can check the **Download on demand** option, which prevents new data from the bucket from being automatically downloaded.
 
+### Configuring cross-account S3 bucket connection
+As mentioned [above](#s3_source-connection-information), the role ARN needs to be in the same account as the OpenSearch domain. The example trust policy in that step will allow the OpenSearch domain to download from S3 buckets within that same account.
+
+To download from an S3 bucket in another account, please note that the trust policy for that bucket needs to give your role ARN permission to read from the object. E.g.,
+```azure
+{
+    "Version": "2012-10-17",
+    "Statement": [
+     {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::123456789012:role/account-1-threat-intel-role"
+            },
+          "Action": "s3:*",
+            "Resource": "arn:aws:s3:::account-2-threat-intel-bucket/*"
+     }
+ ]
+}
+```
 
 ## Step 2: Set up scanning for your log sources
 
