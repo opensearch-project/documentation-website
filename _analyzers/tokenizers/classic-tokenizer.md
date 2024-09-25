@@ -3,6 +3,7 @@ layout: default
 title: Classic Tokenizer
 parent: Tokenizers
 nav_order: 20
+
 ---
 
 # Classic tokenizer
