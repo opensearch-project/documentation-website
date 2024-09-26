@@ -176,6 +176,140 @@ The response returns both brands:
 }
 ```
 
+## Retrieving inner hits
+
+To return child documents that matched the query, provide the `inner_hits` parameter:
+
+```json
+GET testindex1/_search
+{
+  "query" : {
+    "has_child": {
+      "type":"product",
+      "query": {
+        "match" : {
+            "name": "watch"
+        }
+      },
+      "inner_hits": {}
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response contains child documents in the `inner_hits` field:
+
+```json
+{
+  "took": 52,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 2,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "testindex1",
+        "_id": "1",
+        "_score": 1,
+        "_source": {
+          "name": "Luxury brand",
+          "product_to_brand": "brand"
+        },
+        "inner_hits": {
+          "product": {
+            "hits": {
+              "total": {
+                "value": 1,
+                "relation": "eq"
+              },
+              "max_score": 0.53899646,
+              "hits": [
+                {
+                  "_index": "testindex1",
+                  "_id": "3",
+                  "_score": 0.53899646,
+                  "_routing": "1",
+                  "_source": {
+                    "name": "Mechanical watch",
+                    "sales_count": 150,
+                    "product_to_brand": {
+                      "name": "product",
+                      "parent": "1"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "_index": "testindex1",
+        "_id": "2",
+        "_score": 1,
+        "_source": {
+          "name": "Economy brand",
+          "product_to_brand": "brand"
+        },
+        "inner_hits": {
+          "product": {
+            "hits": {
+              "total": {
+                "value": 2,
+                "relation": "eq"
+              },
+              "max_score": 0.53899646,
+              "hits": [
+                {
+                  "_index": "testindex1",
+                  "_id": "4",
+                  "_score": 0.53899646,
+                  "_routing": "2",
+                  "_source": {
+                    "name": "Electronic watch",
+                    "sales_count": 300,
+                    "product_to_brand": {
+                      "name": "product",
+                      "parent": "2"
+                    }
+                  }
+                },
+                {
+                  "_index": "testindex1",
+                  "_id": "5",
+                  "_score": 0.53899646,
+                  "_routing": "2",
+                  "_source": {
+                    "name": "Digital watch",
+                    "sales_count": 100,
+                    "product_to_brand": {
+                      "name": "product",
+                      "parent": "2"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}
+```
+
+For more information about retrieving inner hits, see [Inner hits]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/inner-hits/).
+
 ## Parameters
 
 The following table lists all top-level parameters supported by `has_child` queries.
@@ -188,6 +322,7 @@ The following table lists all top-level parameters supported by `has_child` quer
 | `max_children` | Optional | The maximum number of matching child documents for a parent document. If exceeded, the parent document is excluded from the search results. |
 | `min_children` | Optional | The minimum number of matching child documents required for a parent document to be included in the results. If not met, the parent is excluded. Default is `1`.|
 | `score_mode` | Optional | Defines how scores of matching child documents influence the parent document's score. Valid values are: <br> - `none`: Ignores the relevance scores of child documents and assigns a score of `0` to the parent document. <br> - `avg`: Uses the average relevance score of all matching child documents. <br> - `max`: Assigns the highest relevance score from the matching child documents to the parent. <br> - `min`: Assigns the lowest relevance score from the matching child documents to the parent. <br> - `sum`: Sums the relevance scores of all matching child documents. <br> Default is `none`. |
+| `inner_hits` | Optional | If provided, returns the underlying hits (child documents) that matched the query. |
 
 
 ## Sorting limitations
@@ -257,3 +392,7 @@ The response contains the brands sorted by the highest child `sales_count`:
   }
 }
 ```
+
+## Next steps
+
+- Learn more about [retrieving inner hits]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/inner-hits/).
