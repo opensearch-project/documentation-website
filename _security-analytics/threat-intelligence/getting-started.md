@@ -65,7 +65,7 @@ If you're using the AWS OpenSearch Service, create a new ARN role with a custom 
 
 When creating the role, customize the following settings:
 
-1. Add the following custom trust policy:
+- Add the following custom trust policy:
 
       ```bash
       { 
@@ -84,7 +84,7 @@ When creating the role, customize the following settings:
       }
       ```
       
-3. On the Permissions policies page, add the `AmazonS3ReadOnlyAccess` permission. Then, select **Next**.
+- On the Permissions policies page, add the `AmazonS3ReadOnlyAccess` permission. 
 4. Add a name and a description for the new role, then select **Create role**.
    
 
