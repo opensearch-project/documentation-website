@@ -35,7 +35,7 @@ PUT /example_index
 
 For this example, first configure an index that contains documents representing products and their brands as described in the [`has_child` query example]({{site.url}}{{site.baseurl}}/query-dsl/joining/has-child/). 
 
-To search for the child of a parent, use a `has_parent` query. The following query returns child documents (products) that the brand matching the query `economy` makes:
+To search for the child of a parent, use a `has_parent` query. The following query returns child documents (products) made by the brand matching the query `economy`:
 
 ```json
 GET testindex1/_search
@@ -235,7 +235,7 @@ The following table lists all top-level parameters supported by `has_parent` que
 | `parent_type` | Required | Specifies the name of the parent relationship as defined in the `join` field mapping. |
 | `query` | Required | The query to run on parent documents. If a parent document matches the query, the child document is returned. |
 | `ignore_unmapped` | Optional | Indicates whether to ignore unmapped `parent_type` fields and not return documents instead of throwing an error. You can provide this parameter when querying multiple indexes, some of which may not contain the `parent_type` field. Default is `false`. |
-| `score` | Optional | Indicates whether the relevance score of a matching parent document is aggregated into its child documents. If `false`, the relevance score of the parent document is ignored, and each child document is assigned a relevance score equal to the query's `boost`, which defaults to `1`. If `true`, the relevance score of the matching parent document is aggregated into the relevance scores of its child documents. Default is `false`. |
+| `score` | Optional | Indicates whether the relevance score of a matching parent document is aggregated into its child documents. If `false`, then the relevance score of the parent document is ignored, and each child document is assigned a relevance score equal to the query's `boost`, which defaults to `1`. If `true`, then the relevance score of the matching parent document is aggregated into the relevance scores of its child documents. Default is `false`. |
 | `inner_hits` | Optional | If provided, returns the underlying hits (parent documents) that matched the query. |
 
 
@@ -243,7 +243,7 @@ The following table lists all top-level parameters supported by `has_parent` que
 
 The `has_parent` query does not support [sorting results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/sort/) using standard sorting options. If you need to sort child documents by fields in their parent documents, you can use a [`function_score` query]({{site.url}}{{site.baseurl}}/query-dsl/compound/function-score/) and sort by the child document's score. 
 
-For the preceding example, first add a `customer_satisfaction` field by which you'll be sorting the child documents to the parent (brand) documents:
+For the preceding example, first add a `customer_satisfaction` field by which you'll sort the child documents belonging to the parent (brand) documents:
 
 ```json
 PUT testindex1/_doc/1
@@ -287,7 +287,7 @@ GET testindex1/_search
 ```
 {% include copy-curl.html %}
 
-The response contains the products sorted by the highest parent `customer_satisfaction`:
+The response contains the products, sorted by the highest parent `customer_satisfaction`:
 
 ```json
 {
@@ -355,4 +355,4 @@ The response contains the products sorted by the highest parent `customer_satisf
 
 ## Next steps
 
-- Learn more about [retrieving inner hits]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/inner-hits/)
+- Learn more about [retrieving inner hits]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/inner-hits/).

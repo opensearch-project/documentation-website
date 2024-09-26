@@ -330,5 +330,5 @@ PUT testindex1
 
 ## Next steps
 
-- Learn about [joining queries]({{site.url}}{{site.baseurl}}/query-dsl/joining/) on join fields
-- Learn more about [retrieving inner hits]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/inner-hits/)
+- Learn about [joining queries]({{site.url}}{{site.baseurl}}/query-dsl/joining/) on join fields.
+- Learn more about [retrieving inner hits]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/inner-hits/).

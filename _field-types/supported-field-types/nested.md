@@ -317,5 +317,5 @@ Parameter | Description
 
 ## Next steps
 
-- Learn about [joining queries]({{site.url}}{{site.baseurl}}/query-dsl/joining/) on nested fields
-- Learn about [retrieving inner hits]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/inner-hits/)
+- Learn about [joining queries]({{site.url}}{{site.baseurl}}/query-dsl/joining/) on nested fields.
+- Learn about [retrieving inner hits]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/inner-hits/).

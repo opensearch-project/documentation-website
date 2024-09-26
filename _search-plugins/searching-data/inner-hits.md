@@ -810,4 +810,4 @@ The following is the expected result:
 
 ## Next steps
 
-- Learn about [joining queries]({{site.url}}{{site.baseurl}}/query-dsl/joining/) on [nested]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/nested/) or [join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) fields
+- Learn about [joining queries]({{site.url}}{{site.baseurl}}/query-dsl/joining/) on [nested]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/nested/) or [join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) fields.

@@ -395,4 +395,4 @@ The response contains the brands sorted by the highest child `sales_count`:
 
 ## Next steps
 
-- Learn more about [retrieving inner hits]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/inner-hits/)
+- Learn more about [retrieving inner hits]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/inner-hits/).
