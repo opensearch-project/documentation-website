@@ -327,3 +327,8 @@ PUT testindex1
 - Multiple parents are not supported. 
 - You can add a child document to an existing document only if the existing document is already marked as a parent.
 - You can add a new relation to an existing join field.
+
+## Next steps
+
+- Learn about [joining queries]({{site.url}}{{site.baseurl}}/query-dsl/joining/) on join fields.
+- Learn more about [retrieving inner hits]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/inner-hits/).
