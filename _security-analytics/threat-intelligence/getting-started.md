@@ -65,7 +65,7 @@ If you're using the AWS OpenSearch Service, create a new ARN role with a custom 
 
 When creating the role, customize the following settings:
 
-1. Create a new role with a custom trust policy. The following example trust policy adds OpenSearch as a trusted entity:
+1. Add the following custom trust policy:
 
       ```bash
       { 
