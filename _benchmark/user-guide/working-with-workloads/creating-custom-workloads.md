@@ -3,8 +3,6 @@ layout: default
 title: Creating custom workloads
 nav_order: 10
 parent: User guide
-grand_parent: User guide
-parent: Working with workloads
 redirect_from: 
   - /benchmark/user-guide/creating-custom-workloads/
   - /benchmark/creating-custom-workloads/
@@ -265,7 +263,7 @@ opensearch-benchmark list workloads --workload-path=</path/to/workload/>
 Use the `opensearch-benchmark execute-test` command to invoke your new workload and run a benchmark test against your OpenSearch cluster, as shown in the following example. Replace `--workload-path` with the path to your custom workload, `--target-host` with the `host:port` pairs for your cluster, and `--client-options` with any authorization options required to access the cluster.
 
 ```
-opensearch-benchmark execute_test \
+opensearch-benchmark execute-test \
 --pipeline="benchmark-only" \
 --workload-path="<PATH OUTPUTTED IN THE OUTPUT OF THE CREATE-WORKLOAD COMMAND>" \
 --target-host="<CLUSTER ENDPOINT>" \
@@ -291,7 +289,7 @@ head -n 1000 <index>-documents.json > <index>-documents-1k.json
 Then, run `opensearch-benchmark execute-test` with the option `--test-mode`. Test mode runs a quick version of the workload test.
 
 ```
-opensearch-benchmark execute_test \
+opensearch-benchmark execute-test \
 --pipeline="benchmark-only"  \
 --workload-path="<PATH OUTPUTTED IN THE OUTPUT OF THE CREATE-WORKLOAD COMMAND>" \
 --target-host="<CLUSTER ENDPOINT>" \
