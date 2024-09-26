@@ -50,7 +50,7 @@ Local files uploaded as the threat intelligence source must use the following sp
 
 When using the `S3_SOURCE` as a remote store, the following connection information must be provided:
 
-- **IAM Role ARN**: The Amazon Resource Name (ARN) for an AWS Identity and Access Management (IAM) role. When using the AWS OpenSearch Service, the role ARN needs to be in the same account as the OpenSearch domain. For more information about adding a new role for the AWS OpenSearch Service, see [Add service ARN](#add-service-arn).
+- **IAM Role ARN**: The Amazon Resource Name (ARN) for an AWS Identity and Access Management (IAM) role. When using the AWS OpenSearch Service, the role ARN needs to be in the same account as the OpenSearch domain. For more information about adding a new role for the AWS OpenSearch Service, see [Add service ARN](#add-aws-opensearch-service-arn).
 - **S3 bucket directory**: The name of the Amazon Simple Storage Service (Amazon S3) bucket in which the `STIX2` file is stored. To access an S3 bucket in a different AWS account, see the [Cross-account S3 bucket connection](#cross-account-s3-bucket-connection) section for more details.
 - **Specify a file**: The object key for the `STIX2` file in the S3 bucket.
 - **Region**: The AWS Region for the S3 bucket.
@@ -59,7 +59,7 @@ You can also set the **Download schedule**, which determines to where OpenSearch
 
 Alternatively, you can check the **Download on demand** option, which prevents new data from the bucket from being automatically downloaded.
 
-#### Add service ARN
+#### Add AWS OpenSearch Service ARN
 
 When using the AWS OpenSearch Service, using the following steps to add a new ARN role:
 
