@@ -50,9 +50,22 @@ Local files uploaded as the threat intelligence source must use the following sp
 
 When using the `S3_SOURCE` as a remote store, the following connection information must be provided:
 
-- **IAM Role ARN**: The Amazon Resource Name (ARN) for an AWS Identity and Access Management (IAM) role. Note that, when using AWS OpenSearch Service, this role ARN needs to be in the same account as the OpenSearch domain. E.g.,
-  1. Create a new role with a custom trust policy. The following example trust policy adds OpenSearch as a trusted entity.
-      ```azure
+- **IAM Role ARN**: The Amazon Resource Name (ARN) for an AWS Identity and Access Management (IAM) role. When using the AWS OpenSearch Service, the role ARN needs to be in the same account as the OpenSearch domain. For more information on adding a new role for AWS OpenSearch Service, see [Add service ARN](#add-service-arn).
+- **S3 bucket directory**: The name of the Amazon Simple Storage Service (Amazon S3) bucket in which the `STIX2` file is stored. To access an S3 bucket in a different AWS account, see the [Cross-account S3 bucket connection](#cross-account-s3-bucket-connection) section for more details.
+- **Specify a file**: The object key for the `STIX2` file in the S3 bucket.
+- **Region**: The AWS Region for the S3 bucket.
+
+You can also set the **Download schedule**, which determines to where OpenSearch downloads an updated `STIX2` file from the connected S3 bucket. The default interval is once a day. Only daily intervals are supported. 
+
+Alternatively, you can check the **Download on demand** option, which prevents new data from the bucket from being automatically downloaded.
+
+#### Add service ARN
+
+When using the AWS OpenSearch Service, using the following steps to add a new ARN role:
+
+1. Create a new role with a custom trust policy. The following example trust policy adds OpenSearch as a trusted entity:
+
+      ```bash
       { 
          "Version": "2012-10-17",
           "Statement": [
@@ -68,21 +81,19 @@ When using the `S3_SOURCE` as a remote store, the following connection informati
           ]
       }
       ```
-  2. Click the Next button to progress to the Permissions policies page, and add the `AmazonS3ReadOnlyAccess` permission.
-  3. Finish creation of the new role on the following page by providing a name, and description.
-- **S3 bucket directory**: The name of the Amazon Simple Storage Service (Amazon S3) bucket in which the `STIX2` file is stored. To access an S3 bucket in a different AWS account, see the [Configuring cross-account S3 bucket connection](#configuring-cross-account-s3-bucket-connection) section for more details.
-- **Specify a file**: The object key for the `STIX2` file in the S3 bucket.
-- **Region**: The AWS Region for the S3 bucket.
+      
+2. Select **Next**.
+3. On the Permissions policies page, add the `AmazonS3ReadOnlyAccess` permission. Then, select **Next**.
+4. Add a name and a description for the new role, then select **Create role**.
+   
 
-You can also set the **Download schedule**, which determines to where OpenSearch downloads an updated `STIX2` file from the connected S3 bucket. The default interval is once a day. Only daily intervals are supported. 
+#### Cross-account S3 bucket connection
 
-Alternatively, you can check the **Download on demand** option, which prevents new data from the bucket from being automatically downloaded.
+Because the role ARN needs to be in the same account as the OpenSearch domain, a trust policy needs to be configured that allowsthe OpenSearch domain to download from S3 buckets from the same account.
 
-### Configuring cross-account S3 bucket connection
-As mentioned in the [S3_SOURCE connection information](#s3_source-connection-information) section, the role ARN needs to be in the same account as the OpenSearch domain. The example trust policy in that step will allow the OpenSearch domain to download from S3 buckets within that same account.
+To download from an S3 bucket in another account, the trust policy for that bucket needs to give the role ARN permission to read from the object, as shown in the following example:
 
-To download from an S3 bucket in another account, note that the trust policy for that bucket needs to give your role ARN permission to read from the object. E.g.,
-```azure
+```
 {
     "Version": "2012-10-17",
     "Statement": [
