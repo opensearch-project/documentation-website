@@ -100,7 +100,7 @@ Follow these steps to set up your local copy of the repository:
    bundle install
    ```
 
-##### Building with containerization
+##### Building using containerization
 
 1. Assuming you have `docker-compose` installed, execute
 
