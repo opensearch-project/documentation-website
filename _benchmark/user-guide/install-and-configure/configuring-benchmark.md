@@ -5,6 +5,7 @@ nav_order: 7
 parent: User guide
 redirect_from:
   - /benchmark/configuring-benchmark/
+  - /benchmark/user-guide/configuring-benchmark/
 ---
 
 # Configuring OpenSearch Benchmark
