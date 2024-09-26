@@ -61,7 +61,9 @@ Alternatively, you can check the **Download on demand** option, which prevents n
 
 #### Add AWS OpenSearch Service ARN
 
-When using the AWS OpenSearch Service, using the following steps to add a new ARN role:
+If you're using the AWS OpenSearch Service, create a new ARN role with a custom trust policy. For instructions on how to create the role, see [Creating a role for an AWS service](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html#roles-creatingrole-service-console).
+
+When creating the role, customize the following settings:
 
 1. Create a new role with a custom trust policy. The following example trust policy adds OpenSearch as a trusted entity:
 
