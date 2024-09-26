@@ -51,7 +51,7 @@ Starting with k-NN plugin version 2.16, you can use `binary` vectors with the `f
 
 ## SIMD optimization for the Faiss engine
 
-Starting with version 2.13, the k-NN plugin supports [Single Instruction Multiple Data (SIMD)](https://en.wikipedia.org/wiki/Single_instruction,_multiple_data) processing if the underlying hardware supports SIMD instructions (AVX2 on x64 architecture and Neon on ARM64 architecture). SIMD is supported by default on Linux machines only for the Faiss engine. SIMD architecture helps boost overall performance by improving indexing throughput and reducing search latency. Starting with version 2.18, the k-NN plugin supports AVX512 on x64 architecture. 
+Starting with version 2.13, the k-NN plugin supports [Single Instruction Multiple Data (SIMD)](https://en.wikipedia.org/wiki/Single_instruction,_multiple_data) processing if the underlying hardware supports SIMD instructions (AVX2 on x64 architecture and Neon on ARM64 architecture). SIMD is supported by default on Linux machines only for the Faiss engine. SIMD architecture helps boost overall performance by improving indexing throughput and reducing search latency. Starting with version 2.18, the k-NN plugin supports AVX512 SIMD instructions on x64 architecture. 
 
 SIMD optimization is applicable only if the vector dimension is a multiple of 8.
 {: .note}
@@ -60,17 +60,20 @@ SIMD optimization is applicable only if the vector dimension is a multiple of 8.
 ### x64 architecture
 <!-- vale on -->
 
-For the x64 architecture, three different versions of the Faiss library are built and shipped with the artifact:
+For the x64 architecture, the following versions of the Faiss library are built and shipped with the artifact:
 
 - `libopensearchknn_faiss.so`: The non-optimized Faiss library without SIMD instructions. 
 - `libopensearchknn_faiss_avx512.so`: The Faiss library that contains AVX512 SIMD instructions. 
 - `libopensearchknn_faiss_avx2.so`: The Faiss library that contains AVX2 SIMD instructions.
 
-The Faiss library order of performance is AVX512, AVX2, generic.
+When using the Faiss library, the performance ranking is: AVX512 > AVX2 > no optimization.
+{: .note }
+
 If your hardware supports AVX512, the k-NN plugin loads the `libopensearchknn_faiss_avx512.so` library at runtime.
+
 If your hardware supports AVX2 but doesn't support AVX512, the k-NN plugin loads the `libopensearchknn_faiss_avx2.so` library at runtime.
 
-To disable AVX512 and AVX2 and load the non-optimized Faiss library (`libopensearchknn_faiss.so`), specify the `knn.faiss.avx512.disabled` and `knn.faiss.avx2.disabled` static settings as `true` in `opensearch.yml` (defaults are `false`).
+To disable the AVX512 and AVX2 SIMD instructions and load the non-optimized Faiss library (`libopensearchknn_faiss.so`), specify the `knn.faiss.avx512.disabled` and `knn.faiss.avx2.disabled` static settings as `true` in `opensearch.yml` (by default, both of these are `false`).
 
 Note that to update a static setting, you must stop the cluster, change the setting, and restart the cluster. For more information, see [Static settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#static-settings).
 
