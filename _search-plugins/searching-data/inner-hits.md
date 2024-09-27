@@ -139,8 +139,8 @@ The preceding query searches for nested user objects containing the name John an
   }
 }
 ```
-## Inner hits with parent-child objects
-Parent-join relationships allow you to create relationships between documents of different types within the same index. The following example request searches with `inner_hits` using parent-child objects.
+## Inner hits with parent/child objects
+Parent-join relationships allow you to create relationships between documents of different types within the same index. The following example request searches with `inner_hits` using parent/child objects.
 
 1. Create an index with a parent-join field:
 
