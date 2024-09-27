@@ -60,13 +60,13 @@ SIMD optimization is applicable only if the vector dimension is a multiple of 8.
 ### x64 architecture
 <!-- vale on -->
 
-For the x64 architecture, the following versions of the Faiss library are built and shipped with the artifact:
+For x64 architecture, the following versions of the Faiss library are built and shipped with the artifact:
 
 - `libopensearchknn_faiss.so`: The non-optimized Faiss library without SIMD instructions. 
-- `libopensearchknn_faiss_avx512.so`: The Faiss library that contains AVX512 SIMD instructions. 
-- `libopensearchknn_faiss_avx2.so`: The Faiss library that contains AVX2 SIMD instructions.
+- `libopensearchknn_faiss_avx512.so`: The Faiss library containing AVX512 SIMD instructions. 
+- `libopensearchknn_faiss_avx2.so`: The Faiss library containing AVX2 SIMD instructions.
 
-When using the Faiss library, the performance ranking is: AVX512 > AVX2 > no optimization.
+When using the Faiss library, the performance ranking is as follows: AVX512 > AVX2 > no optimization.
 {: .note }
 
 If your hardware supports AVX512, the k-NN plugin loads the `libopensearchknn_faiss_avx512.so` library at runtime.
