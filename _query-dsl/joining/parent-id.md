@@ -32,7 +32,7 @@ PUT /example_index
 
 For this example, first configure an index that contains documents representing products and their brands as described in the [`has_child` query example]({{site.url}}{{site.baseurl}}/query-dsl/joining/has-child/). 
 
-To search for children documents of a specific parent document, use a `parent_id` query. The following query returns child documents (products) whose parent document has the ID `1`:
+To search for child documents of a specific parent document, use a `parent_id` query. The following query returns child documents (products) whose parent document has the ID `1`:
 
 ```json
 GET testindex1/_search
