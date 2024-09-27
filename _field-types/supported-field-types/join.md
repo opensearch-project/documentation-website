@@ -18,7 +18,7 @@ A join field type establishes a parent/child relationship between documents in t
 
 ## Example
 
-Create a mapping to establish a parent-child relationship between products and their brands:
+Create a mapping to establish a parent/child relationship between products and their brands:
 
 ```json
 PUT testindex1
