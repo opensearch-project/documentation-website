@@ -33,7 +33,7 @@ Configuration options include:
   - `whitespace`: Space or newline characters
   - `custom`: Allows you to specify custom characters through the custom_token_chars setting.
 
-### Limitations of the max_gram parameter
+### `max_gram` parameter limitations
 The `max_gram` value defines the upper limit for token length. If a search query is longer than the maximum token length, the query may fail to match any indexed terms. For example, if `max_gram` is set to `4`, a search for `"`searching` will not match `sear`
 
 A possible solution is to use a `truncate` token filter to limit search terms to the `max_gram` length, though this could yield imprecise results. For instance, truncating `"`searching`"` to `sear` might match terms like `search` or `seared`, which may not be relevant.
@@ -56,9 +56,7 @@ PUT edge_n_gram_index
           "min_gram": 3,
           "max_gram": 6,
           "token_chars": [
-            "letter",
-            "symbol"
-          ]
+            "letter"          ]
         }
       }
     }
@@ -70,17 +68,82 @@ Analysing some sample text with our index
 POST edge_n_gram_index/_analyze
 {
   "analyzer": "my_custom_analyzer",
-  "text": "Code#42 rocks!"
+  "text": "Code 42 rocks!"
 }
 ```
 Outputted tokens would be
 ```
-[Cod, Code, Code#, roc, rock, rocks]
+[Cod, Code, roc, rock, rocks]
 ```
 
-
 ## Best practices
-It is recommended to use the edge n-gram tokenizer only at indexing time to ensure partial word tokens are stored. At search time, a simpler analyzer should be used to match full user queries.
+It is recommended to use the `edge n-gram` tokenizer only at indexing time to ensure partial word tokens are stored. At search time, a simpler analyzer should be used to match full user queries.
+
+## Search-as-you-type configuration
+To implement search-as-you-type functionality, it's typical to use the `edge n-gram` tokenizer only during indexing and a simpler analyzer at search time. The following configuration demonstrates this:
+```
+PUT my_autocomplete_index
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "autocomplete_index": {
+          "tokenizer": "autocomplete_edge_ngram",
+          "filter": [
+            "lowercase"
+          ]
+        },
+        "autocomplete_search": {
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase"
+          ]
+        }
+      },
+      "tokenizer": {
+        "autocomplete_edge_ngram": {
+          "type": "edge_ngram",
+          "min_gram": 2,
+          "max_gram": 8,
+          "token_chars": [
+            "letter",
+            "digit"
+          ]
+        }
+      }
+    }
+  }
+}
+
+```
+Index a document with the field `product_name` and refresh the index:
+```
+PUT my_custom_index/_doc/1
+{
+  "product": "Laptop Pro"
+}
+
+POST my_custom_index/_refresh
+
+```
+Then, perform a search with the query `Lap`":`
+```
+GET my_custom_index/_search
+{
+  "query": {
+    "match": {
+      "product": {
+        "query": "Laptop",
+        "operator": "and"
+      }
+    }
+  }
+}
+```
+
+Like this, partial matches can be found with an edge n-gram tokenizer, ensuring terms like "Laptop" and "Pro" are indexed correctly for search queries.
+
+
 
 
 
