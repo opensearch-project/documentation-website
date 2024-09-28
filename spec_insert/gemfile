@@ -1,0 +1,19 @@
+# SPDX-License-Identifier: Apache-2.0
+#
+# The OpenSearch Contributors require contributions made to
+# this file be licensed under the Apache-2.0 license or a
+# compatible open source license.
+
+# frozen_string_literal: true
+
+source 'https://rubygems.org'
+
+gem 'rake', '~> 13'
+gem 'activesupport', '~> 7'
+gem 'mustache', '~> 1'
+
+group :development, :test do
+  gem 'rspec'
+  gem 'rubocop', '~> 1.44', require: false
+  gem 'rubocop-rake', require: false
+end
