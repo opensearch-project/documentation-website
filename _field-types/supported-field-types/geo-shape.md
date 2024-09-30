@@ -11,6 +11,8 @@ redirect_from:
 ---
 
 # Geoshape field type
+**Introduced 1.0**
+{: .label .label-purple }
 
 A geoshape field type contains a geographic shape, such as a polygon or a collection of geographic points. To index a geoshape, OpenSearch tesselates the shape into a triangular mesh and stores each triangle in a BKD tree. This provides a 10<sup>-7</sup>decimal degree of precision, which represents near-perfect spatial resolution. Performance of this process is mostly impacted by the number of vertices in a polygon you are indexing.
 
@@ -68,7 +70,7 @@ PUT testindex/_doc/1
 {
   "location" : {
     "type" : "point",
-    "coordinates" : [74.00, 40.71]
+    "coordinates" : [74.0060, 40.7128]
   }
 }
 ```
@@ -126,10 +128,12 @@ PUT testindex/_doc/3
   "location" : {
     "type" : "polygon",
     "coordinates" : [
-      [[74.0060, 40.7128], 
-      [71.0589, 42.3601], 
-      [73.7562, 42.6526], 
-      [74.0060, 40.7128]]
+      [
+        [74.0060, 40.7128], 
+        [73.7562, 42.6526], 
+        [71.0589, 42.3601], 
+        [74.0060, 40.7128]
+      ]
     ]
   }
 }
@@ -159,15 +163,18 @@ PUT testindex/_doc/4
   "location" : {
     "type" : "polygon",
     "coordinates" : [
-      [[74.0060, 40.7128], 
-      [71.0589, 42.3601], 
-      [73.7562, 42.6526], 
-      [74.0060, 40.7128]],
-      
-      [[72.6734,41.7658], 
-      [72.6506, 41.5623], 
-      [73.0515, 41.5582], 
-      [72.6734, 41.7658]]
+      [
+        [74.0060, 40.7128], 
+        [73.7562, 42.6526], 
+        [71.0589, 42.3601], 
+        [74.0060, 40.7128]
+      ],
+      [
+        [72.6734,41.7658], 
+        [73.0515, 41.5582], 
+        [72.6506, 41.5623],
+        [72.6734, 41.7658]
+      ]
     ]
   }
 }
@@ -179,12 +186,12 @@ Index a polygon (triangle) with a triangular hole in WKT format:
 ```json
 PUT testindex/_doc/4
 {
-  "location" : "POLYGON ((40.7128 74.0060, 42.3601 71.0589, 42.6526 73.7562, 40.7128 74.0060), (41.7658 72.6734, 41.5623 72.6506, 41.5582 73.0515, 41.7658 72.6734))"
+  "location" : "POLYGON ((74.0060 40.7128, 71.0589 42.3601, 73.7562 42.6526, 74.0060 40.7128), (72.6734 41.7658, 72.6506 41.5623, 73.0515 41.5582, 72.6734 41.7658))"
 }
 ```
 {% include copy-curl.html %}
 
-In OpenSearch, you can specify a polygon by listing its vertices clockwise or counterclockwise. This works well for polygons that do not cross the date line (are narrower than 180&deg;). However, a polygon that crosses the date line (is wider than 180&deg;) might be ambiguous because  WKT does not impose a specific order on vertices. Thus, you must specify polygons that cross the date line by listing their vertices counterclockwise. 
+You can specify a polygon in OpenSearch by listing its vertices in clockwise or counterclockwise order. This works well for polygons that do not cross the date line (that are narrower than 180&deg;). However, a polygon that crosses the date line (is wider than 180&deg;) might be ambiguous because WKT does not impose a specific order on vertices. Thus, you must specify polygons that cross the date line by listing their vertices in counterclockwise order. 
 
 You can define an [`orientation`](#parameters) parameter to specify the vertex traversal order at mapping time:
 
@@ -295,23 +302,28 @@ PUT testindex/_doc/4
     "type" : "multipolygon",
     "coordinates" : [
     [
-      [[74.0060, 40.7128], 
-      [71.0589, 42.3601], 
-      [73.7562, 42.6526], 
-      [74.0060, 40.7128]],
-      
-      [[72.6734,41.7658], 
-      [72.6506, 41.5623], 
-      [73.0515, 41.5582], 
-      [72.6734, 41.7658]]
+      [
+        [74.0060, 40.7128], 
+        [73.7562, 42.6526], 
+        [71.0589, 42.3601], 
+        [74.0060, 40.7128]
+      ],
+      [
+        [73.0515, 41.5582], 
+        [72.6506, 41.5623], 
+        [72.6734, 41.7658], 
+        [73.0515, 41.5582]
+      ]
     ],
     [
-      [[73.9776, 40.7614], 
-      [73.9554, 40.7827], 
-      [73.9631, 40.7812], 
-      [73.9776, 40.7614]]
+      [
+        [73.9146, 40.8252], 
+        [73.8871, 41.0389], 
+        [73.6853, 40.9747], 
+        [73.9146, 40.8252]
       ]
     ]
+  ]
   }
 }
 ```
@@ -322,7 +334,7 @@ Index a multipolygon in WKT format:
 ```json
 PUT testindex/_doc/4
 {
-  "location" : "MULTIPOLYGON (((40.7128 74.0060, 42.3601 71.0589, 42.6526 73.7562, 40.7128 74.0060), (41.7658 72.6734, 41.5623 72.6506, 41.5582 73.0515, 41.7658 72.6734)), ((73.9776 40.7614, 73.9554 40.7827, 73.9631 40.7812, 73.9776 40.7614)))"
+  "location" : "MULTIPOLYGON (((74.0060 40.7128, 71.0589 42.3601, 73.7562 42.6526, 74.0060 40.7128), (72.6734 41.7658, 72.6506 41.5623, 73.0515 41.5582, 72.6734 41.7658)), ((73.9146 40.8252, 73.6853 40.9747, 73.8871 41.0389, 73.9146 40.8252)))"
 }
 ```
 {% include copy-curl.html %}
@@ -400,5 +412,5 @@ Parameter | Description
 :--- | :--- 
 `coerce` | A Boolean value that specifies whether to automatically close unclosed linear rings. Default is `false`.
 `ignore_malformed` | A Boolean value that specifies to ignore malformed GeoJSON or WKT geoshapes and not to throw an exception. Default is `false` (throw an exception when geoshapes are malformed).
-`ignore_z_value` | Specific to points with three coordinates. If `ignore_z_value` is `true`, the third coordinate is not indexed but is still stored in the _source field. If `ignore_z_value` is `false`, an exception is thrown. Default is `true`.
+`ignore_z_value` | Specific to points with three coordinates. If `ignore_z_value` is `true`, then the third coordinate is not indexed but is still stored in the `_source` field. If `ignore_z_value` is `false`, then an exception is thrown. Default is `true`.
 `orientation` | Specifies the traversal order of the vertices in the geoshape's list of coordinates. `orientation` takes the following values: <br> 1. RIGHT: counterclockwise. Specify RIGHT orientation by using one of the following strings (uppercase or lowercase): `right`, `counterclockwise`, `ccw`. <br> 2. LEFT: clockwise. Specify LEFT orientation by using one of the following strings (uppercase or lowercase): `left`, `clockwise`, `cw`.  This value can be overridden by individual documents.<br> Default is `RIGHT`.

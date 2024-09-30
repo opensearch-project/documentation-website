@@ -37,6 +37,7 @@ Field | Data type |  Description
 `rate_limiter.limit` | Integer | The maximum number of times any user can call the Predict API on the model per `unit` of time. By default, there is no limit on the number of Predict API calls. Once you set a limit, you cannot reset it to no limit. As an alternative, you can specify a high limit value and a small time unit, for example, 1 request per nanosecond.
 `rate_limiter.unit` | String | The unit of time for the rate limiter. Valid values are `DAYS`, `HOURS`, `MICROSECONDS`, `MILLISECONDS`, `MINUTES`, `NANOSECONDS`, and `SECONDS`.
 `guardrails`| Object | The guardrails for the model.
+`interface`| Object | The interface for the model.
 
 #### Example request: Disabling a model
 
@@ -63,12 +64,13 @@ PUT /_plugins/_ml/models/T_S-cY0BKCJ3ot9qr0aP
 ```
 {% include copy-curl.html %}
 
-#### Example request: Updating the guardrails
+#### Example requests: Updating the guardrails
 
 ```json
 PUT /_plugins/_ml/models/MzcIJX8BA7mbufL6DOwl
 {
   "guardrails": {
+    "type": "local_regex",
     "input_guardrail": {
       "stop_words": [
         {
@@ -86,6 +88,24 @@ PUT /_plugins/_ml/models/MzcIJX8BA7mbufL6DOwl
         }
       ],
       "regex": ["updated_regex1", "updated_regex2"]
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+```json
+PUT /_plugins/_ml/models/9uGdCJABjaMXYrp14YRj
+{
+  "guardrails": {
+    "type": "model",
+    "input_guardrail": {
+      "model_id": "V-G1CJABjaMXYrp1QoUC",
+      "response_validation_regex": "^\\s*[Aa]ccept\\s*$"
+    },
+    "output_guardrail": {
+      "model_id": "V-G1CJABjaMXYrp1QoUC",
+      "response_validation_regex": "^\\s*[Aa]ccept\\s*$"
     }
   }
 }

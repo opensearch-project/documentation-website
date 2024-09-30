@@ -18,7 +18,7 @@ To perform the Quickstart steps, you'll need to fulfill the following prerequisi
 
 ## Set up an OpenSearch cluster
 
-If you don't already have an active OpenSearch cluster, you can launch a new OpenSearch cluster to use with OpenSerch Benchmark.
+If you don't already have an active OpenSearch cluster, you can launch a new OpenSearch cluster to use with OpenSearch Benchmark.
 
 - Using **Docker Compose**. For instructions on how to use Docker Compose, see [OpenSearch Quickstart]({{site.url}}{{site.baseurl}}/quickstart/).
 - Using **Tar**. For instructions on how to install OpenSearch with Tar, see [Installing OpenSearch > Tarball]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/tar#step-1-download-and-unpack-opensearch).
@@ -116,7 +116,7 @@ You can now run your first benchmark. The following benchmark uses the [percolat
 
 Benchmarks are run using the [`execute-test`]({{site.url}}{{site.baseurl}}/benchmark/commands/execute-test/) command with the following command flags:
 
-For additional `execute_test` command flags, see the [execute-test]({{site.url}}{{site.baseurl}}/benchmark/commands/execute-test/) reference. Some commonly used options are `--workload-params`, `--exclude-tasks`, and `--include-tasks`.
+For additional `execute-test` command flags, see the [execute-test]({{site.url}}{{site.baseurl}}/benchmark/commands/execute-test/) reference. Some commonly used options are `--workload-params`, `--exclude-tasks`, and `--include-tasks`.
 {: .tip}
 
 * `--pipeline=benchmark-only` : Informs OSB that users wants to provide their own OpenSearch cluster.
@@ -136,7 +136,7 @@ opensearch-benchmark execute-test --pipeline=benchmark-only --workload=percolato
 ```
 {% include copy.html %}
 
-When the `execute_test` command runs, all tasks and operations in the `percolator` workload run sequentially.
+When the `execute-test` command runs, all tasks and operations in the `percolator` workload run sequentially.
 
 ### Validating the test
 

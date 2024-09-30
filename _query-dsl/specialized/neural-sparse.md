@@ -2,7 +2,6 @@
 layout: default
 title: Neural sparse
 parent: Specialized queries
-grand_parent: Query DSL
 nav_order: 55
 ---
 

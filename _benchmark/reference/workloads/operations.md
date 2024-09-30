@@ -10,13 +10,13 @@ nav_order: 100
 # operations
 <!-- vale on -->
 
-The `operations` element contains a list of all available operations for specifying a schedule.
+The `operations` element contains a list of all available operations for specifying a schedule. 
 
 <!-- vale off -->
 ## bulk
 <!-- vale on -->
 
-The `bulk` operation type allows you to run [bulk](/api-reference/document-apis/bulk/) requests as a task. 
+The `bulk` operation type allows you to run [bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) requests as a task. 
 
 ### Usage
 
@@ -82,7 +82,7 @@ If `detailed-results` is `true`, the following metadata is returned:
 ## create-index
 <!-- vale on -->
 
-The `create-index` operation runs the [Create Index API](/api-reference/index-apis/create-index/). It supports the following two modes of index creation:
+The `create-index` operation runs the [Create Index API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/). It supports the following two index creation modes:
 
 - Creating all indexes specified in the workloads `indices` section
 - Creating one specific index defined within the operation itself
@@ -157,7 +157,7 @@ The `create-index` operation returns the following metadata:
 ## delete-index
 <!-- vale on -->
 
-The `delete-index` operation runs the [Delete Index API](api-reference/index-apis/delete-index/). Like with the [`create-index`](#create-index) operation, you can delete all indexes found in the `indices` section of the workload or delete one or more indexes based on the string passed in the `index` setting.
+The `delete-index` operation runs the [Delete Index API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/delete-index/). As with the [`create-index`](#create-index) operation, you can delete all indexes found in the `indices` section of the workload or delete one or more indexes based on the string passed in the `index` setting.
 
 ### Usage
 
@@ -215,7 +215,7 @@ The `delete-index` operation returns the following metadata:
 ## cluster-health
 <!-- vale on -->
 
-The `cluster-health` operation runs the [Cluster Health API](api-reference/cluster-api/cluster-health/), which checks the cluster health status and returns the expected status according to the parameters set for `request-params`. If an unexpected cluster health status is returned, the operation reports a failure. You can use the `--on-error` option in the OpenSearch Benchmark `execute-test` command to control how OpenSearch Benchmark behaves when the health check fails.
+The `cluster-health` operation runs the [Cluster Health API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/), which checks the cluster health status and returns the expected status according to the parameters set for `request-params`. If an unexpected cluster health status is returned, then the operation reports a failure. You can use the `--on-error` option in the OpenSearch Benchmark `execute-test` command to control how OpenSearch Benchmark behaves when the health check fails.
 
 
 ### Usage
@@ -285,7 +285,7 @@ Parameter | Required | Type | Description
 ## search
 <!-- vale on -->
 
-The `search` operation runs the [Search API](/api-reference/search/), which you can use to run queries in OpenSearch Benchmark indexes.
+The `search` operation runs the [Search API]({{site.url}}{{site.baseurl}}/api-reference/search/), which you can use to run queries in OpenSearch Benchmark indexes.
 
 ### Usage
 

@@ -31,3 +31,11 @@ ML Commons supports various algorithms to help train ML models and make predicti
 ## ML Commons API
 
 ML Commons provides its own set of REST APIs. For more information, see [ML Commons API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/index/). 
+
+## ML-powered search
+
+For information about available ML-powered search types, see [ML-powered search]({{site.url}}{{site.baseurl}}/search-plugins/index/#ml-powered-search).
+
+## Tutorials
+
+Using the OpenSearch ML framework, you can build various applications, from implementing conversational search to building your own chatbot. For more information, see [Tutorials]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/index/).

@@ -66,7 +66,25 @@ task_execution_timeout | Time | The explicit task execution timeout. Only useful
 
 The clone index API operation creates a new target index, so you can specify any [index settings]({{site.url}}{{site.baseurl}}/im-plugin/index-settings/) and [aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias/) to apply to the target index.
 
-## Response
+## Example request
+
+```json
+PUT /sample-index1/_clone/cloned-index1
+{
+  "settings": {
+    "index": {
+      "number_of_shards": 2,
+      "number_of_replicas": 1
+    }
+  },
+  "aliases": {
+    "sample-alias1": {}
+  }
+}
+```
+{% include copy-curl.html %}
+
+## Example response
 
 ```json
 {

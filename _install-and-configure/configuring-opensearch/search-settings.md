@@ -35,7 +35,11 @@ OpenSearch supports the following search settings:
 
 - `search.highlight.term_vector_multi_value` (Static, Boolean): Specifies to highlight snippets across values of a multi-valued field. Default is `true`.
 
-- `search.max_aggregation_rewrite_filters` (Dynamic, integer): Determines the maximum number of rewrite filters allowed during aggregation. Set this value to `0` to disable the filter rewrite optimization for aggregations.
+- `search.max_aggregation_rewrite_filters` (Dynamic, integer): Determines the maximum number of rewrite filters allowed during aggregation. Set this value to `0` to disable the filter rewrite optimization for aggregations. This is an experimental feature and may change or be removed in future versions.
+
+- `search.dynamic_pruning.cardinality_aggregation.max_allowed_cardinality` (Dynamic, integer): Determines the threshold for applying dynamic pruning in cardinality aggregation. If a field’s cardinality exceeds this threshold, the aggregation reverts to the default method. This is an experimental feature and may change or be removed in future versions.
+
+- `search.keyword_index_or_doc_values_enabled` (Dynamic, Boolean): Determines whether to use the index or doc values when running `multi_term` queries on `keyword` fields. Default value is `false`.
 
 ## Point in Time settings
 

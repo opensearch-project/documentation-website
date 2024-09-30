@@ -78,11 +78,13 @@ Follow these steps to set up your local copy of the repository:
 
 1. Navigate to your cloned repository.
 
+##### Building using locally installed packages 
+
 1. Install [Ruby](https://www.ruby-lang.org/en/) if you don't already have it. We recommend [RVM](https://rvm.io/), but you can use any method you prefer:
 
    ```
    curl -sSL https://get.rvm.io | bash -s stable
-   rvm install 3.2
+   rvm install 3.2.4
    ruby -v
    ```
 
@@ -98,12 +100,20 @@ Follow these steps to set up your local copy of the repository:
    bundle install
    ```
 
+##### Building using containerization
+
+Assuming you have `docker-compose` installed, run the following command:
+
+   ```
+   docker compose -f docker-compose.dev.yml up
+   ```
+
 #### Troubleshooting
 
-If you encounter an error while trying to build the documentation website, find the error in the following troubleshooting list: 
+Try the following troubleshooting steps if you encounter an error when trying to build the documentation website:  
 
-- When running `rvm install 3.2` if you receive a `Error running '__rvm_make -j10'`, resolve this by running `rvm install 3.2.0 -C --with-openssl-dir=/opt/homebrew/opt/openssl@3.2` instead of `rvm install 3.2`.
-- If receive a `bundle install`: `An error occurred while installing posix-spawn (0.3.15), and Bundler cannot continue.` error when trying to run `bundle install`, resolve this by running `gem install posix-spawn -v 0.3.15 -- --with-cflags=\"-Wno-incompatible-function-pointer-types\"`. Then, run `bundle install`.
+- If you see the `Error running '__rvm_make -j10'` error when running `rvm install 3.2`, you can resolve it by running `rvm install 3.2.0 -C --with-openssl-dir=/opt/homebrew/opt/openssl@3.2` instead of `rvm install 3.2`.
+- If you see the `bundle install`: `An error occurred while installing posix-spawn (0.3.15), and Bundler cannot continue.` error when trying to run `bundle install`, you can resolve it by running `gem install posix-spawn -v 0.3.15 -- --with-cflags=\"-Wno-incompatible-function-pointer-types\"` and then `bundle install`.
  
 
 

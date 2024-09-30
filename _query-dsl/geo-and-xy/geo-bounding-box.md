@@ -2,7 +2,6 @@
 layout: default
 title: Geo-bounding box
 parent: Geographic and xy queries
-grand_parent: Query DSL
 nav_order: 10
 redirect_from:
   - /opensearch/query-dsl/geo-and-xy/geo-bounding-box/
@@ -31,6 +30,7 @@ PUT testindex1
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index three geopoints as objects with latitudes and longitudes:
 
@@ -42,7 +42,10 @@ PUT testindex1/_doc/1
     "lon": 40.71
   }
 }
+```
+{% include copy-curl.html %}
 
+```json
 PUT testindex1/_doc/2
 {
   "point": { 
@@ -50,7 +53,10 @@ PUT testindex1/_doc/2
     "lon": 22.62
   } 
 }
+```
+{% include copy-curl.html %}
 
+```json
 PUT testindex1/_doc/3
 {
   "point": { 
@@ -59,6 +65,7 @@ PUT testindex1/_doc/3
   }
 }
 ```
+{% include copy-curl.html %}
 
 Search for all documents and filter the documents whose points lie within the rectangle defined in the query:
 
@@ -88,6 +95,7 @@ GET testindex1/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 The response contains the matching document:
 
@@ -163,12 +171,13 @@ GET testindex1/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
-## Request fields
+## Parameters
 
-Geo-bounding box queries accept the following fields.
+Geo-bounding box queries accept the following parameters.
 
-Field | Data type | Description
+Parameter | Data type | Description
 :--- | :--- | :--- 
 `_name` | String | The name of the filter. Optional.
 `validation_method` | String | The validation method. Valid values are `IGNORE_MALFORMED` (accept geopoints with invalid coordinates), `COERCE` (try to coerce coordinates to valid values), and `STRICT` (return an error when coordinates are invalid). Default is `STRICT`.
@@ -205,6 +214,7 @@ GET testindex1/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 To specify a bounding box that covers the whole area of a geohash, provide that geohash as both `top_left` and `bottom_right` parameters of the bounding box:
 
@@ -228,3 +238,4 @@ GET testindex1/_search
   }
 }
 ```
+{% include copy-curl.html %}

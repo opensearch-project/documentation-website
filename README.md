@@ -21,7 +21,6 @@ The following resources provide important guidance regarding contributions to th
 
 If you encounter problems or have questions when contributing to the documentation, these people can help:
 
-- [hdhalter](https://github.com/hdhalter)
 - [kolchfa-aws](https://github.com/kolchfa-aws)
 - [Naarcha-AWS](https://github.com/Naarcha-AWS)
 - [vagimeli](https://github.com/vagimeli)
@@ -34,8 +33,7 @@ This project has adopted an [Open Source Code of Conduct](https://opensearch.org
 
 ## Security
 
-If you discover a potential security issue in this project, we ask that you notify AWS/Amazon Security using our [vulnerability reporting page](http://aws.amazon.com/security/vulnerability-reporting/). Do **not** create a public GitHub issue.
-
+If you discover a potential security issue in this project, notify OpenSearch Security directly by emailing security@opensearch.org. To prevent any additional risk caused by the potential issue, do **not** create a public GitHub issue.
 
 ## License
 
