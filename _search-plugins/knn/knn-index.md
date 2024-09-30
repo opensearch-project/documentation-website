@@ -25,9 +25,9 @@ PUT /test-index
       "my_vector1": {
         "type": "knn_vector",
         "dimension": 3,
+        "space_type": "l2",
         "method": {
           "name": "hnsw",
-          "space_type": "l2",
           "engine": "lucene",
           "parameters": {
             "ef_construction": 128,
@@ -41,13 +41,13 @@ PUT /test-index
 ```
 {% include copy-curl.html %}
 
-## Lucene byte vector
+## Byte vectors
 
-Starting with k-NN plugin version 2.9, you can use `byte` vectors with the `lucene` engine to reduce the amount of storage space needed. For more information, see [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector).
+Starting with k-NN plugin version 2.17, you can use `byte` vectors with the `faiss` and `lucene` engines to reduce the amount of required memory and storage space. For more information, see [Byte vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#byte-vectors).
 
-## Binary vector
+## Binary vectors
 
-Starting with k-NN plugin version 2.16, you can use `binary` vectors with the `faiss` engine to reduce the amount of required storage space. For more information, see [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-k-nn-vectors).
+Starting with k-NN plugin version 2.16, you can use `binary` vectors with the `faiss` engine to reduce the amount of required storage space. For more information, see [Binary vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-vectors).
 
 ## SIMD optimization for the Faiss engine
 
@@ -91,7 +91,7 @@ A method definition will always contain the name of the method, the space_type t
 Mapping parameter | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
 `name` | true | n/a | false | The identifier for the nearest neighbor method.
-`space_type` | false | l2 | false | The vector space used to calculate the distance between vectors.
+`space_type` | false | l2 | false | The vector space used to calculate the distance between vectors. Note: This value can also be specified at the top level of the mapping.
 `engine` | false | nmslib | false | The approximate k-NN library to use for indexing and search. The available libraries are faiss, nmslib, and Lucene.
 `parameters` | false | null | false | The parameters used for the nearest neighbor method.
 
@@ -124,7 +124,7 @@ Method name | Requires training | Supported spaces | Description
 For hnsw, "innerproduct" is not available when PQ is used.
 {: .note}
 
-The `hamming` space type is supported for binary vectors in OpenSearch version 2.16 and later. For more information, see [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-k-nn-vectors).
+The `hamming` space type is supported for binary vectors in OpenSearch version 2.16 and later. For more information, see [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-vectors).
 {: .note}
 
 #### HNSW parameters
@@ -176,7 +176,6 @@ An index created in OpenSearch version 2.11 or earlier will still use the old `e
 "method": {
     "name":"hnsw",
     "engine":"lucene",
-    "space_type": "l2",
     "parameters":{
         "m":2048,
         "ef_construction": 245
@@ -194,7 +193,6 @@ The following example method definition specifies the `hnsw` method and a `pq` e
 "method": {
   "name":"hnsw",
   "engine":"faiss",
-  "space_type": "l2",
   "parameters":{
     "encoder":{
       "name":"pq",
@@ -240,7 +238,6 @@ The following example uses the `ivf` method  without specifying an encoder (by d
 "method": {
   "name":"ivf",
   "engine":"faiss",
-  "space_type": "l2",
   "parameters":{
     "nlist": 4,
     "nprobes": 2
@@ -254,7 +251,6 @@ The following example uses the `ivf` method with a `pq` encoder:
 "method": {
   "name":"ivf",
   "engine":"faiss",
-  "space_type": "l2",
   "parameters":{
     "encoder":{
       "name":"pq",
@@ -273,7 +269,6 @@ The following example uses the `hnsw` method without specifying an encoder (by d
 "method": {
   "name":"hnsw",
   "engine":"faiss",
-  "space_type": "l2",
   "parameters":{
     "ef_construction": 256,
     "m": 8
@@ -287,7 +282,6 @@ The following example uses the `hnsw` method with an `sq` encoder of type `fp16`
 "method": {
   "name":"hnsw",
   "engine":"faiss",
-  "space_type": "l2",
   "parameters":{
     "encoder": {
       "name": "sq",
@@ -308,7 +302,6 @@ The following example uses the `ivf` method with an `sq` encoder of type `fp16`:
 "method": {
   "name":"ivf",
   "engine":"faiss",
-  "space_type": "l2",
   "parameters":{
     "encoder": {
       "name": "sq",
@@ -332,7 +325,7 @@ If you want to use less memory and increase indexing speed as compared to HNSW w
 
 If memory is a concern, consider adding a PQ encoder to your HNSW or IVF index. Because PQ is a lossy encoding, query quality will drop.
 
-You can reduce the memory footprint by a factor of 2, with a minimal loss in search quality, by using the [`fp_16` encoder]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization/#faiss-16-bit-scalar-quantization). If your vector dimensions are within the [-128, 127] byte range, we recommend using the [byte quantizer]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/#lucene-byte-vector) to reduce the memory footprint by a factor of 4. To learn more about vector quantization options, see [k-NN vector quantization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization/). 
+You can reduce the memory footprint by a factor of 2, with a minimal loss in search quality, by using the [`fp_16` encoder]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization/#faiss-16-bit-scalar-quantization). If your vector dimensions are within the [-128, 127] byte range, we recommend using the [byte quantizer]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/#byte-vectors) to reduce the memory footprint by a factor of 4. To learn more about vector quantization options, see [k-NN vector quantization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization/). 
 
 ### Memory estimation
 
