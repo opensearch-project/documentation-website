@@ -1,0 +1,108 @@
+---
+layout: default
+title: Snowball
+parent: Token filters
+nav_order: 380
+---
+
+# Snowball token filter
+
+The `snowball` token filter is a stemming filter based on the Snowball algorithm. It comes with support for many languages and offers improvement over the Porter stemming algorithm when it comes to efficiency and accuracy.
+
+## Parameters
+
+The `snowball` token filter can be configured with `language` parameter which can accept the following values:
+
+- Arabic
+- Armenian
+- Basque
+- Catalan
+- Danish
+- Dutch
+- English (Default)
+- Estonian
+- Finnish
+- French
+- German
+- German2 
+- Hungarian
+- Italian
+- Irish
+- Kp
+- Lithuanian
+- Lovins
+- Norwegian
+- Porter
+- Portuguese
+- Romanian
+- Russian
+- Spanish
+- Swedish
+- Turkish
+
+## Example
+
+The following example request creates a new index named `my-snowball-index` and configures an analyzer with `snowball` filter:
+
+```json
+PUT /my-snowball-index
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "my_snowball_filter": {
+          "type": "snowball",
+          "language": "English"
+        }
+      },
+      "analyzer": {
+        "my_snowball_analyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "my_snowball_filter"
+          ]
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+## Generated tokens
+
+Use the following request to examine the tokens generated using the analyzer:
+
+```json
+GET /my-snowball-index/_analyze
+{
+  "analyzer": "my_snowball_analyzer",
+  "text": "running runners"
+}
+```
+{% include copy-curl.html %}
+
+The response contains the generated tokens:
+
+```json
+{
+  "tokens": [
+    {
+      "token": "run",
+      "start_offset": 0,
+      "end_offset": 7,
+      "type": "<ALPHANUM>",
+      "position": 0
+    },
+    {
+      "token": "runner",
+      "start_offset": 8,
+      "end_offset": 15,
+      "type": "<ALPHANUM>",
+      "position": 1
+    }
+  ]
+}
+```
