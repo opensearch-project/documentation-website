@@ -95,4 +95,4 @@ PUT inventory/_doc/1
 ```
 {% include copy-curl.html %}
 
-In this example, the index-level `index.mapping.coerce` setting is set to `false`, which disables coercion globally. However, the `stock_count` field overrides this setting and enables coercion for that specific field.
+In this example, the index-level `index.mapping.coerce` setting is set to `false`, which disables coercion for the index. However, the `stock_count` field overrides this setting and enables coercion for that specific field.
