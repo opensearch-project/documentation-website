@@ -33,8 +33,20 @@ GET /sample-index/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+The accepted units for the minimum_interval parameter are as follows:
 
+- year
+- month
+- day
+- hour
+- minute
+- second
+
+The `auto_date_histogram` aggregation will not try to use an interval shorter than the one specified in the `minimum_interval` parameter.
+
+The following example response shows that the `auto_date_histogram` aggregation has generated a set of date-based buckets for the data in the `sample-index` index. The response shows two buckets, each representing a single day.
+
+#### Example response
 ```json
 ...
   "aggregations": {
