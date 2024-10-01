@@ -8,7 +8,7 @@ nav_order: 3
 
 # kinesis
 
-You can use `kinesis` source in Data Prepper to ingest records from one or more [Amazon Kinesis](https://aws.amazon.com/kinesis/) Data Streams. 
+You can use `kinesis` source in Data Prepper to ingest records from one or more [Amazon Kinesis Data Streams](https://aws.amazon.com/kinesis/data-streams/). 
 
 ## Usage
 
@@ -42,7 +42,7 @@ Option | Required | Type     | Description
 `buffer_timeout` | No       | Duration | The amount of time allowed for writing events to the Data Prepper buffer before timeout occurs. Any events that the source cannot write to the buffer during the specified amount of time are discarded. Default is `1s`.
 `records_to_accumulate` | No       | Integer  | The number of messages that accumulate before being written to the buffer. Default is `100`.
 `consumer_strategy` | No       | String   | Consumer strategy to use for ingesting Kinesis data streams. Default is `fan-out`. However, `polling` can also be used. if `polling` is enabled, additional configuration for `polling` will need to be added.
-`polling` | No       | String   | if `consumer_strategy` is set to `polling`, this config will need to be added. Refer to [polling](#polling).
+`polling` | No       | polling   | Refer to [polling](#polling).
 
 
 ### Streams
@@ -74,7 +74,7 @@ Option | Required | Type    | Description
 Option | Required | Type    | Description
 :--- | :--- |:--------| :---
 `max_polling_records` | No | Integer | The number of records to fetch from Kinesis during a single call to get Kinesis stream records.
-`idle_time_between_reads` | No | Integer  | The time duration to sleep in between calls to get Kinesis stream records. 
+`idle_time_between_reads` | No | Duration  | The time duration to sleep in between calls to get Kinesis stream records. 
 
 ### aws
 
@@ -140,7 +140,7 @@ The following are the minimum required permissions for running `kinesis` as a so
 }
 ```
 
-DynamoDb permissions are needed as `kinesis` source in Data Prepper uses DynamoDb table for ingestion coordination among multiple workers.  
+DynamoDb permissions are required as `kinesis` source in Data Prepper uses DynamoDb table for ingestion coordination among multiple workers.  
 
 ## Metrics
 
