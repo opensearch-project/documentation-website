@@ -1,8 +1,9 @@
 ---
 layout: default
-title: Configuration
+title: Configuring
 nav_order: 7
 grand_parent: User guide
+parent: Install and configure
 redirect_from:
   - /benchmark/configuring-benchmark/
   - /benchmark/user-guide/configuring-benchmark/

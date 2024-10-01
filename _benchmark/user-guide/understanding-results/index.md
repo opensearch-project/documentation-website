@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Understanding results
-nav_order: 15
+nav_order: 20
 parent: User guide
 has_children: true
 ---

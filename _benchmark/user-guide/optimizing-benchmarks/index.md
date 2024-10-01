@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Optimizing benchmarks
-nav_order: 20
+nav_order: 25
 parent: User guide
 has_children: true
 ---

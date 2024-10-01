@@ -1,8 +1,9 @@
 ---
 layout: default
-title: Installation
+title: Installing
 nav_order: 5
 grand_parent: User guide
+parent: Install and configure
 redirect_from:
   - /benchmark/installing-benchmark/
   - /benchmark/user-guide/installing-benchmark/
