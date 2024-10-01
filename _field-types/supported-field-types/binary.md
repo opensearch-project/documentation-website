@@ -10,6 +10,8 @@ redirect_from:
 ---
 
 # Binary field type
+**Introduced 1.0**
+{: .label .label-purple }
 
 A binary field type contains a binary value in [Base64](https://en.wikipedia.org/wiki/Base64) encoding that is not searchable. 
 
@@ -50,5 +52,5 @@ The following table lists the parameters accepted by binary field types. All par
 
 Parameter | Description 
 :--- | :--- 
-`doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Optional. Default is `true`.
+`doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Optional. Default is `false`.
 `store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the _source field. Optional. Default is `false`.
