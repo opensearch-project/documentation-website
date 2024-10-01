@@ -2,7 +2,8 @@
 layout: default
 title: Running distributed loads
 nav_order: 15
-parent: User guide
+parent: Optimizing benchmarks
+grand_parent: User guide
 ---
 
 # Running distributed loads 
