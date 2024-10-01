@@ -8,5 +8,5 @@ has_children: true
 
 After a [running a workload], OpenSearch Benchmark produces a series of metrics. The following pages details:
 
-- [How metrics are reported]({{site.url}}{{site.baseurl}}/benchmark/user-guide/understanding-results/summary-report/)
-- [How to visualize metrics]({{site.url}}{{site.baseurl}}/benchmark/user-guide/understanding-results/telemetry-devices/)
+- [How metrics are reported]({{site.url}}{{site.baseurl}}/benchmark/user-guide/understanding-results/summary-reports/)
+- [How to visualize metrics]({{site.url}}{{site.baseurl}}/benchmark/user-guide/understanding-results/telemetry/)

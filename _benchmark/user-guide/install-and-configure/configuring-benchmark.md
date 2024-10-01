@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Configuring OpenSearch Benchmark
+title: Configuration
 nav_order: 7
-parent: User guide
+grand_parent: User guide
 redirect_from:
   - /benchmark/configuring-benchmark/
   - /benchmark/user-guide/configuring-benchmark/
