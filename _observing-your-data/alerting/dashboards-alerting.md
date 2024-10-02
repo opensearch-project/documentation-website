@@ -16,7 +16,7 @@ OpenSearch Dashboards offers a unified interface to efficiently create, manage, 
 Before working with alerting dashboards and visualizations, ensure that you have:
 
 - Installed OpenSearch and OpenSearch Dashboards version 2.9 or later. See [Installing OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/).
-- Installed the Alerting, Anomaly Detection, and Notifications Dashboards plugins. See [Managing OpenSearch Dashboards plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/).
+- Installed the Alerting, Anomaly Detection, and Notifications Dashboards plugins. These plugins are bundled with all OpenSearch distributions except for minimum distribution packages. See [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) and [Managing OpenSearch Dashboards plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/). 
 
 ## Configuring admin settings
 
