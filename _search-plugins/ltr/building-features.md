@@ -82,7 +82,7 @@ Similar to how you would develop queries like these to manually improve
 search relevance, the ranking function `f` you're training also
 combines these queries mathematically to arrive at a relevance score.
 
-## Features are Mustache Templated OpenSearch Queries
+## Features are Mustache-templated OpenSearch queries
 
 You'll notice the `{% raw %}{{keywords}}{% endraw %}`, `{% raw %}{{users_lat}}{% endraw %}`, and `{% raw %}{{users_lon}}{% endraw %}`
 above. This syntax is the mustache templating system used in other parts of
@@ -93,7 +93,7 @@ Or the location of the searcher's phone?
 
 For now, we'll focus on typical keyword searches.
 
-## Uploading and Naming Features
+## Uploading and naming features
 
 OpenSearch LTR gives you an interface for creating and manipulating
 features. Once created, then you can have access to a set of feature for
