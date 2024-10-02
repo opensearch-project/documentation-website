@@ -46,7 +46,7 @@ The `auto_date_histogram` aggregation will not try to use an interval shorter th
 
 The following example response shows that the `auto_date_histogram` aggregation has generated a set of date-based buckets for the data in the `sample-index` index. The response shows two buckets, each representing a single day.
 
-#### Example response
+#### Response: Automated date bucketing  
 ```json
 ...
   "aggregations": {
