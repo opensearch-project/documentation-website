@@ -13,11 +13,22 @@ The `synonym` token filter allows you to map multiple terms to a single term or 
 
 The `synonym` token filter can be configured with the following parameters:
 
-- `synonyms`: Specifies a list of synonym rules defined directly in the configuration. (String, Either `synonyms` or `synonyms_path` needs to be configured)
-- `synonyms_path`: Specifies the file path to synonym rules, absolute or relative to config directory. (String, Either `synonyms` or `synonyms_path` needs to be configured)
-- `expand`: Expand the input tokens into multiple tokens. Default is `false` (Boolean, _Optional_)
+- `synonyms`: List of synonym rules defined directly in the configuration. (String, Either `synonyms` or `synonyms_path` needs to be configured)
+- `synonyms_path`: File path to synonym rules, absolute or relative to config directory. (String, Either `synonyms` or `synonyms_path` needs to be configured)
 - `lenient`: Ignore the exceptions when loading the rule configurations. Default is `false` (Boolean, _Optional_)
-- `format`: Specifies which format is used to determine how synonyms are defined and interpreted by OpenSearch. Options are: `solr` or `wordnet`. Default is `solr` (String, _Optional_)
+- `format`: Specifies which format is used to determine how synonyms are defined and interpreted by OpenSearch. Options are: `solr` or [`wordnet`](https://wordnet.princeton.edu/). Default is `solr` (String, _Optional_)
+- `expand`: Expand equivalent synonym rules. Default is `false` (Boolean, _Optional_)
+  
+  For example: 
+  If `expand` is set to `true` with synonym defined as `"quick, fast"`, the synonym rules are configured as follows:
+  - quick => quick
+  - quick => fast
+  - fast => quick
+  - fast => fast
+
+  If `expand` is set to `false`, the synonym rules are configured as follows:
+  - quick => quick
+  - fast => quick
 
 ## Example using solr format
 
@@ -167,9 +178,9 @@ The response contains the generated tokens:
 }
 ```
 
-## Example using wordnet format
+## Example using WordNet format
 
-The following example request creates a new index named `my-wordnet-index` and configures an analyzer with `synonym` filter with `wordnet` rules format:
+The following example request creates a new index named `my-wordnet-index` and configures an analyzer with `synonym` filter with [`wordnet`](https://wordnet.princeton.edu/) rules format:
 
 ```json
 PUT /my-wordnet-index
