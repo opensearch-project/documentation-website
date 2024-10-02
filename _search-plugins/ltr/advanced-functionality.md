@@ -82,7 +82,7 @@ The custom script has access to the feature_vector via the java
 [Map](https://docs.oracle.com/javase/8/docs/api/java/util/Map.html)
 interface as explained in [create a feature set]({{site.url}}{{site.baseurl}}/search-plugins/ltr/building-features#create-a-feature-set).
 
-(WARNING script features can cause the performance of your Elasticsearch
+(WARNING script features can cause the performance of your OpenSearch
 cluster to degrade, if possible avoid using these for feature generation
 if you require your queries to be highly performant)
 
