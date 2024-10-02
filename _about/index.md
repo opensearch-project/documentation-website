@@ -22,15 +22,20 @@ This section contains documentation for OpenSearch and OpenSearch Dashboards.
 
 ## Getting started
 
-- [Intro to OpenSearch]({{site.url}}{{site.baseurl}}/intro/)
-- [Quickstart]({{site.url}}{{site.baseurl}}/quickstart/)
+To get started, explore the following documentation:
+
+- [Getting started guide]({{site.url}}{{site.baseurl}}/getting-started/): 
+  - [Intro to OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/intro/)
+  - [Installation quickstart]({{site.url}}{{site.baseurl}}/getting-started/quickstart/)
+  - [Communicate with OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/communicate/)
+  - [Ingest data]({{site.url}}{{site.baseurl}}/getting-started/ingest-data/)
+  - [Search data]({{site.url}}{{site.baseurl}}/getting-started/search-data/)
+  - [Getting started with OpenSearch security]({{site.url}}{{site.baseurl}}/getting-started/security/)
 - [Install OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/)
 - [Install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
-- [See the FAQ](https://opensearch.org/faq)
+- [FAQ](https://opensearch.org/faq)
 
 ## Why use OpenSearch?
-
-With OpenSearch, you can perform the following use cases:
 
 <table style="table-layout: auto ; width: 100%;">
 <tbody>
@@ -41,35 +46,38 @@ With OpenSearch, you can perform the following use cases:
 <td><img src="{{site.url}}{{site.baseurl}}/images/4_tracking.png" class="no-border" alt="Operational health tracking" height="100"/></td>
 </tr>
 <tr style="text-align: left; vertical-align:top; font-weight: bold; color: rgb(0,59,92)">
-<td>Fast, Scalable Full-text Search</td>
-<td>Application and Infrastructure Monitoring</td>
-<td>Security and Event Information Management</td>
-<td>Operational Health Tracking</td>
+<td>Fast, scalable full-text search</td>
+<td>Application and infrastructure monitoring</td>
+<td>Security and event information management</td>
+<td>Operational health tracking</td>
 </tr>
 <tr style="text-align: left; vertical-align:top;">
 <td>Help users find the right information within your application, website, or data lake catalog. </td>
-<td>Easily store and analyze log data, and set automated alerts for underperformance.</td>
+<td>Easily store and analyze log data, and set automated alerts for performance issues.</td>
 <td>Centralize logs to enable real-time security monitoring and forensic analysis.</td>
-<td>Use observability logs, metrics, and traces to monitor your applications and business in real time.</td>
+<td>Use observability logs, metrics, and traces to monitor your applications in real time.</td>
 </tr>
 </tbody>
 </table>
 
-**Additional features and plugins:**
+## Key features
 
-OpenSearch has several features and plugins to help index, secure, monitor, and analyze your data. Most OpenSearch plugins have corresponding OpenSearch Dashboards plugins that provide a convenient, unified user interface.
-- [Anomaly detection]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/) - Identify atypical data and receive automatic notifications
-- [KNN]({{site.url}}{{site.baseurl}}/search-plugins/knn/) - Find “nearest neighbors” in your vector data
-- [Performance Analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/) - Monitor and optimize your cluster
-- [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/index/) - Use SQL or a piped processing language to query your data
-- [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/) - Automate index operations
-- [ML Commons plugin]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/) - Train and execute machine-learning models
-- [Asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/) - Run search requests in the background
-- [Cross-cluster replication]({{site.url}}{{site.baseurl}}/replication-plugin/index/) - Replicate your data across multiple OpenSearch clusters
+OpenSearch provides several features to help index, secure, monitor, and analyze your data:
+
+- [Anomaly detection]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/) -- Identify atypical data and receive automatic notifications.
+- [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/index/) -- Use SQL or a Piped Processing Language (PPL) to query your data.
+- [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/) -- Automate index operations.
+- [Search methods]({{site.url}}{{site.baseurl}}/search-plugins/knn/) -- From traditional lexical search to advanced vector and hybrid search, discover the optimal search method for your use case.
+- [Machine learning]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/) -- Integrate machine learning models into your workloads.
+- [Workflow automation]({{site.url}}{{site.baseurl}}/automating-configurations/index/) -- Automate complex OpenSearch setup and preprocessing tasks.
+- [Performance evaluation]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/) -- Monitor and optimize your cluster.
+- [Asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/) -- Run search requests in the background.
+- [Cross-cluster replication]({{site.url}}{{site.baseurl}}/replication-plugin/index/) -- Replicate your data across multiple OpenSearch clusters.
 
 
 ## The secure path forward
-OpenSearch includes a demo configuration so that you can get up and running quickly, but before using OpenSearch in a production environment, you must [configure the Security plugin manually]({{site.url}}{{site.baseurl}}/security/configuration/index/) with your own certificates, authentication method, users, and passwords.
+
+OpenSearch includes a demo configuration so that you can get up and running quickly, but before using OpenSearch in a production environment, you must [configure the Security plugin manually]({{site.url}}{{site.baseurl}}/security/configuration/index/) with your own certificates, authentication method, users, and passwords. To get started, see [Getting started with OpenSearch security]({{site.url}}{{site.baseurl}}/getting-started/security/).
 
 ## Looking for the Javadoc?
 

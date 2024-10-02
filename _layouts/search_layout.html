@@ -20,55 +20,70 @@ layout: table_wrappers
 
 <div class="main-content-wrap-home">
     <div id="main-content" class="main-content" role="main">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Results Page Head from layout</title>
-        </head>
-        <div class="search-page">
-            <aside class="search-page--sidebar">
-                <h2>Filter results</h2>
-                <div class="version-selector-wrapper" id="version-panel">
-                    <version-selector selected="{{ site.data.versions.current }}"></version-selector>
-                </div>
-                <form class="search-page--sidebar--category-filter">
-                    <div class="search-page--sidebar--category-filter--checkbox">
-                        <div>
-                            <input type="checkbox" id="categoryAll" name="categoryGroup" value="All" class="category-checkbox" checked>
-                            <label for="categoryAll">All</label>
-                        </div>
-                        <div class="search-page--sidebar--category-filter--checkbox-child">
-                            <input type="checkbox" id="categoryDocumentation" name="categoryGroup" value="Documentation" class="category-checkbox">
-                            <label for="categoryDocumentation">Documentation</label>
-                        </div>
-                        <div class="search-page--sidebar--category-filter--checkbox-child">
-                            <input type="checkbox" id="categoryNews" name="categoryGroup" value="News" class="category-checkbox">
-                            <label for="categoryNews">News</label>
-                        </div>
-                    </div>
-                </form>
-            </aside>
-            <div class="search-page--results">
-                <div class="search-page--results--input">
-                    <input type="text" class="search-page--results--input-box" id="searchPageInput" placeholder="Search for anything" aria-label="Search {{ site.title }}" autocomplete="off">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="search-page--results--input-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    </svg>
-                </div>
-                <main class="search-page--results--diplay">
-                    <h1 class="search-page--results--diplay--header" id="searchPageResultsHeader"></h1>
-                    <div class="search-page--results--diplay--container" id="searchPageResultsContainer">
-                    <!-- API results will be displayed here -->
-                    </div>
-                </main>
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Results Page Head from layout</title>
+      </head>
+  
+      <div class="search-page--wrapper">
+        <!-- Search input box at the top -->
+        <div class="search-page--input-container">
+            <div class="search-page--results--wrapper">
+                <input type="text" class="search-page--results--input-box" id="searchPageInput" placeholder="Search for anything" aria-label="Search" autocomplete="off">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="search-page--results--input-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
             </div>
         </div>
-        <a class="top-link" href="#top">
-            <svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg>
-        </a>
+    
+        <div class="search-page">
+            <aside class="search-page--sidebar">
+            <h3>Filter results</h3>
+            <div class="version-selector-wrapper" id="version-panel">
+                <version-selector selected="{{ site.data.versions.current }}"></version-selector>
+            </div>
+            <form class="search-page--sidebar--category-filter">
+                <div class="search-page--sidebar--category-filter--checkbox">
+                <input type="checkbox" id="categoryAll" name="categoryGroup" value="All" class="category-checkbox" checked>
+                <label for="categoryAll">All</label>
+                </div>
+                <div class="search-page--sidebar--category-filter--checkbox-child">
+                <input type="checkbox" id="categoryDocumentation" name="categoryGroup" value="docs" class="category-checkbox" checked>
+                <label for="categoryDocumentation">Documentation</label>
+                </div>
+                <div class="search-page--sidebar--category-filter--checkbox-child">
+                <input type="checkbox" id="categoryBlog" name="categoryGroup" value="blogs" class="category-checkbox" checked>
+                <label for="categoryBlog">Blogs</label>
+                </div>
+                <div class="search-page--sidebar--category-filter--checkbox-child">
+                <input type="checkbox" id="categoryEvent" name="categoryGroup" value="events" class="category-checkbox" checked>
+                <label for="categoryEvent">Events</label>
+                </div>
+            </form>
+            </aside>
+    
+            <!-- Search Results Section -->
+            <div class="search-page--results">
+            <main class="search-page--results--display">
+                <h2 class="search-page--results--display--header" id="searchPageResultsHeader">Search Results</h2>
+                <div class="search-page--results--display--container" id="searchPageResultsContainer">
+                <!-- API results will be displayed here -->
+                </div>
+            </main>
+            </div>
+        </div>
+      </div>
+  
+      <a class="top-link" href="#top">
+        <svg viewBox="0 0 24 24">
+          <use xlink:href="#svg-arrow-right"></use>
+        </svg>
+      </a>
     </div>
-</div>
+  </div>
+  
 
 {% include footer.html %}
 <script src="{{ '/assets/js/search.js' | relative_url }}"></script>
@@ -97,10 +112,7 @@ layout: table_wrappers
 
     function getSelectedCategory() {
         const allCheckbox = document.getElementById('categoryAll');
-        if (allCheckbox.checked) {
-            return "All";
-        }
-        return document.querySelector('input[name="categoryGroup"]:checked');
+        return document.querySelectorAll('input[name="categoryGroup"]:checked');
     }
     
     function triggerSearch(query) {
@@ -108,13 +120,13 @@ layout: table_wrappers
 
       if (query) {
         trucatedQuery = truncateSentence(query, 20);
-        if (getSelectedCategory() == null) {
+        if (getSelectedCategory().length === 0) {
             searchResultsHeader.textContent = 'Select the result type for your search.';
             document.getElementById('searchPageResultsContainer').innerHTML = '';
             return;
         }
-        const selectedCategory = getSelectedCategory().value;
-        const searchType = selectedCategory == ("Documentation") ? "docs" : selectedCategory == ("News") ? "proj" : "all";
+        const selectedCategory = getSelectedCategory();
+        const searchType = Array.from(selectedCategory).map(element => element.value).join(',');
         const urlPath = window.location.pathname;
         const versionMatch = urlPath.match(/(\d+\.\d+)/);
         const docsVersion = versionMatch ? versionMatch[1] : "latest";
@@ -139,11 +151,12 @@ layout: table_wrappers
     document.addEventListener('DOMContentLoaded', function() {
         const categoryAll = document.getElementById('categoryAll');
         const categoryDocumentation = document.getElementById('categoryDocumentation');
-        const categoryNews = document.getElementById('categoryNews');
+        const categoryBlog = document.getElementById('categoryBlog');
+        const categoryEvent = document.getElementById('categoryEvent');
         const searchInput = document.getElementById('searchPageInput');
 
         function updateAllCheckbox() {
-            if (categoryDocumentation.checked && categoryNews.checked) {
+            if (categoryDocumentation.checked && categoryBlog.checked && categoryEvent.checked) {
                 categoryAll.checked = true;
             } else {
                 categoryAll.checked = false;
@@ -153,10 +166,12 @@ layout: table_wrappers
         function updateChildCheckboxes() {
             if (categoryAll.checked) {
                 categoryDocumentation.checked = true;
-                categoryNews.checked = true;
+                categoryBlog.checked = true;
+                categoryEvent.checked = true;
             } else {
                 categoryDocumentation.checked = false;
-                categoryNews.checked = false;
+                categoryBlog.checked = false;
+                categoryEvent.checked = false;
             }
         }
 
@@ -168,7 +183,11 @@ layout: table_wrappers
             updateAllCheckbox(); 
             triggerSearch(searchInput.value.trim());
         });
-        categoryNews.addEventListener('change', () => {
+        categoryBlog.addEventListener('change', () => {
+            updateAllCheckbox(); 
+            triggerSearch(searchInput.value.trim());
+        });
+        categoryEvent.addEventListener('change', () => {
             updateAllCheckbox(); 
             triggerSearch(searchInput.value.trim());
         });

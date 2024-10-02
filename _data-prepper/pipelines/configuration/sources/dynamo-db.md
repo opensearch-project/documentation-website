@@ -3,7 +3,7 @@ layout: default
 title: dynamodb
 parent: Sources
 grand_parent: Pipelines
-nav_order: 3
+nav_order: 20
 ---
 
 # dynamodb
