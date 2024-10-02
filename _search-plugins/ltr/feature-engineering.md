@@ -85,4 +85,4 @@ When working with an index that is regularly updated, it is important to conside
 
 ## Next steps
 
-- Learn about [Logging feature scores]({{site.url}}{{site.baseurl}}/search-plugins/ltr/logging-features/)
+Learn about [Logging feature scores]({{site.url}}{{site.baseurl}}/search-plugins/ltr/logging-features/)

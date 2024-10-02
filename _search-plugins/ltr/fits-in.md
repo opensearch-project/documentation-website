@@ -26,4 +26,4 @@ The plugin does not handle the training or testing of models. This is an offline
 
 ## Next steps
 
-- Learn about [Working with features]({{site.url}}{{site.baseurl}}/search-plugins/ltr/working-with-features/).
+Learn about [Working with features]({{site.url}}{{site.baseurl}}/search-plugins/ltr/working-with-features/).

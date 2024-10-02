@@ -416,4 +416,4 @@ Third, logging is also used during model development. You may have a judgment li
 
 ## Next steps
 
-- Learn more about training models in the [Uploading a trained model]({{site.url}}{{site.baseurl}}/search-plugins/ltr/training-models/) documentation.
+Learn more about training models in the [Uploading a trained model]({{site.url}}{{site.baseurl}}/search-plugins/ltr/training-models/) documentation.
