@@ -1,80 +1,59 @@
 ---
 layout: default
-title: Uploading A Trained Model
+title: Uploading trained models
 nav_order: 60
 parent: LTR search
 has_children: false
 ---
 
-# Uploading a trained model
+# Uploading trained models
 
-Training models occurs outside OpenSearch LTR. You use the plugin to
-log features (as mentioned in [Logging Feature Scores]({{site.url}}{{site.baseurl}}/search-plugins/ltr/logging-features/)). Then with whichever technology you choose, you train a
-ranking model. You upload a model to OpenSearch LTR in the available
-serialization formats (RankLib, XGBoost, and others). Let's first
-talk briefly about training in supported technologies (though not at all
-an extensive overview) and then dig into uploading a model.
+While training models occurs outside of the Learning to Rank plugin, you can use the plugin for [Logging feature scores]({{site.url}}{{site.baseurl}}/search-plugins/ltr/logging-features/). After you have trained a model, you can upload it to the plugin in the available serialization formats, such as RankLib and XGBoost, and others.
 
-## RankLib training
+## RankLib model training
 
-We provide two demos for training a model. A fully-fledged [RankLib
-Demo](http://github.com/opensearch-project/opensearch-learning-to-rank-base/tree/main/demo/)
-uses RankLib to train a model from OpenSearch queries. You can see
-how features are
-[logged](http://github.com/opensearch-project/opensearch-learning-to-rank-base/tree/main/demo/collectFeatures.py)
-and how models are
-[trained](http://github.com/opensearch-project/opensearch-learning-to-rank-base/tree/main/demo/train.py)
-. In particular, you\'ll note that logging create a RankLib consumable
-judgment file that looks like:
+The OpenSearch Project provides two demonstration scenarios for training a model using the RankLib library. The [RankLib demo](http://github.com/opensearch-project/opensearch-learning-to-rank-base/tree/main/demo/) provides the complete process of training a model from OpenSearch queries, including the [logging of features](http://github.com/opensearch-project/opensearch-learning-to-rank-base/tree/main/demo/collectFeatures.py) and subsequent [training of a supported model](http://github.com/opensearch-project/opensearch-learning-to-rank-base/tree/main/demo/train.py). 
 
-    4   qid:1   1:9.8376875 2:12.318446 # 7555  rambo
-    3   qid:1   1:10.7808075    2:9.510193 # 1370   rambo
-    3   qid:1   1:10.7808075    2:6.8449354 # 1369  rambo
-    3   qid:1   1:10.7808075    2:0.0 # 1368    rambo
+The feature logging process generates a RankLib-comsumable judgment file. In the following judgment file, the query with ID 1 `rambo` includesthe logged features 1 (a title `TF*IDF`
+score) and 2 (a description `TF*IDF` score) for a set of documents:
 
-Here for query id 1 (Rambo) we've logged features 1 (a title `TF*IDF`
-score) and feature 2 (a description `TF*IDF` score) for a set of
-documents. In
-[train.py](http://github.com/opensearch-project/opensearch-learning-to-rank-base/tree/main/demo/train.py)
-you'll see how we call RankLib to train one of it's supported models
-on this line:
+```
+4   qid:1   1:9.8376875 2:12.318446 # 7555  rambo
+3   qid:1   1:10.7808075    2:9.510193 # 1370   rambo
+3   qid:1   1:10.7808075    2:6.8449354 # 1369  rambo
+3   qid:1   1:10.7808075    2:0.0 # 1368    rambo
+```
 
-    cmd = "java -jar RankLib-2.8.jar -ranker %s -train%rs -save %s -frate 1.0" % (whichModel, judgmentsWithFeaturesFile, modelOutput)
+ In the [train.py](http://github.com/opensearch-project/opensearch-learning-to-rank-base/tree/main/demo/train.py) script, you can see how the RankLib library is called to train one of its supported models using the judgment file. the executed command looks like the following:
+ 
+ ```
+ cmd = "java -jar RankLib-2.8.jar -ranker %s -train%rs -save %s -frate 1.0" % (whichModel, judgmentsWithFeaturesFile, modelOutput)
+```
 
-Our "judgmentsWithFeatureFile" is the input to RankLib. Other
-parameters are passed, which you can read about in [RankLib's
-documentation](https://sourceforge.net/p/lemur/wiki/RankLib/).
+The `judgmentsWithFeatureFile` is the input provided to RankLib for training. Additional parameters can be passed. See [RankLib documentation](https://sourceforge.net/p/lemur/wiki/RankLib/) for more information.
 
-RankLib will output a model in it's own serialization format. For
-example a LambdaMART model is an ensemble of regression trees. It looks
-like:
+RankLib outputs the model in its own serialization format. For example, a LambdaMART model is an ensemble of regression trees, as shown in the following example: 
 
-    ## LambdaMART
-    ## No. of trees = 1000
-    ## No. of leaves = 10
-    ## No. of threshold candidates = 256
-    ## Learning rate = 0.1
-    ## Stop early = 100
+```
+## LambdaMART
+## No. of trees = 1000
+## No. of leaves = 10
+## No. of threshold candidates = 256
+## Learning rate = 0.1
+## Stop early = 100
 
     <ensemble>
-        <tree id="1" weight="0.1">
-            <split>
-                <feature> 2 </feature>
-                ...
+       <tree id="1" weight="0.1">
+           <split>
+               <feature> 2 </feature>
+               ...
+```
 
-Notice how each tree examines the value of features, makes a decision
-based on the value of a feature, then ultimately outputs the relevance
-score. You'll note features are referred to by ordinal, starting by
-"1" with RankLib (this corresponds to the 0th feature in your feature
-set). RankLib does not use feature names when training.
+Within the RankLib model, each tree in the ensemble examines the value of features, makes decisions based on these feature values, and then outputs the relevance scores. The features are referred to by their ordinal position, starting from 1, which corresponds to 0th feature in the original feature set. RankLib does not use feature names during the model training.
 
-## XGBoost example
+## XGBoost model training
 
-There's also an example of how to train a model [using
-XGBoost](http://github.com/opensearch-project/opensearch-learning-to-rank-base/tree/main/demo/xgboost-demo).
-Examining this demo, you'll see the difference in how RankLib is
-executed compared to XGBoost. XGBoost will output a serialization format for
-gradient boosted decision tree that looks like:
+The OpenSearch Project provides a demonstration on training a model using the [XGBoost library](http://github.com/opensearch-project/opensearch-learning-to-rank-base/tree/main/demo/xgboost-demo). Unlike the RankLib model, the XGBoost model is serialized in a format specific to gradient-boosted decision trees, as shwon in the following example:
 
 ```json
     [  { "nodeid": 0, "depth": 0, "split": "tmdb_multi", "split_condition": 11.2009, "yes": 1, "no": 2, "missing": 1, "children": [
@@ -85,25 +64,11 @@ gradient boosted decision tree that looks like:
 
 ## XGBoost parameters
 
-Additional parameters can optionally be passed for an XGBoost model.
-This can be done by specifying the definition as an object, with the
-decision trees as the 'splits' field. See the following example.
-
-Currently supported parameters:
-
-**objective** - Defines the model learning objective as specified in the
-[XGBoost
-documentation](https://xgboost.readthedocs.io/en/latest/parameter.html#learning-task-parameters).
-This parameter can transform the final model prediction. Using logistic
-objectives applies a sigmoid normalization.
-
-Currently supported values: 'binary:logistic', 'binary:logitraw',
-'rank:ndcg', 'rank:map', 'rank:pairwise', 'reg:linear',
-'reg:logistic'
+Optional parameters can be specified for an XGBoost model. These parameters are specified as an object, with the decision trees specified in the `splits` field. The currently supported parameters include `objective`, which defines the model learning objective as described in the [XGBoost documentation](https://xgboost.readthedocs.io/en/latest/parameter.html#learning-task-parameters). This parameter can transform the final model prediction. The supported values include `binary:logistic`, `binary:logitraw`, `rank:ndcg`, `rank:map`, `rank:pairwise`, `reg:linear`, and `reg:logistic`.
 
 ## Simple linear models                                                 |
 
-Many types of models naively output linear weights of each feature such as linear SVM. The LTR model supports simple linear weights for each features, such as those learned from an SVM model or linear regression:
+Many machine learning models, such as Support Vector Machines (SVMs), output linear weights for each feature. The LTR model supports representing these linear weights in a simple format, such as those learned from an SVM or linear regression model. In the following example output, the weights indicate the relative importance of the features in the model's prediction:
 
 ```json
 {
@@ -115,26 +80,17 @@ Many types of models naively output linear weights of each feature such as linea
 
 ## Feature normalization
 
-[Feature
-Normalization](https://www.google.com/search?client=safari&rls=en&q=wikipedia+feature+normalization&ie=UTF-8&oe=UTF-8)
-transforms feature values to a more consistent range (like 0 to 1 or -1
-to 1) at training time to better understand their relative impact. Some
-models, especially linear ones (like
-[SVMRank](http://www.cs.cornell.edu/people/tj/svm_light/svm_rank.html)),
-rely on normalization to work correctly.
+Feature normalization is used to transform feature values to a consistent range, typically between 0 and 1 or -1 to 1. This is done during the training phase to better understand the relative impact of each feature. Some models, especially linear ones such as SVMRank, rely on normalization to function correctly.
 
-## Uploading a model
+## Model upload process
 
-Once you have a model, you'll want to use it for search. You'll need
-to upload it to OpenSearch LTR. Models are uploaded specifying the
-following arguments
+After training your model, the next step is to make it available for search operations. This involves uploading the model to the Learning to Rank plugin. When uploading a model, you must provide the following information:
 
--   The feature set that was trained against
--   The type of model (such as RankLib or XGBoost)
--   The model contents
+- The feature set used during training 
+- The model type, for example, RankLib or XGBoost
+- The model's content
 
-Uploading a RankLib model trained against `more_movie_features` looks
-like:
+The following example request shows how to upload a RankLib model that was trained using the `more_movie_features` feature set:
 
 ```json
     POST _ltr/_featureset/more_movie_features/_createmodel
@@ -161,7 +117,7 @@ like:
     }
 ```
 
-Or an xgboost model:
+The following example request shows how to upload an XGBoost model that was trained using the `more_movie_features` feature set:
 
 ```json
     POST _ltr/_featureset/more_movie_features/_createmodel
@@ -179,7 +135,7 @@ Or an xgboost model:
     }
 ```
 
-Or an xgboost model with parameters:
+The following example request shows how to upload an XGBoost model that was trained using the `more_movie_features` feature set with parameters:
 
 ```json
     POST _ltr/_featureset/more_movie_features/_createmodel
@@ -201,7 +157,8 @@ Or an xgboost model with parameters:
     }
 ````
 
-Or a simple linear model:
+The following example request shows how to upload a simple linear model that was trained using the `more_movie_features` feature set:
+
 ```json
     POST _ltr/_featureset/more_movie_features/_createmodel
     {
@@ -221,15 +178,19 @@ Or a simple linear model:
     }
 ```
 
-## Creating a model with Feature Normalization
+## Creating a model with feature normalization
 
-We can ask that features be normalized prior to evaluating the model.
-OpenSearch Learning to Rank supports min max and standard feature
-normalization.
+Feature normalization is a crucial preprocessing step that can be applied before model evaluation. LTR supports two types of feature normalization: min-max and standard normalization.
 
-With standard feature normalization, values corresponding to the mean
-will have a value of 0, one standard deviation above/below will have a
-value of -1 and 1 respectively:
+### Standard feature normalization
+
+Standard normalization transforms features so that:
+
+- The mean value is mapped to 0
+- One standard deviation above the mean is mapped to 1
+- One standard deviation below the mean is mapped to -1
+
+The following example request shows how to create a model with standard feature normalization:
 
 ```json
     POST _ltr/_featureset/more_movie_features/_createmodel
@@ -258,8 +219,15 @@ value of -1 and 1 respectively:
     }
 ```
 
-Also supported is min-max normalization. Where values at the specified
-minimum receive 0, at the maximum turn into 1:
+In addition to standard normalization, LTR supports min-max normalization. This method scales features to a fixed range, typically between 0 and 1.
+
+With min-max normalization:
+
+- The specified minimum value is mapped to 0
+- The specified maximum value is mapped to 1
+- Values in between are linearly scaled
+
+The following example request shows how to implement min-max normalization:
 
 ```json
     "feature_normalizers": {
@@ -272,36 +240,36 @@ minimum receive 0, at the maximum turn into 1:
     }
 ```
 
-## Models aren't "owned by" featuresets
+## Model independence from feature sets
 
-Though models are created in reference to a feature set, it's important
-to note after creation models are *top level* entities. For example, to
-fetch a model back, you use GET:
+While models are initially created with reference to a feature set, after creation, models exist as independent top-level entities. 
 
-    GET _ltr/_model/my_linear_model
+### Accessing models
 
-Similarly, to delete:
+To retrieve a model, use a GET request:
 
-    DELETE _ltr/_model/my_linear_model
+```
+GET _ltr/_model/my_linear_model
+```
 
-This of course means model names are globally unique across all feature
-sets.
+To delete a model, use a DELETE request:
 
-The associated features are *copied into* the model. This is for your
-safety: modifying the feature set or deleting the feature set after
-model creation doesn't have an impact on a model in production. For
-example, if we delete the feature we previously created:
+```
+DELETE _ltr/_model/my_linear_model
+```
 
-    DELETE _ltr/_featureset/more_movie_features
+Model names must be globally unique across all feature sets.
+{: .note}
 
-We can still access and search with "my_linear_model". The following
-still accesses the model and it's associated features:
+### Model persistence
 
-    GET _ltr/_model/my_linear_model
+When a model is created, the associated features are copied into the model. This ensures that modifications to the original feature set do not affect existing models or deletion of the original feature set does not impact models in production. 
 
-You can expect a response that includes the features used to create the
-model (compare this with the *more_movie_features* in
-[Logging Feature Scores]({{site.url}}{{site.baseurl}}/search-plugins/ltr/logging-features/)):
+For example, if the feature set used to create the model is deleted, you can still access and use the model.
+
+### Model response
+
+When retrieving a model, you will receive a response that includes the features used to create it, as shown in the following example response:
 
 ```json
     {
@@ -343,6 +311,6 @@ model (compare this with the *more_movie_features* in
         ]}}}
 ```
 
-With a model uploaded to OpenSearch, you're ready to search! Head to
-[searching with LTR]({{site.url}}{{site.baseurl}}/search-plugins/ltr/searching-with-your-model/) to see put
-model into action.
+## Next steps 
+
+- Learn about [Searching with LTR]({{site.url}}{{site.baseurl}}/search-plugins/ltr/searching-with-your-model/).

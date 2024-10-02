@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Working with Features
+title: Working with features
 nav_order: 30
 parent: LTR search
 has_children: false
@@ -8,23 +8,11 @@ has_children: false
 
 # Working with features
 
-In [core concepts]({{site.url}}{{site.baseurl}}/search-plugins/ltr/core-concepts/), we mentioned the main
-roles you undertake building a learning to rank system. In
-[fits in]({{site.url}}{{site.baseurl}}/search-plugins/ltr/fits-in/) we discussed at a high level
-what this plugin does to help you use OpenSearch as a learning to
-rank system.
+[Core concepts]({{site.url}}{{site.baseurl}}/search-plugins/ltr/core-concepts/) and [Fits in]({{site.url}}{{site.baseurl}}/search-plugins/ltr/fits-in/) discuss the main roles and high-level functionality of the OpenSearch LTR plugin. The following sections cover the specific functionality the plugin provides to help you build and upload features for your learning to rank (LTR) system.
 
-This section covers the functionality built into the OpenSearch LTR
-plugin to build and upload features with the plugin.
+## Understanding features in OpenSearch LTR
 
-## What is a feature in OpenSearch LTR
-
-OpenSearch LTR features correspond to OpenSearch queries. The
-score of an OpenSearch query, when run using the user's search terms
-(and other parameters), are the values you use in your training set.
-
-Obvious features might include traditional search queries, like a simple
-"match" query on title:
+In the OpenSearch LTR plugin, a feature is an OpenSearch query. When you execute an OpenSearch query using your search terms and other relevant parameters, the resulting score is the value you can use as part of your training data. For example, a feature may include basic `match` queries on fields such as the document title:  
 
 ```json
 {
@@ -35,10 +23,9 @@ Obvious features might include traditional search queries, like a simple
     }
 }
 ```
+{% include copy-curl.html %}
 
-Of course, properties of documents such as popularity can also be a
-feature. Function score queries can help access these values. For
-example, to access the average user rating of a movie:
+In addition to simple query-based features, you can also use document properties, such as popularity, as features. For example, you can use a function score query to access the average using rating of a movie: 
 
 ```json
 {
@@ -54,8 +41,9 @@ example, to access the average user rating of a movie:
     }
 }
 ```
+{% include copy-curl.html %}
 
-One could also imagine a query based on the user's location:
+Another example is a query based on the location, such as a geo-distance filter:
 
 ```json
 {
@@ -77,67 +65,48 @@ One could also imagine a query based on the user's location:
     }
 }
 ```
+{% include copy-curl.html %}
 
-Similar to how you would develop queries like these to manually improve
-search relevance, the ranking function `f` you're training also
-combines these queries mathematically to arrive at a relevance score.
+These types of queries, which you might develop manually to improve search relevance, are the building blocks that the ranking `f` function you are training will combine these queries mathematically to arrive at a relevance score. 
 
-## Features are Mustache-templated OpenSearch queries
+## Using Mustache templates in OpenSearch LTR queries
 
-You'll notice the `{% raw %}{{keywords}}{% endraw %}`, `{% raw %}{{users_lat}}{% endraw %}`, and `{% raw %}{{users_lon}}{% endraw %}`
-above. This syntax is the mustache templating system used in other parts of
-[OpenSearch]({{site.url}}{{site.baseurl}}/api-reference/search-template/).
-This lets you inject various query or user-specific variables into the
-search template. Perhaps information about the user for personalization?
-Or the location of the searcher's phone?
-
-For now, we'll focus on typical keyword searches.
+The features in OpenSearch LTR use Mustache templates. This allows you to insert variables in to your search queries. For example, you could have a query that uses the `{% raw %}{{keywords}}{% endraw %}` to insert your search terms. Or you could use `{% raw %}{{users_lat}}{% endraw %}` and `{% raw %}{{users_lon}}{% endraw %}` to include the location. This gives you the flexibility to personalize your search experience. 
 
 ## Uploading and naming features
 
-OpenSearch LTR gives you an interface for creating and manipulating
-features. Once created, then you can have access to a set of feature for
-logging. Logged features when combined with your judgement list, can be
-trained into a model. Finally, that model can then be uploaded to
-OpenSearch LTR and executed as a search.
+OpenSearch LTR gives you an interface for creating and manipulating features. After you define your features, you can log them fo use in training a model. By combining the logged feature data with your judgment list, you can train a model. Once the model is ready, you can upload it to OpenSearch LTR, and it will be applied to search queries.
 
-Let's look how to work with sets of features.
+## Initializing the default feature store
 
-## Initialize the default feature store
+The OpenSearch LTR pluing uses a *feature store* to store metadata about your features and models. Typically, you will have one feature store per major search implementation, for example, [wikipedia](http://wikipedia.org) compared to [wikitravel](http://wikitravel.org).
 
-A *feature store* corresponds to an OpenSearch index used to store
-metadata about the features and models. Typically, one feature store
-corresponds to a major search site/implementation. For example,
-[wikipedia](http://wikipedia.org) compared to [wikitravel](http://wikitravel.org)
+For most uses cases, you can use the default feature store and not worry about managing multiple feature stores. To initialize this default feature store, run the following request:
 
-For most use cases, you can simply get by with the single, default
-feature store and never think about feature stores ever again. This
-needs to be initialized the first time you use OpenSearch Learning to
-Rank:
+```
+PUT _ltr
+```
+{% include copy-curl.html %}
 
-    PUT _ltr
+If you need to start fresh, you can delete the default feature store by using the following operation:
 
-You can restart from scratch by deleting the default feature store:
+```
+DELETE _ltr
+```
+{% include copy-curl.html %}
 
-    DELETE _ltr
+Deleting the feature store will remove all your existing feature and model data.
+{: .warning}
 
-(WARNING this will blow everything away, use with caution!)
+The default feature store is used throughout the rest of this guide.
 
-In the rest of this guide, we'll work with the default feature store.
+## Working with features and feature sets
 
-## Features and feature sets
+A *feature set* is a collection of features that has been grouped together. You can use feature sets to log multiple feature values for offline training. When creating a new model, you will copy the relevant feature set into the model definition. 
 
-Feature sets are where the action really happens in OpenSearch LTR.
+## Creating feature sets
 
-A *feature set* is a set of features that has been grouped together for
-logging & model evaluation. You'll refer to feature sets when you want
-to log multiple feature values for offline training. You'll also create
-a model from a feature set, copying the feature set into model.
-
-## Create a feature set
-
-You can create a feature set simply by using a POST. To create it, you
-give a feature set a name and optionally a list of features:
+To create a feature set, you can send a POST request. When creating the feature set, you will provide a name and an optional list of features. A example POST request is shown as follows:
 
 ```json
 POST _ltr/_featureset/more_movie_features
@@ -182,37 +151,45 @@ POST _ltr/_featureset/more_movie_features
     }
 }
 ```
+{% include copy-curl.html %}
 
-## Feature set CRUD
+## Managing feature sets
 
-Fetching a feature set works as you'd expect:
+To fetch a specific feature set, you can use the following request:
 
-    GET _ltr/_featureset/more_movie_features
+```
+GET _ltr/_featureset/more_movie_features
+```
+{% include copy-curl.html %}
 
-You can list all your feature sets:
+To see a list of all your defined feature sets, you can use the following request: 
 
-    GET _ltr/_featureset
+```
+GET _ltr/_featureset
+```
+{% include copy-curl.html %}
 
-Or filter by prefix in case you have many feature sets:
+If you have many feature sets, you can filter the list by using a prefix:
 
-    GET _ltr/_featureset?prefix=mor
+```
+GET _ltr/_featureset?prefix=mor
+```
+{% include copy-curl.html %}
 
-You can also delete a featureset to start over:
+This will return only the feature sets whose names start with `mor`.
 
-    DELETE _ltr/_featureset/more_movie_features
+If you need to start over with a feature set, you can delete it using the following request:
+
+```
+DELETE _ltr/_featureset/more_movie_features
+```
+{% include copy-curl.html %}
 
 ## Validating features
 
-When adding features, we recommend sanity checking that the features
-work as expected. Adding a "validation" block to your feature creation
-let's OpenSearch LTR run the query before adding it. If you don't
-run this validation, you may find out only much later that the query,
-while valid JSON, was a malformed OpenSearch query. You can imagine,
-batching dozens of features to log, only to have one of them fail in
-production can be quite annoying!
+When adding new features, you should validate that the features work as expected. You can do this by adding a `"validation"` block in your feature creation request. This allows OpenSearch LTR to run the query before adding the feature, catching any issues early. If you do not run this validation, you may not discover until later that the query, while valid JSON, contains a malformed OpenSearch query.
 
-To run validation, you simply specify test parameters and a test index
-to run:
+To run validation, you can specify the test parameters and the index to use, as shown in the following example validation block:
 
 ```json
 "validation": {
@@ -222,10 +199,9 @@ to run:
     "index": "tmdb"
 },
 ```
-Place this alongside the feature set. You'll see below we have a
-malformed `match` query. The example below should return an error that
-validation failed. An indicator you should take a closer look at the
-query:
+{% include copy-curl.html %}
+
+Place the validation block alongside your feature set definition. In the following example, the `match` query is malformed, so the validation will fail and return an error:
 
 ```json
 {
@@ -253,13 +229,11 @@ query:
     }
 }
 ```
+{% include copy-curl.html %}
 
-## Adding to an existing feature set
+## Expanding feature sets
 
-Of course you may not know upfront what features could be useful. You
-may wish to append a new feature later for logging and model evaluation.
-For example, creating the *user_rating* feature, we could
-create it using the feature set append API, like below:
+You may not know upfront which features will be most useful. In those cases, you can add new features to an existing feature set later for the purposes of logging and model evaluation. For example, if you want to create a `user_rating` feature, you can use the Feature Set Append API, as shown in the following example request:
 
 ```json
 POST /_ltr/_featureset/my_featureset/_addfeatures
@@ -281,30 +255,18 @@ POST /_ltr/_featureset/my_featureset/_addfeatures
     }]
 }
 ```
+{% include copy-curl.html %}
 
-## Feature Names are Unique
+## Enforcing unique feature names
 
-Because some model training libraries refer to features by name,
-OpenSearch LTR enforces unique names for each features. In the
-example above, we could not add a new *user_rating* feature
-without creating an error.
+OpenSearch LTR enforces unique names for each feature. This is because some model training libraries refer to features by name. In the preceding example, you could not add a new `user_ratin` feature without creating an error because that feature name is already in use.
 
-## Feature Sets are Lists
+## Treating feature sets as lists
 
-You'll notice we *appended* to the feature set. Feature sets perhaps
-ought to be really called "lists". Each feature has an ordinal (its
-place in the list) in addition to a name. Some LTR training
-applications, such as RankLib, refer to a feature by ordinal (the
-"1st" feature, the "2nd" feature). Others more conveniently refer to
-the name. So you may need both/either. You'll see that when features
-are logged, they give you a list of features back to preserve the
-ordinal.
+In OpenSearch LTR, feature sets are more like ordered lists than simple sets. Each feature has both a name and an ordinal position. Some LTR training applications, such as RankLib, refer to features by their ordinal position (for example, the 1st feature, the 2nd feature). Other may prefer to use the feature name. When working with logged features, you may need to handle both the ordinal and the name, as the ordinal is preserved to maintain the list order. 
 
-## But wait there's more
+## Next steps
 
-Feature engineering is a complex part of OpenSearch Learning to Rank,
-and additional features (such as features that can be derived from other
-features) are listed in [advanced functionality]({{site.url}}{{site.baseurl}}/search-plugins/ltr/advanced-functionality/).
+Learn about [Feature engineering]({{site.url}}{{site.baseurl}}/search-plugins/ltr/feature-engineering/), as it can be a complex part of OpenSearch LTR.
 
-Next-up, we'll talk about some specific use cases you\'ll run into when
-[Feature Engineering]({{site.url}}{{site.baseurl}}/search-plugins/ltr/feature-engineering/).
+Additional advanced features, such as those derived from other features, are described in [Advanced functionality]({{site.url}}{{site.baseurl}}/search-plugins/ltr/advanced-functionality/).

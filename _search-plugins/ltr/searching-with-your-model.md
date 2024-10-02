@@ -1,17 +1,14 @@
 ---
 layout: default
-title: Searching with LTR
+title: Optimizing search with LTR
 nav_order: 70
 parent: LTR search
 has_children: false
 ---
 
-# Searching with LTR
+# Optimizing search with LTR
 
-Now that you have a model, what can you do with it? As you saw in
-[Logging Feature Scores]({{site.url}}{{site.baseurl}}/search-plugins/ltr/logging-features/), the OpenSearch LTR
-plugin comes with the *sltr* query. This query is also what
-you use to execute models:
+After you have trained a model, you can use the `sltr` query to execute it. However, directly running the query on the entire index is not recommended because it can be CPU-intensive and impact your OpenSearch cluster's performance. The query allows you to apply your trained model to search results, for example, as shown in the following example query:
 
 ```json
     POST tmdb/_search
@@ -26,21 +23,11 @@ you use to execute models:
         }
     }
 ```
+{% include copy-curl.html %}
 
-you almost certainly don't want to run *sltr* this way :)
-{: .warning}
+## Rescoring top N
 
-## Rescore top N with *sltr*
-
-In reality you would never want to use the `sltr` query this way. Why?
-This model executes on *every result in your index*. These models are
-CPU intensive. You'll quickly make your OpenSearch cluster crawl
-with the preceeding query.
-
-More often, you'll execute your model on the top N of a baseline
-relevance query. You can do this using OpenSearch's built in
-[rescore
-functionality](https://www.elastic.co/guide/en/OpenSearch/reference/current/search-request-rescore.html):
+To execute your model more efficiently, you can use the built-in [rescore functionality]((https://www.elastic.co/guide/en/OpenSearch/reference/current/search-request-rescore.html). This allows you to apply your model to the top N results of a baseline relevance query, for example, as shown in the following example query:
 
 ```json
     POST tmdb/_search
@@ -65,23 +52,13 @@ functionality](https://www.elastic.co/guide/en/OpenSearch/reference/current/sear
         }
     }
 ```
+{% include copy-curl.html %}
 
-Here we execute a query that limits the result set to documents that
-match "rambo". All the documents are scored based on OpenSearch\'s
-default similarity (BM25). On top of those already reasonably relevant
-results we apply our model over the top 1000.
+In this example, a `match` is first executed for the term `rambo` and then `my_model` is applied to the top 1,000 results. This baseline query is used to generate an initial set of results, which are then scored using the OpenSearch default similarity (BM25).
 
-Viola!
+## Rescoring on a subset of features
 
-## Scoring on a subset of features with *sltr*
-
-Sometimes you might want to execute your query on a subset of the
-features rather than use all the ones specified in the model. In this
-case the features not specified in `active_features` list will not be
-scored upon. They will be marked as missing. You only need to specify
-the `params` applicable to the `active_features`. If you request a
-feature name that is not a part of the feature set assigned to that
-model the query will throw an error. :
+You can selectively score a subset of features by specifying the `active_features` in the `sltr` query, as shown in the following example query. This allows you to focus the model's scoring on the selected features, while any unspecified features will be marked as missing. You only need to specify the `params` relevant to the `active_features`. If you request a feature name that is not a part of the feature set assigned, the query throws an error.
 
 ```json
     POST tmdb/_search
@@ -107,22 +84,15 @@ model the query will throw an error. :
         }
     }
 ```
+{% include copy-curl.html %}
 
-Here we apply our model over the top 1000 results but only for the
-selected features which in this case is title_query
+In this example, the `my_model` model is applied, but only scores the `title_query` feature. 
 
-## Models! Filters! Even more!
+## Combining `sltr` with other OpenSearch features
 
-One advantage of having `sltr` as another OpenSearch query is
-you can mix/match it with business logic and other. We won't dive into
-these examples here, but we want to invite you to think creatively about
-scenarios, such as
+One of the key advantages of the `sltr` query provided by the Learning to Rank plugin is its ability to be integrated with other OpenSearch features and functionalities, such as the following. This allows you to create more sophisticated and tailored search solutions that go beyond applying a model to your results.
 
--   Filtering out results based on business rules, using OpenSearch
-    filters before applying the model
--   Chaining multiple rescores, perhaps with increasingly sophisticated
-    models
--   Rescoring once for relevance (with *sltr*), and a second
-    time for business concerns
--   Forcing "bad" but relevant content out of the rescore window by
-    downboosting it in the baseline query
+-   Filtering out results based on business rules using OpenSearch filters before applying the model
+-   Chaining multiple rescores to refine the relevance of your results
+-   Rescoring once for relevance with `sltr`, and a second time for business concerns
+-   Downboosting "bad" but relevant content in the baseline query to force it out of the rescore window

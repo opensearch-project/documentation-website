@@ -1,28 +1,18 @@
 ---
 layout: default
-title: Logging Feature Scores
+title: Logging feature scores
 nav_order: 50
 parent: LTR search
 has_children: false
 ---
 
-# Logging Feature Scores
+# Logging feature scores
 
-To train a model, you need to log feature values. This is a major
-component of the learning to rank plugin: as users search, we log
-feature values from our feature sets so we can then train. Then we can
-discover models that work well to predict relevance with that set of
-features.
+Feature values need to be logged to train a model. This is a crucial component of the Learning to Rank plugin: as you search, feature values from the feature sets are logged so they can be used for training. This allows models that effectively predict relevance using that set of features to be discovered.
 
-## Sltr Query
+## `sltr` query
 
-The `sltr` query is the primary way features are run and models are
-evaluated. When logging, we'll just use an `sltr` query for executing
-every feature-query to retrieve the scores of features.
-
-For the sake of discussing logging, let's say we created a feature set
-like so that works with the TMDB data set from the
-[demo](http://github.com/opensearch-project/opensearch-learning-to-rank-base/tree/main/demo/):
+The `sltr` query is the primary method for running features and evaluating models. When logging, an `sltr` query will be used to execute each feature-query and retrieve the feature scores. A feature set structure is shown in the following example request:
 
 ```json
 PUT _ltr/_featureset/more_movie_features
@@ -54,15 +44,15 @@ PUT _ltr/_featureset/more_movie_features
     ]
 }
 ```
+{% include copy-curl.html %}
 
-Next, let's see how to log this feature set in a couple common use
-cases.
+## Common use cases
 
-## Joining feature values with a judgement list
+Some common use cases for logging feature sets are described in the following sections.
 
-Let’s assume, in the simplest case, we have a judgement list already. 
-We simply want to join feature values for each keyword/document pair to form a complete training set. 
-For example, assume we have experts in our company, and they’ve arrived at this judgement list:
+### Joining feature values with a judgment list
+
+If the judgment list is already available, you can join feature values for each keyword/document pair to create a complete training set. For example, you have been provided the following judgment list:
 
 ```
 grade,keywords,docId
@@ -71,9 +61,9 @@ grade,keywords,docId
 3,rambo,1369
 4,rocky,4241
 ```
+{% include copy-curl.html %}
 
-We want to get feature values for all documents that have judgement for each search term, one search term at a time.
-If we start with “rambo”, we can create a filter for the ids associated with the “rambo” search:
+The feature values need to be retrieved for all documents that have a judgment for each search term, one search term at a time. For example, starting with a `rambo` search, a filter can be created for the associated document as follows:
 
 ```json
 {
@@ -84,14 +74,9 @@ If we start with “rambo”, we can create a filter for the ids associated with
     ]
 }
 ```
+{% include copy-curl.html %}
 
-We also need to point OpenSearch LTR at the features to log. 
-To do this we use the sltr OpenSearch query, included with OpenSearch LTR. 
-We construct this query such that it:
-
-  - Has a `_name` (the OpenSearch named queries feature) to refer to it
-  - Refers to the featureset we created above `more_movie_features`
-  - Passes our search keywords "rambo" and whatever other parameters our features need
+The OpenSearch Learning to Rank plugin needs to be pointed at the features to log. The `sltr` query, which is part of the plugin, can be used for this purpose. The `sltr` query has a `_name` (the OpenSearch named queries feature) to reference it, refers to the previously created feature set `more_movie_features`, and passes the search keywords `rambo` and any other required parameters, as shown in the following example query:
 
 ```json
 {
@@ -104,14 +89,12 @@ We construct this query such that it:
     }
 }
 ```
+{% include copy-curl.html %}
 
-In [searching with LTR]({{site.url}}{{site.baseurl}}/search-plugins/ltr/searching-with-your-model/) you'll see us use *sltr* for executing a model. 
-Here we're just using it as a hook to point OpenSearch LTR at the feature set we want to log.
+The [Searching with LTR]({{site.url}}{{site.baseurl}}/search-plugins/ltr/searching-with-your-model/) documentation shows that the `sltr` query is used for executing a model. In the current case, the `sltr` query is being used as a mechanism to direct the OpenSearch Learning to Rank plugin at the feature set that requires logging.
 {: .note}    
 
-You might be thinking, wait if we inject `sltr` query into the OpenSearch query, won’t it influence the score? 
-The sneaky trick is to inject it as a filter. 
-As a filter that doesn’t actually filter anything, but injects our feature-logging only `sltr` query into our OpenSearch query:
+To avoid influencing the score, the `sltr` query will be injected as a filter, as shown in the following example:
 
 ```json
 {
@@ -141,10 +124,11 @@ As a filter that doesn’t actually filter anything, but injects our feature-log
     }
 }
 ```
+{% include copy-curl.html %}
 
-Running this, you’ll see the three hits you’d expect. The next step is to turn on feature logging, referring to the `sltr` query we want to log.
+Executing this query returns the three expected hits. The next step is to enable feature logging, referring to the `sltr` query to be logged.
 
-This is what the logging extension gives you. It finds an OpenSearch _sltr_ query, runs the feature set’s queries, scores each document, then returns those as computed fields on each document:
+The logging identifies the `sltr` query, runs the feature set’s queries, scores each document, and returns those as computed fields on each document, as shown in the following example:
 
 ```json
 "ext": {
@@ -156,20 +140,19 @@ This is what the logging extension gives you. It finds an OpenSearch _sltr_ quer
     }
 }
 ```
+{% include copy-curl.html %}
 
+The log extension supports the following arguments:
 
-This log extension comes with several arguments:
-  - `name`: The name of this log entry to fetch from each document
-  - `named_query` the named query which corresponds to an *sltr* query
-  - `rescore_index`: if `sltr` is in a rescore phase, this is the index of the query in the rescore list
-  - `missing_as_zero`: produce a 0 for missing features (when the feature does not match) (defaults to \`false\`)
+- `name`: The name of the log entry to fetch from each document.
+- `named_query`: The named query that corresponds to an `sltr` query.
+- `rescore_index`: If the `sltr` query is in a rescore phase, this is the index of the query in the rescore list.
+- `missing_as_zero`: Produces a `0` for missing features (when the feature does not match), defaults to `false`.
   
-Either `named_query` or `rescore_index` must be set so that logging can locate an *sltr* query for logging either in the normal query phase or during rescoring.
+To enable the logging to locate an `sltr` query, either for the normal query phase or during rescoring, either `named_query` or `rescore_index` must be set.
 {: .note}
 
-
-
-Finally the full request:
+The full example request is as follows:
 
 ```json
 POST tmdb/_search
@@ -203,8 +186,9 @@ POST tmdb/_search
     }
 }
 ```
+{% include copy-curl.html %}
 
-And now each document contains a log entry:
+Each document now contains a log entry, as shown in the following example:
 
 ```json
 {
@@ -232,25 +216,24 @@ And now each document contains a log entry:
     ]
 }
 ```
+{% include copy-curl.html %}
 
-Now you can join your judgement list with feature values to produce a training set! For the line that corresponds to document 1370 for keywords “Rambo” we can now add:
+The judgment list can be joined with the feature values to produce a training set. For the line corresponding to document 1370 for keywords `rambo`, the following can be added:
 
 ```
 > 4 qid:1 1:9.510193 2:10.7808075
 ```
+{% include copy-curl.html %}
 
-Rinse and repeat for all your queries.
+Repeat this process for all your queries.
 
-For large judgement lists, batch up logging for multiple queries,
-use OpenSearch’s [multi search]({{site.url}}{{site.baseurl}}/api-reference/multi-search/) capabilities.
+For large judgment lists, it is recommended to batch the logging for multiple queries. You can use OpenSearch [Multi search]({{site.url}}{{site.baseurl}}/api-reference/multi-search/) capabilities to achieve this.
 {: .note}
 
-## Logging values for a live feature set
+### Logging values for a live feature set
 
-Let's say you're running in production with a model being executed in
-an `sltr` query. We'll get more into model execution in
-[searching with LTR]({{site.url}}{{site.baseurl}}/search-plugins/ltr/searching-with-your-model/). But for our
-purposes, a sneak peak, a live model might look something like:
+If you are running in production with a model being executed within an `sltr` query, a live model may look like the following example:
+
 
 ```json
 POST tmdb/_search
@@ -274,9 +257,12 @@ POST tmdb/_search
     }
 }
 ```
+{% include copy-curl.html %}
 
-Simply applying the correct logging spec to refer to the `sltr` query
-does the trick to let us log feature values for our query:
+See [Searching with LTR]({{site.url}}{{site.baseurl}}/search-plugins/ltr/searching-with-your-model/) for information about model execution.
+{: .note}
+
+Applying the appropriate logging spec to reference the `sltr` query is the solution to log the feature values for the query, as shown in the following example: 
 
 ```json
 "ext": {
@@ -288,16 +274,13 @@ does the trick to let us log feature values for our query:
     }
 }
 ```
+{% include copy-curl.html %}
 
-This will log features to the OpenSearch response, giving you an
-ability to retrain a model with the same featureset later.
+This will log the features to the OpenSearch response, enabling the retraining of a model with the same feature set at a later time.
 
-## Modifying an existing feature set and logging
+### Modifying an existing feature set and logging
 
-Feature sets can be appended to. As mentioned in
-[Working with Features]({{site.url}}{{site.baseurl}}/search-plugins/ltr/building-features/), you saw if you want
-to incorporate a new feature, such as `user_rating`, we can append that
-query to our featureset `more_movie_features`:
+Feature sets can be expanded. For example, as shown in the following example query, if a new feature, such as `user_rating`, needs to be incorporated, it can be added to the existing feature set `more_movie_features`:
 
 ``` json
 PUT _ltr/_feature/user_rating/_addfeatures
@@ -319,9 +302,12 @@ PUT _ltr/_feature/user_rating/_addfeatures
     ]
 }
 ```
+{% include copy-curl.html %}
 
-Then finally, when we log as the examples above, we\'ll have our new
-feature in our output:
+See [Working with features]({{site.url}}{{site.baseurl}}/search-plugins/ltr/building-features/) for more information.
+{: .note}
+
+When logging is performed as in the previous examples, the new feature is included in the output, as shown in the following example:
 
 ``` json
 {
@@ -341,12 +327,11 @@ feature in our output:
     ]
 }
 ```
+{% include copy-curl.html %}
 
-## Logging values for a proposed feature set
+### Logging values for a proposed feature set
 
-You might create a completely new feature set for experimental purposes.
-For example, let's say you create a brand new feature set,
-`other_movie_features`:
+You might create a completely new feature set for experimental purposes. For example, you can create a brand new feature set, `other_movie_features`, as shown in the following example request:
 
 ```json
 PUT _ltr/_featureset/other_movie_features
@@ -378,10 +363,9 @@ PUT _ltr/_featureset/other_movie_features
     ]
 }
 ```
+{% include copy-curl.html %}
 
-We can log *other_movie_features* alongside a live
-production *more_movie_features* by simply appending it as
-another filter, just like the first example above:
+The `other_movie_features` can be logged alongside the live production `more_movie_features` by appending it as another filter, as shown in the following example request:
 
 ```json
 POST tmdb/_search
@@ -416,37 +400,20 @@ POST tmdb/_search
 }
 }
 ```
+{% include copy-curl.html %}
 
-Continue with as many feature sets as you care to log!
+You can continue adding as many feature sets as needed for logging.
 
-## \'Logging\' serves multiple purposes
+## Purposes of logging
 
-With the tour done, it's worth point out real-life feature logging
-scenarios to think through.
+Once you have covered the basics, you might consider some real-life feature logging scenarios.
 
-First, you might develop judgement lists from user analytics. You want to
-have the exact value of a feature at the precise time a user interaction
-happened. If they clicked, you want to know the recency, title score,
-and every other value at that exact moment. This way you can study later
-what correlated with relevance when training. To do this, you may build
-a large comprehensive feature set for later experimentation.
+First, you might develop judgment lists from user analytics. The goal is to capture the exact value of a feature at the precise time a user interaction occurred.If they clicked, you want to know the recency, title score, and every other value at that exact moment. This allows you can study later what correlated with relevance when training. To achieve this, you may build a large comprehensive feature set for future experimentation. 
 
-Second, you may simply want to keep your models up to date with a
-shifting index. Trends come and go, and models lose their effectiveness.
-You may have A/B testing in place, or monitoring business metrics, and
-you notice gradual degredation in model performance. In these cases,
-"logging" is used to retrain a model you're already relatively
-confident in.
+Second, you may want to keep your models up to date with a shifting index. Trends come and go, and models can lose their effectiveness over time. You may have A/B testing in place, or be monitoring business metrics, and notice gradual degradation in model performance. In these cases, logging is used to retrain a model you are already relatively confident in.
 
-Third, there's the "logging" that happens in model development. You
-may have a judgement list, but want to iterate heavily with a local copy
-of OpenSearch. You're heavily experimenting with new features,
-scrapping and adding to feature sets. You of course are a bit out of
-sync with the live index, but you do your best to keep up. Once you've
-arrived at a set of model parameters that you're happy with, you can
-train with production data and confirm the performance is still
-satisfactory.
+Third, logging is also used during model development. You may have a judgment list, but want to iterate heavily with a local copy of OpenSearch. This allows for extensive experimentation with new features, adding and removing them from the feature sets as needed. While this process may result in being slightly out of sync with the live index, the goal is to arrive at a set of model parameters that are satisfactory. Once this is achieved, the model can be trained with production data to confirm the performance remains acceptable.
 
-Next up, let's briefly talk about training a model in
-[Uploading A Trained Model]({{site.url}}{{site.baseurl}}/search-plugins/ltr/training-models/) in tools outside
-OpenSearch LTR.
+## Next steps
+
+- Learn more about training models in the [Uploading a trained model]({{site.url}}{{site.baseurl}}/search-plugins/ltr/training-models/) documentation.

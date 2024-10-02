@@ -1,63 +1,29 @@
 ---
 layout: default
-title: How does the plugin fit in?
+title: Integrating the plugin
 nav_order: 20
 parent: LTR search
 has_children: false
 ---
 
-# How does the plugin fit in
+# Integrating the plugin
 
-In [core concepts]({{site.url}}{{site.baseurl}}/search-plugins/ltr/core-concepts/) we mentioned a couple
-of activities you undertake when implementing learning to rank:
-
-1.  Judgement List Development
-2.  Feature Engineering
-3.  Logging features into the Judgement list to create a training set
-4.  Training and testing models
-5.  Deploying and using models when searching
-
-How does OpenSearch LTR fit into this process?
+The Learning to Rank plugin for OpenSearch provides tool to help you develop and use machine learning-based ranking models for your application search. The following sections describe how the plugin fits into the overall LTR process.
 
 ## What the plugin does
 
-This plugin gives you building blocks to develop and use learning to
-rank models. It lets you develop query-dependent features and store them
-in OpenSearch. After storing a set of features, you can log them for
-documents returned in search results to aid in offline model
-development.
+This plugin gives you building blocks to develop and use LTR models. It allows you to: 
 
-Then other tools take over. With a logged set of features for documents,
-you join data with your Judgement lists you've developed on your own.
-You've now got a training set you can use to test/train ranking models.
-Using of a tool like RankLib or XGBoost, you'll hopefully arrive at a
-satisfactory model.
+1. **Develop query-dependent features:** Create custom features that capture the relationship between a search query and a document. These features can be stored in OpenSearch.
+2. **Log feature values:** Record the feature values for documents return in search results. Once you have logged the feature sets for your documents, you can combine this data with the judgment lists you have developed. This will give you a complete training set that you can use to test and train your ranking models. Tools such as RankLib or XGBoost can then be used to develop a satisfactory model.
+3. **Deploy and use models:** Upload trained ranking models to the plugin and use them to rerank search results. The plugin offers a custom OpenSearch Query DSL primitive that allows you to execute the model during the search process.
 
-With a ranking model, you turn back to the plugin. You upload the model
-and give it a name. The model is associated with the set of features
-used to generate the training data. You can then search with the model,
-using a custom OpenSearch Query DSL primitive that executes the
-model. Hopefully this lets you deliver better search to users.
+## What the plugin does not do
 
-## What the plugin is NOT
+The plugin does not help with creating judgment lists, which is a task you must handle yourself, as it can be highly domain-speific. See the Wikimedia Foundation blog [Admittedly loopy but not entirely absurd—Understanding our Search Relevance Survey](https://blog.wikimedia.org/2017/09/19/search-relevance-survey/) for an example of an approach to developing judgment lists for people searching their articles. Other domains, such as e-commerce, may focus more on conversion-related signals, while some may involve human relevance assessors, either internal experts or crowdsourced workers.
 
-The plugin does not help with Judgement list creation. This is work you
-must do and can be very domain specific. The Wikimedia Foundation wrote a
-[great
-article](https://blog.wikimedia.org/2017/09/19/search-relevance-survey/)
-on how they arrive at Judgement lists for people searching articles.
-Other domains such as e-commerce might be more conversion focused. Yet
-others might involve human relevance judges \-- either experts at your
-company or mechanical turk.
+The plugin does not handle the training or testing of models. This is an offline process that should be handled using the appropriate tools, such as XGboost and RankLib. The plugin integrates with these external model-building workflows. Training and testing ranking models can be a CPU-intensive task that requires data scientist expertise and offline testing. Most organizations prefer to have data scientists oversee the model development process, rather than running it directly in their production environment.
 
-The plugin does not train or test models. This also happens offline in
-tools appropriate to the task. Instead the plugin uses models generated
-by XGboost and RankLib libraries. Training and testing models is CPU
-intensive task that, involving data scientist supervision and offline
-testing. Most organizations want some data science supervision on model
-development. And you would not want this running in your production
-Elasticsearch cluster!
+## Next steps
 
-The rest of this guide is dedicated to walking you through how the
-plugin works to get you there. Continue on to
-[building features]({{site.url}}{{site.baseurl}}/search-plugins/ltr/building-features/).
+- Learn about [Building features]({{site.url}}{{site.baseurl}}/search-plugins/ltr/building-features/).

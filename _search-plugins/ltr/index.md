@@ -10,42 +10,24 @@ redirect_from:
 
 # LTR search
 
-Short for *Learning to Rank*, the LTR plugin enables you use machine learning and behavioral data to tune the relevance of documents. 
-It uses models from the XGBoost and RankLib libraries to rescore the search results that takes into account query dependent features such as click-through data or field matches, which can further improve relevance.
+The Learning to Rank plugin for OpenSearch enables you to use machine learning (ML) and behavioral data to fine-tune the relevance of documents. It uses models from the XGBoost and RankLib libraries to rescore the search results that takes into account query dependent features such as click-through data or field matches, which can further improve relevance.
 
-[Learning to
-Rank](http://opensourceconnections.com/blog/2017/02/24/what-is-learning-to-rank/)
-applies machine learning to relevance ranking. The [OpenSearch
-Learning to Rank
-plugin](https://github.com/opensearch-project/opensearch-learning-to-rank-base)
-(OpenSearch LTR) gives you tools to train and use ranking models in
-OpenSearch. 
+The term _learning to rank_ is abbreviated as LTR throughout the OpenSearch documentation when the term is used generally. For the plugin developer documentation, see [opensearch-learning-to-rank-base](https://github.com/opensearch-project/opensearch-learning-to-rank-base).
+{: .note} 
 
-## Get started
+## Getting started
 
--   Want a quickstart? Check out the demo in
-    [hello-ltr](https://github.com/o19s/hello-ltr).
--   Brand new to learning to rank? Head to
-    [core concepts]({{site.url}}{{site.baseurl}}/search-plugins/ltr/core-concepts/).
--   Otherwise, start with how the plugin [fits in]({{site.url}}{{site.baseurl}}/search-plugins/ltr/fits-in/).
+The following resources can help get you started:
 
-## Installing
+- For a quick introduction, see the demo in [hello-ltr](https://github.com/o19s/hello-ltr).
+- If you are new to LTR, start with the [Core concepts]({{site.url}}{{site.baseurl}}/search-plugins/ltr/core-concepts/) documentation.
+- If you are familiar with LTR, start with the [Integrating the plugin]({{site.url}}{{site.baseurl}}/search-plugins/ltr/fits-in/) documentation.
 
-Pre-built versions can be found
-[here](https://github.com/opensearch-project/opensearch-learning-to-rank-base/releases).
-Want a build for an OS version? Follow the instructions in the [README
-for
-building](https://github.com/opensearch-project/opensearch-learning-to-rank-base#development)
-or [create an
-issue](https://github.com/opensearch-project/opensearch-learning-to-rank-base/issues).
-Once you've found a version compatible with your OpenSearch, you'd
-run a command such as:
+## Installing the plugin
 
-    ./bin/opensearch-plugin install https://github.com/opensearch-project/opensearch-learning-to-rank-base/releases/download/ltr-plugin-v2.11.1-RC1/ltr-plugin-v2.11.1-RC1.zip 
+Pre-built versions of the plugin are available at [https://github.com/opensearch-project/opensearch-learning-to-rank-base/releases](https://github.com/opensearch-project/opensearch-learning-to-rank-base/releases). If you need a version compatible with your OpenSearch installation, follow the instructions in the [README](https://github.com/opensearch-project/opensearch-learning-to-rank-base#development) file or [create an issue](https://github.com/opensearch-project/opensearch-learning-to-rank-base/issues). Once you have an appropriate version, you can install it using a command line shown in the following example:
 
-
-
-## History
-
-The Elasticsearch LTR plugin was initially developed by [OpenSource Connections](http://opensourceconnections.com), with significant contributions by [Wikimedia Foundation](https://diff.wikimedia.org/2017/10/17/elasticsearch-learning-to-rank-plugin/), Snagajob Engineering, Bonsai, and Yelp Engineering. 
-The OpenSearch version of the plugin is derived from the Elasticsearch LTR plugin.
+```
+./bin/opensearch-plugin install https://github.com/opensearch-project/opensearch-learning-to-rank-base/releases/download/ltr-plugin-v2.11.1-RC1/ltr-plugin-v2.11.1-RC1.zip 
+```
+{% include copy-curl.html %}

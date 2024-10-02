@@ -1,35 +1,24 @@
 ---
 layout: default
-title: FAQ
+title: FAQs
 nav_order: 1000
 parent: LTR search
 has_children: false
 ---
 
-# FAQ
+# FAQs
 
-This section contains answers to common issues that may trip up users.
+The following frequently asked questions (FAQS) are common issues you may encounter.
 
-## Negative Scores
+## Negative scores
 
-Lucene does not allow queries to have negative scores. This can be
-problematic if you have a raw feature that has a negative value.
-Unfortunately there is no easy quick fix for this. If you are working
-with such features, you need to make them non-negative *BEFORE* you
-train your model. This can be accomplished by creating normalized fields
-with values shifted by the mininum value or you can run the score thru a
-function that produces a value >= 0.
+Lucene does not allow for negative query scores. This can be problematic if your raw features include negative values. To address this, you will need to ensure your features are non-negative **before** training your model. You can achieve this by creating normalized fields with values shifted by the minimum value or by passing the scores through a function that produces a value greater than or equal to `0`.
 
-## I found a bug
+## Bugs
 
-If you've been fighting with the plugin it's entirely possible you've
-encountered a bug. Open an issue on the Github project and we
-will do our best to get it sorted. If you need general support, please
-see the following section as we will typically close issues that are only
-looking for support.
+If you've encountered a bug while working with the plugin, you can open an issue on the [open issues Github page](https://github.com/opensearch-project/.github/issues). The project team will do its best to investigate and resolve the issue. However, if you are seeking general support, the issue may be closed and you may be directed to the relevant support channels.
 
-## I'm still stuck!
+## Struggling with a problem
 
-We'd love to hear from you! Consider joining the [Relevance Slack
-Community](https://opensourceconnections.com/slack) and join the
-#opensearch-learn-to-rank channel.
+If you are still struggling with a problem, you can join the [Relevance Slack
+Community](https://opensourceconnections.com/slack) and participate in the #opensearch-learn-to-rank channel, where you can receive additional guidance and support from the community.

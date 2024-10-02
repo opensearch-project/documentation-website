@@ -1,26 +1,24 @@
 ---
 layout: default
-title: Feature Engineering
+title: Feature engineering
 nav_order: 40
 parent: LTR search
 has_children: false
 ---
 
-# Feature Engineering
+# Feature engineering
 
-You've seen how to add features to feature sets. We want to show you
-how to address common feature engineering tasks that come up when
-developing a learning to rank solution.
+The section guides you through some common feature engineering tasks that come up when developing a learning to rank (LTR) solution.
 
-## Getting Raw Term Statistics
+## Getting raw term statistics
 
-Many learning to rank solutions use raw term statistics in training.
-For example, the total term frequency for a term, the document
-frequency, and other statistics. Luckily, OpenSearch LTR comes
-with a query primitive, `match_explorer`, that extracts these
-statistics for you for a set of terms. In its simplest form,
-`match_explorer` lets you specify a statistic you\'re interested in
-and a match you'd like to explore. For example:
+Many LTR solutions use raw term statistics in their training. Some examples of these statistics include the following: 
+- **Total term frequency (`raw_ttf`):** The total number of times a term appears across the entire index.
+- **Document frequency (`raw_df`):** The number of documents a term appears in.
+- **Term frequency (`raw_tf`):** The number of times a term appears in a specific document. 
+- **Classic IDF (`classic_idf`):** The Inverse Document Frequency (IDF) calculation, which is log((NUM_DOCS+1)/(raw_df+1)) + 1.
+
+The OpenSearch Learning to Rank plugin provides a `match_explorer` query primitive that can extract these statistics for you, as shown in the following example: 
 
 ```json
 POST tmdb/_search
@@ -37,59 +35,28 @@ POST tmdb/_search
     }
 }
 ```
+{% include copy-curl.html %}
 
-This query returns the highest document frequency between the two terms.
+This query returns the highest document frequency between the terms `rambo ` and `rocky`. 
 
-A large number of statistics are available. The `type` parameter can
-be prepended with the operation to be performed across terms for the
-statistic `max`, `min`, `sum`, and `stddev`.
-
-The statistics available include:
-  - `raw_df` -- the direct document frequency for a term. So if
-rambo occurs in 3 movie titles, this is 3.
-  - `classic_idf` -- the IDF calculation of the classic similarity
-`log((NUM_DOCS+1)/(raw_df+1)) + 1`.
-  - `raw_ttf` -- the total term frequency for the term across the
-index. So if rambo is mentioned a total of 100 times in the overview
-field, this would be 100.
-  -   `raw_tf` -- the term frequency for a document. So if rambo
-    occurs in 3 in movie synopsis in same document, this is 3.
-
-Putting the operation and the statistic together, you can see some
-examples. To get stddev of classic_idf, you would write
-`stddev_classic_idf`. To get the minimum total term frequency,
-you'd write `min_raw_ttf`.
+You can use other operations such as `max`, `min`, `sum`, and `stddev` with the various statistics to get the information you need.
 
 ### Term position statistics
 
-The `type` parameter can be prepended with the operation to be
-performed across term position for the statistic `min`, `max` and
-`avg`. For any of the cases, 0 will be returned if there isn’t any occurrence of the terms in the document.
+You can prepend the `type` with the desired operation (`min`, `max`, `avg`) to calculate the corresponding statistic across the term positions. If the terms are note present in the document, then the result will be `0`. 
 
-The statistics available include, e.g. using the query “dance monkey” we have:
+The available statistics include the following:
 
-  - `min_raw_tp` -- return the minimum occurrence, i.e. the first
-one, of any term on the query. So if dance occurs at positions [2,5 ,9], 
-and monkey occurs at positions [1, 4] in a text in the same document, the minimum is 1.                                     |
-  - `max_raw_tp` -- return the maximum occurrence, i.e. the last
-one, of any term on the query. So if dance occurs at positions [2, 5 ,9] 
-and monkey occurs at positions [1, 4\] in a text in the same
-document, the maximum is 9.
-  -  `avg_raw_tp` -- return the average of all occurrence of the
-terms on the query. So if dance occurs at positions [2, 5 ,9]
-its average is `5.33`, and monkey has average `2.5` for
-positions [1, 4]. So the returned average is `3.91`, computed
-by `(5.33 + 2.5)/2`.
-
-Finally a special stat exists for only counting the number of search
-terms. That stat is `unique_terms_count`.
+- `min_raw_tp` (minimum raw term position): This statistic finds the earliest position of any search term in the document. For example, with the query `dance monkey`, if `dance` occurs at positions [2,5 ,9] and `monkey` occurs at [1, 4], then the minimum is 1.                                     |
+- `max_raw_tp` (maximum raw term position): This statistic finds the latest position of any search term in the document. For example, using the preceding example, the maximum is 9.
+- `avg_raw_tp` (average raw term position): This statistic calculates the average term position for any of the query terms. For example, using the preceding example, for `dance` the average is 5.33 [(2+5+9)/3)] and for `monkey` is 2.5 [(1+4)/2], so the overall average is 3.91.
+- `unique_terms_count`: Provides a count of the unique search terms in the query.
 
 ## Document-specific features
 
-Another common case in learning to rank is features such as popularity
-or recency, tied only to the document. OpenSearch's `function_score`
-query has the functionality you need to pull this data out. You already
-saw an example when adding features in the last section:
+When working on an LTR solution, you may need to incorporate features that are specific to the document, rather than the relationship between the query and the document. These document-specific features can include metrics related to the popularity or recency. 
+
+The OpenSearch `function_score` query provides the functionality to extract these document-specific features. The following example query shows how you can use it to incorporate the `vote_average` field as a feature:
 
 ```json
 {
@@ -108,18 +75,14 @@ saw an example when adding features in the last section:
     }
 }
 ```
+{% include copy-curl.html %}
 
-The score for this query corresponds to the value of the `vote_average`
-field.
+In this example, the score of the query will be determined by the value of the `vote_average` field, which could be a measure of popularity or quality for the document.
 
-## Your index may drift
+## Index drift
 
-If you have an index that updates regularly, trends that held true
-today, may not hold true tomorrow! On an e-commerce store, sandals might
-be very popular in the summer, but impossible to find in the winter.
-Features that drive purchases for one time period, may not hold true for
-another. It's always a good idea to monitor your model's performance
-regularly, retrain as needed.
+When working with an index that is regularly updated, it is important to consider that the trends and patterns you observe may not remain constant over time. You index can drift as user behavior, content, and other factors change. For example, on an e-commerce store, you may find that sandals a popular during the summer months, but become almost impossible to find in the winter. Similarly, the features that drive purchases or engagement during one time period may not be as important in another. 
 
-Next up, we discuss the all-important task of logging features in
-[Logging Feature Scores]({{site.url}}{{site.baseurl}}/search-plugins/ltr/logging-features/)
+## Next steps
+
+- Learn about [Logging feature scores]({{site.url}}{{site.baseurl}}/search-plugins/ltr/logging-features/)

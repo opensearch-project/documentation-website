@@ -1,27 +1,22 @@
 ---
 layout: default
-title: Advanced Functionality
+title: Advanced functionality
 nav_order: 80
 parent: LTR search
 has_children: false
 ---
 
-# Advanced Functionality
+# Advanced functionality
 
-This section documents some additional functionality you may find useful
-after you're comfortable with the primary capabilities of OpenSearch
-LTR.
+OpenSearch Learning to Rank (LTR) offers additional functionality. It is recommended that you have a foundational understanding of OpenSearch LTR before working with these features.
 
-## Reusable Features
+## Reusable features
 
-In [building features]({{site.url}}{{site.baseurl}}/search-plugins/ltr/building-features/) we demonstrated
-creating feature sets by uploading a list of features. Instead of
-repeating common features in every feature set, you may want to keep a
-library of features around.
+[Building features]({{site.url}}{{site.baseurl}}/search-plugins/ltr/building-features/) involves uploading a list of features. To avoid repeating common features across multiple sets, you can maintain a library of reusable features.
+	
+For example, if a title field query is frequently used in your feature sets, you can create a reusable title query using the feature API:
 
-For example, perhaps a query on the title field is important to many of
-your feature sets, you can use the feature API to create a title query:
-
+```json
     POST _ltr/_feature/titleSearch
     {
         "feature":
@@ -36,207 +31,187 @@ your feature sets, you can use the feature API to create a title query:
             }
         }
     }
+```
+{% include copy-curl.html %}
 
-As you'd expect, normal CRUD operations apply. You can DELETE a
-feature:
+Normal CRUD operations apply, so you can delete a feature by using the following operation: 
 
-    DELETE _ltr/_feature/titleSearch
+```
+DELETE _ltr/_feature/titleSearch
+```
+{% include copy-curl.html %}
 
-And fetch an individual feature:
 
-    GET _ltr/_feature/titleSearch
+To fetch an individual feature, you can use the following request:
 
-Or look at all your features, optionally filtered by name prefix:
+```
+GET _ltr/_feature/titleSearch
+```
+{% include copy-curl.html %}
 
-    GET /_ltr/_feature?prefix=t
+To view a list of all features filtered by name prefix, you can use the following request:
 
-You can create or update a feature set, you can refer to the `titleSearch`
-feature:
+```
+GET /_ltr/_feature?prefix=t
+```
+{% include copy-curl.html %}
 
-    POST /_ltr/_featureset/my_featureset/_addfeatures/titleSearch
+To create or update a feature set, you can refer to the `titleSearch` feature by using the following request:
 
-This will place `titleSearch` at the next ordinal position under
-"my_featureset".
+```
+POST /_ltr/_featureset/my_featureset/_addfeatures/titleSearch
+```
+{% include copy-curl.html %}
 
-## Derived Features
+This will add the `titleSearch` feature to the next ordinal position within the `my_featureset` feature set.
 
-Features that build on top of other features are called derived
-features. These can be expressed as [Lucene
-expressions](http://lucene.apache.org/core/7_1_0/expressions/index.html?org/apache/lucene/expressions/js/package-summary.html).
-They are recognized by `"template_language": "derived_expression"`.
-Besides these can also take in query time variables of type
-[Number](https://docs.oracle.com/javase/8/docs/api/java/lang/Number.html)
-as explained in [create a feature set]({{site.url}}{{site.baseurl}}/search-plugins/ltr/building-features#create-a-feature-set).
+## Derived features
 
-### Script Features
+Derived features are those that build upon other features. These can be expressed as [Lucene expressions](http://lucene.apache.org/core/7_1_0/expressions/index.html?org/apache/lucene/expressions/js/package-summary.html), and are identified by the `"template_language": "derived_expression"`. Additionally, derived features can accept qury-time variables of type [`Number`](https://docs.oracle.com/javase/8/docs/api/java/lang/Number.html), as described in [Creating feature sets]({{site.url}}{{site.baseurl}}/search-plugins/ltr/building-features#creating-feature-sets).
 
-These are essentially [derived features](#derived-features),
-having access to the `feature_vector` but could be native or Painless
-OpenSearch scripts rather than [lucene
-expressions](http://lucene.apache.org/core/7_1_0/expressions/index.html?org/apache/lucene/expressions/js/package-summary.html).
-`"template_language": "script_feature""` allows LTR to identify the
-templated script as a regular elasticsearch script e.g. native,
-painless, etc.
+### Script features
 
-The custom script has access to the feature_vector via the java
-[Map](https://docs.oracle.com/javase/8/docs/api/java/util/Map.html)
-interface as explained in [create a feature set]({{site.url}}{{site.baseurl}}/search-plugins/ltr/building-features#create-a-feature-set).
+Script features are a type of [derived feature](#derived-features). These features have access to the `feature_vector`, but they are implemented as native or Painless OpenSearch scripts, rather than [Lucene
+expressions](http://lucene.apache.org/core/7_1_0/expressions/index.html?org/apache/lucene/expressions/js/package-summary.html). To identify these features, set the `"template_language": "script_feature""`. The custom script can access the `feature_vector` through the [Java Map](https://docs.oracle.com/javase/8/docs/api/java/util/Map.html), as described in [Create a feature set]({{site.url}}{{site.baseurl}}/search-plugins/ltr/building-features#creating-feature-sets).
 
-(WARNING script features can cause the performance of your OpenSearch
-cluster to degrade, if possible avoid using these for feature generation
-if you require your queries to be highly performant)
 
-### Script Features Parameters
+Script-based features may impact the performance of your Elasticsearch cluster, so it is best to avoid them if you require highly performant queries.
+{: .warning}
 
-Script features are essentially native/painless scripts and can accept
-parameters as per the [OpenSearch script
-documentation]({{site.url}}{{site.baseurl}}/api-reference/script-apis/index/).
-We can override parameter values and names to scripts within LTR
-scripts. Priority for parameterization in increasing order is as follows
+### Script features parameters
 
-> -   parameter name, value passed in directly to source script but not
->     in params in ltr script. These cannot be configured at query time.
->
-> -   parameter name passed in to sltr query and to source script, so
->     the script parameter values can be overridden at query time.
->
-> -   ltr script parameter name to native script parameter name
->     indirection. This allows ltr parameter name to be different from
->     the underlying script parameter name. This allows same native
->     script to be reused as different features within LTR by specifying
->     different parameter names at query time:
->
->         POST _ltr/_featureset/more_movie_features
->         {
->            "featureset": {
->                 "features": [
->                     {
->                         "name": "title_query",
->                         "params": [
->                             "keywords"
->                         ],
->                         "template_language": "mustache",
->                         "template": {
->                             "match": {
->                                 "title": "{{keywords}}"
->                             }
->                         }
->                     },
->                     {
->                         "name": "custom_title_query_boost",
->                         "params": [
->                             "some_multiplier",
->                             "ltr_param_foo"
->                         ],
->                         "template_language": "script_feature",
->                         "template": {
->                             "lang": "painless",
->                             "source": "(long)params.default_param * params.feature_vector.get('title_query') * (long)params.some_multiplier * (long) params.param_foo",
->                             "params": {
->                                 "default_param" : 10.0,
->                                 "some_multiplier": "some_multiplier",
->                                 "extra_script_params": {"ltr_param_foo": "param_foo"}
->                             }
->                         }
->                     }
->                 ]
->            }
->         }
+Script features are native or Painless scripts within the context of LTR. These script features can accept parameters as described in the [OpenSearch script documentation]({{site.url}}{{site.baseurl}}/api-reference/script-apis/index/). When working with LTR scripts, you can override parameter values and names. The priority for parameterization, in increasing order, is as follows:
 
-## Multiple Feature Stores
+- Parameter name and value passed directly to source script, but not in the parameters of the LTR script. These cannot be configured at query time. 
+- Parameter name passed to both the SLTR query and the source script, allowing the script parameter values to be overridden at query time.
+- LTR script parameter name to native script parameter name indirection, which allows the LTR parameter name to be different from the underlying script parameter name. This enables the same native script to be reused as different features within LTR by specifying different parameter names at query time.
 
-We defined a feature store in [building features]({{site.url}}{{site.baseurl}}/search-plugins/ltr/building-features/). 
-A feature store corresponds to an independent LTR system:
-features, feature sets, models backed by a single index and cache. A
-feature store corresponds roughly to a single search problem, often tied
-to a single application. For example wikipedia might be backed by one
-feature store, but wiktionary would be backed by another. There\'s
-nothing that would be shared between the two.
+For example, to set up a customizable way to rank movies in search results, considering both the title match and other adjustable factors, you can use the following request:
 
-Should your OpenSearch cluster back multiple properties, you can use
-all the capabilities of this guide on named feature stores, simply by:
-
-    PUT _ltr/wikipedia
-
-Then the same API in this guide applies to this feature store, for
-example to create a feature set:
-
-    POST _ltr/wikipedia/_featureset/attempt_1
-    {
-       "featureset": {
-            "features": [
-                {
-                    "name": "title_query",
-                    "params": [
-                        "keywords"
-                    ],
-                    "template_language": "mustache",
-                    "template": {
-                        "match": {
-                            "title": "{{keywords}}"
-                        }
-                    }
-                }
-            ]
-       }
-    }
-
-And of course you can delete a featureset:
-
-    DELETE _ltr/wikipedia/_featureset/attempt_1
-
-You can use featuresets of specific feature stores by using the `store`
-parameter in the `sltr` part of your query when logging features:
-
-    "sltr": {
-        "_name": "logged_featureset",
-        "featureset": "attempt_1",
-        "store": "wikipedia",
-        "params": {
-            "keywords": "star"
+```json
+POST _ltr/_featureset/more_movie_features
+{
+  "featureset": {
+    "features": [
+      {
+        "name": "title_query",
+        "params": [
+          "keywords"
+        ],
+        "template_language": "mustache",
+        "template": {
+          "match": {
+            "title": "{{keywords}}"
+          }
         }
+      },
+      {
+        "name": "custom_title_query_boost",
+        "params": [
+          "some_multiplier",
+          "ltr_param_foo"
+        ],
+        "template_language": "script_feature",
+        "template": {
+          "lang": "painless",
+          "source": "(long)params.default_param * params.feature_vector.get('title_query') * (long)params.some_multiplier * (long) params.param_foo",
+          "params": {
+            "default_param": 10,
+            "some_multiplier": "some_multiplier",
+            "extra_script_params": {
+              "ltr_param_foo": "param_foo"
+            }
+          }
+        }
+      }
+    ]
+  }
+}
+```
+{% include copy-curl.html %}
+
+## Multiple feature stores
+
+A feature store corresponds to an independent LTR system, including features, feature sets, and models backed by a single index and cache. A feature store typically represents a single search problem or application, like Wikipedia or Wiktionary. To use multiple feature stores in your OpenSearch cluster you can create and manage them using the provided API, such as creating a feature set for the `wikipedia` feature store:
+
+```json
+PUT _ltr/wikipedia
+
+POST _ltr/wikipedia/_featureset/attempt_1
+{
+  "featureset": {
+    "features": [
+      {
+        "name": "title_query",
+        "params": [
+          "keywords"
+        ],
+        "template_language": "mustache",
+        "template": {
+          "match": {
+            "title": "{{keywords}}"
+          }
+        }
+      }
+    ]
+  }
+}
+```
+{% include copy-curl.html %}
+
+When logging features, you can specify the feature store using the `store` parameter in the `sltr` part of your query, as shown in the following example structure. If you do not provide a `store` parameter, the default store will be used to look up the feature set.
+
+```json
+{
+  "sltr": {
+    "_name": "logged_featureset",
+    "featureset": "attempt_1",
+    "store": "wikipedia",
+    "params": {
+      "keywords": "star"
     }
+  }
+}
+```
+{% include copy-curl.html %}
 
-In case no `store` is specified the default store will be used for
-looking up the featureset.
+To delete the feature set, you can use the following operation:
 
-## Model Caching
+```
+DELETE _ltr/wikipedia/_featureset/attempt_1
+```
+{% include copy-curl.html %}
 
-The plugin uses an internal cache for compiled models.
+## Model caching
 
-Clear the cache for a feature store to force models to be recompiled:
+The Model Caching plugin uses an internal cache for compiled models. To force the models to be recompiled, you can clear the cache for a feature store:
 
     POST /_ltr/_clearcache
 
-Get cluster wide cache statistics for this store:
+To get cluster-wide cache statistics for a specific store, use the following request:
 
-    GET /_ltr/_cachestats
+```
+GET /_ltr/_cachestats
+```
+{% include copy-curl.html %}
 
-Characteristics of the internal cache can be controlled with these node
-settings:
+You can control the characteristics of the internal cache using the following node settings:
 
-    # limit cache usage to 12 megabytes (defaults to 10mb or max_heap/10 if lower)
-    ltr.caches.max_mem: 12mb
-    # Evict cache entries 10 minutes after insertion (defaults to 1hour, set to 0 to disable)
-    ltr.caches.expire_after_write: 10m
-    # Evict cache entries 10 minutes after access (defaults to 1hour, set to 0 to disable)
-    ltr.caches.expire_after_read: 10m
+```
+# limit cache usage to 12 megabytes (defaults to 10mb or max_heap/10 if lower) ltr.caches.max_mem: 12mb
+# Evict cache entries 10 minutes after insertion (defaults to 1hour, set to 0 to disable) ltr.caches.expire_after_write: 10m
+# Evict cache entries 10 minutes after access (defaults to 1hour, set to 0 to disable) ltr.caches.expire_after_read: 10m
+```
+{% include copy.html %}
 
-## Extra Logging
+## Extra logging
 
-As described in [logging features]({{site.url}}{{site.baseurl}}/search-plugins/ltr/logging-features/), it is
-possible to use the logging extension to return the feature values with
-each document. For native scripts, it is also possible to return extra
-arbitrary information with the logged features.
+As described in [Logging features]({{site.url}}{{site.baseurl}}/search-plugins/ltr/logging-features/),you can use the logging extension to return feature values with each document. For native scripts, you can also return additional arbitrary information along with the logged features. 
 
-For native scripts, the parameter `extra_logging` is injected into the
-script parameters. The parameter value is a
-[Supplier](https://docs.oracle.com/javase/8/docs/api/java/util/function/Supplier.html)
-\<[Map](https://docs.oracle.com/javase/8/docs/api/java/util/Map.html)\>,
-which provides a non-null `Map<String,Object>` **only** during the
-logging fetch phase. Any values added to this Map will be returned with
-the logged features:
+For native scripts, the `extra_logging` parameter is injected into the script parameters. This parameter is a [`Supplier<Map<String,Object>>`](https://docs.oracle.com/javase/8/docs/api/java/util/function/Supplier.html), which provides a non-null `Map<String,Object>` only during the logging fetch phase. Any values you add to this map will be returned alongside the logged features:
 
+```json
+{
     @Override
     public double runAsDouble() {
     ...
@@ -247,327 +222,315 @@ the logged features:
         }
     ...
     }
+}
+```
+{% include copy-curl.html %}
 
-If (and only if) the extra logging Map is accessed, it will be returned
-as an additional entry with the logged features:
+If the extra logging map is accessed, it will be returned as an additional entry with the logged features. The format of the logged features, including the extra logging information, would look like the following example:
 
-    {
-        "log_entry1": [
-            {
-                "name": "title_query"
-                "value": 9.510193
-            },
-            {
-                "name": "body_query"
-                "value": 10.7808075
-            },
-            {
-                "name": "user_rating",
-                "value": 7.8
-            },
-            {
-                "name": "extra_logging",
-                "value": {
-                    "extra_float": 10.0,
-                    "extra_string": "additional_info"
-                }
+```json
+  {
+    "log_entry1": [
+        {
+            "name": "title_query",
+            "value": 9.510193
+        },
+        {
+            "name": "body_query",
+            "value": 10.7808075
+        },
+        {
+            "name": "user_rating",
+            "value": 7.8
+        },
+        {
+            "name": "extra_logging",
+            "value": {
+                "extra_float": 10.0,
+                "extra_string": "additional_info"
             }
-        ]
-    }
+        }
+    ]
+}
+```
+{% include copy-curl.html %}
 
-## Feature Score Caching
+## Feature score caching
 
-By default, this plugin calculates feature scores for model inference
-and for feature score logging separately. For example, if we write a
-query as below to rescore top-100 documents then return top-10 among
-them with feature scores, this plugin calculates the feature scores on
-the 100 documents for model inference then calculates again and logs 10
-of them:
+By default, the Feature Score Caching plugin calculates feature scores for both model inference and feature score logging. For example, if you write a query to rescore top 100 documents and return top 10 with feature scores, then the plugin will calculate the feature scores on the 100 documents for model inference, and then will calculate and log the scores for the top 10 documents.
 
-    POST tmdb/_search
-    {
-        "size": 10,
+The following query shows this behavior: 
+
+```json
+POST tmdb/_search
+{
+    "size": 10,
+    "query": {
+        "match": {
+            "_all": "rambo"
+        }
+    },
+    "rescore": {
+        "window_size" : 100,
         "query": {
-            "match": {
-                "_all": "rambo"
-            }
-        },
-        "rescore": {
-            "window_size" : 100,
-            "query": {
-                "rescore_query": {
-                    "sltr": {
-                        "params": {
-                            "keywords": "rambo"
-                        },
-                        "model": "my_model"
-                    }
-                }
-            }
-        },
-        "ext": {
-            "ltr_log": {
-                "log_specs": {
-                    "name": "log_entry1",
-                    "rescore_index": 0
+            "rescore_query": {
+                "sltr": {
+                    "params": {
+                        "keywords": "rambo"
+                    },
+                    "model": "my_model"
                 }
             }
         }
+    },
+    "ext": {
+        "ltr_log": {
+            "log_specs": {
+                "name": "log_entry1",
+                "rescore_index": 0
+            }
+        }
     }
+}
+```
+{% include copy-curl.html %}
 
-In some environments, it may be faster to cache the feature scores for
-model inference and just reuse them for logging. This plugin supports
-this behavior. To enable the feature score caching, add `cache: "true"`
-flag to the LTR query which is the target of feature score logging:
+In some environments, it may be faster to cache the feature scores for model inference and reuse them for logging. To enable this feature score caching, add the `cache: "true"`
+flag to the `sltr` query that is the target of feature score logging, as shown in the following example:
 
-    "sltr": {
-        "cache": true,
-        "params": {
-            "keywords": "rambo"
-        },
-        "model": "my_model"
-    }
+```json
+{
+   "sltr":{
+      "cache":true,
+      "params":{
+         "keywords":"rambo"
+      },
+      "model":"my_model"
+   }
+}
+```
+{% include copy-curl.html %}
 
 ## Stats
 
-The stats API gives the overall plugin status and statistics:
+You can use the Stats API to retrieve the overall status and statistics of the plugin. To do this, send the following request:
 
-    GET /_ltr/_stats
+```
+GET /_ltr/_stats
+```
+{% include copy-curl.html %}
 
-    {
-        "_nodes": {
-            "total": 1,
-            "successful": 1,
-            "failed": 0
-        },
-        "cluster_name": "es-cluster",
-        "stores": {
-            "_default_": {
-                "model_count": 10,
-                "featureset_count": 1,
-                "feature_count": 0,
-                "status": "green"
+The response will include information about the cluster, the configured stores, and the cache statistics for various components of the plugin:
+
+```json
+{
+   "_nodes":{
+      "total":1,
+      "successful":1,
+      "failed":0
+   },
+   "cluster_name":"es-cluster",
+   "stores":{
+      "_default_":{
+         "model_count":10,
+         "featureset_count":1,
+         "feature_count":0,
+         "status":"green"
+      }
+   },
+   "status":"green",
+   "nodes":{
+      "2QtMvxMvRoOTymAsoQbxhw":{
+         "cache":{
+            "feature":{
+               "eviction_count":0,
+               "miss_count":0,
+               "hit_count":0,
+               "entry_count":0,
+               "memory_usage_in_bytes":0
+            },
+            "featureset":{
+               "eviction_count":0,
+               "miss_count":0,
+               "hit_count":0,
+               "entry_count":0,
+               "memory_usage_in_bytes":0
+            },
+            "model":{
+               "eviction_count":0,
+               "miss_count":0,
+               "hit_count":0,
+               "entry_count":0,
+               "memory_usage_in_bytes":0
             }
-        },
-        "status": "green",
-        "nodes": {
-            "2QtMvxMvRoOTymAsoQbxhw": {
-                "cache": {
-                    "feature": {
-                        "eviction_count": 0,
-                        "miss_count": 0,
-                        "hit_count": 0,
-                        "entry_count": 0,
-                        "memory_usage_in_bytes": 0
-                    },
-                    "featureset": {
-                        "eviction_count": 0,
-                        "miss_count": 0,
-                        "hit_count": 0,
-                        "entry_count": 0,
-                        "memory_usage_in_bytes": 0
-                    },
-                    "model": {
-                        "eviction_count": 0,
-                        "miss_count": 0,
-                        "hit_count": 0,
-                        "entry_count": 0,
-                        "memory_usage_in_bytes": 0
+         }
+      }
+   }
+}
+```
+{% include copy-curl.html %}
+
+You can use filters to retrieve a single stat by sending the following request:
+
+```
+GET /_ltr/_stats/{stat}
+```
+{% include copy-curl.html %}
+
+You can limit the information to a single node in the cluster by sending the following requests:
+
+```
+GET /_ltr/_stats/nodes/{nodeId}
+GET /_ltr/_stats/{stat}/nodes/{nodeId}
+```
+{% include copy-curl.html %}
+
+## TermStat query
+Experimental
+{: .label .label-red }
+
+The TermStat query is experimental stage and the DSL may change as the code advances. For stable term-statistic access, see [ExplorerQuery]{.title-ref}.
+
+The `TermStatQuery` is a reimagined version of the legacy `ExplorerQuery`. It provides a clearer way to specify terms and offers more flexibility for experimentation. This query surfaces the same data as the [ExplorerQuery]{.title-ref}, but it allows you to specify a custom Lucene expression to retrieve the desired data, such as the following example:
+
+```json
+POST tmdb/_search
+{
+    "query": {
+        "term_stat": {
+            "expr": "df",
+            "aggr": "max",
+            "terms": ["rambo", "rocky"],
+            "fields": ["title"]
+        }
+    }
+}
+```
+{% include copy-curl.html %}
+
+
+The `expr` parameter allows you to specify a Lucene expression to be run on a per-term basis. This expression can be a simple stat type or a custom formula with multiple stat types, such as `(tf * idf) / 2`. Available stat types in the Lucene expression context are listed in the following table.
+
+Type | Description
+:---| :---
+`df` | The direct document frequency for a term. For example, if `rambo` occurs in three movie titles across multiple documents, then the value would be `3`.
+`idf` | The Inverse Document Frequency (IDF) calculation using the formula `log((NUM_DOCS+1)/(raw_df+1)) + 1`.
+`tf` | The term frequency for a document. For example, if `rambo` occurs three times in a movie synopsis in same document, then the value would be `3`.
+`tp` | The term positions for a document. Multiple positions can come back for a single term, you should review the behavior of the `pos_aggr` parameter.
+`ttf` | The total term frequency for the term across the index. For example, if `rambo` is mentioned a total of 100 times in the `overview` field across all documents, then this value would be `100`.
+
+The `aggr` parameter specifies the type of aggregation you want to apply to the collected statistics from the `expr`. For example, if you specify the terms `rambo` and `rocky`, then the query will gather statistics for both of those terms. Since you can only return a single value, you need to decide which statistical calculation you want to use. The available aggregation types are `min`, `max`, `avg`, `sum`, and `stddev`. The query also provides the following counts: `matches` (the number of terms that matched in the current document) and `unique` (the unique number of terms that were passed in).
+
+The `terms` parameter is an array of terms for which you want to gather statistics. Only single terms are supported, with no support for phrases or span queries. If your field is tokenized, you can pass multiple terms in one string in the array.
+
+The `fields` parameter specifies the fields to check for the specified `terms`. If no `analyzer` is specified, then the configured `search_analyzer` for each field is used.
+
+The optional parameters are listed in the following table.
+
+Type | Description
+:---| :---
+`analyzer` | If specified, this analyzer will be used instead of the configured `search_analyzer` for each field.
+`pos_aggr` | Since each term can have multiple positions, you can use this parameter to specify the aggregation to apply to the term positions. This supports the same values as the `aggr` parameter and defaults to AVG.
+
+### Script injection
+
+Script injection provides is the ability to inject term statistics into a scripting context. When working with `ScriptFeatures`, you can pass a `term_stat` object with the `terms`, `fields` and `analyzer` parameters. This allows you to access the raw values in your custom script through an injected variable named `termStats`. This enables advanced feature engineering by giving you access to all the underlying data.
+
+To access the count of matched tokens, use [params.matchCount.get()]{.title-ref}, and to access the unique token count, use [params.uniqueTerms]{.title-ref}.
+
+You either can hardcode the `term_stat` parameter in your script definition or can pass them as parameters to be set at query time. For example, you can define a feature set with a script feature that uses hardcoded `term_stat` parameters, as show in the following example request:
+
+```json
+POST _ltr/_featureset/test
+{
+   "featureset": {
+     "features": [
+       {
+         "name": "injection",
+         "template_language": "script_feature",
+         "template": {
+           "lang": "painless",
+           "source": "params.termStats['df'].size()",
+           "params": {
+             "term_stat": {
+                "analyzer": "!standard",
+                "terms": ["rambo rocky"],
+                "fields": ["overview"]
+             }
+           }
+         }
+       }
+     ]
+   }
+}
+```
+{% include copy-curl.html %}
+
+Analyzer names must be prefixed with a bang(!) if specifying locally. Otherwise, they are treated as the parameter lookup value.
+{: .note}
+
+To set parameter lookups, you can pass the name of the parameter from which you want to pull the value, as shown in the following example request:
+
+```json
+POST _ltr/_featureset/test
+{
+   "featureset": {
+     "features": [
+       {
+         "name": "injection",
+         "template_language": "script_feature",
+         "template": {
+           "lang": "painless",
+           "source": "params.termStats['df'].size()",
+           "params": {
+             "term_stat": {
+                "analyzer": "analyzerParam",
+                "terms": "termsParam",
+                "fields": "fieldsParam"
+             }
+           }
+         }
+       }
+     ]
+   }
+}
+```
+{% include copy-curl.html %}
+
+Alternatively, you can pass the `term_stat` parameters as query-time parameters, as shown in the following request:
+
+```json
+POST tmdb/_search
+{
+    "query": {
+        "bool": {
+            "filter": [
+                {
+                    "terms": {
+                        "_id": ["7555", "1370", "1369"]
                     }
-                }
-            }
-        }
-    }
-
-You can also use filters to retrieve a single stat:
-
-    GET /_ltr/_stats/{stat}
-
-Also you can limit the information to a single node in the cluster:
-
-    GET /_ltr/_stats/nodes/{nodeId}
-
-    GET /_ltr/_stats/{stat}/nodes/{nodeId}
-
-## TermStat Query
-
-**Experimental** - This query is currently in an experimental stage and
-the DSL may change as the code advances. For stable term statistic
-access please see the [ExplorerQuery]{.title-ref}.
-
-The `TermStatQuery` is a re-imagination of the legacy `ExplorerQuery`
-which offers clearer specification of terms and more freedom to
-experiment. This query surfaces the same data as the
-[ExplorerQuery]{.title-ref} but it allows the user to specify a custom
-Lucene expression for the type of data they would like to retrieve. For
-example:
-
-    POST tmdb/_search
-    {
-        "query": {
-            "term_stat": {
-                "expr": "df",
-                "aggr": "max",
-                "terms": ["rambo",  "rocky"],
-                "fields": ["title"]
-            }
-        }
-    }
-
-The `expr` parameter is the Lucene expression you want to run on a per
-term basis. This can simply be a stat type, or a custom formula
-containing multiple stat types, for example: `(tf * idf) / 2`. The
-following stat types are injected into the Lucene expression context for
-your usage:
-
--   `df` \-- the direct document frequency for a term. So if rambo
-    occurs in 3 movie titles across multiple documents, this is 3.
--   `idf` \-- the IDF calculation of the classic similarity
-    `log((NUM_DOCS+1)/(raw_df+1)) + 1`.
--   `tf` \-- the term frequency for a document. So if rambo occurs in 3x
-    in movie synopsis in same document, this is 3.
--   `tp` \-- the term positions for a document. Because multiple
-    positions can come back for a single term, review the behavior of
-    `pos_aggr`
--   `ttf` \-- the total term frequency for the term across the index. So
-    if rambo is mentioned a total of 100 times in the overview field
-    across all documents, this would be 100.
-
-The `aggr` parameter tells the query what type of aggregation you want
-over the collected statistics from the `expr`. For the example terms of
-`rambo rocky` we will get stats for both terms. Since we can only return
-one value you need to decide what statistical calculation you would
-like.
-
-Supported aggregation types are: - `min` \-- the minimum - `max` \-- the
-maximum - `avg` \-- the mean - `sum` \-- the sum - `stddev` \-- the
-standard deviation
-
-Additionally the following counts are available: - `matches` \-- The
-number of terms that matched in the current document - `unique` \-- The
-unique number of terms that were passed in
-
-The `terms` parameter is array of terms to gather statistics for.
-Currently only single terms are supported, there is not support for
-phrases or span queries. Note: If your field is tokenized you can pass
-multiple terms in one string in the array.
-
-The `fields` parameter specifies which fields to check for the specified
-`terms`. Note if no `analyzer` is specified then we use the analyzer
-specified for the field.
-
-Optional Parameters \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-
--   `analyzer` \-- if specified this analyzer will be used instead of
-    the configured `search_analyzer` for each field
--   `pos_aggr` \-- Since each term by itself can have multiple
-    positions, you need to decide which aggregation to apply. This
-    supports the same values as `aggr` and defaults to AVG
-
-### Script Injection
-
-Finally, one last addition that this functionality provides is the
-ability to inject term statistics into a scripting context. When working
-with `ScriptFeatures` if you pass a `term_stat` object in with the
-`terms`, `fields` and `analyzer` parameters you can access the raw
-values directly in a custom script via an injected variable named
-`termStats`. This provides for advanced feature engineering when you
-need to look at all the data to make decisions.
-
-Scripts access matching and unique counts slightly differently than
-inside the TermStatQuery:
-
-To access the count of matched tokens:
-[params.matchCount.get()]{.title-ref} To access the count of unique
-tokens: [params.uniqueTerms]{.title-ref}
-
-You have the following options for sending in parameters to scripts. If
-you always want to find stats about the same terms (i.e. stopwords or
-other common terms in your index) you can hardcode the parameters along
-with your script:
-
-    POST _ltr/_featureset/test
-    {
-       "featureset": {
-         "features": [
-           {
-             "name": "injection",
-             "template_language": "script_feature",
-             "template": {
-               "lang": "painless",
-               "source": "params.termStats['df'].size()",
-               "params": {
-                 "term_stat": {
-                    "analyzer": "!standard",
-                    "terms": ["rambo rocky"],
-                    "fields": ["overview"]
-                 }
-               }
-             }
-           }
-         ]
-       }
-    }
-
-    Note: Analyzer names must be prefixed with a bang(!) if specifying locally, otherwise it will treat the value as a parameter lookup.
-
-To set parameter lookups simply pass the name of the parameter to pull
-the value from like so:
-
-    POST _ltr/_featureset/test
-    {
-       "featureset": {
-         "features": [
-           {
-             "name": "injection",
-             "template_language": "script_feature",
-             "template": {
-               "lang": "painless",
-               "source": "params.termStats['df'].size()",
-               "params": {
-                 "term_stat": {
-                    "analyzer": "analyzerParam",
-                    "terms": "termsParam",
-                    "fields": "fieldsParam"
-                 }
-               }
-             }
-           }
-         ]
-       }
-    }
-
-The following example shows how to set the parameters at query time:
-
-    POST tmdb/_search
-    {
-        "query": {
-            "bool": {
-                "filter": [
-                    {
-                        "terms": {
-                            "_id": ["7555", "1370", "1369"]
+                },
+                {
+                    "sltr": {
+                        "_name": "logged_featureset",
+                        "featureset": "test",
+                        "params": {
+                          "analyzerParam": "standard",
+                          "termsParam": ["troutman"],
+                          "fieldsParam": ["overview"]
                         }
-                    },
-                    {
-                        "sltr": {
-                            "_name": "logged_featureset",
-                            "featureset": "test",
-                            "params": {
-                              "analyzerParam": "standard",
-                              "termsParam": ["troutman"],
-                              "fieldsParam": ["overview"]
-                            }
-                    }}
-                ]
-            }
-        },
-        "ext": {
-            "ltr_log": {
-                "log_specs": {
-                    "name": "log_entry1",
-                    "named_query": "logged_featureset"
-                }
+                }}
+            ]
+        }
+    },
+    "ext": {
+        "ltr_log": {
+            "log_specs": {
+                "name": "log_entry1",
+                "named_query": "logged_featureset"
             }
         }
     }
+}
+```
+{% include copy-curl.html %}
