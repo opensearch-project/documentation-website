@@ -304,7 +304,7 @@ PUT _ltr/_feature/user_rating/_addfeatures
 ```
 {% include copy-curl.html %}
 
-See [Working with features]({{site.url}}{{site.baseurl}}/search-plugins/ltr/building-features/) for more information.
+See [Working with features]({{site.url}}{{site.baseurl}}/search-plugins/ltr/working-with-features/) for more information.
 {: .note}
 
 When logging is performed as in the previous examples, the new feature is included in the output, as shown in the following example:

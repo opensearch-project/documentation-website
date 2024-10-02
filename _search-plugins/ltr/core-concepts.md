@@ -138,4 +138,4 @@ The following are practical considerations for using the Learning to Rank plugin
 - **Model retraining:** How will you know when your model needs to be retrained?
 - **A/B testing:** How will you compare your new model to your current search solution? What key performance indicators (KPIs) will you use to determine success of your search system?
 
-Learn more about how the Learning to Rank plugin's functionality fits into a complete LTR system the OpenSearch documentation [How does the plugin fit in?]({{site.url}}{{site.baseurl}}/search-plugins/ltr/fits-in/)
+Learn more about how the Learning to Rank plugin's functionality fits into a complete LTR system the OpenSearch documentation by reading [How does the plugin fit in?]({{site.url}}{{site.baseurl}}/search-plugins/ltr/fits-in/)
