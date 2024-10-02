@@ -257,7 +257,7 @@ The following example queries show how you can use the alerting query structure 
       "email": {
         "to": ["ops@example.com"],
         "subject": "Low Disk Space Alert",
-        "body": "Available disk space is below 20%: {{ctx.payload.aggregations.disk_usage_percentage.value}}%"
+        "body": "Available disk space is below 20%: {% raw %}{{ctx.payload.aggregations.disk_usage_percentage.value}}{% endraw %}%"
       }
     }
   ]
