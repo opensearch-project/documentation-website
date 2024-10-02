@@ -6,7 +6,7 @@ parent: LTR search
 has_children: false
 ---
 
-# Working with Features
+# Working with features
 
 In [core concepts]({{site.url}}{{site.baseurl}}/search-plugins/ltr/core-concepts/), we mentioned the main
 roles you undertake building a learning to rank system. In
