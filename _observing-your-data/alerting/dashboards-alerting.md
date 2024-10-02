@@ -198,7 +198,9 @@ The following example queries show how you can use the alerting query structure 
       "name": "Notify on Slack",
       "type": "slack",
       "slack": {
-        "message": "High CPU usage detected: {{ctx.payload.aggregations.avg_cpu_usage.value}}%"
+        "message": "High CPU usage detected: {% raw %}{{ctx.payload.aggregations.avg_cpu_usage.value}}{% endraw %}
+
+
       }
     }
   ]
