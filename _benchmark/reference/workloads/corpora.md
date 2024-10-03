@@ -49,7 +49,7 @@ Each entry in the `documents` array consists of the following options.
 Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
 `source-file` | Yes | String | The file name containing the corresponding documents for the workload. When using OpenSearch Benchmark locally, documents are contained in a JSON file. When providing a `base_url`, use a compressed file format: `.zip`, `.bz2`, `.gz`, `.tar`, `.tar.gz`, `.tgz`, or `.tar.bz2`. The compressed file must have one JSON file containing the name. 
-`document-count` | Yes | Integer | The number of documents in the `source-file`, which determines which client indexes correlate to which parts of the document corpus. Each N client receives an Nth of the document corpus. When using a source that contains a document with a parent-child relationship, specify the number of parent documents. 
+`document-count` | Yes | Integer | The number of documents in the `source-file`, which determines which client indexes correlate to which parts of the document corpus. Each N client receives an Nth of the document corpus. When using a source that contains a document with a parent/child relationship, specify the number of parent documents. 
 `base-url` | No | String | An http(s), Amazon Simple Storage Service (Amazon S3), or Google Cloud Storage URL that points to the root path where OpenSearch Benchmark can obtain the corresponding source file. 
 `source-format` | No | String | Defines the format OpenSearch Benchmark uses to interpret the data file specified in `source-file`. Only `bulk` is supported. 
 `compressed-bytes` | No | Integer | The size, in bytes, of the compressed source file, indicating how much data OpenSearch Benchmark downloads.
