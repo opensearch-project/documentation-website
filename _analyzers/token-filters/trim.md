@@ -2,7 +2,7 @@
 layout: default
 title: Trim
 parent: Token filters
-nav_order: 420
+nav_order: 430
 ---
 
 # Trim token filter
