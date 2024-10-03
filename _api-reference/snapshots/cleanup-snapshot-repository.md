@@ -59,6 +59,6 @@ POST /_snapshot/my_backup/_cleanup
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
-| `deleted_bytes` | Integer | The amount of bytes freed after data deletion. |
-| `deleted_blobs` | Integer | The amount of binary large objects (BLOBs) cleared from the repository by the request. |
+| `deleted_bytes` | Integer | The number of bytes now available in the snapshot after data deletion. |
+| `deleted_blobs` | Integer | The number of binary large objects (BLOBs) cleared from the repository by the request. |
 
