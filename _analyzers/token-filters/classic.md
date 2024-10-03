@@ -1,6 +1,6 @@
 ---
 layout: default
-title: classic
+title: Classic
 parent: Token filters
 nav_order: 50
 ---
@@ -8,8 +8,8 @@ nav_order: 50
 # Classic token filter
 
 The primary function of the classic token filter is to work alongside the classic tokenizer. It processes tokens by applying the following common transformations, which aid in text analysis and search:
- - Removal of possessive endings such as *'s*, for example: *John's* becomes *John*.
- - Removal of periods from acronyms, for example: *D.A.R.P.A.* becomes *DARPA*.
+ - Removal of possessive endings such as *'s*. For example, *John's* becomes *John*.
+ - Removal of periods from acronyms. For example, *D.A.R.P.A.* becomes *DARPA*.
 
 
 ## Example
