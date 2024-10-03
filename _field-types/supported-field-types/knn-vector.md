@@ -8,6 +8,8 @@ has_math: true
 ---
 
 # k-NN vector field type
+**Introduced 1.0**
+{: .label .label-purple }
 
 The [k-NN plugin]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/) introduces a custom data type, the `knn_vector`, that allows users to ingest their k-NN vectors into an OpenSearch index and perform different kinds of k-NN search. The `knn_vector` field is highly configurable and can serve many different k-NN workloads. In general, a `knn_vector` field can be built either by providing a method definition or specifying a model id.
 
@@ -20,8 +22,7 @@ PUT test-index
 {
   "settings": {
     "index": {
-      "knn": true,
-      "knn.algo_param.ef_search": 100
+      "knn": true
     }
   },
   "mappings": {
@@ -29,15 +30,97 @@ PUT test-index
       "my_vector": {
         "type": "knn_vector",
         "dimension": 3,
+        "space_type": "l2",
         "method": {
           "name": "hnsw",
-          "space_type": "l2",
-          "engine": "lucene",
-          "parameters": {
-            "ef_construction": 128,
-            "m": 24
-          }
+          "engine": "faiss"
         }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+## Vector workload modes
+
+Vector search involves trade-offs between low-latency and low-cost search. Specify the `mode` mapping parameter of the `knn_vector` type to indicate which search mode you want to prioritize. The `mode` dictates the default values for k-NN parameters. You can further fine-tune your index by overriding the default parameter values in the k-NN field mapping.
+
+The following modes are currently supported.
+
+| Mode    | Default engine | Description  |
+|:---|:---|:---|
+| `in_memory` (Default) | `nmslib`       | Prioritizes low-latency search. This mode uses the `nmslib` engine without any quantization applied. It is configured with the default parameter values for vector search in OpenSearch.                                                            |
+| `on_disk`             | `faiss`        | Prioritizes low-cost vector search while maintaining strong recall. By default, the `on_disk` mode uses quantization and rescoring to execute a two-pass approach to retrieve the top neighbors. The `on_disk` mode supports only `float` vector types. |
+
+To create a k-NN index that uses the `on_disk` mode for low-cost search, send the following request:
+
+```json
+PUT test-index
+{
+  "settings": {
+    "index": {
+      "knn": true
+    }
+  },
+  "mappings": {
+    "properties": {
+      "my_vector": {
+        "type": "knn_vector",
+        "dimension": 3,
+        "space_type": "l2",
+        "mode": "on_disk"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+## Compression levels
+
+The `compression_level` mapping parameter selects a quantization encoder that reduces vector memory consumption by the given factor. The following table lists the available `compression_level` values.
+
+| Compression level | Supported engines              |
+|:------------------|:-------------------------------|
+| `1x`              | `faiss`, `lucene`, and `nmslib` |
+| `2x`              | `faiss`                        |
+| `4x`              | `lucene`                       |
+| `8x`              | `faiss`                        |
+| `16x`             | `faiss`                        |
+| `32x`             | `faiss`                        |
+
+For example, if a `compression_level` of `32x` is passed for a `float32` index of 768-dimensional vectors, the per-vector memory is reduced from `4 * 768 = 3072` bytes to `3072 / 32 = 846` bytes. Internally, binary quantization (which maps a `float` to a `bit`) may be used to achieve this compression.
+
+If you set the `compression_level` parameter, then you cannot specify an `encoder` in the `method` mapping. Compression levels greater than `1x` are only supported for `float` vector types.
+{: .note}
+
+The following table lists the default `compression_level` values for the available workload modes.
+
+| Mode | Default compression level    |
+|:------------------|:-------------------------------|
+| `in_memory`       | `1x` |
+| `on_disk`         | `32x` |
+
+
+To create a vector field with a `compression_level` of `16x`, specify the `compression_level` parameter in the mappings. This parameter overrides the default compression level for the `on_disk` mode from `32x` to `16x`, producing higher recall and accuracy at the expense of a larger memory footprint:
+
+```json
+PUT test-index
+{
+  "settings": {
+    "index": {
+      "knn": true
+    }
+  },
+  "mappings": {
+    "properties": {
+      "my_vector": {
+        "type": "knn_vector",
+        "dimension": 3,
+        "space_type": "l2",
+        "mode": "on_disk",
+        "compression_level": "16x"
       }
     }
   }
@@ -53,13 +136,13 @@ PUT test-index
 "my_vector": {
   "type": "knn_vector",
   "dimension": 4,
+  "space_type": "l2",
   "method": {
     "name": "hnsw",
-    "space_type": "l2",
     "engine": "nmslib",
     "parameters": {
-      "ef_construction": 128,
-      "m": 24
+      "ef_construction": 100,
+      "m": 16
     }
   }
 }
@@ -71,6 +154,7 @@ Model IDs are used when the underlying Approximate k-NN algorithm requires a tra
 model contains the information needed to initialize the native library segment files.
 
 ```json
+"my_vector": {
   "type": "knn_vector",
   "model_id": "my-model"
 }
@@ -78,28 +162,36 @@ model contains the information needed to initialize the native library segment f
 
 However, if you intend to use Painless scripting or a k-NN score script, you only need to pass the dimension.
  ```json
+"my_vector": {
    "type": "knn_vector",
    "dimension": 128
  }
  ```
 
-## Lucene byte vector
+## Byte vectors
 
-By default, k-NN vectors are `float` vectors, where each dimension is 4 bytes. If you want to save storage space, you can use `byte` vectors with the `lucene` engine. In a `byte` vector, each dimension is a signed 8-bit integer in the [-128, 127] range. 
+By default, k-NN vectors are `float` vectors, in which each dimension is 4 bytes. If you want to save storage space, you can use `byte` vectors with the `faiss` or `lucene` engine. In a `byte` vector, each dimension is a signed 8-bit integer in the [-128, 127] range. 
  
-Byte vectors are supported only for the `lucene` engine. They are not supported for the `nmslib` and `faiss` engines.
+Byte vectors are supported only for the `lucene` and `faiss` engines. They are not supported for the `nmslib` engine.
 {: .note}
 
-In [k-NN benchmarking tests](https://github.com/opensearch-project/k-NN/tree/main/benchmarks/perf-tool), the use of `byte` rather than `float` vectors resulted in a significant reduction in storage and memory usage as well as improved indexing throughput and reduced query latency. Additionally, precision on recall was not greatly affected (note that recall can depend on various factors, such as the [quantization technique](#quantization-techniques) and data distribution). 
+In [k-NN benchmarking tests](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/vectorsearch), the use of `byte` rather than `float` vectors resulted in a significant reduction in storage and memory usage as well as improved indexing throughput and reduced query latency. Additionally, precision on recall was not greatly affected (note that recall can depend on various factors, such as the [quantization technique](#quantization-techniques) and data distribution). 
 
 When using `byte` vectors, expect some loss of precision in the recall compared to using `float` vectors. Byte vectors are useful in large-scale applications and use cases that prioritize a reduced memory footprint in exchange for a minimal loss of recall.
 {: .important}
- 
+
+When using `byte` vectors with the `faiss` engine, we recommend using [SIMD optimization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#simd-optimization-for-the-faiss-engine), which helps to significantly reduce search latencies and improve indexing throughput.
+{: .important} 
+
 Introduced in k-NN plugin version 2.9, the optional `data_type` parameter defines the data type of a vector. The default value of this parameter is `float`.
 
 To use a `byte` vector, set the `data_type` parameter to `byte` when creating mappings for an index:
 
- ```json
+### Example: HNSW
+
+The following example creates a byte vector index with the `lucene` engine and `hnsw` algorithm:
+
+```json
 PUT test-index
 {
   "settings": {
@@ -114,13 +206,13 @@ PUT test-index
         "type": "knn_vector",
         "dimension": 3,
         "data_type": "byte",
+        "space_type": "l2",
         "method": {
           "name": "hnsw",
-          "space_type": "l2",
           "engine": "lucene",
           "parameters": {
-            "ef_construction": 128,
-            "m": 24
+            "ef_construction": 100,
+            "m": 16
           }
         }
       }
@@ -130,7 +222,7 @@ PUT test-index
 ```
 {% include copy-curl.html %}
 
-Then ingest documents as usual. Make sure each dimension in the vector is in the supported [-128, 127] range:
+After creating the index, ingest documents as usual. Make sure each dimension in the vector is in the supported [-128, 127] range:
 
 ```json
 PUT test-index/_doc/1
@@ -166,9 +258,160 @@ GET test-index/_search
 ```
 {% include copy-curl.html %}
 
+### Example: IVF
+
+The `ivf` method requires a training step that creates and trains the model used to initialize the native library index during segment creation. For more information, see [Building a k-NN index from a model]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model).
+
+First, create an index that will contain byte vector training data. Specify the `faiss` engine and `ivf` algorithm and make sure that the `dimension` matches the dimension of the model you want to create:
+
+```json
+PUT train-index
+{
+  "mappings": {
+    "properties": {
+      "train-field": {
+        "type": "knn_vector",
+        "dimension": 4,
+        "data_type": "byte"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+First, ingest training data containing byte vectors into the training index:
+
+```json
+PUT _bulk
+{ "index": { "_index": "train-index", "_id": "1" } }
+{ "train-field": [127, 100, 0, -120] }
+{ "index": { "_index": "train-index", "_id": "2" } }
+{ "train-field": [2, -128, -10, 50] }
+{ "index": { "_index": "train-index", "_id": "3" } }
+{ "train-field": [13, -100, 5, 126] }
+{ "index": { "_index": "train-index", "_id": "4" } }
+{ "train-field": [5, 100, -6, -125] }
+```
+{% include copy-curl.html %}
+
+Then, create and train the model named `byte-vector-model`. The model will be trained using the training data from the `train-field` in the `train-index`. Specify the `byte` data type:
+
+```json
+POST _plugins/_knn/models/byte-vector-model/_train
+{
+  "training_index": "train-index",
+  "training_field": "train-field",
+  "dimension": 4,
+  "description": "model with byte data",
+  "data_type": "byte",
+  "method": {
+    "name": "ivf",
+    "engine": "faiss",
+    "space_type": "l2",
+    "parameters": {
+      "nlist": 1,
+      "nprobes": 1
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+To check the model training status, call the Get Model API:
+
+```json
+GET _plugins/_knn/models/byte-vector-model?filter_path=state
+```
+{% include copy-curl.html %}
+
+Once the training is complete, the `state` changes to `created`.
+
+Next, create an index that will initialize its native library indexes using the trained model:
+
+```json
+PUT test-byte-ivf
+{
+  "settings": {
+    "index": {
+      "knn": true
+    }
+  },
+  "mappings": {
+    "properties": {
+      "my_vector": {
+        "type": "knn_vector",
+        "model_id": "byte-vector-model"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Ingest the data containing the byte vectors that you want to search into the created index:
+
+```json
+PUT _bulk?refresh=true
+{"index": {"_index": "test-byte-ivf", "_id": "1"}}
+{"my_vector": [7, 10, 15, -120]}
+{"index": {"_index": "test-byte-ivf", "_id": "2"}}
+{"my_vector": [10, -100, 120, -108]}
+{"index": {"_index": "test-byte-ivf", "_id": "3"}}
+{"my_vector": [1, -2, 5, -50]}
+{"index": {"_index": "test-byte-ivf", "_id": "4"}}
+{"my_vector": [9, -7, 45, -78]}
+{"index": {"_index": "test-byte-ivf", "_id": "5"}}
+{"my_vector": [80, -70, 127, -128]}
+```
+{% include copy-curl.html %}
+
+Finally, search the data. Be sure to provide a byte vector in the k-NN vector field:
+
+```json
+GET test-byte-ivf/_search
+{
+  "size": 2,
+  "query": {
+    "knn": {
+      "my_vector": {
+        "vector": [100, -120, 50, -45],
+        "k": 2
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Memory estimation
+
+In the best-case scenario, byte vectors require 25% of the memory required by 32-bit vectors.
+
+#### HNSW memory estimation
+
+The memory required for Hierarchical Navigable Small Worlds (HNSW) is estimated to be `1.1 * (dimension + 8 * m)` bytes/vector, where `m` is the maximum number of bidirectional links created for each element during the construction of the graph.
+
+As an example, assume that you have 1 million vectors with a dimension of 256 and an `m` of 16. The memory requirement can be estimated as follows:
+
+```r
+1.1 * (256 + 8 * 16) * 1,000,000 ~= 0.39 GB
+```
+
+#### IVF memory estimation
+
+The memory required for IVF is estimated to be `1.1 * ((dimension * num_vectors) + (4 * nlist * dimension))` bytes/vector, where `nlist` is the number of buckets to partition vectors into.
+
+As an example, assume that you have 1 million vectors with a dimension of 256 and an `nlist` of 128. The memory requirement can be estimated as follows:
+
+```r
+1.1 * ((256 * 1,000,000) + (4 * 128 * 256))  ~= 0.27 GB
+```
+
+
 ### Quantization techniques
 
-If your vectors are of the type `float`, you need to first convert them to the `byte` type before ingesting the documents. This conversion is accomplished by _quantizing the dataset_---reducing the precision of its vectors. There are many quantization techniques, such as scalar quantization or product quantization (PQ), which is used in the Faiss engine. The choice of quantization technique depends on the type of data you're using and can affect the accuracy of recall values. The following sections describe the scalar quantization algorithms that were used to quantize the [k-NN benchmarking test](https://github.com/opensearch-project/k-NN/tree/main/benchmarks/perf-tool) data for the [L2](#scalar-quantization-for-the-l2-space-type) and [cosine similarity](#scalar-quantization-for-the-cosine-similarity-space-type) space types. The provided pseudocode is for illustration purposes only.
+If your vectors are of the type `float`, you need to first convert them to the `byte` type before ingesting the documents. This conversion is accomplished by _quantizing the dataset_---reducing the precision of its vectors. There are many quantization techniques, such as scalar quantization or product quantization (PQ), which is used in the Faiss engine. The choice of quantization technique depends on the type of data you're using and can affect the accuracy of recall values. The following sections describe the scalar quantization algorithms that were used to quantize the [k-NN benchmarking test](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/vectorsearch) data for the [L2](#scalar-quantization-for-the-l2-space-type) and [cosine similarity](#scalar-quantization-for-the-cosine-similarity-space-type) space types. The provided pseudocode is for illustration purposes only.
 
 #### Scalar quantization for the L2 space type
 
@@ -267,7 +510,7 @@ return Byte(bval)
 ```
 {% include copy.html %}
 
-## Binary k-NN vectors
+## Binary vectors
 
 You can reduce memory costs by a factor of 32 by switching from float to binary vectors.
 Using binary vector indexes can lower operational costs while maintaining high recall performance, making large-scale deployment more economical and efficient.
@@ -305,14 +548,10 @@ PUT /test-binary-hnsw
         "type": "knn_vector",
         "dimension": 8,
         "data_type": "binary",
+        "space_type": "hamming",
         "method": {
           "name": "hnsw",
-          "space_type": "hamming",
-          "engine": "faiss",
-          "parameters": {
-            "ef_construction": 128,
-            "m": 24
-          }
+          "engine": "faiss"
         }
       }
     }
@@ -535,12 +774,12 @@ POST _plugins/_knn/models/test-binary-model/_train
   "dimension": 8,
   "description": "model with binary data",
   "data_type": "binary",
+  "space_type": "hamming",
   "method": {
     "name": "ivf",
     "engine": "faiss",
-    "space_type": "hamming",
     "parameters": {
-      "nlist": 1,
+      "nlist": 16,
       "nprobes": 1
     }
   }
