@@ -171,6 +171,7 @@ The response provides information about the analyzers for each field:
 ```
 
 ## Normalizers
+
 Tokenization divides text into individual terms, but it does not address variations in token forms. Normalization resolves these issues by converting tokens into a standard format. This ensures that similar terms are matched appropriately, even if they are not identical.
 
 ### Normalization techniques
