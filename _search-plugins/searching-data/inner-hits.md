@@ -139,8 +139,8 @@ The preceding query searches for nested user objects containing the name John an
   }
 }
 ```
-## Inner hits with parent-child objects
-Parent-join relationships allow you to create relationships between documents of different types within the same index. The following example request searches with `inner_hits` using parent-child objects.
+## Inner hits with parent/child objects
+Parent-join relationships allow you to create relationships between documents of different types within the same index. The following example request searches with `inner_hits` using parent/child objects.
 
 1. Create an index with a parent-join field:
 
@@ -807,3 +807,7 @@ The following is the expected result:
     Using `inner_hits` provides contextual relevance by showing exactly which nested or child documents match the query criteria. This is crucial for applications in which the relevance of results depends on a specific part of the document that matches the query.
 
     Example use case: In a customer support system, you have tickets as parent documents and comments or updates as nested or child documents. You can determine which specific comment matches the search in order to better understand the context of the ticket search.
+
+## Next steps
+
+- Learn about [joining queries]({{site.url}}{{site.baseurl}}/query-dsl/joining/) on [nested]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/nested/) or [join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) fields.

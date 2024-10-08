@@ -721,10 +721,10 @@ The response returns document 1:
 
 Note that when you indexed the geopoints, you specified their coordinates in `"latitude, longitude"` format. When you search for matching documents, the coordinate array is in `[longitude, latitude]` format. Thus, document 1 is returned in the results but document 2 is not.
 
-## Request fields
+## Parameters
 
-Geoshape queries accept the following fields.
+Geoshape queries accept the following parameters.
 
-Field | Data type | Description
+Parameter | Data type | Description
 :--- | :--- | :--- 
 `ignore_unmapped` | Boolean | Specifies whether to ignore an unmapped field. If set to `true`, then the query does not return any documents that contain an unmapped field. If set to `false`, then an exception is thrown when the field is unmapped. Optional. Default is `false`.

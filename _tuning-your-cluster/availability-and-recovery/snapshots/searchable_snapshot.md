@@ -18,7 +18,7 @@ The searchable snapshot feature incorporates techniques like caching frequently 
 
 To configure the searchable snapshots feature, create a node in your `opensearch.yml file` and define the node role as `search`. Optionally, you can also configure the `cache.size` property for the node.
 
-A `search` node reserves storage for the cache to perform searchable snapshot queries. In the case of a dedicated search node where the node exclusively has the `search` role, this value defaults to a fixed percentage of available storage. In other cases, the value needs to be configured by the user using the `node.search.cache.size` setting.
+A `search` node reserves storage for the cache to perform searchable snapshot queries. In the case of a dedicated search node where the node exclusively has the `search` role, this value defaults to a fixed percentage (80%) of available storage. In other cases, the value needs to be configured by the user using the `node.search.cache.size` setting.
 
 Parameter | Type | Description
 :--- | :--- | :---

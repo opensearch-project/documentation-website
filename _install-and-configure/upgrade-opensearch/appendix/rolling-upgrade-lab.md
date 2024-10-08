@@ -169,12 +169,12 @@ This section can be broken down into two parts:
    {% include copy.html %}
 1. Next, download the bulk data that you will ingest into this index:
    ```bash
-   wget https://raw.githubusercontent.com/opensearch-project/documentation-website/main/assets/examples/ecommerce.json
+   wget https://raw.githubusercontent.com/opensearch-project/documentation-website/main/assets/examples/ecommerce.ndjson
    ```
    {% include copy.html %}
 1. Use the [Create index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/) API to create an index using the mappings defined in `ecommerce-field_mappings.json`:
    ```bash
-   curl -H "Content-Type: application/x-ndjson" \
+   curl -H "Content-Type: application/json" \
       -X PUT "https://localhost:9201/ecommerce?pretty" \
       --data-binary "@ecommerce-field_mappings.json" \
       -ku admin:<custom-admin-password>
@@ -188,11 +188,11 @@ This section can be broken down into two parts:
       "index" : "ecommerce"
    }
    ```
-1. Use the [Bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) API to add data to the new ecommerce index from `ecommerce.json`:
+1. Use the [Bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) API to add data to the new ecommerce index from `ecommerce.ndjson`:
    ```bash
    curl -H "Content-Type: application/x-ndjson" \
       -X PUT "https://localhost:9201/ecommerce/_bulk?pretty" \
-      --data-binary "@ecommerce.json" \
+      --data-binary "@ecommerce.ndjson" \
       -ku admin:<custom-admin-password>
    ```
    {% include copy.html %}

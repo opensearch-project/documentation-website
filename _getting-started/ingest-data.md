@@ -50,32 +50,32 @@ Use the following steps to create a sample index and define field mappings for t
     ```
     {% include copy.html %}
 
-1. Download [ecommerce.json](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce.json). This file contains the index data formatted so that it can be ingested by the Bulk API:
+1. Download [ecommerce.ndjson](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce.ndjson). This file contains the index data formatted so that it can be ingested by the Bulk API:
     
     To use cURL, send the following request:
 
     ```bash
-    curl -O https://raw.githubusercontent.com/opensearch-project/documentation-website/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce.json
+    curl -O https://raw.githubusercontent.com/opensearch-project/documentation-website/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce.ndjson
     ```
     {% include copy.html %}
 
     To use wget, send the following request:
 
     ```
-    wget https://raw.githubusercontent.com/opensearch-project/documentation-website/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce.json
+    wget https://raw.githubusercontent.com/opensearch-project/documentation-website/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce.ndjson
     ```
     {% include copy.html %}
 
 1. Define the field mappings provided in the mapping file:
     ```bash
-    curl -H "Content-Type: application/x-ndjson" -X PUT "https://localhost:9200/ecommerce" -ku admin:<custom-admin-password> --data-binary "@ecommerce-field_mappings.json"
+    curl -H "Content-Type: application/json" -X PUT "https://localhost:9200/ecommerce" -ku admin:<custom-admin-password> --data-binary "@ecommerce-field_mappings.json"
     ```
     {% include copy.html %}
 
 1. Upload the documents using the Bulk API:
 
     ```bash
-    curl -H "Content-Type: application/x-ndjson" -X PUT "https://localhost:9200/ecommerce/_bulk" -ku admin:<custom-admin-password> --data-binary "@ecommerce.json"
+    curl -H "Content-Type: application/x-ndjson" -X PUT "https://localhost:9200/ecommerce/_bulk" -ku admin:<custom-admin-password> --data-binary "@ecommerce.ndjson"
     ```
     {% include copy.html %}
 
