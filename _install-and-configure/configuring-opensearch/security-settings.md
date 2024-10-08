@@ -9,13 +9,13 @@ nav_order: 40
 
 The Security plugin provides a number of YAML configuration files that are used to store the necessary settings that define the way the Security plugin manages users, roles, and activity within the cluster. For a full list of the Security plugin configuration files, see [Modifying the YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/).
 
-The following sections describe security-related settings in `opensearch.yml`. To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+The following sections describe security-related settings in `opensearch.yml`. You can find the `opensearch.yml` in the `<OPENSEARCH_HOME>/config/opensearch.yml`. To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 ## Common settings
 
 The Security plugin supports the following common settings:
 
--  `plugins.security.nodes_dn` (Static): Specifies a list of distinguished names (DNs) that denote the other nodes in the cluster. This setting supports wildcards and regular expressions. The list of DNs are also read from the security index **in addition** to the YAML configuration when `plugins.security.nodes_dn_dynamic_config_enabled` is `true`.
+-  `plugins.security.nodes_dn` (Static): Specifies a list of distinguished names (DNs) that denote the other nodes in the cluster. This setting supports wildcards and regular expressions. The list of DNs are also read from the security index **in addition** to the YAML configuration when `plugins.security.nodes_dn_dynamic_config_enabled` is `true`. If this setting is not configured correctly, the cluster will fail to form as the nodes will not be able to trust each other and will result in the following error: `Transport client authentication no longer supported`.
 
 - `plugins.security.nodes_dn_dynamic_config_enabled` (Static): Relevant for `cross_cluster` use cases where there is a need to manage the  allow listed `nodes_dn` without having to restart the nodes every time a new `cross_cluster` remote is configured.
   Setting `nodes_dn_dynamic_config_enabled` to `true` enables **super-admin callable** Distinguished Names APIs, which provide means to update or retrieve `nodes_dn` dynamically. This setting only has effect if `plugins.security.cert.intercluster_request_evaluator_class` is not set. Default is `false`.
@@ -121,6 +121,41 @@ The Security plugin supports the following expert-level settings:
 - `plugins.security.enable_snapshot_restore_privilege` (Static): Enables granting the snapshot restore privilege. Optional. Default is `true`.
 
 - `plugins.security.check_snapshot_restore_write_privileges` (Static): Enforces write privilege evaluation when creating snapshots. Default is `true`.
+
+If you change any of the following password hashing properties, you must rehash all internal passwords to ensure compatibility and security.
+{: .warning}
+
+- `plugins.security.password.hashing.algorithm`: (Static): Specifies the password hashing algorithm to use.
+
+  Valid values are:
+  
+  - `BCrypt` (Default)
+  - `PBKDF2` 
+
+- `plugins.security.password.hashing.bcrypt.rounds` (Static): Specifies the number of rounds to use for password hashing with `BCrypt`. Valid values are between `4` and `31`, inclusive. Default is `12`.
+
+- `plugins.security.password.hashing.bcrypt.minor` (Static): Specifies the minor version of the `BCrypt` algorithm to use for password hashing.
+
+  Valid values are:
+
+  - `A`
+  - `B`
+  - `Y` (Default)
+
+- `plugins.security.password.hashing.pbkdf2.function` (Static): Specifies the pseudo-random function applied to the password.
+
+  Valid values are:
+
+  - `SHA1`
+  - `SHA224`
+  - `SHA256` (Default)
+  - `SHA384`
+  - `SHA512`
+
+- `plugins.security.password.hashing.pbkdf2.iterations` (Static): Specifies the number of times that the pseudo-random function is applied to the password. Default is `600,000`.
+
+- `plugins.security.password.hashing.pbkdf2.length` (Static): Specifies the desired length of the final derived key. Default is `256`.
+
 
 ## Audit log settings
 
@@ -357,6 +392,7 @@ The Security plugin supports the following transport layer security settings:
 plugins.security.nodes_dn:
   - "CN=*.example.com, OU=SSL, O=Test, L=Test, C=DE"
   - "CN=node.other.com, OU=SSL, O=Test, L=Test, C=DE"
+  - "CN=node.example.com, OU=SSL\, Inc., L=Test, C=DE" # escape additional comma with `\`
 plugins.security.authcz.admin_dn:
   - CN=kirk,OU=client,O=client,L=test, C=de
 plugins.security.roles_mapping_resolution: MAPPING_ONLY

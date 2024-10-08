@@ -21,6 +21,5 @@ ML Commons supports the following APIs:
 - [Controller APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/controller-apis/index/)
 - [Execute Algorithm API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/execute-algorithm/)
 - [Tasks APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/index/)
-- [Train and Predict APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/index/)
 - [Profile API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/profile/)
 - [Stats API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/stats/)

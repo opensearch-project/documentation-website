@@ -13,6 +13,8 @@ Document-level security lets you restrict a role to a subset of documents in an 
 
 ![Document- and field-level security screen in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/security-dls.png)
 
+The maximum size for the document-level security configuration is 1024 KB (1,048,404 characters). 
+{: .warning}
 
 ## Simple roles
 
@@ -190,6 +192,10 @@ Adaptive | `adaptive-level` | The default setting that allows OpenSearch to auto
 ## DLS and multiple roles
 
 OpenSearch combines all DLS queries with the logical `OR` operator. However, when a role that uses DLS is combined with another security role that doesn't use DLS, the query results are filtered to display only documents matching the DLS from the first role. This filter rule also applies to roles that do not grant read documents.
+
+### DLS and write permissions
+
+Make sure that a user that has DLS-configured roles does not have write permissions. If write permissions are added, the user will be able to index documents which they will not be able to retrieve due to DLS filtering.
 
 ### When to enable `plugins.security.dfm_empty_overrides_all`
 

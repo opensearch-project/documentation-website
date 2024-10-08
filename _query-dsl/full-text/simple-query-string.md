@@ -2,7 +2,6 @@
 layout: default
 title: Simple query string
 parent: Full-text queries
-grand_parent: Query DSL
 nav_order: 70
 ---
 

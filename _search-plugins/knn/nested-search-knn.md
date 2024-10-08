@@ -3,7 +3,6 @@ layout: default
 title: k-NN search with nested fields
 nav_order: 21
 parent: k-NN search
-grand_parent: Search methods
 has_children: false
 has_math: true
 ---
@@ -39,9 +38,9 @@ PUT my-knn-index-1
           "my_vector": {
             "type": "knn_vector",
             "dimension": 3,
+            "space_type": "l2",
             "method": {
               "name": "hnsw",
-              "space_type": "l2",
               "engine": "lucene",
               "parameters": {
                 "ef_construction": 100,
@@ -325,9 +324,9 @@ PUT my-knn-index-1
           "my_vector": {
             "type": "knn_vector",
             "dimension": 3,
+            "space_type": "l2",
             "method": {
               "name": "hnsw",
-              "space_type": "l2",
               "engine": "lucene",
               "parameters": {
                 "ef_construction": 100,

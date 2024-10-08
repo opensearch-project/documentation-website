@@ -15,7 +15,27 @@ has_children: false
 
 The CAT aliases operation lists the mapping of aliases to indexes, plus routing and filtering information.
 
-## Example
+
+## Path and HTTP methods
+
+```
+GET _cat/aliases/<alias>
+GET _cat/aliases
+```
+
+
+## URL parameters
+
+All CAT aliases URL parameters are optional.
+
+In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
+
+Parameter | Type | Description
+:--- | :--- | :---
+local | Boolean | Whether to return information from the local node only instead of from the cluster manager node. Default is `false`.
+expand_wildcards | Enum | Expands wildcard expressions to concrete indexes. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. Default is `open`.
+
+## Example requests
 
 ```json
 GET _cat/aliases?v
@@ -36,26 +56,7 @@ GET _cat/aliases/alias1,alias2,alias3
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
-
-```
-GET _cat/aliases/<alias>
-GET _cat/aliases
-```
-
-
-## URL parameters
-
-All CAT aliases URL parameters are optional.
-
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
-
-Parameter | Type | Description
-:--- | :--- | :---
-local | Boolean | Whether to return information from the local node only instead of from the master node. Default is false.
-expand_wildcards | Enum | Expands wildcard expressions to concrete indexes. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. Default is `open`.
-
-## Response
+## Example response
 
 The following response shows that `alias1` refers to a `movies` index and has a configured filter:
 

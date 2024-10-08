@@ -40,6 +40,7 @@ Processor type | Description
 `dot_expander` | Expands a field with dots into an object field. 
 `drop` |Drops a document without indexing it or raising any errors.
 `fail` | Raises an exception and stops the execution of a pipeline. 
+`fingerprint` | Generates a hash value for either certain specified fields or all fields in a document. 
 `foreach` | Allows for another processor to be applied to each element of an array or an object field in a document.
 `geoip` | Adds information about the geographical location of an IP address.
 `geojson-feature` | Indexes GeoJSON data into a geospatial field.
@@ -67,6 +68,12 @@ Processor type | Description
 `uppercase` | Converts text in a specific field to uppercase letters.
 `urldecode` | Decodes a string from URL-encoded format.
 `user_agent` | Extracts details from the user agent sent by a browser to its web requests. 
+
+## Processor limit settings
+
+You can limit the number of ingest processors using the cluster setting `cluster.ingest.max_number_processors`. The total number of processors includes both the number of processors and the number of [`on_failure`]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/) processors.
+
+The default value for `cluster.ingest.max_number_processors` is `Integer.MAX_VALUE`. Adding a higher number of processors than the value configured in `cluster.ingest.max_number_processors` will throw an `IllegalStateException`.
 
 ## Batch-enabled processors
 

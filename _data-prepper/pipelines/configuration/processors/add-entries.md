@@ -21,8 +21,8 @@ You can configure the `add_entries` processor with the following options.
 | `metadata_key` | No | The key for the new metadata attribute. The argument must be a literal string key and not a JSON Pointer. Either one string key or `metadata_key` is required. |
 | `value` | No | The value of the new entry to be added, which can be used with any of the following data types: strings, Booleans, numbers, null, nested objects, and arrays. |
 | `format` | No | A format string to use as the value of the new entry, for example, `${key1}-${key2}`, where `key1` and `key2` are existing keys in the event. Required if neither `value` nor `value_expression` is specified. |
-| `value_expression` | No | An expression string to use as the value of the new entry. For example, `/key` is an existing key in the event with a type of either a number, a string, or a Boolean. Expressions can also contain functions returning number/string/integer. For example, `length(/key)` will return the length of the key in the event when the key is a string. For more information about keys, see [Expression syntax](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/).  |
-| `add_when` | No | A [conditional expression](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/), such as `/some-key == "test"'`, that will be evaluated to determine whether the processor will be run on the event. |
+| `value_expression` | No | An expression string to use as the value of the new entry. For example, `/key` is an existing key in the event with a type of either a number, a string, or a Boolean. Expressions can also contain functions returning number/string/integer. For example, `length(/key)` will return the length of the key in the event when the key is a string. For more information about keys, see [Expression syntax]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/).  |
+| `add_when` | No | A [conditional expression]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/), such as `/some-key == "test"'`, that will be evaluated to determine whether the processor will be run on the event. |
 | `overwrite_if_key_exists` | No | When set to `true`, the existing value is overwritten if `key` already exists in the event. The default value is `false`. |
 | `append_if_key_exists` | No | When set to `true`, the existing value will be appended if a `key` already exists in the event. An array will be created if the existing value is not an array. Default is `false`. |
 
@@ -135,7 +135,7 @@ When the input event contains the following data:
 {"message": "hello"}
 ```
 
-The processed event will have the same data, with the metadata, `{"length": 5}`, attached. You can subsequently use expressions like `getMetadata("length")` in the pipeline. For more information, see the [`getMetadata` function](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/#getmetadata) documentation.
+The processed event will have the same data, with the metadata, `{"length": 5}`, attached. You can subsequently use expressions like `getMetadata("length")` in the pipeline. For more information, see [`getMetadata` function]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/get-metadata/).
 
 
 ### Example: Add a dynamic key

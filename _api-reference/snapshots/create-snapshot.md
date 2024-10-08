@@ -42,11 +42,11 @@ The request body is optional.
 Field | Data type | Description
 :--- | :--- | :---
 `indices` | String | The indices you want to include in the snapshot. You can use `,` to create a list of indices, `*` to specify an index pattern, and `-` to exclude certain indices. Don't put spaces between items. Default is all indices.
-`ignore_unavailable` | Boolean | If an index from the `indices` list doesn't exist, whether to ignore it rather than fail the snapshot. Default is false.
-`include_global_state` | Boolean | Whether to include cluster state in the snapshot. Default is true.
-`partial` | Boolean | Whether to allow partial snapshots. Default is false, which fails the entire snapshot if one or more shards fails to stor
+`ignore_unavailable` | Boolean | If an index from the `indices` list doesn't exist, whether to ignore it rather than fail the snapshot. Default is `false`.
+`include_global_state` | Boolean | Whether to include cluster state in the snapshot. Default is `true`.
+`partial` | Boolean | Whether to allow partial snapshots. Default is `false`, which fails the entire snapshot if one or more shards fails to stor
 
-#### Example requests
+## Example requests
 
 ##### Request without a body
 
@@ -72,7 +72,7 @@ PUT _snapshot/my-s3-repository/2
 ```
 {% include copy-curl.html %}
 
-#### Example responses
+## Example responses
 
 Upon success, the response content depends on whether you include the `wait_for_completion` query parameter.
 
@@ -144,4 +144,5 @@ The snapshot definition is returned.
 | failures | array | Failures, if any, that occured during snapshot creation. |
 | shards | object | Total number of shards created along with number of successful and failed shards. |
 | state | string | Snapshot status. Possible values: `IN_PROGRESS`, `SUCCESS`, `FAILED`, `PARTIAL`. |
-| remote_store_index_shallow_copy | Boolean | Whether the snapshot of the remote store indexes is captured as a shallow copy. Default is `false`. |
+| remote_store_index_shallow_copy | Boolean | Whether the snapshots of the remote store indexes is captured as a shallow copy. Default is `false`. |
+| pinned_timestamp | long      | A timestamp (in milliseconds) pinned by the snapshot for the implicit locking of remote store files referenced by the snapshot. |
