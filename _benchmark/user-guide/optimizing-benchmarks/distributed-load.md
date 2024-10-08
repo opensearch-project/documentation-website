@@ -2,11 +2,11 @@
 layout: default
 title: Running distributed loads
 nav_order: 15
-parent: User guide
+parent: Optimizing benchmarks
+grand_parent: User guide
 ---
 
 # Running distributed loads 
-
 
 OpenSearch Benchmark loads always run on the same machine on which the benchmark was started. However, you can use multiple load drivers to generate additional benchmark testing loads, particularly for large clusters on multiple machines. This tutorial describes how to distribute benchmark loads across multiple machines in a single cluster.
 
