@@ -49,9 +49,9 @@ PUT my-knn-index-1
         "my_vector1": {
           "type": "knn_vector",
           "dimension": 2,
+          "space_type": "l2",
           "method": {
             "name": "hnsw",
-            "space_type": "l2",
             "engine": "nmslib",
             "parameters": {
               "ef_construction": 128,
@@ -62,9 +62,9 @@ PUT my-knn-index-1
         "my_vector2": {
           "type": "knn_vector",
           "dimension": 4,
+          "space_type": "innerproduct",
           "method": {
             "name": "hnsw",
-            "space_type": "innerproduct",
             "engine": "faiss",
             "parameters": {
               "ef_construction": 256,
@@ -199,10 +199,10 @@ POST /_plugins/_knn/models/my-model/_train
   "training_field": "train-field",
   "dimension": 4,
   "description": "My model description",
+  "space_type": "l2",
   "method": {
     "name": "ivf",
     "engine": "faiss",
-    "space_type": "l2",
     "parameters": {
       "nlist": 4,
       "nprobes": 2
@@ -308,6 +308,72 @@ Engine | Notes
 :--- | :--- 
 `faiss` | If `nprobes` is present in a query, it overrides the value provided when creating the index.
 
+### Rescoring quantized results using full precision
+
+Quantization can be used to significantly reduce the memory footprint of a k-NN index. For more information about quantization, see [k-NN vector quantization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization). Because some vector representation is lost during quantization, the computed distances will be approximate. This causes the overall recall of the search to decrease. 
+
+To improve recall while maintaining the memory savings of quantization, you can use a two-phase search approach. In the first phase, `oversample_factor * k` results are retrieved from an index using quantized vectors and the scores are approximated. In the second phase, the full-precision vectors of those `oversample_factor * k` results are loaded into memory from disk, and scores are recomputed against the full-precision query vector. The results are then reduced to the top k.
+
+The default rescoring behavior is determined by the `mode` and `compression_level` of the backing k-NN vector field:
+
+- For `in_memory` mode, no rescoring is applied by default.
+- For `on_disk` mode, default rescoring is based on the configured `compression_level`. Each `compression_level` provides a default `oversample_factor`, specified in the following table.
+
+| Compression level | Default rescore `oversample_factor` |
+|:------------------|:----------------------------------|
+| `32x` (default)   | 3.0                               |
+| `16x`             | 2.0                               |
+| `8x`              | 2.0                               |
+| `4x`              | No default rescoring             |
+| `2x`              | No default rescoring             |
+
+To explicitly apply rescoring, provide the `rescore` parameter in a query on a quantized index and specify the `oversample_factor`:
+
+```json
+GET my-knn-index-1/_search
+{
+  "size": 2,
+  "query": {
+    "knn": {
+      "target-field": {
+        "vector": [2, 3, 5, 6],
+        "k": 2,
+        "rescore" : {
+          "oversample_factor": 1.2
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Alternatively, set the `rescore` parameter to `true` to use a default `oversample_factor` of `1.0`:
+
+```json
+GET my-knn-index-1/_search
+{
+  "size": 2,
+  "query": {
+    "knn": {
+      "target-field": {
+        "vector": [2, 3, 5, 6],
+        "k": 2,
+        "rescore" : true
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The `oversample_factor` is a floating-point number between 1.0 and 100.0, inclusive. The number of results in the first pass is calculated as `oversample_factor * k` and is guaranteed to be between 100 and 10,000, inclusive. If the calculated number of results is smaller than 100, then the number of results is set to 100. If the calculated number of results is greater than 10,000, then the number of results is set to 10,000.
+
+Rescoring is only supported for the `faiss` engine.
+
+Rescoring is not needed if quantization is not used because the scores returned are already fully precise.
+{: .note}
+
 ### Using approximate k-NN with filters
 
 To learn about using filters with k-NN search, see [k-NN search with filters]({{site.url}}{{site.baseurl}}/search-plugins/knn/filter-search-knn/).
@@ -322,7 +388,7 @@ To learn more about the radial search feature, see [k-NN radial search]({{site.u
 
 ### Using approximate k-NN with binary vectors
 
-To learn more about using binary vectors with k-NN search, see [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-k-nn-vectors).
+To learn more about using binary vectors with k-NN search, see [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-vectors).
 
 ## Spaces
 
@@ -346,5 +412,5 @@ The cosine similarity formula does not include the `1 -` prefix. However, becaus
 With cosine similarity, it is not valid to pass a zero vector (`[0, 0, ...]`) as input. This is because the magnitude of such a vector is 0, which raises a `divide by 0` exception in the corresponding formula. Requests containing the zero vector will be rejected, and a corresponding exception will be thrown.
 {: .note }
 
-The `hamming` space type is supported for binary vectors in OpenSearch version 2.16 and later. For more information, see [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-k-nn-vectors).
+The `hamming` space type is supported for binary vectors in OpenSearch version 2.16 and later. For more information, see [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-vectors).
 {: .note}

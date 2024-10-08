@@ -2,10 +2,12 @@
 layout: default
 title: Query metrics
 parent: Query insights
-nav_order: 20
+nav_order: 30
 ---
 
 # Query metrics
+**Introduced 2.16**
+{: .label .label-purple }
 
 Key query [metrics](#metrics), such as aggregation types, query types, latency, and resource usage per query type, are captured along the search path by using the OpenTelemetry (OTel) instrumentation framework. The telemetry data can be consumed using OTel metrics [exporters]({{site.url}}{{site.baseurl}}/observing-your-data/trace/distributed-tracing/#exporters).
 

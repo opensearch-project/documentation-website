@@ -18,12 +18,12 @@ Consider the following criteria when deciding which workload would work best for
 
 - The cluster's use case. 
 - The data types that your cluster uses compared to the data structure of the documents contained in the workload. Each workload contains an example document so that you can compare data types, or you can view the index mappings and data types in the `index.json` file.
-- The query types most commonly used inside your cluster. The `operations/default.json` file contains information about the query types and workload operations. 
+- The query types most commonly used inside your cluster. The `operations/default.json` file contains information about the query types and workload operations. For a list of common operations, see [Common operations]({{site.url}}{{site.baseurl}}/benchmark/user-guide/understanding-workloads/common-operations/).
 
 ## General search clusters
 
-For benchmarking clusters built for general search use cases, start with the `[nyc_taxis]`(https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/nyc_taxis) workload. This workload contains data about the rides taken in yellow taxis in New York City in 2015. 
+For benchmarking clusters built for general search use cases, start with the [nyc_taxis](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/nyc_taxis) workload. This workload contains data about the rides taken in yellow taxis in New York City in 2015. 
 
 ## Log data
 
-For benchmarking clusters built for indexing and search with log data, use the [`http_logs`](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/http_logs) workload. This workload contains data about the 1998 World Cup.
+For benchmarking clusters built for indexing and search with log data, use the [http_logs](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/http_logs) workload. This workload contains data about the 1998 World Cup.
