@@ -11,6 +11,8 @@ redirect_from:
 ---
 
 # xy shape field type
+**Introduced 2.4**
+{: .label .label-purple }
 
 An xy shape field type contains a shape, such as a polygon or a collection of xy points. It is based on the Lucene [XYShape](https://lucene.apache.org/core/9_3_0/core/org/apache/lucene/document/XYShape.html) field type. To index an xy shape, OpenSearch tessellates the shape into a triangular mesh and stores each triangle in a BKD tree (a set of balanced k-dimensional trees). This provides a 10<sup>-7</sup>decimal degree of precision, which represents near-perfect spatial resolution.
 
