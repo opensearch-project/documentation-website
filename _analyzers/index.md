@@ -180,7 +180,7 @@ The following normalization techniques can help address variations in token form
 
 1. **Case normalization**: Converts all tokens to lowercase to ensure case-insensitive matching. For example, "Hello" is normalized to "hello".
 
-2. **Stemming**: Reduces words to their root form. For instance, "cars" is stemmed to "car", and "running" is normalized to "run".
+2. **Stemming**: Reduces words to their root form. For instance, "cars" is stemmed to "car" and "running" is normalized to "run".
 
 3. **Synonym handling:** Treats synonyms as equivalent. For example, "jogging" and "running" can be indexed under a common term, such as "run".
 
