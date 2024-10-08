@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Character Filters
+title: Character filters
 nav_order: 90
 has_children: true
 has_toc: false
