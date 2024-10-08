@@ -6,11 +6,11 @@ nav_order: 100
 ---
 
 # `html_strip` character filter
-The `html_strip` character filter removes HTML elements from the input text, and generating the visible text with the tags rendered.
 
-The `html_strip` character filter identifies and removes all HTML tags, such as `<div>`, `<p>`, and `<a>`, from the input text. The filter can also be configured to preserve certain tags or decode specific HTML entities like `&nbsp;` into spaces.
+The `html_strip` character filter removes HTML tags, such as `<div>`, `<p>`, and `<a>`, from the input text and renders plain text. The filter can be configured to preserve certain tags or decode specific HTML entities, such as `&nbsp;`, into spaces.
 
-## Example of the HTML analyzer
+## Example: HTML analyzer
+
 ```
 GET /_analyze
 {
@@ -21,15 +21,18 @@ GET /_analyze
   "text": "<p>Commonly used calculus symbols include &alpha;, &beta; and &theta; </p>"
 }
 ```
-Using the HTML analyzer, we can convert the HTML character entity references into their corresponding symbols. The returned processed text would read:
+{% include copy-curl.html %}
+
+Using the HTML analyzer, you can convert the HTML character entity references into their corresponding symbols. The returned processed text would read as follows:
 
 ```
 Commonly used calculus symbols include α, β and θ 
 ```
 
-## Example of a custom analyzer 
+## Example: Custom analyzer with lowercase filter
 
-Let's create a custom analyzer that strips HTML tags and then converts the remaining text to lowercase using the `html_strip` analyszer and `lowercase` filter.
+The following example query creates a custom analyzer that strips HTML tags and converts the plain text to lowercase by using the `html_strip` analyzer and `lowercase` filter.
+
 ```
 PUT /html_strip_and_lowercase_analyzer
 {
@@ -52,7 +55,12 @@ PUT /html_strip_and_lowercase_analyzer
   }
 }
 ```
-### Testing our `html_strip_and_lowercase_analyzer`
+{% include copy-curl.html %}
+
+### Testing `html_strip_and_lowercase_analyzer`
+
+You can run the following request to test the analyzer:
+
 ```
 GET /html_strip_and_lowercase_analyzer/_analyze
 {
@@ -60,14 +68,18 @@ GET /html_strip_and_lowercase_analyzer/_analyze
   "text": "<h1>Welcome to <strong>OpenSearch</strong>!</h1>"
 }
 ```
-Gives the result
+{% include copy-curl.html %}
+
+The following response shows that the HTML tags have been removed and the plain text is lowercase:
+
 ```
 welcome to opensearch!
 ```
-The HTML tags have been removed and the output is in lowercase.
 
-## Example of a custom analyzer preserving HTML tags
-Let's create our custom analyzer
+## Example: Custom analyzer preserving HTML tags
+
+The following example request creates a custom analyzer that preserves HTML tags:
+
 ```
 PUT /html_strip_preserve_analyzer
 {
@@ -90,16 +102,23 @@ PUT /html_strip_preserve_analyzer
   }
 }
 ```
-### Testing the `html_strip_preserve_analyzer`  
+{% include copy-curl.html %}
+
+### Testing `html_strip_preserve_analyzer`  
+
+You can run the following request to test the analyzer:
+
 ```
 GET /html_strip_preserve_analyzer/_analyze
 {
   "analyzer": "html_strip_analyzer",
   "text": "<p>This is a <b>bold</b> and <i>italic</i> text.</p>"
 }
-
 ```
-We get the results as seen. The italic and bold tags have been retained as we specified this in our custom analyzer.
+{% include copy-curl.html %}
+
+The following response shows that the `italic` and `bold` tags have been retained as specified in the custom analyzer request:
+
 ```
 This is a <b>bold</b> and <i>italic</i> text.
 ```
