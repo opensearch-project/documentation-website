@@ -2,6 +2,7 @@
 layout: default
 title: Index analyzers
 nav_order: 20
+parent: Analyzers
 ---
 
 # Index analyzers
