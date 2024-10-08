@@ -10,20 +10,94 @@ nav_order: 15
 
 The `children` aggregation connects parent documents with their related child documents. This allows you to analyze relationships between different types of data in a single query, rather than having to run multiple queries and combine the results yourself.
 
+---
+
+## Example index, sample data, and children aggregation query
+
 For example, if you have a parent-child relationship between authors, posts, and comments, you can analyze the relationships between the data different types (`authors`, `posts`, and `comments`) in a single query, without having to run multiple queries and combine the results manually. 
 
 The `authors` aggregation groups the documents by the `author.keyword` field. Within each author group, we have a `children` aggregation that looks at the associated posts. Inside the `posts` aggregation, another `children` aggregation looks at the comments associated with each post. Within the `comments` aggregation, the `value_count` aggregation counts the number of comments for each post.
 
-#### Example
+#### Example index 
 
 ```json
-GET /my_index/_search
+PUT /blog-sample
+{
+  "mappings": {
+    "properties": {
+      "type": { "type": "keyword" },
+      "name": { "type": "keyword" },
+      "title": { "type": "text" },
+      "content": { "type": "text" },
+      "author": { "type": "keyword" },
+      "post_id": { "type": "keyword" },
+      "join_field": {
+        "type": "join",
+        "relations": {
+          "author": "post",
+          "post": "comment"
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+#### Sample documents
+
+```json
+POST /blog-sample/_doc/1?routing=1
+{
+  "type": "author",
+  "name": "John Doe",
+  "join_field": "author"
+}
+
+POST /blog-sample/_doc/2?routing=1
+{
+  "type": "post",
+  "title": "Introduction to OpenSearch",
+  "content": "OpenSearch is a powerful search and analytics engine...",
+  "author": "John Doe",
+  "join_field": {
+    "name": "post",
+    "parent": "1"
+  }
+}
+
+POST /blog-sample/_doc/3?routing=1
+{
+  "type": "comment",
+  "content": "Great article! Very informative.",
+  "join_field": {
+    "name": "comment",
+    "parent": "2"
+  }
+}
+
+POST /blog-sample/_doc/4?routing=1
+{
+  "type": "comment",
+  "content": "Thanks for the clear explanation.",
+  "join_field": {
+    "name": "comment",
+    "parent": "2"
+  }
+}
+```
+{% include copy-curl.html %}
+
+#### Example children aggregation query
+
+```json
+GET /blog-sample/_search
 {
   "size": 0,
   "aggs": {
     "authors": {
       "terms": {
-        "field": "author.keyword"
+        "field": "name.keyword"
       },
       "aggs": {
         "posts": {
@@ -31,14 +105,21 @@ GET /my_index/_search
             "type": "post"
           },
           "aggs": {
-            "comments": {
-              "children": {
-                "type": "comment"
+            "post_titles": {
+              "terms": {
+                "field": "title.keyword"
               },
               "aggs": {
-                "comment_count": {
-                  "value_count": {
-                    "field": "_id"
+                "comments": {
+                  "children": {
+                    "type": "comment"
+                  },
+                  "aggs": {
+                    "comment_count": {
+                      "value_count": {
+                        "field": "_id"
+                      }
+                    }
                   }
                 }
               }
@@ -58,7 +139,7 @@ The response should be similar to the following example:
 
 ```json
 {
-  "took": 55,
+  "took": 30,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -68,7 +149,7 @@ The response should be similar to the following example:
   },
   "hits": {
     "total": {
-      "value": 5,
+      "value": 4,
       "relation": "eq"
     },
     "max_score": null,
@@ -78,34 +159,7 @@ The response should be similar to the following example:
     "authors": {
       "doc_count_error_upper_bound": 0,
       "sum_other_doc_count": 0,
-      "buckets": [
-        {
-          "key": "Jane Smith",
-          "doc_count": 1,
-          "posts": {
-            "doc_count": 0,
-            "comments": {
-              "doc_count": 0,
-              "comment_count": {
-                "value": 0
-              }
-            }
-          }
-        },
-        {
-          "key": "John Doe",
-          "doc_count": 1,
-          "posts": {
-            "doc_count": 0,
-            "comments": {
-              "doc_count": 0,
-              "comment_count": {
-                "value": 0
-              }
-            }
-          }
-        }
-      ]
+      "buckets": []
     }
   }
 }
