@@ -1,6 +1,6 @@
 ---
 layout: default
-title: HTML character filter
+title: html_strip character filter
 parent: Character filters
 nav_order: 100
 ---
