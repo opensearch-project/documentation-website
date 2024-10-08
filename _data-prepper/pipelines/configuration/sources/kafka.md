@@ -3,7 +3,7 @@ layout: default
 title: kafka
 parent: Sources
 grand_parent: Pipelines
-nav_order: 6
+nav_order: 40
 ---
 
 # kafka
@@ -120,7 +120,7 @@ Use the following options when setting SSL encryption.
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `type` | No | String | The encryption type. Use `none` to disable encryption. Default is `ssl`.
-`Insecure` | No | Boolean | A Boolean flag used to turn off SSL certificate verification. If set to `true`, certificate authority (CA) certificate verification is turned off and insecure HTTP requests are sent. Default is `false`.
+`insecure` | No | Boolean | A Boolean flag used to turn off SSL certificate verification. If set to `true`, certificate authority (CA) certificate verification is turned off and insecure HTTP requests are sent. Default is `false`.
 
 
 #### AWS

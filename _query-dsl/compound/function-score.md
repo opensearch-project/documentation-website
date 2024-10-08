@@ -2,7 +2,6 @@
 layout: default
 title: Function score
 parent: Compound queries
-grand_parent: Query DSL
 nav_order: 60
 has_math: true
 redirect_from:

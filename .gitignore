@@ -4,4 +4,7 @@ _site
 .DS_Store
 Gemfile.lock
 .idea
+*.iml
 .jekyll-cache
+.project
+vendor/bundle

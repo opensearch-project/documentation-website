@@ -2,7 +2,6 @@
 layout: default
 title: Performance tuning
 parent: k-NN search
-grand_parent: Search methods
 nav_order: 45
 ---
 
@@ -60,9 +59,9 @@ The `_source` field contains the original JSON document body that was passed at 
           "location": {
               "type": "knn_vector",
               "dimension": 2,
+            "space_type": "l2",
               "method": {
                   "name": "hnsw",
-                  "space_type": "l2",
                   "engine": "faiss"
               }
           }
@@ -86,9 +85,9 @@ In OpenSearch 2.15 or later, you can further improve indexing speed and reduce d
           "location": {
               "type": "knn_vector",
               "dimension": 2,
+            "space_type": "l2",
               "method": {
                   "name": "hnsw",
-                  "space_type": "l2",
                   "engine": "faiss"
               }
           }

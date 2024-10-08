@@ -2,7 +2,6 @@
 layout: default
 title: Script score
 parent: Specialized queries
-grand_parent: Query DSL
 nav_order: 60
 ---
 

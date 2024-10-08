@@ -3,7 +3,6 @@ layout: default
 title: Radial search
 nav_order: 28
 parent: k-NN search
-grand_parent: Search methods
 has_children: false
 has_math: true
 ---
@@ -54,9 +53,9 @@ PUT knn-index-test
       "my_vector": {
         "type": "knn_vector",
         "dimension": 2,
+        "space_type": "l2",
         "method": {
             "name": "hnsw",
-            "space_type": "l2",
             "engine": "faiss",
             "parameters": {
               "ef_construction": 100,

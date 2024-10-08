@@ -73,6 +73,12 @@ OpenSearch supports the following dynamic cluster-level index settings:
 
 - `cluster.remote_store.segment.transfer_timeout` (Time unit): Controls the maximum amount of time to wait for all new segments to update after refresh to the remote store. If the upload does not complete within a specified amount of time, it throws a `SegmentUploadFailedException` error. Default is `30m`. It has a minimum constraint of `10m`.
 
+- `cluster.remote_store.translog.path.prefix` (String): Controls the fixed path prefix for translog data on a remote-store-enabled cluster. This setting only applies when the `cluster.remote_store.index.path.type` setting is either `HASHED_PREFIX` or `HASHED_INFIX`. Default is an empty string, `""`.
+
+- `cluster.remote_store.segments.path.prefix` (String): Controls the fixed path prefix for segment data on a remote-store-enabled cluster. This setting only applies when the `cluster.remote_store.index.path.type` setting is either `HASHED_PREFIX` or `HASHED_INFIX`. Default is an empty string, `""`.
+
+- `cluster.snapshot.shard.path.prefix` (String): Controls the fixed path prefix for snapshot shard-level blobs. This setting only applies when the repository `shard_path_type` setting is either `HASHED_PREFIX` or `HASHED_INFIX`. Default is an empty string, `""`.
+
 ## Index-level index settings
 
 You can specify index settings at index creation. There are two types of index settings:
