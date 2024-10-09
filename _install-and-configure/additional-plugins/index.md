@@ -14,7 +14,7 @@ There are many more plugins available in addition to those provided by the stand
 | analysis-icu                                                                                                                 | 1.0.0                      |
 | analysis-kuromoji                                                                                                            | 1.0.0                      |
 | analysis-nori                                                                                                                | 1.0.0                      |
-| [`analysis-phonenumber`]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/analysis-phonenumber-plugin/) | 2.18.0                     |
+| [`analysis-phonenumber`]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/phone-analyzers/) | 2.18.0                     |
 | analysis-phonetic                                                                                                            | 1.0.0                      |
 | analysis-smartcn                                                                                                             | 1.0.0                      |
 | analysis-stempel                                                                                                             | 1.0.0                      |
