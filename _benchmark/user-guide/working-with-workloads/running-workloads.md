@@ -1,22 +1,56 @@
 ---
 layout: default
-title: Understanding benchmark results
-nav_order: 22
-parent: User guide
+title: Running a workload
+nav_order: 9
+grand_parent: User guide
+parent: Working with workloads
+redirect_from: 
+  - /benchmark/user-guide/running-workloads/
 ---
 
+# Running a workload
 
-At the end of each test run, OpenSearch Benchmark creates a summary of test result metrics like service time, throughput, latency, and more. These metrics provide insights into how the selected workload performed on a benchmarked OpenSearch cluster.
+Once you have a complete understanding of the various components of an OpenSearch Benchmark [workload]({{site.url}}{{site.baseurl}}/benchmark/user-guide/understanding-workloads/anatomy-of-a-workload/), you can run your first workload. 
 
-The following guide provides information about how to understand the results of the summary report.
+## Step 1: Find the workload name
 
-## OpenSearch Benchmark runs
+To learn more about the standard workloads included with OpenSearch Benchmark, use the following command:
 
-OpenSearch Benchmark runs a series of nightly tests targeting the OpenSearch development cluster. The results of these test runs can be found at https://opensearch.org/benchmarks. The results display metrics spanning different test runs and target both recent and future versions of OpenSearch.
+```
+opensearch-benchmark list workloads 
+```
+{% include copy.html %}
 
-## Summary report metrics
+A list of all workloads supported by OpenSearch Benchmark appears. Review the list and select the workload that's most similar to your cluster's use case.
 
-While an OpenSearch Benchmark summary report provides metrics related to the performance of your cluster, how you compare and use those metrics depends on your use case. For example, some users might be interested in the number of documents the workload can index, while another might be interested in the amount of latency or service time needed for a document to be queried. The following example summary report shows metrics for a typical workload run:
+## Step 2: Running the test
+
+After you've selected the workload, you can invoke the workload using the `opensearch-benchmark execute-test` command. Replace  `--target-host` with the `host:port` pairs for your cluster and `--client-options` with any authorization options required to access the cluster. The following example runs the `nyc_taxis` workload on a localhost for testing purposes. 
+
+If you want to run a test on an external cluster, see [Running the workload on your own cluster](#running-a-workload-on-an-external-cluster).
+
+```bash
+opensearch-benchmark execute-test --pipeline=benchmark-only --workload=nyc_taxis --target-host=https://localhost:9200 --client-options=basic_auth_user:admin,basic_auth_password:admin,verify_certs:false
+```
+{% include copy.html %}
+
+
+Results from the test appear in the directory set by the `--output-path` option in the `execute-test` command.
+
+### Test mode
+
+If you want to run the test in test mode to make sure that your workload operates as intended, add the `--test-mode` option to the `execute-test` command. Test mode ingests only the first 1,000 documents from each index provided and runs query operations against them.
+
+## Step 3: Validate the test
+
+After running an OpenSearch Benchmark test, take the following steps to verify that it has run properly:
+
+1. Note the number of documents in the OpenSearch or OpenSearch Dashboards index that you plan to run the benchmark against.
+2. In the results returned by OpenSearch Benchmark, compare the `workload.json` file for your specific workload and verify that the document count matches the number of documents. For example, based on the [nyc_taxis](https://github.com/opensearch-project/opensearch-benchmark-workloads/blob/main/nyc_taxis/workload.json#L20) `workload.json` file, you should expect to see `165346692` documents in your cluster.
+
+## Expected results
+
+OSB returns the following response once the benchmark completes:
 
 ```bash
 ------------------------------------------------------
@@ -85,41 +119,53 @@ While an OpenSearch Benchmark summary report provides metrics related to the per
 |                                       100th percentile latency |                   wait-until-merges-finish |     34.7088 |     ms |
 |                                  100th percentile service time |                   wait-until-merges-finish |     34.7088 |     ms |
 |                                                     error rate |                   wait-until-merges-finish |           0 |      % |
-|                                                 Min Throughput |                                  match_all |       36.09 |  ops/s |
-|                                                Mean Throughput |                                  match_all |       36.09 |  ops/s |
-|                                              Median Throughput |                                  match_all |       36.09 |  ops/s |
-|                                                 Max Throughput |                                  match_all |       36.09 |  ops/s |
-|                                       100th percentile latency |                                  match_all |     35.9822 |     ms |
-|                                  100th percentile service time |                                  match_all |     7.93048 |     ms |
-|                                                     error rate |                                  match_all |           0 |      % |
+|                                                 Min Throughput |     percolator_with_content_president_bush |       36.09 |  ops/s |
+|                                                Mean Throughput |     percolator_with_content_president_bush |       36.09 |  ops/s |
+|                                              Median Throughput |     percolator_with_content_president_bush |       36.09 |  ops/s |
+|                                                 Max Throughput |     percolator_with_content_president_bush |       36.09 |  ops/s |
+|                                       100th percentile latency |     percolator_with_content_president_bush |     35.9822 |     ms |
+|                                  100th percentile service time |     percolator_with_content_president_bush |     7.93048 |     ms |
+|                                                     error rate |     percolator_with_content_president_bush |           0 |      % |
 
 [...]
 
-|                                                 Min Throughput |                                       term |        16.1 |  ops/s |
-|                                                Mean Throughput |                                       term |        16.1 |  ops/s |
-|                                              Median Throughput |                                       term |        16.1 |  ops/s |
-|                                                 Max Throughput |                                       term |        16.1 |  ops/s |
-|                                       100th percentile latency |                                       term |     131.798 |     ms |
-|                                  100th percentile service time |                                       term |     69.5237 |     ms |
-|                                                     error rate |                                       term |           0 |      % |
+|                                                 Min Throughput |          percolator_with_content_ignore_me |        16.1 |  ops/s |
+|                                                Mean Throughput |          percolator_with_content_ignore_me |        16.1 |  ops/s |
+|                                              Median Throughput |          percolator_with_content_ignore_me |        16.1 |  ops/s |
+|                                                 Max Throughput |          percolator_with_content_ignore_me |        16.1 |  ops/s |
+|                                       100th percentile latency |          percolator_with_content_ignore_me |     131.798 |     ms |
+|                                  100th percentile service time |          percolator_with_content_ignore_me |     69.5237 |     ms |
+|                                                     error rate |          percolator_with_content_ignore_me |           0 |      % |
+|                                                 Min Throughput | percolator_no_score_with_content_ignore_me |       29.37 |  ops/s |
+|                                                Mean Throughput | percolator_no_score_with_content_ignore_me |       29.37 |  ops/s |
+|                                              Median Throughput | percolator_no_score_with_content_ignore_me |       29.37 |  ops/s |
+|                                                 Max Throughput | percolator_no_score_with_content_ignore_me |       29.37 |  ops/s |
+|                                       100th percentile latency | percolator_no_score_with_content_ignore_me |     45.5703 |     ms |
+|                                  100th percentile service time | percolator_no_score_with_content_ignore_me |      11.316 |     ms |
+|                                                     error rate | percolator_no_score_with_content_ignore_me |           0 |      % |
+
+
+
+--------------------------------
+[INFO] SUCCESS (took 18 seconds)
+--------------------------------
 ```
 
-Metrics that are unique to the cluster begin at the `index` task line. The following are examples of metrics that might be relevant to you:
-
-- To assess how much load your cluster can handle, the `index` task metrics provide the number of documents ingested during the workload run as well as the ingestion error rate. 
-- To assess the measurable latency and service time of the queries in the workload, the `match_all` and `term` tasks provide the number of query operations performed per second, the measurable query latency, and the query operation error rate.
 
 
-## Storing results
+## Running a workload on an external cluster
 
-OpenSearch Benchmark results are stored in-memory or in external storage. 
+Now that you're familiar with running OpenSearch Benchmark on a local cluster, you can run it on your external cluster, as described in the following steps:
 
-When stored in-memory, results can be found in the `/.benchmark/benchmarks/test_executions/<test_execution_id>` directory. Results are named in accordance with the `test_execution_id` of the most recent workload test. 
+1. Replace `https://localhost:9200` with your target cluster endpoint. This could be a Uniform Resource Identifier (URI), such as `https://search.mydomain.com`, or a `HOST:PORT` specification.
+2. If the cluster is configured with basic authentication, replace the username and password in the command line with the appropriate credentials.
+3. Remove the `verify_certs:false` directive if you are not specifying `localhost` as your target cluster. This directive is necessary solely for clusters without SSL certificates.
+4. If you are using a `HOST:PORT`specification and plan to use SSL or TLS, either specify `https://` or add the `use_ssl:true` directive to the `--client-options` string option.
+5. Remove the `--test-mode` flag to run the full workload rather than an abbreviated test.
 
-While [running a test](https://opensearch.org/docs/latest/benchmark/reference/commands/execute-test/#general-settings), you can customize where the results are stored using any combination of the following command flags:
+You can copy the following command template to use it in your own terminal:
 
-* `--results-file`: When provided a file path, writes the summary report to the file indicated in the path.
-* `--results-format`: Defines the output format for the summary report results, either `markdown` or `csv`. Default is `markdown`.
-* `--show-in-results`: Defines which values are shown in the published summary report, either `available`, `all-percentiles`, or `all`. Default is `available`.
-* `--user-tag`: Defines user-specific key-value pairs used in the metrics record as meta information, for example, `intention:baseline-ticket-12345`. This is useful when storing metrics and results in external storage.
-
+```bash
+opensearch-benchmark execute-test --pipeline=benchmark-only --workload=nyc_taxis --target-host=<OpenSearch Cluster Endpoint> --client-options=basic_auth_user:admin,basic_auth_password:admin
+```
+{% include copy.html %}

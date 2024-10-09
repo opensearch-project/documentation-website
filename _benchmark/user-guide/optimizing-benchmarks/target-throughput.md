@@ -2,7 +2,10 @@
 layout: default
 title: Target throughput
 nav_order: 150
-parent: User guide
+parent: Optimizing benchmarks
+grand_parent: User guide
+redirect_from: 
+  - /benchmark/user-guide/target-throughput/
 ---
 
 # Target throughput
