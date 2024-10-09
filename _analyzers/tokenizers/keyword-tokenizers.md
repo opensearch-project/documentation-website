@@ -11,8 +11,9 @@ The keyword tokenizer is a straightforward tokenizer that takes in text and outp
 
 The keyword tokenizer can be paired with token filters to modify or clean up the text, such as normalizing the data or removing unnecessary characters.
 
-## Example usage
-
+## Example 
+By analyzing the text "OpenSearch Example", we can see the text is preserved:
+ 
 ```
 POST _analyze
 {
@@ -22,7 +23,7 @@ POST _analyze
 ```
 {% include copy-curl.html %}
 
-The `keyword tokenizer` filter strips out any characters that aren’t letters or numbers, resulting in:
+Resulting in the following preserved text output:
 
 ```
 OpenSearch Example 
