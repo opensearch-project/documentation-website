@@ -41,6 +41,7 @@ PUT /my_index
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Generated tokens
 
