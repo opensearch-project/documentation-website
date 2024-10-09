@@ -5,13 +5,13 @@ parent: Character filters
 nav_order: 100
 ---
 
-# `html_strip` character filter
+# `html_strip` Character Filter
 
 The `html_strip` character filter removes HTML tags, such as `<div>`, `<p>`, and `<a>`, from the input text and renders plain text. The filter can be configured to preserve certain tags or decode specific HTML entities, such as `&nbsp;`, into spaces.
 
 ## Example: HTML analyzer
 
-```
+```json
 GET /_analyze
 {
   "tokenizer": "keyword",
@@ -33,7 +33,7 @@ Commonly used calculus symbols include α, β and θ
 
 The following example query creates a custom analyzer that strips HTML tags and converts the plain text to lowercase by using the `html_strip` analyzer and `lowercase` filter.
 
-```
+```json
 PUT /html_strip_and_lowercase_analyzer
 {
   "settings": {
@@ -61,7 +61,7 @@ PUT /html_strip_and_lowercase_analyzer
 
 You can run the following request to test the analyzer:
 
-```
+```json
 GET /html_strip_and_lowercase_analyzer/_analyze
 {
   "analyzer": "html_strip_analyzer",
@@ -80,7 +80,7 @@ welcome to opensearch!
 
 The following example request creates a custom analyzer that preserves HTML tags:
 
-```
+```json
 PUT /html_strip_preserve_analyzer
 {
   "settings": {
@@ -108,7 +108,7 @@ PUT /html_strip_preserve_analyzer
 
 You can run the following request to test the analyzer:
 
-```
+```json
 GET /html_strip_preserve_analyzer/_analyze
 {
   "analyzer": "html_strip_analyzer",
