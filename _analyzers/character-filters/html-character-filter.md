@@ -23,7 +23,7 @@ GET /_analyze
 ```
 {% include copy-curl.html %}
 
-Using the HTML analyzer, you can convert the HTML character entity references into their corresponding symbols. The returned processed text would read as follows:
+Using the HTML analyzer, you can convert the HTML character entity references into their corresponding symbols. The processed text would read as follows:
 
 ```
 Commonly used calculus symbols include α, β and θ 
@@ -31,7 +31,7 @@ Commonly used calculus symbols include α, β and θ
 
 ## Example: Custom analyzer with lowercase filter
 
-The following example query creates a custom analyzer that strips HTML tags and converts the plain text to lowercase by using the `html_strip` analyzer and `lowercase` filter.
+The following example query creates a custom analyzer that strips HTML tags and converts the plain text to lowercase by using the `html_strip` analyzer and `lowercase` filter:
 
 ```json
 PUT /html_strip_and_lowercase_analyzer
@@ -70,13 +70,13 @@ GET /html_strip_and_lowercase_analyzer/_analyze
 ```
 {% include copy-curl.html %}
 
-The following response shows that the HTML tags have been removed and the plain text is lowercase:
+In the response, the HTML tags have been removed and the plain text has been converted to lowercase:
 
 ```
 welcome to opensearch!
 ```
 
-## Example: Custom analyzer preserving HTML tags
+## Example: Custom analyzer that preserves HTML tags
 
 The following example request creates a custom analyzer that preserves HTML tags:
 
@@ -117,7 +117,7 @@ GET /html_strip_preserve_analyzer/_analyze
 ```
 {% include copy-curl.html %}
 
-The following response shows that the `italic` and `bold` tags have been retained as specified in the custom analyzer request:
+In the response, the `italic` and `bold` tags have been retained, as specified in the custom analyzer request:
 
 ```
 This is a <b>bold</b> and <i>italic</i> text.
