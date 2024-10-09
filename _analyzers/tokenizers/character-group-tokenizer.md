@@ -19,7 +19,7 @@ The Character Group Tokenizer accepts the following parameters:
 
 We can tokenize the on characters such as `whitespace`, `-` and `:`.
 
-```
+```json
 POST _analyze
 {
   "tokenizer": {
