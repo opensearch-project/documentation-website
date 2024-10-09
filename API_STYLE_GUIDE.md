@@ -103,7 +103,7 @@ For GET and DELETE APIs: Introduce what you can do with the optional parameters.
 Parameter | Data type | Description
 :--- | :--- | :---
 
-### Request fields
+### Request body fields
 
 For PUT and POST APIs: Introduce what the request fields are allowed to provide in the body of the request.
 

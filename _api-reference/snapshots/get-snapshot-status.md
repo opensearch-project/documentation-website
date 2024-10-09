@@ -44,7 +44,7 @@ Snapshot API calls only work if the total number of shards across the requested 
 Using the API to return the state of snapshots that are not currently running can be very costly in terms of both machine resources and processing time when querying data in the cloud. For each snapshot, each request causes a file read of all of the snapshot's shards. 
 {: .warning}
 
-## Request fields
+## Request body fields
 
 | Field | Data type | Description | 
 :--- | :--- | :---

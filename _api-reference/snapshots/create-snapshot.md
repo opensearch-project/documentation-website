@@ -35,7 +35,7 @@ Parameter | Data type | Description
 :--- | :--- | :---
 wait_for_completion | Boolean |  Whether to wait for snapshot creation to complete before continuing. If you include this parameter, the snapshot definition is returned after completion. |
 
-## Request fields
+## Request body fields
 
 The request body is optional.
 

@@ -176,7 +176,7 @@ DELETE /_search/point_in_time/_all
 
 If you want to delete one or several PITs, specify their PIT IDs in the request body.
 
-### Request fields
+### Request body fields
 
 Field | Data type | Description  
 :--- | :--- | :---
@@ -235,7 +235,7 @@ GET /_cat/pit_segments/_all
 
 If you want to list segments for one or several PITs, specify their PIT IDs in the request body.
 
-### Request fields
+### Request body fields
 
 Field | Data type | Description  
 :--- | :--- | :---

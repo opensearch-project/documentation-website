@@ -178,7 +178,7 @@ PUT _plugins/_security/api/account
 ```
 {% include copy-curl.html %}
 
-#### Request fields
+#### Request body fields
 
 | Field              | Data type  | Description                    | Required  |
 |:-------------------|:-----------|:-------------------------------|:----------|
@@ -1453,7 +1453,7 @@ POST _plugins/_security/api/_upgrade_perform
 ```
 {% include copy-curl.html %}
 
-#### Request fields
+#### Request body fields
 
 | Field           | Data type  | Description                                                                                                       | Required |
 |:----------------|:-----------|:------------------------------------------------------------------------------------------------------------------|:---------|
@@ -1575,7 +1575,7 @@ PATCH _plugins/_security/api/nodesdn
 ```
 {% include copy-curl.html %}
 
-#### Request fields
+#### Request body fields
 
 | Field           | Data type  | Description                                                                                                       | Required |
 |:----------------|:-----------|:------------------------------------------------------------------------------------------------------------------|:---------|
@@ -1822,7 +1822,7 @@ For details on using audit logging to track access to OpenSearch clusters, as we
 You can do an initial configuration of audit logging in the `audit.yml` file, found in the `opensearch-project/security/config` directory. Thereafter, you can use the REST API or Dashboards for further changes to the configuration.
 {: note.}
 
-#### Request fields
+#### Request body fields
 
 Field | Data type | Description
 :--- | :--- | :---

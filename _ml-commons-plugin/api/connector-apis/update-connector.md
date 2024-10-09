@@ -25,7 +25,7 @@ For information about user access for this API, see [Model access control consid
 PUT /_plugins/_ml/connectors/<connector_id>
 ```
 
-## Request fields
+## Request body fields
 
 The following table lists the updatable fields. For more information about all connector fields, see [Blueprint configuration parameters]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints#configuration-parameters).
 

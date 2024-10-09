@@ -48,7 +48,7 @@ The following is the syntax for the `ml-inference` search response processor:
 ```
 {% include copy-curl.html %}
 
-## Request fields
+## Request body fields
 
 The following table lists the required and optional parameters for the `ml-inference` search response processor.
 

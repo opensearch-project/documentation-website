@@ -24,7 +24,7 @@ For more information, see [Model access control]({{site.url}}{{site.baseurl}}/ml
 PUT /_plugins/_ml/model_groups/<model_group_id>
 ```
 
-## Request fields
+## Request body fields
 
 Refer to [Request fields](#request-fields) for request field descriptions. 
 

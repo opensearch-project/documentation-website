@@ -20,7 +20,7 @@ POST /_plugins/_security_analytics/correlation/rules
 ```
 {% include copy-curl.html %}
 
-### Request fields
+### Request body fields
 
 | Field | Type | Description |
 | :--- | :--- |:--- |

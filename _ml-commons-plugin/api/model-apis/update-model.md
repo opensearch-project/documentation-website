@@ -20,7 +20,7 @@ For information about user access for this API, see [Model access control consid
 PUT /_plugins/_ml/models/<model_id>
 ```
 
-## Request fields
+## Request body fields
 
 The following table lists the updatable fields. Not all request fields are applicable to all models. To determine whether the field is applicable to your model type, see [Register Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/).
 

@@ -26,7 +26,7 @@ Parameter | Type | Description
 :--- | :--- | :---
 nodeId | String | A comma-separated list of nodeIds used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters). Defaults to `_all`.
 
-## Request fields
+## Request body fields
 
 The request may include an optional object containing the password for the OpenSearch keystore.
 
