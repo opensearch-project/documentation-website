@@ -18,7 +18,7 @@ These files can be downloaded from [LibreOffice dictionaries](https://github.com
 The `hunspell` token filter in OpenSearch can be configured with the following parameters:
 
 - `language/lang/locale`: Specifies the language for the Hunspell dictionary. (String, _Required_ at least one of the three)
-- `dedup`: Determines whether to remove duplicate tokens. Default is `true`. (Boolean, _Optional_)
+- `dedup`: Determines whether to remove multiple duplicate stemming terms for the same token. Default is `true`. (Boolean, _Optional_)
 - `dictionary`: Configures the dictionary files to be used for Hunspell dictionary. Default is all files in `<OS_PATH_CONF>/hunspell/<locale>` directory. (Array of strings, _Optional_)
 - `longest_only`: Specifies if only the longest stemmed version of the token should be returned. Default is `false` (Boolean, _Optional_) 
 
