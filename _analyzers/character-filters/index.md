@@ -14,6 +14,6 @@ Unlike token filters, which operate on tokens (words or terms), character filter
 
 Use cases for character filters include:
 
-- **HTML stripping:** Removes HTML tags from content so that only the plain text is indexed. See [HTML stripping]({{site.url}}{{site.baseurl}}/analyzers/html-character-filter) for more information.
+- **HTML stripping:** Removes HTML tags from content so that only the plain text is indexed. See [HTML stripping]({{site.url}}{{site.baseurl}}/analyzers/html-character-filter/) for more information.
 - **Pattern replacement:** Replaces or removes unwanted characters or patterns in text, for example, converting hyphens to spaces.
 - **Custom mappings:** Substitutes specific characters or sequences with other values, for example, to convert currency symbols into their textual equivalents.
