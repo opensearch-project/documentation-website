@@ -85,6 +85,7 @@ Python
 PyTorch
 Querqy
 Query Workbench
+RankLib
 RCF Summarize
 RPM Package Manager
 Ruby
@@ -97,4 +98,5 @@ TorchScript
 Tribuo
 VisBuilder
 Winlogbeat
+XGBoost
 Zstandard
