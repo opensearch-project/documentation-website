@@ -323,7 +323,7 @@ Field | Data type        | Description
 `top_queries.task_resource_usages` | Array of objects | The resource usage breakdown for the various tasks belonging to the first query in the query group.
 `top_queries.indices` | Array | The indexes searched by the first query in the query group.
 `top_queries.labels` | Object           | Used to label the top query.
-`top_queries.search_type` | String           | The search request execution type (`query_then_fetch` or `dfs_query_then_fetch`). For more information, see the `search_type` parameter in the [Search API documentation]({{site.url}}{{site.baseurl}}/api-reference/search/#url-parameters).
+`top_queries.search_type` | String           | The search request execution type (`query_then_fetch` or `dfs_query_then_fetch`). For more information, see the `search_type` parameter in the [Search API documentation]({{site.url}}{{site.baseurl}}/api-reference/search/#query-parameters).
 `top_queries.measurements` | Object           | The aggregate measurements for the query group.
 `top_queries.measurements.latency` | Object           | The aggregate latency measurements for the query group.
 `top_queries.measurements.latency.number` | Integer          | The total latency for the query group.
