@@ -16,6 +16,9 @@ The Character Group Tokenizer accepts the following parameters:
 4. `max_token_length`: This parameter defines the maximum length allowed for a token. If a token exceeds this specified length, it will be split at intervals defined by `max_token_length`. The default value is `255`.
 
 ## Example of the character group tokenizer
+
+We can tokenize the on characters such as `whitespace`, `-` and `:`.
+
 ```
 POST _analyze
 {
@@ -30,12 +33,9 @@ POST _analyze
   "text": "Fast-cars: drive fast!"
 }
 ```
-Summary of the outputted response text:
+
+By analyzing the text "Fast-cars: drive fast!", we can see the specified characters have been removed: 
+
 ```
 Fast cars drive fast
 ```
-
-
-
-
-
