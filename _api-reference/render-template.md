@@ -25,7 +25,7 @@ The Render Template API supports the following optional path parameter.
 | :--- | :--- | :--- |
 | `id` | String | The ID of the search template to render. |
 
-## Request options
+## Request body fields
 
 The following options are supported in the request body of the Render Template API.
 

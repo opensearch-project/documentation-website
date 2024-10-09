@@ -13,12 +13,6 @@ redirect_from:
 
 The close index API operation closes an index. Once an index is closed, you cannot add data to it or search for any data within the index.
 
-#### Example
-
-```json
-POST /sample-index/_close
-```
-{% include copy-curl.html %}
 
 ## Path and HTTP methods
 
@@ -26,7 +20,7 @@ POST /sample-index/_close
 POST /<index-name>/_close
 ```
 
-## URL parameters
+## Query parameters
 
 All parameters are optional.
 
@@ -39,6 +33,13 @@ ignore_unavailable | Boolean | If true, OpenSearch does not search for missing o
 wait_for_active_shards | String | Specifies the number of active shards that must be available before OpenSearch processes the request. Default is 1 (only the primary shard). Set to all or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have two replicas distributed across two additional nodes for the request to succeed.
 cluster_manager_timeout | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
 timeout | Time | How long to wait for a response from the cluster. Default is `30s`.
+
+## Example requests
+
+```json
+POST /sample-index/_close
+```
+{% include copy-curl.html %}
 
 
 ## Example response

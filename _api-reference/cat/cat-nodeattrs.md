@@ -21,7 +21,7 @@ The CAT nodeattrs operation lists the attributes of custom nodes.
 GET _cat/nodeattrs
 ```
 
-## URL parameters
+## Query parameters
 
 All CAT nodeattrs URL parameters are optional.
 
@@ -36,7 +36,7 @@ cluster_manager_timeout | Time | The amount of time to wait for a connection to 
 
 The following example request returns attributes about custom nodes:
 
-```
+```json
 GET _cat/nodeattrs?v
 ```
 {% include copy-curl.html %}

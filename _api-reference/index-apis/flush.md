@@ -18,12 +18,13 @@ OpenSearch automatically performs flushes in the background based on conditions 
 
 The Flush API supports the following paths:
 
-```
+```json
 GET /_flush
 POST /_flush
 GET /{index}/_flush
 POST /{index}/_flush
 ```
+{% include copy-curl.html %}
 
 ## Path parameters
 
@@ -45,21 +46,26 @@ The Flush API supports the following query parameters.
 | `ignore_unavailable` | Boolean | When `true`, OpenSearch ignores missing or closed indexes. If `false`, OpenSearch returns an error if the force merge operation encounters missing or closed indexes. Default is `false`. |
 | `wait_if_ongoing` | Boolean | When `true`, the Flush API does not run while another flush request is active. When `false`, OpenSearch returns an error if another flush request is active. Default is `true`. |
 
-## Example request: Flush a specific index
+## Example requests
+
+### Flush a specific index
 
 The following example flushes an index named `shakespeare`:
 
-```
+```json
 POST /shakespeare/_flush
 ```
+{% include copy-curl.html %}
 
-## Example request: Flush all indexes
+
+### Flush all indexes
 
 The following example flushes all indexes in a cluster:
 
-```
+```json
 POST /_flush
 ```
+{% include copy-curl.html %}
 
 ## Example response
 

@@ -149,7 +149,7 @@ The response contains the schema and the results:
 }
 ```
 
-### Response fields
+### Response body fields
 
 Field | Data Type | Description  
 :--- | :--- | :---

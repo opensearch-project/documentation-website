@@ -20,13 +20,13 @@ If you add some options, you can instead get information on a specific shard, in
 
 ## Path and HTTP methods
 
-```
+```json
 GET _cluster/allocation/explain
 POST _cluster/allocation/explain
 ```
+{% include copy-curl.html %}
 
-
-## URL parameters
+## Query parameters
 
 All cluster allocation explain parameters are optional.
 
@@ -36,7 +36,7 @@ include_yes_decisions | Boolean | OpenSearch makes a series of yes or no decisio
 include_disk_info | Boolean | Whether to include information about disk usage in the response. Default is `false`.
 
 
-## Request body
+## Request body fields
 
 All cluster allocation explain fields are optional.
 

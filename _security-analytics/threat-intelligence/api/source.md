@@ -60,7 +60,7 @@ The following fields modify the `ioc_types` option.
 | `spec_version` | String           | The specification version used for the IOC.    |
 | `version`      | Integer    | A version number for the IOC.    |
 
-### Response fields
+### Response body fields
 
 | Field     | Data type   | Description   |
 | :---- | :--- |:----- |

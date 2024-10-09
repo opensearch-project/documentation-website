@@ -435,7 +435,7 @@ The following is an example response for a concurrent segment search with three 
 ```
 </details>
 
-## Response fields
+## Response body fields
 
 The response includes the following fields.
 
@@ -966,7 +966,7 @@ The response contains profiling information:
 ```
 </details>
 
-### Response fields
+### Response body fields
 
 The `aggregations` array contains aggregation objects with the following fields.
 

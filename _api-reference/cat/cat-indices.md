@@ -22,7 +22,7 @@ GET _cat/indices/<index>
 GET _cat/indices
 ```
 
-## URL parameters
+## Query parameters
 
 All URL parameters are optional.
 
@@ -40,14 +40,14 @@ expand_wildcards | Enum | Expands wildcard expressions to concrete indexes. Comb
 
 ## Example requests
 
-```
+```json
 GET _cat/indices?v
 ```
 {% include copy-curl.html %}
 
 To limit the information to a specific index, add the index name after your query.
 
-```
+```json
 GET _cat/indices/<index>?v
 ```
 {% include copy-curl.html %}

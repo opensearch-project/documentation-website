@@ -18,11 +18,12 @@ The CAT shards operation lists the state of all primary and replica shards and h
 
 ## Path and HTTP methods
 
-```
+```json
 GET _cat/shards
 ```
+{% include copy-curl.html %}
 
-## URL parameters
+## Query parameters
 
 All cat shards URL parameters are optional.
 

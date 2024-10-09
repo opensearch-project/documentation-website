@@ -13,21 +13,6 @@ redirect_from:
 
 The shrink index API operation moves all of your data in an existing index into a new index with fewer primary shards.
 
-## Example
-
-```json
-POST /my-old-index/_shrink/my-new-index
-{
-  "settings": {
-    "index.number_of_replicas": 4,
-    "index.number_of_shards": 3
-  },
-  "aliases":{
-    "new-index-alias": {}
-  }
-}
-```
-{% include copy-curl.html %}
 
 ## Path and HTTP methods
 
@@ -44,7 +29,7 @@ When creating new indexes with this operation, remember that OpenSearch indexes 
 
   `:`, `"`, `*`, `+`, `/`, `\`, `|`, `?`, `#`, `>`, or `<`
 
-## URL parameters
+## Query parameters
 
 The shrink index API operation requires you to specify both the source index and the target index. All other parameters are optional.
 
@@ -58,7 +43,7 @@ timeout | Time | How long to wait for the request to return a response. Default 
 wait_for_completion | Boolean | When set to `false`, the request returns immediately instead of after the operation is finished. To monitor the operation status, use the [Tasks API]({{site.url}}{{site.baseurl}}/api-reference/tasks/) with the task ID returned by the request. Default is `true`.
 task_execution_timeout | Time | The explicit task execution timeout. Only useful when wait_for_completion is set to `false`. Default is `1h`.
 
-## Request body
+## Request body fields
 
 You can use the request body to configure some index settings for the target index. All fields are optional.
 
@@ -85,3 +70,19 @@ The minimum number of primary shards for the target index is 1.
 ## Index codec considerations
 
 For index codec considerations, see [Index codecs]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/#splits-and-shrinks).
+
+## Example request
+
+```json
+POST /my-old-index/_shrink/my-new-index
+{
+  "settings": {
+    "index.number_of_replicas": 4,
+    "index.number_of_shards": 3
+  },
+  "aliases":{
+    "new-index-alias": {}
+  }
+}
+```
+{% include copy-curl.html %}

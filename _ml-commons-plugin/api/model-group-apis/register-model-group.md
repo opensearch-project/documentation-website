@@ -54,7 +54,7 @@ POST /_plugins/_ml/model_groups/_register
 }
 ```
 
-## Response fields
+## Response body fields
 
 The following table lists the available response fields. 
 

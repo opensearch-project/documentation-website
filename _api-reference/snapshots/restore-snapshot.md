@@ -32,7 +32,7 @@ Parameter | Data type | Description
 :--- | :--- | :---
 wait_for_completion | Boolean |  Whether to wait for snapshot restoration to complete before continuing. |
 
-### Request fields
+## Request body fields
 
 All request body parameters are optional.
 
@@ -92,7 +92,7 @@ Upon success, the response returns the following JSON object:
 ````
 Except for the snapshot name, all properties are empty or `0`. This is because any changes made to the volume after the snapshot was generated are lost. However, if you invoke the [Get snapshot]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot) API to examine the snapshot, a fully populated snapshot object is returned. 
 
-## Response fields
+## Response body fields
 
 | Field | Data type | Description |
 | :--- | :--- | :--- | 

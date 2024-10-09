@@ -13,20 +13,15 @@ redirect_from:
 
 You can use the get index API operation to return information about an index.
 
-## Example
-
-```json
-GET /sample-index
-```
-{% include copy-curl.html %}
 
 ## Path and HTTP methods
 
-```
+```json
 GET /<index-name>
 ```
+{% include copy-curl.html %}
 
-## URL parameters
+## Query parameters
 
 All parameters are optional.
 
@@ -40,6 +35,12 @@ ignore_unavailable | Boolean | If true, OpenSearch does not include missing or c
 local | Boolean | Whether to return information from only the local node instead of from the cluster manager node. Default is `false`.
 cluster_manager_timeout | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
 
+## Example request
+
+```json
+GET /sample-index
+```
+{% include copy-curl.html %}
 
 ## Example response
 ```json

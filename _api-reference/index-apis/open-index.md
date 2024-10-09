@@ -13,20 +13,15 @@ redirect_from:
 
 The open index API operation opens a closed index, letting you add or search for data within the index.
 
-## Example
-
-```json
-POST /sample-index/_open
-```
-{% include copy-curl.html %}
 
 ## Path and HTTP methods
 
-```
+```json
 POST /<index-name>/_open
 ```
+{% include copy-curl.html %}
 
-## URL parameters
+## Query parameters
 
 All parameters are optional.
 
@@ -41,6 +36,13 @@ cluster_manager_timeout | Time | How long to wait for a connection to the cluste
 timeout | Time | How long to wait for a response from the cluster. Default is `30s`.
 wait_for_completion | Boolean | When set to `false`, the request returns immediately instead of after the operation is finished. To monitor the operation status, use the [Tasks API]({{site.url}}{{site.baseurl}}/api-reference/tasks/) with the task ID returned by the request. Default is `true`.
 task_execution_timeout | Time | The explicit task execution timeout. Only useful when wait_for_completion is set to `false`. Default is `1h`.
+
+## Example request
+
+```json
+POST /sample-index/_open
+```
+{% include copy-curl.html %}
 
 
 ## Example response

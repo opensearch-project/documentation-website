@@ -54,7 +54,7 @@ Upon success, the response returns repositry information. This sample is for an 
 }
 ````
 
-## Response fields
+## Response body fields
 
 | Field | Data type | Description |
 | :--- | :--- | :--- | 

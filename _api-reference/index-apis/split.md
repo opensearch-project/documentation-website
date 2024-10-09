@@ -48,7 +48,7 @@ OpenSearch indexes have the following naming restrictions:
 
   `:`, `"`, `*`, `+`, `/`, `\`, `|`, `?`, `#`, `>`, or `<`
 
-## URL parameters
+## Query parameters
 
 Your request must include the source and target indexes. All split index parameters are optional.
 

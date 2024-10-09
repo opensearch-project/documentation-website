@@ -14,22 +14,17 @@ redirect_from:
 
 The get settings API operation returns all the settings in your index.
 
-## Example
-
-```json
-GET /sample-index1/_settings
-```
-{% include copy-curl.html %}
 
 ## Path and HTTP methods
 
-```
+```json
 GET /_settings
 GET /<target-index>/_settings
 GET /<target-index>/_settings/<setting>
 ```
+{% include copy-curl.html %}
 
-## URL parameters
+## Query parameters
 
 All get settings parameters are optional.
 
@@ -44,6 +39,13 @@ include_defaults | Boolean | Whether to include default settings, including sett
 ignore_unavailable | Boolean | If true, OpenSearch does not include missing or closed indexes in the response.
 local | Boolean | Whether to return information from the local node only instead of the cluster manager node. Default is `false`.
 cluster_manager_timeout | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
+
+## Example request
+
+```json
+GET /sample-index1/_settings
+```
+{% include copy-curl.html %}
 
 ## Example response
 

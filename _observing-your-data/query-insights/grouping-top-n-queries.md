@@ -307,7 +307,7 @@ The response contains the top N query groups:
 
 </details>
 
-## Response fields
+## Response body fields
 
 The response includes the following fields.
 

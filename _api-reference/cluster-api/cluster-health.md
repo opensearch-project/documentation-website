@@ -98,7 +98,7 @@ The response contains cluster health information:
 }
 ```
 
-## Response fields
+## Response body fields
 
 The following table lists all response fields.
 

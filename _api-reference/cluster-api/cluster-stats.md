@@ -23,7 +23,7 @@ GET _cluster/stats
 GET _cluster/stats/nodes/<node-filters>
 ```
 
-## URL parameters
+## Query parameters
 
 All cluster stats parameters are optional.
 

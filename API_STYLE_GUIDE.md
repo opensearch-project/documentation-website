@@ -189,7 +189,7 @@ The `POST _reindex` request returns the following response fields:
 }
 ```
 
-### Response fields
+### Response body fields
 
 For PUT and POST APIs: Define all allowable response fields that can be returned in the body of the response.
 

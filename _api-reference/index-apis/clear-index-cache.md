@@ -117,7 +117,7 @@ The `POST /books,hockey/_cache/clear` request returns the following fields:
 }
 ```
 
-## Response fields
+## Response body fields
 
 The `POST /books,hockey/_cache/clear` request returns the following response fields:
 

@@ -206,7 +206,7 @@ PUT _plugins/_security/api/account
 }
 ```
 
-#### Response fields
+#### Response body fields
 
 | Field    | Data type  | Description                   |
 |:---------|:-----------|:------------------------------|
@@ -1426,7 +1426,7 @@ GET _plugins/_security/api/_upgrade_check
 }
 ```
 
-#### Response fields
+#### Response body fields
 
 | Field    | Data type  | Description                   |
 |:---------|:-----------|:------------------------------|
@@ -1473,7 +1473,7 @@ POST _plugins/_security/api/_upgrade_perform
 }
 ```
 
-#### Response fields
+#### Response body fields
 
 | Field    | Data type  | Description                   |
 |:---------|:-----------|:------------------------------|
@@ -1607,7 +1607,7 @@ PATCH _plugins/_security/api/nodesdn
 }
 ```
 
-#### Response fields
+#### Response body fields
 
 | Field   | Data type | Description          |
 |:--------|:----------|:---------------------|
@@ -1705,7 +1705,7 @@ curl -X PUT "https://your-opensearch-cluster/_plugins/_security/api/ssl/transpor
 }
 ```
 
-#### Response fields
+#### Response body fields
 
 | Field   | Data type | Description                                                                       |
 |:--------|:----------|:----------------------------------------------------------------------------------|
@@ -1741,7 +1741,7 @@ curl -X PUT "https://your-opensearch-cluster/_plugins/_security/api/ssl/http/rel
 }
 ```
 
-#### Response fields
+#### Response body fields
 
 | Field   | Data type | Description                                                         |
 |:--------|:----------|:--------------------------------------------------------------------|

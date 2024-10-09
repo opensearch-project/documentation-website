@@ -55,7 +55,7 @@ Query\n
 Just like the [bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) operation, the JSON doesn't need to be minified---spaces are fine---but it does need to be on a single line. OpenSearch uses newline characters to parse multi-search requests and requires that the request body end with a newline character.
 
 
-## URL parameters and metadata options
+## Query parameters and metadata options
 
 All multi-search URL parameters are optional. Some can also be applied per-search as part of each metadata line.
 
@@ -90,11 +90,10 @@ request_cache | Boolean | Whether to cache results, which can improve latency fo
 routing | String | Comma-separated custom routing values, for example, `"routing": "value1,value2,value3"`.
 
 
-## Example
+## Example request
 
 The following example `msearch` API request runs queries against multiple indexes:
 
-### Request
 
 ```json
 GET _msearch
@@ -107,7 +106,7 @@ GET _msearch
 {% include copy-curl.html %}
 
 
-### Response
+## Example response
 
 OpenSearch returns an array with the results of each search in the same order as the multi-search request.
 

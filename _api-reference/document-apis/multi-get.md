@@ -22,7 +22,7 @@ POST _mget
 POST <index>/_mget
 ```
 
-## URL parameters
+## Query parameters
 
 All multi-get URL parameters are optional.
 

@@ -377,7 +377,7 @@ The `GET _snapshot/my-opensearch-repo/my-first-snapshot/_status` request returns
 }
 ````
 
-## Response fields
+## Response body fields
 
 | Field | Data type | Description | 
 :--- | :--- | :---
@@ -390,7 +390,7 @@ The `GET _snapshot/my-opensearch-repo/my-first-snapshot/_status` request returns
 | stats | Object | Information about files included in the snapshot. `file_count`: number of files. `size_in_bytes`: total size of all files. See [Snapshot file stats](#snapshot-file-stats). |
 | index | list of Objects | List of objects that contain information about the indices in the snapshot. See [Index objects](#index-objects).|
 
-##### Snapshot states
+### Snapshot states
 
 | State | Description | 
 :--- | :--- |
@@ -399,9 +399,9 @@ The `GET _snapshot/my-opensearch-repo/my-first-snapshot/_status` request returns
 | PARTIAL | The global cluster state was stored, but data from at least one shard was not stored. The `failures` property of the [Create snapshot]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-snapshot) response contains additional details. |
 | SUCCESS | The snapshot finished and all shards were stored successfully. |
 
-##### Shard stats
+### Shard stats
 
-All property values are Integers.
+All property values are integers.
 
 | Property | Description | 
 :--- | :--- |
@@ -412,7 +412,7 @@ All property values are Integers.
 | failed | Number of shards that failed to be included in the snapshot. |
 | total | Total number of shards included in the snapshot. |
 
-##### Snapshot file stats
+### Snapshot file stats
 
 | Property | Type | Description | 
 :--- | :--- | :--- |
@@ -422,7 +422,7 @@ All property values are Integers.
 | start_time_in_millis | Long | Time (in milliseconds) when snapshot creation began. |
 | time_in_millis | Long | Total time (in milliseconds) that the snapshot took to complete. |
 
-##### Index objects
+### Index objects
 
 | Property | Type | Description | 
 :--- | :--- | :--- |

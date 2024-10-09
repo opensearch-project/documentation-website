@@ -24,7 +24,7 @@ GET _cat/aliases
 ```
 
 
-## URL parameters
+## Query parameters
 
 All CAT aliases URL parameters are optional.
 

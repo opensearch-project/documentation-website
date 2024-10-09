@@ -12,20 +12,6 @@ redirect_from:
 
 The Search API operation lets you execute a search request to search your cluster for data.
 
-## Example
-
-```json
-GET /movies/_search
-{
-  "query": {
-    "match": {
-      "text_entry": "I am the night"
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
 ## Path and HTTP Methods
 
 ```
@@ -36,7 +22,7 @@ POST /<target-index>/_search
 POST /_search
 ```
 
-## URL Parameters
+## Query parameters
 
 All URL parameters are optional.
 
@@ -124,7 +110,22 @@ terminate_after | Integer | The maximum number of documents OpenSearch should pr
 timeout | Time | How long to wait for a response. Default is no timeout.
 version | Boolean | Whether to include the document version in the response.
 
-## Response body
+## Example request
+
+```json
+GET /movies/_search
+{
+  "query": {
+    "match": {
+      "text_entry": "I am the night"
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+
+## Response body fields
 
 ```json
 {

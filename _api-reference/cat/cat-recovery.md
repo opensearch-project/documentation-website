@@ -22,7 +22,7 @@ The CAT recovery operation lists all completed and ongoing index and shard recov
 GET _cat/recovery
 ```
 
-## URL parameters
+## Query parameters
 
 All CAT recovery URL parameters are optional.
 
@@ -37,14 +37,14 @@ time | Time | Specify the units for time. For example, `5d` or `7h`. For more in
 
 ## Example requests
 
-```
+```json
 GET _cat/recovery?v
 ```
 {% include copy-curl.html %}
 
 To see only the recoveries of a specific index, add the index name after your query.
 
-```
+```json
 GET _cat/recovery/<index>?v
 ```
 {% include copy-curl.html %}

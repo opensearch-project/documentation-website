@@ -13,15 +13,6 @@ redirect_from:
 
 You can use the `Index document` operation to add a single document to your index.
 
-## Example
-
-```json
-PUT sample-index/_doc/1
-{
-  "Description": "To be or not to be, that is the question."
-}
-```
-{% include copy-curl.html %}
 
 ## Path and HTTP methods
 
@@ -80,7 +71,7 @@ POST /sample_index/_doc
 ```
 {% include copy-curl.html %}
 
-## URL parameters
+## Query parameters
 
 In your request, you must specify the index you want to add your document to. If the index doesn't already exist, OpenSearch automatically creates the index and adds in your document. All other URL parameters are optional.
 
@@ -100,17 +91,38 @@ version_type | Enum | Assigns a specific type to the document. Valid options are
 wait_for_active_shards | String | The number of active shards that must be available before OpenSearch processes the request. Default is 1 (only the primary shard). Set to `all` or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have two replicas distributed across two additional nodes for the operation to succeed. | No
 require_alias | Boolean | Specifies whether the target index must be an index alias. Default is `false`. | No
 
-## Request body
+## Example requests 
 
-Your request body must contain the information you want to index.
+The following example requests create a sample index document for an index named `sample_index`:
+
+
+### Example PUT request
 
 ```json
+PUT /sample_index/_doc/1
 {
-  "Description": "This is just a sample document"
+  "name": "Example",
+  "price": 29.99,
+  "description": "To be or not to be, that is the question"
 }
 ```
+{% include copy-curl.html %}
+
+### Example POST request
+
+```json
+POST /sample_index/_doc
+{
+  "name": "Another Example",
+  "price": 19.99,
+  "description": "We are such stuff as dreams are made on"
+}
+
+```
+{% include copy-curl.html %}
 
 ## Example response
+
 ```json
 {
   "_index": "sample-index",

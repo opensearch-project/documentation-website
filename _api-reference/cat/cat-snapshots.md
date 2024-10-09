@@ -18,11 +18,12 @@ The CAT snapshots operation lists all snapshots for a repository.
 
 ## Path and HTTP methods
 
-```
+```json
 GET _cat/snapshots
 ```
+{% include copy-curl.html %}
 
-## URL parameters
+## Query parameters
 
 All CAT snapshots URL parameters are optional.
 

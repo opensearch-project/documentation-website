@@ -28,7 +28,7 @@ allow_no_indices | Boolean | Defaults to `true`. When set to `false` the respons
 expand_wildcards | String | Expand wildcard expressions for indexes that are `open`, `closed`, `hidden`, `none`, or `all`.
 search_type | String | Set search type to either `query_then_fetch` or `dfs_query_then_fetch`.
 
-## Request fields
+## Request body fields
 
 The request body must contain at least one parameter.
 

@@ -18,44 +18,14 @@ The explain API is an expensive operation in terms of both resources and time. O
 {: .warning }
 
 
-## Example
-
-To see the explain output for all results, set the `explain` flag to `true` either in the URL or in the body of the request:
-
-```json
-POST opensearch_dashboards_sample_data_ecommerce/_search?explain=true
-{
-  "query": {
-    "match": {
-      "customer_first_name": "Mary"
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-More often, you want the output for a single document. In that case, specify the document ID in the URL:
-
-```json
-POST opensearch_dashboards_sample_data_ecommerce/_explain/EVz1Q3sBgg5eWQP6RSte
-{
-  "query": {
-    "match": {
-      "customer_first_name": "Mary"
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
 ## Path and HTTP methods
 
-```
+```json
 GET <target>/_explain/<id>
 POST <target>/_explain/<id>
 ```
 
-## URL parameters
+## Query parameters
 
 You must specify the index and document ID. All other URL parameters are optional.
 

@@ -13,24 +13,6 @@ redirect_from:
 
 The clone index API operation clones all data in an existing read-only index into a new index. The new index cannot already exist.
 
-## Example
-
-```json
-PUT /sample-index1/_clone/cloned-index1
-{
-  "settings": {
-    "index": {
-      "number_of_shards": 2,
-      "number_of_replicas": 1
-    }
-  },
-  "aliases": {
-    "sample-alias1": {}
-  }
-}
-```
-{% include copy-curl.html %}
-
 ## Path and HTTP methods
 
 ```
@@ -48,7 +30,7 @@ OpenSearch indexes have the following naming restrictions:
 
   `:`, `"`, `*`, `+`, `/`, `\`, `|`, `?`, `#`, `>`, or `<`
 
-## URL parameters
+## Query parameters
 
 Your request must include the source and target indexes. All other clone index parameters are optional.
 

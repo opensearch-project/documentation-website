@@ -15,18 +15,18 @@ If you no longer need a document in your index, you can use the delete document 
 
 ## Example
 
-```
+```json
 DELETE /sample-index1/_doc/1
 ```
 {% include copy-curl.html %}
 
 ## Path and HTTP methods
 
-```
+```json
 DELETE /<index>/_doc/<_id>
 ```
 
-## URL parameters
+## Query parameters
 
 Parameter | Type | Description | Required
 :--- | :--- | :--- | :---
@@ -40,6 +40,13 @@ timeout | Time | How long to wait for a response from the cluster.	Default is `1
 version | Integer | The version of the document to delete, which must match the last updated version of the document. | No
 version_type | Enum | Retrieves a specifically typed document. Available options are `external` (retrieve the document if the specified version number is greater than the document's current version) and `external_gte` (retrieve the document if the specified version number is greater than or equal to the document's current version). For example, to delete version 3 of a document, use `/_doc/1?version=3&version_type=external`. | No
 wait_for_active_shards | String | The number of active shards that must be available before OpenSearch processes the delete request. Default is 1 (only the primary shard). Set to `all` or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have two replicas distributed across two additional nodes for the operation to succeed. | No
+
+## Example request
+
+```json
+DELETE /sample-index1/_doc/1
+```
+{% include copy-curl.html %}
 
 
 ## Example response

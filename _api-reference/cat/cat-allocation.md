@@ -22,7 +22,7 @@ GET _cat/allocation?v
 GET _cat/allocation/<node_name>
 ```
 
-## URL parameters
+## Query parameters
 
 All CAT allocation URL parameters are optional.
 

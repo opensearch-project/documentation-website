@@ -17,11 +17,11 @@ The CAT thread pool operation lists the active, queued, and rejected threads of 
 
 ## Path and HTTP methods
 
-```
+```json
 GET _cat/thread_pool
 ```
 
-## URL parameters
+## Query parameters
 
 All CAT thread pool URL parameters are optional.
 
@@ -36,21 +36,21 @@ cluster_manager_timeout | Time | The amount of time to wait for a connection to 
 
 The following example request gives information about thread pools on all nodes:
 
-```
+```json
 GET _cat/thread_pool?v
 ```
 {% include copy-curl.html %}
 
 If you want to get information for more than one thread pool, separate the thread pool names with commas:
 
-```
+```json
 GET _cat/thread_pool/thread_pool_name_1,thread_pool_name_2,thread_pool_name_3
 ```
 {% include copy-curl.html %}
 
 If you want to limit the information to a specific thread pool, add the thread pool name after your query:
 
-```
+```json
 GET _cat/thread_pool/<thread_pool_name>?v
 ```
 {% include copy-curl.html %}

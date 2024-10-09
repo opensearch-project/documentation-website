@@ -22,7 +22,7 @@ The CAT pending tasks operation lists the progress of all pending tasks, includi
 GET _cat/pending_tasks
 ```
 
-## URL parameters
+## Query parameters
 
 All CAT nodes URL parameters are optional.
 
@@ -38,7 +38,7 @@ time | Time | Specify the units for time. For example, `5d` or `7h`. For more in
 
 The following example request lists the progress of all pending node tasks:
 
-```
+```json
 GET _cat/pending_tasks?v
 ```
 {% include copy-curl.html %}

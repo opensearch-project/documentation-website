@@ -35,7 +35,7 @@ POST /_reindex
 POST /_reindex
 ```
 
-## URL parameters
+## Query parameters
 
 All URL parameters are optional.
 

@@ -70,7 +70,7 @@ In the preceding sample, one node is connected to the snapshot repository. If mo
 }
 ````
 
-## Response fields
+## Response body fields
 
 | Field | Data type | Description | 
 :--- | :--- | :---

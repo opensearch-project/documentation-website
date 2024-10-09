@@ -73,7 +73,7 @@ Upon success, the response returns snapshot information:
   ]
 }
 ````
-## Response fields
+## Response body fields
 
 | Field | Data type | Description |
 | :--- | :--- | :--- | 

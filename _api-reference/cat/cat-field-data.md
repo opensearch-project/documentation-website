@@ -17,12 +17,13 @@ The CAT Field Data operation lists the memory size used by each field per node.
 
 ## Path and HTTP methods
 
-```
+```json
 GET _cat/fielddata?v
 GET _cat/fielddata/<field_name>?v
 ```
+{% include copy-curl.html %}
 
-## URL parameters
+## Query parameters
 
 All CAT fielddata URL parameters are optional.
 

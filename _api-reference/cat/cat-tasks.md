@@ -17,11 +17,12 @@ The CAT tasks operation lists the progress of all tasks currently running on you
 
 ## Path and HTTP methods
 
-```
+```json
 GET _cat/tasks
 ```
+{% include copy-curl.html %}
 
-## URL parameters
+## Query parameters
 
 All CAT tasks URL parameters are optional.
 

@@ -332,7 +332,7 @@ PUT /_plugins/_security_analytics/detectors/J1RX1IMByX0LvTiGTddR
 }
 ```
 
-#### Response fields
+#### Response body fields
 
 Field | Type | Description
 :--- | :--- |:--- |

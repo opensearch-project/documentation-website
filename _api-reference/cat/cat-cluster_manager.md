@@ -17,11 +17,12 @@ The CAT cluster manager operation lists information that helps identify the elec
 
 ## Path and HTTP methods
 
-```
+```json
 GET _cat/cluster_manager
 ```
+{% include copy-curl.html %}
 
-## URL parameters
+## Query parameters
 
 All CAT cluster manager URL parameters are optional.
 

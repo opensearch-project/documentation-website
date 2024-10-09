@@ -135,7 +135,7 @@ POST /.testindex-logs/_forcemerge?primary_only=true
 }
 ```
 
-## Response fields
+## Response body fields
 
 The following table lists all response fields.
 
