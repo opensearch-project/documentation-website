@@ -56,6 +56,7 @@ ID | Name | GPA | Graduation year
 1 | John Doe | 3.89 | 2022
 2 | Jonathan Powers | 3.85 | 2025
 3 | Jane Doe | 3.52 | 2024
+... | | |
 
 ## Clusters and nodes
 
