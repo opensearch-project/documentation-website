@@ -12,6 +12,7 @@ The keyword tokenizer is a straightforward tokenizer that takes in text and outp
 The keyword tokenizer can be paired with token filters to modify or clean up the text, such as normalizing the data or removing unnecessary characters.
 
 ## Example 
+
 By analyzing the text "OpenSearch Example", we can see the text is preserved:
  
 ```
