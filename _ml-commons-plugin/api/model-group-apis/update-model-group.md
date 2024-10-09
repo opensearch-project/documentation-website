@@ -26,7 +26,7 @@ PUT /_plugins/_ml/model_groups/<model_group_id>
 
 ## Request body fields
 
-Refer to [Request fields](#request-fields) for request field descriptions. 
+Refer to [Request fields](#request-body-fields) for request field descriptions. 
 
 #### Example request
 

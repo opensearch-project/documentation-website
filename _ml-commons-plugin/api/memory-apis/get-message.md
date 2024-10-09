@@ -62,7 +62,7 @@ GET /_plugins/_ml/memory/message/0m8ya40BfUsSoeNTj-pU
 }
 ```
 
-For information about response fields, see [Create Message request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/create-message#request-fields).
+For information about response fields, see [Create Message request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/create-message#request-body-fields).
 
 ## Get all messages within a memory
 
@@ -135,5 +135,5 @@ POST /_plugins/_ml/message/_search
 
 ## Response body fields
 
-For information about response fields, see [Create Message request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/create-message#request-fields).
+For information about response fields, see [Create Message request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/create-message#request-body-fields).
 

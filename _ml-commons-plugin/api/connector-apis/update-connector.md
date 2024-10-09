@@ -15,7 +15,7 @@ Use this API to update a standalone connector based on the `model_ID`. To update
 Before updating a standalone connector, you must undeploy all models that use the connector. For information about undeploying a model, see [Undeploy Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/undeploy-model/).
 {: .note}
 
-Using this API, you can update the connector fields listed in the [Request fields](#request-fields) section and add optional fields to your connector. You cannot delete fields from a connector using this API.
+Using this API, you can update the connector fields listed in the [Request fields](#request-body-fields) section and add optional fields to your connector. You cannot delete fields from a connector using this API.
 
 For information about user access for this API, see [Model access control considerations]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/#model-access-control-considerations).
 
