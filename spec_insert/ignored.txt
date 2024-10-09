@@ -1,0 +1,5 @@
+# All files and folders listed below are ignored by the spec_insert program.
+# MD files whose names are in ALL CAPS are always ignored.
+
+spec_insert/
+release-notes/

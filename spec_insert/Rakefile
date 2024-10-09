@@ -1,0 +1,23 @@
+# frozen_string_literal: true
+
+require 'rake'
+
+desc 'Download the OpenSearch API specification'
+task :download_spec do
+  sh 'curl -L -X GET ' \
+     'https://github.com/opensearch-project/opensearch-api-specification' \
+     '/releases/download/main-latest/opensearch-openapi.yaml ' \
+     '-o opensearch-openapi.yaml'
+end
+
+desc 'Insert the OpenSearch API specification info into the documentation'
+task :insert_spec do
+  require_relative 'lib/spec_inserter'
+  require_relative 'lib/doc_processor'
+
+  SpecInserter.new(
+    root_folder: '../',
+    spec_file: './opensearch-openapi.yaml',
+    ignored: './ignored.txt'
+  ).insert_spec
+end
