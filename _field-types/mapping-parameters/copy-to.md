@@ -69,7 +69,7 @@ GET my-products-index/_search
 ```
 {% include copy-curl.html %}
 
-#### Response
+## Response
 
 ```json
 {
