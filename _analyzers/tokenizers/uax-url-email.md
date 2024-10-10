@@ -1,6 +1,6 @@
 ---
 layout: default
-title: UAX URL email tokenizer
+title: UAX URL email
 parent: Tokenizers
 nav_order: 150
 ---
