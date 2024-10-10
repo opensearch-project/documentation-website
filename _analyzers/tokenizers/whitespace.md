@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Whitespace tokenizer
+title: Whitespace
 parent: Tokenizers
 nav_order: 160
 ---
