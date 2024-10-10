@@ -29,7 +29,7 @@ For information about specific analyzer parameters, such as `analyzer`, `search_
 
 ## Example
 
-For example, the following sample configuration defines a custom analyzer called `my_custom_analyzer`:
+The following example configuration defines a custom analyzer called `my_custom_analyzer`:
 
 ```json
 PUT my_index
@@ -73,7 +73,7 @@ PUT my_index
 ```
 {% include copy-curl.html %}
 
-In this example, the `my_custom_analyzer` uses the standard tokenizer, converts all tokens to lowercase, applies a custom stopword filter, and then applies an English stemmer.
+In this example, the `my_custom_analyzer` uses the standard tokenizer, converts all tokens to lowercase, applies a custom stop word filter, and applies an English stemmer.
 
 You can then map a text field to use this custom analyzer for both indexing and searching:
 
@@ -88,5 +88,3 @@ You can then map a text field to use this custom analyzer for both indexing and 
 }
 ```
 {% include copy-curl.html %}
-
-By configuring the `analyzer` mapping parameter, you can ensure that your text fields are analyzed consistently and in a way that optimizes the relevance of your search results.
