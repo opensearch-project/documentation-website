@@ -7,7 +7,7 @@ nav_order: 60
 <!-- vale off -->
 # Common_grams token filter
 <!-- vale on -->
-The `common_grams` token filter in OpenSearch improves search relevance by keeping commonly occurring phrases (common grams) in the text. This is useful when dealing with languages or datasets where certain word combinations frequently occur and can impact the search relevance if treated as separate tokens. If only common words are present in the input string, this token filter generates both unigrams and bigrams.
+The `common_grams` token filter in OpenSearch improves search relevance by keeping commonly occurring phrases (common grams) in the text. This is useful when dealing with languages or datasets where certain word combinations frequently occur and can impact the search relevance if treated as separate tokens. If any common words are present in the input string, this token filter generates both unigrams and bigrams.
 
 Using this token filter improves search relevance by keeping common phrases intact, it can help in matching queries more accurately, particularly for frequent word combinations. It also improves search precision by reducing the number of irrelevant matches.
 
