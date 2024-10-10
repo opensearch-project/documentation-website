@@ -13,7 +13,7 @@ The `whitespace` tokenizer splits text based purely on whitespace characters (li
 
 The following example request creates a new index named `my_index` and configures an analyzer with `whitespace` tokenizer:
 
-```
+```json
 PUT /my_index
 {
   "settings": {
