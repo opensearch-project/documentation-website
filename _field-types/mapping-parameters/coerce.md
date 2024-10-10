@@ -10,7 +10,9 @@ has_toc: false
 
 # `coerce`
 
-The `coerce` mapping parameter controls how values are converted to the expected data type of a field during indexing. By using this parameter, you can ensure your data is properly formatted and indexed according to the expected field types, helping to maintain data integrity and improve the accuracy of your search results.
+The `coerce` mapping parameter controls how values are converted to the expected data type of a field during indexing. This parameter lets you verify that your data is formatted and indexed properly, following the expected field types. This helps keep your data reliable and improves the accuracy of your search results.
+
+---
 
 ## Examples
 
