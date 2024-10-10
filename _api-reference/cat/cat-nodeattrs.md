@@ -17,15 +17,11 @@ The CAT nodeattrs operation lists the attributes of custom nodes.
 
 ## Path and HTTP methods
 
-```
+```json
 GET _cat/nodeattrs
 ```
 
 ## Query parameters
-
-All CAT nodeattrs URL parameters are optional.
-
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
 
 Parameter | Type | Description
 :--- | :--- | :---

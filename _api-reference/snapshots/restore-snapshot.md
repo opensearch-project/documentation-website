@@ -19,11 +19,17 @@ Restores a snapshot of a cluster or specified data streams and indices.
 If open indexes with the same name that you want to restore already exist in the cluster, you must close, delete, or rename the indexes. See [Example request](#example-request) for information about renaming an index. See [Close index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/close-index) for information about closing an index.
 {: .note}
 
+## Path and HTTP methods
+
+```json
+GET _snapshot/<repository>/<snapshot>/
+```
+
 ## Path parameters
 
 | Parameter | Data type | Description |
 :--- | :--- | :---
-repository | String | Repository containing the snapshot to restore. |
+| repository | String | Repository containing the snapshot to restore. |
 | snapshot | String | Snapshot to restore. |
 
 ## Query parameters

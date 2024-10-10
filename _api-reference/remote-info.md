@@ -20,7 +20,6 @@ The response is more comprehensive and useful than a call to `_cluster/settings`
 ```json
 GET _remote/info
 ```
-{% include copy-curl.html %}
 
 ## Example Response
 

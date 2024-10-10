@@ -16,7 +16,7 @@ The close index API operation closes an index. Once an index is closed, you cann
 
 ## Path and HTTP methods
 
-```
+```json
 POST /<index-name>/_close
 ```
 

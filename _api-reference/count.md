@@ -16,7 +16,7 @@ You can also use it to check the document count of an index, data stream, or clu
 
 ## Path and HTTP methods
 
-```
+```json
 GET <target>/_count/<id>
 POST <target>/_count/<id>
 ```

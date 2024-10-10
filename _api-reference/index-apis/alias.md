@@ -17,7 +17,7 @@ An alias is a virtual pointer that you can use to reference one or more indexes.
 
 ## Path and HTTP methods
 
-```
+```json
 POST _aliases
 ```
 

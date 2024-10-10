@@ -24,10 +24,6 @@ GET _cat/indices
 
 ## Query parameters
 
-All URL parameters are optional.
-
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index/), you can specify the following parameters:
-
 Parameter | Type | Description
 :--- | :--- | :---
 bytes | Byte size | Specify the units for byte size. For example, `7kb` or `6gb`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).

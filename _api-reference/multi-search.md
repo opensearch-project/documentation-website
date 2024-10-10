@@ -13,19 +13,6 @@ redirect_from:
 As the name suggests, the multi-search operation lets you bundle multiple search requests into a single request. OpenSearch then executes the searches in parallel, so you get back the response more quickly compared to sending one request per search. OpenSearch executes each search independently, so the failure of one doesn't affect the others.
 
 
-## Example
-
-```json
-GET _msearch
-{ "index": "opensearch_dashboards_sample_data_logs"}
-{ "query": { "match_all": {} }, "from": 0, "size": 10}
-{ "index": "opensearch_dashboards_sample_data_ecommerce", "search_type": "dfs_query_then_fetch"}
-{ "query": { "match_all": {} } }
-
-```
-{% include copy-curl.html %}
-
-
 ## Path and HTTP methods
 
 The Multi-search API uses the following paths:
@@ -37,27 +24,10 @@ POST _msearch
 POST <index>/_msearch
 ```
 
-## Request body
-
-The multi-search request body follows this pattern:
-
-```
-Metadata\n
-Query\n
-Metadata\n
-Query\n
-
-```
-
-- Metadata lines include options, such as which indexes to search and the type of search.
-- Query lines use the [query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/).
-
-Just like the [bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) operation, the JSON doesn't need to be minified---spaces are fine---but it does need to be on a single line. OpenSearch uses newline characters to parse multi-search requests and requires that the request body end with a newline character.
-
 
 ## Query parameters and metadata options
 
-All multi-search URL parameters are optional. Some can also be applied per-search as part of each metadata line.
+All multi-search parameters are optional. Some can also be applied per-search as part of each metadata line.
 
 Parameter | Type | Description | Supported in metadata line
 :--- | :--- | :---
@@ -88,6 +58,23 @@ index | String, string array | If you don't specify an index or multiple indexes
 preference | String | The nodes or shards that you'd like to perform the search. This setting can be useful for testing, but in most situations, the default behavior provides the best search latencies. Options include `_local`, `_only_local`, `_prefer_nodes`, `_only_nodes`, and `_shards`. These last three options accept a list of nodes or shards. Examples include `"_only_nodes:data-node1,data-node2"` and `"_shards:0,1`.
 request_cache | Boolean | Whether to cache results, which can improve latency for repeat searches. Default is to use the `index.requests.cache.enable` setting for the index (which defaults to `true` for new indexes).
 routing | String | Comma-separated custom routing values, for example, `"routing": "value1,value2,value3"`.
+
+## Request body
+
+The multi-search request body follows this pattern:
+
+```
+Metadata\n
+Query\n
+Metadata\n
+Query\n
+
+```
+
+- Metadata lines include options, such as which indexes to search and the type of search.
+- Query lines use the [query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/).
+
+Just like the [bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) operation, the JSON doesn't need to be minified---spaces are fine---but it does need to be on a single line. OpenSearch uses newline characters to parse multi-search requests and requires that the request body end with a newline character.
 
 
 ## Example request

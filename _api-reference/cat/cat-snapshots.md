@@ -21,13 +21,8 @@ The CAT snapshots operation lists all snapshots for a repository.
 ```json
 GET _cat/snapshots
 ```
-{% include copy-curl.html %}
 
 ## Query parameters
-
-All CAT snapshots URL parameters are optional.
-
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameter:
 
 Parameter | Type | Description
 :--- | :--- | :---

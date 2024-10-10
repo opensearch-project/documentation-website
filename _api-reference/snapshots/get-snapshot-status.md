@@ -16,6 +16,12 @@ To learn about snapshot creation, see [Create snapshot]({{site.url}}{{site.baseu
 If you use the Security plugin, you must have the `monitor_snapshot`, `create_snapshot`, or `manage cluster` privileges.
 {: .note}
 
+## Path and HTTP methods
+
+```json
+GET _snapshot/<repository>/<snapshot>/_status
+```
+
 ## Path parameters
 
 Path parameters are optional. 

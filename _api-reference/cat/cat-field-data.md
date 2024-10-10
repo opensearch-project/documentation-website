@@ -21,13 +21,8 @@ The CAT Field Data operation lists the memory size used by each field per node.
 GET _cat/fielddata?v
 GET _cat/fielddata/<field_name>?v
 ```
-{% include copy-curl.html %}
 
 ## Query parameters
-
-All CAT fielddata URL parameters are optional.
-
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameter:
 
 Parameter | Type | Description
 :--- | :--- | :---

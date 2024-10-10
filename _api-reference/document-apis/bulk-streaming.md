@@ -25,7 +25,6 @@ The default HTTP transport method does not support streaming. You must install t
 POST _bulk/stream
 POST <index>/_bulk/stream
 ```
-{% include copy.html %}
 
 If you specify the index in the path, then you don't need to include it in the [request body chunks]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/#request-body).
 

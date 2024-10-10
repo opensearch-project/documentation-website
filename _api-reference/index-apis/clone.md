@@ -15,7 +15,7 @@ The clone index API operation clones all data in an existing read-only index int
 
 ## Path and HTTP methods
 
-```
+```json
 POST /<source-index>/_clone/<target-index>
 PUT /<source-index>/_clone/<target-index>
 ```

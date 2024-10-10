@@ -14,7 +14,7 @@ The Search API operation lets you execute a search request to search your cluste
 
 ## Path and HTTP Methods
 
-```
+```json
 GET /<target-index>/_search
 GET /_search
 

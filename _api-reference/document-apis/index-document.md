@@ -16,7 +16,7 @@ You can use the `Index document` operation to add a single document to your inde
 
 ## Path and HTTP methods
 
-```
+```json
 PUT <index>/_doc/<_id>
 POST <index>/_doc
 

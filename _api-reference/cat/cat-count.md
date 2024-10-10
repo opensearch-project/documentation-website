@@ -22,11 +22,6 @@ The CAT count operation lists the number of documents in your cluster.
 GET _cat/count?v
 GET _cat/count/<index>?v
 ```
-{% include copy-curl.html %}
-
-## Query parameters
-
-All CAT count URL parameters are optional. You can specify any of the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index).
 
 ## Example requests
 

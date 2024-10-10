@@ -13,7 +13,7 @@ The nodes reload secure settings endpoint allows you to change secure settings o
 
 ## Path and HTTP methods
 
-```
+```json
 POST _nodes/reload_secure_settings
 POST _nodes/<nodeId>/reload_secure_settings
 ```

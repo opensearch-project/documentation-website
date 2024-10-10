@@ -19,7 +19,6 @@ You can use the get index API operation to return information about an index.
 ```json
 GET /<index-name>
 ```
-{% include copy-curl.html %}
 
 ## Query parameters
 

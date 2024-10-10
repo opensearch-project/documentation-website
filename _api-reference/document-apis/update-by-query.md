@@ -16,7 +16,7 @@ You can include a query and a script as part of your update request so OpenSearc
 
 ## Path and HTTP methods
 
-```
+```json
 POST <target-index1>, <target-index2>/_update_by_query
 ```
 

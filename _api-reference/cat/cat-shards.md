@@ -21,7 +21,6 @@ The CAT shards operation lists the state of all primary and replica shards and h
 ```json
 GET _cat/shards
 ```
-{% include copy-curl.html %}
 
 ## Query parameters
 

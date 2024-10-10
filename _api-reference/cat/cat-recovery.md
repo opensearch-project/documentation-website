@@ -18,15 +18,11 @@ The CAT recovery operation lists all completed and ongoing index and shard recov
 
 ## Path and HTTP methods
 
-```
+```json
 GET _cat/recovery
 ```
 
 ## Query parameters
-
-All CAT recovery URL parameters are optional.
-
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
 
 Parameter | Type | Description
 :--- | :--- | :---

@@ -15,6 +15,12 @@ The clear cache API operation clears the caches of one or more indexes. For data
 If you use the Security plugin, you must have the `manage index` privileges.
 {: .note}
 
+## Path and HTTP methods
+
+```json
+POST /<target>/_cache/clear
+```
+
 ## Path parameters
 
 | Parameter | Data type | Description |

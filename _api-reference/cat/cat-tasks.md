@@ -20,13 +20,8 @@ The CAT tasks operation lists the progress of all tasks currently running on you
 ```json
 GET _cat/tasks
 ```
-{% include copy-curl.html %}
 
 ## Query parameters
-
-All CAT tasks URL parameters are optional.
-
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
 
 Parameter | Type | Description
 :--- | :--- | :---

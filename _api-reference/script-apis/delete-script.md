@@ -13,10 +13,9 @@ Deletes a stored script.
 
 ## Path and HTTP methods
 
-````json
+```json
 DELETE _scripts/my-script
-````
-
+```
 
 ## Path parameters
 

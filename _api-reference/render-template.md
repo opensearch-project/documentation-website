@@ -10,7 +10,7 @@ The Render Template API renders a [search template]({{site.url}}{{site.baseurl}}
 
 ## Paths and HTTP methods
 
-```
+```json
 GET /_render/template
 POST /_render/template
 GET /_render/template/<id>

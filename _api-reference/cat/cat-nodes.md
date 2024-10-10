@@ -19,7 +19,7 @@ A few important node metrics are `pid`, `name`, `cluster_manager`, `ip`, `port`,
 
 ## Path and HTTP methods
 
-```
+```json
 GET _cat/nodes
 ```
 

@@ -13,13 +13,6 @@ redirect_from:
 
 If you no longer need a document in your index, you can use the delete document API operation to delete it.
 
-## Example
-
-```json
-DELETE /sample-index1/_doc/1
-```
-{% include copy-curl.html %}
-
 ## Path and HTTP methods
 
 ```json

@@ -16,7 +16,7 @@ If you need to update a document's fields in your index, you can use the update 
 
 ## Path and HTTP methods
 
-```
+```json
 POST /<index>/_update/<_id>
 ```
 

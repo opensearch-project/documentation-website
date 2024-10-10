@@ -16,7 +16,7 @@ The cluster settings operation lets you check the current settings for your clus
 
 ## Path and HTTP methods
 
-```
+```json
 GET _cluster/settings
 PUT _cluster/settings
 ```

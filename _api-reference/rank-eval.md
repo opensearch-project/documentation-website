@@ -12,7 +12,7 @@ The [rank]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/rank/) 
 
 ## Path and HTTP methods
 
-```
+```json
 GET <index_name>/_rank_eval 
 POST <index_name>/_rank_eval
 ```

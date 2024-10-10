@@ -17,14 +17,12 @@ The most basic cluster allocation explain request finds an unassigned shard and 
 If you add some options, you can instead get information on a specific shard, including why OpenSearch assigned it to its current node.
 
 
-
 ## Path and HTTP methods
 
 ```json
 GET _cluster/allocation/explain
 POST _cluster/allocation/explain
 ```
-{% include copy-curl.html %}
 
 ## Query parameters
 

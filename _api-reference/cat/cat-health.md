@@ -21,11 +21,8 @@ The CAT health operation lists the status of the cluster, how long the cluster h
 ```json
 GET _cat/health?v
 ```
-{% include copy-curl.html %}
 
 ## Query parameters
-
-All CAT health URL parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :---

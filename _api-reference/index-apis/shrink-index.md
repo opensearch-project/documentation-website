@@ -16,7 +16,7 @@ The shrink index API operation moves all of your data in an existing index into 
 
 ## Path and HTTP methods
 
-```
+```json
 POST /<index-name>/_shrink/<target-index>
 PUT /<index-name>/_shrink/<target-index>
 ```

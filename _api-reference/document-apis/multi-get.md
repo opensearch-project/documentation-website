@@ -15,7 +15,7 @@ The multi-get operation allows you to run multiple GET operations in one request
 
 ## Path and HTTP methods
 
-```
+```json
 GET _mget
 GET <index>/_mget
 POST _mget

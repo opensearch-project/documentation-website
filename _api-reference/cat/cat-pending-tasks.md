@@ -18,15 +18,11 @@ The CAT pending tasks operation lists the progress of all pending tasks, includi
 
 ## Path and HTTP methods
 
-```
+```json
 GET _cat/pending_tasks
 ```
 
 ## Query parameters
-
-All CAT nodes URL parameters are optional.
-
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
 
 Parameter | Type | Description
 :--- | :--- | :---

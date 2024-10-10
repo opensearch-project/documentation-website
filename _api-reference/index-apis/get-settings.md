@@ -22,7 +22,6 @@ GET /_settings
 GET /<target-index>/_settings
 GET /<target-index>/_settings/<setting>
 ```
-{% include copy-curl.html %}
 
 ## Query parameters
 

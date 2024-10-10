@@ -22,7 +22,7 @@ If you use the Security plugin, you must have the `manage index` privilege. If y
 
 ## Path and HTTP methods
 
-```
+```json
 GET /_analyze
 GET /{index}/_analyze
 POST /_analyze

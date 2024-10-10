@@ -20,7 +20,7 @@ To get the status of a specific index, provide the index name.
 
 ## Path and HTTP methods
 
-```
+```json
 GET _cluster/health
 GET _cluster/health/<index>
 ```

@@ -18,7 +18,7 @@ Aside from the static and dynamic index settings, you can also update individual
 
 ## Path and HTTP methods
 
-```
+```json
 PUT /<target-index>/_settings
 ```
 

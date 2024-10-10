@@ -23,9 +23,6 @@ GET _cat/repositories
 
 ## Query parameters
 
-All CAT repositories URL parameters are optional.
-
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
 
 Parameter | Type | Description
 :--- | :--- | :---

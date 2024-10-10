@@ -23,10 +23,6 @@ GET _cat/thread_pool
 
 ## Query parameters
 
-All CAT thread pool URL parameters are optional.
-
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
-
 Parameter | Type | Description
 :--- | :--- | :---
 local | Boolean | Whether to return information from the local node only instead of from the cluster manager node. Default is `false`.
