@@ -2,7 +2,7 @@
 layout: default
 title: Character Group Tokenizer
 parent: Tokenizers
-nav_order: 70
+nav_order: 20
 has_children: false
 has_toc: false
 ---

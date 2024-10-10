@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Tokenizers
-nav_order: 60
+nav_order: 10
 has_children: false
 has_toc: false
 redirect_from:
