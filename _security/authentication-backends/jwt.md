@@ -177,7 +177,7 @@ The default name of the header is `Authorization`. If required by your authentic
 As with HTTP basic authentication, you should use HTTPS instead of HTTP when transmitting JWTs in HTTP requests.
 
 
-### URL parameters for HTTP requests
+### Query parameters for HTTP requests
 
 Although the most common way to transmit JWTs in HTTP requests is to use a header field, the Security plugin also supports parameters. Configure the name of the `GET` parameter using the following key:
 

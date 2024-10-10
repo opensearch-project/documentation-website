@@ -18,7 +18,7 @@ GET /_scripts/painless/_execute
 POST /_scripts/painless/_execute
 ```
 
-## Request fields
+## Request body fields
 
 | Field | Description | 
 :--- | :---
@@ -54,7 +54,7 @@ The response contains the average of two script parameters:
 }
 ```
 
-## Response fields
+## Response body fields
 
 | Field | Description | 
 :--- | :--- 

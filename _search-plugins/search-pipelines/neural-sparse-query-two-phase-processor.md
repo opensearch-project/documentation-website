@@ -15,7 +15,7 @@ The `neural_sparse_two_phase_processor` search processor is designed to provide 
 1. High-weight tokens score the documents and filter out the top documents.
 2. Low-weight tokens rescore the top documents.
 
-## Request fields
+## Request body fields
 
 The following table lists all available request fields.
 

@@ -120,7 +120,7 @@ GET /_plugins/_ml/memory?max_results=2&next_token=1
 }
 ```
 
-## Response fields
+## Response body fields
 
 The following table lists the available response fields.
 

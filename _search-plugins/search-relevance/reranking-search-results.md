@@ -53,7 +53,7 @@ PUT /_search/pipeline/my_pipeline
 ```
 {% include copy-curl.html %}
 
-For more information about the request fields, see [Request fields]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/#request-fields).
+For more information about the request fields, see [Request fields]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/#request-body-fields).
 
 ## Step 2: Create an index for ingestion
 

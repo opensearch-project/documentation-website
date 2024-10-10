@@ -539,7 +539,7 @@ GET _plugins/_rollup/jobs/<rollup_id>/_explain
 }
 ````
 
-#### Request fields
+#### Request body fields
 
 Request fields are required when creating an ISM policy. You can reference the [Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/rollup-api/#create-or-update-an-index-rollup-job) page for request field options.
 

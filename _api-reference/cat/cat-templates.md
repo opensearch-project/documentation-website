@@ -18,16 +18,11 @@ The CAT templates operation lists the names, patterns, order numbers, and versio
 
 ## Path and HTTP methods
 
-```
+```json
 GET _cat/templates
 ```
-{% include copy-curl.html %}
 
-## URL parameters
-
-All CAT templates URL parameters are optional.
-
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
+## Query parameters
 
 Parameter | Type | Description
 :--- | :--- | :---
@@ -38,14 +33,14 @@ cluster_manager_timeout | Time | The amount of time to wait for a connection to 
 
 The following example request returns information about all templates:
 
-```
+```json
 GET _cat/templates?v
 ```
 {% include copy-curl.html %}
 
 If you want to get information for a specific template or pattern:
 
-```
+```json
 GET _cat/templates/<template_name_or_pattern>
 ```
 {% include copy-curl.html %}

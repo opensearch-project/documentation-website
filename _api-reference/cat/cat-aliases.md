@@ -18,17 +18,13 @@ The CAT aliases operation lists the mapping of aliases to indexes, plus routing 
 
 ## Path and HTTP methods
 
-```
+```json
 GET _cat/aliases/<alias>
 GET _cat/aliases
 ```
+{% include copy-curl.html %}
 
-
-## URL parameters
-
-All CAT aliases URL parameters are optional.
-
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
+## Query parameters
 
 Parameter | Type | Description
 :--- | :--- | :---

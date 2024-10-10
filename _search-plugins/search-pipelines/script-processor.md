@@ -26,7 +26,7 @@ The `script` search request processor intercepts a search request and adds an in
 
 For request field definitions, see [search request fields]({{site.url}}{{site.baseurl}}/api-reference/search#request-body).
 
-## Request fields
+## Request body fields
 
 The following table lists all available request fields.
 

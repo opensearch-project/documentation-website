@@ -19,7 +19,7 @@ Use the Asynchronous Batch Ingestion API to ingest data into your OpenSearch clu
 POST /_plugins/_ml/_batch_ingestion
 ```
 
-#### Request fields
+#### Request body fields
 
 The following table lists the available request fields.
 

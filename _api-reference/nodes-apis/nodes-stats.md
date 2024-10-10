@@ -788,7 +788,7 @@ Select the arrow to view the example response.
 ```
 </details>
 
-## Response fields
+## Response body fields
 
 The following table lists all response fields.
 

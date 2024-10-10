@@ -17,16 +17,12 @@ The CAT indices operation lists information related to indexes, that is, how muc
 
 ## Path and HTTP methods
 
-```
+```json
 GET _cat/indices/<index>
 GET _cat/indices
 ```
 
-## URL parameters
-
-All URL parameters are optional.
-
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index/), you can specify the following parameters:
+## Query parameters
 
 Parameter | Type | Description
 :--- | :--- | :---
@@ -40,14 +36,14 @@ expand_wildcards | Enum | Expands wildcard expressions to concrete indexes. Comb
 
 ## Example requests
 
-```
+```json
 GET _cat/indices?v
 ```
 {% include copy-curl.html %}
 
 To limit the information to a specific index, add the index name after your query.
 
-```
+```json
 GET _cat/indices/<index>?v
 ```
 {% include copy-curl.html %}

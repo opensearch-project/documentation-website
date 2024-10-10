@@ -15,14 +15,20 @@ The multi-get operation allows you to run multiple GET operations in one request
 
 ## Path and HTTP methods
 
-```
+```json
 GET _mget
 GET <index>/_mget
 POST _mget
 POST <index>/_mget
 ```
 
-## URL parameters
+## Path parameters
+
+Parameter | Type | Description
+:--- | :--- | :--- | :---
+&lt;index&gt; | String | Name of the index to retrieve documents from.
+
+## Query parameters
 
 All multi-get URL parameters are optional.
 

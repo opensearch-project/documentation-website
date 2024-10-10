@@ -18,11 +18,11 @@ The CAT plugins operation lists the names, components, and versions of the insta
 
 ## Path and HTTP methods
 
-```
+```json
 GET _cat/plugins
 ```
 
-## URL parameters
+## Query parameters
 
 All CAT plugins URL parameters are optional.
 
@@ -37,7 +37,7 @@ cluster_manager_timeout | Time | The amount of time to wait for a connection to 
 
 The following example request lists all installed plugins:
 
-```
+```json
 GET _cat/plugins?v
 ```
 {% include copy-curl.html %}

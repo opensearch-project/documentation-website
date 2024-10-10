@@ -30,6 +30,13 @@ GET <index>/_source/<_id>
 HEAD <index>/_source/<_id>
 ```
 
+## Path parameters
+
+Parameter | Type | Description | Required
+:--- | :--- | :--- | :---
+&lt;index&gt; | String | The index to retrieve the document from. | Yes
+&lt;_id&gt; | String | The ID of the document to retrieve. | Yes
+
 ## Query parameters
 
 All query parameters are optional.

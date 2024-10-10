@@ -17,15 +17,11 @@ The CAT nodeattrs operation lists the attributes of custom nodes.
 
 ## Path and HTTP methods
 
-```
+```json
 GET _cat/nodeattrs
 ```
 
-## URL parameters
-
-All CAT nodeattrs URL parameters are optional.
-
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
+## Query parameters
 
 Parameter | Type | Description
 :--- | :--- | :---
@@ -36,7 +32,7 @@ cluster_manager_timeout | Time | The amount of time to wait for a connection to 
 
 The following example request returns attributes about custom nodes:
 
-```
+```json
 GET _cat/nodeattrs?v
 ```
 {% include copy-curl.html %}

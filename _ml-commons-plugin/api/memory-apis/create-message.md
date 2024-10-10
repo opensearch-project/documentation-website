@@ -38,7 +38,7 @@ Parameter | Data type | Description
 `memory_id` | String | The ID of the memory to which to add the message. Required for the POST method.
 `message_id` | String | The ID of the message to be updated. Required for the PUT method.
 
-## Request fields
+## Request body fields
 
 The following table lists the available request fields.
 

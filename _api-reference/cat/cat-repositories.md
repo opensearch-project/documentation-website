@@ -17,15 +17,12 @@ The CAT repositories operation lists all snapshot repositories for a cluster.
 
 ## Path and HTTP methods
 
-```
+```json
 GET _cat/repositories
 ```
 
-## URL parameters
+## Query parameters
 
-All CAT repositories URL parameters are optional.
-
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
 
 Parameter | Type | Description
 :--- | :--- | :---
@@ -36,7 +33,7 @@ cluster_manager_timeout | Time | The amount of time to wait for a connection to 
 
 The following example request lists all snapshot repositories in the cluster:
 
-```
+```json
 GET _cat/repositories?v
 ```
 {% include copy-curl.html %}

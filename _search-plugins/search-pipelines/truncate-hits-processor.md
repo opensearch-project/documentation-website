@@ -22,7 +22,7 @@ The following is a common usage pattern:
 1. In the response pipeline, apply a reranking processor (which may promote results from beyond the originally requested top N) or the `collapse` processor (which may discard results after deduplication).
 1. Apply the `truncate` processor to return (at most) the originally requested number of hits.
 
-## Request fields
+## Request body fields
 
 The following table lists all request fields.
 
