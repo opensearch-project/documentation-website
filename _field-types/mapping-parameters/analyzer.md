@@ -29,7 +29,7 @@ For information about specific analyzer parameters, such as `analyzer`, `search_
 
 ## Example
 
-For example, here's a sample configuration that defines a custom analyzer called `my_custom_analyzer`:
+For example, the following sample configuration defines a custom analyzer called `my_custom_analyzer`:
 
 ```json
 PUT my_index
