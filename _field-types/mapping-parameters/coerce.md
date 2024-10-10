@@ -14,7 +14,7 @@ The `coerce` mapping parameter controls how values are converted to the expected
 
 ## Examples
 
-Here are some examples for using the `coerce` mapping parameter.
+The following examples show how to use the `coerce` mapping parameter.
 
 #### Indexing a document with `coerce` enabled
 
