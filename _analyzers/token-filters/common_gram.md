@@ -79,90 +79,18 @@ The response contains the generated tokens:
 ```json
 {
   "tokens": [
-    {
-      "token": "a_quick",
-      "start_offset": 0,
-      "end_offset": 7,
-      "type": "gram",
-      "position": 0
-    },
-    {
-      "token": "quick",
-      "start_offset": 2,
-      "end_offset": 7,
-      "type": "<ALPHANUM>",
-      "position": 1
-    },
-    {
-      "token": "black",
-      "start_offset": 8,
-      "end_offset": 13,
-      "type": "<ALPHANUM>",
-      "position": 2
-    },
-    {
-      "token": "cat",
-      "start_offset": 14,
-      "end_offset": 17,
-      "type": "<ALPHANUM>",
-      "position": 3
-    },
-    {
-      "token": "jumps",
-      "start_offset": 18,
-      "end_offset": 23,
-      "type": "<ALPHANUM>",
-      "position": 4
-    },
-    {
-      "token": "over",
-      "start_offset": 24,
-      "end_offset": 28,
-      "type": "<ALPHANUM>",
-      "position": 5
-    },
-    {
-      "token": "the",
-      "start_offset": 29,
-      "end_offset": 32,
-      "type": "<ALPHANUM>",
-      "position": 6
-    },
-    {
-      "token": "lazy",
-      "start_offset": 33,
-      "end_offset": 37,
-      "type": "<ALPHANUM>",
-      "position": 7
-    },
-    {
-      "token": "dog_in",
-      "start_offset": 38,
-      "end_offset": 44,
-      "type": "gram",
-      "position": 8
-    },
-    {
-      "token": "in_the",
-      "start_offset": 42,
-      "end_offset": 48,
-      "type": "gram",
-      "position": 9
-    },
-    {
-      "token": "the",
-      "start_offset": 45,
-      "end_offset": 48,
-      "type": "<ALPHANUM>",
-      "position": 10
-    },
-    {
-      "token": "park",
-      "start_offset": 49,
-      "end_offset": 53,
-      "type": "<ALPHANUM>",
-      "position": 11
-    }
+    {"token": "a_quick","start_offset": 0,"end_offset": 7,"type": "gram","position": 0},
+    {"token": "quick","start_offset": 2,"end_offset": 7,"type": "<ALPHANUM>","position": 1},
+    {"token": "black","start_offset": 8,"end_offset": 13,"type": "<ALPHANUM>","position": 2},
+    {"token": "cat","start_offset": 14,"end_offset": 17,"type": "<ALPHANUM>","position": 3},
+    {"token": "jumps","start_offset": 18,"end_offset": 23,"type": "<ALPHANUM>","position": 4},
+    {"token": "over","start_offset": 24,"end_offset": 28,"type": "<ALPHANUM>","position": 5},
+    {"token": "the","start_offset": 29,"end_offset": 32,"type": "<ALPHANUM>","position": 6},
+    {"token": "lazy","start_offset": 33,"end_offset": 37,"type": "<ALPHANUM>","position": 7},
+    {"token": "dog_in","start_offset": 38,"end_offset": 44,"type": "gram","position": 8},
+    {"token": "in_the","start_offset": 42,"end_offset": 48,"type": "gram","position": 9},
+    {"token": "the","start_offset": 45,"end_offset": 48,"type": "<ALPHANUM>","position": 10},
+    {"token": "park","start_offset": 49,"end_offset": 53,"type": "<ALPHANUM>","position": 11}
   ]
 }
 ```
