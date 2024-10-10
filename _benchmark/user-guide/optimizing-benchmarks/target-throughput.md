@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Target throughput
-nav_order: 150
+nav_order: 110
 parent: Optimizing benchmarks
 grand_parent: User guide
 redirect_from: 
