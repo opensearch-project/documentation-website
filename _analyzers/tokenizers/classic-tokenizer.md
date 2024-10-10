@@ -2,7 +2,7 @@
 layout: default
 title: Classic Tokenizer
 parent: Tokenizers
-nav_order: 20
+nav_order: 35
 
 ---
 
