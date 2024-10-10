@@ -16,7 +16,7 @@ The key functions of the `analyzer` mapping parameter are:
 
 1. **Tokenization:** The analyzer determines how the text is broken down into individual tokens (words, numbers) that can be indexed and searched. Each generated token must not exceed 32,766 bytes to avoid indexing failures.
 
-2. **Normalization:** The analyzer can apply various normalization techniques, such as converting text to lowercase, removing stopwords, and stemming/lemmatizing words.
+2. **Normalization:** The analyzer can apply various normalization techniques, such as converting text to lowercase, removing stop words, and stemming/lemmatizing words.
 
 3. **Consistency:** By defining the same analyzer for both indexing and searching, you ensure that the text analysis process is consistent, which helps improve the relevance of search results.
 
