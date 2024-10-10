@@ -17,8 +17,14 @@ The close index API operation closes an index. Once an index is closed, you cann
 ## Path and HTTP methods
 
 ```json
-POST /<index-name>/_close
+POST /<index>/_close
 ```
+
+## Path parameters
+
+Parameter | Type | Description
+:--- | :--- | :---
+&lt;index&gt; | String | The index to close. Can be a comma-separated list of multiple index names. Use `_all` or * to close all indexes.
 
 ## Query parameters
 
@@ -26,7 +32,6 @@ All parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :---
-&lt;index-name&gt; | String | The index to close. Can be a comma-separated list of multiple index names. Use `_all` or * to close all indexes.
 allow_no_indices | Boolean | Whether to ignore wildcards that don't match any indexes. Default is `true`.
 expand_wildcards | String | Expands wildcard expressions to different indexes. Combine multiple values with commas. Available values are all (match all indexes), open (match open indexes), closed (match closed indexes), hidden (match hidden indexes), and none (do not accept wildcard expressions). Default is `open`.
 ignore_unavailable | Boolean | If true, OpenSearch does not search for missing or closed indexes. Default is `false`.

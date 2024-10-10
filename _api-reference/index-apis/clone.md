@@ -30,14 +30,19 @@ OpenSearch indexes have the following naming restrictions:
 
   `:`, `"`, `*`, `+`, `/`, `\`, `|`, `?`, `#`, `>`, or `<`
 
+## Path parameter
+
+Parameter | Type | Description
+:--- | :--- | :---
+&lt;source-index&gt; | String | The source index to clone.
+&lt;target-index&gt; | String | The index to create and add cloned data to.
+
 ## Query parameters
 
 Your request must include the source and target indexes. All other clone index parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :---
-&lt;source-index&gt; | String | The source index to clone.
-&lt;target-index&gt; | String | The index to create and add cloned data to.
 wait_for_active_shards | String | The number of active shards that must be available before OpenSearch processes the request. Default is 1 (only the primary shard). Set to all or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have two replicas distributed across two additional nodes for the operation to succeed.
 cluster_manager_timeout | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
 timeout | Time | How long to wait for the request to return. Default is `30s`.

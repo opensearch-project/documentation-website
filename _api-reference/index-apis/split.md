@@ -33,7 +33,7 @@ PUT /sample-index1/_split/split-index1
 
 ## Path and HTTP methods
 
-```
+```json
 POST /<source-index>/_split/<target-index>
 PUT /<source-index>/_split/<target-index>
 ```
@@ -47,6 +47,13 @@ OpenSearch indexes have the following naming restrictions:
 - Index names can't contain spaces, commas, or the following characters:
 
   `:`, `"`, `*`, `+`, `/`, `\`, `|`, `?`, `#`, `>`, or `<`
+
+## Path parameters
+
+Parameter | Type | Description
+:--- | :--- | :---
+&lt;source-index&gt; | String | The source index to split.
+&lt;target-index&gt; | String | The index to create.
 
 ## Query parameters
 

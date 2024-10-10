@@ -23,14 +23,19 @@ GET /<target-index>/_settings
 GET /<target-index>/_settings/<setting>
 ```
 
+## Path parameters
+
+Parameter | Data type | Description
+:--- | :--- | :---
+&lt;target-index&gt; | String | The index to get settings from. Can be a comma-separated list to get settings from multiple indexes, or use `_all` to return settings from all indexes within the cluster.
+&lt;setting&gt; | String | Filter to return specific settings.
+
 ## Query parameters
 
 All get settings parameters are optional.
 
 Parameter | Data type | Description
 :--- | :--- | :---
-&lt;target-index&gt; | String | The index to get settings from. Can be a comma-separated list to get settings from multiple indexes, or use `_all` to return settings from all indexes within the cluster.
-&lt;setting&gt; | String | Filter to return specific settings.
 allow_no_indices | Boolean | Whether to ignore wildcards that don’t match any indexes. Default is `true`.
 expand_wildcards | String | Expands wildcard expressions to different indexes. Combine multiple values with commas. Available values are `all` (match all indexes), `open` (match open indexes), `closed` (match closed indexes), `hidden` (match hidden indexes), and `none` (do not accept wildcard expressions), which must be used with `open`, `closed`, or both. Default is `open`.
 flat_settings | Boolean | Whether to return settings in the flat form, which can improve readability, especially for heavily nested settings. For example, the flat form of “index”: { “creation_date”: “123456789” } is “index.creation_date”: “123456789”.

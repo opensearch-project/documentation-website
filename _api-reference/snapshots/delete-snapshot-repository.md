@@ -18,7 +18,7 @@ To learn more about repositories, see [Register or update snapshot repository]({
 ## Path and HTTP methods
 
 ```json
-DELETE _snapshot/my-opensearch-repo
+DELETE _snapshot/<repository>
 ```
 
 ## Path parameters

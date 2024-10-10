@@ -19,13 +19,18 @@ You can include a query as part of your delete request so OpenSearch deletes all
 POST <index>/_delete_by_query
 ```
 
+## Path parameters
+
+Parameter | Type | Description
+:--- | :--- | :--- | :---
+&lt;index&gt; | String | Name or list of the data streams, indexes, or aliases to delete from. Supports wildcards. If left blank, OpenSearch searches all indexes.
+
 ## Query parameters
 
 All URL parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :--- | :---
-&lt;index&gt; | String | Name or list of the data streams, indexes, or aliases to delete from. Supports wildcards. If left blank, OpenSearch searches all indexes.
 allow_no_indices | Boolean | Whether to ignore wildcards that don’t match any indexes. Default is `true`.
 analyzer | String | The analyzer to use in the query string.
 analyze_wildcard | Boolean | Specifies whether to analyze wildcard and prefix queries. Default is `false`.

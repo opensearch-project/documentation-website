@@ -17,8 +17,14 @@ You can include a query and a script as part of your update request so OpenSearc
 ## Path and HTTP methods
 
 ```json
-POST <target-index1>, <target-index2>/_update_by_query
+POST <index1>, <index2>/_update_by_query
 ```
+
+## Path parameters
+
+Parameter | Type | Description
+:--- | :--- | :--- | :---
+&lt;index&gt; | String | Comma-separated list of indexes to update. To update all indexes, use * or omit this parameter.
 
 ## Query parameters
 
@@ -26,7 +32,6 @@ All URL parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :--- | :---
-&lt;index&gt; | String | Comma-separated list of indexes to update. To update all indexes, use * or omit this parameter.
 allow_no_indices | Boolean | Whether to ignore wildcards that don’t match any indexes. Default is `true`.
 analyzer | String | Analyzer to use in the query string.
 analyze_wildcard | Boolean | Whether the update operation should include wildcard and prefix queries in the analysis. Default is `false`.

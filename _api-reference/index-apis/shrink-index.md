@@ -29,14 +29,19 @@ When creating new indexes with this operation, remember that OpenSearch indexes 
 
   `:`, `"`, `*`, `+`, `/`, `\`, `|`, `?`, `#`, `>`, or `<`
 
+## Path parameters
+
+Parameter | Type | description
+:--- | :--- | :---
+&lt;index-name&gt; | String | The index to shrink.
+&lt;target-index&gt; | String | The target index to shrink the source index into.
+
 ## Query parameters
 
 The shrink index API operation requires you to specify both the source index and the target index. All other parameters are optional.
 
 Parameter | Type | description
 :--- | :--- | :---
-&lt;index-name&gt; | String | The index to shrink.
-&lt;target-index&gt; | String | The target index to shrink the source index into.
 wait_for_active_shards | String | Specifies the number of active shards that must be available before OpenSearch processes the request. Default is 1 (only the primary shard). Set to all or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have two replicas distributed across two additional nodes for the request to succeed.
 cluster_manager_timeout | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
 timeout | Time | How long to wait for the request to return a response. Default is `30s`.

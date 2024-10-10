@@ -22,6 +22,12 @@ POST _mget
 POST <index>/_mget
 ```
 
+## Path parameters
+
+Parameter | Type | Description
+:--- | :--- | :--- | :---
+&lt;index&gt; | String | Name of the index to retrieve documents from.
+
 ## Query parameters
 
 All multi-get URL parameters are optional.

@@ -19,8 +19,14 @@ Aside from the static and dynamic index settings, you can also update individual
 ## Path and HTTP methods
 
 ```json
-PUT /<target-index>/_settings
+PUT /<index>/_settings
 ```
+
+## Path parameters
+
+Parameter | Type | Description
+:--- | :--- | :---
+&lt;index&gt; | String | The index to update. Can be a comma-separated list of multiple index names. Use `_all` or * to close all indexes.
 
 ## Query parameters
 

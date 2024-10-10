@@ -20,12 +20,17 @@ If you need to update a document's fields in your index, you can use the update 
 POST /<index>/_update/<_id>
 ```
 
-## Query parameters
+## Path parameters
 
 Parameter | Type | Description | Required
 :--- | :--- | :--- | :---
 &lt;index&gt; | String | Name of the index. | Yes
 &lt;_id&gt; | String | The ID of the document to update. | Yes
+
+## Query parameters
+
+Parameter | Type | Description | Required
+:--- | :--- | :--- | :---
 if_seq_no | Integer | Only perform the update operation if the document has the specified sequence number. | No
 if_primary_term | Integer | Perform the update operation if the document has the specified primary term. | No
 lang | String | Language of the script. Default is `painless`. | No

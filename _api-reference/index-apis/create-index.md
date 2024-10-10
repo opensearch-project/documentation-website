@@ -19,7 +19,7 @@ When creating an index, you can specify its mappings, settings, and aliases.
 ## Path and HTTP methods
 
 ```json
-PUT <index-name>
+PUT <index>
 ```
 
 ## Index naming restrictions

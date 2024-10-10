@@ -28,14 +28,14 @@ The Recovery API reports solely on completed recoveries for shard copies present
 
 ```json
 GET /_recovery
-GET /<index-name>/recovery/
+GET /<index>/recovery/
 ```
 
 ## Path parameters
 
 Parameter | Data type | Description 
 :--- | :--- 
-`index-name` |  String | A comma-separated list of indexes, data streams, or index aliases to which the operation is applied. Supports wildcard expressions (`*`). Use `_all` or `*` to specify all indexes and data streams in a cluster. |
+`index` |  String | A comma-separated list of indexes, data streams, or index aliases to which the operation is applied. Supports wildcard expressions (`*`). Use `_all` or `*` to specify all indexes and data streams in a cluster. |
 
 
 ## Query parameters

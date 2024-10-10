@@ -17,7 +17,7 @@ The CAT indices operation lists information related to indexes, that is, how muc
 
 ## Path and HTTP methods
 
-```
+```json
 GET _cat/indices/<index>
 GET _cat/indices
 ```

@@ -26,7 +26,7 @@ GET  /_cluster/decommission/awareness/{awareness_attribute_name}/_status
 DELETE /_cluster/decommission/awareness
 ```
 
-## Query parameters
+## Path parameters
 
 Parameter | Type | Description
 :--- | :--- | :---

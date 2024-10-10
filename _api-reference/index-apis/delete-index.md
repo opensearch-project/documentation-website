@@ -18,7 +18,6 @@ If you no longer need an index, you can use the delete index API operation to de
 ```json
 DELETE /<index-name>
 ```
-{% include copy-curl.html %}
 
 ## Query parameters
 

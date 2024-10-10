@@ -19,12 +19,17 @@ If you no longer need a document in your index, you can use the delete document 
 DELETE /<index>/_doc/<_id>
 ```
 
-## Query parameters
+## Path parameters
 
 Parameter | Type | Description | Required
 :--- | :--- | :--- | :---
 &lt;index&gt; | String | The index to delete from. | Yes
 &lt;_id&gt; | String | The ID of the document to delete. | Yes
+
+## Query parameters
+
+Parameter | Type | Description | Required
+:--- | :--- | :--- | :---
 if_seq_no | Integer | Only perform the delete operation if the document's version number matches the specified number. | No
 if_primary_term | Integer | Only perform the delete operation if the document has the specified primary term. | No
 refresh | Enum | If true, OpenSearch refreshes shards to make the delete operation available to search results. Valid options are `true`, `false`, and `wait_for`, which tells OpenSearch to wait for a refresh before executing the operation. Default is `false`. | No

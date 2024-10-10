@@ -24,7 +24,6 @@ POST /_flush
 GET /{index}/_flush
 POST /{index}/_flush
 ```
-{% include copy-curl.html %}
 
 ## Path parameters
 

@@ -26,6 +26,12 @@ GET _search/scroll/<scroll-id>
 POST _search/scroll/<scroll-id>
 ```
 
+## Path parameters
+
+Parameter | Type | Description
+:--- | :--- | :---
+scroll_id | String | The scroll ID for the search.
+
 ## Query parameters
 
 All scroll parameters are optional.

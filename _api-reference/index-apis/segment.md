@@ -15,7 +15,7 @@ The Segment API provides details about the Lucene segments within index shards a
 ## Path and HTTP methods
 
 ```json
-GET /<index-name>/_segments
+GET /<index>/_segments
 GET /_segments
 ```
 

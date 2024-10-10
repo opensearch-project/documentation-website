@@ -17,8 +17,18 @@ You can use the get index API operation to return information about an index.
 ## Path and HTTP methods
 
 ```json
-GET /<index-name>
+GET /<index>
 ```
+
+## Path parameters
+
+## Path parameters
+
+The following table lists the available path parameters. All path parameters are optional.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `<index>` | String | A comma-separated list of indexes, data streams, or index aliases to which the operation is applied. Supports wildcard expressions (`*`). Use `_all` or `*` to specify all indexes and data streams in a cluster. |
 
 ## Query parameters
 

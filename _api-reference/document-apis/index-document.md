@@ -40,36 +40,13 @@ To test the Document APIs, add a document by following these steps:
 3. In the **Management** section, choose **Dev Tools**.
 4. Enter a command, and then select the green triangle play button to send the request. The following are some example commands.
 
-### Create a sample-index
-```json
-PUT /sample-index
-```
-{% include copy-curl.html %}
 
-### Example PUT request
+## Path parameters
 
-```json
-PUT /sample_index/_doc/1
-{
-  "name": "Example",
-  "price": 29.99,
-  "description": "To be or not to be, that is the question"
-}
-```
-{% include copy-curl.html %}
-
-### Example POST request
-
-```json
-POST /sample_index/_doc
-{
-  "name": "Another Example",
-  "price": 19.99,
-  "description": "We are such stuff as dreams are made on"
-}
-
-```
-{% include copy-curl.html %}
+Parameter | Type | Description | Required
+:--- | :--- | :--- | :---
+&lt;index&gt; | String | Name of the index. | Yes
+&lt;_id&gt; | String | A unique identifier to attach to the document. To automatically generate an ID, use `POST <target>/doc` in your request instead of PUT. | No
 
 ## Query parameters
 
