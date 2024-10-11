@@ -135,7 +135,7 @@ GET /blog-sample/_search
 
 #### Example response
 
-The response should be similar to the following example:
+The response should appear similar to the following example:
 
 ```json
 {
