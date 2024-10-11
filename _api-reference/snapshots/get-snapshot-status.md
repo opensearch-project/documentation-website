@@ -16,6 +16,12 @@ To learn about snapshot creation, see [Create snapshot]({{site.url}}{{site.baseu
 If you use the Security plugin, you must have the `monitor_snapshot`, `create_snapshot`, or `manage cluster` privileges.
 {: .note}
 
+## Path and HTTP methods
+
+```json
+GET _snapshot/<repository>/<snapshot>/_status
+```
+
 ## Path parameters
 
 Path parameters are optional. 
@@ -44,7 +50,7 @@ Snapshot API calls only work if the total number of shards across the requested 
 Using the API to return the state of snapshots that are not currently running can be very costly in terms of both machine resources and processing time when querying data in the cloud. For each snapshot, each request causes a file read of all of the snapshot's shards. 
 {: .warning}
 
-## Request fields
+## Request body fields
 
 | Field | Data type | Description | 
 :--- | :--- | :---
@@ -377,7 +383,7 @@ The `GET _snapshot/my-opensearch-repo/my-first-snapshot/_status` request returns
 }
 ````
 
-## Response fields
+## Response body fields
 
 | Field | Data type | Description | 
 :--- | :--- | :---
@@ -390,7 +396,7 @@ The `GET _snapshot/my-opensearch-repo/my-first-snapshot/_status` request returns
 | stats | Object | Information about files included in the snapshot. `file_count`: number of files. `size_in_bytes`: total size of all files. See [Snapshot file stats](#snapshot-file-stats). |
 | index | list of Objects | List of objects that contain information about the indices in the snapshot. See [Index objects](#index-objects).|
 
-##### Snapshot states
+### Snapshot states
 
 | State | Description | 
 :--- | :--- |
@@ -399,9 +405,9 @@ The `GET _snapshot/my-opensearch-repo/my-first-snapshot/_status` request returns
 | PARTIAL | The global cluster state was stored, but data from at least one shard was not stored. The `failures` property of the [Create snapshot]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-snapshot) response contains additional details. |
 | SUCCESS | The snapshot finished and all shards were stored successfully. |
 
-##### Shard stats
+### Shard stats
 
-All property values are Integers.
+All property values are integers.
 
 | Property | Description | 
 :--- | :--- |
@@ -412,7 +418,7 @@ All property values are Integers.
 | failed | Number of shards that failed to be included in the snapshot. |
 | total | Total number of shards included in the snapshot. |
 
-##### Snapshot file stats
+### Snapshot file stats
 
 | Property | Type | Description | 
 :--- | :--- | :--- |
@@ -422,7 +428,7 @@ All property values are Integers.
 | start_time_in_millis | Long | Time (in milliseconds) when snapshot creation began. |
 | time_in_millis | Long | Total time (in milliseconds) that the snapshot took to complete. |
 
-##### Index objects
+### Index objects
 
 | Property | Type | Description | 
 :--- | :--- | :--- |
