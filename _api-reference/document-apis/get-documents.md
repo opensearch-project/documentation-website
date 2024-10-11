@@ -158,5 +158,5 @@ _seq_no | The sequence number assigned when the document is indexed.
 primary_term | The primary term assigned when the document is indexed.
 found | Whether the document exists.
 _routing | The shard that the document is routed to. If the document is not routed to a particular shard, this field is omitted.
-_source | Contains the document's data if `found` is true. If `_source` is set to false or `stored_fields` is set to true in the URL parameters, this field is omitted.
+_source | Contains the document's data if `found` is true. If `_source` is set to false or `stored_fields` is set to true in the parameters, this field is omitted.
 _fields | Contains the document's data that's stored in the index. Only returned if both `stored_fields` and `found` are true.

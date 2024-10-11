@@ -18,7 +18,7 @@ The cluster decommission operation adds support decommissioning based on awarene
 For more information about allocation awareness, see [Shard allocation awareness]({{site.url}}{{site.baseurl}}//opensearch/cluster/#shard-allocation-awareness).
 
 
-## HTTP and Path methods
+## Path and HTTP methods
 
 ```json
 PUT  /_cluster/decommission/awareness/{awareness_attribute_name}/{awareness_attribute_value}

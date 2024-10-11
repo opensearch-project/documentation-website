@@ -50,7 +50,7 @@ From the REST API specification: A threshold that enforces a pre-filter round tr
 
 ## Metadata-only options
 
-Some options can't be applied as URL parameters to the entire request. Instead, you can apply them per-search as part of each metadata line. All are optional.
+Some options can't be applied as parameters to the entire request. Instead, you can apply them per-search as part of each metadata line. All are optional.
 
 Option | Type | Description
 :--- | :--- | :---

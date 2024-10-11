@@ -30,11 +30,11 @@ POST <index>/_explain/<id>
 Parameter | Type | Description | Required
 :--- | :--- | :--- | :---
 `<index>` | String | Name of the index. You can only specify a single index. | Yes
-`<_id>` | String | A unique identifier to attach to the document. | Yes
+`<id>` | String | A unique identifier to attach to the document. | Yes
 
 ## Query parameters
 
-You must specify the index and document ID. All other URL parameters are optional.
+You must specify the index and document ID. All other parameters are optional.
 
 Parameter | Type | Description | Required
 :--- | :--- | :--- | :---

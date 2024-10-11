@@ -24,9 +24,9 @@ GET _cat/shards
 
 ## Query parameters
 
-All cat shards URL parameters are optional.
+All cat shards parameters are optional.
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
+In addition to the [common parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
 
 Parameter | Type | Description
 :--- | :--- | :---

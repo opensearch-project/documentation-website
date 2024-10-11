@@ -27,7 +27,7 @@ Parameter | Type | Description
 
 ## Query parameters
 
-All URL parameters are optional.
+All parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :--- | :---

@@ -46,16 +46,14 @@ To test the Document APIs, add a document by following these steps:
 Parameter | Type | Description | Required
 :--- | :--- | :--- | :---
 &lt;index&gt; | String | Name of the index. | Yes
-&lt;_id&gt; | String | A unique identifier to attach to the document. To automatically generate an ID, use `POST <target>/doc` in your request instead of PUT. | No
+&lt;id&gt; | String | A unique identifier to attach to the document. To automatically generate an ID, use `POST <target>/doc` in your request instead of PUT. | No
 
 ## Query parameters
 
-In your request, you must specify the index you want to add your document to. If the index doesn't already exist, OpenSearch automatically creates the index and adds in your document. All other URL parameters are optional.
+In your request, you must specify the index you want to add your document to. If the index doesn't already exist, OpenSearch automatically creates the index and adds in your document. All other parameters are optional.
 
 Parameter | Type | Description | Required
 :--- | :--- | :--- | :---
-&lt;index&gt; | String | Name of the index. | Yes
-&lt;_id&gt; | String | A unique identifier to attach to the document. To automatically generate an ID, use `POST <target>/doc` in your request instead of PUT. | No
 if_seq_no | Integer | Only perform the index operation if the document has the specified sequence number. | No
 if_primary_term | Integer | Only perform the index operation if the document has the specified primary term.| No
 op_type | Enum | Specifies the type of operation to complete with the document. Valid values are `create` (index a document only if it doesn't exist) and `index`. If a document ID is included in the request, then the default is `index`. Otherwise, the default is `create`. | No

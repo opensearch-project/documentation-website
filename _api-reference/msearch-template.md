@@ -25,7 +25,7 @@ POST /{index}/_msearch/template
 
 ## Query parameters and metadata options
 
-All multi-search template URL parameters are optional. Some can also be applied per search as part of each metadata line.
+All multi-search template parameters are optional. Some can also be applied per search as part of each metadata line.
 
 Parameter | Type | Description | Supported in metadata
 :--- | :--- | :---  | :---
@@ -43,7 +43,7 @@ typed_keys | Boolean | Specifies whether to prefix aggregation names with their 
 
 ### Metadata-only options
 
-Some options can't be applied as URL parameters to the entire request. Instead, you can apply them per search as part of each metadata line. All are optional.
+Some options can't be applied as parameters to the entire request. Instead, you can apply them per search as part of each metadata line. All are optional.
 
 Option | Type | Description
 :--- | :--- | :---

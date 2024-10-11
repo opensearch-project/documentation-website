@@ -23,7 +23,7 @@ POST /_reindex
 
 ## Query parameters
 
-All URL parameters are optional.
+All parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :---
