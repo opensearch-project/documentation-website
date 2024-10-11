@@ -201,7 +201,7 @@ To run validation, you can specify the test parameters and the index to use, as 
 ```
 {% include copy-curl.html %}
 
-Place the validation block alongside your feature set definition. In the following example, the `match` query is malformed, so the validation will fail and return an error:
+Place the validation block alongside your feature set definition. In the following example, the `match` query is malformed (curly brackets in mustache template missing), so the validation will fail and return an error:
 
 ```json
 {
@@ -221,7 +221,7 @@ Place the validation block alongside your feature set definition. In the followi
                 "template_language": "mustache",
                 "template": {
                     "match": {
-                        "title": "{% raw %}{{keywords}}{% endraw %}"
+                        "title": "{% raw %}{{keywords{% endraw %}"
                     }
                 }
             }
