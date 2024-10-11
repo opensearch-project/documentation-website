@@ -408,7 +408,7 @@ You can continue adding as many feature sets as needed for logging.
 
 Once you have covered the basics, you might consider some real-life feature logging scenarios.
 
-First, you might develop judgment lists from user analytics. The goal is to capture the exact value of a feature at the precise time a user interaction occurred.If they clicked, you want to know the recency, title score, and every other value at that exact moment. This allows you can study later what correlated with relevance when training. To achieve this, you may build a large comprehensive feature set for future experimentation. 
+First, you might develop judgment lists from user analytics. The goal is to capture the exact value of a feature at the precise time a user interaction occurred.If they clicked, you want to know the recency, title score, and every other value at that exact moment. This allows you to study later what correlated with relevance when training. To achieve this, you may build a large comprehensive feature set for future experimentation. 
 
 Second, you may want to keep your models up to date with a shifting index. Trends come and go, and models can lose their effectiveness over time. You may have A/B testing in place, or be monitoring business metrics, and notice gradual degradation in model performance. In these cases, logging is used to retrain a model you are already relatively confident in.
 

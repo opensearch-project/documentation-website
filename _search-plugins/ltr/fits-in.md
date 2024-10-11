@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Integrating the plugin
+title: Scope of the plugin
 nav_order: 20
 parent: Learning to Rank
 has_children: false
 ---
 
-# Integrating the plugin
+# Scope of the plugin
 
 The Learning to Rank plugin for OpenSearch provides tool to help you develop and use machine learning-based ranking models for your application search. The following sections describe how the plugin fits into the overall LTR process.
 
@@ -20,7 +20,7 @@ This plugin gives you building blocks to develop and use LTR models. It allows y
 
 ## What the plugin does not do
 
-The plugin does not help with creating judgment lists, which is a task you must handle yourself, as it can be highly domain-speific. See the Wikimedia Foundation blog [Admittedly loopy but not entirely absurd—Understanding our Search Relevance Survey](https://blog.wikimedia.org/2017/09/19/search-relevance-survey/) for an example of an approach to developing judgment lists for people searching their articles. Other domains, such as e-commerce, may focus more on conversion-related signals, while some may involve human relevance assessors, either internal experts or crowdsourced workers.
+The plugin does not help with creating judgment lists, which is a task you must handle yourself, as it can be highly domain-speific. See the [Wikimedia Foundation blog](https://blog.wikimedia.org/2017/09/19/search-relevance-survey/) for an example of an approach to developing judgment lists for people searching their articles. Other domains, such as e-commerce, may focus more on conversion-related signals, while some may involve human relevance assessors, either internal experts or crowdsourced workers.
 
 The plugin does not handle the training or testing of models. This is an offline process that should be handled using the appropriate tools, such as XGboost and RankLib. The plugin integrates with these external model-building workflows. Training and testing ranking models can be a CPU-intensive task that requires data scientist expertise and offline testing. Most organizations prefer to have data scientists oversee the model development process, rather than running it directly in their production environment.
 
