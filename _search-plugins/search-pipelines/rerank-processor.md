@@ -13,7 +13,7 @@ Introduced 2.12
 
 The `rerank` search request processor intercepts search results and passes them to a cross-encoder model to be reranked. The model reranks the results, taking into account the scoring context. Then the processor orders documents in the search results based on their new scores.
 
-## Request fields
+## Request body fields
 
 The following table lists all available request fields.
 
