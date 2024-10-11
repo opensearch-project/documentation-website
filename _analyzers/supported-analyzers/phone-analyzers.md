@@ -7,14 +7,13 @@ nav_order: 140
 
 # Phone number analyzers
 
-The `analysis-phonenumber` plugin provides analyzers and tokenizers for parsing phone numbers.
-A dedicated analyzer is required because parsing phone numbers is a non-trivial task (even though it might seem trivial at first glance). For common pitfalls in parsing phone numbers, see [Falsehoods programmers believe about phone numbers](https://github.com/google/libphonenumber/blob/master/FALSEHOODS.md).
+The `analysis-phonenumber` plugin provides analyzers and tokenizers for parsing phone numbers. A dedicated analyzer is required because parsing phone numbers is a non-trivial task (even though it might seem trivial at first glance). For common pitfalls in parsing phone numbers, see [Falsehoods programmers believe about phone numbers](https://github.com/google/libphonenumber/blob/master/FALSEHOODS.md).
 
 
 OpenSearch supports the following phone number analyzers:
 
-* `phone`: An [index analyzer]({{site.url}}{{site.baseurl}}/analyzers/index-analyzers/) to use at indexing time.
-* `phone-search`: A [search analyzer]({{site.url}}{{site.baseurl}}/analyzers/search-analyzers/) to use at search time.
+* [`phone`](#the-phone-analyzer): An [index analyzer]({{site.url}}{{site.baseurl}}/analyzers/index-analyzers/) to use at indexing time.
+* [`phone-search`](#the-phone-search-analyzer): A [search analyzer]({{site.url}}{{site.baseurl}}/analyzers/search-analyzers/) to use at search time.
 
 Internally, the plugin uses the [`libphonenumber`](https://github.com/google/libphonenumber) library and follows its parsing rules.
 
@@ -69,7 +68,10 @@ PUT /example-phone
 ```
 {% include copy-curl.html %}
 
-Analysing a (fictional) Swiss phone number with an international calling prefix will work the same with either the Swiss-specific phone region or without:
+## The phone analyzer
+
+The `phone` analyzer generates n-grams based on the given phone number. Analyzing a (fictional) Swiss phone number containing an international calling prefix can be parsed with or without the Swiss-specific phone region. Thus, the following two requests will produce the same result:
+
 ```json
 GET /example-phone/_analyze
 {
@@ -78,8 +80,6 @@ GET /example-phone/_analyze
 }
 ```
 {% include copy-curl.html %}
-
-and
 
 ```json
 GET /example-phone/_analyze
@@ -90,13 +90,15 @@ GET /example-phone/_analyze
 ```
 {% include copy-curl.html %}
 
-will produce the same result:
+The response contains the generated n-grams:
+
 ```json
 ["+41 60 555 12 34", "6055512", "41605551", "416055512", "6055", "41605551234", ...]
 ```
 
-If, however, the phone number is given without the international calling prefix `+` (either by using `0041` or omitting
-the international calling prefix altogether) then only the analyzer with the correct phone region will be able to parse it:
+However, if you specify the phone number without the international calling prefix `+` (either by using `0041` or omitting
+the international calling prefix altogether), then only the analyzer configured with the correct phone region can parse it:
+
 ```json
 GET /example-phone/_analyze
 {
@@ -106,7 +108,10 @@ GET /example-phone/_analyze
 ```
 {% include copy-curl.html %}
 
-In contrast the `phone-search` analyzer does not create n-grams and only issues some basic tokens:
+## The phone-search analyzer
+
+In contrast, the `phone-search` analyzer does not create n-grams and only issues some basic tokens. Thus, the following request:
+
 ```json
 GET /example-phone/_analyze
 {
@@ -115,6 +120,8 @@ GET /example-phone/_analyze
 }
 ```
 {% include copy-curl.html %}
+
+is parsed into the following tokens:
 
 ```json
 ["+41 60 555 12 34", "41 60 555 12 34", "41605551234", "605551234", "41"]
