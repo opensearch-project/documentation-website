@@ -96,3 +96,5 @@ One of the key advantages of the `sltr` query provided by the Learning to Rank p
 -   Chaining multiple rescores to refine the relevance of your results
 -   Rescoring once for relevance with `sltr`, and a second time for business concerns
 -   Downboosting "bad" but relevant content in the baseline query to force it out of the rescore window
+
+Learn about [advanced functionality]({{site.url}}{{site.baseurl}}/search-plugins/ltr/advanced-functionality/).

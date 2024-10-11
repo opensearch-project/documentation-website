@@ -210,7 +210,7 @@ As described in [Logging features]({{site.url}}{{site.baseurl}}/search-plugins/l
 
 For native scripts, the `extra_logging` parameter is injected into the script parameters. This parameter is a [`Supplier<Map<String,Object>>`](https://docs.oracle.com/javase/8/docs/api/java/util/function/Supplier.html), which provides a non-null `Map<String,Object>` only during the logging fetch phase. Any values you add to this map will be returned alongside the logged features:
 
-```json
+```java
 {
     @Override
     public double runAsDouble() {
