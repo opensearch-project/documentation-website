@@ -54,6 +54,7 @@ Option | Required | Type | Description
 `stream_name` | Yes      | String | The name of each Kinesis stream.
 `initial_position` | No       | String | The position from where `kinesis` source starts reading stream records. `LATEST` starts reading from the most recent stream record. `EARLIEST` starts reading from the begining of the stream. Default is `LATEST`.
 `checkpoint_interval` | No       | Duration | Periodically checkpoint Kinesis streams to avoid duplication of record processing. Default is `PT2M`.
+`compression` | No | String  | Specifies the compression format. To decompress records added by [CloudWatch subscription filter](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/SubscriptionFilters.html) to Kinesis, use the `gzip` compression format.
 
 ## codec
 
