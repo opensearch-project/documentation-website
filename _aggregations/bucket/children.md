@@ -8,7 +8,7 @@ nav_order: 15
 
 # Children
 
-The `children` aggregation connects parent documents with their related child documents. This allows you to analyze relationships between different types of data in a single query, rather than having to run multiple queries and combine the results yourself.
+The `children` aggregation connects parent documents with their related child documents. This allows you to analyze relationships between different types of data in a single query, rather than needing to run multiple queries and combine the results manually.
 
 ---
 
