@@ -33,6 +33,7 @@ POST _analyze
   "text": "Fast-cars: drive fast!"
 }
 ```
+{% include copy-curl.html %}
 
 By analyzing the text "Fast-cars: drive fast!", we can see the specified characters have been removed: 
 
