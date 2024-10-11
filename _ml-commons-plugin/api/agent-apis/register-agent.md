@@ -27,7 +27,7 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %}
 
-## Request fields
+## Request body fields
 
 The following table lists the available request fields.
 
