@@ -328,3 +328,37 @@ Sets what fraction of randomized query values can be repeated. Takes values betw
 <!-- vale on -->
 
 Sets how many distinct repeatable pair values are generated for each operation when randomization is used. Default is `5000`. This setting does not work when `--randomization-enabled` is not used. 
+
+<!-- vale off -->
+## test-iterations
+<!-- vale on -->
+
+Specifies the number of times to run the workload. This flag accepts an integer value. Default is `1`.
+
+Example: `--test-iterations=3` will run the workload three times.
+
+<!-- vale off -->
+## aggregate
+<!-- vale on -->
+
+Determines whether OpenSearch Benchmark should aggregate the results of multiple test executions. This flag accepts a boolean value (true/false). Default is `true`.
+
+When set to `true`, OpenSearch Benchmark will combine the results from all iterations into a single aggregated report. When set to `false`, results from each iteration will be reported separately.
+
+Example: `--aggregate=false`
+
+<!-- vale off -->
+## sleep-timer
+<!-- vale on -->
+
+Specifies the number of seconds to sleep before starting the next test execution. This flag accepts an integer value. Default is `5`.
+
+Example: `--sleep-timer=10` will cause OpenSearch Benchmark to wait 10 seconds between test iterations.
+
+<!-- vale off -->
+## cancel-on-error
+<!-- vale on -->
+
+When set, this flag instructs OpenSearch Benchmark to stop executing tests if an error occurs in one of the test iterations. This is a boolean flag and does not require a value. Default is `false` (not set).
+
+Example: `--cancel-on-error`
