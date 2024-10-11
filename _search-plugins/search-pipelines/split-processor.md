@@ -13,7 +13,7 @@ Introduced 2.17
 
 The `split` processor splits a string field into an array of substrings based on a specified delimiter.
 
-## Request fields
+## Request body fields
 
 The following table lists all available request fields.
 
