@@ -2,7 +2,7 @@
 layout: default
 title: Edge-N-Gram Tokenizer
 parent: Tokenizers
-nav_order: 20
+nav_order: 40
 ---
 
 # Edge n-gram tokenizer
@@ -12,15 +12,19 @@ The `edge n-gram` tokenizer generates partial word tokens, or `n-grams`, startin
 Edge n-grams are ideal for autocomplete searches where the order of the words may vary, such as with product names or addresses. However, for text with a fixed order, like movie or song titles, the completion suggester may be more efficient.
 
 ## How the edge n-gram tokenizer works
+
 By default, the `edge n-gram` tokenizer produces tokens with a minimum length of `1` and a maximum length of `2`. 
 
-For example, analyzing the text `OpenSearch` with the default configuration will produce 
+For example, analyzing the text `OpenSearch` with the default configuration will produce:
+
 ```
 O, Op
 ```
+
 These short n-grams are often not sufficient for meaningful searches, so configuring the tokenizer is necessary to adjust the gram lengths.
 
 ## Edge-n-gram tokenizer configuration
+
 Configuration options include:
 - `min_gram`: The minimum token length. Default is 1.
 - `max_gram`: The maximum token length. Default is 2.
@@ -34,13 +38,16 @@ Configuration options include:
   - `custom`: Allows you to specify custom characters through the custom_token_chars setting.
 
 ### `max_gram` parameter limitations
+
 The `max_gram` value defines the upper limit for token length. If a search query is longer than the maximum token length, the query may fail to match any indexed terms. For example, if `max_gram` is set to `4`, a search for `"`searching` will not match `sear`
 
 A possible solution is to use a `truncate` token filter to limit search terms to the `max_gram` length, though this could yield imprecise results. For instance, truncating `"`searching`"` to `sear` might match terms like `search` or `seared`, which may not be relevant.
 
 ### Example configuration
+
 We can configure the `edge n-gram` tokenizer to produce tokens between `3` and `6` characters in length, considering both letters and symbols as valid token characters:
-```
+
+```json
 PUT edge_n_gram_index
 {
   "settings": {
@@ -63,25 +70,34 @@ PUT edge_n_gram_index
   }
 }
 ```
-Analysing some sample text with our index
-```
+{% include copy-curl.html %}
+
+Analysing the sample text "Code 42 rocks!" with our `edge_n_gram_index` index
+
+```json
 POST edge_n_gram_index/_analyze
 {
   "analyzer": "my_custom_analyzer",
   "text": "Code 42 rocks!"
 }
 ```
-Outputted tokens would be
+{% include copy-curl.html %}
+
+We see the tokens or `n-grams` returned by the `edge n-gram` tokenizer when given the text "Code 42 rocks!" to analyze:
+
 ```
 [Cod, Code, roc, rock, rocks]
 ```
 
 ## Best practices
+
 It is recommended to use the `edge n-gram` tokenizer only at indexing time to ensure partial word tokens are stored. At search time, a simpler analyzer should be used to match full user queries.
 
 ## Search-as-you-type configuration
+
 To implement search-as-you-type functionality, it's typical to use the `edge n-gram` tokenizer only during indexing and a simpler analyzer at search time. The following configuration demonstrates this:
-```
+
+```json
 PUT my_autocomplete_index
 {
   "settings": {
@@ -116,18 +132,23 @@ PUT my_autocomplete_index
 }
 
 ```
-Index a document with the field `product_name` and refresh the index:
-```
+{% include copy-curl.html %}
+
+Index a document with the field `product` and refresh the index:
+
+```json
 PUT my_custom_index/_doc/1
 {
   "product": "Laptop Pro"
 }
 
 POST my_custom_index/_refresh
+```
+{% include copy-curl.html %}
 
-```
-Then, perform a search with the query `Lap`":`
-```
+Then, perform a search with the query `Laptop`":`
+
+```json
 GET my_custom_index/_search
 {
   "query": {
@@ -140,6 +161,7 @@ GET my_custom_index/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 Like this, partial matches can be found with an edge n-gram tokenizer, ensuring terms like "Laptop" and "Pro" are indexed correctly for search queries.
 
