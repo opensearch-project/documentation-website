@@ -23,7 +23,7 @@ PUT _cluster/settings
 
 ## Path parameters
 
-All cluster setting parameters are optional.
+All parameters are optional.
 
 Parameter | Data type | Description
 :--- | :--- | :---

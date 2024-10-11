@@ -29,7 +29,7 @@ Parameter | Data type | Description
 
 ## Query parameters
 
-The Segment API supports the following optional query parameters.
+All query parameters are optional.
 
 Parameter | Data type | Description
 :--- | :--- | :---

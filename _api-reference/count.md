@@ -24,7 +24,7 @@ POST <target>/_count/<id>
 
 ## Query parameters
 
-All count parameters are optional.
+All parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :---

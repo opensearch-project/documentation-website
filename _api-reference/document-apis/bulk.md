@@ -34,7 +34,7 @@ OpenSearch also accepts PUT requests to the `_bulk` path, but we highly recommen
 
 ## Query parameters
 
-All bulk parameters are optional.
+All parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :---

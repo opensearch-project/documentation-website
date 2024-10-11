@@ -26,7 +26,7 @@ POST _cluster/allocation/explain
 
 ## Query parameters
 
-All cluster allocation explain parameters are optional.
+All parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :---

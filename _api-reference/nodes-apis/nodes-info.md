@@ -21,7 +21,7 @@ The nodes info API represents mostly static information about your cluster's nod
 
 ## Path and HTTP methods
 
-```bash
+```json
 GET /_nodes
 GET /_nodes/<nodeId>
 GET /_nodes/<metrics>

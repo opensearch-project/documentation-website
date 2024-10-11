@@ -30,7 +30,7 @@ Parameter | Type | Description
 
 ## Query parameters
 
-All multi-get parameters are optional.
+All parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :--- | :---

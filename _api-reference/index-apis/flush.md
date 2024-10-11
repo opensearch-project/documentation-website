@@ -35,7 +35,7 @@ The following table lists the available path parameters. All path parameters are
 
 ## Query parameters
 
-The Flush API supports the following query parameters.
+All parameters are optional.
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |

@@ -23,7 +23,7 @@ POST _aliases
 
 ## Query parameters
 
-All alias parameters are optional.
+All parameters are optional.
 
 Parameter | Data Type | Description
 :--- | :--- | :---

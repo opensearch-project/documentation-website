@@ -25,7 +25,7 @@ POST /{index}/_msearch/template
 
 ## Query parameters and metadata options
 
-All multi-search template parameters are optional. Some can also be applied per search as part of each metadata line.
+All parameters are optional. Some can also be applied per search as part of each metadata line.
 
 Parameter | Type | Description | Supported in metadata
 :--- | :--- | :---  | :---

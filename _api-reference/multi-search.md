@@ -27,7 +27,7 @@ POST <index>/_msearch
 
 ## Query parameters and metadata options
 
-All multi-search parameters are optional. Some can also be applied per-search as part of each metadata line.
+All parameters are optional. Some can also be applied per-search as part of each metadata line.
 
 Parameter | Type | Description | Supported in metadata line
 :--- | :--- | :---

@@ -25,7 +25,7 @@ GET _cluster/stats/nodes/<node-filters>
 
 ## Path parameters
 
-All cluster stats parameters are optional.
+All parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :---
