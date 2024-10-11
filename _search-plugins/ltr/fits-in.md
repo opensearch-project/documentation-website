@@ -2,7 +2,7 @@
 layout: default
 title: Integrating the plugin
 nav_order: 20
-parent: LTR search
+parent: Learning to Rank
 has_children: false
 ---
 

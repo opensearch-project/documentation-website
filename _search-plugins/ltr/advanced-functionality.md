@@ -2,7 +2,7 @@
 layout: default
 title: Advanced functionality
 nav_order: 80
-parent: LTR search
+parent: Learning to Rank
 has_children: false
 ---
 

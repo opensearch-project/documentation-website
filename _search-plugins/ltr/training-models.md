@@ -2,7 +2,7 @@
 layout: default
 title: Uploading trained models
 nav_order: 60
-parent: LTR search
+parent: Learning to Rank
 has_children: false
 ---
 

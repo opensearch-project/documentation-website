@@ -2,7 +2,7 @@
 layout: default
 title: Feature engineering
 nav_order: 40
-parent: LTR search
+parent: Learning to Rank
 has_children: false
 ---
 

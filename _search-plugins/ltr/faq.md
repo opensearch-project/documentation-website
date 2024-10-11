@@ -2,7 +2,7 @@
 layout: default
 title: FAQs
 nav_order: 1000
-parent: LTR search
+parent: Learning to Rank
 has_children: false
 ---
 

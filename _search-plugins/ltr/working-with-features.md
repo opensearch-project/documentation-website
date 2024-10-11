@@ -2,7 +2,7 @@
 layout: default
 title: Working with features
 nav_order: 30
-parent: LTR search
+parent: Learning to Rank
 has_children: false
 ---
 

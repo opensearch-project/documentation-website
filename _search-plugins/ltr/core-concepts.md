@@ -2,7 +2,7 @@
 layout: default
 title: Core concepts for machine learning ranking
 nav_order: 10
-parent: LTR search
+parent: Learning to Rank
 has_children: false
 ---
 

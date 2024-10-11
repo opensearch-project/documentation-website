@@ -2,7 +2,7 @@
 layout: default
 title: Logging feature scores
 nav_order: 50
-parent: LTR search
+parent: Learning to Rank
 has_children: false
 ---
 

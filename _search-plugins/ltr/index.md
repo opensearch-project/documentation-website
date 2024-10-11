@@ -1,6 +1,6 @@
 ---
 layout: default
-title: LTR search
+title: Learning to Rank
 nav_order: 20
 has_children: true
 has_toc: false
@@ -8,7 +8,7 @@ redirect_from:
   - /search-plugins/ltr/
 ---
 
-# LTR search
+# Learning to Rank
 
 The Learning to Rank plugin for OpenSearch enables you to use machine learning (ML) and behavioral data to fine-tune the relevance of documents. It uses models from the XGBoost and RankLib libraries to rescore the search results that takes into account query dependent features such as click-through data or field matches, which can further improve relevance.
 

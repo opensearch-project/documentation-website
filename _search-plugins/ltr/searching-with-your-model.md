@@ -2,7 +2,7 @@
 layout: default
 title: Optimizing search with LTR
 nav_order: 70
-parent: LTR search
+parent: Learning to Rank
 has_children: false
 ---
 
