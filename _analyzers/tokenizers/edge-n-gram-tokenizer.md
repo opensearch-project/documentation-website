@@ -164,9 +164,3 @@ GET my_custom_index/_search
 {% include copy-curl.html %}
 
 Like this, partial matches can be found with an edge n-gram tokenizer, ensuring terms like "Laptop" and "Pro" are indexed correctly for search queries.
-
-
-
-
-
-
