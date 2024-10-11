@@ -12,8 +12,6 @@ While training models occurs outside of the Learning to Rank plugin, you can use
 
 ## RankLib model training
 
-The OpenSearch Project provides two demonstration scenarios for training a model using the RankLib library. The [RankLib demo](http://github.com/opensearch-project/opensearch-learning-to-rank-base/tree/main/demo/) provides the complete process of training a model from OpenSearch queries, including the [logging of features](http://github.com/opensearch-project/opensearch-learning-to-rank-base/tree/main/demo/collectFeatures.py) and subsequent [training of a supported model](http://github.com/opensearch-project/opensearch-learning-to-rank-base/tree/main/demo/train.py). 
-
 The feature logging process generates a RankLib-comsumable judgment file. In the following judgment file, the query with ID 1 `rambo` includesthe logged features 1 (a title `TF*IDF`
 score) and 2 (a description `TF*IDF` score) for a set of documents:
 
@@ -24,7 +22,7 @@ score) and 2 (a description `TF*IDF` score) for a set of documents:
 3   qid:1   1:10.7808075    2:0.0 # 1368    rambo
 ```
 
- In the [train.py](http://github.com/opensearch-project/opensearch-learning-to-rank-base/tree/main/demo/train.py) script, you can see how the RankLib library is called to train one of its supported models using the judgment file. the executed command looks like the following:
+The RankLib library can be called using the following command:
  
  ```
  cmd = "java -jar RankLib-2.8.jar -ranker %s -train%rs -save %s -frate 1.0" % (whichModel, judgmentsWithFeaturesFile, modelOutput)
@@ -53,7 +51,7 @@ Within the RankLib model, each tree in the ensemble examines the value of featur
 
 ## XGBoost model training
 
-The OpenSearch Project provides a demonstration on training a model using the [XGBoost library](http://github.com/opensearch-project/opensearch-learning-to-rank-base/tree/main/demo/xgboost-demo). Unlike the RankLib model, the XGBoost model is serialized in a format specific to gradient-boosted decision trees, as shwon in the following example:
+Unlike the RankLib model, the XGBoost model is serialized in a format specific to gradient-boosted decision trees, as shwon in the following example:
 
 ```json
     [  { "nodeid": 0, "depth": 0, "split": "tmdb_multi", "split_condition": 11.2009, "yes": 1, "no": 2, "missing": 1, "children": [
