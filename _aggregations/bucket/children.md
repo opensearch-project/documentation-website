@@ -16,7 +16,7 @@ The `children` aggregation connects parent documents with their related child do
 
 For example, if you have a parent-child relationship between authors, posts, and comments, you can analyze the relationships between the different data types (`authors`, `posts`, and `comments`) in a single query. 
 
-The `authors` aggregation groups the documents by the `author.keyword` field. Within each author group, we have a `children` aggregation that looks at the associated posts. Inside the `posts` aggregation, another `children` aggregation looks at the comments associated with each post. Within the `comments` aggregation, the `value_count` aggregation counts the number of comments for each post.
+The `authors` aggregation groups the documents by the `author.keyword` field. In each author group, a `children` aggregation looks at the associated posts. In the `posts` aggregation, another `children` aggregation looks at the comments associated with each post. In the `comments` aggregation, the `value_count` aggregation counts the number of comments on each post.
 
 #### Example index 
 
