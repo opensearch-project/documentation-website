@@ -13,7 +13,7 @@ The nodes usage endpoint returns low-level information about REST action usage o
 
 ## Path and HTTP methods
 
-```
+```json
 GET _nodes/usage
 GET _nodes/<nodeId>/usage
 GET _nodes/usage/<metric>
