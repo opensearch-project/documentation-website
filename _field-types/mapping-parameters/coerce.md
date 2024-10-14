@@ -1,6 +1,6 @@
 ---
 layout: default
-title: coerce
+title: Coerce
 parent: Mapping parameters
 grand_parent: Mapping and field types
 nav_order: 15
