@@ -22,9 +22,7 @@ You can use bucket aggregations to implement faceted navigation (usually placed 
 OpenSearch supports the following bucket aggregations:
 
 - [Adjacency matrix]({{site.url}}{{site.baseurl}}/aggregations/bucket/adjacency-matrix/)
-- [Auto-date histogram]({{site.url}}{{site.baseurl}}/aggregations/bucket/auto-date-histogram/)
 - [Children]({{site.url}}{{site.baseurl}}/aggregations/bucket/children)
-- [Composite]({{site.url}}{{site.baseurl}}/aggregations/bucket/composite/)
 - [Date histogram]({{site.url}}{{site.baseurl}}/aggregations/bucket/date-histogram/)
 - [Date range]({{site.url}}{{site.baseurl}}/aggregations/bucket/date-range/)
 - [Diversified sampler]({{site.url}}{{site.baseurl}}/aggregations/bucket/diversified-sampler/)
