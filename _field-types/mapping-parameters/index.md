@@ -21,7 +21,7 @@ Parameter | Description
 `doc_values` | Specifies whether a field should be stored on disk to make sorting and aggregation faster. Default value is `true`, which means that the doc values are enabled. Allowed values are a single field name or a list of field names.
 `dynamic` | Determines whether new fields should be added dynamically. Default value is `true`, which means that new fields can be added dynamically. Allowed values are `true`, `false`, or `strict`.
 `enabled` | Specifies whether the field is enabled or disabled. Default value is `true`, which means that the field is enabled. Allowed values are `true` or `false`.
-`format` | Specifies the date format for date fields. There is no default value for this parameter. It is used for date fields to specify the date format. Allowed values are any valid date format string, such as `yyyy-MM-dd` or `epoch_millis`.
+`format` | Specifies the date format for date fields. There is no default value for this parameter. Allowed values are any valid date format string, such as `yyyy-MM-dd` or `epoch_millis`.
 `ignore_above` | Skips indexing values that are longer than the specified length. Default value is `2147483647`, which means there is no limit on the length of the field value. Allowed values are any positive integer.
 `ignore_malformed` | Specifies whether malformed values should be ignored. Default value is `false`, which means malformed values are not ignored. . Allowed values are `true` or `false`.
 `index` | Specifies whether the field should be indexed. Default value is `true`, which means the field is indexed. Allowed values are `true`, `false`, or `not_analyzed`.
