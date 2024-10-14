@@ -1,7 +1,11 @@
 ---
 layout: default
-title: Dynamic parameter
-nav_order: 10
+title: Dynamic
+parent: Mapping parameters
+grand_parent: Mapping and field types
+nav_order: 20
+has_children: false
+has_toc: false
 redirect_from:
   - /opensearch/dynamic/
 ---
