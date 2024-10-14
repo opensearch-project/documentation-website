@@ -66,7 +66,7 @@ PUT orders/_doc/1
 ```
 {% include copy-curl.html %}
 
-In this example, the `quantity` field is defined as an `integer` type with `coerce` set to `false`. When indexing the document, the string value `10` is not coerced, and the document is rejected due to the type mismatch. 
+In this example, the `quantity` field is defined as an `integer` type with `coerce` set to `false`. When indexing the document, the string value `10` is not coerced, and the document is rejected because of the type mismatch. 
 
 #### Setting the index-level coercion setting
 
