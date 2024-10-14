@@ -17,7 +17,7 @@ Parameter | Description
 `analyzer` | Specifies the analyzer used to analyze string fields. Default is the `standard` analyzer, which is a general-purpose analyzer that splits text on white space and punctuation, converts to lowercase, and removes stop words. Allowed values are `standard`, `simple`, and `whitespace`. 
 `boost` | Specifies a field-level boost factor applied at query time. Allows you to increase or decrease the relevance score of a specific field during search queries. Default boost value is `1.0`, which means no boost is applied. Allowed values are any positive floating-point number.
 `coerce` | Controls how values are converted to the expected field data type during indexing. Default value is `true`, which means that OpenSearch tries to coerce the value to the expected value type. Allowed values are `true` or `false`.
-`copy_to` | Copies the values of this field to another field. There is no default value for this parameter. It is an optional parameter that allows you to copy the value of a field to another field. 
+`copy_to` | Copies the value of a field to another field. There is no default value for this parameter. Optional.
 `doc_values` | Specifies whether a field should be stored on disk to make sorting and aggregation faster. Default value is `true`, which means that the doc values are enabled. Allowed values are a single field name or a list of field names.
 `dynamic` | Determines whether new fields should be added dynamically. Default value is `true`, which means new fields can be added dynamically. Allowed values are `true`, `false`, or `strict`.
 `enabled` | Specifies whether the field is enabled or disabled. Default value is `true`, which means the field is enabled. Allowed values are `true` or `false`.
