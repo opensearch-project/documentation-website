@@ -14,7 +14,7 @@ The following table lists OpenSearch mapping parameters.
 
 Parameter | Description
 :--- | :---
-`analyzer` | Specifies the analyzer used to analyze string fields. Default is the `standard` analyzer, which is a general-purpose analyzer that splits text on white space and punctuation, converts to lowercase, and removes stop words. Allowed values are `standard`, `simple`, and`whitespace`. 
+`analyzer` | Specifies the analyzer used to analyze string fields. Default is the `standard` analyzer, which is a general-purpose analyzer that splits text on white space and punctuation, converts to lowercase, and removes stop words. Allowed values are `standard`, `simple`, and `whitespace`. 
 `boost` | Specifies a field-level query time to boost. Default boost value is `1.0`, which means no boost is applied. Allowed values are any floating-point number.
 `coerce` | Controls how values are converted to the expected data type of a field during indexing Default value is `true`, which means OpenSearch tries to coerce the value to the expected value type. Allowed values are `true` or `false`.
 `copy_to` | Copies the values of this field to another field. There is no default value for this parameter. It is an optional parameter that allows you to copy the value of a field to another field. 
