@@ -22,7 +22,7 @@ The key functions of the `analyzer` mapping parameter are:
 
 4. **Customization:** OpenSearch allows you to define custom analyzers by specifying the tokenizer, character filters, and token filters to be used. This gives you fine-grained control over the text analysis process.
 
-For information about specific analyzer parameters, such as `analyzer`, `search_analyzer`, and `search_quote_analyzer`, see [Search analyzers]({{site.url}}{{site.baseurl}}/analyzers/search-analyzers/).
+For information about specific analyzer parameters, such as `analyzer`, `search_analyzer`, or `search_quote_analyzer`, see [Search analyzers]({{site.url}}{{site.baseurl}}/analyzers/search-analyzers/).
 {: .note}
 
 ------------
