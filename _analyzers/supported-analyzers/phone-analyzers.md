@@ -7,7 +7,7 @@ nav_order: 140
 
 # Phone number analyzers
 
-The `analysis-phonenumber` plugin provides analyzers and tokenizers for parsing phone numbers. A dedicated analyzer is required because parsing phone numbers is a non-trivial task (even though it might seem trivial at first glance). For common pitfalls in parsing phone numbers, see [Falsehoods programmers believe about phone numbers](https://github.com/google/libphonenumber/blob/master/FALSEHOODS.md).
+The `analysis-phonenumber` plugin provides analyzers and tokenizers for parsing phone numbers. A dedicated analyzer is required because parsing phone numbers is a non-trivial task (even though it might seem trivial at first glance). For common misconceptions regarding phone number parsing, see [Falsehoods programmers believe about phone numbers](https://github.com/google/libphonenumber/blob/master/FALSEHOODS.md).
 
 
 OpenSearch supports the following phone number analyzers:
