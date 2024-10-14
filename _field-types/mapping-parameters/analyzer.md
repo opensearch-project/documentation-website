@@ -1,6 +1,6 @@
 ---
 layout: default
-title: analyzer
+title: Analyzer
 parent: Mapping parameters
 grand_parent: Mapping and field types
 nav_order: 5

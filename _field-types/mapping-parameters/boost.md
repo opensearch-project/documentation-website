@@ -1,6 +1,6 @@
 ---
 layout: default
-title: boost
+title: Boost
 parent: Mapping parameters
 grand_parent: Mapping and field types
 nav_order: 10
