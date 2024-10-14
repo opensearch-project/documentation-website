@@ -17,12 +17,11 @@ The response is more comprehensive and useful than a call to `_cluster/settings`
 
 ## Path and HTTP methods
 
-```
+```json
 GET _remote/info
 ```
-{% include copy-curl.html %}
 
-## Response
+## Example Response
 
 ```json
 {
