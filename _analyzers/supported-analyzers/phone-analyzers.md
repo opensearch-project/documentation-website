@@ -17,7 +17,7 @@ OpenSearch supports the following phone number analyzers:
 
 Internally, the plugin uses the [`libphonenumber`](https://github.com/google/libphonenumber) library and follows its parsing rules.
 
-The phone number analyzers are not meant to find phone numbers in larger texts. Instead, you should use them on fields which contain phone numbers alone.
+The phone number analyzers are not meant to find phone numbers in larger texts. Instead, you should use them on fields that only contain phone numbers.
 {: .note}
 
 ## Installing the plugin
