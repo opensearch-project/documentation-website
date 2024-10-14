@@ -3,7 +3,7 @@ layout: default
 title: Dynamic
 parent: Mapping parameters
 grand_parent: Mapping and field types
-nav_order: 20
+nav_order: 25
 has_children: false
 has_toc: false
 redirect_from:
