@@ -58,3 +58,28 @@ PUT /my_custom_index
 ```
 {% include copy-curl.html %}
 
+## Generated tokens
+
+Use the following request to examine the tokens generated using the created analyzer:
+
+```json
+POST /my_custom_index/_analyze
+{
+  "analyzer": "my_custom_analyzer",
+  "text": "The slow turtle swims away"
+}
+```
+{% include copy-curl.html %}
+
+The response contains the generated tokens:
+
+```json
+{
+  "tokens": [
+    {"token": "slow","start_offset": 4,"end_offset": 8,"type": "<ALPHANUM>","position": 1},
+    {"token": "turtle","start_offset": 9,"end_offset": 15,"type": "<ALPHANUM>","position": 2},
+    {"token": "swims","start_offset": 16,"end_offset": 21,"type": "<ALPHANUM>","position": 3},
+    {"token": "away","start_offset": 22,"end_offset": 26,"type": "<ALPHANUM>","position": 4}
+  ]
+}
+```
