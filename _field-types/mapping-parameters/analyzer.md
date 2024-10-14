@@ -10,7 +10,7 @@ has_toc: false
 
 # `analyzer`
 
-The `analyzer` mapping parameter is used to define the text analysis process that applies to a text field during both indexing and searching operations.
+The `analyzer` mapping parameter is used to define the text analysis process that applies to a text field during both index and search operations.
 
 The key functions of the `analyzer` mapping parameter are:
 
