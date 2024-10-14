@@ -8,7 +8,7 @@ has_toc: false
 
 # Mapping parameters
 
-Mapping parameters are used to configure the behavior of fields in an index. For parameter use cases, see the mapping parameter's respective page.
+Mapping parameters are used to configure the behavior of index fields. For parameter use cases, see a mapping parameter's respective page.
 
 The following table lists OpenSearch mapping parameters.
 
