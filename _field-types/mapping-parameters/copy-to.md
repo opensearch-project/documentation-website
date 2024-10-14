@@ -1,6 +1,6 @@
 ---
 layout: default
-title: copy_to
+title: Copy_to
 parent: Mapping parameters
 grand_parent: Mapping and field types
 nav_order: 20
