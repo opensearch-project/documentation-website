@@ -22,7 +22,7 @@ The phone number analyzers are not meant to find phone numbers in larger texts. 
 
 ## Installing the plugin
 
-Before you can use phone number analyzers, you must install the `analysis-phonenumber` plugin by running the following command:
+Before you can use the phone number analyzers, you must install the `analysis-phonenumber` plugin by running the following command:
 
 ```sh
 ./bin/opensearch-plugin install analysis-phonenumber
@@ -30,13 +30,13 @@ Before you can use phone number analyzers, you must install the `analysis-phonen
 
 ## Specifying a default region
 
-You can optionally specify a default region for parsing phone numbers by providing the `phone-region` parameter within the analyzer. Valid phone regions are ISO 3166 country codes. For more information, see [List of ISO 3166 country codes](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes).
+You can optionally specify a default region for parsing phone numbers by providing the `phone-region` parameter within the analyzer. Valid phone regions are represented by ISO 3166 country codes. For more information, see [List of ISO 3166 country codes](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes).
 
-When tokenizing phone numbers containing the international calling prefix `+`, the default region is irrelevant. However, for phone numbers which either use a national prefix for international numbers (for example,  `001` instead of `+1` to dial Northern America from most European countries), the region needs to be provided. You can also properly index local phone numbers with no international prefix if you specify the region.
+When tokenizing phone numbers containing the international calling prefix `+`, the default region is irrelevant. However, for phone numbers that use a national prefix for international numbers (for example, `001` instead of `+1` to dial Northern America from most European countries), the region needs to be provided. You can also properly index local phone numbers with no international prefix by specifying the region.
 
 ## Example
 
-The following request creates an index containing one field, which ingests phone numbers for Switzerland (region code `CH`):
+The following request creates an index containing one field that ingests phone numbers for Switzerland (region code `CH`):
 
 ```json
 PUT /example-phone
@@ -70,7 +70,7 @@ PUT /example-phone
 
 ## The phone analyzer
 
-The `phone` analyzer generates n-grams based on the given phone number. Analyzing a (fictional) Swiss phone number containing an international calling prefix can be parsed with or without the Swiss-specific phone region. Thus, the following two requests will produce the same result:
+The `phone` analyzer generates n-grams based on the given phone number. A (fictional) Swiss phone number containing an international calling prefix can be parsed with or without the Swiss-specific phone region. Thus, the following two requests will produce the same result:
 
 ```json
 GET /example-phone/_analyze
@@ -97,7 +97,7 @@ The response contains the generated n-grams:
 ```
 
 However, if you specify the phone number without the international calling prefix `+` (either by using `0041` or omitting
-the international calling prefix altogether), then only the analyzer configured with the correct phone region can parse it:
+the international calling prefix altogether), then only the analyzer configured with the correct phone region can parse the number:
 
 ```json
 GET /example-phone/_analyze
@@ -121,7 +121,7 @@ GET /example-phone/_analyze
 ```
 {% include copy-curl.html %}
 
-is parsed into the following tokens:
+Is parsed into the following tokens:
 
 ```json
 ["+41 60 555 12 34", "41 60 555 12 34", "41605551234", "605551234", "41"]
