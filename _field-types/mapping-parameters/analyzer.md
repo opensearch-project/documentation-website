@@ -75,7 +75,7 @@ PUT my_index
 
 In this example, the `my_custom_analyzer` uses the standard tokenizer, converts all tokens to lowercase, applies a custom stop word filter, and applies an English stemmer.
 
-You can then map a text field to use this custom analyzer for both indexing and searching:
+You can then map a text field so that it uses this custom analyzer for both index and search operations:
 
 ```json
 "mappings": {
