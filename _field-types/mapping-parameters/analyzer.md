@@ -8,7 +8,7 @@ has_children: false
 has_toc: false
 ---
 
-# `analyzer`
+# Analyzer
 
 The `analyzer` mapping parameter is used to define the text analysis process that applies to a text field during both index and search operations.
 

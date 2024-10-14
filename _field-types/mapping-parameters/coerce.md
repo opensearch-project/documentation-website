@@ -8,7 +8,7 @@ has_children: false
 has_toc: false
 ---
 
-# `coerce`
+# Coerce
 
 The `coerce` mapping parameter controls how values are converted to the expected field data type during indexing. This parameter lets you verify that your data is formatted and indexed properly, following the expected field types. This improves the accuracy of your search results.
 

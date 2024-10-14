@@ -8,7 +8,7 @@ has_children: false
 has_toc: false
 ---
 
-# `copy_to`
+# Copy_to
 
 The `copy_to` parameter allows you to copy the values of multiple fields into a single field. This parameter can be useful if you often search across multiple fields because it allows you to search the group field instead. 
 
