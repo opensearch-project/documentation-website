@@ -23,9 +23,9 @@ GET _cluster/stats
 GET _cluster/stats/nodes/<node-filters>
 ```
 
-## URL parameters
+## Path parameters
 
-All cluster stats parameters are optional.
+All parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :---
