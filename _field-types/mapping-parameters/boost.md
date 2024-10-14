@@ -45,6 +45,6 @@ PUT my-index1
 
 In this example, the `title` field has a boost of `2`, which means that it contributes twice as much to the overall relevance score than the description field (which has a boost of `1`). The `tags` field has a boost of `1.5`, so it contributes one and a half times more than the description field.
 
-The `boost` parameter is particularly useful when you want to give more weight to certain fields that are more important for your use case. For example, you might want to boost the `title` field more than the `description` field, as the title may be a better indicator of the document's relevance.
+The `boost` parameter is particularly useful when you want to apply more weight to certain fields. For example, you might want to boost the `title` field more than the `description` field because the title may be a better indicator of the document's relevance.
 
 The `boost` parameter is a multiplicative factor, not an additive one. This means that a field with a higher boost value will have a disproportionately higher impact on the overall relevance score compared to fields with lower boost values. When using the `boost` parameter, it is recommended to start with small values (1.5 or 2) and test the impact on your search results. Overly high boost values can skew the relevance scores and lead to unexpected or undesirable search results.
