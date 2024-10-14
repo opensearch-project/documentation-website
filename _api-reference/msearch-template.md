@@ -106,7 +106,8 @@ OpenSearch returns an array with the results of each search in the same order as
         },
         "max_score": null,
         "hits": []
-      }
+      },
+      "status": 200
     },
     {
       "took": 3,
@@ -124,7 +125,8 @@ OpenSearch returns an array with the results of each search in the same order as
         },
         "max_score": null,
         "hits": []
-      }
+      },
+      "status": 200
     }
   ]
 }
