@@ -68,3 +68,31 @@ PUT /my_custom_simple_index
 ```
 {% include copy-curl.html %}
 
+## Generated tokens
+
+Use the following request to examine the tokens generated using the created analyzer:
+
+```json
+POST /my_custom_simple_index/_analyze
+{
+  "analyzer": "my_custom_simple_analyzer",
+  "text": "<p>The slow turtle swims over to dogs &copy; 2024!</p>"
+}
+```
+{% include copy-curl.html %}
+
+The response contains the generated tokens:
+
+```json
+{
+  "tokens": [
+    {"token": "the","start_offset": 3,"end_offset": 6,"type": "word","position": 0},
+    {"token": "slow","start_offset": 7,"end_offset": 11,"type": "word","position": 1},
+    {"token": "turtle","start_offset": 12,"end_offset": 18,"type": "word","position": 2},
+    {"token": "swims","start_offset": 19,"end_offset": 24,"type": "word","position": 3},
+    {"token": "over","start_offset": 25,"end_offset": 29,"type": "word","position": 4},
+    {"token": "to","start_offset": 30,"end_offset": 32,"type": "word","position": 5},
+    {"token": "dogs","start_offset": 33,"end_offset": 37,"type": "word","position": 6}
+  ]
+}
+```
