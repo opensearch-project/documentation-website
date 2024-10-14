@@ -10,7 +10,7 @@ has_toc: false
 
 # `boost` 
 
-The `boost` mapping parameter is used to increase or decrease the relevance score of a field during search queries. It allows you to give more or less weight to specific fields when calculating the overall relevance score for a document.
+The `boost` mapping parameter is used to increase or decrease the relevance score of a field during search queries. It allows you to apply more or less weight to specific fields when calculating the overall relevance score of a document.
 
 The `boost` parameter is applied as a multiplier to the score of a field. For example, if a field has a `boost` value of `2`, then the score contribution of that field is doubled. Conversely, a `boost` value of `0.5` would halve the score contribution of that field.
 
