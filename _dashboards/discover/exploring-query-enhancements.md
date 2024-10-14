@@ -6,7 +6,7 @@ nav_order: 20
 ---
 
 # Exploring query enhancements
-Introduced 2.17
+Introduced 2.18
 {: .label .label-purple }
 
 Starting with OpenSearch 2.17, query enhancements have been made. These enhancements are experimental and may be subject to change or instability. Enhancements include the following: 
