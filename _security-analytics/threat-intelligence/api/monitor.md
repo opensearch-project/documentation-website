@@ -25,7 +25,7 @@ POST _plugins/_security_analytics/threat_intel/monitors
 PUT _plugins/_security_analytics/threat_intel/monitors/<monitor_id>
 ```
 
-### Request fields
+### Request body fields
 
 You can specify the following fields in the request body.
 

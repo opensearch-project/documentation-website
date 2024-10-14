@@ -13,7 +13,7 @@ Segment replication backpressure is a shard-level rejection mechanism that dynam
 
 Replica shards are also monitored to determine whether the shards are stuck or lagging for an extended period of time. When replica shards are stuck or lagging for more than double the amount of time defined by the `segrep.pressure.time.limit` field, the shards are removed and replaced with new replica shards.
 
-## Request fields
+## Request body fields
 
 Segment replication backpressure is disabled by default. To enable it, set `segrep.pressure.enabled` to `true`. You can update the following dynamic cluster settings using the [cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/) API endpoint.
 
