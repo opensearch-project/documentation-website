@@ -18,7 +18,7 @@ Parameter | Description
 `boost` | Specifies a field-level query time to boost. Default boost value is `1.0`, which means no boost is applied. Allowed values are any floating-point number.
 `coerce` | Controls how values are converted to the expected data type of a field during indexing Default value is `true`, which means OpenSearch tries to coerce the value to the expected value type. Allowed values are `true` or `false`.
 `copy_to` | Copies the values of this field to another field. There is no default value for this parameter. It is an optional parameter that allows you to copy the value of a field to another field. 
-`doc_values` | Specifies whether the field should be stored on disk to make sorting and aggregation faster. Default value is `true`, which means the doc values are enabled. Allowed values are a single field name or a list of field names. Allowed values are `true` or `false`.
+`doc_values` | Specifies whether a field should be stored on disk to make sorting and aggregation faster. Default value is `true`, which means that the doc values are enabled. Allowed values are a single field name or a list of field names.
 `dynamic` | Determines whether new fields should be added dynamically. Default value is `true`, which means new fields can be added dynamically. Allowed values are `true`, `false`, or `strict`.
 `enabled` | Specifies whether the field is enabled or disabled. Default value is `true`, which means the field is enabled. Allowed values are `true` or `false`.
 `format` | Specifies the date format for date fields. There is no default value for this parameter. It is used for date fields to specify the date format. Allowed values are any valid date format string, such as `yyyy-MM-dd` or `epoch_millis`.
