@@ -6,7 +6,7 @@ nav_order: 36
 
 # Filter search results
 
-You can filter search using different methods, each suited to specific scenarios. We can apply filters at the query level, using `boolean` query clauses, as well as using `post_filter` and `aggregation` level filters.
+You can filter search using different methods, each suited to specific scenarios. You can apply filters at the query level, using `boolean` query clauses, as well as by using `post_filter` and `aggregation` level filters.
 
 ## Query-level filtering with boolean queries
 Use a `boolean` query with a filter clause to apply filters to both search hits and aggregations. For example, if a shopper searches for "smartphones" from BrandA, a Boolean query can restrict results to only those smartphones from BrandA.
