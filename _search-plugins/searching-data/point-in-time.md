@@ -37,6 +37,10 @@ The create PIT operation returns a PIT ID, which you can use to run multiple que
 In case of a cluster or node failure, all PIT data is lost.
 {: .note}
 
+### PIT in SQL
+
+The [SQL Plugin]({{site.url}}{{site.baseurl}}/search-plugins/sql/index/) also supports pagination using PIT. When the `plugin.sql.pagination.api` setting is enabled (the default), SQL search queries in OpenSearch will automatically use PIT under the hood. See [Pagination in SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql-ppl-api/#paginating-results) for more information.
+
 ## Pagination with PIT and search_after
 
 When you run a query with a PIT ID, you can use the `search_after` parameter to retrieve the next page of results. This gives you control over the order of documents in the pages of results.
