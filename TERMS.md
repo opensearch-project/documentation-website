@@ -588,6 +588,8 @@ Use % in headlines, quotations, and tables or in technical copy.
 
 An agent and REST API that allows you to query numerous performance metrics for your cluster, including aggregations of those metrics, independent of the Java Virtual Machine (JVM).
 
+**performant**
+
 **plaintext, plain text**
 
 Use *plaintext* only to refer to nonencrypted or decrypted text in content about encryption. Use *plain text* to refer to ASCII files.
