@@ -6,13 +6,17 @@ nav_order: 36
 
 # Filter search results
 
-You can filter search using different methods, each suited to specific scenarios. You can apply filters at the query level, using `boolean` query clauses, as well as by using `post_filter` and `aggregation` level filters.
+You can filter searches using different methods, each suited to specific scenarios. You can apply filters at the query level, using `boolean` query clauses and `post_filter` and `aggregation` level filters, as follows:
 
-## Query-level filtering with boolean queries
+- **Query-level filtering:** Apply `boolean` query filter clauses to filter search hits and aggregations, such as to narrow results to specific categories or brands.
+- **Post-filter filtering:** Use `post_filter` to refine search hits based on user selections while preserving all aggregation options.
+- **Aggregation-level filtering:** Adjust specific aggregations based on selected filters without impacting other aggregations.
 
-Use a `boolean` query with a filter clause to apply filters to both search hits and aggregations. For example, if a shopper searches for "smartphones" from BrandA, a Boolean query can restrict results to only those smartphones from BrandA.
+## Query-level filtering with Boolean queries
 
-Create an index `electronics` and provide the mapping:
+Use a `boolean` query with a filter clause to apply filters to both search hits and aggregations. For example, if a shopper searches for `smartphones` from `BrandA`, a Boolean query can restrict results to only those smartphones from `BrandA`. The following steps guide you through query-level filtering. 
+
+1. Create an index `electronics` and provide the mapping using the following request:
 
 ```
 PUT /electronics
@@ -27,8 +31,9 @@ PUT /electronics
   }
 }
 ```
+{% include copy-curl.html %}
 
-Add documents to the `electronics` index:
+2. Add documents to the `electronics` index using the following request:
 
 ```
 PUT /electronics/_doc/1?refresh
@@ -53,8 +58,9 @@ PUT /electronics/_doc/3?refresh
   "features": ["5G", "Triple Camera"]
 }
 ```
+{% include copy-curl.html %}
 
-Apply a `boolean` filter query to display only `smartphones` from `BrandA`:
+3. Apply a `boolean` filter query to display only `smartphones` from `BrandA` using the following request:
 
 ```
 GET /electronics/_search
@@ -69,10 +75,11 @@ GET /electronics/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
-## Using `post-filter` to narrow results without affecting aggregations
+## Narrowing results using `post-filter` while preserving aggregation visibility
 
-Use `post_filter` to limit search hits, while maintaining all aggregation options. For example, if a shopper selects `BrandA`, you can filter results to show only `BrandA` products while keeping all brands visible in the aggregation.
+Use `post_filter` to limit search hits while preserving all aggregation options. For example, if a shopper selects `BrandA`, results are filtered to show only `BrandA` products while maintaining visibility of all brand options in the aggregations, as shown in the following example request:
 
 ```
 GET /electronics/_search
@@ -92,12 +99,13 @@ GET /electronics/_search
   }
 }
 ```
-This shows `BrandA` smartphones in the search hits while still displaying all brands in the aggregations.
+{% include copy-curl.html %}
 
-## Aggregation-level filtering to refine aggregations
-We can use aggregation-level filtering to apply filters to specific aggregations, without affecting the overall aggregation.
+Your result should show `BrandA` smartphones in the search hits and all brands in the aggregations.
 
-Use aggregation-level filtering to filter the `price_ranges` aggregation based on selected brands, `BrandA` and `BrandB`, without affecting the main `price_ranges` aggregation. This allows you to display price ranges relevant to the selected brands while still showing overall price ranges for all products.
+## Refining aggregrations with aggregation-level filtering
+
+You can use aggregation-level filtering to apply filters to specific aggregations, without affecting the overall aggregation. For example, use aggregation-level filtering to filter the `price_ranges` aggregation based on selected brands, `BrandA` and `BrandB`, without affecting the main `price_ranges` aggregation, as shown in the following example request. This displays price ranges relevant to the selected brands while also displaying overall price ranges for all products.
 
 ```
 GET /electronics/_search
@@ -138,9 +146,4 @@ GET /electronics/_search
   }
 }
 ```
-
-## Summary of filters used for filtering the search results:
-1. Query-level filtering: Apply `boolean` query filter clauses to filter both search hits and aggregations, such as narrowing results to specific categories or brands.
-2. Post-filtering: Use `post_filter` to refine search hits based on user selections, while keeping all aggregation options, like brands, visible and unaffected.
-3. Aggregation-level filtering: Adjust specific aggregations, like price ranges, based on selected filters without impacting other aggregations, such as the brand list.
-
+{% include copy-curl.html %}
