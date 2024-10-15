@@ -38,7 +38,6 @@ PUT /my_custom_stop_analyzer_index
     "analysis": {
       "analyzer": {
         "my_custom_stop_analyzer": {
-          "type": "custom",
           "tokenizer": "lowercase",
           "filter": [
             "stop"
@@ -108,3 +107,37 @@ The response contains the generated tokens:
   ]
 }
 ```
+
+## Configuration
+
+You can configure `stop` analyzer with the following parameters:
+
+- `stopwords`: List of stop words or predefined list such as `_english_` (Default)
+- `stopwords_path`: Path to list of stop words (absolute or relative to config directory)
+
+See following example using custom configuration:
+
+```json
+PUT /my_new_custom_stop_index
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "my_custom_stop_analyzer": {
+          "type": "stop",                     
+          "stopwords": ["is", "and", "was"]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "description": {
+        "type": "text",
+        "analyzer": "my_custom_stop_analyzer" 
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
