@@ -39,7 +39,7 @@ In case of a cluster or node failure, all PIT data is lost.
 
 ### PIT in SQL
 
-The [SQL plugin]({{site.url}}{{site.baseurl}}/search-plugins/sql/index/) also supports pagination using PIT. When the `plugin.sql.pagination.api` setting is enabled (the default), SQL search queries in OpenSearch will automatically use PIT under the hood. See [Pagination in SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql-ppl-api/#paginating-results) for more information.
+The [SQL plugin]({{site.url}}{{site.baseurl}}/search-plugins/sql/index/) also supports pagination using PIT. When the `plugin.sql.pagination.api` setting is enabled (the default), SQL search queries in OpenSearch automatically use PIT internally. For more information, see [Pagination in SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql-ppl-api/#paginating-results).
 
 ## Pagination with PIT and search_after
 
