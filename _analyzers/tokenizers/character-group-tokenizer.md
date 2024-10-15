@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Character Group Tokenizer
+title: Character group tokenizer
 parent: Tokenizers
 nav_order: 20
 has_children: false
