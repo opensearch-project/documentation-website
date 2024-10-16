@@ -44,7 +44,7 @@ Name | Data type | Description
 
 Name | Data type | Description
 :--- | :--- | :---
-`plugins.security.audit.config.data_stream.template.manage` | Boolean | If enabled, the template for the Data Stream is managed by Opensearch. The Default is `true`.
+`plugins.security.audit.config.data_stream.template.manage` | Boolean | If `true`, the template for the data stream is managed by Opensearch. Default is `true`.
 `plugins.security.audit.config.data_stream.template.name` | String | The name of the data stream template. Default is `opensearch-security-auditlog`.
 `plugins.security.audit.config.data_stream.template.number_of_replicas` | Integer | Number of replicas for the Data Stream. The default is `0`.
 `plugins.security.audit.config.data_stream.template.number_of_shards` | Integer | Number of Shards for the Data Stream. The default is `1`.
