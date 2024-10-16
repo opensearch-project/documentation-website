@@ -19,11 +19,11 @@ A few important node metrics are `pid`, `name`, `cluster_manager`, `ip`, `port`,
 
 ## Path and HTTP methods
 
-```
+```json
 GET _cat/nodes
 ```
 
-## URL parameters
+## Query parameters
 
 All CAT nodes URL parameters are optional.
 
@@ -41,7 +41,7 @@ include_unloaded_segments | Boolean | Whether to include information from segmen
 
 The following example request lists node level information:
 
-```
+```json
 GET _cat/nodes?v
 ```
 {% include copy-curl.html %}
