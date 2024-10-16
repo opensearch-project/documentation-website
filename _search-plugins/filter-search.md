@@ -107,7 +107,7 @@ Your result should show `BrandA` smartphones in the search hits and all brands i
 
 You can use aggregation-level filtering to apply filters to specific aggregations without affecting the overall aggregation. 
 
-For example, use aggregation-level filtering to filter the `price_ranges` aggregation based on selected brands, `BrandA` and `BrandB`, without affecting the main `price_ranges` aggregation, as shown in the following example request. This displays price ranges relevant to the selected brands while also displaying overall price ranges for all products.
+For example, you can use aggregation-level filtering to filter the `price_ranges` aggregation based on selected brands, `BrandA` and `BrandB`, without affecting the main `price_ranges` aggregation, as shown in the following example request. This displays price ranges relevant to the selected brands while also displaying overall price ranges for all products.
 
 ```
 GET /electronics/_search
