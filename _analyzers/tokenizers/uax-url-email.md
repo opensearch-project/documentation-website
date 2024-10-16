@@ -1,6 +1,6 @@
 ---
 layout: default
-title: UAX URL email tokenizer
+title: UAX URL email
 parent: Tokenizers
 nav_order: 150
 ---
@@ -13,7 +13,7 @@ In addition to normal text, the `uax_url_email` tokenizer is designed to handle 
 
 The following example request creates a new index named `my_index` and configures an analyzer with `uax_url_email` tokenizer:
 
-```
+```json
 PUT /my_index
 {
   "settings": {
