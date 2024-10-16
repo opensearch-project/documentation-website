@@ -14,10 +14,12 @@ The `keep_types` token filter in OpenSearch is a type of token filter used in te
 
 ## Parameters
 
-The `keep_types` token filter in OpenSearch can be configured with the following parameters:
+The `keep_types` token filter in OpenSearch can be configured with the following parameters.
 
-- `types`: List of types of tokens to be removed or kept. (list of strings, _Required_)
-- `mode`: `include` or `exclude` the token types specified in `types` configuration. Default is `include`. (String, _Optional_)
+Parameter | Required/Optional | Data type | Description
+:--- | :--- | :--- | :--- 
+`types` | Required | List of strings | List of types of tokens to be removed or kept.
+`mode`| Optional | String | `include` or `exclude` the token types specified in `types` configuration. Default is `include`.
  
 
 ## Example
