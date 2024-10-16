@@ -11,7 +11,7 @@ The `keep_words` token filter is designed to include only certain words in the a
 
 ## Parameters
 
-The `keep_words` token filter in OpenSearch can be configured with the following parameters.
+The `keep_words` token filter can be configured with the following parameters.
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
