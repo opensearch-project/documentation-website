@@ -35,7 +35,7 @@ PUT /electronics
 
 2. Add documents to the `electronics` index using the following request:
 
-```
+```json
 PUT /electronics/_doc/1?refresh
 {
   "brand": "BrandA",
