@@ -110,10 +110,12 @@ The response contains the generated tokens:
 
 ## Configuration
 
-You can configure `stop` analyzer with the following parameters:
+You can configure `stop` analyzer with the following parameters.
 
-- `stopwords`: List of stop words or predefined list such as `_english_` (Default)
-- `stopwords_path`: Path to list of stop words (absolute or relative to config directory)
+Parameter | Required/Optional | Data type | Description
+:--- | :--- | :--- | :--- 
+`stopwords` | Optional | String or list of strings | List of stop words or predefined list such as `_english_` (default).
+`stopwords_path` | Optional | String | Path to list of stop words (absolute or relative to config directory).
 
 See following example using custom configuration:
 
