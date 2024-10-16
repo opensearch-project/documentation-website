@@ -16,7 +16,7 @@ The `doc_values` parameter accepts the following values:
 
 Parameter | Description
 :--- | :---
-`true` | Enables doc values for the field. This is the default for most field types that support doc values. Default is `true`.
+`true` | Enables doc values for the field. Default is `true`.
 `false` | Disables doc values for the field.
 
 ---
