@@ -18,11 +18,11 @@ When using this filter, you must carefully select and maintain the `common_words
 
 The `common_grams` token filter can be configured with the following parameters.
 
-Parameter | Data type | Description | Required/Optional
+Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
-`common_words` | List of strings | A list of words that should be considered as words appearing together. These words will be used to generate common grams. If the `common_words` parameter is an empty list, the `common_grams` token filter becomes a no-op filter, meaning it doesn't modify the input tokens at all. | Required
-`ignore_case` | Boolean |  Indicates whether the filter should ignore case differences when matching common words. Default is `false`. | Optional
-`query_mode` | Boolean | When set to `true`, the following rules are applied:<br>- unigrams that are generated from `common_words` are not included in the output.<br>- bigrams in which a non-common word is followed by common word are retained in the output.<br>- unigrams of non-common words are excluded if they are immediately followed by a common word.<br>- If a non-common word appears at the end of the text and is preceded by a common word, its unigram is not included in the output. | Optional
+`common_words` | Required | List of strings | A list of words that should be considered as words appearing together. These words will be used to generate common grams. If the `common_words` parameter is an empty list, the `common_grams` token filter becomes a no-op filter, meaning it doesn't modify the input tokens at all.
+`ignore_case` | Optional | Boolean |  Indicates whether the filter should ignore case differences when matching common words. Default is `false`.
+`query_mode` | Optional | Boolean | When set to `true`, the following rules are applied:<br>- Unigrams that are generated from `common_words` are not included in the output.<br>- Bigrams in which a non-common word is followed by common word are retained in the output.<br>- Unigrams of non-common words are excluded if they are immediately followed by a common word.<br>- If a non-common word appears at the end of the text and is preceded by a common word, its unigram is not included in the output.
 
 
 ## Example
