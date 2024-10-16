@@ -63,7 +63,7 @@ source = opensearch_dashboards_sample_data_logs
 PPL and DQL provide an autocomplete option that suggests field names, functions, and syntax. 
 
 
-## Data sources and data types enhancements
+## Selecting data sources and data types through the UI
 
 You can now select your data sources and types from within the **Discover** dashboard. Follow these steps to try out the feature.
 
