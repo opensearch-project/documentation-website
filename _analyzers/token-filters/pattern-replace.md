@@ -11,11 +11,13 @@ The `pattern_replace` token filter allows you to modify tokens using regular exp
 
 ## Parameters
 
-The `pattern_replace` token filter can be configured with the following parameters:
+The `pattern_replace` token filter can be configured with the following parameters.
 
-- `pattern`: The regular expression pattern that matches the text which needs to be replaced. (String, _Required_)
-- `all`: Replace all pattern matches. If `false` will only replace the first match. Default is `true`. (Boolean, _Optional_)
-- `replacement`: String that will replace the matched pattern. Default is empty string. (String, _Optional_)
+Parameter | Required/Optional | Data type | Description
+:--- | :--- | :--- | :--- 
+`pattern` | Required | String | The regular expression pattern that matches the text which needs to be replaced.
+`all` | Optional | Boolean | Replace all pattern matches. If `false` will only replace the first match. Default is `true`.
+`replacement` | Optional | String | String that will replace the matched pattern. Default is empty string.
 
 
 ## Example
