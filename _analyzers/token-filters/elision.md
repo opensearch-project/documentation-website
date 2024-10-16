@@ -14,11 +14,13 @@ The `elision` token filter already comes preconfigured in the following [languag
 
 ## Parameters
 
-The custom `elision` token filter in OpenSearch can be configured with the following parameters:
+The custom `elision` token filter can be configured with the following parameters.
 
-- `articles`: Defines which articles or short words should be removed when they appear as part of an elision. (Array of strings, _Required_ if `articles_path` is not configured)
-- `articles_path`: Specifies path to custom list of articles that should be removed during the analysis process. (String, _Required_ if `articles` is not configured)
-- `articles_case`: Filter is case-sensitive when it removes articles from text during analysis. Default is `false` (Boolean, _Optional_)
+Parameter | Required/Optional | Data type | Description
+:--- | :--- | :--- | :--- 
+`articles` | Required if `articles_path` is not configured | Array of strings Defines which articles or short words should be removed when they appear as part of an elision.
+`articles_path` | Required if `articles` is not configured | String | Specifies path to custom list of articles that should be removed during the analysis process. 
+`articles_case` | Optional | Boolean | Filter is case-sensitive when it removes articles from text during analysis. Default is `false`.
 
 ## Example
 
