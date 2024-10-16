@@ -216,7 +216,7 @@ The response contains server-side request cancellation statistics:
 }
 ```
 
-### Response fields
+### Response body fields
 
 The response contains the following fields.
 

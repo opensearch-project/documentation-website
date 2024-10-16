@@ -21,9 +21,9 @@ For instructions on creating a repository, see [Register repository]({{site.url}
 
 ## Path and HTTP methods
 
-```
-POST /_snapshot/my-first-repo/ 
-PUT /_snapshot/my-first-repo/
+```json
+POST /_snapshot/<repository>/ 
+PUT /_snapshot/<repository>/
 ```
 
 ## Path parameters
