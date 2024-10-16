@@ -96,13 +96,15 @@ The response contains the generated tokens:
 
 ## Configuration
 
-The `pattern` tokenizer can be configured with the following parameters:
+The `pattern` tokenizer can be configured with the following parameters.
 
-- `pattern`: specifies the [JAVA regular expression](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html). Default is `\W+`. (String, _Optional_)
-- `flags`: configures the pipe-separated [flags](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html#field.summary) which are applied to regular expression. For example `"CASE_INSENSITIVE|MULTILINE|DOTALL"` . (String, _Optional_)
-- `group`: specifies the capture group to be used as token. Default is `-1` (split on match). (Integer, _Optional_)
+Parameter | Required/Optional | Data type | Description
+:--- | :--- | :--- | :--- 
+`pattern` | Optional | String | Specifies the [JAVA regular expression](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html). Default is `\W+`.
+`flags` | Optional | String | Configures the pipe-separated [flags](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html#field.summary) which are applied to regular expression. For example `"CASE_INSENSITIVE|MULTILINE|DOTALL"` . 
+`group` | Optional | Integer | Specifies the capture group to be used as token. Default is `-1` (split on match).
 
-## Example using `group` parameter
+## Example using group parameter
 
 The following example configures parameter `group` set to capture only the second group:
 
