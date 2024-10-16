@@ -69,19 +69,14 @@ The response contains the generated tokens:
 
 ## Configuration
 
-The `ngram` tokenizer can be configured with the following parameters:
+The `ngram` tokenizer can be configured with the following parameters.
 
-- `min_gram`: minimum length of n-grams. Default is `1`. (Integer, _Optional_)
-- `max_gram`: maximum length of n-grams. Default is `2`. (Integer, _Optional_)
-- `token_chars`: character classes to be included in tokenization. The following are the possible options:
-  - `letter`
-  - `digit`
-  - `whitespace`
-  - `punctuation`
-  - `symbol`
-  - `custom` (Parameter `custom_token_chars` needs to also be configured in this case)
-  Default is empty list (`[]`) which retains all the characters (List of strings, _Optional_)
-- `custom_token_chars`: custom characters that will be included as part of the tokens. (String, _Optional_)
+Parameter | Required/Optional | Data type | Description
+:--- | :--- | :--- | :--- 
+`min_gram` | Optional | Integer | Minimum length of n-grams. Default is `1`.
+`max_gram` | Optional | Integer | Maximum length of n-grams. Default is `2`.
+`token_chars` | Optional | List of strings | Character classes to be included in tokenization. The following are the possible options:<br>- `letter`<br>- `digit`<br>- `whitespace`<br>- `punctuation`<br>- `symbol`<br>- `custom` (Parameter `custom_token_chars` needs to also be configured in this case)<br>Default is empty list (`[]`) which retains all the characters 
+`custom_token_chars` | Optional | String | Custom characters that will be included as part of the tokens.
 
 ### Maximum difference between `min_gram` and `max_gram`
 
