@@ -103,7 +103,7 @@ GET /electronics/_search
 
 Your result should show `BrandA` smartphones in the search hits and all brands in the aggregations.
 
-## Refining aggregrations with aggregation-level filtering
+## Refining aggregations with aggregation-level filtering
 
 You can use aggregation-level filtering to apply filters to specific aggregations, without affecting the overall aggregation. 
 
