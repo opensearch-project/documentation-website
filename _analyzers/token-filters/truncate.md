@@ -11,7 +11,11 @@ The `truncate` token filter is used to shorten tokens that exceed a specified le
 
 ## Parameters
 
-The `truncate` token filter can be configured with `length` parameter, which specifies the maximum length of the produced token. Default is `10` (Integer, _Optional_)
+The `truncate` token filter can be configured with the following parameter.
+
+Parameter | Required/Optional | Data type | Description
+:--- | :--- | :--- | :--- 
+`length` | Optional | Integer | Specifies the maximum length of the produced token. Default is `10`.
 
 ## Example
 
