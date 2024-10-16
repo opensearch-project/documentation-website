@@ -7,18 +7,19 @@ nav_order: 70
 
 # Condition token filter
 
-The `condition` token filter in OpenSearch is a special type of filter that allows you to apply other token filters conditionally based on certain criteria. This provides more control over when certain token filters should be applied during text analysis.
+The `condition` token filter is a special type of filter that allows you to apply other token filters conditionally based on certain criteria. This provides more control over when certain token filters should be applied during text analysis.
 Multiple filters can be configured and only applied based on the conditions you define. 
 This token filter can be very useful for language-specific processing and handling of special characters.
 
 
 ## Parameters
 
-There are two *required* parameters that have to be configured to use `condition` token filter:
+There are two parameters that need to be configured to use `condition` token filter.
 
-`filter`: specifies which token filters should be applied to the tokens when the specified condition (defined by the script parameter) is met.
-
-`script`: defines the condition that needs to be met for the filters specified in the filter parameter to be applied. This condition is expressed in the form of an inline script.
+Parameter | Required/Optional | Data type | Description
+:--- | :--- | :--- | :--- 
+`filter` | Required | String | Specifies which token filters should be applied to the tokens when the specified condition (defined by the script parameter) is met.
+`script` | Required | String | Defines the condition that needs to be met for the filters specified in the filter parameter to be applied. This condition is expressed in the form of an inline script.
 
 
 ## Example
