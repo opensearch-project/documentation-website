@@ -11,24 +11,15 @@ The `synonym_graph` token filter is more advanced version of `synonym` token fil
 
 ## Parameters
 
-The `synonym_graph` token filter can be configured with the following parameters:
+The `synonym_graph` token filter can be configured with the following parameters.
 
-- `synonyms`: List of synonym rules defined directly in the configuration. (String, Either `synonyms` or `synonyms_path` needs to be configured)
-- `synonyms_path`: File path to synonym rules, absolute or relative to config directory. (String, Either `synonyms` or `synonyms_path` needs to be configured)
-- `lenient`: Ignore the exceptions when loading the rule configurations. Default is `false` (Boolean, _Optional_)
-- `format`: Specifies which format is used to determine how synonyms are defined and interpreted by OpenSearch. Options are: `solr` or [`wordnet`](https://wordnet.princeton.edu/). Default is `solr` (String, _Optional_)
-- `expand`: Expand equivalent synonym rules. Default is `false` (Boolean, _Optional_)
-  
-  For example: 
-  If `expand` is set to `true` with synonym defined as `"quick, fast"`, the synonym rules are configured as follows:
-  - quick => quick
-  - quick => fast
-  - fast => quick
-  - fast => fast
-
-  If `expand` is set to `false`, the synonym rules are configured as follows:
-  - quick => quick
-  - fast => quick
+Parameter | Required/Optional | Data type | Description
+:--- | :--- | :--- | :--- 
+`synonyms` | Either `synonyms` or `synonyms_path` needs to be configured | String | List of synonym rules defined directly in the configuration.
+`synonyms_path` | Either `synonyms` or `synonyms_path` needs to be configured | String | File path to synonym rules, absolute or relative to config directory.
+`lenient` | Optional | Boolean | Ignore the exceptions when loading the rule configurations. Default is `false`.
+`format` | Optional | String | Specifies which format is used to determine how synonyms are defined and interpreted by OpenSearch. Options are: `solr` or [`wordnet`](https://wordnet.princeton.edu/). Default is `solr`.
+`expand` | Optional | Boolean |  Expand equivalent synonym rules. Default is `false`.<br><br>For example: <br>If `expand` is set to `true` with synonym defined as `"quick, fast"`, the synonym rules are configured as follows:<br>- quick => quick<br>- quick => fast<br>- fast => quick<br>- fast => fast<br><br>If `expand` is set to `false`, the synonym rules are configured as follows:<br>- quick => quick<br>- fast => quick
 
 ## Example using solr format
 
