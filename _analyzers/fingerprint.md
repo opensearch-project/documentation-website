@@ -18,12 +18,14 @@ The `fingerprint` analyzer is comprised of the following components:
 
 ## Configuration
 
-The `fingerprint` analyzer can be configured using the following parameters:
+The `fingerprint` analyzer can be configured using the following parameters.
 
-- `separator`: Specifies the character used to concatenate the terms after they have been tokenized, sorted, and deduplicated. Default is empty space (` `). (String, _Optional_)
-- `max_output_size`: Defines the maximum size of the output token. If the concatenated fingerprint exceeds this size, it will be truncated. Default is `255`. (Integer, _Optional_)
-- `stopwords`: A custom list or predefined list of stop words. Default is `_none_`. (String or list of strings, _Optional_)
-- `stopwords_path`: Path (absolute of relative to config directory) to the list of stop words. (String, _Optional_)
+Parameter | Required/Optional | Data type | Description
+:--- | :--- | :--- | :--- 
+`separator` | Optional | String | Specifies the character used to concatenate the terms after they have been tokenized, sorted, and deduplicated. Default is empty space (` `).
+`max_output_size` | Optional | Integer | Defines the maximum size of the output token. If the concatenated fingerprint exceeds this size, it will be truncated. Default is `255`.
+`stopwords` | Optional | String or list of strings | A custom list or predefined list of stop words. Default is `_none_`.
+`stopwords_path` | Optional | String | Path (absolute of relative to config directory) to the list of stop words.
 
 
 ## Example configuration
