@@ -103,5 +103,9 @@ The response contains the generated tokens:
 
 ## Configuration
 
-The `standard` tokenizer can be configured with parameter `max_token_length` which sets the maximum length of the produced token. If this length is exceeded, the token is split into multiple tokens at length configured in `max_token_length`. Default is `255` (Integer, _Optional_)
+The `standard` tokenizer can be configured with the following parameter.
+
+Parameter | Required/Optional | Data type | Description
+:--- | :--- | :--- | :--- 
+`max_token_length` | Optional | Integer | Sets the maximum length of the produced token. If this length is exceeded, the token is split into multiple tokens at length configured in `max_token_length`. Default is `255`.
 
