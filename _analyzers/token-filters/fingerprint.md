@@ -7,7 +7,7 @@ nav_order: 140
 
 # Fingerprint token filter
 
-The OpenSearch `fingerprint` token filter is used to standardize and deduplicate text. This is particularly useful for tasks where consistency in text processing is crucial. `fingerprint` token filter achieves this by processing text using the following steps:
+The `fingerprint` token filter is used to standardize and deduplicate text. This is particularly useful for tasks where consistency in text processing is crucial. `fingerprint` token filter achieves this by processing text using the following steps:
 
 1. **Lowercasing**: Converts all text to lowercase.
 2. **Splitting**: Breaks the text into words.
@@ -17,10 +17,12 @@ The OpenSearch `fingerprint` token filter is used to standardize and deduplicate
 
 ## Parameters
 
-The `fingerprint` token filter in OpenSearch can be configured with the following two parameters:
+The `fingerprint` token filter can be configured with the following two parameters.
 
-- `max_output_size`: Limits the length of the generated fingerprint string. If the concatenated string exceeds the `max_output_size`, the filter will not produce any output, resulting in empty token. Default is `255`. (Integer, _Optional_)
-- `separator`: Defines the character(s) used to join the tokens into a single string after they have been sorted and deduplicated. Default is space (`" "`) (String, _Optional_)
+Parameter | Required/Optional | Data type | Description
+:--- | :--- | :--- | :--- 
+`max_output_size` | Optional | Integer | Limits the length of the generated fingerprint string. If the concatenated string exceeds the `max_output_size`, the filter will not produce any output, resulting in empty token. Default is `255`.
+`separator` | Optional | String | Defines the character(s) used to join the tokens into a single string after they have been sorted and deduplicated. Default is space (`" "`).
 
 ## Example
 
