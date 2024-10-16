@@ -14,35 +14,24 @@ It's important **not** to use tokenizers that strip punctuation, like the `stand
 
 ## Parameters
 
-You can configure the `word_delimiter_graph` token filter using the following parameters:
+You can configure the `word_delimiter_graph` token filter using the following parameters.
 
-- `adjust_offsets`: Adjusts the token offsets for better accuracy. If your analyzer uses filters that change the length of tokens without changing their offsets, such as  `trim`, setting this parameter to `false` is recommended. Default is `true`. (Boolean, _Optional_)
-
-- `catenate_all`: Produces concatenated tokens from a sequence of alphanumeric parts. For example, `"quick-fast-200"` becomes `[ quickfast200, quick, fast, 200 ]`. Default is `false`. (Boolean, _Optional_)
-
-- `catenate_numbers`: Combines numerical sequences, such as `"10-20-30"` turning into `[ 102030, 10, 20, 30 ]`. Default is `false`. (Boolean, _Optional_)
-
-- `catenate_words`: Concatenates alphabetic words. For example `"high-speed-level"` becomes `[ highspeedlevel, high, speed, level ]`. Default is `false`. (Boolean, _Optional_)
-
-- `generate_number_parts`: Controls whether numeric tokens are generated separately. Default is `true`. (Boolean, _Optional_)
-
-- `generate_word_parts`: Specifies whether alphabetical tokens should be generated. Default is `true`. (Boolean, _Optional_)
-
-- `ignore_keywords`: Skips over tokens marked as keywords. Default is `false`. (Boolean, _Optional_)
-
-- `preserve_original`: Keeps the original, unsplit token alongside the generated tokens. For example `"auto-drive-300"` will result in `[ auto-drive-300, auto, drive, 300 ]`. Default is `false`. (Boolean, _Optional_)
-
-- `protected_words`: Specifies tokens that the filter should not split. (Array, _Optional_)
-
-- `protected_words_path`: Specifies a path (absolute or relating to config directory) to a file containing tokens separated by new line which should not be split. (string, _Optional_)
-
-- `split_on_case_change`: Splits tokens when there is a transition between lowercase and uppercase letters. Default is `true`. (Boolean, _Optional_)
-
-- `split_on_numerics`: Splits tokens where letters and numbers meet. For example `"v8engine"` will become `[ v, 8, engine ]`. Default is `true`. (Boolean, _Optional_)
-
-- `stem_english_possessive`: Removes English possessive endings such as `"'s."` Default is `true`. (Boolean, _Optional_)
-
-- `type_table`: Custom mappings can be provided for characters to treat them as alphanumeric or numeric, which avoids unwanted splitting. For example: `["- => ALPHA"]`. (Array of strings, _Optional_)
+Parameter | Required/Optional | Data type | Description
+:--- | :--- | :--- | :--- 
+`adjust_offsets` | Optional | Boolean | Adjusts the token offsets for better accuracy. If your analyzer uses filters that change the length of tokens without changing their offsets, such as  `trim`, setting this parameter to `false` is recommended. Default is `true`.
+`catenate_all` | Optional | Boolean | Produces concatenated tokens from a sequence of alphanumeric parts. For example, `"quick-fast-200"` becomes `[ quickfast200, quick, fast, 200 ]`. Default is `false`.
+`catenate_numbers` | Optional | Boolean | Combines numerical sequences, such as `"10-20-30"` turning into `[ 102030, 10, 20, 30 ]`. Default is `false`.
+`catenate_words` | Optional | Boolean | Concatenates alphabetic words. For example `"high-speed-level"` becomes `[ highspeedlevel, high, speed, level ]`. Default is `false`. 
+`generate_number_parts` | Optional | Boolean | Controls whether numeric tokens are generated separately. Default is `true`.
+`generate_word_parts` | Optional | Boolean | Specifies whether alphabetical tokens should be generated. Default is `true`.
+`ignore_keywords` | Optional | Boolean | Skips over tokens marked as keywords. Default is `false`.
+`preserve_original` | Optional | Boolean | Keeps the original, unsplit token alongside the generated tokens. For example `"auto-drive-300"` will result in `[ auto-drive-300, auto, drive, 300 ]`. Default is `false`. 
+`protected_words` | Optional | Array of strings | Specifies tokens that the filter should not split.
+`protected_words_path` | Optional | String | Specifies a path (absolute or relating to config directory) to a file containing tokens separated by new line which should not be split.
+`split_on_case_change` | Optional | Boolean | Splits tokens when there is a transition between lowercase and uppercase letters. Default is `true`.
+`split_on_numerics` | Optional | Boolean | Splits tokens where letters and numbers meet. For example `"v8engine"` will become `[ v, 8, engine ]`. Default is `true`.
+`stem_english_possessive` | Optional | Boolean | Removes English possessive endings such as `"'s."` Default is `true`.
+`type_table` | Optional | Array of strings | Custom mappings can be provided for characters to treat them as alphanumeric or numeric, which avoids unwanted splitting. For example: `["- => ALPHA"]`.
 
 
 ## Example
