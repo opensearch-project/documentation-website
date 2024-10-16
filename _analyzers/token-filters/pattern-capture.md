@@ -11,10 +11,12 @@ The `pattern_capture` token filter a powerful filter that uses regular expressio
 
 ## Parameters
 
-The `pattern_capture` token filter can be configured with the following parameters:
+The `pattern_capture` token filter can be configured with the following parameters.
 
-- `patterns`: An array of regular expressions used to capture parts of the text. (Array of strings, _Required_)
-- `preserve_original`: Retain original token in the output. Default is `true`. (Boolean, _Optional_)
+Parameter | Required/Optional | Data type | Description
+:--- | :--- | :--- | :--- 
+`patterns` | Required | Array of strings | An array of regular expressions used to capture parts of the text.
+`preserve_original` | Required | Boolean| Retain original token in the output. Default is `true`.
 
 
 ## Example
