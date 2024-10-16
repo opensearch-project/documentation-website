@@ -333,32 +333,28 @@ Sets how many distinct repeatable pair values are generated for each operation w
 ## test-iterations
 <!-- vale on -->
 
-Specifies the number of times to run the workload. This flag accepts an integer value. Default is `1`.
-
-Example: `--test-iterations=3` will run the workload three times.
+Specifies the number of times to run the workload. Default is `1`.
 
 <!-- vale off -->
 ## aggregate
 <!-- vale on -->
 
-Determines whether OpenSearch Benchmark should aggregate the results of multiple test executions. This flag accepts a boolean value (true/false). Default is `true`.
+Determines whether OpenSearch Benchmark should aggregate the results of multiple test executions.
 
-When set to `true`, OpenSearch Benchmark will combine the results from all iterations into a single aggregated report. When set to `false`, results from each iteration will be reported separately.
+When set to `true`, OpenSearch Benchmark will combine the results from all iterations into a single aggregated report. When set to `false`, results from each iteration will be reported separately. 
 
-Example: `--aggregate=false`
+Default is `true`.
 
 <!-- vale off -->
 ## sleep-timer
 <!-- vale on -->
 
-Specifies the number of seconds to sleep before starting the next test execution. This flag accepts an integer value. Default is `5`.
+Specifies the number of seconds to sleep before starting the next test execution. Default is `5`.
 
-Example: `--sleep-timer=10` will cause OpenSearch Benchmark to wait 10 seconds between test iterations.
 
 <!-- vale off -->
 ## cancel-on-error
 <!-- vale on -->
 
-When set, this flag instructs OpenSearch Benchmark to stop executing tests if an error occurs in one of the test iterations. This is a boolean flag and does not require a value. Default is `false` (not set).
+When set, this flag instructs OpenSearch Benchmark to stop executing tests if an error occurs in one of the test iterations. Default is `false` (not set).
 
-Example: `--cancel-on-error`
