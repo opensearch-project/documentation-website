@@ -15,8 +15,8 @@ The `dictionary_decompounder` token filter has the following parameters.
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
-`word_list` | _Required_ unless `word_list_path` is configured | Array of strings | The dictionary that the filter uses to split compound words.
-`word_list_path` | _Required_ unless `word_list` is configured | String | A file path to a text file containing the dictionary words.
+`word_list` | Required unless `word_list_path` is configured | Array of strings | The dictionary that the filter uses to split compound words.
+`word_list_path` | Required unless `word_list` is configured | String | A file path to a text file containing the dictionary words.
 `min_word_size` | Optional | Integer | The minimum length of the entire compound word that will be considered for splitting. Default is `5`.
 `min_subword_size` | Optional | Integer | The minimum length for any subword. If a subword is smaller than this size, it will not be split. Default is `2`.
 `max_subword_size` | Optional | Integer | The maximum length for any subword. If a subword is longer than this size, it will not be split. Default is `15`.
