@@ -101,7 +101,7 @@ GET /electronics/_search
 ```
 {% include copy-curl.html %}
 
-Your result should show `BrandA` smartphones in the search hits and all brands in the aggregations.
+The result should show `BrandA` smartphones in the search hits and all brands in the aggregations.
 
 ## Refining aggregations with aggregation-level filtering
 
