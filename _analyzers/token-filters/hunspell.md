@@ -7,7 +7,7 @@ nav_order: 160
 
 # Hunspell token filter
 
-The `hunspell` token filter in OpenSearch is used for stemming and morphological analysis of words in a specific language. This filter leverages Hunspell dictionaries, which are widely used in spell checkers. It works by breaking down words into their root forms (stemming).
+The `hunspell` token filter is used for stemming and morphological analysis of words in a specific language. This filter leverages Hunspell dictionaries, which are widely used in spell checkers. It works by breaking down words into their root forms (stemming).
 
 The Hunspell dictionary files are automatically loaded at startup from `<OS_PATH_CONF>/hunspell/<locale>` directory. For example `en_GB` locale should have at least one `.aff` file and one or more `.dic` files in directory `<OS_PATH_CONF>/hunspell/en_GB/`.
 
@@ -15,12 +15,14 @@ These files can be downloaded from [LibreOffice dictionaries](https://github.com
 
 ## Parameters
 
-The `hunspell` token filter in OpenSearch can be configured with the following parameters:
+The `hunspell` token filter can be configured with the following parameters.
 
-- `language/lang/locale`: Specifies the language for the Hunspell dictionary. (String, _Required_ at least one of the three)
-- `dedup`: Determines whether to remove multiple duplicate stemming terms for the same token. Default is `true`. (Boolean, _Optional_)
-- `dictionary`: Configures the dictionary files to be used for Hunspell dictionary. Default is all files in `<OS_PATH_CONF>/hunspell/<locale>` directory. (Array of strings, _Optional_)
-- `longest_only`: Specifies if only the longest stemmed version of the token should be returned. Default is `false` (Boolean, _Optional_) 
+Parameter | Required/Optional | Data type | Description
+:--- | :--- | :--- | :--- 
+`language/lang/locale` | At least one of the three is required | String | Specifies the language for the Hunspell dictionary.
+`dedup` | Optional | Boolean | Determines whether to remove multiple duplicate stemming terms for the same token. Default is `true`.
+`dictionary` | Optional | Array of strings | Configures the dictionary files to be used for Hunspell dictionary. Default is all files in `<OS_PATH_CONF>/hunspell/<locale>` directory.
+`longest_only` | Optional | Boolean | Specifies if only the longest stemmed version of the token should be returned. Default is `false`.
 
 ## Example
 
