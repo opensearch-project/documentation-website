@@ -18,7 +18,7 @@ Use a `boolean` query with a filter clause to apply filters to both search hits 
 
 1. Create an index `electronics` and provide the mapping using the following request:
 
-```
+```json
 PUT /electronics
 {
   "mappings": {
