@@ -11,14 +11,16 @@ The `shingle` token filter is used to create n-grams (contiguous sequences of to
 
 ## Parameters
 
-The `shingle` token filter can be configured with the following parameters:
+The `shingle` token filter can be configured with the following parameters.
 
-- `min_shingle_size`: Minimum number of token to concatenate. Default is `2` (Integer, _Optional_)
-- `max_shingle_size`: Maximum number of token to concatenate. Default is `2` (Integer, _Optional_)
-- `output_unigrams`: Include individual tokens as output. Default is `true` (Boolean, _Optional_)
-- `output_unigrams_if_no_shingles`: Output unigrams if no shingles are produced. Default is `false` (Boolean, _Optional_)
-- `token_separator`: Separator used to concatenate tokens into shingle. Default is space (`" "`) (String, _Optional_)
-- `filler_token`: Token to use in case of empty positions or gaps between tokens. Default is `_` (String, _Optional_)
+Parameter | Required/Optional | Data type | Description
+:--- | :--- | :--- | :--- 
+`min_shingle_size` | Optional | Integer | Minimum number of token to concatenate. Default is `2`.
+`max_shingle_size` | Optional | Integer | Maximum number of token to concatenate. Default is `2`.
+`output_unigrams` | Optional | Boolean | Include individual tokens as output. Default is `true`.
+`output_unigrams_if_no_shingles` | Optional | Boolean | Output unigrams if no shingles are produced. Default is `false`.
+`token_separator` | Optional | String | Separator used to concatenate tokens into shingle. Default is space (`" "`).
+`filler_token` | Optional | String | Token to use in case of empty positions or gaps between tokens. Default is underscore (`_`).
 
 If `output_unigrams` and `output_unigrams_if_no_shingles` are both set to `true`, `output_unigrams_if_no_shingles` is ignored
 {: .note}
