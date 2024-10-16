@@ -87,13 +87,15 @@ The response contains the generated tokens:
 
 ## Configuration
 
-The `path_hierarchy` tokenizer can be configured with the following parameters:
+The `path_hierarchy` tokenizer can be configured with the following parameters.
 
-- `delimiter`: specifies the character used to separate path components. Default is `/`. (String, _Optional_)
-- `replacement`: configures the character used to replace the delimiter in the tokens. The default is `/`. (String, _Optional_)
-- `buffer_size`: specifies the size of the buffer. Default is `1024`. (Integer, _Optional_)
-- `reverse`: produces tokens in reverse order if set to `true`. Default is `false`. (Boolean, _Optional_)
-- `skip`: specifies the number of initial tokens (levels) to skip when tokenizing. The default is `0`. (Integer, _Optional_)
+Parameter | Required/Optional | Data type | Description
+:--- | :--- | :--- | :--- 
+`delimiter` | Optional | String | Specifies the character used to separate path components. Default is `/`.
+`replacement` | Optional | String | Configures the character used to replace the delimiter in the tokens. Default is `/`.
+`buffer_size` | Optional | Integer | Specifies the size of the buffer. Default is `1024`.
+`reverse` | Optional | Boolean | Produces tokens in reverse order if set to `true`. Default is `false`.
+`skip` | Optional | Integer | Specifies the number of initial tokens (levels) to skip when tokenizing. Default is `0`.
 
 ## Example using custom parameter
 
