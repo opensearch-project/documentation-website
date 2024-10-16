@@ -11,10 +11,12 @@ The `length` token filter in OpenSearch is used to remove tokens from the token 
 
 ## Parameters
 
-The `length` token filter in OpenSearch can be configured with the following parameters:
+The `length` token filter in OpenSearch can be configured with the following parameters.
 
-- `min`: Minimum length of tokens that should be created. Default is `0` (Integer, _Optional_)
-- `max`: Maximum length of tokens that should be created. Default is `2147483647` (Integer, _Optional_)
+Parameter | Required/Optional | Data type | Description
+:--- | :--- | :--- | :--- 
+`min` | Optional | Integer | Minimum length of tokens that should be created. Default is `0`.
+`max` | Optional | Integer | Maximum length of tokens that should be created. Default is `2147483647`.
  
 
 ## Example
