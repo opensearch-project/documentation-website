@@ -11,11 +11,13 @@ The `edge_ngram` token filter generates n-grams (substrings) from the beginning 
 
 ## Parameters
 
-The `edge_ngram` token filter in OpenSearch can be configured with the following parameters:
+The `edge_ngram` token filter can be configured with the following parameters.
 
-- `min_gram`: The minimum length of the n-grams that will be generated. Default is `1` (Integer, _Optional_)
-- `max_gram`: The maximum length of the n-grams that will be generated. Default is `1`. Beware of setting this value too low, as any searches that exceed this value will not be found, as that token would not exist. For example if `max_gram` is set to `3` and the word "banana" is indexed, longest token that will be created is "ban". If the user searches for "banana", no matches will be found. You can use `truncate` token filter as search analyzer to mitigate this risk. (Integer, _Optional_)
-- `preserve_original`: Include the original token in the output. Default is `false` (Boolean, _Optional_)
+Parameter | Required/Optional | Data type | Description
+:--- | :--- | :--- | :--- 
+`min_gram` | Optional | Integer | The minimum length of the n-grams that will be generated. Default is `1`.
+`max_gram` | Optional | Integer | The maximum length of the n-grams that will be generated. Default is `1`. Beware of setting this value too low, as any searches that exceed this value will not be found, as that token would not exist. For example if `max_gram` is set to `3` and the word "banana" is indexed, longest token that will be created is "ban". If the user searches for "banana", no matches will be found. You can use `truncate` token filter as search analyzer to mitigate this risk.
+`preserve_original` | Optional | Boolean | Include the original token in the output. Default is `false` .
 
 ## Example
 
