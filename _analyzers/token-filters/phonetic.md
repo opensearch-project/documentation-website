@@ -21,25 +21,12 @@ Further details on how to install additional plugins are available at [Installin
 
 ## Parameters
 
-The `phonetic` token filter can be configured with the following parameters:
+The `phonetic` token filter can be configured with the following parameters.
 
-- `encoder`: Specifies the phonetic algorithm to use. (String, _Optional_) 
-    
-    Possible options are:
-    - metaphone (Default)
-    - double_metaphone
-    - soundex
-    - refined_soundex
-    - caverphone1
-    - caverphone2
-    - cologne
-    - nysiis
-    - koelnerphonetik
-    - haasephonetik
-    - beider_morse
-    - daitch_mokotoff
-    
-- `replace`: Replace the original token. If `false` will preserve original token along with the phonetic encoding. Default is `true`. (Boolean, _Optional_)
+Parameter | Required/Optional | Data type | Description
+:--- | :--- | :--- | :--- 
+`encoder` | Optional | String | Specifies the phonetic algorithm to use.<br><br>Possible options are:<br>- metaphone (Default)<br>- double_metaphone<br>- soundex<br>- refined_soundex<br>- caverphone1<br>- caverphone2<br>- cologne<br>- nysiis<br>- koelnerphonetik<br>- haasephonetik<br>- beider_morse<br>- daitch_mokotoff  
+`replace` | Optional | Boolean | Replace the original token. If `false` will preserve original token along with the phonetic encoding. Default is `true`.
 
 
 ## Example
