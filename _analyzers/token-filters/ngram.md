@@ -11,11 +11,13 @@ The `ngram` token filter is a powerful tool for breaking down text into smaller 
 
 ## Parameters
 
-The `ngram` token filter can be configured with the following parameters:
+The `ngram` token filter can be configured with the following parameters.
 
-- `min_gram`: The minimum length of the n-grams. Default is `1`. (Integer, _Optional_)
-- `max_gram`: The maximum length of the n-grams. Default is `2`. (Integer, _Optional_)
-- `preserve_original`: Keep the original token as one of the outputs. Default is `false`. (Boolean, _Optional_)
+Parameter | Required/Optional | Data type | Description
+:--- | :--- | :--- | :--- 
+`min_gram` | Optional | Integer | The minimum length of the n-grams. Default is `1`.
+`max_gram` | Optional | Integer | The maximum length of the n-grams. Default is `2`.
+`preserve_original` | Optional | Boolean | Keep the original token as one of the outputs. Default is `false`.
 
 ## Example
 
