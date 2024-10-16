@@ -11,10 +11,12 @@ The `multiplexer` token filter allows you to create multiple versions of the sam
 
 ## Parameters
 
-The `multiplexer` token filter can be configured with the following parameters:
+The `multiplexer` token filter can be configured with the following parameters.
 
-- `filters`: A comma separated list of token filters to apply to each copy of the token stream. Default is empty list. (List of strings, _Optional_)
-- `preserve_original`: Keep the original token as one of the outputs. Default is `true`. (Boolean, _Optional_)
+Parameter | Required/Optional | Data type | Description
+:--- | :--- | :--- | :--- 
+`filters` | Optional | List of strings | A comma separated list of token filters to apply to each copy of the token stream. Default is empty list.
+`preserve_original` | Optional | Boolean | Keep the original token as one of the outputs. Default is `true`.
 
 ## Example
 
