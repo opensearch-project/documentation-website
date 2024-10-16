@@ -11,12 +11,14 @@ The `keyword_marker` token filter in OpenSearch is used to prevent certain token
 
 ## Parameters
 
-The `keyword_marker` token filter in OpenSearch can be configured with the following parameters:
+The `keyword_marker` token filter in OpenSearch can be configured with the following parameters.
 
-- `ignore_case`: Ignore the letter case when matching keywords. Default is `false.` (Boolean, _Optional_)
-- `keywords`: List of strings used to match tokens. (List of strings, _Required_ if `keywords_path` or `keywords_pattern` is not set)
-- `keywords_path`: Path (relative to `config` directory or absolute) to list of strings. (String, _Required_ if `keywords` or `keywords_pattern` is not set)
-- `keywords_pattern`: [Regular expression](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html) used for matching tokens. (String, _Required_ if `keywords` or `keywords_path` is not set)
+Parameter | Required/Optional | Data type | Description
+:--- | :--- | :--- | :--- 
+`ignore_case` | Optional | Boolean | Ignore the letter case when matching keywords. Default is `false.`
+`keywords` | Required if `keywords_path` or `keywords_pattern` is not set | List of strings | List of strings used to match tokens.
+`keywords_path` | Required if `keywords` or `keywords_pattern` is not set | String | Path (relative to `config` directory or absolute) to list of strings.
+`keywords_pattern` | Required if `keywords` or `keywords_path` is not set | String | [Regular expression](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html) used for matching tokens.
  
 
 ## Example
