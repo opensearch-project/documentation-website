@@ -30,7 +30,7 @@ plugins.security.audit.type: <debug|internal_opensearch|internal_opensearch_data
 `internal_opensearch_data_stream`, `external_opensearch`, `webhook`, and `log4j` all have additional configuration options. Details follow.
 
 
-## Internal Opensearch Data Stream
+## Internal OpenSearch data streams
 
 The type `internal_opensearch_data_stream` have some additional configuration paramters.
 
