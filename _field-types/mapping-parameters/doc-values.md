@@ -10,16 +10,14 @@ has_toc: false
 
 # Doc_values
 
-OpenSearch indexes most fields by default for searching. While the inverted index allows quick term-to-document lookups, doc values enable efficient document-to-term access for sorting, aggregations, and scripting. Doc values store field values in a column-oriented format, optimizing these operations
+OpenSearch indexes most fields by default for searching. While the inverted index allows quick term-to-document lookups, doc values enable efficient document-to-term access for sorting, aggregations, and scripting.
 
 The `doc_values` parameter accepts the following values:
 
 Parameter | Description
 :--- | :---
-`true` | Enables doc values for the field. This is the default for most field types that support doc values.
+`true` | Enables doc values for the field. This is the default for most field types that support doc values. Default is `true`.
 `false` | Disables doc values for the field.
-
-Doc values are enabled by default for the fields that support them. They are crucial for efficient sorting of query results, calculating aggregations, and accessing field values in scripts.
 
 ---
 
