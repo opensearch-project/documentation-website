@@ -11,11 +11,13 @@ The `keep_words` token filter is designed to include only certain words in the a
 
 ## Parameters
 
-The `keep_words` token filter in OpenSearch can be configured with the following parameters:
+The `keep_words` token filter in OpenSearch can be configured with the following parameters.
 
-- `keep_words`: List of words to be kept. (list of strings, _Required_ if `keep_words_path` is not configured)
-- `keep_words_path`: Path to a file containing list of words to be kept. (String, _Required_ if `keep_words` is not configured)
-- `keep_words_case`: Lowercase all words during comparison. Default is `false` (Boolean, _Optional_)
+Parameter | Required/Optional | Data type | Description
+:--- | :--- | :--- | :--- 
+`keep_words` |  Required if `keep_words_path` is not configured | List of strings | List of words to be kept.
+`keep_words_path` | Required if `keep_words` is not configured | String | Path to a file containing list of words to be kept.
+`keep_words_case` | Optional | Boolean | Lowercase all words during comparison. Default is `false`.
  
 
 ## Example
