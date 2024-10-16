@@ -11,10 +11,12 @@ The `stemmer_override` token filter allows you to define custom stemming rules t
 
 ## Parameters
 
-The `stemmer_override` token filter needs be configured with *one* of the following parameters:
+The `stemmer_override` token filter needs be configured with *one* of the following parameters.
 
-- `rules`: Defines the override rules directly in the settings.
-- `rules_path`: Specifies the file to use with custom rules/mappings. (Either absolute path or relative to config directory)
+Parameter | Data type | Description
+:--- | :--- | :--- 
+`rules` | String | Defines the override rules directly in the settings.
+`rules_path` | String | Specifies the file to use with custom rules/mappings. (Either absolute path or relative to config directory)
 
 ## Example
 
