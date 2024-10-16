@@ -7,14 +7,14 @@ nav_order: 180
 
 # Keep types token filter
 
-The `keep_types` token filter in OpenSearch is a type of token filter used in text analysis to control which token types are kept or discarded during analysis. Different tokenizers produce different token types, for example `word`, `<NUM>`, `<ALPHANUM>`.
+The `keep_types` token filter is a type of token filter used in text analysis to control which token types are kept or discarded during analysis. Different tokenizers produce different token types, for example `word`, `<NUM>`, `<ALPHANUM>`.
 
 `keyword`, `simple_pattern`, and `simple_pattern_split` tokenizers do not support `keep_types` token filter as these tokenizers do not support token type attributes.
 {: .note}
 
 ## Parameters
 
-The `keep_types` token filter in OpenSearch can be configured with the following parameters.
+The `keep_types` token filter can be configured with the following parameters.
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
