@@ -62,7 +62,7 @@ PUT /electronics/_doc/3?refresh
 
 3. Apply a `boolean` filter query to display only `smartphones` from `BrandA` using the following request:
 
-```
+```json
 GET /electronics/_search
 {
   "query": {
