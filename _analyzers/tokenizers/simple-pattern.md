@@ -81,5 +81,9 @@ The response contains the generated tokens:
 
 ## Configuration
 
-The `simple_pattern` tokenizer can be configured with parameter `pattern` which is used to split text into tokens. Default is empty string (` `). (String, _Optional_)
+The `simple_pattern` tokenizer can be configured with the following parameter.
+
+Parameter | Required/Optional | Data type | Description
+:--- | :--- | :--- | :--- 
+`pattern` | Optional | String | Pattern which is used to split text into tokens. Default is empty string (` `).
 
