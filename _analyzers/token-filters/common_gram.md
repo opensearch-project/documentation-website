@@ -7,7 +7,7 @@ nav_order: 60
 <!-- vale off -->
 # Common grams token filter
 <!-- vale on -->
-The `common_grams` token filter in OpenSearch improves search relevance by keeping commonly occurring phrases (common grams) in the text. This is useful when dealing with languages or datasets where certain word combinations frequently occur as a unit and can impact the search relevance if treated as separate tokens. If any common words are present in the input string, this token filter generates both their unigrams and bigrams.
+The `common_grams` token filter improves search relevance by keeping commonly occurring phrases (common grams) in the text. This is useful when dealing with languages or datasets in which certain word combinations frequently occur as a unit and can impact search relevance if treated as separate tokens. If any common words are present in the input string, this token filter generates both their unigrams and bigrams.
 
 Using this token filter improves search relevance by keeping common phrases intact. This can help in matching queries more accurately, particularly for frequent word combinations. It also improves search precision by reducing the number of irrelevant matches.
 
@@ -20,9 +20,9 @@ The `common_grams` token filter can be configured with the following parameters.
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
-`common_words` | Required | List of strings | A list of words that should be considered as words appearing together. These words will be used to generate common grams. If the `common_words` parameter is an empty list, the `common_grams` token filter becomes a no-op filter, meaning it doesn't modify the input tokens at all.
+`common_words` | Required | List of strings | A list of words that should be treated as words that commonly appear together. These words will be used to generate common grams. If the `common_words` parameter is an empty list, the `common_grams` token filter becomes a no-op filter, meaning that it doesn't modify the input tokens at all.
 `ignore_case` | Optional | Boolean |  Indicates whether the filter should ignore case differences when matching common words. Default is `false`.
-`query_mode` | Optional | Boolean | When set to `true`, the following rules are applied:<br>- Unigrams that are generated from `common_words` are not included in the output.<br>- Bigrams in which a non-common word is followed by common word are retained in the output.<br>- Unigrams of non-common words are excluded if they are immediately followed by a common word.<br>- If a non-common word appears at the end of the text and is preceded by a common word, its unigram is not included in the output.
+`query_mode` | Optional | Boolean | When set to `true`, the following rules are applied:<br>- Unigrams that are generated from `common_words` are not included in the output.<br>- Bigrams in which a non-common word is followed by a common word are retained in the output.<br>- Unigrams of non-common words are excluded if they are immediately followed by a common word.<br>- If a non-common word appears at the end of the text and is preceded by a common word, its unigram is not included in the output.
 
 
 ## Example
