@@ -11,12 +11,14 @@ The `min_hash` token filter is used to generate hashes for tokens based on a [Mi
 
 ## Parameters
 
-The `min_hash` token filter can be configured with the following parameter:
+The `min_hash` token filter can be configured with the following parameter.
 
-- `hash_count`: The number of hash values to generate for each token. Increasing this value generally improves the accuracy of similarity estimation but also increases the computational cost. Default: `1`. (Integer, _Optional_)
-- `bucket_count`: The number of hash buckets to use. This affects the granularity of the hashing. A larger number of buckets provides finer granularity and reduces hash collisions but requires more memory. Default: `512`. (Integer, _Optional_)
-- `hash_set_size`: The number of hashes to retain in each bucket. This can influence the quality of the hashing. Larger set sizes may lead to better similarity detection but consume more memory. Default: `1`. (Integer, _Optional_)
-- `with_rotation`: When set to `true`, the filter populates empty buckets with the value from the first non-empty bucket found to its circular right, provided that the `hash_set_size` is `1`. If the `bucket_count` argument exceeds `1`, this setting automatically defaults to `true`, otherwise, it defaults to `false`. (Boolean, _Optional_)
+Parameter | Required/Optional | Data type | Description
+:--- | :--- | :--- | :--- 
+`hash_count` | Optional | Integer | The number of hash values to generate for each token. Increasing this value generally improves the accuracy of similarity estimation but also increases the computational cost. Default: `1`.
+`bucket_count` | Optional | Integer | The number of hash buckets to use. This affects the granularity of the hashing. A larger number of buckets provides finer granularity and reduces hash collisions but requires more memory. Default: `512`.
+`hash_set_size` | Optional | Integer | The number of hashes to retain in each bucket. This can influence the quality of the hashing. Larger set sizes may lead to better similarity detection but consume more memory. Default: `1`.
+`with_rotation` | Optional | Boolean | When set to `true`, the filter populates empty buckets with the value from the first non-empty bucket found to its circular right, provided that the `hash_set_size` is `1`. If the `bucket_count` argument exceeds `1`, this setting automatically defaults to `true`, otherwise, it defaults to `false`.
 
 ## Example
 
