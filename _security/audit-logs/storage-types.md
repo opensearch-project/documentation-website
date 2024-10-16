@@ -38,7 +38,7 @@ You can configure the `internal_opensearch_data_stream` type with the following 
 
 Name | Data type | Description
 :--- | :--- | :---
-`plugins.security.audit.config.data_stream.name` | String | Name of the auditlog Data Stream. The Default is `opensearch-security-auditlog`.
+`plugins.security.audit.config.data_stream.name` | String | The name of the audit log data stream. Default is `opensearch-security-auditlog`.
 
 ### Template settings
 
