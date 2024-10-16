@@ -7,7 +7,7 @@ nav_order: 90
 
 # Delimited payload token filter
 
-The `delimited_payload` token filter in OpenSearch is used to parse and attach payloads (extra metadata) to tokens during the analysis process. This is particularly useful when you want to associate additional data (like weights, scores, or other numeric values) with tokens for use in scoring or custom query logic. The filter can handle different types of payloads, including integer, float, and strings. 
+The `delimited_payload` token filter is used to parse and attach payloads (extra metadata) to tokens during the analysis process. This is particularly useful when you want to associate additional data (like weights, scores, or other numeric values) with tokens for use in scoring or custom query logic. The filter can handle different types of payloads, including integer, float, and strings. 
 
 When analyzing text, `delimited_payload` token filter parses each token, extracts the payload, and attaches it to the token. This payload can later be used in queries to influence scoring, boosting, or other custom behaviors.
 
@@ -15,17 +15,12 @@ The payload is not returned in the query response by default, additional configu
 
 ## Parameters
 
-The `delimited_payload` token filter in OpenSearch has two _optional_ parameters:
+The `delimited_payload` token filter has two parameters.
 
-1. `encoding`: specifies the data type of the payload attached to the tokens. This determines how the payload data is stored and interpreted during analysis and querying. There are three valid values:
-
-    - `identity`: The payload is treated as a sequence of characters. For example: `"user|admin"` where "admin" is stored as a string.
-
-    - `float`: The payload is interpreted as a 32-bit floating-point number using IEEE 754 format. For example: `"car|2.5"` would store 2.5 as a floating-point number.
-
-    - `int`: The payload is interpreted as a 32-bit integer. For example: `"priority|1"` would store 1 as an integer.
-
-2. `delimiter`: specifies character used to separate the token from its payload in the input text. By default, this is set to the pipe character (`|`).
+Parameter | Required/Optional | Data type | Description
+:--- | :--- | :--- | :--- 
+`encoding` | Optional | String | Specifies the data type of the payload attached to the tokens. This determines how the payload data is stored and interpreted during analysis and querying.<br>There are three valid values:<br><br>- `identity`: The payload is treated as a sequence of characters. For example: `"user|admin"` where "admin" is stored as a string.<br>- `float`: The payload is interpreted as a 32-bit floating-point number using IEEE 754 format. For example: `"car|2.5"` would store 2.5 as a floating-point number.<br>- `int`: The payload is interpreted as a 32-bit integer. For example: `"priority|1"` would store 1 as an integer.
+`delimiter` | Optional | String | Specifies character used to separate the token from its payload in the input text. By default, this is set to the pipe character (`|`).
 
 ## Example without stored payload
 
