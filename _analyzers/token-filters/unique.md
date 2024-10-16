@@ -11,7 +11,11 @@ The `unique` token filter ensures that only unique tokens are kept during the an
 
 ## Parameters
 
-The `unique` token filter can be configured with `only_on_same_position` parameter. If set to `true`, this token filter will act as `remove_duplicates` token filter and will only remove tokens that are in the same position.
+The `unique` token filter can be configured with the following parameter.
+
+Parameter | Required/Optional | Data type | Description
+:--- | :--- | :--- | :--- 
+`only_on_same_position` | Optional | Boolean | If set to `true`, this token filter will act as `remove_duplicates` token filter and will only remove tokens that are in the same position. Default is `false`.
 
 ## Example
 
