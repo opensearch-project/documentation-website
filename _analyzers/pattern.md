@@ -10,13 +10,15 @@ The `pattern` analyzer allows you to define a custom analyzer that uses a regula
 
 ## Configuration
 
-The `pattern` analyzer can be configured using the following parameters:
+The `pattern` analyzer can be configured using the following parameters.
 
-- `pattern`: A [Java regular expression](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html) used to tokenize the input. Default is `\W+`. (String, _Optional_)
-- `flags`: [Java regex flags](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html#field.summary) that modify the behavior of the regular expression. (String, _Optional_)
-- `lowercase`: Convert tokens to lower case. Default is `true`. (Boolean, _Optional_)
-- `stopwords`: a custom list or predefined list of stop words. Default is `_none_`. (String or list of strings, _Optional_)
-- `stopwords_path`: Path (absolute or relative to config directory) to the list of stop words. (String, _Optional_)
+Parameter | Required/Optional | Data type | Description
+:--- | :--- | :--- | :--- 
+`pattern` | Optional | String | A [Java regular expression](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html) used to tokenize the input. Default is `\W+`.
+`flags` | Optional | String | [Java regex flags](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html#field.summary) that modify the behavior of the regular expression.
+`lowercase` | Optional | Boolean | Convert tokens to lower case. Default is `true`.
+`stopwords` | Optional | String or list of strings | Custom list or predefined list of stop words. Default is `_none_`.
+`stopwords_path` | Optional | String | Path (absolute or relative to config directory) to the list of stop words.
 
 
 ## Example configuration
