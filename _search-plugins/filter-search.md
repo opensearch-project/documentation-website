@@ -79,7 +79,7 @@ GET /electronics/_search
 
 ## Narrowing results using `post-filter` while preserving aggregation visibility
 
-Use `post_filter` to limit search hits while preserving all aggregation options. For example, if a shopper selects `BrandA`, results are filtered to show only `BrandA` products while maintaining visibility of all brand options in the aggregations, as shown in the following example request:
+Use `post_filter` to limit search hits while preserving all aggregation options. For example, if a shopper selects `BrandA`, results are filtered to show only `BrandA` products while maintaining the visibility of all brand options in the aggregations, as shown in the following example request:
 
 ```
 GET /electronics/_search
