@@ -78,7 +78,7 @@ The response contains a list of unhealthy shards:
 }]
 ```
 
-## Response fields
+## Response body fields
 
 The following table lists the response fields.
 

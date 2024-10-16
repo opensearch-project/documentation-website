@@ -48,7 +48,7 @@ The following is the syntax for the `ml-inference` search response processor:
 ```
 {% include copy-curl.html %}
 
-## Request fields
+## Request body fields
 
 The following table lists the required and optional parameters for the `ml-inference` search response processor.
 
@@ -294,7 +294,7 @@ The model generates embeddings in the `$.inference_results.*.output.*.data` fiel
 ]
 ```
 
-To configure an `ml_inference` search response processor with a local model, specify the `function_name` explicitly. In this example, the `function_name` is `text_embedding`. For information about valid `function_name` values, see [Request fields](#request-fields).
+To configure an `ml_inference` search response processor with a local model, specify the `function_name` explicitly. In this example, the `function_name` is `text_embedding`. For information about valid `function_name` values, see [Request fields](#request-body-fields).
 
 The following is the final configuration of the `ml_inference` search response processor with the local model:
 

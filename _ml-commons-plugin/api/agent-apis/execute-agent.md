@@ -18,7 +18,7 @@ When an agent is executed, it runs the tools with which it is configured.
 POST /_plugins/_ml/agents/<agent_id>/_execute
 ```
 
-## Request fields
+## Request body fields
 
 The following table lists the available request fields.
 
