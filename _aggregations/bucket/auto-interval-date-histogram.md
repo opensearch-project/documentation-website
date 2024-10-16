@@ -33,16 +33,9 @@ GET /sample-index/_search
 ```
 {% include copy-curl.html %}
 
-The accepted units for the minimum_interval parameter are as follows:
+The accepted units for the `minimum_interval` parameter are `year`, `month`, `day`, `hour`, `minute`, and `second`.
 
-- year
-- month
-- day
-- hour
-- minute
-- second
-
-The `auto_date_histogram` aggregation will not try to use an interval shorter than the one specified in the `minimum_interval` parameter.
+The `auto_date_histogram` aggregation does not try to use an interval shorter than the one specified in the `minimum_interval` parameter.
 
 The following example response shows that the `auto_date_histogram` aggregation has generated a set of date-based buckets for the data in the `sample-index` index. The response shows two buckets, each representing a single day.
 
