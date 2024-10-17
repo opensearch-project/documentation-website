@@ -9,16 +9,16 @@ has_toc: false
 
 # Character group tokenizer
 
-The character group tokenizer is designed to segment text into tokens based on the presence of specific characters. This tokenizer is ideal for scenarios where a straightforward tokenization approach is required, avoiding the complexity and overhead associated with pattern-based tokenizers.
+The character group tokenizer is a simple text segmentation tool that splits text into tokens based on the presence of specific characters. This tokenizer is ideal for scenarios where a simple tokenization method is required, avoiding the complexity and overhead associated with pattern-based tokenizers.
 
 The character group tokenizer accepts the following parameters:
 
-1. `tokenize_on_chars`: Specifies a set of characters on which the text should be tokenized. When any character from this set is encountered, a new token is created. For example, single characters `(e.g., -, @)` and character classes such as `whitespace`, `letter`, `digit`, `punctuation`, and `symbol`.
-2. `max_token_length`: This parameter defines the maximum length allowed for a token. If a token exceeds this specified length, it will be split at intervals defined by `max_token_length`. The default value is `255`.
+1. `tokenize_on_chars`: Specifies a set of characters on which the text should be tokenized. The tokenizer creates a new token upon encountering any character from the specified set, for example, single characters `(e.g., -, @)` and character classes such as `whitespace`, `letter`, `digit`, `punctuation`, and `symbol`.
+2. `max_token_length`: Defines the token's maximum length. If the token exceeds the specified length, then the tokenizer splits a token at intervals defined by the parameter. Default is `255`.
 
-## Example of the character group tokenizer
+## Example: Using the character group tokenizer
 
-We can tokenize the on characters such as `whitespace`, `-` and `:`.
+To tokenize the on characters such as `whitespace`, `-` and `:`, see the following example request:
 
 ```json
 POST _analyze
@@ -36,7 +36,7 @@ POST _analyze
 ```
 {% include copy-curl.html %}
 
-By analyzing the text "Fast-cars: drive fast!", we can see the specified characters have been removed: 
+The following response shows that the specified characters have been removed: 
 
 ```
 Fast cars drive fast
