@@ -21,6 +21,11 @@ To create an index for disk-based vector search, send the following request:
 ```json
 PUT my-vector-index
 {
+  "settings" : {
+    "index": {
+      "knn": true
+    }
+  },
   "mappings": {
     "properties": {
       "my_vector_field": {
@@ -43,6 +48,11 @@ To reduce the compression level, provide the `compression_level` parameter when 
 ```json
 PUT my-vector-index
 {
+  "settings" : {
+    "index": {
+      "knn": true
+    }
+  },
   "mappings": {
     "properties": {
       "my_vector_field": {
@@ -67,6 +77,11 @@ If you need more granular fine-tuning, you can override additional k-NN paramete
 ```json
 PUT my-vector-index
 {
+  "settings" : {
+    "index": {
+      "knn": true
+    }
+  },
   "mappings": {
     "properties": {
       "my_vector_field": {
