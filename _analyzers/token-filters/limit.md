@@ -1,0 +1,89 @@
+---
+layout: default
+title: Limit
+parent: Token filters
+nav_order: 250
+---
+
+# Limit token filter
+
+The `limit` token filter in OpenSearch is used to limit the number of tokens that are passed through the analysis chain.
+
+## Parameters
+
+The `limit` token filter in OpenSearch can be configured with the following parameter.
+
+Parameter | Required/Optional | Data type | Description
+:--- | :--- | :--- | :--- 
+`max_token_count` | Optional | Integer | Maximum number of tokens to be generated. Default is `1`.
+`consume_all_tokens` | Optional | Boolean | (Expect level setting) Use all tokens from tokenizer, even if result exceeds `max_token_count`. The output will still only contain the number of tokens specified in `max_token_count`, however all of the token from tokenizer will be processed. Default is `false`.`
+
+## Example
+
+The following example request creates a new index named `my_index` and configures an analyzer with `limit` filter:
+
+```json
+PUT my_index
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "three_token_limit": {
+          "tokenizer": "standard",
+          "filter": [ "custom_token_limit" ]
+        }
+      },
+      "filter": {
+        "custom_token_limit": {
+          "type": "limit",
+          "max_token_count": 3
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+## Generated tokens
+
+Use the following request to examine the tokens generated using the analyzer:
+
+```json
+GET /my_index/_analyze
+{
+  "analyzer": "three_token_limit",
+  "text": "OpenSearch is a powerful and flexible search engine."
+}
+```
+{% include copy-curl.html %}
+
+The response contains the generated tokens:
+
+```json
+{
+  "tokens": [
+    {
+      "token": "OpenSearch",
+      "start_offset": 0,
+      "end_offset": 10,
+      "type": "<ALPHANUM>",
+      "position": 0
+    },
+    {
+      "token": "is",
+      "start_offset": 11,
+      "end_offset": 13,
+      "type": "<ALPHANUM>",
+      "position": 1
+    },
+    {
+      "token": "a",
+      "start_offset": 14,
+      "end_offset": 15,
+      "type": "<ALPHANUM>",
+      "position": 2
+    }
+  ]
+}
+```
