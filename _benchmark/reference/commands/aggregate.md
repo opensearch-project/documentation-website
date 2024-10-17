@@ -13,11 +13,11 @@ redirect_from:
 The `aggregate` command combines multiple test executions into a single aggregated result, providing a more streamlined way to conduct and analyze multiple test runs. There are two methods of aggregation:
 
 - [Auto-aggregation](#auto-aggregation)
-- [Manual aggregation(#manual-aggregation)
+- [Manual aggregation](#manual-aggregation)
 
 ## Auto-aggregation
 
-Auto-aggregation runs multiple iterations of benchmark tests and automatically aggregate the results, all within a single command. You can use the flags outlined in this with the `execute` command.
+The auto-aggregation method runs multiple iterations of benchmark tests and automatically aggregates the results, all within a single command. You can use the flags outlined in this with the `execute` command.
 
 ### Usage
 
@@ -30,16 +30,16 @@ opensearch-benchmark execute --test-iterations=2 --aggregate=true --workload=geo
 
 ### Auto-aggregation flags
 
-The following new flags can be used to customized auto-aggregation:
+The following new flags can be used to customize the auto-aggregation method:
 
-- `--test-iterations`: Specifies the number of times to run the workload (default: 1).
-- `--aggregate`: Determines whether to aggregate the results of multiple test executions (default: true).
-- `--sleep-timer`: Specifies the number of seconds to sleep before starting the next test execution (default: 5).
-- `--cancel-on-error`: When set, stops executing tests if an error occurs in one of the test iterations (default: false).
+- `--test-iterations`: Specifies the number of times to run the workload (default is `1`).
+- `--aggregate`: Determines whether to aggregate the results of multiple test executions (default is `true`).
+- `--sleep-timer`: Specifies the number of seconds to sleep before starting the next test execution (default is `5`).
+- `--cancel-on-error`: When set, stops executing tests if an error occurs in one of the test iterations (default is `false`).
 
 ## Manual aggregation
 
-Use the `aggregate` command to manually aggregate results from multiple test executions:
+You can use the `aggregate` command to manually aggregate results from multiple test executions.
 
 ### Usage
 
@@ -52,7 +52,7 @@ opensearch-benchmark aggregate --test-executions=<test_execution_id1>,<test_exec
 
 ### Response
 
-OpenSearch Benchmark responds with the following results:
+OpenSearch Benchmark responds with the following:
 
 ```
    ____                  _____                      __       ____                  __                         __
@@ -69,11 +69,11 @@ Aggregate test execution ID:  aggregate_results_geonames_9aafcfb8-d3b7-4583-864e
 -------------------------------
 ```
 
-The results will be aggregated into one test execution and stored under the ID shown in the output.
+The results will be aggregated into one test execution and stored under the ID shown in the output:
 
 
 
 - `--test-execution-id`: Define a unique ID for the aggregated test execution.
 - `--results-file`: Write the aggregated results to the provided file.
-- `--workload-repository`: Define the repository from where OpenSearch Benchmark will load workloads (default: default).
+- `--workload-repository`: Define the repository from which OpenSearch Benchmark will load workloads (default is `default`).
 
