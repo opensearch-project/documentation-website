@@ -9,7 +9,7 @@ nav_order: 50
 
 Use the `neural` query for vector field search in [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/). 
 
-## Request fields
+## Request body fields
 
 Include the following request fields in the `neural` query:
 

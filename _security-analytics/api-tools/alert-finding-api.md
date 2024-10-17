@@ -71,7 +71,7 @@ GET /_plugins/_security_analytics/alerts?detectorType=windows
 }
 ```
 
-#### Response fields
+#### Response body fields
 
 Alerts persist until you resolve the root cause and have the following states:
 
