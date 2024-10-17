@@ -55,13 +55,9 @@ For this simple setup, you'll use an OpenSearch-provided machine learning (ML) m
 PUT _cluster/settings
 {
   "persistent": {
-    "plugins": {
-      "ml_commons": {
-        "only_run_on_ml_node": "false",
-        "model_access_control_enabled": "true",
-        "native_memory_threshold": "99"
-      }
-    }
+    "plugins.ml_commons.only_run_on_ml_node": "false",
+    "plugins.ml_commons.model_access_control_enabled": "true",
+    "plugins.ml_commons.native_memory_threshold": "99"
   }
 }
 ```
