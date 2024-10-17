@@ -43,7 +43,7 @@ You can use the `aggregate` command to manually aggregate results from multiple 
 
 ### Usage
 
-To aggregate multiple test executions manually, you can use the aggregate command:
+To aggregate multiple test executions manually, specify the `test_execution_ids` you would like to aggregate, as shown in the following example:
 
 ```bash
 opensearch-benchmark aggregate --test-executions=<test_execution_id1>,<test_execution_id2>,...
@@ -70,8 +70,6 @@ Aggregate test execution ID:  aggregate_results_geonames_9aafcfb8-d3b7-4583-864e
 ```
 
 The results will be aggregated into one test execution and stored under the ID shown in the output:
-
-
 
 - `--test-execution-id`: Define a unique ID for the aggregated test execution.
 - `--results-file`: Write the aggregated results to the provided file.
