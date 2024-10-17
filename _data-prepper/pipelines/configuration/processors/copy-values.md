@@ -19,16 +19,17 @@ You can configure the `copy_values` processor with the following options.
 | `entries` | Yes | [entry](#entry) | A list of entries to be copied in an event. See [entry](#entry) for details. |
 | `from_list` | No | String | The key of the list of objects to be copied. |
 | `to_list` | No | String | The key of the new list to be added. |
-| `overwrite_if_to_list_exists` | No | Boolean | When set to `true`, the existing value is overwritten if the `key` specified by `to_list` already exists in the event. The default value is `false`. |
+| `overwrite_if_to_list_exists` | No | Boolean | When set to `true`, the existing value is overwritten if the `key` specified by `to_list` already exists in the event. Default is `false`. |
 
 ## entry
+
 For each entry, you can configure the following options.
 
 | Option | Required | Type | Description |
 :--- | :--- | :--- | :---
 | `from_key` | Yes | String | The key of the entry to be copied. |
 | `to_key` | Yes | String | The key of the new entry to be added. |
-| `overwrite_if_to_key_exists` | No | Boolean | When set to `true`, the existing value is overwritten if `key` already exists in the event. The default value is `false`. |
+| `overwrite_if_to_key_exists` | No | Boolean | When set to `true`, the existing value is overwritten if `key` already exists in the event. Default is `false`. |
 
 
 ## Usage
@@ -58,7 +59,7 @@ When the input event contains the following data:
 {"message1": "hello", "message2": "bye"}
 ```
 
-The processor will copy "message1" to "message3" but not to "message2" because "message2" already exists. The processed event will contain the following data:
+The processor copies "message1" to "message3" but not to "message2" because "message2" already exists. The processed event contains the following data:
 
 ```json
 {"message1": "hello", "message2": "bye", "message3": "hello"}
@@ -88,7 +89,7 @@ When the input event contains the following data:
 {"message1": "hello", "message2": "bye"}
 ```
 
-The processor will copy "message1" to both "message2" and "message3", overwriting the existing value in "message2". The processed event will contain the following data:
+The processor copies "message1" to both "message2" and "message3", overwriting the existing value in "message2". The processed event contains the following data:
 
 ```json
 {"message1": "hello", "message2": "hello", "message3": "hello"}
@@ -122,7 +123,7 @@ When the input event contains the following data:
 }
 ```
 
-The processed event will contain "newlist" with selectively copied fields:
+The processed event contains "newlist" with selectively copied fields:
 
 ```json
 {
