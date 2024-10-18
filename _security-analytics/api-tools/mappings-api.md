@@ -14,7 +14,7 @@ The following APIs can be used for a number of tasks related to mappings, from c
 
 This API returns a view of the fields contained in an index used as a log source.
 
-### Request fields
+### Request body fields
 
 The following fields are used to get field mappings.
 

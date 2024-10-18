@@ -18,15 +18,11 @@ The cat segments operation lists Lucene segment-level information for each index
 
 ## Path and HTTP methods
 
-```
+```json
 GET _cat/segments
 ```
 
-## URL parameters
-
-All CAT segments URL parameters are optional.
-
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
+## Query parameters
 
 Parameter | Type | Description
 :--- | :--- | :---
@@ -35,21 +31,21 @@ cluster_manager_timeout | Time | The amount of time to wait for a connection to 
 
 ## Example requests
 
-```
+```json
 GET _cat/segments?v
 ```
 {% include copy-curl.html %}
 
 To see only the information about segments of a specific index, add the index name after your query.
 
-```
+```json
 GET _cat/segments/<index>?v
 ```
 {% include copy-curl.html %}
 
 If you want to get information for more than one index, separate the indexes with commas:
 
-```
+```json
 GET _cat/segments/index1,index2,index3
 ```
 {% include copy-curl.html %}
