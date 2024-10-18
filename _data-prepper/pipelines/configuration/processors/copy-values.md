@@ -34,7 +34,7 @@ For each entry, you can configure the following options.
 
 ## Usage
 
-The following examples show how the `copy_values` processor can be used in different cases.
+The following examples show you how to use the `copy_values` processor.
 
 ### Example: Copy values and skip existing fields
 
