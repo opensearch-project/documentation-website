@@ -17,7 +17,7 @@ You can configure the `copy_values` processor with the following options.
 | Option | Required | Type | Description |
 :--- | :--- | :--- | :---
 | `entries` | Yes | [entry](#entry) | A list of entries to be copied in an event. See [entry](#entry) for more information. |
-| `from_list` | No | String | The key of the list of objects to be copied. |
+| `from_list` | No | String | The key for the list of objects to be copied. |
 | `to_list` | No | String | The key of the new list to be added. |
 | `overwrite_if_to_list_exists` | No | Boolean | When set to `true`, the existing value is overwritten if the `key` specified by `to_list` already exists in the event. Default is `false`. |
 
