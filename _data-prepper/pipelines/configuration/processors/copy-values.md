@@ -123,7 +123,7 @@ When the input event contains the following data:
 }
 ```
 
-The processed event contains "newlist" with selectively copied fields:
+The processed event contains `newlist` with selectively copied fields:
 
 ```json
 {
