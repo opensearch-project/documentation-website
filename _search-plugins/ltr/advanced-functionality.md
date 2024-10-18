@@ -67,7 +67,9 @@ This adds the `titleSearch` feature to the next ordinal position within the `my_
 
 ## Derived features
 
-Derived features are those that build upon other features. These can be expressed as [Lucene expressions](http://lucene.apache.org/core/7_1_0/expressions/index.html?org/apache/lucene/expressions/js/package-summary.html), and are identified by the `"template_language": "derived_expression"`. Additionally, derived features can accept qury-time variables of type [`Number`](https://docs.oracle.com/javase/8/docs/api/java/lang/Number.html), as described in [Creating feature sets]({{site.url}}{{site.baseurl}}/search-plugins/ltr/working-with-features#creating-feature-sets).
+Derived features are those that build upon other features. These can be expressed as [Lucene expressions](http://lucene.apache.org/core/7_1_0/expressions/index.html?org/apache/lucene/expressions/js/package-summary.html), and are identified by the `"template_language": "derived_expression"`. 
+
+Additionally, derived features can accept query-time variables of type [`Number`](https://docs.oracle.com/javase/8/docs/api/java/lang/Number.html), as described in [Creating feature sets]({{site.url}}{{site.baseurl}}/search-plugins/ltr/working-with-features#creating-feature-sets).
 
 ### Script features
 
