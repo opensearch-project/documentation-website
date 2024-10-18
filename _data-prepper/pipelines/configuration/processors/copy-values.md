@@ -38,7 +38,7 @@ The following examples show you how to use the `copy_values` processor.
 
 ### Example: Copy values and skip existing fields
 
-The following example shows you how to configure the processor to copy values and not overwrite existing fields:
+The following example shows you how to configure the processor to copy values and skip existing fields:
 
 ```yaml
 ...
