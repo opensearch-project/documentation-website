@@ -8,11 +8,11 @@ has_children: false
 
 # Uploading trained models
 
-While training models occurs outside of the Learning to Rank plugin, you can use the plugin for [Logging feature scores]({{site.url}}{{site.baseurl}}/search-plugins/ltr/logging-features/). After you have trained a model, you can upload it to the plugin in the available serialization formats, such as RankLib and XGBoost, and others.
+While training models occurs outside of the Learning to Rank plugin, you can use the plugin for [Logging feature scores]({{site.url}}{{site.baseurl}}/search-plugins/ltr/logging-features/). After you have trained a model, you can upload it to the plugin in the available serialization formats, such as RankLib and XGBoost.
 
 ## RankLib model training
 
-The feature logging process generates a RankLib-comsumable judgment file. In the following judgment file, the query with ID 1 `rambo` includesthe logged features 1 (a title `TF*IDF`
+The feature logging process generates a RankLib-comsumable judgment file. In the following judgment file, the query with ID 1 `rambo` includes the logged features 1 (a title `TF*IDF`
 score) and 2 (a description `TF*IDF` score) for a set of documents:
 
 ```
@@ -47,11 +47,11 @@ RankLib outputs the model in its own serialization format. For example, a Lambda
                ...
 ```
 
-Within the RankLib model, each tree in the ensemble examines the value of features, makes decisions based on these feature values, and then outputs the relevance scores. The features are referred to by their ordinal position, starting from 1, which corresponds to 0th feature in the original feature set. RankLib does not use feature names during the model training.
+Within the RankLib model, each tree in the ensemble examines the value of features, makes decisions based on these feature values, and outputs the relevance scores. The features are referred to by their ordinal position, starting from 1, which corresponds to 0th feature in the original feature set. RankLib does not use feature names during model training.
 
 ## XGBoost model training
 
-Unlike the RankLib model, the XGBoost model is serialized in a format specific to gradient-boosted decision trees, as shwon in the following example:
+Unlike the RankLib model, the XGBoost model is serialized in a format specific to gradient-boosted decision trees, as shown in the following example:
 
 ```json
     [  { "nodeid": 0, "depth": 0, "split": "tmdb_multi", "split_condition": 11.2009, "yes": 1, "no": 2, "missing": 1, "children": [
@@ -62,11 +62,11 @@ Unlike the RankLib model, the XGBoost model is serialized in a format specific t
 
 ## XGBoost parameters
 
-Optional parameters can be specified for an XGBoost model. These parameters are specified as an object, with the decision trees specified in the `splits` field. The currently supported parameters include `objective`, which defines the model learning objective as described in the [XGBoost documentation](https://xgboost.readthedocs.io/en/latest/parameter.html#learning-task-parameters). This parameter can transform the final model prediction. The supported values include `binary:logistic`, `binary:logitraw`, `rank:ndcg`, `rank:map`, `rank:pairwise`, `reg:linear`, and `reg:logistic`.
+Optional parameters can be specified for an XGBoost model. These parameters are specified as an object, with the decision trees specified in the `splits` field. The supported parameters include `objective`, which defines the model learning objective as described in the [XGBoost documentation](https://xgboost.readthedocs.io/en/latest/parameter.html#learning-task-parameters). This parameter can transform the final model prediction. The supported values include `binary:logistic`, `binary:logitraw`, `rank:ndcg`, `rank:map`, `rank:pairwise`, `reg:linear`, and `reg:logistic`.
 
-## Simple linear models                                                 |
+## Simple linear models
 
-Many machine learning models, such as Support Vector Machines (SVMs), output linear weights for each feature. The LTR model supports representing these linear weights in a simple format, such as those learned from an SVM or linear regression model. In the following example output, the weights indicate the relative importance of the features in the model's prediction:
+Machine learning models, such as Support Vector Machines (SVMs), output linear weights for each feature. The LTR model supports representing these linear weights in a simple format, such as those learned from an SVM or linear regression model. In the following example output, the weights indicate the relative importance of the features in the model's prediction:
 
 ```json
 {
@@ -78,15 +78,15 @@ Many machine learning models, such as Support Vector Machines (SVMs), output lin
 
 ## Feature normalization
 
-Feature normalization is used to transform feature values to a consistent range, typically between 0 and 1 or -1 to 1. This is done during the training phase to better understand the relative impact of each feature. Some models, especially linear ones such as SVMRank, rely on normalization to function correctly.
+Feature normalization is used to transform feature values to a consistent range, typically between 0 and 1 or -1 and 1. This is done during the training phase to better understand the relative impact of each feature. Some models, especially linear ones such as SVMRank, rely on normalization to function correctly.
 
 ## Model upload process
 
 After training your model, the next step is to make it available for search operations. This involves uploading the model to the Learning to Rank plugin. When uploading a model, you must provide the following information:
 
-- The feature set used during training 
-- The model type, for example, RankLib or XGBoost
-- The model's content
+- Feature set used during training 
+- Model type, for example, RankLib or XGBoost
+- Model content
 
 The following example request shows how to upload a RankLib model that was trained using the `more_movie_features` feature set:
 
@@ -180,13 +180,13 @@ The following example request shows how to upload a simple linear model that was
 
 Feature normalization is a crucial preprocessing step that can be applied before model evaluation. LTR supports two types of feature normalization: min-max and standard normalization.
 
-### Standard feature normalization
+### Standard normalization
 
-Standard normalization transforms features so that:
+Standard normalization transforms features as follows:
 
-- The mean value is mapped to 0
-- One standard deviation above the mean is mapped to 1
-- One standard deviation below the mean is mapped to -1
+- Maps the mean value to 0
+- Maps one standard deviation above the mean to 1
+- Maps one standard deviation below the mean to -1
 
 The following example request shows how to create a model with standard feature normalization:
 
@@ -217,13 +217,13 @@ The following example request shows how to create a model with standard feature 
     }
 ```
 
-In addition to standard normalization, LTR supports min-max normalization. This method scales features to a fixed range, typically between 0 and 1.
+### Min-max normalization 
 
-With min-max normalization:
+Min-max normalization scales features to a fixed range, typically between 0 and 1. Min-max normalization transforms features as follows:
 
-- The specified minimum value is mapped to 0
-- The specified maximum value is mapped to 1
-- Values in between are linearly scaled
+- Maps the specified minimum value to 0
+- Maps the specified maximum value to 1
+- Scales the values in between linearly
 
 The following example request shows how to implement min-max normalization:
 
@@ -240,7 +240,7 @@ The following example request shows how to implement min-max normalization:
 
 ## Model independence from feature sets
 
-While models are initially created with reference to a feature set, after creation, models exist as independent top-level entities. 
+Models are initially created with reference to a feature set. After their creation, they exist as independent top-level entities. 
 
 ### Accessing models
 
@@ -261,13 +261,11 @@ Model names must be globally unique across all feature sets.
 
 ### Model persistence
 
-When a model is created, the associated features are copied into the model. This ensures that modifications to the original feature set do not affect existing models or deletion of the original feature set does not impact models in production. 
-
-For example, if the feature set used to create the model is deleted, you can still access and use the model.
+When a model is created, its features are copied. This prevents changes to the original features from affecting existing models or model production. For example, if the feature set used to create the model is deleted, then you can still access and use the model.
 
 ### Model response
 
-When retrieving a model, you will receive a response that includes the features used to create it, as shown in the following example response:
+When retrieving a model, you receive a response that includes the features used to create it, as shown in the following example response:
 
 ```json
     {
