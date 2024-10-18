@@ -16,7 +16,7 @@ Lucene does not allow for negative query scores. This can be problematic if your
 
 ## Bugs
 
-If you've encountered a bug while working with the plugin, you can open an issue on the [open issues Github page](https://github.com/opensearch-project/opensearch-learning-to-rank-base/issues). The project team will do its best to investigate and resolve the issue. However, if you are seeking general support, the issue may be closed and you may be directed to the relevant support channels.
+If you encounter a bug while working with the plugin, you can open an issue on the [open issues Github page](https://github.com/opensearch-project/opensearch-learning-to-rank-base/issues). The project team regularly investigates and resolves issue. If you are seeking general support, the issue may be closed and you may be directed to the relevant support channels.
 
 ## Struggling with a problem
 
