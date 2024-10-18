@@ -74,10 +74,11 @@ Additionally, derived features can accept query-time variables of type [`Number`
 ### Script features
 
 Script features are a type of [derived feature](#derived-features). These features have access to the `feature_vector`, but they are implemented as native or Painless OpenSearch scripts, rather than [Lucene
-expressions](http://lucene.apache.org/core/7_1_0/expressions/index.html?org/apache/lucene/expressions/js/package-summary.html). To identify these features, set the `"template_language": "script_feature""`. The custom script can access the `feature_vector` through the [Java Map](https://docs.oracle.com/javase/8/docs/api/java/util/Map.html), as described in [Create a feature set]({{site.url}}{{site.baseurl}}/search-plugins/ltr/working-with-features#creating-feature-sets).
+expressions](http://lucene.apache.org/core/7_1_0/expressions/index.html?org/apache/lucene/expressions/js/package-summary.html). 
 
+To identify these features, set the `"template_language": "script_feature""`. The custom script can access the `feature_vector` through the [Java Map](https://docs.oracle.com/javase/8/docs/api/java/util/Map.html), as described in [Create a feature set]({{site.url}}{{site.baseurl}}/search-plugins/ltr/working-with-features#creating-feature-sets).
 
-Script-based features may impact the performance of your Elasticsearch cluster, so it is best to avoid them if you require highly performant queries.
+Script-based features may impact the performance of your OpenSearch cluster, so it is best to avoid them if you require highly performant queries.
 {: .warning}
 
 ### Script features parameters
@@ -134,7 +135,7 @@ POST _ltr/_featureset/more_movie_features
 
 ## Multiple feature stores
 
-A feature store corresponds to an independent LTR system, including features, feature sets, and models backed by a single index and cache. A feature store typically represents a single search problem or application, like Wikipedia or Wiktionary. To use multiple feature stores in your OpenSearch cluster you can create and manage them using the provided API, such as creating a feature set for the `wikipedia` feature store:
+A feature store corresponds to an independent LTR system, including features, feature sets, and models backed by a single index and cache. A feature store typically represents a single search problem or application, like Wikipedia or Wiktionary. To use multiple feature stores in your OpenSearch cluster, you can create and manage them using the provided API. For example, you can create a feature set for the `wikipedia` feature store as follows:
 
 ```json
 PUT _ltr/wikipedia
@@ -161,7 +162,7 @@ POST _ltr/wikipedia/_featureset/attempt_1
 ```
 {% include copy-curl.html %}
 
-When logging features, you can specify the feature store using the `store` parameter in the `sltr` part of your query, as shown in the following example structure. If you do not provide a `store` parameter, the default store will be used to look up the feature set.
+When logging features, you can specify the feature store using the `store` parameter in the `sltr` part of your query, as shown in the following example structure. If you do not provide a `store` parameter, the default store is used to look up the feature set:
 
 ```json
 {
@@ -188,7 +189,10 @@ DELETE _ltr/wikipedia/_featureset/attempt_1
 
 The Model Caching plugin uses an internal cache for compiled models. To force the models to be recompiled, you can clear the cache for a feature store:
 
-    POST /_ltr/_clearcache
+```
+POST /_ltr/_clearcache
+```
+{% include copy-curl.html %}
 
 To get cluster-wide cache statistics for a specific store, use the following request:
 
@@ -208,9 +212,9 @@ You can control the characteristics of the internal cache using the following no
 
 ## Extra logging
 
-As described in [Logging features]({{site.url}}{{site.baseurl}}/search-plugins/ltr/logging-features/),you can use the logging extension to return feature values with each document. For native scripts, you can also return additional arbitrary information along with the logged features. 
+As described in [Logging features]({{site.url}}{{site.baseurl}}/search-plugins/ltr/logging-features/), you can use the logging extension to return feature values with each document. For native scripts, you can also return additional arbitrary information along with the logged features. 
 
-For native scripts, the `extra_logging` parameter is injected into the script parameters. This parameter is a [`Supplier<Map<String,Object>>`](https://docs.oracle.com/javase/8/docs/api/java/util/function/Supplier.html), which provides a non-null `Map<String,Object>` only during the logging fetch phase. Any values you add to this map will be returned alongside the logged features:
+For native scripts, the `extra_logging` parameter is injected into the script parameters. This parameter is a [`Supplier<Map<String,Object>>`](https://docs.oracle.com/javase/8/docs/api/java/util/function/Supplier.html), which provides a non-null `Map<String,Object>` only during the logging fetch phase. Any values you add to this map are returned alongside the logged features:
 
 ```java
 {
@@ -228,7 +232,7 @@ For native scripts, the `extra_logging` parameter is injected into the script pa
 ```
 {% include copy-curl.html %}
 
-If the extra logging map is accessed, it will be returned as an additional entry with the logged features. The format of the logged features, including the extra logging information, would look like the following example:
+If the extra logging map is accessed, it is returned as an additional entry with the logged features. The format of the logged features, including the extra logging information, would look like the following example:
 
 ```json
   {
@@ -259,7 +263,7 @@ If the extra logging map is accessed, it will be returned as an additional entry
 
 ## Feature score caching
 
-By default, the Feature Score Caching plugin calculates feature scores for both model inference and feature score logging. For example, if you write a query to rescore top 100 documents and return top 10 with feature scores, then the plugin will calculate the feature scores on the 100 documents for model inference, and then will calculate and log the scores for the top 10 documents.
+By default, the Feature Score Caching plugin calculates feature scores for both model inference and feature score logging. For example, if you write a query to rescore top 100 documents and return top 10 with feature scores, then the plugin calculates the feature scores on the top 100 documents for model inference and then calculates and logs the scores for the top 10 documents.
 
 The following query shows this behavior: 
 
@@ -297,7 +301,7 @@ POST tmdb/_search
 ```
 {% include copy-curl.html %}
 
-In some environments, it may be faster to cache the feature scores for model inference and reuse them for logging. To enable this feature score caching, add the `cache: "true"`
+In some environments, it may be faster to cache the feature scores for model inference and reuse them for logging. To enable feature score caching, add the `cache: "true"`
 flag to the `sltr` query that is the target of feature score logging, as shown in the following example:
 
 ```json
@@ -315,14 +319,14 @@ flag to the `sltr` query that is the target of feature score logging, as shown i
 
 ## Stats
 
-You can use the Stats API to retrieve the overall status and statistics of the plugin. To do this, send the following request:
+You can use the Stats API to retrieve the plugin's overall status and statistics. To do this, send the following request:
 
 ```
 GET /_ltr/_stats
 ```
 {% include copy-curl.html %}
 
-The response will include information about the cluster, the configured stores, and the cache statistics for various components of the plugin:
+The response includes information about the cluster, configured stores, and cache statistics for various plugin components:
 
 ```json
 {
@@ -391,9 +395,9 @@ GET /_ltr/_stats/{stat}/nodes/{nodeId}
 Experimental
 {: .label .label-red }
 
-The TermStat query is experimental stage and the DSL may change as the code advances. For stable term-statistic access, see [ExplorerQuery]{.title-ref}.
+The TermStat query is in an experimental stage and the Domain-Specific Language (DSL) may change as the code advances. For stable term-statistic access, see [ExplorerQuery]{.title-ref}.
 
-The `TermStatQuery` is a reimagined version of the legacy `ExplorerQuery`. It provides a clearer way to specify terms and offers more flexibility for experimentation. This query surfaces the same data as the [ExplorerQuery]{.title-ref}, but it allows you to specify a custom Lucene expression to retrieve the desired data, such as the following example:
+The `TermStatQuery` is a reimagined version of the legacy `ExplorerQuery`. It provides a clearer way to specify terms and offers more flexibility for experimentation. This query surfaces the same data as the [ExplorerQuery]{.title-ref}, but it allows you to specify a custom Lucene expression to retrieve the desired data, such as in the following example:
 
 ```json
 POST tmdb/_search
@@ -410,8 +414,7 @@ POST tmdb/_search
 ```
 {% include copy-curl.html %}
 
-
-The `expr` parameter allows you to specify a Lucene expression to be run on a per-term basis. This expression can be a simple stat type or a custom formula with multiple stat types, such as `(tf * idf) / 2`. Available stat types in the Lucene expression context are listed in the following table.
+The `expr` parameter is used to specify a Lucene expression. This expression is run on a per-term basis. The expression can be a simple stat type or a custom formula with multiple stat types, such as `(tf * idf) / 2`. Available stat types in the Lucene expression context are listed in the following table.
 
 Type | Description
 :---| :---
@@ -419,9 +422,9 @@ Type | Description
 `idf` | The Inverse Document Frequency (IDF) calculation using the formula `log((NUM_DOCS+1)/(raw_df+1)) + 1`.
 `tf` | The term frequency for a document. For example, if `rambo` occurs three times in a movie synopsis in same document, then the value would be `3`.
 `tp` | The term positions for a document. Multiple positions can come back for a single term, you should review the behavior of the `pos_aggr` parameter.
-`ttf` | The total term frequency for the term across the index. For example, if `rambo` is mentioned a total of 100 times in the `overview` field across all documents, then this value would be `100`.
+`ttf` | The total term frequency for the term across the index. For example, if `rambo` is mentioned a total of 100 times in the `overview` field across all documents, then the value would be `100`.
 
-The `aggr` parameter specifies the type of aggregation you want to apply to the collected statistics from the `expr`. For example, if you specify the terms `rambo` and `rocky`, then the query will gather statistics for both of those terms. Since you can only return a single value, you need to decide which statistical calculation you want to use. The available aggregation types are `min`, `max`, `avg`, `sum`, and `stddev`. The query also provides the following counts: `matches` (the number of terms that matched in the current document) and `unique` (the unique number of terms that were passed in).
+The `aggr` parameter specifies the type of aggregation you want to apply to the collected statistics from the `expr`. For example, if you specify the terms `rambo` and `rocky`, then the query gathers statistics for both terms. Because you can only return a single value, you need to decide which statistical calculation to use. The available aggregation types are `min`, `max`, `avg`, `sum`, and `stddev`. The query also provides the following counts: `matches` (the number of terms that matched in the current document) and `unique` (the unique number of terms that were passed in the query).
 
 The `terms` parameter is an array of terms for which you want to gather statistics. Only single terms are supported, with no support for phrases or span queries. If your field is tokenized, you can pass multiple terms in one string in the array.
 
@@ -431,16 +434,16 @@ The optional parameters are listed in the following table.
 
 Type | Description
 :---| :---
-`analyzer` | If specified, this analyzer will be used instead of the configured `search_analyzer` for each field.
-`pos_aggr` | Since each term can have multiple positions, you can use this parameter to specify the aggregation to apply to the term positions. This supports the same values as the `aggr` parameter and defaults to AVG.
+`analyzer` | If specified, this analyzer is used instead of the configured `search_analyzer` for each field.
+`pos_aggr` | Since each term can have multiple positions, you can use this parameter to specify the aggregation to apply to the term positions. This supports the same values as the `aggr` parameter and defaults to `avg`.
 
 ### Script injection
 
-Script injection provides is the ability to inject term statistics into a scripting context. When working with `ScriptFeatures`, you can pass a `term_stat` object with the `terms`, `fields` and `analyzer` parameters. This allows you to access the raw values in your custom script through an injected variable named `termStats`. This enables advanced feature engineering by giving you access to all the underlying data.
+Script injection provides is the ability to inject term statistics into a scripting context. When working with `ScriptFeatures`, you can pass a `term_stat` object with the `terms`, `fields`, and `analyzer` parameters. An injected variable named `termStats` then provides access to the raw values in your custom script. This enables advanced feature engineering by giving you access to all the underlying data.
 
-To access the count of matched tokens, use [params.matchCount.get()]{.title-ref}, and to access the unique token count, use [params.uniqueTerms]{.title-ref}.
+To access the count of matched tokens, use [`params.matchCount.get`]{.title-ref}. To access the unique token count, use [`params.uniqueTerms`]{.title-ref}.
 
-You either can hardcode the `term_stat` parameter in your script definition or can pass them as parameters to be set at query time. For example, you can define a feature set with a script feature that uses hardcoded `term_stat` parameters, as show in the following example request:
+You either can hardcode the `term_stat` parameter in your script definition or can pass them as parameters to be set at query time. For example, the following example query defines a feature set with a script feature that uses hardcoded `term_stat` parameters:
 
 ```json
 POST _ltr/_featureset/test
