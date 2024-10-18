@@ -27,7 +27,7 @@ After you have trained a model, you can use the `sltr` query to execute it. Howe
 
 ## Rescoring top N
 
-To execute your model more efficiently, you can use the built-in [rescore functionality]((https://www.elastic.co/guide/en/OpenSearch/reference/current/search-request-rescore.html). This allows you to apply your model to the top N results of a baseline relevance query, for example, as shown in the following example query:
+To execute your model more efficiently, you can use the built-in rescore functionality to apply your model to the top N results of a baseline relevance query, as shown in the following example query:
 
 ```json
     POST tmdb/_search
@@ -54,11 +54,11 @@ To execute your model more efficiently, you can use the built-in [rescore functi
 ```
 {% include copy-curl.html %}
 
-In this example, a `match` is first executed for the term `rambo` and then `my_model` is applied to the top 1,000 results. This baseline query is used to generate an initial set of results, which are then scored using the OpenSearch default similarity (BM25).
+A `match` is first executed for the term `rambo` and then `my_model` is applied to the top 1,000 results. This baseline query is used to generate an initial set of results that are then scored using the default similarity BM-25, probabilistic ranking framework to calculate relevance scores.
 
 ## Rescoring on a subset of features
 
-You can selectively score a subset of features by specifying the `active_features` in the `sltr` query, as shown in the following example query. This allows you to focus the model's scoring on the selected features, while any unspecified features will be marked as missing. You only need to specify the `params` relevant to the `active_features`. If you request a feature name that is not a part of the feature set assigned, the query throws an error.
+You can selectively score a subset of features by specifying the `active_features` in the `sltr` query, as shown in the following example query. This allows you to focus the model's scoring on the selected features, while any unspecified features are marked as missing. You only need to specify the `params` relevant to the `active_features`. If you request a feature name that is not a part of the assigned feature set, then the query throws an error.
 
 ```json
     POST tmdb/_search
@@ -86,15 +86,15 @@ You can selectively score a subset of features by specifying the `active_feature
 ```
 {% include copy-curl.html %}
 
-In this example, the `my_model` model is applied, but only scores the `title_query` feature. 
+The `my_model` model is applied, but only scores the `title_query` feature. 
 
 ## Combining `sltr` with other OpenSearch features
 
-One of the key advantages of the `sltr` query provided by the Learning to Rank plugin is its ability to be integrated with other OpenSearch features and functionalities, such as the following. This allows you to create more sophisticated and tailored search solutions that go beyond applying a model to your results.
+The `sltr` query can be integrated with the following OpenSearch features and functionalities to create more sophisticated and tailored search solutions that go beyond applying a model to your results:
 
 -   Filtering out results based on business rules using OpenSearch filters before applying the model
 -   Chaining multiple rescores to refine the relevance of your results
--   Rescoring once for relevance with `sltr`, and a second time for business concerns
--   Downboosting "bad" but relevant content in the baseline query to force it out of the rescore window
+-   Rescoring once for relevance with `sltr` and a second time for business concerns
+-   Downboosting relevant but low-quality content in the baseline query to prevent it from being rescored
 
 Learn about [advanced functionality]({{site.url}}{{site.baseurl}}/search-plugins/ltr/advanced-functionality/).
