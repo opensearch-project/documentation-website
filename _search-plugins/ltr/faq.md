@@ -20,4 +20,4 @@ If you encounter a bug while working with the plugin, you can open an issue on t
 
 ## Struggling with a problem
 
-If you need further assistance, join the [Relevance Slack Community](https://opensourceconnections.com/slack) and participate in the #opensearch-learn-to-rank channel to receive guidance and support from the community..
+If you need further assistance, join the [Relevance Slack Community](https://opensourceconnections.com/slack) and participate in the #opensearch-learn-to-rank channel to receive guidance and support from the community.
