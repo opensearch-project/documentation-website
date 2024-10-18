@@ -39,7 +39,7 @@ POST tmdb/_search
 
 The query returns the highest document frequency between the terms `rambo ` and `rocky`. 
 
-You can use other operations such as `max`, `min`, `sum`, and `stddev` with the various statistics to get the information you need.
+You can use operations such as `max`, `min`, `sum`, and `stddev` with the statistics to get the information you need.
 
 ### Term position statistics
 
