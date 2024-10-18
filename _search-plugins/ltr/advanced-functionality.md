@@ -14,7 +14,7 @@ OpenSearch Learning to Rank (LTR) offers additional functionality. It is recomme
 
 [Building features]({{site.url}}{{site.baseurl}}/search-plugins/ltr/working-with-features/) involves uploading a list of features. To avoid repeating common features across multiple sets, you can maintain a library of reusable features.
 	
-For example, if a title field query is frequently used in your feature sets, you can create a reusable title query using the feature API:
+For example, if a title field query is frequently used in your feature sets, then you can create a reusable title query using the feature API:
 
 ```json
     POST _ltr/_feature/titleSearch
