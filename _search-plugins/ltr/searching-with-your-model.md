@@ -8,7 +8,7 @@ has_children: false
 
 # Optimizing search with LTR
 
-After you have trained a model, you can use the `sltr` query to execute it. However, directly running the query on the entire index is not recommended because it can be CPU-intensive and impact your OpenSearch cluster's performance. The query allows you to apply your trained model to search results, for example, as shown in the following example query:
+After you have trained a model, you can use the `sltr` query to execute it. However, directly running the query on the entire index is not recommended because it can be CPU-intensive and impact your OpenSearch cluster's performance. The query allows you to apply your trained model to search results, as shown in the following example query:
 
 ```json
     POST tmdb/_search
