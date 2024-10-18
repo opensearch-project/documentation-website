@@ -81,6 +81,17 @@ OpenSearch supports the following dynamic cluster-level index settings:
 
 - `cluster.default_number_of_replicas` (Integer): Controls the default number of replicas for indexes in the cluster. The index-level `index.number_of_replicas` setting defaults to this value if not configured. Default is `1`.
 
+- `cluster.thread_pool.<fixed-threadpool>.size` (Integer): Controls the size of fixed and resizable queue threadpool size. Overrides the defaults provided in yml.
+
+- `cluster.thread_pool.<scaling-threadpool>.max` (Integer): Controls the maximum size of  scaling threadpool. Overrides the defaults provided in yml.
+
+- `cluster.thread_pool.<scaling-threadpool>.core` (Integer): Controls the core size of  scaling threadpool. Overrides the defaults provided in yml.
+
+### Notes for dynamically tuning Thread Pool Settings
+
+These are expert level settings, which can potentially destabilize your cluster. It is not advised on heterogeneous clusters, as it will make threadpool count homogenous on all the nodes. It is not advised to tune threadpool which are used in both data node and cluster manager as well , due to the same reason. Post tuning these settings,
+We recommend monitoring the cluster to ensure it is stable and performing as expected.
+
 ## Index-level index settings
 
 You can specify index settings at index creation. There are two types of index settings:
