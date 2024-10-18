@@ -47,16 +47,16 @@ You can prepend the `type` with the desired operation (`min`, `max`, `avg`) to c
 
 The available statistics include the following:
 
-- `min_raw_tp` (minimum raw term position): This statistic finds the earliest position of any search term in the document. For example, with the query `dance monkey`, if `dance` occurs at positions [2, 5, 9] and `monkey` occurs at [1, 4], then the minimum is 1.                                     |
+- `min_raw_tp` (minimum raw term position): This statistic finds the earliest position of any search term in the document. For example, with the query `dance monkey`, if `dance` occurs at positions [2, 5, 9] and `monkey` occurs at [1, 4], then the minimum is 1.
 - `max_raw_tp` (maximum raw term position): This statistic finds the latest position of any search term in the document. For example, using the preceding example, the maximum is 9.
-- `avg_raw_tp` (average raw term position): This statistic calculates the average term position for any of the query terms. For example, using the preceding example, for `dance` the average is 5.33 [(2+5+9)/3)] and for `monkey` is 2.5 [(1+4)/2], so the overall average is 3.91.
+- `avg_raw_tp` (average raw term position): This statistic calculates the average term position for any of the query terms. For example, using the preceding example, the average for `dance` is 5.33 [(2+5+9)/3)] and for `monkey` is 2.5 [(1+4)/2], with an overall average of 3.91.
 - `unique_terms_count`: Provides a count of the unique search terms in the query.
 
 ## Document-specific features
 
-When working on an LTR solution, you may need to incorporate features that are specific to the document, rather than the relationship between the query and the document. These document-specific features can include metrics related to the popularity or recency. 
+When working on an LTR solution, you may need to incorporate features that are specific to the document, rather than the relationship between the query and the document. These document-specific features can include metrics related to popularity or recency. 
 
-The OpenSearch `function_score` query provides the functionality to extract these document-specific features. The following example query shows how you can use it to incorporate the `vote_average` field as a feature:
+The `function_score` query provides the functionality to extract these document-specific features. The following example query shows how you can use it to incorporate the `vote_average` field as a feature:
 
 ```json
 {
@@ -77,11 +77,11 @@ The OpenSearch `function_score` query provides the functionality to extract thes
 ```
 {% include copy-curl.html %}
 
-In this example, the score of the query will be determined by the value of the `vote_average` field, which could be a measure of popularity or quality for the document.
+In the example, the score of the query is determined by the value of the `vote_average` field, which could be a measure of popularity or quality for the document.
 
 ## Index drift
 
-When working with an index that is regularly updated, it is important to consider that the trends and patterns you observe may not remain constant over time. You index can drift as user behavior, content, and other factors change. For example, on an e-commerce store, you may find that sandals a popular during the summer months, but become almost impossible to find in the winter. Similarly, the features that drive purchases or engagement during one time period may not be as important in another. 
+When working with an index that is regularly updated, it is important to consider that the trends and patterns you observe may not remain constant over time. Your index can drift as user behavior, content, and other factors change. For example, on an e-commerce store, you may find that sandals are popular during summer months, but become almost impossible to find in the winter. Similarly, the features that drive purchases or engagement during one time period may not be as important in another. 
 
 ## Next steps
 
