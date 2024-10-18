@@ -8,7 +8,7 @@ has_children: false
 
 # Logging feature scores
 
-Feature values need to be logged to train a model. This is a crucial component of the Learning to Rank plugin: as you search, feature values from the feature sets are logged so they can be used for training. This allows models that effectively predict relevance using that set of features to be discovered.
+Feature values need to be logged to train a model. This is a crucial component of the Learning to Rank plugin---as you search, feature values from the feature sets are logged so they can be used for training. This allows models that effectively predict relevance using that set of features to be discovered.
 
 ## `sltr` query
 
