@@ -63,7 +63,7 @@ POST /_ltr/_featureset/my_featureset/_addfeatures/titleSearch
 ```
 {% include copy-curl.html %}
 
-This will add the `titleSearch` feature to the next ordinal position within the `my_featureset` feature set.
+This adds the `titleSearch` feature to the next ordinal position within the `my_featureset` feature set.
 
 ## Derived features
 
