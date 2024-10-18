@@ -29,7 +29,7 @@ For each entry, you can configure the following options.
 :--- | :--- | :--- | :---
 | `from_key` | Yes | String | The key of the entry to be copied. |
 | `to_key` | Yes | String | The key of the new entry to be added. |
-| `overwrite_if_to_key_exists` | No | Boolean | When set to `true`, the existing value is overwritten if `key` already exists in the event. Default is `false`. |
+| `overwrite_if_to_key_exists` | No | Boolean | When set to `true`, the existing value is overwritten if the `key` already exists in the event. Default is `false`. |
 
 
 ## Usage
