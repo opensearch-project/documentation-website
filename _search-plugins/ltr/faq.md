@@ -12,7 +12,7 @@ The following frequently asked questions (FAQS) are common issues you may encoun
 
 ## Negative scores
 
-Lucene does not allow for negative query scores. This can be problematic if your raw features include negative values. To address this, you will need to ensure your features are non-negative **before** training your model. You can achieve this by creating normalized fields with values shifted by the minimum value or by passing the scores through a function that produces a value greater than or equal to `0`.
+Lucene does not allow for negative query scores. This can be problematic if your raw features include negative values. To address this, confirm your features are non-negative _before_ training your model. You can achieve this by creating normalized fields with values shifted by the minimum value or by passing the scores through a function that produces a value greater than or equal to `0`.
 
 ## Bugs
 
