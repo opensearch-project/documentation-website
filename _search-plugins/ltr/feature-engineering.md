@@ -37,7 +37,7 @@ POST tmdb/_search
 ```
 {% include copy-curl.html %}
 
-This query returns the highest document frequency between the terms `rambo ` and `rocky`. 
+The query returns the highest document frequency between the terms `rambo ` and `rocky`. 
 
 You can use other operations such as `max`, `min`, `sum`, and `stddev` with the various statistics to get the information you need.
 
