@@ -43,7 +43,7 @@ You can use operations such as `max`, `min`, `sum`, and `stddev` with the statis
 
 ### Term position statistics
 
-You can prepend the `type` with the desired operation (`min`, `max`, `avg`) to calculate the corresponding statistic across the term positions. If the terms are note present in the document, then the result will be `0`. 
+You can prepend the `type` with the desired operation (`min`, `max`, `avg`) to calculate the corresponding statistic across the term positions. If the terms are not present in the document, then the result will be `0`. 
 
 The available statistics include the following:
 
