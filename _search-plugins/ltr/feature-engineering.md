@@ -8,7 +8,7 @@ has_children: false
 
 # Feature engineering
 
-The section guides you through some common feature engineering tasks that come up when developing a learning to rank (LTR) solution.
+Common feature engineering tasks that you may encounter while developing a learning to rank (LTR) solution are described in the following sections.
 
 ## Getting raw term statistics
 
