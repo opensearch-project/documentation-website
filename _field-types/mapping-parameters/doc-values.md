@@ -19,6 +19,8 @@ Parameter | Description
 `true` | Enables doc values for the field. Default is `true`.
 `false` | Disables doc values for the field.
 
+The `doc_values` parameter is not supported for text fields.
+
 ---
 
 ## Example: Creating an index with `doc_values` enabled and disabled
