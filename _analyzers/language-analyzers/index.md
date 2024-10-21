@@ -3,8 +3,9 @@ layout: default
 title: Language analyzers
 nav_order: 100
 parent: Analyzers
-redirect_from:
-  - /query-dsl/analyzers/language-analyzers/
+has_children: true
+has_toc: false
+
 ---
 
 # Language analyzers
