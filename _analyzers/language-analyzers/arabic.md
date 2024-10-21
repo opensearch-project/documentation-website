@@ -2,6 +2,7 @@
 layout: default
 title: Arabic
 parent: Language analyzers
+grand_parent: Analyzers
 nav_order: 10
 ---
 
