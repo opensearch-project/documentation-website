@@ -19,7 +19,7 @@ There are two parameters that need to be configured to use `condition` token fil
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
 `filter` | Required | String | Specifies which token filters should be applied to the tokens when the specified condition (defined by the script parameter) is met.
-`script` | Required | String | Configures an [inline script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/exec-script/) which defines the condition that needs to be met for the filters specified in the `filter` parameter to be applied. 
+`script` | Required | String | Configures an [inline script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/exec-script/) which defines the condition that needs to be met for the filters specified in the `filter` parameter to be applied. (Only inline scripts can be accepted).
 
 
 ## Example
