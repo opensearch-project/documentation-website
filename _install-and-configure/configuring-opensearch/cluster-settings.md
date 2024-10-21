@@ -149,3 +149,13 @@ OpenSearch supports the following cluster-level coordination settings. All setti
 - `cluster.fault_detection.leader_check.timeout` (Time unit): The amount of time a node waits for a response from the elected cluster manager during a leader check before deeming the check a failure. Valid values are from `1ms` to `60s`, inclusive. Default is `10s`. Changing this setting to a value other than the default can result in an unstable cluster.
 
 - `cluster.fault_detection.follower_check.timeout` (Time unit): The amount of time the elected cluster manager waits for a response during a follower check before deeming the check a failure. Valid values are from `1ms` to `60s`, inclusive. Default is `10s`. Changing this setting to a value other than the default can result in an unstable cluster.
+
+## Cluster-level cat response limit settings
+
+OpenSearch supports the following cluster-level cat API response limit settings. All settings in the list are dynamic:
+
+- `cat.indices.response.limit.number_of_indices` (Integer): Sets the response limit in _cat/indices API and limit will be applied on number of indices. Default is `-1`. In case of response limit is breached, _cat/indices API will throw error with `429` status.
+
+- `cat.shards.response.limit.number_of_shards` (Integer):  Sets the response limit in _cat/shards API and limit will be applied on number of shards. Default is `-1`. In case of response limit is breached, _cat/shards API will throw error with `429` status.
+
+- `cat.segments.response.limit.number_of_indices` (Integer): Sets the response limit in _cat/segments API and limit will be applied on number of indices. Default is `-1`.  In case of response limit is breached, _cat/segments API will throw error with `429` status.
