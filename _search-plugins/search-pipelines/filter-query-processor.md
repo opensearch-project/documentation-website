@@ -13,7 +13,7 @@ Introduced 2.8
 
 The `filter_query` search request processor intercepts a search request and applies an additional query to the request, filtering the results. This is useful when you don't want to rewrite existing queries in your application but need additional filtering of the results.
 
-## Request fields
+## Request body fields
 
 The following table lists all available request fields.
 

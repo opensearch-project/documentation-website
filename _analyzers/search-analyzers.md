@@ -2,6 +2,7 @@
 layout: default
 title: Search analyzers
 nav_order: 30
+parent: Analyzers
 ---
 
 # Search analyzers
@@ -42,7 +43,7 @@ GET shakespeare/_search
 ```
 {% include copy-curl.html %}
 
-Valid values for [built-in analyzers]({{site.url}}{{site.baseurl}}/analyzers/index#built-in-analyzers) are `standard`, `simple`, `whitespace`, `stop`, `keyword`, `pattern`, `fingerprint`, or any supported [language analyzer]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/).
+For more information about supported analyzers, see [Analyzers]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/index/).
 
 ## Specifying a search analyzer for a field
 
