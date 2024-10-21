@@ -12,7 +12,7 @@ You can use `kinesis` source in Data Prepper to ingest records from one or more 
 
 ## Usage
 
-The following example pipeline specifies Kinesis as a source. It ingests data from multiple Kinesis Data streams named `stream1` and `stream2`. It also indicates the `initial_position`, which tells the pipeline from where to start reading Kinesis stream records:
+The following example pipeline specifies Kinesis as a source. The pipeline ingests data from multiple Kinesis data streams named `stream1` and `stream2` and sets the `initial_position` to indicate the starting point for reading the stream records:
 
 ```yaml
 version: "2"
@@ -31,30 +31,29 @@ kinesis-pipeline:
 
 ## Configuration options
 
-The following configuration options are supported for the `kinesis` source.
+The `kinesis` source supports the following configuration options.
 
 Option | Required | Type     | Description
 :--- |:---------|:---------| :---
-`aws` | Yes      | AWS      | The AWS configuration. See [aws](#aws) for more information.
-`acknowledgments` | No       | Boolean  | When `true`, enables `kinesis` source to receive [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines#end-to-end-acknowledgments) when events are received by OpenSearch sinks.
-`streams` | Yes      | List     | Multiple Kinesis Data streams that Data Prepper `kinesis` source uses to read records. You can configure up to 4 streams. For more information about `streams` configuration options, see [Streams](#streams).
-`codec` | Yes      | Codec    | The [codec](#codec) to apply.
-`buffer_timeout` | No       | Duration | The amount of time allowed for writing events to the Data Prepper buffer before timeout occurs. Any events that the source cannot write to the buffer during the specified amount of time are discarded. Default is `1s`.
-`records_to_accumulate` | No       | Integer  | The number of messages that accumulate before being written to the buffer. Default is `100`.
-`consumer_strategy` | No       | String   | Consumer strategy to use for ingesting Kinesis data streams. Default is `fan-out`. However, `polling` can also be used. if `polling` is enabled, additional configuration for `polling` will need to be added.
-`polling` | No       | polling   | Refer to [polling](#polling).
-
+`aws` | Yes      | AWS      | Specifies the AWS configuration. See [`aws`](#aws).
+`acknowledgments` | No       | Boolean  | When set to `true`, enables the `kinesis` source to receive [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines#end-to-end-acknowledgments) when events are received by OpenSearch sinks.
+`streams` | Yes      | List     | Configures a list of multiple Kinesis data streams that the Data Prepper `kinesis` source uses to read records. You can configure up to four streams. See [Streams](#streams).
+`codec` | Yes      | Codec    | Specifies the [codec](#codec) to apply.
+`buffer_timeout` | No       | Duration | Sets the amount of time allowed for writing events to the Data Prepper buffer before timeout occurs. Any events that the source cannot write to the buffer during the specified amount of time are discarded. Default is `1s`.
+`records_to_accumulate` | No       | Integer  | Determines the number of messages that accumulate before being written to the buffer. Default is `100`.
+`consumer_strategy` | No       | String   | Selects the consumer strategy to use for ingesting Kinesis data streams. The default is `fan-out`, but `polling` can also be used. If `polling` is enabled, the additional configuration is required.
+`polling` | No       | polling   | See [polling](#polling).
 
 ### Streams
 
-Use the following options in the `streams` array.
+You can use the following options in the `streams` array.
 
 Option | Required | Type | Description
 :--- |:---------| :--- | :---
-`stream_name` | Yes      | String | The name of each Kinesis stream.
-`initial_position` | No       | String | The position from where `kinesis` source starts reading stream records. `LATEST` starts reading from the most recent stream record. `EARLIEST` starts reading from the begining of the stream. Default is `LATEST`.
-`checkpoint_interval` | No       | Duration | Periodically checkpoint Kinesis streams to avoid duplication of record processing. Default is `PT2M`.
-`compression` | No | String  | Specifies the compression format. To decompress records added by [CloudWatch subscription filter](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/SubscriptionFilters.html) to Kinesis, use the `gzip` compression format.
+`stream_name` | Yes      | String | Defines the name of each Kinesis stream.
+`initial_position` | No       | String | Sets the `initial_position` to determine where the `kinesis` source starts reading stream records. Use `LATEST` to start from the most recent record or `EARLIEST` to start from the beginning of the stream. Default is `LATEST`.
+`checkpoint_interval` | No       | Duration | Configure the `checkpoint_interval` to periodically checkpoint Kinesis streams and avoid duplication of record processing. Default is `PT2M`.
+`compression` | No | String  | Specifies the compression format. To decompress records added by the [CloudWatch subscription filter](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/SubscriptionFilters.html) to Kinesis, use the `gzip` compression format.
 
 ## codec
 
@@ -62,40 +61,43 @@ The `codec` determines how the `kinesis` source parses each Amazon Kinesis Recor
 
 ### `newline` codec
 
-The `newline` codec parses each single line as a single log event. This is ideal where each Kinesis stream record is processed as a single line. It also matches well when used with the [parse_json]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/parse-json/) processor to parse each line. 
+The newline codec parses each Kinesis stream record as a single log event, making it ideal for processing single-line records. It also works well with the [`parse_json` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/parse-json/) to parse each line.   
 
-Use the following options to configure the `newline` codec.
+You can use the following options to configure the `newline` codec.
 
 Option | Required | Type    | Description
 :--- | :--- |:--------| :---
-`skip_lines` | No | Integer | The number of lines to skip before creating events. You can use this configuration to skip common header rows. Default is `0`.
-`header_destination` | No | String  | A key value to assign to the header line of the stream event. If this option is specified, then each event will contain a `header_destination` field.
+`skip_lines` | No | Integer | Sets the number of lines to skip before creating events. You can use this configuration to skip common header rows. Default is `0`.
+`header_destination` | No | String  | Defines a key value to assign to the header line of the stream event. If this option is specified, then each event will contain a `header_destination` field.
 
 ### polling
+
+When the `consumer_strategy` is set to polling, the `kinesis` source uses a polling-based approach to read records from the Kinesis streams, instead of the default `fan-out` approach.
+
 Option | Required | Type    | Description
 :--- | :--- |:--------| :---
-`max_polling_records` | No | Integer | The number of records to fetch from Kinesis during a single call to get Kinesis stream records.
-`idle_time_between_reads` | No | Duration  | The time duration to sleep in between calls to get Kinesis stream records. 
+`max_polling_records` | No | Integer | Sets the number of records to fetch from Kinesis during a single call to get Kinesis stream records.
+`idle_time_between_reads` | No | Duration  | Defines the time duration to sleep in between calls to get Kinesis stream records. 
 
 ### aws
 
-Use the following options in the AWS configuration.
+You can use the following options in the `aws` configuration.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-`region` | No | String | The AWS Region to use for credentials. Defaults to [standard SDK behavior to determine the Region](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/region-selection.html).
-`sts_role_arn` | No | String | The AWS Security Token Service (AWS STS) role to assume for requests to Amazon Kinesis Data Streams (Amazon Kinesis) and Amazon DynamoDb (Amazon DynamoDb). Defaults to `null`, which will use the [standard SDK behavior for credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
-`aws_sts_header_overrides` | No | Map | A map of header overrides that the AWS Identity and Access Management (IAM) role assumes for the sink plugin.
+`region` | No | String | Sets the AWS Region to use for credentials. Defaults to [standard SDK behavior to determine the Region](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/region-selection.html).
+`sts_role_arn` | No | String | Defines the AWS Security Token Service (AWS STS) role to assume for requests to Amazon Kinesis Data Streams and Amazon DynamoDb. Defaults to `null`, which uses the [standard SDK behavior for credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
+`aws_sts_header_overrides` | No | Map | Defines a map of header overrides that the AWS Identity and Access Management (IAM) role assumes for the sink plugin.
 
 ## Exposed metadata attributes
 
-The following metadata will be added to each event that is processed by the `kinesis` source. These metadata attributes can be accessed using the [expression syntax `getMetadata` function]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/get-metadata/).
+The `kinesis` source adds the following metadata to each processed event. You can access the metadata attributes using the [expression syntax `getMetadata` function]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/get-metadata/).
 
-* `kinesis_stream_name`: The name of the Kinesis stream that an event came from.
+- `kinesis_stream_name`: Contains the name of the Kinesis stream that the event came from.
 
 ## Permissions
 
-The following are the minimum required permissions for running `kinesis` as a source:
+You need the following minimum required permissions to run `kinesis` as a source: 
 
 ```json
 {
@@ -141,7 +143,7 @@ The following are the minimum required permissions for running `kinesis` as a so
 }
 ```
 
-DynamoDb permissions are required as `kinesis` source in Data Prepper uses DynamoDb table for ingestion coordination among multiple workers.  
+The `kinesis` source in Data Prepper uses a DynamoDB table for ingestion coordination among multiple workers, so you need DynamoDB permissions.
 
 ## Metrics
 
@@ -149,10 +151,7 @@ The `kinesis` source includes the following metrics.
 
 ### Counters
 
-* `recordsProcessed`: The number of stream records processed from Kinesis streams.
-* `recordProcessingErrors`: The number of processing errors for stream records from Kinesis streams.
-* `acknowledgementSetSuccesses`: The total number stream records processed which were successfully added to sink. 
-* `acknowledgementSetFailures`: The total number stream records processed which failed to be added to sink.
-
-
-
+* `recordsProcessed`: Counts the number of stream records processed from Kinesis streams.
+* `recordProcessingErrors`: Counts the number of processing errors for stream records from Kinesis streams.
+* `acknowledgementSetSuccesses`: Tracks the total number stream records processed that were successfully added to sink. 
+* `acknowledgementSetFailures`: Tracks the total number stream records processed that failed to be added to sink.
