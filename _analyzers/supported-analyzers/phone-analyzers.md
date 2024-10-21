@@ -57,7 +57,7 @@ PUT /example-phone
   },
   "mappings": {
     "properties": {
-      "phoneNumber": {
+      "phone_number": {
         "type": "text",
         "analyzer": "phone-ch",
         "search_analyzer": "phone-search-ch"
@@ -110,7 +110,7 @@ GET /example-phone/_analyze
 
 ## The phone-search analyzer
 
-In contrast, the `phone-search` analyzer does not create n-grams and only issues some basic tokens. Thus, the following request:
+In contrast, the `phone-search` analyzer does not create n-grams and only issues some basic tokens. For example, send the following request and specify the `phone-search` analyzer:
 
 ```json
 GET /example-phone/_analyze
@@ -121,7 +121,7 @@ GET /example-phone/_analyze
 ```
 {% include copy-curl.html %}
 
-Is parsed into the following tokens:
+The response contains the following tokens:
 
 ```json
 ["+41 60 555 12 34", "41 60 555 12 34", "41605551234", "605551234", "41"]
