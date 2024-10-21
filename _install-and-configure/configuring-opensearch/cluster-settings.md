@@ -154,8 +154,8 @@ OpenSearch supports the following cluster-level coordination settings. All setti
 
 OpenSearch supports the following cluster-level cat API response limit settings. All settings in the list are dynamic:
 
-- `cat.indices.response.limit.number_of_indices` (Integer): Sets the response limit in _cat/indices API and limit will be applied on number of indices. Default is `-1`. In case of response limit is breached, _cat/indices API will throw error with `429` status.
+- `cat.indices.response.limit.number_of_indices` (Integer): Sets the response limit in _cat/indices API and limit will be applied on number of indices. Default is `-1`. In case of response limit is breached, _cat/indices API will throw error with `429` status. If limit is breached, use index pattern filter in your query. e.g. `_cat/indices/<index-pattern>`
 
-- `cat.shards.response.limit.number_of_shards` (Integer):  Sets the response limit in _cat/shards API and limit will be applied on number of shards. Default is `-1`. In case of response limit is breached, _cat/shards API will throw error with `429` status.
+- `cat.shards.response.limit.number_of_shards` (Integer):  Sets the response limit in _cat/shards API and limit will be applied on number of shards. Default is `-1`. In case of response limit is breached, _cat/shards API will throw error with `429` status. If limit is breached, use index pattern filter in your query. e.g. `_cat/shards/<index-pattern>`
 
-- `cat.segments.response.limit.number_of_indices` (Integer): Sets the response limit in _cat/segments API and limit will be applied on number of indices. Default is `-1`.  In case of response limit is breached, _cat/segments API will throw error with `429` status.
+- `cat.segments.response.limit.number_of_indices` (Integer): Sets the response limit in _cat/segments API and limit will be applied on number of indices. Default is `-1`.  In case of response limit is breached, _cat/segments API will throw error with `429` status. If limit is breached, use index pattern filter in your query. e.g. `_cat/segments/<index-pattern>`
