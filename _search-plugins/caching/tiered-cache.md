@@ -92,7 +92,7 @@ Setting | Data type | Default | Description
 `indices.requests.cache.tiered_spillover.disk.store.enabled` | Boolean | `True` | Enables or disables the disk cache dynamically within a tiered spillover cache. Note: After disabling a disk cache, entries are not removed automatically and requires the cache to be manually cleared. Optional.
 `indices.requests.cache.tiered_spillover.onheap.store.size` | Percentage | 1% of the heap size | Defines the size of the on-heap cache within tiered cache. Optional.
 `indices.requests.cache.tiered_spillover.disk.store.size` | Long | `1073741824` (1 GB) | Defines the size of the disk cache within tiered cache. Optional.
-`indices.requests.cache.tiered_spillover.segments` | Integer | 2 ^ (ceil(log2(CPU_CORES * 1.5))) | This determines the number of segments in the tiered cache, with each segment secured by a re-entrant read/write lock. These locks enable multiple concurrent readers without contention, while the segmentation allows multiple writers to operate simultaneously, resulting in higher write throughput. Optional.
+`indices.requests.cache.tiered_spillover.segments` | Integer | `2 ^ (ceil(log2(CPU_CORES * 1.5)))` | This determines the number of segments in the tiered cache, with each segment secured by a re-entrant read/write lock. These locks enable multiple concurrent readers without contention, while the segmentation allows multiple writers to operate simultaneously, resulting in higher write throughput. Optional.
 
 ### Delete stale entries settings
 
