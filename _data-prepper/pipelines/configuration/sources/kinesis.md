@@ -151,7 +151,7 @@ The `kinesis` source includes the following metrics.
 
 ### Counters
 
-* `recordsProcessed`: Counts the number of stream records processed from Kinesis streams.
+* `recordsProcessed`: Counts the number of processed stream records.
 * `recordProcessingErrors`: Counts the number of stream record processing errors.
 * `acknowledgementSetSuccesses`: Tracks the total number stream records processed that were successfully added to sink. 
 * `acknowledgementSetFailures`: Counts the number of processed stream records that failed to be added to the sink.
