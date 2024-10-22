@@ -8,7 +8,7 @@ nav_order: 12
 
 # Auto-interval date histogram
 
-Similar to the [date histogram aggregation]({{site.url}}{{site.baseurl}}/aggregations/bucket/date-histogram/), in which you must specify an interval, the `auto_date_histogram` is a multi-bucket aggregation that automatically creates date histogram buckets based on the number of buckets you provide and the time range of your data. The actual number of buckets returned is always less than or equal to the number of buckets you specified. This aggregation is particularly useful when you are working with time-series data and want to visualize or analyze data over different time intervals without specifying the interval size manually.
+Similar to the [date histogram aggregation]({{site.url}}{{site.baseurl}}/aggregations/bucket/date-histogram/), in which you must specify an interval, the `auto_date_histogram` is a multi-bucket aggregation that automatically creates date histogram buckets based on the number of buckets you provide and the time range of your data. The actual number of buckets returned is always less than or equal to the number of buckets you specify. This aggregation is particularly useful when you are working with time-series data and want to visualize or analyze data over different time intervals without manually specifying the interval size.
 
 ## Intervals
 
@@ -25,13 +25,13 @@ The following table lists the possible returned intervals for each time unit.
 | Months | Multiples of 1 and 3                         |
 | Years  | Multiples of 1, 5, 10, 20, 50, and 100        |
 
-If an aggregation returns too many buckets (for example, daily buckets), OpenSearch will automatically reduce the number of buckets to keep the result manageable. Instead of returning the exact number of requested daily buckets, it will reduce them by a factor of about 1/7. For example, if you ask for 70 buckets, but the data contains too many daily intervals, OpenSearch might return only 10 buckets, grouping the data into larger intervals (such as weeks) to avoid an overwhelming number of results. This helps optimize the aggregation and prevent excessive detail when too much data is available.
+If an aggregation returns too many buckets (for example, daily buckets), OpenSearch will automatically reduce the number of buckets to ensure a manageable result. Instead of returning the exact number of requested daily buckets, it will reduce them by a factor of about 1/7. For example, if you ask for 70 buckets but the data contains too many daily intervals, OpenSearch might return only 10 buckets, grouping the data into larger intervals (such as weeks) to avoid an overwhelming number of results. This helps optimize the aggregation and prevent excessive detail when too much data is available.
 
 ## Example
 
 In the following example, you'll search an index containing blog posts. 
 
-First, create a mapping for this index and specify the `date_posted` field as `date` type:
+First, create a mapping for this index and specify the `date_posted` field as the `date` type:
 
 ```json
 PUT blogs
@@ -105,7 +105,7 @@ GET /blogs/_search
 ```
 {% include copy-curl.html %}
 
-The response shows that the blog posts were aggregated into two buckets. The interval was automatically set to 1 year, with all three 2022 blog posts in one bucket and the 2023 blog post in another:
+The response shows that the blog posts were aggregated into two buckets. The interval was automatically set to 1 year, with all three 2022 blog posts collected in one bucket and the 2023 blog post in another:
 
 ```json
 {
@@ -147,7 +147,7 @@ The response shows that the blog posts were aggregated into two buckets. The int
 
 ## Returned buckets
 
-Each bucket of the aggregation contains the following information:
+Each bucket contains the following information:
 
 ```json
 {
@@ -157,7 +157,7 @@ Each bucket of the aggregation contains the following information:
 }
 ```
 
-In OpenSearch, dates are internally stored as 64-bit integers representing timestamps in milliseconds since the epoch. In the aggregation response, each bucket `key` is returned as such a timestamp. The `key_as_string` value shows the same timestamp, but formatted as a date string based on the [`format`](#date-format) parameter. The `doc_count` field contains the number of documents in the bucket.
+In OpenSearch, dates are internally stored as 64-bit integers representing timestamps in milliseconds since the epoch. In the aggregation response, each bucket `key` is returned as such a timestamp. The `key_as_string` value shows the same timestamp but formatted as a date string based on the [`format`](#date-format) parameter. The `doc_count` field contains the number of documents in the bucket.
 
 ## Parameters
 
@@ -167,8 +167,8 @@ Parameter | Data type | Description
 :--- | :--- | :--- 
 `field` | String | The field on which to aggregate. The field must contain the date or timestamp values. Either `field` or `script` is required.
 `buckets` | Integer | The desired number of buckets. The returned number of buckets is less than or equal to the desired number. Optional. Default is `10`.
-`minimum_interval` | String | The minimum interval to be used. Specifying a minimum interval can make the aggregation process more efficient. Valid values are `year`, `month`, `day`, `hour`, `minute`, `second`. Optional.
-`time_zone` | String | Indicates to use a different time zone other than the default (UTC) for bucketing and rounding. You can specify the `time_zone` parameter as a [UTC offset](https://en.wikipedia.org/wiki/UTC_offset), such as `-04:00`, or an [IANA time zone ID](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones), such as `America/New_York`. Optional. Default is `UTC`. For more information, see [Time zone](#time-zone).
+`minimum_interval` | String | The minimum interval to be used. Specifying a minimum interval can make the aggregation process more efficient. Valid values are `year`, `month`, `day`, `hour`, `minute`, and `second`. Optional.
+`time_zone` | String | Specifies to use a time zone other than the default (UTC) for bucketing and rounding. You can specify the `time_zone` parameter as a [UTC offset](https://en.wikipedia.org/wiki/UTC_offset), such as `-04:00`, or an [IANA time zone ID](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones), such as `America/New_York`. Optional. Default is `UTC`. For more information, see [Time zone](#time-zone).
 `format` | String | The format for returning dates representing bucket keys. Optional. Default is the format specified in the field mapping. For more information, see [Date format](#date-format).
 `script` | String | A document-level or value-level script for aggregating values into buckets. Either `field` or `script` is required.
 `missing` | String | Specifies how to handle documents in which the field value is missing. By default, such documents are ignored. If you specify a date value in the `missing` parameter, all documents in which the field value is missing are collected into the bucket with the specified date.
@@ -274,7 +274,7 @@ GET /blogs1/_search
 ```
 {% include copy-curl.html %}
 
-The response contains two 3-hour buckets, starting from midnight UTC on April 17, 2022:
+The response contains two 3-hour buckets, starting at midnight UTC on April 17, 2022:
 
 ```json
 {
@@ -314,7 +314,7 @@ The response contains two 3-hour buckets, starting from midnight UTC on April 17
 }
 ```
 
-Now, specify a `time_zone` of `-02:00` 
+Now, specify a `time_zone` of `-02:00`: 
 
 ```json
 GET /blogs1/_search
@@ -333,7 +333,7 @@ GET /blogs1/_search
 }
 ```
 
-The response contains two buckets in which the start time is shifted by two hours and starts with 23:00 on April 16, 2022:
+The response contains two buckets in which the start time is shifted by 2 hours and starts at 23:00 on April 16, 2022:
 
 ```json
 {
@@ -373,5 +373,5 @@ The response contains two buckets in which the start time is shifted by two hour
 }
 ```
 
-When using time zones with daylight saving time (DST) changes, the size of buckets near the transition may differ slightly from the size of neighboring buckets. 
+When using time zones with daylight saving time (DST) changes, the sizes of buckets that are near the transition may differ slightly from the sizes of neighboring buckets. 
 {: .note}
