@@ -150,12 +150,12 @@ OpenSearch supports the following cluster-level coordination settings. All setti
 
 - `cluster.fault_detection.follower_check.timeout` (Time unit): The amount of time the elected cluster manager waits for a response during a follower check before deeming the check a failure. Valid values are from `1ms` to `60s`, inclusive. Default is `10s`. Changing this setting to a value other than the default can result in an unstable cluster.
 
-## Cluster-level cat response limit settings
+## Cluster-level CAT response limit settings
 
-OpenSearch supports the following cluster-level cat API response limit settings. All settings in the list are dynamic:
+OpenSearch supports the following cluster-level CAT API response limit settings. All settings in the list are dynamic:
 
-- `cat.indices.response.limit.number_of_indices` (Integer): Sets the response limit in _cat/indices API and limit will be applied on number of indices. Default is `-1`. In case of response limit is breached, _cat/indices API will throw error with `429` status. If limit is breached, use index pattern filter in your query. e.g. `_cat/indices/<index-pattern>`
+- `cat.indices.response.limit.number_of_indices` (Integer): Sets a limit on the number of indexes returned by the [CAT Indices API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/). The default value is `-1` (no limit). If the number of indexes in the response exceeds this limit, the API returns a `429` error. To avoid this, you can specify an index pattern filter in your query (for example, `_cat/indices/<index-pattern>`).
 
-- `cat.shards.response.limit.number_of_shards` (Integer):  Sets the response limit in _cat/shards API and limit will be applied on number of shards. Default is `-1`. In case of response limit is breached, _cat/shards API will throw error with `429` status. If limit is breached, use index pattern filter in your query. e.g. `_cat/shards/<index-pattern>`
+- `cat.shards.response.limit.number_of_shards` (Integer):  Sets a limit on the number of shards returned by the [CAT Shards API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-shards/). The default value is `-1` (no limit). If the number of shards in the response exceeds this limit, the API returns a `429` error. To avoid this, you can specify an index pattern filter in your query (for example, `_cat/shards/<index-pattern>`).
 
-- `cat.segments.response.limit.number_of_indices` (Integer): Sets the response limit in _cat/segments API and limit will be applied on number of indices. Default is `-1`.  In case of response limit is breached, _cat/segments API will throw error with `429` status. If limit is breached, use index pattern filter in your query. e.g. `_cat/segments/<index-pattern>`
+- `cat.segments.response.limit.number_of_indices` (Integer): Sets a limit on the number of indexes returned by the [CAT Segments API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-segments/). The default value is `-1` (no limit). If the number of indexes in the response exceeds this limit, the API returns a `429` error. To avoid this, you can specify an index pattern filter in your query (for example, `_cat/segments/<index-pattern>`).
