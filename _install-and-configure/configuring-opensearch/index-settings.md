@@ -89,7 +89,7 @@ OpenSearch supports the following dynamic cluster-level index settings:
 
 ### Notes for dynamically tuning Thread Pool Settings
 
-These are expert level settings, which can potentially destabilize your cluster. It is not advised on heterogeneous clusters, as it will make threadpool count homogenous on all the nodes. It is not advised to tune threadpool which are used in both data node and cluster manager as well , due to the same reason. Post tuning these settings,
+These are expert level settings, which can potentially destabilize your cluster. It is not advised on clusters having different types of hardware for same roles, as it will make threadpool count equal on all of them. It is not advised to tune threadpool which are used in both data node and cluster manager as well , due to the same reason. Post tuning these settings,
 We recommend monitoring the cluster to ensure it is stable and performing as expected.
 
 ## Index-level index settings
