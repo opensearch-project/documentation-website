@@ -15,6 +15,7 @@ Starting with OpenSearch 2.17, query enhancements have been made. These enhancem
 - Multiline query editor for PPL and SQL and autocomplete for PPL and DQL
 - Expand/collapse query editor for multiline/single-line mode
 - Data selector with **Data Explorer** that supports index patterns, indexes, and Amazon S3 connections and data configuration that supports selecting the appropriate query language based on the data type
+- OpenSearch Dashboards allows for exploring your data within your indexes without using index patterns
 - Link sharing through URLs without needing write permission to create an index pattern
 
 All existing functionality remains in OpenSearch 2.17, and the new features are designed to improve your data exploration experience. The **Enable query enhancements** is currently not on a minimal distribution. In a minimal distribution of OpenSearch and OpenSearch Dashboards, query enhancements do not provide access to PPL or SQL functionality. To use these features, the [OpenSearch SQL plugin]({{site.url}}{{site.baseurl}}/search-plugins/sql/settings/) is required. 
