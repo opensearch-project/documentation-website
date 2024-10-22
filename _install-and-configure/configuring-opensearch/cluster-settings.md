@@ -101,7 +101,9 @@ OpenSearch supports the following cluster-level routing and shard allocation set
     - `NO_PREFERENCE` – The default behavior in which the order of shard relocation has no importance. 
 
 - `cluster.allocator.gateway.batch_size` (Integer): Limits the number of shards sent to data nodes in one batch for fetching any unassigned shard metadata. Default is `2000`.
-- `cluster.allocator.existing_shards_allocator.batch_enabled` (Boolean): Enables batch allocation of unassigned shards that already exist on the disk as opposed to allocating one shard at a time. This reduces memory and transport overhead by fetching any unassigned shard metadata in a batch call. Default is `false`.
+
+- `cluster.allocator.existing_shards_allocator.batch_enabled` (Boolean): Static setting. Enables batch allocation of unassigned shards that already exist on the disk as opposed to allocating one shard at a time. This reduces memory and transport overhead by fetching any unassigned shard metadata in a batch call. Default is `false`.
+
 ## Cluster-level shard, block, and task settings
 
 OpenSearch supports the following cluster-level shard, block, and task settings:
@@ -149,6 +151,12 @@ OpenSearch supports the following cluster-level coordination settings. All setti
 - `cluster.fault_detection.leader_check.timeout` (Time unit): The amount of time a node waits for a response from the elected cluster manager during a leader check before deeming the check a failure. Valid values are from `1ms` to `60s`, inclusive. Default is `10s`. Changing this setting to a value other than the default can result in an unstable cluster.
 
 - `cluster.fault_detection.follower_check.timeout` (Time unit): The amount of time the elected cluster manager waits for a response during a follower check before deeming the check a failure. Valid values are from `1ms` to `60s`, inclusive. Default is `10s`. Changing this setting to a value other than the default can result in an unstable cluster.
+
+- `cluster.fault_detection.follower_check.interval` (Time unit): The amount of time the elected cluster manager waits between follower checks to each other node in the cluster. Valid values are from `100ms` onwards. Default is `1000ms`. Changing this setting to a value other than the default can result in an unstable cluster.
+
+- `cluster.follower_lag.timeout` (Time unit) - The amount of time the elected cluster manager waits to receive acknowledgements for cluster state updates from lagging nodes. The default value is `90s`. If a node does not successfully apply the cluster state update within this period of time, it is considered to have failed and is removed from the cluster.
+
+- `cluster.publish.timeout` (Time unit) - The amount of time the cluster manager waits for each cluster state update to be completely published to all nodes, unless discovery.type is set to single-node. The default value is `30s`.
 
 ## Cluster-level CAT response limit settings
 
