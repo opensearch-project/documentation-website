@@ -37,7 +37,7 @@ Option | Required | Type     | Description
 :--- |:---------|:---------| :---
 `aws` | Yes      | AWS      | Specifies the AWS configuration. See [`aws`](#aws).
 `acknowledgments` | No       | Boolean  | When set to `true`, enables the `kinesis` source to receive [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines#end-to-end-acknowledgments) when events are received by OpenSearch sinks.
-`streams` | Yes      | List     | Configures a list of multiple Kinesis data streams that the Data Prepper `kinesis` source uses to read records. You can configure up to four streams. See [Streams](#streams).
+`streams` | Yes      | List     | Configures a list of multiple Kinesis data streams that the `kinesis` source uses to read records. You can configure up to four streams. See [Streams](#streams).
 `codec` | Yes      | Codec    | Specifies the [codec](#codec) to apply.
 `buffer_timeout` | No       | Duration | Sets the amount of time allowed for writing events to the Data Prepper buffer before timeout occurs. Any events that the source cannot write to the buffer during the specified amount of time are discarded. Default is `1s`.
 `records_to_accumulate` | No       | Integer  | Determines the number of messages that accumulate before being written to the buffer. Default is `100`.
