@@ -81,7 +81,7 @@ OpenSearch supports the following dynamic cluster-level index settings:
 
 - `cluster.default_number_of_replicas` (Integer): Controls the default number of replicas for indexes in the cluster. The index-level `index.number_of_replicas` setting defaults to this value if not configured. Default is `1`.
 
-- `cluster.thread_pool.<fixed-threadpool>.size` (Integer): Controls the size of fixed and resizable queue threadpool size. Overrides the defaults provided in yml.
+- `cluster.thread_pool.<fixed-threadpool>.size` (Integer): Controls the sizes of both the fixed and resizable queue thread pools. Overrides the defaults provided in `opensearch.yml`.
 
 - `cluster.thread_pool.<scaling-threadpool>.max` (Integer): Controls the maximum size of  scaling threadpool. Overrides the defaults provided in yml.
 
