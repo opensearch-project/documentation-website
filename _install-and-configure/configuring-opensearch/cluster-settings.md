@@ -25,7 +25,7 @@ OpenSearch supports the following cluster-level routing and shard allocation set
      
      Default is `all`. 
 
-- `cluster.routing.allocation.node_concurrent_incoming_recoveries` (Dynamic, integer): Configures how many concurrent incoming shard recoveries are allowed to happen on a node. Default is `2`. 
+- `cluster.routing.allocation.node_concurrent_incoming_recoveries` (Dynamic, integer): Configures how many concurrent incoming shard recoveries are allowed to occur on a node. Default is `2`. 
 
 - `cluster.routing.allocation.node_concurrent_outgoing_recoveries` (Dynamic, integer): Configures how many concurrent outgoing shard recoveries are allowed to happen on a node. Default is `2`. 
 
