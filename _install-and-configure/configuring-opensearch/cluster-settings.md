@@ -27,7 +27,7 @@ OpenSearch supports the following cluster-level routing and shard allocation set
 
 - `cluster.routing.allocation.node_concurrent_incoming_recoveries` (Dynamic, integer): Configures how many concurrent incoming shard recoveries are allowed to occur on a node. Default is `2`. 
 
-- `cluster.routing.allocation.node_concurrent_outgoing_recoveries` (Dynamic, integer): Configures how many concurrent outgoing shard recoveries are allowed to happen on a node. Default is `2`. 
+- `cluster.routing.allocation.node_concurrent_outgoing_recoveries` (Dynamic, integer): Configures how many concurrent outgoing shard recoveries are allowed to occur on a node. Default is `2`. 
 
 - `cluster.routing.allocation.node_concurrent_recoveries` (Dynamic, string): Used to set `cluster.routing.allocation.node_concurrent_incoming_recoveries` and `cluster.routing.allocation.node_concurrent_outgoing_recoveries` to the same value. 
 
@@ -70,19 +70,19 @@ OpenSearch supports the following cluster-level routing and shard allocation set
 
 - `cluster.routing.allocation.disk.threshold_enabled` (Dynamic, Boolean): When set to `false`, disables the disk allocation decider. This will also remove any existing `index.blocks.read_only_allow_delete index blocks` when disabled. Default is `true`. 
 
-- `cluster.routing.allocation.disk.watermark.low` (Dynamic, string): Controls the low watermark for disk usage. When set to a percentage, OpenSearch will not allocate shards to nodes with that percentage of disk used. This can also be entered as ratio value, like `0.85`. Finally, this can also be set to a byte value, like `400mb`. This setting does not affect the primary shards of newly created indexes, but will prevent their replicas from being allocated. Default is `85%`. 
+- `cluster.routing.allocation.disk.watermark.low` (Dynamic, string): Controls the low watermark for disk usage. When set to a percentage, OpenSearch will not allocate shards to nodes with that percentage of disk usage. This can also be entered as a ratio value, like `0.85`. Finally, this can also be set to a byte value, like `400mb`. This setting does not affect the primary shards of newly created indexes but will prevent their replicas from being allocated. Default is `85%`. 
 
-- `cluster.routing.allocation.disk.watermark.high` (Dynamic, string): Controls the high watermark. OpenSearch will attempt to relocate shards away from a node whose disk usage is above the percentage defined. This can also be entered as a ratio value, like `0.85`. Finally, this can also be set to a byte value, like `400mb`. This setting affects the allocation of all shards. Default is `90%`. 
+- `cluster.routing.allocation.disk.watermark.high` (Dynamic, string): Controls the high watermark. OpenSearch will attempt to relocate shards away from a node whose disk usage is above the defined percentage. This can also be entered as a ratio value, like `0.85`. Finally, this can also be set to a byte value, like `400mb`. This setting affects the allocation of all shards. Default is `90%`. 
 
-- `cluster.routing.allocation.disk.watermark.flood_stage` (Dynamic, string): Controls the flood stage watermark. This is a last resort to prevent nodes from running out of disk space. OpenSearch enforces a read-only index block (`index.blocks.read_only_allow_delete`) on every index that has one or more shards allocated on the node and that has at least one disk exceeding the flood stage. The index block is released once the disk utilization falls below the high watermark. This can also be entered as a ratio value, like `0.85`. Finally, this can also be set to a byte value, like `400mb`. Default is `95%`. 
+- `cluster.routing.allocation.disk.watermark.flood_stage` (Dynamic, string): Controls the flood stage watermark. This is a last resort to prevent nodes from running out of disk space. OpenSearch enforces a read-only index block (`index.blocks.read_only_allow_delete`) on every index that has one or more shards allocated on the node and at least one disk exceeding the flood stage. The index block is released once the disk utilization falls below the high watermark. This can also be entered as a ratio value, like `0.85`. Finally, this can also be set to a byte value, like `400mb`. Default is `95%`. 
 
 - `cluster.info.update.interval` (Dynamic, time unit): Sets how often OpenSearch should check disk usage for each node in the cluster. Default is `30s`. 
 
-- `cluster.routing.allocation.include.<attribute>` (Dynamic, enum): Allocates shards to a node whose `attribute` has at least one of the included comma-separated values. 
+- `cluster.routing.allocation.include.<attribute>` (Dynamic, enum): Allocates shards to a node whose `attribute` contains at least one of the included comma-separated values. 
 
-- `cluster.routing.allocation.require.<attribute>` (Dynamic, enum): Only allocates shards to a node whose `attribute` has all of the included comma-separated values. 
+- `cluster.routing.allocation.require.<attribute>` (Dynamic, enum): Only allocates shards to a node whose `attribute` contains all of the included comma-separated values. 
 
-- `cluster.routing.allocation.exclude.<attribute>` (Dynamic, enum): Does not allocate shards to a node whose `attribute` has any of the included comma-separated values. The cluster allocation settings support the following built-in attributes. 
+- `cluster.routing.allocation.exclude.<attribute>` (Dynamic, enum): Does not allocate shards to a node whose `attribute` contains any of the included comma-separated values. The cluster allocation settings support the following built-in attributes. 
     
     Valid values are:
     - `_name` – Match nodes by node name. 
@@ -93,16 +93,16 @@ OpenSearch supports the following cluster-level routing and shard allocation set
     - `_id` – Match nodes by node ID. 
     - `_tier` – Match nodes by data tier role.     
 
-- `cluster.routing.allocation.shard_movement_strategy` (Dynamic, enum):  Determines the order in which shards are relocated from outgoing to incoming nodes. 
+- `cluster.routing.allocation.shard_movement_strategy` (Dynamic, enum): Determines the order in which shards are relocated from outgoing to incoming nodes. 
 
     This setting supports the following strategies: 
     - `PRIMARY_FIRST` – Primary shards are relocated first, before replica shards. This prioritization may help prevent a cluster's health status from going red if the relocating nodes fail during the process. 
     - `REPLICA_FIRST` – Replica shards are relocated first, before primary shards. This prioritization may help prevent a cluster's health status from going red when carrying out shard relocation in a mixed-version, segment-replication-enabled OpenSearch cluster. In this situation, primary shards relocated to OpenSearch nodes of a newer version could try to copy segment files to replica shards on an older version of OpenSearch, which would result in shard failure. Relocating replica shards first may help to avoid this in multi-version clusters. 
     - `NO_PREFERENCE` – The default behavior in which the order of shard relocation has no importance. 
 
-- `cluster.allocator.gateway.batch_size` (Dynamic, integer): Limits the number of shards sent to data nodes in one batch for fetching any unassigned shard metadata. Default is `2000`.
+- `cluster.allocator.gateway.batch_size` (Dynamic, integer): Limits the number of shards sent to data nodes in a single batch to fetch any unassigned shard metadata. Default is `2000`.
 
-- `cluster.allocator.existing_shards_allocator.batch_enabled` (Static, Boolean): Enables batch allocation of unassigned shards that already exist on the disk as opposed to allocating one shard at a time. This reduces memory and transport overhead by fetching any unassigned shard metadata in a batch call. Default is `false`.
+- `cluster.allocator.existing_shards_allocator.batch_enabled` (Static, Boolean): Enables batch allocation of unassigned shards that already exist on the disk, as opposed to allocating one shard at a time. This reduces memory and transport overhead by fetching any unassigned shard metadata in a batch call. Default is `false`.
 
 ## Cluster-level shard, block, and task settings
 
@@ -152,9 +152,9 @@ OpenSearch supports the following cluster-level coordination settings. All setti
 
 - `cluster.fault_detection.follower_check.timeout` (Time unit): The amount of time the elected cluster manager waits for a response during a follower check before deeming the check a failure. Valid values are from `1ms` to `60s`, inclusive. Default is `10s`. Changing this setting to a value other than the default can result in an unstable cluster.
 
-- `cluster.fault_detection.follower_check.interval` (Time unit): The amount of time the elected cluster manager waits between sending follower checks to other nodes in the cluster. Valid values are `100ms` and above. Default is `1000ms`. Changing this setting to a value other than the default can result in an unstable cluster.
+- `cluster.fault_detection.follower_check.interval` (Time unit): The amount of time that the elected cluster manager waits between sending follower checks to other nodes in the cluster. Valid values are `100ms` and higher. Default is `1000ms`. Changing this setting to a value other than the default can result in an unstable cluster.
 
-- `cluster.follower_lag.timeout` (Time unit) - The amount of time the elected cluster manager waits to receive acknowledgements for cluster state updates from lagging nodes. Default is `90s`. If a node does not successfully apply the cluster state update within this period of time, it is considered to have failed and is removed from the cluster.
+- `cluster.follower_lag.timeout` (Time unit): The amount of time that the elected cluster manager waits to receive acknowledgements for cluster state updates from lagging nodes. Default is `90s`. If a node does not successfully apply the cluster state update within this period of time, it is considered to have failed and is removed from the cluster.
 
 - `cluster.publish.timeout` (Time unit): The amount of time that the cluster manager waits for each cluster state update to be completely published to all nodes, unless `discovery.type` is set to `single-node`. Default is `30s`.
 
