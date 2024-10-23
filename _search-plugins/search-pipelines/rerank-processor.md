@@ -11,7 +11,7 @@ grand_parent: Search pipelines
 Introduced 2.12
 {: .label .label-purple }
 
-The `rerank` search response processor can take different forms as specified by the [rerank type](#rerank-types). When used, it intercepts search results and reranks based on the rerank type. The processor orders documents in the search results based on their new scores. 
+The `rerank` search response processor can take different forms as specified by the [rerank type](#rerank-types). When used, it intercepts search results and reranks them based on the rerank type. The processor orders documents in the search results based on their new scores. 
 
 ## Request body fields
 
@@ -19,8 +19,8 @@ The following table lists all available request fields.
 
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`<rerank_type>` | Object | Required | The rerank type provides the rerank processor with static information needed across all reranking calls.
-`context` | Object |  Required for the `ml_opensearch` rerank type | Provides the rerank processor with information necessary for generating reranking context at query time. 
+`<rerank_type>` | Object | Required | The rerank type provides the `rerank` processor with static information needed across all reranking calls.
+`context` | Object |  Required for the `ml_opensearch` rerank type. | Provides the `rerank` processor with information necessary for generating reranking context at query time. 
 `tag` | String | Optional | The processor's identifier.
 `description` | String | Optional | A description of the processor.
 `ignore_failure` | Boolean | Optional | If `true`, OpenSearch [ignores any failure]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/creating-search-pipeline/#ignoring-processor-failures) of this processor and continues to run the remaining processors in the search pipeline. Default is `false`.
@@ -29,8 +29,8 @@ Field | Data type | Required/Optional | Description
 
 Type | Description | Earliest available version
 :--- | :--- | :---
-[`ml_opensearch`](#the-ml_opensearch-rerank-type) | Applies an OpenSearch provided cross encoder model. | 2.12
-[`by_field`](#the-by_field-rerank-type) | Applies reranking based on a user provided field. | 2.18
+[`ml_opensearch`](#the-ml_opensearch-rerank-type) | Applies an OpenSearch-provided cross-encoder model. | 2.12
+[`by_field`](#the-by_field-rerank-type) | Applies reranking based on a user-provided field. | 2.18
 
 ### The `ml_opensearch` rerank type
 
@@ -38,7 +38,7 @@ The `ml_opensearch` rerank type is designed to work with the cross-encoder model
 
 Field  | Data type | Required/Optional | Description
 :--- | :---  | :--- | :--- 
-`ml_opensearch` | Object | Required | Provides the rerank processor with model information.
+`ml_opensearch` | Object | Required | Provides model information to the `rerank` processor.
 `ml_opensearch.model_id` | String | Required | The model ID for the cross-encoder model. Required. For more information, see [Using ML models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/).
 `context.document_fields` | Array | Required | An array of document fields that specifies the fields from which to retrieve context for the cross-encoder model. 
 
@@ -120,27 +120,27 @@ The `query_context` object contains the following fields.
 Field name | Required/Optional | Description
 :--- | :--- | :---  
 `query_text` | Required (see below)| The natural language text of the question that you want to use to rerank the search results. 
-`query_text_path` | Required (see below) | The full JSON path to the text of the question that you want to use to rerank the search results. The maximum number of characters in the path is `1000`.
+`query_text_path` | Required (see below) | The full JSON path to the text of the question that you want to use to rerank the search results. The maximum number of characters allowed in the path is `1000`.
 
-You are required to select either `query_text` or `query_text_path`, but not both simultaneously. Please ensure that only one option is chosen to avoid conflicts
+You are required to select either `query_text` or `query_text_path` but cannot select both simultaneously. Please ensure that only one option is chosen in order to avoid conflicts.
 
 ### The `by_field` rerank type
 
-The `by_field` rerank type is designed to operate using a specified field within your document. This is useful if a model has already ran and produced a numerical score in your document(s), or if a previous search response processor was applied and you want to rerank documents differently based on an aggregated field. For this rerank type, specify the following fields.
+The `by_field` rerank type is designed to operate using a specified field in your document. This can be useful if a model has already run and produced a numerical score in your document(s) or if a previous search response processor was applied and you want to rerank documents differently based on an aggregated field. For this rerank type, specify the following fields.
 
 Field  | Data type | Required/Optional | Description
 :--- | :---  | :--- | :--- 
-`by_field` | Object | Required | Provides the rerank processor with reranking information.
+`by_field` | Object | Required | Provides reranking information to the `rerank` processor.
 `by_field.target_field` | String | Required |  This can be a path to your field that has a numerical score, in the form of `key[.key]`. 
-`by_field.remove_target_field` | Boolean | Optional | if `true` it will delete the `target_field` used to perform reranking. Otherwise, the field is kept in the search result. Default is `false`.
-`by_field.keep_previous_score` | Boolean | Optional | if `true` it will append a `previous_score`, this was the score calculated before reranking, its useful when debugging. When `false`, there wont be an additional field in your search result. Default is `false`.
+`by_field.remove_target_field` | Boolean | Optional | If `true`, deletes the `target_field` used to perform reranking. Otherwise, the field is not deleted. Default is `false`.
+`by_field.keep_previous_score` | Boolean | Optional | If `true`, appends a `previous_score`, which is the score calculated before reranking and can be useful when debugging. When `false`, no additional field is added. Default is `false`.
 
 ## Example 
 
 The following example demonstrates using a search pipeline with a `rerank` processor implemented using the `by_field` rerank type.
 
-### Create an index with data
-Create an index and ingest data that has a numerical score you wish to rerank by. In this example we will ingest the following data for a index named `book-index`
+### Create an index and ingest data
+Create an index and ingest data with the numerical score that you want to use to rerank search results. The following example request ingests data for an index named `book-index`:
 
 ```json
 POST _bulk
@@ -157,7 +157,7 @@ POST _bulk
 {% include copy-curl.html %}
 
 
-### Creating a search pipeline
+### Create a search pipeline
 
 The following request creates a search pipeline with a `by_field` rerank type response processor. We want to rerank `by_field` using a nsted `target_field` "reviews.stars", we are also interested in understanding how our documents ranked before applying this rerank type so we will enable `keep_previous_score`.
 
@@ -178,9 +178,9 @@ PUT /_search/pipeline/rerank_byfield_pipeline
 ```
 {% include copy-curl.html %}
 
-### Using a search pipeline
+### Use the search pipeline
 
-Combine an OpenSearch query with this new pipeline and see your results reranked.
+You can combine an OpenSearch query with the pipeline you created in order to see the reranking of your search results:
 
 ```json
 POST /_search?search_pipeline=rerank_byfield_pipeline
@@ -192,7 +192,7 @@ POST /_search?search_pipeline=rerank_byfield_pipeline
 ```
 {% include copy-curl.html %}
 
-Which now yields the following. Observe that our documents are now sorted in a descending order based on the rating of each book, we kept the `previous_score` to help keep track of how we originally scored before reranking.
+The response will appear similar to the following. The documents are now sorted in descending order based on the rating of each book, and the `previous_score` field provides the original document scores:
 
 ```json
 {
