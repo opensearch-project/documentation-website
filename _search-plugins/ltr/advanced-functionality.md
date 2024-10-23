@@ -87,7 +87,7 @@ Script features are native or Painless scripts within the context of LTR. These 
 
 - Parameter name and value passed directly to source script, but not in the parameters of the LTR script. These cannot be configured at query time. 
 - Parameter name passed to both the SLTR query and the source script, allowing the script parameter values to be overridden at query time.
-- LTR script parameter name to native script parameter name indirection, which allows the LTR parameter name to be different from the underlying script parameter name. This enables the same native script to be reused as different features within LTR by specifying different parameter names at query time.
+- LTR script parameter name to native script parameter name indirection, which allows the LTR parameter name to differ from the underlying script parameter name. This enables the same native script to be reused as different features within LTR by specifying different parameter names at query time.
 
 For example, to set up a customizable way to rank movies in search results, considering both the title match and other adjustable factors, you can use the following request:
 
