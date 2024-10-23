@@ -162,7 +162,7 @@ POST _ltr/wikipedia/_featureset/attempt_1
 ```
 {% include copy-curl.html %}
 
-When logging features, you can specify the feature store using the `store` parameter in the `sltr` part of your query, as shown in the following example structure. If you do not provide a `store` parameter, the default store is used to look up the feature set:
+When logging features, you can specify the feature store using the `store` parameter in the `sltr` part of your query, as shown in the following example structure. If you do not provide a `store` parameter, the default store is used to look up the feature set.
 
 ```json
 {
