@@ -187,7 +187,7 @@ DELETE _ltr/_featureset/more_movie_features
 
 ## Validating features
 
-When adding new features, you should validate the features work as expected. You can do this by adding a `validation` block in your feature creation request. This allows the Learning to Rank plugin to run the query before adding the feature, catching any issues early. If you do not run this validation, you may not discover until later that the query, while valid JSON, contains a malformed OpenSearch query.
+When adding new features, you should validate that the features work as expected. You can do this by adding a `validation` block in your feature creation request. This allows the Learning to Rank plugin to run the query before adding the feature, catching any issues early. If you do not run this validation, you may not discover until later that the query, while valid JSON, contains a malformed OpenSearch query.
 
 To run validation, you can specify the test parameters and the index to use, as shown in the following example validation block:
 
