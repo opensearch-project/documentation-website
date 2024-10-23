@@ -89,15 +89,16 @@ PUT /book-index
 To ingest documents into the index created in the previous step, send the following bulk request:
 
 ```json
-POST _bulk
+POST /_bulk
 { "index": { "_index": "book-index", "_id": "1" } }
 { "title": "The Lost City", "author": "Jane Doe", "genre": "Adventure Fiction", "reviews": { "stars": 4.2 }, "description": "An exhilarating journey through a hidden civilization in the Amazon rainforest." }
 { "index": { "_index": "book-index", "_id": "2" } }
 { "title": "Whispers of the Past", "author": "John Smith", "genre": "Historical Mystery", "reviews": { "stars": 4.7 }, "description": "A gripping tale set in Victorian England, unraveling a century-old mystery." }
 { "index": { "_index": "book-index", "_id": "3" } }
-{ "title": "Starlit Dreams", "author": "Emily Clark", "genre": "Science Fiction", "reviews": { "stars": 4.5 }, "description": "In a future where dreams can be shared, one girl discovers her imagination's power." }
+{ "title": "Starlit Dreams", "author": "Emily Clark", "genre": "Science Fiction", "reviews": { "stars": 4.5 }, "description": "In a future where dreams can be shared, one girl discovers her imaginations power." }
 { "index": { "_index": "book-index", "_id": "4" } }
-{ "title": "The Enchanted Garden", "author": "Alice Green", "genre": "Fantasy", "reviews": { "stars": 4.8 }, "description": "A magical garden holds the key to a young girl's destiny and friendship." }
+{ "title": "The Enchanted Garden", "author": "Alice Green", "genre": "Fantasy", "reviews": { "stars": 4.8 }, "description": "A magical garden holds the key to a young girls destiny and friendship." }
+
 ```
 {% include copy-curl.html %}
 
@@ -106,7 +107,7 @@ POST _bulk
 As an example, run a `match_all` query on your index:
 
 ```json
-POST /_search
+POST /book-index/_search
 {
   "query": {
      "match_all": {}
@@ -144,7 +145,7 @@ The response contains documents sorted in descending order based on the `reviews
           },
           "author": "Alice Green",
           "genre": "Fantasy",
-          "description": "A magical garden holds the key to a young girl's destiny and friendship.",
+          "description": "A magical garden holds the key to a young girls destiny and friendship.",
           "previous_score": 1,
           "title": "The Enchanted Garden"
         }
@@ -174,7 +175,7 @@ The response contains documents sorted in descending order based on the `reviews
           },
           "author": "Emily Clark",
           "genre": "Science Fiction",
-          "description": "In a future where dreams can be shared, one girl discovers her imagination's power.",
+          "description": "In a future where dreams can be shared, one girl discovers her imaginations power.",
           "previous_score": 1,
           "title": "Starlit Dreams"
         }
