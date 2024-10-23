@@ -89,7 +89,7 @@ Follow these steps to set up your local copy of the repository:
    rvm install 3.2.4
    ruby -v
    ```
-   ##### For Apple silicon machines: 
+   ###### For Apple silicon machines: 
    Source: [Installing Ruby on Apple Silicon by Emmanuel Bernard ](https://emmanuelbernard.com/blog/2023/12/01/installing-ruby-on-apple-silicon/) 
 
    ```
