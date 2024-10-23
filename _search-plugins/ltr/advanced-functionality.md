@@ -36,7 +36,7 @@ For example, if a title field query is frequently used in your feature sets, the
 
 Normal CRUD operations apply, so you can delete a feature by using the following operation: 
 
-```
+```json
 DELETE _ltr/_feature/titleSearch
 ```
 {% include copy-curl.html %}
@@ -44,21 +44,21 @@ DELETE _ltr/_feature/titleSearch
 
 To fetch an individual feature, you can use the following request:
 
-```
+```json
 GET _ltr/_feature/titleSearch
 ```
 {% include copy-curl.html %}
 
 To view a list of all features filtered by name prefix, you can use the following request:
 
-```
+```json
 GET /_ltr/_feature?prefix=t
 ```
 {% include copy-curl.html %}
 
 To create or update a feature set, you can refer to the `titleSearch` feature by using the following request:
 
-```
+```json
 POST /_ltr/_featureset/my_featureset/_addfeatures/titleSearch
 ```
 {% include copy-curl.html %}
@@ -180,7 +180,7 @@ When logging features, you can specify the feature store using the `store` param
 
 To delete the feature set, you can use the following operation:
 
-```
+```json
 DELETE _ltr/wikipedia/_featureset/attempt_1
 ```
 {% include copy-curl.html %}
@@ -189,14 +189,14 @@ DELETE _ltr/wikipedia/_featureset/attempt_1
 
 The Model Caching plugin uses an internal cache for compiled models. To force the models to be recompiled, you can clear the cache for a feature store:
 
-```
+```json
 POST /_ltr/_clearcache
 ```
 {% include copy-curl.html %}
 
 To get cluster-wide cache statistics for a specific store, use the following request:
 
-```
+```json
 GET /_ltr/_cachestats
 ```
 {% include copy-curl.html %}
@@ -321,7 +321,7 @@ flag to the `sltr` query that is the target of feature score logging, as shown i
 
 You can use the Stats API to retrieve the plugin's overall status and statistics. To do this, send the following request:
 
-```
+```json
 GET /_ltr/_stats
 ```
 {% include copy-curl.html %}
@@ -378,14 +378,14 @@ The response includes information about the cluster, configured stores, and cach
 
 You can use filters to retrieve a single stat by sending the following request:
 
-```
+```json
 GET /_ltr/_stats/{stat}
 ```
 {% include copy-curl.html %}
 
 You can limit the information to a single node in the cluster by sending the following requests:
 
-```
+```json
 GET /_ltr/_stats/nodes/{nodeId}
 GET /_ltr/_stats/{stat}/nodes/{nodeId}
 ```
