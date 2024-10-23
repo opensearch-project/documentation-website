@@ -263,7 +263,7 @@ The Learning to Rank plugin enforces unique names for each feature. This is beca
 
 ## Treating feature sets as lists
 
-Feature sets are more like ordered lists than simple sets. Each feature has both a name and an ordinal position. Some LTR training applications, such as RankLib, refer to features by their ordinal position (for example, 1st feature, 2nd feature). Others may use the feature name. When working with logged features, you may need to handle both the ordinal and the name, as the ordinal is preserved to maintain the list order. 
+Feature sets are more like ordered lists than simple sets. Each feature has both a name and an ordinal position. Some LTR training applications, such as RankLib, refer to features by their ordinal position (for example, 1st feature, 2nd feature). Others may use the feature name. When working with logged features, you may need to handle both the ordinal and the name because the ordinal is preserved to maintain the list order. 
 
 ## Next steps
 
