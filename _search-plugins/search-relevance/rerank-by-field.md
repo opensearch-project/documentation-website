@@ -11,7 +11,7 @@ nav_order: 20
 Introduced 2.18
 {: .label .label-purple }
 
-You can rerank search results by a document field using a `by_field` rerank type. Reranking search results by a field is useful if a model has already run and produced a numerical score for your documents or if a previous search response processor was applied and you want to rerank documents differently based on an aggregated field.
+You can use a `by_field` rerank type to rerank search results by a document field. Reranking search results by a field is useful if a model has already run and produced a numerical score for your documents or if a previous search response processor was applied and you want to rerank documents differently based on an aggregated field.
 
 To implement reranking, you need to configure a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) that runs at search time. The search pipeline intercepts search results and applies the [`rerank` processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/) to them. The `rerank` processor evaluates the search results and sorts them based on the new scores obtained from a document field. 
 
@@ -26,7 +26,7 @@ To run a search with reranking, follow these steps:
 
 ## Step 1: Configure a search pipeline
 
-Configure a search pipeline with a [`rerank` processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/) and specify the `by_field` rerank type. The pipeline sorts by the `reviews.stars` field (specified by a complete dot path to the field) and returns the original query score for all documents along with their new scores:
+Configure a search pipeline with a [`rerank` processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/) and specify the `by_field` rerank type. The pipeline sorts by the `reviews.stars` field (specified by a complete dot path to the field) and returns the original query scores for all documents along with their new scores:
 
 ```json
 PUT /_search/pipeline/rerank_byfield_pipeline
@@ -49,7 +49,7 @@ For more information about the request fields, see [Request fields]({{site.url}}
 
 ## Step 2: Create an index for ingestion
 
-In order to use the rerank processor defined in your pipeline, create an OpenSearch index and add the pipeline created in the previous step as the default pipeline:
+In order to use the `rerank` processor defined in your pipeline, create an OpenSearch index and add the pipeline created in the previous step as the default pipeline:
 
 ```json
 PUT /book-index

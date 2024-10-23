@@ -48,7 +48,7 @@ The `ml_opensearch` rerank type supports the following fields. All fields are re
 
 Field  | Data type | Description
 :--- | :---  | :--- 
-`ml_opensearch.model_id` | String | The model ID for the cross-encoder model to use for reranking. For more information, see [Using ML models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/).
+`ml_opensearch.model_id` | String | The model ID of the cross-encoder model for reranking. For more information, see [Using ML models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/).
 `context.document_fields` | Array | An array of document fields that specifies the fields from which to retrieve context for the cross-encoder model. 
 
 ### Example 
@@ -144,7 +144,7 @@ The `by_field` object supports the following fields.
 
 Field  | Data type | Required/Optional | Description
 :--- | :---  | :--- | :--- 
-`target_field` | String | Required |  Specifies the field name or a dot path to the field that contains the score by which to rank. 
+`target_field` | String | Required |  Specifies the field name or a dot path to the field containing the score to use for reranking. 
 `remove_target_field` | Boolean | Optional | If `true`, the response does not include the `target_field` used to perform reranking. Default is `false`.
 `keep_previous_score` | Boolean | Optional | If `true`, the response includes a `previous_score` field, which contains the score calculated before reranking and can be useful when debugging. Default is `false`.
 

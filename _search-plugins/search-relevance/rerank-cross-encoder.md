@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Reranking using a cross-encoder
+title: Reranking using a cross-encoder model
 parent: Reranking search results
 grand_parent: Search relevance
 has_children: false
@@ -11,7 +11,7 @@ nav_order: 10
 Introduced 2.12
 {: .label .label-purple }
 
-You can rerank search results using a cross-encoder reranker in order to improve search relevance. To implement reranking, you need to configure a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) that runs at search time. The search pipeline intercepts search results and applies the [`rerank` processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/) to them. The `rerank` processor evaluates the search results and sorts them based on the new scores provided by the cross-encoder model. 
+You can rerank search results using a cross-encoder model in order to improve search relevance. To implement reranking, you need to configure a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) that runs at search time. The search pipeline intercepts search results and applies the [`rerank` processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/) to them. The `rerank` processor evaluates the search results and sorts them based on the new scores provided by the cross-encoder model. 
 
 **PREREQUISITE**<br>
 Before configuring a reranking pipeline, you must set up a cross-encoder model. For information about using an OpenSearch-provided model, see [Cross-encoder models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#cross-encoder-models). For information about using a custom model, see [Custom local models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/custom-local-models/).
@@ -56,7 +56,7 @@ For more information about the request fields, see [Request fields]({{site.url}}
 
 ## Step 2: Create an index for ingestion
 
-In order to use the rerank processor defined in your pipeline, create an OpenSearch index and add the pipeline created in the previous step as the default pipeline:
+In order to use the `rerank` processor defined in your pipeline, create an OpenSearch index and add the pipeline created in the previous step as the default pipeline:
 
 ```json
 PUT /my-index
@@ -93,7 +93,7 @@ POST /_bulk
 
 ## Step 4: Search using reranking
 
-To perform reranking search on your index, use any OpenSearch query and provide an additional `ext.rerank` field:
+To perform a reranking search on your index, use any OpenSearch query and provide an additional `ext.rerank` field:
 
 ```json
 POST /my-index/_search

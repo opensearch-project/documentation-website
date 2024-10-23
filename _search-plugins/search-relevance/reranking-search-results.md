@@ -30,10 +30,10 @@ The processing order is as follows:
 This processing order has the following implications:
 
 - Score modification: The rerank processor modifies the scores that were initially adjusted by the normalization processor, potentially leading to different ranking results than initially expected.
-- Hybrid queries: In the context of hybrid queries, where multiple types of queries and scoring mechanisms are combined, this behavior is particularly noteworthy. The combined scores from the initial query are normalized first and then reranked, resulting in a two-stage scoring modification.
+- Hybrid queries: In the context of hybrid queries, where multiple types of queries and scoring mechanisms are combined, this behavior is particularly noteworthy. The combined scores from the initial query are normalized first and then reranked, resulting in a two-phase scoring modification.
 
 ## Next steps
 
-- See an example of [reranking using a cross-encoder model]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-cross-encoder/).
-- See an example of [reranking by a document field]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field/).
+- See a complete example of [reranking using a cross-encoder model]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-cross-encoder/).
+- See a complete example of [reranking by a document field]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field/).
 - Learn more about the [`rerank` processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/).
