@@ -233,7 +233,7 @@ Place the validation block alongside your feature set definition. In the followi
 
 ## Expanding feature sets
 
-You may not know upfront which features are most useful. In those cases, you can later add new features to an existing feature set for logging and model evaluation. For example, if you want to create a `user_rating` feature, then you can use the Feature Set Append API, as shown in the following example request:
+You may not initially know which features are the most useful. In these cases, you can later add new features to an existing feature set for logging and model evaluation. For example, if you want to create a `user_rating` feature, you can use the Feature Set Append API, as shown in the following example request:
 
 ```json
 POST /_ltr/_featureset/my_featureset/_addfeatures
