@@ -259,7 +259,7 @@ POST /_ltr/_featureset/my_featureset/_addfeatures
 
 ## Enforcing unique feature names
 
-The Learning to Rank plugin enforces unique names for each feature. This is because some model training libraries refer to features by name. In the preceding example, you could not add a new `user_rating` feature without creating an error because that feature name is in use.
+The Learning to Rank plugin enforces unique names for each feature. This is because some model training libraries refer to features by name. In the preceding example, you could not add a new `user_rating` feature without causing an error because that feature name is already in use.
 
 ## Treating feature sets as lists
 
