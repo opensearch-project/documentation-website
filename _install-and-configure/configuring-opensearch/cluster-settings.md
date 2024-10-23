@@ -156,7 +156,7 @@ OpenSearch supports the following cluster-level coordination settings. All setti
 
 - `cluster.follower_lag.timeout` (Time unit) - The amount of time the elected cluster manager waits to receive acknowledgements for cluster state updates from lagging nodes. Default is `90s`. If a node does not successfully apply the cluster state update within this period of time, it is considered to have failed and is removed from the cluster.
 
-- `cluster.publish.timeout` (Time unit) - The amount of time the cluster manager waits for each cluster state update to be completely published to all nodes, unless `discovery.type` is set to `single-node`. Default is `30s`.
+- `cluster.publish.timeout` (Time unit): The amount of time that the cluster manager waits for each cluster state update to be completely published to all nodes, unless `discovery.type` is set to `single-node`. Default is `30s`.
 
 ## Cluster-level CAT response limit settings
 
