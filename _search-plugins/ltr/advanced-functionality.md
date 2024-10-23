@@ -81,7 +81,7 @@ To identify these features, set the `"template_language": "script_feature""`. Th
 Script-based features may impact the performance of your OpenSearch cluster, so it is best to avoid them if you require highly performant queries.
 {: .warning}
 
-### Script features parameters
+### Script feature parameters
 
 Script features are native or Painless scripts within the context of LTR. These script features can accept parameters as described in the [OpenSearch script documentation]({{site.url}}{{site.baseurl}}/api-reference/script-apis/index/). When working with LTR scripts, you can override parameter values and names. The priority for parameterization, in increasing order, is as follows:
 
