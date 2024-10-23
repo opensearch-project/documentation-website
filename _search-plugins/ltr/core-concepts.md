@@ -17,7 +17,7 @@ Learning to Rank (LTR) applies ML to search relevance ranking. This differs from
 - **Regression:** The goal is to predict a variable, such as a stock price, as a function of known information, such as number of employees or revenue. The output is a direct prediction.
 - **Classification:** The goal is to categorize an entity into predefined classes, for example, profitable or not profitable. The output is a category.
 
-The LTR objective is not to make a direct prediction, but rather learn a function (`f`) that can rank documents in an order that best matches your perception of relevance for a given query. The output `f` does not represent a literal value but rather a prediction of the document's relative usefulness. 
+The objective of LTR is not to make a direct prediction but rather to learn a function (`f`) that can rank documents in an order that best matches your perception of relevance for a given query. The output `f` does not represent a literal value but rather a prediction of the document's relative usefulness. 
 
 For comprehensive information about LTR, see [How is Search Different From Other Machine Learning Problems?](http://opensourceconnections.com/blog/2017/08/03/search-as-machine-learning-prob/) and [What is Learning to Rank?](http://opensourceconnections.com/blog/2017/02/24/what-is-learning-to-rank/).
 
