@@ -63,6 +63,8 @@ items:
         url: /docs/latest/clients/
       - label: Benchmark
         url: /docs/latest/benchmark/
+      - label: Migrations
+        url: /docs/latest/upgrade-to/
   - label: Platform
     url: /platform/index.html
     children:
