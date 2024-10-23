@@ -85,9 +85,9 @@ Script-based features may impact the performance of your OpenSearch cluster, so 
 
 Script features are native or Painless scripts within the context of LTR. These script features can accept parameters as described in the [OpenSearch script documentation]({{site.url}}{{site.baseurl}}/api-reference/script-apis/index/). When working with LTR scripts, you can override parameter values and names. The priority for parameterization, in increasing order, is as follows:
 
-- Parameter name and value passed directly to source script, but not in the parameters of the LTR script. These cannot be configured at query time. 
-- Parameter name passed to both the SLTR query and the source script, allowing the script parameter values to be overridden at query time.
-- LTR script parameter name to native script parameter name indirection, which allows the LTR parameter name to differ from the underlying script parameter name. This enables the same native script to be reused as different features within LTR by specifying different parameter names at query time.
+- The parameter name and value are passed directly to the source script, but not in the LTR script parameters. These cannot be configured at query time. 
+- The parameter name is passed to both the `sltr` query and the source script, allowing the script parameter values to be overridden at query time.
+- The LTR script parameter name to native script parameter name indirection allows you to use different parameter names in your LTR feature definition than those in the underlying native script. This gives you flexibility in how you define and use scripts within the LTR context.
 
 For example, to set up a customizable way to rank movies in search results, considering both the title match and other adjustable factors, you can use the following request:
 
@@ -162,7 +162,7 @@ POST _ltr/wikipedia/_featureset/attempt_1
 ```
 {% include copy-curl.html %}
 
-When logging features, you can specify the feature store using the `store` parameter in the `sltr` part of your query, as shown in the following example structure. If you do not provide a `store` parameter, the default store is used to look up the feature set.
+When logging features, you can specify the feature store using the `store` parameter in the `sltr` section of your query, as shown in the following example structure. If you do not provide a `store` parameter, the default store is used to look up the feature set.
 
 ```json
 {
@@ -232,7 +232,7 @@ For native scripts, the `extra_logging` parameter is injected into the script pa
 ```
 {% include copy-curl.html %}
 
-If the extra logging map is accessed, it is returned as an additional entry with the logged features. The format of the logged features, including the extra logging information, would look like the following example:
+If the extra logging map is accessed, it is returned as an additional entry with the logged features. The format of the logged features, including the extra logging information, will appear similar to the following example:
 
 ```json
   {
@@ -263,7 +263,7 @@ If the extra logging map is accessed, it is returned as an additional entry with
 
 ## Feature score caching
 
-By default, the Feature Score Caching plugin calculates feature scores for both model inference and feature score logging. For example, if you write a query to rescore top 100 documents and return top 10 with feature scores, then the plugin calculates the feature scores on the top 100 documents for model inference and then calculates and logs the scores for the top 10 documents.
+By default, the Feature Score Caching plugin calculates feature scores for both model inference and feature score logging. For example, if you write a query to rescore the top 100 documents and return the top 10 with feature scores, then the plugin calculates the feature scores of the top 100 documents for model inference and then calculates and logs the scores for the top 10 documents.
 
 The following query shows this behavior: 
 
@@ -376,7 +376,7 @@ The response includes information about the cluster, configured stores, and cach
 ```
 {% include copy-curl.html %}
 
-You can use filters to retrieve a single stat by sending the following request:
+You can use filters to retrieve a single statistic by sending the following request:
 
 ```json
 GET /_ltr/_stats/{stat}
@@ -395,7 +395,7 @@ GET /_ltr/_stats/{stat}/nodes/{nodeId}
 Experimental
 {: .label .label-red }
 
-The TermStat query is in an experimental stage and the Domain-Specific Language (DSL) may change as the code advances. For stable term-statistic access, see [ExplorerQuery]{.title-ref}.
+The `TermStatQuery` is in an experimental stage, and the Domain-Specific Language (DSL) may change as the code advances. For stable term-statistic access, see [ExplorerQuery]{.title-ref}.
 
 The `TermStatQuery` is a reimagined version of the legacy `ExplorerQuery`. It provides a clearer way to specify terms and offers more flexibility for experimentation. This query surfaces the same data as the [ExplorerQuery]{.title-ref}, but it allows you to specify a custom Lucene expression to retrieve the desired data, such as in the following example:
 
@@ -419,14 +419,14 @@ The `expr` parameter is used to specify a Lucene expression. This expression is 
 Type | Description
 :---| :---
 `df` | The direct document frequency for a term. For example, if `rambo` occurs in three movie titles across multiple documents, then the value would be `3`.
-`idf` | The Inverse Document Frequency (IDF) calculation using the formula `log((NUM_DOCS+1)/(raw_df+1)) + 1`.
-`tf` | The term frequency for a document. For example, if `rambo` occurs three times in a movie synopsis in same document, then the value would be `3`.
-`tp` | The term positions for a document. Multiple positions can come back for a single term, you should review the behavior of the `pos_aggr` parameter.
-`ttf` | The total term frequency for the term across the index. For example, if `rambo` is mentioned a total of 100 times in the `overview` field across all documents, then the value would be `100`.
+`idf` | The inverse document frequency (IDF) calculation using the formula `log((NUM_DOCS+1)/(raw_df+1)) + 1`.
+`tf` | The term frequency for a document. For example, if `rambo` occurs three times in a movie synopsis in the same document, then the value would be `3`.
+`tp` | The term positions for a document. Multiple positions can be returned for a single term, so you should review the behavior of the `pos_aggr` parameter.
+`ttf` | The total term frequency for a term across an index. For example, if `rambo` is mentioned a total of 100 times in the `overview` field across all documents, then the value would be `100`.
 
-The `aggr` parameter specifies the type of aggregation you want to apply to the collected statistics from the `expr`. For example, if you specify the terms `rambo` and `rocky`, then the query gathers statistics for both terms. Because you can only return a single value, you need to decide which statistical calculation to use. The available aggregation types are `min`, `max`, `avg`, `sum`, and `stddev`. The query also provides the following counts: `matches` (the number of terms that matched in the current document) and `unique` (the unique number of terms that were passed in the query).
+The `aggr` parameter specifies the type of aggregation to be applied to the collected statistics from the `expr`. For example, if you specify the terms `rambo` and `rocky`, then the query gathers statistics for both terms. Because you can only return a single value, you need to decide which statistical calculation to use. The available aggregation types are `min`, `max`, `avg`, `sum`, and `stddev`. The query also provides the following counts: `matches` (the number of terms that matched in the current document) and `unique` (the unique number of terms that were passed in the query).
 
-The `terms` parameter is an array of terms for which you want to gather statistics. Only single terms are supported, with no support for phrases or span queries. If your field is tokenized, you can pass multiple terms in one string in the array.
+The `terms` parameter specifies an array of terms for which you want to gather statistics. Only single terms are supported, with no support for phrases or span queries. If your field is tokenized, you can pass multiple terms in one string in the array.
 
 The `fields` parameter specifies the fields to check for the specified `terms`. If no `analyzer` is specified, then the configured `search_analyzer` for each field is used.
 
@@ -435,15 +435,15 @@ The optional parameters are listed in the following table.
 Type | Description
 :---| :---
 `analyzer` | If specified, this analyzer is used instead of the configured `search_analyzer` for each field.
-`pos_aggr` | Since each term can have multiple positions, you can use this parameter to specify the aggregation to apply to the term positions. This supports the same values as the `aggr` parameter and defaults to `avg`.
+`pos_aggr` | Because each term can have multiple positions, you can use this parameter to specify the aggregation to apply to the term positions. This supports the same values as the `aggr` parameter and defaults to `avg`.
 
 ### Script injection
 
-Script injection provides is the ability to inject term statistics into a scripting context. When working with `ScriptFeatures`, you can pass a `term_stat` object with the `terms`, `fields`, and `analyzer` parameters. An injected variable named `termStats` then provides access to the raw values in your custom script. This enables advanced feature engineering by giving you access to all the underlying data.
+Script injection provides the ability to inject term statistics into a scripting context. When working with `ScriptFeatures`, you can pass a `term_stat` object with the `terms`, `fields`, and `analyzer` parameters. An injected variable named `termStats` then provides access to the raw values in your custom script. This enables advanced feature engineering by giving you access to all the underlying data.
 
 To access the count of matched tokens, use [`params.matchCount.get`]{.title-ref}. To access the unique token count, use [`params.uniqueTerms`]{.title-ref}.
 
-You either can hardcode the `term_stat` parameter in your script definition or can pass them as parameters to be set at query time. For example, the following example query defines a feature set with a script feature that uses hardcoded `term_stat` parameters:
+You can either hardcode the `term_stat` parameter in your script definition or pass the parameter to be set at query time. For example, the following example query defines a feature set with a script feature that uses hardcoded `term_stat` parameters:
 
 ```json
 POST _ltr/_featureset/test
@@ -471,7 +471,7 @@ POST _ltr/_featureset/test
 ```
 {% include copy-curl.html %}
 
-Analyzer names must be prefixed with a bang(!) if specifying locally. Otherwise, they are treated as the parameter lookup value.
+Analyzer names must be prefixed with a bang(!) when specifying them locally. Otherwise, they are treated as the parameter lookup value.
 {: .note}
 
 To set parameter lookups, you can pass the name of the parameter from which you want to pull the value, as shown in the following example request:
