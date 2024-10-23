@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Core concepts for ML ranking
+title: ML ranking core concepts
 nav_order: 10
 parent: Learning to Rank
 has_children: false
