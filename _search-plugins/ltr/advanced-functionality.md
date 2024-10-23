@@ -201,7 +201,7 @@ GET /_ltr/_cachestats
 ```
 {% include copy-curl.html %}
 
-You can control the characteristics of the internal cache using the following node settings:
+You can control the characteristics of the internal cache by using the following node settings:
 
 ```
 # limit cache usage to 12 megabytes (defaults to 10mb or max_heap/10 if lower) ltr.caches.max_mem: 12mb
