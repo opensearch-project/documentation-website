@@ -13,8 +13,8 @@ redirect_from:
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
 {: .warning}
 
-Star Tree Index is a multi-field index that improves the performance of aggregations.
-Once you configure star-tree index as part of index mapping by specifying the dimensions and metrics, star-tree index gets created and maintained in real-time within segments as data is ingested.
+Star Tree Index is a multi-field index that improves the performance of aggregations by pre-computing the aggregations.
+Once you configure star-tree index as part of index mapping, it will be created and maintained in real-time within segments as data is ingested.
 
 OpenSearch will automatically use the star-tree index to optimize aggregations based on the input query and star-tree configuration. No changes are required in the query syntax or requests.
 
@@ -27,7 +27,7 @@ Before using star-tree field, be sure to satisfy the following prerequisites:
 - Set the feature flag `opensearch.experimental.feature.composite_index.star_tree.enabled"` to `true`. For more information about enabling and disabling feature flags, see [Enabling experimental features]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
 - Set the `indices.composite_index.star_tree.enabled` setting to `true`. For instructions on how to configure OpenSearch, see [configuring settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#static-settings).
 -  Set the `index.composite_index` index setting to `true` during index creation.
-- Enable `doc_values` : Ensure that the `doc_values` is enabled for the dimensions and metrics fields used in your star-tree mapping.
+- Enable `doc_values` : Ensure that the `doc_values` is enabled for the [dimensions](#ordered-dimensions) and [metrics](#metrics) fields used in your star-tree mapping.
 
 
 ## Examples
