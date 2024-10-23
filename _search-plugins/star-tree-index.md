@@ -40,13 +40,13 @@ You can be use Star Tree index to perform faster aggregations with a constant up
 - Star Tree index consolidates the data and hence is a storage efficient index which results in efficient paging and fraction of IO utilization for search queries. 
 
 ## Considerations
-- Star Tree index ideally should be used with append-only indices, as updates or deletes are not accounted in Star Tree index.
+- Star Tree index ideally should be used with append-only indexes, as updates or deletes are not accounted in Star Tree index.
 - Star Tree index will be used for aggregation queries only if the query input is a subset of the Star Tree configuration of dimensions and metrics
 - Once star-tree index is enabled for an index, you currently cannot disable it. You have to reindex without the star-tree mapping to remove star-tree from the index.
     - Changing Star Tree configuration will also require a re-index operation.
 - [Multi-values/array values]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/index/#arrays) are not supported
 - Only [limited queries and aggregations](#supported-query-and-aggregations) are supported with support for more coming in future
-- The cardinality of the dimensions should not be very high (like "_id" fields), otherwise it leads to storage explosion and higher query latencies.
+- The cardinality of the dimensions should not be very high (like `_id` fields), otherwise it leads to storage explosion and higher query latencies.
 
 ## Enabling star tree index
 - Set the feature flag `opensearch.experimental.feature.composite_index.star_tree.enabled"` to `true`. For more information about enabling and disabling feature flags, see [Enabling experimental features]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
@@ -171,5 +171,7 @@ POST /logs/_search
 ```
 
 This query will get optimized automatically as star-tree index will be used.
+<br/>With star-tree index, we will be able to retrieve the result with a single aggregated document once we traverse to the `status=500` node as opposed to scanning through all documents and perform summation as done currently in the regular query.
+<br/>This will result in lower query latency.
 
 You can set the `indices.composite_index.star_tree.enabled` setting to `false` to run queries without using star-tree index.

@@ -129,6 +129,34 @@ Configure fields for which you need to perform aggregations. This is required pr
   - `Avg` is a derived metric based on `Sum` and `Value_count` and is not indexed and is derived on query time. Rest are base metrics which are indexed.
 - Upto `100` base metrics are supported per Star Tree index.
 
+For example, say you provide `Min`, `Max`, `Sum` and `Value_count` as part of all fields as part of `metrics` configuration, you can provide upto 25 fields as below
+```json
+{
+"metrics": [
+  {
+    "name": "field1",
+    "stats": [
+      "sum",
+      "value_count",
+      "min",
+      "max"
+    ],
+    ...,
+    ...,
+    "name": "field25",
+    "stats": [
+      "sum",
+      "value_count",
+      "min",
+      "max"
+    ]
+  }
+]
+      
+
+```
+
+
 #### Properties
 
 | Parameter            | Required/Optional | Description                                                                                                                                                                                                                                                                                                                                                                                                                         | 
@@ -137,7 +165,7 @@ Configure fields for which you need to perform aggregations. This is required pr
 | `stats` | Optional          | List of metric aggregations computed for each field. You can choose between `Min`, `Max`, `Sum`, `Avg`, and `Value Count`.<br/>Defaults are `Sum` and `Value_count`.<br/>`Avg` is a derived metric stat which will automatically be supported in queries if `sum` and `value_count` are present as part of metric `stats`.
 
 ### Star tree configuration parameters
-Following are additional optional parameters that can be configured alongside star-tree index.
+Following are additional optional parameters that can be configured alongside star-tree index. These are final and cannot be modified post index creation.
 
 | Parameter       | Required/Optional | Description                                                                                                                                                                                                                                                                                                                                                                                                                         | 
 |:----------------|:------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
