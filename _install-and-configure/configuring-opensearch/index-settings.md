@@ -85,7 +85,7 @@ OpenSearch supports the following dynamic cluster-level index settings:
 
 - `cluster.thread_pool.<scaling-threadpool>.max` (Integer): Sets the maximum size of the scaling thread pool. Overrides the default provided in `opensearch.yml`.
 
-- `cluster.thread_pool.<scaling-threadpool>.core` (Integer): Controls the core size of  scaling threadpool. Overrides the defaults provided in yml.
+- `cluster.thread_pool.<scaling-threadpool>.core` (Integer): Specifies the core size of the scaling thread pool. Overrides the default provided in `opensearch.yml`.
 
 ### Notes for dynamically tuning Thread Pool Settings
 
