@@ -267,4 +267,4 @@ Feature sets are more like ordered lists than simple sets. Each feature has both
 
 ## Next steps
 
-Learn about [Feature engineering]({{site.url}}{{site.baseurl}}/search-plugins/ltr/feature-engineering/) and [Advanced functionality]({{site.url}}{{site.baseurl}}/search-plugins/ltr/advanced-functionality/).
+Learn about [feature engineering]({{site.url}}{{site.baseurl}}/search-plugins/ltr/feature-engineering/) and [advanced functionality]({{site.url}}{{site.baseurl}}/search-plugins/ltr/advanced-functionality/).
