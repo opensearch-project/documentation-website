@@ -160,14 +160,16 @@ The response provides information about the analyzers for each field:
 ```
 
 ## Normalizers
+
 Tokenization divides text into individual terms, but it does not address variations in token forms. Normalization resolves these issues by converting tokens into a standard format. This ensures that similar terms are matched appropriately, even if they are not identical.
 
 ### Normalization techniques
 
 The following normalization techniques can help address variations in token forms:
+
 1. **Case normalization**: Converts all tokens to lowercase to ensure case-insensitive matching. For example, "Hello" is normalized to "hello".
 
-2. **Stemming**: Reduces words to their root form. For instance, "cars" is stemmed to "car", and "running" is normalized to "run".
+2. **Stemming**: Reduces words to their root form. For instance, "cars" is stemmed to "car" and "running" is normalized to "run".
 
 3. **Synonym handling:** Treats synonyms as equivalent. For example, "jogging" and "running" can be indexed under a common term, such as "run".
 
