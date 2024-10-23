@@ -6,7 +6,7 @@ parent: Learning to Rank
 has_children: false
 ---
 
-# Core concepts for ML ranking
+# ML ranking core concepts
 
 This guidebook is intended for OpenSearch developers and data scientist who are interested in adding machine learning (ML) ranking capabilities to their OpenSearch system.
 
