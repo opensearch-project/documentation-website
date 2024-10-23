@@ -17,7 +17,7 @@ The `enabled` parameter accepts the following values.
 Parameter | Description
 :--- | :---
 `true` | The field is parsed and indexed. Default is `true`.
-`false` | The field is not parsed or indexed, but still retrievable from the `_source` field. When `enabled` is set to `false`, OpenSearch stores the field's value in the `_source` field but does not index or parse its contents. This can be useful for fields that you want to store but do not need to search, sort, or aggregate on.
+`false` | The field is not parsed or indexed but is still retrievable from the `_source` field. When `enabled` is set to `false`, OpenSearch stores the field's value in the `_source` field but does not index or parse its contents. This can be useful for fields that you want to store but do not need to search, sort, or aggregate on.
 
 ---
 
