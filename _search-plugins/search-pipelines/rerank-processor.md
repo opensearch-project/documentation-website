@@ -11,7 +11,14 @@ grand_parent: Search pipelines
 Introduced 2.12
 {: .label .label-purple }
 
-The `rerank` search response processor can take different forms as specified by the [rerank type](#rerank-types). When used, it intercepts search results and reranks them based on the rerank type. The processor orders documents in the search results based on their new scores. 
+The `rerank` search response processor intercepts and reranks search results. The processor orders documents in the search results based on their new scores. 
+
+OpenSearch supports the following rerank types.
+
+Type | Description | Earliest available version
+:--- | :--- | :---
+[`ml_opensearch`](#the-ml_opensearch-rerank-type) | Applies an OpenSearch-provided cross-encoder model. | 2.12
+[`by_field`](#the-by_field-rerank-type) | Applies reranking based on a user-provided field. | 2.18
 
 ## Request body fields
 
@@ -19,32 +26,34 @@ The following table lists all available request fields.
 
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`<rerank_type>` | Object | Required | The rerank type provides the `rerank` processor with static information needed across all reranking calls.
-`context` | Object |  Required for the `ml_opensearch` rerank type. | Provides the `rerank` processor with information necessary for generating reranking context at query time. 
+`<rerank_type>` | Object | Required | The rerank type for document reranking. Valid values are `ml-opensearch` and `by_field`.
+`context` | Object |  Required for the `ml_opensearch` rerank type. Optional and does not affect the results for the `by_field` rerank type. | Provides the `rerank` processor with information necessary for reranking at query time. 
 `tag` | String | Optional | The processor's identifier.
 `description` | String | Optional | A description of the processor.
 `ignore_failure` | Boolean | Optional | If `true`, OpenSearch [ignores any failure]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/creating-search-pipeline/#ignoring-processor-failures) of this processor and continues to run the remaining processors in the search pipeline. Default is `false`.
 
-### Rerank types
+<!-- vale off -->
+## The ml_opensearch rerank type
+<!-- vale on -->
+Introduced 2.12
+{: .label .label-purple }
 
-Type | Description | Earliest available version
-:--- | :--- | :---
-[`ml_opensearch`](#the-ml_opensearch-rerank-type) | Applies an OpenSearch-provided cross-encoder model. | 2.12
-[`by_field`](#the-by_field-rerank-type) | Applies reranking based on a user-provided field. | 2.18
+To rerank results using a cross-encoder model, specify the `ml_opensearch` rerank type.
 
-### The `ml_opensearch` rerank type
+### Prerequisite
 
-The `ml_opensearch` rerank type is designed to work with the cross-encoder model provided by OpenSearch. For this rerank type, specify the following fields.
+Before using the `ml_opensearch` rerank type, you must configure a cross-encoder model. For information about using an OpenSearch-provided model, see [Cross-encoder models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#cross-encoder-models). For information about using a custom model, see [Custom local models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/custom-local-models/).
 
-Field  | Data type | Required/Optional | Description
-:--- | :---  | :--- | :--- 
-`ml_opensearch` | Object | Required | Provides model information to the `rerank` processor.
-`ml_opensearch.model_id` | String | Required | The model ID for the cross-encoder model. Required. For more information, see [Using ML models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/).
-`context.document_fields` | Array | Required | An array of document fields that specifies the fields from which to retrieve context for the cross-encoder model. 
+The `ml_opensearch` rerank type supports the following fields. All fields are required.
 
-## Example 
+Field  | Data type | Description
+:--- | :---  | :--- 
+`ml_opensearch.model_id` | String | The model ID for the cross-encoder model to use for reranking. For more information, see [Using ML models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/).
+`context.document_fields` | Array | An array of document fields that specifies the fields from which to retrieve context for the cross-encoder model. 
 
-The following example demonstrates using a search pipeline with a `rerank` processor implemented using the `ml_opensearch` rerank type.
+### Example 
+
+The following example demonstrates using a search pipeline with a `rerank` processor implemented using the `ml_opensearch` rerank type. For a complete example, see [Reranking using a cross-encoder model]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-cross-encoder/).
 
 ### Creating a search pipeline
 
@@ -115,51 +124,37 @@ POST /_search?search_pipeline=rerank_pipeline
 ```
 {% include copy-curl.html %}
 
-The `query_context` object contains the following fields. 
+The `query_context` object contains the following fields. You must provide either `query_text` or `query_text_path` but cannot provide both simultaneously.
 
 Field name | Required/Optional | Description
 :--- | :--- | :---  
-`query_text` | Required (see below)| The natural language text of the question that you want to use to rerank the search results. 
-`query_text_path` | Required (see below) | The full JSON path to the text of the question that you want to use to rerank the search results. The maximum number of characters allowed in the path is `1000`.
+`query_text` | Exactly one of `query_text` or `query_text_path` is required. | The natural language text of the question that you want to use to rerank the search results. 
+`query_text_path` | Exactly one of `query_text` or `query_text_path` is required. | The full JSON path to the text of the question that you want to use to rerank the search results. The maximum number of characters allowed in the path is `1000`.
 
-You are required to select either `query_text` or `query_text_path` but cannot select both simultaneously. Please ensure that only one option is chosen in order to avoid conflicts.
 
-### The `by_field` rerank type
+<!-- vale off -->
+## The by_field rerank type
+<!-- vale on -->
+Introduced 2.18
+{: .label .label-purple }
 
-The `by_field` rerank type is designed to operate using a specified field in your document. This can be useful if a model has already run and produced a numerical score in your document(s) or if a previous search response processor was applied and you want to rerank documents differently based on an aggregated field. For this rerank type, specify the following fields.
+To rerank results by a document field, specify the `by_field` rerank type.
+
+The `by_field` object supports the following fields.
 
 Field  | Data type | Required/Optional | Description
 :--- | :---  | :--- | :--- 
-`by_field` | Object | Required | Provides reranking information to the `rerank` processor.
-`by_field.target_field` | String | Required |  This can be a path to your field that has a numerical score, in the form of `key[.key]`. 
-`by_field.remove_target_field` | Boolean | Optional | If `true`, deletes the `target_field` used to perform reranking. Otherwise, the field is not deleted. Default is `false`.
-`by_field.keep_previous_score` | Boolean | Optional | If `true`, appends a `previous_score`, which is the score calculated before reranking and can be useful when debugging. When `false`, no additional field is added. Default is `false`.
+`target_field` | String | Required |  Specifies the field name or a dot path to the field that contains the score by which to rank. 
+`remove_target_field` | Boolean | Optional | If `true`, the response does not include the `target_field` used to perform reranking. Default is `false`.
+`keep_previous_score` | Boolean | Optional | If `true`, the response includes a `previous_score` field, which contains the score calculated before reranking and can be useful when debugging. Default is `false`.
 
-## Example 
+### Example 
 
-The following example demonstrates using a search pipeline with a `rerank` processor implemented using the `by_field` rerank type.
+The following example demonstrates using a search pipeline with a `rerank` processor implemented using the `by_field` rerank type. For a complete example, see [Reranking by a document field]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field/).
 
-### Create an index and ingest data
-Create an index and ingest data with the numerical score that you want to use to rerank search results. The following example request ingests data for an index named `book-index`:
+### Creating a search pipeline
 
-```json
-POST _bulk
-{ "index": { "_index": "book-index", "_id": "1" } }
-{ "title": "The Lost City", "author": "Jane Doe", "genre": "Adventure Fiction", "reviews": { "stars": 4.2 }, "description": "An exhilarating journey through a hidden civilization in the Amazon rainforest." }
-{ "index": { "_index": "book-index", "_id": "2" } }
-{ "title": "Whispers of the Past", "author": "John Smith", "genre": "Historical Mystery", "reviews": { "stars": 4.7 }, "description": "A gripping tale set in Victorian England, unraveling a century-old mystery." }
-{ "index": { "_index": "book-index", "_id": "3" } }
-{ "title": "Starlit Dreams", "author": "Emily Clark", "genre": "Science Fiction", "reviews": { "stars": 4.5 }, "description": "In a future where dreams can be shared, one girl discovers her imagination's power." }
-{ "index": { "_index": "book-index", "_id": "4" } }
-{ "title": "The Enchanted Garden", "author": "Alice Green", "genre": "Fantasy", "reviews": { "stars": 4.8 }, "description": "A magical garden holds the key to a young girl's destiny and friendship." }
-
-```
-{% include copy-curl.html %}
-
-
-### Create a search pipeline
-
-The following request creates a search pipeline with a `by_field` rerank type response processor. We want to rerank `by_field` using a nsted `target_field` "reviews.stars", we are also interested in understanding how our documents ranked before applying this rerank type so we will enable `keep_previous_score`.
+The following request creates a search pipeline with a `by_field` rerank type response processor that ranks the documents by the `reviews.stars` field and specifies to return the original document score:
 
 ```json
 PUT /_search/pipeline/rerank_byfield_pipeline
@@ -178,9 +173,9 @@ PUT /_search/pipeline/rerank_byfield_pipeline
 ```
 {% include copy-curl.html %}
 
-### Use the search pipeline
+### Using the search pipeline
 
-You can combine an OpenSearch query with the pipeline you created in order to see the reranking of your search results:
+To apply the search pipeline to a query, provide the search pipeline name in the query parameter:
 
 ```json
 POST /_search?search_pipeline=rerank_byfield_pipeline
@@ -192,91 +187,8 @@ POST /_search?search_pipeline=rerank_byfield_pipeline
 ```
 {% include copy-curl.html %}
 
-The response will appear similar to the following. The documents are now sorted in descending order based on the rating of each book, and the `previous_score` field provides the original document scores:
+## Next steps
 
-```json
-{
-  "took": 33,
-  "timed_out": false,
-  "_shards": {
-    "total": 1,
-    "successful": 1,
-    "skipped": 0,
-    "failed": 0
-  },
-  "hits": {
-    "total": {
-      "value": 4,
-      "relation": "eq"
-    },
-  "max_score": 4.8,
-  "hits": [
-    {
-      "_index": "book-index",
-      "_id": "4",
-      "_score": 4.8,
-      "_source": {
-        "reviews": {
-          "stars": 4.8
-        },
-        "author": "Alice Green",
-        "genre": "Fantasy",
-        "description": "A magical garden holds the key to a young girl's destiny and friendship.",
-        "previous_score": 1.0,
-        "title": "The Enchanted Garden"
-      }
-    },
-    {
-      "_index": "book-index",
-      "_id": "2",
-      "_score": 4.7,
-      "_source": {
-        "reviews": {
-          "stars": 4.7
-        },
-        "author": "John Smith",
-        "genre": "Historical Mystery",
-        "description": "A gripping tale set in Victorian England, unraveling a century-old mystery.",
-        "previous_score": 1.0,
-        "title": "Whispers of the Past"
-      }
-    },
-    {
-      "_index": "book-index",
-      "_id": "3",
-      "_score": 4.5,
-      "_source": {
-        "reviews": {
-          "stars": 4.5
-        },
-        "author": "Emily Clark",
-        "genre": "Science Fiction",
-        "description": "In a future where dreams can be shared, one girl discovers her imagination's power.",
-        "previous_score": 1.0,
-        "title": "Starlit Dreams"
-      }
-    },
-    {
-      "_index": "book-index",
-      "_id": "1",
-      "_score": 4.2,
-      "_source": {
-        "reviews": {
-          "stars": 4.2
-        },
-        "author": "Jane Doe",
-        "genre": "Adventure Fiction",
-        "description": "An exhilarating journey through a hidden civilization in the Amazon rainforest.",
-        "previous_score": 1.0,
-        "title": "The Lost City"
-      }
-    }
-  ]
-},
-"profile": {
-  "shards": []
-}
-}
-```
-
-For more information about setting up reranking, see [Reranking search results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/).
+- Learn more about [reranking search results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/).
+- See a complete example of [reranking using a cross-encoder model]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-cross-encoder/).
+- See a complete example of [reranking by a document field]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field/).
