@@ -18,7 +18,11 @@ OpenSearch will use the star-tree index to optimize aggregations based on the in
 
 <img src="{{site.url}}{{site.baseurl}}/images/star-tree-index.png" alt="A Star Tree index containing two dimensions and two metrics" width="700">
 
-Star Tree index structure as portrayed in the above figure, consists of mainly two parts: Star Tree and sorted and aggregated star-tree documents backed by doc-values indexes.
+Star Tree index structure as portrayed in the above figure, consists of mainly two parts:
+- Star Tree and 
+- Sorted and aggregated star-tree documents backed by doc-values indexes
+    - The values are sorted based on the order of `ordered_dimension` , in the above example, first by `status` and then by `port` for each of the status.
+    - For each of the unique dimension values combinations , we also pre-compute the aggregated values for all the metrics such as `avg(size)` and `count(requests)` 
 
 Each node in the Star Tree points to a range of star-tree documents.
 A node is further split into child nodes based on [max_leaf_docs configuration]({{site.url}}{{site.baseurl}}/field-types/star-tree/#star-tree-configuration-parameters).
@@ -85,19 +89,13 @@ PUT logs
           ],
           "metrics": [
             {
-              "name": "request_size",
+              "name": "size",
               "stats": [
-                "sum",
-                "value_count",
-                "min",
-                "max"
+                "sum"
               ],
               "name": "latency",
               "stats": [
-                "sum",
-                "value_count",
-                "min",
-                "max"
+                "avg"
               ]
             }
           ]
@@ -111,7 +109,7 @@ PUT logs
       "port": {
         "type": "integer"
       },
-      "request_size": {
+      "size": {
         "type": "integer"
       },
       "latency": {

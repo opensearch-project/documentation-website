@@ -13,7 +13,7 @@ redirect_from:
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
 {: .warning}
 
-Star Tree Index is a multi-field index that improves the performance of aggregations by pre-computing the aggregations.
+Star Tree Index creates materialized views by pre-computing aggregations to accelerate the performance of aggregations.
 Once you configure star-tree index as part of index mapping, it will be created and maintained in real-time within segments as data is ingested.
 
 OpenSearch will automatically use the star-tree index to optimize aggregations based on the input query and star-tree configuration. No changes are required in the query syntax or requests.
