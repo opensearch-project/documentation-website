@@ -30,7 +30,8 @@ IP | [`ip`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/ip/):
 k-NN vector | [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/): Allows indexing a k-NN vector into OpenSearch and performing different kinds of k-NN search.
 Percolator | [`percolator`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/percolator/): Specifies to treat this field as a query. 
 Derived | [`derived`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/derived/): Creates new fields dynamically by executing scripts on existing fields.
-Star Tree | [`star_tree`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/star-tree/): Creates materialized views by pre-computing aggregations using star-tree index to accelerate performance of aggregations.
+Star Tree | [`star_tree`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/star-tree/): Pre-computes aggregations and stores in a Star Tree Index to accelerate the performance of aggregation queries.
+
 ## Arrays
 
 There is no dedicated array field type in OpenSearch. Instead, you can pass an array of values into any field. All values in the array must have the same field type.

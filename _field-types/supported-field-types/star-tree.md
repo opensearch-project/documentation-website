@@ -13,7 +13,7 @@ redirect_from:
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
 {: .warning}
 
-Star Tree Index creates materialized views by pre-computing aggregations to accelerate the performance of aggregations.
+Star Tree Index (STIX) pre-computes aggregations to accelerate the performance of aggregation queries.
 Once you configure star-tree index as part of index mapping, it will be created and maintained in real-time within segments as data is ingested.
 
 OpenSearch will automatically use the star-tree index to optimize aggregations based on the input query and star-tree configuration. No changes are required in the query syntax or requests.
@@ -127,9 +127,9 @@ Configure fields for which you need to perform aggregations. This is required pr
 - Currently, supported fields for `metrics` are of [numeric field types](https://opensearch.org/docs/latest/field-types/supported-field-types/numeric/) with the exception of `unsigned_long`.
 - Supported metric aggregations include `Min`, `Max`, `Sum`, `Avg` and `Value_count`. 
   - `Avg` is a derived metric based on `Sum` and `Value_count` and is not indexed and is derived on query time. Rest are base metrics which are indexed.
-- Upto `100` base metrics are supported per Star Tree index.
+- Maximum of `100` base metrics are supported per Star Tree index.
 
-For example, say you provide `Min`, `Max`, `Sum` and `Value_count` as part of all fields as part of `metrics` configuration, you can provide upto 25 fields as below
+For example, say you provide `Min`, `Max`, `Sum` and `Value_count` as part of all fields as part of `metrics` configuration, you can provide up to 25 fields as below
 ```json
 {
 "metrics": [
