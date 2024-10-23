@@ -178,7 +178,7 @@ PUT /_search/pipeline/rerank_byfield_pipeline
 To apply the search pipeline to a query, provide the search pipeline name in the query parameter:
 
 ```json
-POST /_search?search_pipeline=rerank_byfield_pipeline
+POST /book-index/_search?search_pipeline=rerank_byfield_pipeline
 {
   "query": {
      "match_all": {}
