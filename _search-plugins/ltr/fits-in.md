@@ -22,7 +22,7 @@ The plugin provides the building blocks to develop and use LTR models, giving yo
 
 The plugin does not support the creation of judgment lists. This is a task you must handle yourself because it is domain specific. See the [Wikimedia Foundation blog](https://blog.wikimedia.org/2017/09/19/search-relevance-survey/) for an example approach to developing judgment lists for searching articles. Some domains, such as e-commerce, may focus more on conversion-related signals, while others may involve human relevance assessors (either internal experts or crowdsourced workers).
 
-The plugin does not handle model training or testing. This is an offline process that should be handled using the appropriate tools, such as [XGBoost](https://xgboost.ai/) and [RankLib](https://lemurproject.org/ranklib.php). The plugin integrates with these external model-building workflows. Training and testing ranking models can be a CPU-intensive task that requires data scientist expertise and offline testing. Most organizations prefer to have data scientists oversee the model development process, rather than running it directly in their production environment.
+The plugin does not handle model training or testing. This is an offline process that should be handled using the appropriate tools, such as [XGBoost](https://xgboost.ai/) and [RankLib](https://lemurproject.org/ranklib.php). The plugin integrates with these external model-building workflows. Training and testing ranking models can be a CPU-intensive task that requires data science expertise and offline testing. Most organizations prefer to have data scientists oversee the model development process rather than running it directly in their production environment.
 
 ## Next steps
 
