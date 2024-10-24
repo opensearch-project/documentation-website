@@ -1,4 +1,6 @@
-<!-- Document: Topic -->
+
+
+
 Creating a snapshot of the source cluster capture all the metadata and documents to migrate onto a new target cluster.
 
 ## Limitations

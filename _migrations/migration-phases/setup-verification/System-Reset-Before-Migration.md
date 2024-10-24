@@ -1,4 +1,6 @@
-<!-- Document: Topic -->
+
+
+
 The following steps outline how to reset resources with Migration Assistant before executing the actual migration. At this point all verifications are expected to have been completed. These steps can be performed after [[Accessing the Migration Console]]
 
 ## Replayer Stoppage

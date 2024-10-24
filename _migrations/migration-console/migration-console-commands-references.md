@@ -1,4 +1,5 @@
-<!-- Document: Topic -->
+
+
 
 The Migration Assistant Console is a command line interface to interact with the deployed components of the solution.
 

@@ -1,4 +1,6 @@
-<!-- Document: Topic -->
+
+
+
 This guide will describe how once the traffic capture proxy is deployed the captured traffic can be verified.
 
 ## Replication setup and validation

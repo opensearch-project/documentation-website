@@ -1,4 +1,6 @@
-<!-- Document: Topic -->
+
+
+
 The goal of the Migration Assistant is to streamline the process of migrating from one location or version of Elasticsearch/OpenSearch to another. However, completing a migration sometimes requires resolving client compatibility issues before they can communicate directly with the target cluster.
 
 It's crucial to understand and plan for any necessary changes before beginning the migration process. The previous page on [[breaking changes between versions|Understanding-breaking-changes]] is a useful resource for identifying potential issues.

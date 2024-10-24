@@ -1,4 +1,6 @@
-<!-- Document: Topic -->
+
+
+
 Before performing any upgrade or migration, you should review any documentation of breaking changes.  Even if the cluster is migrated there might be changes required for clients to connect to the new cluster
 
 ## Upgrade and breaking changes guides

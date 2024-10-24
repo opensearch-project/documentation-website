@@ -1,4 +1,6 @@
-<!-- Document: Topic -->
+
+
+
 After the backfill has been completed and the fleet has been stopped 
 
 ## Refresh the target cluster

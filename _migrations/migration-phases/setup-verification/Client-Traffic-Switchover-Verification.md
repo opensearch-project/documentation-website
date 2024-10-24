@@ -1,4 +1,6 @@
-<!-- Document: Topic -->
+
+
+
 The Migrations ALB is deployed with a listener that shifts traffic between the source and target clusters through proxy services. The ALB should start in **Source Passthrough** mode.
 
 ## Verify traffic switchover has completed

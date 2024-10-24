@@ -1,4 +1,6 @@
-<!-- Document: Topic -->
+
+
+
 After the [[Metadata Migration]] has been completed; begin the backfill of documents from the snapshot of the source cluster.
 
 ## Document Migration

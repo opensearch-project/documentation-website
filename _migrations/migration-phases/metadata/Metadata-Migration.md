@@ -1,4 +1,6 @@
-<!-- Document: Topic -->
+
+
+
 Metadata migration is a relatively fast process to execute so we recommend attempting this workflow as quickly as possible to discover any issues which could impact longer running migration steps.
 
 ## Prerequisites

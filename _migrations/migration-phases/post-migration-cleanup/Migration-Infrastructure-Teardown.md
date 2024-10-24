@@ -1,4 +1,6 @@
-<!-- Document: Topic -->
+
+
+
 After a migration is complete all resources should be removed except for the target cluster, and optionally your Cloudwatch Logs, and Replayer logs.
 
 ## Remove Migration Assistant Infrastructure

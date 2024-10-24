@@ -1,4 +1,5 @@
-<!-- Document: Topic -->
+
+
 After the source and target clusters are in sync traffic needs to be switched to the target cluster so the source cluster can be taken offline.
 
 ## Assumptions

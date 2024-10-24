@@ -1,4 +1,6 @@
-<!-- Document: Topic -->
+
+
+
 Verify that a snapshot can be created and used for metadata and backfill scenarios.
 
 ### Install the Elasticsearch S3 Repository Plugin

@@ -1,4 +1,6 @@
-<!-- Document: Topic -->
+
+
+
 The Migrations Assistant deployment includes an ECS task that hosts tools to run different phases of the migration and check the progress or results of the migration.
 
 ## SSH into the Migration Console

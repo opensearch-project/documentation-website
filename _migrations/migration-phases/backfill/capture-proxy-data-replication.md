@@ -1,4 +1,6 @@
-<!-- Document: Topic -->
+
+
+
 The Migration Assistant includes an Application Load Balancer (ALB) for routing traffic to the capture proxy and/or target. Upstream client traffic must be routed through the capture proxy in order to replay the requests later.
 
 ## Assumptions

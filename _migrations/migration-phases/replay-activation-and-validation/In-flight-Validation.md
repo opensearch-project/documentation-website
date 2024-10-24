@@ -1,4 +1,6 @@
-<!-- Document: Topic -->
+
+
+
 The Replayer is a long-running process that makes requests to a target cluster to maintain synchronization with the source cluster and enable users to compare the performance between the two clusters. There are two primary ways to assess how the target requests are being handled: through logs and metrics.
 
 ## Result Logs
