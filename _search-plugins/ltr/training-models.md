@@ -223,7 +223,7 @@ Min-max normalization scales features to a fixed range, typically between 0 and 
 
 - Maps the specified minimum value to 0
 - Maps the specified maximum value to 1
-- Scales the values in between linearly
+- Scales the values between 0 and 1 linearly
 
 The following example request shows how to implement min-max normalization:
 
