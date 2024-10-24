@@ -1,8 +1,10 @@
 ---
 layout: default
-title: About the migration process
+title: Migrate to OpenSearch
 nav_order: 1
+has_children: false
 nav_exclude: true
+has_toc: false
 permalink: /upgrade-to/
 redirect_from:
   - /upgrade-to/index/

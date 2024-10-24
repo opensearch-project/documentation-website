@@ -134,11 +134,6 @@ opensearch_collection:
     install-and-configure:
       name: Install and upgrade
       nav_fold: true
-    upgrade-to:
-      name: Migrate to OpenSearch
-      # nav_exclude: true
-      nav_fold: true
-      # search_exclude: true
     im-plugin:
       name: Managing Indexes
       nav_fold: true
@@ -222,6 +217,12 @@ data_prepper_collection:
       name: Data Prepper
       nav_fold: true
 
+migrations_collection:
+  collections:
+    upgrade-to:
+      name: Migrate to OpenSearch
+      nav_fold: true
+
 # Defaults
 
 defaults:
@@ -249,6 +250,12 @@ defaults:
     values:
       section: "benchmark"
       section-name: "Benchmark"
+  -
+    scope:
+      path: "_upgrade-to"
+    values:
+      section: "migrations"
+      section-name: "Migrate to OpenSearch"
 
 # Enable or disable the site search
 # By default, just-the-docs enables its JSON file-based search. We also have an OpenSearch-driven search functionality.
