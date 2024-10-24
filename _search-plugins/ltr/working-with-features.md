@@ -43,7 +43,7 @@ In addition to simple query-based features, you can also use document properties
 ```
 {% include copy-curl.html %}
 
-Another example is a query based on the location, such as a geo-distance filter, as shown in the following example:
+Another example is a query based on location, such as a geodistance filter:
 
 ```json
 {
