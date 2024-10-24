@@ -407,7 +407,7 @@ You can continue adding as many feature sets as needed for logging.
 
 Once you have covered the basics, you can consider some real-life feature logging scenarios.
 
-First, logging is used to develop judgment lists from user analytics to capture the exact value of a feature at the precise time of interaction. For instance, you may want to know the recency, title score, and other values at the precise time of a user's interaction. This would help you analyze what correlated with relevance while training. To achieve this, you can build a comprehensive feature set for future experimentation. 
+First, logging is used to develop judgment lists from user analytics to capture the exact value of a feature at the precise time of interaction. For instance, you may want to know the recency, title score, and other values at the precise time of a user's interaction. This would help you analyze which features or factors had relevance while training. To achieve this, you can build a comprehensive feature set for future experimentation. 
 
 Second, logging is used to retrain a model you already have confidence in. You may want to keep your models up to date with a shifting index because models can lose their effectiveness over time. You may have A/B testing in place or be monitoring business metrics and notice gradual degradation in model performance. 
 
