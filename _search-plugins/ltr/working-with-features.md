@@ -75,7 +75,7 @@ The features in LTR queries use Mustache templates. This allows you to insert va
 
 ## Uploading and naming features
 
-The Learning to Rank plugin enables you to create and manipulate features. After you define your features, you can log them to use in training a model. By combining the logged feature data with your judgment list, you can train a model. Once the model is ready, you can upload it and then apply it to your search queries.
+The Learning to Rank plugin enables you to create and modify features. After you define your features, you can log them for use in model training. By combining the logged feature data with your judgment list, you can train a model. Once the model is ready, you can upload it and then apply it to your search queries.
 
 ## Initializing the default feature store
 
