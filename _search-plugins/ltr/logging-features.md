@@ -149,7 +149,7 @@ The log extension supports the following arguments:
 - `rescore_index`: If the `sltr` query is in a rescore phase, then this is the index of the query in the rescore list.
 - `missing_as_zero`: Produces a `0` for missing features (when the feature does not match). Default is `false`.
   
-To enable the logging to locate an `sltr` query, either for the normal query phase or during rescoring, either `named_query` or `rescore_index` must be set.
+To enable the logging to locate an `sltr` query, either during the normal query phase or during rescoring, either `named_query` or `rescore_index` must be set.
 {: .note}
 
 The full example request is as follows:
