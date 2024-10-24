@@ -58,7 +58,7 @@ A `match` is first executed for the term `rambo` and then `my_model` is applied 
 
 ## Rescoring a subset of features
 
-You can selectively score a subset of features by specifying the `active_features` in the `sltr` query, as shown in the following example query. This allows you to focus the model's scoring on the selected features, while any unspecified features are marked as missing. You only need to specify the `params` relevant to the `active_features`. If you request a feature name that is not a part of the assigned feature set, then the query throws an error.
+You can selectively score a subset of features by specifying the `active_features` in the `sltr` query, as shown in the following example. This allows you to focus the model's scoring on the selected features, while any unspecified features are marked as missing. You only need to specify the `params` relevant to the `active_features`. If you request a feature name that is not part of the assigned feature set, then the query throws an error.
 
 ```json
     POST tmdb/_search
