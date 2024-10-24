@@ -16,7 +16,7 @@ The plugin provides the building blocks to develop and use LTR models, giving yo
 
 1. **Developing query-dependent features:** Create custom features that capture the relationship between a search query and a document. These features can be stored in OpenSearch.
 2. **Logging feature values:** Record the feature values for documents returned in search results. Once you have logged the feature sets for your documents, you can combine this data with the judgment lists you have developed. This will give you a complete training set that you can use to test and train your ranking models. Tools such as RankLib or XGBoost can then be used to develop a satisfactory model.
-3. **Deploying and using models:** Upload trained ranking models to the plugin and use them to rerank search results. The plugin offers a custom OpenSearch Query DSL primitive that allows you to execute the model during the search process.
+3. **Deploying and using models:** Upload trained ranking models to the plugin and use them to rerank search results. The plugin offers a custom OpenSearch query domain-specific language (DSL) primitive that allows you to execute the model during the search process.
 
 ## What the plugin does not do
 
