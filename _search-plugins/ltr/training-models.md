@@ -78,7 +78,7 @@ Machine learning (ML) models, such as Support Vector Machines (SVMs), output lin
 
 ## Feature normalization
 
-Feature normalization is used to transform feature values to a consistent range, typically between 0 and 1 or -1 and 1. This is done during the training phase to better understand the relative impact of each feature. Some models, especially linear ones such as SVMRank, rely on normalization to function correctly.
+Feature normalization is used to convert feature values to a consistent range, typically between 0 and 1 or -1 and 1. This is done during the training phase to better understand the relative impact of each feature. Some models, especially linear ones such as SVMRank, rely on normalization to function correctly.
 
 ## Model upload process
 
