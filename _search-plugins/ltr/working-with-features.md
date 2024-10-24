@@ -79,7 +79,7 @@ The Learning to Rank plugin enables you to create and modify features. After you
 
 ## Initializing the default feature store
 
-The Learning to Rank plugin uses a feature store to store metadata about your features and models. Typically, you have one feature store per major search implementation, for example, [Wikipedia](http://wikipedia.org) compared to [Wikitravel](http://wikitravel.org).
+The Learning to Rank plugin uses a feature store to store metadata about your features and models. Typically, there is one feature store per major search implementation, for example, [Wikipedia](http://wikipedia.org) as compared to [Wikitravel](http://wikitravel.org).
 
 For most uses cases, you can use the default feature store and not manage multiple feature stores. To initialize the default feature store, run the following request:
 
