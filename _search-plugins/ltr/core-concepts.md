@@ -50,7 +50,7 @@ The ranking function `f` uses input variables to arrive at a predicted output. F
 Similarly, in the context of searching for movies, the ranking function must use relevant features to determine the most relevant results. These features may include:
 
 - Whether and to what degree the search keywords match the title field, such as `titleScore`.
-- Whether and how much the search keywords match the description field, such as `descScore`
+- Whether and to what degree the search keywords match the description field, such as `descScore`.
 - The movie's popularity, such as `popularity`
 - The movie's rating, such as `rating`
 - The number of keywords used during the search, such as `numKeywords*)`.
