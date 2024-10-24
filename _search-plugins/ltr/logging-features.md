@@ -232,7 +232,7 @@ For large judgment lists, it is recommended to batch the logs for multiple queri
 
 ### Logging values for a live feature set
 
-If you are running in production with a model being executed within an `sltr` query, a live model may look like the following example request:
+If you are running in production with a model being executed within an `sltr` query, a live model may appear similar to the following example request:
 
 ```json
 POST tmdb/_search
