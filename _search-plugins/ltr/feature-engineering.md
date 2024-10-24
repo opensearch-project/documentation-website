@@ -48,7 +48,7 @@ You can prepend the `type` with the desired operation (`min`, `max`, `avg`) to c
 The available statistics include the following:
 
 - `min_raw_tp` (minimum raw term position): This statistic finds the earliest position of any search term in the document. For example, with the query `dance monkey`, if `dance` occurs at positions [2, 5, 9] and `monkey` occurs at [1, 4], then the minimum is 1.
-- `max_raw_tp` (maximum raw term position): This statistic finds the latest position of any search term in the document. For example, using the preceding example, the maximum is 9.
+- `max_raw_tp` (maximum raw term position): This statistic finds the latest position of any search term in the document. Using the preceding example, the maximum is 9.
 - `avg_raw_tp` (average raw term position): This statistic calculates the average term position for any of the query terms. For example, using the preceding example, the average for `dance` is 5.33 [(2+5+9)/3)] and for `monkey` is 2.5 [(1+4)/2], with an overall average of 3.91.
 - `unique_terms_count`: Provides a count of the unique search terms in the query.
 
