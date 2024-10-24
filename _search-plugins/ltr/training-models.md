@@ -66,7 +66,7 @@ Optional parameters can be specified for an XGBoost model. These parameters are 
 
 ## Simple linear models
 
-Machine learning models, such as Support Vector Machines (SVMs), output linear weights for each feature. The LTR model supports representing these linear weights in a simple format, such as those learned from an SVM or linear regression model. In the following example output, the weights indicate the relative importance of the features in the model's prediction:
+Machine learning (ML) models, such as Support Vector Machines (SVMs), output linear weights for each feature. The LTR model supports representing these linear weights in a simple format, such as those learned from an SVM or linear regression model. In the following example output, the weights indicate the relative importance of the features in the model's prediction:
 
 ```json
 {
