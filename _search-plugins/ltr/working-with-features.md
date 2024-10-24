@@ -8,7 +8,7 @@ has_children: false
 
 # Working with features
 
-The following sections describe the specific functionality provided by the Learning to Rank plugin. This information will help you build and upload features for your learning to rank (LTR) system. See [Core concepts]({{site.url}}{{site.baseurl}}/search-plugins/ltr/core-concepts/) and [Fits in]({{site.url}}{{site.baseurl}}/search-plugins/ltr/fits-in/) for more information about the Learning to Rank plugin's roles and functionality. 
+The following sections describe the specific functionality provided by the Learning to Rank plugin. This information will help you build and upload features for your learning to rank (LTR) system. See [ML ranking core concepts]({{site.url}}{{site.baseurl}}/search-plugins/ltr/core-concepts/) and [Scope of the plugin]({{site.url}}{{site.baseurl}}/search-plugins/ltr/fits-in/) for more information about the Learning to Rank plugin's roles and functionality. 
 
 ## Understanding the role of features in the Learning to Rank plugin
 
