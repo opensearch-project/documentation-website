@@ -403,7 +403,7 @@ POST tmdb/_search
 
 You can continue adding as many feature sets as needed for logging.
 
-## Purposes of logging
+## Logging scenarios
 
 Once you have covered the basics, you can consider some real-life feature logging scenarios.
 
