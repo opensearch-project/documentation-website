@@ -261,7 +261,7 @@ POST tmdb/_search
 See [Searching with LTR]({{site.url}}{{site.baseurl}}/search-plugins/ltr/searching-with-your-model/) for information about model execution.
 {: .note}
 
-Applying the appropriate logging spec to reference the `sltr` query is the solution to log the feature values for the query, as shown in the following example: 
+To log the feature values for the query, apply the appropriate logging spec to reference the `sltr` query, as shown in the following example: 
 
 ```json
 "ext": {
