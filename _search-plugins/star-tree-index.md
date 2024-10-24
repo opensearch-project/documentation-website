@@ -64,7 +64,7 @@ The following examples show how to use Star Tree index.
 ### Defining star tree index in mappings
 
 Define Star Tree configuration in index mappings when creating an index. <br/>
-To create Star Tree index to pre-compute aggregations for `request_size` and `latency` fields for all the combinations of values in `port` and `status` fields indexed in the `logs` index, configure the following mapping:
+To create Star Tree index to pre-compute aggregations for `size` and `latency` fields for all the combinations of values in `port` and `status` fields indexed in the `logs` index, configure the following mapping:
 
 ```json
 PUT logs
@@ -152,7 +152,7 @@ Ensure the following in Star Tree index mapping,
 - The metric aggregation type must be part of `stats` parameter.
 
 ### Examples
-To get sum of `request_size` for all error logs with `status=500` with the [example mapping](#defining-star-tree-index-in-mappings) :
+To get sum of `size` for all error logs with `status=500` with the [example mapping](#defining-star-tree-index-in-mappings) :
 ```json
 POST /logs/_search
 {
@@ -162,9 +162,9 @@ POST /logs/_search
     }
   },
   "aggs": {
-    "sum_request_size": {
+    "sum_size": {
       "sum": {
-        "field": "request_size"
+        "field": "size"
       }
     }
   }

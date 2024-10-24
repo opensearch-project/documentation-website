@@ -27,7 +27,7 @@ To use Star Tree on your index, the following prerequisites needs to be satisfie
 - Set the `indices.composite_index.star_tree.enabled` setting to `true`. For instructions on how to configure OpenSearch, see [configuring settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#static-settings).
 - Set the `index.composite_index` index setting to `true` during index creation.
 - Enable `doc_values` : Ensure that the `doc_values` is enabled for the [dimensions](#ordered-dimensions) and [metrics](#metrics) fields used in your Star Tree mapping.
-- Star Tree index ideally should be used with indices whose data is not updated or deleted, as updates and/or deletes are not accounted in Star Tree index.
+- Star Tree index ideally should be used with indexes whose data is not updated or deleted, as updates and/or deletes are not accounted in Star Tree index.
 
 ## Examples
 
