@@ -225,7 +225,7 @@ The judgment list can be joined with the feature values to produce a training se
 ```
 {% include copy-curl.html %}
 
-Repeat this process for all your queries.
+Repeat this process for all of your queries.
 
 For large judgment lists, it is recommended to batch the logging for multiple queries. You can use [Multi search]({{site.url}}{{site.baseurl}}/api-reference/multi-search/) capabilities for this purpose.
 {: .note}
