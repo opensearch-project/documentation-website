@@ -227,7 +227,7 @@ The judgment list can be joined with the feature values to produce a training se
 
 Repeat this process for all of your queries.
 
-For large judgment lists, it is recommended to batch the logging for multiple queries. You can use [Multi search]({{site.url}}{{site.baseurl}}/api-reference/multi-search/) capabilities for this purpose.
+For large judgment lists, it is recommended to batch the logs for multiple queries. You can use [multi-search]({{site.url}}{{site.baseurl}}/api-reference/multi-search/) capabilities for this purpose.
 {: .note}
 
 ### Logging values for a live feature set
