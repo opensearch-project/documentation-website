@@ -15,7 +15,7 @@ Common feature engineering tasks that you may encounter while developing a learn
 Many LTR solutions use raw term statistics in their training, such as the following: 
 - **Total term frequency (`raw_ttf`):** The total number of times that a term appears across an entire index.
 - **Document frequency (`raw_df`):** The number of documents in which a term appears.
-- **Term frequency (`raw_tf`):** The number of times a term appears in a specific document. 
+- **Term frequency (`raw_tf`):** The number of times that a term appears in a specific document. 
 - **Classic IDF (`classic_idf`):** The Inverse Document Frequency (IDF) calculation `log((NUM_DOCS+1)/(raw_df+1)) + 1`.
 
 The Learning to Rank plugin provides a `match_explorer` query primitive that can extract these statistics for you, as shown in the following example: 
