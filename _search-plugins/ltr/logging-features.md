@@ -91,7 +91,7 @@ The Learning to Rank plugin must point to the features to be logged. The `sltr` 
 ```
 {% include copy-curl.html %}
 
-[Searching with LTR]({{site.url}}{{site.baseurl}}/search-plugins/ltr/searching-with-your-model/) provides an `sltr` query to use for executing a model. This `sltr` query is being used as a mechanism to direct the Learning to Rank plugin at the feature set that requires logging.
+[Searching with LTR]({{site.url}}{{site.baseurl}}/search-plugins/ltr/searching-with-your-model/) provides an `sltr` query to use for executing a model. This `sltr` query is used as a mechanism to direct the Learning to Rank plugin to the feature set requiring logging.
 {: .note}    
 
 To avoid influencing the score, the `sltr` query is injected as a filter, as shown in the following example:
