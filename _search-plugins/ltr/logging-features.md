@@ -52,7 +52,7 @@ Common use cases for logging feature sets are described in the following section
 
 ### Joining feature values with a judgment list
 
-If the judgment list is already available, you can join feature values for each keyword/document pair to create a complete training set. For example, you have been provided the following judgment list:
+If the judgment list is already available, you can join feature values for each keyword/document pair to create a complete training set. For example, consider the following judgment list:
 
 ```
 grade,keywords,docId
