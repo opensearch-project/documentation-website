@@ -275,7 +275,7 @@ To log the feature values for the query, apply the appropriate logging spec to r
 ```
 {% include copy-curl.html %}
 
-The example logs the features to the OpenSearch response, enabling future model retraining using the same feature set.
+The example logs the features in the response, enabling future model retraining using the same feature set.
 
 ### Modifying and logging an existing feature set
 
