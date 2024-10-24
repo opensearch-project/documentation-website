@@ -81,7 +81,7 @@ In the example, the score of the query is determined by the value of the `vote_a
 
 ## Index drift
 
-When working with an index that is regularly updated, it is important to consider that the trends and patterns you observe may not remain constant over time. Your index can drift as user behavior, content, and other factors change. For example, on an e-commerce store, you may find that sandals are popular during summer months, but become almost impossible to find in the winter. Similarly, the features that drive purchases or engagement during one time period may not be as important in another. 
+When working with an index that is regularly updated, it is important to consider that the trends and patterns you observe may not remain constant over time. Your index can drift as user behavior, content, and other factors change. For example, on an e-commerce store, you may find that sandals are popular during summer months but become almost impossible to find in the winter. Similarly, the features that drive purchases or engagement during one time period may not be as important during another. 
 
 ## Next steps
 
