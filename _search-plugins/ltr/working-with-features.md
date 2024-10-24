@@ -178,7 +178,7 @@ GET _ltr/_featureset?prefix=mor
 
 This returns only the feature sets with names starting with `mor`.
 
-If you need to start over with a feature set, you can delete it using the following request:
+If you need to start over, you can delete a feature set using the following request:
 
 ```
 DELETE _ltr/_featureset/more_movie_features
