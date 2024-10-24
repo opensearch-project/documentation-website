@@ -47,7 +47,7 @@ The ranking function `f` aims to generate results closely aligned with the judgm
 
 The ranking function `f` uses input variables to arrive at a predicted output. For example, in stock price forecasting, input variables may encompass company-specific data like employee count and revenue. Likewise, in search relevance, the predictive model must leverage features that characterize the document, the query, and their association, such as the [term frequency–inverse document frequency (TF–IDF)](https://en.wikipedia.org/wiki/Tf%E2%80%93idf) score of the query keywords in a field. 
 
-Similarly, in the context of movie search, the ranking function must use relevant features to determine the most relevant results. These features may include:
+Similarly, in the context of searching for movies, the ranking function must use relevant features to determine the most relevant results. These features may include:
 
 - Whether and how much the search keywords match the title field, such as `titleScore`
 - Whether and how much the search keywords match the description field, such as `descScore`
