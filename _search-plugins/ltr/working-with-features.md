@@ -71,7 +71,7 @@ These types of queries are the building blocks that the ranking `f` function you
 
 ## Using Mustache templates in LTR queries
 
-The features in the LTR queries use Mustache templates. This allows you to insert variables in to your search queries. For example, you could have a query that uses the `{% raw %}{{keywords}}{% endraw %}` to insert your search terms. Or, you could use `{% raw %}{{users_lat}}{% endraw %}` and `{% raw %}{{users_lon}}{% endraw %}` to include the location. This gives you the flexibility to personalize your search. 
+The features in LTR queries use Mustache templates. This allows you to insert variables into your search queries. For example, you could have a query that uses `{% raw %}{{keywords}}{% endraw %}` to insert your search terms. Or you could use `{% raw %}{{users_lat}}{% endraw %}` and `{% raw %}{{users_lon}}{% endraw %}` to include the location. This gives you the flexibility to personalize your search. 
 
 ## Uploading and naming features
 
