@@ -86,7 +86,7 @@ You can selectively score a subset of features by specifying the `active_feature
 ```
 {% include copy-curl.html %}
 
-The `my_model` model is applied, but only scores the `title_query` feature. 
+The `my_model` model is applied but only scores the `title_query` feature. 
 
 ## Combining `sltr` with other OpenSearch features
 
