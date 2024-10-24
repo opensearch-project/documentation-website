@@ -21,6 +21,8 @@ The cluster stats API operation returns statistics about your cluster.
 ```json
 GET _cluster/stats
 GET _cluster/stats/nodes/<node-filters>
+GET _cluster/stats/<metric>/nodes/<node-filters>
+GET _cluster/stats/<metric>/<index_metric>/nodes/<node-filters>
 ```
 
 ## Path parameters
@@ -30,10 +32,53 @@ All parameters are optional.
 Parameter | Type | Description
 :--- | :--- | :---
 &lt;node-filters&gt; | List | A comma-separated list of [node filters]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters) that OpenSearch uses to filter results.
+metric | String | A comma-separated list of metric groups that are included in the response. For example, `jvm,fs`. See the following list of all metrics. Defaults to all metrics.
+index_metric | String | A comma-separated list of index metric groups that are included in the response. For example, `docs,store`. See the following list of all index metrics. Defaults to all index metrics.
 
 
   Although the `master` node is now called `cluster_manager` for version 2.0, we retained the `master` field for backwards compatibility. If you have a node that has either a `master` role or a `cluster_manager` role, the `count` increases for both fields by 1. To see an example node count increase, see the Response sample.
    {: .note }
+
+The following table lists all available metric groups.
+
+Metric | Description
+:--- |:----
+indices | Statistics about indices in the cluster.
+os | Statistics about the host OS, including load, and memory.
+process | Statistics about processes, including their open file descriptors, and CPU usage.
+jvm | Statistics about the JVM, including heap usage and threads.
+fs | File system usage statistics.
+plugins | Statistics about openSearch plugins integrated within the nodes.
+network_types | Transport and HTTP networks within the nodes.
+discovery_type | The method the nodes use to find other nodes within the cluster.
+packaging_types | Information about the nodes’ OpenSearch distribution.
+ingest | Statistics about ingest pipelines.
+
+To filter the information returned for the `indices` metric, you can use specific `index_metric` values. You can use these only when you use the following query types:
+
+```json
+GET _cluster/stats/_all/<index_metric>/_nodes/<node-filters>
+GET _cluster/stats/indices/<index_metric>/_nodes/<node-filters>
+```
+
+The following index metrics are supported:
+
+- shards
+- docs
+- store
+- fielddata
+- query_cache
+- completion
+- segments
+- mappings
+- analysis
+
+For example, the following query requests statistics for `docs` and `search`:
+
+```json
+GET _cluster/stats/indices/docs,segments/_nodes/_all
+```
+{% include copy-curl.html %}
 
 ## Example request
 
