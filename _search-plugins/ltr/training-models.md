@@ -47,7 +47,7 @@ RankLib outputs the model in its own serialization format. As shown in the follo
                ...
 ```
 
-Within the RankLib model, each tree in the ensemble examines the value of features, makes decisions based on these feature values, and outputs the relevance scores. The features are referred to by their ordinal position, starting from 1, which corresponds to 0th feature in the original feature set. RankLib does not use feature names during model training.
+Within the RankLib model, each tree in the ensemble examines feature values, makes decisions based on these feature values, and outputs the relevance scores. The features are referred to by their ordinal position, starting from 1, which corresponds to the 0th feature in the original feature set. RankLib does not use feature names during model training.
 
 ## XGBoost model training
 
