@@ -49,7 +49,7 @@ This architecture is based on the use of AWS cloud infrastructure, but most tool
 
 The design deployed in AWS is as follows: 
 
-<img width="1117" alt="image" src="https://github.com/user-attachments/assets/c5cc5e4a-6239-4687-bee8-a6beab497c04">
+![Migration architecture overview]({{site.url}}{{site.baseurl}}/images/migrations/migration-architecture-overview.svg)
 
 1. Client traffic is directed to the existing cluster.
 2. An ALB with Capture Proxies relaying traffic to source while replicating to Amazon MSK.
