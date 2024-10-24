@@ -411,7 +411,7 @@ First, logging is used to develop judgment lists from user analytics to capture 
 
 Second, logging can be used to retrain a model in which you already have confidence. You may want to keep your models up to date with a shifting index because models can lose their effectiveness over time. You may have A/B testing in place or be monitoring business metrics and notice gradual degradation in model performance. 
 
-Third, logging is used during model development. You may have a judgment list, but want to iterate heavily with a local copy of OpenSearch. This allows for extensive experimentation with new features, adding and removing them from the feature sets as needed. While this process may result in being slightly out of sync with the live index, the goal is to arrive at a set of model parameters that are satisfactory. Once this is achieved, the model can be trained with production data to confirm the performance remains acceptable.
+Third, logging is used during model development. You may have a judgment list but want to iterate heavily with a local copy of OpenSearch. This allows for extensive experimentation with new features, adding and removing them from the feature sets as needed. While this process may result in being slightly out of sync with the live index, the goal is to arrive at a set of satisfactory model parameters. Once this is achieved, the model can be trained with production data to confirm that the level of performance remains acceptable.
 
 ## Next steps
 
