@@ -106,7 +106,7 @@ A _feature set_ is a collection of features that have been grouped together. You
 
 ## Creating feature sets
 
-To create a feature set, you can send a POST request. When creating the feature set, you provide a name and an optional list of features, similiar to the following example request:
+To create a feature set, you can send a POST request. When creating the feature set, you provide a name and an optional list of features, as shown in the following example request:
 
 ```json
 POST _ltr/_featureset/more_movie_features
