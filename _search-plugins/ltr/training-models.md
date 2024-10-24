@@ -309,4 +309,4 @@ When retrieving a model, you receive a response that includes the features used 
 
 ## Next steps 
 
-Learn about [Searching with LTR]({{site.url}}{{site.baseurl}}/search-plugins/ltr/searching-with-your-model/).
+Learn about [searching with LTR]({{site.url}}{{site.baseurl}}/search-plugins/ltr/searching-with-your-model/).
