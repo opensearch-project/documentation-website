@@ -52,7 +52,7 @@ Similarly, in the context of searching for movies, the ranking function must use
 - Whether and to what degree the search keywords match the title field, such as `titleScore`.
 - Whether and to what degree the search keywords match the description field, such as `descScore`.
 - The movie's popularity, such as `popularity`
-- The movie's rating, such as `rating`
+- The movie's rating, such as `rating`.
 - The number of keywords used during the search, such as `numKeywords*)`.
 
 The ranking function would become `f(titleScore, descScore, popularity, rating, numKeywords)`. The goal is to use the features in a way that maximizes the likelihood of the search results being useful. 
