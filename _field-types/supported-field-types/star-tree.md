@@ -112,7 +112,7 @@ Specify star-tree configuration under `config` section. All parameters are final
 The `ordered_dimensions` are fields based on which the metrics will be aggregated in star-tree index. Star Tree index will be picked for query optimizations only if all the fields in the query are part of the `ordered_dimensions`. This is a required property as part of star-tree configuration.
 - The order of dimensions matter and you can define the dimensions ordered from the highest cardinality to the lowest cardinality for efficient storage and query pruning. 
 - Avoid high cardinality fields as dimensions , because it'll affect storage space, indexing throughput and query performance adversely.
-- Currently, supported fields for `ordered_dimensions` are of [numeric field types](https://opensearch.org/docs/latest/field-types/supported-field-types/numeric/) with the exception of `unsigned_long`. 
+- Currently, supported fields for `ordered_dimensions` are of [numeric field types](https://opensearch.org/docs/latest/field-types/supported-field-types/numeric/) with the exception of `unsigned_long`(see [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/15231)). 
   - Support for other field_types such as `keyword` , `ip` is coming as part of upcoming releases.
 - Minimum of `2` and maximum of `10` dimensions are supported per Star Tree index.
 
@@ -124,9 +124,9 @@ The `ordered_dimensions` are fields based on which the metrics will be aggregate
 
 ### Metrics
 Configure fields for which you need to perform aggregations. This is required property as part of star-tree configuration.
-- Currently, supported fields for `metrics` are of [numeric field types](https://opensearch.org/docs/latest/field-types/supported-field-types/numeric/) with the exception of `unsigned_long`.
+- Currently, supported fields for `metrics` are of [numeric field types](https://opensearch.org/docs/latest/field-types/supported-field-types/numeric/) with the exception of `unsigned_long` (see [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/15231)).
 - Supported metric aggregations include `Min`, `Max`, `Sum`, `Avg` and `Value_count`. 
-  - `Avg` is a derived metric based on `Sum` and `Value_count` and is not indexed and is derived on query time. Rest are base metrics which are indexed.
+  - `Avg` is a derived metric based on `Sum` and `Value_count` and is not indexed and is derived on query time. Rest of the base metrics are indexed.
 - Maximum of `100` base metrics are supported per Star Tree index.
 
 For example, say you provide `Min`, `Max`, `Sum` and `Value_count` as part of all fields as part of `metrics` configuration, you can provide up to 25 fields as below

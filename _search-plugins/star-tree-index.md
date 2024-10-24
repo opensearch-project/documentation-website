@@ -169,7 +169,7 @@ POST /logs/_search
 ```
 
 This query will get optimized automatically as star-tree index will be used.
-<br/>With star-tree index, we will be able to retrieve the result with a single aggregated document once we traverse to the `status=500` node as opposed to scanning through all documents and perform summation as done currently in the regular query.
+<br/>With star-tree index, we will be able to retrieve the result with a single aggregated document once we traverse to the `status=500` node as opposed to current query execution which scans through all matching documents and perform summation.
 <br/>This will result in lower query latency.
 
 You can set the `indices.composite_index.star_tree.enabled` setting to `false` to run queries without using star-tree index.
