@@ -76,7 +76,7 @@ The feature values need to be retrieved for all documents that have a judgment f
 ```
 {% include copy-curl.html %}
 
-The Learning to Rank plugin must point to the features to log. The `sltr` query, which is part of the plugin, can be used for this purpose. The `sltr` query has a `_name` (the named queries feature) to reference it, refers to the previously created feature set `more_movie_features`, and passes the search keywords `rambo` and any other required parameters, as shown in the following example query:
+The Learning to Rank plugin must point to the features to be logged. The `sltr` query, which is part of the plugin, can be used for this purpose. The `sltr` query has a `_name` (the named queries feature) used to reference it, refers to the previously created feature set `more_movie_features`, and passes the search keyword `rambo` and any other required parameters, as shown in the following example query:
 
 ```json
 {
