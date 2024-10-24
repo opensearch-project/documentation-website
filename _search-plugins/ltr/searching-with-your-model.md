@@ -54,7 +54,7 @@ To execute your model more efficiently, you can use the built-in rescore functio
 ```
 {% include copy-curl.html %}
 
-A `match` is first executed for the term `rambo` and then `my_model` is applied to the top 1,000 results. This baseline query is used to generate an initial set of results that are then scored using the default similarity BM-25, probabilistic ranking framework to calculate relevance scores.
+A `match` is first executed for the term `rambo` and then `my_model` is applied to the top 1,000 results. This baseline query is used to generate an initial set of results that are then scored using the default similarity BM25 probabilistic ranking framework to calculate relevance scores.
 
 ## Rescoring on a subset of features
 
