@@ -88,7 +88,7 @@ PUT _ltr
 ```
 {% include copy-curl.html %}
 
-If you need to start fresh, you can delete the default feature store by using the following operation:
+If you need to start again from the beginning, you can delete the default feature store by using the following operation:
 
 ```
 DELETE _ltr
