@@ -265,7 +265,7 @@ When a model is created, its features are copied. This prevents changes to the o
 
 ### Model response
 
-When retrieving a model, you receive a response that includes the features used to create it, as shown in the following example response:
+When retrieving a model, you receive a response that includes the features used to create it, as shown in the following example:
 
 ```json
     {
