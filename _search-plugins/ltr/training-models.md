@@ -28,7 +28,7 @@ The RankLib library can be called using the following command:
  cmd = "java -jar RankLib-2.8.jar -ranker %s -train%rs -save %s -frate 1.0" % (whichModel, judgmentsWithFeaturesFile, modelOutput)
 ```
 
-The `judgmentsWithFeatureFile` is the input provided to RankLib for training. Additional parameters can be passed. See [RankLib documentation](https://sourceforge.net/p/lemur/wiki/RankLib/) for more information.
+The `judgmentsWithFeatureFile` is the input provided to RankLib for training. Additional parameters can be passed. See the [RankLib documentation](https://sourceforge.net/p/lemur/wiki/RankLib/) for more information.
 
 RankLib outputs the model in its own serialization format. For example, a LambdaMART model is an ensemble of regression trees, as shown in the following example: 
 
