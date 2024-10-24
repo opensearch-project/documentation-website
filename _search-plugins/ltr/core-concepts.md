@@ -108,7 +108,7 @@ The following are key considerations for training a ranking function:
     
   - **SVM-based models (SVMRank)**
     - Less accurate but less expensive to train. 
-    - See [SVM Rank](https://www.cs.cornell.edu/people/tj/svm_light/svm_rank.html) for more information.
+    - See [Support Vector Machine for Ranking](https://www.cs.cornell.edu/people/tj/svm_light/svm_rank.html) for more information.
     
   - **Linear models**
     - Perform basic linear regression on the judgment list.
