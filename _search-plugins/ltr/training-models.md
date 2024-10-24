@@ -261,7 +261,7 @@ Model names must be globally unique across all feature sets.
 
 ### Model persistence
 
-When a model is created, its features are copied. This prevents changes to the original features from affecting existing models or model production. For example, if the feature set used to create the model is deleted, then you can still access and use the model.
+When a model is created, its features are copied. This prevents changes to the original features from affecting existing models or model production. For example, if the feature set used to create the model is deleted, you can still access and use the model.
 
 ### Model response
 
