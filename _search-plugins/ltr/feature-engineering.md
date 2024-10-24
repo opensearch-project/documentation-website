@@ -77,7 +77,7 @@ The `function_score` query provides the functionality to extract these document-
 ```
 {% include copy-curl.html %}
 
-In the example, the score of the query is determined by the value of the `vote_average` field, which could be a measure of popularity or quality for the document.
+In the example, the score of the query is determined by the value of the `vote_average` field, which could be a measure of document popularity or quality.
 
 ## Index drift
 
