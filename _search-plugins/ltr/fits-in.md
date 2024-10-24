@@ -8,7 +8,7 @@ has_children: false
 
 # Scope of the plugin
 
-The Learning to Rank plugin for OpenSearch provides a tool to help you develop and use machine learning-based ranking models for your application search. The following sections describe how the plugin fits into the overall LTR process.
+The Learning to Rank plugin for OpenSearch helps you develop and use machine learning (ML)-based ranking models for your application search. The following sections describe how the plugin fits into the overall LTR process.
 
 ## What the plugin does
 
