@@ -102,7 +102,7 @@ The default feature store is used throughout the rest of this guide.
 
 ## Working with features and feature sets
 
-A _feature set_ is a collection of features that has been grouped together. You can use feature sets to log multiple feature values for offline training. When creating a new model, you copy the relevant feature set into the model definition. 
+A _feature set_ is a collection of features that have been grouped together. You can use feature sets to log multiple feature values for offline training. When creating a new model, you copy the relevant feature set into the model definition. 
 
 ## Creating feature sets
 
