@@ -12,7 +12,7 @@ This is an experimental feature and is not recommended for use in a production e
 
 Star Tree Index is a multi-field index that improves the performance of aggregations.
 
-OpenSearch will use the star-tree index to optimize aggregations based on the input query and star-tree configuration. No changes are required in the query syntax or requests.
+OpenSearch will automatically use the Star Tree index to optimize aggregations if the fields queried are part of Star Tree's dimension fields and the aggregations are on Star Tree's metrics fields. No changes are required in the query syntax or the request parameters.
 
 ## Star tree index structure
 
@@ -20,37 +20,37 @@ OpenSearch will use the star-tree index to optimize aggregations based on the in
 
 Star Tree index structure as portrayed in the above figure, consists of mainly two parts:
 - Star Tree and 
-- Sorted and aggregated star-tree documents backed by doc-values indexes
-    - The values are sorted based on the order of `ordered_dimension` , in the above example, first by `status` and then by `port` for each of the status.
-    - For each of the unique dimension values combinations , we also pre-compute the aggregated values for all the metrics such as `avg(size)` and `count(requests)` 
+- Sorted and aggregated Star Tree documents backed by doc-values indexes
+    - The values are sorted based on the order of `ordered_dimension`, in the above example, first by `status` and then by `port` for each of the status.
+    -  For each of the unique dimension value combinations, the aggregated values for all the metrics such as `avg(size)` and `count(requests)` are pre-computed during ingestion time.
 
-Each node in the Star Tree points to a range of star-tree documents.
+Each node in the Star Tree points to a range of Star Tree documents.
 A node is further split into child nodes based on [max_leaf_docs configuration]({{site.url}}{{site.baseurl}}/field-types/star-tree/#star-tree-configuration-parameters).
-The number of documents a leaf node points to is than or equal to `max_leaf_docs`. This ensures the maximum number of documents that gets traversed to get to the aggregated value is at most `max_leaf_docs`, thus providing predictable latencies.
+The number of documents a leaf node points to is less than or equal to `max_leaf_docs`. This ensures the maximum number of documents that gets traversed to get to the aggregated value is at most `max_leaf_docs`, thus providing predictable latency.
 
 There are special nodes called `star nodes (*)` which helps in skipping non-competitive nodes and also in fetching aggregated document wherever applicable during query time.
 
 The figure contains three examples explaining the Star Tree traversal during query: 
-- Compute average request size aggregation with Terms query where port equals 8443 and status equals 200 (Support for Terms query will be added in upcoming release)
+- Compute average request size aggregation with Terms query where port equals 8443 and status equals 200 (Support for Terms query will be added in upcoming release, see [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/15257))
 - Compute count of requests aggregation with Term query where status equals 200 (query traverses through * node of `port` dimension since `port` is not present as part of query) 
 - Compute average request size aggregation with Term query where port equals 5600 (query traverses through * node of `status` dimension since `status` is not present as part of query). 
 <br/>The second and third examples uses star nodes.
 
 
 ## When to use star tree index
-You can be use Star Tree index to perform faster aggregations with a constant upper bound on query latency.
+Star Tree index can be used to perform faster aggregations with a constant upper bound on query latency.
 - Star Tree natively supports multi field aggregations
-- Star Tree index will be created in real time as part of regular indexing, so the data in Star Tree will always be up to date with the live data.
-- Star Tree index consolidates the data and hence is a storage efficient index which results in efficient paging and fraction of IO utilization for search queries. 
+- Star Tree index will be created in real time as part of indexing, so the data in Star Tree will always be up to date.
+- Star Tree index consolidates the data and hence it is storage efficient. It helps in efficient paging and lesser IO utilization for search queries.
 
 ## Considerations
-- Star Tree index ideally should be used with append-only indexes, as updates or deletes are not accounted in Star Tree index.
-- Star Tree index will be used for aggregation queries only if the query input is a subset of the Star Tree configuration of dimensions and metrics
-- Once star-tree index is enabled for an index, you currently cannot disable it. You have to reindex without the star-tree mapping to remove star-tree from the index.
+- Star Tree index ideally should be used with indices whose data is not updated or deleted, as updates and/or deletes are not accounted in Star Tree index.
+- Star Tree index will be used for aggregation queries only if the fields getting queried is a subset of the Star Tree's dimensions and fields getting aggregated is a subset of Start Tree's metrics
+- Once Star Tree index is enabled for an index, it cannot be disabled. The data has to be re-indexed without the Star Tree mapping to remove Star Tree from the index.
     - Changing Star Tree configuration will also require a re-index operation.
 - [Multi-values/array values]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/index/#arrays) are not supported
-- Only [limited queries and aggregations](#supported-query-and-aggregations) are supported with support for more coming in future
-- The cardinality of the dimensions should not be very high (like `_id` fields), otherwise it leads to storage explosion and higher query latencies.
+- Only [limited queries and aggregations](#supported-query-and-aggregations) are supported currently. Support for more features will be released in upcoming versions.
+- The cardinality of the dimensions should not be very high (like `_id` fields), otherwise it leads to high storage usage and higher query latency.
 
 ## Enabling star tree index
 - Set the feature flag `opensearch.experimental.feature.composite_index.star_tree.enabled"` to `true`. For more information about enabling and disabling feature flags, see [Enabling experimental features]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
@@ -59,12 +59,12 @@ You can be use Star Tree index to perform faster aggregations with a constant up
 
 ## Examples
 
-The following examples show how to use star-tree index.
+The following examples show how to use Star Tree index.
 
 ### Defining star tree index in mappings
 
-Define star-tree configuration in index mappings when creating an index. <br/>
-To create star-tree index to pre-compute aggregations for `request_size` and `latency` fields for all the combinations of values in `port` and `status` fields indexed in the `logs` index, configure the following mapping:
+Define Star Tree configuration in index mappings when creating an index. <br/>
+To create Star Tree index to pre-compute aggregations for `request_size` and `latency` fields for all the combinations of values in `port` and `status` fields indexed in the `logs` index, configure the following mapping:
 
 ```json
 PUT logs
@@ -125,28 +125,29 @@ For detailed information about Star Tree index mapping and parameters see [Star 
 
 ## Supported query and aggregations
 
-Star Tree index can be used to optimize aggregations for selected set of queries with support for more coming in upcoming releases.
+Star Tree index can be used to optimize aggregations. The list of supported queries is given below, support for more queries will be added in upcoming releases (see [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/15257)).
 
 ### Supported queries
-Ensure the following in star tree index mapping,
-- The fields present in the query must be present as part of `ordered_dimensions` as part of star-tree configuration.
-
-The following queries are supported [ when supported aggregations are specified ] <br/>
+The following queries are supported as of OpenSearch 2.18 [ when supported aggregations are specified ] <br/>
 
 - [Term query](https://opensearch.org/docs/latest/query-dsl/term/term/)
 - [Match all docs query](https://opensearch.org/docs/latest/query-dsl/match-all/)
 
-### Supported aggregations
 Ensure the following in star tree index mapping,
-- The fields present in the aggregation must be present as part of `metrics` as part of star-tree configuration.
-- The metric aggregation type must be part of `stats` parameter.
+- The fields present in the query must be present as part of `ordered_dimensions` as part of Star Tree configuration.
+
+### Supported aggregations
  
-Following metric aggregations are supported.
+Following metric aggregations are supported as of OpenSearch 2.18.
 - [Sum](https://opensearch.org/docs/latest/aggregations/metric/sum/)
 - [Minimum](https://opensearch.org/docs/latest/aggregations/metric/minimum/)
 - [Maximum](https://opensearch.org/docs/latest/aggregations/metric/maximum/)
 - [Value count](https://opensearch.org/docs/latest/aggregations/metric/value-count/)
 - [Average](https://opensearch.org/docs/latest/aggregations/metric/average/)
+
+Ensure the following in Star Tree index mapping,
+- The fields present in the aggregation must be present as part of `metrics` as part of Star Tree configuration.
+- The metric aggregation type must be part of `stats` parameter.
 
 ### Examples
 To get sum of `request_size` for all error logs with `status=500` with the [example mapping](#defining-star-tree-index-in-mappings) :
@@ -168,8 +169,8 @@ POST /logs/_search
 }
 ```
 
-This query will get optimized automatically as star-tree index will be used.
-<br/>With star-tree index, we will be able to retrieve the result with a single aggregated document once we traverse to the `status=500` node as opposed to current query execution which scans through all matching documents and perform summation.
+This query will get optimized automatically as Star Tree index will be used.
+<br/>With Star Tree index, the result will be retrieved from a single aggregated document as it traverses to the `status=500` node as opposed to current query execution which scans through all the matching documents and perform summation.
 <br/>This will result in lower query latency.
 
-You can set the `indices.composite_index.star_tree.enabled` setting to `false` to run queries without using star-tree index.
+You can set the `indices.composite_index.star_tree.enabled` setting to `false` to run queries without using Star Tree index.
