@@ -44,7 +44,7 @@ Star Tree index can be used to perform faster aggregations with a constant upper
 - Star Tree index consolidates the data and hence it is storage efficient. It helps in efficient paging and lesser IO utilization for search queries.
 
 ## Considerations
-- Star Tree index ideally should be used with indices whose data is not updated or deleted, as updates and/or deletes are not accounted in Star Tree index.
+- Star Tree index ideally should be used with indexes whose data is not updated or deleted, as updates and/or deletes are not accounted in Star Tree index.
 - Star Tree index will be used for aggregation queries only if the fields getting queried is a subset of the Star Tree's dimensions and fields getting aggregated is a subset of Start Tree's metrics
 - Once Star Tree index is enabled for an index, it cannot be disabled. The data has to be re-indexed without the Star Tree mapping to remove Star Tree from the index.
     - Changing Star Tree configuration will also require a re-index operation.
@@ -92,7 +92,9 @@ PUT logs
               "name": "size",
               "stats": [
                 "sum"
-              ],
+              ]
+            },
+            {
               "name": "latency",
               "stats": [
                 "avg"

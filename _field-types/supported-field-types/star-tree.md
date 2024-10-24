@@ -71,7 +71,9 @@ PUT logs
                 "value_count",
                 "min",
                 "max"
-              ],
+              ]
+            },
+            {
               "name": "latency",
               "stats": [
                 "sum",
