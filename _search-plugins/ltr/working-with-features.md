@@ -12,7 +12,7 @@ The following sections describe the specific functionality provided by the Learn
 
 ## Understanding the role of features in the Learning to Rank plugin
 
-The Learning to Ranks plugin defines a _feature_ as an _OpenSearch query_. When you execute an OpenSearch query using your search terms and other relevant parameters, the resulting score is the value that can be used in your training data. For example, a feature may include basic `match` queries on fields such as `title`, as shown in the following example query:  
+The Learning to Rank plugin defines a _feature_ as an _OpenSearch query_. When you execute an OpenSearch query using your search terms and other relevant parameters, the resulting score is the value that can be used in your training data. For example, a feature may include basic `match` queries on fields such as `title`:  
 
 ```json
 {
