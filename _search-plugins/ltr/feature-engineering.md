@@ -54,7 +54,7 @@ The available statistics include the following:
 
 ## Document-specific features
 
-When working on an LTR solution, you may need to incorporate features that are specific to the document, rather than the relationship between the query and the document. These document-specific features can include metrics related to popularity or recency. 
+When working on an LTR solution, you may need to incorporate features that are specific to the document rather than to the relationship between the query and the document. These document-specific features can include metrics related to popularity or recency. 
 
 The `function_score` query provides the functionality to extract these document-specific features. The following example query shows how you can use it to incorporate the `vote_average` field as a feature:
 
