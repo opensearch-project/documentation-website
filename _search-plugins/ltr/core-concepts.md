@@ -84,7 +84,7 @@ grade,keywords,movie,titleScore,descScore,popularity,...
 
 The `titleScore` represents the relevance score of the `Rambo` keyword in the title field of the document, and so on.
 
-Many LTR models are familiar with a file format introduced by SVM Rank, an early LTR method. In this format, queries are given IDs, and the actual document identifier can be removed from the training process. Features are labeled with ordinals starting at `1`. For the preceding example, the file format would be:
+Many LTR models are familiar with a file format introduced by Support Vector Machine for Ranking (SVM Rank), an early LTR method. In this format, queries are given IDs, and the actual document identifier can be removed from the training process. Features are labeled with ordinals starting at `1`. For the preceding example, the file format would be:
 
 ```
 4   qid:1   1:0.0   2:21.5  3:100,...
