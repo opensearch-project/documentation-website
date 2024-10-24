@@ -128,7 +128,7 @@ To avoid influencing the score, the `sltr` query is injected as a filter, as sho
 
 Executing this query returns the three expected hits. The next step is to enable feature logging to refer to the `sltr` query to be logged.
 
-The logging identifies the `sltr` query, runs the feature set's queries, scores each document, and returns those scores as computed fields on each document, as shown in the following example logging:
+The logging identifies the `sltr` query, runs the feature set's queries, scores each document, and returns those scores as computed fields for each document, as shown in the following example logging structure:
 
 ```json
 "ext": {
