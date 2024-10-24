@@ -1,7 +1,7 @@
 
 
 
-Metadata migration is a relatively fast process to execute so we recommend attempting this workflow as quickly as possible to discover any issues which could impact longer running migration steps.
+Metadata migration is a relatively fast process to execute so we recommend attempting this workflow as early as possible to discover any issues which could impact longer running migration steps.
 
 ## Prerequisites
 A snapshot of the cluster state will need to be taken, [[guide to create a snapshot|Snapshot Creation]].
@@ -145,6 +145,9 @@ To inspect the file within the console `cat`, `tail` and `grep` commands line to
 ```shell
 tail /shared-logs-output/migration-console-default/*/metadata/*.log
 ```
+
+### Warnings / Errors inline
+There might be `WARN` or `ERROR` elements inline the output, they will be accompanied by a short message, such as `WARN - my_index already exists`.  Full information will be in the detailed logs associated with this warnings or errors.
 
 ### OpenSearch running in compatibility mode
 There might be an error about being unable to update an ES 7.10.2 cluster, this can occur when compatibility mode has been enabled on an OpenSearch cluster please disable it to continue, see [Enable compatibility mode](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/rename.html#rename-upgrade) ↗.

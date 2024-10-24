@@ -14,6 +14,8 @@ This page outlines the configuration options for three key migrations:
 
 Each of these migrations may depend on either a snapshot or a capture proxy. The CDK context blocks below are shown as separate context blocks for each migration type for simplicity. If performing multiple migration types, combine these options, as the actual execution of each migration is controlled from the Migration Console.
 
+It also has a section describing how to specify the auth details for the source and target cluster (no auth, basic auth with a username and password, or sigv4 auth).
+
 > [!TIP]
 For a complete list of configuration options, please refer to the [opensearch-migrations options.md](https://github.com/opensearch-project/opensearch-migrations/blob/main/deployment/cdk/opensearch-service-migration/options.md) but please open an issue for consultation if changing an option that is not listed on this page.
 
@@ -31,6 +33,7 @@ Options for the source cluster endpoint, target cluster endpoint, and existing V
     "vpcId": <VPC_ID>,
     "sourceCluster": {
         "endpoint": <SOURCE_CLUSTER_ENDPOINT>,
+        "version": "ES 7.10",
         "auth": {"type": "none"}
     },
     "targetCluster": {
@@ -72,6 +75,7 @@ There are currently no CDK options specific to Metadata migrations, which are pe
     "vpcId": <VPC_ID>,
     "sourceCluster": {
         "endpoint": <SOURCE_CLUSTER_ENDPOINT>,
+        "version": "ES 7.10",
         "auth": {"type": "none"}
     },
     "targetCluster": {
@@ -113,6 +117,7 @@ Performing a Reindex-from-Snapshot backfill migration requires an existing snaps
     "vpcId": <VPC_ID>,
     "sourceCluster": {
         "endpoint": <SOURCE_CLUSTER_ENDPOINT>,
+        "version": "ES 7.10",
         "auth": {"type": "none"}
     },
     "targetCluster": {
@@ -146,6 +151,51 @@ Performing a live capture migration requires that a Capture Proxy be configured 
 | `trafficReplayerExtraArgs`      | `"--sigv4-auth-header-service-region es,us-east-1 --speedup-factor 5"`                 | Extra arguments for the Traffic Replayer command, including options for auth headers and other parameters specified by the [Traffic Replayer](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/trafficReplayer/src/main/java/org/opensearch/migrations/replay/TrafficReplayer.java). |
 
 </details>
+
+## Cluster Authentication Options
+
+Both the source and target cluster can use no authentication (e.g. limited to the VPC), basic authentication with a username and password, or SigV4 scoped to a user or role.
+
+Examples of each of these are below.
+
+No auth:
+```
+    "sourceCluster": {
+        "endpoint": <SOURCE_CLUSTER_ENDPOINT>,
+        "version": "ES 7.10",
+        "auth": {"type": "none"}
+    }
+```
+
+Basic auth:
+```
+    "sourceCluster": {
+        "endpoint": <SOURCE_CLUSTER_ENDPOINT>,
+        "version": "ES 7.10",
+        "auth": {
+            "type": "basic",
+            "username": <TARGET_CLUSTER_USERNAME>,
+            "passwordFromSecretArn": <TARGET_CLUSTER_PASSWORD_SECRET>
+        }
+    }
+```
+
+SigV4 auth:
+```
+    "sourceCluster": {
+        "endpoint": <SOURCE_CLUSTER_ENDPOINT>,
+        "version": "ES 7.10",
+        "auth": {
+            "type": "sigv4",
+            "region": "us-east-1",
+            "serviceSigningName": "es"
+        }
+    }
+```
+
+The `serviceSigningName` can be `es` for an Elasticsearch or OpenSearch domain, or `aoss` for an OpenSearch Serverless collection.
+
+All of these auth mechanisms apply to both source and target clusters.
 
 ## Troubleshooting
 

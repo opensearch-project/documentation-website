@@ -4,7 +4,7 @@ title: Is migration assistant right for you?
 nav_order: 5
 ---
 
-
+<!-- Document: Guide -->
 Before deciding if this is the right tool for you, it's important to assess your specific needs and understand the available tools for performing an upgrade or migration.
 
 Migration Assistant addresses gaps found in other migration solutions, but in some cases, alternative tools may be a better fit.
@@ -13,13 +13,17 @@ For instance, if you need to upgrade more than one major version—such as movin
 
 There are also tools available for migrating cluster configuration, templates, and aliases, which can be helpful depending on the complexity of your setup. These tools streamline the migration process by preserving critical settings and custom configurations.
 
-## Supported Migration Paths
+## Migration Paths
 
-### Tested Source and Target Versions
-* Elasticsearch 6.8.23 to OpenSearch 2.14.0
-* Elasticsearch 7.10.2 to OpenSearch 2.14.0
-* Elasticsearch 7.17.22 to OpenSearch 2.14.0
-* OpenSearch 1.3.16 to OpenSearch 2.14.0
+| **Source Version**          | **Target Version**               |
+|-----------------------------|----------------------------------|
+| Elasticsearch 6.8           | OpenSearch 1.3                   |
+| Elasticsearch 6.8           | OpenSearch 2.14                  |
+| Elasticsearch 7.10.2        | OpenSearch 1.3                   |
+| Elasticsearch 7.10.2        | OpenSearch 2.14                  |
+| Elasticsearch 7.17          | OpenSearch 1.3                   |
+| Elasticsearch 7.17          | OpenSearch 2.14                  |
+| OpenSearch 1.3              | OpenSearch 2.14                  |
 
 > [!NOTE]  
 > We expect minor versions within the specified major versions above (i.e., Elasticsearch 6 and 7 and OpenSearch 1 and 2) to be supported, but the versions above are tested.
@@ -29,6 +33,16 @@ There are also tools available for migrating cluster configuration, templates, a
 * AWS OpenSearch
 
 The tooling is designed to work with other cloud provider platforms, but it is not officially tested with these other platforms. If you would like to add support, please contact one of the maintainers on [GitHub](https://github.com/opensearch-project/opensearch-migrations/blob/main/MAINTAINERS.md).
+
+### Future Migration Paths
+
+| **Source Version**          | **Target Version**               | **Tracking Issue** |
+|-----------------------------|----------------------------------|--------------------|
+| Elasticsearch 8.x           | OpenSearch 2.x                   |[Issue](https://github.com/opensearch-project/opensearch-migrations/issues/1071)|
+| Elasticsearch 5.6           | OpenSearch 2.x                   |[Issue](https://github.com/opensearch-project/opensearch-migrations/issues/1067)|
+| Elasticsearch 2.3           | OpenSearch 2.x                   |[Issue](https://github.com/opensearch-project/opensearch-migrations/issues/1069)|
+| Elasitcsearch 1.5           | OpenSearch 2.x                   |[Issue](https://github.com/opensearch-project/opensearch-migrations/issues/1070)|
+| OpenSearch 2.x              | OpenSearch 2.x                   |[Issue](https://github.com/opensearch-project/opensearch-migrations/issues/1038)|
 
 ## Supported Components
 
