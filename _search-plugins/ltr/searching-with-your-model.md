@@ -97,4 +97,6 @@ The `sltr` query can be integrated with the following OpenSearch features and fu
 -   Rescoring once to address relevance with `sltr` and a second time for business concerns
 -   Downboosting relevant but low-quality content in the baseline query to prevent it from being rescored
 
+## Next steps
+
 Learn about [advanced functionality]({{site.url}}{{site.baseurl}}/search-plugins/ltr/advanced-functionality/).
