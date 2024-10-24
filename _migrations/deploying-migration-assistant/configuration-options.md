@@ -1,4 +1,12 @@
-<!-- Document: Topic -->
+---
+layout: default
+title: Configuration options
+nav_order: 15
+parent: Deploying migration assistant
+---
+
+# Configuration options
+
 This page outlines the configuration options for three key migrations:
 1. **Metadata Migration**
 2. **Backfill Migration with Reindex-from-Snapshot (RFS)**
