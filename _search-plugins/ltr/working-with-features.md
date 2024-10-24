@@ -169,7 +169,7 @@ GET _ltr/_featureset
 ```
 {% include copy-curl.html %}
 
-If you have many feature sets, then you can filter the list by using a prefix, as shown in the following example request:
+If you have many feature sets, you can filter the list by using a prefix, as shown in the following example request:
 
 ```
 GET _ltr/_featureset?prefix=mor
