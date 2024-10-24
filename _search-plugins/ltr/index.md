@@ -27,7 +27,7 @@ The following resources can help you get started:
 
 Prebuilt versions of the plugin are available at [https://github.com/opensearch-project/opensearch-learning-to-rank-base/releases](https://github.com/opensearch-project/opensearch-learning-to-rank-base/releases). 
 
-If you need a version compatible with your OpenSearch installation, follow the instructions in the [README](https://github.com/opensearch-project/opensearch-learning-to-rank-base#development) file or [create an issue](https://github.com/opensearch-project/opensearch-learning-to-rank-base/issues). 
+If you need a version that is compatible with your OpenSearch installation, follow the instructions in the [README](https://github.com/opensearch-project/opensearch-learning-to-rank-base#development) file or [create an issue](https://github.com/opensearch-project/opensearch-learning-to-rank-base/issues). 
 
 Once you have an appropriate version, you can install the plugin using a command line shown in the following example:
 
