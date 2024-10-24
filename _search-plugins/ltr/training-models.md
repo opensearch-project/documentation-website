@@ -8,7 +8,7 @@ has_children: false
 
 # Uploading trained models
 
-While training models occurs outside of the Learning to Rank plugin, you can use the plugin for [Logging feature scores]({{site.url}}{{site.baseurl}}/search-plugins/ltr/logging-features/). After you have trained a model, you can upload it to the plugin in the available serialization formats, such as RankLib and XGBoost.
+While model training occurs outside of the Learning to Rank plugin, you can use the plugin for [logging feature scores]({{site.url}}{{site.baseurl}}/search-plugins/ltr/logging-features/). After you have trained a model, you can upload it to the plugin in the available serialization formats, such as RankLib and XGBoost.
 
 ## RankLib model training
 
