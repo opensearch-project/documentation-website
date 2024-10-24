@@ -82,7 +82,7 @@ Follow these steps to set up your local copy of the repository:
 
 1. Install [Ruby](https://www.ruby-lang.org/en/) if you don't already have it. We recommend [RVM](https://rvm.io/), but you can use any method you prefer:
 
-   ###### For non-Apple silicon machines:
+    **For non-Apple silicon machines***
 
    ```
    curl -sSL https://get.rvm.io | bash -s stable
