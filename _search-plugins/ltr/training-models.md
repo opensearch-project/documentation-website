@@ -30,7 +30,7 @@ The RankLib library can be called using the following command:
 
 The `judgmentsWithFeatureFile` is the input provided to RankLib for training. Additional parameters can be passed. See the [RankLib documentation](https://sourceforge.net/p/lemur/wiki/RankLib/) for more information.
 
-RankLib outputs the model in its own serialization format. For example, a LambdaMART model is an ensemble of regression trees, as shown in the following example: 
+RankLib outputs the model in its own serialization format. As shown in the following example, a LambdaMART model is an ensemble of regression trees: 
 
 ```
 ## LambdaMART
