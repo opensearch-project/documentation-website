@@ -26,7 +26,7 @@ PUT /<index>/_settings
 
 Parameter | Type | Description
 :--- | :--- | :---
-&lt;index&gt; | String | The index to update. Can be a comma-separated list of multiple index names. Use `_all` or * to close all indexes.
+&lt;index&gt; | String | The index to update. Can be a comma-separated list of multiple index names. Use `_all` or `*` to specify all indexes.
 
 ## Query parameters
 
