@@ -98,6 +98,21 @@ In OpenSearch 2.15 or later, you can further improve indexing speed and reduce d
 This is an expert-level setting. Disabling the `_recovery_source` may lead to failures during peer-to-peer recovery. Before disabling the `_recovery_source`, check with your OpenSearch cluster admin to determine whether your cluster performs regular flushes before starting the peer-to-peer recovery of shards before disabling the `_recovery_source`.  
 {: .warning}
 
+### (Expert-level) Build vector data structures on demand
+
+This should be considered only for workloads where indexing happens as one initial bulk upload and will be available only for search after force merging to 1 segment.
+
+During indexing, vector search builds specialized data structure for a knn_vector field to support approximate neighbor search for efficiently finding k nearest neighbors. However, during `forcemerge`, k-NN indices rebuilds those data structures from beginning. Hence, to speed up indexing, you can update the index settings to improve overall indexing time
+
+
+* Either create an index or update with setting [index.knn.advanced.approximate_threshold]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#index-settings) to `-1` . This will disable building vector data structures for new segments.
+* Perform bulk indexing and, makes sure no search is performed while ingestion. If search is performed when vector data structures are disabled, exact search will be executed in the meantime.
+* Once the indexing is completed, reenable the setting by updating index.knn.advanced.approximate_threshold to `0`.
+* Perform force merge to max_segments = 1 to build vector data structure one time.
+* After force merge, new search request will always execute approximate k-nn search as expected.
+
+If you forgot to update the setting to 0 before force merge, you have to reindex data.
+
 ## Search performance tuning
 
 Take the following steps to improve search performance:
