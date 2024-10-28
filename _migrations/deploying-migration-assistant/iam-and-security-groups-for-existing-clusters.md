@@ -1,4 +1,12 @@
-<!-- Document: Topic -->
+---
+layout: default
+title: IAM and security groups for existing clusters
+nav_order: 20
+parent: Deploying migration assistant
+---
+
+# IAM and security groups for existing clusters
+
 This page outlines scenarios for using the migration tools with existing clusters, including any necessary configuration changes to ensure proper communication between them.
 
 ## Importing an OpenSearch Service or OpenSearch Serverless Target Cluster

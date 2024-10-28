@@ -4,7 +4,6 @@ title: Is migration assistant right for you?
 nav_order: 5
 ---
 
-<!-- Document: Guide -->
 Before deciding if this is the right tool for you, it's important to assess your specific needs and understand the available tools for performing an upgrade or migration.
 
 Migration Assistant addresses gaps found in other migration solutions, but in some cases, alternative tools may be a better fit.

@@ -65,7 +65,7 @@ This document outlines how to deploy the Migration Assistant and execute an exis
 ```bash
 aws ssm start-session --document-name SSM-dev-BootstrapShell --target <instance-id> --region <aws-region> [--profile <profile-name>]
 ```
-3. Run the following to build:
+3. Once logged in, run the following command from the shell of the bootstrap instance (within the /opensearch-migrations directory):
 ```bash
 ./initBootstrap.sh && cd deployment/cdk/opensearch-service-migration
 ```
@@ -74,8 +74,8 @@ aws ssm start-session --document-name SSM-dev-BootstrapShell --target <instance-
 ---
 
 ## Step 4 - Configuring and Deploying for RFS Use Case (~20 mins)
-1. Add the target cluster password to AWS Secrets Manager. Copy the secret ARN for deployment.
-2. Modify the `cdk.context.json` file on the bootstrap instance with the following template:
+1. Add the target cluster password to AWS Secrets Manager as an unstructured string. Be sure to copy the secret ARN for use during deployment.
+2. From the same shell on the bootstrap instance, modify the cdk.context.json file located in the `/opensearch-migrations/deployment/cdk/opensearch-service-migration` directory:
 
 ```json
 {
@@ -91,7 +91,11 @@ aws ssm start-session --document-name SSM-dev-BootstrapShell --target <instance-
     },
     "sourceCluster": {
         "endpoint": "<SOURCE CLUSTER ENDPOINT>",
-        "auth": {"type": "none"}
+        "auth": {
+            "type": "basic",
+            "username": "<TARGET CLUSTER USERNAME>",
+            "passwordFromSecretArn": "<TARGET CLUSTER PASSWORD SECRET>"
+        }
     },
     "reindexFromSnapshotExtraArgs": "<RFS PARAMETERS (see below)>",
     "stage": "dev",
@@ -102,6 +106,8 @@ aws ssm start-session --document-name SSM-dev-BootstrapShell --target <instance-
   }
 }
 ```
+
+The source and target cluster authorization can be configured to have none, `basic` with a username and password, or `sigv4`. There are examples of each available [here](https://github.com/opensearch-project/opensearch-migrations/wiki/Configuration-Options#cluster-authentication-options).
 
 3. Bootstrap the account with the following command:
 ```bash

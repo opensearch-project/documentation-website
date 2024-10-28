@@ -1,5 +1,12 @@
+---
+layout: default
+title: Metadata migration
+nav_order: 85
+parent: Metadata
+grand_parent: Migration phases
+---
 
-
+# Metadata migration
 
 Metadata migration is a relatively fast process to execute so we recommend attempting this workflow as early as possible to discover any issues which could impact longer running migration steps.
 

@@ -1,4 +1,11 @@
-<!-- Document: Guide -->
+---
+layout: default
+title: Migration assistant overview
+nav_order: 15
+---
+
+# Migration assistant overview
+
 This Overview outlines the process for successfully performing an end-to-end migration. The solution offered in this repository caters to several specific scenarios:
 
 1. Migrating cluster metadata, such as index settings, aliases, and templates.
@@ -39,10 +46,9 @@ The solution architecture, adaptable for cloud deployment, unfolds as follows:
 This architecture is based on the use of AWS cloud infrastructure, but most tools are designed to be cloud-independent. A local containerized version of this solution is also available.
 
 
-Deploying to AWS (covered later in the guide) will deploy the following into your AWS account:
+Deploying to AWS (covered later in the guide) will deploy the following system design:
 
-<img width="926" alt="image" src="https://github.com/user-attachments/assets/49f748fc-f513-462a-ad01-f8735c87abe2">
-
+![Migration architecture overview]({{site.url}}{{site.baseurl}}/images/migrations/migration-architecture-overview.svg)
 
 1. Traffic is directed to the existing cluster.
 2. An ALB with Capture Proxies are added allowing for traffic capture and storage in Amazon Managed Streaming for Apache Kafka (MSK).

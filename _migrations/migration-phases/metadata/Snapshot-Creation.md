@@ -1,5 +1,13 @@
+---
+layout: default
+title: Snapshot creation
+nav_order: 90
+parent: Metadata
+grand_parent: Migration phases
+---
 
 
+# Snapshot creation
 
 Creating a snapshot of the source cluster capture all the metadata and documents to migrate onto a new target cluster.
 
