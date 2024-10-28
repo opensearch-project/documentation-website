@@ -15,7 +15,6 @@ assignees: ''
 
 **Tell us about your request.** Provide a summary of the request.
 
-***Version:** List the OpenSearch version to which this issue applies, e.g. 2.14, 2.12--2.14, or all.
+**Version:** List the OpenSearch version to which this issue applies, e.g. 2.14, 2.12--2.14, or all.
  
 **What other resources are available?** Provide links to related issues, POCs, steps for testing, etc.
-
