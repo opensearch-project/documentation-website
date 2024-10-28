@@ -31,7 +31,7 @@ Parameter | Data type | Description
 `create` | Boolean | When true, the API cannot replace or update any existing index templates. Default is `false`.
 `cluster_manager_timeout` | Time | The amount of time to wait for a connection to the cluster manager node. Default is `30s`.
 
-## Request body options
+## Request body fields
 
 The following options can be used in the request body to customize the index template.
 

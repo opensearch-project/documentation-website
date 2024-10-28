@@ -21,6 +21,11 @@ To create an index for disk-based vector search, send the following request:
 ```json
 PUT my-vector-index
 {
+  "settings" : {
+    "index": {
+      "knn": true
+    }
+  },
   "mappings": {
     "properties": {
       "my_vector_field": {
@@ -43,6 +48,11 @@ To reduce the compression level, provide the `compression_level` parameter when 
 ```json
 PUT my-vector-index
 {
+  "settings" : {
+    "index": {
+      "knn": true
+    }
+  },
   "mappings": {
     "properties": {
       "my_vector_field": {
@@ -67,6 +77,11 @@ If you need more granular fine-tuning, you can override additional k-NN paramete
 ```json
 PUT my-vector-index
 {
+  "settings" : {
+    "index": {
+      "knn": true
+    }
+  },
   "mappings": {
     "properties": {
       "my_vector_field": {
@@ -146,7 +161,7 @@ GET my-vector-index/_search
       "my_vector_field": {
         "vector": [1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5],
         "k": 5,
-        "method_params": {
+        "method_parameters": {
             "ef_search": 512
         },
         "rescore": {
@@ -167,7 +182,7 @@ GET my-vector-index/_search
 For [model-based indexes]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model), you can specify the `on_disk` parameter in the training request in the same way that you would specify it during index creation. By default, `on_disk` mode will use the [Faiss IVF method]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#supported-faiss-methods) and a compression level of `32x`. To run the training API, send the following request:
 
 ```json
-POST /_plugins/_knn/models/_train/test-model
+POST /_plugins/_knn/models/test-model/_train
 {
     "training_index": "train-index-name",
     "training_field": "train-field-name",
