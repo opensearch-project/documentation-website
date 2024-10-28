@@ -10,7 +10,7 @@ has_toc: false
 
 # doc_values
 
-OpenSearch indexes most fields by default for searching. The `doc_values ` parameter enables document-to-term lookups for operations such as sorting, aggregations, and scripting.
+By default, OpenSearch indexes most fields for search purposes. The `doc_values ` parameter enables document-to-term lookups for operations such as sorting, aggregations, and scripting.
 
 The `doc_values` parameter accepts the following options.
 
