@@ -92,7 +92,7 @@ Mapping parameter | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
 `name` | true | n/a | false | The identifier for the nearest neighbor method.
 `space_type` | false | l2 | false | The vector space used to calculate the distance between vectors. Note: This value can also be specified at the top level of the mapping.
-`engine` | false | Faiss  | false | The approximate k-NN library to use for indexing and search. The available libraries are Faiss, nmslib, and Lucene.
+`engine` | false | faiss  | false | The approximate k-NN library to use for indexing and search. The available libraries are `faiss`, `nmslib`, and `lucene`.
 `parameters` | false | null | false | The parameters used for the nearest neighbor method.
 
 ### Supported nmslib methods
