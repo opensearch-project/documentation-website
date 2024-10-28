@@ -9,7 +9,7 @@ has_children: true
 **Introduced 2.18**
 {: .label .label-purple }
 
-The List API retrieves statistics about indexes and shards in a paginated format. This makes it easier to consume responses with a large amount of indexes.
+The List API retrieves statistics about indexes and shards in a paginated format. This streamlines the task of processing responses that include many indexes.
 
 The List API supports two operations:
 
@@ -74,7 +74,7 @@ GET _list/indices?help
 
 #### Response
 
-The following example shows the indexes and their health status' in a table:
+The following example shows the indexes and their health status in a table:
 
 ```json
 health     | h                              | current health status
@@ -95,7 +95,7 @@ GET _list/<operation_name>?h=<header_name_1>,<header_name_2>&v
 ```
 {% include copy-curl.html %}
 
-For any operation you can find out what headers are available using the `help` parameter, and then use the `h` parameter to limit the output to only the headers that you care about. 
+For any operation, you can find out what headers are available using the `help` parameter, and then use the `h` parameter to limit the output to only the headers that you care about. 
 
 #### Request
 
