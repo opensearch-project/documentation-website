@@ -9,8 +9,12 @@ has_children: true
 **Introduced 2.18**
 {: .label .label-purple }
 
-The List API retrieves statistics about indexes and shards in a paginated format. This make it easier to consume large responses. 
+The List API retrieves statistics about indexes and shards in a paginated format. This makes it easier to consume responses with a large amount of indexes.
 
+The List API supports two operations:
+
+- [List Indices]({{site.url}}{{site.baseurl}}/api-reference/list/list-indices/)
+- [List Shards]({{site.url}}{{site.baseurl}}/api-reference/list/list-shards/)
 
 ## Shared query parameters
 
