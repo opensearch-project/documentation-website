@@ -8,13 +8,13 @@ has_children: false
 has_toc: false
 ---
 
-# Doc_values
+# doc_values
 
-OpenSearch indexes most fields by default for searching. While the inverted index allows quick term-to-document lookups, doc values enable efficient document-to-term access for sorting, aggregations, and scripting.
+OpenSearch indexes most fields by default for searching. While the inverted index provides quick term-to-document lookups, the `doc_values ` parameter enables document-to-term access for operations such as sorting, aggregations, and scripting.
 
-The `doc_values` parameter accepts the following values.
+The `doc_values` parameter accepts the following options.
 
-Parameter | Description
+Option | Description
 :--- | :---
 `true` | Enables `doc_values` for the field. Default is `true`.
 `false` | Disables `doc_values` for the field.
