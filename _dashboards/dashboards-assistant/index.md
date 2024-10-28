@@ -2,7 +2,7 @@
 layout: default
 title: OpenSearch Assistant for OpenSearch Dashboards
 nav_order: 3
-has_children: false
+has_children: true
 has_toc: false
 ---
 
@@ -22,7 +22,7 @@ To enable **OpenSearch Assistant** in OpenSearch Dashboards, locate your copy of
 ```yaml
 assistant.chat.enabled: true
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 Then configure the root `agent_id` through the following API:
 
