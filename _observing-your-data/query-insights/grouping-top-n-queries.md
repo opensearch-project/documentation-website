@@ -45,8 +45,8 @@ bool
 
 When queries share the same query structure, they are grouped together, ensuring that all similar queries belong to the same group.
 
-### Configure Query Structure
-The above query structure is of the basic form. We have settings to include the `field name` and `field data type` in the query structure.
+### Configure query structure
+The previous query structure is of the basic form. We have settings to include the `field name` and `field data type` in the query structure.
 
 ```json
 PUT _cluster/settings
@@ -59,7 +59,7 @@ PUT _cluster/settings
 ```
 Note that both these settings are enabled by default.
 
-Example of how the query structure would look like with the above settings enabled.
+Example of how the query structure would look like with the preceding settings enabled.
 
 Query:
 ```json
