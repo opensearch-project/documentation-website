@@ -19,7 +19,6 @@ Starting with OpenSearch 2.17, query enhancements have been made. These enhancem
 - Link sharing through URLs without needing write permission to create an index pattern
 
 OpenSearch 2.18 builds upon existing features with new query enhancements designed to improve data exploration. However, these enhancements, including PPL and SQL functionality, are not available in minimal distributions and require the separate installation of the [OpenSearch SQL plugin]({{site.url}}{{site.baseurl}}/search-plugins/sql/settings/).
-{: .note} 
 
 While query enhancements work with a standard OpenSearch installation, enabling SQL, PPL, and external data source queries requires additional plugins, particularly the SQL plugin. For optimal use of these query enhancement features, make sure to install the [required plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) across all relevant data sources. 
 
