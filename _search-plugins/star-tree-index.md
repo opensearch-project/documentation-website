@@ -76,7 +76,7 @@ PUT logs
   },
   "mappings": {
     "composite": {
-      "startree1": {
+      "request_aggs": {
         "type": "star_tree",
         "config": {
           "ordered_dimensions": [

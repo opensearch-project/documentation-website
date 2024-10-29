@@ -48,7 +48,7 @@ PUT logs
   },
   "mappings": {
     "composite": {
-      "startree1": {
+      "request_aggs": {
         "type": "star_tree",
         "config": {
           "max_leaf_docs": 10000,
@@ -104,7 +104,7 @@ PUT logs
   }
 }
 ```
-In the above example, for `startree1` , it will create a corresponding STIX. Currently only `one` STIX can be created per index. Support for multiple Star Trees is a work in progress and will be released in the future. <br/>
+In the above example, for `request_aggs` , it will create a corresponding STIX. Currently only `one` STIX can be created per index. Support for multiple Star Trees is a work in progress and will be released in the future. <br/>
 
 ## Star tree mapping parameters
 Specify Star Tree configuration under `config` section. All parameters are final and cannot be modified without reindexing documents.
