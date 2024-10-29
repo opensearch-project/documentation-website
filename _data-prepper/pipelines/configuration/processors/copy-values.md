@@ -14,44 +14,126 @@ The `copy_values` processor copies values within an event and is a [mutate event
 
 You can configure the `copy_values` processor with the following options.
 
-| Option | Required | Description |
-:--- | :--- | :---
-| `entries` | Yes | A list of entries to be copied in an event. |
-| `from_key` | Yes | The key of the entry to be copied. |
-| `to_key` | Yes | The key of the new entry to be added. |
-| `overwrite_if_to_key_exists` | No | When set to `true`, the existing value is overwritten if `key` already exists in the event. The default value is `false`. |
+| Option | Required | Type | Description |
+:--- | :--- | :--- | :---
+| `entries` | Yes | [entry](#entry) | A list of entries to be copied in an event. See [entry](#entry) for more information. |
+| `from_list` | No | String | The key for the list of objects to be copied. |
+| `to_list` | No | String | The key for the new list to be added. |
+| `overwrite_if_to_list_exists` | No | Boolean | When set to `true`, the existing value is overwritten if the `key` specified by `to_list` already exists in the event. Default is `false`. |
+
+## entry
+
+For each entry, you can configure the following options.
+
+| Option | Required | Type | Description |
+:--- | :--- | :--- | :---
+| `from_key` | Yes | String | The key for the entry to be copied. |
+| `to_key` | Yes | String | The key for the new entry to be added. |
+| `overwrite_if_to_key_exists` | No | Boolean | When set to `true`, the existing value is overwritten if the `key` already exists in the event. Default is `false`. |
+
 
 ## Usage
 
-To get started, create the following `pipeline.yaml` file:
+The following examples show you how to use the `copy_values` processor.
+
+### Example: Copy values and skip existing fields
+
+The following example shows you how to configure the processor to copy values and skip existing fields:
 
 ```yaml
-pipeline:
-  source:
-    ...
-  ....  
+...
   processor:
     - copy_values:
         entries:
-        - from_key: "message"
-          to_key: "newMessage"
-          overwrite_if_to_key_exists: true
-  sink:
+          - from_key: "message1"
+            to_key: "message2"
+          - from_key: "message1"
+            to_key: "message3"
+...
 ```
 {% include copy.html %}
 
-Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` file with that filepath. For more information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper). 
-
-For example, before you run the `copy_values` processor, if the `logs_json.log` file contains the following event record:
+When the input event contains the following data:
 
 ```json
-{"message": "hello"}
+{"message1": "hello", "message2": "bye"}
 ```
 
-When you run this processor, it parses the message into the following output:
+The processor copies "message1" to "message3" but not to "message2" because "message2" already exists. The processed event contains the following data:
 
 ```json
-{"message": "hello", "newMessage": "hello"}
+{"message1": "hello", "message2": "bye", "message3": "hello"}
 ```
 
-If `newMessage` already exists, its existing value is overwritten with `value`.
+### Example: Copy values with overwrites
+
+The following example shows you how to configure the processor to copy values:
+
+```yaml
+...
+  processor:
+    - copy_values:
+        entries:
+          - from_key: "message1"
+            to_key: "message2"
+            overwrite_if_to_key_exists: true
+          - from_key: "message1"
+            to_key: "message3"
+...
+```
+{% include copy.html %}
+
+When the input event contains the following data:
+
+```json
+{"message1": "hello", "message2": "bye"}
+```
+
+The processor copies "message1" to both "message2" and "message3", overwriting the existing value in "message2". The processed event contains the following data:
+
+```json
+{"message1": "hello", "message2": "hello", "message3": "hello"}
+```
+
+### Example: Selectively copy values between two lists of objects
+
+The following example shows you how to configure the processor to copy values between lists:
+
+```yaml
+...
+  processor:
+    - copy_values:
+        from_list: mylist
+        to_list: newlist
+        entries:
+          - from_key: name
+            to_key: fruit_name
+...
+```
+{% include copy.html %}
+
+When the input event contains the following data:
+
+```json
+{
+  "mylist": [
+    {"name": "apple", "color": "red"},
+    {"name": "orange", "color": "orange"}
+  ]
+}
+```
+
+The processed event contains a `newlist` with selectively copied fields:
+
+```json
+{
+  "newlist": [
+    {"fruit_name": "apple"},
+    {"fruit_name": "orange"}
+  ],
+  "mylist": [
+    {"name": "apple", "color": "red"},
+    {"name": "orange", "color": "orange"}
+  ]
+}
+```

@@ -77,7 +77,7 @@ GET /_plugins/_security_analytics/threat_intel/alerts
 }
 ```
 
-### Response fields
+### Response body fields
 
 A threat intelligence alert can have one of the following states.
 
