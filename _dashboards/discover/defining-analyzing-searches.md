@@ -44,7 +44,7 @@ For more information, see [Discover and Dashboard search toolbar]({{site.url}}{{
 
 ## Filtering data
 
-Filters allow you to narrow the results of a query by specifying certain criteria. You can filter by field, value, or range. The **Add filter** pop-up suggests the available fields and operators.
+You can use filters to refine query results by specifying certain criteria such as field, value, or range. The **Add filter** feature provides suggestions for available fields and operators.
 
 To filter your data, follow these steps:
 
