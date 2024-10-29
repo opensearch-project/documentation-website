@@ -14,7 +14,7 @@ Starting with OpenSearch 2.17, query enhancements have been made. These enhancem
 - Query languages PPL and SQL, with **Query Assist** for PPL
 - Multiline query editor for PPL and SQL and autocomplete for PPL and DQL
 - Query editor expand/collapse for multiline/single-line mode
-- Data selector with **Data Explorer** that supports index patterns, indexes, and Amazon S3 connections and data configuration that supports selecting the appropriate query language based on the data type
+- **Data Explorer** feature that supports diverse data sources, such as index patterns, indexes, and Amazon S3 connections, with built-in support for selecting the appropriate query language for your chosen data type
 - OpenSearch Dashboards allows for exploring your data within your indexes without using index patterns
 - Link sharing through URLs without needing write permission to create an index pattern
 
