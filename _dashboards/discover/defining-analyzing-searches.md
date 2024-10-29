@@ -70,4 +70,4 @@ To visualize your data findings, follow these steps:
 
 ## Setting alerts
 
-Set alerts to notify you when your data exceeds your specified thresholds. Go to [Alerting dashboards and visualizations]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/dashboards-alerting/) to learn about creating and managing alerts.
+Configure alerts to receive notifications when your data exceeds the specified thresholds. For detailed information about setting up and managing alerts, see [Alerting dashboards and visualizations]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/dashboards-alerting/).
