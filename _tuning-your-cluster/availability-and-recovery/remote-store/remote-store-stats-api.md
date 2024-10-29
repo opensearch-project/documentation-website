@@ -257,7 +257,7 @@ GET _remotestore/stats/<index_name>
 ```
 </details>
 
-### Response fields
+### Response body fields
 
 The response body of the Remote Store Stats API is split into three categories:
 

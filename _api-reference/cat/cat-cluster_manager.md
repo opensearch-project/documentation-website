@@ -17,15 +17,11 @@ The CAT cluster manager operation lists information that helps identify the elec
 
 ## Path and HTTP methods
 
-```
+```json
 GET _cat/cluster_manager
 ```
 
-## URL parameters
-
-All CAT cluster manager URL parameters are optional.
-
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
+## Query parameters
 
 Parameter | Type | Description
 :--- | :--- | :---

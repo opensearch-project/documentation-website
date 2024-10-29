@@ -13,7 +13,7 @@ Introduced 2.16
 
 The `sort` processor sorts an array of items in either ascending or descending order. Numeric arrays are sorted numerically, while string or mixed arrays (strings and numbers) are sorted lexicographically. The processor throws an error if the input is not an array.
 
-## Request fields
+## Request body fields
 
 The following table lists all available request fields.
 
