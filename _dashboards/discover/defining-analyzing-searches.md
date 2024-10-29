@@ -21,7 +21,7 @@ To define a search, follow these steps:
 
 OpenSearch uses document tables to store unstructured data, where each row corresponds to an individual document and columns represent various document attributes.
 
-### View document attributes
+### Viewing document attributes
 
 To review document attributes, follow these steps: 
 
