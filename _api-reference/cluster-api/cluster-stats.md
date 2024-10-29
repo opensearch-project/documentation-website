@@ -560,7 +560,7 @@ Field | Description
 `nodes.count` | The number of nodes returned by the request.
 `nodes.versions` | The OpenSearch version number for each node.
 `nodes.os` | Information about the operating systems used by the nodes.
-`nodes.process` | A list of process used by each node.
+`nodes.process` | A list of processes used by each node.
 `nodes.jvm` | Statistics about the JVMs in use.
 `nodes.fs` | Information about the node's file storage.
 `nodes.plugins` | A list of the OpenSearch plugins integrated with the nodes.
