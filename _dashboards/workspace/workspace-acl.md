@@ -11,4 +11,4 @@ nav_order: 3
 
 ## Config dashboard admin
 
-## Define Authorization policy for your workspaces
+## Define Collaborators for your workspaces

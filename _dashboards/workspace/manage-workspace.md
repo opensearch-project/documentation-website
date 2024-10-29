@@ -18,3 +18,5 @@ nav_order: 2
 ### Direct query connection
 
 ## Delete your workspace
+
+## Manage workspaces from workspaces list
