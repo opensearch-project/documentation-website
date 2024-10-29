@@ -21,7 +21,7 @@ Starting with OpenSearch 2.17, query enhancements have been made. These enhancem
 OpenSearch 2.18 builds upon existing features with new query enhancements designed to improve data exploration. However, these enhancements, including PPL and SQL functionality, are not available in minimal distributions and require the separate installation of the [OpenSearch SQL plugin]({{site.url}}{{site.baseurl}}/search-plugins/sql/settings/).
 {: .note} 
 
-Query enhancements work with a basic OpenSearch installation, but to enable SQL, PPL, and external data source queries, additional plugins such as the SQL plugin are necessary. Ensure that you have the [required plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) installed to take full advantage of these query enhancement features. 
+While query enhancements work with a standard OpenSearch installation, enabling SQL, PPL, and external data source queries requires additional plugins, particularly the SQL plugin. For optimal use of these query enhancement features, make sure to install the [required plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) across all relevant data sources. 
 
 You can leave your feedback at [https://forum.opensearch.org/)](https://forum.opensearch.org/) to help the OpenSearch open source project improve this feature.
 {: .note}
