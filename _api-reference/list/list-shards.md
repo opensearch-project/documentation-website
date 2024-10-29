@@ -33,6 +33,9 @@ Parameter | Type | Description
 `size` | Integer | The maximum number of indexes to be displayed on a single page. The number of indexes on a single page of the response is not always equal to the specified `size`. Default and minimum value is `2000`. Maximum value is `20000`.
 `sort` | String | The order in which the indexes are displayed. If `desc`, then the most recently created indexes are displayed first. If `asc`, then the oldest indexes are displayed first. Default is `asc`.
 
+When using the `next_token` path parameter, use the token produced by the response to see the next page of indexes or aliases. After the API returns `null`, all indexes and aliases contained in the API have been returned.
+{: .tip }
+
 ## Example requests
 
 To get information for all the indexes and shards, use the following query and keep specifying the `next_token` as received from response until its `null`:
@@ -48,7 +51,7 @@ GET _list/shards/<index>?v&next_token=token
 ```
 {% include copy-curl.html %}
 
-If you want to get information for more than one index, separate the indexes with commas, as shown in the following example and keep specifying the `next_token` as received from response until its `null`:
+If you want to get information for more than one index, separate the indexes with commas, as shown in the following example:
 
 ```json
 GET _list/shards/index1,index2,index3?v&next_token=token
@@ -57,7 +60,7 @@ GET _list/shards/index1,index2,index3?v&next_token=token
 
 ## Example response
 
-In plain text format:
+**Plain text format**
 
 ```json
 index | shard | prirep | state   | docs | store | ip |       | node
@@ -68,9 +71,8 @@ plugins | 0   |   r    | STARTED |   0  |  208b | 172.18.0.3 |  odfe-node2
 next_token MTcyOTE5NTQ5NjM5N3wub3BlbnNlYXJjaC1zYXAtbG9nLXR5cGVzLWNvbmZpZw==   
 ```
 
-In JSON format:
+**JSON format**
 
-```
+```json
 {"next_token":"MTcyOTE5NTQ5NjM5N3wub3BlbnNlYXJjaC1zYXAtbG9nLXR5cGVzLWNvbmZpZw==","shards":[{"index":"plugins","shard":"0","prirep":"p","state":"STARTED","docs":"0","store":"208B","ip":"172.18.0.4","node":"odfe-node1"},{"index":"plugins","shard":"0","prirep":"r","state":"STARTED","docs":"0","store":"208B","ip":"172.18.0.3","node":"odfe-node2"}]}
-
 ```
