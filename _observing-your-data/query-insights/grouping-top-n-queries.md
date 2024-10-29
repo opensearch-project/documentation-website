@@ -45,6 +45,87 @@ bool
 
 When queries share the same query structure, they are grouped together, ensuring that all similar queries belong to the same group.
 
+### Configure Query Structure
+The above query structure is of the basic form. We have settings to include the `field name` and `field data type` in the query structure.
+
+```json
+PUT _cluster/settings
+{
+  "persistent" : {
+    "search.insights.top_queries.grouping.attributes.field_name" : true,
+    "search.insights.top_queries.grouping.attributes.field_type" : true
+  }
+}
+```
+Note that both these settings are enabled by default.
+
+Example of how the query structure would look like with the above settings enabled.
+
+Query:
+```json
+{
+    "query": {
+        "bool": {
+            "must": [
+                {
+                    "term": {
+                        "field1": "example_value"
+                    }
+                }
+            ],
+            "filter": [
+                {
+                    "match": {
+                        "field2": "search_text"
+                    }
+                },
+                {
+                    "range": {
+                        "field4": {
+                            "gte": 1,
+                            "lte": 100
+                        }
+                    }
+                }
+            ],
+            "should": [
+                {
+                    "regexp": {
+                        "field3": ".*"
+                    }
+                }
+            ]
+        }
+    }
+}
+```
+Field mapping:
+```json
+{
+    "index1": {
+        "mappings": {
+            "properties": {
+                "field1": { "type": "keyword" },
+                "field2": { "type": "text" },
+                "field3": { "type": "text" },
+                "field4": { "type": "long" }
+            }
+        }
+    }
+}
+```
+
+The query structure would be:
+```c
+bool []
+  must:
+    term [field1, keyword]
+  filter:
+    match [field2, text]
+    range [field4, long]
+  should:
+    regexp [field3, text]
+```
 
 ## Aggregate metrics per group
 
