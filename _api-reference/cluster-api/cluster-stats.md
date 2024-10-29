@@ -51,14 +51,14 @@ Metric | Description
 `jvm` | Statistics about the JVM, including heap usage and threads.
 `fs` | Statistics about file system usage.
 `plugins` | Statistics about OpenSearch plugins integrated with the nodes.
-`network_types` | The Transport and HTTP networks connected to the nodes.
-`discovery_type` | The method the nodes use to find other nodes inside the cluster.
-`packaging_types` | Information about each nodes’ OpenSearch distribution.
+`network_types` | A list of the transport and HTTP networks connected to the nodes.
+`discovery_type` | The method used by the nodes to find other nodes in the cluster.
+`packaging_types` | Information about each node's OpenSearch distribution.
 `ingest` | Statistics about ingest pipelines.
 
 ### Index metric groups
 
-To filter the information returned for the `indices` metric, you can use specific `index_metric` values. You can use these only when you use the following query types:
+To filter the information returned for the `indices` metric, you can use specific `index_metric` values. These values are only supported when using the following query types:
 
 ```json
 GET _cluster/stats/_all/<index_metric>/_nodes/<node-filters>
