@@ -29,7 +29,7 @@ Parameter | Type | Description
 `cluster_manager_timeout` | Time | The amount of time to wait for a connection to the cluster manager node. Default is `30s`.
 `cancel_after_time_interval` | Time | The amount of time after which the shard request is canceled. Default is `-1` (no timeout).
 `time` | Time | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
-`next_token` | String | Fetches the next page of indexes. When `null` provides the first page of indexes. Default is `null`. 
+`next_token` | String | Fetches the next page of indexes. When `null`, only provides the first page of indexes. Default is `null`.
 `size` | Integer | The maximum number of indexes to be displayed on a single page. The number of indexes on a single page of the response is not always equal to the specified `size`. Default is `500`. Maximum value is `5000`.
 `sort` | String | The order in which the indexes are displayed. If `desc`, then the most recently created indexes are displayed first. If `asc`, then the oldest indexes are displayed first. Default is `asc`.
 
