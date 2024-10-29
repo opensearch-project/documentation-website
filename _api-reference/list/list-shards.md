@@ -1,15 +1,15 @@
 ---
 layout: default
-title: List Shards
+title: List shards
 parent: List API
 nav_order: 20
 ---
 
-# List Shards
+# List shards
 **Introduced 2.18**
 {: .label .label-purple }
 
-The List Shards operation outputs, in a paginated format, the state of all primary and replica shards and how they are distributed.
+The list shards operation outputs, in a paginated format, the state of all primary and replica shards and how they are distributed.
 
 ## Path and HTTP methods
 
@@ -24,18 +24,18 @@ All parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :---
-`bytes` | Byte size | Specifies the units for the byte size, for example, `7kb` or `6gb`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
-`local` | Boolean | Whether to return information from the local node only, instead of from the cluster manager node. Default is `false`.
-`cluster_manager_timeout` | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
+`bytes` | Byte size | Specifies the byte size units, for example, `7kb` or `6gb`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
+`local` | Boolean | Whether to return information from the local node only instead of from the cluster manager node. Default is `false`.
+`cluster_manager_timeout` | Time | The amount of time to wait for a connection to the cluster manager node. Default is `30s`.
 `cancel_after_time_interval` | Time | The amount of time after which the shard request is canceled. Default is `-1` (no timeout).
-`time` | Time | Specifies the units for time, for example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
+`time` | Time | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
 `next_token` | String | Fetches the next page of indexes. When `null` provides the first page of indexes. Default is `null`. 
-`size` | Integer | The maximum number of indexes to be displayed a single page. The number of indexes on a single page in the response is not always equal to specified `size`. Default is `500`. Maximum value is `5000`.
-`sort` | String | The order the indexes are displayed. If `desc`, the most recently created indexes are displayed first. Ff `asc`, the oldest indexes are displayed first. Default is `asc`.
+`size` | Integer | The maximum number of indexes to be displayed on a single page. The number of indexes on a single page of the response is not always equal to the specified `size`. Default is `500`. Maximum value is `5000`.
+`sort` | String | The order in which the indexes are displayed. If `desc`, then the most recently created indexes are displayed first. If `asc`, then the oldest indexes are displayed first. Default is `asc`.
 
 ## Example requests
 
-To see only the information about shards of a specific index, add the index name after your query, as shown the following example:
+To limit the information to a specific index, add the index name after your query, as shown in the following example:
 
 ```json
 GET _list/shards/<index>?v

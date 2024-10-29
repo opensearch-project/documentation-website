@@ -13,8 +13,8 @@ The List API retrieves statistics about indexes and shards in a paginated format
 
 The List API supports two operations:
 
-- [List Indices]({{site.url}}{{site.baseurl}}/api-reference/list/list-indices/)
-- [List Shards]({{site.url}}{{site.baseurl}}/api-reference/list/list-shards/)
+- [List indices]({{site.url}}{{site.baseurl}}/api-reference/list/list-indices/)
+- [List shards]({{site.url}}{{site.baseurl}}/api-reference/list/list-shards/)
 
 ## Shared query parameters
 
@@ -22,7 +22,7 @@ All List API operations support the following optional query parameters.
 
 Parameter | Description
 :--- | :--- |
-`v` |  Provides verbose output by adding headers to the columns. It also adds some formatting to help align each of the columns together. All examples in this section include the `v` parameter.
+`v` |  Provides verbose output by adding headers to the columns. It also adds some formatting to help align each of the columns. All examples in this section include the `v` parameter.
 `help` | Lists the default and other available headers for a given operation.
 `h`  |  Limits the output to specific headers.
 `format` |  The format in which to return the result. Valid values are `json`, `yaml`, `cbor`, and `smile`.
@@ -30,12 +30,12 @@ Parameter | Description
 
 ## Examples
 
-The following examples show how to use the optional query parameters to customize the response of all List APIs.
+The following examples show how to use the optional query parameters to customize all List API responses.
 
 
 ### Get verbose output
 
-To query indexes and their stats with a verbose output that includes all column headings in the response, use the `v` query parameter, as shown in the following example:
+To query indexes and their statistics with a verbose output that includes all column headings in the response, use the `v` query parameter, as shown in the following example.
 
 #### Request
 
@@ -65,7 +65,7 @@ GET _list/<operation_name>?help
 
 #### Request
 
-The following example List Indices operation returns all the available headers:
+The following example list indices operation returns all the available headers:
 
 ```json
 GET _list/indices?help
@@ -74,7 +74,7 @@ GET _list/indices?help
 
 #### Response
 
-The following example shows the indexes and their health status in a table:
+The following example displays the indexes and their health status in a table:
 
 ```json
 health     | h                              | current health status
@@ -95,11 +95,11 @@ GET _list/<operation_name>?h=<header_name_1>,<header_name_2>&v
 ```
 {% include copy-curl.html %}
 
-For any operation, you can find out what headers are available using the `help` parameter, and then use the `h` parameter to limit the output to only the headers that you care about. 
+For any operation, you can determine which headers are available by using the `help` parameter and then using the `h` parameter to limit the output to only a subset of headers. 
 
 #### Request
 
-The following example limits indexes in the response to only the index name and health:
+The following example limits the indexes in the response to only the index name and health status headers:
 
 ```json
 GET _list/indices?h=health,index
@@ -117,7 +117,7 @@ next_token null
 
 ### Sort by a header
 
-To sort the output in a single page by a header, use the `s` parameter with the following syntax:
+To sort the output on a single page by a header, use the `s` parameter with the following syntax:
 
 ```json
 GET _list/<operation_name>?s=<header_name_1>,<header_name_2>
@@ -126,7 +126,7 @@ GET _list/<operation_name>?s=<header_name_1>,<header_name_2>
 
 #### Request
 
-The following example request sorts indexes by health index name:
+The following example request sorts indexes by index name:
 
 ```json
 GET _list/indices?s=h,i
@@ -141,14 +141,14 @@ yellow sample-index-1
 next_token null
 ```
 
-### Retrieve data in JSON
+### Retrieve data in JSON format
 
 By default, List APIs return data in a `text/plain` format. Other supported formats are [YAML](https://yaml.org/), [CBOR](https://cbor.io/), and [Smile](https://github.com/FasterXML/smile-format-specification).
 
 
 To retrieve data in JSON format, use the `format=json` parameter with the following syntax:
 
-If you use the Security plugin, make sure you have the appropriate permissions.
+If you use the Security plugin, ensure you have the appropriate permissions.
 {: .note }
 
 #### Request
