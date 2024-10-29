@@ -15,7 +15,7 @@ This is an experimental feature and is not recommended for use in a production e
 
 Star Tree Index (STIX) pre-computes aggregations to accelerate the performance of aggregation queries. <br/>
 If STIX is configured as part of index mapping, it will be created and maintained in real-time as the data is ingested.<br/>
-OpenSearch will automatically use the Star Tree index to optimize aggregations if the fields queried are part of Star Tree's dimension fields and the aggregations are on Star Tree's metrics fields. No changes are required in the query syntax or the request parameters.
+OpenSearch will automatically use the STIX to optimize aggregations if the fields queried are part of STIX dimension fields and the aggregations are on STIX metrics fields. No changes are required in the query syntax or the request parameters.
 
 For more information, see [Star Tree index]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/)
 
@@ -27,7 +27,7 @@ To use Star Tree on your index, the following prerequisites needs to be satisfie
 - Set the `indices.composite_index.star_tree.enabled` setting to `true`. For instructions on how to configure OpenSearch, see [configuring settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#static-settings).
 - Set the `index.composite_index` index setting to `true` during index creation.
 - Enable `doc_values` : Ensure that the `doc_values` is enabled for the [dimensions](#ordered-dimensions) and [metrics](#metrics) fields used in your Star Tree mapping.
-- Star Tree index ideally should be used with indexes whose data is not updated or deleted, as updates and/or deletes are not accounted in Star Tree index.
+- STIX should only be used on indexes whose data is not updated or deleted, as updates and/or deletes are not accounted in STIX.
 
 ## Examples
 
@@ -104,13 +104,13 @@ PUT logs
   }
 }
 ```
-In the above example, for `startree1` , we will create an associated Star Tree index. Currently only `one` Star Tree index can be created per index. Support for multiple Star Trees is a work in progress and will be released in the future. <br/>
+In the above example, for `startree1` , it will create a corresponding STIX. Currently only `one` STIX can be created per index. Support for multiple Star Trees is a work in progress and will be released in the future. <br/>
 
 ## Star tree mapping parameters
 Specify Star Tree configuration under `config` section. All parameters are final and cannot be modified without reindexing documents.
 
 ### Ordered dimensions
-The `ordered_dimensions` are fields based on which the metrics will be aggregated in a Star Tree index. Star Tree index will be picked for querying only if all the fields in the query are part of the `ordered_dimensions`.
+The `ordered_dimensions` are fields based on which the metrics will be aggregated in a STIX. STIX will be picked for querying only if all the fields in the query are part of the `ordered_dimensions`.
 - The order of dimensions matter and you can define the dimensions ordered from the highest cardinality to the lowest cardinality for efficient storage and query pruning. 
 - Avoid high cardinality fields as dimensions as it'll affect storage space, indexing throughput and query performance adversely.
 - Currently, supported fields for `ordered_dimensions` are of [numeric field types](https://opensearch.org/docs/latest/field-types/supported-field-types/numeric/) with the exception of `unsigned_long`(see [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/15231)). 
@@ -130,31 +130,30 @@ Configure fields for which you need to perform aggregations. This is required pr
   - `Avg` is a derived metric based on `Sum` and `Value_count` and is not indexed and is derived on query time. Rest of the base metrics are indexed.
 - Maximum of `100` base metrics are supported per Star Tree index.
 
-For example, say you provide `Min`, `Max`, `Sum` and `Value_count` as `metrics` for each field. Then, you can provide up to 25 fields as below.
+For example, if `Min`, `Max`, `Sum` and `Value_count` are defined as `metrics` for each field. Then, up to 25 such fields can be configured as below.
 ```json
 {
-"metrics": [
-  {
-    "name": "field1",
-    "stats": [
-      "sum",
-      "value_count",
-      "min",
-      "max"
-    ],
-    ...,
-    ...,
-    "name": "field25",
-    "stats": [
-      "sum",
-      "value_count",
-      "min",
-      "max"
-    ]
-  }
-]
-      
-
+  "metrics": [
+    {
+      "name": "field1",
+      "stats": [
+        "sum",
+        "value_count",
+        "min",
+        "max"
+      ],
+      ...,
+      ...,
+      "name": "field25",
+      "stats": [
+        "sum",
+        "value_count",
+        "min",
+        "max"
+      ]
+    }
+  ]
+}
 ```
 
 

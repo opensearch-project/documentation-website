@@ -10,9 +10,9 @@ nav_order: 54
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
 {: .warning}
 
-Star Tree Index is a multi-field index that improves the performance of aggregations.
+Star Tree Index (STIX) is a multi-field index that improves the performance of aggregations.
 
-OpenSearch will automatically use the Star Tree index to optimize aggregations if the fields queried are part of Star Tree's dimension fields and the aggregations are on Star Tree's metrics fields. No changes are required in the query syntax or the request parameters.
+OpenSearch will automatically use the STIX to optimize aggregations if the fields queried are part of STIX dimension fields and the aggregations are on STIX metrics fields. No changes are required in the query syntax or the request parameters.
 
 ## Star tree index structure
 
@@ -44,7 +44,7 @@ Star Tree index can be used to perform faster aggregations with a constant upper
 - Star Tree index consolidates the data and hence it is storage efficient. It helps in efficient paging and lesser IO utilization for search queries.
 
 ## Considerations
-- Star Tree index ideally should be used with indexes whose data is not updated or deleted, as updates and/or deletes are not accounted in Star Tree index.
+- STIX should only be used on indexes whose data is not updated or deleted, as updates and/or deletes are not accounted in STIX.
 - Star Tree index will be used for aggregation queries only if the fields getting queried is a subset of the Star Tree's dimensions and fields getting aggregated is a subset of Start Tree's metrics
 - Once Star Tree index is enabled for an index, it cannot be disabled. The data has to be re-indexed without the Star Tree mapping to remove Star Tree from the index.
     - Changing Star Tree configuration will also require a re-index operation.
