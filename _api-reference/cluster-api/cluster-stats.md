@@ -46,7 +46,7 @@ The following table lists all available metric groups.
 Metric | Description
 :--- |:----
 `indices` | Statistics about indexes in the cluster.
-`os` | Statistics about the host OS including load, and memory.
+`os` | Statistics about the host OS, including load and memory.
 `process` | Statistics about processes, including open file descriptors and CPU usage.
 `jvm` | Statistics about the JVM, including heap usage and threads.
 `fs` | Statistics about file system usage.
