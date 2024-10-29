@@ -36,7 +36,7 @@ metric | String | A comma-separated list of [metric groups](#metric-groups), for
 index_metric | String | A comma-separated list of [index metric groups](#index-metric-groups), for example, `docs,store`. Default is all index metrics.
 
 
-Although the `master` terminology has been deprecated for `cluster_manager` after OpenSearch 2.0, we retained the `master` field for backwards compatibility. If you have a node that has either a `master` role or a `cluster_manager` role, the `count` increases for both fields by 1. To see an example node count increase, see the [example response](#example-response).
+Although the term `master` was deprecated in favor of `cluster_manager` subsequent to OpenSearch 2.0, the `master` field was retained for backward compatibility. If you have a node that has either a `master` role or a `cluster_manager` role, the `count` increases for both fields by 1. For an example node count increase, see the [example response](#example-response).
 {: .note }
 
 ### Metric groups
