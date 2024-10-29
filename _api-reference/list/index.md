@@ -146,7 +146,7 @@ next_token null
 By default, List APIs return data in a `text/plain` format. Other supported formats are [YAML](https://yaml.org/), [CBOR](https://cbor.io/), and [Smile](https://github.com/FasterXML/smile-format-specification).
 
 
-To retrieve data in JSON format, use the `format=json` parameter with the following syntax:
+To retrieve data in the JSON format, use the `format=json` parameter with the following syntax.
 
 If you use the Security plugin, ensure you have the appropriate permissions.
 {: .note }
