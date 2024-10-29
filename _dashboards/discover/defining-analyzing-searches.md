@@ -38,7 +38,7 @@ To add or delete fields in a document table, follow these steps:
 
 ## Searching data
 
-You can use the search toolbar to enter a [DQL]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/) or [query string]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) query. The search toolbar is best for basic queries; for full query and filter capability, use [query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/index/) in the [Dev Tools console]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/index-dev/).
+The search toolbar in **Discover** supports both [DQL]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/) and [query string]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) queries. For more complex queries and full filter capabilities, use [query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/index/) in the [Dev Tools console]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/index-dev/).
 
 For more information, see [Discover and Dashboard search toolbar]({{site.url}}{{site.baseurl}}/dashboards/index/#discover-and-dashboard-search-bar).
 
