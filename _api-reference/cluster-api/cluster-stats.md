@@ -559,13 +559,13 @@ Field | Description
 `nodes` | Statistics about the nodes in the cluster.
 `nodes.count` | The number of nodes returned by the request.
 `nodes.versions` | The OpenSearch version number for each node.
-`nodes.os` | Information about the operating systems used in the nodes.
-`nodes.process` | The processes the returned nodes use.
-`nodes.jvm` | Statistics about the Java Virtual Machines in use.
-`nodes.fs` | The nodes' file storage.
-`nodes.plugins` | The OpenSearch plugins integrated within the nodes.
-`nodes.network_types` | The transport and HTTP networks within the nodes.
-`nodes.discovery_type` | The method the nodes use to find other nodes within the cluster.
-`nodes.packaging_types` | Information about the nodes' OpenSearch distribution.
-`nodes.ingest` | Information about the nodes' ingest pipelines/nodes, if there are any.
+`nodes.os` | Information about the operating systems used by the nodes.
+`nodes.process` | A list of process used by each node.
+`nodes.jvm` | Statistics about the JVMs in use.
+`nodes.fs` | Information about the node's file storage.
+`nodes.plugins` | A list of the OpenSearch plugins integrated with the nodes.
+`nodes.network_types` | A list of the transport and HTTP networks within the nodes.
+`nodes.discovery_type` | The method used by the nodes to find other nodes in the cluster.
+`nodes.packaging_types` | Information about each node's OpenSearch distribution.
+`nodes.ingest` | Information about the node's ingest pipelines/nodes, if there are any.
 `total_time_spent` | The total amount of download and upload time spent across all shards in the cluster when downloading or uploading from the remote store.
