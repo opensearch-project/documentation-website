@@ -540,25 +540,25 @@ GET _cluster/stats/nodes/_cluster_manager
 
 Field | Description
 :--- | :---
-`nodes` | How many nodes returned in the response.
+`nodes` | The number of nodes returned in the response.
 `cluster_name` | The cluster's name.
-`cluster_uuid` | The cluster's uuid.
-`timestamp` | The Unix epoch time of when the cluster was last refreshed.
+`cluster_uuid` | The cluster's UUID.
+`timestamp` | The Unix epoch time indicating when the cluster was last refreshed.
 `status` | The cluster's health status.
 `indices` | Statistics about the indexes in the cluster.
-`indices.count` | How many indexes are in the cluster.
+`indices.count` | The number of indexes in the cluster.
 `indices.shards` | Information about the cluster's shards.
-`indices.docs` | How many documents are still in the cluster and how many documents are deleted.
+`indices.docs` | The number of documents remaining in the cluster and the number of documents that were deleted.
 `indices.store` | Information about the cluster's storage.
-`indices.fielddata` | Information about the cluster's field data
+`indices.fielddata` | Information about the cluster's field data.
 `indices.query_cache` | Data about the cluster's query cache.
-`indices.completion` | How many bytes in memory are used to complete operations.
+`indices.completion` | The number of bytes in memory that were used to complete operations.
 `indices.segments` | Information about the cluster's segments, which are small Lucene indexes.
-`indices.mappings` | Mappings within the cluster.
+`indices.mappings` | Information about mappings in the cluster.
 `indices.analysis` | Information about analyzers used in the cluster.
 `nodes` | Statistics about the nodes in the cluster.
-`nodes.count` | How many nodes were returned from the request.
-`nodes.versions` | OpenSearch's version number.
+`nodes.count` | The number of nodes returned by the request.
+`nodes.versions` | The OpenSearch version number for each node.
 `nodes.os` | Information about the operating systems used in the nodes.
 `nodes.process` | The processes the returned nodes use.
 `nodes.jvm` | Statistics about the Java Virtual Machines in use.
