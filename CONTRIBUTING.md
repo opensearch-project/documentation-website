@@ -82,20 +82,21 @@ Follow these steps to set up your local copy of the repository:
 
 1. Install [Ruby](https://www.ruby-lang.org/en/) if you don't already have it. We recommend [RVM](https://rvm.io/), but you can use any method you prefer:
 
-    **For non-Apple silicon machines***
+    **For non-Apple silicon machines**
 
    ```
    curl -sSL https://get.rvm.io | bash -s stable
    rvm install 3.2.4
    ruby -v
    ```
-   **For Apple silicon machines:** 
-   Source: [Installing Ruby on Apple Silicon by Emmanuel Bernard ](https://emmanuelbernard.com/blog/2023/12/01/installing-ruby-on-apple-silicon/) 
-
+   **For Apple silicon machines** 
+   
+   Source: [Installing Ruby on Apple Silicon by Emmanuel Bernard ](https://emmanuelbernard.com/blog/2023/12/01/installing-ruby-on-apple-silicon/).
+   Please check the current current [SSL versions compatible with ruby](https://github.com/ruby/openssl/blob/master/README.md) **3.2.4**
    ```
    # Assumes Brew is installed
    curl -sSL https://get.rvm.io | bash -s stable
-   rvm install 3.2.4 --with-openssl-dir=$(brew --prefix openssl@1.1)
+   rvm install 3.2.4 --with-openssl-dir=$(brew --prefix openssl@<preferred-openssl-version>)
    ruby -v
    ```
 
