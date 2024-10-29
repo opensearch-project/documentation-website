@@ -38,7 +38,7 @@ Parameter | Type | Description
 `size` | Integer | The maximum number of indexes to be displayed on a single page. The number of indexes on a single page of the response is not always equal to the specified `size`. Default is `500`. Minimum is `1` and maximum value is `5000`.
 `sort` | String | The order in which the indexes are displayed. If `desc`, then the most recently created indexes are displayed first. If `asc`, then the oldest indexes are displayed first. Default is `asc`.
 
-When using the `next_token` path parameter, use the token produced by the response to see the next page of indexes or aliases. After the API returns `null`, all indexes and aliases contained in the API have been returned.
+When using the `next_token` path parameter, use the token produced by the response to see the next page of indexes. After the API returns `null`, all indexes contained in the API have been returned.
 {: .tip }
 
 
