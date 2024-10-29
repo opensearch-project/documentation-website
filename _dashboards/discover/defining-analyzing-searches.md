@@ -19,7 +19,7 @@ To define a search, follow these steps:
 
 ## Analyzing document tables
 
-In OpenSearch, a document table stores unstructured data. In a document table, each row represents a single document, and each column contains document attributes. 
+OpenSearch uses document tables to store unstructured data, where each row corresponds to an individual document and columns represent various document attributes.
 
 ### View document attributes
 
