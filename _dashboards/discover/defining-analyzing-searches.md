@@ -7,7 +7,7 @@ nav_order: 10
 
 # Defining and analyzing searches
 
-Discovering and exploring data in OpenSearch Dashboards is a powerful way to gain insights from your data. The Discover application within OpenSearch Dashboards provides a flexible interface for defining and analyzing searches across your data.
+The **Discover** application in OpenSearch Dashboards offers a flexible interface for defining and analyzing searches across your data, enabling powerful insights and visualizations.
 
 ## Defining a search
 
