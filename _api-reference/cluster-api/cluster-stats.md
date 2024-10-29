@@ -50,7 +50,7 @@ Metric | Description
 `process` | Statistics about processes, including open file descriptors and CPU usage.
 `jvm` | Statistics about the JVM, including heap usage and threads.
 `fs` | Statistics about file system usage.
-`plugins` | Statistics about OpenSearch plugins integrated within the nodes.
+`plugins` | Statistics about OpenSearch plugins integrated with the nodes.
 `network_types` | The Transport and HTTP networks connected to the nodes.
 `discovery_type` | The method the nodes use to find other nodes inside the cluster.
 `packaging_types` | Information about each nodes’ OpenSearch distribution.
