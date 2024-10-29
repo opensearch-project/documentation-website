@@ -100,18 +100,54 @@ This is an expert-level setting. Disabling the `_recovery_source` may lead to fa
 
 ### (Expert-level) Build vector data structures on demand
 
-This should be considered only for workloads where indexing happens as one initial bulk upload and will be available only for search after force merging to 1 segment.
+This approach is recommended only for workloads that involve a single initial bulk upload and will be used exclusively for search after force merging to a single segment.
 
-During indexing, vector search builds specialized data structure for a knn_vector field to support approximate neighbor search for efficiently finding k nearest neighbors. However, during `forcemerge`, k-NN indices rebuilds those data structures from beginning. Hence, to speed up indexing, you can update the index settings to improve overall indexing time
+During indexing, vector search builds a specialized data structure for a `knn_vector` field to enable efficient approximate k-NN search. However, these structures are rebuilt from scratch during [force merge]({{site.url}}{{site.baseurl}}/api-reference/index-apis/force-merge/) for k-NN indexes. To optimize indexing speed, follow these steps:
 
+1. **Disable vector data structure creation**: Disable building vector data structures for new segments by setting [`index.knn.advanced.approximate_threshold`]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#index-settings) to `-1` either at index creation or at any time after that:
 
-* Either create an index or update with setting [index.knn.advanced.approximate_threshold]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#index-settings) to `-1` . This will disable building vector data structures for new segments.
-* Perform bulk indexing and, makes sure no search is performed while ingestion. If search is performed when vector data structures are disabled, exact search will be executed in the meantime.
-* Once the indexing is completed, reenable the setting by updating index.knn.advanced.approximate_threshold to `0`.
-* Perform force merge to max_segments = 1 to build vector data structure one time.
-* After force merge, new search request will always execute approximate k-nn search as expected.
+    ```json
+    PUT /test-index/_settings
+    {
+      "index.knn.advanced.approximate_threshold": "-1"
+    }
+    ```
+    {% include copy-curl.html %}
 
-If you forgot to update the setting to 0 before force merge, you have to reindex data.
+1. **Perform bulk indexing**: Index data in [bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) without performing any searches during ingestion:
+
+    ```json
+    POST _bulk
+    { "index": { "_index": "test-index", "_id": "1" } }
+    { "my_vector1": [1.5, 2.5], "price": 12.2 }
+    { "index": { "_index": "test-index", "_id": "2" } }
+    { "my_vector1": [2.5, 3.5], "price": 7.1 }
+    ```
+    {% include copy-curl.html %}
+
+    If searches are performed while vector data structures are disabled, they will run using exact k-NN search.
+
+1. **Reenable vector data structure creation**: Once indexing is complete, enable vector data structure creation by setting `index.knn.advanced.approximate_threshold` to `0`:
+
+    ```json
+    PUT /test-index/_settings
+    {
+      "index.knn.advanced.approximate_threshold": "0"
+    }
+    ```
+    {% include copy-curl.html %}
+
+    If you forget to reset the setting to `0` before the force merge, you will need to reindex your data.
+    {: .note}
+
+1. **Force merge segments into one segment**: Perform a force merge and specify `max_num_segments=1` to create the vector data structures only once:
+
+    ```json
+    POST test-index/_forcemerge?max_num_segments=1
+    ```
+    {% include copy-curl.html %}
+
+    After the force merge, with vector data structures built, new search requests will execute approximate k-NN search.
 
 ## Search performance tuning
 
