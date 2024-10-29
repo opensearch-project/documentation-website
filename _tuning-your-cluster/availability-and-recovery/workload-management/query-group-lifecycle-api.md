@@ -7,7 +7,7 @@ grand_parent: Availability and recovery
 ---
 # Query group lifecycle API
 
-The Query Group Lifecycle API in OpenSearch provides functionality to create, update, get, and delete query groups, enabling users to organize and control sets of related queries under specific groups. 
+The Query Group Lifecycle API in OpenSearch provides functionality to create, update, retrieve, and delete query groups, allowing users to categorize queries into specific groups based on defined criteria. This feature provides a more organized and efficient OpenSearch environment, enhancing user experiences and resource management overall.
 
 ## Create query group
 Creates a new Query group with the specified properties.
@@ -158,7 +158,7 @@ DELETE _wlm/query_group/analytics
 ```
 
 ## Fields
-The query group lifecycle API contains the following fields.
+The query group schema contains the following fields.
 
 | Field	                 | Description	                                                                               |
 |:-----------------------|:-------------------------------------------------------------------------------------------|
