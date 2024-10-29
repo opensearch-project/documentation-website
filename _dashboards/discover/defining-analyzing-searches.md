@@ -29,7 +29,7 @@ To review document attributes, follow these steps:
 2. Examine the metadata. You can switch between the **Table** and **JSON** tabs to view the data in your preferred format. 
 3. Select **View surrounding documents** to view data for other log entries either preceding or following your current document or select **View single document** to view a particular log entry.
 
-### Add or delete fields in document tables
+### Adding or deleting fields in document tables
 
 To add or delete fields in a document table, follow these steps:
 
