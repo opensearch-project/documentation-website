@@ -564,7 +564,7 @@ Field | Description
 `nodes.jvm` | Statistics about the JVMs in use.
 `nodes.fs` | Information about the node's file storage.
 `nodes.plugins` | A list of the OpenSearch plugins integrated with the nodes.
-`nodes.network_types` | A list of the transport and HTTP networks within the nodes.
+`nodes.network_types` | A list of the transport and HTTP networks connected to the nodes.
 `nodes.discovery_type` | The method used by the nodes to find other nodes in the cluster.
 `nodes.packaging_types` | Information about each node's OpenSearch distribution.
 `nodes.ingest` | Information about the node's ingest pipelines/nodes, if there are any.
