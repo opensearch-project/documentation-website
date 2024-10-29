@@ -35,10 +35,17 @@ Parameter | Type | Description
 `time` | Time | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
 `expand_wildcards` | Enum | Expands wildcard expressions to concrete indexes. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. Default is `open`.
 `next_token` | String | Fetches the next page of indexes. When `null`, only provides the first page of indexes. Default is `null`. 
-`size` | Integer | The maximum number of indexes to be displayed on a single page. The number of indexes on a single page of the response is not always equal to the specified `size`. Default is `500`. Maximum value is `5000`.
+`size` | Integer | The maximum number of indexes to be displayed on a single page. The number of indexes on a single page of the response is not always equal to the specified `size`. Default is `500`. Minimum is `1` and maximum value is `5000`.
 `sort` | String | The order in which the indexes are displayed. If `desc`, then the most recently created indexes are displayed first. If `asc`, then the oldest indexes are displayed first. Default is `asc`.
 
 ## Example requests
+
+To get information for all the indexes, use the following query and keep specifying the `next_token` as received from response until its `null`:
+
+```json
+GET _list/indices/<index>?v&next_token=token
+```
+
 
 To limit the information to a specific index, add the index name after your query, as shown in the following example:
 
@@ -47,18 +54,28 @@ GET _list/indices/<index>?v
 ```
 {% include copy-curl.html %}
 
-If you want to get information for more than one index, separate the indexes with commas, as shown in the following example:
+If you want to get information for more than one index, separate the indexes with commas, as shown in the following example and keep using the `next_token` as received from response until its `null`:
 
 ```json
-GET _list/indices/index1,index2,index3
+GET _list/indices/index1,index2,index3?v&next_token=token
 ```
 {% include copy-curl.html %}
 
 
 ## Example response
 
+In plain text format:
+
 ```json
 health | status | index | uuid | pri | rep | docs.count | docs.deleted | store.size | pri.store.size
 green  | open | movies | UZbpfERBQ1-3GSH2bnM3sg | 1 | 1 | 1 | 0 | 7.7kb | 3.8kb
 next_token MTcyOTE5NTQ5NjM5N3wub3BlbnNlYXJjaC1zYXAtbG9nLXR5cGVzLWNvbmZpZw==
+```
+
+In JSON format:
+
+```
+
+{"next_token":"MTcyOTE5NTQ5NjM5N3wub3BlbnNlYXJjaC1zYXAtbG9nLXR5cGVzLWNvbmZpZw==","indices":[{"health":"green","status":"open","index":"movies","uuid":"UZbpfERBQ1-3GSH2bnM3sg","pri":"1","rep":"1","docs.count":"1","docs.deleted":"0","store.size":"7.7kb","pri.store.size":"3.8kb"}]}
+
 ```
