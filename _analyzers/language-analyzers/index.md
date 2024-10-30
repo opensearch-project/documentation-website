@@ -69,9 +69,10 @@ PUT index_with_stem_exclusion_english_analyzer
 Following languages support `stem_exclusion`:
 
 - arabic 
-- armenian 
-- basque, 
+- armenian
+- basque
 - bengali
+- brazilian
 - bulgarian
 - catalan
 - czech
