@@ -45,7 +45,7 @@ bool
 
 When queries share the same query structure, they are grouped together, ensuring that all similar queries belong to the same group.
 
-## Configuring query structure
+## Configuring the query structure
 
 The preceding example query shows a simplified query structure. By default, the query structure also includes field names and field data types. 
 
