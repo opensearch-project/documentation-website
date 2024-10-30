@@ -25,17 +25,19 @@ PUT /arabic-index
 ```
 {% include copy-curl.html %}
 
-You can also use `stem_exclusion` with any language analyzer using the following command:
+## Stem exclusion
+
+You can also use `stem_exclusion` with this language analyzer using the following command:
 
 ```json
-PUT index_with_stem_exclusion_english_analyzer
+PUT index_with_stem_exclusion_arabic
 {
   "settings": {
     "analysis": {
       "analyzer": {
-        "stem_exclusion_english_analyzer":{
+        "stem_exclusion_arabic_analyzer":{
           "type":"arabic",
-          "stem_exclusion":["authority","authorization"]
+          "stem_exclusion":["تكنولوجيا","سلطة "]
         }
       }
     }
@@ -51,6 +53,7 @@ The `arabic` analyzer is build using the following:
 Tokenizer: `standard`
 
 Token Filters:
+- lowercase (general)
 - decimal_digit (general)
 - stop (arabic)
 - normalization (arabic)
