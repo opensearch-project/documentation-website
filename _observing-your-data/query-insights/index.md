@@ -47,7 +47,9 @@ You can monitor the Query Insights plugin health using the [Health Stats API]({{
 
 ### OpenTelemetry error metrics counters
 
-Query Insights integrates with OpenTelemetry to provide real-time error metrics. These counters help identify specific operational failures in Query Insights and improve reliability. Each metric provides targeted insights into potential error sources within the Query Insights workflow, allowing for more focused debugging and maintenance. For more information, see [Query metrics]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/query-metrics/).
+Query Insights integrates with OpenTelemetry to provide real-time error metrics. These counters help identify specific operational failures in Query Insights and improve reliability. Each metric provides targeted insights into potential error sources within the Query Insights workflow, allowing for more focused debugging and maintenance. 
+
+To collect these metrics, you must configure and collect query metrics. For more information, see [Query metrics]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/query-metrics/).
 
 The following table lists all available metrics.
 
