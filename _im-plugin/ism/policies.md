@@ -108,6 +108,7 @@ ISM supports the following operations:
 - [rollover](#rollover)
 - [notification](#notification)
 - [snapshot](#snapshot)
+- [convert-index-to-remote](#convert_index_to_remote)
 - [index_priority](#index_priority)
 - [allocation](#allocation)
 - [rollup](#rollup)
@@ -405,6 +406,33 @@ Parameter | Description | Type | Required | Default
   }
 }
 ```
+
+### convert_index_to_remote
+
+Restore a cluster's index saved as a snapshot into a remote index.
+
+The convert_index_to_remote operation allows you to convert and restore an index from a local snapshot repository to a remote repository.
+
+The `convert_index_to_remote' operation has the following parameters:
+
+Parameter | Description | Type | Required | Default
+:--- | :--- |:--- |:--- |
+`repository` | The repository name that you register through the native snapshot API operations.  | `string` | Yes | -
+
+```json
+{
+   "snapshot": {
+    "repository": "my_backup",
+    "snapshot": "{{ctx.index}}"
+   }, 
+   "convert_index_to_remote": {
+      "repository": "my_backup"
+   }
+}
+```
+
+Ensure that the repository name used in the convert_index_to_remote operation matches the repository name specified during the snapshot action. Additionally, reference the snapshot using {{ctx.index}}.
+
 
 ### index_priority
 
