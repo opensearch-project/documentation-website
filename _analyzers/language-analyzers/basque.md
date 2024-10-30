@@ -54,9 +54,9 @@ Tokenizer: `standard`
 
 Token Filters:
 - lowercase
-- stop (basque)
-- keywords (basque)
-- stemmer (basque)
+- stop (Basque)
+- keywords
+- stemmer (Basque)
 
 ## Custom Basque analyzer
 
@@ -75,6 +75,10 @@ PUT /basque-index
         "basque_stemmer": {
           "type": "stemmer",
           "language": "basque"
+        },
+        "basque_keywords": {
+          "type":       "keyword_marker",
+          "keywords":   [] 
         }
       },
       "analyzer": {
@@ -84,6 +88,7 @@ PUT /basque-index
           "filter": [
             "lowercase",
             "basque_stop",
+            "basque_keywords",
             "basque_stemmer"
           ]
         }

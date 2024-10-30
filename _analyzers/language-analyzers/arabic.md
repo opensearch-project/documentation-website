@@ -55,10 +55,10 @@ Tokenizer: `standard`
 Token Filters:
 - lowercase
 - decimal_digit
-- stop (arabic)
-- normalization (arabic)
-- keywords (arabic)
-- stemmer (arabic)
+- stop (Arabic)
+- normalization (Arabic)
+- keywords
+- stemmer (Arabic)
 
 ## Custom Arabic analyzer
 
@@ -83,6 +83,10 @@ PUT /arabic-index
         },
         "decimal_digit": {
           "type": "decimal_digit"
+        },
+        "arabic_keywords": {
+          "type":       "keyword_marker",
+          "keywords":   [] 
         }
       },
       "analyzer": {
@@ -94,6 +98,7 @@ PUT /arabic-index
             "arabic_normalization",
             "decimal_digit",
             "arabic_stop",
+            "arabic_keywords",
             "arabic_stemmer"
           ]
         }

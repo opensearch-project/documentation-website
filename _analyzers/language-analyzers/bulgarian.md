@@ -54,9 +54,9 @@ Tokenizer: `standard`
 
 Token Filters:
 - lowercase
-- stop (bulgarian)
-- keywords (bulgarian)
-- stemmer (bulgarian)
+- stop (Bulgarian)
+- keywords
+- stemmer (Bulgarian)
 
 ## Custom Bulgarian analyzer
 
@@ -75,6 +75,10 @@ PUT /bulgarian-index
         "bulgarian_stemmer": {
           "type": "stemmer",
           "language": "bulgarian"
+        },
+        "bulgarian_keywords": {
+          "type":       "keyword_marker",
+          "keywords":   [] 
         }
       },
       "analyzer": {
@@ -84,6 +88,7 @@ PUT /bulgarian-index
           "filter": [
             "lowercase",
             "bulgarian_stop",
+            "bulgarian_keywords",
             "bulgarian_stemmer"
           ]
         }

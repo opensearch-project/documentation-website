@@ -53,11 +53,11 @@ The `catalan` analyzer is build using the following:
 Tokenizer: `standard`
 
 Token Filters:
-- elision (catalan)
+- elision (Catalan)
 - lowercase
-- stop (catalan)
-- keywords (catalan)
-- stemmer (catalan)
+- stop (Catalan)
+- keywords
+- stemmer (Catalan)
 
 ## Custom Catalan analyzer
 
@@ -81,6 +81,10 @@ PUT /catalan-index
         "catalan_stemmer": {
           "type": "stemmer",
           "language": "catalan"
+        },
+        "catalan_keywords": {
+          "type":       "keyword_marker",
+          "keywords":   [] 
         }
       },
       "analyzer": {
@@ -91,6 +95,7 @@ PUT /catalan-index
             "catalan_elision",
             "lowercase",
             "catalan_stop",
+            "catalan_keywords",
             "catalan_stemmer"
           ]
         }

@@ -54,9 +54,9 @@ Tokenizer: `standard`
 
 Token Filters:
 - lowercase
-- stop (brazilian)
-- keywords (brazilian)
-- stemmer (brazilian)
+- stop (Brazilian)
+- keywords
+- stemmer (Brazilian)
 
 ## Custom Brazilian analyzer
 
@@ -75,6 +75,10 @@ PUT /brazilian-index
         "brazilian_stemmer": {
           "type": "stemmer",
           "language": "brazilian"
+        },
+        "brazilian_keywords": {
+          "type":       "keyword_marker",
+          "keywords":   [] 
         }
       },
       "analyzer": {
@@ -84,6 +88,7 @@ PUT /brazilian-index
           "filter": [
             "lowercase",
             "brazilian_stop",
+            "brazilian_keywords",
             "brazilian_stemmer"
           ]
         }

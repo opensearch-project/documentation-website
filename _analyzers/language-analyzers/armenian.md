@@ -54,9 +54,9 @@ Tokenizer: `standard`
 
 Token Filters:
 - lowercase
-- stop (armenian)
-- keywords (armenian)
-- stemmer (armenian)
+- stop (Armenian)
+- keywords
+- stemmer (Armenian)
 
 ## Custom Armenian analyzer
 
@@ -75,6 +75,10 @@ PUT /armenian-index
         "armenian_stemmer": {
           "type": "stemmer",
           "language": "armenian"
+        },
+        "armenian_keywords": {
+          "type":       "keyword_marker",
+          "keywords":   [] 
         }
       },
       "analyzer": {
@@ -84,6 +88,7 @@ PUT /armenian-index
           "filter": [
             "lowercase",
             "armenian_stop",
+            "armenian_keywords",
             "armenian_stemmer"
           ]
         }

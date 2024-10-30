@@ -56,7 +56,7 @@ Token Filters:
 - cjk_width
 - lowercase
 - cjk_bigram
-- stop (similar to english)
+- stop (similar to English)
 
 ## Custom CJK analyzer
 

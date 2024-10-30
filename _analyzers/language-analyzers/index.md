@@ -77,6 +77,7 @@ Following languages support `stem_exclusion`:
 - catalan
 - cjk
 - czech
+- danish
 - dutch
 - english
 - finnish

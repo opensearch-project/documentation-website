@@ -56,10 +56,10 @@ Token Filters:
 - lowercase
 - decimal_digit
 - indic_normalization
-- normalization (bengali)
-- stop (bengali)
-- keywords (bengali)
-- stemmer (bengali)
+- normalization (Bengali)
+- stop (Bengali)
+- keywords
+- stemmer (Bengali)
 
 ## Custom Bengali analyzer
 
@@ -78,6 +78,10 @@ PUT /bengali-index
         "bengali_stemmer": {
           "type": "stemmer",
           "language": "bengali"
+        },
+        "bengali_keywords": {
+          "type":       "keyword_marker",
+          "keywords":   [] 
         }
       },
       "analyzer": {
@@ -90,6 +94,7 @@ PUT /bengali-index
             "indic_normalization",
             "bengali_normalization",
             "bengali_stop",
+            "bengali_keywords",
             "bengali_stemmer"
           ]
         }
