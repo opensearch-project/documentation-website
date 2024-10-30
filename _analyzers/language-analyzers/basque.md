@@ -53,7 +53,7 @@ The `basque` analyzer is build using the following:
 Tokenizer: `standard`
 
 Token Filters:
-- lowercase (general)
+- lowercase
 - stop (basque)
 - keywords (basque)
 - stemmer (basque)

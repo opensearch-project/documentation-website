@@ -53,7 +53,7 @@ The `brazilian` analyzer is build using the following:
 Tokenizer: `standard`
 
 Token Filters:
-- lowercase (general)
+- lowercase
 - stop (brazilian)
 - keywords (brazilian)
 - stemmer (brazilian)

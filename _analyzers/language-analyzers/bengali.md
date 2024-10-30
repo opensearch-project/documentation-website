@@ -53,8 +53,8 @@ The `bengali` analyzer is build using the following:
 Tokenizer: `standard`
 
 Token Filters:
-- lowercase (general)
-- decimal_digit (general)
+- lowercase
+- decimal_digit
 - indic_normalization
 - normalization (bengali)
 - stop (bengali)

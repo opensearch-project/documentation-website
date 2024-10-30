@@ -53,7 +53,7 @@ The `armenian` analyzer is build using the following:
 Tokenizer: `standard`
 
 Token Filters:
-- lowercase (general)
+- lowercase
 - stop (armenian)
 - keywords (armenian)
 - stemmer (armenian)

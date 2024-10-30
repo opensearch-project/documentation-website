@@ -53,8 +53,8 @@ The `arabic` analyzer is build using the following:
 Tokenizer: `standard`
 
 Token Filters:
-- lowercase (general)
-- decimal_digit (general)
+- lowercase
+- decimal_digit
 - stop (arabic)
 - normalization (arabic)
 - keywords (arabic)
