@@ -96,19 +96,3 @@ Field | Data type        | Description
 `TopQueriesHeapSize`| Integer | The heap memory allocation for the query group.
 `QueryGroupCount_Total`| Integer | The total number of query groups processed.
 `QueryGroupCount_MaxHeap`| Integer | The size of the max heap that stores all query groups in memory.
-
-### OpenTelemetry error metrics counters
-
-Query Insights integrates with OpenTelemetry to provide real-time error metrics. These counters help identify specific operational failures in Query Insights and improve reliability. Each metric provides targeted insights into potential error sources within the Query Insights workflow, allowing for more focused debugging and maintenance.
-
-Field | Description
-:--- | :---
-`LOCAL_INDEX_READER_PARSING_EXCEPTIONS` | The number of errors when parsing data using LocalIndexReader.
-`LOCAL_INDEX_EXPORTER_BULK_FAILURES` | The number of failures when ingesting Query Insights data to local indexes.
-`LOCAL_INDEX_EXPORTER_EXCEPTIONS` | The number of exceptions in Query Insights LocalIndexExporter.
-`INVALID_EXPORTER_TYPE_FAILURES` | The number of invalid exporter type failures.
-`INVALID_INDEX_PATTERN_EXCEPTIONS` | The number of invalid index pattern exceptions.
-`DATA_INGEST_EXCEPTIONS` | The number of exceptions during data ingest in Query Insights.
-`QUERY_CATEGORIZE_EXCEPTIONS` | The number of exceptions when categorizing the queries.
-`EXPORTER_FAIL_TO_CLOSE_EXCEPTION` | The number of failures when closing the exporter.
-
