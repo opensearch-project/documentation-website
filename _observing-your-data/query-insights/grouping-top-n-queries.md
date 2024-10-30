@@ -70,7 +70,7 @@ For example, consider an index `index1` with the following field mapping:
 }
 ```
 
-The following query on the preceding index:
+If you run the following query on this index:
 
 ```json
 {
@@ -110,7 +110,7 @@ The following query on the preceding index:
 }
 ```
 
-Has the following corresponding query structure:
+Then the query has the following corresponding query structure:
 
 ```c
 bool []
