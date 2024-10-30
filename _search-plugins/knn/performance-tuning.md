@@ -45,7 +45,7 @@ If your hardware has multiple cores, you can allow multiple threads in native li
 Monitor CPU utilization and choose the correct number of threads. Because native library index construction is costly, choosing more threads then you need can cause additional CPU load.
 
 
-### (Expert-level) Disable vector field storage in the source field
+### (Expert level) Disable vector field storage in the source field
 
 The `_source` field contains the original JSON document body that was passed at index time. This field is not indexed and is not searchable but is stored so that it can be returned when executing fetch requests such as `get` and `search`. When using vector fields within the source, you can remove the vector field to save disk space, as shown in the following example where the `location` vector is excluded:
 
@@ -102,9 +102,23 @@ This is an expert-level setting. Disabling the `_recovery_source` may lead to fa
 
 This approach is recommended only for workloads that involve a single initial bulk upload and will be used exclusively for search after force merging to a single segment.
 
-During indexing, vector search builds a specialized data structure for a `knn_vector` field to enable efficient approximate k-NN search. However, these structures are rebuilt during [force merge]({{site.url}}{{site.baseurl}}/api-reference/index-apis/force-merge/) for k-NN indexes. To optimize indexing speed, follow these steps:
+During indexing, vector search builds a specialized data structure for a `knn_vector` field to enable efficient approximate k-NN search. However, these structures are rebuilt during [force merge]({{site.url}}{{site.baseurl}}/api-reference/index-apis/force-merge/) on k-NN indexes. To optimize indexing speed, follow these steps:
 
-1. **Disable vector data structure creation**: Disable vector data structure creation for new segments by setting [`index.knn.advanced.approximate_threshold`]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#index-settings) to `-1` either at or after index creation:
+1. **Disable vector data structure creation**: Disable vector data structure creation for new segments by setting [`index.knn.advanced.approximate_threshold`]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#index-settings) to `-1`. 
+
+    To specify the setting at index creation, send the following request:
+
+    ```json
+    PUT /test-index/
+    {
+      "settings": {
+        "index.knn.advanced.approximate_threshold": "-1"
+      }
+    }
+    ```
+    {% include copy-curl.html %}
+
+    To specify the setting after index creation, send the following request:
 
     ```json
     PUT /test-index/_settings
