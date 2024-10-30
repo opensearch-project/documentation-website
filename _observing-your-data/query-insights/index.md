@@ -41,25 +41,6 @@ You can obtain the following information using Query Insights:
 - [Grouping top N queries]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/grouping-top-n-queries/)
 - [Query metrics]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/query-metrics/)
 
-## Monitoring the Query Insights plugin health
+## Query Insights health
 
-You can monitor the Query Insights plugin health using the [Health Stats API]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/api/).
-
-### OpenTelemetry error metrics counters
-
-Query Insights integrates with OpenTelemetry to provide real-time error metrics. These counters help identify specific operational failures in Query Insights and improve reliability. Each metric provides targeted insights into potential error sources within the Query Insights workflow, allowing for more focused debugging and maintenance. 
-
-To collect these metrics, you must configure and collect query metrics. For more information, see [Query metrics]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/query-metrics/).
-
-The following table lists all available metrics.
-
-Field | Description
-:--- | :---
-`LOCAL_INDEX_READER_PARSING_EXCEPTIONS` | The number of errors when parsing data using LocalIndexReader.
-`LOCAL_INDEX_EXPORTER_BULK_FAILURES` | The number of failures when ingesting Query Insights data to local indexes.
-`LOCAL_INDEX_EXPORTER_EXCEPTIONS` | The number of exceptions in Query Insights LocalIndexExporter.
-`INVALID_EXPORTER_TYPE_FAILURES` | The number of invalid exporter type failures.
-`INVALID_INDEX_PATTERN_EXCEPTIONS` | The number of invalid index pattern exceptions.
-`DATA_INGEST_EXCEPTIONS` | The number of exceptions during data ingest in Query Insights.
-`QUERY_CATEGORIZE_EXCEPTIONS` | The number of exceptions when categorizing the queries.
-`EXPORTER_FAIL_TO_CLOSE_EXCEPTION` | The number of failures when closing the exporter.
+For information about monitoring the Query Insights plugin health, see [Query Insights health]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/health/).

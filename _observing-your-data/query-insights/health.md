@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Query Insights API
+title: Query Insights health
 parent: Query insights
 nav_order: 50
 ---
 
-# Query Insights API
+# Query Insights health
 
-The Query Insights plugin provides an API and metrics to monitor its health and performance, enabling proactive identification of issues that may affect query processing or system resources. 
+The Query Insights plugin provides an [API](#health-stats-api) and [metrics](#opentelemetry-error-metrics-counters) to monitor its health and performance, enabling proactive identification of issues that may affect query processing or system resources. 
 
 ## Health Stats API
 **Introduced 2.18**
@@ -98,3 +98,22 @@ Field | Data type        | Description
 `TopQueriesHeapSize`| Integer | The heap memory allocation for the query group.
 `QueryGroupCount_Total`| Integer | The total number of query groups processed.
 `QueryGroupCount_MaxHeap`| Integer | The size of the max heap that stores all query groups in memory.
+
+## OpenTelemetry error metrics counters
+
+Query Insights integrates with OpenTelemetry to provide real-time error metrics. These counters help identify specific operational failures in Query Insights and improve reliability. Each metric provides targeted insights into potential error sources within the Query Insights workflow, allowing for more focused debugging and maintenance. 
+
+To collect these metrics, you must configure and collect query metrics. For more information, see [Query metrics]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/query-metrics/).
+
+The following table lists all available metrics.
+
+Field | Description
+:--- | :---
+`LOCAL_INDEX_READER_PARSING_EXCEPTIONS` | The number of errors when parsing data using LocalIndexReader.
+`LOCAL_INDEX_EXPORTER_BULK_FAILURES` | The number of failures when ingesting Query Insights data to local indexes.
+`LOCAL_INDEX_EXPORTER_EXCEPTIONS` | The number of exceptions in Query Insights LocalIndexExporter.
+`INVALID_EXPORTER_TYPE_FAILURES` | The number of invalid exporter type failures.
+`INVALID_INDEX_PATTERN_EXCEPTIONS` | The number of invalid index pattern exceptions.
+`DATA_INGEST_EXCEPTIONS` | The number of exceptions during data ingest in Query Insights.
+`QUERY_CATEGORIZE_EXCEPTIONS` | The number of exceptions when categorizing the queries.
+`EXPORTER_FAIL_TO_CLOSE_EXCEPTION` | The number of failures when closing the exporter.
