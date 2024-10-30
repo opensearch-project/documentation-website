@@ -45,77 +45,73 @@ bool
 
 When queries share the same query structure, they are grouped together, ensuring that all similar queries belong to the same group.
 
-### Configure query structure
-The previous query structure is of the basic form. We have settings to include the `field name` and `field data type` in the query structure.
+## Configuring query structure
+
+The preceding example query shows a simplified query structure. By default, the query structure also includes field names and field data types. 
+
+For example, consider an index `index1` with the following field mapping:
 
 ```json
-PUT _cluster/settings
-{
-  "persistent" : {
-    "search.insights.top_queries.grouping.attributes.field_name" : true,
-    "search.insights.top_queries.grouping.attributes.field_type" : true
+"mappings": {
+  "properties": {
+    "field1": {
+      "type": "keyword"
+    },
+    "field2": {
+      "type": "text"
+    },
+    "field3": {
+      "type": "text"
+    },
+    "field4": {
+      "type": "long"
+    }
   }
 }
 ```
-Note that both these settings are enabled by default.
 
-Example of how the query structure would look like with the preceding settings enabled.
+The following query on the preceding index:
 
-Query:
 ```json
 {
-    "query": {
-        "bool": {
-            "must": [
-                {
-                    "term": {
-                        "field1": "example_value"
-                    }
-                }
-            ],
-            "filter": [
-                {
-                    "match": {
-                        "field2": "search_text"
-                    }
-                },
-                {
-                    "range": {
-                        "field4": {
-                            "gte": 1,
-                            "lte": 100
-                        }
-                    }
-                }
-            ],
-            "should": [
-                {
-                    "regexp": {
-                        "field3": ".*"
-                    }
-                }
-            ]
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "field1": "example_value"
+          }
         }
-    }
-}
-```
-Field mapping:
-```json
-{
-    "index1": {
-        "mappings": {
-            "properties": {
-                "field1": { "type": "keyword" },
-                "field2": { "type": "text" },
-                "field3": { "type": "text" },
-                "field4": { "type": "long" }
+      ],
+      "filter": [
+        {
+          "match": {
+            "field2": "search_text"
+          }
+        },
+        {
+          "range": {
+            "field4": {
+              "gte": 1,
+              "lte": 100
             }
+          }
         }
+      ],
+      "should": [
+        {
+          "regexp": {
+            "field3": ".*"
+          }
+        }
+      ]
     }
+  }
 }
 ```
 
-The query structure would be:
+Has the following corresponding query structure:
+
 ```c
 bool []
   must:
@@ -126,6 +122,19 @@ bool []
   should:
     regexp [field3, text]
 ```
+
+To exclude field names and field data types from the query structure, configure the following settings:
+
+```json
+PUT _cluster/settings
+{
+  "persistent" : {
+    "search.insights.top_queries.grouping.attributes.field_name" : false,
+    "search.insights.top_queries.grouping.attributes.field_type" : false
+  }
+}
+```
+{% include copy-curl.html %}
 
 ## Aggregate metrics per group
 
