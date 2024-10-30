@@ -10,6 +10,8 @@ nav_order: 50
 The Query Insights plugin provides an API and metrics to monitor its health and performance, enabling proactive identification of issues that may affect query processing or system resources. 
 
 ## Health Stats API
+**Introduced 2.18**
+{: .label .label-purple }
 
 The Health Stats API provides health metrics for each node running the Query Insights plugin. These metrics allow for an in-depth view of resource usage and the query processing component health.
 
