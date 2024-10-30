@@ -95,16 +95,16 @@ In OpenSearch 2.15 or later, you can further improve indexing speed and reduce d
   }
   ```
 
-This is an expert-level setting. Disabling the `_recovery_source` may lead to failures during peer-to-peer recovery. Before disabling the `_recovery_source`, check with your OpenSearch cluster admin to determine whether your cluster performs regular flushes before starting the peer-to-peer recovery of shards before disabling the `_recovery_source`.  
+This is an expert-level setting. Disabling the `_recovery_source` may lead to failures during peer-to-peer recovery. Before disabling the `_recovery_source`, check with your OpenSearch cluster admin to determine whether your cluster performs regular flushes before starting the peer-to-peer recovery of shards prior to disabling the `_recovery_source`.  
 {: .warning}
 
-### (Expert-level) Build vector data structures on demand
+### (Expert level) Build vector data structures on demand
 
 This approach is recommended only for workloads that involve a single initial bulk upload and will be used exclusively for search after force merging to a single segment.
 
-During indexing, vector search builds a specialized data structure for a `knn_vector` field to enable efficient approximate k-NN search. However, these structures are rebuilt from scratch during [force merge]({{site.url}}{{site.baseurl}}/api-reference/index-apis/force-merge/) for k-NN indexes. To optimize indexing speed, follow these steps:
+During indexing, vector search builds a specialized data structure for a `knn_vector` field to enable efficient approximate k-NN search. However, these structures are rebuilt during [force merge]({{site.url}}{{site.baseurl}}/api-reference/index-apis/force-merge/) for k-NN indexes. To optimize indexing speed, follow these steps:
 
-1. **Disable vector data structure creation**: Disable building vector data structures for new segments by setting [`index.knn.advanced.approximate_threshold`]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#index-settings) to `-1` either at index creation or at any time after that:
+1. **Disable vector data structure creation**: Disable vector data structure creation for new segments by setting [`index.knn.advanced.approximate_threshold`]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#index-settings) to `-1` either at or after index creation:
 
     ```json
     PUT /test-index/_settings
@@ -137,7 +137,7 @@ During indexing, vector search builds a specialized data structure for a `knn_ve
     ```
     {% include copy-curl.html %}
 
-    If you forget to reset the setting to `0` before the force merge, you will need to reindex your data.
+    If you do not reset the setting to `0` before the force merge, you will need to reindex your data.
     {: .note}
 
 1. **Force merge segments into one segment**: Perform a force merge and specify `max_num_segments=1` to create the vector data structures only once:
@@ -147,7 +147,7 @@ During indexing, vector search builds a specialized data structure for a `knn_ve
     ```
     {% include copy-curl.html %}
 
-    After the force merge, with vector data structures built, new search requests will execute approximate k-NN search.
+    After the force merge, new search requests will execute approximate k-NN search using the newly created data structures.
 
 ## Search performance tuning
 
