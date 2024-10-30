@@ -111,16 +111,16 @@ GET _wlm/stats
 {% include copy-curl.html %}
 
 #### Response body fields definitions
-| field_name            | description                                                                                                              |
+| Field name            | Description                                                                                                              |
 |:----------------------|:-------------------------------------------------------------------------------------------------------------------------| 
 | `total_completions`   | total request completions in this query_group at the given node. this includes the shard and co-ordinator level requests |
 | `total_rejections`    | total rejections for the given query_group at the given node. this includes the shard and co-ordinator level requests    |
 | `total_cancellations` | total cancellations for the given query_group at the given node. this includes the shard and co-ordinator level requests |
-| `cpu`                 | **cpu** resource type stats for the query_group                                                                          | 
-| `memory`              | **memory** resource type stats for the query_group                                                                       | 
+| `cpu`                 | `cpu` resource type stats for the query_group                                                                            | 
+| `memory`              | `memory` resource type stats for the query_group                                                                          | 
 
 #### Resource type stats
-| field_name      | description                                                                                                                                                                            |
+| Field name      | Description                                                                                                                                                                            |
 |:----------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| 
 | `current_usage` | Resource usage for the given query group at the given node based on last run of the monitoring thread. This value is updated every `wlm.query_group.enforcement_interval` milliseconds |
 | `cancellations` | Cancellation count due to this resource cancellation threshold breach                                                                                                                  |
