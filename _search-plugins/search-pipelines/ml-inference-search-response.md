@@ -389,3 +389,373 @@ The response confirms that the processor has generated text embeddings in the `p
   }
 }
 ```
+
+### Example: GENAI Use Case
+
+The following example shows you how to configure an `ml_inference` search response processor with a genai model and mapping the model response to the search extension.
+
+Step 0: Host a model
+The pre-requisite is a registered genai model in opensearch. For more information about externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/). Here is a sample predict response using a registered model, which requires a prompt and a context field.
+
+```json
+POST /_plugins/_ml/models/EOF6wJIBtDGAJRTD4kNg/_predict  
+{
+  "parameters": {
+    "prompt":"\n\nHuman: You are a professional data analysist. You will always answer question based on the given context first. If the answer is not directly shown in the context, you will analyze the data and find the answer. If you don't know the answer, just say I don't know. Context: ${parameters.context.toString()}. \n\n Human: please summarize the documents \n\n Assistant:",
+    "context":"Dr. Eric Goldberg is a fantastic doctor who has correctly diagnosed every issue that my wife and I have had. Unlike many of my past doctors, Dr. Goldberg is very accessible and we have been able to schedule appointments with him and his staff very quickly. We are happy to have him in the neighborhood and look forward to being his patients for many years to come."
+  }
+}
+```
+
+
+Step 1: Create a pipeline
+
+The following example shows you how to create a search pipeline for a generative AI model. The model requires a context field as input and generates a response. It summarizes the text in the review field and stores the summary in the ext.ml_inference.llm_response field of the search response.
+
+```json
+
+PUT /_search/pipeline/my_pipeline_request_review_llm
+{
+  "response_processors": [
+    {
+      "ml_inference": {
+        "tag": "ml_inference",
+        "description": "This processor is going to run llm",
+        "model_id": "EOF6wJIBtDGAJRTD4kNg",
+        "function_name": "REMOTE",
+        "input_map": [
+          {
+            "context": "review"
+          }
+        ],
+        "output_map": [
+          {
+            "ext.ml_inference.llm_response": "response"
+          }
+        ],
+        "model_config": {
+          "prompt": "\n\nHuman: You are a professional data analyst. You will always answer questions based on the given context first. If the answer is not directly shown in the context, you will analyze the data and find the answer. If you don't know the answer, just say I don't know. Context: ${parameters.context.toString()}. \n\n Human: please summarize the documents \n\n Assistant:"
+        },
+        "ignore_missing": false,
+        "ignore_failure": false
+      }
+    }
+  ]
+}
+
+```
+{% include copy-curl.html %}
+
+In this configuration:
+
+The model_id specifies the ID of the generative AI model.
+The function_name is set to "REMOTE", indicating an externally hosted model.
+The input_map maps the review field from the document to the context field expected by the model.
+The output_map specifies that the model's response should be stored in ext.ml_inference.llm_response in the search response.
+The model_config includes a prompt that instructs the model on how to process the input and generate a summary.
+
+Step 2: Index sample documents
+
+Index some sample documents to test the pipeline:
+```json
+PUT /review_string_index/_doc/1
+{
+  "review": "always my to go place" ,
+  "label":"5 stars"
+}
+
+PUT /review_string_index/_doc/2
+{
+  "review": "happy visit" ,
+  "label":"5 stars"
+}
+
+PUT /review_string_index/_doc/3
+{
+  "review": "sad place" ,
+  "label":"1 stars"
+}
+```
+{% include copy-curl.html %}
+
+Step 3: Run the pipeline
+
+Execute a search query using the pipeline:
+```json
+GET /review_string_index/_search?search_pipeline=my_pipeline_request_review_llm
+{
+  "query": {
+    "match_all": {}
+  }
+}
+```
+{% include copy-curl.html %}
+
+Step 4: Examine the response
+
+The response will include the original documents and the generated summary in the ext.ml_inference.llm_response field:
+
+```json
+{
+  "took": 1,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 3,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "review_string_index",
+        "_id": "1",
+        "_score": 1,
+        "_source": {
+          "review": "always my to go place",
+          "label": "5 stars"
+        }
+      },
+      {
+        "_index": "review_string_index",
+        "_id": "2",
+        "_score": 1,
+        "_source": {
+          "review": "happy visit",
+          "label": "5 stars"
+        }
+      },
+      {
+        "_index": "review_string_index",
+        "_id": "3",
+        "_score": 1,
+        "_source": {
+          "review": "sad place",
+          "label": "1 stars"
+        }
+      }
+    ]
+  },
+  "ext": {
+    "ml_inference": {
+      "llm_response": "Based on the context provided, here is a summary:\n\nThe context includes 3 short phrases or documents:\n\n1. \"always my to go place\" - This suggests that whatever is being referred to is always the place that someone goes to. It could imply that it is a favorite or preferred location. \n\n2. \"happy visit\" - This directly states that visiting wherever is being discussed results in happiness. \n\n3. \"sad place\" - In contrast to the previous two documents, this one indicates that the place makes someone sad.\n\nIn summary, two of the documents have positive connotations about visiting a particular place, implying it is enjoyed. The third document provides a negative view, saying the place results in sadness. Without more context around what \"place\" is being referred to, it is difficult to draw definitive conclusions. But overall the data provided presents both positive and negative assessments of the same unnamed location."
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+This example demonstrates how the ml_inference search response processor can be used with a generative AI model to provide summarization of search results. The summary is included in the ext field of the search response, allowing for easy access to the AI-generated insights alongside the original search results.
+
+
+### Example: Rerank Use Case
+
+The following example shows you how to configure an `ml_inference` search response processor with a text similarity model.
+
+
+Step 0: Host a model
+The pre-requisite is a registered genai model in opensearch. For more information about externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/). Here is a sample predict response using a registered model, which requires a prompt and a context field.
+
+```json
+POST _plugins/_ml/models/tg5p1ZEB4iWlnHsIh2U9/_predict
+{
+    "query_text": "today is sunny",
+    "text_docs": [
+        "how are you",
+        "today is sunny",
+        "today is july fifth",
+        "it is winter"
+    ]
+}
+```
+
+The model returns similarity scores for each input document:
+
+```json
+{
+  "inference_results": [
+    {
+      "output": [
+        {
+          "name": "similarity",
+          "data_type": "FLOAT32",
+          "shape": [1],
+          "data": [-11.055183]
+        }
+      ]
+    },
+    {
+      "output": [
+        {
+          "name": "similarity",
+          "data_type": "FLOAT32",
+          "shape": [1],
+          "data": [8.969885]
+        }
+      ]
+    },
+    {
+      "output": [
+        {
+          "name": "similarity",
+          "data_type": "FLOAT32",
+          "shape": [1],
+          "data": [-5.736347]
+        }
+      ]
+    },
+    {
+      "output": [
+        {
+          "name": "similarity",
+          "data_type": "FLOAT32",
+          "shape": [1],
+          "data": [-10.0452175]
+        }
+      ]
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+Step 1: Index sample documents
+
+Create an index and add some sample documents:
+
+```json
+PUT /demo-index-0/_doc/1
+{
+  "dairy": "how are you"
+}
+
+PUT /demo-index-0/_doc/2
+{
+  "dairy": "today is sunny"
+}
+
+PUT /demo-index-0/_doc/3
+{
+  "dairy": "today is july fifth"
+}
+
+PUT /demo-index-0/_doc/4
+{
+  "dairy": "it is winter"
+}
+
+```
+{% include copy-curl.html %}
+
+Step 2: Create a search pipeline
+
+Create a search pipeline that uses the text similarity model:
+
+```json
+PUT /_search/pipeline/my_pipeline
+{
+  "response_processors": [
+    {
+      "ml_inference": {
+        "tag": "ml_inference",
+        "description": "This processor runs ml inference during search response",
+        "model_id": "tg5p1ZEB4iWlnHsIh2U9",
+        "model_input": "{ \"text_docs\": ${input_map.text_docs}, \"query_text\": \"${input_map.query_text}\" }",
+        "function_name": "TEXT_SIMILARITY",
+        "input_map": [
+          {
+            "text_docs": "dairy",
+            "query_text": "$.query.term.dairy.value"          
+          }
+        ],
+        "output_map": [
+          {
+            "rank_score": "$.inference_results[*].output[*].data"
+          }
+        ],
+        "full_response_path": false,
+        "model_config": {},
+        "ignore_missing": false,
+        "ignore_failure": false
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+This pipeline configuration:
+
+Uses the text similarity model with ID tg5p1ZEB4iWlnHsIh2U9.
+Maps the dairy field from documents to the text_docs input of the model.
+Extracts the query text from the search request's term query.
+Maps the model's output to a new rank_score field in the search results.
+
+Step 3: Run the pipeline
+
+Now, perform a search using the created pipeline:
+
+```json
+GET /demo-index-0/_search?search_pipeline=my_pipeline
+{
+  "query": {
+    "term": {
+      "dairy": {
+        "value": "today"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response includes the original documents along with their calculated rank scores:
+
+```json
+{
+  "took": 400,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 2,
+      "relation": "eq"
+    },
+    "max_score": 0.71566814,
+    "hits": [
+      {
+        "_index": "demo-index-0",
+        "_id": "2",
+        "_score": 0.71566814,
+        "_source": {
+          "dairy": "today is sunny",
+          "rank_score": [
+            3.6144485
+          ]
+        }
+      },
+      {
+        "_index": "demo-index-0",
+        "_id": "3",
+        "_score": 0.6333549,
+        "_source": {
+          "dairy": "today is july fifth",
+          "rank_score": [
+            3.6144485
+          ]
+        }
+      }
+    ]
+  }
+}
+```
+{% include copy-curl.html %}
