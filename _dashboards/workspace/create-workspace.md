@@ -6,12 +6,12 @@ nav_order: 1
 ---
 
 # Start to build your first workspace
-Before proceeding, ensure you have enabled the workspace feature flag by following the [workspace documentation](./workspace.md#enabling-workspace).
+Before proceeding, ensure you have enabled the workspace feature flag by following the [workspace documentation](../workspace#enabling-workspace).
 
 
 ## Create Workspace Entry Points
 
-The create workspace entry points require the logged-in user to be a dashboards admin when the saved objects permission is enabled. To configure the dashboards admin, see [the workspace ACL documentation](workspace-acl.md#config-dashboard-admin). There are two major entry points for creating a workspace.
+The create workspace entry points require the logged-in user to be a dashboards admin when the saved objects permission is enabled. To configure the dashboards admin, see [the workspace ACL documentation](../workspace-acl#config-dashboard-admin). There are two major entry points for creating a workspace.
 
 ### Create Workspace from the Home Page
 The easiest way is to create a workspace from the home page. You will be automatically redirected to this page if you visit the root OpenSearch Dashboards directly. The UI will look like the screenshot below.
@@ -58,4 +58,4 @@ The "Associate direct query data sources" modal will be displayed after clicking
 ## Save Workspace
 The "Create workspace" button will become enabled after all required form fields are provided. There will be a toast message like the screenshot below to indicate that the workspace was created successfully after clicking the "Create workspace" button.
 ![Associate direct query data sources in workspace creation page]({{site.url}}{{site.baseurl}}/images/workspace/create-workspace/create-workspace-succeed-toasts.png)
-The logged-in user will become the workspace admin and will be redirected to the workspace collaborators page if the saved objects permission control is enabled. To configure saved objects permission, see [the workspace ACL documentation](workspace-acl.md#config-dashboard-admin). If saved objects permission is not enabled, you will be redirected to the workspace overview page.
+The logged-in user will become the workspace admin and will be redirected to the workspace collaborators page if the saved objects permission control is enabled. To configure saved objects permission, see [the workspace ACL documentation](../workspace-acl#config-dashboard-admin). If saved objects permission is not enabled, you will be redirected to the workspace overview page.
