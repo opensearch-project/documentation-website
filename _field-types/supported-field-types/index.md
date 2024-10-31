@@ -30,7 +30,7 @@ IP | [`ip`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/ip/):
 k-NN vector | [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/): Allows indexing a k-NN vector into OpenSearch and performing different kinds of k-NN search.
 Percolator | [`percolator`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/percolator/): Specifies to treat this field as a query. 
 Derived | [`derived`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/derived/): Creates new fields dynamically by executing scripts on existing fields.
-Star Tree | [`star_tree`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/star-tree/): Pre-computes aggregations and stores in a Star Tree Index to accelerate the performance of aggregation queries.
+Star-tree | [`star_tree`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/star-tree/): Pre-computes aggregations and stores them in a [star-tree index](https://docs.pinot.apache.org/basics/indexing/star-tree-index), accelerating the performance of aggregation queries.
 
 ## Arrays
 
