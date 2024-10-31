@@ -3,7 +3,7 @@ layout: default
 title: kinesis
 parent: Sources
 grand_parent: Pipelines
-nav_order: 3
+nav_order: 45
 ---
 
 # kinesis
