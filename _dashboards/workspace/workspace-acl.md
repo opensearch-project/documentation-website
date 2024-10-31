@@ -6,11 +6,22 @@ nav_order: 3
 ---
 
 # Workspace ACL - Safeguard your workspace assets
-In order for the workspace ACL to take effect, the security plugin must be installed.
+Workspace ACL focuses on AuthZ(Authorization) of saved objects, it is recommended to enable [Security in OpenSearch](../../../security/) for AuthN(Authentication).
+
+## Personas
+There are following personas in *Workspace* use cases:
+* **Dashboard admin**: the administrator of the OpenSearch Dashboards, who has complete access to all functions and data of OpenSearch Dashboards.
+* **Workspace owner**: Workspace owner have complete access to workspace configurations and saved objects in the workspace. Workspace creator will become the workspace owner when a workspace is created. Workspace owner most time can be used exchangeably with and workspace owner. Workspace owner
+* **Workspace content producer**: workspace operator has permission to view, create and update saved objects in the workspace.
+* **Workspace viewer**: workspace operator only has permission to view the saved objects in the workspace
+
+Please note that, the workspace owner, content producer and viewer persona are specific to the workspace. e.g. one workspace operator in one workspace can be an owner in another workspace.
 
 ## Enabling permission control
+Please refer to [Enabling ACL feature](../../management/acl#enabling-acl-feature)
 
 ## Config dashboard admin
+
 OpenSearch Dashboard (OSD) admin is a new user that has the access to all the workspaces and objects inside OpenSearch Dashboards. To enable OSD admin in OpenSearch Dashboards, locate your copy of the `opensearch_dashboards.yml` file and set the following option. Whoever has the backend roles or exactly match the user ids defined in this config will be regard as OSD admin.
 
 ```yaml
