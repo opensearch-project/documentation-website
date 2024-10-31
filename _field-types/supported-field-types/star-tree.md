@@ -15,16 +15,11 @@ If a star-tree index is configured as part of an index mapping, the star-tree in
 
 OpenSearch will automatically use the star-tree index to optimize aggregations if the fields queried are part of star-tree index dimension fields and the aggregations are on star-tree index metrics fields. No changes are required in the query syntax or the request parameters.
 
-For more information, see [Star Tree index]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/)
+For more information, see [star-tree index]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/)
 
 ## Prerequisites
 
-To use the star-tree index, fulfill the following prerequisites: 
-
-- Set the feature flag `opensearch.experimental.feature.composite_index.star_tree.enabled` to `true`. For more information about enabling and disabling feature flags, see [Enabling experimental features]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
-- Set the `indices.composite_index.star_tree.enabled` setting to `true`. For instructions on how to configure OpenSearch, see [configuring settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#static-settings).
-- Set the `index.composite_index` index setting to `true` during index creation.
-- Enable `doc_values` : Ensure that the `doc_values` is enabled for the [dimensions](#ordered-dimensions) and [metrics](#metrics) fields used in your star-tree mapping.
+To use the star-tree index, follow the instruction in [Enabling the star-tree index]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index#enabling-the-star-tree-index).
 
 ## Limitations
 
@@ -37,9 +32,9 @@ The star-tree index feature has the following limitations:
 
 The following examples show how to use a star-tree index
 
-### Star0tree index mapping
+### Star-tree index mapping
 
-Define Star Tree mapping under the `composite` section in `mappings`. 
+Define star-tree mapping under the `composite` section in `mappings`. 
 
 The following example creates a corresponding star-tree index for all `request_aggs`. To compute metric aggregations for `request_size` and `latency` fields with queries on `port` and `status` fields, configure the following mappings:
 
@@ -201,3 +196,4 @@ The following optional parameters can be configured with a star-tree index. Thes
 ## Supported queries and aggregations
 
 For more details on supported queries and aggregations, see [supported query and aggregations for a star-tree index]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/#supported-query-and-aggregations).
+
