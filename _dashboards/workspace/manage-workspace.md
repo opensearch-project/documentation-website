@@ -7,7 +7,7 @@ nav_order: 2
 
 ## Update your workspace
 
-The workspace details page can display and update workspace detailed information which contains name, description, use case and icon color.  
+The workspace details page can display and update workspace detailed information which contains name, description, use case and icon color.
 
 <img src="{{site.url}}{{site.baseurl}}/images/workspace/management-workspace/workspace-details-page.png" alt="workspace details page" width="900" />
 
@@ -20,7 +20,7 @@ Who can update the workspace
 There are some special cases in updating the workspace use case.
 
 Original use case | Target use case |
-:---: | :---: 
+:---: | :---:
 Analytics  | Unable to update to other use cases
 Search  | Analytics
 Security analytics  | Analytics
@@ -47,5 +47,23 @@ There are three buttons in the upper right corner of the workspace details page.
 ### Direct query connection
 
 ## Delete your workspace
+
+Deleting a workspace will remove all assets(except data source) within it and the workspace itself. This operation cannot be undone, and all assets will be permanently deleted.
+
+To delete a workspace, you must be a dashboard administrator. Otherwise, the delete icon will not be visible. See [how to configure dashboard administrators]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#config-dashboard-admin) for more information.
+{: .note}
+
+There are two ways to delete a workspace:
+
+1. On the workspace detail page:
+ - Click the red trash icon in the top right corner to delete the current workspace.
+<img width="700" src="{{site.url}}{{site.baseurl}}/images/workspace/management-workspace/delete_workspace_detail.png" alt="
+Delete workspace from detail page">
+
+2. On the workspace list page:
+ - Click the action menu (three dots) next to a workspace and select 'Delete'.
+ - Or, select multiple workspaces and use the bulk delete option.
+<img width="700" src="{{site.url}}{{site.baseurl}}/images/workspace/management-workspace/delete_workspace_list.png" alt="
+Delete workspace from list page">
 
 ## Manage workspaces from workspaces list
