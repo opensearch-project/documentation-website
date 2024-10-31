@@ -6,12 +6,12 @@ nav_order: 1
 ---
 
 # Start to build your first workspace
-Before proceeding, ensure you have enabled the workspace feature flag by following the [workspace documentation](../workspace#enabling-workspace).
+Before proceeding, ensure you have enabled the workspace feature flag by following the [workspace documentation]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace/#enabling-workspace).
 
 
 ## Create Workspace Entry Points
 
-The create workspace entry points require the logged-in user to be a dashboards admin when the saved objects permission is enabled. To configure the dashboards admin, see [the workspace ACL documentation](../workspace-acl#config-dashboard-admin). There are two major entry points for creating a workspace.
+The create workspace entry points require the logged-in user to be a dashboards admin when the saved objects permission is enabled. To configure the dashboards admin, see [the workspace ACL documentation]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#config-dashboard-admin). There are two major entry points for creating a workspace.
 
 ### Create Workspace from the Home Page
 The easiest way is to create a workspace from the home page. You will be automatically redirected to this page if you visit the root OpenSearch Dashboards directly. The UI will look like the screenshot below.
@@ -47,7 +47,7 @@ When multi data source is enabled and you only have Amazon OpenSearch Serverless
 
 ### Associate Data Source When Multi Data Source is Enabled
 
-The "Associate data source" section will be hidden if multi data source is not enabled. To enable multi data source, refer to the [multi data source documentation](../../_dashboards/management/multi-data-sources.md#step-1-modify-the-yaml-file-settings). When multi data source is enabled, you need to associate at least one data source with the workspace in the workspace creation page. To add data sources, refer to the [multi data source documentation](../../_dashboards/management/multi-data-sources.md#step-2-create-a-new-data-source-connection). Once data sources are created in the data source management page, you can assign them to the workspace.
+The "Associate data source" section will be hidden if multi data source is not enabled. To enable multi data source, refer to the [multi data source documentation]({{site.url}}{{site.baseurl}}/dashboards/management/multi-data-sources/#step-1-modify-the-yaml-file-settings). When multi data source is enabled, you need to associate at least one data source with the workspace in the workspace creation page. To add data sources, refer to the [multi data source documentation]({{site.url}}{{site.baseurl}}/dashboards/management/multi-data-sources.md#step-2-create-a-new-data-source-connection). Once data sources are created in the data source management page, you can assign them to the workspace.
 
 ![Associate OpenSearch Data Sources in workspace creation page]({{site.url}}{{site.baseurl}}/images/workspace/create-workspace/associate-opensearch-data-sources-in-workspace-creation-page.png)
 The "Associate OpenSearch data sources" modal will be displayed after clicking the "Associate OpenSearch data sources" button. In the example above, there are two data sources in the modal. The "data source 1" is an OpenSearch data source, and the "data source 2" includes 4 direct query connections, which will display the "+ 4 related" label on the right. A data source will become selected after clicking its name. The selected data sources will be associated with the workspace after clicking the "Associate data sources" button.
@@ -58,4 +58,4 @@ The "Associate direct query data sources" modal will be displayed after clicking
 ## Save Workspace
 The "Create workspace" button will become enabled after all required form fields are provided. There will be a toast message like the screenshot below to indicate that the workspace was created successfully after clicking the "Create workspace" button.
 ![Associate direct query data sources in workspace creation page]({{site.url}}{{site.baseurl}}/images/workspace/create-workspace/create-workspace-succeed-toasts.png)
-The logged-in user will become the workspace admin and will be redirected to the workspace collaborators page if the saved objects permission control is enabled. To configure saved objects permission, see [the workspace ACL documentation](../workspace-acl#config-dashboard-admin). If saved objects permission is not enabled, you will be redirected to the workspace overview page.
+The logged-in user will become the workspace admin and will be redirected to the workspace collaborators page if the saved objects permission control is enabled. To configure saved objects permission, see [the workspace ACL documentation]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#config-dashboard-admin). If saved objects permission is not enabled, you will be redirected to the workspace overview page.

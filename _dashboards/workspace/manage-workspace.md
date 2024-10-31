@@ -19,7 +19,7 @@ Who can update the workspace？
 
 1. Security plugins uninstalled: Anyone can click the edit button and update the workspace.
 2. Security plugins installed and `savedObjects.permission.enabled: false` (`config/opensearch_dashboards.yml`): Anyone can click the edit button and update the workspace.
-3. Security plugins installed and `savedObjects.permission.enabled: true` (`config/opensearch_dashboards.yml`): Only workspace owner and opensearch dashboard admin (OSD admin) can click the edit button and update the workspace.
+3. Security plugins installed and `savedObjects.permission.enabled: true` (`config/opensearch_dashboards.yml`): Only [workspace owner]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#define-collaborators-for-your-workspaces) and [OSD admin]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#config-dashboard-admin) can click the edit button and update the workspace.
 
 
 There are some special cases in updating the workspace use case.
