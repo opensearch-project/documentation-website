@@ -13,4 +13,4 @@ OpenSearch offers several ways to improve search performance:
 
 - Search segments concurrently using [concurrent segment search]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search/).
 
-- Improve performance of aggregations using [Star Tree index]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/).
+- Improve performance of aggregations using a [star-tree index]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/).
