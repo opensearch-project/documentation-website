@@ -93,7 +93,7 @@ The following is the response for the preceding request:
 }
 ```
 
-## Response fields
+## Response body fields
 
 The response contains statistics for the following layer types:
 

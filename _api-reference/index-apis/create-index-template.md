@@ -31,7 +31,7 @@ Parameter | Data type | Description
 `create` | Boolean | When true, the API cannot replace or update any existing index templates. Default is `false`.
 `cluster_manager_timeout` | Time | The amount of time to wait for a connection to the cluster manager node. Default is `30s`.
 
-## Request body options
+## Request body fields
 
 The following options can be used in the request body to customize the index template.
 
@@ -45,7 +45,7 @@ Parameter | Type | Description
 `priority` | Integer | A number that determines which index templates take precedence during the creation of a new index or data stream. OpenSearch chooses the template with the highest priority. When no priority is given, the template is assigned a `0`, signifying the lowest priority. Optional.
 `template` | Object | The template that includes the `aliases`, `mappings`, or `settings` for the index. For more information, see [#template]. Optional.
 `version` | Integer | The version number used to manage index templates. Version numbers are not automatically set by OpenSearch. Optional.
-
+`context` | Object | (Experimental) The `context` parameter provides use-case-specific predefined templates that can be applied to an index. Among all settings and mappings declared for a template, context templates hold the highest priority. For more information, see [index-context]({{site.url}}{{site.baseurl}}/im-plugin/index-context/).
 
 ### Template
 

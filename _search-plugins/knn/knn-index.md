@@ -25,9 +25,9 @@ PUT /test-index
       "my_vector1": {
         "type": "knn_vector",
         "dimension": 3,
+        "space_type": "l2",
         "method": {
           "name": "hnsw",
-          "space_type": "l2",
           "engine": "lucene",
           "parameters": {
             "ef_construction": 128,
@@ -41,17 +41,17 @@ PUT /test-index
 ```
 {% include copy-curl.html %}
 
-## Lucene byte vector
+## Byte vectors
 
-Starting with k-NN plugin version 2.9, you can use `byte` vectors with the `lucene` engine to reduce the amount of storage space needed. For more information, see [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector).
+Starting with k-NN plugin version 2.17, you can use `byte` vectors with the `faiss` and `lucene` engines to reduce the amount of required memory and storage space. For more information, see [Byte vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#byte-vectors).
 
-## Binary vector
+## Binary vectors
 
-Starting with k-NN plugin version 2.16, you can use `binary` vectors with the `faiss` engine to reduce the amount of required storage space. For more information, see [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-k-nn-vectors).
+Starting with k-NN plugin version 2.16, you can use `binary` vectors with the `faiss` engine to reduce the amount of required storage space. For more information, see [Binary vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-vectors).
 
 ## SIMD optimization for the Faiss engine
 
-Starting with version 2.13, the k-NN plugin supports [Single Instruction Multiple Data (SIMD)](https://en.wikipedia.org/wiki/Single_instruction,_multiple_data) processing if the underlying hardware supports SIMD instructions (AVX2 on x64 architecture and Neon on ARM64 architecture). SIMD is supported by default on Linux machines only for the Faiss engine. SIMD architecture helps boost overall performance by improving indexing throughput and reducing search latency.
+Starting with version 2.13, the k-NN plugin supports [Single Instruction Multiple Data (SIMD)](https://en.wikipedia.org/wiki/Single_instruction,_multiple_data) processing if the underlying hardware supports SIMD instructions (AVX2 on x64 architecture and Neon on ARM64 architecture). SIMD is supported by default on Linux machines only for the Faiss engine. SIMD architecture helps boost overall performance by improving indexing throughput and reducing search latency. Starting with version 2.18, the k-NN plugin supports AVX512 SIMD instructions on x64 architecture. 
 
 SIMD optimization is applicable only if the vector dimension is a multiple of 8.
 {: .note}
@@ -60,14 +60,22 @@ SIMD optimization is applicable only if the vector dimension is a multiple of 8.
 ### x64 architecture
 <!-- vale on -->
 
-For the x64 architecture, two different versions of the Faiss library are built and shipped with the artifact:
+For x64 architecture, the following versions of the Faiss library are built and shipped with the artifact:
 
 - `libopensearchknn_faiss.so`: The non-optimized Faiss library without SIMD instructions. 
-- `libopensearchknn_faiss_avx2.so`: The Faiss library that contains AVX2 SIMD instructions. 
+- `libopensearchknn_faiss_avx512.so`: The Faiss library containing AVX512 SIMD instructions. 
+- `libopensearchknn_faiss_avx2.so`: The Faiss library containing AVX2 SIMD instructions.
 
-If your hardware supports AVX2, the k-NN plugin loads the `libopensearchknn_faiss_avx2.so` library at runtime.
+When using the Faiss library, the performance ranking is as follows: AVX512 > AVX2 > no optimization.
+{: .note }
 
-To disable AVX2 and load the non-optimized Faiss library (`libopensearchknn_faiss.so`), specify the `knn.faiss.avx2.disabled` static setting as `true` in `opensearch.yml` (default is `false`). Note that to update a static setting, you must stop the cluster, change the setting, and restart the cluster. For more information, see [Static settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#static-settings).
+If your hardware supports AVX512, the k-NN plugin loads the `libopensearchknn_faiss_avx512.so` library at runtime.
+
+If your hardware supports AVX2 but doesn't support AVX512, the k-NN plugin loads the `libopensearchknn_faiss_avx2.so` library at runtime.
+
+To disable the AVX512 and AVX2 SIMD instructions and load the non-optimized Faiss library (`libopensearchknn_faiss.so`), specify the `knn.faiss.avx512.disabled` and `knn.faiss.avx2.disabled` static settings as `true` in `opensearch.yml` (by default, both of these are `false`).
+
+Note that to update a static setting, you must stop the cluster, change the setting, and restart the cluster. For more information, see [Static settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#static-settings).
 
 ### ARM64 architecture
 
@@ -83,8 +91,8 @@ A method definition will always contain the name of the method, the space_type t
 Mapping parameter | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
 `name` | true | n/a | false | The identifier for the nearest neighbor method.
-`space_type` | false | l2 | false | The vector space used to calculate the distance between vectors.
-`engine` | false | nmslib | false | The approximate k-NN library to use for indexing and search. The available libraries are faiss, nmslib, and Lucene.
+`space_type` | false | l2 | false | The vector space used to calculate the distance between vectors. Note: This value can also be specified at the top level of the mapping.
+`engine` | false | faiss  | false | The approximate k-NN library to use for indexing and search. The available libraries are `faiss`, `nmslib`, and `lucene`.
 `parameters` | false | null | false | The parameters used for the nearest neighbor method.
 
 ### Supported nmslib methods
@@ -116,7 +124,7 @@ Method name | Requires training | Supported spaces | Description
 For hnsw, "innerproduct" is not available when PQ is used.
 {: .note}
 
-The `hamming` space type is supported for binary vectors in OpenSearch version 2.16 and later. For more information, see [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-k-nn-vectors).
+The `hamming` space type is supported for binary vectors in OpenSearch version 2.16 and later. For more information, see [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-vectors).
 {: .note}
 
 #### HNSW parameters
@@ -168,7 +176,6 @@ An index created in OpenSearch version 2.11 or earlier will still use the old `e
 "method": {
     "name":"hnsw",
     "engine":"lucene",
-    "space_type": "l2",
     "parameters":{
         "m":2048,
         "ef_construction": 245
@@ -186,7 +193,6 @@ The following example method definition specifies the `hnsw` method and a `pq` e
 "method": {
   "name":"hnsw",
   "engine":"faiss",
-  "space_type": "l2",
   "parameters":{
     "encoder":{
       "name":"pq",
@@ -232,7 +238,6 @@ The following example uses the `ivf` method  without specifying an encoder (by d
 "method": {
   "name":"ivf",
   "engine":"faiss",
-  "space_type": "l2",
   "parameters":{
     "nlist": 4,
     "nprobes": 2
@@ -246,7 +251,6 @@ The following example uses the `ivf` method with a `pq` encoder:
 "method": {
   "name":"ivf",
   "engine":"faiss",
-  "space_type": "l2",
   "parameters":{
     "encoder":{
       "name":"pq",
@@ -265,7 +269,6 @@ The following example uses the `hnsw` method without specifying an encoder (by d
 "method": {
   "name":"hnsw",
   "engine":"faiss",
-  "space_type": "l2",
   "parameters":{
     "ef_construction": 256,
     "m": 8
@@ -279,7 +282,6 @@ The following example uses the `hnsw` method with an `sq` encoder of type `fp16`
 "method": {
   "name":"hnsw",
   "engine":"faiss",
-  "space_type": "l2",
   "parameters":{
     "encoder": {
       "name": "sq",
@@ -300,7 +302,6 @@ The following example uses the `ivf` method with an `sq` encoder of type `fp16`:
 "method": {
   "name":"ivf",
   "engine":"faiss",
-  "space_type": "l2",
   "parameters":{
     "encoder": {
       "name": "sq",
@@ -324,7 +325,7 @@ If you want to use less memory and increase indexing speed as compared to HNSW w
 
 If memory is a concern, consider adding a PQ encoder to your HNSW or IVF index. Because PQ is a lossy encoding, query quality will drop.
 
-You can reduce the memory footprint by a factor of 2, with a minimal loss in search quality, by using the [`fp_16` encoder]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization/#faiss-16-bit-scalar-quantization). If your vector dimensions are within the [-128, 127] byte range, we recommend using the [byte quantizer]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/#lucene-byte-vector) to reduce the memory footprint by a factor of 4. To learn more about vector quantization options, see [k-NN vector quantization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization/). 
+You can reduce the memory footprint by a factor of 2, with a minimal loss in search quality, by using the [`fp_16` encoder]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization/#faiss-16-bit-scalar-quantization). If your vector dimensions are within the [-128, 127] byte range, we recommend using the [byte quantizer]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/#byte-vectors) to reduce the memory footprint by a factor of 4. To learn more about vector quantization options, see [k-NN vector quantization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization/). 
 
 ### Memory estimation
 
@@ -367,6 +368,7 @@ Setting | Default | Updatable | Description
 :--- | :--- | :--- | :---
 `index.knn` | false | false | Whether the index should build native library indexes for the `knn_vector` fields. If set to false, the `knn_vector` fields will be stored in doc values, but approximate k-NN search functionality will be disabled.
 `index.knn.algo_param.ef_search` | 100 | true | The size of the dynamic list used during k-NN searches. Higher values result in more accurate but slower searches. Only available for NMSLIB.
+`index.knn.advanced.approximate_threshold` | 15,000   | true      | The number of vectors a segment must have before creating specialized data structures for approximate search. Set to `-1` to disable building vector data structures and `0` to always build them.
 `index.knn.algo_param.ef_construction` | 100 | false | Deprecated in 1.0.0. Instead, use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value.
 `index.knn.algo_param.m` | 16 | false | Deprecated in 1.0.0. Use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value instead.
 `index.knn.space_type` | l2 | false | Deprecated in 1.0.0. Use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value instead.

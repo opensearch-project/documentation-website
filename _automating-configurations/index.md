@@ -44,3 +44,4 @@ Workflow automation provides the following benefits:
 - For the workflow step syntax, see [Workflow steps]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-steps/).  
 - For a complete example, see [Workflow tutorial]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-tutorial/).
 - For configurable settings, see [Workflow settings]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-settings/).
+- For information about workflow access control, see [Workflow template security]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-security/).
