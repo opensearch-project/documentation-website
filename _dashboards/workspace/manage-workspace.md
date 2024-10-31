@@ -80,21 +80,21 @@ You can associate data sources on data source management page in workspace. Data
 
 Opensearch connections tab lists all opensearch connections that are associated with the current workspace. You could click the `Remove association` button to remove the association between the opensearch connection and the current workspace.
 
-![Opensearch data sources button]({{site.url}}{{site.baseurl}}/images/workspace/management-workspace/opensearch-data-sources-button.png)
+<img width="600" src="{{site.url}}{{site.baseurl}}/images/workspace/management-workspace/opensearch-data-sources-button.png" alt="Opensearch data sources button">
 
 You could click the `OpenSearch data sources` button to open a modal to associate more opensearch connections to current workspace.
 
-![Association modal]({{site.url}}{{site.baseurl}}/images/workspace/management-workspace/association-modal.png)
+<img width="600" src="{{site.url}}{{site.baseurl}}/images/workspace/management-workspace/association-modal.png" alt="Association modal">
 
 Association modal lists all opensearch connections that have not been associated with the current workspace. You could select the opensearch connections that you want to associate with the current workspace.
 
 ### Direct query connection
 
-![Direct query data source button]({{site.url}}{{site.baseurl}}/images/workspace/management-workspace/direct-query-data-sources-button.png)
+<img width="600" src="{{site.url}}{{site.baseurl}}/images/workspace/management-workspace/direct-query-data-sources-button.png" alt="Direct query data sources button">
 
 Direct query connections tab lists all direct query connections that are associated with the current workspace. You could click the `Direct query data sources` button to open a modal to associate more direct query connections to current workspace.
 
-![Direct query association modal]({{site.url}}{{site.baseurl}}/images/workspace/management-workspace/direct-query-modal.png)
+<img width="600" src="{{site.url}}{{site.baseurl}}/images/workspace/management-workspace/direct-query-modal.png" alt="Direct query association modal">
 
 Association modal lists all opensearch connections that contain direct query connections and have not been associated with the current workspace. If an opensearch connection is associated with the current workspace, all direct query connections in this opensearch connection will also be associated.
 
@@ -120,11 +120,11 @@ Delete workspace from list page">
 
 ## Manage workspaces from workspaces list
 
-![Workspaces list page]({{site.url}}{{site.baseurl}}/images/workspace/management-workspace/workspaces-list-page.png)
+![Workspaces list page]({{site.url}}{{site.baseurl}}/images/workspace/management-workspace/workspace-list-page.png)
 
 Workspaces list page lists all workspaces that you have permission to access. You could search workspaces by name or filter workspaces by use case. It displays the name, use case, description, last update time and associated data sources of each workspace.
 
-![Workspace list actions]({{site.url}}{{site.baseurl}}/images/workspace/management-workspace/workspaces-list-actions.png)
+![Workspace list actions]({{site.url}}{{site.baseurl}}/images/workspace/management-workspace/workspace-list-actions.png)
 
 Actions column displays four buttons for each workspace.
 
