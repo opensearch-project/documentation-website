@@ -43,6 +43,6 @@ You can obtain the following information using Query Insights:
 - [Grouping top N queries]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/grouping-top-n-queries/)
 - [Query metrics]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/query-metrics/)
 
-## Query Insights health
+## Query Insights plugin health
 
-For information about monitoring the Query Insights plugin health, see [Query Insights health]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/health/).
+For information about monitoring the health of the Query Insights plugin, see [Query Insights plugin health]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/health/).
