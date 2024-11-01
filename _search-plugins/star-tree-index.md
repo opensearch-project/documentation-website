@@ -30,7 +30,7 @@ Star-tree indexes have the following limitations:
 - A star-tree index can be used for aggregation queries only if the fields queried is a subset of the star-tree's dimensions and the aggregated fields are a subset of a star-tree's metrics.
 - After a star-tree index is enabled, it cannot be disabled. In order to disable a star-tree index, the data in the index must be reindexed without the star-tree mapping. Furthermore, changing a star-tree configuration will also require a reindex operation.
 - [Multi-values/array values]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/index/#arrays) are not supported.
-- Only [limited queries and aggregations](#supported-query-and-aggregations) are supported. Support for more features will be added in future versions.
+- Only [limited queries and aggregations](#supported-queries-and-aggregations) are supported. Support for more features will be added in future versions.
 - The cardinality of the dimensions should not be very high (as with `_id` fields). Higher cardinality leads to increased storage usage and query latency.
 
 ## Star-tree index structure

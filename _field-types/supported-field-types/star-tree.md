@@ -19,7 +19,7 @@ For more information, see [Star-tree index]({{site.url}}{{site.baseurl}}/search-
 
 ## Prerequisites
 
-To use a star-tree index, follow the instructions in [Enabling a star-tree index]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index#enabling-the-star-tree-index).
+To use a star-tree index, follow the instructions in [Enabling a star-tree index]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index#enabling-a-star-tree-index).
 
 ## Limitations
 
@@ -119,7 +119,7 @@ The star-tree `config` section supports the following property.
 
 ### Ordered dimensions
 
-The `ordered_dimensions` parameter are fields based on which metrics will be aggregated in a star-tree index. The star-tree index will be picked for querying only if all the fields in the query are part of the `ordered_dimensions`. 
+The `ordered_dimensions` parameter contains fields based on which metrics will be aggregated in a star-tree index. The star-tree index will be selected for querying only if all the fields in the query are part of the `ordered_dimensions`. 
 
 When using the `ordered_dimesions` parameter, follow these best practices:
 
