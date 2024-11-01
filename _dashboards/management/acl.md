@@ -16,7 +16,7 @@ ACLs are applied at two levels:
 1. **Workspace ACL:** Workspace objects inherit permissions from their parent workspace. See [Workspace ACL](../../workspace/workspace-acl).
 2. **Objects ACL:** Each individual object can have its own ACL policy. All operations on these objects must pass ACL policy validation.
 
-## Enabling ACL feature
+## Enabling the ACL feature
 
 The ACL feature must be enabled before you can define any access controls. Enable it by:
 
