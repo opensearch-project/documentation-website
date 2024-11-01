@@ -25,7 +25,7 @@ assistant.alertInsight.enabled: true
 
 ### Create agents with OpenSearch flow-framework 
 Use OpenSearch flow-framework to create the required agents. Please follow [flow-framework documentation](https://github.com/opensearch-project/flow-framework) to create the agents.
-You can start with the flow-framework example template for Alert Summary Agent, see the example template [here](https://github.com/opensearch-project/flow-framework/tree/main/sample-templates).
+You can start with the flow-framework example template for Alert Summary and Alert Insight agent, see the example template [here](https://github.com/opensearch-project/flow-framework/tree/main/sample-templates). 
 
 You need to create two summary agents, one for basic alert summary and another for alert summary with log patterns. They two have different prompts, the latter one must have a placeholder `${parameters.topNLogPatternData}` for the log patterns and more prompt instructions about asking LLM how to use this information. Log patterns are only available for query monitor created by visual editor.
 
@@ -53,6 +53,21 @@ POST /.plugins-ml-config/_doc/os_summary_with_log_pattern
 }
 ```
 {% include copy-curl.html %}
+
+Create root agents for alert insight.
+```
+POST /.plugins-ml-config/_doc/os_insight
+{
+  "type": "os_root_agent",
+  "configuration": {
+    "agent_id": "your agent id for alert insight"
+  }
+}
+```
+{% include copy-curl.html %}
+
+The `os_insight` agent provides insight to alerts related to OpenSearch cluster metrics. If you wish to provide insight on alerts not related to OpenSearch cluster metrics, you need to register an agent with [template](https://github.com/opensearch-project/flow-framework/blob/main/sample-templates/create-knowledge-base-alert-agent.json) and change the agent name to `KB_For_Alert_Insight`.
+{: .note}
 
 ### Verify
 You can verify if the agents are created successfully by calling the agents with example payload.
@@ -82,6 +97,19 @@ POST /_plugins/_ml/agents/<your agent id for summary with log pattern>/_execute
 ```
 {% include copy-curl.html %}
 
+Test agents for alert insight.
+```
+POST /_plugins/_ml/agents/<your agent id for insight>/_execute
+{ 
+  "parameters": {
+    "question": "Please provide your insight on this alerts.",
+    "context": "\n            Here is the detail information about alert Error log over 100\n            ### Monitor definition\n {\"type\":\"monitor\",\"schema_version\":8,\"name\":\"loghub-apache-error-log\",\"monitor_type\":\"query_level_monitor\",\"enabled\":false,\"enabled_time\":null,\"schedule\":{\"period\":{\"interval\":1,\"unit\":\"MINUTES\"}},\"inputs\":[{\"search\":{\"indices\":[\"loghub-apache-new\"],\"query\":{\"size\":0,\"query\":{\"bool\":{\"filter\":[{\"range\":{\"Time\":{\"from\":\"10/12/24 11:21 am CST||-1000000h\",\"to\":\"10/12/24 11:21 am CST\",\"include_lower\":true,\"include_upper\":true,\"boost\":1}}},{\"term\":{\"Level\":{\"value\":\"error\",\"boost\":1}}}],\"adjust_pure_negative\":true,\"boost\":1}}}}}],\"triggers\":[{\"query_level_trigger\":{\"id\":\"NAq7fpIBRJyww-JMjwP_\",\"name\":\"Error log over 100\",\"severity\":\"1\",\"condition\":{\"script\":{\"source\":\"ctx.results[0].hits.total.value > 100\",\"lang\":\"painless\"}},\"actions\":[]}}],\"last_update_time\":1728714554388,\"owner\":\"alerting\",\"associated_workflows\":[],\"associatedCompositeMonitorCnt\":0,\"item_type\":\"query_level_monitor\",\"id\":\"NQq7fpIBRJyww-JMkAMC\",\"version\":3}\n\n            ### Active Alert\n {\"ACTIVE\":1,\"ACKNOWLEDGED\":0,\"ERROR\":0,\"total\":1,\"alerts\":[{\"id\":\"Wgq8fpIBRJyww-JMegNr\",\"monitor_id\":\"NQq7fpIBRJyww-JMkAMC\",\"workflow_id\":\"\",\"workflow_name\":\"\",\"associated_alert_ids\":[],\"schema_version\":5,\"monitor_version\":1,\"monitor_name\":\"loghub-apache-error-log\",\"execution_id\":\"NQq7fpIBRJyww-JMkAMC_2024-10-12T03:18:54.311214115_22d189ce-5e93-4927-b8bb-bcf61b7537e3\",\"trigger_id\":\"NAq7fpIBRJyww-JMjwP_\",\"trigger_name\":\"Error log over 100\",\"finding_ids\":[],\"related_doc_ids\":[],\"state\":\"ACTIVE\",\"error_message\":null,\"alert_history\":[],\"severity\":\"1\",\"action_execution_results\":[],\"start_time\":\"10/12/24 11:18 am CST\",\"last_notification_time\":\"10/12/24 11:21 am CST\",\"end_time\":null,\"acknowledged_time\":null,\"alert_source\":\"monitor\"}],\"trigger_name\":\"Error log over 100\",\"severity\":\"1\",\"start_time\":\"10/12/24 11:18 am CST\",\"last_notification_time\":\"10/12/24 11:21 am CST\",\"monitor_name\":\"loghub-apache-error-log\",\"monitor_id\":\"NQq7fpIBRJyww-JMkAMC\",\"alert_source\":\"monitor\",\"triggerID\":\"NAq7fpIBRJyww-JMjwP_\"}\n\n            ### Value triggers this alert\n 595\n\n            ### Alert query DSL {\"query\":{\"bool\":{\"filter\":[{\"range\":{\"Time\":{\"from\":\"2024-10-12T03:21:54+00:00||-1000000h\",\"to\":\"2024-10-12T03:21:54+00:00\",\"include_lower\":true,\"include_upper\":true,\"boost\":1}}},{\"term\":{\"Level\":{\"value\":\"error\",\"boost\":1}}}],\"adjust_pure_negative\":true,\"boost\":1}}} \n",
+    "summary": <OUTPUT FROM ALERT SUMMARY AGENT>
+  }
+}
+```
+{% include copy-curl.html %}
+
 ## Alert insight API
 Call API `/api/assistant/summary` to generate alert summary, `index`, `dsl` and `topNLogPatternData` are optional(it will execute the agent for summary with log patterns if all of them are provided, otherwise it will execute the agent for summary.)
 ```
@@ -97,14 +125,36 @@ POST /api/assistant/summary
 ```
 {% include copy-curl.html %}
 
-Parameter | Description                                                                                             | Required
-:--- |:--------------------------------------------------------------------------------------------------------| :---
-summaryType | the type of application calling this API, always `alerts` for alert insight                             | `true`
-question | user's question about the alert insight, default is `Please summarize this alert, do not use any tool.` | `true`
-context | the context of the alert, should includes alert monitor definition, active alerts and trigger value     | `false`
-index | the index on which the alert is monitoring. No analyze on log pattern if missing                        | `false`
-dsl | the dsl which alert for monitoring. No analyze on log pattern if missing                                | `false`
-topNLogPatternData | the log patterns of alert trigger data. No analyze on log pattern if missing                            | `false`
+Parameter | Description                                                                                                             | Required
+:--- |:------------------------------------------------------------------------------------------------------------------------| :---
+summaryType | the type of application calling this API, always `alerts` for alert insight                                             | `true`
+question | user's question about the alert insight, default is `Please summarize this alert, do not use any tool.`                 | `true`
+context | the context of the alert, should includes alert monitor definition, active alerts and trigger value                     | `false`
+index | the index on which the alert is monitoring. No analyze on log pattern if missing                                        | `false`
+dsl | the dsl which alert for monitoring. No analyze on log pattern if missing                                                | `false`
+topNLogPatternData | the log patterns of alert trigger data. No analyze on log pattern if missing                                            | `false`
+
+Call API `/api/assistant/insight` to generate alert insight, all the five parameters are required.
+```
+POST /api/assistant/insight
+{
+  "summaryType": "alerts",
+  "insightType": "user_insight"
+  "context": "\n            Here is the detail information about alert Error log over 100\n            ### Monitor definition\n {\"type\":\"monitor\",\"schema_version\":8,\"name\":\"loghub-apache-error-log\",\"monitor_type\":\"query_level_monitor\",\"enabled\":false,\"enabled_time\":null,\"schedule\":{\"period\":{\"interval\":1,\"unit\":\"MINUTES\"}},\"inputs\":[{\"search\":{\"indices\":[\"loghub-apache-new\"],\"query\":{\"size\":0,\"query\":{\"bool\":{\"filter\":[{\"range\":{\"Time\":{\"from\":\"10/12/24 11:21 am CST||-1000000h\",\"to\":\"10/12/24 11:21 am CST\",\"include_lower\":true,\"include_upper\":true,\"boost\":1}}},{\"term\":{\"Level\":{\"value\":\"error\",\"boost\":1}}}],\"adjust_pure_negative\":true,\"boost\":1}}}}}],\"triggers\":[{\"query_level_trigger\":{\"id\":\"NAq7fpIBRJyww-JMjwP_\",\"name\":\"Error log over 100\",\"severity\":\"1\",\"condition\":{\"script\":{\"source\":\"ctx.results[0].hits.total.value > 100\",\"lang\":\"painless\"}},\"actions\":[]}}],\"last_update_time\":1728714554388,\"owner\":\"alerting\",\"associated_workflows\":[],\"associatedCompositeMonitorCnt\":0,\"item_type\":\"query_level_monitor\",\"id\":\"NQq7fpIBRJyww-JMkAMC\",\"version\":3}\n\n            ### Active Alert\n {\"ACTIVE\":1,\"ACKNOWLEDGED\":0,\"ERROR\":0,\"total\":1,\"alerts\":[{\"id\":\"Wgq8fpIBRJyww-JMegNr\",\"monitor_id\":\"NQq7fpIBRJyww-JMkAMC\",\"workflow_id\":\"\",\"workflow_name\":\"\",\"associated_alert_ids\":[],\"schema_version\":5,\"monitor_version\":1,\"monitor_name\":\"loghub-apache-error-log\",\"execution_id\":\"NQq7fpIBRJyww-JMkAMC_2024-10-12T03:18:54.311214115_22d189ce-5e93-4927-b8bb-bcf61b7537e3\",\"trigger_id\":\"NAq7fpIBRJyww-JMjwP_\",\"trigger_name\":\"Error log over 100\",\"finding_ids\":[],\"related_doc_ids\":[],\"state\":\"ACTIVE\",\"error_message\":null,\"alert_history\":[],\"severity\":\"1\",\"action_execution_results\":[],\"start_time\":\"10/12/24 11:18 am CST\",\"last_notification_time\":\"10/12/24 11:21 am CST\",\"end_time\":null,\"acknowledged_time\":null,\"alert_source\":\"monitor\"}],\"trigger_name\":\"Error log over 100\",\"severity\":\"1\",\"start_time\":\"10/12/24 11:18 am CST\",\"last_notification_time\":\"10/12/24 11:21 am CST\",\"monitor_name\":\"loghub-apache-error-log\",\"monitor_id\":\"NQq7fpIBRJyww-JMkAMC\",\"alert_source\":\"monitor\",\"triggerID\":\"NAq7fpIBRJyww-JMjwP_\"}\n\n            ### Value triggers this alert\n 595\n\n            ### Alert query DSL {\"query\":{\"bool\":{\"filter\":[{\"range\":{\"Time\":{\"from\":\"2024-10-12T03:21:54+00:00||-1000000h\",\"to\":\"2024-10-12T03:21:54+00:00\",\"include_lower\":true,\"include_upper\":true,\"boost\":1}}},{\"term\":{\"Level\":{\"value\":\"error\",\"boost\":1}}}],\"adjust_pure_negative\":true,\"boost\":1}}} \n",
+  "question": "Please provide your insight on this alerts.",
+  "summary": <OUTPUT FROM ALERT SUMMARY AGENT>
+}
+```
+{% include copy-curl.html %}
+
+Parameter | Description                                                                                                      | Required
+:--- |:-----------------------------------------------------------------------------------------------------------------| :---
+summaryType | the type of application calling this API, always `alerts` for alert insight                                      | `true`
+insightType | the type of alert, `os_insight` stands for cluster metrics alert and `user_insight` stands for other alert types | `true`
+question | user's question about the alert insight, default is `Please provide your insight on this alerts.`          | `true`
+context | the context of the alert, should includes alert monitor definition, active alerts and trigger value              | `true`
+summary | the output from the alert summary API                                                                            | `true`
+
 
 ## Alert insight UI
 Enter the alerting page, you will see sparkle icon beside each alert if configured correctly.
@@ -112,3 +162,6 @@ Enter the alerting page, you will see sparkle icon beside each alert if configur
 
 Click the sparkle icon to start generating alert summary.
 <img width="700" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/alert-insight-summary.png" alt="Alert insight summary">
+
+Click the information icon to start generating alert insight.
+<img width="700" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/alert-insight-insight.png" alt="Alert insight summary">
