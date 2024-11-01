@@ -26,9 +26,9 @@ Star-tree index can be used to perform faster aggregations. Consider the followi
 
 Star-tree indexes contain the following limitations:
 
-- Star-tree index should only be used on indexes whose data is not updated or deleted, as updates and deletions are not accounted for ina  star-tree index.
+- Star-tree index should only be used on indexes whose data is not updated or deleted, as updates and deletions are not accounted for in a  star-tree index.
 - A star-tree index can be used for aggregation queries only if the fields queried is a subset of the star-trees dimensions and the aggregated fields are a subset of a star-trees metrics.
-- After the star-tree index is enabled for an index, it cannot be disabled. In order to disable the star-tree idnex, the data in the index must be re-indexed without the star-tree mapping. Furthrmore, changing a star-tree configuration will also require a re-index operation.
+- After the star-tree index is enabled for an index, it cannot be disabled. In order to disable the star-tree index, the data in the index must be re-indexed without the star-tree mapping. Furthermore, changing a star-tree configuration will also require a re-index operation.
 - [Multi-values/array values]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/index/#arrays) are not supported
 - Only [limited queries and aggregations](#supported-query-and-aggregations) are supported. Support for more features will be released in upcoming versions.
 - The cardinality of the dimensions should not be very high (like `_id` fields). High cardinality leads to higher storage usage and higher query latency.
@@ -37,12 +37,12 @@ Star-tree indexes contain the following limitations:
 
 The following image illustrates a standard star-tree index structure.
 
-<img src="{{site.url}}{{site.baseurl}}/images/star-tree-index.png" alt="A star-tree  index containing two dimensions and two metrics" width="700">
+<img src="{{site.url}}{{site.baseurl}}/images/star-tree-index.png" alt="A star-tree index containing two dimensions and two metrics" width="700">
 
 Sorted and aggregated star-tree documents are backed by `doc-values` in an index. Values follow the following patternL
 
-- The values are sorted based on the order of `ordered_dimension`, in the above example, first by `status` and then by `port` for each of the status.
-- For each  unique dimension value combination, the aggregated values for all the metrics such as `avg(size)` and `count(requests)` are pre-computed during ingestion time.
+- The values are sorted based on the order of `ordered_dimension`, in the previous example, first by `status` and then by `port` for each of the status.
+- For each unique dimension value combination, the aggregated values for all the metrics such as `avg(size)` and `count(requests)` are pre-computed during ingestion time.
 
 ### Leaf nodes
 
@@ -68,10 +68,10 @@ To use the star-tree index, modify the following settings:
 - Set the feature flag `opensearch.experimental.feature.composite_index.star_tree.enabled` to `true`. For more information about enabling and disabling feature flags, see [Enabling experimental features]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
 - Set the `indices.composite_index.star_tree.enabled` setting to `true`. For instructions on how to configure OpenSearch, see [configuring settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#static-settings).
 - Set the `index.composite_index` index setting to `true` during index creation.
-- Ensure that the `doc_values` is enabled for the [dimensions](#ordered-dimensions) and [metrics](#metrics) fields used in your star-tree mapping.
+- Ensure that the `doc_values` parameter is enabled for the `dimensions` and `metrics` fields used in your star-tree mapping.
 
 
-## Example
+## Example mapping
 
 In the following example, index mappings define the star-tree configuration. This star-tree index pre-computes aggregations in the `log` index. The aggregations are calculated using the `size` and `latency` fields for all the combinations of values indexes in `port` and `status` fields.
 
@@ -132,7 +132,7 @@ PUT logs
 }
 ```
 
-For detailed information about star-tree index mapping and parameters see [star-tree  field type]({{site.url}}{{site.baseurl}}/field-types/star-tree/).
+For detailed information about star-tree index mapping and parameters see [star-tree field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/star-tree/).
 
 ## Supported query and aggregations
 
@@ -160,9 +160,9 @@ To use aggregations:
 - The fields must present in the `metrics` section of the star-tree configuration.
 - The metric aggregation type must be part of the `stats` parameter.
 
-### Examples
+### Aggregation example
 
-The following example gets the sum of the `size`field for all error logs with `status=500`, using the [example mapping](#defining-star-tree-index-in-mappings):
+The following example gets the sum of the `size` field for all error logs with `status=500`, using the [example mapping](#example-mapping):
 
 ```json
 POST /logs/_search
