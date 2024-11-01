@@ -7,11 +7,11 @@ nav_order: 90
 
 # Delimited payload token filter
 
-The `delimited_payload` token filter is used to parse and attach payloads (extra metadata) to tokens during the analysis process. This is particularly useful when you want to associate additional data (like weights, scores, or other numeric values) with tokens for use in scoring or custom query logic. The filter can handle different types of payloads, including integer, float, and strings. 
+The `delimited_payload` token filter is used to parse tokens containing payloads during the analysis process. For example, the string `red|1.5 fast|2.0 car|1.0` is parsed into tokens `red` (with a payload of `1.5`), `fast` (with a payload of `2.0), and `car` (with a payload of `1.0`). This is particularly useful when your tokens have additional associated data (like weights, scores, or other numeric values) that you can use for scoring or custom query logic. The filter can handle different types of payloads, including integer, float, and strings. and attach payloads (extra metadata) to tokens
 
-When analyzing text, `delimited_payload` token filter parses each token, extracts the payload, and attaches it to the token. This payload can later be used in queries to influence scoring, boosting, or other custom behaviors.
+When analyzing text, the `delimited_payload` token filter parses each token, extracts the payload, and attaches it to the token. This payload can later be used in queries to influence scoring, boosting, or other custom behaviors.
 
-The payload is not returned in the query response by default, additional configuration is needed in order to be able to view the payload, see [Example with stored payload]({{site.url}}{{site.baseurl}}/analyzers/token-filters/delimited-payload/#example-with-stored-payload)
+Payloads are stored as Base64-encoded strings. By default, payloads are not returned in the query response along with the tokens. To return the payloads, you must configure additional parameters. For more information, see [Example with stored payload]({{site.url}}{{site.baseurl}}/analyzers/token-filters/delimited-payload/#example-with-stored-payload).
 
 ## Parameters
 
@@ -19,12 +19,12 @@ The `delimited_payload` token filter has two parameters.
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
-`encoding` | Optional | String | Specifies the data type of the payload attached to the tokens. This determines how the payload data is stored and interpreted during analysis and querying.<br>There are three valid values:<br><br>- `identity`: The payload is treated as a sequence of characters. For example: `"user|admin"` where "admin" is stored as a string.<br>- `float`: The payload is interpreted as a 32-bit floating-point number using IEEE 754 format. For example: `"car|2.5"` would store 2.5 as a floating-point number.<br>- `int`: The payload is interpreted as a 32-bit integer. For example: `"priority|1"` would store 1 as an integer.
-`delimiter` | Optional | String | Specifies character used to separate the token from its payload in the input text. By default, this is set to the pipe character (`|`).
+`encoding` | Optional | String | Specifies the data type of the payload attached to the tokens. This determines how the payload data is interpreted during analysis and querying.<br>Valid values are:<br><br>- `float`: The payload is interpreted as a 32-bit floating-point number using IEEE 754 format (for example, `2.5` in `car|2.5`).<br>- `identity`: The payload is interpreted as a sequence of characters (for example, in `user|admin`, `admin` is interpreted as a string).<br>- `int`: The payload is interpreted as a 32-bit integer (for example, `1` in `priority|1`).<br> Default is `float`.
+`delimiter` | Optional | String | Specifies the character that separates the token from its payload in the input text. Default is the pipe character (`|`).
 
 ## Example without stored payload
 
-The following example request creates a new index named `my_index` and configures an analyzer with `delimited_payload` filter:
+The following example request creates a new index named `my_index` and configures an analyzer with a `delimited_payload` filter:
 
 ```json
 PUT /my_index
@@ -96,7 +96,7 @@ The response contains the generated tokens:
 
 ## Example with stored payload
 
-You can configure the payload to be returned in the response by creating an index that stores vectors, using `term_vector` set to `with_positions_payloads` or `with_positions_offsets_payloads` in mappings of the index, see following example:
+To configure the payload to be returned in the response, by create an index that stores term vectors by setting `term_vector` to `with_positions_payloads` or `with_positions_offsets_payloads` in the index mappings. For example, the following index is configured to store term vectors:
 
 ```json
 PUT /visible_payloads
@@ -131,7 +131,7 @@ PUT /visible_payloads
 ```
 {% include copy-curl.html %}
 
-You can index a document into this index using following request:
+You can index a document into this index using the following request:
 
 ```json
 PUT /visible_payloads/_doc/1
@@ -153,7 +153,7 @@ GET /visible_payloads/_termvectors/1
 ```
 {% include copy-curl.html %}
 
-The response contains the generated tokens which include payload:
+The response contains the generated tokens, which include payloads:
 
 ```json
 {
