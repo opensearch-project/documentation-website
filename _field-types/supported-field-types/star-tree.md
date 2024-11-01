@@ -129,7 +129,7 @@ When using the `ordered_dimesions` parameter, remember the following best practi
 - Support for other field_types such as `keyword`, `ip`  will be released in future versions. For more information, see [GitHub issue #16232](https://github.com/opensearch-project/OpenSearch/issues/16232).
 - A minimum of `2` and maximum of `10` dimensions are supported per star-tree index.
 
-`ordered_dimensions` supports the following property
+`ordered_dimensions` supports the following property.
 
 | Parameter  | Required/Optional | Description  | 
 | :--- | :--- | :--- |
