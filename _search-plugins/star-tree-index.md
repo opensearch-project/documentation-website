@@ -26,7 +26,7 @@ A star-tree index can be used to perform faster aggregations. Consider the follo
 
 Star-tree indexes have the following limitations:
 
-- Star-tree index should only be used on indexes whose data is not updated or deleted, as updates and deletions are not accounted for in a star-tree index.
+- A star-tree index should only be enabled on indexes whose data is not updated or deleted, as updates and deletions are not accounted for in a star-tree index.
 - A star-tree index can be used for aggregation queries only if the fields queried is a subset of the star-tree's dimensions and the aggregated fields are a subset of a star-tree's metrics.
 - After a star-tree index is enabled, it cannot be disabled. In order to disable a star-tree index, the data in the index must be reindexed without the star-tree mapping. Furthermore, changing a star-tree configuration will also require a reindex operation.
 - [Multi-values/array values]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/index/#arrays) are not supported.
@@ -41,16 +41,16 @@ The following image illustrates a standard star-tree index structure.
 
 Sorted and aggregated star-tree documents are backed by `doc-values` in an index. `doc_values` use the following pattern:
 
-- The values are sorted based on the order of `ordered_dimension`, in the previous example, first by `status` and then by `port` for each of the status.
+- The values are sorted based on the order of their `ordered_dimension`. The preceding image,  the dimensions are determined by the `status` setting and then by the `port` for each status.
 - For each unique dimension/value combination, the aggregated values for all the metrics, such as `avg(size)` and `count(requests)`, are precomputed during ingestion.
 
 ### Leaf nodes
 
-Each node in a star-tree index points to a range of star-tree documents. Nodes can be further split into child nodes based on the [max_leaf_docs configuration]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/star-tree/#star-tree-configuration-parameters). The number of documents that a leaf node points to is less than or equal to the number set by `max_leaf_docs`. This ensures that the maximum number of documents that traverse nodes to get to the aggregated value is at most `max_leaf_docs`, which provides predictable latency.
+Each node in a star-tree index points to a range of star-tree documents. Nodes can be further split into child nodes based on the [max_leaf_docs configuration]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/star-tree/#star-tree-configuration-parameters). The number of documents that a leaf node points to is less than or equal to the number set by `max_leaf_docs`. This ensures that the maximum number of documents that need to traverse nodes to derive an aggregated value is at most the number of `max_leaf_docs`, which provides predictable latency.
 
 ### Star nodes
 
-`star nodes (*)` fetch aggregated document whenever applicable during query time.
+Star nodes are children of non-leaf nodes which contain pre-aggregated records for data split after dimension removal, aggregating metrics for rows containing dimensions with identical values. These aggregated documents are then appended to end of star-tree documents. If a document does contain a dimension with identical values, it traverses through the star node.
 
 The star-tree index structure contains three examples demonstrating how a document traverses or does not traverse star-tree nodes (indicated by the `*` symbol in the diagram) during a `Term` query, based on the average request size of the query and whether the document contains matching dimensions.
 
@@ -132,7 +132,7 @@ PUT logs
 }
 ```
 
-For detailed information about star-tree index mapping and parameters see [star-tree field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/star-tree/).
+For detailed information about star-tree index mappings and parameters see [Star-tree field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/star-tree/).
 
 ## Supported queries and aggregations
 

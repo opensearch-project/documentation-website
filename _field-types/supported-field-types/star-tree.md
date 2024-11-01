@@ -25,7 +25,7 @@ To use a star-tree index, follow the instructions in [Enabling a star-tree index
 
 The star-tree index feature has the following limitations:
 
-- A star-tree index should only be used on indexes whose data is not updated or deleted because standard updates and deletions are not accounted for in a star-tree index.
+- A star-tree index should only be enabled on indexes whose data is not updated or deleted because standard updates and deletions are not accounted for in a star-tree index.
 - Currently, only `one` star-tree index can be created per index. Support for multiple star-trees will be added in a future version.
 
 ## Examples
@@ -190,7 +190,7 @@ The following parameters are optional and cannot be modified following index cre
 
 | Parameter  | Description   | 
 | :--- | :--- |
-| `max_leaf_docs` | The maximum number of star-tree documents that a leaf node can point to. After the maximum number of documents is reached, the nodes will be split to the next dimension. Default is `10000`. A lower value will use more storage but result in faster query performance. Inversely, a higher value will use less storage but result in slower query performance. For more information, see [Star-tree indexing structure]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/#star-tree-index-structure).  |
+| `max_leaf_docs` | The maximum number of star-tree documents that a leaf node can point to. After the maximum number of documents is reached, the nodes will be split based on the value of the next dimension. Default is `10000`. A lower value will use more storage but result in faster query performance. Inversely, a higher value will use less storage but result in slower query performance. For more information, see [Star-tree indexing structure]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/#star-tree-index-structure).  |
 | `skip_star_node_creation_for_dimensions`  | A list of dimensions for which a star-tree index will skip star node creation. When `true`, this reduces storage size at the expense of query performance. Default is `false`. For more information about star nodes, see [Star-tree indexing structure]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/#star-tree-index-structure). |
 
 ## Supported queries and aggregations
