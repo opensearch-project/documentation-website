@@ -52,14 +52,14 @@ Each node in a star-tree index points to a range of star-tree documents. Nodes c
 
 Star nodes are children of non-leaf nodes that contain preaggregated records for data split after dimension removal, aggregating metrics for rows containing dimensions with identical values. These aggregated documents are then appended to the end of star-tree documents. If a document does contain a dimension with identical values, it traverses through the star node.
 
-The star-tree index structure diagram contains the following three examples demonstrating how a document does or does not traverse star-tree nodes (indicated by the `*` symbol in the diagram) during a `Term` query, based on the average request size of the query and whether the document contains matching dimensions.
-
-Support for the `Term` query will be added in a future version. For more information, see [GitHub issue #15257](https://github.com/opensearch-project/OpenSearch/issues/15257).
-{: .note}
+The star-tree index structure diagram contains the following three examples demonstrating how a document does or does not traverse star-tree nodes (indicated by the `*` symbol in the diagram) during a `Term` query, based on the average request size of the query and whether the document contains matching dimensions:
 
 - When the port equals `8443` and the status equals `200`. Because the status equals `200`, the query does not traverse through a star node, and the aggregated metric is stored at the end of a star-tree document.
 - When the status equals `200`. The query traverses through a star node in the `port` dimension because `port` is not present as part of the query.
-- When the port equals `5600`. The query traverses through a star node in the `status` dimension because `status` is not present as part of the query. 
+- When the port equals `5600`. The query traverses through a star node in the `status` dimension because `status` is not present as part of the query.
+
+Support for the `Term` query will be added in a future version. For more information, see [GitHub issue #15257](https://github.com/opensearch-project/OpenSearch/issues/15257).
+{: .note}
 
 ## Enabling a star-tree index
 
@@ -139,6 +139,7 @@ For detailed information about star-tree index mappings and parameters, see [Sta
 Star-tree indexes can be used to optimize queries and aggregations. 
 
 ### Supported queries
+
 The following queries are supported as of OpenSearch 2.18:
 
 - [Term query](https://opensearch.org/docs/latest/query-dsl/term/term/)
