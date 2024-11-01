@@ -14,17 +14,17 @@ This token filter can be very useful for language-specific processing and handli
 
 ## Parameters
 
-There are two parameters that need to be configured to use `condition` token filter.
+There are two parameters that must be configured in order to use `condition` token filter.
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
-`filter` | Required | String | Specifies which token filters should be applied to the tokens when the specified condition (defined by the script parameter) is met.
-`script` | Required | String | Configures an [inline script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/exec-script/) which defines the condition that needs to be met for the filters specified in the `filter` parameter to be applied. (Only inline scripts can be accepted).
+`filter` | Required | Array | Specifies which token filters should be applied to the tokens when the specified condition (defined by the `script` parameter) is met.
+`script` | Required | Object | Configures an [inline script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/exec-script/) that defines the condition that needs to be met for the filters specified in the `filter` parameter to be applied. (Only inline scripts are accepted).
 
 
 ## Example
 
-The following example request creates a new index named `my_conditional_index` and configures an analyzer with `condition` filter. This filter applies `lowercase` filter to any tokens which contain characters "UM":
+The following example request creates a new index named `my_conditional_index` and configures an analyzer with a `condition` filter. This filter applies a `lowercase` filter to any tokens which contain the character sequence "UM":
 
 ```json
 PUT /my_conditional_index
