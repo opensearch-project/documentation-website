@@ -26,8 +26,8 @@ A star-tree index can be used to perform faster aggregations. Consider the follo
 
 Star-tree indexes have the following limitations:
 
-- A star-tree index should only be enabled on indexes whose data is not updated or deleted, as updates and deletions are not accounted for in a star-tree index.
-- A star-tree index can be used for aggregation queries only if the fields queried is a subset of the star-tree's dimensions and the aggregated fields are a subset of a star-tree's metrics.
+- A star-tree index should only be enabled on indexes whose data is not updated or deleted because updates and deletions are not accounted for in a star-tree index.
+- A star-tree index can be used for aggregation queries only if the queried fields are a subset of the star-tree's dimensions and the aggregated fields are a subset of the star-tree's metrics.
 - After a star-tree index is enabled, it cannot be disabled. In order to disable a star-tree index, the data in the index must be reindexed without the star-tree mapping. Furthermore, changing a star-tree configuration will also require a reindex operation.
 - [Multi-values/array values]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/index/#arrays) are not supported.
 - Only [limited queries and aggregations](#supported-queries-and-aggregations) are supported. Support for more features will be added in future versions.
@@ -41,7 +41,7 @@ The following image illustrates a standard star-tree index structure.
 
 Sorted and aggregated star-tree documents are backed by `doc-values` in an index. `doc_values` use the following pattern:
 
-- The values are sorted based on the order of their `ordered_dimension`. The preceding image,  the dimensions are determined by the `status` setting and then by the `port` for each status.
+- The values are sorted based on the order of their `ordered_dimension`. In the preceding image, the dimensions are determined by the `status` setting and then by the `port` for each status.
 - For each unique dimension/value combination, the aggregated values for all the metrics, such as `avg(size)` and `count(requests)`, are precomputed during ingestion.
 
 ### Leaf nodes
@@ -50,16 +50,16 @@ Each node in a star-tree index points to a range of star-tree documents. Nodes c
 
 ### Star nodes
 
-Star nodes are children of non-leaf nodes which contain pre-aggregated records for data split after dimension removal, aggregating metrics for rows containing dimensions with identical values. These aggregated documents are then appended to end of star-tree documents. If a document does contain a dimension with identical values, it traverses through the star node.
+Star nodes are children of non-leaf nodes that contain preaggregated records for data split after dimension removal, aggregating metrics for rows containing dimensions with identical values. These aggregated documents are then appended to the end of star-tree documents. If a document does contain a dimension with identical values, it traverses through the star node.
 
 The star-tree index structure contains three examples demonstrating how a document traverses or does not traverse star-tree nodes (indicated by the `*` symbol in the diagram) during a `Term` query, based on the average request size of the query and whether the document contains matching dimensions.
 
 Support for the `Term` query will be added in a future version. For more information, see [GitHub issue #15257](https://github.com/opensearch-project/OpenSearch/issues/15257).
 {: .note}
 
-- Where port the equals `8443` and status equals `200`. Because the status equals `200`, the query does not traverse through a star node and the aggregated metric is stored at the end of a star-tree document.
-- Where status equals `200`. The query traverses through a star node in the `port` dimension, since `port` is not present as part of query.
-- Where port equals `5600`. The query traverses through a star node in the `status` dimension, since `status` is not present as part of query. 
+- When the port equals `8443` and the status equals `200`. Because the status equals `200`, the query does not traverse through a star node, and the aggregated metric is stored at the end of a star-tree document.
+- When the status equals `200`. The query traverses through a star node in the `port` dimension because `port` is not present as part of the query.
+- When the port equals `5600`. The query traverses through a star node in the `status` dimension because `status` is not present as part of the query. 
 
 ## Enabling a star-tree index
 
@@ -132,7 +132,7 @@ PUT logs
 }
 ```
 
-For detailed information about star-tree index mappings and parameters see [Star-tree field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/star-tree/).
+For detailed information about star-tree index mappings and parameters, see [Star-tree field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/star-tree/).
 
 ## Supported queries and aggregations
 
