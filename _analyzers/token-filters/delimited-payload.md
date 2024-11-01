@@ -96,7 +96,7 @@ The response contains the generated tokens:
 
 ## Example with stored payload
 
-To configure the payload to be returned in the response, by create an index that stores term vectors by setting `term_vector` to `with_positions_payloads` or `with_positions_offsets_payloads` in the index mappings. For example, the following index is configured to store term vectors:
+To configure the payload to be returned in the response, create an index that stores term vectors and set `term_vector` to `with_positions_payloads` or `with_positions_offsets_payloads` in the index mappings. For example, the following index is configured to store term vectors:
 
 ```json
 PUT /visible_payloads
