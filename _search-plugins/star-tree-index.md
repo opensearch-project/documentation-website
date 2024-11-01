@@ -26,7 +26,7 @@ Star-tree index can be used to perform faster aggregations. Consider the followi
 
 Star-tree indexes contain the following limitations:
 
-- Star-tree index should only be used on indexes whose data is not updated or deleted, as updates and deletions are not accounted for in a  star-tree index.
+- Star-tree index should only be used on indexes whose data is not updated or deleted, as updates and deletions are not accounted for in a star-tree index.
 - A star-tree index can be used for aggregation queries only if the fields queried is a subset of the star-trees dimensions and the aggregated fields are a subset of a star-trees metrics.
 - After the star-tree index is enabled for an index, it cannot be disabled. In order to disable the star-tree index, the data in the index must be re-indexed without the star-tree mapping. Furthermore, changing a star-tree configuration will also require a re-index operation.
 - [Multi-values/array values]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/index/#arrays) are not supported
