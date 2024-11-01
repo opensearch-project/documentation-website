@@ -43,6 +43,11 @@ There are three buttons in the upper right corner of the workspace details page.
 
 ## Start adding assets into your workspace
 
+You can find `Sample data` section in the left navigation, please select that and feel free to install sample data to your cluster and OSD.
+
+<img src="{{site.url}}{{site.baseurl}}/images/workspace/management-workspace/sample-data.png" alt="workspace sample data" width="900" />
+
+
 ## Copy assets among your workspaces
 
 The assets page supports copying assets among your workspace. There are three buttons that can copy assets:
