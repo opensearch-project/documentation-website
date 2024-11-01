@@ -39,7 +39,7 @@ The following image illustrates a standard star-tree index structure.
 
 <img src="{{site.url}}{{site.baseurl}}/images/star-tree-index.png" alt="A star-tree index containing two dimensions and two metrics" width="700">
 
-Sorted and aggregated star-tree documents are backed by `doc-values` in an index. `doc_values` use the following pattern:
+Sorted and aggregated star-tree documents are backed by `doc_values` in an index. `doc_values` use the following pattern:
 
 - The values are sorted based on the order of their `ordered_dimension`. In the preceding image, the dimensions are determined by the `status` setting and then by the `port` for each status.
 - For each unique dimension/value combination, the aggregated values for all the metrics, such as `avg(size)` and `count(requests)`, are precomputed during ingestion.
