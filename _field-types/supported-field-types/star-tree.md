@@ -30,7 +30,7 @@ The star-tree index feature has the following limitations:
 
 ## Examples
 
-The following examples show how to use a star-tree index
+The following examples show how to use a star-tree index.
 
 ### Star-tree index mapping
 
