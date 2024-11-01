@@ -24,7 +24,7 @@ Parameter | Required/Optional | Data type | Description
 
 ## Example
 
-The following example request creates a new index named `my_conditional_index` and configures an analyzer with a `condition` filter. This filter applies a `lowercase` filter to any tokens which contain the character sequence "UM":
+The following example request creates a new index named `my_conditional_index` and configures an analyzer with a `condition` filter. This filter applies a `lowercase` filter to any tokens which contain the character sequence "um":
 
 ```json
 PUT /my_conditional_index
@@ -36,7 +36,7 @@ PUT /my_conditional_index
           "type": "condition",
           "filter": ["lowercase"],
           "script": {
-            "source": "token.getTerm().toString().contains('UM')"
+            "source": "token.getTerm().toString().contains('um')"
           }
         }
       },
