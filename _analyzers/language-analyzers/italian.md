@@ -52,7 +52,7 @@ The `italian` analyzer is build using the following:
 
 Tokenizer: `standard`
 
-Token Filters:
+Token filters:
 - elision (Italian)
 - lowercase
 - stop (Italian)

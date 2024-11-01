@@ -52,7 +52,7 @@ The `basque` analyzer is build using the following:
 
 Tokenizer: `standard`
 
-Token Filters:
+Token filters:
 - lowercase
 - stop (Basque)
 - keywords

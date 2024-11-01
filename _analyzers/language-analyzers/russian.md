@@ -1,23 +1,23 @@
 ---
 layout: default
-title: Czech
+title: Russian
 parent: Language analyzers
 grand_parent: Analyzers
-nav_order: 90
+nav_order: 280
 ---
 
-# Czech analyzer
+# Russian analyzer
 
-The built-in `czech` analyzer can be applied to a text field using the following command:
+The built-in `russian` analyzer can be applied to a text field using the following command:
 
 ```json
-PUT /czech-index
+PUT /russian-index
 {
   "mappings": {
     "properties": {
       "content": {
         "type": "text",
-        "analyzer": "czech"
+        "analyzer": "russian"
       }
     }
   }
@@ -30,14 +30,14 @@ PUT /czech-index
 You can also use `stem_exclusion` with this language analyzer using the following command:
 
 ```json
-PUT index_with_stem_exclusion_czech_analyzer
+PUT index_with_stem_exclusion_russian_analyzer
 {
   "settings": {
     "analysis": {
       "analyzer": {
-        "stem_exclusion_czech_analyzer": {
-          "type": "czech",
-          "stem_exclusion": ["autorita", "schválení"]
+        "stem_exclusion_russian_analyzer": {
+          "type": "russian",
+          "stem_exclusion": ["авторитет", "одобрение"]
         }
       }
     }
@@ -46,50 +46,50 @@ PUT index_with_stem_exclusion_czech_analyzer
 ```
 {% include copy-curl.html %}
 
-## Czech analyzer internals
+## Russian analyzer internals
 
-The `czech` analyzer is build using the following:
+The `russian` analyzer is build using the following:
 
 Tokenizer: `standard`
 
-Token filters:
+Token Filters:
 - lowercase
-- stop (Czech)
+- stop (Russian)
 - keyword
-- stemmer (Czech)
+- stemmer (Russian)
 
-## Custom Czech analyzer
+## Custom Russian analyzer
 
-You can create custom Czech analyzer using the following command:
+You can create custom Russian analyzer using the following command:
 
 ```json
-PUT /czech-index
+PUT /russian-index
 {
   "settings": {
     "analysis": {
       "filter": {
-        "czech_stop": {
+        "russian_stop": {
           "type": "stop",
-          "stopwords": "_czech_"
+          "stopwords": "_russian_"
         },
-        "czech_stemmer": {
+        "russian_stemmer": {
           "type": "stemmer",
-          "language": "czech"
+          "language": "russian"
         },
-        "czech_keywords": {
-          "type":       "keyword_marker",
-          "keywords":   [] 
+        "russian_keywords": {
+          "type": "keyword_marker",
+          "keywords": []
         }
       },
       "analyzer": {
-        "czech_analyzer": {
+        "russian_analyzer": {
           "type": "custom",
           "tokenizer": "standard",
           "filter": [
             "lowercase",
-            "czech_stop",
-            "czech_keywords",
-            "czech_stemmer"
+            "russian_stop",
+            "russian_keywords",
+            "russian_stemmer"
           ]
         }
       }
@@ -99,7 +99,7 @@ PUT /czech-index
     "properties": {
       "content": {
         "type": "text",
-        "analyzer": "czech_analyzer"
+        "analyzer": "russian_analyzer"
       }
     }
   }
@@ -112,10 +112,10 @@ PUT /czech-index
 Use the following request to examine the tokens generated using the analyzer:
 
 ```json
-POST /czech-index/_analyze
+POST /russian-index/_analyze
 {
   "field": "content",
-  "text": "Studenti studují na českých univerzitách. Jejich čísla jsou 123456."
+  "text": "Студенты учатся в университетах России. Их номера 123456."
 }
 ```
 {% include copy-curl.html %}
@@ -126,46 +126,46 @@ The response contains the generated tokens:
 {
   "tokens": [
     {
-      "token": "student",
+      "token": "студент",
       "start_offset": 0,
       "end_offset": 8,
       "type": "<ALPHANUM>",
       "position": 0
     },
     {
-      "token": "studuj",
+      "token": "учат",
       "start_offset": 9,
-      "end_offset": 16,
+      "end_offset": 15,
       "type": "<ALPHANUM>",
       "position": 1
     },
     {
-      "token": "česk",
-      "start_offset": 20,
-      "end_offset": 27,
+      "token": "университет",
+      "start_offset": 18,
+      "end_offset": 31,
       "type": "<ALPHANUM>",
       "position": 3
     },
     {
-      "token": "univerzit",
-      "start_offset": 28,
-      "end_offset": 40,
+      "token": "росс",
+      "start_offset": 32,
+      "end_offset": 38,
       "type": "<ALPHANUM>",
       "position": 4
     },
     {
-      "token": "čísl",
-      "start_offset": 49,
-      "end_offset": 54,
+      "token": "номер",
+      "start_offset": 43,
+      "end_offset": 49,
       "type": "<ALPHANUM>",
       "position": 6
     },
     {
       "token": "123456",
-      "start_offset": 60,
-      "end_offset": 66,
+      "start_offset": 50,
+      "end_offset": 56,
       "type": "<NUM>",
-      "position": 8
+      "position": 7
     }
   ]
 }

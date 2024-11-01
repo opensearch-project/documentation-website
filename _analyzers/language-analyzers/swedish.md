@@ -1,23 +1,23 @@
 ---
 layout: default
-title: Danish
+title: Swedish
 parent: Language analyzers
 grand_parent: Analyzers
-nav_order: 100
+nav_order: 310
 ---
 
-# Danish analyzer
+# Swedish analyzer
 
-The built-in `danish` analyzer can be applied to a text field using the following command:
+The built-in `swedish` analyzer can be applied to a text field using the following command:
 
 ```json
-PUT /danish-index
+PUT /swedish-index
 {
   "mappings": {
     "properties": {
       "content": {
         "type": "text",
-        "analyzer": "danish"
+        "analyzer": "swedish"
       }
     }
   }
@@ -30,14 +30,14 @@ PUT /danish-index
 You can also use `stem_exclusion` with this language analyzer using the following command:
 
 ```json
-PUT index_with_stem_exclusion_danish_analyzer
+PUT index_with_stem_exclusion_swedish_analyzer
 {
   "settings": {
     "analysis": {
       "analyzer": {
-        "stem_exclusion_danish_analyzer": {
-          "type": "danish",
-          "stem_exclusion": ["autoritet", "godkendelse"]
+        "stem_exclusion_swedish_analyzer": {
+          "type": "swedish",
+          "stem_exclusion": ["myndighet", "godkännande"]
         }
       }
     }
@@ -46,50 +46,50 @@ PUT index_with_stem_exclusion_danish_analyzer
 ```
 {% include copy-curl.html %}
 
-## Danish analyzer internals
+## Swedish analyzer internals
 
-The `danish` analyzer is build using the following:
+The `swedish` analyzer is build using the following:
 
 Tokenizer: `standard`
 
-Token filters:
+Token Filters:
 - lowercase
-- stop (Danish)
+- stop (Swedish)
 - keyword
-- stemmer (Danish)
+- stemmer (Swedish)
 
-## Custom Danish analyzer
+## Custom Swedish analyzer
 
-You can create custom Danish analyzer using the following command:
+You can create custom Swedish analyzer using the following command:
 
 ```json
-PUT /danish-index
+PUT /swedish-index
 {
   "settings": {
     "analysis": {
       "filter": {
-        "danish_stop": {
+        "swedish_stop": {
           "type": "stop",
-          "stopwords": "_danish_"
+          "stopwords": "_swedish_"
         },
-        "danish_stemmer": {
+        "swedish_stemmer": {
           "type": "stemmer",
-          "language": "danish"
+          "language": "swedish"
         },
-        "danish_keywords": {
-          "type":       "keyword_marker",
-          "keywords":   [] 
+        "swedish_keywords": {
+          "type": "keyword_marker",
+          "keywords": []
         }
       },
       "analyzer": {
-        "danish_analyzer": {
+        "swedish_analyzer": {
           "type": "custom",
           "tokenizer": "standard",
           "filter": [
             "lowercase",
-            "danish_stop",
-            "danish_keywords",
-            "danish_stemmer"
+            "swedish_stop",
+            "swedish_keywords",
+            "swedish_stemmer"
           ]
         }
       }
@@ -99,7 +99,7 @@ PUT /danish-index
     "properties": {
       "content": {
         "type": "text",
-        "analyzer": "danish_analyzer"
+        "analyzer": "swedish_analyzer"
       }
     }
   }
@@ -112,10 +112,10 @@ PUT /danish-index
 Use the following request to examine the tokens generated using the analyzer:
 
 ```json
-POST /danish-index/_analyze
+POST /swedish-index/_analyze
 {
   "field": "content",
-  "text": "Studerende studerer på de danske universiteter. Deres numre er 123456."
+  "text": "Studenter studerar vid svenska universitet. Deras nummer är 123456."
 }
 ```
 {% include copy-curl.html %}
@@ -126,46 +126,46 @@ The response contains the generated tokens:
 {
   "tokens": [
     {
-      "token": "stud",
+      "token": "student",
       "start_offset": 0,
-      "end_offset": 10,
+      "end_offset": 9,
       "type": "<ALPHANUM>",
       "position": 0
     },
     {
-      "token": "stud",
-      "start_offset": 11,
-      "end_offset": 19,
+      "token": "studer",
+      "start_offset": 10,
+      "end_offset": 18,
       "type": "<ALPHANUM>",
       "position": 1
     },
     {
-      "token": "dansk",
-      "start_offset": 26,
-      "end_offset": 32,
+      "token": "svensk",
+      "start_offset": 23,
+      "end_offset": 30,
+      "type": "<ALPHANUM>",
+      "position": 3
+    },
+    {
+      "token": "universitet",
+      "start_offset": 31,
+      "end_offset": 42,
       "type": "<ALPHANUM>",
       "position": 4
     },
     {
-      "token": "universitet",
-      "start_offset": 33,
-      "end_offset": 46,
+      "token": "numm",
+      "start_offset": 50,
+      "end_offset": 56,
       "type": "<ALPHANUM>",
-      "position": 5
-    },
-    {
-      "token": "numr",
-      "start_offset": 54,
-      "end_offset": 59,
-      "type": "<ALPHANUM>",
-      "position": 7
+      "position": 6
     },
     {
       "token": "123456",
-      "start_offset": 63,
-      "end_offset": 69,
+      "start_offset": 60,
+      "end_offset": 66,
       "type": "<NUM>",
-      "position": 9
+      "position": 8
     }
   ]
 }

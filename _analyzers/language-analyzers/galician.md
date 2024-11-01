@@ -52,7 +52,7 @@ The `galician` analyzer is build using the following:
 
 Tokenizer: `standard`
 
-Token Filters:
+Token filters:
 - lowercase
 - stop (French)
 - keyword

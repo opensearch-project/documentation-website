@@ -52,7 +52,7 @@ The `irish` analyzer is build using the following:
 
 Tokenizer: `standard`
 
-Token Filters:
+Token filters:
 - hyphenation (Irish)
 - elision (Irish)
 - lowercase (Irish)

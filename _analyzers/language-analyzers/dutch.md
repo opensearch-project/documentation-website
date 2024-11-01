@@ -52,7 +52,7 @@ The `dutch` analyzer is build using the following:
 
 Tokenizer: `standard`
 
-Token Filters:
+Token filters:
 - lowercase
 - stop (Dutch)
 - keyword

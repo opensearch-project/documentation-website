@@ -52,7 +52,7 @@ The `greek` analyzer is build using the following:
 
 Tokenizer: `standard`
 
-Token Filters:
+Token filters:
 - lowercase
 - stop (Greek)
 - keyword

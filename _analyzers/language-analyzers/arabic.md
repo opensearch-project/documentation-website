@@ -52,7 +52,7 @@ The `arabic` analyzer is build using the following:
 
 Tokenizer: `standard`
 
-Token Filters:
+Token filters:
 - lowercase
 - decimal_digit
 - stop (Arabic)

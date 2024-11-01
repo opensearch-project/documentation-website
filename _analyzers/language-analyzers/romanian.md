@@ -1,23 +1,23 @@
 ---
 layout: default
-title: Danish
+title: Romanian
 parent: Language analyzers
 grand_parent: Analyzers
-nav_order: 100
+nav_order: 270
 ---
 
-# Danish analyzer
+# Romanian analyzer
 
-The built-in `danish` analyzer can be applied to a text field using the following command:
+The built-in `romanian` analyzer can be applied to a text field using the following command:
 
 ```json
-PUT /danish-index
+PUT /romanian-index
 {
   "mappings": {
     "properties": {
       "content": {
         "type": "text",
-        "analyzer": "danish"
+        "analyzer": "romanian"
       }
     }
   }
@@ -30,14 +30,14 @@ PUT /danish-index
 You can also use `stem_exclusion` with this language analyzer using the following command:
 
 ```json
-PUT index_with_stem_exclusion_danish_analyzer
+PUT index_with_stem_exclusion_romanian_analyzer
 {
   "settings": {
     "analysis": {
       "analyzer": {
-        "stem_exclusion_danish_analyzer": {
-          "type": "danish",
-          "stem_exclusion": ["autoritet", "godkendelse"]
+        "stem_exclusion_romanian_analyzer": {
+          "type": "romanian",
+          "stem_exclusion": ["autoritate", "aprobat"]
         }
       }
     }
@@ -46,50 +46,50 @@ PUT index_with_stem_exclusion_danish_analyzer
 ```
 {% include copy-curl.html %}
 
-## Danish analyzer internals
+## Romanian analyzer internals
 
-The `danish` analyzer is build using the following:
+The `romanian` analyzer is build using the following:
 
 Tokenizer: `standard`
 
-Token filters:
+Token Filters:
 - lowercase
-- stop (Danish)
+- stop (Romanian)
 - keyword
-- stemmer (Danish)
+- stemmer (Romanian)
 
-## Custom Danish analyzer
+## Custom Romanian analyzer
 
-You can create custom Danish analyzer using the following command:
+You can create custom Romanian analyzer using the following command:
 
 ```json
-PUT /danish-index
+PUT /romanian-index
 {
   "settings": {
     "analysis": {
       "filter": {
-        "danish_stop": {
+        "romanian_stop": {
           "type": "stop",
-          "stopwords": "_danish_"
+          "stopwords": "_romanian_"
         },
-        "danish_stemmer": {
+        "romanian_stemmer": {
           "type": "stemmer",
-          "language": "danish"
+          "language": "romanian"
         },
-        "danish_keywords": {
-          "type":       "keyword_marker",
-          "keywords":   [] 
+        "romanian_keywords": {
+          "type": "keyword_marker",
+          "keywords": []
         }
       },
       "analyzer": {
-        "danish_analyzer": {
+        "romanian_analyzer": {
           "type": "custom",
           "tokenizer": "standard",
           "filter": [
             "lowercase",
-            "danish_stop",
-            "danish_keywords",
-            "danish_stemmer"
+            "romanian_stop",
+            "romanian_keywords",
+            "romanian_stemmer"
           ]
         }
       }
@@ -99,7 +99,7 @@ PUT /danish-index
     "properties": {
       "content": {
         "type": "text",
-        "analyzer": "danish_analyzer"
+        "analyzer": "romanian_analyzer"
       }
     }
   }
@@ -112,10 +112,10 @@ PUT /danish-index
 Use the following request to examine the tokens generated using the analyzer:
 
 ```json
-POST /danish-index/_analyze
+POST /romanian-index/_analyze
 {
   "field": "content",
-  "text": "Studerende studerer på de danske universiteter. Deres numre er 123456."
+  "text": "Studenții învață la universitățile din România. Numerele lor sunt 123456."
 }
 ```
 {% include copy-curl.html %}
@@ -126,44 +126,44 @@ The response contains the generated tokens:
 {
   "tokens": [
     {
-      "token": "stud",
+      "token": "studenț",
       "start_offset": 0,
-      "end_offset": 10,
+      "end_offset": 9,
       "type": "<ALPHANUM>",
       "position": 0
     },
     {
-      "token": "stud",
-      "start_offset": 11,
-      "end_offset": 19,
+      "token": "învaț",
+      "start_offset": 10,
+      "end_offset": 16,
       "type": "<ALPHANUM>",
       "position": 1
     },
     {
-      "token": "dansk",
-      "start_offset": 26,
-      "end_offset": 32,
+      "token": "universităț",
+      "start_offset": 20,
+      "end_offset": 34,
       "type": "<ALPHANUM>",
-      "position": 4
+      "position": 3
     },
     {
-      "token": "universitet",
-      "start_offset": 33,
+      "token": "român",
+      "start_offset": 39,
       "end_offset": 46,
       "type": "<ALPHANUM>",
       "position": 5
     },
     {
-      "token": "numr",
-      "start_offset": 54,
-      "end_offset": 59,
+      "token": "numer",
+      "start_offset": 48,
+      "end_offset": 56,
       "type": "<ALPHANUM>",
-      "position": 7
+      "position": 6
     },
     {
       "token": "123456",
-      "start_offset": 63,
-      "end_offset": 69,
+      "start_offset": 66,
+      "end_offset": 72,
       "type": "<NUM>",
       "position": 9
     }

@@ -52,7 +52,7 @@ The `hungarian` analyzer is build using the following:
 
 Tokenizer: `standard`
 
-Token Filters:
+Token filters:
 - lowercase
 - stop (Hungarian)
 - keyword

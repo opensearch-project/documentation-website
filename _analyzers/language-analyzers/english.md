@@ -52,7 +52,7 @@ The `english` analyzer is build using the following:
 
 Tokenizer: `standard`
 
-Token Filters:
+Token filters:
 - stemmer (possessive_english)
 - lowercase
 - stop (English)

@@ -52,7 +52,7 @@ The `french` analyzer is build using the following:
 
 Tokenizer: `standard`
 
-Token Filters:
+Token filters:
 - elision (French)
 - lowercase
 - stop (French)

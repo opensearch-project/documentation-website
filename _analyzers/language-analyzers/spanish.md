@@ -1,23 +1,23 @@
 ---
 layout: default
-title: German
+title: Spanish
 parent: Language analyzers
 grand_parent: Analyzers
-nav_order: 170
+nav_order: 300
 ---
 
-# German analyzer
+# Spanish analyzer
 
-The built-in `german` analyzer can be applied to a text field using the following command:
+The built-in `spanish` analyzer can be applied to a text field using the following command:
 
 ```json
-PUT /german-index
+PUT /spanish-index
 {
   "mappings": {
     "properties": {
       "content": {
         "type": "text",
-        "analyzer": "german"
+        "analyzer": "spanish"
       }
     }
   }
@@ -30,14 +30,14 @@ PUT /german-index
 You can also use `stem_exclusion` with this language analyzer using the following command:
 
 ```json
-PUT index_with_stem_exclusion_german_analyzer
+PUT index_with_stem_exclusion_spanish_analyzer
 {
   "settings": {
     "analysis": {
       "analyzer": {
-        "stem_exclusion_german_analyzer": {
-          "type": "german",
-          "stem_exclusion": ["Autorität", "Genehmigung"]
+        "stem_exclusion_spanish_analyzer": {
+          "type": "spanish",
+          "stem_exclusion": ["autoridad", "aprobación"]
         }
       }
     }
@@ -46,52 +46,50 @@ PUT index_with_stem_exclusion_german_analyzer
 ```
 {% include copy-curl.html %}
 
-## German analyzer internals
+## Spanish analyzer internals
 
-The `german` analyzer is build using the following:
+The `spanish` analyzer is build using the following:
 
 Tokenizer: `standard`
 
-Token filters:
+Token Filters:
 - lowercase
-- stop (German)
+- stop (Spanish)
 - keyword
-- normalization (German)
-- stemmer (German)
+- stemmer (Spanish)
 
-## Custom German analyzer
+## Custom Spanish analyzer
 
-You can create custom German analyzer using the following command:
+You can create custom Spanish analyzer using the following command:
 
 ```json
-PUT /german-index
+PUT /spanish-index
 {
   "settings": {
     "analysis": {
       "filter": {
-        "german_stop": {
+        "spanish_stop": {
           "type": "stop",
-          "stopwords": "_german_"
+          "stopwords": "_spanish_"
         },
-        "german_stemmer": {
+        "spanish_stemmer": {
           "type": "stemmer",
-          "language": "light_german"
+          "language": "light_spanish"
         },
-        "german_keywords": {
+        "spanish_keywords": {
           "type": "keyword_marker",
           "keywords": []
         }
       },
       "analyzer": {
-        "german_analyzer": {
+        "spanish_analyzer": {
           "type": "custom",
           "tokenizer": "standard",
           "filter": [
             "lowercase",
-            "german_stop",
-            "german_keywords",
-            "german_normalization",
-            "german_stemmer"
+            "spanish_stop",
+            "spanish_keywords",
+            "spanish_stemmer"
           ]
         }
       }
@@ -101,7 +99,7 @@ PUT /german-index
     "properties": {
       "content": {
         "type": "text",
-        "analyzer": "german_analyzer"
+        "analyzer": "spanish_analyzer"
       }
     }
   }
@@ -114,10 +112,10 @@ PUT /german-index
 Use the following request to examine the tokens generated using the analyzer:
 
 ```json
-POST /german-index/_analyze
+POST /spanish-index/_analyze
 {
   "field": "content",
-  "text": "Die Studenten studieren an den deutschen Universitäten. Ihre Nummern sind 123456."
+  "text": "Los estudiantes estudian en universidades españolas. Sus números son 123456."
 }
 ```
 {% include copy-curl.html %}
@@ -128,46 +126,46 @@ The response contains the generated tokens:
 {
   "tokens": [
     {
-      "token": "student",
+      "token": "estudiant",
       "start_offset": 4,
-      "end_offset": 13,
+      "end_offset": 15,
       "type": "<ALPHANUM>",
       "position": 1
     },
     {
-      "token": "studi",
-      "start_offset": 14,
-      "end_offset": 23,
+      "token": "estudian",
+      "start_offset": 16,
+      "end_offset": 24,
       "type": "<ALPHANUM>",
       "position": 2
     },
     {
-      "token": "deutsch",
-      "start_offset": 31,
-      "end_offset": 40,
+      "token": "universidad",
+      "start_offset": 28,
+      "end_offset": 41,
+      "type": "<ALPHANUM>",
+      "position": 4
+    },
+    {
+      "token": "español",
+      "start_offset": 42,
+      "end_offset": 51,
       "type": "<ALPHANUM>",
       "position": 5
     },
     {
-      "token": "universitat",
-      "start_offset": 41,
-      "end_offset": 54,
+      "token": "numer",
+      "start_offset": 57,
+      "end_offset": 64,
       "type": "<ALPHANUM>",
-      "position": 6
-    },
-    {
-      "token": "numm",
-      "start_offset": 61,
-      "end_offset": 68,
-      "type": "<ALPHANUM>",
-      "position": 8
+      "position": 7
     },
     {
       "token": "123456",
-      "start_offset": 74,
-      "end_offset": 80,
+      "start_offset": 69,
+      "end_offset": 75,
       "type": "<NUM>",
-      "position": 10
+      "position": 9
     }
   ]
 }

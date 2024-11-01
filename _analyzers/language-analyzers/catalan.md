@@ -52,7 +52,7 @@ The `catalan` analyzer is build using the following:
 
 Tokenizer: `standard`
 
-Token Filters:
+Token filters:
 - elision (Catalan)
 - lowercase
 - stop (Catalan)

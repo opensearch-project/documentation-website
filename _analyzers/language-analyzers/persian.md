@@ -52,7 +52,9 @@ The `persian` analyzer is build using the following:
 
 Tokenizer: `standard`
 
-Token Filters:
+Char filter: `mapping`
+
+Token filters:
 - lowercase
 - decimal_digit
 - normalization (Arabic)

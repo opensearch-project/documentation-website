@@ -1,23 +1,23 @@
 ---
 layout: default
-title: Czech
+title: Sorani
 parent: Language analyzers
 grand_parent: Analyzers
-nav_order: 90
+nav_order: 290
 ---
 
-# Czech analyzer
+# Sorani analyzer
 
-The built-in `czech` analyzer can be applied to a text field using the following command:
+The built-in `sorani` analyzer can be applied to a text field using the following command:
 
 ```json
-PUT /czech-index
+PUT /sorani-index
 {
   "mappings": {
     "properties": {
       "content": {
         "type": "text",
-        "analyzer": "czech"
+        "analyzer": "sorani"
       }
     }
   }
@@ -30,14 +30,14 @@ PUT /czech-index
 You can also use `stem_exclusion` with this language analyzer using the following command:
 
 ```json
-PUT index_with_stem_exclusion_czech_analyzer
+PUT index_with_stem_exclusion_sorani_analyzer
 {
   "settings": {
     "analysis": {
       "analyzer": {
-        "stem_exclusion_czech_analyzer": {
-          "type": "czech",
-          "stem_exclusion": ["autorita", "schválení"]
+        "stem_exclusion_sorani_analyzer": {
+          "type": "sorani",
+          "stem_exclusion": ["مؤسسه", "اجازه"]
         }
       }
     }
@@ -46,50 +46,53 @@ PUT index_with_stem_exclusion_czech_analyzer
 ```
 {% include copy-curl.html %}
 
-## Czech analyzer internals
+## Sorani analyzer internals
 
-The `czech` analyzer is build using the following:
+The `sorani` analyzer is build using the following:
 
 Tokenizer: `standard`
 
-Token filters:
+Token Filters:
+- normalization (Sorani)
 - lowercase
-- stop (Czech)
+- decimal_digit
+- stop (Sorani)
 - keyword
-- stemmer (Czech)
+- stemmer (Sorani)
 
-## Custom Czech analyzer
+## Custom Sorani analyzer
 
-You can create custom Czech analyzer using the following command:
+You can create custom Sorani analyzer using the following command:
 
 ```json
-PUT /czech-index
+PUT /sorani-index
 {
   "settings": {
     "analysis": {
       "filter": {
-        "czech_stop": {
+        "sorani_stop": {
           "type": "stop",
-          "stopwords": "_czech_"
+          "stopwords": "_sorani_"
         },
-        "czech_stemmer": {
+        "sorani_stemmer": {
           "type": "stemmer",
-          "language": "czech"
+          "language": "sorani"
         },
-        "czech_keywords": {
-          "type":       "keyword_marker",
-          "keywords":   [] 
+        "sorani_keywords": {
+          "type": "keyword_marker",
+          "keywords": []
         }
       },
       "analyzer": {
-        "czech_analyzer": {
+        "sorani_analyzer": {
           "type": "custom",
           "tokenizer": "standard",
           "filter": [
             "lowercase",
-            "czech_stop",
-            "czech_keywords",
-            "czech_stemmer"
+            "decimal_digit",
+            "sorani_stop",
+            "sorani_keywords",
+            "sorani_stemmer"
           ]
         }
       }
@@ -99,7 +102,7 @@ PUT /czech-index
     "properties": {
       "content": {
         "type": "text",
-        "analyzer": "czech_analyzer"
+        "analyzer": "sorani_analyzer"
       }
     }
   }
@@ -112,10 +115,10 @@ PUT /czech-index
 Use the following request to examine the tokens generated using the analyzer:
 
 ```json
-POST /czech-index/_analyze
+POST /sorani-index/_analyze
 {
   "field": "content",
-  "text": "Studenti studují na českých univerzitách. Jejich čísla jsou 123456."
+  "text": "خوێندنی فەرمی لە هەولێرەوە. ژمارەکان ١٢٣٤٥٦."
 }
 ```
 {% include copy-curl.html %}
@@ -126,46 +129,39 @@ The response contains the generated tokens:
 {
   "tokens": [
     {
-      "token": "student",
+      "token": "خوێندن",
       "start_offset": 0,
-      "end_offset": 8,
+      "end_offset": 7,
       "type": "<ALPHANUM>",
       "position": 0
     },
     {
-      "token": "studuj",
-      "start_offset": 9,
-      "end_offset": 16,
+      "token": "فەرم",
+      "start_offset": 8,
+      "end_offset": 13,
       "type": "<ALPHANUM>",
       "position": 1
     },
     {
-      "token": "česk",
-      "start_offset": 20,
-      "end_offset": 27,
+      "token": "هەولێر",
+      "start_offset": 17,
+      "end_offset": 26,
       "type": "<ALPHANUM>",
       "position": 3
     },
     {
-      "token": "univerzit",
+      "token": "ژمار",
       "start_offset": 28,
-      "end_offset": 40,
+      "end_offset": 36,
       "type": "<ALPHANUM>",
       "position": 4
     },
     {
-      "token": "čísl",
-      "start_offset": 49,
-      "end_offset": 54,
-      "type": "<ALPHANUM>",
-      "position": 6
-    },
-    {
       "token": "123456",
-      "start_offset": 60,
-      "end_offset": 66,
+      "start_offset": 37,
+      "end_offset": 43,
       "type": "<NUM>",
-      "position": 8
+      "position": 5
     }
   ]
 }

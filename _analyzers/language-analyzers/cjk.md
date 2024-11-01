@@ -52,7 +52,7 @@ The `cjk` analyzer is build using the following:
 
 Tokenizer: `standard`
 
-Token Filters:
+Token filters:
 - cjk_width
 - lowercase
 - cjk_bigram
