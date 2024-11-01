@@ -6,11 +6,11 @@ nav_order: 50
 ---
 
 # ACL - permission control for saved objects
-ACL is introduced for users to manage the permissions to access the saved objects they own, with the purpose to enable AuthZ on saved objects without relying on backend plugin.
+ACL is introduced for users to manage the permissions to access the saved objects they own, with the purpose to enable authorization (AuthZ) on saved objects without relying on a backend plugin.
 
 ## ACL data model
 
-The ACLs can be represented as following:
+The ACLs can be represented as follows:
 
 ```
 {
@@ -57,13 +57,13 @@ While if we want to allow user-1 to modify a saved object, and one can only view
 
 ## Types of ACL
 
-ACL can be applied to 2 cases:
+ACLs can be applied in two cases:
 1. Workspace ACL
 2. Objects ACL
 
 ### Workspace ACL
 
-Objects within a workspace will inherit the permission policy from the workspace, for more details please refer to [Workspace ACL](../../workspace/workspace-acl)
+Objects within a workspace inherit the permission policy from the workspace, for more details please refer to [Workspace ACL](../../workspace/workspace-acl)
 
 ### Objects ACL
 
@@ -71,7 +71,7 @@ Standalone objects can have ACL policy as well, and any operations to the object
 
 ## Enabling ACL feature
 
-To enable *ACL* in OpenSearch Dashboards, locate your copy of the `opensearch_dashboards.yml` file and set the following option:
+To enable *ACL* in OpenSearch Dashboards, locate your copy of the `opensearch_dashboards.yml` file and set the following configuration option:
 
 ```yaml
 savedObjects.permission.enabled: true
