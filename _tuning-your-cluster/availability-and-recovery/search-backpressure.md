@@ -102,23 +102,23 @@ search_backpressure.node_duress.num_successive_breaches | 3 | The number of succ
 search_backpressure.node_duress.cpu_threshold | 90% | The CPU usage threshold (as a percentage) required for a node to be considered to be under duress.
 search_backpressure.node_duress.heap_threshold | 70% | The heap usage threshold (as a percentage) required for a node to be considered to be under duress.
 search_backpressure.search_task.elapsed_time_millis_threshold | 45,000 | The elapsed time threshold (in milliseconds) required for an individual parent task before it is considered for cancellation.
-search_backpressure.search_task.cancellation_ratio | 0.1 | The maximum number of search tasks to cancel, as a percentage of successful search task completions.
-search_backpressure.search_task.cancellation_rate| 0.003 | The maximum number of search tasks to cancel per millisecond of elapsed time.
-search_backpressure.search_task.cancellation_burst | 5 | The maximum number of search tasks to cancel in a single iteration of the observer thread.
-search_backpressure.search_task.heap_percent_threshold | 2% | The heap usage threshold (as a percentage) required for an individual parent task before it is considered for cancellation.
-search_backpressure.search_task.total_heap_percent_threshold | 5% | The heap usage threshold (as a percentage) required for the sum of heap usages of all search tasks before cancellation is applied.
-search_backpressure.search_task.heap_variance | 2.0 | The heap usage variance required for an individual parent task before it is considered for cancellation. A task is considered for cancellation when `taskHeapUsage` is greater than or equal to `heapUsageMovingAverage` * `variance`.
-search_backpressure.search_task.heap_moving_average_window_size | 10 | The window size used to calculate the rolling average of the heap usage for the completed parent tasks.
-search_backpressure.search_task.cpu_time_millis_threshold | 30,000 | The CPU usage threshold (in milliseconds) required for an individual parent task before it is considered for cancellation.
-search_backpressure.search_shard_task.elapsed_time_millis_threshold | 30,000 | The elapsed time threshold (in milliseconds) required for a single search shard task before it is considered for cancellation.
-search_backpressure.search_shard_task.cancellation_ratio | 0.1 | The maximum number of search shard tasks to cancel, as a percentage of successful search shard task completions.
-search_backpressure.search_shard_task.cancellation_rate | 0.003 | The maximum number of search shard tasks to cancel per millisecond of elapsed time.
-search_backpressure.search_shard_task.cancellation_burst | 10 | The maximum number of search shard tasks to cancel in a single iteration of the observer thread.
-search_backpressure.search_shard_task.heap_percent_threshold | 0.5% | The heap usage threshold (as a percentage) required for a single search shard task before it is considered for cancellation.
-search_backpressure.search_shard_task.total_heap_percent_threshold | 5% | The heap usage threshold (as a percentage) required for the sum of heap usages of all search shard tasks before cancellation is applied.
-search_backpressure.search_shard_task.heap_variance | 2.0 | The minimum variance required for a single search shard task's heap usage compared to the rolling average of previously completed tasks before it is considered for cancellation.
-search_backpressure.search_shard_task.heap_moving_average_window_size | 100 | The number of previously completed search shard tasks to consider when calculating the rolling average of heap usage.
-search_backpressure.search_shard_task.cpu_time_millis_threshold | 15,000 | The CPU usage threshold (in milliseconds) required for a single search shard task before it is considered for cancellation.
+search_backpressure.search_task.cancellation_ratio | 0.1 | The maximum number of search tasks to cancel, as a percentage of successful search task completions. The value range is (0, 1].
+search_backpressure.search_task.cancellation_rate| 0.003 | The maximum number of search tasks to cancel per millisecond of elapsed time. The value must be greater than 0.
+search_backpressure.search_task.cancellation_burst | 5 | The maximum number of search tasks to cancel in a single iteration of the observer thread. The value must be greater than or equal to 1.
+search_backpressure.search_task.heap_percent_threshold | 2% | The heap usage threshold (as a percentage) required for an individual parent task before it is considered for cancellation. The value range is [0%, 100%].
+search_backpressure.search_task.total_heap_percent_threshold | 5% | The heap usage threshold (as a percentage) required for the sum of heap usages of all search tasks before cancellation is applied. The value range is [0%, 100%].
+search_backpressure.search_task.heap_variance | 2.0 | The heap usage variance required for an individual parent task before it is considered for cancellation. A task is considered for cancellation when `taskHeapUsage` is greater than or equal to `heapUsageMovingAverage` * `variance`. The value must be greater than or equal to 0.
+search_backpressure.search_task.heap_moving_average_window_size | 10 | The window size used to calculate the rolling average of the heap usage for the completed parent tasks. The value must be greater than or equal to 0.
+search_backpressure.search_task.cpu_time_millis_threshold | 30,000 | The CPU usage threshold (in milliseconds) required for an individual parent task before it is considered for cancellation. The value must be greater than or equal to 0.
+search_backpressure.search_shard_task.elapsed_time_millis_threshold | 30,000 | The elapsed time threshold (in milliseconds) required for a single search shard task before it is considered for cancellation. The value must be greater than or equal to 0.
+search_backpressure.search_shard_task.cancellation_ratio | 0.1 | The maximum number of search shard tasks to cancel, as a percentage of successful search shard task completions. The value range is (0, 1].
+search_backpressure.search_shard_task.cancellation_rate | 0.003 | The maximum number of search shard tasks to cancel per millisecond of elapsed time. The value must be greater than 0.
+search_backpressure.search_shard_task.cancellation_burst | 10 | The maximum number of search shard tasks to cancel in a single iteration of the observer thread. The value must be greater than or equal to 1.
+search_backpressure.search_shard_task.heap_percent_threshold | 0.5% | The heap usage threshold (as a percentage) required for a single search shard task before it is considered for cancellation. The value range is [0%, 100%].
+search_backpressure.search_shard_task.total_heap_percent_threshold | 5% | The heap usage threshold (as a percentage) required for the sum of heap usages of all search shard tasks before cancellation is applied. The value range is [0%, 100%].
+search_backpressure.search_shard_task.heap_variance | 2.0 | The minimum variance required for a single search shard task's heap usage compared to the rolling average of previously completed tasks before it is considered for cancellation. The value must be greater than or equal to 0.
+search_backpressure.search_shard_task.heap_moving_average_window_size | 100 | The number of previously completed search shard tasks to consider when calculating the rolling average of heap usage. The value must be greater than or equal to 0.
+search_backpressure.search_shard_task.cpu_time_millis_threshold | 15,000 | The CPU usage threshold (in milliseconds) required for a single search shard task before it is considered for cancellation. The value must be greater than or equal to 0.
 
 ## Search Backpressure Stats API
 Introduced 2.4
@@ -216,7 +216,7 @@ The response contains server-side request cancellation statistics:
 }
 ```
 
-### Response fields
+### Response body fields
 
 The response contains the following fields.
 

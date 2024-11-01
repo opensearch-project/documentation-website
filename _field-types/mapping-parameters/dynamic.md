@@ -1,18 +1,22 @@
 ---
 layout: default
-title: Dynamic parameter
-nav_order: 10
+title: Dynamic
+parent: Mapping parameters
+grand_parent: Mapping and field types
+nav_order: 30
+has_children: false
+has_toc: false
 redirect_from:
   - /opensearch/dynamic/
 ---
 
-# Dynamic parameter
+# Dynamic
 
 The `dynamic` parameter specifies whether newly detected fields can be added dynamically to a mapping. It accepts the parameters listed in the following table.
 
 Parameter | Description 
 :--- | :--- 
-`true`  | Specfies that new fields can be added dynamically to the mapping. Default is `true`.
+`true`  | Specifies that new fields can be added dynamically to the mapping. Default is `true`.
 `false` | Specifies that new fields cannot be added dynamically to the mapping. If a new field is detected, then it is not indexed or searchable but can be retrieved from the `_source` field.
 `strict` | Throws an exception. The indexing operation fails when new fields are detected.
 `strict_allow_templates` | Adds new fields if they match predefined dynamic templates in the mapping.
