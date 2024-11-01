@@ -32,9 +32,9 @@ The star-tree index feature has the following limitations:
 
 The following examples show how to use a star-tree index.
 
-### Star-tree index mapping
+### Star-tree index mappings
 
-Define star-tree index mapping in the `composite` section in `mappings`. 
+Define star-tree index mappings in the `composite` section in `mappings`. 
 
 The following example API request creates a corresponding star-tree index for all `request_aggs`. To compute metric aggregations for `request_size` and `latency` fields with queries on `port` and `status` fields, configure the following mappings:
 
