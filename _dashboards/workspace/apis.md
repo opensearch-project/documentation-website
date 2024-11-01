@@ -25,8 +25,8 @@ POST <osd host>:<port>/api/workspaces/_list
 | `searchFields` | Array | NO  |  The fields to perform the `simple_query_string` parsed query against. |
 | `sortField` | String | NO  | The fields used for sorting the response. |
 | `sortOrder` | String | NO  | The order used for sorting the response. |
-| `perPage` | String | NO  | The number of workspaces to return in each page. |
-| `page` | String | NO  | The page of workspaces to return. |
+| `perPage` | Number | NO  | The number of workspaces to return in each page. |
+| `page` | Number | NO  | The page of workspaces to return. |
 | `permissionModes` | Array | NO  | The permission mode list. |
 
 * Example request
@@ -86,7 +86,7 @@ The following table lists the available path parameters. All path parameters are
 * Example request
 
 ```json
-GET api/workspaces/SnkOPt
+GET /api/workspaces/SnkOPt
 ```
 {% include copy-curl.html %}
 
@@ -246,7 +246,7 @@ POST <osd host>:<port>/api/workspaces/_duplicate_saved_objects
 | `targetWorkspace` | String | YES  | The ID of the workspace to copy to. |
 | `includeReferencesDeep` | Boolean | NO | Copy all of the referenced objects of the specified objects to the target workspace . Defaults to `true`.|
 
-The attrbutes of the object in the `objects` parameter are as follows:
+The attributes of the object in the `objects` parameter are as follows:
 | Parameter | Data type | Required | Description |
 | :--- | :--- | :--- | :--- |
 | `type` | String | YES | The type of the saved object, such as `index-pattern`, `config` and `dashboard`. |
@@ -305,7 +305,7 @@ POST <osd host>:<port>/api/workspaces/_associate
 | `workspaceId` | String | YES | Target workspace you want the objects associated to |
 | `savedObjects` | Array | YES | A list of saved objects to copy. |
 
-The attrbutes of the object in the `objects` parameter are as follows:
+The attrbutes of the object in the `savedObjects` parameter are as follows:
 | Parameter | Data type | Required | Description |
 | :--- | :--- | :--- | :--- |
 | `type` | String | YES | The type of the saved object, such as `index-pattern`, `config` and `dashboard`. |
@@ -357,7 +357,7 @@ POST <osd host>:<port>/api/workspaces/_dissociate
 | `workspaceId` | String | YES | Target workspace you want the objects associated to |
 | `savedObjects` | Array | YES | A list of saved objects to copy. |
 
-The attrbutes of the object in the `objects` parameter are as follows:
+The attrbutes of the object in the `savedObjects` parameter are as follows:
 | Parameter | Data type | Required | Description |
 | :--- | :--- | :--- | :--- |
 | `type` | String | YES | The type of the saved object, such as `index-pattern`, `config` and `dashboard`. |
