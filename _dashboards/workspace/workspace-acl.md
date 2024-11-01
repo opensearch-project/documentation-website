@@ -11,7 +11,7 @@ Workspace ACL focuses on AuthZ(Authorization) of saved objects, it is recommende
 ## Personas
 There are following personas in *Workspace* use cases:
 * **Dashboard admin**: the administrator of the OpenSearch Dashboards, who has complete access to all functions and data of OpenSearch Dashboards.
-* **Workspace owner**: Workspace owner have complete access to workspace configurations and saved objects in the workspace. Workspace creator will become the workspace owner when a workspace is created. Workspace owner most time can be used exchangeably with and workspace owner. Workspace owner
+* **Workspace owner**: Workspace owner have complete access to workspace configurations and saved objects in the workspace. Workspace creator will become the workspace owner when a workspace is created. The workspace creator automatically becomes the workspace owner when the workspace is created. 'Workspace owner' and 'workspace admin' are often used interchangeably.
 * **Workspace content producer**: workspace operator has permission to view, create and update saved objects in the workspace.
 * **Workspace viewer**: workspace operator only has permission to view the saved objects in the workspace
 
@@ -26,7 +26,7 @@ OpenSearch Dashboard (OSD) admin is a new user that has the access to all the wo
 
 ```yaml
 opensearchDashboards.dashboardAdmin.users: ["UserID"]
-opensearchDashboards.dashboardAdmin.groups: ["BackRole"]
+opensearchDashboards.dashboardAdmin.groups: ["BackendRole"]
 savedObjects.permission.enabled: true
 ```
 {% include copy-curl.html %}
@@ -61,9 +61,9 @@ opensearchDashboards.dashboardAdmin.groups: ["admin-role"]
 ### OSD admin specific permissions
 
  - Only OSD admin can create workspace.
- - ONly OSD admin can delete workspace.
- - Only OSD admin can associate data sources to workspace.
- - Only OSD admin can unassociate data sources to workspace.
+ - Only OSD admin can delete workspaces.
+ - Only OSD admins can associate data sources with a workspace.
+ - Only OSD admins can disassociate data sources from a workspace.
 
 ## Define Collaborators for your workspaces
 You can define collaborators for specific workspaces on the collaborators page, as shown in the screenshot below, when permission control is enabled. The collaborators page will be hidden when permission control is disabled. To enable permission control, refer to the "[Enabling Permission Control](#enabling-permission-control)" section.

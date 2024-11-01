@@ -7,7 +7,7 @@ nav_order: 2
 
 ## Update your workspace
 
-The workspace details page can display and update workspace detailed information which contains name, description, use case and icon color.
+The workspace details page can display and update workspace detailed information containing the name, description, use case, and icon color.
 
 <img src="{{site.url}}{{site.baseurl}}/images/workspace/management-workspace/workspace-details-page.png" alt="workspace details page" width="900" />
 
@@ -15,7 +15,7 @@ Click the `Edit` button to enter the editing mode. In this mode, click the `Save
 
 <img src="{{site.url}}{{site.baseurl}}/images/workspace/management-workspace/workspace-details-edit.png" alt="workspace details edit" width="900" />
 
-Who can update the workspace？
+Who can update the workspace
 
 1. Security plugins uninstalled: Anyone can click the edit button and update the workspace.
 2. Security plugins installed and `savedObjects.permission.enabled: false` (`config/opensearch_dashboards.yml`): Anyone can click the edit button and update the workspace.
@@ -26,7 +26,7 @@ There are some special cases in updating the workspace use case.
 
 Original use case | Target use case |
 :---: | :---:
-Analytics  | Unable to update to other use cases
+Analytics  | Cannot update to other use cases.
 Search  | Analytics
 Security analytics  | Analytics
 Observability  | Analytics
@@ -61,7 +61,7 @@ After clicking any button, a modal will pop up. In the dropdown menu of the targ
 
 <img src="{{site.url}}{{site.baseurl}}/images/workspace/management-workspace/workspace-copy-modal.png" alt="workspace copy modal" width="900" />
 
-**Notice**: Unsupport copying data source and config.
+**Notice**: Copying data sources and config is not supported.
 {: .note}
 
 Click the `Copy` button, and a flyout will pop up on the right to show the successful and failed assets.
@@ -97,7 +97,7 @@ Association modal lists all opensearch connections that have not been associated
 
 <img width="600" src="{{site.url}}{{site.baseurl}}/images/workspace/management-workspace/direct-query-data-sources-button.png" alt="Direct query data sources button">
 
-Direct query connections tab lists all direct query connections that are associated with the current workspace. You could click the `Direct query data sources` button to open a modal to associate more direct query connections to current workspace.
+The 'Direct query connections' tab lists all direct query connections that are associated with the current workspace. You could click the `Direct query data sources` button to open a modal to associate more direct query connections to current workspace.
 
 <img width="600" src="{{site.url}}{{site.baseurl}}/images/workspace/management-workspace/direct-query-modal.png" alt="Direct query association modal">
 
@@ -105,7 +105,7 @@ Association modal lists all opensearch connections that contain direct query con
 
 ## Delete your workspace
 
-Deleting a workspace will remove all assets(except data source) within it and the workspace itself. This operation cannot be undone, and all assets will be permanently deleted.
+Deleting a workspace will remove all assets (except data source) within it and the workspace itself. This operation cannot be undone, and all associated assets will be permanently deleted.
 
 To delete a workspace, you must be a dashboard administrator. Otherwise, the delete icon will not be visible. See [how to configure dashboard administrators]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#config-dashboard-admin) for more information.
 {: .note}
@@ -127,7 +127,7 @@ Delete workspace from list page">
 
 ![Workspaces list page]({{site.url}}{{site.baseurl}}/images/workspace/management-workspace/workspace-list-page.png)
 
-Workspaces list page lists all workspaces that you have permission to access. You could search workspaces by name or filter workspaces by use case. It displays the name, use case, description, last update time and associated data sources of each workspace.
+The Workspaces list page displays all workspaces that you have permission to access. You could search workspaces by name or filter workspaces by use case. It displays the name, use case, description, last update time and associated data sources of each workspace.
 
 ![Workspace list actions]({{site.url}}{{site.baseurl}}/images/workspace/management-workspace/workspace-list-actions.png)
 

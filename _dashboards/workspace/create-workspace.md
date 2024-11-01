@@ -5,7 +5,7 @@ parent: Workspace
 nav_order: 1
 ---
 
-# Start to build your first workspace
+# Start Building Your First Workspace
 Before proceeding, ensure you have enabled the workspace feature flag by following the [workspace documentation]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace/#enabling-workspace).
 
 
@@ -16,7 +16,7 @@ The create workspace entry points require the logged-in user to be a dashboards 
 ### Create Workspace from the Home Page
 The easiest way is to create a workspace from the home page. You will be automatically redirected to this page if you visit the root OpenSearch Dashboards directly. The UI will look like the screenshot below.
 ![Create workspace from homepage]({{site.url}}{{site.baseurl}}/images/workspace/create-workspace/create-workspace-from-homepage.png)
-There are two types of buttons for workspace creation. The first type is the top-right "Create workspace" button, which will show a use case popover after being clicked. Clicking the use case name (e.g., "Observability") in the popover will redirect you to the create workspace page and populate it with the selected use case. The second type is the "Create workspace" button inside the use case card. Clicking this button will redirect you to the create workspace page and populate it with the use case from the card.
+There are two types of buttons for workspace creation. The first type is the top-right "Create workspace" button, which displays a use case popover when clicked. Clicking the use case name (e.g., "Observability") in the popover will redirect you to the create workspace page and populate it with the selected use case. The second type is the "Create workspace" button inside the use case card. Clicking this button will redirect you to the create workspace page and populate it with the use case from the card.
 
 ### Create Workspace from the Left Navigation
 The left navigation is hidden on the home page. To see the left navigation, you may need to navigate away from the home page. For example, click "View all workspaces" on the home page. It will redirect you to the workspace list page, as shown in the screenshot below.
@@ -43,7 +43,7 @@ The description is an optional field in the workspace creation form. You can set
 The use case is a required field in the workspace creation form. One workspace should have one use case. The related use case will be pre-populated if you visit the workspace creation page from the home page with use case information. If no pre-selected use case is provided on the workspace creation page, the first use case will be selected by default. You can change to other use cases by clicking the radio button on the left.
 
 ![Create workspace only have serverless data sources]({{site.url}}{{site.baseurl}}/images/workspace/create-workspace/create-workspace-from-overview-aoss-only.png)
-When multi data source is enabled and you only have Amazon OpenSearch Serverless data sources, only the "Essentials" use case can be used for this case, as shown in the screenshot above. The "Essentials" use case will be selected and disabled, and the pre-selected use case from the home page will be overridden by the "Essentials" use case.
+When the multi-data source option is enabled and you only have Amazon OpenSearch Serverless data sources, only the "Essentials" use case can be used for this case, as shown in the screenshot above. The "Essentials" use case will be selected and disabled, and the pre-selected use case from the home page will be overridden by the "Essentials" use case.
 
 ### Associate Data Source When Multi Data Source is Enabled
 
