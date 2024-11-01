@@ -46,7 +46,7 @@ Sorted and aggregated star-tree documents are backed by `doc-values` in an index
 
 ### Leaf nodes
 
-Each node in the star-tree index points to a range of star-tree documents. Nodes can be further split into child nodes based on the[max_leaf_docs configuration]({{site.url}}{{site.baseurl}}/field-types/star-tree/#star-tree-configuration-parameters). The number of documents a leaf node points to is less than or equal to the number `max_leaf_docs` set. This ensures the maximum number of documents that traverse across nodes to get to the aggregated value is at most the `max_leaf_docs`, which provides predictable latency.
+Each node in the star-tree index points to a range of star-tree documents. Nodes can be further split into child nodes based on the[max_leaf_docs configuration]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/star-tree/#star-tree-configuration-parameters). The number of documents a leaf node points to is less than or equal to the number `max_leaf_docs` set. This ensures the maximum number of documents that traverse across nodes to get to the aggregated value is at most the `max_leaf_docs`, which provides predictable latency.
 
 ### Star nodes
 

@@ -190,7 +190,7 @@ The following optional parameters can be configured with a star-tree index. Thes
 
 | Parameter  | Description   | 
 | :--- | :--- |
-| `max_leaf_docs` | The maximum number of star-tree documents a leaf node can point to. After the maximum number is reached post which the nodes will be split to the next dimension. Default is `10000`. A lower value will use more storage but result in faster query performance. Inversely, a higher value will use less storage but result in slower query performance.  For more information, see [star tree indexing structure]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/#star-tree-index-structure).  |
+| `max_leaf_docs` | The maximum number of star-tree documents a leaf node can point to. After the maximum number is reached post which the nodes will be split to the next dimension. Default is `10000`. A lower value will use more storage but result in faster query performance. Inversely, a higher value will use less storage but result in slower query performance. For more information, see [star tree indexing structure]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/#star-tree-index-structure).  |
 | `skip_star_node_creation_for_dimensions`  | A list of dimensions for which a star-tree index will skip creating the star node. When `true`, this reduces storage size at the expense of query performance. Default is `false`. For more information about star nodes, see [star-tree indexing structure]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/#star-tree-index-structure). |
 
 ## Supported queries and aggregations
