@@ -1,18 +1,33 @@
 ---
 layout: default
-title: ACL - permission control for saved objects
+title: Access control lists for saved objects
 parent: Dashboards Management
 nav_order: 50
 ---
 
-# ACL - permission control for saved objects
-ACL is introduced for users to manage the permissions to access the saved objects they own, with the purpose to enable authorization (AuthZ) on saved objects without relying on a backend plugin.
+# Access control lists for saved objects
 
-## ACL data model
+You can use access control lists (ACL) to manage permissions for your saved objects, providing authorization (AuthZ) capabilities without requiring backend plugin integration.
 
-The ACLs can be represented as follows:
+## Understanding ACL types
 
-```
+ACLs are applied at two levels:
+
+1. **Workspace ACL:** Workspace objects inherit permissions from their parent workspace. See [Workspace ACL](../../workspace/workspace-acl).
+2. **Objects ACL:** Each individual object can have its own ACL policy. All operations on these objects must pass ACL policy validation.
+
+## Enabling ACL feature
+
+The ACL feature must be enabled before you can define any access controls. Enable it by:
+
+1. Opening your `opensearch_dashboards.yml`.
+2. Enabling permissions with `savedObjects.permission.enabled: true`.
+
+## Defining ACL permissions
+
+ACL permissions are defined using the following schema: 
+
+```json
 {
   "permissions": {
     "<permission_type_1>": {
@@ -22,12 +37,13 @@ The ACLs can be represented as follows:
   } 
 }
 ```
+{% include copy-curl.html %}
 
-We can also allow wildcard `*` to indicate any authenticated identity in the ACL.
+### Granting permissions to authenticated users
 
-For example, if we want to allow finance_manager group to manage the workspace, and allow *finance_analyst* groups to build dashboards in the workspace, the workspace ACLs may look like:
+The wildcard character (`*`) grants permissions to all authenticated users. In the following example, the ACL grants workspace management to the `finance_manager` group and dashboard creation rights to the `finance_analyst` group:
 
-```
+```json
 {
   "permissions": {
     "write": {
@@ -39,10 +55,13 @@ For example, if we want to allow finance_manager group to manage the workspace, 
   } 
 }
 ```
+{% include copy-curl.html %}
 
-While if we want to allow user-1 to modify a saved object, and one can only view a saved object, the ACL of that common saved object will look like:
+### Configuring mixed-level permissions
 
-```
+To allow one user, `user-1` for example, to modify an object while giving view-only access to others, you can configure the ACL policy as follows:
+
+```json
 {
   "permissions": {
     "read": {
@@ -53,27 +72,5 @@ While if we want to allow user-1 to modify a saved object, and one can only view
     },
   }
 }
-```
-
-## Types of ACL
-
-ACLs can be applied in two cases:
-1. Workspace ACL
-2. Objects ACL
-
-### Workspace ACL
-
-Objects within a workspace inherit the permission policy from the workspace, for more details please refer to [Workspace ACL](../../workspace/workspace-acl)
-
-### Objects ACL
-
-Standalone objects can have ACL policy as well, and any operations to the objects have to go through the ACL policy validation.
-
-## Enabling ACL feature
-
-To enable *ACL* in OpenSearch Dashboards, locate your copy of the `opensearch_dashboards.yml` file and set the following configuration option:
-
-```yaml
-savedObjects.permission.enabled: true
 ```
 {% include copy-curl.html %}
