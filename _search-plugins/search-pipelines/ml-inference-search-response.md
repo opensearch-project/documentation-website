@@ -398,16 +398,38 @@ Step 0: Host a model
 The pre-requisite is a registered genai model in opensearch. For more information about externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/). Here is a sample predict response using a registered model, which requires a prompt and a context field.
 
 ```json
-POST /_plugins/_ml/models/EOF6wJIBtDGAJRTD4kNg/_predict  
+POST /_plugins/_ml/models/KKne6JIBAs32TwoK-FFR/_predict
 {
   "parameters": {
-    "prompt":"\n\nHuman: You are a professional data analysist. You will always answer question based on the given context first. If the answer is not directly shown in the context, you will analyze the data and find the answer. If you don't know the answer, just say I don't know. Context: ${parameters.context.toString()}. \n\n Human: please summarize the documents \n\n Assistant:",
-    "context":"Dr. Eric Goldberg is a fantastic doctor who has correctly diagnosed every issue that my wife and I have had. Unlike many of my past doctors, Dr. Goldberg is very accessible and we have been able to schedule appointments with him and his staff very quickly. We are happy to have him in the neighborhood and look forward to being his patients for many years to come."
+    "prompt":"\n\nHuman: You are a professional data analysist. You will always answer question: Which month had the lowest customer acquisition cost per new customer? based on the given context first. If the answer is not directly shown in the context, you will analyze the data and find the answer. If you don't know the answer, just say I don't know. Context: ${parameters.context.toString()}. \n\n Assistant:",
+    "context":"Customer acquisition cost: January: $50, February: $45, March: $40. New customers: January: 500, February: 600, March: 750"
   }
 }
 ```
 
+```json
+{
+  "inference_results": [
+    {
+      "output": [
+        {
+          "name": "response",
+          "dataAsMap": {
+            "response": """ Based on the data provided:
 
+                        - Customer acquisition cost in January was $50 and new customers were 500. So cost per new customer was $50/500 = $0.10
+                        - Customer acquisition cost in February was $45 and new customers were 600. So cost per new customer was $45/600 = $0.075
+                        - Customer acquisition cost in March was $40 and new customers were 750. So cost per new customer was $40/750 = $0.053
+            
+                        Therefore, the month with the lowest customer acquisition cost per new customer was March, at $0.053."""
+          }
+        }
+      ],
+      "status_code": 200
+    }
+  ]
+}
+```
 Step 1: Create a pipeline
 
 The following example shows you how to create a search pipeline for a generative AI model. The model requires a context field as input and generates a response. It summarizes the text in the review field and stores the summary in the ext.ml_inference.llm_response field of the search response.
@@ -434,7 +456,7 @@ PUT /_search/pipeline/my_pipeline_request_review_llm
           }
         ],
         "model_config": {
-          "prompt": "\n\nHuman: You are a professional data analyst. You will always answer questions based on the given context first. If the answer is not directly shown in the context, you will analyze the data and find the answer. If you don't know the answer, just say I don't know. Context: ${parameters.context.toString()}. \n\n Human: please summarize the documents \n\n Assistant:"
+          "prompt": "\n\nHuman: You are a professional data analysist. You will always answer question: Which month had the lowest customer acquisition cost per new customer? based on the given context first. If the answer is not directly shown in the context, you will analyze the data and find the answer. If you don't know the answer, just say I don't know. Context: ${parameters.context.toString()}. \n\n Assistant:""
         },
         "ignore_missing": false,
         "ignore_failure": false
@@ -448,33 +470,23 @@ PUT /_search/pipeline/my_pipeline_request_review_llm
 
 In this configuration:
 
-The model_id specifies the ID of the generative AI model.
-The function_name is set to "REMOTE", indicating an externally hosted model.
-The input_map maps the review field from the document to the context field expected by the model.
-The output_map specifies that the model's response should be stored in ext.ml_inference.llm_response in the search response.
-The model_config includes a prompt that instructs the model on how to process the input and generate a summary.
+The `model_id` specifies the ID of the generative AI model.
+The `function_name` is set to "REMOTE", indicating an externally hosted model.
+The `input_map` maps the review field from the document to the context field expected by the model.
+The `output_map` specifies that the model's response should be stored in ext.ml_inference.llm_response in the search response.
+The `model_config` includes a prompt that instructs the model on how to process the input and generate a summary.
 
 Step 2: Index sample documents
 
 Index some sample documents to test the pipeline:
 ```json
-PUT /review_string_index/_doc/1
-{
-  "review": "always my to go place" ,
-  "label":"5 stars"
-}
-
-PUT /review_string_index/_doc/2
-{
-  "review": "happy visit" ,
-  "label":"5 stars"
-}
-
-PUT /review_string_index/_doc/3
-{
-  "review": "sad place" ,
-  "label":"1 stars"
-}
+POST /_bulk
+{"index":{"_index":"review_string_index","_id":"1"}}
+{"review":"Customer acquisition cost: January: $50, New customers: January: 500."}
+{"index":{"_index":"review_string_index","_id":"2"}}
+{"review":"Customer acquisition cost: February: $45, New customers: February: 600."}
+{"index":{"_index":"review_string_index","_id":"3"}}
+{"review":"Customer acquisition cost: March: $40, New customers: March: 750."}
 ```
 {% include copy-curl.html %}
 
@@ -517,8 +529,7 @@ The response will include the original documents and the generated summary in th
         "_id": "1",
         "_score": 1,
         "_source": {
-          "review": "always my to go place",
-          "label": "5 stars"
+          "review": "Customer acquisition cost: January: $50, New customers: January: 500."
         }
       },
       {
@@ -526,8 +537,7 @@ The response will include the original documents and the generated summary in th
         "_id": "2",
         "_score": 1,
         "_source": {
-          "review": "happy visit",
-          "label": "5 stars"
+          "review": "Customer acquisition cost: February: $45, New customers: February: 600."
         }
       },
       {
@@ -535,15 +545,22 @@ The response will include the original documents and the generated summary in th
         "_id": "3",
         "_score": 1,
         "_source": {
-          "review": "sad place",
-          "label": "1 stars"
+          "review": "Customer acquisition cost: March: $40, New customers: March: 750."
         }
       }
     ]
   },
   "ext": {
     "ml_inference": {
-      "llm_response": "Based on the context provided, here is a summary:\n\nThe context includes 3 short phrases or documents:\n\n1. \"always my to go place\" - This suggests that whatever is being referred to is always the place that someone goes to. It could imply that it is a favorite or preferred location. \n\n2. \"happy visit\" - This directly states that visiting wherever is being discussed results in happiness. \n\n3. \"sad place\" - In contrast to the previous two documents, this one indicates that the place makes someone sad.\n\nIn summary, two of the documents have positive connotations about visiting a particular place, implying it is enjoyed. The third document provides a negative view, saying the place results in sadness. Without more context around what \"place\" is being referred to, it is difficult to draw definitive conclusions. But overall the data provided presents both positive and negative assessments of the same unnamed location."
+      "llm_response": """ Based on the context provided:
+
+      - Customer acquisition cost in January was $50 and new customers were 500. So the cost per new customer was $50/500 = $0.10
+
+      - Customer acquisition cost in February was $45 and new customers were 600. So the cost per new customer was $45/600 = $0.075
+
+      - Customer acquisition cost in March was $40 and new customers were 750. So the cost per new customer was $40/750 = $0.053
+
+      Therefore, the month with the lowest customer acquisition cost per new customer was March, as it had the lowest cost per customer of $0.053."""
     }
   }
 }
@@ -558,18 +575,18 @@ The following example shows you how to configure an `ml_inference` search respon
 
 
 Step 0: Host a model
-The pre-requisite is a registered genai model in opensearch. For more information about externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/). Here is a sample predict response using a registered model, which requires a prompt and a context field.
+The pre-requisite is a registered genai model in opensearch. For more information about externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/). Here is a sample predict response using a registered model, which requires a text and a text_pair field within inputs field.
 
 ```json
-POST _plugins/_ml/models/tg5p1ZEB4iWlnHsIh2U9/_predict
+POST /_plugins/_ml/models/Ialx65IBAs32TwoK1lXf/_predict
 {
-    "query_text": "today is sunny",
-    "text_docs": [
-        "how are you",
-        "today is sunny",
-        "today is july fifth",
-        "it is winter"
-    ]
+  "parameters": {
+    "inputs":
+    {
+      "text": "I like you",
+      "text_pair": "I hate you"
+    }
+  }
 }
 ```
 
@@ -581,42 +598,14 @@ The model returns similarity scores for each input document:
     {
       "output": [
         {
-          "name": "similarity",
-          "data_type": "FLOAT32",
-          "shape": [1],
-          "data": [-11.055183]
+          "name": "response",
+          "dataAsMap": {
+            "label": "LABEL_0",
+            "score": 0.022704314440488815
+          }
         }
-      ]
-    },
-    {
-      "output": [
-        {
-          "name": "similarity",
-          "data_type": "FLOAT32",
-          "shape": [1],
-          "data": [8.969885]
-        }
-      ]
-    },
-    {
-      "output": [
-        {
-          "name": "similarity",
-          "data_type": "FLOAT32",
-          "shape": [1],
-          "data": [-5.736347]
-        }
-      ]
-    },
-    {
-      "output": [
-        {
-          "name": "similarity",
-          "data_type": "FLOAT32",
-          "shape": [1],
-          "data": [-10.0452175]
-        }
-      ]
+      ],
+      "status_code": 200
     }
   ]
 }
@@ -628,79 +617,81 @@ Step 1: Index sample documents
 Create an index and add some sample documents:
 
 ```json
-PUT /demo-index-0/_doc/1
-{
-  "dairy": "how are you"
-}
-
-PUT /demo-index-0/_doc/2
-{
-  "dairy": "today is sunny"
-}
-
-PUT /demo-index-0/_doc/3
-{
-  "dairy": "today is july fifth"
-}
-
-PUT /demo-index-0/_doc/4
-{
-  "dairy": "it is winter"
-}
-
+POST _bulk
+{"index":{"_index":"demo-index-0","_id":"1"}}
+{"diary":"I hate you"}
+{"index":{"_index":"demo-index-0","_id":"2"}}
+{"diary":"I love you"}
+{"index":{"_index":"demo-index-0","_id":"3"}}
+{"diary":"I dislike you"}
 ```
 {% include copy-curl.html %}
 
 Step 2: Create a search pipeline
 
-Create a search pipeline that uses the text similarity model:
+Create a search pipeline that that leverages a text similarity model using 'one-to-one' inference. The pipeline processes each document in the search hits individually, sending one model prediction request per document.
+When mapping query text from the search request in `input_map`, the json path needs to starts with `$._request` or `_request`.
 
 ```json
-PUT /_search/pipeline/my_pipeline
+PUT /_search/pipeline/my_rerank_pipeline
 {
   "response_processors": [
     {
       "ml_inference": {
         "tag": "ml_inference",
         "description": "This processor runs ml inference during search response",
-        "model_id": "tg5p1ZEB4iWlnHsIh2U9",
-        "model_input": "{ \"text_docs\": ${input_map.text_docs}, \"query_text\": \"${input_map.query_text}\" }",
-        "function_name": "TEXT_SIMILARITY",
+        "model_id": "Ialx65IBAs32TwoK1lXf",
+        "model_input":"""{"parameters":{"inputs":{"text":"${input_map.text}","text_pair":"${input_map.text_pair}"}}}""",
+        "function_name": "REMOTE",
         "input_map": [
           {
-            "text_docs": "dairy",
-            "query_text": "$.query.term.dairy.value"          
+            "text": "diary",
+            "text_pair":"$._request.query.term.diary.value"
           }
         ],
         "output_map": [
           {
-            "rank_score": "$.inference_results[*].output[*].data"
+            "rank_score": "$.score"
           }
         ],
         "full_response_path": false,
         "model_config": {},
         "ignore_missing": false,
-        "ignore_failure": false
-      }
+        "ignore_failure": false,
+        "one_to_one": true
+        },
+        "rerank": {
+          "by_field": {
+            "target_field": "rank_score",
+            "remove_target_field":true
+          }
+        }
+
     }
   ]
 }
 ```
 {% include copy-curl.html %}
 
-This pipeline configuration:
+In this configuration:
 
-Uses the text similarity model with ID tg5p1ZEB4iWlnHsIh2U9.
-Maps the dairy field from documents to the text_docs input of the model.
-Extracts the query text from the search request's term query.
-Maps the model's output to a new rank_score field in the search results.
+The `model_id` specifies the unique identifier of the text similarity model.
+The `function_name` is set to "REMOTE", indicating that the model is hosted externally.
+The `input_map` maps the "diary" field from each document to the "text" input of the model, and the search query term to the "text_pair" input.
+The `output_map`  maps the model's score to a field named "rank_score" in each document.
+The `model_input` formats the input for the model, ensuring it matches the structure expected by the predict API.
+The `one_to_one` parameter is set to true, ensuring that the model processes each document individually, rather than batching multiple documents together.
+The `ignore_missing` parameter is set to false, causing the processor to fail if the mapped fields are missing from a document.
+The `ignore_failure` parameter is set to false, causing the entire pipeline to fail if the ML inference processor encounters an error.
+
+The rerank processor is applied after the ML inference. It reorders the documents based on the "rank_score" field generated by the ML model and then removes this field from the final results.
 
 Step 3: Run the pipeline
 
 Now, perform a search using the created pipeline:
 
 ```json
-GET /demo-index-0/_search?search_pipeline=my_pipeline
+GET /demo-index-0/_search?search_pipeline=my_rerank_pipeline
 {
   "query": {
     "term": {
@@ -713,11 +704,11 @@ GET /demo-index-0/_search?search_pipeline=my_pipeline
 ```
 {% include copy-curl.html %}
 
-The response includes the original documents along with their calculated rank scores:
+The response includes the original documents and rerank with their calculated rank scores:
 
 ```json
 {
-  "took": 400,
+  "took": 2,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -727,34 +718,39 @@ The response includes the original documents along with their calculated rank sc
   },
   "hits": {
     "total": {
-      "value": 2,
+      "value": 3,
       "relation": "eq"
     },
-    "max_score": 0.71566814,
+    "max_score": 0.040183373,
     "hits": [
       {
         "_index": "demo-index-0",
-        "_id": "2",
-        "_score": 0.71566814,
+        "_id": "1",
+        "_score": 0.040183373,
         "_source": {
-          "dairy": "today is sunny",
-          "rank_score": [
-            3.6144485
-          ]
+          "diary": "I hate you"
+        }
+      },
+      {
+        "_index": "demo-index-0",
+        "_id": "2",
+        "_score": 0.022628736,
+        "_source": {
+          "diary": "I love you"
         }
       },
       {
         "_index": "demo-index-0",
         "_id": "3",
-        "_score": 0.6333549,
+        "_score": 0.0073115323,
         "_source": {
-          "dairy": "today is july fifth",
-          "rank_score": [
-            3.6144485
-          ]
+          "diary": "I dislike you"
         }
       }
     ]
+  },
+  "profile": {
+    "shards": []
   }
 }
 ```
