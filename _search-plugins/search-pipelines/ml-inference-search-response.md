@@ -390,12 +390,12 @@ The response confirms that the processor has generated text embeddings in the `p
 }
 ```
 
-### Example: GENAI Use Case
+### Example: GENAI use case
 
-The following example shows you how to configure an `ml_inference` search response processor with a genai model and mapping the model response to the search extension.
+The following example shows you how to configure an `ml_inference` search response processor with a Generative Artificial Intelligence(GenAI) model and mapping the model response to the search extension.
 
 Step 0: Host a model
-The pre-requisite is a registered genai model in opensearch. For more information about externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/). Here is a sample predict response using a registered model, which requires a prompt and a context field.
+The pre-requisite is a registered GENAI model in OpenSearch. For more information about externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/). Here is a sample predict response using a registered model, which requires a prompt and a context field.
 
 ```json
 POST /_plugins/_ml/models/KKne6JIBAs32TwoK-FFR/_predict
@@ -569,13 +569,13 @@ The response will include the original documents and the generated summary in th
 This example demonstrates how the ml_inference search response processor can be used with a generative AI model to provide summarization of search results. The summary is included in the ext field of the search response, allowing for easy access to the AI-generated insights alongside the original search results.
 
 
-### Example: Rerank Use Case
+### Example: Rerank use case
 
 The following example shows you how to configure an `ml_inference` search response processor with a text similarity model.
 
 
 Step 0: Host a model
-The pre-requisite is a registered genai model in opensearch. For more information about externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/). Here is a sample predict response using a registered model, which requires a text and a text_pair field within inputs field.
+The pre-requisite is a registered genai model in OpenSearch. For more information about externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/). Here is a sample predict response using a registered model, which requires a text and a text_pair field within inputs field.
 
 ```json
 POST /_plugins/_ml/models/Ialx65IBAs32TwoK1lXf/_predict
@@ -629,7 +629,7 @@ POST _bulk
 
 Step 2: Create a search pipeline
 
-Create a search pipeline that that leverages a text similarity model using 'one-to-one' inference. The pipeline processes each document in the search hits individually, sending one model prediction request per document.
+Create a search pipeline that leverages a text similarity model using 'one-to-one' inference. The pipeline processes each document in the search hits individually, sending one model prediction request per document.
 When mapping query text from the search request in `input_map`, the json path needs to starts with `$._request` or `_request`.
 
 ```json
