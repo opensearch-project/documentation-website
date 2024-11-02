@@ -395,7 +395,7 @@ The response confirms that the processor has generated text embeddings in the `p
 The following example shows you how to configure an `ml_inference` search response processor with a Generative Artificial Intelligence(GenAI) model and mapping the model response to the search extension.
 
 Step 0: Host a model
-The pre-requisite is a registered GENAI model in OpenSearch. For more information about externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/). Here is a sample predict response using a registered model, which requires a prompt and a context field.
+The pre-requisite is a registered GENAI model in OpenSearch. For more information about externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/). Here is a sample predict using a registered model, which requires a prompt and a context field.
 
 ```json
 POST /_plugins/_ml/models/KKne6JIBAs32TwoK-FFR/_predict
@@ -406,7 +406,7 @@ POST /_plugins/_ml/models/KKne6JIBAs32TwoK-FFR/_predict
   }
 }
 ```
-
+Here is the sample response from model prediction. 
 ```json
 {
   "inference_results": [
@@ -575,7 +575,7 @@ The following example shows you how to configure an `ml_inference` search respon
 
 
 Step 0: Host a model
-The pre-requisite is a registered genai model in OpenSearch. For more information about externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/). Here is a sample predict response using a registered model, which requires a text and a text_pair field within inputs field.
+The pre-requisite is a registered text similarity model in OpenSearch. For more information about externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/). Here is a sample predict, which requires a text and a text_pair field within inputs field. 
 
 ```json
 POST /_plugins/_ml/models/Ialx65IBAs32TwoK1lXf/_predict
