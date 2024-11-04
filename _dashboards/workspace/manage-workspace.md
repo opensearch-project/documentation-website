@@ -5,146 +5,114 @@ parent: Workspace
 nav_order: 2
 ---
 
-## Update your workspace
+# Manage workspaces
 
-The workspace details page can display and update workspace detailed information containing the name, description, use case, and icon color.
+You can access and modify the workspace details including name, description, use case, and icon color on the details page. 
 
-<img src="{{site.url}}{{site.baseurl}}/images/workspace/management-workspace/workspace-details-page.png" alt="workspace details page" width="900" />
+To access and modify your workspace details, follow these steps: 
 
-Click the `Edit` button to enter the editing mode. In this mode, click the `Save` button to update the workspace and click the `Discard changes` button to reset the modification.
+1. Open OpenSearch Dashboards and navigate to **Workspaces**.
+2. Choose the **Edit** button to make changes, then choose the **Save** button to confirm changes or select the **Discard changes** button to cancel modifications.
 
-<img src="{{site.url}}{{site.baseurl}}/images/workspace/management-workspace/workspace-details-edit.png" alt="workspace details edit" width="900" />
+## Workspace update permissions
 
-Who can update the workspace
+The following permissions apply when changing workspaces:
 
-1. Security plugins uninstalled: Anyone can click the edit button and update the workspace.
-2. Security plugins installed and `savedObjects.permission.enabled: false` (`config/opensearch_dashboards.yml`): Anyone can click the edit button and update the workspace.
-3. Security plugins installed and `savedObjects.permission.enabled: true` (`config/opensearch_dashboards.yml`): Only [workspace owner]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#define-collaborators-for-your-workspaces) and [OSD admin]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#config-dashboard-admin) can click the edit button and update the workspace.
+1. **Without security plugins:** All users can edit and update the workspace.
+2. **With security plugins installed and `savedObjects.permission.enabled: false` in the `config/opensearch_dashboards.yml` file:** All users can edit and update workspaces.
+3. **With security plugins and `savedObjects.permission.enabled: true` in the `config/opensearch_dashboards.yml`:** Only the [workspace owner]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#define-collaborators-for-your-workspaces) and the [OpenSearch Dashboards admin]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#config-dashboard-admin) can edit and update workspaces.
 
+## Workspace update restrictions 
 
-There are some special cases in updating the workspace use case.
+When updating workspace use cases, the following rules apply.
 
 Original use case | Target use case |
 :---: | :---:
-Analytics  | Cannot update to other use cases.
+Analytics  | Cannot be changed to any other use case
 Search  | Analytics
 Security analytics  | Analytics
 Observability  | Analytics
 Essentials  |    Analytics Search<br> Security analytics<br> Observability
 
-There are three buttons in the upper right corner of the workspace details page.
-1. `Delete button` (red trash icon)
-    - Security plugins uninstalled: Anyone can click the button and delete the workspace.
-    - Security plugins installed and `savedObjects.permission.enabled: false` (`config/opensearch_dashboards.yml`): Anyone can click the button and delete the workspace.
-    - Security plugins installed and `savedObjects.permission.enabled: true` (`config/opensearch_dashboards.yml`): Only OSD admin can see the button and delete the workspace.
+## Workspace control panel
 
-2. `Set as default workspace button`: Click the button to set the current workspace as the default workspace. Whenever you login the dashboard, you will be redirected to the overview page of that workspace by default.
-3. `Workspace overview button`: Click the button will jump to the workspace overview page of a new tab.
+The workspace details page features the following buttons in the top-right corner:
 
-## Start adding assets into your workspace
+1. **Delete** (trash icon)
+    - **Without security plugins uninstalled:** All users can delete the workspace.
+    - **With security plugins installed and `savedObjects.permission.enabled: false` in the `config/opensearch_dashboards.yml` file:** All users can delete the workspace.
+    - **With security plugins installed and `savedObjects.permission.enabled: true` in the `config/opensearch_dashboards.yml` file:** Only the OpenSearch Dashboards admin can delete the workspace.
+2. **Set as default workspace:** Sets the current workspace as the default login destination.
+3. **Workspace overview:** Opens the workspace overview page of a new tab.
 
-You can find `Sample data` section in the left navigation, please select that and feel free to install sample data to your cluster and OSD.
+## Adding assets to the workspace
 
-<img src="{{site.url}}{{site.baseurl}}/images/workspace/management-workspace/sample-data.png" alt="workspace sample data" width="900" />
+Access the **Sample data** in the left-side navigation menu. Browse and select the appropriate dataset to install it into your cluster and OpenSearch Dashboards.
 
+## Copying assets between workspaces
 
-## Copy assets among your workspaces
+Data sources and config copying is not supported.
+{: .warning}
 
-The assets page supports copying assets among your workspace. There are three buttons that can copy assets:
-1. (A) `Copy all assets to...`: Click the button to copy all assets in the table.
-2. (B) `Copy to...`: Click the button to copy the assets selected in the table.
-3. (C) `Copy to...`: Click the button to copy single asset in the table.
+The assets page offers the following methods for copying assets across workspaces:
 
-<img src="{{site.url}}{{site.baseurl}}/images/workspace/management-workspace/workspace-copy.png" alt="workspace copy" width="900" />
+1. **Copy all assets to...:** Copies all assets in the table.
+2. **Copy to...:** Moves selected assets from the table.
+3. **Copy to...:** Copies a single asset from the table.
 
-After clicking any button, a modal will pop up. In the dropdown menu of the target workspace, you can choose which workspace to copy assets to. Checking `Copy related assets` will copy all assets related to the selected assets into the workspace together.
+After selection a copy option, choose the target workspace from the dropdown menu. The **Copy related assets** checkbox allows for transfer of associated assets.
 
-<img src="{{site.url}}{{site.baseurl}}/images/workspace/management-workspace/workspace-copy-modal.png" alt="workspace copy modal" width="900" />
-
-**Notice**: Copying data sources and config is not supported.
+Copying permissions vary based on security plugin status and configuration.
 {: .note}
 
-Click the `Copy` button, and a flyout will pop up on the right to show the successful and failed assets.
-<img src="{{site.url}}{{site.baseurl}}/images/workspace/management-workspace/workspace-copy-success.png" alt="workspace copy success" width="900" />
+Upon selecting the **Copy** button, a side panel appears showing successful and failed asset transfers. Asset copy destinations depend on the following security configurations:
  
-Which workspace can assets be copied to?
-1. Security plugins uninstalled: Any workspaces.
-2. Security plugins installed and `savedObjects.permission.enabled: false` (`config/opensearch_dashboards.yml`): Any workspaces.
-3. Security plugins installed and `savedObjects.permission.enabled: true` (`config/opensearch_dashboards.yml`): Any workspace with `Read and write`/`Admin` permission.
+1. **Without security plugins:** All workspaces accessible
+2. **With security plugins and `savedObjects.permission.enabled: false` in the `config/opensearch_dashboards.yml` file:** All workspaces accessible
+3. **With security plugins and `savedObjects.permission.enabled: true` in the `config/opensearch_dashboards.yml` file:** Only workspaces where user has `Read and write` or `Admin` permission.
 
+## Associating data sources
 
-## Associate data sources
+Through the data source management page, you can access a comprehensive list of associated OpenSearch connections, monitor direct query connections relevant to your current workspace, and establish new data source associations as needed.
 
-![Workspace data source management page]({{site.url}}{{site.baseurl}}/images/workspace/management-workspace/workspace-data-source-management.png)
+### Managing OpenSearch connections
 
-You can associate data sources on data source management page in workspace. Data source management page in workspace lists all opensearch connections and direct query connections that are associated with the current workspace.
+The Opensearch connections tab displays all associated connections for the current workspace. Follow these steps to manage your connections:
 
-### Opensearch connection
+1. Access a comprehensive list of associated OpenSearch connections in the connections tab.
+2. Use the **Remove association** button to unlink connections as needed.
+3. Add new data sources by selecting the **OpenSearch data sources** button and subsequent modal.
+4. Browse and select from unassociated OpenSearch connections to expand your workspace's capabilities.
 
-![Remove association]({{site.url}}{{site.baseurl}}/images/workspace/management-workspace/remove-association.png)
+### Adding direct query connections
 
-Opensearch connections tab lists all opensearch connections that are associated with the current workspace. You could click the `Remove association` button to remove the association between the opensearch connection and the current workspace.
+The **Direct query connections** tab displays a list of all direct query connections associated with your current workspace. To add more direct query connections to your workspace, select the **Direct query data sources** button. A modal window opens.
 
-<img width="600" src="{{site.url}}{{site.baseurl}}/images/workspace/management-workspace/opensearch-data-sources-button.png" alt="Opensearch data sources button">
+The association modal displays a list of OpenSearch connections that contain direct query connections and have not yet been associated with your current workspace. When you associate an OpenSearch connection with your current workspace, all direct query connections within that OpenSearch connetion is automatically associated as well.
 
-You could click the `OpenSearch data sources` button to open a modal to associate more opensearch connections to current workspace.
+## Deleting your workspace
 
-<img width="600" src="{{site.url}}{{site.baseurl}}/images/workspace/management-workspace/association-modal.png" alt="Association modal">
+Workspace deletion is restricted to dashboard administrators. If you cannot see delete icon, check your permissions. Learn about [Configuring dashboard administrators]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#config-dashboard-admin).
+{: .warning}
 
-Association modal lists all opensearch connections that have not been associated with the current workspace. You could select the opensearch connections that you want to associate with the current workspace.
+Deleting a workspace permanately erases all its assets (except data sources) and the workspace itself. This action cannot be reversed.
 
-### Direct query connection
+To delete a workspace, follow these steps:
 
-<img width="600" src="{{site.url}}{{site.baseurl}}/images/workspace/management-workspace/direct-query-data-sources-button.png" alt="Direct query data sources button">
+1. From the workspace detail page, select the delete icon in the top-right corner to delete the current workspace.
+2. Alternatively, from the workspace list page, select the ellipsis icon and select **Delete**. Optionally, select multiple workspaces for bulk deletion.
 
-The 'Direct query connections' tab lists all direct query connections that are associated with the current workspace. You could click the `Direct query data sources` button to open a modal to associate more direct query connections to current workspace.
+## Navigating the workspaces list
 
-<img width="600" src="{{site.url}}{{site.baseurl}}/images/workspace/management-workspace/direct-query-modal.png" alt="Direct query association modal">
+The workspaces list page serves as your central hub for workspace management, displaying all workspaces you have permissions to access. Key features include the following: 
 
-Association modal lists all opensearch connections that contain direct query connections and have not been associated with the current workspace. If an opensearch connection is associated with the current workspace, all direct query connections in this opensearch connection will also be associated.
+- Search: Quickly find workspace by name
+- Filter: Sort workspaces based on use case
+- At-a-glance: View each workspace's name, use case, description, last update time, and associated data sources.
 
-## Delete your workspace
+Each workspace entry includes an **Actions** column with four functional buttons. These tools streamline your workspace management, allowing for efficient organization and customization of your OpenSearch Dashboards environment:
 
-Deleting a workspace will remove all assets (except data source) within it and the workspace itself. This operation cannot be undone, and all associated assets will be permanently deleted.
-
-To delete a workspace, you must be a dashboard administrator. Otherwise, the delete icon will not be visible. See [how to configure dashboard administrators]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#config-dashboard-admin) for more information.
-{: .note}
-
-There are two ways to delete a workspace:
-
-1. On the workspace detail page:
- - Click the red trash icon in the top right corner to delete the current workspace.
-<img width="700" src="{{site.url}}{{site.baseurl}}/images/workspace/management-workspace/delete_workspace_detail.png" alt="
-Delete workspace from detail page">
-
-2. On the workspace list page:
- - Click the action menu (three dots) next to a workspace and select 'Delete'.
- - Or, select multiple workspaces and use the bulk delete option.
-<img width="700" src="{{site.url}}{{site.baseurl}}/images/workspace/management-workspace/delete_workspace_list.png" alt="
-Delete workspace from list page">
-
-## Manage workspaces from workspaces list
-
-![Workspaces list page]({{site.url}}{{site.baseurl}}/images/workspace/management-workspace/workspace-list-page.png)
-
-The Workspaces list page displays all workspaces that you have permission to access. You could search workspaces by name or filter workspaces by use case. It displays the name, use case, description, last update time and associated data sources of each workspace.
-
-![Workspace list actions]({{site.url}}{{site.baseurl}}/images/workspace/management-workspace/workspace-list-actions.png)
-
-Actions column displays four buttons for each workspace.
-
-1. Copy ID button
-
-   Click the button to copy the workspace ID.
-
-2. Edit button
-
-   Click the button to navigate to the workspace details page.
-
-3. Set as my default button
-
-   Click the button to set the current workspace as your default workspace.
-
-4. Delete button
-
-   Click the button to delete the workspace.
+1. Copy ID: One-click copying of the workspace identifier
+2. Edit: Direct access to the workspace's detailed configuration page
+3. Set as default: Easily set any workspace as your default workspace
+4. Delete: Remove workspaces as needed (may require administrator privileges)
