@@ -20,7 +20,7 @@ Please note that, the workspace owner, content producer and viewer persona are s
 ## Enabling permission control
 Please refer to [Enabling ACL feature](../../management/acl#enabling-acl-feature)
 
-## Config dashboard admin
+## Configuring dashboard administrators
 
 OpenSearch Dashboard (OSD) admin is a new user that has the access to all the workspaces and objects inside OpenSearch Dashboards. To enable OSD admin in OpenSearch Dashboards, locate your copy of the `opensearch_dashboards.yml` file and set the following option. Whoever has the backend roles or exactly match the user ids defined in this config will be regard as OSD admin.
 
