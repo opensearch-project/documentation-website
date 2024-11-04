@@ -46,7 +46,7 @@ Sorted and aggregated STIX documents are backed by `doc_values` in an index. The
 
 ### Leaf nodes
 
-Each node in a star-tree index points to a range of star-tree documents. Nodes can be further split into child nodes based on the [max_leaf_docs configuration]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/star-tree/#star-tree-configuration-parameters). The number of documents that a leaf node points to is less than or equal to the number set by `max_leaf_docs`. This ensures that the maximum number of documents that need to traverse nodes to derive an aggregated value is at most the number of `max_leaf_docs`, which provides predictable latency.
+Each node in a star-tree index points to a range of star-tree documents. Nodes can be further split into child nodes based on the [max_leaf_docs configuration]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/star-tree/#stix-configuration-options). The number of documents that a leaf node points to is less than or equal to the number set by `max_leaf_docs`. This ensures that the maximum number of documents that need to traverse nodes to derive an aggregated value is at most the number of `max_leaf_docs`, which provides predictable latency.
 
 ### Star nodes
 
@@ -55,7 +55,7 @@ Star nodes are nodes which contain the aggregated data of all the other nodes in
 The star-tree index structure diagram contains the following three examples demonstrating how a query behaves when retrieving aggregations from nodes in the star-tree, from both the `status` and `port dimensions` and star nodes (indicated by the `*` symbol in the diagram):
 
 - **Blue**: In a `terms` query searching for the average request size aggregation, the `port` equals `8443` and the status equals `200`. Because the query contains values in both the `status` and `port` dimensions, the query returns the aggregation from a non-star node.
-- **Green**: In a `term` query searching for the count of requests aggregation, the `status` equals `200`. Because the query only contains a value from the `status` dimension, the query traverses to the `200` nodes child star node, which contains the aggregated vale of all `port` children nodes.
+- **Green**: In a `term` query searching for the count of requests aggregation, the `status` equals `200`. Because the query only contains a value from the `status` dimension, the query traverses to the `200` nodes child star node, which contains the aggregated vale of all the `port` children nodes.
 - **Red**: In a `term` query searching for the computed average request size aggregation, the port equals `5600`. Because the query does not contain a value from the `status` dimension, the query traverses through a star node and returns the aggregated result from the `5600` child node.
 
 Support for the `Terms` query will be added in a future version. For more information, see [GitHub issue #15257](https://github.com/opensearch-project/OpenSearch/issues/15257).
