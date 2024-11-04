@@ -11,7 +11,7 @@ has_children: false
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
 {: .warning}
 
-The OpenSearch Dashboards Assistant data summary uses large language models (LLMs) to help you generate summaries for data stored in OpenSearch indexes. This tool provides an efficient way to gain insights from large datasets, making it easier to understand and act on the information contained in your OpenSearch indexes.
+The OpenSearch Dashboards Assistant data summary feature uses large language models (LLMs) to help you generate summaries for data stored in OpenSearch indexes. This tool provides an efficient way to gain insights from large datasets, making it easier to understand and act on the information contained in your OpenSearch indexes.
 
 ## Configuration
 
