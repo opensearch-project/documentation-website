@@ -392,7 +392,7 @@ The response confirms that the processor has generated text embeddings in the `p
 
 ### Example: Externally hosted model
 
-This example demonstrates configuring an `ml_inference` search response processor to work with an externally hosted large language model (LLM) and map the model's response to the search extension object. Using the `ml_inference` processor, you can enable an LLM to summarize search results directly within the response. The summary is included in the `ext` field of the search response, providing seamless access to AI-generated insights alongside the original search results.
+This example demonstrates how to configure an `ml_inference` search response processor to work with an externally hosted large language model (LLM) and map the model's response to the search extension object. Using the `ml_inference` processor, you can enable an LLM to summarize search results directly within the response. The summary is included in the `ext` field of the search response, providing seamless access to AI-generated insights alongside the original search results.
 
 **Prerequisite**
 
@@ -471,13 +471,13 @@ PUT /_search/pipeline/my_pipeline_request_review_llm
 ```
 {% include copy-curl.html %}
 
-In this configuration, you're providing the following parameters:
+In this configuration, you've provided the following parameters:
 
-- The `model_id` specifies the ID of the generative AI model.
-- The `function_name` is set to `REMOTE`, indicating an externally hosted model.
-- The `input_map` maps the review field from the document to the context field expected by the model.
-- The `output_map` specifies that the model's response should be stored in `ext.ml_inference.llm_response` in the search response.
-- The `model_config` includes a prompt that instructs the model how to process the input and generate a summary.
+- The `model_id` parameter specifies the ID of the generative AI model.
+- The `function_name` parameter is set to `REMOTE`, indicating that the model is hosted externally.
+- The `input_map` parameter maps the review field from the document to the context field expected by the model.
+- The `output_map` parameter specifies that the model's response should be stored in `ext.ml_inference.llm_response` in the search response.
+- The `model_config` parameter includes a prompt that tells the model how to process the input and generate a summary.
 
 **Step 2: Index sample documents**
 
@@ -575,7 +575,7 @@ The following example shows you how to configure an `ml_inference` search respon
 
 **Prerequisite**
 
-You must configure an externally hosted LLM for this use case. For more information about externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/). Once you register the LLM, you can use the following request to test it. This request requires providing a `text` and `text_pair` fields within the `inputs` field:
+You must configure an externally hosted text similarity model for this use case. For more information about externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/). Once you register the text similarity model, you can use the following request to test it. This request requires that you provide the `text` and `text_pair` fields within the `inputs` field:
 
 ```json
 POST /_plugins/_ml/models/Ialx65IBAs32TwoK1lXf/_predict
@@ -615,7 +615,7 @@ The model returns similarity scores for each input document:
 
 **Step 1: Index sample documents**
 
-Create an index and add some sample documents to it:
+Create an index and add some sample documents:
 
 ```json
 POST _bulk
@@ -672,22 +672,22 @@ PUT /_search/pipeline/my_rerank_pipeline
 ```
 {% include copy-curl.html %}
 
-In this configuration, you're providing the following parameters:
+In this configuration, you've provided the following parameters:
 
-- The `model_id` specifies the unique identifier of the text similarity model.
-- The `function_name` is set to `REMOTE`, indicating that the model is hosted externally.
-- The `input_map` maps the `diary` field from each document to the `text` input of the model, and the search query term to the `text_pair` input.
-- The `output_map`  maps the model's score to a field named `rank_score` in each document.
-- The `model_input` formats the input for the model, ensuring it matches the structure expected by the Predict API.
-- The `one_to_one` parameter is set to `true`, ensuring that the model processes each document individually, rather than batching multiple documents together.
+- The `model_id` parameter specifies the unique identifier of the text similarity model.
+- The `function_name` parameter is set to `REMOTE`, indicating that the model is hosted externally.
+- The `input_map` parameter maps the `diary` field from each document to the `text` input of the model as well as the search query term to the `text_pair` input.
+- The `output_map` parameter maps the model's score to a field named `rank_score` in each document.
+- The `model_input` parameter formats the input for the model, ensuring that it matches the structure expected by the Predict API.
+- The `one_to_one` parameter is set to `true`, ensuring that the model processes each document individually rather than batching multiple documents together.
 - The `ignore_missing` parameter is set to `false`, causing the processor to fail if the mapped fields are missing from a document.
 - The `ignore_failure` parameter is set to `false`, causing the entire pipeline to fail if the ML inference processor encounters an error.
 
-The `rerank` processor is applied after the ML inference. It reorders the documents based on the `rank_score` field generated by the ML model and then removes this field from the final results.
+The `rerank` processor is applied after ML inference. It reorders the documents based on the `rank_score` field generated by the ML model and then removes this field from the final results.
 
 **Step 3: Run the pipeline**
 
-Now, perform a search using the created pipeline:
+Now perform a search using the created pipeline:
 
 ```json
 GET /demo-index-0/_search?search_pipeline=my_rerank_pipeline
