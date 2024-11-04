@@ -92,7 +92,7 @@ Mapping parameter | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
 `name` | true | n/a | false | The identifier for the nearest neighbor method.
 `space_type` | false | l2 | false | The vector space used to calculate the distance between vectors. Note: This value can also be specified at the top level of the mapping.
-`engine` | false | nmslib | false | The approximate k-NN library to use for indexing and search. The available libraries are faiss, nmslib, and Lucene.
+`engine` | false | faiss  | false | The approximate k-NN library to use for indexing and search. The available libraries are `faiss`, `nmslib`, and `lucene`.
 `parameters` | false | null | false | The parameters used for the nearest neighbor method.
 
 ### Supported nmslib methods
@@ -368,6 +368,7 @@ Setting | Default | Updatable | Description
 :--- | :--- | :--- | :---
 `index.knn` | false | false | Whether the index should build native library indexes for the `knn_vector` fields. If set to false, the `knn_vector` fields will be stored in doc values, but approximate k-NN search functionality will be disabled.
 `index.knn.algo_param.ef_search` | 100 | true | The size of the dynamic list used during k-NN searches. Higher values result in more accurate but slower searches. Only available for NMSLIB.
+`index.knn.advanced.approximate_threshold` | 15,000   | true      | The number of vectors a segment must have before creating specialized data structures for approximate search. Set to `-1` to disable building vector data structures and `0` to always build them.
 `index.knn.algo_param.ef_construction` | 100 | false | Deprecated in 1.0.0. Instead, use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value.
 `index.knn.algo_param.m` | 16 | false | Deprecated in 1.0.0. Use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value instead.
 `index.knn.space_type` | l2 | false | Deprecated in 1.0.0. Use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value instead.
