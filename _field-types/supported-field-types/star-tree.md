@@ -105,11 +105,19 @@ PUT logs
 }
 ```
 
+## STIX configuration options
 
+You can customize your STIX implementation using the following `config` options.
 
-## Star-tree mapping parameters
+| Parameter  | Description   | 
+| :--- | :--- |
+| `mappings` | A list of [mapping](#mapping-parameters) parameters. Required.
+| `max_leaf_docs` | The maximum number of STIX documents that a leaf node can point to. After the maximum number of documents is reached, children nodes will be created based on the unique vales of the next field in the `ordered_dimension` (if any). Default is `10000`. A lower value will use more storage but result in faster query performance. Inversely, a higher value will use less storage but result in slower query performance. For more information, see [Star-tree indexing structure]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/#star-tree-index-structure).  |
+| `skip_star_node_creation_for_dimensions`  | A list of dimensions for which STIX will skip star node creation. When `true`, this reduces storage size at the expense of query performance. Default is `false`. For more information about star nodes, see [Star-tree indexing structure]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/#star-tree-index-structure). |
 
-Specify any star-tree configuration mapping options in the `mappings` section. Parameters cannot be modified without reindexing documents.
+### Mapping parameters
+
+Specify any STIX configuration mapping options in the `mappings` section. Parameters cannot be modified without reindexing documents.
 
 
 ### Ordered dimensions
@@ -179,14 +187,6 @@ The `metrics` parameter supports the following properties.
 | `name` | Required | The name of the field. The field name should be present in the `properties` section as part of the index `mapping`. Ensure that the `doc_values` setting is `enabled` for any associated fields. |
 | `stats` | Optional | A list of metric aggregations computed for each field. You can choose between `Min`, `Max`, `Sum`, `Avg`, and `Value Count`.<br/>Default is `Sum` and `Value_count`.<br/>`Avg` is a derived metric statistic that will automatically be supported in queries if `Sum` and `Value_Count` are present as part of metric `stats`.
 
-### Star-tree configuration parameters
-
-The following `config` parameters are optional and cannot be modified following index creation.
-
-| Parameter  | Description   | 
-| :--- | :--- |
-| `max_leaf_docs` | The maximum number of STIX documents that a leaf node can point to. After the maximum number of documents is reached, children nodes of the leaf node will be created based on the unique `doc_value`. Default is `10000`. A lower value will use more storage but result in faster query performance. Inversely, a higher value will use less storage but result in slower query performance. For more information, see [Star-tree indexing structure]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/#star-tree-index-structure).  |
-| `skip_star_node_creation_for_dimensions`  | A list of dimensions for which STIX will skip star node creation. When `true`, this reduces storage size at the expense of query performance. Default is `false`. For more information about star nodes, see [Star-tree indexing structure]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/#star-tree-index-structure). |
 
 ## Supported queries and aggregations
 
