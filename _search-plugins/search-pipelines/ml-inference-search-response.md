@@ -96,119 +96,6 @@ For local models, you must provide a `model_input` field that specifies the mode
 
 For remote models, the `model_input` field is optional, and its default value is `"{ \"parameters\": ${ml_inference.parameters} }`.
 
-### Example: Externally hosted text embedding model
-
-The following example shows you how to configure an `ml_inference` search response processor with an externally hosted model.
-
-**Step 1: Create a pipeline**
-
-The following example shows you how to create a search pipeline for an externally hosted text embedding model. The model requires an `input` field and generates results in a `data` field. It converts the text in the `passage_text` field into text embeddings and stores the embeddings in the `passage_embedding` field. The `function_name` is not explicitly specified in the processor configuration, so it defaults to `remote`, signifying an externally hosted model:
-
-```json
-PUT /_search/pipeline/ml_inference_pipeline
-{
-  "description": "Generate passage_embedding when search documents",
-  "processors": [
-    {
-      "ml_inference": {
-        "model_id": "<your model id>",
-        "input_map": [
-          {
-            "input": "passage_text"
-          }
-        ],
-        "output_map": [
-          {
-            "passage_embedding": "data"
-          }
-        ]
-      }
-    }
-  ]
-}
-```
-{% include copy-curl.html %}
-
-When making a Predict API request to an externally hosted model, all necessary fields and parameters are usually contained within a `parameters` object:
-
-```json
-POST /_plugins/_ml/models/cleMb4kBJ1eYAeTMFFg4/_predict
-{
-  "parameters": {
-    "input": [
-      {
-        ...
-      }
-    ]
-  }
-}
-```
-
-When specifying the `input_map` for an externally hosted model, you can directly reference the `input` field instead of providing its dot path `parameters.input`:
-
-```json
-"input_map": [
-  {
-    "input": "passage_text"
-  }
-]
-```
-
-**Step 2: Run the pipeline**
-
-Run the following query, providing the pipeline name in the request:
-
-```json
-GET /my_index/_search?search_pipeline=ml_inference_pipeline_local
-{
-  "query": {
-    "match_all": {
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-The response confirms that the processor has generated text embeddings in the `passage_embedding` field. The document within `_source` now contains both the `passage_text` and `passage_embedding` fields:
-
-```json
-
-{
-  "took": 288,
-  "timed_out": false,
-  "_shards": {
-    "total": 1,
-    "successful": 1,
-    "skipped": 0,
-    "failed": 0
-  },
-  "hits": {
-    "total": {
-      "value": 1,
-      "relation": "eq"
-    },
-    "max_score": 0.00009405752,
-    "hits": [
-      {
-        "_index": "my_index",
-        "_id": "1",
-        "_score": 0.00009405752,
-        "_source": {
-          "passage_text": "hello world",
-          "passage_embedding": [
-            0.017304314,
-            -0.021530833,
-            0.050184276,
-            0.08962978,
-            ...]
-        }
-      }
-      }
-    ]
-  }
-}
-```
-
 ### Example: Local model
 
 The following example shows you how to configure an `ml_inference` search response processor with a local model.
@@ -384,6 +271,118 @@ The response confirms that the processor has generated text embeddings in the `p
             0.08962978,
             ...]
         }
+      }
+    ]
+  }
+}
+```
+
+### Example: Externally hosted text embedding model
+
+The following example shows you how to configure an `ml_inference` search response processor with an externally hosted model.
+
+**Step 1: Create a pipeline**
+
+The following example shows you how to create a search pipeline for an externally hosted text embedding model. The model requires an `input` field and generates results in a `data` field. It converts the text in the `passage_text` field into text embeddings and stores the embeddings in the `passage_embedding` field. The `function_name` is not explicitly specified in the processor configuration, so it defaults to `remote`, signifying an externally hosted model:
+
+```json
+PUT /_search/pipeline/ml_inference_pipeline
+{
+  "description": "Generate passage_embedding when search documents",
+  "processors": [
+    {
+      "ml_inference": {
+        "model_id": "<your model id>",
+        "input_map": [
+          {
+            "input": "passage_text"
+          }
+        ],
+        "output_map": [
+          {
+            "passage_embedding": "data"
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+When making a Predict API request to an externally hosted model, all necessary fields and parameters are usually contained within a `parameters` object:
+
+```json
+POST /_plugins/_ml/models/cleMb4kBJ1eYAeTMFFg4/_predict
+{
+  "parameters": {
+    "input": [
+      {
+        ...
+      }
+    ]
+  }
+}
+```
+
+When specifying the `input_map` for an externally hosted model, you can directly reference the `input` field instead of providing its dot path `parameters.input`:
+
+```json
+"input_map": [
+  {
+    "input": "passage_text"
+  }
+]
+```
+
+**Step 2: Run the pipeline**
+
+Run the following query, providing the pipeline name in the request:
+
+```json
+GET /my_index/_search?search_pipeline=ml_inference_pipeline_local
+{
+  "query": {
+    "match_all": {
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response confirms that the processor has generated text embeddings in the `passage_embedding` field. The document within `_source` now contains both the `passage_text` and `passage_embedding` fields:
+
+```json
+{
+  "took": 288,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 0.00009405752,
+    "hits": [
+      {
+        "_index": "my_index",
+        "_id": "1",
+        "_score": 0.00009405752,
+        "_source": {
+          "passage_text": "hello world",
+          "passage_embedding": [
+            0.017304314,
+            -0.021530833,
+            0.050184276,
+            0.08962978,
+            ...]
+        }
+      }
       }
     ]
   }
