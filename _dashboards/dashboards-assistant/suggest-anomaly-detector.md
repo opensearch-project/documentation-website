@@ -8,10 +8,10 @@ has_children: false
 
 # Anomaly detector suggestions
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress the feature or if you want to leave feedback, join the discussion in the [OpenSearch forum](https://forum.opensearch.org/).    
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
 {: .warning}
 
-The OpenSearch Dashboards Assistant can use a large language model (LLM) to suggest creating an anomaly detector. The LLM analyzes data patterns in your OpenSearch indexes and recommends configuration settings for the anomaly detector, making it easier to identify unusual activity or trends in your data.
+The OpenSearch Dashboards Assistant can use a large language model (LLM) to suggest the creation of an anomaly detector. The LLM analyzes data patterns in your OpenSearch indexes and recommends configuration settings for the anomaly detector, making it easier to identify unusual activity or trends in your data.
 
 ## Configuration
 
@@ -22,7 +22,7 @@ To configure anomaly detector suggestions, use the following steps.
 Before using anomaly detector suggestions, enable query enhancements in OpenSearch Dashboards as follows:
 
 1. On the top menu bar, go to **Management > Dashboards Management**. 
-1. In the left navigation, select **Advanced settings**.
+1. In the left navigation pane, select **Advanced settings**.
 1. On the settings page, toggle **Enable query enhancements** to **On**.
 
 ### Step 1: Enable anomaly detector suggestions
@@ -36,7 +36,7 @@ assistant.smartAnomalyDetector.enabled: true
 
 ### Step 2: Create an anomaly detector suggestion agent
 
-To orchestrate anomaly detector suggestions, create a `os_suggest_ad` agent. To create an agent, send a `POST /_plugins/_ml/agents/_register` request and provide the agent template as a payload. For more information, see [Configuring OpenSearch Assistant]({{site.url}}{{site.baseurl}}/dashboards/dashboards-assistant/index/#configuring-opensearch-assistant).
+To orchestrate anomaly detector suggestions, create an `os_suggest_ad` agent. To create an agent, send a `POST /_plugins/_ml/agents/_register` request and provide the agent template as a payload. For more information, see [Configuring OpenSearch Assistant]({{site.url}}{{site.baseurl}}/dashboards/dashboards-assistant/index/#configuring-opensearch-assistant).
 
 For sample agent templates, see [Flow Framework sample templates](https://github.com/opensearch-project/flow-framework/tree/main/sample-templates). Note the agent ID; you'll use it in the following step.
 
@@ -71,16 +71,16 @@ POST /_plugins/_ml/agents/<SUGGEST_ANOMALY_DETECTOR_AGENT_ID>/_execute
 
 ## Viewing anomaly detector suggestions in OpenSearch Dashboards
 
-To view alert insights in OpenSearch Dashboards, use the following steps:
+To view anomaly detector suggestions in OpenSearch Dashboards, use the following steps:
 
 1. On the top menu bar, go to **OpenSearch Dashboards > Discover**.
 
-1. In the index pattern dropdown list, select an index pattern.
+1. From the index pattern dropdown list, select an index pattern.
 
-1. Select the **AI assistant** dropdown list, then select **Suggest anomaly detector**, as shown in the following image.
+1. Select the **AI assistant** dropdown list and then select **Suggest anomaly detector**, as shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/suggestAD-button.png" alt="Click the Suggest anomaly detector action">
 
-1. Wait for the LLM to populate the **Suggest anomaly detector** fields for creating an anomaly detector for the index pattern. Then select the **Create detector** button to create an anomaly detector, as shown in the following image.
+1. Wait for the LLM to populate the **Suggest anomaly detector** fields that will be used to create an anomaly detector for the index pattern. Then select the **Create detector** button to create an anomaly detector, as shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/suggestAD-UI.png" alt="Suggested anomaly detector">

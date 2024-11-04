@@ -8,7 +8,7 @@ has_children: false
 
 # Text to visualization
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress the feature or if you want to leave feedback, join the discussion in the [OpenSearch forum](https://forum.opensearch.org/).    
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
 {: .warning}
 
 The OpenSearch Dashboards Assistant can create visualizations using natural language instructions.
@@ -28,7 +28,7 @@ assistant.text2viz.enabled: true
 
 ### Step 2: Create an agent
 
-To orchestrate text to visualization, create a `os_query_assist_ppl` agent. To create an agent, send a `POST /_plugins/_ml/agents/_register` request and provide the agent template as a payload. For more information, see [Configuring OpenSearch Assistant]({{site.url}}{{site.baseurl}}/dashboards/dashboards-assistant/index/#configuring-opensearch-assistant).
+To orchestrate text to visualization, create an `os_query_assist_ppl` agent. To create an agent, send a `POST /_plugins/_ml/agents/_register` request and provide the agent template as a payload. For more information, see [Configuring OpenSearch Assistant]({{site.url}}{{site.baseurl}}/dashboards/dashboards-assistant/index/#configuring-opensearch-assistant).
 
 For sample agent templates, see [Flow Framework sample templates](https://github.com/opensearch-project/flow-framework/tree/main/sample-templates). Note the agent ID; you'll use it in the following step.
 
@@ -80,7 +80,7 @@ POST /_plugins/_ml/agents/<ROOT_AGENT_ID>/_execute
 
 ## Generating a visualization from text
 
-You can generate a visualization from text by calling the `/api/assistant/text2vega` API endpoint. The  `input_instruction` parameter is optional:
+You can generate a visualization from text by calling the `/api/assistant/text2vega` API endpoint. The `input_instruction` parameter is optional:
 
 ```json
 POST /api/assistant/text2vega
@@ -98,17 +98,17 @@ The following table describes the Text to Visualization API parameters.
 
 Parameter | Required/Optional | Description 
 :--- | :--- | :---
-`input_question` | Required | The user’s original question used to generate the corresponding Piped Processing Language (PPL) query.
+`input_question` | Required | The user's original question used to generate the corresponding Piped Processing Language (PPL) query.
 `ppl` | Required | 	The generated PPL query that retrieves the data required for the visualization.
 `dataSchema` | Required | Describes the structure and types of the data fields in the visualization output, based on the PPL response.
 `sampleData` | Required | Provides sample entries from the data that will populate the visualization.
-`input_instruction` | Optional | Specifies the styling instructions such as colors for the visualization.
+`input_instruction` | Optional | Specifies the styling instructions, such as colors, for the visualization.
 
 ## Generating visualizations from text in OpenSearch Dashboards
 
 To generate visualizations from text in OpenSearch Dashboards, use the following steps:
 
-1. On the top menu bar, go to **OpenSearch Dashboards > Visualize**, then select **Create visualization**.
+1. On the top menu bar, go to **OpenSearch Dashboards > Visualize** and then select **Create visualization**.
 
 1. In the **New Visualization** dialog, select **Natural language**, as shown in the following image.
 
@@ -122,7 +122,7 @@ To generate visualizations from text in OpenSearch Dashboards, use the following
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/t2viz-ask-question.png" alt="Create a visualization by selecting natural language">
 
-1. To modify the generated visualization, select **Edit visual**. In the **Edit visual** dialog, enter the desired modifications, and select **Apply**, as shown in the following image.
+1. To modify the generated visualization, select **Edit visual**. In the **Edit visual** dialog, enter the desired modifications and then select **Apply**, as shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/t2viz-edit-visual.png" alt="Create a visualization by selecting natural language">
 

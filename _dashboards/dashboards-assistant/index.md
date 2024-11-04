@@ -131,9 +131,9 @@ assistant.next.enabled: true
 ```
 {% include copy-curl.html %}
 
-## Dashboards Assistant additional capabilities
+## Additional Dashboards Assistant capabilities
 
-For information about the Dashboards Assistant additional capabilities, explore the following pages:
+For information about additional Dashboards Assistant capabilities, see the following pages:
 
 - [Generating alert insights]({{site.url}}{{site.baseurl}}/dashboards/dashboards-assistant/alert-insight/)
 - [Generating data summaries]({{site.url}}{{site.baseurl}}/dashboards/dashboards-assistant/data-summary/)
