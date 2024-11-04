@@ -131,6 +131,15 @@ assistant.next.enabled: true
 ```
 {% include copy-curl.html %}
 
+## OpenSearch Dashboards Assistant additional capabilities
+
+For information about the OpenSearch Dashboards Assistant additional capabilities, explore the following pages:
+
+- [Generating alert insights]({{site.url}}{{site.baseurl}}/dashboards/dashboards-assistant/alert-insight/)
+- [Generating data summaries]({{site.url}}{{site.baseurl}}/dashboards/dashboards-assistant/data-summary/)
+- [Generating anomaly detector suggestions]({{site.url}}{{site.baseurl}}/dashboards/dashboards-assistant/suggest-anomaly-detector/)
+- [Generating visualizations from text]({{site.url}}{{site.baseurl}}/dashboards/dashboards-assistant/text-to-visualization/)
+
 ## Related articles
 
 - [Getting started guide for OpenSearch Assistant in OpenSearch Dashboards](https://github.com/opensearch-project/dashboards-assistant/blob/main/GETTING_STARTED_GUIDE.md)

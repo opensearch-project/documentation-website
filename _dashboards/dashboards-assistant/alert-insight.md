@@ -1,80 +1,210 @@
 ---
 layout: default
-title: Alert Insight
+title: Alert insights
 parent: OpenSearch Assistant for OpenSearch Dashboards
 nav_order: 1
 has_children: false
 ---
 
-# Alert Insight
-**Experimental**
-{: .label .label-purple }
+# Alert insights
 
-The OpenSearch-Dashboards Assistant alert insight feature helps you generate summary of alerts and provide log patterns on the alert trigger logs.
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress the feature or if you want to leave feedback, join the discussion in the [OpenSearch forum](https://forum.opensearch.org/).    
+{: .warning}
 
-## Configuration
+The OpenSearch Dashboards Assistant alert insights help generate alert summaries and provide log patterns based on the logs that triggered the alert.
 
-### Prerequisites
-Need plugin `alerting` and `alerting-dashboards` installed.
+## Configuring alert insights
 
-### Enable Alert Insight
+To configure alert insights, use the following steps.
+
+### Prerequisite
+
+Before using alert insights, you must have the `alerting` and `alerting-dashboards` plugins installed on your cluster. By default, these plugins are installed as part of standard OpenSearch distributions. For more information, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
+
+### Step 1: Enable alert insights
+
+To enable alert insights, configure the following `opensearch_dashboards.yml` setting:
+
 ```yaml
 assistant.alertInsight.enabled: true
 ```
 {% include copy.html %}
 
-### Create agents with OpenSearch flow-framework 
-Use OpenSearch flow-framework to create the required agents. Please follow [flow-framework documentation](https://github.com/opensearch-project/flow-framework) to create the agents.
-You can start with the flow-framework example template for Alert Summary and Alert Insight agent, see the example template [here](https://github.com/opensearch-project/flow-framework/tree/main/sample-templates). 
+### Step 2: Create the agents
 
-You need to create two summary agents, one for basic alert summary and another for alert summary with log patterns. They two have different prompts, the latter one must have a placeholder `${parameters.topNLogPatternData}` for the log patterns and more prompt instructions about asking LLM how to use this information. Log patterns are only available for query monitor created by visual editor.
+To orchestrate alert insights, you'll need to create the necessary [agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/#agents). To create an agent, send a `POST /_plugins/_ml/agents/_register` request and provide the agent template as a payload. For example, to create an alert summary agent, send the following request:
 
-### Configure agents
-Create root agents for alert summary.
+<details markdown="block">
+  <summary>
+    Request
+  </summary>
+  {: .text-delta}
+
+```json
+POST /_plugins/_ml/agents/_register
+{
+  "name": "Alert Summary Agent",
+  "description": "Create Alert Summary Agent using Claude on BedRock",
+  "use_case": "REGISTER_AGENT",
+  "version": {
+    "template": "1.0.0",
+    "compatibility": ["2.17.0", "3.0.0"]
+  },
+  "workflows": {
+    "provision": {
+      "user_params": {},
+      "nodes": [
+        {
+          "id": "create_claude_connector",
+          "type": "create_connector",
+          "previous_node_inputs": {},
+          "user_inputs": {
+            "version": "1",
+            "name": "Claude instant runtime Connector",
+            "protocol": "aws_sigv4",
+            "description": "The connector to BedRock service for Claude model",
+            "actions": [
+              {
+                "headers": {
+                  "x-amz-content-sha256": "required",
+                  "content-type": "application/json"
+                },
+                "method": "POST",
+                "request_body": "{\"prompt\":\"${parameters.prompt}\", \"max_tokens_to_sample\":${parameters.max_tokens_to_sample}, \"temperature\":${parameters.temperature},  \"anthropic_version\":\"${parameters.anthropic_version}\" }",
+                "action_type": "predict",
+                "url": "https://bedrock-runtime.us-west-2.amazonaws.com/model/anthropic.claude-instant-v1/invoke"
+              }
+            ],
+            "credential": {
+                "access_key": "<YOUR_ACCESS_KEY>",
+                "secret_key": "<YOUR_SECRET_KEY>",
+                "session_token": "<YOUR_SESSION_TOKEN>"
+            },
+            "parameters": {
+              "region": "us-west-2",
+              "endpoint": "bedrock-runtime.us-west-2.amazonaws.com",
+              "content_type": "application/json",
+              "auth": "Sig_V4",
+              "max_tokens_to_sample": "8000",
+              "service_name": "bedrock",
+              "temperature": "0.0001",
+              "response_filter": "$.completion",
+              "anthropic_version": "bedrock-2023-05-31"
+            }
+          }
+        },
+        {
+          "id": "register_claude_model",
+          "type": "register_remote_model",
+          "previous_node_inputs": {
+            "create_claude_connector": "connector_id"
+          },
+          "user_inputs": {
+            "description": "Claude model",
+            "deploy": true,
+            "name": "claude-instant"
+          }
+        },
+        {
+          "id": "create_alert_summary_ml_model_tool",
+          "type": "create_tool",
+          "previous_node_inputs": {
+            "register_claude_model": "model_id"
+          },
+          "user_inputs": {
+            "parameters": {
+              "prompt": "You are an OpenSearch Alert Assistant to help summarize the alerts.\n Here is the detail of alert: ${parameters.context};\n The question is: ${parameters.question}."
+            },
+            "name": "MLModelTool",
+            "type": "MLModelTool"
+          }
+        },
+        {
+          "id": "create_alert_summary_agent",
+          "type": "register_agent",
+          "previous_node_inputs": {
+            "create_alert_summary_ml_model_tool": "tools"
+          },
+          "user_inputs": {
+            "parameters": {},
+            "type": "flow",
+            "name": "Alert Summary Agent",
+            "description": "this is an alert summary agent"
+          }
+        }
+      ]
+    }
+  }
+}
 ```
+{% include copy-curl.html %}
+
+</details>
+
+For sample agent templates, see [Flow Framework sample templates](https://github.com/opensearch-project/flow-framework/tree/main/sample-templates). Note the agent ID; you'll use it in the following step.
+
+For this example, use the templates to create the following agents: 
+- An alert insights agent
+- Two summary agents:
+    - A basic alert summary agent
+    - An agent for an alert summary that includes log patterns
+
+    These agents require different prompts. The prompt for the log patterns summary must include a placeholder `${parameters.topNLogPatternData}` and additional instructions to guide the LLM on using this information effectively. Note that log patterns are available only for query monitors created using OpenSearch Dashboards.
+
+### Step 3: Create the root agents
+
+Next, create [root agents]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-tutorial/#root_agent) for agents created in the previous step.
+
+Create a root agent for the alert summary agent:
+
+```json
 POST /.plugins-ml-config/_doc/os_summary
 {
   "type": "os_root_agent",
   "configuration": {
-    "agent_id": "your agent id for summary"
+    "agent_id": "<SUMMARY_AGENT_ID>"
   }
 }
 ```
 {% include copy-curl.html %}
 
-Create root agents for alert summary with log patterns.
-```
+Create a root agent for the alert summary with log patterns agent:
+
+```json
 POST /.plugins-ml-config/_doc/os_summary_with_log_pattern
 {
   "type": "os_root_agent",
   "configuration": {
-    "agent_id": "your agent id for summary with log patterns"
+    "agent_id": "<SUMMARY_WITH_LOG_PATTERNS_AGENT_ID>"
   }
 }
 ```
 {% include copy-curl.html %}
 
-Create root agents for alert insight.
-```
+Create a root agent for the alert insights agent:
+
+```json
 POST /.plugins-ml-config/_doc/os_insight
 {
   "type": "os_root_agent",
   "configuration": {
-    "agent_id": "your agent id for alert insight"
+    "agent_id": "<ALERT_INSIGHTS_AGENT_ID>"
   }
 }
 ```
 {% include copy-curl.html %}
 
-The `os_insight` agent provides insight to alerts related to OpenSearch cluster metrics. If you wish to provide insight on alerts not related to OpenSearch cluster metrics, you need to register an agent with [template](https://github.com/opensearch-project/flow-framework/blob/main/sample-templates/create-knowledge-base-alert-agent.json) and change the agent name to `KB_For_Alert_Insight`.
+The created `os_insight` agent provides alert insights related to OpenSearch cluster metrics. For insights about alerts unrelated to OpenSearch cluster metrics, you need to register an agent with [this template](https://github.com/opensearch-project/flow-framework/blob/main/sample-templates/create-knowledge-base-alert-agent.json) and change the agent name to `KB_For_Alert_Insight`.
 {: .note}
 
-### Verify
-You can verify if the agents are created successfully by calling the agents with example payload.
+### Step 4: Test the agents
 
-Test agents for alert summary.
-```
-POST /_plugins/_ml/agents/<your agent id for summary>/_execute
+You can verify that the agents were created successfully by calling the agents with an example payload.
+
+To test the alert summary agent, send the following request:
+
+```json
+POST /_plugins/_ml/agents/<SUMMARY_AGENT_ID>/_execute
 { 
   "parameters": {
     "question": "Please summarize this alert, do not use any tool.",
@@ -84,9 +214,10 @@ POST /_plugins/_ml/agents/<your agent id for summary>/_execute
 ```
 {% include copy-curl.html %}
 
-Test agents for alert summary with log patterns.
-```
-POST /_plugins/_ml/agents/<your agent id for summary with log pattern>/_execute
+To test the alert summary with log patterns agent, send the following request:
+
+```json
+POST /_plugins/_ml/agents/<SUMMARY_WITH_LOG_PATTERNS_AGENT_ID>/_execute
 { 
   "parameters": {
     "question": "Please summarize this alert, do not use any tool.",
@@ -97,9 +228,10 @@ POST /_plugins/_ml/agents/<your agent id for summary with log pattern>/_execute
 ```
 {% include copy-curl.html %}
 
-Test agents for alert insight.
-```
-POST /_plugins/_ml/agents/<your agent id for insight>/_execute
+To test the alert insights agent, send the following request:
+
+```json
+POST /_plugins/_ml/agents/<ALERT_INSIGHTS_AGENT_ID>/_execute
 { 
   "parameters": {
     "question": "Please provide your insight on this alerts.",
@@ -110,9 +242,11 @@ POST /_plugins/_ml/agents/<your agent id for insight>/_execute
 ```
 {% include copy-curl.html %}
 
-## Alert insight API
-Call API `/api/assistant/summary` to generate alert summary, `index`, `dsl` and `topNLogPatternData` are optional(it will execute the agent for summary with log patterns if all of them are provided, otherwise it will execute the agent for summary.)
-```
+## Generating an alert summary
+
+You can generate an alert summary by calling the `/api/assistant/summary` API endpoint. To generate an alert summary, the fields `index`, `dsl`, and `topNLogPatternData` are optional. If all three fields are provided, the agent will provide a summary with log pattern analysis; otherwise, it will provide a general summary:
+
+```json
 POST /api/assistant/summary
 {
   "summaryType": "alerts",
@@ -125,17 +259,22 @@ POST /api/assistant/summary
 ```
 {% include copy-curl.html %}
 
-Parameter | Description                                                                                                             | Required
-:--- |:------------------------------------------------------------------------------------------------------------------------| :---
-summaryType | the type of application calling this API, always `alerts` for alert insight                                             | `true`
-question | user's question about the alert insight, default is `Please summarize this alert, do not use any tool.`                 | `true`
-context | the context of the alert, should includes alert monitor definition, active alerts and trigger value                     | `false`
-index | the index on which the alert is monitoring. No analyze on log pattern if missing                                        | `false`
-dsl | the dsl which alert for monitoring. No analyze on log pattern if missing                                                | `false`
-topNLogPatternData | the log patterns of alert trigger data. No analyze on log pattern if missing                                            | `false`
+The following table describes the Assistant Summary API parameters.
 
-Call API `/api/assistant/insight` to generate alert insight, all the five parameters are required.
-```
+Parameter | Required/Optional | Description
+:--- | :--- | :---
+`summaryType` | Required | Specifies the type of application calling this API. Use `alerts` for alert insights.
+`question` | Required | Specifies the user's question regarding alert insights. Default is `Please summarize this alert, do not use any tool.` 
+`context` | Required | Provides context for the alert, including the alert monitor definition, active alerts, and trigger values.
+`index` | Optional | The index that the alert monitors. If this parameter is not provided, log pattern analysis is not returned.
+`dsl` | Optional | The DSL query for alert monitoring. If this parameter is not provided, log pattern analysis is not returned.
+`topNLogPatternData` | Optional | Log patterns for the alert trigger data. If this parameter is not provided, log pattern analysis is not returned.
+
+## Generating alert insights
+
+You can generate alert insights by calling the `/api/assistant/insight` API endpoint. To generate alert insights, all of the following parameters are required:
+
+```json
 POST /api/assistant/insight
 {
   "summaryType": "alerts",
@@ -147,21 +286,33 @@ POST /api/assistant/insight
 ```
 {% include copy-curl.html %}
 
-Parameter | Description                                                                                                      | Required
-:--- |:-----------------------------------------------------------------------------------------------------------------| :---
-summaryType | the type of application calling this API, always `alerts` for alert insight                                      | `true`
-insightType | the type of alert, `os_insight` stands for cluster metrics alert and `user_insight` stands for other alert types | `true`
-question | user's question about the alert insight, default is `Please provide your insight on this alerts.`          | `true`
-context | the context of the alert, should includes alert monitor definition, active alerts and trigger value              | `true`
-summary | the output from the alert summary API                                                                            | `true`
+The following table describes the Assistant Insight API parameters.
+
+Parameter | Required/Optional | Description 
+:--- | :--- | :---
+`summaryType` | Required | Specifies the type of application calling this API. Use `alerts` for alert insights.
+`insightType` | Required | Defines the alert type. Use `os_insight` for cluster metrics alerts and `user_insight` for other alert types.
+`question` | Required | Specifies the user's question regarding alert insights. Default is `Please provide your insight on this alerts.` 
+`context` | Required | Provides context for the alert, including the alert monitor definition, active alerts, and trigger values.
+`summary` | Required | The result returned by the alert summary agent.
 
 
-## Alert insight UI
-Enter the alerting page, you will see sparkle icon beside each alert if configured correctly.
-<img width="700" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/alert-insight-start.png" alt="Alerting page with sparkle icon">
+## Viewing alert insights in OpenSearch Dashboards
 
-Click the sparkle icon to start generating alert summary.
-<img width="700" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/alert-insight-summary.png" alt="Alert insight summary">
+Before viewing alert insights, you must configure alerts in OpenSearch Dashboards. For more information, see [Alerting]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/index/).
 
-Click the information icon to start generating alert insight.
-<img width="700" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/alert-insight-insight.png" alt="Alert insight summary">
+To view alert insights in OpenSearch Dashboards, use the following steps:
+
+1. On the top menu bar, go to **OpenSearch Plugins > Alerting**. All alerts are displayed.
+
+1. Hover over the alerts for your desired monitor. If you configured alert insights, you will see a sparkle icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/sparkle-icon.png" class="inline-icon" alt="sparkle icon"/>{:/}) next to the alerts in the **Alerts** column, as shown in the following image.
+    
+    <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/alert-insight-start.png" alt="Alerting page with sparkle icon">
+
+1. Select the alerts label or the sparkle icon. You will see the generated summary, as shown in the following image.
+    
+    <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/alert-insight-summary.png" alt="Alert summary">
+
+1. Select the information icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/info-icon.png" class="inline-icon" alt="info icon"/>{:/}) to view alert insights. You will see the generated alert insights, as shown in the following image.
+    
+    <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/alert-insight-insight.png" alt="Alert insights">

@@ -1,50 +1,66 @@
 ---
 layout: default
-title: Suggest Anomaly Detector
+title: Anomaly detector suggestions
 parent: OpenSearch Assistant for OpenSearch Dashboards
 nav_order: 1
 has_children: false
 ---
 
-# Suggest Anomaly Detector
-**Experimental**
-{: .label .label-purple }
+# Anomaly detector suggestions
 
-The OpenSearch-Dashboards Assistant suggest anomaly detector feature helps you create anomaly detector based on the suggestion given by LLM.
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress the feature or if you want to leave feedback, join the discussion in the [OpenSearch forum](https://forum.opensearch.org/).    
+{: .warning}
+
+The OpenSearch Dashboards Assistant can use a large language model (LLM) to suggest creating an anomaly detector. The LLM analyzes data patterns in your OpenSearch indexes and recommends configuration settings for the anomaly detector, making it easier to identify unusual activity or trends in your data.
 
 ## Configuration
 
-### Prerequisites
-1. Please note that you only need to setup `os_suggest_ad` agent for suggest anomaly detector feature, follow this [guide](http://localhost:4000/docs/latest/dashboards/dashboards-assistant/index/#configuring-opensearch-assistant) to setup `os_suggest_ad` agent.
-2. Ensure query enhancements feature is enabled, you can goto `Dashboards Management`>`Advanced settings` to enable this feature.
+To configure anomaly detector suggestions, use the following steps.
 
-### Enable Suggest Anomaly Detector
+### Prerequisite
+
+Before using anomaly detector suggestions, enable query enhancements in OpenSearch Dashboards as follows:
+
+1. On the top menu bar, go to **Management > Dashboards Management**. 
+1. In the left navigation, select **Advanced settings**.
+1. On the settings page, toggle **Enable query enhancements** to **On**.
+
+### Step 1: Enable anomaly detector suggestions
+
+To enable anomaly detector suggestions, configure the following `opensearch_dashboards.yml` setting:
+
 ```yaml
 assistant.smartAnomalyDetector.enabled: true
 ```
 {% include copy.html %}
 
-### Create agents with OpenSearch flow-framework 
-Use OpenSearch flow-framework to create the required agents. Please follow [flow-framework documentation](https://github.com/opensearch-project/flow-framework) to create the agents.
-You can start with the flow-framework example template for suggest anomaly detector, see the example template [here](https://github.com/opensearch-project/flow-framework/tree/main/sample-templates).
+### Step 2: Create an anomaly detector suggestion agent
 
-### Configure agents
-Configure agent for suggest anomaly detector
-```
+To orchestrate anomaly detector suggestions, create a `os_suggest_ad` agent. To create an agent, send a `POST /_plugins/_ml/agents/_register` request and provide the agent template as a payload. For more information, see [Configuring OpenSearch Assistant]({{site.url}}{{site.baseurl}}/dashboards/dashboards-assistant/index/#configuring-opensearch-assistant).
+
+For sample agent templates, see [Flow Framework sample templates](https://github.com/opensearch-project/flow-framework/tree/main/sample-templates). Note the agent ID; you'll use it in the following step.
+
+### Step 3: Configure the agent
+
+Next, configure the anomaly detector suggestion agent created in the previous step:
+
+```json
 POST /.plugins-ml-config/_doc/os_suggest_ad
 {
   "type": "suggest_anomaly_detector_agent",
   "configuration": {
-    "agent_id": "your agent id of suggest anomaly detector"
+    "agent_id": "<SUGGEST_ANOMALY_DETECTOR_AGENT_ID>"
   }
 }
 ```
 {% include copy-curl.html %}
 
-### Verify
-You can verify if the agents were create successfully by call the agents with example payload
-```
-POST /_plugins/_ml/agents/<your agent id>/_execute
+### Step 4: Test the agent
+
+You can verify that the agent was created successfully by calling the agent with an example payload:
+
+```json
+POST /_plugins/_ml/agents/<SUGGEST_ANOMALY_DETECTOR_AGENT_ID>/_execute
 {
   "parameters": {
     "index":"sample_weblogs_test"
@@ -53,15 +69,18 @@ POST /_plugins/_ml/agents/<your agent id>/_execute
 ```
 {% include copy-curl.html %}
 
-## Suggest Anomaly Detector UI
+## Viewing anomaly detector suggestions in OpenSearch Dashboards
 
-Select an index pattern, click the `AI assistant` button and then click the `Suggest anomaly detector` action:
+To view alert insights in OpenSearch Dashboards, use the following steps:
 
-<img width="700" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/suggestAD-button.png" alt="Click the Suggest anomaly detector action">
+1. On the top menu bar, go to **OpenSearch Dashboards > Discover**.
 
-Wait LLM to give the suggested model features and category field for creating anomaly detector for the index pattern, then click the `Create detector` button to create an anomaly detector.
+1. In the index pattern dropdown list, select an index pattern.
 
-<img width="700" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/suggestAD-UI.png" alt="Suggested anomaly detector">
+1. Select the **AI assistant** dropdown list, then select **Suggest anomaly detector**, as shown in the following image.
 
+    <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/suggestAD-button.png" alt="Click the Suggest anomaly detector action">
 
+1. Wait for the LLM to populate the **Suggest anomaly detector** fields for creating an anomaly detector for the index pattern. Then select the **Create detector** button to create an anomaly detector, as shown in the following image.
 
+    <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/suggestAD-UI.png" alt="Suggested anomaly detector">
