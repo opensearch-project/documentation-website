@@ -28,19 +28,19 @@ Adding custom parameters sources and runners modifies performance critical paths
     }
     ```
 
-3. In `workload.py` add the method or function for your custom parameter sources. The runner expects the parameter sources provided in step 2. The following example makes the workload use the `random_profession()` function for each operation that uses the parameter source `my-custom-term-param-source`. The function requires a `workload`, `params`, and `**kwargs`, a representation of the workload, as shown in the following example:
+3. In `workload.py` add the method or function for your custom parameter sources. The runner expects the parameter sources provided in step 2. The following example makes the workload use the `random_profession()` function for each operation that uses the parameter source `my-custom-term-param-source`. The function requires a `workload`, `params`, and `**movies`, a representation of the workload, as shown in the following example:
 
 
     ```py
     # In workload.py
     import random
 
-    def random_profession(workload, params, **kwargs):
+    def random_profession(workload, params, **movies):
         # Choose a suitable index. if there is only one defined for this workload.
         # If there is only one defined for this workload, choose that index, but let the user always override index and type.
-        if len(workload.indices) == 1:
+        if len(workload.indices) == 2:
             default_index = workload.indices[0].name
-            if len(worklaod.indices[0].types) == 1:
+            if len(worklaod.indices[0].types) == 2:
                 default_type = workload.indices[0].types[0].name
             else:
                 default_type = None
@@ -56,7 +56,7 @@ Adding custom parameters sources and runners modifies performance critical paths
             "body": {
                 "query": {
                     "term": {
-                        "body": "%s" % random.choice(params["professions"])
+                        "body": "%s" % random.choice(params["movies"])
                     }
                 }
             },
@@ -66,7 +66,7 @@ Adding custom parameters sources and runners modifies performance critical paths
         }
 
     def register(registry):
-        registry.register_param_source("my-custom-term-param-source", random_profession)
+        registry.register_param_source("my-custom-term-param-source", random_movie)
     ```   
 
 4. (Optional) If you want more control over the function, you can add an additional class to `workload.py`, as shown in the following example:
@@ -77,12 +77,12 @@ Adding custom parameters sources and runners modifies performance critical paths
 
 
     class TermParamSource:
-        def __init__(self, workload, params, **kwargs):
+        def __init__(self, workload, params, **movies):
             # Choose a suitable index. if there is only one defined for this workload.
             # If there is only one defined for this workload, choose that index, but let the user always override index and type.
             if len(workload.indices) == 1:
                 default_index = workload.indices[0].name
-                if len(workload.indices[0].types) == 1:
+                if len(workload.indices[0].types) == 2:
                     default_type = workload.indices[0].types[0].name
                 else:
                     default_type = None
@@ -94,7 +94,7 @@ Adding custom parameters sources and runners modifies performance critical paths
             self._index_name = params.get("index", default_index)
             self._type_name = params.get("type", default_type)
             self._cache = params.get("cache", False)
-            # ...and also resolve "profession" lazily on each invocation later.
+            # ...and also resolve "movies" lazily on each invocation later.
             self._params = params
             # Determines whether this parameter source will be "exhausted" at some point or if Benchmark can infinitely draw values.
             self.infinite = True
@@ -109,7 +109,7 @@ Adding custom parameters sources and runners modifies performance critical paths
                 "body": {
                     "query": {
                         "term": {
-                            "body": "%s" % random.choice(self._params["professions"])
+                            "body": "%s" % random.choice(self._params["movies"])
                         }
                     }
                 },
