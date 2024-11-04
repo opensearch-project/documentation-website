@@ -8,7 +8,7 @@ grand_parent: User guide
 
 # Adding custom runners
 
-**Runners** are operation types performed on an OpenSearch cluster.
+**Runners** are operation types performed on an OpenSearch cluster. You can add customer runners for operations that don't already exist in a workload.
 
 To add custom runners, use the following steps.
 
@@ -20,11 +20,11 @@ Adding custom runners modifies performance critical paths in OpenSearch Benchmar
     ```json
     # In operations/default.json
     {
-    "name": "percolator_with_content_google",
-    "operation-type": "percolate", # custom runner name
+    "name": "terms_for_movie_titles",
+    "operation-type": "terms", # custom runner name
     "body": {
         "doc": {
-        "body": "google"
+        "body": "movies"
         },
         "track_scores": true
     }
@@ -35,15 +35,15 @@ Adding custom runners modifies performance critical paths in OpenSearch Benchmar
 
     ```py
     # In workload.py
-    async def percolate(os, params): # os is the OpenSearch python client
-        await os.percolate(
+    async def terms(os, params): # os is the OpenSearch python client
+        await os.terms(
                 index="queries",
                 doc_type="content",
                 body=params["body"]
             )
 
     def register(registry):
-        registry.register_runner("percolate", percolate, async_runner=True)
+        registry.register_runner("terms", terms, async_runner=True)
     ```
 
 3. Add the responses that the function can return.  Depending on the cluster status, this runner can return any of the following: 
@@ -67,18 +67,18 @@ Adding custom runners modifies performance critical paths in OpenSearch Benchmar
 4. (Optional) If you want more control over the runner, you can add an additional class to `workload.py`, as shown in the following example:
 
     ```py
-    class PercolateRunner:
+    class TermsRunner:
         async def __call__(self, os, params):
-            await os.percolate(
+            await os.terms(
                 index="queries",
                 doc_type="content",
                 body=params["body"]
             )
 
-        def __repr__(self, *args, **kwargs):
-            return "percolate"
+        def __repr__(self, *args, **movies):
+            return "terms"
 
     def register(registry):
-        registry.register_runner("percolate", PercolateRunner(), async_runner=True)
+        registry.register_runner("terms", TermsRunner(), async_runner=True)
     ```    
 
