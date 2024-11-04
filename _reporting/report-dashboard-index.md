@@ -11,7 +11,7 @@ redirect_from:
 
 You can use OpenSearch Dashboards to create PNG, PDF, and CSV reports. To create reports, you must have the correct permissions. For a summary of the predefined roles and the permissions they grant, see the [Security plugin]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles).
 
-CSV reports have a non-configurable 10,000 row limit. They have no explicit size limit (for example, MB), but extremely large documents could cause report generation to fail with an out of memory error from the V8 JavaScript engine.
+CSV reports have a non-configurable 10,000-row limit in OpenSearch version 2.16 and earlier. As of version 2.17, this limit can be configured when setting up a report. While reports have no explicit size limit (for example, MB), extremely large documents could cause report generation to fail with an out-of-memory error from the V8 JavaScript engine.
 {: .tip }
 
 ## Generating reports
