@@ -96,7 +96,7 @@ For local models, you must provide a `model_input` field that specifies the mode
 
 For remote models, the `model_input` field is optional, and its default value is `"{ \"parameters\": ${ml_inference.parameters} }`.
 
-### Example: Externally hosted model
+### Example: Externally hosted text embedding model
 
 The following example shows you how to configure an `ml_inference` search response processor with an externally hosted model.
 
@@ -390,7 +390,7 @@ The response confirms that the processor has generated text embeddings in the `p
 }
 ```
 
-### Example: Externally hosted model
+### Example: Externally hosted large language model
 
 This example demonstrates how to configure an `ml_inference` search response processor to work with an externally hosted large language model (LLM) and map the model's response to the search extension object. Using the `ml_inference` processor, you can enable an LLM to summarize search results directly within the response. The summary is included in the `ext` field of the search response, providing seamless access to AI-generated insights alongside the original search results.
 
