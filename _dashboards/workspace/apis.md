@@ -28,7 +28,7 @@ The following table lists the available path parameters.
 | `sortOrder` | String | Optional | Specifies ascending or descending sort order. |
 | `perPage` | Number | Optional | Number of workspace results per page. |
 | `page` | Number | Optional | Page number of results to retrieve. |
-| `permissionModes` | Array | Optional | List of permission moded to filter by. |
+| `permissionModes` | Array | Optional | List of permissions to filter by. |
 
 #### Example request
 
