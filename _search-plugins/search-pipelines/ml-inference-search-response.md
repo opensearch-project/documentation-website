@@ -390,12 +390,13 @@ The response confirms that the processor has generated text embeddings in the `p
 }
 ```
 
-### Example: GENAI use case
+### Example: Externally hosted model
 
-The following example shows you how to configure an `ml_inference` search response processor with a Generative Artificial Intelligence(GenAI) model and mapping the model response to the search extension.
+This example demonstrates configuring an `ml_inference` search response processor to work with an externally hosted large language model (LLM) and map the model's response to the search extension object. Using the `ml_inference` processor, you can enable an LLM to summarize search results directly within the response. The summary is included in the `ext` field of the search response, providing seamless access to AI-generated insights alongside the original search results.
 
-Step 0: Host a model
-The pre-requisite is a registered GENAI model in OpenSearch. For more information about externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/). Here is a sample predict using a registered model, which requires a prompt and a context field.
+**Prerequisite**
+
+You must configure an externally hosted LLM for this use case. For more information about externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/). Once you register the LLM, you can use the following request to test it. This request requires providing the `prompt` and `context` fields:
 
 ```json
 POST /_plugins/_ml/models/KKne6JIBAs32TwoK-FFR/_predict
@@ -406,7 +407,10 @@ POST /_plugins/_ml/models/KKne6JIBAs32TwoK-FFR/_predict
   }
 }
 ```
-Here is the sample response from model prediction. 
+{% include copy-curl.html %}
+
+The response contains the model output in the `inference_results` field:
+
 ```json
 {
   "inference_results": [
@@ -430,12 +434,12 @@ Here is the sample response from model prediction.
   ]
 }
 ```
-Step 1: Create a pipeline
 
-The following example shows you how to create a search pipeline for a generative AI model. The model requires a context field as input and generates a response. It summarizes the text in the review field and stores the summary in the ext.ml_inference.llm_response field of the search response.
+**Step 1: Create a pipeline**
+
+Create a search pipeline for the registered model. The model requires a `context` field as input. The model response summarizes the text in the `review` field and stores the summary in the `ext.ml_inference.llm_response` field of the search response:
 
 ```json
-
 PUT /_search/pipeline/my_pipeline_request_review_llm
 {
   "response_processors": [
@@ -456,7 +460,7 @@ PUT /_search/pipeline/my_pipeline_request_review_llm
           }
         ],
         "model_config": {
-          "prompt": "\n\nHuman: You are a professional data analysist. You will always answer question: Which month had the lowest customer acquisition cost per new customer? based on the given context first. If the answer is not directly shown in the context, you will analyze the data and find the answer. If you don't know the answer, just say I don't know. Context: ${parameters.context.toString()}. \n\n Assistant:""
+          "prompt": "\n\nHuman: You are a professional data analysist. You will always answer question: Which month had the lowest customer acquisition cost per new customer? based on the given context first. If the answer is not directly shown in the context, you will analyze the data and find the answer. If you don't know the answer, just say I don't know. Context: ${parameters.context.toString()}. \n\n Assistant:"
         },
         "ignore_missing": false,
         "ignore_failure": false
@@ -464,21 +468,21 @@ PUT /_search/pipeline/my_pipeline_request_review_llm
     }
   ]
 }
-
 ```
 {% include copy-curl.html %}
 
-In this configuration:
+In this configuration, you're providing the following parameters:
 
-The `model_id` specifies the ID of the generative AI model.
-The `function_name` is set to "REMOTE", indicating an externally hosted model.
-The `input_map` maps the review field from the document to the context field expected by the model.
-The `output_map` specifies that the model's response should be stored in ext.ml_inference.llm_response in the search response.
-The `model_config` includes a prompt that instructs the model on how to process the input and generate a summary.
+- The `model_id` specifies the ID of the generative AI model.
+- The `function_name` is set to `REMOTE`, indicating an externally hosted model.
+- The `input_map` maps the review field from the document to the context field expected by the model.
+- The `output_map` specifies that the model's response should be stored in `ext.ml_inference.llm_response` in the search response.
+- The `model_config` includes a prompt that instructs the model how to process the input and generate a summary.
 
-Step 2: Index sample documents
+**Step 2: Index sample documents**
 
 Index some sample documents to test the pipeline:
+
 ```json
 POST /_bulk
 {"index":{"_index":"review_string_index","_id":"1"}}
@@ -490,9 +494,10 @@ POST /_bulk
 ```
 {% include copy-curl.html %}
 
-Step 3: Run the pipeline
+**Step 3: Run the pipeline**
 
-Execute a search query using the pipeline:
+Run a search query using the pipeline:
+
 ```json
 GET /review_string_index/_search?search_pipeline=my_pipeline_request_review_llm
 {
@@ -503,9 +508,7 @@ GET /review_string_index/_search?search_pipeline=my_pipeline_request_review_llm
 ```
 {% include copy-curl.html %}
 
-Step 4: Examine the response
-
-The response will include the original documents and the generated summary in the ext.ml_inference.llm_response field:
+The response includes the original documents and the generated summary in the `ext.ml_inference.llm_response` field:
 
 ```json
 {
@@ -565,17 +568,14 @@ The response will include the original documents and the generated summary in th
   }
 }
 ```
-{% include copy-curl.html %}
-This example demonstrates how the ml_inference search response processor can be used with a generative AI model to provide summarization of search results. The summary is included in the ext field of the search response, allowing for easy access to the AI-generated insights alongside the original search results.
 
-
-### Example: Rerank use case
+### Example: Reranking search results using a text similarity model
 
 The following example shows you how to configure an `ml_inference` search response processor with a text similarity model.
 
+**Prerequisite**
 
-Step 0: Host a model
-The pre-requisite is a registered text similarity model in OpenSearch. For more information about externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/). Here is a sample predict, which requires a text and a text_pair field within inputs field. 
+You must configure an externally hosted LLM for this use case. For more information about externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/). Once you register the LLM, you can use the following request to test it. This request requires providing a `text` and `text_pair` fields within the `inputs` field:
 
 ```json
 POST /_plugins/_ml/models/Ialx65IBAs32TwoK1lXf/_predict
@@ -589,6 +589,7 @@ POST /_plugins/_ml/models/Ialx65IBAs32TwoK1lXf/_predict
   }
 }
 ```
+{% include copy-curl.html %}
 
 The model returns similarity scores for each input document:
 
@@ -612,9 +613,9 @@ The model returns similarity scores for each input document:
 ```
 {% include copy-curl.html %}
 
-Step 1: Index sample documents
+**Step 1: Index sample documents**
 
-Create an index and add some sample documents:
+Create an index and add some sample documents to it:
 
 ```json
 POST _bulk
@@ -627,10 +628,9 @@ POST _bulk
 ```
 {% include copy-curl.html %}
 
-Step 2: Create a search pipeline
+**Step 2: Create a search pipeline**
 
-Create a search pipeline that leverages a text similarity model using 'one-to-one' inference. The pipeline processes each document in the search hits individually, sending one model prediction request per document.
-When mapping query text from the search request in `input_map`, the json path needs to starts with `$._request` or `_request`.
+For this example, you'll create a search pipeline that uses a text similarity model in a `one-to-one` inference mode, processing each document in the search results individually. This setup allows the model to make one prediction request per document, providing specific relevance insights for each search hit. When using `input_map` to map the search request to query text, the JSON path must start with `$._request` or `_request`:
 
 ```json
 PUT /_search/pipeline/my_rerank_pipeline
@@ -663,30 +663,29 @@ PUT /_search/pipeline/my_rerank_pipeline
         "rerank": {
           "by_field": {
             "target_field": "rank_score",
-            "remove_target_field":true
+            "remove_target_field": true
           }
         }
-
     }
   ]
 }
 ```
 {% include copy-curl.html %}
 
-In this configuration:
+In this configuration, you're providing the following parameters:
 
-The `model_id` specifies the unique identifier of the text similarity model.
-The `function_name` is set to "REMOTE", indicating that the model is hosted externally.
-The `input_map` maps the "diary" field from each document to the "text" input of the model, and the search query term to the "text_pair" input.
-The `output_map`  maps the model's score to a field named "rank_score" in each document.
-The `model_input` formats the input for the model, ensuring it matches the structure expected by the predict API.
-The `one_to_one` parameter is set to true, ensuring that the model processes each document individually, rather than batching multiple documents together.
-The `ignore_missing` parameter is set to false, causing the processor to fail if the mapped fields are missing from a document.
-The `ignore_failure` parameter is set to false, causing the entire pipeline to fail if the ML inference processor encounters an error.
+- The `model_id` specifies the unique identifier of the text similarity model.
+- The `function_name` is set to `REMOTE`, indicating that the model is hosted externally.
+- The `input_map` maps the `diary` field from each document to the `text` input of the model, and the search query term to the `text_pair` input.
+- The `output_map`  maps the model's score to a field named `rank_score` in each document.
+- The `model_input` formats the input for the model, ensuring it matches the structure expected by the Predict API.
+- The `one_to_one` parameter is set to `true`, ensuring that the model processes each document individually, rather than batching multiple documents together.
+- The `ignore_missing` parameter is set to `false`, causing the processor to fail if the mapped fields are missing from a document.
+- The `ignore_failure` parameter is set to `false`, causing the entire pipeline to fail if the ML inference processor encounters an error.
 
-The rerank processor is applied after the ML inference. It reorders the documents based on the "rank_score" field generated by the ML model and then removes this field from the final results.
+The `rerank` processor is applied after the ML inference. It reorders the documents based on the `rank_score` field generated by the ML model and then removes this field from the final results.
 
-Step 3: Run the pipeline
+**Step 3: Run the pipeline**
 
 Now, perform a search using the created pipeline:
 
@@ -704,7 +703,7 @@ GET /demo-index-0/_search?search_pipeline=my_rerank_pipeline
 ```
 {% include copy-curl.html %}
 
-The response includes the original documents and rerank with their calculated rank scores:
+The response includes the original documents and their reranked scores:
 
 ```json
 {
@@ -754,4 +753,3 @@ The response includes the original documents and rerank with their calculated ra
   }
 }
 ```
-{% include copy-curl.html %}
