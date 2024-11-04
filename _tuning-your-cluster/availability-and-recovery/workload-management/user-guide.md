@@ -7,12 +7,13 @@ grand_parent: Availability and recovery
 ---
 # Workload management user guide
 
+This user guide is designed to provide you with a comprehensive understanding of the workload management feature, covering topics including setup, tenant creation, making requests with query group id, and monitoring with stats API.
+
 ## Setup
 
-#### Prerequisites
 Workload management is available only in OpenSearch version 2.17 and later. Ensure your OpenSearch cluster is running version 2.17 or higher.
 
-#### Initial Configuration
+#### Initial configuration
 You need to install the workload-management plugin to enable workload management in OpenSearch. This plugin provides the necessary API features for the lifecycle of query groups.
 
 Installation command (assuming your OpenSearch instance is set up):
@@ -20,14 +21,14 @@ Installation command (assuming your OpenSearch instance is set up):
 ./bin/opensearch-plugin install workload-management
 ```
 
-#### User Permissions
+#### User permissions
 Only admin users have the permissions to dynamically manage query groups using the Workload management APIs. This ensures that the creation and management of query groups are controlled and restricted to authorized personnel for better workload oversight.
 
 ## Tenant creation
 
 In OpenSearch workload management, a tenant or query group is logical group of tasks with defined resource limits. This allows administrators to manage resources effectively and isolate workloads for better performance and control. For a successful creation, make sure that the sum of the resource limits for a single resource (memory or CPU) of all tenants does not exceed 1. You're able to create a query group using the following API endpoint.
 
-#### Example Request
+#### Example request
 ```json
 PUT _wlm/query_group
 {
@@ -39,7 +40,7 @@ PUT _wlm/query_group
   }
 }
 ```
-For more information on managing the lifecycle of query groups, please refer to [Query group lifecycle API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/query-group-lifecycle-api).
+For more information about managing the lifecycle of query groups, refer to [Query group lifecycle API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/query-group-lifecycle-api).
 
 ## Making requests with queryGroupId
 
@@ -47,7 +48,7 @@ To ensure that workloads are properly managed and resources are allocated accord
 
 The query group id should be specified in the query header, under the field `queryGroupId`.
 
-#### Example Request
+#### Example request
 ```
 GET testindex/_search
 Host: localhost:9200
