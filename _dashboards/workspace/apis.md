@@ -1,42 +1,43 @@
 ---
 layout: default
-title: Workspace APIs
+title: Workspaces APIs
 parent: Workspace
 nav_order: 10
 ---
 
-# Workspace APIs
+# Workspaces APIs
 
-## List workspaces API
+The Workspaces API provides a set of endpoints for managing workspaces in OpenSearch Dashboards.
 
-List workspaces.
+## List Workspaces API
 
-* Path and HTTP methods
+You can use the following endpoint to retrieve a list of workspaces.
 
 ```json
 POST <osd host>:<port>/api/workspaces/_list
 ```
+{% include copy-curl.html %}
 
-* Request body
+The following table lists the available path parameters.
 
 | Parameter | Data type | Required | Description |
 | :--- | :--- | :--- | :--- |
-| `search` | String | NO | A `simple_query_string` query DSL used to search the workspaces. |
-| `searchFields` | Array | NO  |  The fields to perform the `simple_query_string` parsed query against. |
-| `sortField` | String | NO  | The fields used for sorting the response. |
-| `sortOrder` | String | NO  | The order used for sorting the response. |
-| `perPage` | Number | NO  | The number of workspaces to return in each page. |
-| `page` | Number | NO  | The page of workspaces to return. |
-| `permissionModes` | Array | NO  | The permission mode list. |
+| `search` | String | Optional | Query string to filter workspaces using simple query syntax, for example, `simple_query_string`. |
+| `searchFields` | Array | Optional | Specifies which fields to perform the search query against. |
+| `sortField` | String | Optional | Field name to use for sorting results. |
+| `sortOrder` | String | Optional | Specifies ascending or descending sort order. |
+| `perPage` | Number | Optional | Number of workspace results per page. |
+| `page` | Number | Optional | Page number of results to retrieve. |
+| `permissionModes` | Array | Optional | List of permission moded to filter by. |
 
-* Example request
+#### Example request
 
 ```json
 POST /api/workspaces/_list
 ```
 {% include copy-curl.html %}
 
-* Example response
+The following example response shows a successful API call:
 
 ```json
 {
@@ -64,33 +65,31 @@ POST /api/workspaces/_list
     }
 }
 ```
+{% include copy-curl.html %}
 
-## Get workspace API
+## Get Workspaces API
 
-Retrieve a single workspace.
-
-* Path and HTTP methods
+You can use the following endpoint to retrieve a single workspace:
 
 ```json
 GET <osd host>:<port>/api/workspaces/<id>
 ```
-
-* Path parameters
+{% include copy-curl.html %}
 
 The following table lists the available path parameters. All path parameters are required.
 
 | Parameter | Data type | Required | Description |
 | :--- | :--- | :--- | :--- |
-| `<id>` | String | YES | The ID of the workspace. |
+| `<id>` | String | Required | Identifies the unique workspace to retrieve. |
 
-* Example request
+#### Example request
 
 ```json
 GET /api/workspaces/SnkOPt
 ```
 {% include copy-curl.html %}
 
-* Example response
+The following example response shows a successful API call:
 
 ```json
 {
@@ -102,26 +101,25 @@ GET /api/workspaces/SnkOPt
     }
 }
 ```
+{% include copy-curl.html %}
 
-## Create workspace API
+## Create Workspaces API
 
-Create a workspace.
-
-* Path and HTTP methods
+You can use the following endpoint to create a workspace:
 
 ```json
 POST <osd host>:<port>/api/workspaces
 ```
+{% include copy-curl.html %}
 
-* Request body
+The following table lists the available path parameters.
 
 | Parameter | Data type | Required | Description |
 | :--- | :--- | :--- | :--- |
-| `attributes` | Object | YES | The attributes of the workspace. |
-| `permissions` | Object | NO  |  The permission info of the workspace. |
+| `attributes` | Object | Required | Defines the workspace attributes. |
+| `permissions` | Object | Optional | Specifies the permissions for the workspace. |
 
-
-* Example request
+#### Example request
 
 ```json
 POST api/workspaces
@@ -134,7 +132,7 @@ POST api/workspaces
 ```
 {% include copy-curl.html %}
 
-* Example response
+The following example response shows a successful API call:
 
 ```json
 {
@@ -144,34 +142,26 @@ POST api/workspaces
     }
 }
 ```
+{% include copy-curl.html %}
 
-## Update workspace API
+## Update Workspaces API
 
-Update the attributes and permissions of a workspace.
-
-* Path and HTTP methods
+You can use the following endpoint to update the attributes and permissions for a workspace:
 
 ```json
 PUT <osd host>:<port>/api/workspaces/<id>
 ```
+{% include copy-curl.html %}
 
-* Path parameters
-
-The following table lists the available path parameters. All path parameters are required.
-
-| Parameter | Data type | Required | Description |
-| :--- | :--- | :--- | :--- |
-| `<id>` | String | YES | The ID of the workspace. |
-
-* Request body
+The following table lists the available path parameters.
 
 | Parameter | Data type | Required | Description |
 | :--- | :--- | :--- | :--- |
-| `attributes` | Object | YES | The attributes of the workspace. |
-| `permissions` | Object | NO  |  The permission info of the workspace. |
+| `<id>` | String | Required | Identifies the unique workspace to retrieve. |
+| `attributes` | Object | Required | Defines the workspace attributes. |
+| `permissions` | Object | Optional | Specifies the permissions for the workspace. |
 
-
-* Example request
+#### Example request
 
 ```json
 PUT api/workspaces/eHVoCJ
@@ -184,7 +174,7 @@ PUT api/workspaces/eHVoCJ
 ```
 {% include copy-curl.html %}
 
-* Example response
+The following example response shows a successful API call:
 
 ```json
 {
@@ -192,34 +182,31 @@ PUT api/workspaces/eHVoCJ
     "result": true
 }
 ```
+{% include copy-curl.html %}
 
-## Delete workspace API
+## Delete Workspaces API
 
-Delete a workspace.
-
-* Path and HTTP methods
+You can use the following endpoint to delete a workspace:
 
 ```json
 DELETE <osd host>:<port>/api/workspaces/<id>
 ```
-
-* Path parameters
+{% include copy-curl.html %}
 
 The following table lists the available path parameters. All path parameters are required.
 
 | Parameter | Data type | Required | Description |
 | :--- | :--- | :--- | :--- |
-| `<id>` | String | YES | The ID of the workspace. |
+| `<id>` | String | Required | Identifies the unique workspace to retrieve. |
 
-
-* Example request
+#### Example request
 
 ```json
 DELETE api/workspaces/eHVoCJ
 ```
 {% include copy-curl.html %}
 
-* Example response
+The following example response shows a successful API call:
 
 ```json
 {
@@ -227,32 +214,33 @@ DELETE api/workspaces/eHVoCJ
     "result": true
 }
 ```
+{% include copy-curl.html %}
 
-## Duplicate saved objects API
+## Duplicate saved objects Workspaces API
 
-Duplicate saved objects among workspaces.
-
-* Path and HTTP methods
+You can use the following endpoint to copy saved objects between workspaces:
 
 ```json
 POST <osd host>:<port>/api/workspaces/_duplicate_saved_objects
 ```
+{% include copy-curl.html %}
 
-* Request body
+The following table lists the available path parameters.
 
 | Parameter | Data type | Required | Description |
 | :--- | :--- | :--- | :--- |
-| `objects` | Array | YES | A list of saved objects to copy. |
-| `targetWorkspace` | String | YES  | The ID of the workspace to copy to. |
-| `includeReferencesDeep` | Boolean | NO | Copy all of the referenced objects of the specified objects to the target workspace . Defaults to `true`.|
+| `objects` | Array | Required | Specifies the saved objects to be duplicated. |
+| `targetWorkspace` | String | Required | Identifies the destination workspace for copying. |
+| `includeReferencesDeep` | Boolean | Optional | Determines whether to copy all referenced objects to the target workspace. Default is `true`. |
 
-The attributes of the object in the `objects` parameter are as follows:
+The following table lists the attributes of the object in the `objects` parameter:
+
 | Parameter | Data type | Required | Description |
 | :--- | :--- | :--- | :--- |
-| `type` | String | YES | The type of the saved object, such as `index-pattern`, `config` and `dashboard`. |
-| `id` | String | YES | The ID of the saved object. |
+| `type` | String | Required | Defines the saved object classification, such as `index-pattern`, `config`, or `dashboard`. |
+| `id` | String | Required | Identifies the saved object's unique identifier. |
 
-* Example request
+#### Example request
 
 ```json
 POST api/workspaces/_duplicate_saved_objects
@@ -268,7 +256,7 @@ POST api/workspaces/_duplicate_saved_objects
 ```
 {% include copy-curl.html %}
 
-* Example response
+The following example response shows a successful API call:
 
 ```json
 {
@@ -287,31 +275,32 @@ POST api/workspaces/_duplicate_saved_objects
     ]
 }
 ```
+{% include copy-curl.html %}
 
-## Associate saved objects API
+## Associate saved objects Workspaces API
 
-Associate saved objects into a workspace.
-
-* Path and HTTP methods
+You can use the following endpoint to associate saved objects into a workspace:
 
 ```json
 POST <osd host>:<port>/api/workspaces/_associate
 ```
+{% include copy-curl.html %}
 
-* Request body
+The following table lists the available path parameters.
 
 | Parameter | Data type | Required | Description |
 | :--- | :--- | :--- | :--- |
-| `workspaceId` | String | YES | Target workspace you want the objects associated to |
-| `savedObjects` | Array | YES | A list of saved objects to copy. |
+| `workspaceId` | String | Required | Identifies the target workspace for object association. |
+| `savedObjects` | Array | Required | Specifies the list of saved objects to be copied. |
 
-The attrbutes of the object in the `savedObjects` parameter are as follows:
+The following table lists the attributes of the object in the `objects` parameter:
+
 | Parameter | Data type | Required | Description |
 | :--- | :--- | :--- | :--- |
-| `type` | String | YES | The type of the saved object, such as `index-pattern`, `config` and `dashboard`. |
-| `id` | String | YES | The ID of the saved object. |
+| `type` | String | Required | Defines the saved object classification, such as `index-pattern`, `config`, or `dashboard`. |
+| `id` | String | Required | Identifies the saved object's unique identifier. |
 
-* Example request
+#### Example request
 
 ```json
 POST api/workspaces/_associate
@@ -327,7 +316,7 @@ POST api/workspaces/_associate
 ```
 {% include copy-curl.html %}
 
-* Example response
+The following example response shows a successful API call:
 
 ```json
 {
@@ -339,31 +328,32 @@ POST api/workspaces/_associate
     ]
 }
 ```
+{% include copy-curl.html %}
 
-## Dissociate saved objects API
+## Dissociate saved objects Workspaces API
 
-Dissociate saved objects from a workspace.
-
-* Path and HTTP methods
+You can use the following endpoint to dissociate saved objects from a workspace:
 
 ```json
 POST <osd host>:<port>/api/workspaces/_dissociate
 ```
+{% include copy-curl.html %}
 
-* Request body
+The following table lists the available path parameters.
 
 | Parameter | Data type | Required | Description |
 | :--- | :--- | :--- | :--- |
 | `workspaceId` | String | YES | Target workspace you want the objects associated to |
 | `savedObjects` | Array | YES | A list of saved objects to copy. |
 
-The attrbutes of the object in the `savedObjects` parameter are as follows:
+The following table lists the attributes of the `savedObjects` parameter:
+
 | Parameter | Data type | Required | Description |
 | :--- | :--- | :--- | :--- |
 | `type` | String | YES | The type of the saved object, such as `index-pattern`, `config` and `dashboard`. |
 | `id` | String | YES | The ID of the saved object. |
 
-* Example request
+#### Example request
 
 ```json
 POST api/workspaces/_dissociate
@@ -379,7 +369,7 @@ POST api/workspaces/_dissociate
 ```
 {% include copy-curl.html %}
 
-* Example response
+The following example response shows a successful API call:
 
 ```json
 {
@@ -391,3 +381,4 @@ POST api/workspaces/_dissociate
     ]
 }
 ```
+{% include copy-curl.html %}
