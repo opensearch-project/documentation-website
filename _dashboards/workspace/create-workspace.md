@@ -23,7 +23,7 @@ To create a workspace, follow these steps:
 4. (Optional) Select the color picker to customize the color of your workspace icon.
 5. (Optional) Add a workspace description of up to 200 characters. This option is disabled when the description exceeds the character limit.
 6. Save your workspace.
-  - The **Create workspace** button becomes active once you enter the details for all required fields. You become the workspace owner automatically. The system redirects you to either the collaborators page if saved objects permission is enabled or the overview page if saved objects permission is disabled. See [Configuring dashboard admin]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#config-dashboard-admin) for information about permissions.
+  - The **Create workspace** button becomes active once you enter the information for all required fields. You become the workspace owner automatically. The system redirects you to either the collaborators page if the saved objects permission is enabled or the overview page if the saved objects permission is disabled. See [Configuring dashboard admin]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#config-dashboard-admin) for more information about permissions.
 
 To set up permissions, see the workspace ACL documentation.
 
