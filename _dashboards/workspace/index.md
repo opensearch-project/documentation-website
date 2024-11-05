@@ -17,7 +17,7 @@ The new home page includes the following features:
 2. Workspace access time information and a link to the workspace overview page.
 3. A use case information icon that displays information about the workspace's purpose.
 4. A **View all workspaces** button that navigates to the [workspace management]({{site.url}}{{site.baseurl}}/dashboards/workspace/manage-workspace/#manage-workspaces-from-workspaces-list) page.
-5. Links to the latest OpenSearch documentation through the **Learn more from documentation** button and to OpenSearch Playground through the **Explore live demo environment at playground.opensearch.org** button.
+5. Links to the latest OpenSearch documentation through the **Learn more from documentation** button and to [OpenSearch Playground](https://playground.opensearch.org/app/home#/) through the **Explore live demo environment at playground.opensearch.org** button.
 
 The navigation logic ensures a seamless user experience by directing you to the appropriate page based on your workspace access level:
 
