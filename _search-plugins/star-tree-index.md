@@ -12,7 +12,7 @@ This is an experimental feature and is not recommended for use in a production e
 
 A star-tree index is a multi-field index that improves the performance of aggregations.
 
-OpenSearch will automatically use star-tree indexes (STIX) to optimize aggregations if the queried fields are part of star-tree index dimension fields and the aggregations are on star-tree index metric fields. No changes are required in the query syntax or the request parameters.
+OpenSearch will automatically use a star-tree index to optimize aggregations if the queried fields are part of dimension fields and the aggregations are on star-tree metric fields. No changes are required in the query syntax or the request parameters.
 
 ## When to use a star-tree index
 
