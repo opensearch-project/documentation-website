@@ -13,7 +13,7 @@ The Workspaces API provides a set of endpoints for managing workspaces in OpenSe
 
 ## List Workspaces API
 
-You can use the following endpoint to retrieve a list of workspaces.
+You can use the following endpoint to retrieve a list of workspaces:
 
 ```json
 POST <osd host>:<port>/api/workspaces/_list
