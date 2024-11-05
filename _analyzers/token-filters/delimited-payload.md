@@ -11,7 +11,7 @@ The `delimited_payload` token filter is used to parse tokens containing payloads
 
 When analyzing text, the `delimited_payload` token filter parses each token, extracts the payload, and attaches it to the token. This payload can later be used in queries to influence scoring, boosting, or other custom behaviors.
 
-Payloads are stored as Base64-encoded strings. By default, payloads are not returned in the query response along with the tokens. To return the payloads, you must configure additional parameters. For more information, see [Example with a stored payload]({{site.url}}{{site.baseurl}}/analyzers/token-filters/delimited-payload/#example-with-stored-payload).
+Payloads are stored as Base64-encoded strings. By default, payloads are not returned in the query response along with the tokens. To return the payloads, you must configure additional parameters. For more information, see [Example with a stored payload]({{site.url}}{{site.baseurl}}/analyzers/token-filters/delimited-payload/#example-without-a-stored-payload).
 
 ## Parameters
 
