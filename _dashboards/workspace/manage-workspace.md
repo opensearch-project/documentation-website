@@ -49,7 +49,7 @@ The workspace details page features the following buttons in the upper-right cor
 
 ## Adding assets to the workspace
 
-Access the **Sample data** in the left-side navigation menu. Browse and select the appropriate dataset to install it into your cluster and OpenSearch Dashboards.
+Access the **Sample data** in the navigation menu on the left. Select the appropriate dataset to install it in your cluster and OpenSearch Dashboards.
 
 ## Copying assets between workspaces
 
