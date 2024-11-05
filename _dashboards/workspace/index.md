@@ -21,7 +21,7 @@ The new home page includes the following features:
 
 The navigation logic ensures a seamless user experience by directing you to the appropriate page based on your workspace access level:
 
-- If a you have a default workspace configured, you are taken to the workspace overview page.
+- If a you have a default workspace configured, you are directed to the workspace overview page.
 - If a you have only one workspace, you are directed to the overview page of that workspace.
 - If a you have multiple workspaces, you are taken to the new home page.
 - If a you have no workspaces, you are directed to the new home page.
