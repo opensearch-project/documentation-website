@@ -32,7 +32,7 @@ assistant.alertInsight.enabled: true
 
 ### Step 2: Create the agents
 
-To orchestrate alert insights, you'll need to create the necessary [agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/#agents). To create an agent, send a `POST /_plugins/_ml/agents/_register` request and provide the agent template as a payload. For example, to create an alert summary agent, send the following request:
+To orchestrate alert insights, you'll need to create the necessary [agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/#agents). Create a workflow template for creating all necessary text to visualization agents by sending the following request:
 
 <details markdown="block">
   <summary>
