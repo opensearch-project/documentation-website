@@ -352,7 +352,7 @@ The following table lists the attributes of the `savedObjects` parameter.
 
 | Parameter | Data type | Required | Description |
 | :--- | :--- | :--- | :--- |
-| `type` | String | YES | The type of the saved object, such as `index-pattern`, `config` and `dashboard`. |
+| `type` | String | YES | The type of the saved object, such as `index-pattern`, `config`, or `dashboard`. |
 | `id` | String | YES | The ID of the saved object. |
 
 #### Example request
