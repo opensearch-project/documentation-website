@@ -30,6 +30,22 @@ assistant.text2viz.enabled: true
 
 To orchestrate text to visualization, create an `os_query_assist_ppl` agent. To create an agent, send a `POST /_plugins/_ml/agents/_register` request and provide the agent template as a payload. For more information, see [Configuring OpenSearch Assistant]({{site.url}}{{site.baseurl}}/dashboards/dashboards-assistant/index/#configuring-opensearch-assistant).
 
+Create text to visualization agents with flow template: `text-to-visualization-claude.json`
+```json
+POST /_plugins/_flow_framework/workflow
+{/*please take the sample json payload from flow framework templates as reference*/}
+```
+
+You should get a workflow id from the above API call, now call provision API to create the resources
+```json
+POST /_plugins/_flow_framework/workflow/<workflow_id>/_provision
+```
+
+View the status of the workflow, and you can find all created resources includes the agent ids that will be used in the following steps
+```json
+/_plugins/_flow_framework/workflow/<workflow_id>/_status
+```
+
 For sample agent templates, see [Flow Framework sample templates](https://github.com/opensearch-project/flow-framework/tree/main/sample-templates). Note the agent ID; you'll use it in the following step.
 
 ### Step 3: Configure the root agent
