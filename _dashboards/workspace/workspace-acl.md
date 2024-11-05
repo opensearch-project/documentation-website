@@ -20,7 +20,7 @@ Workspace access control lists (ACLs) manage authorization for saved objects `Au
 * **Workspace content producer:** Can view, create, and update saved objects within the workspace.
 * **Workspace viewer:** Has read-only access to saved objects in the workspace.
 
- Roles are workspace-specific, allowing users to have different roles across workspaces.
+ Roles are workspace specific, allowing users to assume different roles across workspaces.
  {: .note}
 
 ## Enabling permission control
