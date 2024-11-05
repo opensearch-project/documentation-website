@@ -345,15 +345,15 @@ The following table lists the available path parameters.
 
 | Parameter | Data type | Required | Description |
 | :--- | :--- | :--- | :--- |
-| `workspaceId` | String | YES | The target workspace with which to associate the objects. |
-| `savedObjects` | Array | YES | A list of saved objects to copy. |
+| `workspaceId` | String | Required | The target workspace with which to associate the objects. |
+| `savedObjects` | Array | Required | A list of saved objects to copy. |
 
 The following table lists the attributes of the `savedObjects` parameter.
 
 | Parameter | Data type | Required | Description |
 | :--- | :--- | :--- | :--- |
-| `type` | String | YES | The type of the saved object, such as `index-pattern`, `config`, or `dashboard`. |
-| `id` | String | YES | The ID of the saved object. |
+| `type` | String | Required | The type of the saved object, such as `index-pattern`, `config`, or `dashboard`. |
+| `id` | String | Required | The ID of the saved object. |
 
 #### Example request
 
