@@ -81,7 +81,7 @@ The Opensearch connections tab displays all associated connections for the curre
 1. Access a comprehensive list of associated OpenSearch connections on the connections tab.
 2. Use the **Remove association** button to unlink connections as needed.
 3. Add new data sources by selecting the **OpenSearch data sources** button and subsequent modal.
-4. Browse and select from unassociated OpenSearch connections to expand your workspace's capabilities.
+4. Select from unassociated OpenSearch connections to expand your workspace's capabilities.
 
 ### Adding direct query connections
 
