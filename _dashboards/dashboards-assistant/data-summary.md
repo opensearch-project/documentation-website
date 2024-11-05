@@ -220,7 +220,7 @@ POST /_plugins/_ml/agents/_register
 
 </details>
 
-For sample agent templates, see [Flow Framework sample templates](https://github.com/opensearch-project/flow-framework/tree/main/sample-templates). Note the agent ID; you'll use it in the following step.
+For sample agent templates, see [Flow Framework sample templates](https://github.com/opensearch-project/flow-framework/tree/2.x/sample-templates). Note the agent ID; you'll use it in the following step.
 
 ### Step 3: Create a root agent
 

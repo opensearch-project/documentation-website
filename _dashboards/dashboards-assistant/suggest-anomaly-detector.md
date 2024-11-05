@@ -38,7 +38,7 @@ assistant.smartAnomalyDetector.enabled: true
 
 To orchestrate anomaly detector suggestions, create an `os_suggest_ad` agent. To create an agent, send a `POST /_plugins/_ml/agents/_register` request and provide the agent template as a payload. For more information, see [Configuring OpenSearch Assistant]({{site.url}}{{site.baseurl}}/dashboards/dashboards-assistant/index/#configuring-opensearch-assistant).
 
-For sample agent templates, see [Flow Framework sample templates](https://github.com/opensearch-project/flow-framework/tree/main/sample-templates). Note the agent ID; you'll use it in the following step.
+For sample agent templates, see [Flow Framework sample templates](https://github.com/opensearch-project/flow-framework/tree/2.x/sample-templates). Note the agent ID; you'll use it in the following step.
 
 ### Step 3: Configure the agent
 

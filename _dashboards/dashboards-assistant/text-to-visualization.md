@@ -46,7 +46,7 @@ View the status of the workflow, and you can find all created resources includes
 /_plugins/_flow_framework/workflow/<workflow_id>/_status
 ```
 
-For sample agent templates, see [Flow Framework sample templates](https://github.com/opensearch-project/flow-framework/tree/main/sample-templates). Note the agent ID; you'll use it in the following step.
+For sample agent templates, see [Flow Framework sample templates](https://github.com/opensearch-project/flow-framework/tree/2.x/sample-templates). Note the agent ID; you'll use it in the following step.
 
 ### Step 3: Configure the root agent
 

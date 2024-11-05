@@ -41,7 +41,7 @@ To orchestrate alert insights, you'll need to create the necessary [agents]({{si
   {: .text-delta}
 
 ```json
-POST /_plugins/_ml/agents/_register
+POST /_plugins/_flow_framework/workflow?provision=true
 {
   "name": "Alert Summary Agent",
   "description": "Create Alert Summary Agent using Claude on BedRock",
@@ -70,7 +70,7 @@ POST /_plugins/_ml/agents/_register
                   "content-type": "application/json"
                 },
                 "method": "POST",
-                "request_body": "{\"prompt\":\"${parameters.prompt}\", \"max_tokens_to_sample\":${parameters.max_tokens_to_sample}, \"temperature\":${parameters.temperature},  \"anthropic_version\":\"${parameters.anthropic_version}\" }",
+                "request_body": "{\"prompt\":\"\\n\\nHuman: ${parameters.prompt}\\n\\nAssistant:\", \"max_tokens_to_sample\":${parameters.max_tokens_to_sample}, \"temperature\":${parameters.temperature},  \"anthropic_version\":\"${parameters.anthropic_version}\" }",
                 "action_type": "predict",
                 "url": "https://bedrock-runtime.us-west-2.amazonaws.com/model/anthropic.claude-instant-v1/invoke"
               }
@@ -141,13 +141,13 @@ POST /_plugins/_ml/agents/_register
 
 </details>
 
-For sample agent templates, see [Flow Framework sample templates](https://github.com/opensearch-project/flow-framework/tree/main/sample-templates). Note the agent ID; you'll use it in the following step.
+For sample agent templates, see [Flow Framework sample templates](https://github.com/opensearch-project/flow-framework/tree/2.x/sample-templates). Note the agent ID; you'll use it in the following step.
 
 For this example, use the templates to create the following agents: 
-- An alert insights agent
+- An alert insights agent, see [flow template](https://github.com/opensearch-project/flow-framework/blob/2.x/sample-templates/create-knowledge-base-alert-agent.json)
 - Two summary agents:
-    - A basic alert summary agent
-    - An agent for an alert summary that includes log patterns
+    - A basic alert summary agent, see [flow template](https://github.com/opensearch-project/flow-framework/blob/2.x/sample-templates/alert-summary-agent-claude-tested.json)
+    - An agent for an alert summary that includes log patterns, see [flow template](https://github.com/opensearch-project/flow-framework/blob/2.x/sample-templates/alert-summary-log-pattern-agent.json)
 
     These agents require different prompts. The prompt for the log patterns summary must include a placeholder `${parameters.topNLogPatternData}` and additional instructions to guide the LLM on using this information effectively. Note that log patterns are available only for query monitors created using OpenSearch Dashboards.
 
@@ -194,7 +194,7 @@ POST /.plugins-ml-config/_doc/os_insight
 ```
 {% include copy-curl.html %}
 
-The created `os_insight` agent provides alert insights related to OpenSearch cluster metrics. For insights about alerts unrelated to OpenSearch cluster metrics, you need to register an agent with [this template](https://github.com/opensearch-project/flow-framework/blob/main/sample-templates/create-knowledge-base-alert-agent.json) and change the agent name to `KB_For_Alert_Insight`.
+The created `os_insight` agent provides alert insights related to OpenSearch cluster metrics. For insights about alerts unrelated to OpenSearch cluster metrics, you need to register an agent with [this template](https://github.com/opensearch-project/flow-framework/blob/2.x/sample-templates/create-knowledge-base-alert-agent.json) and change the agent name to `KB_For_Alert_Insight`.
 {: .note}
 
 ### Step 4: Test the agents
