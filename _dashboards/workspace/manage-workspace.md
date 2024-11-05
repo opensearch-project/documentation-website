@@ -98,7 +98,7 @@ Deleting a workspace permanately erases all its assets (except data sources) and
 
 To delete a workspace, follow these steps:
 
-1. From the workspace detail page, select the delete icon in the top-right corner to delete the current workspace.
+1. From the workspace details page, select the delete icon in the upper-right corner to delete the current workspace.
 2. Alternatively, from the workspace list page, select the ellipsis icon and select **Delete**. Optionally, select multiple workspaces for bulk deletion.
 
 ## Navigating the workspaces list
