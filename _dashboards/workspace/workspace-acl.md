@@ -38,7 +38,7 @@ savedObjects.permission.enabled: true
 ```
 {% include copy-curl.html %}
 
-By default, the configuration is set to `[]`, menaing no users are designated as admins. When no security plugin is installed and `savedObjects.permission.enabled: false`, all users are granted admin permissions.
+By default, the configuration is set to `[]`, meaning that no users are designated as admins. When no security plugin is installed and `savedObjects.permission.enabled: false`, all users are granted admin permissions.
 
 ### Configuring global admin access
 
