@@ -9,9 +9,12 @@ has_children: true
 Introduced 2.18
 {: .label .label-purple }
 
-The workspace feature allows users to customize their OpenSearch Dashboards experience with curated use cases, for example, a user can create a workspace specifically for observability use cases so that they can concentrate on observability-related functionalities. Also, the workspace feature helps users organize visual assets, such as dashboards and visualizations, which are isolated by workspace. This makes it a valuable tool for OpenSearch Dashboards users who want a more precise and flexible workflow.
+The Workspace feature in OpenSearch Dashboards enables you to tailor your environment with use case-specific configurations. For example, you can create dedicated workspaces for observability scenarios, allowing you to focus on relevant functionalities. Additionally, the Workspace feature enables organization of visual assets such as dashboards and visualizations within a workspace that isolated storage. This capability enhances workflow precision and flexibility for customizing data exploration and analysis.
 
 ## Workspace data model
+
+The Workspace data model is defined by the following structure: 
+
 ```typescript
 interface Workspace {
   id: string;
@@ -22,12 +25,21 @@ interface Workspace {
   uiSettings: Record<string, unknown>;
 }
 ```
-1. `id`: A unique identifier that distinguishes each workspace.
-2. `name`: The name of the workspace.
-3. `description`: A description providing context for the workspace.
-4. `features`: An array of use case IDs associated with the workspace.
+{% include copy-curl.html %}
 
-**Workspace object example**
+The Workspace data model is composed of the following key attributes:
+
+- `id`: String type; unique identifier for each each workspace.
+- `name`: String type; designates the workspace's name.
+- `description`: Optional string type; provides contextual information for the workspace.
+- `features`: Optional array of strings; contains use case IDs linked to the workspace.
+
+---
+
+#### Example Workspace object
+
+The following object shows a typical Workspace configuration:
+
 ```typescript
 {
   id: "M5NqCu",
@@ -36,21 +48,28 @@ interface Workspace {
   features: ["use-case-analytics"],
 }
 ```
+{% include copy-curl.html %}
 
-The above object defines a workspace named `Observability team` created with `observability` features by specifying the use case `use-case-observability`. A use case maps to multiple predefined OSD features, only the defined features will be available within the workspace. Use case strings are predefined, there are five types of use cases, except `use-case-all` which all features are available, the other four types of use cases have predefined curated features:
-1. `use-case-observability`
-2. `use-case-security-analytics`
-3. `use-case-search`
-4. `use-case-essentials`
-5. `use-case-all`
+The configuration creates an analytics team created with the `use-case-observability` feature set. Use cases map to specific OpenSearch Dashboards feature groups, limiting functionality to the defined set within each workspace. 
 
-## Associate saved objects with workspaces
-Saved objects, such as dashboards, visualizations, and index patterns, form the backbone of data visualization and analysis in OpenSearch Dashboards.
-However, as the volume of saved objects grows, keeping them organized becomes increasingly challenging. Grouping saved objects into distinct workspaces, each serving a specific purpose or team. This association simplifies finding and accessing relevant saved objects.
+Predefined use case options:
 
-A new attribute, `workspaces`, is being added to saved objects which type is an array of string. A saved object can be associated with one or multiple workspaces. Saved objects (dashboards, visualizations, etc.) will only appear in their associated workspaces.
+- `use-case-observability`
+- `use-case-security-analytics`
+- `use-case-search`
+- `use-case-essentials`
+- `use-case-all`
 
-The following example shows the dashboard object is associated with workspace which id is `M5NqCu`
+---
+
+## Associating saved objects with workspaces
+
+Saved objects in OpenSearch Dashboards, such as dashboards, visualizations, and index patterns, can be associated with specifif workspaces, improviing organization and accessibility as the volume of objects grows.
+
+The `workspaces` attribute, an array of strings, is added to saved objects to be linked with one or more workspaces. As a result, saved objects such as dashboards and visualizations are only accessible within their designated workspaces. 
+
+The following saved object shows a dashboard object associated with the workspace by `M5NqCu`:
+
 ```typescript
 {
   type: "dashboard",
@@ -58,10 +77,12 @@ The following example shows the dashboard object is associated with workspace wh
   workspaces: ["M5NqCu"]
 }
 ```
+{% include copy-curl.html %}
 
-Saved object can also be associated with multiple workspaces, this is useful in scenarios where a saved object is relevant to multiple teams, projects, or use cases.
+Saved objects support association with multiple workspaces, facilitating cross-team collaboration and resource sharing. This feature is useful when an object is relevant to various team, projects, or use cases. 
 
-Consider the following example, where a data source is associated with multiple workspaces:
+The following example shows a data source object linked to multiple workspaces:
+
 ```typescript
 {
   type: "data-source",
@@ -69,18 +90,17 @@ Consider the following example, where a data source is associated with multiple 
   workspaces: ["M5NqCu", "<TeamA-workspace-id>", "<Analytics-workspace-id>"]
 }
 ```
-By allowing saved objects to be linked with multiple workspaces, this enables users to share and collaborate on resources across various workspaces (teams).
+{% include copy-curl.html %}
 
 ## Non-workspace saved objects
-While the introduction of workspaces in OSD provides a powerful framework for organizing and managing saved objects, it's important to note that not all saved objects are necessarily associated with workspaces. Some saved objects, by nature or purpose, may exist independently of workspaces.
 
-For example, the global UI settings object. This object contains configurations and settings that apply globally across OSD, affecting the overall user interface and user experience. These settings are not tied to any specific workspace because they are intended to impact the entire OSD. such objects won’t include the `workspaces` attribute.
+Not all saved objects in OpenSearch Dashboards are workspace-associated. Some objects operate independently of workspace framework. These objects lack `workspace` attribute and serve system-wide functions. For example, the global user interface settings object manages configurations affecting the entire OpenSearch Dashboards interface to maintain consistent functionality across all workspaces.
 
-The coexistence of workspace-associated saved objects and those without workspace association ensures that OSD strikes a balance between context-specific customization and system-wide consistency.
+This dual approach, workspace-associated and independent objects, allows OpenSearch Dashboards to balance granular, context-specific customization with overall system consistency. 
 
-## Enabling Workspace
+## Enabling the Workspace feature
 
-To enable *Workspace* in OpenSearch Dashboards, locate your copy of the `opensearch_dashboards.yml` file and set the following option:
+In your `opensearch_dashboards.yml` file, set the following option:
 
 ```yaml
 workspace.enabled: true
@@ -90,7 +110,7 @@ uiSettings:
 ```
 {% include copy-curl.html %}
 
-If the security plugin is installed in your cluster, please set the multitenancy as disabled because workspaces serve a similar purpose but will conflict with it.
+If your cluster has the security plugin installed, then multitenancy must be disabled to avoid conflicts with workspaces of similar functionality.
 
 ```yaml
 opensearch_security.multitenancy.enabled: false
