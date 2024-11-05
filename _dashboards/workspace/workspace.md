@@ -96,7 +96,7 @@ The following example shows a data source object linked to multiple workspaces:
 
 Not all saved objects in OpenSearch Dashboards are workspace-associated. Some objects operate independently of workspace framework. These objects lack `workspace` attribute and serve system-wide functions. For example, the global user interface settings object manages configurations affecting the entire OpenSearch Dashboards interface to maintain consistent functionality across all workspaces.
 
-This dual approach, workspace-associated and independent objects, allows OpenSearch Dashboards to balance granular, context-specific customization with overall system consistency. 
+This dual approach allows OpenSearch Dashboards to balance granular, context-specific customization with overall system consistency. 
 
 ## Enabling the Workspace feature
 
