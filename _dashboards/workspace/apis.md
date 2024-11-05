@@ -279,7 +279,7 @@ The following example response shows a successful API call:
 ```
 {% include copy-curl.html %}
 
-## Associate saved objects Workspaces API
+## Associate Saved Objects Workspaces API
 
 You can use the following endpoint to associate saved objects with a workspace:
 
