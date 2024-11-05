@@ -20,7 +20,7 @@ POST /_plugins/_security_analytics/correlation/rules
 ```
 {% include copy-curl.html %}
 
-### Request fields
+### Request body fields
 
 | Field | Type | Description |
 | :--- | :--- |:--- |
@@ -94,7 +94,7 @@ POST /_plugins/_security_analytics/correlation/rules
 ```
 {% include copy-curl.html %}
 
-### Response fields
+### Response body fields
 
 | Field | Type | Description |
 | :--- | :--- |:--- |
@@ -144,7 +144,7 @@ GET /_plugins/_security_analytics/correlations?start_timestamp=1689289210000&end
 ```
 {% include copy-curl.html %}
 
-### Response fields
+### Response body fields
 
 | Field | Type | Description |
 | :--- | :--- |:--- |
@@ -221,7 +221,7 @@ GET /_plugins/_security_analytics/findings/correlate?finding=425dce0b-f5ee-4889-
 ```
 {% include copy-curl.html %}
 
-### Response fields
+### Response body fields
 
 | Field | Type | Description |
 | :--- | :--- |:--- |

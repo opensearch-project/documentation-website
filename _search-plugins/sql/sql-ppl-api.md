@@ -20,7 +20,7 @@ Parameter | Data Type | Description
 [format]({{site.url}}{{site.baseurl}}/search-plugins/sql/response-formats/) | String | The format for the response. The `_sql` endpoint supports `jdbc`, `csv`, `raw`, and `json` formats. The `_ppl` endpoint supports `jdbc`, `csv`, and `raw` formats. Default is `jdbc`.
 sanitize | Boolean | Specifies whether to escape special characters in the results. See [Response formats]({{site.url}}{{site.baseurl}}/search-plugins/sql/response-formats/) for more information. Default is `true`.
 
-### Request fields
+### Request body fields
 
 Field | Data Type | Description  
 :--- | :--- | :---
@@ -149,7 +149,7 @@ The response contains the schema and the results:
 }
 ```
 
-### Response fields
+### Response body fields
 
 Field | Data Type | Description  
 :--- | :--- | :---
