@@ -41,7 +41,7 @@ Essentials  |    Analytics Search<br> Security Analytics<br> Observability
 The workspace details page features the following buttons in the upper-right corner:
 
 1. **Delete** (trash icon)
-    - **Without security plugins uninstalled:** All users can delete the workspace.
+    - **Without the Security plugin installed:** All users can delete the workspace.
     - **With security plugins installed and `savedObjects.permission.enabled: false` in the `config/opensearch_dashboards.yml` file:** All users can delete the workspace.
     - **With security plugins installed and `savedObjects.permission.enabled: true` in the `config/opensearch_dashboards.yml` file:** Only the OpenSearch Dashboards admin can delete the workspace.
 2. **Set as default workspace:** Sets the current workspace as the default login destination.
