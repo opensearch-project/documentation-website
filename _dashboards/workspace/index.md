@@ -1,32 +1,27 @@
 ---
 layout: default
-title: Workspace Initialization - New Home Page
+title: Getting started with workspaces
 parent: Workspace
 nav_order: 0
 ---
 
-## Onboard opensearch dashboard with workspace
+# Getting started with workspaces
+Introduced 2.18
+{: .label .label-purple }
 
-### New home page
-The OpenSearch Dashboard has an amazing new home page where you can clearly see all workspaces.
+OpenSearch Dashboards 2.18 introduces an enhanced home page that provides a comprehensive view of all your workspaces.
 
-<img src="{{site.url}}{{site.baseurl}}/images/workspace/workspace-initial/home-page.png" alt="new home page" width="900" />
+The new home page includes the following features: 
 
-The new home page offers features to improve the user experience.
-1. For [OSD admin]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#config-dashboard-admin), you can click the `Create workspace` button to navigate to [create workspace page]({{site.url}}{{site.baseurl}}/dashboards/workspace/create-workspace).
-2. Check the access time of the workspace, or click the workspace to navigate to the overview page.
-> <img src="{{site.url}}{{site.baseurl}}/images/workspace/workspace-initial/home-has-workspace.png" alt="home with workspace" width="900" />
-3. Clicking the use case information icon will show the use case details.
-> <img src="{{site.url}}{{site.baseurl}}/images/workspace/workspace-initial/use-case-information.png" alt="use case information" width="900" />
-4. Clicking the `View all workspaces` button will navigate to the [workspace list page]({{site.url}}{{site.baseurl}}/dashboards/workspace/manage-workspace/#manage-workspaces-from-workspaces-list)
-5. Clicking the `Learn more from documentation` link will navigate to the latest opensearch documentation page.
-6. Clicking the `Explore live demo environment at playground.opensearch.org` link will navigate to the dashboard playground page.
+1. A **Create workspace** button for [OpenSearch Dashboard admins]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#config-dashboard-admin) to navigate to the [create workspace]({{site.url}}{{site.baseurl}}/dashboards/workspace/create-workspace) page.
+2. Workspace access time information and a link to the workspace overview page.
+3. A use case information icon that displays details about the workspace's purpose.
+4. A **View all workspaces** button that navigates to the [workspace management]({{site.url}}{{site.baseurl}}/dashboards/workspace/manage-workspace/#manage-workspaces-from-workspaces-list) page.
+5. Links to the latest OpenSearch documentation with the **Learn more from documentation** button and OpenSearch Dashboards playground environment with the **Explore live demo environment at playground.opensearch.org** button.
 
+The navigation logic ensures a seamless user experience by directing you to the appropriate page based on your workspace access level:
 
-### Navigation logic
-When a user logs in to OpenSearch Dashboard, it will jump to a different page according to the following logic.
-
- - If user has a default workspace configured, navigate to the workspace overview page.
- - If user has only one workspace, navigate to overview page of the workspace.
- - If user has more than one workspace, navigate to the new homepage.
- - If user has no workspaces, navigate to the new home page.
+- If a you have a default workspace configured, you are taken to the workspace overview page.
+- If a you have only one workspace, you are directed to the overview page of that workspace.
+- If a you have multiple workspaces, you are taken to the new home page.
+- If a you have no workspaces, you are directed to the new home page.
