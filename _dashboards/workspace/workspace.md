@@ -110,7 +110,7 @@ uiSettings:
 ```
 {% include copy-curl.html %}
 
-If your cluster has the security plugin installed, then multitenancy must be disabled to avoid conflicts with workspaces of similar functionality.
+If your cluster has the Security plugin installed, then multi-tenancy must be disabled to avoid conflicts with workspaces providing similar functionality:
 
 ```yaml
 opensearch_security.multitenancy.enabled: false
