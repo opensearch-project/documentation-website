@@ -332,7 +332,7 @@ The following example response shows a successful API call:
 ```
 {% include copy-curl.html %}
 
-## Dissociate saved objects Workspaces API
+## Dissociate Saved Objects Workspaces API
 
 You can use the following endpoint to dissociate saved objects from a workspace:
 
