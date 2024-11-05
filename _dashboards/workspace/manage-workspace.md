@@ -106,7 +106,7 @@ To delete a workspace, follow these steps:
 The workspaces list page serves as your central hub for workspace management, displaying all workspaces for which you have access permissions. Key features include the following: 
 
 - Search: Quickly find a workspace by name.
-- Filter: Sort workspaces based on use case
+- Filter: Sort workspaces based on use case.
 - At-a-glance: View each workspace's name, use case, description, last update time, and associated data sources.
 
 Each workspace entry includes an **Actions** column with four functional buttons. These tools streamline your workspace management, allowing for efficient organization and customization of your OpenSearch Dashboards environment:
