@@ -45,7 +45,7 @@ The workspace details page features the following buttons in the upper-right cor
     - **With the Security plugins installed and `savedObjects.permission.enabled: false` in the `config/opensearch_dashboards.yml` file:** All users can delete the workspace.
     - **With security plugins installed and `savedObjects.permission.enabled: true` in the `config/opensearch_dashboards.yml` file:** Only the OpenSearch Dashboards admin can delete the workspace.
 2. **Set as default workspace:** Sets the current workspace as the default login destination.
-3. **Workspace overview:** Opens the workspace overview page of a new tab.
+3. **Workspace overview:** Opens the workspace overview page in a new tab.
 
 ## Adding assets to the workspace
 
