@@ -37,9 +37,9 @@ PUT test-index
       "my_vector1": {
         "type": "knn_vector",
         "dimension": 1024,
+        "space_type": "l2",
         "method": {
           "name": "hnsw",
-          "space_type": "l2",
           "engine": "nmslib",
           "parameters": {
             "ef_construction": 128,
@@ -57,7 +57,7 @@ PUT test-index
 
 You must designate the field that will store vectors as a [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/) field type. OpenSearch supports vectors of up to 16,000 dimensions, each of which is represented as a 32-bit or 16-bit float. 
 
-To save storage space, you can use `byte` or `binary` vectors. For more information, see [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector) and [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-k-nn-vectors).
+To save storage space, you can use `byte` or `binary` vectors. For more information, see [Byte vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#byte-vectors) and [Binary vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-vectors).
 
 ### k-NN vector search
 
@@ -97,7 +97,7 @@ In general, select NMSLIB or Faiss for large-scale use cases. Lucene is a good o
 
 | |  NMSLIB/HNSW |  Faiss/HNSW |  Faiss/IVF |  Lucene/HNSW |
 |:---|:---|:---|:---|:---|
-|  Max dimensions |  16,000  |  16,000 |  16,000 |  1,024 |
+|  Max dimensions |  16,000  |  16,000 |  16,000 |  16,000 |
 |  Filter |  Post-filter |  Post-filter |  Post-filter |  Filter during search |
 |  Training required |  No |  No |  Yes |  No |
 |  Similarity metrics |  `l2`, `innerproduct`, `cosinesimil`, `l1`, `linf`  |  `l2`, `innerproduct` |  `l2`, `innerproduct` |  `l2`, `cosinesimil` |
@@ -131,9 +131,9 @@ PUT /hotels-index
       "location": {
         "type": "knn_vector",
         "dimension": 2,
+        "space_type": "l2",
         "method": {
           "name": "hnsw",
-          "space_type": "l2",
           "engine": "lucene",
           "parameters": {
             "ef_construction": 100,

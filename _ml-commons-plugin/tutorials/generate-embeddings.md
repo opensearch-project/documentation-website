@@ -107,7 +107,7 @@ PUT _ingest/pipeline/bedrock_embedding_pipeline
     {
       "set": {
         "field": "title_tmp",
-        "value": "{{_ingest._value.title}}"
+        "value": {% raw %}"{{_ingest._value.title}}"{% endraw %}
       }
     },
     {

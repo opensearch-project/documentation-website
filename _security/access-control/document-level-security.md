@@ -13,6 +13,8 @@ Document-level security lets you restrict a role to a subset of documents in an 
 
 ![Document- and field-level security screen in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/security-dls.png)
 
+The maximum size for the document-level security configuration is 1024 KB (1,048,404 characters). 
+{: .warning}
 
 ## Simple roles
 

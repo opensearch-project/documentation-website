@@ -7,7 +7,7 @@ nav_order: 10
 
 # Top N queries
 
-Monitoring the top N queries in query insights features can help you gain real-time insights into the top queries with high latency within a certain time frame (for example, the last hour). 
+Monitoring the top N queries using query insights allows you to gain real-time visibility into the queries with the highest latency or resource consumption in a specified time period (for example, the last hour).
 
 ## Configuring top N query monitoring
 
@@ -72,14 +72,14 @@ PUT _cluster/settings
 
 ## Monitoring the top N queries 
 
-You can use the Insights API endpoint to obtain the top N queries for all metric types:
+You can use the Insights API endpoint to retrieve the top N queries. This API returns top N `latency` results by default.
 
 ```json
 GET /_insights/top_queries
 ```
 {% include copy-curl.html %}
 
-Specify a metric type to filter the response:
+Specify the `type` parameter to retrieve the top N results for other metric types. The results will be sorted in descending order based on the specified metric type.
 
 ```json
 GET /_insights/top_queries?type=latency
@@ -95,6 +95,20 @@ GET /_insights/top_queries?type=cpu
 GET /_insights/top_queries?type=memory
 ```
 {% include copy-curl.html %}
+
+
+To specify a time range for querying top N results, use the `from` and `to` parameters in ISO8601 format: `YYYY-MM-DD'T'HH:mm:ss.SSSZ`.
+For example, to retrieve the top N queries from August 25, 2024, at 15:00 UTC to August 30, 2024, at 17:00 UTC, send the following request: 
+
+```json
+GET /_insights/top_queries?from=2024-08-25T15:00:00.000Z&to=2024-08-30T17:00:00.000Z
+```
+{% include copy-curl.html %}
+
+If you have a [local index exporter enabled](#configuring-a-local-index-exporter), historical queries stored in local OpenSearch indexes will also be included in the specified time range. 
+
+If your query returns no results, ensure that top N query monitoring is enabled for the target metric type and that search requests were made within the current [time window](#configuring-the-window-size).
+{: .important}
 
 ## Exporting top N query data
 

@@ -65,14 +65,10 @@ To ensure that this basic local setup works, specify the following cluster setti
 PUT _cluster/settings
 {
   "persistent": {
-    "plugins": {
-      "ml_commons": {
-        "allow_registering_model_via_url": "true",
-        "only_run_on_ml_node": "false",
-        "model_access_control_enabled": "true",
-        "native_memory_threshold": "99"
-      }
-    }
+    "plugins.ml_commons.allow_registering_model_via_url": "true",
+    "plugins.ml_commons.only_run_on_ml_node": "false",
+    "plugins.ml_commons.model_access_control_enabled": "true",
+    "plugins.ml_commons.native_memory_threshold": "99"
   }
 }
 ```
