@@ -218,7 +218,7 @@ The following example response shows a successful API call:
 ```
 {% include copy-curl.html %}
 
-## Duplicate saved objects Workspaces API
+## Duplicate Saved Objects Workspaces API
 
 You can use the following endpoint to copy saved objects between workspaces:
 
