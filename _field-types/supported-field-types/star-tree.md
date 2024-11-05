@@ -10,7 +10,7 @@ parent: Supported field types
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
 {: .warning}
 
-A star-tree index (STIX) precomputes aggregations, accelerating the performance of aggregation queries. 
+A star-tree index precomputes aggregations, accelerating the performance of aggregation queries. 
 If a star-tree index is configured as part of an index mapping, the star-tree index is created and maintained as data is ingested in real time.
 
 OpenSearch will automatically use the star-tree index to optimize aggregations if the queried fields are part of star-tree index dimension fields and the aggregations are on star-tree index metric fields. No changes are required in the query syntax or the request parameters.
@@ -23,10 +23,16 @@ To use a star-tree index, follow the instructions in [Enabling a star-tree index
 
 ## Limitations
 
-The STIX feature has the following limitations:
+## Limitations
 
-- A star-tree index should only be enabled on indexes whose data is not updated or deleted because standard updates and deletions are not accounted for in a star-tree index.
-- Currently, only `one` star-tree index can be created per index. Support for multiple star-tree indexes will be added in a future version.
+Star-tree indexes have the following limitations:
+
+- A star-tree index should only be enabled on indexes whose data is not updated or deleted because updates and deletions are not accounted for in a star-tree index.
+- A star-tree index can be used for aggregation queries only if the queried fields are a subset of the star-tree's dimensions and the aggregated fields are a subset of the star-tree's metrics.
+- After a star-tree index is enabled, it cannot be disabled. In order to disable a star-tree index, the data in the index must be reindexed without the star-tree mapping. Furthermore, changing a star-tree configuration will also require a reindex operation.
+- [Multi-values/array values]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/index/#arrays) are not supported.
+- Only [limited queries and aggregations](#supported-queries-and-aggregations) are supported. Support for more features will be added in future versions.
+- The cardinality of the dimensions should not be very high (as with `_id` fields). Higher cardinality leads to increased storage usage and query latency.
 
 ## Examples
 
@@ -105,15 +111,15 @@ PUT logs
 }
 ```
 
-## STIX configuration options
+## Star-tree index configuration options
 
-You can customize your STIX implementation using the following `config` options in the `mappings` section. These options cannot be modified without reindexing.
+You can customize your star-tree implementation using the following `config` options in the `mappings` section. These options cannot be modified without reindexing.
 
 | Parameter  | Description   | 
 | :--- | :--- |
 | `ordered_dimensions` | A [list of fields](#ordered-dimensions) based on which metrics will be aggregated in a star-tree index. Required. | 
 | `metrics` | A [list of metric](#metrics) fields required in order to perform aggregations. Required. |
-| `max_leaf_docs` | The maximum number of STIX documents that a leaf node can point to. After the maximum number of documents is reached, child nodes will be created based on the unique values of the next field in the `ordered_dimension` (if any). Default is `10000`. A lower value will use more storage but result in faster query performance. Inversely, a higher value will use less storage but result in slower query performance. For more information, see [Star-tree indexing structure]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/#star-tree-index-structure).  |
+| `max_leaf_docs` | The maximum number of star-tree documents that a leaf node can point to. After the maximum number of documents is reached, child nodes will be created based on the unique values of the next field in the `ordered_dimension` (if any). Default is `10000`. A lower value will use more storage but result in faster query performance. Inversely, a higher value will use less storage but result in slower query performance. For more information, see [Star-tree indexing structure]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/#star-tree-index-structure).  |
 | `skip_star_node_creation_for_dimensions`  | A list of dimensions for which a star-tree index will skip star node creation. When `true`, this reduces storage size at the expense of query performance. Default is `false`. For more information about star nodes, see [Star-tree indexing structure]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/#star-tree-index-structure). |
 
 
