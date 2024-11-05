@@ -5,10 +5,10 @@ baseurl: "/docs/latest" # the subpath of your site, e.g. /blog
 url: "https://opensearch.org" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: /:path/
 
-opensearch_version: '2.17.0'
-opensearch_dashboards_version: '2.17.0'
-opensearch_major_minor_version: '2.17'
-lucene_version: '9_11_1'
+opensearch_version: '2.18.0'
+opensearch_dashboards_version: '2.18.0'
+opensearch_major_minor_version: '2.18'
+lucene_version: '9_12_0'
 
 # Build settings
 markdown: kramdown
