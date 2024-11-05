@@ -21,7 +21,7 @@ To create a workspace, follow these steps:
   - **Workspace name** is required. Valid characters are `a-z`, `A-Z`, `0-9`, parentheses (`()`), brackets (`[]`), underscore (`_`), hyphen (`-`), and spaces. Choose a unique workspace name within the character limit (40 characters). The **Create workspace** button is disabled when the workspace name already exists or exceeds the character limit, and an error message appears.
   - **Use case and features** is required. Choose the use case that best fits your needs. If you are using Amazon OpenSearch Serverless and have enabled the [multiple data sources]({{site.url}}{{site.baseurl}}/dashboards/management/data-sources/) feature, **Essentials** is automatically assigned. 
 4. (Optional) Select the color picker to customize the color of your workspace icon.
-5. (Optional) Add a description up to 200 characters to describe your workspace. This option is disabled when the description exceeds the character limit.
+5. (Optional) Add a workspace description of up to 200 characters. This option is disabled when the description exceeds the character limit.
 6. Save your workspace.
   - The **Create workspace** button becomes active once you enter the details for all required fields. You become the workspace owner automatically. The system redirects you to either the collaborators page if saved objects permission is enabled or the overview page if saved objects permission is disabled. See [Configuring dashboard admin]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#config-dashboard-admin) for information about permissions.
 
