@@ -9,7 +9,7 @@ nav_order: 2
 Introduced 2.18
 {: .label .label-purple }
 
-You can access and modify the workspace details, including name, description, use case, and icon color, on the details page. 
+You can access and modify the workspace details, including name, description, use case, and icon color, on the **Workspace details** page. 
 
 To access and modify your workspace details, follow these steps: 
 
