@@ -183,7 +183,7 @@ POST /logs/_search
 }
 ```
 
-With STIX, the result will be retrieved from a single aggregated document as it traverses to the `status=500` node, as opposed to scanning through all of the matching documents. This results in lower query latency.
+Using a star-tree index, the result will be retrieved from a single aggregated document as it traverses the `status=500` node, as opposed to scanning through all of the matching documents. This results in lower query latency.
 
 ## Using queries without a star-tree index
 
