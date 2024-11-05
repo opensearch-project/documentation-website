@@ -11,7 +11,7 @@ Introduced 2.10
 
 **Dashboards Management** is the central hub for managing and customizing OpenSearch data directly within OpenSearch Dashboards. 
 
-OpenSearch and OpenSearch Dashboards privileges govern access to individual features. If you do not have the appropriate access, consult your administrator.
+OpenSearch and OpenSearch Dashboards permissions govern access to individual features. If you do not have the appropriate access permissions, consult your administrator.
 {: .warning}
 
 ## Applications
