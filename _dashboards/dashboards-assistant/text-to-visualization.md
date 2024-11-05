@@ -261,13 +261,13 @@ To generate visualizations from text in OpenSearch Dashboards, use the following
 
 1. In the **New Visualization** dialog, select **Natural language**, as shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/t2viz-start.png" alt="Create a visualization by selecting natural language">
+    <img width="800px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/t2viz-start.png" alt="Create a visualization by selecting natural language">
 
 1. From the data sources dropdown list, select a data source, as shown in the following image. 
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/t2viz-select-data-source.png" alt="Create a visualization by selecting natural language">
 
-1. In the text box on the upper right, enter a question using natural language, as shown in the following image.
+1. In the text box on the upper right, enter a question using natural language. A new visualization is generated, as shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/t2viz-ask-question.png" alt="Create a visualization by selecting natural language">
 

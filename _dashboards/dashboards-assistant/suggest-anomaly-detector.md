@@ -79,8 +79,8 @@ To view anomaly detector suggestions in OpenSearch Dashboards, use the following
 
 1. Select the **AI assistant** dropdown list and then select **Suggest anomaly detector**, as shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/suggestAD-button.png" alt="Click the Suggest anomaly detector action">
+    <img width="420px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/suggestAD-button.png" alt="Click the Suggest anomaly detector action">
 
 1. Wait for the LLM to populate the **Suggest anomaly detector** fields that will be used to create an anomaly detector for the index pattern. Then select the **Create detector** button to create an anomaly detector, as shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/suggestAD-UI.png" alt="Suggested anomaly detector">
+    <img width="800px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/suggestAD-UI.png" alt="Suggested anomaly detector">
