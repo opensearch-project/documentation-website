@@ -18,7 +18,7 @@ To create a workspace, follow these steps:
 1. Open OpenSearch Dashboards.
 2. From the main page, choose the appropriate card for your use case, for example, **Observability**, **Security Analytics**, **Search**, **Essentials**, or **Analytics**. Alternatively, you can select the **Create workspace** button and choose the appropriate use case from the dropdown menu.
 3. Enter the required information in the **Workspace details** window.
-  - **Workspace name** is required. Valid characters are `a-z`, `A-Z`, `0-9`, parentheses (`()`), brackets (`[]`), underscore (`_`), and hyphen (`-`), and spaces. Choose a unique workspace name within the character limit (40 characters). The **Create workspace** button is disabled when the workspace name already exists or exceeds the character limit and an error message appears.
+  - **Workspace name** is required. Valid characters are `a-z`, `A-Z`, `0-9`, parentheses (`()`), brackets (`[]`), underscore (`_`), hyphen (`-`), and spaces. Choose a unique workspace name within the character limit (40 characters). The **Create workspace** button is disabled when the workspace name already exists or exceeds the character limit, and an error message appears.
   - **Use case and features** is required. Choose the use case that best fits your needs. If you are using Amazon OpenSearch Serverless and have enabled the [multiple data sources]({{site.url}}{{site.baseurl}}/dashboards/management/data-sources/) feature, **Essentials** is automatically assigned. 
 4. (Optional) Select the color picker to customize the color of your workspace icon.
 5. (Optional) Add a description up to 200 characters to describe your workspace. This option is disabled when the description exceeds the character limit.
