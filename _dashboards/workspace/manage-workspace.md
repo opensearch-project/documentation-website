@@ -87,7 +87,7 @@ The Opensearch connections tab displays all associated connections for the curre
 
 The **Direct query connections** tab displays a list of all direct query connections associated with your current workspace. To add more direct query connections to your workspace, select the **Direct query data sources** button. A modal window opens.
 
-The association modal displays a list of OpenSearch connections that contain direct query connections and have not yet been associated with your current workspace. When you associate an OpenSearch connection with your current workspace, all direct query connections within that OpenSearch connetion is automatically associated as well.
+The association modal displays a list of OpenSearch connections that contain direct query connections and have not yet been associated with your current workspace. When you associate an OpenSearch connection with your current workspace, all direct query connections within that OpenSearch connection are automatically associated as well.
 
 ## Deleting your workspace
 
