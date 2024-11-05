@@ -66,7 +66,7 @@ After selecting a copy option, choose the target workspace from the dropdown men
 
 Upon selecting the **Copy** button, a side panel appears showing successful and failed asset transfers. Asset copy destinations depend on the following security configurations:
  
-1. **Without security plugins:** All workspaces accessible
+1. **Without security plugins:** All workspaces are accessible.
 2. **With security plugins and `savedObjects.permission.enabled: false` in the `config/opensearch_dashboards.yml` file:** All workspaces accessible
 3. **With security plugins and `savedObjects.permission.enabled: true` in the `config/opensearch_dashboards.yml` file:** Only workspaces where user has `Read and write` or `Admin` permission.
 
