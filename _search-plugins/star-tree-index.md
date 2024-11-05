@@ -41,7 +41,7 @@ The following image illustrates a standard star-tree index structure.
 
 Sorted and aggregated STIX documents are backed by `doc_values` in an index. The columnar data found in `doc_values` are stored using the following properties:
 
-- The values are sorted based on the fields set in the `ordered_dimension` setting. The first field configured in `ordered_dimensions` are considered primary fields, and any corresponding fields of the primary are considered secondary.  In the preceding image, the dimensions are determined by the `status` setting and then by the `port` for each status.
+- The values are sorted based on the fields set in the `ordered_dimension` setting.  In the preceding image, the dimensions are determined by the `status` setting and then by the `port` for each status.
 - For each unique dimension/value combination, the aggregated values for all the metrics, such as `avg(size)` and `count(requests)`, are precomputed during ingestion.
 
 ### Leaf nodes
@@ -52,9 +52,9 @@ Each node in a star-tree index points to a range of star-tree documents. Nodes c
 
 Star nodes are nodes which contain the aggregated data of all the other nodes in the same dimension. This helps when querying the aggregated vales of a particular field without traversing through all the nodes in a cluster. 
 
-The star-tree index structure diagram contains the following three examples demonstrating how a query behaves when retrieving aggregations from nodes in the star-tree, from both the `status` and `port dimensions` and star nodes (indicated by the `*` symbol in the diagram):
+The star-tree index structure diagram contains the following three examples demonstrating how a query behaves when retrieving aggregations from nodes in the star-tree:
 
-- **Blue**: In a `terms` query searching for the average request size aggregation, the `port` equals `8443` and the status equals `200`. Because the query contains values in both the `status` and `port` dimensions, the query returns the aggregation from a non-star node.
+- **Blue**: In a `terms` query searching for the average request size aggregation, the `port` equals `8443` and the status equals `200`. Because the query contains values in both the `status` and `port` dimensions, the query traverses through staus node `200` and returns the aggregations from child node `8443`.
 - **Green**: In a `term` query searching for the count of requests aggregation, the `status` equals `200`. Because the query only contains a value from the `status` dimension, the query traverses to the `200` nodes child star node, which contains the aggregated vale of all the `port` children nodes.
 - **Red**: In a `term` query searching for the computed average request size aggregation, the port equals `5600`. Because the query does not contain a value from the `status` dimension, the query traverses through a star node and returns the aggregated result from the `5600` child node.
 
