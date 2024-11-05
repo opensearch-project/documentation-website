@@ -46,7 +46,7 @@ Sorted and aggregated star-tree documents are backed by `doc_values` in an index
 
 ### Leaf nodes
 
-Each node in a star-tree index points to a range of star-tree documents. Nodes can be further split into child nodes based on the [max_leaf_docs configuration]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/star-tree/#stix-configuration-options). The number of documents that a leaf node points to is less than or equal to the value set in `max_leaf_docs`. This ensures that the maximum number of documents that need to traverse nodes to derive an aggregated value is at most the number of `max_leaf_docs`, which provides predictable latency.
+Each node in a star-tree index points to a range of star-tree documents. Nodes can be further split into child nodes based on the [max_leaf_docs configuration]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/star-tree/#star-tree-index-configuration-options). The number of documents that a leaf node points to is less than or equal to the value set in `max_leaf_docs`. This ensures that the maximum number of documents that need to traverse nodes to derive an aggregated value is at most the number of `max_leaf_docs`, which provides predictable latency.
 
 ### Star nodes
 
@@ -73,7 +73,7 @@ To use a star-tree index, modify the following settings:
 
 ## Example mapping
 
-In the following example, index mappings define the star-tree configuration. This STIX precomputes aggregations in the `logs` index. The aggregations are calculated on the `size` and `latency` fields for all the combinations of values indexed in the `port` and `status` fields:
+In the following example, index mappings define the star-tree configuration. The star-tree index precomputes aggregations in the `logs` index. The aggregations are calculated on the `size` and `latency` fields for all the combinations of values indexed in the `port` and `status` fields:
 
 ```json
 PUT logs
@@ -145,7 +145,7 @@ The following queries are supported as of OpenSearch 2.18:
 - [Term query](https://opensearch.org/docs/latest/query-dsl/term/term/)
 - [Match all docs query](https://opensearch.org/docs/latest/query-dsl/match-all/)
 
-To use queries with a star-tree index, the query's fields must be present in the `ordered_dimensions` section of the star-tree configuration.
+To use queries with a star-tree index, the query's fields must be present in the `ordered_dimensions` section of the star-tree configuration. Queries must also be paired with a supported aggregation. 
 
 ### Supported aggregations
  
