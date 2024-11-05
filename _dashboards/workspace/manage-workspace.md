@@ -62,7 +62,7 @@ The assets page provides the following methods for copying assets across workspa
 2. **Copy to...:** Moves selected assets from the table.
 3. **Copy to...:** Copies a single asset from the table.
 
-After selection a copy option, choose the target workspace from the dropdown menu. The **Copy related assets** checkbox allows for transfer of associated assets.
+After selecting a copy option, choose the target workspace from the dropdown menu. The **Copy related assets** checkbox allows you to transfer associated assets.
 
 Copying permissions vary based on security plugin status and configuration.
 {: .note}
