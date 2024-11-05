@@ -3,6 +3,7 @@ layout: default
 title: Set
 parent: Ingest processors
 nav_order: 240
+canonical_url: https://opensearch.org/docs/latest/ingest-pipelines/processors/set/
 ---
 
 # Set processor

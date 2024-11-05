@@ -5,6 +5,7 @@ nav_order: 18
 has_children: false
 parent: Search processors
 grand_parent: Search pipelines
+canonical_url: https://opensearch.org/docs/latest/search-plugins/search-pipelines/personalize-search-ranking/
 ---
 
 # Personalize search ranking processor

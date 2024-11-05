@@ -3,6 +3,7 @@ layout: default
 title: Script
 parent: Ingest processors
 nav_order: 230
+canonical_url: https://opensearch.org/docs/latest/ingest-pipelines/processors/script/
 ---
 
 # Script processor

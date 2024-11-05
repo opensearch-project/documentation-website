@@ -5,6 +5,7 @@ nav_order: 140
 has_children: false
 parent: Search processors
 grand_parent: Search pipelines
+canonical_url: https://opensearch.org/docs/latest/search-plugins/search-pipelines/split-processor/
 ---
 
 # Split processor
