@@ -147,7 +147,7 @@ To delete an individual collaborator, follow these steps:
 
 To remove several collaborators simultaneously, follow these steps:
 
-1. Select the rows of collaborators you want to remove from the table. After "Delete x collaborators" button appears.
+1. Select the rows containing the collaborators you want to remove from the table. A "Delete x collaborators" button appears.
 2. Select the **Delete x collaborators** button.
 3. Review the confirmation modal that appears.
 4. Select **Confirm** to remove all selected collaborators from the table.
