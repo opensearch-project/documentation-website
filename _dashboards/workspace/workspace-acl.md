@@ -16,7 +16,7 @@ Workspace access control lists (ACLs) manage authorization for saved objects `Au
 **Workspace** use cases involve the following key personas:
 
 * **Dashboard admin:** Has full access to all OpenSearch Dashboards functions and data.
-* **Workspace administrator (also called owner):** Has full control over a specific workspace, including its configuration and saved objects. When a workspace is created, its creator is automatically assigned the role of workspace owner.
+* **Workspace administrator (also called _owner_):** Has full control over a specific workspace, including its configuration and saved objects. When a workspace is created, its creator is automatically assigned the role of workspace owner.
 * **Workspace content producer:** Can view, create, and update saved objects within the workspace.
 * **Workspace viewer:** Has view-only access to saved objects in the workspace
 
