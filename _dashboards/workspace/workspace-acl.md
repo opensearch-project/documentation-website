@@ -103,7 +103,7 @@ To add users, follow these steps:
 
 To add groups, follow these steps:
 
-1. Select the **Add Groups** button to open the modal. The modal display one empty `Group ID` field by default.
+1. Select the **Add Groups** button to open the modal. The modal displays one empty `Group ID` field by default.
 2. Choose an access level: **Read only,** **Read and write,** or **Admin**.
 3. Use **Add another group** for multiple users. Avoid duplicate or existing `Group ID` fields to avoid errors.
 4. Resolve any errors before finalizing. Successfully added users appear on the collaborators table.
