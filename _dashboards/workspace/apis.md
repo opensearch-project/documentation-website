@@ -295,7 +295,7 @@ The following table lists the available path parameters.
 | `workspaceId` | String | Required | Identifies the target workspace for object association. |
 | `savedObjects` | Array | Required | Specifies the list of saved objects to be copied. |
 
-The following table lists the attributes of the object in the `objects` parameter:
+The following table lists the attributes of the object in the `objects` parameter.
 
 | Parameter | Data type | Required | Description |
 | :--- | :--- | :--- | :--- |
