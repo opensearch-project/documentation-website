@@ -8,7 +8,7 @@ nav_order: 10
 
 # AWS Lambda integration for Data Prepper
 
-This document provides the configuration details and usage instructions for integrating AWS Lambda with Data Prepper, both as a processor and as a sink.
+The AWS Lambda integration allows developers to use serverless computing capabilities within their Data Prepper pipelines for flexible event processing and data routing.
 
 ----------------------------------------------------------------------------------------
 ## AWS Lambda Processor
