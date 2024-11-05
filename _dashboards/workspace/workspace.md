@@ -8,7 +8,6 @@ has_children: true
 # Workspace for OpenSearch Dashboards
 Introduced 2.18
 {: .label .label-purple }
-{: .label .label-purple }
 
 The workspace feature allows users to customize their OpenSearch Dashboards experience with curated use cases, for example, a user can create a workspace specifically for observability use cases so that they can concentrate on observability-related functionalities. Also, the workspace feature helps users organize visual assets, such as dashboards and visualizations, which are isolated by workspace. This makes it a valuable tool for OpenSearch Dashboards users who want a more precise and flexible workflow.
 
