@@ -42,7 +42,7 @@ By default, the configuration is set to `[]`, meaning that no users are designat
 
 ### Configuring global admin access
 
-Set all users as OpenSearch Dashboard admins with this wildcard setting:
+Set all users as OpenSearch Dashboards admins with this wildcard setting:
 
 ```yaml
 opensearchDashboards.dashboardAdmin.users: ["*"]
