@@ -53,7 +53,7 @@ Access the **Sample data** in the navigation menu on the left. Select the approp
 
 ## Copying assets between workspaces
 
-Data sources and config copying are not supported.
+Data sources and configuration copying are not supported.
 {: .warning}
 
 The assets page offers the following methods for copying assets across workspaces:
