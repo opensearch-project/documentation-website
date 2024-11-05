@@ -61,7 +61,7 @@ The wildcard character (`*`) grants permissions to all authenticated users. In t
 
 ### Configuring mixed-level permissions
 
-To allow one user, `user-1` for example, to modify an object while giving view-only access to others, you can configure the ACL policy as follows:
+To allow one user, `user-1` for example, to modify an object while giving read-only access to others, you can configure the ACL policy as follows:
 
 ```json
 {
