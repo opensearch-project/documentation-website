@@ -79,7 +79,7 @@ The following saved object shows a dashboard object associated with the workspac
 ```
 {% include copy-curl.html %}
 
-Saved objects support association with multiple workspaces, facilitating cross-team collaboration and resource sharing. This feature is useful when an object is relevant to various team, projects, or use cases. 
+Saved objects support association with multiple workspaces, facilitating cross-team collaboration and resource sharing. This feature is useful when an object is relevant to multiple teams, projects, or use cases. 
 
 The following example shows a data source object linked to multiple workspaces:
 
