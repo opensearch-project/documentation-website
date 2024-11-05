@@ -29,7 +29,7 @@ The following table lists the available path parameters.
 | `sortField` | String | Optional | The field name to use for sorting results. |
 | `sortOrder` | String | Optional | Specifies ascending or descending sort order. |
 | `perPage` | Number | Optional | The number of workspace results per page. |
-| `page` | Number | Optional | Page number of results to retrieve. |
+| `page` | Number | Optional | The number of pages of results to retrieve. |
 | `permissionModes` | Array | Optional | List of permissions to filter by. |
 
 #### Example request
