@@ -95,7 +95,7 @@ Workspace creators are granted the **Admin** access level as a collaborator. To 
 To add users, follow these steps: 
 
 1. Select the **Add Users** button to open the modal. The modal displays one empty `User ID` field by default.
-2. Choose an access level: **Read only,** **Read and write,** or **Admin**.
+2. Choose an access level: **Read only**, **Read and write**, or **Admin**.
 3. Choose **Add another User** for multiple users. Avoid duplicate or existing `User ID` fields to avoid errors.
 4. Resolve any errors before finalizing. Successfully added users appear on the collaborators table.
 
