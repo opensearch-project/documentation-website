@@ -56,7 +56,7 @@ Access the **Sample data** in the navigation menu on the left. Select the approp
 Data sources and configuration copying are not supported.
 {: .warning}
 
-The assets page offers the following methods for copying assets across workspaces:
+The assets page provides the following methods for copying assets across workspaces:
 
 1. **Copy all assets to...:** Copies all assets in the table.
 2. **Copy to...:** Moves selected assets from the table.
