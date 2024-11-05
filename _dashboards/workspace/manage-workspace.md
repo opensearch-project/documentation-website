@@ -91,7 +91,7 @@ The association modal displays a list of OpenSearch connections that contain dir
 
 ## Deleting your workspace
 
-Workspace deletion is restricted to dashboard administrators. If you cannot see delete icon, check your permissions. Learn about [Configuring dashboard administrators]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#config-dashboard-admin).
+Workspace deletion is restricted to dashboard administrators. If you do not see a delete icon, check your permissions. See [Configuring dashboard administrators]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#config-dashboard-admin) for more information.
 {: .warning}
 
 Deleting a workspace permanately erases all its assets (except data sources) and the workspace itself. This action cannot be reversed.
