@@ -50,7 +50,7 @@ Each node in a star-tree index points to a range of star-tree documents. Nodes c
 
 ### Star nodes
 
-Star nodes are nodes which contain the aggregated data of all the other nodes in the same dimension. This helps when querying the aggregated vales of a particular field without traversing through all the nodes in a cluster. 
+Star nodes contain the aggregated data of all the other nodes for a particular dimension, acting as "catch-all" node. When a star node is found in a dimension, that dimension is skipped during aggregation. This group all values of that dimension together. This allows a query to skip non-competitive nodes when fetching the aggregated value of a particular field. 
 
 The star-tree index structure diagram contains the following three examples demonstrating how a query behaves when retrieving aggregations from nodes in the star-tree:
 
