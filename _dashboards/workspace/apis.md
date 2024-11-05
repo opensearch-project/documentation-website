@@ -82,7 +82,7 @@ The following table lists the available path parameters. All path parameters are
 
 | Parameter | Data type | Required | Description |
 | :--- | :--- | :--- | :--- |
-| `<id>` | String | Required | Identifies the unique workspace to retrieve. |
+| `<id>` | String | Required | Identifies the unique workspace to be retrieved. |
 
 #### Example request
 
