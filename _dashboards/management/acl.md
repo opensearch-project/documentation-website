@@ -43,7 +43,7 @@ ACL permissions are defined using the following schema:
 
 ### Granting permissions to authenticated users
 
-The wildcard character (`*`) grants permissions to all authenticated users. In the following example, the ACL grants workspace management to the `finance_manager` group and dashboard creation rights to the `finance_analyst` group:
+The wildcard character (`*`) grants permissions to all authenticated users. In the following example, the ACL grants workspace management permissions to the `finance_manager` group and dashboard creation permissions to the `finance_analyst` group:
 
 ```json
 {
