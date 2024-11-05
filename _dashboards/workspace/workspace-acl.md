@@ -29,7 +29,7 @@ See [Enabling ACL feature](../../management/acl#enabling-acl-feature) for instru
 
 ## Configuring dashboard administrators
 
-To grant full access to al lworkspaces and objects in OpenSearch Dashboards, configure the OpenSearch Dashboards admin. Edit the `opensearch_dashboards.yml` file to define the admin using either users IDs or backend roles, as shown in the following configuration:
+To grant full access to all workspaces and objects in OpenSearch Dashboards, configure the OpenSearch Dashboards admin. Edit the `opensearch_dashboards.yml` file to define the admin using either user IDs or backend roles, as shown in the following configuration:
 
 ```yaml
 opensearchDashboards.dashboardAdmin.users: ["UserID"]
