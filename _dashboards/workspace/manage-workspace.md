@@ -68,7 +68,7 @@ Upon selecting the **Copy** button, a side panel appears showing successful and 
  
 1. **Without security plugins:** All workspaces are accessible.
 2. **With security plugins and `savedObjects.permission.enabled: false` in the `config/opensearch_dashboards.yml` file:** All workspaces are accessible.
-3. **With security plugins and `savedObjects.permission.enabled: true` in the `config/opensearch_dashboards.yml` file:** Only workspaces where user has `Read and write` or `Admin` permission.
+3. **With security plugins and `savedObjects.permission.enabled: true` in the `config/opensearch_dashboards.yml` file:** Only workspaces for which the user has `Read and write` or `Admin` permissions are accessible.
 
 ## Associating data sources
 
