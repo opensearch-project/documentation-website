@@ -9,7 +9,7 @@ nav_order: 1
 Introduced 2.18
 {: .label .label-purple }
 
-Before getting started with this tutorial, you must enable the workspace feature flag. See [Enabling the ACL feature]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace/#enabling-workspace](http://localhost:4000/docs/latest/dashboards/management/acl/#enabling-acl-feature).
+Before getting started with this tutorial, you must enable the workspace feature flag. See [Enabling the ACL feature]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace/#enabling-workspace](http://localhost:4000/docs/latest/dashboards/management/acl/#enabling-acl-feature) for more information.
 
 When the saved objects permission is enabled, only users with dashboards admin status can create workspaces. See [Configuring the dashboard admin]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#config-dashboard-admin) for more information. 
 
