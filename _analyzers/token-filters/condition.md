@@ -8,23 +8,23 @@ nav_order: 70
 # Condition token filter
 
 The `condition` token filter is a special type of filter that allows you to apply other token filters conditionally based on certain criteria. This provides more control over when certain token filters should be applied during text analysis.
-Multiple filters can be configured and only applied based on the conditions you define. 
+Multiple filters can be configured and only applied when they meet the conditions you define. 
 This token filter can be very useful for language-specific processing and handling of special characters.
 
 
 ## Parameters
 
-There are two parameters that must be configured in order to use `condition` token filter.
+There are two parameters that must be configured in order to use the `condition` token filter.
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
 `filter` | Required | Array | Specifies which token filters should be applied to the tokens when the specified condition (defined by the `script` parameter) is met.
-`script` | Required | Object | Configures an [inline script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/exec-script/) that defines the condition that needs to be met for the filters specified in the `filter` parameter to be applied. (Only inline scripts are accepted).
+`script` | Required | Object | Configures an [inline script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/exec-script/) that defines the condition that needs to be met in order for the filters specified in the `filter` parameter to be applied (only inline scripts are accepted).
 
 
 ## Example
 
-The following example request creates a new index named `my_conditional_index` and configures an analyzer with a `condition` filter. This filter applies a `lowercase` filter to any tokens which contain the character sequence "um":
+The following example request creates a new index named `my_conditional_index` and configures an analyzer with a `condition` filter. This filter applies a `lowercase` filter to any tokens that contain the character sequence "um":
 
 ```json
 PUT /my_conditional_index
