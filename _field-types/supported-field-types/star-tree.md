@@ -36,7 +36,7 @@ The following examples show how to use a star-tree index.
 
 Define star-tree index mappings in the `composite` section in `mappings`. 
 
-The following example API request creates a corresponding star-tree index for `request_aggs`. To compute metric aggregations for `request_size` and `latency` fields with queries on `port` and `status` fields, configure the following mappings:
+The following example API request creates a corresponding star-tree index named`request_aggs`. To compute metric aggregations for `request_size` and `latency` fields with queries on `port` and `status` fields, configure the following mappings:
 
 ```json
 PUT logs
@@ -112,9 +112,9 @@ You can customize your STIX implementation using the following `config` options 
 | Parameter  | Description   | 
 | :--- | :--- |
 | `ordered_dimensions` | A [list of fields](#ordered-dimensions) based on which metrics will be aggregated in a star-tree index. Required. | 
-| `metrics` | A [list of metrics](#metrics) fields required to perform aggregations. Required. |
-| `max_leaf_docs` | The maximum number of STIX documents that a leaf node can point to. After the maximum number of documents is reached, children nodes will be created based on the unique vales of the next field in the `ordered_dimension` (if any). Default is `10000`. A lower value will use more storage but result in faster query performance. Inversely, a higher value will use less storage but result in slower query performance. For more information, see [Star-tree indexing structure]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/#star-tree-index-structure).  |
-| `skip_star_node_creation_for_dimensions`  | A list of dimensions for which STIX will skip star node creation. When `true`, this reduces storage size at the expense of query performance. Default is `false`. For more information about star nodes, see [Star-tree indexing structure]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/#star-tree-index-structure). |
+| `metrics` | A [list of metric](#metrics) fields required in order to perform aggregations. Required. |
+| `max_leaf_docs` | The maximum number of STIX documents that a leaf node can point to. After the maximum number of documents is reached, child nodes will be created based on the unique values of the next field in the `ordered_dimension` (if any). Default is `10000`. A lower value will use more storage but result in faster query performance. Inversely, a higher value will use less storage but result in slower query performance. For more information, see [Star-tree indexing structure]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/#star-tree-index-structure).  |
+| `skip_star_node_creation_for_dimensions`  | A list of dimensions for which a star-tree index will skip star node creation. When `true`, this reduces storage size at the expense of query performance. Default is `false`. For more information about star nodes, see [Star-tree indexing structure]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/#star-tree-index-structure). |
 
 
 ### Ordered dimensions
@@ -138,7 +138,7 @@ The `ordered_dimensions` parameter supports the following property.
 
 ### Metrics
 
-Configure any metric fields on which you need to perform aggregations. `Metrics` are required as part of a STIX configuration.
+Configure any metric fields on which you need to perform aggregations. `Metrics` are required as part of a star-tree index configuration.
 
 When using `metrics`, follow these best practices: 
 

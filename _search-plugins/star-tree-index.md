@@ -16,19 +16,19 @@ OpenSearch will automatically use star-tree indexes (STIX) to optimize aggregati
 
 ## When to use a star-tree index
 
-STIX can be used to perform faster aggregations. Consider the following criteria and features when deciding to use a star-tree index:
+A star-tree index can be used to perform faster aggregations. Consider the following criteria and features when deciding to use a star-tree index:
 
-- STIX natively supports multi-field aggregations.
+- Star-tree indexes natively support multi-field aggregations.
 - Star-tree indexes are created in real time as part of the indexing process, so the data in a star-tree will always be up to date.
 - A star-tree index consolidates data, increasing index paging efficiency and using less IO for search queries.
 
 ## Limitations
 
-STIX has the following limitations:
+Star-tree indexes have the following limitations:
 
 - A star-tree index should only be enabled on indexes whose data is not updated or deleted because updates and deletions are not accounted for in a star-tree index.
 - A star-tree index can be used for aggregation queries only if the queried fields are a subset of the star-tree's dimensions and the aggregated fields are a subset of the star-tree's metrics.
-- After STIX is enabled, it cannot be disabled. In order to disable a star-tree index, the data in the index must be reindexed without the star-tree mapping. Furthermore, changing a star-tree configuration will also require a reindex operation.
+- After a star-tree index is enabled, it cannot be disabled. In order to disable a star-tree index, the data in the index must be reindexed without the star-tree mapping. Furthermore, changing a star-tree configuration will also require a reindex operation.
 - [Multi-values/array values]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/index/#arrays) are not supported.
 - Only [limited queries and aggregations](#supported-queries-and-aggregations) are supported. Support for more features will be added in future versions.
 - The cardinality of the dimensions should not be very high (as with `_id` fields). Higher cardinality leads to increased storage usage and query latency.
@@ -39,9 +39,9 @@ The following image illustrates a standard star-tree index structure.
 
 <img src="{{site.url}}{{site.baseurl}}/images/star-tree-index.png" alt="A star-tree index containing two dimensions and two metrics" width="700">
 
-Sorted and aggregated STIX documents are backed by `doc_values` in an index. The columnar data found in `doc_values` are stored using the following properties:
+Sorted and aggregated star-tree documents are backed by `doc_values` in an index. The columnar data found in `doc_values` is stored using the following properties:
 
-- The values are sorted based on the fields set in the `ordered_dimension` setting.  In the preceding image, the dimensions are determined by the `status` setting and then by the `port` for each status.
+- The values are sorted based on the fields set in the `ordered_dimension` setting. In the preceding image, the dimensions are determined by the `status` setting and then by the `port` for each status.
 - For each unique dimension/value combination, the aggregated values for all the metrics, such as `avg(size)` and `count(requests)`, are precomputed during ingestion.
 
 ### Leaf nodes
@@ -50,13 +50,13 @@ Each node in a star-tree index points to a range of star-tree documents. Nodes c
 
 ### Star nodes
 
-Star nodes contain the aggregated data of all the other nodes for a particular dimension, acting as "catch-all" node. When a star node is found in a dimension, that dimension is skipped during aggregation. This group all values of that dimension together. This allows a query to skip non-competitive nodes when fetching the aggregated value of a particular field. 
+A star node contains the aggregated data of all the other nodes for a particular dimension, acting as a "catch-all" node. When a star node is found in a dimension, that dimension is skipped during aggregation. This groups together all values of that dimension. This allows a query to skip non-competitive nodes when fetching the aggregated value of a particular field. 
 
 The star-tree index structure diagram contains the following three examples demonstrating how a query behaves when retrieving aggregations from nodes in the star-tree:
 
-- **Blue**: In a `terms` query searching for the average request size aggregation, the `port` equals `8443` and the status equals `200`. Because the query contains values in both the `status` and `port` dimensions, the query traverses through staus node `200` and returns the aggregations from child node `8443`.
-- **Green**: In a `term` query searching for the count of requests aggregation, the `status` equals `200`. Because the query only contains a value from the `status` dimension, the query traverses to the `200` nodes child star node, which contains the aggregated vale of all the `port` children nodes.
-- **Red**: In a `term` query searching for the computed average request size aggregation, the port equals `5600`. Because the query does not contain a value from the `status` dimension, the query traverses through a star node and returns the aggregated result from the `5600` child node.
+- **Blue**: In a `terms` query that searches for the average request size aggregation, the `port` equals `8443` and the status equals `200`. Because the query contains values in both the `status` and `port` dimensions, the query traverses status node `200` and returns the aggregations from child node `8443`.
+- **Green**: In a `term` query that searches for the number of requests aggregation, the `status` equals `200`. Because the query only contains a value from the `status` dimension, the query traverses the `200` node's child star node, which contains the aggregated value of all the `port` child nodes.
+- **Red**: In a `term` query that searches for the average request size aggregation, the port equals `5600`. Because the query does not contain a value from the `status` dimension, the query traverses a star node and returns the aggregated result from the `5600` child node.
 
 Support for the `Terms` query will be added in a future version. For more information, see [GitHub issue #15257](https://github.com/opensearch-project/OpenSearch/issues/15257).
 {: .note}
@@ -73,7 +73,7 @@ To use a star-tree index, modify the following settings:
 
 ## Example mapping
 
-In the following example, index mappings define the star-tree configuration. This star-tree index precomputes aggregations in the `logs` index. The aggregations are calculated for the `size` and `latency` fields for all the combinations of values indexed in the `port` and `status` fields:
+In the following example, index mappings define the star-tree configuration. This STIX precomputes aggregations in the `logs` index. The aggregations are calculated on the `size` and `latency` fields for all the combinations of values indexed in the `port` and `status` fields:
 
 ```json
 PUT logs
@@ -136,7 +136,7 @@ For detailed information about star-tree index mappings and parameters, see [Sta
 
 ## Supported queries and aggregations
 
-STIX can be used to optimize queries and aggregations. 
+Star-tree indexes can be used to optimize queries and aggregations. 
 
 ### Supported queries
 
@@ -185,6 +185,6 @@ POST /logs/_search
 
 With STIX, the result will be retrieved from a single aggregated document as it traverses to the `status=500` node, as opposed to scanning through all of the matching documents. This results in lower query latency.
 
-## Using queries without STIX
+## Using queries without a star-tree index
 
 Set the `indices.composite_index.star_tree.enabled` setting to `false` to run queries without using a star-tree index.
