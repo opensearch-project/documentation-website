@@ -97,7 +97,7 @@ To add users, follow these steps:
 1. Select the **Add Users** button to open the modal. The modal displays one empty `User ID` field by default.
 2. Choose an access level: **Read only**, **Read and write**, or **Admin**.
 3. Choose **Add another User** to add multiple users. Do not use duplicate or existing `User ID` fields to avoid errors.
-4. Resolve any errors before finalizing. Successfully added users appear on the collaborators table.
+4. Resolve any errors before finalizing. Successfully added users appear in the collaborators table.
 
 #### Adding groups
 
