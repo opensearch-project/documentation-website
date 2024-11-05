@@ -29,7 +29,7 @@ To set up permissions, see [Workspace access control lists]({{site.url}}{{site.b
 
 ## Associating data sources with a workspace
 
-The **Associate data source** option is only visible when the multiple data sources feature is enabled. Before creating your workspace, you must connect it with at least one data source. If you have not set up your data sources, see the setup guide. Once your sources are connected, you can link them to your new workspace.
+The **Associate data source** option is only visible when the multiple data sources feature is enabled. Before creating your workspace, you must connect it with at least one data source. If you have not set up your data sources, see [Data sources]({{site.url}}{{site.baseurl}}/dashboards/management/data-sources/). Once your sources are connected, you can link them to your new workspace.
 {: .warning}
 
 ### Associating OpenSearch data sources
