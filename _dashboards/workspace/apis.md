@@ -24,7 +24,7 @@ The following table lists the available path parameters.
 
 | Parameter | Data type | Required | Description |
 | :--- | :--- | :--- | :--- |
-| `search` | String | Optional | Query string to filter workspaces using simple query syntax, for example, `simple_query_string`. |
+| `search` | String | Optional | A query string used to filter workspaces with simple query syntax, for example, `simple_query_string`. |
 | `searchFields` | Array | Optional | Specifies which fields to perform the search query against. |
 | `sortField` | String | Optional | Field name to use for sorting results. |
 | `sortOrder` | String | Optional | Specifies ascending or descending sort order. |
