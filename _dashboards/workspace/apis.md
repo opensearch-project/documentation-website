@@ -235,7 +235,7 @@ The following table lists the available path parameters.
 | `targetWorkspace` | String | Required | Identifies the destination workspace for copying. |
 | `includeReferencesDeep` | Boolean | Optional | Determines whether to copy all referenced objects to the target workspace. Default is `true`. |
 
-The following table lists the attributes of the object in the `objects` parameter:
+The following table lists the attributes of the object in the `objects` parameter.
 
 | Parameter | Data type | Required | Description |
 | :--- | :--- | :--- | :--- |
