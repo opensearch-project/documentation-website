@@ -34,7 +34,7 @@ Analytics  | Cannot be changed to any other use case
 Search  | Analytics
 Security analytics  | Analytics
 Observability  | Analytics
-Essentials  |    Analytics Search<br> Security analytics<br> Observability
+Essentials  |    Analytics Search<br> Security Analytics<br> Observability
 
 ## Workspace control panel
 
