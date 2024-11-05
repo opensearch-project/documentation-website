@@ -6,7 +6,7 @@ grand_parent: Pipelines
 nav_order: 10
 ---
 
-# AWS Lambda Processor and Sink for Data Prepper
+# AWS Lambda integration for Data Prepper
 
 This document provides the configuration details and usage instructions for integrating AWS Lambda with Data Prepper, both as a processor and as a sink.
 
