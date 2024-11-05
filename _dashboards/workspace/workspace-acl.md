@@ -9,7 +9,7 @@ nav_order: 3
 Introduced 2.18
 {: .label .label-purple }
 
-Workspace access control lists (ACL) manage authorization for saved objects `AuthZ(Authorization)`, while enabling [Security in OpenSearch](../../../security/) for `AuthN(Authentication)`.
+Workspace access control lists (ACLs) manage authorization for saved objects `AuthZ(Authorization)` while enabling [Security in OpenSearch](../../../security/) for `AuthN(Authentication)`.
 
 ## Personas
 
