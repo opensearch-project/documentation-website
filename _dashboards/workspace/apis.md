@@ -348,7 +348,7 @@ The following table lists the available path parameters.
 | `workspaceId` | String | YES | The target workspace with which to associate the objects. |
 | `savedObjects` | Array | YES | A list of saved objects to copy. |
 
-The following table lists the attributes of the `savedObjects` parameter:
+The following table lists the attributes of the `savedObjects` parameter.
 
 | Parameter | Data type | Required | Description |
 | :--- | :--- | :--- | :--- |
