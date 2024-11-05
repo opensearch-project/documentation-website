@@ -15,7 +15,7 @@ The new home page includes the following features:
 
 1. A **Create workspace** button for [OpenSearch Dashboard admins]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#config-dashboard-admin) to navigate to the [create workspace]({{site.url}}{{site.baseurl}}/dashboards/workspace/create-workspace) page.
 2. Workspace access time information and a link to the workspace overview page.
-3. A use case information icon that displays details about the workspace's purpose.
+3. A use case information icon that displays information about the workspace's purpose.
 4. A **View all workspaces** button that navigates to the [workspace management]({{site.url}}{{site.baseurl}}/dashboards/workspace/manage-workspace/#manage-workspaces-from-workspaces-list) page.
 5. Links to the latest OpenSearch documentation with the **Learn more from documentation** button and OpenSearch Dashboards playground environment with the **Explore live demo environment at playground.opensearch.org** button.
 
