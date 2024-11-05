@@ -159,7 +159,7 @@ The following table lists the available path parameters.
 
 | Parameter | Data type | Required | Description |
 | :--- | :--- | :--- | :--- |
-| `<id>` | String | Required | Identifies the unique workspace to retrieve. |
+| `<id>` | String | Required | Identifies the unique workspace to be retrieved. |
 | `attributes` | Object | Required | Defines the workspace attributes. |
 | `permissions` | Object | Optional | Specifies the permissions for the workspace. |
 
