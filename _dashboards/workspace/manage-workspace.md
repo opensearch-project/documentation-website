@@ -72,7 +72,7 @@ Upon selecting the **Copy** button, a side panel appears showing successful and 
 
 ## Associating data sources
 
-Through the data source management page, you can access a comprehensive list of associated OpenSearch connections, monitor direct query connections relevant to your current workspace, and establish new data source associations as needed.
+On the data source management page, you can access a comprehensive list of associated OpenSearch connections, monitor direct query connections relevant to your current workspace, and establish new data source associations as needed.
 
 ### Managing OpenSearch connections
 
