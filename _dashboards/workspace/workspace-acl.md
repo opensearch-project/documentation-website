@@ -60,7 +60,7 @@ opensearchDashboards.dashboardAdmin.users: ["admin-user-id"]
 
 ### Configuring admin access by backend role
 
-Set users with the `admin-role` backend role as OpenSearch Dashboard admins:
+Set users with the `admin-role` backend role as OpenSearch Dashboards admins:
 
 ```yaml
 opensearchDashboards.dashboardAdmin.groups: ["admin-role"]
