@@ -22,7 +22,7 @@ The following permissions apply when changing workspaces:
 
 1. **Without the Security plugin:** All users can edit and update the workspace.
 2. **With security plugins installed and `savedObjects.permission.enabled: false` in the `config/opensearch_dashboards.yml` file:** All users can edit and update workspaces.
-3. **With security plugins and `savedObjects.permission.enabled: true` in the `config/opensearch_dashboards.yml`:** Only the [workspace owner]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#define-collaborators-for-your-workspaces) and the [OpenSearch Dashboards admin]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#config-dashboard-admin) can edit and update workspaces.
+3. **With the Security plugin and `savedObjects.permission.enabled: true` in the `config/opensearch_dashboards.yml`:** Only the [workspace owner]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#define-collaborators-for-your-workspaces) and the [OpenSearch Dashboards admin]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#config-dashboard-admin) can edit and update workspaces.
 
 ## Workspace update restrictions 
 
