@@ -10,7 +10,7 @@ parent: Supported field types
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
 {: .warning}
 
-A [star-tree index](https://docs.pinot.apache.org/basics/indexing/star-tree-index) precomputes aggregations, accelerating the performance of aggregation queries. 
+A star-tree index precomputes aggregations, accelerating the performance of aggregation queries. 
 If a star-tree index is configured as part of an index mapping, the star-tree index is created and maintained as data is ingested in real time.
 
 OpenSearch will automatically use the star-tree index to optimize aggregations if the queried fields are part of star-tree index dimension fields and the aggregations are on star-tree index metric fields. No changes are required in the query syntax or the request parameters.
@@ -21,13 +21,6 @@ For more information, see [Star-tree index]({{site.url}}{{site.baseurl}}/search-
 
 To use a star-tree index, follow the instructions in [Enabling a star-tree index]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index#enabling-a-star-tree-index).
 
-## Limitations
-
-The star-tree index feature has the following limitations:
-
-- A star-tree index should only be enabled on indexes whose data is not updated or deleted because standard updates and deletions are not accounted for in a star-tree index.
-- Currently, only `one` star-tree index can be created per index. Support for multiple star-trees will be added in a future version.
-
 ## Examples
 
 The following examples show how to use a star-tree index.
@@ -36,7 +29,7 @@ The following examples show how to use a star-tree index.
 
 Define star-tree index mappings in the `composite` section in `mappings`. 
 
-The following example API request creates a corresponding star-tree index for all `request_aggs`. To compute metric aggregations for `request_size` and `latency` fields with queries on `port` and `status` fields, configure the following mappings:
+The following example API request creates a corresponding star-tree index named`request_aggs`. To compute metric aggregations for `request_size` and `latency` fields with queries on `port` and `status` fields, configure the following mappings:
 
 ```json
 PUT logs
@@ -105,17 +98,17 @@ PUT logs
 }
 ```
 
+## Star-tree index configuration options
 
+You can customize your star-tree implementation using the following `config` options in the `mappings` section. These options cannot be modified without reindexing.
 
-## Star-tree mapping parameters
+| Parameter  | Description   | 
+| :--- | :--- |
+| `ordered_dimensions` | A [list of fields](#ordered-dimensions) based on which metrics will be aggregated in a star-tree index. Required. | 
+| `metrics` | A [list of metric](#metrics) fields required in order to perform aggregations. Required. |
+| `max_leaf_docs` | The maximum number of star-tree documents that a leaf node can point to. After the maximum number of documents is reached, child nodes will be created based on the unique value of the next field in the `ordered_dimension` (if any). Default is `10000`. A lower value will use more storage but result in faster query performance. Inversely, a higher value will use less storage but result in slower query performance. For more information, see [Star-tree indexing structure]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/#star-tree-index-structure).  |
+| `skip_star_node_creation_for_dimensions`  | A list of dimensions for which a star-tree index will skip star node creation. When `true`, this reduces storage size at the expense of query performance. Default is `false`. For more information about star nodes, see [Star-tree indexing structure]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/#star-tree-index-structure). |
 
-Specify any star-tree configuration mapping options in the `config` section. Parameters cannot be modified without reindexing documents.
-
-The star-tree `config` section supports the following property.
-
-| Parameter  | Required/Optional | Description  | 
-| :--- | :--- | :--- |
-| `name` | Required | The name of the field. The field name should be present in the `properties` section as part of the index `mapping`. Ensure that the `doc_values` setting is `enabled` for any associated fields.
 
 ### Ordered dimensions
 
@@ -138,7 +131,7 @@ The `ordered_dimensions` parameter supports the following property.
 
 ### Metrics
 
-Configure any metric fields on which you need to perform aggregations. `Metrics` are required as part of a star-tree configuration.
+Configure any metric fields on which you need to perform aggregations. `Metrics` are required as part of a star-tree index configuration.
 
 When using `metrics`, follow these best practices: 
 
@@ -184,14 +177,6 @@ The `metrics` parameter supports the following properties.
 | `name` | Required | The name of the field. The field name should be present in the `properties` section as part of the index `mapping`. Ensure that the `doc_values` setting is `enabled` for any associated fields. |
 | `stats` | Optional | A list of metric aggregations computed for each field. You can choose between `Min`, `Max`, `Sum`, `Avg`, and `Value Count`.<br/>Default is `Sum` and `Value_count`.<br/>`Avg` is a derived metric statistic that will automatically be supported in queries if `Sum` and `Value_Count` are present as part of metric `stats`.
 
-### Star-tree configuration parameters
-
-The following parameters are optional and cannot be modified following index creation.
-
-| Parameter  | Description   | 
-| :--- | :--- |
-| `max_leaf_docs` | The maximum number of star-tree documents that a leaf node can point to. After the maximum number of documents is reached, the nodes will be split based on the value of the next dimension. Default is `10000`. A lower value will use more storage but result in faster query performance. Inversely, a higher value will use less storage but result in slower query performance. For more information, see [Star-tree indexing structure]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/#star-tree-index-structure).  |
-| `skip_star_node_creation_for_dimensions`  | A list of dimensions for which a star-tree index will skip star node creation. When `true`, this reduces storage size at the expense of query performance. Default is `false`. For more information about star nodes, see [Star-tree indexing structure]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/#star-tree-index-structure). |
 
 ## Supported queries and aggregations
 
