@@ -39,7 +39,7 @@ To associate OpenSearch data sources, follow these steps:
 1. Select the **Associate OpenSearch Data Sources** button to open the selection modal.
 2. View the available data sources in the modal:
   - Standard OpenSearch sources appear as single entries.
-  - Sources with direct query connections show a +N related indicator.
+  - Sources with direct query connections show a +N indicator.
 3. Select the appropriate data source name(s).
 4. Select the **Associate data sources** button to complete the association.
 
