@@ -25,7 +25,7 @@ To create a workspace, follow these steps:
 6. Save your workspace.
   - The **Create workspace** button becomes active once you enter the information for all required fields. You become the workspace owner automatically. The system redirects you to either the collaborators page if the saved objects permission is enabled or the overview page if the saved objects permission is disabled. See [Configuring dashboard admin]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#config-dashboard-admin) for more information about permissions.
 
-To set up permissions, see the workspace ACL documentation.
+To set up permissions, see [Workspace access control lists]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/) for more information.
 
 ## Associating data sources with a workspace
 
