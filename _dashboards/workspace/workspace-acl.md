@@ -51,7 +51,7 @@ opensearchDashboards.dashboardAdmin.users: ["*"]
 
 ### Configuring admin access for a single user
 
-Set a user with ID `admin-user-id` as an OpenSearch Dashboard admin:
+Set a user with the ID `admin-user-id` as an OpenSearch Dashboards admin:
 
 ```yaml
 opensearchDashboards.dashboardAdmin.users: ["admin-user-id"]
