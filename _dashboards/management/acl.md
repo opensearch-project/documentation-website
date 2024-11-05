@@ -9,7 +9,7 @@ nav_order: 50
 Introduced 2.18
 {: .label .label-purple }
 
-You can use access control lists (ACL) to manage permissions for your saved objects, providing authorization (AuthZ) capabilities without requiring backend plugin integration.
+You can use access control lists (ACLs) to manage permissions for your saved objects, providing authorization (AuthZ) capabilities without requiring backend plugin integration.
 
 ## Understanding ACL types
 
