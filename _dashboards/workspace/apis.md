@@ -300,7 +300,7 @@ The following table lists the attributes of the object in the `objects` paramete
 | Parameter | Data type | Required | Description |
 | :--- | :--- | :--- | :--- |
 | `type` | String | Required | Defines the saved object classification, such as `index-pattern`, `config`, or `dashboard`. |
-| `id` | String | Required | Identifies the saved object's unique identifier. |
+| `id` | String | Required | The ID of the saved object. |
 
 #### Example request
 
