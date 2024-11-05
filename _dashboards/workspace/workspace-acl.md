@@ -81,7 +81,7 @@ Admin-restricted operations include the following:
 Access to collaborator management is limited to dashboard admins and workspace admins. The collaborators feature is only available when permission control is enabled. For instructions on activating permission control, see [Enabling permission control](#enabling-permission-control). The access levels include the following:
 
 - **Read only:** Grants permission to view the workspace and its assets.
-- **Read and write:** Allows viewing and editing assets within the workspace.
+- **Read and write:** Allows viewing and editing of assets within the workspace.
 - **Admin:** Provides full access, including viewing and editing assets within the workspace and updating workspace metadata such as name, description, data sources, and collaborators.
 
 Only users with dashboard admin or workspace admin privileges can modify collaborator settings for a specific workspace. The collaborators page provides search functionality for collaborator ID and filtering results by type and access level.
