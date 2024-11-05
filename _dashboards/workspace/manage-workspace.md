@@ -64,7 +64,6 @@ The assets page provides the following methods for copying assets across workspa
 
 After selecting a copy option, choose the target workspace from the dropdown menu. The **Copy related assets** checkbox allows you to transfer associated assets.
 
-{: .note}
 
 Upon selecting the **Copy** button, a side panel appears showing successful and failed asset transfers. Asset copy destinations depend on the following security configurations:
  
