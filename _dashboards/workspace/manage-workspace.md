@@ -38,7 +38,7 @@ Essentials  |    Analytics Search<br> Security Analytics<br> Observability
 
 ## Workspace control panel
 
-The workspace details page features the following buttons in the top-right corner:
+The workspace details page features the following buttons in the upper-right corner:
 
 1. **Delete** (trash icon)
     - **Without security plugins uninstalled:** All users can delete the workspace.
