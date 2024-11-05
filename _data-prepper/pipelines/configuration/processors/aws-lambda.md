@@ -1,6 +1,6 @@
 ---
 layout: default
-title: aws_lambda
+title: AWS Lambda integration for Data Prepper
 parent: Processors
 grand_parent: Pipelines
 nav_order: 10
