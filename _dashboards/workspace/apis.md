@@ -281,7 +281,7 @@ The following example response shows a successful API call:
 
 ## Associate saved objects Workspaces API
 
-You can use the following endpoint to associate saved objects into a workspace:
+You can use the following endpoint to associate saved objects with a workspace:
 
 ```json
 POST <osd host>:<port>/api/workspaces/_associate
