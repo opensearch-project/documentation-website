@@ -9,7 +9,7 @@ has_children: true
 Introduced 2.18
 {: .label .label-purple }
 
-The Workspace feature in OpenSearch Dashboards enables you to tailor your environment with use case-specific configurations. For example, you can create dedicated workspaces for observability scenarios, allowing you to focus on relevant functionalities. Additionally, the Workspace feature enables organization of visual assets such as dashboards and visualizations within a workspace that isolated storage. This capability enhances workflow precision and flexibility for customizing data exploration and analysis.
+The Workspace feature in OpenSearch Dashboards enables you to tailor your environment with use-case-specific configurations. For example, you can create dedicated workspaces for observability scenarios, allowing you to focus on relevant functionalities. Additionally, the Workspace feature enables organization of visual assets, such as dashboards and visualizations, within a workspace that isolated storage.
 
 ## Workspace data model
 
