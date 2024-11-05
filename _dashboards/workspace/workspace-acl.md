@@ -88,7 +88,7 @@ Only users with dashboard admin or workspace admin privileges can modify collabo
 
 ### Adding collaborators
 
-Workspace creators are granted **Admin** access level as a collaborator.To add more collaborators, select the **Add collaborators** button. which displays a dropdown menu. Choose **Add Users** or **Add Groups** to access the corresponding modal for adding new collaborators.
+Workspace creators are granted the **Admin** access level as a collaborator. To add more collaborators, select the **Add collaborators** button, which displays a dropdown menu. Choose **Add Users** or **Add Groups** to access the corresponding modal for adding new collaborators.
 
 #### Adding users
 
