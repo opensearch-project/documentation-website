@@ -103,7 +103,7 @@ To delete a workspace, follow these steps:
 
 ## Navigating the workspaces list
 
-The workspaces list page serves as your central hub for workspace management, displaying all workspaces you have permissions to access. Key features include the following: 
+The workspaces list page serves as your central hub for workspace management, displaying all workspaces for which you have access permissions. Key features include the following: 
 
 - Search: Quickly find workspace by name
 - Filter: Sort workspaces based on use case
