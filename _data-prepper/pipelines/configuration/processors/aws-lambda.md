@@ -10,30 +10,30 @@ nav_order: 10
 
 The AWS Lambda integration allows developers to use serverless computing capabilities within their Data Prepper pipelines for flexible event processing and data routing.
 
-----------------------------------------------------------------------------------------
-## AWS Lambda Processor
-Configuration
-The aws_lambda processor allows you to invoke an AWS Lambda function in your Data Prepper pipeline to process events. This can be used for synchronous or asynchronous invocations based on your requirements.
+## AWS Lambda processor configuration
 
-Configuration Fields:
+The `aws_lambda processor` enables invocation of an AWS Lambda function within your Data Prepper pipeline to process events. It supports both synchronous or asynchronous invocations based on your use case.
 
-```
+## Configuration fields
+
+You can configure the processor using the following configuration options:
+
 Field                | Type    | Required | Description                                                                 
 -------------------- | ------- | -------- | ---------------------------------------------------------------------------- 
-function_name        | String  | Yes      | The name of the AWS Lambda function to invoke.                               
-invocation_type      | String  | Yes      | Specifies the invocation type: either request-response or event. Default is request-response           
-aws.region           | String  | Yes      | The AWS region where the Lambda function is located.                         
-aws.sts_role_arn     | String  | No       | ARN of the role to assume before invoking the Lambda function.               
-max_retries          | Integer | No       | Maximum number of retries if the invocation fails. Default is 3.             
-batch                | Object  | No       | Batch settings for the Lambda invocations. Default key_name = "events". Default Threshold for event_count=100, maximum_size="5mb", event_collect_timeout = 10s                            
-lambda_when          | String  | No       | Conditional expression to determine when to invoke the Lambda processor.     
-response_codec       | Object  | No       | Codec configuration for parsing Lambda responses. Default is json
-tags_on_match_failure| List    | No       | A List of Strings that specifies the tags to be set in the event when lambda fails to match or an unknown exception occurs while matching.
-sdk_timeout          | Duration| No       | Defines the time, sdk maintains the connection to the client before timing out. Default is 60s 
-response_events_match| boolean | No       | Defines the way Data Prepper treats the response from Lambda. Default is false
-```
+`function_name`      | String  | Required | Name of the AWS Lambda function to invoke.                               
+`invocation_type`    | String  | Required | Specifies the invocation type; either `request-response` or `event`. Default is `request-response`.           
+`aws.region`         | String  | Required | AWS Region in which the Lambda function is located.                         
+`aws.sts_role_arn`   | String  | Optional | ARN of the role to assume before invoking the Lambda function.               
+`max_retries`        | Integer | Optional | Maximum number of retries for failed invocations. Default is `3`.             
+`batch`              | Object  | Optional | Batch settings for the Lambda invocations. Default is `key_name = "events"`. Default threshold is `event_count=100`, `maximum_size="5mb"`, and `event_collect_timeout = 10s`.                            
+`lambda_when`        | String  | Optional | Conditional expression to determine when to invoke the Lambda processor.     
+`response_codec`     | Object  | Optional | Codec configuration for parsing Lambda responses. Default is `json`.
+`tags_on_match_failure` | List | Optional | List of tags to add to events when Lambda matching fails or encounters an unexpected error.
+`sdk_timeout`        | Duration| Optional | Configures the SDK's client connection timeout period. Default is `60s`. 
+`response_events_match` | Boolean | Optional | Specifies how Data Prepper interprets and processes Lambda function responses. Default is `false`.
 
-Example Configuration:
+#### Example configuration
+
 ```
 processors:
   - aws_lambda:
@@ -53,61 +53,62 @@ processors:
       lambda_when: "event['status'] == 'process'"
 
 ```
+{% include copy-curl.html %}
 
 ## Usage
-Invocation Type:
-- request-response: Waits for the Lambda function's response before continuing.
-- event: Invokes the function asynchronously without waiting for a response.
-  Batching: If batching is enabled by default, events are grouped together and sent in bulk to reduce Lambda invocations. The threshold within batch defines the number of events, size limit, or timeout for batching.
-  Codec: Currently both request and response codecs are json. Processor response requires lambda to send back a `Json Array` only.
-  tags_on_match_failure: A List of Strings that specifies the tags to be set in the event when lambda fails to match or an unknown exception occurs while matching. This tag may be used in conditional expressions in other parts of the configuration
 
-## Behaviour
-When the AWS Lambda processor in Data Prepper is configured for batching, it groups multiple events together into a single request based on the batch thresholds (event count, size, or time). The entire batch is sent to the Lambda function as a single payload.
+The processor supports the following innovation types:
 
-Lambda Response Handling:
-response_events_match configuration defines how the relationship of each events in a batch as a part of request to lambda and the response from lambda.
-- True: Lambda typically returns a JSON array containing the results for each event in the batch. Data Prepper will map this array back to the individual events, ensuring that each event in the batch gets the corresponding part of the response from the array.
-- False: Lambda could return one or multiple events back in the response for all events in a batch. but they will not be corelated back to the original events.
-  Here correlation means that that the original events metadata etc will be carry forwarded to the response events.
-  If response_events_match is set to true, the expectation are:
-1) User should return same number of response events as requests
-2) Order should be maintained
+- `request-response`: Processor waits for Lambda function completion before proceeding.
+- `event`: Function is triggered asynchronously without waiting for a response.
+- `Batching`: When enabled, events are aggregated and sent in bulk to optimize Lambda invocations. Batch thresholds control event count, size limit, and timeout.
+- `Codec`: JSON is is used for both request and response codecs. Lambda must return JSON array outputs.
+- `tags_on_match_failure`: Custom tags can be applied to events when Lambda processing fails or encounters unexpected issues.
 
+## Behavior
+
+When configured for batching, the AWS Lambda processor groups multiple events into a single request. This grouping is governed by batch thresholds, which can be based on event count, size limit, or timeout. The processor then sends the entire batch to the Lambda function as a single payload.
+
+## Lambda response handling
+
+The `response_events_match` setting defines how Data Prepper handles the relationship between batch events sent to Lambda and the response received:
+
+- `true`: Lambda returns a JSON array with results for each batched event. Data Prepper maps this array back to its corresponding original event. , ensuring that each event in the batch gets the corresponding part of the response from the array.
+- `false`: Lambda returns one or multiple events for the entire batch. Response events are not correlated with the original events. Original event metadata is not preserved in the response events. For example, when `response_events_match` is set to `true`, the Lambda function is expected to return an equal number of response events as the orignal requests, maintaining the original order.
 
 ## Limitations
-- payload limitation: 6mb payload limit
-- response codec - supports only json codec
 
+Note the following limitations:
 
-## Developer Guide
+- Payload limitation: 6MB payload limit
+- Response codec: JSON-only codec support
 
-The integration tests for this plugin do not run as part of the Data Prepper build.
-The following command runs the integration tests:
+## Integration testing
+
+Integration tests for this plugin are executed separately from the main Data Prepper build process. Use the following Gradle command to run these tests:
 
 ```
 ./gradlew :data-prepper-plugins:aws-lambda:integrationTest -Dtests.processor.lambda.region="us-east-1" -Dtests.processor.lambda.functionName="lambda_test_function"  -Dtests.processor.lambda.sts_role_arn="arn:aws:iam::123456789012:role/dataprepper-role
-
 ```
+{% include copy-curl.html %}
 
-----------------------------------------------------------------------------------------
+## AWS Lambda sink
 
-## AWS Lambda Sink
+You can configure the sink using the following configuration options:
 
-```
 Field             | Type    | Required | Description                                                                 
 ----------------- | ------- | -------- | ---------------------------------------------------------------------------- 
-function_name     | String  | Yes      | The name of the AWS Lambda function to invoke.                               
-invocation_type   | String  | No       | Specifies the invocation type. Default is event.             
-aws.region        | String  | Yes      | The AWS region where the Lambda function is located.                         
-aws.sts_role_arn  | String  | No       | ARN of the role to assume before invoking the Lambda function.               
-max_retries       | Integer | No       | Maximum number of retries if the invocation fails. Default is 3.             
-batch             | Object  | No       | Optional batch settings for Lambda invocations. Default key_name = "events". Default Threshold for event_count=100, maximum_size="5mb", event_collect_timeout = 10s                              
-lambda_when       | String  | No       | Conditional expression to determine when to invoke the Lambda sink.          
-dlq               | Object  | No       | Dead-letter queue (DLQ) configuration for failed invocations.                
-```
+`function_name`   | String  | Required | Name of the AWS Lambda function to invoke.                               
+`invocation_type` | String  | Optional | Specifies the invocation type. Default is `event`.             
+`aws.region`      | String  | Required | AWS Region in which the Lambda function is located.                         
+`aws.sts_role_arn`| String  | Optional | ARN of the role to assume before invoking the Lambda function.               
+`max_retries`     | Integer | Optional | Maximum number of retries for failed invocations. Default is `3`.             
+`batch`           | Object  | Optional | Batch settings for the Lambda invocations. Default is `key_name = "events"`. Default threshold is `event_count=100`, `maximum_size="5mb"`, and `event_collect_timeout = 10s`.                              
+`lambda_when`     | String  | Optional | Conditional expression to determine when to invoke the Lambda processor.          
+`dlq`             | Object  | Optional | Dead-letter queue (DLQ) configuration for failed invocations.                
 
-Example Configuration:
+#### Example configuration
+
 ```
 sink:
   - aws_lambda:
@@ -129,26 +130,31 @@ sink:
         sts_role_arn: "arn:aws:iam::123456789012:role/my-sqs-role"
         bucket: "<<your-dlq-bucket-name>>"
 ```
+{% include copy-curl.html %}
 
-Usage
-Invocation Type:
-- event: Invokes the function asynchronously without waiting for a response.
-- request-response: Not supported in sink
-  Batching: Batching is enabled by default, events are grouped together based on the defined threshold in the batch configuration.
-  Dead-Letter Queue (DLQ): A DLQ can be configured to handle failures in Lambda invocations. If the invocation fails after retries, the failed events will be sent to the specified DLQ
+## Usage
 
+The sink supports the following innovation types:
 
-## Additional Notes
-IAM Role Assumption: Both the processor and sink can assume a specified IAM role (aws.sts_role_arn) before invoking Lambda functions. This allows for more secure handling of AWS resources.
-Concurrency Considerations: When using the event invocation type, be mindful of Lambda concurrency limits to avoid throttling.
-For further details on AWS Lambda integration with Data Prepper, refer to the AWS Lambda documentation: https://docs.aws.amazon.com/lambda
+- `event`: Function is triggered asynchronously without waiting for a response.
+- `request-response`: Not supported for sink operations.
+- `Batching`: When enabled, events are aggregated and sent in bulk to optimize Lambda invocations. Default is `enabled`.
+- `DLQ`: Setup available for routing and precessing events that persistently fail Lamba invocations after multiple retry attempts.
 
-## Developer Guide
+## Advanced configurations
 
-The integration tests for this plugin do not run as part of the Data Prepper build.
-The following command runs the integration tests:
+The AWS Lambda processor and sink provide the following advanced options for secure function and performance optimization: 
+
+- IAM role assumption: Processor and sink support assuming the specified IAM role `aws.sts_role_arn` before Lambda invocation. This enhances secure handling by providing access control to AWS resources.
+- Concurrency management: When using the `event` invocation type, consider Lambda concurrency limits to avoid throttling.
+
+For further details on AWS Lambda integration with Data Prepper, see [AWS Lambda Documentation](https://docs.aws.amazon.com/lambda).
+
+## Integration testing
+
+Integration tests for this plugin are executed separately from the main Data Prepper build process. Use the following Gradle command to run these tests:
 
 ```
 ./gradlew :data-prepper-plugins:aws-lambda:integrationTest -Dtests.sink.lambda.region="us-east-1" -Dtests.sink.lambda.functionName="lambda_test_function"  -Dtests.sink.lambda.sts_role_arn="arn:aws:iam::123456789012:role/dataprepper-role
-
 ```
+{% include copy-curl.html %}
