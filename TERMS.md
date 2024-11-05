@@ -604,6 +604,10 @@ Tools inside of OpenSearch that can be customized to enhance OpenSearch's functi
 
 **pop-up**
 
+**preaggregate**
+
+**precompute**
+
 **premise, premises**
 
 With reference to property and buildings, always form as plural.
