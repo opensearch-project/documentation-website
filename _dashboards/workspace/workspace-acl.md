@@ -29,7 +29,7 @@ See [Enabling the ACL feature]({{site.url}}{{site.baseurl}}/dashboards/managemen
 
 ## Configuring dashboard administrators
 
-To grant full access to all workspaces and objects in OpenSearch Dashboards, configure the OpenSearch Dashboards admin. Edit the `opensearch_dashboards.yml` file to define the admin using either user IDs or backend roles, as shown in the following configuration:
+To grant full access to all workspaces and objects in OpenSearch Dashboards, configure the admin permissions. Edit the `opensearch_dashboards.yml` file to define the admin by user ID and backend role, as shown in the following configuration:
 
 ```yaml
 opensearchDashboards.dashboardAdmin.users: ["UserID"]
@@ -38,11 +38,11 @@ savedObjects.permission.enabled: true
 ```
 {% include copy.html %}
 
-By default, the configuration is set to `[]`, meaning that no users are designated as admins. When no security plugin is installed and `savedObjects.permission.enabled: false`, all users are granted admin permissions.
+By default, the configuration is set to `[]`, meaning that no users are designated as admins. If the Security plugin is not installed and `savedObjects.permission.enabled: false`, all users are granted admin permissions.
 
 ### Configuring global admin access
 
-Set all users as OpenSearch Dashboards admins with this wildcard setting:
+Set all users as admins with this wildcard setting:
 
 ```yaml
 opensearchDashboards.dashboardAdmin.users: ["*"]
@@ -51,7 +51,7 @@ opensearchDashboards.dashboardAdmin.users: ["*"]
 
 ### Configuring admin access for a single user
 
-Set a user with the ID `admin-user-id` as an OpenSearch Dashboards admin:
+Configure a user with the `admin-user-id` setting:
 
 ```yaml
 opensearchDashboards.dashboardAdmin.users: ["admin-user-id"]
@@ -60,7 +60,7 @@ opensearchDashboards.dashboardAdmin.users: ["admin-user-id"]
 
 ### Configuring admin access by backend role
 
-Set users with the `admin-role` backend role as OpenSearch Dashboards admins:
+Configure a user with the `admin-role` setting:
 
 ```yaml
 opensearchDashboards.dashboardAdmin.groups: ["admin-role"]
@@ -73,18 +73,18 @@ Admin-restricted operations include the following:
 
 - Workspace creation
 - Workspace deletion
-- Data sources connections
+- Data source connections
 - Disconnecting data sources from workspaces
 
 ## Defining workspace collaborators
 
-Access to collaborator management is limited to dashboard admins and workspace admins. The collaborators feature is only available when permission control is enabled. For instructions on activating permission control, see [Enabling permission control](#enabling-permission-control). The access levels include the following:
+Access to collaborator management is limited to admins. The **Collaborators** feature is only available when permission control is enabled. For instructions on activating permission control, see [Enabling permission control](#enabling-permission-control). The access levels include the following:
 
 - **Read only:** Grants permission to view the workspace and its assets.
 - **Read and write:** Allows viewing and editing of assets within the workspace.
 - **Admin:** Provides full access, including viewing and editing of assets within the workspace and updating workspace metadata, such as name, description, data sources, and collaborators.
 
-Only users with dashboard admin or workspace admin privileges can modify collaborator settings for a specific workspace. The collaborators page provides search functionality for collaborator ID and filtering results by type and access level.
+From the **Collaborators** page, you can by collaborator ID and filter results by collaborator type and access level.
 
 ### Adding collaborators
 
@@ -104,22 +104,22 @@ To add users, follow these steps:
 To add groups, follow these steps:
 
 1. Select the **Add Groups** button to open the modal. The modal displays one empty `Group ID` field by default.
-2. Choose an access level: **Read only,** **Read and write,** or **Admin**.
-3. Use **Add another group** for multiple users. Avoid duplicate or existing `Group ID` fields to avoid errors.
-4. Resolve any errors before finalizing. Successfully added users appear on the collaborators table.
+2. Choose an access level: **Read only**, **Read and write**, or **Admin**.
+3. Use **Add another group** to add multiple groups. Do not use duplicate or existing `Group ID` fields to avoid errors.
+4. Resolve any errors before finalizing. Successfully added users appear in the collaborators table.
 
 ### Modifying access levels
 
-You can modify the collaborators' access levels after adding them to the collaborators table if you have the required permissions. Collaborators can be assigned any access level. However, if all **Admin** collaborators are changed to lower access levels, then only dashboard admins can manage workspace collaboration.
+You can modify collaborators access levels after adding them to the collaborators table if you have the required permissions. Collaborators can be assigned any access level. However, if all **Admin** collaborators are changed to lower access levels, then only admins can manage workspace collaboration.
 
 #### Modifying individual access levels
 
-To modify aa single collaborator's access level, follow these steps:
+To modify a single collaborator's access level, follow these steps:
 
 1. Select the action icon on the right of the table row.
 2. Select **Change access level** from the dropdown menu.
 3. Choose the desired access level from the list. 
-4. Confirm the change in the modal that appears, and select **Confirm**. The collaborator's access level is updated in the table upon confirmation.
+4. Confirm the change in the modal that appears and select **Confirm**. The collaborator's access level is updated in the table upon confirmation.
 
 #### Modifying access levels in batch
 
@@ -127,20 +127,20 @@ To change access levels for several collaborators simultaneously, follow these s
 
 1. Select the desired collaborator rows in the table. 
 2. Select the **Actions** button that appears.
-3. Choose **Change access level** from the dropdown menu.
+3. Select **Change access level** from the dropdown menu.
 4. Select the new access level from the list provided. 
 5. Review and confirm the changes in the modal that appears. The access levels for all selected collaborators are updated in the table upon confirmation.
 
 ### Deleting collaborators
 
-After adding collaborators to the table, you have the option to delete them. Be cautious when removing `Admin` collaborators, as deleting all of them restricts workspace collaborator management to dashboard admins only. A confirmation modal is displayed before finalizing this action.
+After adding collaborators to the table, you have the option to delete them. Be cautious when removing admin collaborators because deleting all of them restricts workspace collaborator management to admins only. A confirmation modal is displayed before finalizing this action.
 
 #### Deleting individual collaborators
 
 To delete an individual collaborator, follow these steps:
 
-1. Select the ellipsis icon on the right of the table row to display a dropdown menu.
-2. Select **Delete collaborator** from the dropdown options. A confirmation modal appears to verify your action.
+1. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/} icon on the right of the table row to display a dropdown menu.
+2. Select **Delete collaborator** from the dropdown menu. A confirmation modal appears to verify your action.
 3. Select **Confirm** in the modal to remove the collaborator from the table.
 
 #### Deleting collaborators in batch
