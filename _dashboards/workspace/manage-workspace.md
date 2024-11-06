@@ -13,16 +13,17 @@ You can access and modify the workspace details, including name, description, us
 
 To access and modify your workspace details, follow these steps: 
 
-1. Open OpenSearch Dashboards and navigate to **Workspaces**.
-2. Choose the **Edit** button to make changes, and then choose the **Save** button to confirm changes or the **Discard changes** button to cancel modifications.
+1. Open OpenSearch Dashboards and navigate to **My Workspaces**.
+2. Choose the desired workspace  and then select the **Edit** button to make changes
+3. Select the **Save** button to confirm changes or the **Discard changes** button to cancel modifications.
 
 ## Workspace update permissions
 
 The following permissions apply when changing workspaces:
 
 1. **Without the Security plugin:** All users can edit and update the workspace.
-2. **With security plugins installed and `savedObjects.permission.enabled: false` in the `config/opensearch_dashboards.yml` file:** All users can edit and update workspaces.
-3. **With the Security plugin and `savedObjects.permission.enabled: true` in the `config/opensearch_dashboards.yml`:** Only the [workspace owner]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#defining-workspace-collaborators) and the [OpenSearch Dashboards admin]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#configuring-dashboard-administrators) can edit and update workspaces.
+2. **With the Security plugin installed and `savedObjects.permission.enabled: false` in the `config/opensearch_dashboards.yml` file:** All users can edit and update workspaces.
+3. **With the Security plugin and `savedObjects.permission.enabled: true` in the `config/opensearch_dashboards.yml`:** Only the [workspace owner]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#defining-workspace-collaborators) and the [workspace admins]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#configuring-dashboard-administrators) can edit and update workspaces.
 
 ## Workspace update restrictions 
 
@@ -38,14 +39,14 @@ Essentials  |    Analytics Search<br> Security Analytics<br> Observability
 
 ## Workspace control panel
 
-The workspace details page features the following buttons in the upper-right corner:
+The **Workspace details** page features the following buttons in the upper-right corner:
 
-1. **Delete** (trash icon)
+1. **Delete** ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-icon.png" class="inline-icon" alt="trash can icon"/>{:/} icon)
     - **Without the Security plugin installed:** All users can delete the workspace.
     - **With the Security plugins installed and `savedObjects.permission.enabled: false` in the `config/opensearch_dashboards.yml` file:** All users can delete the workspace.
-    - **With security plugins installed and `savedObjects.permission.enabled: true` in the `config/opensearch_dashboards.yml` file:** Only the OpenSearch Dashboards admin can delete the workspace.
+    - **With the Security plugin installed and `savedObjects.permission.enabled: true` in the `config/opensearch_dashboards.yml` file:** Only the admin can delete the workspace.
 2. **Set as default workspace:** Sets the current workspace as the default login destination.
-3. **Workspace overview:** Opens the workspace overview page in a new tab.
+3. **Workspace overview:** Opens the **Overview** page in a new tab.
 
 ## Adding assets to the workspace
 
@@ -66,9 +67,9 @@ After selecting a copy option, choose the target workspace from the dropdown men
 
 Upon selecting the **Copy** button, a side panel appears showing successful and failed asset transfers. Asset copy destinations depend on the following security configurations:
  
-1. **Without security plugins:** All workspaces are accessible.
-2. **With security plugins and `savedObjects.permission.enabled: false` in the `config/opensearch_dashboards.yml` file:** All workspaces are accessible.
-3. **With security plugins and `savedObjects.permission.enabled: true` in the `config/opensearch_dashboards.yml` file:** Only workspaces for which the user has `Read and write` or `Admin` permissions are accessible.
+1. **Without the Security plugin:** All workspaces are accessible.
+2. **With the Security plugin and `savedObjects.permission.enabled: false` in the `config/opensearch_dashboards.yml` file:** All workspaces are accessible.
+3. **With the Security plugin and `savedObjects.permission.enabled: true` in the `config/opensearch_dashboards.yml` file:** Only workspaces for which the user has read and write or admin permissions are accessible.
 
 ## Associating data sources
 
@@ -76,7 +77,7 @@ On the data source management page, you can access a comprehensive list of assoc
 
 ### Managing OpenSearch connections
 
-The Opensearch connections tab displays all associated connections for the current workspace. Follow these steps to manage your connections:
+The OpenSearch connections tab displays all associated connections for the current workspace. Follow these steps to manage your connections:
 
 1. Access a comprehensive list of associated OpenSearch connections on the connections tab.
 2. Use the **Remove association** button to unlink connections as needed.
@@ -91,27 +92,27 @@ The association modal displays a list of OpenSearch connections that contain dir
 
 ## Deleting your workspace
 
-Workspace deletion is restricted to dashboard administrators. If you do not see a delete icon, check your permissions. See [Configuring dashboard administrators]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#configuring-dashboard-administrators) for more information.
+Workspace deletion is restricted to admins. If you do not see a {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-icon.png" class="inline-icon" alt="trash can icon"/>{:/} icon, check your permissions. See [Configuring dashboard administrators]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#configuring-dashboard-administrators) for more information.
 {: .warning}
 
-Deleting a workspace permanately erases all its assets (except data sources) and the workspace itself. This action cannot be reversed.
+Deleting a workspace permanently erases all its assets (except data sources) and the workspace itself. This action cannot be reversed.
 
 To delete a workspace, follow these steps:
 
-1. From the workspace details page, select the delete icon in the upper-right corner to delete the current workspace.
-2. Alternatively, from the workspace list page, select the ellipsis icon and select **Delete**. Optionally, select multiple workspaces for bulk deletion.
+1. From the **Workspace details** page, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-icon.png" class="inline-icon" alt="trash can icon"/>{:/} icon in the upper-right corner to delete the current workspace.
+2. Alternatively, from the workspace list page, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/} icon and select **Delete**. Optionally, select multiple workspaces for bulk deletion.
 
 ## Navigating the workspaces list
 
 The workspaces list page serves as your central hub for workspace management, displaying all workspaces for which you have access permissions. Key features include the following: 
 
 - Search: Quickly find a workspace by name.
-- Filter: Sort workspaces based on use case.
-- At-a-glance: View each workspace's name, use case, description, last update time, and associated data sources.
+- Filter: Sort workspaces by use case.
+- At a glance: View each workspace's name, use case, description, last update time, and associated data sources.
 
-Each workspace entry includes an **Actions** column with four functional buttons. These tools streamline your workspace management, allowing for efficient organization and customization of your OpenSearch Dashboards environment:
+Each workspace entry includes an **Actions** column with the following functional buttons. These tools streamline your workspace management, allowing for efficient organization and customization of your OpenSearch Dashboards environment:
 
-1. Copy ID: One-click copying of the workspace identifier
-2. Edit: Direct access to the workspace's detailed configuration page
-3. Set as default: Easily set any workspace as your default workspace
-4. Delete: Remove workspaces as needed (may require administrator privileges)
+1. Copy ID: One-click copying of the workspace ID.
+2. Edit: Direct access to the workspace's detailed configuration page.
+3. Set as default: Easily set any workspace as your default workspace.
+4. Delete: Remove workspaces as needed (may require admin privileges).
