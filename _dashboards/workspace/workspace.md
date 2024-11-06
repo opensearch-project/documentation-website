@@ -29,8 +29,8 @@ interface Workspace {
 
 The Workspace data model is composed of the following key attributes:
 
-- `id`: String type; unique identifier for each each workspace.
-- `name`: String type; designates the workspace's name.
+- `id`: String type; unique ID for each each workspace.
+- `name`: String type; designates the name of the workspace.
 - `description`: Optional string type; provides contextual information for the workspace.
 - `features`: Optional array of strings; contains use case IDs linked to the workspace.
 
@@ -50,9 +50,9 @@ The following object shows a typical Workspace configuration:
 ```
 {% include copy-curl.html %}
 
-The configuration creates an analytics team created with the `use-case-observability` feature set. Use cases map to specific OpenSearch Dashboards feature groups, limiting functionality to the defined set within each workspace. 
+The configuration creates the `Analytics team` using the `use-case-observability` feature set. Use cases map to specific feature groups, limiting functionality to the defined set within each workspace. 
 
-Predefined use case options:
+The following are predefined use case options:
 
 - `use-case-observability`
 - `use-case-security-analytics`
@@ -64,11 +64,11 @@ Predefined use case options:
 
 ## Associating saved objects with workspaces
 
-Saved objects in OpenSearch Dashboards, such as dashboards, visualizations, and index patterns, can be associated with specifif workspaces, improviing organization and accessibility as the volume of objects grows.
+Saved objects in OpenSearch Dashboards, such as dashboards, visualizations, and index patterns, can be associated with specific workspaces, improving organization and accessibility as the volume of objects grows.
 
 The `workspaces` attribute, an array of strings, is added to saved objects to be linked with one or more workspaces. As a result, saved objects such as dashboards and visualizations are only accessible within their designated workspaces. 
 
-The following saved object shows a dashboard object associated with the workspace by `M5NqCu`:
+The following saved object shows a dashboard object associated with the workspace `M5NqCu`:
 
 ```typescript
 {
@@ -110,7 +110,7 @@ uiSettings:
 ```
 {% include copy-curl.html %}
 
-If your cluster has the Security plugin installed, then multi-tenancy must be disabled to avoid conflicts with workspaces providing similar functionality:
+If your cluster has the Security plugin installed, then multi-tenancy must be disabled to avoid conflicts with similar workspaces:
 
 ```yaml
 opensearch_security.multitenancy.enabled: false
