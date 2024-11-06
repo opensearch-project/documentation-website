@@ -121,6 +121,9 @@ collections:
   getting-started:
     permalink: /:collection/:path/
     output: true
+  workspace:
+    permalink: /:collection/:path/
+    output: true
 
 opensearch_collection:
   # Define the collections used in the theme
