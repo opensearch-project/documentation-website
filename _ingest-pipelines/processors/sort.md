@@ -3,6 +3,7 @@ layout: default
 title: Sort
 parent: Ingest processors
 nav_order: 250
+canonical_url: https://opensearch.org/docs/latest/ingest-pipelines/processors/sort/
 ---
 
 # Sort processor

@@ -8,6 +8,7 @@ nav_exclude: true
 permalink: /ml-commons-plugin/
 redirect_from: 
   - /ml-commons-plugin/index/
+canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/
 ---
 
 # Machine learning

@@ -6,6 +6,7 @@ has_children: false
 has_toc: false
 redirect_from: 
   - /neural-search-plugin/index/
+canonical_url: https://opensearch.org/docs/latest/search-plugins/neural-search/
 ---
 
 # Neural search

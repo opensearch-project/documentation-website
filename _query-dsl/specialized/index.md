@@ -4,6 +4,7 @@ title: Specialized queries
 has_children: true
 nav_order: 65
 has_toc: false
+canonical_url: https://opensearch.org/docs/latest/query-dsl/specialized/index/
 ---
 
 # Specialized queries

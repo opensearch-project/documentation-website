@@ -3,6 +3,7 @@ layout: default
 title: Managing Data Prepper
 has_children: true
 nav_order: 20
+canonical_url: https://opensearch.org/docs/latest/data-prepper/managing-data-prepper/managing-data-prepper/
 ---
 
 # Managing Data Prepper

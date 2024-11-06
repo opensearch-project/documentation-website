@@ -2,6 +2,7 @@
 layout: default
 title: Collapse search results
 nav_order: 3
+canonical_url: https://opensearch.org/docs/latest/search-plugins/collapse-search/
 ---
 
 # Collapse search results

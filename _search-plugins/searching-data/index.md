@@ -5,6 +5,7 @@ nav_order: 5
 has_children: true
 has_toc: false
 redirect_from: /opensearch/ux/
+canonical_url: https://opensearch.org/docs/latest/search-plugins/searching-data/index/
 ---
 
 # Searching data

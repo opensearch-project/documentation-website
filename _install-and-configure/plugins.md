@@ -6,6 +6,7 @@ has_children: true
 redirect_from:
    - /opensearch/install/plugins/
    - /install-and-configure/install-opensearch/plugins/
+canonical_url: https://opensearch.org/docs/latest/install-and-configure/plugins/
 ---
 
 # Installing plugins
