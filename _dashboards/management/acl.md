@@ -15,7 +15,7 @@ You can use access control lists (ACLs) to manage permissions for your saved obj
 
 ACLs are applied at two levels:
 
-1. **Workspace ACL:** Workspace objects inherit permissions from their parent workspace. See [Workspace ACL](../../workspace/workspace-acl) for more information.
+1. **Workspace ACL:** Workspace objects inherit permissions from their parent workspace. See [Workspace ACL]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl) for more information.
 2. **Objects ACL:** Each individual object can have its own ACL policy. All operations on these objects must pass ACL policy validation.
 
 ## Enabling the ACL feature

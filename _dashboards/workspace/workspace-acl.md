@@ -9,7 +9,7 @@ nav_order: 3
 Introduced 2.18
 {: .label .label-purple }
 
-Workspace access control lists (ACLs) manage authorization for saved objects `AuthZ(Authorization)` while enabling [Security in OpenSearch](../../../security/) for `AuthN(Authentication)`.
+Workspace access control lists (ACLs) manage authorization for saved objects `AuthZ(Authorization)` while enabling [Security in OpenSearch]({{site.url}}{{site.baseurl}}/security/) for `AuthN(Authentication)`.
 
 ## Personas
 
@@ -25,7 +25,7 @@ Workspace access control lists (ACLs) manage authorization for saved objects `Au
 
 ## Enabling permission control
 
-See [Enabling the ACL feature](../../management/acl#enabling-the-acl-feature) for instructions. 
+See [Enabling the ACL feature]({{site.url}}{{site.baseurl}}/dashboards/management/acl#enabling-the-acl-feature) for instructions. 
 
 ## Configuring dashboard administrators
 
