@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Workspace access control lists
-parent: Workspace
+parent: Workspace for OpenSearch Dashboards
 nav_order: 3
 ---
 
@@ -25,7 +25,7 @@ Workspace access control lists (ACLs) manage authorization for saved objects `Au
 
 ## Enabling permission control
 
-See [Enabling ACL feature](../../management/acl#enabling-acl-feature) for instructions. 
+See [Enabling the ACL feature](../../management/acl#enabling-the-acl-feature) for instructions. 
 
 ## Configuring dashboard administrators
 

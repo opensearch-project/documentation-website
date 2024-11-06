@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Create a workspace
-parent: Workspace
+parent: Workspace for OpenSearch Dashboards
 nav_order: 1
 ---
 
@@ -9,9 +9,9 @@ nav_order: 1
 Introduced 2.18
 {: .label .label-purple }
 
-Before getting started with this tutorial, you must enable the workspace feature flag. See [Enabling the ACL feature]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace/#enabling-workspace](http://localhost:4000/docs/latest/dashboards/management/acl/#enabling-acl-feature) for more information.
+Before getting started with this tutorial, you must enable the workspace feature flag. See [Enabling the ACL feature]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace/#enabling-the-workspace-feature) for more information.
 
-When the saved objects permission is enabled, only users with admin status can create workspaces. See [Configuring the dashboard admin]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#config-dashboard-admin) for more information. 
+When the saved objects permission is enabled, only users with admin status can create workspaces. See [Configuring the dashboard admin]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#configuring-dashboard-administrators) for more information. 
 
 To create a workspace, follow these steps:
 
@@ -23,7 +23,7 @@ To create a workspace, follow these steps:
 4. (Optional) Select the color picker to customize the color of your workspace icon.
 5. (Optional) Add a workspace description of up to 200 characters. This option is disabled when the description exceeds the character limit.
 6. Save your workspace.
-  - The **Create workspace** button becomes active once you enter the information for all required fields. You become the workspace owner automatically. The system redirects you to either the collaborators page if the saved objects permission is enabled or the overview page if the saved objects permission is disabled. See [Configuring dashboard admin]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#config-dashboard-admin) for more information about permissions.
+  - The **Create workspace** button becomes active once you enter the information for all required fields. You become the workspace owner automatically. The system redirects you to either the collaborators page if the saved objects permission is enabled or the overview page if the saved objects permission is disabled. See [Configuring dashboard admin]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#configuring-dashboard-administrators) for more information about permissions.
 
 To set up permissions, see [Workspace access control lists]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/) for more information.
 

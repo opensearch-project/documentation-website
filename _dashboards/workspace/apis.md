@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Workspaces APIs
-parent: Workspace
+parent: Workspace for OpenSearch Dashboards
 nav_order: 10
 ---
 

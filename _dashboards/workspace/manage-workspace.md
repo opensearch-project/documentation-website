@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Manage workspaces
-parent: Workspace
+parent: Workspace for OpenSearch Dashboards
 nav_order: 2
 ---
 
@@ -22,7 +22,7 @@ The following permissions apply when changing workspaces:
 
 1. **Without the Security plugin:** All users can edit and update the workspace.
 2. **With security plugins installed and `savedObjects.permission.enabled: false` in the `config/opensearch_dashboards.yml` file:** All users can edit and update workspaces.
-3. **With the Security plugin and `savedObjects.permission.enabled: true` in the `config/opensearch_dashboards.yml`:** Only the [workspace owner]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#define-collaborators-for-your-workspaces) and the [OpenSearch Dashboards admin]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#config-dashboard-admin) can edit and update workspaces.
+3. **With the Security plugin and `savedObjects.permission.enabled: true` in the `config/opensearch_dashboards.yml`:** Only the [workspace owner]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#defining-workspace-collaborators) and the [OpenSearch Dashboards admin]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#configuring-dashboard-administrators) can edit and update workspaces.
 
 ## Workspace update restrictions 
 
@@ -91,7 +91,7 @@ The association modal displays a list of OpenSearch connections that contain dir
 
 ## Deleting your workspace
 
-Workspace deletion is restricted to dashboard administrators. If you do not see a delete icon, check your permissions. See [Configuring dashboard administrators]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#config-dashboard-admin) for more information.
+Workspace deletion is restricted to dashboard administrators. If you do not see a delete icon, check your permissions. See [Configuring dashboard administrators]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#configuring-dashboard-administrators) for more information.
 {: .warning}
 
 Deleting a workspace permanately erases all its assets (except data sources) and the workspace itself. This action cannot be reversed.
