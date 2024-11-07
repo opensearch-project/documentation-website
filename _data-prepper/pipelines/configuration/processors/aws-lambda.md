@@ -105,7 +105,7 @@ Field             | Type    | Required | Description
 `max_retries`     | Integer | Optional | The maximum number of retries for failed invocations. Default is `3`.             
 `batch`           | Object  | Optional | The batch settings for the Lambda invocations. Default is `key_name = "events"`. Default threshold is `event_count=100`, `maximum_size="5mb"`, and `event_collect_timeout = 10s`.                              
 `lambda_when`     | String  | Optional | A conditional expression that determines when to invoke the Lambda processor.          
-`dlq`             | Object  | Optional | Dead-letter queue (DLQ) configuration for failed invocations.                
+`dlq`             | Object  | Optional | A dead-letter queue (DLQ) configuration for failed invocations.                
 
 #### Example configuration
 
