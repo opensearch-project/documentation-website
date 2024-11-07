@@ -10,25 +10,56 @@ nav_order: 20
 Introduced 2.18
 {: .label .label-purple }
 
-You can use the results of a remote model via the ml_inference processor, with a by_field rerank type to get better search results.
+You can use the results of a remote model via the [ml_inference]({{site.url}}{{site.baseurl}}/_ingest-pipelines/processors/ml-inference.md) processor, with a [by_field]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field/) rerank type to get better search results.
 In order to do this you need to configure a search pipeline that runs at search time. The search pipeline will intercept search results
 pass them to the ml_inference processor which will apply a remote cross encoder model. Then once the results are returned it will apply the 
 reranker to use that metric in order to rerank your documents.
 
 In this tutorial we will showcase a scenario with documents related to New York City areas with emphasis on finding better search results based
-on the provided search query
+on the provided search query. We will use [Huggingface cross-encoder/ms-marco-MiniLM-L-6-v2](https://huggingface.co/cross-encoder/ms-marco-MiniLM-L-6-v2)
+hosted on Amazon SageMaker.
 
 ## Running a search with both processors
 
 To run a search with reranking, follow these steps:
 
+0. [Deploy the model on Amazon SageMaker](#0-deploy-the-model-on-amazon-sagemaker)
 1. [Create an index for ingestion](#step-1-create-an-index-for-ingestion).
-1. [Create a connector](#step-2-create-a-connector).
-1. [Create a model](#step-3-create-a-model).
-1. [Create the Search pipeline](#step-4-create-the-search-pipeline).
-1. [apply the pipeline on a search query](#step-5-apply-the-pipeline-on-a-search-query).
+2. [Create a connector](#step-2-create-a-connector).
+3. [Create a model](#step-3-create-a-model).
+4. [Create the Search pipeline](#step-4-create-the-search-pipeline).
+5. [apply the pipeline on a search query](#step-5-apply-the-pipeline-on-a-search-query).
 
-## step 1: Create an Index for Ingestion
+## 0. Deploy the model on Amazon Sagemaker
+Use the following code to deploy the model on Amazon Sagemaker. 
+You can find all supported instance type and price on [Amazon Sagemaker Pricing document](https://aws.amazon.com/sagemaker/pricing/). Suggest to use GPU for better performance.
+```python
+import sagemaker
+import boto3
+from sagemaker.huggingface import HuggingFaceModel
+
+sess = sagemaker.Session()
+role = sagemaker.get_execution_role()
+
+hub = {
+    'HF_MODEL_ID':'cross-encoder/ms-marco-MiniLM-L-6-v2',
+    'HF_TASK':'text-classification'
+}
+huggingface_model = HuggingFaceModel(
+    transformers_version='4.37.0',
+    pytorch_version='2.1.0',
+    py_version='py310',
+    env=hub,
+    role=role, 
+)
+predictor = huggingface_model.deploy(
+    initial_instance_count=1, # number of instances
+    instance_type='ml.m5.xlarge' # ec2 instance type
+)
+```
+To find the endpoint make sure to the SageMaker homepage and navigate in the left tab **Inference > Endpoints** make note of the url specific to the model created it will be used when creating the connector.
+
+## Step 1: Create an Index for Ingestion
 Create an index called nyc_areas
 ```json
 ### Add documents
