@@ -3,7 +3,7 @@
 api: search
 component: paths_and_http_methods
 -->
-## Paths and HTTP Methods
+## Paths and HTTP methods
 ```json
 GET  /_search
 POST /_search

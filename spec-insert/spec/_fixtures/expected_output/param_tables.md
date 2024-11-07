@@ -4,7 +4,7 @@ Typical Path Params Example
 api: search
 component: path_parameters
 -->
-## Path Parameters
+## Path parameters
 Parameter | Type | Description
 :--- | :--- | :---
 `index` | List | Comma-separated list of data streams, indices, and aliases to search. Supports wildcards (`*`). To search all data streams and indices, omit this parameter or use `*` or `_all`.
@@ -19,7 +19,7 @@ include_global: true
 pretty: true
 columns: Type, Parameter, Description, Required, Default
 -->
-## Query Parameters
+## Query parameters
 | Type    | Parameter                 | Description                                                                                                                        | Required | Default |
 |:--------|:--------------------------|:-----------------------------------------------------------------------------------------------------------------------------------|:---------|:--------|
 | Boolean | `analyze_wildcard`        | If true, wildcard and prefix queries are analyzed. This parameter can only be used when the q query string parameter is specified. | Required |         |
@@ -35,7 +35,7 @@ api: search
 component: query_parameters
 columns: Parameter, Description
 -->
-## Query Parameters
+## Query parameters
 Parameter | Description
 :--- | :---
 `analyze_wildcard` | **(Required)** If true, wildcard and prefix queries are analyzed. This parameter can only be used when the q query string parameter is specified.
