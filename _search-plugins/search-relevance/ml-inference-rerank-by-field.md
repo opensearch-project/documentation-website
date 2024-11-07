@@ -62,7 +62,6 @@ To find the endpoint make sure to the SageMaker homepage and navigate in the lef
 ## Step 1: Create an Index for Ingestion
 Create an index called nyc_areas
 ```json
-### Add documents
 POST /nyc_areas/_bulk
 { "index": { "_id": 1 } }
 { "borough": "Queens", "area_name": "Astoria", "description": "Astoria is a neighborhood in the western part of Queens, New York City, known for its diverse community and vibrant cultural scene.", "population": 93000, "facts": "Astoria is home to many artists and has a large Greek-American community. The area also boasts some of the best Mediterranean food in NYC." } 
@@ -209,7 +208,7 @@ POST /nyc_areas/_search?search_pipeline=my_pipeline
 {% include copy-curl.html %}
 
 Notice that in the result of this search pipeline we added the previous score to observe the difference from BM25 with the cross encoder.
-See how Astoria ranked higher even though it didnt have as much keyword matches as harlem did.
+See how Astoria ranked higher even though it didnt have as much keyword matches as Harlem did.
 
 ```json
 {
