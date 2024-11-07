@@ -61,7 +61,7 @@ The processor supports the following invocation types:
 
 - `request-response`: The processor waits for Lambda function completion before proceeding.
 - `event`: Function is triggered asynchronously without waiting for a response.
-- `Batching`: When enabled, events are aggregated and sent in bulk to optimize Lambda invocations. Batch thresholds control event count, size limit, and timeout.
+- `Batching`: When enabled, events are aggregated and sent in bulk to optimize Lambda invocations. Batch thresholds control the event count, size limit, and timeout.
 - `Codec`: JSON is is used for both request and response codecs. Lambda must return JSON array outputs.
 - `tags_on_match_failure`: Custom tags can be applied to events when Lambda processing fails or encounters unexpected issues.
 
