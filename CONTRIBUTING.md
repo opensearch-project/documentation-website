@@ -92,7 +92,7 @@ Follow these steps to set up your local copy of the repository:
    **For Apple silicon machines** 
    
    Source: [Installing Ruby on Apple Silicon by Emmanuel Bernard ](https://emmanuelbernard.com/blog/2023/12/01/installing-ruby-on-apple-silicon/).
-   Please check the current current [OpenSSL versions compatible with Ruby](https://github.com/ruby/openssl/blob/master/README.md) **3.2.4**
+   Check the current [OpenSSL versions compatible with Ruby](https://github.com/ruby/openssl/blob/master/README.md) **3.2.4**
    ```
    # Assumes Brew is installed
    curl -sSL https://get.rvm.io | bash -s stable
