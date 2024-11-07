@@ -16,7 +16,7 @@ The `aws_lambda processor` enables invocation of an AWS Lambda function within y
 
 ## Configuration fields
 
-You can configure the processor using the following configuration options:
+You can configure the processor using the following configuration options.
 
 Field                | Type    | Required | Description                                                                 
 -------------------- | ------- | -------- | ---------------------------------------------------------------------------- 
