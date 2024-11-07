@@ -14,7 +14,7 @@ For instance, if you need to upgrade more than one major version—such as movin
 
 There are also tools available for migrating cluster configuration, templates, and aliases, which can be helpful depending on the complexity of your setup. These tools streamline the migration process by preserving critical settings and custom configurations.
 
-## Migration Paths
+## Migration paths
 
 | **Source Version**          | **Target Version**               |
 |-----------------------------|----------------------------------|
@@ -75,11 +75,11 @@ The following questionnaire can help you decide whether migration assistant is r
 
 1. **By when do you expect the migration to be completed?**  
    *Why it’s important:*  
-   Understanding the timeline helps set realistic expectations and plan resources accordingly.
+   Understanding the timeline helps set realistic expectations for your migration and allows you to plan resources accordingly.
 
 2. **How much downtime can you afford during the migration?**  
    *Why it’s important:*  
-   This defines the migration strategy, whether zero-downtime or with controlled outages, and helps prevent unexpected service disruptions.
+   This defines a migration strategy that helps prevent unexpected service disruptions. Decide whether you can afford zero-downtime or migrate with controlled outages.
 
 3. **What are your primary goals for the migration?**  
    (e.g., Performance improvement, cost reduction, feature enhancement, etc.)  
@@ -87,29 +87,33 @@ The following questionnaire can help you decide whether migration assistant is r
    Clarifying the objectives helps tailor the migration process to meet the customer’s expectations and success criteria.
 
 4. **What's your level of acceptance for discrepancies during the upgrade?**  
-   (e.g., If relevancy is re-ordered because the two clusters aren’t exactly in sync, is this tolerable?)  
+   ( If relevancy is re-ordered because the two clusters aren’t exactly in sync, is this tolerable?)  
    *Why it’s important:*  
-   Helps gauge the flexibility of the customer, especially when dealing with non-deterministic elements like ranking in search results or latency variations.
+
+   For example, decide whether if relevancy is re-ordered because the two clusters aren’t exactly in sync, is this tolerable?  This will help gauge the flexibility of the customer, especially when dealing with non-deterministic elements like ranking in search results or latency variations.
 
 5. **Are there any SLAs in place for downstream users or services?**  
    *Why it’s important:*  
-   Understanding SLAs ensures that any changes to performance or downtime do not violate contractual agreements, maintaining service quality.
+
+   Understanding what SLAs are currently in place ensures that any changes to performance or downtime does not violate contractual agreements, maintaining service quality.
 
 6. **Do you foresee any regulatory or compliance constraints that might impact the migration timeline or execution?**  
    *Why it’s important:*  
+
    Compliance requirements can dictate migration approaches, particularly regarding data handling, encryption, or audit logging.
 
 7. **Are you open to a trusted proxy preceding your source cluster, even if it adds a 10-30ms latency?**  
    *Why it’s important:*  
-   A proxy can make certain migrations smoother (e.g., for reindexing or log collection), but it’s crucial to assess the customer’s tolerance for added latency.
+
+   A proxy can make certain migrations smoother, like for reindexing or log collection, but it’s crucial to assess the customer’s tolerance for added latency.
 
 8. **Do you possess a dedicated environment for trial upgrades before the production shift?**  
-   (Please outline your typical upgrade process.)  
    *Why it’s important:*  
-   Testing in a dedicated environment before production can prevent unexpected issues and allow for smoother transitions.
+   Outline what you typical upgrade process looks like. Testing in a dedicated environment before production can prevent unexpected issues and allow for smoother transitions.
 
 9. **Do you have a rollback plan in case the migration encounters issues?**  
    *Why it’s important:*  
+
    Rollback strategies help ensure business continuity in case the migration fails, minimizing risks to the business.
 
 ---
@@ -119,30 +123,31 @@ The following questionnaire can help you decide whether migration assistant is r
 #### Platform & Architecture:
 
 1. **What are the source and target platforms and their versions?**  
-   (e.g., Elasticsearch 7.10.2 to OpenSearch 2.x)  
    *Why it’s important:*  
-   Compatibility between versions is key for smooth migrations, ensuring the right tools and processes are used.
+   [Compatibility between versions](#migration-paths) is key for smooth migrations, ensuring the right tools and processes are used.
 
 2. **Provide a breakdown of nodes in the cluster.**  
    (e.g., Total nodes, number of coordinating nodes, and number of data nodes.)  
    *Why it’s important:*  
-   The structure of the cluster affects the complexity of the migration and helps in resource planning.
+   Determine the total number of nodes in your cluster, including the number of coordinating nodes and the number of data nodes. The structure of the cluster affects the complexity of the migration and helps in resource planning.
 
-3. **Are retention policies in place?**  
-   (If so, for how long, and is it on all indices?)  
+3. **Are retention policies in place?**    
    *Why it’s important:*  
-   Retention policies could influence the size of the data that needs to be migrated and how backups or archiving strategies are handled. They may also impact the recommended migration solution.
+   If retention policies are in place, how long will those policies last and are they relevant to all indexes. Retention policies could influence the size of the data that needs to be migrated and how backups or archiving strategies are handled. They may also impact the recommended migration solution.
 
 4. **How do you currently handle backup and recovery in your cluster?**  
    *Why it’s important:*  
+
    A solid backup and recovery strategy is essential for minimizing data loss and ensuring a smooth migration.
 
 5. **Are there schematic diagrams showcasing how Elasticsearch/OpenSearch integrates with your entire system?**  
    *Why it’s important:*  
+
    Understanding the full architecture helps ensure that the migration doesn’t break any dependencies and that integrations continue to work post-migration.
 
 6. **Which authentication and authorization mechanisms are in place?**  
    *Why it’s important:*  
+   
    Security configurations need to be migrated and verified to maintain data access controls and compliance post-migration.
 
 ---

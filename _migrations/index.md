@@ -50,6 +50,7 @@ The Metadata migration tool integrated into the Migration CLI can be used indepe
 `reindex-from-snapshot` reindexes data from an existing snapshot on Elastic Container Service (ECS) workers that coordinate the migration of documents from an existing snapshot, reindexing the documents in parallel to a target cluster.
 
 ### Target cluster
+
 The destination cluster for migration or comparison in an A/B test.
 
 ### Architecture overview
