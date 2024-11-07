@@ -1,4 +1,4 @@
-Typical Path Params Example
+Typical Path Parameters Example
 
 <!-- spec_insert_start
 api: search
@@ -7,10 +7,10 @@ component: path_parameters
 ## Path parameters
 Parameter | Type | Description
 :--- | :--- | :---
-`index` | List | Comma-separated list of data streams, indices, and aliases to search. Supports wildcards (`*`). To search all data streams and indices, omit this parameter or use `*` or `_all`.
+`index` | List | Comma-separated list of data streams, indexes, and aliases to search. Supports wildcards (`*`). To search all data streams and indexes, omit this parameter or use `*` or `_all`.
 <!-- spec_insert_end -->
 
-Query Params Example with Global Params, Pretty Print, and Custom Columns
+Query Parameters Example with Global Parameters, Pretty Print, and Custom Columns
 
 <!-- spec_insert_start
 api: search
@@ -28,7 +28,7 @@ columns: Type, Parameter, Description, Required, Default
 | Boolean | `human` <br> _DEPRECATED_ | _(Deprecated since 3.0: Use the `format` parameter instead.)_ Whether to return human readable values for statistics.              |          |         |
 <!-- spec_insert_end -->
 
-Query Params Example with only Parameter and Description Columns
+Query Parameters Example with only Parameter and Description Columns
 
 <!-- spec_insert_start
 api: search

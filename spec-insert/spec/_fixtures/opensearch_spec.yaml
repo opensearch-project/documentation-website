@@ -13,8 +13,8 @@ paths:
       externalDocs:
         url: https://opensearch.org/docs/latest/api-reference/search/
       parameters:
-        - $ref: '#/components/parameters/search::query.analyze_wildcard'
-        - $ref: '#/components/parameters/search::query.analyzer'
+        - $ref: '#/components/parameters/search___query.analyze_wildcard'
+        - $ref: '#/components/parameters/search___query.analyzer'
     post:
       operationId: search.1
       x-operation-group: search
@@ -23,8 +23,8 @@ paths:
       externalDocs:
           url: https://opensearch.org/docs/latest/api-reference/search/
       parameters:
-          - $ref: '#/components/parameters/search::query.analyze_wildcard'
-          - $ref: '#/components/parameters/search::query.analyzer'
+          - $ref: '#/components/parameters/search___query.analyze_wildcard'
+          - $ref: '#/components/parameters/search___query.analyzer'
   /{index}/_search:
     get:
       operationId: search.2
@@ -34,9 +34,9 @@ paths:
       externalDocs:
         url: https://opensearch.org/docs/latest/api-reference/search/
       parameters:
-        - $ref: '#/components/parameters/search::path.index'
-        - $ref: '#/components/parameters/search::query.analyze_wildcard'
-        - $ref: '#/components/parameters/search::query.analyzer'
+        - $ref: '#/components/parameters/search___path.index'
+        - $ref: '#/components/parameters/search___query.analyze_wildcard'
+        - $ref: '#/components/parameters/search___query.analyzer'
     post:
       operationId: search.3
       x-operation-group: search
@@ -45,14 +45,14 @@ paths:
       externalDocs:
         url: https://opensearch.org/docs/latest/api-reference/search/
       parameters:
-        - $ref: '#/components/parameters/search::path.index'
-        - $ref: '#/components/parameters/search::query.analyze_wildcard'
-        - $ref: '#/components/parameters/search::query.analyzer'
+        - $ref: '#/components/parameters/search___path.index'
+        - $ref: '#/components/parameters/search___query.analyze_wildcard'
+        - $ref: '#/components/parameters/search___query.analyzer'
 components:
 
   parameters:
 
-    _global::query.pretty:
+    _global___query.pretty:
       name: pretty
       in: query
       description: Whether to pretty format the returned JSON response.
@@ -61,7 +61,7 @@ components:
       default: false
       x-global: true
 
-    _global::query.human:
+    _global___query.human:
       name: human
       in: query
       description: Whether to return human readable values for statistics.
@@ -73,19 +73,19 @@ components:
       x-version-deprecated: '3.0'
       x-deprecation-message: Use the `format` parameter instead.
 
-    search::path.index:
+    search___path.index:
       in: path
       name: index
       description: |-
-        Comma-separated list of data streams, indices, and aliases to search.
+        Comma-separated list of data streams, indexes, and aliases to search.
         Supports wildcards (`*`).
-        To search all data streams and indices, omit this parameter or use `*` or `_all`.
+        To search all data streams and indexes, omit this parameter or use `*` or `_all`.
       required: true
       schema:
-        $ref: '#/components/schemas/_common:Indices'
+        $ref: '#/components/schemas/_common___Indices'
       style: simple
 
-    search::query.analyze_wildcard:
+    search___query.analyze_wildcard:
       in: query
       name: analyze_wildcard
       required: true
@@ -97,7 +97,7 @@ components:
         default: false
       style: form
 
-    search::query.analyzer:
+    search___query.analyzer:
       in: query
       name: analyzer
       description: |-
@@ -109,12 +109,12 @@ components:
 
   schemas:
 
-    _common:Indices:
+    _common___Indices:
       oneOf:
-        - $ref: '#/components/schemas/_common:IndexName'
+        - $ref: '#/components/schemas/_common___IndexName'
         - type: array
           items:
-            $ref: '#/components/schemas/_common:IndexName'
+            $ref: '#/components/schemas/_common___IndexName'
 
-    _common:IndexName:
+    _common___IndexName:
       type: string
