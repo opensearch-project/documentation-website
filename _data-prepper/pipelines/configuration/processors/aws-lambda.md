@@ -98,7 +98,7 @@ You can configure the sink using the following configuration options.
 
 Field             | Type    | Required | Description                                                                 
 ----------------- | ------- | -------- | ---------------------------------------------------------------------------- 
-`function_name`   | String  | Required | Name of the AWS Lambda function to invoke.                               
+`function_name`   | String  | Required | The name of the AWS Lambda function to invoke.                               
 `invocation_type` | String  | Optional | Specifies the invocation type. Default is `event`.             
 `aws.region`      | String  | Required | AWS Region in which the Lambda function is located.                         
 `aws.sts_role_arn`| String  | Optional | ARN of the role to assume before invoking the Lambda function.               
