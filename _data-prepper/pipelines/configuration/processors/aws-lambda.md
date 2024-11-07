@@ -145,7 +145,7 @@ The sink supports the following invocation types:
 
 The AWS Lambda processor and sink provide the following advanced options for security and performance optimization: 
 
-- IAM role assumption: Processor and sink support assuming the specified IAM role `aws.sts_role_arn` before Lambda invocation. This enhances secure handling by providing access control to AWS resources.
+- AWS Identity and Access Management (IAM) role assumption: The processor and sink support assuming the specified IAM role `aws.sts_role_arn` before Lambda invocation. This enhances secure handling by providing access control to AWS resources.
 - Concurrency management: When using the `event` invocation type, consider Lambda concurrency limits to avoid throttling.
 
 For further details on AWS Lambda integration with Data Prepper, see [AWS Lambda Documentation](https://docs.aws.amazon.com/lambda).
