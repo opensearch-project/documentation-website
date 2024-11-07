@@ -105,7 +105,7 @@ The following table lists the available query parameters. All query parameters a
 | `use_case` | String | The name of the [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/#supported-workflow-templates) to use when creating the workflow. |
 | User-provided substitution expressions | String | Parameters matching substitution expressions in the template. Only allowed if `provision` is set to `true`. Optional. If `provision` is set to `false`, you can pass these parameters in the [Provision Workflow API query parameters]({{site.url}}{{site.baseurl}}/automating-configurations/api/provision-workflow/#query-parameters). |
 
-## Request fields
+## Request body fields
 
 The following table lists the available request fields.
 

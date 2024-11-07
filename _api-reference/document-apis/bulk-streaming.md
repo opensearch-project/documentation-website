@@ -51,7 +51,7 @@ Parameter | Data type | Description
 `_source_excludes` | List | asdf
 `_source_includes` | List | asdf{% endcomment %}
 
-## Request body
+## Request body fields
 
 The Streaming Bulk API request body is fully compatible with the [Bulk API request body]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/#request-body), where each bulk operation (create/index/update/delete) is sent as a separate chunk.  
 

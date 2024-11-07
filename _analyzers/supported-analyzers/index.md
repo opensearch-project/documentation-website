@@ -29,4 +29,13 @@ Analyzer | Analysis performed | Analyzer output
 
 ## Language analyzers
 
-OpenSearch supports analyzers for various languages. For more information, see [Language analyzers]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/).
+OpenSearch supports multiple language analyzers. For more information, see [Language analyzers]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/).
+
+## Additional analyzers
+
+The following table lists the additional analyzers that OpenSearch supports.
+
+| Analyzer       | Analysis performed                                                                                       |
+|:---------------|:---------------------------------------------------------------------------------------------------------|
+| `phone`        | An [index analyzer]({{site.url}}{{site.baseurl}}/analyzers/index-analyzers/) for parsing phone numbers.  |
+| `phone-search` | A [search analyzer]({{site.url}}{{site.baseurl}}/analyzers/search-analyzers/) for parsing phone numbers. |

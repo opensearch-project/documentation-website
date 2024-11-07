@@ -78,7 +78,7 @@ Follow these steps to set up your local copy of the repository:
 
 1. Navigate to your cloned repository.
 
-##### Building using locally installed packages 
+##### Building by using locally installed packages 
 
 1. Install [Ruby](https://www.ruby-lang.org/en/) if you don't already have it. We recommend [RVM](https://rvm.io/), but you can use any method you prefer:
 
@@ -100,7 +100,7 @@ Follow these steps to set up your local copy of the repository:
    bundle install
    ```
 
-##### Building using containerization
+##### Building by using containerization
 
 Assuming you have `docker-compose` installed, run the following command:
 
