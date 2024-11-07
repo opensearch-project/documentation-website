@@ -147,7 +147,7 @@ The following questionnaire can help you decide whether migration assistant is r
 
 6. **Which authentication and authorization mechanisms are in place?**  
    *Why it’s important:*  
-   
+
    Security configurations need to be migrated and verified to maintain data access controls and compliance post-migration.
 
 ---
@@ -181,7 +181,7 @@ The following questionnaire can help you decide whether migration assistant is r
 
 ---
 
-#### Application & Use:
+#### Application & use
 
 1. **What's the main application of your cluster?**  
    (e.g., search, logging, analytics, etc.)  
