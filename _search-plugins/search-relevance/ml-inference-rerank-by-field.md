@@ -31,7 +31,6 @@ To run a search with reranking, follow these steps:
 ## step 1: Create an Index for Ingestion
 Create an index called nyc_areas
 ```json
-### Add documents
 POST /nyc_areas/_bulk
 { "index": { "_id": 1 } }
 { "borough": "Queens", "area_name": "Astoria", "description": "Astoria is a neighborhood in the western part of Queens, New York City, known for its diverse community and vibrant cultural scene.", "population": 93000, "facts": "Astoria is home to many artists and has a large Greek-American community. The area also boasts some of the best Mediterranean food in NYC." } 
