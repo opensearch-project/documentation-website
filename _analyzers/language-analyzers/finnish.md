@@ -48,15 +48,15 @@ PUT index_with_stem_exclusion_finnish_analyzer
 
 ## Finnish analyzer internals
 
-The `finnish` analyzer is build using the following:
+The `finnish` analyzer is built using the following components:
 
-Tokenizer: `standard`
+- Tokenizer: `standard`
 
-Token filters:
-- lowercase
-- stop (Finnish)
-- keyword
-- stemmer (Finnish)
+- Token filters:
+  - lowercase
+  - stop (Finnish)
+  - keyword
+  - stemmer (Finnish)
 
 ## Custom Finnish analyzer
 

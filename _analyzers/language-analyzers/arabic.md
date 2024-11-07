@@ -53,12 +53,12 @@ The `arabic` analyzer is built using the following components:
 - Tokenizer: `standard`
 
 - Token filters:
-- lowercase
-- decimal_digit
-- stop (Arabic)
-- normalization (Arabic)
-- keywords
-- stemmer (Arabic)
+  - lowercase
+  - decimal_digit
+  - stop (Arabic)
+  - normalization (Arabic)
+  - keywords
+  - stemmer (Arabic)
 
 ## Custom Arabic analyzer
 

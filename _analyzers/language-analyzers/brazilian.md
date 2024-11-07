@@ -48,15 +48,15 @@ PUT index_with_stem_exclusion_brazilian_analyzer
 
 ## Brazilian analyzer internals
 
-The `brazilian` analyzer is build using the following:
+The `brazilian` analyzer is built using the following components:
 
-Tokenizer: `standard`
+- Tokenizer: `standard`
 
-Token filters:
-- lowercase
-- stop (Brazilian)
-- keywords
-- stemmer (Brazilian)
+- Token filters:
+  - lowercase
+  - stop (Brazilian)
+  - keywords
+  - stemmer (Brazilian)
 
 ## Custom Brazilian analyzer
 

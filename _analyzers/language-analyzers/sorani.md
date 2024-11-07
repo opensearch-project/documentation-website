@@ -48,17 +48,17 @@ PUT index_with_stem_exclusion_sorani_analyzer
 
 ## Sorani analyzer internals
 
-The `sorani` analyzer is build using the following:
+The `sorani` analyzer is built using the following components:
 
-Tokenizer: `standard`
+- Tokenizer: `standard`
 
-Token Filters:
-- normalization (Sorani)
-- lowercase
-- decimal_digit
-- stop (Sorani)
-- keyword
-- stemmer (Sorani)
+- Token Filters:
+  - normalization (Sorani)
+  - lowercase
+  - decimal_digit
+  - stop (Sorani)
+  - keyword
+  - stemmer (Sorani)
 
 ## Custom Sorani analyzer
 

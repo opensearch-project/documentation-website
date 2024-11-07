@@ -48,16 +48,16 @@ PUT index_with_stem_exclusion_catalan_analyzer
 
 ## Catalan analyzer internals
 
-The `catalan` analyzer is build using the following:
+The `catalan` analyzer is built using the following components:
 
-Tokenizer: `standard`
+- Tokenizer: `standard`
 
-Token filters:
-- elision (Catalan)
-- lowercase
-- stop (Catalan)
-- keywords
-- stemmer (Catalan)
+- Token filters:
+  - elision (Catalan)
+  - lowercase
+  - stop (Catalan)
+  - keywords
+  - stemmer (Catalan)
 
 ## Custom Catalan analyzer
 

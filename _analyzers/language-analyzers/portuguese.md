@@ -48,15 +48,15 @@ PUT index_with_stem_exclusion_portuguese_analyzer
 
 ## Portuguese analyzer internals
 
-The `portuguese` analyzer is build using the following:
+The `portuguese` analyzer is built using the following components:
 
-Tokenizer: `standard`
+- Tokenizer: `standard`
 
-Token Filters:
-- lowercase
-- stop (Portuguese)
-- keyword
-- stemmer (Portuguese)
+- Token Filters:
+  - lowercase
+  - stop (Portuguese)
+  - keyword
+  - stemmer (Portuguese)
 
 ## Custom Portuguese analyzer
 

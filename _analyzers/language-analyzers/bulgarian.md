@@ -48,15 +48,15 @@ PUT index_with_stem_exclusion_bulgarian_analyzer
 
 ## Bulgarian analyzer internals
 
-The `bulgarian` analyzer is build using the following:
+The `bulgarian` analyzer is built using the following components:
 
-Tokenizer: `standard`
+- Tokenizer: `standard`
 
-Token filters:
-- lowercase
-- stop (Bulgarian)
-- keywords
-- stemmer (Bulgarian)
+- Token filters:
+  - lowercase
+  - stop (Bulgarian)
+  - keywords
+  - stemmer (Bulgarian)
 
 ## Custom Bulgarian analyzer
 

@@ -48,16 +48,16 @@ PUT index_with_stem_exclusion_english_analyzer
 
 ## English analyzer internals
 
-The `english` analyzer is build using the following:
+The `english` analyzer is built using the following components:
 
-Tokenizer: `standard`
+- Tokenizer: `standard`
 
-Token filters:
-- stemmer (possessive_english)
-- lowercase
-- stop (English)
-- keyword
-- stemmer (English)
+- Token filters:
+  - stemmer (possessive_english)
+  - lowercase
+  - stop (English)
+  - keyword
+  - stemmer (English)
 
 ## Custom English analyzer
 

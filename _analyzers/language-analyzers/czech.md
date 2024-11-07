@@ -48,15 +48,15 @@ PUT index_with_stem_exclusion_czech_analyzer
 
 ## Czech analyzer internals
 
-The `czech` analyzer is build using the following:
+The `czech` analyzer is built using the following components:
 
-Tokenizer: `standard`
+- Tokenizer: `standard`
 
-Token filters:
-- lowercase
-- stop (Czech)
-- keyword
-- stemmer (Czech)
+- Token filters:
+  - lowercase
+  - stop (Czech)
+  - keyword
+  - stemmer (Czech)
 
 ## Custom Czech analyzer
 

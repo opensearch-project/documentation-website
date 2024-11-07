@@ -48,15 +48,15 @@ PUT index_with_stem_exclusion_lithuanian_analyzer
 
 ## Lithuanian analyzer internals
 
-The `lithuanian` analyzer is build using the following:
+The `lithuanian` analyzer is built using the following components:
 
-Tokenizer: `standard`
+- Tokenizer: `standard`
 
-Token filters:
-- lowercase
-- stop (Lithuanian)
-- keyword
-- stemmer (Lithuanian)
+- Token filters:
+  - lowercase
+  - stop (Lithuanian)
+  - keyword
+  - stemmer (Lithuanian)
 
 ## Custom Lithuanian analyzer
 

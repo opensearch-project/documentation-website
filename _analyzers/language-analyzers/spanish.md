@@ -48,15 +48,15 @@ PUT index_with_stem_exclusion_spanish_analyzer
 
 ## Spanish analyzer internals
 
-The `spanish` analyzer is build using the following:
+The `spanish` analyzer is built using the following components:
 
-Tokenizer: `standard`
+- Tokenizer: `standard`
 
-Token Filters:
-- lowercase
-- stop (Spanish)
-- keyword
-- stemmer (Spanish)
+- Token Filters:
+  - lowercase
+  - stop (Spanish)
+  - keyword
+  - stemmer (Spanish)
 
 ## Custom Spanish analyzer
 

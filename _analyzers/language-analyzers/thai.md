@@ -48,15 +48,15 @@ PUT index_with_stem_exclusion_thai_analyzer
 
 ## Thai analyzer internals
 
-The `thai` analyzer is build using the following:
+The `thai` analyzer is built using the following components:
 
-Tokenizer: `thai`
+- Tokenizer: `thai`
 
-Token Filters:
-- lowercase
-- decimal_digit
-- stop (Thai)
-- keyword
+- Token Filters:
+  - lowercase
+  - decimal_digit
+  - stop (Thai)
+  - keyword
 
 ## Custom Thai analyzer
 

@@ -48,16 +48,16 @@ PUT index_with_stem_exclusion_french_analyzer
 
 ## French analyzer internals
 
-The `french` analyzer is build using the following:
+The `french` analyzer is built using the following components:
 
-Tokenizer: `standard`
+- Tokenizer: `standard`
 
-Token filters:
-- elision (French)
-- lowercase
-- stop (French)
-- keyword
-- stemmer (French)
+- Token filters:
+  - elision (French)
+  - lowercase
+  - stop (French)
+  - keyword
+  - stemmer (French)
 
 ## Custom French analyzer
 

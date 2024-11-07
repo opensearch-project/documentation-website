@@ -48,18 +48,18 @@ PUT index_with_stem_exclusion_bengali_analyzer
 
 ## Bengali analyzer internals
 
-The `bengali` analyzer is build using the following:
+The `bengali` analyzer is built using the following components:
 
-Tokenizer: `standard`
+- Tokenizer: `standard`
 
-Token filters:
-- lowercase
-- decimal_digit
-- indic_normalization
-- normalization (Bengali)
-- stop (Bengali)
-- keywords
-- stemmer (Bengali)
+- Token filters:
+  - lowercase
+  - decimal_digit
+  - indic_normalization
+  - normalization (Bengali)
+  - stop (Bengali)
+  - keywords
+  - stemmer (Bengali)
 
 ## Custom Bengali analyzer
 

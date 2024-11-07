@@ -48,15 +48,15 @@ PUT index_with_stem_exclusion_latvian_analyzer
 
 ## Latvian analyzer internals
 
-The `latvian` analyzer is build using the following:
+The `latvian` analyzer is built using the following components:
 
-Tokenizer: `standard`
+- Tokenizer: `standard`
 
-Token filters:
-- lowercase
-- stop (Latvian)
-- keyword
-- stemmer (Latvian)
+- Token filters:
+  - lowercase
+  - stop (Latvian)
+  - keyword
+  - stemmer (Latvian)
 
 ## Custom Latvian analyzer
 

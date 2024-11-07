@@ -48,19 +48,19 @@ PUT index_with_stem_exclusion_persian_analyzer
 
 ## Persian analyzer internals
 
-The `persian` analyzer is build using the following:
+The `persian` analyzer is built using the following components:
 
-Tokenizer: `standard`
+- Tokenizer: `standard`
 
-Char filter: `mapping`
+- Char filter: `mapping`
 
-Token filters:
-- lowercase
-- decimal_digit
-- normalization (Arabic)
-- normalization (Persian)
-- keyword
-- stemmer (Norwegian)
+- Token filters:
+  - lowercase
+  - decimal_digit
+  - normalization (Arabic)
+  - normalization (Persian)
+  - keyword
+  - stemmer (Norwegian)
 
 ## Custom Persian analyzer
 

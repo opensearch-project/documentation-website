@@ -48,15 +48,15 @@ PUT index_with_stem_exclusion_galician_analyzer
 
 ## Galician analyzer internals
 
-The `galician` analyzer is build using the following:
+The `galician` analyzer is built using the following components:
 
-Tokenizer: `standard`
+- Tokenizer: `standard`
 
-Token filters:
-- lowercase
-- stop (French)
-- keyword
-- stemmer (French)
+- Token filters:
+  - lowercase
+  - stop (French)
+  - keyword
+  - stemmer (French)
 
 ## Custom Galician analyzer
 

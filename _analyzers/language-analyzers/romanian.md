@@ -48,15 +48,15 @@ PUT index_with_stem_exclusion_romanian_analyzer
 
 ## Romanian analyzer internals
 
-The `romanian` analyzer is build using the following:
+The `romanian` analyzer is built using the following components:
 
-Tokenizer: `standard`
+- Tokenizer: `standard`
 
-Token Filters:
-- lowercase
-- stop (Romanian)
-- keyword
-- stemmer (Romanian)
+- Token Filters:
+  - lowercase
+  - stop (Romanian)
+  - keyword
+  - stemmer (Romanian)
 
 ## Custom Romanian analyzer
 

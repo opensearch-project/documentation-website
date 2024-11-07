@@ -48,16 +48,16 @@ PUT index_with_stem_exclusion_turkish_analyzer
 
 ## Turkish analyzer internals
 
-The `turkish` analyzer is build using the following:
+The `turkish` analyzer is built using the following components:
 
-Tokenizer: `standard`
+- Tokenizer: `standard`
 
-Token Filters:
-- apostrophe
-- lowercase (Turkish)
-- stop (Turkish)
-- keyword
-- stemmer (Turkish)
+- Token Filters:
+  - apostrophe
+  - lowercase (Turkish)
+  - stop (Turkish)
+  - keyword
+  - stemmer (Turkish)
 
 ## Custom Turkish analyzer
 

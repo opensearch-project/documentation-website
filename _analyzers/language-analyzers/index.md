@@ -4,7 +4,9 @@ title: Language analyzers
 nav_order: 100
 parent: Analyzers
 has_children: true
-has_toc: false
+has_toc: true
+redirect_from:
+  - /query-dsl/analyzers/language-analyzers/
 ---
 
 # Language analyzers
@@ -20,14 +22,14 @@ To use the analyzer when you map an index, specify the value within your query. 
 
 #### Example request
 
-The following query specifies the `french` language analyzer for the index `my-index`:
+The following query specifies index `my-index` with `content` field configured as multi-field and sub-field named `french` is configured with `french` language analyzer:
 
 ```json
 PUT my-index
 {
   "mappings": {
     "properties": {
-      "text": { 
+      "content": { 
         "type": "text",
         "fields": {
           "french": { 
@@ -40,10 +42,42 @@ PUT my-index
   }
 }
 ```
+{% include copy-curl.html %}
+
+Default `french` analyzer can also be configured for the entire index using the following query:
+
+```json
+PUT my-index
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "default": {
+          "type": "french"
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "content": {
+        "type": "text"
+      },
+      "title": {
+        "type": "text"
+      },
+      "description": {
+        "type": "text"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
 
 ## Stem exclusion
 
-You can apply stem exclusion to many language analyzers by providing a list of lowercase words that should be excluded from stemming. Internally, OpenSearch uses the `keyword_marker` token filter to mark these words as keywords, ensuring they are not stemmed.
+You can apply stem exclusion to any language analyzer by providing a list of lowercase words that should be excluded from stemming. Internally, OpenSearch uses the `keyword_marker` token filter to mark these words as keywords, ensuring they are not stemmed.
 
 ## Stem exclusion example
 
@@ -65,40 +99,6 @@ PUT index_with_stem_exclusion_english_analyzer
 }
 ```
 {% include copy-curl.html %}
-
-The following languages support stem exclusion:
-
-- arabic 
-- armenian
-- basque
-- bengali
-- brazilian
-- bulgarian
-- catalan
-- cjk
-- czech
-- danish
-- dutch
-- english
-- finnish
-- french
-- galician
-- german
-- hindi
-- hungarian
-- indonesian
-- irish
-- italian
-- latvian
-- lithuanian
-- norwegian
-- portuguese
-- romanian
-- russian
-- sorani
-- spanish
-- swedish
-- turkish
 
 
 ## Stem exclusion with custom analyzers

@@ -48,15 +48,15 @@ PUT index_with_stem_exclusion_indonesian_analyzer
 
 ## Indonesian analyzer internals
 
-The `indonesian` analyzer is build using the following:
+The `indonesian` analyzer is built using the following components:
 
-Tokenizer: `standard`
+- Tokenizer: `standard`
 
-Token filters:
-- lowercase
-- stop (Indonesian)
-- keyword
-- stemmer (Indonesian)
+- Token filters:
+  - lowercase
+  - stop (Indonesian)
+  - keyword
+  - stemmer (Indonesian)
 
 ## Custom Indonesian analyzer
 

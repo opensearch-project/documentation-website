@@ -48,15 +48,15 @@ PUT index_with_stem_exclusion_hungarian_analyzer
 
 ## Hungarian analyzer internals
 
-The `hungarian` analyzer is build using the following:
+The `hungarian` analyzer is built using the following components:
 
-Tokenizer: `standard`
+- Tokenizer: `standard`
 
-Token filters:
-- lowercase
-- stop (Hungarian)
-- keyword
-- stemmer (Hungarian)
+- Token filters:
+  - lowercase
+  - stop (Hungarian)
+  - keyword
+  - stemmer (Hungarian)
 
 ## Custom Hungarian analyzer
 

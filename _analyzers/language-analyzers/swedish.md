@@ -48,15 +48,15 @@ PUT index_with_stem_exclusion_swedish_analyzer
 
 ## Swedish analyzer internals
 
-The `swedish` analyzer is build using the following:
+The `swedish` analyzer is built using the following components:
 
-Tokenizer: `standard`
+- Tokenizer: `standard`
 
-Token Filters:
-- lowercase
-- stop (Swedish)
-- keyword
-- stemmer (Swedish)
+- Token Filters:
+  - lowercase
+  - stop (Swedish)
+  - keyword
+  - stemmer (Swedish)
 
 ## Custom Swedish analyzer
 

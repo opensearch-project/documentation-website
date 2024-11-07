@@ -48,15 +48,15 @@ PUT index_with_stem_exclusion_armenian_analyzer
 
 ## Armenian analyzer internals
 
-The `armenian` analyzer is build using the following:
+The `armenian` analyzer is built using the following components:
 
-Tokenizer: `standard`
+- Tokenizer: `standard`
 
-Token filters:
-- lowercase
-- stop (Armenian)
-- keywords
-- stemmer (Armenian)
+- Token filters:
+  - lowercase
+  - stop (Armenian)
+  - keywords
+  - stemmer (Armenian)
 
 ## Custom Armenian analyzer
 

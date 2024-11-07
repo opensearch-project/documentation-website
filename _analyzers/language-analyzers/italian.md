@@ -48,16 +48,16 @@ PUT index_with_stem_exclusion_italian_analyzer
 
 ## Italian analyzer internals
 
-The `italian` analyzer is build using the following:
+The `italian` analyzer is built using the following components:
 
-Tokenizer: `standard`
+- Tokenizer: `standard`
 
-Token filters:
-- elision (Italian)
-- lowercase
-- stop (Italian)
-- keyword
-- stemmer (Italian)
+- Token filters:
+  - elision (Italian)
+  - lowercase
+  - stop (Italian)
+  - keyword
+  - stemmer (Italian)
 
 ## Custom Italian analyzer
 

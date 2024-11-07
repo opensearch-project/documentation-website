@@ -48,16 +48,16 @@ PUT index_with_stem_exclusion_german_analyzer
 
 ## German analyzer internals
 
-The `german` analyzer is build using the following:
+The `german` analyzer is built using the following components:
 
-Tokenizer: `standard`
+- Tokenizer: `standard`
 
-Token filters:
-- lowercase
-- stop (German)
-- keyword
-- normalization (German)
-- stemmer (German)
+- Token filters:
+  - lowercase
+  - stop (German)
+  - keyword
+  - normalization (German)
+  - stemmer (German)
 
 ## Custom German analyzer
 

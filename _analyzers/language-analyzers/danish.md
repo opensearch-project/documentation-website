@@ -48,15 +48,15 @@ PUT index_with_stem_exclusion_danish_analyzer
 
 ## Danish analyzer internals
 
-The `danish` analyzer is build using the following:
+The `danish` analyzer is built using the following components:
 
-Tokenizer: `standard`
+- Tokenizer: `standard`
 
-Token filters:
-- lowercase
-- stop (Danish)
-- keyword
-- stemmer (Danish)
+- Token filters:
+  - lowercase
+  - stop (Danish)
+  - keyword
+  - stemmer (Danish)
 
 ## Custom Danish analyzer
 

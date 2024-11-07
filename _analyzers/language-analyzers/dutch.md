@@ -48,16 +48,16 @@ PUT index_with_stem_exclusion_dutch_analyzer
 
 ## Dutch analyzer internals
 
-The `dutch` analyzer is build using the following:
+The `dutch` analyzer is built using the following components:
 
-Tokenizer: `standard`
+- Tokenizer: `standard`
 
-Token filters:
-- lowercase
-- stop (Dutch)
-- keyword
-- stemmer_override
-- stemmer (Dutch)
+- Token filters:
+  - lowercase
+  - stop (Dutch)
+  - keyword
+  - stemmer_override
+  - stemmer (Dutch)
 
 ## Custom Dutch analyzer
 

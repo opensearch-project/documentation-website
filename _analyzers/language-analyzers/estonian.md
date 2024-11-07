@@ -48,15 +48,15 @@ PUT index_with_stem_exclusion_estonian_analyzer
 
 ## Estonian analyzer internals
 
-The `estonian` analyzer is build using the following:
+The `estonian` analyzer is built using the following components:
 
-Tokenizer: `standard`
+- Tokenizer: `standard`
 
-Token filters:
-- lowercase
-- stop (Estonian)
-- keyword
-- stemmer (Estonian)
+- Token filters:
+  - lowercase
+  - stop (Estonian)
+  - keyword
+  - stemmer (Estonian)
 
 ## Custom Estonian analyzer
 

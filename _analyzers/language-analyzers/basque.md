@@ -48,15 +48,15 @@ PUT index_with_stem_exclusion_basque_analyzer
 
 ## Basque analyzer internals
 
-The `basque` analyzer is build using the following:
+The `basque` analyzer is built using the following components:
 
-Tokenizer: `standard`
+- Tokenizer: `standard`
 
-Token filters:
-- lowercase
-- stop (Basque)
-- keywords
-- stemmer (Basque)
+- Token filters:
+  - lowercase
+  - stop (Basque)
+  - keywords
+  - stemmer (Basque)
 
 ## Custom Basque analyzer
 

@@ -48,17 +48,17 @@ PUT index_with_stem_exclusion_irish_analyzer
 
 ## Irish analyzer internals
 
-The `irish` analyzer is build using the following:
+The `irish` analyzer is built using the following components:
 
-Tokenizer: `standard`
+- Tokenizer: `standard`
 
-Token filters:
-- hyphenation (Irish)
-- elision (Irish)
-- lowercase (Irish)
-- stop (Irish)
-- keyword
-- stemmer (Irish)
+- Token filters:
+  - hyphenation (Irish)
+  - elision (Irish)
+  - lowercase (Irish)
+  - stop (Irish)
+  - keyword
+  - stemmer (Irish)
 
 ## Custom Irish analyzer
 

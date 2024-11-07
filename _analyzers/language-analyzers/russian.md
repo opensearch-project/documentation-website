@@ -48,15 +48,15 @@ PUT index_with_stem_exclusion_russian_analyzer
 
 ## Russian analyzer internals
 
-The `russian` analyzer is build using the following:
+The `russian` analyzer is built using the following components:
 
-Tokenizer: `standard`
+- Tokenizer: `standard`
 
-Token Filters:
-- lowercase
-- stop (Russian)
-- keyword
-- stemmer (Russian)
+- Token Filters:
+  - lowercase
+  - stop (Russian)
+  - keyword
+  - stemmer (Russian)
 
 ## Custom Russian analyzer
 

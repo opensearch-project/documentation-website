@@ -48,15 +48,15 @@ PUT index_with_stem_exclusion_norwegian_analyzer
 
 ## Norwegian analyzer internals
 
-The `norwegian` analyzer is build using the following:
+The `norwegian` analyzer is built using the following components:
 
-Tokenizer: `standard`
+- Tokenizer: `standard`
 
-Token filters:
-- lowercase
-- stop (Norwegian)
-- keyword
-- stemmer (Norwegian)
+- Token filters:
+  - lowercase
+  - stop (Norwegian)
+  - keyword
+  - stemmer (Norwegian)
 
 ## Custom Norwegian analyzer
 

@@ -48,15 +48,15 @@ PUT index_with_stem_exclusion_greek_analyzer
 
 ## Greek analyzer internals
 
-The `greek` analyzer is build using the following:
+The `greek` analyzer is built using the following components:
 
-Tokenizer: `standard`
+- Tokenizer: `standard`
 
-Token filters:
-- lowercase
-- stop (Greek)
-- keyword
-- stemmer (Greek)
+- Token filters:
+  - lowercase
+  - stop (Greek)
+  - keyword
+  - stemmer (Greek)
 
 ## Custom Greek analyzer
 

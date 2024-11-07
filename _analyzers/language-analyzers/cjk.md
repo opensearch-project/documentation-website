@@ -48,15 +48,15 @@ PUT index_with_stem_exclusion_cjk_analyzer
 
 ## CJK analyzer internals
 
-The `cjk` analyzer is build using the following:
+The `cjk` analyzer is built using the following components:
 
-Tokenizer: `standard`
+- Tokenizer: `standard`
 
-Token filters:
-- cjk_width
-- lowercase
-- cjk_bigram
-- stop (similar to English)
+- Token filters:
+  - cjk_width
+  - lowercase
+  - cjk_bigram
+  - stop (similar to English)
 
 ## Custom CJK analyzer
 

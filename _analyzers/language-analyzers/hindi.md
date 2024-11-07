@@ -48,18 +48,18 @@ PUT index_with_stem_exclusion_hindi_analyzer
 
 ## Hindi analyzer internals
 
-The `hindi` analyzer is build using the following:
+The `hindi` analyzer is built using the following components:
 
-Tokenizer: `standard`
+- Tokenizer: `standard`
 
-Token filters:
-- lowercase
-- decimal_digit
-- keyword
-- normalization (indic)
-- normalization (Hindi)
-- stop (Hindi)
-- stemmer (Hindi)
+- Token filters:
+  - lowercase
+  - decimal_digit
+  - keyword
+  - normalization (indic)
+  - normalization (Hindi)
+  - stop (Hindi)
+  - stemmer (Hindi)
 
 ## Custom Hindi analyzer
 
