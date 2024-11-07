@@ -67,7 +67,7 @@ The processor supports the following invocation types:
 
 ## Behavior
 
-When configured for batching, the AWS Lambda processor groups multiple events into a single request. This grouping is governed by batch thresholds, which can be based on event count, size limit, or timeout. The processor then sends the entire batch to the Lambda function as a single payload.
+When configured for batching, the AWS Lambda processor groups multiple events into a single request. This grouping is governed by batch thresholds, which can be based on the event count, size limit, or timeout. The processor then sends the entire batch to the Lambda function as a single payload.
 
 ## Lambda response handling
 
