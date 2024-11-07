@@ -109,4 +109,4 @@ component: paths_and_http_methods
 The `spec-insert` plugin ignores all files and folders listed in the [./_config.yml#exclude](./_config.yml) list, which is also the list of files and folders that Jekyll ignores.
 
 ### CI/CD
-The `spec-insert` plugin is run as part of the CI/CD pipeline to ensure that the API components are up-to-date in the documentation. This is done through the [update-api-components.yml](.github/workflows/update-api-components.yml) GitHub Action workflow that creates a pull request with the updated API components every Monday.
+The `spec-insert` plugin is run as part of the CI/CD pipeline to ensure that the API components are up-to-date in the documentation. This is done through the [update-api-components.yml](.github/workflows/update-api-components.yml) GitHub Action workflow that creates a pull request with the updated API components every Sunday.
