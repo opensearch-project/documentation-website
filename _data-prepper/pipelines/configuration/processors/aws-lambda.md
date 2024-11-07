@@ -26,7 +26,7 @@ Field                | Type    | Required | Description
 `aws.sts_role_arn`   | String  | Optional | The Amazon Resource Name (ARN) of the role to assume before invoking the Lambda function.               
 `max_retries`        | Integer | Optional | The maximum number of retries for failed invocations. Default is `3`.             
 `batch`              | Object  | Optional | The batch settings for the Lambda invocations. Default is `key_name = "events"`. Default threshold is `event_count=100`, `maximum_size="5mb"`, and `event_collect_timeout = 10s`.                            
-`lambda_when`        | String  | Optional | Conditional expression to determine when to invoke the Lambda processor.     
+`lambda_when`        | String  | Optional | A conditional expression that determines when to invoke the Lambda processor.     
 `response_codec`     | Object  | Optional | Codec configuration for parsing Lambda responses. Default is `json`.
 `tags_on_match_failure` | List | Optional | List of tags to add to events when Lambda matching fails or encounters an unexpected error.
 `sdk_timeout`        | Duration| Optional | Configures the SDK's client connection timeout period. Default is `60s`. 
