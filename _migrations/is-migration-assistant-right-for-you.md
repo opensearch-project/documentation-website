@@ -1,10 +1,12 @@
 ---
 layout: default
-title: Is migration assistant right for you?
+title: Is Migration Assistant right for you?
 nav_order: 5
 ---
 
-Before deciding if this is the right tool for you, it's important to assess your specific needs and understand the available tools for performing an upgrade or migration.
+# Is Migration Assistant right for you?
+
+Before deciding if Migration Assistant is right for you, it's important to assess your specific needs and understand the available tools for performing an upgrade or migration.
 
 Migration Assistant addresses gaps found in other migration solutions, but in some cases, alternative tools may be a better fit.
 
@@ -24,8 +26,9 @@ There are also tools available for migrating cluster configuration, templates, a
 | Elasticsearch 7.17          | OpenSearch 2.14                  |
 | OpenSearch 1.3              | OpenSearch 2.14                  |
 
-> [!NOTE]  
-> We expect minor versions within the specified major versions above (i.e., Elasticsearch 6 and 7 and OpenSearch 1 and 2) to be supported, but the versions above are tested.
+ 
+Minor versions within the specified major versions above (i.e., Elasticsearch 6 and 7 and OpenSearch 1 and 2) at not yet supported, but the versions above are tested.
+{: .note}
 
 ### Supported Source and Target Platforms
 * Self-managed (hosted by cloud provider or on-premises)
@@ -33,7 +36,9 @@ There are also tools available for migrating cluster configuration, templates, a
 
 The tooling is designed to work with other cloud provider platforms, but it is not officially tested with these other platforms. If you would like to add support, please contact one of the maintainers on [GitHub](https://github.com/opensearch-project/opensearch-migrations/blob/main/MAINTAINERS.md).
 
-### Future Migration Paths
+### Future migration paths
+
+The following table shows planned migration paths:
 
 | **Source Version**          | **Target Version**               | **Tracking Issue** |
 |-----------------------------|----------------------------------|--------------------|
@@ -43,28 +48,30 @@ The tooling is designed to work with other cloud provider platforms, but it is n
 | Elasitcsearch 1.5           | OpenSearch 2.x                   |[Issue](https://github.com/opensearch-project/opensearch-migrations/issues/1070)|
 | OpenSearch 2.x              | OpenSearch 2.x                   |[Issue](https://github.com/opensearch-project/opensearch-migrations/issues/1038)|
 
-## Supported Components
+## Supported components
 
 Before starting a migration, consider the scope of the components involved. The table below outlines the components that should be considered for migration, indicates their support by the Migration Assistant, and provides comments and recommendations.
 
-| Component                        | Supported           | Comments and Recommendations                                                                                                                                                                         |
-|----------------------------------|---------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Documents**                    | Yes                 | Migrate existing data with Reindex-from-Snapshot and live traffic with Capture-and-Replay                                                                                                           |
-| **Index Settings**               | Yes                 | Migrate with Metadata Migration Tool                                                                                                                                                                |
-| **Index Mappings**               | Yes                 | Migrate with Metadata Migration Tool                                                                                                                                                                |
-| **Index Templates**              | Yes                 | Migrate with Metadata Migration Tool                                                                                                                                                                |
-| **Component Templates**          | Yes                 | Migrate with Metadata Migration Tool                                                                                                                                                                |
+| Component | Supported | Recommendations   |
+| :--- |:--- | :--- |
+| **Documents**  | Yes  | Migrate existing data with `reindex-from-snapshot` and live traffic with `capture-and-replay`. |
+| **Index settings**  | Yes   | Migrate with the metadata migration tool. |
+| **Index mappings**  | Yes   | Migrate with metadata migration tool.  |
+| **Index templates**   | Yes   | Migrate with metadata migration tool. |
+| **Component templates**          | Yes                 | Migrate with Metadata Migration Tool                                                                                                                                                                |
 | **Aliases**                      | Yes                 | Migrate with Metadata Migration Tool                                                                                                                                                                |
-| **ISM Policies**                 | Expected in 2025    | Manually migrate using API                                                                                                                                                                          |
-| **Elasticsearch Kibana Dashboards** | Expected in 2025 | Only needed if tooling is being used to migrate Elasticsearch Kibana Dashboards to OpenSearch Dashboards. Export JSON files from Kibana and import into OpenSearch Dashboards; before importing, use the [dashboardsSanitizer](https://github.com/opensearch-project/opensearch-migrations/tree/main/dashboardsSanitizer) tool on X-Pack visualizations like Canvas and Lens in Kibana Dashboards, as they may require recreation for compatibility with OpenSearch. |
-| **Security Constructs**          | No                  | Configure roles and permissions based on cloud provider recommendations. For example, if using AWS, leverage IAM for enhanced security management.                                                  |
+| **ISM policies**                 | Expected in 2025    | Manually migrate using API                                                                                                                                                                          |
+| **Elasticsearch kibana dashboards** | Expected in 2025 | Only needed if tooling is being used to migrate Elasticsearch Kibana Dashboards to OpenSearch Dashboards. Export JSON files from Kibana and import into OpenSearch Dashboards; before importing, use the [dashboardsSanitizer](https://github.com/opensearch-project/opensearch-migrations/tree/main/dashboardsSanitizer) tool on X-Pack visualizations like Canvas and Lens in Kibana Dashboards, as they may require recreation for compatibility with OpenSearch. |
+| **Security constructs**          | No                  | Configure roles and permissions based on cloud provider recommendations. For example, if using AWS, leverage IAM for enhanced security management.                                                  |
 | **Plugins**                      | No                  | Check plugin compatibility; some Elasticsearch plugins may not have direct equivalents in OpenSearch.                                                                                              |
 
 ---
 
-## OpenSearch Migrations Assessment - Questionnaire
+## Migration Assistant - questionnaire
 
-### High-Level / Project Management Questions:
+The following questionnaire can help you decide whether migration assistant is right for you?
+
+### High-level / Project management questions:
 
 1. **By when do you expect the migration to be completed?**  
    *Why it’s important:*  
