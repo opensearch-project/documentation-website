@@ -134,7 +134,7 @@ sink:
 
 ## Usage
 
-The sink supports the following innovation types:
+The sink supports the following invocation types:
 
 - `event`: Function is triggered asynchronously without waiting for a response.
 - `request-response`: Not supported for sink operations.
