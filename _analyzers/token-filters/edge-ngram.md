@@ -5,7 +5,7 @@ parent: Token filters
 nav_order: 120
 ---
 # Edge n-gram token filter
-The `edge_ngram` token filter generates n-grams (substrings) from the beginning (edge) of a token. It's particularly useful in scenarios like autocomplete or prefix matching, where you want to match the start of words or phrases as the user types them.
+The `edge_ngram` token filter is very similar to `ngram` token filter where a particular string is split into different size substrings. The `edge_ngram` token filter, however, generates n-grams (substrings) only from the beginning (edge) of a token. It's particularly useful in scenarios like autocomplete or prefix matching, where you want to match the start of words or phrases as the user types them.
 
 ## Parameters
 
