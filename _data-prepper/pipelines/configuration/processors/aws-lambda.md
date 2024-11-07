@@ -23,7 +23,7 @@ Field                | Type    | Required | Description
 `function_name`      | String  | Required | The name of the AWS Lambda function to invoke.                               
 `invocation_type`    | String  | Required | Specifies the invocation type, either `request-response` or `event`. Default is `request-response`.           
 `aws.region`         | String  | Required | The AWS Region in which the Lambda function is located.                         
-`aws.sts_role_arn`   | String  | Optional | ARN of the role to assume before invoking the Lambda function.               
+`aws.sts_role_arn`   | String  | Optional | The Amazon Resource Name (ARN) of the role to assume before invoking the Lambda function.               
 `max_retries`        | Integer | Optional | Maximum number of retries for failed invocations. Default is `3`.             
 `batch`              | Object  | Optional | Batch settings for the Lambda invocations. Default is `key_name = "events"`. Default threshold is `event_count=100`, `maximum_size="5mb"`, and `event_collect_timeout = 10s`.                            
 `lambda_when`        | String  | Optional | Conditional expression to determine when to invoke the Lambda processor.     
