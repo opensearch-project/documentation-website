@@ -27,7 +27,7 @@ PUT /persian-index
 
 ## Stem exclusion
 
-You can also use `stem_exclusion` with this language analyzer using the following command:
+You can use `stem_exclusion` with this language analyzer using the following command:
 
 ```json
 PUT index_with_stem_exclusion_persian_analyzer

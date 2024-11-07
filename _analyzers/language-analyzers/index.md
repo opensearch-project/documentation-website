@@ -41,13 +41,13 @@ PUT my-index
 }
 ```
 
-## stem_exclusion
+## Stem exclusion
 
-The `stem_exclusion` feature can be applied to many language analyzers by providing a list of lowercase words that should be excluded from stemming. Internally, OpenSearch uses the `keyword_marker` token filter to mark these words as keywords, ensuring they are not stemmed.
+You can apply stem exclusion to many language analyzers by providing a list of lowercase words that should be excluded from stemming. Internally, OpenSearch uses the `keyword_marker` token filter to mark these words as keywords, ensuring they are not stemmed.
 
-## Example stem_exclusion
+## Stem exclusion example
 
-You can use the following command to configure `stem_exclusion`:
+Use the following request to configure `stem_exclusion`:
 
 ```json
 PUT index_with_stem_exclusion_english_analyzer
@@ -66,7 +66,7 @@ PUT index_with_stem_exclusion_english_analyzer
 ```
 {% include copy-curl.html %}
 
-Following languages support `stem_exclusion`:
+The following languages support stem exclusion:
 
 - arabic 
 - armenian
@@ -101,9 +101,9 @@ Following languages support `stem_exclusion`:
 - turkish
 
 
-## stem_exclusion with custom analyzer
+## Stem exclusion with custom analyzers
 
-All language analyzers are made up from tokenizers and token filters specific to the particular language. If you want to implement a custom version of the language analyzer with `stem_exclusion`, you need to configure `keyword_marker` token filter and list the necessary words in `keywords` parameter, see the following example:
+All language analyzers consist of tokenizers and token filters specific to the particular language. If you want to implement a custom version of the language analyzer with stem exclusion, you need to configure the `keyword_marker` token filter and list the words excluded from stemming in the `keywords` parameter:
 
 ```json
 PUT index_with_keyword_marker_analyzer

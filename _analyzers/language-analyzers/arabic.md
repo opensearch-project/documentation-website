@@ -27,7 +27,7 @@ PUT /arabic-index
 
 ## Stem exclusion
 
-You can also use `stem_exclusion` with this language analyzer using the following command:
+You can use `stem_exclusion` with this language analyzer using the following command:
 
 ```json
 PUT index_with_stem_exclusion_arabic
@@ -48,11 +48,11 @@ PUT index_with_stem_exclusion_arabic
 
 ## Arabic analyzer internals
 
-The `arabic` analyzer is build using the following:
+The `arabic` analyzer is built using the following components:
 
-Tokenizer: `standard`
+- Tokenizer: `standard`
 
-Token filters:
+- Token filters:
 - lowercase
 - decimal_digit
 - stop (Arabic)
@@ -62,7 +62,7 @@ Token filters:
 
 ## Custom Arabic analyzer
 
-You can create custom Arabic analyzer using the following command:
+You can create a custom Arabic analyzer using the following command:
 
 ```json
 PUT /arabic-index
