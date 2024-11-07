@@ -3,7 +3,7 @@
 # About the OpenSearch documentation repo
 
 The `documentation-website` repository contains the user documentation for OpenSearch. You can find the rendered documentation at [opensearch.org/docs](https://opensearch.org/docs).
-The markdown files in this repository are rendered into HTML pages using [Jekyll](https://jekyllrb.com/). Check the [DEVELOPER_GUIDE](DEVELOPER_GUIDE.md) for more information on how to use Jekyll for this repository.
+The markdown files in this repository are rendered into HTML pages using [Jekyll](https://jekyllrb.com/). Check the [DEVELOPER_GUIDE](DEVELOPER_GUIDE.md) for more information about how to use Jekyll for this repository.
 
 
 ## Contributing
