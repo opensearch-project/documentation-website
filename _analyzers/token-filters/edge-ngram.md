@@ -1,13 +1,11 @@
 ---
 layout: default
-title: Edge ngram
+title: Edge n-gram
 parent: Token filters
 nav_order: 120
 ---
-<!-- vale off -->
-# Edge ngram token filter
-<!-- vale on -->
-The `edge_ngram` token filter generates n-grams (substrings) from the beginning (edge) of a token. It's particularly useful in scenarios like autocomplete or prefix matching, where you want to match the start of words or phrases as the user types.
+# Edge n-gram token filter
+The `edge_ngram` token filter generates n-grams (substrings) from the beginning (edge) of a token. It's particularly useful in scenarios like autocomplete or prefix matching, where you want to match the start of words or phrases as the user types them.
 
 ## Parameters
 
@@ -16,7 +14,7 @@ The `edge_ngram` token filter can be configured with the following parameters.
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
 `min_gram` | Optional | Integer | The minimum length of the n-grams that will be generated. Default is `1`.
-`max_gram` | Optional | Integer | The maximum length of the n-grams that will be generated. Default is `1`. Beware of setting this value too low, as any searches that exceed this value will not be found, as that token would not exist. For example if `max_gram` is set to `3` and the word "banana" is indexed, longest token that will be created is "ban". If the user searches for "banana", no matches will be found. You can use `truncate` token filter as search analyzer to mitigate this risk.
+`max_gram` | Optional | Integer | The maximum length of the n-grams that will be generated. Default is `1` for the `edge_ngram` filter and `2` for custom token filters. Avoid setting this parameter to a low value. If the value is set too low, only very short n-grams will be generated and the search term will not be found. For example, if `max_gram` is set to `3` and you index the word "banana", the longest generated token will be "ban". If the user searches for "banana", no matches will be returned. You can use the `truncate` token filter as a search analyzer to mitigate this risk.
 `preserve_original` | Optional | Boolean | Include the original token in the output. Default is `false` .
 
 ## Example
