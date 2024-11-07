@@ -94,7 +94,7 @@ Integration tests for this plugin are executed separately from the main Data Pre
 
 ## AWS Lambda sink
 
-You can configure the sink using the following configuration options:
+You can configure the sink using the following configuration options.
 
 Field             | Type    | Required | Description                                                                 
 ----------------- | ------- | -------- | ---------------------------------------------------------------------------- 
