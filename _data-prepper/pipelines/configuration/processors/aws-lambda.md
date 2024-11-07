@@ -80,7 +80,7 @@ The `response_events_match` setting defines how Data Prepper handles the relatio
 
 Note the following limitations:
 
-- Payload limitation: 6MB payload limit
+- Payload limitation: 6 MB payload limit
 - Response codec: JSON-only codec support
 
 ## Integration testing
