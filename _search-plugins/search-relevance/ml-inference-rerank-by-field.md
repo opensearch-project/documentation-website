@@ -177,7 +177,7 @@ POST /nyc_areas/_search?search_pipeline=my_pipeline
 {% include copy-curl.html %}
 
 Notice that in the result of this search pipeline we added the previous score to observe the difference from BM25 with the cross encoder.
-See how Astoria ranked higher even though it didnt have as much keyword matches as harlem did.
+See how Astoria ranked higher even though it didnt have as much keyword matches as Harlem did.
 
 ```json
 {
