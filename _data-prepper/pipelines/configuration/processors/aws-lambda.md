@@ -12,7 +12,7 @@ The AWS Lambda integration allows developers to use serverless computing capabil
 
 ## AWS Lambda processor configuration
 
-The `aws_lambda processor` enables invocation of an AWS Lambda function within your Data Prepper pipeline to process events. It supports both synchronous or asynchronous invocations based on your use case.
+The `aws_lambda processor` enables invocation of an AWS Lambda function within your Data Prepper pipeline to process events. It supports both synchronous and asynchronous invocations based on your use case.
 
 ## Configuration fields
 
