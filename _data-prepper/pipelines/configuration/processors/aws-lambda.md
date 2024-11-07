@@ -57,7 +57,7 @@ processors:
 
 ## Usage
 
-The processor supports the following innovation types:
+The processor supports the following invocation types:
 
 - `request-response`: Processor waits for Lambda function completion before proceeding.
 - `event`: Function is triggered asynchronously without waiting for a response.
