@@ -29,7 +29,7 @@ Analyzer | Analysis performed | Analyzer output
 
 ## Language analyzers
 
-OpenSearch supports multiple language analyzers. For more information, see [Language analyzers]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/).
+OpenSearch supports multiple language analyzers. For more information, see [Language analyzers]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/index).
 
 ## Additional analyzers
 
