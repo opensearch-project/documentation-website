@@ -136,7 +136,7 @@ sink:
 
 The sink supports the following invocation types:
 
-- `event`: Function is triggered asynchronously without waiting for a response.
+- `event`: The function is triggered asynchronously without waiting for a response.
 - `request-response`: Not supported for sink operations.
 - `Batching`: When enabled, events are aggregated and sent in bulk to optimize Lambda invocations. Default is `enabled`.
 - `DLQ`: Setup available for routing and precessing events that persistently fail Lamba invocations after multiple retry attempts.
