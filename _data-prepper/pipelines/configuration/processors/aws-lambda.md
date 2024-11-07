@@ -73,7 +73,7 @@ When configured for batching, the AWS Lambda processor groups multiple events in
 
 The `response_events_match` setting defines how Data Prepper handles the relationship between batch events sent to Lambda and the response received:
 
-- `true`: Lambda returns a JSON array with results for each batched event. Data Prepper maps this array back to its corresponding original event. , ensuring that each event in the batch gets the corresponding part of the response from the array.
+- `true`: Lambda returns a JSON array with results for each batched event. Data Prepper maps this array back to its corresponding original event, ensuring that each event in the batch gets the corresponding part of the response from the array.
 - `false`: Lambda returns one or multiple events for the entire batch. Response events are not correlated with the original events. Original event metadata is not preserved in the response events. For example, when `response_events_match` is set to `true`, the Lambda function is expected to return an equal number of response events as the orignal requests, maintaining the original order.
 
 ## Limitations
