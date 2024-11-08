@@ -20,7 +20,7 @@ You can run the Jekyll server locally to view the rendered HTML pages using the 
 3. Run `bundle exec jekyll serve` to start the Jekyll server locally. (This can take several minutes to be ready.)
 4. Open your browser and navigate to `http://localhost:4000` to view the rendered HTML pages.
 
-## Using spec-insert Jekyll plugin
+## Using the `spec-insert` Jekyll plugin
 The `spec-insert` Jekyll plugin is used to insert API components into the markdown files. The plugin downloads the [latest OpenSearch Specification](https://github.com/opensearch-project/opensearch-api-specification) and renders the API components from the spec. This aims to reduce the manual effort required to keep the documentation up-to-date.
 
 To use this plugin, make sure that you have installed Ruby 3.1.0 or later and the required gems by running `bundle install`.
