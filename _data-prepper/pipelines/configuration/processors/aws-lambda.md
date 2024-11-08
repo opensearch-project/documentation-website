@@ -1,6 +1,6 @@
 ---
 layout: default
-title: AWS Lambda integration for Data Prepper
+title: aws_lambda
 parent: Processors
 grand_parent: Pipelines
 nav_order: 10
@@ -8,11 +8,12 @@ nav_order: 10
 
 # AWS Lambda integration for Data Prepper
 
-The AWS Lambda integration allows developers to use serverless computing capabilities within their Data Prepper pipelines for flexible event processing and data routing.
+The [AWS Lambda](https://aws.amazon.com/lambda/) integration allows developers to use serverless computing 
+capabilities within their Data Prepper pipelines for flexible event processing and data routing.
 
 ## AWS Lambda processor configuration
 
-The `aws_lambda processor` enables invocation of an AWS Lambda function within your Data Prepper pipeline to process events. It supports both synchronous and asynchronous invocations based on your use case.
+The `aws_lambda` processor enables invocation of an AWS Lambda function within your Data Prepper pipeline to process events. It supports both synchronous and asynchronous invocations based on your use case.
 
 ## Configuration fields
 
@@ -61,8 +62,8 @@ The processor supports the following invocation types:
 
 - `request-response`: The processor waits for Lambda function completion before proceeding.
 - `event`: The function is triggered asynchronously without waiting for a response.
-- `Batching`: When enabled, events are aggregated and sent in bulk to optimize Lambda invocations. Batch thresholds control the event count, size limit, and timeout.
-- `Codec`: JSON is used for both request and response codecs. Lambda must return JSON array outputs.
+- `batch`: When enabled, events are aggregated and sent in bulk to optimize Lambda invocations. Batch thresholds control the event count, size limit, and timeout.
+- `codec`: JSON is used for both request and response codecs. Lambda must return JSON array outputs.
 - `tags_on_match_failure`: Custom tags can be applied to events when Lambda processing fails or encounters unexpected issues.
 
 ## Behavior
@@ -90,71 +91,5 @@ Integration tests for this plugin are executed separately from the main Data Pre
 ```
 ./gradlew :data-prepper-plugins:aws-lambda:integrationTest -Dtests.processor.lambda.region="us-east-1" -Dtests.processor.lambda.functionName="lambda_test_function"  -Dtests.processor.lambda.sts_role_arn="arn:aws:iam::123456789012:role/dataprepper-role
 ```
-{% include copy-curl.html %}
 
-## AWS Lambda sink
-
-You can configure the sink using the following configuration options.
-
-Field             | Type    | Required | Description                                                                 
------------------ | ------- | -------- | ---------------------------------------------------------------------------- 
-`function_name`   | String  | Required | The name of the AWS Lambda function to invoke.                               
-`invocation_type` | String  | Optional | Specifies the invocation type. Default is `event`.             
-`aws.region`      | String  | Required | The AWS Region in which the Lambda function is located.                         
-`aws.sts_role_arn`| String  | Optional | The ARN of the role to assume before invoking the Lambda function.               
-`max_retries`     | Integer | Optional | The maximum number of retries for failed invocations. Default is `3`.             
-`batch`           | Object  | Optional | The batch settings for the Lambda invocations. Default is `key_name = "events"`. Default threshold is `event_count=100`, `maximum_size="5mb"`, and `event_collect_timeout = 10s`.                              
-`lambda_when`     | String  | Optional | A conditional expression that determines when to invoke the Lambda processor.          
-`dlq`             | Object  | Optional | A dead-letter queue (DLQ) configuration for failed invocations.                
-
-#### Example configuration
-
-```
-sink:
-  - aws_lambda:
-      function_name: "my-lambda-sink"
-      invocation_type: "event"
-      aws:
-        region: "us-west-2"
-        sts_role_arn: "arn:aws:iam::123456789012:role/my-lambda-sink-role"
-      max_retries: 5
-      batch:
-        key_name: "events"
-        threshold:
-          event_count: 50
-          maximum_size: "3mb"
-          event_collect_timeout: PT5S
-      lambda_when: "event['type'] == 'log'"
-      dlq:
-        region: "us-east-1"
-        sts_role_arn: "arn:aws:iam::123456789012:role/my-sqs-role"
-        bucket: "<<your-dlq-bucket-name>>"
-```
-{% include copy-curl.html %}
-
-## Usage
-
-The sink supports the following invocation types:
-
-- `event`: The function is triggered asynchronously without waiting for a response.
-- `request-response`: Not supported for sink operations.
-- `Batching`: When enabled, events are aggregated and sent in bulk to optimize Lambda invocations. Default is `enabled`.
-- `DLQ`:  A setup available for routing and processing events that persistently fail Lambda invocations after multiple retry attempts.
-
-## Advanced configurations
-
-The AWS Lambda processor and sink provide the following advanced options for security and performance optimization: 
-
-- AWS Identity and Access Management (IAM) role assumption: The processor and sink support assuming the specified IAM role `aws.sts_role_arn` before Lambda invocation. This enhances secure handling by providing access control to AWS resources.
-- Concurrency management: When using the `event` invocation type, consider Lambda concurrency limits to avoid throttling.
-
-For more information about AWS Lambda integration with Data Prepper, see the [AWS Lambda documentation](https://docs.aws.amazon.com/lambda).
-
-## Integration testing
-
-Integration tests for this plugin are executed separately from the main Data Prepper build process. Use the following Gradle command to run these tests:
-
-```
-./gradlew :data-prepper-plugins:aws-lambda:integrationTest -Dtests.sink.lambda.region="us-east-1" -Dtests.sink.lambda.functionName="lambda_test_function"  -Dtests.sink.lambda.sts_role_arn="arn:aws:iam::123456789012:role/dataprepper-role
-```
 {% include copy-curl.html %}
