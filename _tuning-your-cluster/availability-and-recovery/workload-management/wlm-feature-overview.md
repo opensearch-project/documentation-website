@@ -21,27 +21,15 @@ System administrators can dynamically manage query groups using the Workload man
 The following example adds a query group with the named `analytics`:
 
 ```json
-
-```json
-
 PUT _wlm/query_group
-
 {
-
   “name”: “analytics”,
-
   “resiliency_mode”: “enforced”,
-
   “resource_limits”: {
-
     “cpu”: 0.4,
-
     “memory”: 0.2
-
   }
-
 }
-
 ```
 
 ## Workload management settings
