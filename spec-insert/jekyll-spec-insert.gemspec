@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Theo Truong']
   spec.email         = ['theo.nam.truong@gmail.com']
 
-  spec.summary       = 'A Jekyll plugin for inserting OpenSearch OpenAPI specifications into Jekyll sites'
+  spec.summary       = 'A Jekyll plugin for inserting OpenSearch OpenAPI specifications into Jekyll sites.'
 
   spec.files         = Dir['lib/**/*.rb']
   spec.require_paths = ['lib']
