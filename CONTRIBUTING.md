@@ -160,11 +160,11 @@ Optionally, you can install the [Vale VSCode](https://github.com/chrischinchilla
 
 ## Troubleshooting
 
-This section details potential solutions for known issues.
+This section provides information about potential solutions for known issues.
 
-### Installing Ruby on Apple Silicon machines
+### Installing Ruby on an Apple silicon machine
 
-If you're having trouble installing Ruby with `rvm` on Apple Silicon machines, it could be to do an OpenSSL version misalignment. To fix this issue, use the following command, replacing `<openssl-version>` with your [desired version](https://github.com/ruby/openssl/blob/master/README.md):
+If you're having trouble installing Ruby with `rvm` on an Apple silicon machine, it could be because of an OpenSSL version misalignment. To fix this issue, use the following command, replacing `<openssl-version>` with your [desired version](https://github.com/ruby/openssl/blob/master/README.md):
 
 ```
 # Assumes Brew is installed
