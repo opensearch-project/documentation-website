@@ -1,4 +1,4 @@
-# Developer Guide
+# Developer guide
  - [Introduction](#introduction)
  - [Starting the Jekyll server locally](#starting-the-jekyll-server-locally)
  - [Using spec-insert Jekyll plugin](#using-spec-insert-jekyll-plugin)
@@ -19,7 +19,7 @@ You can run the Jekyll server locally to view the rendered HTML pages after maki
 - Open your browser and navigate to `http://localhost:4000` to view the rendered HTML pages.
 
 ## Using spec-insert Jekyll plugin
-The `spec-insert` Jekyll plugin is used to insert API components into the markdown files. The plugin downloads the latest OpenSearch Specification and renders the API components from the spec. This aims to reduce the manual effort required to keep the documentation up-to-date.
+The `spec-insert` Jekyll plugin is used to insert API components into the markdown files. The plugin downloads the [latest OpenSearch Specification](https://github.com/opensearch-project/opensearch-api-specification) and renders the API components from the spec. This aims to reduce the manual effort required to keep the documentation up-to-date.
 
 To use this plugin, make sure that you have installed Ruby 3.1.0 or later and the required gems by running `bundle install`.
 
@@ -55,7 +55,7 @@ The plugin will pull the newest OpenSearch Spec from its [repository](https://gi
 bundle exec jekyll spec-insert --refresh-spec
 ```
 
-### Insert query parameters
+### Inserting query parameters
 To insert query parameters table of the `cat.indices` API, use the following snippet:
 ```markdown
 <!-- spec_insert_start
@@ -81,7 +81,7 @@ pretty: true
 <!-- spec_insert_end -->
 ```
 
-### Insert path parameters
+### Inserting path parameters
 
 To insert path parameters table of the `indices.create` API, use the following snippet:
 ```markdown
@@ -94,7 +94,7 @@ component: path_parameters
 
 This table behaves the same as the query parameters table except that it does not accept the `include_global` argument.
 
-### Insert paths and HTTP methods
+### Inserting paths and HTTP methods
 
 To insert paths and HTTP methods of the `search` API, use the following snippet:
 ```markdown
@@ -105,7 +105,7 @@ component: paths_and_http_methods
 <!-- spec_insert_end -->
 ```
 
-### Ignored files and folders
+### Ignoring files and folders
 The `spec-insert` plugin ignores all files and folders listed in the [./_config.yml#exclude](./_config.yml) list, which is also the list of files and folders that Jekyll ignores.
 
 ### CI/CD
