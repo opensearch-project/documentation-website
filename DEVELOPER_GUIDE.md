@@ -83,9 +83,9 @@ You can customize the query parameters table with the following columns:
 
  You can also customize this component with the following settings:
  
-- `include_global` (Boolean, default to `false`): Includes global query parameters in the table.
-- `include_deprecated` (Boolean, default to `true`): Includes deprecated parameters in the table.
-- `pretty` (Boolean, default to `false`): Renders the table in the pretty format instead of the compact format.
+- `include_global` (Boolean; default is `false`): Includes global query parameters in the table.
+- `include_deprecated` (Boolean; default is `true`): Includes deprecated parameters in the table.
+- `pretty` (Boolean; default is `false`): Renders the table in the pretty format instead of the compact format.
 
 You can customize the query parameters table with the following columns:
 
