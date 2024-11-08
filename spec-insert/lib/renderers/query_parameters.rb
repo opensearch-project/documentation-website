@@ -7,7 +7,7 @@ require_relative 'parameter_table_renderer'
 class QueryParameters < BaseMustacheRenderer
   self.template_file = "#{__dir__}/templates/query_parameters.mustache"
 
-  # @param [Action] action
+  # @param [Action] action API Action
   # @param [InsertArguments] args
   def initialize(action, args)
     super(nil)

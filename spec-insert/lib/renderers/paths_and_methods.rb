@@ -6,7 +6,7 @@ require_relative 'base_mustache_renderer'
 class PathsAndMethods < BaseMustacheRenderer
   self.template_file = "#{__dir__}/templates/paths_and_methods.mustache"
 
-  # @param [Action] action
+  # @param [Action] action API Action
   def initialize(action)
     super
     @action = action

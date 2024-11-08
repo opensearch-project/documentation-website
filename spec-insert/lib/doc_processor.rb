@@ -45,7 +45,7 @@ class DocProcessor
       (index..lines.length - 1).find { |i| lines[i].match?(END_MARKER) }
     end.compact
 
-    validate_markers(start_indices, end_indices)
+    validate_markers!(start_indices, end_indices)
 
     start_indices.zip(end_indices).map do |start, finish|
       [start, finish, SpecInsert.new(lines[start..finish])]
@@ -54,7 +54,7 @@ class DocProcessor
 
   # @param [Array<Integer>] start_indices
   # @param [Array<Integer>] end_indices
-  def validate_markers(start_indices, end_indices)
+  def validate_markers!(start_indices, end_indices)
     return if start_indices.length == end_indices.length &&
               start_indices.zip(end_indices).flatten.each_cons(2).all? { |a, b| a < b }
     raise SpecInsertError, 'Mismatched "spec_insert_start" and "spec_insert_end" markers.'

@@ -13,7 +13,7 @@ class SpecInsert < BaseMustacheRenderer
   COMPONENTS = Set.new(%w[query_params path_params paths_and_http_methods]).freeze
   self.template_file = "#{__dir__}/templates/spec_insert.mustache"
 
-  # @param [Array<String>] arg_lines the lines between <!-- doc_insert_start and -->
+  # @param [Array<String>] arg_lines the lines between "<!-- doc_insert_start" and "-->"
   def initialize(arg_lines)
     super
     @args = InsertArguments.new(arg_lines)
