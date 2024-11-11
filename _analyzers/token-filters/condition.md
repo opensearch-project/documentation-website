@@ -1,6 +1,6 @@
 ---
 layout: default
-title: condition
+title: Condition
 parent: Token filters
 nav_order: 70
 ---
