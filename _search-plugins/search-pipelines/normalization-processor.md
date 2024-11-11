@@ -25,7 +25,7 @@ OpenSearch supports two search types: `query_then_fetch` and `dfs_query_then_fet
 
 When you send a search request to a node, the node becomes a _coordinating node_. During the first phase of search, the _query phase_, the coordinating node routes the search request to all shards in the index, including primary and replica shards. Each shard then runs the search query locally and returns metadata about the matching documents, which includes their document IDs and relevance scores. The `normalization-processor` then normalizes and combines scores from different query clauses. The coordinating node merges and sorts the local lists of results, compiling a global list of top documents that match the query. After that, search execution enters a _fetch phase_, in which the coordinating node requests the documents in the global list from the shards where they reside. Each shard returns the documents' `_source` to the coordinating node. Finally, the coordinating node sends a search response containing the results back to you.
 
-## Request fields
+## Request body fields
 
 The following table lists all available request fields.
 
