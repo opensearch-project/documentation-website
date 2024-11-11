@@ -311,6 +311,7 @@ plugins:
   - jekyll-remote-theme
   - jekyll-redirect-from
   - jekyll-sitemap
+  - jekyll-spec-insert
 
 # This format has to conform to RFC822
 last-modified-at:
@@ -320,6 +321,8 @@ last-modified-at:
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
 exclude:
+  - README.md
+  - DEVELOPER_GUIDE.md
   - Gemfile
   - Gemfile.lock
   - node_modules
@@ -327,6 +330,12 @@ exclude:
   - vendor/cache/
   - vendor/gems/
   - vendor/ruby/
-  - README.md
-  - .idea
-  - templates
+  - templates/
+  - .sass-cache/
+  - .jekyll-cache/
+  - .idea/
+  - .github/
+  - .bundle/
+  - _site/
+  - spec-insert
+  - release-notes
