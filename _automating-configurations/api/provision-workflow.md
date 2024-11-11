@@ -30,7 +30,7 @@ The following table lists the available path parameters.
 
 ## Query parameters
 
-If you have included a substitution expression in the template, you may pass it as a query parameter or as a string value of a request body field. For example, if you specified a credential field in a template as `openAI_key: '${{ openai_key }}'`, then you can include the `openai_key` parameter as a query parameter or body field so it can be substituted during provisioning. For example, the following request provides a query parameter:
+If you have included a substitution expression in the template, you may pass it as a query parameter or as a string value of a request body field. For example, if you specified a credential field in a template as {% raw %}`openAI_key: '${{ openai_key }}'`{% endraw %}, then you can include the `openai_key` parameter as a query parameter or body field so it can be substituted during provisioning. For example, the following request provides a query parameter:
 
 ```json
 POST /_plugins/_flow_framework/workflow/<workflow_id>/_provision?<parameter>=<value>
@@ -47,14 +47,14 @@ POST /_plugins/_flow_framework/workflow/8xL8bowB8y25Tqfenm50/_provision
 ```
 {% include copy-curl.html %}
 
-The following request substitutes the expression `${{ openai_key }}` with the value "12345" using a query parameter:
+The following request substitutes the expression {% raw %}`${{ openai_key }}`{% endraw %} with the value "12345" using a query parameter:
 
 ```json
 POST /_plugins/_flow_framework/workflow/8xL8bowB8y25Tqfenm50/_provision?openai_key=12345
 ```
 {% include copy-curl.html %}
 
-The following request substitutes the expression `${{ openai_key }}` with the value "12345" using the request body:
+The following request substitutes the expression {% raw %}`${{ openai_key }}`{% endraw %} with the value "12345" using the request body:
 
 ```json
 POST /_plugins/_flow_framework/workflow/8xL8bowB8y25Tqfenm50/_provision
