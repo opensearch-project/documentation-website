@@ -97,7 +97,7 @@ GET logs/_search
   "pages" : {
     "doc_count" : 2,
     "min_load_time" : {
-      "value" : 200.0
+      "value" : 200
     }
   }
  }
