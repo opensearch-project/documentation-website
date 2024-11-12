@@ -7,7 +7,7 @@ nav_order: 190
 
 # Keep words token filter
 
-The `keep_words` token filter is designed to include only certain words in the analysis process. This filter is useful if you have a large body of text but are only interested in certain keywords or terms.
+The `keep_words` token filter is designed to keep only certain words during the analysis process. This filter is useful if you have a large body of text but are only interested in certain keywords or terms.
 
 ## Parameters
 
@@ -17,12 +17,12 @@ Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
 `keep_words` |  Required if `keep_words_path` is not configured | List of strings | List of words to be kept.
 `keep_words_path` | Required if `keep_words` is not configured | String | Path to a file containing list of words to be kept.
-`keep_words_case` | Optional | Boolean | Lowercase all words during comparison. Default is `false`.
+`keep_words_case` | Optional | Boolean | Whether to lowercase all words during comparison. Default is `false`.
  
 
 ## Example
 
-The following example request creates a new index named `my_index` and configures an analyzer with `keep_words` filter:
+The following example request creates a new index named `my_index` and configures an analyzer with a `keep_words` filter:
 
 ```json
 PUT my_index
