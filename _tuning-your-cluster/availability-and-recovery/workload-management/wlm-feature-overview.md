@@ -87,15 +87,16 @@ You can associate a query request with a `queryGroupID` to manage and allocate r
 The following example query uses the `queryGroupId` to ensure that the query stays under that query group's resource limits:
 
 ```json
+GET testindex/_search
+Host: localhost:9200
+Content-Type: application/json
+queryGroupId: preXpc67RbKKeCyka72_Gw
 {
-  "_id":"preXpc67RbKKeCyka72_Gw",
-  "name":"analytics",
-  "resiliency_mode":"enforced",
-  "resource_limits":{
-    "cpu":0.4,
-    "memory":0.2
-  },
-  "updated_at":1726270184642
+  "query": {
+    "match": {
+      "field_name": "value"
+    }
+  }
 }
 ```
 {% include copy-curl.html %}
