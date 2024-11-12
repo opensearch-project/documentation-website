@@ -6,6 +6,9 @@ has_children: true
 parent: Availability and recovery
 ---
 
+Introduced 2.18
+{: .label .label-purple }
+
 # Workload management
 
 Workload management allows users to group and search network traffic, isolating system resources to prevent the overuse of network resources by specific requests. It offers the following benefits:
@@ -14,9 +17,34 @@ Workload management allows users to group and search network traffic, isolating 
 
 - Tenant-level isolation within the cluster for search workloads, operating at a node level.
 
+## Installing workload management
+
+To install workload management, use the following command: 
+
+```json
+./bin/opensearch-plugin install workload-management
+```
+{% include copy-curl.html %}
+
+## Permissions
+
+Only users with administator-lelve permissions can use workload management. 
+
 ## Query groups
 
-System administrators can dynamically manage query groups using the Workload management APIs. These query groups can be used to make search requests with resource limits.
+A _query group_ is a logical groups of tasks with defineded resource limits. System administrators can dynamically manage query groups using the Workload management APIs. These query groups can be used to make search requests with resource limits. 
+
+### Operating modes
+
+The following operating modes determine the operating-level for the query group:
+
+- **Disabled mode**: Workload management is disabled.
+
+- **Enabled mode**: Workload management is enabled and will cause cancellations and rejection once the query group’s configured thresholds are reached.
+
+- **Monitor_only mode** (Default): Workload management will monitor tasks but it will not cancel/reject any queries.
+
+### Example request
 
 The following example adds a query group with the named `analytics`:
 
@@ -31,13 +59,52 @@ PUT _wlm/query_group
   }
 }
 ```
+{% include copy-curl.html %}
+
+When creating a query group, make sure that the sum of the resource limits for a single reousrce, such as `cpu` or `memory`, does not exceed `1`.
+
+### Example response
+
+OpenSearch responds with the set resource limits and the `_id` for the query group:
+
+```json
+{
+  "_id":"preXpc67RbKKeCyka72_Gw",
+  "name":"analytics",
+  "resiliency_mode":"enforced",
+  "resource_limits":{
+    "cpu":0.4,
+    "memory":0.2
+  },
+  "updated_at":1726270184642
+}
+```
+
+## Using `queryGroupID`
+
+To ensure that resources when querying are properly managed and allocated to the limits defined by the query group, you can accociate the request the a `queryGroupID`. This ID helps route and track requests under the context of the query group, so that resource quoras and task limits are enforced.
+
+The following example query uses the `queryGroupId` to ensure that the query stays under that resource groups limits:
+
+```json
+{
+  "_id":"preXpc67RbKKeCyka72_Gw",
+  "name":"analytics",
+  "resiliency_mode":"enforced",
+  "resource_limits":{
+    "cpu":0.4,
+    "memory":0.2
+  },
+  "updated_at":1726270184642
+}
+```
+{% include copy-curl.html %}
 
 ## Workload management settings
 
-There are following settings can be used to customize workload management using the `_cluster/settings` API:
+The are following settings can be used to customize workload management using the `_cluster/settings` API:
 
 | **Setting name**  | **Description**  |
-
 | :--- | :--- |
 | `wlm.query_group.duress_streak` | Determines the node duress threshold. Once the threshold is reached, the node is marked as `in duress`. |
 | `wlm.query_group.enforcement_interval`  | Defines the monitoring interval. |
@@ -66,6 +133,7 @@ The Workload management stats API returns workload management metrics for a quer
 ```json
 GET _wlm/stats
 ```
+{% include copy-curl.html %}
 
 ### Example response 
 
