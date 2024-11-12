@@ -11,7 +11,7 @@ Introduced 2.18
 
 # Workload management
 
-Workload management allows users to group and search network traffic, isolating system resources to prevent the overuse of network resources by specific requests. It offers the following benefits:
+Workload management allows users to group search traffic and isolate network resources, preventing the overuse of network resources by specific requests. It offers the following benefits:
 
 - Tenant-level admission control and reactive query management. When resource usage exceeds configured limits, it automatically identifies and cancels demanding queries, ensuring fair resource distribution.
 
