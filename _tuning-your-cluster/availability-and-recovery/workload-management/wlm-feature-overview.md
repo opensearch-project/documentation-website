@@ -187,7 +187,7 @@ GET _wlm/stats
 
 | Field name | Description |
 |:----|:--- | 
-| `total_completions`   | The total number of request completions in this `query_group` at the given node. This includes all shard-level and coordinator-level requests. |
+| `total_completions`  |  The total number of request completions in this `query_group` at the given node. This includes all shard-level and coordinator-level requests. |
 | `total_rejections`    | The total number request rejections in this `query_group` at the given node. This includes all shard-level and coordinator-level requests.    |
 | `total_cancellations` | The total number of cancellations in this `query_group` at the given node. This includes all shard-level and coordinator-level requests.  |
 | `cpu`   | The `cpu` resource type stats for the `query_group`  | 
