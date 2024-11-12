@@ -28,7 +28,7 @@ To install workload management, use the following command:
 
 ## Permissions
 
-Only users with administator-level permissions can use workload management. 
+Only users with administrator-level permissions can create and update query groups using the Workload management APIs.
 
 ## Query groups
 
