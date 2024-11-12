@@ -110,6 +110,20 @@ You will most likely not need to specify any parameters except for `location`. F
    sudo ./bin/opensearch-keystore add s3.client.default.secret_key
    ```
 
+1. (Optional) If you're using custom S3 endpoint (e.g. MinIO), disable AWS EC2 metadata connection:
+
+   ```bash
+   export AWS_EC2_METADATA_DISABLED=true
+   ```
+
+   If you're installing OpenSearch via Helm, put this in your values file:
+
+   ```yml
+   extraEnvs:
+     - name: AWS_EC2_METADATA_DISABLED
+       value: "true"
+   ```
+
 1. (Optional) If you're using temporary credentials, add your session token:
 
    ```bash
