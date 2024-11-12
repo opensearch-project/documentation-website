@@ -7,7 +7,7 @@ nav_order: 180
 
 # Keep types token filter
 
-The `keep_types` token filter is a type of token filter used in text analysis to control which token types are kept or discarded. Different tokenizers produce different token types, for example `word`, `<NUM>`, or `<ALPHANUM>`.
+The `keep_types` token filter is a type of token filter used in text analysis to control which token types are kept or discarded. Different tokenizers produce different token types, for example `<HOST>`, `<NUM>`, or `<ALPHANUM>`.
 
 The `keyword`, `simple_pattern`, and `simple_pattern_split` tokenizers do not support the `keep_types` token filter because these tokenizers do not support token type attributes.
 {: .note}
@@ -58,7 +58,7 @@ Use the following request to examine the tokens generated using the analyzer:
 GET /test_index/_analyze
 {
   "analyzer": "custom_analyzer",
-  "text": "Hello, world! This is an example."
+  "text": "Hello 2 world! This is an example."
 }
 ```
 {% include copy-curl.html %}
@@ -77,38 +77,38 @@ The response contains the generated tokens:
     },
     {
       "token": "world",
-      "start_offset": 7,
-      "end_offset": 12,
-      "type": "<ALPHANUM>",
-      "position": 1
-    },
-    {
-      "token": "this",
-      "start_offset": 14,
-      "end_offset": 18,
+      "start_offset": 8,
+      "end_offset": 13,
       "type": "<ALPHANUM>",
       "position": 2
     },
     {
-      "token": "is",
-      "start_offset": 19,
-      "end_offset": 21,
+      "token": "this",
+      "start_offset": 15,
+      "end_offset": 19,
       "type": "<ALPHANUM>",
       "position": 3
     },
     {
-      "token": "an",
-      "start_offset": 22,
-      "end_offset": 24,
+      "token": "is",
+      "start_offset": 20,
+      "end_offset": 22,
       "type": "<ALPHANUM>",
       "position": 4
     },
     {
-      "token": "example",
-      "start_offset": 25,
-      "end_offset": 32,
+      "token": "an",
+      "start_offset": 23,
+      "end_offset": 25,
       "type": "<ALPHANUM>",
       "position": 5
+    },
+    {
+      "token": "example",
+      "start_offset": 26,
+      "end_offset": 33,
+      "type": "<ALPHANUM>",
+      "position": 6
     }
   ]
 }
