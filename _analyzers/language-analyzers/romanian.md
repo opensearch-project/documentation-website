@@ -52,7 +52,7 @@ The `romanian` analyzer is built using the following components:
 
 - Tokenizer: `standard`
 
-- Token Filters:
+- Token filters:
   - lowercase
   - stop (Romanian)
   - keyword
@@ -60,7 +60,7 @@ The `romanian` analyzer is built using the following components:
 
 ## Custom Romanian analyzer
 
-You can create custom Romanian analyzer using the following command:
+You can create a custom Romanian analyzer using the following command:
 
 ```json
 PUT /romanian-index

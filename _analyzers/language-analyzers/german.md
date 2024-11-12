@@ -61,7 +61,7 @@ The `german` analyzer is built using the following components:
 
 ## Custom German analyzer
 
-You can create custom German analyzer using the following command:
+You can create a custom German analyzer using the following command:
 
 ```json
 PUT /german-index

@@ -60,7 +60,7 @@ The `galician` analyzer is built using the following components:
 
 ## Custom Galician analyzer
 
-You can create custom Galician analyzer using the following command:
+You can create a custom Galician analyzer using the following command:
 
 ```json
 PUT /galician-index

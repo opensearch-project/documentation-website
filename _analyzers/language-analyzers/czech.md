@@ -60,7 +60,7 @@ The `czech` analyzer is built using the following components:
 
 ## Custom Czech analyzer
 
-You can create custom Czech analyzer using the following command:
+You can create a custom Czech analyzer using the following command:
 
 ```json
 PUT /czech-index

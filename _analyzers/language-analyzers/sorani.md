@@ -52,7 +52,7 @@ The `sorani` analyzer is built using the following components:
 
 - Tokenizer: `standard`
 
-- Token Filters:
+- Token filters:
   - normalization (Sorani)
   - lowercase
   - decimal_digit
@@ -62,7 +62,7 @@ The `sorani` analyzer is built using the following components:
 
 ## Custom Sorani analyzer
 
-You can create custom Sorani analyzer using the following command:
+You can create a custom Sorani analyzer using the following command:
 
 ```json
 PUT /sorani-index

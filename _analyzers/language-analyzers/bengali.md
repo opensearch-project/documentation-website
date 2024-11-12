@@ -58,12 +58,12 @@ The `bengali` analyzer is built using the following components:
   - indic_normalization
   - normalization (Bengali)
   - stop (Bengali)
-  - keywords
+  - keyword
   - stemmer (Bengali)
 
 ## Custom Bengali analyzer
 
-You can create custom Bengali analyzer using the following command:
+You can create a custom Bengali analyzer using the following command:
 
 ```json
 PUT /bengali-index

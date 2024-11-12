@@ -60,7 +60,7 @@ The `norwegian` analyzer is built using the following components:
 
 ## Custom Norwegian analyzer
 
-You can create custom Norwegian analyzer using the following command:
+You can create a custom Norwegian analyzer using the following command:
 
 ```json
 PUT /norwegian-index

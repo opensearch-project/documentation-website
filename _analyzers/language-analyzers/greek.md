@@ -60,7 +60,7 @@ The `greek` analyzer is built using the following components:
 
 ## Custom Greek analyzer
 
-You can create custom Greek analyzer using the following command:
+You can create a custom Greek analyzer using the following command:
 
 ```json
 PUT /greek-index

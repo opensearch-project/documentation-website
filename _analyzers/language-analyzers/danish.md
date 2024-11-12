@@ -60,7 +60,7 @@ The `danish` analyzer is built using the following components:
 
 ## Custom Danish analyzer
 
-You can create custom Danish analyzer using the following command:
+You can create a custom Danish analyzer using the following command:
 
 ```json
 PUT /danish-index

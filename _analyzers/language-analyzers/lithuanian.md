@@ -60,7 +60,7 @@ The `lithuanian` analyzer is built using the following components:
 
 ## Custom Lithuanian analyzer
 
-You can create custom Lithuanian analyzer using the following command:
+You can create a custom Lithuanian analyzer using the following command:
 
 ```json
 PUT /lithuanian-index

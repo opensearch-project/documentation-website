@@ -60,7 +60,7 @@ The `cjk` analyzer is built using the following components:
 
 ## Custom CJK analyzer
 
-You can create custom CJK analyzer using the following command:
+You can create a custom CJK analyzer using the following command:
 
 ```json
 PUT /cjk-index

@@ -52,7 +52,7 @@ The `portuguese` analyzer is built using the following components:
 
 - Tokenizer: `standard`
 
-- Token Filters:
+- Token filters:
   - lowercase
   - stop (Portuguese)
   - keyword
@@ -60,7 +60,7 @@ The `portuguese` analyzer is built using the following components:
 
 ## Custom Portuguese analyzer
 
-You can create custom Portuguese analyzer using the following command:
+You can create a custom Portuguese analyzer using the following command:
 
 ```json
 PUT /portuguese-index

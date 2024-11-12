@@ -55,12 +55,12 @@ The `armenian` analyzer is built using the following components:
 - Token filters:
   - lowercase
   - stop (Armenian)
-  - keywords
+  - keyword
   - stemmer (Armenian)
 
 ## Custom Armenian analyzer
 
-You can create custom Armenian analyzer using the following command:
+You can create a custom Armenian analyzer using the following command:
 
 ```json
 PUT /armenian-index

@@ -62,7 +62,7 @@ The `irish` analyzer is built using the following components:
 
 ## Custom Irish analyzer
 
-You can create custom Irish analyzer using the following command:
+You can create a custom Irish analyzer using the following command:
 
 ```json
 PUT /irish-index

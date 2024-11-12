@@ -60,7 +60,7 @@ The `estonian` analyzer is built using the following components:
 
 ## Custom Estonian analyzer
 
-You can create custom Estonian analyzer using the following command:
+You can create a custom Estonian analyzer using the following command:
 
 ```json
 PUT /estonian-index

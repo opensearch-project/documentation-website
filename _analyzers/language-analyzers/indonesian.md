@@ -60,7 +60,7 @@ The `indonesian` analyzer is built using the following components:
 
 ## Custom Indonesian analyzer
 
-You can create custom Indonesian analyzer using the following command:
+You can create a custom Indonesian analyzer using the following command:
 
 ```json
 PUT /hungarian-index

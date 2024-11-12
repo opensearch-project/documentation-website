@@ -52,7 +52,7 @@ The `thai` analyzer is built using the following components:
 
 - Tokenizer: `thai`
 
-- Token Filters:
+- Token filters:
   - lowercase
   - decimal_digit
   - stop (Thai)
@@ -60,7 +60,7 @@ The `thai` analyzer is built using the following components:
 
 ## Custom Thai analyzer
 
-You can create custom Thai analyzer using the following command:
+You can create a custom Thai analyzer using the following command:
 
 ```json
 PUT /thai-index

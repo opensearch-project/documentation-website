@@ -55,12 +55,12 @@ The `bulgarian` analyzer is built using the following components:
 - Token filters:
   - lowercase
   - stop (Bulgarian)
-  - keywords
+  - keyword
   - stemmer (Bulgarian)
 
 ## Custom Bulgarian analyzer
 
-You can create custom Bulgarian analyzer using the following command:
+You can create a custom Bulgarian analyzer using the following command:
 
 ```json
 PUT /bulgarian-index

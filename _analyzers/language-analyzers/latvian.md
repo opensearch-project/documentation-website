@@ -60,7 +60,7 @@ The `latvian` analyzer is built using the following components:
 
 ## Custom Latvian analyzer
 
-You can create custom Latvian analyzer using the following command:
+You can create a custom Latvian analyzer using the following command:
 
 ```json
 PUT /italian-index

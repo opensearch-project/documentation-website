@@ -12,9 +12,9 @@ redirect_from:
 # Language analyzers
 
 OpenSearch supports the following language analyzers:
-`arabic`, `armenian`, `basque`, `bengali`, `brazilian`, `bulgarian`, `catalan`, `czech`, `danish`, `dutch`, `english`, `estonian`, `finnish`, `french`, `galician`, `german`, `greek`, `hindi`, `hungarian`, `indonesian`, `irish`, `italian`, `latvian`, `lithuanian`, `norwegian`, `persian`, `portuguese`, `romanian`, `russian`, `sorani`, `spanish`, `swedish`, `turkish`, and `thai`.
+`arabic`, `armenian`, `basque`, `bengali`, `brazilian`, `bulgarian`, `catalan`, `czech`, `danish`, `dutch`, `english`, `estonian`, `finnish`, `french`, `galician`, `german`, `greek`, `hindi`, `hungarian`, `indonesian`, `irish`, `italian`, `latvian`, `lithuanian`, `norwegian`, `persian`, `portuguese`, `romanian`, `russian`, `sorani`, `spanish`, `swedish`, `thai`, and `turkish`.
 
-To use the analyzer when you map an index, specify the value within your query. For example, to map your index with the French language analyzer, specify the `french` value for the analyzer field:
+To use an analyzer when you map an index, specify the value in your query. For example, to map your index with the French language analyzer, specify the `french` value in the analyzer field:
 
 ```json
  "analyzer": "french"
@@ -22,7 +22,7 @@ To use the analyzer when you map an index, specify the value within your query. 
 
 #### Example request
 
-The following query specifies index `my-index` with `content` field configured as multi-field and sub-field named `french` is configured with `french` language analyzer:
+The following query specifies an index `my-index` with the `content` field configured as multi-field, and a sub-field named `french` is configured with the `french` language analyzer:
 
 ```json
 PUT my-index
@@ -44,7 +44,7 @@ PUT my-index
 ```
 {% include copy-curl.html %}
 
-Default `french` analyzer can also be configured for the entire index using the following query:
+The default `french` analyzer can also be configured for the entire index using the following query:
 
 ```json
 PUT my-index
@@ -77,7 +77,7 @@ PUT my-index
 
 ## Stem exclusion
 
-You can apply stem exclusion to any language analyzer by providing a list of lowercase words that should be excluded from stemming. Internally, OpenSearch uses the `keyword_marker` token filter to mark these words as keywords, ensuring they are not stemmed.
+You can apply stem exclusion to any language analyzer by providing a list of lowercase words that should be excluded from stemming. Internally, OpenSearch uses the `keyword_marker` token filter to mark these words as keywords, ensuring that they are not stemmed.
 
 ## Stem exclusion example
 
@@ -103,7 +103,7 @@ PUT index_with_stem_exclusion_english_analyzer
 
 ## Stem exclusion with custom analyzers
 
-All language analyzers consist of tokenizers and token filters specific to the particular language. If you want to implement a custom version of the language analyzer with stem exclusion, you need to configure the `keyword_marker` token filter and list the words excluded from stemming in the `keywords` parameter:
+All language analyzers consist of tokenizers and token filters specific to a particular language. If you want to implement a custom version of the language analyzer with stem exclusion, you need to configure the `keyword_marker` token filter and list the words excluded from stemming in the `keywords` parameter:
 
 ```json
 PUT index_with_keyword_marker_analyzer

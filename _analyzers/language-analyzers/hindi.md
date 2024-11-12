@@ -63,7 +63,7 @@ The `hindi` analyzer is built using the following components:
 
 ## Custom Hindi analyzer
 
-You can create custom Hindi analyzer using the following command:
+You can create a custom Hindi analyzer using the following command:
 
 ```json
 PUT /hindi-index

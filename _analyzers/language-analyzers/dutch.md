@@ -61,7 +61,7 @@ The `dutch` analyzer is built using the following components:
 
 ## Custom Dutch analyzer
 
-You can create custom Dutch analyzer using the following command:
+You can create a custom Dutch analyzer using the following command:
 
 ```json
 PUT /dutch-index

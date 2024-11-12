@@ -52,7 +52,7 @@ The `swedish` analyzer is built using the following components:
 
 - Tokenizer: `standard`
 
-- Token Filters:
+- Token filters:
   - lowercase
   - stop (Swedish)
   - keyword
@@ -60,7 +60,7 @@ The `swedish` analyzer is built using the following components:
 
 ## Custom Swedish analyzer
 
-You can create custom Swedish analyzer using the following command:
+You can create a custom Swedish analyzer using the following command:
 
 ```json
 PUT /swedish-index

@@ -56,12 +56,12 @@ The `catalan` analyzer is built using the following components:
   - elision (Catalan)
   - lowercase
   - stop (Catalan)
-  - keywords
+  - keyword
   - stemmer (Catalan)
 
 ## Custom Catalan analyzer
 
-You can create custom Catalan analyzer using the following command:
+You can create a custom Catalan analyzer using the following command:
 
 ```json
 PUT /catalan-index

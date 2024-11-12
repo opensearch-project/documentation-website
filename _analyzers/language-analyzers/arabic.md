@@ -57,7 +57,7 @@ The `arabic` analyzer is built using the following components:
   - decimal_digit
   - stop (Arabic)
   - normalization (Arabic)
-  - keywords
+  - keyword
   - stemmer (Arabic)
 
 ## Custom Arabic analyzer

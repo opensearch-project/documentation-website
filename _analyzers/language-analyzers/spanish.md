@@ -52,7 +52,7 @@ The `spanish` analyzer is built using the following components:
 
 - Tokenizer: `standard`
 
-- Token Filters:
+- Token filters:
   - lowercase
   - stop (Spanish)
   - keyword
@@ -60,7 +60,7 @@ The `spanish` analyzer is built using the following components:
 
 ## Custom Spanish analyzer
 
-You can create custom Spanish analyzer using the following command:
+You can create a custom Spanish analyzer using the following command:
 
 ```json
 PUT /spanish-index

@@ -52,7 +52,7 @@ The `russian` analyzer is built using the following components:
 
 - Tokenizer: `standard`
 
-- Token Filters:
+- Token filters:
   - lowercase
   - stop (Russian)
   - keyword
@@ -60,7 +60,7 @@ The `russian` analyzer is built using the following components:
 
 ## Custom Russian analyzer
 
-You can create custom Russian analyzer using the following command:
+You can create a custom Russian analyzer using the following command:
 
 ```json
 PUT /russian-index

@@ -61,7 +61,7 @@ The `english` analyzer is built using the following components:
 
 ## Custom English analyzer
 
-You can create custom English analyzer using the following command:
+You can create a custom English analyzer using the following command:
 
 ```json
 PUT /english-index

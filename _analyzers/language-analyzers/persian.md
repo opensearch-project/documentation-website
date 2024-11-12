@@ -64,7 +64,7 @@ The `persian` analyzer is built using the following components:
 
 ## Custom Persian analyzer
 
-You can create custom Persian analyzer using the following command:
+You can create a custom Persian analyzer using the following command:
 
 ```json
 PUT /persian-index

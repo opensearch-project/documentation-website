@@ -52,7 +52,7 @@ The `turkish` analyzer is built using the following components:
 
 - Tokenizer: `standard`
 
-- Token Filters:
+- Token filters:
   - apostrophe
   - lowercase (Turkish)
   - stop (Turkish)
@@ -61,7 +61,7 @@ The `turkish` analyzer is built using the following components:
 
 ## Custom Turkish analyzer
 
-You can create custom Turkish analyzer using the following command:
+You can create a custom Turkish analyzer using the following command:
 
 ```json
 PUT /turkish-index

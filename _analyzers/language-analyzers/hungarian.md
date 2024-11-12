@@ -60,7 +60,7 @@ The `hungarian` analyzer is built using the following components:
 
 ## Custom Hungarian analyzer
 
-You can create custom Hungarian analyzer using the following command:
+You can create a custom Hungarian analyzer using the following command:
 
 ```json
 PUT /hungarian-index

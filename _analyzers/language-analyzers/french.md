@@ -61,7 +61,7 @@ The `french` analyzer is built using the following components:
 
 ## Custom French analyzer
 
-You can create custom French analyzer using the following command:
+You can create a custom French analyzer using the following command:
 
 ```json
 PUT /french-index

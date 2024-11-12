@@ -55,12 +55,12 @@ The `brazilian` analyzer is built using the following components:
 - Token filters:
   - lowercase
   - stop (Brazilian)
-  - keywords
+  - keyword
   - stemmer (Brazilian)
 
 ## Custom Brazilian analyzer
 
-You can create custom Brazilian analyzer using the following command:
+You can create a custom Brazilian analyzer using the following command:
 
 ```json
 PUT /brazilian-index

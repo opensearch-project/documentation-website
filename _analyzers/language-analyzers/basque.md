@@ -55,12 +55,12 @@ The `basque` analyzer is built using the following components:
 - Token filters:
   - lowercase
   - stop (Basque)
-  - keywords
+  - keyword
   - stemmer (Basque)
 
 ## Custom Basque analyzer
 
-You can create custom Basque analyzer using the following command:
+You can create a custom Basque analyzer using the following command:
 
 ```json
 PUT /basque-index

@@ -60,7 +60,7 @@ The `finnish` analyzer is built using the following components:
 
 ## Custom Finnish analyzer
 
-You can create custom Finnish analyzer using the following command:
+You can create a custom Finnish analyzer using the following command:
 
 ```json
 PUT /finnish-index

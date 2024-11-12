@@ -61,7 +61,7 @@ The `italian` analyzer is built using the following components:
 
 ## Custom Italian analyzer
 
-You can create custom Italian analyzer using the following command:
+You can create a custom Italian analyzer using the following command:
 
 ```json
 PUT /italian-index
