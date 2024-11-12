@@ -43,7 +43,7 @@ There are following settings can be used to customize workload management using 
 | `wlm.query_group.enforcement_interval`  | Defines the monitoring interval. |
 | `wlm.query_group.mode`  | Defines the [operating mode](#operating-modes). |
 | `wlm.query_group.node.memory_rejection_threshold` | Defines the query group level `memory` threshold. When the threshold is reached, the request is rejected. |
-| `wlm.query_group.node.cpu_rejection_threshold` | Defines query group level `cpu` threshold.  When the threshold is reached, the request is rejected. |
+| `wlm.query_group.node.cpu_rejection_threshold` | Defines query group level `cpu` threshold. When the threshold is reached, the request is rejected. |
 | `wlm.query_group.node.memory_cancellation_threshold` | Controls whether the node is considered in duress when the `cpu` threshold is reached and the effective request cancellation threshold based on `memory` usage. |
 | `wlm.query_group.node.cpu_cancellation_threshold`    | Controls whether the node is considered in duress when the `cpu` threshold is reached and the effective request cancellation threshold on `cpu` usage. |
 
