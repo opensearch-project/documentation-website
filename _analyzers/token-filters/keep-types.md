@@ -7,9 +7,9 @@ nav_order: 180
 
 # Keep types token filter
 
-The `keep_types` token filter is a type of token filter used in text analysis to control which token types are kept or discarded during analysis. Different tokenizers produce different token types, for example `word`, `<NUM>`, `<ALPHANUM>`.
+The `keep_types` token filter is a type of token filter used in text analysis to control which token types are kept or discarded. Different tokenizers produce different token types, for example `word`, `<NUM>`, or `<ALPHANUM>`.
 
-`keyword`, `simple_pattern`, and `simple_pattern_split` tokenizers do not support `keep_types` token filter as these tokenizers do not support token type attributes.
+The `keyword`, `simple_pattern`, and `simple_pattern_split` tokenizers do not support the `keep_types` token filter because these tokenizers do not support token type attributes.
 {: .note}
 
 ## Parameters
@@ -18,13 +18,13 @@ The `keep_types` token filter can be configured with the following parameters.
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
-`types` | Required | List of strings | List of types of tokens to be removed or kept.
-`mode`| Optional | String | `include` or `exclude` the token types specified in `types` configuration. Default is `include`.
+`types` | Required | List of strings | List of token types to be kept or removed (determined by the `mode`).
+`mode`| Optional | String | Whether to `include` or `exclude` the token types specified in `types`. Default is `include`.
  
 
 ## Example
 
-The following example request creates a new index named `test_index` and configures an analyzer with `keep_types` filter:
+The following example request creates a new index named `test_index` and configures an analyzer with a `keep_types` filter:
 
 ```json
 PUT /test_index
