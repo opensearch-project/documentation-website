@@ -7,7 +7,7 @@ nav_order: 180
 
 # Keep types token filter
 
-The `keep_types` token filter is a type of token filter used in text analysis to control which token types are kept or discarded. Different tokenizers produce different token types, for example `<HOST>`, `<NUM>`, or `<ALPHANUM>`.
+The `keep_types` token filter is a type of token filter used in text analysis to control which token types are kept or discarded. Different tokenizers produce different token types, for example, `<HOST>`, `<NUM>`, or `<ALPHANUM>`.
 
 The `keyword`, `simple_pattern`, and `simple_pattern_split` tokenizers do not support the `keep_types` token filter because these tokenizers do not support token type attributes.
 {: .note}
@@ -18,7 +18,7 @@ The `keep_types` token filter can be configured with the following parameters.
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
-`types` | Required | List of strings | List of token types to be kept or removed (determined by the `mode`).
+`types` | Required | List of strings | List of token types to be kept or discarded (determined by the `mode`).
 `mode`| Optional | String | Whether to `include` or `exclude` the token types specified in `types`. Default is `include`.
  
 
