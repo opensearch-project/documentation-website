@@ -26,13 +26,13 @@ To install workload management, use the following command:
 ```
 {% include copy-curl.html %}
 
-## Permissions
-
-Only users with administrator-level permissions can create and update query groups using the Workload management APIs.
-
 ## Query groups
 
 A _query group_ is a logical group of tasks with defined resource limits. System administrators can dynamically manage query groups using the Workload management APIs. These query groups can be used to make search requests with resource limits. 
+
+### Permissions
+
+Only users with administrator-level permissions can create and update query groups using the Workload management APIs.
 
 ### Operating modes
 
