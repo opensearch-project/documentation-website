@@ -7,18 +7,18 @@ nav_order: 200
 
 # Keyword marker token filter
 
-The `keyword_marker` token filter in OpenSearch is used to prevent certain tokens from being altered by stemmers or other filters. This ensures that specific words remain in their original form. `keyword_marker` token filter does this by marking tokens as `keywords` which prevents any stemming or other processing.
+The `keyword_marker` token filter is used to prevent certain tokens from being altered by stemmers or other filters. The `keyword_marker` token filter does this by marking the specified tokens as `keywords`, which prevents any stemming or other processing. This ensures that specific words remain in their original form. 
 
 ## Parameters
 
-The `keyword_marker` token filter in OpenSearch can be configured with the following parameters.
+The `keyword_marker` token filter can be configured with the following parameters.
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
-`ignore_case` | Optional | Boolean | Ignore the letter case when matching keywords. Default is `false.`
-`keywords` | Required if `keywords_path` or `keywords_pattern` is not set | List of strings | List of strings used to match tokens.
-`keywords_path` | Required if `keywords` or `keywords_pattern` is not set | String | Path (relative to `config` directory or absolute) to list of strings.
-`keywords_pattern` | Required if `keywords` or `keywords_path` is not set | String | [Regular expression](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html) used for matching tokens.
+`ignore_case` | Optional | Boolean | Whether to ignore the letter case when matching keywords. Default is `false`.
+`keywords` | Required if `keywords_path` or `keywords_pattern` is not set | List of strings | List of tokens to mark as keywords. 
+`keywords_path` | Required if `keywords` or `keywords_pattern` is not set | String | Path (relative to the `config` directory or absolute) to the list of keywords.
+`keywords_pattern` | Required if `keywords` or `keywords_path` is not set | String | [Regular expression](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html) used for matching tokens to be marked as keywords.
  
 
 ## Example
