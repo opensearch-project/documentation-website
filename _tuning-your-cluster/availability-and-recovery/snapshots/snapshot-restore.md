@@ -116,7 +116,7 @@ You will most likely not need to specify any parameters except for `location`. F
    export AWS_EC2_METADATA_DISABLED=true
    ```
 
-   If you're installing OpenSearch via Helm, put this in your values file:
+   If you're installing OpenSearch using Helm, update the following settings in your values file:
 
    ```yml
    extraEnvs:
