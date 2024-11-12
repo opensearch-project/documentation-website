@@ -13,7 +13,7 @@ Introduced 2.18
 
 Workload management allows users to group and search network traffic, isolating system resources to prevent the overuse of network resources by specific requests. It offers the following benefits:
 
-- Tenant-level admission control and reactive query management. It can identify and cancel resource-intensive queries when the configured thresholds are exceeded, ensuring fair resource allocation.
+- Tenant-level admission control and reactive query management. When resource usage exceeds configured limits, it automatically identifies and cancels demanding queries, ensuring fair resource distribution.
 
 - Tenant-level isolation within the cluster for search workloads, operating at a node level.
 
@@ -28,11 +28,11 @@ To install workload management, use the following command:
 
 ## Permissions
 
-Only users with administator-lelve permissions can use workload management. 
+Only users with administator-level permissions can use workload management. 
 
 ## Query groups
 
-A _query group_ is a logical groups of tasks with defineded resource limits. System administrators can dynamically manage query groups using the Workload management APIs. These query groups can be used to make search requests with resource limits. 
+A _query group_ is a logical group of tasks with defined resource limits. System administrators can dynamically manage query groups using the Workload management APIs. These query groups can be used to make search requests with resource limits. 
 
 ### Operating modes
 
@@ -61,7 +61,7 @@ PUT _wlm/query_group
 ```
 {% include copy-curl.html %}
 
-When creating a query group, make sure that the sum of the resource limits for a single reousrce, such as `cpu` or `memory`, does not exceed `1`.
+When creating a query group, make sure that the sum of the resource limits for a single resource, such as `cpu` or `memory`, does not exceed `1`.
 
 ### Example response
 
@@ -82,9 +82,9 @@ OpenSearch responds with the set resource limits and the `_id` for the query gro
 
 ## Using `queryGroupID`
 
-To ensure that resources when querying are properly managed and allocated to the limits defined by the query group, you can accociate the request the a `queryGroupID`. This ID helps route and track requests under the context of the query group, so that resource quoras and task limits are enforced.
+You can associate a query request with a `queryGroupID` to manage and allocate resources within the limits defined by the query group. By utilizing this ID, requests are routed and tracked under the query group, ensuring resource quotas and task limits are maintained.
 
-The following example query uses the `queryGroupId` to ensure that the query stays under that resource groups limits:
+The following example query uses the `queryGroupId` to ensure that the query stays under that query group's resource limits:
 
 ```json
 {
