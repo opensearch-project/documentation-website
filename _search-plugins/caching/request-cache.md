@@ -29,7 +29,6 @@ Setting | Data type  | Default | Level | Static/Dynamic | Description
 `indices.cache.cleanup_interval` | Time unit  | `1m` (1 minute)  | Cluster | Static | Schedules a recurring background task that cleans up expired entries from the cache at the specified interval. 
 `indices.requests.cache.size` | Percentage | `1%`      | Cluster | Static | The cache size as a percentage of the heap size (for example, to use 1% of the heap, specify `1%`). 
 `index.requests.cache.enable` | Boolean    | `true`    | Index | Dynamic | Enables or disables the request cache. 
-`indices.requests.cache.enable_for_all_requests` | Boolean    | `false`    | Cluster | Dynamic | Enables or disables caching queries in which `size` is greater than `0`.
 
 ### Example
 
