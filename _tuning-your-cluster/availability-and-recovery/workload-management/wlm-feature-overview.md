@@ -82,7 +82,7 @@ OpenSearch responds with the set resource limits and the `_id` for the query gro
 
 ## Using `queryGroupID`
 
-You can associate a query request with a `queryGroupID` to manage and allocate resources within the limits defined by the query group. By utilizing this ID, requests are routed and tracked under the query group, ensuring resource quotas and task limits are maintained.
+You can associate a query request with a `queryGroupID` to manage and allocate resources within the limits defined by the query group. By using this ID, request routing and tracking are associated with the query group, ensuring resource quotas and task limits are maintained.
 
 The following example query uses the `queryGroupId` to ensure that the query does not exceed that query group's resource limits:
 
@@ -112,8 +112,8 @@ The following settings can be used to customize workload management using the `_
 | `wlm.query_group.mode`  | Defines the [operating mode](#operating-modes). |
 | `wlm.query_group.node.memory_rejection_threshold` | Defines the query group level `memory` threshold. When the threshold is reached, the request is rejected. |
 | `wlm.query_group.node.cpu_rejection_threshold` | Defines the query group level `cpu` threshold. When the threshold is reached, the request is rejected. |
-| `wlm.query_group.node.memory_cancellation_threshold` | Controls whether the node is considered in duress when the `cpu` threshold is reached and the effective request cancellation threshold based on `memory` usage. |
-| `wlm.query_group.node.cpu_cancellation_threshold`    | Controls whether the node is considered in duress when the `cpu` threshold is reached and the effective request cancellation threshold on `cpu` usage. |
+| `wlm.query_group.node.memory_cancellation_threshold` | Controls whether the node is considered to be in duress when the `memory` threshold is reached. Requests routed to nodes in duress are canceled. |
+| `wlm.query_group.node.cpu_cancellation_threshold`    | Controls whether the node is considered to be in duress when the `cpu` threshold is reached. Requests routed to nodes in duress are canceled. |
 
 When setting rejection and cancellation thresholds, remember that the rejection threshold for a resource should always be lower than the cancellation threshold. 
 
