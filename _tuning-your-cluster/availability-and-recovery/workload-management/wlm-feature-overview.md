@@ -11,11 +11,11 @@ Introduced 2.18
 
 # Workload management
 
-Workload management allows users to group search traffic and isolate network resources, preventing the overuse of network resources by specific requests. It offers the following benefits:
+Workload management allows you to group search traffic and isolate network resources, preventing the overuse of network resources by specific requests. It offers the following benefits:
 
 - Tenant-level admission control and reactive query management. When resource usage exceeds configured limits, it automatically identifies and cancels demanding queries, ensuring fair resource distribution.
 
-- Tenant-level isolation within the cluster for search workloads, operating at a node level.
+- Tenant-level isolation within the cluster for search workloads, operating at the node level.
 
 ## Installing workload management
 
@@ -28,25 +28,25 @@ To install workload management, use the following command:
 
 ## Query groups
 
-A _query group_ is a logical group of tasks with defined resource limits. System administrators can dynamically manage query groups using the Workload management APIs. These query groups can be used to make search requests with resource limits. 
+A _query group_ is a logical grouping of tasks with defined resource limits. System administrators can dynamically manage query groups using the Workload Management APIs. These query groups can be used to create search requests with resource limits. 
 
 ### Permissions
 
-Only users with administrator-level permissions can create and update query groups using the Workload management APIs.
+Only users with administrator-level permissions can create and update query groups using the Workload Management APIs.
 
 ### Operating modes
 
-The following operating modes determine the operating-level for the query group:
+The following operating modes determine the operating level for a query group:
 
 - **Disabled mode**: Workload management is disabled.
 
-- **Enabled mode**: Workload management is enabled and will cause cancellations and rejection once the query group’s configured thresholds are reached.
+- **Enabled mode**: Workload management is enabled and will cancel and reject queries once the query group's configured thresholds are reached.
 
-- **Monitor_only mode** (Default): Workload management will monitor tasks but it will not cancel/reject any queries.
+- **Monitor_only mode** (Default): Workload management will monitor tasks but will not cancel or reject any queries.
 
 ### Example request
 
-The following example adds a query group with the named `analytics`:
+The following example request adds a query group named `analytics`:
 
 ```json
 PUT _wlm/query_group
@@ -84,7 +84,7 @@ OpenSearch responds with the set resource limits and the `_id` for the query gro
 
 You can associate a query request with a `queryGroupID` to manage and allocate resources within the limits defined by the query group. By utilizing this ID, requests are routed and tracked under the query group, ensuring resource quotas and task limits are maintained.
 
-The following example query uses the `queryGroupId` to ensure that the query stays under that query group's resource limits:
+The following example query uses the `queryGroupId` to ensure that the query does not exceed that query group's resource limits:
 
 ```json
 GET testindex/_search
@@ -103,7 +103,7 @@ queryGroupId: preXpc67RbKKeCyka72_Gw
 
 ## Workload management settings
 
-The are following settings can be used to customize workload management using the `_cluster/settings` API:
+The following settings can be used to customize workload management using the `_cluster/settings` API.
 
 | **Setting name**  | **Description**  |
 | :--- | :--- |
@@ -111,25 +111,20 @@ The are following settings can be used to customize workload management using th
 | `wlm.query_group.enforcement_interval`  | Defines the monitoring interval. |
 | `wlm.query_group.mode`  | Defines the [operating mode](#operating-modes). |
 | `wlm.query_group.node.memory_rejection_threshold` | Defines the query group level `memory` threshold. When the threshold is reached, the request is rejected. |
-| `wlm.query_group.node.cpu_rejection_threshold` | Defines query group level `cpu` threshold. When the threshold is reached, the request is rejected. |
+| `wlm.query_group.node.cpu_rejection_threshold` | Defines the query group level `cpu` threshold. When the threshold is reached, the request is rejected. |
 | `wlm.query_group.node.memory_cancellation_threshold` | Controls whether the node is considered in duress when the `cpu` threshold is reached and the effective request cancellation threshold based on `memory` usage. |
 | `wlm.query_group.node.cpu_cancellation_threshold`    | Controls whether the node is considered in duress when the `cpu` threshold is reached and the effective request cancellation threshold on `cpu` usage. |
 
-When setting rejection and cancellation settings thresholds, remember that the rejection threshold for a resource should always be less than the cancellation threshold. 
+When setting rejection and cancellation thresholds, remember that the rejection threshold for a resource should always be lower than the cancellation threshold. 
 
-### Operating modes
 
-The following operating modes determine the operating-level for the query group:
 
-- **Disabled mode**: Workload management is disabled.
 
-- **Enabled mode**: Workload management is enabled and will cause cancellations and rejection once the query group’s configured thresholds are reached.
 
-- **Monitor_only mode** (Default): Workload management will monitor tasks but it will not cancel/reject any queries.
 
-## Workload management stats API
+## Workload Management Stats API
 
-The Workload management stats API returns workload management metrics for a query group, using the following method:
+The Workload Management Stats API returns workload management metrics for a query group, using the following method:
 
 ```json
 GET _wlm/stats
@@ -188,17 +183,17 @@ GET _wlm/stats
 
 | Field name | Description |
 | :--- | :--- | 
-| `total_completions`  |  The total number of request completions in this `query_group` at the given node. This includes all shard-level and coordinator-level requests. |
-| `total_rejections`    | The total number request rejections in this `query_group` at the given node. This includes all shard-level and coordinator-level requests.    |
-| `total_cancellations` | The total number of cancellations in this `query_group` at the given node. This includes all shard-level and coordinator-level requests.  |
-| `cpu`   | The `cpu` resource type stats for the `query_group`  | 
-| `memory`  | The `memory` resource type stats for the `query_group`  | 
+| `total_completions`  |  The total number of request completions in the `query_group` at the given node. This includes all shard-level and coordinator-level requests. |
+| `total_rejections`    | The total number request rejections in the `query_group` at the given node. This includes all shard-level and coordinator-level requests.    |
+| `total_cancellations` | The total number of cancellations in the `query_group` at the given node. This includes all shard-level and coordinator-level requests.  |
+| `cpu`   | The `cpu` resource type statistics for the `query_group`.  | 
+| `memory`  | The `memory` resource type statistics for the `query_group`.  | 
 
-### Resource type stats
+### Resource type statistics
 
 | Field name  | Description   |
 | :--- | :---- | 
-| `current_usage` |The resource usage for `query_group` at the given node based on the last run of the monitoring thread. This value is updated based on the `wlm.query_group.enforcement_interval`. |
-| `cancellations` | The cancellation count as a result of the cancellation threshold being reached.   |
-| `rejections`    |  The rejection count as a result of the cancellation threshold being reached.   |
+| `current_usage` |The resource usage for the `query_group` at the given node based on the last run of the monitoring thread. This value is updated based on the `wlm.query_group.enforcement_interval`. |
+| `cancellations` | The number of cancellations resulting from the cancellation threshold being reached.   |
+| `rejections`    |  The number of rejections resulting from the cancellation threshold being reached.   |
 
