@@ -7,27 +7,27 @@ nav_order: 10
 ---
 
 ----------------------------------------------------------------------------------------
-# AWS Lambda Sink for Data Prepper
+# `aws_lambda` sink for Data Prepper
 
-This document provides the configuration details and usage instructions for integrating [AWS Lambda](https://aws.amazon.com/lambda/)
-with Data Prepper, both as a processor and as a sink.
+This document explains how to configure and use [AWS Lambda](https://aws.amazon.com/lambda/) with Data Prepper, enabling Lambda functions to serve as both processors and sinks.
 
-## AWS Lambda Sink
+## `aws_lambda` sink
 
-```
+Configure the Lambda sink using the following parameters:
+
 Field             | Type    | Required | Description                                                                 
------------------ | ------- | -------- | ---------------------------------------------------------------------------- 
-function_name     | String  | Yes      | The name of the AWS Lambda function to invoke.                               
-invocation_type   | String  | No       | Specifies the invocation type. Default is event.             
-aws.region        | String  | Yes      | The AWS region where the Lambda function is located.                         
-aws.sts_role_arn  | String  | No       | ARN of the role to assume before invoking the Lambda function.               
-max_retries       | Integer | No       | Maximum number of retries if the invocation fails. Default is 3.             
-batch             | Object  | No       | Optional batch settings for Lambda invocations. Default key_name = "events". Default Threshold for event_count=100, maximum_size="5mb", event_collect_timeout = 10s                              
-lambda_when       | String  | No       | Conditional expression to determine when to invoke the Lambda sink.          
-dlq               | Object  | No       | Dead-letter queue (DLQ) configuration for failed invocations.                
-```
+--------------------| ------- | -------- | ---------------------------------------------------------------------------- 
+`function_name`     | String  | Yes      | The name of the AWS Lambda function to invoke.                               
+`invocation_type`   | String  | No       | Specifies the invocation type. Default is `event`.             
+`aws.region`        | String  | Yes      | The AWS Region where the Lambda function is located.                         
+`aws.sts_role_arn`  | String  | No       | The ARN of the role to assume before invoking the Lambda function.               
+`max_retries`       | Integer | No       | The maximum number of retries if the invocation fails. Default is `3`.             
+`batch`             | Object  | No       | Optional batch settings for Lambda invocations. Default is `key_name = events`. Default threshold is `event_count=100`, `maximum_size="5mb"`, and `event_collect_timeout = 10s`.
+`lambda_when`       | String  | No       | Conditional expression to determine when to invoke the Lambda sink.          
+`dlq`               | Object  | No       | Dead-letter queue (DLQ) configuration for failed invocations.                
 
-Example Configuration:
+#### Example configuration
+
 ```
 sink:
   - aws_lambda:
@@ -49,26 +49,25 @@ sink:
         sts_role_arn: "arn:aws:iam::123456789012:role/my-sqs-role"
         bucket: "<<your-dlq-bucket-name>>"
 ```
+{% include copy-curl.html %}
 
-Usage
-Invocation Type:
-- event: Invokes the function asynchronously without waiting for a response. Default and preferred mode. 
-- request-response: Supported in sink but response is not handled.
-  Batching: Batching is enabled by default, events are grouped together based on the defined threshold in the batch configuration.
-  Dead-Letter Queue (DLQ): A DLQ can be configured to handle failures in Lambda invocations. If the invocation fails after retries, the failed events will be sent to the specified DLQ
+## Usage
 
+The invocation types are as follows:
 
-## Additional Notes
-IAM Role Assumption: Both the processor and sink can assume a specified IAM role (aws.sts_role_arn) before invoking Lambda functions. This allows for more secure handling of AWS resources.
-Concurrency Considerations: When using the event invocation type, be mindful of Lambda concurrency limits to avoid throttling.
-For further details on AWS Lambda integration with Data Prepper, refer to the AWS Lambda documentation: https://docs.aws.amazon.com/lambda
+- `event` (Default): Executes functions asynchronously without waiting for responses.  
+- `request-response` (Sink only): Executes functions synchronously, though responses are not processed.
+- `batch`: Automatically groups events based on confirgured thresholds. 
+- `dlq`: Supports DLQ configuration for failed invocations after retry attempts.
 
-## Developer Guide
+Data Prepper components use IAM role assumption, `aws.sts_role_arn`, for secure Lambda function invocation and respect Lambda's concurrency limits during event processing. For details, see the [AWS Lambda documentation](https://docs.aws.amazon.com/lambda).
+{: .note}
 
-The integration tests for this plugin do not run as part of the Data Prepper build.
-The following command runs the integration tests:
+## Developer guide
+
+Integration tests must be executed separately from the main Data Prepper build. Execute them with the following command:
 
 ```
 ./gradlew :data-prepper-plugins:aws-lambda:integrationTest -Dtests.sink.lambda.region="us-east-1" -Dtests.sink.lambda.functionName="lambda_test_function"  -Dtests.sink.lambda.sts_role_arn="arn:aws:iam::123456789012:role/dataprepper-role
-
 ```
+{% include copy-curl.html %}
