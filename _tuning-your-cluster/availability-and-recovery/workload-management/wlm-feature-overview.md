@@ -117,11 +117,6 @@ The following settings can be used to customize workload management using the `_
 
 When setting rejection and cancellation thresholds, remember that the rejection threshold for a resource should always be lower than the cancellation threshold. 
 
-
-
-
-
-
 ## Workload Management Stats API
 
 The Workload Management Stats API returns workload management metrics for a query group, using the following method:
