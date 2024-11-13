@@ -8,7 +8,7 @@ nav_order: 10
 
 # AWS Lambda integration for Data Prepper
 
-The [AWS Lambda](https://aws.amazon.com/lambda/) integration allows developers to use serverless computing 
+The [AWS Lambda](https://aws.amazon.com/lambda/) integration allows developers to use serverless computing capabilities within their Data Prepper pipelines for flexible event processing and data routing.
 capabilities within their Data Prepper pipelines for flexible event processing and data routing.
 
 ## AWS Lambda processor configuration
