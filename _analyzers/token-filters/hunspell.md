@@ -26,7 +26,7 @@ Parameter | Required/Optional | Data type | Description
 
 ## Example
 
-The following example request creates a new index named `my_index` and configures an analyzer with the `hunspell` filter:
+The following example request creates a new index named `my_index` and configures an analyzer with a `hunspell` filter:
 
 ```json
 PUT /my_index
