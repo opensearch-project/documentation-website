@@ -13,7 +13,11 @@
         const CLASSNAME_HIGHLIGHTED = 'highlighted';
 
         const canSmoothScroll = 'scrollBehavior' in document.documentElement.style;
-        const docsVersion = elInput.getAttribute('data-docs-version');
+
+        //Extract version from the URL path
+        const urlPath = window.location.pathname;
+        const versionMatch = urlPath.match(/(\d+\.\d+)/);
+        const docsVersion = versionMatch ? versionMatch[1] : elInput.getAttribute('data-docs-version');
 
         let _showingResults = false,
             animationFrame,
@@ -46,7 +50,7 @@
 
                 case 'Enter':
                     e.preventDefault();
-                    navToHighlightedResult();
+                    navToResult();
                     break;
             }
         });
@@ -169,7 +173,10 @@
 
         const showNoResults = () => {
             emptyResults();
-            elResults.appendChild(document.createRange().createContextualFragment('<span>No results found!</span>'));
+            const resultElement = document.createElement('div');
+            resultElement.classList.add('search-page--results--no-results');
+            resultElement.appendChild(document.createRange().createContextualFragment('<span>No results found.</span>'));
+            elResults.appendChild(resultElement);
             showResults();
             elSpinner?.classList.remove(CLASSNAME_SPINNING);
         };
@@ -247,9 +254,19 @@
             }
         };
 
-        const navToHighlightedResult = () => {
+        const navToResultsPage = () => {
+            const query = encodeURIComponent(elInput.value);
+            window.location.href = `/docs/${docsVersion}/search.html?q=${query}`;
+        }
+
+        const navToResult = () => {
             const searchResultClassName = 'top-banner-search--field-with-results--field--wrapper--search-component--search-results--result';
-            elResults.querySelector(`.${searchResultClassName}.highlighted a[href]`)?.click?.();
+            const element = elResults.querySelector(`.${searchResultClassName}.highlighted a[href]`);
+            if (element) {
+                element.click?.();
+            } else {
+                navToResultsPage();
+            }
         };
 
         const recordEvent = (name, data) => {
@@ -261,3 +278,52 @@
         };
     });
 })();
+
+
+window.doResultsPageSearch = async (query, type, version) => {
+    const searchResultsContainer = document.getElementById('searchPageResultsContainer');
+
+    try {
+        const response = await fetch(`https://search-api.opensearch.org/search?q=${query}&v=${version}&t=${type}`);
+        const data = await response.json();
+        // Clear any previous search results
+        searchResultsContainer.innerHTML = '';
+
+        if (data.results && data.results.length > 0) {
+            data.results.forEach(result => {
+              const resultElement = document.createElement('div');
+              resultElement.classList.add('search-page--results--display--container--item');
+
+              const contentCite = document.createElement('cite');
+              const crumbs = [...result.ancestors];
+              if (result.type === 'DOCS') crumbs.unshift(`OpenSearch ${result.versionLabel || result.version}`);
+              else if (result.type) crumbs.unshift(result.type);
+              contentCite.textContent = crumbs.join(' › ')?.replace?.(/</g, '&lt;');
+              contentCite.style.fontSize = '.8em';
+
+              const titleLink = document.createElement('a');
+              titleLink.href = result.url;
+              titleLink.classList.add('search-page--results--display--container--item--link');
+              titleLink.textContent = result.title;
+              
+              const contentSpan = document.createElement('span');
+              contentSpan.textContent = result.content;
+              contentSpan.style.display = 'block';
+
+              resultElement.appendChild(contentCite);
+              resultElement.appendChild(titleLink);
+              resultElement.appendChild(contentSpan);
+
+              // Append the result element to the searchResultsContainer
+              searchResultsContainer.appendChild(resultElement);
+            });
+        } else {
+          const noResultsElement = document.createElement('div');
+          noResultsElement.textContent = 'No results found.';
+          searchResultsContainer.appendChild(noResultsElement);
+        }
+    } catch (error) {
+        console.error('Error fetching search results:', error);
+        searchResultsContainer.innerHTML = 'An error occurred while fetching search results. Please try again later.';
+    }
+}

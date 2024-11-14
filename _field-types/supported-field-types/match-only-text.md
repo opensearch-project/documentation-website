@@ -8,6 +8,8 @@ grand_parent: Supported field types
 ---
 
 # Match-only text field type
+**Introduced 2.12**
+{: .label .label-purple }
 
 A `match_only_text` field is a variant of a `text` field designed for full-text search when scoring and positional information of terms within a document are not critical.
 

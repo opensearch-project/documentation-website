@@ -20,10 +20,18 @@ To get the status of a specific index, provide the index name.
 
 ## Path and HTTP methods
 
-```
+```json
 GET _cluster/health
 GET _cluster/health/<index>
 ```
+
+## Path parameters
+
+The following table lists the available path parameters. All path parameters are optional.
+
+Parameter | Data type | Description
+:--- | :--- | :---
+&lt;index-name&gt; | String | Limits health reporting to a specific index. Can be a single index or a comma-separated list of index names.
 
 ## Query parameters
 
@@ -90,7 +98,7 @@ The response contains cluster health information:
 }
 ```
 
-## Response fields
+## Response body fields
 
 The following table lists all response fields.
 

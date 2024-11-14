@@ -1,14 +1,15 @@
 ---
 layout: default
 title: Language analyzers
-nav_order: 10
+nav_order: 100
+parent: Analyzers
 redirect_from:
   - /query-dsl/analyzers/language-analyzers/
 ---
 
-# Language analyzer
+# Language analyzers
 
-OpenSearch supports the following language values with the `analyzer` option:
+OpenSearch supports the following language analyzers:
 `arabic`, `armenian`, `basque`, `bengali`, `brazilian`, `bulgarian`, `catalan`, `czech`, `danish`, `dutch`, `english`, `estonian`, `finnish`, `french`, `galician`, `german`, `greek`, `hindi`, `hungarian`, `indonesian`, `irish`, `italian`, `latvian`, `lithuanian`, `norwegian`, `persian`, `portuguese`, `romanian`, `russian`, `sorani`, `spanish`, `swedish`, `turkish`, and `thai`.
 
 To use the analyzer when you map an index, specify the value within your query. For example, to map your index with the French language analyzer, specify the `french` value for the analyzer field:
