@@ -4,7 +4,9 @@ title: Elision
 parent: Token filters
 nav_order: 130
 ---
+
 # Elision token filter
+
 The `elision` token filter is used to remove elided characters from words in certain languages. Elision typically occurs in languages such as French, where words are often contracted and combined with the following word, typically by omitting a vowel and replacing it with an apostrophe. 
 
 The `elision` token filter already comes preconfigured in the following [language analyzers]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/): `catalan`, `french`, `irish`, and `italian`.
