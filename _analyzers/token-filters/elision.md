@@ -4,12 +4,10 @@ title: Elision
 parent: Token filters
 nav_order: 130
 ---
-<!-- vale off -->
 # Elision token filter
-<!-- vale on -->
 The `elision` token filter is used to remove elided characters from words in certain languages. Elision typically occurs in languages such as French, where words are often contracted and combined with the following word, typically by omitting a vowel and replacing it with an apostrophe. 
 
-The `elision` token filter already comes preconfigured in the following [language analyzers]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/): **Catalan**, **French**, **Irish** and **Italian**.
+The `elision` token filter already comes preconfigured in the following [language analyzers]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/): `catalan`, `french`, `irish`, and `italian`.
 {: .note}
 
 ## Parameters
@@ -18,13 +16,13 @@ The custom `elision` token filter can be configured with the following parameter
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
-`articles` | Required if `articles_path` is not configured | Array of strings Defines which articles or short words should be removed when they appear as part of an elision.
-`articles_path` | Required if `articles` is not configured | String | Specifies path to custom list of articles that should be removed during the analysis process. 
-`articles_case` | Optional | Boolean | Filter is case-sensitive when it removes articles from text during analysis. Default is `false`.
+`articles` | Required if `articles_path` is not configured | Array of strings | Defines which articles or short words should be removed when they appear as part of an elision.
+`articles_path` | Required if `articles` is not configured | String | Specifies the path to a custom list of articles that should be removed during the analysis process. 
+`articles_case` | Optional | Boolean | Specifies whether the filter is case sensitive when matching elisions. Default is `false`.
 
 ## Example
 
-The following example request creates a new index named `french_texts` and configures an analyzer with `french_elision` filter:
+The default set of French elisions is `l'`, `m'`, `t'`, `qu'`, `n'`, `s'`, `j'`, `d'`, `c'`, `jusqu'`, `quoiqu'`, `lorsqu'`, and `puisqu'`. You can update this by configuring the `french_elision` token filter. The following example request creates a new index named `french_texts` and configures an analyzer with `french_elision` filter:
 
 ```json
 PUT /french_texts
