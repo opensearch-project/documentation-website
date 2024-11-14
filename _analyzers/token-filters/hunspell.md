@@ -9,7 +9,7 @@ nav_order: 160
 
 The `hunspell` token filter is used for stemming and morphological analysis of words in a specific language. This filter applies Hunspell dictionaries, which are widely used in spell checkers. It works by breaking down words into their root forms (stemming).
 
-The Hunspell dictionary files are automatically loaded at startup from the `<OS_PATH_CONF>/hunspell/<locale>` directory. For example the `en_GB` locale must have at least one `.aff` file and one or more `.dic` files in the `<OS_PATH_CONF>/hunspell/en_GB/` directory.
+The Hunspell dictionary files are automatically loaded at startup from the `<OS_PATH_CONF>/hunspell/<locale>` directory. For example, the `en_GB` locale must have at least one `.aff` file and one or more `.dic` files in the `<OS_PATH_CONF>/hunspell/en_GB/` directory.
 
 You can download these files from [LibreOffice dictionaries](https://github.com/LibreOffice/dictionaries).
 
@@ -21,12 +21,12 @@ Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
 `language/lang/locale` | At least one of the three is required | String | Specifies the language for the Hunspell dictionary.
 `dedup` | Optional | Boolean | Determines whether to remove multiple duplicate stemming terms for the same token. Default is `true`.
-`dictionary` | Optional | Array of strings | Configures the dictionary files to be used for Hunspell dictionary. Default is all files in the `<OS_PATH_CONF>/hunspell/<locale>` directory.
-`longest_only` | Optional | Boolean | Specifies if only the longest stemmed version of the token should be returned. Default is `false`.
+`dictionary` | Optional | Array of strings | Configures the dictionary files to be used for the Hunspell dictionary. Default is all files in the `<OS_PATH_CONF>/hunspell/<locale>` directory.
+`longest_only` | Optional | Boolean | Specifies whether only the longest stemmed version of the token should be returned. Default is `false`.
 
 ## Example
 
-The following example request creates a new index named `my_index` and configures an analyzer with `hunspell` filter:
+The following example request creates a new index named `my_index` and configures an analyzer with the `hunspell` filter:
 
 ```json
 PUT /my_index
