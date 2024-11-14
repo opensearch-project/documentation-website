@@ -23,7 +23,7 @@ Parameter | Required/Optional | Data type | Description
 
 ## Example
 
-The following example request creates a new index named `my_index` and configures an analyzer with `keyword_marker` filter:
+The following example request creates a new index named `my_index` and configures an analyzer with `keyword_marker` filter. The filter marks the word `example` as a keyword:
 
 ```json
 PUT /my_index
@@ -40,7 +40,7 @@ PUT /my_index
       "filter": {
         "keyword_marker_filter": {
           "type": "keyword_marker",
-          "keywords": ["OpenSearch", "example"]
+          "keywords": ["example"]
         }
       }
     }
@@ -57,71 +57,29 @@ Use the following request to examine the tokens generated using the analyzer:
 GET /my_index/_analyze
 {
   "analyzer": "custom_analyzer",
-  "text": "This is an OpenSearch example demonstrating keyword marker."
+  "text": "Favorite example"
 }
 ```
 {% include copy-curl.html %}
 
-The response contains the generated tokens:
+The response contains the generated tokens. Note that the word `favorite` was stemmed but the word `example` was not stemmed because it was marked as a keyword:
 
 ```json
 {
   "tokens": [
     {
-      "token": "thi",
+      "token": "favorit",
       "start_offset": 0,
-      "end_offset": 4,
+      "end_offset": 8,
       "type": "<ALPHANUM>",
       "position": 0
     },
     {
-      "token": "is",
-      "start_offset": 5,
-      "end_offset": 7,
+      "token": "example",
+      "start_offset": 9,
+      "end_offset": 16,
       "type": "<ALPHANUM>",
       "position": 1
-    },
-    {
-      "token": "an",
-      "start_offset": 8,
-      "end_offset": 10,
-      "type": "<ALPHANUM>",
-      "position": 2
-    },
-    {
-      "token": "opensearch",
-      "start_offset": 11,
-      "end_offset": 21,
-      "type": "<ALPHANUM>",
-      "position": 3
-    },
-    {
-      "token": "example",
-      "start_offset": 22,
-      "end_offset": 29,
-      "type": "<ALPHANUM>",
-      "position": 4
-    },
-    {
-      "token": "demonstr",
-      "start_offset": 30,
-      "end_offset": 43,
-      "type": "<ALPHANUM>",
-      "position": 5
-    },
-    {
-      "token": "keyword",
-      "start_offset": 44,
-      "end_offset": 51,
-      "type": "<ALPHANUM>",
-      "position": 6
-    },
-    {
-      "token": "marker",
-      "start_offset": 52,
-      "end_offset": 58,
-      "type": "<ALPHANUM>",
-      "position": 7
     }
   ]
 }
