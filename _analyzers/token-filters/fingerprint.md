@@ -7,10 +7,10 @@ nav_order: 140
 
 # Fingerprint token filter
 
-The `fingerprint` token filter is used to standardize and deduplicate text. This is particularly useful for tasks where consistency in text processing is crucial. `fingerprint` token filter achieves this by processing text using the following steps:
+The `fingerprint` token filter is used to standardize and deduplicate text. This is particularly useful for tasks where consistency in text processing is crucial. The `fingerprint` token filter achieves this by processing text using the following steps:
 
 1. **Lowercasing**: Converts all text to lowercase.
-2. **Splitting**: Breaks the text into words.
+2. **Splitting**: Breaks the text into tokens.
 3. **Sorting**: Arranges the tokens in alphabetical order.
 4. **Removing duplicates**: Eliminates repeated tokens.
 5. **Joining tokens**: Combines the tokens into a single string, typically joined by a space or another specified separator.
@@ -21,12 +21,12 @@ The `fingerprint` token filter can be configured with the following two paramete
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
-`max_output_size` | Optional | Integer | Limits the length of the generated fingerprint string. If the concatenated string exceeds the `max_output_size`, the filter will not produce any output, resulting in empty token. Default is `255`.
+`max_output_size` | Optional | Integer | Limits the length of the generated fingerprint string. If the concatenated string exceeds the `max_output_size`, the filter will not produce any output, resulting in an empty token. Default is `255`.
 `separator` | Optional | String | Defines the character(s) used to join the tokens into a single string after they have been sorted and deduplicated. Default is space (`" "`).
 
 ## Example
 
-The following example request creates a new index named `my_index` and configures an analyzer with `fingerprint` filter:
+The following example request creates a new index named `my_index` and configures an analyzer with a `fingerprint` token filter:
 
 ```json
 PUT /my_index
