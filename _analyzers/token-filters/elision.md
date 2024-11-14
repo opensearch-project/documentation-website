@@ -7,9 +7,9 @@ nav_order: 130
 
 # Elision token filter
 
-The `elision` token filter is used to remove elided characters from words in certain languages. Elision typically occurs in languages such as French, where words are often contracted and combined with the following word, typically by omitting a vowel and replacing it with an apostrophe. 
+The `elision` token filter is used to remove elided characters from words in certain languages. Elision typically occurs in languages such as French, in which words are often contracted and combined with the following word, typically by omitting a vowel and replacing it with an apostrophe. 
 
-The `elision` token filter already comes preconfigured in the following [language analyzers]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/): `catalan`, `french`, `irish`, and `italian`.
+The `elision` token filter is already preconfigured in the following [language analyzers]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/): `catalan`, `french`, `irish`, and `italian`.
 {: .note}
 
 ## Parameters
@@ -24,7 +24,7 @@ Parameter | Required/Optional | Data type | Description
 
 ## Example
 
-The default set of French elisions is `l'`, `m'`, `t'`, `qu'`, `n'`, `s'`, `j'`, `d'`, `c'`, `jusqu'`, `quoiqu'`, `lorsqu'`, and `puisqu'`. You can update this by configuring the `french_elision` token filter. The following example request creates a new index named `french_texts` and configures an analyzer with `french_elision` filter:
+The default set of French elisions is `l'`, `m'`, `t'`, `qu'`, `n'`, `s'`, `j'`, `d'`, `c'`, `jusqu'`, `quoiqu'`, `lorsqu'`, and `puisqu'`. You can update this by configuring the `french_elision` token filter. The following example request creates a new index named `french_texts` and configures an analyzer with the `french_elision` filter:
 
 ```json
 PUT /french_texts
