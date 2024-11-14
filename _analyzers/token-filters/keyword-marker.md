@@ -16,14 +16,14 @@ The `keyword_marker` token filter can be configured with the following parameter
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
 `ignore_case` | Optional | Boolean | Whether to ignore the letter case when matching keywords. Default is `false`.
-`keywords` | Required if `keywords_path` or `keywords_pattern` is not set | List of strings | List of tokens to mark as keywords. 
-`keywords_path` | Required if `keywords` or `keywords_pattern` is not set | String | Path (relative to the `config` directory or absolute) to the list of keywords.
-`keywords_pattern` | Required if `keywords` or `keywords_path` is not set | String | [Regular expression](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html) used for matching tokens to be marked as keywords.
+`keywords` | Required if either `keywords_path` or `keywords_pattern` is not set | List of strings | The list of tokens to mark as keywords. 
+`keywords_path` | Required if either `keywords` or `keywords_pattern` is not set | String | The path (relative to the `config` directory or absolute) to the list of keywords.
+`keywords_pattern` | Required if either `keywords` or `keywords_path` is not set | String | A [regular expression](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html) used for matching tokens to be marked as keywords.
  
 
 ## Example
 
-The following example request creates a new index named `my_index` and configures an analyzer with `keyword_marker` filter. The filter marks the word `example` as a keyword:
+The following example request creates a new index named `my_index` and configures an analyzer with a `keyword_marker` filter. The filter marks the word `example` as a keyword:
 
 ```json
 PUT /my_index
@@ -62,7 +62,7 @@ GET /my_index/_analyze
 ```
 {% include copy-curl.html %}
 
-The response contains the generated tokens. Note that the word `favorite` was stemmed but the word `example` was not stemmed because it was marked as a keyword:
+The response contains the generated tokens. Note that while the word `favorite` was stemmed, the word `example` was not stemmed because it was marked as a keyword:
 
 ```json
 {
