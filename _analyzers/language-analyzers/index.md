@@ -7,6 +7,7 @@ has_children: true
 has_toc: true
 redirect_from:
   - /query-dsl/analyzers/language-analyzers/
+  - /analyzers/language-analyzers/
 ---
 
 # Language analyzers
