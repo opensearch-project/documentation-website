@@ -3,7 +3,7 @@ layout: default
 title: otel_metrics_source
 parent: Sources
 grand_parent: Pipelines
-nav_order: 10
+nav_order: 70
 ---
 
 # otel_metrics_source

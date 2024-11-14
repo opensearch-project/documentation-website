@@ -15,24 +15,18 @@ You can use the update settings API operation to update index-level settings. Yo
 
 Aside from the static and dynamic index settings, you can also update individual plugins' settings. To get the full list of updatable settings, run `GET <target-index>/_settings?include_defaults=true`.
 
-## Example
-
-```json
-PUT /sample-index1/_settings
-{
-  "index.plugins.index_state_management.rollover_skip": true,
-  "index": {
-    "number_of_replicas": 4
-  }
-}
-```
-{% include copy-curl.html %}
 
 ## Path and HTTP methods
 
+```json
+PUT /<index>/_settings
 ```
-PUT /<target-index>/_settings
-```
+
+## Path parameters
+
+Parameter | Type | Description
+:--- | :--- | :---
+&lt;index&gt; | String | The index to update. Can be a comma-separated list of multiple index names. Use `_all` or `*` to specify all indexes.
 
 ## Query parameters
 
@@ -59,7 +53,20 @@ The request body must all of the index settings that you want to update.
 }
 ```
 
-## Response
+## Example request
+
+```json
+PUT /sample-index1/_settings
+{
+  "index.plugins.index_state_management.rollover_skip": true,
+  "index": {
+    "number_of_replicas": 4
+  }
+}
+```
+{% include copy-curl.html %}
+
+## Example response
 
 ```json
 {

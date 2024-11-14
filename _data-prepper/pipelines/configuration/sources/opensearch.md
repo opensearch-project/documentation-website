@@ -3,7 +3,7 @@ layout: default
 title: opensearch
 parent: Sources
 grand_parent: Pipelines
-nav_order: 30
+nav_order: 50
 ---
 
 # opensearch
@@ -135,7 +135,7 @@ Option | Required | Type | Description
 
 ### Scheduling
 
-The `scheduling` configuration allows the user to configure how indexes are reprocessed in the source based on the the `index_read_count` and recount time `interval`.
+The `scheduling` configuration allows the user to configure how indexes are reprocessed in the source based on the `index_read_count` and recount time `interval`.
 
 For example, setting `index_read_count` to `3` with an `interval` of `1h` will result in all indexes being reprocessed 3 times, 1 hour apart. By default, indexes will only be processed once.
 

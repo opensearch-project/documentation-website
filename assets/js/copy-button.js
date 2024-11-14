@@ -62,7 +62,7 @@ function addCurl(textToCopy) {
     result += path + "\"";
 
     if (body.length > 0) {
-        result += " -H 'Content-Type: application/json' -d'\n" + body + "'";
+        result += " -H 'Content-Type: application/json' -d'\n" + body + "\n'";
     }
 
     return result;

@@ -788,7 +788,7 @@ Select the arrow to view the example response.
 ```
 </details>
 
-## Response fields
+## Response body fields
 
 The following table lists all response fields.
 
@@ -893,24 +893,27 @@ search.suggest_total | Integer | The total number of shard suggest operations.
 search.suggest_time_in_millis | Integer | The total amount of time for all shard suggest operations, in milliseconds.
 search.suggest_current | Integer | The number of shard suggest operations that are currently running.
 search.request | Object | Statistics about coordinator search operations for the node.
+search.request.took.time_in_millis | Integer | The total amount of time taken for all search requests, in milliseconds.
+search.request.took.current | Integer | The number of search requests that are currently running.
+search.request.took.total | Integer | The total number of search requests completed.
 search.request.dfs_pre_query.time_in_millis | Integer | The total amount of time for all coordinator depth-first search (DFS) prequery operations, in milliseconds.
 search.request.dfs_pre_query.current | Integer | The number of coordinator DFS prequery operations that are currently running.
-search.request.dfs_pre_query.total | Integer | The total number of coordinator DFS prequery operations.
+search.request.dfs_pre_query.total | Integer | The total number of coordinator DFS prequery operations completed.
 search.request.query.time_in_millis | Integer | The total amount of time for all coordinator query operations, in milliseconds.
 search.request.query.current | Integer | The number of coordinator query operations that are currently running.
-search.request.query.total | Integer | The total number of coordinator query operations.
+search.request.query.total | Integer | The total number of coordinator query operations completed.
 search.request.fetch.time_in_millis | Integer | The total amount of time for all coordinator fetch operations, in milliseconds.
 search.request.fetch.current | Integer | The number of coordinator fetch operations that are currently running.
-search.request.fetch.total | Integer | The total number of coordinator fetch operations.
+search.request.fetch.total | Integer | The total number of coordinator fetch operations completed.
 search.request.dfs_query.time_in_millis | Integer | The total amount of time for all coordinator DFS prequery operations, in milliseconds.
 search.request.dfs_query.current | Integer | The number of coordinator DFS prequery operations that are currently running.
-search.request.dfs_query.total | Integer | The total number of coordinator DFS prequery operations.
+search.request.dfs_query.total | Integer | The total number of coordinator DFS prequery operations completed.
 search.request.expand.time_in_millis | Integer | The total amount of time for all coordinator expand operations, in milliseconds.
 search.request.expand.current | Integer | The number of coordinator expand operations that are currently running.
-search.request.expand.total | Integer | The total number of coordinator expand operations.
+search.request.expand.total | Integer | The total number of coordinator expand operations completed.
 search.request.can_match.time_in_millis | Integer | The total amount of time for all coordinator match operations, in milliseconds.
 search.request.can_match.current | Integer | The number of coordinator match operations that are currently running.
-search.request.can_match.total | Integer | The total number of coordinator match operations.
+search.request.can_match.total | Integer | The total number of coordinator match operations completed.
 merges | Object | Statistics about merge operations for the node.
 merges.current | Integer | The number of merge operations that are currently running.
 merges.current_docs | Integer | The number of document merges that are currently running.

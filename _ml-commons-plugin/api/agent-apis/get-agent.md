@@ -77,6 +77,6 @@ Assistant:"""
 }
 ```
 
-## Response fields
+## Response body fields
 
-For response field descriptions, see [Register Agent API request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent#request-fields).
+For response field descriptions, see [Register Agent API request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent#request-body-fields).
