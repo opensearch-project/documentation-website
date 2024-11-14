@@ -200,7 +200,7 @@ PUT /students/_doc/1
   "address": "123 Main St."
 }
 ```
-{% include copy.html %}
+{% include copy-curl.html %}
 
 Alternatively, you can update parts of a document by calling the Update Document API:
 

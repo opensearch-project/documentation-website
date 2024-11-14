@@ -7,7 +7,7 @@ nav_order: 10
 
 # Semantic search using byte-quantized vectors
 
-This tutorial illustrates how to build a semantic search using the [Cohere Embed model](https://docs.cohere.com/reference/embed) and byte-quantized vectors. For more information about using byte-quantized vectors, see [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/#lucene-byte-vector).
+This tutorial shows you how to build a semantic search using the [Cohere Embed model](https://docs.cohere.com/reference/embed) and byte-quantized vectors. For more information about using byte-quantized vectors, see [Byte vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/#byte-vectors).
 
 The Cohere Embed v3 model supports several `embedding_types`. For this tutorial, you'll use the `INT8` type to encode byte-quantized vectors. 
 

@@ -3,7 +3,7 @@ layout: default
 title: kafka
 parent: Sources
 grand_parent: Pipelines
-nav_order: 6
+nav_order: 40
 ---
 
 # kafka
