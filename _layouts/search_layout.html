@@ -1,0 +1,214 @@
+---
+layout: table_wrappers
+---
+
+<!DOCTYPE html>
+
+<html lang="{{ site.lang | default: 'en-US' }}">
+{% include head.html %}
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+        <title>Expand</title>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+            <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+    </symbol>
+</svg>
+
+{% include header.html %}
+
+<div class="main-content-wrap-home">
+    <div id="main-content" class="main-content" role="main">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Results Page Head from layout</title>
+      </head>
+  
+      <div class="search-page--wrapper">
+        <!-- Search input box at the top -->
+        <div class="search-page--input-container">
+            <div class="search-page--results--wrapper">
+                <input type="text" class="search-page--results--input-box" id="searchPageInput" placeholder="Search for anything" aria-label="Search" autocomplete="off">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="search-page--results--input-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </div>
+        </div>
+    
+        <div class="search-page">
+            <aside class="search-page--sidebar">
+            <h3>Filter results</h3>
+            <div class="version-selector-wrapper" id="version-panel">
+                <version-selector selected="{{ site.data.versions.current }}"></version-selector>
+            </div>
+            <form class="search-page--sidebar--category-filter">
+                <div class="search-page--sidebar--category-filter--checkbox">
+                <input type="checkbox" id="categoryAll" name="categoryGroup" value="All" class="category-checkbox" checked>
+                <label for="categoryAll">All</label>
+                </div>
+                <div class="search-page--sidebar--category-filter--checkbox-child">
+                <input type="checkbox" id="categoryDocumentation" name="categoryGroup" value="docs" class="category-checkbox" checked>
+                <label for="categoryDocumentation">Documentation</label>
+                </div>
+                <div class="search-page--sidebar--category-filter--checkbox-child">
+                <input type="checkbox" id="categoryBlog" name="categoryGroup" value="blogs" class="category-checkbox" checked>
+                <label for="categoryBlog">Blogs</label>
+                </div>
+                <div class="search-page--sidebar--category-filter--checkbox-child">
+                <input type="checkbox" id="categoryEvent" name="categoryGroup" value="events" class="category-checkbox" checked>
+                <label for="categoryEvent">Events</label>
+                </div>
+            </form>
+            </aside>
+    
+            <!-- Search Results Section -->
+            <div class="search-page--results">
+            <main class="search-page--results--display">
+                <h2 class="search-page--results--display--header" id="searchPageResultsHeader">Search Results</h2>
+                <div class="search-page--results--display--container" id="searchPageResultsContainer">
+                <!-- API results will be displayed here -->
+                </div>
+            </main>
+            </div>
+        </div>
+      </div>
+  
+      <a class="top-link" href="#top">
+        <svg viewBox="0 0 24 24">
+          <use xlink:href="#svg-arrow-right"></use>
+        </svg>
+      </a>
+    </div>
+  </div>
+  
+
+{% include footer.html %}
+<script src="{{ '/assets/js/search.js' | relative_url }}"></script>
+<script src="{{ '/assets/js/home-listener.js' | relative_url }}"></script>
+<script>
+    function truncateSentence(sentence, maxLength) {
+    if (sentence.length <= maxLength) return sentence;
+    let words = sentence.split(' ');
+    let truncatedSentence = '';
+
+    for (let i = 0; i < words.length; i++) {
+        if (truncatedSentence.length + words[i].length + 1 > maxLength) {
+            break;
+        }
+        if (i > 0) {
+            truncatedSentence += ' ';
+        }
+        truncatedSentence += words[i];
+    }
+    return truncatedSentence + (truncatedSentence.length < sentence.length ? '...' : '');
+}
+</script>
+<script>
+    const searchInput = document.getElementById('searchPageInput');
+    const checkboxes = document.querySelectorAll('.category-checkbox');
+
+    function getSelectedCategory() {
+        const allCheckbox = document.getElementById('categoryAll');
+        return document.querySelectorAll('input[name="categoryGroup"]:checked');
+    }
+    
+    function triggerSearch(query) {
+      const searchResultsHeader = document.getElementById('searchPageResultsHeader');
+
+      if (query) {
+        trucatedQuery = truncateSentence(query, 20);
+        if (getSelectedCategory().length === 0) {
+            searchResultsHeader.textContent = 'Select the result type for your search.';
+            document.getElementById('searchPageResultsContainer').innerHTML = '';
+            return;
+        }
+        const selectedCategory = getSelectedCategory();
+        const searchType = Array.from(selectedCategory).map(element => element.value).join(',');
+        const urlPath = window.location.pathname;
+        const versionMatch = urlPath.match(/(\d+\.\d+)/);
+        const docsVersion = versionMatch ? versionMatch[1] : "latest";
+
+        searchResultsHeader.textContent = `Search results for "${trucatedQuery}"`;
+        doResultsPageSearch(query, searchType, docsVersion);
+      } else {
+        searchResultsHeader.textContent = 'Please input a Query for searching.';
+        document.getElementById('searchPageResultsContainer').innerHTML = '';
+      }
+    }
+
+    searchInput.addEventListener('keydown', function(event) {
+      if (event.key === 'Enter') {
+          event.preventDefault();
+          triggerSearch(searchInput.value.trim());
+      }
+    });
+      
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const categoryAll = document.getElementById('categoryAll');
+        const categoryDocumentation = document.getElementById('categoryDocumentation');
+        const categoryBlog = document.getElementById('categoryBlog');
+        const categoryEvent = document.getElementById('categoryEvent');
+        const searchInput = document.getElementById('searchPageInput');
+
+        function updateAllCheckbox() {
+            if (categoryDocumentation.checked && categoryBlog.checked && categoryEvent.checked) {
+                categoryAll.checked = true;
+            } else {
+                categoryAll.checked = false;
+            }
+        }
+
+        function updateChildCheckboxes() {
+            if (categoryAll.checked) {
+                categoryDocumentation.checked = true;
+                categoryBlog.checked = true;
+                categoryEvent.checked = true;
+            } else {
+                categoryDocumentation.checked = false;
+                categoryBlog.checked = false;
+                categoryEvent.checked = false;
+            }
+        }
+
+        categoryAll.addEventListener('change', () => {
+            updateChildCheckboxes(); 
+            triggerSearch(searchInput.value.trim());
+        });
+        categoryDocumentation.addEventListener('change',  () => {
+            updateAllCheckbox(); 
+            triggerSearch(searchInput.value.trim());
+        });
+        categoryBlog.addEventListener('change', () => {
+            updateAllCheckbox(); 
+            triggerSearch(searchInput.value.trim());
+        });
+        categoryEvent.addEventListener('change', () => {
+            updateAllCheckbox(); 
+            triggerSearch(searchInput.value.trim());
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchInput = document.getElementById('searchPageInput');
+
+      const getQueryParam = (param) => {
+          const urlParams = new URLSearchParams(window.location.search);
+          return urlParams.get(param);
+      };
+  
+      const searchQuery = getQueryParam('q');
+  
+      if (searchQuery) {
+        searchInput.value = decodeURIComponent(searchQuery);
+        triggerSearch(searchInput.value.trim());
+      }
+    });
+</script>
+</body>
+</html>

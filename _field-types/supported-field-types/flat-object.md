@@ -10,6 +10,8 @@ redirect_from:
 ---
 
 # Flat object field type
+**Introduced 2.7**
+{: .label .label-purple }
 
 In OpenSearch, you don't have to specify a mapping before indexing documents. If you don't specify a mapping, OpenSearch uses [dynamic mapping]({{site.url}}{{site.baseurl}}/field-types/index#dynamic-mapping) to map every field and its subfields in the document automatically. When you ingest documents such as logs, you may not know every field's subfield name and type in advance. In this case, dynamically mapping all new subfields can quickly lead to a "mapping explosion," where the growing number of fields may degrade the performance of your cluster. 
 

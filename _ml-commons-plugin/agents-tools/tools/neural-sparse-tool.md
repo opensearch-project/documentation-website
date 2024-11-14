@@ -20,13 +20,13 @@ The `NeuralSparseSearchTool` performs sparse vector retrieval. For more informat
 
 OpenSearch supports several pretrained sparse encoding models. You can either use one of those models or your own custom model. For a list of supported pretrained models, see [Sparse encoding models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sparse-encoding-models). For more information, see [OpenSearch-provided pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/) and [Custom local models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/custom-local-models/). 
 
-In this example, you'll use the `amazon/neural-sparse/opensearch-neural-sparse-encoding-v1` pretrained model for both ingestion and search. To register and deploy the model to OpenSearch, send the following request:
+In this example, you'll use the `amazon/neural-sparse/opensearch-neural-sparse-encoding-v2-distill` pretrained model for both ingestion and search. To register the model and deploy it to OpenSearch, send the following request:
 
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
 {
-  "name": "amazon/neural-sparse/opensearch-neural-sparse-encoding-v1",
-  "version": "1.0.1",
+  "name": "amazon/neural-sparse/opensearch-neural-sparse-encoding-v2-distill",
+  "version": "1.0.0",
   "model_format": "TORCH_SCRIPT"
 }
 ```
