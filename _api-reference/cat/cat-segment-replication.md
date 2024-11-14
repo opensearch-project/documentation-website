@@ -24,15 +24,11 @@ GET /_cat/segment_replication/<index>
 
 ## Path parameters
 
-The following table lists the available optional path parameter.
-
 Parameter | Type | Description
 :--- | :--- | :---
 `index` | String | The name of the index, or a comma-separated list or wildcard expression of index names used to filter results. If this parameter is not provided, the response contains information about all indexes in the cluster.
 
 ## Query parameters
-
-The CAT segment replication API operation supports the following optional query parameters.
 
 Parameter | Data type  | Description
 :--- |:-----------| :---

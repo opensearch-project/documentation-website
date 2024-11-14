@@ -74,7 +74,7 @@ POST _plugins/_alerting/workflows
 ```
 {% include copy-curl.html %}
 
-#### Request fields
+#### Request body fields
 
 | Field | Type | Description |
 | :--- | :--- | :--- |
@@ -526,7 +526,7 @@ GET /_plugins/_alerting/workflows/alerts?workflowIds=<workflow_ids>&getAssociate
 }
 ```
 
-#### Request fields
+#### Request body fields
 
 | Field | Type | Description |
 | :--- | :--- | :--- |
@@ -546,7 +546,7 @@ POST _plugins/_alerting/workflows/<workflow_id>/_acknowledge/alerts
 ```
 {% include copy-curl.html %}
 
-#### Request fields
+#### Request body fields
 
 | Field | Type | Description |
 | :--- | :--- | :--- |

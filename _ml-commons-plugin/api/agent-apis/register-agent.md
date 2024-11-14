@@ -27,7 +27,7 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %}
 
-## Request fields
+## Request body fields
 
 The following table lists the available request fields.
 
@@ -161,7 +161,7 @@ POST /_plugins/_ml/agents/_register
     {
       "type": "VectorDBTool",
       "name": "VectorDBTool",
-      "description": "A tool to search opensearch index with natural language quesiotn. If you don't know answer for some question, you should always try to search data with this tool. Action Input: <natrual language question>",
+      "description": "A tool to search opensearch index with natural language question. If you don't know answer for some question, you should always try to search data with this tool. Action Input: <natural language question>",
       "parameters": {
         "model_id": "<embedding_model_id>",
         "index": "<your_knn_index>",
