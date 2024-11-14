@@ -15,8 +15,8 @@ The `keep_words` token filter can be configured with the following parameters.
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
-`keep_words` |  Required if `keep_words_path` is not configured | List of strings | List of words to be kept.
-`keep_words_path` | Required if `keep_words` is not configured | String | Path to a file containing list of words to be kept.
+`keep_words` |  Required if `keep_words_path` is not configured | List of strings | The list of words to keep.
+`keep_words_path` | Required if `keep_words` is not configured | String | The path to the file containing the list of words to keep.
 `keep_words_case` | Optional | Boolean | Whether to lowercase all words during comparison. Default is `false`.
  
 
