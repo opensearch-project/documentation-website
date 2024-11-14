@@ -30,7 +30,7 @@ OpenSearch provides the following geographic query types:
 
 - [**Geo-bounding box queries**]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/geo-and-xy/geo-bounding-box/): Return documents with geopoint field values that are within a bounding box. 
 - [**Geodistance queries**]({{site.url}}{{site.baseurl}}/query-dsl/geo-and-xy/geodistance/): Return documents with geopoints that are within a specified distance from the provided geopoint.
-- [**Geopolygon queries**]({{site.url}}{{site.baseurl}}/query-dsl/geo-and-xy/geodistance/): Return documents containing geopoints that are within a polygon.
+- [**Geopolygon queries**]({{site.url}}{{site.baseurl}}/query-dsl/geo-and-xy/geopolygon/): Return documents containing geopoints that are within a polygon.
 - [**Geoshape queries**]({{site.url}}{{site.baseurl}}/query-dsl/geo-and-xy/geoshape/): Return documents that contain:
     - Geoshapes and geopoints that have one of four spatial relations to the provided shape: `INTERSECTS`, `DISJOINT`, `WITHIN`, or `CONTAINS`.
     - Geopoints that intersect the provided shape.
