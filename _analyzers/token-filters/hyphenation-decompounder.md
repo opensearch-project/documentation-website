@@ -4,7 +4,9 @@ title: Hyphenation decompounder
 parent: Token filters
 nav_order: 170
 ---
+
 # Hyphenation decompounder token filter
+
 The `hyphenation_decompounder` token filter is used to break down compound words into their constituent parts. This filter is particularly useful for languages like German, Dutch, and Swedish, where compound words are common. The filter uses hyphenation patterns (typically defined in .xml files) to identify the possible locations within a compound word where it can be split into components. These components are then checked against a provided dictionary. If there is a match, those components are treated as valid tokens.
 
 ## Parameters
