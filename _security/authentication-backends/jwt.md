@@ -117,7 +117,7 @@ The following table lists the configuration parameters.
 
 Name | Description
 :--- | :---
-`signing_key` | The signing key to use when verifying the token. If you use a symmetric key algorithm, it is the base64-encoded shared secret. If you use an asymmetric algorithm, it contains the public key.
+`signing_key` | The signing key(s) used to verify the token. If you use a symmetric key algorithm, this is the Base64-encoded shared secret. If you use an asymmetric algorithm, the algorithm contains the public key. To pass multiple keys, use a comma-separated list or enumerate the keys.
 `jwt_header` | The HTTP header in which the token is transmitted. This is typically the `Authorization` header with the `Bearer` schema,`Authorization: Bearer <token>`. Default is `Authorization`. Replacing this field with a value other than `Authorization` prevents the audit log from properly redacting the JWT header from audit messages. It is recommended that users only use  `Authorization` when using JWTs with audit logging. 
 `jwt_url_parameter` | If the token is not transmitted in the HTTP header but rather as an URL parameter, define the name of the parameter here.
 `subject_key` | The key in the JSON payload that stores the username. If not set, the [subject](https://tools.ietf.org/html/rfc7519#section-4.1.2) registered claim is used.
@@ -177,7 +177,7 @@ The default name of the header is `Authorization`. If required by your authentic
 As with HTTP basic authentication, you should use HTTPS instead of HTTP when transmitting JWTs in HTTP requests.
 
 
-### URL parameters for HTTP requests
+### Query parameters for HTTP requests
 
 Although the most common way to transmit JWTs in HTTP requests is to use a header field, the Security plugin also supports parameters. Configure the name of the `GET` parameter using the following key:
 

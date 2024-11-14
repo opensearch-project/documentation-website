@@ -10,6 +10,8 @@ redirect_from:
 ---
 
 # Range field types
+**Introduced 1.0**
+{: .label .label-purple }
 
 The following table lists all range field types that OpenSearch supports.
 

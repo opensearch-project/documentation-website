@@ -2,7 +2,7 @@
 layout: default
 title: Apostrophe
 parent: Token filters
-nav_order: 110
+nav_order: 10
 ---
 
 # Apostrophe token filter
@@ -22,7 +22,7 @@ PUT /custom_text_index
       "analyzer": {
         "custom_analyzer": {
           "type": "custom",
-          "tokenizer": "standard", // splits text into words
+          "tokenizer": "standard",
           "filter": [
             "lowercase",
             "apostrophe"

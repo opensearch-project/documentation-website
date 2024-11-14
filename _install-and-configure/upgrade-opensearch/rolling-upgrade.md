@@ -131,18 +131,6 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    ```bash
    os-node-01 v1.3.7
    ```
-1. Repeat steps 5 through 9 for each node in your cluster. Remember to upgrade an eligible cluster manager node last. After replacing the last node, query the `_cat/nodes` endpoint to confirm that all nodes have joined the cluster. The cluster is now bootstrapped to the new version of OpenSearch. You can verify the cluster version by querying the `_cat/nodes` API endpoint:
-   ```bash
-   GET "/_cat/nodes?v&h=name,version,node.role,master" | column -t
-   ```
-   The response should look similar to the following example:
-   ```bash
-   name        version  node.role  master
-   os-node-04  1.3.7    dimr       -
-   os-node-02  1.3.7    dimr       *
-   os-node-01  1.3.7    dimr       -
-   os-node-03  1.3.7    dimr       -
-   ```
 1. Reenable shard replication:
    ```json
    PUT "/_cluster/settings?pretty"
@@ -192,6 +180,18 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
      "task_max_waiting_in_queue_millis" : 0,
      "active_shards_percent_as_number" : 100.0
    }
+   ```
+1. Repeat steps 2 through 11 for each node in your cluster. Remember to upgrade an eligible cluster manager node last. After replacing the last node, query the `_cat/nodes` endpoint to confirm that all nodes have joined the cluster. The cluster is now bootstrapped to the new version of OpenSearch. You can verify the cluster version by querying the `_cat/nodes` API endpoint:
+   ```bash
+   GET "/_cat/nodes?v&h=name,version,node.role,master" | column -t
+   ```
+   The response should look similar to the following example:
+   ```bash
+   name        version  node.role  master
+   os-node-04  1.3.7    dimr       -
+   os-node-02  1.3.7    dimr       *
+   os-node-01  1.3.7    dimr       -
+   os-node-03  1.3.7    dimr       -
    ```
 1. The upgrade is now complete, and you can begin enjoying the latest features and fixes!
 
