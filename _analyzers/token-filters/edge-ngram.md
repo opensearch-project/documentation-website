@@ -5,7 +5,7 @@ parent: Token filters
 nav_order: 120
 ---
 # Edge n-gram token filter
-The `edge_ngram` token filter is very similar to `ngram` token filter where a particular string is split into a substrings of different length. The `edge_ngram` token filter, however, generates n-grams (substrings) only from the beginning (edge) of a token. It's particularly useful in scenarios like autocomplete or prefix matching, where you want to match the start of words or phrases as the user types them.
+The `edge_ngram` token filter is very similar to the `ngram` token filter, where a particular string is split into substrings of different lengths. The `edge_ngram` token filter, however, generates n-grams (substrings) only from the beginning (edge) of a token. It's particularly useful in scenarios like autocomplete or prefix matching, where you want to match the beginning of words or phrases as the user types them.
 
 ## Parameters
 
@@ -15,11 +15,11 @@ Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
 `min_gram` | Optional | Integer | The minimum length of the n-grams that will be generated. Default is `1`.
 `max_gram` | Optional | Integer | The maximum length of the n-grams that will be generated. Default is `1` for the `edge_ngram` filter and `2` for custom token filters. Avoid setting this parameter to a low value. If the value is set too low, only very short n-grams will be generated and the search term will not be found. For example, if `max_gram` is set to `3` and you index the word "banana", the longest generated token will be "ban". If the user searches for "banana", no matches will be returned. You can use the `truncate` token filter as a search analyzer to mitigate this risk.
-`preserve_original` | Optional | Boolean | Include the original token in the output. Default is `false` .
+`preserve_original` | Optional | Boolean | Includes the original token in the output. Default is `false` .
 
 ## Example
 
-The following example request creates a new index named `edge_ngram_example` and configures an analyzer with `edge_ngram` filter:
+The following example request creates a new index named `edge_ngram_example` and configures an analyzer with the `edge_ngram` filter:
 
 ```json
 PUT /edge_ngram_example
