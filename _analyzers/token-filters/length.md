@@ -7,21 +7,21 @@ nav_order: 240
 
 # Length token filter
 
-The `length` token filter in OpenSearch is used to remove tokens from the token stream that don't meet specified length criteria, such as min and max values.
+The `length` token filter is used to remove tokens that don't meet specified length criteria, such as minimum and maximum values, from the token stream.
 
 ## Parameters
 
-The `length` token filter in OpenSearch can be configured with the following parameters.
+The `length` token filter can be configured with the following parameters.
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
 `min` | Optional | Integer | Minimum length of tokens that should be created. Default is `0`.
-`max` | Optional | Integer | Maximum length of tokens that should be created. Default is `2147483647`.
+`max` | Optional | Integer | Maximum length of tokens that should be created. Default is `Integer.MAX_VALUE` (`2147483647`).
  
 
 ## Example
 
-The following example request creates a new index named `my_index` and configures an analyzer with `length` filter:
+The following example request creates a new index named `my_index` and configures an analyzer with a `length` filter:
 
 ```json
 PUT my_index
