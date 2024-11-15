@@ -58,7 +58,7 @@ The invocation types are as follows:
 - `event` (Default): Executes functions asynchronously without waiting for responses.  
 - `request-response` (Sink only): Executes functions synchronously, though responses are not processed.
 - `batch`: Automatically groups events based on configured thresholds. 
-- `dlq`: Supports DLQ configuration for failed invocations after retry attempts.
+- `dlq`: Supports the DLQ configuration for failed invocations after retry attempts.
 
 Data Prepper components use IAM role assumption, `aws.sts_role_arn`, for secure Lambda function invocation and respect Lambda's concurrency limits during event processing. For details, see the [AWS Lambda documentation](https://docs.aws.amazon.com/lambda).
 {: .note}
