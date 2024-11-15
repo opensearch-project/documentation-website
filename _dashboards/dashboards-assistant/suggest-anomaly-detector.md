@@ -55,6 +55,9 @@ POST /.plugins-ml-config/_doc/os_suggest_ad
 ```
 {% include copy-curl.html %}
 
+This example shows a system index. In security-enabled domains, only super admins have permission to execute this code. For information about making super admin calls, see the [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/) guide. For access permission, contact your IT administrator.
+{: .warning}
+
 ### Step 4: Test the agent
 
 You can verify that the agent was created successfully by calling the agent with an example payload:

@@ -197,6 +197,9 @@ POST /.plugins-ml-config/_doc/os_insight
 The created `os_insight` agent provides alert insights related to OpenSearch cluster metrics. For insights about alerts unrelated to OpenSearch cluster metrics, you need to register an agent with [this template](https://github.com/opensearch-project/flow-framework/blob/2.x/sample-templates/create-knowledge-base-alert-agent.json) and change the agent name to `KB_For_Alert_Insight`.
 {: .note}
 
+This example shows a system index. In security-enabled domains, only super admins have permission to execute this code. For information about making super admin calls, see the [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/) guide. For access permission, contact your IT administrator.
+{: .warning}
+
 ### Step 4: Test the agents
 
 You can verify that the agents were created successfully by calling the agents with an example payload.
