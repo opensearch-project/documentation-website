@@ -13,7 +13,7 @@ This document explains how to configure and use [AWS Lambda](https://aws.amazon.
 
 ## `aws_lambda` sink
 
-Configure the Lambda sink using the following parameters:
+Configure the Lambda sink using the following parameters.
 
 Field             | Type    | Required | Description                                                                 
 --------------------| ------- | -------- | ---------------------------------------------------------------------------- 
