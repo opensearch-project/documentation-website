@@ -209,6 +209,9 @@ POST /.plugins-ml-config/_doc/os_text2vega_with_instructions
 ```
 {% include copy-curl.html %}
 
+This example demonstrates a system index. In security-enabled domains, only superadmins have permissions to execute this code. For information about making superadmin calls, see [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/). For access permissions, contact your system administrator.
+{: .warning}
+
 ### Step 4: Test the agent
 
 You can verify that the agent was created successfully by calling the agent with an example payload:
