@@ -9,7 +9,7 @@ nav_order: 300
 
 The `normalization` token filter is designed to adjust and simplify text in a way that reduces variations, particularly with special characters. It is primarily used to handle variations in writing by standardizing characters in specific languages.
 
-Current available `normalization` token filters are:
+The following `normalization` token filters are available:
 
 - [arabic_normalization](https://lucene.apache.org/core/8_7_0/analyzers-common/org/apache/lucene/analysis/ar/ArabicNormalizer.html)
 - [german_normalization](https://lucene.apache.org/core/8_7_0/analyzers-common/org/apache/lucene/analysis/de/GermanNormalizationFilter.html)
@@ -24,7 +24,7 @@ Current available `normalization` token filters are:
 
 ## Example
 
-The following example request creates a new index named `german_normalizer_example` and configures an analyzer with `german_normalization` filter:
+The following example request creates a new index named `german_normalizer_example` and configures an analyzer with a `german_normalization` filter:
 
 ```json
 PUT /german_normalizer_example
