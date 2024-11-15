@@ -60,7 +60,7 @@ The invocation types are as follows:
 - `batch`: Automatically groups events based on configured thresholds. 
 - `dlq`: Supports the DLQ configuration for failed invocations after retry attempts.
 
-Data Prepper components use IAM role assumption, `aws.sts_role_arn`, for secure Lambda function invocation and respect Lambda's concurrency limits during event processing. For details, see the [AWS Lambda documentation](https://docs.aws.amazon.com/lambda).
+Data Prepper components use an AWS Identity and Access Management (IAM) role assumption, `aws.sts_role_arn`, for secure Lambda function invocation and respect Lambda's concurrency limits during event processing. For more information, see the [AWS Lambda documentation](https://docs.aws.amazon.com/lambda).
 {: .note}
 
 ## Developer guide
