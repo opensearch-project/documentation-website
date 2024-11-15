@@ -7,15 +7,8 @@ require_relative 'parameter_table_renderer'
 class PathParameters < BaseMustacheRenderer
   self.template_file = "#{__dir__}/templates/path_parameters.mustache"
 
-  # @param [Action] action API Action
-  # @param [InsertArguments] args
-  def initialize(action, args)
-    super(nil)
-    @params = action.arguments.select { |arg| arg.location == ArgLocation::PATH }
-    @args = args
-  end
-
   def table
-    ParameterTableRenderer.new(@params, @args).render
+    params = @action.arguments.select { |arg| arg.location == ArgLocation::PATH }
+    ParameterTableRenderer.new(params, @args).render
   end
 end

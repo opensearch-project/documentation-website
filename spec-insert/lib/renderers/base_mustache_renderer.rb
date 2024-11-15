@@ -6,13 +6,15 @@ require 'mustache'
 class BaseMustacheRenderer < Mustache
   self.template_path = "#{__dir__}/templates"
 
-  def initialize(output_file = nil)
-    @output_file = output_file
-    super
+  # @param [Action] action API Action
+  # @param [InsertArguments] args
+  def initialize(action, args)
+    super()
+    @action = action
+    @args = args
   end
 
-  def generate
-    raise 'Output file not specified' unless @output_file
-    @output_file&.write(render)
+  def omit_header
+    @args.omit_header
   end
 end

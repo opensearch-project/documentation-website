@@ -11,7 +11,6 @@ class ParameterTableRenderer
     @pretty = args.pretty
     @parameters = parameters
     @parameters = @parameters.reject(&:deprecated) unless args.include_deprecated
-    @parameters += Parameter.global if args.include_global
     @parameters = @parameters.sort_by { |arg| [arg.required ? 0 : 1, arg.deprecated ? 1 : 0, arg.name] }
   end
 

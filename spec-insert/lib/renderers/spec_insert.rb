@@ -15,9 +15,9 @@ class SpecInsert < BaseMustacheRenderer
 
   # @param [Array<String>] arg_lines the lines between "<!-- doc_insert_start" and "-->"
   def initialize(arg_lines)
-    super
-    @args = InsertArguments.new(arg_lines)
-    @action = Action.actions[@args.api]
+    args = InsertArguments.new(arg_lines)
+    action = Action.actions[args.api]
+    super(action, args)
     raise SpecInsertError, '`api` argument not specified.' unless @args.api
     raise SpecInsertError, "API Action '#{@args.api}' does not exist in the spec." unless @action
   end
@@ -34,7 +34,7 @@ class SpecInsert < BaseMustacheRenderer
     when :path_parameters
       PathParameters.new(@action, @args).render
     when :paths_and_http_methods
-      PathsAndMethods.new(@action).render
+      PathsAndMethods.new(@action, @args).render
     else
       raise SpecInsertError, "Invalid component: #{@args.component}"
     end

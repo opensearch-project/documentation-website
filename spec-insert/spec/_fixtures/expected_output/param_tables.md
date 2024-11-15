@@ -34,8 +34,8 @@ Query Parameters Example with only Parameter and Description Columns
 api: search
 component: query_parameters
 columns: Parameter, Description
+omit_header: true
 -->
-## Query parameters
 Parameter | Description
 :--- | :---
 `analyze_wildcard` | **(Required)** If true, wildcard and prefix queries are analyzed. This parameter can only be used when the q query string parameter is specified.
