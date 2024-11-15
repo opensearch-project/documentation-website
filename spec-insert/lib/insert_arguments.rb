@@ -48,6 +48,11 @@ class InsertArguments
     parse_boolean(@raw['include_deprecated'], default: true)
   end
 
+  # @return [Boolean]
+  def omit_header
+    parse_boolean(@raw['omit_header'], default: false)
+  end
+
   private
 
   # @param [String] value comma-separated array

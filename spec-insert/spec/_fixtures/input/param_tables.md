@@ -29,6 +29,7 @@ Query Parameters Example with only Parameter and Description Columns
 api: search
 component: query_parameters
 columns: Parameter, Description
+omit_header: true
 -->
 THIS
 TEXT
