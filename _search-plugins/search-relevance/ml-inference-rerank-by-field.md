@@ -6,33 +6,33 @@ grand_parent: Search relevance
 has_children: false
 nav_order: 20
 ---
-# ML Inference Processor with By Field Rerank type
+# ML Inference processor with By Field rerank type
 Introduced 2.18
 {: .label .label-purple }
 
-You can use the results of a remote model via the [ml_inference]({{site.url}}{{site.baseurl}}/_ingest-pipelines/processors/ml-inference.md) processor, with a [by_field]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field/) rerank type to get better search results.
+You can use the results of a ml model using the [ml_inference]({{site.url}}{{site.baseurl}}/_ingest-pipelines/processors/ml-inference.md) processor, with a [by_field]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field/) rerank type to get better search results.
 In order to do this you need to configure a search pipeline that runs at search time. The search pipeline will intercept search results
 pass them to the ml_inference processor which will apply a remote cross encoder model. Then once the results are returned it will apply the 
 reranker to use that metric in order to rerank your documents.
 
 In this tutorial we will showcase a scenario with documents related to New York City areas with emphasis on finding better search results based
-on the provided search query. We will use [Huggingface cross-encoder/ms-marco-MiniLM-L-6-v2](https://huggingface.co/cross-encoder/ms-marco-MiniLM-L-6-v2)
+on the provided search query. We will use [HuggingFace cross-encoder/ms-marco-MiniLM-L-6-v2](https://huggingface.co/cross-encoder/ms-marco-MiniLM-L-6-v2)
 hosted on Amazon SageMaker.
 
 ## Running a search with both processors
 
 To run a search with reranking, follow these steps:
 
-0. [Deploy the model on Amazon SageMaker](#0-deploy-the-model-on-amazon-sagemaker)
+0. [Deploy the model on Amazon SageMaker.](#0-deploy-the-model-on-amazon-sagemaker)
 1. [Create an index for ingestion](#step-1-create-an-index-for-ingestion).
 2. [Create a connector](#step-2-create-a-connector).
 3. [Create a model](#step-3-create-a-model).
 4. [Create the Search pipeline](#step-4-create-the-search-pipeline).
 5. [apply the pipeline on a search query](#step-5-apply-the-pipeline-on-a-search-query).
 
-## 0. Deploy the model on Amazon Sagemaker
-Use the following code to deploy the model on Amazon Sagemaker. 
-You can find all supported instance type and price on [Amazon Sagemaker Pricing document](https://aws.amazon.com/sagemaker/pricing/). Suggest to use GPU for better performance.
+## 0. Deploy the model on Amazon SageMaker
+Use the following code to deploy the model on Amazon SageMaker. 
+You can find all supported instance type and price on [Amazon SageMaker Pricing document](https://aws.amazon.com/sagemaker/pricing/). Suggest to use GPU for better performance.
 ```python
 import sagemaker
 import boto3
@@ -59,7 +59,7 @@ predictor = huggingface_model.deploy(
 ```
 To find the endpoint make sure to the SageMaker homepage and navigate in the left tab **Inference > Endpoints** make note of the url specific to the model created it will be used when creating the connector.
 
-## Step 1: Create an Index for Ingestion
+## Step 1: Create an index for ingestion
 Create an index called nyc_areas
 ```json
 POST /nyc_areas/_bulk
@@ -80,13 +80,13 @@ POST /nyc_areas/_bulk
 {% include copy-curl.html %}
 
 ## Step 2: Create a connector
-Create a conector assuming you have created a sagemaker model with a cross encoder 
+Create a connector assuming you have created a SageMaker model with a cross encoder 
 
 ```json
 POST /_plugins/_ml/connectors/_create
 {
   "name": "SageMaker cross-encoder model",
-  "description": "Test connector for Sagemaker cross-encoder model",
+  "description": "Test connector for SageMaker cross-encoder hosted model",
   "version": 1,
   "protocol": "aws_sigv4",
   "credential": {
@@ -95,7 +95,7 @@ POST /_plugins/_ml/connectors/_create
 		"session_token": "<Session token>"
   },
   "parameters": {
-    "region": "us-east-1",
+    "region": "<region>",
     "service_name": "sagemaker"
   },
   "actions": [
@@ -106,18 +106,7 @@ POST /_plugins/_ml/connectors/_create
       "headers": {
         "content-type": "application/json"
       },
-      "request_body": "{ \"inputs\":${parameters.inputs}}" ,
-       "pre_process_function": 
-      """
-        def json = params.json;
-        def inputs = json.parameters.inputs;
-        
-        def result = [:];
-        result.query_text = inputs.text;
-        result.text_docs = [inputs.text_pair];
-        
-        return result;
-      """
+      "request_body": "{ \"inputs\": { \"text\": \"${parameters.text}\", \"text_pair\": \"${parameters.text_pair}\" }}"
     }
   ]
 }
@@ -129,10 +118,10 @@ POST /_plugins/_ml/connectors/_create
 ```json
 POST /_plugins/_ml/models/_register
 {
-  "name": "text classification model",
+  "name": "Cross encoder model",
   "version": "1.0.1",
   "function_name": "remote",
-  "description": "Text Classification",
+  "description": "Using a SageMaker to apply a cross encoder model",
   "connector_id": "<connector_id_from_step_2>"
 } 
 
@@ -157,7 +146,6 @@ PUT /_search/pipeline/my_pipeline
         "tag": "ml_inference",
         "description": "This processor runs ml inference during search response",
         "model_id": "<model_id_from_step_3>",
-        "model_input":"""{"parameters":{"inputs":{"text":"${input_map.text}","text_pair":"${input_map.text_pair}"}}}""",
         "function_name": "REMOTE",
         "input_map": [
           {
