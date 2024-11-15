@@ -7,7 +7,7 @@ nav_order: 310
 
 # Pattern capture token filter
 
-The `pattern_capture` token filter a powerful filter that uses regular expressions to capture and extract parts of text according to specific patterns. This filter can be useful when you want to extract particular parts of tokens, such as email domains, hashtags, or numbers, and reuse them for further analysis or indexing.
+The `pattern_capture` token filter is a powerful filter that uses regular expressions to capture and extract parts of text according to specific patterns. This filter can be useful when you want to extract particular parts of tokens, such as email domains, hashtags, or numbers, and reuse them for further analysis or indexing.
 
 ## Parameters
 
@@ -16,12 +16,12 @@ The `pattern_capture` token filter can be configured with the following paramete
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
 `patterns` | Required | Array of strings | An array of regular expressions used to capture parts of the text.
-`preserve_original` | Required | Boolean| Retain original token in the output. Default is `true`.
+`preserve_original` | Required | Boolean| Whether to keep the original token in the output. Default is `true`.
 
 
 ## Example
 
-The following example request creates a new index named `email_index` and configures an analyzer with `pattern_capture` filter to extract the local part and domain from email address:
+The following example request creates a new index named `email_index` and configures an analyzer with a `pattern_capture` filter to extract the local part and domain name from an email address:
 
 ```json
 PUT /email_index
