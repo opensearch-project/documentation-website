@@ -23,7 +23,7 @@ Field             | Type    | Required | Description
 `aws.sts_role_arn`  | String  | No       | The Amazon Resource Name (ARN) of the role to assume before invoking the Lambda function.               
 `max_retries`       | Integer | No       | The maximum number of retries if the invocation fails. Default is `3`.             
 `batch`             | Object  | No       | Optional batch settings for Lambda invocations. Default is `key_name = events`. Default threshold is `event_count=100`, `maximum_size="5mb"`, and `event_collect_timeout = 10s`.
-`lambda_when`       | String  | No       | Conditional expression to determine when to invoke the Lambda sink.          
+`lambda_when`       | String  | No       | A conditional expression that determines when to invoke the Lambda sink.          
 `dlq`               | Object  | No       | Dead-letter queue (DLQ) configuration for failed invocations.                
 
 #### Example configuration
