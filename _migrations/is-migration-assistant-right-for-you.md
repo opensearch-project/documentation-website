@@ -27,7 +27,6 @@ There are also tools available for migrating cluster configuration, templates, a
 | OpenSearch 1.3              | OpenSearch 2.15                  |
 
  
-Minor versions within the specified major versions above (i.e., Elasticsearch 6 and 7 and OpenSearch 1 and 2) at not yet supported, but the versions above are tested.
 {: .note}
 
 ### Supported source and target platforms
@@ -53,7 +52,7 @@ Before starting a migration, consider the scope of the components involved. The 
 | **Component templates**          | Yes                 | Migrate with Metadata Migration Tool                                                                                                                                                                |
 | **Aliases**                      | Yes                 | Migrate with Metadata Migration Tool                                                                                                                                                                |
 | **ISM policies**                 | Expected in 2025    | Manually migrate using API                                                                                                                                                                          |
-| **Elasticsearch kibana dashboards** | Expected in 2025 | Only needed if tooling is being used to migrate Elasticsearch Kibana Dashboards to OpenSearch Dashboards. Export JSON files from Kibana and import into OpenSearch Dashboards; before importing, use the [dashboardsSanitizer](https://github.com/opensearch-project/opensearch-migrations/tree/main/dashboardsSanitizer) tool on X-Pack visualizations like Canvas and Lens in Kibana Dashboards, as they may require recreation for compatibility with OpenSearch. |
+| **Elasticsearch Kibana dashboards** | Expected in 2025 | Only needed if tooling is being used to migrate Elasticsearch Kibana Dashboards to OpenSearch Dashboards. Export JSON files from Kibana and import into OpenSearch Dashboards; before importing, use the [`dashboardsSanitizer`](https://github.com/opensearch-project/opensearch-migrations/tree/main/dashboardsSanitizer) tool on X-Pack visualizations like Canvas and Lens in Kibana Dashboards, as they may require recreation for compatibility with OpenSearch. |
 | **Security constructs**          | No                  | Configure roles and permissions based on cloud provider recommendations. For example, if using AWS, leverage IAM for enhanced security management.                                                  |
 | **Plugins**                      | No                  | Check plugin compatibility; some Elasticsearch plugins may not have direct equivalents in OpenSearch.                                                                                              |
 
