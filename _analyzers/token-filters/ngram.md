@@ -7,7 +7,7 @@ nav_order: 290
 
 # Ngram token filter
 
-The `ngram` token filter is a powerful tool for breaking down text into smaller components, known as n-grams, which can improve partial matching and fuzzy search capabilities. It works by splitting a token into smaller substrings of defined lengths. These filters are commonly used in search applications to support autocomplete, partial matches, and typo-tolerant search.
+The `ngram` token filter is a powerful tool for breaking down text into smaller components, known as _n-grams_, which can improve partial matching and fuzzy search capabilities. It works by splitting a token into smaller substrings of defined lengths. These filters are commonly used in search applications to support autocomplete, partial matches, and typo-tolerant search. For more information, see [Autocomplete functionality]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/autocomplete/) and [Did-you-mean]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/did-you-mean/).
 
 ## Parameters
 
@@ -17,11 +17,11 @@ Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
 `min_gram` | Optional | Integer | The minimum length of the n-grams. Default is `1`.
 `max_gram` | Optional | Integer | The maximum length of the n-grams. Default is `2`.
-`preserve_original` | Optional | Boolean | Keep the original token as one of the outputs. Default is `false`.
+`preserve_original` | Optional | Boolean | Whether to keep the original token as one of the outputs. Default is `false`.
 
 ## Example
 
-The following example request creates a new index named `ngram_example_index` and configures an analyzer with `ngram` filter:
+The following example request creates a new index named `ngram_example_index` and configures an analyzer with an `ngram` filter:
 
 ```json
 PUT /ngram_example_index
