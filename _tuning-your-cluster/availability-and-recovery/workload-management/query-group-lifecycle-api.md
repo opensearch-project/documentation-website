@@ -5,34 +5,29 @@ nav_order: 20
 parent: Workload management
 grand_parent: Availability and recovery
 ---
+
 # Query Group Lifecycle API
 
 The Query Group Lifecycle API in creates, updates, retrieves, and deletes query groups. The API categorizes queries into specific groups, called _query groups_ based on desired resource limits.
 
 ## Paths and HTTP method
 
-<!-- spec_insert_start
-api: wlm.get_query_group
-component: paths_and_http_methods
--->
-<!-- spec_insert_end -->
-
-
+```json
+PUT _wlm/query_group
+PUT _wlm/query_group/<name>
+GET _wlm/query_group
+GET _wlm/query_group/<name>
+DELETE _wlm/query_group/<name>
+```
 
 ## Request body fields
 
-<!-- spec_insert_start
-api: wlm.get_query_group
-component: query_parameters
--->
-<!-- spec_insert_end -->
-
 | Field | Description	 |
 | :--- | :--- |
-| `_id`  | The id of the query group. Optional.  |
-| `name`  | The name of the query group. Required when creating a new query group. |
+| `_id`  | The ID of the query group, which can be used to associate query requests with the group and enforce the group's resource limits.  |
+| `name`  | The name of the query group. |
 | `resiliency_mode`  | The resiliency mode of the query group. Valid modes are `enforced`, `soft`, and `monitor`. For more information about resiliency modes, see [Operating modes](https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/workload-management/wlm-feature-overview/#operating-modes). |
-| `resource_limits` | The resource limits of the query group. Valid resources are `cpu` and `memory`.  |
+| `resource_limits` | The resource limits for query requests in the query group. Valid resources are `cpu` and `memory`.  |
 
 When creating a query group, make sure that the sum of the resource limits for a single resource, either `cpu` or `memory`, does not exceed 1.
 
@@ -112,5 +107,15 @@ OpenSearch returns responses similar to the following.
   "updated_at":1726270333804
 }
 ```
+
+## Response body fields
+
+| Field | Description	 |
+| :--- | :--- |
+| `_id`  | The ID of the query group. |
+| `name`  | The name of the query group. Required when creating a new query group. |
+| `resiliency_mode`  | The resiliency mode of the query group. |
+| `resource_limits` | The resource limits of the query group. |
+| `updated_at` | The time at which the query group was last updated. |
 
 
