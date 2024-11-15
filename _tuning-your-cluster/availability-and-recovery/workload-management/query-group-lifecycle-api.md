@@ -11,13 +11,21 @@ The Query Group Lifecycle API in creates, updates, retrieves, and deletes query 
 
 ## Paths and HTTP method
 
-```json
-PUT _wlm/query_group
-PUT _wlm/query_group/<name>
-DELETE _wlm/query_group/<name>
-```
+<!-- spec_insert_start
+api: wlm.get_query_group
+component: paths_and_http_methods
+-->
+<!-- spec_insert_end -->
+
+
 
 ## Request body fields
+
+<!-- spec_insert_start
+api: wlm.get_query_group
+component: query_parameters
+-->
+<!-- spec_insert_end -->
 
 | Field | Description	 |
 | :--- | :--- |
