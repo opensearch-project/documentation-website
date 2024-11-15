@@ -177,7 +177,7 @@ POST /_plugins/_flow_framework/workflow/<workflow_id>/_provision
 To view the status of the workflow and all created resources, send the following request:
 
 ```json
-/_plugins/_flow_framework/workflow/<workflow_id>/_status
+GET /_plugins/_flow_framework/workflow/<workflow_id>/_status
 ```
 {% include copy-curl.html %}
 
