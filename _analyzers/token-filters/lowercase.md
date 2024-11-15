@@ -7,15 +7,19 @@ nav_order: 260
 
 # Lowercase token filter
 
-The `lowercase` token filter in OpenSearch is used to convert all characters in the token stream to lowercase, making searches case-insensitive.
+The `lowercase` token filter is used to convert all characters in the token stream to lowercase, making searches case insensitive.
 
 ## Parameters
 
-The `lowercase` token filter in OpenSearch can be configured with parameter `language`. The possible options are: [`greek`](https://lucene.apache.org/core/8_7_0/analyzers-common/org/apache/lucene/analysis/el/GreekLowerCaseFilter.html), [`irish`](https://lucene.apache.org/core/8_7_0/analyzers-common/org/apache/lucene/analysis/ga/IrishLowerCaseFilter.html) and [`turkish`](https://lucene.apache.org/core/8_7_0/analyzers-common/org/apache/lucene/analysis/tr/TurkishLowerCaseFilter.html). Default is [Lucene’s LowerCaseFilter](https://lucene.apache.org/core/8_7_0/analyzers-common/org/apache/lucene/analysis/core/LowerCaseFilter.html). (String, _Optional_)
+The `lowercase` token filter can be configured with the following parameter.
+
+Parameter | Required/Optional | Description
+:--- | :--- | :---
+ `language` | Optional | Specifies a language-specific token filter to use for lowercasing. Valid values are: <br>- [`greek`](https://lucene.apache.org/core/8_7_0/analyzers-common/org/apache/lucene/analysis/el/GreekLowerCaseFilter.html) <br>-  [`irish`](https://lucene.apache.org/core/8_7_0/analyzers-common/org/apache/lucene/analysis/ga/IrishLowerCaseFilter.html) <br>-  [`turkish`](https://lucene.apache.org/core/8_7_0/analyzers-common/org/apache/lucene/analysis/tr/TurkishLowerCaseFilter.html). <br> Default is [Lucene’s LowerCaseFilter](https://lucene.apache.org/core/8_7_0/analyzers-common/org/apache/lucene/analysis/core/LowerCaseFilter.html). 
 
 ## Example
 
-The following example request creates a new index named `custom_lowercase_example` and configures an analyzer with `lowercase` filter with Greek `language`:
+The following example request creates a new index named `custom_lowercase_example`. It configures an analyzer with a `lowercase` filter and specifies `greek` as the `language`:
 
 ```json
 PUT /custom_lowercase_example
