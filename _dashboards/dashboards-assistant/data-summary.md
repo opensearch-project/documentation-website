@@ -46,7 +46,6 @@ To orchestrate data summarization, create a data summary [agent]({{site.url}}{{s
 
 ```json
 POST /_plugins/_flow_framework/workflow?provision=true
-
 {
   "name": "Query Assist Agent",
   "description": "Create a Query Assist Agent using Claude on BedRock",
