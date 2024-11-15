@@ -69,8 +69,8 @@ The `spec-insert` plugin is run as part of the CI/CD pipeline to ensure that the
 ## Spec insert components
 All spec insert components accept the following arguments:
 - `api` (String; required): The name of the API to render the component from. This is equivalent to the `x-operation-group` field in the OpenSearch OpenAPI Spec.
-- `component` (String; required): The name of the component to render (e.g., `query_parameters`, `path_parameters`, or `paths_and_http_methods`).
-- `omit_header` (Boolean; default is `false`): If set to `true`, the markdown header of the component (e.g. `## Query parameters`) will not be rendered.
+- `component` (String; required): The name of the component to render,  such as `query_parameters`, `path_parameters`, or `paths_and_http_methods`.
+- `omit_header` (Boolean; Default is `false`): If set to `true`, the markdown header of the component will not be rendered.
 
 ### Query parameters
 To insert the API query parameters table of the `cat.indices` API, use the following snippet:
