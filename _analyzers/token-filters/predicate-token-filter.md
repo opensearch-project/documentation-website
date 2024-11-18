@@ -7,15 +7,15 @@ nav_order: 340
 
 # Predicate token filter
 
-The `predicate_token_filter` evaluates whether tokens should be kept or discarded, depending on the conditions defined in a custom script.
+The `predicate_token_filter` evaluates whether tokens should be kept or discarded, depending on the conditions defined in a custom script. The tokens are evaulated in the analysis predicate context. This filter supports only inline Painless scripts.
 
 ## Parameters
 
-The `predicate_token_filter` has one required pamameter: `script`. This parameter should outline the condition which is used to evaluate if the token should be kept. 
+The `predicate_token_filter` has one required parameter: `script`. This parameter provides a condition that is used to evaluate if the token should be kept. 
 
 ## Example
 
-The following example request creates a new index named `predicate_index` and configures an analyzer with `predicate_token_filter`:
+The following example request creates a new index named `predicate_index` and configures an analyzer with a `predicate_token_filter`. The filter specifies to output tokens only if they are longer than 7 characters:
 
 ```json
 PUT /predicate_index
