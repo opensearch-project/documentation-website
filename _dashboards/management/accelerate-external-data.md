@@ -109,7 +109,7 @@ With _materialized views_, you can use complex queries, such as aggregations, to
 1. For **Index name**, enter a valid index name. Note that each table can have multiple covering indexes.
 2. Choose a **Refresh type**. By default, OpenSearch automatically refreshes the index. Otherwise, you must manually trigger a refresh using a `REFRESH` statement.
 3. Enter a **Checkpoint location**, which is a path for refresh job checkpoints. The location must be a path in an HDFS compatible file system. 
-4. Enter a **Watermark delay**, which defines how late data can come and still be processed, e.g. 1 minute, 10 seconds.
+4. Enter a **Watermark delay**, which defines how late data can come and still be processed, such as 1 minute or 10 seconds.
 5. Define the covering index fields under **Materialized view definition**.
 6. Select **Create acceleration** to apply your materialized view index settings.
 7. View the materialized view query details and then click **Run**. OpenSearch adds your index to the left navigation pane.
