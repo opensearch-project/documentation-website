@@ -7,7 +7,7 @@ nav_order: 320
 
 # Pattern replace token filter
 
-The `pattern_replace` token filter allows you to modify tokens using regular expressions. This filter replaces patterns in the tokens with a specified replacement value, giving you flexibility in transforming or normalizing tokens before indexing them. It's particularly useful when you need to clean or standardize text during analysis.
+The `pattern_replace` token filter allows you to modify tokens using regular expressions. This filter replaces patterns in tokens with the specified values, giving you flexibility in transforming or normalizing tokens before indexing them. It's particularly useful when you need to clean or standardize text during analysis.
 
 ## Parameters
 
@@ -15,14 +15,14 @@ The `pattern_replace` token filter can be configured with the following paramete
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
-`pattern` | Required | String | The regular expression pattern that matches the text which needs to be replaced.
-`all` | Optional | Boolean | Replace all pattern matches. If `false` will only replace the first match. Default is `true`.
-`replacement` | Optional | String | String that will replace the matched pattern. Default is empty string.
+`pattern` | Required | String | A regular expression pattern that matches the text which needs to be replaced.
+`all` | Optional | Boolean | Whether to replace all pattern matches. If `false`, only the first match is replaced. Default is `true`.
+`replacement` | Optional | String | A string with which to replace the matched pattern. Default is an empty string.
 
 
 ## Example
 
-The following example request creates a new index named `text_index` and configures an analyzer with `pattern_replace` filter to replace tokens with digits to `[NUM]`:
+The following example request creates a new index named `text_index` and configures an analyzer with a `pattern_replace` filter to replace tokens containing digits with the string `[NUM]`:
 
 ```json
 PUT /text_index
