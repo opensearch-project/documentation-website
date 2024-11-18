@@ -7,42 +7,42 @@ nav_order: 380
 
 # Snowball token filter
 
-The `snowball` token filter is a stemming filter based on the Snowball algorithm. It comes with support for many languages and offers improvement over the Porter stemming algorithm when it comes to efficiency and accuracy.
+The `snowball` token filter is a stemming filter based on the [Snowball](https://snowballstem.org/) algorithm. It comes with support for many languages and offers improvement over the Porter stemming algorithm when it comes to efficiency and accuracy.
 
 ## Parameters
 
-The `snowball` token filter can be configured with `language` parameter which can accept the following values:
+The `snowball` token filter can be configured with a `language` parameter that accepts the following values:
 
-- Arabic
-- Armenian
-- Basque
-- Catalan
-- Danish
-- Dutch
-- English (Default)
-- Estonian
-- Finnish
-- French
-- German
-- German2 
-- Hungarian
-- Italian
-- Irish
-- Kp
-- Lithuanian
-- Lovins
-- Norwegian
-- Porter
-- Portuguese
-- Romanian
-- Russian
-- Spanish
-- Swedish
-- Turkish
+- `Arabic`
+- `Armenian`
+- `Basque`
+- `Catalan`
+- `Danish`
+- `Dutch`
+- `English` (default)
+- `Estonian`
+- `Finnish`
+- `French`
+- `German`
+- `German2` 
+- `Hungarian`
+- `Italian`
+- `Irish`
+- `Kp`
+- `Lithuanian`
+- `Lovins`
+- `Norwegian`
+- `Porter`
+- `Portuguese`
+- `Romanian`
+- `Russian`
+- `Spanish`
+- `Swedish`
+- `Turkish`
 
 ## Example
 
-The following example request creates a new index named `my-snowball-index` and configures an analyzer with `snowball` filter:
+The following example request creates a new index named `my-snowball-index` and configures an analyzer with a `snowball` filter:
 
 ```json
 PUT /my-snowball-index
