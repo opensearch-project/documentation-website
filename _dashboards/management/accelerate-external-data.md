@@ -17,7 +17,7 @@ Query performance can be slow when using external data sources for reasons such 
 - A _covering index_ ingests all or some of the data from the source into OpenSearch and makes it possible to use all OpenSearch Dashboards and plugin functionality. For more information, see [Covering indexes](https://opensearch.org/docs/latest/dashboards/management/accelerate-external-data/#covering-indexes).
 - A _materialized view_ enhances query performance by storing precomputed and aggregated data from the source data. For more information, see [Materialized views](https://opensearch.org/docs/latest/dashboards/management/accelerate-external-data/#materialized-views).
 
-For comprehensive guidance on each indexing process, see the [Flint Index Reference Manual](https://github.com/opensearch-project/opensearch-spark/blob/main/docs/index.md) 
+For comprehensive guidance on each indexing process, see the [Flint Index Reference Manual](https://github.com/opensearch-project/opensearch-spark/blob/main/docs/index.md). 
 
 ## Data sources use case: Accelerate performance
 
