@@ -3,7 +3,6 @@ layout: default
 title: Optimize query performance using OpenSearch indexing
 parent: Data sources
 nav_order: 17
-has_children: false
 ---
 
 # Optimize query performance using OpenSearch indexing
@@ -29,11 +28,10 @@ To get started with accelerating query performance, perform the following steps:
 4. Create an OpenSearch index by following these steps:
     1. Select **Accelerate data**. A pop-up window appears. 
     2. Enter your database and table details under **Select data fields**.
-5. For **Acceleration type**, select the type of acceleration according to your use case. For more information, see the following sections:
+5. For **Acceleration type**, select the type of acceleration according to your use case. Then, enter the information for your acceleration type. For more information, see the following sections:
       - [Skipping indexes](https://opensearch.org/docs/latest/dashboards/management/accelerate-external-data/#skipping-indexes)
       - [Covering indexes](https://opensearch.org/docs/latest/dashboards/management/accelerate-external-data/#covering-indexes)
       - [Materialized views](https://opensearch.org/docs/latest/dashboards/management/accelerate-external-data/#materialized-views)
-6. Under **Define index**, enter the information for your acceleration type.
 
 ## Skipping indexes
 
@@ -73,7 +71,7 @@ A _covering index_ ingests all or some of the data from the source into OpenSear
 
 With a covering index, you can ingest data from a specified column in a table. This is the most performant of the three indexing types. Because OpenSearch ingests all data from your desired column, you get better performance and can perform advanced analytics.
 
-OpenSearch creates a new index from the covering index data. You can use this new index to create Dashboards visualizations, or for anomaly detection and geospatial capabilities. You can manage the covering view index with Index State Management. For more information, see [Index State Management](https://opensearch.org/docs/latest/im-plugin/ism/index/).
+OpenSearch creates a new index from the covering index data. You can use this new index to create visualizations, or for anomaly detection and geospatial capabilities. You can manage the covering view index with Index State Management. For more information, see [Index State Management](https://opensearch.org/docs/latest/im-plugin/ism/index/).
 
 ### Define covering index settings
 
