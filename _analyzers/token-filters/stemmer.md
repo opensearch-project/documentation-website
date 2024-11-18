@@ -7,11 +7,11 @@ nav_order: 390
 
 # Stemmer token filter
 
-The `stemmer` token filter reduces words to their root or base form (also known as their stem).
+The `stemmer` token filter reduces words to their root or base form (also known as their _stem_).
 
 ## Parameters
 
-The `stemmer` token filter can be configured with `language` parameter which can accept the following values:
+The `stemmer` token filter can be configured with a `language` parameter that accepts the following values:
 
 - Arabic: `arabic`
 - Armenian: `armenian`
@@ -23,11 +23,11 @@ The `stemmer` token filter can be configured with `language` parameter which can
 - Czech: `czech`
 - Danish: `danish`
 - Dutch: `dutch, dutch_kp`
-- English: `english` (Default), `light_english`, `lovins`, `minimal_english`, `porter2`, `possessive_english`
+- English: `english` (default), `light_english`, `lovins`, `minimal_english`, `porter2`, `possessive_english`
 - Estonian: `estonian`
 - Finnish: `finnish`, `light_finnish`
 - French: `light_french`, `french`, `minimal_french`
-- Galician: `galician`, `minimal_galician` (Plural step only)`
+- Galician: `galician`, `minimal_galician` (plural step only)
 - German: `light_german`, `german`, `german2`, `minimal_german`
 - Greek: `greek`
 - Hindi: `hindi`
@@ -47,12 +47,12 @@ The `stemmer` token filter can be configured with `language` parameter which can
 - Swedish: `swedish`, `light_swedish`
 - Turkish: `turkish`
 
-The `name` parameter can also be used as alias for `language`. If both are set, `name` parameter is ignored.
+You can also use the `name` parameter as an alias for the `language` parameter. If both are set, the `name` parameter is ignored.
 {: .note}
 
 ## Example
 
-The following example request creates a new index named `my-stemmer-index` and configures an analyzer with `stemmer` filter:
+The following example request creates a new index named `my-stemmer-index` and configures an analyzer with a `stemmer` filter:
 
 ```json
 PUT /my-stemmer-index
@@ -78,7 +78,6 @@ PUT /my-stemmer-index
     }
   }
 }
-
 ```
 {% include copy-curl.html %}
 
