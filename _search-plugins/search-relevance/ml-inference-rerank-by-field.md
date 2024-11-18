@@ -10,7 +10,8 @@ nav_order: 20
 Introduced 2.18
 {: .label .label-purple }
 
-You can use the results of a ml model using the [ml_inference]({{site.url}}{{site.baseurl}}/_ingest-pipelines/processors/ml-inference.md) processor, with a [by_field]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field/) rerank type to get better search results.
+You can use the results of a ml model using the [ml_inference]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/ml-inference-search-response/)
+ processor, with a [by_field]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field/) rerank type to get better search results.
 In order to do this you need to configure a search pipeline that runs at search time. The search pipeline will intercept search results
 pass them to the ml_inference processor which will apply a remote cross encoder model. Then once the results are returned it will apply the 
 reranker to use that metric in order to rerank your documents.
