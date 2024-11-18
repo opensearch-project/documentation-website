@@ -7,20 +7,20 @@ nav_order: 400
 
 # Stemmer override token filter
 
-The `stemmer_override` token filter allows you to define custom stemming rules that override the behavior of default stemmers like Porter or Snowball. This is useful when you want to apply specific stemming behavior to certain words that might not be handled correctly by the standard stemming algorithms.
+The `stemmer_override` token filter allows you to define custom stemming rules that override the behavior of default stemmers like Porter or Snowball. This is useful when you want to apply specific stemming behavior to certain words that might not be modified correctly by the standard stemming algorithms.
 
 ## Parameters
 
-The `stemmer_override` token filter needs be configured with *one* of the following parameters.
+The `stemmer_override` token filter must configured with exactly one of the following parameters.
 
 Parameter | Data type | Description
 :--- | :--- | :--- 
 `rules` | String | Defines the override rules directly in the settings.
-`rules_path` | String | Specifies the file to use with custom rules/mappings. (Either absolute path or relative to config directory)
+`rules_path` | String | Specifies the file containing custom rules (mappings). The path can be either an absolute path or a path relative to the config directory.
 
 ## Example
 
-The following example request creates a new index named `my-index` and configures an analyzer with `stemmer_override` filter:
+The following example request creates a new index named `my-index` and configures an analyzer with a `stemmer_override` filter:
 
 ```json
 PUT /my-index
