@@ -7,12 +7,12 @@ nav_order: 340
 
 # Porter stem token filter
 
-The `porter_stem` token filter reduces words to their base or "stem" form and removes common suffixes from words, which helps in matching similar words by their root. It is primarily used for English language and provides stemming based on [Porter stemming algorithm](https://snowballstem.org/algorithms/porter/stemmer.html).
+The `porter_stem` token filter reduces words to their base (or _stem_) form and removes common suffixes from words, which helps in matching similar words by their root. For example, the word `running` is stemmed to `run`. This token filter is primarily used for English language and provides stemming based on the [Porter stemming algorithm](https://snowballstem.org/algorithms/porter/stemmer.html).
 
 
 ## Example
 
-The following example request creates a new index named `my_stem_index` and configures an analyzer with `porter_stem` filter:
+The following example request creates a new index named `my_stem_index` and configures an analyzer with a `porter_stem` filter:
 
 ```json
 PUT /my_stem_index
