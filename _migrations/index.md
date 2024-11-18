@@ -64,6 +64,6 @@ The design deployed in AWS is as follows:
 1. Client traffic is directed to the existing cluster.
 2. An Application Load Balancer (ALB) with capture proxies relays traffic to a source while replicating data to Amazon Managed Streaming for Apace Kafka (AWS MSK).
 3. With continuous traffic capture in place, a `reindex-from-snapshot` is initiated by the user via Migration Console.
-4. Once `reindex-from-snapshot` is complete, traffic captured is replayed from AWS MSK by Traffic Replayer.
+4. Once `reindex-from-snapshot` is complete, captured traffic is replayed from AWS MSK to the target cluster by the traffic replayer.
 5. Performance and behavior of traffic sent to the source and target clusters are compared by reviewing logs and metrics.
 6. After confirming the target cluster’s functionality meets expectations, clients are redirected to the new target.
