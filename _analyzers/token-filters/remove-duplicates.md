@@ -7,11 +7,11 @@ nav_order: 350
 
 # Remove duplicate token filter
 
-The `remove_duplicates` token filter is used to remove duplicate tokens in the same position that may arise during the analysis phase.
+The `remove_duplicates` token filter is used to remove duplicate tokens that are generated at the same position during analysis.
 
 ## Example
 
-The following example creates index with `keyword_repeat` token filter, which adds a keyword version of each token in the same position and using `kstem` to create a stemmed version of the token.
+The following example creates an index with a `keyword_repeat` token filter. The filter adds a `keyword` version of each token at the same position as the token itself and then uses a `kstem` to create a stemmed version of the token:
 
 ```json
 PUT /example-index
@@ -35,47 +35,47 @@ PUT /example-index
 ```
 {% include copy-curl.html %}
 
-Use the following request to analyze string `Quick fox`:
+Use the following request to analyze the string `Slower turtle`:
 
 ```json
 GET /example-index/_analyze
 {
   "analyzer": "custom_analyzer",
-  "text": "Quick fox"
+  "text": "Slower turtle"
 }
 ```
 {% include copy-curl.html %}
 
-The response contains token `fox` twice in the same position, see the following:
+The response contains the token `turtle` twice in the same position:
 
 ```json
 {
   "tokens": [
     {
-      "token": "quicker",
+      "token": "slower",
       "start_offset": 0,
-      "end_offset": 7,
+      "end_offset": 6,
       "type": "<ALPHANUM>",
       "position": 0
     },
     {
-      "token": "quick",
+      "token": "slow",
       "start_offset": 0,
-      "end_offset": 7,
+      "end_offset": 6,
       "type": "<ALPHANUM>",
       "position": 0
     },
     {
-      "token": "fox",
-      "start_offset": 8,
-      "end_offset": 11,
+      "token": "turtle",
+      "start_offset": 7,
+      "end_offset": 13,
       "type": "<ALPHANUM>",
       "position": 1
     },
     {
-      "token": "fox",
-      "start_offset": 8,
-      "end_offset": 11,
+      "token": "turtle",
+      "start_offset": 7,
+      "end_offset": 13,
       "type": "<ALPHANUM>",
       "position": 1
     }
@@ -83,7 +83,7 @@ The response contains token `fox` twice in the same position, see the following:
 }
 ```
 
-The duplicate token can be removed by adding `remove_duplicates` token filter to the index settings:
+The duplicate token can be removed by adding a `remove_duplicates` token filter to the index settings:
 
 ```json
 PUT /index-remove-duplicate
@@ -116,7 +116,7 @@ Use the following request to examine the tokens generated using the analyzer:
 GET /index-remove-duplicate/_analyze
 {
   "analyzer": "custom_analyzer",
-  "text": "Quicker fox"
+  "text": "Slower turtle"
 }
 ```
 {% include copy-curl.html %}
@@ -127,23 +127,23 @@ The response contains the generated tokens:
 {
   "tokens": [
     {
-      "token": "quicker",
+      "token": "slower",
       "start_offset": 0,
-      "end_offset": 7,
+      "end_offset": 6,
       "type": "<ALPHANUM>",
       "position": 0
     },
     {
-      "token": "quick",
+      "token": "slow",
       "start_offset": 0,
-      "end_offset": 7,
+      "end_offset": 6,
       "type": "<ALPHANUM>",
       "position": 0
     },
     {
-      "token": "fox",
-      "start_offset": 8,
-      "end_offset": 11,
+      "token": "turtle",
+      "start_offset": 7,
+      "end_offset": 13,
       "type": "<ALPHANUM>",
       "position": 1
     }
