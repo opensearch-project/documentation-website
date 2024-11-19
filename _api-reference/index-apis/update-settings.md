@@ -12,7 +12,7 @@ canonical_url: https://opensearch.org/docs/latest/api-reference/index-apis/updat
 **Introduced 1.0**
 {: .label .label-purple }
 
-You can use the update settings API operation to update index-level settings. You can change dynamic index settings at any time, but static settings cannot be changed after index creation. For more information about static and dynamic index settings, see [Create index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/).
+You can use the update settings API operation to update index-level settings. You can change dynamic index settings at any time, but static settings cannot be changed after index creation. For more information about static and dynamic index settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 Aside from the static and dynamic index settings, you can also update individual plugins' settings. To get the full list of updatable settings, run `GET <target-index>/_settings?include_defaults=true`.
 
