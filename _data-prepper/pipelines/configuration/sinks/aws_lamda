@@ -1,0 +1,104 @@
+
+## AWS Lambda sink
+
+You can configure the sink using the following configuration options.
+
+| Field           | Type    | Required | Default | Description                                                                 |
+|-----------------|---------|----------|---------|-----------------------------------------------------------------------------|
+| function_name   | String  | Yes      | -       | The name of the AWS Lambda function to invoke.                              |
+| invocation_type | String  | No       | event   | Specifies the invocation type: either EVENT or REQUEST_RESPONSE.            |
+| aws             | Object  | Yes      | -       | AWS authentication options.                                                 |
+| client          | Object  | No       | -       | Client options for AWS SDK.                                                 |
+| batch           | Object  | No       | -       | Batch options for Lambda invocations.                                       |
+| lambda_when     | String  | No       | -       | Conditional expression to determine when to invoke the Lambda function.     |
+| dlq             | Object  | No       | -       | Dead-letter queue (DLQ) configuration for failed invocations.               |
+
+
+### AWS Authentication Options
+
+| Field                | Type   | Required | Description                                                                    |
+|----------------------|--------|----------|--------------------------------------------------------------------------------|
+| region               | String | Yes      | The AWS region where the Lambda function is located.                           |
+| sts_role_arn         | String | No       | ARN of the role to assume before invoking the Lambda function.                 |
+| sts_external_id      | String | No       | External ID to use when assuming the role.                                     |
+| sts_header_overrides | Map    | No       | Map of headers to override in the STS request. Maximum of 5 headers allowed.   |
+
+### Client Options
+
+| Field              | Type     | Default                | Description                                                           |
+|--------------------|----------|------------------------|-----------------------------------------------------------------------|
+| max_retries        | Integer  | 3                      | Maximum number of retries for failed requests.                        |
+| api_call_timeout   | Duration | 60s                    | Timeout for API calls.                                                |
+| connection_timeout | Duration | 60s                    | Timeout for establishing a connection.                                |
+| max_concurrency    | Integer  | 200                    | Maximum number of concurrent connections.                             |
+| base_delay         | Duration | 100ms                  | Base delay for exponential backoff.                                   |
+| max_backoff        | Duration | 20s                    | Maximum backoff time for exponential backoff.                         |
+
+### Batch Options
+
+| Field     | Type   | Default | Description                               |
+|-----------|--------|---------|-------------------------------------------|
+| key_name  | String | events  | Key name for the batch of events.         |
+| threshold | Object | -       | Threshold options for batching.           |
+
+### Threshold Options
+
+| Field                | Type     | Default | Description                                    |
+|----------------------|----------|---------|------------------------------------------------|
+| event_count          | Integer  | 100     | Maximum number of events in a batch.           |
+| maximum_size         | String   | 5mb     | Maximum size of a batch.                       |
+| event_collect_timeout| Duration | 10s     | Timeout for collecting events for a batch.     |
+
+
+#### Example configuration
+
+```
+sink:
+  - aws_lambda:
+      function_name: "my-lambda-sink"
+      invocation_type: "event"
+      aws:
+        region: "us-west-2"
+        sts_role_arn: "arn:aws:iam::123456789012:role/my-lambda-sink-role"
+      client:
+         max_retries: 3
+      batch:
+        key_name: "events"
+        threshold:
+          event_count: 50
+          maximum_size: "3mb"
+          event_collect_timeout: PT5S
+      lambda_when: "/loglevel == 'INFO'"
+      dlq:
+        region: "us-east-1"
+        sts_role_arn: "arn:aws:iam::123456789012:role/my-sqs-role"
+        bucket: "<<your-dlq-bucket-name>>"
+```
+{% include copy-curl.html %}
+
+## Usage
+
+The sink supports the following invocation types:
+
+- `event`: The function is triggered asynchronously without waiting for a response.
+- `request-response`: Not supported for sink operations.
+- `Batching`: When enabled, events are aggregated and sent in bulk to optimize Lambda invocations. Default is `enabled`.
+- `DLQ`:  A setup available for routing and processing events that persistently fail Lambda invocations after multiple retry attempts.
+
+## Advanced configurations
+
+The AWS Lambda processor and sink provide the following advanced options for security and performance optimization:
+
+- AWS Identity and Access Management (IAM) role assumption: The processor and sink support assuming the specified IAM role `aws.sts_role_arn` before Lambda invocation. This enhances secure handling by providing access control to AWS resources.
+- Concurrency management: When using the `event` invocation type, consider Lambda concurrency limits to avoid throttling.
+
+For more information about AWS Lambda integration with Data Prepper, see the [AWS Lambda documentation](https://docs.aws.amazon.com/lambda).
+
+## Integration testing
+
+Integration tests for this plugin are executed separately from the main Data Prepper build process. Use the following Gradle command to run these tests:
+
+```
+./gradlew :data-prepper-plugins:aws-lambda:integrationTest -Dtests.sink.lambda.region="us-east-1" -Dtests.sink.lambda.functionName="lambda_test_function"  -Dtests.sink.lambda.sts_role_arn="arn:aws:iam::123456789012:role/dataprepper-role
+```
+{% include copy-curl.html %}
