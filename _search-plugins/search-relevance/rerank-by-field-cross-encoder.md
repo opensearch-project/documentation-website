@@ -187,6 +187,7 @@ PUT /_search/pipeline/my_pipeline
   ]
 }
 ```
+{% include copy-curl.html %}
 
 ## Step 5: Search using reranking
 
