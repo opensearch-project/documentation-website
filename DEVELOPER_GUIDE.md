@@ -84,7 +84,7 @@ component: paths_and_http_methods
 
 ### Path parameters
 
-To insert a path parameters table of the `indices.create` API, use the following snippet:
+To insert a path parameters table of the `indices.create` API, use the following snippet. Use the `x-operation-group` field from OpenSearch OpenAPI Spec for the `api` value:
 
 ```markdown
 <!-- spec_insert_start
