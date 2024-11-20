@@ -206,7 +206,7 @@ POST /nyc_areas/_search?search_pipeline=my_pipeline
 ```
 {% include copy-curl.html %}
 
-In the response, the `previous_score` field contains the document's, which it would have received if you hadn't applied the pipeline. Note that while BM25 ranked Astoria as the highest, the cross-encoder prioritized Harlem because it matched more search terms:
+In the response, the `previous_score` field contains the document's BM25 score, which it would have received if you hadn't applied the pipeline. Note that while BM25 ranked Astoria as the highest, the cross-encoder prioritized Harlem because it matched more search terms:
 
 ```json
 {
