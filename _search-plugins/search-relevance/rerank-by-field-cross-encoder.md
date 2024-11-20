@@ -143,7 +143,9 @@ Next, create a search pipeline for reranking. In the search pipeline configurati
     The combination of `text` (document `facts`) and `text_pair` (search `query`) allows the cross-encoder model to compare the relevance of the document to the query, considering their semantic relationship.
 
 - The `output_map` specifies how the output of the model is mapped to fields in the response:
-    - The `rank_score` field in the response will store the model's relevance score. Both the `_score` and `rank_score` fields will contain the new document score provided by the cross-encoder and will be used to reorder the documents. Because the `rank_score` field will contain duplicate information, the request specifies to remove it from search results. The original score before the reranking is specified to be included in the response for debugging purposes. You can also compare it to the reranked score to see the improvement in search relevancy.
+    - The `rank_score` field in the response will store the model's relevance score which will be used to perform reranking.
+    
+When using the `by_field` rerank type, the `rank_score` field will contain  duplicate information, the request specifies to remove it from search results by asserting `remove_target_field` as true. The original score before the reranking is specified to be included in the response for debugging purposes via `keep_previous_score`. You can also compare it to the reranked score to see the improvement in search relevancy.
     
 To create the search pipeline, send the following request:
 
