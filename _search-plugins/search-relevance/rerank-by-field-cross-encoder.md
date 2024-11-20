@@ -47,7 +47,7 @@ predictor = huggingface_model.deploy(
 
 After deploying the model, you can find the model endpoint by going to the Amazon SageMaker homepage in your AWS Console and selecting **Inference > Endpoints** in the left tab. Note the URL for the created model; you'll use it to create a connector.
 
-## Running a search with both processors
+## Running a search with reranking
 
 To run a search with reranking, follow these steps:
 
