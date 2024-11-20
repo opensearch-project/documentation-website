@@ -180,7 +180,7 @@ PUT /_search/pipeline/my_pipeline
       "rerank": {
         "by_field": {
           "target_field": "rank_score",
-          "remove_target_field":true,
+          "remove_target_field": true,
           "keep_previous_score" : true
           }
       }
