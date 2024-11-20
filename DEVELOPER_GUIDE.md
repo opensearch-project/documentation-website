@@ -93,7 +93,7 @@ component: path_parameters
 -->
 <!-- spec_insert_end -->
 ```
-This table behaves the same as the query parameters table except that it does not accept the `include_global` argument.
+This table accepts the same arguments as the query parameters table except the `include_global` argument.
 
 ### Query parameters
 To insert the API query parameters table of the `cat.indices` API, use the following snippet:
