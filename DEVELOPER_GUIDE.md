@@ -72,6 +72,29 @@ All spec insert components accept the following arguments:
 - `component` (String; required): The name of the component to render,  such as `query_parameters`, `path_parameters`, or `paths_and_http_methods`.
 - `omit_header` (Boolean; Default is `false`): If set to `true`, the markdown header of the component will not be rendered.
 
+### Paths and HTTP methods
+To insert paths and HTTP methods for the `search` API, use the following snippet:
+```markdown
+<!-- spec_insert_start
+api: search
+component: paths_and_http_methods
+-->
+<!-- spec_insert_end -->
+```
+
+### Path parameters
+
+To insert a path parameters table of the `indices.create` API, use the following snippet. Use the `x-operation-group` field from OpenSearch OpenAPI Spec for the `api` value:
+
+```markdown
+<!-- spec_insert_start
+api: indices.create
+component: path_parameters
+-->
+<!-- spec_insert_end -->
+```
+This table accepts the same arguments as the query parameters table except the `include_global` argument.
+
 ### Query parameters
 To insert the API query parameters table of the `cat.indices` API, use the following snippet:
 ```markdown
@@ -107,27 +130,6 @@ component: query_parameters
 include_global: true
 include_deprecated: false
 pretty: true
--->
-<!-- spec_insert_end -->
-```
-
-### Path parameters
-To insert path parameters table of the `indices.create` API, use the following snippet:
-```markdown
-<!-- spec_insert_start
-api: indices.create
-component: path_parameters
--->
-<!-- spec_insert_end -->
-```
-This table behaves the same as the query parameters table except that it does not accept the `include_global` argument.
-
-### Paths and HTTP methods
-To insert paths and HTTP methods for the `search` API, use the following snippet:
-```markdown
-<!-- spec_insert_start
-api: search
-component: paths_and_http_methods
 -->
 <!-- spec_insert_end -->
 ```
