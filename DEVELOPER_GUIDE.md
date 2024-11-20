@@ -83,7 +83,9 @@ component: paths_and_http_methods
 ```
 
 ### Path parameters
-To insert path parameters table of the `indices.create` API, use the following snippet:
+
+To insert a path parameters table of the `indices.create` API, use the following snippet:
+
 ```markdown
 <!-- spec_insert_start
 api: indices.create
