@@ -104,7 +104,7 @@ POST /_plugins/_ml/models/_register
   "name": "Cross encoder model",
   "version": "1.0.1",
   "function_name": "remote",
-  "description": "Using a SageMaker to apply a cross encoder model",
+  "description": "Using a SageMaker endpoint to apply a cross encoder model",
   "connector_id": "<YOUR_CONNECTOR_ID>"
 } 
 ```
