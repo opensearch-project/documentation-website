@@ -81,7 +81,7 @@ POST /_plugins/_ml/connectors/_create
     {
       "action_type": "predict",
       "method": "POST",
-      "url": "<YOUR_MODEL_URL>",
+      "url": "<YOUR_SAGEMAKER_ENDPOINT_URL>",
       "headers": {
         "content-type": "application/json"
       },
