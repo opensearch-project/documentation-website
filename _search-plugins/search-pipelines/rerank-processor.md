@@ -170,7 +170,6 @@ PUT /_search/pipeline/rerank_byfield_pipeline
     }
   ]
 }
-
 ```
 {% include copy-curl.html %}
 
@@ -193,4 +192,4 @@ POST /book-index/_search?search_pipeline=rerank_byfield_pipeline
 - Learn more about [reranking search results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/).
 - See a complete example of [reranking using a cross-encoder model]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-cross-encoder/).
 - See a complete example of [reranking by a document field]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field/).
-- See how to combine the [ML Inference Processor with the by-field rerank type]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/ml-inference-rerank-by-field/).
+- See a comprehensive example of [reranking by a field using an externally hosted cross-encoder model]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field-cross-encoder/).
