@@ -7,7 +7,7 @@ nav_order: 420
 
 # Synonym graph token filter
 
-The `synonym_graph` token filter is more advanced version of `synonym` token filter, as it allows for multi-word synonyms handling. It can handle synonyms across multiple tokens, making it suitable for phrases or when the relationship between tokens matters.
+The `synonym_graph` token filter is a more advanced version of the `synonym` token filter. It supports multi-word synonyms and processes synonyms across multiple tokens, making it ideal for phrases or scenarios in which relationships between tokens are important.
 
 ## Parameters
 
@@ -15,15 +15,15 @@ The `synonym_graph` token filter can be configured with the following parameters
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
-`synonyms` | Either `synonyms` or `synonyms_path` needs to be configured | String | List of synonym rules defined directly in the configuration.
-`synonyms_path` | Either `synonyms` or `synonyms_path` needs to be configured | String | File path to synonym rules, absolute or relative to config directory.
-`lenient` | Optional | Boolean | Ignore the exceptions when loading the rule configurations. Default is `false`.
-`format` | Optional | String | Specifies which format is used to determine how synonyms are defined and interpreted by OpenSearch. Options are: `solr` or [`wordnet`](https://wordnet.princeton.edu/). Default is `solr`.
-`expand` | Optional | Boolean |  Expand equivalent synonym rules. Default is `false`.<br><br>For example: <br>If `expand` is set to `true` with synonym defined as `"quick, fast"`, the synonym rules are configured as follows:<br>- quick => quick<br>- quick => fast<br>- fast => quick<br>- fast => fast<br><br>If `expand` is set to `false`, the synonym rules are configured as follows:<br>- quick => quick<br>- fast => quick
+`synonyms` | Either `synonyms` or `synonyms_path` must be specified | String | A list of synonym rules defined directly in the configuration.
+`synonyms_path` | Either `synonyms` or `synonyms_path` must be specified | String | The file path to a file containing synonym rules (either an absolute path or a path relative to the config directory).
+`lenient` | Optional | Boolean | Whether to ignore exceptions when loading the rule configurations. Default is `false`.
+`format` | Optional | String | Specifies the format used to determine how synonyms are defined and interpreted by OpenSearch. Valid values are:<br>- `solr` <br>- [`wordnet`](https://wordnet.princeton.edu/). <br> Default is `solr`.
+`expand` | Optional | Boolean |  Whether to expand equivalent synonym rules. Default is `false`.<br><br>For example: <br>If `synonyms` are defined as `"quick, fast"` and `expand` is set to `true`, then the synonym rules are configured as follows:<br>- `quick => quick`<br>- `quick => fast`<br>- `fast => quick`<br>- `fast => fast`<br><br>If `expand` is set to `false`, the synonym rules are configured as follows:<br>- `quick => quick`<br>- `fast => quick`
 
-## Example using solr format
+## Example: Solr format
 
-The following example request creates a new index named `my-index` and configures an analyzer with `synonym_graph` filter with default `solr` rules format:
+The following example request creates a new index named `my-index` and configures an analyzer with a `synonym_graph` filter. The filter is configured with the default `solr` rule format:
 
 ```json
 PUT /my-index
@@ -96,9 +96,9 @@ The response contains the generated tokens:
 }
 ```
 
-## Example using WordNet format
+## Example: WordNet format
 
-The following example request creates a new index named `my-wordnet-index` and configures an analyzer with `synonym_graph` filter with [`wordnet`](https://wordnet.princeton.edu/) rules format:
+The following example request creates a new index named `my-wordnet-index` and configures an analyzer with a `synonym_graph` filter. The filter is configured with the [`wordnet`](https://wordnet.princeton.edu/) rule format:
 
 ```json
 PUT /my-wordnet-index
@@ -130,7 +130,6 @@ PUT /my-wordnet-index
     }
   }
 }
-
 ```
 {% include copy-curl.html %}
 
