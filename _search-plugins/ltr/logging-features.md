@@ -12,7 +12,7 @@ Feature values need to be logged in order to train a model. This is a crucial co
 
 ## `sltr` query
 
-The `sltr` query is the primary method for running features and evaluating models. When logging, an `sltr` query is used to execute each feature query and retrieve the feature scores. A feature set structure that works with the [hello-ltr](https://github.com/o19s/hello-ltr) demo schema is shown in the following example request:
+The `sltr` query is the primary method for running features and evaluating models. When logging, an `sltr` query is used to execute each feature query and retrieve the feature scores. A feature set structure that works with the [`hello-ltr`](https://github.com/o19s/hello-ltr) demo schema is shown in the following example request:
 
 ```json
 PUT _ltr/_featureset/more_movie_features
