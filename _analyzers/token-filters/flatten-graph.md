@@ -7,7 +7,7 @@ nav_order: 150
 
 # Flatten graph token filter
 
-The `flatten_graph` token filter is used to handle complex token relationships that occur when multiple tokens are generated at the same position in a "graph" structure. This is particularly useful for synonym processing or other token alterations where tokens need to be restructured in a simplified format, making it compatible with operations that can’t handle more complex token structures.
+The `flatten_graph` token filter is used to handle complex token relationships that occur when multiple tokens are generated at the same position in a graph structure. Some token filters, like `synonym_graph` and `word_delimiter_graph`, generate multi-position tokens—--tokens that overlap or span multiple positions. These token graphs are useful for search queries but are not directly supported during indexing. The `flatten_graph` token filter resolves multi-position tokens into a linear sequence of tokens. By flattening the graph, it ensures compatibility with the indexing process. 
 
 ## Example
 
