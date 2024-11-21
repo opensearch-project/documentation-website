@@ -7,7 +7,7 @@ nav_order: 440
 
 # Truncate token filter
 
-The `truncate` token filter is used to shorten tokens that exceed a specified length. It trims tokens down to a maximum number of characters, ensuring that tokens longer than this limit are truncated. 
+The `truncate` token filter is used to shorten tokens that exceed a specified length. It trims tokens to a maximum number of characters, ensuring that tokens longer than this limit are truncated. 
 
 ## Parameters
 
