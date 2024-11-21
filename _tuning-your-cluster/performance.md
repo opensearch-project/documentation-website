@@ -32,8 +32,9 @@ An increased `index.translog.flush_threshold_size` can also increase the time th
 Before increasing `index.translog.flush_threshold_size`, call the following API operation to get current flush operation statistics:
 
 ```json
-GET {index}/_stats/flush?pretty
+GET /<index>/_stats/flush?pretty
 ```
+{% include copy-curl.html %}
 
 In the output, note the number of flushes and the total time. The following example output shows that there are 124 flushes, which took 17,690 milliseconds:
 
@@ -49,7 +50,7 @@ In the output, note the number of flushes and the total time. The following exam
 To increase the flush threshold size, call the following API operation:
 
 ```json
-PUT {index}/_settings 
+PUT /<index>/_settings 
 {
   "index":
   {
@@ -57,6 +58,7 @@ PUT {index}/_settings
   }
 }
 ```
+{% include copy-curl.html %}
 
 In this example, the flush threshold size is set to 1024 MB, which is ideal for instances that have more than 32 GB of memory.
 
@@ -66,8 +68,9 @@ Choose the appropriate threshold size for your cluster.
 Run the stats API operation again to see whether the flush activity changed:
 
 ```json
-GET {index}/_stats/flush?pretty
+GET /<index>/_stats/flush
 ```
+{% include copy-curl.html %}
 
 It's a best practice to increase the `index.translog.flush_threshold_size` only for the current index. After you confirm the outcome, apply the changes to the index template.
 {: .note}
@@ -127,12 +130,13 @@ To reduce the size of the OpenSearch response, use the `filter_path` parameter t
 In the following example, the `index-name`, `type-name`, and `took` fields are excluded from the response:
 
 ```json
-POST _bulk?pretty&filter_path=-took,-items.index._index,-items.index._type
+POST /_bulk?pretty&filter_path=-took,-items.index._index,-items.index._type
 { "index" : { "_index" : "test2", "_id" : "1" } }
 { "user" : "testuser" }
 { "update" : {"_id" : "1", "_index" : "test2"} }
 { "doc" : {"user" : "example"} }
 ```
+{% include copy-curl.html %}
 
 ## Compression codecs
 
