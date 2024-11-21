@@ -10,44 +10,34 @@ nav_order: 10
 
 The [AWS Lambda](https://aws.amazon.com/lambda/) integration allows developers to use serverless computing capabilities within their Data Prepper pipelines for flexible event processing and data routing.
 
-## AWS Lambda processor configuration
+## `aws_lambda` processor configuration
 
-The `aws_lambda` processor enables invocation of an AWS Lambda function within your Data Prepper pipeline in order to process events. It supports both synchronous and asynchronous invocations based on your use case.
+You can use the `aws_lambda` processor to invoke AWS Lambda functions synchronously or asynchronously to process events in your Data Prepper pipeline.
 
-## Configuration fields
+### Configuration fields
 
 You can configure the processor using the following configuration options.
 
-# AWS Lambda Processor and Sink for Data Prepper
+Field | Type | Required | Default | Description
+--------|------|----------|---------|-------------
+`function_name` | String   | Required | - | The name of the AWS Lambda function to invoke. Must be between 3 and 500 characters.
+`aws` | Object | Required | - | AWS authentication options.
+`invocation_type` | String | Optional | `request-response` | Specifies the invocation type: either `request-response` or `EVENT`.
+`client`| Object | No | - | Client options for AWS SDK.
+`batch` | Object | No | - | Batch options for Lambda invocations.
+`response_codec` | Object | No | - | Codec configuration for parsing Lambda responses. 
+`response_events_match` | Boolean  | No | `false` | Defines how Data Prepper treats the response from Lambda.
+`lambda_when` | String | No | - | Defines a condition for when to use this processor.
+`tags_on_failure` | List | No | `[]` | List of tags to be set on the event when Lambda fails or an exception occurs.
 
-This document provides the configuration details and usage instructions for integrating AWS Lambda with Data Prepper, both as a processor and as a sink.
+### AWS authentication options
 
-## AWS Lambda Processor
-
-The AWS Lambda processor allows you to invoke an AWS Lambda function in your Data Prepper pipeline to process events. This can be used for synchronous or asynchronous invocations based on your requirements.
-
-### Configuration Fields
-
-| Field                 | Type     | Required | Default          | Description                                                                                                       |
-|-----------------------|----------|----------|------------------|-------------------------------------------------------------------------------------------------------------------|
-| function_name         | String   | Yes      | -                | The name of the AWS Lambda function to invoke. Must be between 3 and 500 characters.                              |
-| invocation_type       | String   | No       | request-response | Specifies the invocation type: either request-response or EVENT.                                                  |
-| aws                   | Object   | Yes      | -                | AWS authentication options.                                                                                       |
-| client                | Object   | No       | -                | Client options for AWS SDK.                                                                                       |
-| batch                 | Object   | No       | -                | Batch options for Lambda invocations.                                                                             |
-| response_codec        | Object   | No       | -                | Codec configuration for parsing Lambda responses.                                                                 |
-| response_events_match | Boolean  | No       | false            | Defines how Data Prepper treats the response from Lambda.                                                         |
-| lambda_when           | String   | No       | -                | Defines a condition for when to use this processor.                                                               |
-| tags_on_failure       | List     | No       | []               | List of tags to be set on the event when Lambda fails or an exception occurs.                                     |
-
-### AWS Authentication Options
-
-| Field                | Type   | Required | Description                                                                    |
-|----------------------|--------|----------|--------------------------------------------------------------------------------|
-| region               | String | Yes      | The AWS region where the Lambda function is located.                           |
-| sts_role_arn         | String | No       | ARN of the role to assume before invoking the Lambda function.                 |
-| sts_external_id      | String | No       | External ID to use when assuming the role.                                     |
-| sts_header_overrides | Map    | No       | Map of headers to override in the STS request. Maximum of 5 headers allowed.   |
+Field | Type   | Required | Description
+------|--------|----------|------------
+`region` | String | Yes | The AWS region where the Lambda function is located.
+`sts_role_arn`| String | No | ARN of the role to assume before invoking the Lambda function.
+`sts_external_id` | String | No | The external ID to use when assuming the role.                                     
+`sts_header_overrides` | Map | No | The map of headers to override in the STS request. Maximum of five headers allowed.
 
 ### Client Options
 
@@ -60,11 +50,11 @@ The AWS Lambda processor allows you to invoke an AWS Lambda function in your Dat
 | base_delay         | Duration | 100ms                  | Base delay for exponential backoff.                                   |
 | max_backoff        | Duration | 20s                    | Maximum backoff time for exponential backoff.                         |
 
-### Batch Options
+### Batch options
 
 | Field     | Type   | Default | Description                               |
 |-----------|--------|---------|-------------------------------------------|
-| key_name  | String | events  | Key name for the batch of events.         |
+| `key_name` | String | events  | Key name for the batch of events.         |
 | threshold | Object | -       | Threshold options for batching.           |
 
 #### Threshold Options
@@ -115,21 +105,13 @@ When configured for batching, the AWS Lambda processor groups multiple events in
 
 ## Lambda response handling
 
-The `response_events_match` setting defines how Data Prepper handles the relationship between batch events sent to Lambda and the response received:
+The `response_events_match` setting defines how Data Prepper handles the relationship between batch events sent to Lambda and the response received. The Return from lambda should always be an array
 
 - `true`: Lambda returns a JSON array with results for each batched event. Data Prepper maps this array back to its corresponding original event, ensuring that each event in the batch gets the corresponding part of the response from the array.
 - `false`: Lambda returns one or more events for the entire batch. Response events are not correlated with the original events. Original event metadata is not preserved in the response events. For example, when `response_events_match` is set to `true`, the Lambda function is expected to return the same number of response events as the number of original requests, maintaining the original order.
 
-Note: Return from lambda should always be an array
+#### Example Lambda function
 
-## Limitations
-
-Note the following limitations:
-
-- Payload limitation: 6 MB payload limit
-- Response codec: JSON-only codec support
-
-- ## Example Lambda
 ```
 import json
 
@@ -141,6 +123,14 @@ def lambda_handler(event, context):
    
     return output
 ```
+{% include copy-curl.html %}
+
+### Limitations
+
+Note the following limitations:
+
+- Payload limitation: 6 MB payload limit
+- Response codec: JSON-only codec support
 
 ## Integration testing
 
