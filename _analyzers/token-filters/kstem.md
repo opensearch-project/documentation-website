@@ -5,13 +5,17 @@ parent: Token filters
 nav_order: 220
 ---
 
-# Kstem token filter
+# KStem token filter
 
-The `length` token filter is a stemming filter used to reduce words to their root forms. The KStem filter is a lightweight, algorithmic stemmer designed for the English language, performing the following stemming:
+The `kstem` token filter is a stemming filter used to reduce words to their root forms. The filter is a lightweight algorithmic stemmer designed for the English language that performs the following stemming:
 
 - Reduces plurals to singular form.
 - Converts different tenses of verbs to their base form.
 - Removes common derivational endings such as "-ing", "-ed".
+
+The `kstem` token filter is equivalent to the a `stemmer` filter configured with a `light_english` language. It provides a more conservative stemming compared to other stemming filters like `porter_stem`.
+
+The `kstem` token filter is based on the Lucene KStemFilter. For more information, see the [Lucene documentation](https://lucene.apache.org/core/9_10_0/analysis/common/org/apache/lucene/analysis/en/KStemFilter.html).
 
 ## Example
 
