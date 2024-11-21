@@ -11,7 +11,7 @@ The `uppercase` token filter is used to convert all tokens (words) to uppercase 
 
 ## Example
 
-The following example request creates a new index named `uppercase_example` and configures an analyzer with `uppercase` filter:
+The following example request creates a new index named `uppercase_example` and configures an analyzer with an `uppercase` filter:
 
 ```json
 PUT /uppercase_example
