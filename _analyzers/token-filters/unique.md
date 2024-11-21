@@ -15,11 +15,11 @@ The `unique` token filter can be configured with the following parameter.
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
-`only_on_same_position` | Optional | Boolean | If set to `true`, this token filter will act as `remove_duplicates` token filter and will only remove tokens that are in the same position. Default is `false`.
+`only_on_same_position` | Optional | Boolean | If `true`, the token filter acts as a `remove_duplicates` token filter and only removes tokens that are in the same position. Default is `false`.
 
 ## Example
 
-The following example request creates a new index named `unique_example` and configures an analyzer with `unique` filter:
+The following example request creates a new index named `unique_example` and configures an analyzer with a `unique` filter:
 
 ```json
 PUT /unique_example
