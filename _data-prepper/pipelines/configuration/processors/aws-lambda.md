@@ -53,7 +53,7 @@ You can configure the processor using the following configuration options.
 | `client`          | Object   | Optional | -       | The AWS SDK client configuration.                                                    |
 | `batch`           | Object   | Optional | -       | Optional batch settings for Lambda invocations.                                      |     
 | `response_codec`  | Object   | Optional | -       | The Lambda response parsing configuration.                                           |
-| `response_events_match` | Boolean  | Optional | `false` | The Lambda response handling behavio                                           |
+| `response_events_match` | Boolean  | Optional | `false` | The Lambda response handling behavior                                           |
 | `lambda_when`     | String | Optional   | -       | A conditional expression that determines when to invoke the processor.               |
 | `tags_on_failure` | List   | Optional   | `[]`    | The tags applied on Lambda execution failures.                                       |
 
