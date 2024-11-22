@@ -8,7 +8,6 @@ nav_order: 10
 
 This document outlines how to deploy the Migration Assistant and execute an existing data migration using `reindex-from-snapshot` (RFS). It uses AWS for the sake of illustration. However, the steps can be modified for use with other cloud providers.
 
-Note that this does not include steps for deploying and capturing live traffic, which is necessary for a zero-downtime migration.  
 {: .note}
 
 ## Prerequisites and assumptions
@@ -19,10 +18,10 @@ Before utilizing this quickstart, make sure you fulfill the following prerequisi
 * The source cluster must be deployed with the S3 plugin.
 * The target cluster must be deployed.
 
-Using this quickstart assumes the following:
+Using this guide assumes the following:
 
 * A snapshot will be taken and stored in S3 in this guide, and the following assumptions are made about this snapshot:
-  * The `_source` flag is enabled on all indices to be migrated.
+  * The `_source` flag is enabled on all indexes that will be migrated.
   * The snapshot includes the global cluster state (`include_global_state` is `true`).
   * Shard sizes up to approximately 80GB are supported. Larger shards will not be able to migrate. If this is a blocker, please consult the migrations team.
 * Migration Assistant will be installed in the same region and have access to both the source snapshot and target cluster.
@@ -48,7 +47,7 @@ To begin your migration, use the following steps to install bootstrap on an AWS 
 Use the following steps to set up bootstrap instance access:
 
 1. After deployment, find the EC2 instance ID for the `bootstrap-dev-instance`.
-2. Create an IAM policy using the snippet below, replacing `<aws-region>`, `<aws-account>`, `<stage>`, and `<ec2-instance-id>`:
+2. Create an IAM policy using the snippet below, replacing `<aws-region>`, `<aws-account>`, `<stage>`, and `<ec2-instance-id> in the following policy`:
 
     ```json
     {
@@ -59,7 +58,7 @@ Use the following steps to set up bootstrap instance access:
                 "Action": "ssm:StartSession",
                 "Resource": [
                     "arn:aws:ec2:<aws-region>:<aws-account>:instance/<ec2-instance-id>",
-                    "arn:aws:ssm:<aws-region>:<aws-account>:document/SSM-<stage>-BootstrapShell"
+                    "arn:aws:ssm:<aws-region>:<aws-account>:document/BootstrapShellDoc-<stage>-<aws-region>"
                 ]
             }
         ]
@@ -70,9 +69,9 @@ Use the following steps to set up bootstrap instance access:
 
 ---
 
-## Step 3 - Logging into bootstrap and build the bootstrap instance (~15 mins)
+## Step 3 - Logging into bootstrap and build the Migration Assistant (~15 mins)
 
-Next, log into to bootstrap and build the bootstrap instance using the following steps.
+Next, log into to bootstrap and build the Migration Assistant using the following steps.
 
 ### Prerequisites
 
@@ -84,11 +83,11 @@ To use these steps, make sure you fulfill the following prerequisites:
 ### Steps
 
 1. Load AWS credentials into your terminal.
-2. Login to the instance using the command below, replacing `<instance-id>` and `<aws-region>`:
+2. Login to the instance using the command below, replacing `<instance-id>` and `<aws-region>` in the following script:
     ```bash
-    aws ssm start-session --document-name SSM-dev-BootstrapShell --target <instance-id> --region <aws-region> [--profile <profile-name>]
+    aws ssm start-session --document-name BootstrapShellDoc-<stage>-<aws-region> --target <instance-id> --region <aws-region> [--profile <profile-name>]
     ```
-3. Once logged in, run the following command from the shell of the bootstrap instance (within the /opensearch-migrations directory):
+3. Once logged in, run the following command from the shell of the bootstrap instance inside the `/opensearch-migrations` directory):
     ```bash
     ./initBootstrap.sh && cd deployment/cdk/opensearch-service-migration
     ```
@@ -96,9 +95,9 @@ To use these steps, make sure you fulfill the following prerequisites:
 
 ---
 
-## Step 4 - Configuring and deploying for RFS (~20 mins)
+## Step 4: Configuring and deploying for RFS (~20 mins)
 
-Use the following step to configure and deploy RMS:
+Use the following step to configure and deploy RFS:
 
 1. Add the target cluster password to AWS Secrets Manager as an unstructured string. Be sure to copy the secret ARN for use during deployment.
 2. From the same shell as the bootstrap instance, modify the `cdk.context.json` file located in the `/opensearch-migrations/deployment/cdk/opensearch-service-migration` directory:
@@ -149,7 +148,7 @@ Use the following step to configure and deploy RMS:
 
 5. Verify that all CloudFormation stacks were installed successfully.
 
-#### `ReindexFromSnapshot` parameters
+### RFS parameters
 
 If you're creating a snapshot using migration tooling, these parameters are auto-configured. If you're using an existing snapshot, modify the  `reindexFromSnapshotExtraArgs` setting with the following values:
 
@@ -163,7 +162,7 @@ You will also need to give access to the `migrationconsole` and `reindexFromSnap
 
 ## Step 5: Deploying the migration assistant
 
-To deploy the migration assistant to EC2, use the following steps:
+To deploy the migration assistant, use the following steps:
 
 1. Bootstrap the account:
    
@@ -184,7 +183,7 @@ These commands deploy the following stacks:
 
 ---
 
-## Step 6: Accessing the Migration Console
+## Step 6: Accessing the migration console
 
 Run the following command to access the migration console:
 
