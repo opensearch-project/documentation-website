@@ -1,12 +1,12 @@
 ---
 layout: default
-title: UBI Javascript Collector
+title: UBI JavaScript Collector
 parent: User Behavior Insights
 has_children: false
 nav_order: 10
 ---
 
-# UBI Javascript Collector
+# UBI JavaScript Collector
 
 UBI comes with a very basic JavaScript client that manages the life cycle of the `query_id` for a specific search and can create UBI Event data structures and store them for specific actions.
 
