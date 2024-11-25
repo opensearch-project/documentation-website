@@ -15,7 +15,7 @@ The `pattern_replace` token filter can be configured with the following paramete
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
-`pattern` | Required | String | A regular expression pattern that matches the text which needs to be replaced.
+`pattern` | Required | String | A regular expression pattern that matches the text that needs to be replaced.
 `all` | Optional | Boolean | Whether to replace all pattern matches. If `false`, only the first match is replaced. Default is `true`.
 `replacement` | Optional | String | A string with which to replace the matched pattern. Default is an empty string.
 
