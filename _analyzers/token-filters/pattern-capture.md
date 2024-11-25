@@ -15,7 +15,7 @@ The `pattern_capture` token filter can be configured with the following paramete
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
-`patterns` | Required | Array of strings | An array of regular expressions used to capture parts of the text.
+`patterns` | Required | Array of strings | An array of regular expressions used to capture parts of text.
 `preserve_original` | Required | Boolean| Whether to keep the original token in the output. Default is `true`.
 
 
