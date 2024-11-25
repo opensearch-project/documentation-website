@@ -7,7 +7,7 @@ nav_order: 330
 
 # Phonetic token filter
 
-The `phonetic` token filter transforms tokens into their phonetic representations, enabling more flexible matching of words that sound similar but are spelled differently. This is particularly useful for searching names, brands, or other entities which users might spell differently but pronounce similarly.
+The `phonetic` token filter transforms tokens into their phonetic representations, enabling more flexible matching of words that sound similar but are spelled differently. This is particularly useful for searching names, brands, or other entities that users might spell differently but pronounce similarly.
 
 The `phonetic` token filter is not included in OpenSearch distributions by default. To use this token filter, you must first install the `analysis-phonetic` plugin as follows and then restart OpenSearch:
 
@@ -16,7 +16,7 @@ The `phonetic` token filter is not included in OpenSearch distributions by defau
 ```
 {% include copy.html %}
 
-For more information about installing plugins, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/)
+For more information about installing plugins, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
 {: .note}
 
 ## Parameters
@@ -26,7 +26,7 @@ The `phonetic` token filter can be configured with the following parameters.
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
 `encoder` | Optional | String | Specifies the phonetic algorithm to use.<br><br>Valid values are:<br>- `metaphone` (default)<br>- `double_metaphone`<br>- `soundex`<br>- `refined_soundex`<br>- `caverphone1`<br>- `caverphone2`<br>- `cologne`<br>- `nysiis`<br>- `koelnerphonetik`<br>- `haasephonetik`<br>- `beider_morse`<br>- `daitch_mokotoff ` 
-`replace` | Optional | Boolean | Whether to eplace the original token. If `false`, the original token is included in the output along with the phonetic encoding. Default is `true`.
+`replace` | Optional | Boolean | Whether to replace the original token. If `false`, the original token is included in the output along with the phonetic encoding. Default is `true`.
 
 
 ## Example
