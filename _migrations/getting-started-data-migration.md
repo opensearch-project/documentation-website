@@ -8,7 +8,6 @@ nav_order: 10
 
 This document outlines how to deploy the Migration Assistant and execute an existing data migration using `reindex-from-snapshot` (RFS). It uses AWS for the sake of illustration. However, the steps can be modified for use with other cloud providers.
 
-{: .note}
 
 ## Prerequisites and assumptions
 
@@ -23,14 +22,14 @@ Using this guide assumes the following:
 * A snapshot will be taken and stored in S3 in this guide, and the following assumptions are made about this snapshot:
   * The `_source` flag is enabled on all indexes that will be migrated.
   * The snapshot includes the global cluster state (`include_global_state` is `true`).
-  * Shard sizes up to approximately 80GB are supported. Larger shards will not be able to migrate. If this is a blocker, please consult the migrations team.
+  * Shard sizes up to approximately 80GB are supported. Larger shards can not be migrated. If this is blocker for your migration, contact the [migration's team](https://opensearch.slack.com/archives/C054JQ6UJFK).
 * Migration Assistant will be installed in the same region and have access to both the source snapshot and target cluster.
 
 ---
 
 ## Step 1: Installing bootstrap on an AWS EC2 instance (~10 mins)
 
-To begin your migration, use the following steps to install bootstrap on an AWS EC2 instance.
+To begin your migration, use the following steps to install a `bootstrap` box on an AWS EC2 instance. The instance uses CloudFormation to create and manage the stack.
 
 1. Log into the target AWS account where you want to deploy the Migration Assistant.
 2. From the browser where you are logged into your target AWS account right-click [here](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?templateURL=https://solutions-reference.s3.amazonaws.com/migration-assistant-for-amazon-opensearch-service/latest/migration-assistant-for-amazon-opensearch-service.template&redirectId=SolutionWeb) ↗ to load the CloudFormation (Cfn) template from a new browser tab.
@@ -47,7 +46,7 @@ To begin your migration, use the following steps to install bootstrap on an AWS 
 Use the following steps to set up bootstrap instance access:
 
 1. After deployment, find the EC2 instance ID for the `bootstrap-dev-instance`.
-2. Create an IAM policy using the snippet below, replacing `<aws-region>`, `<aws-account>`, `<stage>`, and `<ec2-instance-id> in the following policy`:
+2. Create an IAM policy using the snippet below, replacing `<aws-region>`, `<aws-account>`, `<stage>`, and `<ec2-instance-id>` in the following policy:
 
     ```json
     {
@@ -83,7 +82,7 @@ To use these steps, make sure you fulfill the following prerequisites:
 ### Steps
 
 1. Load AWS credentials into your terminal.
-2. Login to the instance using the command below, replacing `<instance-id>` and `<aws-region>` in the following script:
+2. Login to the instance using the following command, replacing `<instance-id>` and `<aws-region>` with your instance ID and region:
     ```bash
     aws ssm start-session --document-name BootstrapShellDoc-<stage>-<aws-region> --target <instance-id> --region <aws-region> [--profile <profile-name>]
     ```
@@ -178,7 +177,7 @@ To deploy the migration assistant, use the following steps:
 These commands deploy the following stacks:
 
 * Migration assistant network stack
-* RFS stack
+* Reindex From Snapshot stack
 * Migration console stack
 
 ---
@@ -264,7 +263,7 @@ You can now use RFS to migrate documents from your original cluster:
     console backfill start
     ```
 
-2. If you need more workers in order to accommodate the number of documents in your cluster, use the following command:
+2. _(Optional)_ To speed up the migration, increase the number of documents processed at a time by using the following command:
 
     ```bash
     console backfill scale <NUM_WORKERS>
