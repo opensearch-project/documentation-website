@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Remove duplicate
+title: Remove duplicates
 parent: Token filters
 nav_order: 350
 ---
 
-# Remove duplicate token filter
+# Remove duplicates token filter
 
-The `remove_duplicates` token filter is used to remove duplicate tokens that are generated at the same position during analysis.
+The `remove_duplicates` token filter is used to remove duplicate tokens that are generated in the same position during analysis.
 
 ## Example
 
