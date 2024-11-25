@@ -8,7 +8,7 @@ grand_parent: User guide
 
 # Expanding the data corpus of a workload
 
-This tutorial shows you how to use the [`expand-data-corpus.py`](https://github.com/opensearch-project/opensearch-benchmark/blob/main/scripts/expand-data-corpus.py) script to increase the size of the data corpus for a OpenSearch Becnhmark workload. This can help assist in running the `https_logs` Benchmark with a larger scale, for instance, with clusters containing multiple data nodes.
+This tutorial shows you how to use the [`expand-data-corpus.py`](https://github.com/opensearch-project/opensearch-benchmark/blob/main/scripts/expand-data-corpus.py) script to increase the size of the data corpus for a OpenSearch Becnhmark workload. This is helpful when running time-series workloads like http_logs against a large scale OpenSearch cluster.
 
 Only the `http_logs` workload is currently supported.
 {: .warning}
@@ -18,7 +18,7 @@ Only the `http_logs` workload is currently supported.
 To use this tutorial, make sure you fulfill the following prerequsities:
 
 1. Python 3.x or greater installed.
-2. The `http_logs` workload data corpus already downloaded in your cluster.
+2. The `http_logs` workload data corpus already in your load generation host where benchmark is running.
 
 ## Understanding the script
 
@@ -45,7 +45,7 @@ This example generates a 100 GB corpus.
 ./expand-data-corpus.py --corpus-size 100 --output-file-suffix 100gb
 ```
 
-The script will start generating documents. For a 100gb corpus, it can take up to 30 minutes to generate the full corpus.
+The script will start generating documents. For a 100 GB corpus, it can take up to 30 minutes to generate the full corpus.
 
 You can generate multiple corpora by running the script multiple times with different output suffixes.
 
