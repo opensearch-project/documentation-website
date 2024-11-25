@@ -8,7 +8,7 @@ grand_parent: User guide
 
 # Expanding the data corpus of a workload
 
-This tutorial shows you how to use the [`expand-data-corpus.py`](https://github.com/opensearch-project/opensearch-benchmark/blob/main/scripts/expand-data-corpus.py) script to increase the size of the data corpus for a OpenSearch Becnhmark workload. This is helpful when running time-series workloads like http_logs against a large scale OpenSearch cluster.
+This tutorial shows you how to use the [`expand-data-corpus.py`](https://github.com/opensearch-project/opensearch-benchmark/blob/main/scripts/expand-data-corpus.py) script to increase the size of the data corpus for a OpenSearch Benchmark workload. This is helpful when running time-series workloads like http_logs against a large scale OpenSearch cluster.
 
 Only the `http_logs` workload is currently supported.
 {: .warning}
