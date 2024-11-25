@@ -64,7 +64,7 @@ Use the following steps to set up bootstrap instance access:
     }
     ```
 
-3. Name the policy, such as  `SSM-OSMigrationBootstrapAccess`, then create the policy by selecting **Create policy**.
+3. Name the policy, for example `SSM-OSMigrationBootstrapAccess`, then create the policy by selecting **Create policy**.
 
 ---
 
@@ -83,13 +83,17 @@ To use these steps, make sure you fulfill the following prerequisites:
 
 1. Load AWS credentials into your terminal.
 2. Login to the instance using the following command, replacing `<instance-id>` and `<aws-region>` with your instance ID and region:
+
     ```bash
     aws ssm start-session --document-name BootstrapShellDoc-<stage>-<aws-region> --target <instance-id> --region <aws-region> [--profile <profile-name>]
     ```
+    
 3. Once logged in, run the following command from the shell of the bootstrap instance inside the `/opensearch-migrations` directory):
+
     ```bash
     ./initBootstrap.sh && cd deployment/cdk/opensearch-service-migration
     ```
+    
 4. After a successful build, remember the path for infrastructure deployment in the next step.
 
 ---
@@ -249,7 +253,7 @@ Run the following command to migrate metadata:
 console metadata migrate [...]
 ```
 
-To learn more see [Metadata migration]
+To learn more see [Metadata migration].
 
 ---
 
@@ -281,7 +285,7 @@ You can now use RFS to migrate documents from your original cluster:
     console backfill stop
     ```
 
-_Learn more [[Backfill Execution]]_
+To learn more see [Backfill execution].
 
 ---
 
@@ -307,7 +311,7 @@ Shards in progress: 11
 Shards unclaimed: 5
 ```
 
-Logs and metrics are available in CloudWatch in the `OpenSearchMigrations` log group.
+Logs and metrics are available in CloudWatch under the `OpenSearchMigrations` log group.
 
 ---
 
