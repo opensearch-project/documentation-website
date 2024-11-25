@@ -18,7 +18,7 @@ Parameter | Required/Optional | Data type | Description
 `synonyms` | Either `synonyms` or `synonyms_path` must be specified | String | A list of synonym rules defined directly in the configuration.
 `synonyms_path` | Either `synonyms` or `synonyms_path` must be specified | String |  The file path to a file containing synonym rules (either an absolute path or a path relative to the config directory).
 `lenient` | Optional | Boolean | Whether to ignore exceptions when loading the rule configurations. Default is `false`.
-`format` | Optional | String | Specifies the format used to determine how synonyms are defined and interpreted by OpenSearch. Valid values are:<br>- `solr` <br>- [`wordnet`](https://wordnet.princeton.edu/). <br> Default is `solr`.
+`format` | Optional | String | Specifies the format used to determine how OpenSearch defines and interprets synonyms. Valid values are:<br>- `solr` <br>- [`wordnet`](https://wordnet.princeton.edu/). <br> Default is `solr`.
 `expand` | Optional | Boolean |  Whether to expand equivalent synonym rules. Default is `false`.<br><br>For example: <br>If `synonyms` are defined as `"quick, fast"` and `expand` is set to `true`, then the synonym rules are configured as follows:<br>- `quick => quick`<br>- `quick => fast`<br>- `fast => quick`<br>- `fast => fast`<br><br>If `expand` is set to `false`, the synonym rules are configured as follows:<br>- `quick => quick`<br>- `fast => quick`
 
 ## Example: Solr format
