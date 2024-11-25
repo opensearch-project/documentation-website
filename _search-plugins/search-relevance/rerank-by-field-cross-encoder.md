@@ -13,7 +13,7 @@ Introduced 2.18
 
 In this tutorial, you'll learn how to use a cross-encoder model hosted on Amazon SageMaker to rerank search results and improve search relevance. 
 
-To rerank documents, you'll configure a search pipeline that processes search results at query time. The pipeline intercepts search results and passes them to the [`ml_inference` search response processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/ml-inference-search-response/), which invokes the cross-encoder model. The model generates scores that are used to rerank the matching documents [`by_field`]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field/).
+To rerank documents, you'll configure a search pipeline that processes search results at query time. The pipeline intercepts search results and passes them to the [`ml_inference` search response processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/ml-inference-search-response/), which invokes the cross-encoder model. The model generates scores used to rerank the matching documents [`by_field`]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field/).
 
 ## Prerequisite: Deploy a model on Amazon SageMaker
 
@@ -45,7 +45,7 @@ predictor = huggingface_model.deploy(
 ```
 {% include copy.html %}
 
-After deploying the model, you can find the model endpoint by going to the Amazon SageMaker homepage in your AWS Console and selecting **Inference > Endpoints** in the left tab. Note the URL for the created model; you'll use it to create a connector.
+After deploying the model, you can find the model endpoint by going to the Amazon SageMaker console in the AWS Management Console and selecting **Inference > Endpoints** on the left tab. Note the URL for the created model; you'll use it to create a connector.
 
 ## Running a search with reranking
 
@@ -92,7 +92,7 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-Note the connector ID in the response; you'll use it in the following step.
+Note the connector ID contained in the response; you'll use it in the following step.
 
 ## Step 2: Register the model
 
@@ -113,7 +113,7 @@ POST /_plugins/_ml/models/_register
 
 ## Step 3: Ingest documents into an index
 
-Create an index and ingest sample documents containing facts about the New York City boroughs into it:
+Create an index and ingest sample documents containing facts about the New York City boroughs:
 
 ```json
 POST /nyc_areas/_bulk
@@ -136,14 +136,14 @@ POST /nyc_areas/_bulk
 
 Next, create a search pipeline for reranking. In the search pipeline configuration, the `input_map` and `output_map` define how the input data is prepared for the cross-encoder model and how the model's output is interpreted for reranking:
 
-- The `input_map` specifies which fields in the search documents and the query should be used as inputs to the model:
+- The `input_map` specifies which fields in the search documents and the query should be used as model inputs:
     - The `text` field maps to the `facts` field in the indexed documents. It provides the document-specific content that the model will analyze.
     - The `text_pair` field dynamically retrieves the search query text (`multi_match.query`) from the search request. 
 
     The combination of `text` (document `facts`) and `text_pair` (search `query`) allows the cross-encoder model to compare the relevance of the document to the query, considering their semantic relationship.
 
-- The `output_map` specifies how the output of the model is mapped to fields in the response:
-    - The `rank_score` field in the response will store the model's relevance score which will be used to perform reranking.
+- The `output_map` field specifies how the output of the model is mapped to the fields in the response:
+    - The `rank_score` field in the response will store the model's relevance score, which will be used to perform reranking.
     
 When using the `by_field` rerank type, the `rank_score` field will contain the same score as the `_score` field. To remove the `rank_score` field from the search results, set `remove_target_field` to `true`. The original BM25 score, before reranking, is included for debugging purposes by setting `keep_previous_score` to `true`. This allows you to compare the original score with the reranked score to evaluate improvements in search relevance.
     
@@ -208,7 +208,7 @@ POST /nyc_areas/_search?search_pipeline=my_pipeline
 ```
 {% include copy-curl.html %}
 
-In the response, the `previous_score` field contains the document's BM25 score, which it would have received if you hadn't applied the pipeline. Note that while BM25 ranked Astoria as the highest, the cross-encoder prioritized Harlem because it matched more search terms:
+In the response, the `previous_score` field contains the document's BM25 score, which it would have received if you hadn't applied the pipeline. Note that while BM25 ranked "Astoria" the highest, the cross-encoder model prioritized "Harlem" because it matched more search terms:
 
 ```json
 {
