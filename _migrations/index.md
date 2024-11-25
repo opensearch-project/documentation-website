@@ -47,7 +47,7 @@ The Metadata migration tool integrated into the Migration CLI can be used indepe
 
 ### reindex-from-snapshot
 
-`reindex-from-snapshot` reindexes data from an existing snapshot on Elastic Container Service (ECS) workers that coordinate the migration of documents from an existing snapshot, reindexing the documents in parallel to a target cluster.
+`Reindex-from-Snapshot` (RFS) reindexes data from an existing snapshot. Workers on Elastic Container Services (ECS) coordinate the migration of documents from an existing snapshot, reindexing the documents in parallel to a target cluster.
 
 ### Target cluster
 
@@ -55,7 +55,7 @@ The destination cluster for migration or comparison in an A/B test.
 
 ### Architecture overview
 
-The Migration assistant architecture is based on the use of an AWS cloud infrastructure, but most tools are designed to be cloud-independent. A local containerized version of this solution is also available.
+The Migration assistant architecture is based on the use of an AWS Cloud infrastructure, but most tools are designed to be cloud-independent. A local containerized version of this solution is also available.
 
 The design deployed in AWS is as follows: 
 
