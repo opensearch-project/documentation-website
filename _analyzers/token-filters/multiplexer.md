@@ -7,12 +7,12 @@ nav_order: 280
 
 # Multiplexer token filter
 
-The `multiplexer` token filter allows you to create multiple versions of the same token by applying different filters. This is useful when you want to analyze the same token in multiple ways. For example, you may want to analyze a token using different stemming, synonyms, or n-gram filters, and use all the generated tokens together. This token filter works by duplicating the token stream and applying different filters to each copy.
+The `multiplexer` token filter allows you to create multiple versions of the same token by applying different filters. This is useful when you want to analyze the same token in multiple ways. For example, you may want to analyze a token using different stemming, synonyms, or n-gram filters and use all of the generated tokens together. This token filter works by duplicating the token stream and applying different filters to each copy.
 
 The `multiplexer` token filter removes duplicate tokens from the token stream.
 {: .important}
 
-The `multiplexer` token filter does not support multi-word `synonym` or `synonym_graph` token filters or `shingle` token filters because they need to analyze not only the current token but also upcoming tokens to determine how to transform the input correctly.
+The `multiplexer` token filter does not support multiword `synonym` or `synonym_graph` token filters or `shingle` token filters because they need to analyze not only the current token but also upcoming tokens in order to determine how to transform the input correctly.
 {: .important}
 
 ## Parameters
