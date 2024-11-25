@@ -104,7 +104,7 @@ OpenSearch returns the matching documents:
 }
 ```
 
-## Response fields
+## Response body fields
 
 The preceding response contains the following fields.
 

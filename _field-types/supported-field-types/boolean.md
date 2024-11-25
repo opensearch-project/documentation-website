@@ -10,6 +10,8 @@ redirect_from:
 ---
 
 # Boolean field type
+**Introduced 1.0**
+{: .label .label-purple }
 
 A Boolean field type takes `true` or `false` values, or `"true"` or `"false"` strings. You can also pass an empty string (`""`) in place of a `false` value.
 
