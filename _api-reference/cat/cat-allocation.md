@@ -17,16 +17,12 @@ The CAT allocation operation lists the allocation of disk space for indexes and 
 
 ## Path and HTTP methods
 
-```
+```json
 GET _cat/allocation?v
 GET _cat/allocation/<node_name>
 ```
 
-## URL parameters
-
-All CAT allocation URL parameters are optional.
-
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
+## Query parameters
 
 Parameter | Type | Description
 :--- | :--- | :---
