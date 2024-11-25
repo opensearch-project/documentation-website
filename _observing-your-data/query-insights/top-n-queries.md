@@ -96,6 +96,17 @@ GET /_insights/top_queries?type=memory
 ```
 {% include copy-curl.html %}
 
+
+To specify a time range for querying top N results, use the `from` and `to` parameters in ISO8601 format: `YYYY-MM-DD'T'HH:mm:ss.SSSZ`.
+For example, to retrieve the top N queries from August 25, 2024, at 15:00 UTC to August 30, 2024, at 17:00 UTC, send the following request: 
+
+```json
+GET /_insights/top_queries?from=2024-08-25T15:00:00.000Z&to=2024-08-30T17:00:00.000Z
+```
+{% include copy-curl.html %}
+
+If you have a [local index exporter enabled](#configuring-a-local-index-exporter), historical queries stored in local OpenSearch indexes will also be included in the specified time range. 
+
 If your query returns no results, ensure that top N query monitoring is enabled for the target metric type and that search requests were made within the current [time window](#configuring-the-window-size).
 {: .important}
 

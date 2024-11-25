@@ -16,7 +16,6 @@ The Cleanup Snapshot Repository API clears a snapshot repository of data no long
 ```json
 POST /_snapshot/<repository>/_cleanup
 ```
-{% include copy.html %}
 
 
 ## Path parameters

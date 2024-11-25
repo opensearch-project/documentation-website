@@ -185,7 +185,7 @@ This API operation only works with indexes created using the `nmslib` and `faiss
 The following request evicts the native library indexes of three indexes from the cache:
 
 ```json
-GET /_plugins/_knn/clear_cache/index1,index2,index3?pretty
+POST /_plugins/_knn/clear_cache/index1,index2,index3?pretty
 {
   "_shards" : {
     "total" : 6,
@@ -200,7 +200,7 @@ The `total` parameter indicates the number of shards that the API attempted to c
 The k-NN clear cache API can be used with index patterns to clear one or more indexes that match the given pattern from the cache, as shown in the following example:
 
 ```json
-GET /_plugins/_knn/clear_cache/index*?pretty
+POST /_plugins/_knn/clear_cache/index*?pretty
 {
   "_shards" : {
     "total" : 6,
