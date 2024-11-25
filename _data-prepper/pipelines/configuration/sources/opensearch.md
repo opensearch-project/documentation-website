@@ -3,7 +3,7 @@ layout: default
 title: opensearch
 parent: Sources
 grand_parent: Pipelines
-nav_order: 30
+nav_order: 50
 ---
 
 # opensearch

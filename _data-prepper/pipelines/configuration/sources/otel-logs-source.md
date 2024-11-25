@@ -3,7 +3,7 @@ layout: default
 title: otel_logs_source 
 parent: Sources
 grand_parent: Pipelines
-nav_order: 25
+nav_order: 60
 ---
 
 # otel_logs_source
