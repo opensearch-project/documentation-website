@@ -18,6 +18,7 @@ This section provides documentation for OpenSearch-supported tools, including:
 - [OpenSearch CLI](#opensearch-cli)
 - [OpenSearch Kubernetes operator](#opensearch-kubernetes-operator)
 - [OpenSearch upgrade, migration, and comparison tools](#opensearch-upgrade-migration-and-comparison-tools)
+- [Sycamore](#sycamore) for AI-powered extract, transform, load (ETL) on complex documents for vector and hybrid search
 
 For information about Data Prepper, the server-side data collector for filtering, enriching, transforming, normalizing, and aggregating data for downstream analytics and visualization, see [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/index/).
 
@@ -122,3 +123,9 @@ The OpenSearch Kubernetes Operator is an open-source Kubernetes operator that he
 OpenSearch migration tools facilitate migrations to OpenSearch and upgrades to newer versions of OpenSearch. These can help you can set up a proof-of-concept environment locally using Docker containers or deploy to AWS using a one-click deployment script. This empowers you to fine-tune cluster configurations and manage workloads more effectively before migration. 
 
 For more information about OpenSearch migration tools, see the documentation in the [OpenSearch Migration GitHub repository](https://github.com/opensearch-project/opensearch-migrations/tree/capture-and-replay-v0.1.0).
+
+## Sycamore 
+
+[Sycamore](https://github.com/aryn-ai/sycamore) is an open-source, AI-powered document processing engine designed to prepare unstructured data for retrieval-augmented generation (RAG) and semantic search using Python. Sycamore supports chunking and enriching a wide range of complex document types, including reports, presentations, transcripts, and manuals. Additionally, Sycamore can extract and process embedded elements, such as tables, figures, graphs, and other infographics. It can then load the data into target indexes, including vector and keyword indexes, using an [OpenSearch connector](https://sycamore.readthedocs.io/en/stable/sycamore/connectors/opensearch.html). 
+
+For more information, see [Sycamore]({{site.url}}{{site.baseurl}}/tools/sycamore/).
