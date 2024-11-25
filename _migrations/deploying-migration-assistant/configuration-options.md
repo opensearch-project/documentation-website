@@ -13,10 +13,10 @@ This page outlines the configuration options for three key migrations scenarios:
 2. **Backfill migration with `Reindex-from-Snapshot` (RFS)**
 3. **Live capture migration with Capture and Replay (C&R)**
 
-Each of these migrations depend on either a snapshot or a capture proxy. They are shown as AWS Cloud Deployment Kits (CDKs). The CDKs on this page are shown as separate blocks for each migration type. If you are performing a migration that suits multiple scenarios, these options can be combined in the migration console.
+Each of these migrations depend on either a snapshot or a capture proxy. The following example `cdk.context.json `configurations that are used by AWS Cloud Deployment Kits (CDKs) to deploy and configure the Migration Assistant, shown as separate blocks for each migration type. If you are performing a migration that suits multiple scenarios, these options can be combined.
 
 
-For a complete list of configuration options, please refer to the [opensearch-migrations-options.md](https://github.com/opensearch-project/opensearch-migrations/blob/main/deployment/cdk/opensearch-service-migration/options.md). If there is a configuration option you would like that is not found on this page, open an issue in OpenSearch Migrations repository.
+For a complete list of configuration options, see [opensearch-migrations-options.md](https://github.com/opensearch-project/opensearch-migrations/blob/main/deployment/cdk/opensearch-service-migration/options.md). If there is a configuration option you would like that is not found on this page, open an issue in OpenSearch Migrations repository.
 {: .tip }
 
 Options for the source cluster endpoint, target cluster endpoint, and existing VPC should be configured for the Migration tools to function effectively.
@@ -65,7 +65,7 @@ The following CDK performs a backfill migrations using RFS:
 Performing an RFS backfill migration requires an existing snapshot. 
 
 
-The RFS CDK uses the following options. To view all available arguments for `reindexFromSnapshotExtraArgs`, see [Snapshot migrations README](https://github.com/opensearch-project/opensearch-migrations/blob/main/DocumentsFromSnapshotMigration/README.md#arguments). At a minimum, no extra arguments may be needed.
+RFS configuration uses the following options. To view all available arguments for `reindexFromSnapshotExtraArgs`, see [Snapshot migrations README](https://github.com/opensearch-project/opensearch-migrations/blob/main/DocumentsFromSnapshotMigration/README.md#arguments). At a minimum, no extra arguments may be needed.
 
 
 | Name  | Example | Description |
@@ -114,9 +114,9 @@ Performing a live capture migration requires that a Capture Proxy be configured 
 
 | Name  | Example  | Description   |
 | :--- | :--- | :--- |
-| `captureProxyServiceEnabled`    | `true`  | Enables the Capture Proxy service deployment via a new CloudFormation stack.  |
+| `captureProxyServiceEnabled`    | `true`  | Enables the Capture Proxy service deployment using a CloudFormation stack.  |
 | `captureProxyExtraArgs`  | `"--suppressCaptureForHeaderMatch user-agent .*elastic-java/7.17.0.*"`  | Extra arguments for the Capture Proxy command, including options specified by the [Capture Proxy](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/trafficCaptureProxyServer/src/main/java/org/opensearch/migrations/trafficcapture/proxyserver/CaptureProxy.java).  |
-| `trafficReplayerServiceEnabled` | `true`  | Enables the Traffic Replayer service deployment via a new CloudFormation stack.  |
+| `trafficReplayerServiceEnabled` | `true`  | Enables the Traffic Replayer service deployment using a  CloudFormation stack.  |
 | `trafficReplayerExtraArgs`      | `"--sigv4-auth-header-service-region es,us-east-1 --speedup-factor 5"`                 | Extra arguments for the Traffic Replayer command, including options for auth headers and other parameters specified by the [Traffic Replayer](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/trafficReplayer/src/main/java/org/opensearch/migrations/replay/TrafficReplayer.java). |
 
 
@@ -126,7 +126,7 @@ For arguments available in `captureProxyExtraArgs`, refer to the `@Parameter` fi
 
 ## Cluster authentication pptions
 
-Both the source and target cluster can use no authentication, such as authentication limited to VPC, basic authentication with a username and password, or SigV4 scoped to a user or role.
+Both the source and target cluster can use no authentication, such as authentication limited to VPC, basic authentication with a username and password, or AWS Signature Version 4 scoped to a user or role.
 
 ### No authentication
 
