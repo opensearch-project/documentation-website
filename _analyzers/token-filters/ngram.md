@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Ngram
+title: N-gram
 parent: Token filters
 nav_order: 290
 ---
 
-# Ngram token filter
+# N-gram token filter
 
-The `ngram` token filter is a powerful tool for breaking down text into smaller components, known as _n-grams_, which can improve partial matching and fuzzy search capabilities. It works by splitting a token into smaller substrings of defined lengths. These filters are commonly used in search applications to support autocomplete, partial matches, and typo-tolerant search. For more information, see [Autocomplete functionality]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/autocomplete/) and [Did-you-mean]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/did-you-mean/).
+The `ngram` token filter is a powerful tool used to break down text into smaller components, known as _n-grams_, which can improve partial matching and fuzzy search capabilities. It works by splitting a token into smaller substrings of defined lengths. These filters are commonly used in search applications to support autocomplete, partial matches, and typo-tolerant search. For more information, see [Autocomplete functionality]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/autocomplete/) and [Did-you-mean]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/did-you-mean/).
 
 ## Parameters
 
