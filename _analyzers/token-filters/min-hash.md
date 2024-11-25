@@ -7,7 +7,7 @@ nav_order: 270
 
 # Min hash token filter
 
-The `min_hash` token filter is used to generate hashes for tokens based on a [MinHash](https://en.wikipedia.org/wiki/MinHash) approximation algorithm, which is useful for detecting similarity between documents. The `min_hash` token filter takes a set of tokens (typically from an analyzed field) and generates their hashes.
+The `min_hash` token filter is used to generate hashes for tokens based on a [MinHash](https://en.wikipedia.org/wiki/MinHash) approximation algorithm, which is useful for detecting similarity between documents. The `min_hash` token filter generates hashes for a set of tokens (typically from an analyzed field).
 
 ## Parameters
 
@@ -17,7 +17,7 @@ Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
 `hash_count` | Optional | Integer | The number of hash values to generate for each token. Increasing this value generally improves the accuracy of similarity estimation but increases the computational cost. Default is `1`.
 `bucket_count` | Optional | Integer | The number of hash buckets to use. This affects the granularity of the hashing. A larger number of buckets provides finer granularity and reduces hash collisions but requires more memory. Default is `512`.
-`hash_set_size` | Optional | Integer | The number of hashes to retain in each bucket. This can influence the quality of hashing. Larger set sizes may lead to better similarity detection but consume more memory. Default is `1`.
+`hash_set_size` | Optional | Integer | The number of hashes to retain in each bucket. This can influence the hashing quality. Larger set sizes may lead to better similarity detection but consume more memory. Default is `1`.
 `with_rotation` | Optional | Boolean | When set to `true`, the filter populates empty buckets with the value from the first non-empty bucket found to its circular right, provided that the `hash_set_size` is `1`. If the `bucket_count` argument exceeds `1`, this setting automatically defaults to `true`; otherwise, it defaults to `false`.
 
 ## Example
@@ -88,7 +88,7 @@ The response contains the generated tokens (the tokens are not human readable be
     ...
 ```
 
-In order to see the power of `min_hash` token filter you can use the following Python script to compare the two strings using the previously created analyzer:
+In order to demonstrate the usefulness of the `min_hash` token filter, you can use the following Python script to compare the two strings using the previously created analyzer:
 
 ```python
 from opensearchpy import OpenSearch
