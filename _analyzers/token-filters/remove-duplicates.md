@@ -11,7 +11,7 @@ The `remove_duplicates` token filter is used to remove duplicate tokens that are
 
 ## Example
 
-The following example creates an index with a `keyword_repeat` token filter. The filter adds a `keyword` version of each token at the same position as the token itself and then uses a `kstem` to create a stemmed version of the token:
+The following example request creates an index with a `keyword_repeat` token filter. The filter adds a `keyword` version of each token in the same position as the token itself and then uses a `kstem` to create a stemmed version of the token:
 
 ```json
 PUT /example-index
