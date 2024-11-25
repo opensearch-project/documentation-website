@@ -32,7 +32,7 @@ Using this guide assumes the following:
 To begin your migration, use the following steps to install a `bootstrap` box on an AWS EC2 instance. The instance uses CloudFormation to create and manage the stack.
 
 1. Log into the target AWS account where you want to deploy the Migration Assistant.
-2. From the browser where you are logged into your target AWS account right-click [here](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?templateURL=https://solutions-reference.s3.amazonaws.com/migration-assistant-for-amazon-opensearch-service/latest/migration-assistant-for-amazon-opensearch-service.template&redirectId=SolutionWeb) ↗ to load the CloudFormation (Cfn) template from a new browser tab.
+2. From the browser where you are logged into your target AWS account, right-click [here](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?templateURL=https://solutions-reference.s3.amazonaws.com/migration-assistant-for-amazon-opensearch-service/latest/migration-assistant-for-amazon-opensearch-service.template&redirectId=SolutionWeb) to load the CloudFormation  template from a new browser tab.
 3. Follow the CloudFormation stack wizard:
    * **Stack Name:** `MigrationBootstrap`
    * **Stage Name:** `dev`
@@ -46,7 +46,7 @@ To begin your migration, use the following steps to install a `bootstrap` box on
 Use the following steps to set up bootstrap instance access:
 
 1. After deployment, find the EC2 instance ID for the `bootstrap-dev-instance`.
-2. Create an IAM policy using the snippet below, replacing `<aws-region>`, `<aws-account>`, `<stage>`, and `<ec2-instance-id>` in the following policy:
+2. Create an IAM policy using the following snippet, replacing `<aws-region>`, `<aws-account>`, `<stage>`, and `<ec2-instance-id>` with your information:
 
     ```json
     {
@@ -68,7 +68,7 @@ Use the following steps to set up bootstrap instance access:
 
 ---
 
-## Step 3 - Logging into bootstrap and build the Migration Assistant (~15 mins)
+## Step 3: Logging into bootstrap and build the Migration Assistant (~15 mins)
 
 Next, log into to bootstrap and build the Migration Assistant using the following steps.
 
@@ -241,7 +241,7 @@ To learn more about snapshot creation, see [Snapshot Creation]:
 
 ---
 
-## Step 9 - Metadata Migration
+## Step 9: Metadata Migration
 
 Run the following command to migrate metadata:
 
