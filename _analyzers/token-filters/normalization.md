@@ -7,7 +7,7 @@ nav_order: 300
 
 # Normalization token filter
 
-The `normalization` token filter is designed to adjust and simplify text in a way that reduces variations, particularly with special characters. It is primarily used to handle variations in writing by standardizing characters in specific languages.
+The `normalization` token filter is designed to adjust and simplify text in a way that reduces variations, particularly variations in special characters. It is primarily used to handle variations in writing by standardizing characters in specific languages.
 
 The following `normalization` token filters are available:
 
