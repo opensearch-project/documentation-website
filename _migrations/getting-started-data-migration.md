@@ -6,7 +6,7 @@ nav_order: 10
 
 # Getting started: Data migration
 
-This document outlines how to deploy the Migration Assistant and execute an existing data migration using `reindex-from-snapshot` (RFS). It uses AWS for the sake of illustration. However, the steps can be modified for use with other cloud providers.
+This document outlines how to deploy the Migration Assistant and execute an existing data migration using `Reindex-from-Snapshot` (RFS). It uses AWS for the sake of illustration. However, the steps can be modified for use with other cloud providers.
 
 
 ## Prerequisites and assumptions
