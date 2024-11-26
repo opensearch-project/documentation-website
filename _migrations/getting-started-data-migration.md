@@ -70,7 +70,7 @@ Use the following steps to set up Bootstrap instance access:
 
 ## Step 3: Logging in to Bootstrap and building Migration Assistant (~15 minutes)
 
-Next, log in to to Bootstrap and build Migration Assistant using the following steps.
+Next, log in to Bootstrap and build Migration Assistant using the following steps.
 
 ### Prerequisites
 
@@ -221,13 +221,13 @@ To learn more about migration console commands, see [Migration commands].
 
 ## Step 8: Snapshot creation
 
-Run the following to initiate creating a snapshot from the source cluster:
+Run the following command to initiate snapshot creation from the source cluster:
 
 ```bash
 console snapshot create [...]
 ```
 
-To check on the progress of the snapshot creation, use:
+To check the snapshot creation status, run the following command:
 
 ```bash
 console snapshot status [...]
