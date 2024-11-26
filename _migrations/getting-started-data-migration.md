@@ -22,7 +22,7 @@ Using this guide assumes the following:
 * A snapshot will be taken and stored in S3 in this guide, and the following assumptions are made about this snapshot:
   * The `_source` flag is enabled on all indexes that will be migrated.
   * The snapshot includes the global cluster state (`include_global_state` is `true`).
-  * Shard sizes up to approximately 80GB are supported. Larger shards can not be migrated. If this is blocker for your migration, contact the [migration's team](https://opensearch.slack.com/archives/C054JQ6UJFK).
+  * Shard sizes up to approximately 80 GB are supported. Larger shards can not be migrated. If this is blocker for your migration, contact the [migration's team](https://opensearch.slack.com/archives/C054JQ6UJFK).
 * Migration Assistant will be installed in the same region and have access to both the source snapshot and target cluster.
 
 ---
@@ -257,7 +257,7 @@ To learn more see [Metadata migration].
 
 ---
 
-## Step 10: RFS Document Migration
+## Step 10: RFS document migration
 
 You can now use RFS to migrate documents from your original cluster:
 
@@ -291,7 +291,7 @@ To learn more see [Backfill execution].
 
 ## Step 11: Backfill monitoring
 
-Use the following command for detailed monitoring:
+Use the following command for detailed monitoring of the backfill process:
 
 ```bash
 console backfill status --deep-check
