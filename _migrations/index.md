@@ -9,7 +9,7 @@ has_toc: false
 
 # Migration Assistant for OpenSearch
 
-Migrations Assistant for OpenSearch aids you in successfully performing an end-to-end, zero-downtime migration to OpenSearch from other search providers. It helps with the following scenarios:
+Migration Assistant for OpenSearch aids you in successfully performing an end-to-end, zero-downtime migration to OpenSearch from other search providers. It helps with the following scenarios:
 
 - **Metadata migration**: Migrating cluster metadata, such as index settings, aliases, and templates.
 - **Backfill migration**: Migrating existing or historical data from a source to a target cluster.
@@ -21,7 +21,7 @@ This user guide focuses on conducting a comprehensive migration involving both e
 It's crucial to note that migration strategies are not universally applicable. This guide provides a detailed methodology, based on certain assumptions detailed throughout, emphasizing the importance of robust engineering practices to ensure a successful migration.
 {: .tip }
 
-## Key components of Migration Assistant
+## Key components 
 
 The following are the key components of Migration Assistant.
 
@@ -35,7 +35,7 @@ A console that provides a migration-specific CLI and offers a variety of tools t
 
 ### Traffic capture proxy
 
-This component is designed for HTTP RESTful traffic. It forwards traffic to the source cluster and also splits and channels this traffic to a stream-processing service for later playback.
+This component is designed for HTTP RESTful traffic. It forwards traffic to the source cluster and also splits and channels this traffic to a stream processing service for later playback.
 
 ### Traffic Replayer
 
@@ -47,7 +47,7 @@ The Metadata migration tool integrated into the Migration CLI can be used indepe
 
 ### reindex-from-snapshot
 
-`Reindex-from-Snapshot` (RFS) reindexes data from an existing snapshot. Workers on Elastic Container Services (ECS) coordinate the migration of documents from an existing snapshot, reindexing the documents in parallel to a target cluster.
+`Reindex-from-Snapshot` (RFS) reindexes data from an existing snapshot. Workers on Amazon Elastic Container Service (Amazon ECS) coordinate the migration of documents from an existing snapshot, reindexing the documents in parallel to a target cluster.
 
 ### Target cluster
 
@@ -55,16 +55,16 @@ The destination cluster for migration or comparison in an A/B test.
 
 ### Architecture overview
 
-The Migration assistant architecture is based on the use of an AWS Cloud infrastructure, but most tools are designed to be cloud-independent. A local containerized version of this solution is also available.
+The Migration Assistant architecture is based on the use of an AWS Cloud infrastructure, but most tools are designed to be cloud independent. A local containerized version of this solution is also available.
 
 The design deployed in AWS is as follows: 
 
 ![Migration architecture overview]({{site.url}}{{site.baseurl}}/images/migrations/migration-architecture-overview.svg)
 
 1. Client traffic is directed to the existing cluster.
-2. An Application Load Balancer (ALB) with capture proxies relays traffic to a source while replicating data to Amazon Managed Streaming for Apace Kafka (AWS MSK).
+2. An Application Load Balancer with capture proxies relays traffic to a source while replicating data to Amazon Managed Streaming for Apache Kafka (Amazon MSK).
 3. Using the migration console, you can initiate metadata migration to establish indexes, templates, component templates, and aliases on the target cluster.
 4. With continuous traffic capture in place, you can use a `reindex-from-snapshot` process to capture data from your current index.
-4. Once `reindex-from-snapshot` is complete, captured traffic is replayed from AWS MSK to the target cluster by the traffic replayer.
+4. Once `reindex-from-snapshot` is complete, captured traffic is replayed from Amazon MSK to the target cluster by the traffic replayer.
 5. Performance and behavior of traffic sent to the source and target clusters are compared by reviewing logs and metrics.
-6. After confirming the target cluster’s functionality meets expectations, clients are redirected to the new target.
+6. After confirming that the target cluster's functionality meets expectations, clients are redirected to the new target.
