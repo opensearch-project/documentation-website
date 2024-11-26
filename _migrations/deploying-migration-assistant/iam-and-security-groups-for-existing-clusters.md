@@ -9,21 +9,21 @@ parent: Deploying migration assistant
 
 This page outlines security scenarios for using the migration tools with existing clusters, including any necessary configuration changes to ensure proper communication between them.
 
-## Importing an OpenSearch Service or OpenSearch Serverless target cluster
+## Importing an Amazon OpenSearch Service or Amazon OpenSearch Serverless target cluster
 
 Use the following scenarios for OpenSearch Service or Serverless target clusters:
 
-### OpenSearch service
+### OpenSearch Service
 
 For an OpenSearch Domain, two main configurations are typically required to ensure proper functioning of the migration solution:
 
 1. **Security Group Configuration**
 
-   The Domain should have a security group that allows communication from the applicable Migration services (Traffic Replayer, Migration Console, `Reindex-from-Snapshot`). The CDK automatically creates an `osClusterAccessSG` security group, which is applied to the migration services. The user should then add this security group to their existing Domain to allow access.
+   The domain should have a security group that allows communication from the applicable migration services (Traffic Replayer, Migration Console, `Reindex-from-Snapshot`). The CDK automatically creates an `osClusterAccessSG` security group, which is applied to the migration services. The user should then add this security group to their existing domain to allow access.
 
 2. **Access Policy Configuration** should be one of the following:
    - An open access policy that allows all access.
-   - Configured to allow at least the IAM task roles for the applicable Migration services (Traffic Replayer, Migration Console, `Reindex-from-Snapshot`) to access the Domain.
+   - Configured to allow at least the AWS Identity and Access Management (IAM) task roles for the applicable migration services (Traffic Replayer, Migration Console, `Reindex-from-Snapshot`) to access the domain.
 
 ### OpenSearch Serverless
 
