@@ -11,7 +11,7 @@ This page outlines security scenarios for using the migration tools with existin
 
 ## Importing an Amazon OpenSearch Service or Amazon OpenSearch Serverless target cluster
 
-Use the following scenarios for OpenSearch Service or Serverless target clusters:
+Use the following scenarios for Amazon OpenSearch Service or Amazon OpenSearch Serverless target clusters.
 
 ### OpenSearch Service
 

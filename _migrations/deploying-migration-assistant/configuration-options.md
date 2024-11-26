@@ -16,7 +16,7 @@ This page outlines the configuration options for three key migrations scenarios:
 Each of these migrations depends on either a snapshot or a capture proxy. The following example `cdk.context.json` configurations are used by AWS Cloud Development Kit (AWS CDK) to deploy and configure Migration Assistant for OpenSearch, shown as separate blocks for each migration type. If you are performing a migration applicable to multiple scenarios, these options can be combined.
 
 
-For a complete list of configuration options, see [opensearch-migrations-options.md](https://github.com/opensearch-project/opensearch-migrations/blob/main/deployment/cdk/opensearch-service-migration/options.md). If you need a configuration option that is not found on this page, create an issue in the OpenSearch Migrations repository.
+For a complete list of configuration options, see [opensearch-migrations-options.md](https://github.com/opensearch-project/opensearch-migrations/blob/main/deployment/cdk/opensearch-service-migration/options.md). If you need a configuration option that is not found on this page, create an issue in the [OpenSearch Migrations repository](https://github.com/opensearch-project/opensearch-migrations/issues).
 {: .tip }
 
 Options for the source cluster endpoint, target cluster endpoint, and existing virtual private cloud (VPC) should be configured in order for the migration tools to function effectively.
