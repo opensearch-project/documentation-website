@@ -28,9 +28,9 @@ Each migration configuration shares the following options.
 
 | Name | Example  | Description   |
 | :--- | :--- | :--- |
-| `sourceClusterEndpoint` | `"https://source-cluster.elb.us-east-1.endpoint.com"`                                               | The endpoint for the source cluster.  |
+| `sourceClusterEndpoint` | `"https://source-cluster.elb.us-east-1.endpoint.com"`  | The endpoint for the source cluster.  |
 | `targetClusterEndpoint` | `"https://vpc-demo-opensearch-cluster-cv6hggdb66ybpk4kxssqt6zdhu.us-west-2.es.amazonaws.com:443"`   | The endpoint for the target cluster. Required if using an existing target cluster for the migration instead of creating a new one. |
-| `vpcId` | `"vpc-123456789abcdefgh"`                                                                           | The ID of the existing VPC where the migration resources will be placed. The VPC must have at least two private subnets that span two availability zones. |
+| `vpcId` | `"vpc-123456789abcdefgh"`  | The ID of the existing VPC where the migration resources will be placed. The VPC must have at least two private subnets that span two availability zones. |
 
 
 ## Backfill migration using RFS
@@ -65,8 +65,7 @@ The following CDK performs a backfill migrations using RFS:
 Performing an RFS backfill migration requires an existing snapshot. 
 
 
-RFS configuration uses the following options. To view all available arguments for `reindexFromSnapshotExtraArgs`, see [Snapshot migrations README](https://github.com/opensearch-project/opensearch-migrations/blob/main/DocumentsFromSnapshotMigration/README.md#arguments). At a minimum, no extra arguments may be needed.
-
+The RFS configuration uses the following options. All options are optional. 
 
 | Name  | Example | Description |
 | :--- | :--- | :--- |
@@ -108,9 +107,6 @@ The following sample CDK performs a live capture migration with C&R
 
 Performing a live capture migration requires that a Capture Proxy be configured to capture incoming traffic and send it to the target cluster using the Traffic Replayer service. For arguments available in `captureProxyExtraArgs`, refer to the `@Parameter` fields [here](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/trafficCaptureProxyServer/src/main/java/org/opensearch/migrations/trafficcapture/proxyserver/CaptureProxy.java). For `trafficReplayerExtraArgs`, refer to the `@Parameter` fields [here](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/trafficReplayer/src/main/java/org/opensearch/migrations/replay/TrafficReplayer.java). At a minimum, no extra arguments may be needed.
 
-<details>
-<summary><b>Capture and Replay specific configuration options table</b>
-</summary>
 
 | Name  | Example  | Description   |
 | :--- | :--- | :--- |
@@ -120,13 +116,12 @@ Performing a live capture migration requires that a Capture Proxy be configured 
 | `trafficReplayerExtraArgs`      | `"--sigv4-auth-header-service-region es,us-east-1 --speedup-factor 5"`                 | Extra arguments for the Traffic Replayer command, including options for auth headers and other parameters specified by the [Traffic Replayer](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/trafficReplayer/src/main/java/org/opensearch/migrations/replay/TrafficReplayer.java). |
 
 
-For arguments available in `captureProxyExtraArgs`, refer to the `@Parameter` fields [here](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/trafficCaptureProxyServer/src/main/java/org/opensearch/migrations/trafficcapture/proxyserver/CaptureProxy.java). For `trafficReplayerExtraArgs`, refer to the `@Parameter` fields [here](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/trafficReplayer/src/main/java/org/opensearch/migrations/replay/TrafficReplayer.java). At a minimum, no extra arguments may be needed.
+For arguments available in `captureProxyExtraArgs`, see the `@Parameter` fields [in the `CaptureProxy.java`](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/trafficCaptureProxyServer/src/main/java/org/opensearch/migrations/trafficcapture/proxyserver/CaptureProxy.java). For `trafficReplayerExtraArgs`, see the `@Parameter` fields [in TrafficReplayer.java](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/trafficReplayer/src/main/java/org/opensearch/migrations/replay/TrafficReplayer.java).
 
 
+## Cluster authentication options
 
-## Cluster authentication pptions
-
-Both the source and target cluster can use no authentication, such as authentication limited to VPC, basic authentication with a username and password, or AWS Signature Version 4 scoped to a user or role.
+Both the source and target cluster can use no authentication, authentication limited to VPX, basic authentication with a username and password, or AWS Signature Version 4 scoped to a user or role.
 
 ### No authentication
 
@@ -168,7 +163,7 @@ Both the source and target cluster can use no authentication, such as authentica
 
 The `serviceSigningName` can be `es` for an Elasticsearch or OpenSearch domain, or `aoss` for an OpenSearch Serverless collection.
 
-All of these authentication mechanisms apply to both source and target clusters.
+All of these authentication options apply to both source and target clusters.
 
 ## Network configuration
 
