@@ -6,7 +6,7 @@ has_children: false
 nav_order: 10
 ---
 
-# UBI JavaScript Collector
+# UBI JavaScript collector
 
 UBI comes with a very basic JavaScript client that manages the life cycle of the `query_id` for a specific search and can create UBI Event data structures and store them for specific actions.
 
@@ -16,7 +16,8 @@ We recommend that you refer to the client as a starting point for your own speci
 
 ## Installation
 
-The client comes as a single file `ubi.js` and only has a dependency on the `axios` library.  Download it from https://github.com/opensearch-project/user-behavior-insights/tree/main/ubi-javascript-collector.
+The client comes as a single file `ubi.js` and only has a dependency on the `axios` library.  
+Download it from https://github.com/opensearch-project/user-behavior-insights/tree/main/ubi-javascript-collector.
 
 Reference the events and create the client via:
 
@@ -29,7 +30,7 @@ const ubiClient = new  UbiClient('http://localhost:9200');
 ```
 
 
-## Creating an Event 
+## Creating an event 
 
 This code snippet is to track adding an item to a shopping cart in an e-commerce application. It utilizes the `UbiEvent` and `UbiEventAttributes` class to encapsulate event details, which can then be sent to the tracking system.
 ```js
@@ -71,11 +72,47 @@ var event = new UbiEvent(
 6. **Event Label**: 
    - `item.title + ' (' + item.id + ')'` - This creates a descriptive label for the event that includes the product title and its unique identifier (ID).
 
+The method `getQueryId()` refers to a helper method to generate a unique query id (and stores it in the session).  
+Here is a sample method:
 
-## Tracking the Event 
+```
+function generateQueryId(){
+  const query_id = generateGuid();
+  sessionStorage.setItem('query_id', query_id);
+  return query_id;
+}
+
+function generateGuid() {
+  let id = '';
+  try{
+    id = crypto.randomUUID();
+  }
+  catch(error){
+    // crypto.randomUUID only works in https, not http context, so fallback.
+    id ='10000000-1000-4000-8000-100000000000'.replace(/[018]/g, c =>
+      (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    );
+  }
+  return id;
+};
+```
+
+## Tracking the event 
 
 Sending the event to the backend is as simple as:
 
 ```js
 ubiClient.trackEvent(event);
+```
+
+
+## Tracking queries
+
+You have the option of tracking queries using the client (instead of using the UBI plugin for OpenSearch).
+
+This looks very similar to tracking events:
+
+```js
+const query = new UbiQuery(APPLICATION, client_id, query_id, value, "_id", {});
+ubiClient.trackQuery(query)
 ```
