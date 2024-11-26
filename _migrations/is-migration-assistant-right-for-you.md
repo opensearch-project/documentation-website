@@ -55,9 +55,3 @@ Before starting a migration, consider the scope of the components involved. The 
 | **Elasticsearch Kibana dashboards** | Expected in 2025 | This tool is only needed when used to migrate Elasticsearch Kibana Dashboards to OpenSearch Dashboards. To start, export JSON files from Kibana and import them into OpenSearch Dashboards; before importing, use the [`dashboardsSanitizer`](https://github.com/opensearch-project/opensearch-migrations/tree/main/dashboardsSanitizer) tool on X-Pack visualizations like Canvas and Lens in Kibana Dashboards, as they may require recreation for compatibility with OpenSearch. |
 | **Security constructs**          | No                  | Configure roles and permissions based on cloud provider recommendations. For example, if using AWS, leverage AWS Identity and Access Management (IAM) for enhanced security management.                                                  |
 | **Plugins**                      | No                  | Check plugin compatibility; some Elasticsearch plugins may not have direct equivalents in OpenSearch.                                                                                              |
-
-
-## Migration assessment questionnaire
-
-If you're having trouble deciding whether migration
-[OpenSearch Migrations Assessment - Version 5.docx](https://github.com/user-attachments/files/17177220/OpenSearch.Migrations.Assessment.-.Version.5.docx).
