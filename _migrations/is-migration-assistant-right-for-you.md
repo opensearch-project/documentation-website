@@ -45,7 +45,7 @@ Before starting a migration, consider the scope of the components involved. The 
 
 | Component | Supported | Recommendations   |
 | :--- |:--- | :--- |
-| **Documents**  | Yes  | Migrate existing data with Reindex from Snapshot (RFS) and live traffic with Capture and Replay. |
+| **Documents**  | Yes  | Migrate existing data with `Reindex-from-Snapshot` (RFS) and live traffic with capture and replay. |
 | **Index settings**  | Yes   | Migrate with the metadata migration tool. |
 | **Index mappings**  | Yes   | Migrate with the metadata migration tool.  |
 | **Index templates**   | Yes   | Migrate with the metadata migration tool. |
