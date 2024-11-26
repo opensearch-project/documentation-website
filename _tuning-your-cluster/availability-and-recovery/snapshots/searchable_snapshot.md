@@ -46,7 +46,7 @@ services:
       - node.search.cache.size=50gb
 ```
 
-
+- Since 2.18, k-NN indices (NMSLIB and FAISS) now support searchable snapshots.
 
 ## Create a searchable snapshot index
 
@@ -109,4 +109,3 @@ The following are known limitations of the searchable snapshots feature:
 - Searching remote data can impact the performance of other queries running on the same node. We recommend that users provision dedicated nodes with the `search` role for performance-critical applications.
 - For better search performance, consider [force merging]({{site.url}}{{site.baseurl}}/api-reference/index-apis/force-merge/) indexes into a smaller number of segments before taking a snapshot. For the best performance, at the cost of using compute resources prior to snapshotting, force merge your index into one segment.
 - We recommend configuring a maximum ratio of remote data to local disk cache size using the `cluster.filecache.remote_data_ratio` setting. A ratio of 5 is a good starting point for most workloads to ensure good query performance. If the ratio is too large, then there may not be sufficient disk space to handle the search workload. For more details on the maximum ratio of remote data, see issue [#11676](https://github.com/opensearch-project/OpenSearch/issues/11676).
-- k-NN native-engine-based indexes using `faiss` and `nmslib` engines are incompatible with searchable snapshots.
