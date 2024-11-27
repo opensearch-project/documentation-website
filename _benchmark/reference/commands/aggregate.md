@@ -69,9 +69,28 @@ Aggregate test execution ID:  aggregate_results_geonames_9aafcfb8-d3b7-4583-864e
 -------------------------------
 ```
 
-The results will be aggregated into one test execution and stored under the ID shown in the output:
+The results will be aggregated into one test execution and stored under the ID shown in the output.
 
+### Additional options
 - `--test-execution-id`: Define a unique ID for the aggregated test execution.
 - `--results-file`: Write the aggregated results to the provided file.
 - `--workload-repository`: Define the repository from which OpenSearch Benchmark will load workloads (default is `default`).
 
+## Aggregated Results
+Aggregated results now include new metrics and changes:
+
+- **Relative Standard Deviation (RSD)**: For each metric (e.g., throughput, latency, service time) an additional `mean_rsd` value is included to show the spread of results across test executions.
+- **Overall Min/Max Values**: Instead of averaging min and max values, the aggregated results now include `overall_min` and `overall_max` which reflect the true minimum/maximum across all test executions.
+- **Storage**: Aggregated test results are now stored in a separate `aggregated_results` folder alongside the `test_executions` folder.
+
+### Aggregated Metrics Example:
+```json
+    "throughput": {
+     "overall_min": 29056.890292903263,
+     "mean": 50115.8603858536,
+     "median": 50099.54349684457,
+     "overall_max": 72255.15946248993,
+     "unit": "docs/s",
+     "mean_rsd": 59.426059705973664
+    },
+```
