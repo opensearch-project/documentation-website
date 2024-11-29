@@ -43,8 +43,8 @@ GET _cat/snapshots?v&repository=<repository-name>
 ## Example response
 
 ```json
-id |               status | start_epoch | start_time | end_epoch | end_time | duration | indices | successful_shards | failed_shards | total_shards
-nightly-1732912545 | SUCCESS | 1732912585 | 20:36:25 | 1732912585 | 20:36:25 | 0s | 1                 | 1               | 0             | 1
-nightly-1732826145 | SUCCESS | 1732912631 | 20:37:11 | 1732912631 | 20:37:11 | 0s | 1                 | 1               | 0             | 1
-nightly-1732998945 | SUCCESS | 1732912647 | 20:37:27 | 1732912647 | 20:37:27 | 202ms | 1              | 1               | 0             | 1
+id                 | status  | start_epoch | start_time | end_epoch  | end_time | duration | indices | successful_shards | failed_shards | total_shards
+nightly-1732912545 | SUCCESS | 1732912585  | 20:36:25   | 1732912585 | 20:36:25 | 0s       | 1       | 1                 | 0             | 1
+nightly-1732826145 | SUCCESS | 1732912631  | 20:37:11   | 1732912631 | 20:37:11 | 0s       | 1       | 1                 | 0             | 1
+nightly-1732998945 | SUCCESS | 1732912647  | 20:37:27   | 1732912647 | 20:37:27 | 202ms    | 1       | 1                 | 0             | 1
 ```
