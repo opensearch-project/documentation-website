@@ -24,17 +24,18 @@ GET _cat/snapshots
 
 ## Query parameters
 
-Parameter | Type | Description
-:--- | :--- | :---
-cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
-time | Time | Specify the units for time. For example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
+Parameter | Type   | Description
+:--- |:-------| :---
+repository | String | Name of snapshot repository. Required.
+cluster_manager_timeout | Time   | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
+time | Time   | Specify the units for time. For example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
 
 ## Example request
 
-The following example request lists all snapshots:
+The following example request lists all snapshots in the provided repository:
 
 ```
-GET _cat/snapshots?v
+GET _cat/snapshots?v&repository=<repository-name>
 ```
 {% include copy-curl.html %}
 
@@ -42,7 +43,8 @@ GET _cat/snapshots?v
 ## Example response
 
 ```json
-index | shard | prirep | state   | docs | store | ip |       | node
-plugins | 0   |   p    | STARTED |   0  |  208b | 172.18.0.4 | odfe-node1
-plugins | 0   |   r    | STARTED |   0  |  208b | 172.18.0.3 |  odfe-node2          
+id |               status | start_epoch | start_time | end_epoch | end_time | duration | indices | successful_shards | failed_shards | total_shards
+nightly-1732912545 | SUCCESS | 1732912585 | 20:36:25 | 1732912585 | 20:36:25 | 0s | 1                 | 1               | 0             | 1
+nightly-1732826145 | SUCCESS | 1732912631 | 20:37:11 | 1732912631 | 20:37:11 | 0s | 1                 | 1               | 0             | 1
+nightly-1732998945 | SUCCESS | 1732912647 | 20:37:27 | 1732912647 | 20:37:27 | 202ms | 1              | 1               | 0             | 1
 ```
