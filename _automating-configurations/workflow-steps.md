@@ -75,9 +75,11 @@ You can include the following additional fields in the `user_inputs` field if th
 
 You can include the following additional fields in the `previous_node_inputs` field when indicated.
 
-|Field	|Data type	|Description	|
-|---	|---	|---	|
-|`model_id`	|String	|The `model_id` is used as an input for several steps. As a special case for the Register Agent step type, if an `llm.model_id` field is not present in the `user_inputs` and not present in `previous_node_inputs`, the `model_id` field from the previous node may be used as a backup for the model ID.	|
+| Field	          |Data type	| Description	                                                                                                                                                                                                                                                                                                                                                                                                           |
+|-----------------|---	|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `model_id`	     |String	| The `model_id` is used as an input for several steps. As a special case for the `register_agent` step type, if an `llm.model_id` field is not present in the `user_inputs` and not present in `previous_node_inputs`, then the `model_id` field from the previous node may be used as a backup for the model ID. The `model_id` will also be included in the `parameters` input of the `create_tool` step for the `MLModelTool`.	 |
+| `agent_id`	     |String	| The `agent_id` is used as an input for several steps. The `agent_id` will also be included in the `parameters` input of the `create_tool` step for the `AgentTool`.                                                                                                                                                                                                                                                          |
+| `connector_id`	 |String	| The `connector_id` is used as an input for several steps. The `connector_id` will also be included in the `parameters` input of the `create_tool` step for the `ConnectorTool`.                                                                                                                                                                                                                                              |
 
 ## Example workflow steps
 
