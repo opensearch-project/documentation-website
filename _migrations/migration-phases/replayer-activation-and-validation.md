@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Replay activation and validation
+title: Replayer activation and validation
 nav_order: 100
 parent: Migration phases
 ---
 
-# Replay activation and validation
+# Replayer activation and validation
 
 This guide covers how to use the Replayer to replay captured traffic from a source cluster to a target cluster during the migration process. The Replayer allows users to verify that the target cluster can handle requests in the same way as the source cluster and catch up to real-time traffic for a smooth migration.
 
@@ -304,4 +304,4 @@ The following metrics are also reported.
 
 ## CloudWatch considerations
 
-Metrics pushed to CloudWatch may experience around a 5-minute visibility lag. CloudWatch also retains higher-resolution data for a shorter period than lower-resolution data. For more details, see [CloudWatch Metrics Retention Policies](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html).
+Metrics pushed to CloudWatch may experience around a 5-minute visibility lag. CloudWatch also retains higher-resolution data for a shorter period than lower-resolution data. For more details, see [CloudWatch Metrics retention policies](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html).
