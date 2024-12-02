@@ -7,7 +7,7 @@ nav_order: 240
 
 # Length token filter
 
-The `length` token filter is used to remove tokens that don't meet specified length criteria, such as minimum and maximum values, from the token stream.
+The `length` token filter is used to remove tokens that don't meet specified length criteria (minimum and maximum values) from the token stream.
 
 ## Parameters
 
@@ -15,8 +15,8 @@ The `length` token filter can be configured with the following parameters.
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
-`min` | Optional | Integer | Minimum length of tokens that should be created. Default is `0`.
-`max` | Optional | Integer | Maximum length of tokens that should be created. Default is `Integer.MAX_VALUE` (`2147483647`).
+`min` | Optional | Integer | The minimum token length. Default is `0`.
+`max` | Optional | Integer | The maximum token length. Default is `Integer.MAX_VALUE` (`2147483647`).
  
 
 ## Example
