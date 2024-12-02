@@ -89,6 +89,6 @@ GET /_plugins/_ml/memory/gW8Aa40BfUsSoeNTvOKI/_search
 }
 ```
 
-## Response fields
+## Response body fields
 
-For information about response fields, see [Create Message request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/create-message#request-fields).
+For information about response fields, see [Create Message request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/create-message#request-body-fields).
