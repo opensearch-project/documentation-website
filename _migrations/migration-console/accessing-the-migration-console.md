@@ -9,7 +9,7 @@ parent: Migration console
 
 The bootstrap box deployed through Migration Assistant contains a script that simplifies access to the migration console through that instance.
 
-To access the migration sonsole, use the following commands:
+To access the migration console, use the following commands:
 
 ```shell
 export STAGE=dev
@@ -31,4 +31,4 @@ aws ecs execute-command --cluster "migration-${STAGE}-ecs-cluster" --task "${TAS
 ```
 
 
-Typically, `STAGE` is  equivalent to a standard `dev` environment, but this may vary based on what the user specified during deployment.
+Typically, `STAGE` is equivalent to a standard `dev` environment, but this may vary based on what the user specified during deployment.

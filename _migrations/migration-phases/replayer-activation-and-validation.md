@@ -31,7 +31,7 @@ The following command starts the Replayer with the options specified at deployme
 console replay start
 ```
 
-When starting the replayer, you should receive an output similar to the following:
+When starting Replayer, you should receive an output similar to the following:
 
 ```bash
 root@ip-10-0-2-66:~# console replay start

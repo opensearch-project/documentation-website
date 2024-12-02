@@ -131,7 +131,7 @@ To speed up the transfer, you can scale the number of workers. It may take a few
 console backfill scale 5
 ```
 
-It is recommended to scale up the fleet slowly while monitoring the health metrics of the Target Cluster to avoid over-saturating it. [Amazon OpenSearch Domains](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/monitoring.html) provide a number of metrics and logs that can provide this insight. The AWS Console for Amazon Opensearch Service surfaces details that can be useful for this as well.
+It is recommended to scale up the fleet slowly while monitoring the health metrics of the Target Cluster to avoid over-saturating it. [Amazon OpenSearch Domains](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/monitoring.html) provide a number of metrics and logs that can provide this insight.
 
 ### Stopping the migration
 

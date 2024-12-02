@@ -24,7 +24,7 @@ console clusters connection-check
 
 ### Run `cat-indices`
 
-Runs the Cat Indices API on the cluster.
+Runs the `cat-indices` API on the cluster.
 
 ```sh
 console clusters cat-indices
@@ -32,7 +32,7 @@ console clusters cat-indices
 
 ### Create a snapshot
 
-Creates a snapshot on the source cluster, into a pre-configured Amazon S3 bucket.
+Creates a snapshot on the source cluster, into a preconfigured Amazon S3 bucket.
 
 ```sh
 console snapshot create
@@ -73,7 +73,7 @@ There are similar `scale UNITS` and `stop` commands to change the number of acti
 console backfill start
 ```
 
-## Chack backfill status
+## Check backfill status
 
 Gets the current status of the backfill migration, with the number of instances operating and the progress of the shards.
 
@@ -89,7 +89,7 @@ console replay start
 
 ## Read logs
 
-Reads any logs that exist when running Traffic Replayer.Use tab completion on the path to fill in the available `NODE_IDs` and, if applicable, log file names. The tuple's logs roll over at a certain size threshold, so there may be many files named with timestamps. The `jq` command pretty-prints each line of the tuple output before writing it to file.
+Reads any logs that exist when running Traffic Replayer. Use tab completion on the path to fill in the available `NODE_IDs` and, if applicable, log file names. The tuples logs roll over at a certain size threshold, so there may be many files named with timestamps. The `jq` command pretty-prints each line of the tuple output before writing it to file.
 
 ```sh
 console tuples show --in /shared-logs-output/traffic-replayer-default/[NODE_ID]/tuples/console.log | jq > readable_tuples.json
