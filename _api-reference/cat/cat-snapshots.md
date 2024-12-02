@@ -18,15 +18,11 @@ The CAT snapshots operation lists all snapshots for a repository.
 
 ## Path and HTTP methods
 
-```
+```json
 GET _cat/snapshots
 ```
 
-## URL parameters
-
-All CAT snapshots URL parameters are optional.
-
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameter:
+## Query parameters
 
 Parameter | Type | Description
 :--- | :--- | :---
