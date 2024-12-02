@@ -9,7 +9,7 @@ parent: Migration phases
 
 This guide covers how to use the Replayer to replay captured traffic from a source cluster to a target cluster during the migration process. The Replayer allows users to verify that the target cluster can handle requests in the same way as the source cluster and catch up to real-time traffic for a smooth migration.
 
-## When to Run the Replayer
+## When to run the Replayer
 
 After deploying the Migration Assistant, the Replayer is not running by default. It should be started only after all metadata and documents have been migrated to ensure that recent changes to the source cluster are properly reflected in the target cluster.
 
