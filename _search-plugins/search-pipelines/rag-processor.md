@@ -16,7 +16,7 @@ The `retrieval_augmented_generation` processor is a search results processor tha
 As of OpenSearch 2.12, the `retrieval_augmented_generation` processor supports only OpenAI and Amazon Bedrock models.
 {: .note}
 
-## Request fields
+## Request body fields
 
 The following table lists all available request fields.
 

@@ -588,6 +588,8 @@ Use % in headlines, quotations, and tables or in technical copy.
 
 An agent and REST API that allows you to query numerous performance metrics for your cluster, including aggregations of those metrics, independent of the Java Virtual Machine (JVM).
 
+**performant**
+
 **plaintext, plain text**
 
 Use *plaintext* only to refer to nonencrypted or decrypted text in content about encryption. Use *plain text* to refer to ASCII files.
@@ -601,6 +603,10 @@ Avoid using except in quoted text.
 Tools inside of OpenSearch that can be customized to enhance OpenSearch's functionality. For a list of core plugins, see the [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/) page. Capitalize if it appears as part of the product name in the UI.
 
 **pop-up**
+
+**preaggregate**
+
+**precompute**
 
 **premise, premises**
 
