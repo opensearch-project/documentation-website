@@ -18,7 +18,7 @@ Creates a new detector.
 POST _plugins/_security_analytics/detectors
 ```
 
-### Request fields
+### Request body fields
 
 You can specify the following fields when creating a detector.
 
@@ -224,7 +224,7 @@ The Update Detector API can be used to update a detector definition. It requires
 PUT /_plugins/_security_analytics/detectors/<detector_Id>
 ```
 
-### Request fields
+### Request body fields
 
 You can specify the following fields when updating a detector.
 
@@ -332,7 +332,7 @@ PUT /_plugins/_security_analytics/detectors/J1RX1IMByX0LvTiGTddR
 }
 ```
 
-#### Response fields
+#### Response body fields
 
 Field | Type | Description
 :--- | :--- |:--- |
@@ -428,7 +428,7 @@ GET /_plugins/_security_analytics/detectors/<detector Id>
 
 The Search Detector API searches for detector matches by detector ID, detector name, or detector type.
 
-### Request fields
+### Request body fields
 
 Field | Type | Description
 :--- | :--- |:--- |
