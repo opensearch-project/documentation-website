@@ -181,7 +181,7 @@ To deploy Migration Assistant, use the following steps:
 These commands deploy the following stacks:
 
 * Migration Assistant network stack
-* Reindex From Snapshot stack
+* `Reindex-from-snapshot` stack
 * Migration console stack
 
 ---
@@ -253,7 +253,7 @@ Run the following command to migrate metadata:
 console metadata migrate [...]
 ```
 
-For more information, see [Metadata migration].
+For more information, see [Migrating metadata]({{site.url}}{{site.baseurl}}/migrations/migration-phases/migrating-metadata/).
 
 ---
 
@@ -285,7 +285,7 @@ You can now use RFS to migrate documents from your original cluster:
     console backfill stop
     ```
 
-For more information, see [Backfill execution].
+For more information, see [Backfill]({{site.url}}{{site.baseurl}}/migrations/migration-phases/backfill/).
 
 ---
 
@@ -328,4 +328,3 @@ fields @message
 
 If any failed documents are identified, you can index the failed documents directly as opposed to using RFS.
 
-For more information, see [Backfill migration].
