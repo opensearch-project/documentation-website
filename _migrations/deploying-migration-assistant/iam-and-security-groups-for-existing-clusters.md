@@ -7,25 +7,27 @@ parent: Deploying migration assistant
 
 # IAM and security groups for existing clusters
 
-This page outlines scenarios for using the migration tools with existing clusters, including any necessary configuration changes to ensure proper communication between them.
+This page outlines security scenarios for using the migration tools with existing clusters, including any necessary configuration changes to ensure proper communication between them.
 
-## Importing an OpenSearch Service or OpenSearch Serverless Target Cluster
+## Importing an Amazon OpenSearch Service or Amazon OpenSearch Serverless target cluster
+
+Use the following scenarios for Amazon OpenSearch Service or Amazon OpenSearch Serverless target clusters.
 
 ### OpenSearch Service
 
 For an OpenSearch Domain, two main configurations are typically required to ensure proper functioning of the migration solution:
 
-1. **Security Group Configuration**:  
-   The Domain should have a security group that allows communication from the applicable Migration services (Traffic Replayer, Migration Console, Reindex-from-Snapshot). The CDK will automatically create an `osClusterAccessSG` security group, which is applied to the Migration services. The user should then add this security group to their existing Domain to allow access.
+1. **Security Group Configuration**
 
-2. **Access Policy Configuration**:  
-   The Domain’s access policy should either:
-   - Be an open access policy that allows all access, or
-   - Be configured to allow at least the IAM task roles for the applicable Migration services (Traffic Replayer, Migration Console, Reindex-from-Snapshot) to access the Domain.
+   The domain should have a security group that allows communication from the applicable migration services (Traffic Replayer, Migration Console, `Reindex-from-Snapshot`). The CDK automatically creates an `osClusterAccessSG` security group, which is applied to the migration services. The user should then add this security group to their existing domain to allow access.
+
+2. **Access Policy Configuration** should be one of the following:
+   - An open access policy that allows all access.
+   - Configured to allow at least the AWS Identity and Access Management (IAM) task roles for the applicable migration services (Traffic Replayer, Migration Console, `Reindex-from-Snapshot`) to access the domain.
 
 ### OpenSearch Serverless
 
-For an OpenSearch Serverless Collection, you will need to configure both Network and Data Access policies:
+For an OpenSearch Serverless Collection, you will need to configure both network and data access policies:
 
 1. **Network Policy Configuration**:  
    The Collection should have a network policy that uses the `VPC` access type. This requires creating a VPC endpoint on the VPC used for the solution. The VPC endpoint should be configured for the private subnets of the VPC and should attach the `osClusterAccessSG` security group.
@@ -35,7 +37,7 @@ For an OpenSearch Serverless Collection, you will need to configure both Network
 
 ## Capture Proxy on Coordinator Nodes of Source Cluster
 
-Although the CDK does not automatically set up the Capture Proxy on source cluster nodes (except in the demo solution), the Capture Proxy instances must communicate with the resources deployed by the CDK (e.g., Kafka). This section outlines the necessary steps.
+Although the CDK does not automatically set up the Capture Proxy on source cluster nodes (except in the demo solution), the Capture Proxy instances must communicate with the resources deployed by the CDK, such as Kafka. This section outlines the necessary steps to set up communication.
 
 Before [setting up Capture Proxy instances](https://github.com/opensearch-project/opensearch-migrations/tree/main/TrafficCapture/trafficCaptureProxyServer#installing-capture-proxy-on-coordinator-nodes) on the source cluster, ensure the following configurations are in place:
 
@@ -69,4 +71,4 @@ Before [setting up Capture Proxy instances](https://github.com/opensearch-projec
 
 ## Related Links
 
-- [OpenSearch Traffic Capture Setup](https://github.com/opensearch-project/opensearch-migrations/tree/main/TrafficCapture/trafficCaptureProxyServer#installing-capture-proxy-on-coordinator-nodes) ↗
+- [OpenSearch traffic capture setup]
