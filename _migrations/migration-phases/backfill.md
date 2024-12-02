@@ -135,7 +135,7 @@ It is recommended to scale up the fleet slowly while monitoring the health metri
 
 ### Stopping the migration
 
-Backfill requires manually stopping the fleet.  Once all the data has been migrated using by checking the status.  You can spin down the fleet and all its workers with the command:
+Backfill requires manually stopping the fleet. Once all the data has been migrated using by checking the status. You can shut down the fleet and all its workers with the command:
 
 ```shell
 console backfill stop
