@@ -7,7 +7,7 @@ nav_order: 380
 
 # Snowball token filter
 
-The `snowball` token filter is a stemming filter based on the [Snowball](https://snowballstem.org/) algorithm. It comes with support for many languages and offers improvement over the Porter stemming algorithm when it comes to efficiency and accuracy.
+The `snowball` token filter is a stemming filter based on the [Snowball](https://snowballstem.org/) algorithm. It supports many languages and is more efficient and accurate than the Porter stemming algorithm.
 
 ## Parameters
 
