@@ -9,13 +9,13 @@ nav_order: 430
 
 The `trim` token filter removes leading and trailing white space characters from tokens. 
 
-Many popular tokenizers, for example `standard`, `keyword`, and `whitespace` tokenizers, automatically strip any leading and trailing spaces during tokenization. When using these tokenizers, there is no need to configure an additional `trim` token filter. 
+Many popular tokenizers, such as `standard`, `keyword`, and `whitespace` tokenizers, automatically strip leading and trailing white space characters during tokenization. When using these tokenizers, there is no need to configure an additional `trim` token filter. 
 {: .note}
 
 
 ## Example
 
-The following example request creates a new index named `my_pattern_trim_index` and configures an analyzer with a `trim` filter and a `pattern` tokenizer, which does not remove leading and trailing white space:
+The following example request creates a new index named `my_pattern_trim_index` and configures an analyzer with a `trim` filter and a `pattern` tokenizer, which does not remove leading and trailing white space characters:
 
 ```json
 PUT /my_pattern_trim_index
