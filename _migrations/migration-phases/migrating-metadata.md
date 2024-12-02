@@ -46,11 +46,6 @@ Anticipated duration remaining: 0h 0m 0s
 Throughput: 38.13 MiB/sec
 ```
 
-
-### Limitations
-
-Incremental or "delta" snapshots are not yet supported. For more information, refer to the [tracking issue MIGRATIONS-1624](https://opensearch.atlassian.net/browse/MIGRATIONS-1624). A single snapshot must be used for a backfill.
-
 ### Dealing with slow snapshot speeds
 
 Depending on the size of the data on the source cluster and the bandwidth allocated for snapshots, the snapshot creation process can take some time. You can adjust the maximum rate at which the source cluster's nodes create the snapshot using the `--max-snapshot-rate-mb-per-node` option. Increasing the snapshot rate will consume more node resources, which may affect the cluster's ability to handle normal traffic. If not specified, the default rate for the source cluster's version will be used. 
