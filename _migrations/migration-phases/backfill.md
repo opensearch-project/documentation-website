@@ -47,11 +47,14 @@ Make a client/DNS change to route clients to the Migration Assistant ALB on port
 
 After you have routed the client based on your use case, test adding records against HTTP requests using the following steps:
 
-1. In the Migration Console, execute the following command:
+1. In the Migration Console, run the following command:
+
    ```shell
    console kafka describe-topic-records
    ```
+   
    Note the records in the logging topic.
+   
 2. After a short period, execute the same command again and compare the increase in records against the expected HTTP requests.
 
 
