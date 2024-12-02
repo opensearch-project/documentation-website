@@ -80,7 +80,7 @@ aws s3api delete-bucket --bucket <your-bucket-name> --region <your-aws-region>
 
 Use this guidance to troubleshoot any of the following snapshot verification issues:
 
-#### Access Denied Error (403)
+#### Access denied error (403)
 
 If you encounter an error like `AccessDenied (Service: Amazon S3; Status Code: 403)`, verify the following:
 
