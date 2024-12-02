@@ -7,18 +7,17 @@ nav_order: 360
 
 # Reverse token filter
 
-The `reverse` token filter reverses the order of the characters in each token, making suffix information accessible at the start of the reversed tokens during analysis. 
+The `reverse` token filter reverses the order of the characters in each token, making suffix information accessible at the beginning of the reversed tokens during analysis. 
 
 This is useful for suffix-based searches:
 
-The `reverse` token filter in Elasticsearch is useful when you need to perform suffix-based searches. This includes scenarios such as:  
+The `reverse` token filter is useful when you need to perform suffix-based searches, such as in the following scenarios:  
 
-- **Suffix matching**: Searching for words based on their endings, like identifying words that end with specific patterns (for example, `-tion` or `-ing`).
+- **Suffix matching**: Searching for words based on their suffixes, such as identifying words with a specific ending (for example, `-tion` or `-ing`).
 - **File extension searches**: Searching for files by their extensions, such as `.txt` or `.jpg`.
 - **Custom sorting or ranking**: By reversing tokens, you can implement unique sorting or ranking logic based on suffixes.  
-- **Autocomplete for suffixes**: Implementing autocomplete suggestions that focus on suffixes rather than prefixes.  
+- **Autocomplete for suffixes**: Implementing autocomplete suggestions that use suffixes rather than prefixes.  
 
-The `reverse` token filter works by reversing the order of characters in each token, making suffix information accessible at the start of the reversed tokens during analysis.
 
 ## Example
 
