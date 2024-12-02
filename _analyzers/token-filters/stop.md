@@ -7,9 +7,9 @@ nav_order: 410
 
 # Stop token filter
 
-The `stop` token filter is used to remove common words (also known as _stopwords_) from a stream of tokens during analysis. Stopwords are typically articles and prepositions such as `a` or `for`. These words do not carry much meaning in search queries and are often excluded to improve search efficiency and relevance. 
+The `stop` token filter is used to remove common words (also known as _stopwords_) from a token stream during analysis. Stopwords are typically articles and prepositions, such as `a` or `for`. These words are not significantly meaningful in search queries and are often excluded to improve search efficiency and relevance. 
 
-The default predefined list of English stopwords includes the following words: `a`, `an`, `and`, `are`, `as`, `at`, `be`, `but`, `by`, `for`, `if`, `in`, `into`, `is`, `it`, `no`, `not`, `of`, `on`, `or`, `such`, `that`, `the`, `their`, `then`, `there`, `these`, `they`, `this`, `to`, `was`, `will`, and `with`. 
+The default list of English stopwords includes the following words: `a`, `an`, `and`, `are`, `as`, `at`, `be`, `but`, `by`, `for`, `if`, `in`, `into`, `is`, `it`, `no`, `not`, `of`, `on`, `or`, `such`, `that`, `the`, `their`, `then`, `there`, `these`, `they`, `this`, `to`, `was`, `will`, and `with`. 
 
 ## Parameters
 
