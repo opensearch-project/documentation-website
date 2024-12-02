@@ -197,7 +197,7 @@ There might be an error about being unable to update an ES 7.10.2 cluster, this 
 
 ### Breaking change compatibility
 
-Metadata migration needs to modify data from the source to the target versions to recreate items. Sometimes these features are no longer supported and have been removed from the target version. Sometimes these features are not available on the target version, which is especially true when downgrading. While this tool is meant to make this process easier, it is not exhaustive in its support. When encountering a compatibility issue or an important feature gap for your migration, [search the issues](https://github.com/opensearch-project/opensearch-migrations/issues) or [create a new](https://github.com/opensearch-project/opensearch-migrations/issues/new/choose) issue if one cannot be found.
+Metadata migration needs to modify data from the source to the target versions to recreate items. Sometimes these features are no longer supported and have been removed from the target version. Sometimes these features are not available on the target version, which is especially true when downgrading. While this tool is meant to make this process easier, it is not exhaustive in its support. When encountering a compatibility issue or an important feature gap for your migration, [search the issues and comment on the existing issue](https://github.com/opensearch-project/opensearch-migrations/issues) or [create a new](https://github.com/opensearch-project/opensearch-migrations/issues/new/choose) issue if one cannot be found.
 
 #### Deprecation of Mapping Types
 
