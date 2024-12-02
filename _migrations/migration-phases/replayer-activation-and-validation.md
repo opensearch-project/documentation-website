@@ -39,7 +39,7 @@ Replayer started successfully.
 Service migration-dev-traffic-replayer-default set to 1 desired count. Currently 0 running and 0 pending.
 ```
 
-## Check Replayer Status
+## Check the Replayer's status
 
 The following command shows the status of the Replayer: 
 
@@ -89,17 +89,17 @@ The Replayer sends requests in the same order they were received on each connect
 - **Scenario**: Two connections exist—one sends a PUT request every minute, and the other sends a GET request every second.
 - **Behavior**: The Replayer will maintain the sequence within each connection, but the relative timing between the connections (PUTs and GETs) is not preserved.
 
-Assume a source cluster responds to requests (GETs and PUTs) within 100ms:
+Assume a source cluster responds to requests (GETs and PUTs) within 100 ms:
 
 - With a **speedup factor of 1**, the target will experience the same request rates and idle periods as the source.
-- With a **speedup factor of 2**, requests will be sent twice as fast, with GETs sent every 500ms and PUTs every 30 seconds.
+- With a **speedup factor of 2**, requests will be sent twice as fast, with GETs sent every 500 ms and PUTs every 30 seconds.
 - With a **speedup factor of 10**, requests will be sent 10x faster, and as long as the target responds quickly, the Replayer can maintain the pace.
 
 If the target cannot respond fast enough, the Replayer will wait for the previous request to complete before sending the next one. This may cause delays and affect global relative ordering.
 
 ## Transformations
 
-During migrations, some requests may need to be transformed between versions. For example, Elasticsearch previously supported multiple type mappings in indices, but this is no longer the case in OpenSearch. Clients may need to adjust accordingly by splitting documents into multiple indices or transforming request data.
+During migrations, some requests may need to be transformed between versions. For example, Elasticsearch previously supported multiple type mappings in indexes, but this is no longer the case in OpenSearch. Clients may need to adjust accordingly by splitting documents into multiple indexes or transforming request data.
 
 The Replayer automatically rewrites host and authentication headers, but for more complex transformations, custom transformation rules can be specified using the `--transformer-config` option. For more information, see the [Traffic Replayer README](https://github.com/opensearch-project/opensearch-migrations/blob/c3d25958a44ec2e7505892b4ea30e5fbfad4c71b/TrafficCapture/trafficReplayer/README.md#transformations). 
 
@@ -161,7 +161,7 @@ host: testhostname
 
 You can pass Base64-encoded transformation scripts using `--transformer-config-base64` for convenience.
 
-## Result Logs
+## Result logs
 
 HTTP transactions from the source capture and those resent to the target cluster are logged in files located at `/shared-logs-output/traffic-replayer-default/*/tuples/tuples.log`. The `/shared-logs-output` directory is shared across containers, including the migration console. Users can access these files from the migration console using the same path. Previous runs are also available in a `gzipped` format. 
 
@@ -222,7 +222,7 @@ The following example log entry shows `/_cat/indices?v` request sent to both the
 ```
 
 
-### Decoding Log Content
+### Decoding log content
 
 The contents of HTTP message bodies are Base64 encoded to handle various types of traffic, including compressed data. To view the logs in a more human-readable format, use the console library `tuples show`. Running the script as follows will produce a `readable-tuples.log` in the home directory:
 
@@ -285,13 +285,13 @@ The Replayer emits various OpenTelemetry metrics to CloudWatch, and traces are s
 
 ### `sourceStatusCode`
 
-This metric tracks the HTTP status codes for both the source and target clusters, with dimensions for the HTTP verb (e.g., GET, POST) and the status code families (e.g., 200-299). These dimensions help quickly identify discrepancies between the source and target, such as when DELETE 200s become 4xx or GET 4xx errors turn into 5xx errors.
+This metric tracks the HTTP status codes for both the source and target clusters, with dimensions for the HTTP verb, such as `GET` or `POST`, and the status code families, (200--299). These dimensions help quickly identify discrepancies between the source and target, such as when `DELETE 200s` become `4xx` or `GET 4xx` errors turn into `5xx` errors.
 
 ### `lagBetweenSourceAndTargetRequests`
 
 This metric shows the delay between requests hitting the source and target clusters. With a speedup factor greater than 1 and a target cluster that can handle requests efficiently, this value should decrease as the replay progresses, indicating a reduction in replay lag.
 
-### Additional Metrics
+### Additional metrics
 
 The following metrics are also reported.
 

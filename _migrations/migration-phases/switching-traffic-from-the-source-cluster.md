@@ -11,7 +11,7 @@ After the source and target clusters are in sync traffic needs to be switched to
 
 ## Assumptions
 
-This page assumes the following has occured before making the switch:
+This page assumes the following has occurred before making the switch:
 
 - All client traffic is being routed through switchover listener in [MigrationAssistant ALB]({{site.url}}{{site.baseurl}}/migrations/migration-phases/backfill/).
 - Client traffic has been verified to be compatible with target cluster.

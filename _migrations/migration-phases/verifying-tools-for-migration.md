@@ -15,7 +15,7 @@ Verify that a snapshot can be created from your cluster and used for metadata an
 
 ### Installing the Elasticsearch S3 Repository plugin
 
-The snapshot needs to be stored in a location that the Migration Assistant can access. This guides uses AWS S3 as  and the Migration Assistant creates an S3 bucket for this purpose. Therefore, it is necessary to install the [Elasticsearch S3 Repository](https://www.elastic.co/guide/en/elasticsearch/plugins/7.10/repository-s3.html) plugin on your source nodes (https://www.elastic.co/guide/en/elasticsearch/plugins/7.10/repository-s3.html).
+The snapshot needs to be stored in a location that the Migration Assistant can access. This guide uses AWS S3 as and the Migration Assistant creates an S3 bucket for this purpose. Therefore, it is necessary to install the [Elasticsearch S3 Repository](https://www.elastic.co/guide/en/elasticsearch/plugins/7.10/repository-s3.html) plugin on your source nodes (https://www.elastic.co/guide/en/elasticsearch/plugins/7.10/repository-s3.html).
 
 Additionally, make sure that the plugin has been configured with AWS credentials that allow it to read and write to AWS S3. If your Elasticsearch cluster is running on EC2 or ECS instances with an execution IAM Role, include the necessary S3 permissions. Alternatively, you can store the credentials in the [Elasticsearch keystore](https://www.elastic.co/guide/en/elasticsearch/plugins/7.10/repository-s3-client.html).
 
@@ -137,11 +137,11 @@ This section describes how to verify that replication is working once the traffi
 5. Navigate to the **Migration Console Terminal**.
 6. Run `console kafka describe-topic-records`. Wait 30 seconds for another ALB health check.
 7. Run `console kafka describe-topic-records` again and verify the number of RECORDS increased between runs.
-8. Run `console replay start` to start the traffic replayer.
+8. Run `console replay start` to start the Traffic Replayer.
 9.  Run `tail -f /shared-logs-output/traffic-replayer-default/*/tuples/tuples.log  | jq '.targetResponses[]."Status-Code"'` to confirm that the Kafka requests were sent to the target and that it responded as expected. If the responses don't appear:
     * Check that the migration-console can access the target cluster by running `./catIndices.sh`, which should show indexes on the source and target.
     * Confirm that messages are still being recorded to Kafka.
-    * Check for errors in the replayer logs ("/migration/STAGE/default/traffic-replayer-default") using CloudWatch.
+    * Check for errors in the Replayer logs (`/migration/STAGE/default/traffic-replayer-default`) using CloudWatch.
 10. (Reset) Update Traffic Capture Proxy service desired count back to it's original value in ECS.
 
 ### Troubleshooting
@@ -167,7 +167,7 @@ The following steps outline how to reset resources with Migration Assistant befo
 
 ### Replayer
 
-To stop a running replayer service, use the following command:
+To stop a running Replayer, use the following command:
 
 ```bash
 console replay stop

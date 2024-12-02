@@ -66,7 +66,7 @@ Create a snapshot for your backfill using the following command:
 console snapshot create
 ```
 
-To check the progress of your snapshot in realtime, use the following command:
+To check the progress of your snapshot, use the following command:
 
 ```bash
 console snapshot status --deep-check
@@ -80,7 +80,7 @@ From the snapshot you created of your source cluster, you can begin backfilling 
 
 ### Checking the starting state of the clusters
 
-You can see the indices and rough document counts of the source and target cluster by running the cat-indices command.  This can be used to monitor the difference between the source and target for any migration scenario.  Check the indices of both clusters with the following command:
+You can see the indexes and document counts of the source and target cluster by running the `cat-indices` command. This can be used to monitor the difference between the source and target for any migration scenario. Check the indexes of both clusters with the following command:
 
 ```shell
 console clusters cat-indices
@@ -125,7 +125,7 @@ The status will list as `Running` even if all the shards have been migrated.
 
 ### Scaling up the fleet
 
-To speed up the transfer, you can scale the number of workers. It may take a few minutes for these additional workers to come online.  The following command will update the worker fleet to a size of ten:
+To speed up the transfer, you can scale the number of workers. It may take a few minutes for these additional workers to come online. The following command will update the worker fleet to a size of ten:
 
 ```shell
 console backfill scale 5
