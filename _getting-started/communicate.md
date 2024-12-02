@@ -28,7 +28,7 @@ curl -X GET "http://localhost:9200/_cluster/health"
 If you're using the Security plugin, provide the username and password in the request:
 
 ```bash
-curl -X GET "http://localhost:9200/_cluster/health" -ku admin:<custom-admin-password>
+curl -X GET "https://localhost:9200/_cluster/health" -ku admin:<custom-admin-password>
 ```
 {% include copy.html %}
 
@@ -200,7 +200,7 @@ PUT /students/_doc/1
   "address": "123 Main St."
 }
 ```
-{% include copy.html %}
+{% include copy-curl.html %}
 
 Alternatively, you can update parts of a document by calling the Update Document API:
 

@@ -46,7 +46,7 @@ OpenSearch provides several pretrained models. For more information, see [OpenSe
 
 To register a pretrained text embedding model, the only required parameters are `name`, `version`, and `model_format`.
 
-#### Request fields
+#### Request body fields
 
 The following table lists the available request fields.
 
@@ -75,7 +75,7 @@ POST /_plugins/_ml/models/_register
 
 To register a pretrained sparse encoding model, you must set the function name to `SPARSE_ENCODING` or `SPARSE_TOKENIZE`.
 
-#### Request fields
+#### Request body fields
 
 The following table lists the available request fields.
 
@@ -95,8 +95,8 @@ Field | Data type | Required/Optional | Description
 ```json
 POST /_plugins/_ml/models/_register
 {
-    "name": "amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v1",
-    "version": "1.0.1",
+    "name": "amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v2-distill",
+    "version": "1.0.0",
     "model_group_id": "Z1eQf4oB5Vm0Tdw8EIP2",
     "model_format": "TORCH_SCRIPT"
 }
@@ -107,7 +107,7 @@ POST /_plugins/_ml/models/_register
 
 To use a custom model locally within the OpenSearch cluster, you need to provide a URL and a config object for that model. For more information, see [Custom local models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/custom-local-models/).
 
-### Request fields
+### Request body fields
 
 The following table lists the available request fields.
 
@@ -170,7 +170,7 @@ POST /_plugins/_ml/models/_register
 
 To register a model hosted on a third-party platform, you can either first create a standalone connector and provide the ID of that connector or specify an internal connector for the model. For more information, see [Creating connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
 
-### Request fields
+### Request body fields
 
 The following table lists the available request fields.
 
