@@ -7,7 +7,7 @@ nav_order: 370
 
 # Shingle token filter
 
-The `shingle` token filter is used to create word n-grams, or _shingles_, from input text. For example, for the string `slow green turtle`, the `shingle` filter creates the following one- and two-word shingles: `slow`, `slow green`, `green`, `green turtle`, and `turtle`.
+The `shingle` token filter is used to generate word n-grams, or _shingles_, from input text. For example, for the string `slow green turtle`, the `shingle` filter creates the following one- and two-word shingles: `slow`, `slow green`, `green`, `green turtle`, and `turtle`.
 
 This token filter is often used in conjunction with other filters to enhance search accuracy by indexing phrases rather than individual tokens. For more information, see [Phrase suggester]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/did-you-mean/#phrase-suggester).
 
@@ -17,14 +17,14 @@ The `shingle` token filter can be configured with the following parameters.
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
-`min_shingle_size` | Optional | Integer | The minimum number of token to concatenate. Default is `2`.
-`max_shingle_size` | Optional | Integer | The maximum number of token to concatenate. Default is `2`.
+`min_shingle_size` | Optional | Integer | The minimum number of tokens to concatenate. Default is `2`.
+`max_shingle_size` | Optional | Integer | The maximum number of tokens to concatenate. Default is `2`.
 `output_unigrams` | Optional | Boolean | Whether to include unigrams (individual tokens) as output. Default is `true`.
-`output_unigrams_if_no_shingles` | Optional | Boolean | Whether to output unigrams if no shingles are produced. Default is `false`.
-`token_separator` | Optional | String |  A separator used to concatenate tokens into a shingle. Default is space (`" "`).
-`filler_token` | Optional | String | A token to insert in place of empty positions or gaps between tokens. Default is underscore (`_`).
+`output_unigrams_if_no_shingles` | Optional | Boolean | Whether to output unigrams if no shingles are generated. Default is `false`.
+`token_separator` | Optional | String |  A separator used to concatenate tokens into a shingle. Default is a space (`" "`).
+`filler_token` | Optional | String | A token inserted into empty positions or gaps between tokens. Default is an underscore (`_`).
 
-If `output_unigrams` and `output_unigrams_if_no_shingles` are both set to `true`, `output_unigrams_if_no_shingles` is ignored
+If `output_unigrams` and `output_unigrams_if_no_shingles` are both set to `true`, `output_unigrams_if_no_shingles` is ignored.
 {: .note}
 
 ## Example
