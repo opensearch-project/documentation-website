@@ -10,9 +10,9 @@ parent: Migration phases
 Metadata migration involves creating a snapshot of you cluster than migrating the metadata from the snapshot using the Migration Console. 
 
 
-This tool gathers information from a source cluster, through a snapshot or through HTTP requests against the source cluster.  These snapshots are fully compatible with the backfill process for Reindex-From-Snapshot (RFS) scenarios.
+This tool gathers information from a source cluster, through a snapshot or through HTTP requests against the source cluster. These snapshots are fully compatible with the backfill process for `Reindex-From-Snapshot` (RFS) scenarios.
 
-After collecting information on the source cluster comparisons are made on the target cluster.  If running a migration, any metadata items do not already exist will be created on the target cluster.
+After collecting information on the source cluster comparisons are made on the target cluster. If running a migration, any metadata items do not already exist will be created on the target cluster.
 
 ## Creating the snapshot
 
@@ -192,9 +192,9 @@ To inspect the file within the console `cat`, `tail` and `grep` commands line to
 tail /shared-logs-output/migration-console-default/*/metadata/*.log
 ```
 
-### Warnings/errors inline
+### Warnings and errors
 
-There might be `WARN` or `ERROR` elements inline the output, they will be accompanied by a short message, such as `WARN - my_index already exists`.  Full information will be in the detailed logs associated with this warnings or errors.
+When encountering `WARN` or `ERROR` elements in the response, they will be accompanied by a short message, such as `WARN - my_index already exists`.  Full information will be in the detailed logs associated with this warning or error.
 
 ### OpenSearch running in compatibility mode
 There might be an error about being unable to update an ES 7.10.2 cluster, this can occur when compatibility mode has been enabled on an OpenSearch cluster please disable it to continue, see [Enable compatibility mode](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/rename.html#rename-upgrade) ↗.
@@ -202,7 +202,7 @@ There might be an error about being unable to update an ES 7.10.2 cluster, this 
 
 ### Breaking change compatibility
 
-Metadata migration needs to modify data from the source to the target versions to recreate items.  Sometimes these features are no longer supported and have been removed from the target version.  Sometimes these features are not available on the target version, which is especially true when downgrading.  While this tool is meant to make this process easier, it is not exhaustive in its support.  When encountering a compatibility issue or an important feature gap for your migration, [search the issues](https://github.com/opensearch-project/opensearch-migrations/issues) or [create a new](https://github.com/opensearch-project/opensearch-migrations/issues/new/choose) issue if one cannot be found.
+Metadata migration needs to modify data from the source to the target versions to recreate items. Sometimes these features are no longer supported and have been removed from the target version. Sometimes these features are not available on the target version, which is especially true when downgrading. While this tool is meant to make this process easier, it is not exhaustive in its support. When encountering a compatibility issue or an important feature gap for your migration, [search the issues](https://github.com/opensearch-project/opensearch-migrations/issues) or [create a new](https://github.com/opensearch-project/opensearch-migrations/issues/new/choose) issue if one cannot be found.
 
 #### Deprecation of Mapping Types
 
