@@ -295,7 +295,7 @@ In some cases, you may need to update credentials, like `access_key`, that you u
 ```json
 PUT /_plugins/_ml/models/<model_id>
 {
-  "connector": {
+  "connectors": {
     "credential": {
       "openAI_key": "YOUR NEW OPENAI KEY"
     }
