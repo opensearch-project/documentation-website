@@ -7,7 +7,7 @@ parent: Migration phases
 
 # Backfill
 
-After the [metadata]({{site.url}}{{site.baseurl}}/migrations/migration-phases/migrating-metadata) for your cluster has been migrated, you can use capture proxy data replication and snapshots to backfill your data into the next cluster.
+After the [metadata]({{site.url}}{{site.baseurl}}/migrations/migration-phases/migrating-metadata/) for your cluster has been migrated, you can use capture proxy data replication and snapshots to backfill your data into the next cluster.
 
 ## Capture proxy data replication
 
