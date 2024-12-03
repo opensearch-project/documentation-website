@@ -192,7 +192,7 @@ When encountering `WARN` or `ERROR` elements in the response, they will be accom
 
 ### OpenSearch running in compatibility mode
 
-There might be an error about being unable to update an ES 7.10.2 cluster, this can occur when compatibility mode has been enabled on an OpenSearch cluster please disable it to continue, see [Enable compatibility mode](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/rename.html#rename-upgrade).
+There might be an error about being unable to update an ES 7.10.2 cluster, this can occur when compatibility mode has been enabled on an OpenSearch cluster disable it to continue, see [Enable compatibility mode](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/rename.html#rename-upgrade).
 
 
 ### Breaking change compatibility

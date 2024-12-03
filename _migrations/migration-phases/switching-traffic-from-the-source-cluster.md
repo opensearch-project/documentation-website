@@ -49,4 +49,4 @@ Use the following steps to switch traffic from the source cluster to the target 
 
 ## Fallback
 
-If you need to fallback to the source cluster at any point during the switch, revert the **Default rule** to have the ALB route to the **SourceProxy Target Group**.
+If you need to fall back to the source cluster at any point during the switchover, revert the **Default rule** so that the Application Load Balancer routes to the **SourceProxy Target Group**.
