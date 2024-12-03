@@ -7,23 +7,23 @@ parent: Migration phases
 
 # Migrating metadata
 
-Metadata migration involves creating a snapshot of you cluster than migrating the metadata from the snapshot using the Migration Console. 
+Metadata migration involves creating a snapshot of your cluster and then migrating the metadata from the snapshot using the migration console.
 
-This tool gathers information from a source cluster, through a snapshot or through HTTP requests against the source cluster. These snapshots are fully compatible with the backfill process for `Reindex-From-Snapshot` (RFS) scenarios.
+This tool gathers information from a source cluster through a snapshot or through HTTP requests against the source cluster. These snapshots are fully compatible with the backfill process for `Reindex-From-Snapshot` (RFS) scenarios.
 
-After collecting information on the source cluster comparisons are made on the target cluster. If running a migration, any metadata items do not already exist will be created on the target cluster.
+After collecting information on the source cluster, comparisons are made against the target cluster. If running a migration, any metadata items that do not already exist will be created on the target cluster.
 
 ## Creating the snapshot
 
-Creating a snapshot of the source cluster capture all the metadata and documents to migrate onto a new target cluster.
+Creating a snapshot of the source cluster captures all the metadata and documents to be migrated to a new target cluster.
 
-Create the initial snapshot on the source cluster with the following command:
+Create the initial snapshot of the source cluster using the following command:
 
 ```shell
 console snapshot create
 ```
 
-To check the progress of the snapshot in real-time, use the following command:
+To check the progress of the snapshot in real time, use the following command:
 
 ```shell
 console snapshot status --deep-check
@@ -45,9 +45,9 @@ Anticipated duration remaining: 0h 0m 0s
 Throughput: 38.13 MiB/sec
 ```
 
-### Dealing with slow snapshot speeds
+### Managing slow snapshot speeds
 
-Depending on the size of the data on the source cluster and the bandwidth allocated for snapshots, the snapshot creation process can take some time. You can adjust the maximum rate at which the source cluster's nodes create the snapshot using the `--max-snapshot-rate-mb-per-node` option. Increasing the snapshot rate will consume more node resources, which may affect the cluster's ability to handle normal traffic. If not specified, the default rate for the source cluster's version will be used. 
+Depending on the size of the data in the source cluster and the bandwidth allocated for snapshots, the process can take some time. Adjust the maximum rate at which the source cluster's nodes create the snapshot using the `--max-snapshot-rate-mb-per-node` option. Increasing the snapshot rate will consume more node resources, which may affect the cluster's ability to handle normal traffic. 
 
 ## Command Arguments
 
@@ -85,7 +85,7 @@ INFO:console_link.models.metadata:Migrating metadata with command: /root/metadat
 ```
 
 
-## Using the `evaluate`  commonad
+## Using the `evaluate`  command
 
 By scanning the contents of the source cluster, applying filtering, and applying modifications a list of all items that will be migrated will be created.  Any items not seen in this output will not be migrated onto the target cluster if the migrate command was to be run.  This is a safety check before making modifications on the target cluster.
 
@@ -188,15 +188,16 @@ tail /shared-logs-output/migration-console-default/*/metadata/*.log
 
 ### Warnings and errors
 
-When encountering `WARN` or `ERROR` elements in the response, they will be accompanied by a short message, such as `WARN - my_index already exists`.  Full information will be in the detailed logs associated with this warning or error.
+When encountering `WARN` or `ERROR` elements in the response, they will be accompanied by a short message, such as `WARN - my_index already exists`. More information can be found in the detailed logs associated with the warning or error.
 
 ### OpenSearch running in compatibility mode
-There might be an error about being unable to update an ES 7.10.2 cluster, this can occur when compatibility mode has been enabled on an OpenSearch cluster please disable it to continue, see [Enable compatibility mode](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/rename.html#rename-upgrade) ↗.
+
+There might be an error about being unable to update an ES 7.10.2 cluster, this can occur when compatibility mode has been enabled on an OpenSearch cluster please disable it to continue, see [Enable compatibility mode](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/rename.html#rename-upgrade).
 
 
 ### Breaking change compatibility
 
-Metadata migration needs to modify data from the source to the target versions to recreate items. Sometimes these features are no longer supported and have been removed from the target version. Sometimes these features are not available on the target version, which is especially true when downgrading. While this tool is meant to make this process easier, it is not exhaustive in its support. When encountering a compatibility issue or an important feature gap for your migration, [search the issues and comment on the existing issue](https://github.com/opensearch-project/opensearch-migrations/issues) or [create a new](https://github.com/opensearch-project/opensearch-migrations/issues/new/choose) issue if one cannot be found.
+Metadata migration requires modifying data from the source to the target versions to recreate items. Sometimes these features are no longer supported and have been removed from the target version. Sometimes these features are not available in the target version, which is especially true when downgrading. While this tool is meant to make this process easier, it is not exhaustive in its support. When encountering a compatibility issue or an important feature gap for your migration, [search the issues and comment on the existing issue](https://github.com/opensearch-project/opensearch-migrations/issues) or [create a new](https://github.com/opensearch-project/opensearch-migrations/issues/new/choose) issue if one cannot be found.
 
 #### Deprecation of Mapping Types
 
