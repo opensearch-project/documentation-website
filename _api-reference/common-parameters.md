@@ -127,7 +127,7 @@ Nautical miles | `NM`, `nmi`, or `nauticalmiles`
 
 ## `X-Opaque-Id` Header
 
-You can specify an opaque identifier on any request using the `X-Opaque-Id` header. This identifier is used to track tasks and deduplicate deprecation warnings in server side logs. This identifier is intended to differentiate callers sending requests to your OpenSearch cluster. Do not specify a unique value per request.
+You can specify an opaque identifier for any request using the `X-Opaque-Id` header. This identifier is used to track tasks and deduplicate deprecation warnings in server-side logs. This identifier is used to differentiate between callers sending requests to your OpenSearch cluster. Do not specify a unique value per request.
 
 #### Example request
 
