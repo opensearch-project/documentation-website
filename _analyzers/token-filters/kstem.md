@@ -1,17 +1,17 @@
 ---
 layout: default
-title: Kstem
+title: KStem
 parent: Token filters
 nav_order: 220
 ---
 
 # KStem token filter
 
-The `kstem` token filter is a stemming filter used to reduce words to their root forms. The filter is a lightweight algorithmic stemmer designed for the English language that performs the following stemming:
+The `kstem` token filter is a stemming filter used to reduce words to their root forms. The filter is a lightweight algorithmic stemmer designed for the English language that performs the following stemming operations:
 
-- Reduces plurals to singular form.
-- Converts different tenses of verbs to their base form.
-- Removes common derivational endings such as "-ing", "-ed".
+- Reduces plurals to their singular form.
+- Converts different verb tenses to their base form.
+- Removes common derivational endings, such as "-ing" or "-ed".
 
 The `kstem` token filter is equivalent to the a `stemmer` filter configured with a `light_english` language. It provides a more conservative stemming compared to other stemming filters like `porter_stem`.
 
@@ -19,7 +19,7 @@ The `kstem` token filter is based on the Lucene KStemFilter. For more informatio
 
 ## Example
 
-The following example request creates a new index named `my_kstem_index` and configures an analyzer with `kstem` filter:
+The following example request creates a new index named `my_kstem_index` and configures an analyzer with a `kstem` filter:
 
 ```json
 PUT /my_kstem_index
@@ -57,7 +57,7 @@ PUT /my_kstem_index
 
 ## Generated tokens
 
-Use the following request to examine the tokens generated using the created analyzer:
+Use the following request to examine the tokens generated using the analyzer:
 
 ```json
 POST /my_kstem_index/_analyze
