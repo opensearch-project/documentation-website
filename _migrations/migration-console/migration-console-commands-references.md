@@ -1,83 +1,106 @@
+---
+layout: default
+title: Command reference
+nav_order: 35
+parent: Migration console
+---
 
 
+# Migration console command reference
 
-The Migration Assistant Console is a command line interface to interact with the deployed components of the solution.
+Migration console commands follow this syntax: `console [component] [action]`. The components include `clusters`, `backfill`, `snapshot`, `metadata`, and `replay`. The console is configured with a registry of the deployed services and the source and target cluster, generated from the `cdk.context.json` values.
 
-The commands are in the form of `console [component] [action]`. The components include `clusters`, `backfill` (e.g the Reindex from Snapshot service), `snapshot`, `metadata`, `replay`, etc. The console is configured with a registry of the deployed services and the source and target cluster, generated from the `cdk.context.json` values.
-
-## Commonly Used Commands
+## Commonly used commands
 
 The exact commands used will depend heavily on use-case and goals, but the following are a series of common commands with a quick description of what they do.
+
+### Check connection
+
+Reports whether both the source and target clusters can be reached and provides their versions.
 
 ```sh
 console clusters connection-check
 ```
-Reports whether both the source and target clusters can be reached and their versions.
 
+### Run `cat-indices`
+
+Runs the `cat-indices` API on the cluster.
 
 ```sh
 console clusters cat-indices
 ```
-Runs the `_cat/indices` command on each cluster and prints the results.
 
-***
+### Create a snapshot
+
+Creates a snapshot of the source cluster and stores it in a preconfigured Amazon Simple Storage Service (Amazon S3) bucket.
 
 ```sh
 console snapshot create
 ```
-Initiates creating a snapshot on the source cluster, into a pre-configured S3 bucket.
+
+## Check snapshot status
+
+Runs a detailed check on the snapshot creation status, including estimated completion time:
 
 ```sh
 console snapshot status --deep-check
 ```
-Runs a detailed check on the status of the snapshot creation, including estimated completion time.
 
-***
+## Evaluate metadata
+
+Performs a dry run of metadata migration, showing which indexes, templates, and other objects will be migrated to the target cluster.
 
 ```sh
 console metadata evaluate
 ```
-Perform a dry run of metadata migration, showing which indices, templates, and other objects will be migrated to the target cluster.
+
+## Migrate metadata
+
+Migrates the metadata from the source cluster to the target cluster.
 
 ```sh
 console metadata migrate
 ```
-Perform an actual metadata migration.
 
-***
+## Start a backfill
+
+If `Reindex-From-Snapshot` (RFS) is enabled, this command starts an instance of the service to begin moving documents to the target cluster:
+
+There are similar `scale UNITS` and `stop` commands to change the number of active instances for RFS.
+
 
 ```sh
 console backfill start
 ```
-If the Reindex From Snapshot service is enabled, start an instance of the service to begin moving documents to the target cluster.
 
-There are similar `scale UNITS` and `stop` commands to change the number of active instances for RFS.
+## Check backfill status
 
-```sh
-console backfill status --deep-check
-```
-See the current status of the backfill migration, with the number of instances operating and the progress of the shards.
+Gets the current status of the backfill migration, including the number of operating instances and the progress of the shards.
 
-***
+
+## Start Traffic Replayer
+
+If Traffic Replayer is enabled, this command starts an instance of Traffic Replayer to begin replaying traffic against the target cluster.
+The `stop` command stops all active instances.
 
 ```sh
 console replay start
 ```
-If the Traffic Replayer service is enabled, start an instance of the service to begin replaying traffic against the target cluster.
-The `stop` command stops all active instances.
 
-***
+## Read logs
+
+Reads any logs that exist when running Traffic Replayer. Use tab completion on the path to fill in the available `NODE_IDs` and, if applicable, log file names. The tuple logs roll over at a certain size threshold, so there may be many files named with timestamps. The `jq` command pretty-prints each line of the tuple output before writing it to file.
 
 ```sh
 console tuples show --in /shared-logs-output/traffic-replayer-default/[NODE_ID]/tuples/console.log | jq > readable_tuples.json
 ```
-Use tab completion on the path to fill in the available node ids and, if applicable, log file names. The tuples logs roll over at a certain size threshold, so there may be many files named with timestamps. The `jq` command pretty-prints each line of the tuple output before writing it to file.
 
 
-## Command Reference
-All commands and options can be explored within the tool itself by using the `--help` option, either for the entire `console` application or for individual components (e.g. `console backfill --help`). The console also has command autocomplete set up to assist with usage.
+## Help command
 
-```
+All commands and options can be explored within the tool itself by using the `--help` option, either for the entire `console` application or for individual components (for example, `console backfill --help`). For example:
+
+```bash
 $ console --help
 Usage: console [OPTIONS] COMMAND [ARGS]...
 
