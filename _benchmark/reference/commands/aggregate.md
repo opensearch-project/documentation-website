@@ -76,14 +76,16 @@ The results will be aggregated into one test execution and stored under the ID s
 - `--results-file`: Write the aggregated results to the provided file.
 - `--workload-repository`: Define the repository from which OpenSearch Benchmark will load workloads (default is `default`).
 
-## Aggregated Results
-Aggregated results now include new metrics and changes:
+## Aggregated results
 
-- **Relative Standard Deviation (RSD)**: For each metric (e.g., throughput, latency, service time) an additional `mean_rsd` value is included to show the spread of results across test executions.
-- **Overall Min/Max Values**: Instead of averaging min and max values, the aggregated results now include `overall_min` and `overall_max` which reflect the true minimum/maximum across all test executions.
-- **Storage**: Aggregated test results are now stored in a separate `aggregated_results` folder alongside the `test_executions` folder.
+Aggregated results includes the following information:
 
-### Aggregated Metrics Example:
+- **Relative Standard Deviation (RSD)**: For each metric an additional `mean_rsd` value shows the spread of results across test executions.
+- **Overall min/max values**: Instead of averaging minimum and maximum values, the aggregated result include `overall_min` and `overall_max` which reflect the true minimum/maximum across all test runs.
+- **Storage**: Aggregated test results are  stored in a separate `aggregated_results` folder alongside the `test_executions` folder.
+
+The following example shows aggregated results:
+
 ```json
     "throughput": {
      "overall_min": 29056.890292903263,
