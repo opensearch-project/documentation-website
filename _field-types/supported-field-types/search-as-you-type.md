@@ -11,6 +11,8 @@ redirect_from:
 ---
 
 # Search-as-you-type field type
+**Introduced 1.0**
+{: .label .label-purple }
 
 A search-as-you-type field type provides search-as-you-type functionality using both prefix and infix completion. 
 
