@@ -8,21 +8,21 @@ grand_parent: User guide
 
 # Expanding the data corpus of a workload
 
-This tutorial shows you how to use the [`expand-data-corpus.py`](https://github.com/opensearch-project/opensearch-benchmark/blob/main/scripts/expand-data-corpus.py) script to increase the size of the data corpus for a OpenSearch Benchmark workload. This is helpful when running time-series workloads like http_logs against a large scale OpenSearch cluster.
+This tutorial shows you how to use the [`expand-data-corpus.py`](https://github.com/opensearch-project/opensearch-benchmark/blob/main/scripts/expand-data-corpus.py) script to increase the size of the data corpus for an OpenSearch Benchmark workload. This is helpful when running time-series workloads like http_logs against a large scale OpenSearch cluster.
 
 Only the `http_logs` workload is currently supported.
 {: .warning}
 
 ## Prerequisites
 
-To use this tutorial, make sure you fulfill the following prerequsities:
+To use this tutorial, make sure you fulfill the following prerequisites:
 
 1. Python 3.x or greater installed.
 2. The `http_logs` workload data corpus already in your load generation host where benchmark is running.
 
 ## Understanding the script
 
-The `expand-data-corpus.py` script is designed to generate a larger data corpus by duplicating and modifying existing documents from the `http_logs` workload. It primarily adjusts the timestamp field while keeping other fields intact. It also generates an offset file, which enables OpenSearch Benchmark to start up faster.
+The `expand-data-corpus.py` script is designed to generate a larger data corpus by duplicating and modifying existing documents from the `http_logs` workload corpus. It primarily adjusts the timestamp field while keeping other fields intact. It also generates an offset file, which enables OpenSearch Benchmark to start up faster.
 
 ## Using `expand-data-corpus.py`
 
@@ -32,7 +32,7 @@ To use `expand-data-corpus.py`, use the following syntax:
 ./expand-data-corpus.py [options]
 ```
 
-You can adjust the script with the following options.
+The script has several options for customization. The following are the most commonly-used customization options:
 
 - `--corpus-size`: The desired corpus size in GB
 - `--output-file-suffix`: The suffix for the output file name.
@@ -55,7 +55,7 @@ After the script completes, check the following locations for new files:
 
 - In the OSB data directory for `http_logs`:
    - `documents-100gb.json`: The generated corpus.
-   - `documents-100gb.json.offset`: The offset file.
+   - `documents-100gb.json.offset`: The associated offset file.
 
 1. In the `http_logs` workload directory:
    - `gen-docs-100gb.json`: The metadata for the generated corpus.
@@ -73,7 +73,7 @@ The `generated_corpus:t` parameter tells OSB to use the expanded corpus.
 
 ## Expert-level settings
 
-Be cautious when using following expert options as they may affect the corpus structure:
+Use `--help` to see all of the script's supported options.  Be cautious when using the following expert options as they may affect the corpus structure:
 
 - `-f`: Specifies the input file to use as a base for generating new documents.
 - `-n`: Sets the number of documents to generate instead of the corpus size.
