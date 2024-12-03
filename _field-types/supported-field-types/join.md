@@ -11,12 +11,14 @@ redirect_from:
 ---
 
 # Join field type
+**Introduced 1.0**
+{: .label .label-purple }
 
 A join field type establishes a parent/child relationship between documents in the same index. 
 
 ## Example
 
-Create a mapping to establish a parent-child relationship between products and their brands:
+Create a mapping to establish a parent/child relationship between products and their brands:
 
 ```json
 PUT testindex1
@@ -59,7 +61,7 @@ PUT testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-When indexing child documents, you have to specify the `routing` query parameter because parent and child documents in the same relation have to be indexed on the same shard. Each child document refers to its parent's ID in the `parent` field.
+When indexing child documents, you need to specify the `routing` query parameter because parent and child documents in the same parent/child hierarchy must be indexed on the same shard. For more information, see [Routing]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/routing/). Each child document refers to its parent's ID in the `parent` field.
 
 Index two child documents, one for each parent:
 
@@ -325,3 +327,8 @@ PUT testindex1
 - Multiple parents are not supported. 
 - You can add a child document to an existing document only if the existing document is already marked as a parent.
 - You can add a new relation to an existing join field.
+
+## Next steps
+
+- Learn about [joining queries]({{site.url}}{{site.baseurl}}/query-dsl/joining/) on join fields.
+- Learn more about [retrieving inner hits]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/inner-hits/).
