@@ -134,6 +134,5 @@ You can specify an opaque identifier on any request using the `X-Opaque-Id` head
 The following request adds an opaque ID to the request:
 
 ```json
-
 curl -H "X-Opaque-Id: my-curl-client-1" -XGET localhost:9200/_tasks
 ```
