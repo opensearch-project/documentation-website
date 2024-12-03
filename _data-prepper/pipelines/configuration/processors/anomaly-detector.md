@@ -53,7 +53,7 @@ You can configure `random_cut_forest` mode with the following options.
 | `sample_size` | `256` | 100--2500 | The sample size used in the ML algorithm. |
 | `time_decay` | `0.1` | 0--1.0 | The time decay value used in the ML algorithm. Used as the mathematical expression `timeDecay` divided by `SampleSize` in the ML algorithm. |
 | `type` | `metrics` | N/A | The type of data sent to the algorithm. |
-| `output_after` | 32 | N/A | Indicates the number of events to consume before outputting anamolies |
+| `output_after` | 32 | N/A | Specifies the number of events to process before outputting any detected anomalies. |
 | `version` | `1.0` | N/A | The algorithm version number. |
 
 ## Usage

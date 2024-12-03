@@ -95,7 +95,7 @@ not /status_code in {200, 202}
 
 ### Arithmetic expressions
 
-Arithmetic expressions allow you to do few basic arithmetic operations. Arithmetic expressions may be combined with conditional expressions to make more complex conditional expressions. The available arithmetic operators are `+`, `-`, `*`, and `/` for doing addition, subtraction, multiplication and division respectively. The syntax for using the arithmetic operators is as follows:
+Arithmetic expressions enable basic mathematical operations like addition, subtraction, multiplication, and division. These expressions can be combined with conditional expressions to create more complex conditional statements. The available arithmetic operators are +, -, *, and /. The syntax for using the arithmetic operators is as follows:
 
 ```
 <Any> + <Any>
@@ -104,7 +104,7 @@ Arithmetic expressions allow you to do few basic arithmetic operations. Arithmet
 <Any> / <Any>
 ```
 
-The following are some example arithmetic expressions: 
+The following are example arithmetic expressions: 
 
 ```
 /value + length(/message)
@@ -125,13 +125,13 @@ The following are some example arithmetic expressions used in conditional expres
 
 ### String concatenation expressions
 
-String concatenation expressions allow you to concatenate strings to generate new strings. The concatenated strings can be used in conditional expressions too. The syntax for using string concatenation is as follows:
+String concatenation expressions enable you to combine strings to create new strings. These concatenated strings can also be used within conditional expressions. The syntax for using string concatenation is as follows:
 
 ```
 <String Variable or String Literal> + <String Variable or String Literal>
 ```
 
-The following are some example string concatenation expressions:
+The following are example string concatenation expressions:
 
 ```
 /name + "suffix"
@@ -140,7 +140,7 @@ The following are some example string concatenation expressions:
 ```
 {% include copy-curl.html %}
 
-The following are some example string concatenation expressions used in conditional expressions :
+The following are example string concatenation expressions that can be used in conditional expressions:
 
 ```
 /service + ".com" == /url
@@ -150,7 +150,7 @@ The following are some example string concatenation expressions used in conditio
 
 ### Reserved symbols
 
-Reserved symbols are symbols that are not currently used in the expression syntax but are reserved for possible future functionality or extensions. Reserved symbols include `^`, `%`, `xor`, `=`, `+=`, `-=`, `*=`, `/=`, `%=`, `++`, `--`, and `${<text>}`.
+Certain symbols, such as ^, %, xor, =, +=, -=, *=, /=, %=, ++, --, and ${<text>}, are reserved for future functionality or extensions. Reserved symbols include `^`, `%`, `xor`, `=`, `+=`, `-=`, `*=`, `/=`, `%=`, `++`, `--`, and `${<text>}`.
 
 ## Syntax components
 
