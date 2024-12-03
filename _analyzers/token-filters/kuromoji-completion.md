@@ -7,9 +7,9 @@ nav_order: 230
 
 # Kuromoji completion token filter
 
-The `kuromoji_completion` token filter is used to stem Katakana words in Japanese, which are often used to represent foreign words or loanwords. This filter is especially powerful for autocompletion or suggest queries, where partial matches on Katakana words can be expanded to include full forms.
+The `kuromoji_completion` token filter is used to stem Katakana words in Japanese, which are often used to represent foreign words or loanwords. This filter is especially useful for autocompletion or suggest queries, in which partial matches on Katakana words can be expanded to include full forms.
 
-To use this token filter, you must install the `analysis-kuromoji` plugin on all nodes by running `bin/opensearch-plugin install analysis-kuromoji` and restart the cluster. For more information about installing additional plugins, see [Additional plugins]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/index/).
+To use this token filter, you must first install the `analysis-kuromoji` plugin on all nodes by running `bin/opensearch-plugin install analysis-kuromoji` and then restart the cluster. For more information about installing additional plugins, see [Additional plugins]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/index/).
 
 ## Example
 
@@ -43,7 +43,7 @@ PUT kuromoji_sample
 
 ## Generated tokens
 
-Use the following request to examine the tokens generated using the created analyzer with text which translates to "use a computer":
+Use the following request to examine the tokens generated using the analyzer with text that translates to "use a computer":
 
 ```json
 POST /kuromoji_sample/_analyze
