@@ -752,3 +752,7 @@ The response includes the original documents and their reranked scores:
   }
 }
 ```
+
+## Next steps
+
+- See a comprehensive example of [reranking by a field using an externally hosted cross-encoder model]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field-cross-encoder/).
