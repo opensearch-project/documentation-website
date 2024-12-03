@@ -176,7 +176,7 @@ console replay stop
 ### Kafka 
 To clear all captured traffic from the Kafka topic, you can run the following command. 
 
-This command will result in the loss of any captured traffic data up to this point by the capture proxy and thus should be used with caution.
+This command will result in the loss of any traffic data captured by the capture proxy up to this point and thus should be used with caution.
 {: .warning}
 
 ```bash
