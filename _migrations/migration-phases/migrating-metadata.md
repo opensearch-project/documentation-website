@@ -9,7 +9,6 @@ parent: Migration phases
 
 Metadata migration involves creating a snapshot of you cluster than migrating the metadata from the snapshot using the Migration Console. 
 
-
 This tool gathers information from a source cluster, through a snapshot or through HTTP requests against the source cluster. These snapshots are fully compatible with the backfill process for `Reindex-From-Snapshot` (RFS) scenarios.
 
 After collecting information on the source cluster comparisons are made on the target cluster. If running a migration, any metadata items do not already exist will be created on the target cluster.
@@ -135,7 +134,7 @@ console metadata migrate [...]
 
 You should receive a response similar to the following:
 
-```
+```shell
 Starting Metadata Migration
 
 Clusters:
