@@ -17,7 +17,7 @@ To control the distribution of search or HTTP traffic, you can use the weights p
 
 ## Path and HTTP methods
 
-```
+```json
 PUT /_cluster/routing/awareness/<attribute>/weights
 GET /_cluster/routing/awareness/<attribute>/weights?local
 GET /_cluster/routing/awareness/<attribute>/weights
@@ -29,7 +29,7 @@ Parameter | Type | Description
 :--- | :--- | :---
 attribute | String | The name of the awareness attribute, usually `zone`. The attribute name must match the values listed in the request body when assigning weights to zones.
 
-## Request body parameters
+## Request body fields
 
 Parameter | Type | Description
 :--- | :--- | :---
@@ -51,11 +51,12 @@ In the following example request body, `zone_1` and `zone_2` receive 50 requests
 }
 ```
 
-## Example: Weighted round robin search
+## Example requests
+
+### Weighted round robin search
 
 The following example request creates a round robin shard allocation for search traffic by using an undefined ratio:
 
-#### Request
 
 ```json
 PUT /_cluster/routing/awareness/zone/weights
@@ -71,27 +72,37 @@ PUT /_cluster/routing/awareness/zone/weights
 ```
 {% include copy-curl.html %}
 
-#### Response
 
-```
-{
-     "acknowledged": true
-}
-```
-
-
-## Example: Getting weights for all zones
+### Getting weights for all zones
 
 The following example request gets weights for all zones.
-
-#### Request
 
 ```json
 GET /_cluster/routing/awareness/zone/weights
 ```
 {% include copy-curl.html %}
 
-#### Response
+
+### Deleting weights
+
+You can remove your weight ratio for each zone using the `DELETE` method:
+
+```json
+DELETE /_cluster/routing/awareness/zone/weights
+```
+{% include copy-curl.html %}
+
+## Example responses
+
+OpenSearch typically responds with the following when successfully allocating shards:
+
+```json
+{
+     "acknowledged": true
+}
+```
+
+### Getting weights for all zone
 
 OpenSearch responds with the weight of each zone:
 
@@ -106,26 +117,7 @@ OpenSearch responds with the weight of each zone:
       },
       "_version":1
 }
-```
 
-## Example: Deleting weights
-
-You can remove your weight ratio for each zone using the `DELETE` method.
-
-#### Request
-
-```json
-DELETE /_cluster/routing/awareness/zone/weights
-```
-{% include copy-curl.html %}
-
-#### Response
-
-```json
-{
-   "_version":1
-}
-```
 
 ## Next steps
 

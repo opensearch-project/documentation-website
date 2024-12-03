@@ -8,6 +8,8 @@ has_children: false
 ---
 
 # Unsigned long field type
+**Introduced 2.8**
+{: .label .label-purple }
 
 The `unsigned_long` field type is a numeric field type that represents an unsigned 64-bit integer with a minimum value of 0 and a maximum value of 2<sup>64</sup> &minus; 1. In the following example, `counter` is mapped as an `unsigned_long` field:
 

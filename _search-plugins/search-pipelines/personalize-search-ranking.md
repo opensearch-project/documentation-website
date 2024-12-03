@@ -16,7 +16,7 @@ The `personalize_search_ranking` search response processor intercepts a search r
 To use the `personalize_search_ranking` processor, you must first install the Amazon Personalize Search Ranking (`opensearch-search-processor`) plugin. For detailed instructions, see [Installing and configuring the Amazon Personalize Search Ranking plugin](https://docs.aws.amazon.com/personalize/latest/dg/opensearch-install.html).
 {: .important}
 
-## Request fields
+## Request body fields
 
 The following table lists all available request fields.
 
