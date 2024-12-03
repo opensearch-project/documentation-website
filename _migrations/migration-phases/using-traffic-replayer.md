@@ -7,25 +7,25 @@ parent: Migration phases
 
 # Using Traffic Replayer
 
-This guide covers how to use Traffic Replayer to replay captured traffic from a source cluster to a target cluster during the migration process. The Traffic Replayer allows users to verify that the target cluster can handle requests in the same way as the source cluster and catch up to real-time traffic for a smooth migration.
+This guide covers how to use Traffic Replayer to replay captured traffic from a source cluster to a target cluster during the migration process. Traffic Replayer allows you to verify that the target cluster can handle requests in the same way as the source cluster and catch up to real-time traffic for a smooth migration.
 
 ## When to run Traffic Replayer
 
-After deploying the Migration Assistant, the Traffic Replayer is not running by default. It should be started only after all metadata and documents have been migrated to ensure that recent changes to the source cluster are properly reflected in the target cluster.
+After deploying Migration Assistant, Traffic Replayer does not run by default. It should be started only after all metadata and documents have been migrated to ensure that recent changes to the source cluster are properly reflected in the target cluster.
 
-For example, if a document was deleted after a snapshot was taken, starting the Traffic Replayer before the document migration is complete may cause the deletion request to execute before the document is even added to the target. Running the Traffic Replayer after all other migration processes ensures that the target cluster will be consistent with the source cluster.
+For example, if a document was deleted after a snapshot was taken, starting Traffic Replayer before the document migration is complete may cause the deletion request to execute before the document is added to the target. Running Traffic Replayer after all other migration processes ensures that the target cluster will be consistent with the source cluster.
 
 ## Configuration options
 
-[Traffic Replayer settings]({{site.url}}{{site.baseurl}}/migrations/deploying-migration-assisstant/configuation-options/) are configured during the deployment of the Migration Assistant. Make sure to set the authentication mode for the Traffic Replayer so it can properly communicate with the target cluster. For more information about different types of traffic are handled by the Traffic Replayer, see [limitations](#limitations).
+[Traffic Replayer settings]({{site.url}}{{site.baseurl}}/migrations/deploying-migration-assisstant/configuation-options/) are configured during the deployment of Migration Assistant. Make sure to set the authentication mode for Traffic Replayer so that it can properly communicate with the target cluster. For more information about different types of traffic that are handled by Traffic Replayer, see [limitations](#limitations).
 
 ## Using Traffic Replayer
 
-To manage the Traffic Replayer, use the `console replay` command. The following examples show the available commands.
+To manage Traffic Replayer, use the `console replay` command. The following examples show the available commands.
 
 ### Start Traffic Replayer
 
-The following command starts the Traffic Replayer with the options specified at deployment:
+The following command starts Traffic Replayer with the options specified at deployment:
 
 ```bash
 console replay start
@@ -39,9 +39,9 @@ Replayer started successfully.
 Service migration-dev-traffic-replayer-default set to 1 desired count. Currently 0 running and 0 pending.
 ```
 
-## Check Traffic Replayer's status
+## Check the status of Traffic Replayer
 
-The following command shows the status of the Traffic Replayer: 
+Use the following command to show the status of Traffic Replayer: 
 
 ```bash
 console replay status
@@ -50,7 +50,7 @@ console replay status
 Replay will return one of the following statuses:
 
 - `Running` shows how many container instances are actively running. 
-- `Pending` indicates how many are being provisioned 
+- `Pending` indicates how many instances are being provisione.d 
 - `Desired` shows the total number of instances that should be running.
 
 You should receive an output similar to the following:
@@ -62,7 +62,7 @@ root@ip-10-0-2-66:~# console replay status
 
 ## Stop Traffic Replayer
 
-The following command stops the Traffic Replayer:
+The following command stops Traffic Replayer:
 
 ```bash
 console replay stop
@@ -80,32 +80,32 @@ Service migration-dev-traffic-replayer-default set to 0 desired count. Currently
 
 ### Delivery guarantees
 
-Traffic Replayer retrieves traffic from Kafka and updates its commit cursor after sending requests to the target cluster. This provides an "at least once" delivery guarantee, however, successes isn't always guaranteed. Therefore, you should monitor metrics, tuple outputs, or perform external validation to ensure the target cluster is functioning as expected.
+Traffic Replayer retrieves traffic from Kafka and updates its commit cursor after sending requests to the target cluster. This provides an "at least once" delivery guarantee; however, success isn't always guaranteed. Therefore, you should monitor metrics and tuple outputs or perform external validation to ensure that the target cluster is functioning as expected.
 
 ## Time scaling
 
- Traffic Replayer sends requests in the same order they were received on each connection to the source. However, relative timing between different connections is not guaranteed. For example:
+Traffic Replayer sends requests in the same order that they were received from each connection to the source. However, relative timing between different connections is not guaranteed. For example:
 
-- **Scenario**: Two connections exist—one sends a PUT request every minute, and the other sends a GET request every second.
+- **Scenario**: Two connections exist:one sends a PUT request every minute, and the other sends a GET request every second.
 - **Behavior**: Traffic Replayer will maintain the sequence within each connection, but the relative timing between the connections (PUTs and GETs) is not preserved.
 
-Assume a source cluster responds to requests (GETs and PUTs) within 100 ms:
+Assume that a source cluster responds to requests (GETs and PUTs) within 100 ms:
 
 - With a **speedup factor of 1**, the target will experience the same request rates and idle periods as the source.
 - With a **speedup factor of 2**, requests will be sent twice as fast, with GETs sent every 500 ms and PUTs every 30 seconds.
-- With a **speedup factor of 10**, requests will be sent 10x faster, and as long as the target responds quickly, the Traffic Replayer can maintain the pace.
+- With a **speedup factor of 10**, requests will be sent 10x faster, and as long as the target responds quickly, Traffic Replayer can maintain the pace.
 
 If the target cannot respond fast enough, Traffic Replayer will wait for the previous request to complete before sending the next one. This may cause delays and affect global relative ordering.
 
 ## Transformations
 
-During migrations, some requests may need to be transformed between versions. For example, Elasticsearch previously supported multiple type mappings in indexes, but this is no longer the case in OpenSearch. Clients may need to adjust accordingly by splitting documents into multiple indexes or transforming request data.
+During migrations, some requests may need to be transformed between versions. For example, Elasticsearch previously supported multiple type mappings in indexes, but this is no longer the case in OpenSearch. Clients may need to be adjusted accordingly by splitting documents into multiple indexes or transforming request data.
 
 Traffic Replayer automatically rewrites host and authentication headers, but for more complex transformations, custom transformation rules can be specified using the `--transformer-config` option. For more information, see the [Traffic Replayer README](https://github.com/opensearch-project/opensearch-migrations/blob/c3d25958a44ec2e7505892b4ea30e5fbfad4c71b/TrafficCapture/trafficReplayer/README.md#transformations). 
 
 ### Example transformation
 
-Suppose a source request contains a "tagToExcise" element that needs to be removed and its children promoted, and the URI path includes "extraThingToRemove" which should also be removed. The following Jolt script handles this transformation:
+Suppose that a source request contains a `tagToExcise` element that needs to be removed and its children promoted and that the URI path includes `extraThingToRemove`, which should also be removed. The following Jolt script handles this transformation:
 
 ```json
 [{ "JsonJoltTransformerProvider":
@@ -150,7 +150,7 @@ Suppose a source request contains a "tagToExcise" element that needs to be remov
 }]
 ```
 
-The resulting request to the target will look like this:
+The resulting request sent to the target will appear similar to the following:
 
 ```http
 PUT /oldStyleIndex/moreStuff HTTP/1.0
@@ -159,21 +159,21 @@ host: testhostname
 {"top":{"properties":{"field1":{"type":"text"},"field2":{"type":"keyword"}}}}
 ```
 
-You can pass Base64-encoded transformation scripts using `--transformer-config-base64` for convenience.
+You can pass Base64-encoded transformation scripts using `--transformer-config-base64`.
 
 ## Result logs
 
-HTTP transactions from the source capture and those resent to the target cluster are logged in files located at `/shared-logs-output/traffic-replayer-default/*/tuples/tuples.log`. The `/shared-logs-output` directory is shared across containers, including the migration console. Users can access these files from the migration console using the same path. Previous runs are also available in a `gzipped` format. 
+HTTP transactions from the source capture and those resent to the target cluster are logged in files located at `/shared-logs-output/traffic-replayer-default/*/tuples/tuples.log`. The `/shared-logs-output` directory is shared across containers, including the migration console. You can access these files from the migration console using the same path. Previous runs are also available in a `gzipped` format. 
 
-Each log entry is a newline-delimited JSON object, which contains details of the source and target requests/responses along with other transaction details, such as response times. 
+Each log entry is a newline-delimited JSON object, containing information about the source and target requests/responses along with other transaction details, such as response times. 
 
-These logs contain the contents of all requests, including Authorization headers and the contents of all HTTP messages. Ensure that access to the migration environment is restricted as these logs serve as a source of truth for determining what happened on both the source and target clusters. Response times for the source refer to the time between the proxy sending the end of a request and receiving the response. While response times for the target are recorded in the same manner, keep in mind that the locations of the capture proxy, Traffic Replayer, and target may differ, and these logs do not account for the client's location.
+These logs contain the contents of all requests, including authorization headers and the contents of all HTTP messages. Ensure that access to the migration environment is restricted, as these logs serve as a source of truth for determining what happened in both the source and target clusters. Response times for the source refer to the amount of time between the proxy sending the end of a request and receiving the response. While response times for the target are recorded in the same manner, keep in mind that the locations of the capture proxy, Traffic Replayer, and target may differ and that these logs do not account for the client's location.
 {: .note}
 
 
 ### Example log entry
 
-The following example log entry shows `/_cat/indices?v` request sent to both the source and target clusters:
+The following example log entry shows a `/_cat/indices?v` request sent to both the source and target clusters:
 
 ```json
 {
@@ -224,13 +224,13 @@ The following example log entry shows `/_cat/indices?v` request sent to both the
 
 ### Decoding log content
 
-The contents of HTTP message bodies are Base64 encoded to handle various types of traffic, including compressed data. To view the logs in a more human-readable format, use the console library `tuples show`. Running the script as follows will produce a `readable-tuples.log` in the home directory:
+The contents of HTTP message bodies are Base64 encoded in order to handle various types of traffic, including compressed data. To view the logs in a more human-readable format, use the console library `tuples show`. Running the script as follows will produce a `readable-tuples.log` in the home directory:
 
 ```shell
 console tuples show --in /shared-logs-output/traffic-replayer-default/d3a4b31e1af4/tuples/tuples.log > readable-tuples.log
 ```
 
-The `readable-tuples.log` should look similar to the following:
+The `readable-tuples.log` should appear similar to the following:
 
 ```json
 {
@@ -281,11 +281,11 @@ The `readable-tuples.log` should look similar to the following:
 
 ## Metrics
 
-The Replayer emits various OpenTelemetry metrics to CloudWatch, and traces are sent through AWS X-Ray. The following some useful metrics that can help evaluate cluster performance.
+Traffic Replayer emits various OpenTelemetry metrics to Amazon CloudWatch, and traces are sent through AWS X-Ray. The following are some useful metrics that can help evaluate cluster performance.
 
 ### `sourceStatusCode`
 
-This metric tracks the HTTP status codes for both the source and target clusters, with dimensions for the HTTP verb, such as `GET` or `POST`, and the status code families, (200--299). These dimensions help quickly identify discrepancies between the source and target, such as when `DELETE 200s` become `4xx` or `GET 4xx` errors turn into `5xx` errors.
+This metric tracks the HTTP status codes for both the source and target clusters, with dimensions for the HTTP verb, such as `GET` or `POST`, and the status code families (200--299). These dimensions can help quickly identify discrepancies between the source and target, such as when `DELETE 200s` becomes `4xx` or `GET 4xx` errors turn into `5xx` errors.
 
 ### `lagBetweenSourceAndTargetRequests`
 
@@ -293,15 +293,15 @@ This metric shows the delay between requests hitting the source and target clust
 
 ### Additional metrics
 
-The following metrics are also reported.
+The following metrics are also reported:
 
 - **Throughput**: `bytesWrittenToTarget` and `bytesReadFromTarget` indicate the throughput to and from the cluster.
-- **Retries**: `numRetriedRequests` tracks the number of requests retried due to status-code mismatches between the source and target.
-- **Event Counts**: Various `(*)Count` metrics track the number of specific events that have completed.
+- **Retries**: `numRetriedRequests` tracks the number of requests retried due to status code mismatches between the source and target.
+- **Event counts**: Various `(*)Count` metrics track the number of completed events.
 - **Durations**: `(*)Duration` metrics measure the duration of each step in the process.
 - **Exceptions**: `(*)ExceptionCount` shows the number of exceptions encountered during each processing phase.
 
 
 ## CloudWatch considerations
 
-Metrics pushed to CloudWatch may experience around a 5-minute visibility lag. CloudWatch also retains higher-resolution data for a shorter period than lower-resolution data. For more details, see [CloudWatch Metrics retention policies](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html).
+Metrics pushed to CloudWatch may experience a visibility lag of around 5 minutes. CloudWatch also retains higher-resolution data for a shorter period than lower-resolution data. For more information, see [Amazon CloudWatch concepts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html).
