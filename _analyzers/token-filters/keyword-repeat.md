@@ -7,9 +7,9 @@ nav_order: 210
 
 # Keyword repeat token filter
 
-The `keyword_repeat` token filter outputs the keyword version of a token into the token stream. This filter is typically used when you want to retain both the original token and its modified version after further token transformations, such as stemming or synonym expansion. The duplicated tokens allow the original, unchanged version of the token to remain in the final analysis alongside the modified versions.
+The `keyword_repeat` token filter emits the keyword version of a token into a token stream. This filter is typically used when you want to retain both the original token and its modified version after further token transformations, such as stemming or synonym expansion. The duplicated tokens allow the original, unchanged version of the token to remain in the final analysis alongside the modified versions.
 
-The `keyword_repeat` token filter should be placed before stemmers. Stemming is not applied to every token, thus you may have duplicate tokens in the same position after stemming. To remove duplicate tokens, use the `remove_duplicates` token filter after the stemmer.
+The `keyword_repeat` token filter should be placed before stemming filters. Stemming is not applied to every token, thus you may have duplicate tokens in the same position after stemming. To remove duplicate tokens, use the `remove_duplicates` token filter after the stemmer.
 {: .note} 
 
 
@@ -49,7 +49,7 @@ PUT /my_index
 
 ## Generated tokens
 
-Use the following request to examine the tokens generated using the created analyzer:
+Use the following request to examine the tokens generated using the analyzer:
 
 ```json
 POST /my_index/_analyze
