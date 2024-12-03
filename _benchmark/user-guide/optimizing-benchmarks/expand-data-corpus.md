@@ -57,7 +57,7 @@ After the script completes, check the following locations for new files:
    - `documents-100gb.json`: The generated corpus.
    - `documents-100gb.json.offset`: The associated offset file.
 
-1. In the `http_logs` workload directory:
+- In the `http_logs` workload directory:
    - `gen-docs-100gb.json`: The metadata for the generated corpus.
    - `gen-idx-100gb.json`: The index specification for the generated corpus.
 
