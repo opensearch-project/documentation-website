@@ -11,7 +11,7 @@ After the [metadata]({{site.url}}{{site.baseurl}}/migrations/migration-phases/mi
 
 ## Capture proxy data replication
 
-If you're interested in capturing live traffic during your migration, Migration Assistant includes an Application Load Balancer (ALB) for routing traffic to the capture proxy and the target cluster. Upstream client traffic must be routed through the capture proxy in order to replay the requests later. Before using the capture proxy, remember the following:
+If you're interested in capturing live traffic during your migration, Migration Assistant includes an Application Load Balancer for routing traffic to the capture proxy and the target cluster. Upstream client traffic must be routed through the capture proxy in order to replay the requests later. Before using the capture proxy, remember the following:
 
 * The upstream layer from the ALB is compatible with the certificate on the ALB listener, whether it’s for clients or a Network Load Balancer (NLB). The `albAcmCertArn` in the `cdk.context.json` may need to be provided to ensure that clients trust the ALB certificate.
 * If an NLB is used directly upstream of the ALB, it must use a TLS listener.
