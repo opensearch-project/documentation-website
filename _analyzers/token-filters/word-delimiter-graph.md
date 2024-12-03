@@ -7,9 +7,9 @@ nav_order: 480
 
 # Word delimiter graph token filter
 
-The `word_delimiter_graph` token filter is used to split tokens at predefined characters while also offering optional token normalization based on customizable rules.
+The `word_delimiter_graph` token filter is used to split tokens at predefined characters and also offers optional token normalization based on customizable rules.
 
-The `word_delimiter_graph` filter is intended for removing punctuation from complex identifiers like part numbers or product IDs. For such cases, it is best used with the `keyword` tokenizer. For hyphenated words, use the `synonym_graph` token filter instead of  the `word_delimiter_graph` filter because users frequently search for these terms both with and without hyphens.
+The `word_delimiter_graph` filter is used to remove punctuation from complex identifiers like part numbers or product IDs. In such cases, it is best used with the `keyword` tokenizer. For hyphenated words, use the `synonym_graph` token filter instead of the `word_delimiter_graph` filter because users frequently search for these terms both with and without hyphens.
 {: .note}
 
 By default, the filter applies the following rules.
@@ -17,7 +17,7 @@ By default, the filter applies the following rules.
 | Action  | Description   | Input  | Output |
 |:---|:---|:---|:---|
 | Split tokens at non-alphanumeric characters | Non-alphanumeric characters are treated as delimiters.  | `ultra-fast`    | `ultra`, `fast`   |
-| Remove leading or trailing delimiters | Removes delimiters at the start or end of tokens.    | `Z99++'Decoder'`| `Z99`, `Decoder`  |
+| Remove leading or trailing delimiters | Removes delimiters at the beginning or end of tokens.    | `Z99++'Decoder'`| `Z99`, `Decoder`  |
 | Split tokens at letter case transitions | Splits tokens when there is a transition between uppercase and lowercase letters. | `OpenSearch`    | `Open`, `Search`  |
 | Split tokens at letter-number transitions | Splits tokens when there is a transition between letters and numbers.  | `T1000`         | `T`, `1000`   |
 | Remove the English possessive ('s)    | Removes the possessive ('s) from the end of tokens.  | `John's`        | `John`  |
@@ -38,18 +38,18 @@ Parameter | Required/Optional | Data type | Description
 `generate_number_parts` | Optional | Boolean | If `true`, numeric tokens (tokens consisting of numbers only) are included in the output. Default is `true`.
 `generate_word_parts` | Optional | Boolean | If `true`, alphabetical tokens (tokens consisting of alphabetic characters only) are included in the output. Default is `true`.
 `ignore_keywords` | Optional | Boolean | Whether to process tokens marked as keywords. Default is `false`.
-`preserve_original` | Optional | Boolean | Keeps the original token (that may include non-alphanumeric delimeters) alongside the generated tokens in the output. For example, `"auto-drive-300"` becomes `[ auto-drive-300, auto, drive, 300 ]`. If `true`, the filter generates multi-position tokens not supported by indexing, so do not use this filter in an index analyzer or use the `flatten_graph` filter after this filter. Default is `false`. 
-`protected_words` | Optional | Array of strings | Specifies the tokens that should not be split.
-`protected_words_path` | Optional | String | Specifies a path (absolute or relative to the config directory) to a file containing tokens that should not be split separated by new lines.
-`split_on_case_change` | Optional | Boolean | Splits tokens at the place where consecutive letters have a different case (one is lowercase the other is uppercase). For example, `"OpenSearch"` becomes `[ Open, Search ]`. Default is `true`.
-`split_on_numerics` | Optional | Boolean | Splits tokens at the place where there are a consecutive letter and number. For example `"v8engine"` will become `[ v, 8, engine ]`. Default is `true`.
-`stem_english_possessive` | Optional | Boolean | Removes English possessive endings such as `'s`. Default is `true`.
-`type_table` | Optional | Array of strings | A custom map that specifies how to treat characters and whether to treat them as delimiters, which avoids unwanted splitting. For example, to treat a hyphen (`-`) as an alphanumeric character, specify `["- => ALPHA"]` so words are not split on hyphens. Valid types are: <br> - `ALPHA`: alphabetical <br> - `ALPHANUM`: alphanumeric <br> - `DIGIT`: numeric <br> - `LOWER`: lowercase alphabetical <br> - `SUBWORD_DELIM`: non-alphanumeric delimiter <br> - `UPPER`: uppercase alphabetical
+`preserve_original` | Optional | Boolean | Keeps the original token (which may include non-alphanumeric delimeters) alongside the generated tokens in the output. For example, `"auto-drive-300"` becomes `[ auto-drive-300, auto, drive, 300 ]`. If `true`, the filter generates multi-position tokens not supported by indexing, so do not use this filter in an index analyzer or use the `flatten_graph` filter after this filter. Default is `false`. 
+`protected_words` | Optional | Array of strings | Specifies tokens that should not be split.
+`protected_words_path` | Optional | String | Specifies a path (absolute or relative to the config directory) to a file containing tokens that should not be separated by new lines.
+`split_on_case_change` | Optional | Boolean | Splits tokens where consecutive letters have different cases (one is lowercase and the other is uppercase). For example, `"OpenSearch"` becomes `[ Open, Search ]`. Default is `true`.
+`split_on_numerics` | Optional | Boolean | Splits tokens where there are consecutive letters and numbers. For example `"v8engine"` will become `[ v, 8, engine ]`. Default is `true`.
+`stem_english_possessive` | Optional | Boolean | Removes English possessive endings, such as `'s`. Default is `true`.
+`type_table` | Optional | Array of strings | A custom map that specifies how to treat characters and whether to treat them as delimiters, which avoids unwanted splitting. For example, to treat a hyphen (`-`) as an alphanumeric character, specify `["- => ALPHA"]` so that words are not split at hyphens. Valid types are: <br> - `ALPHA`: alphabetical <br> - `ALPHANUM`: alphanumeric <br> - `DIGIT`: numeric <br> - `LOWER`: lowercase alphabetical <br> - `SUBWORD_DELIM`: non-alphanumeric delimiter <br> - `UPPER`: uppercase alphabetical
 `type_table_path` | Optional | String | Specifies a path (absolute or relative to the config directory) to a file containing a custom character map. The map specifies how to treat characters and whether to treat them as delimiters, which avoids unwanted splitting. For valid types, see `type_table`.
 
 ## Example
 
-The following example request creates a new index named `my-custom-index` and configures an analyzer with `word_delimiter_graph` filter:
+The following example request creates a new index named `my-custom-index` and configures an analyzer with a `word_delimiter_graph` filter:
 
 ```json
 PUT /my-custom-index
@@ -127,7 +127,7 @@ The response contains the generated tokens:
 ```
 
 <!-- vale off-->
-## Differences between word_delimiter_graph and word_delimiter filters
+## Differences between the word_delimiter_graph and word_delimiter filters
 <!-- vale on-->
 
 Both the `word_delimiter_graph` and `word_delimiter` token filters generate tokens spanning multiple positions when any of the following parameters are set to `true`:
@@ -137,7 +137,7 @@ Both the `word_delimiter_graph` and `word_delimiter` token filters generate toke
 - `catenate_words`  
 - `preserve_original`  
 
-To illustrate the filter differences, consider the input text `Pro-XT500`.
+To illustrate the differences between these filters, consider the input text `Pro-XT500`.
 
 <!-- vale off-->
 ### word_delimiter_graph
@@ -161,4 +161,4 @@ In contrast, the `word_delimiter` filter does not assign a `positionLength` attr
 - `XT500` (position 2)  
 - `ProXT500` (position 1, no `positionLength`)
 
-The lack of a `positionLength` attribute means the resulting token graph is invalid for token streams containing multi-position tokens.
+The lack of a `positionLength` attribute results in a token graph that is invalid for token streams containing multi-position tokens.
