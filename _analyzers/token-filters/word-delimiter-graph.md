@@ -14,13 +14,13 @@ The `word_delimiter_graph` filter is used to remove punctuation from complex ide
 
 By default, the filter applies the following rules.
 
- Description   | Input  | Output |
-|:---|:---|:---|
-| Treats non-alphanumeric characters as delimiters.  | `ultra-fast`    | `ultra`, `fast`   |
-| Removes delimiters at the beginning or end of tokens.    | `Z99++'Decoder'`| `Z99`, `Decoder`  |
-| Splits tokens when there is a transition between uppercase and lowercase letters. | `OpenSearch`    | `Open`, `Search`  |
-| Splits tokens when there is a transition between letters and numbers.  | `T1000`         | `T`, `1000`   |
-| Removes the possessive ('s) from the end of tokens.  | `John's`        | `John`  |
+| Action  | Description   | Input  | Output |
+|:---|:---|:---|:---|
+| Split tokens at non-alphanumeric characters | Non-alphanumeric characters are treated as delimiters.  | `ultra-fast`    | `ultra`, `fast`   |
+| Remove leading or trailing delimiters | Removes delimiters at the beginning or end of tokens.    | `Z99++'Decoder'`| `Z99`, `Decoder`  |
+| Split tokens at letter case transitions | Splits tokens when there is a transition between uppercase and lowercase letters. | `OpenSearch`    | `Open`, `Search`  |
+| Split tokens at letter-number transitions | Splits tokens when there is a transition between letters and numbers.  | `T1000`         | `T`, `1000`   |
+| Remove the English possessive ('s)    | Removes the possessive ('s) from the end of tokens.  | `John's`        | `John`  |
 
 It's important **not** to use tokenizers that strip punctuation, like the `standard` tokenizer, with this filter. Doing so may prevent proper token splitting and interfere with options like `catenate_all` or `preserve_original`. We recommend using this filter with a `keyword` or `whitespace` tokenizer.
 {: .important}
@@ -38,7 +38,7 @@ Parameter | Required/Optional | Data type | Description
 `generate_number_parts` | Optional | Boolean | If `true`, numeric tokens (tokens consisting of numbers only) are included in the output. Default is `true`.
 `generate_word_parts` | Optional | Boolean | If `true`, alphabetical tokens (tokens consisting of alphabetic characters only) are included in the output. Default is `true`.
 `ignore_keywords` | Optional | Boolean | Whether to process tokens marked as keywords. Default is `false`.
-`preserve_original` | Optional | Boolean | Keeps the original token (which may include non-alphanumeric delimiters) alongside the generated tokens in the output. For example, `"auto-drive-300"` becomes `[ auto-drive-300, auto, drive, 300 ]`. If `true`, the filter generates multi-position tokens not supported by indexing, so do not use this filter in an index analyzer or use the `flatten_graph` filter after this filter. Default is `false`. 
+`preserve_original` | Optional | Boolean | Keeps the original token (which may include non-alphanumeric delimeters) alongside the generated tokens in the output. For example, `"auto-drive-300"` becomes `[ auto-drive-300, auto, drive, 300 ]`. If `true`, the filter generates multi-position tokens not supported by indexing, so do not use this filter in an index analyzer or use the `flatten_graph` filter after this filter. Default is `false`. 
 `protected_words` | Optional | Array of strings | Specifies tokens that should not be split.
 `protected_words_path` | Optional | String | Specifies a path (absolute or relative to the config directory) to a file containing tokens that should not be separated by new lines.
 `split_on_case_change` | Optional | Boolean | Splits tokens where consecutive letters have different cases (one is lowercase and the other is uppercase). For example, `"OpenSearch"` becomes `[ Open, Search ]`. Default is `true`.
