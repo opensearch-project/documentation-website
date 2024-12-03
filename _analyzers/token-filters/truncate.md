@@ -7,7 +7,7 @@ nav_order: 440
 
 # Truncate token filter
 
-The `truncate` token filter is used to shorten tokens that exceed a specified length. It trims tokens to a maximum number of characters, ensuring that tokens longer than this limit are truncated. 
+The `truncate` token filter is used to shorten tokens exceeding a specified length. It trims tokens to a maximum number of characters, ensuring that tokens exceeding this limit are truncated. 
 
 ## Parameters
 
@@ -15,11 +15,11 @@ The `truncate` token filter can be configured with the following parameter.
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
-`length` | Optional | Integer | Specifies the maximum length of the produced token. Default is `10`.
+`length` | Optional | Integer | Specifies the maximum length of the generated token. Default is `10`.
 
 ## Example
 
-The following example request creates a new index named `truncate_example` and configures an analyzer with `truncate` filter:
+The following example request creates a new index named `truncate_example` and configures an analyzer with a `truncate` filter:
 
 ```json
 PUT /truncate_example

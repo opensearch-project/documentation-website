@@ -58,7 +58,7 @@ Normalization | `arabic_normalization`: [ArabicNormalizer](https://lucene.apache
 `synonym` | N/A | Supplies a synonym list for the analysis process. The synonym list is provided using a configuration file.
 `synonym_graph` | N/A | Supplies a synonym list, including multiword synonyms, for the analysis process.
 `trim` | [TrimFilter](https://lucene.apache.org/core/9_10_0/analysis/common/org/apache/lucene/analysis/miscellaneous/TrimFilter.html) | Trims leading and trailing white space from each token in a stream. 
-[`truncate`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/truncate/) | [TruncateTokenFilter](https://lucene.apache.org/core/9_10_0/analysis/common/org/apache/lucene/analysis/miscellaneous/TruncateTokenFilter.html) | Truncates tokens whose length exceeds the specified character limit. 
+[`truncate`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/truncate/) | [TruncateTokenFilter](https://lucene.apache.org/core/9_10_0/analysis/common/org/apache/lucene/analysis/miscellaneous/TruncateTokenFilter.html) | Truncates tokens with lengths exceeding the specified character limit. 
 `unique` | N/A | Ensures each token is unique by removing duplicate tokens from a stream. 
 `uppercase` | [UpperCaseFilter](https://lucene.apache.org/core/9_10_0/analysis/common/org/apache/lucene/analysis/core/LowerCaseFilter.html) | Converts tokens to uppercase. 
 `word_delimiter` | [WordDelimiterFilter](https://lucene.apache.org/core/9_10_0/analysis/common/org/apache/lucene/analysis/miscellaneous/WordDelimiterFilter.html) | Splits tokens at non-alphanumeric characters and performs normalization based on the specified rules. 
