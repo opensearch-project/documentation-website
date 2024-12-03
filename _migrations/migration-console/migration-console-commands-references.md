@@ -16,7 +16,7 @@ The exact commands used will depend heavily on use-case and goals, but the follo
 
 ### Check connection
 
-Reports whether both the source and target clusters can be reached and their versions.
+Reports whether both the source and target clusters can be reached and provides their versions.
 
 ```sh
 console clusters connection-check
@@ -32,7 +32,7 @@ console clusters cat-indices
 
 ### Create a snapshot
 
-Creates a snapshot on the source cluster, into a preconfigured Amazon S3 bucket.
+Creates a snapshot of the source cluster and stores it in a preconfigured Amazon Simple Storage Service (Amazon S3) bucket.
 
 ```sh
 console snapshot create
@@ -40,7 +40,7 @@ console snapshot create
 
 ## Check snapshot status
 
-Runs a detailed check on the status of the snapshot creation, including estimated completion time.
+Runs a detailed check on the snapshot creation status, including estimated completion time:
 
 ```sh
 console snapshot status --deep-check
@@ -64,7 +64,7 @@ console metadata migrate
 
 ## Start a backfill
 
-If the `Reindex-From-Snapshot` (RFS) is enabled, starts an instance of the service to begin moving documents to the target cluster.
+If `Reindex-From-Snapshot` (RFS) is enabled, this command starts an instance of the service to begin moving documents to the target cluster:
 
 There are similar `scale UNITS` and `stop` commands to change the number of active instances for RFS.
 
@@ -75,12 +75,12 @@ console backfill start
 
 ## Check backfill status
 
-Gets the current status of the backfill migration, with the number of instances operating and the progress of the shards.
+Gets the current status of the backfill migration, including the number of operating instances and the progress of the shards.
 
 
 ## Start Traffic Replayer
 
-If the Traffic Replayer is enabled, starts an instance of the service to begin replaying traffic against the target cluster.
+If Traffic Replayer is enabled, this command starts an instance of Traffic Replayer to begin replaying traffic against the target cluster.
 The `stop` command stops all active instances.
 
 ```sh
@@ -89,7 +89,7 @@ console replay start
 
 ## Read logs
 
-Reads any logs that exist when running Traffic Replayer. Use tab completion on the path to fill in the available `NODE_IDs` and, if applicable, log file names. The tuples logs roll over at a certain size threshold, so there may be many files named with timestamps. The `jq` command pretty-prints each line of the tuple output before writing it to file.
+Reads any logs that exist when running Traffic Replayer. Use tab completion on the path to fill in the available `NODE_IDs` and, if applicable, log file names. The tuple logs roll over at a certain size threshold, so there may be many files named with timestamps. The `jq` command pretty-prints each line of the tuple output before writing it to file.
 
 ```sh
 console tuples show --in /shared-logs-output/traffic-replayer-default/[NODE_ID]/tuples/console.log | jq > readable_tuples.json
@@ -98,7 +98,7 @@ console tuples show --in /shared-logs-output/traffic-replayer-default/[NODE_ID]/
 
 ## Help command
 
-All commands and options can be explored within the tool itself by using the `--help` option, either for the entire `console` application or for individual components (e.g. `console backfill --help`). The console also has command autocomplete set up to assist with usage. For example:
+All commands and options can be explored within the tool itself by using the `--help` option, either for the entire `console` application or for individual components (for example, `console backfill --help`). For example:
 
 ```bash
 $ console --help

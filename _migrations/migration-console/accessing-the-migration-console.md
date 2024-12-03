@@ -7,7 +7,7 @@ parent: Migration console
 
 # Accessing the migration console
 
-The bootstrap box deployed through Migration Assistant contains a script that simplifies access to the migration console through that instance.
+The Bootstrap box deployed through Migration Assistant contains a script that simplifies access to the migration console through that instance.
 
 To access the migration console, use the following commands:
 
@@ -19,7 +19,7 @@ export AWS_REGION=us-west-2
 
 When opening the console a message will appear above the command prompt, `Welcome to the Migration Assistant Console`.
 
-On a machine with the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) and the [AWS Session Manager Plugin](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html), you can directly connect to the migration console. Ensure you've run `aws configure` with credentials that have access to the environment.
+On a machine with the [AWS Command Line Interface (AWS CLI)](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) and the [AWS Session Manager plugin](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html), you can directly connect to the migration console. Ensure that you've run `aws configure` with credentials that have access to the environment.
 
 Use the following commands:
 
