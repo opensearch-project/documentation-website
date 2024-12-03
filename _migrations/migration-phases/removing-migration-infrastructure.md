@@ -17,4 +17,4 @@ cdk destroy "*" --c contextId=<CONTEXT_ID>
 
 Follow the instructions on the command-line to remove the deployed resources from the AWS account.
 
-The AWS Console can also be used to verify, remove, and confirm resources for the Migration Assistant are no longer in the account.
+The AWS Management Console can also be used to remove Migration Assistant resources and confirm that they are no longer in the account.
