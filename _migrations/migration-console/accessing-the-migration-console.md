@@ -1,12 +1,15 @@
+---
+layout: default
+title: Accessing the migration console
+nav_order: 35
+parent: Migration console
+---
 
+# Accessing the migration console
 
+The Bootstrap box deployed through Migration Assistant contains a script that simplifies access to the migration console through that instance.
 
-The Migrations Assistant deployment includes an ECS task that hosts tools to run different phases of the migration and check the progress or results of the migration.
-
-## SSH into the Migration Console
-Following the AWS Solutions deployment, the bootstrap box contains a script that simplifies access to the migration console through that instance.
-
-To access the Migration Console, use the following commands:
+To access the migration console, use the following commands:
 
 ```shell
 export STAGE=dev
@@ -16,13 +19,7 @@ export AWS_REGION=us-west-2
 
 When opening the console a message will appear above the command prompt, `Welcome to the Migration Assistant Console`.
 
-<details>
-
-<summary>
-<b>SSH from any machine into Migration Console</b>
-</summary>
-
-On a machine with the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) ↗ and the [AWS Session Manager Plugin](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html) ↗, you can directly connect to the migration console. Ensure you've run `aws configure` with credentials that have access to the environment.
+On a machine with the [AWS Command Line Interface (AWS CLI)](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) and the [AWS Session Manager plugin](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html), you can directly connect to the migration console. Ensure that you've run `aws configure` with credentials that have access to the environment.
 
 Use the following commands:
 
@@ -32,10 +29,6 @@ export SERVICE_NAME=migration-console
 export TASK_ARN=$(aws ecs list-tasks --cluster migration-${STAGE}-ecs-cluster --family "migration-${STAGE}-${SERVICE_NAME}" | jq --raw-output '.taskArns[0]')
 aws ecs execute-command --cluster "migration-${STAGE}-ecs-cluster" --task "${TASK_ARN}" --container "${SERVICE_NAME}" --interactive --command "/bin/bash"
 ```
-</details>
 
-## Troubleshooting
 
-### Deployment Stage
-
-Typically, `STAGE` is `dev`, but this may vary based on what the user specified during deployment.
+Typically, `STAGE` is equivalent to a standard `dev` environment, but this may vary based on what the user specified during deployment.
