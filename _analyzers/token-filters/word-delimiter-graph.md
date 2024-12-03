@@ -14,13 +14,13 @@ The `word_delimiter_graph` filter is used to remove punctuation from complex ide
 
 By default, the filter applies the following rules.
 
-| Action  | Description   | Input  | Output |
-|:---|:---|:---|:---|
-| Split tokens at non-alphanumeric characters | Non-alphanumeric characters are treated as delimiters.  | `ultra-fast`    | `ultra`, `fast`   |
-| Remove leading or trailing delimiters | Removes delimiters at the beginning or end of tokens.    | `Z99++'Decoder'`| `Z99`, `Decoder`  |
-| Split tokens at letter case transitions | Splits tokens when there is a transition between uppercase and lowercase letters. | `OpenSearch`    | `Open`, `Search`  |
-| Split tokens at letter-number transitions | Splits tokens when there is a transition between letters and numbers.  | `T1000`         | `T`, `1000`   |
-| Remove the English possessive ('s)    | Removes the possessive ('s) from the end of tokens.  | `John's`        | `John`  |
+| Description   | Input  | Output |
+|:---|:---|:---|
+| Treats non-alphanumeric characters as delimiters.  | `ultra-fast`    | `ultra`, `fast`   |
+| Removes delimiters at the beginning or end of tokens.    | `Z99++'Decoder'`| `Z99`, `Decoder`  |
+| Splits tokens when there is a transition between uppercase and lowercase letters. | `OpenSearch`    | `Open`, `Search`  |
+| Splits tokens when there is a transition between letters and numbers.  | `T1000`         | `T`, `1000`   |
+| Removes the possessive ('s) from the end of tokens.  | `John's`        | `John`  |
 
 It's important **not** to use tokenizers that strip punctuation, like the `standard` tokenizer, with this filter. Doing so may prevent proper token splitting and interfere with options like `catenate_all` or `preserve_original`. We recommend using this filter with a `keyword` or `whitespace` tokenizer.
 {: .important}
