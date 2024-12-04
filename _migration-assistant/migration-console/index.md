@@ -3,6 +3,9 @@ layout: default
 title: Migration console
 nav_order: 30
 has_children: true
+permalink: /migration-console/
+redirect_from: 
+  - /migration-console/index/
 ---
 
 # Migration console
