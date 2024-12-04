@@ -15,6 +15,8 @@ This document lists the maintainers in this repo. See [opensearch-project/.githu
 
 ## Emeritus
 
-| Maintainer       | GitHub ID                                       | Affiliation |
-| ---------------- | ----------------------------------------------- | ----------- |
-| Heather Halter   | [hdhalter](https://github.com/hdhalter)         | Amazon      |
+| Maintainer       | GitHub ID                                               | Affiliation |
+| ---------------- | ------------------------------------------------------- | ----------- |
+| Heather Halter   | [hdhalter](https://github.com/hdhalter)                 | Amazon      |
+| Melissa Vagi     | [vagimeli](https://github.com/vagimeli)                 | Amazon      |
+| Stephen Crawford | [stephen-crawford](https://github.com/stephen-crawford) | Amazon      |
