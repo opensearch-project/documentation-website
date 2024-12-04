@@ -33,7 +33,7 @@ For an OpenSearch Serverless Collection, you will need to configure both network
    The Collection should have a network policy that uses the `VPC` access type. This requires creating a VPC endpoint on the VPC used for the solution. The VPC endpoint should be configured for the private subnets of the VPC and should attach the `osClusterAccessSG` security group.
 
 2. **Data Access Policy Configuration**:  
-   The data access policy should grant permission to perform all [index operations](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html#serverless-data-supported-permissions) ↗ (`aoss:*`) for all indexes in the Collection. The IAM task roles of the applicable Migration services (Traffic Replayer, Migration Console, Reindex-from-Snapshot) should be used as the principals for this data access policy.
+   The data access policy should grant permission to perform all [index operations](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html#serverless-data-supported-permissions) (`aoss:*`) for all indexes in the Collection. The IAM task roles of the applicable Migration services (Traffic Replayer, migration console, `Reindex-from-Snapshot`) should be used as the principals for this data access policy.
 
 ## Capture Proxy on Coordinator Nodes of Source Cluster
 
@@ -68,7 +68,3 @@ Before [setting up Capture Proxy instances](https://github.com/opensearch-projec
     ]
 }
 ```
-
-## Related Links
-
-- [OpenSearch traffic capture setup]

@@ -64,7 +64,7 @@ The Migration Assistant architecture is based on the use of an AWS Cloud infrast
 
 The design deployed in AWS is as follows: 
 
-![Migration architecture overview]({{site.url}}{{site.baseurl}}/images/migrations/migration-architecture-overview.svg)
+![Migration architecture overview]({{site.url}}{{site.baseurl}}/images/migrations/migrations-architecture-overview.png)
 
 1. Client traffic is directed to the existing cluster.
 2. An Application Load Balancer with capture proxies relays traffic to a source while replicating data to Amazon Managed Streaming for Apache Kafka (Amazon MSK).
