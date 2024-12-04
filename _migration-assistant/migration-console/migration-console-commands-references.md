@@ -20,6 +20,7 @@ Reports whether both the source and target clusters can be reached and provides 
 ```sh
 console clusters connection-check
 ```
+{% include copy.html %}
 
 ### Run `cat-indices`
 
@@ -28,6 +29,7 @@ Runs the `cat-indices` API on the cluster.
 ```sh
 console clusters cat-indices
 ```
+{% include copy.html %}
 
 ### Create a snapshot
 
@@ -36,6 +38,7 @@ Creates a snapshot of the source cluster and stores it in a preconfigured Amazon
 ```sh
 console snapshot create
 ```
+{% include copy.html %}
 
 ## Check snapshot status
 
@@ -44,6 +47,7 @@ Runs a detailed check on the snapshot creation status, including estimated compl
 ```sh
 console snapshot status --deep-check
 ```
+{% include copy.html %}
 
 ## Evaluate metadata
 
@@ -52,6 +56,7 @@ Performs a dry run of metadata migration, showing which indexes, templates, and 
 ```sh
 console metadata evaluate
 ```
+{% include copy.html %}
 
 ## Migrate metadata
 
@@ -60,6 +65,7 @@ Migrates the metadata from the source cluster to the target cluster.
 ```sh
 console metadata migrate
 ```
+{% include copy.html %}
 
 ## Start a backfill
 
@@ -71,6 +77,7 @@ There are similar `scale UNITS` and `stop` commands to change the number of acti
 ```sh
 console backfill start
 ```
+{% include copy.html %}
 
 ## Check backfill status
 
@@ -85,6 +92,7 @@ The `stop` command stops all active instances.
 ```sh
 console replay start
 ```
+{% include copy.html %}
 
 ## Read logs
 
@@ -93,6 +101,7 @@ Reads any logs that exist when running Traffic Replayer. Use tab completion on t
 ```sh
 console tuples show --in /shared-logs-output/traffic-replayer-default/[NODE_ID]/tuples/console.log | jq > readable_tuples.json
 ```
+{% include copy.html %}
 
 ## Help option
 
