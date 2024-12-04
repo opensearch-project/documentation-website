@@ -2,6 +2,9 @@
 layout: default
 title: Getting started with data migration
 nav_order: 10
+redirect_from:
+  - /upgrade-to/upgrade-to/
+  - /upgrade-to/snapshot-migrate/
 ---
 
 # Getting started with data migration

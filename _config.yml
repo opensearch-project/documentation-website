@@ -31,9 +31,6 @@ collections:
   install-and-configure:
     permalink: /:collection/:path/
     output: true
-  upgrade-to:
-    permalink: /:collection/:path/
-    output: true
   im-plugin:
     permalink: /:collection/:path/
     output: true
@@ -137,9 +134,6 @@ opensearch_collection:
     getting-started:
       name: Getting started
       nav_fold: true
-    upgrade-to:
-      name: Upgrade OpenSearch
-      # nav_exclude: true
     install-and-configure:
       name: Install and upgrade
       nav_fold: true
