@@ -14,6 +14,11 @@ redirect_from:
 If you need to update a document's fields in your index, you can use the update document API operation. You can do so by specifying the new data you want to be in your index or by including a script in your request body, which OpenSearch runs to update the document. By default, the update operation only updates a document that exists in the index. If a document does not exist, the API returns an error. To _upsert_ a document (update the document that exists or index a new one), use the [upsert](#using-the-upsert-operation) operation.
 
 
+You cannot specify any ingest pipeline explicitly when calling the update document API, but the pre-defined default pipeline or final pipeline can be executed under some conditions. Case that when performing upsert operation and a new document is indexed, the pre-defined default pipeline or final pipeline in the index is supposed to be executed. However, when performaing update operation for the existing document, the default pipeline or final pipeline is not supposed to be executed but actually it's executed, a deprecation warning header as follows will be returned, and the support will be removed in 3.0.0.
+```
+the index [sample-index1] has a default ingest pipeline or a final ingest pipeline, the support of the ingest pipelines for update operation causes unexpected result and will be removed in 3.0.0
+```
+
 ## Path and HTTP methods
 
 ```json
