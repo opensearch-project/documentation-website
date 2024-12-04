@@ -2,7 +2,7 @@
 layout: default
 title: Configuration options
 nav_order: 15
-parent: Deploying migration assistant
+parent: Deploying Migration Assistant
 ---
 
 # Configuration options

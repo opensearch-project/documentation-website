@@ -2,7 +2,7 @@
 layout: default
 title: IAM and security groups for existing clusters
 nav_order: 20
-parent: Deploying migration assistant
+parent: Deploying Migration Assistant
 ---
 
 # IAM and security groups for existing clusters

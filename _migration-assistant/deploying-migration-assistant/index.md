@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Deploying Migration Assistant
-nav_order: 10
+nav_order: 15
 has_children: true
 ---
 
