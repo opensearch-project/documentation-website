@@ -2,7 +2,7 @@
 layout: default
 title: Synonym
 parent: Token filters
-nav_order: 420
+nav_order: 415
 ---
 
 # Synonym token filter
