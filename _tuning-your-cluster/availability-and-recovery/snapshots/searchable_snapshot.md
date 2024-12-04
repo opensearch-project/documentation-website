@@ -46,7 +46,7 @@ services:
       - node.search.cache.size=50gb
 ```
 
-- Since 2.18, k-NN indices (NMSLIB and FAISS) now support searchable snapshots.
+- Starting with version 2.18, k-NN indexes support searchable snapshots for the NMSLIB and Faiss engines.
 
 ## Create a searchable snapshot index
 
