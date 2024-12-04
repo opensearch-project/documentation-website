@@ -22,12 +22,14 @@ Create the initial snapshot of the source cluster using the following command:
 ```shell
 console snapshot create
 ```
+{% include copy.html %}
 
 To check the progress of the snapshot in real time, use the following command:
 
 ```shell
 console snapshot status --deep-check
 ```
+{% include copy.html %}
 
 You should receive the following response when the snapshot is created:
 
@@ -56,16 +58,19 @@ For the following commands, to identify all valid arguments, please run with `--
 ```shell
 console metadata evaluate --help
 ```
+{% include copy.html %}
 
 ```shell
 console metadata migrate --help
 ```
+{% include copy.html %}
 
 Based on the migration console deployment options, a number of commands will be pre-populated. To view them, run console with verbosity:
 
 ```shell
 console -v metadata migrate --help
 ```
+{% include copy.html %}
 
 You should receive a response similar to the following:
 
@@ -89,6 +94,7 @@ By scanning the contents of the source cluster, applying filtering, and applying
 ```shell
 console metadata evaluate [...]
 ```
+{% include copy.html %}
 
 You should receive a response similar to the following:
 
@@ -128,6 +134,7 @@ Running through the same data as the evaluate command all of the migrated items 
 ```shell
 console metadata migrate [...]
 ```
+{% include copy.html %}
 
 You should receive a response similar to the following:
 

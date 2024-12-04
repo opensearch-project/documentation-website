@@ -94,8 +94,7 @@ Reads any logs that exist when running Traffic Replayer. Use tab completion on t
 console tuples show --in /shared-logs-output/traffic-replayer-default/[NODE_ID]/tuples/console.log | jq > readable_tuples.json
 ```
 
-
-## Help command
+## Help option
 
 All commands and options can be explored within the tool itself by using the `--help` option, either for the entire `console` application or for individual components (for example, `console backfill --help`). For example:
 
