@@ -2,7 +2,7 @@
 layout: default
 title: Configuration options
 nav_order: 15
-parent: Deploying migration assistant
+parent: Deploying Migration Assistant
 ---
 
 # Configuration options
@@ -61,6 +61,7 @@ The following CDK performs a backfill migrations using RFS:
   }
 }
 ```
+{% include copy.html %}
 
 Performing an RFS backfill migration requires an existing snapshot. 
 
@@ -104,6 +105,7 @@ The following sample CDK performs a live capture migration with C&R:
   }
 }
 ```
+{% include copy.html %}
 
 Performing a live capture migration requires that a Capture Proxy be configured to capture incoming traffic and send it to the target cluster using the Traffic Replayer service. For arguments available in `captureProxyExtraArgs`, refer to the `@Parameter` fields [here](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/trafficCaptureProxyServer/src/main/java/org/opensearch/migrations/trafficcapture/proxyserver/CaptureProxy.java). For `trafficReplayerExtraArgs`, refer to the `@Parameter` fields [here](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/trafficReplayer/src/main/java/org/opensearch/migrations/replay/TrafficReplayer.java). At a minimum, no extra arguments may be needed.
 
@@ -125,17 +127,18 @@ Both the source and target cluster can use no authentication, authentication lim
 
 ### No authentication
 
-```
+```json
     "sourceCluster": {
         "endpoint": <SOURCE_CLUSTER_ENDPOINT>,
         "version": "ES 7.10",
         "auth": {"type": "none"}
     }
 ```
+{% include copy.html %}
 
 ### Basic authentication
 
-```
+```json
     "sourceCluster": {
         "endpoint": <SOURCE_CLUSTER_ENDPOINT>,
         "version": "ES 7.10",
@@ -146,10 +149,11 @@ Both the source and target cluster can use no authentication, authentication lim
         }
     }
 ```
+{% include copy.html %}
 
 ### Signature Version 4 authentication
 
-```
+```json
     "sourceCluster": {
         "endpoint": <SOURCE_CLUSTER_ENDPOINT>,
         "version": "ES 7.10",
@@ -160,6 +164,7 @@ Both the source and target cluster can use no authentication, authentication lim
         }
     }
 ```
+{% include copy.html %}
 
 The `serviceSigningName` can be `es` for an Elasticsearch or OpenSearch domain, or `aoss` for an OpenSearch Serverless collection.
 

@@ -5,6 +5,11 @@ nav_order: 1
 has_children: false
 nav_exclude: true
 has_toc: false
+permalink: /migration-assistant/
+redirect_from:
+  - /migration-assistant/index/
+  - /upgrade-to/index/
+  - /upgrade-to/
 ---
 
 # Migration Assistant for OpenSearch
@@ -53,13 +58,13 @@ The Metadata migration tool integrated into the Migration CLI can be used indepe
 
 The destination cluster for migration or comparison in an A/B test.
 
-### Architecture overview
+## Architecture overview
 
 The Migration Assistant architecture is based on the use of an AWS Cloud infrastructure, but most tools are designed to be cloud independent. A local containerized version of this solution is also available.
 
 The design deployed in AWS is as follows: 
 
-![Migration architecture overview]({{site.url}}{{site.baseurl}}/images/migrations/migration-architecture-overview.svg)
+![Migration architecture overview]({{site.url}}{{site.baseurl}}/images/migrations/migrations-architecture-overview.png)
 
 1. Client traffic is directed to the existing cluster.
 2. An Application Load Balancer with capture proxies relays traffic to a source while replicating data to Amazon Managed Streaming for Apache Kafka (Amazon MSK).

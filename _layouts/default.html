@@ -87,6 +87,8 @@ layout: table_wrappers
           {% assign section = site.clients_collection.collections %}
         {% elsif page.section == "benchmark" %}
           {% assign section = site.benchmark_collection.collections %}
+        {% elsif page.section == "migration-assistant" %}
+          {% assign section = site.migration_assistant_collection.collections %}
         {% endif %}
 
         {% if section %}

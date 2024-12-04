@@ -30,6 +30,7 @@ There are also tools available for migrating cluster configuration, templates, a
 {: .note}
 
 ### Supported source and target platforms
+
 * Self-managed (hosted by cloud provider or on-premises)
 * AWS OpenSearch
 

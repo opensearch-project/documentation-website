@@ -7,7 +7,7 @@ parent: Migration phases
 
 # Backfill
 
-After the [metadata]({{site.url}}{{site.baseurl}}/migrations/migration-phases/migrating-metadata/) for your cluster has been migrated, you can use capture proxy data replication and snapshots to backfill your data into the next cluster.
+After the [metadata]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrating-metadata/) for your cluster has been migrated, you can use capture proxy data replication and snapshots to backfill your data into the next cluster.
 
 ## Capture proxy data replication
 
@@ -48,15 +48,16 @@ If you're only using backfill as your migration technique, make a client/DNS cha
 
 After you have routed the client based on your use case, test adding records against HTTP requests using the following steps:
 
-1. In the migration console, run the following command:
+In the migration console, run the following command:
 
-   ```shell
+   ```bash
    console kafka describe-topic-records
    ```
+   {% include copy.html %}
    
    Note the records in the logging topic.
    
-2. After a short period, execute the same command again and compare the increased number of records against the expected HTTP requests.
+After a short period, execute the same command again and compare the increased number of records against the expected HTTP requests.
 
 
 ## Creating a snapshot
@@ -66,12 +67,14 @@ Create a snapshot for your backfill using the following command:
 ```bash
 console snapshot create
 ```
+{% include copy.html %}
 
 To check the progress of your snapshot, use the following command:
 
 ```bash
 console snapshot status --deep-check
 ```
+{% include copy.html %}
 
 Depending on the size of the data in the source cluster and the bandwidth allocated for snapshots, the process can take some time. Adjust the maximum rate at which the source cluster's nodes create the snapshot using the `--max-snapshot-rate-mb-per-node` option. Increasing the snapshot rate will consume more node resources, which may affect the cluster's ability to handle normal traffic.
 
@@ -86,6 +89,7 @@ You can check the indexes and document counts of the source and target clusters 
 ```shell
 console clusters cat-indices
 ```
+{% include copy.html %}
 
 You should receive the following response:
 
@@ -106,6 +110,7 @@ Use the following command to start the backfill and deploy the workers:
 ```shell
 console backfill start
 ```
+{% include copy.html %}
 
 You should receive a response similar to the following:
 
@@ -130,6 +135,7 @@ To speed up the transfer, you can scale the number of workers. It may take a few
 ```shell
 console backfill scale 5
 ```
+{% include copy.html %}
 
 We recommend slowly scaling up the fleet while monitoring the health metrics of the target cluster to avoid over-saturating it. [Amazon OpenSearch Service domains](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/monitoring.html) provide a number of metrics and logs that can provide this insight.
 
@@ -154,6 +160,7 @@ After the backfill is complete and the workers have stopped, examine the content
 ```shell
 console clusters cat-indices --refresh
 ```
+{% include copy.html %}
 
 This will display the number of documents in each of the indexes in the target cluster, as shown in the following example response:
 

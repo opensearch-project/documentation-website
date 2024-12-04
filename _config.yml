@@ -31,9 +31,6 @@ collections:
   install-and-configure:
     permalink: /:collection/:path/
     output: true
-  upgrade-to:
-    permalink: /:collection/:path/
-    output: true
   im-plugin:
     permalink: /:collection/:path/
     output: true
@@ -94,6 +91,9 @@ collections:
   data-prepper: 
     permalink: /:collection/:path/
     output: true
+  migration-assistant:
+    permalink: /:collection/:path/
+    output: true
   tools:
     permalink: /:collection/:path/
     output: true
@@ -137,11 +137,6 @@ opensearch_collection:
     install-and-configure:
       name: Install and upgrade
       nav_fold: true
-    upgrade-to:
-      name: Migrate to OpenSearch
-      # nav_exclude: true
-      nav_fold: true
-      # search_exclude: true
     im-plugin:
       name: Managing Indexes
       nav_fold: true
@@ -213,6 +208,12 @@ clients_collection:
         name: Clients
         nav_fold: true
 
+migration_assistant_collection:
+  collections:
+    migration-assistant:
+        name: Migration Assistant
+        nav_fold: true
+
 benchmark_collection:
   collections:
     benchmark:
@@ -252,6 +253,12 @@ defaults:
     values:
       section: "benchmark"
       section-name: "Benchmark"
+  -
+    scope:
+      path: "_migration-assistant"
+    values:
+      section: "migration-assistant"
+      section-name: "Migration Assistant"
 
 # Enable or disable the site search
 # By default, just-the-docs enables its JSON file-based search. We also have an OpenSearch-driven search functionality.
