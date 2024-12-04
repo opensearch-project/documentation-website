@@ -3,6 +3,9 @@ layout: default
 title: Migration phases
 nav_order: 50
 has_children: true
+permalink: /migration-phases/
+redirect_from: 
+  - /migration-phases/index/
 ---
 
 This page details how to conduct a migration with Migration Assistant. It encompasses a variety of scenarios including:

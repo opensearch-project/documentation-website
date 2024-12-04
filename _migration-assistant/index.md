@@ -10,7 +10,6 @@ redirect_from:
   - /migration-assistant/index/
   - /upgrade-to/index/
   - /upgrade-to/
-  - /upgrade-to/upgrade-to/
 ---
 
 # Migration Assistant for OpenSearch
