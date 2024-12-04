@@ -177,7 +177,7 @@ POST /_plugins/_flow_framework/workflow/<workflow_id>/_provision
 To view the status of the workflow and all created resources, send the following request:
 
 ```json
-/_plugins/_flow_framework/workflow/<workflow_id>/_status
+GET /_plugins/_flow_framework/workflow/<workflow_id>/_status
 ```
 {% include copy-curl.html %}
 
@@ -208,6 +208,9 @@ POST /.plugins-ml-config/_doc/os_text2vega_with_instructions
 }
 ```
 {% include copy-curl.html %}
+
+This example demonstrates a system index. In security-enabled domains, only superadmins have permissions to execute this code. For information about making superadmin calls, see [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/). For access permissions, contact your system administrator.
+{: .warning}
 
 ### Step 4: Test the agent
 
