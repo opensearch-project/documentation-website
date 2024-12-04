@@ -232,7 +232,7 @@ To learn more about migration console commands, see [Migration commands].
 
 ---
 
-## Step 8: Snapshot creation
+## Step 8: Creating a snapshot
 
 Run the following command to initiate snapshot creation from the source cluster:
 
@@ -261,7 +261,7 @@ To learn more about snapshot creation, see [Snapshot Creation].
 
 ---
 
-## Step 9: Metadata migration
+## Step 9: Migrating metadata
 
 Run the following command to migrate metadata:
 
@@ -274,7 +274,7 @@ For more information, see [Migrating metadata]({{site.url}}{{site.baseurl}}/migr
 
 ---
 
-## Step 10: RFS document migration
+## Step 10: Migrating documents with RFS
 
 You can now use RFS to migrate documents from your original cluster:
 
@@ -337,7 +337,7 @@ Logs and metrics are available in Amazon CloudWatch in the `OpenSearchMigrations
 
 ---
 
-## Step 12: Verify that all documents were migrated 
+## Step 12: Verifying that all documents were migrated 
 
 Use the following query in CloudWatch Logs Insights to identify failed documents:
 
