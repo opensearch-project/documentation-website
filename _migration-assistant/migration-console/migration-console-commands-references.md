@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Command reference
-nav_order: 35
+nav_order: 40
 parent: Migration console
 ---
 

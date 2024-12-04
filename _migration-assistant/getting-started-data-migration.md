@@ -8,12 +8,11 @@ nav_order: 10
 
 This quickstart outlines how to deploy Migration Assistant for OpenSearch and execute an existing data migration using `Reindex-from-Snapshot` (RFS). It uses AWS for illustrative purposes. However, the steps can be modified for use with other cloud providers.
 
-
 ## Prerequisites and assumptions
 
 Before using this quickstart, make sure you fulfill the following prerequisites:
 
-* Verify that your migration path [is supported](https://opensearch.org/docs/latest/migrations/is-migration-assistant-right-for-you/#supported-migration-paths). Note that we test with the exact versions specified, but you should be able to migrate data on alternative minor versions as long as the major version is supported.
+* Verify that your migration path [is supported]({{site.url}}{{site.baseurl}}/migration-assistant/is-migration-assistant-right-for-you/#migration-paths). Note that we test with the exact versions specified, but you should be able to migrate data on alternative minor versions as long as the major version is supported.
 * The source cluster must be deployed Amazon Simple Storage Service (Amazon S3) plugin.
 * The target cluster must be deployed.
 
@@ -253,7 +252,7 @@ Run the following command to migrate metadata:
 console metadata migrate [...]
 ```
 
-For more information, see [Migrating metadata]({{site.url}}{{site.baseurl}}/migrations/migration-phases/migrating-metadata/).
+For more information, see [Migrating metadata]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrating-metadata/).
 
 ---
 
@@ -285,7 +284,7 @@ You can now use RFS to migrate documents from your original cluster:
     console backfill stop
     ```
 
-For more information, see [Backfill]({{site.url}}{{site.baseurl}}/migrations/migration-phases/backfill/).
+For more information, see [Backfill]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/).
 
 ---
 

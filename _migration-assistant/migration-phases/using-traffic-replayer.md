@@ -17,7 +17,7 @@ For example, if a document was deleted after a snapshot was taken, starting Traf
 
 ## Configuration options
 
-[Traffic Replayer settings]({{site.url}}{{site.baseurl}}/migrations/deploying-migration-assisstant/configuation-options/) are configured during the deployment of Migration Assistant. Make sure to set the authentication mode for Traffic Replayer so that it can properly communicate with the target cluster. For more information about different types of traffic that are handled by Traffic Replayer, see [limitations](#limitations).
+[Traffic Replayer settings]({{site.url}}{{site.baseurl}}/migration-assistant/deploying-migration-assistant/configuration-options/) are configured during the deployment of Migration Assistant. Make sure to set the authentication mode for Traffic Replayer so that it can properly communicate with the target cluster. 
 
 ## Using Traffic Replayer
 

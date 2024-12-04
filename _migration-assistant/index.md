@@ -5,6 +5,9 @@ nav_order: 1
 has_children: false
 nav_exclude: true
 has_toc: false
+permalink: /migration-assistant/
+redirect_from:
+  - /migration-assistant/index/
 ---
 
 # Migration Assistant for OpenSearch
@@ -53,7 +56,7 @@ The Metadata migration tool integrated into the Migration CLI can be used indepe
 
 The destination cluster for migration or comparison in an A/B test.
 
-### Architecture overview
+## Architecture overview
 
 The Migration Assistant architecture is based on the use of an AWS Cloud infrastructure, but most tools are designed to be cloud independent. A local containerized version of this solution is also available.
 

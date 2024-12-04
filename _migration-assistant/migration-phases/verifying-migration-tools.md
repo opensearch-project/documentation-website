@@ -162,7 +162,7 @@ Look for failing tasks by navigating to **Traffic Capture Proxy ECS**. Change **
 
 After all verifications are complete, reset all resources before using Migration Assistant for an actual migration. 
 
-The following steps outline how to reset resources with Migration Assistant before executing the actual migration. At this point all verifications are expected to have been completed. These steps can be performed after [Accessing the Migration Console]({{site.url}}{{site.baseurl}}/migrations/migration-console/accessing-the-migration-console/).
+The following steps outline how to reset resources with Migration Assistant before executing the actual migration. At this point all verifications are expected to have been completed. These steps can be performed after [Accessing the Migration Console]({{site.url}}{{site.baseurl}}/migration-assistant/migration-console/accessing-the-migration-console/).
 
 ### Traffic Replayer
 

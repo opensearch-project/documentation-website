@@ -10,12 +10,12 @@ redirect_from:
 
 # About the migration process
 
-The process of migrating from Elasticsearch OSS to OpenSearch varies depending on your current version of Elasticsearch OSS, installation type, tolerance for downtime, and cost-sensitivity. Rather than concrete steps to cover every situation, we have general guidance for the process.
+The process of migrating from Elasticsearch OSS to OpenSearch varies depending on your current version of Elasticsearch OSS, installation type, tolerance for downtime, and cost-sensitivity. OpenSearch provides a [Migration Assistant]({{site.url}}{{site.baseurl}}/migration-assistant/) to help migrating to OpenSearch. 
 
-Three approaches exist:
+Three approaches exists
 
-- Use a snapshot to [migrate your Elasticsearch OSS data]({{site.url}}{{site.baseurl}}/upgrade-to/snapshot-migrate/) to a new OpenSearch cluster. This method may incur downtime.
-- Perform a [restart upgrade or a rolling upgrade]({{site.url}}{{site.baseurl}}/upgrade-to/upgrade-to/) on your existing nodes. A restart upgrade involves upgrading the entire cluster and restarting it, whereas a rolling upgrade requires upgrading and restarting nodes in the cluster one by one.
+- Use a snapshot to [migrate your Elasticsearch OSS data]({{site.url}}{{site.baseurl}}/migration-assistant/) to a new OpenSearch cluster. This method may incur downtime.
+- Perform a [restart upgrade or a rolling upgrade]({{site.url}}{{site.baseurl}}/upgrade-to/snapshot-migrate/) on your existing nodes. A restart upgrade involves upgrading the entire cluster and restarting it, whereas a rolling upgrade requires upgrading and restarting nodes in the cluster one by one.
 - Replace existing Elasticsearch OSS nodes with new OpenSearch nodes. Node replacement is most popular when upgrading [Docker clusters]({{site.url}}{{site.baseurl}}/upgrade-to/docker-upgrade-to/).
 
 Regardless of your approach, to safeguard against data loss, we recommend that you take a [snapshot]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore) of all indexes prior to any migration.
