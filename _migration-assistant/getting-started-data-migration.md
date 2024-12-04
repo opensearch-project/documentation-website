@@ -29,7 +29,7 @@ The steps in this guide assume the following:
 
 ---
 
-## Step 1: Installing Bootstrap on an Amazon EC2 instance (~10 minutes)
+## Step 1: Install Bootstrap on an Amazon EC2 instance (~10 minutes)
 
 To begin your migration, use the following steps to install a `bootstrap` box on an Amazon Elastic Compute Cloud (Amazon EC2) instance. The instance uses AWS CloudFormation to create and manage the stack.
 
@@ -43,7 +43,7 @@ To begin your migration, use the following steps to install a `bootstrap` box on
 
 ---
 
-## Step 2: Setting up Bootstrap instance access (~5 minutes)
+## Step 2: Set up Bootstrap instance access (~5 minutes)
 
 Use the following steps to set up Bootstrap instance access:
 
@@ -71,7 +71,7 @@ Use the following steps to set up Bootstrap instance access:
 
 ---
 
-## Step 3: Logging in to Bootstrap and building Migration Assistant (~15 minutes)
+## Step 3: Log in to Bootstrap and building Migration Assistant (~15 minutes)
 
 Next, log in to Bootstrap and build Migration Assistant using the following steps.
 
@@ -103,7 +103,7 @@ To use these steps, make sure you fulfill the following prerequisites:
 
 ---
 
-## Step 4: Configuring and deploying RFS (~20 minutes)
+## Step 4: Configure and deploy RFS (~20 minutes)
 
 Use the following steps to configure and deploy RFS:
 
@@ -171,7 +171,7 @@ You will also need to give the `migrationconsole` and `reindexFromSnapshot` Task
 
 ---
 
-## Step 5: Deploying Migration Assistant
+## Step 5: Deploy Migration Assistant
 
 To deploy Migration Assistant, use the following steps:
 
@@ -197,7 +197,7 @@ These commands deploy the following stacks:
 
 ---
 
-## Step 6: Accessing the migration console
+## Step 6: Access the migration console
 
 Run the following command to access the migration console:
 
@@ -212,7 +212,7 @@ Run the following command to access the migration console:
 
 ---
 
-## Step 7: Verifying the connection to the source and target clusters
+## Step 7: Verify the connection to the source and target clusters
 
 To verify the connection to the clusters, run the following command:
 
@@ -232,7 +232,7 @@ To learn more about migration console commands, see [Migration commands].
 
 ---
 
-## Step 8: Creating a snapshot
+## Step 8: Create a snapshot
 
 Run the following command to initiate snapshot creation from the source cluster:
 
@@ -261,7 +261,7 @@ To learn more about snapshot creation, see [Snapshot Creation].
 
 ---
 
-## Step 9: Migrating metadata
+## Step 9: Migrate metadata
 
 Run the following command to migrate metadata:
 
@@ -274,7 +274,7 @@ For more information, see [Migrating metadata]({{site.url}}{{site.baseurl}}/migr
 
 ---
 
-## Step 10: Migrating documents with RFS
+## Step 10: Migrate documents with RFS
 
 You can now use RFS to migrate documents from your original cluster:
 
@@ -337,7 +337,7 @@ Logs and metrics are available in Amazon CloudWatch in the `OpenSearchMigrations
 
 ---
 
-## Step 12: Verifying that all documents were migrated 
+## Step 12: Verify that all documents were migrated 
 
 Use the following query in CloudWatch Logs Insights to identify failed documents:
 
