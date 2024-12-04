@@ -49,7 +49,7 @@ Throughput: 38.13 MiB/sec
 
 Depending on the size of the data in the source cluster and the bandwidth allocated for snapshots, the process can take some time. Adjust the maximum rate at which the source cluster's nodes create the snapshot using the `--max-snapshot-rate-mb-per-node` option. Increasing the snapshot rate will consume more node resources, which may affect the cluster's ability to handle normal traffic. 
 
-## Command Arguments
+## Command arguments
 
 For the following commands, to identify all valid arguments, please run with `--help`.
 
@@ -67,10 +67,7 @@ Based on the migration console deployment options, a number of commands will be 
 console -v metadata migrate --help
 ```
 
-<details>
-<summary>
-<b>Example "console -v metadata migrate --help" command output<b>
-</summary>
+You should receive a response similar to the following:
 
 ```shell
 (.venv) bash-5.2# console -v metadata migrate --help
@@ -162,7 +159,7 @@ Migrated Items:
 Results:
    0 issue(s) detected
 ```
-</details>
+
 
 ## Metadata verification process
 
@@ -172,19 +169,21 @@ Before moving on to additional migration steps, it is recommended to confirm det
 
 Use these instructions to help troubleshoot the following issues.
 
-### Access detailed logs
+### Accessing detailed logs
 
 Metadata migration creates a detailed log file that includes low level tracing information for troubleshooting. For each execution of the program a log file is created inside a shared volume on the migration console named `shared-logs-output` the following command will list all log files, one for each run of the command.
 
 ```shell
 ls -al /shared-logs-output/migration-console-default/*/metadata/
 ```
+{% include copy.html %}
 
 To inspect the file within the console `cat`, `tail` and `grep` commands line tools.  By looking for warnings, errors and exceptions in this log file can help understand the source of failures, or at the very least be useful for creating issues in this project.
 
 ```shell
 tail /shared-logs-output/migration-console-default/*/metadata/*.log
 ```
+{% include copy.html %}
 
 ### Warnings and errors
 
@@ -207,6 +206,7 @@ As Metadata migration supports migrating from ES 6.8 on to the latest versions o
 
 
 **Example starting state with mapping type foo (ES 6):**
+
 ```json
 {
   "mappings": [
@@ -221,8 +221,10 @@ As Metadata migration supports migrating from ES 6.8 on to the latest versions o
   ]
 }
 ```
+{% include copy.html %}
 
 **Example ending state with foo removed (ES 7):**
+
 ```json
 {
   "mappings": {
@@ -233,5 +235,6 @@ As Metadata migration supports migrating from ES 6.8 on to the latest versions o
   }
 }
 ```
+{% include copy.html %}
 
 For additional technical details, [view the mapping type removal source code](https://github.com/opensearch-project/opensearch-migrations/blob/main/transformation/src/main/java/org/opensearch/migrations/transformation/rules/IndexMappingTypeRemoval.java).

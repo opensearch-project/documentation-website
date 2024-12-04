@@ -65,6 +65,7 @@ Use the following steps to set up Bootstrap instance access:
         ]
     }
     ```
+    {% include copy.html %}
 
 3. Name the policy, for example, `SSM-OSMigrationBootstrapAccess`, and then create the policy by selecting **Create policy**.
 
@@ -89,12 +90,14 @@ To use these steps, make sure you fulfill the following prerequisites:
     ```bash
     aws ssm start-session --document-name BootstrapShellDoc-<stage>-<aws-region> --target <instance-id> --region <aws-region> [--profile <profile-name>]
     ```
+    {% include copy.html %}
     
 3. Once logged in, run the following command from the shell of the Bootstrap instance in the `/opensearch-migrations` directory:
 
     ```bash
     ./initBootstrap.sh && cd deployment/cdk/opensearch-service-migration
     ```
+    {% include copy.html %}
     
 4. After a successful build, note the path for infrastructure deployment, which will be used in the next step.
 
@@ -136,6 +139,7 @@ Use the following steps to configure and deploy RFS:
     }
     }
     ```
+    {% include copy.html %}
 
     The source and target cluster authorization can be configured to have no authorization, `basic` with a username and password, or `sigv4`. 
 
@@ -144,12 +148,14 @@ Use the following steps to configure and deploy RFS:
     ```bash
     cdk bootstrap --c contextId=migration-assistant --require-approval never 
     ```
+    {% include copy.html %}
 
 4. Deploy the stacks:
 
     ```bash
     cdk deploy "*" --c contextId=migration-assistant --require-approval never --concurrency 5
     ```
+    {% include copy.html %}
 
 5. Verify that all CloudFormation stacks were installed successfully.
 
@@ -174,11 +180,14 @@ To deploy Migration Assistant, use the following steps:
     ```bash
     cdk bootstrap --c contextId=migration-assistant --require-approval never --concurrency 5
     ```
+    {% include copy.html %}
+
 2. Deploy the stacks when `cdk.context.json` is fully configured:
    
     ```bash
     cdk deploy "*" --c contextId=migration-assistant --require-approval never --concurrency 3
     ```
+    {% include copy.html %}
 
 These commands deploy the following stacks:
 
@@ -195,6 +204,7 @@ Run the following command to access the migration console:
 ```bash
 ./accessContainer.sh migration-console dev <region>
 ```
+{% include copy.html %}
 
 
 `accessContainer.sh` is located in `/opensearch-migrations/deployment/cdk/opensearch-service-migration/` on the Bootstrap instance. To learn more, see [Accessing the migration console].
@@ -209,10 +219,11 @@ To verify the connection to the clusters, run the following command:
 ```bash
 console clusters connection-check
 ```
+{% include copy.html %}
 
 You should receive the following output:
 
-```
+```bash
 * **Source Cluster:** Successfully connected!
 * **Target Cluster:** Successfully connected!
 ```
@@ -228,18 +239,21 @@ Run the following command to initiate snapshot creation from the source cluster:
 ```bash
 console snapshot create [...]
 ```
+{% include copy.html %}
 
 To check the snapshot creation status, run the following command:
 
 ```bash
 console snapshot status [...]
 ```
+{% include copy.html %}
 
 To learn more information about the snapshot, run the following command:
 
 ```bash
 console snapshot status --deep-check [...]
 ```
+{% include copy.html %}
 
 Wait for snapshot creation to complete before moving to step 9.
 
@@ -254,6 +268,7 @@ Run the following command to migrate metadata:
 ```bash
 console metadata migrate [...]
 ```
+{% include copy.html %}
 
 For more information, see [Migrating metadata]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrating-metadata/).
 
@@ -268,24 +283,28 @@ You can now use RFS to migrate documents from your original cluster:
     ```bash
     console backfill start
     ```
+    {% include copy.html %}
 
 2. _(Optional)_ To speed up the migration, increase the number of documents processed at a simultaneously by using the following command:
 
     ```bash
     console backfill scale <NUM_WORKERS>
     ```
+    {% include copy.html %}
 
 3. To check the status of the documentation backfill, use the following command:
 
     ```bash
     console backfill status
     ```
+    {% include copy.html %}
 
 4. If you need to stop the backfill process, use the following command:
 
     ```bash
     console backfill stop
     ```
+    {% include copy.html %}
 
 For more information, see [Backfill]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/).
 
@@ -298,6 +317,7 @@ Use the following command for detailed monitoring of the backfill process:
 ```bash
 console backfill status --deep-check
 ```
+{% include copy.html %}
 
 You should receive the following output:
 
@@ -327,6 +347,7 @@ fields @message
 | sort @timestamp desc
 | limit 10000
 ```
+{% include copy.html %}
 
 If any failed documents are identified, you can index the failed documents directly as opposed to using RFS.
 
