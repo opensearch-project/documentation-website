@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Quickstart: Data migration
+title: Getting started with data migration
 nav_order: 10
 ---
 
-# Getting started: Data migration
+# Getting started with data migration
 
 This quickstart outlines how to deploy Migration Assistant for OpenSearch and execute an existing data migration using `Reindex-from-Snapshot` (RFS). It uses AWS for illustrative purposes. However, the steps can be modified for use with other cloud providers.
 
