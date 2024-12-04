@@ -26,7 +26,7 @@ For migrations paths between Elasticsearch 6.8 and OpenSearch 2.x users should b
 
 The next step is to set up a proper test bed to verify that your applications will work as expected on the target version.
 
-## Data Transformations and Client Impact
+## Impact of data transformations
 
 Any time you apply a transformation to your data, such as:
 
