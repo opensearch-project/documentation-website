@@ -5,7 +5,6 @@ nav_order: 40
 parent: Migration console
 ---
 
-
 # Migration console command reference
 
 Migration console commands follow this syntax: `console [component] [action]`. The components include `clusters`, `backfill`, `snapshot`, `metadata`, and `replay`. The console is configured with a registry of the deployed services and the source and target cluster, generated from the `cdk.context.json` values.
