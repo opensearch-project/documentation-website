@@ -10,6 +10,7 @@ nav_order: 470
 The `word_delimiter` token filter is used to split tokens at predefined characters and also offers optional token normalization based on customizable rules. 
 
 We recommend using the `word_delimiter_graph` filter instead of the `word_delimiter` filter whenever possible because the `word_delimiter` filter sometimes produces invalid token graphs. For more information about the differences between the two filters, see [Differences between the `word_delimiter_graph` and `word_delimiter` filters]({{site.url}}{{site.baseurl}}/analyzers/token-filters/word-delimiter-graph/#differences-between-the-word_delimiter_graph-and-word_delimiter-filters).
+{: .important}
 
 The `word_delimiter` filter is used to remove punctuation from complex identifiers like part numbers or product IDs. In such cases, it is best used with the `keyword` tokenizer. For hyphenated words, use the `synonym_graph` token filter instead of the `word_delimiter` filter because users frequently search for these terms both with and without hyphens.
 {: .note}
