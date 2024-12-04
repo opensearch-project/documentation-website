@@ -1,6 +1,6 @@
 ---
 layout: default
-title: About the migration process
+title: Upgrading OpenSearch
 nav_order: 1
 nav_exclude: true
 permalink: /upgrade-to/
@@ -8,15 +8,15 @@ redirect_from:
   - /upgrade-to/index/
 ---
 
-# About the migration process
+# Upgrading OpenSearch
 
-The process of migrating from Elasticsearch OSS to OpenSearch varies depending on your current version of Elasticsearch OSS, installation type, tolerance for downtime, and cost-sensitivity. OpenSearch provides a [Migration Assistant]({{site.url}}{{site.baseurl}}/migration-assistant/) to help migrating to OpenSearch. 
+The process of upgrading your OpenSearch version varies depending on your current version of OpenSearch, installation type, tolerance for downtime, and cost-sensitivity. For migrating to OpenSearch, we provide a [Migration Assistant]({{site.url}}{{site.baseurl}}/migration-assistant/).
 
-Three approaches exists
+Two upgrade approaches exists:
 
-- Use a snapshot to [migrate your Elasticsearch OSS data]({{site.url}}{{site.baseurl}}/migration-assistant/) to a new OpenSearch cluster. This method may incur downtime.
+
 - Perform a [restart upgrade or a rolling upgrade]({{site.url}}{{site.baseurl}}/upgrade-to/snapshot-migrate/) on your existing nodes. A restart upgrade involves upgrading the entire cluster and restarting it, whereas a rolling upgrade requires upgrading and restarting nodes in the cluster one by one.
-- Replace existing Elasticsearch OSS nodes with new OpenSearch nodes. Node replacement is most popular when upgrading [Docker clusters]({{site.url}}{{site.baseurl}}/upgrade-to/docker-upgrade-to/).
+- Replace existing OpenSearch nodes with new OpenSearch nodes. Node replacement is most popular when upgrading [Docker clusters]({{site.url}}{{site.baseurl}}/upgrade-to/docker-upgrade-to/).
 
 Regardless of your approach, to safeguard against data loss, we recommend that you take a [snapshot]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore) of all indexes prior to any migration.
 
