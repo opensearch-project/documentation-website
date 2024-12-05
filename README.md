@@ -23,7 +23,6 @@ If you encounter problems or have questions when contributing to the documentati
 
 - [kolchfa-aws](https://github.com/kolchfa-aws)
 - [Naarcha-AWS](https://github.com/Naarcha-AWS)
-- [vagimeli](https://github.com/vagimeli)
 
 
 ## Code of conduct
