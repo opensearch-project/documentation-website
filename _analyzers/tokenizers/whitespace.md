@@ -7,11 +7,11 @@ nav_order: 160
 
 # Whitespace tokenizer
 
-The `whitespace` tokenizer splits text based purely on whitespace characters (like spaces, tabs, and newlines). It treats each word separated by whitespace as a token, without performing any additional analysis or normalization like lowercasing or punctuation removal.
+The `whitespace` tokenizer splits text on white space characters, such as spaces, tabs, and new lines. It treats each word separated by white space as a token and does not perform any additional analysis or normalization like lowercasing or punctuation removal.
 
 ## Example usage
 
-The following example request creates a new index named `my_index` and configures an analyzer with `whitespace` tokenizer:
+The following example request creates a new index named `my_index` and configures an analyzer with a `whitespace` tokenizer:
 
 ```json
 PUT /my_index
@@ -100,11 +100,11 @@ The response contains the generated tokens:
 }
 ```
 
-## Configuration
+## Parameters
 
 The `whitespace` tokenizer can be configured with the following parameter.
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
-`max_token_length` | Optional | Integer |  Sets the maximum length of the produced token. If this length is exceeded, the token is split into multiple tokens at length configured in `max_token_length`. Default is `255`.
+`max_token_length` | Optional | Integer |  Sets the maximum length of the produced token. If this length is exceeded, the token is split into multiple tokens at the length configured in `max_token_length`. Default is `255`.
 
