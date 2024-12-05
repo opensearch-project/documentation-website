@@ -7,7 +7,7 @@ nav_order: 120
 
 # Simple pattern split tokenizer
 
-The `simple_pattern_split` tokenizer uses a regular expression to split text into tokens. The regular expression defines the pattern used to determine where to split the text. Any matching pattern in the text is used as a delimiter, and the text between delimiters becomes a token. 
+The `simple_pattern_split` tokenizer uses a regular expression to split text into tokens. The regular expression defines the pattern used to determine where to split the text. Any matching pattern in the text is used as a delimiter, and the text between delimiters becomes a token. Use this tokenizer when you want to to define delimiters and tokenize the rest of the text based on a pattern.
 
 The tokenizer uses the matched parts of the input text (based on the regular expression) only as delimiters or boundaries to split the text into terms. The matched portions are not included as part of the resulting terms. For example, if the tokenizer is configured to split text on dot characters (`.`), and the input text is `one.two.three`, the generated terms are `one`, `two`, and `three`. The dot characters themselves are not included in the resulting terms.
 
