@@ -102,4 +102,4 @@ The `simple_pattern_split` tokenizer can be configured with the following parame
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
-`pattern` | Optional | String | The pattern used to split text into tokens specified using a [Lucene regular expression](https://lucene.apache.org/core/9_10_0/core/org/apache/lucene/util/automaton/RegExp.html). Default is an empty string, which does returns the input text unsplit. 
+`pattern` | Optional | String | The pattern used to split text into tokens specified using a [Lucene regular expression](https://lucene.apache.org/core/9_10_0/core/org/apache/lucene/util/automaton/RegExp.html). Default is an empty string, which returns the input text as one token. 
