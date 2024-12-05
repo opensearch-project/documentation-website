@@ -101,7 +101,7 @@ The response contains the generated tokens:
 }
 ```
 
-## Configuration
+## Parameters
 
 The `standard` tokenizer can be configured with the following parameter.
 
