@@ -7,11 +7,11 @@ nav_order: 130
 
 # Standard tokenizer
 
-The `standard` tokenizer is the default tokenizer used in OpenSearch. It tokenizes text based on word boundaries, using a grammar-based approach that recognizes letters, digits, and other characters like punctuation. It is highly versatile and suitable for many languages, as it follows Unicode text segmentation rules ([UAX#29](https://unicode.org/reports/tr29/)) to break text into tokens.
+The `standard` tokenizer is the default tokenizer in OpenSearch. It tokenizes text based on word boundaries using a grammar-based approach that recognizes letters, digits, and other characters like punctuation. It is highly versatile and suitable for many languages, because it follows Unicode text segmentation rules ([UAX#29](https://unicode.org/reports/tr29/)) to break text into tokens.
 
 ## Example usage
 
-The following example request creates a new index named `my_index` and configures an analyzer with `standard` tokenizer:
+The following example request creates a new index named `my_index` and configures an analyzer with a `standard` tokenizer:
 
 ```json
 PUT /my_index
@@ -39,7 +39,7 @@ PUT /my_index
 
 ## Generated tokens
 
-Use the following request to examine the tokens generated using the created analyzer:
+Use the following request to examine the tokens generated using the analyzer:
 
 ```json
 POST /my_index/_analyze
@@ -107,5 +107,5 @@ The `standard` tokenizer can be configured with the following parameter.
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
-`max_token_length` | Optional | Integer | Sets the maximum length of the produced token. If this length is exceeded, the token is split into multiple tokens at length configured in `max_token_length`. Default is `255`.
+`max_token_length` | Optional | Integer | Sets the maximum length of the produced token. If this length is exceeded, the token is split into multiple tokens at length configured in the `max_token_length`. Default is `255`.
 
