@@ -7,11 +7,13 @@ nav_order: 120
 
 # Simple pattern split tokenizer
 
-The `simple_pattern_split` tokenizer uses a regular expression to split text into tokens. The regular expression defines the pattern used to determine where to split the text. Any matching pattern in the text will be used as a delimiter, and the text between delimiters becomes the token.
+The `simple_pattern_split` tokenizer uses a regular expression to split text into tokens. The regular expression defines the pattern used to determine where to split the text. Any matching pattern in the text is used as a delimiter, and the text between delimiters becomes a token. 
+
+The tokenizer uses the matched parts of the input text (based on the regular expression) only as delimiters or boundaries to split the text into terms. The matched portions are not included as part of the resulting terms. For example, if the tokenizer is configured to split text on dot characters (`.`), and the input text is `one.two.three`, the generated terms are `one`, `two`, and `three`. The dot characters themselves are not included in the resulting terms.
 
 ## Example usage
 
-The following example request creates a new index named `my_index` and configures an analyzer with `simple_pattern_split` tokenizer:
+The following example request creates a new index named `my_index` and configures an analyzer with a `simple_pattern_split` tokenizer. The tokenizer is configured to split text on hyphens:
 
 ```json
 PUT /my_index
@@ -46,7 +48,7 @@ PUT /my_index
 
 ## Generated tokens
 
-Use the following request to examine the tokens generated using the created analyzer:
+Use the following request to examine the tokens generated using the analyzer:
 
 ```json
 POST /my_index/_analyze
@@ -94,10 +96,10 @@ The response contains the generated tokens:
 }
 ```
 
-## Configuration
+## Parameters
 
 The `simple_pattern_split` tokenizer can be configured with the following parameter.
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
-`pattern` | Optional | String | Pattern that will be used to split text into tokens. Default is empty string (` `). 
+`pattern` | Optional | String | The pattern used to split text into tokens specified using a [Lucene regular expression](https://lucene.apache.org/core/9_10_0/core/org/apache/lucene/util/automaton/RegExp.html). Default is an empty string, which does returns the input text unsplit. 
