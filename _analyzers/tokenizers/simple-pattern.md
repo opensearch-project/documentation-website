@@ -7,11 +7,11 @@ nav_order: 110
 
 # Simple pattern tokenizer
 
-The `simple_pattern` tokenizer identifies matching sequences in the text based on the regular expression and uses those sequences as tokens.
+The `simple_pattern` tokenizer identifies matching sequences in the text based on the regular expression and uses those sequences as tokens. It extracts terms that match the regular expression. Use this tokenizer when you want to extract specific patterns as terms directly.
 
 ## Example usage
 
-The following example request creates a new index named `my_index` and configures an analyzer with `simple_pattern` tokenizer:
+The following example request creates a new index named `my_index` and configures an analyzer with a `simple_pattern` tokenizer. The tokenizer extracts numeric terms from text:
 
 ```json
 PUT /my_index
@@ -38,7 +38,7 @@ PUT /my_index
 
 ## Generated tokens
 
-Use the following request to examine the tokens generated using the created analyzer:
+Use the following request to examine the tokens generated using the analyzer:
 
 ```json
 POST /my_index/_analyze
@@ -79,11 +79,11 @@ The response contains the generated tokens:
 }
 ```
 
-## Configuration
+## Parameters
 
 The `simple_pattern` tokenizer can be configured with the following parameter.
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
-`pattern` | Optional | String | Pattern which is used to split text into tokens. Default is empty string (` `).
+`pattern` | Optional | String | The pattern used to split text into tokens specified using a [Lucene regular expression](https://lucene.apache.org/core/9_10_0/core/org/apache/lucene/util/automaton/RegExp.html). Default is an empty string, which returns the input text as one token. 
 
