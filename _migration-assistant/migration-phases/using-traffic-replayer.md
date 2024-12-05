@@ -17,7 +17,7 @@ For example, if a document was deleted after a snapshot was taken, starting Traf
 
 ## Configuration options
 
-[Traffic Replayer settings]({{site.url}}{{site.baseurl}}/migrations/deploying-migration-assisstant/configuation-options/) are configured during the deployment of Migration Assistant. Make sure to set the authentication mode for Traffic Replayer so that it can properly communicate with the target cluster. For more information about different types of traffic that are handled by Traffic Replayer, see [limitations](#limitations).
+[Traffic Replayer settings]({{site.url}}{{site.baseurl}}/migration-assistant/deploying-migration-assistant/configuration-options/) are configured during the deployment of Migration Assistant. Make sure to set the authentication mode for Traffic Replayer so that it can properly communicate with the target cluster. 
 
 ## Using Traffic Replayer
 
@@ -152,12 +152,13 @@ Suppose that a source request contains a `tagToExcise` element that needs to be 
 
 The resulting request sent to the target will appear similar to the following:
 
-```http
+```bash
 PUT /oldStyleIndex/moreStuff HTTP/1.0
 host: testhostname
 
 {"top":{"properties":{"field1":{"type":"text"},"field2":{"type":"keyword"}}}}
 ```
+{% include copy.html %}
 
 You can pass Base64-encoded transformation scripts using `--transformer-config-base64`.
 
@@ -220,6 +221,7 @@ The following example log entry shows a `/_cat/indices?v` request sent to both t
     "numErrors": 0
 }
 ```
+{% include copy.html %}
 
 
 ### Decoding log content

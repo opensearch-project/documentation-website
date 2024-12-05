@@ -2,18 +2,20 @@
 layout: default
 title: Getting started with data migration
 nav_order: 10
+redirect_from:
+  - /upgrade-to/upgrade-to/
+  - /upgrade-to/snapshot-migrate/
 ---
 
 # Getting started with data migration
 
 This quickstart outlines how to deploy Migration Assistant for OpenSearch and execute an existing data migration using `Reindex-from-Snapshot` (RFS). It uses AWS for illustrative purposes. However, the steps can be modified for use with other cloud providers.
 
-
 ## Prerequisites and assumptions
 
 Before using this quickstart, make sure you fulfill the following prerequisites:
 
-* Verify that your migration path [is supported](https://opensearch.org/docs/latest/migrations/is-migration-assistant-right-for-you/#supported-migration-paths). Note that we test with the exact versions specified, but you should be able to migrate data on alternative minor versions as long as the major version is supported.
+* Verify that your migration path [is supported]({{site.url}}{{site.baseurl}}/migration-assistant/is-migration-assistant-right-for-you/#migration-paths). Note that we test with the exact versions specified, but you should be able to migrate data on alternative minor versions as long as the major version is supported.
 * The source cluster must be deployed Amazon Simple Storage Service (Amazon S3) plugin.
 * The target cluster must be deployed.
 
@@ -27,7 +29,7 @@ The steps in this guide assume the following:
 
 ---
 
-## Step 1: Installing Bootstrap on an Amazon EC2 instance (~10 minutes)
+## Step 1: Install Bootstrap on an Amazon EC2 instance (~10 minutes)
 
 To begin your migration, use the following steps to install a `bootstrap` box on an Amazon Elastic Compute Cloud (Amazon EC2) instance. The instance uses AWS CloudFormation to create and manage the stack.
 
@@ -41,7 +43,7 @@ To begin your migration, use the following steps to install a `bootstrap` box on
 
 ---
 
-## Step 2: Setting up Bootstrap instance access (~5 minutes)
+## Step 2: Set up Bootstrap instance access (~5 minutes)
 
 Use the following steps to set up Bootstrap instance access:
 
@@ -63,12 +65,13 @@ Use the following steps to set up Bootstrap instance access:
         ]
     }
     ```
+    {% include copy.html %}
 
 3. Name the policy, for example, `SSM-OSMigrationBootstrapAccess`, and then create the policy by selecting **Create policy**.
 
 ---
 
-## Step 3: Logging in to Bootstrap and building Migration Assistant (~15 minutes)
+## Step 3: Log in to Bootstrap and building Migration Assistant (~15 minutes)
 
 Next, log in to Bootstrap and build Migration Assistant using the following steps.
 
@@ -87,18 +90,20 @@ To use these steps, make sure you fulfill the following prerequisites:
     ```bash
     aws ssm start-session --document-name BootstrapShellDoc-<stage>-<aws-region> --target <instance-id> --region <aws-region> [--profile <profile-name>]
     ```
+    {% include copy.html %}
     
 3. Once logged in, run the following command from the shell of the Bootstrap instance in the `/opensearch-migrations` directory:
 
     ```bash
     ./initBootstrap.sh && cd deployment/cdk/opensearch-service-migration
     ```
+    {% include copy.html %}
     
 4. After a successful build, note the path for infrastructure deployment, which will be used in the next step.
 
 ---
 
-## Step 4: Configuring and deploying RFS (~20 minutes)
+## Step 4: Configure and deploy RFS (~20 minutes)
 
 Use the following steps to configure and deploy RFS:
 
@@ -134,6 +139,7 @@ Use the following steps to configure and deploy RFS:
     }
     }
     ```
+    {% include copy.html %}
 
     The source and target cluster authorization can be configured to have no authorization, `basic` with a username and password, or `sigv4`. 
 
@@ -142,12 +148,14 @@ Use the following steps to configure and deploy RFS:
     ```bash
     cdk bootstrap --c contextId=migration-assistant --require-approval never 
     ```
+    {% include copy.html %}
 
 4. Deploy the stacks:
 
     ```bash
     cdk deploy "*" --c contextId=migration-assistant --require-approval never --concurrency 5
     ```
+    {% include copy.html %}
 
 5. Verify that all CloudFormation stacks were installed successfully.
 
@@ -163,7 +171,7 @@ You will also need to give the `migrationconsole` and `reindexFromSnapshot` Task
 
 ---
 
-## Step 5: Deploying Migration Assistant
+## Step 5: Deploy Migration Assistant
 
 To deploy Migration Assistant, use the following steps:
 
@@ -172,11 +180,14 @@ To deploy Migration Assistant, use the following steps:
     ```bash
     cdk bootstrap --c contextId=migration-assistant --require-approval never --concurrency 5
     ```
+    {% include copy.html %}
+
 2. Deploy the stacks when `cdk.context.json` is fully configured:
    
     ```bash
     cdk deploy "*" --c contextId=migration-assistant --require-approval never --concurrency 3
     ```
+    {% include copy.html %}
 
 These commands deploy the following stacks:
 
@@ -186,13 +197,14 @@ These commands deploy the following stacks:
 
 ---
 
-## Step 6: Accessing the migration console
+## Step 6: Access the migration console
 
 Run the following command to access the migration console:
 
 ```bash
 ./accessContainer.sh migration-console dev <region>
 ```
+{% include copy.html %}
 
 
 `accessContainer.sh` is located in `/opensearch-migrations/deployment/cdk/opensearch-service-migration/` on the Bootstrap instance. To learn more, see [Accessing the migration console].
@@ -200,17 +212,18 @@ Run the following command to access the migration console:
 
 ---
 
-## Step 7: Verifying the connection to the source and target clusters
+## Step 7: Verify the connection to the source and target clusters
 
 To verify the connection to the clusters, run the following command:
 
 ```bash
 console clusters connection-check
 ```
+{% include copy.html %}
 
 You should receive the following output:
 
-```
+```bash
 * **Source Cluster:** Successfully connected!
 * **Target Cluster:** Successfully connected!
 ```
@@ -219,25 +232,28 @@ To learn more about migration console commands, see [Migration commands].
 
 ---
 
-## Step 8: Snapshot creation
+## Step 8: Create a snapshot
 
 Run the following command to initiate snapshot creation from the source cluster:
 
 ```bash
 console snapshot create [...]
 ```
+{% include copy.html %}
 
 To check the snapshot creation status, run the following command:
 
 ```bash
 console snapshot status [...]
 ```
+{% include copy.html %}
 
 To learn more information about the snapshot, run the following command:
 
 ```bash
 console snapshot status --deep-check [...]
 ```
+{% include copy.html %}
 
 Wait for snapshot creation to complete before moving to step 9.
 
@@ -245,19 +261,20 @@ To learn more about snapshot creation, see [Snapshot Creation].
 
 ---
 
-## Step 9: Metadata migration
+## Step 9: Migrate metadata
 
 Run the following command to migrate metadata:
 
 ```bash
 console metadata migrate [...]
 ```
+{% include copy.html %}
 
-For more information, see [Migrating metadata]({{site.url}}{{site.baseurl}}/migrations/migration-phases/migrating-metadata/).
+For more information, see [Migrating metadata]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrating-metadata/).
 
 ---
 
-## Step 10: RFS document migration
+## Step 10: Migrate documents with RFS
 
 You can now use RFS to migrate documents from your original cluster:
 
@@ -266,26 +283,30 @@ You can now use RFS to migrate documents from your original cluster:
     ```bash
     console backfill start
     ```
+    {% include copy.html %}
 
 2. _(Optional)_ To speed up the migration, increase the number of documents processed at a simultaneously by using the following command:
 
     ```bash
     console backfill scale <NUM_WORKERS>
     ```
+    {% include copy.html %}
 
 3. To check the status of the documentation backfill, use the following command:
 
     ```bash
     console backfill status
     ```
+    {% include copy.html %}
 
 4. If you need to stop the backfill process, use the following command:
 
     ```bash
     console backfill stop
     ```
+    {% include copy.html %}
 
-For more information, see [Backfill]({{site.url}}{{site.baseurl}}/migrations/migration-phases/backfill/).
+For more information, see [Backfill]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/).
 
 ---
 
@@ -296,6 +317,7 @@ Use the following command for detailed monitoring of the backfill process:
 ```bash
 console backfill status --deep-check
 ```
+{% include copy.html %}
 
 You should receive the following output:
 
@@ -325,6 +347,7 @@ fields @message
 | sort @timestamp desc
 | limit 10000
 ```
+{% include copy.html %}
 
 If any failed documents are identified, you can index the failed documents directly as opposed to using RFS.
 
