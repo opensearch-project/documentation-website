@@ -19,9 +19,6 @@ To create a custom analyzer, you must specify a combination of the following com
 
 The following parameters can be used to configure a custom analyzer.
 
-Here’s the Markdown table based on your list:
-
-```markdown
 | Parameter                | Required/Optional | Description  |
 |:--- | :--- | :--- |
 | `type`                   | Optional          | The analyzer type. Default is `custom`. You can also specify a pre-built analyzer using this parameter.              |
@@ -29,7 +26,6 @@ Here’s the Markdown table based on your list:
 | `char_filter`            | Optional          | A list of character filters to be included in the analyzer. |
 | `filter`                 | Optional          | A list of token filters to be included in the analyzer. |
 | `position_increment_gap` | Optional          | The extra spacing applied between values when indexing text fields that have multiple values. For more information, see [Position increment gap](#position-increment-gap). Default is `100`. |
-```
 
 ## Examples
 
