@@ -1,16 +1,13 @@
 ---
 layout: default
-title: Creating custom analyzer
+title: Creating a custom analyzer
 nav_order: 90
 parent: Analyzers
-
 ---
 
-# Creating custom analyzer
+# Creating a custom analyzer
 
-If you have a use-case where a pre-built analyzers do not tick all the boxes, you can create a custom analyzer.
-
-Analyzers are built using combination of:
+To create a custom analyzer, you must specify a combination of the following components:
 
 - Character filters (zero or more)
 
@@ -20,21 +17,27 @@ Analyzers are built using combination of:
 
 ## Configuration
 
-Following parameters can be used to configure the custom analyzer:
+The following parameters can be used to configure a custom analyzer.
 
-- `type`: Type of analyzer. Default is `custom`. You can also specify the pre-built analyzer using this parameter. (Optional)
-- `tokenizer`: tokenizer to be included in the analyzer. (Required)
-- `char_filter`: list of character filters to be included in the analyzer. (Optional)
-- `filter`: list of token filters to be included in the analyzer. (Optional)
-- `position_increment_gap`: The artificial distance that will be added during indexing of text fields with multiple values. You can find further details at [Position increment gap.]({{site.url}}{{site.baseurl}}/analyzers/custom-analyzer/#position-increment-gap) Default is `100`. (Optional)
+Here’s the Markdown table based on your list:
+
+```markdown
+| Parameter                | Required/Optional | Description  |
+|:--- | :--- | :--- |
+| `type`                   | Optional          | The analyzer type. Default is `custom`. You can also specify a pre-built analyzer using this parameter.              |
+| `tokenizer`              | Required          | A tokenizer to be included in the analyzer. |
+| `char_filter`            | Optional          | A list of character filters to be included in the analyzer. |
+| `filter`                 | Optional          | A list of token filters to be included in the analyzer. |
+| `position_increment_gap` | Optional          | The extra spacing applied between values when indexing text fields that have multiple values. For more information, see [Position increment gap](#position-increment-gap). Default is `100`. |
+```
 
 ## Examples
 
-Following examples demonstrate different configurations for custom analyzers
+The following examples demonstrate various custom analyzer configurations.
 
-### Custom Analyzer with Character Filter for HTML Stripping
+### Custom analyzer with a character filter for HTML stripping
 
-Following example analyzer can be used to remove HTML tags from the text before tokenization:
+The following example analyzer removes HTML tags from text before tokenization:
 
 ```json
 PUT simple_html_strip_analyzer_index
@@ -54,8 +57,6 @@ PUT simple_html_strip_analyzer_index
 }
 ```
 {% include copy-curl.html %}
-
-#### Generated tokens
 
 Use the following request to examine the tokens generated using the analyzer:
 
@@ -98,9 +99,9 @@ The response contains the generated tokens:
 }
 ```
 
-### Analyzer with Mapping Character Filter for Synonym Replacement
+### Custom analyzer with a mapping character filter for synonym replacement
 
-Following example analyzer can be used to replace specific characters and patterns before applying the synonym filter.
+The following example analyzer replaces specific characters and patterns before applying the synonym filter:
 
 ```json
 PUT mapping_analyzer_index
@@ -136,8 +137,6 @@ PUT mapping_analyzer_index
 ```
 {% include copy-curl.html %}
 
-#### Generated tokens
-
 Use the following request to examine the tokens generated using the analyzer:
 
 ```json
@@ -165,9 +164,9 @@ The response contains the generated tokens:
 }
 ```
 
-### Analyzer with Custom Pattern-Based Character Filter for Number Normalization
+### Custom analyzer with a custom pattern-based character filter for number normalization
 
-Following example analyzer can be used to normalize phone numbers by removing dashes and spaces and apply edge n-grams to the normalized text for partial matches.
+The following example analyzer normalizes phone numbers by removing dashes and spaces and applies edge n-grams to the normalized text to support partial matches:
 
 ```json
 PUT advanced_pattern_replace_analyzer_index
@@ -202,8 +201,6 @@ PUT advanced_pattern_replace_analyzer_index
 ```
 {% include copy-curl.html %}
 
-#### Generated tokens
-
 Use the following request to examine the tokens generated using the analyzer:
 
 ```json
@@ -234,11 +231,11 @@ The response contains the generated tokens:
 
 ## Position increment gap
 
-The `position_increment_gap` parameter sets a positional gap between terms when indexing multi-valued fields, like arrays. This gap ensures that phrase queries typically don't match terms across separate values unless explicitly allowed. For example, a default gap of 100 means terms in different array entries are 100 positions apart, preventing unintended matches in phrase searches. You can adjust this value or set it to 0 to allow phrases to span across array values.
+The `position_increment_gap` parameter sets a positional gap between terms when indexing multi-valued fields, such as arrays. This gap ensures that phrase queries don't match terms across separate values unless explicitly allowed. For example, a default gap of 100 means terms in different array entries are 100 positions apart, preventing unintended matches in phrase searches. You can adjust this value or set it to `0` in order to allow phrases to span across array values.
 
-Following example demonstrates the effect of `position_increment_gap` using `match_phrase` query.
+The following example demonstrates the effect of `position_increment_gap` using a `match_phrase` query.
 
-1. Index a document in `test-index`:
+1. Index a document in a `test-index`:
 
      ```json
      PUT test-index/_doc/1
@@ -248,7 +245,7 @@ Following example demonstrates the effect of `position_increment_gap` using `mat
      ```
      {% include copy-curl.html %}
 
-2. Query the document using `match_phrase`:
+1. Query the document using a `match_phrase` query:
 
     ```json
     GET test-index/_search
@@ -264,9 +261,9 @@ Following example demonstrates the effect of `position_increment_gap` using `mat
     ```
     {% include copy-curl.html %}
     
-    You should get no hits, as theoretically the distance between these two terms is `100` (the default of `position_increment_gap`).
+    The response returns no hits, because the distance between the terms `green` and `turtle` is `100` (the default `position_increment_gap`).
 
-3. Now query the document using `match_phrasez` with `slop` parameter higher than the `position_increment_gap`:
+1. Now query the document using a `match_phrase` query with a `slop` parameter higher than the `position_increment_gap`:
 
     ```json
     GET test-index/_search
@@ -283,37 +280,37 @@ Following example demonstrates the effect of `position_increment_gap` using `mat
     ```
     {% include copy-curl.html %}
 
-Expected response:
+    The response contains the matching document:
 
-```json
-{
-  "took": 4,
-  "timed_out": false,
-  "_shards": {
-    "total": 1,
-    "successful": 1,
-    "skipped": 0,
-    "failed": 0
-  },
-  "hits": {
-    "total": {
-      "value": 1,
-      "relation": "eq"
-    },
-    "max_score": 0.010358453,
-    "hits": [
-      {
-        "_index": "test-index",
-        "_id": "1",
-        "_score": 0.010358453,
-        "_source": {
-          "names": [
-            "Slow green",
-            "turtle swims"
-          ]
-        }
+    ```json
+    {
+      "took": 4,
+      "timed_out": false,
+      "_shards": {
+        "total": 1,
+        "successful": 1,
+        "skipped": 0,
+        "failed": 0
+      },
+      "hits": {
+        "total": {
+          "value": 1,
+          "relation": "eq"
+        },
+        "max_score": 0.010358453,
+        "hits": [
+          {
+            "_index": "test-index",
+            "_id": "1",
+            "_score": 0.010358453,
+            "_source": {
+              "names": [
+                "Slow green",
+                "turtle swims"
+              ]
+            }
+          }
+        ]
       }
-    ]
-  }
-}
-```
+    }
+    ```
