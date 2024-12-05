@@ -10,47 +10,6 @@ parent: Migration phases
 Metadata migration involves creating a snapshot of your cluster and then migrating the metadata from the snapshot using the migration console.
 
 This tool gathers information from a source cluster through a snapshot or through HTTP requests against the source cluster. These snapshots are fully compatible with the backfill process for `Reindex-From-Snapshot` (RFS) scenarios.
-<<<<<<< HEAD:_migrations/migration-phases/migrating-metadata.md
-
-After collecting information on the source cluster, comparisons are made against the target cluster. If running a migration, any metadata items that do not already exist will be created on the target cluster.
-
-## Creating the snapshot
-
-Creating a snapshot of the source cluster captures all the metadata and documents to be migrated to a new target cluster.
-
-Create the initial snapshot of the source cluster using the following command:
-
-```shell
-console snapshot create
-```
-
-To check the progress of the snapshot in real time, use the following command:
-
-```shell
-console snapshot status --deep-check
-```
-
-You should receive the following response when the snapshot is created:
-
-```shell
-SUCCESS
-Snapshot is SUCCESS.
-Percent completed: 100.00%
-Data GiB done: 29.211/29.211
-Total shards: 40
-Successful shards: 40
-Failed shards: 0
-Start time: 2024-07-22 18:21:42
-Duration: 0h 13m 4s
-Anticipated duration remaining: 0h 0m 0s
-Throughput: 38.13 MiB/sec
-```
-
-### Managing slow snapshot speeds
-
-Depending on the size of the data in the source cluster and the bandwidth allocated for snapshots, the process can take some time. Adjust the maximum rate at which the source cluster's nodes create the snapshot using the `--max-snapshot-rate-mb-per-node` option. Increasing the snapshot rate will consume more node resources, which may affect the cluster's ability to handle normal traffic. 
-=======
->>>>>>> 72f07c60 (Add migrations section (#8873)):_migration-assistant/migration-phases/migrating-metadata.md
 
 After collecting information on the source cluster, comparisons are made against the target cluster. If running a migration, any metadata items that do not already exist will be created on the target cluster.
 
@@ -217,11 +176,7 @@ Before moving on to additional migration steps, it is recommended to confirm det
 
 Use these instructions to help troubleshoot the following issues.
 
-<<<<<<< HEAD:_migrations/migration-phases/migrating-metadata.md
-### Access detailed logs
-=======
 ### Accessing detailed logs
->>>>>>> 72f07c60 (Add migrations section (#8873)):_migration-assistant/migration-phases/migrating-metadata.md
 
 Metadata migration creates a detailed log file that includes low level tracing information for troubleshooting. For each execution of the program a log file is created inside a shared volume on the migration console named `shared-logs-output` the following command will list all log files, one for each run of the command.
 
@@ -289,8 +244,4 @@ As Metadata migration supports migrating from ES 6.8 on to the latest versions o
 ```
 {% include copy.html %}
 
-<<<<<<< HEAD:_migrations/migration-phases/migrating-metadata.md
 For additional technical details, [view the mapping type removal source code](https://github.com/opensearch-project/opensearch-migrations/blob/main/transformation/src/main/java/org/opensearch/migrations/transformation/rules/IndexMappingTypeRemoval.java).
-=======
-For additional technical details, [view the mapping type removal source code](https://github.com/opensearch-project/opensearch-migrations/blob/main/transformation/src/main/java/org/opensearch/migrations/transformation/rules/IndexMappingTypeRemoval.java).
->>>>>>> 72f07c60 (Add migrations section (#8873)):_migration-assistant/migration-phases/migrating-metadata.md
