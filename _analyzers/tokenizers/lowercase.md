@@ -7,11 +7,11 @@ nav_order: 70
 
 # Lowercase tokenizer
 
-The `lowercase` tokenizer breaks text into terms wherever there is whitespace and then lowercases all the terms. Functionally this is identical to configuring `letter` tokenizer with `lowercase` token filter, however using `lowercase` tokenizer is more efficient, as these actions are performed in a single step.
+The `lowercase` tokenizer breaks text into terms on white space and then lowercases all the terms. Functionally, this is identical to configuring a `letter` tokenizer with a `lowercase` token filter. However, using a `lowercase` tokenizer is more efficient because the tokenizer actions are performed in a single step.
 
 ## Example usage
 
-The following example request creates a new index named `my-lowercase-index` and configures an analyzer with `lowercase` tokenizer:
+The following example request creates a new index named `my-lowercase-index` and configures an analyzer with a `lowercase` tokenizer:
 
 ```json
 PUT /my-lowercase-index
@@ -37,7 +37,7 @@ PUT /my-lowercase-index
 
 ## Generated tokens
 
-Use the following request to examine the tokens generated using the created analyzer:
+Use the following request to examine the tokens generated using the analyzer:
 
 ```json
 POST /my-lowercase-index/_analyze
