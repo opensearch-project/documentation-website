@@ -7,13 +7,13 @@ nav_order: 140
 
 # Thai tokenizer
 
-The `thai` tokenizer is designed for tokenizing Thai language text. As words in Thai language are not separated by spaces, the tokenizer must identify word boundaries based on language-specific rules.
+The `thai` tokenizer is designed for tokenizing Thai language text. Because words in Thai language are not separated by spaces, the tokenizer must identify word boundaries based on language-specific rules.
 
 ## Example usage
 
-The following example request creates a new index named `thai_index` and configures an analyzer with `thai` tokenizer:
+The following example request creates a new index named `thai_index` and configures an analyzer with a `thai` tokenizer:
 
-```
+```json
 PUT /thai_index
 {
   "settings": {
@@ -45,7 +45,7 @@ PUT /thai_index
 
 ## Generated tokens
 
-Use the following request to examine the tokens generated using the created analyzer:
+Use the following request to examine the tokens generated using the analyzer:
 
 ```json
 POST /thai_index/_analyze
