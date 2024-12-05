@@ -7,11 +7,11 @@ nav_order: 90
 
 # Pattern tokenizer
 
-The `path_hierarchy` tokenizer is designed to tokenize file system-like paths (or similar hierarchical structures) by breaking them down into tokens at each level of the hierarchy. This tokenizer is particularly useful when working with hierarchical data such as file paths, URLs, or any other delimited paths.
+The `path_hierarchy` tokenizer is designed to tokenize file-system-like paths (or similar hierarchical structures) by breaking them down into tokens at each hierarchy level. This tokenizer is particularly useful when working with hierarchical data such as file paths, URLs, or any other delimited paths.
 
 ## Example usage
 
-The following example request creates a new index named `my_index` and configures an analyzer with `path_hierarchy` tokenizer:
+The following example request creates a new index named `my_index` and configures an analyzer with a `path_hierarchy` tokenizer:
 
 ```json
 PUT /my_index
@@ -37,7 +37,7 @@ PUT /my_index
 
 ## Generated tokens
 
-Use the following request to examine the tokens generated using the created analyzer:
+Use the following request to examine the tokens generated using the analyzer:
 
 ```json
 POST /my_index/_analyze
@@ -85,7 +85,7 @@ The response contains the generated tokens:
 }
 ```
 
-## Configuration
+## Parameters
 
 The `path_hierarchy` tokenizer can be configured with the following parameters.
 
@@ -93,13 +93,13 @@ Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
 `delimiter` | Optional | String | Specifies the character used to separate path components. Default is `/`.
 `replacement` | Optional | String | Configures the character used to replace the delimiter in the tokens. Default is `/`.
-`buffer_size` | Optional | Integer | Specifies the size of the buffer. Default is `1024`.
-`reverse` | Optional | Boolean | Produces tokens in reverse order if set to `true`. Default is `false`.
+`buffer_size` | Optional | Integer | Specifies the buffer size. Default is `1024`.
+`reverse` | Optional | Boolean | If `true`, specifies to generate tokens in reverse order. Default is `false`.
 `skip` | Optional | Integer | Specifies the number of initial tokens (levels) to skip when tokenizing. Default is `0`.
 
-## Example using custom parameter
+## Example using delimiter and replacement parameters
 
-The following example configures custom `delimiter` and `replacement`:
+The following example configures custom `delimiter` and `replacement` parameters:
 
 ```json
 PUT /my_index
@@ -125,9 +125,8 @@ PUT /my_index
 ```
 {% include copy-curl.html %}
 
-## Generated tokens
 
-Use the following request to examine the tokens generated using the created analyzer:
+Use the following request to examine the tokens generated using the analyzer:
 
 ```json
 POST /my_index/_analyze
