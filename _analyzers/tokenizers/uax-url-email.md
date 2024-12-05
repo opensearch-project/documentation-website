@@ -7,11 +7,11 @@ nav_order: 150
 
 # UAX URL email tokenizer
 
-In addition to normal text, the `uax_url_email` tokenizer is designed to handle URLs, email addresses, and domain names. It is based on the Unicode Text Segmentation algorithm ([UAX #29](https://www.unicode.org/reports/tr29/)), which allows it to tokenize complex text correctly, including URLs and email addresses.
+In addition to regular text, the `uax_url_email` tokenizer is designed to handle URLs, email addresses, and domain names. It is based on the Unicode Text Segmentation algorithm ([UAX #29](https://www.unicode.org/reports/tr29/)), which allows it to  correctly tokenize complex text, including URLs and email addresses.
 
 ## Example usage
 
-The following example request creates a new index named `my_index` and configures an analyzer with `uax_url_email` tokenizer:
+The following example request creates a new index named `my_index` and configures an analyzer with a `uax_url_email` tokenizer:
 
 ```json
 PUT /my_index
@@ -74,11 +74,11 @@ The response contains the generated tokens:
 }
 ```
 
-## Configuration
+## Parameters
 
 The `uax_url_email` tokenizer can be configured with the following parameter.
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
-`max_token_length` | Optional | Integer | Sets the maximum length of the produced token. If this length is exceeded, the token is split into multiple tokens at length configured in `max_token_length`. Default is `255`.
+`max_token_length` | Optional | Integer | Sets the maximum length of the produced token. If this length is exceeded, the token is split into multiple tokens at the length configured in `max_token_length`. Default is `255`.
 
