@@ -7,7 +7,7 @@ parent: Analyzers
 
 # Creating a custom analyzer
 
-To create a custom analyzer, you must specify a combination of the following components:
+To create a custom analyzer, specify a combination of the following components:
 
 - Character filters (zero or more)
 
