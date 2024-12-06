@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Normalizers
-nav_order: 100
+nav_order: 110
 ---
 
 # Normalizers
