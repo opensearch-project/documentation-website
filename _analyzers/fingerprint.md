@@ -6,7 +6,7 @@ nav_order: 110
 
 # Fingerprint analyzer
 
-The `fingerprint` analyzer is designed to create a fingerprint of text. This analyzer sorts and deduplicates the terms (tokens) generated from the input, and then concatenates them using a separator. It is commonly used for data deduplication, as it produces the same output for similar inputs with the same words, regardless of the order of the words.
+The `fingerprint` analyzer is designed to create a fingerprint of text. This analyzer sorts and deduplicates the terms (tokens) generated from the input, and then concatenates them using a separator. It is commonly used for data deduplication because it produces the same output for similar inputs containing the same words, regardless of the order of the words.
 
 The `fingerprint` analyzer is comprised of the following components:
 
@@ -16,7 +16,7 @@ The `fingerprint` analyzer is comprised of the following components:
 - Stop token filter
 - Fingerprint token filter
 
-## Configuration
+## Parameters
 
 The `fingerprint` analyzer can be configured using the following parameters.
 
@@ -24,13 +24,13 @@ Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
 `separator` | Optional | String | Specifies the character used to concatenate the terms after they have been tokenized, sorted, and deduplicated. Default is empty space (` `).
 `max_output_size` | Optional | Integer | Defines the maximum size of the output token. If the concatenated fingerprint exceeds this size, it will be truncated. Default is `255`.
-`stopwords` | Optional | String or list of strings | A custom list or predefined list of stop words. Default is `_none_`.
-`stopwords_path` | Optional | String | Path (absolute of relative to config directory) to the list of stop words.
+`stopwords` | Optional | String or list of strings | A custom list or predefined list of stopwords. Default is `_none_`.
+`stopwords_path` | Optional | String | The path (absolute of relative to the config directory) to the list of stopwords.
 
 
-## Example configuration
+## Example
 
-You can use the following command to create index `my_custom_fingerprint_index` with `fingerprint` analyzer:
+Use the following command to create an index named `my_custom_fingerprint_index` with a `fingerprint` analyzer:
 
 ```json
 PUT /my_custom_fingerprint_index
@@ -61,7 +61,7 @@ PUT /my_custom_fingerprint_index
 
 ## Generated tokens
 
-Use the following request to examine the tokens generated using the created analyzer:
+Use the following request to examine the tokens generated using the analyzer:
 
 ```json
 POST /my_custom_fingerprint_index/_analyze
@@ -90,7 +90,7 @@ The response contains the generated tokens:
 
 ## Further customization
 
-If further customization is needed, you can define an analyzer with the components that make up the `fingerprint` analyzer using the following example:
+If further customization is needed, you can define an analyzer with additional components that make up the `fingerprint` analyzer:
 
 ```json
 PUT /custom_fingerprint_analyzer
