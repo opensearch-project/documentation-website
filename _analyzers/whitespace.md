@@ -6,11 +6,11 @@ nav_order: 60
 
 # Whitespace analyzer
 
-The `whitespace` analyzer breaks text into tokens based solely on whitespace characters (spaces, tabs, etc.). It does not apply any transformations, such as lowercasing or removing stop words, therefore the case of the original text is retained and will include punctuation as part of the tokens.
+The `whitespace` analyzer breaks text into tokens based only on whitespace characters (spaces, tabs, and others). It does not apply any transformations, such as lowercasing or removing stopwords, therefore the case of the original text is retained and punctuation is included as part of the tokens.
 
-## Example configuration
+## Example
 
-You can use the following command to create index `my_whitespace_index` with `whitespace` analyzer:
+Use the following command to create an index named `my_whitespace_index` with a `whitespace` analyzer:
 
 ```json
 PUT /my_whitespace_index
@@ -27,9 +27,9 @@ PUT /my_whitespace_index
 ```
 {% include copy-curl.html %}
 
-## Configuring custom analyzer
+## Configuring a custom analyzer
 
-You can use the following command to configure index `my_custom_whitespace_index` with custom analyzer equivalent to `whitespace` analyzer but with added `lowercase` character filter:
+Use the following command to configure an index with a custom analyzer that is equivalent to a `whitespace` analyzer with an added `lowercase` character filter:
 
 ```json
 PUT /my_custom_whitespace_index
@@ -59,7 +59,7 @@ PUT /my_custom_whitespace_index
 
 ## Generated tokens
 
-Use the following request to examine the tokens generated using the created analyzer:
+Use the following request to examine the tokens generated using the analyzer:
 
 ```json
 POST /my_custom_whitespace_index/_analyze
