@@ -51,10 +51,10 @@ Within the RankLib model, each tree in the ensemble examines feature values, mak
 
 ### Other RankLib models
 
-RankLib is a library that implements several other model types besides LambdaMART, such as MART,
+RankLib is a library that implements several other model types in addition to LambdaMART, such as MART,
 RankNet, RankBoost, AdaRank, Coordinate Ascent, ListNet, and Random Forests. Each of these models has its own set of parameters and training process.
 
-For example, the RankNet model is a neural network that learns to predict the probability that a document is more relevant than another document. The model is trained using a pairwise loss function that compares the predicted relevance of two documents with the actual relevance. The model is serialized in a format similar to the following example:
+For example, the RankNet model is a neural network that learns to predict the probability of a document being more relevant than another document. The model is trained using a pairwise loss function that compares the predicted relevance of two documents with the actual relevance. The model is serialized in a format similar to the following example:
 
 ```
 ## RankNet
