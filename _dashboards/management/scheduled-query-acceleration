@@ -1,0 +1,228 @@
+---
+layout: default
+title: Optimizing direct queries from OpenSearch Service to Amazon S3 with Scheduled Query Acceleration
+parent: Data sources
+nav_order: 18
+has_children: true
+---
+
+# Optimizing direct queries from OpenSearch Service to Amazon S3 with Scheduled Query Acceleration
+Introduced 2.17
+{: .label .label-purple }
+
+## Overview
+
+Scheduled Query Acceleration (SQA) is designed to enhance user experience by addressing the challenges often faced with managing and refreshing indexes, views, and data in an automated way. This guide will help you understand how SQA can improve workflows, reduce costs, and enhance transparency in managing your data.
+
+## Key Benefits
+
+### Cost Reduction Through Optimized Resource Usage
+
+By optimizing the driver node utilization, SQA significantly reduces the costs linked to maintaining auto-refresh capabilities for indexes and views. With fewer continuous driver operations needed, you can expect more efficient resource usage and a lower impact on your budget.
+
+For example, by comparing the total cost of using an internal scheduler versus an external scheduler at different refresh intervals (e.g., 5 minutes, 15 minutes, 30 minutes), SQA shows significant cost advantages.
+
+### Improved Observability of Refresh Operations
+
+SQA enhances transparency around index states and refresh operations, allowing you to see when refreshes occur. This observability provides improved insights into data processing, making it easier to understand the state of your data in real time. This feature helps in reducing uncertainty around the "refreshing" status, enabling data-driven decision-making based on actual system state.
+
+### Better Control Over Refresh Scheduling
+
+With SQA, you have more flexible scheduling options. You can set refresh intervals based on your specific requirements, ensuring efficient data management without overburdening driver nodes. This means greater control over resource usage and refresh frequency that better aligns with your needs.
+
+### Simplified Index Management
+
+SQA also simplifies index management by allowing you to adjust index settings without multiple, complicated queries. You can easily update refresh intervals or other parameters, thereby streamlining your workflow and reducing manual effort.
+
+## Getting Started
+
+### Prerequisites
+
+- **OpenSearch Version Requirements**: OpenSearch 2.17 or later.
+- **Required Plugins and Dependencies**: SQL plugin.
+- **System Requirements**: EMR Serverless, Amazon S3.
+
+### Recommended Reading
+
+- [Materialized Views / Cached Views / Scheduled Indexing (MV / CV / SI)](https://opensearch.org/docs/latest/dashboards/management/accelerate-external-data/)
+- [Scheduled Refresh vs. Continuous Streaming](https://github.com/opensearch-project/opensearch-spark/blob/main/docs/index.md#flint-index-refresh)
+- [Index State Management](https://github.com/opensearch-project/opensearch-spark/blob/main/docs/index.md#flint-index-refresh)
+
+## Configuration
+
+### Cluster Settings
+
+To enable and configure SQA for efficient query management and cost-effective resource utilization, two essential cluster settings need to be adjusted:
+
+#### Enable Async Query Execution
+
+This setting allows users to enable the asynchronous query execution feature, which is crucial for handling queries in a non-blocking manner. Enabling async query execution improves query efficiency and resource allocation by allowing tasks to run in the background without tying up system resources.
+
+[Setting Link](https://github.com/opensearch-project/sql/blob/main/docs/user/admin/settings.rst#pluginsqueryexecutionengineasync_queryenabled)
+
+#### Configure Async Query External Scheduler Interval
+
+This setting specifies the interval at which the external scheduler checks for tasks, allowing users to customize how often the scheduler initiates refresh operations. Adjusting this interval based on workload requirements can optimize resource usage and control the frequency of driver node operations, helping to manage costs effectively.
+
+[Setting Link](https://github.com/opensearch-project/sql/blob/main/docs/user/admin/settings.rst#pluginsqueryexecutionengineasync_queryexternal_schedulerinterval)
+
+### Spark Configurations
+
+- `spark.flint.job.externalScheduler.enabled`: Default is `false`. Enable external scheduler for Flint auto-refresh to schedule refresh jobs outside of Spark.
+- `spark.flint.job.externalScheduler.interval`: Default is `5 minutes`. A string of refresh interval for external scheduler to trigger index refresh.
+
+### Sample Accelerated Query
+
+```sql
+CREATE SKIPPING INDEX example_index
+WITH (
+    auto_refresh = true,
+    refresh_interval = '15 Minutes',
+    scheduler_mode = 'external'
+);
+```
+
+### Index Options
+
+When creating indexes, users can specify the following options in the `WITH` clause to control refresh behavior, scheduling, and timing:
+
+- **`auto_refresh`**
+  - **Description**: Enables or disables automatic refresh for the index. When set to `true`, the index refreshes automatically at the specified interval; if `false`, the user must manually trigger a refresh using the `REFRESH` statement.
+  - **Default**: `false`
+
+- **`refresh_interval`**
+  - **Description**: Defines the time interval between refresh operations for the index. This setting is only applicable when `auto_refresh` is enabled and can be specified in formats such as `1 minute` or `10 seconds`. It controls how frequently new data is integrated into the index.
+  - **Note**: Check `org.apache.spark.unsafe.types.CalendarInterval` for valid time duration identifiers.
+
+- **`scheduler_mode`**
+  - **Description**: Specifies the scheduling mode for the auto-refresh feature, allowing users to choose between internal or external scheduling. The external scheduler requires a `checkpoint_location` for managing state.
+  - **Valid Values**: `internal`, `external`
+
+For more comprehensive information, including additional settings, please refer to the [Flint Index Refresh Documentation](https://github.com/opensearch-project/opensearch-spark/blob/main/docs/index.md#flint-index-refresh).
+
+## Usage Guide
+
+### Creating Scheduled Refresh Jobs
+
+```sql
+-- Example command for creating an index with scheduled refresh
+CREATE SKIPPING INDEX example_index
+WITH (
+    auto_refresh = true,
+    refresh_interval = '15 Minutes',
+    scheduler_mode = 'external'
+);
+```
+
+### Modifying Refresh Settings
+
+```sql
+-- Example of ALTER command to modify refresh settings
+ALTER INDEX example_index
+WITH (refresh_interval = '30 Minutes');
+```
+
+### Monitoring Index Status
+
+- **Common Monitoring Queries**
+  ```sql
+  SHOW FLINT INDEXES IN spark_catalog.default;
+  ```
+
+### Managing Scheduled Jobs
+
+- **Enabling/Disabling Jobs**
+  - Alter index from auto to manual will disable the external scheduler:
+    ```sql
+    ALTER MATERIALIZED VIEW myglue_test.default.count_by_status_v9 WITH (auto_refresh = false);
+    ```
+  - Alter index from manual to auto will enable the external scheduler:
+    ```sql
+    ALTER MATERIALIZED VIEW myglue_test.default.count_by_status_v9 WITH (auto_refresh = true);
+    ```
+
+- **Updating Schedules**
+  ```sql
+  ALTER INDEX example_index
+  WITH (refresh_interval = '30 Minutes');
+  ```
+
+- **Updating Scheduler Mode**
+  ```sql
+  ALTER MATERIALIZED VIEW myglue_test.default.count_by_status_v9 WITH (scheduler_mode = 'internal');
+  ```
+
+### How to Check Scheduler Job Status
+
+- Use the following command to check scheduler job status:
+  ```
+  GET /.async-query-scheduler/_search
+  ```
+
+## Best Practices
+
+### Performance Optimization
+
+#### Recommended Refresh Intervals
+
+- Choosing the right refresh interval is crucial for balancing resource usage and system performance. Consider your workload requirements and the freshness of data you need when setting intervals.
+
+#### Concurrent Job Limits
+
+- Limit the number of concurrent jobs running to avoid overloading system resources. Monitor system capacity and adjust job limits accordingly to ensure optimal performance.
+
+#### Resource Consideration
+
+- Efficient resource allocation is key to maximizing performance. Properly allocate memory, CPU, and I/O based on the workload and the type of queries being run.
+
+### Cost Management
+
+#### External Scheduler Cost Analysis
+
+- The use of an external scheduler can provide cost benefits by offloading refresh operations, reducing the demand on core driver nodes.
+
+#### Understanding Billing Impacts
+
+- It's important to understand the costs associated with refresh operations, particularly with varying refresh intervals. Longer intervals can mean reduced costs but may impact data freshness.
+
+#### Optimizing Refresh Schedules
+
+- Adjust refresh intervals based on workload patterns to reduce unnecessary refresh operations, which can lead to significant cost savings.
+
+#### Cost Monitoring Tips
+
+- Regularly monitor the costs related to scheduled queries and refresh operations. Using observability tools can help you gain insights into resource usage and costs over time.
+
+## FAQ
+
+### General Questions
+
+#### Common Questions About Functionality
+
+- **How does SQA handle refresh operations?**
+  - SQA manages refresh operations using either an internal or external scheduler, which you can configure based on your needs.
+
+#### Performance-Related Questions
+
+- **What factors impact the performance of scheduled refreshes?**
+  - Factors such as the refresh interval, system resource availability, and number of concurrent jobs can all impact performance.
+
+#### Configuration Questions
+
+- **Can I change the refresh interval after creating an index?**
+  - Yes, you can modify the refresh interval using the `ALTER INDEX` command.
+
+### Technical FAQ
+
+#### Detailed Technical Questions
+
+- For in-depth technical questions, refer to the following [RFC for OpenSearch-Spark](https://github.com/opensearch-project/opensearch-spark/issues/416).
+
+#### Troubleshooting Scenarios
+
+- **Refresh Not Triggering as Expected**: Ensure the `auto_refresh` setting is enabled and the refresh interval is properly configured.
+
+#### Validations
+
+- **Adding Validations**: You can validate your settings by running test queries and verifying the scheduler configurations.
+
