@@ -6,11 +6,11 @@ nav_order: 80
 
 # Keyword analyzer
 
-The `keyword` analyzer doesn’t tokenize the text at all, but instead, it treats the entire input as a single token. This is useful when you want the entire content of a field to be indexed as-is, without breaking it into smaller pieces (tokens). The `keyword` analyzer is often used for fields like email addresses, URLs, product IDs, and other cases where tokenization is not desirable. 
+The `keyword` analyzer doesn’t tokenize the text at all. Instead, it treats the entire input as a single token. This is useful when you want the entire content of a field to be indexed as is, without breaking it into smaller pieces (tokens). The `keyword` analyzer is often used for fields like email addresses, URLs, product IDs, and other cases where tokenization is not desirable. 
 
-## Example configuration
+## Example
 
-You can use the following command to create index `my_keyword_index` with `keyword` analyzer:
+Use the following command to create an index named `my_keyword_index` with a `keyword` analyzer:
 
 ```json
 PUT /my_keyword_index
@@ -27,9 +27,9 @@ PUT /my_keyword_index
 ```
 {% include copy-curl.html %}
 
-## Configuring custom analyzer
+## Configuring a custom analyzer
 
-You can use the following command to configure index `my_custom_keyword_index` with custom analyzer equivalent to `keyword` analyzer:
+Use the following command to configure an index with a custom analyzer that is equivalent to the `keyword` analyzer:
 
 ```json
 PUT /my_custom_keyword_index
@@ -49,7 +49,7 @@ PUT /my_custom_keyword_index
 
 ## Generated tokens
 
-Use the following request to examine the tokens generated using the created analyzer:
+Use the following request to examine the tokens generated using the analyzer:
 
 ```json
 POST /my_custom_keyword_index/_analyze
