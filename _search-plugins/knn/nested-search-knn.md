@@ -183,7 +183,7 @@ Even though all three vectors nearest to the query vector are in document 1, the
 }
 ```
 
-## Inner hits 
+## Inner Hits 
 
 When you retrieve documents based on matches in nested fields, by default, the response does not contain information about which inner objects matched the query. Thus, it is not apparent why the document is a match. To include information about the matching nested fields in the response, you can provide the `inner_hits` object in your query. To return only certain fields of the matching documents within `inner_hits`, specify the document fields in the `fields` array. Generally, you should also exclude `_source` from the results to avoid returning the whole document. The following example returns only the `color` inner field of the `nested_field`:
 
@@ -287,6 +287,179 @@ The response contains matching documents. For each matching document, the `inner
                   "fields": {
                     "nested_field.color": [
                       "red"
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}
+```
+
+## Multi Inner Hits
+To retrieve the scores of all nested field documents for each parent document, rather than only the one with the maximum score, set `expand_nested_docs` to `true` in your query. This will include all nested field documents of the parent document, and the parent document's score will be calculated as the average of all nested field document scores. If you want the parent document's score to reflect the highest score among its nested field documents, set the `score_mode` to `max`.:
+
+```json
+GET my-knn-index-1/_search
+{
+  "_source": false,
+  "query": {
+    "nested": {
+      "path": "nested_field",
+      "query": {
+        "knn": {
+          "nested_field.my_vector": {
+            "vector": [1,1,1],
+            "k": 2,
+            "expand_nested_docs": true
+          }
+        }
+      },
+      "inner_hits": {
+        "_source": false,
+        "fields":["nested_field.color"]
+      },
+      "score_mode": "max"
+    }
+  }
+}
+```
+
+The response contains expanded matching documents:
+
+```json
+{
+  "took": 13,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 2,
+      "relation": "eq"
+    },
+    "max_score": 1.0,
+    "hits": [
+      {
+        "_index": "my-knn-index-1",
+        "_id": "1",
+        "_score": 1.0,
+        "inner_hits": {
+          "nested_field": {
+            "hits": {
+              "total": {
+                "value": 3,
+                "relation": "eq"
+              },
+              "max_score": 1.0,
+              "hits": [
+                {
+                  "_index": "my-knn-index-1",
+                  "_id": "1",
+                  "_nested": {
+                    "field": "nested_field",
+                    "offset": 0
+                  },
+                  "_score": 1.0,
+                  "fields": {
+                    "nested_field.color": [
+                      "blue"
+                    ]
+                  }
+                },
+                {
+                  "_index": "my-knn-index-1",
+                  "_id": "1",
+                  "_nested": {
+                    "field": "nested_field",
+                    "offset": 1
+                  },
+                  "_score": 0.25,
+                  "fields": {
+                    "nested_field.color": [
+                      "blue"
+                    ]
+                  }
+                },
+                {
+                  "_index": "my-knn-index-1",
+                  "_id": "1",
+                  "_nested": {
+                    "field": "nested_field",
+                    "offset": 2
+                  },
+                  "_score": 0.07692308,
+                  "fields": {
+                    "nested_field.color": [
+                      "white"
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "_index": "my-knn-index-1",
+        "_id": "2",
+        "_score": 0.0040983604,
+        "inner_hits": {
+          "nested_field": {
+            "hits": {
+              "total": {
+                "value": 3,
+                "relation": "eq"
+              },
+              "max_score": 0.0040983604,
+              "hits": [
+                {
+                  "_index": "my-knn-index-1",
+                  "_id": "2",
+                  "_nested": {
+                    "field": "nested_field",
+                    "offset": 0
+                  },
+                  "_score": 0.0040983604,
+                  "fields": {
+                    "nested_field.color": [
+                      "blue"
+                    ]
+                  }
+                },
+                {
+                  "_index": "my-knn-index-1",
+                  "_id": "2",
+                  "_nested": {
+                    "field": "nested_field",
+                    "offset": 1
+                  },
+                  "_score": 9.2250924E-4,
+                  "fields": {
+                    "nested_field.color": [
+                      "yellow"
+                    ]
+                  }
+                },
+                {
+                  "_index": "my-knn-index-1",
+                  "_id": "2",
+                  "_nested": {
+                    "field": "nested_field",
+                    "offset": 2
+                  },
+                  "_score": 3.9619653E-4,
+                  "fields": {
+                    "nested_field.color": [
+                      "white"
                     ]
                   }
                 }
