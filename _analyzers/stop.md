@@ -6,11 +6,20 @@ nav_order: 70
 
 # Stop analyzer
 
-The `stop` analyzer is a built in analyzer that is designed to remove words based on a predefined list of stop words. This analyzer is made up of `lowercase` tokenizer and `stop` token filter.
+The `stop` analyzer removes a predefined list of stopwords. This analyzer consists of a `lowercase` tokenizer and a `stop` token filter.
 
-## Example configuration
+## Parameters
 
-You can use the following command to create index `my_stop_index` with `stop` analyzer:
+You can configure a `stop` analyzer with the following parameters.
+
+Parameter | Required/Optional | Data type | Description
+:--- | :--- | :--- | :--- 
+`stopwords` | Optional | String or list of strings | A string specifying a predefined list of stopwords (such as `_english_`) or an array specifying a custom list of stopwords. Default is `_english_`.
+`stopwords_path` | Optional | String | The path (absolute or relative to the config directory) to the file containing a list of stop words.
+
+## Example
+
+Use the following command to create an index named `my_stop_index` with a `stop` analyzer:
 
 ```json
 PUT /my_stop_index
@@ -27,9 +36,9 @@ PUT /my_stop_index
 ```
 {% include copy-curl.html %}
 
-## Configuring custom analyzer
+## Configuring a custom analyzer
 
-You can use the following command to configure index `my_custom_stop_analyzer_index` with custom analyzer equivalent to `stop` analyzer:
+Use the following command to configure an index with a custom analyzer that is equivalent to a `stop` analyzer:
 
 ```json
 PUT /my_custom_stop_analyzer_index
@@ -60,7 +69,7 @@ PUT /my_custom_stop_analyzer_index
 
 ## Generated tokens
 
-Use the following request to examine the tokens generated using the created analyzer:
+Use the following request to examine the tokens generated using the analyzer:
 
 ```json
 POST /my_custom_stop_analyzer_index/_analyze
@@ -108,16 +117,9 @@ The response contains the generated tokens:
 }
 ```
 
-## Configuration
+# Specifying stopwords
 
-You can configure `stop` analyzer with the following parameters.
-
-Parameter | Required/Optional | Data type | Description
-:--- | :--- | :--- | :--- 
-`stopwords` | Optional | String or list of strings | List of stop words or predefined list such as `_english_` (default).
-`stopwords_path` | Optional | String | Path to list of stop words (absolute or relative to config directory).
-
-See following example using custom configuration:
+See following example specifies a custom list of stopwords:
 
 ```json
 PUT /my_new_custom_stop_index
