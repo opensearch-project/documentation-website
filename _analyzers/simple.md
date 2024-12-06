@@ -8,9 +8,9 @@ nav_order: 50
 
 The `simple` analyzer is a very basic analyzer that breaks text into terms at non-letter characters and lowercases the terms. Unlike the `standard` analyzer, the `simple` analyzer treats everything except alphabetic characters as delimiters, meaning it does not recognize numbers, punctuation, or special characters as part of the tokens.
 
-## Example configuration
+## Example 
 
-You can use the following command to create index `my_simple_index` with `simple` analyzer:
+Use the following command to create an index named `my_simple_index` with a `simple` analyzer:
 
 ```json
 PUT /my_simple_index
@@ -27,9 +27,9 @@ PUT /my_simple_index
 ```
 {% include copy-curl.html %}
 
-## Configuring custom analyzer
+## Configuring a custom analyzer
 
-You can use the following command to configure index `my_custom_simple_index` with custom analyzer equivalent to `simple` analyzer but with added `html_strip` character filter:
+Use the following command to configure an index with a custom analyzer that is equivalent to a `simple` analyzer with an added `html_strip` character filter:
 
 ```json
 PUT /my_custom_simple_index
@@ -70,7 +70,7 @@ PUT /my_custom_simple_index
 
 ## Generated tokens
 
-Use the following request to examine the tokens generated using the created analyzer:
+Use the following request to examine the tokens generated using the analyzer:
 
 ```json
 POST /my_custom_simple_index/_analyze
