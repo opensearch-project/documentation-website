@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Query group lifecycle API
+title: Query Group Lifecycle API
 nav_order: 20
 parent: Workload management
 grand_parent: Availability and recovery
@@ -8,9 +8,9 @@ grand_parent: Availability and recovery
 
 # Query Group Lifecycle API
 
-The Query Group Lifecycle API in creates, updates, retrieves, and deletes query groups. The API categorizes queries into specific groups, called _query groups_ based on desired resource limits.
+The Query Group Lifecycle API creates, updates, retrieves, and deletes query groups. The API categorizes queries into specific groups, called _query groups_, based on desired resource limits.
 
-## Paths and HTTP method
+## Path and HTTP methods
 
 ```json
 PUT _wlm/query_group
@@ -33,7 +33,7 @@ When creating a query group, make sure that the sum of the resource limits for a
 
 ## Example requests
 
-The following requests show how to use the Query Group Lifecycle API.
+The following example requests show how to use the Query Group Lifecycle API.
 
 ### Creating a query group
 
@@ -48,6 +48,7 @@ PUT _wlm/query_group
   }
 }
 ```
+{% include copy-curl.html %}
 
 ### Updating a query group
 
@@ -61,18 +62,21 @@ PUT _wlm/query_group/analytics
   }
 }
 ```
+{% include copy-curl.html %}
 
 ### Getting a query group
 
 ```json
 GET _wlm/query_group/analytics
 ```
+{% include copy-curl.html %}
 
 ### Deleting a query group
 
 ```json
 DELETE _wlm/query_group/analytics
 ```
+{% include copy-curl.html %}
 
 ## Example responses
 
@@ -93,7 +97,7 @@ OpenSearch returns responses similar to the following.
 }
 ```
 
-### Updating query group
+### Updating a query group
 
 ```json
 {
