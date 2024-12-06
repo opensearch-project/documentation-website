@@ -21,7 +21,7 @@ The following parameters can be used to configure a custom analyzer.
 
 | Parameter                | Required/Optional | Description  |
 |:--- | :--- | :--- |
-| `type`                   | Optional          | The analyzer type. Default is `custom`. You can also specify a pre-built analyzer using this parameter.              |
+| `type`                   | Optional          | The analyzer type. Default is `custom`. You can also specify a prebuilt analyzer using this parameter.              |
 | `tokenizer`              | Required          | A tokenizer to be included in the analyzer. |
 | `char_filter`            | Optional          | A list of character filters to be included in the analyzer. |
 | `filter`                 | Optional          | A list of token filters to be included in the analyzer. |
@@ -227,7 +227,7 @@ The response contains the generated tokens:
 
 ## Position increment gap
 
-The `position_increment_gap` parameter sets a positional gap between terms when indexing multi-valued fields, such as arrays. This gap ensures that phrase queries don't match terms across separate values unless explicitly allowed. For example, a default gap of 100 means terms in different array entries are 100 positions apart, preventing unintended matches in phrase searches. You can adjust this value or set it to `0` in order to allow phrases to span across array values.
+The `position_increment_gap` parameter sets a positional gap between terms when indexing multi-valued fields, such as arrays. This gap ensures that phrase queries don't match terms across separate values unless explicitly allowed. For example, a default gap of 100 specifies that terms in different array entries are 100 positions apart, preventing unintended matches in phrase searches. You can adjust this value or set it to `0` in order to allow phrases to span across array values.
 
 The following example demonstrates the effect of `position_increment_gap` using a `match_phrase` query.
 
@@ -257,9 +257,9 @@ The following example demonstrates the effect of `position_increment_gap` using 
     ```
     {% include copy-curl.html %}
     
-    The response returns no hits, because the distance between the terms `green` and `turtle` is `100` (the default `position_increment_gap`).
+    The response returns no hits because the distance between the terms `green` and `turtle` is `100` (the default `position_increment_gap`).
 
-1. Now query the document using a `match_phrase` query with a `slop` parameter higher than the `position_increment_gap`:
+1. Now query the document using a `match_phrase` query with a `slop` parameter that is higher than the `position_increment_gap`:
 
     ```json
     GET test-index/_search
