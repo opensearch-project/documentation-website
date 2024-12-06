@@ -16,10 +16,10 @@ The feature logging process generates a RankLib-comsumable judgment file. In the
 score) and 2 (a description `TF*IDF` score) for a set of documents:
 
 ```
-4   qid:1   1:9.8376875 2:12.318446 # 7555  rambo
-3   qid:1   1:10.7808075    2:9.510193 # 1370   rambo
-3   qid:1   1:10.7808075    2:6.8449354 # 1369  rambo
-3   qid:1   1:10.7808075    2:0.0 # 1368    rambo
+4   qid:1   1:9.8376875     2:12.318446     # 7555 rambo
+3   qid:1   1:10.7808075    2:9.510193      # 1370 rambo
+3   qid:1   1:10.7808075    2:6.8449354     # 1369 rambo
+3   qid:1   1:10.7808075    2:0.0           # 1368 rambo
 ```
 
 The RankLib library can be called using the following command:
@@ -48,6 +48,29 @@ RankLib outputs the model in its own serialization format. As shown in the follo
 ```
 
 Within the RankLib model, each tree in the ensemble examines feature values, makes decisions based on these feature values, and outputs the relevance scores. The features are referred to by their ordinal position, starting from 1, which corresponds to the 0th feature in the original feature set. RankLib does not use feature names during model training.
+
+### Other RankLib models
+
+RankLib is a library that implements several other model types in addition to LambdaMART, such as MART,
+RankNet, RankBoost, AdaRank, Coordinate Ascent, ListNet, and Random Forests. Each of these models has its own set of parameters and training process.
+
+For example, the RankNet model is a neural network that learns to predict the probability of a document being more relevant than another document. The model is trained using a pairwise loss function that compares the predicted relevance of two documents with the actual relevance. The model is serialized in a format similar to the following example:
+
+```
+## RankNet
+## Epochs = 100
+## No. of features = 5
+## No. of hidden layers = 1
+...
+## Layer 1: 10 neurons
+1 2
+1
+10
+0 0 -0.013491530393429608 0.031183180961270988 0.06558792020112071 -0.006024092627087733 0.05729619574181734 -0.0017010373987742411 0.07684848696852313 -0.06570387602230028 0.04390491141617467 0.013371636736099578
+...
+```
+
+All these models can be used with the Learning to Rank plugin, provided that the model is serialized in the RankLib format.
 
 ## XGBoost model training
 
