@@ -51,7 +51,7 @@ For a list of supported analyzers, see [Analyzers]({{site.url}}{{site.baseurl}}/
 
 ## Custom analyzers
 
-If needed, you can combine tokenizers, token filters, and character filters to create a custom analyzer.
+If needed, you can combine tokenizers, token filters, and character filters to create a custom analyzer. For more information, see [Creating a custom analyzer]({{site.url}}{{site.baseurl}}/analyzers/custom-analyzer/).
 
 ## Text analysis at indexing time and query time
 
