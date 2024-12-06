@@ -6,24 +6,24 @@ nav_order: 90
 
 # Pattern analyzer
 
-The `pattern` analyzer allows you to define a custom analyzer that uses a regular expression (regex) to split the input text into tokens. It also provides options for applying regex flags, converting tokens to lowercase, and filtering out `stopwords`.
+The `pattern` analyzer allows you to define a custom analyzer that uses a regular expression (regex) to split the input text into tokens. It also provides options for applying regex flags, converting tokens to lowercase, and filtering out stopwords.
 
-## Configuration
+## Parameters
 
 The `pattern` analyzer can be configured using the following parameters.
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
 `pattern` | Optional | String | A [Java regular expression](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html) used to tokenize the input. Default is `\W+`.
-`flags` | Optional | String | [Java regex flags](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html#field.summary) that modify the behavior of the regular expression.
-`lowercase` | Optional | Boolean | Convert tokens to lower case. Default is `true`.
-`stopwords` | Optional | String or list of strings | Custom list or predefined list of stop words. Default is `_none_`.
-`stopwords_path` | Optional | String | Path (absolute or relative to config directory) to the list of stop words.
+`flags` | Optional | String | A string containing pipe-separated [Java regex flags](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html#field.summary) that modify the behavior of the regular expression.
+`lowercase` | Optional | Boolean | Whether to convert tokens to lowercase. Default is `true`.
+`stopwords` | Optional | String or list of strings | A string specifying a predefined list of stopwords (such as `_english_`) or an array specifying a custom list of stopwords. Default is `_none_`.
+`stopwords_path` | Optional | String | The path (absolute or relative to the config directory) to the file containing a list of stop words.
 
 
-## Example configuration
+## Example
 
-You can use the following command to create index `my_pattern_index` with `pattern` analyzer:
+Use the following command to create an index named `my_pattern_index` with a `pattern` analyzer:
 
 ```json
 PUT /my_pattern_index
@@ -54,7 +54,7 @@ PUT /my_pattern_index
 
 ## Generated tokens
 
-Use the following request to examine the tokens generated using the created analyzer:
+Use the following request to examine the tokens generated using the analyzer:
 
 ```json
 POST /my_pattern_index/_analyze
