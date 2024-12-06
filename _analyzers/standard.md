@@ -6,17 +6,17 @@ nav_order: 40
 
 # Standard analyzer
 
-`standard` analyzer is the default analyzer that is used when no other analyzer is specified. It is designed to provide a basic and efficient approach for general-purpose text processing.
+The `standard` analyzer is the default analyzer that is used when no other analyzer is specified. It is designed to provide a basic and efficient approach for generic text processing.
 
-This analyzer is made up of the following tokenizers and token filters:
+This analyzer consists of the following tokenizers and token filters:
 
-- `standard` tokenizer: removes most punctuation and splits based on spaces and other common delimiters.
-- `lowercase` token filter: all tokens are converted to lowercase, ensuring case-insensitive searching.
-- `stop` token filter: removes common stop words such as "the" "is" "and" from the tokenized output.
+- `standard` tokenizer: Removes most punctuation and splits text on spaces and other common delimiters.
+- `lowercase` token filter: Converts all tokens to lowercase, ensuring case-insensitive matching.
+- `stop` token filter: Removes common stopwords such as "the", "is", and "and" from the tokenized output.
 
-## Example configuration
+## Example 
 
-You can use the following command to create index `my_standard_index` with `standard` analyzer:
+Use the following command to create an index named `my_standard_index` with a `standard` analyzer:
 
 ```json
 PUT /my_standard_index
@@ -33,9 +33,20 @@ PUT /my_standard_index
 ```
 {% include copy-curl.html %}
 
-## Configuring custom analyzer
+## Parameters
 
-You can use the following command to configure index `my_custom_index` with custom analyzer equivalent to `standard` analyzer:
+You can configure a `standard` analyzer with the following parameters.
+
+Parameter | Required/Optional | Data type | Description
+:--- | :--- | :--- | :--- 
+`max_token_length` | Optional | Integer | Sets the maximum length of the produced token. If this length is exceeded, the token is split into multiple tokens at the length configured in the `max_token_length`. Default is `255`.
+`stopwords` | Optional | String or list of strings | A string specifying a predefined list of stopwords (such as `_english_`) or an array specifying a custom list of stopwords. Default is `_none_`.
+`stopwords_path` | Optional | String | The path (absolute or relative to the config directory) to the file containing a list of stop words.
+
+
+## Configuring a custom analyzer
+
+Use the following command to configure an index with a custom analyzer that is equivalent to the `standard` analyzer:
 
 ```json
 PUT /my_custom_index
@@ -60,7 +71,7 @@ PUT /my_custom_index
 
 ## Generated tokens
 
-Use the following request to examine the tokens generated using the created analyzer:
+Use the following request to examine the tokens generated using the analyzer:
 
 ```json
 POST /my_custom_index/_analyze
