@@ -18,7 +18,7 @@ Parameter | Required/Optional | Data type | Description
 `flags` | Optional | String | A string containing pipe-separated [Java regex flags](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html#field.summary) that modify the behavior of the regular expression.
 `lowercase` | Optional | Boolean | Whether to convert tokens to lowercase. Default is `true`.
 `stopwords` | Optional | String or list of strings | A string specifying a predefined list of stopwords (such as `_english_`) or an array specifying a custom list of stopwords. Default is `_none_`.
-`stopwords_path` | Optional | String | The path (absolute or relative to the config directory) to the file containing a list of stop words.
+`stopwords_path` | Optional | String | The path (absolute or relative to the config directory) to the file containing a list of stopwords.
 
 
 ## Example
