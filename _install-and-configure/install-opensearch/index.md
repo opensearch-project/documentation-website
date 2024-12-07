@@ -29,7 +29,7 @@ The OpenSearch distribution for Linux ships with a compatible [Adoptium JDK](htt
 OpenSearch Version | Compatible Java Versions | Bundled Java Version
 :---------- | :-------- | :-----------
 1.0--1.2.x    | 11, 15     | 15.0.1+9
-1.3.x          | 8, 11, 14  | 11.0.24+8
+1.3.x          | 8, 11, 14  | 11.0.25+9
 2.0.0--2.11.x    | 11, 17     | 17.0.2+8
 2.12.0+        | 11, 17, 21 | 21.0.5+11
 
