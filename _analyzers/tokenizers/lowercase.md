@@ -7,7 +7,7 @@ nav_order: 70
 
 # Lowercase tokenizer
 
-The `lowercase` tokenizer breaks text into terms on white space and then lowercases all the terms. Functionally, this is identical to configuring a `letter` tokenizer with a `lowercase` token filter. However, using a `lowercase` tokenizer is more efficient because the tokenizer actions are performed in a single step.
+The `lowercase` tokenizer breaks text into terms at white space and then lowercases all the terms. Functionally, this is identical to configuring a `letter` tokenizer with a `lowercase` token filter. However, using a `lowercase` tokenizer is more efficient because the tokenizer actions are performed in a single step.
 
 ## Example usage
 
