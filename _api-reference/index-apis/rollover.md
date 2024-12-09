@@ -61,9 +61,9 @@ Parameter | Type | Description
 `timeout` | Time | The amount of time to wait for a response. Default is `30s`.
 `wait_for_active_shards` | String | The number of active shards that must be available before OpenSearch processes the request. Default is `1` (only the primary shard). You can also set to `all` or a positive integer. Values greater than `1` require replicas. For example, if you specify a value of `3`, then the index must have two replicas distributed across two additional nodes in order for the operation to succeed.
 
-## Request body
+## Request body fields
 
-The following request body parameters are supported.
+The following request body fields are supported.
 
 ### `alias`
 
