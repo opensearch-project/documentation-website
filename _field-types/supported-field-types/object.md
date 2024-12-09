@@ -11,6 +11,8 @@ redirect_from:
 ---
 
 # Object field type
+**Introduced 1.0**
+{: .label .label-purple }
 
 An object field type contains a JSON object (a set of name/value pairs). A value in a JSON object may be another JSON object. It is not necessary to specify `object` as the type when mapping object fields because `object` is the default type.
 
