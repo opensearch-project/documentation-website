@@ -35,7 +35,7 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `model_id` | String | The model ID of the model for which you want to set rate limits. Required.
 
-## Request fields
+## Request body fields
 
 The following table lists the available request fields.
 

@@ -10,7 +10,7 @@ The Render Template API renders a [search template]({{site.url}}{{site.baseurl}}
 
 ## Paths and HTTP methods
 
-```
+```json
 GET /_render/template
 POST /_render/template
 GET /_render/template/<id>
@@ -25,7 +25,7 @@ The Render Template API supports the following optional path parameter.
 | :--- | :--- | :--- |
 | `id` | String | The ID of the search template to render. |
 
-## Request options
+## Request body fields
 
 The following options are supported in the request body of the Render Template API.
 
