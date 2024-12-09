@@ -10,6 +10,8 @@ redirect_from:
 ---
 
 # Flat object field type
+**Introduced 2.7**
+{: .label .label-purple }
 
 In OpenSearch, you don't have to specify a mapping before indexing documents. If you don't specify a mapping, OpenSearch uses [dynamic mapping]({{site.url}}{{site.baseurl}}/field-types/index#dynamic-mapping) to map every field and its subfields in the document automatically. When you ingest documents such as logs, you may not know every field's subfield name and type in advance. In this case, dynamically mapping all new subfields can quickly lead to a "mapping explosion," where the growing number of fields may degrade the performance of your cluster. 
 
@@ -54,7 +56,8 @@ The flat object field type supports the following queries:
 - [Multi-match]({{site.url}}{{site.baseurl}}/query-dsl/full-text/multi-match/) 
 - [Query string]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) 
 - [Simple query string]({{site.url}}{{site.baseurl}}/query-dsl/full-text/simple-query-string/) 
-- [Exists]({{site.url}}{{site.baseurl}}/query-dsl/term/exists/) 
+- [Exists]({{site.url}}{{site.baseurl}}/query-dsl/term/exists/)
+- [Wildcard]({{site.url}}{{site.baseurl}}/query-dsl/term/wildcard/)
 
 ## Limitations
 
