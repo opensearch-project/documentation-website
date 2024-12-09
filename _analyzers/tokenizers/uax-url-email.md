@@ -7,7 +7,7 @@ nav_order: 150
 
 # UAX URL email tokenizer
 
-In addition to regular text, the `uax_url_email` tokenizer is designed to handle URLs, email addresses, and domain names. It is based on the Unicode Text Segmentation algorithm ([UAX #29](https://www.unicode.org/reports/tr29/)), which allows it to  correctly tokenize complex text, including URLs and email addresses.
+In addition to regular text, the `uax_url_email` tokenizer is designed to handle URLs, email addresses, and domain names. It is based on the Unicode Text Segmentation algorithm ([UAX #29](https://www.unicode.org/reports/tr29/)), which allows it to correctly tokenize complex text, including URLs and email addresses.
 
 ## Example usage
 
