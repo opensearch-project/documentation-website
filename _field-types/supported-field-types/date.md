@@ -11,6 +11,8 @@ redirect_from:
 ---
 
 # Date field type
+**Introduced 1.0**
+{: .label .label-purple }
 
 A date in OpenSearch can be represented as one of the following:
 
