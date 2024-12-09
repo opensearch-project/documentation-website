@@ -9,7 +9,7 @@ parent: Migration phases
 
 Before using the Migration Assistant, take the following steps to verify that your cluster is ready for migration.
 
-## Snapshot creation verification
+## Verifying snapshot creation
 
 Verify that a snapshot can be created of your source cluster and used for metadata and backfill scenarios.
 
@@ -28,6 +28,7 @@ Create an S3 bucket for the snapshot using the following AWS Command Line Interf
 ```shell
 aws s3api create-bucket --bucket <your-bucket-name> --region <your-aws-region>
 ```
+{% include copy.html %}
 
 Register a new S3 snapshot repository on your source cluster using the following cURL command:
 
@@ -40,6 +41,7 @@ curl -X PUT "http://<your-source-cluster>:9200/_snapshot/test_s3_repository" -H 
   }
 }'
 ```
+{% include copy.html %}
 
 Next, create a test snapshot that captures only the cluster's metadata:
 
@@ -50,6 +52,7 @@ curl -X PUT "http://<your-source-cluster>:9200/_snapshot/test_s3_repository/test
   "include_global_state": true
 }'
 ```
+{% include copy.html %}
 
 Check the AWS Management Console to confirm that your bucket contains the snapshot. 
 
@@ -62,12 +65,14 @@ To remove the resources created during verification, you can use the following d
 ```shell
 curl -X DELETE "http://<your-source-cluster>:9200/_snapshot/test_s3_repository/test_snapshot_1?pretty"
 ```
+{% include copy.html %}
 
 **Test snapshot repository**
 
 ```shell
 curl -X DELETE "http://<your-source-cluster>:9200/_snapshot/test_s3_repository?pretty"
 ```
+{% include copy.html %}
 
 **S3 bucket**
 
@@ -75,6 +80,7 @@ curl -X DELETE "http://<your-source-cluster>:9200/_snapshot/test_s3_repository?p
 aws s3 rm s3://<your-bucket-name> --recursive
 aws s3api delete-bucket --bucket <your-bucket-name> --region <your-aws-region>
 ```
+{% include copy.html %}
 
 ### Troubleshooting
 
@@ -162,7 +168,7 @@ Look for failing tasks by navigating to **Traffic Capture Proxy ECS**. Change **
 
 After all verifications are complete, reset all resources before using Migration Assistant for an actual migration. 
 
-The following steps outline how to reset resources with Migration Assistant before executing the actual migration. At this point all verifications are expected to have been completed. These steps can be performed after [Accessing the Migration Console]({{site.url}}{{site.baseurl}}/migrations/migration-console/accessing-the-migration-console/).
+The following steps outline how to reset resources with Migration Assistant before executing the actual migration. At this point all verifications are expected to have been completed. These steps can be performed after [Accessing the Migration Console]({{site.url}}{{site.baseurl}}/migration-assistant/migration-console/accessing-the-migration-console/).
 
 ### Traffic Replayer
 
@@ -171,6 +177,7 @@ To stop running Traffic Replayer, use the following command:
 ```bash
 console replay stop
 ```
+{% include copy.html %}
 
 ### Kafka 
 
@@ -182,6 +189,7 @@ This command will result in the loss of any traffic data captured by the capture
 ```bash
 console kafka delete-topic
 ```
+{% include copy.html %}
 
 ### Target cluster 
 
@@ -193,4 +201,5 @@ This command will result in the loss of all data in the target cluster and shoul
 ```bash
 console clusters clear-indices --cluster target
 ```
+{% include copy.html %}
 
