@@ -73,16 +73,16 @@ The `ngram` tokenizer can be configured with the following parameters.
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
-`min_gram` | Optional | Integer | Minimum length of n-grams. Default is `1`.
-`max_gram` | Optional | Integer | Maximum length of n-grams. Default is `2`.
-`token_chars` | Optional | List of strings | Character classes to be included in tokenization. Valid values are:<br>- `letter`<br>- `digit`<br>- `whitespace`<br>- `punctuation`<br>- `symbol`<br>- `custom` (You must also specify the `custom_token_chars` parameter)<br>Default is empty list (`[]`), which retains all the characters.
-`custom_token_chars` | Optional | String | Custom characters to be included as part of the tokens.
+`min_gram` | Optional | Integer | The minimum length of the n-grams. Default is `1`.
+`max_gram` | Optional | Integer | The maximum length of the n-grams. Default is `2`.
+`token_chars` | Optional | List of strings | The character classes to be included in tokenization. Valid values are:<br>- `letter`<br>- `digit`<br>- `whitespace`<br>- `punctuation`<br>- `symbol`<br>- `custom` (You must also specify the `custom_token_chars` parameter)<br>Default is an empty list (`[]`), which retains all the characters.
+`custom_token_chars` | Optional | String | Custom characters to be included in the tokens.
 
 ### Maximum difference between `min_gram` and `max_gram`
 
 The maximum difference between `min_gram` and `max_gram` is configured using the index-level `index.max_ngram_diff` setting and defaults to `1`.
 
-The following example creates index with a custom `index.max_ngram_diff` setting: 
+The following example request creates an index with a custom `index.max_ngram_diff` setting: 
 
 ```json
 PUT /my-index
