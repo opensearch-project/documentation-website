@@ -45,6 +45,96 @@ bool
 
 When queries share the same query structure, they are grouped together, ensuring that all similar queries belong to the same group.
 
+## Configuring the query structure
+
+The preceding example query shows a simplified query structure. By default, the query structure also includes field names and field data types. 
+
+For example, consider an index `index1` with the following field mapping:
+
+```json
+"mappings": {
+  "properties": {
+    "field1": {
+      "type": "keyword"
+    },
+    "field2": {
+      "type": "text"
+    },
+    "field3": {
+      "type": "text"
+    },
+    "field4": {
+      "type": "long"
+    }
+  }
+}
+```
+
+If you run the following query on this index:
+
+```json
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "field1": "example_value"
+          }
+        }
+      ],
+      "filter": [
+        {
+          "match": {
+            "field2": "search_text"
+          }
+        },
+        {
+          "range": {
+            "field4": {
+              "gte": 1,
+              "lte": 100
+            }
+          }
+        }
+      ],
+      "should": [
+        {
+          "regexp": {
+            "field3": ".*"
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+Then the query has the following corresponding query structure:
+
+```c
+bool []
+  must:
+    term [field1, keyword]
+  filter:
+    match [field2, text]
+    range [field4, long]
+  should:
+    regexp [field3, text]
+```
+
+To exclude field names and field data types from the query structure, configure the following settings:
+
+```json
+PUT _cluster/settings
+{
+  "persistent" : {
+    "search.insights.top_queries.grouping.attributes.field_name" : false,
+    "search.insights.top_queries.grouping.attributes.field_type" : false
+  }
+}
+```
+{% include copy-curl.html %}
 
 ## Aggregate metrics per group
 
@@ -307,7 +397,7 @@ The response contains the top N query groups:
 
 </details>
 
-## Response fields
+## Response body fields
 
 The response includes the following fields.
 
@@ -323,7 +413,7 @@ Field | Data type        | Description
 `top_queries.task_resource_usages` | Array of objects | The resource usage breakdown for the various tasks belonging to the first query in the query group.
 `top_queries.indices` | Array | The indexes searched by the first query in the query group.
 `top_queries.labels` | Object           | Used to label the top query.
-`top_queries.search_type` | String           | The search request execution type (`query_then_fetch` or `dfs_query_then_fetch`). For more information, see the `search_type` parameter in the [Search API documentation]({{site.url}}{{site.baseurl}}/api-reference/search/#url-parameters).
+`top_queries.search_type` | String           | The search request execution type (`query_then_fetch` or `dfs_query_then_fetch`). For more information, see the `search_type` parameter in the [Search API documentation]({{site.url}}{{site.baseurl}}/api-reference/search/#query-parameters).
 `top_queries.measurements` | Object           | The aggregate measurements for the query group.
 `top_queries.measurements.latency` | Object           | The aggregate latency measurements for the query group.
 `top_queries.measurements.latency.number` | Integer          | The total latency for the query group.
