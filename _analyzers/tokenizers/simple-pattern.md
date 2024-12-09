@@ -7,7 +7,7 @@ nav_order: 110
 
 # Simple pattern tokenizer
 
-The `simple_pattern` tokenizer identifies matching sequences in the text based on the regular expression and uses those sequences as tokens. It extracts terms that match the regular expression. Use this tokenizer when you want to extract specific patterns as terms directly.
+The `simple_pattern` tokenizer identifies matching sequences in text based on a regular expression and uses those sequences as tokens. It extracts terms that match the regular expression. Use this tokenizer when you want to directly extract specific patterns as terms.
 
 ## Example usage
 
@@ -85,5 +85,5 @@ The `simple_pattern` tokenizer can be configured with the following parameter.
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
-`pattern` | Optional | String | The pattern used to split text into tokens specified using a [Lucene regular expression](https://lucene.apache.org/core/9_10_0/core/org/apache/lucene/util/automaton/RegExp.html). Default is an empty string, which returns the input text as one token. 
+`pattern` | Optional | String | The pattern used to split text into tokens, specified using a [Lucene regular expression](https://lucene.apache.org/core/9_10_0/core/org/apache/lucene/util/automaton/RegExp.html). Default is an empty string, which returns the input text as one token. 
 
