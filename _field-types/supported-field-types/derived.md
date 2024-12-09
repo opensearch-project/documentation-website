@@ -28,11 +28,11 @@ Despite the potential performance impact of query-time computations, the flexibi
 
 Currently, derived fields have the following limitations:
 
-- **Aggregation, scoring, and sorting**: Not yet supported.
+- **Scoring and sorting**: Not yet supported.
+- **Aggregations**: Starting with OpenSearch 2.17, derived fields support most aggregation types. The following aggregations are not supported: geographic (geodistance, geohash grid, geohex grid, geotile grid, geobounds, geocentroid), significant terms, significant text, and scripted metric.
 - **Dashboard support**: These fields are not displayed in the list of available fields in OpenSearch Dashboards. However, you can still use them for filtering if you know the derived field name.
 - **Chained derived fields**: One derived field cannot be used to define another derived field.
 - **Join field type**: Derived fields are not supported for the [join field type]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/join/).
-- **Concurrent segment search**: Derived fields are not supported for [concurrent segment search]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search/).
 
 We are planning to address these limitations in future versions.
 
@@ -536,6 +536,80 @@ The response specifies highlighting in the `url` field:
         }
       }
     ]
+  }
+}
+```
+</details>
+
+## Aggregations
+
+Starting with OpenSearch 2.17, derived fields support most aggregation types. 
+
+Geographic, significant terms, significant text, and scripted metric aggregations are not supported.
+{: .note}
+
+For example, the following request creates a simple `terms` aggregation on the `method` derived field:
+
+```json
+POST /logs/_search
+{
+  "size": 0,
+  "aggs": {
+    "methods": {
+      "terms": {
+        "field": "method"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response contains the following buckets:
+
+<details markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
+
+```json
+{
+  "took" : 12,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 5,
+      "relation" : "eq"
+    },
+    "max_score" : null,
+    "hits" : [ ]
+  },
+  "aggregations" : {
+    "methods" : {
+      "doc_count_error_upper_bound" : 0,
+      "sum_other_doc_count" : 0,
+      "buckets" : [
+        {
+          "key" : "GET",
+          "doc_count" : 2
+        },
+        {
+          "key" : "POST",
+          "doc_count" : 2
+        },
+        {
+          "key" : "DELETE",
+          "doc_count" : 1
+        }
+      ]
+    }
   }
 }
 ```
