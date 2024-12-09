@@ -38,9 +38,9 @@ PUT my-knn-index-1
           "my_vector": {
             "type": "knn_vector",
             "dimension": 3,
+            "space_type": "l2",
             "method": {
               "name": "hnsw",
-              "space_type": "l2",
               "engine": "lucene",
               "parameters": {
                 "ef_construction": 100,
@@ -324,9 +324,9 @@ PUT my-knn-index-1
           "my_vector": {
             "type": "knn_vector",
             "dimension": 3,
+            "space_type": "l2",
             "method": {
               "name": "hnsw",
-              "space_type": "l2",
               "engine": "lucene",
               "parameters": {
                 "ef_construction": 100,

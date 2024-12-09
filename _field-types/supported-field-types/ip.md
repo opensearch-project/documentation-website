@@ -10,6 +10,8 @@ redirect_from:
 ---
 
 # IP address field type
+**Introduced 1.0**
+{: .label .label-purple }
 
 An ip field type contains an IP address in IPv4 or IPv6 format. 
 
