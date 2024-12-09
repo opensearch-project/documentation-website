@@ -5,9 +5,9 @@ parent: Tokenizers
 nav_order: 90
 ---
 
-# Pattern tokenizer
+# Path hierarchy tokenizer
 
-The `path_hierarchy` tokenizer is designed to tokenize file-system-like paths (or similar hierarchical structures) by breaking them down into tokens at each hierarchy level. This tokenizer is particularly useful when working with hierarchical data such as file paths, URLs, or any other delimited paths.
+The `path_hierarchy` tokenizer tokenizes file-system-like paths (or similar hierarchical structures) by breaking them down into tokens at each hierarchy level. This tokenizer is particularly useful when working with hierarchical data such as file paths, URLs, or any other delimited paths.
 
 ## Example usage
 
@@ -94,12 +94,12 @@ Parameter | Required/Optional | Data type | Description
 `delimiter` | Optional | String | Specifies the character used to separate path components. Default is `/`.
 `replacement` | Optional | String | Configures the character used to replace the delimiter in the tokens. Default is `/`.
 `buffer_size` | Optional | Integer | Specifies the buffer size. Default is `1024`.
-`reverse` | Optional | Boolean | If `true`, specifies to generate tokens in reverse order. Default is `false`.
+`reverse` | Optional | Boolean | If `true`, generates tokens in reverse order. Default is `false`.
 `skip` | Optional | Integer | Specifies the number of initial tokens (levels) to skip when tokenizing. Default is `0`.
 
 ## Example using delimiter and replacement parameters
 
-The following example configures custom `delimiter` and `replacement` parameters:
+The following example request configures custom `delimiter` and `replacement` parameters:
 
 ```json
 PUT /my_index
