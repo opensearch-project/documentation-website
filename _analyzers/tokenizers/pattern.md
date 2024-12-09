@@ -11,7 +11,7 @@ The `pattern` tokenizer is a highly flexible tokenizer that allows you to split 
 
 ## Example usage
 
-The following example request creates a new index named `my_index` and configures an analyzer with a `pattern` tokenizer. The tokenizer splits text on `-`, `_`, or `.` characters:
+The following example request creates a new index named `my_index` and configures an analyzer with a `pattern` tokenizer. The tokenizer splits text at `-`, `_`, or `.` characters:
 
 ```json
 PUT /my_index
@@ -46,7 +46,7 @@ PUT /my_index
 
 ## Generated tokens
 
-Use the following request to examine the tokens generated using the created analyzer:
+Use the following request to examine the tokens generated using the analyzer:
 
 ```json
 POST /my_index/_analyze
@@ -100,13 +100,13 @@ The `pattern` tokenizer can be configured with the following parameters.
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
-`pattern` | Optional | String | The pattern used to split text into tokens specified using a [Java regular expression](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html). Default is `\W+`.
-`flags` | Optional | String | Configures pipe-separated [flags](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html#field.summary) to apply to the regular expression, for example, `"CASE_INSENSITIVE|MULTILINE|DOTALL"` . 
-`group` | Optional | Integer | Specifies the capture group to be used as token. Default is `-1` (split on a match).
+`pattern` | Optional | String | The pattern used to split text into tokens, specified using a [Java regular expression](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html). Default is `\W+`.
+`flags` | Optional | String | Configures pipe-separated [flags](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html#field.summary) to apply to the regular expression, for example, `"CASE_INSENSITIVE|MULTILINE|DOTALL"`. 
+`group` | Optional | Integer | Specifies the capture group to be used as a token. Default is `-1` (split at a match).
 
 ## Example using a group parameter
 
-The following example configures a `group` parameter to capture only the second group:
+The following example request configures a `group` parameter that captures only the second group:
 
 ```json
 PUT /my_index_group2
@@ -132,7 +132,7 @@ PUT /my_index_group2
 ```
 {% include copy-curl.html %}
 
-Use the following request to examine the tokens generated using the created analyzer:
+Use the following request to examine the tokens generated using the analyzer:
 
 ```json
 POST /my_index_group2/_analyze
