@@ -7,7 +7,7 @@ nav_order: 130
 
 # Standard tokenizer
 
-The `standard` tokenizer is the default tokenizer in OpenSearch. It tokenizes text based on word boundaries using a grammar-based approach that recognizes letters, digits, and other characters like punctuation. It is highly versatile and suitable for many languages, because it follows Unicode text segmentation rules ([UAX#29](https://unicode.org/reports/tr29/)) to break text into tokens.
+The `standard` tokenizer is the default tokenizer in OpenSearch. It tokenizes text based on word boundaries using a grammar-based approach that recognizes letters, digits, and other characters like punctuation. It is highly versatile and suitable for many languages because it uses Unicode text segmentation rules ([UAX#29](https://unicode.org/reports/tr29/)) to break text into tokens.
 
 ## Example usage
 
@@ -107,5 +107,5 @@ The `standard` tokenizer can be configured with the following parameter.
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
-`max_token_length` | Optional | Integer | Sets the maximum length of the produced token. If this length is exceeded, the token is split into multiple tokens at length configured in the `max_token_length`. Default is `255`.
+`max_token_length` | Optional | Integer | Sets the maximum length of the produced token. If this length is exceeded, the token is split into multiple tokens at the length configured in `max_token_length`. Default is `255`.
 
