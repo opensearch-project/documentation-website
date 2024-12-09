@@ -7,7 +7,7 @@ nav_order: 140
 
 # Thai tokenizer
 
-The `thai` tokenizer is designed for tokenizing Thai language text. Because words in Thai language are not separated by spaces, the tokenizer must identify word boundaries based on language-specific rules.
+The `thai` tokenizer tokenizes Thai language text. Because words in Thai language are not separated by spaces, the tokenizer must identify word boundaries based on language-specific rules.
 
 ## Example usage
 
