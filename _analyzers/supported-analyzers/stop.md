@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Stop analyzer
-nav_order: 70
+parent: Analyzers
+nav_order: 110
 ---
 
 # Stop analyzer

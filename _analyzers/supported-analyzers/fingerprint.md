@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Fingerprint analyzer
-nav_order: 110
+parent: Analyzers
+nav_order: 60
 ---
 
 # Fingerprint analyzer

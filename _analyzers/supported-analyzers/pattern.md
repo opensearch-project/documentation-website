@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Pattern analyzer
+parent: Analyzers
 nav_order: 90
 ---
 

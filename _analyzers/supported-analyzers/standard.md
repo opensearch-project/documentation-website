@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Standard analyzer
-nav_order: 40
+parent: Analyzers
+nav_order: 50
 ---
 
 # Standard analyzer

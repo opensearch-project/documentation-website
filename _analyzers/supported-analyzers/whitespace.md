@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Whitespace analyzer
-nav_order: 60
+parent: Analyzers
+nav_order: 120
 ---
 
 # Whitespace analyzer
