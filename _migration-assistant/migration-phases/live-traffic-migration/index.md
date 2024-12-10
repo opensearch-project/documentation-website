@@ -12,6 +12,6 @@ Live traffic migration intercepts HTTP requests and stores them in a robust, exp
 
 To start with live traffic migration, use the following steps:
 
-1. [Using traffic replayer]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/using-traffic-replayer/)
+1. [Using Traffic Replayer]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/using-traffic-replayer/)
 2. [Switching traffic from the source cluster]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/switching-traffic-from-the-source-cluster/)
 
