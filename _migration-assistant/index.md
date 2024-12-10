@@ -50,7 +50,7 @@ Acting as a traffic simulation tool, the Traffic Replayer replays recorded reque
 
 The Metadata migration tool integrated into the Migration CLI can be used independently to migrate cluster metadata, including index mappings, index configuration settings, templates, component templates, and aliases.
 
-### reindex-from-snapshot
+### Reindex-from-Snapshot
 
 `Reindex-from-Snapshot` (RFS) reindexes data from an existing snapshot. Workers on Amazon Elastic Container Service (Amazon ECS) coordinate the migration of documents from an existing snapshot, reindexing the documents in parallel to a target cluster.
 
@@ -70,6 +70,6 @@ The design deployed in AWS is as follows:
 2. An Application Load Balancer with capture proxies relays traffic to a source while replicating data to Amazon Managed Streaming for Apache Kafka (Amazon MSK).
 3. Using the migration console, you can initiate metadata migration to establish indexes, templates, component templates, and aliases on the target cluster.
 4. With continuous traffic capture in place, you can use a `reindex-from-snapshot` process to capture data from your current index.
-4. Once `reindex-from-snapshot` is complete, captured traffic is replayed from Amazon MSK to the target cluster by the traffic replayer.
+4. Once `Reindex-from-Snapshot` is complete, captured traffic is replayed from Amazon MSK to the target cluster by the traffic replayer.
 5. Performance and behavior of traffic sent to the source and target clusters are compared by reviewing logs and metrics.
 6. After confirming that the target cluster's functionality meets expectations, clients are redirected to the new target.
