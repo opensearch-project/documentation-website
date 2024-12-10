@@ -6,7 +6,7 @@ nav_order: 50
 
 # Simple analyzer
 
-The `simple` analyzer is a very basic analyzer that breaks text into terms at non-letter characters and lowercases the terms. Unlike the `standard` analyzer, the `simple` analyzer treats everything except alphabetic characters as delimiters, meaning it does not recognize numbers, punctuation, or special characters as part of the tokens.
+The `simple` analyzer is a very basic analyzer that breaks text into terms at non-letter characters and lowercases the terms. Unlike the `standard` analyzer, the `simple` analyzer treats everything except for alphabetic characters as delimiters, meaning that it does not recognize numbers, punctuation, or special characters as part of the tokens.
 
 ## Example 
 
