@@ -6,11 +6,11 @@ nav_order: 90
 
 # Pattern analyzer
 
-The `pattern` analyzer allows you to define a custom analyzer that uses a regular expression (regex) to split the input text into tokens. It also provides options for applying regex flags, converting tokens to lowercase, and filtering out stopwords.
+The `pattern` analyzer allows you to define a custom analyzer that uses a regular expression (regex) to split input text into tokens. It also provides options for applying regex flags, converting tokens to lowercase, and filtering out stopwords.
 
 ## Parameters
 
-The `pattern` analyzer can be configured using the following parameters.
+The `pattern` analyzer can be configured with the following parameters.
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
