@@ -2,7 +2,10 @@
 layout: default
 title: Using Traffic Replayer
 nav_order: 100
-parent: Migration phases
+grand_parent: Migration phases
+parent: Live traffic migration
+redirect_from:
+  - /migration-assistant/migration-phases/using-traffic-replayer/
 ---
 
 # Using Traffic Replayer
