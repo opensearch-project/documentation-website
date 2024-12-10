@@ -2,8 +2,10 @@
 layout: default
 title: Tokenizers
 nav_order: 60
-has_children: false
+has_children: true
 has_toc: false
+redirect_from:
+    - /analyzers/tokenizers/index/
 ---
 
 # Tokenizers

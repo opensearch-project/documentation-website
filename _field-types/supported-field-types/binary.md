@@ -10,6 +10,8 @@ redirect_from:
 ---
 
 # Binary field type
+**Introduced 1.0**
+{: .label .label-purple }
 
 A binary field type contains a binary value in [Base64](https://en.wikipedia.org/wiki/Base64) encoding that is not searchable. 
 
