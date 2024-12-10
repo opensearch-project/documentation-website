@@ -124,3 +124,16 @@ Meters | `m` or `meters`
 Centimeters | `cm` or `centimeters`
 Millimeters | `mm` or `millimeters`
 Nautical miles | `NM`, `nmi`, or `nauticalmiles` 
+
+## `X-Opaque-Id` header
+
+You can specify an opaque identifier for any request using the `X-Opaque-Id` header. This identifier is used to track tasks and deduplicate deprecation warnings in server-side logs. This identifier is used to differentiate between callers sending requests to your OpenSearch cluster. Do not specify a unique value per request.
+
+#### Example request
+
+The following request adds an opaque ID to the request:
+
+```json
+curl -H "X-Opaque-Id: my-curl-client-1" -XGET localhost:9200/_tasks
+```
+{% include copy.html %}
