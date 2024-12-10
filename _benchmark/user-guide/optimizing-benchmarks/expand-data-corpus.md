@@ -18,7 +18,7 @@ This script only works with the `http_logs` workload.
 To use this tutorial, make sure you fulfill the following prerequisites:
 
 1. Python 3.x or greater installed.
-2. The `http_logs` workload data corpus already in your load generation host where benchmark is running.
+2. The `http_logs` workload data corpus is already in your load generation host where OpenSearch Benchmark is running.
 
 ## Understanding the script
 
