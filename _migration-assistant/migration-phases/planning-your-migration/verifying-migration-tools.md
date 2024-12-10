@@ -2,7 +2,10 @@
 layout: default
 title: Verifying migration tools
 nav_order: 70
-parent: Migration phases
+parent: Planning your migration
+grand_parent: Migration phases
+redirect_from:
+  - /migration-assistant/migration-phases/verifying-migration-tools/
 ---
 
 # Verifying migration tools

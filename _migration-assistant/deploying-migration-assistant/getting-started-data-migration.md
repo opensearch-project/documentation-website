@@ -1,10 +1,12 @@
 ---
 layout: default
 title: Getting started with data migration
+parent: Deploying Migration Assistant
 nav_order: 10
 redirect_from:
   - /upgrade-to/upgrade-to/
   - /upgrade-to/snapshot-migrate/
+  - /migration-assistant/getting-started-with-data-migration/
 ---
 
 # Getting started with data migration
@@ -207,8 +209,8 @@ Run the following command to access the migration console:
 {% include copy.html %}
 
 
-`accessContainer.sh` is located in `/opensearch-migrations/deployment/cdk/opensearch-service-migration/` on the Bootstrap instance. To learn more, see [Accessing the migration console].
-`{: .note}
+`accessContainer.sh` is located in `/opensearch-migrations/deployment/cdk/opensearch-service-migration/` on the Bootstrap instance. To learn more, see [Accessing the migration console]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrating-metadata/).
+{: .note}
 
 ---
 
