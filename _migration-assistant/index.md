@@ -50,7 +50,7 @@ Acting as a traffic simulation tool, the Traffic Replayer replays recorded reque
 
 The Metadata migration tool integrated into the Migration CLI can be used independently to migrate cluster metadata, including index mappings, index configuration settings, templates, component templates, and aliases.
 
-### reindex-from-snapshot
+### Reindex-from-Snapshot
 
 `Reindex-from-Snapshot` (RFS) reindexes data from an existing snapshot. Workers on Amazon Elastic Container Service (Amazon ECS) coordinate the migration of documents from an existing snapshot, reindexing the documents in parallel to a target cluster.
 
