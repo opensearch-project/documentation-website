@@ -4,6 +4,7 @@ title: Migration console
 nav_order: 30
 has_children: true
 permalink: /migration-console/
+has_toc: false
 redirect_from: 
   - /migration-console/index/
 ---
