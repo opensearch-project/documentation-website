@@ -11,7 +11,7 @@ The `pattern` tokenizer is a highly flexible tokenizer that allows you to split 
 
 ## Example usage
 
-The following example request creates a new index named `my_index` and configures an analyzer with a `pattern` tokenizer. The tokenizer splits text at `-`, `_`, or `.` characters:
+The following example request creates a new index named `my_index` and configures an analyzer with a `pattern` tokenizer. The tokenizer splits text on `-`, `_`, or `.` characters:
 
 ```json
 PUT /my_index
@@ -102,7 +102,7 @@ Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
 `pattern` | Optional | String | The pattern used to split text into tokens, specified using a [Java regular expression](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html). Default is `\W+`.
 `flags` | Optional | String | Configures pipe-separated [flags](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html#field.summary) to apply to the regular expression, for example, `"CASE_INSENSITIVE|MULTILINE|DOTALL"`. 
-`group` | Optional | Integer | Specifies the capture group to be used as a token. Default is `-1` (split at a match).
+`group` | Optional | Integer | Specifies the capture group to be used as a token. Default is `-1` (split on a match).
 
 ## Example using a group parameter
 

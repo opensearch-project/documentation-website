@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Phone number
+title: Phone number analyzers
 parent: Analyzers
 nav_order: 140
 ---
