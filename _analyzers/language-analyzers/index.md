@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Language analyzers
-nav_order: 100
+nav_order: 140
 parent: Analyzers
 has_children: true
 has_toc: true

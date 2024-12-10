@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Keyword analyzer
+parent: Analyzers
 nav_order: 80
 ---
 

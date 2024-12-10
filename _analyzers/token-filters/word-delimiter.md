@@ -7,7 +7,7 @@ nav_order: 470
 
 # Word delimiter token filter
 
-The `word_delimiter` token filter is used to split tokens at predefined characters and also offers optional token normalization based on customizable rules. 
+The `word_delimiter` token filter is used to splits token on predefined characters and also offers optional token normalization based on customizable rules. 
 
 We recommend using the `word_delimiter_graph` filter instead of the `word_delimiter` filter whenever possible because the `word_delimiter` filter sometimes produces invalid token graphs. For more information about the differences between the two filters, see [Differences between the `word_delimiter_graph` and `word_delimiter` filters]({{site.url}}{{site.baseurl}}/analyzers/token-filters/word-delimiter-graph/#differences-between-the-word_delimiter_graph-and-word_delimiter-filters).
 {: .important}
@@ -45,7 +45,7 @@ Parameter | Required/Optional | Data type | Description
 `split_on_case_change` | Optional | Boolean | Splits tokens where consecutive letters have different cases (one is lowercase and the other is uppercase). For example, `"OpenSearch"` becomes `[ Open, Search ]`. Default is `true`.
 `split_on_numerics` | Optional | Boolean | Splits tokens where there are consecutive letters and numbers. For example `"v8engine"` will become `[ v, 8, engine ]`. Default is `true`.
 `stem_english_possessive` | Optional | Boolean | Removes English possessive endings, such as `'s`. Default is `true`.
-`type_table` | Optional | Array of strings | A custom map that specifies how to treat characters and whether to treat them as delimiters, which avoids unwanted splitting. For example, to treat a hyphen (`-`) as an alphanumeric character, specify `["- => ALPHA"]` so that words are not split at hyphens. Valid types are: <br> - `ALPHA`: alphabetical <br> - `ALPHANUM`: alphanumeric <br> - `DIGIT`: numeric <br> - `LOWER`: lowercase alphabetical <br> - `SUBWORD_DELIM`: non-alphanumeric delimiter <br> - `UPPER`: uppercase alphabetical
+`type_table` | Optional | Array of strings | A custom map that specifies how to treat characters and whether to treat them as delimiters, which avoids unwanted splitting. For example, to treat a hyphen (`-`) as an alphanumeric character, specify `["- => ALPHA"]` so that words are not split on hyphens. Valid types are: <br> - `ALPHA`: alphabetical <br> - `ALPHANUM`: alphanumeric <br> - `DIGIT`: numeric <br> - `LOWER`: lowercase alphabetical <br> - `SUBWORD_DELIM`: non-alphanumeric delimiter <br> - `UPPER`: uppercase alphabetical
 `type_table_path` | Optional | String | Specifies a path (absolute or relative to the config directory) to a file containing a custom character map. The map specifies how to treat characters and whether to treat them as delimiters, which avoids unwanted splitting. For valid types, see `type_table`.
 
 ## Example
