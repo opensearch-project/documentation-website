@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Creating a custom analyzer
-nav_order: 90
+nav_order: 40
 parent: Analyzers
 ---
 
