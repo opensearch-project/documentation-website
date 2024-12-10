@@ -6,13 +6,13 @@ nav_order: 40
 
 # Standard analyzer
 
-The `standard` analyzer is the default analyzer that is used when no other analyzer is specified. It is designed to provide a basic and efficient approach for generic text processing.
+The `standard` analyzer is the default analyzer used when no other analyzer is specified. It is designed to provide a basic and efficient approach to generic text processing.
 
 This analyzer consists of the following tokenizers and token filters:
 
 - `standard` tokenizer: Removes most punctuation and splits text on spaces and other common delimiters.
 - `lowercase` token filter: Converts all tokens to lowercase, ensuring case-insensitive matching.
-- `stop` token filter: Removes common stopwords such as "the", "is", and "and" from the tokenized output.
+- `stop` token filter: Removes common stopwords, such as "the", "is", and "and", from the tokenized output.
 
 ## Example 
 
@@ -39,7 +39,7 @@ You can configure a `standard` analyzer with the following parameters.
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
-`max_token_length` | Optional | Integer | Sets the maximum length of the produced token. If this length is exceeded, the token is split into multiple tokens at the length configured in the `max_token_length`. Default is `255`.
+`max_token_length` | Optional | Integer | Sets the maximum length of the produced token. If this length is exceeded, the token is split into multiple tokens at the length configured in `max_token_length`. Default is `255`.
 `stopwords` | Optional | String or list of strings | A string specifying a predefined list of stopwords (such as `_english_`) or an array specifying a custom list of stopwords. Default is `_none_`.
 `stopwords_path` | Optional | String | The path (absolute or relative to the config directory) to the file containing a list of stop words.
 
