@@ -119,7 +119,7 @@ The response contains the generated tokens:
 
 # Specifying stopwords
 
-See following example specifies a custom list of stopwords:
+The following example request specifies a custom list of stopwords:
 
 ```json
 PUT /my_new_custom_stop_index
