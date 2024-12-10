@@ -13,7 +13,7 @@ The tokenizer uses the matched parts of the input text (based on the regular exp
 
 ## Example usage
 
-The following example request creates a new index named `my_index` and configures an analyzer with a `simple_pattern_split` tokenizer. The tokenizer is configured to split text at hyphens:
+The following example request creates a new index named `my_index` and configures an analyzer with a `simple_pattern_split` tokenizer. The tokenizer is configured to split text on hyphens:
 
 ```json
 PUT /my_index
