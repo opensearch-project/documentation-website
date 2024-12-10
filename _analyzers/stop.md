@@ -145,3 +145,32 @@ PUT /my_new_custom_stop_index
 }
 ```
 {% include copy-curl.html %}
+
+The following example request specifies a path to the file containing stopwords:
+
+```json
+PUT /my_new_custom_stop_index
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "my_custom_stop_analyzer": {
+          "type": "stop",                     
+          "stopwords_path": "stopwords.txt"
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "description": {
+        "type": "text",
+        "analyzer": "my_custom_stop_analyzer" 
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+In this example, the file is located in the config directory. You can also specify a full path to the file.
