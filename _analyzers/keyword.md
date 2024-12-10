@@ -6,7 +6,7 @@ nav_order: 80
 
 # Keyword analyzer
 
-The `keyword` analyzer doesn’t tokenize the text at all. Instead, it treats the entire input as a single token. This is useful when you want the entire content of a field to be indexed as is, without breaking it into smaller pieces (tokens). The `keyword` analyzer is often used for fields like email addresses, URLs, product IDs, and other cases where tokenization is not desirable. 
+The `keyword` analyzer doesn't tokenize text at all. Instead, it treats the entire input as a single token and does not break it into individual tokens. The `keyword` analyzer is often used for fields containing email addresses, URLs, or product IDs and in other cases where tokenization is not desirable. 
 
 ## Example
 
