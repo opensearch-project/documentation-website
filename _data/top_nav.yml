@@ -63,6 +63,8 @@ items:
         url: /docs/latest/clients/
       - label: Benchmark
         url: /docs/latest/benchmark/
+      - label: Migration Assistant
+        url: /docs/latest/migration-assistant/
   - label: Platform
     url: /platform/index.html
     children:
