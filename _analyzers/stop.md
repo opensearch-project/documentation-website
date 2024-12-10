@@ -15,7 +15,7 @@ You can configure a `stop` analyzer with the following parameters.
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
 `stopwords` | Optional | String or list of strings | A string specifying a predefined list of stopwords (such as `_english_`) or an array specifying a custom list of stopwords. Default is `_english_`.
-`stopwords_path` | Optional | String | The path (absolute or relative to the config directory) to the file containing a list of stop words.
+`stopwords_path` | Optional | String | The path (absolute or relative to the config directory) to the file containing a list of stopwords.
 
 ## Example
 
