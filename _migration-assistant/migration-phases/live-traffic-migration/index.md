@@ -8,7 +8,7 @@ has_children: true
 
 # Live traffic migration
 
-Live traffic migration intercepts HTTP requests and stores them in a robust, expandable stream before sending them to the original cluster. It then duplicates these stored requests, sending them to both the original and new clusters. This process allows for performance testing of the new cluster, maintains synchronization between clusters, and highlights any differences between them. The system uses Kafka to manage the data flow and reconstruct the HTTP requests. Users can monitor the replication process using CloudWatch metrics and the Migration Management Console, which provides results in JSON format for easy analysis.
+Live traffic migration intercepts HTTP requests to a source cluster and stores them in a durable stream before forwarding them to the source cluster. The stored requests are then duplicated and replayed to the target cluster. This process synchronizes the source and target clusters while highlighting behavioral and performance differences between them. Kafka is used to manage the data flow and reconstruct HTTP requests. Users can monitor the replication process through CloudWatch metrics and the [migration console](({{site.url}}{{site.baseurl}}/migration-assistant/migration-console/), which provides results in JSON format for analysis
 
 To start with live traffic migration, use the following steps:
 
