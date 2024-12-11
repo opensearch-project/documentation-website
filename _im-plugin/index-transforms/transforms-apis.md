@@ -177,8 +177,8 @@ The update operation supports the following query parameters:
 
 Parameter | Description | Required
 :---| :--- | :---
-`seq_no` | Only perform the transform operation if the last operation that changed the transform job has the specified sequence number. | Yes
-`primary_term` | Only perform the transform operation if the last operation that changed the transform job has the specified sequence term. | Yes
+`if_seq_no` | Only perform the transform operation if the last operation that changed the transform job has the specified sequence number. | Yes
+`if_primary_term` | Only perform the transform operation if the last operation that changed the transform job has the specified sequence term. | Yes
 
 ### Request body fields
 
