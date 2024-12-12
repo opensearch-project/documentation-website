@@ -10,15 +10,59 @@ grand_parent: Availability and recovery
 
 The Query Group Lifecycle API creates, updates, retrieves, and deletes query groups. The API categorizes queries into specific groups, called _query groups_, based on desired resource limits.
 
-## Path and HTTP methods
+## Paths and HTTP methods
 
+The following paths and methods are supported for the Query Group Lifecycle API.
+
+### Create a query group
+
+<!-- spec_insert_start
+api: wlm.create_query_group
+component: paths_and_http_methods
+omit_header: true
+-->
 ```json
-PUT _wlm/query_group
-PUT _wlm/query_group/<name>
-GET _wlm/query_group
-GET _wlm/query_group/<name>
-DELETE _wlm/query_group/<name>
+PUT /_wlm/query_group
 ```
+<!-- spec_insert_end -->
+
+### Update a query group
+
+<!-- spec_insert_start
+api: wlm.create_query_group
+component: paths_and_http_methods
+omit_header: true
+-->
+```json
+PUT /_wlm/query_group
+```
+<!-- spec_insert_end -->
+
+### Get a query group
+
+<!-- spec_insert_start
+api: wlm.get_query_group
+component: paths_and_http_methods
+omit_header: true
+-->
+```json
+GET /_wlm/query_group
+GET /_wlm/query_group/{name}
+```
+<!-- spec_insert_end -->
+
+### Delete a query group
+
+<!-- spec_insert_start
+api: wlm.create_query_group
+component: paths_and_http_methods
+omit_header: true
+-->
+```json
+PUT /_wlm/query_group
+```
+<!-- spec_insert_end -->
+
 
 ## Request body fields
 
@@ -35,7 +79,7 @@ When creating a query group, make sure that the sum of the resource limits for a
 
 The following example requests show how to use the Query Group Lifecycle API.
 
-### Creating a query group
+### Create a query group
 
 ```json
 PUT _wlm/query_group
@@ -50,7 +94,7 @@ PUT _wlm/query_group
 ```
 {% include copy-curl.html %}
 
-### Updating a query group
+### Update a query group
 
 ```json
 PUT _wlm/query_group/analytics
@@ -64,19 +108,6 @@ PUT _wlm/query_group/analytics
 ```
 {% include copy-curl.html %}
 
-### Getting a query group
-
-```json
-GET _wlm/query_group/analytics
-```
-{% include copy-curl.html %}
-
-### Deleting a query group
-
-```json
-DELETE _wlm/query_group/analytics
-```
-{% include copy-curl.html %}
 
 ## Example responses
 
