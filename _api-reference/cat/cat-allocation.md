@@ -15,20 +15,36 @@ has_children: false
 The CAT allocation operation lists the allocation of disk space for indexes and the number of shards on each node.
 
 
-## Path and HTTP methods
-
+<!-- spec_insert_start
+api: cat.allocation
+component: paths_and_http_methods
+-->
+## Paths and HTTP methods
 ```json
-GET _cat/allocation?v
-GET _cat/allocation/<node_name>
+GET /_cat/allocation
+GET /_cat/allocation/{node_id}
 ```
+<!-- spec_insert_end -->
 
+
+
+<!-- spec_insert_start
+api: cat.allocation
+component: query_parameters
+-->
 ## Query parameters
-
 Parameter | Type | Description
 :--- | :--- | :---
-bytes | Byte size | Specify the units for byte size. For example, `7kb` or `6gb`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
-local | Boolean | Whether to return information from the local node only instead of from the cluster manager node. Default is `false`.
-cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
+`bytes` | String | The unit used to display byte values.
+`cluster_manager_timeout` | String | Operation timeout for connection to cluster-manager node.
+`format` | String | A short version of the Accept header (for example, `json`, `yaml`).
+`h` | List | Comma-separated list of column names to display.
+`help` | Boolean | Return help information.
+`local` | Boolean | Return local information, do not retrieve the state from cluster-manager node.
+`s` | List | Comma-separated list of column names or column aliases to sort by.
+`v` | Boolean | Verbose mode. Display column headers.
+`master_timeout` <br> _DEPRECATED_ | String | _(Deprecated since 2.0: To promote inclusive language, use `cluster_manager_timeout` instead.)_ Operation timeout for connection to cluster-manager node.
+<!-- spec_insert_end -->
 
 ## Example requests
 
