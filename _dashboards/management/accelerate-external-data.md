@@ -5,7 +5,7 @@ parent: Data sources
 nav_order: 17
 ---
 
-# Optimize query performance using OpenSearch indexing
+# Optimizing query performance using OpenSearch indexing
 Introduced 2.11
 {: .label .label-purple }
 
