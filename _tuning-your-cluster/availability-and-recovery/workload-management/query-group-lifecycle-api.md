@@ -10,9 +10,8 @@ grand_parent: Availability and recovery
 
 The Query Group Lifecycle API creates, updates, retrieves, and deletes query groups. The API categorizes queries into specific groups, called _query groups_, based on desired resource limits.
 
-## Paths and HTTP methods
+## Path and HTTP methods
 
-The following paths and methods are supported for the Query Group Lifecycle API.
 
 ### Create a query group
 
