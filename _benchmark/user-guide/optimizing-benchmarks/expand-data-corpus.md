@@ -39,7 +39,7 @@ The script provides several customization options. The following are the most co
 
 ## Example
 
-This example generates a 100 GB corpus.
+The following example script command generates a 100 GB corpus:
 
 ```bash
 ./expand-data-corpus.py --corpus-size 100 --output-file-suffix 100gb
