@@ -69,7 +69,7 @@ To use the newly generated corpus in an OpenSearch Benchmark test, use the follo
 opensearch-benchmark execute-test --workload http_logs --workload-params=generated_corpus:t [other_options]
 ```
 
-The `generated_corpus:t` parameter tells OSB to use the expanded corpus. Any additional workload parameters in the `--workload-params` option can be appended to the previous command using commas.
+The `generated_corpus:t` parameter tells OpenSearch Benchmark to use the expanded corpus. Any additional workload parameters can be appended using commas in the `--workload-params` option.
 
 ## Expert-level settings
 
