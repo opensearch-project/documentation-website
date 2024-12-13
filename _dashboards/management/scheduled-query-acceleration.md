@@ -72,7 +72,7 @@ To configure SQA, you must enable the following cluster settings:
 
 - **Configure the following Apache Spark settings**:
     -  Set `spark.flint.job.externalScheduler.enabled` to `true` (default is `false`). This setting enables an external scheduler for Flint auto-refresh to schedule refresh jobs outside of Spark.
-    - Configure `spark.flint.job.externalScheduler.interval` (default is `5 Minutes`). This setting specifies a refresh interval at which an external scheduler triggers index refresh operations.
+    - Configure `spark.flint.job.externalScheduler.interval` (default is `5 minutes`). This setting specifies a refresh interval at which an external scheduler triggers index refresh operations. For valid time units, see [Time units](#time-units).
 
 ## Running an accelerated query
 
@@ -82,23 +82,33 @@ You can run accelerated queries in [Query Workbench]({{site.url}}{{site.baseurl}
 CREATE SKIPPING INDEX example_index
 WITH (
     auto_refresh = true,
-    refresh_interval = '15 Minutes',
+    refresh_interval = '15 minutes',
     scheduler_mode = 'external'
 );
 ```
 {% include copy.html %}
 
-### Parameters
+## Parameters
 
 When creating indexes using an accelerated query, you can specify the following parameters in the `WITH` clause to control the refresh behavior, scheduling, and timing.
 
 | Parameter  | Description  | 
 |:--- | :--- | 
 | `auto_refresh`      | Enables automatic refresh for the index. If `true`, the index refreshes automatically at the specified interval. If `false`, refresh must be triggered manually using the `REFRESH` statement. Default is `false`.   |
-| `refresh_interval`  | Defines the time interval between refresh operations for the index, which determines how frequently new data is integrated into the index. This is applicable only when `auto_refresh` is enabled. The interval determines how frequently new data is integrated and can be specified in formats like `1 Minute` or `10 Seconds`. For valid time identifiers, see [`org.apache.spark.unsafe.types.CalendarInterval`](https://spark.apache.org/docs/latest/api/java/org/apache/spark/unsafe/types/CalendarInterval.html).| 
-| `scheduler_mode`    | Specifies the scheduling mode for auto-refresh (internal or external scheduling). The external scheduler requires a `checkpoint_location` for state management. Valid values are `internal` and `external`.| 
+| `refresh_interval`  | Defines the time interval between refresh operations for the index, which determines how frequently new data is integrated into the index. This is applicable only when `auto_refresh` is enabled. The interval determines how frequently new data is integrated and can be specified in formats like `1 minute` or `10 seconds`. For valid time units, see [Time units](#time-units).| 
+| `scheduler_mode`    | Specifies the scheduling mode for auto-refresh (internal or external scheduling). The external scheduler requires a `checkpoint_location` (a path for refresh job checkpoints) for state management. Valid values are `internal` and `external`.| 
 
-For more information and additional settings, see [Flint index refresh](https://github.com/opensearch-project/opensearch-spark/blob/main/docs/index.md#flint-index-refresh).
+For more information and additional available parameters, see [Flint index refresh](https://github.com/opensearch-project/opensearch-spark/blob/main/docs/index.md#flint-index-refresh).
+
+## Time units
+
+You can specify the following time units when defining time intervals:
+
+- Milliseconds: 'ms', 'millisecond', or 'milliseconds'
+- Seconds: 's', 'second', or 'seconds'
+- Minutes: 'm', 'minute', or 'minutes'
+- Hours: 'h', 'hour', or 'hours'
+- Days: 'd', 'day', or 'days'
 
 ## Creating a scheduled refresh job
 
@@ -108,7 +118,7 @@ To create an index with a scheduled refresh job, use the following statement:
 CREATE SKIPPING INDEX example_index
 WITH (
     auto_refresh = true,
-    refresh_interval = '15 Minutes',
+    refresh_interval = '15 minutes',
     scheduler_mode = 'external'
 );
 ```
@@ -120,7 +130,7 @@ To modify refresh settings, use the `ALTER` command:
 
 ```sql
 ALTER INDEX example_index
-WITH (refresh_interval = '30 Minutes');
+WITH (refresh_interval = '30 minutes');
 ```
 {% include copy.html %}
 
@@ -159,7 +169,7 @@ To update the schedule, specify the `refresh_interval` in the `WITH` clause:
 
 ```sql
 ALTER INDEX example_index
-WITH (refresh_interval = '30 Minutes');
+WITH (refresh_interval = '30 minutes');
 ```
 {% include copy.html %}
 
