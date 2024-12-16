@@ -15,7 +15,7 @@ redirect_from:
 
 The CAT repositories operation lists all snapshot repositories for a cluster.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET _cat/repositories
