@@ -12,7 +12,7 @@ Introduced 2.17
 
 Scheduled Query Acceleration (SQA) is designed to optimize direct queries from OpenSearch to Amazon Simple Storage Service (Amazon S3). It addresses issues often faced when managing and refreshing indexes, views, and data in an automated way. 
 
-Query acceleration is facilitated by secondary indexes like skipping indexes, covering indexes, or materialized views. These indexes store either metadata or actual data from an Amazon S3 in optimized formats. When queries run, they use these indexes instead of directly querying S3. 
+Query acceleration is facilitated by secondary indexes like skipping indexes, covering indexes, or materialized views. When queries run, they use these indexes instead of directly querying S3. 
 
 The secondary indexes need to be refreshed periodically to stay current with the Amazon S3 data. This refresh can be scheduled using an internal scheduler (within Spark) or an external scheduler.
 
@@ -40,7 +40,7 @@ Before configuring SQA, verify that the following requirements are met:
 
 - Ensure you're running OpenSearch version 2.17 or later.
 - Ensure you have the SQL plugin installed. The SQL plugin is part of most OpenSearch distributions. For more information, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
-- Ensure you have configured an Amazon S3 and Amazon EMR Serverless. 
+- Ensure you have configured an Amazon S3 and Amazon EMR Serverless (needed for access to Apache Spark). 
 
 ## Configuring SQA
 
@@ -48,35 +48,39 @@ To configure SQA, perform the following steps.
 
 ### Step 1: Configure the OpenSearch cluster settings
 
-Configure the following cluster settings:
+Configure the following cluster settings.
 
--  **Enable asynchronous query execution**: Set `plugins.query.executionengine.async_query.enabled` to `true` (default value):
+#### Enable asynchronous query execution
 
-    ```json
-    PUT /_cluster/settings
-    {
-      "transient": {
-        "plugins.query.executionengine.async_query.enabled": "true"
-      }
-    }
-    ```
-    {% include copy-curl.html %}
-    
-    For more information, see [Settings](https://github.com/opensearch-project/sql/blob/main/docs/user/admin/settings.rst#pluginsqueryexecutionengineasync_queryenabled).
+Set `plugins.query.executionengine.async_query.enabled` to `true` (default value):
 
-- **Configure the external scheduler interval for asynchronous queries**: This setting defines how often the external scheduler checks for tasks, allowing customization of refresh frequency. There is no default value for this setting so you must explicitly configure it. Adjusting the interval based on workload can optimize resources and manage costs:
+```json
+PUT /_cluster/settings
+{
+  "transient": {
+    "plugins.query.executionengine.async_query.enabled": "true"
+  }
+}
+```
+{% include copy-curl.html %}
 
-    ```json
-    PUT /_cluster/settings
-    {
-      "transient": {
-        "plugins.query.executionengine.async_query.external_scheduler.interval": "10 minutes"
-      }
-    }
-    ```
-    {% include copy-curl.html %}
-    
-    For more information, see [Settings](https://github.com/opensearch-project/sql/blob/main/docs/user/admin/settings.rst#pluginsqueryexecutionengineasync_queryexternal_schedulerinterval).
+For more information, see [Settings](https://github.com/opensearch-project/sql/blob/main/docs/user/admin/settings.rst#pluginsqueryexecutionengineasync_queryenabled).
+
+#### Configure the external scheduler interval for asynchronous queries
+
+This setting defines how often the external scheduler checks for tasks, allowing customization of refresh frequency. There is no default value for this setting so you must explicitly configure it. Adjusting the interval based on workload can optimize resources and manage costs:
+
+```json
+PUT /_cluster/settings
+{
+  "transient": {
+    "plugins.query.executionengine.async_query.external_scheduler.interval": "10 minutes"
+  }
+}
+```
+{% include copy-curl.html %}
+
+For more information, see [Settings](https://github.com/opensearch-project/sql/blob/main/docs/user/admin/settings.rst#pluginsqueryexecutionengineasync_queryexternal_schedulerinterval).
 
 ### Step 2: Configure Apache Spark settings
 
@@ -85,6 +89,8 @@ Configure the following Apache Spark settings:
 -  Set `spark.flint.job.externalScheduler.enabled` to `true` (default is `false`). This setting enables an external scheduler for Flint auto-refresh to schedule refresh jobs outside of Spark.
 
 - Configure `spark.flint.job.externalScheduler.interval` (default is `5 minutes`). This setting specifies a refresh interval at which an external scheduler triggers index refresh operations. For valid time units, see [Time units](#time-units).
+
+For more information, see [OpenSearch Spark documentation](https://github.com/opensearch-project/opensearch-spark/blob/main/docs/index.md#apache-spark).
 
 ### Step 3: Configure a data source
 
@@ -243,7 +249,14 @@ We recommend the following practices to reduce costs:
 
 ## Validations
 
-You can validate your settings by running test queries and verifying the scheduler configurations.
+You can validate your settings by running a test query and verifying the scheduler configurations:
+
+```sql
+SHOW FLINT INDEXES EXTENDED
+```
+{% include copy.html %}
+
+For more information, see [OpenSearch Spark documentation](https://github.com/opensearch-project/opensearch-spark/blob/main/docs/index.md#all-indexes).
 
 ## Troubleshooting
 
