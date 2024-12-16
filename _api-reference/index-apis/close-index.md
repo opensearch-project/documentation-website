@@ -14,7 +14,7 @@ redirect_from:
 The close index API operation closes an index. Once an index is closed, you cannot add data to it or search for any data within the index.
 
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /<index>/_close

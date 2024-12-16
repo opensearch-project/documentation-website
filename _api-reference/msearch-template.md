@@ -11,7 +11,7 @@ nav_order: 47
 
 The Multi-search Template API runs multiple search template requests in a single API request.
 
-## Path and HTTP methods
+## Endpoints
 
 The Multi-search Template API uses the following paths:
 

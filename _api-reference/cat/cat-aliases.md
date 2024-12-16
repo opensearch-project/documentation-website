@@ -16,7 +16,7 @@ has_children: false
 The CAT aliases operation lists the mapping of aliases to indexes, plus routing and filtering information.
 
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET _cat/aliases/<alias>

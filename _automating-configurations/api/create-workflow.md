@@ -25,7 +25,7 @@ The `POST` method creates a new workflow. The `PUT` method updates an existing w
 You can only update a complete workflow if it has not yet been provisioned.
 {: .note}
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /_plugins/_flow_framework/workflow
