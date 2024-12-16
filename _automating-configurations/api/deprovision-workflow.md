@@ -13,7 +13,7 @@ The workflow executes the provisioning steps in reverse order. If a failure occu
 
 To prevent data loss, resources created using the `create_index`, `create_search_pipeline`, and `create_ingest_pipeline` steps require the resource ID to be included in the `allow_delete` parameter.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /_plugins/_flow_framework/workflow/<workflow_id>/_deprovision

@@ -12,7 +12,7 @@ Introduced 1.0
 The Segment API provides details about the Lucene segments within index shards as well as information about the backing indexes of data streams.
 
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /<index>/_segments

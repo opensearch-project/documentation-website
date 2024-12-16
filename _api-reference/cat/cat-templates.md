@@ -16,7 +16,7 @@ redirect_from:
 The CAT templates operation lists the names, patterns, order numbers, and version numbers of index templates.
 
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET _cat/templates

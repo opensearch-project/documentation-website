@@ -12,7 +12,7 @@ nav_order: 30
 The nodes hot threads endpoint provides information about busy JVM threads for selected cluster nodes. It provides a unique view of the of activity each node.
 
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /_nodes/hot_threads

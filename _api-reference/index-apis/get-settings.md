@@ -15,7 +15,7 @@ redirect_from:
 The get settings API operation returns all the settings in your index.
 
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /_settings

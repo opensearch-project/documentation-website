@@ -22,7 +22,7 @@ You can only update the `additional_info` field of a message.
 When the Security plugin is enabled, all memories exist in a `private` security mode. Only the user who created a memory can interact with that memory and its messages.
 {: .important}
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /_plugins/_ml/memory/<memory_id>/messages

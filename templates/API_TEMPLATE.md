@@ -11,7 +11,7 @@ Introduced 1.0
 
 The Example API ... (descriptive sentence about what this API does).
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /_example/endpoint/

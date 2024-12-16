@@ -15,7 +15,7 @@ The Query Insights plugin provides an [API](#health-stats-api) and [metrics](#op
 
 The Health Stats API provides health metrics for each node running the Query Insights plugin. These metrics allow for an in-depth view of resource usage and the health of the query processing components.
 
-### Path and HTTP methods
+### Endpoints
 
 ```json
 GET _insights/health_stats

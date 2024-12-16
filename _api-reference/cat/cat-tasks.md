@@ -15,7 +15,7 @@ redirect_from:
 
 The CAT tasks operation lists the progress of all tasks currently running on your cluster.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET _cat/tasks

@@ -9,7 +9,7 @@ nav_order: 28
 
 The Delete Index Template API deletes one or more index templates.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 DELETE /_index_template/<template-name>

@@ -20,7 +20,7 @@ The Analyze API analyzes a text string and returns the resulting tokens.
 If you use the Security plugin, you must have the `manage index` privilege. If you only want to analyze text, you must have the `manage cluster` privilege.
 {: .note}
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /_analyze

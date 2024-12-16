@@ -11,7 +11,7 @@ Introduced 1.0
 
 The Rollover Index API creates a new index for a data stream or index alias based on the `wait_for_active_shards` setting.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /<rollover-target>/_rollover/

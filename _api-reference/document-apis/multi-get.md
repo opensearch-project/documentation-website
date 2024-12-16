@@ -13,7 +13,7 @@ redirect_from:
 
 The multi-get operation allows you to run multiple GET operations in one request, so you can get back all documents that match your criteria.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET _mget

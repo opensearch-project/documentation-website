@@ -13,7 +13,7 @@ redirect_from:
 
 If you no longer need a document in your index, you can use the delete document API operation to delete it.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 DELETE /<index>/_doc/<_id>

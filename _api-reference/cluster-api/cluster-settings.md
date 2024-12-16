@@ -14,7 +14,7 @@ redirect_from:
 
 The cluster settings operation lets you check the current settings for your cluster, review default settings, and change settings. When you update a setting using the API, OpenSearch applies it to all nodes in the cluster.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET _cluster/settings

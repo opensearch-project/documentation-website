@@ -345,7 +345,7 @@ Field | Type | Description
 
 This API uses the detector ID to specify and delete a detector.
 
-### Path and HTTP methods
+### Endpoints
 
 ```json
 DELETE /_plugins/_security_analytics/detectors/IJAXz4QBrmVplM4JYxx_
@@ -372,7 +372,7 @@ DELETE /_plugins/_security_analytics/detectors/<detector Id>
 
 The Get Detector API retrieves the detector details. Use the detector ID in the call to fetch detector details.
 
-### Path and HTTP methods
+### Endpoints
 
 ```json
 GET /_plugins/_security_analytics/detectors/x-dwFIYBT6_n8WeuQjo4

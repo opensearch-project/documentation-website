@@ -29,7 +29,7 @@ When the Security plugin is enabled, all memories exist in a `private` security 
 
 You can retrieve memory information by using the `memory_id`. The response includes all messages within the memory.
 
-### Path and HTTP methods
+### Endpoints
 
 ```json
 GET /_plugins/_ml/memory/<memory_id>
@@ -65,7 +65,7 @@ GET /_plugins/_ml/memory/N8AE1osB0jLkkocYjz7D
 
 Use this command to get all memories.
 
-### Path and HTTP methods
+### Endpoints
 
 ```json
 GET /_plugins/_ml/memory

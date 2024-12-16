@@ -16,7 +16,7 @@ redirect_from:
 The CAT recovery operation lists all completed and ongoing index and shard recoveries.
 
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET _cat/recovery

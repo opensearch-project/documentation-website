@@ -10,7 +10,7 @@ nav_order: 10
 
 You can retrieve information about a task using the `task_id`.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /_plugins/_ml/tasks/<task_id>

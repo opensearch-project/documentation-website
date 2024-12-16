@@ -17,7 +17,7 @@ To use the `scroll` operation, add a `scroll` parameter to the request header wi
 Because search contexts consume a lot of memory, we suggest you don't use the `scroll` operation for frequent user queries. Instead, use the `sort` parameter with the `search_after` parameter to scroll responses for user queries.
 {: .note }
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET _search/scroll

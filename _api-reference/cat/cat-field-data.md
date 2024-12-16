@@ -15,7 +15,7 @@ redirect_from:
 The CAT Field Data operation lists the memory size used by each field per node.
 
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET _cat/fielddata?v

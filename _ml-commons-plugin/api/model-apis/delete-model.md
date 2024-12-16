@@ -15,7 +15,7 @@ When you delete the last model version in a model group, that model group is aut
 
 For information about user access for this API, see [Model access control considerations]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/#model-access-control-considerations).
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 DELETE /_plugins/_ml/models/<model_id>

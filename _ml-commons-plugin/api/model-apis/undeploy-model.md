@@ -12,7 +12,7 @@ To undeploy a model from memory, use the undeploy operation.
 
 For information about user access for this API, see [Model access control considerations]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/#model-access-control-considerations).
 
-### Path and HTTP methods
+### Endpoints
 
 ```json
 POST /_plugins/_ml/models/<model_id>/_undeploy

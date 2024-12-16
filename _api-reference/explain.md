@@ -18,7 +18,7 @@ The explain API is an expensive operation in terms of both resources and time. O
 {: .warning }
 
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET <index>/_explain/<id>

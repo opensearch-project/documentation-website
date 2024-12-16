@@ -19,7 +19,7 @@ The nodes info API represents mostly static information about your cluster's nod
 - Installed plugins
 
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /_nodes

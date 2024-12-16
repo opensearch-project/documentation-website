@@ -15,7 +15,7 @@ Creates a snapshot within an existing repository.
 
 * To view a list of your repositories, see [Get snapshot repository]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot-repository).
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 PUT /_snapshot/<repository>/<snapshot>

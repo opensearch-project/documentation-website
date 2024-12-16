@@ -12,7 +12,7 @@ nav_order: 20
 
 Use this API to retrieve information about a controller for a model by model ID.
 
-### Path and HTTP methods
+### Endpoints
 
 ```json
 GET /_plugins/_ml/controllers/<model_id>

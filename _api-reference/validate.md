@@ -8,7 +8,7 @@ nav_order: 87
 
 You can use the Validate Query API to validate a query without running it. The query can be sent as a path parameter or included in the request body.
 
-## Path and HTTP methods
+## Endpoints
 
 The Validate Query API contains the following path:
 

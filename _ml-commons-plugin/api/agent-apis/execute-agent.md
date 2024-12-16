@@ -12,7 +12,7 @@ nav_order: 20
 
 When an agent is executed, it runs the tools with which it is configured.
 
-### Path and HTTP methods
+### Endpoints
 
 ```json
 POST /_plugins/_ml/agents/<agent_id>/_execute

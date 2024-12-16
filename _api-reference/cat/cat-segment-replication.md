@@ -15,7 +15,7 @@ The CAT segment replication operation returns information about active and last 
 Call the CAT Segment Replication API only on indexes with segment replication enabled.
 {: .note}
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /_cat/segment_replication

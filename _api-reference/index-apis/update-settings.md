@@ -16,7 +16,7 @@ You can use the update settings API operation to update index-level settings. Yo
 Aside from the static and dynamic index settings, you can also update individual plugins' settings. To get the full list of updatable settings, run `GET <target-index>/_settings?include_defaults=true`.
 
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 PUT /<index>/_settings

@@ -22,7 +22,7 @@ You cannot explicitly specify an ingest pipeline when calling the Update Documen
 the index [sample-index1] has a default ingest pipeline or a final ingest pipeline, the support of the ingest pipelines for update operation causes unexpected result and will be removed in 3.0.0
 ```
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /<index>/_update/<_id>

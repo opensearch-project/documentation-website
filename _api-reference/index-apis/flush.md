@@ -14,7 +14,7 @@ The Flush API stores all in-memory operations to segments on disk. Operations fl
 
 OpenSearch automatically performs flushes in the background based on conditions like transaction log size, which is controlled by the `index.translog.flush_threshold_size` setting. Use the Flush API sparingly, for example, for manual restarts or to free up memory.
 
-## Path and HTTP methods
+## Endpoints
 
 The Flush API supports the following paths:
 

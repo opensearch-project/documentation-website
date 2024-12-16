@@ -19,7 +19,7 @@ Beginning in OpenSearch 2.9, when indexing documents using the bulk operation, t
 
 
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST _bulk

@@ -15,7 +15,7 @@ redirect_from:
 
 To control the distribution of search or HTTP traffic, you can use the weights per awareness attribute to control the distribution of search or HTTP traffic across zones. This is commonly used for zonal deployments, heterogeneous instances, and routing traffic away from zones during zonal failure.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 PUT /_cluster/routing/awareness/<attribute>/weights

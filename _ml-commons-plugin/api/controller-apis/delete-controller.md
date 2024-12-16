@@ -12,7 +12,7 @@ nav_order: 50
 
 Use this API to delete a controller for a model based on the `model_id`.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 DELETE /_plugins/_ml/controllers/<model_id>

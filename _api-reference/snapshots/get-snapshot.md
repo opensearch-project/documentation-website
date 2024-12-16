@@ -11,7 +11,7 @@ nav_order: 6
 
 Retrieves information about a snapshot.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET _snapshot/<repository>/<snapshot>/

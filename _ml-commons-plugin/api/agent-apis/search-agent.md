@@ -12,7 +12,7 @@ nav_order: 30
 
 Use this command to search for agents you've already created. You can provide any OpenSearch search query in the request body.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /_plugins/_ml/agents/_search
