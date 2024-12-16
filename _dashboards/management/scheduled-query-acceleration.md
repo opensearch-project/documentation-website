@@ -10,7 +10,11 @@ has_children: false
 Introduced 2.17
 {: .label .label-purple }
 
-Scheduled Query Acceleration (SQA) is designed to optimize direct queries from OpenSearch to Amazon S3. It addresses issues often faced when managing and refreshing indexes, views, and data in an automated way. 
+Scheduled Query Acceleration (SQA) is designed to optimize direct queries from OpenSearch to Amazon Simple Storage Service (Amazon S3). It addresses issues often faced when managing and refreshing indexes, views, and data in an automated way. 
+
+Query acceleration is facilitated by secondary indexes like skipping indexes, covering indexes, or materialized views. These indexes store either metadata or actual data from an Amazon S3 in optimized formats. When queries run, they use these indexes instead of directly querying S3. 
+
+The secondary indexes need to be refreshed periodically to stay current with the Amazon S3 data. This refresh can be scheduled using an internal scheduler (within Spark) or an external scheduler.
 
 Using SQA provides the following benefits:
 
@@ -22,25 +26,29 @@ Using SQA provides the following benefits:
 
 - **Simplified index management**: SQA enables updates to index settings, such as refresh intervals, without requiring multiple queries, simplifying workflows.
 
-## Prerequisites
-
-Before you start using SQA, verify that the following requirements are met:
-
-- Ensure you're running OpenSearch version 2.17 or later.
-- Ensure you have the SQL plugin installed. The SQL plugin is part of most OpenSearch distributions. For more information, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
-- Ensure you have access to EMR Serverless and Amazon S3. For more information, see [Connecting Amazon S3 to OpenSearch]({{site.url}}{{site.baseurl}}/dashboards/management/S3-data-source/).
-
 ## Concepts
 
-To use SQA, you must be familiar with the following concepts:
+Before configuring SQA, familiarize yourself with the following topics:
 
 - [Optimizing query performance using OpenSearch indexing]({{site.url}}{{site.baseurl}}/dashboards/management/accelerate-external-data/)
 - [Flint index refresh](https://github.com/opensearch-project/opensearch-spark/blob/main/docs/index.md#flint-index-refresh)
 - [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/)
 
+## Prerequisites
+
+Before configuring SQA, verify that the following requirements are met:
+
+- Ensure you're running OpenSearch version 2.17 or later.
+- Ensure you have the SQL plugin installed. The SQL plugin is part of most OpenSearch distributions. For more information, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
+- Ensure you have configured an Amazon S3 and Amazon EMR Serverless. 
+
 ## Configuring SQA
 
-To configure SQA, you must enable the following cluster settings:
+To configure SQA, perform the following steps.
+
+### Step 1: Configure the OpenSearch cluster settings
+
+Configure the following cluster settings:
 
 -  **Enable asynchronous query execution**: Set `plugins.query.executionengine.async_query.enabled` to `true` (default value):
 
@@ -56,13 +64,13 @@ To configure SQA, you must enable the following cluster settings:
     
     For more information, see [Settings](https://github.com/opensearch-project/sql/blob/main/docs/user/admin/settings.rst#pluginsqueryexecutionengineasync_queryenabled).
 
-- **Configure the asynchronous query external scheduler interval**: Set `plugins.query.executionengine.async_query.external_scheduler.enabled` to `true` (default value). This setting defines how often the external scheduler checks for tasks, allowing customization of refresh frequency. Adjusting the interval based on workload can optimize resources and manage costs:
+- **Configure the external scheduler interval for asynchronous queries**: This setting defines how often the external scheduler checks for tasks, allowing customization of refresh frequency. There is no default value for this setting so you must explicitly configure it. Adjusting the interval based on workload can optimize resources and manage costs:
 
     ```json
     PUT /_cluster/settings
     {
       "transient": {
-        "plugins.query.executionengine.async_query.enabled": "true"
+        "plugins.query.executionengine.async_query.external_scheduler.interval": "10 minutes"
       }
     }
     ```
@@ -70,9 +78,25 @@ To configure SQA, you must enable the following cluster settings:
     
     For more information, see [Settings](https://github.com/opensearch-project/sql/blob/main/docs/user/admin/settings.rst#pluginsqueryexecutionengineasync_queryexternal_schedulerinterval).
 
-- **Configure the following Apache Spark settings**:
-    -  Set `spark.flint.job.externalScheduler.enabled` to `true` (default is `false`). This setting enables an external scheduler for Flint auto-refresh to schedule refresh jobs outside of Spark.
-    - Configure `spark.flint.job.externalScheduler.interval` (default is `5 minutes`). This setting specifies a refresh interval at which an external scheduler triggers index refresh operations. For valid time units, see [Time units](#time-units).
+### Step 2: Configure Apache Spark settings
+
+Configure the following Apache Spark settings:
+
+-  Set `spark.flint.job.externalScheduler.enabled` to `true` (default is `false`). This setting enables an external scheduler for Flint auto-refresh to schedule refresh jobs outside of Spark.
+
+- Configure `spark.flint.job.externalScheduler.interval` (default is `5 minutes`). This setting specifies a refresh interval at which an external scheduler triggers index refresh operations. For valid time units, see [Time units](#time-units).
+
+### Step 3: Configure a data source
+
+Connect OpenSearch to your Amazon S3 data source using the OpenSearch Dashboards interface. For more information, see [Connecting Amazon S3 to OpenSearch]({{site.url}}{{site.baseurl}}/dashboards/management/S3-data-source/).
+
+After this step, you can directly query your S3 data (the primary data source) using [Query Workbench]({{site.url}}{{site.baseurl}}/dashboards/query-workbench/).
+
+### Step 4: Configure query acceleration
+
+Configure a skipping index, covering index, or materialized view. These secondary data sources are additional data structures that improve query performance by optimizing queries on external data sources, such as Amazon S3. For more information, see [Optimize query performance using OpenSearch indexing]({{site.url}}{{site.baseurl}}/dashboards/management/accelerate-external-data/).
+
+After this step, you can [run accelerated queries](#running-an-accelerated-query) using one of the secondary data sources. 
 
 ## Running an accelerated query
 
@@ -104,11 +128,11 @@ For more information and additional available parameters, see [Flint index refre
 
 You can specify the following time units when defining time intervals:
 
-- Milliseconds: 'ms', 'millisecond', or 'milliseconds'
-- Seconds: 's', 'second', or 'seconds'
-- Minutes: 'm', 'minute', or 'minutes'
-- Hours: 'h', 'hour', or 'hours'
-- Days: 'd', 'day', or 'days'
+- Milliseconds: `ms`, `millisecond`, or `milliseconds`
+- Seconds: `s`, `second`, or `seconds`
+- Minutes: `m`, `minute`, or `minutes`
+- Hours: `h`, `hour`, or `hours`
+- Days: `d`, `day`, or `days`
 
 ## Creating a scheduled refresh job
 
@@ -149,14 +173,14 @@ Use the following commands to manage scheduled jobs.
 
 ### Enabling jobs
 
-To disable the external scheduler, use the ALTER command with manual refresh:
+To disable the external scheduler, use the ALTER command with a manual refresh:
 
 ```sql
 ALTER MATERIALIZED VIEW myglue_test.default.count_by_status_v9 WITH (auto_refresh = false);
 ```
 {% include copy.html %}
 
-To enable the external scheduler, use the ALTER command with auto-refresh:
+To enable the external scheduler, use the ALTER command with an auto-refresh:
 
 ```sql
 ALTER MATERIALIZED VIEW myglue_test.default.count_by_status_v9 WITH (auto_refresh = true);
