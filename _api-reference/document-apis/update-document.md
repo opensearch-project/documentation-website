@@ -14,7 +14,7 @@ redirect_from:
 If you need to update a document's fields in your index, you can use the update document API operation. You can do so by specifying the new data you want to be in your index or by including a script in your request body, which OpenSearch runs to update the document. By default, the update operation only updates a document that exists in the index. If a document does not exist, the API returns an error. To _upsert_ a document (update the document that exists or index a new one), use the [upsert](#using-the-upsert-operation) operation.
 
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /<index>/_update/<_id>

@@ -14,7 +14,7 @@ The `workflows` template field may contain multiple workflows. The workflow with
 You can only provision a workflow if it has not yet been provisioned. Deprovision the workflow if you need to repeat provisioning.
 {: .note}
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /_plugins/_flow_framework/workflow/<workflow_id>/_provision

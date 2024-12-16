@@ -10,7 +10,7 @@ nav_order: 60
 
 The [rank]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/rank/) eval endpoint allows you to evaluate the quality of ranked search results.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET <index_name>/_rank_eval 

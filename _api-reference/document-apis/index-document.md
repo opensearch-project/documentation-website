@@ -14,7 +14,7 @@ redirect_from:
 You can use the `Index document` operation to add a single document to your index.
 
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 PUT <index>/_doc/<_id>

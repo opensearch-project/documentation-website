@@ -11,7 +11,7 @@ nav_order: 20
 
 The nodes stats API returns statistics about your cluster.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /_nodes/stats
