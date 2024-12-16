@@ -20,7 +20,7 @@ After a shard becomes idle, the indexes will not refresh until either the next s
 
 To use the Refresh Index API, you must have write access to the indexes you want to refresh.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /_refresh

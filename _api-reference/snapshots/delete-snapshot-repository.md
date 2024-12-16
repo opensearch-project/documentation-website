@@ -15,7 +15,7 @@ A repository in OpenSearch is simply a configuration that maps a repository name
 
 To learn more about repositories, see [Register or update snapshot repository]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-repository).
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 DELETE _snapshot/<repository>

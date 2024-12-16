@@ -9,7 +9,7 @@ nav_order: 60
 
 You can retrieve created workflows with their `workflow_id` or search for workflows by using a query matching a field. You can use the `use_case` field to search for similar workflows.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /_plugins/_flow_framework/workflow/_search

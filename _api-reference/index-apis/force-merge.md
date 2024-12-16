@@ -11,7 +11,7 @@ nav_order: 37
 
 The force merge API operation forces a merge on the shards of one or more indexes. For a data stream, the API forces a merge on the shards of the stream's backing index.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /_forcemerge

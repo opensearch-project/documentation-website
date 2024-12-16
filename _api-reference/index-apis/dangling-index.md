@@ -11,7 +11,7 @@ nav_order: 30
 
 After a node joins a cluster, dangling indexes occur if any shards exist in the node's local directory that do not already exist in the cluster. Dangling indexes can be listed, deleted, or imported.
 
-## Path and HTTP methods
+## Endpoints
 
 List dangling indexes:
 

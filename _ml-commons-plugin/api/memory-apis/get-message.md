@@ -24,7 +24,7 @@ When the Security plugin is enabled, all memories exist in a `private` security 
 
 You can retrieve message information by using the `message_id`.
 
-### Path and HTTP methods
+### Endpoints
 
 ```json
 GET /_plugins/_ml/memory/message/<message_id>
@@ -68,7 +68,7 @@ For information about response fields, see [Create Message request fields]({{sit
 
 Use this command to get a list of messages for a certain memory.
 
-### Path and HTTP methods
+### Endpoints
 
 ```json
 GET /_plugins/_ml/memory/<memory_id>/messages

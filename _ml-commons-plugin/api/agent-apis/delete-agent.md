@@ -12,7 +12,7 @@ nav_order: 50
 
 You can use this API to delete an agent based on the `agent_id`.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 DELETE /_plugins/_ml/agents/<agent_id>

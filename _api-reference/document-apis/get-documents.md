@@ -14,7 +14,7 @@ redirect_from:
 After adding a JSON document to your index, you can use the Get Document API operation to retrieve the document's information and data.
 
 
-## Path and HTTP methods
+## Endpoints
 
 Use the GET method to retrieve a document and its source or stored fields from a particular index. Use the HEAD method to verify that a document exists:
 

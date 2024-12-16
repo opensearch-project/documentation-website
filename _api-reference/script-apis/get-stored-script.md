@@ -11,7 +11,7 @@ nav_order: 3
 
 Retrieves a stored script.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET _scripts/my-first-script

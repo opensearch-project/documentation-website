@@ -9,7 +9,7 @@ nav_order: 37
 
 Some algorithms, such as [Localization]({{site.url}}{{site.baseurl}}/ml-commons-plugin/algorithms#localization), don't require trained models. You can run no-model-based algorithms using the `execute` API.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST _plugins/_ml/_execute/<algorithm_name>

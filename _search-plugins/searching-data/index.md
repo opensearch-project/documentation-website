@@ -19,4 +19,4 @@ Feature | Description
 [Sort results]({{site.url}}{{site.baseurl}}/opensearch/search/sort/) | Allow sorting of results by different criteria.
 [Highlight query matches]({{site.url}}{{site.baseurl}}/opensearch/search/highlight/) | Highlight the search term in the results.
 [Retrieve inner hits]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/inner-hits/) | Retrieve underlying hits in nested and parent-join objects.
-[Retrieve specific fields]({{site.url}}{{site.baseurl}}search-plugins/searching-data/retrieve-specific-fields/) | Retrieve only the specific fields
+[Retrieve specific fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/) | Retrieve only the specific fields

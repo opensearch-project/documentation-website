@@ -16,7 +16,7 @@ You can use the threat intelligence Monitor API to create, search, and update [m
 
 Creates or updates a threat intelligence monitor.
 
-### Path and HTTP methods
+### Endpoints
 
 The `POST` method creates a new monitor. The `PUT` method updates a monitor.
 
@@ -207,7 +207,7 @@ The following section provides example requests for the Monitor API.
 
 Deletes an existing threat intelligence monitor.
 
-### Path and HTTP methods
+### Endpoints
 
 ```json
 DELETE /_plugins/_security_analytics/threat_intel/monitors/<monitor_id>

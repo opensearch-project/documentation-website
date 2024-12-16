@@ -17,7 +17,7 @@ If verification is successful, the verify snapshot repository API returns a list
 If you use the Security plugin, you must have the `manage cluster` privilege.
 {: .note}
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET _snapshot/<repository>/

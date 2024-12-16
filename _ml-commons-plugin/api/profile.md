@@ -24,7 +24,7 @@ PUT _cluster/settings
 
 To clear all monitoring requests, set `plugins.ml_commons.monitoring_request_count` to `0`. 
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /_plugins/_ml/profile

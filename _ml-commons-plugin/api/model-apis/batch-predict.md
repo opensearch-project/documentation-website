@@ -23,7 +23,7 @@ For instructions on how set up batch inference and connector blueprints, see the
 
 - [OpenAI batch predict connector blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/batch_inference_openAI_connector_blueprint.md)
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /_plugins/_ml/models/<model_id>/_batch_predict

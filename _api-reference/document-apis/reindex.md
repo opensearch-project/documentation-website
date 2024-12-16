@@ -15,7 +15,7 @@ redirect_from:
 The reindex document API operation lets you copy all or a subset of your data from a source index into a destination index.
 
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /_reindex

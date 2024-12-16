@@ -14,7 +14,7 @@ redirect_from:
 The shrink index API operation moves all of your data in an existing index into a new index with fewer primary shards.
 
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /<index-name>/_shrink/<target-index>

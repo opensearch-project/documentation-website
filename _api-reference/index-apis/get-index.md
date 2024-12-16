@@ -14,7 +14,7 @@ redirect_from:
 You can use the get index API operation to return information about an index.
 
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /<index>

@@ -18,7 +18,7 @@ The Profile API provides timing information about the execution of individual co
 The Profile API is a resource-consuming operation that adds overhead to search operations.
 {: .warning}
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /testindex/_search

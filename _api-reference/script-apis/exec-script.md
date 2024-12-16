@@ -11,7 +11,7 @@ nav_order: 7
 
 The Execute Painless script API allows you to run a script that is not stored.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /_scripts/painless/_execute

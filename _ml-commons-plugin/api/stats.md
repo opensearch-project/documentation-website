@@ -9,7 +9,7 @@ nav_order: 50
 
 Gets statistics related to the number of tasks. 
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /_plugins/_ml/stats

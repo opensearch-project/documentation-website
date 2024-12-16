@@ -24,7 +24,7 @@ Field | Data type | Description
 `segrep.pressure.checkpoint.limit` | Integer | The maximum number of indexing checkpoints that a replica shard can fall behind when copying from primary. Once `segrep.pressure.checkpoint.limit` is breached along with `segrep.pressure.time.limit`, the segment replication backpressure mechanism is initiated. Default is `4` checkpoints.
 `segrep.pressure.replica.stale.limit `| Floating point | The maximum number of stale replica shards that can exist in a replication group. Once `segrep.pressure.replica.stale.limit` is breached, the segment replication backpressure mechanism is initiated. Default is `.5`, which is 50% of a replication group.
 
-## Path and HTTP methods
+## Endpoints
 
 You can use the segment replication API endpoint to retrieve segment replication backpressure metrics as follows:
 

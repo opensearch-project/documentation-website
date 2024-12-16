@@ -24,7 +24,7 @@ For information about user access for this API, see [Model access control consid
 
 If the model is more than 10 MB in size, ML Commons splits it into smaller chunks and saves those chunks in the model's index.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /_plugins/_ml/models/_register

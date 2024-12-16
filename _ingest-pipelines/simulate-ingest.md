@@ -13,7 +13,7 @@ redirect_from:
 
 Use the simulate ingest pipeline API operation to run or test the pipeline.
 
-## Path and HTTP methods
+## Endpoints
 
 The following requests **simulate the latest ingest pipeline created**:
 

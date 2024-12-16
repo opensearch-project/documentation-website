@@ -1,11 +1,11 @@
 ---
 layout: default
-title: html_strip character filter
+title: HTML strip
 parent: Character filters
 nav_order: 100
 ---
 
-# `html_strip` character filter
+# HTML strip character filter
 
 The `html_strip` character filter removes HTML tags, such as `<div>`, `<p>`, and `<a>`, from the input text and renders plain text. The filter can be configured to preserve certain tags or decode specific HTML entities, such as `&nbsp;`, into spaces.
 

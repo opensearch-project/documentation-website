@@ -14,7 +14,7 @@ Updates a model based on the `model_ID`.
 
 For information about user access for this API, see [Model access control considerations]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/#model-access-control-considerations).
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 PUT /_plugins/_ml/models/<model_id>

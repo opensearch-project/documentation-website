@@ -14,7 +14,7 @@ redirect_from:
 The open index API operation opens a closed index, letting you add or search for data within the index.
 
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /<index>/_open

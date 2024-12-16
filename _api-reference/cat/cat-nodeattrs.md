@@ -15,7 +15,7 @@ redirect_from:
 The CAT nodeattrs operation lists the attributes of custom nodes.
 
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET _cat/nodeattrs

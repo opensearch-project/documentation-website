@@ -28,7 +28,7 @@ Introduced 2.4
 
 Creates a PIT. The `keep_alive` query parameter is required; it specifies how long to keep a PIT.
 
-### Path and HTTP methods
+### Endpoints
 
 ```json
 POST /<target_indexes>/_search/point_in_time?keep_alive=1h&routing=&expand_wildcards=&preference= 

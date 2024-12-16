@@ -14,7 +14,7 @@ The count API gives you quick access to the number of documents that match a que
 You can also use it to check the document count of an index, data stream, or cluster.
 
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET <target>/_count/<id>

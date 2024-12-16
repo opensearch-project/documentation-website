@@ -19,7 +19,7 @@ The streaming bulk operation lets you add, update, or delete multiple documents 
 The default HTTP transport method does not support streaming. You must install the [`transport-reactor-netty4`]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/network-settings/#selecting-the-transport) HTTP transport plugin and use it as the default HTTP transport layer. Both the `transport-reactor-netty4` plugin and the Streaming Bulk API are experimental.
 {: .note}
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST _bulk/stream

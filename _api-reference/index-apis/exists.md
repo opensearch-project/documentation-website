@@ -14,7 +14,7 @@ redirect_from:
 The index exists API operation returns whether or not an index already exists.
 
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 HEAD /<index-name>
