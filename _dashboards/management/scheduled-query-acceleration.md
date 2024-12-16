@@ -12,7 +12,7 @@ Introduced 2.17
 
 Scheduled Query Acceleration (SQA) is designed to optimize direct queries from OpenSearch to Amazon Simple Storage Service (Amazon S3). It addresses issues often faced when managing and refreshing indexes, views, and data in an automated way. 
 
-Query acceleration is facilitated by secondary indexes like skipping indexes, covering indexes, or materialized views. When queries run, they use these indexes instead of directly querying S3. 
+Query acceleration is facilitated by secondary indexes like [skipping indexes]({{site.url}}{{site.baseurl}}/dashboards/management/accelerate-external-data/#skipping-indexes), [covering indexes]({{site.url}}{{site.baseurl}}/dashboards/management/accelerate-external-data/#covering-indexes), or [materialized views]({{site.url}}{{site.baseurl}}/dashboards/management/accelerate-external-data/#materialized-views). When queries run, they use these indexes instead of directly querying S3. 
 
 The secondary indexes need to be refreshed periodically to stay current with the Amazon S3 data. This refresh can be scheduled using an internal scheduler (within Spark) or an external scheduler.
 
