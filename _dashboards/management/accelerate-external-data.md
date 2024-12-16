@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Optimize query performance using OpenSearch indexing
+title: Optimizing query performance using OpenSearch indexing
 parent: Data sources
 nav_order: 17
 ---

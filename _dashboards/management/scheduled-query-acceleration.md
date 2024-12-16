@@ -51,7 +51,6 @@ To configure SQA, perform the following steps.
 Configure the following cluster settings:
 
 -  **Enable asynchronous query execution**: Set `plugins.query.executionengine.async_query.enabled` to `true` (default value):
-
     ```json
     PUT /_cluster/settings
     {
@@ -61,11 +60,10 @@ Configure the following cluster settings:
     }
     ```
     {% include copy-curl.html %}
-    
+
     For more information, see [Settings](https://github.com/opensearch-project/sql/blob/main/docs/user/admin/settings.rst#pluginsqueryexecutionengineasync_queryenabled).
 
 - **Configure the external scheduler interval for asynchronous queries**: This setting defines how often the external scheduler checks for tasks, allowing customization of refresh frequency. There is no default value for this setting so you must explicitly configure it. Adjusting the interval based on workload can optimize resources and manage costs:
-
     ```json
     PUT /_cluster/settings
     {
@@ -75,7 +73,7 @@ Configure the following cluster settings:
     }
     ```
     {% include copy-curl.html %}
-    
+
     For more information, see [Settings](https://github.com/opensearch-project/sql/blob/main/docs/user/admin/settings.rst#pluginsqueryexecutionengineasync_queryexternal_schedulerinterval).
 
 ### Step 2: Configure Apache Spark settings
