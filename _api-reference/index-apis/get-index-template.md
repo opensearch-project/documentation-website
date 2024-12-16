@@ -9,7 +9,7 @@ nav_order: 27
 
 The Get Index Template API returns information about one or more index templates.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /_index_template/<template-name>

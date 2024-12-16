@@ -16,7 +16,7 @@ The list indices operation provides the following index information in a paginat
 - The number of shards contained in the index. 
 - The index's health status.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET _list/indices
