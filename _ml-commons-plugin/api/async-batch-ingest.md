@@ -13,7 +13,7 @@ nav_order: 35
 
 Use the Asynchronous Batch Ingestion API to ingest data into your OpenSearch cluster from your files on remote file servers, such as Amazon Simple Storage Service (Amazon S3) or OpenAI. For detailed configuration steps, see [Asynchronous batch ingestion]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/async-batch-ingestion/).
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /_plugins/_ml/_batch_ingestion

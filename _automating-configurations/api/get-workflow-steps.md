@@ -27,7 +27,7 @@ This API returns a list of workflow steps, including their required inputs, outp
 }
 ``` 
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /_plugins/_flow_framework/workflow/_steps
