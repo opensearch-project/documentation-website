@@ -6,7 +6,7 @@ nav_order: 50
 
 # Go client
 
-The OpenSearch Go client lets you connect your Go application with the data in your OpenSearch cluster. This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client's complete API documentation and additional examples, see the [Go client API documentation](https://pkg.go.dev/github.com/opensearch-project/opensearch-go/v2).
+The OpenSearch Go client lets you connect your Go application with the data in your OpenSearch cluster. This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client's complete API documentation and additional examples, see the [Go client API documentation](https://pkg.go.dev/github.com/opensearch-project/opensearch-go/v4).
 
 For the client source code, see the [opensearch-go repo](https://github.com/opensearch-project/opensearch-go).
 
@@ -66,11 +66,11 @@ import (
 	"context"
 	"log"
 
-	"github.com/aws/aws-sdk-go-v2/aws"
-	"github.com/aws/aws-sdk-go-v2/config"
-	opensearch "github.com/opensearch-project/opensearch-go/v2"
-	opensearchapi "github.com/opensearch-project/opensearch-go/v2/opensearchapi"
-	requestsigner "github.com/opensearch-project/opensearch-go/v2/signer/awsv2"
+	"github.com/aws/aws-sdk-go-v4/aws"
+	"github.com/aws/aws-sdk-go-v4/config"
+	opensearch "github.com/opensearch-project/opensearch-go/v4"
+	opensearchapi "github.com/opensearch-project/opensearch-go/v4@v4.3.0/opensearchapi"
+	requestsigner "github.com/opensearch-project/opensearch-go/v4@v4.3.0/signer/awsv2"
 )
 
 const endpoint = "" // e.g. https://opensearch-domain.region.com or Amazon OpenSearch Serverless endpoint
@@ -128,11 +128,11 @@ import (
 	"context"
 	"log"
 
-	"github.com/aws/aws-sdk-go-v2/aws"
-	"github.com/aws/aws-sdk-go-v2/config"
-	opensearch "github.com/opensearch-project/opensearch-go/v2"
-	opensearchapi "github.com/opensearch-project/opensearch-go/v2/opensearchapi"
-	requestsigner "github.com/opensearch-project/opensearch-go/v2/signer/awsv2"
+	"github.com/aws/aws-sdk-go-v4/aws"
+	"github.com/aws/aws-sdk-go-v4/config"
+	opensearch "github.com/opensearch-project/opensearch-go/v4"
+	opensearchapi "github.com/opensearch-project/opensearch-go/v4@v4.3.0/opensearchapi"
+	requestsigner "github.com/opensearch-project/opensearch-go/v4@v4.3.0/signer/awsv2"
 )
 
 const endpoint = "" // e.g. https://opensearch-domain.region.com or Amazon OpenSearch Serverless endpoint
