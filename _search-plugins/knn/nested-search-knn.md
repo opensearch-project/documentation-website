@@ -183,7 +183,7 @@ Even though all three vectors nearest to the query vector are in document 1, the
 }
 ```
 
-## Inner Hits 
+## Inner hits 
 
 When you retrieve documents based on matches in nested fields, by default, the response does not contain information about which inner objects matched the query. Thus, it is not apparent why the document is a match. To include information about the matching nested fields in the response, you can provide the `inner_hits` object in your query. To return only certain fields of the matching documents within `inner_hits`, specify the document fields in the `fields` array. Generally, you should also exclude `_source` from the results to avoid returning the whole document. The following example returns only the `color` inner field of the `nested_field`:
 
@@ -300,8 +300,9 @@ The response contains matching documents. For each matching document, the `inner
 }
 ```
 
-## Multi Inner Hits
-To retrieve the scores of all nested field documents for each parent document, rather than only the one with the maximum score, set `expand_nested_docs` to `true` in your query. This will include all nested field documents of the parent document, and the parent document's score will be calculated as the average of all nested field document scores. If you want the parent document's score to reflect the highest score among its nested field documents, set the `score_mode` to `max`.:
+## Retrieving all nested hits
+
+By default, only the highest-scoring nested document is considered when you query nested fields. To retrieve the scores for all nested field documents within each parent document, set `expand_nested_docs` to `true` in your query. The parent document's score is calculated as the average of their scores. To use the highest score among the nested field documents as the parent document's score, set `score_mode` to `max`:
 
 ```json
 GET my-knn-index-1/_search
@@ -328,8 +329,9 @@ GET my-knn-index-1/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
-The response contains expanded matching documents:
+The response contains all matching documents:
 
 ```json
 {
