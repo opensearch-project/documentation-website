@@ -7,7 +7,7 @@
 - [Spec insert components](#spec-insert-components)
   - [Query parameters](#query-parameters)
   - [Path parameters](#path-parameters)
-  - [Paths and HTTP methods](#paths-and-http-methods)
+  - [Endpoints](#endpoints)
 
 ## Introduction
 
@@ -69,15 +69,15 @@ The `spec-insert` plugin is run as part of the CI/CD pipeline to ensure that the
 ## Spec insert components
 All spec insert components accept the following arguments:
 - `api` (String; required): The name of the API to render the component from. This is equivalent to the `x-operation-group` field in the OpenSearch OpenAPI Spec.
-- `component` (String; required): The name of the component to render,  such as `query_parameters`, `path_parameters`, or `paths_and_http_methods`.
+- `component` (String; required): The name of the component to render,  such as `query_parameters`, `path_parameters`, or `endpoints`.
 - `omit_header` (Boolean; Default is `false`): If set to `true`, the markdown header of the component will not be rendered.
 
-### Paths and HTTP methods
-To insert paths and HTTP methods for the `search` API, use the following snippet:
+### Endpoints
+To insert endpoints for the `search` API, use the following snippet:
 ```markdown
 <!-- spec_insert_start
 api: search
-component: paths_and_http_methods
+component: endpoints
 -->
 <!-- spec_insert_end -->
 ```
