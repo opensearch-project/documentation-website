@@ -10,7 +10,7 @@ has_children: false
 Introduced 2.17
 {: .label .label-purple }
 
-Scheduled Query Acceleration (SQA) is designed to optimize direct queries from OpenSearch to Amazon Simple Storage Service (Amazon S3). It addresses issues often faced when managing and refreshing indexes, views, and data in an automated way. 
+Scheduled Query Acceleration (SQA) is designed to optimize direct queries from OpenSearch to external data sources, such as Amazon Simple Storage Service (Amazon S3). It addresses issues often faced when managing and refreshing indexes, views, and data in an automated way. 
 
 Query acceleration is facilitated by secondary indexes like [skipping indexes]({{site.url}}{{site.baseurl}}/dashboards/management/accelerate-external-data/#skipping-indexes), [covering indexes]({{site.url}}{{site.baseurl}}/dashboards/management/accelerate-external-data/#covering-indexes), or [materialized views]({{site.url}}{{site.baseurl}}/dashboards/management/accelerate-external-data/#materialized-views). When queries run, they use these indexes instead of directly querying S3. 
 
@@ -24,7 +24,7 @@ Using SQA provides the following benefits:
 
 - **Better control over refresh scheduling**: SQA allows flexible scheduling of refresh intervals, helping manage resource usage and refresh frequency according to specific requirements.
 
-- **Simplified index management**: SQA enables updates to index settings, such as refresh intervals, without requiring multiple queries, simplifying workflows.
+- **Simplified index management**: SQA enables updates to index settings, such as refresh intervals, in a single query, simplifying workflows.
 
 ## Concepts
 
@@ -32,7 +32,7 @@ Before configuring SQA, familiarize yourself with the following topics:
 
 - [Optimizing query performance using OpenSearch indexing]({{site.url}}{{site.baseurl}}/dashboards/management/accelerate-external-data/)
 - [Flint index refresh](https://github.com/opensearch-project/opensearch-spark/blob/main/docs/index.md#flint-index-refresh)
-- [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/)
+- [Index State Management](https://github.com/opensearch-project/opensearch-spark/blob/main/docs/index.md#index-state-transition-1)
 
 ## Prerequisites
 
@@ -76,23 +76,13 @@ Configure the following cluster settings:
 
     For more information, see [Settings](https://github.com/opensearch-project/sql/blob/main/docs/user/admin/settings.rst#pluginsqueryexecutionengineasync_queryexternal_schedulerinterval).
 
-### Step 2: Configure Apache Spark settings
-
-Configure the following Apache Spark settings:
-
--  Set `spark.flint.job.externalScheduler.enabled` to `true` (default is `false`). This setting enables an external scheduler for Flint auto-refresh to schedule refresh jobs outside of Spark.
-
-- Configure `spark.flint.job.externalScheduler.interval` (default is `5 minutes`). This setting specifies a refresh interval at which an external scheduler triggers index refresh operations. For valid time units, see [Time units](#time-units).
-
-For more information, see [OpenSearch Spark documentation](https://github.com/opensearch-project/opensearch-spark/blob/main/docs/index.md#apache-spark).
-
-### Step 3: Configure a data source
+### Step 2: Configure a data source
 
 Connect OpenSearch to your Amazon S3 data source using the OpenSearch Dashboards interface. For more information, see [Connecting Amazon S3 to OpenSearch]({{site.url}}{{site.baseurl}}/dashboards/management/S3-data-source/).
 
 After this step, you can directly query your S3 data (the primary data source) using [Query Workbench]({{site.url}}{{site.baseurl}}/dashboards/query-workbench/).
 
-### Step 4: Configure query acceleration
+### Step 3: Configure query acceleration
 
 Configure a skipping index, covering index, or materialized view. These secondary data sources are additional data structures that improve query performance by optimizing queries on external data sources, such as Amazon S3. For more information, see [Optimize query performance using OpenSearch indexing]({{site.url}}{{site.baseurl}}/dashboards/management/accelerate-external-data/).
 
@@ -106,8 +96,19 @@ You can run accelerated queries in [Query Workbench]({{site.url}}{{site.baseurl}
 CREATE SKIPPING INDEX example_index
 WITH (
     auto_refresh = true,
+    refresh_interval = '15 minutes'
+);
+```
+{% include copy.html %}
+
+By default, the query uses an external scheduler. To specify an internal scheduler, set `scheduler_mode` to `internal`:
+
+```sql
+CREATE SKIPPING INDEX example_index
+WITH (
+    auto_refresh = true,
     refresh_interval = '15 minutes',
-    scheduler_mode = 'external'
+    scheduler_mode = 'internal'
 );
 ```
 {% include copy.html %}
@@ -148,16 +149,6 @@ WITH (
 ```
 {% include copy.html %}
 
-## Modifying refresh settings
-
-To modify refresh settings, use the `ALTER` command:
-
-```sql
-ALTER INDEX example_index
-WITH (refresh_interval = '30 minutes');
-```
-{% include copy.html %}
-
 ## Monitoring index status
 
 To monitor index status, use the following statement:
@@ -189,7 +180,7 @@ ALTER MATERIALIZED VIEW myglue_test.default.count_by_status_v9 WITH (auto_refres
 
 ### Updating schedules
 
-To update the schedule, specify the `refresh_interval` in the `WITH` clause:
+To update the schedule and modify refresh settings, specify the `refresh_interval` in the `WITH` clause:
 
 ```sql
 ALTER INDEX example_index
