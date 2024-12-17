@@ -69,8 +69,8 @@ import (
 	"github.com/aws/aws-sdk-go-v4/aws"
 	"github.com/aws/aws-sdk-go-v4/config"
 	opensearch "github.com/opensearch-project/opensearch-go/v4"
-	opensearchapi "github.com/opensearch-project/opensearch-go/v4/opensearchapi"
-	requestsigner "/github.com/opensearch-project/opensearch-go/v4@v4.3.0/signer/awsv2"
+	opensearchapi "github.com/opensearch-project/opensearch-go/v4@v4.3.0/opensearchapi"
+	requestsigner "github.com/opensearch-project/opensearch-go/v4@v4.3.0/signer/awsv2"
 )
 
 const endpoint = "" // e.g. https://opensearch-domain.region.com or Amazon OpenSearch Serverless endpoint
@@ -131,8 +131,8 @@ import (
 	"github.com/aws/aws-sdk-go-v4/aws"
 	"github.com/aws/aws-sdk-go-v4/config"
 	opensearch "github.com/opensearch-project/opensearch-go/v4"
-	opensearchapi "github.com/opensearch-project/opensearch-go/v4/opensearchapi"
-	requestsigner "/github.com/opensearch-project/opensearch-go/v4@v4.3.0/signer/awsv2"
+	opensearchapi "github.com/opensearch-project/opensearch-go/v4@v4.3.0/opensearchapi"
+	requestsigner "github.com/opensearch-project/opensearch-go/v4@v4.3.0/signer/awsv2"
 )
 
 const endpoint = "" // e.g. https://opensearch-domain.region.com or Amazon OpenSearch Serverless endpoint
