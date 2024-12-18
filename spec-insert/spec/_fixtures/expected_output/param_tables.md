@@ -7,7 +7,7 @@ component: path_parameters
 ## Path parameters
 Parameter | Type | Description
 :--- | :--- | :---
-`index` | List | Comma-separated list of data streams, indexes, and aliases to search. Supports wildcards (`*`). To search all data streams and indexes, omit this parameter or use `*` or `_all`.
+`index` | List or String | Comma-separated list of data streams, indexes, and aliases to search. Supports wildcards (`*`). To search all data streams and indexes, omit this parameter or use `*` or `_all`.
 <!-- spec_insert_end -->
 
 Query Parameters Example with Global Parameters, Pretty Print, and Custom Columns
