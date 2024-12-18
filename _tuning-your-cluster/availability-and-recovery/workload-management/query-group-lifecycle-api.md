@@ -17,7 +17,7 @@ The Query Group Lifecycle API creates, updates, retrieves, and deletes query gro
 
 <!-- spec_insert_start
 api: wlm.create_query_group
-component: paths_and_http_methods
+component: endpoints
 omit_header: true
 -->
 ```json
@@ -29,7 +29,7 @@ PUT /_wlm/query_group
 
 <!-- spec_insert_start
 api: wlm.create_query_group
-component: paths_and_http_methods
+component: endpoints
 omit_header: true
 -->
 ```json
@@ -41,7 +41,7 @@ PUT /_wlm/query_group
 
 <!-- spec_insert_start
 api: wlm.get_query_group
-component: paths_and_http_methods
+component: endpoints
 omit_header: true
 -->
 ```json
@@ -54,7 +54,7 @@ GET /_wlm/query_group/{name}
 
 <!-- spec_insert_start
 api: wlm.create_query_group
-component: paths_and_http_methods
+component: endpoints
 omit_header: true
 -->
 ```json

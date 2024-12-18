@@ -112,9 +112,19 @@ components:
     _common___Indices:
       oneOf:
         - $ref: '#/components/schemas/_common___IndexName'
+        - $ref: '#/components/schemas/_common___SpecialIndices'
         - type: array
           items:
             $ref: '#/components/schemas/_common___IndexName'
 
     _common___IndexName:
       type: string
+
+    _common___SpecialIndices:
+      oneOf:
+        - type: string
+          const: _all
+        - type: string
+          const: _any
+        - type: string
+          const: _none

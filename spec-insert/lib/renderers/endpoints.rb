@@ -2,9 +2,9 @@
 
 require_relative 'base_mustache_renderer'
 
-# Renders paths and http methods
-class PathsAndMethods < BaseMustacheRenderer
-  self.template_file = "#{__dir__}/templates/paths_and_methods.mustache"
+# Renders Endpoints
+class Endpoints < BaseMustacheRenderer
+  self.template_file = "#{__dir__}/templates/endpoints.mustache"
 
   def operations
     ljust = @action.operations.map { |op| op.http_verb.length }.max

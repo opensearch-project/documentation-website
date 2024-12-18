@@ -18,7 +18,7 @@ describe DocProcessor do
     test_file('param_tables')
   end
 
-  it 'inserts the paths and http methods correctly' do
-    test_file('paths_and_http_methods')
+  it 'inserts the Endpoints correctly' do
+    test_file('endpoints')
   end
 end
