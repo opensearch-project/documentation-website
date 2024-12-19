@@ -34,12 +34,15 @@ class SpecHash
     parse(@hash[key])
   end
 
-  def respond_to_missing?(name, include_private = false)
-    @hash.key?(name.to_s) || @hash.respond_to?(name) || super
+  def respond_to_missing?(name)
+    @hash.key?(name.to_s) || {}.respond_to?(name) || super
   end
 
   def method_missing(name, ...)
-    return @hash.send(name, ...) if @hash.respond_to?(name)
+    if {}.respond_to?(name)
+      warn "Accessing Hash attribute `#{name}` which is also a key of the SpecHash instance" if @hash.key?(name.to_s)
+      return @hash.send(name, ...)
+    end
     parse(@hash[name.to_s])
   end
 
