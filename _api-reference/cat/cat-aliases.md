@@ -16,21 +16,15 @@ has_children: false
 The CAT aliases operation lists the mapping of aliases to indexes, plus routing and filtering information.
 
 
-<!-- spec_insert_start
-api: cat.aliases
-component: paths_and_http_methods
--->
-## Paths and HTTP methods
+
+## Endpoints
+
 ```json
 GET /_cat/aliases
 GET /_cat/aliases/{name}
 ```
-<!-- spec_insert_end -->
 
-<!-- spec_insert_start
-api: cat.aliases
-component: query_parameters
--->
+
 ## Query parameters
 Parameter | Type | Description
 :--- | :--- | :---

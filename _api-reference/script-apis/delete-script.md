@@ -11,7 +11,7 @@ nav_order: 4
 
 Deletes a stored script.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 DELETE _scripts/my-script

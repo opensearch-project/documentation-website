@@ -18,7 +18,7 @@ The response will contain only those model versions to which you have access. Fo
 
 For information about user access for this API, see [Model access control considerations]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/#model-access-control-considerations).
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /_plugins/_ml/models/_search

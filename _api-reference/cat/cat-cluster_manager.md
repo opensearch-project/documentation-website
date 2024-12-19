@@ -15,15 +15,13 @@ has_children: false
 The CAT cluster manager operation lists information that helps identify the elected cluster manager node.
 
 
-<!-- spec_insert_start
-api: cat.cluster_manager
-component: paths_and_http_methods
--->
-## Paths and HTTP methods
+
+## Endpoints
+
 ```json
 GET /_cat/cluster_manager
 ```
-<!-- spec_insert_end -->
+
 
 <!-- spec_insert_start
 api: cat.cluster_manager

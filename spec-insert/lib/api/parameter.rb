@@ -34,7 +34,7 @@ class Parameter
     @description = description
     @required = required
     @schema = schema
-    @doc_type = get_doc_type(schema).gsub('String / List', 'List').gsub('List / String', 'List')
+    @doc_type = get_doc_type(schema)
     @default = default
     @deprecated = deprecated
     @deprecation_message = deprecation_message
@@ -47,7 +47,7 @@ class Parameter
   def get_doc_type(schema)
     return nil if schema.nil?
     union = schema.anyOf || schema.oneOf
-    return union.map { |sch| get_doc_type(sch) }.join(' / ') unless union.nil?
+    return union.map { |sch| get_doc_type(sch) }.sort.uniq.join(' or ') if union.present?
     return 'Integer' if schema.type == 'integer'
     return 'Float' if schema.type == 'number'
     return 'Boolean' if schema.type == 'boolean'

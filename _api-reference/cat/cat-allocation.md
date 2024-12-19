@@ -15,23 +15,14 @@ has_children: false
 The CAT allocation operation lists the allocation of disk space for indexes and the number of shards on each node.
 
 
-<!-- spec_insert_start
-api: cat.allocation
-component: paths_and_http_methods
--->
-## Paths and HTTP methods
+
+## Endpoints
+
 ```json
 GET /_cat/allocation
 GET /_cat/allocation/{node_id}
 ```
-<!-- spec_insert_end -->
 
-
-
-<!-- spec_insert_start
-api: cat.allocation
-component: query_parameters
--->
 ## Query parameters
 Parameter | Type | Description
 :--- | :--- | :---

@@ -23,6 +23,8 @@ class SpecHash
 
   attr_reader :hash
 
+  delegate :to_s, to: :hash
+
   # @param [Hash] hash
   def initialize(hash = {}, parsed: true)
     @hash = parsed ? hash : parse(hash)

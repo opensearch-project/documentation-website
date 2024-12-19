@@ -10,7 +10,7 @@ nav_order: 15
 
 Searches tasks based on parameters indicated in the request body.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /_plugins/_ml/tasks/_search
