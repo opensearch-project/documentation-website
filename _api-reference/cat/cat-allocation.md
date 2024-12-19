@@ -16,25 +16,35 @@ The CAT allocation operation lists the allocation of disk space for indexes and 
 
 
 
+<!-- spec_insert_start
+api: cat.allocation
+component: endpoints
+-->
 ## Endpoints
-
 ```json
 GET /_cat/allocation
 GET /_cat/allocation/{node_id}
 ```
+<!-- spec_insert_end -->
 
+
+<!-- spec_insert_start
+api: cat.allocation
+component: query_parameters
+columns: Parameter,Type,Description,Default
+include_deprecated: false
+-->
 ## Query parameters
-Parameter | Type | Description
-:--- | :--- | :---
-`bytes` | String | The unit used to display byte values.
-`cluster_manager_timeout` | String | Operation timeout for connection to cluster-manager node.
-`format` | String | A short version of the Accept header (for example, `json`, `yaml`).
-`h` | List | Comma-separated list of column names to display.
-`help` | Boolean | Return help information.
-`local` | Boolean | Return local information, do not retrieve the state from cluster-manager node.
-`s` | List | Comma-separated list of column names or column aliases to sort by.
-`v` | Boolean | Verbose mode. Display column headers.
-`master_timeout` <br> _DEPRECATED_ | String | _(Deprecated since 2.0: To promote inclusive language, use `cluster_manager_timeout` instead.)_ Operation timeout for connection to cluster-manager node.
+Parameter | Type | Description | Default
+:--- | :--- | :--- | :---
+`bytes` | String | The units used to display byte values. | 
+`cluster_manager_timeout` | String | A timeout for connection to the cluster manager node. | 
+`format` | String | A short version of the HTTP `Accept` header, such as `json` or `yaml`. | 
+`h` | List | A comma-separated list of column names to display. | 
+`help` | Boolean | Returns help information. | 
+`local` | Boolean | Returns local information but does not retrieve the state from cluster-manager node. | 
+`s` | List | A comma-separated list of column names or column aliases to sort by. | 
+`v` | Boolean | Enables verbose mode, which displays column headers. | 
 <!-- spec_insert_end -->
 
 ## Example requests

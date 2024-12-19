@@ -17,25 +17,36 @@ The CAT aliases operation lists the mapping of aliases to indexes, plus routing 
 
 
 
+<!-- spec_insert_start
+api: cat.aliases
+component: endpoints
+-->
 ## Endpoints
-
 ```json
 GET /_cat/aliases
 GET /_cat/aliases/{name}
 ```
-
-
-## Query parameters
-Parameter | Type | Description
-:--- | :--- | :---
-`expand_wildcards` | String / String / String / String / List | Whether to expand wildcard expression to concrete indexes that are open, closed or both.
-`format` | String | A short version of the Accept header (for example, `json`, `yaml`).
-`h` | List | Comma-separated list of column names to display.
-`help` | Boolean | Return help information.
-`local` | Boolean | Return local information, do not retrieve the state from cluster-manager node.
-`s` | List | Comma-separated list of column names or column aliases to sort by.
-`v` | Boolean | Verbose mode. Display column headers.
 <!-- spec_insert_end -->
+
+
+<!-- spec_insert_start
+api: cat.aliases
+component: query_parameters
+columns: Parameter,Type,Description,Default
+include_deprecated: false
+-->
+## Query parameters
+Parameter | Type | Description | Default
+:--- | :--- | :--- | :---
+`expand_wildcards` | List or String | Expands wildcard expressions to concrete indexes. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. | 
+`format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | 
+`h` | List | A comma-separated list of column names to display. | 
+`help` | Boolean | Returns help information. | 
+`local` | Boolean | Whether to return information from the local node only instead of from the cluster manager node. | 
+`s` | List | A comma-separated list of column names or column aliases to sort by. | 
+`v` | Boolean | Enables verbose mode, which displays column headers. | 
+<!-- spec_insert_end -->
+
 
 ## Example requests
 
