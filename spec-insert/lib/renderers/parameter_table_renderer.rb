@@ -29,7 +29,7 @@ class ParameterTableRenderer
       'Description' => description(param),
       'Required' => param.required ? 'Required' : nil,
       'Type' => param.doc_type,
-      'Default' => param.default
+      'Default' => param.default.nil? ?  nil : "`#{param.default}`"
     }
   end
 
@@ -37,7 +37,7 @@ class ParameterTableRenderer
     deprecation = deprecation(param)
     required = param.required && @columns.exclude?('Required') ? '**(Required)** ' : ''
     description = param.description.gsub("\n", ' ')
-    default = param.default.nil? || @columns.include?('Default') ? '' : " _(Default: #{param.default})_"
+    default = param.default.nil? || @columns.include?('Default') ? '' : " _(Default: `#{param.default}`)_"
 
     "#{deprecation}#{required}#{description}#{default}"
   end
