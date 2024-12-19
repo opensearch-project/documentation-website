@@ -16,20 +16,37 @@ has_children: false
 The CAT aliases operation lists the mapping of aliases to indexes, plus routing and filtering information.
 
 
+
+<!-- spec_insert_start
+api: cat.aliases
+component: endpoints
+-->
 ## Endpoints
-
 ```json
-GET _cat/aliases/<alias>
-GET _cat/aliases
+GET /_cat/aliases
+GET /_cat/aliases/{name}
 ```
-{% include copy-curl.html %}
+<!-- spec_insert_end -->
 
+
+<!-- spec_insert_start
+api: cat.aliases
+component: query_parameters
+columns: Parameter,Type,Description,Default
+include_deprecated: false
+-->
 ## Query parameters
+Parameter | Type | Description | Default
+:--- | :--- | :--- | :---
+`expand_wildcards` | List or String | Expands wildcard expressions to concrete indexes. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. | 
+`format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | 
+`h` | List | A comma-separated list of column names to display. | 
+`help` | Boolean | Returns help information. | `false`
+`local` | Boolean | Whether to return information from the local node only instead of from the cluster manager node. | `false`
+`s` | List | A comma-separated list of column names or column aliases to sort by. | 
+`v` | Boolean | Enables verbose mode, which displays column headers. | `false`
+<!-- spec_insert_end -->
 
-Parameter | Type | Description
-:--- | :--- | :---
-local | Boolean | Whether to return information from the local node only instead of from the cluster manager node. Default is `false`.
-expand_wildcards | Enum | Expands wildcard expressions to concrete indexes. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. Default is `open`.
 
 ## Example requests
 
