@@ -184,7 +184,7 @@ We recommend the following best practices when using SQA.
 
 ### Cost management
 
-- **Use an external scheduler**: An external scheduler offloads refresh operations, reducing the demand on core driver nodes.
+- **Use an external scheduler**: An external scheduler offloads refresh operations, reducing demand on core driver nodes.
 
 - **Configure a refresh interval for your use case**: Longer refresh intervals lead to reduced costs but may impact data freshness.
 
