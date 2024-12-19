@@ -80,12 +80,12 @@ class Parameter
   # @return [Parameter] Single parameter distilled from the list
   def self.from_parameters(params, opts_count)
     param = params.first || SpecHash.new
-    schema = param&.schema || SpecHash.new
+    schema = param.schema || SpecHash.new
     Parameter.new(name: param.name,
                   description: param.description || schema.description,
                   required: params.filter(&:required).size >= opts_count,
                   schema:,
-                  default: param.default || schema.default,
+                  default: param['default'] || schema['default'],
                   deprecated: param.deprecated || schema.deprecated,
                   deprecation_message: param['x-deprecation-message'] || schema['x-deprecation-message'],
                   version_deprecated: param['x-version-deprecated'] || schema['x-version-deprecated'],
