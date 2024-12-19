@@ -41,10 +41,10 @@ Parameter | Type | Description | Default
 `cluster_manager_timeout` | String | A timeout for connection to the cluster manager node. | 
 `format` | String | A short version of the HTTP `Accept` header, such as `json` or `yaml`. | 
 `h` | List | A comma-separated list of column names to display. | 
-`help` | Boolean | Returns help information. | 
-`local` | Boolean | Returns local information but does not retrieve the state from cluster-manager node. | 
+`help` | Boolean | Returns help information. | `false`
+`local` | Boolean | Returns local information but does not retrieve the state from cluster-manager node. | `false`
 `s` | List | A comma-separated list of column names or column aliases to sort by. | 
-`v` | Boolean | Enables verbose mode, which displays column headers. | 
+`v` | Boolean | Enables verbose mode, which displays column headers. | `false`
 <!-- spec_insert_end -->
 
 ## Example requests
