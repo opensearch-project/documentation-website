@@ -29,7 +29,7 @@ class ParameterTableRenderer
       'Description' => description(param),
       'Required' => param.required ? 'Required' : nil,
       'Type' => param.doc_type,
-      'Default' => param.default.nil? ?  nil : "`#{param.default}`"
+      'Default' => param.default.nil? ? nil : "`#{param.default}`"
     }
   end
 
