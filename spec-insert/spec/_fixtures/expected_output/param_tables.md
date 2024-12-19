@@ -22,10 +22,10 @@ columns: Type, Parameter, Description, Required, Default
 ## Query parameters
 | Type    | Parameter                 | Description                                                                                                                        | Required | Default |
 |:--------|:--------------------------|:-----------------------------------------------------------------------------------------------------------------------------------|:---------|:--------|
-| Boolean | `analyze_wildcard`        | If true, wildcard and prefix queries are analyzed. This parameter can only be used when the q query string parameter is specified. | Required |         |
+| Boolean | `analyze_wildcard`        | If true, wildcard and prefix queries are analyzed. This parameter can only be used when the q query string parameter is specified. | Required | false   |
 | String  | `analyzer`                | Analyzer to use for the query string. This parameter can only be used when the q query string parameter is specified.              |          |         |
 | Boolean | `pretty`                  | Whether to pretty format the returned JSON response.                                                                               |          |         |
-| Boolean | `human` <br> _DEPRECATED_ | _(Deprecated since 3.0: Use the `format` parameter instead.)_ Whether to return human readable values for statistics.              |          |         |
+| Boolean | `human` <br> _DEPRECATED_ | _(Deprecated since 3.0: Use the `format` parameter instead.)_ Whether to return human readable values for statistics.              |          | true    |
 <!-- spec_insert_end -->
 
 Query Parameters Example with only Parameter and Description Columns
@@ -38,6 +38,6 @@ omit_header: true
 -->
 Parameter | Description
 :--- | :---
-`analyze_wildcard` | **(Required)** If true, wildcard and prefix queries are analyzed. This parameter can only be used when the q query string parameter is specified.
+`analyze_wildcard` | **(Required)** If true, wildcard and prefix queries are analyzed. This parameter can only be used when the q query string parameter is specified. _(Default: false)_
 `analyzer` | Analyzer to use for the query string. This parameter can only be used when the q query string parameter is specified.
 <!-- spec_insert_end -->
