@@ -39,12 +39,6 @@ To get started with the **Accelerate performance** use case available in **Data 
 
 ### Define covering index settings
 
-<<<<<<< HEAD
-1. Under **Index settings**, enter a valid index name. Note that each Amazon S3 table can have multiple covering indexes.
-2. Once you have added the index name, define the covering index fields by selecting `(add fields here)` under **Covering index definition**. 
-3. Select the **Copy Query to Editor** button to apply your covering index settings.
-4. View the covering index query details in the table pane and then select the **Run** button. Your index is added to the left-side navigation menu containing the list of your databases.
-=======
 1. For **Index name**, enter a valid index name. Note that each table can have multiple covering indexes.
 2. Choose a **Refresh type**. By default, OpenSearch automatically refreshes the index. Otherwise, you must manually trigger a refresh using a REFRESH statement.
 3. Enter a **Checkpoint location**, which is a path for refresh job checkpoints. The location must be a path in a file system compatible with the Hadoop Distributed File System (HDFS). For more information, see [Starting streaming queries](https://spark.apache.org/docs/3.5.1/structured-streaming-programming-guide.html#starting-streaming-queries).
@@ -146,7 +140,6 @@ WITH (
   watermark_delay = '1 Minute',
 )
 ```
->>>>>>> 61bb43645 (Add public doc for scheduler (#8825))
 
 ## Limitations
 
