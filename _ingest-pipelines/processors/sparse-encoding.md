@@ -36,12 +36,29 @@ The following table lists the required and optional parameters for the `sparse_e
 | Parameter  | Data type | Required/Optional  | Description  |
 |:---|:---|:---|:---|
 `model_id` | String | Required | The ID of the model that will be used to generate the embeddings. The model must be deployed in OpenSearch before it can be used in neural search. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/) and [Neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
+`prune_type` | String | Optional | The prune strategy for sparse vectors. Choose one value from `max_ratio`, `alpha_mass`, `top_k`, `abs_value` and `none`. Default value is `none`.
+`prune_ratio` | Float | Optional | The ratio for prune strategy. Once the `prune_type` is provided, `prune_ratio` field is required.
 `field_map` | Object | Required | Contains key-value pairs that specify the mapping of a text field to a `rank_features` field.
 `field_map.<input_field>` | String | Required | The name of the field from which to obtain text for generating vector embeddings.
 `field_map.<vector_field>`  | String | Required | The name of the vector field in which to store the generated vector embeddings.
 `description`  | String | Optional  | A brief description of the processor.  |
 `tag` | String | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
 `batch_size` | Integer | Optional | Specifies the number of documents to be batched and processed each time. Default is `1`. |
+
+### Sparse vectors prune
+The token weights in sparse vectors exhibit a significant long-tail distribution, where tokens with lower semantic importance occupy a large portion of the storage space. Prune is to remove less-important tokens based on their weights. It trades some search relevance for much smaller index size.
+
+The `sparse_encoding` processor can be used to prune sparse vectors by configuring `prune_type` and `prune_ratio` parameters. The following table lists the supported prune options for `sparse_encoding` processor. 
+
+| Prune type  | Valid prune ratio | Description  |
+|:---|:---|:---|
+max_ratio | Float in [0, 1) | Prunes a sparse vector by keeping only elements whose values are within the prune_ratio of the max value in the vector.
+abs_value | Float in (0, +∞) | Prunes a sparse vector by removing elements with values below the prune_ratio.
+alpha_mass | Float in [0, 1) | Prunes a sparse vector by keeping only elements whose cumulative sum of values is within the prune_ratio of the total sum.
+top_k | Integer in (0, +∞) | Prunes a sparse vector by keeping only the top prune_ratio elements with the highest values.
+none | - | Does nothing on sparse vectors.
+
+Among all prune options, the combination of (`max_ratio`, 0.1) demonstrates great generalization on test datasets. Which saves around 40% storage at a cost of <1% search relevance loss. 
 
 ## Using the processor
 
@@ -59,6 +76,8 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
     {
       "sparse_encoding": {
         "model_id": "aP2Q8ooBpBj3wT4HVS8a",
+        "prune_type": "max_ratio",
+        "prune_ratio": 0.1,
         "field_map": {
           "passage_text": "passage_embedding"
         }
@@ -111,23 +130,15 @@ The response confirms that in addition to the `passage_text` field, the processo
             "worlds" : 2.7839446,
             "yes" : 0.75845814,
             "##world" : 2.5432441,
-            "born" : 0.2682308,
             "nothing" : 0.8625516,
-            "goodbye" : 0.17146169,
             "greeting" : 0.96817183,
             "birth" : 1.2788506,
-            "come" : 0.1623208,
-            "global" : 0.4371151,
-            "it" : 0.42951578,
             "life" : 1.5750692,
-            "thanks" : 0.26481047,
             "world" : 4.7300377,
-            "tiny" : 0.5462298,
             "earth" : 2.6555297,
             "universe" : 2.0308156,
             "worldwide" : 1.3903781,
             "hello" : 6.696973,
-            "so" : 0.20279501,
             "?" : 0.67785245
           },
           "passage_text" : "hello world"
