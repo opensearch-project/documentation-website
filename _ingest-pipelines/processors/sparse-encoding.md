@@ -45,7 +45,8 @@ The following table lists the required and optional parameters for the `sparse_e
 `tag` | String | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
 `batch_size` | Integer | Optional | Specifies the number of documents to be batched and processed each time. Default is `1`. |
 
-### Sparse vectors prune
+### Pruning sparse vectors
+
 The token weights in sparse vectors exhibit a significant long-tail distribution, where tokens with lower semantic importance occupy a large portion of the storage space. Prune is to remove less-important tokens based on their weights. It trades some search relevance for much smaller index size.
 
 The `sparse_encoding` processor can be used to prune sparse vectors by configuring `prune_type` and `prune_ratio` parameters. The following table lists the supported prune options for `sparse_encoding` processor. 
