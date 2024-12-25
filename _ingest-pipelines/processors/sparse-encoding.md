@@ -37,7 +37,7 @@ The following table lists the required and optional parameters for the `sparse_e
 |:---|:---|:---|:---|
 `model_id` | String | Required | The ID of the model that will be used to generate the embeddings. The model must be deployed in OpenSearch before it can be used in neural search. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/) and [Neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
 `prune_type` | String | Optional | The prune strategy for sparse vectors. Valid values are `max_ratio`, `alpha_mass`, `top_k`, `abs_value` and `none`. Default is `none`.
-`prune_ratio` | Float | Optional | The ratio for prune strategy. Once the `prune_type` is provided, `prune_ratio` field is required.
+`prune_ratio` | Float | Optional | The ratio for prune strategy. Required when `prune_type` is specified.
 `field_map` | Object | Required | Contains key-value pairs that specify the mapping of a text field to a `rank_features` field.
 `field_map.<input_field>` | String | Required | The name of the field from which to obtain text for generating vector embeddings.
 `field_map.<vector_field>`  | String | Required | The name of the vector field in which to store the generated vector embeddings.
