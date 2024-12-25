@@ -23,7 +23,7 @@ Field | Data type | Description
 :--- | :--- | :---
 `enabled` | Boolean | Controls whether the two-phase processor is enabled. Default is `true`.
 `two_phase_parameter` | Object | A map of key-value pairs representing the two-phase parameters and their associated values. You can specify the value of `prune_ratio`, `expansion_rate`, `max_window_size`, or any combination of these three parameters. Optional.
-`two_phase_parameter.prune_type` | String | The prune strategy of how to split the high-weight tokens and low-weight tokens. Default is `max_ratio`. See prune options [here]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/processors/sparse-encoding/#sparse-vectors-prune).
+`two_phase_parameter.prune_type` | String | The prune strategy for separating high-weight and low-weight tokens. Default is `max_ratio`. For valid values, see [Pruning sparse vectors]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/processors/sparse-encoding/#pruning-sparse-vectors).
 `two_phase_parameter.prune_ratio` | Float | A ratio that represents how to split the high-weight tokens and low-weight tokens. The threshold is the token's maximum score multiplied by its `prune_ratio`. Valid range is [0,1] for `max_ratio` prune_type. Default is `0.4`
 `two_phase_parameter.expansion_rate` | Float | The rate at which documents will be fine-tuned during the second phase. The second-phase document number equals the query size (default is 10) multiplied by its expansion rate. Valid range is greater than 1.0. Default is `5.0`
 `two_phase_parameter.max_window_size` | Int | The maximum number of documents that can be processed using the two-phase processor. Valid range is greater than 50. Default is `10000`.
