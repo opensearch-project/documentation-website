@@ -49,7 +49,7 @@ The following table lists the required and optional parameters for the `sparse_e
 
 Sparse vectors often have a long-tail distribution of token weights, with less important tokens occupying a significant amount of storage space. Pruning reduces index size by removing tokens with lower semantic importance, balancing a slight decrease in search relevance for a more compact index.
 
-The `sparse_encoding` processor can be used to prune sparse vectors by configuring `prune_type` and `prune_ratio` parameters. The following table lists the supported prune options for `sparse_encoding` processor. 
+The `sparse_encoding` processor can be used to prune sparse vectors by configuring the `prune_type` and `prune_ratio` parameters. The following table lists the supported prune options for the `sparse_encoding` processor. 
 
 | Prune type  | Valid prune ratio | Description  |
 |:---|:---|:---|
