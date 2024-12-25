@@ -59,7 +59,7 @@ alpha_mass | Float in [0, 1) | Prunes a sparse vector by keeping only elements w
 `top_k` | Integer (0, +∞) | Prunes a sparse vector by keeping only the top `prune_ratio` elements with the highest values.
 none | N/A | Leaves sparse vectors unchanged.
 
-Among all prune options, the combination of (`max_ratio`, 0.1) demonstrates great generalization on test datasets. Which saves around 40% storage at a cost of <1% search relevance loss. 
+Among all pruning options, specifying `max_ratio` equal to `0.1` shows strong generalization on test datasets. This approach reduces storage requirements by approximately 40% while incurring less than a 1% loss in search relevance.
 
 ## Using the processor
 
