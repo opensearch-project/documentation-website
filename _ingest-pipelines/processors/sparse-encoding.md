@@ -56,7 +56,7 @@ The `sparse_encoding` processor can be used to prune sparse vectors by configuri
 `max_ratio` | Float [0, 1) | Prunes a sparse vector by keeping only elements whose values are within the `prune_ratio` of the largest value in the vector.
 abs_value | Float in (0, +∞) | Prunes a sparse vector by removing elements with values below the prune_ratio.
 alpha_mass | Float in [0, 1) | Prunes a sparse vector by keeping only elements whose cumulative sum of values is within the prune_ratio of the total sum.
-top_k | Integer in (0, +∞) | Prunes a sparse vector by keeping only the top prune_ratio elements with the highest values.
+`top_k` | Integer (0, +∞) | Prunes a sparse vector by keeping only the top `prune_ratio` elements with the highest values.
 none | - | Does nothing on sparse vectors.
 
 Among all prune options, the combination of (`max_ratio`, 0.1) demonstrates great generalization on test datasets. Which saves around 40% storage at a cost of <1% search relevance loss. 
