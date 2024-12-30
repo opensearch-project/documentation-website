@@ -893,7 +893,7 @@ search.point_in_time_current | Integer | The number of shard PIT contexts curren
 search.suggest_total | Integer | The total number of shard suggest operations.
 search.suggest_time_in_millis | Integer | The total amount of time for all shard suggest operations, in milliseconds.
 search.suggest_current | Integer | The number of shard suggest operations that are currently running.
-search.search_idle_reactivate_count_total | Integer | The total number of times for all shards being activated from idle state.
+search.search_idle_reactivate_count_total | Integer | The total number of times all shards have been activated from an idle state.
 search.request | Object | Statistics about coordinator search operations for the node.
 search.request.took.time_in_millis | Integer | The total amount of time taken for all search requests, in milliseconds.
 search.request.took.current | Integer | The number of search requests that are currently running.
