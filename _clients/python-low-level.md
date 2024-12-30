@@ -106,7 +106,7 @@ client = OpenSearch(
 
 ## Connecting to Amazon OpenSearch Service
 
-The following example illustrates connecting to Amazon OpenSearch Service via IAM credentials:
+The following example illustrates connecting to Amazon OpenSearch Service using IAM credentials:
 
 ```python
 from opensearchpy import OpenSearch, RequestsHttpConnection, AWSV4SignerAuth
@@ -128,7 +128,7 @@ client = OpenSearch(
 )
 ```
 
-In case you're connecting via HTTP, with username and password, to Amazon OpenSearch Service, you could use the following:
+To connect to Amazon OpenSearch Service through HTTP with a username and password, use the following code:
 
 ```python
 from opensearchpy import OpenSearch
