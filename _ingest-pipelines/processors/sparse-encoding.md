@@ -36,8 +36,8 @@ The following table lists the required and optional parameters for the `sparse_e
 | Parameter  | Data type | Required/Optional  | Description  |
 |:---|:---|:---|:---|
 `model_id` | String | Required | The ID of the model that will be used to generate the embeddings. The model must be deployed in OpenSearch before it can be used in neural search. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/) and [Neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
-`prune_type` | String | Optional | The prune strategy for sparse vectors. Valid values are `max_ratio`, `alpha_mass`, `top_k`, `abs_value` and `none`. Default is `none`.
-`prune_ratio` | Float | Optional | The ratio for prune strategy. Required when `prune_type` is specified.
+`prune_type` | String | Optional | The prune strategy for sparse vectors. Valid values are `max_ratio`, `alpha_mass`, `top_k`, `abs_value`, and `none`. Default is `none`.
+`prune_ratio` | Float | Optional | The ratio for the pruning strategy. Required when `prune_type` is specified.
 `field_map` | Object | Required | Contains key-value pairs that specify the mapping of a text field to a `rank_features` field.
 `field_map.<input_field>` | String | Required | The name of the field from which to obtain text for generating vector embeddings.
 `field_map.<vector_field>`  | String | Required | The name of the vector field in which to store the generated vector embeddings.
@@ -47,19 +47,19 @@ The following table lists the required and optional parameters for the `sparse_e
 
 ### Pruning sparse vectors
 
-Sparse vectors often have a long-tail distribution of token weights, with less important tokens occupying a significant amount of storage space. Pruning reduces index size by removing tokens with lower semantic importance, balancing a slight decrease in search relevance for a more compact index.
+A sparse vector often has a long-tail distribution of token weights, with less important tokens occupying a significant amount of storage space. Pruning reduces the size of an index by removing tokens with lower semantic importance, yielding a slight decrease in search relevance in exchange for a more compact index.
 
-The `sparse_encoding` processor can be used to prune sparse vectors by configuring the `prune_type` and `prune_ratio` parameters. The following table lists the supported prune options for the `sparse_encoding` processor. 
+The `sparse_encoding` processor can be used to prune sparse vectors by configuring the `prune_type` and `prune_ratio` parameters. The following table lists the supported pruning options for the `sparse_encoding` processor. 
 
-| Prune type  | Valid prune ratio | Description  |
+| Pruning type  | Valid pruning ratio | Description  |
 |:---|:---|:---|
 `max_ratio` | Float [0, 1) | Prunes a sparse vector by keeping only elements whose values are within the `prune_ratio` of the largest value in the vector.
-abs_value | Float in (0, +∞) | Prunes a sparse vector by removing elements with values below the prune_ratio.
-alpha_mass | Float in [0, 1) | Prunes a sparse vector by keeping only elements whose cumulative sum of values is within the prune_ratio of the total sum.
-`top_k` | Integer (0, +∞) | Prunes a sparse vector by keeping only the top `prune_ratio` elements with the highest values.
+`abs_value` | Float (0, +∞) | Prunes a sparse vector by removing elements with values lower than the `prune_ratio`.
+`alpha_mass` | Float [0, 1) | Prunes a sparse vector by keeping only elements whose cumulative sum of values is within the `prune_ratio` of the total sum.
+`top_k` | Integer (0, +∞) | Prunes a sparse vector by keeping only the top `prune_ratio` elements.
 none | N/A | Leaves sparse vectors unchanged.
 
-Among all pruning options, specifying `max_ratio` equal to `0.1` shows strong generalization on test datasets. This approach reduces storage requirements by approximately 40% while incurring less than a 1% loss in search relevance.
+Among all pruning options, specifying `max_ratio` as equal to `0.1` demonstrates strong generalization on test datasets. This approach reduces storage requirements by approximately 40% while incurring less than a 1% loss in search relevance.
 
 ## Using the processor
 
