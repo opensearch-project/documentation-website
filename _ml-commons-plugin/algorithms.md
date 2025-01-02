@@ -437,7 +437,7 @@ A classification algorithm, logistic regression models the probability of a disc
 | `beta1` | Double | The exponential decay rates for the moment estimates. | `0.9` |
 | `beta2` | Double | The exponential decay rates for the moment estimates. | `0.99` |
 | `decay_rate` | Double | The Root Mean Squared Propagation (RMSProp). | `0.9` |
-| `momentum_type` | String | The Stochastic Gradient Descent (SGD) momentum that helps accelerate gradient vectors in the right direction, leading to faster convergence between vectors. | `STANDARD` |
+| `momentum_type` | String | The Stochastic Gradient Descent (SGD) momentum that helps accelerate gradient vectors in the correct direction, leading to faster convergence between vectors. | `STANDARD` |
 | `optimiser` | String | The optimizer used in the model.  | `ADA_GRAD` |
 | `target` | String | The target field. | null |
 | `objective` | String | The objective function type. | `LOGMULTICLASS` |
