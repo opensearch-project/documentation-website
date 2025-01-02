@@ -222,4 +222,4 @@ The `classic` tokenizer produces the following token types.
 | `<HOST>`      | Tokens matching website or host names, often containing `www.` or a domain suffix like `.com` (for example, `www.example.com` or `example.org`).  |
 | `<NUM>`       | Purely numeric tokens or numeric-like sequences (for example, `1-800`, `12345`, or `3.14`).     |
 | `<CJ>`        | Tokens representing Chinese or Japanese characters.   |
-| `<ACRONYM_DEP>` | Deprecated acronym handling (for example, acronyms with different parsing rules in older versions). Rarely used and primarily for backward compatibility with legacy tokenizer rules. | 
+| `<ACRONYM_DEP>` | Deprecated acronym handling (for example, acronyms with different parsing rules in older versions). Rarely used; exists primarily for backward compatibility with legacy tokenizer rules. | 
