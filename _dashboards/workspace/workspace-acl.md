@@ -151,3 +151,38 @@ To remove several collaborators simultaneously, follow these steps:
 2. Select the **Delete x collaborators** button.
 3. Review the confirmation modal that appears.
 4. Select **Confirm** to remove all selected collaborators from the table.
+
+## Workspace privacy
+
+**Workspace Privacy** allows quick configuration of access permissions for all users. Only **workspace administrators** can set workspace privacy. As with the collaborators feature, **Workspace Privacy** is only available when permission control is enabled. Workspace privacy can be configured with the following three access levels:
+
+* **Private to collaborators (default access level):** Only collaborators can access the workspace. 
+* **Anyone can view:** Anyone can view workspace assets. (Grants **Read only** permission to all users.)
+* **Anyone can edit:** Anyone can view, create, and update workspace assets. (Grants **Read and write** permission to all users.)
+
+A collaborator will be granted the higher permissions when their individual access level differs from the workspace privacy. For example, if workspace privacy is set to "Anyone can edit", any collaborator with read-only access level will also be able to edit the workspace assets.
+
+### Configuring workspace privacy
+
+You can set up workspace privacy on the **Create Workspace** page as a **Dashboard admin**. You can also modify it on the **Collaborators** and **Workspace details** pages as a **Workspace admin** or **Dashboard admin**.
+
+#### Setting up workspace privacy during workspace creation
+
+1. Complete entering the workspace name, selecting use case, and associating data sources. See [Create a workspace]({{site.url}}{{site.baseurl}}/dashboards/workspace/create-workspace) for instructions.
+2. Choose the desired access level from the cards at the **Set up privacy** panel. (**Private to collaborators** is set as the default selection.)
+3. Decide whether to continue configuring collaborators after workspace creation by selecting the **Go to configure the collaborators right after creating the workspace.** checkbox below.
+4. Select **Create workspace** to finish the workspace creation.
+
+#### Modifying workspace privacy on the Collaborators page
+
+1. Select the **Edit** next to **Workspace privacy**. 
+2. Click the selector which displays the current workspace privacy access level.
+3. Select the new access level from the dropdown list. 
+4. Select **Save changes** to apply the modifications.
+
+#### Modifying workspace privacy on the Workspace details page
+
+1. Select the **Edit** button at the top-right corner of the **Details** panel. 
+2. Click the selector which displays the current workspace privacy access level at the bottom of the panel.
+3. Select the new access level from the dropdown list. 
+4. Select **Save** to apply the modifications.
