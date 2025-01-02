@@ -10,9 +10,9 @@ redirect_from:
 
 # Installing plugins
 
-OpenSearch comprises of a number of plugins that add features and capabilities to the core platform. The plugins available to you are dependent on how OpenSearch was installed and which plugins were subsequently added or removed. For example, the minimal distribution of OpenSearch enables only core functionality, such as indexing and search. Using the minimal distribution of OpenSearch is beneficial when you are working in a testing environment, have custom plugins, or are intending to integrate OpenSearch with other services.
+OpenSearch includes a number of plugins that add features and capabilities to the core platform. The plugins available to you are dependent on how OpenSearch was installed and which plugins were subsequently added or removed. For example, the minimal distribution of OpenSearch enables only core functionality, such as indexing and search. Using the minimal distribution of OpenSearch is beneficial when you are working in a testing environment, have custom plugins, or are intending to integrate OpenSearch with other services.
 
-The standard distribution of OpenSearch has much more functionality included. You can choose to add additional plugins or remove any of the plugins you don't need. 
+The standard distribution of OpenSearch includes many more plugins offering much more functionality. You can choose to add additional plugins or remove any of the plugins you don't need. 
 
 For a list of the available plugins, see [Available plugins](#available-plugins).
 

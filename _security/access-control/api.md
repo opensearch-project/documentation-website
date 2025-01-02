@@ -171,7 +171,7 @@ Introduced 1.0
 
 Changes the password for the current user.
 
-#### Path and HTTP methods
+#### Endpoints
 
 ```json
 PUT _plugins/_security/api/account
@@ -1568,7 +1568,7 @@ PUT _plugins/_security/api/nodesdn/<cluster-name>
 
 Makes a bulk update for the list of distinguished names.
 
-#### Path and HTTP methods
+#### Endpoints
 
 ```json
 PATCH _plugins/_security/api/nodesdn
@@ -1682,7 +1682,7 @@ GET _plugins/_security/api/ssl/certs
 
 Reload transport layer communication certificates. These REST APIs let a super admin (or a user with sufficient permissions to access this API) reload transport layer certificates.
 
-#### Path and HTTP methods
+#### Endpoints
 
 ```json
 PUT /_plugins/_security/api/ssl/transport/reloadcerts
@@ -1717,7 +1717,7 @@ curl -X PUT "https://your-opensearch-cluster/_plugins/_security/api/ssl/transpor
 
 Reload HTTP layer communication certificates. These REST APIs let a super admin (or a user with sufficient permissions to access this API) reload HTTP layer certificates.
 
-#### Path and HTTP methods
+#### Endpoints
 
 ```json
 PUT /_plugins/_security/api/ssl/http/reloadcerts

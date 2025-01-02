@@ -9,7 +9,7 @@ nav_order: 26
 
 You can use the Create or Update Index Template API to create indexes with predefined mappings and settings as well as update existing index templates.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 PUT _index_template/<template-name>

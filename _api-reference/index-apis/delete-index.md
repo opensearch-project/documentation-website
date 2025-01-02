@@ -13,7 +13,7 @@ redirect_from:
 
 If you no longer need an index, you can use the delete index API operation to delete it.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 DELETE /<index-name>

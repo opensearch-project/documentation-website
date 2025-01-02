@@ -16,7 +16,7 @@ redirect_from:
 The CAT health operation lists the status of the cluster, how long the cluster has been up, the number of nodes, and other useful information that helps you analyze the health of your cluster.
 
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET _cat/health?v
