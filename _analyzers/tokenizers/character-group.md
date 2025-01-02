@@ -120,5 +120,5 @@ The `char_group` tokenizer can be configured with the following parameters.
 
 | **Parameter**        | **Required/Optional** | **Data type** | **Description** |
 | :--- |  :--- |  :--- |  :--- |  
-| `tokenize_on_chars`   | Required              | Array         | Specifies a set of characters on which the text should be tokenized. You can specify single characters (for example, `-`, `@`) or character classes such as `whitespace`, `letter`, `digit`, `punctuation`, or `symbol`. |
+| `tokenize_on_chars`   | Required              | Array         | Specifies a set of characters on which the text should be tokenized. You can specify single characters (for example, `-` or `@`), including escape characters (for example, `\n`), or character classes such as `whitespace`, `letter`, `digit`, `punctuation`, or `symbol`. |
 | `max_token_length`    | Optional              | Integer       | Sets the maximum length of the produced token. If this length is exceeded, the token is split into multiple tokens at the length configured in `max_token_length`. Default is `255`.  |
