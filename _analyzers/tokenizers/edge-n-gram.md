@@ -181,7 +181,7 @@ PUT my-autocomplete-index/_doc/1?refresh
 ```
 {% include copy-curl.html %}
 
-This configuration ensures that the `edge_ngram` tokenizer breaks terms like Laptop into tokens such as `La`, `Lap`, and `Lapt`, allowing partial matches during search. At search time, the standard tokenizer simplifies queries while ensuring matches are case-insensitive because of the lowercase filter.
+This configuration ensures that the `edge_ngram` tokenizer breaks terms like "Laptop" into tokens such as `La`, `Lap`, and `Lapt`, allowing partial matches during search. At search time, the `standard` tokenizer simplifies queries while ensuring that matches are case-insensitive because of the lowercase filter.
 
 Searches for `laptop Pr` or `lap pr` now retrieve the relevant document based on partial matches:
 
