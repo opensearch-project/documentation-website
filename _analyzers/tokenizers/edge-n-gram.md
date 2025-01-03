@@ -121,7 +121,7 @@ We recommend carefully balancing the `max_gram` value to ensure efficient tokeni
 
 ## Best practices
 
-We recommend using the `edge_ngram` tokenizer only at indexing time to ensure partial word tokens are stored. At search time, a simpler analyzer should be used to match full user queries.
+We recommend using the `edge_ngram` tokenizer only at indexing time in order to ensure that partial word tokens are stored. At search time, a basic analyzer should be used to match all query terms.
 
 ## Configuring search-as-you-type functionality
 
