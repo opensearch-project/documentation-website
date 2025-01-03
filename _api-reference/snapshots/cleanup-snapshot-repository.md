@@ -11,12 +11,11 @@ Introduced 1.0
 
 The Cleanup Snapshot Repository API clears a snapshot repository of data no longer referenced by any existing snapshot.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /_snapshot/<repository>/_cleanup
 ```
-{% include copy.html %}
 
 
 ## Path parameters

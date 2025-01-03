@@ -13,7 +13,7 @@ Note that deleting a workflow only deletes the stored template---it does not dep
 
 When a workflow is deleted, its corresponding status (returned by the [Workflow State API]({{site.url}}{{site.baseurl}}/automating-configurations/api/get-workflow-status/)) is also deleted unless either the provisioning status is `IN_PROGRESS` or resources have been provisioned.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 DELETE /_plugins/_flow_framework/workflow/<workflow_id>

@@ -13,33 +13,24 @@ redirect_from:
 
 You can include a query as part of your delete request so OpenSearch deletes all documents that match that query.
 
-## Example
+## Endpoints
 
 ```json
-POST sample-index1/_delete_by_query
-{
-  "query": {
-    "match": {
-      "movie-length": "124"
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-## Path and HTTP methods
-
-```
 POST <index>/_delete_by_query
 ```
 
-## URL parameters
-
-All URL parameters are optional.
+## Path parameters
 
 Parameter | Type | Description
 :--- | :--- | :--- | :---
 &lt;index&gt; | String | Name or list of the data streams, indexes, or aliases to delete from. Supports wildcards. If left blank, OpenSearch searches all indexes.
+
+## Query parameters
+
+All parameters are optional.
+
+Parameter | Type | Description
+:--- | :--- | :--- | :---
 allow_no_indices | Boolean | Whether to ignore wildcards that don’t match any indexes. Default is `true`.
 analyzer | String | The analyzer to use in the query string.
 analyze_wildcard | Boolean | Specifies whether to analyze wildcard and prefix queries. Default is `false`.
@@ -74,7 +65,7 @@ wait_for_active_shards | String | The number of shards that must be active befor
 wait_for_completion | Boolean | Setting this parameter to false indicates to OpenSearch it should not wait for completion and perform this request asynchronously. Asynchronous requests run in the background, and you can use the [Tasks]({{site.url}}{{site.baseurl}}/api-reference/tasks) API to monitor progress.
 
 
-## Request body
+## Request body fields
 
 To search your index for specific documents, you must include a [query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index) in the request body that OpenSearch uses to match documents. If you don't use a query, OpenSearch treats your delete request as a simple [delete document operation]({{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-document).
 
@@ -87,6 +78,21 @@ To search your index for specific documents, you must include a [query]({{site.u
   }
 }
 ```
+
+## Example request
+
+```json
+POST sample-index1/_delete_by_query
+{
+  "query": {
+    "match": {
+      "movie-length": "124"
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
 
 ## Example response
 ```json

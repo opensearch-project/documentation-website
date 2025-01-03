@@ -16,16 +16,13 @@ redirect_from:
 The CAT health operation lists the status of the cluster, how long the cluster has been up, the number of nodes, and other useful information that helps you analyze the health of your cluster.
 
 
-## Path and HTTP methods
+## Endpoints
 
-```
+```json
 GET _cat/health?v
 ```
-{% include copy-curl.html %}
 
-## URL parameters
-
-All CAT health URL parameters are optional.
+## Query parameters
 
 Parameter | Type | Description
 :--- | :--- | :---
@@ -39,6 +36,7 @@ The following example request give cluster health information for the past 5 day
 ```json
 GET _cat/health?v&time=5d
 ```
+{% include copy-curl.html %}
 
 ## Example response
 

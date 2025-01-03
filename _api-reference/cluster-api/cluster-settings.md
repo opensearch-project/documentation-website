@@ -14,16 +14,16 @@ redirect_from:
 
 The cluster settings operation lets you check the current settings for your cluster, review default settings, and change settings. When you update a setting using the API, OpenSearch applies it to all nodes in the cluster.
 
-## Path and HTTP methods
+## Endpoints
 
-```
+```json
 GET _cluster/settings
 PUT _cluster/settings
 ```
 
 ## Path parameters
 
-All cluster setting parameters are optional.
+All parameters are optional.
 
 Parameter | Data type | Description
 :--- | :--- | :---
@@ -32,9 +32,9 @@ include_defaults (GET only) | Boolean | Whether to include default settings as p
 cluster_manager_timeout | Time unit | The amount of time to wait for a response from the cluster manager node. Default is `30 seconds`.
 timeout (PUT only) | Time unit | The amount of time to wait for a response from the cluster. Default is `30 seconds`.
 
-## Request fields
+## Request body fields
 
-The GET operation has no request body options. All cluster setting field parameters are optional.
+The GET operation has no request body fields. All cluster setting field parameters are optional.
 
 Not all cluster settings can be updated using the cluster settings API. You will receive the error message `"setting [cluster.some.setting], not dynamically updateable"` when trying to configure these settings through the API.
 {: .note }

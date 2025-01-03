@@ -12,7 +12,7 @@ nav_order: 6
 Use the Blocks API to limit certain operations on a specified index. Different types of blocks allow you to restrict index write, read, or metadata operations. 
 For example, adding a `write` block through the API ensures that all index shards have properly accounted for the block before returning a successful response. Any in-flight write operations to the index must be complete before the `write` block takes effect.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 PUT /<index>/_block/<block>

@@ -17,7 +17,32 @@ To use the `scroll` operation, add a `scroll` parameter to the request header wi
 Because search contexts consume a lot of memory, we suggest you don't use the `scroll` operation for frequent user queries. Instead, use the `sort` parameter with the `search_after` parameter to scroll responses for user queries.
 {: .note }
 
-## Example
+## Endpoints
+
+```json
+GET _search/scroll
+POST _search/scroll
+GET _search/scroll/<scroll-id>
+POST _search/scroll/<scroll-id>
+```
+
+## Path parameters
+
+Parameter | Type | Description
+:--- | :--- | :---
+scroll_id | String | The scroll ID for the search.
+
+## Query parameters
+
+All scroll parameters are optional.
+
+Parameter | Type | Description
+:--- | :--- | :---
+scroll | Time | Specifies the amount of time the search context is maintained.
+scroll_id | String | The scroll ID for the search.
+rest_total_hits_as_int | Boolean | Whether the `hits.total` property is returned as an integer (`true`) or an object (`false`). Default is `false`.
+
+## Example requests
 
 To set the number of results that you want returned for each batch, use the `size` parameter:
 
@@ -83,28 +108,6 @@ DELETE _search/scroll/_all
 {% include copy-curl.html %}
 
 The `scroll` operation corresponds to a specific timestamp. It doesn't consider documents added after that timestamp as potential results.
-
-
-## Path and HTTP methods
-
-```
-GET _search/scroll
-POST _search/scroll
-```
-```
-GET _search/scroll/<scroll-id>
-POST _search/scroll/<scroll-id>
-```
-
-## URL parameters
-
-All scroll parameters are optional.
-
-Parameter | Type | Description
-:--- | :--- | :---
-scroll | Time | Specifies the amount of time the search context is maintained.
-scroll_id | String | The scroll ID for the search.
-rest_total_hits_as_int | Boolean | Whether the `hits.total` property is returned as an integer (`true`) or an object (`false`). Default is `false`.
 
 ## Example response
 

@@ -14,7 +14,7 @@ The Index Stats API provides index statistics. For data streams, the API provide
 When a shard moves to a different node, the shard-level statistics for the shard are cleared. Although the shard is no longer part of the node, the node preserves any node-level statistics to which the shard contributed.
 {: .note}
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /_stats
@@ -825,6 +825,6 @@ By default, the returned statistics are aggregated in the `primaries` and `total
 ```
 </details>
 
-## Response fields
+## Response body fields
 
 For information about response fields, see [Nodes Stats API response fields]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/#indices).

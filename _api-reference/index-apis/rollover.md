@@ -11,7 +11,7 @@ Introduced 1.0
 
 The Rollover Index API creates a new index for a data stream or index alias based on the `wait_for_active_shards` setting.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /<rollover-target>/_rollover/
@@ -61,9 +61,9 @@ Parameter | Type | Description
 `timeout` | Time | The amount of time to wait for a response. Default is `30s`.
 `wait_for_active_shards` | String | The number of active shards that must be available before OpenSearch processes the request. Default is `1` (only the primary shard). You can also set to `all` or a positive integer. Values greater than `1` require replicas. For example, if you specify a value of `3`, then the index must have two replicas distributed across two additional nodes in order for the operation to succeed.
 
-## Request body
+## Request body fields
 
-The following request body parameters are supported.
+The following request body fields are supported.
 
 ### `alias`
 
@@ -94,7 +94,6 @@ Parameter | Type | Description
 | `max_age` | Time units | Triggers a rollover after the maximum elapsed time since index creation is reached. The elapsed time is always calculated since the index creation time, even if the index origination date is configured to a custom date, such as when using the `index.lifecycle.parse_origination_date` or `index.lifecycle.origination_date` settings. Optional. |
 `max_docs` | Integer | Triggers a rollover after the specified maximum number of documents, excluding documents added since the last refresh and documents in replica shards. Optional. 
 `max_size` | Byte units  | Triggers a rollover when the index reaches a specified size, calculated as the total size of all primary shards. Replicas are not counted. Use the `_cat indices` API and check the `pri.store.size` value to see the current index size. Optional.
-`max_primary_shard_size` | Byte units  | Triggers a rollover when the largest primary shard in the index reaches a certain size. This is the maximum size of the primary shards in the index. As with `max_size`, replicas are ignored. To see the current shard size, use the `_cat shards` API. The `store` value shows the size of each shard, and `prirep` indicates whether a shard is a primary (`p`) or a replica (`r`). Optional.
 
 ### `settings`
 

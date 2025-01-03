@@ -10,13 +10,13 @@ nav_order: 10
 
 Creates a standalone connector. For more information, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /_plugins/_ml/connectors/_create
 ```
 
-## Request fields
+## Request body fields
 
 For a list of request fields, see [Blueprint configuration parameters]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints#configuration-parameters).
 
