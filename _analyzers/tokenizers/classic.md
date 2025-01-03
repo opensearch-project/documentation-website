@@ -8,19 +8,19 @@ nav_order: 35
 
 # Classic tokenizer
 
-The `classic` tokenizer parses English text, applying grammatical rules to break the text into tokens. It includes specific logic to handle patterns such as:
+The `classic` tokenizer parses text, applying the English language grammatical rules to break the text into tokens. It includes specific logic to handle patterns such as the following:
 
-- acronyms 
-- email addresses
-- domain names
-- certain types of punctuation
+- Acronyms 
+- Email addresses
+- Domain names
+- Certain types of punctuation
 
 This tokenizer works best with the English language. It may not produce optimal results for other languages, especially those with different grammatical structures.
 {: .note}
 
 The `classic` tokenizer parses text as follows:
 
-- **Punctuation**: Splits text at most punctuation marks and removes punctuation characters. Dots that aren't followed by spaces are treated as part of the token.
+- **Punctuation**: Splits text on most punctuation marks and removes punctuation characters. Dots that aren't followed by spaces are treated as part of the token.
 - **Hyphens**: Splits words at hyphens, except when a number is present. When a number is present in a token, the token is not split and is treated like a product number. 
 - **Email**: Recognizes email addresses and hostnames and keeps them as single tokens.
 
@@ -217,9 +217,9 @@ The `classic` tokenizer produces the following token types.
 | `<ALPHANUM>`  | Alphanumeric tokens consisting of letters, numbers, or a combination of both.                     | 
 | `<APOSTROPHE>`| Tokens containing an apostrophe, commonly used in possessives or contractions (for example, `John's`).   |
 | `<ACRONYM>`   | Acronyms or abbreviations, often identified by a trailing period (for example, `P.S.` or `U.S.A.`).     |
-| `<COMPANY>`   | Tokens representing company names (for example, `X&Y`). If these tokens aren’t produced automatically, you may need custom configurations or filters.  | 
-| `<EMAIL>`     | Tokens that match email addresses, containing an `@` symbol and a domain (for example,`support@widgets.co` or `info@example.com`). |
+| `<COMPANY>`   | Tokens representing company names (for example, `X&Y`). If these tokens aren't produced automatically, you may need custom configurations or filters.  | 
+| `<EMAIL>`     | Tokens matching email addresses, containing an `@` symbol and a domain (for example,`support@widgets.co` or `info@example.com`). |
 | `<HOST>`      | Tokens matching website or host names, often containing `www.` or a domain suffix like `.com` (for example, `www.example.com` or `example.org`).  |
-| `<NUM>`       | Purely numeric tokens or numeric-like sequences (for example, `1-800`, `12345`, or `3.14`).     |
+| `<NUM>`       | Tokens containing only numbers or numeric-like sequences (for example, `1-800`, `12345`, or `3.14`).     |
 | `<CJ>`        | Tokens representing Chinese or Japanese characters.   |
-| `<ACRONYM_DEP>` | Deprecated acronym handling (for example, acronyms with different parsing rules in older versions). Rarely used; exists primarily for backward compatibility with legacy tokenizer rules. | 
+| `<ACRONYM_DEP>` | Deprecated acronym handling (for example, acronyms with different parsing rules in older versions). Rarely used---exists primarily for backward compatibility with legacy tokenizer rules. | 
