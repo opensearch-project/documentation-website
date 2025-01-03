@@ -16,7 +16,7 @@ redirect_from:
 The CAT snapshots operation lists all snapshots for a repository.
 
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET _cat/snapshots

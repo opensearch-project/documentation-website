@@ -457,7 +457,7 @@ Parameter | Description | Type | Required
 Rollup jobs can be continuous or non-continuous. A rollup job created using an ISM policy can only be non-continuous.
 {: .note }
 
-#### Path and HTTP methods
+#### Endpoints
 
 ````bash
 PUT _plugins/_rollup/jobs/<rollup_id>

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: CAT indices operation
+title: CAT indices
 parent: CAT API
 nav_order: 25
 has_children: false
@@ -15,7 +15,7 @@ redirect_from:
 The CAT indices operation lists information related to indexes, that is, how much disk space they are using, how many shards they have, their health status, and so on.
 
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET _cat/indices/<index>
@@ -62,3 +62,7 @@ GET _cat/indices/index1,index2,index3
 health | status | index | uuid | pri | rep | docs.count | docs.deleted | store.size | pri.store.size
 green  | open | movies | UZbpfERBQ1-3GSH2bnM3sg | 1 | 1 | 1 | 0 | 7.7kb | 3.8kb
 ```
+
+## Limiting the response size
+
+To limit the number of indexes returned, configure the `cat.indices.response.limit.number_of_indices` setting. For more information, see [Cluster-level CAT response limit settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/cluster-settings/#cluster-level-cat-response-limit-settings).
