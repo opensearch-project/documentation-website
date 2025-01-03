@@ -15,6 +15,12 @@ The clear cache API operation clears the caches of one or more indexes. For data
 If you use the Security plugin, you must have the `manage index` privileges.
 {: .note}
 
+## Endpoints
+
+```json
+POST /<target>/_cache/clear
+```
+
 ## Path parameters
 
 | Parameter | Data type | Description |
@@ -117,7 +123,7 @@ The `POST /books,hockey/_cache/clear` request returns the following fields:
 }
 ```
 
-## Response fields
+## Response body fields
 
 The `POST /books,hockey/_cache/clear` request returns the following response fields:
 

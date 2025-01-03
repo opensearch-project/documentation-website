@@ -17,13 +17,13 @@ The CAT nodes operation lists node-level information, including node roles and l
 A few important node metrics are `pid`, `name`, `cluster_manager`, `ip`, `port`, `version`, `build`, `jdk`, along with `disk`, `heap`, `ram`, and `file_desc`.
 
 
-## Path and HTTP methods
+## Endpoints
 
-```
+```json
 GET _cat/nodes
 ```
 
-## URL parameters
+## Query parameters
 
 All CAT nodes URL parameters are optional.
 
@@ -41,7 +41,7 @@ include_unloaded_segments | Boolean | Whether to include information from segmen
 
 The following example request lists node level information:
 
-```
+```json
 GET _cat/nodes?v
 ```
 {% include copy-curl.html %}

@@ -18,9 +18,9 @@ The most basic cluster health request returns a simple status of the health of y
 To get the status of a specific index, provide the index name.
 
 
-## Path and HTTP methods
+## Endpoints
 
-```
+```json
 GET _cluster/health
 GET _cluster/health/<index>
 ```
@@ -98,7 +98,7 @@ The response contains cluster health information:
 }
 ```
 
-## Response fields
+## Response body fields
 
 The following table lists all response fields.
 

@@ -20,14 +20,14 @@ Agents may be of the following types:
 
 For more information about agents, see [Agents and tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/).
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %}
 
-## Request fields
+## Request body fields
 
 The following table lists the available request fields.
 

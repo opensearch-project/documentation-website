@@ -15,18 +15,14 @@ redirect_from:
 The CAT Field Data operation lists the memory size used by each field per node.
 
 
-## Path and HTTP methods
+## Endpoints
 
-```
+```json
 GET _cat/fielddata?v
 GET _cat/fielddata/<field_name>?v
 ```
 
-## URL parameters
-
-All CAT fielddata URL parameters are optional.
-
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameter:
+## Query parameters
 
 Parameter | Type | Description
 :--- | :--- | :---

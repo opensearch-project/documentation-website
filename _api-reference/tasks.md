@@ -12,9 +12,9 @@ redirect_from:
 
 A task is any operation you run in a cluster. For example, searching your data collection of books for a title or author name is a task. When you run OpenSearch, a task is automatically created to monitor your cluster's health and performance. For more information about all of the tasks currently executing in your cluster, you can use the `tasks` API operation.
 
-The following request returns information about all of your tasks:
+## Endpoints
 
-```
+```json
 GET _tasks
 ```
 {% include copy-curl.html %}
@@ -28,6 +28,7 @@ GET _tasks/<task_id>
 
 Note that if a task finishes running, it won't be returned as part of your request. For an example of a task that takes a little longer to finish, you can run the [`_reindex`]({{site.url}}{{site.baseurl}}/opensearch/reindex-data) API operation on a larger document, and then run `tasks`.
 
+## Query parameters
 
 You can also use the following parameters with your query.
 
@@ -42,7 +43,6 @@ Parameter | Data type | Description |
 `timeout` | Time | An explicit operation timeout. (Default: 30 seconds)
 `cluster_manager_timeout` | Time | The time to wait for a connection to the primary node. (Default: 30 seconds)
 
-For example, this request returns tasks currently running on a node named `opensearch-node1`:
 
 ## Example requests
 

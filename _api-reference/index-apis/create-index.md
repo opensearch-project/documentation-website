@@ -16,10 +16,10 @@ While you can create an index by using a document as a base, you can also create
 
 When creating an index, you can specify its mappings, settings, and aliases. 
 
-## Path and HTTP methods
+## Endpoints
 
-```
-PUT <index-name>
+```json
+PUT <index>
 ```
 
 ## Index naming restrictions

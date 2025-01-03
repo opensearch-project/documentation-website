@@ -15,7 +15,7 @@ Use the Remote Store Stats API to monitor shard-level remote-backed storage perf
 
 Metrics returned from this API only relate to indexes stored on remote-backed nodes. For an aggregated output on an index at the node or cluster level, use the [Index Stats]({{site.url}}{{site.baseurl}}/api-reference/index-apis/stats/), [Nodes Stats]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/), or [Cluster Stats]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-stats/) API.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET _remotestore/stats/<index_name>
@@ -257,7 +257,7 @@ GET _remotestore/stats/<index_name>
 ```
 </details>
 
-### Response fields
+### Response body fields
 
 The response body of the Remote Store Stats API is split into three categories:
 

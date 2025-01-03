@@ -11,6 +11,12 @@ nav_order: 6
 
 Retrieves information about a snapshot.
 
+## Endpoints
+
+```json
+GET _snapshot/<repository>/<snapshot>/
+```
+
 ## Path parameters
 
 | Parameter | Data type | Description |
@@ -73,7 +79,7 @@ Upon success, the response returns snapshot information:
   ]
 }
 ````
-## Response fields
+## Response body fields
 
 | Field | Data type | Description |
 | :--- | :--- | :--- | 

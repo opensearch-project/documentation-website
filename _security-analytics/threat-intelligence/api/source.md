@@ -14,14 +14,14 @@ The threat intelligence Source API updates and returns information about tasks r
 
 Creates or updates a threat intelligence source and loads indicators of compromise (IOCs) from that source.
 
-### Path and HTTP methods
+### Endpoints
 
 ```json
 POST _plugins/_security_analytics/threat_intel/sources
 PUT _plugins/_security_analytics/threat_intel/sources/<source_id>
 ```
 
-### Request fields
+### Request body fields
 
 | Field  | Type  | Description  |
 | :---  | :--- | :---- |
@@ -60,7 +60,7 @@ The following fields modify the `ioc_types` option.
 | `spec_version` | String           | The specification version used for the IOC.    |
 | `version`      | Integer    | A version number for the IOC.    |
 
-### Response fields
+### Response body fields
 
 | Field     | Data type   | Description   |
 | :---- | :--- |:----- |
@@ -283,7 +283,7 @@ The following example responses show what OpenSearch returns after a successful 
 
 Retrieves the threat intelligence source configuration details.
 
-### Path and HTTP methods
+### Endpoints
 
 
 ```json
@@ -346,7 +346,7 @@ GET /_plugins/_security_analytics/threat_intel/sources/<source-id>
 Searches for threat intelligence source matches based on the search query. The request body expects a search query. For query options, see [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/).
 
 
-### Path and HTTP methods
+### Endpoints
 
 ```json
 POST /_plugins/_security_analytics/threat_intel/sources/_search
@@ -440,7 +440,7 @@ POST /_plugins/_security_analytics/threat_intel/sources/_search
 
 Deletes a threat intelligence source.
 
-### Path and HTTP methods
+### Endpoints
 
 ```json
 DELETE /_plugins/_security_analytics/threat_intel/sources/<source-id>
@@ -466,7 +466,7 @@ DELETE /_plugins/_security_analytics/threat_intel/sources/2c0u7JAB9IJUg27gcjUp
 
 Downloads any IOCs from the threat intelligence source. Only supports the `S3_CUSTOM` type source.
 
-### Path and HTTP methods
+### Endpoints
 
 ```json
 POST /_plugins/_security_analytics/threat_intel/sources/<source-id>/_refresh

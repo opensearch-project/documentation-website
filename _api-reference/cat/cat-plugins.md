@@ -16,17 +16,17 @@ redirect_from:
 The CAT plugins operation lists the names, components, and versions of the installed plugins.
 
 
-## Path and HTTP methods
+## Endpoints
 
-```
+```json
 GET _cat/plugins
 ```
 
-## URL parameters
+## Query parameters
 
-All CAT plugins URL parameters are optional.
+All parameters are optional.
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
+In addition to the [common parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
 
 Parameter | Type | Description
 :--- | :--- | :---
@@ -37,7 +37,7 @@ cluster_manager_timeout | Time | The amount of time to wait for a connection to 
 
 The following example request lists all installed plugins:
 
-```
+```json
 GET _cat/plugins?v
 ```
 {% include copy-curl.html %}

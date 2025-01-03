@@ -10,7 +10,7 @@ nav_order: 20
 
 This API retrieves a connector by its ID.
 
-### Path and HTTP methods
+### Endpoints
 
 ```json
 GET /_plugins/_ml/connectors/<connector_id>
