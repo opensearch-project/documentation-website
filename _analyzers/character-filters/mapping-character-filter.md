@@ -1,21 +1,21 @@
 ---
 layout: default
-title: Mapping Character Filter
+title: Mapping
 parent: Character Filters
 nav_order: 120
 ---
 
 # Mapping character filter
 
-The `mapping character filter` allows you to define a map of `keys` and `values` for character replacements. Whenever the filter encounters a string of characters matching a key, it replaces them with the corresponding value.
+The `mapping` character filter accepts a map of key-value pairs for character replacement. Whenever the filter encounters a string of characters matching a key, it replaces them with the corresponding value. Replacement values can be empty strings.
 
-Matching is greedy, meaning that the longest matching pattern is prioritized. Replacements can also be empty strings if needed.
+The filter applies greedy matching, meaning that the longest matching pattern is matched. 
 
-The mapping character filter helps in scenarios where specific text replacements are required before tokenization.
+The `mapping` character filter helps in scenarios where specific text replacements are required before tokenization.
 
-## Example of the mapping filter
+## Example 
 
-The following example demonstrates a mapping filter that converts Roman numerals (I, II, III, IV, etc.) into their corresponding Arabic numerals (1, 2, 3, 4, etc.). 
+The following request configures a `mapping` character filter that converts Roman numerals (such as I, II, or III) into their corresponding Arabic numerals (1, 2, and 3): 
 
 ```json
 GET /_analyze
@@ -37,24 +37,38 @@ GET /_analyze
 }
 ```
 
-Using the mapping filter on the following text "I have III apples and IV oranges" with the mappings provided produces the response text:
+The response contains a token where Roman numerals have been replaced with Arabic numerals:
 
+```json
+{
+  "tokens": [
+    {
+      "token": "1 have 3 apples and 4 oranges",
+      "start_offset": 0,
+      "end_offset": 32,
+      "type": "word",
+      "position": 0
+    }
+  ]
+}
 ```
-I have 3 apples and 4 oranges
-```
+{% include copy-curl.html %}
 
-## Configuring the mapping filter
+## Parameters
 
-There are two ways to configure the mappings. 
-1. `mappings`: Provide an array of key-value pairs in the form `key => value`. For every key found, the corresponding value will replace it in the input text.
-2. `mappings_path`: Specify the path to a UTF-8 encoded file containing key-value mappings. Each mapping should be on a new line in the format `key => value`. The path can be absolute or relative to the OpenSearch configuration directory.
+You can use either of the following parameters to configure the key-value map.
+
+| Parameter       | Required/Optional | Data type | Description    |
+|:---|:---|:---|:---|
+| `mappings`       | Optional          | Array      | An array of key-value pairs in the format `key => value`. Each key found in the input text will be replaced with its corresponding value. |
+| `mappings_path`  | Optional          | String     | The path to a UTF-8 encoded file containing key-value mappings. Each mapping should appear on a new line in the format `key => value`. The path can be absolute or relative to the OpenSearch configuration directory. |
 
 ### Using a custom mapping character filter
 
-You can create a custom mapping character filter by defining your own set of mappings. The following example demonstrates the creation of a custom character filter that replaces common abbreviations in a text.
+You can create a custom mapping character filter by defining your own set of mappings. The following request creates a custom character filter that replaces common abbreviations in a text:
 
 ```json
-PUT /text-index
+PUT /test-index
 {
   "settings": {
     "analysis": {
@@ -80,8 +94,9 @@ PUT /text-index
   }
 }
 ```
+{% include copy-curl.html %}
 
-We can use our custom analyzer with the mappings we have provided to analzw the text "FYI, updates to the workout schedule are posted. IDK when it takes effect, but we have some details. BTW, the finalized schedule will be released Monday."
+Use the following request to examine the tokens generated using the analyzer:
 
 ```json
 GET /text-index/_analyze
@@ -92,8 +107,18 @@ GET /text-index/_analyze
 }
 ```
 
-With the custom mappings we provided the text is mapped to the `key` `value` pairs we submitted, this results in the text being updated as the mappings specified and we get the following response:
+The response shows that the abbreviations were replaced:
 
-```
-For your information, updates to the workout schedule are posted. I don't know when it takes effect, but we have some details. By the way, the finalized schedule will be released Monday.
+```json
+{
+  "tokens": [
+    {
+      "token": "For your information, updates to the workout schedule are posted. I don't know when it takes effect, but we have some details. By the way, the finalized schedule will be released Monday.",
+      "start_offset": 0,
+      "end_offset": 153,
+      "type": "word",
+      "position": 0
+    }
+  ]
+}
 ```
