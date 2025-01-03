@@ -8,7 +8,7 @@ nav_order: 35
 
 # Classic tokenizer
 
-The `classic` tokenizer parses text, applying the English language grammatical rules to break the text into tokens. It includes specific logic to handle patterns such as the following:
+The `classic` tokenizer parses text, applying English language grammatical rules to break the text into tokens. It includes specific logic to handle patterns such as the following:
 
 - Acronyms 
 - Email addresses
