@@ -50,7 +50,7 @@ Field | Data type | Required/Optional | Updatable | Description
 `origin` | String | Optional | No | The name of the AI or other system that generated the response. |
 `additional_info` | Object | Optional | Yes | Any other information that was sent to the `origin`. |
 
-At least one of the above fields must be provided and cannot be null or empty for a successful message creation or update
+To create or update a message successfully, you must provide at least one of the preceding fields. The provided field(s) cannot be null or empty.
 {: .note}
 
 #### Example request: Create a message
