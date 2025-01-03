@@ -7,7 +7,7 @@ nav_order: 60
 
 # Letter tokenizer
 
-The `letter` tokenizer splits text into words on any non-letter characters. It works well for many European languages but struggles with some Asian languages where words aren't separated by spaces.
+The `letter` tokenizer splits text into words on any non-letter characters. It works well with many European languages but is ineffective with some Asian languages in which words aren't separated by spaces.
 
 ## Example usage
 
