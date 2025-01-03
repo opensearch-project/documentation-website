@@ -31,13 +31,13 @@ The following sections describe the basic API documentation structure. Each sect
 Depending on where the documentation appears within a section or subsection, heading levels may be adjusted to fit with other content.
 
 1. Name of API (heading level 2)
-1. (Optional) Path and HTTP methods (heading level 3)
-1. Path parameters (heading level 3)
-1. Query parameters (heading level 3)
-1. Request fields (heading level 3)
+1. Endpoints (heading level 3)
+1. (Optional) Path parameters (heading level 3)
+1. (Optional) Query parameters (heading level 3)
+1. (Optional) Request fields (heading level 3)
 1. Example request (heading level 4)
-1. Example response (heading level 4)
-1. Response fields (heading level 3)
+1. (Optional) Example response (heading level 4)
+1. (Optional) Response fields (heading level 3)
 
 ## API name
 
@@ -55,7 +55,7 @@ If applicable, provide any caveats to its usage with a note or tip, as in the fo
 "If you use the Security plugin, make sure you have the appropriate permissions."
 (To set this point in note-style format, follow the text on the next line with {: .note})
 
-### Path and HTTP methods
+### Endpoints
 
 For relatively complex API calls that include path parameters, it's sometimes a good idea to provide an example so that users can visualize how the request is properly formed. This section is optional and includes examples that illustrate how the endpoint and path parameters fit together in the request. The following is an example of this section for the nodes stats API:
 
@@ -103,7 +103,7 @@ For GET and DELETE APIs: Introduce what you can do with the optional parameters.
 Parameter | Data type | Description
 :--- | :--- | :---
 
-### Request fields
+### Request body fields
 
 For PUT and POST APIs: Introduce what the request fields are allowed to provide in the body of the request.
 
@@ -189,7 +189,7 @@ The `POST _reindex` request returns the following response fields:
 }
 ```
 
-### Response fields
+### Response body fields
 
 For PUT and POST APIs: Define all allowable response fields that can be returned in the body of the response.
 

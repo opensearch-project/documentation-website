@@ -15,17 +15,13 @@ redirect_from:
 
 The CAT tasks operation lists the progress of all tasks currently running on your cluster.
 
-## Path and HTTP methods
+## Endpoints
 
-```
+```json
 GET _cat/tasks
 ```
 
-## URL parameters
-
-All CAT tasks URL parameters are optional.
-
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
+## Query parameters
 
 Parameter | Type | Description
 :--- | :--- | :---

@@ -16,17 +16,17 @@ redirect_from:
 The CAT shards operation lists the state of all primary and replica shards and how they are distributed.
 
 
-## Path and HTTP methods
+## Endpoints
 
-```
+```json
 GET _cat/shards
 ```
 
-## URL parameters
+## Query parameters
 
-All cat shards URL parameters are optional.
+All parameters are optional.
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
+In addition to the [common parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
 
 Parameter | Type | Description
 :--- | :--- | :---
@@ -66,3 +66,7 @@ index | shard | prirep | state   | docs | store | ip |       | node
 plugins | 0   |   p    | STARTED |   0  |  208b | 172.18.0.4 | odfe-node1
 plugins | 0   |   r    | STARTED |   0  |  208b | 172.18.0.3 |  odfe-node2          
 ```
+
+## Limiting the response size
+
+To limit the number of shards returned, configure the `cat.shards.response.limit.number_of_shards` setting. For more information, see [Cluster-level CAT response limit settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/cluster-settings/#cluster-level-cat-response-limit-settings).

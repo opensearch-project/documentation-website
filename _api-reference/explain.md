@@ -18,7 +18,40 @@ The explain API is an expensive operation in terms of both resources and time. O
 {: .warning }
 
 
-## Example
+## Endpoints
+
+```json
+GET <index>/_explain/<id>
+POST <index>/_explain/<id>
+```
+
+## Path parameters
+
+Parameter | Type | Description | Required
+:--- | :--- | :--- | :---
+`<index>` | String | Name of the index. You can only specify a single index. | Yes
+`<id>` | String | A unique identifier to attach to the document. | Yes
+
+## Query parameters
+
+You must specify the index and document ID. All other parameters are optional.
+
+Parameter | Type | Description | Required
+:--- | :--- | :--- | :---
+`analyzer` | String | The analyzer to use in the query string. | No
+`analyze_wildcard` | Boolean | Specifies whether to analyze wildcard and prefix queries. Default is `false`. | No
+`default_operator` | String | Indicates whether the default operator for a string query should be AND or OR. Default is OR. | No
+`df` | String | The default field in case a field prefix is not provided in the query string. | No
+`lenient` | Boolean | Specifies whether OpenSearch should ignore format-based query failures (for example, querying a text field for an integer). Default is `false`. | No
+`preference` | String | Specifies a preference of which shard to retrieve results from. Available options are `_local`, which tells the operation to retrieve results from a locally allocated shard replica, and a custom string value assigned to a specific shard replica. By default, OpenSearch executes the explain operation on random shards. | No
+`q` | String | Query in the Lucene query string syntax. | No
+`stored_fields` | Boolean | If true, the operation retrieves document fields stored in the index rather than the document’s `_source`. Default is `false`. | No
+`routing` | String | Value used to route the operation to a specific shard. | No
+`_source` | String | Whether to include the `_source` field in the response body. Default is `true`. | No
+`_source_excludes` | String | A comma-separated list of source fields to exclude in the query response. | No
+`_source_includes` | String | A comma-separated list of source fields to include in the query response. | No
+
+## Example requests
 
 To see the explain output for all results, set the `explain` flag to `true` either in the URL or in the body of the request:
 
@@ -48,35 +81,7 @@ POST opensearch_dashboards_sample_data_ecommerce/_explain/EVz1Q3sBgg5eWQP6RSte
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
-
-```
-GET <target>/_explain/<id>
-POST <target>/_explain/<id>
-```
-
-## URL parameters
-
-You must specify the index and document ID. All other URL parameters are optional.
-
-Parameter | Type | Description | Required
-:--- | :--- | :--- | :---
-`<index>` | String | Name of the index. You can only specify a single index. | Yes
-`<_id>` | String | A unique identifier to attach to the document. | Yes
-`analyzer` | String | The analyzer to use in the query string. | No
-`analyze_wildcard` | Boolean | Specifies whether to analyze wildcard and prefix queries. Default is `false`. | No
-`default_operator` | String | Indicates whether the default operator for a string query should be AND or OR. Default is OR. | No
-`df` | String | The default field in case a field prefix is not provided in the query string. | No
-`lenient` | Boolean | Specifies whether OpenSearch should ignore format-based query failures (for example, querying a text field for an integer). Default is `false`. | No
-`preference` | String | Specifies a preference of which shard to retrieve results from. Available options are `_local`, which tells the operation to retrieve results from a locally allocated shard replica, and a custom string value assigned to a specific shard replica. By default, OpenSearch executes the explain operation on random shards. | No
-`q` | String | Query in the Lucene query string syntax. | No
-`stored_fields` | Boolean | If true, the operation retrieves document fields stored in the index rather than the document’s `_source`. Default is `false`. | No
-`routing` | String | Value used to route the operation to a specific shard. | No
-`_source` | String | Whether to include the `_source` field in the response body. Default is `true`. | No
-`_source_excludes` | String | A comma-separated list of source fields to exclude in the query response. | No
-`_source_includes` | String | A comma-separated list of source fields to include in the query response. | No
-
-## Response
+## Example response
 
 ```json
 {

@@ -19,7 +19,7 @@ The POST method creates a new memory. The PUT method updates an existing memory.
 When the Security plugin is enabled, all memories exist in a `private` security mode. Only the user who created a memory can interact with that memory and its messages.
 {: .important}
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /_plugins/_ml/memory/
@@ -34,7 +34,7 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `memory_id` | String | The ID of the memory to be updated. Required for the PUT method.
 
-## Request fields
+## Request body fields
 
 The following table lists the available request fields.
 

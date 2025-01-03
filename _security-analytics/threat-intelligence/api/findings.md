@@ -18,7 +18,7 @@ The threat intelligence Alerts and Findings API retrieves information about aler
 
 Retrieves any alerts related to threat intelligence monitors.
 
-### Path and HTTP methods
+### Endpoints
 
 ```json
 GET /_plugins/_security_analytics/threat_intel/alerts
@@ -77,7 +77,7 @@ GET /_plugins/_security_analytics/threat_intel/alerts
 }
 ```
 
-### Response fields
+### Response body fields
 
 A threat intelligence alert can have one of the following states.
 
@@ -94,7 +94,7 @@ A threat intelligence alert can have one of the following states.
 
 Updates the status of the specified alerts to `ACKNOWLEDGED` or `COMPLETED`. Only alerts in the `ACTIVE` state can be updated. 
 
-### Path and HTTP methods
+### Endpoints
 
 ```json
 PUT /plugins/security_analytics/threat_intel/alerts/status
@@ -174,7 +174,7 @@ PUT /plugins/security_analytics/threat_intel/alerts/status?state=COMPLETED&alert
 
 Returns threat intelligence indicator of compromise (IOC) findings. When the threat intelligence monitor finds a malicious IOC during a data scan, a finding is automatically generated.
 
-### Path and HTTP methods
+### Endpoints
 
 ```json
 GET /_plugins/_security_analytics/threat_intel/findings/

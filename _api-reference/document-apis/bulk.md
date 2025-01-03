@@ -17,25 +17,11 @@ The bulk operation lets you add, update, or delete multiple documents in a singl
 Beginning in OpenSearch 2.9, when indexing documents using the bulk operation, the document `_id` must be 512 bytes or less in size.
 {: .note}
 
-## Example
+
+
+## Endpoints
 
 ```json
-POST _bulk
-{ "delete": { "_index": "movies", "_id": "tt2229499" } }
-{ "index": { "_index": "movies", "_id": "tt1979320" } }
-{ "title": "Rush", "year": 2013 }
-{ "create": { "_index": "movies", "_id": "tt1392214" } }
-{ "title": "Prisoners", "year": 2013 }
-{ "update": { "_index": "movies", "_id": "tt0816711" } }
-{ "doc" : { "title": "World War Z" } }
-
-```
-{% include copy-curl.html %}
-
-
-## Path and HTTP methods
-
-```
 POST _bulk
 POST <index>/_bulk
 ```
@@ -46,9 +32,9 @@ OpenSearch also accepts PUT requests to the `_bulk` path, but we highly recommen
 {: .note }
 
 
-## URL parameters
+## Query parameters
 
-All bulk URL parameters are optional.
+All parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :---
@@ -81,7 +67,7 @@ The optional JSON document doesn't need to be minified---spaces are fine---but i
 
 All actions support the same metadata: `_index`, `_id`, and `_require_alias`. If you don't provide an ID, OpenSearch generates one automatically, which can make it challenging to update the document at a later time.
 
-- Create
+### Create
 
   Creates a document if it doesn't already exist and returns an error otherwise. The next line must include a JSON document:
 
@@ -90,49 +76,64 @@ All actions support the same metadata: `_index`, `_id`, and `_require_alias`. If
   { "title": "Prisoners", "year": 2013 }
   ```
 
-- Delete
+### Delete
 
-  This action deletes a document if it exists. If the document doesn't exist, OpenSearch doesn't return an error but instead returns `not_found` under `result`. Delete actions don't require documents on the next line:
+This action deletes a document if it exists. If the document doesn't exist, OpenSearch doesn't return an error but instead returns `not_found` under `result`. Delete actions don't require documents on the next line:
 
-  ```json
-  { "delete": { "_index": "movies", "_id": "tt2229499" } }
-  ```
+```json
+{ "delete": { "_index": "movies", "_id": "tt2229499" } }
+```
 
-- Index
+### Index
 
-  Index actions create a document if it doesn't yet exist and replace the document if it already exists. The next line must include a JSON document:
+Index actions create a document if it doesn't yet exist and replace the document if it already exists. The next line must include a JSON document:
 
-  ```json
-  { "index": { "_index": "movies", "_id": "tt1979320" } }
-  { "title": "Rush", "year": 2013}
-  ```
+```json
+{ "index": { "_index": "movies", "_id": "tt1979320" } }
+{ "title": "Rush", "year": 2013}
+```
 
-- Update
+### Update
 
-  By default, this action updates existing documents and returns an error if the document doesn't exist. The next line must include a full or partial JSON document, depending on how much of the document you want to update:
+By default, this action updates existing documents and returns an error if the document doesn't exist. The next line must include a full or partial JSON document, depending on how much of the document you want to update:
 
-  ```json
-  { "update": { "_index": "movies", "_id": "tt0816711" } }
-  { "doc" : { "title": "World War Z" } }
-  ```
+```json
+{ "update": { "_index": "movies", "_id": "tt0816711" } }
+{ "doc" : { "title": "World War Z" } }
+```
 
-  To upsert a document, specify `doc_as_upsert` as `true`. If a document exists, it is updated; if it does not exist, a new document is indexed with the parameters specified in the `doc` field: 
+### Upsert
 
-  - Upsert
-  ```json
-  { "update": { "_index": "movies", "_id": "tt0816711" } }
-  { "doc" : { "title": "World War Z" }, "doc_as_upsert": true }
-  ```
+To upsert a document, specify `doc_as_upsert` as `true`. If a document exists, it is updated; if it does not exist, a new document is indexed with the parameters specified in the `doc` field: 
 
-  You can specify a script for more complex document updates by defining the script with the `source` or `id` from a document: 
+```json
+{ "update": { "_index": "movies", "_id": "tt0816711" } }
+{ "doc" : { "title": "World War Z" }, "doc_as_upsert": true }
+```
 
+### Script
 
+You can specify a script for more complex document updates by defining the script with the `source` or `id` from a document: 
 
-  - Script
-  ```json
-  { "update": { "_index": "movies", "_id": "tt0816711" } }
-  { "script" : { "source": "ctx._source.title = \"World War Z\"" } }
-  ```
+```json
+{ "update": { "_index": "movies", "_id": "tt0816711" } }
+{ "script" : { "source": "ctx._source.title = \"World War Z\"" } }
+```
+
+## Example request
+
+```json
+POST _bulk
+{ "delete": { "_index": "movies", "_id": "tt2229499" } }
+{ "index": { "_index": "movies", "_id": "tt1979320" } }
+{ "title": "Rush", "year": 2013 }
+{ "create": { "_index": "movies", "_id": "tt1392214" } }
+{ "title": "Prisoners", "year": 2013 }
+{ "update": { "_index": "movies", "_id": "tt0816711" } }
+{ "doc" : { "title": "World War Z" } }
+
+```
+{% include copy-curl.html %}
 
 ## Example response
 

@@ -12,7 +12,7 @@ nav_order: 20
 
 You can retrieve agent information using the `agent_id`.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /_plugins/_ml/agents/<agent_id>
@@ -77,6 +77,6 @@ Assistant:"""
 }
 ```
 
-## Response fields
+## Response body fields
 
-For response field descriptions, see [Register Agent API request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent#request-fields).
+For response field descriptions, see [Register Agent API request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent#request-body-fields).

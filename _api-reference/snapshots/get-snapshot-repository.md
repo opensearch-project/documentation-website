@@ -16,6 +16,12 @@ To learn more about repositories, see [Register repository]({{site.url}}{{site.b
 You can also get details about a snapshot during and after snapshot creation. See [Get snapshot status]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot-status/).
 {: .note}
 
+## Endpoints
+
+```json
+GET /_snapshot/<repository>
+```
+
 ## Path parameters
 
 | Parameter | Data type | Description |
@@ -54,7 +60,7 @@ Upon success, the response returns repositry information. This sample is for an 
 }
 ````
 
-## Response fields
+## Response body fields
 
 | Field | Data type | Description |
 | :--- | :--- | :--- | 

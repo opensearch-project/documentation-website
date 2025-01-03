@@ -11,9 +11,9 @@ nav_order: 40
 
 The nodes usage endpoint returns low-level information about REST action usage on nodes.
 
-## Path and HTTP methods
+## Endpoints
 
-```
+```json
 GET _nodes/usage
 GET _nodes/<nodeId>/usage
 GET _nodes/usage/<metric>

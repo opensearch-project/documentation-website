@@ -16,17 +16,13 @@ redirect_from:
 The CAT pending tasks operation lists the progress of all pending tasks, including task priority and time in queue.
 
 
-## Path and HTTP methods
+## Endpoints
 
-```
+```json
 GET _cat/pending_tasks
 ```
 
-## URL parameters
-
-All CAT nodes URL parameters are optional.
-
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
+## Query parameters
 
 Parameter | Type | Description
 :--- | :--- | :---
@@ -38,7 +34,7 @@ time | Time | Specify the units for time. For example, `5d` or `7h`. For more in
 
 The following example request lists the progress of all pending node tasks:
 
-```
+```json
 GET _cat/pending_tasks?v
 ```
 {% include copy-curl.html %}

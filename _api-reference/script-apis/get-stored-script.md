@@ -11,6 +11,12 @@ nav_order: 3
 
 Retrieves a stored script.
 
+## Endpoints
+
+```json
+GET _scripts/my-first-script
+```
+
 ## Path parameters
 
 | Parameter | Data type | Description | 
@@ -53,7 +59,7 @@ The `GET _scripts/my-first-script` request returns the following fields:
 }
 ````
 
-## Response fields
+## Response body fields
 
 The `GET _scripts/my-first-script` request returns the following response fields:
 
