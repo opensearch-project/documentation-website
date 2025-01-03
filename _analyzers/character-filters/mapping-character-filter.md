@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Mapping
-parent: Character Filters
+parent: Character filters
 nav_order: 120
 ---
 
