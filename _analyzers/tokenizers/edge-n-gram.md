@@ -11,7 +11,7 @@ The `edge_ngram` tokenizer generates partial word tokens, or _n-grams_, starting
 
 Edge n-grams are ideal for autocomplete searches where the order of the words may vary, such as when searching for product names or addresses. For more information, see [Autocomplete]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/autocomplete/). However, for text with a fixed order, like movie or song titles, the completion suggester may be more accurate.
 
-By default, the `edge n-gram` tokenizer produces tokens with a minimum length of `1` and a maximum length of `2`. For example, analyzing the text `OpenSearch` with the default configuration will produce the `O` and `Op` n-grams. These short n-grams are often not sufficient for meaningful searches, so configuring the tokenizer is necessary to adjust the gram lengths.
+By default, the `edge n-gram` tokenizer produces tokens with a minimum length of `1` and a maximum length of `2`. For example, when analyzing the text `OpenSearch`, the default configuration will produce the `O` and `Op` n-grams. These short n-grams often match too many irrelevant terms, so configuring the tokenizer is necessary in order to adjust the n-gram lengths.
 
 ## Example usage
 
