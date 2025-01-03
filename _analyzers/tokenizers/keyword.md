@@ -7,7 +7,7 @@ nav_order: 50
 
 # Keyword tokenizer
 
-The `keyword` tokenizer takes in text and outputs it exactly as a single, unaltered token. This makes it particularly useful when dealing with structured data like names, product codes, or email addresses, where you want the input to remain intact. 
+The `keyword` tokenizer ingests text and outputs it exactly as a single, unaltered token. This makes it particularly useful when you want the input to remain intact, such as when managing structured data like names, product codes, or email addresses. 
 
 The `keyword` tokenizer can be paired with token filters to process the text, for example, to normalize it or to remove extraneous characters.
 
@@ -53,7 +53,7 @@ POST /my_index/_analyze
 ```
 {% include copy-curl.html %}
 
-The response contains the single token that represents the original text:
+The response contains the single token representing the original text:
 
 ```json
 {
@@ -75,9 +75,9 @@ The `keyword` token filter can be configured with the following parameter.
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
-`buffer_size`| Optional | Integer | Determines the character buffer size. Default is `256`. Usually, there's no need to change this setting.
+`buffer_size`| Optional | Integer | Determines the character buffer size. Default is `256`. There is usually no need to change this setting.
 
-## Combining the `keyword` tokenizer with token filters
+## Combining the keyword tokenizer with token filters
 
 To enhance the functionality of the `keyword` tokenizer, you can combine it with token filters. Token filters can transform the text, such as converting it to lowercase or removing unwanted characters.
 
