@@ -11,6 +11,8 @@ The `html_strip` character filter removes HTML tags, such as `<div>`, `<p>`, and
 
 ## Example: HTML analyzer
 
+The following request applies an `html_strip` character filter to the provided text:
+
 ```json
 GET /_analyze
 {
@@ -23,15 +25,35 @@ GET /_analyze
 ```
 {% include copy-curl.html %}
 
-Using the HTML analyzer, you can convert the HTML character entity references into their corresponding symbols. The processed text would read as follows:
+The response contains the token in which HTML characters have been converted to their decoded values:
 
-```
+```json
+{
+  "tokens": [
+    {
+      "token": """
 Commonly used calculus symbols include α, β and θ 
+""",
+      "start_offset": 0,
+      "end_offset": 74,
+      "type": "word",
+      "position": 0
+    }
+  ]
+}
 ```
+
+## Parameters
+
+The `html_strip` character filter can be configured with the following parameter.
+
+| Parameter       | Required/Optional | Data type | Description    |
+|:---|:---|:---|:---|
+| `escaped_tags` | Optional | Array of strings | An array of HTML element names, specified without the enclosing angle brackets (`< >`). The filter does not remove elements in this list when stripping HTML from the text. For example, setting the array to `["b", "i"]` will prevent the `<b>` and `<i>` elements from being stripped.|
 
 ## Example: Custom analyzer with lowercase filter
 
-The following example query creates a custom analyzer that strips HTML tags and converts the plain text to lowercase by using the `html_strip` analyzer and `lowercase` filter:
+The following example request creates a custom analyzer that strips HTML tags and converts the plain text to lowercase by using the `html_strip` analyzer and `lowercase` filter:
 
 ```json
 PUT /html_strip_and_lowercase_analyzer
@@ -57,9 +79,7 @@ PUT /html_strip_and_lowercase_analyzer
 ```
 {% include copy-curl.html %}
 
-### Testing `html_strip_and_lowercase_analyzer`
-
-You can run the following request to test the analyzer:
+Use the following request to examine the tokens generated using the analyzer:
 
 ```json
 GET /html_strip_and_lowercase_analyzer/_analyze
@@ -72,8 +92,32 @@ GET /html_strip_and_lowercase_analyzer/_analyze
 
 In the response, the HTML tags have been removed and the plain text has been converted to lowercase:
 
-```
-welcome to opensearch!
+```json
+{
+  "tokens": [
+    {
+      "token": "welcome",
+      "start_offset": 4,
+      "end_offset": 11,
+      "type": "<ALPHANUM>",
+      "position": 0
+    },
+    {
+      "token": "to",
+      "start_offset": 12,
+      "end_offset": 14,
+      "type": "<ALPHANUM>",
+      "position": 1
+    },
+    {
+      "token": "opensearch",
+      "start_offset": 23,
+      "end_offset": 42,
+      "type": "<ALPHANUM>",
+      "position": 2
+    }
+  ]
+}
 ```
 
 ## Example: Custom analyzer that preserves HTML tags
@@ -104,9 +148,7 @@ PUT /html_strip_preserve_analyzer
 ```
 {% include copy-curl.html %}
 
-### Testing `html_strip_preserve_analyzer`  
-
-You can run the following request to test the analyzer:
+Use the following request to examine the tokens generated using the analyzer:
 
 ```json
 GET /html_strip_preserve_analyzer/_analyze
@@ -119,6 +161,18 @@ GET /html_strip_preserve_analyzer/_analyze
 
 In the response, the `italic` and `bold` tags have been retained, as specified in the custom analyzer request:
 
-```
+```json
+{
+  "tokens": [
+    {
+      "token": """
 This is a <b>bold</b> and <i>italic</i> text.
+""",
+      "start_offset": 0,
+      "end_offset": 52,
+      "type": "word",
+      "position": 0
+    }
+  ]
+}
 ```
