@@ -24,7 +24,7 @@ When the Security plugin is enabled, all memories exist in a `private` security 
 
 You can retrieve message information by using the `message_id`.
 
-### Path and HTTP methods
+### Endpoints
 
 ```json
 GET /_plugins/_ml/memory/message/<message_id>
@@ -62,13 +62,13 @@ GET /_plugins/_ml/memory/message/0m8ya40BfUsSoeNTj-pU
 }
 ```
 
-For information about response fields, see [Create Message request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/create-message#request-fields).
+For information about response fields, see [Create Message request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/create-message#request-body-fields).
 
 ## Get all messages within a memory
 
 Use this command to get a list of messages for a certain memory.
 
-### Path and HTTP methods
+### Endpoints
 
 ```json
 GET /_plugins/_ml/memory/<memory_id>/messages
@@ -133,7 +133,7 @@ POST /_plugins/_ml/message/_search
 }
 ```
 
-## Response fields
+## Response body fields
 
-For information about response fields, see [Create Message request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/create-message#request-fields).
+For information about response fields, see [Create Message request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/create-message#request-body-fields).
 

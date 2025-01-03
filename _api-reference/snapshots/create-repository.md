@@ -19,11 +19,11 @@ There are two types of snapshot repositories:
 
 For instructions on creating a repository, see [Register repository]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#register-repository).
 
-## Path and HTTP methods
+## Endpoints
 
-```
-POST /_snapshot/my-first-repo/ 
-PUT /_snapshot/my-first-repo/
+```json
+POST /_snapshot/<repository>/ 
+PUT /_snapshot/<repository>/
 ```
 
 ## Path parameters

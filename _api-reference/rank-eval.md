@@ -10,9 +10,9 @@ nav_order: 60
 
 The [rank]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/rank/) eval endpoint allows you to evaluate the quality of ranked search results.
 
-## Path and HTTP methods
+## Endpoints
 
-```
+```json
 GET <index_name>/_rank_eval 
 POST <index_name>/_rank_eval
 ```
@@ -28,7 +28,7 @@ allow_no_indices | Boolean | Defaults to `true`. When set to `false` the respons
 expand_wildcards | String | Expand wildcard expressions for indexes that are `open`, `closed`, `hidden`, `none`, or `all`.
 search_type | String | Set search type to either `query_then_fetch` or `dfs_query_then_fetch`.
 
-## Request fields
+## Request body fields
 
 The request body must contain at least one parameter.
 
