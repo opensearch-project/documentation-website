@@ -95,7 +95,6 @@ Parameter | Type | Description
 | `max_age` | Time units | Triggers a rollover after the maximum elapsed time since index creation is reached. The elapsed time is always calculated since the index creation time, even if the index origination date is configured to a custom date, such as when using the `index.lifecycle.parse_origination_date` or `index.lifecycle.origination_date` settings. Optional. |
 `max_docs` | Integer | Triggers a rollover after the specified maximum number of documents, excluding documents added since the last refresh and documents in replica shards. Optional. 
 `max_size` | Byte units  | Triggers a rollover when the index reaches a specified size, calculated as the total size of all primary shards. Replicas are not counted. Use the `_cat indices` API and check the `pri.store.size` value to see the current index size. Optional.
-`max_primary_shard_size` | Byte units  | Triggers a rollover when the largest primary shard in the index reaches a certain size. This is the maximum size of the primary shards in the index. As with `max_size`, replicas are ignored. To see the current shard size, use the `_cat shards` API. The `store` value shows the size of each shard, and `prirep` indicates whether a shard is a primary (`p`) or a replica (`r`). Optional.
 
 ### `settings`
 
