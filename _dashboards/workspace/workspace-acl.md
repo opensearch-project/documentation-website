@@ -168,9 +168,9 @@ You can set up workspace privacy on the **Create Workspace** page as a **Dashboa
 
 #### Setting up workspace privacy during workspace creation
 
-1. Complete entering the workspace name, selecting use case, and associating data sources. See [Create a workspace]({{site.url}}{{site.baseurl}}/dashboards/workspace/create-workspace) for instructions.
+1. Complete entering the workspace name, selecting use case, and associating data sources. See [Create a workspace]({{site.url}}{{site.baseurl}}/dashboards/workspace/create-workspace/) for instructions.
 2. Choose the desired access level from the cards at the **Set up privacy** panel. (**Private to collaborators** is set as the default selection.)
-3. Decide whether to continue configuring collaborators after workspace creation by selecting the **Go to configure the collaborators right after creating the workspace.** checkbox below.
+3. Decide whether to continue configuring collaborators after workspace creation by selecting the **Go to configure the collaborators right after creating the workspace.** checkbox at the bottom of the panel.
 4. Select **Create workspace** to finish the workspace creation.
 
 #### Modifying workspace privacy on the Collaborators page
@@ -182,7 +182,7 @@ You can set up workspace privacy on the **Create Workspace** page as a **Dashboa
 
 #### Modifying workspace privacy on the Workspace details page
 
-1. Select the **Edit** button at the top-right corner of the **Details** panel. 
+1. Select the **Edit** button at the upper-right corner of the **Details** panel. 
 2. Click the selector which displays the current workspace privacy access level at the bottom of the panel.
 3. Select the new access level from the dropdown list. 
 4. Select **Save** to apply the modifications.
