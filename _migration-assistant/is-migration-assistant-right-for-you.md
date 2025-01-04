@@ -36,6 +36,27 @@ There are also tools available for migrating cluster configuration, templates, a
 
 The tooling is designed to work with other cloud provider platforms, but it is not officially tested with these other platforms. If you would like to add support, please contact one of the maintainers on [GitHub](https://github.com/opensearch-project/opensearch-migrations/blob/main/MAINTAINERS.md).
 
+### Supported AWS regions
+
+Migration Assistant supports the following AWS regions:
+
+- US East (N. Virginia)
+- US East (Ohio)
+- US West (Oregon)
+- US West (N. California)
+- Europe (Frankfurt)
+- Europe (Ireland)
+- Europe (London)
+- Asia Pacific (Tokyo)
+- Asia Pacific (Singapore)
+- Asia Pacific (Sydney)
+- AWS GovCloud (US-East)[^1]
+- AWS GovCloud (US-West)[^1]
+
+{: .note}
+
+[^1]: GovCloud does not support RFS Shard Sizes above 80GiB. Ensure your shard sizes are within this limit when planning migrations with RFS in the GovCloud regions.
+
 ### Future migration paths
 
 To see the OpenSearch migrations roadmap, go to [OpenSearch Migrations - Roadmap](https://github.com/orgs/opensearch-project/projects/229/views/1).
