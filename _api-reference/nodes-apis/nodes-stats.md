@@ -943,12 +943,12 @@ warmer.total  | Integer | The total number of index warming operations.
 warmer.total_time_in_millis | Integer | The total time for all index warming operations, in milliseconds.
 query_cache | Statistics about query cache operations for the node.
 query_cache.memory_size_in_bytes | Integer | The amount of memory used for the query cache for all shards in the node.
-query_cache.total_count | Integer | The total number of hits, misses, and cached queries in the query cache.
+query_cache.total_count | Integer | The total number of hits and misses in the query cache.
 query_cache.hit_count | Integer | The total number of hits in the query cache.
 query_cache.miss_count | Integer | The total number of misses in the query cache. 
-query_cache.cache_size | Integer | The size of the query cache, in bytes.
-query_cache.cache_count | Integer | The number of queries in the query cache.
-query_cache.evictions | Integer | The number of evictions in the query cache.
+query_cache.cache_size | Integer | The number of queries currently in the query cache.
+query_cache.cache_count | Integer | The number of queries ever entered into the query cache, including those now evicted.
+query_cache.evictions | Integer | The number of evictions from the query cache.
 fielddata | Object | Statistics about the field data cache for all shards in the node.
 fielddata.memory_size_in_bytes | Integer | The total amount of memory used for the field data cache for all shards in the node.
 fielddata.evictions | Integer | The number of evictions in the field data cache.
