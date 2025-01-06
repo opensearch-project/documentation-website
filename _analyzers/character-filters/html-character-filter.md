@@ -9,7 +9,7 @@ nav_order: 100
 
 The `html_strip` character filter removes HTML tags, such as `<div>`, `<p>`, and `<a>`, from the input text and renders plain text. The filter can be configured to preserve certain tags or decode specific HTML entities, such as `&nbsp;`, into spaces.
 
-## Example: HTML analyzer
+## Example
 
 The following request applies an `html_strip` character filter to the provided text:
 
