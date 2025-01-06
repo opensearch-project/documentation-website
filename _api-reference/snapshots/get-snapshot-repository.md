@@ -16,7 +16,7 @@ To learn more about repositories, see [Register repository]({{site.url}}{{site.b
 You can also get details about a snapshot during and after snapshot creation. See [Get snapshot status]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot-status/).
 {: .note}
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /_snapshot/<repository>

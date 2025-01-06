@@ -102,6 +102,7 @@ Before continuing, you should verify that Docker is working correctly by deployi
     ```
    For OpenSearch 2.12 or greater, set a new custom admin password before installation using the following command:
    ```bash
+    # Password requires a minimum of 8 characters and must contain at least one uppercase letter, one lowercase letter, one digit, and one special character. Password strength can be tested here: https://lowe.github.io/tryzxcvbn
     docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" -e "OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>" opensearchproject/opensearch:latest
     ```
 1. Send a request to port 9200. The default username and password are `admin`.
