@@ -21,7 +21,7 @@ To standardize phone numbers, you'll use the regular expression `[\\s()-]+`:
 - `-`: Matches a literal **hyphen** (`-`).
 - `+`: Specifies that the pattern should match **one or more** occurrences of the preceding characters.
 
-The pattern `[\\s()-]+` will match any sequence of one or more white space characters, parentheses, or hyphens, removing from the input text. This ensures the phone numbers are normalized and contain only digits.
+The pattern `[\\s()-]+` will match any sequence of one or more white space characters, parentheses, or hyphens and remove it from the input text. This ensures that the phone numbers are normalized and contain only digits.
 
 The following request standardizes phone numbers by removing spaces, dashes, and parentheses: 
 
@@ -59,11 +59,11 @@ The response contains the generated token:
  
 ## Parameters
 
-The html_strip character filter must be configured with the following parameters.
+The `pattern_replace` character filter must be configured with the following parameters.
 
 | Parameter   | Required/Optional | Data type | Description    |
 |:---|:---|
-| `pattern`   | Required | String | A regular expression used to match parts of the input text. The filter identifies and matches this pattern for replacement. |
+| `pattern`   | Required | String | A regular expression used to match parts of the input text. The filter identifies and matches this pattern to perform replacement. |
 | `replacement` | Optional | String | The string that replaces pattern matches. Use an empty string (`""`) to remove the matched text. Default is an empty string (`""`).   |
 
 ## Creating a custom analyzer
@@ -147,7 +147,7 @@ The response contains the generated tokens:
 
 ## Using capturing groups
 
-You can use capturing groups in `replacement`. For example, the following request creates a custom analyzer that uses a `pattern_replace` character filter to replace hyphens with dots in phone numbers:
+You can use capturing groups in the `replacement` parameter. For example, the following request creates a custom analyzer that uses a `pattern_replace` character filter to replace hyphens with dots in phone numbers:
 
 ```json
 PUT /my_index
