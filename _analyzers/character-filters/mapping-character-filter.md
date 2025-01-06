@@ -36,6 +36,7 @@ GET /_analyze
   "text": "I have III apples and IV oranges"
 }
 ```
+{% include copy-curl.html %}
 
 The response contains a token where Roman numerals have been replaced with Arabic numerals:
 
@@ -52,7 +53,6 @@ The response contains a token where Roman numerals have been replaced with Arabi
   ]
 }
 ```
-{% include copy-curl.html %}
 
 ## Parameters
 
@@ -106,6 +106,7 @@ GET /text-index/_analyze
   "text": "FYI, updates to the workout schedule are posted. IDK when it takes effect, but we have some details. BTW, the finalized schedule will be released Monday."
 }
 ```
+{% include copy-curl.html %}
 
 The response shows that the abbreviations were replaced:
 
