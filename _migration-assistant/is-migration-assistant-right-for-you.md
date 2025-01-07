@@ -36,6 +36,25 @@ There are also tools available for migrating cluster configuration, templates, a
 
 The tooling is designed to work with other cloud provider platforms, but it is not officially tested with these other platforms. If you would like to add support, please contact one of the maintainers on [GitHub](https://github.com/opensearch-project/opensearch-migrations/blob/main/MAINTAINERS.md).
 
+### Supported AWS regions
+
+Migration Assistant supports the following AWS regions:
+
+- US East (N. Virginia)
+- US East (Ohio)
+- US West (Oregon)
+- US West (N. California)
+- Europe (Frankfurt)
+- Europe (Ireland)
+- Europe (London)
+- Asia Pacific (Tokyo)
+- Asia Pacific (Singapore)
+- Asia Pacific (Sydney)
+- AWS GovCloud (US-East)[^1]
+- AWS GovCloud (US-West)[^1]
+
+[^1]: GovCloud does not support `reindex-from-snapshot` (RFS) shard sizes above 80GiB. Ensure your shard sizes are within this limit when planning migrations with RFS in the listed GovCloud regions.
+
 ### Future migration paths
 
 To see the OpenSearch migrations roadmap, go to [OpenSearch Migrations - Roadmap](https://github.com/orgs/opensearch-project/projects/229/views/1).
@@ -50,9 +69,9 @@ Before starting a migration, consider the scope of the components involved. The 
 | **Index settings**  | Yes   | Migrate with the metadata migration tool. |
 | **Index mappings**  | Yes   | Migrate with the metadata migration tool.  |
 | **Index templates**   | Yes   | Migrate with the metadata migration tool. |
-| **Component templates**          | Yes                 | Migrate with the metadata migration tool.                                                                                                                                                                |
-| **Aliases**                      | Yes                 | Migrate with the metadata migration tool.                                                                                                                                                                |
-| **Index State Management (ISM) policies**                 | Expected in 2025    | Manually migrate using an API.                                                                                                                                                                          |
+| **Component templates**  | Yes   | Migrate with the metadata migration tool.  |
+| **Aliases**   | Yes   | Migrate with the metadata migration tool.  |
+| **Index State Management (ISM) policies**  | Expected in 2025    | Manually migrate using an API.  |
 | **Elasticsearch Kibana dashboards** | Expected in 2025 | This tool is only needed when used to migrate Elasticsearch Kibana Dashboards to OpenSearch Dashboards. To start, export JSON files from Kibana and import them into OpenSearch Dashboards; before importing, use the [`dashboardsSanitizer`](https://github.com/opensearch-project/opensearch-migrations/tree/main/dashboardsSanitizer) tool on X-Pack visualizations like Canvas and Lens in Kibana Dashboards, as they may require recreation for compatibility with OpenSearch. |
-| **Security constructs**          | No                  | Configure roles and permissions based on cloud provider recommendations. For example, if using AWS, leverage AWS Identity and Access Management (IAM) for enhanced security management.                                                  |
-| **Plugins**                      | No                  | Check plugin compatibility; some Elasticsearch plugins may not have direct equivalents in OpenSearch.                                                                                              |
+| **Security constructs**   | No   | Configure roles and permissions based on cloud provider recommendations. For example, if using AWS, leverage AWS Identity and Access Management (IAM) for enhanced security management. |
+| **Plugins**  | No  | Check plugin compatibility; some Elasticsearch plugins may not have direct equivalents in OpenSearch. |
