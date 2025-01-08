@@ -277,7 +277,7 @@ PUT /products
 Next, index three documents that correspond to products:
 
 ```json
-PUT students/_doc/1
+PUT products/_doc/1
 {
   "name": "Product 1",
   "product_id" : "111"
@@ -286,7 +286,7 @@ PUT students/_doc/1
 {% include copy-curl.html %}
 
 ```json
-PUT students/_doc/2
+PUT products/_doc/2
 {
   "name": "Product 2",
   "product_id" : "222"
@@ -295,7 +295,7 @@ PUT students/_doc/2
 {% include copy-curl.html %}
 
 ```json
-PUT students/_doc/3
+PUT products/_doc/3
 {
   "name": "Product 3",
   "product_id" : "333"
