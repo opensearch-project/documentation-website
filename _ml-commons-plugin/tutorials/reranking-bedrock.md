@@ -7,15 +7,16 @@ nav_order: 32
 
 # Reranking search results using the Bedrock Rerank API
 
-[Reranking pipeline](https://opensearch.org/docs/latest/search-plugins/search-relevance/reranking-search-results/) is a feature released in OpenSearch 2.12. It can rerank search results, providing a relevance score with respect to the search query for each matching document. The relevance score is calculated by a cross-encoder model. 
+A [reranking pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/) can rerank search results, providing a relevance score for each document in the search results with respect to the search query. The relevance score is calculated by a cross-encoder model. 
 
-This tutorial illustrates using the [Amazon Bedrock Rerank API](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent-runtime_Rerank.html) in a reranking pipeline. 
+This tutorial illustrates how to use the [Amazon Bedrock Rerank API](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent-runtime_Rerank.html) model in a reranking pipeline. 
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}
 
-## Step 0: Test the model on Amazon Bedrock
-You can perform a reranking test using the following code. Supported reranker models are listed in [Supported Regions and models for reranking in Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/rerank-supported.html). You can find the model id on [Supported foundation models in Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html) 
+## Prerequisite: Test the model on Amazon Bedrock
+
+Before using your model, test it on Amazon Bedrock. For supported reranker models, see [Supported Regions and models for reranking in Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/rerank-supported.html). For model IDs, see [Supported foundation models in Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html). To perform a reranking test, use the following code:
 
 ```python
 import json
@@ -85,8 +86,10 @@ response = bedrock_agent_runtime_client.rerank(
 results = response["results"]
 print(json.dumps(results, indent=2))
 ```
+{% include copy.html %}
 
-The reranking result is ordering by the highest score first:
+The reranked results are ordered by the highest score:
+
 ```json
 [
   {
@@ -108,13 +111,14 @@ The reranking result is ordering by the highest score first:
 ]
 ```
 
-You can sort the result by index number.
+To sort the results by the index, use the following code:
 
 ```python
 print(json.dumps(sorted(results, key=lambda x: x['index']),indent=2))
 ```
 
-The results are as follows:
+The results sorted by the index:
+
 ```json
 [
   {
@@ -138,7 +142,14 @@ The results are as follows:
 
 ## Step 1: Create a connector and register the model
 
-To create a connector for the model, send the following request. If you are using self-managed OpenSearch, supply your AWS credentials:
+To create a connector and register the model, use the following steps.
+
+### Step 1.1: Create a connector for the model
+
+First, create a connector for the model. 
+
+If you are using self-managed OpenSearch, supply your AWS credentials:
+
 ```json
 POST /_plugins/_ml/connectors/_create
 {
@@ -189,7 +200,7 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-If using the Amazon Opensearch Service, you can provide an IAM role ARN that allows access to the Amazon Bedrock service. For more information, see [AWS documentation](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ml-amazon-connector.html):
+If using the Amazon OpenSearch Service, you can provide an IAM role ARN that allows access to the Amazon Bedrock service. For more information, see [AWS documentation](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ml-amazon-connector.html). Use the following request to create a connector:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -239,6 +250,8 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
+### Step 1.2: Register and deploy the model
+
 Use the connector ID from the response to register and deploy the model:
 
 ```json
@@ -253,6 +266,8 @@ POST /_plugins/_ml/models/_register?deploy=true
 {% include copy-curl.html %}
 
 Note the model ID in the response; you'll use it in the following steps.
+
+### Step 1.3: Test the model
 
 Test the model by using the Predict API:
 
@@ -270,7 +285,7 @@ POST _plugins/_ml/_predict/text_similarity/your_model_id
 ```
 {% include copy-curl.html %}
 
-Alternatively, you can test the model as follows. This query bypasses pre_process_function and calls the Rerank API:
+Alternatively, you can test the model using the following query. This query bypasses the `pre_process_function` and calls the Rerank API directly:
 
 ```json
 POST _plugins/_ml/models/your_model_id/_predict
@@ -327,9 +342,10 @@ POST _plugins/_ml/models/your_model_id/_predict
 ```
 {% include copy-curl.html %}
 
-The connector `pre_process_function` transforms the input into the format required by the previously shown parameters.
+The connector `pre_process_function` transforms the input into the format required by the Predict API `parameters`.
 
 By default, the Amazon Bedrock Rerank API output has the following format:
+
 ```json
 [
   {
@@ -351,7 +367,9 @@ By default, the Amazon Bedrock Rerank API output has the following format:
 ]
 ```
 
-The connector `post_process_function` transforms the model's output into a format that the [Reranker processor](https://opensearch.org/docs/latest/search-plugins/search-pipelines/rerank-processor/) can interpret, and orders the results by index. This adapted format is as follows:
+The connector `post_process_function` transforms the model's output into a format that the [Reranker processor](https://opensearch.org/docs/latest/search-plugins/search-pipelines/rerank-processor/) can interpret, and orders the results by index. 
+
+The response contains four `similarity` outputs. For each `similarity` output, the `data` array contains a relevance score of each document against the query. The `similarity` outputs are provided in the order of the input documents; the first similarity result pertains to the first document:
 
 ```json
 {
@@ -405,13 +423,13 @@ The connector `post_process_function` transforms the model's output into a forma
 }
 ```
 
-Explanation of the response:
-1. The response contains four `similarity` outputs. For each `similarity` output, the `data` array contains a relevance score of each document against the query.
-2. The `similarity` outputs are provided in the order of the input documents; the first similarity result pertains to the first document.
-
 ## Step 2: Create a reranking pipeline
 
+To create a reranking pipeline, use the following steps.
+
 ### Step 2.1: Ingest test data
+
+Use the following request to ingest data into your index:
 
 ```json
 POST _bulk
@@ -427,6 +445,8 @@ POST _bulk
 {% include copy-curl.html %}
 
 ### Step 2.2: Create a reranking pipeline
+
+Create a pipeline for reranking using the Amazon Bedrock reranking model:
 
 ```json
 PUT /_search/pipeline/rerank_pipeline_bedrock
@@ -681,8 +701,7 @@ The first document in the response is `"Washington, D.C. (also known as simply W
 }
 ```
 
-You can avoid writing the query twice by using the `query_text_path` instead of `query_text` as follows
-{: .note}
+You reuse the same query by specifying the `query_text_path` instead of `query_text`:
 
 ```json
 POST my-test-data/_search?search_pipeline=rerank_pipeline_bedrock
