@@ -947,7 +947,7 @@ query_cache.total_count | Integer | The total number of hits and misses in the q
 query_cache.hit_count | Integer | The total number of hits in the query cache.
 query_cache.miss_count | Integer | The total number of misses in the query cache. 
 query_cache.cache_size | Integer | The number of queries currently in the query cache.
-query_cache.cache_count | Integer | The number of queries ever entered into the query cache, including those now evicted.
+query_cache.cache_count | Integer | The total number of queries that have been added to the query cache, including those that have since been evicted.
 query_cache.evictions | Integer | The number of evictions from the query cache.
 fielddata | Object | Statistics about the field data cache for all shards in the node.
 fielddata.memory_size_in_bytes | Integer | The total amount of memory used for the field data cache for all shards in the node.
