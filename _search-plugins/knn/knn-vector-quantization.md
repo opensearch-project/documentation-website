@@ -359,7 +359,7 @@ PUT my-vector-index
         "mode": "on_disk",
         "compression_level": "16x",
         "method": {
-            "params": {
+            "parameters": {
                 "ef_construction": 16
             }
         }
