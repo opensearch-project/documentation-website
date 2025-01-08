@@ -10,7 +10,6 @@ grand_parent: User guide
 
 By default, OpenSearch Benchmark runs identical queries for multiple benchmark iterations. However, running the same queries repeatedly isn’t ideal for every test. For example, simulating real-world caching with many iterations of the same query isn’t accurate, as it results in one cache miss followed by numerous hits. OpenSearch Benchmark lets you randomize queries in a configurable way. 
 
-## Overview
 
 For example, modifying `"gte"` and `"lt"` in the following `nyc_taxis` operation creates distinct queries, resulting in unique cache entries:
 
@@ -46,7 +45,7 @@ To use this feature on a workload you must make some changes to your workload's 
 
 ### Modifying `workload.py`
 
-Specify how to generate the saved value pairs for each operation by registering a “standard value source” for that operation. This Python function accepts no arguments and returns a dictionary. The keys mirror those in the input query, but are randomized.  Finally, change the `register()` method to register this function with the operation name and field name, which is randomized.
+Specify how to generate the saved value pairs for each operation by registering a “standard value source” for that operation. This Python function accepts no arguments and returns a dictionary. The keys mirror those in the input query, but are randomized. Finally, change the `register()` method to register this function with the operation name and field name, which is randomized.
 
 For example, to randomize the `"total_amount"` field in the `"range"` operation from earlier, a standard value source might look like the following function: 
 
