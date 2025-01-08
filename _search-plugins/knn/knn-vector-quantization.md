@@ -384,7 +384,7 @@ PUT my-vector-index
             "name": "hnsw",
             "engine": "faiss",
             "space_type": "l2",
-            "params": {
+            "parameters": {
               "m": 16,
               "ef_construction": 512,
               "encoder": {
