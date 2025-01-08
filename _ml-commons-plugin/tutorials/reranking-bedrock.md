@@ -1,15 +1,15 @@
 ---
 layout: default
-title: Reranking with Bedrock Rerank API
+title: Reranking search results with Amazon Bedrock models
 parent: Tutorials
 nav_order: 32
 ---
 
-# Reranking search results using the Bedrock Rerank API
+# Reranking search results using models hosted on Amazon Bedrock
 
 A [reranking pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/) can rerank search results, providing a relevance score for each document in the search results with respect to the search query. The relevance score is calculated by a cross-encoder model. 
 
-This tutorial illustrates how to use the [Amazon Bedrock Rerank API](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent-runtime_Rerank.html) model in a reranking pipeline. 
+This tutorial illustrates using the [Amazon Bedrock Rerank API](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent-runtime_Rerank.html) to rerank results using a model hosted on Amazon Bedrock. 
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}
