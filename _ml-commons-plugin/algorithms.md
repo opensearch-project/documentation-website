@@ -59,11 +59,11 @@ The training process supports multithreading, but the number of threads must be 
 
 ## Linear regression
 
-Linear regression maps the linear relationship between inputs and outputs. In ML Commons, the linear regression algorithm is adopted from the public machine learning library [Tribuo](https://tribuo.org/), which offers multidimensional linear regression models. The model supports the linear optimizer in training, including popular approaches like Linear Decay, SQRT_DECAY, [ADA](https://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf), [ADAM](https://tribuo.org/learn/4.1/javadoc/org/tribuo/math/optimisers/Adam.html), and [RMS_PROP](https://tribuo.org/learn/4.1/javadoc/org/tribuo/math/optimisers/RMSProp.html).
+Linear regression maps the linear relationship between inputs and outputs. In ML Commons, the linear regression algorithm is adopted from the public machine learning library [Tribuo](https://tribuo.org/), which offers multidimensional linear regression models. The model supports the linear optimizer in training, including popular approaches like Linear Decay, SQRT_DECAY, [ADA](https://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf), [ADAM](https://tribuo.org/learn/4.2/javadoc/org/tribuo/math/optimisers/Adam.html), and [RMS_PROP](https://tribuo.org/learn/4.2/javadoc/org/tribuo/math/optimisers/RMSProp.html).
 
-**Optimisers supported:** `SIMPLE_SGD`, `LINEAR_DECAY_SGD`, `SQRT_DECAY_SGD`, `ADA_GRAD`, `ADA_DELTA`, `ADAM`, and `RMS_PROP`.  
-**Objectives supported:** `ABSOLUTE_LOSS`, `HUBER`, and `SQUARED_LOSS`.  
-**momentum_type supported:** `STANDARD`, and `NESTEROV`.  
+**Optimisers supported:** [SIMPLE_SGD](https://tribuo.org/learn/4.2/javadoc/org/tribuo/math/optimisers/SGD.html#:~:text=learning%20rate%20SGD.-,getSimpleSGD,-public%20static%C2%A0), [LINEAR_DECAY_SGD](https://tribuo.org/learn/4.2/javadoc/org/tribuo/math/optimisers/SGD.html#:~:text=linear%20decay%20SGD.-,getLinearDecaySGD,-public%20static%C2%A0), [SQRT_DECAY_SGD](https://tribuo.org/learn/4.2/javadoc/org/tribuo/math/optimisers/SGD.html#:~:text=sqrt%20decay%20SGD.-,getSqrtDecaySGD,-public%20static%C2%A0), [ADA_GRAD](https://tribuo.org/learn/4.2/javadoc/org/tribuo/math/optimisers/AdaGrad.html), [ADA_DELTA](https://tribuo.org/learn/4.1/javadoc/org/tribuo/math/optimisers/AdaDelta.html), [ADAM](https://tribuo.org/learn/4.1/javadoc/org/tribuo/math/optimisers/Adam.html), and [RMS_PROP](https://tribuo.org/learn/4.1/javadoc/org/tribuo/math/optimisers/RMSProp.html).  
+**Objectives supported:** [ABSOLUTE_LOSS](https://tribuo.org/learn/4.2/javadoc/org/tribuo/regression/sgd/objectives/AbsoluteLoss.html), [HUBER](https://tribuo.org/learn/4.2/javadoc/org/tribuo/regression/sgd/objectives/Huber.html), and [SQUARED_LOSS](https://tribuo.org/learn/4.2/javadoc/org/tribuo/regression/sgd/objectives/SquaredLoss.html).  
+**momentum_type supported:** [STANDARD](https://tribuo.org/learn/4.2/javadoc/org/tribuo/math/optimisers/SGD.Momentum.html#STANDARD:~:text=No%20momentum.-,STANDARD,-public%20static%20final), and [NESTEROV](https://tribuo.org/learn/4.2/javadoc/org/tribuo/math/optimisers/SGD.Momentum.html#STANDARD:~:text=Standard%20momentum.-,NESTEROV,-public%20static%20final).  
 
 ### Parameters
 
@@ -423,9 +423,9 @@ The Localization algorithm can only be executed directly. Therefore, it cannot b
 
 A classification algorithm, logistic regression models the probability of a discrete outcome given an input variable. In ML Commons, these classifications include both binary and multi-class. The most common is the binary classification, which takes two values, such as "true/false" or "yes/no", and predicts the outcome based on the values specified. Alternatively, a multi-class output can categorize different inputs based on type. This makes logistic regression most useful for situations where you are trying to determine how your inputs fit best into a specified category. 
 
-**Optimisers supported:** `SIMPLE_SGD`, `LINEAR_DECAY_SGD`, `SQRT_DECAY_SGD`, `ADA_GRAD`, `ADA_DELTA`, `ADAM`, and `RMS_PROP`.  
-**Objectives supported:** `HINGE`, and `LOGMULTICLASS`.  
-**momentum_type supported:** `STANDARD`, and `NESTEROV`.  
+**Optimisers supported:** [SIMPLE_SGD](https://tribuo.org/learn/4.2/javadoc/org/tribuo/math/optimisers/SGD.html#:~:text=learning%20rate%20SGD.-,getSimpleSGD,-public%20static%C2%A0), [LINEAR_DECAY_SGD](https://tribuo.org/learn/4.2/javadoc/org/tribuo/math/optimisers/SGD.html#:~:text=linear%20decay%20SGD.-,getLinearDecaySGD,-public%20static%C2%A0), [SQRT_DECAY_SGD](https://tribuo.org/learn/4.2/javadoc/org/tribuo/math/optimisers/SGD.html#:~:text=sqrt%20decay%20SGD.-,getSqrtDecaySGD,-public%20static%C2%A0), [ADA_GRAD](https://tribuo.org/learn/4.2/javadoc/org/tribuo/math/optimisers/AdaGrad.html), [ADA_DELTA](https://tribuo.org/learn/4.1/javadoc/org/tribuo/math/optimisers/AdaDelta.html), [ADAM](https://tribuo.org/learn/4.1/javadoc/org/tribuo/math/optimisers/Adam.html), and [RMS_PROP](https://tribuo.org/learn/4.1/javadoc/org/tribuo/math/optimisers/RMSProp.html).
+**Objectives supported:** [HINGE](https://tribuo.org/learn/4.2/javadoc/org/tribuo/classification/sgd/objectives/Hinge.html), and [LOGMULTICLASS](https://tribuo.org/learn/4.2/javadoc/org/tribuo/classification/sgd/objectives/LogMulticlass.html).  
+**momentum_type supported:** [STANDARD](https://tribuo.org/learn/4.2/javadoc/org/tribuo/math/optimisers/SGD.Momentum.html#STANDARD:~:text=No%20momentum.-,STANDARD,-public%20static%20final), and [NESTEROV](https://tribuo.org/learn/4.2/javadoc/org/tribuo/math/optimisers/SGD.Momentum.html#STANDARD:~:text=Standard%20momentum.-,NESTEROV,-public%20static%20final).  
 
 ### Parameters
 
