@@ -9,7 +9,7 @@ nav_order: 32
 
 A [reranking pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/) can rerank search results, providing a relevance score for each document in the search results with respect to the search query. The relevance score is calculated by a cross-encoder model. 
 
-This tutorial illustrates using the [Amazon Bedrock Rerank API](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent-runtime_Rerank.html) to rerank results using a model hosted on Amazon Bedrock. 
+This tutorial illustrates using the [Amazon Bedrock Rerank API](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent-runtime_Rerank.html) to rerank search results using a model hosted on Amazon Bedrock. 
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}
@@ -111,13 +111,13 @@ The reranked results are ordered by the highest score:
 ]
 ```
 
-To sort the results by the index, use the following code:
+To sort the results by index, use the following code:
 
 ```python
 print(json.dumps(sorted(results, key=lambda x: x['index']),indent=2))
 ```
 
-The results sorted by the index:
+The following are the results sorted by index:
 
 ```json
 [
@@ -200,7 +200,7 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-If using the Amazon OpenSearch Service, you can provide an IAM role ARN that allows access to the Amazon Bedrock service. For more information, see [AWS documentation](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ml-amazon-connector.html). Use the following request to create a connector:
+If you are using Amazon OpenSearch Service, you can provide an AWS Identity and Access Management (IAM) role Amazon Resource Name (ARN) that allows access to Amazon Bedrock. For more information, see the [AWS documentation](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ml-amazon-connector.html). Use the following request to create a connector:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -344,7 +344,7 @@ POST _plugins/_ml/models/your_model_id/_predict
 
 The connector `pre_process_function` transforms the input into the format required by the Predict API `parameters`.
 
-By default, the Amazon Bedrock Rerank API output has the following format:
+By default, the Amazon Bedrock Rerank API output is formatted as follows:
 
 ```json
 [
@@ -367,9 +367,9 @@ By default, the Amazon Bedrock Rerank API output has the following format:
 ]
 ```
 
-The connector `post_process_function` transforms the model's output into a format that the [Reranker processor](https://opensearch.org/docs/latest/search-plugins/search-pipelines/rerank-processor/) can interpret, and orders the results by index. 
+The connector `post_process_function` transforms the model's output into a format that the [Reranker processor](https://opensearch.org/docs/latest/search-plugins/search-pipelines/rerank-processor/) can interpret and orders the results by index. 
 
-The response contains four `similarity` outputs. For each `similarity` output, the `data` array contains a relevance score of each document against the query. The `similarity` outputs are provided in the order of the input documents; the first similarity result pertains to the first document:
+The response contains four `similarity` outputs. For each `similarity` output, the `data` array contains a relevance score for each document against the query. The `similarity` outputs are provided in the order of the input documents; the first similarity result pertains to the first document:
 
 ```json
 {
@@ -446,7 +446,7 @@ POST _bulk
 
 ### Step 2.2: Create a reranking pipeline
 
-Create a pipeline for reranking using the Amazon Bedrock reranking model:
+Create a reranking pipeline using the Amazon Bedrock reranking model:
 
 ```json
 PUT /_search/pipeline/rerank_pipeline_bedrock
@@ -468,7 +468,7 @@ PUT /_search/pipeline/rerank_pipeline_bedrock
 ```
 {% include copy-curl.html %}
 
-If you provide multiple field names in `document_fields`, the values of all fields are first concatenated and then reranking is performed.
+If you provide multiple field names in `document_fields`, the values of all fields are first concatenated, after which reranking is performed.
 {: .note}
 
 ### Step 2.3: Test reranking
@@ -701,7 +701,7 @@ The first document in the response is `"Washington, D.C. (also known as simply W
 }
 ```
 
-You reuse the same query by specifying the `query_text_path` instead of `query_text`:
+You can reuse the same query by specifying the `query_text_path` instead of `query_text`:
 
 ```json
 POST my-test-data/_search?search_pipeline=rerank_pipeline_bedrock
