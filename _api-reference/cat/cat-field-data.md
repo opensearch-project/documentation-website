@@ -14,19 +14,34 @@ redirect_from:
 
 The CAT Field Data operation lists the memory size used by each field per node.
 
-
+<!-- spec_insert_start
+api: cat.fielddata
+component: endpoints
+-->
 ## Endpoints
-
 ```json
-GET _cat/fielddata?v
-GET _cat/fielddata/<field_name>?v
+GET /_cat/fielddata
+GET /_cat/fielddata/{fields}
 ```
+<!-- spec_insert_end -->
 
+
+<!-- spec_insert_start
+api: cat.fielddata
+component: query_parameters
+columns: Parameter,Type,Description,Default
+include_deprecated: false
+-->
 ## Query parameters
-
-Parameter | Type | Description
-:--- | :--- | :---
-bytes | Byte size | Specify the units for byte size. For example, `7kb` or `6gb`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
+Parameter | Type | Description | Default
+:--- | :--- | :--- | :---
+`bytes` | String | The units used to display byte values. | 
+`format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | 
+`h` | List | A comma-separated list of column names to display. | 
+`help` | Boolean | Return help information. | `false`
+`s` | List | A comma-separated list of column names or column aliases to sort by. | 
+`v` | Boolean | Enables verbose mode, which displays column headers. | `false`
+<!-- spec_insert_end -->
 
 ## Example requests
 

@@ -17,25 +17,36 @@ The CAT nodes operation lists node-level information, including node roles and l
 A few important node metrics are `pid`, `name`, `cluster_manager`, `ip`, `port`, `version`, `build`, `jdk`, along with `disk`, `heap`, `ram`, and `file_desc`.
 
 
+<!-- spec_insert_start
+api: cat.nodes
+component: endpoints
+-->
 ## Endpoints
-
 ```json
-GET _cat/nodes
+GET /_cat/nodes
 ```
+<!-- spec_insert_end -->
 
+
+<!-- spec_insert_start
+api: cat.nodes
+component: query_parameters
+columns: Parameter,Type,Description,Default
+include_deprecated: false
+-->
 ## Query parameters
-
-All CAT nodes URL parameters are optional.
-
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
-
-Parameter | Type | Description
-:--- | :--- | :---
-bytes | Byte size | Specify the units for byte size. For example, `7kb` or `6gb`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
-full_id | Boolean | If true, return the full node ID. If false, return the shortened node ID. Defaults to false.
-cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
-time | Time | Specify the units for time. For example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
-include_unloaded_segments | Boolean | Whether to include information from segments not loaded into memory. Default is `false`.
+Parameter | Type | Description | Default
+:--- | :--- | :--- | :---
+`bytes` | String | The units used to display byte values. | 
+`cluster_manager_timeout` | String | The amount of time allowed to establish a connection to the cluster manager node. | 
+`format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | 
+`full_id` | Boolean or String | When `true`, returns the full node ID. When `false`, returns the shortened node ID. | `false`
+`h` | List | A comma-separated list of column names to display. | 
+`help` | Boolean | Return help information. | `false`
+`s` | List | A comma-separated list of column names or column aliases to sort by. | 
+`time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units](https://opensearch.org/docs/latest/api-reference/units/). | 
+`v` | Boolean | Enables verbose mode, which displays column headers. | `false`
+<!-- spec_insert_end -->
 
 ## Example request
 

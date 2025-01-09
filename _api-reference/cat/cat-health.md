@@ -2,7 +2,6 @@
 layout: default
 title: CAT health
 parent: CAT API
-
 nav_order: 20
 has_children: false
 redirect_from:
@@ -16,18 +15,34 @@ redirect_from:
 The CAT health operation lists the status of the cluster, how long the cluster has been up, the number of nodes, and other useful information that helps you analyze the health of your cluster.
 
 
+<!-- spec_insert_start
+api: cat.health
+component: endpoints
+-->
 ## Endpoints
-
 ```json
-GET _cat/health?v
+GET /_cat/health
 ```
+<!-- spec_insert_end -->
 
+
+<!-- spec_insert_start
+api: cat.health
+component: query_parameters
+columns: Parameter,Type,Description,Default
+include_deprecated: false
+-->
 ## Query parameters
-
-Parameter | Type | Description
-:--- | :--- | :---
-time | Time | Specify the units for time. For example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
-ts | Boolean | If true, returns HH:MM:SS and Unix epoch timestamps. Default is `true`.
+Parameter | Type | Description | Default
+:--- | :--- | :--- | :---
+`format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | 
+`h` | List | A comma-separated list of column names to display. | 
+`help` | Boolean | Return help information. | `false`
+`s` | List | A comma-separated list of column names or column aliases to sort by. | 
+`time` | String | The unit used to display time values. | 
+`ts` | Boolean | When `true`, returns `HH:MM:SS` and Unix epoch timestamps. | `true`
+`v` | Boolean | Enables verbose mode, which displays column headers. | `false`
+<!-- spec_insert_end -->
 
 ## Example request
 

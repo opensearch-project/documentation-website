@@ -2,7 +2,6 @@
 layout: default
 title: CAT shards
 parent: CAT API
-
 nav_order: 60
 has_children: false
 redirect_from:
@@ -16,25 +15,37 @@ redirect_from:
 The CAT shards operation lists the state of all primary and replica shards and how they are distributed.
 
 
+<!-- spec_insert_start
+api: cat.shards
+component: endpoints
+-->
 ## Endpoints
-
 ```json
-GET _cat/shards
+GET /_cat/shards
+GET /_cat/shards/{index}
 ```
+<!-- spec_insert_end -->
 
+
+<!-- spec_insert_start
+api: cat.shards
+component: query_parameters
+columns: Parameter,Type,Description,Default
+include_deprecated: false
+-->
 ## Query parameters
-
-All parameters are optional.
-
-In addition to the [common parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
-
-Parameter | Type | Description
-:--- | :--- | :---
-bytes | Byte size | Specify the units for byte size. For example, `7kb` or `6gb`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
-local | Boolean | Whether to return information from the local node only instead of from the cluster manager node. Default is `false`.
-cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
-cancel_after_time_interval | Time | The amount of time after which the shard request will be canceled. Default is `-1`.
-time | Time | Specify the units for time. For example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
+Parameter | Type | Description | Default
+:--- | :--- | :--- | :---
+`bytes` | String | The units used to display byte values. | 
+`cluster_manager_timeout` | String | The amount of time allowed to establish a connection to the cluster manager node. | 
+`format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | 
+`h` | List | A comma-separated list of column names to display. | 
+`help` | Boolean | Return help information. | `false`
+`local` | Boolean | Returns local information but does not retrieve the state from the cluster manager node. | `false`
+`s` | List | A comma-separated list of column names or column aliases to sort by. | 
+`time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units](https://opensearch.org/docs/latest/api-reference/units/). | 
+`v` | Boolean | Enables verbose mode, which displays column headers. | `false`
+<!-- spec_insert_end -->
 
 ## Example requests
 

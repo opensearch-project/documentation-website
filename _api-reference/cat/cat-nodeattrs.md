@@ -15,18 +15,34 @@ redirect_from:
 The CAT nodeattrs operation lists the attributes of custom nodes.
 
 
+<!-- spec_insert_start
+api: cat.nodeattrs
+component: endpoints
+-->
 ## Endpoints
-
 ```json
-GET _cat/nodeattrs
+GET /_cat/nodeattrs
 ```
+<!-- spec_insert_end -->
 
+
+<!-- spec_insert_start
+api: cat.nodeattrs
+component: query_parameters
+columns: Parameter,Type,Description,Default
+include_deprecated: false
+-->
 ## Query parameters
-
-Parameter | Type | Description
-:--- | :--- | :---
-local | Boolean | Whether to return information from the local node only instead of from the cluster manager node. Default is `false`.
-cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
+Parameter | Type | Description | Default
+:--- | :--- | :--- | :---
+`cluster_manager_timeout` | String | The amount of time allowed to establish a connection to the cluster manager node. | 
+`format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | 
+`h` | List | A comma-separated list of column names to display. | 
+`help` | Boolean | Return help information. | `false`
+`local` | Boolean | Returns local information but does not retrieve the state from the cluster manager node. | `false`
+`s` | List | A comma-separated list of column names or column aliases to sort by. | 
+`v` | Boolean | Enables verbose mode, which displays column headers. | `false`
+<!-- spec_insert_end -->
 
 ## Example request
 

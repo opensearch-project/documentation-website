@@ -15,12 +15,56 @@ The CAT segment replication operation returns information about active and last 
 Call the CAT Segment Replication API only on indexes with segment replication enabled.
 {: .note}
 
+<!-- spec_insert_start
+api: cat.segment_replication
+component: endpoints
+-->
 ## Endpoints
-
 ```json
 GET /_cat/segment_replication
-GET /_cat/segment_replication/<index>
+GET /_cat/segment_replication/{index}
 ```
+<!-- spec_insert_end -->
+
+<!-- spec_insert_start
+api: cat.segment_replication
+component: path_parameters
+columns: Parameter,Type,Description
+include_deprecated: false
+-->
+## Path parameters
+Parameter | Type | Description
+:--- | :--- | :---
+`index` | List | A comma-separated list of data streams, indexes, and aliases used to limit the request. Supports wildcards (`*`). To target all data streams and indexes, omit this parameter or use `*` or `_all`.
+<!-- spec_insert_end -->
+
+
+<!-- spec_insert_start
+api: cat.segment_replication
+component: query_parameters
+columns: Parameter,Type,Description,Default
+include_deprecated: false
+-->
+## Query parameters
+Parameter | Type | Description | Default
+:--- | :--- | :--- | :---
+`active_only` | Boolean | When `true`, the response only includes ongoing segment replication events. | `false`
+`allow_no_indices` | Boolean | Whether to ignore the index if a wildcard index expression resolves to no concrete indexes. This includes the `_all` string or when no indexes have been specified. | 
+`bytes` | String | The units used to display byte values. | 
+`completed_only` | Boolean | When `true`, the response only includes the last-completed segment replication events. | `false`
+`detailed` | Boolean | When `true`, the response includes additional metrics for each stage of a segment replication event. | `false`
+`expand_wildcards` | List or String | Whether to expand the wildcard expression to include concrete indexes that are open, closed, or both. | 
+`format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | 
+`h` | List | A comma-separated list of column names to display. | 
+`help` | Boolean | Return help information. | `false`
+`ignore_throttled` | Boolean | Whether specified concrete, expanded, or aliased indexes should be ignored when throttled. | 
+`ignore_unavailable` | Boolean | Whether the specified concrete indexes should be ignored when missing or closed. | 
+`s` | List | A comma-separated list of column names or column aliases to sort by. | 
+`shards` | List | A comma-separated list of shards to display. | 
+`time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units](https://opensearch.org/docs/latest/api-reference/units/). | 
+`timeout` | String | The operation timeout. | 
+`v` | Boolean | Enables verbose mode, which displays column headers. | `false`
+<!-- spec_insert_end -->
 
 ## Path parameters
 

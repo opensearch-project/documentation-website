@@ -16,12 +16,33 @@ redirect_from:
 The CAT count operation lists the number of documents in your cluster.
 
 
+<!-- spec_insert_start
+api: cat.count
+component: endpoints
+-->
 ## Endpoints
-
 ```json
-GET _cat/count?v
-GET _cat/count/<index>?v
+GET /_cat/count
+GET /_cat/count/{index}
 ```
+<!-- spec_insert_end -->
+
+
+<!-- spec_insert_start
+api: cat.count
+component: query_parameters
+columns: Parameter,Type,Description,Default
+include_deprecated: false
+-->
+## Query parameters
+Parameter | Type | Description | Default
+:--- | :--- | :--- | :---
+`format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | 
+`h` | List | A comma-separated list of column names to display. | 
+`help` | Boolean | Return help information. | `false`
+`s` | List | A comma-separated list of column names or column aliases to sort by. | 
+`v` | Boolean | Enables verbose mode, which displays column headers. | `false`
+<!-- spec_insert_end -->
 
 ## Example requests
 
