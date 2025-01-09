@@ -37,7 +37,6 @@ include_deprecated: false
 ## Query parameters
 
 
-
 Parameter | Type | Description | Default
 :--- | :--- | :--- | :---
 `active_only` | Boolean | If `true`, the response only includes ongoing shard recoveries. | `false`

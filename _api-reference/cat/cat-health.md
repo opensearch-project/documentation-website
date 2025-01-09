@@ -36,7 +36,6 @@ include_deprecated: false
 ## Query parameters
 
 
-
 Parameter | Type | Description | Default
 :--- | :--- | :--- | :---
 `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | 

@@ -35,7 +35,6 @@ include_deprecated: false
 ## Query parameters
 
 
-
 Parameter | Type | Description | Default
 :--- | :--- | :--- | :---
 `actions` | List | The task action names used to limit the response. | 

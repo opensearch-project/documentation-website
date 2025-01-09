@@ -50,7 +50,6 @@ include_deprecated: false
 ## Query parameters
 
 
-
 Parameter | Type | Description | Default
 :--- | :--- | :--- | :---
 `active_only` | Boolean | When `true`, the response only includes ongoing segment replication events. | `false`

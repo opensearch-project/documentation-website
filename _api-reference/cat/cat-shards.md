@@ -37,7 +37,6 @@ include_deprecated: false
 ## Query parameters
 
 
-
 Parameter | Type | Description | Default
 :--- | :--- | :--- | :---
 `bytes` | String | The units used to display byte values. | 
