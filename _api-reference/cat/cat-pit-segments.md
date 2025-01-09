@@ -58,7 +58,6 @@ pit_id | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/support
 
 ```json
 GET /_cat/pit_segments
-
 {
     "pit_id": [
         "o463QQEPbXktaW5kZXgtMDAwMDAxFkhGN09fMVlPUkVPLXh6MUExZ1hpaEEAFjBGbmVEZHdGU1EtaFhhUFc4ZkR5cWcAAAAAAAAAAAEWaXBPNVJtZEhTZDZXTWFFR05waXdWZwEWSEY3T18xWU9SRU8teHoxQTFnWGloQQAA",
@@ -66,6 +65,7 @@ GET /_cat/pit_segments
     ]
 }
 ```
+{% include copy.html %}
 
 ## Example response
 
