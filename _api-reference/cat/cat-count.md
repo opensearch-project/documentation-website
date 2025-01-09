@@ -21,6 +21,7 @@ api: cat.count
 component: endpoints
 -->
 ## Endpoints
+
 ```json
 GET /_cat/count
 GET /_cat/count/{index}
@@ -35,6 +36,9 @@ columns: Parameter,Type,Description,Default
 include_deprecated: false
 -->
 ## Query parameters
+
+
+
 Parameter | Type | Description | Default
 :--- | :--- | :--- | :---
 `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | 

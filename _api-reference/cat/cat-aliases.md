@@ -22,6 +22,7 @@ api: cat.aliases
 component: endpoints
 -->
 ## Endpoints
+
 ```json
 GET /_cat/aliases
 GET /_cat/aliases/{name}
@@ -36,6 +37,9 @@ columns: Parameter,Type,Description,Default
 include_deprecated: false
 -->
 ## Query parameters
+
+
+
 Parameter | Type | Description | Default
 :--- | :--- | :--- | :---
 `expand_wildcards` | List or String | Expands wildcard expressions to concrete indexes. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. | 

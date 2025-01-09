@@ -16,6 +16,7 @@ api: cat.pit_segments
 component: endpoints
 omit_header: true
 -->
+
 ```json
 GET /_cat/pit_segments
 ```
@@ -26,6 +27,7 @@ api: cat.all_pit_segments
 component: endpoints
 omit_header: true
 -->
+
 ```json
 GET /_cat/pit_segments/_all
 ```
@@ -38,6 +40,9 @@ columns: Parameter,Type,Description,Default
 include_deprecated: false
 -->
 ## Query parameters
+
+
+
 Parameter | Type | Description | Default
 :--- | :--- | :--- | :---
 `bytes` | String | The units used to display byte values. | 

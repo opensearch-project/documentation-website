@@ -20,6 +20,7 @@ api: cat.segment_replication
 component: endpoints
 -->
 ## Endpoints
+
 ```json
 GET /_cat/segment_replication
 GET /_cat/segment_replication/{index}
@@ -33,6 +34,7 @@ columns: Parameter,Type,Description
 include_deprecated: false
 -->
 ## Path parameters
+
 Parameter | Type | Description
 :--- | :--- | :---
 `index` | List | A comma-separated list of data streams, indexes, and aliases used to limit the request. Supports wildcards (`*`). To target all data streams and indexes, omit this parameter or use `*` or `_all`.
@@ -46,6 +48,9 @@ columns: Parameter,Type,Description,Default
 include_deprecated: false
 -->
 ## Query parameters
+
+
+
 Parameter | Type | Description | Default
 :--- | :--- | :--- | :---
 `active_only` | Boolean | When `true`, the response only includes ongoing segment replication events. | `false`

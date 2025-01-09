@@ -20,6 +20,7 @@ api: cat.thread_pool
 component: endpoints
 -->
 ## Endpoints
+
 ```json
 GET /_cat/thread_pool
 GET /_cat/thread_pool/{thread_pool_patterns}
@@ -34,6 +35,9 @@ columns: Parameter,Type,Description,Default
 include_deprecated: false
 -->
 ## Query parameters
+
+
+
 Parameter | Type | Description | Default
 :--- | :--- | :--- | :---
 `cluster_manager_timeout` | String | A timeout for connection to the cluster manager node. | 

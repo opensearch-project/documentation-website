@@ -20,6 +20,7 @@ api: cat.pending_tasks
 component: endpoints
 -->
 ## Endpoints
+
 ```json
 GET /_cat/pending_tasks
 ```
@@ -33,6 +34,9 @@ columns: Parameter,Type,Description,Default
 include_deprecated: false
 -->
 ## Query parameters
+
+
+
 Parameter | Type | Description | Default
 :--- | :--- | :--- | :---
 `cluster_manager_timeout` | String | The amount of time allowed to establish a connection to the cluster manager node. | 
