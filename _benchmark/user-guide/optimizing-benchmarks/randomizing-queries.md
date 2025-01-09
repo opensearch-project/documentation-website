@@ -34,7 +34,7 @@ You can't completely randomize the values because the cache would not get any hi
 
 Every time OpenSearch sends a query, OpenSearch Benchmark decides whether to use a pair of values from this saved list in the query. It does this a configurable fraction of the time, called _repeat frequency_ (`rf`). If OpenSearch has encountered the value pair before, this might cause a cache hit. For example, if `rf` = 0.7, the cache hit ratio could be up to 70%. This ratio could cause a hit, depending on the benchmark's duration and cache size. 
 
-OpenSearch Benchmark selects saved value pairs using the Zipf probability distribution, where the probability of selecting pair `i` is proportional to `1/i^α`. In this formula, i represents the index of the saved value pair, and α controls how concentrated the distribution is. This distribution reflects usage patterns observed in real caches. Pairs with lower i values (closer to `1`) are selected more frequently, while pairs with higher `i` values (closer to `N`) are selected less often.
+OpenSearch Benchmark selects saved value pairs using the Zipf probability distribution, where the probability of selecting pair `i` is proportional to `1/i^α`. In this formula, `i` represents the index of the saved value pair, and `α` controls how concentrated the distribution is. This distribution reflects usage patterns observed in real caches. Pairs with lower `i` values (closer to `1`) are selected more frequently, while pairs with higher `i` values (closer to `N`) are selected less often.
 
 Otherwise, the other `1-rf` fraction of the time, a new random pair of values is generated. Because OpenSearch Benchmark has not encountered these value pairs before, the pairs should miss the cache.
 
