@@ -22,6 +22,7 @@ GET shakespeare/_search
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 A document is returned if it matches any of the terms in the array.
@@ -63,6 +64,7 @@ PUT students
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 Next, index three documents that correspond to students:
@@ -74,6 +76,7 @@ PUT students/_doc/1
   "student_id" : "111"
 }
 ```
+
 {% include copy-curl.html %}
 
 ```json
@@ -83,6 +86,7 @@ PUT students/_doc/2
   "student_id" : "222"
 }
 ```
+
 {% include copy-curl.html %}
 
 ```json
@@ -92,6 +96,7 @@ PUT students/_doc/3
   "student_id" : "333"
 }
 ```
+
 {% include copy-curl.html %}
 
 Create a separate index that contains class information, including the class name and an array of student IDs corresponding to the students enrolled in the class:
@@ -103,6 +108,7 @@ PUT classes/_doc/101
   "enrolled" : ["111" , "222"]
 }
 ```
+
 {% include copy-curl.html %}
 
 To search for students enrolled in the `CS101` class, specify the document ID of the document that corresponds to the class, the index of that document, and the path of the field in which the terms are located:
@@ -121,6 +127,7 @@ GET students/_search
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 The response contains the documents in the `students` index for every student whose ID matches one of the values in the `enrolled` array:
@@ -178,6 +185,7 @@ PUT classes/_doc/102
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 To search for students enrolled in `CS102`, use the dot path notation to specify the full path to the field in the `path` parameter:
@@ -196,6 +204,7 @@ GET students/_search
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 The response contains the matching documents:
@@ -253,12 +262,13 @@ Parameter | Data type | Description
 `boost` | Floating-point | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field’s relevance. Values between 0.0 and 1.0 decrease the field’s relevance. Default is 1.0.
 
 ## Bitmap filtering
+
 **Introduced 2.17**
 {: .label .label-purple }
 
-The `terms` query can filter for multiple terms simultaneously. However, when the number of terms in the input filter increases to a large value (around 10,000), the resulting network and memory overhead can become significant, making the query inefficient. In such cases, consider encoding your large terms filter using a [roaring bitmap](https://github.com/RoaringBitmap/RoaringBitmap) for more efficient filtering. 
+The `terms` query can filter for multiple terms simultaneously. However, when the number of terms in the input filter increases to a large value (around 10,000), the resulting network and memory overhead can become significant, making the query inefficient. In such cases, consider encoding your large terms filter using a [roaring bitmap](https://github.com/RoaringBitmap/RoaringBitmap) for more efficient filtering.
 
-The following example assumes that you have two indexes: a `products` index, which contains all the products sold by a company, and a `customers` index, which stores filters representing customers who own specific products. 
+The following example assumes that you have two indexes: a `products` index, which contains all the products sold by a company, and a `customers` index, which stores filters representing customers who own specific products.
 
 First, create a `products` index and map `product_id` as a `keyword`:
 
@@ -272,35 +282,39 @@ PUT /products
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 Next, index three documents that correspond to products:
 
 ```json
-PUT products/_doc/1
+PUT /products/_doc/1
 {
   "name": "Product 1",
   "product_id" : "111"
 }
 ```
+
 {% include copy-curl.html %}
 
 ```json
-PUT products/_doc/2
+PUT /products/_doc/2
 {
   "name": "Product 2",
   "product_id" : "222"
 }
 ```
+
 {% include copy-curl.html %}
 
 ```json
-PUT products/_doc/3
+PUT /products/_doc/3
 {
   "name": "Product 3",
   "product_id" : "333"
 }
 ```
+
 {% include copy-curl.html %}
 
 To store customer bitmap filters, you'll create a `customer_filter` [binary field](https://opensearch.org/docs/latest/field-types/supported-field-types/binary/) in the `customers` index. Specify `store` as `true` to store the field:
@@ -318,6 +332,7 @@ PUT /customers
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 For each customer, you need to generate a bitmap that represents the product IDs of the products the customer owns. This bitmap effectively encodes the filter criteria for that customer. In this example, you'll create a `terms` filter for a customer whose ID is `customer123` and who owns products `111`, `222`, and `333`.
@@ -338,6 +353,7 @@ encoded_bm_str = encoded.decode('utf-8')
 # Print the encoded bitmap
 print(f"Encoded Bitmap: {encoded_bm_str}")
 ```
+
 {% include copy.html %}
 
 Next, index the customer filter into the `customers` index. The document ID for the filter is the same as the ID for the corresponding customer (in this example, `customer123`). The `customer_filter` field contains the bitmap you generated for this customer:
@@ -348,6 +364,7 @@ POST customers/_doc/customer123
   "customer_filter": "OjAAAAEAAAAAAAIAEAAAAG8A3gBNAQ==" 
 }
 ```
+
 {% include copy-curl.html %}
 
 Now you can run a `terms` query on the `products` index to look up a specific customer in the `customers` index. Because you're looking up a stored field instead of `_source`, set `store` to `true`. In the `value_type` field, specify the data type of the `terms` input as `bitmap`:
@@ -368,6 +385,7 @@ POST /products/_search
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 You can also directly pass the bitmap to the `terms` query. In this example, the `product_id` field contains the customer filter bitmap for the customer whose ID is `customer123`:
@@ -383,4 +401,5 @@ POST /products/_search
   }
 }
 ```
+
 {% include copy-curl.html %}
