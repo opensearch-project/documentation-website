@@ -350,19 +350,19 @@ By default, the Amazon Bedrock Rerank API output is formatted as follows:
 [
   {
     "index": 2,
-    "relevance_score": 0.7711548724998493
+    "relevanceScore": 0.7711548724998493
   },
   {
     "index": 0,
-    "relevance_score": 0.0025114635138098534
+    "relevanceScore": 0.0025114635138098534
   },
   {
     "index": 1,
-    "relevance_score": 2.4876490010363496e-05
+    "relevanceScore": 2.4876490010363496e-05
   },
   {
     "index": 3,
-    "relevance_score": 6.339210403977635e-06
+    "relevanceScore": 6.339210403977635e-06
   }
 ]
 ```
