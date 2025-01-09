@@ -22,6 +22,7 @@ columns: Type, Parameter, Description, Required, Default
 -->
 ## Query parameters
 
+
 | Type    | Parameter                 | Description                                                                                                                        | Required | Default |
 |:--------|:--------------------------|:-----------------------------------------------------------------------------------------------------------------------------------|:---------|:--------|
 | Boolean | `analyze_wildcard`        | If true, wildcard and prefix queries are analyzed. This parameter can only be used when the q query string parameter is specified. | Required | `false` |
