@@ -52,7 +52,7 @@ Parameter | Type | Description | Default
 
 Field | Data type | Description  
 :--- | :--- | :---
-pit_id | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary) or an array of binaries | The PIT IDs of the PITs whose segments are to be listed. Required.
+pit_id | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary/) or an array of binaries | The PIT IDs of the PITs whose segments are to be listed. Required.
 
 ## Example request
 
