@@ -110,7 +110,7 @@ The third argument is a list of lists: `[[“top_left”], [“bottom_right”]]
 
 The last argument is a list of optional parameters. If an optional parameter is present in the random standard value source, OpenSearch Benchmark inserts the parameter into the randomized version of the query. If it's not in the source, it's ignored. There are no optional parameters in the following example, but the typical use case would be `"format"` in a range query.
 
-If there is no registration, the default registration is used, `registry.register_query_randomization_info(<operation_name>, “range”, [[“gte”, “gt”], [“lte”, “lt”]], [“format”])`.
+If there is no registration, the default registration is used: `registry.register_query_randomization_info(<operation_name>, “range”, [[“gte”, “gt”], [“lte”, “lt”]], [“format”])`.
 
 
 The `dict` returned by the standard value source should match the parameter names you are randomizing. For example, the following is the standard value source for the preceding example:
