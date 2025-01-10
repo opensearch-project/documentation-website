@@ -5,9 +5,10 @@ api: search
 component: path_parameters
 -->
 ## Path parameters
+
 The following table lists the available path parameters. All path parameters are optional.
 
-Parameter | Data Type | Description
+Parameter | Data type | Description
 :--- | :--- | :---
 `index` | List or String | Comma-separated list of data streams, indexes, and aliases to search. Supports wildcards (`*`). To search all data streams and indexes, omit this parameter or use `*` or `_all`.
 <!-- spec_insert_end -->
@@ -19,12 +20,13 @@ api: search
 component: query_parameters
 include_global: true
 pretty: true
-columns: Data Type, Parameter, Description, Required, Default
+columns: Data type, Parameter, Description, Required, Default
 -->
 ## Query parameters
+
 The following table lists the available query parameters.
 
-| Data Type | Parameter                 | Description                                                                                                                        | Required | Default |
+| Data type | Parameter                 | Description                                                                                                                        | Required | Default |
 |:----------|:--------------------------|:-----------------------------------------------------------------------------------------------------------------------------------|:---------|:--------|
 | Boolean   | `analyze_wildcard`        | If true, wildcard and prefix queries are analyzed. This parameter can only be used when the q query string parameter is specified. | Required | `false` |
 | String    | `analyzer`                | Analyzer to use for the query string. This parameter can only be used when the q query string parameter is specified.              |          |         |
@@ -54,9 +56,10 @@ component: query_parameters
 include_global: true
 -->
 ## Query parameters
+
 The following table lists the available query parameters. All query parameters are optional.
 
-Parameter | Data Type | Description
+Parameter | Data type | Description
 :--- | :--- | :---
 `pretty` | Boolean | Whether to pretty format the returned JSON response.
 `human` <br> _DEPRECATED_ | Boolean | _(Deprecated since 3.0: Use the `format` parameter instead.)_ Whether to return human readable values for statistics. _(Default: `true`)_
