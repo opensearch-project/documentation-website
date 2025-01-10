@@ -37,3 +37,12 @@ SHOULD
 BE
 REPLACED
 <!-- spec_insert_end -->
+
+Optional Params Text
+
+<!-- spec_insert_start
+api: cat.health
+component: query_parameters
+include_global: true
+-->
+<!-- spec_insert_end -->

@@ -5,6 +5,7 @@ api: search
 component: path_parameters
 -->
 ## Path parameters
+The following table lists the available path parameters. All path parameters are optional.
 
 Parameter | Data Type | Description
 :--- | :--- | :---
@@ -21,6 +22,7 @@ pretty: true
 columns: Data Type, Parameter, Description, Required, Default
 -->
 ## Query parameters
+The following table lists the available query parameters.
 
 | Data Type | Parameter                 | Description                                                                                                                        | Required | Default |
 |:----------|:--------------------------|:-----------------------------------------------------------------------------------------------------------------------------------|:---------|:--------|
@@ -42,4 +44,20 @@ Parameter | Description
 :--- | :---
 `analyze_wildcard` | **(Required)** If true, wildcard and prefix queries are analyzed. This parameter can only be used when the q query string parameter is specified. _(Default: `false`)_
 `analyzer` | Analyzer to use for the query string. This parameter can only be used when the q query string parameter is specified.
+<!-- spec_insert_end -->
+
+Optional Params Text
+
+<!-- spec_insert_start
+api: cat.health
+component: query_parameters
+include_global: true
+-->
+## Query parameters
+The following table lists the available query parameters. All query parameters are optional.
+
+Parameter | Data Type | Description
+:--- | :--- | :---
+`pretty` | Boolean | Whether to pretty format the returned JSON response.
+`human` <br> _DEPRECATED_ | Boolean | _(Deprecated since 3.0: Use the `format` parameter instead.)_ Whether to return human readable values for statistics. _(Default: `true`)_
 <!-- spec_insert_end -->

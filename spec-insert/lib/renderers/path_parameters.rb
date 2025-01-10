@@ -8,7 +8,16 @@ class PathParameters < BaseMustacheRenderer
   self.template_file = "#{__dir__}/templates/path_parameters.mustache"
 
   def table
-    params = @action.arguments.select { |arg| arg.location == ArgLocation::PATH }
     ParameterTableRenderer.new(params, @args).render
+  end
+
+  def optional
+    params.none? { |param| param.required }
+  end
+
+  private
+
+  def params
+    @param ||= @action.arguments.select { |arg| arg.location == ArgLocation::PATH }
   end
 end
