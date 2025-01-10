@@ -5,6 +5,7 @@ api: search
 component: path_parameters
 -->
 ## Path parameters
+
 Parameter | Data Type | Description
 :--- | :--- | :---
 `index` | List or String | Comma-separated list of data streams, indexes, and aliases to search. Supports wildcards (`*`). To search all data streams and indexes, omit this parameter or use `*` or `_all`.
@@ -20,6 +21,7 @@ pretty: true
 columns: Data Type, Parameter, Description, Required, Default
 -->
 ## Query parameters
+
 | Data Type | Parameter                 | Description                                                                                                                        | Required | Default |
 |:----------|:--------------------------|:-----------------------------------------------------------------------------------------------------------------------------------|:---------|:--------|
 | Boolean   | `analyze_wildcard`        | If true, wildcard and prefix queries are analyzed. This parameter can only be used when the q query string parameter is specified. | Required | `false` |
