@@ -12,12 +12,12 @@ class PathParameters < BaseMustacheRenderer
   end
 
   def optional
-    params.none? { |param| param.required }
+    params.none?(&:required)
   end
 
   private
 
   def params
-    @param ||= @action.arguments.select { |arg| arg.location == ArgLocation::PATH }
+    @params ||= @action.arguments.select { |arg| arg.location == ArgLocation::PATH }
   end
 end

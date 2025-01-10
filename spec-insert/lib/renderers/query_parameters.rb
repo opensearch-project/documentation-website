@@ -12,7 +12,7 @@ class QueryParameters < BaseMustacheRenderer
   end
 
   def optional
-    params.none? { |param| param.required }
+    params.none?(&:required)
   end
 
   private
