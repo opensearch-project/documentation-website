@@ -99,4 +99,5 @@ Tribuo
 VisBuilder
 Winlogbeat
 XGBoost
+Zipf
 Zstandard
