@@ -28,7 +28,7 @@ class ParameterTableRenderer
       'Parameter' => "`#{param.name}`#{' <br> _DEPRECATED_' if param.deprecated}",
       'Description' => description(param),
       'Required' => param.required ? 'Required' : nil,
-      'Type' => param.doc_type,
+      'Data Type' => param.doc_type,
       'Default' => param.default.nil? ? nil : "`#{param.default}`"
     }
   end

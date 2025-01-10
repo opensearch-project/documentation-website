@@ -18,7 +18,7 @@ api: search
 component: query_parameters
 include_global: true
 pretty: true
-columns: Type, Parameter, Description, Required, Default
+columns: Data Type, Parameter, Description, Required, Default
 -->
   THIS TEXT SHOULD BE REPLACED
 <!-- spec_insert_end -->

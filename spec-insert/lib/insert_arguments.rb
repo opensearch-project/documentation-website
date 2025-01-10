@@ -2,8 +2,8 @@
 
 # Doc Insert Arguments
 class InsertArguments
-  COLUMNS = %w[Parameter Description Required Type Default].freeze
-  DEFAULT_COLUMNS = %w[Parameter Type Description].freeze
+  COLUMNS = ['Parameter', 'Description', 'Required', 'Data Type', 'Default'].freeze
+  DEFAULT_COLUMNS = ['Parameter', 'Data Type', 'Description'].freeze
   attr_reader :raw
 
   # @param [Array<String>] lines the lines between <!-- doc_insert_start and -->
