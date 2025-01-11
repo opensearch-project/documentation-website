@@ -1019,3 +1019,190 @@ The response contains the matching documents that are listed after the `7yaM4JAB
     }
 }
 ```
+
+## Explainability in hybrid query
+**Introduced 2.19**
+{: .label .label-purple }
+
+The explainability feature helps you understand how scores are calculated, normalized, and combined in hybrid queries. When enabled, it provides detailed information about the scoring process for each search result. This includes the various score normalization techniques used (such as `min_max` or `rrf`), how different scores are combined, and the details of individual score calculations from sub-queries (like [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25) for text-based queries). This comprehensive insight into the scoring process makes it easier to understand and optimize your hybrid query results. For more information about explain, see corresponding [API reference page]({{site.url}}{{site.baseurl}}/api-reference/explain). 
+
+The explain API is an expensive operation in terms of both resources and time. On production clusters, we recommend using it sparingly for the purpose of troubleshooting.
+{: .warning }
+
+You can use `explain` with the complete hybrid query using following syntax for URL 
+```json
+GET <index>/_search?search_pipeline=<search_pipeline>&explain=true
+POST <index>/_search?search_pipeline=<search_pipeline>&explain=true
+```
+
+To use explainability, you must configure the `hybrid_score_explanation` response processor in your search pipeline and include the explain=true parameter in your search request. For more information, see [hybrid_score_explanation]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/explanation-processor). 
+
+If `explain` is used with the individual document id like in the following example then result will have only details of the low level scoring, like [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25) for text-based queries like `term` or `match`.
+```json
+GET <index>/_explain/<id>
+POST <index>/_explain/<id>
+```
+
+## Example requests
+
+To see the explain output for all results, set the `explain` flag to `true` either in the URL or in the body of the request:
+
+```json
+POST my-nlp-index/_search?search_pipeline=my_pipeline&explain=true
+{
+  "_source": {
+    "exclude": [
+      "passage_embedding"
+    ]
+  },
+  "query": {
+    "hybrid": {
+      "queries": [
+        {
+          "match": {
+            "text": {
+              "query": "horse"
+            }
+          }
+        },
+        {
+          "neural": {
+            "passage_embedding": {
+              "query_text": "wild west",
+              "model_id": "aVeif4oB5Vm0Tdw8zYO2",
+              "k": 5
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+## Example response
+
+```json
+{
+    "took": 54,
+    "timed_out": false,
+    "_shards": {
+        "total": 2,
+        "successful": 2,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": {
+            "value": 5,
+            "relation": "eq"
+        },
+        "max_score": 0.9251075,
+        "hits": [
+            {
+                "_shard": "[my-nlp-index][0]",
+                "_node": "IsuzeVYdSqKUfy0qfqil2w",
+                "_index": "my-nlp-index",
+                "_id": "5",
+                "_score": 0.9251075,
+                "_source": {
+                    "text": "A rodeo cowboy , wearing a cowboy hat , is being thrown off of a wild white horse .",
+                    "id": "2691147709.jpg"
+                },
+                "_explanation": {
+                    "value": 0.9251075,
+                    "description": "arithmetic_mean combination of:",
+                    "details": [
+                        {
+                            "value": 1.0,
+                            "description": "min_max normalization of:",
+                            "details": [
+                                {
+                                    "value": 1.2336599,
+                                    "description": "weight(text:horse in 0) [PerFieldSimilarity], result of:",
+                                    "details": [
+                                        {
+                                            "value": 1.2336599,
+                                            "description": "score(freq=1.0), computed as boost * idf * tf from:",
+                                            "details": [
+                                                {
+                                                    "value": 2.2,
+                                                    "description": "boost",
+                                                    "details": []
+                                                },
+                                                {
+                                                    "value": 1.2039728,
+                                                    "description": "idf, computed as log(1 + (N - n + 0.5) / (n + 0.5)) from:",
+                                                    "details": [
+                                                        {
+                                                            "value": 1,
+                                                            "description": "n, number of documents containing term",
+                                                            "details": []
+                                                        },
+                                                        {
+                                                            "value": 4,
+                                                            "description": "N, total number of documents with field",
+                                                            "details": []
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "value": 0.46575344,
+                                                    "description": "tf, computed as freq / (freq + k1 * (1 - b + b * dl / avgdl)) from:",
+                                                    "details": [
+                                                        {
+                                                            "value": 1.0,
+                                                            "description": "freq, occurrences of term within document",
+                                                            "details": []
+                                                        },
+                                                        {
+                                                            "value": 1.2,
+                                                            "description": "k1, term saturation parameter",
+                                                            "details": []
+                                                        },
+                                                        {
+                                                            "value": 0.75,
+                                                            "description": "b, length normalization parameter",
+                                                            "details": []
+                                                        },
+                                                        {
+                                                            "value": 16.0,
+                                                            "description": "dl, length of field",
+                                                            "details": []
+                                                        },
+                                                        {
+                                                            "value": 17.0,
+                                                            "description": "avgdl, average length of field",
+                                                            "details": []
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "value": 0.8503647,
+                            "description": "min_max normalization of:",
+                            "details": [
+                                {
+                                    "value": 0.015177966,
+                                    "description": "within top 5",
+                                    "details": []
+                                }
+                            ]
+                        }
+                    ]
+...
+```
+
+## Response body fields
+
+Field | Description
+:--- | :---
+`explanation` | The `explanation` object has three properties: `value`, `description`, and `details`. The `value` shows the result of the calculation, the `description` explains what type of calculation is performed, and the `details` shows any subcalculations performed. For score normalization information in `description` inludes technique used for normalization or combination, and corresponding score. 
+
+

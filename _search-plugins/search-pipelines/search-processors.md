@@ -39,6 +39,7 @@ The following table lists all supported search response processors.
 Processor | Description | Earliest available version
 :--- | :--- | :---
 [`collapse`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/collapse-processor/)| Deduplicates search hits based on a field value, similarly to `collapse` in a search request. | 2.12
+[`hybrid_score_explanation`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/explanation-processor/)| Adds detailed scoring explanation to search results when the explain flag is enabled, providing information about score normalization, combination techniques, and individual score calculations in hybrid queries.  | 2.19
 [`ml_inference`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/ml-inference-search-response/) | Invokes registered machine learning (ML) models in order to incorporate model output as additional search response fields. | 2.16 
 [`personalize_search_ranking`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/personalize-search-ranking/) | Uses [Amazon Personalize](https://aws.amazon.com/personalize/) to rerank search results (requires setting up the Amazon Personalize service). | 2.9
 [`rename_field`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rename-field-processor/)| Renames an existing field. | 2.8
