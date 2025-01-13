@@ -21,7 +21,6 @@ api: cat.allocation
 component: endpoints
 -->
 ## Endpoints
-
 ```json
 GET /_cat/allocation
 GET /_cat/allocation/{node_id}
@@ -32,13 +31,14 @@ GET /_cat/allocation/{node_id}
 <!-- spec_insert_start
 api: cat.allocation
 component: query_parameters
-columns: Parameter,Type,Description,Default
+columns: Parameter, Data type, Description, Default
 include_deprecated: false
 -->
 ## Query parameters
 
+The following table lists the available query parameters. All query parameters are optional.
 
-Parameter | Type | Description | Default
+Parameter | Data type | Description | Default
 :--- | :--- | :--- | :---
 `bytes` | String | The units used to display byte values. | 
 `cluster_manager_timeout` | String | A timeout for connection to the cluster manager node. | 

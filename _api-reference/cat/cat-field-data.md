@@ -19,7 +19,6 @@ api: cat.fielddata
 component: endpoints
 -->
 ## Endpoints
-
 ```json
 GET /_cat/fielddata
 GET /_cat/fielddata/{fields}
@@ -30,13 +29,14 @@ GET /_cat/fielddata/{fields}
 <!-- spec_insert_start
 api: cat.fielddata
 component: query_parameters
-columns: Parameter,Type,Description,Default
+columns: Parameter, Data type, Description, Default
 include_deprecated: false
 -->
 ## Query parameters
 
+The following table lists the available query parameters. All query parameters are optional.
 
-Parameter | Type | Description | Default
+Parameter | Data type | Description | Default
 :--- | :--- | :--- | :---
 `bytes` | String | The units used to display byte values. | 
 `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | 

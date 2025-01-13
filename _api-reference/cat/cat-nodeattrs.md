@@ -20,7 +20,6 @@ api: cat.nodeattrs
 component: endpoints
 -->
 ## Endpoints
-
 ```json
 GET /_cat/nodeattrs
 ```
@@ -30,13 +29,14 @@ GET /_cat/nodeattrs
 <!-- spec_insert_start
 api: cat.nodeattrs
 component: query_parameters
-columns: Parameter,Type,Description,Default
+columns: Parameter, Data type, Description, Default
 include_deprecated: false
 -->
 ## Query parameters
 
+The following table lists the available query parameters. All query parameters are optional.
 
-Parameter | Type | Description | Default
+Parameter | Data type | Description | Default
 :--- | :--- | :--- | :---
 `cluster_manager_timeout` | String | The amount of time allowed to establish a connection to the cluster manager node. | 
 `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | 

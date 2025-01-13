@@ -20,7 +20,6 @@ api: cat.cluster_manager
 component: endpoints
 -->
 ## Endpoints
-
 ```json
 GET /_cat/cluster_manager
 ```
@@ -30,13 +29,14 @@ GET /_cat/cluster_manager
 <!-- spec_insert_start
 api: cat.cluster_manager
 component: query_parameters
-columns: Parameter,Type,Description,Default
+columns: Parameter, Data type, Description, Default
 include_deprecated: false
 -->
 ## Query parameters
 
+The following table lists the available query parameters. All query parameters are optional.
 
-Parameter | Type | Description | Default
+Parameter | Data type | Description | Default
 :--- | :--- | :--- | :---
 `cluster_manager_timeout` | String | A timeout for connection to the cluster manager node. | 
 `format` | String | A short version of the HTTP `Accept` header, such as `json` or `yaml`. | 

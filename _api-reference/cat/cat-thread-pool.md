@@ -31,7 +31,7 @@ GET /_cat/thread_pool/{thread_pool_patterns}
 <!-- spec_insert_start
 api: cat.thread_pool
 component: query_parameters
-columns: Parameter,Type,Description,Default
+columns: Parameter, Data type, Description, Default
 include_deprecated: false
 -->
 ## Query parameters

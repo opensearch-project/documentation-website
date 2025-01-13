@@ -16,7 +16,6 @@ api: cat.pit_segments
 component: endpoints
 omit_header: true
 -->
-
 ```json
 GET /_cat/pit_segments
 ```
@@ -27,7 +26,6 @@ api: cat.all_pit_segments
 component: endpoints
 omit_header: true
 -->
-
 ```json
 GET /_cat/pit_segments/_all
 ```
@@ -36,13 +34,14 @@ GET /_cat/pit_segments/_all
 <!-- spec_insert_start
 api: cat.pit_segments
 component: query_parameters
-columns: Parameter,Type,Description,Default
+columns: Parameter, Data type, Description, Default
 include_deprecated: false
 -->
 ## Query parameters
 
+The following table lists the available query parameters. All query parameters are optional.
 
-Parameter | Type | Description | Default
+Parameter | Data type | Description | Default
 :--- | :--- | :--- | :---
 `bytes` | String | The units used to display byte values. | 
 `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | 

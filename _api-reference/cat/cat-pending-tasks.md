@@ -20,7 +20,6 @@ api: cat.pending_tasks
 component: endpoints
 -->
 ## Endpoints
-
 ```json
 GET /_cat/pending_tasks
 ```
@@ -30,13 +29,14 @@ GET /_cat/pending_tasks
 <!-- spec_insert_start
 api: cat.pending_tasks
 component: query_parameters
-columns: Parameter,Type,Description,Default
+columns: Parameter, Data type, Description, Default
 include_deprecated: false
 -->
 ## Query parameters
 
+The following table lists the available query parameters. All query parameters are optional.
 
-Parameter | Type | Description | Default
+Parameter | Data type | Description | Default
 :--- | :--- | :--- | :---
 `cluster_manager_timeout` | String | The amount of time allowed to establish a connection to the cluster manager node. | 
 `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | 

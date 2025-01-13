@@ -29,7 +29,7 @@ GET /_cat/tasks
 <!-- spec_insert_start
 api: cat.tasks
 component: query_parameters
-columns: Parameter,Type,Description,Default
+columns: Parameter, Data type, Description, Default
 include_deprecated: false
 -->
 ## Query parameters

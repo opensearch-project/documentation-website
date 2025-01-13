@@ -20,7 +20,6 @@ api: cat.health
 component: endpoints
 -->
 ## Endpoints
-
 ```json
 GET /_cat/health
 ```
@@ -30,13 +29,14 @@ GET /_cat/health
 <!-- spec_insert_start
 api: cat.health
 component: query_parameters
-columns: Parameter,Type,Description,Default
+columns: Parameter, Data type, Description, Default
 include_deprecated: false
 -->
 ## Query parameters
 
+The following table lists the available query parameters. All query parameters are optional.
 
-Parameter | Type | Description | Default
+Parameter | Data type | Description | Default
 :--- | :--- | :--- | :---
 `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | 
 `h` | List | A comma-separated list of column names to display. | 

@@ -20,7 +20,6 @@ api: cat.recovery
 component: endpoints
 -->
 ## Endpoints
-
 ```json
 GET /_cat/recovery
 GET /_cat/recovery/{index}
@@ -31,13 +30,14 @@ GET /_cat/recovery/{index}
 <!-- spec_insert_start
 api: cat.recovery
 component: query_parameters
-columns: Parameter,Type,Description,Default
+columns: Parameter, Data type, Description, Default
 include_deprecated: false
 -->
 ## Query parameters
 
+The following table lists the available query parameters. All query parameters are optional.
 
-Parameter | Type | Description | Default
+Parameter | Data type | Description | Default
 :--- | :--- | :--- | :---
 `active_only` | Boolean | If `true`, the response only includes ongoing shard recoveries. | `false`
 `bytes` | String | The units used to display byte values. | 

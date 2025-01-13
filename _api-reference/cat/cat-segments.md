@@ -31,7 +31,7 @@ GET /_cat/segments/{index}
 <!-- spec_insert_start
 api: cat.segments
 component: query_parameters
-columns: Parameter,Type,Description,Default
+columns: Parameter, Data type, Description, Default
 include_deprecated: false
 -->
 ## Query parameters

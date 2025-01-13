@@ -31,7 +31,7 @@ GET /_cat/shards/{index}
 <!-- spec_insert_start
 api: cat.shards
 component: query_parameters
-columns: Parameter,Type,Description,Default
+columns: Parameter, Data type, Description, Default
 include_deprecated: false
 -->
 ## Query parameters

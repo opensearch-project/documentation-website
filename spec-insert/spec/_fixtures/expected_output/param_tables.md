@@ -24,7 +24,6 @@ columns: Data type, Parameter, Description, Required, Default
 -->
 ## Query parameters
 
-
 The following table lists the available query parameters.
 
 | Data type | Parameter                 | Description                                                                                                                        | Required | Default |

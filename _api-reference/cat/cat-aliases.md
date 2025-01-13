@@ -22,7 +22,6 @@ api: cat.aliases
 component: endpoints
 -->
 ## Endpoints
-
 ```json
 GET /_cat/aliases
 GET /_cat/aliases/{name}
@@ -33,13 +32,14 @@ GET /_cat/aliases/{name}
 <!-- spec_insert_start
 api: cat.aliases
 component: query_parameters
-columns: Parameter,Type,Description,Default
+columns: Parameter, Data type, Description, Default
 include_deprecated: false
 -->
 ## Query parameters
 
+The following table lists the available query parameters. All query parameters are optional.
 
-Parameter | Type | Description | Default
+Parameter | Data type | Description | Default
 :--- | :--- | :--- | :---
 `expand_wildcards` | List or String | Expands wildcard expressions to concrete indexes. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. | 
 `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | 
