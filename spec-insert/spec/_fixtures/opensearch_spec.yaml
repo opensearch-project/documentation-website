@@ -4,6 +4,13 @@ info:
   version: 1.0.0
   x-api-version: 2.16.0
 paths:
+  /_cat/health:
+    get:
+      operationId: cat_health.0
+      x-operation-group: cat.health
+      parameters:
+        - $ref: '#/components/parameters/_global___query.pretty'
+        - $ref: '#/components/parameters/_global___query.human'
   /_search:
     get:
       operationId: search.0
