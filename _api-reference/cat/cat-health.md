@@ -40,7 +40,7 @@ Parameter | Type | Description | Default
 :--- | :--- | :--- | :---
 `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | 
 `h` | List | A comma-separated list of column names to display. | 
-`help` | Boolean | Return help information. | `false`
+`help` | Boolean | Returns help information. | `false`
 `s` | List | A comma-separated list of column names or column aliases to sort by. | 
 `time` | String | The unit used to display time values. | 
 `ts` | Boolean | When `true`, returns `HH:MM:SS` and Unix epoch timestamps. | `true`

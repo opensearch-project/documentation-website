@@ -41,7 +41,7 @@ Parameter | Type | Description | Default
 `detailed` | Boolean | If `true`, the response includes detailed information about shard recoveries. | `false`
 `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | 
 `h` | List | A comma-separated list of column names to display. | 
-`help` | Boolean | Return help information. | `false`
+`help` | Boolean | Returns help information. | `false`
 `nodes` | List | A comma-separated list of node IDs or names used to limit the returned information.  Use `_local` to return information from the node to which you're connecting, specify a specific node from which to get information, or keep the parameter empty to get information from all nodes. | 
 `parent_task_id` | String | The parent task identifier, which is used to limit the response. | 
 `s` | List | A comma-separated list of column names or column aliases to sort by. | 

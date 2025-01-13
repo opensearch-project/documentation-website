@@ -44,7 +44,7 @@ Parameter | Type | Description | Default
 `detailed` | Boolean | When `true`, includes detailed information about shard recoveries. | `false`
 `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | 
 `h` | List | A comma-separated list of column names to display. | 
-`help` | Boolean | Return help information. | `false`
+`help` | Boolean | Returns help information. | `false`
 `s` | List | A comma-separated list of column names or column aliases to sort by. | 
 `time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units](https://opensearch.org/docs/latest/api-reference/units/). | 
 `v` | Boolean | Enables verbose mode, which displays column headers. | `false`

@@ -41,11 +41,11 @@ Parameter | Type | Description | Default
 :--- | :--- | :--- | :---
 `bytes` | String | The units used to display byte values. | 
 `cluster_manager_timeout` | String | The amount of time allowed to establish a connection to the cluster manager node. | 
-`expand_wildcards` | List or String | The type of index that wildcard patterns can match. | 
+`expand_wildcards` | List or String | The type of index that wildcard patterns can match.  Supported values are `all`, `open`, `closed`, `hidden`, and `none`. | 
 `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | 
 `h` | List | A comma-separated list of column names to display. | 
 `health` | String | Limits indexes based on their health status. Supported values are `green`, `yellow`, and `red`. | 
-`help` | Boolean | Return help information. | `false`
+`help` | Boolean | Returns help information. | `false`
 `include_unloaded_segments` | Boolean | Whether to include information from segments not loaded into memory. | `false`
 `local` | Boolean | Returns local information but does not retrieve the state from the cluster manager node. | `false`
 `pri` | Boolean | When `true`, returns information only from the primary shards. | `false`

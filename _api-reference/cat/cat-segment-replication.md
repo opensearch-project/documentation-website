@@ -57,10 +57,10 @@ Parameter | Type | Description | Default
 `bytes` | String | The units used to display byte values. | 
 `completed_only` | Boolean | When `true`, the response only includes the last-completed segment replication events. | `false`
 `detailed` | Boolean | When `true`, the response includes additional metrics for each stage of a segment replication event. | `false`
-`expand_wildcards` | List or String | Whether to expand the wildcard expression to include concrete indexes that are open, closed, or both. | 
+`expand_wildcards` | List or String | The type of index that wildcard patterns can match. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. | 
 `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | 
 `h` | List | A comma-separated list of column names to display. | 
-`help` | Boolean | Return help information. | `false`
+`help` | Boolean | Returns help information. | `false`
 `ignore_throttled` | Boolean | Whether specified concrete, expanded, or aliased indexes should be ignored when throttled. | 
 `ignore_unavailable` | Boolean | Whether the specified concrete indexes should be ignored when missing or closed. | 
 `s` | List | A comma-separated list of column names or column aliases to sort by. | 
