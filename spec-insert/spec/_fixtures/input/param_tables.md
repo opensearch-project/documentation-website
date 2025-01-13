@@ -18,7 +18,7 @@ api: search
 component: query_parameters
 include_global: true
 pretty: true
-columns: Type, Parameter, Description, Required, Default
+columns: Data type, Parameter, Description, Required, Default
 -->
   THIS TEXT SHOULD BE REPLACED
 <!-- spec_insert_end -->
@@ -36,4 +36,13 @@ TEXT
 SHOULD
 BE
 REPLACED
+<!-- spec_insert_end -->
+
+Optional Params Text
+
+<!-- spec_insert_start
+api: cat.health
+component: query_parameters
+include_global: true
+-->
 <!-- spec_insert_end -->
