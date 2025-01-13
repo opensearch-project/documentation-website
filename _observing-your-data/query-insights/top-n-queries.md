@@ -118,13 +118,15 @@ You can configure your desired exporter to export top N query data to different 
 
 ### Configuring a debug exporter
 
-To configure a debug exporter, update the exporter setting for the desired metric type. For example, to export the top N queries by latency using the debug exporter, send the following request:
+To use the debug exporter, update the exporter type for each metric type. For example, send the following request:
 
 ```json
 PUT _cluster/settings
 {
   "persistent" : {
-     "search.insights.top_queries.latency.exporter.type" : "debug"
+    "search.insights.top_queries.latency.exporter.type" : "debug", 
+    "search.insights.top_queries.cpu.exporter.type" : "debug",
+    "search.insights.top_queries.memory.exporter.type" : "debug"
   }
 }
 ```
@@ -132,16 +134,28 @@ PUT _cluster/settings
 
 ### Configuring a local index exporter
 
-A local index exporter allows you to export the top N queries to local OpenSearch indexes. The default index pattern for top N query indexes is `top_queries-YYYY.MM.dd`. All top queries from the same day are saved to the same index, and a new index is created each day. You can change the default index pattern to use other date formats. For more information about supported formats, see [DateTimeFormat](https://www.joda.org/joda-time/apidocs/org/joda/time/format/DateTimeFormat.html).
+A local index exporter allows you to save top N query data to indices in your OpenSearch domain. Query Insights manages the creation of these indices following the naming pattern `top_queries-YYYY.MM.dd-hashcode`. A new index is created daily and "hashcode" is a 5-digit number generated based on the current UTC date. Local index exporter must be enabled to allow historical top N lookups via the `top_queries` API or the Query Insights Dashboard.
 
-To configure the local index exporter for the top N queries by latency, send the following request:
+To use the local index exporter, send the following request:
 
 ```json
 PUT _cluster/settings
 {
   "persistent" : {
     "search.insights.top_queries.latency.exporter.type" : "local_index",
-    "search.insights.top_queries.latency.exporter.config.index" : "YYYY.MM.dd"
+    "search.insights.top_queries.cpu.exporter.type" : "local_index",
+    "search.insights.top_queries.memory.exporter.type" : "local_index"
+  }
+}
+```
+{% include copy-curl.html %}
+
+Use the `delete_after_days` setting (integer) to specify the duration, in days, for automatically deleting local indices. Query Insights runs a scheduled job once per day to delete Top N local indices older than the specified number of days. The default value for `delete_after_days` is 7, with valid values ranging from 1 to 180. This setting applies to local index exporters of all metric types.
+```json
+PUT _cluster/settings
+{
+  "persistent" : {
+    "search.insights.top_queries.delete_after_days" : "7"
   }
 }
 ```
