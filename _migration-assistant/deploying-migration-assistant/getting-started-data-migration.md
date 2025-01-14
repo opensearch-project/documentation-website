@@ -155,7 +155,7 @@ Use the following steps to configure and deploy RFS, deploy Migration Assistant 
     ```
     {% include copy.html %}
 
-4. Deploy Migration Assistant and required stacks when `cdk.context.json` is fully configured:
+4. Deploy Migration Assistant and any required stacks when `cdk.context.json` is fully configured:
 
     ```bash
     cdk deploy "*" --c contextId=migration-assistant --require-approval never --concurrency 5
