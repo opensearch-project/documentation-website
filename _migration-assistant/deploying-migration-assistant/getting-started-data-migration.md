@@ -71,7 +71,7 @@ Use the following steps to set up Bootstrap instance access:
     {% include copy.html %}
 
 3. Name the policy, for example, `SSM-OSMigrationBootstrapAccess`, and then create the policy by selecting **Create policy**.
-4. Attach this newly created policy to your EC2 instance's IAM Role.
+4. Attach the newly created policy to your EC2 instance's IAM Role.
 
 ---
 
