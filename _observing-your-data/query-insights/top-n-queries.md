@@ -118,7 +118,7 @@ You can configure your desired exporter to export top N query data to different 
 
 ### Configuring a debug exporter
 
-To use the debug exporter, update the exporter type for each metric type. For example, send the following request:
+To use the debug exporter, update the exporter type to `debug` for each metric type. For example, to use the debug exporter for all metric types, send the following request:
 
 ```json
 PUT _cluster/settings
