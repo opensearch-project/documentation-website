@@ -359,7 +359,7 @@ PUT my-vector-index
         "mode": "on_disk",
         "compression_level": "16x",
         "method": {
-            "params": {
+            "parameters": {
                 "ef_construction": 16
             }
         }
@@ -384,7 +384,7 @@ PUT my-vector-index
             "name": "hnsw",
             "engine": "faiss",
             "space_type": "l2",
-            "params": {
+            "parameters": {
               "m": 16,
               "ef_construction": 512,
               "encoder": {
