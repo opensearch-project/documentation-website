@@ -7,7 +7,7 @@ nav_order: 25
 
 # Using Amazon Bedrock guardrails 
 
-This tutorial demonstrates how to apply your Amazon Bedrock guardrails to your externally hosted models in two ways:
+This tutorial demonstrates how to apply Amazon Bedrock guardrails to your externally hosted models in two ways:
 
 - [Using the Amazon Bedrock Guardrails standalone API](#using-the-amazon-bedrock-guardrails-standalone-api)
 - [Using guardrails embedded in the Amazon Bedrock Model Inference API](#using-guardrails-embedded-in-the-model-inference-api)
@@ -25,7 +25,7 @@ Use the following steps to call the Amazon Bedrock Guardrails standalone API.
 
 ### Step 1: Create a connector for your Amazon Bedrock guardrail endpoint
 
-First, create a connector that will interface with your Amazon Bedrock guardrail endpoint. This connector will handle the authentication and communication with the guardrail service:
+First, create a connector that will interface with your Amazon Bedrock guardrail endpoint. This connector will handle authentication and communication with the guardrail service:
 
 ```json
 POST _plugins/_ml/connectors/_create
@@ -88,7 +88,7 @@ POST _plugins/_ml/models/your_model_id/_predict
 ```
 {% include copy-curl.html %}
 
-The response shows that the guardrail intervenes when detecting problematic content and blocks the request:
+The response shows that the guardrail blocks the request when it detects inappropriate content:
 
 ```json
 {
@@ -195,7 +195,7 @@ POST _plugins/_ml/connectors/_create
 
 ### Step 5: Register the Claude model
 
-Register the Claude model with input guardrails enabled. This configuration ensures that all requests to the model are first validated by the guardrail:
+Register the Claude model with input guardrails enabled. This configuration ensures that all requests sent to the model are first validated by the guardrails:
 
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
@@ -218,7 +218,7 @@ POST /_plugins/_ml/models/_register?deploy=true
 
 ### Step 6: Test the model
 
-First, test the model with acceptable inputs:
+First, test the model with acceptable input:
 
 ```json
 POST /_plugins/_ml/models/your_model_id/_predict
@@ -251,7 +251,7 @@ The response shows that the call was successful:
 }
 ```
 
-Next, test the model with inappropriate inputs:
+Next, test the model with inappropriate input:
 
 ```json
 POST /_plugins/_ml/models/your_model_id/_predict
@@ -264,7 +264,7 @@ POST /_plugins/_ml/models/your_model_id/_predict
 ```
 {% include copy-curl.html %}
 
-Problematic inputs are blocked by the guardrail:
+The response shows that the inappropriate input was blocked:
 
 ```json
 {
@@ -282,13 +282,13 @@ Problematic inputs are blocked by the guardrail:
 }
 ```
 
-## Using guardrails embedded in the Model Inference API
+## Using guardrails embedded in the Amazon Bedrock Model Inference API
 
 Use the following steps to use the guardrails embedded in the Model Inference API.
 
 ### Step 1: Create a connector for an Amazon Bedrock model containing guardrail headers
 
-Create a connector that includes guardrail headers in its configuration. This approach embeds the guardrail checks directly in the model inference process. The `post_process_function` is required in order to define the logic for the model to block inappropriate input:
+Create a connector that includes guardrail headers in its configuration. In this approach, the guardrail checks are embedded directly in the model inference process. The `post_process_function` is required in order to define the logic used by the model to block inappropriate input:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -345,7 +345,7 @@ POST _plugins/_ml/models/_register
 
 ### Step 3: Test the model
 
-Verify that the embedded guardrails are functioning by testing with potentially problematic input:
+Verify that the embedded guardrails are functioning by testing them with potentially inappropriate input:
 
 ```json
 POST _plugins/_ml/models/your_model_id/_predict
