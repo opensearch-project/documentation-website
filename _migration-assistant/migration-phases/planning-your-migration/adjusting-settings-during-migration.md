@@ -20,7 +20,7 @@ During a migration there is an opportunity change names and paths of index and d
 #### Migration with a snapshot
 
 1. Navigate to the bootstrap box and open the `cdk.context.json` with vim
-2. Add/Update the key `reindexFromSnapshotExtraArgs` to include `--transformer-config-file /shared-logs-output/rfs-transform.json`
+2. Add/Update the key `reindexFromSnapshotExtraArgs` to include `--doc-transformer-config-file /shared-logs-output/rfs-transform.json`
 3. Redeploy the Migration Assistant 
 4. Navigate on to the Migration Assistant console
 5. Create a file with `vim /shared-logs-output/rfs-transform.json`
@@ -31,7 +31,7 @@ During a migration there is an opportunity change names and paths of index and d
     "JsonConditionalTransformerProvider": [
       {
         "JsonJMESPathPredicateProvider": {
-          "script": "index._index == '{{INDEX_ORIGINAL_NAME}}"
+          "script": "index._index == '{{INDEX_ORIGINAL_NAME}}'"
         }
       },
       [
@@ -41,7 +41,7 @@ During a migration there is an opportunity change names and paths of index and d
               "operation": "modify-overwrite-beta",
               "spec": {
                 "index": {
-                  "\\_index": "INDEX_NEW_NAME"
+                  "\\_index": "{{INDEX_NEW_NAME}}"
                 }
               }
             }
@@ -81,5 +81,5 @@ During a migration there is an opportunity change names and paths of index and d
 ]
 ```
 10. Replace both `{{INDEX_ORIGINAL_NAME}}` and `{{INDEX_NEW_NAME}}`
-11. Run metadata migration with the additional parameter `console metadata migrate --transformer-config-file /shared-logs-output/metadata-transform.json`
+11. Run metadata migration with the additional parameter `console metadata migrate --doc-transformer-config-file /shared-logs-output/rfs-transform.json`
 12. Run backfill as normal
