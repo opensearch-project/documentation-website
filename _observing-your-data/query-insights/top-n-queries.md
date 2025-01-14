@@ -134,7 +134,7 @@ PUT _cluster/settings
 
 ### Configuring a local index exporter
 
-A local index exporter allows you to save top N query data to indices in your OpenSearch domain. Query Insights manages the creation of these indices following the naming pattern `top_queries-YYYY.MM.dd-hashcode`. A new index is created daily and "hashcode" is a 5-digit number generated based on the current UTC date. Local index exporter must be enabled to allow historical top N lookups via the `top_queries` API or the Query Insights Dashboard.
+A local index exporter allows you to save top N query data to automatically created indexes in your OpenSearch domain. Query Insights creates these indexes following the naming pattern `top_queries-YYYY.MM.dd-hashcode`, where `hashcode` is a 5-digit number generated based on the current UTC date. A new index is created daily. For historical top N lookups using the Top Queries API or the Query Insights Dashboard, you must enable the local index exporter.
 
 To use the local index exporter, send the following request:
 
