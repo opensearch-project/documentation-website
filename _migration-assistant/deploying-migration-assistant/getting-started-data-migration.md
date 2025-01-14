@@ -111,7 +111,7 @@ To use these steps, make sure you fulfill the following prerequisites:
 
 Use the following steps to configure and deploy RFS, deploy Migration Assistant and verify installation of required stacks:
 
-1. Add the source and target cluster password as separate Secrets to AWS Secrets Manager as an unstructured string. Be sure to copy the secret Amazon Resource Name (ARN) for use during deployment.
+1. Add the source and target cluster password as separate **Secrets** in the [AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html) as an unstructured string. Be sure to copy the secret Amazon Resource Name (ARN) for use during deployment.
 2. From the same shell as the Bootstrap instance, modify the `cdk.context.json` file located in the `/opensearch-migrations/deployment/cdk/opensearch-service-migration` directory:
 
     ```json
