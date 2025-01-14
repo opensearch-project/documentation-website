@@ -150,7 +150,7 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-Use the `delete_after_days` setting (integer) to specify the duration, in days, for automatically deleting local indexes. Query Insights runs a scheduled job once per day to delete top N local indexes older than the specified number of days. The default value for `delete_after_days` is 7, with valid values ranging from `1` to `180`. This setting applies to local index exporters of all metric types.
+Use the `delete_after_days` setting (integer) to specify the number of days after which local indexes are automatically deleted. Query Insights runs a scheduled job once per day to delete top N local indexes older than the specified number of days. The default value for `delete_after_days` is 7, with valid values ranging from `1` to `180`. This setting applies to local index exporters of all metric types.
 
 For example, to delete local indexes after 7 days, send the following request:
 
