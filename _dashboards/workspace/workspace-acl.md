@@ -187,10 +187,3 @@ Use the following steps to edit the workspace privacy settings on the **Workspac
 1. Select the **Edit** button in the upper-right corner of the **Details** panel. 
 2. Select the new access level from the dropdown menu.
 3. Select **Save** to apply the modifications.
-
-
-Use the following steps to edit the workplace privacy settings on the **Collaborators** page:
-
-1. Select the **Edit** button at the upper-right corner of the **Details** panel. 
-2. Select the new access level from the dropdown.
-3. Select **Save** to apply the modifications.
