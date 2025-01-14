@@ -15,7 +15,7 @@ During a migration there is an opportunity change names and paths of index and d
 ### Rename an index
 
 > [!NOTE]  
-> We recommend creating an alias to an index instead of renaming them, if an alias is created on the source cluster the migration process will copy the alias over as well.  See create an alias [documentation](https://opensearch.org/docs/latest/api-reference/index-apis/update-alias/).
+> We recommend creating an alias to an index instead of renaming them, if an alias is created on the source cluster the migration process will copy the alias over as well. See create an alias [documentation](https://opensearch.org/docs/latest/api-reference/index-apis/update-alias/).
 
 #### Migration with a snapshot
 
