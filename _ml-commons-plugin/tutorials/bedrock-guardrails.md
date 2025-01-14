@@ -119,7 +119,7 @@ The response shows that the guardrail blocks the request when it detects inappro
                   "customWords": [
                     {
                       "action": "BLOCKED",
-                      "match": "suicide"
+                      "match": "rob"
                     }
                   ]
                 }
