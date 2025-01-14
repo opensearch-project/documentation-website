@@ -10,7 +10,7 @@ redirect_from:
 
 # Adjusting settings during migration
 
-During a migration there is an opportunity change names and paths of index and data structures that are not modifiable after they are declared.  This page provides a cookbook of different scenarios and templates that can be used to make these adjustments.
+During a migration there is an opportunity change names and paths of index and data structures that are not modifiable after they are declared. This page provides a cookbook of different scenarios and templates that can be used to make these adjustments.
 
 ### Rename an index
 
