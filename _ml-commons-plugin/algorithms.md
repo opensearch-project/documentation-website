@@ -77,7 +77,7 @@ Parameter | Type   | Description | Default value
 `beta2` | Double | The exponential decay rates for the moment estimates. |  `0.99`
 `decay_rate` | Double | The Root Mean Squared Propagation (RMSProp). | `0.9`
 `momentum_type` | String | The defined Stochastic Gradient Descent (SGD) momentum type that helps accelerate gradient vectors in the right directions, leading to a fast convergence.| `STANDARD`
-`optimiser` | String | The optimizer used in the model. | `SIMPLE_SGD`
+`optimiser` | String | The optimizer used in the model. | `ADA_GRAD`
 `objective` | String | The objective function used. | `SQUARED_LOSS` 
 `epochs` | Integer | The number of iterations. | `5`|
 `batch_size` | Integer | The minimum batch size. | `1`
