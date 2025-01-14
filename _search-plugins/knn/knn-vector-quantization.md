@@ -7,7 +7,7 @@ has_children: false
 has_math: true
 ---
 
-# k-NN vector quantization
+# k-NN vector quantization - changed
 
 By default, the k-NN plugin supports the indexing and querying of vectors of type `float`, where each dimension of the vector occupies 4 bytes of memory. For use cases that require ingestion on a large scale, keeping `float` vectors can be expensive because OpenSearch needs to construct, load, save, and search graphs (for native `nmslib` and `faiss` engines). To reduce the memory footprint, you can use vector quantization.
 
