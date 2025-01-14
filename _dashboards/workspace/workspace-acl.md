@@ -169,7 +169,7 @@ You can set up workspace privacy on the **Create workspace** page as a **Dashboa
 Use the following steps to change workspace privacy settings when creating a new workspace:
 
 1. Choose the desired access level from the **Set up privacy** panel. 
-2. _Optional_ Decide whether to continue configuring collaborators after workspace creation by selecting the **Go to configure the collaborators right after creating the workspace.** checkbox.
+2. _Optional_ Decide whether to add collaborators after workspace creation by selecting the **Go to configure the collaborators right after creating the workspace.** checkbox.
 3. Select **Create workspace** to create the workspace.
 
 ### Modifying workspace privacy on the **Collaborators** page
