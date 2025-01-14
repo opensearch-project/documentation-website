@@ -109,6 +109,13 @@ To use these steps, make sure you fulfill the following prerequisites:
 
 ## Step 4: Configure and deploy RFS (~20 minutes)
 
+To deploy migration assistant with RFS, the following stacks must be deployed:
+
+These commands deploy the following stacks:
+* `Migration Assistant network` stack
+* `RFS` stack
+* `Migration console` stack
+
 Use the following steps to configure and deploy RFS, deploy Migration Assistant and verify installation of required stacks:
 
 1. Add the source and target cluster password as separate **Secrets** in the [AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html) as an unstructured string. Be sure to copy the secret Amazon Resource Name (ARN) for use during deployment.
@@ -155,17 +162,13 @@ Use the following steps to configure and deploy RFS, deploy Migration Assistant 
     ```
     {% include copy.html %}
 
-4. Deploy Migration Assistant and any required stacks when `cdk.context.json` is fully configured:
+4. Deploy Migration Assistant and any required stacks when the `cdk.context.json` is fully configured:
 
     ```bash
     cdk deploy "*" --c contextId=migration-assistant --require-approval never --concurrency 5
     ```
     {% include copy.html %}
     
-These commands deploy the following stacks:
-* Migration Assistant network stack
-* `Reindex-from-snapshot` stack
-* Migration console stack
 5. Verify from the same Bootstrap instance shell that all CloudFormation stacks were installed successfully:
 
     ```bash
