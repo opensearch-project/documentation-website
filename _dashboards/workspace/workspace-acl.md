@@ -161,7 +161,7 @@ When permission control is enabled, workspace administrators can set one of the 
 * **Anyone can edit:** Grants **Read and write** permissions to all users, allowing them to view, create, and update workspace assets.
 
 Collaborators are granted higher permissions when their individual access level differs from that set in the workspace settings. For example, if workspace privacy is set to "Anyone can edit", any collaborator with read-only access will also be able to edit workspace assets.
-
+Users at the collaborator level are granted additional permissions even when their access level differs from that of the workspace.
 You can set up workspace privacy on the **Create workspace** page as a **Dashboard admin**. You can also modify it on the **Collaborators** or **Workspace details** pages as a **Workspace admin** or **Dashboard admin**.
 
 ### Setting up workspace privacy during workspace creation
