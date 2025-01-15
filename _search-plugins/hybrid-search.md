@@ -1029,7 +1029,7 @@ You can provide the `explain` parameter to understand how scores are calculated,
 Explain is an expensive operation in terms of both resources and time. On production clusters, we recommend using it sparingly for the purpose of troubleshooting.
 {: .warning }
 
-You can provide the `explain` parameter in the complete hybrid query using following syntax:
+You can provide the `explain` parameter in a URL when running a complete hybrid query using following syntax:
 
 ```json
 GET <index>/_search?search_pipeline=<search_pipeline>&explain=true
