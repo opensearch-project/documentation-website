@@ -119,7 +119,7 @@ These commands deploy the following stacks:
 Use the following steps to configure and deploy RFS, deploy Migration Assistant and verify installation of required stacks:
 
 1. Add the source and target cluster password as separate **Secrets** in the [AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html) as an unstructured string. Be sure to copy the secret Amazon Resource Name (ARN) for use during deployment.
-2. From the same shell as the Bootstrap instance, modify the `cdk.context.json` file located in the `/opensearch-migrations/deployment/cdk/opensearch-service-migration` directory:
+2. From the same shell as the Bootstrap instance, modify the `cdk.context.json` file located in the `/opensearch-migrations/deployment/cdk/opensearch-service-migration` directory. Configure all necessary parameters in this file.
 
     ```json
     {
@@ -155,14 +155,14 @@ Use the following steps to configure and deploy RFS, deploy Migration Assistant 
 
     The source and target cluster authorization can be configured to have no authorization, `basic` with a username and password, or `sigv4`. 
 
-3. Bootstrap the account with the following command:
+3. Once `cdk.context.json` is fully configured, Bootstrap the account and deploy the required stacks:
 
     ```bash
     cdk bootstrap --c contextId=migration-assistant --require-approval never 
     ```
     {% include copy.html %}
 
-4. Deploy Migration Assistant and any required stacks when the `cdk.context.json` is fully configured:
+4. Deploy Migration Assistant:
 
     ```bash
     cdk deploy "*" --c contextId=migration-assistant --require-approval never --concurrency 5
