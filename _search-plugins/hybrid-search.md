@@ -1020,32 +1020,34 @@ The response contains the matching documents that are listed after the `7yaM4JAB
 }
 ```
 
-## Explainability in hybrid query
+## Explain
 **Introduced 2.19**
 {: .label .label-purple }
 
-The explainability feature helps you understand how scores are calculated, normalized, and combined in hybrid queries. When enabled, it provides detailed information about the scoring process for each search result. This includes revealing the score normalization techniques used, how different scores are combined, and the calculations for individual sub-query scores. This comprehensive insight makes it easier to understand and optimize your hybrid query results. For more information about explain, see corresponding [API reference page]({{site.url}}{{site.baseurl}}/api-reference/explain). 
+You can provide the `explain` parameter to understand how scores are calculated, normalized, and combined in hybrid queries. When enabled, it provides detailed information about the scoring process for each search result. This includes revealing the score normalization techniques used, how different scores were combined, and the calculations for individual subquery scores. This comprehensive insight makes it easier to understand and optimize your hybrid query results. For more information about explain, see [Explain API]({{site.url}}{{site.baseurl}}/api-reference/explain/). 
 
-The explain API is an expensive operation in terms of both resources and time. On production clusters, we recommend using it sparingly for the purpose of troubleshooting.
+Explain is an expensive operation in terms of both resources and time. On production clusters, we recommend using it sparingly for the purpose of troubleshooting.
 {: .warning }
 
-You can use `explain` with the complete hybrid query using following syntax for URL 
+You can provide the `explain` parameter in the complete hybrid query using following syntax:
+
 ```json
 GET <index>/_search?search_pipeline=<search_pipeline>&explain=true
 POST <index>/_search?search_pipeline=<search_pipeline>&explain=true
 ```
 
-To use explainability, you must configure the `hybrid_score_explanation` response processor in your search pipeline and include the explain=true parameter in your search request. For more information, see [hybrid_score_explanation]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/explanation-processor). 
+To use the `explain` parameter, you must configure the `hybrid_score_explanation` response processor in your search pipeline. For more information, see [Hybrid score explanation processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/explanation-processor/). 
 
-If `explain` is used with the individual document id like in the following example then result will have only details of the low level scoring, like [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25) for text-based queries like `term` or `match`. You can find example of such response in the [main page about explain]({{site.url}}{{site.baseurl}}/api-reference/explain/#example-response)
+You can also use `explain` with the individual document ID:
+
 ```json
 GET <index>/_explain/<id>
 POST <index>/_explain/<id>
 ```
 
-## Example requests
+In this case, the result will contain only low-level scoring details, for example, [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25) scores for text-based queries such as `term` or `match`. For an example response, see [Explain API example response]({{site.url}}{{site.baseurl}}/api-reference/explain/#example-response).
 
-To see the explain output for all results, set the `explain` flag to `true` either in the URL or in the body of the request:
+To see the explain output for all results, set the `explain` parameter to `true` either in the URL or in the request body:
 
 ```json
 POST my-nlp-index/_search?search_pipeline=my_pipeline&explain=true
@@ -1081,7 +1083,13 @@ POST my-nlp-index/_search?search_pipeline=my_pipeline&explain=true
 ```
 {% include copy-curl.html %}
 
-## Example response
+The response contains scoring explanation:
+
+<details markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
 
 ```json
 {
@@ -1198,11 +1206,10 @@ POST my-nlp-index/_search?search_pipeline=my_pipeline&explain=true
                     ]
 ...
 ```
+</details>
 
-## Response body fields
+### Response body fields
 
 Field | Description
 :--- | :---
-`explanation` | The `explanation` object has three properties: `value`, `description`, and `details`. The `value` shows the result of the calculation, the `description` explains what type of calculation is performed, and the `details` shows any subcalculations performed. For score normalization information in `description` inludes technique used for normalization or combination, and corresponding score. 
-
-
+`explanation` | The `explanation` object has three properties: `value`, `description`, and `details`. The `value` shows the result of the calculation, the `description` explains what type of calculation was performed, and the `details` shows any subcalculations performed. For score normalization, the information in the `description` inludes the technique used for normalization or combination and the corresponding score. 

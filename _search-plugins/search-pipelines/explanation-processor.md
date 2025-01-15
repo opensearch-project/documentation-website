@@ -1,17 +1,20 @@
 ---
 layout: default
-title: Explanation
-nav_order: 160
+title: Hybrid score explanation
+nav_order: 15
 has_children: false
 parent: Search processors
 grand_parent: Search pipelines
 ---
 
-# Explanation processor
+# Hybrid score explanation processor
 Introduced 2.19
 {: .label .label-purple }
 
-The `hybrid_score_explanation` response processor inserts the results of the normalization and combinatination routines to the final search response. Main usage is for the `explanability` feature of the [`hybrid` query]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/) that is the debugging tool that provides insights of score normalization processing.  
+The `hybrid_score_explanation` response processor adds the normalization and combination results to the returned search response. For more information, see [`hybrid` query]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/) that is the debugging tool that provides insights of score normalization processing.  
+
+To use the `explain` parameter, you must configure the `hybrid_score_explanation` response processor in your search pipeline.
+{: .important}
 
 ## Request body fields
 
@@ -31,7 +34,7 @@ For a comprehensive example, follow the [Neural search tutorial]({{site.url}}{{s
 
 ### Creating a search pipeline 
 
-The following request creates a search pipeline containing a `normalization-processor` and `hybrid_score_explanation`:
+The following request creates a search pipeline containing a `normalization-processor` and a `hybrid_score_explanation` processor:
 
 ```json
 PUT /_search/pipeline/nlp-search-pipeline
@@ -60,7 +63,7 @@ PUT /_search/pipeline/nlp-search-pipeline
 
 ### Using a search pipeline
 
-Provide the query clauses that you want to combine in a `hybrid` query and apply the search pipeline created in the previous section so that the scores are combined using the chosen techniques:
+To see explanation details, specify `explain=true` in your search request:
 
 ```json
 GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline&explain=true
