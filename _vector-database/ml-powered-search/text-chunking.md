@@ -1,7 +1,10 @@
 ---
 layout: default
 title: Text chunking
+parent: ML-powered search
 nav_order: 65
+redirect_from:
+  - /search-plugins/text-chunking/
 ---
 
 # Text chunking

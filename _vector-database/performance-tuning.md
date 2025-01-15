@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Performance tuning
-parent: k-NN search
-nav_order: 45
+nav_order: 70
+redirect_from:
+  - /search-plugins/knn/performance-tuning/
 ---
 
 # Performance tuning

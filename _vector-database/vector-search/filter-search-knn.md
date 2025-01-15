@@ -1,13 +1,15 @@
 ---
 layout: default
-title: k-NN search with filters
+title: Vector search with filters
 nav_order: 20
-parent: k-NN search
+parent: Vector search
 has_children: false
 has_math: true
+redirect_from:
+  - /search-plugins/knn/filter-search-knn/ 
 ---
 
-# k-NN search with filters
+# Vector search with filters
 
 To refine k-NN results, you can filter a k-NN search using one of the following methods:
 

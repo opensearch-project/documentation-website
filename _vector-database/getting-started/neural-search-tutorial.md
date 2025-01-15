@@ -1,36 +1,22 @@
 ---
 layout: default
-title: Neural search tutorial
+title: Semantic search tutorial
 has_children: false
+parent: Getting started
 nav_order: 30
 redirect_from:
   - /ml-commons-plugin/semantic-search/
+  - /search-plugins/neural-search-tutorial/
 ---
 
-# Neural search tutorial
+# Semantic search tutorial
 
 By default, OpenSearch calculates document scores using the [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25) algorithm. BM25 is a keyword-based algorithm that performs well on queries containing keywords but fails to capture the semantic meaning of the query terms. Semantic search, unlike keyword-based search, takes into account the meaning of the query in the search context. Thus, semantic search performs well when a query requires natural language understanding. 
 
-In this tutorial, you'll learn how to use neural search to:
+In this tutorial, you'll learn how to implement the following types of search:
 
-- Implement semantic search in OpenSearch.
-- Implement hybrid search by combining semantic and keyword search to improve search relevance. 
-
-## Terminology
-
-It's helpful to understand the following terms before starting this tutorial:
-
-- _Neural search_: Facilitates vector search at ingestion time and at search time:
-  - At ingestion time, neural search uses language models to generate vector embeddings from the text fields in the document. The documents containing both the original text field and the vector embedding of the field are then indexed in a k-NN index, as shown in the following diagram. 
-
-  ![Neural search at ingestion time diagram]({{site.url}}{{site.baseurl}}/images/neural-search-ingestion.png)
-  - At search time, when you then use a _neural query_, the query text is passed through a language model, and the resulting vector embeddings are compared with the document text vector embeddings to find the most relevant results, as shown in the following diagram.
-
-  ![Neural search at search time diagram]({{site.url}}{{site.baseurl}}/images/neural-search-query.png)
-
-- _Semantic search_: Employs neural search in order to determine the intention of the user's query in the search context, thereby improving search relevance.
-
-- _Hybrid search_: Combines semantic and keyword search to improve search relevance. 
+- **Semantic search**: Considers semantic meaning in order to determine the intention of the user's query in the search context, thereby improving search relevance.
+- **Hybrid search**: Combines semantic and keyword search to improve search relevance. 
 
 ## OpenSearch components for semantic search
 

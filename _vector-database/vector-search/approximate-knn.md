@@ -1,13 +1,15 @@
 ---
 layout: default
-title: Approximate k-NN search
+title: Approximate vector search
 nav_order: 15
-parent: k-NN search
+parent: Vector search
 has_children: false
 has_math: true
+redirect_from:
+  - /search-plugins/knn/approximate-knn/ 
 ---
 
-# Approximate k-NN search
+# Approximate vector search
 
 Standard k-NN search methods compute similarity using a brute-force approach that measures the nearest distance between a query and a number of points, which produces exact results. This works well in many applications. However, in the case of extremely large datasets with high dimensionality, this creates a scaling problem that reduces the efficiency of the search. Approximate k-NN search methods can overcome this by employing tools that restructure indexes more efficiently and reduce the dimensionality of searchable vectors. Using this approach requires a sacrifice in accuracy but increases search processing speeds appreciably.
 

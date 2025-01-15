@@ -1,12 +1,13 @@
 ---
 layout: default
-title: k-NN plugin API
-nav_order: 30
-parent: k-NN search
+title: Vector API
+nav_order: 90
 has_children: false
+redirect_from:
+  - /search-plugins/knn/api/
 ---
 
-# k-NN plugin API
+# Vector API
 
 The k-NN plugin adds several APIs for managing, monitoring, and optimizing your k-NN workload.
 

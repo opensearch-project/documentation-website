@@ -1,13 +1,15 @@
 ---
 layout: default
-title: Exact k-NN with scoring script
-nav_order: 10
-parent: k-NN search
-has_children: false
+title: Exact vector search with scoring script
+nav_order: 20
+parent: Vector search
+has_children: true
 has_math: true
+redirect_from:
+  - /search-plugins/knn/knn-score-script/ 
 ---
 
-# Exact k-NN with scoring script
+# Exact vector search with scoring script
 
 The k-NN plugin implements the OpenSearch score script plugin that you can use to find the exact k-nearest neighbors to a given query point. Using the k-NN score script, you can apply a filter on an index before executing the nearest neighbor search. This is useful for dynamic search cases where the index body may vary based on other conditions.
 

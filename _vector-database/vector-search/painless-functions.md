@@ -1,13 +1,16 @@
 ---
 layout: default
-title: k-NN Painless extensions
+title: Painless extensions
 nav_order: 25
-parent: k-NN search
+parent: Exact vector search with scoring script
+grand_parent: Vector search
 has_children: false
 has_math: true
+redirect_from:
+  - /search-plugins/knn/painless-functions/ 
 ---
 
-# k-NN Painless Scripting extensions
+# Painless scripting extensions
 
 With the k-NN plugin's Painless Scripting extensions, you can use k-NN distance functions directly in your Painless scripts to perform operations on `knn_vector` fields. Painless has a strict list of allowed functions and classes per context to ensure its scripts are secure. The k-NN plugin adds Painless Scripting extensions to a few of the distance functions used in [k-NN score script]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-score-script), so you can use them to customize your k-NN workload.
 

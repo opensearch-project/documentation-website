@@ -1,12 +1,14 @@
 ---
 layout: default
-title: k-NN index
-nav_order: 5
-parent: k-NN search
-has_children: false
+title: Vector index
+parent: Creating a vector index
+nav_order: 10
+has_children: true
+redirect_from:
+  - /search-plugins/knn/knn-index/
 ---
 
-# k-NN index
+# Vector index
 
 The k-NN plugin introduces a custom data type, the `knn_vector`, that allows users to ingest their k-NN vectors into an OpenSearch index and perform different kinds of k-NN search. The `knn_vector` field is highly configurable and can serve many different k-NN workloads. For more information, see [k-NN vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/).
 

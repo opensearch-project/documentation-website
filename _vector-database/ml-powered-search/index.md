@@ -1,14 +1,16 @@
 ---
 layout: default
-title: Neural search
-nav_order: 25
-has_children: false
+title: ML-powered search
+nav_order: 50
+has_children: true
 has_toc: false
 redirect_from: 
   - /neural-search-plugin/index/
+  - /search-plugins/neural-search/
+  - /vector-database/ml-powered-search/
 ---
 
-# Neural search
+# ML-powered search
 
 Neural search transforms text into vectors and facilitates vector search both at ingestion time and at search time. During ingestion, neural search transforms document text into vector embeddings and indexes both the text and its vector embeddings in a vector index. When you use a neural query during search, neural search converts the query text into vector embeddings, uses vector search to compare the query and document embeddings, and returns the closest results.
 

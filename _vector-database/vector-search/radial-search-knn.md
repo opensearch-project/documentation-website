@@ -1,10 +1,12 @@
 ---
 layout: default
 title: Radial search
-nav_order: 28
-parent: k-NN search
+nav_order: 50
+parent: Vector search
 has_children: false
 has_math: true
+redirect_from:
+  - /search-plugins/radial-search-knn/
 ---
 
 # Radial search

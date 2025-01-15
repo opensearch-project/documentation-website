@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Settings
-parent: k-NN search
-nav_order: 40
+nav_order: 80
+redirect_from:
+  - /search-plugins/knn/settings/
 ---
 
 # k-NN settings

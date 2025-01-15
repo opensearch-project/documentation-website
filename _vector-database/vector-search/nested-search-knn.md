@@ -1,13 +1,15 @@
 ---
 layout: default
-title: k-NN search with nested fields
-nav_order: 21
-parent: k-NN search
+title: Vector search with nested fields
+nav_order: 40
+parent: Vector search
 has_children: false
 has_math: true
+redirect_from:
+  - /search-plugins/knn/nested-search-knn/ 
 ---
 
-# k-NN search with nested fields
+# Vector search with nested fields
 
 Using [nested fields]({{site.url}}{{site.baseurl}}/field-types/nested/) in a k-nearest neighbors (k-NN) index, you can store multiple vectors in a single document. For example, if your document consists of various components, you can generate a vector value for each component and store each vector in a nested field.
 

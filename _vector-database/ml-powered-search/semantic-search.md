@@ -1,10 +1,12 @@
 ---
 layout: default
 title: Semantic search
+parent: ML-powered search
 nav_order: 35
 has_children: false
 redirect_from:
   - /search-plugins/neural-text-search/
+  - /search-plugins/semantic-search/
 ---
 
 # Semantic search

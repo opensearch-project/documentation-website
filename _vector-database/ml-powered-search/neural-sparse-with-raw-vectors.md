@@ -2,8 +2,11 @@
 layout: default
 title: Using raw vectors
 parent: Neural sparse search
+grand_parent: ML-powered search
 nav_order: 20
 has_children: false
+redirect_from:
+  - /search-plugins/neural-sparse-with-raw-vectors/
 ---
 
 # Using raw vectors for neural sparse search

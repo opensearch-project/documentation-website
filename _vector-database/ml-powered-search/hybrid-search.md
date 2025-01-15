@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Hybrid search
+parent: ML-powered search
 has_children: false
 nav_order: 60
 ---

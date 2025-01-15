@@ -1,10 +1,12 @@
 ---
 layout: default
 title: Conversational search
+parent: ML-powered search
 has_children: false
 nav_order: 70
 redirect_from:
   - /ml-commons-plugin/conversational-search/
+  - /search-plugins/conversational-search/
 ---
 
 # Conversational search

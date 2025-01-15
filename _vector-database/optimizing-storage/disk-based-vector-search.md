@@ -1,9 +1,11 @@
 ---
 layout: default
 title: Disk-based vector search
-nav_order: 16
-parent: k-NN search
+nav_order: 30
+parent: Optimizing vector storage
 has_children: false
+redirect_from:
+  - /search-plugins/knn/disk-based-vector-search/
 ---
 
 # Disk-based vector search
