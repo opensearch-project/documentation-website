@@ -112,6 +112,7 @@ To use these steps, make sure you fulfill the following prerequisites:
 To deploy migration assistant with RFS, the following stacks must be deployed:
 
 These commands deploy the following stacks:
+
 * `Migration Assistant network` stack
 * `RFS` stack
 * `Migration console` stack
@@ -119,7 +120,7 @@ These commands deploy the following stacks:
 Use the following steps to configure and deploy RFS, deploy Migration Assistant and verify installation of required stacks:
 
 1. Add the source and target cluster password as separate **Secrets** in the [AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html) as an unstructured string. Be sure to copy the secret Amazon Resource Name (ARN) for use during deployment.
-2. From the same shell as the Bootstrap instance, modify the `cdk.context.json` file located in the `/opensearch-migrations/deployment/cdk/opensearch-service-migration` directory. Configure all necessary parameters in this file.
+2. From the same shell as the Bootstrap instance, modify the `cdk.context.json` file located in the `/opensearch-migrations/deployment/cdk/opensearch-service-migration` directory and configure the following settings:
 
     ```json
     {
@@ -155,21 +156,21 @@ Use the following steps to configure and deploy RFS, deploy Migration Assistant 
 
     The source and target cluster authorization can be configured to have no authorization, `basic` with a username and password, or `sigv4`. 
 
-3. Once `cdk.context.json` is fully configured, Bootstrap the account and deploy the required stacks:
+3. After the `cdk.context.json` file is fully configured, bootstrap the account and deploy the required stacks using the following command:
 
     ```bash
     cdk bootstrap --c contextId=migration-assistant --require-approval never 
     ```
     {% include copy.html %}
 
-4. Deploy Migration Assistant:
+4. Deploy Migration Assistant using the following command:
 
     ```bash
     cdk deploy "*" --c contextId=migration-assistant --require-approval never --concurrency 5
     ```
     {% include copy.html %}
     
-5. Verify from the same Bootstrap instance shell that all CloudFormation stacks were installed successfully:
+5. Verify from the same bootstrap instance shell that all CloudFormation stacks were installed successfully:
 
     ```bash
     aws cloudformation list-stacks --query "StackSummaries[?StackStatus!='DELETE_COMPLETE'].[StackName,StackStatus]" --output table
