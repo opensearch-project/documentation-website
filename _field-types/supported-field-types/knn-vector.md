@@ -1,15 +1,13 @@
 ---
 layout: default
-title: Vector field type
+title: k-NN vector
 nav_order: 20
 has_children: false
-parent: Creating a vector index
+parent: Supported field types
 has_math: true
-redirect_from:
-  - /field-types/supported-field-types/knn-vector/
 ---
 
-# Vector field type
+# k-NN vector
 **Introduced 1.0**
 {: .label .label-purple }
 

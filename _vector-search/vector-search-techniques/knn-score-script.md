@@ -2,7 +2,7 @@
 layout: default
 title: Exact vector search with scoring script
 nav_order: 20
-parent: Vector search
+parent: Vector search techniques
 has_children: true
 has_math: true
 redirect_from:

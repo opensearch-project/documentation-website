@@ -3,7 +3,7 @@ layout: default
 title: Painless extensions
 nav_order: 25
 parent: Exact vector search with scoring script
-grand_parent: Vector search
+grand_parent: Vector search techniques
 has_children: false
 has_math: true
 redirect_from:

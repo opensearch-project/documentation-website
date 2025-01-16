@@ -2,7 +2,7 @@
 layout: default
 title: Vector search with nested fields
 nav_order: 40
-parent: Vector search
+parent: Specialized vector search
 has_children: false
 has_math: true
 redirect_from:

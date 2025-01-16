@@ -1,17 +1,17 @@
 ---
 layout: default
-title: Vector database
+title: Vector search
 nav_order: 1
 has_children: false
 has_toc: false
 nav_exclude: true
-permalink: /vector-database/
+permalink: /vector-search/
 redirect_from:
-  - /vector-database/index/
+  - /vector-search/index/
   - /search-plugins/vector-search/
 ---
 
-# Vector database
+# Vector search
 
 OpenSearch is a comprehensive search platform that supports a variety of data types, including vectors. OpenSearch vector database functionality is seamlessly integrated with its generic database function.
 

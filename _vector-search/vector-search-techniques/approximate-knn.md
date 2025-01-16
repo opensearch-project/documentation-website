@@ -2,7 +2,7 @@
 layout: default
 title: Approximate vector search
 nav_order: 15
-parent: Vector search
+parent: Vector search techniques
 has_children: false
 has_math: true
 redirect_from:

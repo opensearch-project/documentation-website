@@ -124,7 +124,7 @@ collections:
   workspace:
     permalink: /:collection/:path/
     output: true
-  vector-database:
+  vector-search:
     permalink: /:collection/:path/
     output: true
 
@@ -174,10 +174,10 @@ opensearch_collection:
       name: Aggregations
       nav_fold: true
     search-plugins:
-      name: Search 
+      name: Search features
       nav_fold: true
-    vector-database:
-      name: Vector database 
+    vector-search:
+      name: Vector search 
       nav_fold: true
     ml-commons-plugin:
       name: Machine learning
