@@ -1026,10 +1026,10 @@ The response contains the matching documents that are listed after the `7yaM4JAB
 
 You can provide the `explain` parameter to understand how scores are calculated, normalized, and combined in hybrid queries. When enabled, it provides detailed information about the scoring process for each search result. This includes revealing the score normalization techniques used, how different scores were combined, and the calculations for individual subquery scores. This comprehensive insight makes it easier to understand and optimize your hybrid query results. For more information about `explain`, see [Explain API]({{site.url}}{{site.baseurl}}/api-reference/explain/). 
 
-Explain is an expensive operation in terms of both resources and time. On production clusters, we recommend using it sparingly for the purpose of troubleshooting.
+`explain` is an expensive operation in terms of both resources and time. For production clusters, we recommend using it sparingly for the purpose of troubleshooting.
 {: .warning }
 
-You can provide the `explain` parameter in a URL when running a complete hybrid query using following syntax:
+You can provide the `explain` parameter in a URL when running a complete hybrid query using the following syntax:
 
 ```json
 GET <index>/_search?search_pipeline=<search_pipeline>&explain=true
@@ -1045,9 +1045,9 @@ GET <index>/_explain/<id>
 POST <index>/_explain/<id>
 ```
 
-In this case, the result will contain only low-level scoring details, for example, [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25) scores for text-based queries such as `term` or `match`. For an example response, see [Explain API example response]({{site.url}}{{site.baseurl}}/api-reference/explain/#example-response).
+In this case, the result will contain only low-level scoring information, for example, [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25) scores for text-based queries such as `term` or `match`. For an example response, see [Explain API example response]({{site.url}}{{site.baseurl}}/api-reference/explain/#example-response).
 
-To see the explain output for all results, set the `explain` parameter to `true` either in the URL or in the request body:
+To see the `explain` output for all results, set the parameter to `true` either in the URL or in the request body:
 
 ```json
 POST my-nlp-index/_search?search_pipeline=my_pipeline&explain=true
@@ -1083,7 +1083,7 @@ POST my-nlp-index/_search?search_pipeline=my_pipeline&explain=true
 ```
 {% include copy-curl.html %}
 
-The response contains scoring explanation:
+The response contains scoring information:
 
 <details markdown="block">
   <summary>
@@ -1212,4 +1212,4 @@ The response contains scoring explanation:
 
 Field | Description
 :--- | :---
-`explanation` | The `explanation` object has three properties: `value`, `description`, and `details`. The `value` shows the result of the calculation, the `description` explains what type of calculation was performed, and the `details` shows any subcalculations performed. For score normalization, the information in the `description` inludes the technique used for normalization or combination and the corresponding score. 
+`explanation` | The `explanation` object has three properties: `value`, `description`, and `details`. The `value` property shows the result of the calculation, `description` explains what type of calculation was performed, and `details` shows any subcalculations performed. For score normalization, the information in the `description` property includes the technique used for normalization or combination and the corresponding score. 

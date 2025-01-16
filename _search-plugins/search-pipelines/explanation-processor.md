@@ -11,7 +11,7 @@ grand_parent: Search pipelines
 Introduced 2.19
 {: .label .label-purple }
 
-The `hybrid_score_explanation` response processor adds the normalization and combination results to the returned search response. For more information, see [`hybrid` query]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/) that is the debugging tool that provides insights of score normalization processing.  
+The `hybrid_score_explanation` response processor adds the normalization and combination results to the returned search response. You can use it as a debugging tool to understand the score normalization process. For more information, see [Hybrid query]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/).
 
 To use the `explain` parameter, you must configure the `hybrid_score_explanation` response processor in your search pipeline.
 {: .important}
@@ -63,7 +63,7 @@ PUT /_search/pipeline/nlp-search-pipeline
 
 ### Using a search pipeline
 
-To see explanation details, specify `explain=true` in your search request:
+To see explanation information, specify `explain=true` in your search request:
 
 ```json
 GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline&explain=true
