@@ -24,6 +24,7 @@
 
 .card-container-wrapper {
     @include gradient-open-sky;
+    margin-bottom: 2rem;
 }
 
 .card-container {
@@ -46,7 +47,7 @@
     @extend .panel;
     @include thick-edge-left;
     padding: 1rem;
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
     text-align: left;
     background-color: white;
     display: flex;

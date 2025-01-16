@@ -12,7 +12,7 @@ The k-NN plugin introduces a custom data type, the `knn_vector`, that allows use
 
 When defining a `knn_vector` field in OpenSearch, you can select from different data types to balance storage requirements and performance. By default, k-NN vectors are float vectors, but you can also opt for byte or binary vectors for more efficient storage.
 
-## Float Vectors
+## Float vectors
 
 Float is the default type for `knn_vector` fields.
 
@@ -20,7 +20,7 @@ Float is the default type for `knn_vector` fields.
 - **Precision**: High, suitable for applications requiring maximum accuracy.
 - **Use case**: Best for scenarios where storage cost is not a primary concern and precision is critical.
 
-## Byte Vectors
+## Byte vectors
 
 Starting with k-NN plugin version 2.17, you can use `byte` vectors with the `faiss` and `lucene` engines to reduce the amount of required memory and storage space. For more information, see [Byte vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#byte-vectors).
 
@@ -29,7 +29,7 @@ Starting with k-NN plugin version 2.17, you can use `byte` vectors with the `fai
 - **Engines supported**: Available when using the `faiss` or `lucene` engine.
 - **Use case**: Ideal for applications that prioritize storage efficiency and can tolerate reduced precision.
 
-## Binary Vectors
+## Binary vectors
 
 Starting with k-NN plugin version 2.16, you can use `binary` vectors with the `faiss` engine to reduce the amount of required storage space. For more information, see [Binary vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-vectors).
 
@@ -37,7 +37,7 @@ Starting with k-NN plugin version 2.16, you can use `binary` vectors with the `f
 - **Performance**: Provides high recall performance while significantly lowering operational costs.
 - **Use case**: Suitable for large-scale deployments where cost-efficiency is crucial without sacrificing search performance.
 
-### Choosing the Right Data Type
+### Choosing the right data type
 
 The choice of data type for your `knn_vector` field depends on your specific use case:
 
