@@ -122,7 +122,7 @@ GET testindex/_search
 {
   "query": {
     "match": {
-      "text": "date of birth"
+      "dob": "date of birth"
     }
   },
   "highlight": {
