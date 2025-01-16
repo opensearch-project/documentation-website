@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'table_renderer'
+require_relative '../config'
 
 # Renders a table of parameters of an API action
 class ParameterTableRenderer
@@ -10,6 +11,7 @@ class ParameterTableRenderer
   # @param [Array<Parameter>] parameters
   # @param [InsertArguments] args
   def initialize(parameters, args)
+    @config = CONFIG.param_table
     @parameters = filter_parameters(parameters, args)
     @columns = determine_columns(args)
     @pretty = args.pretty
@@ -48,9 +50,9 @@ class ParameterTableRenderer
     {
       'Parameter' => "`#{param.name}`#{' <br> _DEPRECATED_' if param.deprecated}",
       'Description' => description(param),
-      'Required' => param.required ? 'Required' : nil,
+      'Required' => param.required ? @config.required_column.true_text : @config.required_column.false_text,
       'Data type' => param.doc_type,
-      'Default' => param.default.nil? ? 'N/A' : "`#{param.default}`"
+      'Default' => param.default.nil? ? @config.default_column.empty_text : "`#{param.default}`"
     }
   end
 
