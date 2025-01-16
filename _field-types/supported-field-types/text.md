@@ -127,7 +127,7 @@ GET testindex/_search
   },
   "highlight": {
     "fields": {
-      "text": {} 
+      "dob": {} 
     }
   }
 }
