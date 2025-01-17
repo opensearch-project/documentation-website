@@ -53,7 +53,6 @@ omit_header: true
 -->
 
 
-
 | Parameter | Description |
 | :--- | :--- |
 | `analyze_wildcard` | **(Required)** If true, wildcard and prefix queries are analyzed. This parameter can only be used when the q query string parameter is specified. _(Default: `false`)_ |
