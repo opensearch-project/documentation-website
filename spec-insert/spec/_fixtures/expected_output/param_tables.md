@@ -22,6 +22,7 @@ include_global: true
 pretty: true
 columns: Data type, Parameter, Description, Required, Default
 -->
+
 ## Query parameters
 
 The following table lists the available query parameters.
@@ -33,6 +34,7 @@ The following table lists the available query parameters.
 | List or String | `expand_wildcards`        | Comma-separated list of expand wildcard options. <br> Valid values are: `open`, `closed`, `none`, `all`                            | _Optional_   | N/A     |
 | Boolean        | `pretty`                  | Whether to pretty format the returned JSON response.                                                                               | _Optional_   | N/A     |
 | Boolean        | `human` <br> _DEPRECATED_ | _(Deprecated since 3.0: Use the `format` parameter instead.)_ Whether to return human readable values for statistics.              | _Optional_   | `true`  |
+
 <!-- spec_insert_end -->
 
 Query Parameters Example with only Parameter and Description Columns
@@ -43,11 +45,13 @@ component: query_parameters
 columns: Parameter, Description
 omit_header: true
 -->
+
 | Parameter | Description |
 | :--- | :--- |
 | `analyze_wildcard` | **(Required)** If true, wildcard and prefix queries are analyzed. This parameter can only be used when the q query string parameter is specified. _(Default: `false`)_ |
 | `analyzer` | Analyzer to use for the query string. This parameter can only be used when the q query string parameter is specified. |
 | `expand_wildcards` | Comma-separated list of expand wildcard options. <br> Valid values are: `open`, `closed`, `none`, `all` |
+
 <!-- spec_insert_end -->
 
 Optional Params Text
@@ -57,6 +61,7 @@ api: cat.health
 component: query_parameters
 include_global: true
 -->
+
 ## Query parameters
 
 The following table lists the available query parameters.
@@ -66,4 +71,5 @@ The following table lists the available query parameters.
 | `expand_wildcard` | **Required** | String | Whether to expand wildcard expression to concrete indices that are open, closed, or both. <br> Valid values are: <br> - `open`: Expand wildcards to open indices only. </br> - `closed`: Expand wildcards to closed indices only. </br> - `none`: Do not expand wildcards. | N/A |
 | `pretty` | _Optional_ | Boolean | Whether to pretty format the returned JSON response. | N/A |
 | `human` <br> _DEPRECATED_ | _Optional_ | Boolean | _(Deprecated since 3.0: Use the `format` parameter instead.)_ Whether to return human readable values for statistics. | `true` |
+
 <!-- spec_insert_end -->

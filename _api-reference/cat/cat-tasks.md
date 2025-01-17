@@ -18,10 +18,12 @@ The CAT tasks operation lists the progress of all tasks currently running on you
 api: cat.tasks
 component: endpoints
 -->
+
 ## Endpoints
 ```json
 GET /_cat/tasks
 ```
+
 <!-- spec_insert_end -->
 
 
@@ -31,6 +33,7 @@ component: query_parameters
 columns: Parameter, Data type, Description, Default
 include_deprecated: false
 -->
+
 ## Query parameters
 
 The following table lists the available query parameters. All query parameters are optional.
@@ -47,6 +50,7 @@ The following table lists the available query parameters. All query parameters a
 | `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
 | `time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units](https://opensearch.org/docs/latest/api-reference/units/). <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, `d` | N/A |
 | `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
+
 <!-- spec_insert_end -->
 
 ## Example request

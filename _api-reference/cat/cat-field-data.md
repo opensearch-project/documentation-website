@@ -18,11 +18,13 @@ The CAT Field Data operation lists the memory size used by each field per node.
 api: cat.fielddata
 component: endpoints
 -->
+
 ## Endpoints
 ```json
 GET /_cat/fielddata
 GET /_cat/fielddata/{fields}
 ```
+
 <!-- spec_insert_end -->
 
 
@@ -32,6 +34,7 @@ component: query_parameters
 columns: Parameter, Data type, Description, Default
 include_deprecated: false
 -->
+
 ## Query parameters
 
 The following table lists the available query parameters. All query parameters are optional.
@@ -44,6 +47,7 @@ The following table lists the available query parameters. All query parameters a
 | `help` | Boolean | Returns help information. | `false` |
 | `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
 | `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
+
 <!-- spec_insert_end -->
 
 ## Example requests

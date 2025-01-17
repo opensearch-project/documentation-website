@@ -16,9 +16,11 @@ api: cat.pit_segments
 component: endpoints
 omit_header: true
 -->
+
 ```json
 GET /_cat/pit_segments
 ```
+
 <!-- spec_insert_end -->
 
 <!-- spec_insert_start
@@ -26,9 +28,11 @@ api: cat.all_pit_segments
 component: endpoints
 omit_header: true
 -->
+
 ```json
 GET /_cat/pit_segments/_all
 ```
+
 <!-- spec_insert_end -->
 
 <!-- spec_insert_start
@@ -37,6 +41,7 @@ component: query_parameters
 columns: Parameter, Data type, Description, Default
 include_deprecated: false
 -->
+
 ## Query parameters
 
 The following table lists the available query parameters. All query parameters are optional.
@@ -49,6 +54,7 @@ The following table lists the available query parameters. All query parameters a
 | `help` | Boolean | Returns help information. | `false` |
 | `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
 | `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
+
 <!-- spec_insert_end -->
 
 ## Request body fields

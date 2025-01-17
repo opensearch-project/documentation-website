@@ -21,11 +21,13 @@ The CAT aliases operation lists the mapping of aliases to indexes, plus routing 
 api: cat.aliases
 component: endpoints
 -->
+
 ## Endpoints
 ```json
 GET /_cat/aliases
 GET /_cat/aliases/{name}
 ```
+
 <!-- spec_insert_end -->
 
 
@@ -35,6 +37,7 @@ component: query_parameters
 columns: Parameter, Data type, Description, Default
 include_deprecated: false
 -->
+
 ## Query parameters
 
 The following table lists the available query parameters. All query parameters are optional.
