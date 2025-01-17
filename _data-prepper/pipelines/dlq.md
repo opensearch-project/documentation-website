@@ -7,7 +7,7 @@ nav_order: 15
 
 # Dead-letter queues
 
-Data Prepper pipelines support dead-letter queues (DLQs) for offloading failed events and making them accessible for analysis.
+OpenSearch Data Prepper pipelines support dead-letter queues (DLQs) for offloading failed events and making them accessible for analysis.
 
 As of Data Prepper 2.3, only the `s3` source supports DLQs.
 

@@ -7,7 +7,7 @@ nav_order: 20
 
 # Deriving metrics from traces
 
-You can use Data Prepper to derive metrics from OpenTelemetry traces. The following example pipeline receives incoming traces and extracts a metric called `durationInNanos`, aggregated over a tumbling window of 30 seconds. It then derives a histogram from the incoming traces.
+You can use OpenSearch Data Prepper to derive metrics from OpenTelemetry traces. The following example pipeline receives incoming traces and extracts a metric called `durationInNanos`, aggregated over a tumbling window of 30 seconds. It then derives a histogram from the incoming traces.
 
 The pipeline contains the following pipelines:
 
