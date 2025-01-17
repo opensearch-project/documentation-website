@@ -15,7 +15,7 @@ Cohere Embed English
 Cohere Embed Multilingual
 Cognito
 Dashboards Query Language
-Data Prepper
+OpenSearch Data Prepper
 Debian
 Dev Tools
 Docker
