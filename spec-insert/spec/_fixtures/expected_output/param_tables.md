@@ -4,7 +4,6 @@ Typical Path Parameters Example
 api: search
 component: path_parameters
 -->
-
 ## Path parameters
 
 The following table lists the available path parameters. All path parameters are optional.
@@ -25,7 +24,6 @@ include_global: true
 pretty: true
 columns: Data type, Parameter, Description, Required, Default
 -->
-
 ## Query parameters
 
 The following table lists the available query parameters.
@@ -66,7 +64,6 @@ api: cat.health
 component: query_parameters
 include_global: true
 -->
-
 ## Query parameters
 
 The following table lists the available query parameters.
