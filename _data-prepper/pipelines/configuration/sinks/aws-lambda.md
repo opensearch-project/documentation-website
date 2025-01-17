@@ -7,9 +7,9 @@ nav_order: 10
 ---
 
 ----------------------------------------------------------------------------------------
-# `aws_lambda` sink for Data Prepper
+# `aws_lambda` sink for OpenSearch Data Prepper
 
-This page explains how to configure and use [AWS Lambda](https://aws.amazon.com/lambda/) with Data Prepper, enabling Lambda functions to serve as both processors and sinks.
+This page explains how to configure and use [AWS Lambda](https://aws.amazon.com/lambda/) with OpenSearch Data Prepper, enabling Lambda functions to serve as both processors and sinks.
 
 ## `aws_lambda` sink
 
@@ -60,12 +60,12 @@ The invocation types are as follows:
 - `batch`: Automatically groups events based on configured thresholds. 
 - `dlq`: Supports the DLQ configuration for failed invocations after retry attempts.
 
-Data Prepper components use an AWS Identity and Access Management (IAM) role assumption, `aws.sts_role_arn`, for secure Lambda function invocation and respect Lambda's concurrency limits during event processing. For more information, see the [AWS Lambda documentation](https://docs.aws.amazon.com/lambda).
+OpenSearch Data Prepper components use an AWS Identity and Access Management (IAM) role assumption, `aws.sts_role_arn`, for secure Lambda function invocation and respect Lambda's concurrency limits during event processing. For more information, see the [AWS Lambda documentation](https://docs.aws.amazon.com/lambda).
 {: .note}
 
 ## Developer guide
 
-Integration tests must be executed separately from the main Data Prepper build. Execute them with the following command:
+Integration tests must be executed separately from the main OpenSearch Data Prepper build. Execute them with the following command:
 
 ```
 ./gradlew :data-prepper-plugins:aws-lambda:integrationTest -Dtests.sink.lambda.region="us-east-1" -Dtests.sink.lambda.functionName="lambda_test_function"  -Dtests.sink.lambda.sts_role_arn="arn:aws:iam::123456789012:role/dataprepper-role

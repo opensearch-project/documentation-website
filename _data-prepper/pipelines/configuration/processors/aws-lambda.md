@@ -6,13 +6,13 @@ grand_parent: Pipelines
 nav_order: 10
 ---
 
-# aws_lambda integration for Data Prepper
+# aws_lambda integration for OpenSearch Data Prepper
 
-The [AWS Lambda](https://aws.amazon.com/lambda/) integration allows developers to use serverless computing capabilities within their Data Prepper pipelines for flexible event processing and data routing.
+The [AWS Lambda](https://aws.amazon.com/lambda/) integration allows developers to use serverless computing capabilities within their OpenSearch Data Prepper pipelines for flexible event processing and data routing.
 
 ## AWS Lambda processor configuration
 
-The `aws_lambda` processor enables invocation of an AWS Lambda function within your Data Prepper pipeline in order to process events. It supports both synchronous and asynchronous invocations based on your use case.
+The `aws_lambda` processor enables invocation of an AWS Lambda function within your OpenSearch Data Prepper pipeline in order to process events. It supports both synchronous and asynchronous invocations based on your use case.
 
 ## Configuration fields
 
@@ -30,7 +30,7 @@ Field                | Type    | Required | Description
 `response_codec`     | Object  | Optional |  A codec configuration for parsing Lambda responses. Default is `json`.
 `tags_on_match_failure` | List | Optional |  A list of tags to add to events when Lambda matching fails or encounters an unexpected error.
 `sdk_timeout`        | Duration| Optional | Configures the SDK's client connection timeout period. Default is `60s`. 
-`response_events_match` | Boolean | Optional | Specifies how Data Prepper interprets and processes Lambda function responses. Default is `false`.
+`response_events_match` | Boolean | Optional | Specifies how OpenSearch Data Prepper interprets and processes Lambda function responses. Default is `false`.
 
 #### Example configuration
 
@@ -71,9 +71,9 @@ When configured for batching, the AWS Lambda processor groups multiple events in
 
 ## Lambda response handling
 
-The `response_events_match` setting defines how Data Prepper handles the relationship between batch events sent to Lambda and the response received:
+The `response_events_match` setting defines how OpenSearch Data Prepper handles the relationship between batch events sent to Lambda and the response received:
 
-- `true`: Lambda returns a JSON array with results for each batched event. Data Prepper maps this array back to its corresponding original event, ensuring that each event in the batch gets the corresponding part of the response from the array.
+- `true`: Lambda returns a JSON array with results for each batched event. OpenSearch Data Prepper maps this array back to its corresponding original event, ensuring that each event in the batch gets the corresponding part of the response from the array.
 - `false`: Lambda returns one or more events for the entire batch. Response events are not correlated with the original events. Original event metadata is not preserved in the response events. For example, when `response_events_match` is set to `true`, the Lambda function is expected to return the same number of response events as the number of original requests, maintaining the original order.
 
 ## Limitations
@@ -85,7 +85,7 @@ Note the following limitations:
 
 ## Integration testing
 
-Integration tests for this plugin are executed separately from the main Data Prepper build process. Use the following Gradle command to run these tests:
+Integration tests for this plugin are executed separately from the main OpenSearch Data Prepper build process. Use the following Gradle command to run these tests:
 
 ```
 ./gradlew :data-prepper-plugins:aws-lambda:integrationTest -Dtests.processor.lambda.region="us-east-1" -Dtests.processor.lambda.functionName="lambda_test_function"  -Dtests.processor.lambda.sts_role_arn="arn:aws:iam::123456789012:role/dataprepper-role
