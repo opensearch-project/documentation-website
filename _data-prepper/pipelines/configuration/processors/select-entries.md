@@ -8,8 +8,8 @@ nav_order: 59
 
 # select_entries
 
-The `select_entries` processor selects entries from a Data Prepper event.
-Only the selected entries remain in the processed event and while all other entries are removed. However, the processor does not remove any events from the Data Prepper pipeline.
+The `select_entries` processor selects entries from an OpenSearch Data Prepper event.
+Only the selected entries remain in the processed event and while all other entries are removed. However, the processor does not remove any events from the OpenSearch Data Prepper pipeline.
 
 ## Configuration
 

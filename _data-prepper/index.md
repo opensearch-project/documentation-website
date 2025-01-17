@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Data Prepper 
+title: OpenSearch Data Prepper 
 nav_order: 1
 has_children: false
 has_toc: false
@@ -12,26 +12,26 @@ redirect_from:
   - /data-prepper/index/
 ---
 
-# Data Prepper
+# OpenSearch Data Prepper
 
-Data Prepper is a server-side data collector capable of filtering, enriching, transforming, normalizing, and aggregating data for downstream analysis and visualization. Data Prepper is the preferred data ingestion tool for OpenSearch. It is recommended for most data ingestion use cases in OpenSearch and for processing large, complex datasets.
+OpenSearch Data Prepper is a server-side data collector capable of filtering, enriching, transforming, normalizing, and aggregating data for downstream analysis and visualization. OpenSearch Data Prepper is the preferred data ingestion tool for OpenSearch. It is recommended for most data ingestion use cases in OpenSearch and for processing large, complex datasets.
 
-With Data Prepper you can build custom pipelines to improve the operational view of applications. Two common use cases for Data Prepper are trace analytics and log analytics. [Trace analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/trace-analytics/) can help you visualize event flows and identify performance problems. [Log analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/log-analytics/) equips you with tools to enhance your search capabilities, conduct comprehensive analysis, and gain insights into your applications' performance and behavior.
+With OpenSearch Data Prepper you can build custom pipelines to improve the operational view of applications. Two common use cases for OpenSearch Data Prepper are trace analytics and log analytics. [Trace analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/trace-analytics/) can help you visualize event flows and identify performance problems. [Log analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/log-analytics/) equips you with tools to enhance your search capabilities, conduct comprehensive analysis, and gain insights into your applications' performance and behavior.
 
 ## Key concepts and fundamentals
 
-Data Prepper ingests data through customizable [pipelines]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines/). These pipelines consist of pluggable components that you can customize to fit your needs, even allowing you to plug in your own implementations. A Data Prepper pipeline consists of the following components: 
+OpenSearch Data Prepper ingests data through customizable [pipelines]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines/). These pipelines consist of pluggable components that you can customize to fit your needs, even allowing you to plug in your own implementations. An OpenSearch Data Prepper pipeline consists of the following components: 
 
 - One [source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/sources/)
 - One or more [sinks]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/sinks/)
 - (Optional) One [buffer]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/buffers/buffers/)
 - (Optional) One or more [processors]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/processors/)
 
-Each pipeline contains two required components: `source` and `sink`. If a `buffer`, a `processor`, or both are missing from the pipeline, then Data Prepper uses the default `bounded_blocking` buffer and a no-op processor. Note that a single instance of Data Prepper can have one or more pipelines. 
+Each pipeline contains two required components: `source` and `sink`. If a `buffer`, a `processor`, or both are missing from the pipeline, then OpenSearch Data Prepper uses the default `bounded_blocking` buffer and a no-op processor. Note that a single instance of OpenSearch Data Prepper can have one or more pipelines. 
 
 ## Basic pipeline configurations
 
-To understand how the pipeline components function within a Data Prepper configuration, see the following examples. Each pipeline configuration uses a `yaml` file format. For more information, see [Pipelines]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines/) for more information and examples.
+To understand how the pipeline components function within an OpenSearch Data Prepper configuration, see the following examples. Each pipeline configuration uses a `yaml` file format. For more information, see [Pipelines]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines/) for more information and examples.
 
 ### Minimal configuration
 
@@ -74,6 +74,6 @@ In the given pipeline configuration, the `source` component reads string events 
 
 ## Next steps
 
-- [Get started with Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/).
-- [Get familiar with Data Prepper pipelines]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines/).
+- [Get started with OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/).
+- [Get familiar with OpenSearch Data Prepper pipelines]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines/).
 - [Explore common use cases]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/common-use-cases/). 

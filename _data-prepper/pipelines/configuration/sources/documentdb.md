@@ -12,7 +12,7 @@ The `documentdb` source reads documents from [Amazon DocumentDB](https://aws.ama
 It can read historical data from an export and keep up to date on the data using Amazon DocumentDB [change streams](https://docs.aws.amazon.com/documentdb/latest/developerguide/change_streams.html).
 
 The `documentdb` source reads data from Amazon DocumentDB and puts that data into an [Amazon Simple Storage Service (Amazon S3)](https://aws.amazon.com/s3/) bucket.
-Then, other Data Prepper workers read from the S3 bucket to process data.
+Then, other OpenSearch Data Prepper workers read from the S3 bucket to process data.
 
 ## Usage
 The following example pipeline uses the `documentdb` source:
@@ -94,4 +94,4 @@ Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `sts_role_arn` | No | String | The AWS Security Token Service (AWS STS) role to assume for requests to Amazon Simple Queue Service (Amazon SQS) and Amazon S3. Defaults to `null`, which uses the [standard SDK behavior for credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
 `aws_sts_header_overrides` | No | Map | A map of header overrides that the AWS Identity and Access Management (IAM) role assumes for the sink plugin.
-`sts_external_id` | No | String | An external STS ID used when Data Prepper assumes the STS role. See `ExternalID` in the [STS AssumeRole](https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html) API reference documentation.
+`sts_external_id` | No | String | An external STS ID used when OpenSearch Data Prepper assumes the STS role. See `ExternalID` in the [STS AssumeRole](https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html) API reference documentation.

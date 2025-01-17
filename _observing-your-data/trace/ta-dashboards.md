@@ -29,7 +29,7 @@ The [OpenTelemetry Demo with OpenSearch](https://github.com/opensearch-project/o
 **Step 2: Ingest telemetry data**
 
   - Configure the OTel collectors to send telemetry data (traces, metrics, logs) to your OpenSearch cluster, using the [preexisting setup](https://github.com/opensearch-project/opentelemetry-demo/tree/main/src/otelcollector).
-  - Confirm that [Data Prepper](https://github.com/opensearch-project/opentelemetry-demo/tree/main/src/dataprepper) is set up to process the incoming data, handle trace analytics and service map pipelines, submit data to required indexes, and perform preaggregated calculations.
+  - Confirm that [OpenSearch Data Prepper](https://github.com/opensearch-project/opentelemetry-demo/tree/main/src/dataprepper) is set up to process the incoming data, handle trace analytics and service map pipelines, submit data to required indexes, and perform preaggregated calculations.
 
 **Step 3: Explore Trace Analytics in OpenSearch Dashboards**
 
@@ -45,7 +45,7 @@ The **Trace Analytics** application includes two options: **Services** and **Tra
 
 ## Schema dependencies and assumptions
 
-The plugin requires you to use [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/) to process and visualize OTel data and relies on the following Data Prepper pipelines for OTel correlations and service map calculations:
+The plugin requires you to use [OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/) to process and visualize OTel data and relies on the following OpenSearch Data Prepper pipelines for OTel correlations and service map calculations:
 
 - [Trace analytics pipeline]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/trace-analytics/)
 - [Service map pipeline]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/service-map/)
@@ -59,7 +59,7 @@ The plugin requires telemetry data to follow the OTel schema conventions, includ
 For accurate service mapping and correlation analysis, adhere to the following guidelines:
 
 - Service names must be unique and used consistently across application components.
-- The `serviceName` field must be populated using the Data Prepper pipeline.
+- The `serviceName` field must be populated using the OpenSearch Data Prepper pipeline.
 - Services must be ingested with predefined upstream and downstream dependencies to construct accurate service maps and understand service relationships.
 
 ### Trace and span IDs
@@ -68,7 +68,7 @@ Traces and spans must have consistently generated and maintained unique identifi
 
 ### RED metrics adherence
 
-The plugin expects metric data to include rate, error, and duration (RED) indicators for each service, either preaggregated using the Data Prepper pipeline or calculated dynamically based on spans. This allows you to effectively compute and display key performance indicators.
+The plugin expects metric data to include rate, error, and duration (RED) indicators for each service, either preaggregated using the OpenSearch Data Prepper pipeline or calculated dynamically based on spans. This allows you to effectively compute and display key performance indicators.
 
 ### Correlation fields
 

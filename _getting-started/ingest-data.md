@@ -10,7 +10,7 @@ There are several ways to ingest data into OpenSearch:
 
 - Ingest individual documents. For more information, see [Indexing documents]({{site.url}}{{site.baseurl}}/getting-started/communicate/#indexing-documents).
 - Index multiple documents in bulk. For more information, see [Bulk indexing](#bulk-indexing).
-- Use Data Prepper---an OpenSearch server-side data collector that can enrich data for downstream analysis and visualization. For more information, see [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/). 
+- Use OpenSearch Data Prepper---an OpenSearch server-side data collector that can enrich data for downstream analysis and visualization. For more information, see [OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/). 
 - Use other ingestion tools. For more information, see [OpenSearch tools]({{site.url}}{{site.baseurl}}/tools/).
 
 ## Bulk indexing
@@ -101,7 +101,7 @@ To learn how to use OpenSearch Dashboards to visualize the data, see the [OpenSe
 
 ## Further reading
 
-- For information about Data Prepper, see [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/).
+- For information about OpenSearch Data Prepper, see [OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/).
 - For information about ingestion tools, see [OpenSearch tools]({{site.url}}{{site.baseurl}}/tools/).
 - For information about OpenSearch Dashboards, see [OpenSearch Dashboards quickstart guide]({{site.url}}{{site.baseurl}}/dashboards/quickstart/).
 - For information about bulk indexing, see [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/).
