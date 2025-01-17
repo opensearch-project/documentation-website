@@ -48,6 +48,7 @@ The following table lists the available query parameters. All query parameters a
 | `local` | Boolean | Whether to return information from the local node only instead of from the cluster manager node. | `false` |
 | `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
 | `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
+
 <!-- spec_insert_end -->
 
 
