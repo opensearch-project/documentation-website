@@ -38,6 +38,8 @@ include_deprecated: false
 
 The following table lists the available query parameters. All query parameters are optional.
 
+
+
 | Parameter | Data type | Description | Default |
 | :--- | :--- | :--- | :--- |
 | `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | N/A |

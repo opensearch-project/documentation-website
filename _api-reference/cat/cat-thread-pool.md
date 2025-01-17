@@ -37,6 +37,8 @@ include_deprecated: false
 
 The following table lists the available query parameters. All query parameters are optional.
 
+
+
 | Parameter | Data type | Description | Default |
 | :--- | :--- | :--- | :--- |
 | `cluster_manager_timeout` | String | A timeout for connection to the cluster manager node. | N/A |

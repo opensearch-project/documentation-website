@@ -37,6 +37,8 @@ include_deprecated: false
 
 The following table lists the available query parameters. All query parameters are optional.
 
+
+
 | Parameter | Data type | Description | Default |
 | :--- | :--- | :--- | :--- |
 | `active_only` | Boolean | If `true`, the response only includes ongoing shard recoveries. | `false` |

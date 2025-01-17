@@ -35,6 +35,8 @@ include_deprecated: false
 
 The following table lists the available query parameters. All query parameters are optional.
 
+
+
 | Parameter | Data type | Description | Default |
 | :--- | :--- | :--- | :--- |
 | `actions` | List | The task action names used to limit the response. | N/A |

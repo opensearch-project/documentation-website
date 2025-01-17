@@ -36,6 +36,8 @@ include_deprecated: false
 
 The following table lists the available path parameters. All path parameters are optional.
 
+
+
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | `index` | List | A comma-separated list of data streams, indexes, and aliases used to limit the request. Supports wildcards (`*`). To target all data streams and indexes, omit this parameter or use `*` or `_all`. |
@@ -53,6 +55,8 @@ include_deprecated: false
 ## Query parameters
 
 The following table lists the available query parameters. All query parameters are optional.
+
+
 
 | Parameter | Data type | Description | Default |
 | :--- | :--- | :--- | :--- |
