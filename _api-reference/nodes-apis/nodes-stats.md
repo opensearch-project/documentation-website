@@ -1272,7 +1272,7 @@ Field | Field type | Description
 memory | Object | Statistics related to memory consumption for the indexing load.
 memory.current | Object | Statistics related to memory consumption for the current indexing load.
 memory.current.combined_coordinating_and_primary_in_bytes | Integer | The total memory used by indexing requests in the coordinating or primary stages, in bytes. A node can reuse the coordinating memory if the primary stage is run locally, so the total memory does not necessarily equal the sum of the coordinating and primary stage memory usage.
-memory.current.coordinating_in_bytes | The total memory consumed by indexing requests in the coordinating stage, in bytes.
+memory.current.coordinating_in_bytes | Integer | The total memory consumed by indexing requests in the coordinating stage, in bytes.
 memory.current.primary_in_bytes | Integer | The total memory consumed by indexing requests in the primary stage, in bytes.
 memory.current.replica_in_bytes | Integer | The total memory consumed by indexing requests in the replica stage, in bytes.
 memory.current.all_in_bytes | Integer | The total memory consumed by indexing requests in the coordinating, primary, or replica stages.
