@@ -35,6 +35,10 @@ component: query_parameters
 columns: Parameter, Data type, Description, Default
 include_deprecated: false
 -->
+## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
 
 
 | Parameter | Data type | Description | Default |

@@ -8,7 +8,6 @@ component: path_parameters
 
 The following table lists the available path parameters. All path parameters are optional.
 
-
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | `index` | List or String | Comma-separated list of data streams, indexes, and aliases to search. Supports wildcards (`*`). To search all data streams and indexes, omit this parameter or use `*` or `_all`. <br> Valid values are: `_all`, `_any`, `_none` |
@@ -28,6 +27,7 @@ columns: Data type, Parameter, Description, Required, Default
 ## Query parameters
 
 The following table lists the available query parameters.
+
 
 
 | Data type      | Parameter                 | Description                                                                                                                        | Required     | Default |
@@ -51,6 +51,7 @@ omit_header: true
 -->
 
 
+
 | Parameter | Description |
 | :--- | :--- |
 | `analyze_wildcard` | **(Required)** If true, wildcard and prefix queries are analyzed. This parameter can only be used when the q query string parameter is specified. _(Default: `false`)_ |
@@ -70,6 +71,7 @@ include_global: true
 ## Query parameters
 
 The following table lists the available query parameters.
+
 
 
 | Parameter | Required | Data type | Description | Default |
