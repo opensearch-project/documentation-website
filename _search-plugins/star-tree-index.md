@@ -142,19 +142,19 @@ Star-tree indexes can be used to optimize queries and aggregations.
 
 The following queries are supported as of OpenSearch 2.18:
 
-- [Term query](https://opensearch.org/docs/latest/query-dsl/term/term/)
-- [Match all docs query](https://opensearch.org/docs/latest/query-dsl/match-all/)
+- [Term query]({{site.url}}{{site.baseurl}}'query-dsl/term/term/)
+- [Match all docs query]({{site.url}}{{site.baseurl}}'query-dsl/match-all/)
 
 To use a query with a star-tree index, the query's fields must be present in the `ordered_dimensions` section of the star-tree configuration. Queries must also be paired with a supported aggregation. 
 
 ### Supported aggregations
  
 The following metric aggregations are supported as of OpenSearch 2.18:
-- [Sum](https://opensearch.org/docs/latest/aggregations/metric/sum/)
-- [Minimum](https://opensearch.org/docs/latest/aggregations/metric/minimum/)
-- [Maximum](https://opensearch.org/docs/latest/aggregations/metric/maximum/)
-- [Value count](https://opensearch.org/docs/latest/aggregations/metric/value-count/)
-- [Average](https://opensearch.org/docs/latest/aggregations/metric/average/)
+- [Sum]({{site.url}}{{site.baseurl}}'aggregations/metric/sum/)
+- [Minimum]({{site.url}}{{site.baseurl}}'aggregations/metric/minimum/)
+- [Maximum]({{site.url}}{{site.baseurl}}'aggregations/metric/maximum/)
+- [Value count]({{site.url}}{{site.baseurl}}'aggregations/metric/value-count/)
+- [Average]({{site.url}}{{site.baseurl}}'aggregations/metric/average/)
 
 To use aggregations:
 

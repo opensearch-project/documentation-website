@@ -137,7 +137,7 @@ plugins.security.authcz.admin_dn:
 
 For security reasons, you cannot use wildcards or regular expressions as values for the `admin_dn` setting.
 
-For more information about admin and super admin user roles, see [Admin and super admin roles](https://opensearch.org/docs/latest/security/access-control/users-roles/#admin-and-super-admin-roles). 
+For more information about admin and super admin user roles, see [Admin and super admin roles]({{site.url}}{{site.baseurl}}'security/access-control/users-roles/#admin-and-super-admin-roles). 
 
 
 ## (Advanced) OpenSSL

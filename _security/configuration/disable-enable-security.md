@@ -174,7 +174,7 @@ Use the following steps to reinstall the plugin:
 3. Add the necessary configuration to `opensearch.yml` for TLS encryption. See
 [Configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/) for information about the settings that need to be configured.
 
-4. Create the `OPENSEARCH_INITIAL_ADMIN_PASSWORD` variable. For more information, see [Setting up a custom admin password](https://opensearch.org/docs/latest/security/configuration/demo-configuration/#setting-up-a-custom-admin-password).
+4. Create the `OPENSEARCH_INITIAL_ADMIN_PASSWORD` variable. For more information, see [Setting up a custom admin password]({{site.url}}{{site.baseurl}}'security/configuration/demo-configuration/#setting-up-a-custom-admin-password).
   
 5. Restart the nodes and reenable shard allocation:
 

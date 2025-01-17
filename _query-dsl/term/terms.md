@@ -303,7 +303,7 @@ PUT students/_doc/3
 ```
 {% include copy-curl.html %}
 
-To store customer bitmap filters, you'll create a `customer_filter` [binary field](https://opensearch.org/docs/latest/field-types/supported-field-types/binary/) in the `customers` index. Specify `store` as `true` to store the field:
+To store customer bitmap filters, you'll create a `customer_filter` [binary field]({{site.url}}{{site.baseurl}}'field-types/supported-field-types/binary/) in the `customers` index. Specify `store` as `true` to store the field:
 
 ```json
 PUT /customers

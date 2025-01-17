@@ -8,7 +8,7 @@ nav_order: 35
 
 # Monitor API
 
-You can use the threat intelligence Monitor API to create, search, and update [monitors](https://opensearch.org/docs/latest/observing-your-data/alerting/monitors/) for your threat intelligence feeds.
+You can use the threat intelligence Monitor API to create, search, and update [monitors]({{site.url}}{{site.baseurl}}'observing-your-data/alerting/monitors/) for your threat intelligence feeds.
 
 
 ---

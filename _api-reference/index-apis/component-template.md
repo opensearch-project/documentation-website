@@ -75,11 +75,11 @@ Parameter | Data type | Description
 
 #### `mappings`
 
-The field mappings that exist in the index. For more information, see [Mappings and field types](https://opensearch.org/docs/latest/field-types/). Optional.
+The field mappings that exist in the index. For more information, see [Mappings and field types]({{site.url}}{{site.baseurl}}'field-types/). Optional.
 
 #### `settings`
 
-Any configuration options for the index. For more information, see [Index settings](https://opensearch.org/docs/latest/install-and-configure/configuring-opensearch/index-settings/).
+Any configuration options for the index. For more information, see [Index settings]({{site.url}}{{site.baseurl}}'install-and-configure/configuring-opensearch/index-settings/).
 
 ## Example requests
 

@@ -18,7 +18,7 @@ You can configure the `select_entries` processor using the following options.
 | Option | Required | Description |
 | :--- | :--- | :--- |
 | `include_keys` | Yes | A list of keys to be selected from an event. |
-| `select_when` | No | A [conditional expression](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/), such as `/some-key == "test"'`, that will be evaluated to determine whether the processor will be run on the event. If the condition is not met, then the event continues through the pipeline unmodified with all the original fields present. |
+| `select_when` | No | A [conditional expression]({{site.url}}{{site.baseurl}}'data-prepper/pipelines/expression-syntax/), such as `/some-key == "test"'`, that will be evaluated to determine whether the processor will be run on the event. If the condition is not met, then the event continues through the pipeline unmodified with all the original fields present. |
 
 ## Usage
 
