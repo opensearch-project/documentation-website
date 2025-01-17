@@ -8,7 +8,7 @@ nav_order: 45
 
 # kinesis
 
-You can use the Data Prepper `kinesis` source to ingest records from one or more [Amazon Kinesis Data Streams](https://aws.amazon.com/kinesis/data-streams/).
+You can use the OpenSearch Data Prepper `kinesis` source to ingest records from one or more [Amazon Kinesis Data Streams](https://aws.amazon.com/kinesis/data-streams/).
 
 ## Usage
 
@@ -39,7 +39,7 @@ Option | Required | Type     | Description
 `acknowledgments` | No       | Boolean  | When set to `true`, enables the `kinesis` source to receive [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines#end-to-end-acknowledgments) when events are received by OpenSearch sinks.
 `streams` | Yes      | List     | Configures a list of multiple Kinesis data streams that the `kinesis` source uses to read records. You can configure up to four streams. See [Streams](#streams).
 `codec` | Yes      | Codec    | Specifies the [codec](#codec) to apply.
-`buffer_timeout` | No       | Duration | Sets the amount of time allowed for writing events to the Data Prepper buffer before timeout occurs. Any events that the source cannot write to the buffer during the specified amount of time are discarded. Default is `1s`.
+`buffer_timeout` | No       | Duration | Sets the amount of time allowed for writing events to the OpenSearch Data Prepper buffer before timeout occurs. Any events that the source cannot write to the buffer during the specified amount of time are discarded. Default is `1s`.
 `records_to_accumulate` | No       | Integer  | Determines the number of messages that accumulate before being written to the buffer. Default is `100`.
 `consumer_strategy` | No       | String   | Selects the consumer strategy to use for ingesting Kinesis data streams. The default is `fan-out`, but `polling` can also be used. If `polling` is enabled, the additional configuration is required.
 `polling` | No       | polling   | See [polling](#polling).
@@ -61,14 +61,14 @@ The `codec` determines how the `kinesis` source parses each Kinesis stream recor
 
 ### json codec
 
-The `json` codec parses each single line as a single JSON object from a JSON array and then creates a Data Prepper event for each object in the array. It can be used for parsing nested CloudWatch events into individual log entries. 
+The `json` codec parses each single line as a single JSON object from a JSON array and then creates an OpenSearch Data Prepper event for each object in the array. It can be used for parsing nested CloudWatch events into individual log entries. 
 It also supports the below configuration to use with this codec.
 
 Option | Required | Type    | Description
 :--- | :--- |:--------| :---
-`key_name` | No | String | The name of the input field from which to extract the JSON array and create Data Prepper events.
-`include_keys` | No | List | The list of input fields to be extracted and added as additional fields in the Data Prepper event.
-`include_keys_metadata` | No | List | The list of input fields to be extracted and added to the Data Prepper event metadata object.
+`key_name` | No | String | The name of the input field from which to extract the JSON array and create OpenSearch Data Prepper events.
+`include_keys` | No | List | The list of input fields to be extracted and added as additional fields in the OpenSearch Data Prepper event.
+`include_keys_metadata` | No | List | The list of input fields to be extracted and added to the OpenSearch Data Prepper event metadata object.
 
 ### `newline` codec
 

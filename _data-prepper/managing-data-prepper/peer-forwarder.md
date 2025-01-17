@@ -2,16 +2,16 @@
 layout: default
 title: Peer forwarder
 nav_order: 12
-parent: Managing Data Prepper
+parent: Managing OpenSearch Data Prepper
 ---
 
 # Peer forwarder
 
-Peer forwarder is an HTTP service that performs peer forwarding of an `event` between Data Prepper nodes for aggregation. This HTTP service uses a hash-ring approach to aggregate events and determine which Data Prepper node it should handle on a given trace before rerouting it to that node. Currently, peer forwarder is supported by the `aggregate`, `service_map_stateful`, and `otel_traces_raw` [processors]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/processors/).
+Peer forwarder is an HTTP service that performs peer forwarding of an `event` between OpenSearch Data Prepper nodes for aggregation. This HTTP service uses a hash-ring approach to aggregate events and determine which OpenSearch Data Prepper node it should handle on a given trace before rerouting it to that node. Currently, peer forwarder is supported by the `aggregate`, `service_map_stateful`, and `otel_traces_raw` [processors]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/processors/).
 
 Peer Forwarder groups events based on the identification keys provided by the supported processors. For `service_map_stateful` and `otel_traces_raw`, the identification key is `traceId` by default and cannot be configured. The `aggregate` processor is configured using the `identification_keys` configuration option. From here, you can specify which keys to use for Peer Forwarder. See [Aggregate Processor page](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#identification_keys) for more information about identification keys.
 
-Peer discovery allows Data Prepper to find other nodes that it will communicate with. Currently, peer discovery is provided by a static list, a DNS record lookup, or AWS Cloud Map.  
+Peer discovery allows OpenSearch Data Prepper to find other nodes that it will communicate with. Currently, peer discovery is provided by a static list, a DNS record lookup, or AWS Cloud Map.  
 
 ## Discovery modes
 
@@ -19,7 +19,7 @@ The following sections provide information about discovery modes.
 
 ### Static
 
-Static discovery mode allows a Data Prepper node to discover nodes using a list of IP addresses or domain names. See the following YAML file for an example of static discovery mode:
+Static discovery mode allows an OpenSearch Data Prepper node to discover nodes using a list of IP addresses or domain names. See the following YAML file for an example of static discovery mode:
 
 ```yaml
 peer_forwarder:4
@@ -29,7 +29,7 @@ peer_forwarder:4
 
 ### DNS lookup
 
-DNS discovery is preferred over static discovery when scaling out a Data Prepper cluster. DNS discovery configures a DNS provider to return a list of Data Prepper hosts when given a single domain name. This list consists of a [DNS A record](https://www.cloudflare.com/learning/dns/dns-records/dns-a-record/), and a list of IP addresses of a given domain. See the following YAML file for an example of DNS lookup:
+DNS discovery is preferred over static discovery when scaling out an OpenSearch Data Prepper cluster. DNS discovery configures a DNS provider to return a list of OpenSearch Data Prepper hosts when given a single domain name. This list consists of a [DNS A record](https://www.cloudflare.com/learning/dns/dns-records/dns-a-record/), and a list of IP addresses of a given domain. See the following YAML file for an example of DNS lookup:
 
 ```yaml
 peer_forwarder:
@@ -43,13 +43,13 @@ peer_forwarder:
 
 Peer forwarder can use the API-based service discovery in AWS Cloud Map. To support this, you must have an existing namespace configured for API instance discovery. You can create a new one by following the instructions provided by the [AWS Cloud Map documentation](https://docs.aws.amazon.com/cloud-map/latest/dg/working-with-namespaces.html).
 
-Your Data Prepper configuration needs to include the following:
+Your OpenSearch Data Prepper configuration needs to include the following:
 * `aws_cloud_map_namespace_name` – Set to your AWS Cloud Map namespace name.
 * `aws_cloud_map_service_name` – Set to the service name within your specified namespace.
 * `aws_region` – Set to the AWS Region in which your namespace exists.
 * `discovery_mode` – Set to `aws_cloud_map`.
 
-Your Data Prepper configuration can optionally include the following:
+Your OpenSearch Data Prepper configuration can optionally include the following:
 * `aws_cloud_map_query_parameters` – Key-value pairs are used to filter the results based on the custom attributes attached to an instance. Results include only those instances that match all of the specified key-value pairs.
 
 #### Example configuration
@@ -68,7 +68,7 @@ peer_forwarder:
 
 ### IAM policy with necessary permissions
 
-Data Prepper must also be running with the necessary permissions. The following AWS Identity and Access Management (IAM) policy shows the necessary permissions:
+OpenSearch Data Prepper must also be running with the necessary permissions. The following AWS Identity and Access Management (IAM) policy shows the necessary permissions:
 
 ```json
 {
@@ -98,7 +98,7 @@ The following table provides optional configuration values.
 | `client_thread_count` | Integer | Represents the number of threads used by the peer forwarder client. Default value is `200`.|
 | `maxConnectionCount`  | Integer | Represents the maximum number of open connections for the peer forwarder server. Default value is `500`. |
 | `discovery_mode` | String | Represents the peer discovery mode to be used. Allowable values are `local_node`, `static`, `dns`, and `aws_cloud_map`. Defaults to `local_node`, which processes events locally. |
-| `static_endpoints` | List | Contains the endpoints of all Data Prepper instances. Required if `discovery_mode` is set to `static`. |
+| `static_endpoints` | List | Contains the endpoints of all OpenSearch Data Prepper instances. Required if `discovery_mode` is set to `static`. |
 |  `domain_name` | String | Represents the single domain name to query DNS against. Typically used by creating multiple [DNS A records](https://www.cloudflare.com/learning/dns/dns-records/dns-a-record/) for the same domain. Required if `discovery_mode` is set to `dns`. |
 | `aws_cloud_map_namespace_name`  | String | Represents the AWS Cloud Map namespace when using AWS Cloud Map service discovery. Required if `discovery_mode` is set to `aws_cloud_map`.  |
 | `aws_cloud_map_service_name` | String | Represents the AWS Cloud Map service when using AWS Cloud Map service discovery. Required if `discovery_mode` is set to `aws_cloud_map`. |
@@ -110,7 +110,7 @@ The following table provides optional configuration values.
 
 ## SSL configuration
 
-The following table provides optional SSL configuration values that allow you to set up a trust manager for the peer forwarder client in order to connect to other Data Prepper instances.
+The following table provides optional SSL configuration values that allow you to set up a trust manager for the peer forwarder client in order to connect to other OpenSearch Data Prepper instances.
 
 | Value | Type | Description |
 | ----- | ---- | ----------- |
@@ -179,4 +179,4 @@ The following table provides counter metric options.
 
 ### Gauge
 
-`peerEndpoints` Measures the number of dynamically discovered peer Data Prepper endpoints. For `static` mode, the size is fixed.
+`peerEndpoints` Measures the number of dynamically discovered peer OpenSearch Data Prepper endpoints. For `static` mode, the size is fixed.

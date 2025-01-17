@@ -42,7 +42,7 @@ Then create the following file named `logs_json.log` and replace the `path` in t
 The `translate` processor configuration in `pipeline.yaml` retrieves the `source` value from the event data and compares it against the keys specified under the `targets`. 
 When a match is found, the processor places the corresponding mapped value into the `target` key provided in the configuration.
 
-When you run Data Prepper with the previous `pipeline.yaml` file, you should receive the following output:
+When you run OpenSearch Data Prepper with the previous `pipeline.yaml` file, you should receive the following output:
 
 ```json
 {
@@ -111,7 +111,7 @@ Each item in the `targets` configuration contains the following options.
 | regex | No | Map | A map of keys that defines the translation map. For more options, see [regex option](#regex-option). At least one of `map` and `regex` should be configured. |
 | default | No | String | The default value to use when no match is found during translation. |
 | type | No | String | Specifies the data type for the target value. |
-| translate_when | No | String | Uses a [Data Prepper expression]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/) to specify a condition for performing the translation. When specified, the expression will only translate when the condition is met. |
+| translate_when | No | String | Uses an [OpenSearch Data Prepper expression]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/) to specify a condition for performing the translation. When specified, the expression will only translate when the condition is met. |
 
 #### map option
 

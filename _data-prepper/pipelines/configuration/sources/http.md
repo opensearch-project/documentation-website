@@ -16,7 +16,7 @@ Option | Required | Type | Description
 :--- | :--- | :--- | :---
 port | No | Integer | The port that the source is running on. Default value is `2021`. Valid options are between `0` and `65535`.
 health_check_service | No | Boolean | Enables the health check service on the `/health` endpoint on the defined port. Default value is `false`.
-unauthenticated_health_check | No | Boolean | Determines whether or not authentication is required on the health check endpoint. Data Prepper ignores this option if no authentication is defined. Default value is `false`.
+unauthenticated_health_check | No | Boolean | Determines whether or not authentication is required on the health check endpoint. OpenSearch Data Prepper ignores this option if no authentication is defined. Default value is `false`.
 request_timeout | No | Integer | The request timeout, in milliseconds. Default value is `10000`.
 thread_count | No | Integer | The number of threads to keep in the ScheduledThreadPool. Default value is `200`.
 max_connection_count | No | Integer | The maximum allowed number of open connections. Default value is `500`.
@@ -28,7 +28,7 @@ ssl_certificate_file | Conditionally | String | SSL certificate chain file path 
 ssl_key_file | Conditionally | String | SSL key file path or Amazon S3 path. Amazon S3 path example `s3://<bucketName>/<path>`. Required if `ssl` is set to true and `use_acm_certificate_for_ssl` is set to false.
 use_acm_certificate_for_ssl | No | Boolean | Enables a TLS/SSL using certificate and private key from AWS Certificate Manager (ACM). Default value is false.
 acm_certificate_arn | Conditionally | String | The ACM certificate Amazon Resource Name (ARN). The ACM certificate takes preference over Amazon S3 or a local file system certificate. Required if `use_acm_certificate_for_ssl` is set to true.
-acm_private_key_password | No | String | ACM private key password that decrypts the private key. If not provided, Data Prepper generates a random password.
+acm_private_key_password | No | String | ACM private key password that decrypts the private key. If not provided, OpenSearch Data Prepper generates a random password.
 acm_certificate_timeout_millis | No | Integer | Timeout, in milliseconds, that ACM takes to get certificates. Default value is 120000.
 aws_region | Conditionally | String | AWS region used by ACM or Amazon S3. Required if `use_acm_certificate_for_ssl` is set to true or `ssl_certificate_file` and `ssl_key_file` is the Amazon S3 path.
 

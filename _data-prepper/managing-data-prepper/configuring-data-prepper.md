@@ -1,21 +1,21 @@
 ---
 layout: default
-title: Configuring Data Prepper
-parent: Managing Data Prepper
+title: Configuring OpenSearch Data Prepper
+parent: Managing OpenSearch Data Prepper
 nav_order: 5
 redirect_from:
  - /clients/data-prepper/data-prepper-reference/
  - /monitoring-plugins/trace/data-prepper-reference/
 ---
 
-# Configuring Data Prepper
+# Configuring OpenSearch Data Prepper
 
-You can customize your Data Prepper configuration by editing the `data-prepper-config.yaml` file in your Data Prepper installation. The following configuration options are independent from pipeline configuration options. 
+You can customize your OpenSearch Data Prepper configuration by editing the `data-prepper-config.yaml` file in your OpenSearch Data Prepper installation. The following configuration options are independent from pipeline configuration options. 
 
 
-## Data Prepper configuration
+## OpenSearch Data Prepper configuration
 
-Use the following options to customize your Data Prepper configuration.
+Use the following options to customize your OpenSearch Data Prepper configuration.
 
 Option | Required | Type | Description 
 :--- | :--- |:--- | :---
@@ -48,7 +48,7 @@ client_thread_count | No | Integer | The number of threads used by the peer forw
 max_connection_count | No | Integer | The maximum number of open connections for the peer forwarder server. Default is 500.
 max_pending_requests | No | Integer | The maximum number of allowed tasks in ScheduledThreadPool work queue. Default is 1024.
 discovery_mode | No | String | The peer discovery mode to use. Valid options are `local_node`, `static`, `dns`, or `aws_cloud_map`. Defaults to `local_node`, which processes events locally.
-static_endpoints | Conditionally | List | A list containing endpoints of all Data Prepper instances. Required if `discovery_mode` is set to static.
+static_endpoints | Conditionally | List | A list containing endpoints of all OpenSearch Data Prepper instances. Required if `discovery_mode` is set to static.
 domain_name | Conditionally | String | A single domain name to query DNS against. Typically, used by creating multiple DNS A Records for the same domain. Required if `discovery_mode` is set to dns.
 aws_cloud_map_namespace_name | Conditionally | String | Cloud Map namespace when using AWS Cloud Map service discovery. Required if `discovery_mode` is set to `aws_cloud_map`.
 aws_cloud_map_service_name | Conditionally | String | The Cloud Map service name when using AWS Cloud Map service discovery. Required if `discovery_mode` is set to `aws_cloud_map`.
@@ -69,7 +69,7 @@ ssl_insecure_disable_verification | No | Boolean | Disables the verification of 
 ssl_fingerprint_verification_only | No | Boolean | Disables the verification of server's TLS certificate chain and instead verifies only the certificate fingerprint. Default is `false`.
 use_acm_certificate_for_ssl | No | Boolean | Enables TLS/SSL using certificate and private key from AWS Certificate Manager (ACM). Default is `false`.
 acm_certificate_arn | Conditionally | String | The ACM certificate ARN. The ACM certificate takes preference over S3 or a local file system certificate. Required if `use_acm_certificate_for_ssl` is set to true.
-acm_private_key_password | No | String | The ACM private key password that decrypts the private key. If not provided, Data Prepper generates a random password.
+acm_private_key_password | No | String | The ACM private key password that decrypts the private key. If not provided, OpenSearch Data Prepper generates a random password.
 acm_certificate_timeout_millis | No | Integer | The timeout in milliseconds for ACM to get certificates. Default is 120000.
 aws_region | Conditionally | String | The AWS region to use ACM, S3 or AWS Cloud Map. Required if `use_acm_certificate_for_ssl` is set to true or `ssl_certificate_file` and `ssl_key_file` is AWS S3 path or `discovery_mode` is set to `aws_cloud_map`.
 
@@ -81,9 +81,9 @@ authentication | No | Map | The authentication method to use. Valid options are 
 
 ### Circuit breakers
 
-Data Prepper provides a circuit breaker to help prevent exhausting Java memory. And is useful when pipelines have stateful processors as these can retain memory usage outside of the buffers.
+OpenSearch Data Prepper provides a circuit breaker to help prevent exhausting Java memory. And is useful when pipelines have stateful processors as these can retain memory usage outside of the buffers.
 
-When a circuit breaker is tripped, Data Prepper rejects incoming data routing into buffers.
+When a circuit breaker is tripped, OpenSearch Data Prepper rejects incoming data routing into buffers.
 
 
 Option | Required | Type | Description
@@ -93,7 +93,7 @@ heap | No | [heap](#heap-circuit-breaker) | Enables a heap circuit breaker. By d
 
 #### Heap circuit breaker
 
-Configures Data Prepper to trip a circuit breaker when JVM heap reaches a specified usage threshold.
+Configures OpenSearch Data Prepper to trip a circuit breaker when JVM heap reaches a specified usage threshold.
 
 Option | Required | Type | Description
 :--- |:---|:---| :---
@@ -103,7 +103,7 @@ check_interval | No | Duration | Specifies the time between checks of the heap s
 
 ### Extension plugins
 
-Data Prepper provides support for user-configurable extension plugins. Extension plugins are common configurations shared across pipeline plugins, such as [sources, buffers, processors, and sinks]({{site.url}}{{site.baseurl}}/data-prepper/index/#key-concepts-and-fundamentals).
+OpenSearch Data Prepper provides support for user-configurable extension plugins. Extension plugins are common configurations shared across pipeline plugins, such as [sources, buffers, processors, and sinks]({{site.url}}{{site.baseurl}}/data-prepper/index/#key-concepts-and-fundamentals).
 
 ### AWS extension plugins
 

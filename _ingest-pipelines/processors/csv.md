@@ -7,7 +7,7 @@ redirect_from:
    - /api-reference/ingest-apis/processors/csv/
 ---
 
-This documentation describes using the `csv` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `csv` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/csv/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.
+This documentation describes using the `csv` processor in OpenSearch ingest pipelines. Consider using the [OpenSearch Data Prepper `csv` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/csv/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.
 {: .note}
 
 # CSV processor

@@ -429,7 +429,7 @@ The first two blog posts in the results have a score of 1 because one is at the 
         "_id": "3",
         "_score": 0.5,
         "_source": {
-          "name": "Distributed tracing with Data Prepper",
+          "name": "Distributed tracing with OpenSearch Data Prepper",
           "views": 800,
           "likes": 50,
           "comments": 5,
@@ -511,7 +511,7 @@ In the results, the first blog post was published within one day of 04/24/2022, 
         "_id": "3",
         "_score": 1,
         "_source": {
-          "name": "Distributed tracing with Data Prepper",
+          "name": "Distributed tracing with OpenSearch Data Prepper",
           "views": 800,
           "likes": 50,
           "comments": 5,
@@ -790,7 +790,7 @@ The results contain the three matching blog posts:
         "_id": "3",
         "_score": 31.191923,
         "_source": {
-          "name": "Distributed tracing with Data Prepper",
+          "name": "Distributed tracing with OpenSearch Data Prepper",
           "views": 800,
           "likes": 50,
           "comments": 5,
