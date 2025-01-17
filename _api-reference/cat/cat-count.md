@@ -38,13 +38,13 @@ include_deprecated: false
 
 The following table lists the available query parameters. All query parameters are optional.
 
-Parameter | Data type | Description | Default
-:--- | :--- | :--- | :---
-`format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | 
-`h` | List | A comma-separated list of column names to display. | 
-`help` | Boolean | Returns help information. | `false`
-`s` | List | A comma-separated list of column names or column aliases to sort by. | 
-`v` | Boolean | Enables verbose mode, which displays column headers. | `false`
+| Parameter | Data type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | N/A |
+| `h` | List | A comma-separated list of column names to display. | N/A |
+| `help` | Boolean | Returns help information. | `false` |
+| `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
+| `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
 <!-- spec_insert_end -->
 
 ## Example requests

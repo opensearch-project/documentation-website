@@ -19,7 +19,6 @@ api: cat.tasks
 component: endpoints
 -->
 ## Endpoints
-
 ```json
 GET /_cat/tasks
 ```
@@ -34,19 +33,20 @@ include_deprecated: false
 -->
 ## Query parameters
 
+The following table lists the available query parameters. All query parameters are optional.
 
-Parameter | Type | Description | Default
-:--- | :--- | :--- | :---
-`actions` | List | The task action names used to limit the response. | 
-`detailed` | Boolean | If `true`, the response includes detailed information about shard recoveries. | `false`
-`format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | 
-`h` | List | A comma-separated list of column names to display. | 
-`help` | Boolean | Returns help information. | `false`
-`nodes` | List | A comma-separated list of node IDs or names used to limit the returned information.  Use `_local` to return information from the node to which you're connecting, specify a specific node from which to get information, or keep the parameter empty to get information from all nodes. | 
-`parent_task_id` | String | The parent task identifier, which is used to limit the response. | 
-`s` | List | A comma-separated list of column names or column aliases to sort by. | 
-`time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units](https://opensearch.org/docs/latest/api-reference/units/). | 
-`v` | Boolean | Enables verbose mode, which displays column headers. | `false`
+| Parameter | Data type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `actions` | List | The task action names used to limit the response. | N/A |
+| `detailed` | Boolean | If `true`, the response includes detailed information about shard recoveries. | `false` |
+| `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | N/A |
+| `h` | List | A comma-separated list of column names to display. | N/A |
+| `help` | Boolean | Returns help information. | `false` |
+| `nodes` | List | A comma-separated list of node IDs or names used to limit the returned information.  Use `_local` to return information from the node to which you're connecting, specify a specific node from which to get information, or keep the parameter empty to get information from all nodes. | N/A |
+| `parent_task_id` | String | The parent task identifier, which is used to limit the response. | N/A |
+| `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
+| `time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units](https://opensearch.org/docs/latest/api-reference/units/). <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, `d` | N/A |
+| `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
 <!-- spec_insert_end -->
 
 ## Example request

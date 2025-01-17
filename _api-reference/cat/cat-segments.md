@@ -20,7 +20,6 @@ api: cat.segments
 component: endpoints
 -->
 ## Endpoints
-
 ```json
 GET /_cat/segments
 GET /_cat/segments/{index}
@@ -36,16 +35,17 @@ include_deprecated: false
 -->
 ## Query parameters
 
+The following table lists the available query parameters. All query parameters are optional.
 
-Parameter | Type | Description | Default
-:--- | :--- | :--- | :---
-`bytes` | String | The units used to display byte values. | 
-`cluster_manager_timeout` | String | The amount of time allowed to establish a connection to the cluster manager node. | 
-`format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | 
-`h` | List | A comma-separated list of column names to display. | 
-`help` | Boolean | Returns help information. | `false`
-`s` | List | A comma-separated list of column names or column aliases to sort by. | 
-`v` | Boolean | Enables verbose mode, which displays column headers. | `false`
+| Parameter | Data type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `bytes` | String | The units used to display byte values. <br> Valid values are: `b`, `kb`, `k`, `mb`, `m`, `gb`, `g`, `tb`, `t`, `pb`, `p` | N/A |
+| `cluster_manager_timeout` | String | The amount of time allowed to establish a connection to the cluster manager node. | N/A |
+| `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | N/A |
+| `h` | List | A comma-separated list of column names to display. | N/A |
+| `help` | Boolean | Returns help information. | `false` |
+| `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
+| `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
 <!-- spec_insert_end -->
 
 ## Example requests

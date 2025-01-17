@@ -37,21 +37,21 @@ include_deprecated: false
 
 The following table lists the available query parameters. All query parameters are optional.
 
-Parameter | Data type | Description | Default
-:--- | :--- | :--- | :---
-`bytes` | String | The units used to display byte values. | 
-`cluster_manager_timeout` | String | The amount of time allowed to establish a connection to the cluster manager node. | 
-`expand_wildcards` | List or String | The type of index that wildcard patterns can match.  Supported values are `all`, `open`, `closed`, `hidden`, and `none`. | 
-`format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | 
-`h` | List | A comma-separated list of column names to display. | 
-`health` | String | Limits indexes based on their health status. Supported values are `green`, `yellow`, and `red`. | 
-`help` | Boolean | Returns help information. | `false`
-`include_unloaded_segments` | Boolean | Whether to include information from segments not loaded into memory. | `false`
-`local` | Boolean | Returns local information but does not retrieve the state from the cluster manager node. | `false`
-`pri` | Boolean | When `true`, returns information only from the primary shards. | `false`
-`s` | List | A comma-separated list of column names or column aliases to sort by. | 
-`time` | String | Specifies the time units. | 
-`v` | Boolean | Enables verbose mode, which displays column headers. | `false`
+| Parameter | Data type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `bytes` | String | The units used to display byte values. <br> Valid values are: `b`, `kb`, `k`, `mb`, `m`, `gb`, `g`, `tb`, `t`, `pb`, `p` | N/A |
+| `cluster_manager_timeout` | String | The amount of time allowed to establish a connection to the cluster manager node. | N/A |
+| `expand_wildcards` | List or String | The type of index that wildcard patterns can match.  Supported values are `all`, `open`, `closed`, `hidden`, and `none`. <br> Valid values are: <br> - `all`: Match any index, including hidden ones. </br> - `closed`: Match closed, non-hidden indexes. </br> - `hidden`: Match hidden indexes. Must be combined with open, closed, or both. </br> - `none`: Wildcard expressions are not accepted. </br> - `open`: Match open, non-hidden indexes. | N/A |
+| `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | N/A |
+| `h` | List | A comma-separated list of column names to display. | N/A |
+| `health` | String | Limits indexes based on their health status. Supported values are `green`, `yellow`, and `red`. <br> Valid values are: `green`, `GREEN`, `yellow`, `YELLOW`, `red`, `RED` | N/A |
+| `help` | Boolean | Returns help information. | `false` |
+| `include_unloaded_segments` | Boolean | Whether to include information from segments not loaded into memory. | `false` |
+| `local` | Boolean | Returns local information but does not retrieve the state from the cluster manager node. | `false` |
+| `pri` | Boolean | When `true`, returns information only from the primary shards. | `false` |
+| `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
+| `time` | String | Specifies the time units. <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, `d` | N/A |
+| `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
 <!-- spec_insert_end -->
 
 ## Example requests

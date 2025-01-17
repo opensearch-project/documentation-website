@@ -38,17 +38,17 @@ include_deprecated: false
 
 The following table lists the available query parameters. All query parameters are optional.
 
-Parameter | Data type | Description | Default
-:--- | :--- | :--- | :---
-`bytes` | String | The units used to display byte values. | 
-`cluster_manager_timeout` | String | The amount of time allowed to establish a connection to the cluster manager node. | 
-`format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | 
-`full_id` | Boolean or String | When `true`, returns the full node ID. When `false`, returns the shortened node ID. | `false`
-`h` | List | A comma-separated list of column names to display. | 
-`help` | Boolean | Returns help information. | `false`
-`s` | List | A comma-separated list of column names or column aliases to sort by. | 
-`time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units](https://opensearch.org/docs/latest/api-reference/units/). | 
-`v` | Boolean | Enables verbose mode, which displays column headers. | `false`
+| Parameter | Data type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `bytes` | String | The units used to display byte values. <br> Valid values are: `b`, `kb`, `k`, `mb`, `m`, `gb`, `g`, `tb`, `t`, `pb`, `p` | N/A |
+| `cluster_manager_timeout` | String | The amount of time allowed to establish a connection to the cluster manager node. | N/A |
+| `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | N/A |
+| `full_id` | Boolean or String | When `true`, returns the full node ID. When `false`, returns the shortened node ID. | `false` |
+| `h` | List | A comma-separated list of column names to display. | N/A |
+| `help` | Boolean | Returns help information. | `false` |
+| `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
+| `time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units](https://opensearch.org/docs/latest/api-reference/units/). <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, `d` | N/A |
+| `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
 <!-- spec_insert_end -->
 
 ## Example request
