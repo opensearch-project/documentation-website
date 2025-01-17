@@ -29,10 +29,10 @@ The following table lists the available query parameters.
 | Data type      | Parameter                 | Description                                                                                                                        | Required     | Default |
 |:---------------|:--------------------------|:-----------------------------------------------------------------------------------------------------------------------------------|:-------------|:--------|
 | Boolean        | `analyze_wildcard`        | If true, wildcard and prefix queries are analyzed. This parameter can only be used when the q query string parameter is specified. | **Required** | `false` |
-| String         | `analyzer`                | Analyzer to use for the query string. This parameter can only be used when the q query string parameter is specified.              | _optional_   | N/A     |
-| List or String | `expand_wildcards`        | Comma-separated list of expand wildcard options. <br> Valid values are: `open`, `closed`, `none`, `all`                            | _optional_   | N/A     |
-| Boolean        | `pretty`                  | Whether to pretty format the returned JSON response.                                                                               | _optional_   | N/A     |
-| Boolean        | `human` <br> _DEPRECATED_ | _(Deprecated since 3.0: Use the `format` parameter instead.)_ Whether to return human readable values for statistics.              | _optional_   | `true`  |
+| String         | `analyzer`                | Analyzer to use for the query string. This parameter can only be used when the q query string parameter is specified.              | _Optional_   | N/A     |
+| List or String | `expand_wildcards`        | Comma-separated list of expand wildcard options. <br> Valid values are: `open`, `closed`, `none`, `all`                            | _Optional_   | N/A     |
+| Boolean        | `pretty`                  | Whether to pretty format the returned JSON response.                                                                               | _Optional_   | N/A     |
+| Boolean        | `human` <br> _DEPRECATED_ | _(Deprecated since 3.0: Use the `format` parameter instead.)_ Whether to return human readable values for statistics.              | _Optional_   | `true`  |
 <!-- spec_insert_end -->
 
 Query Parameters Example with only Parameter and Description Columns
