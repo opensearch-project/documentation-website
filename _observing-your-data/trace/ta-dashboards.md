@@ -76,7 +76,7 @@ Certain fields, such as `serviceName`, must be present to perform correlation an
 
 ### Correlation indexes
 
-Navigating from the service dialog to its corresponding traces or logs requires the existence of correlating fields and that the target indexes (for example, logs) follow the specified naming conventions, as described at [Simple Schema for Observability](https://opensearch.org/docs/latest/observing-your-data/ss4o/).  
+Navigating from the service dialog to its corresponding traces or logs requires the existence of correlating fields and that the target indexes (for example, logs) follow the specified naming conventions, as described at [Simple Schema for Observability]({{site.url}}{{site.baseurl}}/observing-your-data/ss4o/).  
 
 ---
 

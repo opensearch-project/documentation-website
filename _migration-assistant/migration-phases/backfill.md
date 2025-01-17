@@ -155,7 +155,7 @@ You can find the backfill dashboard in the CloudWatch console based on the AWS R
 
 ## Validating the backfill
 
-After the backfill is complete and the workers have stopped, examine the contents of your cluster using the [Refresh API](https://opensearch.org/docs/latest/api-reference/index-apis/refresh/) and the [Flush API](https://opensearch.org/docs/latest/api-reference/index-apis/flush/). The following example uses the console CLI with the Refresh API to check the backfill status:
+After the backfill is complete and the workers have stopped, examine the contents of your cluster using the [Refresh API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/refresh/) and the [Flush API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/flush/). The following example uses the console CLI with the Refresh API to check the backfill status:
 
 ```shell
 console clusters cat-indices --refresh
