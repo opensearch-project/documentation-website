@@ -4,6 +4,7 @@ Typical Path Parameters Example
 api: search
 component: path_parameters
 -->
+
 ## Path parameters
 
 The following table lists the available path parameters. All path parameters are optional.
@@ -11,6 +12,7 @@ The following table lists the available path parameters. All path parameters are
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | `index` | List or String | Comma-separated list of data streams, indexes, and aliases to search. Supports wildcards (`*`). To search all data streams and indexes, omit this parameter or use `*` or `_all`. <br> Valid values are: `_all`, `_any`, `_none` |
+
 <!-- spec_insert_end -->
 
 Query Parameters Example with Global Parameters, Pretty Print, and Custom Columns
