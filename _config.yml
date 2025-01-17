@@ -240,7 +240,7 @@ defaults:
       path: "_data-prepper"
     values:
       section: "data-prepper"
-      section-name: "Data Prepper"
+      section-name: "OpenSearch Data Prepper"
   -
     scope:
       path: "_clients"
