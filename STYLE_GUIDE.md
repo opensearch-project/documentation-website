@@ -23,11 +23,11 @@ The following naming conventions should be observed in OpenSearch Project conten
 
 #### Product names
 
-Capitalize product names. The OpenSearch Project has three products: OpenSearch, OpenSearch Dashboards, and Data Prepper. For example:
+Capitalize product names. The OpenSearch Project has three products: OpenSearch, OpenSearch Dashboards, and OpenSearch Data Prepper. For example:
 
 * "To install *OpenSearch*, download the Docker image."
 * "To access *OpenSearch Dashboards*, open your browser and navigate to http://localhost:5601/app/home."
-* "*Data Prepper* contains the following components:"
+* "*OpenSearch Data Prepper* contains the following components:"
 
 Capitalize the names of clients and tools. For example:
 
