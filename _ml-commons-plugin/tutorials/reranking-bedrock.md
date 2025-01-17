@@ -367,7 +367,7 @@ By default, the Amazon Bedrock Rerank API output is formatted as follows:
 ]
 ```
 
-The connector `post_process_function` transforms the model's output into a format that the [Reranker processor]({{site.url}}{{site.baseurl}}'search-plugins/search-pipelines/rerank-processor/) can interpret and orders the results by index. 
+The connector `post_process_function` transforms the model's output into a format that the [Reranker processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/) can interpret and orders the results by index. 
 
 The response contains four `similarity` outputs. For each `similarity` output, the `data` array contains a relevance score for each document against the query. The `similarity` outputs are provided in the order of the input documents; the first similarity result pertains to the first document:
 

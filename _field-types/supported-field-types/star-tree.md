@@ -118,7 +118,7 @@ When using the `ordered_dimesions` parameter, follow these best practices:
 
 - The order of dimensions matters. You can define the dimensions ordered from the highest cardinality to the lowest cardinality for efficient storage and query pruning. 
 - Avoid using high-cardinality fields as dimensions. High-cardinality fields adversely affect storage space, indexing throughput, and query performance.
-- Currently, fields supported by the `ordered_dimensions` parameter are all [numeric field types]({{site.url}}{{site.baseurl}}'field-types/supported-field-types/numeric/), with the exception of `unsigned_long`. For more information, see [GitHub issue #15231](https://github.com/opensearch-project/OpenSearch/issues/15231). 
+- Currently, fields supported by the `ordered_dimensions` parameter are all [numeric field types]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/numeric/), with the exception of `unsigned_long`. For more information, see [GitHub issue #15231](https://github.com/opensearch-project/OpenSearch/issues/15231). 
 - Support for other field types, such as `keyword` and `ip`, will be added in future versions. For more information, see [GitHub issue #16232](https://github.com/opensearch-project/OpenSearch/issues/16232).
 - A minimum of `2` and a maximum of `10` dimensions are supported per star-tree index.
 
@@ -135,7 +135,7 @@ Configure any metric fields on which you need to perform aggregations. `Metrics`
 
 When using `metrics`, follow these best practices: 
 
-- Currently, fields supported by `metrics` are all [numeric field types]({{site.url}}{{site.baseurl}}'field-types/supported-field-types/numeric/), with the exception of `unsigned_long`. For more information, see [GitHub issue #15231](https://github.com/opensearch-project/OpenSearch/issues/15231). 
+- Currently, fields supported by `metrics` are all [numeric field types]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/numeric/), with the exception of `unsigned_long`. For more information, see [GitHub issue #15231](https://github.com/opensearch-project/OpenSearch/issues/15231). 
 - Supported metric aggregations include `Min`, `Max`, `Sum`, `Avg`, and `Value_count`. 
     - `Avg` is a derived metric based on `Sum` and `Value_count` and is not indexed when a query is run. The remaining base metrics are indexed.
 - A maximum of `100` base metrics are supported per star-tree index.

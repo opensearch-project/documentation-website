@@ -88,5 +88,5 @@ Once you've created or associated alerting monitors, verify that the monitor is 
 
 ## Next steps
 
-- [Learn more about the Dashboard application]({{site.url}}{{site.baseurl}}'dashboards/dashboard/index/).
-- [Learn more about alerting]({{site.url}}{{site.baseurl}}'observing-your-data/alerting/index/).
+- [Learn more about the Dashboard application]({{site.url}}{{site.baseurl}}/dashboards/dashboard/index/).
+- [Learn more about alerting]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/index/).

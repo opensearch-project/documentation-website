@@ -69,7 +69,7 @@ PUT /_wlm/query_group
 | :--- | :--- |
 | `_id`  | The ID of the query group, which can be used to associate query requests with the group and enforce the group's resource limits.  |
 | `name`  | The name of the query group. |
-| `resiliency_mode`  | The resiliency mode of the query group. Valid modes are `enforced`, `soft`, and `monitor`. For more information about resiliency modes, see [Operating modes]({{site.url}}{{site.baseurl}}'tuning-your-cluster/availability-and-recovery/workload-management/wlm-feature-overview/#operating-modes). |
+| `resiliency_mode`  | The resiliency mode of the query group. Valid modes are `enforced`, `soft`, and `monitor`. For more information about resiliency modes, see [Operating modes]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/wlm-feature-overview/#operating-modes). |
 | `resource_limits` | The resource limits for query requests in the query group. Valid resources are `cpu` and `memory`.  |
 
 When creating a query group, make sure that the sum of the resource limits for a single resource, either `cpu` or `memory`, does not exceed 1.

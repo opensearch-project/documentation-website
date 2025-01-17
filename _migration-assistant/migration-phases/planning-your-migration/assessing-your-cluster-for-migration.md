@@ -24,7 +24,7 @@ For migrations paths between Elasticsearch 6.8 and OpenSearch 2.x users should b
 
 * [Changes from Elasticsearch to OpenSearch fork](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/rename.html).
 
-* [OpenSearch Breaking Changes]({{site.url}}{{site.baseurl}}'breaking-changes/).
+* [OpenSearch Breaking Changes]({{site.url}}{{site.baseurl}}/breaking-changes/).
 
 The next step is to set up a proper test bed to verify that your applications will work as expected on the target version.
 
