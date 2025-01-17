@@ -20,11 +20,9 @@ api: wlm.create_query_group
 component: endpoints
 omit_header: true
 -->
-
 ```json
 PUT /_wlm/query_group
 ```
-
 <!-- spec_insert_end -->
 
 ### Update a query group
@@ -34,11 +32,9 @@ api: wlm.create_query_group
 component: endpoints
 omit_header: true
 -->
-
 ```json
 PUT /_wlm/query_group
 ```
-
 <!-- spec_insert_end -->
 
 ### Get a query group
@@ -48,12 +44,10 @@ api: wlm.get_query_group
 component: endpoints
 omit_header: true
 -->
-
 ```json
 GET /_wlm/query_group
 GET /_wlm/query_group/{name}
 ```
-
 <!-- spec_insert_end -->
 
 ### Delete a query group
@@ -63,11 +57,9 @@ api: wlm.create_query_group
 component: endpoints
 omit_header: true
 -->
-
 ```json
 PUT /_wlm/query_group
 ```
-
 <!-- spec_insert_end -->
 
 

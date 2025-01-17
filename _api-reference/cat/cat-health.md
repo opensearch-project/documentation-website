@@ -19,12 +19,10 @@ The CAT health operation lists the status of the cluster, how long the cluster h
 api: cat.health
 component: endpoints
 -->
-
 ## Endpoints
 ```json
 GET /_cat/health
 ```
-
 <!-- spec_insert_end -->
 
 
@@ -34,7 +32,6 @@ component: query_parameters
 columns: Parameter, Data type, Description, Default
 include_deprecated: false
 -->
-
 ## Query parameters
 
 The following table lists the available query parameters. All query parameters are optional.
@@ -48,6 +45,7 @@ The following table lists the available query parameters. All query parameters a
 | `time` | String | The unit used to display time values. <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, `d` | N/A |
 | `ts` | Boolean | When `true`, returns `HH:MM:SS` and Unix epoch timestamps. | `true` |
 | `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
+
 
 <!-- spec_insert_end -->
 

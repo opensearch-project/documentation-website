@@ -19,13 +19,11 @@ The CAT thread pool operation lists the active, queued, and rejected threads of 
 api: cat.thread_pool
 component: endpoints
 -->
-
 ## Endpoints
 ```json
 GET /_cat/thread_pool
 GET /_cat/thread_pool/{thread_pool_patterns}
 ```
-
 <!-- spec_insert_end -->
 
 
@@ -35,7 +33,6 @@ component: query_parameters
 columns: Parameter, Data type, Description, Default
 include_deprecated: false
 -->
-
 ## Query parameters
 
 The following table lists the available query parameters. All query parameters are optional.
@@ -50,6 +47,7 @@ The following table lists the available query parameters. All query parameters a
 | `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
 | `size` | Integer | The multiplier in which to display values. | N/A |
 | `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
+
 
 <!-- spec_insert_end -->
 

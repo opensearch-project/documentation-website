@@ -19,13 +19,11 @@ Call the CAT Segment Replication API only on indexes with segment replication en
 api: cat.segment_replication
 component: endpoints
 -->
-
 ## Endpoints
 ```json
 GET /_cat/segment_replication
 GET /_cat/segment_replication/{index}
 ```
-
 <!-- spec_insert_end -->
 
 <!-- spec_insert_start
@@ -34,7 +32,6 @@ component: path_parameters
 columns: Parameter, Data type, Description
 include_deprecated: false
 -->
-
 ## Path parameters
 
 The following table lists the available path parameters. All path parameters are optional.
@@ -42,6 +39,7 @@ The following table lists the available path parameters. All path parameters are
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | `index` | List | A comma-separated list of data streams, indexes, and aliases used to limit the request. Supports wildcards (`*`). To target all data streams and indexes, omit this parameter or use `*` or `_all`. |
+
 
 <!-- spec_insert_end -->
 
@@ -52,7 +50,6 @@ component: query_parameters
 columns: Parameter, Data type, Description, Default
 include_deprecated: false
 -->
-
 ## Query parameters
 
 The following table lists the available query parameters. All query parameters are optional.
@@ -75,6 +72,7 @@ The following table lists the available query parameters. All query parameters a
 | `time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units](https://opensearch.org/docs/latest/api-reference/units/). <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, `d` | N/A |
 | `timeout` | String | The operation timeout. | N/A |
 | `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
+
 
 <!-- spec_insert_end -->
 

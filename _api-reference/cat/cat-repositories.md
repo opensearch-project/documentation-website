@@ -18,12 +18,10 @@ The CAT repositories operation lists all snapshot repositories for a cluster.
 api: cat.repositories
 component: endpoints
 -->
-
 ## Endpoints
 ```json
 GET /_cat/repositories
 ```
-
 <!-- spec_insert_end -->
 
 
@@ -33,7 +31,6 @@ component: query_parameters
 columns: Parameter, Data type, Description, Default
 include_deprecated: false
 -->
-
 ## Query parameters
 
 The following table lists the available query parameters. All query parameters are optional.
@@ -47,6 +44,7 @@ The following table lists the available query parameters. All query parameters a
 | `local` | Boolean | Returns local information but does not retrieve the state from the cluster manager node. | `false` |
 | `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
 | `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
+
 
 <!-- spec_insert_end -->
 
