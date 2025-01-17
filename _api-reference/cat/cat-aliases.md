@@ -39,8 +39,6 @@ include_deprecated: false
 
 The following table lists the available query parameters. All query parameters are optional.
 
-
-
 | Parameter | Data type | Description | Default |
 | :--- | :--- | :--- | :--- |
 | `expand_wildcards` | List or String | Expands wildcard expressions to concrete indexes. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. <br> Valid values are: <br> - `all`: Match any index, including hidden ones. </br> - `closed`: Match closed, non-hidden indexes. </br> - `hidden`: Match hidden indexes. Must be combined with open, closed, or both. </br> - `none`: Wildcard expressions are not accepted. </br> - `open`: Match open, non-hidden indexes. | N/A |
@@ -50,7 +48,6 @@ The following table lists the available query parameters. All query parameters a
 | `local` | Boolean | Whether to return information from the local node only instead of from the cluster manager node. | `false` |
 | `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
 | `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
-
 
 <!-- spec_insert_end -->
 

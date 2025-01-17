@@ -8,12 +8,9 @@ component: path_parameters
 
 The following table lists the available path parameters. All path parameters are optional.
 
-
-
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | `index` | List or String | Comma-separated list of data streams, indexes, and aliases to search. Supports wildcards (`*`). To search all data streams and indexes, omit this parameter or use `*` or `_all`. <br> Valid values are: `_all`, `_any`, `_none` |
-
 
 <!-- spec_insert_end -->
 
@@ -30,8 +27,6 @@ columns: Data type, Parameter, Description, Required, Default
 
 The following table lists the available query parameters.
 
-
-
 | Data type      | Parameter                 | Description                                                                                                                        | Required     | Default |
 |:---------------|:--------------------------|:-----------------------------------------------------------------------------------------------------------------------------------|:-------------|:--------|
 | Boolean        | `analyze_wildcard`        | If true, wildcard and prefix queries are analyzed. This parameter can only be used when the q query string parameter is specified. | **Required** | `false` |
@@ -39,7 +34,6 @@ The following table lists the available query parameters.
 | List or String | `expand_wildcards`        | Comma-separated list of expand wildcard options. <br> Valid values are: `open`, `closed`, `none`, `all`                            | _Optional_   | N/A     |
 | Boolean        | `pretty`                  | Whether to pretty format the returned JSON response.                                                                               | _Optional_   | N/A     |
 | Boolean        | `human` <br> _DEPRECATED_ | _(Deprecated since 3.0: Use the `format` parameter instead.)_ Whether to return human readable values for statistics.              | _Optional_   | `true`  |
-
 
 <!-- spec_insert_end -->
 
@@ -52,13 +46,11 @@ columns: Parameter, Description
 omit_header: true
 -->
 
-
 | Parameter | Description |
 | :--- | :--- |
 | `analyze_wildcard` | **(Required)** If true, wildcard and prefix queries are analyzed. This parameter can only be used when the q query string parameter is specified. _(Default: `false`)_ |
 | `analyzer` | Analyzer to use for the query string. This parameter can only be used when the q query string parameter is specified. |
 | `expand_wildcards` | Comma-separated list of expand wildcard options. <br> Valid values are: `open`, `closed`, `none`, `all` |
-
 
 <!-- spec_insert_end -->
 
@@ -73,13 +65,10 @@ include_global: true
 
 The following table lists the available query parameters.
 
-
-
 | Parameter | Required | Data type | Description | Default |
 | :--- | :--- | :--- | :--- | :--- |
 | `expand_wildcard` | **Required** | String | Whether to expand wildcard expression to concrete indices that are open, closed, or both. <br> Valid values are: <br> - `open`: Expand wildcards to open indices only. </br> - `closed`: Expand wildcards to closed indices only. </br> - `none`: Do not expand wildcards. | N/A |
 | `pretty` | _Optional_ | Boolean | Whether to pretty format the returned JSON response. | N/A |
 | `human` <br> _DEPRECATED_ | _Optional_ | Boolean | _(Deprecated since 3.0: Use the `format` parameter instead.)_ Whether to return human readable values for statistics. | `true` |
-
 
 <!-- spec_insert_end -->

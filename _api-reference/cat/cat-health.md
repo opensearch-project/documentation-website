@@ -36,8 +36,6 @@ include_deprecated: false
 
 The following table lists the available query parameters. All query parameters are optional.
 
-
-
 | Parameter | Data type | Description | Default |
 | :--- | :--- | :--- | :--- |
 | `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | N/A |
@@ -47,7 +45,6 @@ The following table lists the available query parameters. All query parameters a
 | `time` | String | The unit used to display time values. <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, `d` | N/A |
 | `ts` | Boolean | When `true`, returns `HH:MM:SS` and Unix epoch timestamps. | `true` |
 | `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
-
 
 <!-- spec_insert_end -->
 

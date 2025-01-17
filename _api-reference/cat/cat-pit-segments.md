@@ -41,8 +41,6 @@ include_deprecated: false
 
 The following table lists the available query parameters. All query parameters are optional.
 
-
-
 | Parameter | Data type | Description | Default |
 | :--- | :--- | :--- | :--- |
 | `bytes` | String | The units used to display byte values. <br> Valid values are: `b`, `kb`, `k`, `mb`, `m`, `gb`, `g`, `tb`, `t`, `pb`, `p` | N/A |
@@ -51,7 +49,6 @@ The following table lists the available query parameters. All query parameters a
 | `help` | Boolean | Returns help information. | `false` |
 | `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
 | `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
-
 
 <!-- spec_insert_end -->
 

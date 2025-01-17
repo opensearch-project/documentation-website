@@ -37,8 +37,6 @@ include_deprecated: false
 
 The following table lists the available query parameters. All query parameters are optional.
 
-
-
 | Parameter | Data type | Description | Default |
 | :--- | :--- | :--- | :--- |
 | `cluster_manager_timeout` | String | A timeout for connection to the cluster manager node. | N/A |
@@ -49,7 +47,6 @@ The following table lists the available query parameters. All query parameters a
 | `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
 | `size` | Integer | The multiplier in which to display values. | N/A |
 | `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
-
 
 <!-- spec_insert_end -->
 
