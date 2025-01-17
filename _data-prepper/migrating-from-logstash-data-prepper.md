@@ -29,7 +29,7 @@ As of the OpenSearch Data Prepper 1.2 release, the following plugins from the Lo
 
 ## Running OpenSearch Data Prepper with a Logstash configuration
 
-1. To install OpenSearch Data Prepper's Docker image, see Installing OpenSearch Data Prepper in [Getting Started with OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started#1-installing-data-prepper).
+1. To install OpenSearch Data Prepper's Docker image, see Installing OpenSearch Data Prepper in [Getting Started with OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started#1-installing-opensearch-data-prepper).
 
 2. Run the Docker image installed in Step 1 by supplying your `logstash.conf` configuration.
 
