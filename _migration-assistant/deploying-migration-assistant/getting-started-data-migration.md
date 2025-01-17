@@ -20,7 +20,7 @@ Before using this quickstart, make sure you fulfill the following prerequisites:
 * Verify that your migration path [is supported]({{site.url}}{{site.baseurl}}/migration-assistant/is-migration-assistant-right-for-you/#migration-paths). Note that we test with the exact versions specified, but you should be able to migrate data on alternative minor versions as long as the major version is supported.
 * The source cluster must be deployed Amazon Simple Storage Service (Amazon S3) plugin.
 * The target cluster must be deployed.
-* Verify that the `CDKToolkit` stack exists and is set to `CREATE_COMPLETE`. For more information about on how to bootstrap your AWS account in the required AWS Region, see [the CDKTooklit documentation](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html).
+* Verify that the `CDKToolkit` stack exists and is set to `CREATE_COMPLETE`. For more information about how to bootstrap your AWS account in the required AWS Region, see [the CDKToolkit documentation](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html).
 
 The steps in this guide assume the following:
 
@@ -71,7 +71,7 @@ Use the following steps to set up Bootstrap instance access:
     {% include copy.html %}
 
 3. Name the policy, for example, `SSM-OSMigrationBootstrapAccess`, and then create the policy by selecting **Create policy**.
-4. Attach the newly created policy to your EC2 instance's IAM Role.
+4. Attach the newly created policy to your EC2 instance's IAM role.
 
 ---
 
@@ -109,7 +109,7 @@ To use these steps, make sure you fulfill the following prerequisites:
 
 ## Step 4: Configure and deploy RFS (~20 minutes)
 
-To deploy migration assistant with RFS, the following stacks must be deployed:
+To deploy Migration Assistant with RFS, the following stacks must be deployed:
 
 These commands deploy the following stacks:
 
@@ -117,9 +117,9 @@ These commands deploy the following stacks:
 * `RFS` stack
 * `Migration console` stack
 
-Use the following steps to configure and deploy RFS, deploy Migration Assistant and verify installation of required stacks:
+Use the following steps to configure and deploy RFS, deploy Migration Assistant, and verify installation of the required stacks:
 
-1. Add the source and target cluster password as separate **Secrets** in the [AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html) as an unstructured string. Be sure to copy the secret Amazon Resource Name (ARN) for use during deployment.
+1. Add the source and target cluster password as separate **Secrets** in [AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html) as an unstructured string. Be sure to copy the secret Amazon Resource Name (ARN) for use during deployment.
 2. From the same shell as the Bootstrap instance, modify the `cdk.context.json` file located in the `/opensearch-migrations/deployment/cdk/opensearch-service-migration` directory and configure the following settings:
 
     ```json
@@ -170,14 +170,14 @@ Use the following steps to configure and deploy RFS, deploy Migration Assistant 
     ```
     {% include copy.html %}
     
-5. Verify from the same bootstrap instance shell that all CloudFormation stacks were installed successfully:
+5. From the same Bootstrap instance shell, verify that all CloudFormation stacks were installed successfully:
 
     ```bash
     aws cloudformation list-stacks --query "StackSummaries[?StackStatus!='DELETE_COMPLETE'].[StackName,StackStatus]" --output table
     ```
     {% include copy.html %}
     
-You should receive a similar output for your region:
+You should receive a similar output for your Region:
 
 ```bash
 ------------------------------------------------------------------------
