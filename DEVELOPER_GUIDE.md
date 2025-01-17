@@ -63,6 +63,11 @@ bundle exec jekyll spec-insert --refresh-spec
 ### Ignoring files and folders
 The `spec-insert` plugin ignores all files and folders listed in the [./_config.yml#exclude](./_config.yml) list, which is also the list of files and folders that Jekyll ignores.
 
+### Configuration
+You can update the configuration settings for this plugin through the [config.yml](./spec-insert/config.yml) file. 
+
+_Note that tests for this plugin use a mock configuration [file](./spec-insert/spec/mock_config.yml) to assure that the tests still pass when the config file is altered. The expected output for the tests is based on the mock configuration file and will look different from the actual output when the plugin is run._
+
 ## CI/CD
 The `spec-insert` plugin is run as part of the CI/CD pipeline to ensure that the API components are up to date in the documentation. This is performed through the [update-api-components.yml](.github/workflows/update-api-components.yml) GitHub Actions workflow, which creates a pull request containing the updated API components every Sunday.
 

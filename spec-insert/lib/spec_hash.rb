@@ -34,7 +34,7 @@ class SpecHash
     parse(@hash[key])
   end
 
-  def respond_to_missing?(name)
+  def respond_to_missing?(name, include_private = false)
     @hash.key?(name.to_s) || {}.respond_to?(name) || super
   end
 

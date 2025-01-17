@@ -1,0 +1,6 @@
+param_table:
+  default_column:
+    empty_text: N/A
+  required_column:
+    true_text: "**Required**"
+    false_text: _Optional_

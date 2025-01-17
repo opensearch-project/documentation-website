@@ -41,18 +41,18 @@ class TableRenderer
 
   def render_column
     columns = @column.map { |column| column.title.ljust(column.width) }.join(' | ')
-    @pretty ? "| #{columns} |" : columns
+    "| #{columns} |"
   end
 
   def render_divider
     dividers = @column.map { |column| ":#{'-' * [column.width + 1, 3].max}" }
-    @pretty ? "|#{dividers.join('|')}|" : dividers.join(' | ')
+    @pretty ? "|#{dividers.join('|')}|" : "| #{dividers.join(' | ')} |"
   end
 
   def render_rows
     @rows.map do |row|
       cells = @column.map { |column| row[column.key].to_s.ljust(column.width).gsub('|', '\|') }.join(' | ')
-      @pretty ? "| #{cells} |" : cells
+      "| #{cells} |"
     end
   end
 end
