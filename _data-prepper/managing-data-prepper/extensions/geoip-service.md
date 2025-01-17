@@ -3,12 +3,12 @@ layout: default
 title: geoip_service
 nav_order: 5
 parent: Extensions
-grand_parent: Managing Data Prepper
+grand_parent: Managing OpenSearch Data Prepper
 ---
 
 # geoip_service
 
-The `geoip_service` extension configures all [`geoip`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/geoip) processors in Data Prepper.
+The `geoip_service` extension configures all [`geoip`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/geoip) processors in OpenSearch Data Prepper.
 
 ## Usage
 

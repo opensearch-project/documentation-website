@@ -9,7 +9,7 @@ nav_order: 49
 # geoip
 
 The `geoip` processor enriches events with geographic information extracted from IP addresses contained in the events.
-By default, Data Prepper uses the [MaxMind GeoLite2](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data) geolocation database.
+By default, OpenSearch Data Prepper uses the [MaxMind GeoLite2](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data) geolocation database.
 Data Prepper administrators can configure the databases using the [`geoip_service`]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/extensions/geoip-service/) extension configuration.
 
 ## Usage

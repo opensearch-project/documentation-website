@@ -1,13 +1,13 @@
 ---
 layout: default
 title: Core APIs
-parent: Managing Data Prepper
+parent: Managing OpenSearch Data Prepper
 nav_order: 15
 ---
 
 # Core APIs
 
-All Data Prepper instances expose a server with some control APIs. By default, this server runs on port 4900. Some plugins, especially source plugins, may expose other servers that run on different ports. Configurations for these plugins are independent of the core API. For example, to shut down Data Prepper, you can run the following curl request:
+All OpenSearch Data Prepper instances expose a server with some control APIs. By default, this server runs on port 4900. Some plugins, especially source plugins, may expose other servers that run on different ports. Configurations for these plugins are independent of the core API. For example, to shut down Data Prepper, you can run the following curl request:
 
 ```
 curl -X POST http://localhost:4900/shutdown
