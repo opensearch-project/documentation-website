@@ -20,7 +20,7 @@ This section provides documentation for OpenSearch-supported tools, including:
 - [OpenSearch upgrade, migration, and comparison tools](#opensearch-upgrade-migration-and-comparison-tools)
 - [Sycamore](#sycamore) for AI-powered extract, transform, load (ETL) on complex documents for vector and hybrid search
 
-For information about OpenSearch Data Prepper, the server-side data collector for filtering, enriching, transforming, normalizing, and aggregating data for downstream analytics and visualization, see [OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/index/).
+For information about Data Prepper, the server-side data collector for filtering, enriching, transforming, normalizing, and aggregating data for downstream analytics and visualization, see [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/index/).
 
 ## Agents and ingestion tools
 

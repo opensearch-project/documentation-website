@@ -7,9 +7,9 @@ nav_order: 15
 
 # Dead-letter queues
 
-OpenSearch Data Prepper pipelines support dead-letter queues (DLQs) for offloading failed events and making them accessible for analysis.
+Data Prepper pipelines support dead-letter queues (DLQs) for offloading failed events and making them accessible for analysis.
 
-As of OpenSearch Data Prepper 2.3, only the `s3` source supports DLQs.
+As of Data Prepper 2.3, only the `s3` source supports DLQs.
 
 ## Configure a DLQ writer
 
@@ -34,7 +34,7 @@ dlq-v${version}-${pipelineName}-${pluginId}-${timestampIso8601}-${uniqueId}
 The following information is replaced in the name pattern:
 
 
-- `version`: The OpenSearch Data Prepper version.
+- `version`: The Data Prepper version.
 - `pipelineName`: The pipeline name indicated in pipeline.yaml.
 - `pluginId`: The ID of the plugin associated with the DLQ event.
 
@@ -78,6 +78,6 @@ DLQ supports the following DLQ objects:
 * `pluginId`: The ID of the plugin that originated the event sent to the DLQ.
 * `pluginName`: The name of the plugin.
 * `failedData` : An object that contains the failed object and its options. This object is unique to each plugin.
-* `pipelineName`: The name of the OpenSearch Data Prepper pipeline in which the event failed.
+* `pipelineName`: The name of the Data Prepper pipeline in which the event failed.
 * `timestamp`: The timestamp of the failures in an `ISO8601` format.
 

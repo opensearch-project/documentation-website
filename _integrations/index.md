@@ -39,7 +39,7 @@ This shared schema allows cross-correlation and analysis across different data s
 
 Data ingested into OpenSearch must conform to the supported schemas for data integrations and their associated dashboards. Compatible data pipelines are required, such as the following:
 
-- [OpenSearch Data Prepper](https://github.com/opensearch-project/data-prepper)
+- [Data Prepper](https://github.com/opensearch-project/data-prepper)
 - [OpenTelemetry Collector](https://github.com/open-telemetry/opentelemetry-collector)
 - [Fluent Bit for OpenSearch](https://docs.fluentbit.io/manual/pipeline/outputs/opensearch)
 

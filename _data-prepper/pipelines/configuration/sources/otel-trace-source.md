@@ -19,7 +19,7 @@ Option | Required | Type | Description
 port | No | Integer | The port that the `otel_trace_source` source runs on. Default value is `21890`.
 request_timeout | No | Integer | The request timeout, in milliseconds. Default value is `10000`.
 health_check_service | No | Boolean | Enables a gRPC health check service under `grpc.health.v1/Health/Check`. Default value is `false`.
-unauthenticated_health_check | No | Boolean | Determines whether or not authentication is required on the health check endpoint. OpenSearch Data Prepper ignores this option if no authentication is defined. Default value is `false`.
+unauthenticated_health_check | No | Boolean | Determines whether or not authentication is required on the health check endpoint. Data Prepper ignores this option if no authentication is defined. Default value is `false`.
 proto_reflection_service | No | Boolean | Enables a reflection service for Protobuf services (see [gRPC reflection](https://github.com/grpc/grpc/blob/master/doc/server-reflection.md) and [gRPC Server Reflection Tutorial](https://github.com/grpc/grpc-java/blob/master/documentation/server-reflection-tutorial.md) docs). Default value is `false`.
 unframed_requests | No | Boolean | Enable requests not framed using the gRPC wire protocol.
 thread_count | No | Integer | The number of threads to keep in the ScheduledThreadPool. Default value is `200`.

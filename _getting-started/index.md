@@ -21,7 +21,7 @@ An equally popular, but less obvious use case is log analytics, in which you tak
 OpenSearch is more than just the core engine. It also includes the following components:
 
 - [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/): The OpenSearch data visualization UI.
-- [OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/): A server-side data collector capable of filtering, enriching, transforming, normalizing, and aggregating data for downstream analysis and visualization.
+- [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/): A server-side data collector capable of filtering, enriching, transforming, normalizing, and aggregating data for downstream analysis and visualization.
 - [Clients]({{site.url}}{{site.baseurl}}/clients/): Language APIs that let you communicate with OpenSearch in several popular programming languages.
 
 ## Use cases

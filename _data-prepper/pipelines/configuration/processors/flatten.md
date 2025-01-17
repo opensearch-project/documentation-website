@@ -26,7 +26,7 @@ Option | Required | Type | Description
 
 ## Usage
 
-The following examples show how the `flatten` processor can be used in OpenSearch Data Prepper pipelines.
+The following examples show how the `flatten` processor can be used in Data Prepper pipelines.
 
 ### Minimum configuration
 
