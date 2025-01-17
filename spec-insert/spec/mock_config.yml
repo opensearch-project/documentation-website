@@ -3,4 +3,4 @@ param_table:
     empty_text: N/A
   required_column:
     true_text: "**Required**"
-    false_text: _optional_
+    false_text: _Optional_
