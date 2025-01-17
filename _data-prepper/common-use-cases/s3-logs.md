@@ -7,13 +7,13 @@ nav_order: 40
 
 # S3 logs
 
-OpenSearch Data Prepper allows you to load logs from [Amazon Simple Storage Service](https://aws.amazon.com/s3/) (Amazon S3), including traditional logs, JSON documents, and CSV logs.
+Data Prepper allows you to load logs from [Amazon Simple Storage Service](https://aws.amazon.com/s3/) (Amazon S3), including traditional logs, JSON documents, and CSV logs.
 
 ## Architecture
 
-OpenSearch Data Prepper can read objects from S3 buckets using an [Amazon Simple Queue Service (SQS)](https://aws.amazon.com/sqs/) (Amazon SQS) queue and [Amazon S3 Event Notifications](https://docs.aws.amazon.com/AmazonS3/latest/userguide/NotificationHowTo.html).
+Data Prepper can read objects from S3 buckets using an [Amazon Simple Queue Service (SQS)](https://aws.amazon.com/sqs/) (Amazon SQS) queue and [Amazon S3 Event Notifications](https://docs.aws.amazon.com/AmazonS3/latest/userguide/NotificationHowTo.html).
 
-OpenSearch Data Prepper polls the Amazon SQS queue for S3 event notifications. When OpenSearch Data Prepper receives a notification that an S3 object was created, OpenSearch Data Prepper reads and parses that S3 object.
+Data Prepper polls the Amazon SQS queue for S3 event notifications. When Data Prepper receives a notification that an S3 object was created, Data Prepper reads and parses that S3 object.
 
 The following diagram shows the overall architecture of the components involved.
 
@@ -23,38 +23,38 @@ The component data flow is as follows:
 
 1. A system produces logs into the S3 bucket.
 2. S3 creates an S3 event notification in the SQS queue.
-3. OpenSearch Data Prepper polls Amazon SQS for messages and then receives a message.
-4. OpenSearch Data Prepper downloads the content from the S3 object.
-5. OpenSearch Data Prepper sends a document to OpenSearch for the content in the S3 object.
+3. Data Prepper polls Amazon SQS for messages and then receives a message.
+4. Data Prepper downloads the content from the S3 object.
+5. Data Prepper sends a document to OpenSearch for the content in the S3 object.
 
 ## Pipeline overview
 
-OpenSearch Data Prepper supports reading data from S3 using the [`s3` source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3/).
+Data Prepper supports reading data from S3 using the [`s3` source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3/).
 
-The following diagram shows a conceptual outline of an OpenSearch Data Prepper pipeline reading from S3.
+The following diagram shows a conceptual outline of a Data Prepper pipeline reading from S3.
 
 <img src="{{site.url}}{{site.baseurl}}/images/data-prepper/s3-source/s3-pipeline.jpg" alt="S3 source architecture">{: .img-fluid}
 
 ## Prerequisites
 
-Before OpenSearch Data Prepper can read log data from S3, you need the following prerequisites: 
+Before Data Prepper can read log data from S3, you need the following prerequisites: 
 
 - An S3 bucket.
 - A log producer that writes logs to S3. The exact log producer will vary depending on your specific use case, but could include writing logs to S3 or a service such as Amazon CloudWatch.
 
 ## Getting started
 
-Use the following steps to begin loading logs from S3 with OpenSearch Data Prepper.
+Use the following steps to begin loading logs from S3 with Data Prepper.
 
 1. Create an [SQS standard queue](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/step-create-queue.html) for your S3 event notifications. 
 2. Configure [bucket notifications](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ways-to-add-notification-config-to-bucket.html) for SQS. Use the `s3:ObjectCreated:*` event type.
-3. Grant [AWS IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html) permissions to OpenSearch Data Prepper for accessing SQS and S3.
+3. Grant [AWS IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html) permissions to Data Prepper for accessing SQS and S3.
 4. (Recommended) Create an [SQS dead-letter queue](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html) (DLQ).
 5. (Recommended) Configure an SQS re-drive policy to move failed messages into the DLQ.
 
-### Setting permissions for OpenSearch Data Prepper
+### Setting permissions for Data Prepper
 
-To view S3 logs, OpenSearch Data Prepper needs access to Amazon SQS and S3. Use the following example to set up permissions:
+To view S3 logs, Data Prepper needs access to Amazon SQS and S3. Use the following example to set up permissions:
 
 ```json
 {
@@ -103,7 +103,7 @@ To use an SQS dead-letter queue, perform the following steps:
 
 1. Create a new SQS standard queue to act as the DLQ.
 2. Configure your SQS re-drive policy [to use DLQ](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-dead-letter-queue.html). Consider using a low value such as 2 or 3 for the **Maximum Receives** setting.
-3. Configure the OpenSearch Data Prepper `s3` source to use `retain_messages` for `on_error`. This is the default behavior.
+3. Configure the Data Prepper `s3` source to use `retain_messages` for `on_error`. This is the default behavior.
 
 ## Pipeline design
 
@@ -128,7 +128,7 @@ Configure the following options according to your use case:
 
 * `queue_url`: This the SQS queue URL and is always unique to your pipeline.
 * `codec`: The codec determines how to parse the incoming data.
-* `visibility_timeout`: Configure this value to be large enough for OpenSearch Data Prepper to process 10 S3 objects. However, if you make this value too large, messages that fail to process will take at least as long as the specified value before OpenSearch Data Prepper retries.
+* `visibility_timeout`: Configure this value to be large enough for Data Prepper to process 10 S3 objects. However, if you make this value too large, messages that fail to process will take at least as long as the specified value before Data Prepper retries.
 
 The default values for each option work for the majority of use cases. For all available options for the S3 source, see [`s3`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3/).
 
@@ -164,9 +164,9 @@ s3-log-pipeline:
 ```
 {% include copy-curl.html %}
 
-## Multiple OpenSearch Data Prepper pipelines
+## Multiple Data Prepper pipelines
 
-It is recommended that you have one SQS queue per OpenSearch Data Prepper pipeline. In addition, you can have multiple nodes in the same cluster reading from the same SQS queue, which doesn't require additional OpenSearch Data Prepper configuration.
+It is recommended that you have one SQS queue per Data Prepper pipeline. In addition, you can have multiple nodes in the same cluster reading from the same SQS queue, which doesn't require additional Data Prepper configuration.
 
 If you have multiple pipelines, you must create multiple SQS queues for each pipeline, even if both pipelines use the same S3 bucket.
 
@@ -174,7 +174,7 @@ If you have multiple pipelines, you must create multiple SQS queues for each pip
 
 To meet the scale of logs produced by S3, some users require multiple SQS queues for their logs. You can use [Amazon Simple Notification Service](https://docs.aws.amazon.com/sns/latest/dg/welcome.html) (Amazon SNS) to route event notifications from S3 to an SQS [fanout pattern](https://docs.aws.amazon.com/sns/latest/dg/sns-common-scenarios.html). Using SNS, all S3 event notifications are sent directly to a single SNS topic, where you can subscribe to multiple SQS queues.
 
-To make sure that OpenSearch Data Prepper can directly parse the event from the SNS topic, configure [raw message delivery](https://docs.aws.amazon.com/sns/latest/dg/sns-large-payload-raw-message-delivery.html) on the SNS-to-SQS subscription. Applying this option does not affect other SQS queues subscribed to the SNS topic.
+To make sure that Data Prepper can directly parse the event from the SNS topic, configure [raw message delivery](https://docs.aws.amazon.com/sns/latest/dg/sns-large-payload-raw-message-delivery.html) on the SNS-to-SQS subscription. Applying this option does not affect other SQS queues subscribed to the SNS topic.
 
 ## Filtering and retrieving data using Amazon S3 Select
 

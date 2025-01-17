@@ -16,13 +16,13 @@ An _ingest pipeline_ is a sequence of _processors_ that are applied to documents
 
 Processors are customizable tasks that run in a sequential order as they appear in the request body. This order is important, as each processor depends on the output of the previous processor. The modified documents appear in your index after the processors are applied.
 
-## OpenSearch ingest pipelines compared to OpenSearch Data Prepper
+## OpenSearch ingest pipelines compared to Data Prepper
 
-OpenSeach ingest pipelines run within the OpenSearch cluster, whereas [OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/) is an external component that runs on the OpenSearch cluster. 
+OpenSeach ingest pipelines run within the OpenSearch cluster, whereas [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/) is an external component that runs on the OpenSearch cluster. 
 
 OpenSearch ingest pipelines perform actions on indexes and are preferred for use cases involving pre-processing simple datasets, [machine learning (ML) processors]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/sparse-encoding/), and [vector embedding processors]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-image-embedding/). OpenSearch ingest pipelines are recommended for simple data pre-processing and small datasets. 
 
-OpenSearch Data Prepper is recommended for any data processing tasks it supports, particularly when dealing with large datasets and complex data pre-processing requirements. It streamlines the process of transferring and fetching large datasets while providing robust capabilities for intricate data preparation and transformation operations. Refer to the [OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/) documentation for more information.      
+Data Prepper is recommended for any data processing tasks it supports, particularly when dealing with large datasets and complex data pre-processing requirements. It streamlines the process of transferring and fetching large datasets while providing robust capabilities for intricate data preparation and transformation operations. Refer to the [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/) documentation for more information.      
 
 OpenSearch ingest pipelines can only be managed using [Ingest API operations]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/).
 {: .note}

@@ -16,12 +16,12 @@ The trace analytics functionality in the OpenSearch Observability plugin now sup
 
 When you perform trace analytics, you can select from two data sources:
 
-- **OpenSearch Data Prepper** – Data ingested into OpenSearch through OpenSearch Data Prepper
+- **Data Prepper** – Data ingested into OpenSearch through Data Prepper
 - **Jaeger** – Trace data stored within OpenSearch as its backend
 
 If you store your Jaeger trace data in OpenSearch, you can now use the built-in trace analytics capabilities to analyze the error rates and latency. You can also filter the traces and analyze the span details of a trace to pinpoint any service issues.
 
-When you ingest Jaeger data into OpenSearch, it gets stored in a different index than the OTel-generated index that gets created when you run data through OpenSearch Data Prepper. Use the data source selector in OpenSearch Dashboards to indicate the data source on which you want to perform trace analytics.
+When you ingest Jaeger data into OpenSearch, it gets stored in a different index than the OTel-generated index that gets created when you run data through Data Prepper. Use the data source selector in OpenSearch Dashboards to indicate the data source on which you want to perform trace analytics.
 
 Jaeger trace data that you can analyze includes span data as well as service and operation endpoint data. <!-- Need more info for next release. add how to configure for span analysis. Jaeger span data analysis requires some configuration.-->
 
@@ -207,7 +207,7 @@ To analyze the Jaeger trace data in Dashboards, first set up the trace analytics
 
 ### Data sources
 
-You can specify either OpenSearch Data Prepper or Jaeger as the data source when you perform trace analytics.
+You can specify either Data Prepper or Jaeger as the data source when you perform trace analytics.
 From Dashboards, go to **Observability > Trace analytics** and select Jaeger.
 
 ![Select data source]({{site.url}}{{site.baseurl}}/images/trace-analytics/select-data.png)

@@ -223,7 +223,7 @@ benchmark_collection:
 data_prepper_collection:
   collections:
     data-prepper: 
-      name: OpenSearch Data Prepper
+      name: Data Prepper
       nav_fold: true
 
 # Defaults
@@ -240,7 +240,7 @@ defaults:
       path: "_data-prepper"
     values:
       section: "data-prepper"
-      section-name: "OpenSearch Data Prepper"
+      section-name: "Data Prepper"
   -
     scope:
       path: "_clients"
