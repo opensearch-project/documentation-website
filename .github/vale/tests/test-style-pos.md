@@ -38,6 +38,8 @@ This sentence tests [links end slash]({{site.url}}{{site.baseurl}}/opensearch).
 
 This sentence tests [links mid slash]({{site.url}}{{site.baseurl}}opensearch).
 
+This sentence tests [links explicit](https://www.opensearch.org/docs/latest/double-slash/).
+
 This sentence tests log-in as a noun. To login, we test this as a verb.
 
 To test merge conflicts, remove tick marks in `<<<<<<< HEAD`.
