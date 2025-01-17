@@ -27,8 +27,10 @@ class TableRenderer
 
   # @return [Array<String>]
   def render_lines
+    \n
     calculate_column_widths if @pretty
-    \n [render_column, render_divider] \n + render_rows
+    [render_column, render_divider] + render_rows
+    \n
   end
 
   private
