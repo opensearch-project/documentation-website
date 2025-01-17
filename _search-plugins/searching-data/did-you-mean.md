@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Did-you-mean
-parent: Searching data
-nav_order: 25
+parent: Search options
+nav_order: 70
 redirect_from:
   - /opensearch/search/did-you-mean/
 ---
