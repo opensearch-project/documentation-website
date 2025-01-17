@@ -84,7 +84,7 @@ The `opensearch` source can be configured with Amazon OpenSearch Serverless by s
 
 ## Using metadata
 
-When the `opensource` source constructs Data Prepper events from documents in the cluster, the document index is stored in the EventMetadata with an `opensearch-index` key, and the document_id is stored in the `EventMetadata` with the `opensearch-document_id` as the key. This allows for conditional routing based on the index or `document_id`. The following example pipeline configuration sends events to an `opensearch` sink and uses the same index and `document_id` from the source cluster as in the destination cluster:
+When the `opensource` source constructs OpenSearch Data Prepper events from documents in the cluster, the document index is stored in the EventMetadata with an `opensearch-index` key, and the document_id is stored in the `EventMetadata` with the `opensearch-document_id` as the key. This allows for conditional routing based on the index or `document_id`. The following example pipeline configuration sends events to an `opensearch` sink and uses the same index and `document_id` from the source cluster as in the destination cluster:
 
 
 ```yaml
