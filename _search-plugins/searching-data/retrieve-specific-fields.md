@@ -1,8 +1,8 @@
 ---
 layout: default
-parent: Searching data
+parent: Search options
 title: Retrieve specific fields
-nav_order: 60
+nav_order: 80
 ---
 
 # Retrieve specific fields
