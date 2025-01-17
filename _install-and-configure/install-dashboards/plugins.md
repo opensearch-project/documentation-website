@@ -98,7 +98,7 @@ This plugin provides a user interface for using SQL queries to explore your data
 sudo bin/opensearch-dashboards-plugin install https://d3g5vo6xdbdb9a.cloudfront.net/downloads/opensearch-dashboards-plugins/opensearch-trace-analytics/opensearchTraceAnalyticsOpenSearch Dashboards-{{site.opensearch_major_minor_version}}.2.0.zip
 ```
 
-This plugin uses distributed trace data (indexed in OpenSearch using Data Prepper) to display latency trends, error rates, and more.
+This plugin uses distributed trace data (indexed in OpenSearch using OpenSearch Data Prepper) to display latency trends, error rates, and more.
 
 #### Notebooks OpenSearch Dashboards
 

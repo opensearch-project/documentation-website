@@ -9,4 +9,4 @@ redirect_from:
 
 # Common use cases
 
-You can use Data Prepper for several different purposes, including trace analytics, log analytics, Amazon S3 log analytics, and metrics ingestion.
+You can use OpenSearch Data Prepper for several different purposes, including trace analytics, log analytics, Amazon S3 log analytics, and metrics ingestion.

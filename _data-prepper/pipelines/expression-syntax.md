@@ -7,7 +7,7 @@ nav_order: 5
 
 # Expression syntax  
 
-Expressions provide flexibility in manipulating, filtering, and routing data. The following sections provide information about expression syntax in Data Prepper.
+Expressions provide flexibility in manipulating, filtering, and routing data. The following sections provide information about expression syntax in OpenSearch Data Prepper.
 
 ## Key terms
 
@@ -16,7 +16,7 @@ The following key terms are used in the context of expressions.
 Term | Definition
 -----|-----------
 **Expression** | A generic component that contains a primary or an operator. Expressions can be nested within other expressions. An expression's imminent children can contain 0–1 operators.
-**Expression string** | The highest priority in a Data Prepper expression and supports only one expression string resulting in a return value. An expression string is not the same as an expression.
+**Expression string** | The highest priority in an OpenSearch Data Prepper expression and supports only one expression string resulting in a return value. An expression string is not the same as an expression.
 **Literal** | A fundamental value that has no children. A literal can be one of the following: float, integer, Boolean, JSON pointer, string, or null. See [Literals](#literals).
 **Operator** | A hardcoded token that identifies the operation used in an expression.
 **Primary** | Can be one of the following: set initializer, priority expression, or literal.
@@ -154,7 +154,7 @@ Certain symbols, such as ^, %, xor, =, +=, -=, *=, /=, %=, ++, --, and ${<text>}
 
 ## Syntax components
 
-Syntax components are the building blocks of expressions in Data Prepper. They allow you to define sets, specify evaluation order, reference values within events, use literal values, and follow specific white space rules. Understanding these components is crucial for creating and working with expressions effectively in Data Prepper pipelines.
+Syntax components are the building blocks of expressions in OpenSearch Data Prepper. They allow you to define sets, specify evaluation order, reference values within events, use literal values, and follow specific white space rules. Understanding these components is crucial for creating and working with expressions effectively in OpenSearch Data Prepper pipelines.
 
 ### Priority expressions
 
@@ -208,7 +208,7 @@ The following is an example of an escaped JSON pointer:
 
 ### Literals
 
-Literals are fundamental values that have no children. Data Prepper supports the following literal types: 
+Literals are fundamental values that have no children. OpenSearch Data Prepper supports the following literal types: 
 
 - **Float:** Supports values from 3.40282347 x 10^38 to 1.40239846 x 10^-45.
 - **Integer:** Supports values from -2,147,483,648 to 2,147,483,647.
