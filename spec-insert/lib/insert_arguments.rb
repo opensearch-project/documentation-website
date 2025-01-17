@@ -2,8 +2,6 @@
 
 # Doc Insert Arguments
 class InsertArguments
-  COLUMNS = ['Parameter', 'Description', 'Required', 'Data type', 'Default'].freeze
-  DEFAULT_COLUMNS = ['Parameter', 'Data type', 'Description'].freeze
   attr_reader :raw
 
   # @param [Array<String>] lines the lines between <!-- doc_insert_start and -->
@@ -27,10 +25,7 @@ class InsertArguments
 
   # @return [Array<String>]
   def columns
-    cols = parse_array(@raw['columns']) || DEFAULT_COLUMNS
-    invalid = cols - COLUMNS
-    raise ArgumentError, "Invalid column(s): #{invalid.join(', ')}" unless invalid.empty?
-    cols
+    parse_array(@raw['columns']) || []
   end
 
   # @return [Boolean]
