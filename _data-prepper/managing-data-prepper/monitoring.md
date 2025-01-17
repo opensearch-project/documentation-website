@@ -1,17 +1,17 @@
 ---
 layout: default
 title: Monitoring
-parent: Managing Data Prepper
+parent: Managing OpenSearch Data Prepper
 nav_order: 25
 ---
  
-# Monitoring Data Prepper with metrics
+# Monitoring OpenSearch Data Prepper with metrics
 
-You can monitor Data Prepper with metrics using [Micrometer](https://micrometer.io/). There are two types of metrics: JVM/system metrics and plugin metrics. [Prometheus](https://prometheus.io/) is used as the default metrics backend.
+You can monitor OpenSearch Data Prepper with metrics using [Micrometer](https://micrometer.io/). There are two types of metrics: JVM/system metrics and plugin metrics. [Prometheus](https://prometheus.io/) is used as the default metrics backend.
 
 ## JVM and system metrics
 
-JVM and system metrics are runtime metrics that are used to monitor Data Prepper instances. They include metrics for classloaders, memory, garbage collection, threads, and others. For more information, see [JVM and system metrics](https://micrometer.io/?/docs/ref/jvm).
+JVM and system metrics are runtime metrics that are used to monitor OpenSearch Data Prepper instances. They include metrics for classloaders, memory, garbage collection, threads, and others. For more information, see [JVM and system metrics](https://micrometer.io/?/docs/ref/jvm).
 
 ### Naming
 
@@ -19,11 +19,11 @@ JVM and system metrics follow predefined names in [Micrometer](https://micromete
 
 ### Serving
 
-By default, metrics are served from the **/metrics/sys** endpoint on the Data Prepper server in Prometheus scrape format. You can configure Prometheus to scrape from the Data Prepper URL. Prometheus then polls Data Prepper for metrics and stores them in its database. To visualize the data, you can set up any frontend that accepts Prometheus metrics, such as [Grafana](https://prometheus.io/docs/visualization/grafana/). You can update the configuration to serve metrics to other registries like Amazon CloudWatch, which does not require or host the endpoint but publishes the metrics directly to CloudWatch.
+By default, metrics are served from the **/metrics/sys** endpoint on the OpenSearch Data Prepper server in Prometheus scrape format. You can configure Prometheus to scrape from the OpenSearch Data Prepper URL. Prometheus then polls OpenSearch Data Prepper for metrics and stores them in its database. To visualize the data, you can set up any frontend that accepts Prometheus metrics, such as [Grafana](https://prometheus.io/docs/visualization/grafana/). You can update the configuration to serve metrics to other registries like Amazon CloudWatch, which does not require or host the endpoint but publishes the metrics directly to CloudWatch.
 
 ## Plugin metrics
 
-Plugins report their own metrics. Data Prepper uses a naming convention to help with consistency in the metrics. Plugin metrics do not use dimensions. 
+Plugins report their own metrics. OpenSearch Data Prepper uses a naming convention to help with consistency in the metrics. Plugin metrics do not use dimensions. 
 
 
 1. AbstractBuffer
@@ -56,4 +56,4 @@ Metrics follow a naming convention of **PIPELINE_NAME_PLUGIN_NAME_METRIC_NAME**.
 
 ### Serving
 
-By default, metrics are served from the **/metrics/sys** endpoint on the Data Prepper server in a Prometheus scrape format. You can configure Prometheus to scrape from the Data Prepper URL. The Data Prepper server port has a default value of `4900` that you can modify, and this port can be used for any frontend that accepts Prometheus metrics, such as [Grafana](https://prometheus.io/docs/visualization/grafana/). You can update the configuration to serve metrics to other registries like CloudWatch, that does not require or host the endpoint, but publishes the metrics directly to CloudWatch.
+By default, metrics are served from the **/metrics/sys** endpoint on the OpenSearch Data Prepper server in a Prometheus scrape format. You can configure Prometheus to scrape from the OpenSearch Data Prepper URL. The OpenSearch Data Prepper server port has a default value of `4900` that you can modify, and this port can be used for any frontend that accepts Prometheus metrics, such as [Grafana](https://prometheus.io/docs/visualization/grafana/). You can update the configuration to serve metrics to other registries like CloudWatch, that does not require or host the endpoint, but publishes the metrics directly to CloudWatch.

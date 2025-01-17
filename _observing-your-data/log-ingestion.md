@@ -12,7 +12,7 @@ Log ingestion provides a way to transform unstructured log data into structured 
 
 ## Get started with log ingestion
 
-OpenSearch Log Ingestion consists of three components---[Data Prepper]({{site.url}}{{site.baseurl}}/clients/data-prepper/index/), [OpenSearch]({{site.url}}{{site.baseurl}}/quickstart/), and [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/). The Data Prepper repository contains several [sample applications](https://github.com/opensearch-project/data-prepper/tree/main/examples) that you can use to get started.
+OpenSearch Log Ingestion consists of three components---[OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/clients/data-prepper/index/), [OpenSearch]({{site.url}}{{site.baseurl}}/quickstart/), and [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/). The OpenSearch Data Prepper repository contains several [sample applications](https://github.com/opensearch-project/data-prepper/tree/main/examples) that you can use to get started.
 
 ### Basic flow of data
 
@@ -20,20 +20,20 @@ OpenSearch Log Ingestion consists of three components---[Data Prepper]({{site.ur
 
 1. Log Ingestion relies on you adding log collection to your application's environment to gather and send log data.
 
-   (In the [example](#example) below, [FluentBit](https://docs.fluentbit.io/manual/) is used as a log collector that collects log data from a file and sends the log data to Data Prepper).
+   (In the [example](#example) below, [FluentBit](https://docs.fluentbit.io/manual/) is used as a log collector that collects log data from a file and sends the log data to OpenSearch Data Prepper).
 
-2. [Data Prepper]({{site.url}}{{site.baseurl}}/clients/data-prepper/index/) receives the log data, transforms the data into a structure format, and indexes it on an OpenSearch cluster.
+2. [OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/clients/data-prepper/index/) receives the log data, transforms the data into a structure format, and indexes it on an OpenSearch cluster.
 
 3. The data can then be explored through OpenSearch search queries or the **Discover** page in OpenSearch Dashboards.
 
 ### Example
 
-This example mimics the writing of log entries to a log file that are then processed by Data Prepper and stored in OpenSearch.
+This example mimics the writing of log entries to a log file that are then processed by OpenSearch Data Prepper and stored in OpenSearch.
 
-Download or clone the [Data Prepper repository](https://github.com/opensearch-project/data-prepper). Then navigate to `examples/log-ingestion/` and open `docker-compose.yml` in a text editor. This file contains a container for:
+Download or clone the [OpenSearch Data Prepper repository](https://github.com/opensearch-project/data-prepper). Then navigate to `examples/log-ingestion/` and open `docker-compose.yml` in a text editor. This file contains a container for:
 
 - [Fluent Bit](https://docs.fluentbit.io/manual/) (`fluent-bit`)
-- Data Prepper (`data-prepper`)
+- OpenSearch Data Prepper (`data-prepper`)
 - A single-node OpenSearch cluster (`opensearch`)
 - OpenSearch Dashboards (`opensearch-dashboards`).
 
@@ -45,14 +45,14 @@ After the containers start, your ingestion pipeline is set up and ready to inges
 echo '63.173.168.120 - - [04/Nov/2021:15:07:25 -0500] "GET /search/tag/list HTTP/1.0" 200 5003' >> test.log
 ```
 
-Fluent-Bit will collect the log data and send it to Data Prepper:
+Fluent-Bit will collect the log data and send it to OpenSearch Data Prepper:
 
 ```angular2html
 [2021/12/02 15:35:41] [ info] [output:http:http.0] data-prepper:2021, HTTP status=200
 200 OK
 ```
 
-Data Prepper will process the log and index it:
+OpenSearch Data Prepper will process the log and index it:
 
 ```
 2021-12-02T15:35:44,499 [log-pipeline-processor-worker-1-thread-1] INFO  com.amazon.dataprepper.pipeline.ProcessWorker -  log-pipeline Worker: Processing 1 records from buffer
