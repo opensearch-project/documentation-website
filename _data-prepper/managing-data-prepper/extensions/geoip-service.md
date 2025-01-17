@@ -3,16 +3,16 @@ layout: default
 title: geoip_service
 nav_order: 5
 parent: Extensions
-grand_parent: Managing Data Prepper
+grand_parent: Managing OpenSearch Data Prepper
 ---
 
 # geoip_service
 
-The `geoip_service` extension configures all [`geoip`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/geoip) processors in Data Prepper.
+The `geoip_service` extension configures all [`geoip`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/geoip) processors in OpenSearch Data Prepper.
 
 ## Usage
 
-You can configure the GeoIP service that Data Prepper uses for the `geoip` processor.
+You can configure the GeoIP service that OpenSearch Data Prepper uses for the `geoip` processor.
 By default, the GeoIP service comes with the [`maxmind`](#maxmind) option configured.
 
 The following example shows how to configure the `geoip_service` in the `data-prepper-config.yaml` file:
@@ -28,13 +28,13 @@ extensions:
 ## maxmind
 
 The GeoIP service supports the MaxMind [GeoIP and GeoLite](https://dev.maxmind.com/geoip) databases.
-By default, Data Prepper will use all three of the following [MaxMind GeoLite2](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data) databases:
+By default, OpenSearch Data Prepper will use all three of the following [MaxMind GeoLite2](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data) databases:
 
 * City
 * Country
 * ASN
 
-The service also downloads databases automatically to keep Data Prepper up to date with changes from MaxMind.
+The service also downloads databases automatically to keep OpenSearch Data Prepper up to date with changes from MaxMind.
 
 You can use the following options to configure the `maxmind` extension.
 
@@ -64,4 +64,4 @@ Option | Required | Type | Description
 `region` | No | String | The AWS Region to use for the credentials. Default is the [standard SDK behavior for determining the Region](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/region-selection.html).
 `sts_role_arn` | No | String | The AWS Security Token Service (AWS STS) role to assume for requests to Amazon S3. Default is `null`, which will use the [standard SDK behavior for credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
 `aws_sts_header_overrides` | No | Map | A map of header overrides that the AWS Identity and Access Management (IAM) role assumes when downloading from Amazon S3.
-`sts_external_id` | No | String | An STS external ID used when Data Prepper assumes the STS role. For more information, see the `ExternalID` documentation in the [STS AssumeRole](https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html) API reference.
+`sts_external_id` | No | String | An STS external ID used when OpenSearch Data Prepper assumes the STS role. For more information, see the `ExternalID` documentation in the [STS AssumeRole](https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html) API reference.

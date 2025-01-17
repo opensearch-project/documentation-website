@@ -1,15 +1,15 @@
 ---
 layout: default
 title: Extensions
-parent: Managing Data Prepper
+parent: Managing OpenSearch Data Prepper
 has_children: true
 nav_order: 18
 ---
 
 # Extensions
 
-Data Prepper extensions provide Data Prepper functionality outside of core Data Prepper pipeline components.
-Many extensions provide configuration options that give Data Prepper administrators greater flexibility over Data Prepper's functionality.
+OpenSearch Data Prepper extensions provide OpenSearch Data Prepper functionality outside of core OpenSearch Data Prepper pipeline components.
+Many extensions provide configuration options that give OpenSearch Data Prepper administrators greater flexibility over OpenSearch Data Prepper's functionality.
 
 Extension configurations can be configured in the `data-prepper-config.yaml` file under the `extensions:` YAML block.
 

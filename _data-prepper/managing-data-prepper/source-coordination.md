@@ -2,30 +2,30 @@
 layout: default
 title: Source coordination
 nav_order: 35
-parent: Managing Data Prepper
+parent: Managing OpenSearch Data Prepper
 ---
 
 # Source coordination
 
-_Source coordination_ is the concept of coordinating and distributing work between Data Prepper data sources in a multi-node environment. Some data sources, such as Amazon Kinesis or Amazon Simple Queue Service (Amazon SQS), handle coordination natively. Other data sources, such as OpenSearch, Amazon Simple Storage Service (Amazon S3), Amazon DynamoDB, and JDBC/ODBC, do not support source coordination.
+_Source coordination_ is the concept of coordinating and distributing work between OpenSearch Data Prepper data sources in a multi-node environment. Some data sources, such as Amazon Kinesis or Amazon Simple Queue Service (Amazon SQS), handle coordination natively. Other data sources, such as OpenSearch, Amazon Simple Storage Service (Amazon S3), Amazon DynamoDB, and JDBC/ODBC, do not support source coordination.
 
-Data Prepper source coordination decides which partition of work is performed by each node in the Data Prepper cluster and prevents duplicate partitions of work.
+OpenSearch Data Prepper source coordination decides which partition of work is performed by each node in the OpenSearch Data Prepper cluster and prevents duplicate partitions of work.
 
-Inspired by the [Kinesis Client Library](https://docs.aws.amazon.com/streams/latest/dev/shared-throughput-kcl-consumers.html), Data Prepper utilizes a distributed store in the form of a lease to handle the distribution and deduplication of work.
+Inspired by the [Kinesis Client Library](https://docs.aws.amazon.com/streams/latest/dev/shared-throughput-kcl-consumers.html), OpenSearch Data Prepper utilizes a distributed store in the form of a lease to handle the distribution and deduplication of work.
 
 ## Formatting partitions
 
 Source coordination separates sources into "partitions of work." For example, an S3 object would be a partition of work for Amazon S3, or an OpenSearch index would be a partition of work for OpenSearch.
 
-Data Prepper takes each partition of work that is chosen by the source and creates corresponding items in the distributed store that Data Prepper uses for source coordination. Each of these items has the following standard format, which can be extended by the distributed store implementation.
+OpenSearch Data Prepper takes each partition of work that is chosen by the source and creates corresponding items in the distributed store that OpenSearch Data Prepper uses for source coordination. Each of these items has the following standard format, which can be extended by the distributed store implementation.
 
 | Value | Type | Description |
 | :--- | :--- | :--- |
-| `sourceIdentifier` | String  | The identifier for which the Data Prepper pipeline works on this partition. By default, the `sourceIdentifier` is prefixed by the sub-pipeline name, but an additional prefix can be configured with `partition_prefix` in your data-prepper-config.yaml file. |
+| `sourceIdentifier` | String  | The identifier for which the OpenSearch Data Prepper pipeline works on this partition. By default, the `sourceIdentifier` is prefixed by the sub-pipeline name, but an additional prefix can be configured with `partition_prefix` in your data-prepper-config.yaml file. |
 | `sourcePartitionKey` | String  | The identifier for the partition of work associated with this item. For example, for an `s3` source with scan capabilities, this identifier is the S3 bucket's `objectKey` combination.
 | `partitionOwner` | String   | An identifier for the node that actively owns and is working on this partition. This ID contains the hostname of the node but is `null` when this partition is not owned. |
 | `partitionProgressState` | String  | A JSON string object representing the progress made on a partition of work or any additional metadata that may be needed by the source in the case of another node resuming where the last node stopped during a crash.  |
-| `partitionOwnershipTimeout` | Timestamp  | Whenever a Data Prepper node acquires a partition, a 10-minute timeout is given to the owner of the partition to handle the event of a node crashing. The ownership is renewed with another 10 minutes when the owner saves the state of the partition.  |
+| `partitionOwnershipTimeout` | Timestamp  | Whenever an OpenSearch Data Prepper node acquires a partition, a 10-minute timeout is given to the owner of the partition to handle the event of a node crashing. The ownership is renewed with another 10 minutes when the owner saves the state of the partition.  |
 | `sourcePartitionStatus` | Enum | Represents the current state of the partition: `ASSIGNED` means the partition is currently being processed, `UNASSIGNED` means the partition is waiting to be processed, `CLOSED` means the partition is waiting to be processed at a later date, and `COMPLETED` means the partition has already been processed. |           
 | `reOpenAt` | Timestamp  | Represents the time at which CLOSED partitions reopen and are considered to be available for processing. Only applies to CLOSED partitions. |
 | `closedCount` | Long | Tracks how many times the partition has been marked as `CLOSED`.|
@@ -33,13 +33,13 @@ Data Prepper takes each partition of work that is chosen by the source and creat
 
 ## Acquiring partitions
 
-Partitions are acquired in the order that they are returned in the `List<PartitionIdentifer>` provided by the source. When a node attempts to acquire a partition, Data Prepper performs the following steps:
+Partitions are acquired in the order that they are returned in the `List<PartitionIdentifer>` provided by the source. When a node attempts to acquire a partition, OpenSearch Data Prepper performs the following steps:
 
-1. Data Prepper queries the `ASSIGNED` partitions to check whether any `ASSIGNED` partitions have expired partition owners. This is intended to assign priority to partitions that have had nodes crash in the middle of processing, which can allow for using a partition state that may be time sensitive. 
-2. After querying `ASSIGNED` partitions, Data Prepper queries the `CLOSED` partitions to determine whether any of the partition's `reOpenAt` timestamps have been reached. 
-3. If there are no `ASSIGNED` or `CLOSED` partitions available, then Data Prepper queries the `UNASSIGNED` partitions until on of these partitions is `ASSIGNED`.
+1. OpenSearch Data Prepper queries the `ASSIGNED` partitions to check whether any `ASSIGNED` partitions have expired partition owners. This is intended to assign priority to partitions that have had nodes crash in the middle of processing, which can allow for using a partition state that may be time sensitive. 
+2. After querying `ASSIGNED` partitions, OpenSearch Data Prepper queries the `CLOSED` partitions to determine whether any of the partition's `reOpenAt` timestamps have been reached. 
+3. If there are no `ASSIGNED` or `CLOSED` partitions available, then OpenSearch Data Prepper queries the `UNASSIGNED` partitions until on of these partitions is `ASSIGNED`.
 
-If this flow occurs and no partition is acquired by the node, then the partition supplier function provided in the `getNextPartition` method of `SourceCoordinator` will create new partitions. After the supplier function completes, Data Prepper again queries the partitions for `ASSIGNED`, `CLOSED`, and `UNASSIGNED`.
+If this flow occurs and no partition is acquired by the node, then the partition supplier function provided in the `getNextPartition` method of `SourceCoordinator` will create new partitions. After the supplier function completes, OpenSearch Data Prepper again queries the partitions for `ASSIGNED`, `CLOSED`, and `UNASSIGNED`.
 
 ## Global state
 
@@ -51,23 +51,23 @@ The following table provide optional configuration values for `source_coordinati
 
 | Value | Type | Description |
 | :--- | :--- | :--- |
-| `partition_prefix` | String | A prefix to the `sourceIdentifier` used to differentiate between Data Prepper clusters that share the same distributed store. |
+| `partition_prefix` | String | A prefix to the `sourceIdentifier` used to differentiate between OpenSearch Data Prepper clusters that share the same distributed store. |
 | `store` | Object  | The object that comprises the configuration for the store to be used, where the key is the name of the store, such as `in_memory` or `dynamodb`, and the value is any configuration available on that store type. |
 
 ### Supported stores
-As of Data Prepper 2.4, only `in_memory` and `dynamodb` stores are supported:
+As of OpenSearch Data Prepper 2.4, only `in_memory` and `dynamodb` stores are supported:
 
 - The `in_memory` store is the
 default when no `source_coordination` settings are configured in the `data-prepper-config.yaml` file and should only be used for single-node configurations.
-- The `dynamodb` store is used for multi-node Data Prepper environments. The `dynamodb` store can be shared between one or more Data Prepper clusters that need to utilize source coordination.
+- The `dynamodb` store is used for multi-node OpenSearch Data Prepper environments. The `dynamodb` store can be shared between one or more OpenSearch Data Prepper clusters that need to utilize source coordination.
 
 #### DynamoDB store
 
-Data Prepper will attempt to create the `dynamodb` table on startup unless the `skip_table_creation` flag is configured to `true`. Optionally, you can configure the [time-to-live](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/TTL.html) (`ttl`) on the table, which results in the store cleaning up items over time. Some sources rely on source coordination for the deduplication of data, so be sure to configure a large enough `ttl` for the pipeline duration. 
+OpenSearch Data Prepper will attempt to create the `dynamodb` table on startup unless the `skip_table_creation` flag is configured to `true`. Optionally, you can configure the [time-to-live](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/TTL.html) (`ttl`) on the table, which results in the store cleaning up items over time. Some sources rely on source coordination for the deduplication of data, so be sure to configure a large enough `ttl` for the pipeline duration. 
 
 If `ttl` is not configured on the table, any items no longer needed in the table must be cleaned manually.
 
-The following shows the full set of permissions needed for Data Prepper to create the table, enable `ttl`, and interact with the table:
+The following shows the full set of permissions needed for OpenSearch Data Prepper to create the table, enable `ttl`, and interact with the table:
 
 ```json
 {

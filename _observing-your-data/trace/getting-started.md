@@ -10,7 +10,7 @@ redirect_from:
 
 # Getting started with Trace Analytics
 
-OpenSearch Trace Analytics consists of two components---Data Prepper and the Trace Analytics OpenSearch Dashboards plugin. The Data Prepper repository contains several [sample applications](https://github.com/opensearch-project/data-prepper/tree/main/examples) that you can use to get started.
+OpenSearch Trace Analytics consists of two components---OpenSearch Data Prepper and the Trace Analytics OpenSearch Dashboards plugin. The OpenSearch Data Prepper repository contains several [sample applications](https://github.com/opensearch-project/data-prepper/tree/main/examples) that you can use to get started.
 
 ## Basic flow of data
 
@@ -22,7 +22,7 @@ OpenSearch Trace Analytics consists of two components---Data Prepper and the Tra
 
 1. The [OpenTelemetry Collector](https://opentelemetry.io/docs/collector/getting-started/) receives data from the application and formats it into OpenTelemetry data.
 
-1. [Data Prepper]({{site.url}}{{site.baseurl}}/clients/data-prepper/index/) processes the OpenTelemetry data, transforms it for use in OpenSearch, and indexes it on an OpenSearch cluster.
+1. [OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/clients/data-prepper/index/) processes the OpenTelemetry data, transforms it for use in OpenSearch, and indexes it on an OpenSearch cluster.
 
 1. The [Trace Analytics OpenSearch Dashboards plugin]({{site.url}}{{site.baseurl}}/observing-your-data/trace/ta-dashboards/) displays the data in near real-time as a series of charts and tables, with an emphasis on service architecture, latency, error rate, and throughput.
 
@@ -30,11 +30,11 @@ OpenSearch Trace Analytics consists of two components---Data Prepper and the Tra
 
 One Trace Analytics sample application is the Jaeger HotROD demo, which mimics the flow of data through a distributed application.
 
-Download or clone the [Data Prepper repository](https://github.com/opensearch-project/data-prepper). Then navigate to `examples/jaeger-hotrod/` and open `docker-compose.yml` in a text editor. This file contains a container for each element from [Basic flow of data](#basic-flow-of-data):
+Download or clone the [OpenSearch Data Prepper repository](https://github.com/opensearch-project/data-prepper). Then navigate to `examples/jaeger-hotrod/` and open `docker-compose.yml` in a text editor. This file contains a container for each element from [Basic flow of data](#basic-flow-of-data):
 
 - A distributed application (`jaeger-hot-rod`) with the Jaeger agent (`jaeger-agent`)
 - The [OpenTelemetry Collector](https://opentelemetry.io/docs/collector/getting-started/) (`otel-collector`)
-- Data Prepper (`data-prepper`)
+- OpenSearch Data Prepper (`data-prepper`)
 - A single-node OpenSearch cluster (`opensearch`)
 - OpenSearch Dashboards (`opensearch-dashboards`).
 
@@ -59,7 +59,7 @@ otel-collector  | 2020-11-19T16:29:53.781Z	INFO	loggingexporter/logging_exporter
 otel-collector  | 2020-11-19T16:29:53.787Z	INFO	loggingexporter/logging_exporter.go:296	TraceExporter	{"#spans": 3}
 ```
 
-Then Data Prepper processes the data from the OpenTelemetry Collector and indexes it:
+Then OpenSearch Data Prepper processes the data from the OpenTelemetry Collector and indexes it:
 
 ```
 data-prepper  | 1031918 [service-map-pipeline-process-worker-2-thread-1] INFO  com.amazon.dataprepper.pipeline.ProcessWorker  –  service-map-pipeline Worker: Processing 3 records from buffer
