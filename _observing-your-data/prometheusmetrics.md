@@ -74,7 +74,7 @@ See the following developer resources for sample code, articles, tutorials, and 
 * [Datasource Settings](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/datasources.rst), which contains information about authentication and authorization of data source APIs.
 * [Prometheus Connector](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/connectors/prometheus_connector.rst), which contains configuration information.
 * [Simple Schema for Observability](https://github.com/opensearch-project/opensearch-catalog/tree/main/docs/schema/observability), which contains information about the OTel schema and ingest pipeline.
-* [OTel Metrics Source](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/otel-metrics-source), which contains information about the OpenSearch Data Prepper metrics pipeline and ingestion.
+* [OTel Metrics Source](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/otel-metrics-source), which contains information about the Data Prepper metrics pipeline and ingestion.
 
 ---
 
@@ -111,7 +111,7 @@ To visualize OTel metric data in OpenSearch, follow these steps:
 ```
 {% include copy-curl.html %}
     
-4. Configure the [OpenSearch Data Prepper pipeline](https://github.com/opensearch-project/opentelemetry-demo/blob/main/src/dataprepper/pipelines.yaml) to emit the collected metric signals into the OpenSearch metrics index.
+4. Configure the [Data Prepper pipeline](https://github.com/opensearch-project/opentelemetry-demo/blob/main/src/dataprepper/pipelines.yaml) to emit the collected metric signals into the OpenSearch metrics index.
 
 #### Example YAML config file
 
