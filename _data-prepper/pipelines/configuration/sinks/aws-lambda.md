@@ -7,9 +7,9 @@ nav_order: 10
 ---
 
 ----------------------------------------------------------------------------------------
-# `aws_lambda` sink for Data Prepper
+# `aws_lambda` sink for OpenSearch Data Prepper
 
-This page explains how to configure and use [AWS Lambda](https://aws.amazon.com/lambda/) with Data Prepper, enabling Lambda functions to serve as both processors and sinks.
+This page explains how to configure and use [AWS Lambda](https://aws.amazon.com/lambda/) with OpenSearch Data Prepper, enabling Lambda functions to serve as both processors and sinks.
 
 ## `aws_lambda` sink
 
