@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Auto-generated embeddings
+title: Auto-generated embeddings quickstart
 parent: Getting started
 nav_order: 20
 ---

@@ -9,16 +9,65 @@ permalink: /vector-search/
 redirect_from:
   - /vector-search/index/
   - /search-plugins/vector-search/
+raw_steps:
+  - heading: "Pre-generated embeddings quickstart"
+    description: "Follow a quickstart tutorial for raw vector search."
+    link: "/vector-search/getting-started/pre-generated-embeddings/"
+  - heading: "Vector search techniques"
+    description: "Select a search technique and configure your vector search."
+    link: "/vector-search/vector-search-techniques/"
+  - heading: "Specialized vector search"
+    description: "Learn about specialized vector search use cases, such as filtering, nested field search, and radial search."
+    link: "/vector-search/specialized-operations/"
+  - heading: "Optimizing vector storage"
+    description: "Learn about storage saving techniques, such as disk-based vector search and vector quantization."
+    link: "/vector-search/optimizing-storage/"
+  - heading: "Performance tuning"
+    description: "Improve search performance."
+    link: "/vector-search/performance-tuning/"
+ml_steps:
+  - heading: "Auto-generated embeddings quickstart"
+    description: "Follow a quickstart tutorial for text-to-embedding search."
+    link: "/vector-search/getting-started/auto-generated-embeddings/"
+  - heading: "Semantic and hybrid search tutorial"
+    description: "Dive into semantic search and hybrid search."
+    link: "/vector-search/getting-started/neural-search-tutorial/"
+  - heading: "ML-powered search"
+    description: "Learn about many ML-powered search options that OpenSearch provides."
+    link: "/vector-search/ml-powered-search/"
+  - heading: "Specialized vector search"
+    description: "Learn about specialized vector search use cases, such as filtering, nested field search, and radial search."
+    link: "/vector-search/specialized-operations/"
+  - heading: "Optimizing vector storage"
+    description: "Learn about storage saving techniques, such as disk-based vector search and vector quantization."
+    link: "/vector-search/optimizing-storage/"
+  - heading: "Performance tuning"
+    description: "Improve search performance."
+    link: "/vector-search/performance-tuning/"
 ---
 
 # Vector search
 
 OpenSearch is a comprehensive search platform that supports a variety of data types, including vectors. OpenSearch vector database functionality is seamlessly integrated with its generic database function.
 
-In OpenSearch, you can generate vector embeddings, store those embeddings in an index, and use them for vector search in the following ways:
+In OpenSearch, you can generate vector embeddings, store those embeddings in an index, and use them for vector search.
 
-- **Pre-generated embeddings**: Generate embeddings using a library of your choice before ingesting them into OpenSearch. Once you ingest vectors into an index, you can perform a vector similarity search on the vector space. For more information, see [Working with embeddings generated outside of OpenSearch](#working-with-embeddings-generated-outside-of-opensearch). 
-- **Auto-generated embeddings**: Automatically generate embeddings within OpenSearch. To use embeddings for semantic search, the ingested text (the corpus) and the query need to be embedded using the same model. [Neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/) packages this functionality, eliminating the need to manage the internal details. For more information, see [Generating vector embeddings within OpenSearch](#generating-vector-embeddings-in-opensearch).
+<span class="centering-container">
+[Get started]({{site.url}}{{site.baseurl}}/vector-search/getting-started/){: .btn-dark-blue}
+</span>
 
+---
 
-To get started, see [Getting started]({{site.url}}{{site.baseurl}}/vector-database/getting-started/).
+## Bring your own vectors
+
+If you’ve already generated your own vector embeddings, OpenSearch makes it easy to ingest and search them. Follow this documentation sequence to get started:
+
+{% include list.html list_items=page.raw_steps%}
+
+--- 
+
+## Seamless text-to-embedding search
+
+Simplify your search process by letting OpenSearch handle embedding generation. Follow this documentation sequence to begin using text-to-embedding search:
+
+{% include list.html list_items=page.ml_steps%}

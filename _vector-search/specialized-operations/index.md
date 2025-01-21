@@ -4,13 +4,15 @@ title: Specialized vector search
 nav_order: 45
 has_children: true
 has_toc: false
+redirect_from:
+  - /vector-search/specialized-operations/
 ---
 
 # Specialized vector search
 
 OpenSearch supports the following specialized vector search applications. 
 
-### Vector search with filtering
+## Vector search with filters
 
 For information about vector search with filtering, see [Vector search with filters]({{site.url}}{{site.baseurl}}/search-plugins/knn/filter-search-knn/).
 

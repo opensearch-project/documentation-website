@@ -7,50 +7,64 @@ has_toc: false
 redirect_from: 
   - /neural-search-plugin/index/
   - /search-plugins/neural-search/
-  - /vector-database/ml-powered-search/
+  - /vector-search/ml-powered-search/
+model_cards:
+  - heading: "Use a pretrained model provided by OpenSearch"
+    link: "/ml-commons-plugin/pretrained-models/"
+  - heading: "Upload your own model to OpenSearch"
+    link: "/ml-commons-plugin/custom-local-models/"
+  - heading: "Connect to a model hosted on an external platform"
+    link: "/ml-commons-plugin/remote-models/index/"
+tutorial_cards:
+  - heading: "Semantic and hybrid search tutorial"
+    description: "Learn how to implement semantic and hybrid search"
+    link: "/vector-search/getting-started/neural-search-tutorial/"
+search_method_cards:
+  - heading: "Semantic search"
+    description: "Uses dense retrieval based on text embedding models to search text data."
+    link: "/vector-search/ml-powered-search/semantic-search/"
+  - heading: "Hybrid search"
+    description: "Combines keyword and neural search to improve search relevance."
+    link: "/vector-search/ml-powered-search/hybrid-search/"
+  - heading: "Multimodal search"
+    description: "Uses multimodal embedding models to search text and image data."
+    link: "/vector-search/ml-powered-search/multimodal-search/"
+  - heading: "Neural sparse search"
+    description: "Uses sparse retrieval based on sparse embedding models to search text data."
+    link: "/vector-search/ml-powered-search/neural-sparse-search/"
+  - heading: "Conversational search"
+    description: "Uses retrieval-augmented generation and conversational memory to provide context-aware responses."
+    link: "/vector-search/ml-powered-search/conversational-search/"
+chunking_cards:
+  - heading: "Text chunking"
+    description: "Use text chunking to ensure adherence to token limit for embedding models."
+    link: "/vector-search/ml-powered-search/text-chunking/"
 ---
 
 # ML-powered search
 
-Neural search transforms text into vectors and facilitates vector search both at ingestion time and at search time. During ingestion, neural search transforms document text into vector embeddings and indexes both the text and its vector embeddings in a vector index. When you use a neural query during search, neural search converts the query text into vector embeddings, uses vector search to compare the query and document embeddings, and returns the closest results.
-
-Before you ingest documents into an index, documents are passed through a machine learning (ML) model, which generates vector embeddings for the document fields. When you send a search request, the query text or image is also passed through the ML model, which generates the corresponding vector embeddings. Then neural search performs a vector search on the embeddings and returns matching documents.
+ML-powered search streamlines your workflow by generating embeddings automatically. OpenSearch converts text into vectors during indexing and querying. It creates and indexes vector embeddings for documents, then processes query text into embeddings to find and return the most relevant results.
 
 ## Prerequisite
 
-Before using neural search, you must set up an ML model. When selecting a model, you have the following options:
+Before using text-to-embedding search, you must set up an ML model for embedding generation. When selecting a model, you have the following options:
 
-- Use a pretrained model provided by OpenSearch. For more information, see [OpenSearch-provided pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/).
+{% include cards.html cards=page.model_cards %}
 
-- Upload your own model to OpenSearch. For more information, see [Custom local models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/custom-local-models/).
-
-- Connect to a foundation model hosted on an external platform. For more information, see [Connecting to remote models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/).
-
+---
 
 ## Tutorial
 
-For a step-by-step tutorial, see [Neural search tutorial]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/).
+{% include cards.html cards=page.tutorial_cards %}
 
-## Using an ML model for neural search
+---
 
-Once you set up an ML model, choose one of the following search methods to use your model for neural search.
+## ML-powered search methods
 
-### Semantic search
+Once you set up an ML model, choose one of the following search methods.
 
-Semantic search uses dense retrieval based on text embedding models to search text data. For detailed setup instructions, see [Semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/). 
+{% include cards.html cards=page.search_method_cards %}
 
-### Hybrid search
+---
 
-Hybrid search combines keyword and neural search to improve search relevance. For detailed setup instructions, see [Hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/hybrid-search/).
-
-### Multimodal search
-
-Multimodal search uses neural search with multimodal embedding models to search text and image data. For detailed setup instructions, see [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/multimodal-search/).
-
-### Sparse search
-
-Sparse search uses neural search with sparse retrieval based on sparse embedding models to search text data. For detailed setup instructions, see [Sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
-
-### Conversational search
-
-With conversational search, you can ask questions in natural language, receive a text response, and ask additional clarifying questions. For detailed setup instructions, see [Conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/).
+{% include cards.html cards=page.chunking_cards %}

@@ -5,7 +5,7 @@ nav_order: 60
 has_children: true
 has_toc: false
 redirect_from:
-  - /vector-database/optimizing-storage/
+  - /vector-search/optimizing-storage/
 ---
 
 # Optimizing vector storage

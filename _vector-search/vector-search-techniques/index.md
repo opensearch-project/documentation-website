@@ -7,7 +7,7 @@ has_toc: false
 redirect_from:
   - /search-plugins/knn/
   - /search-plugins/knn/index/ 
-  - /vector-database/vector-search/     
+  - /vector-search/vector-search-techniques/     
 ---
 
 # Vector search techniques

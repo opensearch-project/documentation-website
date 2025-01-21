@@ -22,12 +22,16 @@
 
 // Card style
 
-.card-container-wrapper {
+.home-card-container-wrapper {
     @include gradient-open-sky;
     margin-bottom: 2rem;
 }
 
-.card-container {
+.card-container-wrapper {
+    margin-bottom: 0;
+}
+
+.home-card-container {
     display: grid;
     grid-template-columns: 1fr;
     margin: 0 auto;
@@ -43,7 +47,23 @@
     }
 }
 
-.card {
+.card-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin: 0 auto;
+    padding: 2rem 0;
+    grid-row-gap: 1rem;
+    grid-column-gap: 1rem;
+    grid-auto-rows: 1fr;
+    @include mq(md) {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    @include mq(lg) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.home-card {
     @extend .panel;
     @include thick-edge-left;
     padding: 1rem;
@@ -66,6 +86,11 @@
             text-underline-offset: 3px;
         }
     }
+}
+
+.card {
+    @extend .home-card;
+    margin-bottom: 0;
 }
 
 @mixin heading-font {
@@ -109,6 +134,53 @@
     bottom: 0;
     left: 0;
     width: 100%;
+}
+
+// List layout
+
+.numbered-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.list-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.number-circle {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background-color: $blue-lt-100; 
+    color: $blue-dk-300; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.list-content {
+    max-width: 100%;
+}
+
+.list-heading {
+    @include heading-font; 
+    margin: 0 0 0.75rem 0; 
+    font-size: 1.2rem;
+    color: $blue-dk-300;
+    font-weight: bold;
+}
+
+.list-content p {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    line-height: 1.5;
 }
 
 // Banner style
