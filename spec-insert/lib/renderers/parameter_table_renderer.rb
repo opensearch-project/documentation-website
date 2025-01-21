@@ -75,7 +75,7 @@ class ParameterTableRenderer
       " <br> Valid values are: #{enums.map { |enum| "`#{enum[:value]}`" }.join(', ')}"
     else
       " <br> Valid values are: <br> #{enums.map { |enum| "- `#{enum[:value]}`: #{enum[:description]}" }
-                                           .join(' </br> ')}"
+                                           .join(' <br> ')}"
     end
   end
 
