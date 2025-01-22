@@ -6,11 +6,42 @@ nav_order: 15
 
 # Build workflows with OpenSearch Flow
 
-The OpenSearch Flow plugin on OpenSearch Dashboards (OSD) gives users the ability to iteratively build out search and ingest pipelines, initially focusing on ease-of-use for AI/ML-enhanced use cases via [ML inference processors](https://opensearch.org/docs/latest/ingest-pipelines/processors/ml-inference/). Behind the scenes, the plugin uses the [Flow Framework OpenSearch plugin](https://opensearch.org/docs/latest/automating-configurations/index/) for resource management for each use case / workflow a user creates. For example, most use cases involve configuring and creating indices, ingest pipelines, and search pipelines. All of these resources are created, updated, deleted, and maintained by the Flow Framework plugin. When users are satisfied with a use case they have built out, they can export the produced [Workflow Template](https://opensearch.org/docs/latest/automating-configurations/workflow-templates/) to re-create resources for their use cases across different clusters / data sources.
+The OpenSearch Flow plugin in OpenSearch Dashboards lets you iteratively build and test use cases leveraging ingest and search pipelines. It aims to simplify the complexity around building different AI/ML use cases using ML inference processors, such as vector search and retrieval-augmented generation (RAG). Behind the scenes, the plugin uses the [Flow Framework OpenSearch plugin](https://opensearch.org/docs/latest/automating-configurations/index/) for resource management. Once you have built out a use case to your satisfaction, you can export the [Workflow Template](https://opensearch.org/docs/latest/automating-configurations/workflow-templates/) to re-create identical resources across multiple clusters.
 
-## Workflow presets
+## Background: ingest and search pipelines
 
-There are several presets for different use cases offered. It is helpful to think of these as _starting points_, rather than end-to-end solutions for your particular use case. They can provide helpful patterns for where you may leverage ML inference processors for different use cases in your ingest and search flows. But, your data may require complex transformatios, or you may have a custom model expecting some complex inputs or outputs, that will not easily fit into the provided presets. For more information on how you can leverage the UI to build out such complex data transformations, see [Advanced data transformations](#advanced-data-transformations) below.
+[Ingest pipelines](https://opensearch.org/docs/latest/ingest-pipelines/) and [search pipelines](https://opensearch.org/docs/latest/search-plugins/search-pipelines/index/) are used for configuring data transforms at different stages of ingest and search operations via individual processors, all run within OpenSearch. For example, an _ingest pipeline_ is composed of a sequence of _ingest processors_, while a _search pipeline_ is composed of a sequence of _search request processors_ and/or _search response processors_. You can stitch together processors and build custom pipelines to fit your data processing needs.
+
+In general, these pipelines allow for modifying data at 3 different stages.
+
+1. **Ingest**: transform your documents before they are ingested in an index.
+2. **Search request**: transform the search request before executing search against an index.
+3. **Search response**: transform the search response (and documents) after search is executed, but before the response is returned to the user.
+
+This plugin helps in building, testing, and visualizing ingest and search pipelines for your particular use case, including the complexity around integrating with different ML models via [ML inference processors](https://opensearch.org/docs/latest/ingest-pipelines/processors/ml-inference/).
+
+## Getting started
+
+To get started, go to **OpenSearch Dashboards** > **OpenSearch Plugins** > **OpenSearch Flow**.
+
+## Preset templates
+
+From the plugin home page, navigate to the **New workflow** tab by clicking directly, or clicking the **Create workflow** button on the right-hand side. Here, you will see a variety of preset templates offered, targeting different use cases. Each will have a unique set of pre-configured ingest and search processors. These templates serve two main purposes:
+
+1. **Quickly proving out basic AI/ML solutions**. If you have deployed models with defined interfaces, you can get a basic use case up and running in your cluster in just a few clicks. An end-to-end [example](#example-semantic-search-with-rag) is provided below.
+2. **A starting point for your custom / advanced solution**. Each template provides a good skeleton and pattern for building out a different use case. Use them as a starting point for your custom use case!
+
+## Workflow editor
+
+This is where you will actually build and test your ingest and search flows for your use case. There are three main sections of this page. Each one may be expanded horizontally or vertically, or collapsed altogether, depending on what you want to focus on.
+
+1. **Form**. The multi-stepped form where you will fill in all of the details for your ingest and search flows, including selecting and configuring different ingest and search processors for your ingest and search pipelines, respectively. Optionally skip ingestion configuration if you already have a populated index and are just looking to build a search flow.
+2. **Preview pipeline**. The readonly view representing how data flows throught your ingest and search flows at a high level. As you make changes in the **Form**, the components in these flows are automatically updated. Click on the **JSON** tab in to view the low-level template configuration.
+3. **Inspect pipeline**. Different tabbed content for interacting with your workflow in different ways:
+   - **Ingest response**: After updating your ingest flows, the API response will show up here.
+   - **Search tool**: Execute your search flow (with or without any configured search pipeline) and view results in tabular or raw JSON format.
+   - **Errors**: The latest error will appear here. Errors may come from updating your ingest or search flows, running ingest, or running search. The plugin will automatically open this tab when a new error occurs, similar to an IDE.
+   - **Resources**: The list of associated OpenSearch resources for this particular workflow. Will include up to one ingest pipeline, one index, and one search pipeline. Click the **Inspect** action for each to view more details for each.
 
 ## Example: Semantic Search with RAG
 
@@ -45,22 +76,16 @@ It is strongly recommended to have deployed models with interfaces. A library of
 
 ## Advanced data transformations
 
-In general, ingest & search pipelines allow for modifying your data at 3 different stages:
+ML inference processors offer several different ways for flexibly transforming input data _to_ the model input(s), and _from_ the model output(s).
 
-1. Ingest: transform your documents before they are ingested in an index.
-2. Search request: transform the search request before executing search against an index.
-3. Search response: transform the search response (and documents) after search is executed, but before the response is returned to the user.
-
-ML inference processors are available for all 3 of these stages. They offer several different ways for flexibly transforming input data _to_ the model input(s), and _from_ the model output(s).
-
-**Inputs** is where you configure different parameters passed _to_ the model. Each input parameter can be 4 different types of values:
+**Inputs** is where you configure different parameters passed _to_ the model. Each input parameter can be one of four different transform types:
 
 1. `String`: some constant value.
 2. `Field`: a path to some field, such as a document being ingested, or a value in a search query.
 3. `Expression`: a [JSONPath](https://en.wikipedia.org/wiki/JSONPath) expression for more advanced data transformations. Helpful for extracting complex or nested JSON data.
 4. `Template`: some constant value, with the ability to inject dynamic variables within it. You may think of it as a mix of `String` and `Field`/`Expression` transform types. Helpful in prompt building for LLMs.
 
-**Outputs** is where you configure different values passed _from_ the model. Each output parameter can be 3 different types of values:
+**Outputs** is where you configure different values passed _from_ the model. Each output parameter can be one of three different transform types:
 
 1. `Field`: a path to some _new_ field name. Helpful in basic field renaming.
 2. `Expression`: one or more [JSONPath](https://en.wikipedia.org/wiki/JSONPath) expressions for more advanced data transformations. Helpful for extracting complex or nested JSON data.
@@ -69,3 +94,6 @@ ML inference processors are available for all 3 of these stages. They offer seve
 ## Next steps
 
 For more tutorials on how to leverage OpenSearch Flow to build out AI/ML use cases, including suggested ML connectors & models, see [here](https://github.com/opensearch-project/dashboards-flow-framework/blob/main/documentation/tutorial.md).
+
+_Notice a missing ingest or search processor you'd like to see in the plugin? Consider opening an [issue](https://github.com/opensearch-project/dashboards-flow-framework/issues) or contributing by opening a [pull request](https://github.com/opensearch-project/dashboards-flow-framework/pulls)!_
+{: .note}
