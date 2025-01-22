@@ -10,7 +10,7 @@ redirect_from:
   - /search-plugins/index/
 ---
 
-# Search
+# Search features
 
 OpenSearch provides many features for customizing your search use cases and improving search relevance. 
 

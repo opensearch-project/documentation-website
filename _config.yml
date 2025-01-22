@@ -171,7 +171,7 @@ opensearch_collection:
       name: Aggregations
       nav_fold: true
     search-plugins:
-      name: Search 
+      name: Search features
       nav_fold: true
     ml-commons-plugin:
       name: Machine learning
@@ -223,7 +223,7 @@ benchmark_collection:
 data_prepper_collection:
   collections:
     data-prepper: 
-      name: Data Prepper
+      name: OpenSearch Data Prepper
       nav_fold: true
 
 # Defaults
@@ -240,7 +240,7 @@ defaults:
       path: "_data-prepper"
     values:
       section: "data-prepper"
-      section-name: "Data Prepper"
+      section-name: "OpenSearch Data Prepper"
   -
     scope:
       path: "_clients"
