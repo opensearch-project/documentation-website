@@ -31,10 +31,11 @@ GET /_cat/allocation/{node_id}
 <!-- spec_insert_start
 api: cat.allocation
 component: query_parameters
-columns: Parameter,Type,Description,Default
+columns: Parameter, Data type, Description, Default
 include_deprecated: false
 -->
 ## Query parameters
+<<<<<<< HEAD
 Parameter | Type | Description | Default
 :--- | :--- | :--- | :---
 `bytes` | String | The units used to display byte values. | 
@@ -45,6 +46,22 @@ Parameter | Type | Description | Default
 `local` | Boolean | Returns local information but does not retrieve the state from cluster manager node. | `false`
 `s` | List | A comma-separated list of column names or column aliases to sort by. | 
 `v` | Boolean | Enables verbose mode, which displays column headers. | `false`
+=======
+
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `bytes` | String | The units used to display byte values. <br> Valid values are: `b`, `kb`, `k`, `mb`, `m`, `gb`, `g`, `tb`, `t`, `pb`, `p` | N/A |
+| `cluster_manager_timeout` | String | A timeout for connection to the cluster manager node. | N/A |
+| `format` | String | A short version of the HTTP `Accept` header, such as `json` or `yaml`. | N/A |
+| `h` | List | A comma-separated list of column names to display. | N/A |
+| `help` | Boolean | Returns help information. | `false` |
+| `local` | Boolean | Returns local information but does not retrieve the state from cluster-manager node. | `false` |
+| `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
+| `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
+
+>>>>>>> 0713861e (CAT API automation (Part II) (#9060))
 <!-- spec_insert_end -->
 
 ## Example requests
