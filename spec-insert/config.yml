@@ -5,7 +5,7 @@ param_table:
     true_text: "**Required**"
     false_text: "_Optional_"
 
-# Replace text in all every description in the spec file
+# Replace text in every description in the spec file
 text_replacements:
   - replace: "https://opensearch.org/docs/latest"
     with: "{{site.url}}{{site.baseurl}}"
