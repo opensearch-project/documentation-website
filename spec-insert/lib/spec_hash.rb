@@ -32,8 +32,8 @@ class SpecHash < DotHash
     return value unless value.is_a?(Hash)
     ref = value.delete('$ref')
     value.transform_values! { |v| parse(v) }
-    return SpecHash.new(value, true) unless ref
-    SpecHash.new(parse(resolve(ref)).merge(value), true)
+    return SpecHash.new(value, fully_parsed: true) unless ref
+    SpecHash.new(parse(resolve(ref)).merge(value), fully_parsed: true)
   end
 
   def resolve(ref)

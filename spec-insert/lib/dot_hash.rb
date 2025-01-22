@@ -3,8 +3,8 @@
 # DotHash is a hash that allows access to its keys using dot notation
 class DotHash
   # @param [Hash] hash
-  def initialize(hash = {}, fully_parsed = false)
-    raise ArgumentError, "#{self.class.to_s} must be initialized with a Hash" unless hash.is_a?(Hash)
+  def initialize(hash = {}, fully_parsed: false)
+    raise ArgumentError, "#{self.class} must be initialized with a Hash" unless hash.is_a?(Hash)
     @hash = hash
     @fully_parsed = fully_parsed
     @parsed_keys = fully_parsed ? nil : Set.new
@@ -25,7 +25,7 @@ class DotHash
   def method_missing(name, ...)
     name = name.to_s
     if {}.respond_to?(name)
-      warn "Accessing Hash attribute `#{name}` which is also a key of the #{self.class.to_s} instance" if @hash.key?(name)
+      warn "Accessing Hash attribute `#{name}` which is also a key of the #{self.class} instance" if @hash.key?(name)
       return @hash.send(name, ...)
     end
     retrieve(name)
@@ -37,8 +37,7 @@ class DotHash
     return value.map { |v| parse(v) } if value.is_a?(Array)
     return value if value.is_a?(self.class)
     return value unless value.is_a?(Hash)
-    value.transform_values! { |v| parse(v) }
-    DotHash.new(value, true)
+    DotHash.new(value)
   end
 
   def retrieve(key)
