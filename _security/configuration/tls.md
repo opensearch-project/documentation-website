@@ -262,10 +262,30 @@ The default insecure SSL password settings have been deprecated. In order to use
 
 These settings allow for the use of encrypted passwords in the settings.
 
-## Hot reloading TLS certificates
+## Hot reloading certificates
 
-Updating expired or nearly expired TLS certificates does not require restarting the cluster. Instead, enable hot reloading of TLS cerificates by adding the following line to `opensearch.yml`:
+There are two ways to hot reload expired or nearly expired certificates on the HTTP and Transport layers, or both:
 
+- in-place hot reload
+- using REST endpoint  
+
+### In-place hot reload
+To enable in-place hot reloading of certificates using endpoint add the following line to `opensearch.yml`:
+
+`plugins.security.ssl.certificates_hot_reload.enabled: true`
+
+After enabling in-place hot reloading OpenSearch monitors you key or keystore resources for updates, on a five-second interval.
+You can just copy the new certificate and key files or keystore into the OpenSearch configuration directory 
+and your nodes will detect the changes and reload the keys and certificates.
+
+### Rolling restarts are preferred:
+- If you use PEM files, your certificate and key are in separate files.
+- Key or keystore passwords have changed.
+
+
+### Using REST endpoint
+
+To enable hot reloading of certificates using REST endpoint add the following line to `opensearch.yml`:
 
 `plugins.security.ssl_cert_reload_enabled: true`
 
@@ -300,4 +320,7 @@ The following command reloads TLS certificates on the `http` layer:
 You should receive the following response:
 
 ```{ "message": "successfully updated http certs"}```
+
+### Rolling restarts are preferred: 
+- Key or keystore passwords have changed.
 
