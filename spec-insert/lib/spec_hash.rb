@@ -1,65 +1,44 @@
 # frozen_string_literal: true
 
-require 'yaml'
-require_relative 'api/action'
-require_relative 'api/parameter'
+require_relative 'config'
+require_relative 'dot_hash'
 
 # Spec class for parsing OpenAPI spec
 # It's basically a wrapper around a Hash that allows for accessing hash values as object attributes
 # and resolving of $refs
-class SpecHash
+class SpecHash < DotHash
   def self.load_file(file_path)
-    @raw = YAML.load_file(file_path)
-    @parsed = SpecHash.new(@raw, parsed: false)
-    Action.actions = @parsed
-    Parameter.global = @parsed
+    @root = YAML.load_file(file_path)
+    parsed = SpecHash.new(@root)
+    Action.actions = parsed
+    Parameter.global = parsed
   end
 
-  # @return [Hash] Raw OpenAPI Spec
-  class << self; attr_reader :raw; end
+  # @return [Hash] Root of the raw OpenAPI Spec used to resolve $refs
+  class << self; attr_accessor :root; end
 
-  # @return [Spec] Parsed OpenAPI Spec
-  class << self; attr_reader :parsed; end
-
-  attr_reader :hash
-
-  delegate :to_s, to: :hash
-
-  # @param [Hash] hash
-  def initialize(hash = {}, parsed: true)
-    @hash = parsed ? hash : parse(hash)
-  end
-
-  def [](key)
-    parse(@hash[key])
-  end
-
-  def respond_to_missing?(name, include_private = false)
-    @hash.key?(name.to_s) || {}.respond_to?(name) || super
-  end
-
-  def method_missing(name, ...)
-    if {}.respond_to?(name)
-      warn "Accessing Hash attribute `#{name}` which is also a key of the SpecHash instance" if @hash.key?(name.to_s)
-      return @hash.send(name, ...)
-    end
-    parse(@hash[name.to_s])
+  def description
+    text = @hash['description']
+    return unless text.present?
+    CONFIG.text_replacements.each { |h| text.gsub!(h['replace'], h['with']) }
+    text
   end
 
   private
 
   def parse(value)
     return value.map { |v| parse(v) } if value.is_a?(Array)
+    return value if value.is_a?(self.class)
     return value unless value.is_a?(Hash)
     ref = value.delete('$ref')
     value.transform_values! { |v| parse(v) }
-    return SpecHash.new(value) unless ref
-    SpecHash.new(parse(resolve(ref)).merge(value))
+    return SpecHash.new(value, true) unless ref
+    SpecHash.new(parse(resolve(ref)).merge(value), true)
   end
 
   def resolve(ref)
     parts = ref.split('/')
     parts.shift
-    self.class.raw.dig(*parts)
+    self.class.root.dig(*parts)
   end
 end

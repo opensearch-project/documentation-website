@@ -67,7 +67,7 @@ The following table lists the available query parameters.
 
 | Parameter | Required | Data type | Description | Default |
 | :--- | :--- | :--- | :--- | :--- |
-| `expand_wildcard` | **Required** | String | Whether to expand wildcard expression to concrete indices that are open, closed, or both. <br> Valid values are: <br> - `open`: Expand wildcards to open indices only. <br> - `closed`: Expand wildcards to closed indices only. <br> - `none`: Do not expand wildcards. | N/A |
+| `expand_wildcard` | **Required** | String | Whether to expand wildcard expression to concrete indices that are open, closed, or both. For more information, see [cat health API]({{site.url}}{{site.baseurl}}/api-reference/cat/health/). <br> Valid values are: <br> - `open`: Expand wildcards to open indices only. <br> - `closed`: Expand wildcards to closed indices only. <br> - `master`: Expand wildcards for cluster-manager nodes only. | N/A |
 | `pretty` | _Optional_ | Boolean | Whether to pretty format the returned JSON response. | N/A |
 | `human` <br> _DEPRECATED_ | _Optional_ | Boolean | _(Deprecated since 3.0: Use the `format` parameter instead.)_ Whether to return human readable values for statistics. | `true` |
 
