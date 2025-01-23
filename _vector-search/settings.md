@@ -1,18 +1,18 @@
 ---
 layout: default
 title: Settings
-nav_order: 80
+nav_order: 90
 redirect_from:
   - /search-plugins/knn/settings/
 ---
 
-# k-NN settings
+# Vector search settings
 
-The k-NN plugin adds several new cluster settings. To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+OpenSearch supports the following vector search settings. To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 ## Cluster settings
 
-The following table lists all available cluster-level k-NN settings. For more information about cluster settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#updating-cluster-settings-using-the-api) and [Updating cluster settings using the API]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#updating-cluster-settings-using-the-api).
+The following table lists all available cluster-level vector search settings. For more information about cluster settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#updating-cluster-settings-using-the-api) and [Updating cluster settings using the API]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#updating-cluster-settings-using-the-api).
 
 Setting | Static/Dynamic | Default | Description
 :--- | :--- | :--- | :---
@@ -27,14 +27,24 @@ Setting | Static/Dynamic | Default | Description
 `knn.model.index.number_of_shards`| Dynamic | `1` | The number of shards to use for the model system index, which is the OpenSearch index that stores the models used for approximate nearest neighbor (ANN) search.
 `knn.model.index.number_of_replicas`| Dynamic | `1` | The number of replica shards to use for the model system index. Generally, in a multi-node cluster, this value should be at least 1 in order to increase stability.
 `knn.model.cache.size.limit` | Dynamic | `10%` |  The model cache limit cannot exceed 25% of the JVM heap.
-`knn.faiss.avx2.disabled` | Static | `false` | A static setting that specifies whether to disable the SIMD-based `libopensearchknn_faiss_avx2.so` library and load the non-optimized `libopensearchknn_faiss.so` library for the Faiss engine on machines with x64 architecture. For more information, see [SIMD optimization for the Faiss engine]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#simd-optimization-for-the-faiss-engine).
-`knn.faiss.avx512.disabled` | Static | `false` | A static setting that specifies whether to disable the SIMD-based `libopensearchknn_faiss_avx512.so` library and load the `libopensearchknn_faiss_avx2.so` library or the non-optimized `libopensearchknn_faiss.so` library for the Faiss engine on machines with x64 architecture. For more information, see [SIMD optimization for the Faiss engine]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#simd-optimization-for-the-faiss-engine).
+`knn.faiss.avx2.disabled` | Static | `false` | A static setting that specifies whether to disable the SIMD-based `libopensearchknn_faiss_avx2.so` library and load the non-optimized `libopensearchknn_faiss.so` library for the Faiss engine on machines with x64 architecture. For more information, see [SIMD optimization for the Faiss engine]({{site.url}}{{site.baseurl}}/vector-search/creating-vector-index/vector-field/#simd-optimization-for-the-faiss-engine).
+`knn.faiss.avx512.disabled` | Static | `false` | A static setting that specifies whether to disable the SIMD-based `libopensearchknn_faiss_avx512.so` library and load the `libopensearchknn_faiss_avx2.so` library or the non-optimized `libopensearchknn_faiss.so` library for the Faiss engine on machines with x64 architecture. For more information, see [SIMD optimization for the Faiss engine]({{site.url}}{{site.baseurl}}/vector-search/creating-vector-index/vector-field/#simd-optimization-for-the-faiss-engine).
 
 ## Index settings
 
 The following table lists all available index-level k-NN settings. All settings are static. For information about updating static index-level settings, see [Updating a static index setting]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#updating-a-static-index-setting).
 
-Setting | Default | Description
-:--- | :--- | :--- 
+At the moment, several parameters defined in the settings are in the deprecation process. Those parameters should be set in the mapping instead of the index settings. Parameters set in the mapping will override the parameters set in the index settings. Setting the parameters in the mapping allows an index to have multiple `knn_vector` fields with different parameters.
+
+Setting | Default | Updatable | Description
+:--- | :--- | :--- | :---
+`index.knn` | `false` | No | Whether the index should build native library indexes for the `knn_vector` fields. If set to `false`, the `knn_vector` fields will be stored in doc values, but approximate k-NN search functionality will be disabled.
+`index.knn.algo_param.ef_search` | `100` | Yes | `ef` (or `efSearch`) represents the size of the dynamic list for the nearest neighbors used during a search. Higher `ef` values lead to a more accurate but slower search. `ef` cannot be set to a value lower than the number of queried nearest neighbors, `k`. `ef` can take any value between `k` and the size of the dataset. 
+`index.knn.advanced.approximate_threshold` | `15000`   | Yes      | The number of vectors a segment must have before creating specialized data structures for approximate search. Set to `-1` to disable building vector data structures and `0` to always build them.
+`index.knn.algo_param.ef_construction` | `100` | No | Deprecated in 1.0.0. Instead, use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value.
 `index.knn.advanced.filtered_exact_search_threshold`| `null` | The filtered ID threshold value used to switch to exact search during filtered ANN search. If the number of filtered IDs in a segment is lower than this setting's value, then exact search will be performed on the filtered IDs. 
-`index.knn.algo_param.ef_search` | `100` | `ef` (or `efSearch`) represents the size of the dynamic list for the nearest neighbors used during a search. Higher `ef` values lead to a more accurate but slower search. `ef` cannot be set to a value lower than the number of queried nearest neighbors, `k`. `ef` can take any value between `k` and the size of the dataset. 
+`index.knn.algo_param.m` | `16` | No | Deprecated in 1.0.0. Use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value instead.
+`index.knn.space_type` | `l2` | No | Deprecated in 1.0.0. Use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value instead.
+
+An index created in OpenSearch version 2.11 or earlier will still use the old `ef_construction` and `ef_search` values (`512`).
+{: .note}

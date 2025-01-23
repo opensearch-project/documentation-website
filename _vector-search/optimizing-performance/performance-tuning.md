@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Performance tuning
-nav_order: 70
+nav_order: 30
+parent: Optimizing vector search performance
 redirect_from:
   - /search-plugins/knn/performance-tuning/
 ---
@@ -105,7 +106,7 @@ This approach is recommended only for workloads that involve a single initial bu
 
 During indexing, vector search builds a specialized data structure for a `knn_vector` field to enable efficient approximate k-NN search. However, these structures are rebuilt during [force merge]({{site.url}}{{site.baseurl}}/api-reference/index-apis/force-merge/) on k-NN indexes. To optimize indexing speed, follow these steps:
 
-1. **Disable vector data structure creation**: Disable vector data structure creation for new segments by setting [`index.knn.advanced.approximate_threshold`]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#index-settings) to `-1`. 
+1. **Disable vector data structure creation**: Disable vector data structure creation for new segments by setting [`index.knn.advanced.approximate_threshold`]({{site.url}}{{site.baseurl}}/vector-search/settings/#index-settings) to `-1`. 
 
     To specify the setting at index creation, send the following request:
 
@@ -215,7 +216,7 @@ This API operation only loads the segments of active indexes into the cache. If 
 
 Recall depends on multiple factors like number of vectors, number of dimensions, segments, and so on. Searching over a large number of small segments and aggregating the results leads to better recall than searching over a small number of large segments and aggregating results. The larger the native library index, the more chances of losing recall if you're using smaller algorithm parameters. Choosing larger values for algorithm parameters should help solve this issue but sacrifices search latency and indexing time. That being said, it's important to understand your system's requirements for latency and accuracy, and then choose the number of segments you want your index to have based on experimentation.
 
-The default parameters work on a broader set of use cases, but make sure to run your own experiments on your data sets and choose the appropriate values. For index-level settings, see [Index settings]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#index-settings).
+The default parameters work on a broader set of use cases, but make sure to run your own experiments on your data sets and choose the appropriate values. For index-level settings, see [Index settings]({{site.url}}{{site.baseurl}}/vector-search/settings/#index-settings).
 
 ## Approximate nearest neighbor versus score script
 

@@ -12,11 +12,11 @@ redirect_from:
 
 # Painless scripting extensions
 
-With the k-NN plugin's Painless Scripting extensions, you can use k-NN distance functions directly in your Painless scripts to perform operations on `knn_vector` fields. Painless has a strict list of allowed functions and classes per context to ensure its scripts are secure. The k-NN plugin adds Painless Scripting extensions to a few of the distance functions used in [k-NN score script]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-score-script), so you can use them to customize your k-NN workload.
+With the Painless Scripting extensions, you can use k-NN distance functions directly in your Painless scripts to perform operations on `knn_vector` fields. Painless has a strict list of allowed functions and classes per context to ensure its scripts are secure. The k-NN plugin adds Painless Scripting extensions to a few of the distance functions used in [k-NN score script]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-score-script/), so you can use them to customize your k-NN workload.
 
 ## Get started with k-NN's Painless Scripting functions
 
-To use k-NN's Painless Scripting functions, first create an index with `knn_vector` fields like in [k-NN score script]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-score-script#getting-started-with-the-score-script-for-vectors). Once the index is created and you ingest some data, you can use the painless extensions:
+To use k-NN's Painless Scripting functions, first create an index with `knn_vector` fields like in [k-NN score script]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-score-script#getting-started-with-the-score-script-for-vectors). Once the index is created and you ingest some data, you can use the Painless extensions:
 
 ```json
 GET my-knn-index-2/_search
@@ -49,7 +49,7 @@ GET my-knn-index-2/_search
 `field` needs to map to a `knn_vector` field, and `query_value` needs to be a floating point array with the same dimension as `field`.
 
 ## Function types
-The following table describes the available painless functions the k-NN plugin provides:
+The following table describes the available Painless functions the k-NN plugin provides:
 
 Function name | Function signature | Description
 :--- | :---

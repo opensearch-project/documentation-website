@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Vector API
-nav_order: 90
+nav_order: 80
 has_children: false
 redirect_from:
   - /search-plugins/knn/api/
@@ -9,11 +9,11 @@ redirect_from:
 
 # Vector API
 
-The k-NN plugin adds several APIs for managing, monitoring, and optimizing your k-NN workload.
+OpenSearch provides several vector APIs for managing, monitoring, and optimizing your vector workload.
 
 ## Stats
 
-The k-NN `stats` API provides information about the current status of the k-NN plugin. The plugin keeps track of both cluster-level and node-level statistics. Cluster-level statistics have a single value for the entire cluster. Node-level statistics have a single value for each node in the cluster. You can filter the query by `nodeId` and `statName`, as shown in the following example:
+The k-NN `stats` API provides information about the current status of the k-NN plugin, which implements vector search functionality. This includes both cluster-level and node-level statistics. Cluster-level statistics have a single value for the entire cluster. Node-level statistics have a single value for each node in the cluster. You can filter the query by `nodeId` and `statName`, as shown in the following example:
 
 ```
 GET /_plugins/_knn/nodeId1,nodeId2/stats/statName1,statName2
@@ -351,7 +351,7 @@ Request parameter |  Description
 `max_training_vector_count` | The maximum number of vectors from the training index to be used for training. Defaults to all the vectors in the index. Optional.
 `search_size` | The training data is pulled from the training index using scroll queries. This parameter defines the number of results to return per scroll query. Default is `10000`. Optional.
 `description` | A user-provided description of the model. Optional.
-`method` | The configuration of the approximate k-NN method used for search operations. For more information about the available methods, see [k-NN index method definitions]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#method-definitions). The method requires training to be valid.
+`method` | The configuration of the approximate k-NN method used for search operations. For more information about the available methods, see [k-NN index method definitions]({{site.url}}{{site.baseurl}}/vector-search/creating-vector-index/method/). The method requires training to be valid.
 `space_type` | The space type for which this model is trained, for example, Euclidean or cosine. Note: This value can also be set in the `method` parameter.
    
 #### Usage

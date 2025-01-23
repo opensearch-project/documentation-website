@@ -41,7 +41,7 @@ This tutorial consists of the following steps:
 
 ### Prerequisites
 
-Before you start, complete the [prerequisites]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/#prerequisites) for neural search. 
+Before you start, complete the [prerequisites]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/#prerequisites). 
 
 ## Step 1: Configure a sparse encoding model/tokenizer
 

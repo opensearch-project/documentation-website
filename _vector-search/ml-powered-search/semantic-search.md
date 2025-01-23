@@ -11,7 +11,7 @@ redirect_from:
 
 # Semantic search
 
-Semantic search considers the context and intent of a query. In OpenSearch, semantic search is facilitated by neural search with text embedding models. Semantic search creates a dense vector (a list of floats) and ingests data into a k-NN index. 
+Semantic search considers the context and intent of a query. In OpenSearch, semantic search is facilitated by text embedding models. Semantic search creates a dense vector (a list of floats) and ingests data into a k-NN index. 
 
 **PREREQUISITE**<br>
 Before using semantic search, you must set up a text embedding model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
@@ -24,7 +24,7 @@ To use semantic search, follow these steps:
 1. [Create an ingest pipeline](#step-1-create-an-ingest-pipeline).
 1. [Create an index for ingestion](#step-2-create-an-index-for-ingestion).
 1. [Ingest documents into the index](#step-3-ingest-documents-into-the-index).
-1. [Search the index using neural search](#step-4-search-the-index-using-neural-search).
+1. [Search the index](#step-4-search-the-index).
 
 ## Step 1: Create an ingest pipeline
 
@@ -115,7 +115,7 @@ PUT /my-nlp-index/_doc/2
 
 Before the document is ingested into the index, the ingest pipeline runs the `text_embedding` processor on the document, generating text embeddings for the `passage_text` field. The indexed document includes the `passage_text` field, which contains the original text, and the `passage_embedding` field, which contains the vector embeddings. 
 
-## Step 4: Search the index using neural search
+## Step 4: Search the index
 
 To perform vector search on your index, use the `neural` query clause either in the [k-NN plugin API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api/#search-for-a-model) or [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/) queries. You can refine the results by using a [k-NN search filter]({{site.url}}{{site.baseurl}}/search-plugins/knn/filter-search-knn/).
 

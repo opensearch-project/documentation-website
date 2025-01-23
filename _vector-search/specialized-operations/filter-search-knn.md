@@ -11,7 +11,7 @@ redirect_from:
 
 # Vector search with filters
 
-To refine k-NN results, you can filter a k-NN search using one of the following methods:
+To refine vector search results, you can filter a vector search using one of the following methods:
 
 - [Efficient k-NN filtering](#efficient-k-nn-filtering): This approach applies filtering _during_ the k-NN search, as opposed to before or after the k-NN search, which ensures that `k` results are returned (if there are at least `k` results in total). This approach is supported by the following engines:
   - Lucene engine with a Hierarchical Navigable Small World (HNSW) algorithm (k-NN plugin versions 2.4 and later) 

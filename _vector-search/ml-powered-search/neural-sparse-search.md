@@ -23,7 +23,7 @@ You can configure neural sparse search in the following ways:
 - Generate vector embeddings within OpenSearch: Configure an ingest pipeline to generate and store sparse vector embeddings from document text at ingestion time. At query time, input plain text, which will be automatically converted into vector embeddings for search. For complete setup steps, see [Configuring ingest pipelines for neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-with-pipelines/).
 - Ingest raw sparse vectors and search using sparse vectors directly. For complete setup steps, see [Ingesting and searching raw vectors]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-with-raw-vectors/).
 
-To learn more about splitting long text into passages for neural search, see [Text chunking]({{site.url}}{{site.baseurl}}/search-plugins/text-chunking/).
+To learn more about splitting long text into passages for neural sparse search, see [Text chunking]({{site.url}}{{site.baseurl}}/search-plugins/text-chunking/).
 
 ## Accelerating neural sparse search
 

@@ -93,7 +93,7 @@ POST testindex/_doc?pipeline=text-chunking-embedding-ingest-pipeline
 ```
 {% include copy-curl.html %}
 
-## Step 4: Search the index using neural search
+## Step 4: Search the index
 
 You can use a `nested` query to perform vector search on your index. We recommend setting `score_mode` to `max`, where the document score is set to the highest score out of all passage embeddings:
 

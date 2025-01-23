@@ -119,7 +119,7 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
 
 ### Step 3(b): Create a vector index
 
-Now you'll create a vector by setting `index.knn` to `true`. In the index, the field named `text` will contains an image description, and a [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/) field named `passage_embedding` will contains the vector embedding of the text. Additionally, set the default ingest pipeline to the `nlp-ingest-pipeline` you created in the previous step:
+Now you'll create a vector index by setting `index.knn` to `true`. In the index, the field named `text` will contains an image description, and a [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/) field named `passage_embedding` will contains the vector embedding of the text. Additionally, set the default ingest pipeline to the `nlp-ingest-pipeline` you created in the previous step:
 
 
 ```json
@@ -131,9 +131,6 @@ PUT /my-nlp-index
   },
   "mappings": {
     "properties": {
-      "id": {
-        "type": "text"
-      },
       "passage_embedding": {
         "type": "knn_vector",
         "dimension": 768,
@@ -153,7 +150,7 @@ PUT /my-nlp-index
 ```
 {% include copy-curl.html %}
 
-Setting up a k-NN index allows you to later perform a vector search on the `passage_embedding` field.
+Setting up a vector index allows you to later perform a vector search on the `passage_embedding` field.
 
 ### Step 3(c): Ingest documents into the index
 
@@ -162,8 +159,7 @@ In this step, you'll ingest several sample documents into the index. The sample 
 ```json
 PUT /my-nlp-index/_doc/1
 {
-  "text": "A West Virginia university women 's basketball team , officials , and a small gathering of fans are in a West Virginia arena .",
-  "id": "4319130149.jpg"
+  "text": "A man who is riding a wild horse in the rodeo is very near to falling off ."
 }
 ```
 {% include copy-curl.html %}
@@ -171,8 +167,7 @@ PUT /my-nlp-index/_doc/1
 ```json
 PUT /my-nlp-index/_doc/2
 {
-  "text": "A wild animal races across an uncut field with a minimal amount of trees .",
-  "id": "1775029934.jpg"
+  "text": "A rodeo cowboy , wearing a cowboy hat , is being thrown off of a wild white horse ."
 }
 ```
 {% include copy-curl.html %}
@@ -180,60 +175,10 @@ PUT /my-nlp-index/_doc/2
 ```json
 PUT /my-nlp-index/_doc/3
 {
-  "text": "People line the stands which advertise Freemont 's orthopedics , a cowboy rides a light brown bucking bronco .",
-  "id": "2664027527.jpg"
+  "text": "People line the stands which advertise Freemont 's orthopedics , a cowboy rides a light brown bucking bronco ."
 }
 ```
 {% include copy-curl.html %}
-
-```json
-PUT /my-nlp-index/_doc/4
-{
-  "text": "A man who is riding a wild horse in the rodeo is very near to falling off .",
-  "id": "4427058951.jpg"
-}
-```
-{% include copy-curl.html %}
-
-```json
-PUT /my-nlp-index/_doc/5
-{
-  "text": "A rodeo cowboy , wearing a cowboy hat , is being thrown off of a wild white horse .",
-  "id": "2691147709.jpg"
-}
-```
-{% include copy-curl.html %}
-
-When the documents are ingested into the index, the `text_embedding` processor creates an additional field that contains vector embeddings and adds that field to the document. To see an example document that is indexed, search for document 1:
-
-```json
-GET /my-nlp-index/_doc/1
-```
-{% include copy-curl.html %}
-
-The response includes the document `_source` containing the original `text` and `id` fields and the added `passage_embedding` field:
-
-```json
-{
-  "_index": "my-nlp-index",
-  "_id": "1",
-  "_version": 1,
-  "_seq_no": 0,
-  "_primary_term": 1,
-  "found": true,
-  "_source": {
-    "passage_embedding": [
-      0.04491629,
-      -0.34105563,
-      0.036822468,
-      -0.14139028,
-      ...
-    ],
-    "text": "A West Virginia university women 's basketball team , officials , and a small gathering of fans are in a West Virginia arena .",
-    "id": "4319130149.jpg"
-  }
-}
-```
 
 ## Step 4: Search the data
 
@@ -252,7 +197,7 @@ GET /my-nlp-index/_search
       "passage_embedding": {
         "query_text": "wild west",
         "model_id": "aVeif4oB5Vm0Tdw8zYO2",
-        "k": 5
+        "k": 3
       }
     }
   }
@@ -260,11 +205,11 @@ GET /my-nlp-index/_search
 ```
 {% include copy-curl.html %}
 
-The response all five documents, and the document order reflects semantic meaning:
+The response contains the matching documents:
 
 ```json
 {
-  "took": 25,
+  "took": 127,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -274,57 +219,40 @@ The response all five documents, and the document order reflects semantic meanin
   },
   "hits": {
     "total": {
-      "value": 5,
+      "value": 3,
       "relation": "eq"
     },
-    "max_score": 0.01585195,
+    "max_score": 0.015851952,
     "hits": [
       {
         "_index": "my-nlp-index",
-        "_id": "4",
-        "_score": 0.01585195,
+        "_id": "1",
+        "_score": 0.015851952,
         "_source": {
-          "text": "A man who is riding a wild horse in the rodeo is very near to falling off .",
-          "id": "4427058951.jpg"
+          "text": "A man who is riding a wild horse in the rodeo is very near to falling off ."
         }
       },
       {
         "_index": "my-nlp-index",
         "_id": "2",
-        "_score": 0.015748845,
-        "_source": {
-          "text": "A wild animal races across an uncut field with a minimal amount of trees.",
-          "id": "1775029934.jpg"
-        }
-      },
-      {
-        "_index": "my-nlp-index",
-        "_id": "5",
         "_score": 0.015177963,
         "_source": {
-          "text": "A rodeo cowboy , wearing a cowboy hat , is being thrown off of a wild white horse .",
-          "id": "2691147709.jpg"
-        }
-      },
-      {
-        "_index": "my-nlp-index",
-        "_id": "1",
-        "_score": 0.013272902,
-        "_source": {
-          "text": "A West Virginia university women 's basketball team , officials , and a small gathering of fans are in a West Virginia arena .",
-          "id": "4319130149.jpg"
+          "text": "A rodeo cowboy , wearing a cowboy hat , is being thrown off of a wild white horse ."
         }
       },
       {
         "_index": "my-nlp-index",
         "_id": "3",
-        "_score": 0.011347735,
+        "_score": 0.011347729,
         "_source": {
-          "text": "People line the stands which advertise Freemont 's orthopedics , a cowboy rides a light brown bucking bronco .",
-          "id": "2664027527.jpg"
+          "text": "People line the stands which advertise Freemont 's orthopedics , a cowboy rides a light brown bucking bronco ."
         }
       }
     ]
   }
 }
 ```
+
+## Next steps
+
+- Learn about configuring semantic and hybrid search in the [Semantic and hybrid search tutorial]({{site.url}}{{site.baseurl}}/vector-search/getting-started/neural-search-tutorial/)

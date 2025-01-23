@@ -15,7 +15,7 @@ The following table compares the search syntax and typical use cases for each ve
 | Feature                          | Query type  | Input format | Model required | Use case     |
 |----------------------------------|------------------|------------------|---------------------|----------------------------|
 | **Pre-generated embeddings**     | `knn`            | Vector array     | No                  | Raw vector search          |
-| **Auto-generated embeddings** | `neural`       | Text            | Yes                 | Semantic search            |
+| **Auto-generated embeddings** | `neural`       | Text            | Yes                 | ML-powered search            |
 
 ## Searching pre-generated embeddings or raw vectors
 
@@ -36,16 +36,9 @@ GET /my-raw-vector-index/_search
 ```
 {% include copy-curl.html %}
 
-**Key characteristics**:
-
-- Utilizes the `knn` query type.
-- Requires a vector array input.
-- Specify `k` to return the top-k nearest neighbors.
-- Does not require a model for query transformation.
-
 ## Searching auto-generated embeddings
 
-For semantic searches using embeddings, use the `neural` query type and provide text input:
+For ML-powered searches using embeddings, use the `neural` query type and provide query text input:
 
 ```json
 GET /my-semantic-search-index/_search
@@ -62,11 +55,3 @@ GET /my-semantic-search-index/_search
 }
 ```
 {% include copy-curl.html %}
-
-**Key characteristics**:
-
-- Employs the `neural` query type.
-- Accepts plain text as input.
-- Requires the same `model_id` used during indexing.
-- Converts query text into dense vector embeddings automatically.
-- Specify `k` to retrieve the top-k matches.

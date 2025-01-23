@@ -6,29 +6,31 @@ parent: Specialized vector search
 has_children: false
 has_math: true
 redirect_from:
-  - /search-plugins/radial-search-knn/
+  - /search-plugins/knn/radial-search-knn/
 ---
 
 # Radial search
 
-Radial search enhances the k-NN plugin's capabilities beyond approximate top-`k` searches. With radial search, you can search all points within a vector space that reside within a specified maximum distance or minimum score threshold from a query point. This provides increased flexibility and utility in search operations.
+Radial search enhances the vector search capabilities beyond approximate top-k searches. With radial search, you can search all points within a vector space that reside within a specified maximum distance or minimum score threshold from a query point. This provides increased flexibility and utility in search operations.
 
-## Parameter type
+## Parameters
 
-`max_distance` allows users to specify a physical distance within the vector space, identifying all points that are within this distance from the query point. This approach is particularly useful for applications requiring spatial proximity or absolute distance measurements.
+Radial search supports the following parameters:
 
-`min_score` enables the specification of a similarity score, facilitating the retrieval of points that meet or exceed this score in relation to the query point. This method is ideal in scenarios where relative similarity, based on a specific metric, is more critical than physical proximity.
+- `max_distance`: Specifies a physical distance within the vector space, identifying all points that are within this distance from the query point. This approach is particularly useful for applications requiring spatial proximity or absolute distance measurements.
 
-Only one query variable, either `k`, `max_distance`, or `min_score`, is required to be specified during radial search. For more information about the vector spaces, see [Spaces](#spaces).
+`min_score`: Specifies a similarity score, facilitating the retrieval of points that meet or exceed this score in relation to the query point. This method is ideal in scenarios where relative similarity, based on a specific metric, is more critical than physical proximity.
+
+Only one query variable, either `k`, `max_distance`, or `min_score`, is required to be specified during radial search. 
 
 ## Supported cases
 
-You can perform radial search with either the Lucene or Faiss engines. The following table summarizes radial search use cases by engine.
+You can perform radial search with either Lucene or Faiss engine. The following table summarizes radial search use cases by engine.
 
 | Engine supported  | Filter supported  | Nested field supported | Search type  |
 | :--- | :--- | :--- | :--- |
-| Lucene           | true             | false                  | approximate    |
-| Faiss            | true             | true                   | approximate    |
+| Lucene           | Yes             | No                  | Approximate    |
+| Faiss            | Yes             | Yes                   | Approximate    |
 
 ## Spaces
 

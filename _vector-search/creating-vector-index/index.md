@@ -5,6 +5,8 @@ nav_order: 20
 has_children: true
 redirect_from:
   - /vector-search/creating-a-vector-db/
+  - /search-plugins/knn/knn-index/
+  - /vector-search/creating-vector-index/
 ---
 
 # Creating a vector index
@@ -55,7 +57,7 @@ Regardless of the type of vector search, the following elements are part of crea
    Set the `dimension` property to match the size of the vectors used.
 
 4. **Choose a space type**:
-   Select a distance metric for similarity comparisons, such as `l2` (Euclidean distance) or `cosine`.
+   Select a distance metric for similarity comparisons, such as `l2` (Euclidean distance) or `cosinesimil`.
 
 5. **Select a method**:
    Configure the indexing method, such as HNSW or IVF, to optimize vector search performance.
@@ -71,8 +73,8 @@ The following table summarizes key index configuration differences for the suppo
 
 | Feature                  | Vector field type | Ingest pipeline | Transformation     | Use case   |
 |--------------------------|-----------------------|---------------------|-------------------------|-------------------------|
-| **Pre-generated embeddings or raw vectors**   | `knn_vector`         | Not required        | Direct ingestion        | Raw  vector search   |
-| **Auto-generated embeddings**      | `knn_vector`         | Required            | Auto-generated vectors  | Semantic search     |
+| **Pre-generated embeddings or raw vectors**   | [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/)         | Not required        | Direct ingestion        | Raw vector search   |
+| **Auto-generated embeddings**      | [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/)         | Required            | Auto-generated vectors  | ML-powered search     |
 
 ## Pre-generated embeddings or raw vectors
 
@@ -100,17 +102,31 @@ PUT /my-raw-vector-index
 }
 ```
 
-**Key Characteristics:**
-- Uses the `knn_vector` type.
-- Directly ingests vector data.
-- No additional transformations are required.
-- Supports custom configurations for indexing methods (e.g., FAISS).
-
-
-
 ## Auto-generated embeddings
 
-Auto-generating embeddings require configuring an ingest pipeline. When creating embeddings, specify the pipeline at index creation time:
+Auto-generating embeddings require configuring an [ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) with a model ID of the embedding model: 
+
+```json
+PUT /_ingest/pipeline/nlp-ingest-pipeline
+{
+  "description": "An NLP ingest pipeline",
+  "processors": [
+    {
+      "text_embedding": {
+        "model_id": "aVeif4oB5Vm0Tdw8zYO2",
+        "field_map": {
+          "text": "passage_embedding"
+        }
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+For more information about configuring a model, see [Integrating ML models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/).
+
+When creating an index, specify the pipeline as the default pipeline:
 
 ```json
 PUT /my-semantic-search-index
@@ -137,10 +153,11 @@ PUT /my-semantic-search-index
   }
 }
 ```
+{% include copy-curl.html %}
 
-**Key Characteristics:**
-- Uses the `knn_vector` type.
-- Includes an ingest pipeline for automatic embedding generation.
-- Dimension matches the embedding model output.
-- Includes a `text` field for the original content.
+## Next steps
 
+- [Ingesting data into a vector index]({{site.url}}{{site.baseurl}}/vector-search/searching-data/)
+- [Vector data types]({{site.url}}{{site.baseurl}}/vector-search/creating-vector-index/vector-field/)
+- [Supported methods]({{site.url}}{{site.baseurl}}/vector-search/creating-vector-index/method/)
+- [k-NN vector field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/)

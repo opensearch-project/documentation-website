@@ -19,8 +19,6 @@ The following table compares ingestion for each vector search method.
 
 ## Raw vector ingestion
 
-Raw vector ingestion does not require an ingest pipeline because vectors are pre-generated outside of OpenSearch.
-
 When working with pre-generated embeddings, you directly ingest vector data into the `knn_vector` field. No pipeline is required because the vectors are already generated:
 
 ```json
@@ -43,17 +41,9 @@ POST /_bulk
 ```
 {% include copy-curl.html %}
 
-**Key Characteristics:**
-- Direct ingestion of vector arrays
-- No transformation during ingestion
-- Optional metadata fields
-- Supports single document or bulk ingestion
-
-
 ## Auto-generated embeddings
 
-For auto-generated embeddings, you first need to set up an ingest pipeline that will convert text to vectors. Then, you ingest text data, and the pipeline automatically generates the embeddings:
-
+For auto-generated embeddings, you first need to set up an ingest pipeline that will convert text to vectors:
 ```json
 PUT /_ingest/pipeline/nlp-ingest-pipeline
 {
@@ -72,37 +62,21 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
 ```
 {% include copy-curl.html %}
 
-After setting up the pipeline, ingest text data:
+Then, you ingest text data, and the pipeline automatically generates the embeddings:
 
 ```json
 POST /my-semantic-search-index/_doc
 {
-  "passage_text": "Your text content here",
-  "metadata": "Optional additional information"
+  "passage_text": "Your text content here"
 }
 ```
 {% include copy-curl.html %}
 
 The pipeline automatically generates and stores the embeddings in the `passage_embedding` field.
 
-**Key Characteristics:**
-- Ingest plain text
-- Automatic vector generation during ingestion
-- Original text preserved
-- Pipeline handles transformation
+## Next steps
 
-## Best practices
-
-When ingesting data into vector indexes, consider the following best practices:
-
-1. **Batch processing**: Use the Bulk API for better performance when ingesting multiple documents.
-2. **Pipeline monitoring**: Monitor pipeline performance and errors, especially for auto-generated embeddings.
-3. **Data validation**: Ensure vector dimensions match the index configuration.
-4. **Error handling**: Implement proper error handling for failed ingestion attempts.
-5. **Resource management**: Monitor system resources during large-scale ingestion, especially with auto-generated embeddings.
-
-## Further reading
-
-- [Bulk API Documentation]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/)
-- [Ingest Pipeline Documentation]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/)
-- [Text Embedding Processor Documentation]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/processors/text-embedding/)
+- [Searching vector data]({{site.url}}{{site.baseurl}}/vector-search/searching-data/)
+- [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/)
+- [Ingest pipelines]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/)
+- [Text embedding processor]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/processors/text-embedding/)

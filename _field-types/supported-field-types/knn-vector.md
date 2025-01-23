@@ -11,7 +11,7 @@ has_math: true
 **Introduced 1.0**
 {: .label .label-purple }
 
-The [k-NN plugin]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/) introduces a custom data type, the `knn_vector`, that allows users to ingest their k-NN vectors into an OpenSearch index and perform different kinds of k-NN search. The `knn_vector` field is highly configurable and can serve many different k-NN workloads. In general, a `knn_vector` field can be built either by providing a method definition or specifying a model id.
+The `knn_vector` data type allows you to ingest vectors into an OpenSearch index and perform different kinds of vector search. The `knn_vector` field is highly configurable and can serve many different vector workloads. In general, a `knn_vector` field can be built either by providing a method definition or specifying a model id.
 
 ## Example
 
@@ -53,7 +53,7 @@ The following modes are currently supported.
 | `in_memory` (Default) | `nmslib`       | Prioritizes low-latency search. This mode uses the `nmslib` engine without any quantization applied. It is configured with the default parameter values for vector search in OpenSearch.                                                            |
 | `on_disk`             | `faiss`        | Prioritizes low-cost vector search while maintaining strong recall. By default, the `on_disk` mode uses quantization and rescoring to execute a two-pass approach to retrieve the top neighbors. The `on_disk` mode supports only `float` vector types. |
 
-To create a k-NN index that uses the `on_disk` mode for low-cost search, send the following request:
+To create a vector index that uses the `on_disk` mode for low-cost search, send the following request:
 
 ```json
 PUT test-index
@@ -130,7 +130,7 @@ PUT test-index
 
 ## Method definitions
 
-[Method definitions]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#method-definitions) are used when the underlying [approximate k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/) algorithm does not require training. For example, the following `knn_vector` field specifies that *nmslib*'s implementation of *hnsw* should be used for approximate k-NN search. During indexing, *nmslib* will build the corresponding *hnsw* segment files.
+[Method definitions]({{site.url}}{{site.baseurl}}/vector-search/creating-vector-index/method/) are used when the underlying [approximate k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/) algorithm does not require training. For example, the following `knn_vector` field specifies that NMSLIB's implementation of HNSW should be used for approximate k-NN search. During indexing, NMSLIB will build the corresponding HNSW segment files.
 
 ```json
 "my_vector": {
@@ -150,7 +150,7 @@ PUT test-index
 
 ## Model IDs
 
-Model IDs are used when the underlying Approximate k-NN algorithm requires a training step. As a prerequisite, the model must be created with the [Train API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-a-model). The
+Model IDs are used when the underlying approximate k-NN algorithm requires a training step. As a prerequisite, the model must be created with the [Train API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-a-model). The
 model contains the information needed to initialize the native library segment files.
 
 ```json
@@ -180,7 +180,7 @@ In [k-NN benchmarking tests](https://github.com/opensearch-project/opensearch-be
 When using `byte` vectors, expect some loss of precision in the recall compared to using `float` vectors. Byte vectors are useful in large-scale applications and use cases that prioritize a reduced memory footprint in exchange for a minimal loss of recall.
 {: .important}
 
-When using `byte` vectors with the `faiss` engine, we recommend using [SIMD optimization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#simd-optimization-for-the-faiss-engine), which helps to significantly reduce search latencies and improve indexing throughput.
+When using `byte` vectors with the `faiss` engine, we recommend using [SIMD optimization]({{site.url}}{{site.baseurl}}/vector-search/creating-vector-index/vector-field/#simd-optimization-for-the-faiss-engine), which helps to significantly reduce search latencies and improve indexing throughput.
 {: .important} 
 
 Introduced in k-NN plugin version 2.9, the optional `data_type` parameter defines the data type of a vector. The default value of this parameter is `float`.

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: ML-powered search
-nav_order: 50
+nav_order: 45
 has_children: true
 has_toc: false
 redirect_from: 
@@ -24,7 +24,7 @@ search_method_cards:
     description: "Uses dense retrieval based on text embedding models to search text data."
     link: "/vector-search/ml-powered-search/semantic-search/"
   - heading: "Hybrid search"
-    description: "Combines keyword and neural search to improve search relevance."
+    description: "Combines keyword and semantic search to improve search relevance."
     link: "/vector-search/ml-powered-search/hybrid-search/"
   - heading: "Multimodal search"
     description: "Uses multimodal embedding models to search text and image data."
@@ -49,7 +49,11 @@ ML-powered search streamlines your workflow by generating embeddings automatical
 
 Before using text-to-embedding search, you must set up an ML model for embedding generation. When selecting a model, you have the following options:
 
-{% include cards.html cards=page.model_cards %}
+- Use a pretrained model provided by OpenSearch. For more information, see [OpenSearch-provided pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/).
+
+- Upload your own model to OpenSearch. For more information, see [Custom local models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/custom-local-models/).
+
+- Connect to a foundation model hosted on an external platform. For more information, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/).
 
 ---
 

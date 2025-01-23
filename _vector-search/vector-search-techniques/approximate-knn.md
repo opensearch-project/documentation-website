@@ -13,20 +13,20 @@ redirect_from:
 
 Standard k-NN search methods compute similarity using a brute-force approach that measures the nearest distance between a query and a number of points, which produces exact results. This works well in many applications. However, in the case of extremely large datasets with high dimensionality, this creates a scaling problem that reduces the efficiency of the search. Approximate k-NN search methods can overcome this by employing tools that restructure indexes more efficiently and reduce the dimensionality of searchable vectors. Using this approach requires a sacrifice in accuracy but increases search processing speeds appreciably.
 
-The Approximate k-NN search methods leveraged by OpenSearch use approximate nearest neighbor (ANN) algorithms from the [nmslib](https://github.com/nmslib/nmslib), [faiss](https://github.com/facebookresearch/faiss), and [Lucene](https://lucene.apache.org/) libraries to power k-NN search. These search methods employ ANN to improve search latency for large datasets. Of the three search methods the k-NN plugin provides, this method offers the best search scalability for large datasets. This approach is the preferred method when a dataset reaches hundreds of thousands of vectors.
+The Approximate k-NN search methods leveraged by OpenSearch use approximate nearest neighbor (ANN) algorithms from the [NMSLIB](https://github.com/nmslib/nmslib), [Faiss](https://github.com/facebookresearch/faiss), and [Lucene](https://lucene.apache.org/) libraries to power k-NN search. These search methods employ ANN to improve search latency for large datasets. Of the three search methods the k-NN plugin provides, this method offers the best search scalability for large datasets. This approach is the preferred method when a dataset reaches hundreds of thousands of vectors.
 
-For details on the algorithms the plugin currently supports, see [k-NN Index documentation]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#method-definitions).
+For details on the algorithms the plugin currently supports, see [k-NN Index documentation]({{site.url}}{{site.baseurl}}/vector-search/creating-vector-index/).
 {: .note}
 
-The k-NN plugin builds a native library index of the vectors for each knn-vector field/Lucene segment pair during indexing, which can be used to efficiently find the k-nearest neighbors to a query vector during search. To learn more about Lucene segments, see the [Apache Lucene documentation](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/codecs/lucene87/package-summary.html#package.description). These native library indexes are loaded into native memory during search and managed by a cache. To learn more about preloading native library indexes into memory, refer to the [warmup API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#warmup-operation). Additionally, you can see which native library indexes are already loaded in memory. To learn more about this, see the [stats API section]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#stats).
+The k-NN plugin builds a native library index of the vectors for each `knn-vector` field/Lucene segment pair during indexing, which can be used to efficiently find the k-nearest neighbors to a query vector during search. To learn more about Lucene segments, see the [Apache Lucene documentation](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/codecs/lucene87/package-summary.html#package.description). These native library indexes are loaded into native memory during search and managed by a cache. To learn more about preloading native library indexes into memory, refer to the [warmup API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#warmup-operation). Additionally, you can see which native library indexes are already loaded in memory. To learn more about this, see the [stats API section]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#stats).
 
 Because the native library indexes are constructed during indexing, it is not possible to apply a filter on an index and then use this search method. All filters are applied on the results produced by the approximate nearest neighbor search.
 
 ## Recommendations for engines and cluster node sizing
 
-Each of the three engines used for approximate k-NN search has its own attributes that make one more sensible to use than the others in a given situation. You can follow the general information below to help determine which engine will best meet your requirements.
+Each of the three engines used for approximate k-NN search has its own attributes that make one more sensible to use than the others in a given situation. Use the following information to help determine which engine will best meet your requirements.
 
-In general, nmslib outperforms both faiss and Lucene on search. However, to optimize for indexing throughput, faiss is a good option. For relatively smaller datasets (up to a few million vectors), the Lucene engine demonstrates better latencies and recall. At the same time, the size of the index is smallest compared to the other engines, which allows it to use smaller AWS instances for data nodes.
+In general, NMSLIB outperforms both Faiss and Lucene on search. However, to optimize for indexing throughput, Faiss is a good option. For relatively smaller datasets (up to a few million vectors), the Lucene engine demonstrates better latencies and recall. At the same time, the size of the index is smallest compared to the other engines, which allows it to use smaller AWS instances for data nodes.
 
 When considering cluster node sizing, a general approach is to first establish an even distribution of the index across the cluster. However, there are other considerations. To help make these choices, you can refer to the OpenSearch managed service guidance in the section [Sizing domains](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/sizing-domains.html).
 
@@ -396,7 +396,7 @@ To learn more about using binary vectors with k-NN search, see [Binary k-NN vect
 
 A _space_ corresponds to the function used to measure the distance between two points in order to determine the k-nearest neighbors. From the k-NN perspective, a lower score equates to a closer and better result. This is the opposite of how OpenSearch scores results, where a higher score equates to a better result. The k-NN plugin supports the following spaces. 
 
-Not every method supports each of these spaces. Be sure to check out [the method documentation]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#method-definitions) to make sure the space you are interested in is supported.
+Not every method supports each of these spaces. Be sure to check out [the method documentation]({{site.url}}{{site.baseurl}}/vector-search/creating-vector-index/method/) to make sure the space you are interested in is supported.
 {: note.}
 
 | Space type | Distance function ($$d$$ ) | OpenSearch score |

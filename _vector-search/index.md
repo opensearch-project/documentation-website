@@ -19,12 +19,9 @@ raw_steps:
   - heading: "Specialized vector search"
     description: "Learn about specialized vector search use cases, such as filtering, nested field search, and radial search."
     link: "/vector-search/specialized-operations/"
-  - heading: "Optimizing vector storage"
-    description: "Learn about storage saving techniques, such as disk-based vector search and vector quantization."
-    link: "/vector-search/optimizing-storage/"
-  - heading: "Performance tuning"
-    description: "Improve search performance."
-    link: "/vector-search/performance-tuning/"
+  - heading: "Optimizing vector search performance"
+    description: "Learn about optimizing vector search reduce memory usage and improve performance."
+    link: "/vector-search/optimizing-performance/"
 ml_steps:
   - heading: "Auto-generated embeddings quickstart"
     description: "Follow a quickstart tutorial for text-to-embedding search."
@@ -35,22 +32,20 @@ ml_steps:
   - heading: "ML-powered search"
     description: "Learn about many ML-powered search options that OpenSearch provides."
     link: "/vector-search/ml-powered-search/"
-  - heading: "Specialized vector search"
-    description: "Learn about specialized vector search use cases, such as filtering, nested field search, and radial search."
-    link: "/vector-search/specialized-operations/"
-  - heading: "Optimizing vector storage"
-    description: "Learn about storage saving techniques, such as disk-based vector search and vector quantization."
-    link: "/vector-search/optimizing-storage/"
-  - heading: "Performance tuning"
-    description: "Improve search performance."
-    link: "/vector-search/performance-tuning/"
+  - heading: "Optimizing vector search performance"
+    description: "Learn about optimizing vector search reduce memory usage and improve performance."
+    link: "/vector-search/optimizing-performance/"
 ---
 
 # Vector search
 
-OpenSearch is a comprehensive search platform that supports a variety of data types, including vectors. OpenSearch vector database functionality is seamlessly integrated with its generic database function.
+Traditional lexical search, based on term frequency models like BM25, is widely used and effective for many search applications. However, lexical search techniques require significant investment in time and expertise to tune them to account for the meaning or relevance of the terms searched. To embed semantic understanding into your search application, you can use machine learning embedding models that can encode the meaning and context of documents, images, and audio into vectors for similarity search. These embedded meanings can be searched using the k-nearest neighbors (k-NN) functionality provided by OpenSearch. 
 
-In OpenSearch, you can generate vector embeddings, store those embeddings in an index, and use them for vector search.
+Using OpenSearch as a vector database brings together the power of traditional search, analytics, and vector search in one complete package. OpenSearch’s vector database capabilities can accelerate artificial intelligence (AI) application development by reducing the effort for builders to operationalize, manage, and integrate AI-generated assets. Bring your models, vectors, and metadata into OpenSearch to power vector, lexical, and hybrid search and analytics, with performance and scalability built in.
+
+## Using OpenSearch as a vector database
+
+OpenSearch provides an integrated  vector database that can support AI systems by serving as a knowledge base. This benefits AI applications like generative AI and natural language search by providing a long-term memory of AI-generated outputs. These outputs can be used to enhance information retrieval and analytics, improve efficiency and stability, and give generative AI models a broader and deeper pool of data from which to draw more accurate responses to queries.
 
 <span class="centering-container">
 [Get started]({{site.url}}{{site.baseurl}}/vector-search/getting-started/){: .btn-dark-blue}

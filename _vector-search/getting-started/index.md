@@ -28,7 +28,7 @@ pre_items:
     link: "/vector-search/ingesting-data/#raw-vector-ingestion"
   - heading: "Search embeddings"
     description: "Search your embeddings using vector search."
-    link: "/vector-search/querying-data/#searching-pre-generated-embeddings-or-raw-vectors"
+    link: "/vector-search/searching-data/#searching-pre-generated-embeddings-or-raw-vectors"
 auto_items:
   - heading: "Configure an embedding model"
     description: "Configure a machine learning model that will automatically generate embeddings from your text at ingest time and query time."
@@ -41,7 +41,7 @@ auto_items:
     link: "/vector-search/ingesting-data/#auto-generated-embeddings"
   - heading: "Search text"
     description: "Search your text using vector search. Query text is automatically converted to vector embeddings and compared to document embeddings."
-    link: "/vector-search/querying-data/#searching-auto-generated-embeddings"
+    link: "/vector-search/searching-data/#searching-auto-generated-embeddings"
 ---
 
 # Getting started with vector search

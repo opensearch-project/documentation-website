@@ -20,13 +20,11 @@ In this tutorial, you'll learn how to implement the following types of search:
 
 ## OpenSearch components for semantic search
 
-In this tutorial, you'll implement semantic search using the following OpenSearch components:
+In this tutorial, you'll use the following OpenSearch components:
 
-- [Model group]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#model-groups)
 - [Pretrained language models provided by OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/)
 - [Ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/)
 - [k-NN vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/)
-- [Neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/)
 - [Search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/)
 - [Normalization processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/)
 - [Hybrid query]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/)
@@ -62,18 +60,15 @@ For more information about ML-related cluster settings, see [ML Commons cluster 
 
 This tutorial consists of the following steps:
 
-1. [**Set up an ML language model**](#step-1-set-up-an-ml-language-model).
-    1. [Choose a language model](#step-1a-choose-a-language-model).
-    1. [Register a model group](#step-1b-register-a-model-group).
-    1. [Register the model to the model group](#step-1c-register-the-model-to-the-model-group).
-    1. [Deploy the model](#step-1d-deploy-the-model).
-1. [**Ingest data with neural search**](#step-2-ingest-data-with-neural-search).
-    1. [Create an ingest pipeline for neural search](#step-2a-create-an-ingest-pipeline-for-neural-search).
-    1. [Create a k-NN index](#step-2b-create-a-k-nn-index).
-    1. [Ingest documents into the index](#step-2c-ingest-documents-into-the-index).
-1. [**Search the data**](#step-3-search-the-data).
+1. [**Choose a language model**](#step-1-choose-a-language-model).
+1. [**Register and deploy the model**](#step-2-register-and-deploy-the-model).
+1. [**Ingest data**](#step-3-ingest-data).
+    1. [Create an ingest pipeline for embedding generation](#step-3a-create-an-ingest-pipeline).
+    1. [Create a vector index](#step-3b-create-a-vector-index).
+    1. [Ingest documents into the index](#step-3c-ingest-documents-into-the-index).
+1. [**Search the data**](#step-4-search-the-data).
    - [Search using a keyword search](#search-using-a-keyword-search).
-   - [Search using a neural search](#search-using-a-neural-search).
+   - [Search using a semantic search](#search-using-a-semantic-search).
    - [Search using a hybrid search](#search-using-a-hybrid-search).
 
 Some steps in the tutorial contain optional `Test it` sections. You can ensure that the step was successful by running requests in these sections.
@@ -84,11 +79,9 @@ After you're done, follow the steps in the [Clean up](#clean-up) section to dele
 
 You can follow this tutorial using your command line or the OpenSearch Dashboards [Dev Tools console]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/run-queries/).
 
-## Step 1: Set up an ML language model
+## Step 1: Choose a language model
 
-Neural search requires a language model in order to generate vector embeddings from text fields, both at ingestion time and query time.
-
-### Step 1(a): Choose a language model
+First, you'll need to choose a language model in order to generate vector embeddings from text fields, both at ingestion time and query time.
 
 For this tutorial, you'll use the [DistilBERT](https://huggingface.co/docs/transformers/model_doc/distilbert) model from Hugging Face. It is one of the pretrained sentence transformer models available in OpenSearch that has shown some of the best results in benchmarking tests (for details, see [this blog post](https://opensearch.org/blog/semantic-science-benchmarks/)). You'll need the name, version, and dimension of the model to register it. You can find this information in the [pretrained model table]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sentence-transformers) by selecting the `config_url` link corresponding to the model's TorchScript artifact:
 
@@ -96,7 +89,7 @@ For this tutorial, you'll use the [DistilBERT](https://huggingface.co/docs/trans
 - The model version is `1.0.1`.
 - The number of dimensions for this model is `768`.
 
-Take note of the dimensionality of the model because you'll need it when you set up a k-NN index.
+Take note of the dimensionality of the model because you'll need it when you set up a vector index.
 {: .important}
 
 #### Advanced: Using a different model
@@ -111,108 +104,15 @@ Alternatively, you can choose one of the following options for your model:
 
 For information about choosing a model, see [Further reading](#further-reading). 
 
-### Step 1(b): Register a model group
+## Step 2: Register and deploy the model 
 
-For access control, models are organized into model groups (collections of versions of a particular model). Each model group name in the cluster must be globally unique. Registering a model group ensures the uniqueness of the model group name.
-
-If you are registering the first version of a model without first registering the model group, a new model group is created automatically. For more information, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).
-{: .tip}
-
-To register a model group with the access mode set to `public`, send the following request:
-
-```json
-POST /_plugins/_ml/model_groups/_register
-{
-  "name": "NLP_model_group",
-  "description": "A model group for NLP models",
-  "access_mode": "public"
-}
-```
-{% include copy-curl.html %}
-
-OpenSearch sends back the model group ID:
-
-```json
-{
-  "model_group_id": "Z1eQf4oB5Vm0Tdw8EIP2",
-  "status": "CREATED"
-}
-```
-
-You'll use this ID to register the chosen model to the model group.
-
-<details markdown="block">
-  <summary>
-    Test it
-  </summary>
-  {: .text-delta}
-
-Search for the newly created model group by providing its model group ID in the request:
-
-```json
-POST /_plugins/_ml/model_groups/_search
-{
-  "query": {
-    "match": {
-      "_id": "Z1eQf4oB5Vm0Tdw8EIP2"
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-The response contains the model group:
-
-```json
-{
-  "took": 0,
-  "timed_out": false,
-  "_shards": {
-    "total": 1,
-    "successful": 1,
-    "skipped": 0,
-    "failed": 0
-  },
-  "hits": {
-    "total": {
-      "value": 1,
-      "relation": "eq"
-    },
-    "max_score": 1,
-    "hits": [
-      {
-        "_index": ".plugins-ml-model-group",
-        "_id": "Z1eQf4oB5Vm0Tdw8EIP2",
-        "_version": 1,
-        "_seq_no": 14,
-        "_primary_term": 2,
-        "_score": 1,
-        "_source": {
-          "created_time": 1694357262582,
-          "access": "public",
-          "latest_version": 0,
-          "last_updated_time": 1694357262582,
-          "name": "NLP_model_group",
-          "description": "A model group for NLP models"
-        }
-      }
-    ]
-  }
-}
-```
-</details>
-
-
-### Step 1(c): Register the model to the model group
-
-To register the model to the model group, provide the model group ID in the register request:
+To register the model, provide the model group ID in the register request:
 
 ```json
 POST /_plugins/_ml/models/_register
 {
   "name": "huggingface/sentence-transformers/msmarco-distilbert-base-tas-b",
   "version": "1.0.1",
-  "model_group_id": "Z1eQf4oB5Vm0Tdw8EIP2",
   "model_format": "TORCH_SCRIPT"
 }
 ```
@@ -234,7 +134,9 @@ GET /_plugins/_ml/tasks/aFeif4oB5Vm0Tdw8yoN7
 ```
 {% include copy-curl.html %}
 
-Once the task is complete, the task state will be `COMPLETED` and the Tasks API response will contain a model ID for the registered model:
+OpenSearch saves the registered model in the model index. Deploying a model creates a model instance and caches the model in memory. 
+
+Once the task is complete, the task state will be `COMPLETED` and the Tasks API response will contain a model ID for the deployed model:
 
 ```json
 {
@@ -324,54 +226,11 @@ POST /_plugins/_ml/models/_register
 		"all_config": "{\"_name_or_path\":\"old_models/msmarco-distilbert-base-tas-b/0_Transformer\",\"activation\":\"gelu\",\"architectures\":[\"DistilBertModel\"],\"attention_dropout\":0.1,\"dim\":768,\"dropout\":0.1,\"hidden_dim\":3072,\"initializer_range\":0.02,\"max_position_embeddings\":512,\"model_type\":\"distilbert\",\"n_heads\":12,\"n_layers\":6,\"pad_token_id\":0,\"qa_dropout\":0.1,\"seq_classif_dropout\":0.2,\"sinusoidal_pos_embds\":false,\"tie_weights_\":true,\"transformers_version\":\"4.7.0\",\"vocab_size\":30522}"
 	},
 	"created_time": 1676074079195,
-  "model_group_id": "Z1eQf4oB5Vm0Tdw8EIP2",
 	"url": "https://artifacts.opensearch.org/models/ml-models/huggingface/sentence-transformers/msmarco-distilbert-base-tas-b/1.0.1/onnx/sentence-transformers_msmarco-distilbert-base-tas-b-1.0.1-onnx.zip"
 }
 ```
 
 For more information, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/).
-
-### Step 1(d): Deploy the model
-
-Once the model is registered, it is saved in the model index. Next, you'll need to deploy the model. Deploying a model creates a model instance and caches the model in memory. To deploy the model, provide its model ID to the `_deploy` endpoint:
-
-```json
-POST /_plugins/_ml/models/aVeif4oB5Vm0Tdw8zYO2/_deploy
-```
-{% include copy-curl.html %}
-
-Like the register operation, the deploy operation is asynchronous, so you'll get a task ID in the response:
-
-```json
-{
-  "task_id": "ale6f4oB5Vm0Tdw8NINO",
-  "status": "CREATED"
-}
-```
-
-You can check the status of the task by using the Tasks API:
-
-```json
-GET /_plugins/_ml/tasks/ale6f4oB5Vm0Tdw8NINO
-```
-{% include copy-curl.html %}
-
-Once the task is complete, the task state will be `COMPLETED`:
-
-```json
-{
-  "model_id": "aVeif4oB5Vm0Tdw8zYO2",
-  "task_type": "DEPLOY_MODEL",
-  "function_name": "TEXT_EMBEDDING",
-  "state": "COMPLETED",
-  "worker_node": [
-    "4p6FVOmJRtu3wehDD74hzQ"
-  ],
-  "create_time": 1694360024141,
-  "last_update_time": 1694360027940,
-  "is_async": true
-}
-```
 
 <details markdown="block">
   <summary>
@@ -425,13 +284,13 @@ GET /_plugins/_ml/profile/models
 ```
 </details>
 
-## Step 2: Ingest data with neural search
+## Step 3: Ingest data
 
-Neural search uses a language model to transform text into vector embeddings. During ingestion, neural search creates vector embeddings for the text fields in the request. During search, you can generate vector embeddings for the query text by applying the same model, allowing you to perform vector similarity search on the documents.
+OpenSearch uses a language model to transform text into vector embeddings. During ingestion, OpenSearch creates vector embeddings for the text fields in the request. During search, you can generate vector embeddings for the query text by applying the same model, allowing you to perform vector similarity search on the documents.
 
-### Step 2(a): Create an ingest pipeline for neural search
+### Step 3(a): Create an ingest pipeline
 
-Now that you have deployed a model, you can use this model to configure [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/). First, you need to create an [ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) that contains one processor: a task that transforms document fields before documents are ingested into an index. For neural search, you'll set up a `text_embedding` processor that creates vector embeddings from text. You'll need the `model_id` of the model you set up in the previous section and a `field_map`, which specifies the name of the field from which to take the text (`text`) and the name of the field in which to record embeddings (`passage_embedding`):
+Now that you have deployed a model, you can use this model to configure an [ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) that contains one processor: a task that transforms document fields before documents are ingested into an index. In this example, you'll set up a `text_embedding` processor that creates vector embeddings from text. You'll need the `model_id` of the model you set up in the previous section and a `field_map`, which specifies the name of the field from which to take the text (`text`) and the name of the field in which to record embeddings (`passage_embedding`):
 
 ```json
 PUT /_ingest/pipeline/nlp-ingest-pipeline
@@ -485,9 +344,9 @@ The response contains the ingest pipeline:
 ```
 </details>
 
-### Step 2(b): Create a k-NN index
+### Step 3(b): Create a vector index
 
-Now you'll create a k-NN index with a field named `text`, which contains an image description, and a [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/) field named `passage_embedding`, which contains the vector embedding of the text. Additionally, set the default ingest pipeline to the `nlp-ingest-pipeline` you created in the previous step:
+Now you'll create a vector index with a field named `text`, which contains an image description, and a [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/) field named `passage_embedding`, which contains the vector embedding of the text. Additionally, set the default ingest pipeline to the `nlp-ingest-pipeline` you created in the previous step:
 
 
 ```json
@@ -521,7 +380,7 @@ PUT /my-nlp-index
 ```
 {% include copy-curl.html %}
 
-Setting up a k-NN index allows you to later perform a vector search on the `passage_embedding` field.
+Setting up a vector index allows you to later perform a vector search on the `passage_embedding` field.
 
 <details markdown="block">
   <summary>
@@ -543,7 +402,7 @@ GET /my-nlp-index/_mappings
 
 </details>
 
-### Step 2(c): Ingest documents into the index
+### Step 3(c): Ingest documents into the index
 
 In this step, you'll ingest several sample documents into the index. The sample data is taken from the [Flickr image dataset](https://www.kaggle.com/datasets/hsankesara/flickr-image-dataset). Each document contains a `text` field corresponding to the image description and an `id` field corresponding to the image ID:
 
@@ -623,9 +482,9 @@ The response includes the document `_source` containing the original `text` and 
 }
 ```
 
-## Step 3: Search the data
+## Step 4: Search the data
 
-Now you'll search the index using keyword search, neural search, and a combination of the two.
+Now you'll search the index using keyword search, semantic search, and a combination of the two.
 
 ### Search using a keyword search
 
@@ -717,9 +576,9 @@ Document 3 is not returned because it does not contain the specified keywords. D
 ```
 </details>
 
-### Search using a neural search
+### Search using a semantic search
 
-To search using a neural search, use a `neural` query and provide the model ID of the model you set up earlier so that vector embeddings for the query text are generated with the model used at ingestion time:
+To search using semantic search, use a `neural` query and provide the model ID of the model you set up earlier so that vector embeddings for the query text are generated with the model used at ingestion time:
 
 ```json
 GET /my-nlp-index/_search
@@ -742,7 +601,7 @@ GET /my-nlp-index/_search
 ```
 {% include copy-curl.html %}
 
-This time, the response not only contains all five documents, but the document order is also improved because neural search considers semantic meaning:
+This time, the response not only contains all five documents, but the document order is also improved because semantic search considers semantic meaning:
 
 <details markdown="block">
   <summary>
@@ -820,7 +679,7 @@ This time, the response not only contains all five documents, but the document o
 
 ### Search using a hybrid search
 
-Hybrid search combines keyword and neural search to improve search relevance. To implement hybrid search, you need to set up a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) that runs at search time. The search pipeline you'll configure intercepts search results at an intermediate stage and applies the [`normalization-processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) to them. The `normalization-processor` normalizes and combines the document scores from multiple query clauses, rescoring the documents according to the chosen normalization and combination techniques. 
+Hybrid search combines keyword and semantic search to improve search relevance. To implement hybrid search, you need to set up a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) that runs at search time. The search pipeline you'll configure intercepts search results at an intermediate stage and applies the [`normalization-processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) to them. The `normalization-processor` normalizes and combines the document scores from multiple query clauses, rescoring the documents according to the chosen normalization and combination techniques. 
 
 #### Step 1: Configure a search pipeline
 
@@ -1019,4 +878,4 @@ DELETE /_plugins/_ml/model_groups/Z1eQf4oB5Vm0Tdw8EIP2
 ## Further reading
 
 - Read about the basics of OpenSearch semantic search in [Building a semantic search engine in OpenSearch](https://opensearch.org/blog/semantic-search-solutions/).
-- Read about the benefits of combining keyword and neural search, the normalization and combination technique options, and benchmarking tests in [The ABCs of semantic search in OpenSearch: Architectures, benchmarks, and combination strategies](https://opensearch.org/blog/semantic-science-benchmarks/).
+- Read about the benefits of combining keyword and semantic search, the normalization and combination technique options, and benchmarking tests in [The ABCs of semantic search in OpenSearch: Architectures, benchmarks, and combination strategies](https://opensearch.org/blog/semantic-science-benchmarks/).

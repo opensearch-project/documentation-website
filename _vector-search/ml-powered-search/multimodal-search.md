@@ -13,7 +13,7 @@ redirect_from:
 Introduced 2.11
 {: .label .label-purple }
 
-Use multimodal search to search text and image data. In neural search, text search is facilitated by multimodal embedding models. 
+Use multimodal search to search text and image data using multimodal embedding models. 
 
 **PREREQUISITE**<br>
 Before using text search, you must set up a multimodal embedding model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
@@ -21,12 +21,12 @@ Before using text search, you must set up a multimodal embedding model. For more
 
 ## Using multimodal search
 
-To use neural search with text and image embeddings, follow these steps:
+To use multimodal search with text and image embeddings, follow these steps:
 
 1. [Create an ingest pipeline](#step-1-create-an-ingest-pipeline).
 1. [Create an index for ingestion](#step-2-create-an-index-for-ingestion).
 1. [Ingest documents into the index](#step-3-ingest-documents-into-the-index).
-1. [Search the index using neural search](#step-4-search-the-index-using-neural-search).
+1. [Search the index](#step-4-search-the-index).
 
 ## Step 1: Create an ingest pipeline
 
@@ -108,7 +108,7 @@ PUT /nlp-index/_doc/1
 
 Before the document is ingested into the index, the ingest pipeline runs the `text_image_embedding` processor on the document, generating vector embeddings for the `image_description` and `image_binary` fields. In addition to the original `image_description` and `image_binary` fields, the indexed document includes the `vector_embedding` field, which contains the combined vector embeddings. 
 
-## Step 4: Search the index using neural search
+## Step 4: Search the index
 
 To perform vector search on your index, use the `neural` query clause either in the [k-NN plugin API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api/#search-for-a-model) or [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/) queries. You can refine the results by using a [k-NN search filter]({{site.url}}{{site.baseurl}}/search-plugins/knn/filter-search-knn/). You can search by text, image, or both text and image.
 

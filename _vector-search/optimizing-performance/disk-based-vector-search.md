@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Disk-based vector search
-nav_order: 30
-parent: Optimizing vector storage
+nav_order: 20
+parent: Optimizing vector search performance
 has_children: false
 redirect_from:
   - /search-plugins/knn/disk-based-vector-search/
@@ -12,7 +12,7 @@ redirect_from:
 **Introduced 2.17**
 {: .label .label-purple}
 
-For low-memory environments, OpenSearch provides _disk-based vector search_, which significantly reduces the operational costs for vector workloads. Disk-based vector search uses [binary quantization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization/#binary-quantization), compressing vectors and thereby reducing the memory requirements. This memory optimization provides large memory savings at the cost of slightly increased search latency while still maintaining strong recall.
+For low-memory environments, OpenSearch provides _disk-based vector search_, which significantly reduces the operational costs for vector workloads. Disk-based vector search uses [binary quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-performance/binary-quantization/), compressing vectors and thereby reducing the memory requirements. This memory optimization provides large memory savings at the cost of slightly increased search latency while still maintaining strong recall.
 
 To use disk-based vector search, set the [`mode`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/#vector-workload-modes) parameter to `on_disk` for your vector field type. This parameter will configure your index to use secondary storage. 
 
@@ -181,7 +181,7 @@ GET my-vector-index/_search
 
 ## Model-based indexes
 
-For [model-based indexes]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model), you can specify the `on_disk` parameter in the training request in the same way that you would specify it during index creation. By default, `on_disk` mode will use the [Faiss IVF method]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#supported-faiss-methods) and a compression level of `32x`. To run the training API, send the following request:
+For [model-based indexes]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model), you can specify the `on_disk` parameter in the training request in the same way that you would specify it during index creation. By default, `on_disk` mode will use the [Faiss IVF method]({{site.url}}{{site.baseurl}}/vector-search/creating-vector-index/method/#supported-faiss-methods) and a compression level of `32x`. To run the training API, send the following request:
 
 ```json
 POST /_plugins/_knn/models/test-model/_train
@@ -206,5 +206,5 @@ You can override the `compression_level` for disk-optimized indexes in the same 
 
 ## Next steps
 
-- For more information about binary quantization, see [Binary quantization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization/#binary-quantization).
+- For more information about binary quantization, see [Binary quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-performance/binary-quantization/).
 - For more information about k-NN vector workload modes, see [Vector workload modes]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/#vector-workload-modes).

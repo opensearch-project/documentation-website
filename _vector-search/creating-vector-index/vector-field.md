@@ -7,46 +7,21 @@ nav_order: 10
 
 # Vector data types
 
-The k-NN plugin introduces a custom data type, the `knn_vector`, that allows users to ingest their k-NN vectors into an OpenSearch index and perform different kinds of k-NN search. The `knn_vector` field is highly configurable and can serve many different k-NN workloads. For more information, see [k-NN vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/).
-
+The `knn_vector` data type allows you to ingest vectors into an OpenSearch index and perform different kinds of vector search. The `knn_vector` field is highly configurable and can serve many different k-NN workloads. For more information, see [k-NN vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/).
 
 When defining a `knn_vector` field in OpenSearch, you can select from different data types to balance storage requirements and performance. By default, k-NN vectors are float vectors, but you can also opt for byte or binary vectors for more efficient storage.
 
 ## Float vectors
 
-Float is the default type for `knn_vector` fields.
-
-- **Default type**: Each dimension is stored as a 4-byte floating-point number.
-- **Precision**: High, suitable for applications requiring maximum accuracy.
-- **Use case**: Best for scenarios where storage cost is not a primary concern and precision is critical.
+Float is the default type for `knn_vector` fields. Each dimension is stored as a 4-byte floating-point number.
 
 ## Byte vectors
 
-Starting with k-NN plugin version 2.17, you can use `byte` vectors with the `faiss` and `lucene` engines to reduce the amount of required memory and storage space. For more information, see [Byte vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#byte-vectors).
-
-- **Storage efficiency**: Each dimension is stored as a signed 8-bit integer, reducing storage space significantly.
-  - Value range: [-128, 127].
-- **Engines supported**: Available when using the `faiss` or `lucene` engine.
-- **Use case**: Ideal for applications that prioritize storage efficiency and can tolerate reduced precision.
+Starting with OpenSearch version 2.17, you can use `byte` vectors with the `faiss` and `lucene` engines to reduce the amount of required memory and storage space. Each dimension is stored as a signed 8-bit integer, significantly reducing storage space. For more information, see [Byte vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#byte-vectors).
 
 ## Binary vectors
 
-Starting with k-NN plugin version 2.16, you can use `binary` vectors with the `faiss` engine to reduce the amount of required storage space. For more information, see [Binary vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-vectors).
-
-- **Storage efficiency**: Memory costs are reduced by a factor of 32 compared to float vectors.
-- **Performance**: Provides high recall performance while significantly lowering operational costs.
-- **Use case**: Suitable for large-scale deployments where cost-efficiency is crucial without sacrificing search performance.
-
-### Choosing the right data type
-
-The choice of data type for your `knn_vector` field depends on your specific use case:
-
-- **Float vectors**: Use when high precision is essential, and storage space is not a limiting factor.
-- **Byte vectors**: Use to save storage space while maintaining acceptable precision levels, especially for large datasets.
-- **Binary vectors**: Use to achieve cost efficiency and scalability with acceptable trade-offs in precision.
-
-By selecting the appropriate data type, you can optimize storage, performance, and cost-effectiveness for your OpenSearch deployment.
-
+Starting with OpenSearch version 2.16, you can use `binary` vectors with the `faiss` engine to reduce the amount of required storage space. For more information, see [Binary vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-vectors).
 
 ## SIMD optimization for the Faiss engine
 
