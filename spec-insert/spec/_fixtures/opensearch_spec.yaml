@@ -90,6 +90,7 @@ components:
       name: expand_wildcard
       description: |-
           Whether to expand wildcard expression to concrete indices that are open, closed, or both.
+          For more information, see [cat health API](https://opensearch.org/docs/latest/api-reference/cat/health/).
       schema:
         oneOf:
           - type: string
@@ -99,8 +100,8 @@ components:
             const: closed
             description: Expand wildcards to closed indices only.
           - type: string
-            const: none
-            description: Do not expand wildcards.
+            const: master
+            description: Expand wildcards for master nodes only.
 
     search___path.index:
       in: path

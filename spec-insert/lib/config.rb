@@ -2,7 +2,7 @@
 
 require 'pathname'
 require 'yaml'
-require_relative 'spec_hash'
+require_relative 'dot_hash'
 
 CONFIG_PATH = File.expand_path('../config.yml', __dir__).freeze
-CONFIG = SpecHash.new(YAML.load_file(CONFIG_PATH))
+CONFIG = DotHash.new(YAML.load_file(CONFIG_PATH))
