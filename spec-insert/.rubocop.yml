@@ -4,6 +4,7 @@ AllCops:
     - 'lib/**/*.rb'
     - 'Rakefile'
   NewCops: enable
+  TargetRubyVersion: 3.3
 
 Metrics/CyclomaticComplexity:
   Enabled: false
