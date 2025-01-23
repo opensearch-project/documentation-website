@@ -92,7 +92,7 @@ Mapping parameter | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
 `name` | true | n/a | false | The identifier for the nearest neighbor method.
 `space_type` | false | l2 | false | The vector space used to calculate the distance between vectors. Note: This value can also be specified at the top level of the mapping.
-`engine` | false | faiss  | false | The approximate k-NN library to use for indexing and search. The available libraries are `faiss`, `nmslib`, and `lucene`.
+`engine` | false | faiss  | false | The approximate k-NN library to use for indexing and search. The available libraries are `faiss`, `nmslib` (Deprecated), and `lucene`.
 `parameters` | false | null | false | The parameters used for the nearest neighbor method.
 
 ### Supported nmslib methods
@@ -108,7 +108,7 @@ Parameter name | Required | Default | Updatable | Description
 `ef_construction` | false | 100 | false | The size of the dynamic list used during k-NN graph creation. Higher values result in a more accurate graph but slower indexing speed.
 `m` | false | 16 | false | The number of bidirectional links that the plugin creates for each new element. Increasing and decreasing this value can have a large impact on memory consumption. Keep this value between 2 and 100.
 
-For nmslib, *ef_search* is set in the [index settings](#index-settings).
+For nmslib (Deprecated), *ef_search* is set in the [index settings](#index-settings).
 {: .note}
 
 An index created in OpenSearch version 2.11 or earlier will still use the old `ef_construction` value (`512`).
@@ -367,7 +367,7 @@ At the moment, several parameters defined in the settings are in the deprecation
 Setting | Default | Updatable | Description
 :--- | :--- | :--- | :---
 `index.knn` | false | false | Whether the index should build native library indexes for the `knn_vector` fields. If set to false, the `knn_vector` fields will be stored in doc values, but approximate k-NN search functionality will be disabled.
-`index.knn.algo_param.ef_search` | 100 | true | The size of the dynamic list used during k-NN searches. Higher values result in more accurate but slower searches. Only available for NMSLIB.
+`index.knn.algo_param.ef_search` | 100 | true | The size of the dynamic list used during k-NN searches. Higher values result in more accurate but slower searches. Only available for NMSLIB (Deprecated).
 `index.knn.advanced.approximate_threshold` | 15,000   | true      | The number of vectors a segment must have before creating specialized data structures for approximate search. Set to `-1` to disable building vector data structures and `0` to always build them.
 `index.knn.algo_param.ef_construction` | 100 | false | Deprecated in 1.0.0. Instead, use the [mapping parameters]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#method-definitions) to set this value.
 `index.knn.algo_param.m` | 16 | false | Deprecated in 1.0.0. Use the [mapping parameters]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#method-definitions) to set this value instead.

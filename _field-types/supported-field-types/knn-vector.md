@@ -48,9 +48,9 @@ Vector search involves trade-offs between low-latency and low-cost search. Speci
 
 The following modes are currently supported.
 
-| Mode    | Default engine | Description  |
-|:---|:---|:---|
-| `in_memory` (Default) | `nmslib`       | Prioritizes low-latency search. This mode uses the `nmslib` engine without any quantization applied. It is configured with the default parameter values for vector search in OpenSearch.                                                            |
+| Mode    | Default engine | Description                                                                                                                                                                                                                                             |
+|:---|:---------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `in_memory` (Default) | `faiss`        | Prioritizes low-latency search. This mode uses the `faiss` engine without any quantization applied. It is configured with the default parameter values for vector search in OpenSearch.                                                                 |
 | `on_disk`             | `faiss`        | Prioritizes low-cost vector search while maintaining strong recall. By default, the `on_disk` mode uses quantization and rescoring to execute a two-pass approach to retrieve the top neighbors. The `on_disk` mode supports only `float` vector types. |
 
 To create a k-NN index that uses the `on_disk` mode for low-cost search, send the following request:
@@ -81,14 +81,14 @@ PUT test-index
 
 The `compression_level` mapping parameter selects a quantization encoder that reduces vector memory consumption by the given factor. The following table lists the available `compression_level` values.
 
-| Compression level | Supported engines              |
-|:------------------|:-------------------------------|
-| `1x`              | `faiss`, `lucene`, and `nmslib` |
-| `2x`              | `faiss`                        |
-| `4x`              | `lucene`                       |
-| `8x`              | `faiss`                        |
-| `16x`             | `faiss`                        |
-| `32x`             | `faiss`                        |
+| Compression level | Supported engines                            |
+|:------------------|:---------------------------------------------|
+| `1x`              | `faiss`, `lucene`, and `nmslib (Deprecated)` |
+| `2x`              | `faiss`                                      |
+| `4x`              | `lucene`                                     |
+| `8x`              | `faiss`                                      |
+| `16x`             | `faiss`                                      |
+| `32x`             | `faiss`                                      |
 
 For example, if a `compression_level` of `32x` is passed for a `float32` index of 768-dimensional vectors, the per-vector memory is reduced from `4 * 768 = 3072` bytes to `3072 / 32 = 846` bytes. Internally, binary quantization (which maps a `float` to a `bit`) may be used to achieve this compression.
 

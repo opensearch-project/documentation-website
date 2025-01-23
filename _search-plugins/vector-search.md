@@ -40,7 +40,7 @@ PUT test-index
         "space_type": "l2",
         "method": {
           "name": "hnsw",
-          "engine": "nmslib",
+          "engine": "faiss",
           "parameters": {
             "ef_construction": 128,
             "m": 24
@@ -88,12 +88,12 @@ The following table lists the combinations of search methods and libraries suppo
 
 Method | Engine
 :--- | :---
-HNSW | NMSLIB, Faiss, Lucene
+HNSW | NMSLIB (Deprecated), Faiss, Lucene
 IVF | Faiss 
 
 ### Engine recommendations
 
-In general, select NMSLIB or Faiss for large-scale use cases. Lucene is a good option for smaller deployments and offers benefits like smart filtering, where the optimal filtering strategy—pre-filtering, post-filtering, or exact k-NN—is automatically applied depending on the situation. The following table summarizes the differences between each option.
+In general, select Faiss for large-scale use cases. Lucene is a good option for smaller deployments and offers benefits like smart filtering, where the optimal filtering strategy—pre-filtering, post-filtering, or exact k-NN—is automatically applied depending on the situation. The following table summarizes the differences between each option.
 
 | |  NMSLIB/HNSW |  Faiss/HNSW |  Faiss/IVF |  Lucene/HNSW |
 |:---|:---|:---|:---|:---|
