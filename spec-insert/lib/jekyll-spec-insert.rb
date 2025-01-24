@@ -39,7 +39,8 @@ class JekyllSpecInsert < Jekyll::Command
     DocProcessor.new(file, logger: Jekyll.logger).process
   rescue StandardError => e
     raise e if fail_on_error
-    Jekyll.logger.error "Error processing #{file}: #{e.message}"
+    relative_path = Pathname(file).relative_path_from(Pathname.new(Dir.pwd))
+    Jekyll.logger.error "Error processing #{relative_path}: #{e.message}"
   end
 
   def self.run_once(excluded_paths, fail_on_error: false)
