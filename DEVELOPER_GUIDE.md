@@ -49,7 +49,13 @@ bundle exec jekyll spec-insert
 If you are working on multiple Markdown files and do not want to keep running the `jekyll spec-insert` command, you can add the `--watch` (or `-W`) flag to the command to watch for changes in the Markdown files and automatically render the API components:
 
 ```shell
-bundle exec jekyll spec-insert --watch
+bundle exec jekyll spec-insert -W
+```
+
+By default, when the plugin encounters an error when processing a file, the plugin prints out the error than moves on to the next file. If you want it to short-circuit when an error occurs, add the `--fail-on-error` (or `-F`) flag to the command:
+
+```shell
+bundle exec jekyll spec-insert -F
 ```
 
 Depending on the text editor you are using, you may need to manually reload the file from disk to see the changes applied by the plugin if the editor does not automatically reload the file periodically.

@@ -24,7 +24,7 @@ jobs:
       - run: bundle install
 
       - name: Download spec and insert into documentation
-        run: bundle exec jekyll spec-insert
+        run: bundle exec jekyll spec-insert -F -R
 
       - name: Get current date
         id: date

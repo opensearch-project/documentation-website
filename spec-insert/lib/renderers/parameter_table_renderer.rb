@@ -60,7 +60,7 @@ class ParameterTableRenderer
   def description(param)
     deprecation = deprecation(param)
     required = param.required && @columns.exclude?('Required') ? '**(Required)** ' : ''
-    description = param.description.gsub("\n", ' ')
+    description = param.description
     valid_values = valid_values(param)
     default = param.default.nil? || @columns.include?('Default') ? '' : " _(Default: `#{param.default}`)_"
 

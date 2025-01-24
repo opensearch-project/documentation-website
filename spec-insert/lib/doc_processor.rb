@@ -17,7 +17,6 @@ class DocProcessor
   # Processes the file, replacing spec-insert blocks with rendered content
   # @param [Boolean] write_to_file Whether to write the changes back to the file
   def process(write_to_file: true)
-    relative_path = @file_path.relative_path_from(Pathname.new(Dir.pwd))
     lines = File.readlines(@file_path)
     original_content = lines.join
     insertions = find_insertions(lines)
@@ -27,11 +26,10 @@ class DocProcessor
     rendered_content = lines.join
     if write_to_file && rendered_content != original_content
       File.write(@file_path, rendered_content)
-      @logger.info "Spec components inserted into #{relative_path} successfully."
+      relative_path = @file_path.relative_path_from(Pathname.new(Dir.pwd))
+      @logger.info "Successfully updated #{relative_path}."
     end
     rendered_content
-  rescue SpecInsertError => e
-    @logger.error "Error processing #{relative_path}. #{e.message}"
   end
 
   private
