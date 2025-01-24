@@ -14,23 +14,29 @@ redirect_from:
 
 The cluster settings operation lets you check the current settings for your cluster, review default settings, and change settings. When you update a setting using the API, OpenSearch applies it to all nodes in the cluster.
 
-## Endpoints
+<!-- spec_insert_start
+api: cluster.get_settings
+component: endpoints
+-->
+<!-- spec_insert_end -->
 
-```json
-GET _cluster/settings
-PUT _cluster/settings
-```
+<!-- spec_insert_start
+api: cluster.put_settings
+component: endpoints
+-->
+<!-- spec_insert_end -->
 
-## Path parameters
+<!-- spec_insert_start
+api: cluster.put_settings
+component: path_parameters
+-->
+<!-- spec_insert_end -->
 
-All parameters are optional.
-
-Parameter | Data type | Description
-:--- | :--- | :---
-flat_settings | Boolean | Whether to return settings in the flat form, which can improve readability, especially for heavily nested settings. For example, the flat form of `"cluster": { "max_shards_per_node": 500 }` is `"cluster.max_shards_per_node": "500"`.
-include_defaults (GET only) | Boolean | Whether to include default settings as part of the response. This parameter is useful for identifying the names and current values of settings you want to update.
-cluster_manager_timeout | Time unit | The amount of time to wait for a response from the cluster manager node. Default is `30 seconds`.
-timeout (PUT only) | Time unit | The amount of time to wait for a response from the cluster. Default is `30 seconds`.
+<!-- spec_insert_start
+api: cluster.put_settings
+component: query_parameters
+-->
+<!-- spec_insert_end -->
 
 ## Request body fields
 

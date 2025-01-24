@@ -17,41 +17,24 @@ The most basic cluster health request returns a simple status of the health of y
 
 To get the status of a specific index, provide the index name.
 
+<!-- spec_insert_start
+api: cluster.health
+component: endpoints
+-->
+<!-- spec_insert_end -->
 
-## Endpoints
+<!-- spec_insert_start
+api: cluster.health
+component: path_parameters
+-->
+<!-- spec_insert_end -->
 
-```json
-GET _cluster/health
-GET _cluster/health/<index>
-```
+<!-- spec_insert_start
+api: cluster.health
+component: query_parameters
+-->
+<!-- spec_insert_end -->
 
-## Path parameters
-
-The following table lists the available path parameters. All path parameters are optional.
-
-Parameter | Data type | Description
-:--- | :--- | :---
-&lt;index-name&gt; | String | Limits health reporting to a specific index. Can be a single index or a comma-separated list of index names.
-
-## Query parameters
-
-The following table lists the available query parameters. All query parameters are optional.
-
-Parameter | Type | Description
-:--- | :--- | :---
-expand_wildcards | Enum | Expands wildcard expressions to concrete indexes. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. Default is `open`.
-level | Enum | The level of detail for returned health information. Supported values are `cluster`, `indices`, `shards`, and `awareness_attributes`. Default is `cluster`.
-awareness_attribute | String | The name of the awareness attribute, for which to return cluster health (for example, `zone`). Applicable only if `level` is set to `awareness_attributes`.
-local | Boolean | Whether to return information from the local node only instead of from the cluster manager node. Default is `false`.
-cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
-timeout | Time | The amount of time to wait for a response. If the timeout expires, the request fails. Default is 30 seconds.
-wait_for_active_shards | String | Wait until the specified number of shards is active before returning a response. `all` for all shards. Default is `0`.
-wait_for_nodes | String | Wait for N number of nodes. Use `12` for exact match, `>12` and `<12` for range.
-wait_for_events | Enum | Wait until all currently queued events with the given priority are processed. Supported values are `immediate`, `urgent`, `high`, `normal`, `low`, and `languid`.
-wait_for_no_relocating_shards | Boolean | Whether to wait until there are no relocating shards in the cluster. Default is `false`.
-wait_for_no_initializing_shards | Boolean | Whether to wait until there are no initializing shards in the cluster. Default is `false`.
-wait_for_status | Enum | Wait until the cluster health reaches the specified status or better. Supported values are `green`, `yellow`, and `red`.
-weights | JSON object | Assigns weights to attributes within the request body of the PUT request. Weights can be set in any ration, for example, 2:3:5. In a 2:3:5 ratio with three zones, for every 100 requests sent to the cluster, each zone would receive either 20, 30, or 50 search requests in a random order. When assigned a weight of `0`, the zone does not receive any search traffic. 
 
 ## Example requests
 
