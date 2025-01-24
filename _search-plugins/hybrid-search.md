@@ -1213,3 +1213,210 @@ The response contains scoring information:
 Field | Description
 :--- | :---
 `explanation` | The `explanation` object has three properties: `value`, `description`, and `details`. The `value` property shows the result of the calculation, `description` explains what type of calculation was performed, and `details` shows any subcalculations performed. For score normalization, the information in the `description` property includes the technique used for normalization or combination and the corresponding score. 
+
+## Paginate hybrid query results
+**Introduced 2.19**
+{: .label .label-purple }
+
+You can apply pagination in the search results by providing `pagination_depth` in the hybrid query clause. The value of `pagination_depth` will define the maximum count of search results that can be retrieved from each shard per subquery. For example, `pagination_depth = 50` means at max total of 50 results can be catered for each subquery per shard. The `pagination_depth` is responsible for holding the search results reference on which user can paginate by using `from` and `size` parameters. The `from` parameter will define the document number from which you want to start showing the results. The `size` paramater is the number of results that you want to show. Together, they let you return a subset of the search results. For more information about pagination, see [paginate results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#the-from-and-size-parameters).
+
+The change in `pagination_depth` also changes the search results on which user is paginating. It is because the change in depth directly impacts the number of results to be catered for each subquery per shard, which ultimately might change the result ordering after the normalization. The standard hybrid search without pagination uses `from + size` formula (`from` is always equals to `0`) to retrieve search results from each shard per subquery.{: .note}
+
+The `pagination_depth` parameter helps user to control how deeper they want to paginate. The bigger the value of `pagination_depth`, more will be the number of search results returned to the coordinator node and by using `from` and `size` parameters user can navigate to higher pages. However, deeper pagination also comes at cost of search performance getting a hit because more results means high computation.
+
+Below is the example of search request with `from = 0` , `size = 10` and `pagination_depth = 10`. From each shard at max 10 search results can be catered for bool and term query respectively.
+```json
+GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
+{
+  "query": {
+    "hybrid": {
+      "pagination_depth":10,  
+      "queries": [
+        {
+          "term": {
+            "category": "permission"
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+                "term": {
+                  "category": "editor"
+                }
+              },
+              {
+                "term": {
+                  "category": "statement"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+
+```json
+{
+    "took": 63,
+    "timed_out": false,
+    "_shards": {
+        "total": 4,
+        "successful": 4,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": {
+            "value": 6,
+            "relation": "eq"
+        },
+        "max_score": 0.5,
+        "hits": [
+            {
+                "_index": "my-nlp-index",
+                "_id": "d3eXlZQBJkWerFzHv4eV",
+                "_score": 0.5,
+                "_source": {
+                    "category": "permission",
+                    "doc_keyword": "workable",
+                    "doc_index": 4976,
+                    "doc_price": 100
+                }
+            },
+            {
+                "_index": "my-nlp-index",
+                "_id": "eneXlZQBJkWerFzHv4eW",
+                "_score": 0.5,
+                "_source": {
+                    "category": "editor",
+                    "doc_index": 9871,
+                    "doc_price": 30
+                }
+            },
+            {
+                "_index": "my-nlp-index",
+                "_id": "e3eXlZQBJkWerFzHv4eW",
+                "_score": 0.5,
+                "_source": {
+                    "category": "statement",
+                    "doc_keyword": "entire",
+                    "doc_index": 8242,
+                    "doc_price": 350
+                }
+            },
+            {
+                "_index": "my-nlp-index",
+                "_id": "fHeXlZQBJkWerFzHv4eW",
+                "_score": 0.24999997,
+                "_source": {
+                    "category": "statement",
+                    "doc_keyword": "idea",
+                    "doc_index": 5212,
+                    "doc_price": 200
+                }
+            },
+            {
+                "_index": "index-test",
+                "_id": "fXeXlZQBJkWerFzHv4eW",
+                "_score": 5.0E-4,
+                "_source": {
+                    "category": "editor",
+                    "doc_keyword": "bubble",
+                    "doc_index": 1298,
+                    "doc_price": 130
+                }
+            },
+            {
+                "_index": "index-test",
+                "_id": "fneXlZQBJkWerFzHv4eW",
+                "_score": 5.0E-4,
+                "_source": {
+                    "category": "editor",
+                    "doc_keyword": "bubble",
+                    "doc_index": 521,
+                    "doc_price": 75
+                }
+            }
+        ]
+    }
+}
+```
+The following search request is with `from = 5`, `size = 10` and `pagination_depth = 10`. 
+We haven't changed the `pagination_depth` because we want to paginate on the same search result reference. {: .note} 
+
+```json
+GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
+{
+  "from":5,      
+  "query": {
+    "hybrid": {
+      "pagination_depth":10,  
+      "queries": [
+        {
+          "term": {
+            "category": "permission"
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+                "term": {
+                  "category": "editor"
+                }
+              },
+              {
+                "term": {
+                  "category": "statement"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response will be trim the first 5 entries and show the remaining results.
+
+```json
+{
+    "took": 24,
+    "timed_out": false,
+    "_shards": {
+        "total": 4,
+        "successful": 4,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": {
+            "value": 6,
+            "relation": "eq"
+        },
+        "max_score": 0.5,
+        "hits": [
+            {
+                "_index": "index-test",
+                "_id": "fneXlZQBJkWerFzHv4eW",
+                "_score": 5.0E-4,
+                "_source": {
+                    "category": "editor",
+                    "doc_keyword": "bubble",
+                    "doc_index": 521,
+                    "doc_price": 75
+                }
+            }
+        ]
+    }
+}
+```
