@@ -52,7 +52,7 @@ If you are working on multiple Markdown files and do not want to keep running th
 bundle exec jekyll spec-insert -W
 ```
 
-By default, when the plugin encounters an error, when processing a file, it simply prints out the error then moves on to the next file. If you want it to short-circuit when an error occurs, add the `--fail-on-error` (or `-F`) flag to the command:
+By default, when the plugin encounters an error when processing a file, the plugin prints out the error than moves on to the next file. If you want it to short-circuit when an error occurs, add the `--fail-on-error` (or `-F`) flag to the command:
 
 ```shell
 bundle exec jekyll spec-insert -F
