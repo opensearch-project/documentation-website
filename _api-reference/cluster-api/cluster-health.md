@@ -21,18 +21,51 @@ To get the status of a specific index, provide the index name.
 api: cluster.health
 component: endpoints
 -->
+## Endpoints
+```json
+GET /_cluster/health
+GET /_cluster/health/{index}
+```
 <!-- spec_insert_end -->
 
 <!-- spec_insert_start
 api: cluster.health
 component: path_parameters
 -->
+## Path parameters
+
+The following table lists the available path parameters. All path parameters are optional.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `index` | List or String | A comma-separated list of data streams, indexes, and aliases used to limit the request. Supports wildcards (`*`). To target all data streams and indexes, omit this parameter or use `*` or `_all`. |
+
 <!-- spec_insert_end -->
 
 <!-- spec_insert_start
 api: cluster.health
 component: query_parameters
 -->
+## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `awareness_attribute` | String | The name of the awareness attribute for which to return the cluster health status (for example, `zone`). Applicable only if `level` is set to `awareness_attributes`. | N/A |
+| `cluster_manager_timeout` | String | A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts "0" without a unit and "-1" to indicate an unspecified value. | N/A |
+| `expand_wildcards` | List or String | Specifies the type of index that wildcard expressions can match. Supports comma-separated values. <br> Valid values are: <br> - `all`: Match any index, including hidden ones. <br> - `closed`: Match closed, non-hidden indexes. <br> - `hidden`: Match hidden indexes. Must be combined with open, closed, or both. <br> - `none`: Wildcard expressions are not accepted. <br> - `open`: Match open, non-hidden indexes. | N/A |
+| `level` | String |  <br> Valid values are: `awareness_attributes`, `cluster`, `indices`, `shards` | `cluster` |
+| `local` | Boolean | Whether to return information from the local node only instead of from the cluster manager node. | `false` |
+| `timeout` | String | A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts "0" without a unit and "-1" to indicate an unspecified value. | N/A |
+| `wait_for_active_shards` | Integer or String | Waits until the specified number of shards is active before returning a response. Use `all` for all shards. <br> Valid values are: `all`, `index-setting` | N/A |
+| `wait_for_events` | String | Waits until all currently queued events with the given priority are processed. <br> Valid values are: `high`, `immediate`, `languid`, `low`, `normal`, `urgent` | N/A |
+| `wait_for_no_initializing_shards` | Boolean | Whether to wait until there are no initializing shards in the cluster. | `false` |
+| `wait_for_no_relocating_shards` | Boolean | Whether to wait until there are no relocating shards in the cluster. | N/A |
+| `wait_for_nodes` | Float or String | Waits until the specified number of nodes (`N`) is available. Accepts `>=N`, `<=N`, `>N`, and `<N`. You can also use `ge(N)`, `le(N)`, `gt(N)`, and `lt(N)` notation. | N/A |
+| `wait_for_status` | String | Waits until the cluster health reaches the specified status or better. <br> Valid values are: `green`, `GREEN`, `yellow`, `YELLOW`, `red`, `RED` | N/A |
+| `master_timeout` <br> _DEPRECATED_ | String | _(Deprecated since 2.0: To promote inclusive language, use `cluster_manager_timeout` instead.)_ A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts "0" without a unit and "-1" to indicate an unspecified value. | N/A |
+
 <!-- spec_insert_end -->
 
 

@@ -18,24 +18,37 @@ The cluster settings operation lets you check the current settings for your clus
 api: cluster.get_settings
 component: endpoints
 -->
+## Endpoints
+```json
+GET /_cluster/settings
+```
 <!-- spec_insert_end -->
 
 <!-- spec_insert_start
 api: cluster.put_settings
 component: endpoints
 -->
-<!-- spec_insert_end -->
-
-<!-- spec_insert_start
-api: cluster.put_settings
-component: path_parameters
--->
+## Endpoints
+```json
+PUT /_cluster/settings
+```
 <!-- spec_insert_end -->
 
 <!-- spec_insert_start
 api: cluster.put_settings
 component: query_parameters
 -->
+## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `cluster_manager_timeout` | String | A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts "0" without a unit and "-1" to indicate an unspecified value. |
+| `flat_settings` | Boolean | Returns settings in a flat format. _(Default: `false`)_ |
+| `timeout` | String | A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts "0" without a unit and "-1" to indicate an unspecified value. |
+| `master_timeout` <br> _DEPRECATED_ | String | _(Deprecated since 2.0: To promote inclusive language, use `cluster_manager_timeout` instead.)_ A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts "0" without a unit and "-1" to indicate an unspecified value. |
+
 <!-- spec_insert_end -->
 
 ## Request body fields
