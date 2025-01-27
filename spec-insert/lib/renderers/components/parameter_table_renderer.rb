@@ -1,20 +1,22 @@
 # frozen_string_literal: true
 
 require_relative 'table_renderer'
-require_relative '../config'
+require_relative '../../config'
 
 # Renders a table of parameters of an API action
 class ParameterTableRenderer
-  COLUMNS = ['Parameter', 'Description', 'Required', 'Data type', 'Default'].freeze
-  DEFAULT_COLUMNS = ['Parameter', 'Data type', 'Description'].freeze
+  SHARED_COLUMNS = ['Description', 'Required', 'Data type', 'Default'].freeze
+  URL_PARAMS_COLUMNS = (['Parameter'] + SHARED_COLUMNS).freeze
+  BODY_PARAMS_COLUMNS = (['Property'] + SHARED_COLUMNS).freeze
 
-  # @param [Array<Parameter>] parameters
+  # @param [Array<Api::Parameter>] parameters
   # @param [InsertArguments] args
-  def initialize(parameters, args)
+  def initialize(parameters, args, is_body: false)
     @config = CONFIG.param_table
     @parameters = filter_parameters(parameters, args)
-    @columns = determine_columns(args)
+    @is_body = is_body
     @pretty = args.pretty
+    @columns = determine_columns(args)
   end
 
   # @return [String]
@@ -29,17 +31,18 @@ class ParameterTableRenderer
   # @param [InsertArguments] args
   def determine_columns(args)
     if args.columns.present?
-      invalid = args.columns - COLUMNS
+      invalid = args.columns - (@is_body ? BODY_PARAMS_COLUMNS : URL_PARAMS_COLUMNS)
       raise ArgumentError, "Invalid column(s): #{invalid.join(', ')}." unless invalid.empty?
       return args.columns
     end
 
     required = @parameters.any?(&:required) ? 'Required' : nil
     default = @parameters.any? { |p| p.default.present? } ? 'Default' : nil
-    ['Parameter', required, 'Data type', 'Description', default].compact
+    name = @is_body ? 'Property' : 'Parameter'
+    [name, required, 'Data type', 'Description', default].compact
   end
 
-  # @param [Array<Parameter>] parameters
+  # @param [Array<Api::Parameter>] parameters
   # @param [InsertArguments] args
   def filter_parameters(parameters, args)
     parameters = parameters.reject(&:deprecated) unless args.include_deprecated
@@ -47,8 +50,10 @@ class ParameterTableRenderer
   end
 
   def row(param)
+    parameter = "`#{param.name}`#{' <br> _DEPRECATED_' if param.deprecated}"
     {
-      'Parameter' => "`#{param.name}`#{' <br> _DEPRECATED_' if param.deprecated}",
+      'Parameter' => parameter,
+      'Property' => parameter,
       'Description' => description(param),
       'Required' => param.required ? @config.required_column.true_text : @config.required_column.false_text,
       'Data type' => param.doc_type,
@@ -56,25 +61,26 @@ class ParameterTableRenderer
     }
   end
 
-  # @param [Parameter] param
+  # @param [Api::Parameter] param
   def description(param)
     deprecation = deprecation(param)
-    required = param.required && @columns.exclude?('Required') ? '**(Required)** ' : ''
+    required = param.required && @columns.exclude?('Required') ? '**(Required)**' : ''
     description = param.description
+    default = param.default.nil? || @columns.include?('Default') ? '' : "_(Default: `#{param.default}`)_"
     valid_values = valid_values(param)
-    default = param.default.nil? || @columns.include?('Default') ? '' : " _(Default: `#{param.default}`)_"
 
-    "#{deprecation}#{required}#{description}#{default}#{valid_values}"
+    main_line = [deprecation, required, description, default].compact.map(&:strip).reject(&:empty?).join(' ')
+    [main_line, valid_values].reject(&:empty?).join(' <br> ')
   end
 
-  # @param [Parameter] param
+  # @param [Api::Parameter] param
   def valid_values(param)
     enums = extract_enum_values(param.schema)&.compact
     return '' unless enums.present?
     if enums.none? { |enum| enum[:description].present? }
-      " <br> Valid values are: #{enums.map { |enum| "`#{enum[:value]}`" }.join(', ')}"
+      "Valid values are: #{enums.map { |enum| "`#{enum[:value]}`" }.join(', ')}"
     else
-      " <br> Valid values are: <br> #{enums.map { |enum| "- `#{enum[:value]}`: #{enum[:description]}" }
+      "Valid values are: <br> #{enums.map { |enum| "- `#{enum[:value]}`: #{enum[:description]}" }
                                            .join(' <br> ')}"
     end
   end
@@ -93,6 +99,6 @@ class ParameterTableRenderer
   def deprecation(param)
     message = ": #{param.deprecation_message}" if param.deprecation_message.present?
     since = " since #{param.version_deprecated}" if param.version_deprecated.present?
-    "_(Deprecated#{since}#{message})_ " if param.deprecated
+    "_(Deprecated#{since}#{message})_" if param.deprecated
   end
 end
