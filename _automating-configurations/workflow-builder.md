@@ -8,7 +8,7 @@ nav_order: 15
 
 The OpenSearch Flow plugin in OpenSearch Dashboards lets you iteratively build and test use cases leveraging ingest and search pipelines. It aims to simplify the complexity around building different AI/ML use cases using ML inference processors, such as vector search and retrieval-augmented generation (RAG). Behind the scenes, the plugin uses the [Flow Framework OpenSearch plugin](https://opensearch.org/docs/latest/automating-configurations/index/) for resource management. Once you have built out a use case to your satisfaction, you can export the [Workflow Template](https://opensearch.org/docs/latest/automating-configurations/workflow-templates/) to re-create identical resources across multiple clusters.
 
-## Background: ingest and search pipelines
+## Background: Ingest pipelines, search pipelines, and ML models
 
 [Ingest pipelines](https://opensearch.org/docs/latest/ingest-pipelines/) and [search pipelines](https://opensearch.org/docs/latest/search-plugins/search-pipelines/index/) are used for configuring data transforms at different stages of ingest and search operations via individual processors, all run within OpenSearch. For example, an _ingest pipeline_ is composed of a sequence of _ingest processors_, while a _search pipeline_ is composed of a sequence of _search request processors_ and/or _search response processors_. You can stitch together processors and build custom pipelines to fit your data processing needs.
 
@@ -18,7 +18,7 @@ In general, these pipelines allow for modifying data at 3 different stages.
 2. **Search request**: transform the search request before executing search against an index.
 3. **Search response**: transform the search response (and documents) after search is executed, but before the response is returned to the user.
 
-This plugin helps in building, testing, and visualizing ingest and search pipelines for your particular use case, including the complexity around integrating with different ML models via [ML inference processors](https://opensearch.org/docs/latest/ingest-pipelines/processors/ml-inference/).
+The [ML Commons OpenSearch plugin](https://opensearch.org/docs/latest/ml-commons-plugin/) lets you [integrate models hosted on third-party platforms](https://opensearch.org/docs/latest/ml-commons-plugin/remote-models/index/), and use their inference capabilities directly within OpenSearch. Both ingest and search pipelines offer [ML inference processors](https://opensearch.org/docs/latest/ingest-pipelines/processors/ml-inference/), allowing you to leverage remote model inference within your pipelines at both ingest and search time. This plugin helps in building, testing, and visualizing ingest and search pipelines for your particular use case, including the use of ML inference processors.
 
 ## Getting started
 
@@ -38,8 +38,8 @@ This is where you will actually build and test your ingest and search flows for 
 1. **Form**. The multi-stepped form where you will fill in all of the details for your ingest and search flows, including selecting and configuring different ingest and search processors for your ingest and search pipelines, respectively. Optionally skip ingestion configuration if you already have a populated index and are just looking to build a search flow.
 2. **Preview pipeline**. The readonly view representing how data flows throught your ingest and search flows at a high level. As you make changes in the **Form**, the components in these flows are automatically updated. Click on the **JSON** tab in to view the low-level template configuration.
 3. **Inspect pipeline**. Different tabbed content for interacting with your workflow in different ways:
+   - **Test flow**: Execute your search flow (with or without any configured search pipeline) and view results in tabular or raw JSON format.
    - **Ingest response**: After updating your ingest flows, the API response will show up here.
-   - **Search tool**: Execute your search flow (with or without any configured search pipeline) and view results in tabular or raw JSON format.
    - **Errors**: The latest error will appear here. Errors may come from updating your ingest or search flows, running ingest, or running search. The plugin will automatically open this tab when a new error occurs, similar to an IDE.
    - **Resources**: The list of associated OpenSearch resources for this particular workflow. Will include up to one ingest pipeline, one index, and one search pipeline. Click the **Inspect** action for each to view more details for each.
 
@@ -93,7 +93,9 @@ ML inference processors offer several different ways for flexibly transforming i
 
 ## Next steps
 
-For more tutorials on how to leverage OpenSearch Flow to build out AI/ML use cases, including suggested ML connectors and models, see [here](https://github.com/opensearch-project/dashboards-flow-framework/blob/main/documentation/tutorial.md).
+For suggested models and model interfaces to use within OpenSearch Flow, see [here](https://github.com/opensearch-project/dashboards-flow-framework/blob/main/documentation/models.md).
+
+For more tutorials on how to leverage OpenSearch Flow to build out different AI/ML use cases, see [here](https://github.com/opensearch-project/dashboards-flow-framework/blob/main/documentation/tutorial.md).
 
 _Notice a missing ingest or search processor you'd like to see in the plugin? Consider opening an [issue](https://github.com/opensearch-project/dashboards-flow-framework/issues) or contributing by opening a [pull request](https://github.com/opensearch-project/dashboards-flow-framework/pulls)!_
 {: .note}
