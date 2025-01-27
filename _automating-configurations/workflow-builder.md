@@ -56,12 +56,12 @@ It is strongly recommended to have deployed models with interfaces. A library of
    - A unique workflow name
    - The embedding model to generate vector embeddings
    - The large language model (LLM) to perform RAG
-   - Click on **Optional configuration** for more options, such as the names of the text fields & vector fields that will be persisted in the index. This can always be updated later.
+   - Click on **Optional configuration** for more options, such as the names of the text fields and vector fields that will be persisted in the index. This can always be updated later.
 4. Click **Create**, which will pre-populate some configuration, and automatically navigate to the **Workflow Details** page, starting with configuring your ingest flow.
 5. Provide some sample data by clicking **Import**. In the pop-up, you can manually input data, upload a local `.json` file, or fetch some sample documents from an existing index. The form expects an array of JSON objects, each representing a standalone sample [document](https://opensearch.org/docs/latest/getting-started/intro/#document). You may think of this similar to the [bulk ingest operation](https://opensearch.org/docs/latest/getting-started/ingest-data/#bulk-indexing). Click **Save** once complete.
 6. Click the **ML Inference Processor** accordion under **Enrich data** to see its details. This will be pre-populated with the processor configurations to map data _to_ the expected model input, and _from_ the expected model output. In this particular example, under **Inputs**, it is configured to map the target document field to the model input field, such that vector embeddings will be generated for that field. Under **Outputs**, it is configured to map the model output field, to a new field that will be persisted in the index. For more information on the different transform types to accomodate for more complex data schemas and/or model interfaces, see [Advanced data transformations](#advanced-data-transformations) below.
 7. Click the **Advanced settings** accordion under **Ingest data** to see its details. This will also be pre-populated with the index configurations required for this particular use case, such as the `knn_vector` field mapping for the vector embedding field, and the index setting `index.knn: true`. You may tune these as you like.
-8. Click **Update** in the bottom bar to build out the configured ingest pipeline & index, as well as ingest the provided sample data. You may then navigate to **Search tool** under **Inspect pipeline** to search against the newly-created index and verify the transformed documents look as expected. For this example, you would want to ensure that the vector embeddings were generated for each ingested document.
+8. Click **Update** in the bottom bar to build out the configured ingest pipeline and index, as well as ingest the provided sample data. You may then navigate to **Search tool** under **Inspect pipeline** to search against the newly-created index and verify the transformed documents look as expected. For this example, you would want to ensure that the vector embeddings were generated for each ingested document.
 9. Click **Next: Search pipeline** to begin configuring your search flow. Similar to ingest, the form will be pre-populated with some initial configuration.
 10. Click the **ML Inference Processor** accordion under **Enhance query request** to see its details. The purpose of this processor is to parse out inputs in the search query that you want to generate vector embeddings for. In this particular example, it is passing the value in `query.term.item_text.value` to the embedding model. Additionally, it is performing a query rewrite, to generate a `knn` query using the produced vector embedding from the model. Click on **Rewrite** to see its details. This is one way to abstract out complex query details, and provide a simple query interface, leveraging search pipelines for performing the advanced query generation.
 11. Click the **ML Inference Processor** accordion under **Enhance query results** to see its details. This is where the Claude LLM is leveraged to collect the returned results, and return some human-readable response. Under **Inputs**, click the pencil icon on the right-hand side of the `prompt` entry. This will display a pop-up with a pre-configured prompt template, aimed at summarizing the returned documents. You may tune this as you like, and there are several presets provided as starting points. You may add/update/remove the **Input variables**, which contain the data in the returned documents you want to dynamically inject as contextual information to the LLM. The pre-configured option shows collecting all of the `item_text` data, and summarizing the results. Click **Save** or **Cancel** to exit the pop-up window.
@@ -80,20 +80,20 @@ ML inference processors offer several different ways for flexibly transforming i
 
 **Inputs** is where you configure different parameters passed _to_ the model. Each input parameter can be one of four different transform types:
 
-1. `String`: some constant value.
-2. `Field`: a path to some field, such as a document being ingested, or a value in a search query.
-3. `Expression`: a [JSONPath](https://en.wikipedia.org/wiki/JSONPath) expression for more advanced data transformations. Helpful for extracting complex or nested JSON data.
-4. `Template`: some constant value, with the ability to inject dynamic variables within it. You may think of it as a mix of `String` and `Field`/`Expression` transform types. Helpful in prompt building for LLMs.
+1. `Field`: a path to some field, such as a document being ingested, or a value in a search query.
+2. `JSONPath Expression`: a [JSONPath](https://en.wikipedia.org/wiki/JSONPath) expression for more advanced data transformations. Helpful for extracting complex or nested JSON data.
+3. `Prompt`: some constant value, with the ability to inject dynamic variables within it. You may think of it as a mix of `String` and `Field`/`JSONPath Expression` transform types. Helpful in prompt building for LLMs.
+4. `String`: some constant value.
 
 **Outputs** is where you configure different values passed _from_ the model. Each output parameter can be one of three different transform types:
 
 1. `Field`: a path to some _new_ field name. Helpful in basic field renaming.
-2. `Expression`: one or more [JSONPath](https://en.wikipedia.org/wiki/JSONPath) expressions for more advanced data transformations. Helpful for extracting complex or nested JSON data.
-3. `No transformation`: leave the model output field as-is, including its name & value.
+2. `JSONPath Expression`: one or more [JSONPath](https://en.wikipedia.org/wiki/JSONPath) expressions for more advanced data transformations. Helpful for extracting complex or nested JSON data.
+3. `No transformation`: leave the model output field as-is, including its name and value.
 
 ## Next steps
 
-For more tutorials on how to leverage OpenSearch Flow to build out AI/ML use cases, including suggested ML connectors & models, see [here](https://github.com/opensearch-project/dashboards-flow-framework/blob/main/documentation/tutorial.md).
+For more tutorials on how to leverage OpenSearch Flow to build out AI/ML use cases, including suggested ML connectors and models, see [here](https://github.com/opensearch-project/dashboards-flow-framework/blob/main/documentation/tutorial.md).
 
 _Notice a missing ingest or search processor you'd like to see in the plugin? Consider opening an [issue](https://github.com/opensearch-project/dashboards-flow-framework/issues) or contributing by opening a [pull request](https://github.com/opensearch-project/dashboards-flow-framework/pulls)!_
 {: .note}
