@@ -1218,7 +1218,7 @@ Field | Description
 **Introduced 2.19**
 {: .label .label-purple }
 
-Reciprocal rank fusion (RRF) is a method for combining multiple queries by scoring each item based on the reciprocal of its rank for each query and then summing these scores to create a final, unified ranking.  You can use RRF by creating a search pipeline with RRF as the specified technique:
+Reciprocal rank fusion (RRF) is a method for combining multiple queries by scoring each document based on the reciprocal of its rank for each query and then summing these scores to create a final, unified ranking.  You can use RRF by creating a search pipeline with RRF as the specified technique:
 ```json
 PUT /_search/pipeline/<rrf-pipeline>
 {
