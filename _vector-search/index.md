@@ -39,9 +39,9 @@ ml_steps:
 
 # Vector search
 
-Traditional lexical search, based on term frequency models like BM25, is widely used and effective for many search applications. However, lexical search techniques require significant investment in time and expertise to tune them to account for the meaning or relevance of the terms searched. To embed semantic understanding into your search application, you can use machine learning embedding models that can encode the meaning and context of documents, images, and audio into vectors for similarity search. These embedded meanings can be searched using the k-nearest neighbors (k-NN) functionality provided by OpenSearch. 
+Traditional lexical search, based on term frequency models like BM25, is effective for many search applications. However, these techniques often require substantial time and expertise to fine-tune for capturing the meaning or relevance of search terms. To add semantic understanding to your search application, you can use machine learning embedding models. These models encode the meaning and context of text, images, and audio into vectors, enabling similarity search. OpenSearch supports this functionality through its k-nearest neighbors (k-NN) search capabilities. 
 
-Using OpenSearch as a vector database brings together the power of traditional search, analytics, and vector search in one complete package. OpenSearch’s vector database capabilities can accelerate artificial intelligence (AI) application development by reducing the effort for builders to operationalize, manage, and integrate AI-generated assets. Bring your models, vectors, and metadata into OpenSearch to power vector, lexical, and hybrid search and analytics, with performance and scalability built in.
+OpenSearch combines traditional search, analytics, and vector search into a single, unified solution. Its vector database capabilities simplify the development of artificial intelligence (AI) applications by reducing the effort required to manage and integrate AI-generated assets. You can bring your models, vectors, and metadata into OpenSearch to enable vector, lexical, and hybrid search and analytics, all with built-in performance and scalability.
 
 ## Using OpenSearch as a vector database
 
@@ -63,6 +63,6 @@ If you’ve already generated your own vector embeddings, OpenSearch makes it ea
 
 ## Seamless text-to-embedding search
 
-Simplify your search process by letting OpenSearch handle embedding generation. Follow this documentation sequence to begin using text-to-embedding search:
+Simplify your search process by letting OpenSearch handle embedding generation. Follow this documentation sequence to get started:
 
 {% include list.html list_items=page.ml_steps%}
