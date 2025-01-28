@@ -33,7 +33,7 @@ GET _insights/health_stats
 The response includes a set of health-related fields for each node:
 
 ```json
-PUT _cluster/settings
+GET _insights/health_stats
 {
   "AqegbPL0Tv2XWvZV4PTS8Q": {
     "ThreadPoolInfo": {
@@ -61,6 +61,13 @@ PUT _cluster/settings
         "TopQueriesHeapSize": 5,
         "QueryGroupCount_Total": 0,
         "QueryGroupCount_MaxHeap": 0
+      }, 
+      "FieldTypeCacheStats" : {
+        "size_in_bytes" : 336,
+        "entry_count" : 3,
+        "evictions" : 1,
+        "hit_count" : 5,
+        "miss_count" : 4
       }
     }
   }
@@ -76,7 +83,7 @@ Field | Data type        | Description
 `ThreadPoolInfo` | Object | Information about the Query Insights thread pool, including type, core count, max threads, and queue size. See [The ThreadPoolInfo object](#the-threadpoolinfo-object).
 `QueryRecordsQueueSize` | Integer | The size of the queue that buffers incoming search queries before processing. A high value may suggest increased load or slower processing.
 `TopQueriesHealthStats` | Object | Performance metrics for each top query service that provide information about memory allocation (heap size) and query grouping. See [The TopQueriesHealthStats object](#the-topquerieshealthstats-object).
-
+`FieldTypeCacheStats` | Object | Metrics about the query insights field type cache. This cache is used to store field type mappings when query grouping is enabled.
 ### The ThreadPoolInfo object
 
 The `ThreadPoolInfo` object contains the following detailed configuration and performance data for the thread pool dedicated to the Query Insights plugin.
@@ -99,6 +106,18 @@ Field | Data type        | Description
 `QueryGroupCount_Total`| Integer | The total number of processed query groups.
 `QueryGroupCount_MaxHeap`| Integer | The size of the max heap that stores all query groups in memory.
 
+### The FieldTypeCacheStats object
+
+The `FieldTypeCacheStats` object contains the following stats.
+
+Field | Data type        | Description
+:--- |:---| :---
+`size_in_bytes`| Integer | The heap memory allocation for the cache.
+`entry_count`| Integer | The total number of cache entries.
+`evictions`| Integer | The total number of cache evictions.
+`hit_count`| Integer | The total number of cache hits.
+`miss_count`| Integer | The total number of cache misses.
+
 ## OpenTelemetry error metrics counters
 
 The Query Insights plugin integrates with OpenTelemetry to provide real-time error metrics counters. These counters help to identify specific operational failures in the plugin and improve reliability. Each metric provides targeted insights into potential error sources in the plugin workflow, allowing for more focused debugging and maintenance. 
@@ -111,9 +130,10 @@ Field | Description
 :--- | :---
 `LOCAL_INDEX_READER_PARSING_EXCEPTIONS` | The number of errors that occur when parsing data using the LocalIndexReader.
 `LOCAL_INDEX_EXPORTER_BULK_FAILURES` | The number of failures that occur when ingesting Query Insights plugin data into local indexes.
+`LOCAL_INDEX_EXPORTER_DELETE_FAILURES` | The number of failures that occur when deleting Query Insights local indexes.
 `LOCAL_INDEX_EXPORTER_EXCEPTIONS` | The number of exceptions that occur in the Query Insights plugin LocalIndexExporter.
 `INVALID_EXPORTER_TYPE_FAILURES` | The number of invalid exporter type failures.
-`INVALID_INDEX_PATTERN_EXCEPTIONS` | The number of invalid index pattern exceptions.
 `DATA_INGEST_EXCEPTIONS` | The number of exceptions that occur when ingesting data into the Query Insights plugin.
 `QUERY_CATEGORIZE_EXCEPTIONS` | The number of exceptions that occur when categorizing the queries.
 `EXPORTER_FAIL_TO_CLOSE_EXCEPTION` | The number of failures that occur when closing the exporter.
+`TOP_N_QUERIES_USAGE_COUNT` | The number of times the top N queries API is used.
