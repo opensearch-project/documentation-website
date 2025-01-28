@@ -1232,9 +1232,9 @@ The change in `pagination_depth` impacts the ground truth on which the user is p
 
 The standard hybrid search without pagination uses `from + size` formula (where `from` is always equals to `0`) to retrieve search results from each shard per subquery.{: .note}
 
-To enable deeper pagination, a higher value of `pagination_depth` should be provided. By using the `from` and `size` parameters, user can navigate to higher pages. However, deeper pagination comes at the cost of search performance getting a toll, as retrieving more results requires higher computation.
+To enable deeper pagination, use a higher value of `pagination_depth`. You can then navigate through the results using the `from` and `size` parameters. However, be aware that deeper pagination can impact search performance, as retrieving and processing more results requires additional computational resources.
 
-Below is the example of search request with `from = 0` , `size = 5` and `pagination_depth = 10`. From each shard at max 10 search results can be catered for bool and term query respectively.
+The following example shows a search request with `from: 0`, `size: 5`, and `pagination_depth: 10`. This configuration allows up to 10 search results per shard for both the bool and term queries:
 ```json
 GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 {
