@@ -68,7 +68,7 @@ The following table lists the available query parameters. All query parameters a
 | `ignore_unavailable` | Boolean | Whether the specified concrete indexes should be ignored when missing or closed. | N/A |
 | `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
 | `shards` | List | A comma-separated list of shards to display. | N/A |
-| `time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units](https://opensearch.org/docs/latest/api-reference/units/). <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, `d` | N/A |
+| `time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/). <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, `d` | N/A |
 | `timeout` | String | The operation timeout. | N/A |
 | `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
 
