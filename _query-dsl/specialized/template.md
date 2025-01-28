@@ -5,13 +5,13 @@ parent: Specialized queries
 nav_order: 55
 ---
 
-# Template Query
+# Template query
 
-Use a `template` query to holder inner query containing placeholders with "${}" syntax. These placeholders are resolved after the search request has been processed by search request processors. This feature is particularly useful when the initial search request contains placeholders or incomplete data that will be resolved by a search request processor (e.g., ml_inference).
+Use a `template` query to holder inner query containing placeholders with "${}" syntax. These placeholders are resolved after the search request has been processed by search request processors. This feature is particularly useful when the initial search request contains placeholders or incomplete data that will be resolved by a search request processor (e.g., [ml_inference search request processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/ml-inference-search-request/)).
 
 ## Example
 
-The following example shows a template query with a placeholder for a knn query. The placeholder `"${text_embedding}"` will be replaced by the ml_inference search request processor:
+The following example shows a template query with a placeholder for a k-NN query. The placeholder `"${text_embedding}"` will be replaced by the ml_inference search request processor:
 
 ```json
 GET /template-knn-index/_search?search_pipeline=my_knn_pipeline
@@ -33,7 +33,7 @@ GET /template-knn-index/_search?search_pipeline=my_knn_pipeline
   }
 }
 ```
-To use the template query with a search request processor, you need to configure a search pipeline. Below is an example configuration for an ml_inference search request processor:
+To use the template query with a search request processor, you need to configure a search pipeline. The following is an example configuration for an ml_inference search request processor:
 
 ```json
 PUT /_search/pipeline/my_knn_pipeline
@@ -85,12 +85,13 @@ GET /template-knn-1/_search
 
 {% include copy-curl.html %}
 
-#### Use Case: Semantic Search with ml_inference
-Below is a complete example of using the template query with an ml_inference search request processor for semantic search:
+#### Use case: semantic search with ml_inference search request processor 
+The following is a complete example of using the template query with an [ml_inference search request processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/ml-inference-search-request/) for semantic search:
 
 1. Check predict using a text embedding model: 
-   The pre-requisite of using ml_inference search request processor is to have a model hosted or connected to remote service.
-   This is a sample text embedding model  
+   The pre-requisite of using ml_inference search request processor is to have a model hosted or connected to remote service. For more information about local models, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/).
+   For more information about externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/).
+   This is a sample text embedding model.  
     ```json
     POST /_plugins/_ml/models/Sz-wFZQBUpPSu0bsJTBG/_predict
     {
@@ -100,7 +101,7 @@ Below is a complete example of using the template query with an ml_inference sea
     }
 
     ```
-   Sample Response: 
+   Example response:: 
     ```json
     {
       "inference_results": [
@@ -158,7 +159,7 @@ Below is a complete example of using the template query with an ml_inference sea
     ```
    {% include copy-curl.html %}
 
-   Sample Response:
+   Example response::
     ```json
     {
       "acknowledged": true
@@ -176,7 +177,7 @@ Below is a complete example of using the template query with an ml_inference sea
     ```
    {% include copy-curl.html %}
 
-    Sample Response:
+    Example response::
     ```json
     {
       "_index": "template-knn-1",
@@ -224,7 +225,7 @@ Below is a complete example of using the template query with an ml_inference sea
        ```
       {% include copy-curl.html %}
    
-   Sample Response:
+   Example response::
       ```json
        {
          "took": 611,
@@ -261,5 +262,5 @@ Below is a complete example of using the template query with an ml_inference sea
        ```
 
 ## Limitations
-The template query cannot be executed (doToQuery) without a search request processor that produce variables to pipelineContext.
+The template query cannot be executed without a search request processor that produce variables to pipelineContext.
 
