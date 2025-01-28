@@ -291,6 +291,8 @@ POST /_plugins/_ml/connectors/_create
 
 In some cases, you may need to update credentials, like `access_key`, that you use to connect to externally hosted models. You can update credentials without undeploying the model by providing the new credentials in the following request:
 
+### Updating connector credentials for connector for a specific model
+
 ```json
 PUT /_plugins/_ml/models/<model_id>
 {
@@ -301,6 +303,18 @@ PUT /_plugins/_ml/models/<model_id>
   }
 }
 ```
+
+### Updating connector credentials for standalone connector
+
+```json
+PUT /_plugins/_ml/connectors/<connector_id>
+{
+  "credential": {
+    "openAI_key": "YOUR NEW OPENAI KEY"
+  }
+}
+```
+
 
 ## Next steps
 
