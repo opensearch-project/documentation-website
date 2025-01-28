@@ -10,7 +10,7 @@ The OpenSearch Flow plugin in OpenSearch Dashboards lets you iteratively build a
 
 ## Background: Ingest pipelines, search pipelines, and ML models
 
-[Ingest pipelines]({{site.url}}{{site.baseurl}}/ingest-pipelines/) and [search pipelines]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) are used for configuring data transforms at different stages of ingest and search operations via individual processors, all run within OpenSearch. For example, an _ingest pipeline_ is composed of a sequence of _ingest processors_, while a _search pipeline_ is composed of a sequence of _search request processors_ and/or _search response processors_. You can stitch together processors and build custom pipelines to fit your data processing needs.
+[Ingest pipelines]({{site.url}}{{site.baseurl}}/ingest-pipelines/) and [search pipelines]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) are used for configuring data transforms at different stages of ingest and search operations using individual processors, all run within OpenSearch. For example, an _ingest pipeline_ is composed of a sequence of _ingest processors_, while a _search pipeline_ is composed of a sequence of _search request processors_ and/or _search response processors_. You can stitch together processors and build custom pipelines to fit your data processing needs.
 
 In general, these pipelines allow for modifying data at 3 different stages.
 
@@ -26,17 +26,17 @@ To get started, go to **OpenSearch Dashboards** > **OpenSearch Plugins** > **Ope
 
 ## Preset templates
 
-From the plugin home page, navigate to the **New workflow** tab by clicking directly, or clicking the **Create workflow** button on the right-hand side. Here, you will see a variety of preset templates offered, targeting different use cases. Each will have a unique set of pre-configured ingest and search processors. These templates serve two main purposes:
+From the plugin home page, navigate to the **New workflow** tab by clicking directly, or clicking the **Create workflow** button on the right-hand side. Here, you will see a variety of preset templates offered, targeting different use cases. Each will have a unique set of preconfigured ingest and search processors. These templates serve two main purposes:
 
-1. **Quickly proving out basic AI/ML solutions**. If you have deployed models with defined interfaces, you can get a basic use case up and running in your cluster in just a few clicks. An end-to-end [example](#example-semantic-search-with-rag) is provided below.
-2. **A starting point for your custom / advanced solution**. Each template provides a good skeleton and pattern for building out a different use case. Use them as a starting point for your custom use case!
+1. **Quickly proving out basic AI/ML solutions**. If you have deployed models with defined interfaces, you can get a basic use case up and running in your cluster in a few clicks. An end-to-end [example](#example-semantic-search-with-rag) is provided later.
+2. **A starting point for your custom/advanced solution**. Each template provides a good skeleton and pattern for building out a different use case. Use them as a starting point for your custom use case.
 
 ## Workflow editor
 
 This is where you will actually build and test your ingest and search flows for your use case. There are three main sections of this page. Each one may be expanded horizontally or vertically, or collapsed altogether, depending on what you want to focus on.
 
-1. **Form**. The multi-stepped form where you will fill in all of the details for your ingest and search flows, including selecting and configuring different ingest and search processors for your ingest and search pipelines, respectively. Optionally skip ingestion configuration if you already have a populated index and are just looking to build a search flow.
-2. **Preview flows**. The readonly view representing how data flows throught your ingest and search flows at a high level. As you make changes in the **Form**, the components in these flows are automatically updated. Click on the **JSON** tab in to view the low-level template configuration.
+1. **Form**. The multi-stepped form where you will fill in all of the details for your ingest and search flows, including selecting and configuring different ingest and search processors for your ingest and search pipelines, respectively. Optionally skip ingestion configuration if you already have a populated index and are only looking to build a search flow.
+2. **Preview flows**. The readonly view representing how data flows through your ingest and search flows at a high level. As you make changes in the **Form**, the components in these flows are automatically updated. Click on the **JSON** tab in to view the low-level template configuration.
 3. **Inspect flows**. Different tabbed content for interacting with your workflow in different ways:
    - **Test flow**: Execute your search flow (with or without any configured search pipeline) and view results in tabular or raw JSON format.
    - **Ingest response**: After updating your ingest flows, the API response will show up here.
@@ -45,7 +45,7 @@ This is where you will actually build and test your ingest and search flows for 
 
 ## Example: Semantic Search with RAG
 
-The below example leverages a deployed [Titan Text Embedding](https://docs.aws.amazon.com/bedrock/latest/userguide/titan-embedding-models.html) model and [Bedrock-hosted Anthropic Claude](https://aws.amazon.com/bedrock/claude/) model to build out an [ingest pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/), [index]({{site.url}}{{site.baseurl}}/getting-started/intro/#index), and [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) for performing vector search and retrieval-augmented generation (RAG).
+The following example leverages a deployed [Titan Text Embedding](https://docs.aws.amazon.com/bedrock/latest/userguide/titan-embedding-models.html) model and [Bedrock-hosted Anthropic Claude](https://aws.amazon.com/bedrock/claude/) model to build out an [ingest pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/), [index]({{site.url}}{{site.baseurl}}/getting-started/intro/#index), and [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) for performing vector search and retrieval-augmented generation (RAG).
 
 It is strongly recommended to have deployed models with interfaces. A library of example configurations is available [here](TODO).
 {: .note}
@@ -68,7 +68,7 @@ It is strongly recommended to have deployed models with interfaces. A library of
 
 ![Import data modal]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/import-data-modal.png)
 
-6. Click the **ML Inference Processor** accordion under **Transform data** to see its details. This will be pre-populated with the processor configurations to map data _to_ the expected model input, and _from_ the expected model output. In this particular example, under **Inputs**, it is configured to map the target document field to the model input field, such that vector embeddings will be generated for that field. Under **Outputs**, it is configured to map the model output field, to a new field that will be persisted in the index. For more information on the different transform types to accomodate for more complex data schemas and/or model interfaces, see [Advanced data transformations](#advanced-data-transformations) below.
+6. Click the **ML Inference Processor** accordion under **Transform data** to see its details. This will be pre-populated with the processor configurations to map data _to_ the expected model input, and _from_ the expected model output. In this particular example, under **Inputs**, it is configured to map the target document field to the model input field, such that vector embeddings will be generated for that field. Under **Outputs**, it is configured to map the model output field, to a new field that will be persisted in the index. For more information about the different transform types to accommodate for more complex data schemas and/or model interfaces, see [Advanced data transformations](#advanced-data-transformations).
 
 ![Transform data]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/transform-data.png)
 
@@ -87,7 +87,7 @@ It is strongly recommended to have deployed models with interfaces. A library of
 
 ![Rewrite query]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/rewrite-query.png)
 
-11. Click the **ML Inference Processor** accordion under **Transform response** to see its details. This is where the Claude LLM is leveraged to collect the returned results, and return some human-readable response. Under **Inputs**, click the pencil icon on the right-hand side of the `prompt` entry. This will display a pop-up with a pre-configured prompt template, aimed at summarizing the returned documents. You may tune this as you like, and there are several presets provided as starting points. You may add/update/remove the **Input variables**, which contain the data in the returned documents you want to dynamically inject as contextual information to the LLM. The pre-configured option shows collecting all of the `item_text` data, and summarizing the results. Click **Save** or **Cancel** to exit the pop-up window.
+11. Click the **ML Inference Processor** accordion under **Transform response** to see its details. This is where the Claude LLM is leveraged to collect the returned results, and return some human-readable response. Under **Inputs**, click the pencil icon on the right-hand side of the `prompt` entry. This will display a pop-up with a preconfigured prompt template, aimed at summarizing the returned documents. You may tune this as you like, and there are several presets provided as starting points. You may add/update/remove the **Input variables**, which contain the data in the returned documents you want to dynamically inject as contextual information to the LLM. The preconfigured option shows collecting all of the `item_text` data, and summarizing the results. Click **Save** or **Cancel** to exit the pop-up window.
 
 ![Transform response]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/transform-response.png)
 
