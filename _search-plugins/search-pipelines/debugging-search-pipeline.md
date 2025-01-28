@@ -16,7 +16,7 @@ The `verbose_pipeline` parameter offers detailed insights into the flow and tran
 
 - [Using a temporary pipeline for a request]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/using-search-pipeline/#using-a-temporary-search-pipeline-for-a-request).
 
-- [Setting a default pipeline for all requests in an index]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/#using-search-pipeline/default-search-pipeline).
+- [Setting a default pipeline for all requests in an index]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/using-search-pipeline/#default-search-pipeline).
 
   To enable the `verbose_pipeline` feature, simply add `verbose_pipeline=true` as a query parameter in your search request.
 
