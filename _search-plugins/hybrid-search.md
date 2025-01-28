@@ -1228,7 +1228,7 @@ For example, to show results from 20th document to 30th document, set `from: 20`
 
 ### The impact of pagination_depth on hybrid search results
 
-The change in `pagination_depth` also affects the search results ordering on which the user is paginating. This is because altering the `pagination_depth` directly impacts the number of results retrieved for each subquery per shard, which may ultimately might change the result ordering after normalization. Therefore, it is recommended to maintain a consistent value of `pagination_depth` while navigating between pages. 
+The change in `pagination_depth` impacts the ground truth on which the user is paginating. This is because altering the `pagination_depth` directly impacts the number of results retrieved for each subquery per shard, which may ultimately might change the result ordering after normalization. Therefore, it is recommended to maintain a consistent value of `pagination_depth` while navigating between pages. 
 
 The standard hybrid search without pagination uses `from + size` formula (where `from` is always equals to `0`) to retrieve search results from each shard per subquery.{: .note}
 
@@ -1236,8 +1236,9 @@ To enable deeper pagination, a higher value of `pagination_depth` should be prov
 
 Below is the example of search request with `from = 0` , `size = 5` and `pagination_depth = 10`. From each shard at max 10 search results can be catered for bool and term query respectively.
 ```json
-GET /my-nlp-index/_search?size=5&search_pipeline=nlp-search-pipeline
+GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 {
+  "size": 5,      
   "query": {
     "hybrid": {
       "pagination_depth":10,  
@@ -1342,8 +1343,9 @@ The following search request is with `from = 6`, `size = 5` and `pagination_dept
 We haven't changed the `pagination_depth` because we want to paginate on the same search result reference. {: .note} 
 
 ```json
-GET /my-nlp-index/_search?size=5&search_pipeline=nlp-search-pipeline
+GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 {
+  "size":5,      
   "from":6,      
   "query": {
     "hybrid": {
