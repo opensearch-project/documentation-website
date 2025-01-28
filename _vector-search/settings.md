@@ -32,19 +32,19 @@ Setting | Static/Dynamic | Default | Description
 
 ## Index settings
 
-The following table lists all available index-level k-NN settings. All settings are static. For information about updating static index-level settings, see [Updating a static index setting]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#updating-a-static-index-setting).
+The following table lists all available index-level k-NN settings. For information about updating these settings, see [Index-level index setting]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#index-level-index-settings).
 
 At the moment, several parameters defined in the settings are in the deprecation process. Those parameters should be set in the mapping instead of the index settings. Parameters set in the mapping will override the parameters set in the index settings. Setting the parameters in the mapping allows an index to have multiple `knn_vector` fields with different parameters.
 
-Setting | Default | Updatable | Description
+Setting | Static/Dynamic | Default | Description
 :--- | :--- | :--- | :---
-`index.knn` | `false` | No | Whether the index should build native library indexes for the `knn_vector` fields. If set to `false`, the `knn_vector` fields will be stored in doc values, but approximate k-NN search functionality will be disabled.
-`index.knn.algo_param.ef_search` | `100` | Yes | `ef` (or `efSearch`) represents the size of the dynamic list for the nearest neighbors used during a search. Higher `ef` values lead to a more accurate but slower search. `ef` cannot be set to a value lower than the number of queried nearest neighbors, `k`. `ef` can take any value between `k` and the size of the dataset. 
-`index.knn.advanced.approximate_threshold` | `15000`   | Yes      | The number of vectors a segment must have before creating specialized data structures for approximate search. Set to `-1` to disable building vector data structures and `0` to always build them.
-`index.knn.algo_param.ef_construction` | `100` | No | Deprecated in 1.0.0. Instead, use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value.
-`index.knn.advanced.filtered_exact_search_threshold`| `null` | The filtered ID threshold value used to switch to exact search during filtered ANN search. If the number of filtered IDs in a segment is lower than this setting's value, then exact search will be performed on the filtered IDs. 
-`index.knn.algo_param.m` | `16` | No | Deprecated in 1.0.0. Use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value instead.
-`index.knn.space_type` | `l2` | No | Deprecated in 1.0.0. Use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value instead.
+`index.knn` | Static | `false` | Whether the index should build native library indexes for the `knn_vector` fields. If set to `false`, the `knn_vector` fields will be stored in doc values, but approximate k-NN search functionality will be disabled.
+`index.knn.algo_param.ef_search` | Dynamic | `100` | `ef` (or `efSearch`) represents the size of the dynamic list for the nearest neighbors used during a search. Higher `ef` values lead to a more accurate but slower search. `ef` cannot be set to a value lower than the number of queried nearest neighbors, `k`. `ef` can take any value between `k` and the size of the dataset. 
+`index.knn.advanced.approximate_threshold` | Dynamic | `15000`   | The number of vectors a segment must have before creating specialized data structures for approximate search. Set to `-1` to disable building vector data structures and `0` to always build them.
+`index.knn.advanced.filtered_exact_search_threshold`| Dynamic | None | The filtered ID threshold value used to switch to exact search during filtered ANN search. If the number of filtered IDs in a segment is lower than this setting's value, then exact search will be performed on the filtered IDs. 
+`index.knn.algo_param.ef_construction` | Static | `100` | Deprecated in 1.0.0. Use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value instead.
+`index.knn.algo_param.m` | Static | `16` | Deprecated in 1.0.0. Use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value instead.
+`index.knn.space_type` | Static | `l2` | Deprecated in 1.0.0. Use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value instead.
 
 An index created in OpenSearch version 2.11 or earlier will still use the old `ef_construction` and `ef_search` values (`512`).
 {: .note}
