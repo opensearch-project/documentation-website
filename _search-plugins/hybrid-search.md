@@ -9,7 +9,7 @@ nav_order: 60
 Introduced 2.11
 {: .label .label-purple }
 
-Hybrid search combines keyword and neural search to improve search relevance. To implement hybrid search, you need to set up a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) that runs at search time. The search pipeline you'll configure intercepts search results at an intermediate stage and applies the [`normalization_processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) to them. The `normalization_processor` normalizes and combines the document scores from multiple query clauses, rescoring the documents according to the chosen normalization and combination techniques. 
+Hybrid search combines keyword and neural search to improve search relevance. To implement hybrid search, you need to set up a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) that runs at search time. The search pipeline you'll configure intercepts search results at an intermediate stage and applies a [`score-based processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) or [`rank-based processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rrf-processor/) to them. The processor normalizes and combines the document scores from multiple query clauses, rescoring the documents according to the chosen normalization and combination techniques. 
 
 **PREREQUISITE**<br>
 To follow this example, you must set up a text embedding model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model). If you have already generated text embeddings, ingest the embeddings into an index and skip to [Step 4](#step-4-configure-a-search-pipeline).
@@ -1212,55 +1212,4 @@ The response contains scoring information:
 
 Field | Description
 :--- | :---
-`explanation` | The `explanation` object has three properties: `value`, `description`, and `details`. The `value` property shows the result of the calculation, `description` explains what type of calculation was performed, and `details` shows any subcalculations performed. For score normalization, the information in the `description` property includes the technique used for normalization or combination and the corresponding score. 
-
-## Reciprocal Rank Fusion
-**Introduced 2.19**
-{: .label .label-purple }
-
-Reciprocal rank fusion (RRF) is a method for combining multiple queries by scoring each document based on the reciprocal of its rank for each query and then summing these scores to create a final, unified ranking.  You can use RRF by creating a search pipeline with RRF as the specified technique:
-```json
-PUT /_search/pipeline/<rrf-pipeline>
-{
-  "description": "Post processor for hybrid RRF search",
-  "phase_results_processors": [
-    {
-      "score-ranker-processor": {
-        "combination": {
-          "technique": "rrf"
-        }
-      }
-    }
-  ]
-}
-```
-
-The rank constant can be specified as part of the pipeline but cannot be less than 1.  Larger rank constants make the scores more uniform, reducing the impact of top ranks. Smaller rank constants create steeper differences between ranks, giving much more weight to top-ranked items. By default, rank constant is set to 60 if not specified. 
-```json
-PUT /_search/pipeline/<rrf-pipeline>
-{
-  "description": "Post processor for hybrid RRF search",
-  "phase_results_processors": [
-    {
-      "score-ranker-processor": {
-        "combination": {
-          "technique": "rrf",
-          "rank_constant": 40
-        }
-      }
-    }
-  ]
-}
-```
-
-Now, specify the RRF pipeline in the hybrid search request:
-```json
-POST my_index/_search?search_pipeline=<rrf-pipeline>
-{
-  "query": {
-    "hybrid": [
-        // Query Body
-    ]
-  }
-}
-```
+`explanation` | The `explanation` object has three properties: `value`, `description`, and `details`. The `value` property shows the result of the calculation, `description` explains what type of calculation was performed, and `details` shows any subcalculations performed. For score normalization, the information in the `description` property includes the technique used for normalization or combination and the corresponding score.
