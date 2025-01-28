@@ -20,7 +20,7 @@ The following search implementations benefit from using template queries:
 - Dynamic query parameter generation based on runtime calculations
 - Complex query transformations that require intermediate processing
 
-Placeholders are defined using the `${variable_name}` syntax. Search request processors can generate or transform data to fill these placeholders before the query is processed. The template query acts as a container for the final executable query.
+Placeholders are defined using the `"${variable_name}"` syntax (note that the variables must be enclosed in quotation marks). Search request processors can generate or transform data to fill these placeholders before the query is processed. The template query acts as a container for the final executable query.
 
 ## Example 
 
