@@ -4,3 +4,10 @@ param_table:
   required_column:
     true_text: "**Required**"
     false_text: "_Optional_"
+
+# Replace text in every description in the spec file
+text_replacements:
+  - replace: "https://opensearch.org/docs/latest"
+    with: "{{site.url}}{{site.baseurl}}"
+  - replace: "\n"
+    with: " "

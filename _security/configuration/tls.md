@@ -292,7 +292,15 @@ To enable hot reloading of certificates using REST endpoint add the following li
 This setting is `false` by default.
 {: .note }
 
-After enabling hot reloading, use the Reload Certificates API to replace the expired certificates. The API expects the old certificates to be replaced with valid certificates issued with the same `Issuer/Subject DN` and `SAN`. The new certificates also need be stored in the same location as the previous certificates in order to prevent any changes to the `opensearch.yml` file. 
+After enabling hot reloading, use the Reload Certificates API to replace the expired certificates. The new certificates need to be stored in the same location as the previous certificates in order to prevent any changes to the `opensearch.yml` file. 
+By default, the Reload Certificates API expects the old certificates to be replaced with valid certificates issued with the same `Issuer/Subject DN` and `SAN`. This behavior can be disabled by adding the following settings in `opensearch.yml`:
+
+```yml
+plugins.security.ssl.http.enforce_cert_reload_dn_verification: false
+plugins.security.ssl.transport.enforce_cert_reload_dn_verification: false
+```
+{% include copy.html %}
+
 
 Only a [superadmin]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates) can use the Reload Certificates API.
 {: .note }
