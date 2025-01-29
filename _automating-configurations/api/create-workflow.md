@@ -84,6 +84,21 @@ PUT /_plugins/_flow_framework/workflow/<workflow_id>?reprovision=true
 You can add new steps to the workflow but cannot delete them. Only index setting, search pipeline, and ingest pipeline steps can currently be updated.
 {: .note}
 
+To control how long the request waits for the provisioning and reprovisioning process to complete, use the `wait_for_completion_timeout` parameter. If the operation does not complete within the specified timeout, the response will return the current workflow status while execution continues asynchronously:
+
+```json
+POST /_plugins/_flow_framework/workflow/?provision=true&wait_for_completion_timeout=2s
+```
+{% include copy-curl.html %}
+```json
+PUT /_plugins/_flow_framework/workflow/<workflow_id>/?reprovision=true&wait_for_completion_timeout=2s
+```
+{% include copy-curl.html %}
+
+The `wait_for_completion_timeout` parameter can only be used when either `provision` or `reprovision` is set to `true`
+{: .note}
+
+For example, the following request provisions a workflow and waits for up to 2 seconds for completion:
 You can create and provision a workflow using a [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/) as follows:
 
 ```json
@@ -96,14 +111,15 @@ POST /_plugins/_flow_framework/workflow?use_case=<use_case>&provision=true
 
 The following table lists the available query parameters. All query parameters are optional. User-provided parameters are only allowed if the `provision` parameter is set to `true`.
 
-| Parameter | Data type | Description |
-| :--- | :--- | :--- |
-| `provision` | Boolean | Whether to provision the workflow as part of the request. Default is `false`. |
-| `update_fields` | Boolean | Whether to update only the fields included in the request body. Default is `false`. |
-| `reprovision` | Boolean | Whether to reprovision the entire template if it has already been provisioned. A complete template must be provided in the request body. Default is `false`. |
-| `validation` | String | Whether to validate the workflow. Valid values are `all` (validate the template) and `none` (do not validate the template). Default is `all`. |
-| `use_case` | String | The name of the [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/#supported-workflow-templates) to use when creating the workflow. |
-| User-provided substitution expressions | String | Parameters matching substitution expressions in the template. Only allowed if `provision` is set to `true`. Optional. If `provision` is set to `false`, you can pass these parameters in the [Provision Workflow API query parameters]({{site.url}}{{site.baseurl}}/automating-configurations/api/provision-workflow/#query-parameters). |
+| Parameter                              | Data type | Description                                                                                                                                                                                                                                                                                                                               |
+|:---------------------------------------|:----------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `provision`                            | Boolean   | Whether to provision the workflow as part of the request. Default is `false`.                                                                                                                                                                                                                                                             |
+| `update_fields`                        | Boolean   | Whether to update only the fields included in the request body. Default is `false`.                                                                                                                                                                                                                                                       |
+| `reprovision`                          | Boolean   | Whether to reprovision the entire template if it has already been provisioned. A complete template must be provided in the request body. Default is `false`.                                                                                                                                                                              |
+| `validation`                           | String    | Whether to validate the workflow. Valid values are `all` (validate the template) and `none` (do not validate the template). Default is `all`.                                                                                                                                                                                             |
+| `use_case`                             | String    | The name of the [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/#supported-workflow-templates) to use when creating the workflow.                                                                                                                                                           |
+| `wait_for_completion_timeout`          | TimeValue | Specifies the maximum wait time for synchronous provisioning or reprovisioning. If the timeout is exceeded, the request returns the current workflow status while execution continues asynchronously.|
+| User-provided substitution expressions | String    | Parameters matching substitution expressions in the template. Only allowed if `provision` is set to `true`. Optional. If `provision` is set to `false`, you can pass these parameters in the [Provision Workflow API query parameters]({{site.url}}{{site.baseurl}}/automating-configurations/api/provision-workflow/#query-parameters).  |
 
 ## Request body fields
 
@@ -292,3 +308,32 @@ OpenSearch responds with the `workflow_id`:
 ```
 
 Once you have created a workflow, you can use other workflow APIs with the `workflow_id`.
+
+#### Example Response with wait_for_completion_timeout Enabled
+
+```json
+{
+    "workflow_id": "K13IR5QBEpCfUu_-AQdU",
+    "state": "COMPLETED",
+    "resources_created": [
+        {
+            "workflow_step_name": "create_connector",
+            "workflow_step_id": "create_connector_1",
+            "resource_id": "LF3IR5QBEpCfUu_-Awd_",
+            "resource_type": "connector_id"
+        },
+        {
+            "workflow_step_id": "register_model_2",
+            "workflow_step_name": "register_remote_model",
+            "resource_id": "L13IR5QBEpCfUu_-BQdI",
+            "resource_type": "model_id"
+        },
+        {
+            "workflow_step_name": "deploy_model",
+            "workflow_step_id": "deploy_model_3",
+            "resource_id": "L13IR5QBEpCfUu_-BQdI",
+            "resource_type": "model_id"
+        }
+    ]
+}
+```
