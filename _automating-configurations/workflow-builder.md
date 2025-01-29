@@ -51,52 +51,32 @@ It is strongly recommended to have deployed models with interfaces. A library of
 {: .note}
 
 1. On the **Workflows** page, navigate to the **New workflow** tab.
-
-![Workflows list page]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/workflows-list-page.png)
-
+   ![Workflows list page]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/workflows-list-page.png)
 2. Click **Create** on the **RAG with Vector Retrieval** template.
 3. In the pop-up, provide some basic details.
    - A unique workflow name and description
    - The embedding model to generate vector embeddings
    - The large language model (LLM) to perform RAG
    - Click on **Optional configuration** for more options, such as the names of the text fields and vector fields that will be persisted in the index. This can always be updated later.
-
-![Quick configure modal]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/quick-configure-modal.png)
-
+     ![Quick configure modal]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/quick-configure-modal.png)
 4. Click **Create**, which will pre-populate some configuration, and automatically navigate to the **Workflow Details** page, starting with configuring your ingest flow.
 5. Provide some sample data by clicking **Import**. In the pop-up, you can manually input data, upload a local `.json` file, or fetch some sample documents from an existing index. The form expects an array of JSON objects, each representing a standalone sample [document]({{site.url}}{{site.baseurl}}/getting-started/intro/#document). You may think of this similar to the [bulk ingest operation]({{site.url}}{{site.baseurl}}/getting-started/ingest-data/#bulk-indexing). Click **Save** once complete.
-
-![Import data modal]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/import-data-modal.png)
-
+   ![Import data modal]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/import-data-modal.png)
 6. Click the **ML Inference Processor** accordion under **Transform data** to see its details. This will be pre-populated with the processor configurations to map data _to_ the expected model input, and _from_ the expected model output. In this particular example, under **Inputs**, it is configured to map the target document field to the model input field, such that vector embeddings will be generated for that field. Under **Outputs**, it is configured to map the model output field, to a new field that will be persisted in the index. For more information about the different transform types to accommodate for more complex data schemas and/or model interfaces, see [Advanced data transformations](#advanced-data-transformations).
-
-![Transform data]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/transform-data.png)
-
+   ![Transform data]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/transform-data.png)
 7. Click the **Advanced settings** accordion under **Ingest data** to see its details. This will also be pre-populated with the index configurations required for this particular use case, such as the `knn_vector` field mapping for the vector embedding field, and the index setting `index.knn: true`. You may tune these as you like.
-
-![Ingest data]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/ingest-data.png)
-
+   ![Ingest data]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/ingest-data.png)
 8. Click **Update** in the bottom bar to build out the configured ingest pipeline and index, as well as ingest the provided sample data. You may then navigate to **Test flow** under **Inspect flows** to search against the newly-created index and verify the transformed documents look as expected. For this example, you would want to ensure that the vector embeddings were generated for each ingested document.
-
-![Test ingest flow]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/ingest-test-flow.png)
-
+   ![Test ingest flow]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/ingest-test-flow.png)
 9. Click **Next: Search pipeline** to begin configuring your search flow. Similar to ingest, the form will be pre-populated with some initial configuration.
 10. Click the **ML Inference Processor** accordion under **Transform query** to see its details. The purpose of this processor is to parse out inputs in the search query that you want to generate vector embeddings for. In this particular example, it is passing the value in `query.term.item_text.value` to the embedding model. Additionally, it is performing a query rewrite, to generate a `knn` query using the produced vector embedding from the model. Click on **Rewrite** to see its details. This is one way to abstract out complex query details, and provide a simple query interface, leveraging search pipelines for performing the advanced query generation.
-
-![Transform query]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/transform-query.png)
-
-![Rewrite query]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/rewrite-query.png)
-
+    ![Transform query]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/transform-query.png)
+    ![Rewrite query]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/rewrite-query.png)
 11. Click the **ML Inference Processor** accordion under **Transform response** to see its details. This is where the Claude LLM is leveraged to collect the returned results, and return some human-readable response. Under **Inputs**, click the pencil icon on the right-hand side of the `prompt` entry. This will display a pop-up with a preconfigured prompt template, aimed at summarizing the returned documents. You may tune this as you like, and there are several presets provided as starting points. You may add/update/remove the **Input variables**, which contain the data in the returned documents you want to dynamically inject as contextual information to the LLM. The preconfigured option shows collecting all of the `item_text` data, and summarizing the results. Click **Save** or **Cancel** to exit the pop-up window.
-
-![Transform response]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/transform-response.png)
-
-![Configure prompt]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/configure-prompt.png)
-
+    ![Transform response]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/transform-response.png)
+    ![Configure prompt]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/configure-prompt.png)
 12. Click **Update**, to build out the search pipeline. The **Inspect flows** section will automatically navigate to **Test flow**. From here, you may test out different queries and execute search. Variables wrapped in `{{ }}` allow for rapidly testing out different query values, without changing the base query.
-
-![Test search flow]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/search-test-flow.png)
-
+    ![Test search flow]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/search-test-flow.png)
 13. View results. After clicking **Search**, view the results as either a formatted list of hits, or the raw JSON search response.
 14. Tune your configurations to satisfactorily fit your use case. There are many ways this can be done:
     - Try different query parameters
@@ -113,7 +93,7 @@ ML inference processors offer several different ways for flexibly transforming i
 
 1. `Data field`: use an existing field from your data as the model input field..
 2. `JSONPath expression`: extract data from a JSON structure and map the extracted data to the model input field using [JSONPath](https://en.wikipedia.org/wiki/JSONPath).
-3. `Prompt`: a constant value, with the ability to inject dynamic variables within it. You may think of it as a mix of `String` and `Data field`/`JSONPath expression` transformation types. Helpful in prompt building for LLMs.
+3. `Prompt`: a constant value, with the ability to inject dynamic variables within it. You may think of it as a mix of `Custom string` and `Data field`/`JSONPath expression` transformation types. Helpful in prompt building for LLMs.
 4. `Custom string`: a constant string value.
 
 **Outputs** is where you configure different values passed _from_ the model. Each output parameter can be one of three different transformation types:
