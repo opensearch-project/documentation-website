@@ -9,7 +9,7 @@ nav_order: 70
 Introduced 2.19
 {: .label .label-purple }
 
-Use a `template` query to create search queries that contain placeholder variables. Placeholders are specified using the `"${variable_name}"` syntax (note that the variables must be enclosed in quotation marks). When you submit a search request, these placeholders remain unresolved until they are processed by search request processors. This approach is particularly valuable when your initial search request contains data that needs to be transformed or generated at runtime.
+Use a `template` query to create search queries that contain placeholder variables. Placeholders are specified using the `"${variable_name}"` syntax (note that the variables must be enclosed in quotation marks). When you submit a search request, these placeholders remain unresolved until they are processed by search request processors. This approach is particularly useful when your initial search request contains data that needs to be transformed or generated at runtime.
 
 For example, you might use a template query when working with the [ml_inference search request processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/ml-inference-search-request/), which converts text input into vector embeddings during the search process. The processor will replace the placeholders with the generated values before the final query is executed.
 
@@ -94,7 +94,7 @@ GET /template-knn-1/_search
 
 ## Limitations
 
-Template queries require at least one search request processor to resolve placeholders. Search request processors must be configured to produce the variables expected in the pipeline.
+Template queries require at least one search request processor in order to resolve placeholders. Search request processors must be configured to produce the variables expected in the pipeline.
 
 ## Next steps
 
