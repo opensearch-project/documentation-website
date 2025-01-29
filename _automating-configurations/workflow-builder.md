@@ -44,7 +44,7 @@ This is where you will actually build and test your ingest and search flows for 
    - **Errors**: The latest error will appear here. Errors may come from updating your ingest or search flows, running ingest, or running search. The plugin will automatically open this tab when a new error occurs, similar to an IDE.
    - **Resources**: The list of associated OpenSearch resources for this particular workflow. Will include up to one ingest pipeline, one index, and one search pipeline. Click the **Inspect** action for each to view more details for each.
 
-## Example: Semantic Search with RAG
+## Example: Semantic search with RAG
 
 The following example leverages a deployed [Titan Text Embedding](https://docs.aws.amazon.com/bedrock/latest/userguide/titan-embedding-models.html) model and [Bedrock-hosted Anthropic Claude](https://aws.amazon.com/bedrock/claude/) model to build out an [ingest pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/), [index]({{site.url}}{{site.baseurl}}/getting-started/intro/#index), and [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) for performing vector search and retrieval-augmented generation (RAG).
 
