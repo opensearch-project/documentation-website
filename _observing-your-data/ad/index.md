@@ -125,6 +125,10 @@ A _feature_ is any field in your index that you want to analyze for anomalies. A
 
 For example, if you choose `min()`, the detector focuses on finding anomalies based on the minimum values of your feature. If you choose `average()`, the detector finds anomalies based on the average values of your feature.
 
+For each configured feature, you can also select the criteria for considering data as an anomaly. By default, an anomaly is detected when the model finds a deviation where the actual value is either abnormally higher or lower than the expected value. However, users can customize their feature settings so that anomalies are only registered when the actual value is above the expected value (indicating a spike in the data) or below the expected value (indicating a dip in the data).
+
+For example, when creating a detector for the cpu_utilization field, users may choose to register anomalies only when the value spikes to reduce alert fatigue.
+
 A multi-feature model correlates anomalies across all its features. The [curse of dimensionality](https://en.wikipedia.org/wiki/Curse_of_dimensionality) makes it less likely that multi-feature models will identify smaller anomalies as compared to a single-feature model. Adding more features can negatively impact the [precision and recall](https://en.wikipedia.org/wiki/Precision_and_recall) of a model. A higher proportion of noise in your data can further amplify this negative impact. Selecting the optimal feature set is usually an iterative process. By default, the maximum number of features for a detector is `5`. You can adjust this limit using the `plugins.anomaly_detection.max_anomaly_features` setting.
 {: .note}
 
@@ -201,7 +205,7 @@ Be cautious when imputing extensively missing data, as excessive gaps can compro
 
 ### Suppressing anomalies with threshold-based rules
 
-In the **Advanced settings** pane, you can suppress anomalies by setting rules that define acceptable differences between the expected and actual values, either as an absolute value or a relative percentage. This helps reduce false anomalies caused by minor fluctuations, allowing you to focus on significant deviations.
+In the Feature selection pane, you can suppress anomalies by setting rules that define acceptable differences between the expected and actual values, either as an absolute value or a relative percentage. This helps reduce false anomalies caused by minor fluctuations, allowing you to focus on significant deviations.
 
 Suppose you want to detect substantial changes in log volume while ignoring small variations that are not meaningful. Without customized settings, the system might generate false alerts for minor changes, making it difficult to identify true anomalies. By setting suppression rules, you can ignore minor deviations and focus on real anomalous patterns.
 
