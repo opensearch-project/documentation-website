@@ -10,7 +10,7 @@ The OpenSearch Flow plugin in OpenSearch Dashboards lets you iteratively build a
 
 ## Background: Ingest pipelines, search pipelines, and ML models
 
-[Ingest pipelines]({{site.url}}{{site.baseurl}}/ingest-pipelines/) and [search pipelines]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) are used for configuring data transforms at different stages of ingest and search operations using individual processors, all run within OpenSearch. For example, an _ingest pipeline_ is composed of a sequence of _ingest processors_, while a _search pipeline_ is composed of a sequence of _search request processors_ and/or _search response processors_. You can stitch together processors and build custom pipelines to fit your data processing needs.
+[Ingest pipelines]({{site.url}}{{site.baseurl}}/ingest-pipelines/) and [search pipelines]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) are used for configuring data transforms at different stages of ingest and search operations using individual processors, all run within OpenSearch. An _ingest pipeline_ is composed of a sequence of _ingest processors_, while a _search pipeline_ is composed of a sequence of _search request processors_ and/or _search response processors_. You can stitch together processors and build custom pipelines to fit your data processing needs.
 
 In general, these pipelines allow for modifying data at 3 different stages.
 
@@ -47,7 +47,7 @@ This is where you will actually build and test your ingest and search flows for 
 
 The following example leverages a deployed [Titan Text Embedding](https://docs.aws.amazon.com/bedrock/latest/userguide/titan-embedding-models.html) model and [Bedrock-hosted Anthropic Claude](https://aws.amazon.com/bedrock/claude/) model to build out an [ingest pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/), [index]({{site.url}}{{site.baseurl}}/getting-started/intro/#index), and [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) for performing vector search and retrieval-augmented generation (RAG).
 
-It is strongly recommended to have deployed models with interfaces. A library of example configurations is available [here](TODO).
+It is strongly recommended to have deployed models with interfaces. A library of example configurations is available [here](https://github.com/opensearch-project/dashboards-flow-framework/blob/main/documentation/models.md).
 {: .note}
 
 1. On the **Workflows** page, navigate to the **New workflow** tab.
@@ -93,7 +93,7 @@ It is strongly recommended to have deployed models with interfaces. A library of
 
 ![Configure prompt]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/configure-prompt.png)
 
-12. Click **Update**, to build out the search pipeline. The **Inspect flows** section will automatically navigate to **Test tool**. From here, you may test out different queries and execute search. Variables wrapped in `{{ }}` allow for rapidly testing out different query values, without changing the base query.
+12. Click **Update**, to build out the search pipeline. The **Inspect flows** section will automatically navigate to **Test flow**. From here, you may test out different queries and execute search. Variables wrapped in `{{ }}` allow for rapidly testing out different query values, without changing the base query.
 
 ![Test search flow]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/search-test-flow.png)
 
@@ -128,5 +128,5 @@ For suggested models and model interfaces to use within OpenSearch Flow, see [he
 
 For more tutorials on how to leverage OpenSearch Flow to build out different AI/ML use cases, see [here](https://github.com/opensearch-project/dashboards-flow-framework/blob/main/documentation/tutorial.md).
 
-_Notice a missing ingest or search processor you'd like to see in the plugin? Consider opening an [issue](https://github.com/opensearch-project/dashboards-flow-framework/issues) or contributing by opening a [pull request](https://github.com/opensearch-project/dashboards-flow-framework/pulls)!_
+_Notice a missing ingest or search processor you'd like to see in the plugin? Consider opening an [issue](https://github.com/opensearch-project/dashboards-flow-framework/issues) or contributing by opening a [pull request](https://github.com/opensearch-project/dashboards-flow-framework/pulls)._
 {: .note}
