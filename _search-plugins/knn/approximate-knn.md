@@ -24,7 +24,7 @@ Because the native library indexes are constructed during indexing, it is not po
 
 Each of the three engines used for approximate k-NN search has its own attributes that make one more sensible to use than the others in a given situation. You can follow the general information below to help determine which engine will best meet your requirements.
 
-In general, nmslib (Deprecated) outperforms both faiss and Lucene on search. However, to optimize for indexing throughput, faiss is a good option. For relatively smaller datasets (up to a few million vectors), the Lucene engine demonstrates better latencies and recall. At the same time, the size of the index is smallest compared to the other engines, which allows it to use smaller AWS instances for data nodes.
+In general, nmslib (deprecated) outperforms both faiss and Lucene on search. However, to optimize for indexing throughput, faiss is a good option. For relatively smaller datasets (up to a few million vectors), the Lucene engine demonstrates better latencies and recall. At the same time, the size of the index is smallest compared to the other engines, which allows it to use smaller AWS instances for data nodes.
 
 When considering cluster node sizing, a general approach is to first establish an even distribution of the index across the cluster. However, there are other considerations. To help make these choices, you can refer to the OpenSearch managed service guidance in the section [Sizing domains](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/sizing-domains.html).
 
@@ -33,7 +33,7 @@ When considering cluster node sizing, a general approach is to first establish a
 To use the k-NN plugin's approximate search functionality, you must first create a k-NN index with `index.knn` set to `true`. This setting tells the plugin to create native library indexes for the index.
 
 Next, you must add one or more fields of the `knn_vector` data type. This example creates an index with two
-`knn_vector` fields, one using `faiss` and the other using `nmslib` (Deprecated) fields:
+`knn_vector` fields, one using `faiss` and the other using `nmslib` (deprecated) fields:
 
 ```json
 PUT my-knn-index-1
@@ -294,7 +294,7 @@ The following table provides information about the `ef_search` parameter for the
 
 Engine | Radial query support | Notes
 :--- | :--- | :---
-`nmslib` (Deprecated) | No | If `ef_search` is present in a query, it overrides the `index.knn.algo_param.ef_search` index setting.
+`nmslib` (deprecated) | No | If `ef_search` is present in a query, it overrides the `index.knn.algo_param.ef_search` index setting.
 `faiss` | Yes | If `ef_search` is present in a query, it overrides the `index.knn.algo_param.ef_search` index setting.
 `lucene` | No | When creating a search query, you must specify `k`. If you provide both `k` and `ef_search`, then the larger value is passed to the engine. If `ef_search` is larger than `k`, you can provide the `size` parameter to limit the final number of results to `k`. 
 

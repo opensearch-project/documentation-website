@@ -173,11 +173,11 @@ For the warmup operation to function properly, follow these best practices:
 Introduced 2.14
 {: .label .label-purple }
 
-During approximate k-NN search or warmup operations, the native library indexes (`nmslib` (Deprecated) and `faiss` engines) are loaded into native memory. Currently, you can evict an index from cache or native memory by either deleting the index or setting the k-NN cluster settings `knn.cache.item.expiry.enabled` and `knn.cache.item.expiry.minutes`, which removes the index from the cache if it is idle for a given period of time. However, you cannot evict an index from the cache without deleting the index. To solve this problem, you can use the k-NN clear cache API operation, which clears a given set of indexes from the cache.
+During approximate k-NN search or warmup operations, the native library indexes (for the `faiss` and `nmslib` [deprecated] engines) are loaded into native memory. Currently, you can evict an index from cache or native memory by either deleting the index or setting the k-NN cluster settings `knn.cache.item.expiry.enabled` and `knn.cache.item.expiry.minutes`, which removes the index from the cache if it is idle for a given period of time. However, you cannot evict an index from the cache without deleting the index. To solve this problem, you can use the k-NN clear cache API operation, which clears a given set of indexes from the cache.
 
 The k-NN clear cache API evicts all native library files for all shards (primaries and replicas) of all indexes specified in the request. Similarly to how the [warmup operation](#warmup-operation) behaves, the k-NN clear cache API is idempotent, meaning that if you try to clear the cache for an index that has already been evicted from the cache, it does not have any additional effect.
 
-This API operation only works with indexes created using the `nmslib` (Deprecated) and `faiss` engines. It has no effect on indexes created using the `lucene` engine.
+This API operation only works with indexes created using the `faiss` and `nmslib` (deprecated) engines. It has no effect on indexes created using the `lucene` engine.
 {: .note}
 
 #### Usage
@@ -236,7 +236,7 @@ Response field |  Description
 `error` | An error message explaining why the model is in a failed state.
 `space_type` | The space type for which this model is trained, for example, Euclidean or cosine. Note - this value can be set in the top-level of the request as well
 `dimension` | The dimensionality of the vector space for which this model is designed.
-`engine` | The native library used to create the model, either `faiss` or `nmslib` (Deprecated). 
+`engine` | The native library used to create the model, either `faiss` or `nmslib` (deprecated). 
 
 ### Usage
 

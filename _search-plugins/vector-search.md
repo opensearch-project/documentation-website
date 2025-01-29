@@ -88,7 +88,7 @@ The following table lists the combinations of search methods and libraries suppo
 
 Method | Engine
 :--- | :---
-HNSW | NMSLIB (Deprecated), Faiss, Lucene
+HNSW | Faiss, Lucene, NMSLIB (deprecated)
 IVF | Faiss 
 
 ### Engine recommendations

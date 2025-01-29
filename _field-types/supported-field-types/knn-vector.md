@@ -49,7 +49,7 @@ Vector search involves trade-offs between low-latency and low-cost search. Speci
 The following modes are currently supported.
 
 | Mode    | Default engine | Description                                                                                                                                                                                                                                             |
-|:---|:---------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|:---|:---|:---|
 | `in_memory` (Default) | `faiss`        | Prioritizes low-latency search. This mode uses the `faiss` engine without any quantization applied. It is configured with the default parameter values for vector search in OpenSearch.                                                                 |
 | `on_disk`             | `faiss`        | Prioritizes low-cost vector search while maintaining strong recall. By default, the `on_disk` mode uses quantization and rescoring to execute a two-pass approach to retrieve the top neighbors. The `on_disk` mode supports only `float` vector types. |
 
@@ -83,7 +83,7 @@ The `compression_level` mapping parameter selects a quantization encoder that re
 
 | Compression level | Supported engines                            |
 |:------------------|:---------------------------------------------|
-| `1x`              | `faiss`, `lucene`, and `nmslib (Deprecated)` |
+| `1x`              | `faiss`, `lucene`, and `nmslib` (deprecated) |
 | `2x`              | `faiss`                                      |
 | `4x`              | `lucene`                                     |
 | `8x`              | `faiss`                                      |
