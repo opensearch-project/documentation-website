@@ -266,7 +266,7 @@ These settings allow for the use of encrypted passwords in the settings.
 
 Updating expired or nearly expired TLS certificates on the HTTP and transport layers does not require restarting the cluster. Instead, you can enable hot reloading of TLS cerificates using one of the following methods:
 
-- [Enabling the in-place hot reload setting](#enabling-the-in-place-hot-setting)
+- [Enabling the in-place hot reload setting](#enabling-the-in-place-hot-reload-setting)
 - Using the [Reload Certificates API](#using-the-reload-certificates-api)
 
 If you use PEM files to manage certificates, your certificate and keys are stored in seperate files. Therefore, we recommend using rolling updates when updating reload settings to prevent authentication issues.
