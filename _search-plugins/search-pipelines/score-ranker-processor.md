@@ -1,20 +1,29 @@
 layout: default
-title: Reciprocal Rank Fusion
+title: Rank Based Combination Processor
 nav_order: 70
 has_children: false
 parent: Search processors
 grand_parent: Search pipelines
 ---
 
-# Reciprocal Rank Fusion processor
+# Rank Based Combination Processor
 Introduced 2.19
 {: .label .label-purple }
 
+The `score-ranker-processor` is a search phase results processor that runs between the query and fetch phases of search execution. It intercepts the query phase results and then uses the reciprocal rank fusion algorithm to combine different query clauses to produce the final ranked list of search results.
 Reciprocal rank fusion (RRF) is a method for combining multiple queries by scoring each document based on the reciprocal of its rank for each query and then summing these scores to create a final, unified ranking.
-The `rrf-processor` is a search phase results processor that runs between the query and fetch phases of search execution. It intercepts the query phase results and then uses the reciprocal rank fusion algorithm to combine different query clauses before passing the documents to the fetch phase.
+
+## Request body fields
+
+The following table lists all available request fields.
+
+Field | Data type | Description
+:--- | :--- | :---
+`combination.technique` | String | The technique for combining scores. Valid value is `rrf`.
+`combination.rank_constant` | int | A constant added to each document's rank before calculating the reciprocal score. Cannot be less than 1. Default is 60.
 
 ## Using RRF
-You can use RRF by creating a search pipeline with RRF as the specified technique:
+You can use RRF by creating a search pipeline with RRF as the combination technique:
 ```json
 PUT /_search/pipeline/<rrf-pipeline>
 {
