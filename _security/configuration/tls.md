@@ -262,37 +262,41 @@ The default insecure SSL password settings have been deprecated. In order to use
 
 These settings allow for the use of encrypted passwords in the settings.
 
-## Hot reloading certificates
+## Hot reloading TLS certificates
 
-There are two ways to hot reload expired or nearly expired certificates on the HTTP and Transport layers, or both:
+Updating expired or nearly expired TLS certificates on the HTTP and transport layers does not require restarting the cluster. Instead, you can enable hot reloading of TLS cerificates using one of the following methods:
 
-- in-place hot reload
-- using REST endpoint  
+- [Enabling the in-place hot reload setting](#enabling-the-in-place-hot-setting)
+- Using the [Reload Certificates API](#using-the-reload-certificates-api)
 
-### In-place hot reload
-To enable in-place hot reloading of certificates using endpoint add the following line to `opensearch.yml`:
+If you use PEM files to manage certificates, your certificate and keys are stored in seperate files. Therefore, we recommend using rolling updates when updating reload settings to prevent authentication issues.
+{: .warning}
 
-`plugins.security.ssl.certificates_hot_reload.enabled: true`
+### Enabling the in-place hot reload setting
 
-After enabling in-place hot reloading OpenSearch monitors you key or keystore resources for updates, on a five-second interval.
-You can just copy the new certificate and key files or keystore into the OpenSearch configuration directory 
-and your nodes will detect the changes and reload the keys and certificates.
+When enabled, in-place hot reloading monitors your keystore resources for updates every five seconds. If you add or modify a certificate, key file, or keystore setting in the Opensearch `config` directory, the nodes in the cluster detects the changes and reloads the keys and certificates.
 
-### Rolling restarts are preferred:
-- If you use PEM files, your certificate and key are in separate files.
-- Key or keystore passwords have changed.
+To enable in-place hot reloading, add the following line to `opensearch.yml`:
 
+```yml
+plugins.security.ssl.certificates_hot_reload.enabled: true
+```
+{% include copy.html %}
 
-### Using REST endpoint
+### Using the Reload Certificates API
 
-To enable hot reloading of certificates using REST endpoint add the following line to `opensearch.yml`:
+Add the following to enable hot reloading using the Reload Certificates API:
 
-`plugins.security.ssl_cert_reload_enabled: true`
+```yml
+plugins.security.ssl_cert_reload_enabled: true
+```
+{% include copy.html %}
 
 This setting is `false` by default.
 {: .note }
 
 After enabling hot reloading, use the Reload Certificates API to replace the expired certificates. The new certificates need to be stored in the same location as the previous certificates in order to prevent any changes to the `opensearch.yml` file. 
+
 By default, the Reload Certificates API expects the old certificates to be replaced with valid certificates issued with the same `Issuer/Subject DN` and `SAN`. This behavior can be disabled by adding the following settings in `opensearch.yml`:
 
 ```yml
@@ -306,6 +310,7 @@ Only a [superadmin]({{site.url}}{{site.baseurl}}/security/configuration/tls/#con
 {: .note }
 
 ### Reload TLS certificates on the transport layer
+
  The following command reloads TLS certificates on the transport layer:
   
   ```json
@@ -314,11 +319,12 @@ Only a [superadmin]({{site.url}}{{site.baseurl}}/security/configuration/tls/#con
   {% include copy.html %}
 
 You should receive the following response:
+
 ```{ "message": "successfully updated transport certs"}```
 
-### Reload TLS certificates on the http layer
+### Reload TLS certificates on the HTTP layer
 
-The following command reloads TLS certificates on the `http` layer:
+The following command reloads TLS certificates on the HTTP layer:
 
   ```json
   curl --cacert <ca.pem> --cert <admin.pem> --key <admin.key> -XPUT https://localhost:9200/_plugins/_security/api/ssl/http/reloadcerts
@@ -329,6 +335,6 @@ You should receive the following response:
 
 ```{ "message": "successfully updated http certs"}```
 
-### Rolling restarts are preferred: 
-- Key or keystore passwords have changed.
+
+
 
