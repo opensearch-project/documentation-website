@@ -1,8 +1,8 @@
 ---
 layout: default
-parent: Searching data
+parent: Search options
 title: Search shard routing
-nav_order: 70
+nav_order: 90
 ---
 
 # Search shard routing

@@ -106,109 +106,34 @@ POST /_plugins/_flow_framework/workflow?provision=true
           "user_inputs": {
             "description": "Claude model",
             "deploy": true,
-            "name": "claude-instant",
-            "guardrails": {
-              "type": "local_regex",
-              "input_guardrail": {
-                  "stop_words": [
-                      {
-                          "index_name": "words0",
-                          "source_fields": ["title"]
-                      }
-                  ],
-                  "regex": ["regex1", "regex2"]
-              },
-              "output_guardrail": {
-                  "stop_words": [
-                      {
-                          "index_name": "words0",
-                          "source_fields": ["title"]
-                      }
-                  ],
-                  "regex": ["regex1", "regex2"]
-              }
-            }
+            "name": "claude-instant"
           }
         },
         {
-          "id": "TransferQuestionToPPLAndExecuteTool",
+          "id": "create_query_assist_data_summary_ml_model_tool",
           "type": "create_tool",
           "previous_node_inputs": {
             "register_claude_model": "model_id"
           },
           "user_inputs": {
-            "type": "PPLTool",
-            "name": "TransferQuestionToPPLAndExecuteTool",
-            "description": "Use this tool to transfer natural language to generate PPL and execute PPL to query inside. Use this tool after you know the index name, otherwise, call IndexRoutingTool first. The input parameters are: {index:IndexName, question:UserQuestion}",
             "parameters": {
-              "response_filter": "$.completion",
-              "execute": false
+              "prompt": "Human: You are an assistant that helps to summarize the data and provide data insights.\nThe data are queried from OpenSearch index through user's question which was translated into PPL query.\nHere is a sample PPL query: `source=<index> | where <field> = <value>`.\nNow you are given ${parameters.sample_count} sample data out of ${parameters.total_count} total data.\nThe user's question is `${parameters.question}`, the translated PPL query is `${parameters.ppl}` and sample data are:\n```\n${parameters.sample_data}\n```\nCould you help provide a summary of the sample data and provide some useful insights with precise wording and in plain text format, do not use markdown format.\nYou don't need to echo my requirements in response.\n\nAssistant:"
             },
-            "include_output_in_agent_response": true
+            "name": "MLModelTool",
+            "type": "MLModelTool"
           }
         },
         {
-          "id": "summarize_success_tool",
-          "type": "create_tool",
-          "previous_node_inputs": {
-            "register_claude_model": "model_id"
-          },
-          "user_inputs": {
-            "type": "MLModelTool",
-            "Name": "SummarizeSuccessTool",
-            "description": "Use this tool to summarize a PPL success response in query assist",
-            "parameters": {
-              "prompt": "\n\nHuman: You will be given a search response, summarize it as a concise paragraph while considering the following:\nUser's question on index '${parameters.index}': ${parameters.question}\nPPL (Piped Processing Language) query used: ${parameters.query}\n\nGive some documents to support your point.\nNote that the output could be truncated, summarize what you see. Don't mention about total items returned and don't mention about the fact that output is truncated if you see 'Output is too long, truncated' in the response.\n\nSkip the introduction; go straight into the summarization.\n\nUse the following pieces of context to answer the users question.\nIf you don't know the answer, just say that you don't know, don't try to make up an answer.\n----------------\n${parameters.response}\n\nAssistant:",
-              "response_filter": "$.completion"
-            }
-          }
-        },
-        {
-          "id": "summarize_error_tool",
-          "type": "create_tool",
-          "previous_node_inputs": {
-            "register_claude_model": "model_id"
-          },
-          "user_inputs": {
-            "type": "MLModelTool",
-            "name": "SummarizeErrorTool",
-            "description": "Use this tool to summarize a PPL error response in query assist",
-            "include_output_in_agent_response": true,
-            "parameters": {
-              "prompt": "\n\nHuman: You will be given an API response with errors, summarize it as a concise paragraph. Do not try to answer the user's question.\nIf the error cannot be fixed, eg. no such field or function not supported, then give suggestions to rephrase the question.\nIt is imperative that you must not give suggestions on how to fix the error or alternative PPL query, or answers to the question.\n\nConsider the following:\nUser's question on index '${parameters.index}': ${parameters.question}\nPPL (Piped Processing Language) query used: ${parameters.query}\n\nSkip the introduction; go straight into the summarization.\n\nUse the following pieces of context to answer the users question.\nIf you don't know the answer, just say that you don't know, don't try to make up an answer.\n----------------\n${parameters.response}\n\nAssistant:",
-              "response_filter": "$.completion"
-            }
-          }
-        },
-        {
-          "id": "suggestions_tool",
-          "type": "create_tool",
-          "previous_node_inputs": {
-            "register_claude_model": "model_id"
-          },
-          "user_inputs": {
-            "type": "MLModelTool",
-            "name": "SuggestionsTool",
-            "description": "Use this tool to generate possible questions for an index in query assist",
-            "include_output_in_agent_response": true,
-            "parameters": {
-              "prompt": "\n\nHuman: OpenSearch index: ${parameters.index}\n\nRecommend 2 or 3 possible questions on this index given the fields below. Only give the questions, do not give descriptions of questions and do not give PPL queries.\n\nThe format for a field is\n```\n- field_name: field_type (sample field value)\n```\n\nFields:\n${parameters.fields}\n\nPut each question in a <question> tag.\n\nAssistant:",
-              "response_filter": "$.completion"
-            }
-          }
-        },
-        {
-          "id": "ppl_agent",
+          "id": "create_query_assist_data_summary_agent",
           "type": "register_agent",
           "previous_node_inputs": {
-            "TransferQuestionToPPLAndExecuteTool": "tools"
+            "create_query_assist_data_summary_ml_model_tool": "tools"
           },
           "user_inputs": {
             "parameters": {},
-            "app_type": "query_assist",
-            "name": "PPL agent",
-            "description": "this is the PPL agent",
-            "type": "flow"
+            "type": "flow",
+            "name": "Query Assist Data Summary Agent",
+            "description": "this is an query assist data summary agent"
           }
         }
       ]

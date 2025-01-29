@@ -19,6 +19,11 @@ To configure BQ for the Faiss engine, define a `knn_vector` field and specify th
 ```json
 PUT my-vector-index
 {
+  "settings" : {
+    "index": {
+      "knn": true
+    }
+  },
   "mappings": {
     "properties": {
       "my_vector_field": {
@@ -47,6 +52,11 @@ To specify the compression level, set the `compression_level` parameter:
 ```json
 PUT my-vector-index
 {
+  "settings" : {
+    "index": {
+      "knn": true
+    }
+  },
   "mappings": {
     "properties": {
       "my_vector_field": {
@@ -57,9 +67,11 @@ PUT my-vector-index
         "mode": "on_disk",
         "compression_level": "16x",
         "method": {
-            "parameters": {
-                "ef_construction": 16
-            }
+          "name": "hnsw",
+          "engine": "faiss",
+          "parameters": {
+              "ef_construction": 16
+          }
         }
       }
     }
@@ -73,6 +85,11 @@ The following example further fine-tunes the configuration by defining `ef_const
 ```json
 PUT my-vector-index
 {
+  "settings" : {
+    "index": {
+      "knn": true
+    }
+  },
   "mappings": {
     "properties": {
       "my_vector_field": {

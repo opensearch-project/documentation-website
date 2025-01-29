@@ -137,7 +137,7 @@ plugins.security.authcz.admin_dn:
 
 For security reasons, you cannot use wildcards or regular expressions as values for the `admin_dn` setting.
 
-For more information about admin and super admin user roles, see [Admin and super admin roles](https://opensearch.org/docs/latest/security/access-control/users-roles/#admin-and-super-admin-roles). 
+For more information about admin and super admin user roles, see [Admin and super admin roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#admin-and-super-admin-roles). 
 
 
 ## (Advanced) OpenSSL
@@ -272,7 +272,15 @@ Updating expired or nearly expired TLS certificates does not require restarting 
 This setting is `false` by default.
 {: .note }
 
-After enabling hot reloading, use the Reload Certificates API to replace the expired certificates. The API expects the old certificates to be replaced with valid certificates issued with the same `Issuer/Subject DN` and `SAN`. The new certificates also need be stored in the same location as the previous certificates in order to prevent any changes to the `opensearch.yml` file. 
+After enabling hot reloading, use the Reload Certificates API to replace the expired certificates. The new certificates need to be stored in the same location as the previous certificates in order to prevent any changes to the `opensearch.yml` file. 
+By default, the Reload Certificates API expects the old certificates to be replaced with valid certificates issued with the same `Issuer/Subject DN` and `SAN`. This behavior can be disabled by adding the following settings in `opensearch.yml`:
+
+```yml
+plugins.security.ssl.http.enforce_cert_reload_dn_verification: false
+plugins.security.ssl.transport.enforce_cert_reload_dn_verification: false
+```
+{% include copy.html %}
+
 
 Only a [superadmin]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates) can use the Reload Certificates API.
 {: .note }

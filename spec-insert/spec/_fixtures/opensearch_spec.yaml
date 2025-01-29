@@ -11,6 +11,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/_global___query.pretty'
         - $ref: '#/components/parameters/_global___query.human'
+        - $ref: '#/components/parameters/cat.health___query.expand_wildcard'
   /_search:
     get:
       operationId: search.0
@@ -32,6 +33,7 @@ paths:
       parameters:
           - $ref: '#/components/parameters/search___query.analyze_wildcard'
           - $ref: '#/components/parameters/search___query.analyzer'
+          - $ref: '#/components/parameters/search___query.expand_wildcards'
   /{index}/_search:
     get:
       operationId: search.2
@@ -44,6 +46,7 @@ paths:
         - $ref: '#/components/parameters/search___path.index'
         - $ref: '#/components/parameters/search___query.analyze_wildcard'
         - $ref: '#/components/parameters/search___query.analyzer'
+        - $ref: '#/components/parameters/search___query.expand_wildcards'
     post:
       operationId: search.3
       x-operation-group: search
@@ -55,6 +58,7 @@ paths:
         - $ref: '#/components/parameters/search___path.index'
         - $ref: '#/components/parameters/search___query.analyze_wildcard'
         - $ref: '#/components/parameters/search___query.analyzer'
+        - $ref: '#/components/parameters/search___query.expand_wildcards'
 components:
 
   parameters:
@@ -79,6 +83,25 @@ components:
       deprecated: true
       x-version-deprecated: '3.0'
       x-deprecation-message: Use the `format` parameter instead.
+
+    cat.health___query.expand_wildcard:
+      in: query
+      required: true
+      name: expand_wildcard
+      description: |-
+          Whether to expand wildcard expression to concrete indices that are open, closed, or both.
+          For more information, see [cat health API](https://opensearch.org/docs/latest/api-reference/cat/health/).
+      schema:
+        oneOf:
+          - type: string
+            const: open
+            description: Expand wildcards to open indices only.
+          - type: string
+            const: closed
+            description: Expand wildcards to closed indices only.
+          - type: string
+            const: master
+            description: Expand wildcards for master nodes only.
 
     search___path.index:
       in: path
@@ -114,6 +137,18 @@ components:
         type: string
       style: form
 
+    search___query.expand_wildcards:
+      in: query
+      name: expand_wildcards
+      description: |-
+        Comma-separated list of expand wildcard options.
+      schema:
+        oneOf:
+          - $ref: '#/components/schemas/_common___ExpandWildcardsCompact'
+          - type: array
+            items:
+              $ref: '#/components/schemas/_common___ExpandWildcardsCompact'
+
   schemas:
 
     _common___Indices:
@@ -135,3 +170,11 @@ components:
           const: _any
         - type: string
           const: _none
+
+    _common___ExpandWildcardsCompact:
+      type: string
+      enum:
+        - open
+        - closed
+        - none
+        - all

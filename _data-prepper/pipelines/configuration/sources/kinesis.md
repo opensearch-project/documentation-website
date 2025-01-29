@@ -8,7 +8,7 @@ nav_order: 45
 
 # kinesis
 
-You can use the Data Prepper `kinesis` source to ingest records from one or more [Amazon Kinesis Data Streams](https://aws.amazon.com/kinesis/data-streams/).
+You can use the OpenSearch Data Prepper `kinesis` source to ingest records from one or more [Amazon Kinesis Data Streams](https://aws.amazon.com/kinesis/data-streams/).
 
 ## Usage
 
