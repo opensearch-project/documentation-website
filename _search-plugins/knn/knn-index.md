@@ -49,8 +49,7 @@ Starting with k-NN plugin version 2.17, you can use `byte` vectors with the `fai
 
 Starting with k-NN plugin version 2.16, you can use `binary` vectors with the `faiss` engine to reduce the amount of required storage space. For more information, see [Binary vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-vectors).
 
-Starting with k-NN plugin version 2.19 you can also use `binary` vectors with the `lucene` engine.
-{: .note}
+Starting with k-NN plugin version 2.19, you can use `binary` vectors with the `lucene` engine.
 
 ## SIMD optimization for the Faiss engine
 
