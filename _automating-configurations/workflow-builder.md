@@ -84,7 +84,7 @@ It is strongly recommended to have deployed models with interfaces. A library of
     - Try different queries
     - Update existing processors under **Enhance query request** or **Enhance query response**
     - Add or remove processors under **Enhance query request** or **Enhance query response**
-15. Export your workflow. Click on **Export** in the header to bring up the pop-up window. The displayed data represents the [Workflow Template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/) containing the end-to-end configuration for building out the OpenSearch resources; in this case, the ingest pipeline, index, and search pipeline. You may download in JSON or YAML format from the button on the right-hand side.
+15. Export your workflow. Click on **Export** in the header to bring up the pop-up window. The displayed data represents the [Workflow Template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/) containing the end-to-end configuration for building out the OpenSearch resources that you've just built here; in this case, the ingest pipeline, index, and search pipeline. You may download in JSON or YAML format from the button on the right-hand side. Build identical resources in other OpenSearch clusters using the [Provision Workflow API]({{site.url}}{{site.baseurl}}/automating-configurations/api/provision-workflow/).
 
 ## Advanced data transformations
 
