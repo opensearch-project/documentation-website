@@ -95,7 +95,7 @@ Mapping parameter | Required | Default | Updatable | Description
 `engine` | false | faiss  | false | The approximate k-NN library to use for indexing and search. The available libraries are `faiss`, `lucene`, and `nmslib` (deprecated).
 `parameters` | false | null | false | The parameters used for the nearest neighbor method.
 
-### Supported nmslib methods
+### Supported NMSLIB methods
 
 Method name | Requires training | Supported spaces | Description
 :--- | :--- | :--- | :---
