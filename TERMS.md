@@ -654,6 +654,8 @@ Copy of a primary shard. Helps improve performance when using indexes across mul
 
 Use as a synonym for repository, on second and subsequent use.
 
+**retrieval-augmented generation (RAG)**
+
 **RPM Package Manager (RPM)**
 
 Formerly known as RedHat Package Manager. An open-source package management system for use with Linux distributions.
