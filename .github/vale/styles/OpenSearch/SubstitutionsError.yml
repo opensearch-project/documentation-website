@@ -38,7 +38,6 @@ swap:
   'premigration': pre-migration
   're-enable': reenable
   'retrieval augmented generation': retrieval-augmented generation
-  'Retrieval-Augmented Generation': retrieval-augmented generation
   'screen shot': screenshot
   'sample request': example request
   'sample response': example response
