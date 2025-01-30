@@ -307,6 +307,43 @@ img {
   }
 }
 
+@mixin btn-dark-blue {
+  color: white;
+  background-color: $blue-300;  
+  font-size: 1.13rem;
+  font-weight: 510;
+  border-width: 1px; 
+  border-style: solid;
+  border-radius: 5px;
+  box-shadow: 1px 1px $grey-lt-300;
+  cursor: pointer;
+}
+
+.btn-dark-blue {
+  @include btn-dark-blue;
+  border-color: $blue-dk-300;  
+  padding: 0.5rem 1rem;
+  margin-left: 0.4rem;
+  margin-right: 0.4rem;
+
+  &:hover:not([disabled]) {
+    background-color: $blue-vibrant-300;  
+    box-shadow: 1px 2px 4px $grey-lt-300;
+    transform: translateY(-1px);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+.centering-container {
+  display: flex;
+  justify-content: center; 
+}
+
 // Back to top button
 .top-link {
   display: block;
