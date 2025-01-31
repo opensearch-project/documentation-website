@@ -12,7 +12,7 @@ Use the `pipeline` sink to read from another pipeline.
 
 ## Configuration options
 
-The `pipeline` sink supports the following configuration options.
+The `pipeline` source supports the following configuration options.
 
 | Option | Required | Type   | Description                            |
 |:-------|:---------|:-------|:---------------------------------------|
