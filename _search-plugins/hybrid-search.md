@@ -1214,27 +1214,30 @@ Field | Description
 :--- | :---
 `explanation` | The `explanation` object has three properties: `value`, `description`, and `details`. The `value` property shows the result of the calculation, `description` explains what type of calculation was performed, and `details` shows any subcalculations performed. For score normalization, the information in the `description` property includes the technique used for normalization or combination and the corresponding score. 
 
-## Paginate hybrid query results
+## Paginating hybrid query results
 **Introduced 2.19**
 {: .label .label-purple }
 
-You can apply pagination to hybrid query results by using the `pagination_depth` parameter in the hybrid query clause, along with the standard `from` and `size` parameters. The `pagination_depth` parameter defines the maximum number of search results that can be retrieved from each shard per subquery. For example, setting `pagination_depth: 50` allows up to 50 results per subquery to be maintained in memory from each shard.
+You can apply pagination to hybrid query results by using the `pagination_depth` parameter in the hybrid query clause, along with the standard `from` and `size` parameters. The `pagination_depth` parameter defines the maximum number of search results that can be retrieved from each shard per subquery. For example, setting `pagination_depth` to `50` allows up to 50 results per subquery to be maintained in memory from each shard.
 
-To navigate through the results, use:
-- `from`: specifies the document number from which you want to start showing the results, default is `0`
-- `size`: specifies the number of results to return on each page, default is `10`
+To navigate through the results, use the `from` and `size` parameters:
 
-For example, to show results from 20th document to 30th document, set `from: 20` and `size: 10`. For more information about pagination, see [paginate results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#the-from-and-size-parameters).
+- `from`: Specifies the document number from which you want to start showing the results. Default is `0`.
+- `size`: Specifies the number of results to return on each page. Default is `10`.
+
+For example, to show 10 documents starting from the 20th document, specify `from: 20` and `size: 10`. For more information about pagination, see [Paginate results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#the-from-and-size-parameters).
 
 ### The impact of pagination_depth on hybrid search results
 
-The change in `pagination_depth` impacts the ground truth on which the user is paginating. This is because altering the `pagination_depth` directly impacts the number of results retrieved for each subquery per shard, which may ultimately might change the result ordering after normalization. Therefore, it is recommended to maintain a consistent value of `pagination_depth` while navigating between pages. 
+Changing `pagination_depth` affects the underlying set of search results retrieved before any ranking, filtering, or pagination adjustments are applied. This is because `pagination_depth` determines the number of results retrieved per subquery from each shard, which can ultimately change the result order after normalization. To ensure consistent pagination, keep the `pagination_depth` value the same while navigating between pages.  
 
-The standard hybrid search without pagination uses `from + size` formula (where `from` is always equals to `0`) to retrieve search results from each shard per subquery.{: .note}
+By default, hybrid search without pagination retrieves results using the `from + size` formula, where `from` is always `0`.
+{: .note}  
 
-To enable deeper pagination, use a higher value of `pagination_depth`. You can then navigate through the results using the `from` and `size` parameters. However, be aware that deeper pagination can impact search performance, as retrieving and processing more results requires additional computational resources.
+To enable deeper pagination, increase the `pagination_depth` value. You can then navigate through results using the `from` and `size` parameters. Note that deeper pagination can impact search performance, because retrieving and processing more results requires additional computational resources.
 
-The following example shows a search request with `from: 0`, `size: 5`, and `pagination_depth: 10`. This configuration allows up to 10 search results per shard for both the bool and term queries:
+The following example shows a search request configured with `from: 0`, `size: 5`, and `pagination_depth: 10`. This means that up to 10 search results per shard will be retrieved for both the `bool` and `term` queries before pagination is applied:
+
 ```json
 GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 {
@@ -1271,6 +1274,7 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 ```
 {% include copy-curl.html %}
 
+The response contains five results:
 
 ```json
 {
@@ -1339,8 +1343,8 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
     }
 }
 ```
-The following search request is with `from = 6`, `size = 5` and `pagination_depth = 10`. 
-We haven't changed the `pagination_depth` because we want to paginate on the same search result reference. {: .note} 
+
+The following search request is configured with `from: 6`, `size: 5`, and `pagination_depth: 10`. The `pagination_depth` remains unchanged to ensure pagination is based on the same set of search results:
 
 ```json
 GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
@@ -1379,7 +1383,7 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 ```
 {% include copy-curl.html %}
 
-The response will be trim the first 5 entries and show the remaining results.
+The response will exclude the first five entries and display the remaining results:
 
 ```json
 {
