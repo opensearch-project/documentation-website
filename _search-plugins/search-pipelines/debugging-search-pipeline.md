@@ -10,21 +10,17 @@ grand_parent: Search
 
 # Debugging a search pipeline
 
-The `verbose_pipeline` parameter offers detailed insights into the flow and transformation of data through search request, search response and search phase processor in the search pipeline. It facilitates troubleshooting, pipeline optimization, and ensures transparency in the end-to-end handling of search requests and responses. This functionality is available for all three ways of using a search pipeline：
+The `verbose_pipeline` parameter provides detailed insights into data flow and transformations for the search request, search response, and search phase processors in the search pipeline. It helps with troubleshooting and optimizing the pipeline and ensures transparency in handling search requests and responses. 
 
-- [Specifying an existing pipeline for a request]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/using-search-pipeline/#specifying-an-existing-search-pipeline-for-a-request).
+## Enabling debugging
 
-- [Using a temporary pipeline for a request]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/using-search-pipeline/#using-a-temporary-search-pipeline-for-a-request).
+To enable pipeline debugging, specify `verbose_pipeline=true` as a query parameter in your search request. This functionality is available for all three methods of using a search pipeline:
 
-- [Setting a default pipeline for all requests in an index]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/using-search-pipeline/#default-search-pipeline).
+- [Default search pipeline](#default-search-pipeline)
+- [Specific search pipeline](#specific-search-pipeline)
+- [Temporary search pipeline](#temporary-search-pipeline)
 
-  To enable the `verbose_pipeline` feature, add `verbose_pipeline=true` as a query parameter in your search request.
-
-### Example request with verbose pipeline
-
-You can specify the `verbose_pipeline` parameter in the query to enable detailed debugging. The `verbose_pipeline` parameter works seamlessly across all search pipeline configurations:
-
-#### With Default Search Pipeline
+### Default search pipeline
 
 To use `verbose_pipeline` with a default search pipeline, set the pipeline as the default in the index settings and include `verbose_pipeline=true` in the query:
 
@@ -41,15 +37,23 @@ GET /my_index/_search?verbose_pipeline=true
 ```
 {% include copy-curl.html %}
 
-#### With Specified Search Pipeline by ID
-To use `verbose_pipeline` with a specific search pipeline, specify the pipeline ID along with verbose_pipeline=true in the query:
+For more information about default search pipelines, see [Setting a default pipeline for all requests in an index]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/using-search-pipeline/#default-search-pipeline).
+
+### Specific search pipeline 
+
+To use `verbose_pipeline` with a specific search pipeline, specify the pipeline ID and include `verbose_pipeline=true` in the query:
+
 ```json
 GET /my_index/_search?search_pipeline=my_pipeline&verbose_pipeline=true
 ```
 {% include copy-curl.html %}
 
-#### With Temporary Search Pipeline
-To use `verbose_pipeline` with a temporary search pipeline, define the pipeline directly in the request body and include verbose_pipeline=true in the query:
+For more information, about using specific search pipelines see [Specifying an existing pipeline for a request]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/using-search-pipeline/#specifying-an-existing-search-pipeline-for-a-request).
+
+### Temporary search pipeline
+
+To use `verbose_pipeline` with a temporary search pipeline, define the pipeline directly in the request body and include `verbose_pipeline=true` in the query:
+
 ```json
 POST /my_index/_search?verbose_pipeline=true
 {
@@ -75,7 +79,10 @@ POST /my_index/_search?verbose_pipeline=true
 }
 ```
 {% include copy-curl.html %}
-### Example response with verbose pipeline
+
+For more information about using a temporary search pipeline, see [Using a temporary pipeline for a request]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/using-search-pipeline/#using-a-temporary-search-pipeline-for-a-request).
+
+## Example response
 
 When the `verbose_pipeline` parameter is enabled, the response contains an additional `processor_results` field that details the transformations applied by each processor in the pipeline:
 
