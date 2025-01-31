@@ -394,3 +394,153 @@ Field | Description
 }
 ```
 {% include copy-curl.html %}
+
+# Flattened anomaly result mapping
+
+When you select the **Enable flattened custom result index** option in the **Custom result index** pane, the Anomaly Detection plugin saves the results, with all nested fields flattened, to the flattened result index.
+
+For example, when a detector is late in detecting an anomaly, the flattened result is provided in the following format:
+
+```json
+{
+  "detector_id": "kzcZ43wBgEQAbjDnhzGF",
+  "confidence": 0.9746820962328963,
+  "relevant_attribution": [
+    {
+      "feature_id": "deny_max1",
+      "data": 0.07339452532666227
+    },
+    {
+      "feature_id": "deny_avg",
+      "data": 0.04934972719948845
+    },
+    {
+      "feature_id": "deny_min",
+      "data": 0.01803003656061806
+    },
+    {
+      "feature_id": "deny_sum",
+      "data": 0.14804918212089874
+    },
+    {
+      "feature_id": "accept_max5",
+      "data": 0.7111765287923325
+    }
+  ],
+  "relevant_attribution_deny_max1_data": 0.07339452532666227,
+  "relevant_attribution_deny_avg_data": 0.04934972719948845,
+  "relevant_attribution_deny_min_data": 0.01803003656061806,
+  "relevant_attribution_deny_sum_data": 0.14804918212089874,
+  "relevant_attribution_deny_max5_data": 0.7111765287923325,
+  "task_id": "9Dck43wBgEQAbjDn4zEe",
+  "threshold": 1,
+  "model_id": "kzcZ43wBgEQAbjDnhzGF_entity_app_0",
+  "schema_version": 5,
+  "anomaly_score": 1.141419389056506,
+  "execution_start_time": 1635898427803,
+  "past_values": [
+    {
+      "feature_id": "processing_bytes_max",
+      "data": 905
+    },
+    {
+      "feature_id": "processing_bytes_avg",
+      "data": 479
+    },
+    {
+      "feature_id": "processing_bytes_min",
+      "data": 128
+    },
+    {
+      "feature_id": "processing_bytes_sum",
+      "data": 1437
+    },
+    {
+      "feature_id": "processing_time_max",
+      "data": 8440
+    }
+  ],
+  "past_values_processing_bytes_max_data": 905,
+  "past_values_processing_bytes_avg_data": 479,
+  "past_values_processing_bytes_min_data": 128,
+  "past_values_processing_bytes_sum_data": 1437,
+  "past_values_processing_bytes_max_data": 8440,
+  "data_end_time": 1635883920000,
+  "data_start_time": 1635883860000,
+  "feature_data": [
+    {
+      "feature_id": "processing_bytes_max",
+      "feature_name": "processing bytes max",
+      "data": 1360
+    },
+    {
+      "feature_id": "processing_bytes_avg",
+      "feature_name": "processing bytes avg",
+      "data": 990
+    },
+    {
+      "feature_id": "processing_bytes_min",
+      "feature_name": "processing bytes min",
+      "data": 608
+    },
+    {
+      "feature_id": "processing_bytes_sum",
+      "feature_name": "processing bytes sum",
+      "data": 2970
+    },
+    {
+      "feature_id": "processing_time_max",
+      "feature_name": "processing time max",
+      "data": 9670
+    }
+  ],
+  "feature_data_processing_bytes_max_data": 1360,
+  "feature_data_processing_bytes_avg_data": 990,
+  "feature_data_processing_bytes_min_data": 608,
+  "feature_data_processing_bytes_sum_data": 2970,
+  "feature_data_processing_time_max_data": 9670,
+  "expected_values": [
+    {
+      "likelihood": 1,
+      "value_list": [
+        {
+          "feature_id": "processing_bytes_max",
+          "data": 905
+        },
+        {
+          "feature_id": "processing_bytes_avg",
+          "data": 479
+        },
+        {
+          "feature_id": "processing_bytes_min",
+          "data": 128
+        },
+        {
+          "feature_id": "processing_bytes_sum",
+          "data": 4847
+        },
+        {
+          "feature_id": "processing_time_max",
+          "data": 15713
+        }
+      ]
+    }
+  ],
+  "expected_values_processing_bytes_max_data": 905,
+  "expected_values_processing_bytes_avg_data": 479,
+  "expected_values_processing_bytes_min_data": 128,
+  "expected_values_processing_bytes_sum_data": 4847,
+  "expected_values_processing_time_max_data": 15713,
+  "execution_end_time": 1635898427895,
+  "anomaly_grade": 0.5514172746375128,
+  "entity": [
+    {
+      "name": "process_name",
+      "value": "process_3"
+    }
+  ],
+  "entity_process_name_value": "process_3",
+  "approx_anomaly_start_time": 1635883620000
+}
+```
+{% include copy-curl.html %}
