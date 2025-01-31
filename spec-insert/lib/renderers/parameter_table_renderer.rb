@@ -60,7 +60,7 @@ class ParameterTableRenderer
   def description(param)
     deprecation = deprecation(param)
     required = param.required && @columns.exclude?('Required') ? '**(Required)** ' : ''
-    description = param.description.gsub("\n", ' ')
+    description = param.description
     valid_values = valid_values(param)
     default = param.default.nil? || @columns.include?('Default') ? '' : " _(Default: `#{param.default}`)_"
 
@@ -75,7 +75,7 @@ class ParameterTableRenderer
       " <br> Valid values are: #{enums.map { |enum| "`#{enum[:value]}`" }.join(', ')}"
     else
       " <br> Valid values are: <br> #{enums.map { |enum| "- `#{enum[:value]}`: #{enum[:description]}" }
-                                           .join(' </br> ')}"
+                                           .join(' <br> ')}"
     end
   end
 
