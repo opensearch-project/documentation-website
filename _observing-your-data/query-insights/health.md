@@ -83,7 +83,8 @@ Field | Data type        | Description
 `ThreadPoolInfo` | Object | Information about the Query Insights thread pool, including type, core count, max threads, and queue size. See [The ThreadPoolInfo object](#the-threadpoolinfo-object).
 `QueryRecordsQueueSize` | Integer | The size of the queue that buffers incoming search queries before processing. A high value may suggest increased load or slower processing.
 `TopQueriesHealthStats` | Object | Performance metrics for each top query service that provide information about memory allocation (heap size) and query grouping. See [The TopQueriesHealthStats object](#the-topquerieshealthstats-object).
-`FieldTypeCacheStats` | Object | Metrics about the query insights field type cache. This cache is used to store field type mappings when query grouping is enabled.
+`FieldTypeCacheStats` | Object | Metrics for the query insights field type cache. This cache is used to store field type mappings when query grouping is enabled.
+
 ### The ThreadPoolInfo object
 
 The `ThreadPoolInfo` object contains the following detailed configuration and performance data for the thread pool dedicated to the Query Insights plugin.
