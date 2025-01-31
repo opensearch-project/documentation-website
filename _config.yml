@@ -54,7 +54,10 @@ collections:
     output: true
   search-plugins:
     permalink: /:collection/:path/
-    output: true  
+    output: true
+  plugin-as-service:
+      permalink: /:collection/:path/
+      output: true
   ml-commons-plugin:
     permalink: /:collection/:path/
     output: true  
@@ -173,6 +176,9 @@ opensearch_collection:
     search-plugins:
       name: Search features
       nav_fold: true
+    plugin-as-service:
+        name: Plugin as a service
+        nav_fold: true
     ml-commons-plugin:
       name: Machine learning
       nav_fold: true
