@@ -39,11 +39,18 @@ POST /_plugins/_flow_framework/workflow/<workflow_id>/_provision?<parameter>=<va
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | User-provided substitution expressions | String | Parameters matching substitution expressions in the template. Optional. |
+| `wait_for_completion_timeout`          | TimeValue | Specifies the maximum wait time for synchronous provisioning. If the timeout is exceeded, the request returns the current workflow status while execution continues asynchronously.|
 
 #### Example requests
 
 ```json
 POST /_plugins/_flow_framework/workflow/8xL8bowB8y25Tqfenm50/_provision
+```
+{% include copy-curl.html %}
+
+The following request performs a synchronous provisioning call, waiting for up to 2 seconds for completion:
+```json
+POST /_plugins/_flow_framework/workflow/<workflow_id>/_provision&wait_for_completion_timeout=2s
 ```
 {% include copy-curl.html %}
 
@@ -75,3 +82,31 @@ OpenSearch responds with the same `workflow_id` that was used in the request:
 ```
 
 To obtain the provisioning status, query the [Get Workflow State API]({{site.url}}{{site.baseurl}}/automating-configurations/api/get-workflow-status/).
+
+#### Example Response with wait_for_completion_timeout Enabled
+  ```json
+{
+    "workflow_id": "K13IR5QBEpCfUu_-AQdU",
+    "state": "COMPLETED",
+    "resources_created": [
+        {
+            "workflow_step_name": "create_connector",
+            "workflow_step_id": "create_connector_1",
+            "resource_id": "LF3IR5QBEpCfUu_-Awd_",
+            "resource_type": "connector_id"
+        },
+        {
+            "workflow_step_id": "register_model_2",
+            "workflow_step_name": "register_remote_model",
+            "resource_id": "L13IR5QBEpCfUu_-BQdI",
+            "resource_type": "model_id"
+        },
+        {
+            "workflow_step_name": "deploy_model",
+            "workflow_step_id": "deploy_model_3",
+            "resource_id": "L13IR5QBEpCfUu_-BQdI",
+            "resource_type": "model_id"
+        }
+    ]
+}
+```
