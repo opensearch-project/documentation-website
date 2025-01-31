@@ -408,7 +408,7 @@ Field | Data type        | Description
 `top_queries.source` | Object           | The first query in the query group.
 `top_queries.group_by` | String           | The `group_by` setting applied when the query was executed.
 `top_queries.total_shards` | Integer          | The number of shards on which the first query was executed.
-`top_queries.node_id` | String           | The node ID of the coordinator node of the first query in the query group.
+`top_queries.node_id` | String           | The node ID of the node that coordinated the execution of the first query in the query group.
 `top_queries.search_type` | String           | The search request execution type (`query_then_fetch` or `dfs_query_then_fetch`). For more information, see the `search_type` parameter in the [Search API documentation]({{site.url}}{{site.baseurl}}/api-reference/search/#query-parameters).
 `top_queries.indices` | Array            | The indexes searched by the first query in the query group.
 `top_queries.task_resource_usages` | Array of objects | The resource usage breakdown for the various tasks belonging to the first query in the query group.
