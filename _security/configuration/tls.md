@@ -264,15 +264,39 @@ These settings allow for the use of encrypted passwords in the settings.
 
 ## Hot reloading TLS certificates
 
-Updating expired or nearly expired TLS certificates does not require restarting the cluster. Instead, enable hot reloading of TLS cerificates by adding the following line to `opensearch.yml`:
+Updating expired or nearly expired TLS certificates on the HTTP and transport layers does not require restarting the cluster. Instead, you can enable hot reloading of TLS certificates using one of the following methods:
 
+- [Enabling the in-place hot reload setting](#enabling-the-in-place-hot-reload-setting)
+- Using the [Reload Certificates API](#using-the-reload-certificates-api)
 
-`plugins.security.ssl_cert_reload_enabled: true`
+If you use PEM files to manage certificates, your certificate and keys are stored in seperate files. Therefore, we recommend using rolling updates when updating reload settings to prevent authentication issues.
+{: .warning}
+
+### Enabling the in-place hot reload setting
+
+When enabled, in-place hot reloading monitors your keystore resources for updates every five seconds. If you add or modify a certificate, key file, or keystore setting in the Opensearch `config` directory, the nodes in the cluster detects the changes and reloads the keys and certificates.
+
+To enable in-place hot reloading, add the following line to `opensearch.yml`:
+
+```yml
+plugins.security.ssl.certificates_hot_reload.enabled: true
+```
+{% include copy.html %}
+
+### Using the Reload Certificates API
+
+Add the following to enable hot reloading using the Reload Certificates API:
+
+```yml
+plugins.security.ssl_cert_reload_enabled: true
+```
+{% include copy.html %}
 
 This setting is `false` by default.
 {: .note }
 
 After enabling hot reloading, use the Reload Certificates API to replace the expired certificates. The new certificates need to be stored in the same location as the previous certificates in order to prevent any changes to the `opensearch.yml` file. 
+
 By default, the Reload Certificates API expects the old certificates to be replaced with valid certificates issued with the same `Issuer/Subject DN` and `SAN`. This behavior can be disabled by adding the following settings in `opensearch.yml`:
 
 ```yml
@@ -286,6 +310,7 @@ Only a [superadmin]({{site.url}}{{site.baseurl}}/security/configuration/tls/#con
 {: .note }
 
 ### Reload TLS certificates on the transport layer
+
  The following command reloads TLS certificates on the transport layer:
   
   ```json
@@ -294,11 +319,12 @@ Only a [superadmin]({{site.url}}{{site.baseurl}}/security/configuration/tls/#con
   {% include copy.html %}
 
 You should receive the following response:
+
 ```{ "message": "successfully updated transport certs"}```
 
-### Reload TLS certificates on the http layer
+### Reload TLS certificates on the HTTP layer
 
-The following command reloads TLS certificates on the `http` layer:
+The following command reloads TLS certificates on the HTTP layer:
 
   ```json
   curl --cacert <ca.pem> --cert <admin.pem> --key <admin.key> -XPUT https://localhost:9200/_plugins/_security/api/ssl/http/reloadcerts
@@ -308,4 +334,7 @@ The following command reloads TLS certificates on the `http` layer:
 You should receive the following response:
 
 ```{ "message": "successfully updated http certs"}```
+
+
+
 
