@@ -1,17 +1,17 @@
+---
 layout: default
-title: Rank Based Combination Processor
-nav_order: 70
+title: Score ranker
 has_children: false
 parent: Search processors
 grand_parent: Search pipelines
+nav_order: 117
 ---
 
-# Rank Based Combination Processor
+# Score ranker processor
 Introduced 2.19
 {: .label .label-purple }
 
-The `score-ranker-processor` is a search phase results processor that runs between the query and fetch phases of search execution. It intercepts the query phase results and then uses the reciprocal rank fusion algorithm to combine different query clauses to produce the final ranked list of search results.
-Reciprocal rank fusion (RRF) is a method for combining multiple queries by scoring each document based on the reciprocal of its rank for each query and then summing these scores to create a final, unified ranking.
+The `score-ranker-processor` is a rank-based search phase results processor that runs between the query and fetch phases of search execution. It intercepts the query phase results and then uses the reciprocal rank fusion (RRF) algorithm to combine different query clauses to produce the final ranked list of search results. RRF is a method for combining multiple queries by scoring each document based on the reciprocal of its rank for each query and then adding these scores to create a final, unified ranking.
 
 ## Request body fields
 
@@ -19,11 +19,17 @@ The following table lists all available request fields.
 
 Field | Data type | Description
 :--- | :--- | :---
-`combination.technique` | String | The technique for combining scores. Valid value is `rrf`.
-`combination.rank_constant` | int | A constant added to each document's rank before calculating the reciprocal score. Cannot be less than 1. Default is 60.
+`combination.technique` | String | The technique for combining scores. Required. Valid value is `rrf`.
+`combination.rank_constant` | Integer | A constant added to each document's rank before calculating the reciprocal score. Must be `1` or greater. A larger rank constant makes the scores more uniform, reducing the influence of top-ranked results. A smaller rank constant creates a greater score difference between ranks, giving more weight to top-ranked items. Optional. Default is `60`.
 
-## Using RRF
-You can use RRF by creating a search pipeline with RRF as the combination technique:
+## Example
+
+The following example demonstrates using a search pipeline with a `score-ranker-processor`.
+
+### Creating a search pipeline
+
+The following request creates a search pipeline containing a `score-ranker-processor` that uses the `rrf` combination technique:
+
 ```json
 PUT /_search/pipeline/<rrf-pipeline>
 {
@@ -40,7 +46,10 @@ PUT /_search/pipeline/<rrf-pipeline>
 }
 ```
 
-The rank constant can be specified as part of the pipeline but cannot be less than 1.  Larger rank constants make the scores more uniform, reducing the impact of top ranks. Smaller rank constants create steeper differences between ranks, giving much more weight to top-ranked items. By default, rank constant is set to 60 if not specified.
+### Using a search pipeline
+
+Apply the search pipeline created in the previous section so that the scores are combined using the chosen technique. In this example, you'll specify a `rank_constant` as part of the pipeline:
+
 ```json
 PUT /_search/pipeline/<rrf-pipeline>
 {
