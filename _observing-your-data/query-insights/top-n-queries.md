@@ -109,7 +109,7 @@ GET /_insights/top_queries?from=2024-08-25T15:00:00.000Z&to=2024-08-30T17:00:00.
 ```
 {% include copy-curl.html %}
 
-Exporter type must be set to `local_index` to view historical query data. For more info, see [configuring a local index exporter](#configuring-a-local-index-exporter).
+To view historical query data, the exporter type must be set to `local_index`. For more information, see [Configuring a local index exporter](#configuring-a-local-index-exporter).
 {: .important}
 
 ## Exporting top N query data
