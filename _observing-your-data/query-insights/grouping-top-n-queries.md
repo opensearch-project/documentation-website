@@ -412,7 +412,7 @@ Field | Data type        | Description
 `top_queries.search_type` | String           | The search request execution type (`query_then_fetch` or `dfs_query_then_fetch`). For more information, see the `search_type` parameter in the [Search API documentation]({{site.url}}{{site.baseurl}}/api-reference/search/#query-parameters).
 `top_queries.indices` | Array            | The indexes to which the first query in the query group is applied.
 `top_queries.task_resource_usages` | Array of objects | The resource usage breakdown for the various tasks belonging to the first query in the query group.
-`top_queries.query_hashcode` | String           | The hash code that uniquely identifies the query group. This is essentially the hash of the [query structure](#grouping-queries-by-similarity).
+`top_queries.query_hashcode` | String           | The hash code that uniquely identifies the query group, generated from the [query structure](#grouping-queries-by-similarity).
 `top_queries.labels` | Object           | Used to label the top query.
 `top_queries.measurements` | Object           | The aggregate measurements for the query group.
 `top_queries.measurements.latency` | Object           | The aggregate latency measurements for the query group.
