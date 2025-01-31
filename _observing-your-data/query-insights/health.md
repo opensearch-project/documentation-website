@@ -137,4 +137,5 @@ Field | Description
 `DATA_INGEST_EXCEPTIONS` | The number of exceptions that occur when ingesting data into the Query Insights plugin.
 `QUERY_CATEGORIZE_EXCEPTIONS` | The number of exceptions that occur when categorizing the queries.
 `EXPORTER_FAIL_TO_CLOSE_EXCEPTION` | The number of failures that occur when closing the exporter.
+`READER_FAIL_TO_CLOSE_EXCEPTION` | The number of failures that occur when closing the reader.
 `TOP_N_QUERIES_USAGE_COUNT` | The number of times the top N queries API is used.
