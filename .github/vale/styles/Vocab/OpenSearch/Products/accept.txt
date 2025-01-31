@@ -68,6 +68,7 @@ OpenSearch Assistant
 OpenSearch Assistant Toolkit
 OpenSearch Benchmark
 OpenSearch Dashboards
+OpenSearch Flow
 OpenSearch Playground
 OpenSearch Project
 OpenSearch Service
