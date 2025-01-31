@@ -19,7 +19,7 @@ The following table lists all available request fields.
 
 Field | Data type | Description
 :--- | :--- | :---
-`combination.technique` | String | The technique for combining scores. Required. Valid value is `rrf`.
+`combination.technique` | String | The technique used for combining scores. Required. Valid value is `rrf`.
 `combination.rank_constant` | Integer | A constant added to each document's rank before calculating the reciprocal score. Must be `1` or greater. A larger rank constant makes the scores more uniform, reducing the influence of top-ranked results. A smaller rank constant creates a greater score difference between ranks, giving more weight to top-ranked items. Optional. Default is `60`.
 
 ## Example
