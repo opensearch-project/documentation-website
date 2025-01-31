@@ -1274,7 +1274,7 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 ```
 {% include copy-curl.html %}
 
-The response contains five results:
+The response contains the first five results:
 
 ```json
 {
@@ -1383,7 +1383,7 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 ```
 {% include copy-curl.html %}
 
-The response will exclude the first five entries and display the remaining results:
+The response excludes the first five entries and displays the remaining results:
 
 ```json
 {
