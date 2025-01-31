@@ -10,11 +10,11 @@ grand_parent: Search
 
 # Debugging a search pipeline
 
-The `verbose_pipeline` parameter provides detailed insights into data flow and transformations for the search request, search response, and search phase processors in the search pipeline. It helps with troubleshooting and optimizing the pipeline and ensures transparency in handling search requests and responses. 
+The `verbose_pipeline` parameter provides detailed information about the data flow and transformations for the search request, search response, and search phase processors in the search pipeline. It helps with troubleshooting and optimizing the pipeline and ensures transparency in handling search requests and responses. 
 
 ## Enabling debugging
 
-To enable pipeline debugging, specify `verbose_pipeline=true` as a query parameter in your search request. This functionality is available for all three methods of using a search pipeline:
+To enable pipeline debugging, specify `verbose_pipeline=true` as a query parameter in your search request. This functionality is available for all three search pipeline methods:
 
 - [Default search pipeline](#default-search-pipeline)
 - [Specific search pipeline](#specific-search-pipeline)
@@ -48,7 +48,7 @@ GET /my_index/_search?search_pipeline=my_pipeline&verbose_pipeline=true
 ```
 {% include copy-curl.html %}
 
-For more information, about using specific search pipelines see [Specifying an existing pipeline for a request]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/using-search-pipeline/#specifying-an-existing-search-pipeline-for-a-request).
+For more information about using specific search pipelines, see [Specifying an existing pipeline for a request]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/using-search-pipeline/#specifying-an-existing-search-pipeline-for-a-request).
 
 ### Temporary search pipeline
 
@@ -84,7 +84,7 @@ For more information about using a temporary search pipeline, see [Using a tempo
 
 ## Example response
 
-When the `verbose_pipeline` parameter is enabled, the response contains an additional `processor_results` field that details the transformations applied by each processor in the pipeline:
+When the `verbose_pipeline` parameter is enabled, the response contains an additional `processor_results` field that provides information about the transformations applied by each processor in the pipeline:
 
 <details open markdown="block">
   <summary>
