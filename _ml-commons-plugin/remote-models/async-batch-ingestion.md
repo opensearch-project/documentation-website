@@ -49,7 +49,7 @@ PUT /my-nlp-index
         "type": "knn_vector",
         "dimension": 384,
         "method": {
-          "engine": "nmslib",
+          "engine": "faiss",
           "space_type": "cosinesimil",
           "name": "hnsw",
           "parameters": {
@@ -65,7 +65,7 @@ PUT /my-nlp-index
         "type": "knn_vector",
         "dimension": 384,
         "method": {
-          "engine": "nmslib",
+          "engine": "faiss",
           "space_type": "cosinesimil",
           "name": "hnsw",
           "parameters": {
