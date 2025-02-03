@@ -275,7 +275,7 @@ plugins.security.ssl.certificates_hot_reload.enabled: true
 
 ### Using the Reload Certificates API
 
-When not using hot reloading, when replacing certificates in the OpenSearch `config` directory, you can use the Reload Certificates API to read the new certificates and replace them in-memory.
+When not using hot reloading, you can use the Reload Certificates API to read the new certificates and replace them in-memory.
 
 To enable the Reload Certificates API, add the following line to `opensearch.yml`.
 
