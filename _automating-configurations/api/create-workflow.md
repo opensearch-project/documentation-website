@@ -96,7 +96,7 @@ PUT /_plugins/_flow_framework/workflow/<workflow_id>/?reprovision=true&wait_for_
 ```
 {% include copy-curl.html %}
 
-If the operation does not complete within the specified time, the response returns the current workflow status while execution continues asynchronously.
+If the operation does not complete within the specified amount of time, the response returns the current workflow status while execution continues asynchronously.
 
 The `wait_for_completion_timeout` parameter can only be used when either `provision` or `reprovision` is set to `true`
 {: .note}
@@ -121,7 +121,7 @@ The following table lists the available query parameters. All query parameters a
 | `reprovision`                          | Boolean   | Whether to reprovision the entire template if it has already been provisioned. A complete template must be provided in the request body. Default is `false`.                                                                                                                                                                              |
 | `validation`                           | String    | Whether to validate the workflow. Valid values are `all` (validate the template) and `none` (do not validate the template). Default is `all`.                                                                                                                                                                                             |
 | `use_case`                             | String    | The name of the [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/#supported-workflow-templates) to use when creating the workflow.                                                                                                                                                           |
-| `wait_for_completion_timeout`          | Time value | Specifies the maximum time to wait for synchronous provisioning or reprovisioning. If this time is exceeded, the request returns the current workflow status while execution continues asynchronously.|
+| `wait_for_completion_timeout`          | Time value | Specifies the maximum wait time for synchronous provisioning or reprovisioning. If the timeout is exceeded, the request returns the current workflow status while execution continues asynchronously.|
 | User-provided substitution expressions | String    | Parameters matching substitution expressions in the template. Only allowed if `provision` is set to `true`. Optional. If `provision` is set to `false`, you can pass these parameters in the [Provision Workflow API query parameters]({{site.url}}{{site.baseurl}}/automating-configurations/api/provision-workflow/#query-parameters).  |
 
 ## Request body fields
@@ -312,7 +312,7 @@ OpenSearch responds with the `workflow_id`:
 
 Once you have created a workflow, you can use other workflow APIs with the `workflow_id`.
 
-#### Example Response with wait_for_completion_timeout enabled
+#### Example response with wait_for_completion_timeout enabled
 
 ```json
 {

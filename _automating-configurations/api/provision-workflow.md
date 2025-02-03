@@ -84,7 +84,7 @@ OpenSearch responds with the same `workflow_id` that was used in the request:
 
 To obtain the provisioning status, call the [Get Workflow State API]({{site.url}}{{site.baseurl}}/automating-configurations/api/get-workflow-status/).
 
-#### Example Response with wait_for_completion_timeout enabled
+#### Example response with wait_for_completion_timeout enabled
 
 ```json
 {
