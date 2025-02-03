@@ -134,8 +134,8 @@ For example, to detect substantial changes in log volume while ignoring small va
 
 To suppress anomalies for deviations of less than 30% from the expected value, you can set the following rules in the feature selection pane:
 
-- Ignore anomalies for feature logVolume when the actual value is no more than 30% above the expected value.
-- Ignore anomalies for feature logVolume when the actual value is no more than 30% below the expected value.
+- Ignore anomalies when the actual value is no more than 30% above the expected value.
+- Ignore anomalies when the actual value is no more than 30% below the expected value.
 
 The following image shows where to set the relative deviation percentage settings:
 
@@ -143,8 +143,8 @@ The following image shows where to set the relative deviation percentage setting
 
 If you expect that the log volume should differ by at least 10,000 from the expected value before being considered an anomaly, you can set the following absolute thresholds:
 
-- Ignore anomalies for feature logVolume when the actual value is no more than 10000 above the expected value.
-- Ignore anomalies for feature logVolume when the actual value is no more than 10000 below the expected value.
+- Ignore anomalies when the actual value is no more than 10000 above the expected value.
+- Ignore anomalies when the actual value is no more than 10000 below the expected value.
 
 The following image shows where to set the absolute threshold settings:
 
