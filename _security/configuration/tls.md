@@ -295,7 +295,7 @@ plugins.security.ssl_cert_reload_enabled: true
 This setting is `false` by default.
 {: .note }
 
-After enabling hot reloading, use the Reload Certificates API to replace the expired certificates. The new certificates need to be stored in the same location as the previous certificates in order to prevent any changes to the `opensearch.yml` file. 
+After enabling reloading, use the Reload Certificates API to replace the expired certificates. The new certificates need to be stored in the same location as the previous certificates in order to prevent any changes to the `opensearch.yml` file. 
 
 By default, the Reload Certificates API expects the old certificates to be replaced with valid certificates issued with the same `Issuer/Subject DN` and `SAN`. This behavior can be disabled by adding the following settings in `opensearch.yml`:
 
