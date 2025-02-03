@@ -30,7 +30,7 @@ It's important to exercise caution when enabling this feature because it can con
 
 ## Enabling top N query monitoring 
 
-When you install the `query-insights` plugin, top N query monitoring is enabled by default. To disable top N query monitoring, update the dynamic cluster settings for the desired metric types. For example, to disable monitoring top N queries by latency, update the `search.insights.top_queries.latency.enabled` setting:
+When you install the `query-insights` plugin, top N query monitoring is enabled by default. To disable top N query monitoring, update the dynamic cluster settings for the desired metric types. For example, to disable monitoring of top N queries by latency, update the `search.insights.top_queries.latency.enabled` setting:
 
 ```json
 PUT _cluster/settings
@@ -101,7 +101,7 @@ If your query returns no results, ensure that top N query monitoring is enabled 
 
 ## Monitoring historical top N queries
 
-To query historical top N results, specify a time range with the `from` and `to` parameters in ISO8601 format: `YYYY-MM-DD'T'HH:mm:ss.SSSZ`.
+To query historical top N results, specify a time range with the `from` and `to` parameters in ISO 8601 format: `YYYY-MM-DD'T'HH:mm:ss.SSSZ`.
 For example, to retrieve the top N queries from August 25, 2024, at 15:00 UTC to August 30, 2024, at 17:00 UTC, send the following request: 
 
 ```json
@@ -134,7 +134,7 @@ PUT _cluster/settings
 
 ### Configuring a local index exporter
 
-The default exporter is `local_index`. A local index exporter allows you to save top N query data to indexes that are automatically created in your OpenSearch domain. Query Insights creates these indexes following the naming pattern `top_queries-YYYY.MM.dd-hashcode`, where `hashcode` is a 5-digit number generated based on the current UTC date. A new index is created daily. For historical top N lookups using the Top Queries API or the Query Insights Dashboard, you must enable the local index exporter.
+The default exporter is `local_index`. A local index exporter allows you to save top N query data to indexes that are automatically created in your OpenSearch domain. Query Insights creates these indexes following the naming pattern `top_queries-YYYY.MM.dd-hashcode`, where `hashcode` is a 5-digit number generated based on the current UTC date. A new index is created daily. For historical top N lookups using the Top Queries API or the Query Insights dashboard, you must enable the local index exporter.
 
 To use the local index exporter, set the exporter type to `local_index`:
 

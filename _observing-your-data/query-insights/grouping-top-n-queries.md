@@ -403,7 +403,7 @@ Field | Data type        | Description
 :--- |:-----------------| :---
 `top_queries` | Array            | The list of top query groups.
 `top_queries.timestamp` | Integer          | The execution timestamp for the first query in the query group.
-`top_queries.id` | String           | The unique identifier for this query or query group.
+`top_queries.id` | String           | The unique identifier for the query or query group.
 `top_queries.phase_latency_map` | Object           | The phase latency map for the first query in the query group. The map includes the amount of time, in milliseconds, that the query spent in the `expand`, `query`, and `fetch` phases.
 `top_queries.source` | Object           | The first query in the query group.
 `top_queries.group_by` | String           | The `group_by` setting applied when the query was executed.
@@ -412,7 +412,7 @@ Field | Data type        | Description
 `top_queries.search_type` | String           | The search request execution type (`query_then_fetch` or `dfs_query_then_fetch`). For more information, see the `search_type` parameter in the [Search API documentation]({{site.url}}{{site.baseurl}}/api-reference/search/#query-parameters).
 `top_queries.indices` | Array            | The indexes to which the first query in the query group is applied.
 `top_queries.task_resource_usages` | Array of objects | The resource usage breakdown for the various tasks belonging to the first query in the query group.
-`top_queries.query_hashcode` | String           | The hash code that uniquely identifies the query group, generated from the [query structure](#grouping-queries-by-similarity).
+`top_queries.query_hashcode` | String           | The hash code that uniquely identifies the query group and is generated from the [query structure](#grouping-queries-by-similarity).
 `top_queries.labels` | Object           | Used to label the top query.
 `top_queries.measurements` | Object           | The aggregate measurements for the query group.
 `top_queries.measurements.latency` | Object           | The aggregate latency measurements for the query group.
