@@ -264,7 +264,7 @@ These settings allow for the use of encrypted passwords in the settings.
 
 ## Hot reloading TLS certificates
 
-Updating expired or nearly expired TLS certificates on the HTTP and transport layers does not require restarting the cluster. Instead, you can enable hot reloading of TLS certificates. When enabled, in-place hot reloading monitors your keystore resources for updates every five seconds. If you add or modify a certificate, key file, or keystore setting in the Opensearch `config` directory, the nodes in the cluster detect the changes and automatically reloads the keys and certificates.
+Updating expired or nearly expired TLS certificates on the HTTP and transport layers does not require restarting the cluster. Instead, you can enable hot reloading of TLS certificates. When enabled, in-place hot reloading monitors your keystore resources for updates every 5 seconds. If you add or modify a certificate, key file, or keystore setting in the Opensearch `config` directory, the nodes in the cluster detect the change and automatically reload the keys and certificates.
 
 To enable in-place hot reloading, add the following line to `opensearch.yml`:
 
@@ -275,9 +275,9 @@ plugins.security.ssl.certificates_hot_reload.enabled: true
 
 ### Using the Reload Certificates API
 
-When not using hot reloading, you can use the Reload Certificates API to re-read the replaced certificates.
+When not using hot reloading, you can use the Reload Certificates API to reread the replaced certificates.
 
-To enable the Reload Certificates API, add the following line to `opensearch.yml`.
+To enable the Reload Certificates API, add the following line to `opensearch.yml`:
 
 ```yml
 plugins.security.ssl_cert_reload_enabled: true
@@ -303,7 +303,7 @@ Only a [superadmin]({{site.url}}{{site.baseurl}}/security/configuration/tls/#con
 
 #### Reload TLS certificates on the transport layer
 
- The following command reloads TLS certificates on the transport layer with the Reload Certificates API:
+ The following command reloads TLS certificates on the transport layer using the Reload Certificates API:
   
 ```json
 curl --cacert <ca.pem> --cert <admin.pem> --key <admin.key> -XPUT https://localhost:9200/_plugins/_security/api/ssl/transport/reloadcerts
@@ -318,7 +318,7 @@ You should receive the following response:
 
 #### Reload TLS certificates on the HTTP layer
 
-The following command reloads TLS certificates on the HTTP layer with the Reload Certificates API:
+The following command reloads TLS certificates on the HTTP layer using the Reload Certificates API:
 
 ```json
 curl --cacert <ca.pem> --cert <admin.pem> --key <admin.key> -XPUT https://localhost:9200/_plugins/_security/api/ssl/http/reloadcerts
