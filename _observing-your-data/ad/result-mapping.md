@@ -399,6 +399,15 @@ Field | Description
 
 When you select the **Enable flattened custom result index** option in the **Custom result index** pane, the Anomaly Detection plugin saves the results, with all nested fields flattened, to the flattened result index.
 
+Note that the nested fields in the result follows the following rules to flatten.
+
+Field | Flattening rule                                                               | Example nested input                                                                                             | Example flattened output
+:--- |:------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------| :---
+`relevant_attribution` | `relevant_attribution_$FEATURE_NAME_data: $RELEVANT_ATTRIBUTION_FEATURE_DATA` | `relevant_attribution : [{"feature_id": "deny_max1", "data": 07339452532666227}]`                                | `relevant_attribution_deny_max1_data: 07339452532666227`
+`past_values` | `past_values_$FEATURE_NAME_data: $PAST_VALUES_FEATURE_DATA`                   | `"past_values": [{"feature_id": "processing_bytes_max", "data": 905}]`                                           | `past_values_processing_bytes_max_data: 905`
+`feature_data` | `feature_data_$FEATURE_NAME_data: $FEATURE_DATA_FEATURE_NAME_DATA`            | `"feature_data": [{"feature_id": "processing_bytes_max", "feature_name": "processing bytes max", "data": 1360}]` | `feature_data_processing_bytes_max_data: 1360`
+`expected_values` | `expected_values_$FEATURE_NAME_data: $EXPECTED_VALUES_FEATURE_DATA`           | `"expected_values": [{"likelihood": 1, "value_list": [{"feature_id": "processing_bytes_max", "data": 905}]}]`    | `expected_values_processing_bytes_max_data: 905` 
+`entity` | `` `entity_$NAME_value`: $ENTITY_VALUE `` | `"entity": [{"name": "process_name", "value": "process_3"}]` | `` `entity_process_name_value`: process_3 ``
 For example, when a detector is late in detecting an anomaly, the flattened result is provided in the following format:
 
 ```json
