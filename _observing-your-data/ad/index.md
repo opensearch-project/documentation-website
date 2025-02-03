@@ -119,11 +119,11 @@ After you define the detector, the next step is to configure the model.
 
 ## Step 2: Configure the model
 
-Add features to your detector. A _feature_  an aggregation of a field or a painless script. A detector can discover anomalies across one or more features. 
+Add features to your detector. A _feature_  an aggregation of a field or a Painless script. A detector can discover anomalies across one or more features. 
 
 You choose an aggregation method for each feature: `average()`, `count()`, `sum()`, `min()`, or `max()`. The aggregation method determines what constitutes an anomaly. For example, if you choose `min()`, the detector focuses on finding anomalies based on the minimum values of your feature. If you choose `average()`, the detector finds anomalies based on the average values of your feature. 
 
-You can also use [custom JSON aggregation queries](#configuring-a-model-based-on-a-json-aggregation-query) as an aggregation method. For more information on creating JSON aggregation queries, see [OpenSearch Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/).
+You can also use [custom JSON aggregation queries](#configuring-a-model-based-on-a-json-aggregation-query) as an aggregation method. For more information about creating JSON aggregation queries, see [OpenSearch Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/).
 
 
 For each configured feature, you can also select the criteria for considering data as an anomaly. By default, an anomaly is detected when the model finds a deviation where the actual value is either abnormally higher or lower than the expected value. However, users can customize their feature settings so that anomalies are only registered when the actual value is above the expected value (indicating a spike in the data) or below the expected value (indicating a dip in the data). For example, when creating a detector for the `cpu_utilization` field, users may choose to register anomalies only when the value spikes to reduce alert fatigue.
