@@ -49,6 +49,7 @@ POST /_plugins/_flow_framework/workflow/8xL8bowB8y25Tqfenm50/_provision
 {% include copy-curl.html %}
 
 The following request performs a synchronous provisioning call, waiting for up to 2 seconds for completion:
+
 ```json
 POST /_plugins/_flow_framework/workflow/<workflow_id>/_provision&wait_for_completion_timeout=2s
 ```
@@ -81,10 +82,11 @@ OpenSearch responds with the same `workflow_id` that was used in the request:
 }
 ```
 
-To obtain the provisioning status, query the [Get Workflow State API]({{site.url}}{{site.baseurl}}/automating-configurations/api/get-workflow-status/).
+To obtain the provisioning status, call the [Get Workflow State API]({{site.url}}{{site.baseurl}}/automating-configurations/api/get-workflow-status/).
 
-#### Example Response with wait_for_completion_timeout Enabled
-  ```json
+#### Example Response with wait_for_completion_timeout enabled
+
+```json
 {
     "workflow_id": "K13IR5QBEpCfUu_-AQdU",
     "state": "COMPLETED",
