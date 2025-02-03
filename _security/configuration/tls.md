@@ -308,7 +308,7 @@ Only a [superadmin]({{site.url}}{{site.baseurl}}/security/configuration/tls/#con
 ```json
 curl --cacert <ca.pem> --cert <admin.pem> --key <admin.key> -XPUT https://localhost:9200/_plugins/_security/api/ssl/transport/reloadcerts
 ```
-{% include copy.html %}
+{% include copy-curl.html %}
 
 You should receive the following response:
 
@@ -323,7 +323,7 @@ The following command reloads TLS certificates on the HTTP layer using the Reloa
 ```json
 curl --cacert <ca.pem> --cert <admin.pem> --key <admin.key> -XPUT https://localhost:9200/_plugins/_security/api/ssl/http/reloadcerts
 ```
-{% include copy.html %}
+{% include copy-curl.html %}
 
 You should receive the following response:
 
