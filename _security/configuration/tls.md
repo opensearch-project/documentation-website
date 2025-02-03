@@ -269,7 +269,7 @@ Updating expired or nearly expired TLS certificates on the HTTP and transport la
 - [Enabling the in-place hot reload setting](#enabling-the-in-place-hot-reload-setting)
 - Using the [Reload Certificates API](#using-the-reload-certificates-api)
 
-If you use PEM files to manage certificates, your certificate and keys are stored in seperate files. Therefore, we recommend using rolling updates when updating reload settings to prevent authentication issues.
+If you use PEM files to manage certificates, your certificate and keys are stored in seperate files. Therefore, we recommend using rolling updates when updating hot reload settings to prevent authentication issues.
 {: .warning}
 
 ### Enabling the in-place hot reload setting
@@ -309,7 +309,7 @@ plugins.security.ssl.transport.enforce_cert_reload_dn_verification: false
 Only a [superadmin]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates) can use the Reload Certificates API.
 {: .note }
 
-### Reload TLS certificates on the transport layer
+#### Reload TLS certificates on the transport layer
 
  The following command reloads TLS certificates on the transport layer:
   
@@ -322,7 +322,7 @@ You should receive the following response:
 
 ```{ "message": "successfully updated transport certs"}```
 
-### Reload TLS certificates on the HTTP layer
+#### Reload TLS certificates on the HTTP layer
 
 The following command reloads TLS certificates on the HTTP layer:
 
