@@ -119,13 +119,41 @@ After you define the detector, the next step is to configure the model.
 
 ## Step 2: Configure the model
 
-1. Add features to your detector.
+Add features to your detector. A _feature_ is an aggregation of a field or a Painless script. A detector can discover anomalies across one or more features. 
 
-A _feature_ is any field in your index that you want to analyze for anomalies. A detector can discover anomalies across one or more features. You must choose an aggregation method for each feature: `average()`, `count()`, `sum()`, `min()`, or `max()`. The aggregation method determines what constitutes an anomaly.
+You must choose an aggregation method for each feature: `average()`, `count()`, `sum()`, `min()`, or `max()`. The aggregation method determines what constitutes an anomaly. For example, if you choose `min()`, the detector focuses on finding anomalies based on the minimum values of your feature. If you choose `average()`, the detector finds anomalies based on the average values of your feature. 
 
-For example, if you choose `min()`, the detector focuses on finding anomalies based on the minimum values of your feature. If you choose `average()`, the detector finds anomalies based on the average values of your feature.
+You can also use [custom JSON aggregation queries](#configuring-a-model-based-on-a-json-aggregation-query) as an aggregation method. For more information about creating JSON aggregation queries, see [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/).
 
-A multi-feature model correlates anomalies across all its features. The [curse of dimensionality](https://en.wikipedia.org/wiki/Curse_of_dimensionality) makes it less likely that multi-feature models will identify smaller anomalies as compared to a single-feature model. Adding more features can negatively impact the [precision and recall](https://en.wikipedia.org/wiki/Precision_and_recall) of a model. A higher proportion of noise in your data can further amplify this negative impact. Selecting the optimal feature set is usually an iterative process. By default, the maximum number of features for a detector is `5`. You can adjust this limit using the `plugins.anomaly_detection.max_anomaly_features` setting.
+
+For each configured feature, you can also select the anomaly criteria. By default, the model detects an anomaly when the actual value is either abnormally higher or lower than the expected value. However, you can customize your feature settings so that anomalies are only registered when the actual value is higher than the expected value (indicating a spike in the data) or lower than the expected value (indicating a dip in the data). For example, when creating a detector for the `cpu_utilization` field, you may choose to register anomalies only when the value spikes in order to reduce alert fatigue.
+
+
+### Suppressing anomalies with threshold-based rules
+
+In the **Feature selection** pane, you can suppress anomalies by setting rules that define acceptable differences between the expected and actual values, either as an absolute value or a relative percentage. This helps reduce false anomalies caused by minor fluctuations, allowing you to focus on significant deviations.
+
+To suppress anomalies for deviations of less than 30% from the expected value, you can set the following rules in the feature selection pane:
+
+- Ignore anomalies when the actual value is no more than 30% above the expected value.
+- Ignore anomalies when the actual value is no more than 30% below the expected value.
+
+The following image shows the pane for a feature named `LogVolume`, where you can set the relative deviation percentage settings:
+
+<img src="{{site.url}}{{site.baseurl}}/images/anomaly-detection/add-feature-with-relative-rules.png" alt="Interface of adding a feature with suppression rules" width="800" height="800">
+
+If you expect that the log volume should differ by at least 10,000 from the expected value before being considered an anomaly, you can set the following absolute thresholds:
+
+- Ignore anomalies when the actual value is no more than 10,000 above the expected value.
+- Ignore anomalies when the actual value is no more than 10,000 below the expected value.
+
+The following image shows the pane for a feature named `LogVolume`, where you can set the absolute threshold settings:
+
+<img src="{{site.url}}{{site.baseurl}}/images/anomaly-detection/add-suppression-rules-absolute.png" alt="Interface of adding suppression rules with absolute rules" width="800" height="800">
+
+If no custom suppression rules are set, then the system defaults to a filter that ignores anomalies with deviations of less than 20% from the expected value for each enabled feature.
+
+A multi-feature model correlates anomalies across all of its features. The [curse of dimensionality](https://en.wikipedia.org/wiki/Curse_of_dimensionality) makes it less likely that a multi-feature model will identify smaller anomalies as compared to a single-feature model. Adding more features can negatively impact the [precision and recall](https://en.wikipedia.org/wiki/Precision_and_recall) of a model. A higher proportion of noise in your data can further amplify this negative impact. To select the optimal feature set limit for anomalies, we recommend an iterative process of testing different limits. By default, the maximum number of features for a detector is `5`. To adjust this limit, use the `plugins.anomaly_detection.max_anomaly_features` setting.
 {: .note}
 
 ### Configuring a model based on an aggregation method
@@ -199,30 +227,6 @@ Using these options can improve recall in anomaly detection. For instance, if yo
 Be cautious when imputing extensively missing data, as excessive gaps can compromise model accuracy. Quality input is critical---poor data quality leads to poor model performance. The confidence score also decreases when imputations occur. You can check whether a feature value has been imputed using the `feature_imputed` field in the anomaly results index. See [Anomaly result mapping]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/result-mapping/) for more information.
 {: note}
 
-### Suppressing anomalies with threshold-based rules
-
-In the **Advanced settings** pane, you can suppress anomalies by setting rules that define acceptable differences between the expected and actual values, either as an absolute value or a relative percentage. This helps reduce false anomalies caused by minor fluctuations, allowing you to focus on significant deviations.
-
-Suppose you want to detect substantial changes in log volume while ignoring small variations that are not meaningful. Without customized settings, the system might generate false alerts for minor changes, making it difficult to identify true anomalies. By setting suppression rules, you can ignore minor deviations and focus on real anomalous patterns.
-
-To suppress anomalies for deviations of less than 30% from the expected value, you can set the following rules:
-
-```
-Ignore anomalies for feature logVolume when the actual value is no more than 30% above the expected value.
-Ignore anomalies for feature logVolume when the actual value is no more than 30% below the expected value.
-```
-
-Ensure that a feature, for example, `logVolume`, is properly defined in your model. Suppression rules are tied to specific features.
-{: .note}
-
-If you expect that the log volume should differ by at least 10,000 from the expected value before being considered an anomaly, you can set absolute thresholds:
-
-```
-Ignore anomalies for feature logVolume when the actual value is no more than 10000 above the expected value.
-Ignore anomalies for feature logVolume when the actual value is no more than 10000 below the expected value.
-```
-
-If no custom suppression rules are set, then the system defaults to a filter that ignores anomalies with deviations of less than 20% from the expected value for each enabled feature.
 
 ### Previewing sample anomalies
 
