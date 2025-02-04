@@ -44,7 +44,7 @@ The following table lists the available query parameters. All query parameters a
 
 ## Request body options
 
-| Parameter | Data Type | Description |
+| Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | `commands` | Array | A list of reroute commands to run. |
 | `dry_run` | Boolean | When true, simulates the reroute without actually performing it. |
