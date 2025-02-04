@@ -20,3 +20,8 @@ We welcome your contributions to the OpenSearch Project. Here are some helpful l
 - [OpenSearch release schedule and maintenance policy](https://opensearch.org/releases.html)
 - [OpenSearch Project roadmap](https://github.com/orgs/opensearch-project/projects/1)
 - [OpenSearch Community Forum](https://forum.opensearch.org/)
+
+## In this section
+
+- [Plugin as a service]({{site.url}}{{site.baseurl}}/developer-documentation/plugin-as-a-service/): Enables stateless OpenSearch plugins using external data stores, such as a remote OpenSearch cluster or cloud provider storage.
+- [Extensions]({{site.url}}{{site.baseurl}}/developer-documentation/extensions/): An easier-to-develop and more secure alternative to plugins that simplifies creating custom functionality for OpenSearch. 
