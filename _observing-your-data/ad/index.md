@@ -145,7 +145,7 @@ The following image shows where to set the relative deviation percentage setting
 
 If you expect that the log volume should differ by at least 10,000 from the expected value before being considered an anomaly, you can set the following absolute thresholds:
 
-- Ignore anomalies when the actual value is no more than 10000 above the expected value.
+- Ignore anomalies when the actual value is no more than 10,000 above the expected value.
 - Ignore anomalies when the actual value is no more than 10,000 below the expected value.
 
 The following image shows where to set the absolute threshold settings:
