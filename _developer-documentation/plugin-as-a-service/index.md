@@ -17,7 +17,7 @@ To extend core features, OpenSearch uses plugins, which have several limitations
 - They require strict version compatibility.
 - They are restricted to a single tenant.
 
-To address these challenges, you can use a _remote metadata SDK client_, which enables stateless OpenSearch plugins using external data stores, such as a remote OpenSearch cluster or cloud provider storage. Using the client improves scalability and makes plugins more adaptable for large workloads. For more information about the client, see [SDK Client Repository](https://github.com/opensearch-project/opensearch-remote-metadata-sdk).
+To address these challenges, you can use a _remote metadata SDK client_, which enables stateless OpenSearch plugins using external data stores, such as a remote OpenSearch cluster or cloud storage services. Using the client improves scalability and makes plugins more adaptable for large workloads. For more information about the client, see [SDK Client Repository](https://github.com/opensearch-project/opensearch-remote-metadata-sdk).
 
 ## Remote metadata storage
 
@@ -25,7 +25,7 @@ Remote metadata storage allows OpenSearch plugins to operate in a stateless mann
 
 Remote metadata storage offers the following benefits:
 
-- **Scalability**: Offloading metadata storage to an external system reduces memory and CPU usage on the OpenSearch cluster.  
+- **Scalability**: Offloading metadata storage to an external system reduces OpenSearch cluster memory and CPU usage.  
 - **Multi-tenancy support**: Tenant-based storage separation enables cloud providers to offer more flexible plugin solutions, logically separating resources using tenant IDs. 
 
 ### Supported storage backends
@@ -33,11 +33,11 @@ Remote metadata storage offers the following benefits:
 Remote metadata storage can be configured to use the following external backends:
 
 - Remote OpenSearch clusters
-- AWS Dynamo DB
+- Amazon DynamoDB
 
 ## Enabling multi-tenancy
  
-To enable multi-tenancy in a plugin, update the following static settings. After the update, restart the cluster for the changes to take effect. For more information about ways to update the settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/).
+To enable multi-tenancy in a plugin, update the following static settings. After the update, restart the cluster in order for the changes to take effect. For more information about ways to update the settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/).
 
 ###  Multi-tenancy setting
 
@@ -55,7 +55,7 @@ The following table lists settings related to remote metadata storage configurat
 |:---|:---|:---|
 | `remote_metadata_type` | String | The remote metadata storage type. Valid values are: <br> - `RemoteOpenSearch`: A remote OpenSearch cluster compatible with OpenSearch Java Client. <br> - `AWSDynamoDB` : Amazon DynamoDB with zero-ETL replication to OpenSearch. <br> - `AWSOpenSearchService`: Amazon OpenSearch Service using AWS SDK v2. |
 | `remote_metadata_endpoint` | String | The remote metadata endpoint URL. |
-| `remote_metadata_region` | String | The region where metadata is stored. |
+| `remote_metadata_region` | String | The AWS region in which metadata is stored. |
 | `remote_metadata_service_name` | String | The remote metadata service name. |
 
 ## Example
@@ -75,8 +75,8 @@ plugins.<plugin_name>.remote_metadata_service_name: "remote-store-service"
 
 OpenSearch supports multi-tenancy for the following plugins:
 
-- [ML Commons](https://github.com/opensearch-project/ml-commons): Supports [machine learning]({{site.url}}{{site.baseurl}}/ml-commons-plugin/) workloads.
-- [Flow Framework](https://github.com/opensearch-project/flow-framework/): Supports [workflow automation]({{site.url}}{{site.baseurl}}/automating-configurations/index/).
+- [ML Commons](https://github.com/opensearch-project/ml-commons): Supports [machine learning]({{site.url}}{{site.baseurl}}/ml-commons-plugin/) workloads
+- [Flow Framework](https://github.com/opensearch-project/flow-framework/): Supports [workflow automation]({{site.url}}{{site.baseurl}}/automating-configurations/index/)
 
 ### ML Commons 
 
