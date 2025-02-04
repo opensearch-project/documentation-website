@@ -49,6 +49,8 @@ Starting with k-NN plugin version 2.17, you can use `byte` vectors with the `fai
 
 Starting with k-NN plugin version 2.16, you can use `binary` vectors with the `faiss` engine to reduce the amount of required storage space. For more information, see [Binary vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-vectors).
 
+Starting with k-NN plugin version 2.19, you can use `binary` vectors with the `lucene` engine.
+
 ## SIMD optimization for the Faiss engine
 
 Starting with version 2.13, the k-NN plugin supports [Single Instruction Multiple Data (SIMD)](https://en.wikipedia.org/wiki/Single_instruction,_multiple_data) processing if the underlying hardware supports SIMD instructions (AVX2 on x64 architecture and Neon on ARM64 architecture). SIMD is supported by default on Linux machines only for the Faiss engine. SIMD architecture helps boost overall performance by improving indexing throughput and reducing search latency. Starting with version 2.18, the k-NN plugin supports AVX512 SIMD instructions on x64 architecture. 
@@ -155,9 +157,12 @@ The IVF algorithm requires a training step. To create an index that uses IVF, yo
 
 ### Supported Lucene methods
 
-Method name | Requires training | Supported spaces | Description
+Method name | Requires training | Supported spaces                                                                | Description
 :--- | :--- |:--------------------------------------------------------------------------------| :---
-`hnsw` | false | l2, cosinesimil, innerproduct (supported in OpenSearch 2.13 and later) | Hierarchical proximity graph approach to approximate k-NN search.
+`hnsw` | false | l2, cosinesimil, innerproduct (supported in OpenSearch 2.13 and later), hamming | Hierarchical proximity graph approach to approximate k-NN search.
+
+The `hamming` space type is supported for binary vectors in OpenSearch version 2.19 and later. For more information, see [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-vectors).
+{: .note}
 
 #### HNSW parameters
 

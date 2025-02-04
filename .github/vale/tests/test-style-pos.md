@@ -76,6 +76,8 @@ This sentence tests splling.
 
 This sentence tests substitution error by using the word indices.
 
+This sentence tests substitution case-sensitive error by using the word Retrieval-Augmented Generation.
+
 This sentence tests substitution suggestion due to its nature.
 
 This Table | tests capitalization
