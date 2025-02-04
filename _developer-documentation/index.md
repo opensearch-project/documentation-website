@@ -3,7 +3,6 @@ layout: default
 title: Developer documentation
 nav_order: 1
 has_children: false
-has_toc: false
 nav_exclude: true
 permalink: /developer-documentation/
 redirect_from:
@@ -22,6 +21,7 @@ We welcome your contributions to the OpenSearch Project. Here are some helpful l
 - [OpenSearch Project roadmap](https://github.com/orgs/opensearch-project/projects/1)
 - [OpenSearch Community Forum](https://forum.opensearch.org/)
 
-## What's new
+## In this section
 
-New in version 2.9, OpenSearch introduces _extensions_---an easier-to-develop and more secure alternative to plugins---to simplify creating custom functionality for OpenSearch. To learn more about building extensions using _OpenSearch SDK for Java_, see [Extensions]({{site.url}}{{site.baseurl}}/developer-documentation/extensions/).
+- [Plugin as a service]({{site.url}}{{site.baseurl}}/developer-documentation/plugin-as-a-service/): Enables stateless OpenSearch plugins using external data stores, such as a remote OpenSearch cluster or cloud storage services.
+- [Extensions]({{site.url}}{{site.baseurl}}/developer-documentation/extensions/): An easier-to-develop and more secure alternative to plugins that simplifies creating custom functionality for OpenSearch. 
