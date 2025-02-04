@@ -123,7 +123,7 @@ For example, if the detector `Test` uses the custom result index `abc`, a separa
 Deactivating this option on a running detector removes its flattening ingest pipeline; it also ceases to be the result index’s default.
 When using the flattened custom result inside option, consider the following
 
-- Anamoly Detection constructs the index name based on the custom result index and detector name, and since the detector name is editable, conflicts can occur. If a conflict occurs, anamoly detection reuses the index name
+- Anomaly Detection constructs the index name based on the custom result index and detector name, and since the detector name is editable, conflicts can occur. If a conflict occurs, anomaly detection reuses the index name.
 - When managing the custom results index, consider the following:
    - The anomaly detection dashboard queries all detector results from all custom results indexes. Having too many custom results indexes can impact the plugin’s performance.
    - You can use [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/) to roll over old results indexes. You can also manually delete or archive any old results indexes. Reusing a custom results index for multiple detectors is recommended.
