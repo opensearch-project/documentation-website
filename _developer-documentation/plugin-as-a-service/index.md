@@ -87,7 +87,6 @@ The ML Commons plugin supports multi-tenancy for the following components:
 - [Models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/) (externally hosted only)
 - [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/#agents)
 - [Tasks]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/index/)
-- Config APIs
 
 The following example configures multi-tenancy for the ML Commons plugin:
 
