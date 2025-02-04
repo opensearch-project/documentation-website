@@ -119,14 +119,14 @@ After you define the detector, the next step is to configure the model.
 
 ## Step 2: Configure the model
 
-Add features to your detector. A _feature_  an aggregation of a field or a Painless script. A detector can discover anomalies across one or more features. 
+Add features to your detector. A _feature_ is an aggregation of a field or a Painless script. A detector can discover anomalies across one or more features. 
 
-You choose an aggregation method for each feature: `average()`, `count()`, `sum()`, `min()`, or `max()`. The aggregation method determines what constitutes an anomaly. For example, if you choose `min()`, the detector focuses on finding anomalies based on the minimum values of your feature. If you choose `average()`, the detector finds anomalies based on the average values of your feature. 
+You must choose an aggregation method for each feature: `average()`, `count()`, `sum()`, `min()`, or `max()`. The aggregation method determines what constitutes an anomaly. For example, if you choose `min()`, the detector focuses on finding anomalies based on the minimum values of your feature. If you choose `average()`, the detector finds anomalies based on the average values of your feature. 
 
-You can also use [custom JSON aggregation queries](#configuring-a-model-based-on-a-json-aggregation-query) as an aggregation method. For more information about creating JSON aggregation queries, see [OpenSearch Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/).
+You can also use [custom JSON aggregation queries](#configuring-a-model-based-on-a-json-aggregation-query) as an aggregation method. For more information about creating JSON aggregation queries, see [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/).
 
 
-For each configured feature, you can also select the criteria for considering data as an anomaly. By default, an anomaly is detected when the model finds a deviation where the actual value is either abnormally higher or lower than the expected value. However, users can customize their feature settings so that anomalies are only registered when the actual value is above the expected value (indicating a spike in the data) or below the expected value (indicating a dip in the data). For example, when creating a detector for the `cpu_utilization` field, users may choose to register anomalies only when the value spikes to reduce alert fatigue.
+For each configured feature, you can also select the anomaly criteria. By default, the model detects an anomaly when the actual value is either abnormally higher or lower than the expected value. However, you can customize your feature settings so that anomalies are only registered when the actual value is higher than the expected value (indicating a spike in the data) or lower than the expected value (indicating a dip in the data). For example, when creating a detector for the `cpu_utilization` field, you may choose to register anomalies only when the value spikes in order to reduce alert fatigue.
 
 
 ### Suppressing anomalies with threshold-based rules
@@ -147,7 +147,7 @@ The following image shows where to set the relative deviation percentage setting
 If you expect that the log volume should differ by at least 10,000 from the expected value before being considered an anomaly, you can set the following absolute thresholds:
 
 - Ignore anomalies when the actual value is no more than 10000 above the expected value.
-- Ignore anomalies when the actual value is no more than 10000 below the expected value.
+- Ignore anomalies when the actual value is no more than 10,000 below the expected value.
 
 The following image shows where to set the absolute threshold settings:
 
@@ -156,7 +156,7 @@ The following image shows where to set the absolute threshold settings:
 If no custom suppression rules are set, then the system defaults to a filter that ignores anomalies with deviations of less than 20% from the expected value for each enabled feature.
 
 
-A multi-feature model correlates anomalies across all of its features. The [curse of dimensionality](https://en.wikipedia.org/wiki/Curse_of_dimensionality) makes it less likely that multi-feature models will identify smaller anomalies as compared to a single-feature model. Adding more features can negatively impact the [precision and recall](https://en.wikipedia.org/wiki/Precision_and_recall) of a model. A higher proportion of noise in your data can further amplify this negative impact. To selecting the optimal feature set limit for anomalies, we recommend an iterative process by testing different limits. By default, the maximum number of features for a detector is `5`. To adjust this limit, use the `plugins.anomaly_detection.max_anomaly_features` setting.
+A multi-feature model correlates anomalies across all of its features. The [curse of dimensionality](https://en.wikipedia.org/wiki/Curse_of_dimensionality) makes it less likely that a multi-feature model will identify smaller anomalies as compared to a single-feature model. Adding more features can negatively impact the [precision and recall](https://en.wikipedia.org/wiki/Precision_and_recall) of a model. A higher proportion of noise in your data can further amplify this negative impact. To select the optimal feature set limit for anomalies, we recommend an iterative process of testing different limits. By default, the maximum number of features for a detector is `5`. To adjust this limit, use the `plugins.anomaly_detection.max_anomaly_features` setting.
 {: .note}
 
 ### Configuring a model based on an aggregation method
