@@ -73,10 +73,7 @@ plugins.<plugin_name>.remote_metadata_service_name: "remote-store-service"
 
 ## Supported plugins
 
-OpenSearch supports multi-tenancy for the following plugins:
-
-- [ML Commons](https://github.com/opensearch-project/ml-commons): Supports [machine learning]({{site.url}}{{site.baseurl}}/ml-commons-plugin/) workloads
-- [Flow Framework](https://github.com/opensearch-project/flow-framework/): Supports [workflow automation]({{site.url}}{{site.baseurl}}/automating-configurations/index/)
+OpenSearch supports multi-tenancy for the following plugins.
 
 ### ML Commons 
 
@@ -96,5 +93,18 @@ plugins.ml_commons.remote_metadata_type: AWSDynamoDB
 plugins.ml_commons.remote_metadata_endpoint: <REMOTE_ENDPOINT>
 plugins.ml_commons.remote_metadata_region: <AWS_REGION>
 plugins.ml_commons.remote_metadata_service_name: <SERVICE_NAME>
+```
+{% include copy.html %}
+
+### Flow Framework
+
+The following example configures multi-tenancy for the Flow Framework plugin:
+
+```yaml
+plugins.flow_framework.multi_tenancy_enabled: true
+plugins.flow_framework.remote_metadata_type: AWSDynamoDB
+plugins.flow_framework.remote_metadata_endpoint: <REMOTE_ENDPOINT>
+plugins.flow_framework.remote_metadata_region: <AWS_REGION>
+plugins.flow_framework.remote_metadata_service_name: <SERVICE_NAME>
 ```
 {% include copy.html %}
