@@ -116,7 +116,7 @@ To use the custom results index option, you must have the following permissions:
 
 ##### Flattening nested fields
 
-Custom result index mappings with nested fields pose aggregation and visualization challenges. The **Enable flattened custom result index** flattens the nested fields in the [custom result index]({{site.url}}{{site.baseurl}}/observing-your-data/ad/result-mapping/#flattened-anomaly-result-mapping/). When selecting this option, the plugin creates a separate index prefixed with the custom result index name and detector name. For example, if the detector `Test` uses the custom result index `abc`, a separate index with the alias `opensearch-ad-plugin-result-abc-flattened-test` will store the anomaly detection results with nested fields flattened. 
+Custom result index mappings with nested fields pose aggregation and visualization challenges. The **Enable flattened custom result index** flattens the nested fields in the custom result index. When selecting this option, the plugin creates a separate index prefixed with the custom result index name and detector name. For example, if the detector `Test` uses the custom result index `abc`, a separate index with the alias `opensearch-ad-plugin-result-abc-flattened-test` will store the anomaly detection results with nested fields flattened. 
 
 Besides creating a separate index, the plugin also sets up an ingest pipeline with a script processor. This pipeline is bound to the separate index and uses a Painless script to flatten all nested fields in the custom results index.
 
