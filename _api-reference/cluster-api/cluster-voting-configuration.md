@@ -53,3 +53,17 @@ The following table lists the available query parameters. All query parameters a
 | `timeout` | String | When adding a voting configuration exclusion, the API waits for the specified nodes to be excluded from the voting configuration before returning a response. If the timeout expires before the appropriate condition is satisfied, the request fails and returns an error. |
 
 <!-- spec_insert_end -->
+
+## Example request
+
+```json
+POST /_cluster/voting_config_exclusions?node_names=node-3,node-4&timeout=30s
+```
+
+## Example response
+
+```json
+{
+  "acknowledged": true
+}
+```

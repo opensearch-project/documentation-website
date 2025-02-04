@@ -25,16 +25,60 @@ GET /_cluster/pending_tasks
 
 <!-- spec_insert_start
 api: cluster.pending_tasks
+columns: Parameter, Data type, Description, Default
 component: query_parameters
 -->
 ## Query parameters
 
 The following table lists the available query parameters. All query parameters are optional.
 
-| Parameter | Data type | Description |
-| :--- | :--- | :--- |
-| `cluster_manager_timeout` | String | A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts "0" without a unit and "-1" to indicate an unspecified value. |
-| `local` | Boolean | When `true`, the request retrieves information from the local node only. When `false`, information is retrieved from the cluster manager node. _(Default: `false`)_ |
-| `master_timeout` <br> _DEPRECATED_ | String | _(Deprecated since 2.0: To promote inclusive language, use `cluster_manager_timeout` instead.)_ A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts "0" without a unit and "-1" to indicate an unspecified value. |
+| Parameter | Data type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `cluster_manager_timeout` | String | A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts "0" without a unit and "-1" to indicate an unspecified value. | N/A |
+| `local` | Boolean | When `true`, the request retrieves information from the local node only. When `false`, information is retrieved from the cluster manager node. | `false` |
+| `master_timeout` <br> _DEPRECATED_ | String | _(Deprecated since 2.0: To promote inclusive language, use `cluster_manager_timeout` instead.)_ A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts "0" without a unit and "-1" to indicate an unspecified value. | N/A |
 
 <!-- spec_insert_end -->
+
+## Example request
+
+```json
+GET /_cluster/pending_tasks
+```
+
+## Example response
+
+```json
+{
+  "tasks": [
+    {
+      "insert_order": 101,
+      "priority": "URGENT",
+      "source": "create-index [new_index]",
+      "time_in_queue_millis": 86,
+      "time_in_queue": "86ms"
+    },
+    {
+      "insert_order": 102,
+      "priority": "HIGH",
+      "source": "shard-started ([new_index][0], node[tMTocMvQQgGCkj7QDHl3OA], [P], s[INITIALIZING])",
+      "time_in_queue_millis": 53,
+      "time_in_queue": "53ms"
+    },
+    {
+      "insert_order": 103,
+      "priority": "HIGH",
+      "source": "shard-started ([new_index][1], node[tMTocMvQQgGCkj7QDHl3OA], [P], s[INITIALIZING])",
+      "time_in_queue_millis": 45,
+      "time_in_queue": "45ms"
+    },
+    {
+      "insert_order": 104,
+      "priority": "NORMAL",
+      "source": "refresh-mapping [new_index]",
+      "time_in_queue_millis": 22,
+      "time_in_queue": "22ms"
+    }
+  ]
+}
+```

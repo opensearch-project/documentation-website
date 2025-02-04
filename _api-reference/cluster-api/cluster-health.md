@@ -44,6 +44,7 @@ The following table lists the available path parameters. All path parameters are
 
 <!-- spec_insert_start
 api: cluster.health
+columns: Parameter, Data type, Description, Default
 component: query_parameters
 -->
 ## Query parameters

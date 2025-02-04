@@ -63,3 +63,38 @@ The following table lists the available path parameters.
 
 <!-- spec_insert_end -->
 
+## Example request
+
+```json
+{
+  "weights": {
+    "zone-1": 3,
+    "zone-2": 2,
+    "zone-3": 1
+  }
+}
+```
+
+## Example response
+
+```json
+{
+  "acknowledged": true,
+  "persistent": {
+    "cluster": {
+      "routing": {
+        "awareness": {
+          "zone": {
+            "weights": {
+              "zone-1": "3",
+              "zone-2": "2",
+              "zone-3": "1"
+            }
+          }
+        }
+      }
+    }
+  },
+  "transient": {}
+}
+```

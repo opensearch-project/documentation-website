@@ -59,3 +59,81 @@ The following table lists the available query parameters. All query parameters a
 | `master_timeout` <br> _DEPRECATED_ | String | _(Deprecated since 2.0: To promote inclusive language, use `cluster_manager_timeout` instead.)_ A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts "0" without a unit and "-1" to indicate an unspecified value. |
 
 <!-- spec_insert_end -->
+
+## Example request
+
+```json
+GET /_cluster/state/{metric}
+```
+
+
+## Example response
+
+```json
+{
+  "cluster_name": "my_opensearch_cluster",
+  "cluster_uuid": "abcdefghijklmnopqrstuvwxyz",
+  "version": 42,
+  "state_uuid": "0123456789abcdefghij",
+  "master_node": "node-1",
+  "blocks": {},
+  "metadata": {
+    "cluster_uuid": "abcdefghijklmnopqrstuvwxyz",
+    "cluster_coordination": {
+      "term": 5,
+      "last_committed_config": ["node-1", "node-2", "node-3"]
+    },
+    "templates": {},
+    "indices": {
+      "my_index": {
+        "state": "open",
+        "settings": {
+          "index": {
+            "number_of_shards": "5",
+            "number_of_replicas": "1",
+            "creation_date": "1623456789000"
+          }
+        },
+        "mappings": {},
+        "aliases": ["my_alias"]
+      }
+    }
+  },
+  "routing_table": {
+    "indices": {
+      "my_index": {
+        "shards": {
+          "0": [
+            {
+              "state": "STARTED",
+              "primary": true,
+              "node": "node-1",
+              "relocating_node": null
+            },
+            {
+              "state": "STARTED",
+              "primary": false,
+              "node": "node-2",
+              "relocating_node": null
+            }
+          ],
+          "1": [
+            {
+              "state": "STARTED",
+              "primary": true,
+              "node": "node-2",
+              "relocating_node": null
+            },
+            {
+              "state": "STARTED",
+              "primary": false,
+              "node": "node-3",
+              "relocating_node": null
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+```

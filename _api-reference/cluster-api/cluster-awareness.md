@@ -37,16 +37,17 @@ PUT /_cluster/routing/awareness/{attribute}/weights
 
 <!-- spec_insert_start
 api: cluster.allocation_explain
+columns: Parameter, Data type, Description, Default
 component: query_parameters
 -->
 ## Query parameters
 
 The following table lists the available query parameters. All query parameters are optional.
 
-| Parameter | Data type | Description |
-| :--- | :--- | :--- |
-| `include_disk_info` | Boolean | When `true`, returns information about disk usage and shard sizes. _(Default: `false`)_ |
-| `include_yes_decisions` | Boolean | When `true`, returns any `YES` decisions in the allocation explanation. _(Default: `false`)_ |
+| Parameter | Data type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `include_disk_info` | Boolean | When `true`, returns information about disk usage and shard sizes. | `false` |
+| `include_yes_decisions` | Boolean | When `true`, returns any `YES` decisions in the allocation explanation. | `false` |
 
 <!-- spec_insert_end -->
 
