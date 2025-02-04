@@ -196,7 +196,7 @@ POST /_cluster/reroute
 
 ## Response body options
 
-| Parameter | Data Type | Description |
+| Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | `acknowledged` | Boolean | Indicates whether the request was acknowledged. |
 | `state` | Object | The state of the current cluster after a reroute. |
