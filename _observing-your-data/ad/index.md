@@ -133,7 +133,6 @@ For each configured feature, you can also select the anomaly criteria. By defaul
 
 In the **Feature selection** pane, you can suppress anomalies by setting rules that define acceptable differences between the expected and actual values, either as an absolute value or a relative percentage. This helps reduce false anomalies caused by minor fluctuations, allowing you to focus on significant deviations.
 
-
 To suppress anomalies for deviations of less than 30% from the expected value, you can set the following rules in the feature selection pane:
 
 - Ignore anomalies when the actual value is no more than 30% above the expected value.
@@ -153,7 +152,6 @@ The following image shows the pane for a feature named `LogVolume`, where you ca
 <img src="{{site.url}}{{site.baseurl}}/images/anomaly-detection/add-suppression-rules-absolute.png" alt="Interface of adding suppression rules with absolute rules" width="800" height="800">
 
 If no custom suppression rules are set, then the system defaults to a filter that ignores anomalies with deviations of less than 20% from the expected value for each enabled feature.
-
 
 A multi-feature model correlates anomalies across all of its features. The [curse of dimensionality](https://en.wikipedia.org/wiki/Curse_of_dimensionality) makes it less likely that a multi-feature model will identify smaller anomalies as compared to a single-feature model. Adding more features can negatively impact the [precision and recall](https://en.wikipedia.org/wiki/Precision_and_recall) of a model. A higher proportion of noise in your data can further amplify this negative impact. To select the optimal feature set limit for anomalies, we recommend an iterative process of testing different limits. By default, the maximum number of features for a detector is `5`. To adjust this limit, use the `plugins.anomaly_detection.max_anomaly_features` setting.
 {: .note}
