@@ -133,7 +133,6 @@ For each configured feature, you can also select the anomaly criteria. By defaul
 
 In the **Feature selection** pane, you can suppress anomalies by setting rules that define acceptable differences between the expected and actual values, either as an absolute value or a relative percentage. This helps reduce false anomalies caused by minor fluctuations, allowing you to focus on significant deviations.
 
-For example, to detect substantial changes in log volume while ignoring small variations that are not meaningful. Without customized settings, the system might generate false alerts for minor changes, making it difficult to identify true anomalies. By setting suppression rules, you can ignore minor deviations and focus on real anomalous patterns.
 
 To suppress anomalies for deviations of less than 30% from the expected value, you can set the following rules in the feature selection pane:
 
