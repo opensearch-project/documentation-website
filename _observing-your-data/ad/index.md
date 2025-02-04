@@ -136,7 +136,7 @@ Parameter | Description | Type | Unit | Example | Required
 `result_index_min_age` |  The minimum index age required for the rollover, calculated from its creation time to the current time. | `integer` |`day` | `7` | No
 `result_index_ttl` | The minimum age required to delete rolled-over indexes. | `integer` | `day` | `60` | No
 
-#### Next steps
+#### Next step
 
 After defining you detector settings, choose **Next**.   
 
