@@ -5,7 +5,7 @@ nav_order: 5
 has_children: false
 has_toc: false
 redirect_from: 
-  - /plugin-as-service/index/
+  - /plugin-as-a-service/index/
 ---
 
 # Plugin as a service 
