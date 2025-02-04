@@ -34,19 +34,19 @@ A _detector_ is an individual anomaly detection task. You can define multiple de
 
 ### Example: Filtering data using query DSL
 
-The following example query retrieves documents in which the `urlPath.keyword` field matches any of the specified values. To set up the detector, use the following steps:
+The following example query retrieves documents in which the `urlPath.keyword` field matches any of the specified values. To set up the detector, use the following steps.
 
 #### Setting the initial detector settings
 
 1. Choose **Create detector**.
-1. Add in the detector details. Enter a name and brief description. Make sure the name is unique and descriptive enough to help you to identify the purpose of the detector.
+1. Add the detector details. Enter a name and brief description. Make sure the name is unique and descriptive enough to help you identify the purpose of the detector.
 1. Specify the data source.   
-   - For **Data source**, choose one or more indexes to use as the data source. Alternatively, you can use an alias or index pattern to choose multiple indexes, similar to the following:
+   - For **Data source**, choose one or more indexes to use as the data source. Alternatively, you can use an alias or index pattern to choose multiple indexes, similarly to the following:
       - /domain/{id}/short
       - /sub_dir/{id}/short
       - /abcd/123/{id}/xyz
    - Detectors can use remote indexes. You can access them using the `cluster-name:index-name` pattern. See [Cross-cluster search]({{site.url}}{{site.baseurl}}/search-plugins/cross-cluster-search/) for more information. Alternatively, you can select clusters and indexes in OpenSearch Dashboards 2.17 or later. To learn about configuring remote indexes with the Security plugin enabled, see [Selecting remote indexes with fine-grained access control]({{site.url}}{{site.baseurl}}/observing-your-data/ad/security/#selecting-remote-indexes-with-fine-grained-access-control) in the [Anomaly detection security](observing-your-data/ad/security/) documentation.
-   - (Optional) For **Data filter**, filter the index you chose as the data source. From the **Data filter** menu, choose **Add data filter**, and then design your filter query by selecting **Field**, **Operator**, and **Value**, or choose **Use query DSL** and add your own JSON filter query. Only [Boolean queries]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/) are supported for query domain-specific language (DSL). The following example `bool` query shows how to use query DSL:
+   - (Optional) For **Data filter**, filter the index you chose as the data source. From the **Data filter** menu, choose **Add data filter**, and then design your filter query by selecting **Field**, **Operator**, and **Value**, or choose **Use query DSL** and add your own JSON filter query. Only [Boolean queries]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/) are supported for query DSL. The following example `bool` query shows you how to use query DSL:
 
 To create a cross-cluster detector in OpenSearch Dashboards, the following [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/) are required: `indices:data/read/field_caps`, `indices:admin/resolve/index`, and `cluster:monitor/remote/info`.
 {: .note}
@@ -82,14 +82,14 @@ To create a cross-cluster detector in OpenSearch Dashboards, the following [perm
 
 In the **Timestamp** pane, select a field from the **Timestamp field** dropdown menu. 
 
-Then, in the **Operation settings** pane, use the following best practices to define the **Detector interval**, which is the interval at which the detector collects data.
+Then, in the **Operation settings** pane, use the following best practices to define the **Detector interval**, which is the interval at which the detector collects data:
 
 - The detector aggregates the data at this interval and then feeds the aggregated result into the anomaly detection model. The shorter the interval, the fewer data points the detector aggregates. The anomaly detection model uses a shingling process, a technique that uses consecutive data points to create a sample for the model. This process requires a certain number of aggregated data points from contiguous intervals.
 - You should set the detector interval based on your actual data. If the detector interval is too long, then it might delay the results. If the detector interval is too short, then it might miss some data. The detector interval also will not have a sufficient number of consecutive data points for the shingle process.
 - (Optional) To add extra processing time for data collection, specify a **Window delay** value.
   - This value tells the detector that the data is not ingested into OpenSearch in real time but with a certain delay. Set the window delay to shift the detector interval to account for this delay.
   - For example, the detector interval is 10 minutes and data is ingested into your cluster with a general delay of 1 minute. Assume the detector runs at 2:00. The detector attempts to get the last 10 minutes of data from 1:50 to 2:00, but because of the 1-minute delay, it only gets 9 minutes of data and misses the data from 1:59 to 2:00. Setting the window delay to 1 minute shifts the interval window to 1:49--1:59, so the detector accounts for all 10 minutes of the detector interval time.
-  - To avoid missing any data, set the **Window delay** to the upper limit of the expected ingestion delay. This ensures that the detector captures all data during its interval, reducing the risk of missing relevant information. While a longer window delay helps capture all data, too long of a window delay can hinder real-time anomaly detection because the detector will look further back in time. Find a balance to maintain both data accuracy and timely detection.
+  - To avoid missing any data, set the **Window delay** to the upper limit of the expected ingestion delay. This ensures that the detector captures all data during its interval, reducing the risk of missing relevant information. While a longer window delay helps capture all data, too long of a window delay can hinder real-time anomaly detection because the detector will look further back in time. Find a balance that maintains both data accuracy and timely detection.
 
 #### Specifying a custom results index
 
@@ -105,7 +105,7 @@ When the Security plugin (fine-grained access control) is enabled, the default r
 If the custom index you specify does not exist, the Anomaly Detection plugin will create it when you create the detector and start your real-time or historical analysis.
 
 If the custom index already exists, the plugin will verify that the index mapping matches the required structure for anomaly results. In this case, ensure that the custom index has a valid mapping as defined in the [`anomaly-results.json`](https://github.com/opensearch-project/anomaly-detection/blob/main/src/main/resources/mappings/anomaly-results.json) file.
-To use the custom results index option, you must have the following permissions:To use the custom results index option, you must have the following permissions:
+To use the custom results index option, you must have the following permissions:
 
 - `indices:admin/create` -- The `create` permission is required in order to create and roll over the custom index.
 - `indices:admin/aliases` -- The `aliases` permission is required in order to create and manage an alias for the custom index.
@@ -116,25 +116,25 @@ To use the custom results index option, you must have the following permissions:
 
 ##### Flattening nested fields
 
-Custom result index mappings with nested fields pose aggregation and visualization challenges. The **Enable flattened custom result index** flattens the nested fields in the custom result index. When selecting this option, the plugin creates a separate index prefixed with the custom result index name and detector name. For example, if the detector `Test` uses the custom result index `abc`, a separate index with the alias `opensearch-ad-plugin-result-abc-flattened-test` will store the anomaly detection results with nested fields flattened. 
+Custom results index mappings with nested fields pose aggregation and visualization challenges. The **Enable flattened custom result index** option flattens the nested fields in the custom results index. When selecting this option, the plugin creates a separate index prefixed with the custom results index name and detector name. For example, if the detector `Test` uses the custom results index `abc`, a separate index with the alias `opensearch-ad-plugin-result-abc-flattened-test` will store the anomaly detection results with nested fields flattened. 
 
-Besides creating a separate index, the plugin also sets up an ingest pipeline with a script processor. This pipeline is bound to the separate index and uses a Painless script to flatten all nested fields in the custom results index.
+In addition to creating a separate index, the plugin also sets up an ingest pipeline with a script processor. This pipeline is bound to the separate index and uses a Painless script to flatten all nested fields in the custom results index.
 
-Deactivating this option on a running detector removes its flattening ingest pipeline; it also ceases to be the result index’s default.
-When using the flattened custom result inside option, consider the following
+Deactivating this option on a running detector removes its flattening ingest pipeline; it also ceases to be the default for the results index.
+When using the flattened custom result option, consider the following:
 
-- Anomaly Detection constructs the index name based on the custom result index and detector name, and since the detector name is editable, conflicts can occur. If a conflict occurs, anomaly detection reuses the index name.
+- The Anomaly Detection plugin constructs the index name based on the custom results index and detector name, and because the detector name is editable, conflicts can occur. If a conflict occurs, the plugin reuses the index name.
 - When managing the custom results index, consider the following:
-   - The anomaly detection dashboard queries all detector results from all custom results indexes. Having too many custom results indexes can impact the plugin’s performance.
+   - The Anomaly Detection dashboard queries all detector results from all custom results indexes. Having too many custom results indexes can impact the plugin's performance.
    - You can use [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/) to roll over old results indexes. You can also manually delete or archive any old results indexes. Reusing a custom results index for multiple detectors is recommended.
 
-The plugin rolls over an alias to a new index when the custom results index meets any of the conditions in the following table:
+The plugin rolls over an alias to a new index when the custom results index meets any of the conditions in the following table.
 
 Parameter | Description | Type | Unit | Example | Required
 :--- | :--- |:--- |:--- |:--- |:---
 `result_index_min_size` | The minimum total primary shard size (excluding replicas) required for index rollover. When set to 100 GiB with an index that has 5 primary and 5 replica shards of 20 GiB each, the rollover runs. | `integer` | `MB` | `51200` | No
 `result_index_min_age` |  The minimum index age required for the rollover, calculated from its creation time to the current time. | `integer` |`day` | `7` | No
-`result_index_ttl` | The minimum age required to delete rolled-over indexes. | `integer` | `day` | `60` | No
+`result_index_ttl` | The minimum age required in order to delete rolled-over indexes. | `integer` | `day` | `60` | No
 
 #### Next step
 

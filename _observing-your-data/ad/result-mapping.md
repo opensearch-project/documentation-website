@@ -397,9 +397,9 @@ Field | Description
 
 ## Flattened anomaly result mapping
 
-When selecting the **Enable flattened custom result index** in the **Custom result index** pane, the Anomaly Detection plugin saves the results with all of the nested fields flattened in the index.
+When selecting the **Enable flattened custom result index** option in the **Custom result index** pane, the Anomaly Detection plugin saves the results with all of the nested fields flattened in the index.
 
-The nested fields stored in the index use the following flattening rules:
+The nested fields stored in the index use the following flattening rules.
 
 Field | Flattening rule | Example nested input | Example flattened output
 :--- | :--- | :--- | :---
