@@ -6,13 +6,13 @@ nav_order: 35
 
 # Vector search
 
-This workload benchmarks OpenSearch's Vector Engine capabilities for both indexing and search operations. It allows testing various vector search algorithms, quantization methods, and index configurations to measure performance metrics like throughput, latency, and recall accuracy. The workload supports different datasets and can evaluate both trained and untrained vector search methods.
+The vector Search workload benchmarks OpenSearch's Vector Engine capabilities for both indexing and search operations. It tests various vector search algorithms, quantization methods, and index configurations to measure performance metrics like throughput, latency, and recall accuracy. The workload supports different datasets and can evaluate both trained and untrained vector search methods.
 
 This workload currently supports datasets in either the `HDF5` or `BIG-ANN` formats. To download the datasets, use this [link](http://corpus-texmex.irisa.fr/).
 
 ## Supported workload parameters
 
-The following workload parameters are supported by the Vector Search workload.
+The following workload parameters are supported by the vector search workload.
 
 | Name                                      | Description                                                                                                                                     |
 | ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -50,7 +50,7 @@ The following workload parameters are supported by the Vector Search workload.
 
 ## Test procedures
 
-The workload supports five test procedures.
+The workload supports the following test procedures.
 
 ### No Train Test
 
@@ -60,16 +60,13 @@ The No Train Test procedure tests vector search indices that require no training
 
 Th No Train Test Index Only procedure is used to index vector search indices that require no training. It's particularly useful when you want to benchmark only the indexing operation.
 
-
 ### Force Merge Index
 
 The Force Merge Index procedure optimizes vector search indices by performing force merge operations up to a given maximum number of segments. For large datasets, force merge is a costly operation. Therefore, it's better to have a separate procedure to trigger force merge operations occasionally based on user requirements.
 
-
 ### Search
 
 The Search procedure benchmarks previously indexed vector search indices. It's useful when you want to benchmark large vector search indices without re-indexing each time, since load time can be substantial for large datasets. This procedure includes warmup operations to avoid cold start problems during vector search.
-
 
 ### No Train Test AOSS
 
@@ -196,7 +193,7 @@ The following example shows results from the train test procedure:
 
 The following sample outputs are from the Faiss IVF benchmarking procedure. For brevity, the test used 100 search queries instead of the 10,000 specified in the parameter files. All other parameters remain the same as those in the `params/train` folder. The first run demonstrates results without quantization, the second run shows scalar quantization, and the third run illustrates product quantization. Note that quantization may cause search recall to drop.
 
-#### Faiss IVF -- no quantization/flat encoding
+#### Faiss IVF with no quantization/flat encoding
 
 
 ```
@@ -322,7 +319,7 @@ The following sample outputs are from the Faiss IVF benchmarking procedure. For 
 ---------------------------------
 ```
 
-#### Faiss IVF with Scalar Quantization (100 search queries)
+#### Faiss IVF with scalar quantization (100 search queries)
 
 ```         
 |                                                         Metric |                     Task |       Value |   Unit |
@@ -447,7 +444,7 @@ The following sample outputs are from the Faiss IVF benchmarking procedure. For 
 ---------------------------------
 ```
 
-#### Faiss IVF with Product Quantization (100 search queries)
+#### Faiss IVF with product quantization (100 search queries)
 
 ```            
 |                                                         Metric |                     Task |       Value |   Unit |
