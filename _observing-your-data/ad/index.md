@@ -139,7 +139,7 @@ To suppress anomalies for deviations of less than 30% from the expected value, y
 - Ignore anomalies when the actual value is no more than 30% above the expected value.
 - Ignore anomalies when the actual value is no more than 30% below the expected value.
 
-The following image shows where to set the relative deviation percentage settings:
+The following image shows the pane for a feature named `LogVolume`, where you can set the relative deviation percentage settings:
 
 <img src="{{site.url}}{{site.baseurl}}/images/anomaly-detection/add-feature-with-relative-rules.png" alt="Interface of adding a feature with suppression rules" width="800" height="800">
 
@@ -148,7 +148,7 @@ If you expect that the log volume should differ by at least 10,000 from the expe
 - Ignore anomalies when the actual value is no more than 10,000 above the expected value.
 - Ignore anomalies when the actual value is no more than 10,000 below the expected value.
 
-The following image shows where to set the absolute threshold settings:
+The following image shows the pane for a feature named `LogVolume`, where you can set the absolute threshold settings:
 
 <img src="{{site.url}}{{site.baseurl}}/images/anomaly-detection/add-suppression-rules-absolute.png" alt="Interface of adding suppression rules with absolute rules" width="800" height="800">
 
