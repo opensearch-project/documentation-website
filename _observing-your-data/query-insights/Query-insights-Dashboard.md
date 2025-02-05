@@ -24,21 +24,12 @@ Once the prerequisites are met, follow these steps:
     - From the left navigation pane, locate the **OpenSearch Plugins** section.
     - Click on **Query Insights** to ensure the plugin is available and installed correctly.
 
-2. **Start Using the Plugin**:
-    - Begin monitoring query performance, grouping data, and configuring export options to suit your needs.
-    - View the **Top N Queries** and performance metrics.
-    - Customize and export data insights as needed.
-
-3. **Start Using the Plugin**:
+2**Start Using the Plugin**:
     - Once installed and verified, you can begin:
         - Monitoring query performance and metrics using the **Query Insights** dashboard.
         - Grouping and analyzing query data based on various attributes.
         - Configuring export options and retention settings to suit your needs.
     - Once installed and verified, you can begin monitoring query performance, grouping data, and configuring export options.
-
-For further details, refer to the documentation sections below.
-- View the **Top N Queries** and performance metrics.
-- Customize and export data insights as needed.
 
 # Query Insights - Top N Queries
 
@@ -264,11 +255,6 @@ This section configures how query data is exported and how long it is retained i
 
 2. **Delete After (days)**:
    - Determines how long the query insights data is retained before deletion.
-### Use Case
-These settings are crucial for managing storage and ensuring compliance with data retention policies:
-- For short-term analysis, a retention period of 7 days may suffice.
-- For longer-term auditing or compliance purposes, a retention period of 30+ days might be necessary.
-
 ---
 
 ## 4. Status Panels
