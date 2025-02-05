@@ -83,9 +83,6 @@ The table displays the following metrics for each query:
 | **Coordinator Node ID** | The node that coordinated the query execution                              |
 | **Total Shards**     | The total number of shards involved in executing the query                 |
 
-### Pagination and Rows Per Page
-- Allows users to navigate through multiple pages of query data.
-- Adjust the number of rows displayed per page (e.g., 10, 25, 50).
 
 # Query Details
 
@@ -182,12 +179,6 @@ This view focuses on a single query and provides detailed execution metrics and 
 4. **Compare Queries**:
    - Use the **Open in Search Comparison** option to compare this query with others for deeper insights.
 
----
-
----
-title: Query Insights - Configuration
-layout: default
-parent: Observing Your Data
 ---
 
 # Query Insights - Configuration
