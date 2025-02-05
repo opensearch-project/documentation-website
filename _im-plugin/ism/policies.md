@@ -432,8 +432,7 @@ Make sure that the repository name used in the `convert_index_to_remote` operati
    }
 }
 ```
-
-
+{% include copy.html %}
 
 ### index_priority
 
