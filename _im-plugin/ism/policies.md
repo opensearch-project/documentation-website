@@ -418,15 +418,17 @@ The `convert_index_to_remote' operation has the following parameters:
 Parameter | Description | Type | Required | Default
 :--- | :--- |:--- |:--- |
 `repository` | The repository name that you register through the native snapshot API operations.  | `string` | Yes | -
+`snapshot` | The snapshot name that gets created through snapshot action.  | `string` | Yes | -
 
 ```json
 {
    "snapshot": {
-    "repository": "my_backup",
-    "snapshot": "{{ctx.index}}"
+      "repository": "my_backup",
+      "snapshot": "{{ctx.index}}"
    }, 
    "convert_index_to_remote": {
-      "repository": "my_backup"
+      "repository": "my_backup",
+      "snapshot": "{{ctx.index}}"
    }
 }
 ```
