@@ -11,7 +11,7 @@ Introduced 1.0
 
 The Example API ... (descriptive sentence about what this API does).
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /_example/endpoint/
@@ -46,7 +46,7 @@ The following table lists the available request body fields.
 
 ## Example request(s)
 
-**TIP:** If multiple examples exist for the request, seperate those examples using an `h3` header underneath this section.
+**TIP:** If multiple examples exist for the request, separate those examples using an `h3` header underneath this section.
 
 ### Request with an example object
 
@@ -63,7 +63,7 @@ POST /_example/endpoint/
 ```
 {% include copy-curl.html %}
 
-## Request without an example object
+### Request without an example object
 
 The following example shows an API request without an example object:
 
@@ -75,7 +75,7 @@ POST /_example/endpoint/
 
 ## Example response
 
-**TIP:** If multiple response examples exist for the request, seperate those examples using an `h3` header underneath this section, similar to the [Example requests](#example-requests).
+**TIP:** If multiple examples exist for the request, separate those examples using an `h3` header under this section, similar to the [Example requests](#example-requests).
 
 The following example shows an API response:
 

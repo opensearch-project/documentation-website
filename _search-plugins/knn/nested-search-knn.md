@@ -300,6 +300,181 @@ The response contains matching documents. For each matching document, the `inner
 }
 ```
 
+## Retrieving all nested hits
+
+By default, only the highest-scoring nested document is considered when you query nested fields. To retrieve the scores for all nested field documents within each parent document, set `expand_nested_docs` to `true` in your query. The parent document's score is calculated as the average of their scores. To use the highest score among the nested field documents as the parent document's score, set `score_mode` to `max`:
+
+```json
+GET my-knn-index-1/_search
+{
+  "_source": false,
+  "query": {
+    "nested": {
+      "path": "nested_field",
+      "query": {
+        "knn": {
+          "nested_field.my_vector": {
+            "vector": [1,1,1],
+            "k": 2,
+            "expand_nested_docs": true
+          }
+        }
+      },
+      "inner_hits": {
+        "_source": false,
+        "fields":["nested_field.color"]
+      },
+      "score_mode": "max"
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response contains all matching documents:
+
+```json
+{
+  "took": 13,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 2,
+      "relation": "eq"
+    },
+    "max_score": 1.0,
+    "hits": [
+      {
+        "_index": "my-knn-index-1",
+        "_id": "1",
+        "_score": 1.0,
+        "inner_hits": {
+          "nested_field": {
+            "hits": {
+              "total": {
+                "value": 3,
+                "relation": "eq"
+              },
+              "max_score": 1.0,
+              "hits": [
+                {
+                  "_index": "my-knn-index-1",
+                  "_id": "1",
+                  "_nested": {
+                    "field": "nested_field",
+                    "offset": 0
+                  },
+                  "_score": 1.0,
+                  "fields": {
+                    "nested_field.color": [
+                      "blue"
+                    ]
+                  }
+                },
+                {
+                  "_index": "my-knn-index-1",
+                  "_id": "1",
+                  "_nested": {
+                    "field": "nested_field",
+                    "offset": 1
+                  },
+                  "_score": 0.25,
+                  "fields": {
+                    "nested_field.color": [
+                      "blue"
+                    ]
+                  }
+                },
+                {
+                  "_index": "my-knn-index-1",
+                  "_id": "1",
+                  "_nested": {
+                    "field": "nested_field",
+                    "offset": 2
+                  },
+                  "_score": 0.07692308,
+                  "fields": {
+                    "nested_field.color": [
+                      "white"
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "_index": "my-knn-index-1",
+        "_id": "2",
+        "_score": 0.0040983604,
+        "inner_hits": {
+          "nested_field": {
+            "hits": {
+              "total": {
+                "value": 3,
+                "relation": "eq"
+              },
+              "max_score": 0.0040983604,
+              "hits": [
+                {
+                  "_index": "my-knn-index-1",
+                  "_id": "2",
+                  "_nested": {
+                    "field": "nested_field",
+                    "offset": 0
+                  },
+                  "_score": 0.0040983604,
+                  "fields": {
+                    "nested_field.color": [
+                      "blue"
+                    ]
+                  }
+                },
+                {
+                  "_index": "my-knn-index-1",
+                  "_id": "2",
+                  "_nested": {
+                    "field": "nested_field",
+                    "offset": 1
+                  },
+                  "_score": 9.2250924E-4,
+                  "fields": {
+                    "nested_field.color": [
+                      "yellow"
+                    ]
+                  }
+                },
+                {
+                  "_index": "my-knn-index-1",
+                  "_id": "2",
+                  "_nested": {
+                    "field": "nested_field",
+                    "offset": 2
+                  },
+                  "_score": 3.9619653E-4,
+                  "fields": {
+                    "nested_field.color": [
+                      "white"
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}
+```
+
 ## k-NN search with filtering on nested fields
 
 You can apply a filter to a k-NN search with nested fields. A filter can be applied to either a top-level field or a field inside a nested field.

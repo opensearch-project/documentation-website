@@ -15,24 +15,45 @@ redirect_from:
 The CAT indices operation lists information related to indexes, that is, how much disk space they are using, how many shards they have, their health status, and so on.
 
 
-## Path and HTTP methods
-
+<!-- spec_insert_start
+api: cat.indices
+component: endpoints
+-->
+## Endpoints
 ```json
-GET _cat/indices/<index>
-GET _cat/indices
+GET /_cat/indices
+GET /_cat/indices/{index}
 ```
+<!-- spec_insert_end -->
 
+
+<!-- spec_insert_start
+api: cat.indices
+component: query_parameters
+columns: Parameter, Data type, Description, Default
+include_deprecated: false
+-->
 ## Query parameters
 
-Parameter | Type | Description
-:--- | :--- | :---
-bytes | Byte size | Specify the units for byte size. For example, `7kb` or `6gb`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
-health | String | Limit indexes based on their health status. Supported values are `green`, `yellow`, and `red`.
-include_unloaded_segments | Boolean | Whether to include information from segments not loaded into memory. Default is `false`.
-cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
-pri | Boolean | Whether to return information only from the primary shards. Default is `false`.
-time | Time | Specify the units for time. For example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
-expand_wildcards | Enum | Expands wildcard expressions to concrete indexes. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. Default is `open`.
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `bytes` | String | The units used to display byte values. <br> Valid values are: `b`, `kb`, `k`, `mb`, `m`, `gb`, `g`, `tb`, `t`, `pb`, `p` | N/A |
+| `cluster_manager_timeout` | String | The amount of time allowed to establish a connection to the cluster manager node. | N/A |
+| `expand_wildcards` | List or String | Specifies the type of index that wildcard expressions can match. Supports comma-separated values. <br> Valid values are: <br> - `all`: Match any index, including hidden ones. <br> - `closed`: Match closed, non-hidden indexes. <br> - `hidden`: Match hidden indexes. Must be combined with open, closed, or both. <br> - `none`: Wildcard expressions are not accepted. <br> - `open`: Match open, non-hidden indexes. | N/A |
+| `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | N/A |
+| `h` | List | A comma-separated list of column names to display. | N/A |
+| `health` | String | Limits indexes based on their health status. Supported values are `green`, `yellow`, and `red`. <br> Valid values are: `green`, `GREEN`, `yellow`, `YELLOW`, `red`, `RED` | N/A |
+| `help` | Boolean | Returns help information. | `false` |
+| `include_unloaded_segments` | Boolean | Whether to include information from segments not loaded into memory. | `false` |
+| `local` | Boolean | Returns local information but does not retrieve the state from the cluster manager node. | `false` |
+| `pri` | Boolean | When `true`, returns information only from the primary shards. | `false` |
+| `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
+| `time` | String | Specifies the time units. <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, `d` | N/A |
+| `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
+
+<!-- spec_insert_end -->
 
 ## Example requests
 

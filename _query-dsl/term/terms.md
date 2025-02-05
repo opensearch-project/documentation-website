@@ -183,7 +183,7 @@ PUT classes/_doc/102
 To search for students enrolled in `CS102`, use the dot path notation to specify the full path to the field in the `path` parameter:
 
 ```json
-ET students/_search
+GET students/_search
 {
   "query": {
     "terms": {
@@ -303,7 +303,7 @@ PUT students/_doc/3
 ```
 {% include copy-curl.html %}
 
-To store customer bitmap filters, you'll create a `customer_filter` [binary field](https://opensearch.org/docs/latest/field-types/supported-field-types/binary/) in the `customers` index. Specify `store` as `true` to store the field:
+To store customer bitmap filters, you'll create a `customer_filter` [binary field]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/binary/) in the `customers` index. Specify `store` as `true` to store the field:
 
 ```json
 PUT /customers

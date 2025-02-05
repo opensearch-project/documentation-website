@@ -9,7 +9,7 @@ nav_order: 26
 
 You can use the Create or Update Index Template API to create indexes with predefined mappings and settings as well as update existing index templates.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 PUT _index_template/<template-name>
@@ -68,11 +68,11 @@ Parameter | Data type | Description
 
 #### `mappings`
 
-The field mappings that exist in the index. For more information, see [Mappings and field types](https://opensearch.org/docs/latest/field-types/). Optional.
+The field mappings that exist in the index. For more information, see [Mappings and field types]({{site.url}}{{site.baseurl}}/field-types/). Optional.
 
 #### `settings`
 
-Any configuration options for the index. For more information, see [Index settings](https://opensearch.org/docs/latest/install-and-configure/configuring-opensearch/index-settings/).
+Any configuration options for the index. For more information, see [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/).
 
 ## Example requests
 
