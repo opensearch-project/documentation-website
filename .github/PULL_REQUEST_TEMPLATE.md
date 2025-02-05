@@ -2,7 +2,7 @@
 _Describe what this change achieves._
 
 ### Issues Resolved
-Closes #[_insert issue number_]
+Closes #[delete this text including brackets and replace with issue number]
 
 ### Version
 _List the OpenSearch version to which this PR applies, e.g. 2.14, 2.12--2.14, or all._
