@@ -411,12 +411,12 @@ Parameter | Description | Type | Required | Default
 
 Converts an index from a local snapshot repository to a remote repository.
 
-The `convert_index_to_remote' operation has the following parameters:
+The `convert_index_to_remote` operation has the following parameters.
 
 Parameter | Description | Type | Required | Default
 :--- | :--- |:--- |:--- |
-`repository` | The repository name that you register through the native snapshot API operations.  | `string` | Yes | -
-`snapshot` | The snapshot name that gets created through snapshot action.  | `string` | Yes | -
+`repository` | The repository name registered through the native snapshot API operations.  | `string` | Yes | -
+`snapshot` | The snapshot name created through the snapshot action.  | `string` | Yes | -
 
 Make sure that the repository name used in the `convert_index_to_remote` operation matches the repository name specified during the snapshot action. Additionally, you can reference the snapshot using `{{ctx.index}}`, as shown in the following example policy:
 
