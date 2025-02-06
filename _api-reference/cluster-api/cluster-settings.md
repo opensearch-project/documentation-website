@@ -14,23 +14,43 @@ redirect_from:
 
 The cluster settings operation lets you check the current settings for your cluster, review default settings, and change settings. When you update a setting using the API, OpenSearch applies it to all nodes in the cluster.
 
+<!-- spec_insert_start
+api: cluster.get_settings
+component: endpoints
+-->
 ## Endpoints
-
 ```json
-GET _cluster/settings
-PUT _cluster/settings
+GET /_cluster/settings
 ```
+<!-- spec_insert_end -->
 
-## Path parameters
+<!-- spec_insert_start
+api: cluster.put_settings
+component: endpoints
+-->
+## Endpoints
+```json
+PUT /_cluster/settings
+```
+<!-- spec_insert_end -->
 
-All parameters are optional.
+<!-- spec_insert_start
+api: cluster.put_settings
+columns: Parameter, Data type, Description, Default
+component: query_parameters
+-->
+## Query parameters
 
-Parameter | Data type | Description
-:--- | :--- | :---
-flat_settings | Boolean | Whether to return settings in the flat form, which can improve readability, especially for heavily nested settings. For example, the flat form of `"cluster": { "max_shards_per_node": 500 }` is `"cluster.max_shards_per_node": "500"`.
-include_defaults (GET only) | Boolean | Whether to include default settings as part of the response. This parameter is useful for identifying the names and current values of settings you want to update.
-cluster_manager_timeout | Time unit | The amount of time to wait for a response from the cluster manager node. Default is `30 seconds`.
-timeout (PUT only) | Time unit | The amount of time to wait for a response from the cluster. Default is `30 seconds`.
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `cluster_manager_timeout` | String | A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts "0" without a unit and "-1" to indicate an unspecified value. | N/A |
+| `flat_settings` | Boolean | Returns settings in a flat format. | `false` |
+| `timeout` | String | A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts "0" without a unit and "-1" to indicate an unspecified value. | N/A |
+| `master_timeout` <br> _DEPRECATED_ | String | _(Deprecated since 2.0: To promote inclusive language, use `cluster_manager_timeout` instead.)_ A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts "0" without a unit and "-1" to indicate an unspecified value. | N/A |
+
+<!-- spec_insert_end -->
 
 ## Request body fields
 

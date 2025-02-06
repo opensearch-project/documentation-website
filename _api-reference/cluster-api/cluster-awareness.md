@@ -15,19 +15,42 @@ redirect_from:
 
 To control the distribution of search or HTTP traffic, you can use the weights per awareness attribute to control the distribution of search or HTTP traffic across zones. This is commonly used for zonal deployments, heterogeneous instances, and routing traffic away from zones during zonal failure.
 
+<!-- spec_insert_start
+api: cluster.get_weighted_routing
+component: endpoints
+-->
 ## Endpoints
-
 ```json
-PUT /_cluster/routing/awareness/<attribute>/weights
-GET /_cluster/routing/awareness/<attribute>/weights?local
-GET /_cluster/routing/awareness/<attribute>/weights
+GET /_cluster/routing/awareness/{attribute}/weights
 ```
+<!-- spec_insert_end -->
 
-## Path parameters
+<!-- spec_insert_start
+api: cluster.put_weighted_routing
+component: endpoints
+omit_header: true
+-->
+```json
+PUT /_cluster/routing/awareness/{attribute}/weights
+```
+<!-- spec_insert_end -->
 
-Parameter | Type | Description
-:--- | :--- | :---
-attribute | String | The name of the awareness attribute, usually `zone`. The attribute name must match the values listed in the request body when assigning weights to zones.
+<!-- spec_insert_start
+api: cluster.allocation_explain
+columns: Parameter, Data type, Description, Default
+component: query_parameters
+-->
+## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `include_disk_info` | Boolean | When `true`, returns information about disk usage and shard sizes. | `false` |
+| `include_yes_decisions` | Boolean | When `true`, returns any `YES` decisions in the allocation explanation. | `false` |
+
+<!-- spec_insert_end -->
+
 
 ## Request body fields
 
