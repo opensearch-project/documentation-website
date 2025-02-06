@@ -46,7 +46,7 @@ Use to describe a list of items that are allowed (not blocked). Do not use as a 
 
 **Amazon OpenSearch Service**
 
-Amazon OpenSearch Service is a managed service that makes it easy to deploy, operate, and scale OpenSearch clusters in the AWS Cloud. Amazon OpenSearch Service is the successor to Amazon Elasticsearch Service (Amazon ES) and supports OpenSearch and legacy Elasticsearch OSS (up to 7.10, the final open-source version of the software).
+Use "Amazon OpenSearch Service" on first appearance; "OpenSearch Service" is acceptable for subsequent appearances. Amazon OpenSearch Service is a managed service that makes it easy to deploy, operate, and scale OpenSearch clusters in the AWS Cloud. Amazon OpenSearch Service is the successor to Amazon Elasticsearch Service (Amazon ES) and supports OpenSearch and legacy Elasticsearch OSS (up to 7.10, the final open-source version of the software).
 
 **Anomaly Detection**
 
@@ -195,6 +195,10 @@ Except when dictated by open standards, use as a prefix in a closed compound: do
 Use data is, not data are. Don't use datas. Use pieces of data or equivalent to describe individual items within a set of data.
 
 **data center**
+
+**OpenSearch Data Prepper**
+
+Use "OpenSearch Data Prepper" on first appearance; "Data Prepper" is acceptable for subsequent appearances. OpenSearch Data Prepper is a server-side data collector capable of filtering, enriching, transforming, normalizing, and aggregating data for downstream analytics and visualization. Data Prepper also lets users build custom pipelines to improve the operational view of applications.
 
 **dataset**
 
@@ -588,6 +592,8 @@ Use % in headlines, quotations, and tables or in technical copy.
 
 An agent and REST API that allows you to query numerous performance metrics for your cluster, including aggregations of those metrics, independent of the Java Virtual Machine (JVM).
 
+**performant**
+
 **plaintext, plain text**
 
 Use *plaintext* only to refer to nonencrypted or decrypted text in content about encryption. Use *plain text* to refer to ASCII files.
@@ -601,6 +607,10 @@ Avoid using except in quoted text.
 Tools inside of OpenSearch that can be customized to enhance OpenSearch's functionality. For a list of core plugins, see the [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/) page. Capitalize if it appears as part of the product name in the UI.
 
 **pop-up**
+
+**preaggregate**
+
+**precompute**
 
 **premise, premises**
 
@@ -643,6 +653,8 @@ Copy of a primary shard. Helps improve performance when using indexes across mul
 **repo**
 
 Use as a synonym for repository, on second and subsequent use.
+
+**retrieval-augmented generation (RAG)**
 
 **RPM Package Manager (RPM)**
 

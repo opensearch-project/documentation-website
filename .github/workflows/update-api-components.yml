@@ -1,0 +1,52 @@
+name: Update API Components
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * 0" # Every Sunday at midnight GMT
+jobs:
+  update-api-components:
+    if: ${{ github.repository == 'opensearch-project/documentation-website' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - run: git config --global pull.rebase true
+
+      - uses: ruby/setup-ruby@v1
+        with: { ruby-version: 3.3.0 }
+
+      - run: bundle install
+
+      - name: Download spec and insert into documentation
+        run: bundle exec jekyll spec-insert -F -R
+
+      - name: Get current date
+        id: date
+        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+
+      - name: GitHub App token
+        id: github_app_token
+        uses: tibdex/github-app-token@v2.1.0
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ steps.github_app_token.outputs.token }}
+          commit-message: "Updated API components to reflect the latest OpenSearch API spec (${{ env.date }})"
+          title: "[AUTOCUT] Update API components to reflect the latest OpenSearch API spec (${{ env.date }})"
+          body: |
+            Update API components to reflect the latest [OpenSearch API spec](https://github.com/opensearch-project/opensearch-api-specification/releases/download/main-latest/opensearch-openapi.yaml).
+            Date: ${{ env.date }}
+          branch: update-api-components-${{ env.date }}
+          base: main
+          signoff: true
+          labels: autocut

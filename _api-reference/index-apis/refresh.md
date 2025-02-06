@@ -20,7 +20,7 @@ After a shard becomes idle, the indexes will not refresh until either the next s
 
 To use the Refresh Index API, you must have write access to the indexes you want to refresh.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /_refresh
@@ -48,22 +48,24 @@ The following table lists the available query parameters. All query parameters a
 | `expand_wildcards` | String | The type of index that the wildcard patterns can match. If the request targets data streams, this argument determines whether the wildcard expressions match any hidden data streams. Supports comma-separated values, such as `open,hidden`. Valid values are `all`, `open`, `closed`, `hidden`, and `none`.
 
 
+## Example requests
 
-#### Example: Refresh several data streams or indexes
+### Refresh several data streams or indexes
 
 The following example request refreshes two indexes named `my-index-A` and `my-index-B`:
 
 
-```
+```json
 POST /my-index-A,my-index-B/_refresh
 ```
 {% include copy-curl.html %}
 
-#### Example: Refresh all data streams and indexes in a cluster
+### Refresh all data streams and indexes in a cluster
 
 The following request refreshes all data streams and indexes in a cluster:
 
-```
+```json
 POST /_refresh
 ```
+{% include copy-curl.html %}
 

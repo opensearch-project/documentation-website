@@ -15,7 +15,7 @@ Use the Remote Store Stats API to monitor shard-level remote-backed storage perf
 
 Metrics returned from this API only relate to indexes stored on remote-backed nodes. For an aggregated output on an index at the node or cluster level, use the [Index Stats]({{site.url}}{{site.baseurl}}/api-reference/index-apis/stats/), [Nodes Stats]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/), or [Cluster Stats]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-stats/) API.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET _remotestore/stats/<index_name>
@@ -257,7 +257,7 @@ GET _remotestore/stats/<index_name>
 ```
 </details>
 
-### Response fields
+### Response body fields
 
 The response body of the Remote Store Stats API is split into three categories:
 
@@ -290,9 +290,9 @@ The `segment.upload` object contains the following fields.
 | `total_remote_refresh` | The total number of remote refreshes.  |
 | `total_uploads_in_bytes` | The total number of bytes in all uploads to the remote store.  |
 | `remote_refresh_size_in_bytes.last_successful` | The size of the data uploaded during the last successful refresh.  |
-| `remote_refresh_size_in_bytes.moving_avg` | The average size of the data, in bytes, uploaded in the last *N* refreshes. *N* is defined in the `remote_store.moving_average_window_size` setting. For more information, see [Remote segment backpressure](https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/remote-store/remote-segment-backpressure/). |
-| `upload_latency_in_bytes_per_sec.moving_avg` | The average speed of remote segment uploads, in bytes per second, for the last *N* uploads. *N* is defined in the `remote_store.moving_average_window_size` setting. For more information, see [Remote segment backpressure](https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/remote-store/remote-segment-backpressure/).    |
-| `remote_refresh_latency_in_millis.moving_avg` | The average amount of time, in milliseconds, taken by a single remote refresh during the last *N* remote refreshes. *N* is defined in the `remote_store.moving_average_window_size` setting. For more information, see [Remote segment backpressure](https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/remote-store/remote-segment-backpressure/).    |
+| `remote_refresh_size_in_bytes.moving_avg` | The average size of the data, in bytes, uploaded in the last *N* refreshes. *N* is defined in the `remote_store.moving_average_window_size` setting. For more information, see [Remote segment backpressure]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/remote-segment-backpressure/). |
+| `upload_latency_in_bytes_per_sec.moving_avg` | The average speed of remote segment uploads, in bytes per second, for the last *N* uploads. *N* is defined in the `remote_store.moving_average_window_size` setting. For more information, see [Remote segment backpressure]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/remote-segment-backpressure/).    |
+| `remote_refresh_latency_in_millis.moving_avg` | The average amount of time, in milliseconds, taken by a single remote refresh during the last *N* remote refreshes. *N* is defined in the `remote_store.moving_average_window_size` setting. For more information, see [Remote segment backpressure]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/remote-segment-backpressure/).    |
 
 The `segment.download` object contains the following fields.
 

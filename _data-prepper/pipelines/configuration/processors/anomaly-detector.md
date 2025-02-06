@@ -35,7 +35,7 @@ The random cut forest (RCF) ML algorithm is an unsupervised algorithm for detect
 | :--- | :--- |
 | `random_cut_forest` | Processes events using the RCF ML algorithm to detect anomalies. | 
 
-RCF is an unsupervised ML algorithm for detecting anomalous data points within a dataset. Data Prepper uses RCF to detect anomalies in data by passing the values of the configured key to RCF. For example, when an event with a latency value of 11.5 is sent, the following anomaly event is generated:
+RCF is an unsupervised ML algorithm for detecting anomalous data points within a dataset. OpenSearch Data Prepper uses RCF to detect anomalies in data by passing the values of the configured key to RCF. For example, when an event with a latency value of 11.5 is sent, the following anomaly event is generated:
 
 
  ```json
@@ -53,6 +53,7 @@ You can configure `random_cut_forest` mode with the following options.
 | `sample_size` | `256` | 100--2500 | The sample size used in the ML algorithm. |
 | `time_decay` | `0.1` | 0--1.0 | The time decay value used in the ML algorithm. Used as the mathematical expression `timeDecay` divided by `SampleSize` in the ML algorithm. |
 | `type` | `metrics` | N/A | The type of data sent to the algorithm. |
+| `output_after` | 32 | N/A | Specifies the number of events to process before outputting any detected anomalies. |
 | `version` | `1.0` | N/A | The algorithm version number. |
 
 ## Usage

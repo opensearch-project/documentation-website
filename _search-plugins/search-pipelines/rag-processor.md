@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Retrieval-augmented generation
-nav_order: 90
+nav_order: 115
 has_children: false
 parent: Search processors
 grand_parent: Search pipelines
@@ -16,7 +16,7 @@ The `retrieval_augmented_generation` processor is a search results processor tha
 As of OpenSearch 2.12, the `retrieval_augmented_generation` processor supports only OpenAI and Amazon Bedrock models.
 {: .note}
 
-## Request fields
+## Request body fields
 
 The following table lists all available request fields.
 

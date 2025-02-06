@@ -15,23 +15,41 @@ has_children: false
 The CAT cluster manager operation lists information that helps identify the elected cluster manager node.
 
 
-## Path and HTTP methods
-
+<!-- spec_insert_start
+api: cat.cluster_manager
+component: endpoints
+-->
+## Endpoints
+```json
+GET /_cat/cluster_manager
 ```
-GET _cat/cluster_manager
-```
+<!-- spec_insert_end -->
 
-## URL parameters
 
-All CAT cluster manager URL parameters are optional.
+<!-- spec_insert_start
+api: cat.cluster_manager
+component: query_parameters
+columns: Parameter, Data type, Description, Default
+include_deprecated: false
+-->
+## Query parameters
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
+The following table lists the available query parameters. All query parameters are optional.
 
-Parameter | Type | Description
-:--- | :--- | :---
-cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
+| Parameter | Data type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `cluster_manager_timeout` | String | A timeout for connection to the cluster manager node. | N/A |
+| `format` | String | A short version of the HTTP `Accept` header, such as `json` or `yaml`. | N/A |
+| `h` | List | A comma-separated list of column names to display. | N/A |
+| `help` | Boolean | Returns help information. | `false` |
+| `local` | Boolean | Returns local information but does not retrieve the state from the cluster manager node. | `false` |
+| `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
+| `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
 
-## Example requests
+<!-- spec_insert_end -->
+
+
+## Example request
 
 ```
 GET _cat/cluster_manager?v

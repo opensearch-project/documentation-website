@@ -86,7 +86,7 @@ After initial setup, if you make changes to your security configuration or disab
 
 1. Find the `securityadmin` script. The script is typically stored in the OpenSearch plugins directory, `plugins/opensearch-security/tools/securityadmin.[sh|bat]`. 
    - Note: If you're using OpenSearch 1.x, the `securityadmin` script is located in the `plugins/opendistro_security/tools/` directory. 
-   - For more information, see [Basic usage](https://opensearch.org/docs/latest/security/configuration/security-admin/#basic-usage).
+   - For more information, see [Basic usage]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/#basic-usage).
 2. Run the script by using the following command:
    ```
     ./plugins/opensearch-security/tools/securityadmin.[sh|bat]

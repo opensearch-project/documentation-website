@@ -9,7 +9,7 @@ nav_order: 20
 
 The Get Workflow API retrieves the workflow template.   
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /_plugins/_flow_framework/workflow/<workflow_id>
