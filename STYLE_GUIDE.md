@@ -128,6 +128,7 @@ The following table lists acronyms that you don't need to spell out.
 | CSV | comma-separated values |
 | DNS | Domain Name System |
 | DOS | disk operating system |
+| Faiss | Facebook AI Similarity Search |
 | FAQ | frequently asked questions |
 | FTP | File Transfer Protocol |
 | GIF | Graphics Interchange Format |
@@ -141,8 +142,10 @@ The following table lists acronyms that you don't need to spell out.
 | JPEG | Joint Photographic Experts Group |
 | JSON | JavaScript Object Notation |
 | k-NN | k-nearest neighbors |
+| MS MARCO | Microsoft Machine Reading Comprehension |
 | NAT | network address translation |
 | NGINX | engine x |
+| NMSLIB | Non-Metric Space Library |
 | PDF | Portable Document Format |
 | RAM | random access memory |
 | REST | Representational State Transfer |
