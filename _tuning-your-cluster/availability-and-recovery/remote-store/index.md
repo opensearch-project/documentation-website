@@ -105,7 +105,7 @@ You can use remote-backed storage to:
 
 ## Benchmarks
 
-The OpenSearch Project has run remote store using multiple workload options available within the [OpenSearch Benchmark](https://opensearch.org/docs/latest/benchmark/index/) tool. This section summarizes the benchmark results for the following workloads: 
+The OpenSearch Project has run remote store using multiple workload options available within the [OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/index/) tool. This section summarizes the benchmark results for the following workloads: 
 
 - [StackOverflow](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/so)
 - [HTTP logs](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/http_logs)

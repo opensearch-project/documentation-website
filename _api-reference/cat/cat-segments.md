@@ -2,7 +2,6 @@
 layout: default
 title: CAT segments
 parent: CAT API
-
 nav_order: 55
 has_children: false
 redirect_from:
@@ -16,18 +15,39 @@ redirect_from:
 The cat segments operation lists Lucene segment-level information for each index.
 
 
-## Path and HTTP methods
-
+<!-- spec_insert_start
+api: cat.segments
+component: endpoints
+-->
+## Endpoints
 ```json
-GET _cat/segments
+GET /_cat/segments
+GET /_cat/segments/{index}
 ```
+<!-- spec_insert_end -->
 
+
+<!-- spec_insert_start
+api: cat.segments
+component: query_parameters
+columns: Parameter, Data type, Description, Default
+include_deprecated: false
+-->
 ## Query parameters
 
-Parameter | Type | Description
-:--- | :--- | :---
-bytes | Byte size | Specify the units for byte size. For example, `7kb` or `6gb`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/)..
-cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `bytes` | String | The units used to display byte values. <br> Valid values are: `b`, `kb`, `k`, `mb`, `m`, `gb`, `g`, `tb`, `t`, `pb`, `p` | N/A |
+| `cluster_manager_timeout` | String | The amount of time allowed to establish a connection to the cluster manager node. | N/A |
+| `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | N/A |
+| `h` | List | A comma-separated list of column names to display. | N/A |
+| `help` | Boolean | Returns help information. | `false` |
+| `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
+| `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
+
+<!-- spec_insert_end -->
 
 ## Example requests
 

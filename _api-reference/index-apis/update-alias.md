@@ -15,7 +15,7 @@ The Create or Update Alias API adds one or more indexes to an alias or updates t
 The Create or Update Alias API is distinct from the [Alias API]({{site.url}}{{site.baseurl}}/opensearch/rest-api/alias/), which supports the addition and removal of aliases and the removal of alias indexes. In contrast, the following API only supports adding or updating an alias without updating the index itself. Each API also uses different request body parameters.
 {: .note}
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /<target>/_alias/<alias-name>

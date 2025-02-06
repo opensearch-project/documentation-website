@@ -11,7 +11,7 @@ nav_order: 20
 
 The list shards operation outputs, in a paginated format, the state of all primary and replica shards and how they are distributed.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET _list/shards

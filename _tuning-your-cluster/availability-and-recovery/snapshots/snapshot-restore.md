@@ -68,7 +68,7 @@ Before you can take a snapshot, you have to "register" a snapshot repository. A 
    ```
   {% include copy-curl.html %}
 
-You will most likely not need to specify any parameters except for `location`. For allowed request parameters, see [Register or update snapshot repository API](https://opensearch.org/docs/latest/api-reference/snapshots/create-repository/).
+You will most likely not need to specify any parameters except for `location`. For allowed request parameters, see [Register or update snapshot repository API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-repository/).
 
 ### Amazon S3
 
@@ -108,6 +108,20 @@ You will most likely not need to specify any parameters except for `location`. F
    ```bash
    sudo ./bin/opensearch-keystore add s3.client.default.access_key
    sudo ./bin/opensearch-keystore add s3.client.default.secret_key
+   ```
+
+1. (Optional) If you're using a custom S3 endpoint (for example, MinIO), disable the Amazon EC2 metadata connection:
+
+   ```bash
+   export AWS_EC2_METADATA_DISABLED=true
+   ```
+
+   If you're installing OpenSearch using Helm, update the following settings in your values file:
+
+   ```yml
+   extraEnvs:
+     - name: AWS_EC2_METADATA_DISABLED
+       value: "true"
    ```
 
 1. (Optional) If you're using temporary credentials, add your session token:
@@ -204,7 +218,7 @@ You will most likely not need to specify any parameters except for `location`. F
    ```
    {% include copy-curl.html %}
 
-You will most likely not need to specify any parameters except for `bucket` and `base_path`. For allowed request parameters, see [Register or update snapshot repository API](https://opensearch.org/docs/latest/api-reference/snapshots/create-repository/).
+You will most likely not need to specify any parameters except for `bucket` and `base_path`. For allowed request parameters, see [Register or update snapshot repository API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-repository/).
 
 
 ### Registering a Microsoft Azure storage account using Helm 
@@ -250,7 +264,7 @@ Use the following steps to register a snapshot repository backed by an Azure sto
      azure-snapshot-storage-account-key: ### Insert base64 encoded key
    ```
 
-1. [Deploy OpenSearch using Helm](https://opensearch.org/docs/latest/install-and-configure/install-opensearch/helm/) with the following additional values. Specify the value of the storage account in the `AZURE_SNAPSHOT_STORAGE_ACCOUNT` environment variable:
+1. [Deploy OpenSearch using Helm]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/helm/) with the following additional values. Specify the value of the storage account in the `AZURE_SNAPSHOT_STORAGE_ACCOUNT` environment variable:
 
    ```yaml
    extraInitContainers:

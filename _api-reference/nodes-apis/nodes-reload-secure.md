@@ -11,7 +11,7 @@ nav_order: 50
 
 The nodes reload secure settings endpoint allows you to change secure settings on a node and reload the secure settings without restarting the node.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST _nodes/reload_secure_settings

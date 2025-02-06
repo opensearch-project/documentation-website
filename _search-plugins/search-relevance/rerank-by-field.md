@@ -116,7 +116,7 @@ POST /book-index/_search
 ```
 {% include copy-curl.html %}
 
-The response contains documents sorted in descending order based on the `reviews.starts` field. Each document contains the original query score in the `previous_score` field:
+The response contains documents sorted in descending order based on the `reviews.stars` field. Each document contains the original query score in the `previous_score` field:
 
 ```json
 {
@@ -206,3 +206,4 @@ The response contains documents sorted in descending order based on the `reviews
 ## Next steps
 
 - Learn more about the [`rerank` processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/).
+- See a comprehensive example of [reranking by a field using an externally hosted cross-encoder model]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field-cross-encoder/).
