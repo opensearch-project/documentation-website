@@ -505,6 +505,10 @@ Do not use. Use *management account* instead.
 
 Avoid. Use _can_ or _might_ instead.
 
+**MS MARCO**
+
+MS MARCO is a collection of datasets focused on deep learning in search.
+
 **multilayer, multilayered**
 
 **must, shall, should**
@@ -704,7 +708,7 @@ Do not use. Use *replica*, *secondary*, or *standby* instead.
 
 **Snapshot Management (SM)**
 
-**solid state drive (SSD)**
+**solid-state drive (SSD)**
 
 **standalone**
 
