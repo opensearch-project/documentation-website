@@ -140,14 +140,16 @@ Star-tree indexes can be used to optimize queries and aggregations.
 
 ### Supported queries
 
-The following queries are supported as of OpenSearch 2.18:
+The following queries are supported as of OpenSearch 2.19:
 
 - [Term query]({{site.url}}{{site.baseurl}}/query-dsl/term/term/)
 - [Match all docs query]({{site.url}}{{site.baseurl}}/query-dsl/match-all/)
 
-To use a query with a star-tree index, the query's fields must be present in the `ordered_dimensions` section of the star-tree configuration. Queries must also be paired with a supported aggregation. 
+To use a query in supported aggregations with a star-tree index, the query's fields must be present in the `ordered_dimensions` section of the star-tree configuration. Queries without aggregaions are not supported, they must be paired with a supported aggregation. 
 
 ### Supported aggregations
+
+#### Metric Aggregations
  
 The following metric aggregations are supported as of OpenSearch 2.18:
 - [Sum]({{site.url}}{{site.baseurl}}/aggregations/metric/sum/)
@@ -156,12 +158,12 @@ The following metric aggregations are supported as of OpenSearch 2.18:
 - [Value count]({{site.url}}{{site.baseurl}}/aggregations/metric/value-count/)
 - [Average]({{site.url}}{{site.baseurl}}/aggregations/metric/average/)
 
-To use aggregations:
+To use aggregations searchable via star-tree:
 
 - The fields must be present in the `metrics` section of the star-tree configuration.
 - The metric aggregation type must be part of the `stats` parameter.
 
-### Aggregation example
+##### Example
 
 The following example gets the sum of all the values in the `size` field for all error logs with `status=500`, using the [example mapping](#example-mapping):
 
@@ -184,6 +186,48 @@ POST /logs/_search
 ```
 
 Using a star-tree index, the result will be retrieved from a single aggregated document as it traverses the `status=500` node, as opposed to scanning through all of the matching documents. This results in lower query latency.
+
+#### Date Histogram Aggregation with Metric Aggregations
+
+[Date Histogram]({{}{}/aggregations/bucket/date-histogram/) on calendar intervals with above metric sub-aggregations is supported as of OpenSearch 2.19. 
+
+To use date histogram aggregations searchable via star-tree:
+
+- The calendar intervals in star-tree mapping configuration should have either the request calendar field or a lower granularity calendar field. For example, `month` can be resolved by star-tree from `day` field as well if present in star-tree mapping.
+- Metric sub-aggregation must be part of the aggregation request.
+
+##### Example
+
+The following example gets the sum of all the values in the `size` field aggregated for each calendar month, for all error logs with `status=500`.
+
+```json
+POST /logs/_search
+{
+  "query": {
+    "term": {
+      "status": "500"
+    }
+  },
+  "size": 0,
+  "aggs": {
+    "by_hour": {
+      "date_histogram": {
+        "field": "@timestamp",
+        "calendar_interval": "month"
+      },
+      "aggs": {
+        "sum_size": {
+          "sum": {
+            "field": "size"
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+
 
 ## Using queries without a star-tree index
 
