@@ -191,7 +191,7 @@ Using a star-tree index, the result will be retrieved from a single aggregated d
 
 #### Date Histogram Aggregation with Metric Aggregations
 
-[Date Histogram]({{}{}/aggregations/bucket/date-histogram/) on calendar intervals with above metric sub-aggregations is supported as of OpenSearch 2.19. 
+[Date Histogram]({{site.url}}{{site.baseurl}}/aggregations/bucket/date-histogram/) on calendar intervals with above metric sub-aggregations is supported as of OpenSearch 2.19. 
 
 To use date histogram aggregations searchable via star-tree:
 
