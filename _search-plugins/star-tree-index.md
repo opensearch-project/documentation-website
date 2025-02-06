@@ -143,7 +143,9 @@ Star-tree indexes can be used to optimize queries and aggregations.
 The following queries are supported as of OpenSearch 2.19:
 
 - [Term query]({{site.url}}{{site.baseurl}}/query-dsl/term/term/)
+- [Terms query]({{site.url}}{{site.baseurl}}/query-dsl/term/terms/)
 - [Match all docs query]({{site.url}}{{site.baseurl}}/query-dsl/match-all/)
+- [Range query]({{site.url}}{{site.baseurl}}/query-dsl/term/range/)
 
 To use a query in supported aggregations with a star-tree index, the query's fields must be present in the `ordered_dimensions` section of the star-tree configuration. Queries without aggregaions are not supported, they must be paired with a supported aggregation. 
 
