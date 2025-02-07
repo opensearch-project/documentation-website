@@ -37,7 +37,8 @@ PUT logs
   "settings": {
     "index.number_of_shards": 1,
     "index.number_of_replicas": 0,
-    "index.composite_index": true
+    "index.composite_index": true,
+    "index.append_only.enabled": true
   },
   "mappings": {
     "composite": {
@@ -54,6 +55,9 @@ PUT logs
             },
             {
               "name": "port"
+            },
+            {
+              "name": "method"
             }
           ],
           "metrics": [
@@ -89,6 +93,9 @@ PUT logs
       "request_size": {
         "type": "integer"
       },
+      "method" : {
+        "type": "keyword"
+      },
       "latency": {
         "type": "scaled_float",
         "scaling_factor": 10
@@ -118,8 +125,11 @@ When using the `ordered_dimesions` parameter, follow these best practices:
 
 - The order of dimensions matters. You can define the dimensions ordered from the highest cardinality to the lowest cardinality for efficient storage and query pruning. 
 - Avoid using high-cardinality fields as dimensions. High-cardinality fields adversely affect storage space, indexing throughput, and query performance.
-- Currently, fields supported by the `ordered_dimensions` parameter are all [numeric field types]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/numeric/), with the exception of `unsigned_long`. For more information, see [GitHub issue #15231](https://github.com/opensearch-project/OpenSearch/issues/15231). 
-- Support for other field types, such as `keyword` and `ip`, will be added in future versions. For more information, see [GitHub issue #16232](https://github.com/opensearch-project/OpenSearch/issues/16232).
+- Currently, supported fields in `ordered_dimensions` parameter include
+  - All numeric field types excluding `unsigned_long` and `scaled_float`
+  - keyword type
+  - object type
+- Support for other field types, such as `date` and `ip`, will be added in future versions. For more information, see [GitHub issue #13875](https://github.com/opensearch-project/OpenSearch/issues/13875).
 - A minimum of `2` and a maximum of `10` dimensions are supported per star-tree index.
 
 The `ordered_dimensions` parameter supports the following property.

@@ -26,7 +26,7 @@ A star-tree index can be used to perform faster aggregations. Consider the follo
 
 Star-tree indexes have the following limitations:
 
-- A star-tree index should only be enabled on indexes whose data is not updated or deleted because updates and deletions are not accounted for in a star-tree index.
+- A star-tree index should only be enabled on indexes whose data is not updated or deleted because updates and deletions are not accounted for in a star-tree index. This is enforced by `index.append_only.enabled` index setting.
 - A star-tree index can be used for aggregation queries only if the queried fields are a subset of the star-tree's dimensions and the aggregated fields are a subset of the star-tree's metrics.
 - After a star-tree index is enabled, it cannot be disabled. In order to disable a star-tree index, the data in the index must be reindexed without the star-tree mapping. Furthermore, changing a star-tree configuration will also require a reindex operation.
 - [Multi-values/array values]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/index/#arrays) are not supported.
@@ -68,6 +68,7 @@ To use a star-tree index, modify the following settings:
 - Set the feature flag `opensearch.experimental.feature.composite_index.star_tree.enabled` to `true`. For more information about enabling and disabling feature flags, see [Enabling experimental features]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
 - Set the `indices.composite_index.star_tree.enabled` setting to `true`. For instructions on how to configure OpenSearch, see [Configuring settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#static-settings).
 - Set the `index.composite_index` index setting to `true` during index creation.
+- Set the `index.append_only.enabled` index setting to `true` during index creation.
 - Ensure that the `doc_values` parameter is enabled for the `dimensions` and `metrics` fields used in your star-tree mapping.
 
 
@@ -81,7 +82,8 @@ PUT logs
   "settings": {
     "index.number_of_shards": 1,
     "index.number_of_replicas": 0,
-    "index.composite_index": true
+    "index.composite_index": true,
+    "index.append_only.enabled": true
   },
   "mappings": {
     "composite": {
@@ -94,6 +96,9 @@ PUT logs
             },
             {
               "name": "port"
+            },
+            {
+              "name": "method"
             }
           ],
           "metrics": [
@@ -122,6 +127,9 @@ PUT logs
       },
       "size": {
         "type": "integer"
+      },
+      "method" : {
+        "type": "keyword"
       },
       "latency": {
         "type": "scaled_float",
