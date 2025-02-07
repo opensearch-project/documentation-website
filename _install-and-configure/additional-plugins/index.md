@@ -32,7 +32,6 @@ There are many more plugins available in addition to those provided by the stand
 | repository-hdfs                                                                                                        | 1.0.0                      |
 | repository-s3                                                                                                          | 1.0.0                      |
 | store-smb                                                                                                              | 1.0.0                      |
-| transport-nio                                                                                                          | 1.0.0                      |
 
 ## Related articles
 

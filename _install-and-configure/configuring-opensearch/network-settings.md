@@ -55,5 +55,4 @@ The default OpenSearch transport is provided by the `transport-netty4` module an
 
 Plugin | Description
 :---------- | :--------
-`transport-nio`    | The OpenSearch transport based on Java NIO. <br> Installation: `./bin/opensearch-plugin install transport-nio` <br> Configuration (using `opensearch.yml`): <br> `transport.type: nio-transport` <br> `http.type: nio-http-transport`
 `transport-reactor-netty4`    | The OpenSearch HTTP transport based on [Project Reactor](https://github.com/reactor/reactor-netty) and Netty 4 (**experimental**) <br> Installation: `./bin/opensearch-plugin install transport-reactor-netty4` <br> Configuration (using `opensearch.yml`): <br> `http.type: reactor-netty4` <br> `http.type: reactor-netty4-secure`
