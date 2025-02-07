@@ -13,25 +13,55 @@ redirect_from:
 **Introduced 1.0**
 {: .label .label-purple }
 
-The cluster decommission operation adds support decommissioning based on awareness. It greatly benefits multi-zone deployments, where awareness attributes, such as `zones`, can aid in applying new upgrades to a cluster in a controlled fashion. This is especially useful during outages, in which case, you can decommission the unhealthy zone to prevent replication requests from stalling and prevent your request backlog from becoming too large.
+The Cluster decommission API adds support decommissioning based on awareness. It greatly benefits multi-zone deployments, where awareness attributes, such as `zones`, can aid in applying new upgrades to a cluster in a controlled fashion. This is especially useful during outages, in which case, you can decommission the unhealthy zone to prevent replication requests from stalling and prevent your request backlog from becoming too large.
 
 For more information about allocation awareness, see [Shard allocation awareness]({{site.url}}{{site.baseurl}}//opensearch/cluster/#shard-allocation-awareness).
 
 
+<!-- spec_insert_start
+api: cluster.get_decommission_awareness
+component: endpoints
+-->
 ## Endpoints
-
 ```json
-PUT  /_cluster/decommission/awareness/{awareness_attribute_name}/{awareness_attribute_value}
-GET  /_cluster/decommission/awareness/{awareness_attribute_name}/_status
+GET /_cluster/decommission/awareness/{awareness_attribute_name}/_status
+```
+<!-- spec_insert_end -->
+
+<!-- spec_insert_start
+api: cluster.put_decommission_awareness
+component: endpoints
+omit_header: true
+-->
+```json
+PUT /_cluster/decommission/awareness/{awareness_attribute_name}/{awareness_attribute_value}
+```
+<!-- spec_insert_end -->
+
+<!-- spec_insert_start
+api: cluster.delete_decommission_awareness
+component: endpoints
+omit_header: true
+-->
+```json
 DELETE /_cluster/decommission/awareness
 ```
+<!-- spec_insert_end -->
 
+<!-- spec_insert_start
+api: cluster.put_decommission_awareness
+component: path_parameters
+-->
 ## Path parameters
 
-Parameter | Type | Description
-:--- | :--- | :---
-awareness_attribute_name | String | The name of awareness attribute, usually `zone`.
-awareness_attribute_value | String | The value of the awareness attribute. For example, if you have shards allocated in two different zones, you can give each zone a value of `zone-a` or `zoneb`. The cluster decommission operation decommissions the zone listed in the method.
+The following table lists the available path parameters.
+
+| Parameter | Required | Data type | Description |
+| :--- | :--- | :--- | :--- |
+| `awareness_attribute_name` | **Required** | String | The name of the awareness attribute. |
+| `awareness_attribute_value` | **Required** | String | The value of the awareness attribute. |
+
+<!-- spec_insert_end -->
 
 ## Example requests
 
