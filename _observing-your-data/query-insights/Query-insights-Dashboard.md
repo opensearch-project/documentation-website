@@ -10,7 +10,7 @@ The Query Insights Dashboards Plugin for OpenSearch provides users with real-tim
 
 ---
 
-## Getting Started
+## Getting started
 
 Before you begin, ensure you have:
 
@@ -18,7 +18,7 @@ Before you begin, ensure you have:
 - Installed the Query Insights Dashboards plugin. See [Managing OpenSearch Dashboards Plugins](#).
 
 
-## Top N Queries Overview
+## Top N queries overview
 
 The **Top N Queries** page provides a detailed overview of the queries that have the highest impact on system resources or performance. It allows users to analyze query execution metrics such as latency, CPU time, memory usage, and more. 
 
@@ -27,12 +27,12 @@ Before getting started, let’s get familiar with the Dashboard UI. The UI compr
 
 ![Top N Queries Interface](../../images/Query-Insights/QueryInsights.png)
 
-### A. Navigation Tabs
+### A. Navigation tabs
 - **Top N Queries**: Displays the query metrics and details for the top queries.
 - **Configuration**: Allows users to customize the monitoring and data retention settings (covered in the [Configuration](#) section).
 
-### B. Search Queries Bar
-A search input bar to filter queries based on specific attributes such as query type, indices, or other criteria.
+### B. Search queries bar
+A search input bar to filter queries based on specific attributes such as query type, indexes, or other criteria.
 
 ### C. Filters
 Provides dropdown filters for narrowing down the query data:
@@ -40,19 +40,19 @@ Provides dropdown filters for narrowing down the query data:
 | Filter                  | Description                                                         | Example            |
 |--------------------------|---------------------------------------------------------------------|--------------------|
 | **Type**               | Filter by query type                                               | `query`, `group`   |
-| **Indices**            | Filter queries based on specific OpenSearch indices                | `index1`, `index2` |
+| **indexes**            | Filter queries based on specific OpenSearch indexes                | `index1`, `index2` |
 | **Search Type**        | Filter by search execution method                                  | `query then fetch` |
 | **Coordinator Node ID** | Focus on queries executed by a specific coordinator node           | `node-1`, `node-2` |
 | **Time Range**          | Adjust the time range for the queries displayed                    | `last 1 day`       |
 
-### D. Date Range Selector
+### D. Date range selector
 - **Show Dates**: Provides detailed timestamps for the queries.
 - Use the date range selector to analyze queries within a specific time frame (e.g., last 1 day).
 
-### E. Refresh Button
+### E. Refresh button
 - **Refresh**: Reloads the query data based on the selected filters and time range.
 
-### F. Metrics Table
+### F. Metrics table
 The table displays the following metrics for each query:
 
 | Metric               | Description                                                                 |
@@ -64,7 +64,7 @@ The table displays the following metrics for each query:
 | **Latency**          | The time taken for the query to execute                                    |
 | **CPU Time**         | The CPU resources consumed by the query                                    |
 | **Memory Usage**     | The memory usage of the query                                              |
-| **Indices**          | The index or indices on which the query was executed                      |
+| **Indexes**          | The index or indexes on which the query was executed                      |
 | **Search Type**      | The type of search execution (e.g., `query then fetch`)                   |
 | **Coordinator Node ID** | The node that coordinated the query execution                              |
 | **Total Shards**     | The total number of shards involved in executing the query                 |
@@ -85,7 +85,7 @@ This view focuses on a single query and provides detailed execution metrics and 
 Steps to View the Individual Query Details Page
 1. Navigate to Query Insights.
 2. Select Query ID marked as "query" in the list, such as 51c68a1a-7507-4b3e-aea1-32ddd74dbac4.
-3. View the Summary Section, which includes Timestamp, Latency, CPU Time, Memory Usage, Indices, Search Type, Coordinator Node ID, and Total Shards.
+3. View the Summary Section, which includes Timestamp, Latency, CPU Time, Memory Usage, indexes, Search Type, Coordinator Node ID, and Total Shards.
 4. Explore the Query Section and Latency Breakdown, which are consistent with the Query Group Details section.
 ---
 
@@ -101,13 +101,13 @@ To view Query Group Details, follow these steps:
 2. Click on a Query ID marked as a "group" in the list, such as 4751b8b6-99eb-4f38-8a5a-aa6698a451a7.
 3. View key metrics in the Aggregate Summary for Queries section, including average latency, average CPU time, and average memory usage.
 4. Check the criterion used to group the queries in the Group By section.
-5. Review information about a single representative query within the Sample Query Details section, including its timestamp, targeted indices, search execution type, coordinator node ID, and total shards involved.
+5. Review information about a single representative query within the Sample Query Details section, including its timestamp, targeted indexes, search execution type, coordinator node ID, and total shards involved.
 6. Explore the Query Section displaying the JSON structure of the query and the Latency Breakdown section presenting a graphical representation of execution phases for the query.
 
 
 ## Query Insights - Configuration
 
-The **Configuration** page is designed to give users control over how Query Insights collects, monitors, groups, and retains data. Each section of this page is outlined in detail below.
+The **Configuration** page is designed to give users control over how Query Insights collects, monitors, groups, and retains data. Each section of this page is outlined in the following.
 
 ![Configuration](../../images/Query-Insights/Configuration.png)
 ---
