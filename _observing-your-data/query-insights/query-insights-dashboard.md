@@ -63,7 +63,7 @@ The filters dropdown menus allow you to select the following query filters.
 | Filter                  | Description                                                         | Example            |
 |-------------------------|---------------------------------------------------------------------|--------------------|
 | **Type**                | Filter by query type.                                               | `query`, `group`   |
-| **Indexes**             | Filter queries based on specific OpenSearch indices.                | `index1`, `index2` |
+| **Indexes**             | Filter queries based on specific OpenSearch indexes.                | `index1`, `index2` |
 | **Search Type**         | Filter by search execution method.                                  | `query then fetch` |
 | **Coordinator Node ID** | Focus on queries executed by a specific coordinator node.           | `node-1`, `node-2` |
 | **Time Range**          | Adjust the time range for the queries displayed.                    | `last 1 day`       |
