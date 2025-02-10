@@ -159,7 +159,7 @@ To use a query in supported aggregations with a star-tree index, the query's fie
 
 ### Supported aggregations
 
-#### Metric Aggregations
+#### Metric aggregations
  
 The following metric aggregations are supported as of OpenSearch 2.18:
 - [Sum]({{site.url}}{{site.baseurl}}/aggregations/metric/sum/)
@@ -197,18 +197,18 @@ POST /logs/_search
 
 Using a star-tree index, the result will be retrieved from a single aggregated document as it traverses the `status=500` node, as opposed to scanning through all of the matching documents. This results in lower query latency.
 
-#### Date Histogram Aggregation with Metric Aggregations
+### Date histogram with metric aggregations
 
-[Date Histogram]({{site.url}}{{site.baseurl}}/aggregations/bucket/date-histogram/) on calendar intervals with above metric sub-aggregations is supported as of OpenSearch 2.19. 
+You can use [date histograms]({{site.url}}{{site.baseurl}}/aggregations/bucket/date-histogram/) on calendar intervals with metric sub-aggregations.
 
-To use date histogram aggregations searchable via star-tree:
+To use date histogram aggregations and make then searchable in the star-tree index, use the following steps:
 
-- The calendar intervals in star-tree mapping configuration should have either the request calendar field or a lower granularity calendar field. For example, `month` can be resolved by star-tree from `day` field as well if present in star-tree mapping.
-- Metric sub-aggregation must be part of the aggregation request.
+- The calendar intervals in star-tree mapping configuration should have either the request calendar field or a lower granularity calendar field. For example, `month` can be resolved by the star-tree from `day` field as well if present in star-tree mapping.
+- A metric sub-aggregation must be part of the aggregation request.
 
-##### Example
+#### Example
 
-The following example gets the sum of all the values in the `size` field aggregated for each calendar month, for all error logs with `status=500`.
+The following example gets the sum of all the values in the `size` field aggregated for each calendar month, for all error logs with `status=500`:
 
 ```json
 POST /logs/_search
