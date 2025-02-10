@@ -26,7 +26,7 @@ A star-tree index can be used to perform faster aggregations. Consider the follo
 
 Star-tree indexes have the following limitations:
 
-- A star-tree index should only be enabled on indexes whose data is not updated or deleted because updates and deletions are not accounted for in a star-tree index. This is enforced by `index.append_only.enabled` index setting.
+- A star-tree index should only be enabled on indexes whose data is not updated or deleted because updates and deletions are not accounted for in a star-tree index. To enforce this policy and use star-tree indexes, set the `index.append_only.enabled` setting to true.
 - A star-tree index can be used for aggregation queries only if the queried fields are a subset of the star-tree's dimensions and the aggregated fields are a subset of the star-tree's metrics.
 - After a star-tree index is enabled, it cannot be disabled. In order to disable a star-tree index, the data in the index must be reindexed without the star-tree mapping. Furthermore, changing a star-tree configuration will also require a reindex operation.
 - [Multi-values/array values]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/index/#arrays) are not supported.
