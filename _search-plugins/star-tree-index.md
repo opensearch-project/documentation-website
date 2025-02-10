@@ -155,7 +155,7 @@ The following queries are supported as of OpenSearch 2.19:
 - [Match all docs query]({{site.url}}{{site.baseurl}}/query-dsl/match-all/)
 - [Range query]({{site.url}}{{site.baseurl}}/query-dsl/term/range/)
 
-To use a query in supported aggregations with a star-tree index, the query's fields must be present in the `ordered_dimensions` section of the star-tree configuration. Queries without aggregaions are not supported, they must be paired with a supported aggregation. 
+To use a query in supported aggregations with a star-tree index, the query's fields must be present in the `ordered_dimensions` section of the star-tree configuration. Queries without aggregations are not supported, they must be paired with a supported aggregation. 
 
 ### Supported aggregations
 
@@ -208,14 +208,14 @@ To use date histogram aggregations and make then searchable in the star-tree ind
 
 #### Example
 
-The following example gets the sum of all the values in the `size` field aggregated for each calendar month, for all error logs with `status=500`:
+The following example gets the sum of all the values in the `size` field aggregated for each calendar month, for all error logs with `method:get`:
 
 ```json
 POST /logs/_search
 {
   "query": {
-    "term": {
-      "status": "500"
+    "method": {
+      "status": "get"
     }
   },
   "size": 0,
