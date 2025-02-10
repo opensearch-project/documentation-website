@@ -139,7 +139,7 @@ To configuring the Top N Queries settings:
 1. From the **Query insights** page, Navigate to the **Configuration** tab from the **Query insights** page.
 2. Select the metric type from **Latency, CPU Usage, or Memory**.
 3. Toggle the Enabled setting to turn Top N Queries feature on or off for the selected metric.
-4. Specify the monitoring **Window size**, determining the time duration for the query analysis.
+4. Specify the monitoring **Window size**, which determines the duration of time queries are collected for analysis. 
 5. Enter the value of **N**, which defines the number of top queries to track in each window.
 6. Select **Save**.
 7. Check the **Statuses for configuration metrics** panel to see the enabled metrics.
