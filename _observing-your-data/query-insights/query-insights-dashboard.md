@@ -15,7 +15,7 @@ The Query Insights Dashboards plugin requires [OpenSearch 2.19 or later]({{site.
 
 ## Installing the plugin
 
-To install the `query-insights-dashboards` plugin, see [Managing OpenSearch Dashboards plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/).
+To install the Query Insights Dashboards plugin, see [Managing OpenSearch Dashboards plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/).
 
 ## Navigation
 
@@ -70,7 +70,7 @@ The filters dropdown menus allow you to select the following query filters.
 
 ### D. Date range selector
 
-The **data range selector** analyze queries in a set time frame. You can also select **show dates** to provide detailed time stamps for each query.
+The **data range selector** analyze queries in a set time frame. You can also select **Show dates** to provide detailed time stamps for each query.
 
 ### E. Refresh button
 
@@ -107,7 +107,7 @@ You can access detailed information about a single query by select the Query ID,
 
 ![Individual Query Details](../../images/Query-Insights/IndividualQueryDetails.png)
 
-In the query details view, you can view the following information such as **Timestamp**, **CPU Time**, **Memory Usage**, **indexes**, **Search Type**, **Coordinator Node ID**, and **Total Shards**.
+In the query details view, you can view the following information such as **Timestamp**, **CPU Time**, **Memory Usage**, **Indexes**, **Search Type**, **Coordinator Node ID**, and **Total Shards**.
 
 ### Viewing query group details
 
@@ -117,8 +117,8 @@ To view query group details, select a Query ID marked as a "group" in the **Top 
 
 ![Query Group Details](../../images/Query-Insights/GroupQueryDetails.png)
 
-- The **Aggregate Summary for Queries** section, gives a view of key query metrics for the entire group, including **average latency**, **average CPU time**, **average memory usage**, and, **Group by** criteria.
-- The **Sample query details** section provides information about a single representative query including its **timestamp**, **indexes**, **Search Type**, **Coordinator Node ID**, and the **Total Shards**.
+- The **Aggregate summary for Qqeries** section, gives a view of key query metrics for the entire group, including **Average latency**, **Average CPU time**, **Average memory usage**, and, **Group by** criteria.
+- The **Sample query details** section provides information about a single representative query including its **Timestamp**, **Indexes**, **Search Type**, **Coordinator Node ID**, and the **Total Shards**.
 - The **Query** section displays the JSON structure of the query. 
 - The **Latency Breakdown** section presents a graphical representation of the run phases for the query.
 
@@ -128,7 +128,7 @@ The **Query insights - Configuration** page is designed to gives you control ove
 
 ![Configuration](../../images/Query-Insights/Configuration.png)
 
-On the page, you can configure the following settings.
+On configuration page, you can configure the following settings.
 
 ### Top N queries monitoring
 
@@ -168,7 +168,7 @@ To configuring data export and retention, use the **Query insights export and da
 When configuring the query insights feature, remember the following best practices:
 
 - Begin with a smaller value for N (count) and increase it based on your system's load.
-- Set a larger time window to analyze queries over a longer duration for more comprehensive insights.
+- For more comprehensive query insights, set a larger time window to analyze queries over a longer duration.
 - When setting the retention periods for insight data, consider a shorter retention period that saves storage but reduces long-term insights.
 - Enable metrics based on your monitoring needs. Monitoring fewer metrics prevents system overload.
 
