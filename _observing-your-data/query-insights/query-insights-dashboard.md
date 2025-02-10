@@ -7,7 +7,7 @@ nav_order: 60
 
 # Query insights dashboards
 
-You can interact with the query insights feature using the Query Insights Dashboards plugin. This plugin gives you real-time  nd historical insights into query performance, providing analytics, and monitoring to improve how queries are run in your cluster.
+You can interact with the query insights feature using the Query Insights Dashboards plugin. This plugin gives you real-time and historical insights into query performance, providing analytics, and monitoring to improve how queries are run in your cluster.
 
 ## Prerequisites
 
