@@ -72,9 +72,6 @@ The filters dropdown menus allow you to select the following query filters.
 
 The **data range selector** analyze queries in a set time frame. You can also select **show dates** to provide detailed time stamps for each query.
 
-- **Show Dates**: Provides detailed timestamps for the queries.
-- Use the date range selector to analyze queries within a specific time frame (e.g., last 1 day).
-
 ### E. Refresh button
 
 The **Refresh** option reloads the query data based on the selected filters and time range.
