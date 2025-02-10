@@ -1,162 +1,179 @@
 ---
-title: Query Insights dashboards and visualizations
+title: Query insights dashboards and visualizations
 layout: default
-parent: Observing Your Data
+parent: Query insights
+nav_order: 60
 ---
 
-# Query Insights dashboards and visualizations
+# Query insights dashboards
 
-The Query Insights Dashboards Plugin for OpenSearch provides users with real-time insights into query performance, offering tools to analyze and monitor query execution effectively.
+You can interact with the query insights feature using the Query Insights Dashboards plugin. This plugin gives you real-time insights into query performance, providing analytics, and monitoring to improve how queries are run in your cluster.
 
----
+## Prerequisites
 
-## Getting started
+The Query Insights Dashboards plugin requires [OpenSearch 2.19 or later]({{site.url}}{{site.baseurl}}/install-and-configure/). 
 
-Before you begin, ensure you have:
+## Installing the plugin
 
-- Installed OpenSearch and OpenSearch Dashboards version 2.19 or later. See [Installing OpenSearch](#).
-- Installed the Query Insights Dashboards plugin. See [Managing OpenSearch Dashboards Plugins](#).
+To install the `query-insights-dashboards` plugin, use the following command:
+
+```bash
+sudo bin/opensearch-dashboards-plugin install query-insights-dashboards
+```
+
+## Navigation
+
+After logging in to OpenSearch Dashboards, find the Query Insights page by navigating to **OpenSearch Plugins** > **Query Insights**.
+
+The **Query insights** page contains the following pages
+
+- [Top N queries](#top-n-queries): Displays the query metrics and details for the top queries.
+- [Query details](#query-details): Displays details for individual queries and query groups.
+- [Configuration](#configuration): Customizes all monitoring and data retention settings for the query insights feature.
 
 
-## Top N queries overview
+## Top N queries
 
-The **Top N Queries** page provides a detailed overview of the queries that have the highest impact on system resources or performance. It allows users to analyze query execution metrics such as latency, CPU time, memory usage, and more. 
+The **Top N Queries** page provides a detailed overview of the queries that have the highest impact on system resources or performance. There, you can analyze query metrics such as latency, CPU time, and memory usage.
 
-
-Before getting started, let’s get familiar with the Dashboard UI. The UI comprises the following main components:
+The following image of the **Top N Queries** page contains letter labels for each correspond component:
 
 ![Top N Queries Interface](../../images/Query-Insights/QueryInsights.png)
 
+Each label corresponds with the following components:
+
+- [A. Navigation tabs](#a-navigation-tabs)
+- [B. Search queries bar](#b-search-queries-bar)
+- [C. Filters](#c-filters)
+- [D. Date range selector](#d-date-range-selector)
+- [E. Refresh button](#e-refresh-button)
+- [F. Metrics table](#f-metrics-table)
+
 ### A. Navigation tabs
-- **Top N Queries**: Displays the query metrics and details for the top queries.
-- **Configuration**: Allows users to customize the monitoring and data retention settings (covered in the [Configuration](#) section).
+
+The navigation tabs allow you to switch between the Configuration and Top N Queries pages.
 
 ### B. Search queries bar
-A search input bar to filter queries based on specific attributes such as query type, indexes, or other criteria.
+
+The search queries bar filters queries based on specific attributes such as **query type** or **indices**. You can use additional filters as shown in the [filters](#c-filters) section.
 
 ### C. Filters
-Provides dropdown filters for narrowing down the query data:
+
+The filters dropdown menus allow you to select the following query filters.
 
 | Filter                  | Description                                                         | Example            |
-|--------------------------|---------------------------------------------------------------------|--------------------|
-| **Type**               | Filter by query type                                               | `query`, `group`   |
-| **indexes**            | Filter queries based on specific OpenSearch indexes                | `index1`, `index2` |
-| **Search Type**        | Filter by search execution method                                  | `query then fetch` |
-| **Coordinator Node ID** | Focus on queries executed by a specific coordinator node           | `node-1`, `node-2` |
-| **Time Range**          | Adjust the time range for the queries displayed                    | `last 1 day`       |
+|-------------------------|---------------------------------------------------------------------|--------------------|
+| **Type**                | Filter by query type.                                               | `query`, `group`   |
+| **Indices**             | Filter queries based on specific OpenSearch indices.                | `index1`, `index2` |
+| **Search Type**         | Filter by search execution method.                                  | `query then fetch` |
+| **Coordinator Node ID** | Focus on queries executed by a specific coordinator node.           | `node-1`, `node-2` |
+| **Time Range**          | Adjust the time range for the queries displayed.                    | `last 1 day`       |
 
 ### D. Date range selector
+
+The **data range selector** analyze queries in a set time frame. You can also select **show dates** to provide detailed time stamps for each query.
+
 - **Show Dates**: Provides detailed timestamps for the queries.
 - Use the date range selector to analyze queries within a specific time frame (e.g., last 1 day).
 
 ### E. Refresh button
-- **Refresh**: Reloads the query data based on the selected filters and time range.
+
+The **Refresh** option reloads the query data based on the selected filters and time range.
 
 ### F. Metrics table
+
 The table displays the following metrics for each query:
 
-| Metric               | Description                                                                 |
-|-----------------------|-----------------------------------------------------------------------------|
-| **ID**               | Unique identifier for the query                                            |
-| **Type**             | The type of query (e.g., `query`, `group`)                                 |
-| **Query Count**      | The number of times the query has been executed                            |
-| **Timestamp**        | When the query was executed                                                |
-| **Latency**          | The time taken for the query to execute                                    |
-| **CPU Time**         | The CPU resources consumed by the query                                    |
-| **Memory Usage**     | The memory usage of the query                                              |
-| **Indexes**          | The index or indexes on which the query was executed                      |
-| **Search Type**      | The type of search execution (e.g., `query then fetch`)                   |
-| **Coordinator Node ID** | The node that coordinated the query execution                              |
-| **Total Shards**     | The total number of shards involved in executing the query                 |
+| Metric                  | Description                                                                 |
+|-------------------------|-----------------------------------------------------------------------------|
+| **ID**                  | The unique identifier for the query                                         |
+| **Type**                | The type of query, such as `query`or `group`.                               |
+| **Query Count**         | The number of times the query has been executed.                            |
+| **Timestamp**           | When the query was ran.                                                     |
+| **Latency**             | The time taken for the query to execute.                                    |
+| **CPU Time**            | The CPU resources consumed by the query.                                    |
+| **Memory Usage**        | The memory usage of the query.                                              |
+| **Indices**             | The index or indices on which the query was executed.                       |
+| **Search Type**         | The type of search used, for example, `query then fetch`.                   |
+| **Coordinator Node ID** | The node that coordinated the query.                                        |
+| **Total Shards**        | The total number of shards involved in running the query.                    |
 
 
-## Query Details
+## Query details
 
 The **Query Details** page in OpenSearch Dashboards provides insights into query behavior, performance, and structure. This page can have two variations based on the context:
 
 ![Query Insights List](../../images/Query-Insights/Querieslist.png)
 
-### Viewing Query Individual Details
+### Viewing individual query details
 
-This view focuses on a single query and provides detailed execution metrics and insights. 
+You can access detailed information about a single query by select the Query ID, such as `51c68a1a-7507-4b3e-aea1-32ddd74dbac4`. The query details page will appear, as shown in the following image:
 
 ![Individual Query Details](../../images/Query-Insights/IndividualQueryDetails.png)
 
-Steps to View the Individual Query Details Page
-1. Navigate to Query Insights.
-2. Select Query ID marked as "query" in the list, such as 51c68a1a-7507-4b3e-aea1-32ddd74dbac4.
-3. View the Summary Section, which includes Timestamp, Latency, CPU Time, Memory Usage, indexes, Search Type, Coordinator Node ID, and Total Shards.
-4. Explore the Query Section and Latency Breakdown, which are consistent with the Query Group Details section.
----
+In the query details view, you can view the following information such as **Timestamp**, **CPU Time**, **Memory Usage**, **Indices**, **Search Type**, **Coordinator Node ID**, and **Total Shards**.
 
-### Viewing Query Group Details
+### Viewing query group details
 
-![Query Group Details](../../images/Query-Insights/GroupQueryDetails.png)
+This query group details view provides insights into aggregated metrics for a group of similar queries.
 
-This view provides insights into aggregated metrics for a group of similar queries.
+To view query group details, select a Query ID marked as a "group" in the **Top N queries** list. In the query group details view, you can view the following information:
 
-To view Query Group Details, follow these steps:
+- The **Aggregate Summary for Queries** section, gives a view of key query metrics for the entire group, including **average latency**, **average CPU time**, **average memory usage**, and, **Group by** criteria.
+- The **Sample query details** section provides information about a single representative query including its **timestamp**, **Indices**, **Search Type**, **Coordinator Node ID**, and the **Total Shards**.
+- The **Query** section displays the JSON structure of the query. 
+- The **Latency Breakdown** section presents a graphical representation of the run phases for the query.
 
-1. Navigate to the Query Insights section.
-2. Click on a Query ID marked as a "group" in the list, such as 4751b8b6-99eb-4f38-8a5a-aa6698a451a7.
-3. View key metrics in the Aggregate Summary for Queries section, including average latency, average CPU time, and average memory usage.
-4. Check the criterion used to group the queries in the Group By section.
-5. Review information about a single representative query within the Sample Query Details section, including its timestamp, targeted indexes, search execution type, coordinator node ID, and total shards involved.
-6. Explore the Query Section displaying the JSON structure of the query and the Latency Breakdown section presenting a graphical representation of execution phases for the query.
+## Configuration
 
-
-## Query Insights - Configuration
-
-The **Configuration** page is designed to give users control over how Query Insights collects, monitors, groups, and retains data. Each section of this page is outlined in the following.
+The **Query insights - Configuration** page is designed to gives you control over how query insights collects, monitors, groups, and retains data. The following image shows the configuration page:
 
 ![Configuration](../../images/Query-Insights/Configuration.png)
----
 
-### Configuring Top N Queries Monitoring Settings
+On the page, you can configure the following settings.
 
-The **Top N Queries Monitoring** workflow allows you to track query performance metrics such as **Latency, CPU Usage, and Memory** to analyze and optimize query performance. The configuration interface provides a structured, menu-driven setup where you can define the specific metrics to monitor, set thresholds for analysis, and customize monitoring durations.
+### Top N queries monitoring
 
-To configuring Top N Queries Monitoring Settings:
+The **Top n queries monitoring configuration settings** allows you to track query performance metrics, such as **Latency, CPU Usage, and Memory**, to analyze and optimize query performance. The configuration interface provides a structured, menu-driven setup where you can define the specific metrics to monitor, set thresholds for analysis, and customize monitoring durations.
 
-1. Navigate to the **Configuration** tab from the **Query Insights Dashboards Overview**.
+To configuring the Top N Queries settings:
+
+1. From the **Query insights** page, Navigate to the **Configuration** tab from the **Query insights** page.
 2. In the **Dashboards** window, select **Create**, then choose **Dashboard**.
 3. Select the metric type from **Latency, CPU Usage, or Memory**.
 4. Toggle the **Enabled** setting to turn monitoring on or off for the selected metric.
 5. Enter the value of **N**, which defines the number of top queries to track.
-6. Specify the **monitoring window size**, determining the time duration for analysis.
-7. Click **Save Monitoring Settings** to apply the changes.
-8. After enabling the selected metric, check the **Status Panel** to confirm whether the metric is enabled or disabled.
+6. Specify the monitoring **Window size**, determining the time duration for the query analysis.
+7. Select **Save**.
+8. Check the **Statuses for configuration metrics** panel to see the enabled metrics.
 
----
+### Top N queries grouping 
 
-### Configuring Top N Queries Grouping Configuration Settings
+The **Top n queries group configuration settings** sets the grouping settings for queries.
 
-The **Top N Queries Grouping** feature allows users to group monitored queries based on specific attributes. 
+You can set the following specific grouping attributes using these steps.
 
-Continuing with the grouping of the monitored queries by specific attributes by following these steps:
+1. Select a grouping option under **Group By**, such as **Similarity**.
+2. Select **Save**.
+3. Check the **Statues for group by** panel to see if **Group by** criteria is enabled.
 
-1. Navigate to the **Query Grouping Settings** panel.
-2. Select a grouping option under **Group By** (e.g., **Similarity**).
-3. Check the **Status Panel** to confirm that the grouping is enabled.
-4. Once enabled, queries will be grouped based on the selected attribute.
+### Data export and retention
 
----
+To configuring data export and retention, use the **Query insights export and data retention settings** panel. There, you can set the following settings:
 
-### Configuring Data Export and Retention
+1. Under **Exporter**, choose a destination where to export the insight data, such as **Local index**.
+2. Set the **Delete After (days)** field with a data retention period.
+3. Select **Save**.
+4. In the **Statuses for data retention** panel, make sure that the **Exporter** setting is enabled.
 
-To configuring Data Export and Retention Settings:
+### Configuration best practices
 
-1. Navigate  to the **Query Insights Export and retention Grouping Settings** panel.
-2. Select an Exporter and choose a destination (local index). Click Save.
-3. Set the Delete After (days) field with a retention period and click Save.
-4. Verify that Data Retention and Export Status is set to Enabled.
----
+When configuring the query insights feature, remember the following best practices:
 
-Best Practices
-1. Begin with a smaller value for N (count) and increase it based on system load.
-2. while setting Appropriate Retention Periods consider Shorter retention that saves storage but reduces long-term insights.
-3. Enable Metrics Based on Need Tracking fewer metrics prevents system overload.
+- Begin with a smaller value for N (count) and increase it based on your system's load.
+- When setting the retention periods for insight data, consider a shorter retention period that saves storage but reduces long-term insights.
+- Enable metrics based on your monitoring needs. Monitoring fewer metrics prevents system overload.
 
----
+
 
 
