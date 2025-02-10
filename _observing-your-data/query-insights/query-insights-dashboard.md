@@ -19,7 +19,10 @@ To install the `query-insights-dashboards` plugin, see [Managing OpenSearch Dash
 
 ## Navigation
 
-After logging in to OpenSearch Dashboards, find the Query Insights page by navigating to **OpenSearch Plugins** > **Query Insights**.
+After logging in to OpenSearch Dashboards, you can find the Query Insights page by navigating to **OpenSearch Plugins** > **Query Insights**. 
+
+If you have [multiple data sources]({{site.url}}{{site.baseurl}}/dashboards/management/multi-data-sources/) enabled, the Query insights page can be found by navigating to **Data administration** > **Performance** > **Query insights**.
+{: .note}
 
 The **Query insights** dashboard contains the following pages:
 
