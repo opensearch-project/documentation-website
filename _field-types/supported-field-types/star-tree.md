@@ -141,7 +141,8 @@ When using the `ordered_dimesions` parameter, follow these best practices:
   - All numeric field types excluding `unsigned_long` and `scaled_float`.
   - `keyword` 
   - `object`
-- Support for other field types, such as `date` and `ip`, will be added in future versions. For more information, see [GitHub issue #13875](https://github.com/opensearch-project/OpenSearch/issues/13875).
+  - `date` on the following calendar intervals: `year` (of era), `quarter` (of year), `month` (of year), `week` (of week based year), `day` (of month), `hour` (of day), `half-hour` (of day), `quater-hour` (of day), `minute` (of hour), `second` (of minute). A maximum of 3 calendar intervals can be provided with `date` field type.
+- Support for other field types, such as `ip`, will be added in future versions. For more information, see [GitHub issue #13875](https://github.com/opensearch-project/OpenSearch/issues/13875).
 
 The `ordered_dimensions` parameter supports the following property.
 
