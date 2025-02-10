@@ -203,7 +203,7 @@ You can use [date histograms]({{site.url}}{{site.baseurl}}/aggregations/bucket/d
 
 To use date histogram aggregations and make then searchable in the star-tree index, use the following steps:
 
-- The calendar intervals in star-tree mapping configuration should have either the request calendar field or a lower granularity calendar field. For example, `month` can be resolved by the star-tree from `day` field as well if present in star-tree mapping.
+- The calendar intervals in a star-tree mapping configuration can have either the request's calendar field or a field of lower granularity than the request field. For example, if an aggregation uses the `month` field, the star-tree search can still use lower granularity fields such as `day`.
 - A metric sub-aggregation must be part of the aggregation request.
 
 #### Example
