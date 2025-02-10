@@ -1,5 +1,5 @@
 ---
-title: Query insights dashboards and visualizations
+title: Query insights dashboards
 layout: default
 parent: Query insights
 nav_order: 60
