@@ -117,7 +117,7 @@ To view query group details, select a Query ID marked as a "group" in the **Top 
 
 ![Query Group Details](../../images/Query-Insights/GroupQueryDetails.png)
 
-- The **Aggregate summary for Qqeries** section, gives a view of key query metrics for the entire group, including **Average latency**, **Average CPU time**, **Average memory usage**, and, **Group by** criteria.
+- The **Aggregate summary for Queries** section, gives a view of key query metrics for the entire group, including **Average latency**, **Average CPU time**, **Average memory usage**, and, **Group by** criteria.
 - The **Sample query details** section provides information about a single representative query including its **Timestamp**, **Indexes**, **Search Type**, **Coordinator Node ID**, and the **Total Shards**.
 - The **Query** section displays the JSON structure of the query. 
 - The **Latency Breakdown** section presents a graphical representation of the run phases for the query.
