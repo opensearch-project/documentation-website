@@ -15,11 +15,7 @@ The Query Insights Dashboards plugin requires [OpenSearch 2.19 or later]({{site.
 
 ## Installing the plugin
 
-To install the `query-insights-dashboards` plugin, use the following command:
-
-```bash
-sudo bin/opensearch-dashboards-plugin install query-insights-dashboards
-```
+To install the `query-insights-dashboards` plugin, see [Managing OpenSearch Dashboards plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/).
 
 ## Navigation
 
