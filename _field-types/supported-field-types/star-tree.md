@@ -58,6 +58,13 @@ PUT logs
             },
             {
               "name": "method"
+            },
+            {
+              "name": "@timestamp",
+                "calendar_intervals": [
+                  "month",
+                  "day"
+              ]
             }
           ],
           "metrics": [
@@ -84,6 +91,10 @@ PUT logs
       }
     },
     "properties": {
+      "@timestamp": {
+        "format": "strict_date_optional_time||epoch_second",
+        "type": "date"
+      },
       "status": {
         "type": "integer"
       },
