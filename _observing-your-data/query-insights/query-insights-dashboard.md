@@ -168,9 +168,10 @@ To configuring data export and retention, use the **Query insights export and da
 When configuring the query insights feature, remember the following best practices:
 
 - Begin with a smaller value for N (count) and increase it based on your system's load.
+- Set a larger time window to analyze queries over a longer duration for more comprehensive insights.
 - When setting the retention periods for insight data, consider a shorter retention period that saves storage but reduces long-term insights.
 - Enable metrics based on your monitoring needs. Monitoring fewer metrics prevents system overload.
-- Configure a larger time window for more comprehensive insights.
+
 
 
 
