@@ -55,7 +55,7 @@ The navigation tabs allow you to switch between the Configuration and Top N Quer
 
 ### B. Search queries bar
 
-The search queries bar filters queries based on specific attributes such as **query type** or **indices**. You can use additional filters as shown in the [filters](#c-filters) section.
+The search queries bar filters queries based on specific attributes such as **query type** or **indexes**. You can use additional filters as shown in the [filters](#c-filters) section.
 
 ### C. Filters
 
@@ -64,7 +64,7 @@ The filters dropdown menus allow you to select the following query filters.
 | Filter                  | Description                                                         | Example            |
 |-------------------------|---------------------------------------------------------------------|--------------------|
 | **Type**                | Filter by query type.                                               | `query`, `group`   |
-| **Indices**             | Filter queries based on specific OpenSearch indices.                | `index1`, `index2` |
+| **Indexes**             | Filter queries based on specific OpenSearch indices.                | `index1`, `index2` |
 | **Search Type**         | Filter by search execution method.                                  | `query then fetch` |
 | **Coordinator Node ID** | Focus on queries executed by a specific coordinator node.           | `node-1`, `node-2` |
 | **Time Range**          | Adjust the time range for the queries displayed.                    | `last 1 day`       |
@@ -93,7 +93,7 @@ The table displays the following metrics for each query:
 | **Latency**             | The time taken for the query to execute.                                    |
 | **CPU Time**            | The CPU resources consumed by the query.                                    |
 | **Memory Usage**        | The memory usage of the query.                                              |
-| **Indices**             | The index or indices on which the query was executed.                       |
+| **Indexes**             | The index or indexes on which the query was executed.                       |
 | **Search Type**         | The type of search used, for example, `query then fetch`.                   |
 | **Coordinator Node ID** | The node that coordinated the query.                                        |
 | **Total Shards**        | The total number of shards involved in running the query.                    |
@@ -111,7 +111,7 @@ You can access detailed information about a single query by select the Query ID,
 
 ![Individual Query Details](../../images/Query-Insights/IndividualQueryDetails.png)
 
-In the query details view, you can view the following information such as **Timestamp**, **CPU Time**, **Memory Usage**, **Indices**, **Search Type**, **Coordinator Node ID**, and **Total Shards**.
+In the query details view, you can view the following information such as **Timestamp**, **CPU Time**, **Memory Usage**, **indexes**, **Search Type**, **Coordinator Node ID**, and **Total Shards**.
 
 ### Viewing query group details
 
@@ -120,7 +120,7 @@ This query group details view provides insights into aggregated metrics for a gr
 To view query group details, select a Query ID marked as a "group" in the **Top N queries** list. In the query group details view, you can view the following information:
 
 - The **Aggregate Summary for Queries** section, gives a view of key query metrics for the entire group, including **average latency**, **average CPU time**, **average memory usage**, and, **Group by** criteria.
-- The **Sample query details** section provides information about a single representative query including its **timestamp**, **Indices**, **Search Type**, **Coordinator Node ID**, and the **Total Shards**.
+- The **Sample query details** section provides information about a single representative query including its **timestamp**, **indexes**, **Search Type**, **Coordinator Node ID**, and the **Total Shards**.
 - The **Query** section displays the JSON structure of the query. 
 - The **Latency Breakdown** section presents a graphical representation of the run phases for the query.
 
