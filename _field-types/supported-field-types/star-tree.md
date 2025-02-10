@@ -125,12 +125,12 @@ When using the `ordered_dimesions` parameter, follow these best practices:
 
 - The order of dimensions matters. You can define the dimensions ordered from the highest cardinality to the lowest cardinality for efficient storage and query pruning. 
 - Avoid using high-cardinality fields as dimensions. High-cardinality fields adversely affect storage space, indexing throughput, and query performance.
-- Currently, supported fields in `ordered_dimensions` parameter include
-  - All numeric field types excluding `unsigned_long` and `scaled_float`
-  - keyword type
-  - object type
-- Support for other field types, such as `date` and `ip`, will be added in future versions. For more information, see [GitHub issue #13875](https://github.com/opensearch-project/OpenSearch/issues/13875).
 - A minimum of `2` and a maximum of `10` dimensions are supported per star-tree index.
+- The `ordered_dimensions` parameter supports the following field types:
+  - All numeric field types excluding `unsigned_long` and `scaled_float`.
+  - `keyword` 
+  - `object`
+- Support for other field types, such as `date` and `ip`, will be added in future versions. For more information, see [GitHub issue #13875](https://github.com/opensearch-project/OpenSearch/issues/13875).
 
 The `ordered_dimensions` parameter supports the following property.
 
