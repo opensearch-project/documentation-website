@@ -25,7 +25,7 @@ sudo bin/opensearch-dashboards-plugin install query-insights-dashboards
 
 After logging in to OpenSearch Dashboards, find the Query Insights page by navigating to **OpenSearch Plugins** > **Query Insights**.
 
-The **Query insights** page contains the following pages
+The **Query insights** dashboard contains the following pages:
 
 - [Top N queries](#top-n-queries): Displays the query metrics and details for the top queries.
 - [Query details](#query-details): Displays details for individual queries and query groups.
@@ -34,9 +34,9 @@ The **Query insights** page contains the following pages
 
 ## Top N queries
 
-The **Top N Queries** page provides a detailed overview of the queries that have the highest impact on system resources or performance. There, you can analyze query metrics such as latency, CPU time, and memory usage.
+The **Top N queries** page provides a detailed overview of the queries that have the highest impact on system resources or performance. There, you can analyze query metrics such as **latency**, **CPU time**, and **memory usage**.
 
-The following image of the **Top N Queries** page contains letter labels for each correspond component:
+The following image of the **Top N Queries** page contains letter labels for each component:
 
 ![Top N Queries Interface](../../images/Query-Insights/QueryInsights.png)
 
