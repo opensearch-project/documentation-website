@@ -7,7 +7,7 @@ nav_order: 60
 
 # Query insights dashboards
 
-You can interact with the query insights feature using the Query Insights Dashboards plugin. This plugin gives you real-time insights into query performance, providing analytics, and monitoring to improve how queries are run in your cluster.
+You can interact with the query insights feature using the Query Insights Dashboards plugin. This plugin gives you real-time  and historical insights into query performance, providing analytics, and monitoring to improve how queries are run in your cluster.
 
 ## Prerequisites
 
@@ -118,6 +118,8 @@ This query group details view provides insights into aggregated metrics for a gr
 
 To view query group details, select a Query ID marked as a "group" in the **Top N queries** list. In the query group details view, you can view the following information:
 
+![Query Group Details](../../images/Query-Insights/GroupQueryDetails.png)
+
 - The **Aggregate Summary for Queries** section, gives a view of key query metrics for the entire group, including **average latency**, **average CPU time**, **average memory usage**, and, **Group by** criteria.
 - The **Sample query details** section provides information about a single representative query including its **timestamp**, **indexes**, **Search Type**, **Coordinator Node ID**, and the **Total Shards**.
 - The **Query** section displays the JSON structure of the query. 
@@ -138,13 +140,12 @@ The **Top n queries monitoring configuration settings** allows you to track quer
 To configuring the Top N Queries settings:
 
 1. From the **Query insights** page, Navigate to the **Configuration** tab from the **Query insights** page.
-2. In the **Dashboards** window, select **Create**, then choose **Dashboard**.
-3. Select the metric type from **Latency, CPU Usage, or Memory**.
-4. Toggle the **Enabled** setting to turn monitoring on or off for the selected metric.
-5. Enter the value of **N**, which defines the number of top queries to track.
-6. Specify the monitoring **Window size**, determining the time duration for the query analysis.
-7. Select **Save**.
-8. Check the **Statuses for configuration metrics** panel to see the enabled metrics.
+2. Select the metric type from **Latency, CPU Usage, or Memory**.
+3. Toggle the Enabled setting to turn Top N Queries feature on or off for the selected metric.
+4. Specify the monitoring **Window size**, determining the time duration for the query analysis.
+5. Enter the value of **N**, which defines the number of top queries to track in each window.
+6. Select **Save**.
+7. Check the **Statuses for configuration metrics** panel to see the enabled metrics.
 
 ### Top N queries grouping 
 
@@ -172,6 +173,7 @@ When configuring the query insights feature, remember the following best practic
 - Begin with a smaller value for N (count) and increase it based on your system's load.
 - When setting the retention periods for insight data, consider a shorter retention period that saves storage but reduces long-term insights.
 - Enable metrics based on your monitoring needs. Monitoring fewer metrics prevents system overload.
+- Configure a larger time window for more comprehensive insights.
 
 
 
