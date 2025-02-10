@@ -52,17 +52,18 @@ OpenSearch provides an integrated  vector database that can support AI systems
 </span>
 
 ---
+## Explore vector search documentation
 
-## Bring your own vectors
+Choose one of the following learning paths to explore vector search documentation.
 
-If you’ve already generated your own vector embeddings, OpenSearch makes it easy to ingest and search them. Follow this documentation sequence to get started:
+### Learning path: Bring your own vectors
+
+If you’ve already generated your own vector embeddings, OpenSearch makes it easy to ingest and search them. Follow this documentation sequence to learn more:
 
 {% include list.html list_items=page.raw_steps%}
 
---- 
+### Learning path: Seamless text-to-embedding search
 
-## Seamless text-to-embedding search
-
-Simplify your search process by letting OpenSearch handle embedding generation. Follow this documentation sequence to get started:
+Simplify your search process by letting OpenSearch handle embedding generation. Follow this documentation sequence to learn more:
 
 {% include list.html list_items=page.ml_steps%}
