@@ -42,6 +42,9 @@ GET shakespeare/_search
 ```
 {% include copy-curl.html %}
 
+In OpenSearch 2.x and previous versions, every (alphabetic) character in such a query doubles the complexity of the search, consuming heap memory and potentially crashing nodes due to high CPU with GC thrashing. Even a relatively short search term (about 16 characters) could result in nearly 8 GB of heap. Case-insensitive searches should be avoided by using a [lowercase token filter]({{site.url}}{{site.baseurl}}/analyzers/token-filters/lowercase/) on the indexed field's analyzer, and then using lowercase query terms instead of relying on case-insensitive searches.
+{: .warning}
+
 The response contains the matching documents despite any differences in case:
 
 ```json
