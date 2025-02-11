@@ -137,19 +137,31 @@ When using the `ordered_dimesions` parameter, follow these best practices:
 - The order of dimensions matters. You can define the dimensions ordered from the highest cardinality to the lowest cardinality for efficient storage and query pruning. 
 - Avoid using high-cardinality fields as dimensions. High-cardinality fields adversely affect storage space, indexing throughput, and query performance.
 - A minimum of `2` and a maximum of `10` dimensions are supported per star-tree index.
-- The `ordered_dimensions` parameter supports the following field types:
+
+The `ordered_dimensions` parameter supports the following field types:
+
   - All numeric field types excluding `unsigned_long` and `scaled_float`.
   - `keyword` 
   - `object`
-  - `date` on the following calendar intervals: `year` (of era), `quarter` (of year), `month` (of year), `week` (of week based year), `day` (of month), `hour` (of day), `half-hour` (of day), `quater-hour` (of day), `minute` (of hour), `second` (of minute). A maximum of 3 calendar intervals can be provided with `date` field type.
-- Support for other field types, such as `ip`, will be added in future versions. For more information, see [GitHub issue #13875](https://github.com/opensearch-project/OpenSearch/issues/13875).
+  - `date` which can use up to three of following calendar intervals:
+    - `year` (of era)
+    - `quarter` (of year)
+    - `month` (of year)
+    - `week` (of week based year)
+    - `day` (of month)
+    - `hour` (of day)
+    - `half-hour` (of day)
+    - `quater-hour` (of day)
+    - `minute` (of hour)
+    - `second` (of minute)
+
+Support for other field types, such as `ip`, will be added in future versions. For more information, see [GitHub issue #13875](https://github.com/opensearch-project/OpenSearch/issues/13875).
 
 The `ordered_dimensions` parameter supports the following property.
 
 | Parameter  | Required/Optional | Description  | 
 | :--- | :--- | :--- |
 | `name` | Required | The name of the field. The field name should be present in the `properties` section as part of the index `mapping`. Ensure that the `doc_values` setting is `enabled` for any associated fields. |
-
 
 ### Metrics
 
