@@ -155,9 +155,11 @@ The following queries are supported as of OpenSearch 2.19:
 - [Match all docs query]({{site.url}}{{site.baseurl}}/query-dsl/match-all/)
 - [Range query]({{site.url}}{{site.baseurl}}/query-dsl/term/range/)
 
-To use a query in supported aggregations with a star-tree index, the query's fields must be present in the `ordered_dimensions` section of the star-tree configuration. Queries without aggregations are not supported, they must be paired with a supported aggregation. 
+To use a query with a star-tree index, the query's fields must be present in the `ordered_dimensions` section of the star-tree configuration.  Also, queries must be paired with a supported aggregation. Queries without aggregations cannot be used with a star-tree index.
 
 ### Supported aggregations
+
+The following aggregations are supported by star-tree indexes.
 
 #### Metric aggregations
  
@@ -168,7 +170,7 @@ The following metric aggregations are supported as of OpenSearch 2.18:
 - [Value count]({{site.url}}{{site.baseurl}}/aggregations/metric/value-count/)
 - [Average]({{site.url}}{{site.baseurl}}/aggregations/metric/average/)
 
-To use aggregations searchable via star-tree:
+To use searchable aggregations with a star tree index, remember the following prerequisites:
 
 - The fields must be present in the `metrics` section of the star-tree configuration.
 - The metric aggregation type must be part of the `stats` parameter.
