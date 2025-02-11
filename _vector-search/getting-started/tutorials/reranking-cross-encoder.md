@@ -2,7 +2,10 @@
 layout: default
 title: Reranking with the MS MARCO cross-encoder
 parent: Tutorials
+grand_parent: Getting started
 nav_order: 35
+redirect_from:
+  - /ml-commons-plugin/tutorials/reranking-cross-encoder/
 ---
 
 # Reranking search results using the MS MARCO cross-encoder model

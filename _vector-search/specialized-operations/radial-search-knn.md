@@ -42,7 +42,7 @@ The following examples can help you to get started with radial search.
 
 ### Prerequisites
 
-To use a k-NN index with radial search, create a k-NN index by setting `index.knn` to `true`. Specify one or more fields of the `knn_vector` data type, as shown in the following example:
+To use a vector index with radial search, create a vector index by setting `index.knn` to `true`. Specify one or more fields of the `knn_vector` data type, as shown in the following example:
 
 ```json
 PUT knn-index-test

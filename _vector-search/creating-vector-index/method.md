@@ -109,7 +109,7 @@ An index created in OpenSearch version 2.11 or earlier will still use the old `e
 
 ## Supported Faiss encoders
 
-You can use encoders to reduce the memory footprint of a k-NN index at the expense of search accuracy. The k-NN plugin currently supports the `flat`, `pq`, and `sq` encoders in the Faiss library.
+You can use encoders to reduce the memory footprint of a vector index at the expense of search accuracy. OpenSearch currently supports the `flat`, `pq`, and `sq` encoders in the Faiss library.
 
 The following example method definition specifies the `hnsw` method and a `pq` encoder:
 
@@ -136,7 +136,7 @@ Encoder name | Requires training | Description
 :--- | :--- | :---
 `flat` (Default) | No | Encode vectors as floating-point arrays. This encoding does not reduce memory footprint.
 `pq` | Yes | An abbreviation for _product quantization_, it is a lossy compression technique that uses clustering to encode a vector into a fixed size of bytes, with the goal of minimizing the drop in k-NN search accuracy. At a high level, vectors are broken up into `m` subvectors, and then each subvector is represented by a `code_size` code obtained from a code book produced during training. For more information about product quantization, see [this blog post](https://medium.com/dotstar/understanding-faiss-part-2-79d90b1e5388).
-`sq` | No | An abbreviation for _scalar quantization_. Starting with k-NN plugin version 2.13, you can use the `sq` encoder to quantize 32-bit floating-point vectors into 16-bit floats. In version 2.13, the built-in `sq` encoder is the SQFP16 Faiss encoder. The encoder reduces memory footprint with a minimal loss of precision and improves performance by using SIMD optimization (using AVX2 on x86 architecture or Neon on ARM64 architecture). For more information, see [Faiss scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-performance/faiss-16-bit-quantization/).
+`sq` | No | An abbreviation for _scalar quantization_. Starting with OpenSearch version 2.13, you can use the `sq` encoder to quantize 32-bit floating-point vectors into 16-bit floats. In version 2.13, the built-in `sq` encoder is the SQFP16 Faiss encoder. The encoder reduces memory footprint with a minimal loss of precision and improves performance by using SIMD optimization (using AVX2 on x86 architecture or Neon on ARM64 architecture). For more information, see [Faiss scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-performance/faiss-16-bit-quantization/).
 
 ### PQ parameters
 
@@ -253,7 +253,7 @@ You can reduce the memory footprint by a factor of 2, with a minimal loss in sea
 
 ## Memory estimation
 
-In a typical OpenSearch cluster, a certain portion of RAM is reserved for the JVM heap. The k-NN plugin allocates native library indexes to a portion of the remaining RAM. This portion's size is determined by the `circuit_breaker_limit` cluster setting. By default, the limit is set to 50%.
+In a typical OpenSearch cluster, a certain portion of RAM is reserved for the JVM heap. OpenSearch allocates native library indexes to a portion of the remaining RAM. This portion's size is determined by the `circuit_breaker_limit` cluster setting. By default, the limit is set to 50%.
 
 Having a replica doubles the total number of vectors.
 {: .note }

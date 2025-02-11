@@ -198,10 +198,10 @@ POST /_plugins/_knn/models/test-model/_train
 ```
 {% include copy-curl.html %}
 
-This command assumes that training data has been ingested into the `train-index-name` index. For more information, see [Building a k-NN index from a model]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model).
+This command assumes that training data has been ingested into the `train-index-name` index. For more information, see [Building a vector index from a model]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model).
 {: .note}
 
-You can override the `compression_level` for disk-optimized indexes in the same way as for regular k-NN indexes.
+You can override the `compression_level` for disk-optimized indexes in the same way as for regular vector indexes.
 
 
 ## Next steps

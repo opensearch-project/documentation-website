@@ -11,7 +11,7 @@ redirect_from:
 
 # Semantic search
 
-Semantic search considers the context and intent of a query. In OpenSearch, semantic search is facilitated by text embedding models. Semantic search creates a dense vector (a list of floats) and ingests data into a k-NN index. 
+Semantic search considers the context and intent of a query. In OpenSearch, semantic search is facilitated by text embedding models. Semantic search creates a dense vector (a list of floats) and ingests data into a vector index. 
 
 **PREREQUISITE**<br>
 Before using semantic search, you must set up a text embedding model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
@@ -54,9 +54,9 @@ To split long text into passages, use the `text_chunking` ingest processor befor
 
 ## Step 2: Create an index for ingestion
 
-In order to use the text embedding processor defined in your pipeline, create a k-NN index, adding the pipeline created in the previous step as the default pipeline. Ensure that the fields defined in the `field_map` are mapped as correct types. Continuing with the example, the `passage_embedding` field must be mapped as a k-NN vector with a dimension that matches the model dimension. Similarly, the `passage_text` field should be mapped as `text`.
+In order to use the text embedding processor defined in your pipeline, create a vector index, adding the pipeline created in the previous step as the default pipeline. Ensure that the fields defined in the `field_map` are mapped as correct types. Continuing with the example, the `passage_embedding` field must be mapped as a k-NN vector with a dimension that matches the model dimension. Similarly, the `passage_text` field should be mapped as `text`.
 
-The following example request creates a k-NN index that is set up with a default ingest pipeline:
+The following example request creates a vector index that is set up with a default ingest pipeline:
 
 ```json
 PUT /my-nlp-index
@@ -89,7 +89,7 @@ PUT /my-nlp-index
 ```
 {% include copy-curl.html %}
 
-For more information about creating a k-NN index and its supported methods, see [k-NN index]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/).
+For more information about creating a vector index and its supported methods, see [Creating a vector index]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/).
 
 ## Step 3: Ingest documents into the index
 
@@ -117,7 +117,7 @@ Before the document is ingested into the index, the ingest pipeline runs the `te
 
 ## Step 4: Search the index
 
-To perform vector search on your index, use the `neural` query clause either in the [k-NN plugin API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api/#search-for-a-model) or [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/) queries. You can refine the results by using a [k-NN search filter]({{site.url}}{{site.baseurl}}/search-plugins/knn/filter-search-knn/).
+To perform vector search on your index, use the `neural` query clause either in the [Search for a Model API({{site.url}}{{site.baseurl}}/search-plugins/knn/api/#search-for-a-model) or [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/) queries. You can refine the results by using a [vector search filter]({{site.url}}{{site.baseurl}}/search-plugins/knn/filter-search-knn/).
 
 The following example request uses a Boolean query to combine a filter clause and two query clauses---a neural query and a `match` query. The `script_score` query assigns custom weights to the query clauses:
 
@@ -205,7 +205,7 @@ The response contains the matching document:
 
 ## Setting a default model on an index or field
 
-A [`neural`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/) query requires a model ID for generating vector embeddings. To eliminate passing the model ID with each neural query request, you can set a default model on a k-NN index or a field. 
+A [`neural`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/) query requires a model ID for generating vector embeddings. To eliminate passing the model ID with each neural query request, you can set a default model on a vector index or a field. 
 
 First, create a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) with a [`neural_query_enricher`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-query-enricher/) request processor. To set a default model for an index, provide the model ID in the `default_model_id` parameter. To set a default model for a specific field, provide the field name and the corresponding model ID in the `neural_field_default_id` map. If you provide both `default_model_id` and `neural_field_default_id`, `neural_field_default_id` takes precedence:
 

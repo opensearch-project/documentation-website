@@ -2,7 +2,10 @@
 layout: default
 title: Using Amazon Bedrock guardrails 
 parent: Tutorials
+grand_parent: Getting started
 nav_order: 25
+redirect_from:
+  - /ml-commons-plugin/tutorials/bedrock-guardrails/
 ---
 
 # Using Amazon Bedrock guardrails 

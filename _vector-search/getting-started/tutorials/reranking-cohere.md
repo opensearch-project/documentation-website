@@ -3,6 +3,9 @@ layout: default
 title: Reranking with Cohere Rerank
 parent: Tutorials
 nav_order: 30
+grand_parent: Getting started
+redirect_from:
+  - /ml-commons-plugin/tutorials/reranking-cohere/
 ---
 
 # Reranking search results using the Cohere Rerank model

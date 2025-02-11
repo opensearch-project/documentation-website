@@ -119,7 +119,7 @@ PUT my-vector-index
 
 ## Search using binary quantized vectors
 
-You can perform a k-NN search on your index by providing a vector and specifying the number of nearest neighbors (k) to return:
+You can perform a vector search on your index by providing a vector and specifying the number of nearest neighbors (k) to return:
 
 ```json
 GET my-vector-index/_search

@@ -14,8 +14,8 @@ redirect_from:
 To refine vector search results, you can filter a vector search using one of the following methods:
 
 - [Efficient k-NN filtering](#efficient-k-nn-filtering): This approach applies filtering _during_ the k-NN search, as opposed to before or after the k-NN search, which ensures that `k` results are returned (if there are at least `k` results in total). This approach is supported by the following engines:
-  - Lucene engine with a Hierarchical Navigable Small World (HNSW) algorithm (k-NN plugin versions 2.4 and later) 
-  - Faiss engine with an HNSW algorithm (k-NN plugin versions 2.9 and later) or IVF algorithm (k-NN plugin versions 2.10 and later)
+  - Lucene engine with a Hierarchical Navigable Small World (HNSW) algorithm (OpenSearch versions 2.4 and later) 
+  - Faiss engine with an HNSW algorithm (OpenSearch versions 2.9 and later) or IVF algorithm (OpenSearch versions 2.10 and later)
 
 -  [Post-filtering](#post-filtering): Because it is performed after the k-NN search, this approach may return significantly fewer than `k` results for a restrictive filter. You can use the following two filtering strategies for this approach:
     - [Boolean post-filter](#boolean-filter-with-ann-search): This approach runs an [approximate nearest neighbor (ANN)]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/) search and then applies a filter to the results. The two query parts are executed independently, and then the results are combined based on the query operator (`should`, `must`, and so on) provided in the query. 
@@ -57,7 +57,7 @@ You can perform efficient k-NN filtering with the `lucene` or `faiss` engines.
 
 ### Lucene k-NN filter implementation
 
-k-NN plugin version 2.2 introduced support for running k-NN searches with the Lucene engine using HNSW graphs. Starting with version 2.4, which is based on Lucene version 9.4, you can use Lucene filters for k-NN searches.
+OpenSearch version 2.2 introduced support for running k-NN searches with the Lucene engine using HNSW graphs. Starting with version 2.4, which is based on Lucene version 9.4, you can use Lucene filters for k-NN searches.
 
 When you specify a Lucene filter for a k-NN search, the Lucene algorithm decides whether to perform an exact k-NN search with pre-filtering or an approximate search with modified post-filtering. The algorithm uses the following variables:
 
@@ -263,7 +263,7 @@ For more ways to construct a filter, see [Constructing a filter](#constructing-a
 
 ### Faiss k-NN filter implementation 
 
-For k-NN searches, you can use `faiss` filters with an HNSW algorithm (k-NN plugin versions 2.9 and later) or IVF algorithm (k-NN plugin versions 2.10 and later).
+For k-NN searches, you can use `faiss` filters with an HNSW algorithm (OpenSearch versions 2.9 and later) or IVF algorithm (OpenSearch versions 2.10 and later).
 
 When you specify a Faiss filter for a k-NN search, the Faiss algorithm decides whether to perform an exact k-NN search with pre-filtering or an approximate search with modified post-filtering. The algorithm uses the following variables:
 

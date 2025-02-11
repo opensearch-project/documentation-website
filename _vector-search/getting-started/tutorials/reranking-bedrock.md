@@ -2,7 +2,10 @@
 layout: default
 title: Reranking search results with Amazon Bedrock models
 parent: Tutorials
+grand_parent: Getting started
 nav_order: 32
+redirect_from:
+  - /ml-commons-plugin/tutorials/raranking-bedrock/
 ---
 
 # Reranking search results using models hosted on Amazon Bedrock

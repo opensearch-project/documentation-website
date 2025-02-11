@@ -16,9 +16,9 @@ model_cards:
   - heading: "Connect to a model hosted on an external platform"
     link: "/ml-commons-plugin/remote-models/index/"
 tutorial_cards:
-  - heading: "Semantic and hybrid search tutorial"
+  - heading: "Getting started with semantic and hybrid search"
     description: "Learn how to implement semantic and hybrid search"
-    link: "/vector-search/getting-started/neural-search-tutorial/"
+    link: "/vector-search/getting-started/tutorials/neural-search-tutorial/"
 search_method_cards:
   - heading: "Semantic search"
     description: "Uses dense retrieval based on text embedding models to search text data."

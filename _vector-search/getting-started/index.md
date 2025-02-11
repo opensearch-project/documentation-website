@@ -14,9 +14,9 @@ tutorial_cards:
   - heading: "Auto-generated embeddings quickstart"
     description: "Use embeddings automatically generated within OpenSearch"
     link: "/vector-search/getting-started/auto-generated-embeddings/"
-  - heading: "Semantic and hybrid search tutorial"
+  - heading: "Getting started with semantic and hybrid search"
     description: "Learn how to implement semantic and hybrid search"
-    link: "/vector-search/getting-started/neural-search-tutorial/"
+    link: "/vector-search/getting-started/tutorials/neural-search-tutorial/"
 pre_items:
   - heading: "Generate embeddings"
     description: "Generate embeddings outside of OpenSearch using your favorite embedding utility."
@@ -62,7 +62,7 @@ In the following image, the vectors for `Wild West` and `Broncos` are closer to 
 
 ![Similarity search]({{site.url}}{{site.baseurl}}/images/vector-search/vector-similarity.jpg){: width="450px"}
 
-To learn more about the types of k-NN search that OpenSearch supports, see [Vector search techniques]({{site.url}}{{site.baseurl}}/vector-search/vector-search-techniques/).
+To learn more about the types of vector search that OpenSearch supports, see [Vector search techniques]({{site.url}}{{site.baseurl}}/vector-search/vector-search-techniques/).
 
 ## Vector search options
 

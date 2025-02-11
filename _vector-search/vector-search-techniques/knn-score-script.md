@@ -300,7 +300,7 @@ A _space_ corresponds to the function used to measure the distance between two p
 | `innerproduct` (supported for Lucene in OpenSearch version 2.13 and later) | $$ d(\mathbf{x}, \mathbf{y}) = - {\mathbf{x} \cdot \mathbf{y}} = - \sum_{i=1}^n x_i y_i $$ | $$ \text{If} d \ge 0,  score = {1 \over 1 + d }$$ <br> $$\text{If} d < 0, score = −d + 1$$ |
 | `hammingbit` (supported for binary and long vectors) <br><br>`hamming` (supported for binary vectors in OpenSearch version 2.16 and later) | $$ d(\mathbf{x}, \mathbf{y}) = \text{countSetBits}(\mathbf{x} \oplus \mathbf{y})$$ | $$ score = {1 \over 1 + d } $$ |
 
-Cosine similarity returns a number between -1 and 1, and because OpenSearch relevance scores can't be below 0, the k-NN plugin adds 1 to get the final score.
+Cosine similarity returns a number between -1 and 1, and because OpenSearch relevance scores can't be below 0, OpenSearch adds 1 to get the final score.
 
 With cosine similarity, it is not valid to pass a zero vector (`[0, 0, ... ]`) as input. This is because the magnitude of such a vector is 0, which raises a `divide by 0` exception in the corresponding formula. Requests containing the zero vector will be rejected, and a corresponding exception will be thrown.
 {: .note }

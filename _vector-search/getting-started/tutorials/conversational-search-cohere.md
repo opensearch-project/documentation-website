@@ -2,7 +2,10 @@
 layout: default
 title: Conversational search with Cohere Command
 parent: Tutorials
+grand_parent: Getting started
 nav_order: 20
+redirect_from:
+  - /ml-commons-plugin/tutorials/conversational-search-cohere/
 ---
 
 # Conversational search using the Cohere Command model

@@ -351,7 +351,7 @@ Request parameter |  Description
 `max_training_vector_count` | The maximum number of vectors from the training index to be used for training. Defaults to all the vectors in the index. Optional.
 `search_size` | The training data is pulled from the training index using scroll queries. This parameter defines the number of results to return per scroll query. Default is `10000`. Optional.
 `description` | A user-provided description of the model. Optional.
-`method` | The configuration of the approximate k-NN method used for search operations. For more information about the available methods, see [k-NN index method definitions]({{site.url}}{{site.baseurl}}/vector-search/creating-vector-index/method/). The method requires training to be valid.
+`method` | The configuration of the approximate k-NN method used for search operations. For more information about the available methods, see [vector index method definitions]({{site.url}}{{site.baseurl}}/vector-search/creating-vector-index/method/). The method requires training to be valid.
 `space_type` | The space type for which this model is trained, for example, Euclidean or cosine. Note: This value can also be set in the `method` parameter.
    
 #### Usage

@@ -22,7 +22,7 @@ k-NN search with nested fields is supported by the HNSW algorithm for the Lucene
 
 ## Indexing and searching nested fields
 
-To use k-NN search with nested fields, you must create a k-NN index by setting `index.knn` to `true`. Create a nested field by setting its `type` to `nested` and specify one or more fields of the `knn_vector` data type within the nested field. In this example, the `knn_vector` field `my_vector` is nested inside the `nested_field` field:
+To use k-NN search with nested fields, you must create a vector index by setting `index.knn` to `true`. Create a nested field by setting its `type` to `nested` and specify one or more fields of the `knn_vector` data type within the nested field. In this example, the `knn_vector` field `my_vector` is nested inside the `nested_field` field:
 
 ```json
 PUT my-knn-index-1
@@ -483,7 +483,7 @@ You can apply a filter to a k-NN search with nested fields. A filter can be appl
 
 The following example applies a filter to a top-level field. 
 
-First, create a k-NN index with a nested field:
+First, create a vector index with a nested field:
 
 ```json
 PUT my-knn-index-1

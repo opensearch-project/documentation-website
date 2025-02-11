@@ -9,13 +9,13 @@ nav_order: 10
 
 With this approach, you generate embeddings externally and then index them into OpenSearch. This method offers greater flexibility in how embeddings are created. 
 
-In this example, you'll create a k-NN index, ingest vector embedding data into the index, and search the data.
+In this example, you'll create a vector index, ingest vector embedding data into the index, and search the data.
 
 ## Prerequisite
 
 Before you start, you must generate embeddings using a library of your choice.
 
-## Step 1: Create a k-NN index
+## Step 1: Create a vector index
 
 First, create an index that will store sample hotel data. To use vector search, set `index.knn` to `true` and specify the `location` field as a `knn_vector`:
 

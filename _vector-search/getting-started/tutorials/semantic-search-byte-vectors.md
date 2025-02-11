@@ -2,7 +2,10 @@
 layout: default
 title: Semantic search using byte vectors
 parent: Tutorials
+grand_parent: Getting started
 nav_order: 10
+redirect_from:
+  - /ml-commons-plugin/tutorials/semantic-search-byte-vectors/
 ---
 
 # Semantic search using byte-quantized vectors
@@ -159,7 +162,7 @@ PUT /_ingest/pipeline/pipeline-cohere
 ```
 {% include copy-curl.html %}
 
-Next, create a k-NN index and set the `data_type` for the `passage_embedding` field to `byte` so that it can hold byte-quantized vectors:
+Next, create a vector index and set the `data_type` for the `passage_embedding` field to `byte` so that it can hold byte-quantized vectors:
 
 ```json
 PUT my_test_data

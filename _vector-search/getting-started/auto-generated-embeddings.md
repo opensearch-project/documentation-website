@@ -255,4 +255,4 @@ The response contains the matching documents:
 
 ## Next steps
 
-- Learn about configuring semantic and hybrid search in the [Semantic and hybrid search tutorial]({{site.url}}{{site.baseurl}}/vector-search/getting-started/neural-search-tutorial/)
+- Learn about configuring semantic and hybrid search in the [Getting started with semantic and hybrid search]({{site.url}}{{site.baseurl}}/vector-search/getting-started/tutorials/neural-search-tutorial/)

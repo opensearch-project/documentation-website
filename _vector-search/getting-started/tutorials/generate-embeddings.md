@@ -2,7 +2,10 @@
 layout: default
 title: Generating embeddings
 parent: Tutorials
+grand_parent: Getting started
 nav_order: 5
+redirect_from:
+  - /ml-commons-plugin/tutorials/generate-embeddings/
 ---
 
 # Generating embeddings for arrays of objects
@@ -54,9 +57,9 @@ The response contains inference results:
 
 Follow the next set of steps to create an ingest pipeline for generating embeddings.
 
-### Step 2.1: Create a k-NN index
+### Step 2.1: Create a vector index
 
-First, create a k-NN index:
+First, create a vector index:
 
 ```json
 PUT my_books

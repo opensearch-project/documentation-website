@@ -1,15 +1,16 @@
 ---
 layout: default
-title: Semantic and hybrid search tutorial
+title: Getting started with semantic and hybrid search
 has_children: false
-parent: Getting started
+parent: Tutorials
+grand_parent: Getting started
 nav_order: 30
 redirect_from:
   - /ml-commons-plugin/semantic-search/
   - /search-plugins/neural-search-tutorial/
 ---
 
-# Semantic and hybrid search tutorial
+# Getting started with semantic and hybrid search
 
 By default, OpenSearch calculates document scores using the [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25) algorithm. BM25 is a keyword-based algorithm that performs well on queries containing keywords but fails to capture the semantic meaning of the query terms. Semantic search, unlike keyword-based search, takes into account the meaning of the query in the search context. Thus, semantic search performs well when a query requires natural language understanding. 
 

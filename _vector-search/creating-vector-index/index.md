@@ -13,7 +13,7 @@ redirect_from:
 
 Creating a vector index in OpenSearch involves a common core process with some variations depending on the type of vector search. This guide outlines the key elements shared across all vector indexes and the differences specific to supported use cases.
 
-To create a k-NN index, set the `settings.index.knn` parameter to `true`:
+To create a vector index, set the `settings.index.knn` parameter to `true`:
 
 ```json
 PUT /test-index
