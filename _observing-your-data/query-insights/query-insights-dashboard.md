@@ -113,7 +113,7 @@ In the query details view, you can view information such as **Timestamp**, **CPU
 
 The query group details view provides insights into aggregated metrics for a group of similar queries.
 
-To view query group details, select a query ID marked as a "group" in the **Top N queries** list. The query group details view provides the information shown in the following image and listed below.
+To view query group details, select a query ID marked as a "group" in the **Top N queries** list. The query group details view provides the following information:
 
 ![Query Group Details](../../images/Query-Insights/GroupQueryDetails.png)
 
