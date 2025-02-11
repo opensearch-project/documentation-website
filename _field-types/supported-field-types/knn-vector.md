@@ -260,7 +260,7 @@ GET test-index/_search
 
 ### Example: IVF
 
-The `ivf` method requires a training step that creates and trains the model used to initialize the native library index during segment creation. For more information, see [Building a k-NN index from a model]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model).
+The `ivf` method requires a training step that creates and trains the model used to initialize the native library index during segment creation. For more information, see [Building a vector index from a model]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-vector-index-from-a-model).
 
 First, create an index that will contain byte vector training data. Specify the `faiss` engine and `ivf` algorithm and make sure that the `dimension` matches the dimension of the model you want to create:
 
@@ -650,7 +650,7 @@ The response contains the two vectors closest to the query vector:
 
 ### Example: IVF
 
-The IVF method requires a training step that creates and trains the model used to initialize the native library index during segment creation. For more information, see [Building a k-NN index from a model]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model). 
+The IVF method requires a training step that creates and trains the model used to initialize the native library index during segment creation. For more information, see [Building a vector index from a model]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-vector-index-from-a-model). 
 
 First, create an index that will contain binary vector training data. Specify the Faiss engine and IVF algorithm and make sure that the `dimension` matches the dimension of the model you want to create:
 

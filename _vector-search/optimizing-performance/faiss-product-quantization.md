@@ -22,7 +22,7 @@ In OpenSearch, the training vectors need to be present in an index. In general, 
 
 For PQ, both _m_ and _code_size_ need to be selected. _m_ determines the number of subvectors into which vectors should be split for separate encoding. Consequently, the _dimension_ needs to be divisible by _m_. _code_size_ determines the number of bits used to encode each subvector. In general, we recommend a setting of `code_size = 8` and then tuning _m_ to get the desired trade-off between memory footprint and recall.
 
-For an example of setting up an index with PQ, see the [Building a vector index from a model]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model) tutorial.
+For an example of setting up an index with PQ, see the [Building a vector index from a model]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-vector-index-from-a-model) tutorial.
 
 ## Memory estimation
 

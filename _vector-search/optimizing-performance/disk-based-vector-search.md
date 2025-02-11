@@ -181,7 +181,7 @@ GET my-vector-index/_search
 
 ## Model-based indexes
 
-For [model-based indexes]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model), you can specify the `on_disk` parameter in the training request in the same way that you would specify it during index creation. By default, `on_disk` mode will use the [Faiss IVF method]({{site.url}}{{site.baseurl}}/vector-search/creating-vector-index/method/#supported-faiss-methods) and a compression level of `32x`. To run the training API, send the following request:
+For [model-based indexes]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-vector-index-from-a-model), you can specify the `on_disk` parameter in the training request in the same way that you would specify it during index creation. By default, `on_disk` mode will use the [Faiss IVF method]({{site.url}}{{site.baseurl}}/vector-search/creating-vector-index/method/#supported-faiss-methods) and a compression level of `32x`. To run the training API, send the following request:
 
 ```json
 POST /_plugins/_knn/models/test-model/_train
@@ -198,7 +198,7 @@ POST /_plugins/_knn/models/test-model/_train
 ```
 {% include copy-curl.html %}
 
-This command assumes that training data has been ingested into the `train-index-name` index. For more information, see [Building a vector index from a model]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model).
+This command assumes that training data has been ingested into the `train-index-name` index. For more information, see [Building a vector index from a model]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-vector-index-from-a-model).
 {: .note}
 
 You can override the `compression_level` for disk-optimized indexes in the same way as for regular vector indexes.
