@@ -242,7 +242,7 @@ POST /logs/_search
   }
 }
 ```
-{% include copy.html %}
+{% include copy-curl.html %}
 
 
 ## Using queries without a star-tree index
