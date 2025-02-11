@@ -9,8 +9,11 @@ redirect_from:
   - /search-plugins/knn/knn-vector-quantization/
 outside_cards:
   - heading: "Byte vectors"
-    description: "Quantize vectors outside of OpenSearch before ingesting them into an OpenSearch index."
+    description: "Quantize vectors into byte vectors."
     link: "/field-types/supported-field-types/knn-vector#byte-vectors"
+  - heading: "Binary vectors"
+    description: "Quantize vectors into binary vectors."
+    link: "/field-types/supported-field-types/knn-vector#binary-vectors"
 inside_cards:
   - heading: "Lucene scalar quantization"
     description: "Use built-in scalar quantization for the Lucene engine."
@@ -34,8 +37,12 @@ OpenSearch supports many varieties of quantization. In general, the level of qua
 
 ## Quantize vectors outside of OpenSearch
 
+Quantize vectors outside of OpenSearch before ingesting them into an OpenSearch index.
+
 {% include cards.html cards=page.outside_cards %}
 
 ## Quantize vectors within OpenSearch
+
+Use OpenSearch built-in quantization to quantize vectors.
 
 {% include cards.html cards=page.inside_cards %}

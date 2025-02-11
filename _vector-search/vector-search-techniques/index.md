@@ -55,7 +55,7 @@ In general, select NMSLIB or Faiss for large-scale use cases. Lucene is a good o
 |:---|:---|:---|:---|:---|
 |  Max dimensions |  16,000  |  16,000 |  16,000 |  16,000 |
 |  Filter |  Post-filter |  Post-filter |  Post-filter |  Filter during search |
-|  Training required |  No |  No |  Yes |  No |
+|  Training required |  No |  No (Yes for PQ) |  Yes |  No |
 |  Similarity metrics |  `l2`, `innerproduct`, `cosinesimil`, `l1`, `linf`  |  `l2`, `innerproduct` |  `l2`, `innerproduct` |  `l2`, `cosinesimil` |
 |  Number of vectors   |  Tens of billions |  Tens of billions |  Tens of billions |  Less than 10 million |
 |  Indexing latency |  Low |  Low  |  Lowest  |  Low  |
