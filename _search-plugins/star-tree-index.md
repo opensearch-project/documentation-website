@@ -26,7 +26,7 @@ A star-tree index can be used to perform faster aggregations. Consider the follo
 
 Star-tree indexes have the following limitations:
 
-- A star-tree index should only be enabled on indexes whose data is not updated or deleted because updates and deletions are not accounted for in a star-tree index. To enforce this policy and use star-tree indexes, set the `index.append_only.enabled` setting to true.
+- A star-tree index should only be enabled on indexes whose data is not updated or deleted because updates and deletions are not accounted for in a star-tree index. To enforce this policy and use star-tree indexes, set the `index.append_only.enabled` setting to `true`.
 - A star-tree index can be used for aggregation queries only if the queried fields are a subset of the star-tree's dimensions and the aggregated fields are a subset of the star-tree's metrics.
 - After a star-tree index is enabled, it cannot be disabled. In order to disable a star-tree index, the data in the index must be reindexed without the star-tree mapping. Furthermore, changing a star-tree configuration will also require a reindex operation.
 - [Multi-values/array values]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/index/#arrays) are not supported.
@@ -155,7 +155,7 @@ The following queries are supported as of OpenSearch 2.19:
 - [Match all docs query]({{site.url}}{{site.baseurl}}/query-dsl/match-all/)
 - [Range query]({{site.url}}{{site.baseurl}}/query-dsl/term/range/)
 
-To use a query with a star-tree index, the query's fields must be present in the `ordered_dimensions` section of the star-tree configuration. Also, queries must be paired with a supported aggregation. Queries without aggregations cannot be used with a star-tree index. Currently, queries on `date` fields are not supported, and will be added in later releases.
+To use a query with a star-tree index, the query's fields must be present in the `ordered_dimensions` section of the star-tree configuration. Queries must also be paired with a supported aggregation. Queries without aggregations cannot be used with a star-tree index. Currently, queries on `date` fields are not supported and will be added in later versions.
 
 ### Supported aggregations
 
@@ -170,7 +170,7 @@ The following metric aggregations are supported as of OpenSearch 2.18:
 - [Value count]({{site.url}}{{site.baseurl}}/aggregations/metric/value-count/)
 - [Average]({{site.url}}{{site.baseurl}}/aggregations/metric/average/)
 
-To use searchable aggregations with a star tree index, remember the following prerequisites:
+To use searchable aggregations with a star-tree index, make sure you fulfill the following prerequisites:
 
 - The fields must be present in the `metrics` section of the star-tree configuration.
 - The metric aggregation type must be part of the `stats` parameter.
@@ -203,14 +203,14 @@ Using a star-tree index, the result will be retrieved from a single aggregated d
 
 You can use [date histograms]({{site.url}}{{site.baseurl}}/aggregations/bucket/date-histogram/) on calendar intervals with metric sub-aggregations.
 
-To use date histogram aggregations and make then searchable in the star-tree index, use the following steps:
+To use date histogram aggregations and make them searchable in a star-tree index, remember the following requirements:
 
-- The calendar intervals in a star-tree mapping configuration can have either the request's calendar field or a field of lower granularity than the request field. For example, if an aggregation uses the `month` field, the star-tree search can still use lower granularity fields such as `day`.
+- The calendar intervals in a star-tree mapping configuration can use either the request's calendar field or a field of lower granularity than the request field. For example, if an aggregation uses the `month` field, the star-tree search can still use lower-granularity fields such as `day`.
 - A metric sub-aggregation must be part of the aggregation request.
 
 #### Example
 
-The following example gets the sum of all the values in the `size` field aggregated for each calendar month, for all error logs with `method:get`:
+The following example gets the sum of all the values in the `size` field, aggregated for each calendar month, for all error logs containing `method:get`:
 
 ```json
 POST /logs/_search

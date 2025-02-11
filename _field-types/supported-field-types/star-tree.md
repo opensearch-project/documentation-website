@@ -140,14 +140,14 @@ When using the `ordered_dimesions` parameter, follow these best practices:
 
 The `ordered_dimensions` parameter supports the following field types:
 
-  - All numeric field types excluding `unsigned_long` and `scaled_float`.
+  - All numeric field types, excluding `unsigned_long` and `scaled_float`
   - `keyword` 
   - `object`
-  - `date` which can use up to three of following calendar intervals:
+  - `date`, which can use up to three of the following calendar intervals:
     - `year` (of era)
     - `quarter` (of year)
     - `month` (of year)
-    - `week` (of week based year)
+    - `week` (of week-based year)
     - `day` (of month)
     - `hour` (of day)
     - `half-hour` (of day)
