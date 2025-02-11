@@ -107,7 +107,7 @@ You can access detailed information about a single query by selecting the query 
 
 ![Individual Query Details](../../images/Query-Insights/IndividualQueryDetails.png)
 
-In the query details view, you can view the following information such as **Timestamp**, **CPU Time**, **Memory Usage**, **Indexes**, **Search Type**, **Coordinator Node ID**, and **Total Shards**.
+In the query details view, you can view information such as **Timestamp**, **CPU Time**, **Memory Usage**, **Indexes**, **Search Type**, **Coordinator Node ID**, and **Total Shards**.
 
 ### Viewing query group details
 
