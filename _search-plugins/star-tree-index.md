@@ -215,7 +215,11 @@ The following example gets the sum of all the values in the `size` field aggrega
 ```json
 POST /logs/_search
 {
+{
   "query": {
+    "term": {
+      "status": "500"
+    },
     "method": {
       "status": "get"
     }
