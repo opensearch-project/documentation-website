@@ -175,8 +175,6 @@ To use searchable aggregations with a star-tree index, make sure you fulfill the
 - The fields must be present in the `metrics` section of the star-tree configuration.
 - The metric aggregation type must be part of the `stats` parameter.
 
-##### Example
-
 The following example gets the sum of all the values in the `size` field for all error logs with `status=500`, using the [example mapping](#example-mapping):
 
 ```json
@@ -199,7 +197,7 @@ POST /logs/_search
 
 Using a star-tree index, the result will be retrieved from a single aggregated document as it traverses the `status=500` node, as opposed to scanning through all of the matching documents. This results in lower query latency.
 
-### Date histogram with metric aggregations
+#### Date histogram with metric aggregations
 
 You can use [date histograms]({{site.url}}{{site.baseurl}}/aggregations/bucket/date-histogram/) on calendar intervals with metric sub-aggregations.
 
@@ -208,8 +206,6 @@ To use date histogram aggregations and make them searchable in a star-tree index
 - The calendar intervals in a star-tree mapping configuration can use either the request's calendar field or a field of lower granularity than the request field. For example, if an aggregation uses the `month` field, the star-tree search can still use lower-granularity fields such as `day`.
 - A metric sub-aggregation must be part of the aggregation request.
 
-#### Example
-
 The following example gets the sum of all the values in the `size` field, aggregated for each calendar month, for all error logs containing `method:get`:
 
 ```json
@@ -217,9 +213,11 @@ POST /logs/_search
 {
 {
   "query": {
-    "term": {
-      "status": "500"
-    },
+    "range": {
+      "created": {
+        "gte": "2019/01/01",
+        "lte": "2019/12/31"
+      },
     "method": {
       "status": "get"
     }
@@ -242,7 +240,6 @@ POST /logs/_search
   }
 }
 ```
-
 
 
 ## Using queries without a star-tree index
