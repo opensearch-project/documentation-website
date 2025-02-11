@@ -97,7 +97,7 @@ The metrics table displays the following metrics for each query.
 
 ## Query details
 
-The **Query details** page provides insights into query behavior, performance, and structure. You can access the query details page by selecting the query ID, as shown in the following image.
+The **Query details** page provides insights into query behavior, performance, and structure. You can access the query details page by selecting the query ID, as shown in the following image:
 
 ![Query Insights List](../../images/Query-Insights/Querieslist.png)
 
