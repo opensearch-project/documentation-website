@@ -54,7 +54,7 @@ collections:
     output: true
   search-plugins:
     permalink: /:collection/:path/
-    output: true  
+    output: true
   ml-commons-plugin:
     permalink: /:collection/:path/
     output: true  

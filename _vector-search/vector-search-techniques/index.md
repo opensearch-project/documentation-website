@@ -44,24 +44,24 @@ The following table lists the combinations of search methods and libraries suppo
 
 Method | Engine
 :--- | :---
-HNSW | NMSLIB, Faiss, Lucene
+HNSW | Faiss, Lucene, NMSLIB (deprecated)
 IVF | Faiss 
 
 ## Engine recommendations
 
-In general, select NMSLIB or Faiss for large-scale use cases. Lucene is a good option for smaller deployments and offers benefits like smart filtering, where the optimal filtering strategy—pre-filtering, post-filtering, or exact k-NN—is automatically applied depending on the situation. The following table summarizes the differences between each option.
+In general, select Faiss for large-scale use cases. Lucene is a good option for smaller deployments and offers benefits like smart filtering, where the optimal filtering strategy—pre-filtering, post-filtering, or exact k-NN—is automatically applied depending on the situation. The following table summarizes the differences between each option.
 
-| |  NMSLIB/HNSW |  Faiss/HNSW |  Faiss/IVF |  Lucene/HNSW |
-|:---|:---|:---|:---|:---|
-|  Max dimensions |  16,000  |  16,000 |  16,000 |  16,000 |
-|  Filter |  Post-filter |  Post-filter |  Post-filter |  Filter during search |
-|  Training required |  No |  No (Yes for PQ) |  Yes |  No |
-|  Similarity metrics |  `l2`, `innerproduct`, `cosinesimil`, `l1`, `linf`  |  `l2`, `innerproduct` |  `l2`, `innerproduct` |  `l2`, `cosinesimil` |
-|  Number of vectors   |  Tens of billions |  Tens of billions |  Tens of billions |  Less than 10 million |
-|  Indexing latency |  Low |  Low  |  Lowest  |  Low  |
-|  Query latency and quality  |  Low latency and high quality |  Low latency and high quality  |  Low latency and low quality  |  High latency and high quality  |
-|  Vector compression  |  Flat |  Flat <br>Product quantization |  Flat <br>Product quantization |  Flat  |
-|  Memory consumption |  High  |  High <br> Low with PQ |  Medium <br> Low with PQ |  High  |
+| |   Faiss/HNSW |  Faiss/IVF |  Lucene/HNSW |
+|:---|:---|:---|:---|
+|  Max dimensions |    16,000 |  16,000 |  16,000 |
+|  Filter |    Post-filter |  Post-filter |  Filter during search |
+|  Training required |    No (Yes for PQ) |  Yes |  No |
+|  Similarity metrics | `l2`, `innerproduct` |  `l2`, `innerproduct` |  `l2`, `cosinesimil` |
+|  Number of vectors   |    Tens of billions |  Tens of billions |  Less than 10 million |
+|  Indexing latency |   Low  |  Lowest  |  Low  |
+|  Query latency and quality  |    Low latency and high quality  |  Low latency and low quality  |  High latency and high quality  |
+|  Vector compression  |   Flat <br>Product quantization |  Flat <br>Product quantization |  Flat  |
+|  Memory consumption |   High <br> Low with PQ |  Medium <br> Low with PQ |  High  |
 
 ## Using sparse vectors
 

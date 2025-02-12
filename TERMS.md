@@ -303,6 +303,8 @@ Exception: *Execution* is unavoidable for third-party terms for which no alterna
 
 **Faiss**
 
+Facebook AI Similarity Search. Do not define on first appearance. Faiss is a library that allows developers to quickly search for embeddings of multimedia documents that are similar to each other.
+
 **file name**
 
 **frontend (n., adj.)**
@@ -505,6 +507,10 @@ Do not use. Use *management account* instead.
 
 Avoid. Use _can_ or _might_ instead.
 
+**MS MARCO**
+
+Microsoft Machine Reading Comprehension. Do not define on first appearance. MS MARCO is a collection of datasets focused on deep learning in search.
+
 **multilayer, multilayered**
 
 **must, shall, should**
@@ -524,6 +530,10 @@ Not navigate _in_.
 Use _near real time_ as a noun; use near real-time as an adjective. Don't add a hyphen between _near_ and _real time_ or _real-time_.
 
 Spell out _near real time_ on first mention; _NRT_ can be used on subsequent mentions.
+
+**NMSLIB**
+
+Non-Metric Space Library. Do not define on first appearance. NMSLIB is an efficient similarity search library and a toolkit for evaluation of k-NN methods for generic non-metric spaces. 
 
 **node**
 
@@ -654,6 +664,8 @@ Copy of a primary shard. Helps improve performance when using indexes across mul
 
 Use as a synonym for repository, on second and subsequent use.
 
+**retrieval-augmented generation (RAG)**
+
 **RPM Package Manager (RPM)**
 
 Formerly known as RedHat Package Manager. An open-source package management system for use with Linux distributions.
@@ -702,7 +714,7 @@ Do not use. Use *replica*, *secondary*, or *standby* instead.
 
 **Snapshot Management (SM)**
 
-**solid state drive (SSD)**
+**solid-state drive (SSD)**
 
 **standalone**
 

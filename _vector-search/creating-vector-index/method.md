@@ -16,7 +16,7 @@ Mapping parameter | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
 `name` | Yes | N/A | No | The identifier for the nearest neighbor method.
 `space_type` | No | `l2` | No | The vector space used to calculate the distance between vectors. Note: This value can also be specified at the top level of the mapping.
-`engine` | No | `faiss`  | No | The approximate k-NN library to use for indexing and search. The available libraries are `faiss`, `nmslib`, and `lucene`.
+`engine` | No | `faiss`  | No | The approximate k-NN library to use for indexing and search. The available libraries are `faiss`, `lucene`, and `nmslib` (deprecated).
 `parameters` | No | `null` | No | The parameters used for the nearest neighbor method.
 
 ## Supported NMSLIB methods
@@ -32,7 +32,7 @@ Parameter name | Required | Default | Updatable | Description
 `ef_construction` | No | 100 | No | The size of the dynamic list used during k-NN graph creation. Higher values result in a more accurate graph but slower indexing speed.
 `m` | No | 16 | No | The number of bidirectional links that the plugin creates for each new element. Increasing and decreasing this value can have a large impact on memory consumption. Keep this value between 2 and 100.
 
-For NMSLIB, *ef_search* is set in the [index settings]({{site.url}}{{site.baseurl}}/vector-search/settings/#index-settings).
+For NMSLIB (deprecated), *ef_search* is set in the [index settings]({{site.url}}{{site.baseurl}}/vector-search/settings/#index-settings).
 {: .note}
 
 An index created in OpenSearch version 2.11 or earlier will still use the old `ef_construction` value (`512`).

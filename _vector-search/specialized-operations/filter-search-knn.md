@@ -28,8 +28,8 @@ The following table summarizes the preceding filtering use cases.
 Filter | When the filter is applied | Type of search | Supported engines and methods | Where to place the `filter` clause
 :--- | :--- | :--- | :---
 Efficient k-NN filtering | During search (a hybrid of pre- and post-filtering) | Approximate | - `lucene` (`hnsw`) <br> - `faiss` (`hnsw`, `ivf`) | Inside the k-NN query clause.
-Boolean filter | After search (post-filtering) | Approximate | - `lucene`<br> - `nmslib`<br> - `faiss` | Outside the k-NN query clause. Must be a leaf clause.
-The `post_filter` parameter | After search (post-filtering) | Approximate | - `lucene`<br> - `nmslib`<br> - `faiss` | Outside the k-NN query clause. 
+Boolean filter | After search (post-filtering) | Approximate | - `lucene` <br> - `faiss` <br> - `nmslib` (deprecated)  | Outside the k-NN query clause. Must be a leaf clause.
+The `post_filter` parameter | After search (post-filtering) | Approximate | - `lucene`<br> - `nmslib` (deprecated) <br> - `faiss` | Outside the k-NN query clause. 
 Scoring script filter | Before search (pre-filtering) | Exact | N/A | Inside the script score query clause.
 
 ## Filtered search optimization

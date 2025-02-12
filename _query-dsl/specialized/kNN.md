@@ -157,7 +157,7 @@ The following table provides information about the `ef_search` parameter for the
 
 Engine | Radial query support | Notes
 :--- | :--- | :---
-`nmslib` | No | If `ef_search` is present in a query, it overrides the `index.knn.algo_param.ef_search` index setting.
+`nmslib` (Deprecated) | No | If `ef_search` is present in a query, it overrides the `index.knn.algo_param.ef_search` index setting.
 `faiss` | Yes | If `ef_search` is present in a query, it overrides the `index.knn.algo_param.ef_search` index setting.
 `lucene` | No | When creating a search query, you must specify `k`. If you provide both `k` and `ef_search`, then the larger value is passed to the engine. If `ef_search` is larger than `k`, you can provide the `size` parameter to limit the final number of results to `k`. 
 

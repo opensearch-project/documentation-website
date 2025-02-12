@@ -4,7 +4,7 @@ title: Getting started with semantic and hybrid search
 has_children: false
 parent: Tutorials
 grand_parent: Getting started
-nav_order: 30
+nav_order: 3
 redirect_from:
   - /ml-commons-plugin/semantic-search/
   - /search-plugins/neural-search-tutorial/
