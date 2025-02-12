@@ -11,7 +11,7 @@ You can interact with the query insights feature using the Query Insights Dashbo
 
 ## Prerequisites
 
-The Query Insights Dashboards plugin requires [OpenSearch 2.19 or later]({{site.url}}{{site.baseurl}}/install-and-configure/). 
+The Query Insights Dashboards plugin requires [OpenSearch 2.19 or later]({{site.url}}{{site.baseurl}}/install-and-configure/).
 
 ## Installing the plugin
 
@@ -19,7 +19,7 @@ To install the Query Insights Dashboards plugin, see [Managing OpenSearch Dashbo
 
 ## Navigation
 
-After logging in to OpenSearch Dashboards, you can find the **Query insights** page by navigating to **OpenSearch Plugins** > **Query insights**. 
+After logging in to OpenSearch Dashboards, you can find the **Query insights** page by navigating to **OpenSearch Plugins** > **Query insights**.
 
 If you have [multiple data sources]({{site.url}}{{site.baseurl}}/dashboards/management/multi-data-sources/) enabled, the **Query insights** page can be found by navigating to **Data administration** > **Performance** > **Query insights**.
 {: .note}
@@ -37,7 +37,7 @@ The **Top N queries** page provides a detailed overview of the queries that have
 
 The following image of the **Top N queries** page contains letter labels for each component.
 
-![Top N Queries Interface](../../images/Query-Insights/QueryInsights.png)
+<img src="{{site.url}}{{site.baseurl}}/images/Query-Insights/QueryInsights.png" alt="Top N Queries Interface">
 
 Each label corresponds to the following components:
 
@@ -99,13 +99,13 @@ The metrics table displays the following metrics for each query.
 
 The **Query details** page provides insights into query behavior, performance, and structure. You can access the query details page by selecting the query ID, as shown in the following image:
 
-![Query Insights List](../../images/Query-Insights/Querieslist.png)
+<img src="{{site.url}}{{site.baseurl}}/images/Query-Insights/Querieslist.png" alt="Query Insights List">
 
 ### Viewing individual query details
 
 You can access detailed information about a single query by selecting the query ID, such as `51c68a1a-7507-4b3e-aea1-32ddd74dbac4`. The query details page will appear, as shown in the following image.
 
-![Individual Query Details](../../images/Query-Insights/IndividualQueryDetails.png)
+<img src="{{site.url}}{{site.baseurl}}/images/Query-Insights/IndividualQueryDetails.png" alt="Individual Query Details">
 
 In the query details view, you can view information such as **Timestamp**, **CPU Time**, **Memory Usage**, **Indexes**, **Search Type**, **Coordinator Node ID**, and **Total Shards**.
 
@@ -115,18 +115,18 @@ The query group details view provides insights into aggregated metrics for a gro
 
 To view query group details, select a query ID marked as a "group" in the **Top N queries** list. The query group details view provides the following information:
 
-![Query Group Details](../../images/Query-Insights/GroupQueryDetails.png)
+<img src="{{site.url}}{{site.baseurl}}/images/Query-Insights/GroupQueryDetails.png" alt="Query Group Details">
 
 - The **Aggregate summary for queries** section provides a view of key query metrics for the entire group, including **Average latency**, **Average CPU time**, **Average memory usage**, and **Group by** criteria.
 - The **Sample query details** section provides information about a single representative query, including its **Timestamp**, **Indexes**, **Search Type**, **Coordinator Node ID**, and **Total Shards**.
-- The **Query** section displays the JSON structure of the query. 
+- The **Query** section displays the JSON structure of the query.
 - The **Latency** section presents a graphical representation of the run phases for the query.
 
 ## Configuration
 
 The **Query insights - Configuration** page is designed to gives you control over how the query insights feature collects, monitors, groups, and retains data. The following image shows the configuration page.
 
-![Configuration](../../images/Query-Insights/Configuration.png)
+<img src="{{site.url}}{{site.baseurl}}/images/Query-Insights/Configuration.png" alt="Configuration">
 
 On the configuration page, you can configure the settings described in the following sections.
 
@@ -139,12 +139,12 @@ Perform the following to configure the top N queries settings:
 1. From the **Query insights** page, navigate to the **Configuration** tab.
 2. Select the metric type: **Latency**, **CPU Usage**, or **Memory**.
 3. Toggle the **Enabled** setting to turn the top N queries feature on or off for the selected metric.
-4. Specify the monitoring **Window size**, which determines the duration of the time queries collected for analysis. 
+4. Specify the monitoring **Window size**, which determines the duration of the time queries collected for analysis.
 5. Enter the value of **N**, which defines the number of top queries to track in each window.
 6. Select **Save**.
 7. Check the **Statuses for configuration metrics** panel to see the enabled metrics.
 
-### Top N queries grouping 
+### Top N queries grouping
 
 The **Top n queries group configuration settings** set the grouping settings for queries.
 
