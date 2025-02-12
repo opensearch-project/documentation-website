@@ -37,7 +37,7 @@ The **Top N queries** page provides a detailed overview of the queries that have
 
 The following image of the **Top N queries** page contains letter labels for each component.
 
-<img src="{{site.url}}{{site.baseurl}}/images/Query-Insights/QueryInsights.png" alt="Top N Queries Interface">
+![Top N Queries Interface]({{site.url}}{{site.baseurl}}/images/Query-Insights/QueryInsights.png)
 
 Each label corresponds to the following components:
 
