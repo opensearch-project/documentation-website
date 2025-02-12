@@ -99,13 +99,13 @@ The metrics table displays the following metrics for each query.
 
 The **Query details** page provides insights into query behavior, performance, and structure. You can access the query details page by selecting the query ID, as shown in the following image:
 
-<img src="{{site.url}}{{site.baseurl}}/images/Query-Insights/Querieslist.png" alt="Query Insights List">
+![Query Insights List]({{site.url}}{{site.baseurl}}/images/Query-Insights/Querieslist.png)
 
 ### Viewing individual query details
 
 You can access detailed information about a single query by selecting the query ID, such as `51c68a1a-7507-4b3e-aea1-32ddd74dbac4`. The query details page will appear, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/Query-Insights/IndividualQueryDetails.png" alt="Individual Query Details">
+![Individual Query Details]({{site.url}}{{site.baseurl}}/images/Query-Insights/IndividualQueryDetails.png)
 
 In the query details view, you can view information such as **Timestamp**, **CPU Time**, **Memory Usage**, **Indexes**, **Search Type**, **Coordinator Node ID**, and **Total Shards**.
 
@@ -115,7 +115,7 @@ The query group details view provides insights into aggregated metrics for a gro
 
 To view query group details, select a query ID marked as a "group" in the **Top N queries** list. The query group details view provides the following information:
 
-<img src="{{site.url}}{{site.baseurl}}/images/Query-Insights/GroupQueryDetails.png" alt="Query Group Details">
+![Query Group Details]({{site.url}}{{site.baseurl}}/images/Query-Insights/GroupQueryDetails.png)
 
 - The **Aggregate summary for queries** section provides a view of key query metrics for the entire group, including **Average latency**, **Average CPU time**, **Average memory usage**, and **Group by** criteria.
 - The **Sample query details** section provides information about a single representative query, including its **Timestamp**, **Indexes**, **Search Type**, **Coordinator Node ID**, and **Total Shards**.
@@ -126,7 +126,7 @@ To view query group details, select a query ID marked as a "group" in the **Top 
 
 The **Query insights - Configuration** page is designed to gives you control over how the query insights feature collects, monitors, groups, and retains data. The following image shows the configuration page.
 
-<img src="{{site.url}}{{site.baseurl}}/images/Query-Insights/Configuration.png" alt="Configuration">
+![Configuration]({{site.url}}{{site.baseurl}}/images/Query-Insights/Configuration.png)
 
 On the configuration page, you can configure the settings described in the following sections.
 
