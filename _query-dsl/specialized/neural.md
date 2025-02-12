@@ -7,7 +7,7 @@ nav_order: 50
 
 # Neural query
 
-Use the `neural` query for vector field search in [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/). 
+Use the `neural` query for vector field search by text or image in [vector search]({{site.url}}{{site.baseurl}}/vector-search/). 
 
 ## Request body fields
 

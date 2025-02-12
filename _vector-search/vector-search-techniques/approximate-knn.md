@@ -263,53 +263,6 @@ POST _bulk
 
 After data is ingested, it can be searched in the same way as any other `knn_vector` field.
 
-### Additional query parameters
-
-Starting with version 2.16, you can provide `method_parameters` in a search request:
-
-```json
-GET my-knn-index-1/_search
-{
-  "size": 2,
-  "query": {
-    "knn": {
-      "target-field": {
-        "vector": [2, 3, 5, 6],
-        "k": 2,
-        "method_parameters" : {
-          "ef_search": 100
-        }
-      }
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-These parameters are dependent on the combination of engine and method used to create the index. The following sections provide information about the supported `method_parameters`.
-
-#### `ef_search`
-
-You can provide the `ef_search` parameter when searching an index created using the `hnsw` method. The `ef_search` parameter specifies the number of vectors to examine in order to find the top k nearest neighbors. Higher `ef_search` values improve recall at the cost of increased search latency. The value must be positive.
-
-The following table provides information about the `ef_search` parameter for the supported engines.
-
-Engine | Radial query support | Notes
-:--- | :--- | :---
-`nmslib` | No | If `ef_search` is present in a query, it overrides the `index.knn.algo_param.ef_search` index setting.
-`faiss` | Yes | If `ef_search` is present in a query, it overrides the `index.knn.algo_param.ef_search` index setting.
-`lucene` | No | When creating a search query, you must specify `k`. If you provide both `k` and `ef_search`, then the larger value is passed to the engine. If `ef_search` is larger than `k`, you can provide the `size` parameter to limit the final number of results to `k`. 
-
-#### `nprobes`
-
-You can provide the `nprobes` parameter when searching an index created using the `ivf` method. The `nprobes` parameter specifies the number of buckets to examine in order to find the top k nearest neighbors. Higher `nprobes` values improve recall at the cost of increased search latency. The value must be positive.
-
-The following table provides information about the `nprobes` parameter for the supported engines.
-
-Engine | Notes
-:--- | :--- 
-`faiss` | If `nprobes` is present in a query, it overrides the value provided when creating the index.
-
 ### Rescoring quantized results using full precision
 
 Quantization can be used to significantly reduce the memory footprint of a vector index. For more information about quantization, see [k-NN vector quantization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization). Because some vector representation is lost during quantization, the computed distances will be approximate. This causes the overall recall of the search to decrease. 

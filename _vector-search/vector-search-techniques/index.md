@@ -63,6 +63,10 @@ In general, select NMSLIB or Faiss for large-scale use cases. Lucene is a good o
 |  Vector compression  |  Flat |  Flat <br>Product quantization |  Flat <br>Product quantization |  Flat  |
 |  Memory consumption |  High  |  High <br> Low with PQ |  Medium <br> Low with PQ |  High  |
 
+## Using sparse vectors
 
+_Neural sparse search_ offers an efficient alternative to dense vector search by using sparse embedding models and inverted indexes, providing performance similar to BM25. Unlike dense vector methods that require significant memory and CPU resources, sparse search creates a list of token-weight pairs and stores them in a rank features index. This approach combines the efficiency of traditional search with the semantic understanding of neural networks. OpenSearch supports both automatic embedding generation through ingest pipelines and direct sparse vector ingestion. For implementation details and setup instructions, see [Neural sparse search]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/neural-sparse-search/).
 
+## Combining multiple search techniques
 
+_Hybrid search_ enhances search relevance by combining multiple search techniques within OpenSearch. It integrates traditional keyword search with vector-based semantic search. Through a configurable search pipeline, hybrid search normalizes and combines scores from different search methods to provide unified, relevant results. This approach is particularly effective for complex queries where both semantic understanding and exact matching are important. The search pipeline can be further customized with post-filtering operations and aggregations to meet specific search requirements. For complete implementation details, see [Hybrid search]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/hybrid-search/).
