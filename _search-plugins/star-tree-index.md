@@ -211,35 +211,31 @@ To use date histogram aggregations and make them searchable in a star-tree index
 The following example gets the sum of all the values in the `size` field with a range query, aggregated for each calendar month, for all error logs containing `method:get`:
 
 ```json
-POST /logs/_search
 {
-{
-  "query": {
-    "range": {
-      "created": {
-        "gte": "2019/01/01",
-        "lte": "2019/12/31"
-      },
-    "method": {
-      "status": "get"
-    }
-  },
-  "size": 0,
-  "aggs": {
-    "by_hour": {
-      "date_histogram": {
-        "field": "@timestamp",
-        "calendar_interval": "month"
-      },
-      "aggs": {
-        "sum_size": {
-          "sum": {
-            "field": "size"
-          }
+    "size": 0,
+    "query": {
+        "range": {
+            "status": {
+                "gte": "200",
+                "lte": "400"
+            }
         }
-      }
+    },
+    "aggs": {
+        "by_hour": {
+            "date_histogram": {
+                "field": "@timestamp",
+                "calendar_interval": "month"
+            },
+            "aggs": {
+                "sum_size": {
+                    "sum": {
+                        "field": "size"
+                    }
+                }
+            }
+        }
     }
-  }
 }
 ```
 {% include copy-curl.html %}
