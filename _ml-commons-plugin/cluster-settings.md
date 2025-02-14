@@ -377,7 +377,7 @@ plugins.ml_commons.enable_inhouse_python_model: false
 Introduced 2.19
 {: .label .label-purple }
 
-When set to `true`, this setting enables a safety feature that checks for downstream dependencies before deleting a model. This helps prevent accidental deletion of models actively used by agents, search pipelines, ingest pipelines, and other downstream tasks. If this setting is enabled and you attempt to delete a model that has active downstream dependencies, you'll receive an error message and the model will not be deleted.
+When set to `true`, this setting enables a safety feature that checks for downstream dependencies before deleting a model. This helps prevent accidental deletion of models in active use by agents, search pipelines, ingest pipelines, and other downstream tasks. If this setting is enabled and you attempt to delete a model that has active downstream dependencies, you'll receive an error message and the model will not be deleted.
 
 ### Setting
 
