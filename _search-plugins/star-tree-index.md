@@ -211,6 +211,7 @@ To use date histogram aggregations and make them searchable in a star-tree index
 The following example gets the sum of all the values in the `size` field with a range query, aggregated for each calendar month, for all error logs containing `method:get`:
 
 ```json
+POST /logs/_search
 {
     "size": 0,
     "query": {
