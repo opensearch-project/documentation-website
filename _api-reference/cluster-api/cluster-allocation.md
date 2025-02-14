@@ -15,7 +15,6 @@ redirect_from:
 The Cluster allocation explain API gives an explanation for how shards are allocated in the current cluster and provides an explanation for why unassigned shards can't be allocated to a node.
 
 
-
 <!-- spec_insert_start
 api: cluster.allocation_explain
 component: endpoints
@@ -51,10 +50,10 @@ All cluster allocation explain fields are optional.
 
 Field | Type | Description
 :--- | :--- | :---
-current_node | String | If you only want an explanation if the shard happens to be on a particular node, specify that node name here.
-index | String | The name of the shard's index.
-primary | Boolean | Whether to provide an explanation for the primary shard (true) or its first replica (false), which share the same shard ID.
-shard | Integer | The shard ID that you want an explanation for.
+`current_node` | String | If you only want an explanation if the shard happens to be on a particular node, specify that node name here.
+`index` | String | The name of the shard's index.
+`primary` | Boolean | Whether to provide an explanation for the primary shard (true) or its first replica (false), which share the same shard ID.
+`shard` | Integer | The shard ID that you want an explanation for.
 
 ## Example request
 

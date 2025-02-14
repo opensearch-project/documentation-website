@@ -56,8 +56,8 @@ The following table lists the available query parameters. All query parameters a
 
 Parameter | Type | Description
 :--- | :--- | :---
-weights | JSON object | Assigns weights to attributes within the request body of the PUT request. Weights can be set in any ratio, for example, 2:3:5. In a 2:3:5 ratio with 3 zones, for every 100 requests sent to the cluster, each zone would receive either 20, 30, or 50 search requests in a random order. When assigned a weight of `0`, the zone does not receive any search traffic. 
-_version | String | Implements optimistic concurrency control (OCC) through versioning. The parameter uses simple versioning, such as `1`, and increments upward based on each subsequent modification. This allows any servers from which a request originates to validate whether or not a zone has been modified. 
+`weights` | JSON object | Assigns weights to attributes within the request body of the PUT request. Weights can be set in any ratio, for example, 2:3:5. In a 2:3:5 ratio with 3 zones, for every 100 requests sent to the cluster, each zone would receive either 20, 30, or 50 search requests in a random order. When assigned a weight of `0`, the zone does not receive any search traffic. 
+`_version` | String | Implements optimistic concurrency control (OCC) through versioning. The parameter uses simple versioning, such as `1`, and increments upward based on each subsequent modification. This allows any servers from which a request originates to validate whether or not a zone has been modified. 
 
 
 In the following example request body, `zone_1` and `zone_2` receive 50 requests each, whereas `zone_3` is prevented from receiving requests:

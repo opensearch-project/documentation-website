@@ -24,6 +24,7 @@ POST /_cluster/reroute
 <!-- spec_insert_start
 api: cluster.reroute
 component: query_parameters
+include_deprecated: false
 columns: Parameter, Data type, Description, Default
 -->
 ## Query parameters
@@ -38,7 +39,6 @@ The following table lists the available query parameters. All query parameters a
 | `metric` | List or String | Limits the information returned to the specified metrics. <br> Valid values are: `_all`, `blocks`, `cluster_manager_node`, `master_node`, `metadata`, `nodes`, `routing_nodes`, `routing_table`, `version` | N/A |
 | `retry_failed` | Boolean | When `true`, retries shard allocation if it was blocked because of too many subsequent failures. | N/A |
 | `timeout` | String | A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts "0" without a unit and "-1" to indicate an unspecified value. | N/A |
-| `master_timeout` <br> _DEPRECATED_ | String | _(Deprecated since 2.0: To promote inclusive language, use `cluster_manager_timeout` instead.)_ A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts "0" without a unit and "-1" to indicate an unspecified value. | N/A |
 
 <!-- spec_insert_end -->
 

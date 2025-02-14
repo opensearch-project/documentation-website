@@ -37,6 +37,7 @@ PUT /_cluster/settings
 <!-- spec_insert_start
 api: cluster.put_settings
 columns: Parameter, Data type, Description, Default
+include_deprecated: false
 component: query_parameters
 -->
 ## Query parameters
@@ -48,7 +49,6 @@ The following table lists the available query parameters. All query parameters a
 | `cluster_manager_timeout` | String | A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts "0" without a unit and "-1" to indicate an unspecified value. | N/A |
 | `flat_settings` | Boolean | Returns settings in a flat format. | `false` |
 | `timeout` | String | A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts "0" without a unit and "-1" to indicate an unspecified value. | N/A |
-| `master_timeout` <br> _DEPRECATED_ | String | _(Deprecated since 2.0: To promote inclusive language, use `cluster_manager_timeout` instead.)_ A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts "0" without a unit and "-1" to indicate an unspecified value. | N/A |
 
 <!-- spec_insert_end -->
 
