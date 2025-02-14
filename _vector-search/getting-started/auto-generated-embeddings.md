@@ -134,12 +134,7 @@ PUT /my-nlp-index
       "passage_embedding": {
         "type": "knn_vector",
         "dimension": 768,
-        "method": {
-          "engine": "lucene",
-          "space_type": "l2",
-          "name": "hnsw",
-          "parameters": {}
-        }
+        "space_type": "l2"
       },
       "text": {
         "type": "text"
@@ -256,3 +251,4 @@ The response contains the matching documents:
 ## Next steps
 
 - Learn about configuring semantic and hybrid search in the [Getting started with semantic and hybrid search]({{site.url}}{{site.baseurl}}/vector-search/getting-started/tutorials/neural-search-tutorial/)
+- Learn about the supported types of ML-powered search [ML-powered search]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/)

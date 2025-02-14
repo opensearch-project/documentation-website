@@ -1417,3 +1417,7 @@ The response excludes the first five entries and displays the remaining results:
     }
 }
 ```
+
+## Next steps
+
+- Explore our [tutorials]({{site.url}}{{site.baseurl}}/vector-search/getting-started/tutorials/) to learn how to build ML-powered search applications. 

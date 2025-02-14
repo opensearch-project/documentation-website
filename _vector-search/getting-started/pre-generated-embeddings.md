@@ -24,10 +24,7 @@ PUT /hotels-index
 {
   "settings": {
     "index": {
-      "knn": true,
-      "knn.algo_param.ef_search": 100,
-      "number_of_shards": 1,
-      "number_of_replicas": 0
+      "knn": true
     }
   },
   "mappings": {
@@ -35,15 +32,7 @@ PUT /hotels-index
       "location": {
         "type": "knn_vector",
         "dimension": 2,
-        "space_type": "l2",
-        "method": {
-          "name": "hnsw",
-          "engine": "lucene",
-          "parameters": {
-            "ef_construction": 100,
-            "m": 16
-          }
-        }
+        "space_type": "l2"
       }
     }
   }
@@ -153,3 +142,7 @@ The response contains the hotels closest to the specified pin location:
   }
 }
 ```
+
+## Next steps
+
+- [Vector search techniques]({{site.url}}{{site.baseurl}}/vector-search/vector-search-techniques/)

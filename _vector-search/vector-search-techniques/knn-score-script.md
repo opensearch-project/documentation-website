@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Exact vector search with scoring script
+title: Exact k-NN search with scoring script
 nav_order: 20
 parent: Vector search techniques
 has_children: true
@@ -9,9 +9,9 @@ redirect_from:
   - /search-plugins/knn/knn-score-script/ 
 ---
 
-# Exact vector search with scoring script
+# Exact k-NN search with scoring script
 
-You can use exact vector search with scoring script to find the exact k-nearest neighbors to a given query point. Using the k-NN score script, you can apply a filter on an index before executing the nearest neighbor search. This is useful for dynamic search cases where the index body may vary based on other conditions.
+You can use exact k-NN search with scoring script to find the exact k-nearest neighbors to a given query point. Using the k-NN score script, you can apply a filter on an index before executing the nearest neighbor search. This is useful for dynamic search cases where the index body may vary based on other conditions.
 
 Because the score script approach executes a brute force search, it doesn't scale as well as the [approximate approach]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/). In some cases, it might be better to think about refactoring your workflow or index structure to use the approximate approach instead of the score script approach.
 
@@ -106,7 +106,7 @@ All parameters are required.
 - `query_value` is the point you want to find the nearest neighbors for. For the Euclidean and cosine similarity spaces, the value must be an array of floats that matches the dimension set in the field's mapping. For Hamming bit distance, this value can be either of type signed long or a base64-encoded string (for the long and binary field types, respectively).
 - `space_type` corresponds to the distance function. See the [spaces section](#spaces).
 
-The [post filter example in the approximate approach]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn#using-approximate-k-nn-with-filters) shows a search that returns fewer than `k` results. If you want to avoid this situation, the score script method lets you essentially invert the order of events. In other words, you can filter down the set of documents over which to execute the k-nearest neighbor search.
+The [post filter example in the approximate approach]({{site.url}}{{site.baseurl}}/vector-search/specialized-operations/filter-search-knn/) shows a search that returns fewer than `k` results. If you want to avoid this situation, the score script method lets you essentially invert the order of events. In other words, you can filter down the set of documents over which to execute the k-nearest neighbor search.
 
 This example shows a pre-filter approach to k-NN search with the score script approach. First, create the index:
 
@@ -305,5 +305,5 @@ Cosine similarity returns a number between -1 and 1, and because OpenSearch rele
 With cosine similarity, it is not valid to pass a zero vector (`[0, 0, ... ]`) as input. This is because the magnitude of such a vector is 0, which raises a `divide by 0` exception in the corresponding formula. Requests containing the zero vector will be rejected, and a corresponding exception will be thrown.
 {: .note }
 
-The `hamming` space type is supported for binary vectors in OpenSearch version 2.16 and later. For more information, see [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-vectors).
+The `hamming` space type is supported for binary vectors in OpenSearch version 2.16 and later. For more information, see [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized#binary-vectors).
 {: .note}

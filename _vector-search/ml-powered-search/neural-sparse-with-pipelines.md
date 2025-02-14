@@ -514,3 +514,7 @@ For OpenSearch versions earlier than 2.15, a throttling exception will be return
 ```
 
 To mitigate throttling exceptions, decrease the maximum number of connections specified in the `max_connection` setting in the connector's [`client_config`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#configuration-parameters) object. Doing so will prevent the maximum number of concurrent connections from exceeding the threshold of the remote service. You can also modify the retry settings to avoid a request spike during ingestion.
+
+## Next steps
+
+- Explore our [tutorials]({{site.url}}{{site.baseurl}}/vector-search/getting-started/tutorials/) to learn how to build ML-powered search applications. 

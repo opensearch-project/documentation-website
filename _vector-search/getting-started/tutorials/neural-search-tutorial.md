@@ -365,12 +365,7 @@ PUT /my-nlp-index
       "passage_embedding": {
         "type": "knn_vector",
         "dimension": 768,
-        "method": {
-          "engine": "lucene",
-          "space_type": "l2",
-          "name": "hnsw",
-          "parameters": {}
-        }
+        "space_type": "l2"
       },
       "text": {
         "type": "text"

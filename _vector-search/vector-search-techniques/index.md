@@ -27,7 +27,7 @@ Overall, for larger data sets, you should generally choose the approximate neare
 
 ## Approximate search
 
-OpenSearch supports several algorithms for approximate vector search, each with its own advantages. For complete documentation, see [Approximate search]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/). For more information about the search methods and engines, see [Method definitions]({{site.url}}{{site.baseurl}}/vector-search/creating-vector-index/method/). For method recommendations, see [Choosing the right method]({{site.url}}{{site.baseurl}}/vector-search/creating-vector-index/method/#choosing-the-right-method).
+OpenSearch supports several algorithms for approximate vector search, each with its own advantages. For complete documentation, see [Approximate search]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/). For more information about the search methods and engines, see [Methods and engines]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/). For method recommendations, see [Choosing the right method]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/#choosing-the-right-method).
 
 To use approximate vector search, specify one of the following search methods (algorithms) in the `method` parameter:
 

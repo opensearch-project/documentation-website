@@ -55,3 +55,13 @@ GET /my-semantic-search-index/_search
 }
 ```
 {% include copy-curl.html %}
+
+## Next steps
+
+- Learn about configuring semantic and hybrid search in the [Getting started with semantic and hybrid search]({{site.url}}{{site.baseurl}}/vector-search/getting-started/tutorials/neural-search-tutorial/)
+- Learn about the supported types of ML-powered search [ML-powered search]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/)
+
+## Related articles
+
+- [k-NN query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/knn/)
+- [Neural query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/)

@@ -133,3 +133,7 @@ GET /my-nlp-index/_search
 {% include copy-curl.html %}
 
 To eliminate passing the model ID with each neural query request, you can set a default model on a vector index or a field. To learn more, see [Setting a default model on an index or field]({{site.url}}{{site.baseurl}}/search-plugins/neural-text-search/##setting-a-default-model-on-an-index-or-field).
+
+## Next steps
+
+- Explore our [tutorials]({{site.url}}{{site.baseurl}}/vector-search/getting-started/tutorials/) to learn how to build ML-powered search applications. 

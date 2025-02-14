@@ -117,3 +117,7 @@ GET testindex/_search
 }
 ```
 {% include copy-curl.html %}
+
+## Next steps
+
+- Explore our [tutorials]({{site.url}}{{site.baseurl}}/vector-search/getting-started/tutorials/) to learn how to build ML-powered search applications. 

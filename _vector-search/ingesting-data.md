@@ -74,7 +74,7 @@ POST /my-semantic-search-index/_doc
 
 The pipeline automatically generates and stores the embeddings in the `passage_embedding` field.
 
-## Next steps
+## Related articles
 
 - [Searching vector data]({{site.url}}{{site.baseurl}}/vector-search/searching-data/)
 - [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/)

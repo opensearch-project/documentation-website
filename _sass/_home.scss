@@ -88,14 +88,9 @@
     }
 }
 
-.card {
-    @extend .home-card;
-    margin-bottom: 0;
-}
-
-@mixin heading-font {
+@mixin heading-font($size: 1.5rem) {
     @include heading-sans-serif;
-    font-size: 1.5rem;
+    font-size: $size;
     font-weight: 700;
     color: $blue-dk-300;
 }
@@ -105,6 +100,14 @@
     flex-grow: 1;
     flex-basis: 1rem;
     margin: 1rem 0 1.5rem 0;
+}
+
+.card {
+    @extend .home-card;
+    margin-bottom: 0;
+    .heading {
+        @include heading-font(1.2rem); 
+    }
 }
 
 .heading-main {
@@ -170,7 +173,7 @@
 }
 
 .list-heading {
-    @include heading-font; 
+    @include heading-font (1.2rem); 
     margin: 0 0 0.75rem 0; 
     font-size: 1.2rem;
     color: $blue-dk-300;

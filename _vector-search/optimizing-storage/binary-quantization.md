@@ -2,7 +2,7 @@
 layout: default
 title: Binary quantization
 parent: Vector quantization
-grand_parent: Optimizing vector search performance
+grand_parent: Optimizing vector storage
 nav_order: 40
 has_children: false
 has_math: true
@@ -197,3 +197,8 @@ In 4-bit quantization, each dimension is represented using 4 bits, equivalent to
 Memory = 1.1 * ((256 * 4 / 8) + 8 * 16) * 1,000,000
        ~= 0.282 GB
 ```
+
+## Related articles
+
+- [Memory-optimized vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized/)
+- [k-NN query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/knn/)

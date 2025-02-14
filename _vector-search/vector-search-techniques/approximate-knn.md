@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Approximate vector search
+title: Approximate k-NN search
 nav_order: 15
 parent: Vector search techniques
 has_children: false
@@ -9,7 +9,7 @@ redirect_from:
   - /search-plugins/knn/approximate-knn/ 
 ---
 
-# Approximate vector search
+# Approximate k-NN search
 
 Standard k-NN search methods compute similarity using a brute-force approach that measures the nearest distance between a query and a number of points, which produces exact results. This works well in many applications. However, in the case of extremely large datasets with high dimensionality, this creates a scaling problem that reduces the efficiency of the search. Approximate k-NN search methods can overcome this by employing tools that restructure indexes more efficiently and reduce the dimensionality of searchable vectors. Using this approach requires a sacrifice in accuracy but increases search processing speeds appreciably.
 
@@ -21,14 +21,6 @@ For details on the algorithms the plugin currently supports, see [Creating a vec
 OpenSearch builds a native library index of the vectors for each `knn-vector` field/Lucene segment pair during indexing, which can be used to efficiently find the k-nearest neighbors to a query vector during search. To learn more about Lucene segments, see the [Apache Lucene documentation](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/codecs/lucene87/package-summary.html#package.description). These native library indexes are loaded into native memory during search and managed by a cache. To learn more about preloading native library indexes into memory, refer to the [warmup API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#warmup-operation). Additionally, you can see which native library indexes are already loaded in memory. To learn more about this, see the [stats API section]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#stats).
 
 Because the native library indexes are constructed during indexing, it is not possible to apply a filter on an index and then use this search method. All filters are applied on the results produced by the approximate nearest neighbor search.
-
-## Recommendations for engines and cluster node sizing
-
-Each of the three engines used for approximate k-NN search has its own attributes that make one more sensible to use than the others in a given situation. Use the following information to help determine which engine will best meet your requirements.
-
-In general, NMSLIB (deprecated) outperforms both Faiss and Lucene when used for search operations. However, to optimize for indexing throughput, Faiss is a good option. For relatively smaller datasets (up to a few million vectors), the Lucene engine demonstrates better latencies and recall. At the same time, the size of the index is smallest compared to the other engines, which allows it to use smaller AWS instances for data nodes.
-
-When considering cluster node sizing, a general approach is to first establish an even distribution of the index across the cluster. However, there are other considerations. To help make these choices, you can refer to the OpenSearch managed service guidance in the section [Sizing domains](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/sizing-domains.html).
 
 ## Get started with approximate k-NN
 
@@ -130,7 +122,7 @@ GET my-knn-index-1/_search
 ```
 {% include copy-curl.html %}
 
-### The number of returned results
+## The number of returned results
 
 In the preceding query, `k` represents the number of neighbors returned by the search of each graph. You must also include the `size` option, indicating the final number of results that you want the query to return.  
 
@@ -150,7 +142,7 @@ The number of results returned by Faiss/NMSLIB differs from the number of result
 
 Starting in OpenSearch 2.14, you can use `k`, `min_score`, or `max_distance` for [radial search]({{site.url}}{{site.baseurl}}/search-plugins/knn/radial-search-knn/).
 
-### Building a vector index from a model
+## Building a vector index from a model
 
 For some of the algorithms that OpenSearch supports, the native library index needs to be trained before it can be used. It would be expensive to train every newly created segment, so, instead, the plugin features the concept of a *model* that initializes the native library index during segment creation. You can create a model by calling the [Train API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-a-model) and passing in the source of the training data and the method definition of the model. Once training is complete, the model is serialized to a k-NN model system index. Then, during indexing, the model is pulled from this index to initialize the segments.
 
@@ -262,110 +254,3 @@ POST _bulk
 {% include copy-curl.html %}
 
 After data is ingested, it can be searched in the same way as any other `knn_vector` field.
-
-### Rescoring quantized results using full precision
-
-Quantization can be used to significantly reduce the memory footprint of a vector index. For more information about quantization, see [k-NN vector quantization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization). Because some vector representation is lost during quantization, the computed distances will be approximate. This causes the overall recall of the search to decrease. 
-
-To improve recall while maintaining the memory savings of quantization, you can use a two-phase search approach. In the first phase, `oversample_factor * k` results are retrieved from an index using quantized vectors and the scores are approximated. In the second phase, the full-precision vectors of those `oversample_factor * k` results are loaded into memory from disk, and scores are recomputed against the full-precision query vector. The results are then reduced to the top k.
-
-The default rescoring behavior is determined by the `mode` and `compression_level` of the backing k-NN vector field:
-
-- For `in_memory` mode, no rescoring is applied by default.
-- For `on_disk` mode, default rescoring is based on the configured `compression_level`. Each `compression_level` provides a default `oversample_factor`, specified in the following table.
-
-| Compression level | Default rescore `oversample_factor` |
-|:------------------|:----------------------------------|
-| `32x` (default)   | 3.0                               |
-| `16x`             | 2.0                               |
-| `8x`              | 2.0                               |
-| `4x`              | No default rescoring             |
-| `2x`              | No default rescoring             |
-
-To explicitly apply rescoring, provide the `rescore` parameter in a query on a quantized index and specify the `oversample_factor`:
-
-```json
-GET my-knn-index-1/_search
-{
-  "size": 2,
-  "query": {
-    "knn": {
-      "target-field": {
-        "vector": [2, 3, 5, 6],
-        "k": 2,
-        "rescore" : {
-          "oversample_factor": 1.2
-        }
-      }
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-Alternatively, set the `rescore` parameter to `true` to use a default `oversample_factor` of `1.0`:
-
-```json
-GET my-knn-index-1/_search
-{
-  "size": 2,
-  "query": {
-    "knn": {
-      "target-field": {
-        "vector": [2, 3, 5, 6],
-        "k": 2,
-        "rescore" : true
-      }
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-The `oversample_factor` is a floating-point number between 1.0 and 100.0, inclusive. The number of results in the first pass is calculated as `oversample_factor * k` and is guaranteed to be between 100 and 10,000, inclusive. If the calculated number of results is smaller than 100, then the number of results is set to 100. If the calculated number of results is greater than 10,000, then the number of results is set to 10,000.
-
-Rescoring is only supported for the `faiss` engine.
-
-Rescoring is not needed if quantization is not used because the scores returned are already fully precise.
-{: .note}
-
-### Using approximate k-NN with filters
-
-To learn about using filters with k-NN search, see [k-NN search with filters]({{site.url}}{{site.baseurl}}/search-plugins/knn/filter-search-knn/).
-
-### Using approximate k-NN with nested fields
-
-To learn about using k-NN search with nested fields, see [k-NN search with nested fields]({{site.url}}{{site.baseurl}}/search-plugins/knn/nested-search-knn/).
-
-### Using approximate radial search
-
-To learn more about the radial search feature, see [k-NN radial search]({{site.url}}{{site.baseurl}}/search-plugins/knn/radial-search-knn/).
-
-### Using approximate k-NN with binary vectors
-
-To learn more about using binary vectors with k-NN search, see [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-vectors).
-
-## Spaces
-
-A _space_ corresponds to the function used to measure the distance between two points in order to determine the k-nearest neighbors. From the k-NN perspective, a lower score equates to a closer and better result. This is the opposite of how OpenSearch scores results, where a higher score equates to a better result. OpenSearch supports the following spaces. 
-
-Not every method supports each of these spaces. Be sure to check out [the method documentation]({{site.url}}{{site.baseurl}}/vector-search/creating-vector-index/method/) to make sure the space you are interested in is supported.
-{: note.}
-
-| Space type | Distance function ($$d$$ ) | OpenSearch score |
-| :--- | :--- | :--- |
-| `l1`  | $$ d(\mathbf{x}, \mathbf{y}) = \sum_{i=1}^n \lvert x_i - y_i \rvert $$ | $$ score = {1 \over {1 + d} } $$ |
-| `l2`  | $$ d(\mathbf{x}, \mathbf{y}) = \sum_{i=1}^n (x_i - y_i)^2 $$ | $$ score = {1 \over 1 + d } $$ |
-| `linf` | $$ d(\mathbf{x}, \mathbf{y}) = max(\lvert x_i - y_i \rvert) $$ | $$ score = {1 \over 1 + d } $$ |
-| `cosinesimil` | $$ d(\mathbf{x}, \mathbf{y}) = 1 - cos { \theta } = 1 - {\mathbf{x} \cdot \mathbf{y} \over \lVert \mathbf{x}\rVert \cdot \lVert \mathbf{y}\rVert}$$$$ = 1 - {\sum_{i=1}^n x_i y_i \over \sqrt{\sum_{i=1}^n x_i^2} \cdot \sqrt{\sum_{i=1}^n y_i^2}}$$, <br> where $$\lVert \mathbf{x}\rVert$$ and $$\lVert \mathbf{y}\rVert$$ represent the norms of vectors $$\mathbf{x}$$ and $$\mathbf{y}$$, respectively. | $$ score = {2 - d \over 2} $$ |
-| `innerproduct` (supported for Lucene in OpenSearch version 2.13 and later) | **NMSLIB** and **Faiss**:<br> $$ d(\mathbf{x}, \mathbf{y}) = - {\mathbf{x} \cdot \mathbf{y}} = - \sum_{i=1}^n x_i y_i $$  <br><br>**Lucene**:<br> $$ d(\mathbf{x}, \mathbf{y}) = {\mathbf{x} \cdot \mathbf{y}} = \sum_{i=1}^n x_i y_i $$ | **NMSLIB** and **Faiss**:<br> $$ \text{If} d \ge 0,  score = {1 \over 1 + d }$$ <br> $$\text{If} d < 0, score = −d + 1$$  <br><br>**Lucene:**<br> $$ \text{If} d > 0, score = d + 1 $$ <br> $$\text{If} d \le 0, score = {1 \over 1 + (-1 \cdot d) }$$ |
-| `hamming` (supported for binary vectors in OpenSearch version 2.16 and later) | $$ d(\mathbf{x}, \mathbf{y}) = \text{countSetBits}(\mathbf{x} \oplus \mathbf{y})$$ | $$ score = {1 \over 1 + d } $$ |
-
-The cosine similarity formula does not include the `1 -` prefix. However, because similarity search libraries equate lower scores with closer results, they return `1 - cosineSimilarity` for the cosine similarity space---this is why `1 -` is included in the distance function.
-{: .note }
-
-With cosine similarity, it is not valid to pass a zero vector (`[0, 0, ...]`) as input. This is because the magnitude of such a vector is 0, which raises a `divide by 0` exception in the corresponding formula. Requests containing the zero vector will be rejected, and a corresponding exception will be thrown.
-{: .note }
-
-The `hamming` space type is supported for binary vectors in OpenSearch version 2.16 and later. For more information, see [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-vectors).
-{: .note}

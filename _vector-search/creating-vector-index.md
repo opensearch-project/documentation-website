@@ -2,7 +2,6 @@
 layout: default
 title: Creating a vector index
 nav_order: 20
-has_children: true
 redirect_from:
   - /vector-search/creating-a-vector-db/
   - /search-plugins/knn/knn-index/
@@ -28,15 +27,7 @@ PUT /test-index
       "my_vector1": {
         "type": "knn_vector",
         "dimension": 3,
-        "space_type": "l2",
-        "method": {
-          "name": "hnsw",
-          "engine": "lucene",
-          "parameters": {
-            "ef_construction": 128,
-            "m": 24
-          }
-        }
+        "space_type": "l2"
       }
     }
   }
@@ -51,16 +42,16 @@ Regardless of the type of vector search, the following elements are part of crea
    Set `index.knn` to `true` in the index settings to enable k-NN search functionality.
 
 2. **Define a vector field**:
-   Specify the field that will store the vector data.
+   Specify the field that will store the vector data. When defining a `knn_vector` field in OpenSearch, you can select from different data types to balance storage requirements and performance. By default, k-NN vectors are float vectors, but you can also opt for byte or binary vectors for more efficient storage. For more information, see [k-NN vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/).
 
 3. **Specify dimension**:
    Set the `dimension` property to match the size of the vectors used.
 
 4. **Choose a space type**:
-   Select a distance metric for similarity comparisons, such as `l2` (Euclidean distance) or `cosinesimil`.
+   Select a distance metric for similarity comparisons, such as `l2` (Euclidean distance) or `cosinesimil`. For more information, see [Spaces]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-spaces/).
 
-5. **Select a method**:
-   Configure the indexing method, such as HNSW or IVF, to optimize vector search performance.
+5. (Advanced) **Select a method**:
+   Optionally, configure the indexing method, such as HNSW or IVF, to optimize vector search performance. For more information, see [Methods and engines]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/).
 
 To create a vector index, choose one of the following options:
 
@@ -155,9 +146,9 @@ PUT /my-semantic-search-index
 ```
 {% include copy-curl.html %}
 
-## Next steps
+## Related articles
 
 - [Ingesting data into a vector index]({{site.url}}{{site.baseurl}}/vector-search/searching-data/)
-- [Vector data types]({{site.url}}{{site.baseurl}}/vector-search/creating-vector-index/vector-field/)
-- [Supported methods]({{site.url}}{{site.baseurl}}/vector-search/creating-vector-index/method/)
+- [k-NN vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/)
+- [Methods and engines]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/)
 - [k-NN vector field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/)

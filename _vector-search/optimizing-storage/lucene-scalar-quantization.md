@@ -2,7 +2,7 @@
 layout: default
 title: Lucene scalar quantization
 parent: Vector quantization
-grand_parent: Optimizing vector search performance
+grand_parent: Optimizing vector storage
 nav_order: 10
 has_children: false
 has_math: true
@@ -10,7 +10,7 @@ has_math: true
 
 # Lucene scalar quantization
 
-Starting with version 2.16, Opensupports built-in scalar quantization for the Lucene engine. Unlike [byte vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#byte-vectors), which require you to quantize vectors before ingesting documents, the Lucene scalar quantizer quantizes input vectors in OpenSearch during ingestion. The Lucene scalar quantizer converts 32-bit floating-point input vectors into 7-bit integer vectors in each segment using the minimum and maximum quantiles computed based on the [`confidence_interval`](#confidence-interval) parameter. During search, the query vector is quantized in each segment using the segment's minimum and maximum quantiles in order to compute the distance between the query vector and the segment's quantized input vectors. 
+Starting with version 2.16, OpenSearch supports built-in scalar quantization for the Lucene engine. Unlike [byte vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized/#byte-vectors), which require you to quantize vectors before ingesting documents, the Lucene scalar quantizer quantizes input vectors in OpenSearch during ingestion. The Lucene scalar quantizer converts 32-bit floating-point input vectors into 7-bit integer vectors in each segment using the minimum and maximum quantiles computed based on the [`confidence_interval`](#confidence-interval) parameter. During search, the query vector is quantized in each segment using the segment's minimum and maximum quantiles in order to compute the distance between the query vector and the segment's quantized input vectors. 
 
 Quantization can decrease the memory footprint by a factor of 4 in exchange for some loss in recall. Additionally, quantization slightly increases disk usage because it requires storing both the raw input vectors and the quantized vectors.
 
@@ -113,3 +113,8 @@ As an example, assume that you have 1 million vectors with a dimension of 256 an
 ```r
 1.1 * (256 + 8 * 16) * 1,000,000 ~= 0.4 GB
 ```
+
+## Related articles
+
+- [Memory-optimized vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized/)
+- [k-NN query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/knn/)

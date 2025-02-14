@@ -443,7 +443,4 @@ The response contains both messages:
 
 ## Next steps
 
-- To learn more about connecting to models on external platforms, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
-- For supported APIs, see [Memory APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/index/).
-- To learn more about search pipelines and processors, see [Search pipelines]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/).
-- For available OpenSearch queries, see [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/).
+- Explore our [tutorials]({{site.url}}{{site.baseurl}}/vector-search/getting-started/tutorials/) to learn how to build ML-powered search applications. 
