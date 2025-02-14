@@ -223,7 +223,7 @@ POST /logs/_search
         }
     },
     "aggs": {
-        "by_hour": {
+        "by_month": {
             "date_histogram": {
                 "field": "@timestamp",
                 "calendar_interval": "month"
