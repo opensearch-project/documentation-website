@@ -9,49 +9,15 @@ permalink: /vector-search/
 redirect_from:
   - /vector-search/index/
   - /search-plugins/vector-search/
-raw_steps:
-  - heading: "Pre-generated embeddings quickstart"
-    description: "Follow a quickstart tutorial for raw vector search."
-    link: "/vector-search/getting-started/pre-generated-embeddings/"
-  - heading: "Vector search techniques"
-    description: "Select a search technique and configure your vector search."
-    link: "/vector-search/vector-search-techniques/"
-  - heading: "Specialized vector search"
-    description: "Learn about specialized vector search use cases, such as filtering, nested field search, and radial search."
-    link: "/vector-search/specialized-operations/"
-  - heading: "Optimizing vector storage"
-    description: "Learn about optimizing vector search reduce memory usage and improve performance."
-    link: "/vector-search/optimizing-storage/"
-  - heading: "Performance tuning"
-    description: "Learn about optimizing vector search reduce memory usage and improve performance."
-    link: "/vector-search/performance-tuning/"
-ml_steps:
-  - heading: "Auto-generated embeddings quickstart"
-    description: "Follow a quickstart tutorial for text-to-embedding search."
-    link: "/vector-search/getting-started/auto-generated-embeddings/"
-  - heading: "Getting started with semantic and hybrid search"
-    description: "Dive into semantic search and hybrid search."
-    link: "/vector-search/getting-started/tutorials/neural-search-tutorial/"
-  - heading: "ML-powered search"
-    description: "Learn about many ML-powered search options that OpenSearch provides."
-    link: "/vector-search/ml-powered-search/"
-  - heading: "Optimizing vector storage"
-    description: "Learn about optimizing vector search reduce memory usage and improve performance."
-    link: "/vector-search/optimizing-storage/"
-  - heading: "Performance tuning"
-    description: "Learn about optimizing vector search reduce memory usage and improve performance."
-    link: "/vector-search/performance-tuning/"
 ---
 
 # Vector search
 
-Traditional lexical search, based on term frequency models like BM25, is effective for many search applications. However, these techniques often require substantial time and expertise to fine-tune for capturing the meaning or relevance of search terms. To add semantic understanding to your search application, you can use machine learning embedding models. These models encode the meaning and context of text, images, and audio into vectors, enabling similarity search. OpenSearch supports this functionality through its k-nearest neighbors (k-NN) search capabilities. 
+Vector search enhances traditional lexical search by encoding text, images, and audio as vectors, enabling similarity search with semantic understanding. OpenSearch unifies traditional search, analytics, and vector search in a single solution. As a vector database, it streamlines AI application development by efficiently storing and retrieving high-dimensional data.
 
-OpenSearch combines traditional search, analytics, and vector search into a single, unified solution. Its vector database capabilities simplify the development of artificial intelligence (AI) applications by reducing the effort required to manage and integrate AI-generated assets. You can bring your models, vectors, and metadata into OpenSearch to enable vector, lexical, and hybrid search and analytics, all with built-in performance and scalability.
-
-## Using OpenSearch as a vector database
-
-OpenSearch provides an integrated  vector database that can support AI systems by serving as a knowledge base. This benefits AI applications like generative AI and natural language search by providing a long-term memory of AI-generated outputs. These outputs can be used to enhance information retrieval and analytics, improve efficiency and stability, and give generative AI models a broader and deeper pool of data from which to draw more accurate responses to queries.
+<span class="centering-container">
+[Get started]({{site.url}}{{site.baseurl}}/vector-search/getting-started/){: .btn-dark-blue}
+</span>
 
 ## Key features
 
@@ -62,24 +28,3 @@ OpenSearch vector search supports the following key features:
 - **Multi-vector support**: Store and search multiple vectors per document using nested fields, useful for complex documents with multiple components requiring separate vector representations.
 - **Memory-efficient search**: Optimize memory usage through various quantization techniques and efficient indexing methods, making vector search practical even with large-scale deployments.
 - **Hybrid search capabilities**: Combine traditional keyword search with vector-based semantic search to use the strengths of both approaches, improving search relevance and accuracy.
-
-<span class="centering-container">
-[Get started]({{site.url}}{{site.baseurl}}/vector-search/getting-started/){: .btn-dark-blue}
-</span>
-
----
-## Explore vector search documentation
-
-Choose one of the following learning paths to explore vector search documentation.
-
-### Learning path: Bring your own vectors
-
-If you’ve already generated your own vector embeddings, OpenSearch makes it easy to ingest and search them. Follow this documentation sequence to learn more:
-
-{% include list.html list_items=page.raw_steps%}
-
-### Learning path: Seamless text-to-embedding search
-
-Simplify your search process by letting OpenSearch handle embedding generation. Follow this documentation sequence to learn more:
-
-{% include list.html list_items=page.ml_steps%}

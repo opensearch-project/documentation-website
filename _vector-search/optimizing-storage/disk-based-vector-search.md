@@ -136,7 +136,7 @@ POST _bulk
 
 ## Search
 
-Search is also performed in the same way as in other index configurations. The key difference is that, by default, the `oversample_factor` of the rescore parameter is set to `3.0` (unless you override the `compression_level`). For more information, see [Rescoring quantized results using full precision]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized/#rescoring-quantized-results-to-full-precision). To perform vector search on a disk-optimized index, provide the search vector:
+Search is also performed in the same way as in other index configurations. The key difference is that, by default, the `oversample_factor` of the rescore parameter is set to `3.0` (unless you override the `compression_level`). For more information, see [Rescoring quantized results to full precision]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized/#rescoring-quantized-results-to-full-precision). To perform vector search on a disk-optimized index, provide the search vector:
 
 ```json
 GET my-vector-index/_search
