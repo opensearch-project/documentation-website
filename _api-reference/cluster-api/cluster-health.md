@@ -45,6 +45,7 @@ The following table lists the available path parameters. All path parameters are
 <!-- spec_insert_start
 api: cluster.health
 columns: Parameter, Data type, Description, Default
+include_deprecated: false
 component: query_parameters
 -->
 ## Query parameters
@@ -65,7 +66,6 @@ The following table lists the available query parameters. All query parameters a
 | `wait_for_no_relocating_shards` | Boolean | Whether to wait until there are no relocating shards in the cluster. | N/A |
 | `wait_for_nodes` | Float or String | Waits until the specified number of nodes (`N`) is available. Accepts `>=N`, `<=N`, `>N`, and `<N`. You can also use `ge(N)`, `le(N)`, `gt(N)`, and `lt(N)` notation. | N/A |
 | `wait_for_status` | String | Waits until the cluster health reaches the specified status or better. <br> Valid values are: `green`, `GREEN`, `yellow`, `YELLOW`, `red`, `RED` | N/A |
-| `master_timeout` <br> _DEPRECATED_ | String | _(Deprecated since 2.0: To promote inclusive language, use `cluster_manager_timeout` instead.)_ A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts "0" without a unit and "-1" to indicate an unspecified value. | N/A |
 
 <!-- spec_insert_end -->
 
