@@ -28,8 +28,8 @@ Type | Description
 :--- | :---
 `null` | A `null` field can't be indexed or searched. When a field is set to null, OpenSearch behaves as if the field has no value.
 `boolean` | OpenSearch accepts `true` and `false` as Boolean values. An empty string is equal to `false.`
-`float` | A single-precision, 32-bit floating-point number.
-`double` | A double-precision, 64-bit floating-point number.
+`float` | A single-precision, 32-bit IEEE 754 floating-point number, restricted to finite values.
+`double` | A double-precision, 64-bit IEEE 754 floating-point number, restricted to finite values.
 `integer` | A signed 32-bit number.
 `object` | Objects are standard JSON objects, which can have fields and mappings of their own. For example, a `movies` object can have additional properties such as `title`, `year`, and `director`.
 `array` | OpenSearch does not have a specific array data type. Arrays are represented as a set of values of the same data type (for example, integers or strings) associated with a field. When indexing, you can pass multiple values for a field, and OpenSearch will treat it as an array. Empty arrays are valid and recognized as array fields with zero elements---not as fields with no values. OpenSearch supports querying and filtering arrays, including checking for values, range queries, and array operations like concatenation and intersection. Nested arrays, which may contain complex objects or other arrays, can also be used for advanced data modeling. 
