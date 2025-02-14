@@ -45,3 +45,28 @@ DELETE /_plugins/_ml/models/MzcIJX8BA7mbufL6DOwl
   "_primary_term" : 18
 }
 ```
+
+# Check downstream task before deleting
+
+Since we have several downstreams which using models (agent, search pipeline, ingest pipeline), we provide a feature to check all downstream tasks to prevent deleting using model by accident to customer after 2.19. 
+
+You can enable this feature by setting cluster setting `plugins.ml_commons.safe_delete_model` to true, which is false by default. 
+
+After you set it to true, and some downstreams is using your candidate deleting model (e.g. a search pipeline), when you try to delete the model, you will receive
+```
+{
+    "error": {
+        "root_cause": [
+            {
+                "type": "status_exception",
+                "reason": "1 ingest pipelines are still using this model, please delete or update the pipelines first: [<downstream pipeline name>]"
+            }
+        ],
+        "type": "status_exception",
+        "reason": "1 ingest pipelines are still using this model, please delete or update the pipelines first: [<downstream pipeline name>]"
+    },
+    "status": 409
+}
+```
+
+After deleting the downstream tasks, you can delete it successfully.
