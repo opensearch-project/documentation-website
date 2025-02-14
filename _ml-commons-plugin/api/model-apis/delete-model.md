@@ -46,27 +46,13 @@ DELETE /_plugins/_ml/models/MzcIJX8BA7mbufL6DOwl
 }
 ```
 
-# Check downstream task before deleting
+## Safely deleting a model
+Introduced 2.19
+{: .label .label-purple }
 
-Since we have several downstreams which using models (agent, search pipeline, ingest pipeline), we provide a feature to check all downstream tasks to prevent deleting using model by accident to customer after 2.19. 
+To prevent accidental deletion of models actively used by agents, search pipelines, ingest pipelines, or other components, you can enable a safety check. If you try to delete a model that is in use with the safety check enabled, OpenSearch returns an error message. To proceed with deletion:
 
-You can enable this feature by setting cluster setting `plugins.ml_commons.safe_delete_model` to true, which is false by default. 
+- Identify any components using the model and either delete them or update them to use other models.
+- Once all dependencies are cleared, delete the model.
 
-After you set it to true, and some downstreams is using your candidate deleting model (e.g. a search pipeline), when you try to delete the model, you will receive
-```
-{
-    "error": {
-        "root_cause": [
-            {
-                "type": "status_exception",
-                "reason": "1 ingest pipelines are still using this model, please delete or update the pipelines first: [<downstream pipeline name>]"
-            }
-        ],
-        "type": "status_exception",
-        "reason": "1 ingest pipelines are still using this model, please delete or update the pipelines first: [<downstream pipeline name>]"
-    },
-    "status": 409
-}
-```
-
-After deleting the downstream tasks, you can delete it successfully.
+For information about enabling this feature, see [Safely delete models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/#safely-delete-models).
