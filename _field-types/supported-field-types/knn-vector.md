@@ -78,3 +78,7 @@ However, if you intend to use Painless scripting or a k-NN score script, you onl
  }
  ```
 
+## Related articles
+
+- [Vector search]({{site.url}}{{site.baseurl}}/vector-search/)
+- [k-NN query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/kNN/)

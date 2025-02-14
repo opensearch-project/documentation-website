@@ -19,7 +19,7 @@ Because the score script approach executes a brute force search, it doesn't scal
 
 Similar to approximate nearest neighbor search, in order to use the score script on a body of vectors, you must first create an index with one or more `knn_vector` fields.
 
-If you intend to just use the score script approach (and not the approximate approach) you can set `index.knn` to `false` and not set `index.knn.space_type`. You can choose the space type during search. See [spaces](#spaces) for the spaces the k-NN score script supports.
+If you intend to just use the score script approach (and not the approximate approach) you can set `index.knn` to `false` and not set `index.knn.space_type`. You can choose the space type during search. For the spaces the k-NN score script supports, see [Spaces]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-spaces/).
 
 This example creates an index with two `knn_vector` fields:
 
@@ -104,7 +104,7 @@ All parameters are required.
 
 - `field` is the field that contains your vector data.
 - `query_value` is the point you want to find the nearest neighbors for. For the Euclidean and cosine similarity spaces, the value must be an array of floats that matches the dimension set in the field's mapping. For Hamming bit distance, this value can be either of type signed long or a base64-encoded string (for the long and binary field types, respectively).
-- `space_type` corresponds to the distance function. See the [spaces section](#spaces).
+- `space_type` corresponds to the distance function. For more information, see [Spaces]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-spaces/).
 
 The [post filter example in the approximate approach]({{site.url}}{{site.baseurl}}/vector-search/specialized-operations/filter-search-knn/) shows a search that returns fewer than `k` results. If you want to avoid this situation, the score script method lets you essentially invert the order of events. In other words, you can filter down the set of documents over which to execute the k-nearest neighbor search.
 

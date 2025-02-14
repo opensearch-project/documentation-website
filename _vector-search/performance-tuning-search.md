@@ -7,7 +7,7 @@ parent: Performance tuning
 
 # Search performance tuning
 
-Take the following steps to improve search performance:
+Take the following steps to improve search performance.
 
 ## Reduce segment count
 
