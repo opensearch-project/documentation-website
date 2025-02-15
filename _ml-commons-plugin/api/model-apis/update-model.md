@@ -130,3 +130,49 @@ PUT /_plugins/_ml/models/9uGdCJABjaMXYrp14YRj
 }
 ```
 
+#### Example requests: Updating the interface 
+The interface of a model can be updated to specify input and output schemas. This is particularly useful for models that don't have a default interface or when you need to customize the interface.
+
+The following sample request sets the output schema for an [AI21 Labs Jurassic model](https://aws.amazon.com/bedrock/ai21/) registered without a post-processing function. Note that for models registered using the [Amazon Bedrock AI21 Labs Jurassic](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_ai21labs_jurassic_blueprint.md) blueprint, a default interface is automatically applied.
+
+```json
+PUT /_plugins/_ml/models/IMcNB5UB7judm8f45nXo
+{
+    "interface": {
+        "output": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"inference_results\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"output\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"name\": {\n                  \"type\": \"string\"\n                },\n                \"dataAsMap\": {\n                  \"type\": \"object\",\n                  \"properties\": {\n                    \"id\": {\n                      \"type\": \"number\"\n                    },\n                    \"prompt\": {\n                      \"type\": \"object\",\n                      \"properties\": {\n                        \"text\": {\n                          \"type\": \"string\"\n                        },\n                        \"tokens\": {\n                          \"type\": \"array\",\n                          \"items\": {\n                            \"type\": \"object\",\n                            \"properties\": {\n                              \"generatedToken\": {\n                                \"type\": \"object\",\n                                \"properties\": {\n                                  \"token\": {\n                                    \"type\": \"string\"\n                                  },\n                                  \"logprob\": {\n                                    \"type\": \"number\"\n                                  },\n                                  \"raw_logprob\": {\n                                    \"type\": \"number\"\n                                  }\n                                }\n                              },\n                              \"textRange\": {\n                                \"type\": \"object\",\n                                \"properties\": {\n                                  \"start\": {\n                                    \"type\": \"number\"\n                                  },\n                                  \"end\": {\n                                    \"type\": \"number\"\n                                  }\n                                }\n                              }\n                            }\n                          }\n                        }\n                      }\n                    },\n                    \"completions\": {\n                      \"type\": \"array\",\n                      \"items\": {\n                        \"type\": \"object\",\n                        \"properties\": {\n                          \"data\": {\n                            \"type\": \"object\",\n                            \"properties\": {\n                              \"text\": {\n                                \"type\": \"string\"\n                              },\n                              \"tokens\": {\n                                \"type\": \"array\",\n                                \"items\": {\n                                  \"type\": \"object\",\n                                  \"properties\": {\n                                    \"generatedToken\": {\n                                      \"type\": \"object\",\n                                      \"properties\": {\n                                        \"token\": {\n                                          \"type\": \"string\"\n                                        },\n                                        \"logprob\": {\n                                          \"type\": \"number\"\n                                        },\n                                        \"raw_logprob\": {\n                                          \"type\": \"number\"\n                                        }\n                                      }\n                                    },\n                                    \"textRange\": {\n                                      \"type\": \"object\",\n                                      \"properties\": {\n                                        \"start\": {\n                                          \"type\": \"number\"\n                                        },\n                                        \"end\": {\n                                          \"type\": \"number\"\n                                        }\n                                      }\n                                    }\n                                  }\n                                }\n                              }\n                            }\n                          },\n                          \"finishReason\": {\n                            \"type\": \"object\",\n                            \"properties\": {\n                              \"reason\": {\n                                \"type\": \"string\"\n                              },\n                              \"length\": {\n                                \"type\": \"number\"\n                              }\n                            }\n                          }\n                        }\n                      }\n                    }\n                  }\n                }\n              }\n            }\n          },\n          \"status_code\": {\n            \"type\": \"integer\"\n          }\n        }\n      }\n    }\n  }\n}"
+    }
+}
+```
+{% include copy-curl.html %}
+
+If model interface is no longer needed to skip model schema validation, the following sample request remove the both input and output schema:
+
+```json
+PUT /_plugins/_ml/models/IMcNB5UB7judm8f45nXo
+{
+  "interface": {
+    "input": null,
+    "output": null
+  }
+}
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+  "_index": ".plugins-ml-model",
+  "_id": "IMcNB5UB7judm8f45nXo",
+  "_version": 2,
+  "result": "updated",
+  "_shards": {
+    "total": 2,
+    "successful": 2,
+    "failed": 0
+  },
+  "_seq_no": 379,
+  "_primary_term": 5
+}
+```
+
