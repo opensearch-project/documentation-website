@@ -70,23 +70,23 @@ Official OpenSearch images are hosted on [Docker Hub](https://hub.docker.com/u/o
 
 [Docker Hub](https://hub.docker.com/u/opensearchproject/):
 ```bash
-docker pull opensearchproject/opensearch:2
+docker pull opensearchproject/opensearch:{{ site.opensearch_version | split: "." | first }}
 ```
 {% include copy.html %}
 
 ```bash
-docker pull opensearchproject/opensearch-dashboards:2
+docker pull opensearchproject/opensearch-dashboards:{{ site.opensearch_version | split: "." | first }}
 ```
 {% include copy.html %}
 
 [Amazon ECR](https://gallery.ecr.aws/opensearchproject/):
 ```bash
-docker pull public.ecr.aws/opensearchproject/opensearch:2
+docker pull public.ecr.aws/opensearchproject/opensearch:{{ site.opensearch_version | split: "." | first }}
 ```
 {% include copy.html %}
 
 ```bash
-docker pull public.ecr.aws/opensearchproject/opensearch-dashboards:2
+docker pull public.ecr.aws/opensearchproject/opensearch-dashboards:{{ site.opensearch_version | split: "." | first }}
 ```
 {% include copy.html %}
 
@@ -143,7 +143,7 @@ Before continuing, you should verify that Docker is working correctly by deployi
     ```
     {% include copy.html %}
 
-Remember that `docker container ls` does not list stopped containers. If you would like to review stopped containers, use `docker container ls -a`. You can remove unneeded containers manually with `docker container rm <containerId_1> <containerId_2> <containerId_3> [...]` (pass all container IDs you wish to stop, separated by spaces), or if you want to remove all stopped containers, you can use the shorter command `docker container prune`.
+Remember that `docker container ls` does not list stopped containers. If you would like to review stopped containers, use `docker container ls -a`. You can remove unneeded containers manually with `docker container rm <containerId_1> <containerId_2> <containerId_3> [...]` (pass all container IDs you want to stop, separated by spaces), or if you want to remove all stopped containers, you can use the shorter command `docker container prune`.
 {: .tip}
 
 ## Deploy an OpenSearch cluster using Docker Compose
