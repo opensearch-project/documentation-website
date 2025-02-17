@@ -161,7 +161,7 @@ If none of those files exist in your current directory, the `docker-compose` com
 You can specify a custom file location and name when invoking `docker-compose` with the `-f` flag:
 ```bash
 # Use a relative or absolute path to the file.
-docker-compose -f /path/to/your-file.yml up
+docker compose -f /path/to/your-file.yml up
 ```
 
 If this is your first time launching an OpenSearch cluster using Docker Compose, use the following example `docker-compose.yml` file. Save it in the home directory of your host and name it `docker-compose.yml`. This file creates a cluster that contains three containers: two containers running the OpenSearch service and a single container running OpenSearch Dashboards. These containers communicate over a bridge network called `opensearch-net` and use two volumes, one for each OpenSearch node. Because this file does not explicitly disable the demo security configuration, self-signed TLS certificates are installed and internal users with default names and passwords are created.
@@ -256,20 +256,20 @@ If you override `opensearch_dashboards.yml` settings using environment variables
 
 From the home directory of your host (containing `docker-compose.yml`), create and start the containers in detached mode:
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 {% include copy.html %}
 
 Verify that the service containers started correctly:
 ```bash
-docker-compose ps
+docker compose ps
 ```
 {% include copy.html %}
 
 If a container failed to start, you can review the service logs:
 ```bash
-# If you don't pass a service name, docker-compose will show you logs from all of the nodes
-docker-compose logs <serviceName>
+# If you don't pass a service name, docker compose will show you logs from all of the nodes
+docker compose logs <serviceName>
 ```
 {% include copy.html %}
 
@@ -280,11 +280,11 @@ Remember that `localhost` cannot be accessed remotely. If you are deploying thes
 
 Stop the running containers in your cluster:
 ```bash
-docker-compose down
+docker compose down
 ```
 {% include copy.html %}
 
-`docker-compose down` will stop the running containers, but it will not remove the Docker volumes that exist on the host. If you don't care about the contents of these volumes, use the `-v` option to delete all volumes, for example, `docker-compose down -v`.
+`docker compose down` will stop the running containers, but it will not remove the Docker volumes that exist on the host. If you don't care about the contents of these volumes, use the `-v` option to delete all volumes, for example, `docker compose down -v`.
 {: .tip}
 
 ## Configure OpenSearch
@@ -476,7 +476,7 @@ Use the same process to specify a [Backend configuration]({{site.url}}{{site.bas
 
 After replacing the certificates and creating your own internal users, roles, mappings, action groups, and tenants, use Docker Compose to start the cluster:
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 {% include copy.html %}
 
