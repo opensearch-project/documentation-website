@@ -13,7 +13,7 @@ redirect_from:
 
 # Vector search
 
-Vector search enhances traditional lexical search by encoding text, images, and audio as vectors, enabling similarity search with semantic understanding. OpenSearch unifies traditional search, analytics, and vector search in a single solution. As a vector database, it streamlines AI application development by efficiently storing and retrieving high-dimensional data.
+Vector search enhances traditional lexical search by encoding data such as text or images as vectors, enabling similarity search with semantic understanding. OpenSearch unifies traditional search, analytics, and vector search in a single solution. As a vector database, it streamlines AI application development by efficiently storing and retrieving high-dimensional data.
 
 <span class="centering-container">
 [Get started]({{site.url}}{{site.baseurl}}/vector-search/getting-started/){: .btn-dark-blue}

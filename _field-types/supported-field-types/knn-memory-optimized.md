@@ -921,6 +921,6 @@ The memory required for IVF can be estimated using the following formula, where 
 
 ## Next steps
 
-- [k-NN query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/kNN/)
+- [k-NN query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/k-nn/)
 - [Disk-based vector search]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/disk-based-vector-search/)
 - [Vector quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/knn-vector-quantization/)

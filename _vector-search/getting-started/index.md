@@ -199,6 +199,6 @@ If your data isn't already in vector format, you can generate vector embeddings 
 ## Next steps
 
 - [Vector search basics]({{site.url}}{{site.baseurl}}/vector-search/getting-started/vector-search-basics/)
-- [Bringing or generating embeddings ]({{site.url}}{{site.baseurl}}/vector-search/getting-started/vector-search-options/)
+- [Bringing your own or generating embeddings ]({{site.url}}{{site.baseurl}}/vector-search/getting-started/vector-search-options/)
 - [Vector search with filters]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/)
 - [Generating vector embeddings within OpenSearch]({{site.url}}{{site.baseurl}}/vector-search/getting-started/auto-generated-embeddings/)

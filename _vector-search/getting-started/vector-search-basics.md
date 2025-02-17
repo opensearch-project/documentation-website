@@ -41,4 +41,4 @@ To learn more about the distance metrics, see [Spaces]({{site.url}}{{site.baseur
 
 ## Next steps
 
-- [Bringing or generating embeddings]({{site.url}}{{site.baseurl}}/vector-search/getting-started/vector-search-options/)
+- [Bringing your own or generating embeddings]({{site.url}}{{site.baseurl}}/vector-search/getting-started/vector-search-options/)

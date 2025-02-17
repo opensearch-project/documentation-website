@@ -7,7 +7,7 @@ nav_order: 10
 
 # k-NN query
 
-Use the `knn` query for executing nearest neighbor searches over vector fields. 
+Use the `knn` query for running nearest neighbor searches on vector fields. 
 
 ## Request body fields
 

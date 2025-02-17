@@ -176,4 +176,4 @@ Parameter | Data type | Description
 - [Methods and engines]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/)
 - [Memory-optimized vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized/)
 - [Vector search]({{site.url}}{{site.baseurl}}/vector-search/)
-- [k-NN query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/knn/)
+- [k-NN query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/k-nn/)

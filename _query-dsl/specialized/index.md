@@ -14,7 +14,7 @@ OpenSearch supports the following specialized queries:
 
 - `more_like_this`: Finds documents similar to the provided text, document, or collection of documents.
 
-- [`knn`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/kNN/): Used for searching raw vectors during [vector search]({{site.url}}{{site.baseurl}}/vector-search/).
+- [`knn`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/k-nn/): Used for searching raw vectors during [vector search]({{site.url}}{{site.baseurl}}/vector-search/).
 
 - [`neural`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/): Used for searching by text or image in [vector search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/).
 

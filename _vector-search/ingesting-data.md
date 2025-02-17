@@ -15,7 +15,7 @@ The following table compares ingestion for each vector search method.
 | Feature                       | Data format          | Ingest pipeline | Vector generation         | Additional fields            |
 |-------------------------------|----------------------------|---------------------|---------------------------------|-----------------------------------|
 | **Raw vector ingestion**      | Pre-generated vectors      | Not required        | External                        | Optional metadata                |
-| **Converting data to embeddings during ingestion** | Text, image, or other data                   | Required            | Internal (during ingestion)     | Original data + embeddings        |
+| **Converting data to embeddings during ingestion** | Text or image data                   | Required            | Internal (during ingestion)     | Original data + embeddings        |
 
 ## Raw vector ingestion
 

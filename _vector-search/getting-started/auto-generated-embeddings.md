@@ -119,7 +119,7 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
 
 ### Step 3(b): Create a vector index
 
-Now you'll create a vector index by setting `index.knn` to `true`. In the index, the field named `text` will contains an image description, and a [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/) field named `passage_embedding` will contains the vector embedding of the text. Additionally, set the default ingest pipeline to the `nlp-ingest-pipeline` you created in the previous step:
+Now you'll create a vector index by setting `index.knn` to `true`. In the index, the field named `text` contains an image description, and a [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/) field named `passage_embedding` contains the vector embedding of the text. Additionally, set the default ingest pipeline to the `nlp-ingest-pipeline` you created in the previous step:
 
 
 ```json
