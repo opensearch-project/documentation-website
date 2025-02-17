@@ -42,9 +42,9 @@ Setting | Static/Dynamic | Default | Description
 `index.knn.algo_param.ef_search` | Dynamic | `100` | `ef` (or `efSearch`) represents the size of the dynamic list for the nearest neighbors used during a search. Higher `ef` values lead to a more accurate but slower search. `ef` cannot be set to a value lower than the number of queried nearest neighbors, `k`. `ef` can take any value between `k` and the size of the dataset. 
 `index.knn.advanced.approximate_threshold` | Dynamic | `15000`   | The number of vectors a segment must have before creating specialized data structures for approximate search. Set to `-1` to disable building vector data structures and `0` to always build them.
 `index.knn.advanced.filtered_exact_search_threshold`| Dynamic | None | The filtered ID threshold value used to switch to exact search during filtered ANN search. If the number of filtered IDs in a segment is lower than this setting's value, then exact search will be performed on the filtered IDs. 
-`index.knn.algo_param.ef_construction` | Static | `100` | Deprecated in 1.0.0. Use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value instead.
-`index.knn.algo_param.m` | Static | `16` | Deprecated in 1.0.0. Use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value instead.
-`index.knn.space_type` | Static | `l2` | Deprecated in 1.0.0. Use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value instead.
+`index.knn.algo_param.ef_construction` | Static | `100` | Deprecated in 1.0.0. Use the [mapping parameters]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/) to set this value instead.
+`index.knn.algo_param.m` | Static | `16` | Deprecated in 1.0.0. Use the [mapping parameters]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/) to set this value instead.
+`index.knn.space_type` | Static | `l2` | Deprecated in 1.0.0. Use the [mapping parameters]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/) to set this value instead.
 
 An index created in OpenSearch version 2.11 or earlier will still use the old `ef_construction` and `ef_search` values (`512`).
 {: .note}
