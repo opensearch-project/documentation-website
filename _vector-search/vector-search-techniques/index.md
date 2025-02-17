@@ -16,7 +16,7 @@ OpenSearch implements vector search as *k-nearest neighbors*, or *k-NN*, search.
 
 OpenSearch supports three different methods for obtaining the k-nearest neighbors from an index of vectors:
 
-- [Approximate search]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/)) (approximate k-NN, or ANN): Returns approximate nearest neighbors to the query vector. Usually, approximate search algorithms sacrifice indexing speed and search accuracy in exchange for performance benefits such as lower latency, smaller memory footprints, and more scalable search. For most use cases, approximate search is the best option.
+- [Approximate search]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/) (approximate k-NN, or ANN): Returns approximate nearest neighbors to the query vector. Usually, approximate search algorithms sacrifice indexing speed and search accuracy in exchange for performance benefits such as lower latency, smaller memory footprints, and more scalable search. For most use cases, approximate search is the best option.
 
 - Exact search: A brute-force, exact k-NN search of vector fields. OpenSearch supports the following types of exact search: 
   - [Exact search with scoring script]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-score-script/): Using a scoring script, you can apply a filter to an index before executing the nearest neighbor search. 
@@ -27,41 +27,7 @@ Overall, for larger data sets, you should generally choose the approximate neare
 
 ## Approximate search
 
-OpenSearch supports the following algorithms (_methods_) for approximate vector search:
-
-- Hierarchical Navigable Small World (HNSW)
-- Inverted File System (IVF)
-
-Additionally, you can choose one of the following libraries (_engines_) that implement these algorithms:
-
-- [Facebook AI Similarity Search (Faiss)](https://github.com/facebookresearch/faiss)
-- Lucene
-- [Non-Metric Space Library (NMSLIB)](https://github.com/nmslib/nmslib) (deprecated)
-
-The following table lists the combinations of search methods and libraries supported by the k-NN engine for approximate vector search.
-
-Method | Engine
-:--- | :---
-HNSW | Faiss, Lucene, NMSLIB (deprecated)
-IVF | Faiss 
-
-For more information, see [Methods and engines]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/) and [Choosing the right method]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/#choosing-the-right-method).
-
-## Engine recommendations
-
-In general, select Faiss for large-scale use cases. Lucene is a good option for smaller deployments and offers benefits like smart filtering, where the optimal filtering strategy—pre-filtering, post-filtering, or exact k-NN—is automatically applied depending on the situation. The following table summarizes the differences between each option.
-
-| |   Faiss/HNSW |  Faiss/IVF |  Lucene/HNSW |
-|:---|:---|:---|:---|
-|  Max dimensions |    16,000 |  16,000 |  16,000 |
-|  Filter |    Post-filter |  Post-filter |  Filter during search |
-|  Training required |    No (Yes for product quantization) |  Yes |  No |
-|  Similarity metrics | `l2`, `innerproduct` |  `l2`, `innerproduct` |  `l2`, `cosinesimil` |
-|  Number of vectors   |    Tens of billions |  Tens of billions |  Less than 10 million |
-|  Indexing latency |   Low  |  Lowest  |  Low  |
-|  Query latency and quality  |    Low latency and high quality  |  Low latency and low quality  |  High latency and high quality  |
-|  Vector compression  |   Flat <br><br>Product quantization |  Flat <br><br>Product quantization |  Flat  |
-|  Memory consumption |   High <br><br> Low with product quantization |  Medium <br><br> Low with product quantization |  High  |
+OpenSearch supports multiple backend algorithms (_methods_) and libraries implementing these algorithms (_engines_). It automatically selects the optimal configuration based on the chosen mode and available memory. For more information, see [Methods and engines]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/).
 
 ## Using sparse vectors
 

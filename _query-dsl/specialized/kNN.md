@@ -27,7 +27,7 @@ The top-level `vector_field` specifies the vector field against which to run a s
 
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`vector` | Array of floats | Required | The query vector to use for vector search.
+`vector` | Array of floats or bytes | Required | The query vector to use for vector search. The data type of the vector elements must match the data type of vectors indexed in the [`knn_vector` field]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/) searched.
 `k` | Integer | Optional | The number of nearest neighbors to return. Valid values are in the [1, 10,000] range. Required if `max_distance` or `min_score` is not specified.
 `max_distance` | Float | Optional | The maximum distance threshold for search results. Only one of `k`, `max_distance`, or `min_score` can be specified. For more information, see [Radial search]({{site.url}}{{site.baseurl}}/vector-search/specialized-operations/radial-search-knn/).
 `min_score` | Float | Optional | The minimum score threshold for search results. Only one of `k`, `max_distance`, or `min_score` can be specified. For more information, see [Radial search]({{site.url}}{{site.baseurl}}/vector-search/specialized-operations/radial-search-knn/).
@@ -202,7 +202,7 @@ GET /my-vector-index/_search
 ```
 {% include copy-curl.html %}
 
-## Related articles
+## Next steps
 
 - [k-NN vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/)
 - [Rescoring quantized results to full precision]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized/#rescoring-quantized-results-to-full-precision)

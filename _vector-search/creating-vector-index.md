@@ -41,17 +41,20 @@ Regardless of the type of vector search, the following elements are part of crea
 1. **Enable k-NN search**:
    Set `index.knn` to `true` in the index settings to enable k-NN search functionality.
 
-2. **Define a vector field**:
+1. **Define a vector field**:
    Specify the field that will store the vector data. When defining a `knn_vector` field in OpenSearch, you can select from different data types to balance storage requirements and performance. By default, k-NN vectors are float vectors, but you can also opt for byte or binary vectors for more efficient storage. For more information, see [k-NN vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/).
 
-3. **Specify dimension**:
+1. **Specify dimension**:
    Set the `dimension` property to match the size of the vectors used.
 
-4. **Choose a space type**:
-   Optionally, select a distance metric for similarity comparisons, such as `l2` (Euclidean distance) or `cosinesimil`. For more information, see [Spaces]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-spaces/).
+1. (Optional) **Choose a space type**:
+   Select a distance metric for similarity comparisons, such as `l2` (Euclidean distance) or `cosinesimil`. For more information, see [Spaces]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-spaces/).
 
-5. (Advanced) **Select a method**:
-   Optionally, configure the indexing method, such as HNSW or IVF, to optimize vector search performance. For more information, see [Methods and engines]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/).
+1. (Optional) **Select a workload mode and/or compression level**:
+   Select a workload mode and/or compression level in order to optimize vector storage. For more information, see [Optimizing vector storage]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/).
+
+1. (Optional, advanced) **Select a method**:
+   Configure the indexing method, such as HNSW or IVF, to optimize vector search performance. For more information, see [Methods and engines]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/).
 
 To create a vector index, choose one of the following options:
 
@@ -65,7 +68,7 @@ The following table summarizes key index configuration differences for the suppo
 | Feature                  | Vector field type | Ingest pipeline | Transformation     | Use case   |
 |--------------------------|-----------------------|---------------------|-------------------------|-------------------------|
 | **Store raw vectors or embeddings generated outside of OpenSearch**   | [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/)         | Not required        | Direct ingestion        | Raw vector search   |
-| **Convert data to embeddings during ingestion**      | [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/)         | Required            | Auto-generated vectors  | ML-powered search     |
+| **Convert data to embeddings during ingestion**      | [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/)         | Required            | Auto-generated vectors  | ML-powered search <br><br> Automating embedding generation reduces data preprocessing and provides a more managed vector search experience.     |
 
 ## Storing raw vectors or embeddings generated outside of OpenSearch
 

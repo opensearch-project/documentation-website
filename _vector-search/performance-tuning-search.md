@@ -44,13 +44,5 @@ This API operation only loads the segments of active indexes into the cache. If 
 
 ## Avoid reading stored fields
 
-   If your use case is only to read the IDs and scores of the nearest neighbors, you can disable reading stored fields, which saves time retrieving the vectors from stored fields.
+If your use case is only to read the IDs and scores of the nearest neighbors, you can disable reading stored fields, which saves time retrieving the vectors from stored fields.
 
-## Use `mmap` file I/O
-
-   For the Lucene-based approximate k-NN search, there is no dedicated cache layer that speeds up read/write operations. Instead, the plugin relies on the existing caching mechanism in OpenSearch core. In versions 2.4 and earlier of the Lucene-based approximate k-NN search, read/write operations were based on Java NIO by default, which can be slow, depending on the Lucene version and number of segments per shard. Starting with version 2.5, k-NN enables [`mmap`](https://en.wikipedia.org/wiki/Mmap) file I/O by default when the store type is `hybridfs` (the default store type in OpenSearch). This leads to fast file I/O operations and improves the overall performance of both data ingestion and search. The two file extensions specific to vector values that use `mmap` are `.vec` and `.vem`. For more information about these file extensions, see [the Lucene documentation](https://lucene.apache.org/core/9_0_0/core/org/apache/lucene/codecs/lucene90/Lucene90HnswVectorsFormat.html).
-
-   The `mmap` file I/O uses the system file cache rather than memory allocated for the Java heap, so no additional allocation is required. To change the default list of extensions set by the plugin, update the `index.store.hybrid.mmap.extensions` setting at the cluster level using the [Cluster Settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/). 
-   
-   This is an expert-level setting that requires closing the index before updating the setting and reopening it after the update.
-   {: .important}

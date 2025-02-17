@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Bringing or generating embeddings
+title: Bringing your own or generating embeddings
 parent: Getting started
 nav_order: 20
 quickstart_cards:
@@ -41,9 +41,9 @@ auto_items:
     link: "/vector-search/searching-data/#searching-auto-generated-embeddings"
 ---
 
-# Bringing or generating embeddings
+# Bringing your own or generating embeddings
 
-In OpenSearch, you can either ingest your own vectors or generate embeddings from text, images, or other data directly within OpenSearch.
+In OpenSearch, you can either bring your own vectors or let OpenSearch generate them automatically from your data. Automated embedding generation integrated into OpenSearch reduces data preprocessing effort at ingestion and search time.
 
 ### Option 1: Bring your own raw vectors or generated embeddings
 
@@ -71,7 +71,7 @@ Working with embeddings generated outside of OpenSearch involves the following s
 
 ### Option 2: Generate embeddings within OpenSearch
 
-OpenSearch automatically generates vector embeddings from text, images, or other data using a machine learning (ML) model.
+OpenSearch automatically generates vector embeddings from your data using a machine learning (ML) model.
   - **Ingestion**:  You ingest plain data, and OpenSearch uses an ML model to generate embeddings dynamically. 
 
       ![Auto-generated embeddings ingestion]({{site.url}}{{site.baseurl}}/images/vector-search/auto-vector-ingest.png)

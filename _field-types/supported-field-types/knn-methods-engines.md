@@ -196,6 +196,41 @@ Parameter name | Required | Default | Updatable | Description
 
 For more information and examples, see [Using Faiss scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-16-bit-quantization/).
 
+### SIMD optimization 
+
+Starting with version 2.13, OpenSearch supports [Single Instruction Multiple Data (SIMD)](https://en.wikipedia.org/wiki/Single_instruction,_multiple_data) processing if the underlying hardware supports SIMD instructions (AVX2 on x64 architecture and Neon on ARM64 architecture). SIMD is supported by default on Linux machines only for the Faiss engine. SIMD architecture helps boost overall performance by improving indexing throughput and reducing search latency. Starting with version 2.18, OpenSearch supports AVX-512 SIMD instructions on x64 architecture. Starting with version 2.19, OpenSearch supports advanced AVX-512 SIMD instructions on x64 architecture for Intel Sapphire Rapids or a newer-generation processor, improving the performance of Hamming distance computation. 
+
+SIMD optimization is applicable only if the vector dimension is a multiple of 8.
+{: .note}
+
+<!-- vale off -->
+#### x64 architecture
+<!-- vale on -->
+
+For x64 architecture, the following versions of the Faiss library are built and shipped with the artifact:
+
+- `libopensearchknn_faiss_avx512_spr.so`: The Faiss library containing advanced AVX-512 SIMD instructions for newer-generation processors, available on public clouds such as AWS for c/m/r 7i or newer instances. 
+- `libopensearchknn_faiss_avx512.so`: The Faiss library containing AVX-512 SIMD instructions. 
+- `libopensearchknn_faiss_avx2.so`: The Faiss library containing AVX2 SIMD instructions.
+- `libopensearchknn_faiss.so`: The non-optimized Faiss library without SIMD instructions.
+
+When using the Faiss library, the performance ranking is as follows: advanced AVX-512 > AVX-512 > AVX2 > no optimization.
+{: .note }
+
+If your hardware supports advanced AVX-512(spr), OpenSearch loads the `libopensearchknn_faiss_avx512_spr.so` library at runtime.
+
+If your hardware supports AVX-512, OpenSearch loads the `libopensearchknn_faiss_avx512.so` library at runtime.
+
+If your hardware supports AVX2 but doesn't support AVX-512, Open loads the `libopensearchknn_faiss_avx2.so` library at runtime.
+
+To disable the advanced AVX-512 (for Sapphire Rapids or newer-generation processors), AVX-512, and AVX2 SIMD instructions and load the non-optimized Faiss library (`libopensearchknn_faiss.so`), specify the `knn.faiss.avx512_spr.disabled`, `knn.faiss.avx512.disabled`, and `knn.faiss.avx2.disabled` static settings as `true` in `opensearch.yml` (by default, all of these are `false`).
+
+Note that to update a static setting, you must stop the cluster, change the setting, and restart the cluster. For more information, see [Static settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#static-settings).
+
+#### ARM64 architecture
+
+For the ARM64 architecture, only one performance-boosting Faiss library (`libopensearchknn_faiss.so`) is built and shipped. The library contains Neon SIMD instructions and cannot be disabled. 
+
 ### Example configurations
 
 The following example uses the `ivf` method  without specifying an encoder (by default, OpenSearch uses the `flat` encoder):
@@ -333,6 +368,22 @@ If you want to use less memory and increase indexing speed as compared to HNSW w
 If memory is a concern, consider adding a PQ encoder to your HNSW or IVF index. Because PQ is a lossy encoding, query quality will drop.
 
 You can reduce the memory footprint by a factor of 2, with a minimal loss in search quality, by using the [`fp_16` encoder]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-16-bit-quantization/). If your vector dimensions are within the [-128, 127] byte range, we recommend using the [byte quantizer]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized/#byte-vectors) to reduce the memory footprint by a factor of 4. To learn more about vector quantization options, see [k-NN vector quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/knn-vector-quantization/). 
+
+## Engine recommendations
+
+In general, select Faiss for large-scale use cases. Lucene is a good option for smaller deployments and offers benefits like smart filtering, where the optimal filtering strategy—pre-filtering, post-filtering, or exact k-NN—is automatically applied depending on the situation. The following table summarizes the differences between each option.
+
+| |   Faiss/HNSW |  Faiss/IVF |  Lucene/HNSW |
+|:---|:---|:---|:---|
+|  Max dimensions |    16,000 |  16,000 |  16,000 |
+|  Filter |    Post-filter |  Post-filter |  Filter during search |
+|  Training required |    No (Yes for product quantization) |  Yes |  No |
+|  Similarity metrics | `l2`, `innerproduct` |  `l2`, `innerproduct` |  `l2`, `cosinesimil` |
+|  Number of vectors   |    Tens of billions |  Tens of billions |  Less than 10 million |
+|  Indexing latency |   Low  |  Lowest  |  Low  |
+|  Query latency and quality  |    Low latency and high quality  |  Low latency and low quality  |  High latency and high quality  |
+|  Vector compression  |   Flat <br><br>Product quantization |  Flat <br><br>Product quantization |  Flat  |
+|  Memory consumption |   High <br><br> Low with product quantization |  Medium <br><br> Low with product quantization |  High  |
 
 ## Memory estimation
 

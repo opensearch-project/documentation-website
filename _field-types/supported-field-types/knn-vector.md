@@ -15,7 +15,7 @@ The `knn_vector` data type allows you to ingest vectors into an OpenSearch index
 
 ## Example
 
-For example, to map `my_vector` as a `knn_vector`, use the following request:
+To map `my_vector` as a `knn_vector`, use the following request:
 
 ```json
 PUT /test-index
@@ -37,6 +37,35 @@ PUT /test-index
 }
 ```
 {% include copy-curl.html %}
+
+## Optimizing vector storage
+
+To optimize vector storage, you can specify a [vector workload mode]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized/#vector-workload-modes) as `in_memory` (which optimizes for lowest latency) or `on_disk` (which optimizes for lowest cost). The `on_disk` mode reduces memory usage. Optionally, you can specify a [`compression_level`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized/#compression-levels) to fine-tune the vector memory consumption:
+
+
+```json
+PUT test-index
+{
+  "settings": {
+    "index": {
+      "knn": true
+    }
+  },
+  "mappings": {
+    "properties": {
+      "my_vector": {
+        "type": "knn_vector",
+        "dimension": 3,
+        "space_type": "l2",
+        "mode": "on_disk",
+        "compression_level": "16x"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
 
 ## Method definitions
 
@@ -134,7 +163,10 @@ Parameter | Data type | Description
 :--- | :--- 
 `type` | String | The vector field type. Must be `knn_vector`. Required.
 `dimension` | Integer | The size of the vectors used. Valid values are in the [1, 16,000] range. Required.
-`space_type` | String | The vector space used to calculate the distance between vectors. Valid values are `l1`, `l2`, `linf`, `cosinesimil`, `innerproduct`, `hamming`, and `hammingbit`. Not every method/engine combination supports each of the spaces. For a list of supported spaces, see the specific engine section. Note: This value can also be specified within the `method`. Optional. For more information, see [Spaces]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-spaces/).
+`data_type` | String | The data type for the vector elements. Valid values are `binary`, `byte`, and `float`. Optional. Default is `float`.
+`space_type` | String | The vector space used to calculate the distance between vectors. Valid values are `l1`, `l2`, `linf`, `cosinesimil`, `innerproduct`, `hamming`, and `hammingbit`. Not every method/engine combination supports each of the spaces. For a list of supported spaces, see the specific engine section. Note: This value can also be specified within the `method`. Optional. For more information, see [Spaces]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-spaces/). 
+`mode` | String | Sets appropriate default values for k-NN parameters based on your priority: either low latency or low cost. Valid values are `in_memory` and `on_disk`. Optional. Default is `in_memory`. For more information, see [Memory-optimized vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized/). 
+`compression_level` | String | Selects a quantization encoder that reduces vector memory consumption by the given factor. Valid values are `1x`, `2x`, `4x`, `8x`, `16x`, and `32x`. Optional. For more information, see [Memory-optimized vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized/). 
 `method` | Object | The algorithm used for organizing vector data at indexing time and searching it at search time. Used when the ANN algorithm does not require training. Optional. For more information, see [Methods and engines]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/). 
 `model_id` | String | The model ID for a trained model. Used when the ANN algorithm requires training. See [Model IDs](#model-ids). Optional.
 
@@ -142,5 +174,6 @@ Parameter | Data type | Description
 
 - [Spaces]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-spaces/)
 - [Methods and engines]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/)
+- [Memory-optimized vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized/)
 - [Vector search]({{site.url}}{{site.baseurl}}/vector-search/)
 - [k-NN query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/knn/)
