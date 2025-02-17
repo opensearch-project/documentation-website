@@ -65,7 +65,13 @@ You can choose the mechanism by which the aggregation is executed with the `exec
 1. `direct`: Use field values directly.
 2. `ordinals`: Use ordinals of the field.
 
-If not specified, mechanism that is appropriate for the field is selected. Note that specifying `ordinals` on a non-ordinal field will have no effect. Similarly, `direct` will have no effect on ordinal fields.
+
+If not specified, OpenSearch automatically selects the appropriate mechanism for the field. Note:
+
+ * Specifying ordinals on a non-ordinal field will have no effect.
+ * Similarly, direct will have no effect on ordinal fields.
+
+This is an expert-level setting. Ordinals use byte arrays, where the size of the array will be as large as the cardinality value. For high-cardinality fields, this can lead to significant heap memory usage and risk of out-of-memory errors. {: .warning}
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
