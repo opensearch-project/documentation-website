@@ -26,7 +26,7 @@ docker pull opensearchproject/opensearch:latest && docker run -it -p 9200:9200 -
 ```
 {% include copy.html %}
 
-OpenSearch is now running on port 9200. Note that this demo configuration is insecure and should not be run in production environments.
+OpenSearch is now running on port 9200. Note that this demo configuration is insecure and should not be used in production environments.
 
 <details markdown="block">
   <summary>
@@ -75,9 +75,7 @@ First, create an index that will store sample hotel data. To signal to OpenSearc
 PUT /hotels-index
 {
   "settings": {
-    "index": {
-      "knn": true
-    }
+    "index.knn": true
   },
   "mappings": {
     "properties": {
@@ -194,7 +192,7 @@ The response contains the hotels closest to the specified pin location:
 
 ## Generating vector embeddings in OpenSearch
 
-If your data isn't already in vector format, you can generate vector embeddings directly within OpenSearch. This allows you to transform text, images, and other data types into numerical representations for similarity search. For more information, see [Generating vector embeddings within OpenSearch]({{site.url}}{{site.baseurl}}/vector-search/getting-started/auto-generated-embeddings/).
+If your data isn't already in vector format, you can generate vector embeddings directly within OpenSearch. This allows you to transform text or images into their numerical representations for similarity search. For more information, see [Generating vector embeddings within OpenSearch]({{site.url}}{{site.baseurl}}/vector-search/getting-started/auto-generated-embeddings/).
 
 ## Next steps
 
