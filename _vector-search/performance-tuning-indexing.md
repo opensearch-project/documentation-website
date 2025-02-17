@@ -13,14 +13,15 @@ Take any of the following steps to improve indexing performance, especially when
 
 Either disable the refresh interval (default = 1 sec) or set a long duration for the refresh interval to avoid creating multiple small segments:
 
-   ```json
-   PUT /<index_name>/_settings
-   {
-       "index" : {
-           "refresh_interval" : "-1"
-       }
-   }
-   ```
+```json
+PUT /<index_name>/_settings
+{
+    "index" : {
+        "refresh_interval" : "-1"
+    }
+}
+```
+{% include copy-curl.html %}
 
 Make sure to reenable `refresh_interval` after indexing is complete.
 
@@ -39,43 +40,44 @@ Monitor CPU utilization and choose the correct number of threads. Because native
 
 The `_source` field contains the original JSON document body that was passed at index time. This field is not indexed and is not searchable but is stored so that it can be returned when executing fetch requests such as `get` and `search`. When using vector fields within the source, you can remove the vector field to save disk space, as shown in the following example where the `location` vector is excluded:
 
-  ```json
-  PUT /<index_name>/_mappings
-  {
-      "_source": {
-        "excludes": ["location"]
-      },
-      "properties": {
-          "location": {
-              "type": "knn_vector",
-              "dimension": 2,
-            "space_type": "l2"
-          }
-      }
-  }
-  ```
-
+```json
+PUT /<index_name>/_mappings
+{
+    "_source": {
+    "excludes": ["location"]
+    },
+    "properties": {
+        "location": {
+            "type": "knn_vector",
+            "dimension": 2,
+        "space_type": "l2"
+        }
+    }
+}
+```
+{% include copy-curl.html %}
 
 Disabling the `_source` field can cause certain features to become unavailable, such as the `update`, `update_by_query`, and `reindex` APIs and the ability to debug queries or aggregations by using the original document at index time.
 
 In OpenSearch 2.15 or later, you can further improve indexing speed and reduce disk space by removing the vector field from the `_recovery_source`, as shown in the following example:
 
-  ```json
-  PUT /<index_name>/_mappings
-  {
-      "_source": {
-        "excludes": ["location"],
-        "recovery_source_excludes": ["location"]
-      },
-      "properties": {
-          "location": {
-              "type": "knn_vector",
-              "dimension": 2,
-            "space_type": "l2"
-          }
-      }
-  }
-  ```
+```json
+PUT /<index_name>/_mappings
+{
+    "_source": {
+    "excludes": ["location"],
+    "recovery_source_excludes": ["location"]
+    },
+    "properties": {
+        "location": {
+            "type": "knn_vector",
+            "dimension": 2,
+        "space_type": "l2"
+        }
+    }
+}
+```
+{% include copy-curl.html %}
 
 This is an expert-level setting. Disabling the `_recovery_source` may lead to failures during peer-to-peer recovery. Before disabling the `_recovery_source`, check with your OpenSearch cluster admin to determine whether your cluster performs regular flushes before starting the peer-to-peer recovery of shards prior to disabling the `_recovery_source`.  
 {: .warning}

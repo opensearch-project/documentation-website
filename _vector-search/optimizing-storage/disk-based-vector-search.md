@@ -14,7 +14,7 @@ redirect_from:
 
 For low-memory environments, OpenSearch provides _disk-based vector search_, which significantly reduces the operational costs for vector workloads. Disk-based vector search uses [binary quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/binary-quantization/), compressing vectors and thereby reducing the memory requirements. This memory optimization provides large memory savings at the cost of slightly increased search latency while still maintaining strong recall.
 
-To use disk-based vector search, set the [`mode`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized/#vector-workload-modes) parameter to `on_disk` for your vector field type. This parameter will configure your index to use secondary storage. 
+To use disk-based vector search, set the [`mode`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized/#vector-workload-modes) parameter to `on_disk` for your vector field type. This parameter will configure your index to use secondary storage. For more information about disk-based search parameters, see [Memory-optimized vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized/).
 
 ## Creating an index for disk-based vector search
 
@@ -206,10 +206,6 @@ You can override the `compression_level` for disk-optimized indexes in the same 
 
 ## Next steps
 
-- For more information about binary quantization, see [Binary quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/binary-quantization/).
-- For more information about k-NN vector workload modes, see [Vector workload modes]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized/#vector-workload-modes).
-
-## Next steps
-
+- [Binary quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/binary-quantization/).
 - [Memory-optimized vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized/)
 - [k-NN query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/k-nn/)

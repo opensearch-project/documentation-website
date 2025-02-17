@@ -7,7 +7,7 @@ nav_order: 10
 has_math: true
 ---
 
-## Spaces
+# Spaces
 
 In vector search, a _space_ defines how the distance (or similarity) between two vectors is calculated. The choice of space affects how nearest neighbors are determined during search operations. 
 
@@ -40,59 +40,59 @@ The `hamming` space type is supported for binary vectors in OpenSearch version 2
 
 ## Specifying the space type
 
-The space type is specified when creating an index:
+The space type is specified when creating an index.
 
-- You can specify the space type at the top level of the field mapping:
+You can specify the space type at the top level of the field mapping:
 
-    ```json
-    PUT /test-index
-    {
-        "settings": {
-            "index": {
-            "knn": true
-            }
-        },
-        "mappings": {
-            "properties": {
-            "my_vector1": {
-                "type": "knn_vector",
-                "dimension": 3,
-                "space_type": "l2"
-            }
-            }
-        }
+```json
+PUT /test-index
+{
+  "settings": {
+    "index": {
+      "knn": true
     }
-    ```
-    {% include copy-curl.html %}
-
-- Alternatively, you can specify the space type within the `method` object if defining a method:
-
-    ```json
-    PUT test-index
-    {
-    "settings": {
-        "index": {
-        "knn": true,
-        "knn.algo_param.ef_search": 100
-        }
-    },
-    "mappings": {
-        "properties": {
-        "my_vector1": {
-            "type": "knn_vector",
-            "dimension": 1024,
-            "method": {
-            "name": "hnsw",
-            "space_type": "l2",
-            "engine": "nmslib",
-            "parameters": {
-                "ef_construction": 128,
-                "m": 24
-            }
-            }
-        }
-        }
+  },
+  "mappings": {
+    "properties": {
+      "my_vector1": {
+        "type": "knn_vector",
+        "dimension": 3,
+        "space_type": "l2"
+      }
     }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Alternatively, you can specify the space type within the `method` object if defining a method:
+
+```json
+PUT test-index
+{
+  "settings": {
+    "index": {
+      "knn": true,
+      "knn.algo_param.ef_search": 100
     }
-    ```
-    {% include copy-curl.html %}
+  },
+  "mappings": {
+    "properties": {
+      "my_vector1": {
+        "type": "knn_vector",
+        "dimension": 1024,
+        "method": {
+          "name": "hnsw",
+          "space_type": "l2",
+          "engine": "nmslib",
+          "parameters": {
+            "ef_construction": 128,
+            "m": 24
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
