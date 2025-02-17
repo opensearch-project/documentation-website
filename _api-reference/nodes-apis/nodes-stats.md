@@ -943,12 +943,12 @@ warmer.total  | Integer | The total number of index warming operations.
 warmer.total_time_in_millis | Integer | The total time for all index warming operations, in milliseconds.
 query_cache | Statistics about query cache operations for the node.
 query_cache.memory_size_in_bytes | Integer | The amount of memory used for the query cache for all shards in the node.
-query_cache.total_count | Integer | The total number of hits, misses, and cached queries in the query cache.
+query_cache.total_count | Integer | The total number of hits and misses in the query cache.
 query_cache.hit_count | Integer | The total number of hits in the query cache.
 query_cache.miss_count | Integer | The total number of misses in the query cache. 
-query_cache.cache_size | Integer | The size of the query cache, in bytes.
-query_cache.cache_count | Integer | The number of queries in the query cache.
-query_cache.evictions | Integer | The number of evictions in the query cache.
+query_cache.cache_size | Integer | The number of queries currently in the query cache.
+query_cache.cache_count | Integer | The total number of queries that have been added to the query cache, including those that have since been evicted.
+query_cache.evictions | Integer | The number of evictions from the query cache.
 fielddata | Object | Statistics about the field data cache for all shards in the node.
 fielddata.memory_size_in_bytes | Integer | The total amount of memory used for the field data cache for all shards in the node.
 fielddata.evictions | Integer | The number of evictions in the field data cache.
@@ -1272,7 +1272,7 @@ Field | Field type | Description
 memory | Object | Statistics related to memory consumption for the indexing load.
 memory.current | Object | Statistics related to memory consumption for the current indexing load.
 memory.current.combined_coordinating_and_primary_in_bytes | Integer | The total memory used by indexing requests in the coordinating or primary stages, in bytes. A node can reuse the coordinating memory if the primary stage is run locally, so the total memory does not necessarily equal the sum of the coordinating and primary stage memory usage.
-memory.current.coordinating_in_bytes | The total memory consumed by indexing requests in the coordinating stage, in bytes.
+memory.current.coordinating_in_bytes | Integer | The total memory consumed by indexing requests in the coordinating stage, in bytes.
 memory.current.primary_in_bytes | Integer | The total memory consumed by indexing requests in the primary stage, in bytes.
 memory.current.replica_in_bytes | Integer | The total memory consumed by indexing requests in the replica stage, in bytes.
 memory.current.all_in_bytes | Integer | The total memory consumed by indexing requests in the coordinating, primary, or replica stages.

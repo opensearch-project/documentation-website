@@ -70,23 +70,23 @@ Official OpenSearch images are hosted on [Docker Hub](https://hub.docker.com/u/o
 
 [Docker Hub](https://hub.docker.com/u/opensearchproject/):
 ```bash
-docker pull opensearchproject/opensearch:2
+docker pull opensearchproject/opensearch:{{ site.opensearch_version | split: "." | first }}
 ```
 {% include copy.html %}
 
 ```bash
-docker pull opensearchproject/opensearch-dashboards:2
+docker pull opensearchproject/opensearch-dashboards:{{ site.opensearch_version | split: "." | first }}
 ```
 {% include copy.html %}
 
 [Amazon ECR](https://gallery.ecr.aws/opensearchproject/):
 ```bash
-docker pull public.ecr.aws/opensearchproject/opensearch:2
+docker pull public.ecr.aws/opensearchproject/opensearch:{{ site.opensearch_version | split: "." | first }}
 ```
 {% include copy.html %}
 
 ```bash
-docker pull public.ecr.aws/opensearchproject/opensearch-dashboards:2
+docker pull public.ecr.aws/opensearchproject/opensearch-dashboards:{{ site.opensearch_version | split: "." | first }}
 ```
 {% include copy.html %}
 
@@ -143,7 +143,7 @@ Before continuing, you should verify that Docker is working correctly by deployi
     ```
     {% include copy.html %}
 
-Remember that `docker container ls` does not list stopped containers. If you would like to review stopped containers, use `docker container ls -a`. You can remove unneeded containers manually with `docker container rm <containerId_1> <containerId_2> <containerId_3> [...]` (pass all container IDs you wish to stop, separated by spaces), or if you want to remove all stopped containers, you can use the shorter command `docker container prune`.
+Remember that `docker container ls` does not list stopped containers. If you would like to review stopped containers, use `docker container ls -a`. You can remove unneeded containers manually with `docker container rm <containerId_1> <containerId_2> <containerId_3> [...]` (pass all container IDs you want to stop, separated by spaces), or if you want to remove all stopped containers, you can use the shorter command `docker container prune`.
 {: .tip}
 
 ## Deploy an OpenSearch cluster using Docker Compose
@@ -161,7 +161,7 @@ If none of those files exist in your current directory, the `docker-compose` com
 You can specify a custom file location and name when invoking `docker-compose` with the `-f` flag:
 ```bash
 # Use a relative or absolute path to the file.
-docker-compose -f /path/to/your-file.yml up
+docker compose -f /path/to/your-file.yml up
 ```
 
 If this is your first time launching an OpenSearch cluster using Docker Compose, use the following example `docker-compose.yml` file. Save it in the home directory of your host and name it `docker-compose.yml`. This file creates a cluster that contains three containers: two containers running the OpenSearch service and a single container running OpenSearch Dashboards. These containers communicate over a bridge network called `opensearch-net` and use two volumes, one for each OpenSearch node. Because this file does not explicitly disable the demo security configuration, self-signed TLS certificates are installed and internal users with default names and passwords are created.
@@ -181,7 +181,6 @@ Starting with OpenSearch 2.12, a custom admin password is required to set up a d
 ### Sample docker-compose.yml
 
 ```yml
-version: '3'
 services:
   opensearch-node1: # This is also the hostname of the container within the Docker network (i.e. https://opensearch-node1/)
     image: opensearchproject/opensearch:latest # Specifying the latest available image - modify if you want a specific version
@@ -256,20 +255,20 @@ If you override `opensearch_dashboards.yml` settings using environment variables
 
 From the home directory of your host (containing `docker-compose.yml`), create and start the containers in detached mode:
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 {% include copy.html %}
 
 Verify that the service containers started correctly:
 ```bash
-docker-compose ps
+docker compose ps
 ```
 {% include copy.html %}
 
 If a container failed to start, you can review the service logs:
 ```bash
-# If you don't pass a service name, docker-compose will show you logs from all of the nodes
-docker-compose logs <serviceName>
+# If you don't pass a service name, docker compose will show you logs from all of the nodes
+docker compose logs <serviceName>
 ```
 {% include copy.html %}
 
@@ -280,11 +279,11 @@ Remember that `localhost` cannot be accessed remotely. If you are deploying thes
 
 Stop the running containers in your cluster:
 ```bash
-docker-compose down
+docker compose down
 ```
 {% include copy.html %}
 
-`docker-compose down` will stop the running containers, but it will not remove the Docker volumes that exist on the host. If you don't care about the contents of these volumes, use the `-v` option to delete all volumes, for example, `docker-compose down -v`.
+`docker compose down` will stop the running containers, but it will not remove the Docker volumes that exist on the host. If you don't care about the contents of these volumes, use the `-v` option to delete all volumes, for example, `docker compose down -v`.
 {: .tip}
 
 ## Configure OpenSearch
@@ -332,7 +331,6 @@ services:
 
 If you want to build your own compose file from an example, review the following sample `docker-compose.yml` file. This sample file creates two OpenSearch nodes and one OpenSearch Dashboards node with the Security plugin disabled. You can use this sample file as a starting point while reviewing [Configuring basic security settings](#configuring-basic-security-settings).
 ```yml
-version: '3'
 services:
   opensearch-node1:
     image: opensearchproject/opensearch:latest
@@ -476,7 +474,7 @@ Use the same process to specify a [Backend configuration]({{site.url}}{{site.bas
 
 After replacing the certificates and creating your own internal users, roles, mappings, action groups, and tenants, use Docker Compose to start the cluster:
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 {% include copy.html %}
 
