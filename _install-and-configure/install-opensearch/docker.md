@@ -181,7 +181,6 @@ Starting with OpenSearch 2.12, a custom admin password is required to set up a d
 ### Sample docker-compose.yml
 
 ```yml
-version: '3'
 services:
   opensearch-node1: # This is also the hostname of the container within the Docker network (i.e. https://opensearch-node1/)
     image: opensearchproject/opensearch:latest # Specifying the latest available image - modify if you want a specific version
@@ -332,7 +331,6 @@ services:
 
 If you want to build your own compose file from an example, review the following sample `docker-compose.yml` file. This sample file creates two OpenSearch nodes and one OpenSearch Dashboards node with the Security plugin disabled. You can use this sample file as a starting point while reviewing [Configuring basic security settings](#configuring-basic-security-settings).
 ```yml
-version: '3'
 services:
   opensearch-node1:
     image: opensearchproject/opensearch:latest
