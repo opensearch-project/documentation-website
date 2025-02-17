@@ -42,6 +42,7 @@ The following table lists the required and optional parameters for the `text_emb
 `description`  | String | Optional  | A brief description of the processor.  |
 `tag` | String | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
 `batch_size` | Integer | Optional | Specifies the number of documents to be batched and processed each time. Default is `1`. |
+`if` | Optional | A condition for running the processor.|
 
 ## Using the processor
 
