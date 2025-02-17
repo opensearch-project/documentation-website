@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Collapse search results
-nav_order: 3
+parent: Searching data
+nav_order: 40
 ---
 
 # Collapse search results

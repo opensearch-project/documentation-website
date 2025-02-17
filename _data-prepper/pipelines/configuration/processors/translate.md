@@ -42,7 +42,7 @@ Then create the following file named `logs_json.log` and replace the `path` in t
 The `translate` processor configuration in `pipeline.yaml` retrieves the `source` value from the event data and compares it against the keys specified under the `targets`. 
 When a match is found, the processor places the corresponding mapped value into the `target` key provided in the configuration.
 
-When you run Data Prepper with the previous `pipeline.yaml` file, you should receive the following output:
+When you run OpenSearch Data Prepper with the previous `pipeline.yaml` file, you should receive the following output:
 
 ```json
 {

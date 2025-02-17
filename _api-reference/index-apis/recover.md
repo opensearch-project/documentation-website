@@ -55,7 +55,7 @@ The following examples demonstrate how to recover information using the Recovery
 
 ### Recover information from several or all indexes
 
-The following example request returns recovery information about several indexes in a [human-readable format](https://opensearch.org/docs/latest/api-reference/common-parameters/#human-readable-output):
+The following example request returns recovery information about several indexes in a [human-readable format]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#human-readable-output):
 
 ```json
 GET index1,index2/_recovery?human

@@ -151,3 +151,39 @@ To remove several collaborators simultaneously, follow these steps:
 2. Select the **Delete x collaborators** button.
 3. Review the confirmation modal that appears.
 4. Select **Confirm** to remove all selected collaborators from the table.
+
+## Configuring workspace privacy
+
+When permission control is enabled, workspace administrators can set one of the following three access levels:
+
+* **Private to collaborators (Default):** Only workspace collaborators can access the workspace. 
+* **Anyone can view:** Grants **Read only** permissions to all workspace users, allowing them to view workspace assets. 
+* **Anyone can edit:** Grants **Read and write** permissions to all users, allowing them to view, create, and update workspace assets.
+
+Collaborators are granted higher permissions when their individual access level differs from that set in the workspace settings. For example, if workspace privacy is set to "Anyone can edit", any collaborator with read-only access will also be able to edit workspace assets.
+Users at the collaborator level are granted additional permissions even when their access level differs from that of the workspace.
+You can set up workspace privacy on the **Create workspace** page as a **Dashboard admin**. You can also modify it on the **Collaborators** or **Workspace details** pages as a **Workspace admin** or **Dashboard admin**.
+
+### Setting up workspace privacy during workspace creation
+
+Use the following steps to change workspace privacy settings when creating a new workspace:
+
+1. Choose the desired access level from the **Set up privacy** panel. 
+2. _Optional_ Decide whether to add collaborators after workspace creation by selecting the **Add collaborators after workspace creation.** checkbox.
+3. Select **Create workspace** to create the workspace.
+
+### Modifying workspace privacy on the **Collaborators** page
+
+Use the following steps to edit the workspace privacy settings on the **Collaborators** page:
+
+1. Next to **Workspace privacy**, select **Edit**. 
+2. Select the new access level from the dropdown menu.
+3. Select **Save changes** to apply the modifications.
+
+### Modifying workspace privacy on the **Workspace details** page
+
+Use the following steps to edit the workspace privacy settings on the **Workspace details** page:
+
+1. Select the **Edit** button in the upper-right corner of the **Details** panel. 
+2. Select the new access level from the dropdown menu.
+3. Select **Save** to apply the modifications.

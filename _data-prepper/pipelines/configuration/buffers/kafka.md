@@ -59,12 +59,12 @@ Option | Required | Type | Description
 `name` | Yes | String | The name of the Kafka topic.
 `group_id` | Yes | String | Sets Kafka's `group.id` option.
 `workers` | No | Integer | The number of multithreaded consumers associated with each topic. Default is `2`. The maximum value is `200`.
-`encryption_key` | No | String | An Advanced Encryption Standard (AES) encryption key used to encrypt and decrypt data within Data Prepper before sending it to Kafka. This value must be plain text or encrypted using AWS Key Management Service (AWS KMS).
+`encryption_key` | No | String | An Advanced Encryption Standard (AES) encryption key used to encrypt and decrypt data within OpenSearch Data Prepper before sending it to Kafka. This value must be plain text or encrypted using AWS Key Management Service (AWS KMS).
 `kms` | No | AWS KMS key | When configured, uses an AWS KMS key to encrypt data. See [`kms`](#kms) for more information.
 `auto_commit` | No | Boolean | When `false`, the consumer offset will not be periodically committed to Kafka in the background. Default is `false`.
 `commit_interval` | No | Integer | When `auto_commit` is set to `true`, sets how often, in seconds, the consumer offsets are auto-committed to Kafka through Kafka's `auto.commit.interval.ms` option. Default is `5s`.
 `session_timeout` | No | Integer | The amount of time during which the source detects client failures when using Kafka's group management features, which can be used to balance the data stream. Default is `45s`.
-`auto_offset_reset` | No | String | Automatically resets the offset to the earliest or the latest offset through Kafka's `auto.offset.reset` option. Default is `latest`.
+`auto_offset_reset` | No | String | Automatically resets the offset to the earliest or the latest offset through Kafka's `auto.offset.reset` option. Default is `earliest`.
 `thread_waiting_time` | No | Integer | The amount of time that a thread waits for the preceding thread to complete its task and to signal the next thread. The Kafka consumer API poll timeout value is set to half of this setting. Default is `5s`.
 `max_partition_fetch_bytes` | No | Integer | Sets the maximum limit, in megabytes, for data returns from each partition through Kafka's `max.partition.fetch.bytes` setting. Default is `1mb`.
 `heart_beat_interval` | No | Integer | The expected amount of time between heartbeats to the consumer coordinator when using Kafka's group management facilities through Kafka's `heartbeat.interval.ms` setting. Default is `5s`.

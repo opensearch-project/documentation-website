@@ -23,11 +23,11 @@ The following naming conventions should be observed in OpenSearch Project conten
 
 #### Product names
 
-Capitalize product names. The OpenSearch Project has three products: OpenSearch, OpenSearch Dashboards, and Data Prepper. For example:
+Capitalize product names. The OpenSearch Project has three products: OpenSearch, OpenSearch Dashboards, and OpenSearch Data Prepper. For example:
 
 * "To install *OpenSearch*, download the Docker image."
 * "To access *OpenSearch Dashboards*, open your browser and navigate to http://localhost:5601/app/home."
-* "*Data Prepper* contains the following components:"
+* "*OpenSearch Data Prepper* contains the following components:"
 
 Capitalize the names of clients and tools. For example:
 
@@ -128,6 +128,7 @@ The following table lists acronyms that you don't need to spell out.
 | CSV | comma-separated values |
 | DNS | Domain Name System |
 | DOS | disk operating system |
+| Faiss | Facebook AI Similarity Search |
 | FAQ | frequently asked questions |
 | FTP | File Transfer Protocol |
 | GIF | Graphics Interchange Format |
@@ -141,8 +142,10 @@ The following table lists acronyms that you don't need to spell out.
 | JPEG | Joint Photographic Experts Group |
 | JSON | JavaScript Object Notation |
 | k-NN | k-nearest neighbors |
+| MS MARCO | Microsoft Machine Reading Comprehension |
 | NAT | network address translation |
 | NGINX | engine x |
+| NMSLIB | Non-Metric Space Library |
 | PDF | Portable Document Format |
 | RAM | random access memory |
 | REST | Representational State Transfer |

@@ -6,9 +6,9 @@ grand_parent: Pipelines
 nav_order: 10
 ---
 
-# aws_lambda integration for Data Prepper
+# aws_lambda integration for OpenSearch Data Prepper
 
-The [AWS Lambda](https://aws.amazon.com/lambda/) integration allows developers to use serverless computing capabilities within their Data Prepper pipelines for flexible event processing and data routing.
+The [AWS Lambda](https://aws.amazon.com/lambda/) integration allows developers to use serverless computing capabilities within their OpenSearch Data Prepper pipelines for flexible event processing and data routing.
 
 ## AWS Lambda processor configuration
 

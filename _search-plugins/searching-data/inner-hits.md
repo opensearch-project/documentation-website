@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Inner hits
-parent: Searching data
+title: Retrieve inner hits
+parent: Search options
 has_children: false
-nav_order: 70
+nav_order: 75
 ---
 
-# Inner hits
+# Retrieve inner hits
 
 In OpenSearch, when you perform a search using [nested objects]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/nested/) or [parent-join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/), the underlying hits (nested inner objects or child documents) are hidden by default. You can retrieve inner hits by using the `inner_hits` parameter in the search query.
 

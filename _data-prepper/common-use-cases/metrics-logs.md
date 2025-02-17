@@ -7,7 +7,7 @@ nav_order: 15
 
 # Deriving metrics from logs
 
-You can use Data Prepper to derive metrics from logs. 
+You can use OpenSearch Data Prepper to derive metrics from logs. 
 
 The following example pipeline receives incoming logs using the [`http` source plugin]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/http-source) and the [`grok` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/grok/). It then uses the [`aggregate` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/aggregate/) to extract the metric bytes aggregated during a 30-second window and derives histograms from the results.
 

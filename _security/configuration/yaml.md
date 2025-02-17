@@ -94,7 +94,7 @@ requests: # Only allow GET requests to /sample-index1/_doc/1 and /sample-index2/
 
 ## internal_users.yml
 
-This file contains any initial users that you want to add to the Security plugin's internal user database. You can find this file in ``<OPENSEARCH_HOME>/config/opensearch-security/internal_users.yml`.
+This file contains any initial users that you want to add to the Security plugin's internal user database. You can find this file in `<OPENSEARCH_HOME>/config/opensearch-security/internal_users.yml`.
 
 The file format requires a hashed password. To generate one, run `plugins/opensearch-security/tools/hash.sh -p <new-password>`. If you decide to keep any of the demo users, *change their passwords* and re-run [securityadmin.sh]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/) to apply the new passwords.
 

@@ -21,12 +21,12 @@ Option | Required | Type | Description
 `exclude_keys` | No | List | The keys from the source field that should be excluded from processing. Default is an empty list (`[]`).
 `remove_processed_fields` | No | Boolean | When `true`, the processor removes all processed fields from the source. Default is `false`.
 `remove_list_indices` | No | Boolean | When `true`, the processor converts the fields from the source map into lists and puts the lists into the target field. Default is `false`.
-`flatten_when` | No | String | A [conditional expression](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/), such as `/some-key == "test"'`, that determines whether the `flatten` processor will be run on the event. Default is `null`, which means that all events will be processed unless otherwise stated.
+`flatten_when` | No | String | A [conditional expression]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/), such as `/some-key == "test"'`, that determines whether the `flatten` processor will be run on the event. Default is `null`, which means that all events will be processed unless otherwise stated.
 `tags_on_failure` | No | List | A list of tags to add to the event metadata when the event fails to process.
 
 ## Usage
 
-The following examples show how the `flatten` processor can be used in Data Prepper pipelines.
+The following examples show how the `flatten` processor can be used in OpenSearch Data Prepper pipelines.
 
 ### Minimum configuration
 

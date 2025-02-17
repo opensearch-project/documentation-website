@@ -1,20 +1,20 @@
 ---
 layout: default
-title: Optimize query performance using OpenSearch indexing
+title: Optimizing query performance using OpenSearch indexing
 parent: Data sources
 nav_order: 17
 ---
 
-# Optimize query performance using OpenSearch indexing
+# Optimizing query performance using OpenSearch indexing
 Introduced 2.11
 {: .label .label-purple }
 
 
 Query performance can be slow when using external data sources for reasons such as network latency, data transformation, and data volume. You can optimize your query performance by using OpenSearch indexes, such as a skipping index or a covering index. 
 
-- A _skipping index_ uses skip acceleration methods, such as partition, minimum and maximum values, and value sets, to ingest and create compact aggregate data structures. This makes them an economical option for direct querying scenarios. For more information, see [Skipping indexes](https://opensearch.org/docs/latest/dashboards/management/accelerate-external-data/#skipping-indexes).
-- A _covering index_ ingests all or some of the data from the source into OpenSearch and makes it possible to use all OpenSearch Dashboards and plugin functionality. For more information, see [Covering indexes](https://opensearch.org/docs/latest/dashboards/management/accelerate-external-data/#covering-indexes).
-- A _materialized view_ enhances query performance by storing precomputed and aggregated data from the source data. For more information, see [Materialized views](https://opensearch.org/docs/latest/dashboards/management/accelerate-external-data/#materialized-views).
+- A _skipping index_ uses skip acceleration methods, such as partition, minimum and maximum values, and value sets, to ingest and create compact aggregate data structures. This makes them an economical option for direct querying scenarios. For more information, see [Skipping indexes]({{site.url}}{{site.baseurl}}/dashboards/management/accelerate-external-data/#skipping-indexes).
+- A _covering index_ ingests all or some of the data from the source into OpenSearch and makes it possible to use all OpenSearch Dashboards and plugin functionality. For more information, see [Covering indexes]({{site.url}}{{site.baseurl}}/dashboards/management/accelerate-external-data/#covering-indexes).
+- A _materialized view_ enhances query performance by storing precomputed and aggregated data from the source data. For more information, see [Materialized views]({{site.url}}{{site.baseurl}}/dashboards/management/accelerate-external-data/#materialized-views).
 
 For comprehensive guidance on each indexing process, see the [Flint Index Reference Manual](https://github.com/opensearch-project/opensearch-spark/blob/main/docs/index.md). 
 
@@ -29,9 +29,9 @@ To get started with accelerating query performance, perform the following steps:
     1. Select **Accelerate data**. A pop-up window appears. 
     2. Enter your database and table details under **Select data fields**.
 5. For **Acceleration type**, select the type of acceleration according to your use case. Then, enter the information for your acceleration type. For more information, see the following sections:
-      - [Skipping indexes](https://opensearch.org/docs/latest/dashboards/management/accelerate-external-data/#skipping-indexes)
-      - [Covering indexes](https://opensearch.org/docs/latest/dashboards/management/accelerate-external-data/#covering-indexes)
-      - [Materialized views](https://opensearch.org/docs/latest/dashboards/management/accelerate-external-data/#materialized-views)
+      - [Skipping indexes]({{site.url}}{{site.baseurl}}/dashboards/management/accelerate-external-data/#skipping-indexes)
+      - [Covering indexes]({{site.url}}{{site.baseurl}}/dashboards/management/accelerate-external-data/#covering-indexes)
+      - [Materialized views]({{site.url}}{{site.baseurl}}/dashboards/management/accelerate-external-data/#materialized-views)
 
 ## Skipping indexes
 
@@ -71,13 +71,13 @@ A _covering index_ ingests all or some of the data from the source into OpenSear
 
 With a covering index, you can ingest data from a specified column in a table. This is the most performant of the three indexing types. Because OpenSearch ingests all data from your desired column, you get better performance and can perform advanced analytics.
 
-OpenSearch creates a new index from the covering index data. You can use this new index to create visualizations, or for anomaly detection and geospatial capabilities. You can manage the covering view index with Index State Management. For more information, see [Index State Management](https://opensearch.org/docs/latest/im-plugin/ism/index/).
+OpenSearch creates a new index from the covering index data. You can use this new index to create visualizations, or for anomaly detection and geospatial capabilities. You can manage the covering view index with Index State Management. For more information, see [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/).
 
 ### Define covering index settings
 
 1. For **Index name**, enter a valid index name. Note that each table can have multiple covering indexes.
 2. Choose a **Refresh type**. By default, OpenSearch automatically refreshes the index. Otherwise, you must manually trigger a refresh using a REFRESH statement.
-3. Enter a **Checkpoint location**, which is a path for refresh job checkpoints. The location must be a path in an HDFS compatible file system. 
+3. Enter a **Checkpoint location**, which is a path for refresh job checkpoints. The location must be a path in a file system compatible with the Hadoop Distributed File System (HDFS). For more information, see [Starting streaming queries](https://spark.apache.org/docs/3.5.1/structured-streaming-programming-guide.html#starting-streaming-queries).
 4. Define the covering index fields by selecting **(add fields here)** under **Covering index definition**. 
 5. Select **Create acceleration** to apply your covering index settings.
 6. View the covering index query details and then click **Run**. OpenSearch adds your index to the left navigation pane.
@@ -100,7 +100,7 @@ WITH (
 
 ## Materialized views
 
-With _materialized views_, you can use complex queries, such as aggregations, to power Dashboards visualizations. Materialized views ingest a small amount of your data, depending on the query, into OpenSearch. OpenSearch then forms an index from the ingested data that you can use for visualizations. You can manage the materialized view index with Index State Management. For more information, see [Index State Management](https://opensearch.org/docs/latest/im-plugin/ism/index/).
+With _materialized views_, you can use complex queries, such as aggregations, to power Dashboards visualizations. Materialized views ingest a small amount of your data, depending on the query, into OpenSearch. OpenSearch then forms an index from the ingested data that you can use for visualizations. You can manage the materialized view index with Index State Management. For more information, see [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/).
 
 ### Define materialized view settings
 

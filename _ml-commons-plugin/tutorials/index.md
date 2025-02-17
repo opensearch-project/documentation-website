@@ -17,8 +17,12 @@ Using the OpenSearch machine learning (ML) framework, you can build various appl
 - **Conversational search**:
     - [Conversational search using the Cohere Command model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/conversational-search-cohere/)
 
+- **Using guardrails**:
+    - [Using Amazon Bedrock guardrails]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/bedrock-guardrails/)
+
 - **Reranking search results**:
     - [Reranking search results using the Cohere Rerank model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/reranking-cohere/)
+    - [Reranking search results using models hosted on Amazon Bedrock]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/reranking-bedrock/)
     - [Reranking search results using the MS MARCO cross-encoder model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/reranking-cross-encoder/)
 
 - **Agents and tools**:

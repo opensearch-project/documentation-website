@@ -17,7 +17,7 @@ The Query Group Lifecycle API creates, updates, retrieves, and deletes query gro
 
 <!-- spec_insert_start
 api: wlm.create_query_group
-component: paths_and_http_methods
+component: endpoints
 omit_header: true
 -->
 ```json
@@ -29,7 +29,7 @@ PUT /_wlm/query_group
 
 <!-- spec_insert_start
 api: wlm.create_query_group
-component: paths_and_http_methods
+component: endpoints
 omit_header: true
 -->
 ```json
@@ -41,7 +41,7 @@ PUT /_wlm/query_group
 
 <!-- spec_insert_start
 api: wlm.get_query_group
-component: paths_and_http_methods
+component: endpoints
 omit_header: true
 -->
 ```json
@@ -54,7 +54,7 @@ GET /_wlm/query_group/{name}
 
 <!-- spec_insert_start
 api: wlm.create_query_group
-component: paths_and_http_methods
+component: endpoints
 omit_header: true
 -->
 ```json
@@ -69,7 +69,7 @@ PUT /_wlm/query_group
 | :--- | :--- |
 | `_id`  | The ID of the query group, which can be used to associate query requests with the group and enforce the group's resource limits.  |
 | `name`  | The name of the query group. |
-| `resiliency_mode`  | The resiliency mode of the query group. Valid modes are `enforced`, `soft`, and `monitor`. For more information about resiliency modes, see [Operating modes](https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/workload-management/wlm-feature-overview/#operating-modes). |
+| `resiliency_mode`  | The resiliency mode of the query group. Valid modes are `enforced`, `soft`, and `monitor`. For more information about resiliency modes, see [Operating modes]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/wlm-feature-overview/#operating-modes). |
 | `resource_limits` | The resource limits for query requests in the query group. Valid resources are `cpu` and `memory`.  |
 
 When creating a query group, make sure that the sum of the resource limits for a single resource, either `cpu` or `memory`, does not exceed 1.

@@ -1,6 +1,7 @@
 ---
 layout: default
-title: Filter search results
+title: Filter results
+parent: Search options
 nav_order: 36
 ---
 

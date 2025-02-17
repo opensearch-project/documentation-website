@@ -229,6 +229,8 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline-sparse
     {
       "sparse_encoding": {
         "model_id": "<bi-encoder or doc-only model ID>",
+        "prune_type": "max_ratio",
+        "prune_ratio": 0.1,
         "field_map": {
           "passage_text": "passage_embedding"
         }

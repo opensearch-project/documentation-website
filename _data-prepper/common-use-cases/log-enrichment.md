@@ -7,7 +7,7 @@ nav_order: 35
 
 # Log enrichment
 
-You can perform different types of log enrichment with Data Prepper, including:
+You can perform different types of log enrichment with OpenSearch Data Prepper, including:
 
 - Filtering.
 - Extracting key-value pairs from strings.

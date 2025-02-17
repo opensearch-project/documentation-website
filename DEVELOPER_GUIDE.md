@@ -7,7 +7,7 @@
 - [Spec insert components](#spec-insert-components)
   - [Query parameters](#query-parameters)
   - [Path parameters](#path-parameters)
-  - [Paths and HTTP methods](#paths-and-http-methods)
+  - [Endpoints](#endpoints)
 
 ## Introduction
 
@@ -49,7 +49,13 @@ bundle exec jekyll spec-insert
 If you are working on multiple Markdown files and do not want to keep running the `jekyll spec-insert` command, you can add the `--watch` (or `-W`) flag to the command to watch for changes in the Markdown files and automatically render the API components:
 
 ```shell
-bundle exec jekyll spec-insert --watch
+bundle exec jekyll spec-insert -W
+```
+
+By default, when the plugin encounters an error when processing a file, the plugin prints out the error than moves on to the next file. If you want it to short-circuit when an error occurs, add the `--fail-on-error` (or `-F`) flag to the command:
+
+```shell
+bundle exec jekyll spec-insert -F
 ```
 
 Depending on the text editor you are using, you may need to manually reload the file from disk to see the changes applied by the plugin if the editor does not automatically reload the file periodically.
@@ -63,21 +69,26 @@ bundle exec jekyll spec-insert --refresh-spec
 ### Ignoring files and folders
 The `spec-insert` plugin ignores all files and folders listed in the [./_config.yml#exclude](./_config.yml) list, which is also the list of files and folders that Jekyll ignores.
 
+### Configuration
+You can update the configuration settings for this plugin through the [config.yml](./spec-insert/config.yml) file. 
+
+_Note that tests for this plugin use a mock configuration [file](./spec-insert/spec/mock_config.yml) to assure that the tests still pass when the config file is altered. The expected output for the tests is based on the mock configuration file and will look different from the actual output when the plugin is run._
+
 ## CI/CD
 The `spec-insert` plugin is run as part of the CI/CD pipeline to ensure that the API components are up to date in the documentation. This is performed through the [update-api-components.yml](.github/workflows/update-api-components.yml) GitHub Actions workflow, which creates a pull request containing the updated API components every Sunday.
 
 ## Spec insert components
 All spec insert components accept the following arguments:
 - `api` (String; required): The name of the API to render the component from. This is equivalent to the `x-operation-group` field in the OpenSearch OpenAPI Spec.
-- `component` (String; required): The name of the component to render,  such as `query_parameters`, `path_parameters`, or `paths_and_http_methods`.
+- `component` (String; required): The name of the component to render, such as `query_parameters`, `path_parameters`, or `endpoints`.
 - `omit_header` (Boolean; Default is `false`): If set to `true`, the markdown header of the component will not be rendered.
 
-### Paths and HTTP methods
-To insert paths and HTTP methods for the `search` API, use the following snippet:
+### Endpoints
+To insert endpoints for the `search` API, use the following snippet:
 ```markdown
 <!-- spec_insert_start
 api: search
-component: paths_and_http_methods
+component: endpoints
 -->
 <!-- spec_insert_end -->
 ```

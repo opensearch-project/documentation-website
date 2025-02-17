@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Point in Time
-parent: Searching data
+parent: Search options
 nav_order: 20
 has_children: true
 has_toc: false

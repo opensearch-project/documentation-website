@@ -45,3 +45,14 @@ DELETE /_plugins/_ml/models/MzcIJX8BA7mbufL6DOwl
   "_primary_term" : 18
 }
 ```
+
+## Safely deleting a model
+Introduced 2.19
+{: .label .label-purple }
+
+To prevent accidental deletion of models in active use by agents, search pipelines, ingest pipelines, or other components, you can enable a safety check. If the safety check is enabled and you attempt to delete a model that is in current use, OpenSearch returns an error message. To proceed with deletion:
+
+- Identify any components using the model and either delete them or update them so that they use other models.
+- Once all dependencies are cleared, delete the model.
+
+For information about enabling this feature, see [Safely delete models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/#safely-delete-models).

@@ -399,6 +399,12 @@ Some Markdown paragraph. Here's a formula:
 And back to Markdown.
 ```
 
+Alternatively, you can use double dollar signs (`$$`) for both display and inline math directly in Markdown:
+
+```
+The probability of selecting pair $$i$$ is proportional to $$1 \over i^\alpha$$.
+```
+
 ## Tables
 
 Markdown table columns are automatically sized, and there is no need to specify a different number of dashes in the formatting. 

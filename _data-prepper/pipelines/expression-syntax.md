@@ -7,7 +7,7 @@ nav_order: 5
 
 # Expression syntax  
 
-Expressions provide flexibility in manipulating, filtering, and routing data. The following sections provide information about expression syntax in Data Prepper.
+Expressions provide flexibility in manipulating, filtering, and routing data. The following sections provide information about expression syntax in OpenSearch Data Prepper.
 
 ## Key terms
 

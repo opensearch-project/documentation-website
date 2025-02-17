@@ -96,6 +96,11 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 
   config.expose_dsl_globally = true
+
+  config.before(:each) do
+    mock_config = SpecHash.new(YAML.load_file('./spec/mock_config.yml')) # Replace with your desired mock value
+    stub_const('CONFIG', mock_config)
+  end
 end
 
 require 'active_support/all'

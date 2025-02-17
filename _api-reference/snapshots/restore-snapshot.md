@@ -22,7 +22,7 @@ If open indexes with the same name that you want to restore already exist in the
 ## Endpoints
 
 ```json
-GET _snapshot/<repository>/<snapshot>/
+POST _snapshot/<repository>/<snapshot>/_restore
 ```
 
 ## Path parameters

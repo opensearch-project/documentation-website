@@ -4,13 +4,13 @@ require_relative 'base_mustache_renderer'
 require_relative '../insert_arguments'
 require_relative '../api/action'
 require_relative '../spec_insert_error'
-require_relative 'paths_and_methods'
+require_relative 'endpoints'
 require_relative 'path_parameters'
 require_relative 'query_parameters'
 
 # Class to render spec insertions
 class SpecInsert < BaseMustacheRenderer
-  COMPONENTS = Set.new(%w[query_params path_params paths_and_http_methods]).freeze
+  COMPONENTS = Set.new(%w[query_params path_params endpoints]).freeze
   self.template_file = "#{__dir__}/templates/spec_insert.mustache"
 
   # @param [Array<String>] arg_lines the lines between "<!-- doc_insert_start" and "-->"
@@ -33,8 +33,8 @@ class SpecInsert < BaseMustacheRenderer
       QueryParameters.new(@action, @args).render
     when :path_parameters
       PathParameters.new(@action, @args).render
-    when :paths_and_http_methods
-      PathsAndMethods.new(@action, @args).render
+    when :endpoints
+      Endpoints.new(@action, @args).render
     else
       raise SpecInsertError, "Invalid component: #{@args.component}"
     end

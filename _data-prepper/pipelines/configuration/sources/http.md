@@ -16,7 +16,7 @@ Option | Required | Type | Description
 :--- | :--- | :--- | :---
 port | No | Integer | The port that the source is running on. Default value is `2021`. Valid options are between `0` and `65535`.
 health_check_service | No | Boolean | Enables the health check service on the `/health` endpoint on the defined port. Default value is `false`.
-unauthenticated_health_check | No | Boolean | Determines whether or not authentication is required on the health check endpoint. Data Prepper ignores this option if no authentication is defined. Default value is `false`.
+unauthenticated_health_check | No | Boolean | Determines whether or not authentication is required on the health check endpoint. OpenSearch Data Prepper ignores this option if no authentication is defined. Default value is `false`.
 request_timeout | No | Integer | The request timeout, in milliseconds. Default value is `10000`.
 thread_count | No | Integer | The number of threads to keep in the ScheduledThreadPool. Default value is `200`.
 max_connection_count | No | Integer | The maximum allowed number of open connections. Default value is `500`.

@@ -7,7 +7,7 @@ nav_order: 45
 
 # Sampling
 
-Data Prepper provides the following sampling capabilities:
+OpenSearch Data Prepper provides the following sampling capabilities:
 
 - Time sampling
 - Percentage sampling

@@ -37,7 +37,8 @@ PUT logs
   "settings": {
     "index.number_of_shards": 1,
     "index.number_of_replicas": 0,
-    "index.composite_index": true
+    "index.composite_index": true,
+    "index.append_only.enabled": true
   },
   "mappings": {
     "composite": {
@@ -54,6 +55,16 @@ PUT logs
             },
             {
               "name": "port"
+            },
+            {
+              "name": "method"
+            },
+            {
+              "name": "@timestamp",
+                "calendar_intervals": [
+                  "month",
+                  "day"
+              ]
             }
           ],
           "metrics": [
@@ -80,6 +91,10 @@ PUT logs
       }
     },
     "properties": {
+      "@timestamp": {
+        "format": "strict_date_optional_time||epoch_second",
+        "type": "date"
+      },
       "status": {
         "type": "integer"
       },
@@ -88,6 +103,9 @@ PUT logs
       },
       "request_size": {
         "type": "integer"
+      },
+      "method" : {
+        "type": "keyword"
       },
       "latency": {
         "type": "scaled_float",
@@ -118,9 +136,26 @@ When using the `ordered_dimesions` parameter, follow these best practices:
 
 - The order of dimensions matters. You can define the dimensions ordered from the highest cardinality to the lowest cardinality for efficient storage and query pruning. 
 - Avoid using high-cardinality fields as dimensions. High-cardinality fields adversely affect storage space, indexing throughput, and query performance.
-- Currently, fields supported by the `ordered_dimensions` parameter are all [numeric field types](https://opensearch.org/docs/latest/field-types/supported-field-types/numeric/), with the exception of `unsigned_long`. For more information, see [GitHub issue #15231](https://github.com/opensearch-project/OpenSearch/issues/15231). 
-- Support for other field types, such as `keyword` and `ip`, will be added in future versions. For more information, see [GitHub issue #16232](https://github.com/opensearch-project/OpenSearch/issues/16232).
 - A minimum of `2` and a maximum of `10` dimensions are supported per star-tree index.
+
+The `ordered_dimensions` parameter supports the following field types:
+
+  - All numeric field types, excluding `unsigned_long` and `scaled_float`
+  - `keyword` 
+  - `object`
+  - `date`, which can use up to three of the following calendar intervals:
+    - `year` (of era)
+    - `quarter` (of year)
+    - `month` (of year)
+    - `week` (of week-based year)
+    - `day` (of month)
+    - `hour` (of day)
+    - `half-hour` (of day)
+    - `quater-hour` (of day)
+    - `minute` (of hour)
+    - `second` (of minute)
+
+Support for other field types, such as `ip`, will be added in future versions. For more information, see [GitHub issue #13875](https://github.com/opensearch-project/OpenSearch/issues/13875).
 
 The `ordered_dimensions` parameter supports the following property.
 
@@ -128,14 +163,13 @@ The `ordered_dimensions` parameter supports the following property.
 | :--- | :--- | :--- |
 | `name` | Required | The name of the field. The field name should be present in the `properties` section as part of the index `mapping`. Ensure that the `doc_values` setting is `enabled` for any associated fields. |
 
-
 ### Metrics
 
 Configure any metric fields on which you need to perform aggregations. `Metrics` are required as part of a star-tree index configuration.
 
 When using `metrics`, follow these best practices: 
 
-- Currently, fields supported by `metrics` are all [numeric field types](https://opensearch.org/docs/latest/field-types/supported-field-types/numeric/), with the exception of `unsigned_long`. For more information, see [GitHub issue #15231](https://github.com/opensearch-project/OpenSearch/issues/15231). 
+- Currently, fields supported by `metrics` are all [numeric field types]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/numeric/), with the exception of `unsigned_long`. For more information, see [GitHub issue #15231](https://github.com/opensearch-project/OpenSearch/issues/15231). 
 - Supported metric aggregations include `Min`, `Max`, `Sum`, `Avg`, and `Value_count`. 
     - `Avg` is a derived metric based on `Sum` and `Value_count` and is not indexed when a query is run. The remaining base metrics are indexed.
 - A maximum of `100` base metrics are supported per star-tree index.
