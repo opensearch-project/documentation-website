@@ -23,8 +23,8 @@ Vector search enhances traditional lexical search by encoding text, images, and 
 
 OpenSearch vector search supports the following key features:
 
-- **Automatic embedding generation**: Generate vector embeddings dynamically within OpenSearch using built-in machine learning models, eliminating the need for external preprocessing of your data.
-- **Advanced filtering capabilities**: Combine vector search with traditional filters to refine results, enabling precise control over search outcomes while maintaining semantic relevance.
-- **Multi-vector support**: Store and search multiple vectors per document using nested fields, useful for complex documents with multiple components requiring separate vector representations.
-- **Memory-efficient search**: Optimize memory usage through various quantization techniques and efficient indexing methods, making vector search practical even with large-scale deployments.
-- **Hybrid search capabilities**: Combine traditional keyword search with vector-based semantic search to use the strengths of both approaches, improving search relevance and accuracy.
+- [**Automatic embedding generation**]({{site.url}}{{site.baseurl}}/vector-search/getting-started/auto-generated-embeddings/): Generate vector embeddings dynamically within OpenSearch using built-in machine learning models, eliminating the need for external preprocessing of your data.
+- [**Advanced filtering capabilities**]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/): Combine vector search with traditional filters to refine results, enabling precise control over search outcomes while maintaining semantic relevance.
+- [**Multi-vector support**]({{site.url}}{{site.baseurl}}/vector-search/specialized-operations/nested-search-knn/): Store and search multiple vectors per document using nested fields, useful for complex documents with multiple components requiring separate vector representations.
+- [**Memory-efficient search**]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/): Optimize memory usage through various quantization techniques and efficient indexing methods, making vector search practical even with large-scale deployments.
+- [**Hybrid search capabilities**]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/hybrid-search/): Combine traditional keyword search with vector-based semantic search to use the strengths of both approaches, improving search relevance and accuracy.

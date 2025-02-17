@@ -10,6 +10,8 @@ redirect_from:
   - /ml-commons-plugin/tutorials/
   - /ml-commons-plugin/tutorials/index/
 vector_search_101:
+  - heading: "Getting started with vector search"
+    link: "/vector-search/getting-started/"
   - heading: "Getting started with semantic and hybrid search"
     link: "/vector-search/getting-started/tutorials/neural-search-tutorial/"
 semantic_search:
@@ -43,26 +45,72 @@ agents:
 
 Explore these tutorials to build ML-powered search applications, from semantic search to custom chatbots.
 
-## Vector search 101
+<details open markdown="block">
+  <summary>
+    Vector search 101
+  </summary>
+  {: .heading}
 
 {% include cards.html cards=page.vector_search_101 %}
 
-## Semantic search
+</details>
+
+---
+
+<details markdown="block">
+  <summary>
+    Semantic search
+  </summary>
+  {: .heading}
 
 {% include cards.html cards=page.semantic_search %}
+
+</details>
+
+---
     
-## Conversational search
+<details markdown="block">
+  <summary>
+    Conversational search
+  </summary>
+  {: .heading}
 
 {% include cards.html cards=page.conversational_search %}
 
-## Using guardrails
+</details>
+
+---
+
+<details markdown="block">
+  <summary>
+    Using guardrails
+  </summary>
+  {: .heading}
   
 {% include cards.html cards=page.guardrails %}
 
-## Reranking search results
+</details>
+
+---
+
+<details markdown="block">
+  <summary>
+    Reranking search results
+  </summary>
+  {: .heading}
 
 {% include cards.html cards=page.reranking %}
 
-## Agents and tools
-    
+</details>
+
+---
+
+<details markdown="block">
+  <summary>
+    Agents and tools
+  </summary>
+  {: .heading}
+  
 {% include cards.html cards=page.agents %}
+
+</details>

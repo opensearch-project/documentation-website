@@ -44,7 +44,7 @@ This API operation only loads the segments of active indexes into the cache. If 
 
 ## Avoid reading stored fields
 
-   If your use case is simply to read the IDs and scores of the nearest neighbors, you can disable reading stored fields, which saves time retrieving the vectors from stored fields.
+   If your use case is only to read the IDs and scores of the nearest neighbors, you can disable reading stored fields, which saves time retrieving the vectors from stored fields.
 
 ## Use `mmap` file I/O
 

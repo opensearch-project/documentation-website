@@ -6,7 +6,7 @@ nav_order: 30
 
 # Ingesting data into a vector index
 
-After creating a vector index, you need to ingest data according to your chosen vector search approach. This guide outlines the ingestion process for each type of vector search: raw vector ingestion and auto-generated embeddings.
+After creating a vector index, you need to either ingest raw vector data or convert data to embeddings while ingesting it.
 
 ## Comparison of ingestion methods
 
@@ -15,11 +15,11 @@ The following table compares ingestion for each vector search method.
 | Feature                       | Data format          | Ingest pipeline | Vector generation         | Additional fields            |
 |-------------------------------|----------------------------|---------------------|---------------------------------|-----------------------------------|
 | **Raw vector ingestion**      | Pre-generated vectors      | Not required        | External                        | Optional metadata                |
-| **Auto-generated embeddings** | Text                   | Required            | Internal (during ingestion)     | Original text + embeddings        |
+| **Converting data to embeddings during ingestion** | Text, image, or other data                   | Required            | Internal (during ingestion)     | Original data + embeddings        |
 
 ## Raw vector ingestion
 
-When working with pre-generated embeddings, you directly ingest vector data into the `knn_vector` field. No pipeline is required because the vectors are already generated:
+When working with raw vectors or embeddings generated outside of OpenSearch, you directly ingest vector data into the `knn_vector` field. No pipeline is required because the vectors are already generated:
 
 ```json
 POST /my-raw-vector-index/_doc
@@ -30,7 +30,7 @@ POST /my-raw-vector-index/_doc
 ```
 {% include copy-curl.html %}
 
-You can also use the Bulk API to ingest multiple vectors efficiently:
+You can also use the [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) to ingest multiple vectors efficiently:
 
 ```json
 POST /_bulk
@@ -41,9 +41,10 @@ POST /_bulk
 ```
 {% include copy-curl.html %}
 
-## Auto-generated embeddings
+## Converting data to embeddings during ingestion
 
-For auto-generated embeddings, you first need to set up an ingest pipeline that will convert text to vectors:
+To automatically generate embeddings during ingestion, you first need to set up an ingest pipeline that will convert text to vectors:
+
 ```json
 PUT /_ingest/pipeline/nlp-ingest-pipeline
 {
@@ -74,7 +75,7 @@ POST /my-semantic-search-index/_doc
 
 The pipeline automatically generates and stores the embeddings in the `passage_embedding` field.
 
-## Related articles
+## Next steps
 
 - [Searching vector data]({{site.url}}{{site.baseurl}}/vector-search/searching-data/)
 - [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/)

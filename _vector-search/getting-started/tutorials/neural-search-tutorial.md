@@ -8,6 +8,15 @@ nav_order: 3
 redirect_from:
   - /ml-commons-plugin/semantic-search/
   - /search-plugins/neural-search-tutorial/
+steps:
+  - heading: "Choose a model for embedding generation"
+    link: "/vector-search/getting-started/tutorials/neural-search-tutorial/#step-1-choose-a-model"
+  - heading: "Register and deploy the model"
+    link: "/vector-search/getting-started/tutorials/neural-search-tutorial/#step-2-register-and-deploy-the-model"
+  - heading: "Ingest data"
+    link: "/vector-search/getting-started/tutorials/neural-search-tutorial/#step-3-ingest-data"
+  - heading: "Search the data"
+    link: "/vector-search/getting-started/tutorials/neural-search-tutorial/#step-4-search-the-data"
 ---
 
 # Getting started with semantic and hybrid search
@@ -61,16 +70,7 @@ For more information about ML-related cluster settings, see [ML Commons cluster 
 
 This tutorial consists of the following steps:
 
-1. [**Choose a language model**](#step-1-choose-a-language-model).
-1. [**Register and deploy the model**](#step-2-register-and-deploy-the-model).
-1. [**Ingest data**](#step-3-ingest-data).
-    1. [Create an ingest pipeline for embedding generation](#step-3a-create-an-ingest-pipeline).
-    1. [Create a vector index](#step-3b-create-a-vector-index).
-    1. [Ingest documents into the index](#step-3c-ingest-documents-into-the-index).
-1. [**Search the data**](#step-4-search-the-data).
-   - [Search using a keyword search](#search-using-a-keyword-search).
-   - [Search using a semantic search](#search-using-a-semantic-search).
-   - [Search using a hybrid search](#search-using-a-hybrid-search).
+{% include list.html list_items=page.steps%}
 
 Some steps in the tutorial contain optional `Test it` sections. You can ensure that the step was successful by running requests in these sections.
 
@@ -80,7 +80,7 @@ After you're done, follow the steps in the [Clean up](#clean-up) section to dele
 
 You can follow this tutorial using your command line or the OpenSearch Dashboards [Dev Tools console]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/run-queries/).
 
-## Step 1: Choose a language model
+## Step 1: Choose a model
 
 First, you'll need to choose a language model in order to generate vector embeddings from text fields, both at ingestion time and query time.
 

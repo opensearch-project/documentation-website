@@ -41,29 +41,29 @@ The space type is specified when creating an index:
     ```json
     PUT test-index
     {
-        "settings": {
-            "index": {
-            "knn": true,
-            "knn.algo_param.ef_search": 100
-            }
-        },
-        "mappings": {
-            "properties": {
-            "my_vector1": {
-                "type": "knn_vector",
-                "dimension": 1024,
-                "method": {
-                "name": "hnsw",
-                "space_type": "l2",
-                "engine": "nmslib",
-                "parameters": {
-                    "ef_construction": 128,
-                    "m": 24
-                }
-                }
+    "settings": {
+        "index": {
+        "knn": true,
+        "knn.algo_param.ef_search": 100
+        }
+    },
+    "mappings": {
+        "properties": {
+        "my_vector1": {
+            "type": "knn_vector",
+            "dimension": 1024,
+            "method": {
+            "name": "hnsw",
+            "space_type": "l2",
+            "engine": "nmslib",
+            "parameters": {
+                "ef_construction": 128,
+                "m": 24
             }
             }
         }
+        }
+    }
     }
     ```
     {% include copy-curl.html %}

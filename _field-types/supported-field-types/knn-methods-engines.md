@@ -341,7 +341,7 @@ In a typical OpenSearch cluster, a certain portion of RAM is reserved for the JV
 Having a replica doubles the total number of vectors.
 {: .note }
 
-For information about using memory estimation with vector quantization, see the [vector quantization documentation]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/knn-vector-quantization/).
+For information about using memory estimation with vector quantization, see the [Vector quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/knn-vector-quantization/).
 {: .note }
 
 ### HNSW memory estimation
@@ -363,3 +363,9 @@ As an example, assume you have a million vectors with a `dimension` of `256` and
 ```r
 1.1 * (((4 * 256) * 1,000,000) + (4 * 128 * 256))  ~= 1.126 GB
 ```
+
+## Related articles
+
+- [Performance tuning]({{site.url}}{{site.baseurl}}/vector-search/performance-tuning/)
+- [Optimizing vector storage]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/)
+- [Vector quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/knn-vector-quantization/)

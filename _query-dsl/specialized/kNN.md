@@ -28,7 +28,7 @@ The top-level `vector_field` specifies the vector field against which to run a s
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `vector` | Array of floats | Required | The query vector to use for vector search.
-`k` | Integer | Optional | The number of nearest neighbors to return. Required if `max_distance` or `min_score` is not specified.
+`k` | Integer | Optional | The number of nearest neighbors to return. Valid values are in the [1, 10,000] range. Required if `max_distance` or `min_score` is not specified.
 `max_distance` | Float | Optional | The maximum distance threshold for search results. Only one of `k`, `max_distance`, or `min_score` can be specified. For more information, see [Radial search]({{site.url}}{{site.baseurl}}/vector-search/specialized-operations/radial-search-knn/).
 `min_score` | Float | Optional | The minimum score threshold for search results. Only one of `k`, `max_distance`, or `min_score` can be specified. For more information, see [Radial search]({{site.url}}{{site.baseurl}}/vector-search/specialized-operations/radial-search-knn/).
 `filter` | Object | Optional | A filter to apply to the k-NN search. For more information, see [Vector search with filters]({{site.url}}{{site.baseurl}}/vector-search/specialized-operations/filter-search-knn/). **Important**: Filter can only be used with the `faiss` or `lucene` engines.

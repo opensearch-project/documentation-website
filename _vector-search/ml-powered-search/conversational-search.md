@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Conversational search
+title: Conversational search with RAG
 parent: ML-powered search
 has_children: false
 nav_order: 70
@@ -9,14 +9,14 @@ redirect_from:
   - /search-plugins/conversational-search/
 ---
 
-# Conversational search
+# Conversational search with RAG
 
 Conversational search allows you to ask questions in natural language and refine the answers by asking follow-up questions. Thus, the conversation becomes a dialog between you and a large language model (LLM). For this to happen, instead of answering each question individually, the model needs to remember the context of the entire conversation. 
 
 Conversational search is implemented with the following components:
 
 - [Conversation history](#conversation-history): Allows an LLM to remember the context of the current conversation and understand follow-up questions.
-- [Retrieval-Augmented Generation (RAG)](#rag): Allows an LLM to supplement its static knowledge base with proprietary or current information.
+- [Retrieval-augmented generation (RAG)](#rag): Allows an LLM to supplement its static knowledge base with proprietary or current information.
 
 ## Conversation history
 

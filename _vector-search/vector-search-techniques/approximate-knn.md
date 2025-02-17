@@ -13,21 +13,20 @@ redirect_from:
 
 Standard k-NN search methods compute similarity using a brute-force approach that measures the nearest distance between a query and a number of points, which produces exact results. This works well in many applications. However, in the case of extremely large datasets with high dimensionality, this creates a scaling problem that reduces the efficiency of the search. Approximate k-NN search methods can overcome this by employing tools that restructure indexes more efficiently and reduce the dimensionality of searchable vectors. Using this approach requires a sacrifice in accuracy but increases search processing speeds appreciably.
 
-The Approximate k-NN search methods leveraged by OpenSearch use approximate nearest neighbor (ANN) algorithms from the [NMSLIB](https://github.com/nmslib/nmslib), [Faiss](https://github.com/facebookresearch/faiss), and [Lucene](https://lucene.apache.org/) libraries to power k-NN search. These search methods employ ANN to improve search latency for large datasets. Of the three search methods OpenSearch provides, this method offers the best search scalability for large datasets. This approach is the preferred method when a dataset reaches hundreds of thousands of vectors.
+The approximate k-NN search methods in OpenSearch use approximate nearest neighbor (ANN) algorithms from the [NMSLIB](https://github.com/nmslib/nmslib), [Faiss](https://github.com/facebookresearch/faiss), and [Lucene](https://lucene.apache.org/) libraries to power k-NN search. These search methods employ ANN to improve search latency for large datasets. Of the three search methods OpenSearch provides, this method offers the best search scalability for large datasets. This approach is the preferred method when a dataset reaches hundreds of thousands of vectors.
 
-For details on the algorithms the plugin currently supports, see [Creating a vector index]({{site.url}}{{site.baseurl}}/vector-search/creating-vector-index/).
+For information about the algorithms OpenSearch supports, see [Methods and engines]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/).
 {: .note}
 
-OpenSearch builds a native library index of the vectors for each `knn-vector` field/Lucene segment pair during indexing, which can be used to efficiently find the k-nearest neighbors to a query vector during search. To learn more about Lucene segments, see the [Apache Lucene documentation](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/codecs/lucene87/package-summary.html#package.description). These native library indexes are loaded into native memory during search and managed by a cache. To learn more about preloading native library indexes into memory, refer to the [warmup API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#warmup-operation). Additionally, you can see which native library indexes are already loaded in memory. To learn more about this, see the [stats API section]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#stats).
+OpenSearch builds a native library index of the vectors for each `knn-vector` field/Lucene segment pair during indexing, which can be used to efficiently find the k-nearest neighbors to a query vector during search. To learn more about Lucene segments, see the [Apache Lucene documentation](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/codecs/lucene87/package-summary.html#package.description). These native library indexes are loaded into native memory during search and managed by a cache. To learn more about preloading native library indexes into memory, refer to the [Warmup API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#warmup-operation). Additionally, you can see which native library indexes are already loaded in memory using the [Stats API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#stats).
 
-Because the native library indexes are constructed during indexing, it is not possible to apply a filter on an index and then use this search method. All filters are applied on the results produced by the approximate nearest neighbor search.
+Because the native library indexes are constructed during indexing, it is not possible to apply a filter on an index and then use this search method. All filters are applied to the results produced by the approximate nearest neighbor search.
 
 ## Get started with approximate k-NN
 
-To use the approximate search functionality, you must first create a vector index with `index.knn` set to `true`. This setting tells the plugin to create native library indexes for the index.
+To use the approximate search functionality, you must first create a vector index with `index.knn` set to `true`. This setting tells OpenSearch to create native library indexes for the index.
 
-Next, you must add one or more fields of the `knn_vector` data type. This example creates an index with two
-`knn_vector` fields using the `faiss` engine:
+Next, you must add one or more fields of the `knn_vector` data type. This example creates an index with two `knn_vector` fields using the `faiss` engine:
 
 ```json
 PUT my-knn-index-1
@@ -74,7 +73,7 @@ PUT my-knn-index-1
 
 In the preceding example, both `knn_vector` fields are configured using method definitions. Additionally, `knn_vector` fields can be configured using models. For more information, see [k-NN vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/).
 
-The `knn_vector` data type supports a vector of floats that can have a dimension count of up to 16,000 for the NMSLIB, Faiss, and Lucene engines, as set by the dimension mapping parameter.
+The `knn_vector` data type supports a vector of floats that can have a dimension count of up to 16,000 for the NMSLIB, Faiss, and Lucene engines, as set by the `dimension` mapping parameter.
 
 In OpenSearch, codecs handle the storage and retrieval of indexes. OpenSearch uses a custom codec to write vector data to native library indexes so that the underlying k-NN search library can read it.
 {: .tip }
@@ -104,7 +103,7 @@ POST _bulk
 ```
 {% include copy-curl.html %}
 
-Then you can execute an approximate nearest neighbor search on the data using the `knn` query type:
+Then you can run an approximate nearest neighbor search on the data using the `knn` query type:
 
 ```json
 GET my-knn-index-1/_search
@@ -124,7 +123,7 @@ GET my-knn-index-1/_search
 
 ## The number of returned results
 
-In the preceding query, `k` represents the number of neighbors returned by the search of each graph. You must also include the `size` option, indicating the final number of results that you want the query to return.  
+In the preceding query, `k` represents the number of neighbors returned by the search of each graph. You must also include the `size` parameter, indicating the final number of results that you want the query to return.  
 
 For the NMSLIB and Faiss engines, `k` represents the maximum number of documents returned for all segments of a shard. For the Lucene engine, `k` represents the number of documents returned for a shard. The maximum value of `k` is 10,000.
 
@@ -144,7 +143,7 @@ Starting in OpenSearch 2.14, you can use `k`, `min_score`, or `max_distance` for
 
 ## Building a vector index from a model
 
-For some of the algorithms that OpenSearch supports, the native library index needs to be trained before it can be used. It would be expensive to train every newly created segment, so, instead, the plugin features the concept of a *model* that initializes the native library index during segment creation. You can create a model by calling the [Train API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-a-model) and passing in the source of the training data and the method definition of the model. Once training is complete, the model is serialized to a k-NN model system index. Then, during indexing, the model is pulled from this index to initialize the segments.
+For some of the algorithms that OpenSearch supports, the native library index needs to be trained before it can be used. It would be expensive to train every newly created segment, so, instead, OpenSearch features the concept of a *model* that initializes the native library index during segment creation. You can create a model by calling the [Train API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-a-model) and passing in the source of the training data and the method definition of the model. Once training is complete, the model is serialized to a k-NN model system index. Then, during indexing, the model is pulled from this index to initialize the segments.
 
 To train a model, you first need an OpenSearch index containing training data. Training data can come from any `knn_vector` field that has a dimension matching the dimension of the model you want to create. Training data can be the same data that you are going to index or data in a separate set. To create a training index, send the following request:
 

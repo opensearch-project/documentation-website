@@ -1,25 +1,30 @@
 ---
 layout: default
-title: Vector API
+title: API
 nav_order: 80
 has_children: false
 redirect_from:
   - /search-plugins/knn/api/
 ---
 
-# Vector API
+# k-NN API
 
-OpenSearch provides several vector APIs for managing, monitoring, and optimizing your vector workload.
+OpenSearch provides several k-NN APIs for managing, monitoring, and optimizing your vector workload.
 
 ## Stats
 
 The k-NN `stats` API provides information about the current status of the k-NN plugin, which implements vector search functionality. This includes both cluster-level and node-level statistics. Cluster-level statistics have a single value for the entire cluster. Node-level statistics have a single value for each node in the cluster. You can filter the query by `nodeId` and `statName`, as shown in the following example:
 
-```
+```json
 GET /_plugins/_knn/nodeId1,nodeId2/stats/statName1,statName2
 ```
+{% include copy-curl.html %}
 
-Statistic |  Description
+### Response body fields
+
+The following table lists the available response body fields.
+
+Field |  Description
 :--- | :---
 `circuit_breaker_triggered` | Indicates whether the circuit breaker is triggered. This statistic is only relevant to approximate k-NN search.
 `total_load_time` | The time in nanoseconds that k-NN has taken to load native library indexes into the cache. This statistic is only relevant to approximate k-NN search.
@@ -41,9 +46,9 @@ Statistic |  Description
 `script_compilation_errors` | The number of errors during script compilation. This statistic is only relevant to k-NN score script search.
 `script_query_requests` | The total number of script queries. This statistic is only relevant to k-NN score script search.
 `script_query_errors` | The number of errors during script queries. This statistic is only relevant to k-NN score script search.
-`nmslib_initialized` | Boolean value indicating whether the *nmslib* JNI library has been loaded and initialized on the node.
-`faiss_initialized` | Boolean value indicating whether the *faiss* JNI library has been loaded and initialized on the node.
-`model_index_status` | Status of model system index. Valid values are "red", "yellow", "green". If the index does not exist, this will be null.
+`nmslib_initialized` | Boolean value indicating whether the `nmslib` JNI library has been loaded and initialized on the node.
+`faiss_initialized` | Boolean value indicating whether the `faiss` JNI library has been loaded and initialized on the node.
+`model_index_status` | Status of model system index. Valid values are `red`, `yellow`, and `green`. If the index does not exist, this value is `null`.
 `indexing_from_model_degraded` | Boolean value indicating if indexing from a model is degraded. This happens if there is not enough JVM memory to cache the models.
 `ing_requests` | The number of training requests made to the node.
 `training_errors` | The number of training errors that have occurred on the node.
@@ -53,9 +58,11 @@ Statistic |  Description
 Some statistics contain *graph* in the name. In these cases, *graph* is synonymous with *native library index*. The term *graph* is reflective of when the plugin only supported the HNSW algorithm, which consists of hierarchical graphs.
 {: .note}
 
-#### Usage
+#### Example request
 
-The following code examples show how to retrieve statistics related to the k-NN plugin. The first example fetches comprehensive statistics for the k-NN plugin across all nodes in the cluster, while the second example retrieves specific metrics (circuit breaker status and graph memory usage) for a single node.
+The following examples show how to retrieve statistics related to the k-NN plugin. 
+
+The following example fetches comprehensive statistics for the k-NN plugin across all nodes in the cluster:
 
 ```json
 GET /_plugins/_knn/stats?pretty
@@ -106,6 +113,9 @@ GET /_plugins/_knn/stats?pretty
   }
 }
 ```
+{% include copy-curl.html %}
+
+The following example retrieves specific metrics (circuit breaker status and graph memory usage) for a single node:
 
 ```json
 GET /_plugins/_knn/HYMrXXsBSamUkcAjhjeN0w/stats/circuit_breaker_triggered,graph_memory_usage?pretty
@@ -124,6 +134,7 @@ GET /_plugins/_knn/HYMrXXsBSamUkcAjhjeN0w/stats/circuit_breaker_triggered,graph_
     }
 }
 ```
+{% include copy-curl.html %}
 
 ## Warmup operation
 
@@ -135,9 +146,9 @@ As an alternative, you can avoid this latency issue by running the k-NN plugin w
 
 After the process is finished, you can search against the indexes without initial latency penalties. The warmup API operation is idempotent, so if a segment's native library files are already loaded into memory, this operation has no effect. It only loads files not currently stored in memory.
 
-#### Usage
+#### Example request
 
-This request performs a warmup on three indexes:
+The following request performs a warmup on three indexes:
 
 ```json
 GET /_plugins/_knn/warmup/index1,index2,index3?pretty
@@ -149,14 +160,16 @@ GET /_plugins/_knn/warmup/index1,index2,index3?pretty
   }
 }
 ```
+{% include copy-curl.html %}
 
-`total` indicates how many shards the k-NN plugin attempted to warm up. The response also includes the number of shards the plugin succeeded and failed to warm up.
+The `total` value indicates how many shards the k-NN plugin attempted to warm up. The response also includes the number of shards the plugin succeeded and failed to warm up.
 
 The call does not return results until the warmup operation finishes or the request times out. If the request times out, then the operation continues on the cluster. To monitor the warmup operation, use the OpenSearch `_tasks` API:
 
 ```json
 GET /_tasks
 ```
+{% include copy-curl.html %}
 
 After the operation has finished, use the [k-NN `_stats` API operation](#stats) to see what the k-NN plugin loaded into the graph.
 
@@ -181,7 +194,7 @@ The k-NN clear cache API evicts all native library files for all shards (primari
 This API operation only works with indexes created using the `faiss` and `nmslib` (deprecated) engines. It has no effect on indexes created using the `lucene` engine.
 {: .note}
 
-#### Usage
+#### Example request
 
 The following request evicts the native library indexes of three indexes from the cache:
 
@@ -195,6 +208,7 @@ POST /_plugins/_knn/clear_cache/index1,index2,index3?pretty
   }
 }
 ```
+{% include copy-curl.html %}
 
 The `total` parameter indicates the number of shards that the API attempted to clear from the cache. The response includes both the number of cleared shards and the number of shards that the plugin failed to clear.
 
@@ -210,22 +224,31 @@ POST /_plugins/_knn/clear_cache/index*?pretty
   }
 }
 ```
+{% include copy-curl.html %}
 
 The API call does not return results until the operation finishes or the request times out. If the request times out, then the operation continues on the cluster. To monitor the request, use the `_tasks` API, as shown in the following example:
 
 ```json
 GET /_tasks
 ```
+{% include copy-curl.html %}
 
 When the operation finishes, use the [k-NN `_stats` API operation](#stats) to see which indexes have been evicted from the cache.
 
 ## Get a model
 
-The GET model operation retrieves information about models present in the cluster. Some native library index configurations require a training step before indexing and querying can begin. The output of training is a model that can be used to initialize native library index files during indexing. The model is serialized in the k-NN model system index. See the following GET example:
+The GET model operation retrieves information about models present in the cluster. Some native library index configurations require a training step before indexing and querying can begin. The output of training is a model that can be used to initialize native library index files during indexing. The model is serialized in the k-NN model system index. 
 
-```
+#### Example request
+
+```json
 GET /_plugins/_knn/models/{model_id}
 ```
+{% include copy-curl.html %}
+
+### Response body fields
+
+The following table lists the available response body fields.
 
 Response field |  Description
 :--- | :---
@@ -235,13 +258,15 @@ Response field |  Description
 `timestamp` | The date and time when the model was created.
 `description` | A user-provided description of the model.
 `error` | An error message explaining why the model is in a failed state.
-`space_type` | The space type for which this model is trained, for example, Euclidean or cosine. Note - this value can be set in the top-level of the request as well
+`space_type` | The space type for which this model is trained, for example, Euclidean or cosine. Note: This value can be set in the top level of the request.
 `dimension` | The dimensionality of the vector space for which this model is designed.
 `engine` | The native library used to create the model, either `faiss` or `nmslib` (deprecated). 
 
-### Usage
+#### Example request
 
-The following examples show how to retrieve information about a specific model using the k-NN plugin API. The first example returns all the available information about the model, while the second example shows how to selectively retrieve fields.
+The following examples show how to retrieve information about a specific model using the k-NN plugin API. 
+
+The following example returns all the available information about the model: 
 
 ```json
 GET /_plugins/_knn/models/test-model?pretty
@@ -257,6 +282,9 @@ GET /_plugins/_knn/models/test-model?pretty
   "engine" : "faiss" 
 }
 ```
+{% include copy-curl.html %}
+
+The following example shows how to selectively retrieve fields:
 
 ```json
 GET /_plugins/_knn/models/test-model?pretty&filter_path=model_id,state
@@ -265,12 +293,13 @@ GET /_plugins/_knn/models/test-model?pretty&filter_path=model_id,state
   "state" : "created"
 }
 ```
+{% include copy-curl.html %}
 
 ## Search for a model
 
 You can use an OpenSearch query to search for a model in the index. See the following usage example. 
 
-#### Usage
+#### Example request
 
 The following example shows how to search for k-NN models in an OpenSearch cluster and how to retrieve the metadata for those models, excluding the potentially large `model_blob` field:
 
@@ -281,7 +310,12 @@ GET/POST /_plugins/_knn/models/_search?pretty&_source_excludes=model_blob
          ...
      }
 }
+```
+{% include copy-curl.html %}
 
+The response contains the model information:
+
+```json
 {
     "took" : 0,
     "timed_out" : false,
@@ -322,7 +356,7 @@ GET/POST /_plugins/_knn/models/_search?pretty&_source_excludes=model_blob
 
 You can delete a model in the cluster by using the DELETE operation. See the following usage example. 
 
-#### Usage
+#### Example request
 
 The following example shows how to delete a k-NN model:
 
@@ -333,17 +367,26 @@ DELETE /_plugins/_knn/models/{model_id}
   "acknowledged": true
 }
 ```
+{% include copy-curl.html %}
 
 ## Train a model
 
 You can create and train a model that can be used for initializing k-NN native library indexes during indexing. This API pulls training data from a `knn_vector` field in a training index, creates and trains a model, and then serializes it to the model system index. Training data must match the dimension passed in the request body. This request is returned when training begins. To monitor the model's state, use the [Get model API](#get-a-model).  
+
+### Query parameters
+
+The following table lists the available query parameters.
 
 Query parameter |  Description
 :--- | :---
 `model_id` | The unique identifier of the fetched model. If not specified, then a random ID is generated. Optional. 
 `node_id` | Specifies the preferred node on which to execute the training process. If provided, the specified node is used for training if it has the necessary capabilities and resources available. Optional.
 
-Request parameter |  Description
+### Request body fields
+
+The following table lists the available request body fields.
+
+Request field |  Description
 :--- | :---
 `training_index` | The index from which the training data is retrieved.
 `training_field` | The `knn_vector` field in the `training_index` from which the training data is retrieved. The dimension of this field must match the `dimension` passed in this request.  
@@ -354,7 +397,7 @@ Request parameter |  Description
 `method` | The configuration of the approximate k-NN method used for search operations. For more information about the available methods, see [Methods and engines]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/). The method requires training to be valid.
 `space_type` | The space type for which this model is trained, for example, Euclidean or cosine. Note: This value can also be set in the `method` parameter.
    
-#### Usage
+#### Example request
 
 The following examples show how to initiate the training process for a k-NN model:
 
@@ -382,11 +425,9 @@ POST /_plugins/_knn/models/{model_id}/_train?preference={node_id}
         }
     }
 }
-
-{
-    "model_id": "model_x"
-}
 ```
+{% include copy-curl.html %}
+
 
 ```json
 POST /_plugins/_knn/models/_train?preference={node_id}
@@ -412,7 +453,12 @@ POST /_plugins/_knn/models/_train?preference={node_id}
         }
     }
 }
+```
+{% include copy-curl.html %}
 
+#### Example response
+
+```json
 {
     "model_id": "dcdwscddscsad"
 }

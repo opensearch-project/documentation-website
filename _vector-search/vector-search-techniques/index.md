@@ -16,7 +16,7 @@ OpenSearch implements vector search as *k-nearest neighbors*, or *k-NN*, search.
 
 OpenSearch supports three different methods for obtaining the k-nearest neighbors from an index of vectors:
 
-- [Approximate search](#approximate-search) (approximate k-NN, or ANN): Returns approximate nearest neighbors to the query vector. Usually, approximate search algorithms sacrifice indexing speed and search accuracy in exchange for performance benefits such as lower latency, smaller memory footprints, and more scalable search. For most use cases, approximate search is the best option.
+- [Approximate search]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/)) (approximate k-NN, or ANN): Returns approximate nearest neighbors to the query vector. Usually, approximate search algorithms sacrifice indexing speed and search accuracy in exchange for performance benefits such as lower latency, smaller memory footprints, and more scalable search. For most use cases, approximate search is the best option.
 
 - Exact search: A brute-force, exact k-NN search of vector fields. OpenSearch supports the following types of exact search: 
   - [Exact search with scoring script]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-score-script/): Using a scoring script, you can apply a filter to an index before executing the nearest neighbor search. 
@@ -27,18 +27,16 @@ Overall, for larger data sets, you should generally choose the approximate neare
 
 ## Approximate search
 
-OpenSearch supports several algorithms for approximate vector search, each with its own advantages. For complete documentation, see [Approximate search]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/). For more information about the search methods and engines, see [Methods and engines]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/). For method recommendations, see [Choosing the right method]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/#choosing-the-right-method).
-
-To use approximate vector search, specify one of the following search methods (algorithms) in the `method` parameter:
+OpenSearch supports the following algorithms (_methods_) for approximate vector search:
 
 - Hierarchical Navigable Small World (HNSW)
 - Inverted File System (IVF)
 
-Additionally, specify the engine (library) that implements this method in the `engine` parameter:
+Additionally, you can choose one of the following libraries (_engines_) that implement these algorithms:
 
-- [Non-Metric Space Library (NMSLIB)](https://github.com/nmslib/nmslib)
 - [Facebook AI Similarity Search (Faiss)](https://github.com/facebookresearch/faiss)
 - Lucene
+- [Non-Metric Space Library (NMSLIB)](https://github.com/nmslib/nmslib) (deprecated)
 
 The following table lists the combinations of search methods and libraries supported by the k-NN engine for approximate vector search.
 
@@ -46,6 +44,8 @@ Method | Engine
 :--- | :---
 HNSW | Faiss, Lucene, NMSLIB (deprecated)
 IVF | Faiss 
+
+For more information, see [Methods and engines]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/) and [Choosing the right method]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/#choosing-the-right-method).
 
 ## Engine recommendations
 
@@ -55,18 +55,18 @@ In general, select Faiss for large-scale use cases. Lucene is a good option for 
 |:---|:---|:---|:---|
 |  Max dimensions |    16,000 |  16,000 |  16,000 |
 |  Filter |    Post-filter |  Post-filter |  Filter during search |
-|  Training required |    No (Yes for PQ) |  Yes |  No |
+|  Training required |    No (Yes for product quantization) |  Yes |  No |
 |  Similarity metrics | `l2`, `innerproduct` |  `l2`, `innerproduct` |  `l2`, `cosinesimil` |
 |  Number of vectors   |    Tens of billions |  Tens of billions |  Less than 10 million |
 |  Indexing latency |   Low  |  Lowest  |  Low  |
 |  Query latency and quality  |    Low latency and high quality  |  Low latency and low quality  |  High latency and high quality  |
-|  Vector compression  |   Flat <br>Product quantization |  Flat <br>Product quantization |  Flat  |
-|  Memory consumption |   High <br> Low with PQ |  Medium <br> Low with PQ |  High  |
+|  Vector compression  |   Flat <br><br>Product quantization |  Flat <br><br>Product quantization |  Flat  |
+|  Memory consumption |   High <br><br> Low with product quantization |  Medium <br><br> Low with product quantization |  High  |
 
 ## Using sparse vectors
 
-_Neural sparse search_ offers an efficient alternative to dense vector search by using sparse embedding models and inverted indexes, providing performance similar to BM25. Unlike dense vector methods that require significant memory and CPU resources, sparse search creates a list of token-weight pairs and stores them in a rank features index. This approach combines the efficiency of traditional search with the semantic understanding of neural networks. OpenSearch supports both automatic embedding generation through ingest pipelines and direct sparse vector ingestion. For implementation details and setup instructions, see [Neural sparse search]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/neural-sparse-search/).
+_Neural sparse search_ offers an efficient alternative to dense vector search by using sparse embedding models and inverted indexes, providing performance similar to BM25. Unlike dense vector methods that require significant memory and CPU resources, sparse search creates a list of token-weight pairs and stores them in a rank features index. This approach combines the efficiency of traditional search with the semantic understanding of neural networks. OpenSearch supports both automatic embedding generation through ingest pipelines and direct sparse vector ingestion. For more information, see [Neural sparse search]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/neural-sparse-search/).
 
 ## Combining multiple search techniques
 
-_Hybrid search_ enhances search relevance by combining multiple search techniques within OpenSearch. It integrates traditional keyword search with vector-based semantic search. Through a configurable search pipeline, hybrid search normalizes and combines scores from different search methods to provide unified, relevant results. This approach is particularly effective for complex queries where both semantic understanding and exact matching are important. The search pipeline can be further customized with post-filtering operations and aggregations to meet specific search requirements. For complete implementation details, see [Hybrid search]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/hybrid-search/).
+_Hybrid search_ enhances search relevance by combining multiple search techniques within OpenSearch. It integrates traditional keyword search with vector-based semantic search. Through a configurable search pipeline, hybrid search normalizes and combines scores from different search methods to provide unified, relevant results. This approach is particularly effective for complex queries where both semantic understanding and exact matching are important. The search pipeline can be further customized with post-filtering operations and aggregations to meet specific search requirements. For more information, see [Hybrid search]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/hybrid-search/).

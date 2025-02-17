@@ -32,7 +32,7 @@ search_method_cards:
   - heading: "Neural sparse search"
     description: "Uses sparse retrieval based on sparse embedding models to search text data."
     link: "/vector-search/ml-powered-search/neural-sparse-search/"
-  - heading: "Conversational search"
+  - heading: "Conversational search with RAG"
     description: "Uses retrieval-augmented generation and conversational memory to provide context-aware responses."
     link: "/vector-search/ml-powered-search/conversational-search/"
 chunking_cards:
@@ -47,7 +47,7 @@ ML-powered search streamlines your workflow by generating embeddings automatical
 
 ## Prerequisite
 
-Before using text-to-embedding search, you must set up an ML model for embedding generation. When selecting a model, you have the following options:
+Before using ML-powered search, you must set up an ML model for embedding generation. When selecting a model, you have the following options:
 
 - Use a pretrained model provided by OpenSearch. For more information, see [OpenSearch-provided pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/).
 
@@ -70,5 +70,7 @@ Once you set up an ML model, choose one of the following search methods.
 {% include cards.html cards=page.search_method_cards %}
 
 ---
+
+## Preparing data for ML-powered search
 
 {% include cards.html cards=page.chunking_cards %}

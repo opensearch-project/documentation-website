@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Auto-generated embeddings quickstart
+title: Generating embeddings within OpenSearch
 parent: Getting started
-nav_order: 20
+nav_order: 30
 ---
 
-# Getting started with auto-generated embeddings
+# Generating embeddings within OpenSearch
 
-With this approach, embeddings are generated dynamically within OpenSearch. This method provides a simplified workflow by offering automatic text-to-vector conversion.
+You can generate embeddings dynamically during ingestion within OpenSearch. This method provides a simplified workflow by converting data to vectors automatically.
 
 ## Prerequisites
 
@@ -25,9 +25,9 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-## Step 1: Choose a language model for embedding generation
+## Step 1: Choose an ML model
 
-Auto-generating embeddings requires configuring a language model that will convert text to embeddings both at ingestion time and query time. 
+Generating embeddings within OpenSearch requires configuring a language model that will convert text to embeddings both at ingestion time and query time. 
 
 When selecting a model, you have the following options:
 
@@ -95,7 +95,7 @@ You'll need the model ID in order to use this model for several of the following
 
 Use the following steps to ingest text data into OpenSearch and automatically generate vector embeddings from text.
 
-### Step 3(a): Create an ingest pipeline for neural search
+### Step 3(a): Create an ingest pipeline
 
 First, you need to create an [ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) that contains one processor: a task that transforms document fields before documents are ingested into an index. You'll set up a `text_embedding` processor that creates vector embeddings from text. You'll need the `model_id` of the model you set up in the previous section and a `field_map`, which specifies the name of the field from which to take the text (`text`) and the name of the field in which to record embeddings (`passage_embedding`):
 

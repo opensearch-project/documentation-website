@@ -1,0 +1,94 @@
+---
+layout: default
+title: Bringing or generating embeddings
+parent: Getting started
+nav_order: 20
+quickstart_cards:
+  - heading: "Getting started with vector search"
+    description: "Use raw vectors or embeddings generated outside of OpenSearch"
+    link: "/vector-search/getting-started/pre-generated-embeddings/"
+tutorial_cards:
+  - heading: "Generating embeddings within OpenSearch"
+    description: "Automatically convert data to embeddings within OpenSearch"
+    link: "/vector-search/getting-started/auto-generated-embeddings/"
+  - heading: "Getting started with semantic and hybrid search"
+    description: "Learn how to implement semantic and hybrid search"
+    link: "/vector-search/getting-started/tutorials/neural-search-tutorial/"
+pre_items:
+  - heading: "Generate embeddings"
+    description: "Generate embeddings outside of OpenSearch using your favorite embedding utility."
+  - heading: "Create an OpenSearch index"
+    description: "Create an OpenSearch index to upload your embeddings."
+    link: "/vector-search/creating-vector-index/#pre-generated-embeddings-or-raw-vectors"
+  - heading: "Ingest embeddings"
+    description: "Ingest your embeddings into the index."
+    link: "/vector-search/ingesting-data/#raw-vector-ingestion"
+  - heading: "Search embeddings"
+    description: "Search your embeddings using vector search."
+    link: "/vector-search/searching-data/#searching-pre-generated-embeddings-or-raw-vectors"
+auto_items:
+  - heading: "Configure an embedding model"
+    description: "Configure a machine learning model that will automatically generate embeddings from your text at ingest time and query time."
+    link: "/ml-commons-plugin/integrating-ml-models/"
+  - heading: "Create an OpenSearch index"
+    description: "Create an OpenSearch index to upload your text."
+    link: "/vector-search/creating-vector-index/#converting-data-to-embeddings-during-ingestion"
+  - heading: "Ingest text"
+    description: "Ingest your text into the index."
+    link: "/vector-search/ingesting-data/#converting-data-to-embeddings-during-ingestion"
+  - heading: "Search text"
+    description: "Search your text using vector search. Query text is automatically converted to vector embeddings and compared to document embeddings."
+    link: "/vector-search/searching-data/#searching-auto-generated-embeddings"
+---
+
+# Bringing or generating embeddings
+
+In OpenSearch, you can either ingest your own vectors or generate embeddings from text, images, or other data directly within OpenSearch.
+
+### Option 1: Bring your own raw vectors or generated embeddings
+
+You already have pre-computed embeddings or raw vectors from external tools or services.
+  - **Ingestion**: Ingest pre-generated embeddings directly into OpenSearch. 
+
+      ![Pre-generated embeddings ingestion]({{site.url}}{{site.baseurl}}/images/vector-search/raw-vector-ingest.png)
+  - **Search**: Perform vector search to find the vectors that are closest to a query vector.
+
+      ![Pre-generated embeddings search]({{site.url}}{{site.baseurl}}/images/vector-search/raw-vector-search.png)
+
+<details markdown="block">
+  <summary>
+    Steps
+  </summary>
+  {: .text-delta}
+
+Working with embeddings generated outside of OpenSearch involves the following steps:
+
+{% include list.html list_items=page.pre_items%}
+
+</details>
+
+{% include cards.html cards=page.quickstart_cards %}
+
+### Option 2: Generate embeddings within OpenSearch
+
+OpenSearch automatically generates vector embeddings from text, images, or other data using a machine learning (ML) model.
+  - **Ingestion**:  You ingest plain data, and OpenSearch uses an ML model to generate embeddings dynamically. 
+
+      ![Auto-generated embeddings ingestion]({{site.url}}{{site.baseurl}}/images/vector-search/auto-vector-ingest.png)
+  - **Search**: At query time, OpenSearch uses the same ML model to convert your input data to embeddings, and these embeddings are used for vector search.
+
+      ![Auto-generated embeddings search]({{site.url}}{{site.baseurl}}/images/vector-search/auto-vector-search.png)
+
+<details markdown="block">
+  <summary>
+    Steps
+  </summary>
+  {: .text-delta}
+
+Working with text that is automatically converted to embeddings within OpenSearch involves the following steps:
+
+{% include list.html list_items=page.auto_items%}
+
+</details>
+
+{% include cards.html cards=page.tutorial_cards %}

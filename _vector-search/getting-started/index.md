@@ -6,97 +6,167 @@ has_children: true
 has_toc: false
 redirect_from:
   - /vector-search/getting-started/
-quickstart_cards:
-  - heading: "Pre-generated embeddings quickstart"
-    description: "Use embeddings generated outside of OpenSearch"
-    link: "/vector-search/getting-started/pre-generated-embeddings/"
-tutorial_cards:
-  - heading: "Auto-generated embeddings quickstart"
-    description: "Use embeddings automatically generated within OpenSearch"
-    link: "/vector-search/getting-started/auto-generated-embeddings/"
-  - heading: "Getting started with semantic and hybrid search"
-    description: "Learn how to implement semantic and hybrid search"
-    link: "/vector-search/getting-started/tutorials/neural-search-tutorial/"
-pre_items:
-  - heading: "Generate embeddings"
-    description: "Generate embeddings outside of OpenSearch using your favorite embedding utility."
-  - heading: "Create an OpenSearch index"
-    description: "Create an OpenSearch index to upload your embeddings."
-    link: "/vector-search/creating-vector-index/#pre-generated-embeddings-or-raw-vectors"
-  - heading: "Ingest embeddings"
-    description: "Ingest your embeddings into the index."
-    link: "/vector-search/ingesting-data/#raw-vector-ingestion"
-  - heading: "Search embeddings"
-    description: "Search your embeddings using vector search."
-    link: "/vector-search/searching-data/#searching-pre-generated-embeddings-or-raw-vectors"
-auto_items:
-  - heading: "Configure an embedding model"
-    description: "Configure a machine learning model that will automatically generate embeddings from your text at ingest time and query time."
-    link: "/ml-commons-plugin/integrating-ml-models/"
-  - heading: "Create an OpenSearch index"
-    description: "Create an OpenSearch index to upload your text."
-    link: "/vector-search/creating-vector-index/#auto-generated-embeddings"
-  - heading: "Ingest text"
-    description: "Ingest your text into the index."
-    link: "/vector-search/ingesting-data/#auto-generated-embeddings"
-  - heading: "Search text"
-    description: "Search your text using vector search. Query text is automatically converted to vector embeddings and compared to document embeddings."
-    link: "/vector-search/searching-data/#searching-auto-generated-embeddings"
 ---
 
 # Getting started with vector search
 
-Vector search, also known as similarity search or nearest neighbor search, is a powerful technique for finding items that are most similar to a given input. Use cases include semantic search to understand user intent, recommendations (for example, an "other songs you might like" feature in a music application), image recognition, and fraud detection. For more background information about vector search, see [Nearest neighbor search](https://en.wikipedia.org/wiki/Nearest_neighbor_search).
+This guide shows you how to bring your own vectors to OpenSearch. In this example, you'll create a vector index, ingest vector data into the index, and search the data. 
 
-## Vector embeddings
+## Prerequisite: Install OpenSearch
 
-Unlike traditional search methods that rely on exact keyword matches, vector search uses _vector embeddings_---numerical representations of data such as text, images, or audio. These embeddings are stored as multi-dimensional vectors, capturing deeper patterns and similarities in meaning, context, or structure. For example, a large language model (LLM) can create vector embeddings from input text, as shown in the following image.
+If you don't have OpenSearch installed, use the following steps to create a cluster.
 
-![Generating embeddings from text]({{site.url}}{{site.baseurl}}/images/vector-search/embeddings.png)
+Before you start, ensure that [Docker](https://docs.docker.com/get-docker/) is installed and running in your environment.
+{: .note} 
 
-## Similarity search
+Download and run OpenSearch: 
 
-A vector embedding is a vector in a high-dimensional space. Its position and orientation capture meaningful relationships between objects. Vector search finds the most similar results by comparing a query vector to stored vectors and returning the closest matches. OpenSearch uses the k-nearest neighbors (k-NN) algorithm to efficiently identify the most similar vectors. Unlike keyword search, which relies on exact word matches, vector search measures similarity based on distance in this high-dimensional space.
+```bash
+docker pull opensearchproject/opensearch:latest && docker run -it -p 9200:9200 -e "discovery.type=single-node" -e "DISABLE_SECURITY_PLUGIN=true" opensearchproject/opensearch:latest
+```
+{% include copy.html %}
 
-In the following image, the vectors for `Wild West` and `Broncos` are closer to each other, while both are far from `Basketball`, reflecting their semantic differences.
+OpenSearch is now running on port 9200:
 
-![Similarity search]({{site.url}}{{site.baseurl}}/images/vector-search/vector-similarity.jpg){: width="450px"}
+```bash
+curl https://localhost:9200
+```
+{% include copy.html %}
 
-To learn more about the types of vector search that OpenSearch supports, see [Vector search techniques]({{site.url}}{{site.baseurl}}/vector-search/vector-search-techniques/).
+For more information about installing OpenSearch, see [Installation quickstart]({{site.url}}{{site.baseurl}}/getting-started/quickstart/) and [Install and upgrade OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/).
 
-## Vector search options
+## Step 1: Create a vector index
 
-OpenSearch offers two options for implementing vector search:
+First, create an index that will store sample hotel data. To signal to OpenSearch that this is a vector index, set `index.knn` to `true`. You'll store the vectors in a vector field called `location`. The vectors you'll ingest will be two-dimensional and the distance between vectors will be calculated using [Euclidean `l2` similarity metric]({{site.url}}{{site.baseurl}}/getting-started/vector-search-basics/#calculating-similarity):
 
-- [Pre-generated embeddings or raw vectors](#option-1-pre-generated-embeddings): You already have pre-computed embeddings or raw vectors from external tools or services.
-  - **Ingestion**: Ingest pre-generated embeddings directly into OpenSearch. 
+```json
+PUT /hotels-index
+{
+  "settings": {
+    "index": {
+      "knn": true
+    }
+  },
+  "mappings": {
+    "properties": {
+      "location": {
+        "type": "knn_vector",
+        "dimension": 2,
+        "space_type": "l2"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
 
-      ![Pre-generated embeddings ingestion]({{site.url}}{{site.baseurl}}/images/vector-search/raw-vector-ingest.png)
-  - **Search**: Perform vector search to find the vectors that are closest to a query vector.
+## Step 2: Add data to your index
 
-      ![Pre-generated embeddings search]({{site.url}}{{site.baseurl}}/images/vector-search/raw-vector-search.png)
+Next, add data to your index. Each document represents a hotel. The `location` field in each document contains a two-dimensional vector specifying the hotel's location:
 
-- [Auto-generated embeddings](#option-2-auto-generated-embeddings): OpenSearch automatically generates vector embeddings for you using a machine learning (ML) model.
-  - **Ingestion**:  You ingest plain text data, and OpenSearch uses an ML model to generate embeddings dynamically. 
+```json
+POST /_bulk
+{ "index": { "_index": "hotels-index", "_id": "1" } }
+{ "location": [5.2, 4.4] }
+{ "index": { "_index": "hotels-index", "_id": "2" } }
+{ "location": [5.2, 3.9] }
+{ "index": { "_index": "hotels-index", "_id": "3" } }
+{ "location": [4.9, 3.4] }
+{ "index": { "_index": "hotels-index", "_id": "4" } }
+{ "location": [4.2, 4.6] }
+{ "index": { "_index": "hotels-index", "_id": "5" } }
+{ "location": [3.3, 4.5] }
+```
+{% include copy-curl.html %}
 
-      ![Auto-generated embeddings ingestion]({{site.url}}{{site.baseurl}}/images/vector-search/auto-vector-ingest.png)
-  - **Search**: At query time, OpenSearch uses the same ML model to convert your input text to embeddings, and these embeddings are used for vector search.
+## Step 3: Search your data
 
-      ![Auto-generated embeddings search]({{site.url}}{{site.baseurl}}/images/vector-search/auto-vector-search.png)
+Now search for hotels closest to the pin location `[5, 4]`. To search for the top three closest hotels, set `k` to `3`:
 
-## Option 1: Pre-generated embeddings
+```json
+POST /hotels-index/_search
+{
+  "size": 3,
+  "query": {
+    "knn": {
+      "location": {
+        "vector": [5, 4],
+        "k": 3
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
 
-{% include cards.html cards=page.quickstart_cards %}
+The following image shows the hotels on the coordinate plane. The query point is labeled `Pin`, and each hotel is labeled with its document number.
 
-Working with embeddings generated outside of OpenSearch involves the following steps:
+![Hotels on a coordinate plane]({{site.url}}{{site.baseurl}}/images/k-nn-search-hotels.png/)
 
-{% include list.html list_items=page.pre_items%}
+The response contains the hotels closest to the specified pin location:
 
-## Option 2: Auto-generated embeddings
+```json
+{
+  "took": 1093,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 3,
+      "relation": "eq"
+    },
+    "max_score": 0.952381,
+    "hits": [
+      {
+        "_index": "hotels-index",
+        "_id": "2",
+        "_score": 0.952381,
+        "_source": {
+          "location": [
+            5.2,
+            3.9
+          ]
+        }
+      },
+      {
+        "_index": "hotels-index",
+        "_id": "1",
+        "_score": 0.8333333,
+        "_source": {
+          "location": [
+            5.2,
+            4.4
+          ]
+        }
+      },
+      {
+        "_index": "hotels-index",
+        "_id": "3",
+        "_score": 0.72992706,
+        "_source": {
+          "location": [
+            4.9,
+            3.4
+          ]
+        }
+      }
+    ]
+  }
+}
+```
 
-{% include cards.html cards=page.tutorial_cards %}
+## Generating vector embeddings in OpenSearch
 
-Working with text that is automatically converted to embeddings within OpenSearch involves the following steps:
+If your data isn't already in vector format, you can generate vector embeddings directly within OpenSearch. This allows you to transform text, images, and other data types into numerical representations for similarity search. For more information, see [Generating vector embeddings within OpenSearch]({{site.url}}{{site.baseurl}}/vector-search/getting-started/auto-generated-embeddings/).
 
-{% include list.html list_items=page.auto_items%}
+## Next steps
 
+- [Vector search basics]({{site.url}}{{site.baseurl}}/vector-search/getting-started/vector-search-basics/)
+- [Bringing or generating embeddings ]({{site.url}}{{site.baseurl}}/vector-search/getting-started/vector-search-options/)
+- [Vector search with filters]({{site.url}}{{site.baseurl}}/vector-search/specialized-operations/filter-search-knn/)
+- [Generating vector embeddings within OpenSearch]({{site.url}}{{site.baseurl}}/vector-search/getting-started/auto-generated-embeddings/)

@@ -6,7 +6,7 @@ nav_order: 35
 
 # Searching vector data
 
-OpenSearch supports various methods for searching vector data, tailored to how the vectors were created and indexed. This guide explains the query syntax and options for raw vector ingestion and auto-generated embeddings.
+OpenSearch supports various methods for searching vector data, tailored to how the vectors were created and indexed. This guide explains the query syntax and options for raw vector search and auto-generated embedding search.
 
 ## Search types comparison
 
@@ -14,12 +14,12 @@ The following table compares the search syntax and typical use cases for each ve
 
 | Feature                          | Query type  | Input format | Model required | Use case     |
 |----------------------------------|------------------|------------------|---------------------|----------------------------|
-| **Pre-generated embeddings**     | `knn`            | Vector array     | No                  | Raw vector search          |
-| **Auto-generated embeddings** | `neural`       | Text            | Yes                 | ML-powered search            |
+| **Raw vectors**     | `knn`            | Vector array     | No                  | Raw vector search          |
+| **Auto-generated embeddings** | `neural`       | Text, image, or other data            | Yes                 | ML-powered search            |
 
-## Searching pre-generated embeddings or raw vectors
+## Searching raw vectors
 
-For raw vector searches, use the `knn` query type and provide the vector array as input:
+To search raw vectors, use the `knn` query type and provide the vector array as input:
 
 ```json
 GET /my-raw-vector-index/_search
@@ -38,7 +38,7 @@ GET /my-raw-vector-index/_search
 
 ## Searching auto-generated embeddings
 
-For ML-powered searches using embeddings, use the `neural` query type and provide query text input:
+For ML-powered searches using auto-generated embeddings, use the `neural` query type and provide query text input:
 
 ```json
 GET /my-semantic-search-index/_search
@@ -58,10 +58,8 @@ GET /my-semantic-search-index/_search
 
 ## Next steps
 
-- Learn about configuring semantic and hybrid search in the [Getting started with semantic and hybrid search]({{site.url}}{{site.baseurl}}/vector-search/getting-started/tutorials/neural-search-tutorial/)
-- Learn about the supported types of ML-powered search [ML-powered search]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/)
-
-## Related articles
-
+- [Getting started with semantic and hybrid search]({{site.url}}{{site.baseurl}}/vector-search/getting-started/tutorials/neural-search-tutorial/)
+- [Filtering data]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/)
+- [ML-powered search]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/)
 - [k-NN query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/knn/)
 - [Neural query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/)

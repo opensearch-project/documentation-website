@@ -48,15 +48,15 @@ Regardless of the type of vector search, the following elements are part of crea
    Set the `dimension` property to match the size of the vectors used.
 
 4. **Choose a space type**:
-   Select a distance metric for similarity comparisons, such as `l2` (Euclidean distance) or `cosinesimil`. For more information, see [Spaces]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-spaces/).
+   Optionally, select a distance metric for similarity comparisons, such as `l2` (Euclidean distance) or `cosinesimil`. For more information, see [Spaces]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-spaces/).
 
 5. (Advanced) **Select a method**:
    Optionally, configure the indexing method, such as HNSW or IVF, to optimize vector search performance. For more information, see [Methods and engines]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/).
 
 To create a vector index, choose one of the following options:
 
-- [Pre-generated embeddings or raw vectors](#pre-generated-embeddings-or-raw-vectors): Ingest pre-generated embeddings or raw vectors into your index to perform raw vector search. 
-- [Auto-generated embeddings](#auto-generated-embeddings): Ingest text that will be converted into vector embeddings within OpenSearch in order to perform semantic search using ML models. 
+- [Store raw vectors or embeddings generated outside of OpenSearch](#storing-raw-vectors-or-generated-outside-of-opensearch): Ingest pre-generated embeddings or raw vectors into your index for raw vector search.  
+- [Convert data to embeddings during ingestion](#converting-data-to-embeddings-during-ingestion): Ingest text that will be converted into vector embeddings within OpenSearch in order to perform semantic search using ML models. 
 
 
 The following table summarizes key index configuration differences for the supported use cases.
@@ -64,10 +64,10 @@ The following table summarizes key index configuration differences for the suppo
 
 | Feature                  | Vector field type | Ingest pipeline | Transformation     | Use case   |
 |--------------------------|-----------------------|---------------------|-------------------------|-------------------------|
-| **Pre-generated embeddings or raw vectors**   | [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/)         | Not required        | Direct ingestion        | Raw vector search   |
-| **Auto-generated embeddings**      | [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/)         | Required            | Auto-generated vectors  | ML-powered search     |
+| **Store raw vectors or embeddings generated outside of OpenSearch**   | [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/)         | Not required        | Direct ingestion        | Raw vector search   |
+| **Convert data to embeddings during ingestion**      | [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/)         | Required            | Auto-generated vectors  | ML-powered search     |
 
-## Pre-generated embeddings or raw vectors
+## Storing raw vectors or embeddings generated outside of OpenSearch
 
 To ingest raw vectors into an index, configure a vector field (in this request, `my_vector`) and specify its `dimension`:
 
@@ -81,21 +81,17 @@ PUT /my-raw-vector-index
     "properties": {
       "my_vector": {
         "type": "knn_vector",
-        "dimension": 128,
-        "method": {
-          "name": "hnsw",
-          "engine": "faiss",
-          "space_type": "l2"
-        }
+        "dimension": 3
       }
     }
   }
 }
 ```
+{% include copy-curl.html %}
 
-## Auto-generated embeddings
+## Converting data to embeddings during ingestion
 
-Auto-generating embeddings require configuring an [ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) with a model ID of the embedding model: 
+To automatically generate embeddings during ingestion, configure an [ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) with a model ID of the embedding model: 
 
 ```json
 PUT /_ingest/pipeline/nlp-ingest-pipeline
@@ -133,12 +129,7 @@ PUT /my-semantic-search-index
       },
       "passage_embedding": {
         "type": "knn_vector",
-        "dimension": 768,  
-        "method": {
-          "name": "hnsw",
-          "engine": "lucene",
-          "space_type": "l2"
-        }
+        "dimension": 768
       }
     }
   }
@@ -151,4 +142,3 @@ PUT /my-semantic-search-index
 - [Ingesting data into a vector index]({{site.url}}{{site.baseurl}}/vector-search/searching-data/)
 - [k-NN vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/)
 - [Methods and engines]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/)
-- [k-NN vector field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/)

@@ -1,15 +1,13 @@
 ---
 layout: default
-title: Vector search with filters
-nav_order: 20
-parent: Specialized vector search
-has_children: false
+title: Filtering data
+nav_order: 40
 has_math: true
 redirect_from:
   - /search-plugins/knn/filter-search-knn/ 
 ---
 
-# Vector search with filters
+# Filtering data
 
 To refine vector search results, you can filter a vector search using one of the following methods:
 
@@ -628,7 +626,9 @@ The response includes documents containing the matching hotels:
 }
 ```
 
+<!-- vale off -->
 ### post-filter parameter
+<!-- vale on>
 
 If you use the `knn` query alongside filters or other clauses (for example, `bool`, `must`, `match`), you might receive fewer than `k` results. In this example, `post_filter` reduces the number of results from 2 to 1:
 

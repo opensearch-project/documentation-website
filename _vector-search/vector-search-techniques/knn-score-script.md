@@ -13,13 +13,13 @@ redirect_from:
 
 You can use exact k-NN search with scoring script to find the exact k-nearest neighbors to a given query point. Using the k-NN score script, you can apply a filter on an index before executing the nearest neighbor search. This is useful for dynamic search cases where the index body may vary based on other conditions.
 
-Because the score script approach executes a brute force search, it doesn't scale as well as the [approximate approach]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/). In some cases, it might be better to think about refactoring your workflow or index structure to use the approximate approach instead of the score script approach.
+Because the score script approach executes a brute force search, it doesn't scale as efficiently as the [approximate approach]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/). In some cases, it might be better to think about refactoring your workflow or index structure to use the approximate approach instead of the score script approach.
 
 ## Getting started with the score script for vectors
 
-Similar to approximate nearest neighbor search, in order to use the score script on a body of vectors, you must first create an index with one or more `knn_vector` fields.
+Similarly to approximate nearest neighbor search, in order to use the score script on a body of vectors, you must first create an index with one or more `knn_vector` fields.
 
-If you intend to just use the score script approach (and not the approximate approach) you can set `index.knn` to `false` and not set `index.knn.space_type`. You can choose the space type during search. For the spaces the k-NN score script supports, see [Spaces]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-spaces/).
+If you intend to only use the score script approach (and not the approximate approach) you can set `index.knn` to `false` and not set `index.knn.space_type`. You can choose the space type during search. For the spaces the k-NN score script supports, see [Spaces]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-spaces/).
 
 This example creates an index with two `knn_vector` fields:
 
@@ -42,7 +42,7 @@ PUT my-knn-index-1
 ```
 {% include copy-curl.html %}
 
-If you *only* want to use the score script, you can omit `"index.knn": true`. The benefit of this approach is faster indexing speed and lower memory usage, but you lose the ability to perform standard k-NN queries on the index.
+If you *only* want to use the score script, you can omit `"index.knn": true`. This approach leads to faster indexing speed and lower memory usage, but you lose the ability to run standard k-NN queries on the index.
 {: .tip}
 
 After you create the index, you can add some data to it:
@@ -70,7 +70,8 @@ POST _bulk
 ```
 {% include copy-curl.html %}
 
-Finally, you can execute an exact nearest neighbor search on the data using the `knn` script:
+Finally, you can run an exact nearest neighbor search on the data using the `knn` script:
+
 ```json
 GET my-knn-index-1/_search
 {
