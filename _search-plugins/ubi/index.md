@@ -20,34 +20,59 @@ Client applications such as web pages or apps capture user behavior and send UBI
 
 In principle, queries sent to the server and results returned by the server can be sent to the UBI endpoint from the client. But as an optimization, they can instead be sent directly to the UBI endpoint from the server, without incurring a round-trip to the client. That is the function of the UBI plugin and is not a requirement to adopt UBI.
 
+
+> “how our users are using our product, whether search results were useful for them and whether they clicked on top-n results we gave and all related stuff” - Data Scientist
+
 UBI includes the following elements:
-* A machine-readable [schema](https://github.com/o19s/ubi) that faciliates interoperablity of the UBI specification.
 * A client-side JavaScript [example reference implementation]({{site.url}}{{site.baseurl}}/search-plugins/ubi/data-structures/) that shows how to capture events and send them to the OpenSearch UBI plugin.
-* An OpenSearch [plugin](https://github.com/opensearch-project/user-behavior-insights) that captures server-side behavior.
+* A machine-readable [schema](https://github.com/o19s/ubi) that faciliates interoperablity of the UBI specification.
+* An (optional!) OpenSearch [plugin](https://github.com/opensearch-project/user-behavior-insights) that streamlines the recording of query data.
+
+Advanced features in OpenSearch, such as the Search Quality Evaluation Framework, and the Hybrid Search Optimizer all build on the UBI specification.
 
 <!-- vale off -->
 
-The UBI documentation is organized into two categories: *Explanation and reference* and *Tutorials and how-to guides*:   
-
-*Explanation and reference*
-
-| Link | Description |
-| :--------- | :------- |
-| [UBISearch.dev](https://UBISearch.dev) | The User Behavior Insights community website.  |
-| [UBI Request/Response Specification](https://github.com/o19s/ubi/) | The industry-standard schema for UBI requests and responses. The current version references UBI Specification 1.2.0.  |
-| [UBI index schema]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/) | Documentation on the individual OpenSearch query and event stores. |
-
-
-*Tutorials and how-to guides*
-
-| Link | Description |
-| :--------- | :------- |
-| [UBI plugin](https://github.com/opensearch-project/user-behavior-insights) | How to install and use the UBI plugin. |
-| [UBI JavaScript Collector]({{site.url}}{{site.baseurl}}/search-plugins/ubi/ubi-javascript-collector/)  | Clientside JavaScript library to capture events. |
-| [Example UBI query DSL queries]({{site.url}}{{site.baseurl}}/search-plugins/ubi/dsl-queries/)  | How to write queries for UBI data in OpenSearch query DSL. |
-| [Example UBI SQL queries]({{site.url}}{{site.baseurl}}/search-plugins/ubi/sql-queries/)  | How to write analytic queries for UBI data in SQL. |
-| [UBI dashboard tutorial]({{site.url}}{{site.baseurl}}/search-plugins/ubi/ubi-dashboard-tutorial/) | How to build a dashboard containing UBI data. |
-| [Chorus Opensearch Edition](https://github.com/o19s/chorus-opensearch-edition/?tab=readme-ov-file#structured-learning-using-chorus-opensearch-edition) katas | A series of structured tutorials that teach you how to use UBI with OpenSearch through a demo e-commerce store. |
+<table>
+    <tr style="vertical-align: top;">
+        <td>
+            <h2>Tutorials</h2>
+            <ul>
+                <li><a href="#">Learn to use <code>ubi.js</code></a></li>
+                <li><a href="#">Using OpenSearch Ingestion from AWS with UBI</a></li>
+                <li><a href="#">Link 3</a></li>
+            </ul>
+        </td>
+        <td>
+            <h2>How To Guides</h2>
+            <ul>
+                <li><a href="https://github.com/opensearch-project/user-behavior-insights">How to install and use the UBI plugin</a><b>do we keep this</b></li>
+                <li><a href="{{site.url}}{{site.baseurl}}/search-plugins/ubi/ubi-dashboard-tutorial/">How to build a custom dashboard with UBI data.</a></li>
+                <li><a href="{{site.url}}{{site.baseurl}}/search-plugins/ubi/dsl-queries/">How to write queries for UBI data in OpenSearch query DSL.</a></li>
+                <li><a href="{{site.url}}{{site.baseurl}}/search-plugins/ubi/sql-queries/">How to write analytic queries for UBI data in SQL.</a></li>
+                <li><a href="https://github.com/o19s/chorus-opensearch-edition/blob/main/katas/006_protecting_sensitive_information.md">How to protect sensistive information when using UBI.</a> <small>Part of Chorus series.</small></li>
+            </ul>
+        </td>
+    </tr>
+    <tr style="vertical-align: top;">
+        <td>
+            <h2>Explanation</h2>
+            <ul>
+                <li><a href="https://UBISearch.dev">Why UBI?</a></li>
+                <li><a href="">How should I integrate UBI tracking?</a></li>
+                <li><a href="https://UBISearch.dev">UBISearch.dev</a> is the community website.</li>
+                <li><a href="{{site.url}}{{site.baseurl}}/search-plugins/ubi/ubi-javascript-collector/">UBI.js</a> JavaScript collector</li>
+            </ul>
+        </td>
+        <td>
+            <h2>Reference</h2>
+            <ul>
+                <li><a href="https://o19s.github.io/ubi/docs/html/1.2.0/query.request.schema.html">Query Tracking Specification</a></li>
+                <li><a href="https://o19s.github.io/ubi/docs/html/1.2.0/event.schema.html">Event Tracking Specification</a></li>                
+                <li><a href="{{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/">UBI Plugin Schema</a><b>DO WE KEEP THIS</b></li>
+            </ul>
+        </td>
+    </tr>
+</table>
 
 <!-- vale on -->
 The documentation categories were adapted using concepts based on [Diátaxis](https://diataxis.fr/).
