@@ -415,7 +415,7 @@ As an example, assume you have a million vectors with a `dimension` of `256` and
 1.1 * (((4 * 256) * 1,000,000) + (4 * 128 * 256))  ~= 1.126 GB
 ```
 
-## Related articles
+## Next steps
 
 - [Performance tuning]({{site.url}}{{site.baseurl}}/vector-search/performance-tuning/)
 - [Optimizing vector storage]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/)

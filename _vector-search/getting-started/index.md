@@ -22,22 +22,54 @@ Before you start, ensure that [Docker](https://docs.docker.com/get-docker/) is i
 Download and run OpenSearch: 
 
 ```bash
-docker pull opensearchproject/opensearch:latest && docker run -it -p 9200:9200 -e "discovery.type=single-node" -e "DISABLE_SECURITY_PLUGIN=true" opensearchproject/opensearch:latest
+docker pull opensearchproject/opensearch:latest && docker run -it -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" -e "DISABLE_SECURITY_PLUGIN=true" opensearchproject/opensearch:latest
 ```
 {% include copy.html %}
 
-OpenSearch is now running on port 9200:
+OpenSearch is now running on port 9200. Note that this demo configuration is insecure and should not be run in production environments.
+
+<details markdown="block">
+  <summary>
+    Test it
+  </summary>
+  {: .text-delta}
+
+To verify that OpenSearch is running, send the following request: 
 
 ```bash
 curl https://localhost:9200
 ```
 {% include copy.html %}
 
+You should get a response that looks like this:
+
+```json
+{
+  "name" : "a937e018cee5",
+  "cluster_name" : "docker-cluster",
+  "cluster_uuid" : "GLAjAG6bTeWErFUy_d-CLw",
+  "version" : {
+    "distribution" : "opensearch",
+    "number" : <version>,
+    "build_type" : <build-type>,
+    "build_hash" : <build-hash>,
+    "build_date" : <build-date>,
+    "build_snapshot" : false,
+    "lucene_version" : <lucene-version>,
+    "minimum_wire_compatibility_version" : "7.10.0",
+    "minimum_index_compatibility_version" : "7.0.0"
+  },
+  "tagline" : "The OpenSearch Project: https://opensearch.org/"
+}
+```
+
+</details>
+
 For more information about installing OpenSearch, see [Installation quickstart]({{site.url}}{{site.baseurl}}/getting-started/quickstart/) and [Install and upgrade OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/).
 
 ## Step 1: Create a vector index
 
-First, create an index that will store sample hotel data. To signal to OpenSearch that this is a vector index, set `index.knn` to `true`. You'll store the vectors in a vector field called `location`. The vectors you'll ingest will be two-dimensional and the distance between vectors will be calculated using [Euclidean `l2` similarity metric]({{site.url}}{{site.baseurl}}/getting-started/vector-search-basics/#calculating-similarity):
+First, create an index that will store sample hotel data. To signal to OpenSearch that this is a vector index, set `index.knn` to `true`. You'll store the vectors in a vector field called `location`. The vectors you'll ingest will be two-dimensional and the distance between vectors will be calculated using [Euclidean `l2` similarity metric]({{site.url}}{{site.baseurl}}/vector-search/getting-started/vector-search-basics/#calculating-similarity):
 
 ```json
 PUT /hotels-index
@@ -168,5 +200,5 @@ If your data isn't already in vector format, you can generate vector embeddings 
 
 - [Vector search basics]({{site.url}}{{site.baseurl}}/vector-search/getting-started/vector-search-basics/)
 - [Bringing or generating embeddings ]({{site.url}}{{site.baseurl}}/vector-search/getting-started/vector-search-options/)
-- [Vector search with filters]({{site.url}}{{site.baseurl}}/vector-search/specialized-operations/filter-search-knn/)
+- [Vector search with filters]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/)
 - [Generating vector embeddings within OpenSearch]({{site.url}}{{site.baseurl}}/vector-search/getting-started/auto-generated-embeddings/)

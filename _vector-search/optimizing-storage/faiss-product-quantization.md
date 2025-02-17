@@ -51,7 +51,7 @@ For example, assume that you have 1 million vectors with a dimension of 256, `iv
 1.1 * ((8 / 8 * 64 + 24) * 1000000  + 100 * (2^8 * 4 * 256 + 4 * 512 * 256))  ~= 0.171 GB
 ```
 
-## Related articles
+## Next steps
 
 - [Memory-optimized vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized/)
 - [k-NN query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/knn/)

@@ -198,7 +198,7 @@ Memory = 1.1 * ((256 * 4 / 8) + 8 * 16) * 1,000,000
        ~= 0.282 GB
 ```
 
-## Related articles
+## Next steps
 
 - [Memory-optimized vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized/)
 - [k-NN query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/knn/)

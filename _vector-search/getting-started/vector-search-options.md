@@ -6,7 +6,7 @@ nav_order: 20
 quickstart_cards:
   - heading: "Getting started with vector search"
     description: "Use raw vectors or embeddings generated outside of OpenSearch"
-    link: "/vector-search/getting-started/pre-generated-embeddings/"
+    link: "/vector-search/getting-started/"
 tutorial_cards:
   - heading: "Generating embeddings within OpenSearch"
     description: "Automatically convert data to embeddings within OpenSearch"
@@ -19,13 +19,13 @@ pre_items:
     description: "Generate embeddings outside of OpenSearch using your favorite embedding utility."
   - heading: "Create an OpenSearch index"
     description: "Create an OpenSearch index to upload your embeddings."
-    link: "/vector-search/creating-vector-index/#pre-generated-embeddings-or-raw-vectors"
+    link: "/vector-search/creating-vector-index/#storing-raw-vectors-or-embeddings-generated-outside-of-opensearch"
   - heading: "Ingest embeddings"
     description: "Ingest your embeddings into the index."
     link: "/vector-search/ingesting-data/#raw-vector-ingestion"
   - heading: "Search embeddings"
     description: "Search your embeddings using vector search."
-    link: "/vector-search/searching-data/#searching-pre-generated-embeddings-or-raw-vectors"
+    link: "/vector-search/searching-data/#searching-raw-vectors"
 auto_items:
   - heading: "Configure an embedding model"
     description: "Configure a machine learning model that will automatically generate embeddings from your text at ingest time and query time."

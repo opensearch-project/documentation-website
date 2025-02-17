@@ -107,7 +107,7 @@ All parameters are required.
 - `query_value` is the point you want to find the nearest neighbors for. For the Euclidean and cosine similarity spaces, the value must be an array of floats that matches the dimension set in the field's mapping. For Hamming bit distance, this value can be either of type signed long or a base64-encoded string (for the long and binary field types, respectively).
 - `space_type` corresponds to the distance function. For more information, see [Spaces]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-spaces/).
 
-The [post filter example in the approximate approach]({{site.url}}{{site.baseurl}}/vector-search/specialized-operations/filter-search-knn/) shows a search that returns fewer than `k` results. If you want to avoid this situation, the score script method lets you essentially invert the order of events. In other words, you can filter down the set of documents over which to execute the k-nearest neighbor search.
+The [post filter example in the approximate approach]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/) shows a search that returns fewer than `k` results. If you want to avoid this situation, the score script method lets you essentially invert the order of events. In other words, you can filter down the set of documents over which to execute the k-nearest neighbor search.
 
 This example shows a pre-filter approach to k-NN search with the score script approach. First, create the index:
 

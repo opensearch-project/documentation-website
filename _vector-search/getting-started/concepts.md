@@ -81,7 +81,7 @@ _k-nearest neighbors (k-NN) search_ finds the k most similar vectors to a given 
 
 ### Multimodal search  
 
-[_Multimodal search_]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/ multimodal-search/) enables searching across multiple types of data, such as text, images, and audio. It allows queries in one format (for example, text) to retrieve results in another (for example, images).  
+[_Multimodal search_]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/multimodal-search/) enables searching across multiple types of data, such as text, images, and audio. It allows queries in one format (for example, text) to retrieve results in another (for example, images).  
 
 ### Radial search  
 

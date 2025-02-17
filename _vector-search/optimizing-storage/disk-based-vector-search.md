@@ -209,7 +209,7 @@ You can override the `compression_level` for disk-optimized indexes in the same 
 - For more information about binary quantization, see [Binary quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/binary-quantization/).
 - For more information about k-NN vector workload modes, see [Vector workload modes]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized/#vector-workload-modes).
 
-## Related articles
+## Next steps
 
 - [Memory-optimized vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized/)
 - [k-NN query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/knn/)

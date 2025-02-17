@@ -58,7 +58,7 @@ Regardless of the type of vector search, the following elements are part of crea
 
 To create a vector index, choose one of the following options:
 
-- [Store raw vectors or embeddings generated outside of OpenSearch](#storing-raw-vectors-or-generated-outside-of-opensearch): Ingest pre-generated embeddings or raw vectors into your index for raw vector search.  
+- [Store raw vectors or embeddings generated outside of OpenSearch](#storing-raw-vectors-or-embeddings-generated-outside-of-opensearch): Ingest pre-generated embeddings or raw vectors into your index for raw vector search.  
 - [Convert data to embeddings during ingestion](#converting-data-to-embeddings-during-ingestion): Ingest text that will be converted into vector embeddings within OpenSearch in order to perform semantic search using ML models. 
 
 
@@ -140,7 +140,7 @@ PUT /my-semantic-search-index
 ```
 {% include copy-curl.html %}
 
-## Related articles
+## Next steps
 
 - [Ingesting data into a vector index]({{site.url}}{{site.baseurl}}/vector-search/searching-data/)
 - [k-NN vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/)

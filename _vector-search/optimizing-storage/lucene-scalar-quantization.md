@@ -114,7 +114,7 @@ As an example, assume that you have 1 million vectors with a dimension of 256 an
 1.1 * (256 + 8 * 16) * 1,000,000 ~= 0.4 GB
 ```
 
-## Related articles
+## Next steps
 
 - [Memory-optimized vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized/)
 - [k-NN query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/knn/)
