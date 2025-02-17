@@ -7,7 +7,7 @@ nav_order: 10
 
 # k-NN query
 
-Use the `knn` query for searching fields containing raw vectors in [vector search]({{site.url}}{{site.baseurl}}/vector-search/). 
+Use the `knn` query for executing nearest neighbor searches over vector fields. 
 
 ## Request body fields
 
