@@ -140,6 +140,10 @@ PUT /my-semantic-search-index
 ```
 {% include copy-curl.html %}
 
+## Working with sparse vectors
+
+OpenSearch also supports sparse vectors. For more information, see [Neural sparse search]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/neural-sparse-search/).
+
 ## Next steps
 
 - [Ingesting data into a vector index]({{site.url}}{{site.baseurl}}/vector-search/searching-data/)

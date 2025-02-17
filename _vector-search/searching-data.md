@@ -56,6 +56,10 @@ GET /my-semantic-search-index/_search
 ```
 {% include copy-curl.html %}
 
+## Working with sparse vectors
+
+OpenSearch also supports sparse vectors. For more information, see [Neural sparse search]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/neural-sparse-search/).
+
 ## Next steps
 
 - [Getting started with semantic and hybrid search]({{site.url}}{{site.baseurl}}/vector-search/getting-started/tutorials/neural-search-tutorial/)
