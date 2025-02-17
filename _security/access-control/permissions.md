@@ -267,6 +267,7 @@ See [Asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/inde
 
 See [ISM API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/).
 
+- cluster:indices:admin/opensearch/ism/managedindex
 - cluster:admin/opendistro/ism/managedindex/add
 - cluster:admin/opendistro/ism/managedindex/change
 - cluster:admin/opendistro/ism/managedindex/remove
