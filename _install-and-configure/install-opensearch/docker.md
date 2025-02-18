@@ -102,7 +102,6 @@ Before continuing, you should verify that Docker is working correctly by deployi
     ```
    For OpenSearch 2.12 or greater, set a new custom admin password before installation using the following command:
    ```bash
-    # Password requires a minimum of 8 characters and must contain at least one uppercase letter, one lowercase letter, one digit, and one special character. Password strength can be tested here: https://lowe.github.io/tryzxcvbn
     docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" -e "OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>" opensearchproject/opensearch:latest
     ```
 1. Send a request to port 9200. The default username and password are `admin`.
@@ -177,6 +176,32 @@ Starting with OpenSearch 2.12, a custom admin password is required to set up a d
   {% include copy.html %}
   
 - Create an `.env` file in the same folder as your `docker-compose.yml` file with the `OPENSEARCH_INITIAL_ADMIN_PASSWORD` and a strong password value.
+
+### Password requirements
+
+OpenSearch enforces strong password security by default, using the [`zxcvbn`](https://github.com/dropbox/zxcvbn) password strength estimation library developed by Dropbox. 
+
+This library evaluates passwords based on entropy rather than rigid complexity rules using the following guidelines:
+
+- **Focus on entropy, not only rules**: Instead of only adding numbers or special characters, prioritize overall unpredictability. Longer passwords composed of random words or characters provide higher entropy, making them more secure than short passwords that meet conventional complexity rules.
+
+- **Avoid common patterns and dictionary words**: The `zxcvbn` library detects commonly used words, dates, sequences (for example, `1234` or `qwerty`), and even predictable character substitutions (for example, `3` for `E`). To ensure strong security, avoid using these patterns in your passwords.
+
+- **Length matters**: Longer passwords generally offer greater security. For example, a passphrase such as `correct horse battery staple` is considered strong because of its length and randomness, even though it does not contain special characters or numbers.
+
+- **Unpredictability is key**: Whether you choose a string of random characters or a passphrase made of unrelated words, the key to password security is unpredictability. Higher entropy significantly increases the number of required guesses, making the password more resistant to attacks.
+
+To learn more about `zxcvbn`, see [this Dropbox blog post](https://dropbox.tech/security/zxcvbn-realistic-password-strength-estimation). To experiment with the password strength, use [this demo](https://lowe.github.io/tryzxcvbn). 
+{: .tip}
+
+OpenSearch uses the following default password requirements:
+
+- Minimum password length: 8 characters.
+- Maximum password length: 100 characters.
+- No requirements for special characters, numbers, or uppercase letters.
+- Passwords must be rated `strong` using the `zxcvbn` entropy-based calculation.
+
+You can customize the default password requirements by updating the [password cluster settings]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#password-settings).
 
 ### Sample docker-compose.yml
 
