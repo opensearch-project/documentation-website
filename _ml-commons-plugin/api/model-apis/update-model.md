@@ -130,10 +130,11 @@ PUT /_plugins/_ml/models/9uGdCJABjaMXYrp14YRj
 }
 ```
 
-#### Example requests: Updating the interface 
-The interface of a model can be updated to specify input and output schemas. This is particularly useful for models that don't have a default interface or when you need to customize the interface.
+#### Example request: Updating the model interface 
 
-The following sample request sets the output schema for an [AI21 Labs Jurassic model](https://aws.amazon.com/bedrock/ai21/) registered without a post-processing function. Note that for models registered using the [Amazon Bedrock AI21 Labs Jurassic](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_ai21labs_jurassic_blueprint.md) blueprint, a default interface is automatically applied.
+You can update a model's interface to define input and output schemas. This is useful for models that lack a default interface or require customization.  
+
+The following example request specifies the output schema for an [AI21 Labs Jurassic model](https://aws.amazon.com/bedrock/ai21/) that was registered without a post-processing function:
 
 ```json
 PUT /_plugins/_ml/models/IMcNB5UB7judm8f45nXo
@@ -145,7 +146,10 @@ PUT /_plugins/_ml/models/IMcNB5UB7judm8f45nXo
 ```
 {% include copy-curl.html %}
 
-If model interface is no longer needed to skip model schema validation, the following sample request remove the both input and output schema:
+If the model was registered using the [Amazon Bedrock AI21 Labs Jurassic blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_ai21labs_jurassic_blueprint.md), a default interface is applied automatically.
+{: .note}
+
+If the model interface is no longer needed, you can remove both the input and output schemas in order to bypass model schema validation:
 
 ```json
 PUT /_plugins/_ml/models/IMcNB5UB7judm8f45nXo
