@@ -43,7 +43,7 @@ The following table lists the required and optional parameters for the `text_emb
 `tag` | String | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
 `batch_size` | Integer | Optional | Specifies the number of documents to be batched and processed each time. Default is `1`. |
 `if` | String containing a Boolean expression | Optional | A condition for running the processor.|
-`ignore_failure` | Boolean | Optional | Specifies whether the processor continues execution even if it encounters an error. If set to true, the processor failure is ignored. Default is false.|
+`ignore_failure` | Boolean | Optional | Specifies whether the processor continues execution even if it encounters an error. If set to `true`, the processor failure is ignored. Default is `false`.|
 `on_failure` | List | Optional | A list of processors to run if the processor fails. |
 
 ## Using the processor
