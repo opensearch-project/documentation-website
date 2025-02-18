@@ -68,3 +68,7 @@ PUT /_search/pipeline/<rrf-pipeline>
 ```
 
 For more information about setting up hybrid search, see [Using hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/hybrid-search/#using-hybrid-search).
+
+## Next steps
+
+- For a detailed exploration of the `score-ranker-processor` and RRF, including experimental data and practical use cases, see [this blog post](https://opensearch.org/blog/introducing-reciprocal-rank-fusion-hybrid-search/). The blog post provides examples, performance comparisons, and insights into how RRF can improve search relevance in various scenarios.
