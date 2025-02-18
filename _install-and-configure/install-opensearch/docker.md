@@ -181,17 +181,17 @@ Starting with OpenSearch 2.12, a custom admin password is required to set up a d
 
 OpenSearch enforces strong password security by default, using the [`zxcvbn`](https://github.com/dropbox/zxcvbn) password strength estimation library developed by Dropbox. 
 
-This library evaluates passwords based on entropy rather than rigid complexity rules using the following guidelines:
+This library evaluates passwords based on entropy, rather than rigid complexity rules, using the following guidelines:
 
 - **Focus on entropy, not only rules**: Instead of only adding numbers or special characters, prioritize overall unpredictability. Longer passwords composed of random words or characters provide higher entropy, making them more secure than short passwords that meet conventional complexity rules.
 
 - **Avoid common patterns and dictionary words**: The `zxcvbn` library detects commonly used words, dates, sequences (for example, `1234` or `qwerty`), and even predictable character substitutions (for example, `3` for `E`). To ensure strong security, avoid using these patterns in your passwords.
 
-- **Length matters**: Longer passwords generally offer greater security. For example, a passphrase such as `correct horse battery staple` is considered strong because of its length and randomness, even though it does not contain special characters or numbers.
+- **Length matters**: Longer passwords generally offer greater security. For example, a passphrase such as `correct horse battery staple` is considered to be strong because of its length and randomness, even though it does not contain special characters or numbers.
 
 - **Unpredictability is key**: Whether you choose a string of random characters or a passphrase made of unrelated words, the key to password security is unpredictability. Higher entropy significantly increases the number of required guesses, making the password more resistant to attacks.
 
-To learn more about `zxcvbn`, see [this Dropbox blog post](https://dropbox.tech/security/zxcvbn-realistic-password-strength-estimation). To experiment with the password strength, use [this demo](https://lowe.github.io/tryzxcvbn). 
+To learn more about `zxcvbn`, see [this Dropbox blog post](https://dropbox.tech/security/zxcvbn-realistic-password-strength-estimation). To experiment with password strength, use [this demo](https://lowe.github.io/tryzxcvbn). 
 {: .tip}
 
 OpenSearch uses the following default password requirements:
