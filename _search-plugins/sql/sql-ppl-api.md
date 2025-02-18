@@ -26,7 +26,7 @@ Field | Data Type | Description
 :--- | :--- | :---
 query | String | The query to be executed. Required.
 [filter](#filtering-results) | JSON object | The filter for the results. Optional.
-[fetch_size](#paginating-results) | integer | The number of results to return in one response. Used for paginating results. Default is 1,000. Optional. Only supported for the `jdbc` response format.
+[fetch_size](#paginating-results) | integer | The number of results to return in one response. Used for paginating results. Default is 1,000. Optional. `fetch_size` is supported for SQL, and requires using the `jdbc` response format.
 
 #### Example request
 
