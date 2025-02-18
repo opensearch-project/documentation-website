@@ -4,7 +4,7 @@ title: Point in Time API
 nav_order: 59
 has_children: false
 parent: Point in Time
-grand_parent: Searching data
+grand_parent: Search options
 redirect_from:
   - /opensearch/point-in-time-api/
   - /search-plugins/point-in-time-api/
@@ -28,7 +28,7 @@ Introduced 2.4
 
 Creates a PIT. The `keep_alive` query parameter is required; it specifies how long to keep a PIT.
 
-### Path and HTTP methods
+### Endpoints
 
 ```json
 POST /<target_indexes>/_search/point_in_time?keep_alive=1h&routing=&expand_wildcards=&preference= 

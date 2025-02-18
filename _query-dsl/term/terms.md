@@ -183,7 +183,7 @@ PUT classes/_doc/102
 To search for students enrolled in `CS102`, use the dot path notation to specify the full path to the field in the `path` parameter:
 
 ```json
-ET students/_search
+GET students/_search
 {
   "query": {
     "terms": {
@@ -256,9 +256,9 @@ Parameter | Data type | Description
 **Introduced 2.17**
 {: .label .label-purple }
 
-The `terms` query can filter for multiple terms simultaneously. However, when the number of terms in the input filter increases to a large value (around 10,000), the resulting network and memory overhead can become significant, making the query inefficient. In such cases, consider encoding your large terms filter using a [roaring bitmap](https://github.com/RoaringBitmap/RoaringBitmap) for more efficient filtering. 
+The `terms` query can filter for multiple terms simultaneously. However, when the number of terms in the input filter increases to a large value (around 10,000), the resulting network and memory overhead can become significant, making the query inefficient. In such cases, consider encoding your large terms filter using a [roaring bitmap](https://github.com/RoaringBitmap/RoaringBitmap) for more efficient filtering.
 
-The following example assumes that you have two indexes: a `products` index, which contains all the products sold by a company, and a `customers` index, which stores filters representing customers who own specific products. 
+The following example assumes that you have two indexes: a `products` index, which contains all the products sold by a company, and a `customers` index, which stores filters representing customers who own specific products.
 
 First, create a `products` index and map `product_id` as a `keyword`:
 
@@ -277,7 +277,7 @@ PUT /products
 Next, index three documents that correspond to products:
 
 ```json
-PUT students/_doc/1
+PUT /products/_doc/1
 {
   "name": "Product 1",
   "product_id" : "111"
@@ -286,7 +286,7 @@ PUT students/_doc/1
 {% include copy-curl.html %}
 
 ```json
-PUT students/_doc/2
+PUT /products/_doc/2
 {
   "name": "Product 2",
   "product_id" : "222"
@@ -295,7 +295,7 @@ PUT students/_doc/2
 {% include copy-curl.html %}
 
 ```json
-PUT students/_doc/3
+PUT /products/_doc/3
 {
   "name": "Product 3",
   "product_id" : "333"
@@ -303,7 +303,7 @@ PUT students/_doc/3
 ```
 {% include copy-curl.html %}
 
-To store customer bitmap filters, you'll create a `customer_filter` [binary field](https://opensearch.org/docs/latest/field-types/supported-field-types/binary/) in the `customers` index. Specify `store` as `true` to store the field:
+To store customer bitmap filters, you'll create a `customer_filter` [binary field]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/binary/) in the `customers` index. Specify `store` as `true` to store the field:
 
 ```json
 PUT /customers

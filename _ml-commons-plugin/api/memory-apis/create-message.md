@@ -22,7 +22,7 @@ You can only update the `additional_info` field of a message.
 When the Security plugin is enabled, all memories exist in a `private` security mode. Only the user who created a memory can interact with that memory and its messages.
 {: .important}
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /_plugins/_ml/memory/<memory_id>/messages
@@ -44,11 +44,14 @@ The following table lists the available request fields.
 
 Field | Data type | Required/Optional | Updatable | Description
 :--- | :--- | :--- | :--- | :---
-| `input` | String | Optional | No | The question (human input) in the message. |
-| `prompt_template` | String | Optional | No | The prompt template that was used for the message. The template may contain instructions or examples that were sent to the large language model. |
-| `response` | String | Optional | No | The answer (generative AI output) to the question. |
-| `origin` | String | Optional | No | The name of the AI or other system that generated the response. |
-| `additional_info` | Object | Optional | Yes | Any other information that was sent to the `origin`. |
+`input` | String | Optional | No | The question (human input) in the message. |
+`prompt_template` | String | Optional | No | The prompt template that was used for the message. The template may contain instructions or examples that were sent to the large language model. |
+`response` | String | Optional | No | The answer (generative AI output) to the question. |
+`origin` | String | Optional | No | The name of the AI or other system that generated the response. |
+`additional_info` | Object | Optional | Yes | Any other information that was sent to the `origin`. |
+
+To create or update a message successfully, you must provide at least one of the preceding fields. The provided field(s) cannot be null or empty.
+{: .note}
 
 #### Example request: Create a message
 

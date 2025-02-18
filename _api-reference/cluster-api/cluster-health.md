@@ -18,7 +18,7 @@ The most basic cluster health request returns a simple status of the health of y
 To get the status of a specific index, provide the index name.
 
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET _cluster/health

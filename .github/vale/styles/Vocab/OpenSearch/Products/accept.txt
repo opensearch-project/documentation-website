@@ -68,6 +68,7 @@ OpenSearch Assistant
 OpenSearch Assistant Toolkit
 OpenSearch Benchmark
 OpenSearch Dashboards
+OpenSearch Flow
 OpenSearch Playground
 OpenSearch Project
 OpenSearch Service
@@ -85,6 +86,7 @@ Python
 PyTorch
 Querqy
 Query Workbench
+RankLib
 RCF Summarize
 RPM Package Manager
 Ruby
@@ -97,4 +99,6 @@ TorchScript
 Tribuo
 VisBuilder
 Winlogbeat
+XGBoost
+Zipf
 Zstandard

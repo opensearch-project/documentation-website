@@ -9,7 +9,7 @@ has_math: true
 
 # k-NN vector quantization
 
-By default, the k-NN plugin supports the indexing and querying of vectors of type `float`, where each dimension of the vector occupies 4 bytes of memory. For use cases that require ingestion on a large scale, keeping `float` vectors can be expensive because OpenSearch needs to construct, load, save, and search graphs (for native `nmslib` and `faiss` engines). To reduce the memory footprint, you can use vector quantization.
+By default, the k-NN plugin supports the indexing and querying of vectors of type `float`, where each dimension of the vector occupies 4 bytes of memory. For use cases that require ingestion on a large scale, keeping `float` vectors can be expensive because OpenSearch needs to construct, load, save, and search graphs (for the native `faiss` and `nmslib` [deprecated] engines). To reduce the memory footprint, you can use vector quantization.
 
 OpenSearch supports many varieties of quantization. In general, the level of quantization will provide a trade-off between the accuracy of the nearest neighbor search and the size of the memory footprint consumed by the vector search. The supported types include byte vectors, 16-bit scalar quantization, product quantization (PQ), and binary quantization(BQ).
 
@@ -321,6 +321,11 @@ To configure BQ for the Faiss engine, define a `knn_vector` field and specify th
 ```json
 PUT my-vector-index
 {
+  "settings" : {
+    "index": {
+      "knn": true
+    }
+  },
   "mappings": {
     "properties": {
       "my_vector_field": {
@@ -349,6 +354,11 @@ To specify the compression level, set the `compression_level` parameter:
 ```json
 PUT my-vector-index
 {
+  "settings" : {
+    "index": {
+      "knn": true
+    }
+  },
   "mappings": {
     "properties": {
       "my_vector_field": {
@@ -359,7 +369,9 @@ PUT my-vector-index
         "mode": "on_disk",
         "compression_level": "16x",
         "method": {
-            "params": {
+          "name": "hnsw",
+          "engine": "faiss",
+            "parameters": {
                 "ef_construction": 16
             }
         }
@@ -375,6 +387,11 @@ The following example further fine-tunes the configuration by defining `ef_const
 ```json
 PUT my-vector-index
 {
+  "settings" : {
+    "index": {
+      "knn": true
+    }
+  },
   "mappings": {
     "properties": {
       "my_vector_field": {
@@ -384,7 +401,7 @@ PUT my-vector-index
             "name": "hnsw",
             "engine": "faiss",
             "space_type": "l2",
-            "params": {
+            "parameters": {
               "m": 16,
               "ef_construction": 512,
               "encoder": {

@@ -13,7 +13,7 @@ Runs a stored script written in the Painless language.
 
 OpenSearch provides several ways to run a script; the following sections show how to run a script by passing script information in the request body of a `GET <index>/_search` request.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET books/_search

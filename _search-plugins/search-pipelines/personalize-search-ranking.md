@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Personalize search ranking
-nav_order: 18
+nav_order: 85
 has_children: false
 parent: Search processors
 grand_parent: Search pipelines

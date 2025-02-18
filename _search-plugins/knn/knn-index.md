@@ -49,9 +49,11 @@ Starting with k-NN plugin version 2.17, you can use `byte` vectors with the `fai
 
 Starting with k-NN plugin version 2.16, you can use `binary` vectors with the `faiss` engine to reduce the amount of required storage space. For more information, see [Binary vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-vectors).
 
+Starting with k-NN plugin version 2.19, you can use `binary` vectors with the `lucene` engine.
+
 ## SIMD optimization for the Faiss engine
 
-Starting with version 2.13, the k-NN plugin supports [Single Instruction Multiple Data (SIMD)](https://en.wikipedia.org/wiki/Single_instruction,_multiple_data) processing if the underlying hardware supports SIMD instructions (AVX2 on x64 architecture and Neon on ARM64 architecture). SIMD is supported by default on Linux machines only for the Faiss engine. SIMD architecture helps boost overall performance by improving indexing throughput and reducing search latency. Starting with version 2.18, the k-NN plugin supports AVX512 SIMD instructions on x64 architecture. 
+Starting with version 2.13, the k-NN plugin supports [Single Instruction Multiple Data (SIMD)](https://en.wikipedia.org/wiki/Single_instruction,_multiple_data) processing if the underlying hardware supports SIMD instructions (AVX2 on x64 architecture and Neon on ARM64 architecture). SIMD is supported by default on Linux machines only for the Faiss engine. SIMD architecture helps boost overall performance by improving indexing throughput and reducing search latency. Starting with version 2.18, the k-NN plugin supports AVX-512 SIMD instructions on x64 architecture. Starting with version 2.19, the k-NN plugin supports advanced AVX-512 SIMD instructions on x64 architecture for Intel Sapphire Rapids or a newer-generation processor, improving the performance of Hamming distance computation.
 
 SIMD optimization is applicable only if the vector dimension is a multiple of 8.
 {: .note}
@@ -62,18 +64,21 @@ SIMD optimization is applicable only if the vector dimension is a multiple of 8.
 
 For x64 architecture, the following versions of the Faiss library are built and shipped with the artifact:
 
-- `libopensearchknn_faiss.so`: The non-optimized Faiss library without SIMD instructions. 
-- `libopensearchknn_faiss_avx512.so`: The Faiss library containing AVX512 SIMD instructions. 
+- `libopensearchknn_faiss_avx512_spr.so`: The Faiss library containing advanced AVX-512 SIMD instructions for newer-generation processors, available on public clouds such as AWS for c/m/r 7i or newer instances.
+- `libopensearchknn_faiss_avx512.so`: The Faiss library containing AVX-512 SIMD instructions. 
 - `libopensearchknn_faiss_avx2.so`: The Faiss library containing AVX2 SIMD instructions.
+- `libopensearchknn_faiss.so`: The non-optimized Faiss library without SIMD instructions.
 
-When using the Faiss library, the performance ranking is as follows: AVX512 > AVX2 > no optimization.
+When using the Faiss library, the performance ranking is as follows: advanced AVX-512 > AVX-512 > AVX2 > no optimization.
 {: .note }
 
-If your hardware supports AVX512, the k-NN plugin loads the `libopensearchknn_faiss_avx512.so` library at runtime.
+If your hardware supports advanced AVX512(spr), the k-NN plugin loads the `libopensearchknn_faiss_avx512_spr.so` library at runtime.
 
-If your hardware supports AVX2 but doesn't support AVX512, the k-NN plugin loads the `libopensearchknn_faiss_avx2.so` library at runtime.
+If your hardware supports AVX-512, the k-NN plugin loads the `libopensearchknn_faiss_avx512.so` library at runtime.
 
-To disable the AVX512 and AVX2 SIMD instructions and load the non-optimized Faiss library (`libopensearchknn_faiss.so`), specify the `knn.faiss.avx512.disabled` and `knn.faiss.avx2.disabled` static settings as `true` in `opensearch.yml` (by default, both of these are `false`).
+If your hardware supports AVX2 but doesn't support AVX-512, the k-NN plugin loads the `libopensearchknn_faiss_avx2.so` library at runtime.
+
+To disable the advanced AVX-512 (for Sapphire Rapids or newer-generation processors), AVX512, and AVX2 SIMD instructions and load the non-optimized Faiss library (`libopensearchknn_faiss.so`), specify the `knn.faiss.avx512_spr.disabled`, `knn.faiss.avx512.disabled`, and `knn.faiss.avx2.disabled` static settings as `true` in `opensearch.yml` (by default, all of these are `false`).
 
 Note that to update a static setting, you must stop the cluster, change the setting, and restart the cluster. For more information, see [Static settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#static-settings).
 
@@ -92,10 +97,10 @@ Mapping parameter | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
 `name` | true | n/a | false | The identifier for the nearest neighbor method.
 `space_type` | false | l2 | false | The vector space used to calculate the distance between vectors. Note: This value can also be specified at the top level of the mapping.
-`engine` | false | nmslib | false | The approximate k-NN library to use for indexing and search. The available libraries are faiss, nmslib, and Lucene.
+`engine` | false | faiss  | false | The approximate k-NN library to use for indexing and search. The available libraries are `faiss`, `lucene`, and `nmslib` (deprecated).
 `parameters` | false | null | false | The parameters used for the nearest neighbor method.
 
-### Supported nmslib methods
+### Supported NMSLIB methods
 
 Method name | Requires training | Supported spaces | Description
 :--- | :--- | :--- | :---
@@ -108,7 +113,7 @@ Parameter name | Required | Default | Updatable | Description
 `ef_construction` | false | 100 | false | The size of the dynamic list used during k-NN graph creation. Higher values result in a more accurate graph but slower indexing speed.
 `m` | false | 16 | false | The number of bidirectional links that the plugin creates for each new element. Increasing and decreasing this value can have a large impact on memory consumption. Keep this value between 2 and 100.
 
-For nmslib, *ef_search* is set in the [index settings](#index-settings).
+For nmslib (deprecated), *ef_search* is set in the [index settings](#index-settings).
 {: .note}
 
 An index created in OpenSearch version 2.11 or earlier will still use the old `ef_construction` value (`512`).
@@ -155,9 +160,12 @@ The IVF algorithm requires a training step. To create an index that uses IVF, yo
 
 ### Supported Lucene methods
 
-Method name | Requires training | Supported spaces | Description
+Method name | Requires training | Supported spaces                                                                | Description
 :--- | :--- |:--------------------------------------------------------------------------------| :---
-`hnsw` | false | l2, cosinesimil, innerproduct (supported in OpenSearch 2.13 and later) | Hierarchical proximity graph approach to approximate k-NN search.
+`hnsw` | false | l2, cosinesimil, innerproduct (supported in OpenSearch 2.13 and later), hamming | Hierarchical proximity graph approach to approximate k-NN search.
+
+The `hamming` space type is supported for binary vectors in OpenSearch version 2.19 and later. For more information, see [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-vectors).
+{: .note}
 
 #### HNSW parameters
 
@@ -365,12 +373,13 @@ Additionally, the k-NN plugin introduces several index settings that can be used
 At the moment, several parameters defined in the settings are in the deprecation process. Those parameters should be set in the mapping instead of the index settings. Parameters set in the mapping will override the parameters set in the index settings. Setting the parameters in the mapping allows an index to have multiple `knn_vector` fields with different parameters.
 
 Setting | Default | Updatable | Description
-:--- | :--- | :--- | :---
-`index.knn` | false | false | Whether the index should build native library indexes for the `knn_vector` fields. If set to false, the `knn_vector` fields will be stored in doc values, but approximate k-NN search functionality will be disabled.
-`index.knn.algo_param.ef_search` | 100 | true | The size of the dynamic list used during k-NN searches. Higher values result in more accurate but slower searches. Only available for NMSLIB.
-`index.knn.algo_param.ef_construction` | 100 | false | Deprecated in 1.0.0. Instead, use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value.
-`index.knn.algo_param.m` | 16 | false | Deprecated in 1.0.0. Use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value instead.
-`index.knn.space_type` | l2 | false | Deprecated in 1.0.0. Use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value instead.
+:--- |:--------| :--- | :---
+`index.knn` | false   | false | Whether the index should build native library indexes for the `knn_vector` fields. If set to false, the `knn_vector` fields will be stored in doc values, but approximate k-NN search functionality will be disabled.
+`index.knn.algo_param.ef_search` (Deprecated) | 100     | true | The size of the dynamic list used during k-NN searches. Higher values result in more accurate but slower searches. Only available for NMSLIB.
+`index.knn.advanced.approximate_threshold` | 0       | true      | The number of vectors a segment must have before creating specialized data structures for approximate search. Set to `-1` to disable building vector data structures and `0` to always build them.
+`index.knn.algo_param.ef_construction` | 100     | false | Deprecated in 1.0.0. Instead, use the [mapping parameters]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#method-definitions) to set this value.
+`index.knn.algo_param.m` | 16      | false | Deprecated in 1.0.0. Use the [mapping parameters]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#method-definitions) to set this value instead.
+`index.knn.space_type` | l2      | false | Deprecated in 1.0.0. Use the [mapping parameters]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#method-definitions) to set this value instead.
 
 An index created in OpenSearch version 2.11 or earlier will still use the old `ef_construction` and `ef_search` values (`512`).
 {: .note}
