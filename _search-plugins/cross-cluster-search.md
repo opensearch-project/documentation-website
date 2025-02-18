@@ -61,7 +61,7 @@ humanresources:
 
 ## Sample Docker setup
 
-To define Docker permissions, save the following sample file as `docker-compose.yml` and run `docker-compose up` to start two single-node clusters on the same network:
+To define Docker permissions, save the following sample file as `docker-compose.yml` and run `docker compose up` to start two single-node clusters on the same network:
 
 ```yml
 version: '3'
