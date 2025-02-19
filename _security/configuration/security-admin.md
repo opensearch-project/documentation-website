@@ -23,13 +23,13 @@ The `securityadmin.sh` script requires SSL/TLS HTTP to be enabled for your OpenS
 
 ## A word of caution
 
-If you make changes to the configuration files in `config/opensearch-security`, OpenSearch does _not_ automatically apply these changes. Instead, you must run `securityadmin.sh` to load the updated files into the index.
+If you make changes to the configuration files in `config/opensearch-security`, OpenSearch does _not_ automatically apply these changes. Instead, you must run `securityadmin.sh` to load the updated files into the index. The `securityadmin.sh` file can be found in `<OPENSEARCH_HOME>/plugins/opensearch-security/tools/securityadmin.[sh|bat]`.
 
 Running `securityadmin.sh` **overwrites** one or more portions of the `.opendistro_security` index. Run it with extreme care to avoid losing your existing resources. Consider the following example:
 
 1. You initialize the `.opendistro_security` index.
 1. You create ten users using the REST API.
-1. You decide to create a new [reserved user]({{site.url}}{{site.baseurl}}/security/access-control/api/#reserved-and-hidden-resources) using `internal_users.yml`.
+1. You decide to create a new [reserved user]({{site.url}}{{site.baseurl}}/security/access-control/api/#reserved-and-hidden-resources) using `internal_users.yml`, found in `<OPENSEARCH_HOME>/config/opensearch-security/` directory.
 1. You run `securityadmin.sh` again to load the new reserved user into the index.
 1. You lose all ten users that you created using the REST API.
 
@@ -197,11 +197,11 @@ If you run a default OpenSearch installation, which listens on port 9200 and use
 Name | Description
 :--- | :---
 `-h` | OpenSearch hostname. Default is `localhost`.
-`-p` | OpenSearch port. Default is 9200 - not the HTTP port.
+`-p` | OpenSearch port. Default is 9200
 `-cn` | Cluster name. Default is `opensearch`.
 `-icl` | Ignore cluster name.
 `-sniff` | Sniff cluster nodes. Sniffing detects available nodes using the OpenSearch `_cluster/state` API.
-`-arc,--accept-red-cluster` | Execute `securityadmin.sh` even if the cluster state is red. Default is false, which means the script will not execute on a red cluster.
+`-arc,--accept-red-cluster` | Execute `securityadmin.sh` even if the cluster state is red. Default is `false`, which means the script will not execute on a red cluster.
 
 
 ### Certificate validation settings
@@ -210,7 +210,7 @@ Use the following options to control certificate validation.
 
 Name | Description
 :--- | :---
-`-nhnv` | Do not validate hostname. Default is false.
+`-nhnv` | Do not validate hostname. Default is `false`.
 `-nrhn` | Do not resolve hostname. Only relevant if `-nhnv` is not set.
 
 

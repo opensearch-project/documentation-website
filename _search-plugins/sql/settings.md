@@ -78,6 +78,8 @@ Setting | Default | Description
 `plugins.sql.cursor.keep_alive` | 1 minute | Configures how long the cursor context is kept open. Cursor contexts are resource-intensive, so we recommend a low value.
 `plugins.query.memory_limit` | 85% | Configures the heap memory usage limit for the circuit breaker of the query engine.
 `plugins.query.size_limit` | 200 | Sets the default size of index that the query engine fetches from OpenSearch.
+`plugins.query.datasources.enabled` | true | Change to `false` to disable support for data sources in the plugin.
+`plugins.query.field_type_tolerance` | true | If `false`, then an array is reduced to the first non-array value at any nesting level. For example, `[[1, 2], [3, 4]]` will be reduced to `1`. If `true`, then the array is preserved. Default is `true`.
 
 ## Spark connector settings
 

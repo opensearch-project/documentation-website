@@ -2,8 +2,10 @@
 layout: default
 title: Tokenizers
 nav_order: 60
-has_children: false
+has_children: true
 has_toc: false
+redirect_from:
+    - /analyzers/tokenizers/index/
 ---
 
 # Tokenizers
@@ -28,13 +30,13 @@ Word tokenizers parse full text into words.
 
 Tokenizer | Description | Example
 :--- | :--- | :---
-`standard` | - Parses strings into tokens at word boundaries <br> - Removes most punctuation | `It’s fun to contribute a brand-new PR or 2 to OpenSearch!` <br>becomes<br> [`It’s`, `fun`, `to`, `contribute`, `a`,`brand`, `new`, `PR`, `or`, `2`, `to`, `OpenSearch`] 
-`letter` | - Parses strings into tokens on any non-letter character <br> - Removes non-letter characters | `It’s fun to contribute a brand-new PR or 2 to OpenSearch!` <br>becomes<br> [`It`, `s`, `fun`, `to`, `contribute`, `a`,`brand`, `new`, `PR`, `or`, `to`, `OpenSearch`]
-`lowercase` | - Parses strings into tokens on any non-letter character <br> - Removes non-letter characters <br> - Converts terms to lowercase | `It’s fun to contribute a brand-new PR or 2 to OpenSearch!` <br>becomes<br> [`it`, `s`, `fun`, `to`, `contribute`, `a`,`brand`, `new`, `pr`, `or`, `to`, `opensearch`]
-`whitespace` | - Parses strings into tokens at white space characters | `It’s fun to contribute a brand-new PR or 2 to OpenSearch!` <br>becomes<br> [`It’s`, `fun`, `to`, `contribute`, `a`,`brand-new`, `PR`, `or`, `2`, `to`, `OpenSearch!`] 
-`uax_url_email` | - Similar to the standard tokenizer <br> - Unlike the standard tokenizer, leaves URLs and email addresses as single terms | `It’s fun to contribute a brand-new PR or 2 to OpenSearch opensearch-project@github.com!` <br>becomes<br> [`It’s`, `fun`, `to`, `contribute`, `a`,`brand`, `new`, `PR`, `or`, `2`, `to`, `OpenSearch`, `opensearch-project@github.com`] 
-`classic` | - Parses strings into tokens on: <br> &emsp; - Punctuation characters that are followed by a white space character <br> &emsp; - Hyphens if the term does not contain numbers <br> - Removes punctuation <br>  - Leaves URLs and email addresses as single terms | `Part number PA-35234, single-use product (128.32)` <br>becomes<br> [`Part`, `number`, `PA-35234`, `single`, `use`, `product`, `128.32`]
-`thai` | - Parses Thai text into terms | `สวัสดีและยินดีต` <br>becomes<br> [`สวัสด`, `และ`, `ยินดี`, `ต`] 
+[`standard`]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/standard/) | - Parses strings into tokens at word boundaries <br> - Removes most punctuation | `It’s fun to contribute a brand-new PR or 2 to OpenSearch!` <br>becomes<br> [`It’s`, `fun`, `to`, `contribute`, `a`,`brand`, `new`, `PR`, `or`, `2`, `to`, `OpenSearch`] 
+[`letter`]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/letter/) | - Parses strings into tokens on any non-letter character <br> - Removes non-letter characters | `It’s fun to contribute a brand-new PR or 2 to OpenSearch!` <br>becomes<br> [`It`, `s`, `fun`, `to`, `contribute`, `a`,`brand`, `new`, `PR`, `or`, `to`, `OpenSearch`]
+[`lowercase`]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/lowercase/) | - Parses strings into tokens on any non-letter character <br> - Removes non-letter characters <br> - Converts terms to lowercase | `It’s fun to contribute a brand-new PR or 2 to OpenSearch!` <br>becomes<br> [`it`, `s`, `fun`, `to`, `contribute`, `a`,`brand`, `new`, `pr`, `or`, `to`, `opensearch`]
+[`whitespace`]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/whitespace/) | - Parses strings into tokens at white space characters | `It’s fun to contribute a brand-new PR or 2 to OpenSearch!` <br>becomes<br> [`It’s`, `fun`, `to`, `contribute`, `a`,`brand-new`, `PR`, `or`, `2`, `to`, `OpenSearch!`] 
+[`uax_url_email`]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/uax-url-email/) | - Similar to the standard tokenizer <br> - Unlike the standard tokenizer, leaves URLs and email addresses as single terms | `It’s fun to contribute a brand-new PR or 2 to OpenSearch opensearch-project@github.com!` <br>becomes<br> [`It’s`, `fun`, `to`, `contribute`, `a`,`brand`, `new`, `PR`, `or`, `2`, `to`, `OpenSearch`, `opensearch-project@github.com`] 
+[`classic`]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/classic/) | - Parses strings into tokens on: <br> &emsp; - Punctuation characters that are followed by a white space character <br> &emsp; - Hyphens if the term does not contain numbers <br> - Removes punctuation <br>  - Leaves URLs and email addresses as single terms | `Part number PA-35234, single-use product (128.32)` <br>becomes<br> [`Part`, `number`, `PA-35234`, `single`, `use`, `product`, `128.32`]
+[`thai`]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/thai/) | - Parses Thai text into terms | `สวัสดีและยินดีต` <br>becomes<br> [`สวัสด`, `และ`, `ยินดี`, `ต`] 
 
 ### Partial word tokenizers
 
@@ -42,8 +44,8 @@ Partial word tokenizers parse text into words and generate fragments of those wo
 
 Tokenizer | Description | Example
 :--- | :--- | :---
-`ngram`| - Parses strings into words on specified characters (for example, punctuation or white space characters) and generates n-grams of each word | `My repo` <br>becomes<br> [`M`, `My`, `y`, `y `, <code>&nbsp;</code>, <code>&nbsp;r</code>, `r`, `re`, `e`, `ep`, `p`, `po`, `o`] <br> because the default n-gram length is 1--2 characters 
-`edge_ngram` | - Parses strings into words on specified characters (for example, punctuation or white space characters) and generates edge n-grams of each word (n-grams that start at the beginning of the word) | `My repo` <br>becomes<br> [`M`, `My`] <br> because the default n-gram length is 1--2 characters 
+[`ngram`]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/ngram/)| - Parses strings into words on specified characters (for example, punctuation or white space characters) and generates n-grams of each word | `My repo` <br>becomes<br> [`M`, `My`, `y`, `y `, <code>&nbsp;</code>, <code>&nbsp;r</code>, `r`, `re`, `e`, `ep`, `p`, `po`, `o`] <br> because the default n-gram length is 1--2 characters 
+[`edge_ngram`]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/edge-n-gram/) | - Parses strings into words on specified characters (for example, punctuation or white space characters) and generates edge n-grams of each word (n-grams that start at the beginning of the word) | `My repo` <br>becomes<br> [`M`, `My`] <br> because the default n-gram length is 1--2 characters 
 
 ### Structured text tokenizers
 
@@ -51,11 +53,11 @@ Structured text tokenizers parse structured text, such as identifiers, email add
 
 Tokenizer | Description | Example
 :--- | :--- | :---
-`keyword` | - No-op tokenizer <br> - Outputs the entire string unchanged <br> - Can be combined with token filters, like lowercase, to normalize terms | `My repo` <br>becomes<br> `My repo`
-`pattern` | - Uses a regular expression pattern to parse text into terms on a word separator or to capture matching text as terms <br> - Uses [Java regular expressions](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html) | `https://opensearch.org/forum` <br>becomes<br> [`https`, `opensearch`, `org`, `forum`] because by default the tokenizer splits terms at word boundaries (`\W+`)<br>  Can be configured with a regex pattern
-`simple_pattern` | - Uses a regular expression pattern to return matching text as terms <br>  - Uses [Lucene regular expressions](https://lucene.apache.org/core/8_7_0/core/org/apache/lucene/util/automaton/RegExp.html)  <br> - Faster than the `pattern` tokenizer because it uses a subset of the `pattern` tokenizer regular expressions |  Returns an empty array by default <br> Must be configured with a pattern because the pattern defaults to an empty string
-`simple_pattern_split` | - Uses a regular expression pattern to split the text at matches rather than returning the matches as terms  <br>  - Uses [Lucene regular expressions](https://lucene.apache.org/core/8_7_0/core/org/apache/lucene/util/automaton/RegExp.html)  <br> - Faster than the `pattern` tokenizer because it uses a subset of the `pattern` tokenizer regular expressions | No-op by default<br> Must be configured with a pattern
-`char_group` | - Parses on a set of configurable characters <br> - Faster than tokenizers that run regular expressions | No-op by default<br> Must be configured with a list of characters
-`path_hierarchy` | - Parses text on the path separator (by default, `/`) and returns a full path to each component in the tree hierarchy | `one/two/three` <br>becomes<br> [`one`, `one/two`, `one/two/three`]
+[`keyword`]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/keyword/) | - No-op tokenizer <br> - Outputs the entire string unchanged <br> - Can be combined with token filters, like lowercase, to normalize terms | `My repo` <br>becomes<br> `My repo`
+[`pattern`]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/pattern/) | - Uses a regular expression pattern to parse text into terms on a word separator or to capture matching text as terms <br> - Uses [Java regular expressions](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html) | `https://opensearch.org/forum` <br>becomes<br> [`https`, `opensearch`, `org`, `forum`] because by default the tokenizer splits terms at word boundaries (`\W+`)<br>  Can be configured with a regex pattern
+[`simple_pattern`]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/simple-pattern/) | - Uses a regular expression pattern to return matching text as terms <br>  - Uses [Lucene regular expressions](https://lucene.apache.org/core/8_7_0/core/org/apache/lucene/util/automaton/RegExp.html)  <br> - Faster than the `pattern` tokenizer because it uses a subset of the `pattern` tokenizer regular expressions |  Returns an empty array by default <br> Must be configured with a pattern because the pattern defaults to an empty string
+[`simple_pattern_split`]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/simple-pattern-split/) | - Uses a regular expression pattern to split the text on matches rather than returning the matches as terms  <br>  - Uses [Lucene regular expressions](https://lucene.apache.org/core/8_7_0/core/org/apache/lucene/util/automaton/RegExp.html)  <br> - Faster than the `pattern` tokenizer because it uses a subset of the `pattern` tokenizer regular expressions | No-op by default<br> Must be configured with a pattern
+[`char_group`]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/character-group/) | - Parses on a set of configurable characters <br> - Faster than tokenizers that run regular expressions | No-op by default<br> Must be configured with a list of characters
+[`path_hierarchy`]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/path-hierarchy/) | - Parses text on the path separator (by default, `/`) and returns a full path to each component in the tree hierarchy | `one/two/three` <br>becomes<br> [`one`, `one/two`, `one/two/three`]
 
 

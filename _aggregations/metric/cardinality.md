@@ -2,7 +2,6 @@
 layout: default
 title: Cardinality
 parent: Metric aggregations
-grand_parent: Aggregations
 nav_order: 20
 redirect_from:
   - /query-dsl/aggregations/metric/cardinality/

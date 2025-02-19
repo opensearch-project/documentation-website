@@ -13,23 +13,28 @@ redirect_from:
 
 The multi-get operation allows you to run multiple GET operations in one request, so you can get back all documents that match your criteria.
 
-## Path and HTTP methods
+## Endpoints
 
-```
+```json
 GET _mget
 GET <index>/_mget
 POST _mget
 POST <index>/_mget
 ```
 
-## URL parameters
-
-All multi-get URL parameters are optional.
+## Path parameters
 
 Parameter | Type | Description
 :--- | :--- | :--- | :---
 &lt;index&gt; | String | Name of the index to retrieve documents from.
-preference | String | Specifies the nodes or shards OpenSearch should execute the multi-get operation on. Default is random.
+
+## Query parameters
+
+All parameters are optional.
+
+Parameter | Type | Description
+:--- | :--- | :--- | :---
+preference | String | Specifies the nodes or shards OpenSearch should execute the multi-get operation on. Default is `random`.
 realtime | Boolean | Specifies whether the operation should run in realtime. If false, the operation waits for the index to refresh to analyze the source to retrieve data, which makes the operation near-realtime. Default is `true`.
 refresh | Boolean | If true, OpenSearch refreshes shards to make the multi-get operation available to search results. Valid options are `true`, `false`, and `wait_for`, which tells OpenSearch to wait for a refresh before executing the operation. Default is `false`.
 routing | String | Value used to route the multi-get operation to a specific shard.
@@ -54,7 +59,11 @@ _source.excludes | Array | Specifies which fields to exclude in the query respon
 ids | Array | IDs of the documents to retrieve. Only allowed when an index is specified in the URL. | No
 
 
-#### Example without specifying index in URL
+## Example requests
+
+### Specify an index in the request body
+
+The following example requests does specifies an index in the request body:
 
 ```json
 GET _mget
@@ -76,7 +85,9 @@ GET _mget
 ```
 {% include copy-curl.html %}
 
-#### Example of specifying index in URL
+### Specify an index the URL
+
+The following example specifies an index in the URL:
 
 ```json
 GET sample-index1/_mget
@@ -95,7 +106,10 @@ GET sample-index1/_mget
 ```
 {% include copy-curl.html %}
 
-#### Example Response 
+## Example response 
+
+The following example response returns information about multiple documents:
+
 ```json
 {
   "docs": [
@@ -138,5 +152,5 @@ _seq_no | The sequence number assigned when the document is indexed.
 primary_term | The primary term assigned when the document is indexed.
 found | Whether the document exists.
 _routing | The shard that the document is routed to. If the document is not routed to a particular shard, this field is omitted.
-_source | Contains the document's data if `found` is true. If `_source` is set to false or `stored_fields` is set to true in the URL parameters, this field is omitted.
+_source | Contains the document's data if `found` is true. If `_source` is set to false or `stored_fields` is set to true in the parameters, this field is omitted.
 _fields | Contains the document's data that's stored in the index. Only returned if both `stored_fields` and `found` are true.

@@ -2,7 +2,6 @@
 layout: default
 title: IP range
 parent: Bucket aggregations
-grand_parent: Aggregations
 nav_order: 110
 redirect_from:
   - /query-dsl/aggregations/bucket/ip-range/

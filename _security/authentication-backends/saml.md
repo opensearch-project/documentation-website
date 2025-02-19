@@ -38,7 +38,7 @@ We provide a fully functional example that can help you understand how to use SA
 
 1. From the command line, run:
    ```zsh
-   $ docker-compose up.
+   $ docker compose up.
    ```
 
 1. Access OpenSearch Dashboards at [http://localhost:5601](http://localhost:5601){:target='\_blank'}.
@@ -244,7 +244,7 @@ If you are loading the IdP metadata from a URL, we recommend that you use SSL/TL
 
 Name | Description
 :--- | :---
-`idp.enable_ssl` | Whether to enable the custom TLS configuration. Default is false (JDK settings are used).
+`idp.enable_ssl` | Whether to enable the custom TLS configuration. Default is `false` (JDK settings are used).
 `idp.verify_hostnames` | Whether to verify the hostnames of the server's TLS certificate.
 
 Example:
@@ -302,7 +302,7 @@ The Security plugin can use TLS client authentication when fetching the IdP meta
 
 Name | Description
 :--- | :---
-`idp.enable_ssl_client_auth` | Whether to send a client certificate to the IdP server. Default is false.
+`idp.enable_ssl_client_auth` | Whether to send a client certificate to the IdP server. Default is `false`.
 `idp.pemcert_filepath` | Path to the PEM file containing the client certificate. The file must be placed under the OpenSearch `config` directory, and the path must be specified relative to the `config` directory.
 `idp.pemcert_content` | The content of the client certificate. Cannot be used when `pemcert_filepath` is set.
 `idp.pemkey_filepath` | Path to the private key of the client certificate. The file must be placed under the OpenSearch `config` directory, and the path must be specified relative to the `config` directory.

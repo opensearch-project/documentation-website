@@ -3,7 +3,6 @@ layout: default
 title: k-NN plugin API
 nav_order: 30
 parent: k-NN search
-grand_parent: Search methods
 has_children: false
 ---
 
@@ -174,11 +173,11 @@ For the warmup operation to function properly, follow these best practices:
 Introduced 2.14
 {: .label .label-purple }
 
-During approximate k-NN search or warmup operations, the native library indexes (`nmslib` and `faiss` engines) are loaded into native memory. Currently, you can evict an index from cache or native memory by either deleting the index or setting the k-NN cluster settings `knn.cache.item.expiry.enabled` and `knn.cache.item.expiry.minutes`, which removes the index from the cache if it is idle for a given period of time. However, you cannot evict an index from the cache without deleting the index. To solve this problem, you can use the k-NN clear cache API operation, which clears a given set of indexes from the cache.
+During approximate k-NN search or warmup operations, the native library indexes (for the `faiss` and `nmslib` [deprecated] engines) are loaded into native memory. Currently, you can evict an index from the cache or native memory by either deleting the index or setting the k-NN cluster settings `knn.cache.item.expiry.enabled` and `knn.cache.item.expiry.minutes`, which removes the index from the cache if it is idle for a given period of time. However, you cannot evict an index from the cache without deleting the index. To solve this problem, you can use the k-NN clear cache API operation, which clears a given set of indexes from the cache.
 
 The k-NN clear cache API evicts all native library files for all shards (primaries and replicas) of all indexes specified in the request. Similarly to how the [warmup operation](#warmup-operation) behaves, the k-NN clear cache API is idempotent, meaning that if you try to clear the cache for an index that has already been evicted from the cache, it does not have any additional effect.
 
-This API operation only works with indexes created using the `nmslib` and `faiss` engines. It has no effect on indexes created using the `lucene` engine.
+This API operation only works with indexes created using the `faiss` and `nmslib` (deprecated) engines. It has no effect on indexes created using the `lucene` engine.
 {: .note}
 
 #### Usage
@@ -186,7 +185,7 @@ This API operation only works with indexes created using the `nmslib` and `faiss
 The following request evicts the native library indexes of three indexes from the cache:
 
 ```json
-GET /_plugins/_knn/clear_cache/index1,index2,index3?pretty
+POST /_plugins/_knn/clear_cache/index1,index2,index3?pretty
 {
   "_shards" : {
     "total" : 6,
@@ -201,7 +200,7 @@ The `total` parameter indicates the number of shards that the API attempted to c
 The k-NN clear cache API can be used with index patterns to clear one or more indexes that match the given pattern from the cache, as shown in the following example:
 
 ```json
-GET /_plugins/_knn/clear_cache/index*?pretty
+POST /_plugins/_knn/clear_cache/index*?pretty
 {
   "_shards" : {
     "total" : 6,
@@ -235,9 +234,9 @@ Response field |  Description
 `timestamp` | The date and time when the model was created.
 `description` | A user-provided description of the model.
 `error` | An error message explaining why the model is in a failed state.
-`space_type` | The space type for which this model is trained, for example, Euclidean or cosine.
+`space_type` | The space type for which this model is trained, for example, Euclidean or cosine. Note - this value can be set in the top-level of the request as well
 `dimension` | The dimensionality of the vector space for which this model is designed.
-`engine` | The native library used to create the model, either `faiss` or `nmslib`. 
+`engine` | The native library used to create the model, either `faiss` or `nmslib` (deprecated). 
 
 ### Usage
 
@@ -352,6 +351,7 @@ Request parameter |  Description
 `search_size` | The training data is pulled from the training index using scroll queries. This parameter defines the number of results to return per scroll query. Default is `10000`. Optional.
 `description` | A user-provided description of the model. Optional.
 `method` | The configuration of the approximate k-NN method used for search operations. For more information about the available methods, see [k-NN index method definitions]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#method-definitions). The method requires training to be valid.
+`space_type` | The space type for which this model is trained, for example, Euclidean or cosine. Note: This value can also be set in the `method` parameter.
    
 #### Usage
 
@@ -366,10 +366,10 @@ POST /_plugins/_knn/models/{model_id}/_train?preference={node_id}
     "max_training_vector_count": 1200,
     "search_size": 100,
     "description": "My model",
+    "space_type": "l2",
     "method": {
         "name":"ivf",
         "engine":"faiss",
-        "space_type": "l2",
         "parameters":{
             "nlist":128,
             "encoder":{
@@ -396,10 +396,10 @@ POST /_plugins/_knn/models/_train?preference={node_id}
     "max_training_vector_count": 1200,
     "search_size": 100,
     "description": "My model",
+    "space_type": "l2",
     "method": {
         "name":"ivf",
         "engine":"faiss",
-        "space_type": "l2",
         "parameters":{
             "nlist":128,
             "encoder":{

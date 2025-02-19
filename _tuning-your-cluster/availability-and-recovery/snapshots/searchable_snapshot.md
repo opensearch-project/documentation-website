@@ -18,7 +18,7 @@ The searchable snapshot feature incorporates techniques like caching frequently 
 
 To configure the searchable snapshots feature, create a node in your `opensearch.yml file` and define the node role as `search`. Optionally, you can also configure the `cache.size` property for the node.
 
-A `search` node reserves storage for the cache to perform searchable snapshot queries. In the case of a dedicated search node where the node exclusively has the `search` role, this value defaults to a fixed percentage of available storage. In other cases, the value needs to be configured by the user using the `node.search.cache.size` setting.
+A `search` node reserves storage for the cache to perform searchable snapshot queries. In the case of a dedicated search node where the node exclusively has the `search` role, this value defaults to a fixed percentage (80%) of available storage. In other cases, the value needs to be configured by the user using the `node.search.cache.size` setting.
 
 Parameter | Type | Description
 :--- | :--- | :---
@@ -46,7 +46,7 @@ services:
       - node.search.cache.size=50gb
 ```
 
-
+- Starting with version 2.18, k-NN indexes support searchable snapshots for the NMSLIB and Faiss engines.
 
 ## Create a searchable snapshot index
 
@@ -108,4 +108,4 @@ The following are known limitations of the searchable snapshots feature:
 - Many remote object stores charge on a per-request basis for retrieval, so users should closely monitor any costs incurred.
 - Searching remote data can impact the performance of other queries running on the same node. We recommend that users provision dedicated nodes with the `search` role for performance-critical applications.
 - For better search performance, consider [force merging]({{site.url}}{{site.baseurl}}/api-reference/index-apis/force-merge/) indexes into a smaller number of segments before taking a snapshot. For the best performance, at the cost of using compute resources prior to snapshotting, force merge your index into one segment.
-- We recommend configuring a maximum ratio of remote data to local disk cache size using the `cluster.filecache.remote_data_ratio` setting. A ratio of 5 is a good starting point for most workloads to ensure good query performance. If the ratio is too large, then there may not be sufficient disk space to handle the search workload. For more details on the maximum ratio of remote data, see issue [#11676](https://github.com/opensearch-project/OpenSearch/issues/11676). 
+- We recommend configuring a maximum ratio of remote data to local disk cache size using the `cluster.filecache.remote_data_ratio` setting. A ratio of 5 is a good starting point for most workloads to ensure good query performance. If the ratio is too large, then there may not be sufficient disk space to handle the search workload. For more details on the maximum ratio of remote data, see issue [#11676](https://github.com/opensearch-project/OpenSearch/issues/11676).

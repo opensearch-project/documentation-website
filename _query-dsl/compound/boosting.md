@@ -2,7 +2,6 @@
 layout: default
 title: Boosting
 parent: Compound queries
-grand_parent: Query DSL
 nav_order: 30
 redirect_from:
   - /query-dsl/query-dsl/compound/boosting/

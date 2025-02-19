@@ -16,10 +16,10 @@ While you can create an index by using a document as a base, you can also create
 
 When creating an index, you can specify its mappings, settings, and aliases. 
 
-## Path and HTTP methods
+## Endpoints
 
-```
-PUT <index-name>
+```json
+PUT <index>
 ```
 
 ## Index naming restrictions
@@ -34,9 +34,9 @@ OpenSearch indexes have the following naming restrictions:
 
 ## Path parameters
 
-| Parameter | Description |
-:--- | :--- 
-| index | String | The index name. Must conform to the [index naming restrictions](#index-naming-restrictions). Required. |
+Parameter | Data type | Description
+:--- | :--- | :---
+index | String | The index name. Must conform to the [index naming restrictions](#index-naming-restrictions). Required. 
 
 ## Query parameters
 
@@ -50,9 +50,9 @@ timeout | Time | How long to wait for the request to return. Default is `30s`.
 
 ## Request body
 
-As part of your request, you can optionally specify [index settings]({{site.url}}{{site.baseurl}}/im-plugin/index-settings/), [mappings]({{site.url}}{{site.baseurl}}/field-types/index/), and [aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias/) for your newly created index. 
+As part of your request, you can optionally specify [index settings]({{site.url}}{{site.baseurl}}/im-plugin/index-settings/), [mappings]({{site.url}}{{site.baseurl}}/field-types/index/), [aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias/), and [index context]({{site.url}}{{site.baseurl}}/opensearch/index-context/). 
 
-#### Example request
+## Example request
 
 ```json
 PUT /sample-index1

@@ -11,7 +11,7 @@ nav_order: 20
 
 The nodes stats API returns statistics about your cluster.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /_nodes/stats
@@ -44,7 +44,7 @@ thread_pool | Statistics about each thread pool for the node.
 fs | File system statistics, such as read/write statistics, data path, and free disk space.
 transport | Transport layer statistics about send/receive in cluster communication.
 http | Statistics about the HTTP layer.
-breaker | Statistics about the field data circuit breakers.
+breakers | Statistics about the field data circuit breakers.
 script | Statistics about scripts, such as compilations and cache evictions. 
 discovery | Statistics about cluster states.
 ingest | Statistics about ingest pipelines.
@@ -54,6 +54,7 @@ indexing_pressure | Statistics about the node's indexing pressure.
 shard_indexing_pressure | Statistics about shard indexing pressure.
 search_backpressure | Statistics related to search backpressure.
 cluster_manager_throttling | Statistics related to throttled tasks on the cluster manager node.
+weighted_routing | Statistics relevant to weighted round robin requests.
 resource_usage_stats | Node-level resource usage statistics, such as CPU and JVM memory.
 admission_control | Statistics about admission control.
 caches | Statistics about caches. 
@@ -117,14 +118,14 @@ level | String | Specifies whether statistics for the `indices` metric are aggre
 timeout | Time | Sets the time limit for node response. Default is `30s`.
 include_segment_file_sizes | Boolean | If segment statistics are requested, this field specifies to return the aggregated disk usage of every Lucene index file. Default is `false`. 
 
-#### Example request
+## Example request
 
 ```json
 GET _nodes/stats/
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 Select the arrow to view the example response.
 
@@ -205,6 +206,7 @@ Select the arrow to view the example response.
           "suggest_total": 0,
           "suggest_time_in_millis": 0,
           "suggest_current": 0,
+          "search_idle_reactivate_count_total": 0,
           "request" : {
             "dfs_pre_query" : {
               "time_in_millis" : 0,
@@ -787,7 +789,7 @@ Select the arrow to view the example response.
 ```
 </details>
 
-## Response fields
+## Response body fields
 
 The following table lists all response fields.
 
@@ -834,6 +836,7 @@ http.total_opened | Integer | The total number of HTTP connections the node has 
 [shard_indexing_pressure](#shard_indexing_pressure) | Object | Statistics related to indexing pressure at the shard level.
 [search_backpressure]({{site.url}}{{site.baseurl}}/opensearch/search-backpressure#search-backpressure-stats-api) | Object | Statistics related to search backpressure.
 [cluster_manager_throttling](#cluster_manager_throttling) | Object | Statistics related to throttled tasks on the cluster manager node.
+[weighted_routing](#weighted_routing) | Object | Statistics relevant to weighted round robin requests.
 [resource_usage_stats](#resource_usage_stats) | Object | Statistics related to resource usage for the node.
 [admission_control](#admission_control) | Object | Statistics related to admission control for the node.
 [caches](#caches) | Object | Statistics related to caches on the node.
@@ -890,25 +893,29 @@ search.point_in_time_current | Integer | The number of shard PIT contexts curren
 search.suggest_total | Integer | The total number of shard suggest operations.
 search.suggest_time_in_millis | Integer | The total amount of time for all shard suggest operations, in milliseconds.
 search.suggest_current | Integer | The number of shard suggest operations that are currently running.
+search.search_idle_reactivate_count_total | Integer | The total number of times that all shards have been activated from an idle state.
 search.request | Object | Statistics about coordinator search operations for the node.
+search.request.took.time_in_millis | Integer | The total amount of time taken for all search requests, in milliseconds.
+search.request.took.current | Integer | The number of search requests that are currently running.
+search.request.took.total | Integer | The total number of search requests completed.
 search.request.dfs_pre_query.time_in_millis | Integer | The total amount of time for all coordinator depth-first search (DFS) prequery operations, in milliseconds.
 search.request.dfs_pre_query.current | Integer | The number of coordinator DFS prequery operations that are currently running.
-search.request.dfs_pre_query.total | Integer | The total number of coordinator DFS prequery operations.
+search.request.dfs_pre_query.total | Integer | The total number of coordinator DFS prequery operations completed.
 search.request.query.time_in_millis | Integer | The total amount of time for all coordinator query operations, in milliseconds.
 search.request.query.current | Integer | The number of coordinator query operations that are currently running.
-search.request.query.total | Integer | The total number of coordinator query operations.
+search.request.query.total | Integer | The total number of coordinator query operations completed.
 search.request.fetch.time_in_millis | Integer | The total amount of time for all coordinator fetch operations, in milliseconds.
 search.request.fetch.current | Integer | The number of coordinator fetch operations that are currently running.
-search.request.fetch.total | Integer | The total number of coordinator fetch operations.
+search.request.fetch.total | Integer | The total number of coordinator fetch operations completed.
 search.request.dfs_query.time_in_millis | Integer | The total amount of time for all coordinator DFS prequery operations, in milliseconds.
 search.request.dfs_query.current | Integer | The number of coordinator DFS prequery operations that are currently running.
-search.request.dfs_query.total | Integer | The total number of coordinator DFS prequery operations.
+search.request.dfs_query.total | Integer | The total number of coordinator DFS prequery operations completed.
 search.request.expand.time_in_millis | Integer | The total amount of time for all coordinator expand operations, in milliseconds.
 search.request.expand.current | Integer | The number of coordinator expand operations that are currently running.
-search.request.expand.total | Integer | The total number of coordinator expand operations.
+search.request.expand.total | Integer | The total number of coordinator expand operations completed.
 search.request.can_match.time_in_millis | Integer | The total amount of time for all coordinator match operations, in milliseconds.
 search.request.can_match.current | Integer | The number of coordinator match operations that are currently running.
-search.request.can_match.total | Integer | The total number of coordinator match operations.
+search.request.can_match.total | Integer | The total number of coordinator match operations completed.
 merges | Object | Statistics about merge operations for the node.
 merges.current | Integer | The number of merge operations that are currently running.
 merges.current_docs | Integer | The number of document merges that are currently running.
@@ -936,12 +943,12 @@ warmer.total  | Integer | The total number of index warming operations.
 warmer.total_time_in_millis | Integer | The total time for all index warming operations, in milliseconds.
 query_cache | Statistics about query cache operations for the node.
 query_cache.memory_size_in_bytes | Integer | The amount of memory used for the query cache for all shards in the node.
-query_cache.total_count | Integer | The total number of hits, misses, and cached queries in the query cache.
+query_cache.total_count | Integer | The total number of hits and misses in the query cache.
 query_cache.hit_count | Integer | The total number of hits in the query cache.
 query_cache.miss_count | Integer | The total number of misses in the query cache. 
-query_cache.cache_size | Integer | The size of the query cache, in bytes.
-query_cache.cache_count | Integer | The number of queries in the query cache.
-query_cache.evictions | Integer | The number of evictions in the query cache.
+query_cache.cache_size | Integer | The number of queries currently in the query cache.
+query_cache.cache_count | Integer | The total number of queries that have been added to the query cache, including those that have since been evicted.
+query_cache.evictions | Integer | The number of evictions from the query cache.
 fielddata | Object | Statistics about the field data cache for all shards in the node.
 fielddata.memory_size_in_bytes | Integer | The total amount of memory used for the field data cache for all shards in the node.
 fielddata.evictions | Integer | The number of evictions in the field data cache.
@@ -1265,7 +1272,7 @@ Field | Field type | Description
 memory | Object | Statistics related to memory consumption for the indexing load.
 memory.current | Object | Statistics related to memory consumption for the current indexing load.
 memory.current.combined_coordinating_and_primary_in_bytes | Integer | The total memory used by indexing requests in the coordinating or primary stages, in bytes. A node can reuse the coordinating memory if the primary stage is run locally, so the total memory does not necessarily equal the sum of the coordinating and primary stage memory usage.
-memory.current.coordinating_in_bytes | The total memory consumed by indexing requests in the coordinating stage, in bytes.
+memory.current.coordinating_in_bytes | Integer | The total memory consumed by indexing requests in the coordinating stage, in bytes.
 memory.current.primary_in_bytes | Integer | The total memory consumed by indexing requests in the primary stage, in bytes.
 memory.current.replica_in_bytes | Integer | The total memory consumed by indexing requests in the replica stage, in bytes.
 memory.current.all_in_bytes | Integer | The total memory consumed by indexing requests in the coordinating, primary, or replica stages.
@@ -1293,6 +1300,15 @@ Field | Field type | Description
 stats | Object | Statistics about throttled tasks on the cluster manager node.
 stats.total_throttled_tasks | Long | The total number of throttled tasks.
 stats.throttled_tasks_per_task_type | Object | A breakdown of statistics by individual task type, specified as key-value pairs. The keys are individual task types, and their values represent the number of requests that were throttled.
+
+### `weighted_routing`
+
+The `weighted_routing` object contains statistics about weighted round robin requests. Specifically, it contains a counter of times this node has server a request while it was "zoned out".
+
+Field | Field type | Description
+:--- |:-----------| :---
+stats | Object | Statistics about weighted routing.
+fail_open_count | Integer | Number of times a shard on this node has served a request while the routing weight for the node was set to zero.
 
 ### `resource_usage_stats`
 

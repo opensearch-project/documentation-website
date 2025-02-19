@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Configuring the Content Security Policy `frame-ancestors` directive dynamically
-nav_order: 110
+title: Configuring CSP rules for frame ancestors
+nav_order: 140
 has_children: false
 ---
 
-# Configuring the CSP `frame-ancestors` directive dynamically
+# Configuring CSP rules for frame ancestors
 Introduced 2.13
 {: .label .label-purple }
 

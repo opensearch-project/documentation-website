@@ -3,7 +3,6 @@ layout: default
 title: Radial search
 nav_order: 28
 parent: k-NN search
-grand_parent: Search methods
 has_children: false
 has_math: true
 ---
@@ -31,62 +30,7 @@ You can perform radial search with either the Lucene or Faiss engines. The follo
 
 ## Spaces
 
-A space corresponds to the function used to measure the distance between two points in order to determine the k-nearest neighbors. When using k-NN, a lower score equates to a closer and better result. This is the opposite of how OpenSearch scores results, where a greater score equates to a better result. To convert distances to OpenSearch scores, radial search uses the following formula: 1 / (1 + distance). The k-NN plugin supports the following spaces.
-Not every method supports each of these spaces. Be sure to refer to [the method documentation]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#method-definitions) to verify that the space you want to use is supported.
-{: note.}
-
-<table>
-  <thead style="text-align: center">
-  <tr>
-    <th>Space type</th>
-    <th>Distance function (d)</th>
-    <th>OpenSearch score</th>
-  </tr>
-  </thead>
-  <tr>
-    <td>l1</td>
-    <td>\[ d(\mathbf{x}, \mathbf{y}) = \sum_{i=1}^n |x_i - y_i| \]</td>
-    <td>\[ score = {1 \over 1 + d } \]</td>
-  </tr>
-  <tr>
-    <td>l2</td>
-    <td>\[ d(\mathbf{x}, \mathbf{y}) = \sum_{i=1}^n (x_i - y_i)^2 \]</td>
-    <td>\[ score = {1 \over 1 + d } \]</td>
-  </tr>
-  <tr>
-    <td><c>linf</c></td>
-    <td>\[ d(\mathbf{x}, \mathbf{y}) = max(|x_i - y_i|) \]</td>
-    <td>\[ score = {1 \over 1 + d } \]</td>
-  </tr>
-  <tr>
-    <td>cosinesimil</td>
-    <td>\[ d(\mathbf{x}, \mathbf{y}) = 1 - cos { \theta } = 1 - {\mathbf{x} &middot; \mathbf{y} \over \|\mathbf{x}\| &middot; \|\mathbf{y}\|}\]\[ = 1 - 
-    {\sum_{i=1}^n x_i y_i \over \sqrt{\sum_{i=1}^n x_i^2} &middot; \sqrt{\sum_{i=1}^n y_i^2}}\]
-    where \(\|\mathbf{x}\|\) and \(\|\mathbf{y}\|\) represent the norms of vectors x and y respectively.</td>
-    <td><b>nmslib</b> and <b>Faiss:</b>\[ score = {1 \over 1 + d } \]<br><b>Lucene:</b>\[ score = {2 - d \over 2}\]</td>
-  </tr>
-  <tr>
-    <td>innerproduct (supported for Lucene in OpenSearch version 2.13 and later)</td>
-    <td>\[ d(\mathbf{x}, \mathbf{y}) = - {\mathbf{x} &middot; \mathbf{y}} = - \sum_{i=1}^n x_i y_i \] 
-        <br><b>Lucene:</b>
-        \[ d(\mathbf{x}, \mathbf{y}) = {\mathbf{x} &middot; \mathbf{y}} = \sum_{i=1}^n x_i y_i \]
-    </td>
-    <td>\[ \text{If} d \ge 0, \] \[score = {1 \over 1 + d }\] \[\text{If} d < 0, score = &minus;d + 1\]
-        <br><b>Lucene:</b>
-        \[ \text{If} d > 0, score = d + 1 \] \[\text{If} d \le 0\] \[score = {1 \over 1 + (-1 &middot; d) }\]
-    </td>
-  </tr>
-</table>
-
-The cosine similarity formula does not include the `1 -` prefix. However, because similarity search libraries equate
-lower scores with closer results, they return `1 - cosineSimilarity` for the cosine similarity space. This is why `1 -` is
-included in the distance function.
-{: .note }
-
-With cosine similarity, it is not valid to pass a zero vector (`[0, 0, ...]`) as an input. This is because the magnitude of
-such a vector is 0, which raises a `divide by 0` exception in the corresponding formula. Requests
-containing a zero vector will be rejected, and a corresponding exception will be thrown.
-{: .note }
+For supported spaces, see [Spaces]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#spaces).
 
 ## Examples
 
@@ -109,9 +53,9 @@ PUT knn-index-test
       "my_vector": {
         "type": "knn_vector",
         "dimension": 2,
+        "space_type": "l2",
         "method": {
             "name": "hnsw",
-            "space_type": "l2",
             "engine": "faiss",
             "parameters": {
               "ef_construction": 100,

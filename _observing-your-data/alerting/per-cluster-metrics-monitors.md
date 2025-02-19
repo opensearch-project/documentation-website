@@ -91,7 +91,7 @@ The `script` parameter points the `source` to the Painless script `for (cluster 
         "path": "_cluster/health/",
         "path_params": "",
         "url": "http://localhost:9200/_cluster/health/",
-        "cluster": ["cluster-1", "cluster-2"]
+        "clusters": ["cluster-1", "cluster-2"]
       }
     }
   ],

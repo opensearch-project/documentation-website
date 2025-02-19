@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Distrbuted tracing 
+title: Distributed tracing 
 parent: Trace Analytics
 nav_order: 65
 ---
@@ -155,7 +155,6 @@ Currently, the distributed tracing feature generates traces and spans for HTTP r
 2. **Exporters:** Exporters are responsible for persisting the data. OpenTelemetry provides several out-of-the-box exporters, and OpenSearch supports the following:
     - `LoggingSpanExporter`: Exports spans to a log file, generating a separate file in the logs directory `_otel_traces.log`. Default is `telemetry.otel.tracer.span.exporter.class=io.opentelemetry.exporter.logging.LoggingSpanExporter`.
     - `OtlpGrpcSpanExporter`: Exports spans through gRPC. To use this exporter, you need to install the `otel-collector` on the node. By default, it writes to the http://localhost:4317/ endpoint. To use this exporter, set the following static setting: `telemetry.otel.tracer.span.exporter.class=io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter`.
-    - `LoggingSpanExporter`: Exports spans to a log file, generating a separate file in the logs directory `_otel_traces.log`. Default is `telemetry.otel.tracer.span.exporter.class=io.opentelemetry.exporter.logging.LoggingSpanExporter`.
 
 ### Sampling
 

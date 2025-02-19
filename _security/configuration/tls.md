@@ -52,11 +52,11 @@ The following settings configure the location and password of your keystore and 
 
 Name | Description
 :--- | :---
-`plugins.security.ssl.transport.keystore_type` | The type of the keystore file, JKS or PKCS12/PFX. Optional. Default is JKS.
+`plugins.security.ssl.transport.keystore_type` | The type of the keystore file, `JKS` or `PKCS12/PFX`. Optional. Default is `JKS`.
 `plugins.security.ssl.transport.keystore_filepath` | Path to the keystore file, which must be under the `config` directory, specified using a relative path. Required.
 `plugins.security.ssl.transport.keystore_alias` | The alias name of the keystore. Optional. Default is the first alias.
 `plugins.security.ssl.transport.keystore_password` | Keystore password. Default is `changeit`.
-`plugins.security.ssl.transport.truststore_type` | The type of the truststore file, JKS or PKCS12/PFX. Default is JKS.
+`plugins.security.ssl.transport.truststore_type` | The type of the truststore file, `JKS` or `PKCS12/PFX`. Default is `JKS`.
 `plugins.security.ssl.transport.truststore_filepath` | Path to the truststore file, which must be under the `config` directory, specified using a relative path. Required.
 `plugins.security.ssl.transport.truststore_alias` | The alias name of the truststore. Optional. Default is all certificates.
 `plugins.security.ssl.transport.truststore_password` | Truststore password. Default is `changeit`.
@@ -65,7 +65,7 @@ Name | Description
 
 Name | Description
 :--- | :---
-`plugins.security.ssl.http.enabled` | Whether to enable TLS on the REST layer. If enabled, only HTTPS is allowed. Optional. Default is false.
+`plugins.security.ssl.http.enabled` | Whether to enable TLS on the REST layer. If enabled, only HTTPS is allowed. Optional. Default is `false`.
 `plugins.security.ssl.http.keystore_type` | The type of the keystore file, JKS or PKCS12/PFX. Optional. Default is JKS.
 `plugins.security.ssl.http.keystore_filepath` | Path to the keystore file, which must be under the `config` directory, specified using a relative path. Required.
 `plugins.security.ssl.http.keystore_alias` | The alias name of the keystore. Optional. Default is the first alias.
@@ -128,14 +128,16 @@ If your node certificates have an Object ID (OID) identifier in the SAN section,
 
 ## Configuring admin certificates
 
-Admin certificates are regular client certificates that have elevated rights to perform administrative tasks. You need an admin certificate to change the Security plugin configuration using [`plugins/opensearch-security/tools/securityadmin.sh`]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/) or the REST API. Admin certificates are configured in `opensearch.yml` by stating their DN(s):
+Super admin certificates are regular client certificates that have elevated rights to perform administrative security tasks. You need an admin certificate to change the Security plugin configuration using [`plugins/opensearch-security/tools/securityadmin.sh`]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/) or the REST API. Super admin certificates are configured in `opensearch.yml` by stating their DN(s):
 
 ```yml
 plugins.security.authcz.admin_dn:
   - CN=admin,OU=SSL,O=Test,L=Test,C=DE
 ```
 
-For security reasons, you can't use wildcards or regular expressions here.
+For security reasons, you cannot use wildcards or regular expressions as values for the `admin_dn` setting.
+
+For more information about admin and super admin user roles, see [Admin and super admin roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#admin-and-super-admin-roles). 
 
 
 ## (Advanced) OpenSSL
@@ -148,8 +150,8 @@ If OpenSSL is enabled, but for one reason or another the installation does not w
 
 Name | Description
 :--- | :---
-`plugins.security.ssl.transport.enable_openssl_if_available` | Enable OpenSSL on the transport layer if available. Optional. Default is true.
-`plugins.security.ssl.http.enable_openssl_if_available` | Enable OpenSSL on the REST layer if available. Optional. Default is true.
+`plugins.security.ssl.transport.enable_openssl_if_available` | Enable OpenSSL on the transport layer if available. Optional. Default is `true`.
+`plugins.security.ssl.http.enable_openssl_if_available` | Enable OpenSSL on the REST layer if available. Optional. Default is `true`.
 
 {% comment %}
 1. Install [OpenSSL 1.1.0](https://www.openssl.org/community/binaries.html) on every node.
@@ -177,8 +179,8 @@ In addition, when `resolve_hostname` is enabled, the Security plugin resolves th
 
 Name | Description
 :--- | :---
-`plugins.security.ssl.transport.enforce_hostname_verification` | Whether to verify hostnames on the transport layer. Optional. Default is true.
-`plugins.security.ssl.transport.resolve_hostname` | Whether to resolve hostnames against DNS on the transport layer. Optional. Default is true. Only works if hostname verification is also enabled.
+`plugins.security.ssl.transport.enforce_hostname_verification` | Whether to verify hostnames on the transport layer. Optional. Default is `true`.
+`plugins.security.ssl.transport.resolve_hostname` | Whether to resolve hostnames against DNS on the transport layer. Optional. Default is `true`. Only works if hostname verification is also enabled.
 
 
 ## (Advanced) Client authentication
@@ -237,7 +239,6 @@ plugins.security.ssl.http.enabled_protocols:
   - "TLSv1.2"
 ```
 
-
 ## (Advanced) Disabling client initiated renegotiation for Java 8
 
 Set `-Djdk.tls.rejectClientInitiatedRenegotiation=true` to disable secure client initiated renegotiation, which is enabled by default. This can be set via `OPENSEARCH_JAVA_OPTS` in `config/jvm.options`.
@@ -263,40 +264,73 @@ These settings allow for the use of encrypted passwords in the settings.
 
 ## Hot reloading TLS certificates
 
-Updating expired or nearly expired TLS certificates does not require restarting the cluster. Instead, enable hot reloading of TLS cerificates by adding the following line to `opensearch.yml`:
+Updating expired or nearly expired TLS certificates on the HTTP and transport layers does not require restarting the cluster. Instead, you can enable hot reloading of TLS certificates. When enabled, in-place hot reloading monitors your keystore resources for updates every 5 seconds. If you add or modify a certificate, key file, or keystore setting in the Opensearch `config` directory, the nodes in the cluster detect the change and automatically reload the keys and certificates.
 
+To enable in-place hot reloading, add the following line to `opensearch.yml`:
 
-`plugins.security.ssl_cert_reload_enabled: true`
+```yml
+plugins.security.ssl.certificates_hot_reload.enabled: true
+```
+{% include copy.html %}
+
+### Using the Reload Certificates API
+
+When not using hot reloading, you can use the Reload Certificates API to reread the replaced certificates.
+
+To enable the Reload Certificates API, add the following line to `opensearch.yml`:
+
+```yml
+plugins.security.ssl_cert_reload_enabled: true
+```
+{% include copy.html %}
 
 This setting is `false` by default.
 {: .note }
 
-After enabling hot reloading, use the Reload Certificates API to replace the expired certificates. The API expects the old certificates to be replaced with valid certificates issued with the same `Issuer/Subject DN` and `SAN`. The new certificates also need be stored in the same location as the previous certificates in order to prevent any changes to the `opensearch.yml` file. 
+After enabling reloading, use the Reload Certificates API to replace the expired certificates. The new certificates need to be stored in the same location as the previous certificates in order to prevent any changes to the `opensearch.yml` file. 
+
+By default, the Reload Certificates API expects the old certificates to be replaced with valid certificates issued with the same `Issuer/Subject DN` and `SAN`. This behavior can be disabled by adding the following settings in `opensearch.yml`:
+
+```yml
+plugins.security.ssl.http.enforce_cert_reload_dn_verification: false
+plugins.security.ssl.transport.enforce_cert_reload_dn_verification: false
+```
+{% include copy.html %}
+
 
 Only a [superadmin]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates) can use the Reload Certificates API.
 {: .note }
 
-### Reload TLS certificates on the transport layer
- The following command reloads TLS certificates on the transport layer:
+#### Reload TLS certificates on the transport layer
+
+ The following command reloads TLS certificates on the transport layer using the Reload Certificates API:
   
-  ```json
-  curl --cacert <ca.pem> --cert <admin.pem> --key <admin.key> -XPUT https://localhost:9200/_plugins/_security/api/ssl/transport/reloadcerts
-  ```
-  {% include copy.html %}
-
-You should receive the following response:
-```{ "message": "successfully updated transport certs"}```
-
-### Reload TLS certificates on the http layer
-
-The following command reloads TLS certificates on the `http` layer:
-
-  ```json
-  curl --cacert <ca.pem> --cert <admin.pem> --key <admin.key> -XPUT https://localhost:9200/_plugins/_security/api/ssl/http/reloadcerts
-  ```
-  {% include copy.html %}
+```json
+curl --cacert <ca.pem> --cert <admin.pem> --key <admin.key> -XPUT https://localhost:9200/_plugins/_security/api/ssl/transport/reloadcerts
+```
+{% include copy-curl.html %}
 
 You should receive the following response:
 
-```{ "message": "successfully updated http certs"}```
+```
+{ "message": "successfully updated transport certs"}
+```
+
+#### Reload TLS certificates on the HTTP layer
+
+The following command reloads TLS certificates on the HTTP layer using the Reload Certificates API:
+
+```json
+curl --cacert <ca.pem> --cert <admin.pem> --key <admin.key> -XPUT https://localhost:9200/_plugins/_security/api/ssl/http/reloadcerts
+```
+{% include copy-curl.html %}
+
+You should receive the following response:
+
+```
+{ "message": "successfully updated http certs"}
+```
+
+
+
 

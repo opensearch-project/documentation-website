@@ -2,6 +2,8 @@
 layout: default
 title: Migrating from Open Distro
 nav_order: 30
+redirect_from:
+  - /clients/data-prepper/migrate-open-distro/
 ---
 
 # Migrating from Open Distro
@@ -21,4 +23,4 @@ In your Data Prepper Docker configuration, adjust `amazon/opendistro-for-elastic
 
 ## Next steps
 
-For more information about Data Prepper configurations, see [Getting Started with Data Prepper]({{site.url}}{{site.baseurl}}/clients/data-prepper/get-started/).
+For more information about Data Prepper configurations, see [Getting Started with OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/clients/data-prepper/get-started/).

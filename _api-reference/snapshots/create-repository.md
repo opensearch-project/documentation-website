@@ -19,22 +19,39 @@ There are two types of snapshot repositories:
 
 For instructions on creating a repository, see [Register repository]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#register-repository).
 
-## Path and HTTP methods
+## Endpoints
 
-```
-POST /_snapshot/my-first-repo/ 
-PUT /_snapshot/my-first-repo/
+```json
+POST /_snapshot/<repository>/ 
+PUT /_snapshot/<repository>/
 ```
 
 ## Path parameters
 
 Parameter | Data type | Description
 :--- | :--- | :---
-repository | String | Repository name |
+`repository` | String | Repository name |
 
 ## Request parameters
 
 Request parameters depend on the type of repository: `fs` or `s3`.
+
+### Common parameters
+
+The following table lists parameters that can be used with both the `fs` and `s3` repositories.
+
+Request field | Description
+:--- | :---
+`prefix_mode_verification` | When enabled, adds a hashed value of a random seed to the prefix for repository verification. For remote-store-enabled clusters, you can add the `setting.prefix_mode_verification` setting to the node attributes for the supplied repository. This field works with both new and existing repositories. Optional.
+`shard_path_type` | Controls the path structure of shard-level blobs. Supported values are `FIXED`, `HASHED_PREFIX`, and `HASHED_INFIX`. For more information about each value, see [shard_path_type values](#shard_path_type-values)/. Default is `FIXED`. Optional.
+
+#### shard_path_type values
+
+The following values are supported in the `shard_path_type` setting:
+
+- `FIXED`: Keeps the path structure in the existing hierarchical manner, such as `<ROOT>/<BASE_PATH>/indices/<index-id>/0/<SHARD_BLOBS>`.
+- `HASHED_PREFIX`: Prepends a hashed prefix at the start of the path for each unique shard ID, for example, `<ROOT>/<HASH-OF-INDEX-ID-AND-SHARD-ID>/<BASE_PATH>/indices/<index-id>/0/<SHARD_BLOBS>`.
+- `HASHED_INFIX`: Appends a hashed prefix after the base path for each unique shard ID, for example, `<ROOT>/<BASE-PATH>/<HASH-OF-INDEX-ID-AND-SHARD-ID>/indices/<index-id>/0/<SHARD_BLOBS>`. The hash method used is `FNV_1A_COMPOSITE_1`, which uses the `FNV1a` hash function and generates a custom-encoded 64-bit hash value that scales well with most remote store options. `FNV1a` takes the most significant 6 bits to create a URL-safe Base64 character and the next 14 bits to create a binary string.
 
 ### fs repository
 
@@ -46,22 +63,9 @@ Request field | Description
 `max_restore_bytes_per_sec` | The maximum rate at which snapshots restore. Default is 40 MB per second (`40m`). Optional.
 `max_snapshot_bytes_per_sec` | The maximum rate at which snapshots take. Default is 40 MB per second (`40m`). Optional.
 `remote_store_index_shallow_copy` | Boolean | Determines whether the snapshot of the remote store indexes are captured as a shallow copy. Default is `false`.
+`shallow_snapshot_v2` | Boolean | Determines whether the snapshots of the remote store indexes are captured as a [shallow copy v2]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/snapshot-interoperability/#shallow-snapshot-v2). Default is `false`.
 `readonly` | Whether the repository is read-only. Useful when migrating from one cluster (`"readonly": false` when registering) to another cluster (`"readonly": true` when registering). Optional.
 
-#### Example request
-
-The following example registers an `fs` repository using the local directory `/mnt/snapshots` as `location`.
-
-```json
-PUT /_snapshot/my-fs-repository
-{
-  "type": "fs",
-  "settings": {
-    "location": "/mnt/snapshots"
-  }
-}
-```
-{% include copy-curl.html %}
 
 #### s3 repository
 
@@ -79,15 +83,34 @@ Request field | Description
 `max_snapshot_bytes_per_sec` | The maximum rate at which snapshots take. Default is 40 MB per second (`40m`). Optional.
 `readonly` | Whether the repository is read-only. Useful when migrating from one cluster (`"readonly": false` when registering) to another cluster (`"readonly": true` when registering). Optional.
 `remote_store_index_shallow_copy` | Boolean | Whether the snapshot of the remote store indexes is captured as a shallow copy. Default is `false`.
-`server_side_encryption` | Whether to encrypt snapshot files in the S3 bucket. This setting uses AES-256 with S3-managed keys. See [Protecting data using server-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html). Default is false. Optional.
+`shallow_snapshot_v2` | Boolean | Determines whether the snapshots of the remote store indexes are captured as a [shallow copy v2]([shallow copy v2]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/snapshot-interoperability/#shallow-snapshot-v2). Default is `false`.
+`server_side_encryption` | Whether to encrypt snapshot files in the S3 bucket. This setting uses AES-256 with S3-managed keys. See [Protecting data using server-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html). Default is `false`. Optional.
 `storage_class` | Specifies the [S3 storage class](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html) for the snapshots files. Default is `standard`. Do not use the `glacier` and `deep_archive` storage classes. Optional.
 
 For the `base_path` parameter, do not enter the `s3://` prefix when entering your S3 bucket details. Only the name of the bucket is required.
 {: .note}
 
-#### Example request
+## Example requests
 
-The following request registers a new S3 repository called `my-opensearch-repo` in an existing bucket called `my-open-search-bucket`. By default, all snapshots are stored in the `my/snapshot/directory`.
+### `fs`
+
+The following example registers an `fs` repository using the local directory `/mnt/snapshots` as `location`:
+
+```json
+PUT /_snapshot/my-fs-repository
+{
+  "type": "fs",
+  "settings": {
+    "location": "/mnt/snapshots"
+  }
+}
+```
+{% include copy-curl.html %}
+
+### `s3`
+
+
+The following request registers a new S3 repository called `my-opensearch-repo` in an existing bucket called `my-open-search-bucket`. By default, all snapshots are stored in the `my/snapshot/directory`:
 
 ```json
 PUT /_snapshot/my-opensearch-repo
@@ -101,7 +124,7 @@ PUT /_snapshot/my-opensearch-repo
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 Upon success, the following JSON object is returned:
 

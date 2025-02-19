@@ -9,7 +9,13 @@ nav_order: 4
 **Introduced 1.0**
 {: .label .label-purple }
 
-Deletes a stored script
+Deletes a stored script.
+
+## Endpoints
+
+```json
+DELETE _scripts/my-script
+```
 
 ## Path parameters
 
@@ -26,7 +32,7 @@ Path parameters are optional.
 | cluster_manager_timeout | Time | Amount of time to wait for a connection to the cluster manager. Optional, defaults to `30s`. |
 | timeout | Time | The period of time to wait for a response. If a response is not received before the timeout value, the request will be dropped.
 
-#### Example request
+## Example request
 
 The following request deletes the `my-first-script` script:
 
@@ -35,7 +41,7 @@ DELETE _scripts/my-script
 ````
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 The `DELETE _scripts/my-first-script` request returns the following field:
 
@@ -47,7 +53,7 @@ The `DELETE _scripts/my-first-script` request returns the following field:
 
 To determine whether the stored script was successfully deleted, use the [Get stored script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/get-stored-script/) API, passing the script name as the `script` path parameter.
 
-## Response fields
+## Response body fields
 
 The <HTTP METHOD> <endpoint> request returns the following response fields:
 

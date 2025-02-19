@@ -3,16 +3,17 @@ layout: default
 title: Installation quickstart
 nav_order: 3
 redirect_from: 
+  - /about/quickstart/
   - /opensearch/install/quickstart/
   - /quickstart/
 ---
 
 # Installation quickstart
 
-Get started using OpenSearch and OpenSearch Dashboards by deploying your containers with [Docker](https://www.docker.com/). Before proceeding, you need to [get Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://github.com/docker/compose) installed on your local machine. 
+To quickly get started using OpenSearch and OpenSearch Dashboards, deploy your containers using [Docker](https://www.docker.com/). For all installation guides, see [Install and upgrade OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/).
 
-The Docker Compose commands used in this guide are written with a hyphen (for example, `docker-compose`). If you installed Docker Desktop on your machine, which automatically installs a bundled version of Docker Compose, then you should remove the hyphen. For example, change `docker-compose` to `docker compose`.
-{: .note}
+Before proceeding, you need to install [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://github.com/docker/compose) on your local machine. 
+
 
 ## Starting your cluster
 
@@ -69,14 +70,14 @@ You'll need a special file, called a Compose file, that Docker Compose uses to d
 1. In your terminal application, navigate to the directory containing the `docker-compose.yml` file you downloaded, [set up a custom admin password]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#setting-a-custom-admin-password), and run the following command to create and start the cluster as a background process:
     
     ```bash
-    docker-compose up -d
+    docker compose up -d
     ```
     {% include copy.html %}
 
-1. Confirm that the containers are running with the command `docker-compose ps`. You should see an output like the following:
+1. Confirm that the containers are running with the command `docker compose ps`. You should see an output like the following:
 
     ```bash
-    $ docker-compose ps
+    $ docker compose ps
     NAME                    COMMAND                  SERVICE                 STATUS              PORTS
     opensearch-dashboards   "./opensearch-dashbo…"   opensearch-dashboards   running             0.0.0.0:5601->5601/tcp
     opensearch-node1        "./opensearch-docker…"   opensearch-node1        running             0.0.0.0:9200->9200/tcp, 9300/tcp, 0.0.0.0:9600->9600/tcp, 9650/tcp

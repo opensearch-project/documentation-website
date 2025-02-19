@@ -335,6 +335,11 @@ img {
   }
 }
 
+// Needed so the panel and copy-button-wrap panel blend together
+div.highlighter-rouge {
+  border-radius: 0;
+}
+
 .copy-button-wrap {
   background-color: $sidebar-color;
   padding: 0.25rem 2rem 0.5rem 2rem;
@@ -1028,6 +1033,126 @@ body {
   font-weight: 600;
   text-transform: uppercase;
   border-bottom: 1px solid #eeebee;
+}
+
+.search-page {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  border-top: 1px solid #eeebee;
+  flex-direction: column; 
+  @include mq(md) {
+    flex-direction: row; 
+    gap: 20px
+  }
+}
+
+.search-page--sidebar {
+  max-width: 100%;
+  order: 2; 
+  margin-top: 1rem;
+  color: $grey-dk-300;
+  @include mq(md) {
+    flex: 1;
+    max-width: 200px;
+    margin-top: 3rem;
+  }
+}
+
+.search-page--sidebar--category-filter--checkbox-child {
+  padding-left: 20px;
+}
+
+.search-page--results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 100%; 
+  order: 3;
+  @include mq(md) {
+    flex: 3;
+    max-width: 60%;
+  }
+}
+
+.search-page--results--wrapper {
+  position: relative;
+  display: flex;
+  width: 100%;
+  background-color: white;
+  margin: 0 auto 2rem;
+  max-width: 800px;
+}
+
+.search-page--results--input-box {
+  width: 100%;
+  padding: 10px 40px 10px 10px; 
+  border: 1px solid $grey-lt-300;
+  border-radius: 4px;
+  color: $grey-dk-300;
+}
+
+.search-page--results--input-icon {
+  position: absolute;
+  right: 12px;
+  align-self: center;
+  pointer-events: none;
+  color: $grey-dk-000;
+}
+
+.search-page--results--display {
+  width: 100%;
+  position: relative;
+  flex-flow: column nowrap;
+  margin-top: 1rem;
+  @media (max-width: $content-width) {
+    margin-top: 0.5rem;
+  }
+}
+
+.search-page--results--display--header {
+  text-align: center;
+  background-color: transparent;
+  color: $grey-dk-300;
+  margin-bottom: 1rem;
+  margin-top: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid $blue-dk-100;
+  font-size: 20px; 
+  @include mq(md) {
+    font-size: 1.5rem;
+  }
+}
+
+.search-page--results--display--container--item {
+  margin-bottom: 2rem;
+  display: block;
+}
+
+.search-page--results--no-results {
+    padding: 1rem;
+    display: block;
+    font-size: 1rem;
+    font-weight: normal;  
+}
+
+.search-page--results--display--container--item--link {
+  font-family: "Open Sans Condensed", Impact, "Franklin Gothic Bold", sans-serif;
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: block;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-color: $grey-lt-300;
+  &:hover {
+    text-decoration-color:  $blue-100;
+  }
+}
+
+.category-checkbox {
+  margin-right: 4px;
 }
 
 @mixin body-text($color: #000) {

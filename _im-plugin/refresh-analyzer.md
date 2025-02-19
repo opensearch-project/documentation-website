@@ -10,7 +10,7 @@ redirect_from:
 
 # Refresh search analyzer
 
-With ISM installed, you can refresh search analyzers in real time with the following API:
+You can refresh search analyzers in real time using the following API. This requires the [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/) (ISM) plugin to be installed. For more information, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
 
 ```json
 POST /_plugins/_refresh_search_analyzers/<index or alias or wildcard>

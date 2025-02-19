@@ -18,6 +18,18 @@ The Profile API provides timing information about the execution of individual co
 The Profile API is a resource-consuming operation that adds overhead to search operations.
 {: .warning}
 
+## Endpoints
+
+```json
+GET /testindex/_search
+{
+  "profile": true,
+  "query" : {
+    "match" : { "title" : "wind" }
+  }
+}
+```
+
 ## Concurrent segment search
 
 Starting in OpenSearch 2.12, [concurrent segment search]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search/) allows each shard-level request to search segments in parallel during the query phase. The Profile API response contains several additional fields with statistics about _slices_.
@@ -26,7 +38,9 @@ A slice is the unit of work that can be executed by a thread. Each query can be 
 
 In general, the max/min/avg slice time captures statistics across all slices for a timing type. For example, when profiling aggregations, the `max_slice_time_in_nanos` field in the `aggregations` section shows the maximum time consumed by the aggregation operation and its children across all slices. 
 
-#### Example request: Non-concurrent search
+## Example requests
+
+### Non-concurrent search
 
 To use the Profile API, include the `profile` parameter set to `true` in the search request sent to the `_search` endpoint:
 
@@ -70,7 +84,54 @@ The response contains an additional `time` field with human-readable units, for 
 The Profile API response is verbose, so if you're running the request through the `curl` command, include the `?pretty` query parameter to make the response easier to understand.
 {: .tip}
 
-#### Example response
+### Aggregations
+
+To profile aggregations, send an aggregation request and provide the `profile` parameter set to `true`.
+
+#### Global aggregation
+
+```json
+GET /opensearch_dashboards_sample_data_ecommerce/_search
+{
+  "profile": "true",
+  "size": 0,
+  "query": {
+    "match": { "manufacturer": "Elitelligence" }
+  },
+  "aggs": {
+    "all_products": {
+      "global": {}, 
+      "aggs": {     
+      "avg_price": { "avg": { "field": "taxful_total_price" } }
+      }
+    },
+    "elitelligence_products": { "avg": { "field": "taxful_total_price" } }
+  }
+}
+```
+{% include copy-curl.html %}
+
+#### Non-global aggregation
+
+```json
+GET /opensearch_dashboards_sample_data_ecommerce/_search
+{
+  "size": 0,
+  "aggs": {
+    "avg_taxful_total_price": {
+      "avg": {
+        "field": "taxful_total_price"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+
+## Example response
+
+### Non-concurrent search
 
 The response contains profiling information:
 
@@ -221,7 +282,7 @@ The response contains profiling information:
 ```
 </details>
 
-#### Example response: Concurrent segment search
+### Concurrent segment search
 
 The following is an example response for a concurrent segment search with three segment slices:
 
@@ -435,7 +496,7 @@ The following is an example response for a concurrent segment search with three 
 ```
 </details>
 
-## Response fields
+## Response body fields
 
 The response includes the following fields.
 
@@ -522,34 +583,9 @@ Reason | Description
 `aggregation` | A collector for aggregations that is run against the specified query scope. OpenSearch uses a single `aggregation` collector to collect documents for all aggregations.
 `global_aggregation` | A collector that is run against the global query scope. Global scope is different from a specified query scope, so in order to collect the entire dataset, a `match_all` query must be run.
 
-## Aggregations
+### Aggregation responses
 
-To profile aggregations, send an aggregation request and provide the `profile` parameter set to `true`.
-
-#### Example request: Global aggregation
-
-```json
-GET /opensearch_dashboards_sample_data_ecommerce/_search
-{
-  "profile": "true",
-  "size": 0,
-  "query": {
-    "match": { "manufacturer": "Elitelligence" }
-  },
-  "aggs": {
-    "all_products": {
-      "global": {}, 
-      "aggs": {     
-      "avg_price": { "avg": { "field": "taxful_total_price" } }
-      }
-    },
-    "elitelligence_products": { "avg": { "field": "taxful_total_price" } }
-  }
-}
-```
-{% include copy-curl.html %}
-
-#### Example response: Global aggregation
+#### Response: Global aggregation
 
 The response contains profiling information:
 
@@ -804,24 +840,7 @@ The response contains profiling information:
 ```
 </details>
 
-#### Example request: Non-global aggregation
-
-```json
-GET /opensearch_dashboards_sample_data_ecommerce/_search
-{
-  "size": 0,
-  "aggs": {
-    "avg_taxful_total_price": {
-      "avg": {
-        "field": "taxful_total_price"
-      }
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-#### Example response: Non-global aggregation
+#### Response: Non-global aggregation
 
 The response contains profiling information:
 
@@ -966,13 +985,13 @@ The response contains profiling information:
 ```
 </details>
 
-### Response fields
+#### Response body fields
 
 The `aggregations` array contains aggregation objects with the following fields.
 
 Field | Data type | Description
 :--- | :--- | :---
-`type` | String | The aggregator type. In the [non-global aggregation example response](#example-response-non-global-aggregation), the aggregator type is `AvgAggregator`. [Global aggregation example response](#example-request-global-aggregation) contains a `GlobalAggregator` with an `AvgAggregator` child.
+`type` | String | The aggregator type. In the [non-global aggregation example response](#response-non-global-aggregation), the aggregator type is `AvgAggregator`. [Global aggregation example response](#response-global-aggregation) contains a `GlobalAggregator` with an `AvgAggregator` child.
 `description` | String | Contains a Lucene explanation of the aggregation. Helps differentiate aggregations with the same type.
 `time_in_nanos` | Long | The total elapsed time for this aggregation, in nanoseconds. For concurrent segment search, `time_in_nanos` is the total amount of time across all slices (the difference between the last completed slice execution end time and the first slice execution start time).	
 [`breakdown`](#the-breakdown-object-1) | Object | Contains timing statistics about low-level Lucene execution.
@@ -982,7 +1001,7 @@ Field | Data type | Description
 `min_slice_time_in_nanos`	|Long |The minimum amount of time taken by any slice to run an aggregation, in nanoseconds. This field is included only if you enable concurrent segment search.
 `avg_slice_time_in_nanos`	|Long |The average amount of time taken by any slice to run an aggregation, in nanoseconds. This field is included only if you enable concurrent segment search.
 
-### The `breakdown` object
+#### The `breakdown` object
 
 The `breakdown` object represents the timing statistics about low-level Lucene execution, broken down by method. Each field in the `breakdown` object represents an internal Lucene method executed within the aggregation. Timings are listed in wall-clock nanoseconds and are not normalized. The `breakdown` timings are inclusive of all child times. The `breakdown` object is comprised of the following fields. All fields contain integer values.
 

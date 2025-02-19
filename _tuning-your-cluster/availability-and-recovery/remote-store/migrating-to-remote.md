@@ -8,10 +8,7 @@ grand_parent: Availability and recovery
 
 # Migrating to remote-backed storage
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/7986).    
-{: .warning}
-
-Introduced 2.14
+Introduced 2.15
 {: .label .label-purple }
 
 Remote-backed storage offers a new way to protect against data loss by automatically creating backups of all index transactions and sending them to remote storage. To use this feature, [segment replication]({{site.url}}{{site.baseurl}}/opensearch/segment-replication/) must be enabled.
@@ -24,9 +21,9 @@ Rolling upgrades, sometimes referred to as *node replacement upgrades*, can be p
 
 Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/index/) for recommendations about backing up your configuration files and creating a snapshot of the cluster state and indexes before you make any changes to your OpenSearch cluster.
 
-Before migrating to remote-backed storage, upgrade to OpenSearch 2.14.
+Before migrating to remote-backed storage, upgrade to OpenSearch 2.15 or later.
 
-As of OpenSearch 2.14, OpenSearch nodes cannot be migrated back to document replication. If you need to revert the migration, then you will need to perform a fresh installation of OpenSearch and restore the cluster from a snapshot. Take a snapshot and store it in a remote repository before beginning the upgrade procedure.
+Before upgrading to OpenSearch 2.15, take a cluster snapshot and store it remotely. OpenSearch 2.15 nodes cannot revert to document replication. If a migration needs to be undone, perform a fresh OpenSearch installation and restore from the remote snapshot. Storing the snapshot remotely allows you to retrieve and restore it if issues arise during migration.
 {: .important}
 
 ## Performing the upgrade
@@ -105,14 +102,14 @@ As of OpenSearch 2.14, OpenSearch nodes cannot be migrated back to document repl
    }
    ```
 
-1. Set the `remote_store.compatibility_mode` setting to `mixed` to allow remote-backed storage nodes to join the cluster. Then set `migration.direction` to `remote_store`, which allocates new indexes to remote-backed data nodes. The following example updates the aforementioned setting using the Cluster Settings API:
+1. Set the `cluster.remote_store.compatibility_mode` setting to `mixed` to allow remote-backed storage nodes to join the cluster. Then set `cluster.migration.direction` to `remote_store`, which allocates new indexes to remote-backed data nodes. The following example updates the aforementioned setting using the Cluster Settings API:
 
    ```json
    PUT "/_cluster/settings?pretty"
    {
        "persistent": {
-           "remote_store.compatibility_mode": "mixed",
-            "migration.direction" :  "remote_store"
+           "cluster.remote_store.compatibility_mode": "mixed",
+           "cluster.migration.direction" :  "remote_store"
        }
    }
    ```
@@ -121,13 +118,15 @@ As of OpenSearch 2.14, OpenSearch nodes cannot be migrated back to document repl
    ```json
    {
      "acknowledged" : true,
-     "persistent" : { 
-      "remote_store" : {
-      "compatibility_mode" : "mixed",
-      "migration.direction" :  "remote_store"
+     "persistent" : {
+        "cluster" : { 
+        "remote_store" : {
+          "compatibility_mode" : "mixed",
+          "migration.direction" :  "remote_store"
+        }
       },
       "transient" : { }
-   }
+    }
    }
    ```
    
@@ -233,8 +232,8 @@ As of OpenSearch 2.14, OpenSearch nodes cannot be migrated back to document repl
    PUT "/_cluster/settings?pretty"
    {
        "persistent": {
-           "remote_store.compatibility_mode": strict,
-            "migration.direction" :  none
+           "cluster.remote_store.compatibility_mode": null,
+            "cluster.migration.direction" :  null
        }
    }
    ```
@@ -243,7 +242,10 @@ As of OpenSearch 2.14, OpenSearch nodes cannot be migrated back to document repl
    ```json
    {
      "acknowledged" : true,
-     "persistent" : { strict },
+     "persistent" : { 
+        "cluster.remote_store.compatibility_mode": null,
+         "cluster.migration.direction" :  null
+      },
       "transient" : { }
    }
    ```
@@ -255,8 +257,8 @@ The migration to the remote store is now complete.
 
 Use the following cluster settings to enable migration to a remote-backed cluster.
 
-| Field | Data type | Description |
-| :--- |:--- |:---|
-| `remote_store.compatibility_mode` | String  | When set to `strict`, only allows the creation of either non-remote or remote nodes, depending upon the initial cluster type. When set to `mixed`, allows both remote and non-remote nodes to join the cluster. Default is `strict`. |  
-| `migration.direction` | String |  Creates new shards only on remote-backed storage nodes.  Default is `None`. |                                                                                                                                                                                            
+| Field                                     | Data type | Description |
+|:------------------------------------------|:--- |:---|
+| `cluster.remote_store.compatibility_mode` | String  | When set to `strict`, only allows the creation of either non-remote or remote nodes, depending on the initial cluster type. When set to `mixed`, allows both remote and non-remote nodes to join the cluster. Default is `strict`. |  
+| `cluster.migration.direction`             | String |  Creates new shards only on remote-backed storage nodes. Default is `None`. |                                                                                                                                                                                            
 

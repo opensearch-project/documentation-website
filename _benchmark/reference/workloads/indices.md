@@ -4,7 +4,8 @@ title: indices
 parent: Workload reference
 grand_parent: OpenSearch Benchmark Reference
 nav_order: 65
-redirect_from: /benchmark/workloads/indices/
+redirect_from:
+  - /benchmark/workloads/indices/
 ---
 
 <!-- vale off -->

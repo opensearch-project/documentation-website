@@ -15,7 +15,22 @@ To learn more about static and dynamic settings, see [Configuring OpenSearch]({{
 
 ## Cluster-level index settings
 
-OpenSearch supports the following cluster-level index settings. All settings in this list are dynamic:
+There are two types of cluster settings:
+
+- [Static cluster-level index settings](#static-cluster-level-index-settings) are settings that you cannot update while the cluster is running. To update a static setting, you must stop the cluster, update the setting, and then restart the cluster. 
+- [Dynamic cluster-level index settings](#dynamic-cluster-level-index-settings) are settings that you can update at any time.
+
+### Static cluster-level index settings
+
+OpenSearch supports the following static cluster-level index settings:
+
+- `indices.cache.cleanup_interval` (Time unit): Schedules a recurring background task that cleans up expired entries from the cache at the specified interval. Default is `1m` (1 minute). For more information, see [Index request cache]({{site.url}}{{site.baseurl}}/search-plugins/caching/request-cache/).
+
+- `indices.requests.cache.size` (String): The cache size as a percentage of the heap size (for example, to use 1% of the heap, specify `1%`). Default is `1%`. For more information, see [Index request cache]({{site.url}}{{site.baseurl}}/search-plugins/caching/request-cache/).
+
+### Dynamic cluster-level index settings
+
+OpenSearch supports the following dynamic cluster-level index settings:
 
 - `action.auto_create_index` (Boolean): Automatically creates an index if the index doesn't already exist. Also applies any index templates that are configured. Default is `true`. 
 
@@ -39,6 +54,8 @@ OpenSearch supports the following cluster-level index settings. All settings in 
 
 - `indices.fielddata.cache.size` (String): The maximum size of the field data cache. May be specified as an absolute value (for example, `8GB`) or a percentage of the node heap (for example, `50%`). This value is static so you must specify it in the `opensearch.yml` file. If you don't specify this setting, the maximum size is unlimited. This value should be smaller than the `indices.breaker.fielddata.limit`. For more information, see [Field data circuit breaker]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/circuit-breaker/#field-data-circuit-breaker-settings).
 
+- `indices.query.bool.max_clause_count` (Integer): Defines the maximum product of fields and terms that are queryable simultaneously. Before OpenSearch 2.16, a cluster restart was required in order to apply this static setting. Now dynamic, existing search thread pools may use the old static value initially, causing `TooManyClauses` exceptions. New thread pools use the updated value. Default is `1024`.
+
 - `cluster.remote_store.index.path.type` (String): The path strategy for the data stored in the remote store. This setting is effective only for remote-store-enabled clusters. This setting supports the following values:
   - `fixed`: Stores the data in path structure `<repository_base_path>/<index_uuid>/<shard_id>/`.
   - `hashed_prefix`: Stores the data in path structure `hash(<shard-data-idenitifer>)/<repository_base_path>/<index_uuid>/<shard_id>/`.
@@ -54,6 +71,25 @@ OpenSearch supports the following cluster-level index settings. All settings in 
 
 - `cluster.remote_store.index.segment_metadata.retention.max_count` (Integer): Controls the minimum number of metadata files to keep in the segment repository on a remote store. A value below `1` disables the deletion of stale segment metadata files. Default is `10`.
 
+- `cluster.remote_store.segment.transfer_timeout` (Time unit): Controls the maximum amount of time to wait for all new segments to update after refresh to the remote store. If the upload does not complete within a specified amount of time, it throws a `SegmentUploadFailedException` error. Default is `30m`. It has a minimum constraint of `10m`.
+
+- `cluster.remote_store.translog.path.prefix` (String): Controls the fixed path prefix for translog data on a remote-store-enabled cluster. This setting only applies when the `cluster.remote_store.index.path.type` setting is either `HASHED_PREFIX` or `HASHED_INFIX`. Default is an empty string, `""`.
+
+- `cluster.remote_store.segments.path.prefix` (String): Controls the fixed path prefix for segment data on a remote-store-enabled cluster. This setting only applies when the `cluster.remote_store.index.path.type` setting is either `HASHED_PREFIX` or `HASHED_INFIX`. Default is an empty string, `""`.
+
+- `cluster.snapshot.shard.path.prefix` (String): Controls the fixed path prefix for snapshot shard-level blobs. This setting only applies when the repository `shard_path_type` setting is either `HASHED_PREFIX` or `HASHED_INFIX`. Default is an empty string, `""`.
+
+- `cluster.default_number_of_replicas` (Integer): Controls the default number of replicas for indexes in the cluster. The index-level `index.number_of_replicas` setting defaults to this value if not configured. Default is `1`.
+
+- `cluster.thread_pool.<fixed-threadpool>.size` (Integer): Controls the sizes of both the fixed and resizable queue thread pools. Overrides the defaults provided in `opensearch.yml`.
+
+- `cluster.thread_pool.<scaling-threadpool>.max` (Integer): Sets the maximum size of the scaling thread pool. Overrides the default provided in `opensearch.yml`.
+
+- `cluster.thread_pool.<scaling-threadpool>.core` (Integer): Specifies the core size of the scaling thread pool. Overrides the default provided in `opensearch.yml`.
+
+
+Before tuning thread pool settings dynamically, note that these are expert-level settings that can potentially destabilize your cluster. Modifying thread pool settings applies the same thread pool size to all nodes, so it's not recommended for clusters with different hardware for the same roles. Similarly, avoid tuning thread pools shared by both data nodes and cluster manager nodes. After making these changes, we recommend monitoring your cluster to ensure that it remains stable and performs as expected.
+{: .warning}
 
 ## Index-level index settings
 
@@ -104,9 +140,6 @@ For `zstd`, `zstd_no_dict`, `qat_lz4`, and `qat_deflate`, you can specify the co
 
 - `index.codec.qatmode` (String): The hardware acceleration mode used for the `qat_lz4` and `qat_deflate` compression codecs. Valid values are `auto` and `hardware`. For more information, see [Index codec settings]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/). Optional. Default is `auto`. 
 
-        
-
-
 - `index.routing_partition_size` (Integer): The number of shards a custom routing value can go to. Routing helps an imbalanced cluster by relocating values to a subset of shards rather than a single shard. To enable routing, set this value to greater than 1 but less than `index.number_of_shards`. Default is 1.
 
 - `index.soft_deletes.retention_lease.period` (Time unit): The maximum amount of time to retain a shard's history of operations. Default is `12h`.
@@ -124,6 +157,8 @@ For `zstd`, `zstd_no_dict`, `qat_lz4`, and `qat_deflate`, you can specify the co
 - `index.merge_on_flush.policy` (default | merge-on-flush): This setting controls which merge policy should be used when `index.merge_on_flush.enabled` is enabled. Default is `default`.
 
 - `index.check_pending_flush.enabled` (Boolean): This setting controls the Apache Lucene `checkPendingFlushOnUpdate` index writer setting, which specifies whether an indexing thread should check for pending flushes on an update in order to flush indexing buffers to disk. Default is `true`.
+
+- `index.use_compound_file` (Boolean): This setting controls the Apache Lucene `useCompoundFile` index writer settings, which specifies whether newly written segment files will be packed into a compound file. Default is `true`.
 
 ### Updating a static index setting
 
@@ -162,7 +197,7 @@ For more information about updating settings, including supported query paramete
 
 OpenSearch supports the following dynamic index-level index settings:
 
-- `index.number_of_replicas` (Integer): The number of replica shards each primary shard should have. For example, if you have 4 primary shards and set `index.number_of_replicas` to 3, the index has 12 replica shards. Default is 1.
+- `index.number_of_replicas` (Integer): The number of replica shards each primary shard should have. For example, if you have 4 primary shards and set `index.number_of_replicas` to 3, the index has 12 replica shards. If not set, defaults to `cluster.default_number_of_replicas` (which is `1` by default).
 
 - `index.auto_expand_replicas` (String): Whether the cluster should automatically add replica shards based on the number of data nodes. Specify a lower bound and upper limit (for example, 0--9) or `all` for the upper limit. For example, if you have 5 data nodes and set `index.auto_expand_replicas` to 0--3, then the cluster does not automatically add another replica shard. However, if you set this value to `0-all` and add 2 more nodes for a total of 7, the cluster will expand to now have 6 replica shards. Default is disabled.
 
@@ -199,6 +234,8 @@ OpenSearch supports the following dynamic index-level index settings:
 - `index.query.default_field` (List): A field or list of fields that OpenSearch uses in queries in case a field isn't specified in the parameters.
 
 - `index.query.max_nested_depth` (Integer): The maximum number of nesting levels for `nested` queries. Default is `Integer.MAX_VALUE`. Minimum is 1 (single `nested` query).
+
+- `index.requests.cache.enable` (Boolean): Enables or disables the index request cache. Default is `true`. For more information, see [Index request cache]({{site.url}}{{site.baseurl}}/search-plugins/caching/request-cache/).
 
 - `index.routing.allocation.enable` (String): Specifies options for the index’s shard allocation. Available options are `all` (allow allocation for all shards), `primaries` (allow allocation only for primary shards), `new_primaries` (allow allocation only for new primary shards), and `none` (do not allow allocation). Default is `all`.
 

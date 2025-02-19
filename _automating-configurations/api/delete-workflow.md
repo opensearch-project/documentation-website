@@ -7,11 +7,13 @@ nav_order: 80
 
 # Delete a workflow
 
-When you no longer need a workflow template, you can delete it by calling the Delete Workflow API. 
+When you no longer need a workflow template, you can delete it by calling the Delete Workflow API.
 
-Note that deleting a workflow only deletes the stored template but does not deprovision its resources.  
+Note that deleting a workflow only deletes the stored template---it does not deprovision its resources.
 
-## Path and HTTP methods
+When a workflow is deleted, its corresponding status (returned by the [Workflow State API]({{site.url}}{{site.baseurl}}/automating-configurations/api/get-workflow-status/)) is also deleted unless either the provisioning status is `IN_PROGRESS` or resources have been provisioned.
+
+## Endpoints
 
 ```json
 DELETE /_plugins/_flow_framework/workflow/<workflow_id>
@@ -25,10 +27,23 @@ The following table lists the available path parameters.
 | :--- | :--- | :--- |
 | `workflow_id` | String | The ID of the workflow to be retrieved. Required. |
 
+## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `clear_status` | Boolean | Determines whether to delete the workflow state (without deprovisioning resources) after deleting the template. OpenSearch deletes the workflow state only if the provisioning status is not `IN_PROGRESS`. Default is `false`. |
+
 #### Example request
 
-```
+```json
 DELETE /_plugins/_flow_framework/workflow/8xL8bowB8y25Tqfenm50
+```
+{% include copy-curl.html %}
+
+```json
+DELETE /_plugins/_flow_framework/workflow/8xL8bowB8y25Tqfenm50?clear_status=true
 ```
 {% include copy-curl.html %}
 

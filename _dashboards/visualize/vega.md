@@ -1,192 +1,137 @@
 ---
 layout: default
-title: Using Vega
+title: Vega
 parent: Building data visualizations
-nav_order: 45
+nav_order: 50
 ---
 
-# Using Vega
+# Vega
 
-[Vega](https://vega.github.io/vega/) and [Vega-Lite](https://vega.github.io/vega-lite/) are open-source, declarative language visualization tools that you can use to create custom data visualizations with your OpenSearch data and [Vega Data](https://vega.github.io/vega/docs/data/). These tools are ideal for advanced users comfortable with writing OpenSearch queries directly. Enable the `vis_type_vega` plugin in your `opensearch_dashboards.yml` file to write your [Vega specifications](https://vega.github.io/vega/docs/specification/) in either JSON or [HJSON](https://hjson.github.io/) format or to specify one or more OpenSearch queries within your Vega specification. By default, the plugin is set to `true`. The configuration is shown in the following example. For configuration details, refer to the `vis_type_vega` [README](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/src/plugins/vis_type_vega/README.md).
+[Vega](https://vega.github.io/vega/) and [Vega-Lite](https://vega.github.io/vega-lite/) are open-source, declarative language visualization tools that you can use to create custom data visualizations with your OpenSearch data and [Vega data](https://vega.github.io/vega/docs/data/). These tools are ideal for advanced users comfortable with writing OpenSearch queries directly. Enable the `vis_type_vega` plugin in your `opensearch_dashboards.yml` file to write your [Vega specifications](https://vega.github.io/vega/docs/specification/) in either JSON or [HJSON](https://hjson.github.io/) format or to specify one or more OpenSearch queries in your Vega specification. By default, the plugin is set to `true`. 
+
+## Creating Vega visualizations from multiple data sources
+Introduced 2.13
+{: .label .label-purple }
+
+Before proceeding, ensure that the following configuration settings are enabled in the `config/opensearch_dasboards.yaml` file. For configuration details, refer to the `vis_type_vega` [README](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/src/plugins/vis_type_vega/README.md).
 
 ```
+data_source.enabled: true
 vis_type_vega.enabled: true
 ```
 
-The following image shows a custom Vega map created in OpenSearch.
+After you have configured [multiple data sources]({{site.url}}{{site.baseurl}}/dashboards/management/multi-data-sources/) in OpenSearch Dashboards, you can use Vega to query those data sources. The following GIF shows the process of creating Vega visualizations in OpenSearch Dashboards.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/vega-2.png" alt="Map created using Vega visualization in OpenSearch Dashboards">
+![Process of creating Vega visualizations in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/dashboards/configure-vega.gif)
 
-## Querying from multiple data sources
+### Step 1: Set up and connect data sources
 
-If you have configured [multiple data sources]({{site.url}}{{site.baseurl}}/dashboards/management/multi-data-sources/) in OpenSearch Dashboards, you can use Vega to query those data sources. Within your Vega specification, add the `data_source_name` field under the `url` property to target a specific data source by name. By default, queries use data from the local cluster. You can assign individual `data_source_name` values to each OpenSearch query within your Vega specification. This allows you to query multiple indexes across different data sources in a single visualization.
+Open OpenSearch Dashboards and follow these steps:
 
-The following is an example Vega specification with `Demo US Cluster` as the specified `data_source_name`:
+1. Select **Dashboards Management** from the menu on the left.
+2. Select **Data sources** and then select the **Create data source** button.
+3. On the **Create data source** page, enter the connection details and endpoint URL, as shown in the following GIF.
+4. On the **Home page**, select **Add sample data**. Under **Data source**, select your newly created data source, and then select the **Add data button** for the **Sample web logs** dataset.
 
-```
+The following GIF shows the steps required for setting up and connecting a data source.
+
+![Setting up and connecting data sources with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/dashboards/Add_datasource.gif)
+
+### Step 2: Create the visualization
+
+1. From the menu on the left, select **Visualize**.
+2. On the **Visualizations** page, select **Create Visualization** and then select **Vega** in the pop-up window.
+
+### Step 3: Add the Vega specification
+
+By default, queries use data from the local cluster. You can assign individual `data_source_name` values to each OpenSearch query in your Vega specification. This allows you to query multiple indexes across different data sources in a single visualization.
+
+1. Verify that the data source you created is specified under `data_source_name`. Alternatively, in your Vega specification, add the `data_source_name` field under the `url` property to target a specific data source by name.
+2. Copy the following Vega specification and then select the **Update** button in the lower-right corner. The visualization should appear. 
+
+```json
 {
-  $schema: https://vega.github.io/schema/vega/v5.json
-  config: {
-    kibana: {type: "map", latitude: 25, longitude: -70, zoom: 3}
-  }
-  data: [
-    {
-      name: table
-      url: {
-        index: opensearch_dashboards_sample_data_flights
-        // This OpenSearchQuery will query from the Demo US Cluster datasource
-        data_source_name: Demo US Cluster
-        %context%: true
-        // Uncomment to enable time filtering
-        // %timefield%: timestamp
-        body: {
-          size: 0
-          aggs: {
-            origins: {
-              terms: {field: "OriginAirportID", size: 10000}
-              aggs: {
-                originLocation: {
-                  top_hits: {
-                    size: 1
-                    _source: {
-                      includes: ["OriginLocation", "Origin"]
-                    }
-                  }
-                }
-                distinations: {
-                  terms: {field: "DestAirportID", size: 10000}
-                  aggs: {
-                    destLocation: {
-                      top_hits: {
-                        size: 1
-                        _source: {
-                          includes: ["DestLocation"]
-                        }
-                      }
-                    }
-                  }
+  $schema: https://vega.github.io/schema/vega-lite/v5.json
+  data: {
+    url: {
+      %context%: true
+      %timefield%: @timestamp
+      index: opensearch_dashboards_sample_data_logs
+      data_source_name: YOUR_DATA_SOURCE_TITLE
+      body: {
+        aggs: {
+          1: {
+            date_histogram: {
+              field: @timestamp
+              fixed_interval: 3h
+              time_zone: America/Los_Angeles
+              min_doc_count: 1
+            }
+            aggs: {
+              2: {
+                avg: {
+                  field: bytes
                 }
               }
             }
           }
         }
+        size: 0
       }
-      format: {property: "aggregations.origins.buckets"}
-      transform: [
-        {
-          type: geopoint
-          projection: projection
-          fields: [
-            originLocation.hits.hits[0]._source.OriginLocation.lon
-            originLocation.hits.hits[0]._source.OriginLocation.lat
-          ]
-        }
-      ]
+    }
+    format: {
+      property: aggregations.1.buckets
+    }
+  }
+  transform: [
+    {
+      calculate: datum.key
+      as: timestamp
     }
     {
-      name: selectedDatum
-      on: [
-        {trigger: "!selected", remove: true}
-        {trigger: "selected", insert: "selected"}
-      ]
+      calculate: datum[2].value
+      as: bytes
     }
   ]
-  signals: [
+  layer: [
     {
-      name: selected
-      value: null
-      on: [
-        {events: "@airport:mouseover", update: "datum"}
-        {events: "@airport:mouseout", update: "null"}
-      ]
-    }
-  ]
-  scales: [
-    {
-      name: airportSize
-      type: linear
-      domain: {data: "table", field: "doc_count"}
-      range: [
-        {signal: "zoom*zoom*0.2+1"}
-        {signal: "zoom*zoom*10+1"}
-      ]
-    }
-  ]
-  marks: [
-    {
-      type: group
-      from: {
-        facet: {
-          name: facetedDatum
-          data: selectedDatum
-          field: distinations.buckets
-        }
+      mark: {
+        type: line
       }
-      data: [
-        {
-          name: facetDatumElems
-          source: facetedDatum
-          transform: [
-            {
-              type: geopoint
-              projection: projection
-              fields: [
-                destLocation.hits.hits[0]._source.DestLocation.lon
-                destLocation.hits.hits[0]._source.DestLocation.lat
-              ]
-            }
-            {type: "formula", expr: "{x:parent.x, y:parent.y}", as: "source"}
-            {type: "formula", expr: "{x:datum.x, y:datum.y}", as: "target"}
-            {type: "linkpath", shape: "diagonal"}
-          ]
-        }
-      ]
-      scales: [
-        {
-          name: lineThickness
-          type: log
-          clamp: true
-          range: [1, 8]
-        }
-        {
-          name: lineOpacity
-          type: log
-          clamp: true
-          range: [0.2, 0.8]
-        }
-      ]
-      marks: [
-        {
-          from: {data: "facetDatumElems"}
-          type: path
-          interactive: false
-          encode: {
-            update: {
-              path: {field: "path"}
-              stroke: {value: "black"}
-              strokeWidth: {scale: "lineThickness", field: "doc_count"}
-              strokeOpacity: {scale: "lineOpacity", field: "doc_count"}
-            }
-          }
-        }
-      ]
     }
     {
-      name: airport
-      type: symbol
-      from: {data: "table"}
-      encode: {
-        update: {
-          size: {scale: "airportSize", field: "doc_count"}
-          xc: {signal: "datum.x"}
-          yc: {signal: "datum.y"}
-          tooltip: {
-            signal: "{title: datum.originLocation.hits.hits[0]._source.Origin + ' (' + datum.key + ')', connnections: length(datum.distinations.buckets), flights: datum.doc_count}"
-          }
-        }
+      mark: {
+        type: circle
+        tooltip: true
       }
     }
   ]
+  encoding: {
+    x: {
+      field: timestamp
+      type: temporal
+      axis: {
+        title: @timestamp
+      }
+    }
+    y: {
+      field: bytes
+      type: quantitative
+      axis: {
+        title: Average bytes
+      }
+    }
+    color: {
+      datum: Average bytes
+      type: nominal
+    }
+  }
 }
 ```
 {% include copy-curl.html %}
+
+## Additional resources
+
+The following resources provide additional information about Vega visualizations in OpenSearch Dashboards:
+
+- [Improving ease of use in OpenSearch Dashboards with Vega visualizations](https://opensearch.org/blog/Improving-Dashboards-usability-with-Vega/)

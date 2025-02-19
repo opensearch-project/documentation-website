@@ -16,6 +16,12 @@ To learn more about repositories, see [Register repository]({{site.url}}{{site.b
 You can also get details about a snapshot during and after snapshot creation. See [Get snapshot status]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot-status/).
 {: .note}
 
+## Endpoints
+
+```json
+GET /_snapshot/<repository>
+```
+
 ## Path parameters
 
 | Parameter | Data type | Description |
@@ -27,9 +33,9 @@ You can also get details about a snapshot during and after snapshot creation. Se
 | Parameter | Data type | Description | 
 :--- | :--- | :---
 | local | Boolean | Whether to get information from the local node. Optional, defaults to `false`.|
-| cluster_manager_timeout | Time | Amount of time to wait for a connection to the master node. Optional, defaults to 30 seconds. |
+| cluster_manager_timeout | Time | Amount of time to wait for a connection to the cluster manager node. Optional, defaults to 30 seconds. |
 
-#### Example request
+## Example request
 
 The following request retrieves information for the `my-opensearch-repo` repository:
 
@@ -38,7 +44,7 @@ GET /_snapshot/my-opensearch-repo
 ````
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 Upon success, the response returns repositry information. This sample is for an `s3` repository type.
 
@@ -54,7 +60,7 @@ Upon success, the response returns repositry information. This sample is for an 
 }
 ````
 
-## Response fields
+## Response body fields
 
 | Field | Data type | Description |
 | :--- | :--- | :--- | 

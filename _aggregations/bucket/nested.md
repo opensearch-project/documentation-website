@@ -2,7 +2,6 @@
 layout: default
 title: Nested
 parent: Bucket aggregations
-grand_parent: Aggregations
 nav_order: 140
 redirect_from:
   - /query-dsl/aggregations/bucket/nested/
@@ -97,8 +96,8 @@ GET logs/_search
 "aggregations" : {
   "pages" : {
     "doc_count" : 2,
-    "min_price" : {
-      "value" : 200.0
+    "min_load_time" : {
+      "value" : 200
     }
   }
  }

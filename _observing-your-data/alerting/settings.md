@@ -51,12 +51,20 @@ Setting | Default | Description
 `plugins.alerting.alert_history_max_age` | 30d | The oldest document to store in the `.opendistro-alert-history-<date>` index before creating a new index. If the number of alerts in this time period does not exceed `alert_history_max_docs`, alerting creates one history index per period (e.g. one index every 30 days).
 `plugins.alerting.alert_history_max_docs` | 1000 | The maximum number of alerts to store in the `.opendistro-alert-history-<date>` index before creating a new index.
 `plugins.alerting.alert_history_enabled` | true | Whether to create `.opendistro-alerting-alert-history-<date>` indexes.
-`plugins.alerting.alert_history_retention_period` | 60d | The amount of time to keep history indexes before automatically deleting them.
+`plugins.alerting.alert_history_retention_period` | 60d | The amount of time to store history indexes before automatically deleting them.
 `plugins.alerting.destination.allow_list` | ["chime", "slack", "custom_webhook", "email", "test_action"] | The list of allowed destinations. If you don't want to allow users to a certain type of destination, you can remove it from this list, but we recommend leaving this setting as-is.
 `plugins.alerting.filter_by_backend_roles` | "false" | Restricts access to monitors by backend role. See [Alerting security]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/security/).
-`plugins.alerting.cross_cluster_monitoring_enabled` | "false" | Toggles whether cluster metrics monitors support running against remote clusters.
+`plugins.alerting.cross_cluster_monitoring_enabled` | "true" | Toggles whether cluster metrics monitors support running against remote clusters.
 `plugins.scheduled_jobs.sweeper.period` | 5m | The alerting feature uses its "job sweeper" component to periodically check for new or updated jobs. This setting is the rate at which the sweeper checks to see if any jobs (monitors) have changed and need to be rescheduled.
 `plugins.scheduled_jobs.sweeper.page_size` | 100 | The page size for the sweeper. You shouldn't need to change this value.
 `plugins.scheduled_jobs.sweeper.backoff_millis` | 50ms | The amount of time the sweeper waits between retries---increases exponentially after each failed retry.
 `plugins.scheduled_jobs.sweeper.retry_count` | 3 | The total number of times the sweeper should retry before throwing an error.
 `plugins.scheduled_jobs.request_timeout` | 10s | The timeout for the request that sweeps shards for jobs.
+`plugins.alerting.comments_enabled` | `false` | Enables or disables comments for the Alerting plugin.
+`plugins.alerting.comments_history_max_docs` | 1000 | The maximum number of comments to store in the `.opensearch-alerting-comments-history-<date>` index before creating a new index.
+`plugins.alerting.comments_history_max_age` | 30d | The oldest document to store in an `.opensearch-alerting-comments-history-<date>` index before creating a new one. If the number of comments in the specified time period does not exceed `comments_history_max_docs`, then 1 index is created per period (for example, 1 every 30 days).
+`plugins.alerting.comments_history_rollover_period` | 12h | How often to determine whether the `.opensearch-alerting-comments-history-write` alias should roll over to a new index and delete old comment history indexes.
+`plugins.alerting.comments_history_retention_period` | 60d | The amount of time to keep comment history indexes before automatic deletion.
+`plugins.alerting.max_comment_character_length` | 2000 | The maximum character length of a comment.
+`plugins.alerting.max_comments_per_alert` | 500 | The maximum number of comments that can be posted on an alert.
+`plugins.alerting.max_comments_per_notification` | 3 | The maximum number of comments per alert to include in the `ctx` Mustache template variable for alert notifications.

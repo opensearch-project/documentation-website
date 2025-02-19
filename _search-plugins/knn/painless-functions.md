@@ -3,7 +3,6 @@ layout: default
 title: k-NN Painless extensions
 nav_order: 25
 parent: k-NN search
-grand_parent: Search methods
 has_children: false
 has_math: true
 ---
@@ -42,6 +41,7 @@ GET my-knn-index-2/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 `field` needs to map to a `knn_vector` field, and `query_value` needs to be a floating point array with the same dimension as `field`.
 
@@ -51,8 +51,12 @@ The following table describes the available painless functions the k-NN plugin p
 Function name | Function signature | Description
 :--- | :---
 l2Squared | `float l2Squared (float[] queryVector, doc['vector field'])` | This function calculates the square of the L2 distance (Euclidean distance) between a given query vector and document vectors. The shorter the distance, the more relevant the document is, so this example inverts the return value of the l2Squared function. If the document vector matches the query vector, the result is 0, so this example also adds 1 to the distance to avoid divide by zero errors.
-l1Norm | `float l1Norm (float[] queryVector, doc['vector field'])` | This function calculates the square of the L2 distance (Euclidean distance) between a given query vector and document vectors. The shorter the distance, the more relevant the document is, so this example inverts the return value of the l2Squared function. If the document vector matches the query vector, the result is 0, so this example also adds 1 to the distance to avoid divide by zero errors.
+l1Norm | `float l1Norm (float[] queryVector, doc['vector field'])` | This function calculates the L1 Norm distance (Manhattan distance) between a given query vector and document vectors.
 cosineSimilarity | `float cosineSimilarity (float[] queryVector, doc['vector field'])` | Cosine similarity is an inner product of the query vector and document vector normalized to both have a length of 1. If the magnitude of the query vector doesn't change throughout the query, you can pass the magnitude of the query vector to improve performance, instead of calculating the magnitude every time for every filtered document:<br /> `float cosineSimilarity (float[] queryVector, doc['vector field'], float normQueryVector)` <br />In general, the range of cosine similarity is [-1, 1]. However, in the case of information retrieval, the cosine similarity of two documents ranges from 0 to 1 because the tf-idf statistic can't be negative. Therefore, the k-NN plugin adds 1.0 in order to always yield a positive cosine similarity score.
+hamming | `float hamming (float[] queryVector, doc['vector field'])` | This function calculates the Hamming distance between a given query vector and document vectors. The Hamming distance is the number of positions at which the corresponding elements are different. The shorter the distance, the more relevant the document is, so this example inverts the return value of the Hamming distance.
+
+The `hamming` space type is supported for binary vectors in OpenSearch version 2.16 and later. For more information, see [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-vectors).
+{: .note}
 
 ## Constraints
 
@@ -68,7 +72,5 @@ cosineSimilarity | `float cosineSimilarity (float[] queryVector, doc['vector fie
 
    Because scores can only be positive, this script ranks documents with vector fields higher than those without.
 
-With cosine similarity, it is not valid to pass a zero vector (`[0, 0, ...`]) as input. This is because the magnitude of
-such a vector is 0, which raises a `divide by 0` exception when computing the value. Requests
-containing the zero vector will be rejected and a corresponding exception will be thrown.
+With cosine similarity, it is not valid to pass a zero vector (`[0, 0, ...]`) as input. This is because the magnitude of such a vector is 0, which raises a `divide by 0` exception in the corresponding formula. Requests containing the zero vector will be rejected, and a corresponding exception will be thrown.
 {: .note }

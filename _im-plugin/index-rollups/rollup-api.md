@@ -105,8 +105,8 @@ Options | Description | Type | Required
 `schedule.interval.cron.expression` | Specify a Unix cron expression. | String | Yes
 `schedule.interval.cron.timezone` | Specify timezones as defined by the IANA Time Zone Database. Defaults to UTC. | String | No
 `description` | Optionally, describe the rollup job. | String | No
-`enabled` | When true, the index rollup job is scheduled. Default is true. | Boolean | Yes
-`continuous` | Specify whether or not the index rollup job continuously rolls up data forever or just executes over the current data set once and stops. Default is false. | Boolean | Yes
+`enabled` | When true, the index rollup job is scheduled. Default is `true`. | Boolean | Yes
+`continuous` | Specify whether or not the index rollup job continuously rolls up data forever or executes over the current dataset once and stops. Default is `false`. | Boolean | Yes
 `error_notification` | Set up a Mustache message template for error notifications. For example, if an index rollup job fails, the system sends a message to a Slack channel. | Object | No
 `page_size` | Specify the number of buckets to paginate at a time during rollup. | Number | Yes
 `delay` | The number of milliseconds to delay execution of the index rollup job. | Long | No

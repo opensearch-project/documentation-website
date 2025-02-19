@@ -11,25 +11,11 @@ redirect_from:
 
 Use the Alerting API to programmatically create, update, and manage monitors and alerts. For APIs that support the composite monitor specifically, see [Managing composite monitors with the API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/composite-monitors/#managing-composite-monitors-with-the-api). 
 
----
-
-<details markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-- TOC
-{:toc}
-</details>
-
----
-
 ## Create a query-level monitor
 
-Query-level monitors run the query and check whether or not the results should trigger an alert. Query-level monitors can only trigger one alert at a time. For more information about query-level monitors and bucket-level monitors, see [Creating monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/).
+Query-level monitors run the query and determine whether or not the results should trigger an alert. Query-level monitors can only trigger one alert at a time. For more information about query-level and bucket-level monitors, see [Creating monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/).
 
 #### Example request
-
 ```json
 POST _plugins/_alerting/monitors
 {
@@ -92,9 +78,11 @@ POST _plugins/_alerting/monitors
   }]
 }
 ```
+{% include copy-curl.html %}
 
-If you use a custom webhook for your destination and need to embed JSON in the message body, be sure to escape your quotes:
 
+If you use a custom webhook for your destination and need to embed JSON in the message body, be sure to escape the quotation marks:
+ 
 ```json
 {
   "message_template": {
@@ -102,13 +90,14 @@ If you use a custom webhook for your destination and need to embed JSON in the m
   }
 }
 ```
+{% include copy-curl.html %}
+
 
 Optionally, to specify a backend role, you can add the `rbac_roles` parameter and backend role names to the bottom of your create monitor request.
 
+The following request creates a query-level monitor and provides two backend roles, `role1` and `role2`. The section at the bottom of the request shows the line that specifies the roles with this syntax: `"rbac_roles": ["role1", "role2"]`. To learn about using backend roles to limit access, see [(Advanced) Limit access by backend role]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/security/#advanced-limit-access-by-backend-role).
+ 
 #### Example request
-
-The following request creates a query-level monitor and provides two backend roles, `role1` and `role2`. The section at the bottom of the request shows the line that specifies the roles with this syntax: `"rbac_roles": ["role1", "role2"]`.
-
 ```json
 POST _plugins/_alerting/monitors
 {
@@ -172,11 +161,16 @@ POST _plugins/_alerting/monitors
   "rbac_roles": ["role1", "role2"]
 }
 ```
+{% include copy-curl.html %}
 
-To learn more about using backend roles to limit access, see [(Advanced) Limit access by backend role]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/security/#advanced-limit-access-by-backend-role).
 
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
+  
 #### Example response
-
 ```json
 {
   "_id": "vd5k2GsBlQ5JUWWFxhsP",
@@ -253,13 +247,14 @@ To learn more about using backend roles to limit access, see [(Advanced) Limit a
   }
 }
 ```
+{% include copy-curl.html %}
 
-If you want to specify a time zone, you can do so by including a [cron expression]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/) with a time zone name in the `schedule` section of your request.
+</details>
 
-The following example creates a monitor that runs at 12:10 PM Pacific Time on the 1st day of every month.
+
+To specify a time zone, you can do so by including a [cron expression]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/) with a time zone name in the `schedule` section of your request. The following example creates a monitor that runs at 12:10 PM Pacific Time on the first day of each month.
 
 #### Example request
-
 ```json
 {
   "type": "monitor",
@@ -321,15 +316,18 @@ The following example creates a monitor that runs at 12:10 PM Pacific Time on th
   }]
 }
 ```
+{% include copy-curl.html %}
 
-For a full list of time zone names, refer to [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). The Alerting plugin uses the Java [TimeZone](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/TimeZone.html) class to convert a [`ZoneId`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/ZoneId.html) to a valid time zone.
+
+For a full list of time zone names, see [List of tz database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). The Alerting plugin uses the Java [TimeZone](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/TimeZone.html) class to convert a [`ZoneId`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/ZoneId.html) to a valid time zone.
 
 ---
 
 ## Bucket-level monitors
 
-Bucket-level monitors categorize results into buckets separated by fields. The monitor then runs your script with each bucket's results and evaluates whether to trigger an alert. For more information about bucket-level and query-level monitors, see [Creating monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/).
+Bucket-level monitors categorize results into buckets separated by fields. The monitor then runs the script with each bucket's results and evaluates whether to trigger an alert. For more information about bucket-level and query-level monitors, see [Creating monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/).
 
+#### Example request
 ```json
 POST _plugins/_alerting/monitors
 {
@@ -444,7 +442,15 @@ POST _plugins/_alerting/monitors
   ]
 }
 ```
+{% include copy-curl.html %}
 
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
+ 
 #### Example response
 ```json
 {
@@ -584,6 +590,12 @@ POST _plugins/_alerting/monitors
   }
 }
 ```
+{% include copy-curl.html %}
+
+</details>
+
+---
+
 ## Document-level monitors
 Introduced 2.0
 {: .label .label-purple }
@@ -601,17 +613,18 @@ To retrieve any available findings, send a GET request without any path paramete
 ```json
 GET /_plugins/_alerting/findings/_search?
 ```
-
+{% include copy-curl.html %}
 
 To retrieve metadata for an individual document finding entry, you can search for the finding by its `findingId` as follows:
 
 ```json
 GET /_plugins/_alerting/findings/_search?findingId=gKQhj8WJit3BxjGfiOXC
 ```
+{% include copy-curl.html %}
 
 The response returns the number of individual finding entries in the `total_findings` field.
 
-To get more specific results in a findings search, you can use any of the optional path parameters that are defined in the following table:
+To get more specific results in a findings search, you can use any of the optional path parameters defined in the following table.
 
 Path parameter | Description | Usage
 :--- | :--- : :---
@@ -624,10 +637,9 @@ Path parameter | Description | Usage
 
 ### Create a document-level monitor
 
-You can create a document-level monitor with a POST request that provides the monitor details in the request body.
-At a minimum, you need to provide the following details: specify the queries or combinations by tag with the `inputs` field, a valid trigger condition, and provide the notification message in the `action` field.
+You can create a document-level monitor with a POST request that provides the monitor details in the request body. At a minimum, you need to provide the following details: specify the queries or combinations by tag with the `inputs` field, a valid trigger condition, and provide the notification message in the `action` field.
 
-The following table shows the syntax to use for each trigger option:
+The following table provides the syntax to use for each trigger option.
 
 Trigger options | Definition | Syntax
 :--- | :--- : :---
@@ -635,10 +647,8 @@ Tag | Creates alerts for documents that match a multiple query with this tag app
 Query by name | Creates alerts for documents matched or returned by the named query.  | `query[name=<query-name>]`
 Query by ID | Creates alerts for documents that were returned by the identified query. | `query[id=<query-id>]`
 
+
 #### Example request
-
-The following example shows how to create a document-level monitor:
-
 ```json
 POST _plugins/_alerting/monitors
 {
@@ -722,18 +732,20 @@ POST _plugins/_alerting/monitors
 }
 
 ```
+{% include copy-curl.html %}
+
 
 ### Limitations
 
 If you run a document-level query while the index is getting reindexed, the API response will not return the reindexed results. To get updates, wait until the reindexing process completes, then rerun the query.
-{: .tip}
+
+---
 
 ## Update monitor
 
-When updating a monitor, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing monitor or the monitor doesn't exist, the Alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
+When updating a monitor, you can optionally include `seq_no` and `primary_term` as parameters. If these numbers do not match the existing monitor or the monitor does not exist, the Alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
 
-#### Request
-
+#### Example request
 ```json
 PUT _plugins/_alerting/monitors/<monitor_id>
 {
@@ -839,9 +851,16 @@ PUT _plugins/_alerting/monitors/<monitor_id>?if_seq_no=3&if_primary_term=1
   "last_update_time": 1551466639295
 }
 ```
+{% include copy-curl.html %}
+
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
 
 #### Example response
-
 ```json
 {
   "_id": "Q9aXOmkBC25HCRGmzfw-",
@@ -900,20 +919,30 @@ PUT _plugins/_alerting/monitors/<monitor_id>?if_seq_no=3&if_primary_term=1
   }
 }
 ```
+{% include copy-curl.html %}
 
+</details>
 
 ---
 
 ## Get monitor
 
-#### Request
+Retrieve the details of a specific monitor using the following request.
 
+#### Example request
 ```
 GET _plugins/_alerting/monitors/<monitor_id>
 ```
+{% include copy-curl.html %}
+
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
 
 #### Example response
-
 ```json
 {
   "_id": "Q9aXOmkBC25HCRGmzfw-",
@@ -972,7 +1001,9 @@ GET _plugins/_alerting/monitors/<monitor_id>
   }
 }
 ```
+{% include copy-curl.html %}
 
+</details>
 
 ---
 
@@ -980,17 +1011,23 @@ GET _plugins/_alerting/monitors/<monitor_id>
 
 Returns statistics about the alerting feature. Use `_plugins/_alerting/stats` to find node IDs and metrics. Then you can drill down using those values.
 
-#### Request
-
+#### Example request
 ```json
 GET _plugins/_alerting/stats
 GET _plugins/_alerting/stats/<metric>
 GET _plugins/_alerting/<node-id>/stats
 GET _plugins/_alerting/<node-id>/stats/<metric>
 ```
+{% include copy-curl.html %}
+
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
 
 #### Example response
-
 ```json
 {
   "_nodes": {
@@ -1161,20 +1198,30 @@ GET _plugins/_alerting/<node-id>/stats/<metric>
   }
 }
 ```
+{% include copy-curl.html %}
 
+</details>
 
 ---
 
 ## Delete monitor
 
-#### Request
+Delete a monitor using the following request.
 
+#### Example request
 ```
 DELETE _plugins/_alerting/monitors/<monitor_id>
 ```
+{% include copy-curl.html %}
 
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
+  
 #### Example response
-
 ```json
 {
   "_index": ".opensearch-scheduled-jobs",
@@ -1191,14 +1238,17 @@ DELETE _plugins/_alerting/monitors/<monitor_id>
   "_primary_term": 1
 }
 ```
+{% include copy-curl.html %}
 
+</details>
 
 ---
 
 ## Search monitors
 
-#### Request
+Query and retrieve information about existing monitors based on specific criteria, such as the monitor name, using the following request.
 
+#### Example request
 ```json
 GET _plugins/_alerting/monitors/_search
 {
@@ -1209,9 +1259,16 @@ GET _plugins/_alerting/monitors/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
+  
 #### Example response
-
 ```json
 {
   "took": 17,
@@ -1288,7 +1345,9 @@ GET _plugins/_alerting/monitors/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
+</details>
 
 ---
 
@@ -1296,15 +1355,20 @@ GET _plugins/_alerting/monitors/_search
 
 You can add the optional `?dryrun=true` parameter to the URL to show the results of a run without actions sending any message.
 
-
-#### Request
-
+#### Example request
 ```json
 POST _plugins/_alerting/monitors/<monitor_id>/_execute
 ```
+{% include copy-curl.html %}
+
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
 
 #### Example response
-
 ```json
 {
   "monitor_name": "logs",
@@ -1321,12 +1385,15 @@ POST _plugins/_alerting/monitors/<monitor_id>/_execute
   }
 }
 ```
+{% include copy-curl.html %}
+
+</details>
 
 ---
 
 ## Get alerts
 
-Returns an array of all alerts.
+Return an array of all alerts.
 
 #### Path parameters
 
@@ -1345,14 +1412,20 @@ The following table lists the available path parameters. All path parameters are
 | `monitorId` | String | Filters by monitor ID.
 | `workflowIds` | String | Allows for monitoring the status of chained alerts from multiple workflows within a single dashboard. Available in OpenSearch 2.9 or later.
 
-#### Request
-
+#### Example request
 ```json
 GET _plugins/_alerting/monitors/alerts
 ```
+{% include copy-curl.html %}
 
-#### Response
 
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
+
+#### Example response
 ```json
 {
   "alerts": [
@@ -1406,25 +1479,34 @@ GET _plugins/_alerting/monitors/alerts
   "totalAlerts": 1
 }
 ```
+{% include copy-curl.html %}
+
+</details>
 
 ---
 
 ## Acknowledge alert
 
-[After getting your alerts](#get-alerts), you can acknowledge any number of active alerts in one call. If the alert is already in an ERROR, COMPLETED, or ACKNOWLEDGED state, it appears in the `failed` array.
+[After getting your alerts](#get-alerts), you can acknowledge any number of active alerts in one call. If the alert is already in an `ERROR`, `COMPLETED`, or `ACKNOWLEDGED` state, it appears in the `failed` array.
 
-
-#### Request
-
+#### Example request
 ```json
 POST _plugins/_alerting/monitors/<monitor-id>/_acknowledge/alerts
 {
   "alerts": ["eQURa3gBKo1jAh6qUo49"]
 }
 ```
+{% include copy-curl.html %}
+
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
+
 
 #### Example response
-
 ```json
 {
   "success": [
@@ -1433,13 +1515,17 @@ POST _plugins/_alerting/monitors/<monitor-id>/_acknowledge/alerts
   "failed": []
 }
 ```
+{% include copy-curl.html %}
+
+</details>
 
 ---
 
 ## Create destination
 
-#### Requests
+Define and configure various destinations for receiving alert notifications using the following request. These destinations can be of different types, such as Slack, custom webhooks, or email, and are used to specify where and how alerts should be delivered.
 
+#### Example request
 ```json
 POST _plugins/_alerting/destinations
 {
@@ -1489,9 +1575,16 @@ POST _plugins/_alerting/destinations
 
 // The email_account_id and email_group_id will be the document IDs of the email_account and email_group you have created.
 ```
+{% include copy-curl.html %}
+
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
 
 #### Example response
-
 ```json
 {
   "_id": "nO-yFmkB8NzS6aXjJdiI",
@@ -1508,16 +1601,17 @@ POST _plugins/_alerting/destinations
   }
 }
 ```
+{% include copy-curl.html %}
 
+</details>
 
 ---
 
 ## Update destination
 
-When updating a destination, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing destination or the destination doesn't exist, the Alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
+When updating a destination, you can optionally include `seq_no` and `primary_term` as parameters. If these numbers do not match the existing destination or the destination doesn't exist, the Alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
 
-#### Request
-
+#### Example request
 ```json
 PUT _plugins/_alerting/destinations/<destination-id>
 {
@@ -1537,9 +1631,16 @@ PUT _plugins/_alerting/destinations/<destination-id>?if_seq_no=3&if_primary_term
   }
 }
 ```
+{% include copy-curl.html %}
+
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
 
 #### Example response
-
 ```json
 {
   "_id": "pe-1FmkB8NzS6aXjqvVY",
@@ -1556,22 +1657,30 @@ PUT _plugins/_alerting/destinations/<destination-id>?if_seq_no=3&if_primary_term
   }
 }
 ```
+{% include copy-curl.html %}
 
+</details>
 
 ---
 
 ## Get destination
 
-Retrieve one destination.
+Retrieve one destination using the following request.
 
-#### Requests
-
+#### Example request
 ```json
 GET _plugins/_alerting/destinations/<destination-id>
 ```
+{% include copy-curl.html %}
+
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
 
 #### Example response
-
 ```json
 {
   "totalDestinations": 1,
@@ -1601,22 +1710,30 @@ GET _plugins/_alerting/destinations/<destination-id>
   ]
 }
 ```
+{% include copy-curl.html %}
 
+</details>
 
 ---
 
 ## Get destinations
 
-Retrieve all destinations.
+Retrieve all destinations using the following request.
 
-#### Requests
-
+#### Example request
 ```json
 GET _plugins/_alerting/destinations
 ```
+{% include copy-curl.html %}
+
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
 
 #### Example response
-
 ```json
 {
   "totalDestinations": 1,
@@ -1646,20 +1763,30 @@ GET _plugins/_alerting/destinations
   ]
 }
 ```
+{% include copy-curl.html %}
 
+</details>
 
 ---
 
 ## Delete destination
 
-#### Request
+Remove a specific destination from the alerting system using the following request.
 
+#### Example request
 ```
 DELETE _plugins/_alerting/destinations/<destination-id>
 ```
+{% include copy-curl.html %}
+
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
 
 #### Example response
-
 ```json
 {
   "_index": ".opendistro-alerting-config",
@@ -1677,11 +1804,17 @@ DELETE _plugins/_alerting/destinations/<destination-id>
   "_primary_term": 1
 }
 ```
+{% include copy-curl.html %}
+
+</details>
+
 ---
 
 ## Create email account
 
-#### Request
+Set up a new email account for sending alert notifications using the following request.
+
+#### Example request
 ```json
 POST _plugins/_alerting/destinations/email_accounts
 {
@@ -1692,6 +1825,14 @@ POST _plugins/_alerting/destinations/email_accounts
   "method": "ssl"
 }
 ```
+{% include copy-curl.html %}
+
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
 
 #### Example response
 ```json
@@ -1710,12 +1851,15 @@ POST _plugins/_alerting/destinations/email_accounts
   }
 }
 ```
+{% include copy-curl.html %}
+
+</details>
 
 ## Update email account
 
-When updating an email account, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing email account or the email account doesn't exist, the Alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
+When updating an email account, you can optionally include `seq_no` and `primary_term` as parameters. If these numbers don't match the existing email account or the email account doesn't exist, the Alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
 
-#### Request
+#### Example request
 ```json
 PUT _plugins/_alerting/destinations/email_accounts/<email_account_id>
 {
@@ -1735,6 +1879,15 @@ PUT _plugins/_alerting/destinations/email_accounts/<email_account_id>?if_seq_no=
   "method": "ssl"
 }
 ```
+{% include copy-curl.html %}
+
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
+
 #### Example response
 ```json
 {
@@ -1752,10 +1905,15 @@ PUT _plugins/_alerting/destinations/email_accounts/<email_account_id>?if_seq_no=
   }
 }
 ```
+{% include copy-curl.html %}
+
+</details>
 
 ## Get email account
 
-#### Request
+Retrieve the details of a specific email account configured for alerting purposes using the following request.
+
+#### Example request
 ```json
 GET _plugins/_alerting/destinations/email_accounts/<email_account_id>
 {
@@ -1766,6 +1924,15 @@ GET _plugins/_alerting/destinations/email_accounts/<email_account_id>
   "method": "ssl"
 }
 ```
+{% include copy-curl.html %}
+
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
+
 #### Example response
 ```json
 {
@@ -1783,15 +1950,28 @@ GET _plugins/_alerting/destinations/email_accounts/<email_account_id>
   }
 }
 ```
+{% include copy-curl.html %}
+
+</details>
 
 ## Delete email account
 
-#### Request
+Remove an existing email account configuration from the alerting system using the following request.
+
+#### Example request
 ```
 DELETE _plugins/_alerting/destinations/email_accounts/<email_account_id>
 ```
-#### Example response
+{% include copy-curl.html %}
 
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
+
+#### Example response
 ```json
 {
   "_index" : ".opendistro-alerting-config",
@@ -1809,11 +1989,15 @@ DELETE _plugins/_alerting/destinations/email_accounts/<email_account_id>
   "_primary_term" : 2
 }
 ```
+{% include copy-curl.html %}
+
+</details>
 
 ## Search email account
 
-#### Request
+Retrieve information about the configured email accounts used for email-based alerting using the following request.
 
+#### Example request
 ```json
 POST _plugins/_alerting/destinations/email_accounts/_search
 {
@@ -1829,9 +2013,16 @@ POST _plugins/_alerting/destinations/email_accounts/_search
   }
 }
 ```
+{% include copy-curl.html %}
+
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
 
 #### Example response
-
 ```json
 {
   "took" : 8,
@@ -1873,13 +2064,17 @@ POST _plugins/_alerting/destinations/email_accounts/_search
   }
 }
 ```
+{% include copy-curl.html %}
+
+</details>
 
 ---
 
 ## Create email group
 
-#### Request
+Define a new group of email recipients for alerts using the following request.
 
+#### Example request
 ```json
 POST _plugins/_alerting/destinations/email_groups
 {
@@ -1889,9 +2084,16 @@ POST _plugins/_alerting/destinations/email_groups
   }]
 }
 ```
+{% include copy-curl.html %}
+
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
 
 #### Example response
-
 ```json
 {
   "_id" : "email_group_id",
@@ -1909,13 +2111,15 @@ POST _plugins/_alerting/destinations/email_groups
   }
 }
 ```
+{% include copy-curl.html %}
+
+</details>
 
 ## Update email group
 
-When updating an email group, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing email group or the email group doesn't exist, the Alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
+When updating an email group, you can optionally include `seq_no` and `primary_term` as parameters. If these numbers don't match the existing email group or the email group doesn't exist, the Alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
 
-#### Request
-
+#### Example request
 ```json
 PUT _plugins/_alerting/destinations/email_groups/<email_group_id>
 {
@@ -1933,8 +2137,16 @@ PUT _plugins/_alerting/destinations/email_groups/<email_group_id>?if_seq_no=16&i
   }]
 }
 ```
-#### Example response
+{% include copy-curl.html %}
 
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
+  
+#### Example response
 ```json
 {
   "_id" : "email_group_id",
@@ -1952,10 +2164,15 @@ PUT _plugins/_alerting/destinations/email_groups/<email_group_id>?if_seq_no=16&i
   }
 }
 ```
+{% include copy-curl.html %}
+
+</details>
 
 ## Get email group
 
-#### Request
+Retrieve the details of a specific email group destination using the following request, passing the ID of the email group you want to fetch.
+
+#### Example request
 ```json
 GET _plugins/_alerting/destinations/email_groups/<email_group_id>
 {
@@ -1965,8 +2182,16 @@ GET _plugins/_alerting/destinations/email_groups/<email_group_id>
   }]
 }
 ```
-#### Example response
+{% include copy-curl.html %}
 
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
+  
+#### Example response
 ```json
 {
   "_id" : "email_group_id",
@@ -1984,15 +2209,28 @@ GET _plugins/_alerting/destinations/email_groups/<email_group_id>
   }
 }
 ```
+{% include copy-curl.html %}
+
+</details>
 
 ## Delete email group
 
-#### Request
+Remove an existing email group from the list of destinations for alerts using the following request.
+
+#### Example request
 ```
 DELETE _plugins/_alerting/destinations/email_groups/<email_group_id>
 ```
-#### Example response
+{% include copy-curl.html %}
 
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
+  
+#### Example response
 ```json
 {
   "_index" : ".opendistro-alerting-config",
@@ -2010,11 +2248,15 @@ DELETE _plugins/_alerting/destinations/email_groups/<email_group_id>
   "_primary_term" : 2
 }
 ```
+{% include copy-curl.html %}
+
+</details>
 
 ## Search email group
 
-#### Request
+Query and retrieve information about existing email groups used for alerting purposes, enabling you to filter and sort the results based on various criteria. An example is shown in the following request.
 
+#### Example request
 ```json
 POST _plugins/_alerting/destinations/email_groups/_search
 {
@@ -2030,9 +2272,16 @@ POST _plugins/_alerting/destinations/email_groups/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
+  
 #### Example response
-
 ```json
 {
   "took" : 7,
@@ -2075,4 +2324,203 @@ POST _plugins/_alerting/destinations/email_groups/_search
   }
 }
 ```
----
+{% include copy-curl.html %}
+
+</details>
+
+## Create comment
+This is an experimental feature and is not recommended for use in a production environment.   
+{: .warning}
+
+Add comments to a specific alert, providing additional context or notes related to that alert, using the following request.
+
+#### Example request
+```json
+POST _plugins/_alerting/comments/<alert-id>
+{
+  "content": "sample comment"
+}
+```
+{% include copy-curl.html %}
+
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
+  
+#### Example response
+```json
+{
+  "_id": "0U6aBJABVWc3FrmWer9s",
+  "_seq_no": 7,
+  "_primary_term": 2,
+  "comment": {
+    "entity_id": "vCZkA5ABWTh3kzuBEL_9",
+    "entity_type": "alert",
+    "content": "sample comment",
+    "created_time": 1718064151148,
+    "last_updated_time": null,
+    "user": "admin"
+  }
+}
+```
+{% include copy-curl.html %}
+
+</details>
+
+## Update comment
+This is an experimental feature and is not recommended for use in a production environment.   
+{: .warning}
+
+Modify the content of a previously added comment associated with an alert using the following request.
+
+#### Example request
+
+```json
+PUT _plugins/_alerting/comments/<comment-id>
+{
+  "content": "sample updated comment"
+}
+```
+{% include copy-curl.html %}
+
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
+  
+#### Example response
+```json
+{
+  "_id": "0U6aBJABVWc3FrmWer9s",
+  "_seq_no": 8,
+  "_primary_term": 3,
+  "comment": {
+    "entity_id": "vCZkA5ABWTh3kzuBEL_9",
+    "entity_type": "alert",
+    "content": "sample updated comment",
+    "created_time": 1718064151148,
+    "last_updated_time": 1718064745485,
+    "user": "admin"
+  }
+}
+```
+{% include copy-curl.html %}
+
+</details>
+
+## Search comment
+This is an experimental feature and is not recommended for use in a production environment.   
+{: .warning}
+
+Query and retrieve existing comments associated with alerts using the following request.
+
+#### Example request
+```json
+GET _plugins/_alerting/comments/_search
+{
+  "query": {
+    "match_all" : {}
+  }
+}
+```
+{% include copy-curl.html %}
+
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
+  
+#### Example response
+```json
+{
+  "took": 14,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 2,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": ".opensearch-alerting-comments-history-2024.06.10-1",
+        "_id": "xE5tBJABVWc3FrmWRL5i",
+        "_version": 1,
+        "_seq_no": 3,
+        "_primary_term": 2,
+        "_score": 1,
+        "_source": {
+          "entity_id": "vCZkA5ABWTh3kzuBEL_9",
+          "entity_type": "alert",
+          "content": "a different sample comment",
+          "created_time": 1718061188191,
+          "last_updated_time": null,
+          "user": "admin"
+        }
+      },
+      {
+        "_index": ".opensearch-alerting-comments-history-2024.06.10-1",
+        "_id": "0U6aBJABVWc3FrmWer9s",
+        "_version": 3,
+        "_seq_no": 9,
+        "_primary_term": 3,
+        "_score": 1,
+        "_source": {
+          "entity_id": "vCZkA5ABWTh3kzuBEL_9",
+          "entity_type": "alert",
+          "content": "sample updated comment",
+          "created_time": 1718064151148,
+          "last_updated_time": 1718064745485,
+          "user": "admin"
+        }
+      }
+    ]
+  }
+}
+```
+{% include copy-curl.html %}
+
+</details>
+
+## Delete comment
+This is an experimental feature and is not recommended for use in a production environment.   
+{: .warning}
+
+Remove a specific comment associated with an alert using the following request.
+
+#### Example request
+```json
+DELETE _plugins/_alerting/comments/<comment-id>
+```
+{% include copy-curl.html %}
+
+
+<details markdown="block">
+  <summary>
+    Select to expand example response
+  </summary>
+  {: .text-delta}
+
+#### Example response
+```json
+{
+  "_id": "0U6aBJABVWc3FrmWer9s"
+}
+```
+{% include copy-curl.html %}
+
+</details>
+

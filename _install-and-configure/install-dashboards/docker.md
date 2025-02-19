@@ -19,8 +19,8 @@ You *can* start OpenSearch Dashboards using `docker run` after [creating a Docke
    Just like `opensearch.yml`, you can pass a custom `opensearch_dashboards.yml` to the container in the Docker Compose file.
    {: .tip }
 
-1. Run `docker-compose up`.
+1. Run `docker compose up`.
 
    Wait for the containers to start. Then see the [OpenSearch Dashboards documentation]({{site.url}}{{site.baseurl}}/dashboards/index/).
 
-1. When finished, run `docker-compose down`.
+1. When finished, run `docker compose down`.

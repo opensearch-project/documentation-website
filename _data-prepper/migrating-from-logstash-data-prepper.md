@@ -3,14 +3,15 @@ layout: default
 title: Migrating from Logstash
 nav_order: 25
 redirect_from: 
+  - /clients/data-prepper/configure-logstash-data-prepper/
   - /data-prepper/configure-logstash-data-prepper/
 ---
 
 # Migrating from Logstash
 
-You can run Data Prepper with a Logstash configuration.
+You can run OpenSearch Data Prepper with a Logstash configuration.
 
-As mentioned in [Getting started with Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/), you'll need to configure Data Prepper with a pipeline using a `pipelines.yaml` file.
+As mentioned in [Getting started with OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/), you'll need to configure Data Prepper with a pipeline using a `pipelines.yaml` file.
 
 Alternatively, if you have a Logstash configuration `logstash.conf` to configure Data Prepper instead of `pipelines.yaml`.
 
@@ -28,7 +29,7 @@ As of the Data Prepper 1.2 release, the following plugins from the Logstash conf
 
 ## Running Data Prepper with a Logstash configuration
 
-1. To install Data Prepper's Docker image, see Installing Data Prepper in [Getting Started with Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started#1-installing-data-prepper).
+1. To install Data Prepper's Docker image, see Installing Data Prepper in [Getting Started with OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started#1-installing-data-prepper).
 
 2. Run the Docker image installed in Step 1 by supplying your `logstash.conf` configuration.
 

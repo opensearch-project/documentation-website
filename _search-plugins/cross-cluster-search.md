@@ -9,7 +9,7 @@ redirect_from:
 
 # Cross-cluster search
 
-You can use the cross-cluster search feature in OpenSearch to search and analyze data across multiple clusters, enabling you to gain insights from distributed data sources. Cross-cluster search is available by default with the Security plugin, but you need to configure each cluster to allow remote connections from other clusters. This involves setting up remote cluster connections and configuring access permissions.
+You can use cross-cluster search (CCS) in OpenSearch to search and analyze data across multiple clusters, enabling you to gain insights from distributed data sources. Cross-cluster search is available by default with the Security plugin, but you need to configure each cluster to allow remote connections from other clusters. This involves setting up remote cluster connections and configuring access permissions.
 
 ---
 
@@ -38,7 +38,7 @@ To query indexes on remote clusters, users must have `READ` or `SEARCH` permissi
 indices:admin/shards/search_shards
 ```
 
-For more information about the `ccs_minimize_roundtrips` parameter, see the list of [URL Parameters]({{site.url}}{{site.baseurl}}/api-reference/search/#url-parameters) for the Search API.
+For more information about the `ccs_minimize_roundtrips` parameter, see the list of [parameters]({{site.url}}{{site.baseurl}}/api-reference/search/#query-parameters) for the Search API.
 
 #### Example roles.yml configuration
 
@@ -61,7 +61,7 @@ humanresources:
 
 ## Sample Docker setup
 
-To define Docker permissions, save the following sample file as `docker-compose.yml` and run `docker-compose up` to start two single-node clusters on the same network:
+To define Docker permissions, save the following sample file as `docker-compose.yml` and run `docker compose up` to start two single-node clusters on the same network:
 
 ```yml
 version: '3'

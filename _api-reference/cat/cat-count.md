@@ -15,7 +15,40 @@ redirect_from:
 
 The CAT count operation lists the number of documents in your cluster.
 
-## Example
+
+<!-- spec_insert_start
+api: cat.count
+component: endpoints
+-->
+## Endpoints
+```json
+GET /_cat/count
+GET /_cat/count/{index}
+```
+<!-- spec_insert_end -->
+
+
+<!-- spec_insert_start
+api: cat.count
+component: query_parameters
+columns: Parameter, Data type, Description, Default
+include_deprecated: false
+-->
+## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | N/A |
+| `h` | List | A comma-separated list of column names to display. | N/A |
+| `help` | Boolean | Returns help information. | `false` |
+| `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
+| `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
+
+<!-- spec_insert_end -->
+
+## Example requests
 
 ```json
 GET _cat/count?v
@@ -36,19 +69,7 @@ GET _cat/count/index_or_alias_1,index_or_alias_2,index_or_alias_3
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
-
-```
-GET _cat/count?v
-GET _cat/count/<index>?v
-```
-
-## URL parameters
-
-All CAT count URL parameters are optional. You can specify any of the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index).
-
-
-## Response
+## Example response
 
 The following response shows the overall document count as 1625:
 

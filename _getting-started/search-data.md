@@ -14,6 +14,8 @@ In OpenSearch, there are several ways to search data:
 - [Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/): The primary language used for observability in OpenSearch. PPL uses a pipe syntax that chains commands into a query.
 - [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/dql/): A simple text-based query language for filtering data in OpenSearch Dashboards. 
 
+This tutorial contains a brief introduction to searching using [query string queries](#query-string-queries) and [query DSL](#query-dsl).
+
 ## Prepare the data
 
 For this tutorial, you'll need to index student data if you haven't done so already. You can start by deleting the `students` index (`DELETE /students`) and then sending the following bulk request:
@@ -104,7 +106,7 @@ OpenSearch returns the matching documents:
 }
 ```
 
-## Response fields
+## Response body fields
 
 The preceding response contains the following fields.
 

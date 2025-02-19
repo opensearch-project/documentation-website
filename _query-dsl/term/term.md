@@ -2,7 +2,6 @@
 layout: default
 title: Term
 parent: Term-level queries
-grand_parent: Query DSL
 nav_order: 70
 ---
 
@@ -42,6 +41,9 @@ GET shakespeare/_search
 }
 ```
 {% include copy-curl.html %}
+
+In OpenSearch 2.x and earlier, complexity can increase exponentially with the number of characters, leading to high heap memory usage and reduced performance. To avoid this, do not use case-insensitive searches. Instead, apply a [lowercase token filter]({{site.url}}{{site.baseurl}}/analyzers/token-filters/lowercase/) in the indexed field's analyzer and use lowercase query terms.
+{: .warning}
 
 The response contains the matching documents despite any differences in case:
 

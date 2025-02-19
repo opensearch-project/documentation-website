@@ -2,7 +2,6 @@
 layout: default
 title: Average
 parent: Metric aggregations
-grand_parent: Aggregations
 nav_order: 10
 redirect_from:
   - /query-dsl/aggregations/metric/average/

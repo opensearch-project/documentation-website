@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Data Prepper 
+title: OpenSearch Data Prepper 
 nav_order: 1
 has_children: false
 has_toc: false
@@ -12,48 +12,30 @@ redirect_from:
   - /data-prepper/index/
 ---
 
-# Data Prepper
+# OpenSearch Data Prepper
 
-Data Prepper is a server-side data collector capable of filtering, enriching, transforming, normalizing, and aggregating data for downstream analysis and visualization. Data Prepper is the preferred data ingestion tool for OpenSearch. It is recommended for most data ingestion use cases in OpenSearch and for processing large, complex datasets.
+OpenSearch Data Prepper is a server-side data collector capable of filtering, enriching, transforming, normalizing, and aggregating data for downstream analysis and visualization. Data Prepper is the preferred data ingestion tool for OpenSearch. It is recommended for most data ingestion use cases in OpenSearch and for processing large, complex datasets.
 
 With Data Prepper you can build custom pipelines to improve the operational view of applications. Two common use cases for Data Prepper are trace analytics and log analytics. [Trace analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/trace-analytics/) can help you visualize event flows and identify performance problems. [Log analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/log-analytics/) equips you with tools to enhance your search capabilities, conduct comprehensive analysis, and gain insights into your applications' performance and behavior.
 
-## Concepts
+## Key concepts and fundamentals
 
-Data Prepper includes one or more **pipelines** that collect and filter data based on the components set within the pipeline. Each component is pluggable, enabling you to use your own custom implementation of each component. These components include the following: 
+Data Prepper ingests data through customizable [pipelines]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines/). These pipelines consist of pluggable components that you can customize to fit your needs, even allowing you to plug in your own implementations. A Data Prepper pipeline consists of the following components: 
 
-- One [source](#source)
-- One or more [sinks](#sink)
-- (Optional) One [buffer](#buffer)
-- (Optional) One or more [processors](#processor)
+- One [source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/sources/)
+- One or more [sinks]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/sinks/)
+- (Optional) One [buffer]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/buffers/buffers/)
+- (Optional) One or more [processors]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/processors/)
 
-A single instance of Data Prepper can have one or more pipelines. 
+Each pipeline contains two required components: `source` and `sink`. If a `buffer`, a `processor`, or both are missing from the pipeline, then Data Prepper uses the default `bounded_blocking` buffer and a no-op processor. Note that a single instance of Data Prepper can have one or more pipelines. 
 
-Each pipeline definition contains two required components: **source** and **sink**. If buffers and processors are missing from the Data Prepper pipeline, Data Prepper uses the default buffer and a no-op processor. 
+## Basic pipeline configurations
 
-### Source 
+To understand how the pipeline components function within a Data Prepper configuration, see the following examples. Each pipeline configuration uses a `yaml` file format. For more information, see [Pipelines]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines/) for more information and examples.
 
-Source is the input component that defines the mechanism through which a Data Prepper pipeline will consume events. A pipeline can have only one source. The source can consume events either by receiving the events over HTTP or HTTPS or by reading from external endpoints like OTeL Collector for traces and metrics and Amazon Simple Storage Service (Amazon S3). Sources have their own configuration options based on the format of the events (such as string, JSON, Amazon CloudWatch logs, or open telemetry trace). The source component consumes events and writes them to the buffer component. 
+### Minimal configuration
 
-### Buffer
-
-The buffer component acts as the layer between the source and the sink. Buffer can be either in-memory or disk based. The default buffer uses an in-memory queue called `bounded_blocking` that is bounded by the number of events. If the buffer component is not explicitly mentioned in the pipeline configuration, Data Prepper uses the default `bounded_blocking`.
-
-### Sink
-
-Sink is the output component that defines the destination(s) to which a Data Prepper pipeline publishes events. A sink destination could be a service, such as OpenSearch or Amazon S3, or another Data Prepper pipeline. When using another Data Prepper pipeline as the sink, you can chain multiple pipelines together based on the needs of the data. Sink contains its own configuration options based on the destination type.
-
-### Processor
-
-Processors are units within the Data Prepper pipeline that can filter, transform, and enrich events using your desired format before publishing the record to the sink component. The processor is not defined in the pipeline configuration; the events publish in the format defined in the source component. You can have more than one processor within a pipeline. When using multiple processors, the processors are run in the order they are defined inside the pipeline specification.
-
-## Sample pipeline configurations
-
-To understand how all pipeline components function within a Data Prepper configuration, see the following examples. Each pipeline configuration uses a `yaml` file format.
-
-### Minimal component
-
-This pipeline configuration reads from the file source and writes to another file in the same path. It uses the default options for the buffer and processor.
+The following minimal pipeline configuration reads from the file source and writes the data to another file on the same path. It uses the default options for the `buffer` and `processor` components.
 
 ```yml
 sample-pipeline:
@@ -65,13 +47,13 @@ sample-pipeline:
         path: <path/to/output-file>
 ```
 
-### All components
+### Comprehensive configuration
 
-The following pipeline uses a source that reads string events from the `input-file`. The source then pushes the data to the buffer, bounded by a max size of `1024`. The pipeline is configured to have `4` workers, each of them reading a maximum of `256` events from the buffer for every `100 milliseconds`. Each worker runs the `string_converter` processor and writes the output of the processor to the `output-file`.
+The following comprehensive pipeline configuration uses both required and optional components:
 
 ```yml
 sample-pipeline:
-  workers: 4 #Number of workers
+  workers: 4 # Number of workers
   delay: 100 # in milliseconds, how often the workers should run
   source:
     file:
@@ -88,9 +70,10 @@ sample-pipeline:
        path: <path/to/output-file>
 ```
 
+In the given pipeline configuration, the `source` component reads string events from the `input-file` and pushes the data to a bounded buffer with a maximum size of `1024`. The `workers` component specifies `4` concurrent threads that will process events from the buffer, each reading a maximum of `256` events from the buffer every `100` milliseconds. Each `workers` component runs the `string_converter` processor, which converts the strings to uppercase and writes the processed output to the `output-file`.
+
 ## Next steps
 
-To get started building your own custom pipelines with Data Prepper, see [Getting started]({{site.url}}{{site.baseurl}}/clients/data-prepper/get-started/).
-
-<!---Delete this comment.--->
-
+- [Getting started with OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/).
+- [Get familiar with Data Prepper pipelines]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines/).
+- [Explore common use cases]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/common-use-cases/). 

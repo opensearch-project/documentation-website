@@ -11,7 +11,7 @@ Introduced 1.0
 
 The Example API ... (descriptive sentence about what this API does).
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /_example/endpoint/
@@ -30,13 +30,13 @@ The following table lists the available path parameters. All path parameters are
 
 The following table lists the available query parameters. All query parameters are optional.
 
-| Parameter | Data type | Description |
+| Parameter |  Data type | Description |
 | :--- | :--- | :--- |
 | `query_parameter` | String | Example query parameter description. Default is ... |
 
-## Request fields
+## Request body fields
 
-The following table lists the available request fields.
+The following table lists the available request body fields.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
@@ -44,7 +44,13 @@ The following table lists the available request fields.
 | `example_object.required_request_field` | Type | Required request field description. Required. |
 | `example_object.optional_request_field` | Type | Optional request field description. Optional. Default is ... |
 
-#### Example request
+## Example request(s)
+
+**TIP:** If multiple examples exist for the request, separate those examples using an `h3` header underneath this section.
+
+### Request with an example object
+
+The following example shows an API request with an example object: 
 
 ```json
 POST /_example/endpoint/
@@ -57,7 +63,21 @@ POST /_example/endpoint/
 ```
 {% include copy-curl.html %}
 
-#### Example response
+### Request without an example object
+
+The following example shows an API request without an example object:
+
+```json
+POST /_example/endpoint/
+```
+{% include copy-curl.html %}
+
+
+## Example response
+
+**TIP:** If multiple examples exist for the request, separate those examples using an `h3` header under this section, similar to the [Example requests](#example-requests).
+
+The following example shows an API response:
 
 <details open markdown="block">
   <summary>
@@ -76,9 +96,9 @@ POST /_example/endpoint/
 ```
 </details>
 
-## Response fields
+## Response body fields
 
-The following table lists all response fields.
+The following table lists all response body fields.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
@@ -87,3 +107,5 @@ The following table lists all response fields.
 ## Required permissions
 
 If you use the Security plugin, make sure you have the appropriate permissions: `cluster:example/permission/name`.
+
+

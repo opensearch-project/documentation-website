@@ -2,7 +2,6 @@
 layout: default
 title: Neural sparse
 parent: Specialized queries
-grand_parent: Query DSL
 nav_order: 55
 ---
 
@@ -12,7 +11,7 @@ Introduced 2.11
 
 Use the `neural_sparse` query for vector field search in [neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/). The query can use either raw text or sparse vector tokens.
 
-## Request fields
+## Request body fields
 
 Include the following request fields in the `neural_sparse` query:
 ### Example: Query by raw text

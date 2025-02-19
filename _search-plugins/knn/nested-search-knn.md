@@ -3,7 +3,6 @@ layout: default
 title: k-NN search with nested fields
 nav_order: 21
 parent: k-NN search
-grand_parent: Search methods
 has_children: false
 has_math: true
 ---
@@ -39,15 +38,19 @@ PUT my-knn-index-1
           "my_vector": {
             "type": "knn_vector",
             "dimension": 3,
+            "space_type": "l2",
             "method": {
               "name": "hnsw",
-              "space_type": "l2",
               "engine": "lucene",
               "parameters": {
                 "ef_construction": 100,
                 "m": 16
               }
             }
+          },
+          "color": {
+            "type": "text",
+            "index": false
           }
         }
       }
@@ -62,9 +65,9 @@ After you create the index, add some data to it:
 ```json
 PUT _bulk?refresh=true
 { "index": { "_index": "my-knn-index-1", "_id": "1" } }
-{"nested_field":[{"my_vector":[1,1,1]},{"my_vector":[2,2,2]},{"my_vector":[3,3,3]}]}
+{"nested_field":[{"my_vector":[1,1,1], "color": "blue"},{"my_vector":[2,2,2], "color": "yellow"},{"my_vector":[3,3,3], "color": "white"}]}
 { "index": { "_index": "my-knn-index-1", "_id": "2" } }
-{"nested_field":[{"my_vector":[10,10,10]},{"my_vector":[20,20,20]},{"my_vector":[30,30,30]}]}
+{"nested_field":[{"my_vector":[10,10,10], "color": "red"},{"my_vector":[20,20,20], "color": "green"},{"my_vector":[30,30,30], "color": "black"}]}
 ```
 {% include copy-curl.html %}
 
@@ -94,7 +97,7 @@ Even though all three vectors nearest to the query vector are in document 1, the
 
 ```json
 {
-  "took": 23,
+  "took": 5,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -107,12 +110,12 @@ Even though all three vectors nearest to the query vector are in document 1, the
       "value": 2,
       "relation": "eq"
     },
-    "max_score": 1,
+    "max_score": 1.0,
     "hits": [
       {
         "_index": "my-knn-index-1",
         "_id": "1",
-        "_score": 1,
+        "_score": 1.0,
         "_source": {
           "nested_field": [
             {
@@ -120,21 +123,24 @@ Even though all three vectors nearest to the query vector are in document 1, the
                 1,
                 1,
                 1
-              ]
+              ],
+              "color": "blue"
             },
             {
               "my_vector": [
                 2,
                 2,
                 2
-              ]
+              ],
+              "color": "yellow"
             },
             {
               "my_vector": [
                 3,
                 3,
                 3
-              ]
+              ],
+              "color": "white"
             }
           ]
         }
@@ -150,23 +156,318 @@ Even though all three vectors nearest to the query vector are in document 1, the
                 10,
                 10,
                 10
-              ]
+              ],
+              "color": "red"
             },
             {
               "my_vector": [
                 20,
                 20,
                 20
-              ]
+              ],
+              "color": "green"
             },
             {
               "my_vector": [
                 30,
                 30,
                 30
-              ]
+              ],
+              "color": "black"
             }
           ]
+        }
+      }
+    ]
+  }
+}
+```
+
+## Inner hits 
+
+When you retrieve documents based on matches in nested fields, by default, the response does not contain information about which inner objects matched the query. Thus, it is not apparent why the document is a match. To include information about the matching nested fields in the response, you can provide the `inner_hits` object in your query. To return only certain fields of the matching documents within `inner_hits`, specify the document fields in the `fields` array. Generally, you should also exclude `_source` from the results to avoid returning the whole document. The following example returns only the `color` inner field of the `nested_field`:
+
+```json
+GET my-knn-index-1/_search
+{
+  "_source": false,
+  "query": {
+    "nested": {
+      "path": "nested_field",
+      "query": {
+        "knn": {
+          "nested_field.my_vector": {
+            "vector": [1,1,1],
+            "k": 2
+          }
+        }
+      },
+      "inner_hits": {
+        "_source": false,
+        "fields":["nested_field.color"]
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response contains matching documents. For each matching document, the `inner_hits` object contains only the `nested_field.color` fields of the matched documents in the `fields` array:
+
+```json
+{
+  "took": 4,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 2,
+      "relation": "eq"
+    },
+    "max_score": 1.0,
+    "hits": [
+      {
+        "_index": "my-knn-index-1",
+        "_id": "1",
+        "_score": 1.0,
+        "inner_hits": {
+          "nested_field": {
+            "hits": {
+              "total": {
+                "value": 1,
+                "relation": "eq"
+              },
+              "max_score": 1.0,
+              "hits": [
+                {
+                  "_index": "my-knn-index-1",
+                  "_id": "1",
+                  "_nested": {
+                    "field": "nested_field",
+                    "offset": 0
+                  },
+                  "_score": 1.0,
+                  "fields": {
+                    "nested_field.color": [
+                      "blue"
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "_index": "my-knn-index-1",
+        "_id": "2",
+        "_score": 0.0040983604,
+        "inner_hits": {
+          "nested_field": {
+            "hits": {
+              "total": {
+                "value": 1,
+                "relation": "eq"
+              },
+              "max_score": 0.0040983604,
+              "hits": [
+                {
+                  "_index": "my-knn-index-1",
+                  "_id": "2",
+                  "_nested": {
+                    "field": "nested_field",
+                    "offset": 0
+                  },
+                  "_score": 0.0040983604,
+                  "fields": {
+                    "nested_field.color": [
+                      "red"
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}
+```
+
+## Retrieving all nested hits
+
+By default, only the highest-scoring nested document is considered when you query nested fields. To retrieve the scores for all nested field documents within each parent document, set `expand_nested_docs` to `true` in your query. The parent document's score is calculated as the average of their scores. To use the highest score among the nested field documents as the parent document's score, set `score_mode` to `max`:
+
+```json
+GET my-knn-index-1/_search
+{
+  "_source": false,
+  "query": {
+    "nested": {
+      "path": "nested_field",
+      "query": {
+        "knn": {
+          "nested_field.my_vector": {
+            "vector": [1,1,1],
+            "k": 2,
+            "expand_nested_docs": true
+          }
+        }
+      },
+      "inner_hits": {
+        "_source": false,
+        "fields":["nested_field.color"]
+      },
+      "score_mode": "max"
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response contains all matching documents:
+
+```json
+{
+  "took": 13,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 2,
+      "relation": "eq"
+    },
+    "max_score": 1.0,
+    "hits": [
+      {
+        "_index": "my-knn-index-1",
+        "_id": "1",
+        "_score": 1.0,
+        "inner_hits": {
+          "nested_field": {
+            "hits": {
+              "total": {
+                "value": 3,
+                "relation": "eq"
+              },
+              "max_score": 1.0,
+              "hits": [
+                {
+                  "_index": "my-knn-index-1",
+                  "_id": "1",
+                  "_nested": {
+                    "field": "nested_field",
+                    "offset": 0
+                  },
+                  "_score": 1.0,
+                  "fields": {
+                    "nested_field.color": [
+                      "blue"
+                    ]
+                  }
+                },
+                {
+                  "_index": "my-knn-index-1",
+                  "_id": "1",
+                  "_nested": {
+                    "field": "nested_field",
+                    "offset": 1
+                  },
+                  "_score": 0.25,
+                  "fields": {
+                    "nested_field.color": [
+                      "blue"
+                    ]
+                  }
+                },
+                {
+                  "_index": "my-knn-index-1",
+                  "_id": "1",
+                  "_nested": {
+                    "field": "nested_field",
+                    "offset": 2
+                  },
+                  "_score": 0.07692308,
+                  "fields": {
+                    "nested_field.color": [
+                      "white"
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "_index": "my-knn-index-1",
+        "_id": "2",
+        "_score": 0.0040983604,
+        "inner_hits": {
+          "nested_field": {
+            "hits": {
+              "total": {
+                "value": 3,
+                "relation": "eq"
+              },
+              "max_score": 0.0040983604,
+              "hits": [
+                {
+                  "_index": "my-knn-index-1",
+                  "_id": "2",
+                  "_nested": {
+                    "field": "nested_field",
+                    "offset": 0
+                  },
+                  "_score": 0.0040983604,
+                  "fields": {
+                    "nested_field.color": [
+                      "blue"
+                    ]
+                  }
+                },
+                {
+                  "_index": "my-knn-index-1",
+                  "_id": "2",
+                  "_nested": {
+                    "field": "nested_field",
+                    "offset": 1
+                  },
+                  "_score": 9.2250924E-4,
+                  "fields": {
+                    "nested_field.color": [
+                      "yellow"
+                    ]
+                  }
+                },
+                {
+                  "_index": "my-knn-index-1",
+                  "_id": "2",
+                  "_nested": {
+                    "field": "nested_field",
+                    "offset": 2
+                  },
+                  "_score": 3.9619653E-4,
+                  "fields": {
+                    "nested_field.color": [
+                      "white"
+                    ]
+                  }
+                }
+              ]
+            }
+          }
         }
       }
     ]
@@ -198,9 +499,9 @@ PUT my-knn-index-1
           "my_vector": {
             "type": "knn_vector",
             "dimension": 3,
+            "space_type": "l2",
             "method": {
               "name": "hnsw",
-              "space_type": "l2",
               "engine": "lucene",
               "parameters": {
                 "ef_construction": 100,

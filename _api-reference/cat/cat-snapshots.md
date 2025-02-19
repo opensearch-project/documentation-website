@@ -2,7 +2,6 @@
 layout: default
 title: CAT snapshots
 parent: CAT API
-
 nav_order: 65
 has_children: false
 redirect_from:
@@ -15,32 +14,53 @@ redirect_from:
 
 The CAT snapshots operation lists all snapshots for a repository.
 
-## Example
+
+<!-- spec_insert_start
+api: cat.snapshots
+component: endpoints
+-->
+## Endpoints
+```json
+GET /_cat/snapshots
+GET /_cat/snapshots/{repository}
+```
+<!-- spec_insert_end -->
+
+
+<!-- spec_insert_start
+api: cat.snapshots
+component: query_parameters
+columns: Parameter, Data type, Description, Default
+include_deprecated: false
+-->
+## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `cluster_manager_timeout` | String | The amount of time allowed to establish a connection to the cluster manager node. | N/A |
+| `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | N/A |
+| `h` | List | A comma-separated list of column names to display. | N/A |
+| `help` | Boolean | Returns help information. | `false` |
+| `ignore_unavailable` | Boolean | When `true`, the response does not include information from unavailable snapshots. | `false` |
+| `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
+| `time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/). <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, `d` | N/A |
+| `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
+
+<!-- spec_insert_end -->
+
+## Example request
+
+The following example request lists all snapshots:
 
 ```
 GET _cat/snapshots?v
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
 
-```
-GET _cat/snapshots
-```
-
-## URL parameters
-
-All CAT snapshots URL parameters are optional.
-
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameter:
-
-Parameter | Type | Description
-:--- | :--- | :---
-cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
-time | Time | Specify the units for time. For example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
-
-
-## Response
+## Example response
 
 ```json
 index | shard | prirep | state   | docs | store | ip |       | node

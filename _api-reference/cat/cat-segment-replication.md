@@ -15,24 +15,72 @@ The CAT segment replication operation returns information about active and last 
 Call the CAT Segment Replication API only on indexes with segment replication enabled.
 {: .note}
 
-## Path and HTTP methods
-
+<!-- spec_insert_start
+api: cat.segment_replication
+component: endpoints
+-->
+## Endpoints
 ```json
 GET /_cat/segment_replication
-GET /_cat/segment_replication/<index>
+GET /_cat/segment_replication/{index}
 ```
+<!-- spec_insert_end -->
 
+<!-- spec_insert_start
+api: cat.segment_replication
+component: path_parameters
+columns: Parameter, Data type, Description
+include_deprecated: false
+-->
 ## Path parameters
 
-The following table lists the available optional path parameter.
+The following table lists the available path parameters. All path parameters are optional.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `index` | List | A comma-separated list of data streams, indexes, and aliases used to limit the request. Supports wildcards (`*`). To target all data streams and indexes, omit this parameter or use `*` or `_all`. |
+
+<!-- spec_insert_end -->
+
+
+<!-- spec_insert_start
+api: cat.segment_replication
+component: query_parameters
+columns: Parameter, Data type, Description, Default
+include_deprecated: false
+-->
+## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `active_only` | Boolean | When `true`, the response only includes ongoing segment replication events. | `false` |
+| `allow_no_indices` | Boolean | Whether to ignore the index if a wildcard index expression resolves to no concrete indexes. This includes the `_all` string or when no indexes have been specified. | N/A |
+| `bytes` | String | The units used to display byte values. <br> Valid values are: `b`, `kb`, `k`, `mb`, `m`, `gb`, `g`, `tb`, `t`, `pb`, `p` | N/A |
+| `completed_only` | Boolean | When `true`, the response only includes the last-completed segment replication events. | `false` |
+| `detailed` | Boolean | When `true`, the response includes additional metrics for each stage of a segment replication event. | `false` |
+| `expand_wildcards` | List or String | Specifies the type of index that wildcard expressions can match. Supports comma-separated values. <br> Valid values are: <br> - `all`: Match any index, including hidden ones. <br> - `closed`: Match closed, non-hidden indexes. <br> - `hidden`: Match hidden indexes. Must be combined with open, closed, or both. <br> - `none`: Wildcard expressions are not accepted. <br> - `open`: Match open, non-hidden indexes. | N/A |
+| `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | N/A |
+| `h` | List | A comma-separated list of column names to display. | N/A |
+| `help` | Boolean | Returns help information. | `false` |
+| `ignore_throttled` | Boolean | Whether specified concrete, expanded, or aliased indexes should be ignored when throttled. | N/A |
+| `ignore_unavailable` | Boolean | Whether the specified concrete indexes should be ignored when missing or closed. | N/A |
+| `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
+| `shards` | List | A comma-separated list of shards to display. | N/A |
+| `time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/). <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, `d` | N/A |
+| `timeout` | String | The operation timeout. | N/A |
+| `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
+
+<!-- spec_insert_end -->
+
+## Path parameters
 
 Parameter | Type | Description
 :--- | :--- | :---
 `index` | String | The name of the index, or a comma-separated list or wildcard expression of index names used to filter results. If this parameter is not provided, the response contains information about all indexes in the cluster.
 
 ## Query parameters
-
-The CAT segment replication API operation supports the following optional query parameters.
 
 Parameter | Data type  | Description
 :--- |:-----------| :---
@@ -47,11 +95,11 @@ Parameter | Data type  | Description
 `v` | Boolean    | If `true`, the response includes column headings. Defaults to `false`.
 `s` | String     | Specifies to sort the results. For example, `s=shardId:desc` sorts by shardId in descending order.
 
-## Example
+## Example requests
 
 The following examples illustrate various segment replication responses.
 
-#### Example 1: No active segment replication events
+### No active segment replication events
 
 The following query requests segment replication metrics with column headings for all indexes:
 
@@ -67,7 +115,7 @@ shardId target_node target_host checkpoints_behind bytes_behind current_lag last
 [index-1][0] runTask-1 127.0.0.1 0 0b 0s 7ms 0
 ```
 
-#### Example 2: Shard ID specified
+###  Shard ID specified
 
 The following query requests segment replication metrics with column headings for shards with the ID `0` from indexes `index1` and `index2`:
 
@@ -84,7 +132,7 @@ shardId target_node target_host checkpoints_behind bytes_behind current_lag last
 [index-2][0] runTask-1 127.0.0.1 0 0b 0s 5ms 0
 ```
 
-#### Example 3: Detailed response
+###  Detailed response
 
 The following query requests detailed segment replication metrics with column headings for all indexes:
 
@@ -101,7 +149,7 @@ shardId target_node target_host checkpoints_behind bytes_behind current_lag last
 [index-2][0] runTask-1 127.0.0.1 0 0b 0s 5ms 0 done 7ms 3 100.0% 3664 100.0% 2023-03-16T13:53:33.466Z 2023-03-16T13:53:33.474Z 3 3 3.5kb 3.5kb 0s 1ms 0s 2ms 2ms
 ```
 
-#### Example 4: Sorting the results
+###  Sorting the results
 
 The following query requests segment replication metrics with column headings for all indexes, sorted by shard ID in descending order:
 
@@ -118,7 +166,7 @@ shardId    target_node  target_host checkpoints_behind bytes_behind current_lag 
 [test6][0] runTask-2   127.0.0.1   0                  0b           0s          4ms                0
 ```
 
-#### Example 5: Using a metric alias 
+### Using a metric alias 
 
 In a request, you can either use a metric's full name or one of its aliases. The following query is the same as the preceding query, but it uses the alias `s` instead of `shardID` for sorting:
 
@@ -127,9 +175,9 @@ GET /_cat/segment_replication?v&s=s:desc
 ```
 {% include copy-curl.html %}
 
-## Response metrics
+## Example response metrics
 
-The following table lists the response metrics that are returned for all requests. When referring to a metric in a query parameter, you can provide either the metric's full name or any of its aliases, as shown in the previous [example](#example-5-using-a-metric-alias).
+The following table lists the response metrics that are returned for all requests. When referring to a metric in a query parameter, you can provide either the metric's full name or any of its aliases, as shown in the previous [example](#using-a-metric-alias).
 
 Metric | Alias | Description
 :--- | :--- | :---

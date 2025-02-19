@@ -24,13 +24,12 @@ The following diagram visualizes how OpenSearch Benchmark works when run against
 
 ![Benchmark workflow]({{site.url}}{{site.baseurl}}/images/benchmark/osb-workflow.jpg).
 
-The OpenSearch Benchmark documentation is split into five sections:
+The OpenSearch Benchmark documentation is split into four sections:
 
 - [Quickstart]({{site.url}}{{site.baseurl}}/benchmark/quickstart/): Learn how to quickly run and install OpenSearch Benchmark.
 - [User guide]({{site.url}}{{site.baseurl}}/benchmark/user-guide/index/): Dive deep into how OpenSearch Benchmark can help you track the performance of your cluster.
 - [Tutorials]({{site.url}}{{site.baseurl}}/benchmark/tutorials/index/): Use step-by-step guides for more advanced benchmarking configurations and functionality.
-- [Commands]({{site.url}}{{site.baseurl}}/benchmark/commands/index/): A detailed reference of commands and command options supported by OpenSearch.
-- [Workloads]({{site.url}}{{site.baseurl}}/benchmark/workloads/index/): A detailed reference of options available for both default and custom workloads.
+- [Reference]({{site.url}}{{site.baseurl}}/benchmark/reference/index/): A detailed reference of metrics, commands, telemetry devices, and workloads.
 
 
 

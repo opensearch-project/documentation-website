@@ -2,6 +2,7 @@
 layout: default
 title: Installing plugins
 nav_order: 90
+has_children: true
 redirect_from:
    - /opensearch/install/plugins/
    - /install-and-configure/install-opensearch/plugins/
@@ -9,22 +10,26 @@ redirect_from:
 
 # Installing plugins
 
-You can install individual plugins for OpenSearch based on your needs. For information about available plugins, see [Available plugins](#available-plugins).
+OpenSearch includes a number of plugins that add features and capabilities to the core platform. The plugins available to you are dependent on how OpenSearch was installed and which plugins were subsequently added or removed. For example, the minimal distribution of OpenSearch enables only core functionality, such as indexing and search. Using the minimal distribution of OpenSearch is beneficial when you are working in a testing environment, have custom plugins, or are intending to integrate OpenSearch with other services.
 
-For plugins to work properly with OpenSearch, all plugins must have the ability to access the data in the cluster, including metadata about cluster operations. Therefore, to protect your cluster's data and preserve its integrity, first be sure you understand the function of a plugin before installing it on your OpenSearch cluster. Second, when selecting a custom plugin, make sure the plugin's source is a reliable one.
+The standard distribution of OpenSearch includes many more plugins offering much more functionality. You can choose to add additional plugins or remove any of the plugins you don't need. 
+
+For a list of the available plugins, see [Available plugins](#available-plugins).
+
+For a plugin to work properly with OpenSearch, it may request certain permissions as part of the installation process. Review the requested permissions and proceed accordingly. It is important that you understand a plugin's functionality before installation. When opting for a community-provided plugin, ensure that the source is trustworthy and reliable.
 {: .warning}
 
 ## Managing plugins
 
-OpenSearch uses a command line tool called `opensearch-plugin` for managing plugins. This tool allows you to:
+To manage plugins in OpenSearch, you can use a command line tool called `opensearch-plugin`. This tool allows you to perform the following actions:
 
 - [List](#list) installed plugins.
 - [Install](#install) plugins.
 - [Remove](#remove) an installed plugin.
 
-Print help text by passing `-h` or `--help`. Depending on your host configuration, you might also need to run the command with `sudo` privileges.
+You can print help text by passing `-h` or `--help`. Depending on your host configuration, you might also need to run the command with `sudo` privileges.
 
-If you are running OpenSearch in a Docker container, plugins must be installed, removed, and configured by modifying the Docker image. For information, see [Working with plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker#working-with-plugins)
+If you're running OpenSearch in a Docker container, plugins must be installed, removed, and configured by modifying the Docker image. For more information, see [Working with plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker#working-with-plugins).
 {: .note}
 
 ## List
@@ -57,9 +62,10 @@ opensearch-security
 opensearch-sql
 ```
 
+## List (with CAT API)
 You can also list installed plugins by using the [CAT API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-plugins/).
 
-#### Path and HTTP method
+#### Usage
 
 ```bash
 GET _cat/plugins
@@ -82,15 +88,15 @@ opensearch-node1 opensearch-notifications-core        2.0.1.0
 
 ## Install
 
-There are three ways to install plugins using the `opensearch-plugin`:
+There are three ways to install plugins using the `opensearch-plugin` tool:
 
 - [Install a plugin by name](#install-a-plugin-by-name).
-- [Install a plugin from a ZIP file](#install-a-plugin-from-a-zip-file).
+- [Install a plugin from a zip file](#install-a-plugin-from-a-zip-file).
 - [Install a plugin using Maven coordinates](#install-a-plugin-using-maven-coordinates).
 
-### Install a plugin by name:
+### Install a plugin by name
 
-For a list of plugins that can be installed by name, see [Additional plugins](#additional-plugins).
+You can install plugins that aren't already preinstalled in your installation by using the plugin name. For a list of plugins that may not be preinstalled, see [Additional plugins](#additional-plugins).
 
 #### Usage
 ```bash
@@ -108,7 +114,7 @@ $ sudo ./opensearch-plugin install analysis-icu
 
 ### Install a plugin from a zip file
 
-Remote zip files can be installed by replacing `<zip-file>` with the URL of the hosted file. The tool only supports downloading over HTTP/HTTPS protocols. For local zip files, replace `<zip-file>` with `file:` followed by the absolute or relative path to the plugin zip file as in the second example below.
+You can install remote zip files by replacing `<zip-file>` with the URL of the hosted file. The tool supports downloading over HTTP/HTTPS protocols only. For local zip files, replace `<zip-file>` with `file:` followed by the absolute or relative path to the plugin zip file, as shown in the second example that follows.
 
 #### Usage
 ```bash
@@ -116,6 +122,12 @@ bin/opensearch-plugin install <zip-file>
 ```
 
 #### Example
+<details markdown="block">
+  <summary>
+    Select to expand the example 
+  </summary>
+  {: .text-delta}
+  
 ```bash
 # Zip file is hosted on a remote server - in this case, Maven central repository.
 $ sudo ./opensearch-plugin install https://repo1.maven.org/maven2/org/opensearch/plugin/opensearch-anomaly-detection/2.2.0.0/opensearch-anomaly-detection-2.2.0.0.zip
@@ -165,10 +177,11 @@ for descriptions of what these permissions allow and the associated risks.
 Continue with installation? [y/N]y
 -> Installed opensearch-anomaly-detection with folder name opensearch-anomaly-detection
 ```
+</details>
 
 ### Install a plugin using Maven coordinates
 
-The `opensearch-plugin install` tool also accepts Maven coordinates for available artifacts and versions hosted on [Maven Central](https://search.maven.org/search?q=org.opensearch.plugin). `opensearch-plugin` will parse the Maven coordinates you provide and construct a URL. As a result, the host must be able to connect directly to [Maven Central](https://search.maven.org/search?q=org.opensearch.plugin). The plugin installation will fail if you pass coordinates to a proxy or local repository.
+The `opensearch-plugin install` tool also allows you to specify Maven coordinates for available artifacts and versions hosted on [Maven Central](https://central.sonatype.com/namespace/org.opensearch.plugin). The tool parses the Maven coordinates you provide and constructs a URL. As a result, the host must be able to connect directly to the Maven Central site. The plugin installation fails if you pass coordinates to a proxy or local repository.
 
 #### Usage
 ```bash
@@ -176,7 +189,14 @@ bin/opensearch-plugin install <groupId>:<artifactId>:<version>
 ```
 
 #### Example
-```bash
+
+<details markdown="block">
+  <summary>
+    Select to expand the example 
+  </summary>
+  {: .text-delta}
+
+```console
 $ sudo ./opensearch-plugin install org.opensearch.plugin:opensearch-anomaly-detection:2.2.0.0
 -> Installing org.opensearch.plugin:opensearch-anomaly-detection:2.2.0.0
 -> Downloading org.opensearch.plugin:opensearch-anomaly-detection:2.2.0.0 from maven central
@@ -200,11 +220,12 @@ for descriptions of what these permissions allow and the associated risks.
 Continue with installation? [y/N]y
 -> Installed opensearch-anomaly-detection with folder name opensearch-anomaly-detection
 ```
+</details>
 
 Restart your OpenSearch node after installing a plugin.
 {: .note}
 
-### Installing multiple plugins
+## Installing multiple plugins
 
 Multiple plugins can be installed in a single invocation.
 
@@ -214,8 +235,8 @@ bin/opensearch-plugin install <plugin-name> <plugin-name> ... <plugin-name>
 ```
 
 #### Example
-```bash
-$ sudo $ ./opensearch-plugin install analysis-nori repository-s3
+```console
+$ sudo ./opensearch-plugin install analysis-nori repository-s3
 ```
 
 ## Remove
@@ -228,8 +249,8 @@ bin/opensearch-plugin remove <plugin-name>
 ```
 
 #### Example
-```bash
-$ sudo $ ./opensearch-plugin remove opensearch-anomaly-detection
+```console
+$ sudo ./opensearch-plugin remove opensearch-anomaly-detection
 -> removing [opensearch-anomaly-detection]...
 ```
 
@@ -238,7 +259,7 @@ Restart your OpenSearch node after removing a plugin.
 
 ## Batch mode
 
-When installing plugins that require additional privileges not included by default, the plugins will prompt the user for confirmation of the required privileges. To grant all requested privileges, use batch mode to skip the confirmation prompt.
+When installing a plugin that requires additional privileges that are not included by default, the plugin will prompt you for confirmation of the required privileges. To grant all requested privileges, use batch mode to skip the confirmation prompt.
 
 To force batch mode when installing plugins, add the `-b` or `--batch` option:
 ```bash
@@ -247,27 +268,11 @@ bin/opensearch-plugin install --batch <plugin-name>
 
 ## Available plugins
 
-OpenSearch provides several bundled and additional plugins.
-
-### Plugin compatibility
-
-A plugin can explicitly specify compatibility with a specific OpenSearch version by listing that version in its `plugin-descriptor.properties` file. For example, a plugin with the following property is compatible only with OpenSearch 2.3.0:
-
-```properties
-opensearch.version=2.3.0
-```
-Alternatively, a plugin can specify a range of compatible OpenSearch versions by setting the `dependencies` property in its `plugin-descriptor.properties` file using one of the following notations:
-- `dependencies={ opensearch: "2.3.0" }`: The plugin is compatible only with OpenSearch version 2.3.0.
-- `dependencies={ opensearch: "=2.3.0" }`: The plugin is compatible only with OpenSearch version 2.3.0.
-- `dependencies={ opensearch: "~2.3.0" }`: The plugin is compatible with all versions starting from 2.3.0 up to the next minor version, in this example, 2.4.0 (exclusive).
-- `dependencies={ opensearch: "^2.3.0" }`: The plugin is compatible with all versions starting from 2.3.0 up to the next major version, in this example, 3.0.0 (exclusive).
-
-You can specify only one of the `opensearch.version` or `dependencies` properties.
-{: .note}
+OpenSearch provides several bundled plugins that are available for immediate use with all OpenSearch distributions except for the minimal distribution. Additional plugins are available but must be installed separately using one of the installation options.  
 
 ### Bundled plugins
 
-The following plugins are bundled with all OpenSearch distributions except for minimum distribution packages.
+The following plugins are bundled with all OpenSearch distributions except for the minimal distribution. If you are using the minimal distribution, you can add these plugins by using one of the installation methods.
 
 | Plugin name | Repository | Earliest available version |
 | :--- | :--- | :--- |
@@ -299,45 +304,37 @@ _<sup>2</sup>Performance Analyzer is not available on Windows._
 
 ### Additional plugins
 
-Members of the OpenSearch community have built countless plugins for the service. Although it isn't possible to build an exhaustive list of every plugin, since many plugins are not maintained within the OpenSearch GitHub repository, the following list of plugins are available to be installed by name using `bin/opensearch-plugin install <plugin-name>`.
+There are many more plugins available in addition to those provided by the default distribution. These additional plugins have been built by OpenSearch developers or members of the OpenSearch community. For a list of additional plugins you can install, see [Additional plugins]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/index/).
 
-| Plugin name | Earliest available version |
-| :--- | :--- |
-| analysis-icu | 1.0.0 |
-| analysis-kuromoji | 1.0.0 |
-| analysis-nori | 1.0.0 |
-| analysis-phonetic | 1.0.0 |
-| analysis-smartcn | 1.0.0 |
-| analysis-stempel | 1.0.0 |
-| analysis-ukrainian | 1.0.0 |
-| discovery-azure-classic | 1.0.0 |
-| discovery-ec2 | 1.0.0 |
-| discovery-gce | 1.0.0 |
-| ingest-attachment | 1.0.0 |
-| mapper-annotated-text | 1.0.0 |
-| mapper-murmur3 | 1.0.0 |
-| mapper-size | 1.0.0 |
-| query-insights | 2.12.0 |
-| repository-azure | 1.0.0 |
-| repository-gcs | 1.0.0 |
-| repository-hdfs | 1.0.0 |
-| repository-s3 | 1.0.0 |
-| store-smb | 1.0.0 |
-| transport-nio | 1.0.0 |
+## Plugin compatibility
+
+You can specify plugin compatibility with a particular OpenSearch version in the `plugin-descriptor.properties` file. For example, a plugin with the following property is compatible only with OpenSearch 2.3.0:
+
+```properties
+opensearch.version=2.3.0
+```
+Alternatively, you can specify a range of compatible OpenSearch versions by setting the `dependencies` property in the `plugin-descriptor.properties` file to one of the following notations:
+- `dependencies={ opensearch: "2.3.0" }`: The plugin is compatible only with OpenSearch version 2.3.0.
+- `dependencies={ opensearch: "=2.3.0" }`: The plugin is compatible only with OpenSearch version 2.3.0.
+- `dependencies={ opensearch: "~2.3.0" }`: The plugin is compatible with all versions from 2.3.0 up to the next minor version, in this example, 2.4.0 (exclusive).
+- `dependencies={ opensearch: "^2.3.0" }`: The plugin is compatible with all versions from 2.3.0 up to the next major version, in this example, 3.0.0 (exclusive).
+
+You can specify only one of the `opensearch.version` or `dependencies` properties.
+{: .note}
 
 ## Related links
 
-- [About Observability]({{site.url}}{{site.baseurl}}/observability-plugin/index/)
-- [About security analytics]({{site.url}}{{site.baseurl}}/security-analytics/index/)
-- [About the Security plugin]({{site.url}}{{site.baseurl}}/security/index/)
+- [Observability]({{site.url}}{{site.baseurl}}/observability-plugin/index/)
+- [Security Analytics]({{site.url}}{{site.baseurl}}/security-analytics/index/)
+- [Security]({{site.url}}{{site.baseurl}}/security/index/)
 - [Alerting]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/index/)
 - [Anomaly detection]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/index/)
 - [Asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/index/)
 - [Cross-cluster replication]({{site.url}}{{site.baseurl}}/replication-plugin/index/)
 - [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/)
-- [k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/)
-- [ML Commons plugin]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/)
-- [Neural Search]({{site.url}}{{site.baseurl}}/neural-search-plugin/index/)
+- [k-NN search]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/)
+- [ML Commons]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/)
+- [Neural search]({{site.url}}{{site.baseurl}}/neural-search-plugin/index/)
 - [Notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/)
 - [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/)
 - [Performance Analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/)

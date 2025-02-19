@@ -62,7 +62,7 @@ When creating a new bulk helper instance, you can use the following configuratio
 | `flushBytes` | Integer |  Optional. Default is 5,000,000. | Maximum bulk body size to send in bytes.
 | `flushInterval` | Integer |  Optional. Default is 30,000. | Time in milliseconds to wait before flushing the body after the last document has been read.
 | `onDrop` | Function | Optional. Default is `noop`. | A function to be invoked for every document that can’t be indexed after reaching the maximum number of retries. 
-| `refreshOnCompletion` | Boolean | Optional. Default is false. | Whether or not a refresh should be run on all affected indexes at the end of the bulk operation. 
+| `refreshOnCompletion` | Boolean | Optional. Default is `false`. | Whether or not a refresh should be run on all affected indexes at the end of the bulk operation. 
 | `retries` | Integer |  Optional. Defaults to the client's  `maxRetries` value. | The number of times an operation is retried before `onDrop` is called for that document.
 | `wait` | Integer |  Optional. Default is 5,000. | Time in milliseconds to wait before retrying an operation.
 

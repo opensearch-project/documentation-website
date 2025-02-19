@@ -2,7 +2,6 @@
 layout: default
 title: Maximum
 parent: Metric aggregations
-grand_parent: Aggregations
 nav_order: 60
 redirect_from:
   - /query-dsl/aggregations/metric/maximum/

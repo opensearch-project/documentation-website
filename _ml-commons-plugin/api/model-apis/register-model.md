@@ -24,7 +24,7 @@ For information about user access for this API, see [Model access control consid
 
 If the model is more than 10 MB in size, ML Commons splits it into smaller chunks and saves those chunks in the model's index.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -46,7 +46,7 @@ OpenSearch provides several pretrained models. For more information, see [OpenSe
 
 To register a pretrained text embedding model, the only required parameters are `name`, `version`, and `model_format`.
 
-#### Request fields
+#### Request body fields
 
 The following table lists the available request fields.
 
@@ -75,7 +75,7 @@ POST /_plugins/_ml/models/_register
 
 To register a pretrained sparse encoding model, you must set the function name to `SPARSE_ENCODING` or `SPARSE_TOKENIZE`.
 
-#### Request fields
+#### Request body fields
 
 The following table lists the available request fields.
 
@@ -84,7 +84,7 @@ Field | Data type | Required/Optional | Description
 `name`| String | Required | The model name. |
 `version` | String | Required | The model version. |
 `model_format` | String | Required | The portable format of the model file. Valid values are `TORCH_SCRIPT` and `ONNX`. |
-`function_name` | String | Required | For text embedding models, set this parameter to `TEXT_EMBEDDING`. For sparse encoding models, set this parameter to `SPARSE_ENCODING` or `SPARSE_TOKENIZE`. For cross-encoder models, set this parameter to `TEXT_SIMILARITY`.
+`function_name` | String | Required | For text embedding models, set this parameter to `TEXT_EMBEDDING`. For sparse encoding models, set this parameter to `SPARSE_ENCODING` or `SPARSE_TOKENIZE`. For cross-encoder models, set this parameter to `TEXT_SIMILARITY`. For question answering models, set this parameter to `QUESTION_ANSWERING`.
 `model_content_hash_value` | String | Required | The model content hash generated using the SHA-256 hashing algorithm.
 `url` | String | Required | The URL that contains the model. |
 `description` | String | Optional| The model description. |
@@ -95,8 +95,8 @@ Field | Data type | Required/Optional | Description
 ```json
 POST /_plugins/_ml/models/_register
 {
-    "name": "amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v1",
-    "version": "1.0.1",
+    "name": "amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v2-distill",
+    "version": "1.0.0",
     "model_group_id": "Z1eQf4oB5Vm0Tdw8EIP2",
     "model_format": "TORCH_SCRIPT"
 }
@@ -107,7 +107,7 @@ POST /_plugins/_ml/models/_register
 
 To use a custom model locally within the OpenSearch cluster, you need to provide a URL and a config object for that model. For more information, see [Custom local models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/custom-local-models/).
 
-### Request fields
+### Request body fields
 
 The following table lists the available request fields.
 
@@ -170,7 +170,7 @@ POST /_plugins/_ml/models/_register
 
 To register a model hosted on a third-party platform, you can either first create a standalone connector and provide the ID of that connector or specify an internal connector for the model. For more information, see [Creating connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
 
-### Request fields
+### Request body fields
 
 The following table lists the available request fields.
 
@@ -260,15 +260,24 @@ To register an externally hosted model with guardrails, provide the `guardrails`
 
 Field | Data type | Description
 :---  | :--- | :---
-`type` | String | The guardrail type. Currently, only `local_regex` is supported.
-`input_guardrail`| Object |  The guardrail for the model input. |
-`output_guardrail`| Object |  The guardrail for the model output. |
-`stop_words`| Object | The list of indexes containing stopwords used for the model input/output validation. If the model prompt/response contains a stopword contained in any of the indexes, the predict request on this model is rejected. |
-`index_name`| Object | The name of the index storing the stopwords. |
-`source_fields`| Object | The name of the field storing the stopwords. |
-`regex`| Object |  A regular expression used for input/output validation. If the model prompt/response matches the regular expression, the predict request on this model is rejected. |
+`type` | String | The guardrail type. Valid values are [`local_regex`](#example-request-regex-and-stopword-validation) and [`model`](#example-request-guardrail-model-validation). Using `local_regex`, you can specify a regular expression or stop words. Using `model`, you can specify a guardrail model. For more information, see [Guardrails]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/guardrails/). 
+`input_guardrail`| Object |  The guardrail for the model input. 
+`output_guardrail`| Object |  The guardrail for the model output. 
+`stop_words`| Object | The list of indexes containing stopwords used for model input/output validation. If the model prompt/response contains a stopword contained in any of the indexes, then the predict request on the model is rejected. 
+`index_name`| Object | The name of the index storing the stopwords. 
+`source_fields`| Object | The name of the field storing the stopwords. 
+`regex`| Object |  A regular expression used for input/output validation. If the model prompt/response matches the regular expression, then the predict request on the model is rejected. 
+`model_id`| String  | The guardrail model used to validate user input and LLM output. 
+`response_filter`| String | The dot path of the field containing the guardrail model response. 
+`response_validation_regex`| String | The regular expression used to validate the guardrail model response.     
 
-#### Example request: Externally hosted model with guardrails
+## Examples
+
+The following examples configure an externally hosted model with guardrails.
+
+#### Example request: Regex and stopword validation
+
+The following example uses a regular expression and a set of stopwords to validate the LLM response:
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -303,7 +312,36 @@ POST /_plugins/_ml/models/_register
 ```
 {% include copy-curl.html %}
 
-For a complete example, see [Guardrails]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/guardrails/).
+For a complete example, see [Validating input/output using stopwords and regex]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/guardrails/#validating-inputoutput-using-stopwords-and-regex).
+
+#### Example request: Guardrail model validation
+
+The following example uses a guardrail model to validate the LLM response:
+
+```json
+POST /_plugins/_ml/models/_register?deploy=true
+{
+    "name": "Bedrock Claude V2 model with guardrails model",
+    "function_name": "remote",
+    "model_group_id": "ppSmpo8Bi-GZ0tf1i7cD",
+    "description": "Bedrock Claude V2 model with guardrails model",
+    "connector_id": "xnJjDZABNFJeYR3IPvTO",
+    "guardrails": {
+        "input_guardrail": {
+            "model_id": "o3JaDZABNFJeYR3I2fRV",
+            "response_validation_regex": "^\\s*\"[Aa]ccept\"\\s*$"
+        },
+        "output_guardrail": {
+            "model_id": "o3JaDZABNFJeYR3I2fRV",
+            "response_validation_regex": "^\\s*\"[Aa]ccept\"\\s*$"
+        },
+        "type": "model"
+    }
+}
+```
+{% include copy-curl.html %}
+
+For a complete example, see [Validating input/output using a guardrail model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/guardrails/#validating-inputoutput-using-a-guardrail-model).
 
 #### Example response
 
@@ -319,7 +357,8 @@ OpenSearch responds with the `task_id`, task `status`, and `model_id`:
 
 ### The `interface` parameter
 
-The model interface provides a highly flexible way to add arbitrary metadata annotations to all local deep learning models and remote models in a JSON schema syntax. This annotation initiates a validation check on the input and output fields of the model during the model's invocation. The validation check ensures that the input and output fields are in the correct format both before and after the model performs a prediction.
+The model interface provides a highly flexible way to add arbitrary metadata annotations to all local deep learning models and externally hosted models in a JSON schema syntax. This annotation initiates a validation check on the input and output fields of the model during the model's invocation. The validation check ensures that the input and output fields are in the correct format both before and after the model performs inference.
+
 To register a model with a model interface, provide the `interface` parameter, which supports the following fields.
 
 Field | Data type | Description                         
@@ -327,9 +366,25 @@ Field | Data type | Description
 `input`| Object | The JSON schema for the model input. |
 `output`| Object | The JSON schema for the model output. |
 
-The input and output fields will be evaluated against the separately provided JSON schema. You do not necessarily need to provide both input and output fields simultaneously.
+The input and output fields are evaluated against the provided JSON schema. You do not need to provide both fields simultaneously.
 
-To learn more about the JSON schema syntax, see [Understanding JSON Schema](https://json-schema.org/understanding-json-schema/).
+#### Connector model interfaces
+
+To simplify your workflow, you can register an externally hosted model using a connector in one of the [connector blueprint]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/) formats. If you do so, a predefined model interface for this connector is generated automatically during model registration. The predefined model interface is generated based on the connector blueprint and the model's metadata, so you must strictly follow the blueprint when creating the connector in order to avoid errors.
+
+The following connector blueprints currently support creating predefined model interfaces:
+
+- [Amazon Comprehend](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/amazon_comprehend_connector_blueprint.md)
+- [Amazon Textract](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/amazon_textract_connector_blueprint.md) (Note that a predefined model interface is only available for the `DetectDocumentText` API; the `DetectEnities` API is not currently supported).
+- [Amazon Bedrock AI21 Labs Jurassic](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_ai21labs_jurassic_blueprint.md)
+- [Amazon Bedrock Anthropic Claude 3](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_anthropic_claude3_blueprint.md)
+- [Amazon Bedrock Anthropic Claude](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_anthropic_claude_blueprint.md)
+- [Amazon Bedrock Cohere Embed English v3](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_cohere_cohere.embed-english-v3_blueprint.md)
+- [Amazon Bedrock Cohere Embed Multilingual v3](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_cohere_cohere.embed-multilingual-v3_blueprint.md)
+- [Amazon Bedrock Titan Text Embeddings](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_titan_embedding_blueprint.md)
+- [Amazon Bedrock Titan Multimodal Embeddings](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_titan_multimodal_embedding_blueprint.md)
+
+To learn more about connector blueprints, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
 
 #### Example request: Externally hosted model with an interface
 

@@ -4,11 +4,15 @@ title: Query insights
 nav_order: 40
 has_children: true
 has_toc: false
+redirect_from:
+  - /query-insights/
 ---
 
 # Query insights
+**Introduced 2.12**
+{: .label .label-purple }
 
-To monitor and analyze the search queries within your OpenSearch clusterQuery information, you can obtain query insights. With minimal performance impact, query insights features aim to provide comprehensive insights into search query execution, enabling you to better understand search query characteristics, patterns, and system behavior during query execution stages. Query insights facilitate enhanced detection, diagnosis, and prevention of query performance issues, ultimately improving query processing performance, user experience, and overall system resilience.
+To monitor and analyze the search queries within your OpenSearch cluster, you can obtain query insights. With minimal performance impact, query insights features aim to provide comprehensive insights into search query execution, enabling you to better understand search query characteristics, patterns, and system behavior during query execution stages. Query insights facilitate enhanced detection, diagnosis, and prevention of query performance issues, ultimately improving query processing performance, user experience, and overall system resilience.
 
 Typical use cases for query insights features include the following:
 
@@ -31,8 +35,14 @@ bin/opensearch-plugin install query-insights
 ```
 For information about installing plugins, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
 
-## Query insights settings
+## Query Insights settings
 
-Query insights features support the following settings:
+You can obtain the following information using Query Insights:
 
 - [Top n queries]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/)
+- [Grouping top N queries]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/grouping-top-n-queries/)
+- [Query metrics]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/query-metrics/)
+
+## Query Insights plugin health
+
+For information about monitoring the health of the Query Insights plugin, see [Query Insights plugin health]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/health/).

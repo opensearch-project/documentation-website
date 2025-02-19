@@ -9,10 +9,15 @@ nav_order: 60
 Introduced 2.11
 {: .label .label-purple }
 
-Hybrid search combines keyword and neural search to improve search relevance. To implement hybrid search, you need to set up a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) that runs at search time. The search pipeline you'll configure intercepts search results at an intermediate stage and applies the [`normalization_processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) to them. The `normalization_processor` normalizes and combines the document scores from multiple query clauses, rescoring the documents according to the chosen normalization and combination techniques. 
+Hybrid search combines keyword and neural search to improve search relevance. To implement hybrid search, you need to set up a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) that runs at search time. The search pipeline intercepts search results at an intermediate stage and applies processing to normalize and combine document scores.  
+
+There are two types of processors available for hybrid search:  
+
+- [Normalization processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) (Introduced 2.10): A score-based processor that normalizes and combines document scores from multiple query clauses, rescoring the documents using the selected normalization and combination techniques.  
+- [Score ranker processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/score-ranker-processor/) (Introduced 2.19): A rank-based processor that uses rank fusion to combine and rerank documents from multiple query clauses.
 
 **PREREQUISITE**<br>
-Before using hybrid search, you must set up a text embedding model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
+To follow this example, you must set up a text embedding model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model). If you have already generated text embeddings, ingest the embeddings into an index and skip to [Step 4](#step-4-configure-a-search-pipeline).
 {: .note}
 
 ## Using hybrid search
@@ -568,5 +573,844 @@ The response contains the matching documents and the aggregation results:
       ]
     }
   }
+}
+```
+
+## Using sorting with a hybrid query
+**Introduced 2.16**
+{: .label .label-purple }
+
+By default, hybrid search returns results ordered by scores in descending order. You can apply sorting to hybrid query results by providing the `sort` criteria in the search request. For more information about sort criteria, see [Sort results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/sort/).
+When sorting is applied to a hybrid search, results are fetched from the shards based on the specified sort criteria. As a result, the search results are sorted accordingly, and the document scores are `null`. Scores are only present in the hybrid search sorting results if documents are sorted by `_score`. 
+
+In the following example, sorting is applied by `doc_price` in the hybrid query search request:
+
+```json
+GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
+{
+  "query": {
+    "hybrid": {
+      "queries": [
+        {
+          "term": {
+            "category": "permission"
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+                "term": {
+                  "category": "editor"
+                }
+              },
+              {
+                "term": {
+                  "category": "statement"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }, 
+    "sort":[
+       {
+         "doc_price": {
+             "order": "desc"
+         }
+       }
+    ]
+}
+```
+{% include copy-curl.html %}
+
+The response contains the matching documents sorted by `doc_price` in descending order:
+
+```json
+{
+    "took": 35,
+    "timed_out": false,
+    "_shards": {
+        "total": 3,
+        "successful": 3,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": {
+            "value": 4,
+            "relation": "eq"
+        },
+        "max_score": 0.5,
+        "hits": [
+            {
+                "_index": "my-nlp-index",
+                "_id": "7yaM4JABZkI1FQv8AwoN",
+                "_score": null,
+                "_source": {
+                    "category": "statement",
+                    "doc_keyword": "entire",
+                    "doc_index": 8242,
+                    "doc_price": 350
+                },
+                "sort": [
+                    350
+                ]
+            },
+            {
+                "_index": "my-nlp-index",
+                "_id": "8CaM4JABZkI1FQv8AwoN",
+                "_score": null,
+                "_source": {
+                    "category": "statement",
+                    "doc_keyword": "idea",
+                    "doc_index": 5212,
+                    "doc_price": 200
+                },
+                "sort": [
+                    200
+                ]
+            },
+            {
+                "_index": "my-nlp-index",
+                "_id": "6yaM4JABZkI1FQv8AwoM",
+                "_score": null,
+                "_source": {
+                    "category": "permission",
+                    "doc_keyword": "workable",
+                    "doc_index": 4976,
+                    "doc_price": 100
+                },
+                "sort": [
+                    100
+                ]
+            },
+            {
+                "_index": "my-nlp-index",
+                "_id": "7iaM4JABZkI1FQv8AwoN",
+                "_score": null,
+                "_source": {
+                    "category": "editor",
+                    "doc_index": 9871,
+                    "doc_price": 30
+                },
+                "sort": [
+                    30
+                ]
+            }
+        ]
+    }
+}
+```
+
+In the following example, sorting is applied by `_id`:
+
+```json
+GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
+{
+  "query": {
+    "hybrid": {
+      "queries": [
+        {
+          "term": {
+            "category": "permission"
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+                "term": {
+                  "category": "editor"
+                }
+              },
+              {
+                "term": {
+                  "category": "statement"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "sort":[
+     {
+        "_id": {
+          "order": "desc"   
+        }
+     } 
+  ]
+}
+```
+{% include copy-curl.html %}
+
+The response contains the matching documents sorted by `_id` in descending order:
+
+```json
+{
+    "took": 33,
+    "timed_out": false,
+    "_shards": {
+        "total": 3,
+        "successful": 3,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": {
+            "value": 4,
+            "relation": "eq"
+        },
+        "max_score": 0.5,
+        "hits": [
+            {
+                "_index": "my-nlp-index",
+                "_id": "8CaM4JABZkI1FQv8AwoN",
+                "_score": null,
+                "_source": {
+                    "category": "statement",
+                    "doc_keyword": "idea",
+                    "doc_index": 5212,
+                    "doc_price": 200
+                },
+                "sort": [
+                    "8CaM4JABZkI1FQv8AwoN"
+                ]
+            },
+            {
+                "_index": "my-nlp-index",
+                "_id": "7yaM4JABZkI1FQv8AwoN",
+                "_score": null,
+                "_source": {
+                    "category": "statement",
+                    "doc_keyword": "entire",
+                    "doc_index": 8242,
+                    "doc_price": 350
+                },
+                "sort": [
+                    "7yaM4JABZkI1FQv8AwoN"
+                ]
+            },
+            {
+                "_index": "my-nlp-index",
+                "_id": "7iaM4JABZkI1FQv8AwoN",
+                "_score": null,
+                "_source": {
+                    "category": "editor",
+                    "doc_index": 9871,
+                    "doc_price": 30
+                },
+                "sort": [
+                    "7iaM4JABZkI1FQv8AwoN"
+                ]
+            },
+            {
+                "_index": "my-nlp-index",
+                "_id": "6yaM4JABZkI1FQv8AwoM",
+                "_score": null,
+                "_source": {
+                    "category": "permission",
+                    "doc_keyword": "workable",
+                    "doc_index": 4976,
+                    "doc_price": 100
+                },
+                "sort": [
+                    "6yaM4JABZkI1FQv8AwoM"
+                ]
+            }
+        ]
+    }
+}
+```
+
+## Hybrid search with search_after
+**Introduced 2.16**
+{: .label .label-purple }
+
+You can control sorting results by applying a `search_after` condition that provides a live cursor and uses the previous page's results to obtain the next page's results. For more information about `search_after`, see [The search_after parameter]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#the-search_after-parameter).
+
+You can paginate the sorted results by applying a `search_after` condition in the sort queries.
+
+In the following example, sorting is applied by `doc_price` with a `search_after` condition:
+
+```json
+GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
+{
+  "query": {
+    "hybrid": {
+      "queries": [
+        {
+          "term": {
+            "category": "permission"
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+                "term": {
+                  "category": "editor"
+                }
+              },
+              {
+                "term": {
+                  "category": "statement"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "sort":[
+     {
+        "_id": {
+          "order": "desc"   
+        }
+     } 
+  ],
+  "search_after":[200]
+}
+```
+{% include copy-curl.html %}
+
+The response contains the matching documents that are listed after the `200` sort value, sorted by `doc_price` in descending order:
+
+```json
+{
+    "took": 8,
+    "timed_out": false,
+    "_shards": {
+        "total": 3,
+        "successful": 3,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": {
+            "value": 4,
+            "relation": "eq"
+        },
+        "max_score": 0.5,
+        "hits": [
+            {
+                "_index": "my-nlp-index",
+                "_id": "6yaM4JABZkI1FQv8AwoM",
+                "_score": null,
+                "_source": {
+                    "category": "permission",
+                    "doc_keyword": "workable",
+                    "doc_index": 4976,
+                    "doc_price": 100
+                },
+                "sort": [
+                    100
+                ]
+            },
+            {
+                "_index": "my-nlp-index",
+                "_id": "7iaM4JABZkI1FQv8AwoN",
+                "_score": null,
+                "_source": {
+                    "category": "editor",
+                    "doc_index": 9871,
+                    "doc_price": 30
+                },
+                "sort": [
+                    30
+                ]
+            }
+        ]
+    }
+}
+```
+
+In the following example, sorting is applied by `id` with a `search_after` condition:
+
+```json
+GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
+{
+  "query": {
+    "hybrid": {
+      "queries": [
+        {
+          "term": {
+            "category": "permission"
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+                "term": {
+                  "category": "editor"
+                }
+              },
+              {
+                "term": {
+                  "category": "statement"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "sort":[
+     {
+        "_id": {
+          "order": "desc"   
+        }
+     } 
+  ],
+  "search_after":["7yaM4JABZkI1FQv8AwoN"]
+}
+```
+{% include copy-curl.html %}
+
+The response contains the matching documents that are listed after the `7yaM4JABZkI1FQv8AwoN` sort value, sorted by `id` in descending order:
+
+```json
+{
+    "took": 17,
+    "timed_out": false,
+    "_shards": {
+        "total": 3,
+        "successful": 3,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": {
+            "value": 4,
+            "relation": "eq"
+        },
+        "max_score": 0.5,
+        "hits": [
+            {
+                "_index": "my-nlp-index",
+                "_id": "7iaM4JABZkI1FQv8AwoN",
+                "_score": null,
+                "_source": {
+                    "category": "editor",
+                    "doc_index": 9871,
+                    "doc_price": 30
+                },
+                "sort": [
+                    "7iaM4JABZkI1FQv8AwoN"
+                ]
+            },
+            {
+                "_index": "my-nlp-index",
+                "_id": "6yaM4JABZkI1FQv8AwoM",
+                "_score": null,
+                "_source": {
+                    "category": "permission",
+                    "doc_keyword": "workable",
+                    "doc_index": 4976,
+                    "doc_price": 100
+                },
+                "sort": [
+                    "6yaM4JABZkI1FQv8AwoM"
+                ]
+            }
+        ]
+    }
+}
+```
+
+## Explain
+**Introduced 2.19**
+{: .label .label-purple }
+
+You can provide the `explain` parameter to understand how scores are calculated, normalized, and combined in hybrid queries. When enabled, it provides detailed information about the scoring process for each search result. This includes revealing the score normalization techniques used, how different scores were combined, and the calculations for individual subquery scores. This comprehensive insight makes it easier to understand and optimize your hybrid query results. For more information about `explain`, see [Explain API]({{site.url}}{{site.baseurl}}/api-reference/explain/). 
+
+`explain` is an expensive operation in terms of both resources and time. For production clusters, we recommend using it sparingly for the purpose of troubleshooting.
+{: .warning }
+
+You can provide the `explain` parameter in a URL when running a complete hybrid query using the following syntax:
+
+```json
+GET <index>/_search?search_pipeline=<search_pipeline>&explain=true
+POST <index>/_search?search_pipeline=<search_pipeline>&explain=true
+```
+
+To use the `explain` parameter, you must configure the `hybrid_score_explanation` response processor in your search pipeline. For more information, see [Hybrid score explanation processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/explanation-processor/). 
+
+You can also use `explain` with the individual document ID:
+
+```json
+GET <index>/_explain/<id>
+POST <index>/_explain/<id>
+```
+
+In this case, the result will contain only low-level scoring information, for example, [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25) scores for text-based queries such as `term` or `match`. For an example response, see [Explain API example response]({{site.url}}{{site.baseurl}}/api-reference/explain/#example-response).
+
+To see the `explain` output for all results, set the parameter to `true` either in the URL or in the request body:
+
+```json
+POST my-nlp-index/_search?search_pipeline=my_pipeline&explain=true
+{
+  "_source": {
+    "exclude": [
+      "passage_embedding"
+    ]
+  },
+  "query": {
+    "hybrid": {
+      "queries": [
+        {
+          "match": {
+            "text": {
+              "query": "horse"
+            }
+          }
+        },
+        {
+          "neural": {
+            "passage_embedding": {
+              "query_text": "wild west",
+              "model_id": "aVeif4oB5Vm0Tdw8zYO2",
+              "k": 5
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response contains scoring information:
+
+<details markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
+
+```json
+{
+    "took": 54,
+    "timed_out": false,
+    "_shards": {
+        "total": 2,
+        "successful": 2,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": {
+            "value": 5,
+            "relation": "eq"
+        },
+        "max_score": 0.9251075,
+        "hits": [
+            {
+                "_shard": "[my-nlp-index][0]",
+                "_node": "IsuzeVYdSqKUfy0qfqil2w",
+                "_index": "my-nlp-index",
+                "_id": "5",
+                "_score": 0.9251075,
+                "_source": {
+                    "text": "A rodeo cowboy , wearing a cowboy hat , is being thrown off of a wild white horse .",
+                    "id": "2691147709.jpg"
+                },
+                "_explanation": {
+                    "value": 0.9251075,
+                    "description": "arithmetic_mean combination of:",
+                    "details": [
+                        {
+                            "value": 1.0,
+                            "description": "min_max normalization of:",
+                            "details": [
+                                {
+                                    "value": 1.2336599,
+                                    "description": "weight(text:horse in 0) [PerFieldSimilarity], result of:",
+                                    "details": [
+                                        {
+                                            "value": 1.2336599,
+                                            "description": "score(freq=1.0), computed as boost * idf * tf from:",
+                                            "details": [
+                                                {
+                                                    "value": 2.2,
+                                                    "description": "boost",
+                                                    "details": []
+                                                },
+                                                {
+                                                    "value": 1.2039728,
+                                                    "description": "idf, computed as log(1 + (N - n + 0.5) / (n + 0.5)) from:",
+                                                    "details": [
+                                                        {
+                                                            "value": 1,
+                                                            "description": "n, number of documents containing term",
+                                                            "details": []
+                                                        },
+                                                        {
+                                                            "value": 4,
+                                                            "description": "N, total number of documents with field",
+                                                            "details": []
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "value": 0.46575344,
+                                                    "description": "tf, computed as freq / (freq + k1 * (1 - b + b * dl / avgdl)) from:",
+                                                    "details": [
+                                                        {
+                                                            "value": 1.0,
+                                                            "description": "freq, occurrences of term within document",
+                                                            "details": []
+                                                        },
+                                                        {
+                                                            "value": 1.2,
+                                                            "description": "k1, term saturation parameter",
+                                                            "details": []
+                                                        },
+                                                        {
+                                                            "value": 0.75,
+                                                            "description": "b, length normalization parameter",
+                                                            "details": []
+                                                        },
+                                                        {
+                                                            "value": 16.0,
+                                                            "description": "dl, length of field",
+                                                            "details": []
+                                                        },
+                                                        {
+                                                            "value": 17.0,
+                                                            "description": "avgdl, average length of field",
+                                                            "details": []
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "value": 0.8503647,
+                            "description": "min_max normalization of:",
+                            "details": [
+                                {
+                                    "value": 0.015177966,
+                                    "description": "within top 5",
+                                    "details": []
+                                }
+                            ]
+                        }
+                    ]
+...
+```
+</details>
+
+### Response body fields
+
+Field | Description
+:--- | :---
+`explanation` | The `explanation` object has three properties: `value`, `description`, and `details`. The `value` property shows the result of the calculation, `description` explains what type of calculation was performed, and `details` shows any subcalculations performed. For score normalization, the information in the `description` property includes the technique used for normalization or combination and the corresponding score. 
+
+## Paginating hybrid query results
+**Introduced 2.19**
+{: .label .label-purple }
+
+You can apply pagination to hybrid query results by using the `pagination_depth` parameter in the hybrid query clause, along with the standard `from` and `size` parameters. The `pagination_depth` parameter defines the maximum number of search results that can be retrieved from each shard per subquery. For example, setting `pagination_depth` to `50` allows up to 50 results per subquery to be maintained in memory from each shard.
+
+To navigate through the results, use the `from` and `size` parameters:
+
+- `from`: Specifies the document number from which you want to start showing the results. Default is `0`.
+- `size`: Specifies the number of results to return on each page. Default is `10`.
+
+For example, to show 10 documents starting from the 20th document, specify `from: 20` and `size: 10`. For more information about pagination, see [Paginate results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#the-from-and-size-parameters).
+
+### The impact of pagination_depth on hybrid search results
+
+Changing `pagination_depth` affects the underlying set of search results retrieved before any ranking, filtering, or pagination adjustments are applied. This is because `pagination_depth` determines the number of results retrieved per subquery from each shard, which can ultimately change the result order after normalization. To ensure consistent pagination, keep the `pagination_depth` value the same while navigating between pages.  
+
+By default, hybrid search without pagination retrieves results using the `from + size` formula, where `from` is always `0`.
+{: .note}  
+
+To enable deeper pagination, increase the `pagination_depth` value. You can then navigate through results using the `from` and `size` parameters. Note that deeper pagination can impact search performance because retrieving and processing more results requires additional computational resources.
+
+The following example shows a search request configured with `from: 0`, `size: 5`, and `pagination_depth: 10`. This means that up to 10 search results per shard will be retrieved for both the `bool` and `term` queries before pagination is applied:
+
+```json
+GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
+{
+  "size": 5,      
+  "query": {
+    "hybrid": {
+      "pagination_depth":10,  
+      "queries": [
+        {
+          "term": {
+            "category": "permission"
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+                "term": {
+                  "category": "editor"
+                }
+              },
+              {
+                "term": {
+                  "category": "statement"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response contains the first five results:
+
+```json
+{
+    "hits": {
+        "total": {
+            "value": 6,
+            "relation": "eq"
+        },
+        "max_score": 0.5,
+        "hits": [
+            {
+                "_index": "my-nlp-index",
+                "_id": "d3eXlZQBJkWerFzHv4eV",
+                "_score": 0.5,
+                "_source": {
+                    "category": "permission",
+                    "doc_keyword": "workable",
+                    "doc_index": 4976,
+                    "doc_price": 100
+                }
+            },
+            {
+                "_index": "my-nlp-index",
+                "_id": "eneXlZQBJkWerFzHv4eW",
+                "_score": 0.5,
+                "_source": {
+                    "category": "editor",
+                    "doc_index": 9871,
+                    "doc_price": 30
+                }
+            },
+            {
+                "_index": "my-nlp-index",
+                "_id": "e3eXlZQBJkWerFzHv4eW",
+                "_score": 0.5,
+                "_source": {
+                    "category": "statement",
+                    "doc_keyword": "entire",
+                    "doc_index": 8242,
+                    "doc_price": 350
+                }
+            },
+            {
+                "_index": "my-nlp-index",
+                "_id": "fHeXlZQBJkWerFzHv4eW",
+                "_score": 0.24999997,
+                "_source": {
+                    "category": "statement",
+                    "doc_keyword": "idea",
+                    "doc_index": 5212,
+                    "doc_price": 200
+                }
+            },
+            {
+                "_index": "index-test",
+                "_id": "fXeXlZQBJkWerFzHv4eW",
+                "_score": 5.0E-4,
+                "_source": {
+                    "category": "editor",
+                    "doc_keyword": "bubble",
+                    "doc_index": 1298,
+                    "doc_price": 130
+                }
+            }
+        ]
+    }
+}
+```
+
+The following search request is configured with `from: 6`, `size: 5`, and `pagination_depth: 10`. The `pagination_depth` remains unchanged to ensure that pagination is based on the same set of search results:
+
+```json
+GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
+{
+  "size":5,      
+  "from":6,      
+  "query": {
+    "hybrid": {
+      "pagination_depth":10,  
+      "queries": [
+        {
+          "term": {
+            "category": "permission"
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+                "term": {
+                  "category": "editor"
+                }
+              },
+              {
+                "term": {
+                  "category": "statement"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response excludes the first five entries and displays the remaining results:
+
+```json
+{
+    "hits": {
+        "total": {
+            "value": 6,
+            "relation": "eq"
+        },
+        "max_score": 0.5,
+        "hits": [
+            {
+                "_index": "index-test",
+                "_id": "fneXlZQBJkWerFzHv4eW",
+                "_score": 5.0E-4,
+                "_source": {
+                    "category": "editor",
+                    "doc_keyword": "bubble",
+                    "doc_index": 521,
+                    "doc_price": 75
+                }
+            }
+        ]
+    }
 }
 ```

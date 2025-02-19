@@ -5,21 +5,22 @@ parent: API tools
 nav_order: 55
 ---
 
-
 # Correlation engine APIs
 
 Correlation engine APIs allow you to create new correlation rules, view findings and correlations within a certain time window, and perform other tasks.
 
 ---
+
 ## Create correlation rules between log types
 
-This API is used to create correlation rules:
+You can use the following API to create correlation rules:
 
 ```json
 POST /_plugins/_security_analytics/correlation/rules
 ```
+{% include copy-curl.html %}
 
-### Request fields
+### Request body fields
 
 | Field | Type | Description |
 | :--- | :--- |:--- |
@@ -91,21 +92,24 @@ POST /_plugins/_security_analytics/correlation/rules
   }
 }
 ```
+{% include copy-curl.html %}
 
-### Response fields
+### Response body fields
 
 | Field | Type | Description |
 | :--- | :--- |:--- |
 | `_id` | String | The Id for the new rule. |
 
 ---
-## List all findings and their correlations within a time window
 
-This API provides a list of all findings and their correlations within a specified time window:
+## List all findings and correlations within a certain time window
+
+You can use the following API to list all findings and their correlations within a certain time window:
 
 ```json
 GET /_plugins/_security_analytics/correlations?start_timestamp=<start time in milliseconds>&end_timestamp=<end time in milliseconds>
 ```
+{% include copy-curl.html %}
 
 ### Query parameters
 
@@ -138,8 +142,9 @@ GET /_plugins/_security_analytics/correlations?start_timestamp=1689289210000&end
   ]
 }
 ```
+{% include copy-curl.html %}
 
-### Response fields
+### Response body fields
 
 | Field | Type | Description |
 | :--- | :--- |:--- |
@@ -150,13 +155,15 @@ GET /_plugins/_security_analytics/correlations?start_timestamp=1689289210000&end
 | `rules` | Array | A list of correlation rule IDs associated with the correlated findings. |
 
 ---
+
 ## List correlations for a finding belonging to a log type
 
-This API is used to list correlations for specific findings and the log types associated with them:
+You can use the following API to list correlations for certain findings and associated log types:
 
 ```json
 GET /_plugins/_security_analytics/findings/correlate?finding=425dce0b-f5ee-4889-b0c0-7d15669f0871&detector_type=ad_ldap&nearby_findings=20&time_window=10m
 ```
+{% include copy-curl.html %}
 
 ### Query parameters
 
@@ -166,7 +173,6 @@ GET /_plugins/_security_analytics/findings/correlate?finding=425dce0b-f5ee-4889-
 | `detector_type` | String | The log type for the detector. |
 | `nearby_findings` | Number | The number of nearby findings with respect to the given finding Id. |
 | `time_window` | String | Sets a time window in which all of the correlations must have occurred together. |
-
 
 #### Example request
 
@@ -213,8 +219,9 @@ GET /_plugins/_security_analytics/findings/correlate?finding=425dce0b-f5ee-4889-
   ]
 }
 ```
+{% include copy-curl.html %}
 
-### Response fields
+### Response body fields
 
 | Field | Type | Description |
 | :--- | :--- |:--- |
@@ -222,3 +229,136 @@ GET /_plugins/_security_analytics/findings/correlate?finding=425dce0b-f5ee-4889-
 | `detector_type` | String | The log type associated with the finding. |
 | `score` | Number | The correlation score for the correlated finding. The score is based on the proximity of relevant findings in the threat scenario defined by the correlation rule. |
 
+## List correlation alerts
+
+You can use the following API to list correlation alerts:
+
+```json
+GET /_plugins/_security_analytics/correlationAlerts
+```
+{% include copy-curl.html %}
+
+### Query parameters
+
+| Parameter | Type | Description |
+| :--- | :--- |:--- |
+| `correlation_rule_id` | String | The correlation rule ID. | Optional
+
+#### Example request
+
+```json
+GET /_plugins/_security_analytics/correlations?correlation_rule_id=VjY0MpABPzR_pcEveVRq
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+    "correlationAlerts": [
+        {
+            "correlated_finding_ids": [
+                "4f867df9-c9cb-4dc1-84bb-6c8b575f1a54"
+            ],
+            "correlation_rule_id": "VjY0MpABPzR_pcEveVRq",
+            "correlation_rule_name": "rule-corr",
+            "user": null,
+            "id": "8532c08b-3ab5-4e95-a1c2-5884c4cd41a5",
+            "version": 1,
+            "schema_version": 1,
+            "trigger_name": "trigger1",
+            "state": "ACTIVE",
+            "error_message": null,
+            "severity": "1",
+            "action_execution_results": [],
+            "start_time": "2024-06-19T20:37:08.257Z",
+            "end_time": "2024-06-19T20:42:08.257Z",
+            "acknowledged_time": null
+        },
+        {
+            "correlated_finding_ids": [
+                "30d2109f-76bb-44ad-8f68-6daa905e018d"
+            ],
+            "correlation_rule_id": "VjY0MpABPzR_pcEveVRq",
+            "correlation_rule_name": "rule-corr",
+            "user": null,
+            "id": "8bba85d9-a7fc-4c87-b35e-a7236b87159f",
+            "version": 1,
+            "schema_version": 1,
+            "trigger_name": "trigger1",
+            "state": "ACTIVE",
+            "error_message": null,
+            "severity": "1",
+            "action_execution_results": [],
+            "start_time": "2024-06-19T20:43:08.208Z",
+            "end_time": "2024-06-19T20:48:08.208Z",
+            "acknowledged_time": null
+        }
+    ],
+    "total_alerts": 2
+}
+```
+{% include copy-curl.html %}
+
+## Acknowledge correlation alerts
+
+You can use the following API to acknowledge the correlation alerts.
+
+### Example request
+
+```json
+POST /_plugins/_security_analytics/_acknowledge/correlationAlerts
+{
+   "alertIds": ["8532c08b-3ab5-4e95-a1c2-5884c4cd41a5", "8bba85d9-a7fc-4c87-b35e-a7236b87159f"]
+}
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+    "acknowledged": [
+        {
+            "correlated_finding_ids": [
+                "4f867df9-c9cb-4dc1-84bb-6c8b575f1a54"
+            ],
+            "correlation_rule_id": "VjY0MpABPzR_pcEveVRq",
+            "correlation_rule_name": "rule-corr",
+            "user": null,
+            "id": "8532c08b-3ab5-4e95-a1c2-5884c4cd41a5",
+            "version": 1,
+            "schema_version": 1,
+            "trigger_name": "trigger1",
+            "state": "ACTIVE",
+            "error_message": null,
+            "severity": "1",
+            "action_execution_results": [],
+            "start_time": "2024-06-19T20:37:08.257Z",
+            "end_time": "2024-06-19T20:42:08.257Z",
+            "acknowledged_time": null
+        },
+        {
+            "correlated_finding_ids": [
+                "30d2109f-76bb-44ad-8f68-6daa905e018d"
+            ],
+            "correlation_rule_id": "VjY0MpABPzR_pcEveVRq",
+            "correlation_rule_name": "rule-corr",
+            "user": null,
+            "id": "8bba85d9-a7fc-4c87-b35e-a7236b87159f",
+            "version": 1,
+            "schema_version": 1,
+            "trigger_name": "trigger1",
+            "state": "ACTIVE",
+            "error_message": null,
+            "severity": "1",
+            "action_execution_results": [],
+            "start_time": "2024-06-19T20:43:08.208Z",
+            "end_time": "2024-06-19T20:48:08.208Z",
+            "acknowledged_time": null
+        }
+    ],
+    "failed": []
+}
+```
+{% include copy-curl.html %}

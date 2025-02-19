@@ -4,7 +4,7 @@ title: Complex Queries
 parent: SQL
 grand_parent: SQL and PPL
 nav_order: 6
-Redirect_from:
+redirect_from:
   - /search-plugins/sql/complex/
 ---
 
@@ -151,7 +151,7 @@ Result set:
 ### Example 2: Cross join
 
 Cross join, also known as cartesian join, combines each document from the first index with each document from the second.
-The result set is the the cartesian product of documents of both indexes.
+The result set is the cartesian product of documents of both indexes.
 This operation is similar to the inner join without the `ON` clause that specifies the join condition.
 
 It's risky to perform cross join on two indexes of large or even medium size. It might trigger a circuit breaker that terminates the query to avoid running out of memory.

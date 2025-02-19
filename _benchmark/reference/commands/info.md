@@ -4,7 +4,8 @@ title: info
 nav_order: 75
 parent: Command reference
 grand_parent: OpenSearch Benchmark Reference
-redirect_from: /benchmark/commands/info/
+redirect_from:
+  - /benchmark/commands/info/
 ---
 
 <!-- vale off -->

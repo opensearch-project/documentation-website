@@ -2,7 +2,6 @@
 layout: default
 title: Geobounds
 parent: Metric aggregations
-grand_parent: Aggregations
 nav_order: 40
 redirect_from:
   - /query-dsl/aggregations/metric/geobounds/
