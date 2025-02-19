@@ -6,6 +6,7 @@ Amazon OpenSearch Serverless
 Amazon OpenSearch Service
 Amazon Bedrock
 Amazon SageMaker
+AWS Secrets Manager
 Ansible
 Anthropic Claude
 Auditbeat
