@@ -36,15 +36,15 @@ PUT /test-index
 {% include copy-curl.html %}
 
 
-Regardless of the type of vector search, the following elements are part of creating a vector index:
+Creating a vector index involves the following key steps:
 
 1. **Enable k-NN search**:
    Set `index.knn` to `true` in the index settings to enable k-NN search functionality.
 
 1. **Define a vector field**:
-   Specify the field that will store the vector data. When defining a `knn_vector` field in OpenSearch, you can select from different data types to balance storage requirements and performance. By default, k-NN vectors are float vectors, but you can also opt for byte or binary vectors for more efficient storage. For more information, see [k-NN vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/).
+   Specify the field that will store the vector data. When defining a `knn_vector` field in OpenSearch, you can select from different data types to balance storage requirements and performance. By default, k-NN vectors are float vectors, but you can also choose byte or binary vectors for more efficient storage. For more information, see [k-NN vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/).
 
-1. **Specify dimension**:
+1. **Specify the dimension**:
    Set the `dimension` property to match the size of the vectors used.
 
 1. (Optional) **Choose a space type**:
@@ -54,12 +54,12 @@ Regardless of the type of vector search, the following elements are part of crea
    Select a workload mode and/or compression level in order to optimize vector storage. For more information, see [Optimizing vector storage]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/).
 
 1. (Optional, advanced) **Select a method**:
-   Configure the indexing method, such as HNSW or IVF, to optimize vector search performance. For more information, see [Methods and engines]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/).
+   Configure the indexing method, such as HNSW or IVF, used to optimize vector search performance. For more information, see [Methods and engines]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/).
 
 To create a vector index, choose one of the following options:
 
-- [Store raw vectors or embeddings generated outside of OpenSearch](#storing-raw-vectors-or-embeddings-generated-outside-of-opensearch): Ingest pre-generated embeddings or raw vectors into your index for raw vector search.  
-- [Convert data to embeddings during ingestion](#converting-data-to-embeddings-during-ingestion): Ingest text that will be converted into vector embeddings within OpenSearch in order to perform semantic search using ML models. 
+- [Store raw vectors or embeddings generated outside of OpenSearch](#storing-raw-vectors-or-embeddings-generated-outside-of-opensearch): Ingest pregenerated embeddings or raw vectors into your index for raw vector search.  
+- [Convert data to embeddings during ingestion](#converting-data-to-embeddings-during-ingestion): Ingest text that will be converted into vector embeddings in OpenSearch in order to perform semantic search using machine learning (ML) models. 
 
 
 The following table summarizes key index configuration differences for the supported use cases.
@@ -94,7 +94,7 @@ PUT /my-raw-vector-index
 
 ## Converting data to embeddings during ingestion
 
-To automatically generate embeddings during ingestion, configure an [ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) with a model ID of the embedding model: 
+To automatically generate embeddings during ingestion, configure an [ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) with the model ID of the embedding model: 
 
 ```json
 PUT /_ingest/pipeline/nlp-ingest-pipeline

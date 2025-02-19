@@ -46,9 +46,9 @@ Field |  Description
 `script_compilation_errors` | The number of errors during script compilation. This statistic is only relevant to k-NN score script search.
 `script_query_requests` | The total number of script queries. This statistic is only relevant to k-NN score script search.
 `script_query_errors` | The number of errors during script queries. This statistic is only relevant to k-NN score script search.
-`nmslib_initialized` | Boolean value indicating whether the `nmslib` JNI library has been loaded and initialized on the node.
-`faiss_initialized` | Boolean value indicating whether the `faiss` JNI library has been loaded and initialized on the node.
-`model_index_status` | Status of model system index. Valid values are `red`, `yellow`, and `green`. If the index does not exist, this value is `null`.
+`nmslib_initialized` | A Boolean value indicating whether the `nmslib` JNI library has been loaded and initialized on the node.
+`faiss_initialized` | A Boolean value indicating whether the `faiss` JNI library has been loaded and initialized on the node.
+`model_index_status` | The status of the model system index. Valid values are `red`, `yellow`, and `green`. If the index does not exist, this value is `null`.
 `indexing_from_model_degraded` | Boolean value indicating if indexing from a model is degraded. This happens if there is not enough JVM memory to cache the models.
 `ing_requests` | The number of training requests made to the node.
 `training_errors` | The number of training errors that have occurred on the node.
@@ -60,7 +60,7 @@ Some statistics contain *graph* in the name. In these cases, *graph* is synonymo
 
 #### Example request
 
-The following examples show how to retrieve statistics related to the k-NN plugin. 
+The following examples demonstrate how to retrieve statistics related to the k-NN plugin. 
 
 The following example fetches comprehensive statistics for the k-NN plugin across all nodes in the cluster:
 
@@ -162,7 +162,7 @@ GET /_plugins/_knn/warmup/index1,index2,index3?pretty
 ```
 {% include copy-curl.html %}
 
-The `total` value indicates how many shards the k-NN plugin attempted to warm up. The response also includes the number of shards the plugin succeeded and failed to warm up.
+The `total` value indicates the number of shards that the k-NN plugin attempted to warm up. The response also includes the number of shards that the plugin successfully warmed up and failed to warm up.
 
 The call does not return results until the warmup operation finishes or the request times out. If the request times out, then the operation continues on the cluster. To monitor the warmup operation, use the OpenSearch `_tasks` API:
 
@@ -258,13 +258,13 @@ Response field |  Description
 `timestamp` | The date and time when the model was created.
 `description` | A user-provided description of the model.
 `error` | An error message explaining why the model is in a failed state.
-`space_type` | The space type for which this model is trained, for example, Euclidean or cosine. Note: This value can be set in the top level of the request.
+`space_type` | The space type for which the model is trained, for example, Euclidean or cosine. Note: This value can be set at the top level of the request.
 `dimension` | The dimensionality of the vector space for which this model is designed.
 `engine` | The native library used to create the model, either `faiss` or `nmslib` (deprecated). 
 
 #### Example request
 
-The following examples show how to retrieve information about a specific model using the k-NN plugin API. 
+The following examples demonstrate how to retrieve information about a specific model using the k-NN plugin API. 
 
 The following example returns all the available information about the model: 
 
@@ -284,7 +284,7 @@ GET /_plugins/_knn/models/test-model?pretty
 ```
 {% include copy-curl.html %}
 
-The following example shows how to selectively retrieve fields:
+The following example demonstrates how to selectively retrieve fields:
 
 ```json
 GET /_plugins/_knn/models/test-model?pretty&filter_path=model_id,state
@@ -394,7 +394,7 @@ Request field |  Description
 `max_training_vector_count` | The maximum number of vectors from the training index to be used for training. Defaults to all the vectors in the index. Optional.
 `search_size` | The training data is pulled from the training index using scroll queries. This parameter defines the number of results to return per scroll query. Default is `10000`. Optional.
 `description` | A user-provided description of the model. Optional.
-`method` | The configuration of the approximate k-NN method used for search operations. For more information about the available methods, see [Methods and engines]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/). The method requires training to be valid.
+`method` | The configuration of the approximate k-NN method used for search operations. For more information about the available methods, see [Methods and engines]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/). The method requires training in order to be valid.
 `space_type` | The space type for which this model is trained, for example, Euclidean or cosine. Note: This value can also be set in the `method` parameter.
    
 #### Example request

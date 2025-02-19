@@ -56,7 +56,7 @@ POST /_plugins/_ml/models/_register?deploy=true
 ```
 {% include copy-curl.html %}
 
-Registering a model is an asynchronous task. OpenSearch sends back a task ID for this task:
+Registering a model is an asynchronous task. OpenSearch returns a task ID for this task:
 
 ```json
 {
@@ -250,5 +250,5 @@ The response contains the matching documents:
 
 ## Next steps
 
-- Learn about configuring semantic and hybrid search in the [Getting started with semantic and hybrid search]({{site.url}}{{site.baseurl}}/vector-search/getting-started/tutorials/neural-search-tutorial/)
-- Learn about the supported types of ML-powered search [ML-powered search]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/)
+- See [Getting started with semantic and hybrid search]({{site.url}}{{site.baseurl}}/vector-search/getting-started/tutorials/neural-search-tutorial/) to learn about configuring semantic and hybrid search.
+- See [ML-powered search]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/) to learn about the supported types of ML-powered search.

@@ -13,11 +13,11 @@ This page defines key terms and techniques related to vector search in OpenSearc
 
 ### Vector embeddings  
 
-[_Vector embeddings_]({{site.url}}{{site.baseurl}}/vector-search/getting-started/vector-search-basics/#vector-embeddings) are numerical representations of data—such as text, images, or audio—that encode meaning or features into a high-dimensional space. These embeddings enable similarity-based comparisons for search and machine learning tasks.  
+[_Vector embeddings_]({{site.url}}{{site.baseurl}}/vector-search/getting-started/vector-search-basics/#vector-embeddings) are numerical representations of data—such as text, images, or audio—that encode meaning or features into a high-dimensional space. These embeddings enable similarity-based comparisons for search and machine learning (ML) tasks.  
 
 ### Dense vectors  
 
-_Dense vectors_ are high-dimensional numerical representations where most elements have nonzero values. They are typically produced by deep learning models and are used in semantic search and machine learning applications.  
+_Dense vectors_ are high-dimensional numerical representations where most elements have nonzero values. They are typically produced by deep learning models and are used in semantic search and ML applications.  
 
 ### Sparse vectors  
 
@@ -27,7 +27,7 @@ _Sparse vectors_ contain mostly zero values and are often used in techniques lik
 
 ### Vector search 
 
-[_Vector search_]({{site.url}}{{site.baseurl}}/vector-search/getting-started/vector-search-basics/), also known as similarity search or nearest neighbor search, is a technique for finding items that are most similar to a given input vector. It is widely used in applications such as recommendation systems, image retrieval, and natural language processing.  
+[_Vector search_]({{site.url}}{{site.baseurl}}/vector-search/getting-started/vector-search-basics/), also known as _similarity search_ or _nearest neighbor search_, is a technique for finding items that are most similar to a given input vector. It is widely used in applications such as recommendation systems, image retrieval, and natural language processing.  
 
 ### Space 
 
@@ -41,15 +41,15 @@ A [_method_]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-
 
 An [_engine_]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/) is the underlying library that implements vector search methods. It determines how vectors are indexed, stored, and retrieved during similarity search operations.  
 
-## k-NN Search  
+## k-NN search  
 
 ### k-NN search 
 
-_k-nearest neighbors (k-NN) search_ finds the k most similar vectors to a given query vector within an index. The similarity is determined based on a specified distance metric.  
+_k-nearest neighbors (k-NN) search_ finds the k most similar vectors to a given query vector in an index. The similarity is determined based on a specified distance metric.  
 
 ### Exact k-NN search 
 
-[_Exact k-NN search_]({{site.url}}{{site.baseurl}}/vector-search/vector-search-techniques/knn-score-script/) performs a brute-force comparison between a query vector and all vectors in the index, computing the exact nearest neighbors. This approach provides high accuracy but can be computationally expensive for large datasets.  
+[_Exact k-NN search_]({{site.url}}{{site.baseurl}}/vector-search/vector-search-techniques/knn-score-script/) performs a brute-force comparison between a query vector and all vectors in an index, computing the exact nearest neighbors. This approach provides high accuracy but can be computationally expensive for large datasets.  
 
 ### Approximate k-NN search  
 
@@ -59,15 +59,15 @@ _k-nearest neighbors (k-NN) search_ finds the k most similar vectors to a given 
 
 ### k-NN query
 
-[_k-NN query_]({{site.url}}{{site.baseurl}}/query-dsl/specialized/k-nn/) searches vector fields using a query vector.
+A [_k-NN query_]({{site.url}}{{site.baseurl}}/query-dsl/specialized/k-nn/) searches vector fields using a query vector.
 
 ### Neural query
 
-[_Neural query_]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/) searches vector fields using text or image data.
+A [_neural query_]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/) searches vector fields using text or image data.
 
 ### Neural sparse query 
 
-[_Neural sparse query_]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural-sparse/) searches vector fields using raw text or sparse vector tokens.
+A [_neural sparse query_]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural-sparse/) searches vector fields using raw text or sparse vector tokens.
 
 ## Search techniques  
 
@@ -81,7 +81,7 @@ _k-nearest neighbors (k-NN) search_ finds the k most similar vectors to a given 
 
 ### Multimodal search  
 
-[_Multimodal search_]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/multimodal-search/) enables searching across multiple types of data, such as text and images. It allows queries in one format (for example, text) to retrieve results in another (for example, images).  
+[_Multimodal search_]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/multimodal-search/) enables you to search across multiple types of data, such as text and images. It allows queries in one format (for example, text) to retrieve results in another (for example, images).  
 
 ### Radial search  
 
@@ -93,11 +93,11 @@ _k-nearest neighbors (k-NN) search_ finds the k most similar vectors to a given 
 
 ### Conversational search  
 
-[_Conversational search_]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/conversational-search/) allows you to interact with a search system using natural language queries and refine results through follow-up questions. This approach enhances user experience by making search more intuitive and interactive.  
+[_Conversational search_]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/conversational-search/) allows you to interact with a search system using natural language queries and refine results through follow-up questions. This approach enhances the user experience by making search more intuitive and interactive.  
 
 ### Retrieval-augmented generation 
 
-[_Retrieval-augmented generation (RAG)_]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/conversational-search/#rag) enhances large language models (LLMs) by retrieving relevant information from an index and incorporating it into the model’s response. This approach improves the accuracy and relevance of generated text.  
+[_Retrieval-augmented generation (RAG)_]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/conversational-search/#rag) enhances large language models (LLMs) by retrieving relevant information from an index and incorporating it into the model's response. This approach improves the accuracy and relevance of generated text.  
 
 ## Indexing and storage techniques  
 
@@ -115,11 +115,11 @@ _Scalar quantization_ reduces vector precision by mapping floating-point values 
 
 ### Product quantization  
 
-_Product quantization_ divides high-dimensional vectors into smaller subspaces and quantizes each subspace separately, enabling efficient approximate nearest neighbor search with reduced memory usage.  
+_Product quantization (PQ)_ divides high-dimensional vectors into smaller subspaces and quantizes each subspace separately, enabling efficient approximate nearest neighbor search with reduced memory usage.  
 
 ### Binary quantization  
 
-_Binary quantization_ compresses vector representations by converting numerical values into binary formats. This technique reduces storage requirements and speeds up similarity computations.  
+_Binary quantization_ compresses vector representations by converting numerical values to binary formats. This technique reduces storage requirements and accelerates similarity computations.  
 
 ### Disk-based vector search  
 
