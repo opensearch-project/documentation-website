@@ -209,7 +209,7 @@ To use date histogram aggregations and make them searchable in a star-tree index
 - The calendar intervals in a star-tree mapping configuration can use either the request's calendar field or a field of lower granularity than the request field. For example, if an aggregation uses the `month` field, the star-tree search can still use lower-granularity fields such as `day`.
 - A metric sub-aggregation must be part of the aggregation request.
 
-The following example filters logs to include only those with status codes between `200` and `400` and sets the `size` of the response to `0`, so that only aggregated results are returned in the response. It then aggregates the filtered logs by calendar month and calculates the total `size`, the total sum of successful and unsuccessful requests, for each month:
+The following example filters logs to include only those with status codes between `200` and `400` and sets the `size` of the response to `0`, so that only aggregated results are returned. It then aggregates the filtered logs by calendar month and calculates the total `size` of the requests for each month:
 
 ```json
 POST /logs/_search
