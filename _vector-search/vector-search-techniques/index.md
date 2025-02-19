@@ -23,11 +23,11 @@ OpenSearch supports three different methods for obtaining the k-nearest neighbor
   - [Painless extensions]({{site.url}}{{site.baseurl}}/search-plugins/knn/painless-functions/): Adds the distance functions as Painless extensions that you can use in more complex combinations. You can use this method to perform a brute-force, exact vector search of an index, which also supports pre-filtering. 
 
 
-Overall, for larger data sets, you should generally choose the approximate nearest neighbor method because it scales significantly better. For smaller data sets, where you may want to apply a filter, you should choose the custom scoring approach. If you have a more complex use case where you need to use a distance function as part of their scoring method, you should use the Painless scripting approach.
+In general, you should choose the ANN method for larger datasets because it scales significantly better. For smaller datasets, where you may want to apply a filter, you should choose the custom scoring approach. If you have a more complex use case where you need to use a distance function as part of the scoring method, you should use the Painless scripting approach.
 
 ## Approximate search
 
-OpenSearch supports multiple backend algorithms (_methods_) and libraries implementing these algorithms (_engines_). It automatically selects the optimal configuration based on the chosen mode and available memory. For more information, see [Methods and engines]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/).
+OpenSearch supports multiple backend algorithms (_methods_) and libraries for implementing these algorithms (_engines_). It automatically selects the optimal configuration based on the chosen mode and available memory. For more information, see [Methods and engines]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/).
 
 ## Using sparse vectors
 
@@ -35,4 +35,4 @@ _Neural sparse search_ offers an efficient alternative to dense vector search by
 
 ## Combining multiple search techniques
 
-_Hybrid search_ enhances search relevance by combining multiple search techniques within OpenSearch. It integrates traditional keyword search with vector-based semantic search. Through a configurable search pipeline, hybrid search normalizes and combines scores from different search methods to provide unified, relevant results. This approach is particularly effective for complex queries where both semantic understanding and exact matching are important. The search pipeline can be further customized with post-filtering operations and aggregations to meet specific search requirements. For more information, see [Hybrid search]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/hybrid-search/).
+_Hybrid search_ enhances search relevance by combining multiple search techniques in OpenSearch. It integrates traditional keyword search with vector-based semantic search. Through a configurable search pipeline, hybrid search normalizes and combines scores from different search methods to provide unified, relevant results. This approach is particularly effective for complex queries where both semantic understanding and exact matching are important. The search pipeline can be further customized with post-filtering operations and aggregations to meet specific search requirements. For more information, see [Hybrid search]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/hybrid-search/).

@@ -33,17 +33,17 @@ search_method_cards:
     description: "Uses sparse retrieval based on sparse embedding models to search text data."
     link: "/vector-search/ml-powered-search/neural-sparse-search/"
   - heading: "Conversational search with RAG"
-    description: "Uses retrieval-augmented generation and conversational memory to provide context-aware responses."
+    description: "Uses retrieval-augmented generation (RAG) and conversational memory to provide context-aware responses."
     link: "/vector-search/ml-powered-search/conversational-search/"
 chunking_cards:
   - heading: "Text chunking"
-    description: "Use text chunking to ensure adherence to token limit for embedding models."
+    description: "Use text chunking to ensure adherence to embedding model token limits."
     link: "/vector-search/ml-powered-search/text-chunking/"
 ---
 
 # ML-powered search
 
-ML-powered search streamlines your workflow by generating embeddings automatically. OpenSearch converts text into vectors during indexing and querying. It creates and indexes vector embeddings for documents, then processes query text into embeddings to find and return the most relevant results.
+Machine learning (ML)-powered search streamlines your workflow by generating embeddings automatically. OpenSearch converts text to vectors during indexing and querying. It creates and indexes vector embeddings for documents and then processes query text into embeddings to find and return the most relevant results.
 
 ## Prerequisite
 

@@ -33,7 +33,7 @@ Make sure to reenable `refresh_interval` after indexing is complete.
 
 If your hardware has multiple cores, you can allow multiple threads in native library index construction by speeding up the indexing process. Determine the number of threads to allot with the [knn.algo_param.index_thread_qty]({{site.url}}{{site.baseurl}}/search-plugins/knn/settings#cluster-settings) setting.
 
-Monitor CPU utilization and choose the correct number of threads. Because native library index construction is costly, choosing more threads then you need can cause additional CPU load.
+Monitor CPU utilization and choose the correct number of threads. Because native library index construction is costly, choosing more threads than you need can cause additional CPU load.
 
 
 ## (Expert level) Disable vector field storage in the source field

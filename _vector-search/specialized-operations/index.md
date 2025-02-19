@@ -11,7 +11,7 @@ cards:
     description: "Use vector search to search nested fields"
     link: "/vector-search/specialized-operations/nested-search-knn/"
   - heading: "Radial search"
-    description: "Search all points within a vector space that reside within a specified maximum distance or minimum score threshold from a query point"
+    description: "Search all points in a vector space that reside within a specified maximum distance or minimum score threshold from a query point"
     link: "/vector-search/specialized-operations/radial-search-knn/"
 ---
 

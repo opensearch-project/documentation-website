@@ -10,7 +10,7 @@ After creating a vector index, you need to either ingest raw vector data or conv
 
 ## Comparison of ingestion methods
 
-The following table compares ingestion for each vector search method.
+The following table compares the two ingestion methods.
 
 | Feature                       | Data format          | Ingest pipeline | Vector generation         | Additional fields            |
 |-------------------------------|----------------------------|---------------------|---------------------------------|-----------------------------------|

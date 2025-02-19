@@ -7,7 +7,7 @@ nav_order: 10
 
 # Vector search basics
 
-Vector search, also known as similarity search or nearest neighbor search, is a powerful technique for finding items that are most similar to a given input. Use cases include semantic search to understand user intent, recommendations (for example, an "other songs you might like" feature in a music application), image recognition, and fraud detection. For more background information about vector search, see [Nearest neighbor search](https://en.wikipedia.org/wiki/Nearest_neighbor_search).
+_Vector search_, also known as _similarity search_ or _nearest neighbor search_, is a powerful technique for finding items that are most similar to a given input. Use cases include semantic search to understand user intent, recommendations (for example, an "other songs you might like" feature in a music application), image recognition, and fraud detection. For more background information about vector search, see [Nearest neighbor search](https://en.wikipedia.org/wiki/Nearest_neighbor_search).
 
 ## Vector embeddings
 
@@ -27,7 +27,7 @@ To learn more about the types of vector search that OpenSearch supports, see [Ve
 
 ## Calculating similarity
 
-Vector similarity measures how close two vectors are in a multi-dimensional space, enabling tasks like nearest neighbor search and ranking results by relevance. OpenSearch supports multiple distance metrics (_spaces_) for calculating vector similarity:  
+Vector similarity measures how close two vectors are in a multi-dimensional space, facilitating tasks like nearest neighbor search and ranking results by relevance. OpenSearch supports multiple distance metrics (_spaces_) for calculating vector similarity:  
 
 - **L1 (Manhattan distance):** Sums the absolute differences between vector components.  
 - **L2 (Euclidean distance):** Calculates the square root of the sum of squared differences, making it sensitive to magnitude.  

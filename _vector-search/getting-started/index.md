@@ -10,7 +10,7 @@ redirect_from:
 
 # Getting started with vector search
 
-This guide shows you how to bring your own vectors to OpenSearch. In this example, you'll create a vector index, ingest vector data into the index, and search the data. 
+This guide shows you how to bring your own vectors into OpenSearch. In this example, you'll create a vector index, ingest vector data into the index, and search the data. 
 
 ## Prerequisite: Install OpenSearch
 
@@ -69,7 +69,7 @@ For more information about installing OpenSearch, see [Installation quickstart](
 
 ## Step 1: Create a vector index
 
-First, create an index that will store sample hotel data. To signal to OpenSearch that this is a vector index, set `index.knn` to `true`. You'll store the vectors in a vector field called `location`. The vectors you'll ingest will be two-dimensional and the distance between vectors will be calculated using [Euclidean `l2` similarity metric]({{site.url}}{{site.baseurl}}/vector-search/getting-started/vector-search-basics/#calculating-similarity):
+First, create an index that will store sample hotel data. To signal to OpenSearch that this is a vector index, set `index.knn` to `true`. You'll store the vectors in a vector field named `location`. The vectors you'll ingest will be two-dimensional, and the distance between vectors will be calculated using the [Euclidean `l2` similarity metric]({{site.url}}{{site.baseurl}}/vector-search/getting-started/vector-search-basics/#calculating-similarity):
 
 ```json
 PUT /hotels-index
@@ -197,6 +197,6 @@ If your data isn't already in vector format, you can generate vector embeddings 
 ## Next steps
 
 - [Vector search basics]({{site.url}}{{site.baseurl}}/vector-search/getting-started/vector-search-basics/)
-- [Bringing your own or generating embeddings ]({{site.url}}{{site.baseurl}}/vector-search/getting-started/vector-search-options/)
+- [Bringing your own or generating embeddings]({{site.url}}{{site.baseurl}}/vector-search/getting-started/vector-search-options/)
 - [Vector search with filters]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/)
 - [Generating vector embeddings within OpenSearch]({{site.url}}{{site.baseurl}}/vector-search/getting-started/auto-generated-embeddings/)

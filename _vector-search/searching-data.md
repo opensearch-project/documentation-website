@@ -8,7 +8,7 @@ nav_order: 35
 
 OpenSearch supports various methods for searching vector data, tailored to how the vectors were created and indexed. This guide explains the query syntax and options for raw vector search and auto-generated embedding search.
 
-## Search types comparison
+## Search type comparison
 
 The following table compares the search syntax and typical use cases for each vector search method.
 
@@ -38,7 +38,7 @@ GET /my-raw-vector-index/_search
 
 ## Searching auto-generated embeddings
 
-For ML-powered searches using auto-generated embeddings, use the `neural` query type and provide query text input:
+For machine learning (ML)-powered searches using auto-generated embeddings, use the `neural` query type and provide query text input:
 
 ```json
 GET /my-semantic-search-index/_search

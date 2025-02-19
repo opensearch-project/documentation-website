@@ -43,7 +43,7 @@ agents:
 
 # Tutorials
 
-Explore these tutorials to build ML-powered search applications, from semantic search to custom chatbots.
+Explore these tutorials to learn how to build machine learning (ML)-powered search applications, from semantic search applications to custom chatbots.
 
 <details open markdown="block">
   <summary>

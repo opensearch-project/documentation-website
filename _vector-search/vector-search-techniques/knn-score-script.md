@@ -11,15 +11,15 @@ redirect_from:
 
 # Exact k-NN search with scoring script
 
-You can use exact k-NN search with scoring script to find the exact k-nearest neighbors to a given query point. Using the k-NN score script, you can apply a filter on an index before executing the nearest neighbor search. This is useful for dynamic search cases where the index body may vary based on other conditions.
+You can use exact k-NN search with a scoring script to find the exact k-nearest neighbors to a given query point. Using the k-NN scoring script, you can apply a filter on an index before executing the nearest neighbor search. This is useful for dynamic search use cases, where the index body may vary based on other conditions.
 
-Because the score script approach executes a brute force search, it doesn't scale as efficiently as the [approximate approach]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/). In some cases, it might be better to think about refactoring your workflow or index structure to use the approximate approach instead of the score script approach.
+Because the score script approach executes a brute force search, it doesn't scale as efficiently as the [approximate approach]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/). In some cases, it might be better to consider refactoring your workflow or index structure to use the approximate approach instead of the score script approach.
 
 ## Getting started with the score script for vectors
 
-Similarly to approximate nearest neighbor search, in order to use the score script on a body of vectors, you must first create an index with one or more `knn_vector` fields.
+Similarly to approximate nearest neighbor (ANN) search, in order to use the score script on a body of vectors, you must first create an index with one or more `knn_vector` fields.
 
-If you intend to only use the score script approach (and not the approximate approach) you can set `index.knn` to `false` and not set `index.knn.space_type`. You can choose the space type during search. For the spaces the k-NN score script supports, see [Spaces]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-spaces/).
+If you intend to only use the score script approach (and not the approximate approach), you can set `index.knn` to `false` and not set `index.knn.space_type`. You can choose the space type during search. For the spaces that the k-NN score script supports, see [Spaces]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-spaces/).
 
 This example creates an index with two `knn_vector` fields:
 
@@ -42,7 +42,7 @@ PUT my-knn-index-1
 ```
 {% include copy-curl.html %}
 
-If you *only* want to use the score script, you can omit `"index.knn": true`. This approach leads to faster indexing speed and lower memory usage, but you lose the ability to run standard k-NN queries on the index.
+If you want to *only* use the score script, you can omit `"index.knn": true`. This approach leads to faster indexing speed and lower memory usage, but you lose the ability to run standard k-NN queries on the index.
 {: .tip}
 
 After you create the index, you can add some data to it:
@@ -107,7 +107,7 @@ All parameters are required.
 - `query_value` is the point you want to find the nearest neighbors for. For the Euclidean and cosine similarity spaces, the value must be an array of floats that matches the dimension set in the field's mapping. For Hamming bit distance, this value can be either of type signed long or a base64-encoded string (for the long and binary field types, respectively).
 - `space_type` corresponds to the distance function. For more information, see [Spaces]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-spaces/).
 
-The [post filter example in the approximate approach]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/) shows a search that returns fewer than `k` results. If you want to avoid this situation, the score script method lets you essentially invert the order of events. In other words, you can filter down the set of documents over which to execute the k-nearest neighbor search.
+The [post filter example in the approximate approach]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/) shows a search that returns fewer than `k` results. If you want to avoid this, the score script method lets you essentially invert the order of events. In other words, you can filter the set of documents on which to execute the k-NN search.
 
 This example shows a pre-filter approach to k-NN search with the score script approach. First, create the index:
 

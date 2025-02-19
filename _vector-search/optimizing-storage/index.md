@@ -11,12 +11,12 @@ storage_cards:
     description: "Reduce vector storage space by quantizing vectors."
     link: "/vector-search/optimizing-storage/knn-vector-quantization/"
   - heading: "Disk-based vector search"
-    description: "Uses binary quantization to reduce operational costs of vector workloads."
+    description: "Uses binary quantization to reduce the operational costs of vector workloads."
     link: "/vector-search/optimizing-storage/disk-based-vector-search/"
 ---
 
 # Optimizing vector storage
 
-Vector search operations can be resource-intensive, especially when dealing with large-scale vector datasets. OpenSearch provides several optimization techniques to reduce memory usage. 
+Vector search operations can be resource intensive, especially when dealing with large-scale vector datasets. OpenSearch provides several optimization techniques for reducing memory usage. 
 
 {% include cards.html cards=page.storage_cards %}
