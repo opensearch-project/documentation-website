@@ -8,18 +8,18 @@ nav_order: 30
 
 # Memory-optimized vectors
 
-Vector search operations can be memory-intensive, particularly when dealing with large-scale deployments. OpenSearch provides several strategies to optimize memory usage while maintaining search performance. You can choose between different workload modes that prioritize either low latency or low cost, apply various compression levels to reduce memory footprint, and use alternative vector representations like byte or binary vectors. These optimization techniques allow you to balance memory consumption, search performance, and cost based on your specific use case requirements.
+Vector search operations can be memory intensive, particularly when dealing with large-scale deployments. OpenSearch provides several strategies for optimizing memory usage while maintaining search performance. You can choose between different workload modes that prioritize either low latency or low cost, apply various compression levels to reduce memory footprint, or use alternative vector representations like byte or binary vectors. These optimization techniques allow you to balance memory consumption, search performance, and cost based on your specific use case requirements.
 
 ## Vector workload modes
 
-Vector search requires balancing between search performance and operational costs. While in-memory search provides the lowest latency, [disk-based search]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/disk-based-vector-search/) offers a more cost-effective approach by reducing memory usage, though with slightly higher search latency. To choose between these approaches, use the `mode` mapping parameter in your `knn_vector` field configuration. This parameter sets appropriate default values for k-NN parameters based on your priority: either low latency or low cost. For additional optimization, you can override these default parameter values in your k-NN field mapping.
+Vector search requires balancing search performance and operational costs. While in-memory search provides the lowest latency, [disk-based search]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/disk-based-vector-search/) offers a more cost-effective approach by reducing memory usage, though it results in slightly higher search latency. To choose between these approaches, use the `mode` mapping parameter in your `knn_vector` field configuration. This parameter sets appropriate default values for k-NN parameters based on your priority: either low latency or low cost. For additional optimization, you can override these default parameter values in your k-NN field mapping.
 
 OpenSearch supports the following vector workload modes.
 
 | Mode    | Default engine | Description                                                                                                                                                                                                                                             |
 |:---|:---|:---|
 | `in_memory` (Default) | `faiss`        | Prioritizes low-latency search. This mode uses the `faiss` engine without any quantization applied. It is configured with the default parameter values for vector search in OpenSearch.                                                                 |
-| `on_disk`             | `faiss`        | Prioritizes low-cost vector search while maintaining strong recall. By default, the `on_disk` mode uses quantization and rescoring to execute a two-pass approach to retrieve the top neighbors. The `on_disk` mode supports only `float` vector types. |
+| `on_disk`             | `faiss`        | Prioritizes low-cost vector search while maintaining strong recall. By default, the `on_disk` mode uses quantization and rescoring to execute a two-phase approach in order to retrieve the top neighbors. The `on_disk` mode supports only `float` vector types. |
 
 To create a vector index that uses the `on_disk` mode for low-cost search, send the following request:
 
@@ -168,17 +168,17 @@ By default, k-NN vectors are `float` vectors, in which each dimension is 4 bytes
 Byte vectors are supported only for the `lucene` and `faiss` engines. They are not supported for the `nmslib` engine.
 {: .note}
 
-In [k-NN benchmarking tests](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/vectorsearch), the use of `byte` rather than `float` vectors resulted in a significant reduction in storage and memory usage as well as improved indexing throughput and reduced query latency. Additionally, precision on recall was not greatly affected (note that recall can depend on various factors, such as the [quantization technique](#quantization-techniques) and data distribution). 
+In [k-NN benchmarking tests](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/vectorsearch), the use of `byte` rather than `float` vectors resulted in a significant reduction in storage and memory usage as well as improved indexing throughput and reduced query latency. Additionally, recall precision was not greatly affected (note that recall can depend on various factors, such as the [quantization technique](#quantization-techniques) used and the data distribution). 
 
-When using `byte` vectors, expect some loss of precision in the recall compared to using `float` vectors. Byte vectors are useful in large-scale applications and use cases that prioritize a reduced memory footprint in exchange for a minimal loss of recall.
+When using `byte` vectors, expect some loss of recall precision compared to using `float` vectors. Byte vectors are useful in large-scale applications and use cases that prioritize a reduced memory footprint in exchange for a minimal loss of recall.
 {: .important}
 
-When using `byte` vectors with the `faiss` engine, we recommend using [SIMD optimization]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/#simd-optimization), which helps to significantly reduce search latencies and improve indexing throughput.
+When using `byte` vectors with the `faiss` engine, we recommend using [Single Instruction Multiple Data (SIMD) optimization]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/#simd-optimization), which helps to significantly reduce search latencies and improve indexing throughput.
 {: .important} 
 
 Introduced in k-NN plugin version 2.9, the optional `data_type` parameter defines the data type of a vector. The default value of this parameter is `float`.
 
-To use a `byte` vector, set the `data_type` parameter to `byte` when creating mappings for an index:
+To use a `byte` vector, set the `data_type` parameter to `byte` when creating mappings for an index.
 
 ### Example: HNSW
 
@@ -253,7 +253,7 @@ GET test-index/_search
 
 ### Example: IVF
 
-The `ivf` method requires a training step that creates and trains the model used to initialize the native library index during segment creation. For more information, see [Building a vector index from a model]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-vector-index-from-a-model).
+The `ivf` method requires a training step that creates a model and trains it to initialize the native library index during segment creation. For more information, see [Building a vector index from a model]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-vector-index-from-a-model).
 
 First, create an index that will contain byte vector training data. Specify the `faiss` engine and `ivf` algorithm and make sure that the `dimension` matches the dimension of the model you want to create:
 
@@ -383,7 +383,7 @@ In the best-case scenario, byte vectors require 25% of the memory required by 32
 
 #### HNSW memory estimation
 
-The memory required for Hierarchical Navigable Small Worlds (HNSW) is estimated to be `1.1 * (dimension + 8 * m)` bytes/vector, where `m` is the maximum number of bidirectional links created for each element during the construction of the graph.
+The memory required for Hierarchical Navigable Small World (HNSW) is estimated to be `1.1 * (dimension + 8 * m)` bytes/vector, where `m` is the maximum number of bidirectional links created for each element during the construction of the graph.
 
 As an example, assume that you have 1 million vectors with a `dimension` of `256` and an `m` of `16`. The memory requirement can be estimated as follows:
 
@@ -393,7 +393,7 @@ As an example, assume that you have 1 million vectors with a `dimension` of `256
 
 #### IVF memory estimation
 
-The memory required for IVF is estimated to be `1.1 * ((dimension * num_vectors) + (4 * nlist * dimension))` bytes/vector, where `nlist` is the number of buckets to partition vectors into.
+The memory required for Inverted File Index (IVF) is estimated to be `1.1 * ((dimension * num_vectors) + (4 * nlist * dimension))` bytes/vector, where `nlist` is the number of buckets into which to partition vectors.
 
 As an example, assume that you have 1 million vectors with a `dimension` of `256` and an `nlist` of `128`. The memory requirement can be estimated as follows:
 
@@ -404,7 +404,7 @@ As an example, assume that you have 1 million vectors with a `dimension` of `256
 
 ### Quantization techniques
 
-If your vectors are of the type `float`, you need to first convert them to the `byte` type before ingesting the documents. This conversion is accomplished by _quantizing the dataset_---reducing the precision of its vectors. There are many quantization techniques, such as scalar quantization or product quantization (PQ), which is used in the Faiss engine. The choice of quantization technique depends on the type of data you're using and can affect the accuracy of recall values. The following sections describe the scalar quantization algorithms that were used to quantize the [k-NN benchmarking test](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/vectorsearch) data for the [L2](#scalar-quantization-for-the-l2-space-type) and [cosine similarity](#scalar-quantization-for-the-cosine-similarity-space-type) space types. The provided pseudocode is for illustration purposes only.
+If your vectors are of the type `float`, you need to first convert them to the `byte` type before ingesting documents. This conversion is accomplished by _quantizing the dataset_---reducing the precision of its vectors. The Faiss engine supports several quantization techniques, such as scalar quantization (SQ) and product quantization (PQ). The choice of quantization technique depends on the type of data you're using and can affect the accuracy of recall values. The following sections describe the scalar quantization algorithms that were used to quantize the [k-NN benchmarking test](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/vectorsearch) data for the [L2](#scalar-quantization-for-the-l2-space-type) and [cosine similarity](#scalar-quantization-for-the-cosine-similarity-space-type) space types. The provided pseudocode is for illustration purposes only.
 
 #### Scalar quantization for the L2 space type
 
@@ -520,7 +520,7 @@ There are several requirements for using binary vectors in the OpenSearch k-NN p
 - The `data_type` of the binary vector index must be `binary`.
 - The `space_type` of the binary vector index must be `hamming`.
 - The `dimension` of the binary vector index must be a multiple of 8.
-- You must convert your binary data into 8-bit signed integers (`int8`) in the [-128, 127] range. For example, the binary sequence of 8 bits `0, 1, 1, 0, 0, 0, 1, 1` must be converted into its equivalent byte value of `99` to be used as a binary vector input.
+- You must convert your binary data into 8-bit signed integers (`int8`) in the [-128, 127] range. For example, the binary sequence of 8 bits `0, 1, 1, 0, 0, 0, 1, 1` must be converted into its equivalent byte value of `99` in order to be used as a binary vector input.
 
 ### Example: HNSW
 
@@ -642,7 +642,7 @@ The response contains the two vectors closest to the query vector:
 
 ### Example: IVF
 
-The IVF method requires a training step that creates and trains the model used to initialize the native library index during segment creation. For more information, see [Building a vector index from a model]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-vector-index-from-a-model). 
+The IVF method requires a training step that creates a model and trains it to initialize the native library index during segment creation. For more information, see [Building a vector index from a model]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-vector-index-from-a-model). 
 
 First, create an index that will contain binary vector training data. Specify the Faiss engine and IVF algorithm and make sure that the `dimension` matches the dimension of the model you want to create:
 
@@ -913,7 +913,7 @@ The memory required for HNSW can be estimated using the following formula, where
 
 #### IVF memory estimation
 
-The memory required for IVF can be estimated using the following formula, where `nlist` is the number of buckets to partition vectors into:
+The memory required for IVF can be estimated using the following formula, where `nlist` is the number of buckets into which to partition vectors:
 
 ```r
 1.1 * (((dimension / 8) * num_vectors) + (nlist * dimension / 8))

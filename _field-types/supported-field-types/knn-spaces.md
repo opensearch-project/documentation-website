@@ -13,9 +13,9 @@ In vector search, a _space_ defines how the distance (or similarity) between two
 
 ## Distance calculation
 
-A space defines the function used to measure the distance between two points in order to determine the k-nearest neighbors. From the k-NN perspective, a lower score equates to a closer and better result. This is the opposite of how OpenSearch scores results, where a higher score equates to a better result. OpenSearch supports the following spaces. 
+A space defines the function used to measure the distance between two points in order to determine the k-nearest neighbors. In k-NN search, a lower score equates to a closer and better result. This is the opposite of how OpenSearch scores results, where a higher score equates to a better result. OpenSearch supports the following spaces. 
 
-Not every method/engine combination supports each of the spaces. For a list of supported spaces, see the specific engine section in the [method documentation]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/).
+Not every method/engine combination supports each of the spaces. For a list of supported spaces, see the section for a specific engine in the [method documentation]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/).
 {: .note}
 
 | Space type | Search type | Distance function ($$d$$ ) | OpenSearch score |

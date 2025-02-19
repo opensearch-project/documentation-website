@@ -15,7 +15,7 @@ why_use:
     description: "Use OpenSearch as a vector database to combine the power of traditional search, analytics, and vector search."
     link: "/vector-search/"
   - heading: "Fast, scalable full-text search"
-    description: "Help users find the right information within your application, website, or data lake catalog."
+    description: "Help users find the right information in your application, website, or data lake catalog."
     link: "/search-plugins/"
   - heading: "Application and infrastructure monitoring"
     description: "Use observability logs, metrics, and traces to monitor your applications in real time."
@@ -44,16 +44,16 @@ features:
     link: "/dashboards/"
 getting_started:
   - heading: "Get started with OpenSearch"
-    description: "Learn about OpenSearch and get started ingesting and searching data."
+    description: "Learn about OpenSearch and start ingesting and searching data."
     link: "/getting-started/"
   - heading: "Get started with OpenSearch Dashboards"
-    description: "Learn about OpenSearch Dashboards applications and tools to visualize data."
+    description: "Learn about OpenSearch Dashboards applications and tools used to visualize data."
     link: "/dashboards/quickstart/"
   - heading: "Get started with vector search"
     description: "Learn about vector search options and build your first vector search application."
     link: "/search-plugins/"
   - heading: "Get started with OpenSearch security"
-    description: "Learn about using security in OpenSearch."
+    description: "Learn about security in OpenSearch."
     link: "/getting-started/security/"
 ---
 
