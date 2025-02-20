@@ -41,6 +41,45 @@ The TypeMappingsSanitizationTransformer supports several strategies for handling
 3. **Drop Types**: Selectively migrate only specific types
 4. **Keep Original Structure**: Maintain the same index name while conforming to new type standards
 
+### TypeMappingsSanitizationTransformerProvider configuration schema
+
+| **Field**          | **Type** | **Required?** | **Description**                                                                                                                                                                                                                                                                                                  |
+|--------------------|----------|---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `staticMappings`   | `object` | No            | A map of `{ indexName: { typeName: targetIndex } }` to **statically** route specific types. <br/><br/> For any **index** listed here, types **not** included in its object are **dropped** (no data or requests migrated for those omitted types).                                                               |
+| `regexMappings`    | `array`  | No            | A list of **regex-based** rules for **dynamic** routing of source index/type names to a target index. <br/><br/> Each element in this array is itself an array of length 3: <br/>`[ "sourceIndexRegex", "sourceTypeRegex", "targetIndexSubstitution" ]` <br/><br/> **Default** value, see [Defaults](#Defaults). |
+| `sourceProperties` | `object` | Yes           | Additional **metadata** about the source (for example, its Elasticsearch/OpenSearch version). Must include at least `"version"` with `"major"` and `"minor"` fields.                                                                                                                                             |
+
+<details>
+<summary>Example JSON Configuration</summary>
+
+```JSON
+{
+  "TypeMappingsSanitizationTransformerProvider": {
+    "staticMappings": {
+      "{index-name-1}": {
+        "{type-name-1}": "{target-index-name-1}",
+        "{type-name-2}": "{target-index-name-2}"
+      }
+    },
+    "regexMappings": [
+      [
+        "{source-index-regex}",
+        "{source-type-regex}",
+        "{target-index-substitution}"
+      ]
+    ],
+    "sourceProperties": {
+      "version": {
+        "major": "NUMBER",
+        "minor": "NUMBER"
+      }
+    }
+  }
+}
+```
+</details>
+
+
 ### Example configurations
 
 Here are some common scenarios and their corresponding configurations:
@@ -101,7 +140,7 @@ To combine multiple types into a single index:
 
 #### 3. Drop specific types
 
-To migrate only specific types within the `activity` index and drop non specified types:
+To migrate only the `user` type within the `activity` index and drop all documents/requests with types not directly specified:
 
 ```JSON
 [
@@ -109,7 +148,7 @@ To migrate only specific types within the `activity` index and drop non specifie
     "TypeMappingsSanitizationTransformerProvider": {
       "staticMappings": {
         "activity": {
-          "user": "users_only",
+          "user": "users_only"
         }
       },
       "sourceProperties": {
@@ -156,7 +195,15 @@ This is equivalent to the merge all types into one index rule but using a patter
 
 You can combine both static and regex-based mappings to handle different indices or patterns in a single migration. For example, you might have one index that must use **staticMappings** and another that uses **regexMappings** to route all types by pattern.
 
-When an index is included in staticMappings, no regexMappings will be applied. 
+For each document/request/metadata, the following steps are performed (for bulk requests, this is done per document):
+
+- First, the index is checked to see if it matches an entry in the static mappings.
+  - Then, the type is checked to see if it matches under the index component of the static mappings entry.
+    - If it is, then the mapping is applied and resulting index is the value of the type key.
+    - If it is not, then the request/document/metadata is dropped and not migrated.
+- If the index is not matched in the static mappings, the index type combination is checked against each item in the regex mappings list from first to last, in order.
+  - If the combination matches, the mapping is applied and resulting index is the value of the type key and no further regex matching is done.
+- Finally, any request/document/metadata that didn't match the above cases will be dropped and the documents they contain will not be migrated.
 
 ```json
 [
