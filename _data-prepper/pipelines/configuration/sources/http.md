@@ -46,7 +46,9 @@ The `http` protocol only supports the JSON UTF-8 codec for incoming requests, fo
 
 The following cURL command can be used to ingest data:
 
-`curl "http://localhost:2021/log/ingest" --data '[{"key1": "value1"}, {"key2": "value2"}]'`
+```
+curl "http://localhost:2021/log/ingest" --data '[{"key1": "value1"}, {"key2": "value2"}]'
+```
 {% include copy-curl.html %}
 
 ## Metrics
