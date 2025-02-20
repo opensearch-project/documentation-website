@@ -225,6 +225,71 @@ The response contains the generated tokens:
 }
 ```
 
+### Caution with special characters 
+
+When using custom regex patterns in your analyzer, take care to ensure special or non-English characters are handled correctly. For example, by default Java's regex only includes `[A-Za-z0-9_]` as word characters (`\w`). This can cause unexpected behavior with patterns using `\w` or `\b`, which matches the boundary between a word and non-word character. 
+
+For example, the following analyzer attempts to use the pattern `"(\b\p{L}+\b)"` to match one or more letter characters from any language (`\p{L}`) surrounded by any word boundaries: 
+
+```json
+PUT buggy_custom_analyzer
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "capture_words": {
+          "type": "pattern_capture",
+          "patterns": [
+            "(\\b\\p{L}+\\b)"
+          ]
+        }
+      },
+      "analyzer": {
+        "filter_only_analyzer": {
+          "type": "custom",
+          "tokenizer": "keyword",
+          "filter": [
+            "capture_words"
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+But this will incorrectly tokenize `"él-empezó-a-reír"` to `"l", "empez", "a", "reír"`, since `\b` fails to match the boundary between accented characters and the start or end of a string. 
+
+To safely handle such cases, add the Unicode case flag `(?U)` to your pattern: 
+
+```json
+PUT fixed_custom_analyzer
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "capture_words": {
+          "type": "pattern_capture",
+          "patterns": [
+            "(?U)(\\b\\p{L}+\\b)"
+          ]
+        }
+      },
+      "analyzer": {
+        "filter_only_analyzer": {
+          "type": "custom",
+          "tokenizer": "keyword",
+          "filter": [
+            "capture_words"
+          ]
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
 ## Position increment gap
 
 The `position_increment_gap` parameter sets a positional gap between terms when indexing multi-valued fields, such as arrays. This gap ensures that phrase queries don't match terms across separate values unless explicitly allowed. For example, a default gap of 100 specifies that terms in different array entries are 100 positions apart, preventing unintended matches in phrase searches. You can adjust this value or set it to `0` in order to allow phrases to span across array values.
