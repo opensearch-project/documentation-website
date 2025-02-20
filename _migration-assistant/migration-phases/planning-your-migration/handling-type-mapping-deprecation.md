@@ -101,7 +101,7 @@ To combine multiple types into a single index:
 
 #### 3. Drop specific types
 
-To migrate only specific types and drop others:
+To migrate only specific types within the `activity` index and drop non specified types:
 
 ```JSON
 [
