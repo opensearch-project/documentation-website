@@ -41,11 +41,11 @@ The TypeMappingsSanitizationTransformer supports several strategies for handling
 3. **Drop Types**: Selectively migrate only specific types
 4. **Keep Original Structure**: Maintain the same index name while conforming to new type standards
 
-### Example Configurations
+### Example configurations
 
 Here are some common scenarios and their corresponding configurations:
 
-#### 1. Route Different Types to Separate indexes
+#### 1. Route different types to separate indexes
 
 If you have an index `activity` with types `user` and `post` that you want to split into separate indexes:
 
@@ -74,7 +74,7 @@ This will:
 - Route documents with type `user` to the `new_users` index
 - Route documents with type `post` to the `new_posts` index
 
-#### 2. Merge All Types into One Index
+#### 2. Merge all types into one index
 
 To combine multiple types into a single index:
 
@@ -99,7 +99,7 @@ To combine multiple types into a single index:
 ]
 ```
 
-#### 3. Drop Specific Types
+#### 3. Drop specific types
 
 To migrate only specific types and drop others:
 
@@ -152,7 +152,7 @@ To migrate only specific types and keep the original structure:
 
 This is equivalent to the merge all types into one index rule but using a pattern-based routing strategy.
 
-### 5. Combining Multiple Strategies
+### 5. Combining multiple strategies
 
 You can combine both static and regex-based mappings to handle different indices or patterns in a single migration. For example, you might have one index that must use **staticMappings** and another that uses **regexMappings** to route all types by pattern.
 
