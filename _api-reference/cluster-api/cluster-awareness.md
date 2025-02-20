@@ -62,7 +62,7 @@ Parameter | Type | Description
 
 In the following example request body, `zone_1` and `zone_2` receive 50 requests each, whereas `zone_3` is prevented from receiving requests:
 
-```
+```json
 { 
       "weights":
       {
@@ -140,6 +140,7 @@ OpenSearch responds with the weight of each zone:
       },
       "_version":1
 }
+```
 
 
 ## Next steps
