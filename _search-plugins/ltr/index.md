@@ -22,5 +22,3 @@ The following resources can help you get started:
 - If you are new to LTR, start with the [ML ranking core concepts]({{site.url}}{{site.baseurl}}/search-plugins/ltr/core-concepts/) documentation.
 - For a quick introduction, see the demo in [hello-ltr](https://github.com/o19s/hello-ltr).
 - If you are familiar with LTR, start with the [Integrating the plugin]({{site.url}}{{site.baseurl}}/search-plugins/ltr/fits-in/) documentation.
-
-{% include copy-curl.html %}
