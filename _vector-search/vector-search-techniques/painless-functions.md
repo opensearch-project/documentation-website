@@ -2,7 +2,7 @@
 layout: default
 title: Painless extensions
 nav_order: 25
-parent: Exact k-NN search with scoring script
+parent: Exact k-NN search with a scoring script
 grand_parent: Vector search techniques
 has_children: false
 has_math: true
@@ -12,11 +12,11 @@ redirect_from:
 
 # Painless scripting extensions
 
-With Painless scripting extensions, you can use k-NN distance functions directly in your Painless scripts to perform operations on `knn_vector` fields. Painless has a strict list of allowed functions and classes per context to ensure that its scripts are secure. OpenSearch adds Painless scripting extensions to a few of the distance functions used in [k-NN score script]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-score-script/), so you can use them to customize your k-NN workload.
+With Painless scripting extensions, you can use k-nearest neighbors (k-NN) distance functions directly in your Painless scripts to perform operations on `knn_vector` fields. Painless has a strict list of allowed functions and classes per context to ensure that its scripts are secure. OpenSearch adds Painless scripting extensions to a few of the distance functions used in [k-NN scoring script]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-score-script/), so you can use them to customize your k-NN workload.
 
 ## Get started with k-NN Painless scripting functions
 
-To use k-NN Painless scripting functions, first create an index with `knn_vector` fields, as described in [Getting started with the score script for vectors]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-score-script#getting-started-with-the-score-script-for-vectors). Once you have created the index and ingested some data, you can use Painless extensions:
+To use k-NN Painless scripting functions, first create an index with `knn_vector` fields, as described in [Getting started with the scoring script for vectors]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-score-script#getting-started-with-the-scoring-script-for-vectors). Once you have created the index and ingested some data, you can use Painless extensions:
 
 ```json
 GET my-knn-index-2/_search

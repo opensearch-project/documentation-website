@@ -11,7 +11,7 @@ redirect_from:
 
 To refine vector search results, you can filter a vector search using one of the following methods:
 
-- [Efficient k-NN filtering](#efficient-k-nn-filtering): This approach applies filtering _during_ the k-NN search, as opposed to before or after the k-NN search, which ensures that `k` results are returned (if there are at least `k` results in total). This approach is supported by the following engines:
+- [Efficient k-nearest neighbors (k-NN) filtering](#efficient-k-nn-filtering): This approach applies filtering _during_ the k-NN search, as opposed to before or after the k-NN search, which ensures that `k` results are returned (if there are at least `k` results in total). This approach is supported by the following engines:
   - Lucene engine with a Hierarchical Navigable Small World (HNSW) algorithm (OpenSearch version 2.4 and later) 
   - Faiss engine with an HNSW algorithm (OpenSearch version 2.9 and later) or IVF algorithm (OpenSearch version 2.10 and later)
 

@@ -14,7 +14,7 @@ This topic provides performance tuning recommendations for improving indexing an
 * Queries execute sequentially on segments in the shard (as with any other OpenSearch query).
 * The coordinator node selects the final `size` neighbors from the neighbors returned by each shard.
 
-The following sections provide recommendations regarding comparing ANN to exact k-NN with a score script.
+The following sections provide recommendations regarding comparing ANN to exact k-NN with a scoring script.
 
 ## Recommendations for engines and cluster node sizing
 
@@ -30,7 +30,7 @@ Recall depends on multiple factors, such as the number of vectors, dimensions, s
 
 The default parameters work for a broader set of use cases, but make sure to run your own experiments on your datasets and choose the appropriate values. For index-level settings, see [Index settings]({{site.url}}{{site.baseurl}}/vector-search/settings/#index-settings).
 
-## ANN compared to score script
+## ANN compared to scoring script
 
 The standard k-NN query and custom scoring options perform differently. Run tests with a representative set of documents to see if the search results and latencies match your expectations.
 

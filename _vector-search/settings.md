@@ -46,5 +46,5 @@ Setting | Static/Dynamic | Default | Description
 `index.knn.algo_param.m` | Static | `16` | Deprecated in 1.0.0. Use the [mapping parameters]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/) to set this value instead.
 `index.knn.space_type` | Static | `l2` | Deprecated in 1.0.0. Use the [mapping parameters]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/) to set this value instead.
 
-An index created in OpenSearch version 2.11 or earlier will still use the old `ef_construction` and `ef_search` values (`512`).
+An index created in OpenSearch version 2.11 or earlier will still use the previous `ef_construction` and `ef_search` values (`512`).
 {: .note}

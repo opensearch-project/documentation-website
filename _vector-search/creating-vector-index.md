@@ -38,7 +38,7 @@ PUT /test-index
 
 Creating a vector index involves the following key steps:
 
-1. **Enable k-NN search**:
+1. **Enable k-nearest neighbors (k-NN) search**:
    Set `index.knn` to `true` in the index settings to enable k-NN search functionality.
 
 1. **Define a vector field**:

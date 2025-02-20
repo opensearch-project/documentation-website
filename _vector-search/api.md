@@ -9,7 +9,7 @@ redirect_from:
 
 # k-NN API
 
-OpenSearch provides several k-NN APIs for managing, monitoring, and optimizing your vector workload.
+OpenSearch provides several k-nearest neighbors (k-NN) APIs for managing, monitoring, and optimizing your vector workload.
 
 ## Stats
 
@@ -42,10 +42,10 @@ Field |  Description
 `load_success_count` | The number of times k-NN successfully loaded a native library index into the cache. This statistic is only relevant to approximate k-NN search.
 `load_exception_count` | The number of times an exception occurred when trying to load a native library index into the cache. This statistic is only relevant to approximate k-NN search.
 `indices_in_cache` | For each OpenSearch index with a `knn_vector` field and approximate k-NN turned on, this statistic provides the number of native library indexes that OpenSearch index has and the total `graph_memory_usage` that the OpenSearch index is using, in kilobytes.
-`script_compilations` | The number of times the k-NN script has been compiled. This value should usually be 1 or 0, but if the cache containing the compiled scripts is filled, the k-NN script might be recompiled. This statistic is only relevant to k-NN score script search.
-`script_compilation_errors` | The number of errors during script compilation. This statistic is only relevant to k-NN score script search.
-`script_query_requests` | The total number of script queries. This statistic is only relevant to k-NN score script search.
-`script_query_errors` | The number of errors during script queries. This statistic is only relevant to k-NN score script search.
+`script_compilations` | The number of times the k-NN script has been compiled. This value should usually be 1 or 0, but if the cache containing the compiled scripts is filled, the k-NN script might be recompiled. This statistic is only relevant to k-NN scoring script search.
+`script_compilation_errors` | The number of errors during script compilation. This statistic is only relevant to k-NN scoring script search.
+`script_query_requests` | The total number of script queries. This statistic is only relevant to k-NN scoring script search.
+`script_query_errors` | The number of errors during script queries. This statistic is only relevant to k-NN scoring script search.
 `nmslib_initialized` | A Boolean value indicating whether the `nmslib` JNI library has been loaded and initialized on the node.
 `faiss_initialized` | A Boolean value indicating whether the `faiss` JNI library has been loaded and initialized on the node.
 `model_index_status` | The status of the model system index. Valid values are `red`, `yellow`, and `green`. If the index does not exist, this value is `null`.

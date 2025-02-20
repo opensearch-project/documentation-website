@@ -8,10 +8,10 @@ redirect_from:
   - /vector-search/optimizing-storage/
 storage_cards:
   - heading: "Vector quantization"
-    description: "Reduce vector storage space by quantizing vectors."
+    description: "Reduce vector storage space by quantizing vectors"
     link: "/vector-search/optimizing-storage/knn-vector-quantization/"
   - heading: "Disk-based vector search"
-    description: "Uses binary quantization to reduce the operational costs of vector workloads."
+    description: "Uses binary quantization to reduce the operational costs of vector workloads"
     link: "/vector-search/optimizing-storage/disk-based-vector-search/"
 ---
 

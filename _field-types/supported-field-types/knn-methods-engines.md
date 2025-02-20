@@ -101,7 +101,7 @@ Parameter name | Required | Default | Updatable | Description
 The Lucene HNSW implementation ignores `ef_search` and dynamically sets it to the value of "k" in the search request. There is therefore no need to configure settings for `ef_search` when using the Lucene engine.
 {: .note}
 
-An index created in OpenSearch version 2.11 or earlier will still use the old `ef_construction` value (`512`).
+An index created in OpenSearch version 2.11 or earlier will still use the previous `ef_construction` value (`512`).
 {: .note}
 
 ### Example configuration
@@ -142,7 +142,7 @@ Parameter name | Required | Default | Updatable | Description
 `m` | No | 16 | No | The number of bidirectional links that the plugin creates for each new element. Increasing and decreasing this value can have a large impact on memory consumption. Keep this value between `2` and `100`.
 `encoder` | No | flat | No | An encoder definition for encoding vectors. Encoders can reduce the memory footprint of your index at the expense of search accuracy.
 
-An index created in OpenSearch version 2.11 or earlier will still use the old `ef_construction` value (`512`).
+An index created in OpenSearch version 2.11 or earlier will still use the previous `ef_construction` value (`512`).
 {: .note}
 
 #### IVF parameters
@@ -340,7 +340,7 @@ Parameter name | Required | Default | Updatable | Description
 For NMSLIB (deprecated), *ef_search* is set in the [index settings]({{site.url}}{{site.baseurl}}/vector-search/settings/#index-settings).
 {: .note}
 
-An index created in OpenSearch version 2.11 or earlier will still use the old `ef_construction` value (`512`).
+An index created in OpenSearch version 2.11 or earlier will still use the previous `ef_construction` value (`512`).
 {: .note}
 
 ### Example configuration
@@ -377,13 +377,13 @@ In general, select Faiss for large-scale use cases. Lucene is a good option for 
 |:---|:---|:---|:---|
 |  Max dimensions |    16,000 |  16,000 |  16,000 |
 |  Filter |    Post-filter |  Post-filter |  Filter during search |
-|  Training required |    No (Yes for product quantization) |  Yes |  No |
+|  Training required |    No (Yes for PQ) |  Yes |  No |
 |  Similarity metrics | `l2`, `innerproduct` |  `l2`, `innerproduct` |  `l2`, `cosinesimil` |
 |  Number of vectors   |    Tens of billions |  Tens of billions |  Less than 10 million |
 |  Indexing latency |   Low  |  Lowest  |  Low  |
 |  Query latency and quality  |    Low latency and high quality  |  Low latency and low quality  |  High latency and high quality  |
-|  Vector compression  |   Flat <br><br>Product quantization |  Flat <br><br>Product quantization |  Flat  |
-|  Memory consumption |   High <br><br> Low with product quantization |  Medium <br><br> Low with product quantization |  High  |
+|  Vector compression  |   Flat <br><br>PQ |  Flat <br><br>PQ |  Flat  |
+|  Memory consumption |   High <br><br> Low with PQ |  Medium <br><br> Low with PQ |  High  |
 
 ## Memory estimation
 

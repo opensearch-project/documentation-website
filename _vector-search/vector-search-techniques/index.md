@@ -19,7 +19,7 @@ OpenSearch supports three different methods for obtaining the k-nearest neighbor
 - [Approximate search]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/) (approximate k-NN, or ANN): Returns approximate nearest neighbors to the query vector. Usually, approximate search algorithms sacrifice indexing speed and search accuracy in exchange for performance benefits such as lower latency, smaller memory footprints, and more scalable search. For most use cases, approximate search is the best option.
 
 - Exact search: A brute-force, exact k-NN search of vector fields. OpenSearch supports the following types of exact search: 
-  - [Exact search with scoring script]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-score-script/): Using a scoring script, you can apply a filter to an index before executing the nearest neighbor search. 
+  - [Exact search with a scoring script]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-score-script/): Using a scoring script, you can apply a filter to an index before executing the nearest neighbor search. 
   - [Painless extensions]({{site.url}}{{site.baseurl}}/search-plugins/knn/painless-functions/): Adds the distance functions as Painless extensions that you can use in more complex combinations. You can use this method to perform a brute-force, exact vector search of an index, which also supports pre-filtering. 
 
 

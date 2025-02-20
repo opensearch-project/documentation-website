@@ -86,7 +86,7 @@ This is an expert-level setting. Disabling the `_recovery_source` may lead to fa
 
 This approach is recommended only for workloads that involve a single initial bulk upload and will be used exclusively for search after force merging to a single segment.
 
-During indexing, vector search builds a specialized data structure for a `knn_vector` field to enable efficient approximate k-NN search. However, these structures are rebuilt during [force merge]({{site.url}}{{site.baseurl}}/api-reference/index-apis/force-merge/) on vector indexes. To optimize indexing speed, follow these steps:
+During indexing, vector search builds a specialized data structure for a `knn_vector` field to enable efficient approximate k-nearest neighbors (k-NN) search. However, these structures are rebuilt during [force merge]({{site.url}}{{site.baseurl}}/api-reference/index-apis/force-merge/) on vector indexes. To optimize indexing speed, follow these steps:
 
 1. **Disable vector data structure creation**: Disable vector data structure creation for new segments by setting [`index.knn.advanced.approximate_threshold`]({{site.url}}{{site.baseurl}}/vector-search/settings/#index-settings) to `-1`. 
 

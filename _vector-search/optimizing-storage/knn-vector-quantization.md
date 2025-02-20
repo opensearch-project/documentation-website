@@ -9,23 +9,23 @@ redirect_from:
   - /search-plugins/knn/knn-vector-quantization/
 outside_cards:
   - heading: "Byte vectors"
-    description: "Quantize vectors into byte vectors."
+    description: "Quantize vectors into byte vectors"
     link: "/field-types/supported-field-types/knn-memory-optimized/#byte-vectors"
   - heading: "Binary vectors"
-    description: "Quantize vectors into binary vectors."
+    description: "Quantize vectors into binary vector"
     link: "/field-types/supported-field-types/knn-memory-optimized/#binary-vectors"
 inside_cards:
   - heading: "Lucene scalar quantization"
-    description: "Use built-in scalar quantization for the Lucene engine."
+    description: "Use built-in scalar quantization for the Lucene engine"
     link: "/vector-search/optimizing-storage/lucene-scalar-quantization/"
   - heading: "Faiss 16-bit scalar quantization"
-    description: "Use built-in scalar quantization for the Faiss engine."
+    description: "Use built-in scalar quantization for the Faiss engine"
     link: "/vector-search/optimizing-storage/faiss-16-bit-quantization/"
   - heading: "Faiss product quantization"
-    description: "Use built-in product quantization for the Faiss engine."
+    description: "Use built-in product quantization for the Faiss engine"
     link: "/vector-search/optimizing-storage/faiss-product-quantization/"
   - heading: "Binary quantization"
-    description: "Use built-in binary quantization for the Faiss engine."
+    description: "Use built-in binary quantization for the Faiss engine"
     link: "/vector-search/optimizing-storage/binary-quantization/"
 ---
 
