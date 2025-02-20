@@ -23,15 +23,4 @@ The following resources can help you get started:
 - For a quick introduction, see the demo in [hello-ltr](https://github.com/o19s/hello-ltr).
 - If you are familiar with LTR, start with the [Integrating the plugin]({{site.url}}{{site.baseurl}}/search-plugins/ltr/fits-in/) documentation.
 
-## Installing the plugin
-
-Prebuilt versions of the plugin are available at [https://github.com/opensearch-project/opensearch-learning-to-rank-base/releases](https://github.com/opensearch-project/opensearch-learning-to-rank-base/releases). 
-
-If you need a version that is compatible with your OpenSearch installation, follow the instructions in the [README](https://github.com/opensearch-project/opensearch-learning-to-rank-base#development) file or [create an issue](https://github.com/opensearch-project/opensearch-learning-to-rank-base/issues). 
-
-Once you have an appropriate version, you can install the plugin using the command line shown in the following example:
-
-```
-./bin/opensearch-plugin install https://github.com/opensearch-project/opensearch-learning-to-rank-base/releases/download/ltr-plugin-v2.11.1-RC1/ltr-plugin-v2.11.1-RC1.zip 
-```
 {% include copy-curl.html %}
