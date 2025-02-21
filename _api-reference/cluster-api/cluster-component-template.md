@@ -9,7 +9,7 @@ parent: Cluster APIs
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Cluster component template APIs creates and updates the cluster's component templates
+The Cluster Component Template API creates or updates the cluster's component templates.
 
 # Endpoints
 
