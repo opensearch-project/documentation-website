@@ -289,6 +289,7 @@ The following plugins are bundled with all OpenSearch distributions except for t
 | Index Management | [opensearch-index-management](https://github.com/opensearch-project/index-management) | 1.0.0 |
 | Job Scheduler | [opensearch-job-scheduler](https://github.com/opensearch-project/job-scheduler) | 1.0.0 |
 | k-NN | [opensearch-knn](https://github.com/opensearch-project/k-NN) | 1.0.0 |
+| Learning to Rank | [opensearch-ltr](https://github.com/opensearch-project/opensearch-learning-to-rank-base) | 2.19.0 |
 | ML Commons | [opensearch-ml](https://github.com/opensearch-project/ml-commons) | 1.3.0 |
 | Skills | [opensearch-skills](https://github.com/opensearch-project/skills) | 2.12.0 |
 | Neural Search | [neural-search](https://github.com/opensearch-project/neural-search) | 2.4.0 |
@@ -333,6 +334,7 @@ You can specify only one of the `opensearch.version` or `dependencies` propertie
 - [Cross-cluster replication]({{site.url}}{{site.baseurl}}/replication-plugin/index/)
 - [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/)
 - [k-NN search]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/)
+- [Learning to Rank]({{site.url}}{{site.baseurl}}/search-plugins/ltr/index/)
 - [ML Commons]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/)
 - [Neural search]({{site.url}}{{site.baseurl}}/neural-search-plugin/index/)
 - [Notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/)
