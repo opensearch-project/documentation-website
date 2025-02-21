@@ -39,14 +39,12 @@ Advanced features in OpenSearch, such as the Search Quality Evaluation Framework
             <ul>
                 <li><a href="#">Learn to use <code>ubi.js</code></a></li>
                 <li><a href="#">Using OpenSearch Ingestion from AWS with UBI</a></li>
-                <li><a href="#">Link 3</a></li>
+                <li><a href="{{site.url}}{{site.baseurl}}/search-plugins/ubi/ubi-dashboard-tutorial/">Learn to create custom dashboards with UBI data.</a></li>                
             </ul>
         </td>
         <td>
             <h2>How To Guides</h2>
-            <ul>
-                <li><a href="https://github.com/opensearch-project/user-behavior-insights">How to install and use the UBI plugin</a><b>do we keep this</b></li>
-                <li><a href="{{site.url}}{{site.baseurl}}/search-plugins/ubi/ubi-dashboard-tutorial/">How to build a custom dashboard with UBI data.</a></li>
+            <ul>                
                 <li><a href="{{site.url}}{{site.baseurl}}/search-plugins/ubi/dsl-queries/">How to write queries for UBI data in OpenSearch query DSL.</a></li>
                 <li><a href="{{site.url}}{{site.baseurl}}/search-plugins/ubi/sql-queries/">How to write analytic queries for UBI data in SQL.</a></li>
                 <li><a href="https://github.com/o19s/chorus-opensearch-edition/blob/main/katas/006_protecting_sensitive_information.md">How to protect sensistive information when using UBI.</a> <small>Part of Chorus series.</small></li>
@@ -58,6 +56,7 @@ Advanced features in OpenSearch, such as the Search Quality Evaluation Framework
             <h2>Explanation</h2>
             <ul>
                 <li><a href="https://UBISearch.dev">Why UBI?</a></li>
+                <li><a href="https://github.com/opensearch-project/user-behavior-insights">How to install and use the UBI plugin</a><b>do we keep this</b></li>
                 <li><a href="">How should I integrate UBI tracking?</a></li>
                 <li><a href="https://UBISearch.dev">UBISearch.dev</a> is the community website.</li>
                 <li><a href="{{site.url}}{{site.baseurl}}/search-plugins/ubi/ubi-javascript-collector/">UBI.js</a> JavaScript collector</li>
