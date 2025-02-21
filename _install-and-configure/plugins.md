@@ -289,7 +289,7 @@ The following plugins are bundled with all OpenSearch distributions except for t
 | Index Management | [opensearch-index-management](https://github.com/opensearch-project/index-management) | 1.0.0 |
 | Job Scheduler | [opensearch-job-scheduler](https://github.com/opensearch-project/job-scheduler) | 1.0.0 |
 | k-NN | [opensearch-knn](https://github.com/opensearch-project/k-NN) | 1.0.0 |
-| LTR | [opensearch-ltr](https://github.com/opensearch-project/opensearch-learning-to-rank-base) | 2.19.0 |
+| Learning to Rank | [opensearch-ltr](https://github.com/opensearch-project/opensearch-learning-to-rank-base) | 2.19.0 |
 | ML Commons | [opensearch-ml](https://github.com/opensearch-project/ml-commons) | 1.3.0 |
 | Skills | [opensearch-skills](https://github.com/opensearch-project/skills) | 2.12.0 |
 | Neural Search | [neural-search](https://github.com/opensearch-project/neural-search) | 2.4.0 |
