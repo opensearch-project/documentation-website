@@ -225,14 +225,14 @@ The response contains the generated tokens:
 }
 ```
 
-### Caution with special characters 
+## Handling special characters in regex patterns
 
-When using custom regex patterns in your analyzer, take care to ensure special or non-English characters are handled correctly. For example, by default Java's regex only includes `[A-Za-z0-9_]` as word characters (`\w`). This can cause unexpected behavior with patterns using `\w` or `\b`, which matches the boundary between a word and non-word character. 
+When using custom regex patterns in your analyzer, ensure that special or non-English characters are handled correctly. By default, Java's regex considers only `[A-Za-z0-9_]` as word characters (`\w`). This can cause unexpected behavior when using `\w` or `\b`, which match the boundary between a word and a non-word character.  
 
-For example, the following analyzer attempts to use the pattern `"(\b\p{L}+\b)"` to match one or more letter characters from any language (`\p{L}`) surrounded by any word boundaries: 
+For example, the following analyzer attempts to use the pattern `(\b\p{L}+\b)` to match one or more letter characters from any language (`\p{L}`) surrounded by word boundaries:  
 
 ```json
-PUT buggy_custom_analyzer
+PUT /buggy_custom_analyzer
 {
   "settings": {
     "analysis": {
@@ -256,14 +256,14 @@ PUT buggy_custom_analyzer
     }
   }
 }
-```
+```  
 
-But this will incorrectly tokenize `"él-empezó-a-reír"` to `"l", "empez", "a", "reír"`, since `\b` fails to match the boundary between accented characters and the start or end of a string. 
+However, this analyzer incorrectly tokenizes `él-empezó-a-reír` as `l`, `empez`, `a`, `reír` because `\b` does not match the boundary between accented characters and the start or end of a string.   
 
-To safely handle such cases, add the Unicode case flag `(?U)` to your pattern: 
+To handle special characters correctly, add the Unicode case flag `(?U)` to your pattern:  
 
 ```json
-PUT fixed_custom_analyzer
+PUT /fixed_custom_analyzer
 {
   "settings": {
     "analysis": {
@@ -287,7 +287,7 @@ PUT fixed_custom_analyzer
     }
   }
 }
-```
+```  
 {% include copy-curl.html %}
 
 ## Position increment gap
