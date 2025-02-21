@@ -12,7 +12,7 @@ redirect_from:
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Cluster allocation explain API gives an explanation for how shards are allocated in the current cluster and provides an explanation for why unassigned shards can't be allocated to a node.
+The Cluster Allocation Explain API explains how shards are allocated in the cluster and why unassigned shards cannot be assigned to a node.
 
 
 <!-- spec_insert_start

@@ -13,7 +13,7 @@ The Cluster component template APIs creates and updates the cluster's component 
 
 # Endpoints
 
-The `GET` method returns one or more component templates.
+The `GET` method returns one or more component templates:
 
 <!-- spec_insert_start
 api: cluster.get_component_template
@@ -26,7 +26,7 @@ GET /_component_template/{name}
 ```
 <!-- spec_insert_end -->
 
-The `EXISTS` method returns information about whether a particular component template exist.
+The `EXISTS` method returns information about whether a component template exists:
 
 <!-- spec_insert_start
 api: cluster.exists_component_template
@@ -38,7 +38,7 @@ HEAD /_component_template/{name}
 ```
 <!-- spec_insert_end -->
 
-The `PUT` method creates or updates a component template.
+The `PUT` method creates or updates a component template:
 
 <!-- spec_insert_start
 api: cluster.put_component_template
@@ -51,7 +51,7 @@ PUT  /_component_template/{name}
 ```
 <!-- spec_insert_end -->
 
-The `DELETE` method deletes a component template.
+The `DELETE` method deletes a component template:
 
 <!-- spec_insert_start
 api: cluster.delete_component_template

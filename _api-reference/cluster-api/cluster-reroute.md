@@ -9,7 +9,7 @@ parent: Cluster APIs
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Cluster reroute API changes the allocation of individual shards in the cluster.
+The Cluster Reroute API changes the allocation of individual shards in the cluster.
 
 <!-- spec_insert_start
 api: cluster.reroute
@@ -42,7 +42,7 @@ The following table lists the available query parameters. All query parameters a
 
 <!-- spec_insert_end -->
 
-## Request body options
+## Request body fields
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
@@ -194,7 +194,7 @@ POST /_cluster/reroute
 }
 ```
 
-## Response body options
+## Response body fields
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |

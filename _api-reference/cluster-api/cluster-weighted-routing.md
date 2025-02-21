@@ -9,7 +9,7 @@ parent: Cluster APIs
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Cluster weighted routing API updates and creates routing weights for shard allocation.
+The Cluster Weighted Routing API creates or updates routing weights for shard allocation.
 
 # Endpoints
 

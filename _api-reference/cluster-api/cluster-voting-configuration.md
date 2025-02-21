@@ -5,15 +5,15 @@ nav_order: 55
 parent: Cluster APIs
 ---
 
-# Cluster voting configuration
+# Cluster voting configuration exclusions
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Cluster voting configuration API updates and clears voting configurations.
+The Cluster Voting Configuration Exclusions API adds or removes cluster-manager-eligible nodes from the list of excluded nodes in the voting configuration.
 
 # Endpoints
 
-The `POST` method updates the cluster voting configuration by excluding certain node IDs or names.
+The `POST` method excludes the specified nodes from the cluster voting configuration:
 
 <!-- spec_insert_start
 api: cluster.post_voting_config_exclusions
@@ -25,7 +25,7 @@ POST /_cluster/voting_config_exclusions
 ```
 <!-- spec_insert_end -->
 
-The `DELETE` method clears any cluster voting configuration exclusions.
+The `DELETE` method removes all exclusions from the voting configuration:
 
 <!-- spec_insert_start
 api: cluster.delete_voting_config_exclusions

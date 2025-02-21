@@ -9,7 +9,7 @@ parent: Cluster APIs
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Cluster state API returns comprehensive information about the state of the cluster.
+The Cluster State API returns comprehensive information about the state of the cluster.
 
 <!-- spec_insert_start
 api: cluster.state
