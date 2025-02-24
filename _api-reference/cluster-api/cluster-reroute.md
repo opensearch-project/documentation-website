@@ -201,7 +201,7 @@ POST /_cluster/reroute
 | `acknowledged` | Boolean | Indicates whether the request was acknowledged. |
 | `state` | Object | The state of the current cluster after a reroute. |
 | `explanations` | Array | The detailed explanations of command decisions when the `if explain` setting is `true`. |
-| `state_uui`d | String | The UUID of the cluster state. |
+| `state_uuid` | String | The UUID of the cluster state. |
 | `cluster_manager_node` | String | The ID of the elected cluster manager node. |
 | `version` | Integer | The version of the cluster state. |
 | `blocks` | Object | The description of any cluster-level blocks. |

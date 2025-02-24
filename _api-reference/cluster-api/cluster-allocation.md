@@ -50,9 +50,9 @@ All cluster allocation explain fields are optional.
 
 Field | Type | Description
 :--- | :--- | :---
-`current_node` | String | If you only want an explanation if the shard happens to be on a particular node, specify that node name here.
+`current_node` | String | Specifies a node name to return an explanation only if the shard is on that node.
 `index` | String | The name of the shard's index.
-`primary` | Boolean | Whether to provide an explanation for the primary shard (true) or its first replica (false), which share the same shard ID.
+`primary` | Boolean | Whether to provide an explanation for the primary shard (`true`) or its first replica (`false`), both of which share the same shard ID.
 `shard` | Integer | The shard ID that you want an explanation for.
 
 ## Example request
