@@ -59,19 +59,26 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
-You can choose the mechanism by which the aggregation is executed with the `execution_hint` setting. This setting accepts two values:
+## Configuring aggregation execution  
 
-1. `direct`: Use field values directly.
-2. `ordinals`: Use ordinals of the field.
+You can control how an aggregation runs using the `execution_hint` setting. This setting supports two options:  
 
+- `direct` – Uses field values directly.  
+- `ordinals` – Uses ordinals of the field.  
 
-If not specified, OpenSearch automatically selects the appropriate mechanism for the field. Note:
+If you don’t specify `execution_hint`, OpenSearch automatically chooses the best option for the field.  
 
- * Specifying ordinals on a non-ordinal field will have no effect.
- * Similarly, direct will have no effect on ordinal fields.
+Setting `ordinals` on a non-ordinal field has no effect. Similarly, `direct` has no effect on ordinal fields.  
+{: .note}
 
-This is an expert-level setting. Ordinals use byte arrays, where the size of the array will be as large as the cardinality value. For high-cardinality fields, this can lead to significant heap memory usage and risk of out-of-memory errors. {: .warning}
+This is an expert-level setting. Ordinals use byte arrays, where the array size depends on the field's cardinality. High-cardinality fields can consume significant heap memory, increasing the risk of out-of-memory errors.  
+{: .warning}
+
+### Example  
+
+The following request runs a cardinality aggregation using ordinals:  
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
@@ -86,4 +93,5 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
     }
   }
 }
-```
+```  
+{% include copy-curl.html %}
