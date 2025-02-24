@@ -6,7 +6,7 @@ require 'mustache'
 class BaseMustacheRenderer < Mustache
   self.template_path = "#{__dir__}/templates"
 
-  # @param [Action] action API Action
+  # @param [Api::Action] action API Action
   # @param [InsertArguments] args
   def initialize(action, args)
     super()

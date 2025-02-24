@@ -11,7 +11,11 @@ class DotHash
   end
 
   def to_s
-    @hash.to_s
+    "<#{self.class}: #{@hash}>"
+  end
+
+  def inspect
+    "<#{self.class}: #{@hash}>"
   end
 
   def [](key)
@@ -35,7 +39,7 @@ class DotHash
 
   def parse(value)
     return value.map { |v| parse(v) } if value.is_a?(Array)
-    return value if value.is_a?(self.class)
+    return value if value.is_a?(DotHash)
     return value unless value.is_a?(Hash)
     DotHash.new(value)
   end
