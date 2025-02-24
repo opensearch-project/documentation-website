@@ -258,7 +258,7 @@ PUT /buggy_custom_analyzer
 }
 ```  
 
-However, this analyzer incorrectly tokenizes `él-empezó-a-reír` as `l`, `empez`, `a`, `reír` because `\b` does not match the boundary between accented characters and the start or end of a string.   
+However, this analyzer incorrectly tokenizes `él-empezó-a-reír` as `l`, `empez`, `a`, and `reír` because `\b` does not match the boundary between accented characters and the start or end of a string.   
 
 To handle special characters correctly, add the Unicode case flag `(?U)` to your pattern:  
 
