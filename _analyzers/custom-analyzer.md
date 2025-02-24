@@ -227,7 +227,7 @@ The response contains the generated tokens:
 
 ## Handling special characters in regex patterns
 
-When using custom regex patterns in your analyzer, ensure that special or non-English characters are handled correctly. By default, Java's regex considers only `[A-Za-z0-9_]` as word characters (`\w`). This can cause unexpected behavior when using `\w` or `\b`, which match the boundary between a word and a non-word character.  
+When using custom regex patterns in your analyzer, ensure that special or non-English characters are handled correctly. By default, Java's regex considers only `[A-Za-z0-9_]` to be word characters (`\w`). This can cause unexpected behavior when using `\w` or `\b`, which match the boundary between a word and a non-word character.  
 
 For example, the following analyzer attempts to use the pattern `(\b\p{L}+\b)` to match one or more letter characters from any language (`\p{L}`) surrounded by word boundaries:  
 
