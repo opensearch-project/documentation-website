@@ -165,6 +165,7 @@ The following aggregations are supported by star-tree indexes.
 #### Metric aggregations
  
 The following metric aggregations are supported as of OpenSearch 2.18:
+
 - [Sum]({{site.url}}{{site.baseurl}}/aggregations/metric/sum/)
 - [Minimum]({{site.url}}{{site.baseurl}}/aggregations/metric/minimum/)
 - [Maximum]({{site.url}}{{site.baseurl}}/aggregations/metric/maximum/)
@@ -208,38 +209,35 @@ To use date histogram aggregations and make them searchable in a star-tree index
 - The calendar intervals in a star-tree mapping configuration can use either the request's calendar field or a field of lower granularity than the request field. For example, if an aggregation uses the `month` field, the star-tree search can still use lower-granularity fields such as `day`.
 - A metric sub-aggregation must be part of the aggregation request.
 
-The following example gets the sum of all the values in the `size` field with a range query, aggregated for each calendar month, for all error logs containing `method:get`:
+The following example filters logs to include only those with status codes between `200` and `400` and sets the `size` of the response to `0`, so that only aggregated results are returned. It then aggregates the filtered logs by calendar month and calculates the total `size` of the requests for each month:
 
 ```json
 POST /logs/_search
 {
-{
-  "query": {
-    "range": {
-      "created": {
-        "gte": "2019/01/01",
-        "lte": "2019/12/31"
-      },
-    "method": {
-      "status": "get"
-    }
-  },
-  "size": 0,
-  "aggs": {
-    "by_hour": {
-      "date_histogram": {
-        "field": "@timestamp",
-        "calendar_interval": "month"
-      },
-      "aggs": {
-        "sum_size": {
-          "sum": {
-            "field": "size"
-          }
+    "size": 0,
+    "query": {
+        "range": {
+            "status": {
+                "gte": "200",
+                "lte": "400"
+            }
         }
-      }
+    },
+    "aggs": {
+        "by_month": {
+            "date_histogram": {
+                "field": "@timestamp",
+                "calendar_interval": "month"
+            },
+            "aggs": {
+                "sum_size": {
+                    "sum": {
+                        "field": "size"
+                    }
+                }
+            }
+        }
     }
-  }
 }
 ```
 {% include copy-curl.html %}
