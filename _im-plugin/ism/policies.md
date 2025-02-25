@@ -512,6 +512,11 @@ GET _plugins/_rollup/jobs/<rollup_id>/_explain
                             "ism_rollup": {
                                 "description": "Creating rollup through ISM",
                                 "target_index": "target",
+                                "target_index_settings":{
+                                    "index.number_of_shards": 1,
+                                    "index.number_of_replicas": 1,
+                                    "index.codec": "best_compression"
+                                 },
                                 "page_size": 1000,
                                 "dimensions": [
                                     {
