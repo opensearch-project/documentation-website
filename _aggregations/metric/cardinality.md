@@ -68,7 +68,7 @@ You can control how an aggregation runs using the `execution_hint` setting. This
 - `direct` – Uses field values directly.  
 - `ordinals` – Uses ordinals of the field.  
 
-If you don’t specify `execution_hint`, OpenSearch automatically chooses the best option for the field.  
+If you don't specify `execution_hint`, OpenSearch automatically chooses the best option for the field.  
 
 Setting `ordinals` on a non-ordinal field has no effect. Similarly, `direct` has no effect on ordinal fields.  
 {: .note}
