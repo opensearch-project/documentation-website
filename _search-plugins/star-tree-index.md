@@ -90,6 +90,13 @@ PUT logs
       "request_aggs": {
         "type": "star_tree",
         "config": {
+          "date_dimension" : {
+            "name": "@timestamp",
+            "calendar_intervals": [
+              "month",
+              "day"
+            ]
+          },
           "ordered_dimensions": [
             {
               "name": "status"

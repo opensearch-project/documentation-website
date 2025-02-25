@@ -49,6 +49,13 @@ PUT logs
           "skip_star_node_creation_for_dimensions": [
             "port"
           ],
+          "date_dimension" : {
+            "name": "@timestamp",
+            "calendar_intervals": [
+              "month",
+              "day"
+            ]
+          },
           "ordered_dimensions": [
             {
               "name": "status"
@@ -58,13 +65,6 @@ PUT logs
             },
             {
               "name": "method"
-            },
-            {
-              "name": "@timestamp",
-                "calendar_intervals": [
-                  "month",
-                  "day"
-              ]
             }
           ],
           "metrics": [
@@ -120,12 +120,13 @@ PUT logs
 
 You can customize your star-tree implementation using the following `config` options in the `mappings` section. These options cannot be modified without reindexing.
 
-| Parameter  | Description   | 
-| :--- | :--- |
-| `ordered_dimensions` | A [list of fields](#ordered-dimensions) based on which metrics will be aggregated in a star-tree index. Required. | 
-| `metrics` | A [list of metric](#metrics) fields required in order to perform aggregations. Required. |
-| `max_leaf_docs` | The maximum number of star-tree documents that a leaf node can point to. After the maximum number of documents is reached, child nodes will be created based on the unique value of the next field in the `ordered_dimension` (if any). Default is `10000`. A lower value will use more storage but result in faster query performance. Inversely, a higher value will use less storage but result in slower query performance. For more information, see [Star-tree indexing structure]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/#star-tree-index-structure).  |
-| `skip_star_node_creation_for_dimensions`  | A list of dimensions for which a star-tree index will skip star node creation. When `true`, this reduces storage size at the expense of query performance. Default is `false`. For more information about star nodes, see [Star-tree indexing structure]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/#star-tree-index-structure). |
+| Parameter                                | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | 
+|:-----------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `ordered_dimensions`                     | A [list of fields](#ordered-dimensions) based on which metrics will be aggregated in a star-tree index. Required.                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | 
+| `date_dimension`                         | If [Date dimension](#date-dimension) is provided, `ordered_dimensions` gets appended to it based on which metrics will be aggregated in a star-tree index. Optional.                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `metrics`                                | A [list of metric](#metrics) fields required in order to perform aggregations. Required.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `max_leaf_docs`                          | The maximum number of star-tree documents that a leaf node can point to. After the maximum number of documents is reached, child nodes will be created based on the unique value of the next field in the `ordered_dimension` (if any). Default is `10000`. A lower value will use more storage but result in faster query performance. Inversely, a higher value will use less storage but result in slower query performance. For more information, see [Star-tree indexing structure]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/#star-tree-index-structure). |
+| `skip_star_node_creation_for_dimensions` | A list of dimensions for which a star-tree index will skip star node creation. When `true`, this reduces storage size at the expense of query performance. Default is `false`. For more information about star nodes, see [Star-tree indexing structure]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/#star-tree-index-structure).                                                                                                                                                                                                                                 |
 
 
 ### Ordered dimensions
@@ -143,17 +144,6 @@ The `ordered_dimensions` parameter supports the following field types:
   - All numeric field types, excluding `unsigned_long` and `scaled_float`
   - `keyword` 
   - `object`
-  - `date`, which can use up to three of the following calendar intervals:
-    - `year` (of era)
-    - `quarter` (of year)
-    - `month` (of year)
-    - `week` (of week-based year)
-    - `day` (of month)
-    - `hour` (of day)
-    - `half-hour` (of day)
-    - `quater-hour` (of day)
-    - `minute` (of hour)
-    - `second` (of minute)
 
 Support for other field types, such as `ip`, will be added in future versions. For more information, see [GitHub issue #13875](https://github.com/opensearch-project/OpenSearch/issues/13875).
 
@@ -162,6 +152,28 @@ The `ordered_dimensions` parameter supports the following property.
 | Parameter  | Required/Optional | Description  | 
 | :--- | :--- | :--- |
 | `name` | Required | The name of the field. The field name should be present in the `properties` section as part of the index `mapping`. Ensure that the `doc_values` setting is `enabled` for any associated fields. |
+
+
+### Date dimension
+
+Date dimension supports one `Date` field and is always the first dimension placed above the ordered dimensions as they generally have high cardinality.
+- `date_dimension`, can support up to three of the following calendar intervals:
+  - `year` (of era)
+  - `quarter` (of year)
+  - `month` (of year)
+  - `week` (of week-based year)
+  - `day` (of month)
+  - `hour` (of day)
+  - `half-hour` (of day)
+  - `quater-hour` (of day)
+  - `minute` (of hour)
+  - `second` (of minute)
+
+- The values in date gets rounded off based on the granularity associated with calendar intervals provided.
+- The default calendar_intervals are `minute` and `half-hour`.
+- During queries the nearest granular interval gets automatically picked up. For example if you have configured `hour` and `minute` as the `calendar_intervals` and your query is `monthly date histogram`, `hour` interval will be automatically selected for the query to compute the results in optimized way.
+- To support timezone based queries that has `:30` use `half-hour` and for `:15` use `quarter-hour` intervals.
+
 
 ### Metrics
 
