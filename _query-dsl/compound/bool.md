@@ -18,7 +18,7 @@ Use the following query clauses within a `bool` query:
 Clause | Behavior
 :--- | :---
 `must` | Logical `and` operator. The results must match all queries in this clause. 
-`must_not` | Logical `not` operator. All matches are excluded from the results.
+`must_not` | Logical `not` operator. All matches are excluded from the results. If `must_not` has multiple clauses, only documents that do not match any of those clauses are returned. For example, `"must_not":[{clause_A}, {clause_B}]` is equivalent to `NOT(A OR B)`. 
 `should` | Logical `or` operator. The results must match at least one of the queries. Matching more `should` clauses increases the document's relevance score. You can set the minimum number of queries that must match using the [`minimum_should_match`]({{site.url}}{{site.baseurl}}/query-dsl/query-dsl/minimum-should-match/) parameter. If a query contains a `must` or `filter` clause, the default `minimum_should_match` value is 0. Otherwise, the default `minimum_should_match` value is 1.
 `filter` | Logical `and` operator that is applied first to reduce your dataset before applying the queries. A query within a filter clause is a yes or no option. If a document matches the query, it is returned in the results; otherwise, it is not. The results of a filter query are generally cached to allow for a faster return. Use the filter query to filter the results based on exact matches, ranges, dates, or numbers.
 
