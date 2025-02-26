@@ -44,7 +44,7 @@ The following table lists the available query parameters. All query parameters a
 
 ## Request body fields
 
-| Parameter | Data type | Description |
+| Field | Data type | Description |
 | :--- | :--- | :--- |
 | `commands` | Array | A list of reroute commands to run. |
 | `dry_run` | Boolean | When true, simulates the reroute without actually performing it. |
@@ -196,7 +196,7 @@ POST /_cluster/reroute
 
 ## Response body fields
 
-| Parameter | Data type | Description |
+| Field | Data type | Description |
 | :--- | :--- | :--- |
 | `acknowledged` | Boolean | Indicates whether the request was acknowledged. |
 | `state` | Object | The state of the current cluster after a reroute. |
