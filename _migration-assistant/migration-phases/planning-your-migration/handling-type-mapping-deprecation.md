@@ -193,7 +193,7 @@ This is equivalent to the merge all types into one index rule but using a patter
 
 ### 5. Combining multiple strategies
 
-You can combine both static and regex-based mappings to handle different indices or patterns in a single migration. For example, you might have one index that must use **staticMappings** and another that uses **regexMappings** to route all types by pattern.
+You can combine both static and regex-based mappings to handle different indices or patterns in a single migration. For example, you might have one index that must use `staticMappings` and another that uses `regexMappings` to route all types by pattern.
 
 For each document/request/metadata, the following steps are performed (for bulk requests, this is done per document):
 
@@ -203,7 +203,7 @@ For each document/request/metadata, the following steps are performed (for bulk 
     - If it is not, then the request/document/metadata is dropped and not migrated.
 - If the index is not matched in the static mappings, the index type combination is checked against each item in the regex mappings list from first to last, in order.
   - If the combination matches, the mapping is applied and resulting index is the value of the type key and no further regex matching is done.
-- Finally, any request/document/metadata that didn't match the above cases will be dropped and the documents they contain will not be migrated.
+- Finally, any request/document/metadata that didn't match the preceding cases will be dropped and the documents they contain will not be migrated.
 
 ```json
 [
@@ -262,9 +262,9 @@ This has the effect of retaining the index name for es 6+ created indexes while 
 
 ### Limitations
 
-- For the replayer, **only a subset** of requests that include types is supported:
+- For the Traffic Replayer, **only a subset** of requests that include types is supported:
 
-| **Operation**                | **HTTP Method(s)** | **Endpoint**           | **Description**                                                                                                                                                                                                                   |
+| **Operation**                | **HTTP method(s)** | **Endpoint**           | **Description**                                                                                                                                                                                                                   |
 |------------------------------|--------------------|------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Index (by ID)**            | PUT / POST         | `/{index}/{type}/{id}` | Create or update a single document with an explicit ID.                                                                                                                                                                           |
 | **Index (auto ID)**          | PUT / POST         | `/{index}/{type}/`     | Create a single document where the ID is auto-generated.                                                                                                                                                                          |
