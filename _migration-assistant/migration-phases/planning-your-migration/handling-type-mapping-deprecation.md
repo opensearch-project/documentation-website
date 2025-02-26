@@ -46,7 +46,7 @@ The TypeMappingsSanitizationTransformer supports several strategies for handling
 | **Field**          | **Type** | **Required?** | **Description**                                                                                                                                                                                                                                                                                                  |
 |--------------------|----------|---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `staticMappings`   | `object` | No            | A map of `{ indexName: { typeName: targetIndex } }` to **statically** route specific types. <br/><br/> For any **index** listed here, types **not** included in its object are **dropped** (no data or requests migrated for those omitted types).                                                               |
-| `regexMappings`    | `array`  | No            | A list of **regex-based** rules for **dynamic** routing of source index/type names to a target index. <br/><br/> Each element in this array is itself an array of length 3: <br/>`[ "sourceIndexRegex", "sourceTypeRegex", "targetIndexSubstitution" ]` <br/><br/> **Default** value, see [Defaults](#Defaults). |
+| `regexMappings`    | `array`  | No            | A list of **regex-based** rules for **dynamic** routing of source index/type names to a target index. <br/><br/> Each element in this array is itself an object with `sourceIndexPattern`, `sourceTypePattern`, and `targetIndexPattern` fields. <br/><br/> **Default** value, see [Defaults](#Defaults). |
 | `sourceProperties` | `object` | Yes           | Additional **metadata** about the source (for example, its Elasticsearch/OpenSearch version). Must include at least `"version"` with `"major"` and `"minor"` fields.                                                                                                                                             |
 
 <details>
@@ -62,11 +62,11 @@ The TypeMappingsSanitizationTransformer supports several strategies for handling
       }
     },
     "regexMappings": [
-      [
-        "{source-index-regex}",
-        "{source-type-regex}",
-        "{target-index-substitution}"
-      ]
+      {
+        "sourceIndexPattern": "{source-index-pattern}",
+        "sourceTypePattern": "{source-type-pattern}",
+        "targetIndexPattern": "{target-index-pattern}"
+      }
     ],
     "sourceProperties": {
       "version": {
@@ -172,11 +172,11 @@ To migrate only specific types and keep the original structure:
   {
     "TypeMappingsSanitizationTransformerProvider": {
       "regexMappings": [
-        [
-          "(.*)",
-          ".*",
-          "$1"
-        ]
+        {
+          "sourceIndexPattern": "(.*)",
+          "sourceTypePattern": ".*",
+          "targetIndexPattern": "$1"
+        }
       ],
       "sourceProperties": {
         "version": {
@@ -220,11 +220,11 @@ For each document/request/metadata, the following steps are performed (for bulk 
         }
       },
       "regexMappings": [
-        [
-          "orders.*",
-          ".*",
-          "all_orders"
-        ]
+        {
+          "sourceIndexPattern": "orders.*",
+          "sourceTypePattern": ".*",
+          "targetIndexPattern": "all_orders"
+        }
       ],
       "sourceProperties": {
         "version": {
@@ -244,8 +244,16 @@ When `regexMappings` key is missing from the transformation config, `regexMappin
 ```JSON
 {
   "regexMappings": [
-    ["(.+)", "_doc", "$1"],
-    ["(.+)", "(.+)", "$1_$2"]
+    {
+      "sourceIndexPattern": "(.+)",
+      "sourceTypePattern": "_doc",
+      "targetIndexPattern": "$1"
+    },
+    {
+      "sourceIndexPattern": "(.+)",
+      "sourceTypePattern": "(.+)",
+      "targetIndexPattern": "$1_$2"
+    }
   ]
 }
 ```
