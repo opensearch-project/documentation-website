@@ -8,7 +8,7 @@ nav_order: 50
 
 # Semantic search using Amazon Bedrock Titan in another account
 
-Starting with OpenSearch version 2.15, you configure a connector to an Amazon Bedrock model hosted in an account different from the account hosting your Amazon OpenSearch Service. This tutorial illustrates implementing semantic search in [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/) using the [Amazon Bedrock Titan embedding model](https://docs.aws.amazon.com/bedrock/latest/userguide/titan-embedding-models.html) hosted in another account.
+Starting with OpenSearch version 2.15, you must configure a connector to an Amazon Bedrock model hosted in a different account than the account hosting Amazon OpenSearch Service. This tutorial shows you how to implement semantic search in [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/) using the [Amazon Bedrock Titan embedding model](https://docs.aws.amazon.com/bedrock/latest/userguide/titan-embedding-models.html) hosted in another account.
 
 Amazon Bedrock has a [quota limit](https://docs.aws.amazon.com/bedrock/latest/userguide/quotas.html). For information about increasing this limit, see [Increase model invocation capacity with Provisioned Throughput in Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/prov-throughput.html).
 {: .warning}
@@ -18,17 +18,17 @@ Replace the placeholders beginning with the prefix `your_` with your own values.
 
 # Overview
 
-For this tutorial, you'll use two AWS accounts: Account A (hosting Amazon OpenSearch Service) and Account B (hosting an Amazon Bedrock model).
+In this tutorial, you'll use two AWS accounts: Account A (hosting Amazon OpenSearch Service) and Account B (hosting an Amazon Bedrock model).
 
-To invoke a model hosted in a different account than Amazon OpenSearch Service, you must configure two roles in the connector credentials:
+To invoke a model hosted in a different account than the account hosting Amazon OpenSearch Service, you must configure two roles in the connector credentials:
 
-- `roleArn`: The role in Account A that is used to assume external account role in Account B.
+- `roleArn`: The role in Account A that is used to assume the external account role in Account B.
 - `externalAccountRoleArn`: The role in Account B that is used to invoke the Amazon Bedrock model.
 
 In this tutorial , you'll use the following role names:
 
 - Account A: `my_cross_account_role_accountA`
-  ARN: `arn:aws:iam::<your_aws_account_A>:role/my_cross_account_role_accountA`
+  Amazon Resource Name (ARN): `arn:aws:iam::<your_aws_account_A>:role/my_cross_account_role_accountA`
 
 - Account B: `my_invoke_bedrock_role_accountB`
  ARN: `arn:aws:iam::<your_aws_account_B>:role/my_invoke_bedrock_role_accountB`
@@ -37,13 +37,13 @@ In this tutorial , you'll use the following role names:
 
 Go to the [Amazon OpenSearch Service console](https://console.aws.amazon.com/aos/home) and create an OpenSearch domain.
 
-Note the domain Amazon Resource Name (ARN); you'll use it in the following steps.
+Note the domain ARN; you'll use it in the following steps.
 
 ## Step 1: Create an IAM role in Account B
 
 To invoke the model on Amazon Bedrock, you must create an AWS Identity and Access Management (IAM) role with appropriate permissions. The connector will use this role to invoke the model.
 
-Go to the AWS IAM console, create a new IAM role named `my_invoke_bedrock_role_accountB`, and add the following trust policy and permissions:
+Go to the IAM console, create a new IAM role named `my_invoke_bedrock_role_accountB`, and add the following trust policy and permissions:
 
 - Custom trust policy:
 
@@ -84,15 +84,15 @@ Go to the AWS IAM console, create a new IAM role named `my_invoke_bedrock_role_a
 
 Note the role ARN; you'll use it in the following steps.
 
-## 2. Create IAM role in account A
+## 2. Create an IAM role in Account A
 
-Follow these steps to configure an IAM role in the Amazon OpenSearch Service.
+Follow these steps to configure an IAM role in Amazon OpenSearch Service.
 
 ### Step 2.1: Create an IAM role for assuming externalAccountRoleArn
 
-Create an IAM role which can assume `externalAccountRoleArn` in Account B.
+Create an IAM role for assuming `externalAccountRoleArn` in Account B.
 
-Go to the AWS IAM console, create a new IAM role named  `my_cross_account_role_accountA` , and add the following trust policy and permissions:
+Go to the IAM console, create a new IAM role named  `my_cross_account_role_accountA` , and add the following trust policy and permissions:
 
 - Custom trust policy:
 
@@ -154,7 +154,7 @@ Create an IAM role named `my_create_connector_role_accountA` with the following 
 ```
 {% include copy.html %}
 
-You'll use the `your_iam_user_arn` IAM user to assume the role in step 3.1.
+You'll use the `your_iam_user_arn` IAM user to assume the role in Step 3.1.
 
 - Permissions:
 
@@ -184,11 +184,13 @@ Note this role ARN; you'll use it in the following steps.
 Follow these steps to map a backend role:
 
 1. Log in to OpenSearch Dashboards and select **Security** on the top menu.
-2. Select **Roles**, then select the **ml_full_access** role. 
-3. On the **ml_full_access** role details page, select **Mapped users**, then select **Manage mapping**. 
+2. Select **Roles**, and then select the **ml_full_access** role. 
+3. On the **ml_full_access** role details page, select **Mapped users**, and then select **Manage mapping**. 
 4. Enter the IAM role ARN created in Step 2.2 (`arn:aws:iam::<your_aws_account_A>:role/my_create_connector_role_accountA`) in the **Backend roles** field, as shown in the following image.
     ![Mapping a backend role]({{site.url}}{{site.baseurl}}/images/vector-search-tutorials/mapping_iam_role_arn.png)
 5. Select **Map**. 
+
+The IAM role is now successfully configured in your OpenSearch cluster.
 
 ## Step 3: Create a connector
 
@@ -355,7 +357,7 @@ POST /_plugins/_ml/models/PEq3QY0BOhavBOmf1Sml/_predict
 ```
 {% include copy-curl.html %}
 
-The response contains the embeddings that the model generated:
+The response contains the embeddings generated by the model:
 
 ```json
 {
@@ -387,7 +389,7 @@ Follow these steps to configure semantic search.
 
 ### Step 5.1: Create an ingest pipeline
 
-First, create an [ingest pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/) that uses the model on Amazon SageMaker to create embeddings from the input text:
+First, create an [ingest pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/) that uses the model in Amazon SageMaker to create embeddings from the input text:
 
 ```json
 PUT /_ingest/pipeline/my_bedrock_embedding_pipeline
@@ -409,7 +411,7 @@ PUT /_ingest/pipeline/my_bedrock_embedding_pipeline
 
 ### Step 5.2: Create a vector index
 
-Next, create a vector index to store the input text and generated embeddings:
+Next, create a vector index for storing the input text and generated embeddings:
 
 ```json
 PUT my_index

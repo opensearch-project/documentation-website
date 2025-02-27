@@ -1,16 +1,16 @@
 ---
 layout: default
-title: RAG using DeepSeek R1 on Amazon SageMaker
+title: RAG using DeepSeek-R1 in Amazon SageMaker
 parent: RAG
 grand_parent: Tutorials
 nav_order: 140
 ---
 
-# RAG using DeepSeek R1 on Amazon SageMaker
+# RAG using DeepSeek-R1 in Amazon SageMaker
 
-This tutorial illustrates implementing retrieval-augmented generation (RAG) using [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/) and the [DeepSeek R1 model](https://huggingface.co/deepseek-ai/DeepSeek-R1).
+This tutorial shows you how to implement retrieval-augmented generation (RAG) using [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/) and the [DeepSeek-R1 model](https://huggingface.co/deepseek-ai/DeepSeek-R1).
 
-If you are using self-managed OpenSearch instead of Amazon OpenSearch Service, create a connector to the DeepSeek R1 model using [the blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/deepseek_connector_chat_blueprint.md). For information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/). Then go directly to [Step 4](#step-4-create-and-test-the-model).
+If you are using self-managed OpenSearch instead of Amazon OpenSearch Service, create a connector to the DeepSeek-R1 model using [the blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/deepseek_connector_chat_blueprint.md). For information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/). Then go directly to [Step 4](#step-4-create-and-test-the-model).
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}
@@ -22,11 +22,11 @@ Before you start, fulfill the following prerequisites.
 When configuring Amazon settings, only change the values mentioned in this tutorial. Keep all other settings at their default values.
 {: .important}
 
-### Deploy DeepSeek R1 to Amazon SageMaker
+### Deploy DeepSeek-R1 to Amazon SageMaker
 
-Follow [this blog post](https://community.aws/content/2sG84dNUCFzA9z4HdfqTI0tcvKP/deploying-deepseek-r1-on-amazon-sagemaker) to deploy the DeepSeek R1 model to Amazon SageMaker.
+Follow the instructions in [this blog post](https://community.aws/content/2sG84dNUCFzA9z4HdfqTI0tcvKP/deploying-deepseek-r1-on-amazon-sagemaker) to deploy the DeepSeek-R1 model to Amazon SageMaker.
 
-Note the Amazon SageMaker DeepSeek R1 model Amazon Resource Name (ARN) and URL; you'll use them in the following steps.
+Note the Amazon SageMaker DeepSeek-R1 model Amazon Resource Name (ARN) and URL; you'll use them in the following steps.
 
 ### Create an OpenSearch cluster
 
@@ -36,9 +36,9 @@ Note the domain ARN and URL; you'll use them in the following steps.
 
 ## Step 1: Create an IAM role for Amazon SageMaker access
 
-To invoke the DeepSeek R1 model on Amazon SageMaker, you must create an AWS Identity and Access Management (IAM) role with appropriate permissions. The connector will use this role to invoke the model.
+To invoke the DeepSeek-R1 model in Amazon SageMaker, you must create an AWS Identity and Access Management (IAM) role with appropriate permissions. The connector will use this role to invoke the model.
 
-Go to the AWS IAM console, create a new IAM role named `my_invoke_sagemaker_deepseek_model_role`, and add the following trust policy and permissions:
+Go to the IAM console, create a new IAM role named `my_invoke_sagemaker_deepseek_model_role`, and add the following trust policy and permissions:
 
 - Custom trust policy:
 
@@ -80,9 +80,9 @@ Go to the AWS IAM console, create a new IAM role named `my_invoke_sagemaker_deep
 
 Note the role ARN; you'll use it in the following steps.
 
-## Step 2: Configure an IAM role in the Amazon OpenSearch Service
+## Step 2: Configure an IAM role in Amazon OpenSearch Service
 
-Follow these steps to configure an IAM role in the Amazon OpenSearch Service.
+Follow these steps to configure an IAM role in Amazon OpenSearch Service.
 
 ### Step 2.1: Create an IAM role for signing connector requests
 
@@ -108,7 +108,7 @@ Create an IAM role named `my_create_sagemaker_deepseek_connector_role` with the 
 ```
 {% include copy.html %}
 
-You'll use the `your_iam_user_arn` IAM user to assume the role in step 3.1.
+You'll use the `your_iam_user_arn` IAM user to assume the role in Step 3.1.
 
 - Permissions:
 
@@ -138,16 +138,17 @@ Note this role ARN; you'll use it in the following steps.
 Follow these steps to map a backend role:
 
 1. Log in to OpenSearch Dashboards and select **Security** on the top menu.
-2. Select **Roles**, then select the **ml_full_access** role. 
-3. On the **ml_full_access** role details page, select **Mapped users**, then select **Manage mapping**. 
+2. Select **Roles**, and then select the **ml_full_access** role. 
+3. On the **ml_full_access** role details page, select **Mapped users**, and then select **Manage mapping**. 
 4. Enter the IAM role ARN created in Step 2.1 in the **Backend roles** field, as shown in the following image.
     ![Mapping a backend role]({{site.url}}{{site.baseurl}}/images/vector-search-tutorials/mapping_iam_role_arn.png)
 5. Select **Map**. 
+
 The IAM role is now successfully configured in your OpenSearch cluster.
 
 ## Step 3: Create a connector
 
-Follow these steps to create a connector for the DeepSeek R1 model. For more information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
+Follow these steps to create a connector for the DeepSeek-R1 model. For more information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
 
 ### Step 3.1: Get temporary credentials
 
@@ -236,7 +237,7 @@ Note the connector ID; you'll use it in the next step.
 
 ## Step 4: Create and test the model
 
-Log in to OpenSearch Dashboards, open the DevTools console, and run the following requests to create and test the DeepSeek R1 model.
+Log in to OpenSearch Dashboards, open the DevTools console, and run the following requests to create and test the DeepSeek-R1 model.
 
 1. Create a model group:
 
@@ -311,7 +312,7 @@ Log in to OpenSearch Dashboards, open the DevTools console, and run the followin
     ```
     {% include copy-curl.html %}
 
-    The response contains the text that the model generated:
+    The response contains the text generated by the model:
 
     ```json
     {

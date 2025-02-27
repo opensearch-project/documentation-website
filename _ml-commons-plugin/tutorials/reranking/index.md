@@ -9,7 +9,7 @@ nav_order: 100
 
 # Reranking search results tutorials
 
-Explore the following ML tutorials implementing search result reranking:
+The following machine learning (ML) tutorials show you how to implement search result reranking:
 
 - [**Reranking search results using Cohere Rerank**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/reranking/reranking-cohere/)  
   - Platform: OpenSearch
@@ -21,7 +21,7 @@ Explore the following ML tutorials implementing search result reranking:
   - Model: Amazon Bedrock reranker models  
   - Deployment: Amazon Bedrock  
 
-- [**Reranking search results using a cross-encoder on Amazon SageMaker**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/reranking/reranking-cross-encoder/)  
+- [**Reranking search results using a cross-encoder in Amazon SageMaker**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/reranking/reranking-cross-encoder/)  
   - Platform: OpenSearch
   - Model: MS MARCO  
   - Deployment: Amazon SageMaker  

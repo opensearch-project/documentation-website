@@ -16,7 +16,7 @@ Replace the placeholders beginning with the prefix `your_` with your own values.
 
 ## Step 1: Register an embedding model
 
-For this tutorial, you will use the [Amazon Titan Text Embeddings model](https://docs.aws.amazon.com/bedrock/latest/userguide/titan-embedding-models.html) hosted on Amazon Bedrock. 
+In this tutorial, you will use the [Amazon Titan Text Embeddings models](https://docs.aws.amazon.com/bedrock/latest/userguide/titan-embedding-models.html) hosted on Amazon Bedrock. 
 
 First, follow the [Amazon Bedrock Titan blueprint example](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_titan_embedding_blueprint.md) to register and deploy the model. 
 

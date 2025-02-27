@@ -9,7 +9,7 @@ nav_order: 10
 
 # Vector operation tutorials
 
-Explore the following vector operation tutorials:
+The following tutorials show you how to implement vector operations:
 
 - [**Generating embeddings from arrays of objects**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/vector-operations/generate-embeddings/)
   - Platform: OpenSearch

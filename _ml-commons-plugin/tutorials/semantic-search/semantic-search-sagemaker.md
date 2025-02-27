@@ -1,18 +1,18 @@
 ---
 layout: default
-title: Semantic search on Amazon SageMaker 
+title: Semantic search in Amazon SageMaker 
 parent: Semantic search
 grand_parent: Tutorials
 nav_order: 60
 ---
 
-# Semantic search using a model on Amazon SageMaker 
+# Semantic search using a model in Amazon SageMaker 
 
-This tutorial illustrates implementing semantic search in [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/) using an embedding model on Amazon SageMaker.
+This tutorial shows you how to implement semantic search in [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/) using an embedding model in Amazon SageMaker.
 
-If you are using self-managed OpenSearch instead of Amazon OpenSearch Service, create a connector to the model on Amazon SageMaker using [the blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/sagemaker_connector_blueprint.md). For information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
+If you are using self-managed OpenSearch instead of Amazon OpenSearch Service, create a connector to the model in Amazon SageMaker using [the blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/sagemaker_connector_blueprint.md). For information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
 
-This tutorial does not cover deploying a model to Amazon SageMaker. For information about the deployment, see [Real-time inference](https://docs.aws.amazon.com/sagemaker/latest/dg/realtime-endpoints.html).
+This tutorial does not cover how to deploy a model to Amazon SageMaker. For information about deployment, see [Real-time inference](https://docs.aws.amazon.com/sagemaker/latest/dg/realtime-endpoints.html).
 
 The easiest way to set up an embedding model in Amazon OpenSearch Service is by using [AWS CloudFormation](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/cfn-template.html). Alternatively, you can set up an embedding model using [the AIConnectorHelper notebook](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/tutorials/aws/AIConnectorHelper.ipynb).
 {: .tip}
@@ -22,7 +22,7 @@ Replace the placeholders beginning with the prefix `your_` with your own values.
 
 ## Model input and output requirements
 
-Ensure that your model on Amazon SageMaker inputs follow the format that the [default pre-processing function]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#preprocessing-function) requires. 
+Ensure that the inputs for your model in Amazon SageMaker follow the format required by the [default pre-processing function]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#preprocessing-function). 
 
 The model input must be an array of strings:
 
@@ -30,7 +30,7 @@ The model input must be an array of strings:
 ["hello world", "how are you"]
 ```
 
-Additionally, ensure that the model output follows the format that the [default post-processing function]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#post-processing-function) requires. The model output must be an array of arrays, where each inner array corresponds to the embedding of an input string:
+Additionally, ensure that the model output follows the format required by the [default post-processing function]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#post-processing-function). The model output must be an array of arrays, where each inner array corresponds to the embedding of an input string:
 
 ```json
 [
@@ -96,7 +96,7 @@ However, OpenSearch expects the following format:
 }
 ```
 
-To transform the Amazon Bedrock Titan embedding model output into a format that the OpenSearch requires, you must define the following post-processing function:
+To transform the Amazon Bedrock Titan embedding model output into the format expected by OpenSearch, you must define the following post-processing function:
 
 ```json
 "post_process_function": """
@@ -123,11 +123,11 @@ Go to the [Amazon OpenSearch Service console](https://console.aws.amazon.com/aos
 
 Note the domain Amazon Resource Name (ARN); you'll use it in the following steps.
 
-## Step 1: Create an IAM role to invoke the model on Amazon SageMaker
+## Step 1: Create an IAM role to invoke the model in Amazon SageMaker
 
-To invoke the model on Amazon SageMaker, you must create an AWS Identity and Access Management (IAM) role with appropriate permissions. The connector will use this role to invoke the model.
+To invoke the model in Amazon SageMaker, you must create an AWS Identity and Access Management (IAM) role with appropriate permissions. The connector will use this role to invoke the model.
 
-Go to the AWS IAM console, create a new IAM role named `my_invoke_sagemaker_model_role`, and add the following trust policy and permissions:
+Go to the IAM console, create a new IAM role named `my_invoke_sagemaker_model_role`, and add the following trust policy and permissions:
 
 - Custom trust policy:
 
@@ -169,9 +169,9 @@ Go to the AWS IAM console, create a new IAM role named `my_invoke_sagemaker_mode
 
 Note the role ARN; you'll use it in the following steps.
 
-## Step 2: Configure an IAM role in the Amazon OpenSearch Service
+## Step 2: Configure an IAM role in Amazon OpenSearch Service
 
-Follow these steps to configure an IAM role in the Amazon OpenSearch Service.
+Follow these steps to configure an IAM role in Amazon OpenSearch Service.
 
 ### Step 2.1: Create an IAM role for signing connector requests
 
@@ -197,7 +197,7 @@ Create an IAM role named `my_create_sagemaker_connector_role` with the following
 ```
 {% include copy.html %}
 
-You'll use the `your_iam_user_arn` IAM user to assume the role in step 3.1.
+You'll use the `your_iam_user_arn` IAM user to assume the role in Step 3.1.
 
 - Permissions:
 
@@ -227,8 +227,8 @@ Note this role ARN; you'll use it in the following steps.
 Follow these steps to map a backend role:
 
 1. Log in to OpenSearch Dashboards and select **Security** on the top menu.
-2. Select **Roles**, then select the **ml_full_access** role. 
-3. On the **ml_full_access** role details page, select **Mapped users**, then select **Manage mapping**. 
+2. Select **Roles**, and then select the **ml_full_access** role. 
+3. On the **ml_full_access** role details page, select **Mapped users**, and then select **Manage mapping**. 
 4. Enter the IAM role ARN created in Step 2.1 in the **Backend roles** field, as shown in the following image.
     ![Mapping a backend role]({{site.url}}{{site.baseurl}}/images/vector-search-tutorials/mapping_iam_role_arn.png)
 5. Select **Map**. 
@@ -398,7 +398,7 @@ POST /_plugins/_ml/models/NxU9Qo0BTaDH9c7t1Bca/_predict
 ```
 {% include copy-curl.html %}
 
-The response contains the embeddings that the model generated:
+The response contains the embeddings generated by the model:
 
 ```json
 {
@@ -442,7 +442,7 @@ Follow these steps to configure semantic search.
 
 ### Step 5.1: Create an ingest pipeline
 
-First, create an [ingest pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/) that uses the model on Amazon SageMaker to create embeddings from the input text:
+First, create an [ingest pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/) that uses the model in Amazon SageMaker to create embeddings from the input text:
 
 ```json
 PUT /_ingest/pipeline/my_sagemaker_embedding_pipeline
@@ -464,7 +464,7 @@ PUT /_ingest/pipeline/my_sagemaker_embedding_pipeline
 
 ### Step 5.2: Create a vector index
 
-Next, create a vector index to store the input text and generated embeddings:
+Next, create a vector index for storing the input text and generated embeddings:
 
 ```json
 PUT my_index

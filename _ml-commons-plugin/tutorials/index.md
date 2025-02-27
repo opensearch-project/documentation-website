@@ -49,7 +49,7 @@ Using the OpenSearch machine learning (ML) framework, you can build various appl
 - [**Semantic search using Amazon Bedrock Titan in another account**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-bedrock-titan-other/)  
   - Platform: OpenSearch, Amazon OpenSearch Service
   - Model: Amazon Titan  
-  - Deployment: Amazon Bedrock (in an account different from your Amazon OpenSearch Service account)  
+  - Deployment: Amazon Bedrock (in a different account than your Amazon OpenSearch Service account)  
 
 - [**Semantic search using a model on Amazon SageMaker**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-sagemaker/)  
   - Platform: OpenSearch, Amazon OpenSearch Service
@@ -82,7 +82,7 @@ Using the OpenSearch machine learning (ML) framework, you can build various appl
   - Model: Amazon Bedrock reranker models  
   - Deployment: Amazon Bedrock  
 
-- [**Reranking search results using a cross-encoder on Amazon SageMaker**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/reranking/reranking-cross-encoder/)  
+- [**Reranking search results using a cross-encoder in Amazon SageMaker**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/reranking/reranking-cross-encoder/)  
   - Platform: OpenSearch
   - Model: MS MARCO  
   - Deployment: Amazon SageMaker  
@@ -90,17 +90,17 @@ Using the OpenSearch machine learning (ML) framework, you can build various appl
 ---
 
 ## RAG
-- [**Retrieval-augmented generation (RAG) using DeepSeek Chat API**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/rag/rag-deepseek-chat/)  
+- [**Retrieval-augmented generation (RAG) using the DeepSeek Chat API**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/rag/rag-deepseek-chat/)  
   - Platform: OpenSearch, Amazon OpenSearch Service
   - Model: DeepSeek  
   - Deployment: Provider API  
 
-- [**RAG using DeepSeek R1 on Amazon Bedrock**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/rag/rag-deepseek-r1-bedrock/)  
+- [**RAG using DeepSeek-R1 on Amazon Bedrock**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/rag/rag-deepseek-r1-bedrock/)  
   - Platform: OpenSearch, Amazon OpenSearch Service
   - Model: DeepSeek  
   - Deployment: Amazon Bedrock  
 
-- [**RAG using DeepSeek R1 on Amazon SageMaker**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/rag/rag-deepseek-r1-sagemaker/)
+- [**RAG using DeepSeek-R1 in Amazon SageMaker**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/rag/rag-deepseek-r1-sagemaker/)
   - Platform: OpenSearch, Amazon OpenSearch Service  
   - Model: DeepSeek  
   - Deployment: Amazon SageMaker  

@@ -8,18 +8,18 @@ nav_order: 70
 
 # Semantic search using AWS CloudFormation and Amazon SageMaker 
 
-This tutorial illustrates implementing semantic search in [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/) using [AWS CloudFormation](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/cfn-template.html) and Amazon SageMaker.
+This tutorial shows you how to implement semantic search in [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/) using [AWS CloudFormation](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/cfn-template.html) and Amazon SageMaker.
 
 If you are using self-managed OpenSearch instead of Amazon OpenSearch Service, create a connector to the Amazon SageMaker model using [the blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/sagemaker_connector_blueprint.md). For information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/). 
 
-The AWS CloudFormation integration automates the steps in the [Semantic Search with SageMaker Embedding Model tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-sagemaker/). The CloudFormation template creates an IAM role and invokes a Lambda function to set up an AI connector and model.
+The CloudFormation integration automates the steps in the [Semantic Search with SageMaker Embedding Model tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-sagemaker/). The CloudFormation template creates an IAM role and invokes an AWS Lambda function to set up an AI connector and model.
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}
 
 ## Model input and output requirements
 
-Ensure that your Amazon SageMaker model inputs follow the format that the [default pre-processing function]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#preprocessing-function) requires. 
+Ensure that your Amazon SageMaker model inputs follow the format required by the [default pre-processing function]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#preprocessing-function). 
 
 The model input must be an array of strings:
 
@@ -27,7 +27,7 @@ The model input must be an array of strings:
 ["hello world", "how are you"]
 ```
 
-Additionally, ensure that the model output follows the format that the [default post-processing function]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#post-processing-function) requires. The model output must be an array of arrays, where each inner array corresponds to the embedding of an input string:
+Additionally, ensure that the model output follows the format required by the [default post-processing function]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#post-processing-function). The model output must be an array of arrays, where each inner array corresponds to the embedding of an input string:
 
 ```json
 [
@@ -93,7 +93,7 @@ However, OpenSearch expects the following format:
 }
 ```
 
-To transform the Amazon Bedrock Titan embedding model output into a format that the OpenSearch requires, you must define the following post-processing function:
+To transform the Amazon Bedrock Titan embedding model output into the format expected by OpenSearch, you must define the following post-processing function:
 
 ```json
 "post_process_function": """
@@ -122,9 +122,9 @@ Note the domain Amazon Resource Name (ARN); you'll use it in the following steps
 
 ## Step 1: Map a backend role
 
-AWS OpenSearch Integration CloudFormation template uses a Lambda function to create an AI connector with an AWS Identity and Access Management (IAM) role. You must map the IAM role to `ml_full_access` to grant the required permissions. Follow [step 2.2 of the Semantic Search with SageMaker Embedding Model tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-sagemaker/#step-22-map-a-backend-role) to map a backend role.
+The OpenSearch CloudFormation template uses a Lambda function to create an AI connector with an AWS Identity and Access Management (IAM) role. You must map the IAM role to `ml_full_access` to grant the required permissions. Follow [Step 2.2 of the Semantic Search with SageMaker Embedding Model tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-sagemaker/#step-22-map-a-backend-role) to map a backend role.
 
-The IAM role is specified in the **Lambda Invoke OpenSearch ML Commons Role Name** field in the AWS CloudFormation template. The default IAM role is `LambdaInvokeOpenSearchMLCommonsRole`, so you must map the `arn:aws:iam::your_aws_account_id:role/LambdaInvokeOpenSearchMLCommonsRole` backend role to `ml_full_access`.
+The IAM role is specified in the **Lambda Invoke OpenSearch ML Commons Role Name** field in the CloudFormation template. The default IAM role is `LambdaInvokeOpenSearchMLCommonsRole`, so you must map the `arn:aws:iam::your_aws_account_id:role/LambdaInvokeOpenSearchMLCommonsRole` backend role to `ml_full_access`.
 
 For a broader mapping, you can grant all roles `ml_full_access` using a wildcard:  
 
@@ -134,9 +134,9 @@ arn:aws:iam::your_aws_account_id:role/*
 
 Because `all_access` includes more permissions than `ml_full_access`, mapping the backend role to `all_access` is also acceptable.
 
-## Step 2: Run the AWS CloudFormation template  
+## Step 2: Run the CloudFormation template  
 
-The AWS CloudFormation template integration is available in the [Amazon OpenSearch Service console](https://console.aws.amazon.com/aos/home). From the left navigation, select **Integrations**, as shown in the following image.
+The CloudFormation template integration is available in the [Amazon OpenSearch Service console](https://console.aws.amazon.com/aos/home). From the left navigation pane, select **Integrations**, as shown in the following image.
 
 ![Semantic search CloudFormation integration]({{site.url}}{{site.baseurl}}/images/vector-search-tutorials/semantic_search_remote_model_Integration_1.png)  
 
@@ -148,14 +148,14 @@ You can deploy a pretrained Hugging Face sentence transformer embedding model fr
 
 ![Deploy a pretrained model to Amazon SageMaker]({{site.url}}{{site.baseurl}}/images/vector-search-tutorials/semantic_search_remote_model_Integration_2.png)
 
-Fill in the following fields, keeping all other fields at their default values:  
+Complete the following fields, keeping all other fields at their default values:  
 
 1. Enter your **Amazon OpenSearch Endpoint**.  
-2. Use the default **SageMaker Configuration** for a quick start, or modify it as needed. For supported Amazon SageMaker instance types, see the [SageMaker documentation](https://aws.amazon.com/sagemaker/pricing/).  
-3. Leave the **SageMaker Endpoint Url** empty. If you provide a URL, the model will not be deployed to Amazon SageMaker, and a new inference endpoint will not be created.  
+2. Use the default **SageMaker Configuration** to start quickly, or you can modify it as needed. For supported Amazon SageMaker instance types, see the [Amazon SageMaker documentation](https://aws.amazon.com/sagemaker/).  
+3. Leave the **SageMaker Endpoint Url** field empty. If you provide a URL, the model will not be deployed to Amazon SageMaker, and a new inference endpoint will not be created.  
 4. Leave the **Custom Image** field empty. The default image is `djl-inference:0.22.1-cpu-full`. For available images, see the [AWS Deep Learning Containers](https://docs.aws.amazon.com/deep-learning-containers/latest/devguide/deep-learning-containers-images.html).  
-5. Leave the **Custom Model Data Url** empty.  
-6. The **Custom Model Environment** defaults to `djl://ai.djl.huggingface.pytorch/sentence-transformers/all-MiniLM-L6-v2`. For a list of supported models, see [Supported models](#supported-models).  
+5. Leave the **Custom Model Data Url** field empty.  
+6. The **Custom Model Environment** field defaults to `djl://ai.djl.huggingface.pytorch/sentence-transformers/all-MiniLM-L6-v2`. For a list of supported models, see [Supported models](#supported-models).  
 
 ### Option 2: Use an existing SageMaker inference endpoint  
 
@@ -163,21 +163,21 @@ If you already have a SageMaker inference endpoint, you can configure a model us
 
 ![Using an existing SageMaker inference endpoint]({{site.url}}{{site.baseurl}}/images/semantic_search/semantic_search_remote_model_Integration_3.png)
 
-Fill in the following fields, keeping all others at their default values:  
+Complete the following fields, keeping all others at their default values:  
 
 1. Enter your **Amazon OpenSearch Endpoint**.  
 2. Enter your **SageMaker Endpoint Url**.  
-3. Leave **Custom Image**, **Custom Model Data Url**, and **Custom Model Environment** empty.  
+3. Leave the **Custom Image**, **Custom Model Data Url**, and **Custom Model Environment** fields empty.  
 
 ### Output
 
-After deployment, you can find the OpenSearch AI connector and model IDs in the AWS CloudFormation stack **Outputs**.  
+After deployment, you can find the OpenSearch AI connector and model IDs in the CloudFormation stack **Outputs**.  
 
 If an error occurs, follow these steps to review the logs:
 
 1. Open the Amazon SageMaker console.
 1. Navigate to the **CloudWatch Logs** section.
-1. Search for **Log Groups** that contain (or are associated with) your AWS CloudFormation stack name.
+1. Search for **Log Groups** that contain (or are associated with) your CloudFormation stack name.
 
 ## Supported models
 

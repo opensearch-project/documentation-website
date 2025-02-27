@@ -9,7 +9,7 @@ nav_order: 140
 
 # Chatbots and agents tutorials
 
-Explore the following ML tutorials implementing chatbots and agents:
+The following machine learning (ML) tutorials show you how to implement chatbots and agents:
 
 - [**RAG chatbot**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/chatbots/rag-chatbot/)  
   - Platform: OpenSearch

@@ -161,7 +161,7 @@ PUT /_ingest/pipeline/pipeline-cohere
 ```
 {% include copy-curl.html %}
 
-Next, create a vector index and set the `data_type` for the `passage_embedding` field to `byte` so that it can hold byte-quantized vectors:
+Next, create a vector index and set the `data_type` for the `passage_embedding` field to `byte` so that it can store byte-quantized vectors:
 
 ```json
 PUT my_test_data

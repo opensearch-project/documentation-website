@@ -9,7 +9,7 @@ nav_order: 80
 
 # Conversational search tutorials
 
-Explore the following conversational search tutorials:
+The following tutorials show you how to implement conversational search:
 
 - [**Conversational search using Cohere Command**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/conversational-search/conversational-search-cohere/)  
   - Platform: OpenSearch
