@@ -1,11 +1,14 @@
 ---
 layout: default
-title: Reranking search results with Amazon Bedrock models
-parent: Tutorials
-nav_order: 32
+title: Reranking search results using Amazon Bedrock models
+parent: Reranking search results
+grand_parent: Tutorials
+nav_order: 100
+redirect_from:
+  - /ml-commons-plugin/tutorials/reranking-bedrock/
 ---
 
-# Reranking search results using models hosted on Amazon Bedrock
+# Reranking search results using Amazon Bedrock models
 
 A [reranking pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/) can rerank search results, providing a relevance score for each document in the search results with respect to the search query. The relevance score is calculated by a cross-encoder model. 
 

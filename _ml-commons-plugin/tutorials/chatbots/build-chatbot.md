@@ -1,8 +1,11 @@
 ---
 layout: default
 title: Build your own chatbot
-parent: Tutorials
-nav_order: 60
+parent: Chatbots and agents
+grand_parent: Tutorials
+nav_order: 160
+redirect_from:
+  - /ml-commons-plugin/tutorials/build-chatbot/
 ---
 
 # Build your own chatbot

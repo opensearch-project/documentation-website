@@ -1,8 +1,11 @@
 ---
 layout: default
 title: RAG chatbot with a conversational flow agent
-parent: Tutorials
-nav_order: 40
+parent: Chatbots and agents
+grand_parent: Tutorials
+nav_order: 160
+redirect_from:
+  - /ml-commons-plugin/tutorials/rag-conversational-agent/
 ---
 
 # RAG chatbot with a conversational flow agent
@@ -16,7 +19,7 @@ An alternative way to build RAG conversational search is to use a RAG pipeline. 
 
 ## Prerequisite
 
-In this tutorial, you'll build a RAG application that provides an OpenSearch [k-NN index]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/) as a knowledge base for a large language model (LLM). For data retrieval, you'll use [semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/). For a comprehensive semantic search tutorial, see [Neural search tutorial]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/).
+In this tutorial, you'll build a RAG application that provides an OpenSearch [vector index]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/) as a knowledge base for a large language model (LLM). For data retrieval, you'll use [semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/). For a comprehensive semantic search setup, see [this tutorial]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/).
 
 First, you'll need to update your cluster settings. If you don't have a dedicated machine learning (ML) node, set `"plugins.ml_commons.only_run_on_ml_node": false`. To avoid triggering a native memory circuit breaker, set `"plugins.ml_commons.native_memory_threshold"` to 100%:
 
@@ -104,9 +107,9 @@ PUT /_ingest/pipeline/test_population_data_pipeline
 
 For more information about ingest pipelines, see [Ingest pipelines]({{site.url}}{{site.baseurl}}/ingest-pipelines/).
 
-### Step 1.3: Create a k-NN index
+### Step 1.3: Create a vector index
 
-Create a k-NN index specifying the ingest pipeline as a default pipeline:
+Create a vector index specifying the ingest pipeline as a default pipeline:
 
 ```json
 PUT test_population_data
@@ -133,11 +136,11 @@ PUT test_population_data
 ```
 {% include copy-curl.html %}
 
-For more information about k-NN indexes, see [k-NN index]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/).
+For more information about vector indexes, see [vector index]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/).
 
 ### Step 1.4: Ingest data
 
-Ingest test data into the k-NN index:
+Ingest test data into the vector index:
 
 ```json
 POST _bulk
@@ -632,7 +635,7 @@ POST /_plugins/_ml/agents/your_agent_id/_execute
 ```
 {% include copy-curl.html %}
 
-### Run a neural search query
+### Run a vector search
 
 ```json
 POST /_plugins/_ml/agents/your_agent_id/_execute
@@ -662,7 +665,7 @@ To expose the `question` parameter, see [Exposing only the `question` parameter]
 
 ### Run a hybrid search query
 
-Hybrid search combines keyword and neural search to improve search relevance. For more information, see [Hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/hybrid-search/).
+Hybrid search combines keyword and vector search to improve search relevance. For more information, see [Hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/hybrid-search/).
 
 Configure a search pipeline:
 
