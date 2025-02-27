@@ -132,7 +132,7 @@ PUT /_plugins/_ml/models/9uGdCJABjaMXYrp14YRj
 
 #### Example request: Updating the model interface 
 
-You can update a model's interface to define input and output schemas. This is useful for models that lack a default interface or require customization. For more information about model interfaces, see [The `Interface` parameter]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/#the-interface-parameter). 
+You can update a model's interface to define input and output schemas. This is useful when working with models that lack a default interface or require customization. For more information about model interfaces, see [The `Interface` parameter]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/#the-interface-parameter). 
 
 The following example request specifies the output schema for an [AI21 Labs Jurassic model](https://aws.amazon.com/bedrock/ai21/) that was registered without a post-processing function:
 
