@@ -13,8 +13,37 @@ Dashboards Query Language (DQL) is a simple text-based query language used to fi
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dql-interface.png" alt="Search term using DQL toolbar in Dashboard" width="500">
 
-DQL and query string query (Lucene) language are the two search bar language options in Discover and Dashboards. To compare these language options, see [Discover and Dashboard search bar]({{site.url}}{{site.baseurl}}/dashboards/index/#discover-and-dashboard-search-bar).
+## DQL and query string query compared
+
+DQL and [query string query (Lucene)]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) language are the two search bar language options in Discover and Dashboards. To compare these language options, see [Discover and Dashboard search bar]({{site.url}}{{site.baseurl}}/dashboards/index/#discover-and-dashboard-search-bar).
 {: .tip}
+
+The following table provides a quick reference for both query language commands.
+
+| Feature | DQL | Query string query |
+|:---|:---|:---|
+| Basic term search | `wind` | `wind` |
+| Exact phrase search | `"wind rises"` | `"wind rises"` |
+| Field-specific search | `title: wind` | `title:wind` |
+| Existence of a field | `description:*` | `_exists_:description` |
+| Multiple terms in field | `title: (wind OR rises)` | `title:(wind OR rises)` |
+| Field with spaces | `article*title: wind` | `article\ title:wind` |
+| Escape special characters | `format: 2\*3` | `format:2\*3` |
+| Multiple field search | `title: wind OR description: film` | `title:wind OR description:film` |
+| Nested field search | See [Nested fields](#nested-fields) | Not supported |
+| Numeric range | `page_views >= 100 and page_views <= 300` <br> `not page_views: 100` <br>  See [Ranges](#ranges)| `page_views:[100 TO 300]` <br> `account_number: [1 TO 15]` <br> `account_number: (>=1 AND <=15)` <br> `account_number: (+>=1 +<=15)` <br> `account_number: [15 TO *]` <br> `account_number: >=15` <br> See [Ranges]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/#ranges)|
+| Date range | `date >= "1939-01-01" and date <= "2013-12-31"` | `date:[1939-01-01 TO 2013-12-31]` |
+| Exclusive range | Not supported | `page_views:{100 TO 300}` |
+| Boolean AND | `media_type: film AND page_views: 100` | `media_type:film AND page_views:100` |
+| Boolean NOT | `NOT media_type: article` | `-media_type:article` or `NOT media_type:article` |
+| Required/Prohibited operators | Not supported | `+title:wind -media_type:article` Supports both `+` (required operator) and `-` (prohibited operator) |
+| Wildcards | `title: wind*`<br><br> Only supports `*` (multiple characters)  | `title:wind*` or `title:w?nd` <br><br>Supports `*` (multiple characters) and `?` (single character) |
+| Regular expressions | Not supported | `title:/w[a-z]nd/` |
+| Fuzzy search | Not supported | `title:wind~2` |
+| Proximity search | Not supported | `"wind rises"~2` |
+| Boosting terms | Not supported | `title:wind^2` |
+| Required term | Not supported | `+title:wind` |
+| Reserved characters | `\ ( ) : < > " *` | `+ - = && \|\| > < ! ( ) { } [ ] ^ " ~ * ? : \ /` |
 
 ## Setup
 
