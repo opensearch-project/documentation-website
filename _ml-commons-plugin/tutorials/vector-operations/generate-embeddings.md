@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Generating embeddings
-parent: Tutorials
+parent: Vector operations
+grand_parent: Tutorials
 nav_order: 5
 redirect_from:
   - /ml-commons-plugin/tutorials/generate-embeddings/

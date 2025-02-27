@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Semantic search using byte vectors
-parent: Tutorials
+parent: Vector operations
+grand_parent: Tutorials
 nav_order: 10
 redirect_from:
   - /ml-commons-plugin/tutorials/semantic-search-byte-vectors/

@@ -10,7 +10,7 @@ nav_order: 70
 
 This tutorial shows you how to implement semantic search in [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/) using [AWS CloudFormation](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/cfn-template.html) and Amazon SageMaker.
 
-If you are using self-managed OpenSearch instead of Amazon OpenSearch Service, create a connector to the Amazon SageMaker model using [the blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/sagemaker_connector_blueprint.md). For information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/). 
+If you are using self-managed OpenSearch instead of Amazon OpenSearch Service, create a connector to the Amazon SageMaker model using [the blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/sagemaker_connector_blueprint.md). For more information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/). 
 
 The CloudFormation integration automates the steps in the [Semantic Search with SageMaker Embedding Model tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-sagemaker/). The CloudFormation template creates an IAM role and invokes an AWS Lambda function to set up an AI connector and model.
 

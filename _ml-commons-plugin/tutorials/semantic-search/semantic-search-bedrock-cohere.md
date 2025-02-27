@@ -10,12 +10,12 @@ nav_order: 35
 
 This tutorial shows you how to implement semantic search in [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/) using the [Cohere Embed model](https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-embed.html).
 
-If you are using self-managed OpenSearch instead of Amazon OpenSearch Service, create a connector to the model on Amazon Bedrock using [the blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_cohere_cohere.embed-english-v3_blueprint.md). For information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
+If you are using self-managed OpenSearch instead of Amazon OpenSearch Service, create a connector to the model on Amazon Bedrock using [the blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_cohere_cohere.embed-english-v3_blueprint.md). For more information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
 
 The easiest way to set up an embedding model in Amazon OpenSearch Service is by using [AWS CloudFormation](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/cfn-template.html). Alternatively, you can set up an embedding model using [the AIConnectorHelper notebook](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/tutorials/aws/AIConnectorHelper.ipynb).
 {: .tip}
 
-Amazon Bedrock has a [quota limit](https://docs.aws.amazon.com/bedrock/latest/userguide/quotas.html). For information about increasing this limit, see [Increase model invocation capacity with Provisioned Throughput in Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/prov-throughput.html).
+Amazon Bedrock has a [quota limit](https://docs.aws.amazon.com/bedrock/latest/userguide/quotas.html). For more information about increasing this limit, see [Increase model invocation capacity with Provisioned Throughput in Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/prov-throughput.html).
 {: .warning}
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
@@ -80,7 +80,7 @@ Follow these steps to configure an IAM role in Amazon OpenSearch Service.
 
 ### Step 2.1: Create an IAM role for signing connector requests
 
-Generate a new IAM role specifically for signing your create connector request.
+Generate a new IAM role specifically for signing your Create Connector API request.
 
 Create an IAM role named `my_create_bedrock_cohere_connector_role` with the following trust policy and permissions:
 
@@ -235,102 +235,102 @@ Log in to OpenSearch Dashboards, open the DevTools console, and run the followin
 
 1. Create a model group:
 
-```json
-POST /_plugins/_ml/model_groups/_register
-{
-    "name": "Bedrock_embedding_model",
-    "description": "Test model group for bedrock embedding model"
-}
-```
-{% include copy-curl.html %}
+    ```json
+    POST /_plugins/_ml/model_groups/_register
+    {
+        "name": "Bedrock_embedding_model",
+        "description": "Test model group for bedrock embedding model"
+    }
+    ```
+    {% include copy-curl.html %}
 
-The response contains the model group ID:
+    The response contains the model group ID:
 
-```json
-{
-  "model_group_id": "050q8o0BWbTmLN9Foo4f",
-  "status": "CREATED"
-}
-```
+    ```json
+    {
+      "model_group_id": "050q8o0BWbTmLN9Foo4f",
+      "status": "CREATED"
+    }
+    ```
 
 2. Register the model:
 
-```json
-POST /_plugins/_ml/models/_register
-{
-  "name": "Bedrock Cohere embedding model v3",
-  "function_name": "remote",
-  "description": "test embedding model",
-  "model_group_id": "050q8o0BWbTmLN9Foo4f",
-  "connector_id": "0p0p8o0BWbTmLN9F-o4G"
-}
-```
-{% include copy-curl.html %}
+    ```json
+    POST /_plugins/_ml/models/_register
+    {
+      "name": "Bedrock Cohere embedding model v3",
+      "function_name": "remote",
+      "description": "test embedding model",
+      "model_group_id": "050q8o0BWbTmLN9Foo4f",
+      "connector_id": "0p0p8o0BWbTmLN9F-o4G"
+    }
+    ```
+    {% include copy-curl.html %}
 
-The response contains the model ID:
+    The response contains the model ID:
 
-```json
-{
-  "task_id": "TRUr8o0BTaDH9c7tSRfx",
-  "status": "CREATED",
-  "model_id": "VRUu8o0BTaDH9c7t9xet"
-}
-```
+    ```json
+    {
+      "task_id": "TRUr8o0BTaDH9c7tSRfx",
+      "status": "CREATED",
+      "model_id": "VRUu8o0BTaDH9c7t9xet"
+    }
+    ```
 
 3. Deploy the model:
 
-```json
-POST /_plugins/_ml/models/VRUu8o0BTaDH9c7t9xet/_deploy
-```
-{% include copy-curl.html %}
+    ```json
+    POST /_plugins/_ml/models/VRUu8o0BTaDH9c7t9xet/_deploy
+    ```
+    {% include copy-curl.html %}
 
-The response contains a task ID for the deployment operation:
+    The response contains a task ID for the deployment operation:
 
-```json
-{
-  "task_id": "1J0r8o0BWbTmLN9FjY6I",
-  "task_type": "DEPLOY_MODEL",
-  "status": "COMPLETED"
-}
-```
+    ```json
+    {
+      "task_id": "1J0r8o0BWbTmLN9FjY6I",
+      "task_type": "DEPLOY_MODEL",
+      "status": "COMPLETED"
+    }
+    ```
 
 4. Test the model:
 
-```json
-POST /_plugins/_ml/models/VRUu8o0BTaDH9c7t9xet/_predict
-{
-  "parameters": {
-    "texts": ["hello world"]
-  }
-}
-```
-{% include copy-curl.html %}
-
-The response contains the embeddings generated by the model:
-
-```json
-{
-  "inference_results": [
+    ```json
+    POST /_plugins/_ml/models/VRUu8o0BTaDH9c7t9xet/_predict
     {
-      "output": [
-        {
-          "name": "sentence_embedding",
-          "data_type": "FLOAT32",
-          "shape": [
-            1024
-          ],
-          "data": [
-            -0.02973938,
-            -0.023651123,
-            -0.06021118,
-            ...]
-        }
-      ],
-      "status_code": 200
+      "parameters": {
+        "texts": ["hello world"]
+      }
     }
-  ]
-}
-```
+    ```
+    {% include copy-curl.html %}
+
+    The response contains the embeddings generated by the model:
+
+    ```json
+    {
+      "inference_results": [
+        {
+          "output": [
+            {
+              "name": "sentence_embedding",
+              "data_type": "FLOAT32",
+              "shape": [
+                1024
+              ],
+              "data": [
+                -0.02973938,
+                -0.023651123,
+                -0.06021118,
+                ...]
+            }
+          ],
+          "status_code": 200
+        }
+      ]
+    }
+    ```
 
 ## Step 5: Configure semantic search
 

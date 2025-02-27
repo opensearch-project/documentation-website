@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Amazon Bedrock model guardrails 
-parent: Tutorials
+parent: Model controls
+grand_parent: Tutorials
 nav_order: 170
 redirect_from:
   - /ml-commons-plugin/tutorials/bedrock-guardrails/

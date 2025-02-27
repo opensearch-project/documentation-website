@@ -10,9 +10,9 @@ nav_order: 60
 
 This tutorial shows you how to implement semantic search in [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/) using an embedding model in Amazon SageMaker.
 
-If you are using self-managed OpenSearch instead of Amazon OpenSearch Service, create a connector to the model in Amazon SageMaker using [the blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/sagemaker_connector_blueprint.md). For information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
+If you are using self-managed OpenSearch instead of Amazon OpenSearch Service, create a connector to the model in Amazon SageMaker using [the blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/sagemaker_connector_blueprint.md). For more information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
 
-This tutorial does not cover how to deploy a model to Amazon SageMaker. For information about deployment, see [Real-time inference](https://docs.aws.amazon.com/sagemaker/latest/dg/realtime-endpoints.html).
+This tutorial does not cover how to deploy a model to Amazon SageMaker. For more information about deployment, see [Real-time inference](https://docs.aws.amazon.com/sagemaker/latest/dg/realtime-endpoints.html).
 
 The easiest way to set up an embedding model in Amazon OpenSearch Service is by using [AWS CloudFormation](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/cfn-template.html). Alternatively, you can set up an embedding model using [the AIConnectorHelper notebook](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/tutorials/aws/AIConnectorHelper.ipynb).
 {: .tip}
@@ -175,7 +175,7 @@ Follow these steps to configure an IAM role in Amazon OpenSearch Service.
 
 ### Step 2.1: Create an IAM role for signing connector requests
 
-Generate a new IAM role specifically for signing your create connector request.
+Generate a new IAM role specifically for signing your Create Connector API request.
 
 Create an IAM role named `my_create_sagemaker_connector_role` with the following trust policy and permissions:
 
@@ -327,114 +327,114 @@ Log in to OpenSearch Dashboards, open the DevTools console, and run the followin
 
 1. Create a model group:
 
-```json
-POST /_plugins/_ml/model_groups/_register
-{
-    "name": "Sagemaker_embedding_model",
-    "description": "Test model group for Sagemaker embedding model"
-}
-```
-{% include copy-curl.html %}
+    ```json
+    POST /_plugins/_ml/model_groups/_register
+    {
+        "name": "Sagemaker_embedding_model",
+        "description": "Test model group for Sagemaker embedding model"
+    }
+    ```
+    {% include copy-curl.html %}
 
-The response contains the model group ID:
+    The response contains the model group ID:
 
-```json
-{
-  "model_group_id": "MhU3Qo0BTaDH9c7tKBfR",
-  "status": "CREATED"
-}
-```
+    ```json
+    {
+      "model_group_id": "MhU3Qo0BTaDH9c7tKBfR",
+      "status": "CREATED"
+    }
+    ```
 
 2. Register the model:
 
-```json
-POST /_plugins/_ml/models/_register
-{
-  "name": "Sagemaker embedding model",
-  "function_name": "remote",
-  "description": "test embedding model",
-  "model_group_id": "MhU3Qo0BTaDH9c7tKBfR",
-  "connector_id": "tZ09Qo0BWbTmLN9FM44V"
-}
-```
-{% include copy-curl.html %}
+    ```json
+    POST /_plugins/_ml/models/_register
+    {
+      "name": "Sagemaker embedding model",
+      "function_name": "remote",
+      "description": "test embedding model",
+      "model_group_id": "MhU3Qo0BTaDH9c7tKBfR",
+      "connector_id": "tZ09Qo0BWbTmLN9FM44V"
+    }
+    ```
+    {% include copy-curl.html %}
 
-The response contains the model ID:
+    The response contains the model ID:
 
-```json
-{
-  "task_id": "NhU9Qo0BTaDH9c7t0xft",
-  "status": "CREATED",
-  "model_id": "NxU9Qo0BTaDH9c7t1Bca"
-}
-```
+    ```json
+    {
+      "task_id": "NhU9Qo0BTaDH9c7t0xft",
+      "status": "CREATED",
+      "model_id": "NxU9Qo0BTaDH9c7t1Bca"
+    }
+    ```
 
 3. Deploy the model:
 
-```json
-POST /_plugins/_ml/models/NxU9Qo0BTaDH9c7t1Bca/_deploy
-```
-{% include copy-curl.html %}
+    ```json
+    POST /_plugins/_ml/models/NxU9Qo0BTaDH9c7t1Bca/_deploy
+    ```
+    {% include copy-curl.html %}
 
-The response contains a task ID for the deployment operation:
+    The response contains a task ID for the deployment operation:
 
-```json
-{
-  "task_id": "MxU4Qo0BTaDH9c7tJxde",
-  "task_type": "DEPLOY_MODEL",
-  "status": "COMPLETED"
-}
-```
+    ```json
+    {
+      "task_id": "MxU4Qo0BTaDH9c7tJxde",
+      "task_type": "DEPLOY_MODEL",
+      "status": "COMPLETED"
+    }
+    ```
 
 4. Test the model:
 
-```json
-POST /_plugins/_ml/models/NxU9Qo0BTaDH9c7t1Bca/_predict
-{
-  "parameters": {
-    "input": ["hello world", "how are you"]
-  }
-}
-```
-{% include copy-curl.html %}
-
-The response contains the embeddings generated by the model:
-
-```json
-{
-  "inference_results": [
+    ```json
+    POST /_plugins/_ml/models/NxU9Qo0BTaDH9c7t1Bca/_predict
     {
-      "output": [
-        {
-          "name": "sentence_embedding",
-          "data_type": "FLOAT32",
-          "shape": [
-            384
-          ],
-          "data": [
-            -0.034477264,
-            0.031023195,
-            0.0067349933,
-            ...]
-        },
-        {
-          "name": "sentence_embedding",
-          "data_type": "FLOAT32",
-          "shape": [
-            384
-          ],
-          "data": [
-            -0.031369038,
-            0.037830487,
-            0.07630822,
-            ...]
-        }
-      ],
-      "status_code": 200
+      "parameters": {
+        "input": ["hello world", "how are you"]
+      }
     }
-  ]
-}
-```
+    ```
+    {% include copy-curl.html %}
+
+    The response contains the embeddings generated by the model:
+
+    ```json
+    {
+      "inference_results": [
+        {
+          "output": [
+            {
+              "name": "sentence_embedding",
+              "data_type": "FLOAT32",
+              "shape": [
+                384
+              ],
+              "data": [
+                -0.034477264,
+                0.031023195,
+                0.0067349933,
+                ...]
+            },
+            {
+              "name": "sentence_embedding",
+              "data_type": "FLOAT32",
+              "shape": [
+                384
+              ],
+              "data": [
+                -0.031369038,
+                0.037830487,
+                0.07630822,
+                ...]
+            }
+          ],
+          "status_code": 200
+        }
+      ]
+    }
+    ```
 
 ## Step 5: Configure semantic search
 
