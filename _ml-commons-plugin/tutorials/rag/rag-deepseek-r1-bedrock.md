@@ -1,17 +1,19 @@
 ---
 layout: default
-title: Implementing RAG with DeepSeek R1
-parent: Tutorials
-nav_order: 5
+title: RAG using DeepSeek R1 on Amazon Bedrock
+parent: RAG
+grand_parent: Tutorials
+nav_order: 130
 ---
 
-# Implementing RAG with DeepSeek R1
+# RAG using DeepSeek R1 on Amazon Bedrock
 
 This tutorial illustrates implementing retrieval-augmented generation (RAG) using [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/) and the [DeepSeek R1 model](https://huggingface.co/deepseek-ai/DeepSeek-R1).
 
-If you are using self-managed OpenSearch instead of Amazon OpenSearch Service, create a connector to the DeepSeek R1 model using [the blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/deepseek_connector_chat_blueprint.md). For information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/). Then go directly to [Step 5](#step-5-configure-rag).
+If you are using self-managed OpenSearch instead of Amazon OpenSearch Service, create a connector to the DeepSeek R1 model using [the blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/deepseek_connector_chat_blueprint.md). For information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/). Then go directly to [Step 4](#step-4-create-and-test-the-model).
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
+{: .note}
 
 ## Prerequisites
 
@@ -22,9 +24,9 @@ When configuring Amazon settings, only change the values mentioned in this tutor
 
 ### Deploy DeepSeek R1 to Amazon Bedrock
 
-Follow this [notebook](https://github.com/DennisTraub/deepseekr1-on-bedrock/blob/main/deepseek-bedrock.ipynb) to deploy the DeepSeek R1 model to Amazon Bedrock.
+Follow [this notebook](https://github.com/DennisTraub/deepseekr1-on-bedrock/blob/main/deepseek-bedrock.ipynb) to deploy the DeepSeek R1 model to Amazon Bedrock.
 
-Note the Bedrock DeepSeek R1 model ARN; you'll use it in the following steps.
+Note the Amazon Bedrock DeepSeek R1 model Amazon Resource Name (ARN); you'll use it in the following steps.
 
 ### Create an OpenSearch cluster
 
@@ -32,9 +34,9 @@ Go to the [Amazon OpenSearch Service console](https://console.aws.amazon.com/aos
 
 Note the domain Amazon Resource Name (ARN) and URL; you'll use them in the following steps.
 
-## Step 1: Create an IAM role for Bedrock access
+## Step 1: Create an IAM role for Amazon Bedrock access
 
-To invoke the DeepSeek R1 model on Amazon Bedrock, you must create an IAM role with appropriate permissions. The connector will use this role to invoke the model.
+To invoke the DeepSeek R1 model on Amazon Bedrock, you must create an AWS Identity and Access Management (IAM) role with appropriate permissions. The connector will use this role to invoke the model.
 
 Go to the AWS IAM console, create a new IAM role named `my_invoke_bedrock_deepseek_model_role`, and add the following trust policy and permissions:
 
@@ -76,11 +78,13 @@ Go to the AWS IAM console, create a new IAM role named `my_invoke_bedrock_deepse
 
 Note the role ARN; you'll use it in the following steps.
 
-## Step 2: Configure an IAM role in OpenSearch
+## Step 2: Configure an IAM role in the Amazon OpenSearch Service
 
-Follow these steps to configure an IAM role in OpenSearch.
+Follow these steps to configure an IAM role in the Amazon OpenSearch Service.
 
 ### Step 2.1: Create an IAM role for signing connector requests
+
+Generate a new IAM role specifically for signing your create connector request.
 
 Create an IAM role named `my_create_bedrock_deepseek_connector_role` with the following trust policy and permissions:
 
@@ -88,39 +92,39 @@ Create an IAM role named `my_create_bedrock_deepseek_connector_role` with the fo
 
 ```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Principal": {
-                "AWS": "your_iam_user_arn"
-            },
-            "Action": "sts:AssumeRole"
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "your_iam_user_arn"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
 }
 ```
 {% include copy.html %}
 
-Note that `your_iam_user_arn` is the IAM user that will run `aws sts assume-role` in step 3.1.
+You'll use the `your_iam_user_arn` IAM user to assume the role in step 3.1.
 
 - Permissions:
 
 ```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": "iam:PassRole",
-            "Resource": "your_iam_role_arn_created_in_step1"
-        },
-        {
-            "Effect": "Allow",
-            "Action": "es:ESHttpPost",
-            "Resource": "your_opensearch_domain_arn"
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "iam:PassRole",
+      "Resource": "your_iam_role_arn_created_in_step1"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "es:ESHttpPost",
+      "Resource": "your_opensearch_domain_arn"
+    }
+  ]
 }
 ```
 {% include copy.html %}
@@ -129,12 +133,15 @@ Note this role ARN; you'll use it in the following steps.
 
 ### Step 2.2: Map a backend role
 
+Follow these steps to map a backend role:
+
 1. Log in to OpenSearch Dashboards and select **Security** on the top menu.
 2. Select **Roles**, then select the **ml_full_access** role. 
 3. On the **ml_full_access** role details page, select **Mapped users**, then select **Manage mapping**. 
 4. Enter the IAM role ARN created in Step 2.1 in the **Backend roles** field, as shown in the following image.
-    ![Mapping a backend role]({{site.url}}{{site.baseurl}}/images/semantic_search/mapping_iam_role_arn.png)
+    ![Mapping a backend role]({{site.url}}{{site.baseurl}}/images/vector-search-tutorials/mapping_iam_role_arn.png)
 5. Select **Map**. 
+
 The IAM role is now successfully configured in your OpenSearch cluster.
 
 ## Step 3: Create a connector
@@ -330,7 +337,7 @@ Follow these steps to configure RAG.
 Create a search pipeline with a [RAG processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rag-processor/):
 
 ```json
-PUT /_search/pipeline/my-conversation-search-pipeline-deepseek-bedrock
+PUT /_search/pipeline/my-conversation-search-pipeline-deepseek
 {
   "response_processors": [
     {
@@ -382,7 +389,7 @@ GET /my-nlp-index/_search?search_pipeline=my-conversation-search-pipeline-deepse
     "neural": {
       "passage_embedding": {
         "query_text": "What's the population increase of New York City from 2021 to 2023? How is the trending comparing with Miami?",
-        "model_id": "USkHsZQBts7fa6bybx3G",
+        "model_id": "heS7s5QBFSAM-Wczv7Kb",
         "k": 5
       }
     }

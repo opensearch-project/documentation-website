@@ -1,11 +1,13 @@
 ---
 layout: default
-title: Using Amazon Bedrock guardrails 
+title: Amazon Bedrock model guardrails 
 parent: Tutorials
-nav_order: 25
+nav_order: 170
+redirect_from:
+  - /ml-commons-plugin/tutorials/bedrock-guardrails/
 ---
 
-# Using Amazon Bedrock guardrails 
+# Amazon Bedrock model guardrails 
 
 This tutorial demonstrates how to apply Amazon Bedrock guardrails to your externally hosted models in two ways:
 

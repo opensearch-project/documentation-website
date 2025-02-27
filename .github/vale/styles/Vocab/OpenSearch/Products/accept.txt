@@ -12,6 +12,7 @@ Anthropic Claude
 Auditbeat
 AWS Cloud
 Cohere Command
+Cohere Embed
 Cohere Embed English
 Cohere Embed Multilingual
 Cognito
@@ -94,6 +95,7 @@ Ruby
 Simple Schema for Observability
 Tableau
 Textract
+Titan
 Titan Multimodal Embeddings
 Titan Text Embeddings
 TorchScript

@@ -3,6 +3,8 @@ layout: default
 title: Semantic search using byte vectors
 parent: Tutorials
 nav_order: 10
+redirect_from:
+  - /ml-commons-plugin/tutorials/semantic-search-byte-vectors/
 ---
 
 # Semantic search using byte-quantized vectors
@@ -63,7 +65,7 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-To ensure compatibility with the Neural Search plugin, the `data_type` (output in the `inference_results.output.data_type` field of the response) must be set to `FLOAT32` in the post-processing function, even though the actual embedding type will be `INT8`.
+To ensure compatibility with OpenSearch, the `data_type` (output in the `inference_results.output.data_type` field of the response) must be set to `FLOAT32` in the post-processing function, even though the actual embedding type will be `INT8`.
 {: .important}
 
 Note the connector ID in the response; you'll use it to register the model.
@@ -159,7 +161,7 @@ PUT /_ingest/pipeline/pipeline-cohere
 ```
 {% include copy-curl.html %}
 
-Next, create a k-NN index and set the `data_type` for the `passage_embedding` field to `byte` so that it can hold byte-quantized vectors:
+Next, create a vector index and set the `data_type` for the `passage_embedding` field to `byte` so that it can hold byte-quantized vectors:
 
 ```json
 PUT my_test_data
@@ -261,7 +263,7 @@ POST /_plugins/_ml/models/_register?deploy=true
 
 Note the model ID in the response; you'll use it to run queries.
 
-Run a neural search query, providing the model ID:
+Run a vector search, providing the model ID:
 
 ```json
 POST /my_test_data/_search

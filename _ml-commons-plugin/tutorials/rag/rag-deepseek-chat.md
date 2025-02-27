@@ -1,15 +1,16 @@
 ---
 layout: default
-title: Implementing RAG with DeepSeek
-parent: Tutorials
-nav_order: 5
+title: RAG using DeepSeek Chat API
+parent: RAG
+grand_parent: Tutorials
+nav_order: 120
 ---
 
-# Implementing RAG with DeepSeek
+# RAG using DeepSeek Chat API
 
 This tutorial illustrates implementing retrieval-augmented generation (RAG) using [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/) and the [DeepSeek chat model](https://api-docs.deepseek.com/api/create-chat-completion).
 
-If you are using self-managed OpenSearch instead of Amazon OpenSearch Service, obtain a DeepSeek API key and create a connector to the DeepSeek chat model using [the blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/deepseek_connector_chat_blueprint.md). For information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/). Then go directly to [Step 5](#step-5-create-and-test-the-deepseek-model).
+If you are using self-managed OpenSearch instead of Amazon OpenSearch Service, obtain a DeepSeek API key and create a connector to the DeepSeek chat model using [the blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/deepseek_connector_chat_blueprint.md). For information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/). Then go directly to [Step 5](#step-5-create-and-test-the-model).
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}
@@ -92,7 +93,7 @@ Note the role ARN; you'll use it in the following steps.
 
 Follow these steps to configure an IAM role in the Amazon OpenSearch Service.
 
-### Step 3.1: Create an IAM role for signing the create connector request
+### Step 3.1: Create an IAM role for signing connector requests
 
 Generate a new IAM role specifically for signing your create connector request.
 
@@ -117,7 +118,6 @@ Create an IAM role named `my_create_deepseek_connector_role` with the following 
 {% include copy.html %}
 
 You'll use the `your_iam_user_arn` IAM user to assume the role in step 4.1.
-{:.note}
 
 - Permissions:
 
@@ -144,29 +144,33 @@ Note this role ARN; you'll use it in the following steps.
 
 ### Step 3.2: Map a backend role
 
+Follow these steps to map a backend role:
+
 1. Log in to OpenSearch Dashboards and select **Security** on the top menu.
 2. Select **Roles**, then select the **ml_full_access** role. 
-3. On the **ml_full_access** role details page, select **Mapped users**, then select **Manage mapping**. Enter the IAM role ARN created in Step 3.1 in the **Backend roles**, as shown in the following image.
+3. On the **ml_full_access** role details page, select **Mapped users**, then select **Manage mapping**. 
+4. Enter the IAM role ARN created in Step 3.1 in the **Backend roles** field, as shown in the following image.
     ![Mapping a backend role]({{site.url}}{{site.baseurl}}/images/vector-search-tutorials/mapping_iam_role_arn.png)
 4. Select **Map**. 
-The IAM role will be successfully configured in your OpenSearch cluster.
+
+The IAM role is now successfully configured in your OpenSearch cluster.
 
 ## Step 4: Create a connector
 
-Use these steps to create a connector for the DeepSeek model. For more information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
+Follow these steps to create a connector for the DeepSeek chat model. For more information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
 
-### Step 4.1: Get a temporary credential for the role created in step 3.1
+### Step 4.1: Get temporary credentials
 
-Use the credential of the IAM user used in Step 3.1 to assume the role:
+Use the credentials of the IAM user specified in Step 3.1 to assume the role:
 
 ```bash
 aws sts assume-role --role-arn your_iam_role_arn_created_in_step3.1 --role-session-name your_session_name
 ```
 {% include copy.html %}
 
-Copy the temporary credential from the response and configure it in `~/.aws/credentials` as follows:
+Copy the temporary credentials from the response and configure them in `~/.aws/credentials`:
 
-```sh
+```ini
 [default]
 AWS_ACCESS_KEY_ID=your_access_key_of_role_created_in_step3.1
 AWS_SECRET_ACCESS_KEY=your_secret_key_of_role_created_in_step3.1
@@ -190,7 +194,7 @@ PUT /_cluster/settings
 ```
 {% include copy-curl.html %}
 
-Run the following Python code with the temporary credential configured in `~/.aws/credentials`:
+Run the following Python code with the temporary credentials configured in `~/.aws/credentials`:
  
 ```python
 import boto3
@@ -203,7 +207,6 @@ service = 'es'
 
 credentials = boto3.Session().get_credentials()
 awsauth = AWS4Auth(credentials.access_key, credentials.secret_key, region, service, session_token=credentials.token)
-
 
 path = '/_plugins/_ml/connectors/_create'
 url = host + path
@@ -251,9 +254,9 @@ The script outputs a connector ID:
 
 Note the connector ID; you'll use it in the next step.
 
-## Step 5: Create and test the DeepSeek model
+## Step 5: Create and test the model
 
-Log in to OpenSearch Dashboards, open the DevTools console, and run the following requests to create and test the DeepSeek model.
+Log in to OpenSearch Dashboards, open the DevTools console, and run the following requests to create and test the DeepSeek chat model.
 
 1. Create a model group:
 
@@ -337,7 +340,7 @@ Log in to OpenSearch Dashboards, open the DevTools console, and run the followin
     ```
     {% include copy-curl.html %}
 
-    The response contains inference results:
+    The response contains the text that the model generated:
 
     ```json
     {
@@ -384,7 +387,7 @@ Log in to OpenSearch Dashboards, open the DevTools console, and run the followin
 
 ## Step 6: Configure RAG
 
-Use the following steps to configure RAG.
+Follow these steps to configure RAG.
 
 ### Step 6.1: Create a search pipeline
 
@@ -413,7 +416,7 @@ PUT /_search/pipeline/my-conversation-search-pipeline-deepseek-chat
 
 ### Step 6.2: Create a vector database
 
-Follow steps 1 and 2 of [this tutorial]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/) to create an embedding model and a vector index. Then ingest data into the index:
+Follow steps 1 and 2 of [this tutorial]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/) to create an embedding model and a vector index. Then ingest sample data into the index:
 
 ```json
 POST _bulk
@@ -434,7 +437,7 @@ POST _bulk
 
 ### Step 6.3: Search the index
 
-Run vector search to retrieve documents from the vector database and use the DeepSeek model for RAG:
+Run a vector search to retrieve documents from the vector database and use the DeepSeek model for RAG:
 
 ```json
 GET /my-nlp-index/_search?search_pipeline=my-conversation-search-pipeline-deepseek-chat
@@ -464,7 +467,7 @@ GET /my-nlp-index/_search?search_pipeline=my-conversation-search-pipeline-deepse
 ```
 {% include copy-curl.html %}
 
-The response includes both the relevant documents retrieved from the vector search (in the `hits` array) and the generated answer from the DeepSeek model (in the `ext.retrieval_augmented_generation` object) that compares population trends between New York City and Miami:
+The response includes both the relevant documents retrieved from the vector search (in the `hits` array) and the generated answer from the DeepSeek model (in the `ext.retrieval_augmented_generation` object):
 
 ```json
 {
