@@ -36,7 +36,21 @@ PUT /_cluster/routing/awareness/{attribute}/weights
 <!-- spec_insert_end -->
 
 <!-- spec_insert_start
-api: cluster.allocation_explain
+api: cluster.put_weighted_routing
+component: path_parameters
+-->
+## Path parameters
+
+The following table lists the available path parameters.
+
+| Parameter | Required | Data type | Description |
+| :--- | :--- | :--- | :--- |
+| `attribute` | **Required** | String | The name of the awareness attribute. |
+
+<!-- spec_insert_end -->
+
+<!-- spec_insert_start
+api: cluster.put_weighted_routing
 columns: Parameter, Data type, Description, Default
 component: query_parameters
 -->
@@ -46,8 +60,6 @@ The following table lists the available query parameters. All query parameters a
 
 | Parameter | Data type | Description | Default |
 | :--- | :--- | :--- | :--- |
-| `include_disk_info` | Boolean | When `true`, returns information about disk usage and shard sizes. | `false` |
-| `include_yes_decisions` | Boolean | When `true`, returns any `YES` decisions in the allocation explanation. | `false` |
 
 <!-- spec_insert_end -->
 

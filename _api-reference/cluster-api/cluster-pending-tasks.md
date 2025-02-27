@@ -10,8 +10,7 @@ parent: Cluster APIs
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Cluster Pending Tasks API returns a list of pending cluster-level tasks, such as index creation, mapping updates,
-or new allocations.
+The Cluster Pending Tasks API returns a list of pending cluster-level tasks, such as index creation, mapping updates, or new allocations.
 
 <!-- spec_insert_start
 api: cluster.pending_tasks
@@ -45,6 +44,7 @@ The following table lists the available query parameters. All query parameters a
 ```json
 GET /_cluster/pending_tasks
 ```
+{% include copy-curl.html %}
 
 ## Example response
 

@@ -59,6 +59,7 @@ The following table lists the available query parameters. All query parameters a
 ```json
 POST /_cluster/voting_config_exclusions?node_names=node-3,node-4&timeout=30s
 ```
+{% include copy-curl.html %}
 
 ## Example response
 

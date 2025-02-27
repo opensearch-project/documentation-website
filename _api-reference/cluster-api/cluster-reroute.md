@@ -25,33 +25,33 @@ POST /_cluster/reroute
 api: cluster.reroute
 component: query_parameters
 include_deprecated: false
-columns: Parameter, Data type, Description, Default
+columns: Parameter, Required, Data type, Description, Default
 -->
 ## Query parameters
 
 The following table lists the available query parameters. All query parameters are optional.
 
-| Parameter | Data type | Description | Default |
-| :--- | :--- | :--- | :--- |
-| `cluster_manager_timeout` | String | A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts "0" without a unit and "-1" to indicate an unspecified value. | N/A |
-| `dry_run` | Boolean | When `true`, the request simulates the operation and returns the resulting state. | N/A |
-| `explain` | Boolean | When `true`, the response contains an explanation of why certain commands can or cannot be executed. | N/A |
-| `metric` | List or String | Limits the information returned to the specified metrics. <br> Valid values are: `_all`, `blocks`, `cluster_manager_node`, `master_node`, `metadata`, `nodes`, `routing_nodes`, `routing_table`, `version` | N/A |
-| `retry_failed` | Boolean | When `true`, retries shard allocation if it was blocked because of too many subsequent failures. | N/A |
-| `timeout` | String | A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts "0" without a unit and "-1" to indicate an unspecified value. | N/A |
+| Parameter | Required | Data type | Description | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| `cluster_manager_timeout` | _Optional_ | String | A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts "0" without a unit and "-1" to indicate an unspecified value. | N/A |
+| `dry_run` | _Optional_ | Boolean | When `true`, the request simulates the operation and returns the resulting state. | N/A |
+| `explain` | _Optional_ | Boolean | When `true`, the response contains an explanation of why certain commands can or cannot be executed. | N/A |
+| `metric` | _Optional_ | List or String | Limits the information returned to the specified metrics. <br> Valid values are: `_all`, `blocks`, `cluster_manager_node`, `master_node`, `metadata`, `nodes`, `routing_nodes`, `routing_table`, `version` | N/A |
+| `retry_failed` | _Optional_ | Boolean | When `true`, retries shard allocation if it was blocked because of too many subsequent failures. | N/A |
+| `timeout` | _Optional_ | String | A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts "0" without a unit and "-1" to indicate an unspecified value. | N/A |
 
 <!-- spec_insert_end -->
 
 ## Request body fields
 
-| Field | Data type | Description |
-| :--- | :--- | :--- |
-| `commands` | Array | A list of reroute commands to run. |
-| `dry_run` | Boolean | When true, simulates the reroute without actually performing it. |
-| `explain` | Boolean | When true, returns detailed explanations of command decisions. |
-| `retry_failed` | Boolean | When true, retries allocation of shards that failed in previous reroute attempts. |
-| `metric` | String/Array | Limits the information returned to specific metrics. |
-| `timeout` | Time | The period of time to wait for a response. |
+| Field | Data type | Description | Required
+| :--- | :--- | :--- | :--- |
+| `commands` | Array | A list of reroute commands to run. For a list of supported commands, see the [Cluster Reroute API schema](https://github.com/opensearch-project/opensearch-api-specification/blob/595fb05011fb0d13f2b535aa21b02554657db8dc/spec/schemas/cluster.reroute.yaml#L9-L55).| Required. |
+| `dry_run` | Boolean | When true, simulates the reroute without actually performing it. | _Optional_ |
+| `explain` | Boolean | When true, returns detailed explanations of command decisions. | _Optional_ |
+| `retry_failed` | Boolean | When true, retries allocation of shards that failed in previous reroute attempts. | _Optional_ |
+| `metric` | String/Array | Limits the information returned to specific metrics. | _Optional_ |
+| `timeout` | Time | The period of time to wait for a response. | _Optional_ |
 
 ## Example request
 
