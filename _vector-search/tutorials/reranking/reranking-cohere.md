@@ -1,14 +1,14 @@
 ---
 layout: default
-title: Reranking with Cohere Rerank
-parent: Tutorials
-nav_order: 30
-grand_parent: Getting started
+title: Reranking using Cohere Rerank
+parent: Reranking search results
+grand_parent: Tutorials
+nav_order: 90
 redirect_from:
   - /ml-commons-plugin/tutorials/reranking-cohere/
 ---
 
-# Reranking search results using the Cohere Rerank model
+# Reranking search results using Cohere Rerank
 
 A [reranking pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/) can rerank search results, providing a relevance score for each document in the search results with respect to the search query. The relevance score is calculated by a cross-encoder model. 
 

@@ -1,9 +1,9 @@
 ---
 layout: default
 title: RAG chatbot
-parent: Tutorials
-grand_parent: Getting started
-nav_order: 50
+parent: Chatbots and agents
+grand_parent: Tutorials
+nav_order: 150
 redirect_from:
   - /ml-commons-plugin/tutorials/rag-chatbot/
 ---

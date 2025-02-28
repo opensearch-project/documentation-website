@@ -1,9 +1,9 @@
 ---
 layout: default
 title: RAG chatbot with a conversational flow agent
-parent: Tutorials
-grand_parent: Getting started
-nav_order: 40
+parent: Chatbots and agents
+grand_parent: Tutorials
+nav_order: 160
 redirect_from:
   - /ml-commons-plugin/tutorials/rag-conversational-agent/
 ---
@@ -19,7 +19,11 @@ An alternative way to build RAG conversational search is to use a RAG pipeline. 
 
 ## Prerequisite
 
+<<<<<<<< HEAD:_vector-search/getting-started/tutorials/rag-conversational-agent.md
 In this tutorial, you'll build a RAG application that provides an OpenSearch [vector index]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/) as a knowledge base for a large language model (LLM). For data retrieval, you'll use [semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/). For a comprehensive semantic search tutorial, see [Neural search tutorial]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/).
+========
+In this tutorial, you'll build a RAG application that provides an OpenSearch [vector index]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/) as a knowledge base for a large language model (LLM). For data retrieval, you'll use [semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/). For a comprehensive semantic search setup, see [this tutorial]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/).
+>>>>>>>> main:_ml-commons-plugin/tutorials/chatbots/rag-conversational-agent.md
 
 First, you'll need to update your cluster settings. If you don't have a dedicated machine learning (ML) node, set `"plugins.ml_commons.only_run_on_ml_node": false`. To avoid triggering a native memory circuit breaker, set `"plugins.ml_commons.native_memory_threshold"` to 100%:
 
@@ -136,7 +140,11 @@ PUT test_population_data
 ```
 {% include copy-curl.html %}
 
+<<<<<<<< HEAD:_vector-search/getting-started/tutorials/rag-conversational-agent.md
 For more information about vector indexes, see [Creating a vector index]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/).
+========
+For more information about vector indexes, see [vector index]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/).
+>>>>>>>> main:_ml-commons-plugin/tutorials/chatbots/rag-conversational-agent.md
 
 ### Step 1.4: Ingest data
 
@@ -635,7 +643,7 @@ POST /_plugins/_ml/agents/your_agent_id/_execute
 ```
 {% include copy-curl.html %}
 
-### Run a neural search query
+### Run a vector search
 
 ```json
 POST /_plugins/_ml/agents/your_agent_id/_execute
@@ -665,7 +673,7 @@ To expose the `question` parameter, see [Exposing only the `question` parameter]
 
 ### Run a hybrid search query
 
-Hybrid search combines keyword and neural search to improve search relevance. For more information, see [Hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/hybrid-search/).
+Hybrid search combines keyword and vector search to improve search relevance. For more information, see [Hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/hybrid-search/).
 
 Configure a search pipeline:
 
