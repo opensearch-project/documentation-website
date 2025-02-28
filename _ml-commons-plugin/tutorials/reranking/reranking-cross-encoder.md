@@ -12,7 +12,7 @@ redirect_from:
 
 A [reranking pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/) can rerank search results, providing a relevance score for each document in the search results with respect to the search query. The relevance score is calculated by a cross-encoder model. 
 
-This tutorial illustrates how to use the [Hugging Face `ms-marco-MiniLM-L-6-v2` model](https://huggingface.co/cross-encoder/ms-marco-MiniLM-L-6-v2) in a reranking pipeline. 
+This tutorial shows you how to use the [Hugging Face `ms-marco-MiniLM-L-6-v2` model](https://huggingface.co/cross-encoder/ms-marco-MiniLM-L-6-v2) in a reranking pipeline. 
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}
@@ -52,12 +52,14 @@ Note the model inference endpoint; you'll use it to create a connector in the ne
 
 ## Step 1: Create a connector and register the model
 
-First, create a connector for the model, providing the inference endpoint and your AWS credentials:
+To create a connector for the model, send the following request. 
+
+If you are using self-managed OpenSearch, supply your AWS credentials:
 
 ```json
 POST /_plugins/_ml/connectors/_create
 {
-  "name": "Sagemaker cross-encoder model",
+  "name": "Sagemakre cross-encoder model",
   "description": "Test connector for Sagemaker cross-encoder model",
   "version": 1,
   "protocol": "aws_sigv4",
@@ -87,7 +89,40 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-Next, use the connector ID from the response to register and deploy the model:
+If you are using the AWS OpenSearch service, you can provide an AWS Identity and Access Management (IAM) role ARN that allows access to the SageMaker model inference endpoint. For more information, see [AWS documentation](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ml-amazon-connector.html), [this tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-sagemaker/), and [the AIConnectorHelper notebook](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/tutorials/aws/AIConnectorHelper.ipynb):
+
+```json
+POST /_plugins/_ml/connectors/_create
+{
+  "name": "Sagemakre cross-encoder model",
+  "description": "Test connector for Sagemaker cross-encoder model",
+  "version": 1,
+  "protocol": "aws_sigv4",
+  "credential": {
+    "roleArn": "your_role_arn_which_allows_access_to_sagemaker_model_inference_endpoint"
+  },
+  "parameters": {
+    "region": "your_sagemkaer_model_region_like_us-west-2",
+    "service_name": "sagemaker"
+  },
+  "actions": [
+    {
+      "action_type": "predict",
+      "method": "POST",
+      "url": "your_sagemaker_model_inference_endpoint_created_in_last_step",
+      "headers": {
+        "content-type": "application/json"
+      },
+      "request_body": "{ \"inputs\": ${parameters.inputs} }",
+      "pre_process_function": "\n    String escape(def input) { \n       if (input.contains(\"\\\\\")) {\n        input = input.replace(\"\\\\\", \"\\\\\\\\\");\n      }\n      if (input.contains(\"\\\"\")) {\n        input = input.replace(\"\\\"\", \"\\\\\\\"\");\n      }\n      if (input.contains('\r')) {\n        input = input = input.replace('\r', '\\\\r');\n      }\n      if (input.contains(\"\\\\t\")) {\n        input = input.replace(\"\\\\t\", \"\\\\\\\\\\\\t\");\n      }\n      if (input.contains('\n')) {\n        input = input.replace('\n', '\\\\n');\n      }\n      if (input.contains('\b')) {\n        input = input.replace('\b', '\\\\b');\n      }\n      if (input.contains('\f')) {\n        input = input.replace('\f', '\\\\f');\n      }\n      return input;\n    }\n\n   String query = params.query_text;\n   StringBuilder builder = new StringBuilder('[');\n    \n    for (int i=0; i<params.text_docs.length; i ++) {\n      builder.append('{\"text\":\"');\n      builder.append(escape(query));\n      builder.append('\", \"text_pair\":\"');\n      builder.append(escape(params.text_docs[i]));\n      builder.append('\"}');\n      if (i<params.text_docs.length - 1) {\n        builder.append(',');\n      }\n    }\n    builder.append(']');\n    \n    def parameters = '{ \"inputs\": ' + builder + ' }';\n    return  '{\"parameters\": ' + parameters + '}';\n     ",
+      "post_process_function": "\n      \n      def dataType = \"FLOAT32\";\n      \n      \n      if (params.result == null)\n      {\n          return 'no result generated';\n          //return params.response;\n      }\n      def outputs = params.result;\n      \n      \n      def resultBuilder = new StringBuilder('[ ');\n      for (int i=0; i<outputs.length; i++) {\n        resultBuilder.append(' {\"name\": \"similarity\", \"data_type\": \"FLOAT32\", \"shape\": [1],');\n        //resultBuilder.append('{\"name\": \"similarity\"}');\n        \n        resultBuilder.append('\"data\": [');\n        resultBuilder.append(outputs[i].score);\n        resultBuilder.append(']}');\n        if (i<outputs.length - 1) {\n          resultBuilder.append(',');\n        }\n      }\n      resultBuilder.append(']');\n      \n      return resultBuilder.toString();\n    "
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+Use the connector ID from the response to register and deploy the model:
 
 ```json
 POST /_plugins/_ml/models/_register?deploy=true

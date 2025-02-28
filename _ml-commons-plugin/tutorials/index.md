@@ -61,9 +61,19 @@ Using the OpenSearch machine learning (ML) framework, you can build various appl
   - Model: Custom  
   - Deployment: Amazon SageMaker + CloudFormation  
 
+- [**Semantic search using an asymmetric model**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/vector-operations/semantic-search-byte-vectors/) 
+  - Platform: OpenSearch
+  - Model: Hugging Face Multilingual-E5-small  
+  - Deployment: Local cluster 
+
+- [**Semantic search using text chunking**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/long-document/) 
+  - Platform: OpenSearch, Amazon OpenSearch Service
+  - Model: Amazon Titan Text Embeddings  
+  - Deployment: Amazon Bedrock
+
 ---
 
-## Conversational search  
+## Conversational search with RAG  
 - [**Conversational search using Cohere Command**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/conversational-search/conversational-search-cohere/)  
   - Platform: OpenSearch
   - Model: Cohere  
@@ -74,8 +84,13 @@ Using the OpenSearch machine learning (ML) framework, you can build various appl
 ## Search result reranking  
 - [**Reranking search results using Cohere Rerank**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/reranking/reranking-cohere/)  
   - Platform: OpenSearch
-  - Model: Cohere  
+  - Model: Cohere Rerank 
   - Deployment: Provider API  
+
+- [**Reranking search results using Cohere Rerank on Amazon Bedrock**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/reranking/reranking-cohere-bedrock/)  
+  - Platform: OpenSearch, Amazon OpenSearch Service
+  - Model: Cohere Rerank
+  - Deployment: Amazon Bedrock 
 
 - [**Reranking search results using Amazon Bedrock models**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/reranking/reranking-bedrock/)  
   - Platform: OpenSearch
@@ -83,9 +98,19 @@ Using the OpenSearch machine learning (ML) framework, you can build various appl
   - Deployment: Amazon Bedrock  
 
 - [**Reranking search results using a cross-encoder in Amazon SageMaker**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/reranking/reranking-cross-encoder/)  
-  - Platform: OpenSearch
-  - Model: MS MARCO  
-  - Deployment: Amazon SageMaker  
+  - Platform: OpenSearch, Amazon OpenSearch Service
+  - Model: Hugging Face MS MARCO  
+  - Deployment: Amazon SageMaker 
+
+- [**Reranking search results using a reranker in Amazon SageMaker**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/reranking/reranking-sagemaker/)  
+  - Platform: OpenSearch, Amazon OpenSearch Service
+  - Model: Hugging Face BAAI/bge-reranker 
+  - Deployment: Amazon SageMaker 
+
+- [**Reranking search results by a field**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/reranking/reranking-by-field/)  
+  - Platform: OpenSearch, Amazon OpenSearch Service
+  - Model: Cohere Rerank 
+  - Deployment: Provider API  
 
 ---
 
