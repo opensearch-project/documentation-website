@@ -173,6 +173,20 @@ After all verifications are complete, reset all resources before using Migration
 
 The following steps outline how to reset resources with Migration Assistant before executing the actual migration. At this point all verifications are expected to have been completed. These steps can be performed after [Accessing the Migration Console]({{site.url}}{{site.baseurl}}/migration-assistant/migration-console/accessing-the-migration-console/).
 
+### Snapshot and S3 bucket issues
+
+1. **Bucket Permissions**  
+  Confirm the `OSMigrations-dev-<region>-CustomS3AutoDeleteObjects` stack has S3 object deletion rights.
+
+2. **Migration Role Access**  
+  Verify the `OSMigrations-dev-<region>-default-SnapshotRole` has these S3 permissions:  
+  - List bucket contents  
+  - Read/Write/Delete objects
+
+3. **Snapshot Conflicts**  
+  Use `console snapshot delete` command from migration console.
+  Avoid deleting individual snapshots manually if encountering "already exists" errors.
+
 ### Traffic Replayer
 
 To stop running Traffic Replayer, use the following command:

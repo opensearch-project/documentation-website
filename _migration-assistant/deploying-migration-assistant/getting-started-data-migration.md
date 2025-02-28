@@ -145,10 +145,16 @@ Use the following steps to configure and deploy RFS, deploy Migration Assistant,
             }
         },
         "reindexFromSnapshotExtraArgs": "<RFS PARAMETERS (see below)>",
+        "reindexFromSnapshotServiceEnabled": true,
+        "reindexFromSnapshotMaxShardSizeGiB": 80,
+        "trafficReplayerServiceEnabled": true,
+        "captureProxyServiceEnabled": true,
         "otelCollectorEnabled": true,
         "migrationConsoleServiceEnabled": true,
-        "reindexFromSnapshotServiceEnabled": true,
-        "migrationAssistanceEnabled": true
+        "migrationAssistanceEnabled": true,
+        "targetClusterProxyServiceEnabled": true,
+        "trafficReplayerExtraArgs": "--speedup-factor 10.0",
+        "artifactBucketRemovalPolicy": "DESTROY"
     }
     }
     ```

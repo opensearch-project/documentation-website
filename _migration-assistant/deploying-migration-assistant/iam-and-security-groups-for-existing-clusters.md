@@ -25,6 +25,23 @@ For an OpenSearch Domain, two main configurations are typically required to ensu
    - An open access policy that allows all access.
    - Configured to allow at least the AWS Identity and Access Management (IAM) task roles for the applicable migration services (Traffic Replayer, Migration Console, `Reindex-from-Snapshot`) to access the domain.
 
+3. **Managed Service Role Mapping (Cross-Managed Migrations)**
+
+   When migrating between two managed clusters (for ex. both domains created using Amazon OpenSearch Service):
+   1. Locate these IAM roles created during the CDK deployment and copy their ARN:
+   ```
+      arn:aws:iam::****:role/OSMigrations-<state>-<region>-MigrationServiceTaskRoleC-
+      arn:aws:iam::****:role/OSMigrations-<state>-<region>-reindexfromsnapshotTaskRo-
+      arn:aws:iam::****:role/OSMigrations-<state>-<region>-trafficreplayerdefaultTas-
+   ```
+   2. For **both Source and Target clusters**:
+      - Access OpenSearch Dashboards (or Kibana if Source cluster is Elasticsearch)
+      - Navigate to **Security -> Roles -> all_access**
+      - under "Mapped users", add each ARN as a backend role
+      - Save changes
+   
+   *Note: This grants the migration assistant components necessary permissions to modify both source and target managed clusters.*
+
 ### OpenSearch Serverless
 
 For an OpenSearch Serverless Collection, you will need to configure both network and data access policies:
