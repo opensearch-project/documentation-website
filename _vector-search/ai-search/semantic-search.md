@@ -303,4 +303,4 @@ The response contains both documents:
 
 ## Next steps
 
-- Explore our [tutorials]({{site.url}}{{site.baseurl}}/vector-search/tutorials/) to learn how to build AI search applications. 
+- Explore our [semantic search tutorials]({{site.url}}{{site.baseurl}}/vector-search/tutorials/semantic-search/) to learn how to build AI search applications. 

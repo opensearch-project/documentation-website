@@ -12,25 +12,29 @@ redirect_from:
 
 Creating a vector index in OpenSearch involves a common core process with some variations depending on the type of vector search. This guide outlines the key elements shared across all vector indexes and the differences specific to supported use cases.
 
-Before you start, review the options for generating embeddings. For more information, see [Bringing your own or generating embeddings]({{site.url}}{{site.baseurl}}/vector-search/getting-started/vector-search-options/).
+Before you start, review the options for generating embeddings to help you decide on the option suitable for your use case. For more information, see [Preparing vectors]({{site.url}}{{site.baseurl}}/vector-search/getting-started/vector-search-options/).
 {: .tip}
 
-To create a vector index, set the `settings.index.knn` parameter to `true`:
+## Overview
+
+To create a vector index, set the `index.knn` parameter to `true`in the `settings`:
 
 ```json
 PUT /test-index
 {
   "settings": {
-    "index": {
-      "knn": true
-    }
+    "index.knn": true
   },
   "mappings": {
     "properties": {
-      "my_vector1": {
+      "my_vector": {
         "type": "knn_vector",
         "dimension": 3,
-        "space_type": "l2"
+        "space_type": "l2",
+        "mode": "on_disk",
+        "method": {
+          "name": "hnsw"
+        }     
       }
     }
   }
@@ -59,14 +63,14 @@ Creating a vector index involves the following key steps:
 1. (Optional, advanced) **Select a method**:
    Configure the indexing method, such as HNSW or IVF, used to optimize vector search performance. For more information, see [Methods and engines]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/).
 
-To create a vector index, choose one of the following options:
+## Implementation options
+
+Based on your vector generation approach, choose one of the following implementation options:
 
 - [Store raw vectors or embeddings generated outside of OpenSearch](#storing-raw-vectors-or-embeddings-generated-outside-of-opensearch): Ingest pregenerated embeddings or raw vectors into your index for raw vector search.  
 - [Convert data to embeddings during ingestion](#converting-data-to-embeddings-during-ingestion): Ingest text that will be converted into vector embeddings in OpenSearch in order to perform semantic search using machine learning (ML) models. 
 
-
 The following table summarizes key index configuration differences for the supported use cases.
-
 
 | Feature                  | Vector field type | Ingest pipeline | Transformation     | Use case   |
 |--------------------------|-----------------------|---------------------|-------------------------|-------------------------|
@@ -97,18 +101,20 @@ PUT /my-raw-vector-index
 
 ## Converting data to embeddings during ingestion
 
-To automatically generate embeddings during ingestion, configure an [ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) with the model ID of the embedding model: 
+To automatically generate embeddings during ingestion, configure an [ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) with the model ID of the embedding model. For more information about configuring a model, see [Integrating ML models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/).
+
+Specify the `field_map` to define the source field for input text and the target field for storing embeddings. In this example, text from the `text` field is converted into embeddings and stored in `passage_embedding`:
 
 ```json
-PUT /_ingest/pipeline/nlp-ingest-pipeline
+PUT /_ingest/pipeline/auto-embed-pipeline
 {
-  "description": "An NLP ingest pipeline",
+  "description": "AI search ingest pipeline that automatically converts text to embeddings",
   "processors": [
     {
       "text_embedding": {
-        "model_id": "aVeif4oB5Vm0Tdw8zYO2",
+        "model_id": "mBGzipQB2gmRjlv_dOoB",
         "field_map": {
-          "text": "passage_embedding"
+          "input_text": "output_embedding"
         }
       }
     }
@@ -117,23 +123,23 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
 ```
 {% include copy-curl.html %}
 
-For more information about configuring a model, see [Integrating ML models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/).
+For more information, see [Text embedding processor]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/processors/text-embedding/).
 
-When creating an index, specify the pipeline as the default pipeline:
+When creating an index, specify the pipeline as the `default_pipeline`. Ensure that `dimension` matches the dimensionality of the model configured in the pipeline:
 
 ```json
-PUT /my-semantic-search-index
+PUT /my-ai-search-index
 {
   "settings": {
     "index.knn": true,
-    "default_pipeline": "nlp-ingest-pipeline"
+    "default_pipeline": "auto-embed-pipeline"
   },
   "mappings": {
     "properties": {
-      "passage_text": {
+      "input_text": {
         "type": "text"
       },
-      "passage_embedding": {
+      "output_embedding": {
         "type": "knn_vector",
         "dimension": 768
       }

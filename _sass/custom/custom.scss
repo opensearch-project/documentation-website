@@ -203,6 +203,13 @@ img {
   border-left: 5px solid $red-100;
 }
 
+.info {
+  @extend %callout;
+  border-left: 5px solid $blue-300;
+  font-weight: 600;
+  background-color: $blue-lt-000;
+}
+
 @mixin version-warning ( $version: 'latest' ){
   @extend %callout, .panel;
   font-weight: 600;

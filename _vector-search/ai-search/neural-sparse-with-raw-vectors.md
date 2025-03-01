@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Using raw vectors
+title: Neural sparse search using raw vectors
 parent: Neural sparse search
 grand_parent: AI search
 nav_order: 20
@@ -9,7 +9,7 @@ redirect_from:
   - /search-plugins/neural-sparse-with-raw-vectors/
 ---
 
-# Using raw vectors for neural sparse search
+# Neural sparse search using raw vectors
 
 If you're using self-hosted sparse embedding models, you can ingest raw sparse vectors and use neural sparse search. 
 

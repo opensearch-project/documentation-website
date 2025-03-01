@@ -35,10 +35,6 @@ search_method_cards:
   - heading: "Conversational search with RAG"
     description: "Uses retrieval-augmented generation (RAG) and conversational memory to provide context-aware responses."
     link: "/vector-search/ai-search/conversational-search/"
-chunking_cards:
-  - heading: "Text chunking"
-    description: "Use text chunking to ensure adherence to embedding model token limits."
-    link: "/vector-search/ai-search/text-chunking/"
 ---
 
 # AI search
@@ -68,9 +64,3 @@ Before using AI search, you must set up an ML model for embedding generation. Wh
 Once you set up an ML model, choose one of the following search methods.
 
 {% include cards.html cards=page.search_method_cards %}
-
----
-
-## Loading data
-
-{% include cards.html cards=page.chunking_cards %}

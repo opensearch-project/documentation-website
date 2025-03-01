@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Generating embeddings within OpenSearch
+title: Generating embeddings automatically
 parent: Getting started
 nav_order: 30
 ---
 
-# Generating embeddings within OpenSearch
+# Generating embeddings automatically
 
 You can generate embeddings dynamically during ingestion within OpenSearch. This method provides a simplified workflow by converting data to vectors automatically.
 
@@ -27,7 +27,7 @@ PUT _cluster/settings
 
 ## Step 1: Choose an ML model
 
-Generating embeddings within OpenSearch requires configuring a language model that will convert text to embeddings both at ingestion time and query time. 
+Generating embeddings automatically requires configuring a language model that will convert text to embeddings both at ingestion time and query time. 
 
 When selecting a model, you have the following options:
 
@@ -119,7 +119,7 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
 
 ### Step 3(b): Create a vector index
 
-Now you'll create a vector index by setting `index.knn` to `true`. In the index, the field named `text` contains an image description, and a [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/) field named `passage_embedding` contains the vector embedding of the text. Additionally, set the default ingest pipeline to the `nlp-ingest-pipeline` you created in the previous step:
+Now you'll create a vector index by setting `index.knn` to `true`. In the index, the field named `text` contains an image description, and a [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/) field named `passage_embedding` contains the vector embedding of the text. The vector field `dimension` must match the dimensionality of the model you configured in Step 2. Additionally, set the default ingest pipeline to the `nlp-ingest-pipeline` you created in the previous step:
 
 
 ```json

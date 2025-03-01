@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Configuring ingest pipelines
+title: Generating sparse vector embeddings automatically
 parent: Neural sparse search
 grand_parent: AI search
 nav_order: 10
@@ -9,9 +9,9 @@ redirect_from:
   - /search-plugins/neural-sparse-with-pipelines/
 ---
 
-# Configuring ingest pipelines for neural sparse search
+# Generating sparse vector embeddings automatically
 
-Generating sparse vector embeddings within OpenSearch enables neural sparse search to function like lexical search. To take advantage of this encapsulation, set up an ingest pipeline to create and store sparse vector embeddings from document text during ingestion. At query time, input plain text, which will be automatically converted into vector embeddings for search.
+Generating sparse vector embeddings automatically enables neural sparse search to function like lexical search. To take advantage of this encapsulation, set up an ingest pipeline to create and store sparse vector embeddings from document text during ingestion. At query time, input plain text, which will be automatically converted into vector embeddings for search.
 
 For this tutorial, you'll use neural sparse search with OpenSearch's built-in machine learning (ML) model hosting and ingest pipelines. Because the transformation of text to embeddings is performed within OpenSearch, you'll use text when ingesting and searching documents. 
 

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Bringing your own or generating embeddings
+title: Preparing vectors
 parent: Getting started
 nav_order: 20
 quickstart_cards:
@@ -8,7 +8,7 @@ quickstart_cards:
     description: "Use raw vectors or embeddings generated outside of OpenSearch"
     link: "/vector-search/getting-started/"
 tutorial_cards:
-  - heading: "Generating embeddings within OpenSearch"
+  - heading: "Generating embeddings automatically"
     description: "Automatically convert data to embeddings within OpenSearch"
     link: "/vector-search/getting-started/auto-generated-embeddings/"
   - heading: "Getting started with semantic and hybrid search"
@@ -41,7 +41,7 @@ auto_items:
     link: "/vector-search/searching-data/#searching-auto-generated-embeddings"
 ---
 
-# Bringing your own or generating embeddings
+# Preparing vectors
 
 In OpenSearch, you can either bring your own vectors or let OpenSearch generate them automatically from your data. Letting OpenSearch automatically generate your embeddings reduces data preprocessing effort at ingestion and search time.
 

@@ -12,11 +12,17 @@ redirect_from:
 
 This guide shows you how to use your own vectors in OpenSearch. You'll learn to create a vector index, add location data, and run a vector search to find the nearest hotels on a coordinate plane. While this example uses two-dimensional vectors for simplicity, the same approach applies to higher-dimensional vectors used in semantic search and recommendation systems.
 
+
 ## Prerequisite: Install OpenSearch
+  
 
-If you don't have OpenSearch installed, use the following steps to create a cluster.
+<details markdown="block">
+  <summary>
+  If you don't have OpenSearch installed, follow these steps to create a cluster.
+  </summary>
 
-Before you start, ensure that [Docker](https://docs.docker.com/get-docker/) is installed and running in your environment.
+Before you start, ensure that [Docker](https://docs.docker.com/get-docker/) is installed and running in your environment. <br>
+This demo configuration is insecure and should not be used in production environments.
 {: .note} 
 
 Download and run OpenSearch: 
@@ -26,15 +32,7 @@ docker pull opensearchproject/opensearch:latest && docker run -it -p 9200:9200 -
 ```
 {% include copy.html %}
 
-OpenSearch is now running on port 9200. Note that this demo configuration is insecure and should not be used in production environments.
-
-<details markdown="block">
-  <summary>
-    Test it
-  </summary>
-  {: .text-delta}
-
-To verify that OpenSearch is running, send the following request: 
+OpenSearch is now running on port 9200. To verify that OpenSearch is running, send the following request: 
 
 ```bash
 curl https://localhost:9200
@@ -63,9 +61,9 @@ You should get a response that looks like this:
 }
 ```
 
-</details>
+For more information, see [Installation quickstart]({{site.url}}{{site.baseurl}}/getting-started/quickstart/) and [Install and upgrade OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/).
 
-For more information about installing OpenSearch, see [Installation quickstart]({{site.url}}{{site.baseurl}}/getting-started/quickstart/) and [Install and upgrade OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/).
+</details>
 
 ## Step 1: Create a vector index
 
@@ -190,13 +188,13 @@ The response contains the hotels closest to the specified pin location:
 }
 ```
 
-## Generating vector embeddings in OpenSearch
+## Generating vector embeddings automatically
 
-If your data isn't already in vector format, you can generate vector embeddings directly within OpenSearch. This allows you to transform text or images into their numerical representations for similarity search. For more information, see [Generating vector embeddings within OpenSearch]({{site.url}}{{site.baseurl}}/vector-search/getting-started/auto-generated-embeddings/).
+If your data isn't already in vector format, you can generate vector embeddings directly within OpenSearch. This allows you to transform text or images into their numerical representations for similarity search. For more information, see [Generating vector embeddings automatically]({{site.url}}{{site.baseurl}}/vector-search/getting-started/auto-generated-embeddings/).
 
 ## Next steps
 
 - [Vector search basics]({{site.url}}{{site.baseurl}}/vector-search/getting-started/vector-search-basics/)
-- [Bringing your own or generating embeddings]({{site.url}}{{site.baseurl}}/vector-search/getting-started/vector-search-options/)
+- [Preparing vectors]({{site.url}}{{site.baseurl}}/vector-search/getting-started/vector-search-options/)
 - [Vector search with filters]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/)
-- [Generating vector embeddings within OpenSearch]({{site.url}}{{site.baseurl}}/vector-search/getting-started/auto-generated-embeddings/)
+- [Generating vector embeddings automatically]({{site.url}}{{site.baseurl}}/vector-search/getting-started/auto-generated-embeddings/)

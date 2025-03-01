@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Text chunking
-parent: AI search
+parent: Ingesting data
 nav_order: 80
 redirect_from:
   - /search-plugins/text-chunking/
@@ -10,6 +10,8 @@ redirect_from:
 # Text chunking
 Introduced 2.13
 {: .label .label-purple }
+
+When working with large text documents in [AI search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/), it's often necessary to split them into smaller passages because most embedding models have token length limitations. This process, called _text chunking_, helps maintain the quality and relevance of vector search results by ensuring that each embedding represents a focused piece of content that fits within model constraints. 
 
 To split long text into passages, you can use a `text_chunking` processor as a preprocessing step for a `text_embedding` or `sparse_encoding` processor in order to obtain embeddings for each chunked passage. For more information about the processor parameters, see [Text chunking processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-chunking/). Before you start, follow the steps outlined in the [pretrained model documentation]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/) to register an embedding model. The following example preprocesses text by splitting it into passages and then produces embeddings using the `text_embedding` processor.
 

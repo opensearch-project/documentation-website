@@ -61,7 +61,7 @@ This page defines key terms and techniques related to vector search in OpenSearc
 
 ## Indexing and storage techniques  
 
-- [**_Text chunking_**]({{site.url}}{{site.baseurl}}/vector-search/ai-search/text-chunking/) involves splitting long documents or text passages into smaller segments to improve search retrieval and relevance. Chunking helps vector search models process large amounts of text more effectively.  
+- [**_Text chunking_**]({{site.url}}{{site.baseurl}}/vector-search/ingesting-data/text-chunking/) involves splitting long documents or text passages into smaller segments to improve search retrieval and relevance. Chunking helps vector search models process large amounts of text more effectively.  
 
 - [**_Vector quantization_**]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/knn-vector-quantization/) is a technique for reducing the storage size of vector embeddings by approximating them using a smaller set of representative vectors. This process enables efficient storage and retrieval in large-scale vector search applications.  
 

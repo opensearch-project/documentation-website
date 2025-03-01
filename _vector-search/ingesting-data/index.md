@@ -2,6 +2,10 @@
 layout: default
 title: Ingesting data
 nav_order: 30
+has_children: true
+has_toc: false
+redirect_from:
+  - /vector-search/ingesting-data/
 ---
 
 # Ingesting data into a vector index
@@ -22,9 +26,9 @@ The following table compares the two ingestion methods.
 When working with raw vectors or embeddings generated outside of OpenSearch, you directly ingest vector data into the `knn_vector` field. No pipeline is required because the vectors are already generated:
 
 ```json
-POST /my-raw-vector-index/_doc
+PUT /my-raw-vector-index/_doc/1
 {
-  "my_vector": [0.1, 0.2, 0.3, ..., 0.128],
+  "my_vector": [0.1, 0.2, 0.3],
   "metadata": "Optional additional information"
 }
 ```
@@ -33,51 +37,46 @@ POST /my-raw-vector-index/_doc
 You can also use the [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) to ingest multiple vectors efficiently:
 
 ```json
-POST /_bulk
-{"index": {"_index": "my-raw-vector-index"}}
-{"my_vector": [0.1, 0.2, 0.3, ..., 0.128], "metadata": "First item"}
-{"index": {"_index": "my-raw-vector-index"}}
-{"my_vector": [0.2, 0.3, 0.4, ..., 0.129], "metadata": "Second item"}
+PUT /_bulk
+{"index": {"_index": "my-raw-vector-index", "_id": 1}}
+{"my_vector": [0.1, 0.2, 0.3], "metadata": "First item"}
+{"index": {"_index": "my-raw-vector-index", "_id": 2}}
+{"my_vector": [0.2, 0.3, 0.4], "metadata": "Second item"}
 ```
 {% include copy-curl.html %}
 
 ## Converting data to embeddings during ingestion
 
-To automatically generate embeddings during ingestion, you first need to set up an ingest pipeline that will convert text to vectors:
+After you have [configured an ingest pipeline]({{site.url}}{{site.baseurl}}/vector-search/creating-vector-index/#converting-data-to-embeddings-during-ingestion) that automatically generates embeddings, you can ingest text data directly into your index:
 
 ```json
-PUT /_ingest/pipeline/nlp-ingest-pipeline
+PUT /my-ai-search-index/_doc/1
 {
-  "description": "Text to dense vector pipeline",
-  "processors": [
-    {
-      "text_embedding": {
-        "model_id": "your-model-id",
-        "field_map": {
-          "passage_text": "passage_embedding"
-        }
-      }
-    }
-  ]
+  "input_text": "Example: AI search description"
 }
 ```
 {% include copy-curl.html %}
 
-Then, you ingest text data, and the pipeline automatically generates the embeddings:
+The pipeline automatically generates and stores the embeddings in the `output_embedding` field.
+
+You can also use the [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) to ingest multiple documents efficiently:
 
 ```json
-POST /my-semantic-search-index/_doc
-{
-  "passage_text": "Your text content here"
-}
+PUT /_bulk
+{"index": {"_index": "my-ai-search-index", "_id": 1}}
+{"input_text": "Example AI search description"}
+{"index": {"_index": "my-ai-search-index", "_id": 2}}
+{"input_text": "Bulk API operation description"}
 ```
 {% include copy-curl.html %}
-
-The pipeline automatically generates and stores the embeddings in the `passage_embedding` field.
 
 ## Working with sparse vectors
 
 OpenSearch also supports sparse vectors. For more information, see [Neural sparse search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-search/).
+
+## Text chunking
+
+For information about splitting large documents into smaller passages before generating embeddings during dense or sparse AI search, see [Text chunking]({{site.url}}{{site.baseurl}}/vector-search/ingesting-data/text-chunking/).
 
 ## Next steps
 

@@ -56,7 +56,7 @@ semantic_search:
     list:
       - "<b>Platform:</b> OpenSearch, Amazon OpenSearch Service"
       - "<b>Model:</b> Amazon Titan"  
-      - "<b>Deployment:</b> Amazon Bedrock (in a different account than your Amazon OpenSearch Service account)"
+      - "<b>Deployment:</b> Amazon Bedrock"
   - heading: Semantic search using a model on Amazon SageMaker
     link: /vector-search/tutorials/semantic-search/semantic-search-sagemaker/
     list: 

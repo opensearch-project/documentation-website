@@ -20,8 +20,8 @@ To further boost search relevance, you can combine neural sparse search with den
 
 You can configure neural sparse search in the following ways:
 
-- Generate vector embeddings within OpenSearch: Configure an ingest pipeline to generate and store sparse vector embeddings from document text at ingestion time. At query time, input plain text, which will be automatically converted into vector embeddings for search. For complete setup steps, see [Configuring ingest pipelines for neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-with-pipelines/).
-- Ingest raw sparse vectors and search using sparse vectors directly. For complete setup steps, see [Ingesting and searching raw vectors]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-with-raw-vectors/).
+- Generate vector embeddings automatically: Configure an ingest pipeline to generate and store sparse vector embeddings from document text at ingestion time. At query time, input plain text, which will be automatically converted into vector embeddings for search. For complete setup steps, see [Generating sparse vector embeddings automatically]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-with-pipelines/).
+- Ingest raw sparse vectors and search using sparse vectors directly. For complete setup steps, see [Neural sparse search using raw vectors]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-with-raw-vectors/).
 
 To learn more about splitting long text into passages for neural sparse search, see [Text chunking]({{site.url}}{{site.baseurl}}/search-plugins/text-chunking/).
 
@@ -57,6 +57,10 @@ PUT /my-nlp-index/_settings
 {% include copy-curl.html %}
 
 For information about `two_phase_search_pipeline`, see [Neural sparse query two-phase processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-sparse-query-two-phase-processor/).
+
+## Text chunking
+
+For information about splitting large documents into smaller passages before generating embeddings, see [Text chunking]({{site.url}}{{site.baseurl}}/vector-search/ingesting-data/text-chunking/).
 
 ## Further reading
 
