@@ -45,23 +45,23 @@ This page defines key terms and techniques related to vector search in OpenSearc
 
 ## Search techniques  
 
-- [**_Semantic search_**]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/semantic-search/) interprets the intent and contextual meaning of a query rather than relying solely on exact keyword matches. This approach improves the relevance of search results, especially for natural language queries.  
+- [**_Semantic search_**]({{site.url}}{{site.baseurl}}/vector-search/ai-search/semantic-search/) interprets the intent and contextual meaning of a query rather than relying solely on exact keyword matches. This approach improves the relevance of search results, especially for natural language queries.  
 
-- [**_Hybrid search_**]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/hybrid-search/) combines lexical (keyword-based) search with semantic (vector-based) search to improve search relevance. This approach ensures that results include both exact keyword matches and conceptually similar content.  
+- [**_Hybrid search_**]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/) combines lexical (keyword-based) search with semantic (vector-based) search to improve search relevance. This approach ensures that results include both exact keyword matches and conceptually similar content.  
 
-- [**_Multimodal search_**]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/multimodal-search/) enables you to search across multiple types of data, such as text and images. It allows queries in one format (for example, text) to retrieve results in another (for example, images).  
+- [**_Multimodal search_**]({{site.url}}{{site.baseurl}}/vector-search/ai-search/multimodal-search/) enables you to search across multiple types of data, such as text and images. It allows queries in one format (for example, text) to retrieve results in another (for example, images).  
 
 - [**_Radial search_**]({{site.url}}{{site.baseurl}}/vector-search/specialized-operations/radial-search-knn/) retrieves all vectors within a specified distance or similarity threshold from a query vector. It is useful for tasks that require finding all relevant matches within a given range rather than retrieving a fixed number of nearest neighbors.   
 
-- [**_Neural sparse search_**]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/neural-sparse-search/) uses an inverted index, similar to BM25, to efficiently retrieve relevant documents based on sparse vector representations. This approach maintains the efficiency of traditional lexical search while incorporating semantic understanding.  
+- [**_Neural sparse search_**]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-search/) uses an inverted index, similar to BM25, to efficiently retrieve relevant documents based on sparse vector representations. This approach maintains the efficiency of traditional lexical search while incorporating semantic understanding.  
 
-- [**_Conversational search_**]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/conversational-search/) allows you to interact with a search system using natural language queries and refine results through follow-up questions. This approach enhances the user experience by making search more intuitive and interactive.  
+- [**_Conversational search_**]({{site.url}}{{site.baseurl}}/vector-search/ai-search/conversational-search/) allows you to interact with a search system using natural language queries and refine results through follow-up questions. This approach enhances the user experience by making search more intuitive and interactive.  
 
-- [**_Retrieval-augmented generation (RAG)_**]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/conversational-search/#rag) enhances large language models (LLMs) by retrieving relevant information from an index and incorporating it into the model's response. This approach improves the accuracy and relevance of generated text.  
+- [**_Retrieval-augmented generation (RAG)_**]({{site.url}}{{site.baseurl}}/vector-search/ai-search/conversational-search/#rag) enhances large language models (LLMs) by retrieving relevant information from an index and incorporating it into the model's response. This approach improves the accuracy and relevance of generated text.  
 
 ## Indexing and storage techniques  
 
-- [**_Text chunking_**]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/text-chunking/) involves splitting long documents or text passages into smaller segments to improve search retrieval and relevance. Chunking helps vector search models process large amounts of text more effectively.  
+- [**_Text chunking_**]({{site.url}}{{site.baseurl}}/vector-search/ai-search/text-chunking/) involves splitting long documents or text passages into smaller segments to improve search retrieval and relevance. Chunking helps vector search models process large amounts of text more effectively.  
 
 - [**_Vector quantization_**]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/knn-vector-quantization/) is a technique for reducing the storage size of vector embeddings by approximating them using a smaller set of representative vectors. This process enables efficient storage and retrieval in large-scale vector search applications.  
 

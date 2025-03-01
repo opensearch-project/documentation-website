@@ -7,6 +7,13 @@
           {% if card.description %}
             <p class="description">{{ card.description }}</p>
           {% endif %}
+          {% if card.list %}
+            <ul>
+            {% for item in card.list %}
+              <li class="description">{{ item }}</li>
+            {% endfor %}  
+            </ul>
+          {% endif %}
           {% if include.documentation_link %}
             <p class="last-link">Documentation &#x2192;</p>
           {% endif %}

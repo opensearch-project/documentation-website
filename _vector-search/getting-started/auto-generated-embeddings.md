@@ -250,5 +250,5 @@ The response contains the matching documents:
 
 ## Next steps
 
-- See [Getting started with semantic and hybrid search]({{site.url}}{{site.baseurl}}/vector-search/getting-started/tutorials/neural-search-tutorial/) to learn about configuring semantic and hybrid search.
-- See [ML-powered search]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/) to learn about the supported types of ML-powered search.
+- See [Getting started with semantic and hybrid search]({{site.url}}{{site.baseurl}}/vector-search/tutorials/neural-search-tutorial/) to learn about configuring semantic and hybrid search.
+- See [AI search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/) to learn about the supported types of AI search.

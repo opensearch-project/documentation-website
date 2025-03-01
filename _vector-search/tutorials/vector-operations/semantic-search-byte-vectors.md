@@ -162,11 +162,7 @@ PUT /_ingest/pipeline/pipeline-cohere
 ```
 {% include copy-curl.html %}
 
-<<<<<<<< HEAD:_vector-search/getting-started/tutorials/semantic-search-byte-vectors.md
-Next, create a vector index and set the `data_type` for the `passage_embedding` field to `byte` so that it can hold byte-quantized vectors:
-========
 Next, create a vector index and set the `data_type` for the `passage_embedding` field to `byte` so that it can store byte-quantized vectors:
->>>>>>>> main:_ml-commons-plugin/tutorials/vector-operations/semantic-search-byte-vectors.md
 
 ```json
 PUT my_test_data

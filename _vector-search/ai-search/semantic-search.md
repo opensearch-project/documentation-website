@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Semantic search
-parent: ML-powered search
+parent: AI search
 nav_order: 35
 has_children: false
 redirect_from:
@@ -303,4 +303,4 @@ The response contains both documents:
 
 ## Next steps
 
-- Explore our [tutorials]({{site.url}}{{site.baseurl}}/vector-search/getting-started/tutorials/) to learn how to build ML-powered search applications. 
+- Explore our [tutorials]({{site.url}}{{site.baseurl}}/vector-search/tutorials/) to learn how to build AI search applications. 

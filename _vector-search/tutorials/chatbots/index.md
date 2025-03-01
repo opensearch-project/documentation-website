@@ -5,24 +5,32 @@ parent: Tutorials
 has_children: true
 has_toc: false
 nav_order: 140
+redirect_from:
+  - /vector-search/tutorials/chatbots/
+chatbots:
+  - heading: RAG chatbot
+    link: vector-search/tutorials/chatbots/rag-chatbot/
+    list:
+      - "<b>Platform:</b> OpenSearch"
+      - "<b>Model:</b> Anthropic Claude" 
+      - "<b>Deployment:</b> Amazon Bedrock"  
+  - heading: RAG with a conversational flow agent
+    link: /vector-search/tutorials/chatbots/rag-conversational-agent/
+    list: 
+      - "<b>Platform:</b> OpenSearch"
+      - "<b>Model:</b> Anthropic Claude"  
+      - "<b>Deployment:</b> Amazon Bedrock"  
+  - heading: Build your own chatbot
+    link: /vector-search/tutorials/chatbots/build-chatbot/
+    list: 
+      - "<b>Platform:</b> OpenSearch"
+      - "<b>Model:</b> Anthropic Claude"  
+      - "<b>Deployment:</b> Amazon Bedrock"
 ---
 
 # Chatbots and agents tutorials
 
-The following machine learning (ML) tutorials show you how to implement chatbots and agents:
+The following machine learning (ML) tutorials show you how to implement chatbots and agents.
 
-- [**RAG chatbot**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/chatbots/rag-chatbot/)  
-  - Platform: OpenSearch
-  - Model: Anthropic Claude  
-  - Deployment: Amazon Bedrock  
-
-- [**RAG with a conversational flow agent**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/chatbots/rag-conversational-agent/)  
-  - Platform: OpenSearch
-  - Model: Anthropic Claude  
-  - Deployment: Amazon Bedrock  
-
-- [**Build your own chatbot**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/chatbots/build-chatbot/)  
-  - Platform: OpenSearch
-  - Model: Anthropic Claude  
-  - Deployment: Amazon Bedrock  
+{% include cards.html cards=page.chatbots %}  
   

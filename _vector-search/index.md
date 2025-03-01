@@ -9,22 +9,55 @@ permalink: /vector-search/
 redirect_from:
   - /vector-search/index/
   - /search-plugins/vector-search/
+tutorial_cards:
+  - heading: "Get started with vector search"
+    description: "Build powerful similarity search applications using your existing vectors or embeddings"
+    link: "/vector-search/getting-started/"
+  - heading: "Generate embeddings within OpenSearch"
+    description: "Streamline your vector search using OpenSearch's built-in embedding generation"
+    link: "/vector-search/getting-started/auto-generated-embeddings/"
+more_cards:
+  - heading: "AI search"
+    description: "Discover the AI-powered search capabilities in OpenSearch, from semantic to hybrid search"
+    link: "/vector-search/ai-search/"
+  - heading: "Tutorials"
+    description: "Follow step-by-step tutorials to build AI-powered search for your applications"
+    link: "/vector-search/tutorials/"
+  - heading: "Memory-efficient search"
+    description: "Reduce memory footprint using vector compression methods"
+    link: "/vector-search/optimizing-storage/"
+  - heading: "Multi-vector support"
+    description: "Store and search multiple vectors per document using nested fields"
+    link: "/vector-search/specialized-operations/nested-search-knn/"
+items:
+  - heading: "Create an index"
+    description: "Create a vector index to store your embeddings."
+    link: "/vector-search/creating-vector-index/"
+  - heading: "Ingest data"
+    description: "Ingest your data into the index."
+    link: "/vector-search/ingesting-data/"
+  - heading: "Search data"
+    description: "Use raw vector search or AI-powered methods like semantic, hybrid, multimodal, or neural sparse search. Add RAG to build conversational search."
+    link: "/vector-search/searching-data/"
+  - heading: "Filter data"
+    description: "<i>(Optional)</i> Use advanced filtering to refine search results while maintaining semantic relevance."
+    link: "/vector-search/filter-search-knn/"
 ---
 
 # Vector search
 
-Vector search enhances traditional lexical search by encoding data such as text or images as vectors, enabling similarity search with semantic understanding. OpenSearch unifies traditional search, analytics, and vector search into a single solution. As a vector database, it streamlines AI application development by efficiently storing and retrieving high-dimensional data.
+OpenSearch vector search provides a complete vector database solution for building efficient AI applications. Store and search vector embeddings alongside your existing data, making it easy to implement semantic search, retrieval-augmented generation (RAG), recommendation systems, and other AI-powered applications.
+
+{% include cards.html cards=page.tutorial_cards %}
+
+## Overview
+
+{% include list.html list_items=page.items%}
 
 <span class="centering-container">
 [Get started]({{site.url}}{{site.baseurl}}/vector-search/getting-started/){: .btn-dark-blue}
 </span>
 
-## Key features
+## Build your solution 
 
-OpenSearch vector search supports the following key features:
-
-- [**Automatic embedding generation**]({{site.url}}{{site.baseurl}}/vector-search/getting-started/auto-generated-embeddings/): Generate vector embeddings dynamically within OpenSearch using built-in machine learning models, eliminating the need for external preprocessing of your data.
-- [**Advanced filtering capabilities**]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/): Combine vector search with traditional filters to refine results, enabling precise control over search outcomes while maintaining semantic relevance.
-- [**Multi-vector support**]({{site.url}}{{site.baseurl}}/vector-search/specialized-operations/nested-search-knn/): Store and search multiple vectors per document using nested fields, which can be useful for complex documents with multiple components requiring separate vector representations.
-- [**Memory-efficient search**]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/): Optimize memory usage through various quantization techniques and efficient indexing methods, making vector search practical even in large-scale deployments.
-- [**Hybrid search capabilities**]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/hybrid-search/): Combine traditional keyword search with vector-based semantic search to use the strengths of both approaches, improving search relevance and accuracy.
+{% include cards.html cards=page.more_cards %}

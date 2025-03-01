@@ -10,7 +10,7 @@ redirect_from:
 
 # Getting started with vector search
 
-This guide shows you how to bring your own vectors into OpenSearch. In this example, you'll create a vector index, ingest vector data into the index, and search the data. 
+This guide shows you how to use your own vectors in OpenSearch. You'll learn to create a vector index, add location data, and run a vector search to find the nearest hotels on a coordinate plane. While this example uses two-dimensional vectors for simplicity, the same approach applies to higher-dimensional vectors used in semantic search and recommendation systems.
 
 ## Prerequisite: Install OpenSearch
 
@@ -131,7 +131,7 @@ POST /hotels-index/_search
 
 The following image shows the hotels on the coordinate plane. The query point is labeled `Pin`, and each hotel is labeled with its document number.
 
-![Hotels on a coordinate plane]({{site.url}}{{site.baseurl}}/images/k-nn-search-hotels.png/)
+![Hotels on a coordinate plane]({{site.url}}{{site.baseurl}}/images/k-nn-search-hotels.png){:style="width: 400px;" class="img-centered"}
 
 The response contains the hotels closest to the specified pin location:
 

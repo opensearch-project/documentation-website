@@ -323,7 +323,7 @@ To learn how to use the model for batch ingestion in order to improve ingestion 
 
 ## Step 7: Use the model for search
 
-To learn how to use the model for vector search, see [ML-powered search methods]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/index/#ml-powered-search-methods).
+To learn how to use the model for vector search, see [AI search methods]({{site.url}}{{site.baseurl}}/vector-search/ai-search/#ai-search-methods).
 
 ## Step 8 (Optional): Undeploy the model 
 

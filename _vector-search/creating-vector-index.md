@@ -12,6 +12,9 @@ redirect_from:
 
 Creating a vector index in OpenSearch involves a common core process with some variations depending on the type of vector search. This guide outlines the key elements shared across all vector indexes and the differences specific to supported use cases.
 
+Before you start, review the options for generating embeddings. For more information, see [Bringing your own or generating embeddings]({{site.url}}{{site.baseurl}}/vector-search/getting-started/vector-search-options/).
+{: .tip}
+
 To create a vector index, set the `settings.index.knn` parameter to `true`:
 
 ```json
@@ -68,7 +71,7 @@ The following table summarizes key index configuration differences for the suppo
 | Feature                  | Vector field type | Ingest pipeline | Transformation     | Use case   |
 |--------------------------|-----------------------|---------------------|-------------------------|-------------------------|
 | **Store raw vectors or embeddings generated outside of OpenSearch**   | [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/)         | Not required        | Direct ingestion        | Raw vector search   |
-| **Convert data to embeddings during ingestion**      | [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/)         | Required            | Auto-generated vectors  | ML-powered search <br><br> Automating embedding generation reduces data preprocessing and provides a more managed vector search experience.     |
+| **Convert data to embeddings during ingestion**      | [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/)         | Required            | Auto-generated vectors  | AI search <br><br> Automating embedding generation reduces data preprocessing and provides a more managed vector search experience.     |
 
 ## Storing raw vectors or embeddings generated outside of OpenSearch
 
@@ -142,7 +145,7 @@ PUT /my-semantic-search-index
 
 ## Working with sparse vectors
 
-OpenSearch also supports sparse vectors. For more information, see [Neural sparse search]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/neural-sparse-search/).
+OpenSearch also supports sparse vectors. For more information, see [Neural sparse search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-search/).
 
 ## Next steps
 

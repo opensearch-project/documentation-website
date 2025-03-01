@@ -1,13 +1,13 @@
 ---
 layout: default
-title: ML-powered search
+title: AI search
 nav_order: 45
 has_children: true
 has_toc: false
 redirect_from: 
   - /neural-search-plugin/index/
   - /search-plugins/neural-search/
-  - /vector-search/ml-powered-search/
+  - /vector-search/ai-search/
 model_cards:
   - heading: "Use a pretrained model provided by OpenSearch"
     link: "/ml-commons-plugin/pretrained-models/"
@@ -18,36 +18,36 @@ model_cards:
 tutorial_cards:
   - heading: "Getting started with semantic and hybrid search"
     description: "Learn how to implement semantic and hybrid search"
-    link: "/vector-search/getting-started/tutorials/neural-search-tutorial/"
+    link: "/vector-search/tutorials/neural-search-tutorial/"
 search_method_cards:
   - heading: "Semantic search"
     description: "Uses dense retrieval based on text embedding models to search text data."
-    link: "/vector-search/ml-powered-search/semantic-search/"
+    link: "/vector-search/ai-search/semantic-search/"
   - heading: "Hybrid search"
     description: "Combines keyword and semantic search to improve search relevance."
-    link: "/vector-search/ml-powered-search/hybrid-search/"
+    link: "/vector-search/ai-search/hybrid-search/"
   - heading: "Multimodal search"
     description: "Uses multimodal embedding models to search text and image data."
-    link: "/vector-search/ml-powered-search/multimodal-search/"
+    link: "/vector-search/ai-search/multimodal-search/"
   - heading: "Neural sparse search"
     description: "Uses sparse retrieval based on sparse embedding models to search text data."
-    link: "/vector-search/ml-powered-search/neural-sparse-search/"
+    link: "/vector-search/ai-search/neural-sparse-search/"
   - heading: "Conversational search with RAG"
     description: "Uses retrieval-augmented generation (RAG) and conversational memory to provide context-aware responses."
-    link: "/vector-search/ml-powered-search/conversational-search/"
+    link: "/vector-search/ai-search/conversational-search/"
 chunking_cards:
   - heading: "Text chunking"
     description: "Use text chunking to ensure adherence to embedding model token limits."
-    link: "/vector-search/ml-powered-search/text-chunking/"
+    link: "/vector-search/ai-search/text-chunking/"
 ---
 
-# ML-powered search
+# AI search
 
-Machine learning (ML)-powered search streamlines your workflow by generating embeddings automatically. OpenSearch converts text to vectors during indexing and querying. It creates and indexes vector embeddings for documents and then processes query text into embeddings to find and return the most relevant results.
+AI search streamlines your workflow by generating embeddings automatically. OpenSearch converts text to vectors during indexing and querying. It creates and indexes vector embeddings for documents and then processes query text into embeddings to find and return the most relevant results.
 
 ## Prerequisite
 
-Before using ML-powered search, you must set up an ML model for embedding generation. When selecting a model, you have the following options:
+Before using AI search, you must set up an ML model for embedding generation. When selecting a model, you have the following options:
 
 - Use a pretrained model provided by OpenSearch. For more information, see [OpenSearch-provided pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/).
 
@@ -63,7 +63,7 @@ Before using ML-powered search, you must set up an ML model for embedding genera
 
 ---
 
-## ML-powered search methods
+## AI search methods
 
 Once you set up an ML model, choose one of the following search methods.
 
@@ -71,6 +71,6 @@ Once you set up an ML model, choose one of the following search methods.
 
 ---
 
-## Preparing data for ML-powered search
+## Loading data
 
 {% include cards.html cards=page.chunking_cards %}

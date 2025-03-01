@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Text chunking
-parent: ML-powered search
+parent: AI search
 nav_order: 80
 redirect_from:
   - /search-plugins/text-chunking/
@@ -120,4 +120,4 @@ GET testindex/_search
 
 ## Next steps
 
-- Explore our [tutorials]({{site.url}}{{site.baseurl}}/vector-search/getting-started/tutorials/) to learn how to build ML-powered search applications. 
+- Explore our [tutorials]({{site.url}}{{site.baseurl}}/vector-search/tutorials/) to learn how to build AI search applications. 

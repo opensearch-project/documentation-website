@@ -5,23 +5,31 @@ parent: Tutorials
 has_children: true
 has_toc: false
 nav_order: 100
+redirect_from:
+  - /vector-search/tutorials/reranking/
+reranking:
+  - heading: Reranking search results using Cohere Rerank
+    link: /vector-search/tutorials/reranking/reranking-cohere/
+    list:
+      - "<b>Platform:</b> OpenSearch"
+      - "<b>Model:</b> Cohere Rerank"  
+      - "<b>Deployment:</b> Provider API"  
+  - heading: Reranking search results using Amazon Bedrock models
+    link: /vector-search/tutorials/reranking/reranking-bedrock/
+    list:
+      - "<b>Platform:</b> OpenSearch"
+      - "<b>Model:</b> Amazon Bedrock reranker models"  
+      - "<b>Deployment:</b> Amazon Bedrock"  
+  - heading: Reranking search results using a cross-encoder in Amazon SageMaker
+    link: /vector-search/tutorials/reranking/reranking-cross-encoder/
+    list:
+      - "<b>Platform:</b> OpenSearch"
+      - "<b>Model:</b> Hugging Face MS MARCO"  
+      - "<b>Deployment:</b> Amazon SageMaker" 
 ---
 
 # Reranking search results tutorials
 
-The following machine learning (ML) tutorials show you how to implement search result reranking:
+The following machine learning (ML) tutorials show you how to implement search result reranking.
 
-- [**Reranking search results using Cohere Rerank**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/reranking/reranking-cohere/)  
-  - Platform: OpenSearch
-  - Model: Cohere  
-  - Deployment: Provider API  
-
-- [**Reranking search results using Amazon Bedrock models**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/reranking/reranking-bedrock/)  
-  - Platform: OpenSearch
-  - Model: Amazon Bedrock reranker models  
-  - Deployment: Amazon Bedrock  
-
-- [**Reranking search results using a cross-encoder in Amazon SageMaker**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/reranking/reranking-cross-encoder/)  
-  - Platform: OpenSearch
-  - Model: MS MARCO  
-  - Deployment: Amazon SageMaker  
+{% include cards.html cards=page.reranking %}

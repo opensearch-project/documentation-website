@@ -5,48 +5,55 @@ parent: Tutorials
 has_children: true
 has_toc: false
 nav_order: 50
+redirect_from:
+  - /vector-search/tutorials/semantic-search/
+semantic_search:
+  - heading: "Semantic search using the OpenAI embedding model"
+    link: "/vector-search/tutorials/semantic-search/semantic-search-openai/"
+    list:
+      - "<b>Platform:</b> OpenSearch, Amazon OpenSearch Service"
+      - "<b>Model:</b> OpenAI embedding"  
+      - "<b>Deployment:</b> Provider API"  
+  - heading: "Semantic search using Cohere Embed"
+    link: "/vector-search/tutorials/semantic-search/semantic-search-cohere/"
+    list:
+      - "<b>Platform:</b> OpenSearch, Amazon OpenSearch Service"
+      - "<b>Model:</b> Cohere Embed"  
+      - "<b>Deployment:</b> Provider API"  
+  - heading: "Semantic search using Cohere Embed on Amazon Bedrock"
+    link: "/vector-search/tutorials/semantic-search/semantic-search-bedrock-cohere/"
+    list:
+      - "<b>Platform:</b> OpenSearch, Amazon OpenSearch Service"
+      - "<b>Model:</b> Cohere Embed"  
+      - "<b>Deployment:</b> Amazon Bedrock"  
+  - heading: Semantic search using Amazon Bedrock Titan
+    link: "/vector-search/tutorials/semantic-search/semantic-search-bedrock-titan/"
+    list:
+      - "<b>Platform:</b> OpenSearch, Amazon OpenSearch Service"
+      - "<b>Model:</b> Amazon Titan"  
+      - "<b>Deployment:</b> Amazon Bedrock"  
+  - heading: "Semantic search using Amazon Bedrock Titan in another account"
+    link: /vector-search/tutorials/semantic-search/semantic-search-bedrock-titan-other/
+    list:
+      - "<b>Platform:</b> OpenSearch, Amazon OpenSearch Service"
+      - "<b>Model:</b> Amazon Titan"  
+      - "<b>Deployment:</b> Amazon Bedrock (in a different account than your Amazon OpenSearch Service account)"
+  - heading: Semantic search using a model on Amazon SageMaker
+    link: /vector-search/tutorials/semantic-search/semantic-search-sagemaker/
+    list: 
+      - "<b>Platform:</b> OpenSearch, Amazon OpenSearch Service"
+      - "<b>Model:</b> Custom"  
+      - "<b>Deployment:</b> Amazon SageMaker"  
+  - heading: Semantic search using AWS CloudFormation and Amazon SageMaker
+    link: /vector-search/tutorials/semantic-search/semantic-search-cfn-sagemaker/
+    list:
+      - "<b>Platform:</b> OpenSearch, Amazon OpenSearch Service"
+      - "<b>Model:</b> Custom"  
+      - "<b>Deployment:</b> Amazon SageMaker + CloudFormation" 
 ---
 
 # Semantic search tutorials
 
-The following tutorials show you how to implement semantic search:
+The following tutorials show you how to implement semantic search.
 
-- [**Semantic search using the OpenAI embedding model**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-openai/)
-  - Platform: OpenSearch, Amazon OpenSearch Service
-  - Model: OpenAI  
-  - Deployment: Provider API  
-
-- [**Semantic search using Cohere Embed**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-cohere/)  
-  - Platform: OpenSearch, Amazon OpenSearch Service
-  - Model: Cohere  
-  - Deployment: Provider API  
-
-- [**Semantic search using Cohere Embed on Amazon Bedrock**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-bedrock-cohere/)  
-  - Platform: OpenSearch, Amazon OpenSearch Service
-  - Model: Cohere  
-  - Deployment: Amazon Bedrock  
-
-- [**Semantic search using Amazon Bedrock Titan**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-bedrock-titan/)  
-  - Platform: OpenSearch, Amazon OpenSearch Service
-  - Model: Amazon Titan  
-  - Deployment: Amazon Bedrock  
-
-- [**Semantic search using Amazon Bedrock Titan in another account**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-bedrock-titan-other/)  
-  - Platform: OpenSearch, Amazon OpenSearch Service
-  - Model: Amazon Titan  
-  - Deployment: Amazon Bedrock (in a different account than your Amazon OpenSearch Service account)  
-
-- [**Semantic search using a model in Amazon SageMaker**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-sagemaker/)  
-  - Platform: OpenSearch, Amazon OpenSearch Service
-  - Model: Custom  
-  - Deployment: Amazon SageMaker  
-
-- [**Semantic search using AWS CloudFormation and Amazon SageMaker**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-cfn-sagemaker/)  
-  - Platform: OpenSearch, Amazon OpenSearch Service
-  - Model: Custom  
-  - Deployment: Amazon SageMaker + CloudFormation  
-
-- [**Semantic search using byte-quantized vectors**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/vector-operations/semantic-search-byte-vectors/) 
-  - Platform: OpenSearch
-  - Model: Cohere  
-  - Deployment: Provider API 
+{% include cards.html cards=page.semantic_search %}

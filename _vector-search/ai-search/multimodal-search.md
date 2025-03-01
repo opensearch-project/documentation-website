@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Multimodal search
-parent: ML-powered search
+parent: AI search
 nav_order: 40
 has_children: false
 redirect_from:
@@ -136,4 +136,4 @@ To eliminate passing the model ID with each neural query request, you can set a 
 
 ## Next steps
 
-- Explore our [tutorials]({{site.url}}{{site.baseurl}}/vector-search/getting-started/tutorials/) to learn how to build ML-powered search applications. 
+- Explore our [tutorials]({{site.url}}{{site.baseurl}}/vector-search/tutorials/) to learn how to build AI search applications. 

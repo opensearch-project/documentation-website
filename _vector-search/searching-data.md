@@ -15,7 +15,7 @@ The following table compares the search syntax and typical use cases for each ve
 | Feature                          | Query type  | Input format | Model required | Use case     |
 |----------------------------------|------------------|------------------|---------------------|----------------------------|
 | **Raw vectors**     | `knn`            | Vector array     | No                  | Raw vector search          |
-| **Auto-generated embeddings** | `neural`       | Text or image data            | Yes                 | ML-powered search            |
+| **Auto-generated embeddings** | `neural`       | Text or image data            | Yes                 | [AI search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/)            |
 
 ## Searching raw vectors
 
@@ -58,12 +58,15 @@ GET /my-semantic-search-index/_search
 
 ## Working with sparse vectors
 
-OpenSearch also supports sparse vectors. For more information, see [Neural sparse search]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/neural-sparse-search/).
+OpenSearch also supports sparse vectors. For more information, see [Neural sparse search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-search/).
+
+## AI search
+
+OpenSearch supports AI-powered search methods like semantic, hybrid, multimodal, and conversational search with retrieval-augmented generation. For more information, see [AI search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/).
 
 ## Next steps
 
-- [Getting started with semantic and hybrid search]({{site.url}}{{site.baseurl}}/vector-search/getting-started/tutorials/neural-search-tutorial/)
+- [Getting started with semantic and hybrid search]({{site.url}}{{site.baseurl}}/vector-search/tutorials/neural-search-tutorial/)
 - [Filtering data]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/)
-- [ML-powered search]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/)
 - [k-NN query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/k-nn/)
 - [Neural query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/)

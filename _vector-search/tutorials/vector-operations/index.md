@@ -5,18 +5,25 @@ parent: Tutorials
 has_children: true
 has_toc: false
 nav_order: 10
+redirect_from:
+  - /vector-search/tutorials/vector-operations/
+vector_operations:
+  - heading: "Generating embeddings from arrays of objects"
+    list: 
+      - "<b>Platform</b>: OpenSearch" 
+      - "<b>Model</b>: Amazon Titan"
+      - "<b>Deployment</b>: Amazon Bedrock" 
+    link: "/vector-search/tutorials/vector-operations/generate-embeddings/"
+  - heading: "Semantic search using byte-quantized vectors"
+    list:
+      - "<b>Platform:</b> OpenSearch"
+      - "<b>Model:</b> Cohere Embed"  
+      - "<b>Deployment:</b> Provider API"  
+    link: "/vector-search/tutorials/vector-operations/semantic-search-byte-vectors/"
 ---
 
 # Vector operation tutorials
 
-The following tutorials show you how to implement vector operations:
+The following tutorials show you how to implement vector operations.
 
-- [**Generating embeddings from arrays of objects**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/vector-operations/generate-embeddings/)
-  - Platform: OpenSearch
-  - Model: Amazon Titan  
-  - Deployment: Amazon Bedrock  
-
-- [**Semantic search using byte-quantized vectors**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/vector-operations/semantic-search-byte-vectors/) 
-  - Platform: OpenSearch
-  - Model: Cohere  
-  - Deployment: Provider API  
+{% include cards.html cards=page.vector_operations %}

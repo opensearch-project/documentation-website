@@ -13,7 +13,7 @@ tutorial_cards:
     link: "/vector-search/getting-started/auto-generated-embeddings/"
   - heading: "Getting started with semantic and hybrid search"
     description: "Learn how to implement semantic and hybrid search"
-    link: "/vector-search/getting-started/tutorials/neural-search-tutorial/"
+    link: "/vector-search/tutorials/neural-search-tutorial/"
 pre_items:
   - heading: "Generate embeddings"
     description: "Generate embeddings outside of OpenSearch using your favorite embedding utility."
@@ -59,7 +59,7 @@ You already have pre-computed embeddings or raw vectors from external tools or s
   <summary>
     Steps
   </summary>
-  {: .text-delta}
+  {: .fs-5 .fw-700}
 
 Working with embeddings generated outside of OpenSearch involves the following steps:
 
@@ -83,7 +83,7 @@ Use this option to let OpenSearch automatically generate vector embeddings from 
   <summary>
     Steps
   </summary>
-  {: .text-delta}
+  {: .fs-5 .fw-700}
 
 Working with text that is automatically converted to embeddings within OpenSearch involves the following steps:
 

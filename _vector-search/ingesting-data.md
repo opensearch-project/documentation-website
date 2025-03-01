@@ -77,7 +77,7 @@ The pipeline automatically generates and stores the embeddings in the `passage_e
 
 ## Working with sparse vectors
 
-OpenSearch also supports sparse vectors. For more information, see [Neural sparse search]({{site.url}}{{site.baseurl}}/vector-search/ml-powered-search/neural-sparse-search/).
+OpenSearch also supports sparse vectors. For more information, see [Neural sparse search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-search/).
 
 ## Next steps
 

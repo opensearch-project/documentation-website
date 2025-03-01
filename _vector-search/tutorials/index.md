@@ -3,130 +3,241 @@ layout: default
 title: Tutorials
 has_children: true
 has_toc: false
-nav_order: 140
+nav_order: 47
+redirect_from:
+  - /vector-search/tutorials/
+  - /ml-commons-plugin/tutorials/
+  - /ml-commons-plugin/tutorials/index/
+vector_search_101:
+  - heading: "Getting started with vector search"
+    link: "/vector-search/getting-started/"
+  - heading: "Getting started with semantic and hybrid search"
+    link: "/vector-search/tutorials/neural-search-tutorial/"
+vector_operations:
+  - heading: "Generating embeddings from arrays of objects"
+    list: 
+      - "<b>Platform</b>: OpenSearch" 
+      - "<b>Model</b>: Amazon Titan"
+      - "<b>Deployment</b>: Amazon Bedrock" 
+    link: "/vector-search/tutorials/vector-operations/generate-embeddings/"
+  - heading: "Semantic search using byte-quantized vectors"
+    list:
+      - "<b>Platform:</b> OpenSearch"
+      - "<b>Model:</b> Cohere Embed"  
+      - "<b>Deployment:</b> Provider API"  
+    link: "/vector-search/tutorials/vector-operations/semantic-search-byte-vectors/"
+semantic_search:
+  - heading: "Semantic search using the OpenAI embedding model"
+    link: "/vector-search/tutorials/semantic-search/semantic-search-openai/"
+    list:
+      - "<b>Platform:</b> OpenSearch, Amazon OpenSearch Service"
+      - "<b>Model:</b> OpenAI embedding"  
+      - "<b>Deployment:</b> Provider API"  
+  - heading: "Semantic search using Cohere Embed"
+    link: "/vector-search/tutorials/semantic-search/semantic-search-cohere/"
+    list:
+      - "<b>Platform:</b> OpenSearch, Amazon OpenSearch Service"
+      - "<b>Model:</b> Cohere Embed"  
+      - "<b>Deployment:</b> Provider API"  
+  - heading: "Semantic search using Cohere Embed on Amazon Bedrock"
+    link: "/vector-search/tutorials/semantic-search/semantic-search-bedrock-cohere/"
+    list:
+      - "<b>Platform:</b> OpenSearch, Amazon OpenSearch Service"
+      - "<b>Model:</b> Cohere Embed"  
+      - "<b>Deployment:</b> Amazon Bedrock"  
+  - heading: Semantic search using Amazon Bedrock Titan
+    link: "/vector-search/tutorials/semantic-search/semantic-search-bedrock-titan/"
+    list:
+      - "<b>Platform:</b> OpenSearch, Amazon OpenSearch Service"
+      - "<b>Model:</b> Amazon Titan"  
+      - "<b>Deployment:</b> Amazon Bedrock"  
+  - heading: "Semantic search using Amazon Bedrock Titan in another account"
+    link: /vector-search/tutorials/semantic-search/semantic-search-bedrock-titan-other/
+    list:
+      - "<b>Platform:</b> OpenSearch, Amazon OpenSearch Service"
+      - "<b>Model:</b> Amazon Titan"  
+      - "<b>Deployment:</b> Amazon Bedrock (in a different account than your Amazon OpenSearch Service account)"
+  - heading: Semantic search using a model on Amazon SageMaker
+    link: /vector-search/tutorials/semantic-search/semantic-search-sagemaker/
+    list: 
+      - "<b>Platform:</b> OpenSearch, Amazon OpenSearch Service"
+      - "<b>Model:</b> Custom"  
+      - "<b>Deployment:</b> Amazon SageMaker"  
+  - heading: Semantic search using AWS CloudFormation and Amazon SageMaker
+    link: /vector-search/tutorials/semantic-search/semantic-search-cfn-sagemaker/
+    list:
+      - "<b>Platform:</b> OpenSearch, Amazon OpenSearch Service"
+      - "<b>Model:</b> Custom"  
+      - "<b>Deployment:</b> Amazon SageMaker + CloudFormation" 
+conversational_search:
+  - heading: Conversational search using Cohere Command
+    link: /vector-search/tutorials/conversational-search/conversational-search-cohere/ 
+    list:
+    - "<b>Platform:</b> OpenSearch"
+    - "<b>Model:</b> Cohere Command"  
+    - "<b>Deployment:</b> Provider API" 
+reranking:
+  - heading: Reranking search results using Cohere Rerank
+    link: /vector-search/tutorials/reranking/reranking-cohere/
+    list:
+      - "<b>Platform:</b> OpenSearch"
+      - "<b>Model:</b> Cohere Rerank"  
+      - "<b>Deployment:</b> Provider API"  
+  - heading: Reranking search results using Amazon Bedrock models
+    link: /vector-search/tutorials/reranking/reranking-bedrock/
+    list:
+      - "<b>Platform:</b> OpenSearch"
+      - "<b>Model:</b> Amazon Bedrock reranker models"  
+      - "<b>Deployment:</b> Amazon Bedrock"  
+  - heading: Reranking search results using a cross-encoder in Amazon SageMaker
+    link: /vector-search/tutorials/reranking/reranking-cross-encoder/
+    list:
+      - "<b>Platform:</b> OpenSearch"
+      - "<b>Model:</b> Hugging Face MS MARCO"  
+      - "<b>Deployment:</b> Amazon SageMaker"  
+rag:
+  - heading: Retrieval-augmented generation (RAG) using the DeepSeek Chat API
+    link: /vector-search/tutorials/rag/rag-deepseek-chat/  
+    list:
+      - "<b>Platform:</b> OpenSearch, Amazon OpenSearch Service"
+      - "<b>Model:</b> DeepSeek Chat" 
+      - '<b>Deployment:</b> Provider API'  
+  - heading: RAG using DeepSeek-R1 on Amazon Bedrock
+    link: /vector-search/tutorials/rag/rag-deepseek-r1-bedrock/ 
+    list:
+      - '<b>Platform:</b> OpenSearch, Amazon OpenSearch Service'
+      - '<b>Model:</b> DeepSeek-R1'  
+      - "<b>Deployment:</b> Amazon Bedrock"  
+  - heading: RAG using DeepSeek-R1 in Amazon SageMaker
+    link: /vector-search/tutorials/rag/rag-deepseek-r1-sagemaker/
+    list:
+      - "<b>Platform:</b> OpenSearch, Amazon OpenSearch Service"  
+      - "<b>Model:</b> DeepSeek-R1"  
+      - "<b>Deployment:</b> Amazon SageMaker"  
+chatbots:
+  - heading: RAG chatbot
+    link: vector-search/tutorials/chatbots/rag-chatbot/
+    list:
+      - "<b>Platform:</b> OpenSearch"
+      - "<b>Model:</b> Anthropic Claude" 
+      - "<b>Deployment:</b> Amazon Bedrock"  
+  - heading: RAG with a conversational flow agent
+    link: /vector-search/tutorials/chatbots/rag-conversational-agent/
+    list: 
+      - "<b>Platform:</b> OpenSearch"
+      - "<b>Model:</b> Anthropic Claude"  
+      - "<b>Deployment:</b> Amazon Bedrock"  
+  - heading: Build your own chatbot
+    link: /vector-search/tutorials/chatbots/build-chatbot/
+    list: 
+      - "<b>Platform:</b> OpenSearch"
+      - "<b>Model:</b> Anthropic Claude"  
+      - "<b>Deployment:</b> Amazon Bedrock" 
+model_controls:
+  - heading: "Amazon Bedrock guardrails"
+    link: "/vector-search/tutorials/model-controls/bedrock-guardrails/"
+    list: 
+      - "<b>Platform:</b> OpenSearch"
+      - "<b>Model:</b> Anthropic Claude"  
+      - "<b>Deployment:</b> Amazon Bedrock" 
 ---
 
 # Tutorials
 
-Using the OpenSearch machine learning (ML) framework, you can build various applications, from implementing conversational search to building your own chatbot. To learn more, explore the following ML tutorials.
+Using the OpenSearch machine learning (ML) framework, you can build various applications, from implementing semantic search to building your own chatbot. To learn more, explore the following ML tutorials.
+
+<details open markdown="block">
+  <summary>
+    Vector search 101
+  </summary>
+  {: .heading}
+
+{% include cards.html cards=page.vector_search_101 %}
+
+</details>
 
 ---
 
-## Vector operations  
-- [**Generating embeddings from arrays of objects**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/vector-operations/generate-embeddings/)
-  - Platform: OpenSearch
-  - Model: Amazon Titan  
-  - Deployment: Amazon Bedrock  
+ <p id="vector-operations" name="Vector operations"> </p>
 
-- [**Semantic search using byte-quantized vectors**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/vector-operations/semantic-search-byte-vectors/) 
-  - Platform: OpenSearch
-  - Model: Cohere  
-  - Deployment: Provider API  
+<details open markdown="block">
+  <summary>
+    Vector operations
+  </summary>
+  {: .heading}
 
----
+{% include cards.html cards=page.vector_operations %}
 
-## Semantic search  
-- [**Semantic search using the OpenAI embedding model**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-openai/)
-  - Platform: OpenSearch, Amazon OpenSearch Service
-  - Model: OpenAI  
-  - Deployment: Provider API  
-
-- [**Semantic search using Cohere Embed**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-cohere/)  
-  - Platform: OpenSearch, Amazon OpenSearch Service
-  - Model: Cohere  
-  - Deployment: Provider API  
-
-- [**Semantic search using Cohere Embed on Amazon Bedrock**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-bedrock-cohere/)  
-  - Platform: OpenSearch, Amazon OpenSearch Service
-  - Model: Cohere  
-  - Deployment: Amazon Bedrock  
-
-- [**Semantic search using Amazon Bedrock Titan**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-bedrock-titan/)  
-  - Platform: OpenSearch, Amazon OpenSearch Service
-  - Model: Amazon Titan  
-  - Deployment: Amazon Bedrock  
-
-- [**Semantic search using Amazon Bedrock Titan in another account**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-bedrock-titan-other/)  
-  - Platform: OpenSearch, Amazon OpenSearch Service
-  - Model: Amazon Titan  
-  - Deployment: Amazon Bedrock (in a different account than your Amazon OpenSearch Service account)  
-
-- [**Semantic search using a model on Amazon SageMaker**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-sagemaker/)  
-  - Platform: OpenSearch, Amazon OpenSearch Service
-  - Model: Custom  
-  - Deployment: Amazon SageMaker  
-
-- [**Semantic search using AWS CloudFormation and Amazon SageMaker**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-cfn-sagemaker/)  
-  - Platform: OpenSearch, Amazon OpenSearch Service
-  - Model: Custom  
-  - Deployment: Amazon SageMaker + CloudFormation  
+</details>
 
 ---
 
-## Conversational search  
-- [**Conversational search using Cohere Command**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/conversational-search/conversational-search-cohere/)  
-  - Platform: OpenSearch
-  - Model: Cohere  
-  - Deployment: Provider API  
+<details open markdown="block">
+  <summary>
+    Semantic search
+  </summary>
+  {: .heading}
+
+{% include cards.html cards=page.semantic_search %}
+
+</details>
 
 ---
 
-## Search result reranking  
-- [**Reranking search results using Cohere Rerank**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/reranking/reranking-cohere/)  
-  - Platform: OpenSearch
-  - Model: Cohere  
-  - Deployment: Provider API  
+<details open markdown="block">
+  <summary>
+    Conversational search
+  </summary>
+  {: .heading}
 
-- [**Reranking search results using Amazon Bedrock models**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/reranking/reranking-bedrock/)  
-  - Platform: OpenSearch
-  - Model: Amazon Bedrock reranker models  
-  - Deployment: Amazon Bedrock  
+{% include cards.html cards=page.conversational_search %}
 
-- [**Reranking search results using a cross-encoder in Amazon SageMaker**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/reranking/reranking-cross-encoder/)  
-  - Platform: OpenSearch
-  - Model: MS MARCO  
-  - Deployment: Amazon SageMaker  
+</details>
 
 ---
 
-## RAG
-- [**Retrieval-augmented generation (RAG) using the DeepSeek Chat API**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/rag/rag-deepseek-chat/)  
-  - Platform: OpenSearch, Amazon OpenSearch Service
-  - Model: DeepSeek  
-  - Deployment: Provider API  
+<details open markdown="block">
+  <summary>
+    Search result reranking
+  </summary>
+  {: .heading}
 
-- [**RAG using DeepSeek-R1 on Amazon Bedrock**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/rag/rag-deepseek-r1-bedrock/)  
-  - Platform: OpenSearch, Amazon OpenSearch Service
-  - Model: DeepSeek  
-  - Deployment: Amazon Bedrock  
+{% include cards.html cards=page.reranking %}
 
-- [**RAG using DeepSeek-R1 in Amazon SageMaker**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/rag/rag-deepseek-r1-sagemaker/)
-  - Platform: OpenSearch, Amazon OpenSearch Service  
-  - Model: DeepSeek  
-  - Deployment: Amazon SageMaker  
+</details>
 
 ---
 
-## Chatbots and agents  
-- [**RAG chatbot**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/chatbots/rag-chatbot/)  
-  - Platform: OpenSearch
-  - Model: Anthropic Claude  
-  - Deployment: Amazon Bedrock  
+<details open markdown="block">
+  <summary>
+    RAG
+  </summary>
+  {: .heading}
 
-- [**RAG with a conversational flow agent**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/chatbots/rag-conversational-agent/)  
-  - Platform: OpenSearch
-  - Model: Anthropic Claude  
-  - Deployment: Amazon Bedrock  
+{% include cards.html cards=page.rag %}
 
-- [**Build your own chatbot**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/chatbots/build-chatbot/)  
-  - Platform: OpenSearch
-  - Model: Anthropic Claude  
-  - Deployment: Amazon Bedrock  
+</details>
 
 ---
 
-## Model controls  
-- [**Amazon Bedrock guardrails**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/model-controls/bedrock-guardrails/)  
-  - Platform: OpenSearch
-  - Model: Anthropic Claude  
-  - Deployment: Amazon Bedrock  
+<details open markdown="block">
+  <summary>
+    Chatbots and agents
+  </summary>
+  {: .heading}
+
+{% include cards.html cards=page.chatbots %}
+
+</details>
+
+---
+
+<details open markdown="block">
+  <summary>
+    Model controls
+  </summary>
+  {: .heading}
+
+{% include cards.html cards=page.model_controls %}
+
+</details>

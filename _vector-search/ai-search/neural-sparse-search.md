@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Neural sparse search
-parent: ML-powered search
+parent: AI search
 nav_order: 50
 has_children: true
 redirect_from:
@@ -62,4 +62,4 @@ For information about `two_phase_search_pipeline`, see [Neural sparse query two-
 
 - Learn more about how sparse encoding models work and explore OpenSearch neural sparse search benchmarks in [Improving document retrieval with sparse semantic encoders](https://opensearch.org/blog/improving-document-retrieval-with-sparse-semantic-encoders/).
 - Learn the fundamentals of neural sparse search and its efficiency in [A deep dive into faster semantic sparse retrieval in OpenSearch 2.12](https://opensearch.org/blog/A-deep-dive-into-faster-semantic-sparse-retrieval-in-OS-2.12/).
-- Explore our [tutorials]({{site.url}}{{site.baseurl}}/vector-search/getting-started/tutorials/) to learn how to build ML-powered search applications. 
+- Explore our [tutorials]({{site.url}}{{site.baseurl}}/vector-search/tutorials/) to learn how to build AI search applications. 
