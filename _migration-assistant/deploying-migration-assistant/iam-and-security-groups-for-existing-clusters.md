@@ -27,21 +27,23 @@ For an OpenSearch Domain, two main configurations are typically required to ensu
 
 3. **Managed Service Role Mapping (Cross-Managed Migrations)**
 
-   When migrating between two managed clusters (for ex. both domains created using Amazon OpenSearch Service):
-   1. Locate these IAM roles created during the CDK deployment and copy their ARN:
+   When migrating between two managed clusters (for ex. both domains created using Amazon OpenSearch Service), you need to provide Migration Assistant components with sufficient permissions to modify both source and target clusters.
+
+   Follow these steps to grant the required permissions:
+   1. In the AWS Console, navigate to **CloudFormation** > **Stacks**
+   2. Find the stack that starts with `OSMigrations-<state>-<region>` (created during CDK deployment)
+   3. Go to the **Resources** tab and locate these three IAM roles:
    ```
       arn:aws:iam::****:role/OSMigrations-<state>-<region>-MigrationServiceTaskRoleC-
       arn:aws:iam::****:role/OSMigrations-<state>-<region>-reindexfromsnapshotTaskRo-
       arn:aws:iam::****:role/OSMigrations-<state>-<region>-trafficreplayerdefaultTas-
    ```
-   2. For **both Source and Target clusters**:
+   4. For **both Source and Target clusters**:
       - Access OpenSearch Dashboards (or Kibana if Source cluster is Elasticsearch)
       - Navigate to **Security -> Roles -> all_access**
       - under "Mapped users", add each ARN as a backend role
       - Save changes
    
-   *Note: This grants the migration assistant components necessary permissions to modify both source and target managed clusters.*
-
 ### OpenSearch Serverless
 
 For an OpenSearch Serverless Collection, you will need to configure both network and data access policies:
