@@ -257,7 +257,7 @@ The response contains the matching documents:
 
 You can quickly set up automatic embedding generation using [_automated workflows_]({{site.url}}{{site.baseurl}}/automating-configurations/). This approach automatically creates and provisions all necessary resources. For more information, see [Workflow templates]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/).
 
-You can use automated workflows to create and deploy externally hosted models and create resources for various AI search types. In this example, you'll create the same search you've created using manual steps.
+You can use automated workflows to create and deploy externally hosted models and create resources for various AI search types. In this example, you'll create the same search you've already created following manual steps.
 
 ### Step 1: Register and deploy the model
 
@@ -265,7 +265,7 @@ To register and deploy a model, select the built-in workflow template for the mo
 
 ### Step 2: Configure a workflow
 
-Create and provision a semantic search workflow. You must provide the model ID for the model you configured. Review your selected workflow template [defaults](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/semantic-search-defaults.json) to determine whether you need to update any of the parameters. For example, if the model dimensionality is different from the default (`1024`), specify the dimensionality of your model in the `output_dimension` parameter. Change the workflow template default text field from `passage_text` to `text` in order to match the manual example:
+Create and provision a semantic search workflow. You must provide the model ID for the configured model. Review your selected workflow template [defaults](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/semantic-search-defaults.json) to determine whether you need to update any of the parameters. For example, if the model dimensionality is different from the default (`1024`), specify the dimensionality of your model in the `output_dimension` parameter. Change the workflow template default text field from `passage_text` to `text` in order to match the manual example:
 
 ```json
 POST /_plugins/_flow_framework/workflow?use_case=semantic_search&provision=true
@@ -315,7 +315,7 @@ Once the workflow completes, the `state` changes to `COMPLETED`. The workflow ha
 }
 ```
 
-You can now continue with [Steps 4 and 5](#step-4-ingest-documents-into-the-index-ingest-documents-into-the-index) to ingest documents into the index and search the index.
+You can now continue with [steps 4 and 5](#step-4-ingest-documents-into-the-index-ingest-documents-into-the-index) to ingest documents into the index and search the index.
 
 ## Next steps
 
