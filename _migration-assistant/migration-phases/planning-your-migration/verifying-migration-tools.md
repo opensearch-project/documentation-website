@@ -91,10 +91,12 @@ Use this guidance to troubleshoot any of the following snapshot verification iss
 
 #### Access denied error (403)
 
-If you encounter an error like `AccessDenied (Service: Amazon S3; Status Code: 403)`, verify the following:
+If you encounter an error like `AccessDenied (Service: Amazon S3; Status Code: 403)`, verify that:
 
-- The IAM role assigned to your Elasticsearch cluster has the necessary S3 permissions.
-- The bucket name and AWS Region provided in the snapshot configuration match the actual S3 bucket you created.
+- You're using the S3 bucket created by Migration Assistant (recommended)
+- If using a custom S3 bucket, verify that:
+  - The IAM role assigned to your Elasticsearch cluster has the necessary S3 permissions
+  - The bucket name and AWS Region provided in the snapshot configuration match the actual S3 bucket you created
 
 #### Older versions of Elasticsearch
 
@@ -219,4 +221,3 @@ This command will result in the loss of all data in the target cluster and shoul
 console clusters clear-indices --cluster target
 ```
 {% include copy.html %}
-
