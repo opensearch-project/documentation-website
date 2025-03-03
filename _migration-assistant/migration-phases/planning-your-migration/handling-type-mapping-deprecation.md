@@ -39,7 +39,7 @@ The `TypeMappingsSanitizationTransformer` supports several strategies for handli
 3. **Drop Types**: Selectively migrate only specific types
 4. **Keep Original Structure**: Maintain the same index name while conforming to new type standards
 
-### `TypeMappingsSanitizationTransformerProvider` configuration schema
+### `TypeMappingSanitizationTransformerProvider` configuration schema
 
 The type mapping transformer uses the following configuration options:
 
@@ -56,7 +56,7 @@ The following example JSON configuration provides a transformation schema:
 
 ```JSON
 {
-  "TypeMappingsSanitizationTransformerProvider": {
+  "TypeMappingSanitizationTransformerProvider": {
     "staticMappings": {
       "{index-name-1}": {
         "{type-name-1}": "{target-index-name-1}",
@@ -95,7 +95,7 @@ If you have an index `activity` with types `user` and `post` that you want to sp
 ```json
 [
   {
-    "TypeMappingsSanitizationTransformerProvider": {
+    "TypeMappingSanitizationTransformerProvider": {
       "staticMappings": {
         "activity": {
           "user": "new_users",
@@ -126,7 +126,7 @@ To combine multiple types into a single index, use the following configuration:
 ```json
 [
   {
-    "TypeMappingsSanitizationTransformerProvider": {
+    "TypeMappingSanitizationTransformerProvider": {
       "staticMappings": {
         "activity": {
           "user": "activity",
@@ -152,7 +152,7 @@ To migrate only the `user` type within the `activity` index and drop all documen
 ```json
 [
   {
-    "TypeMappingsSanitizationTransformerProvider": {
+    "TypeMappingSanitizationTransformerProvider": {
       "staticMappings": {
         "activity": {
           "user": "users_only"
@@ -179,7 +179,7 @@ To migrate only specific types and keep the original structure:
 ```JSON
 [
   {
-    "TypeMappingsSanitizationTransformerProvider": {
+    "TypeMappingSanitizationTransformerProvider": {
       "regexMappings": [
         {
           "sourceIndexPattern": "(.*)",
@@ -219,7 +219,7 @@ The following example demonstrates how to combine static and regex-based mapping
 ```json
 [
   {
-    "TypeMappingsSanitizationTransformerProvider": {
+    "TypeMappingSanitizationTransformerProvider": {
       "staticMappings": {
         "activity": {
           "user": "users_activity",
