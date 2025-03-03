@@ -38,7 +38,7 @@ GET /my-raw-vector-index/_search
 
 ## Searching auto-generated embeddings
 
-OpenSearch supports [AI-powered search methods]({{site.url}}{{site.baseurl}}/vector-search/ai-search/), including semantic, hybrid, multimodal, and conversational search with retrieval-augmented generation. These methods automatically generate embeddings from query input.
+OpenSearch supports [AI-powered search methods]({{site.url}}{{site.baseurl}}/vector-search/ai-search/), including semantic, hybrid, multimodal, and conversational search with retrieval-augmented generation (RAG). These methods automatically generate embeddings from query input.
 
 To run an AI-powered search, use the `neural` query type. Specify the `query_text` input, the model ID of the embedding model you [configured in the ingest pipeline]({{site.url}}{{site.baseurl}}/vector-search/creating-vector-index/#converting-data-to-embeddings-during-ingestion), and the number of returned results `k`. To exclude embeddings from being returned in search results, specify the embedding field in the `_source.excludes` parameter:
 

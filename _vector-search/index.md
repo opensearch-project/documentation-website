@@ -37,7 +37,7 @@ more_cards:
     link: "/vector-search/specialized-operations/nested-search-knn/"
 items:
   - heading: "Create an index"
-    description: "Create a vector index to store your embeddings."
+    description: "Create a vector index for storing your embeddings."
     link: "/vector-search/creating-vector-index/"
   - heading: "Ingest data"
     description: "Ingest your data into the index."

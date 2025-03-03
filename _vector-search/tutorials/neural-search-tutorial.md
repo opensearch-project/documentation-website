@@ -72,19 +72,19 @@ This tutorial consists of the following steps:
 
 {% include list.html list_items=page.steps%}
 
-Some steps in the tutorial contain optional `Test it` sections. You can ensure that the step was successful by running requests in these sections.
+Some steps in the tutorial contain optional `Test it` sections. You can ensure that the step completed successfully by running requests in these sections.
 
 After you're done, follow the steps in the [Clean up](#clean-up) section to delete all created components.
 
 ## Tutorial
 
-You can follow this tutorial using your command line or the OpenSearch Dashboards [Dev Tools console]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/run-queries/).
+You can follow this tutorial by using your command line or the OpenSearch Dashboards [Dev Tools console]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/run-queries/).
 
 ## Step 1: Choose a model
 
 First, you'll need to choose a language model in order to generate vector embeddings from text fields, both at ingestion time and query time.
 
-For this tutorial, you'll use the [DistilBERT](https://huggingface.co/docs/transformers/model_doc/distilbert) model from Hugging Face. It is one of the pretrained sentence transformer models available in OpenSearch that has shown some of the best results in benchmarking tests (for details, see [this blog post](https://opensearch.org/blog/semantic-science-benchmarks/)). You'll need the name, version, and dimension of the model to register it. You can find this information in the [pretrained model table]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sentence-transformers) by selecting the `config_url` link corresponding to the model's TorchScript artifact:
+For this tutorial, you'll use the [DistilBERT](https://huggingface.co/docs/transformers/model_doc/distilbert) model from Hugging Face. It is one of the pretrained sentence transformer models available in OpenSearch that has shown some of the best results in benchmarking tests (for more information, see [this blog post](https://opensearch.org/blog/semantic-science-benchmarks/)). You'll need the name, version, and dimension of the model to register it. You can find this information in the [pretrained model table]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sentence-transformers) by selecting the `config_url` link corresponding to the model's TorchScript artifact:
 
 - The model name is `huggingface/sentence-transformers/msmarco-distilbert-base-tas-b`.
 - The model version is `1.0.1`.
@@ -384,7 +384,7 @@ Setting up a vector index allows you to later perform a vector search on the `pa
   </summary>
   {: .text-delta}
 
-Use the following requests to get the settings and the mappings of the created index:
+Use the following requests to get the settings and mappings of the created index:
 
 ```json
 GET /my-nlp-index/_settings
@@ -480,7 +480,7 @@ The response includes the document `_source` containing the original `text` and 
 
 ## Step 4: Search the data
 
-Now you'll search the index using keyword search, semantic search, and a combination of the two.
+Now you'll search the index using a keyword search, a semantic search, and a combination of the two.
 
 ### Search using a keyword search
 
@@ -505,7 +505,7 @@ GET /my-nlp-index/_search
 ```
 {% include copy-curl.html %}
 
-Document 3 is not returned because it does not contain the specified keywords. Documents containing the words `rodeo` and `cowboy` are scored lower because semantic meaning is not considered:
+Document 3 is not returned because it does not contain the specified keywords. Documents containing the words `rodeo` and `cowboy` are scored lower because their semantic meaning is not considered:
 
 <details markdown="block">
   <summary>
@@ -574,7 +574,7 @@ Document 3 is not returned because it does not contain the specified keywords. D
 
 ### Search using a semantic search
 
-To search using semantic search, use a `neural` query and provide the model ID of the model you set up earlier so that vector embeddings for the query text are generated with the model used at ingestion time:
+To search using a semantic search, use a `neural` query and provide the model ID of the model you set up earlier so that vector embeddings for the query text are generated with the model used at ingestion time:
 
 ```json
 GET /my-nlp-index/_search
@@ -874,4 +874,4 @@ DELETE /_plugins/_ml/model_groups/Z1eQf4oB5Vm0Tdw8EIP2
 ## Further reading
 
 - Read about the basics of OpenSearch semantic search in [Building a semantic search engine in OpenSearch](https://opensearch.org/blog/semantic-search-solutions/).
-- Read about the benefits of combining keyword and semantic search, the normalization and combination technique options, and benchmarking tests in [The ABCs of semantic search in OpenSearch: Architectures, benchmarks, and combination strategies](https://opensearch.org/blog/semantic-science-benchmarks/).
+- Read about the combining keyword and semantic search, the normalization and combination technique options, and benchmarking tests in [The ABCs of semantic search in OpenSearch: Architectures, benchmarks, and combination strategies](https://opensearch.org/blog/semantic-science-benchmarks/).
