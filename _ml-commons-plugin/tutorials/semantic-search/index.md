@@ -46,7 +46,7 @@ The following tutorials show you how to implement semantic search:
   - Model: Custom  
   - Deployment: Amazon SageMaker + CloudFormation  
 
-- [**Semantic search using an asymmetric model**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-byte-vectors/) 
+- [**Semantic search using an asymmetric model**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-asymmetric/) 
   - Platform: OpenSearch
   - Model: Hugging Face Multilingual-E5-small  
   - Deployment: Local cluster 
