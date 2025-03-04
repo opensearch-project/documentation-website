@@ -46,6 +46,11 @@ The following tutorials show you how to implement semantic search:
   - Model: Custom  
   - Deployment: Amazon SageMaker + CloudFormation  
 
+- [**Semantic search using AWS CloudFormation and Amazon Bedrock**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-cfn-bedrock/)  
+  - Platform: OpenSearch, Amazon OpenSearch Service
+  - Model: Amazon titan + Cohere  
+  - Deployment: Amazon Bedrock + CloudFormation  
+
 - [**Semantic search using byte-quantized vectors**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/vector-operations/semantic-search-byte-vectors/) 
   - Platform: OpenSearch
   - Model: Cohere  

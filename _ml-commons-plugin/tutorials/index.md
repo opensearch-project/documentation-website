@@ -61,6 +61,11 @@ Using the OpenSearch machine learning (ML) framework, you can build various appl
   - Model: Custom  
   - Deployment: Amazon SageMaker + CloudFormation  
 
+- [**Semantic search using AWS CloudFormation and Amazon Bedrock**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-cfn-bedrock/)  
+  - Platform: OpenSearch, Amazon OpenSearch Service
+  - Model: Amazon titan + Cohere  
+  - Deployment: Amazon Bedrock + CloudFormation  
+
 ---
 
 ## Conversational search  
