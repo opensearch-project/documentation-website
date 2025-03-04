@@ -29,7 +29,7 @@ Use the following steps to set up the Security plugin using Docker:
 2. Run the following command:
 
 ```bash
-docker-compose up
+docker compose up
 ```
 {% include copy.html %}
 
@@ -49,7 +49,7 @@ If you want to disable the Security plugin when using Docker, set the `DISABLE_S
    - One special character
 
 4. Make sure that Docker is running on your local machine
-5. Run `docker-compose up` from the file directory where your `docker-compose.yml` file and `.env` file are located.
+5. Run `docker compose up` from the file directory where your `docker-compose.yml` file and `.env` file are located.
 
 ### TAR (Linux) and Mac OS 
 

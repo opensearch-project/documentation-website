@@ -16,7 +16,7 @@ The following table lists all available cluster-level k-NN settings. For more in
 Setting | Static/Dynamic | Default | Description
 :--- | :--- | :--- | :---
 `knn.plugin.enabled`| Dynamic | `true` | Enables or disables the k-NN plugin.
-`knn.algo_param.index_thread_qty` | Dynamic | `1` | The number of threads used for native library index creation. Keeping this value low reduces the CPU impact of the k-NN plugin but also reduces indexing performance.
+`knn.algo_param.index_thread_qty` | Dynamic | `1` | The number of threads used for native library and Lucene library (for OpenSearch version 2.19 and later) index creation. Keeping this value low reduces the CPU impact of the k-NN plugin but also reduces indexing performance.
 `knn.cache.item.expiry.enabled` | Dynamic | `false` | Whether to remove native library indexes that have not been accessed for a certain duration from memory.
 `knn.cache.item.expiry.minutes` | Dynamic | `3h` | If enabled, the amount of idle time before a native library index is removed from memory.
 `knn.circuit_breaker.unset.percentage` | Dynamic | `75` | The native memory usage threshold for the circuit breaker. Memory usage must be lower than this percentage of `knn.memory.circuit_breaker.limit` in order for `knn.circuit_breaker.triggered` to remain `false`.
@@ -28,6 +28,7 @@ Setting | Static/Dynamic | Default | Description
 `knn.model.cache.size.limit` | Dynamic | `10%` |  The model cache limit cannot exceed 25% of the JVM heap.
 `knn.faiss.avx2.disabled` | Static | `false` | A static setting that specifies whether to disable the SIMD-based `libopensearchknn_faiss_avx2.so` library and load the non-optimized `libopensearchknn_faiss.so` library for the Faiss engine on machines with x64 architecture. For more information, see [SIMD optimization for the Faiss engine]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#simd-optimization-for-the-faiss-engine).
 `knn.faiss.avx512.disabled` | Static | `false` | A static setting that specifies whether to disable the SIMD-based `libopensearchknn_faiss_avx512.so` library and load the `libopensearchknn_faiss_avx2.so` library or the non-optimized `libopensearchknn_faiss.so` library for the Faiss engine on machines with x64 architecture. For more information, see [SIMD optimization for the Faiss engine]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#simd-optimization-for-the-faiss-engine).
+`knn.faiss.avx512_spr.disabled` | Static | `false` | A static setting that specifies whether to disable the SIMD-based `libopensearchknn_faiss_avx512_spr.so` library and load either the `libopensearchknn_faiss_avx512.so` , `libopensearchknn_faiss_avx2.so`, or the non-optimized `libopensearchknn_faiss.so` library for the Faiss engine on machines with x64 architecture. For more information, see [SIMD optimization for the Faiss engine]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#simd-optimization-for-the-faiss-engine).
 
 ## Index settings
 

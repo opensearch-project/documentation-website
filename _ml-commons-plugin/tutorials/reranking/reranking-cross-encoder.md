@@ -1,11 +1,14 @@
 ---
 layout: default
-title: Reranking with the MS MARCO cross-encoder
-parent: Tutorials
-nav_order: 35
+title: Reranking search results using a cross-encoder in Amazon SageMaker
+parent: Reranking search results
+grand_parent: Tutorials
+nav_order: 110
+redirect_from:
+  - /ml-commons-plugin/tutorials/reranking-cross-encoder/
 ---
 
-# Reranking search results using the MS MARCO cross-encoder model
+# Reranking search results using a cross-encoder in Amazon SageMaker
 
 A [reranking pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/) can rerank search results, providing a relevance score for each document in the search results with respect to the search query. The relevance score is calculated by a cross-encoder model. 
 
