@@ -75,7 +75,7 @@ GET /_cluster/state/{metric}
   "cluster_uuid": "abcdefghijklmnopqrstuvwxyz",
   "version": 42,
   "state_uuid": "0123456789abcdefghij",
-  "master_node": "node-1",
+  "cluster_manager_node": "node-1",
   "blocks": {},
   "metadata": {
     "cluster_uuid": "abcdefghijklmnopqrstuvwxyz",
