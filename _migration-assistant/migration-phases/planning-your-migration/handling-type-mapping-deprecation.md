@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Managing the type mapping deprecation
+title: Managing type mapping deprecation
 nav_order: 60
 parent: Planning your migration
 grand_parent: Migration phases
@@ -28,7 +28,7 @@ To address type mapping deprecation, use the `TypeMappingsSanitizationTransforme
 8. When running the metadata migration, run the configuration with the transformer using the command, `console metadata migrate --transformer-config-file /shared-logs-output/transformation.json`.
 
   
-Anytime he transformation configuration is updated, the backfill and replayer tools will need to be stopped and restarted to apply the changes. Any already migrated data and metadata may need to be cleared to avoid an inconsistent state.
+Anytime the transformation configuration is updated, the backfill and replayer tools will need to be stopped and restarted to apply the changes. Any already migrated data and metadata may need to be cleared to avoid an inconsistent state.
 
 ### Configuration options
 
@@ -39,7 +39,7 @@ The `TypeMappingsSanitizationTransformer` supports several strategies for handli
 3. **Drop Types**: Selectively migrate only specific types
 4. **Keep Original Structure**: Maintain the same index name while conforming to new type standards
 
-### `TypeMappingSanitizationTransformerProvider` configuration schema
+### Type mapping transformer configuration schema
 
 The type mapping transformer uses the following configuration options:
 
