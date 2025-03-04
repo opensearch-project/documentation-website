@@ -25,7 +25,7 @@ To address type mapping deprecation, use the `TypeMappingsSanitizationTransforme
 5. Navigate to the Migration Assistant console.
 6. Create a file called `/shared-logs-output/transformation.json`.
 7. Add your transformation configuration to the file. For configuration options, see [Configuration options](#configuration-options).
-8. When running the metadata migration, run the configuration with the transfomer using the command, `console metadata migrate --transformer-config-file /shared-logs-output/transformation.json`.
+8. When running the metadata migration, run the configuration with the transformer using the command, `console metadata migrate --transformer-config-file /shared-logs-output/transformation.json`.
 
   
 Anytime he transformation configuration is updated, the backfill and replayer tools will need to be stopped and restarted to apply the changes. Any already migrated data and metadata may need to be cleared to avoid an inconsistent state.
@@ -46,7 +46,7 @@ The type mapping transformer uses the following configuration options:
 | **Field**  | **Type** | **Required** | **Description** | 
 | :--- | :--- | :--- | :--- |
 | `staticMappings`   | `object` | No   | A map of `{ indexName: { typeName: targetIndex } }` to **statically** route specific types. <br/><br/> For any **index** listed on this page, types **not** included in its object are **dropped** (no data or requests migrated for those omitted types).   |
-| `regexMappings`    | `array`  | No   | A list of **regex-based** rules for **dynamic** routing of source index/type names to a target index. <br/><br/> Each element in this array is itself an object with `sourceIndexPattern`, `sourceTypePattern`, and `targetIndexPattern` fields. <br/><br/> For more information on the **Default value**, see [Defaults](#Defaults). |
+| `regexMappings`    | `array`  | No   | A list of **regex-based** rules for **dynamic** routing of source index/type names to a target index. <br/><br/> Each element in this array is itself an object with `sourceIndexPattern`, `sourceTypePattern`, and `targetIndexPattern` fields. <br/><br/> For more information about the **Default value**, see [Defaults](#Defaults). |
 | `sourceProperties` | `object` | Yes  | Additional **metadata** about the source (for example, its Elasticsearch/OpenSearch version). Must include at least `"version"` with `"major"` and `"minor"` fields.   |
 
 The following example JSON configuration provides a transformation schema:
@@ -203,7 +203,7 @@ This is equivalent to the merge all types into one index rule but using a patter
 
 ### Combining multiple strategies
 
-You can combine both static and regex-based mappings to handle different indices or patterns in a single migration. For example, you might have one index that must use `staticMappings` and another that uses `regexMappings` to route all types by pattern.
+You can combine both static and regex-based mappings to handle different indexes or patterns in a single migration. For example, you might have one index that must use `staticMappings` and another that uses `regexMappings` to route all types by pattern.
 
 For each document, request, or metadata item (processed individually for bulk requests), the following steps are performed:
 
