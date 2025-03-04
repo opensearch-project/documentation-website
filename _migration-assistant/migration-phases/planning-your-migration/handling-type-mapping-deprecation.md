@@ -212,7 +212,7 @@ For each document, request, or metadata item (processed individually for bulk re
      - If the type matches, the mapping is applied, and the resulting index is the value of the type key.
      - If the type doesn't match, the request/document/metadata is dropped and not migrated.
 2. If the index is not matched in the static mappings, the index-type combination is checked against each item in the regex mappings list, in order from first to last. If a match is found, the mapping is applied, the resulting index becomes the value of the type key, and no further regex matching is performed.
-3. Any request, document, ormetadata that doesn't match the preceding cases is dropped, and the documents they contain are not migrated.
+3. Any request, document, or metadata that doesn't match the preceding cases is dropped, and the documents they contain are not migrated.
 
 The following example demonstrates how to combine static and regex-based mappings for different indices:
 
