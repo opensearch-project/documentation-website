@@ -46,6 +46,16 @@ The following tutorials show you how to implement semantic search:
   - Model: Custom  
   - Deployment: Amazon SageMaker + CloudFormation  
 
+- [**Semantic search using an asymmetric model**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-asymmetric/) 
+  - Platform: OpenSearch
+  - Model: Hugging Face Multilingual-E5-small  
+  - Deployment: Local cluster 
+
+- [**Semantic search using text chunking**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/long-document/) 
+  - Platform: OpenSearch, Amazon OpenSearch Service
+  - Model: Amazon Titan Text Embeddings  
+  - Deployment: Amazon Bedrock
+
 - [**Semantic search using byte-quantized vectors**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/vector-operations/semantic-search-byte-vectors/) 
   - Platform: OpenSearch
   - Model: Cohere  
