@@ -15,9 +15,9 @@ This tutorial shows you how to rerank search results in self-managed OpenSearch 
 Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}
 
-## Prerequisite: Deploy the model on Amazon SageMaker
+## Prerequisite: Deploy the model to Amazon SageMaker
 
-Use the following code to deploy the model on Amazon SageMaker. We suggest using a GPU for better performance. For more information, see [How to deploy this model using Amazon SageMaker](https://huggingface.co/BAAI/bge-reranker-v2-m3?sagemaker_deploy=true):  
+Use the following code to deploy the model to Amazon SageMaker. We suggest using a GPU for better performance. For more information, see [How to deploy this model using Amazon SageMaker](https://huggingface.co/BAAI/bge-reranker-v2-m3?sagemaker_deploy=true):  
 
 ```python
 import json
@@ -69,7 +69,7 @@ print(json.dumps(result, indent=2))
 ```
 {% include copy.html %}
 
-The response contains the reranking results ordered by relevance score:
+The response contains the reranked results ordered by relevance score:
 
 ```json
 [
@@ -213,7 +213,7 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-If you are using the AWS OpenSearch service, you can provide an AWS Identity and Access Management (IAM) role ARN that allows access to the SageMaker model inference endpoint. For more information, see [AWS documentation](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ml-amazon-connector.html), [this tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-sagemaker/), and [the AIConnectorHelper notebook](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/tutorials/aws/AIConnectorHelper.ipynb):
+If you are using Amazon OpenSearch service, you can provide an AWS Identity and Access Management (IAM) role Amazon Resource Name (ARN) that allows access to the SageMaker model inference endpoint. For more information, see the [AWS documentation](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ml-amazon-connector.html), [this tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-sagemaker/), and [the AIConnectorHelper notebook](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/tutorials/aws/AIConnectorHelper.ipynb):
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -337,7 +337,7 @@ POST _plugins/_ml/_predict/text_similarity/your_model_id
 ```
 {% include copy-curl.html %}
 
-The connector `pre_process_function` transforms the input into the format required by parameters shown previously.
+The connector `pre_process_function` transforms the input into the format required by the previously shown parameters.
 
 By default, the model output has the following format:
 
@@ -362,7 +362,7 @@ By default, the model output has the following format:
 ]
 ```
 
-The connector `post_process_function` transforms the model's output into a format that the [Reranker processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/) can interpret, and orders the results by index. This adapted format is as follows:
+The connector `post_process_function` transforms the model's output into a format that the [rerank processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/) can interpret and orders the results by index. This adapted format is as follows:
 
 ```json
 {
@@ -416,7 +416,7 @@ The connector `post_process_function` transforms the model's output into a forma
 }
 ```
 
-The response contains two `similarity` objects. For each `similarity` object, the `data` array contains a relevance score for each document with respect to the query. The `similarity` objects are provided in the order of the input documents; the first object pertains to the first document. 
+The response contains two `similarity` objects. For each `similarity` object, the `data` array contains a relevance score for each document with respect to the query. The `similarity` objects are provided in the order of the input documents---the first object pertains to the first document. 
 
 ## Step 2: Configure a reranking pipeline
 
@@ -463,7 +463,7 @@ PUT /_search/pipeline/rerank_pipeline_sagemaker
 ```
 {% include copy-curl.html %}
 
-If you provide multiple field names in `document_fields`, the values of all fields are first concatenated and then reranking is performed.
+If you provide multiple field names in `document_fields`, the values of all fields are first concatenated, and then reranking is performed.
 {: .note}
 
 ### Step 2.3: Test the reranking
@@ -698,7 +698,7 @@ The first document in the response is `"Washington, D.C. (also known as simply W
 }
 ```
 
-To avoid writing the query twice, use the `query_text_path` instead of `query_text` as follows:
+To avoid writing the query twice, use the `query_text_path` instead of `query_text`, as follows:
 
 ```json
 POST my-test-data/_search?search_pipeline=rerank_pipeline_sagemaker

@@ -10,9 +10,9 @@ nav_order: 20
 
 This tutorial shows you how to optimize vector search using Cohere compressed embeddings in OpenSearch 2.19 or later. These embeddings allow for more efficient storage and faster retrieval of vector representations, making them ideal for large-scale search applications.
 
-This tutorial uses the Cohere Embed Multilingual v3 on Amazon Bedrock. For more information about using Cohere compressed embeddings on Amazon Bedrock, see [this blog post](https://aws.amazon.com/about-aws/whats-new/2024/06/amazon-bedrock-compressed-embeddings-cohere-embed/).
+This tutorial uses the Cohere Embed Multilingual v3 model on Amazon Bedrock. For more information about using Cohere compressed embeddings on Amazon Bedrock, see [this blog post](https://aws.amazon.com/about-aws/whats-new/2024/06/amazon-bedrock-compressed-embeddings-cohere-embed/).
 
-In this tutorial, you'll use the following OpenSearch features:
+In this tutorial, you'll use the following OpenSearch components:
 - [ML inference ingest processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/ml-inference/) 
 - [ML inference search request processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/ml-inference-search-request/)
 - [Search template query]({{site.url}}{{site.baseurl}}/api-reference/search-template/) 
@@ -23,17 +23,17 @@ Replace the placeholders beginning with the prefix `your_` with your own values.
 
 ## Step 1: Configure an embedding model
 
-Follow these steps to set up a connector to Amazon Bedrock for accessing the Cohere Embed model.
+Follow these steps to create a connector to Amazon Bedrock for accessing the Cohere Embed model.
 
 ### Step 1.1: Create a connector
 
 Create a connector for the embedding model using [this blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/bedrock_connector_cohere_cohere.embed-multilingual-v3_blueprint.md). For more information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
 
-You don’t need a pre/post-processing function in this tutorial because you’ll be using the ML inference processor.
+Because you'll use the [ML inference processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/ml-inference/) in this tutorial, you don't need to specify a pre- or post-processing function in the connector.
 {: .note}
 
 To create a connector, send the following request. The `"embedding_types": ["int8"]` parameter specifies 8-bit integer quantized embeddings from the Cohere model. This setting compresses embeddings from 32-bit floats to 8-bit integers, reducing storage space and improving computation speed. While there is a slight trade-off in precision, it is typically negligible for search tasks. These quantized embeddings are compatible with OpenSearch's `knn_index`, which supports byte vectors.
-For more information about the model parameters, see [Cohere documentation](https://docs.cohere.com/v2/docs/embeddings) and [Amazon Bedrock documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-embed.html):
+For more information about the model parameters, see the [Cohere documentation](https://docs.cohere.com/v2/docs/embeddings) and the [Amazon Bedrock documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-embed.html):
 
 ```json
 POST _plugins/_ml/connectors/_create
@@ -112,7 +112,7 @@ The response contains the model ID:
 }
 ```
 
-Test the model to ensure it's working correctly:
+To test the model, send the following request:
 
 ```json
 POST _plugins/_ml/models/t64OPpUBX2k07okSZc2n/_predict
@@ -160,12 +160,12 @@ The response contains the generated embeddings:
 
 ## Step 2: Create an ingest pipeline
 
-An ingest pipeline lets you process documents before indexing them. In this case, you'll use it to generate embeddings for the `title` and `description` fields in your data.
+An ingest pipeline lets you process documents before indexing them. In this case, you'll use one to generate embeddings for the `title` and `description` fields in your data.
 
 There are two ways to set up the pipeline:
 
-- [Invoke the model separately for `title` and `description`](#option-1-invoke-the-model-separately-for-title-and-description): This option sends separate requests for each field, generating independent embeddings.
-- [Invoke the model once by combining `title` and `description`](#option-2-invoke-the-model-once-by-combining-title-and-description): This option concatenates the fields into a single input and sends one request, generating a single embedding that represents both.
+1. [Invoke the model separately for `title` and `description`](#option-1-invoke-the-model-separately-for-title-and-description): This option sends separate requests for each field, generating independent embeddings.
+1. [Invoke the model once by combining `title` and `description`](#option-2-invoke-the-model-once-by-combining-title-and-description): This option concatenates the fields into a single input and sends one request, generating a single embedding that represents both.
 
 ### Option 1: Invoke the model separately for `title` and `description`
 
@@ -494,7 +494,7 @@ PUT _search/pipeline/ml_inference_pipeline_cohere_search2
 ```
 {% include copy-curl.html %}
 
-Now, run a vector search using this pipeline:
+Now run a vector search using this pipeline:
 
 ```json
 GET books/_search?search_pipeline=ml_inference_pipeline_cohere_search2
@@ -558,13 +558,13 @@ The response contains the matching documents:
 
 ## Step 5 (Optional): Using binary embeddings
 
-In this section, you'll extend the setup to support binary embeddings, which offer even more efficient storage and faster retrieval. more efficient storage and faster retrieval. Binary embeddings can significantly reduce storage requirements and improve search speed, making them ideal for large-scale applications.
+In this section, you'll extend the setup to support binary embeddings, which offer even more efficient storage and faster retrieval. Binary embeddings can significantly reduce storage requirements and improve search speed, making them ideal for large-scale applications.
 
-You don't need to modify the connector or model---only to update the vector index, ingest pipeline, and search pipeline.
+You don't need to modify the connector or model---you only need to update the vector index, ingest pipeline, and search pipeline.
 
 ### Step 5.1: Create an ingest pipeline
 
-Create a new ingest pipeline named `ml_inference_pipeline_cohere_binary` using the same configuration as in [Step 2](#step-2-create-an-ingest-pipeline), but replacing all occurrences of `int8` with `binary`.
+Create a new ingest pipeline named `ml_inference_pipeline_cohere_binary` by using the same configuration as in [Step 2](#step-2-create-an-ingest-pipeline) but replacing all occurrences of `int8` with `binary`.
 
 ### Option 1: Invoke the model separately for `title` and `description`
 
@@ -694,7 +694,7 @@ PUT books_binary_embedding
 ```
 {% include copy-curl.html %}
 
-Ingest test data into index:
+Ingest test data into the index:
 
 ```json
 POST _bulk
@@ -709,10 +709,10 @@ POST _bulk
 
 ### Step 5.3: Create a search pipeline
 
-Create a new search pipeline named `ml_inference_pipeline_cohere_search_binary` using the same configuration as in [Step 2](#step-4-search-the-index), but replacing all occurrences of `int8` with `binary`.
+Create a new search pipeline named `ml_inference_pipeline_cohere_search_binary` by using the same configuration as in [Step 2](#step-4-search-the-index) but replacing all occurrences of `int8` with `binary`.
 
-1. change `embeddings.int8[0]` to `embeddings.binary[0]`
-1. change `"embedding_types": ["int8"]` to `"embedding_types": ["binary"]`
+1. Change `embeddings.int8[0]` to `embeddings.binary[0]`.
+1. Change `"embedding_types": ["int8"]` to `"embedding_types": ["binary"]`.
 
 ### Using a template query and a search pipeline
 
@@ -797,4 +797,4 @@ PUT _search/pipeline/ml_inference_pipeline_cohere_search_binary2
 ```
 {% include copy-curl.html %}
 
-Then you can use the search pipeline to run vector search the same way as in [Step 4](#step-4-search-the-index).
+Then you can use the search pipeline to run a vector search, as described in [Step 4](#step-4-search-the-index).

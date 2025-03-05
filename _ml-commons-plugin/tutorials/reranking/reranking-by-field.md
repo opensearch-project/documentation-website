@@ -10,7 +10,7 @@ redirect_from:
 
 # Reranking search results by a field
 
-Starting with OpenSearch 2.18, you can rerank search [results by a field]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/#the-by_field-rerank-type). This feature is useful when your documents include a field that is particularly important, or when you want to rerank results from an externally hosted model.
+Starting with OpenSearch 2.18, you can rerank search [results by a field]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/#the-by_field-rerank-type). This feature is useful when your documents include a field that is particularly important or when you want to rerank results from an externally hosted model.
 
 This tutorial explains how to use the [Cohere Rerank](https://docs.cohere.com/reference/rerank-1) model to rerank search results by a field in self-managed OpenSearch and in [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/).
 
@@ -278,7 +278,7 @@ Note the connector ID; you'll use it in the next step.
 
 ## Step 2: Register the Cohere Rerank model
 
-After successfully creating a connector using either the self-managed OpenSearch or Amazon OpenSearch Service method in the previous sections, you can now register the Cohere Rerank model. 
+After successfully creating a connector using either the self-managed OpenSearch or Amazon OpenSearch Service method, you can register the Cohere Rerank model. 
 
 Use the connector ID from Step 1 to create a model:
 
@@ -362,7 +362,7 @@ The response contains the matching documents:
 }
 ```
 
-For each document, a score is assigned by the rerank model. Now, you'll create a search pipeline that invokes the Cohere model and reorders the search results based on their relevance score.
+For each document, a score is assigned by the rerank model. Now you'll create a search pipeline that invokes the Cohere model and reorders the search results based on their relevance score.
 
 ## Step 3: Rerank the search results
 
@@ -440,10 +440,9 @@ PUT /_search/pipeline/cohere_pipeline
 ```
 {% include copy-curl.html %}
 
-
 ### Step 3.3: Test the pipeline
 
-To test the pipeline, send a query related to the indexed documents and set `top_n` to a value greater than or equal to `size`.
+To test the pipeline, send a query related to the indexed documents and set `top_n` to a value greater than or equal to `size`:
 
 ```json
 GET nyc_facts/_search?search_pipeline=cohere_pipeline
@@ -463,7 +462,6 @@ GET nyc_facts/_search?search_pipeline=cohere_pipeline
 }
 ```
 {% include copy-curl.html %}
-
 
 The response contains the reranked documents:
 
@@ -547,5 +545,5 @@ The response contains the reranked documents:
 }
 ```
 
-When evaluating the reranking results, focus on the `result_document` field and its corresponding `relevance_score`. The `fact_description` field shows the original document text and does not reflect the reranking order.
+When evaluating the reranked results, focus on the `result_document` field and its corresponding `relevance_score`. The `fact_description` field shows the original document text and does not reflect the reranking order.
 {: .note}

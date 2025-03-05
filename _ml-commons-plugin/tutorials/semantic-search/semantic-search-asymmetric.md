@@ -8,14 +8,14 @@ nav_order: 80
 
 # Semantic search using an asymmetric embedding model
 
-This tutorial shows you how to generate text embeddings using an asymmetric embedding model and perform a semantic search. The tutorial uses the multilingual `intfloat/multilingual-e5-small` model from Hugging Face. 
+This tutorial shows you how to perform semantic search by generating text embeddings using an asymmetric embedding model. The tutorial uses the multilingual `intfloat/multilingual-e5-small` model from Hugging Face. 
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}
 
 ## Step 1: Update cluster settings
 
-To configure your cluster to allow registering models using external URLsand running models on non-ML nodes, send the following request:
+To configure your cluster to allow you to register models using external URLs and run models on non-machine learning (ML) nodes, send the following request:
 
 ```json
 PUT _cluster/settings
@@ -30,7 +30,7 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-## Step 2: Prepare the model for OpenSearch
+## Step 2: Prepare the model for use in OpenSearch
 
 In this tutorial, you’ll use the Hugging Face `intfloat/multilingual-e5-small` model. Follow these steps to prepare and compress the model into a zip file for use in OpenSearch.
 
@@ -38,7 +38,7 @@ In this tutorial, you’ll use the Hugging Face `intfloat/multilingual-e5-small`
 
 To download the model, use the following steps:
 
-1. Install Git Large File Storage (LFS) if you haven’t already:
+1. Install Git Large File Storage (LFS), if you haven't already:
 
    ```bash
    git lfs install
@@ -58,7 +58,7 @@ The model files are now downloaded into a directory on your local machine.
 
 To upload the model to OpenSearch, you must compress the necessary model files (`model.onnx`, `sentencepiece.bpe.model`, and `tokenizer.json`). You can find these files in the `onnx` directory of the cloned repository.
 
-To compress the files, run the following command in the directory containing these files:
+To compress the files, run the following command in the directory containing them:
 
 ```bash
 zip -r intfloat-multilingual-e5-small-onnx.zip model.onnx tokenizer.json sentencepiece.bpe.model
@@ -152,7 +152,7 @@ POST /_plugins/_ml/models/your_model_id/_deploy
 ```
 {% include copy-curl.html %}
 
-Check the status of the deployment using the task ID:
+Use the task ID to check the status of the deployment:
 
 ```json
 GET /_plugins/_ml/tasks/your_task_id
@@ -458,7 +458,7 @@ GET /nyc_facts/_search?search_pipeline=asymmetric_embedding_search_pipeline
 }
 ```
 
-The response contains the top 3 matching documents: 
+The response contains the top three matching documents: 
 
 ```json
 {
