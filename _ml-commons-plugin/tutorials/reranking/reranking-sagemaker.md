@@ -17,7 +17,7 @@ Replace the placeholders beginning with the prefix `your_` with your own values.
 
 ## Prerequisite: Deploy the model to Amazon SageMaker
 
-Use the following code to deploy the model to Amazon SageMaker. We suggest using a GPU for better performance. For more information, see [How to deploy this model using Amazon SageMaker](https://huggingface.co/BAAI/bge-reranker-v2-m3?sagemaker_deploy=true):  
+Use the following code to deploy the model to Amazon SageMaker. We suggest using a GPU for better performance:  
 
 ```python
 import json
@@ -51,6 +51,8 @@ predictor = huggingface_model.deploy(
   )
 ```
 {% include copy.html %}
+
+For more information, see [How to deploy this model using Amazon SageMaker](https://huggingface.co/BAAI/bge-reranker-v2-m3?sagemaker_deploy=true).
 
 To perform a reranking test, use the following code:
 
@@ -213,7 +215,7 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-If you are using Amazon OpenSearch service, you can provide an AWS Identity and Access Management (IAM) role Amazon Resource Name (ARN) that allows access to the SageMaker model inference endpoint. For more information, see the [AWS documentation](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ml-amazon-connector.html), [this tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-sagemaker/), and [the AIConnectorHelper notebook](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/tutorials/aws/AIConnectorHelper.ipynb):
+If you are using Amazon OpenSearch service, you can provide an AWS Identity and Access Management (IAM) role Amazon Resource Name (ARN) that allows access to the SageMaker model inference endpoint:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -287,6 +289,8 @@ POST /_plugins/_ml/connectors/_create
 }
 ```
 {% include copy-curl.html %}
+
+For more information, see the [AWS documentation](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ml-amazon-connector.html), [this tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-sagemaker/), and [the AIConnectorHelper notebook](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/tutorials/aws/AIConnectorHelper.ipynb).
 
 Use the connector ID from the response to register and deploy the model:
 

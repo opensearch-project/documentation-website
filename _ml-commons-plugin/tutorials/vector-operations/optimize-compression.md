@@ -32,8 +32,7 @@ Create a connector for the embedding model using [this blueprint](https://github
 Because you'll use the [ML inference processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/ml-inference/) in this tutorial, you don't need to specify a pre- or post-processing function in the connector.
 {: .note}
 
-To create a connector, send the following request. The `"embedding_types": ["int8"]` parameter specifies 8-bit integer quantized embeddings from the Cohere model. This setting compresses embeddings from 32-bit floats to 8-bit integers, reducing storage space and improving computation speed. While there is a slight trade-off in precision, it is typically negligible for search tasks. These quantized embeddings are compatible with OpenSearch's `knn_index`, which supports byte vectors.
-For more information about the model parameters, see the [Cohere documentation](https://docs.cohere.com/v2/docs/embeddings) and the [Amazon Bedrock documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-embed.html):
+To create a connector, send the following request. The `"embedding_types": ["int8"]` parameter specifies 8-bit integer quantized embeddings from the Cohere model. This setting compresses embeddings from 32-bit floats to 8-bit integers, reducing storage space and improving computation speed. While there is a slight trade-off in precision, it is typically negligible for search tasks. These quantized embeddings are compatible with OpenSearch's `knn_index`, which supports byte vectors:
 
 ```json
 POST _plugins/_ml/connectors/_create
@@ -72,6 +71,8 @@ POST _plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
+For more information about the model parameters, see the [Cohere documentation](https://docs.cohere.com/v2/docs/embeddings) and the [Amazon Bedrock documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-embed.html)
+
 The response contains the connector ID:
 
 ```json
@@ -84,7 +85,7 @@ Note the connector ID; you'll use it in the next step.
 
 ### Step 1.2: Register the model
 
-Next, register the model using the connector you created in the previous step. The `interface` parameter is optional. If the model does not require a specific interface configuration, set this parameter to an empty object: `"interface": {}`. For more information, see the [model interface documentation]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/#the-interface-parameter):
+Next, register the model using the connector you created in the previous step. The `interface` parameter is optional. If the model does not require a specific interface configuration, set this parameter to an empty object: `"interface": {}`:
 
 ```json
 POST _plugins/_ml/models/_register?deploy=true
@@ -101,6 +102,8 @@ POST _plugins/_ml/models/_register?deploy=true
 }
 ```
 {% include copy-curl.html %}
+
+For more information, see the [model interface documentation]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/#the-interface-parameter)
 
 The response contains the model ID:
 
@@ -655,7 +658,7 @@ PUT _ingest/pipeline/ml_inference_pipeline_cohere
 
 ### Step 5.2: Create a vector index and ingest data
 
-Create a new vector index containing a [binary vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-vectors) field. For more information about binary vectors, see [Binary vectors](https://opensearch.org/docs/latest/field-types/supported-field-types/knn-vector#binary-vectors):
+Create a new vector index containing a [binary vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#binary-vectors) field:
 
 ```json
 PUT books_binary_embedding
