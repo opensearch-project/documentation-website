@@ -197,7 +197,7 @@ To migrate only specific types and keep the original structure, use the followin
 ```
 {% include copy.html %}
 
-This is equivalent to the strategy of merging all types into one index but uses a pattern-based routing strategy.
+This is equivalent to the strategy of merging all types into one index but also uses a pattern-based routing strategy.
 
 ### Combining multiple strategies
 
@@ -273,6 +273,7 @@ This has the effect of retaining the index name for indexes created in Elasticse
 
 ## Limitations
 
+When using the transformer, remember the following limitations.
 When using the transformer, remember the following limitations.
 ### Traffic Replayer
 
