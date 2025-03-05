@@ -1,0 +1,22 @@
+<div class="numbered-list">
+  {% if include.list_title %}
+    <div class="heading">{{ include.list_title }}</div>
+  {% endif %}
+    {% assign counter = 0 %}
+    {% for item in include.list_items %}
+      {% assign counter = counter | plus: 1 %}
+      <div class="list-item">
+        <div class="number-circle">{{ counter }}</div>
+        <div class="list-content">
+          <div class="list-heading">
+            {% if item.link %}
+              <a href="{{ site.url }}{{ site.baseurl }}{{ item.link }}">{{ item.heading }}</a>
+            {% else %}
+              {{ item.heading }}
+            {% endif %} 
+          </div>
+          <p class="description">{{ item.description | markdownify }}</p>
+        </div>
+      </div>
+    {% endfor %}
+</div>

@@ -52,7 +52,7 @@ We recommend the following combinations for optimal performance:
 - Use the `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v2-distill` model during ingestion and the
 `amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1` tokenizer during search.
 
-For more information about the preceding options for running neural sparse search, see [Generating sparse vector embeddings within OpenSearch]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-with-pipelines/).
+For more information about the preceding options for running neural sparse search, see [Generating sparse vector embeddings automatically]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-with-pipelines/).
 
 The following table provides a list of sparse encoding models and artifact links you can use to download them.
 

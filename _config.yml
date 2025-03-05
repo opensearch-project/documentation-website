@@ -124,6 +124,9 @@ collections:
   workspace:
     permalink: /:collection/:path/
     output: true
+  vector-search:
+    permalink: /:collection/:path/
+    output: true
 
 opensearch_collection:
   # Define the collections used in the theme
@@ -172,6 +175,9 @@ opensearch_collection:
       nav_fold: true
     search-plugins:
       name: Search features
+      nav_fold: true
+    vector-search:
+      name: Vector search 
       nav_fold: true
     ml-commons-plugin:
       name: Machine learning
