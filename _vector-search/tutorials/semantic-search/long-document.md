@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Semantic search using an asymmetric embedding model
+title: Semantic search using text chunking
 parent: Semantic search
 grand_parent: Tutorials
 nav_order: 90
