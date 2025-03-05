@@ -34,7 +34,7 @@ ML Commons provides its own set of REST APIs. For more information, see [ML Comm
 
 ## ML-powered search
 
-For information about available ML-powered search types, see [ML-powered search]({{site.url}}{{site.baseurl}}/search-plugins/index/#ml-powered-search).
+For information about available ML-powered search types, see [Vector search]({{site.url}}{{site.baseurl}}/vector-search/).
 
 ## Tutorials
 
