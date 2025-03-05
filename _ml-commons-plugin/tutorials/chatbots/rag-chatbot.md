@@ -12,7 +12,7 @@ redirect_from:
 
 One of the known limitations of large language models (LLMs) is that their knowledge base only contains information from the period of time during which they were trained. LLMs have no knowledge of recent events or of your internal data. You can augment the LLM knowledge base by using retrieval-augmented generation (RAG).
 
-This tutorial illustrates how to build your own chatbot using [agents and tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/) and RAG. RAG supplements the LLM knowledge base with information contained in OpenSearch indexes.
+This tutorial shows you how to build your own chatbot using [agents and tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/) and RAG. RAG supplements the LLM knowledge base with information contained in OpenSearch indexes.
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}

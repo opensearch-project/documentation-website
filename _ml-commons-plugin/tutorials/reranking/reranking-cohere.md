@@ -12,7 +12,7 @@ redirect_from:
 
 A [reranking pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/) can rerank search results, providing a relevance score for each document in the search results with respect to the search query. The relevance score is calculated by a cross-encoder model. 
 
-This tutorial illustrates how to use the [Cohere Rerank](https://docs.cohere.com/reference/rerank-1) model in a reranking pipeline. 
+This tutorial shows you how to use the [Cohere Rerank](https://docs.cohere.com/reference/rerank-1) model in a reranking pipeline. 
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}
