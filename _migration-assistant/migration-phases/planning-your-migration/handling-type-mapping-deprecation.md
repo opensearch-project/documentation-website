@@ -78,8 +78,8 @@ The following example JSON configuration provides a transformation schema:
     }
   }
 }
-{% include copy.html %}
 ```
+{% include copy.html %}
 
 </details>
 
