@@ -10,7 +10,7 @@ redirect_from:
 
 # Generating embeddings from arrays of objects
 
-This tutorial illustrates how to generate embeddings for arrays of objects.
+This tutorial shows you how to generate embeddings for arrays of objects.
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}

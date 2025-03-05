@@ -10,7 +10,7 @@ redirect_from:
 
 # Conversational search using Cohere Command
 
-This tutorial illustrates how to configure conversational search using the Cohere Command model. For more information, see [Conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/).
+This tutorial shows you how to configure conversational search using the Cohere Command model. For more information, see [Conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/).
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}
