@@ -171,9 +171,9 @@ The `date_dimension` can support up to three of the following calendar intervals
 - `minute` (of hour)
 - `second` (of minute)
 
-The `date_dimension` uses the following behaviors:
 
-- Any values in the `date` field are rounded based on the granularity associated with the calendar intervals provided. For example: 
+Any values in the `date` field are rounded based on the granularity associated with the calendar intervals provided. For example: 
+
 - The default `calendar_intervals` are `minute` and `half-hour`.
 - During queries, the nearest granular intervals are automatically picked up. For example, if you have configured `hour` and `minute` as the `calendar_intervals` and your query is a monthly date histogram, the `hour` interval will be automatically selected so that the query computes the results in an optimized way.
 - To support time-zone-based queries, `:30` equals a `half-hour` interval and `:15` equals a `quarter-hour` interval.
