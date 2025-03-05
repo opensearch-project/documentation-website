@@ -1,115 +1,95 @@
 ---
 layout: default
-title: Reranking search results using Amazon Bedrock models
+title: Reranking search results using a reranker in Amazon SageMaker
 parent: Reranking search results
 grand_parent: Tutorials
-nav_order: 100
-redirect_from:
-  - /ml-commons-plugin/tutorials/reranking-bedrock/
+nav_order: 115
 ---
 
-# Reranking search results using Amazon Bedrock models
+# Reranking search results using a reranker in Amazon SageMaker
 
-A [reranking pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/) can rerank search results, providing a relevance score for each document in the search results with respect to the search query. The relevance score is calculated by a cross-encoder model. 
+A [reranking pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/) can rerank search results, providing a relevance score for each document in the search results with respect to the search query. The relevance score is calculated by a reranker model. 
 
-This tutorial shows you how to use the [Amazon Bedrock Rerank API](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent-runtime_Rerank.html) to rerank search results using a model hosted on Amazon Bedrock. 
+This tutorial shows you how to rerank search results in self-managed OpenSearch and [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/). The tutorial uses the [Hugging Face BAAI/bge-reranker-v2-m3](https://huggingface.co/BAAI/bge-reranker-v2-m3) model hosted on Amazon SageMaker.
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}
 
-## Prerequisite: Test the model on Amazon Bedrock
+## Prerequisite: Deploy the model to Amazon SageMaker
 
-Before using your model, test it on Amazon Bedrock. For supported reranker models, see [Supported Regions and models for reranking in Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/rerank-supported.html). For model IDs, see [Supported foundation models in Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html). To perform a reranking test, use the following code:
+Use the following code to deploy the model to Amazon SageMaker. We suggest using a GPU for better performance:  
 
 ```python
 import json
+import sagemaker
 import boto3
-bedrock_region = "your_bedrock_model_region_like_us-west-2"
-bedrock_agent_runtime_client = boto3.client("bedrock-agent-runtime", region_name=bedrock_region)
+from sagemaker.huggingface import HuggingFaceModel, get_huggingface_llm_image_uri
+from sagemaker.serverless import ServerlessInferenceConfig
 
-model_id = "amazon.rerank-v1:0"
+try:
+	role = sagemaker.get_execution_role()
+except ValueError:
+	iam = boto3.client('iam')
+	role = iam.get_role(RoleName='sagemaker_execution_role')['Role']['Arn']
 
-response = bedrock_agent_runtime_client.rerank(
-    queries=[
-        {
-            "textQuery": {
-                "text": "What is the capital city of America?",
-            },
-            "type": "TEXT"
-        }
-    ],
-    rerankingConfiguration={
-        "bedrockRerankingConfiguration": {
-            "modelConfiguration": {
-                "modelArn": f"arn:aws:bedrock:{bedrock_region}::foundation-model/{model_id}"
-            },
-        },
-        "type": "BEDROCK_RERANKING_MODEL"
-    },
-    sources=[
-        {
-            "inlineDocumentSource": {
-                "textDocument": {
-                    "text": "Carson City is the capital city of the American state of Nevada.",
-                },
-                "type": "TEXT"
-            },
-            "type": "INLINE"
-        },
-        {
-            "inlineDocumentSource": {
-                "textDocument": {
-                    "text": "The Commonwealth of the Northern Mariana Islands is a group of islands in the Pacific Ocean. Its capital is Saipan.",
-                },
-                "type": "TEXT"
-            },
-            "type": "INLINE"
-        },
-        {
-            "inlineDocumentSource": {
-                "textDocument": {
-                    "text": "Washington, D.C. (also known as simply Washington or D.C., and officially as the District of Columbia) is the capital of the United States. It is a federal district.",
-                },
-                "type": "TEXT"
-            },
-            "type": "INLINE"
-        },
-        {
-            "inlineDocumentSource": {
-                "textDocument": {
-                    "text": "Capital punishment (the death penalty) has existed in the United States since beforethe United States was a country. As of 2017, capital punishment is legal in 30 of the 50 states."
-                },
-                "type": "TEXT"
-            },
-            "type": "INLINE"
-        },        
-    ]
+# Hub Model configuration. https://huggingface.co/models
+hub = {
+	'HF_MODEL_ID':'BAAI/bge-reranker-v2-m3'
+}
+
+# create Hugging Face Model Class
+huggingface_model = HuggingFaceModel(
+	image_uri=get_huggingface_llm_image_uri("huggingface-tei",version="1.2.3"),
+	env=hub,
+	role=role, 
 )
 
-results = response["results"]
-print(json.dumps(results, indent=2))
+# deploy model to SageMaker Inference
+predictor = huggingface_model.deploy(
+	initial_instance_count=1,
+	instance_type="ml.g5.2xlarge",
+  )
 ```
 {% include copy.html %}
 
-The reranked results are ordered by the highest score:
+For more information, see [How to deploy this model using Amazon SageMaker](https://huggingface.co/BAAI/bge-reranker-v2-m3?sagemaker_deploy=true).
+
+To perform a reranking test, use the following code:
+
+```python
+result = predictor.predict(data={
+    "query":"What is the capital city of America?",
+    "texts":[
+        "Carson City is the capital city of the American state of Nevada.",
+        "The Commonwealth of the Northern Mariana Islands is a group of islands in the Pacific Ocean. Its capital is Saipan.",
+        "Washington, D.C. (also known as simply Washington or D.C., and officially as the District of Columbia) is the capital of the United States. It is a federal district.",
+        "Capital punishment (the death penalty) has existed in the United States since beforethe United States was a country. As of 2017, capital punishment is legal in 30 of the 50 states."
+    ]
+})
+
+print(json.dumps(result, indent=2))
+```
+{% include copy.html %}
+
+The response contains the reranked results ordered by relevance score:
 
 ```json
 [
   {
     "index": 2,
-    "relevanceScore": 0.7711548805236816
+    "score": 0.92879725
   },
   {
     "index": 0,
-    "relevanceScore": 0.0025114635936915874
+    "score": 0.013636836
   },
   {
     "index": 1,
-    "relevanceScore": 2.4876489987946115e-05
+    "score": 0.000593021
   },
   {
     "index": 3,
-    "relevanceScore": 6.339210358419223e-06
+    "score": 0.00012148176
   }
 ]
 ```
@@ -117,47 +97,54 @@ The reranked results are ordered by the highest score:
 To sort the results by index, use the following code:
 
 ```python
-print(json.dumps(sorted(results, key=lambda x: x['index']),indent=2))
+print(json.dumps(sorted(result, key=lambda x: x['index']),indent=2))
 ```
+{% include copy.html %}
 
-The following are the results sorted by index:
+The sorted results are as follows:
 
 ```json
 [
   {
     "index": 0,
-    "relevanceScore": 0.0025114635936915874
+    "score": 0.013636836
   },
   {
     "index": 1,
-    "relevanceScore": 2.4876489987946115e-05
+    "score": 0.000593021
   },
   {
     "index": 2,
-    "relevanceScore": 0.7711548805236816
+    "score": 0.92879725
   },
   {
     "index": 3,
-    "relevanceScore": 6.339210358419223e-06
+    "score": 0.00012148176
   }
 ]
 ```
 
+Note the model inference endpoint; you'll use it to create a connector in the next step. You can confirm the inference endpoint URL using the following code:
+
+```python
+region_name = boto3.Session().region_name
+endpoint_name = predictor.endpoint_name
+endpoint_url = f"https://runtime.sagemaker.{region_name}.amazonaws.com/endpoints/{endpoint_name}/invocations"
+print(endpoint_url)
+```
+{% include copy.html %}
+
 ## Step 1: Create a connector and register the model
 
-To create a connector and register the model, use the following steps.
-
-### Step 1.1: Create a connector for the model
-
-First, create a connector for the model. 
+To create a connector for the model, send the following request. 
 
 If you are using self-managed OpenSearch, supply your AWS credentials:
 
 ```json
 POST /_plugins/_ml/connectors/_create
 {
-  "name": "Amazon Bedrock Rerank API",
-  "description": "Test connector for Amazon Bedrock Rerank API",
+  "name": "Sagemakre cross-encoder model",
+  "description": "Test connector for Sagemaker cross-encoder model",
   "version": 1,
   "protocol": "aws_sigv4",
   "credential": {
@@ -166,113 +153,179 @@ POST /_plugins/_ml/connectors/_create
     "session_token": "your_session_token"
   },
   "parameters": {
-    "service_name": "bedrock",
-    "endpoint": "bedrock-agent-runtime",
-    "region": "your_bedrock_model_region_like_us-west-2",
-    "api_name": "rerank",
-    "model_id": "amazon.rerank-v1:0"
+    "region": "your_sagemaker_model_region_like_us-west-2",
+    "service_name": "sagemaker"
   },
   "actions": [
     {
-      "action_type": "PREDICT",
+      "action_type": "predict",
       "method": "POST",
-      "url": "https://${parameters.endpoint}.${parameters.region}.amazonaws.com/${parameters.api_name}",
+      "url": "your_sagemaker_model_inference_endpoint_created_in_last_step",
       "headers": {
-        "x-amz-content-sha256": "required",
         "content-type": "application/json"
       },
-      "pre_process_function": "connector.pre_process.bedrock.rerank",
+      "pre_process_function": """
+        def query_text = params.query_text;
+        def text_docs = params.text_docs;
+        def textDocsBuilder = new StringBuilder('[');
+        for (int i=0; i<text_docs.length; i++) {
+          textDocsBuilder.append('"');
+          textDocsBuilder.append(text_docs[i]);
+          textDocsBuilder.append('"');
+          if (i<text_docs.length - 1) {
+            textDocsBuilder.append(',');
+          }
+        }
+        textDocsBuilder.append(']');
+        def parameters = '{ "query": "' + query_text + '",  "texts": ' + textDocsBuilder.toString() + ' }';
+        return  '{"parameters": ' + parameters + '}';
+      """,
       "request_body": """
-        {
-          "queries": ${parameters.queries},
-          "rerankingConfiguration": {
-            "bedrockRerankingConfiguration": {
-              "modelConfiguration": {
-                "modelArn": "arn:aws:bedrock:${parameters.region}::foundation-model/${parameters.model_id}"
-              }
-            },
-            "type": "BEDROCK_RERANKING_MODEL"
-          },
-          "sources": ${parameters.sources}
+        { 
+          "query": "${parameters.query}",
+          "texts": ${parameters.texts}
         }
       """,
-      "post_process_function": "connector.post_process.bedrock.rerank"
+      "post_process_function": """
+        if (params.result == null || params.result.length == 0) {
+          throw new IllegalArgumentException("Post process function input is empty.");
+        }
+        def outputs = params.result;
+        def scores = new Double[outputs.length];
+        for (int i=0; i<outputs.length; i++) {
+          def index = new BigDecimal(outputs[i].index.toString()).intValue();
+          scores[index] = outputs[i].score;
+        }
+        def resultBuilder = new StringBuilder('[');
+        for (int i=0; i<scores.length; i++) {
+          resultBuilder.append(' {"name": "similarity", "data_type": "FLOAT32", "shape": [1],');
+          resultBuilder.append('"data": [');
+          resultBuilder.append(scores[i]);
+          resultBuilder.append(']}');
+          if (i<outputs.length - 1) {
+            resultBuilder.append(',');
+          }
+        }
+        resultBuilder.append(']');
+        return resultBuilder.toString();
+      """
     }
   ]
 }
 ```
 {% include copy-curl.html %}
 
-If you are using Amazon OpenSearch Service, you can provide an AWS Identity and Access Management (IAM) role Amazon Resource Name (ARN) that allows access to Amazon Bedrock. For more information, see the [AWS documentation](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ml-amazon-connector.html). Use the following request to create a connector:
+If you are using Amazon OpenSearch service, you can provide an AWS Identity and Access Management (IAM) role Amazon Resource Name (ARN) that allows access to the SageMaker model inference endpoint:
 
 ```json
 POST /_plugins/_ml/connectors/_create
 {
-  "name": "Amazon Bedrock Rerank API",
-  "description": "Test connector for Amazon Bedrock Rerank API",
+  "name": "Sagemakre cross-encoder model",
+  "description": "Test connector for Sagemaker cross-encoder model",
   "version": 1,
   "protocol": "aws_sigv4",
   "credential": {
-    "roleArn": "your_role_arn_which_allows_access_to_bedrock_agent_runtime_rerank_api"
+    "roleArn": "your_role_arn_which_allows_access_to_sagemaker_model_inference_endpoint"
   },
   "parameters": {
-    "service_name": "bedrock",
-    "endpoint": "bedrock-agent-runtime",
-    "region": "your_bedrock_model_region_like_us-west-2",
-    "api_name": "rerank",
-    "model_id": "amazon.rerank-v1:0"
+    "region": "your_sagemkaer_model_region_like_us-west-2",
+    "service_name": "sagemaker"
   },
   "actions": [
     {
-      "action_type": "PREDICT",
+      "action_type": "predict",
       "method": "POST",
-      "url": "https://${parameters.endpoint}.${parameters.region}.amazonaws.com/${parameters.api_name}",
+      "url": "your_sagemaker_model_inference_endpoint_created_in_last_step",
       "headers": {
-        "x-amz-content-sha256": "required",
         "content-type": "application/json"
       },
-      "pre_process_function": "connector.pre_process.bedrock.rerank",
+      "pre_process_function": """
+        def query_text = params.query_text;
+        def text_docs = params.text_docs;
+        def textDocsBuilder = new StringBuilder('[');
+        for (int i=0; i<text_docs.length; i++) {
+          textDocsBuilder.append('"');
+          textDocsBuilder.append(text_docs[i]);
+          textDocsBuilder.append('"');
+          if (i<text_docs.length - 1) {
+            textDocsBuilder.append(',');
+          }
+        }
+        textDocsBuilder.append(']');
+        def parameters = '{ "query": "' + query_text + '",  "texts": ' + textDocsBuilder.toString() + ' }';
+        return  '{"parameters": ' + parameters + '}';
+      """,
       "request_body": """
-        {
-          "queries": ${parameters.queries},
-          "rerankingConfiguration": {
-            "bedrockRerankingConfiguration": {
-              "modelConfiguration": {
-                "modelArn": "arn:aws:bedrock:${parameters.region}::foundation-model/${parameters.model_id}"
-              }
-            },
-            "type": "BEDROCK_RERANKING_MODEL"
-          },
-          "sources": ${parameters.sources}
+        { 
+          "query": "${parameters.query}",
+          "texts": ${parameters.texts}
         }
       """,
-      "post_process_function": "connector.post_process.bedrock.rerank"
+      "post_process_function": """
+        if (params.result == null || params.result.length == 0) {
+          throw new IllegalArgumentException("Post process function input is empty.");
+        }
+        def outputs = params.result;
+        def scores = new Double[outputs.length];
+        for (int i=0; i<outputs.length; i++) {
+          def index = new BigDecimal(outputs[i].index.toString()).intValue();
+          scores[index] = outputs[i].score;
+        }
+        def resultBuilder = new StringBuilder('[');
+        for (int i=0; i<scores.length; i++) {
+          resultBuilder.append(' {"name": "similarity", "data_type": "FLOAT32", "shape": [1],');
+          resultBuilder.append('"data": [');
+          resultBuilder.append(scores[i]);
+          resultBuilder.append(']}');
+          if (i<outputs.length - 1) {
+            resultBuilder.append(',');
+          }
+        }
+        resultBuilder.append(']');
+        return resultBuilder.toString();
+      """
     }
   ]
 }
 ```
 {% include copy-curl.html %}
 
-### Step 1.2: Register and deploy the model
+For more information, see the [AWS documentation](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ml-amazon-connector.html), [this tutorial]({{site.url}}{{site.baseurl}}/vector-search/tutorials/semantic-search/semantic-search-sagemaker/), and [the AIConnectorHelper notebook](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/tutorials/aws/AIConnectorHelper.ipynb).
 
 Use the connector ID from the response to register and deploy the model:
 
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
 {
-  "name": "Amazon Bedrock Rerank API",
-  "function_name": "remote",
-  "description": "test Amazon Bedrock Rerank API",
-  "connector_id": "your_connector_id"
+    "name": "Sagemaker Cross-Encoder model",
+    "function_name": "remote",
+    "description": "test rerank model",
+    "connector_id": "your_connector_id"
 }
 ```
 {% include copy-curl.html %}
 
 Note the model ID in the response; you'll use it in the following steps.
 
-### Step 1.3: Test the model
-
 Test the model by using the Predict API:
+
+```json
+POST _plugins/_ml/models/your_model_id/_predict
+{
+  "parameters": {
+    "query": "What is the capital city of America?",
+    "texts": [
+      "Carson City is the capital city of the American state of Nevada.",
+      "The Commonwealth of the Northern Mariana Islands is a group of islands in the Pacific Ocean. Its capital is Saipan.",
+      "Washington, D.C. (also known as simply Washington or D.C., and officially as the District of Columbia) is the capital of the United States. It is a federal district.",
+      "Capital punishment (the death penalty) has existed in the United States since beforethe United States was a country. As of 2017, capital punishment is legal in 30 of the 50 states."
+    ]
+  }
+}
+```
+{% include copy-curl.html %}
+
+Alternatively, you can test the model as follows:
 
 ```json
 POST _plugins/_ml/_predict/text_similarity/your_model_id
@@ -288,91 +341,32 @@ POST _plugins/_ml/_predict/text_similarity/your_model_id
 ```
 {% include copy-curl.html %}
 
-Alternatively, you can test the model using the following query. This query bypasses the `pre_process_function` and calls the Rerank API directly:
+The connector `pre_process_function` transforms the input into the format required by the previously shown parameters.
 
-```json
-POST _plugins/_ml/models/your_model_id/_predict
-{
-  "parameters": {
-    "queries": [
-      {
-        "textQuery": {
-            "text": "What is the capital city of America?"
-        },
-        "type": "TEXT"
-      }
-    ],
-    "sources": [
-        {
-            "inlineDocumentSource": {
-                "textDocument": {
-                    "text": "Carson City is the capital city of the American state of Nevada."
-                },
-                "type": "TEXT"
-            },
-            "type": "INLINE"
-        },
-        {
-            "inlineDocumentSource": {
-                "textDocument": {
-                    "text": "The Commonwealth of the Northern Mariana Islands is a group of islands in the Pacific Ocean. Its capital is Saipan."
-                },
-                "type": "TEXT"
-            },
-            "type": "INLINE"
-        },
-        {
-            "inlineDocumentSource": {
-                "textDocument": {
-                    "text": "Washington, D.C. (also known as simply Washington or D.C., and officially as the District of Columbia) is the capital of the United States. It is a federal district."
-                },
-                "type": "TEXT"
-            },
-            "type": "INLINE"
-        },
-        {
-            "inlineDocumentSource": {
-                "textDocument": {
-                    "text": "Capital punishment (the death penalty) has existed in the United States since beforethe United States was a country. As of 2017, capital punishment is legal in 30 of the 50 states."
-                },
-                "type": "TEXT"
-            },
-            "type": "INLINE"
-        }
-    ]
-  }
-}
-```
-{% include copy-curl.html %}
-
-The connector `pre_process_function` transforms the input into the format required by the Predict API `parameters`.
-
-By default, the Amazon Bedrock Rerank API output is formatted as follows:
+By default, the model output has the following format:
 
 ```json
 [
   {
     "index": 2,
-    "relevanceScore": 0.7711548724998493
+    "score": 0.92879725
   },
   {
     "index": 0,
-    "relevanceScore": 0.0025114635138098534
+    "score": 0.013636836
   },
   {
     "index": 1,
-    "relevanceScore": 2.4876490010363496e-05
+    "score": 0.000593021
   },
   {
     "index": 3,
-    "relevanceScore": 6.339210403977635e-06
+    "score": 0.00012148176
   }
 ]
 ```
 
-The connector `post_process_function` transforms the model's output into a format that the [Reranker processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/) can interpret and orders the results by index. 
-
-The response contains four `similarity` outputs. For each `similarity` output, the `data` array contains a relevance score for each document against the query. The `similarity` outputs are provided in the order of the input documents; the first similarity result pertains to the first document:
+The connector `post_process_function` transforms the model's output into a format that the [rerank processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/) can interpret and orders the results by index. This adapted format is as follows:
 
 ```json
 {
@@ -386,7 +380,7 @@ The response contains four `similarity` outputs. For each `similarity` output, t
             1
           ],
           "data": [
-            0.0025114636
+            0.013636836
           ]
         },
         {
@@ -396,7 +390,7 @@ The response contains four `similarity` outputs. For each `similarity` output, t
             1
           ],
           "data": [
-            2.487649e-05
+            0.013636836
           ]
         },
         {
@@ -406,7 +400,7 @@ The response contains four `similarity` outputs. For each `similarity` output, t
             1
           ],
           "data": [
-            0.7711549
+            0.92879725
           ]
         },
         {
@@ -416,7 +410,7 @@ The response contains four `similarity` outputs. For each `similarity` output, t
             1
           ],
           "data": [
-            6.3392104e-06
+            0.00012148176
           ]
         }
       ],
@@ -426,13 +420,15 @@ The response contains four `similarity` outputs. For each `similarity` output, t
 }
 ```
 
-## Step 2: Create a reranking pipeline
+The response contains two `similarity` objects. For each `similarity` object, the `data` array contains a relevance score for each document with respect to the query. The `similarity` objects are provided in the order of the input documents---the first object pertains to the first document. 
 
-To create a reranking pipeline, use the following steps.
+## Step 2: Configure a reranking pipeline
+
+Follow these steps to configure a reranking pipeline.
 
 ### Step 2.1: Ingest test data
 
-Use the following request to ingest data into your index:
+Send a bulk request to ingest test data:
 
 ```json
 POST _bulk
@@ -449,12 +445,12 @@ POST _bulk
 
 ### Step 2.2: Create a reranking pipeline
 
-Create a reranking pipeline using the Amazon Bedrock reranking model:
+Create a reranking pipeline with the cross-encoder model:
 
 ```json
-PUT /_search/pipeline/rerank_pipeline_bedrock
+PUT /_search/pipeline/rerank_pipeline_sagemaker
 {
-    "description": "Pipeline for reranking with Bedrock rerank model",
+    "description": "Pipeline for reranking with Sagemaker cross-encoder model",
     "response_processors": [
         {
             "rerank": {
@@ -471,10 +467,12 @@ PUT /_search/pipeline/rerank_pipeline_bedrock
 ```
 {% include copy-curl.html %}
 
-If you provide multiple field names in `document_fields`, the values of all fields are first concatenated, after which reranking is performed.
+If you provide multiple field names in `document_fields`, the values of all fields are first concatenated, and then reranking is performed.
 {: .note}
 
-### Step 2.3: Test reranking
+### Step 2.3: Test the reranking
+
+To limit the number of returned results, you can specify the `size` parameter. For example, set `"size": 2` to return the top two documents.
 
 First, test the query without using the reranking pipeline:
 
@@ -588,7 +586,7 @@ The first document in the response is `Carson City is the capital city of the Am
 Next, test the query using the reranking pipeline:
 
 ```json
-POST my-test-data/_search?search_pipeline=rerank_pipeline_bedrock
+POST my-test-data/_search?search_pipeline=rerank_pipeline_sagemaker
 {
   "query": {
     "match": {
@@ -630,12 +628,12 @@ The first document in the response is `"Washington, D.C. (also known as simply W
       "value": 4,
       "relation": "eq"
     },
-    "max_score": 0.7711549,
+    "max_score": 0.92879725,
     "hits": [
       {
         "_index": "my-test-data",
         "_id": "3",
-        "_score": 0.7711549,
+        "_score": 0.92879725,
         "fields": {
           "passage_text": [
             "Washington, D.C. (also known as simply Washington or D.C., and officially as the District of Columbia) is the capital of the United States. It is a federal district."
@@ -652,7 +650,7 @@ The first document in the response is `"Washington, D.C. (also known as simply W
       {
         "_index": "my-test-data",
         "_id": "1",
-        "_score": 0.0025114636,
+        "_score": 0.013636836,
         "fields": {
           "passage_text": [
             "Carson City is the capital city of the American state of Nevada."
@@ -667,7 +665,7 @@ The first document in the response is `"Washington, D.C. (also known as simply W
       {
         "_index": "my-test-data",
         "_id": "2",
-        "_score": 02.487649e-05,
+        "_score": 0.013636836,
         "fields": {
           "passage_text": [
             "The Commonwealth of the Northern Mariana Islands is a group of islands in the Pacific Ocean. Its capital is Saipan."
@@ -683,7 +681,7 @@ The first document in the response is `"Washington, D.C. (also known as simply W
       {
         "_index": "my-test-data",
         "_id": "4",
-        "_score": 6.3392104e-06,
+        "_score": 0.00012148176,
         "fields": {
           "passage_text": [
             "Capital punishment (the death penalty) has existed in the United States since beforethe United States was a country. As of 2017, capital punishment is legal in 30 of the 50 states."
@@ -704,10 +702,10 @@ The first document in the response is `"Washington, D.C. (also known as simply W
 }
 ```
 
-You can reuse the same query by specifying the `query_text_path` instead of `query_text`:
+To avoid writing the query twice, use the `query_text_path` instead of `query_text`, as follows:
 
 ```json
-POST my-test-data/_search?search_pipeline=rerank_pipeline_bedrock
+POST my-test-data/_search?search_pipeline=rerank_pipeline_sagemaker
 {
   "query": {
     "match": {
@@ -731,4 +729,3 @@ POST my-test-data/_search?search_pipeline=rerank_pipeline_bedrock
 }
 ```
 {% include copy-curl.html %}
-

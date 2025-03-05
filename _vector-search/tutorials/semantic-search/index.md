@@ -49,7 +49,19 @@ semantic_search:
     list:
       - "<b>Platform:</b> OpenSearch, Amazon OpenSearch Service"
       - "<b>Model:</b> Custom"  
-      - "<b>Deployment:</b> Amazon SageMaker + CloudFormation" 
+      - "<b>Deployment:</b> Amazon SageMaker + CloudFormation"
+  - heading: Semantic search using an asymmetric model
+    link: /vector-search/tutorials/semantic-search/semantic-search-asymmetric/
+    list: 
+      - "<b>Platform:</b> OpenSearch"
+      - "<b>Model:</b> Hugging Face Multilingual-E5-small "  
+      - "<b>Deployment:</b> Local cluster"  
+  - heading: "Semantic search using text chunking"
+    link: /vector-search/tutorials/semantic-search/long-document/
+    list:
+      - "<b>Platform:</b> OpenSearch, Amazon OpenSearch Service"
+      - "<b>Model:</b> Amazon Titan Text Embeddings"  
+      - "<b>Deployment:</b> Amazon Bedrock"
 ---
 
 # Semantic search tutorials

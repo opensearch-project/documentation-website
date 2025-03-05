@@ -325,7 +325,7 @@ plugins.ml_commons.model_auto_redeploy.enable: true
 
 ### Values
 
-- Default value: true
+- Default value: `true`
 - Valid values: `false`, `true`
 
 ## Set retires for auto redeploy

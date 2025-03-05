@@ -16,8 +16,8 @@ conversational_search:
     - "<b>Deployment:</b> Provider API" 
 ---
 
-# Conversational search tutorials
+# Conversational search with RAG tutorials
 
-The following tutorials show you how to implement conversational search.
+The following tutorials show you how to implement conversational search with retrieval-augmented generation (RAG).
 
 {% include cards.html cards=page.conversational_search %}

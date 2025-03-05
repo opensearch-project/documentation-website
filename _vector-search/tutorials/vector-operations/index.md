@@ -20,6 +20,12 @@ vector_operations:
       - "<b>Model:</b> Cohere Embed"  
       - "<b>Deployment:</b> Provider API"  
     link: "/vector-search/tutorials/vector-operations/semantic-search-byte-vectors/"
+  - heading: "Optimizing vector search using Cohere compressed embeddings"
+    list:
+      - "<b>Platform:</b> OpenSearch"
+      - "<b>Model:</b> Cohere Embed Multilingual v3"  
+      - "<b>Deployment:</b> Amazon Bedrock"  
+    link: "/vector-search/tutorials/vector-operations/optimize-compression/"
 ---
 
 # Vector operation tutorials

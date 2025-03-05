@@ -14,6 +14,12 @@ reranking:
       - "<b>Platform:</b> OpenSearch"
       - "<b>Model:</b> Cohere Rerank"  
       - "<b>Deployment:</b> Provider API"  
+  - heading: Reranking search results using Cohere Rerank on Amazon Bedrock
+    link: /vector-search/tutorials/reranking/reranking-cohere-bedrock/
+    list:
+      - "<b>Platform:</b> OpenSearch, Amazon OpenSearch Service"
+      - "<b>Model:</b> Cohere Rerank"  
+      - "<b>Deployment:</b> Amazon Bedrock" 
   - heading: Reranking search results using Amazon Bedrock models
     link: /vector-search/tutorials/reranking/reranking-bedrock/
     list:
@@ -26,6 +32,18 @@ reranking:
       - "<b>Platform:</b> OpenSearch"
       - "<b>Model:</b> Hugging Face MS MARCO"  
       - "<b>Deployment:</b> Amazon SageMaker" 
+  - heading: Reranking search results using a reranker in Amazon SageMaker
+    link: /vector-search/tutorials/reranking/reranking-sagemaker/
+    list:
+      - "<b>Platform:</b> OpenSearch, Amazon OpenSearch Service"
+      - "<b>Model:</b> Hugging Face BAAI/bge-reranker"  
+      - "<b>Deployment:</b> Amazon SageMaker" 
+  - heading: Reranking search results by a field
+    link: /vector-search/tutorials/reranking/reranking-by-field/
+    list:
+      - "<b>Platform:</b> OpenSearch, Amazon OpenSearch Service"
+      - "<b>Model:</b> Cohere Rerank"  
+      - "<b>Deployment:</b> Provider API" 
 ---
 
 # Reranking search results tutorials

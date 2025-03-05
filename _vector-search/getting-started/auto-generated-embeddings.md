@@ -315,7 +315,7 @@ Once the workflow completes, the `state` changes to `COMPLETED`. The workflow ha
 }
 ```
 
-You can now continue with [steps 4 and 5](#step-4-ingest-documents-into-the-index-ingest-documents-into-the-index) to ingest documents into the index and search the index.
+You can now continue with [steps 4 and 5](#step-4-ingest-documents-into-the-index) to ingest documents into the index and search the index.
 
 ## Next steps
 

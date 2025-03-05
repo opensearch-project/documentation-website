@@ -10,7 +10,7 @@ redirect_from:
 
 # Amazon Bedrock model guardrails 
 
-This tutorial demonstrates how to apply Amazon Bedrock guardrails to your externally hosted models in two ways:
+This tutorial shows you how to apply Amazon Bedrock guardrails to your externally hosted models in two ways:
 
 - [Using the Amazon Bedrock Guardrails standalone API](#using-the-amazon-bedrock-guardrails-standalone-api)
 - [Using guardrails embedded in the Amazon Bedrock Model Inference API](#using-guardrails-embedded-in-the-amazon-bedrock-model-inference-api)
