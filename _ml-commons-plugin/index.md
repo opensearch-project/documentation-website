@@ -45,11 +45,11 @@ algorithms:
 
 # Machine learning
 
-OpenSearch offers two distinct approaches to machine learning: using ML models for tasks like semantic search and text generation, and running statistical algorithms for data analysis. Choose the approach that best fits your use case.
+OpenSearch offers two distinct approaches to machine learning (ML): using ML models for tasks like semantic search and text generation, and running statistical algorithms for data analysis. Choose the approach that best fits your use case.
 
 ## ML models for search and AI/ML-powered applications
 
-OpenSearch supports machine learning (ML) models that you can use to enhance search relevance through semantic understanding. You can either deploy models directly within your OpenSearch cluster or connect to models hosted on external platforms. These models can transform text into vector embeddings, enabling semantic search capabilities, or provide advanced features like text generation and question answering. For more information, see [Integrating ML models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/).
+OpenSearch supports ML models that you can use to enhance search relevance through semantic understanding. You can either deploy models directly within your OpenSearch cluster or connect to models hosted on external platforms. These models can transform text into vector embeddings, enabling semantic search capabilities, or provide advanced features like text generation and question answering. For more information, see [Integrating ML models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/).
 
 {% include cards.html cards=page.models %}
 
