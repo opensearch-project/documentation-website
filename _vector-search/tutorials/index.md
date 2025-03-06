@@ -152,7 +152,7 @@ rag:
       - "<b>Deployment:</b> Amazon SageMaker"  
 chatbots:
   - heading: RAG chatbot
-    link: vector-search/tutorials/chatbots/rag-chatbot/
+    link: /vector-search/tutorials/chatbots/rag-chatbot/
     list:
       - "<b>Platform:</b> OpenSearch"
       - "<b>Model:</b> Anthropic Claude" 
