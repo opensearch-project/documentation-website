@@ -8,6 +8,13 @@ nav_exclude: true
 permalink: /search-plugins/
 redirect_from:
   - /search-plugins/index/
+search_methods:
+  - heading: "Keyword (BM25) search"
+    link: "/search-plugins/keyword-search/"
+    description: "Traditional text search using the BM25 algorithm to match and rank documents based on term frequency and document length"
+  - heading: "Vector search"
+    link: "/vector-search/"
+    description: "Search using vector embeddings to capture semantic meaning, supporting both raw vector queries and AI-powered search"
 ---
 
 # Search features
@@ -18,13 +25,7 @@ OpenSearch provides many features for customizing your search use cases and impr
 
 OpenSearch supports the following search methods.
 
-### Traditional lexical search
-
-OpenSearch supports [keyword (BM25) search]({{site.url}}{{site.baseurl}}/search-plugins/keyword-search/), which searches the document corpus for words that appear in the query.
-
-### Vector search
-
-OpenSearch supports various machine learning (ML)-powered search methods using [vector search]({{site.url}}{{site.baseurl}}/vector-search/).
+{% include cards.html cards=page.search_methods %}
 
 ## Query languages
 
