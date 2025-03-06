@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Conversational search using Cohere Command
-parent: Conversational search
+parent: Conversational search with RAG
 grand_parent: Tutorials
 nav_order: 80
 redirect_from:
@@ -10,7 +10,7 @@ redirect_from:
 
 # Conversational search using Cohere Command
 
-This tutorial shows you how to configure conversational search using the Cohere Command model. For more information, see [Conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/).
+This tutorial shows you how to configure conversational search with RAG using the Cohere Command model. For more information, see [Conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/).
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}
