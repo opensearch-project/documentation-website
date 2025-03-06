@@ -74,7 +74,13 @@ semantic_search:
     list:
       - "<b>Platform:</b> OpenSearch, Amazon OpenSearch Service"
       - "<b>Model:</b> Custom"  
-      - "<b>Deployment:</b> Amazon SageMaker + CloudFormation" 
+      - "<b>Deployment:</b> Amazon SageMaker + CloudFormation"
+  - heading: Semantic search using AWS CloudFormation and Amazon Bedrock
+    link: /vector-search/tutorials/semantic-search/semantic-search-cfn-bedrock/
+    list:
+      - "<b>Platform:</b> OpenSearch, Amazon OpenSearch Service"
+      - "<b>Model:</b> Amazon Titan + Cohere"  
+      - "<b>Deployment:</b> Amazon Bedrock + CloudFormation" 
   - heading: Semantic search using an asymmetric model
     link: /vector-search/tutorials/semantic-search/semantic-search-asymmetric/
     list: 
