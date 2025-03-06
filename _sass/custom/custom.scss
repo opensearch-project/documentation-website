@@ -585,13 +585,6 @@ p.label {
   font-size: 14px !important;
 }
 
-.section-font {
-  @include heading-sans-serif;
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 1.2rem;
-}
-
 .toc-list {
   &:before {
     content: "On this page";

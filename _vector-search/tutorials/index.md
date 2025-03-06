@@ -192,26 +192,32 @@ model_controls:
 
 # Tutorials
 
-Using the OpenSearch machine learning (ML) framework, you can build various applications, from implementing semantic search to building your own chatbot. To learn more, explore the following ML tutorials:
+Using the OpenSearch machine learning (ML) framework, you can build various applications, from implementing semantic search to building your own chatbot. To learn more, explore the following ML tutorials.
 
+<details markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
 - [Vector search 101](#vector-search-101)
 - [Vector operations](#vector-operations)
 - [Semantic search](#semantic-search)
-- [Conversational search with RAG](#conversational-search)
-- [Search result reranking](#search-result-reranking)
 - [RAG](#rag)
-- [Chatbots and agents](#chatbots)
+- [Conversational search with RAG](#conversational-search-with-rag)
+- [Search result reranking](#search-result-reranking)
+- [Chatbots and agents](#chatbots-and-agents)
 - [Model controls](#model-controls)
+
+</details>
 
 ---
 
-<p id="vector-search-101"></p>
-
 <details open markdown="block">
   <summary>
-    Vector Search 101
+    <h2 style="display: inline; margin-left: 5px;" id="vector-search-101">
+      Vector search 101
+    </h2>
   </summary>
-  {: .heading}
 
 {% include cards.html cards=page.vector_search_101 %}
 
@@ -219,13 +225,12 @@ Using the OpenSearch machine learning (ML) framework, you can build various appl
 
 ---
 
-<p id="vector-operations"></p>
-
 <details open markdown="block">
   <summary>
-    Vector operations
+    <h2 style="display: inline; margin-left: 5px;" id="vector-operations">
+      Vector operations
+    </h2>
   </summary>
-  {: .heading}
 
 {% include cards.html cards=page.vector_operations %}
 
@@ -233,13 +238,12 @@ Using the OpenSearch machine learning (ML) framework, you can build various appl
 
 ---
 
-<p id="semantic-search"></p>
-
 <details open markdown="block">
   <summary>
-    Semantic search
+    <h2 style="display: inline; margin-left: 5px;" id="semantic-search">
+      Semantic search
+    </h2>
   </summary>
-  {: .heading}
 
 {% include cards.html cards=page.semantic_search %}
 
@@ -247,41 +251,13 @@ Using the OpenSearch machine learning (ML) framework, you can build various appl
 
 ---
 
-<p id="conversational-search"></p>
-
 <details open markdown="block">
   <summary>
-    Conversational search with RAG
+    <h2 style="display: inline; margin-left: 5px;" id="rag">
+      RAG
+    </h2>
   </summary>
-  {: .heading}
 
-{% include cards.html cards=page.conversational_search %}
-
-</details>
-
----
-
-<p id="search-result-reranking"></p>
-
-<details open markdown="block">
-  <summary>
-    Search result reranking
-  </summary>
-  {: .heading}
-
-{% include cards.html cards=page.reranking %}
-
-</details>
-
----
-
-<p id="rag"></p>
-
-<details open markdown="block">
-  <summary>
-    RAG
-  </summary>
-  {: .heading}
 
 {% include cards.html cards=page.rag %}
 
@@ -289,13 +265,39 @@ Using the OpenSearch machine learning (ML) framework, you can build various appl
 
 ---
 
-<p id="chatbots"></p>
+<details open markdown="block">
+  <summary>
+    <h2 style="display: inline; margin-left: 5px;" id="conversational-search-with-rag">
+      Conversational search with RAG
+    </h2>
+  </summary>
+
+{% include cards.html cards=page.conversational_search %}
+
+</details>
+
+---
 
 <details open markdown="block">
   <summary>
-    Chatbots and agents
+    <h2 style="display: inline; margin-left: 5px;" id="search-result-reranking">
+      Search result reranking
+    </h2>
   </summary>
-  {: .heading}
+
+
+{% include cards.html cards=page.reranking %}
+
+</details>
+
+---
+
+<details open markdown="block">
+  <summary>
+    <h2 style="display: inline; margin-left: 5px;" id="chatbots-and-agents">
+      Chatbots and agents
+    </h2>
+  </summary>
 
 {% include cards.html cards=page.chatbots %}
 
@@ -303,14 +305,13 @@ Using the OpenSearch machine learning (ML) framework, you can build various appl
 
 ---
 
-<p id="model-controls"></p>
-
 <details open markdown="block">
   <summary>
-    Model controls
+    <h2 style="display: inline; margin-left: 5px;" id="model-controls">
+      Model controls
+    </h2>
   </summary>
-  {: .heading}
-  
+
 {% include cards.html cards=page.model_controls %}
 
 </details>
