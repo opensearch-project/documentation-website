@@ -104,7 +104,7 @@ POST /_plugins/_ml/models/_register?deploy=true
 ```
 {% include copy-curl.html %}
 
-Note the model ID; you'll' use it in the following steps.
+Note the model ID; you'll use it in the following steps.
 
 Test the model:
 
@@ -463,7 +463,7 @@ POST /_plugins/_ml/models/_register?deploy=true
 ```
 {% include copy-curl.html %}
 
-Note the model ID; you will use it in the following steps.
+Note the model ID; you'll use it in the following steps.
 
 Test the model:
 

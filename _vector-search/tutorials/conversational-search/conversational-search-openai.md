@@ -356,7 +356,7 @@ Follow these steps to configure conversational search by storing conversation hi
     ```
     {% include copy-curl.html %}
 
-    The model combines Miami's population data with the previously discussed New York City statistics from memory to generate this comparison:
+    Using the conversation history from memory, the model compares Miami's population data with the previously discussed New York City statistics:
 
     ```json
     {
