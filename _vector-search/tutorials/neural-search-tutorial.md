@@ -78,7 +78,45 @@ After you're done, follow the steps in the [Clean up](#clean-up) section to dele
 
 ## Tutorial
 
+You can follow this tutorial in two ways:
+- [**Automated steps**](#manual-setup) By starting of with the quickest way to setup semantic and hybrid search with automatic configuration, allowing you to skip towards ingesting data 
+- [**Manual tutorial steps workflow**](#step-1-choose-a-model) By skipping to step 1 of the manual tutorial where each API is executed separately:
+
 You can follow this tutorial by using your command line or the OpenSearch Dashboards [Dev Tools console]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/run-queries/).
+
+
+## Automating setup for semantic and hybrid Search
+
+To simplify setup, the Flow Framework plugin allows you to **automatically configure semantic search with a local model or hybrid search with a local model** using a single API call. This eliminates the need for manual configuration and lets you quickly start **ingesting documents** and performing searches.
+
+### Automating semantic search setup
+
+The following request sets up semantic search using a **default local model** (`huggingface/sentence-transformers/paraphrase-MiniLM-L3-v2`). You can modify the model and other defaults, which are listed [here](https://github.com/opensearch-project/flow-framework/blob/main/src/main/resources/defaults/semantic-search-with-local-model-defaults.json).
+
+```json
+POST /_plugins/_flow_framework/workflow?use_case=semantic_search_with_local_model&provision=true
+{
+}
+```
+
+### Automating hybrid search setup
+
+The following request sets up hybrid search using a **default local model** (`huggingface/sentence-transformers/paraphrase-MiniLM-L3-v2`). You can modify the defaults, which are listed [here](https://github.com/opensearch-project/flow-framework/blob/main/src/main/resources/defaults/hybrid-search-with-local-model-defaults.json).
+
+```json
+POST /_plugins/_flow_framework/workflow?use_case=hybrid_search_with_local_model&provision=true
+{
+}
+```
+
+### Next steps
+
+After running one of these workflows:
+
+- **For Semantic Search**: Skip directly to [ingesting documents into the index](https://opensearch.org/docs/latest/vector-search/tutorials/neural-search-tutorial/#step-3c-ingest-documents-into-the-index).
+- **For Hybrid Search**: You can **immediately search with a hybrid query**, as explained [here](https://opensearch.org/docs/latest/vector-search/tutorials/neural-search-tutorial/#step-2-search-with-the-hybrid-query).
+
+
 
 ## Step 1: Choose a model
 

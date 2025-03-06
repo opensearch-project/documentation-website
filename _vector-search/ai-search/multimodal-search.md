@@ -19,7 +19,38 @@ Use multimodal search to search text and image data using multimodal embedding m
 Before using text search, you must set up a multimodal embedding model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
 {: .note}
 
-## Using multimodal search
+## Setting up multimodal search in OpenSearch
+
+There are two ways to set up multimodal search in OpenSearch:
+
+- [**Automated Workflow**](#automating-setup) (Recommended for quick setup): Automatically create an ingest pipeline and index with minimal configuration.
+- [**Manual Setup**](#manual-multimodal-search-setup) (Recommended for custom configurations): Manually configure each component for greater flexibility and control.
+
+---
+
+## Automating setup
+
+To simplify setup, the Flow Framework plugin allows you to automatically create an ingest pipeline and an index with a single API call. This reduces manual configuration while ensuring best practices for multimodal search.
+
+```json
+POST /_plugins/_flow_framework/workflow?use_case=multimodal_search&provision=true
+{
+"create_ingest_pipeline.model_id": "mBGzipQB2gmRjlv_dOoB",
+"text_image_embedding.field_map.output.dimension": "1024"
+}
+```
+
+OpenSearch responds with a workflow ID and automatically creates:
+
+- **Ingest pipeline:** `nlp-ingest-pipeline`
+- **Index:** `my-nlp-index`
+
+After running this workflow, you can proceed to ingest documents and perform multimodal search
+
+If you need a fully customized setup, use the following steps.
+
+
+## Manual multimodal search setup
 
 To use multimodal search with text and image embeddings, follow these steps:
 

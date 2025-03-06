@@ -24,6 +24,41 @@ There are two types of processors available for hybrid search:
 To follow this example, you must set up a text embedding model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model). If you have already generated text embeddings, ingest the embeddings into an index and skip to [Step 4](#step-4-configure-a-search-pipeline).
 {: .note}
 
+## Setting Up hybrid search in OpenSearch
+
+There are two ways to set up multimodal search in OpenSearch:
+
+- [**Automated Workflow**](#automating-setup) (Recommended for quick setup): Automatically create an ingest pipeline, index, and search pipeline with minimal configuration.
+- [**Manual Setup**](#manual-hybrid-search-setup) (Recommended for custom configurations): Manually configure each component for greater flexibility and control.
+
+---
+
+## Automating setup
+
+To simplify setup, the Flow Framework plugin allows you to automatically create an ingest pipeline, an index, and a search pipeline with a single API call. This reduces manual configuration while ensuring best practices for hybrid search.
+
+```json
+POST /_plugins/_flow_framework/workflow?use_case=hybrid_search&provision=true
+{
+"create_ingest_pipeline.model_id": "mBGzipQB2gmRjlv_dOoB",
+"text_embedding.field_map.output.dimension": "768",
+"normalization-processor.normalization.technique": "l2"
+}
+```
+
+OpenSearch responds with a workflow ID and automatically creates:
+
+- **Ingest pipeline:** `nlp-ingest-pipeline`
+- **Index:** `my-nlp-index`
+- **Search pipeline:** `nlp-search-pipeline`
+
+After running this workflow, you are ready to
+
+1. Ingest documents into the index.
+2. Perform hybrid search using the search pipeline.
+
+If you need a fully customized setup, use the following steps.
+
 ## Using hybrid search
 
 To use hybrid search, follow these steps:
