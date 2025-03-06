@@ -4,6 +4,8 @@ title: Agents and tools
 has_children: true
 has_toc: false
 nav_order: 27
+redirect_from:
+  - /ml-commons-plugin/agents-tools/
 ---
 
 # Agents and tools
