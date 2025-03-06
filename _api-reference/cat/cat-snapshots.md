@@ -21,7 +21,6 @@ component: endpoints
 -->
 ## Endpoints
 ```json
-GET /_cat/snapshots
 GET /_cat/snapshots/{repository}
 ```
 <!-- spec_insert_end -->
@@ -52,10 +51,10 @@ The following table lists the available query parameters. All query parameters a
 
 ## Example request
 
-The following example request lists all snapshots:
+The following example request lists all snapshots for the repository:
 
 ```
-GET _cat/snapshots?v
+GET _cat/snapshots/{repository}
 ```
 {% include copy-curl.html %}
 
@@ -63,7 +62,8 @@ GET _cat/snapshots?v
 ## Example response
 
 ```json
-index | shard | prirep | state   | docs | store | ip |       | node
-plugins | 0   |   p    | STARTED |   0  |  208b | 172.18.0.4 | odfe-node1
-plugins | 0   |   r    | STARTED |   0  |  208b | 172.18.0.3 |  odfe-node2          
+id                 | status  | start_epoch | start_time | end_epoch  | end_time | duration | indices | successful_shards | failed_shards | total_shards
+nightly-1732912545 | SUCCESS | 1732912585  | 20:36:25   | 1732912585 | 20:36:25 | 0s       | 1       | 1                 | 0             | 1
+nightly-1732826145 | SUCCESS | 1732912631  | 20:37:11   | 1732912631 | 20:37:11 | 0s       | 1       | 1                 | 0             | 1
+nightly-1732998945 | SUCCESS | 1732912647  | 20:37:27   | 1732912647 | 20:37:27 | 202ms    | 1       | 1                 | 0             | 1
 ```
