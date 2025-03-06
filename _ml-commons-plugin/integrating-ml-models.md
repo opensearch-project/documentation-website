@@ -17,7 +17,7 @@ local_model:
 external_model:
   - heading: "Externally hosted models"
     link: "/ml-commons-plugin/remote-models/"
-    description: "Learn how to create connectors for models hosted on a third-party platforms"
+    description: "Learn how to create connectors for models hosted on third-party platforms"
 ---
 
 # Integrating ML models

@@ -9,7 +9,7 @@ permalink: /ml-commons-plugin/
 redirect_from: 
   - /ml-commons-plugin/index/
 models:
-  - heading: "Deploy local models in your cluster"
+  - heading: "Deploy local models to your cluster"
     link: "/ml-commons-plugin/using-ml-models/"
     list:
       - "<b>Pretrained models</b>: Use OpenSearch-provided models for immediate implementation"
@@ -40,7 +40,7 @@ oa-toolkit:
 algorithms:
   - heading: "Supported algorithms"
     link: "/ml-commons-plugin/algorithms/"
-    description: "Learn about the natively supported clustering, pattern detection and statistical analysis algorithms"
+    description: "Learn about the natively supported clustering, pattern detection, and statistical analysis algorithms"
 ---
 
 # Machine learning

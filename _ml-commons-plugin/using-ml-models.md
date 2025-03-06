@@ -14,7 +14,7 @@ models:
     description: "Explore OpenSearch's collection of optimized ML models for immediate use in AI applications"
   - heading: "Custom models"
     link: "/ml-commons-plugin/custom-local-models/"
-    description: "Learn how to upload and serve your own ML models within OpenSearch for specialized use cases"
+    description: "Learn how to upload and serve your own ML models in OpenSearch for specialized use cases"
 gpu:
   - heading: "GPU acceleration"
     link: "/ml-commons-plugin/gpu-acceleration/"
