@@ -93,7 +93,19 @@ conversational_search:
     list:
     - "<b>Platform:</b> OpenSearch"
     - "<b>Model:</b> Cohere Command"  
+    - "<b>Deployment:</b> Provider API"
+  - heading: Conversational search using OpenAI
+    link: /vector-search/tutorials/conversational-search/conversational-search-openai/ 
+    list:
+    - "<b>Platform:</b> OpenSearch"
+    - "<b>Model:</b> OpenAI GPT-4o"  
     - "<b>Deployment:</b> Provider API" 
+  - heading: Conversational search using Anthropic Claude on Amazon Bedrock
+    link: /vector-search/tutorials/conversational-search/conversational-search-claude-bedrock/ 
+    list:
+    - "<b>Platform:</b> OpenSearch"
+    - "<b>Model:</b> Anthropic Claude"  
+    - "<b>Deployment:</b> Amazon Bedrock API"  
 reranking:
   - heading: Reranking search results using Cohere Rerank
     link: /vector-search/tutorials/reranking/reranking-cohere/
@@ -180,11 +192,24 @@ model_controls:
 
 # Tutorials
 
-Using the OpenSearch machine learning (ML) framework, you can build various applications, from implementing semantic search to building your own chatbot. To learn more, explore the following ML tutorials.
+Using the OpenSearch machine learning (ML) framework, you can build various applications, from implementing semantic search to building your own chatbot. To learn more, explore the following ML tutorials:
+
+- [Vector search 101](#vector-search-101)
+- [Vector operations](#vector-operations)
+- [Semantic search](#semantic-search)
+- [Conversational search with RAG](#conversational-search)
+- [Search result reranking](#search-result-reranking)
+- [RAG](#rag)
+- [Chatbots and agents](#chatbots)
+- [Model controls](#model-controls)
+
+---
+
+<p id="vector-search-101"></p>
 
 <details open markdown="block">
   <summary>
-    Vector search 101
+    Vector Search 101
   </summary>
   {: .heading}
 
@@ -194,7 +219,7 @@ Using the OpenSearch machine learning (ML) framework, you can build various appl
 
 ---
 
- <p id="vector-operations" name="Vector operations"> </p>
+<p id="vector-operations"></p>
 
 <details open markdown="block">
   <summary>
@@ -208,6 +233,8 @@ Using the OpenSearch machine learning (ML) framework, you can build various appl
 
 ---
 
+<p id="semantic-search"></p>
+
 <details open markdown="block">
   <summary>
     Semantic search
@@ -219,6 +246,8 @@ Using the OpenSearch machine learning (ML) framework, you can build various appl
 </details>
 
 ---
+
+<p id="conversational-search"></p>
 
 <details open markdown="block">
   <summary>
@@ -232,6 +261,8 @@ Using the OpenSearch machine learning (ML) framework, you can build various appl
 
 ---
 
+<p id="search-result-reranking"></p>
+
 <details open markdown="block">
   <summary>
     Search result reranking
@@ -243,6 +274,8 @@ Using the OpenSearch machine learning (ML) framework, you can build various appl
 </details>
 
 ---
+
+<p id="rag"></p>
 
 <details open markdown="block">
   <summary>
@@ -256,6 +289,8 @@ Using the OpenSearch machine learning (ML) framework, you can build various appl
 
 ---
 
+<p id="chatbots"></p>
+
 <details open markdown="block">
   <summary>
     Chatbots and agents
@@ -268,12 +303,14 @@ Using the OpenSearch machine learning (ML) framework, you can build various appl
 
 ---
 
+<p id="model-controls"></p>
+
 <details open markdown="block">
   <summary>
     Model controls
   </summary>
   {: .heading}
-
+  
 {% include cards.html cards=page.model_controls %}
 
 </details>
