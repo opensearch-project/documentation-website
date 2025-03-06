@@ -12,7 +12,7 @@ This tutorial shows you how to implement semantic search in [Amazon OpenSearch S
 
 If you are using self-managed OpenSearch instead of Amazon OpenSearch Service, create a connector to the Amazon Bedrock models using [the blueprints](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/). For more information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/). 
 
-The CloudFormation integration automates the steps in the [Semantic search using Amazon Bedrock Titan]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-bedrock-titan/) and [Semantic search using Cohere Embed on Amazon Bedrock]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-bedrock-cohere/). The CloudFormation template creates an IAM role and invokes an AWS Lambda function to set up an AI connector and model.
+The CloudFormation integration automates the steps in the [Semantic search using Amazon Bedrock Titan]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-bedrock-titan/) and [Semantic search using Cohere Embed on Amazon Bedrock]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-bedrock-cohere/) tutorials. The CloudFormation template creates an AWS Identity and Access Management (IAM) role and invokes an AWS Lambda function to set up an AI connector and model.
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}
@@ -25,7 +25,7 @@ Note the domain Amazon Resource Name (ARN); you'll use it in the following steps
 
 ## Step 1: Map a backend role
 
-The OpenSearch CloudFormation template uses a Lambda function to create an AI connector with an AWS Identity and Access Management (IAM) role. You must map the IAM role to `ml_full_access` to grant the required permissions. Follow [Step 2.2 of the Semantic search using Amazon Bedrock Titan tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-bedrock-titan/#step-22-map-a-backend-role) to map a backend role.
+The OpenSearch CloudFormation template uses a Lambda function to create an AI connector with an IAM role. You must map the IAM role to `ml_full_access` to grant the required permissions. Follow [Step 2.2 of the Semantic search using Amazon Bedrock Titan tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/semantic-search/semantic-search-bedrock-titan/#step-22-map-a-backend-role) to map a backend role.
 
 The IAM role is specified in the **Lambda Invoke OpenSearch ML Commons Role Name** field in the CloudFormation template. The default IAM role is `LambdaInvokeOpenSearchMLCommonsRole`, so you must map the `arn:aws:iam::your_aws_account_id:role/LambdaInvokeOpenSearchMLCommonsRole` backend role to `ml_full_access`.
 
@@ -50,13 +50,13 @@ To create a connector, complete the following form.
 Complete the following fields, keeping all other fields at their default values:  
 
 1. Enter your **Amazon OpenSearch Endpoint**.  
-2. In the Model configuration, select a **Model** to be deployed. Choose one of the following supported models: 
+2. In **Model configuration**, select a **Model** to be deployed. Choose one of the following supported models: 
     - `amazon.titan-embed-text-v1`
     - `amazon.titan-embed-image-v1`
     - `amazon.titan-embed-text-v2:0` 
     - `cohere.embed-english-v3`
     - `cohere.embed-multilingual-v3`
-3. Select a **Model Region** (this is the Amazon Bedrock service region).
+3. Select a **Model Region** (this is the Amazon Bedrock Region).
 4. In **AddProcessFunction**, select `true` to enable or `false` to disable the default pre- and post-processing functions in the connector.
 
 ## Output
