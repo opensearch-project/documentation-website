@@ -17,7 +17,34 @@ Semantic search considers the context and intent of a query. In OpenSearch, sema
 Before using semantic search, you must set up a text embedding model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
 {: .note}
 
-## Using semantic search
+## Setting up semantic search in OpenSearch
+
+There are two ways to set up semantic search in OpenSearch:
+
+- [**Automated Workflow**](#automating-setup) (Recommended for quick setup): Automatically create an ingest pipeline and index with minimal configuration.
+- [**Manual Setup**](#manual-semantic-search-setup)(Recommended for custom configurations): Manually configure each component for greater flexibility and control.
+
+---
+
+## Automating setup
+
+To simplify setup, the Flow Framework plugin allows you to create both an ingest pipeline and an index with a single API call. By selecting a semantic search workflow template and adjusting the default parameters as needed, you can quickly provision the necessary components:
+
+```json
+POST /_plugins/_flow_framework/workflow?use_case=semantic_search&provision=true
+{
+  "create_ingest_pipeline.model_id": "mBGzipQB2gmRjlv_dOoB",
+  "text_embedding.field_map.output.dimension": "768",
+  "text_embedding.field_map.input": "text"
+}
+```
+
+OpenSearch responds with a workflow ID and automatically creates:
+
+- **Ingest pipeline:** `nlp-ingest-pipeline`
+- **Index:** `my-nlp-index` (unless specified otherwise)
+
+## Manual semantic search setup
 
 To use semantic search, follow these steps:
 
