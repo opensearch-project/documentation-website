@@ -220,11 +220,11 @@ If you're importing the template into a different cluster, update any cluster-sp
 
 You have now implemented semantic search using OpenSearch Flow, with all of the required resources bundled up into a single template. You can import this template on the UI and rebuild for different clusters, or run the template directly using the [Flow Framework Provision API]({{site.url}}{{site.baseurl}}/automating-configurations/api/provision-workflow/).
 
-This following sections contain additional OpenSearch Flow examples.
+The following sections contain additional OpenSearch Flow configuration examples.
 
 ## Semantic search
 
-This example demonstrates implementing semantic search.
+This example demonstrates configuring semantic search.
 
 ### ML resources
 
@@ -284,7 +284,7 @@ Configure a single ML inference search request processor. Map the query field co
 
 ## Hybrid search 
 
-Hybrid search combines keyword and vector search. This example demonstrates implementing hybrid search.
+Hybrid search combines keyword and vector search. This example demonstrates configuring hybrid search.
 
 ### ML resources
 
@@ -361,7 +361,7 @@ Configure an ML inference search request processor and a normalization processor
 
 ## Basic RAG (document summarization)
 
-This example demonstrates implementing basic retrieval-augmented generation (RAG).
+This example demonstrates configuring basic retrieval-augmented generation (RAG).
 
 Because the connector blueprint and model interface may evolve, the following example demonstrates a connector blueprint that simplifies interaction with the [Claude v1 messages API](https://docs.anthropic.com/en/api/getting-started#examples). This blueprint abstracts much of the complexity, exposing only a single `prompt` field as input to the model.  
 
@@ -393,7 +393,7 @@ Configure an ML inference search response processor using the following steps:
 
 ## 4. Multimodal search 
 
-Multimodal search searches by text and image. This example demonstrates implementing multimodal search.
+Multimodal search searches by text and image. This example demonstrates configuring multimodal search.
 
 ### ML resources
 
