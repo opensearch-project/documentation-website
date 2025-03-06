@@ -50,7 +50,7 @@ To create a connector, complete the following form.
 Complete the following fields, keeping all other fields at their default values:  
 
 1. Enter your **Amazon OpenSearch Endpoint**.  
-2. In **Model configuration**, select a **Model** to be deployed. Choose one of the following supported models: 
+2. In **Model Configuration**, select a **Model** to be deployed. Choose one of the following supported models: 
     - `amazon.titan-embed-text-v1`
     - `amazon.titan-embed-image-v1`
     - `amazon.titan-embed-text-v2:0` 
