@@ -53,30 +53,30 @@ To create a cross-cluster detector in OpenSearch Dashboards, the following [perm
 
    
 
-    ```json
-     {
-        "bool": {
-           "should": [
-                 {
-                    "term": {
-                       "urlPath.keyword": "/domain/{id}/short"
-                    }
-                 },
-                 {
-                    "term": {
-                       "urlPath.keyword": "/sub_dir/{id}/short"
-                    }
-                 },
-                 {
-                    "term": {
-                       "urlPath.keyword": "/abcd/123/{id}/xyz"
-                    }
-                 }
-           ]
-        }
-     }
-     ```
-     {% include copy-curl.html %}
+```json
+ {
+    "bool": {
+       "should": [
+             {
+                "term": {
+                   "urlPath.keyword": "/domain/{id}/short"
+                }
+             },
+             {
+                "term": {
+                   "urlPath.keyword": "/sub_dir/{id}/short"
+                }
+             },
+             {
+                "term": {
+                   "urlPath.keyword": "/abcd/123/{id}/xyz"
+                }
+             }
+       ]
+    }
+ }
+```
+{% include copy-curl.html %}
 
 #### Setting the detector interval   
 
