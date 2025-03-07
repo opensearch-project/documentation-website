@@ -12,26 +12,36 @@ redirect_from:
 **Introduced 1.0**
 {: .label .label-purple }
 
-The most basic cluster allocation explain request finds an unassigned shard and explains why it can't be allocated to a node.
-
-If you add some options, you can instead get information on a specific shard, including why OpenSearch assigned it to its current node.
+The Cluster Allocation Explain API explains how shards are allocated in the cluster and why unassigned shards cannot be assigned to a node.
 
 
+<!-- spec_insert_start
+api: cluster.allocation_explain
+component: endpoints
+-->
 ## Endpoints
-
 ```json
-GET _cluster/allocation/explain
-POST _cluster/allocation/explain
+GET  /_cluster/allocation/explain
+POST /_cluster/allocation/explain
 ```
+<!-- spec_insert_end -->
 
+
+<!-- spec_insert_start
+api: cluster.allocation_explain
+columns: Parameter, Data type, Description, Default
+component: query_parameters
+-->
 ## Query parameters
 
-All parameters are optional.
+The following table lists the available query parameters. All query parameters are optional.
 
-Parameter | Type | Description
-:--- | :--- | :---
-include_yes_decisions | Boolean | OpenSearch makes a series of yes or no decisions when trying to allocate a shard to a node. If this parameter is true, OpenSearch includes the (generally more numerous) "yes" decisions in its response. Default is `false`.
-include_disk_info | Boolean | Whether to include information about disk usage in the response. Default is `false`.
+| Parameter | Data type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `include_disk_info` | Boolean | When `true`, returns information about disk usage and shard sizes. | `false` |
+| `include_yes_decisions` | Boolean | When `true`, returns any `YES` decisions in the allocation explanation. | `false` |
+
+<!-- spec_insert_end -->
 
 
 ## Request body fields
@@ -40,10 +50,10 @@ All cluster allocation explain fields are optional.
 
 Field | Type | Description
 :--- | :--- | :---
-current_node | String | If you only want an explanation if the shard happens to be on a particular node, specify that node name here.
-index | String | The name of the shard's index.
-primary | Boolean | Whether to provide an explanation for the primary shard (true) or its first replica (false), which share the same shard ID.
-shard | Integer | The shard ID that you want an explanation for.
+`current_node` | String | Specifies a node name to return an explanation only if the shard is on that node.
+`index` | String | The name of the shard's index.
+`primary` | Boolean | Whether to provide an explanation for the primary shard (`true`) or its first replica (`false`), both of which share the same shard ID.
+`shard` | Integer | The shard ID that you want an explanation for.
 
 ## Example request
 
