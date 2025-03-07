@@ -18,6 +18,8 @@ There are also tools available for migrating cluster configuration, templates, a
 
 | **Source Version**          | **Target Version**               |
 |-----------------------------|----------------------------------|
+| Elasticsearch 5.6           | OpenSearch 1.3                   |
+| Elasticsearch 5.6           | OpenSearch 2.15                  |
 | Elasticsearch 6.8           | OpenSearch 1.3                   |
 | Elasticsearch 6.8           | OpenSearch 2.15                  |
 | Elasticsearch 7.10.2        | OpenSearch 1.3                   |

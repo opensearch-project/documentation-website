@@ -7,6 +7,7 @@ has_toc: false
 nav_order: 60
 redirect_from: 
   - /ml-commons-plugin/extensibility/index/
+  - /ml-commons-plugin/remote-models/
 ---
 
 # Connecting to externally hosted models
@@ -323,7 +324,7 @@ To learn how to use the model for batch ingestion in order to improve ingestion 
 
 ## Step 7: Use the model for search
 
-To learn how to use the model for vector search, see [Using an ML model for neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/#using-an-ml-model-for-neural-search).
+To learn how to use the model for vector search, see [AI search methods]({{site.url}}{{site.baseurl}}/vector-search/ai-search/#ai-search-methods).
 
 ## Step 8 (Optional): Undeploy the model 
 
