@@ -88,6 +88,9 @@ PUT /hotels-index
 ```
 {% include copy-curl.html %}
 
+{% assign examples = site.data.code-examples.vector-search.getting-started.index.create_vector_index %}
+{% include code_tabs.html examples=examples %}
+
 ## Step 2: Add data to your index
 
 Next, add data to your index. Each document represents a hotel. The `location` field in each document contains a two-dimensional vector specifying the hotel's location:
@@ -106,6 +109,9 @@ POST /_bulk
 { "location": [3.3, 4.5] }
 ```
 {% include copy-curl.html %}
+
+{% assign examples = site.data.code-examples.vector-search.getting-started.index.add_data %}
+{% include code_tabs.html examples=examples %}
 
 ## Step 3: Search your data
 

@@ -1,0 +1,63 @@
+create_vector_index:
+  - language: "json"
+    code: |
+      PUT /hotels-index
+      {
+        "settings": {
+          "index.knn": true
+        },
+        "mappings": {
+          "properties": {
+            "location": {
+              "type": "knn_vector",
+              "dimension": 2,
+              "space_type": "l2"
+            }
+          }
+        }
+      }
+
+  - language: "python"
+    code: |
+      from opensearchpy import OpenSearch
+
+      client = OpenSearch(
+          hosts=[{"host": "localhost", "port": 9200}],
+          http_auth=("admin", "admin"),
+          use_ssl=True,
+          verify_certs=False
+      )
+
+      index_body = {
+          "settings": {"index.knn": True},
+          "mappings": {
+              "properties": {
+                  "location": {"type": "knn_vector", "dimension": 2, "space_type": "l2"}
+              }
+          }
+      }
+
+      client.indices.create(index="hotels-index", body=index_body)
+
+add_data:
+  - language: "REST"
+    code: |
+      POST /_bulk
+      { "index": { "_index": "hotels-index", "_id": "1" } }
+      { "location": [5.2, 4.4] }
+      { "index": { "_index": "hotels-index", "_id": "2" } }
+      { "location": [5.2, 3.9] }
+
+  - language: "Python"
+    code: |
+      bulk_data = [
+          {"index": {"_index": "hotels-index", "_id": "1"}},
+          {"location": [5.2, 4.4]},
+          {"index": {"_index": "hotels-index", "_id": "2"}},
+          {"location": [5.2, 3.9]}
+      ]
+
+      from opensearchpy import OpenSearch
+      client = OpenSearch(...)
+
+      client.bulk(body=bulk_data)

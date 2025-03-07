@@ -1,0 +1,59 @@
+<div class="code-tabs">
+  <div class="tab-buttons">
+    {% for example in include.examples %}
+      <button class="tab-button" onclick="showTab('{{ example.language }}')">
+        {{ example.language | capitalize }}
+      </button>
+    {% endfor %}
+  </div>
+
+  {% for example in include.examples %}
+    <div class="tab-content language-{{ example.language }} highlighter-rouge" id="{{ example.language }}" style="display: none;">
+      <div class="highlight">
+        <pre class="highlight"><code class="language-{{ example.language }}">{{ example.code | escape }}</code></pre>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<script>
+  function showTab(lang) {
+    document.querySelectorAll(".tab-content").forEach(tab => tab.style.display = "none");
+    document.getElementById(lang).style.display = "block";
+  }
+  document.addEventListener("DOMContentLoaded", () => showTab("json")); // Default to JSON
+</script>
+
+<style>
+  .code-tabs {
+    margin-top: 1rem;
+  }
+
+  .tab-buttons {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 5px;
+  }
+
+  .tab-button {
+    padding: 5px 10px;
+    background-color: #f3f3f3;
+    border: 1px solid #ccc;
+    cursor: pointer;
+  }
+
+  .tab-button:hover {
+    background-color: #e0e0e0;
+  }
+
+  .highlight {
+    background-color: #f5f5f5;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+  }
+
+  .tab-content {
+    display: none;
+  }
+</style>
