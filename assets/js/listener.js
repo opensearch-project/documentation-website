@@ -25,9 +25,9 @@ document.addEventListener('click', function(event) {
     else if (target.matches('.send-button')) {
         sendFeedback();
     }
-    else if (target.matches('.copy-button')) {
-        window.navigator.clipboard.writeText(target.getAttribute('data-text'));
-    }
+    // else if (target.matches('.copy-button')) {
+    //     window.navigator.clipboard.writeText(target.getAttribute('data-text'));
+    // }
 });
 
 nav.addEventListener('scroll',(e)=>{  
@@ -94,4 +94,59 @@ function sendFeedback() {
 
     // disable the send button
     sendButton.disabled = true;
+}
+
+function switchTab(event, tabId) {
+    // Get all tab content and buttons
+    var tabContent = event.target.closest('.code-tabs').getElementsByClassName('tab');
+    var tabButtons = event.target.closest('.code-tabs').getElementsByClassName('tab-button');
+    
+    // Hide all tabs
+    for (var i = 0; i < tabContent.length; i++) {
+        tabContent[i].style.display = "none";
+    }
+    
+    // Remove active class from all buttons
+    for (var i = 0; i < tabButtons.length; i++) {
+        tabButtons[i].className = tabButtons[i].className.replace(" active", "");
+    }
+    
+    // Show the selected tab
+    document.getElementById(tabId).style.display = "block";
+    event.currentTarget.className += " active";
+}
+
+// Add click handlers when document is ready
+document.addEventListener('DOMContentLoaded', function() {
+    var tabButtons = document.getElementsByClassName('tab-button');
+    for (var i = 0; i < tabButtons.length; i++) {
+        tabButtons[i].addEventListener('click', function(e) {
+            switchTab(e, this.getAttribute('data-tab'));
+        });
+    }
+});
+
+function copyCode(button) {
+    // Find the code block
+    const codeBlock = button.parentElement.querySelector('pre');
+    const code = codeBlock.textContent;
+
+    // Copy the code
+    window.navigator.clipboard.writeText(code).then(() => {
+        // Visual feedback
+        button.textContent = 'Copied!';
+        button.classList.add('copied');
+
+        // Reset button after 2 seconds
+        setTimeout(() => {
+            button.textContent = 'Copy';
+            button.classList.remove('copied');
+        }, 2000);
+    }).catch(err => {
+        console.error('Failed to copy:', err);
+        button.textContent = 'Failed to copy';
+        setTimeout(() => {
+            button.textContent = 'Copy';
+        }, 2000);
+    });
 }

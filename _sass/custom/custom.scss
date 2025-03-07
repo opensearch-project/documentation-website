@@ -391,13 +391,25 @@ div.highlighter-rouge {
   display: flex;
   justify-content: flex-end; 
 }
- 
-// Copy code button
+
+.code-container {
+  position: relative;
+}
+
 .copy-button {
   @extend .btn-general;
   background-color: $sidebar-color;
-  display: inline;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
 }
+
+// Copy code button
+// .copy-button {
+//   @extend .btn-general;
+//   background-color: $sidebar-color;
+//   display: inline;
+// }
 
 // Copy as curl button
 .copy-curl-button {
@@ -1249,6 +1261,46 @@ body {
   font-weight: 700;
   line-height: 24px;
 }
+
+.code-tabs {
+  margin-bottom: 1.5em;
+}
+
+.code-tabs .tab-nav {
+  border-bottom: 1px solid #ddd;
+  margin-bottom: -1px;
+}
+
+.code-tabs .tab-button {
+  background: none;
+  border: 1px solid transparent;
+  padding: 8px 16px;
+  cursor: pointer;
+  margin-bottom: -1px;
+  color: #666;
+}
+
+.code-tabs .tab-button.active {
+  border-color: #ddd;
+  border-bottom-color: #fff;
+  color: #333;
+}
+
+.code-tabs .tab {
+  display: none;
+  border: 1px solid #ddd;
+  padding: 15px;
+}
+
+.code-tabs .tab.active {
+  display: block;
+}
+
+/* Preserve Rouge highlighting */
+.code-tabs .highlight {
+  margin: 0;
+}
+
 
 @import "../font-awesome.scss";
 @import "../_navigation-header.scss";

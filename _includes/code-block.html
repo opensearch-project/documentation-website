@@ -1,0 +1,25 @@
+<div class="code-tabs">
+    <div class="tab-nav">
+      <button class="tab-button active" onclick="switchTab(event, 'rest')" data-tab="rest">REST</button>
+      <button class="tab-button" onclick="switchTab(event, 'python')" data-tab="python">Python</button>
+    </div>
+  
+    <div id="rest" class="tab active">
+      <div class="code-container">
+        {% highlight json %}
+  {{ include.rest }}
+        {% endhighlight %}
+        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+      </div>
+    </div>
+  
+    <div id="python" class="tab">
+      <div class="code-container">
+        {% highlight python %}
+  {{ include.python }}
+        {% endhighlight %}
+        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+      </div>
+    </div>
+  </div>
+  

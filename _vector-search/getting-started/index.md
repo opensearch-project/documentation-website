@@ -88,8 +88,34 @@ PUT /hotels-index
 ```
 {% include copy-curl.html %}
 
-{% assign examples = site.data.code-examples.vector-search.getting-started.index.create_vector_index %}
-{% include code_tabs.html examples=examples %}
+{% capture rest %}
+POST /_plugins/_ml/models/_register
+{
+  "name": "huggingface/sentence-transformers/all-MiniLM-L12-v2",
+  "version": "1.0.1",
+  "model_format": "TORCH_SCRIPT"
+}
+{% endcapture %}
+
+{% capture python %}
+from opensearchpy import OpenSearch
+
+client = OpenSearch(
+    hosts = [{'host': 'localhost', 'port': 9200}]
+)
+
+response = client.ml.register_model(
+    name="huggingface/sentence-transformers/all-MiniLM-L12-v2",
+    version="1.0.1",
+    model_format="TORCH_SCRIPT"
+)
+{% endcapture %}
+
+{% include code-block.html 
+    rest=rest
+    python=python
+%}
+
 
 ## Step 2: Add data to your index
 
