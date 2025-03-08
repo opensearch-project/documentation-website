@@ -42,9 +42,9 @@
           <div class="button-container">
             {% for button in lang.buttons %}
               {% if button == 'copy' %}
-                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <button class="copy-button copy-code-button">Copy</button>
               {% elsif button == 'curl' %}
-                <button class="copy-button" onclick="copyAsCurl(this)">Copy as cURL</button>
+                <button class="copy-button copy-curl-button">Copy as cURL</button>
               {% endif %}         
             {% endfor %}
           </div>

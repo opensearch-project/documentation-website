@@ -6,39 +6,42 @@ const commentTextArea = document.getElementById('comment');
 const thankYouText = document.getElementById('thank-you');
 const nav = document.getElementById('site-nav');
 const versionPanel = document.getElementById('version-panel');
-document.addEventListener('DOMContentLoaded', updateTextArea);
 
+// Single click event listener for the entire document
 document.addEventListener('click', function(event) {
     const { target } = event;
-    if (target.matches('.feedback-issue')) {
-        gtag('event', 'submit_issue_click');
+
+    const clickHandlers = {
+        '.feedback-issue': () => gtag('event', 'submit_issue_click'),
+        '.feedback-edit': () => gtag('event', 'edit_page_click'),
+        '.feedback-forum': () => gtag('event', 'forum_link_click'),
+        '.feedback-button': () => sendButton.disabled = false,
+        '.send-button': () => sendFeedback(),
+        '.tab-button': () => switchTab(event, target.getAttribute('data-tab')),
+        '.copy-code-button': () => copyCode(target),
+        '.copy-curl-button': () => copyAsCurl(target)
+    };
+
+    for (const [selector, handler] of Object.entries(clickHandlers)) {
+        if (target.matches(selector)) {
+            handler();
+            break;
+        }
     }
-    else if (target.matches('.feedback-edit')) {
-        gtag('event', 'edit_page_click');
-    }
-    else if (target.matches('.feedback-forum')) {
-        gtag('event', 'forum_link_click');
-    }
-    else if (target.matches('.feedback-button')) {
-        sendButton.disabled = false;
-    }
-    else if (target.matches('.send-button')) {
-        sendFeedback();
-    }
-    // else if (target.matches('.copy-button')) {
-    //     window.navigator.clipboard.writeText(target.getAttribute('data-text'));
-    // }
 });
 
-nav.addEventListener('scroll',(e)=>{  
-    if(nav.scrollTop > 0){
-      versionPanel.classList.add("nav-shadow");
-    }else{
-      versionPanel.classList.remove("nav-shadow");
-    }
-  });
+// Event listeners
+document.addEventListener('DOMContentLoaded', updateTextArea);
 
 commentTextArea.addEventListener('input', updateTextArea);
+
+nav.addEventListener('scroll', (e) => {
+    if (nav.scrollTop > 0) {
+        versionPanel.classList.add('nav-shadow');
+    } else {
+        versionPanel.classList.remove('nav-shadow');
+    }
+});
 
 function updateTextArea() {
     const text = commentTextArea.value.trim();
@@ -51,6 +54,7 @@ function updateTextArea() {
     counter = 350 - commentTextArea.value.length;
     numCharsLabel.innerText = counter + " characters left";
 }
+
 
 function sendFeedback() {
     let helpful = 'none';
@@ -97,77 +101,39 @@ function sendFeedback() {
 }
 
 function switchTab(event, tabId) {
-    // Get all tab content and buttons
-    var tabContent = event.target.closest('.code-tabs').getElementsByClassName('tab');
-    var tabButtons = event.target.closest('.code-tabs').getElementsByClassName('tab-button');
+    const container = event.target.closest('.code-tabs');
+    const tabContent = container.getElementsByClassName('tab');
+    const tabButtons = container.getElementsByClassName('tab-button');
     
-    // Hide all tabs
-    for (var i = 0; i < tabContent.length; i++) {
-        tabContent[i].style.display = "none";
-    }
+    // Remove active class from all tabs and buttons
+    Array.from(tabContent).forEach(tab => {
+        tab.classList.remove('active');
+    });
     
-    // Remove active class from all buttons
-    for (var i = 0; i < tabButtons.length; i++) {
-        tabButtons[i].className = tabButtons[i].className.replace(" active", "");
-    }
+    Array.from(tabButtons).forEach(button => {
+        button.classList.remove('active');
+    });
     
-    // Show the selected tab
-    document.getElementById(tabId).style.display = "block";
-    event.currentTarget.className += " active";
+    // Add active class to selected tab and button
+    const selectedTab = container.querySelector(`#${tabId}`);
+    selectedTab.classList.add('active');
+    event.target.classList.add('active');
 }
-
-// Add click handlers when document is ready
-document.addEventListener('DOMContentLoaded', function() {
-    var tabButtons = document.getElementsByClassName('tab-button');
-    for (var i = 0; i < tabButtons.length; i++) {
-        tabButtons[i].addEventListener('click', function(e) {
-            switchTab(e, this.getAttribute('data-tab'));
-        });
-    }
-});
 
 function copyCode(button) {
     const codeBlock = button.closest('.code-container').querySelector('pre');
     const code = codeBlock.textContent.trim(); 
-
-    navigator.clipboard.writeText(code).then(() => {
-        button.textContent = 'Copied!';
-        button.classList.add('copied');
-        setTimeout(() => {
-            button.textContent = button.hasAttribute('data-original-text') 
-                ? button.getAttribute('data-original-text') 
-                : 'Copy';
-            button.classList.remove('copied');
-        }, 2000);
-    });
+    window.navigator.clipboard.writeText(code);
 }
 
 function copyAsCurl(button) {
     const codeBlock = button.closest('.code-container').querySelector('pre');
     const code = codeBlock.textContent.trim(); 
     
-    try {
-        // Parse the JSON to extract method, endpoint, and body
-        const lines = code.trim().split('\n');
-        const [method, endpoint] = lines[0].trim().split(' ');
-        const body = lines.slice(1).join('\n');
-        
-        // Construct the cURL command
-        const curlCommand = `curl -X ${method} "localhost:9200${endpoint}" -H "Content-Type: application/json" -d '${body}'`;
-        
-        navigator.clipboard.writeText(curlCommand).then(() => {
-            button.textContent = 'Copied!';
-            button.classList.add('copied');
-            setTimeout(() => {
-                button.textContent = 'Copy as cURL';
-                button.classList.remove('copied');
-            }, 2000);
-        });
-    } catch (error) {
-        console.error('Failed to generate cURL command:', error);
-        button.textContent = 'Failed';
-        setTimeout(() => {
-            button.textContent = 'Copy as cURL';
-        }, 2000);
-    }
+    const lines = code.trim().split('\n');
+    const [method, endpoint] = lines[0].trim().split(' ');
+    const body = lines.slice(1).join('\n');
+    
+    const curlCommand = `curl -X ${method} "localhost:9200${endpoint}" -H "Content-Type: application/json" -d '\n${body}\n'`;
+    window.navigator.clipboard.writeText(curlCommand);
 }
