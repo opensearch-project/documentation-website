@@ -127,26 +127,47 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function copyCode(button) {
-    // Find the code block
-    const codeBlock = button.parentElement.querySelector('pre');
-    const code = codeBlock.textContent;
+    const codeBlock = button.closest('.code-container').querySelector('pre');
+    const code = codeBlock.textContent.trim(); 
 
-    // Copy the code
-    window.navigator.clipboard.writeText(code).then(() => {
-        // Visual feedback
+    navigator.clipboard.writeText(code).then(() => {
         button.textContent = 'Copied!';
         button.classList.add('copied');
-
-        // Reset button after 2 seconds
         setTimeout(() => {
-            button.textContent = 'Copy';
+            button.textContent = button.hasAttribute('data-original-text') 
+                ? button.getAttribute('data-original-text') 
+                : 'Copy';
             button.classList.remove('copied');
         }, 2000);
-    }).catch(err => {
-        console.error('Failed to copy:', err);
-        button.textContent = 'Failed to copy';
-        setTimeout(() => {
-            button.textContent = 'Copy';
-        }, 2000);
     });
+}
+
+function copyAsCurl(button) {
+    const codeBlock = button.closest('.code-container').querySelector('pre');
+    const code = codeBlock.textContent.trim(); 
+    
+    try {
+        // Parse the JSON to extract method, endpoint, and body
+        const lines = code.trim().split('\n');
+        const [method, endpoint] = lines[0].trim().split(' ');
+        const body = lines.slice(1).join('\n');
+        
+        // Construct the cURL command
+        const curlCommand = `curl -X ${method} "localhost:9200${endpoint}" -H "Content-Type: application/json" -d '${body}'`;
+        
+        navigator.clipboard.writeText(curlCommand).then(() => {
+            button.textContent = 'Copied!';
+            button.classList.add('copied');
+            setTimeout(() => {
+                button.textContent = 'Copy as cURL';
+                button.classList.remove('copied');
+            }, 2000);
+        });
+    } catch (error) {
+        console.error('Failed to generate cURL command:', error);
+        button.textContent = 'Failed';
+        setTimeout(() => {
+            button.textContent = 'Copy as cURL';
+        }, 2000);
+    }
 }

@@ -396,12 +396,16 @@ div.highlighter-rouge {
   position: relative;
 }
 
+.button-container {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+}
+
 .copy-button {
   @extend .btn-general;
   background-color: $sidebar-color;
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
 }
 
 // Copy code button
@@ -1263,11 +1267,11 @@ body {
 }
 
 .code-tabs {
-  margin-bottom: 1.5em;
+  margin-bottom: 1.5rem;
 }
 
 .code-tabs .tab-nav {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #eeebee;
   margin-bottom: -1px;
 }
 
@@ -1277,18 +1281,21 @@ body {
   padding: 8px 16px;
   cursor: pointer;
   margin-bottom: -1px;
-  color: #666;
+  color: $blue-dk-200;
+  &:hover {
+    background-color: $blue-lt-100;
+  }
 }
 
 .code-tabs .tab-button.active {
-  border-color: #ddd;
+  border-color: #eeebee;
   border-bottom-color: #fff;
-  color: #333;
+  color: $blue-dk-300;
 }
 
 .code-tabs .tab {
   display: none;
-  border: 1px solid #ddd;
+  border: 1px solid #eeebee;
   padding: 15px;
 }
 

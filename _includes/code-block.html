@@ -6,20 +6,24 @@
   
     <div id="rest" class="tab active">
       <div class="code-container">
-        {% highlight json %}
-  {{ include.rest }}
-        {% endhighlight %}
-        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+{% highlight json %}
+{{ include.rest | strip }}
+{% endhighlight %}
+        <div class="button-container">
+          <button class="copy-button" onclick="copyCode(this)">Copy</button>
+          <button class="copy-button" onclick="copyAsCurl(this)">Copy as cURL</button>
+        </div>
       </div>
     </div>
   
     <div id="python" class="tab">
       <div class="code-container">
-        {% highlight python %}
-  {{ include.python }}
-        {% endhighlight %}
-        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+{% highlight python %}
+{{ include.python | strip }}
+{% endhighlight %}
+        <div class="button-container">
+            <button class="copy-button" onclick="copyCode(this)">Copy</button>
+          </div>
       </div>
     </div>
   </div>
-  
