@@ -1,0 +1,17 @@
+languages:
+  - id: rest
+    name: REST
+    highlight: json
+    buttons:
+      - copy
+      - curl
+  - id: python
+    name: Python
+    highlight: python
+    buttons:
+      - copy
+  - id: java
+    name: Java
+    highlight: java
+    buttons:
+      - copy

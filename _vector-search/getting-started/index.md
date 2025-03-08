@@ -88,34 +88,47 @@ PUT /hotels-index
 ```
 {% include copy-curl.html %}
 
-{% capture rest %}
-POST /_plugins/_ml/models/_register
+{% capture step1_rest %}
+PUT /hotels-index
 {
-  "name": "huggingface/sentence-transformers/all-MiniLM-L12-v2",
-  "version": "1.0.1",
-  "model_format": "TORCH_SCRIPT"
+  "settings": {
+    "index.knn": true
+  },
+  "mappings": {
+    "properties": {
+      "location": {
+        "type": "knn_vector",
+        "dimension": 2,
+        "space_type": "l2"
+      }
+    }
+  }
 }
 {% endcapture %}
 
-{% capture python %}
+{% capture step1_python %}
 from opensearchpy import OpenSearch
 
-client = OpenSearch(
-    hosts = [{'host': 'localhost', 'port': 9200}]
-)
-
-response = client.ml.register_model(
-    name="huggingface/sentence-transformers/all-MiniLM-L12-v2",
-    version="1.0.1",
-    model_format="TORCH_SCRIPT"
+client.indices.create(
+    index="hotels-index",
+    body={
+        "settings": {"index.knn": True},
+        "mappings": {
+            "properties": {
+                "location": {
+                    "type": "knn_vector",
+                    "dimension": 2,
+                    "space_type": "l2"
+                }
+            }
+        }
+    }
 )
 {% endcapture %}
 
 {% include code-block.html 
-    rest=rest
-    python=python
-%}
-
+    rest=step1_rest
+    python=step1_python %}
 
 ## Step 2: Add data to your index
 
@@ -136,8 +149,22 @@ POST /_bulk
 ```
 {% include copy-curl.html %}
 
-{% assign examples = site.data.code-examples.vector-search.getting-started.index.add_data %}
-{% include code_tabs.html examples=examples %}
+{% capture step2_rest %}
+POST /_bulk
+{ "index": { "_index": "hotels-index", "_id": "1" } }
+{ "location": [5.2, 4.4] }
+{ "index": { "_index": "hotels-index", "_id": "2" } }
+{ "location": [5.2, 3.9] }
+{ "index": { "_index": "hotels-index", "_id": "3" } }
+{ "location": [4.9, 3.4] }
+{ "index": { "_index": "hotels-index", "_id": "4" } }
+{ "location": [4.2, 4.6] }
+{ "index": { "_index": "hotels-index", "_id": "5" } }
+{ "location": [3.3, 4.5] }
+{% endcapture %}
+
+{% include code-block.html 
+    rest=step2_rest %}
 
 ## Step 3: Search your data
 
