@@ -11,6 +11,13 @@ const versionPanel = document.getElementById('version-panel');
 document.addEventListener('click', function(event) {
     const { target } = event;
 
+    // Handle old-style buttons first
+    if (target.matches('.copy-button') && target.hasAttribute('data-text')) {
+        window.navigator.clipboard.writeText(target.getAttribute('data-text'));
+        return; // Exit early to avoid multiple handlers
+    }
+
+    // Handle new-style buttons and other clicks
     const clickHandlers = {
         '.feedback-issue': () => gtag('event', 'submit_issue_click'),
         '.feedback-edit': () => gtag('event', 'edit_page_click'),
@@ -130,10 +137,14 @@ function copyAsCurl(button) {
     const codeBlock = button.closest('.code-container').querySelector('pre');
     const code = codeBlock.textContent.trim(); 
     
-    const lines = code.trim().split('\n');
-    const [method, endpoint] = lines[0].trim().split(' ');
+    const lines = code.split('\n');
+    const [method, path] = lines[0].trim().split(' ');
     const body = lines.slice(1).join('\n');
     
-    const curlCommand = `curl -X ${method} "localhost:9200${endpoint}" -H "Content-Type: application/json" -d '\n${body}\n'`;
+    const formattedPath = path.startsWith('/') ? path : '/' + path;
+    const curlCommand = body 
+        ? `curl -X ${method} "localhost:9200${formattedPath}" -H "Content-Type: application/json" -d '\n${body}\n'`
+        : `curl -X ${method} "localhost:9200${formattedPath}"`;
+        
     window.navigator.clipboard.writeText(curlCommand);
 }
