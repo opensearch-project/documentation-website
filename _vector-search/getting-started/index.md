@@ -150,17 +150,13 @@ POST /_bulk
 {% include copy-curl.html %}
 
 {% capture step2_rest %}
-POST /_bulk
-{ "index": { "_index": "hotels-index", "_id": "1" } }
-{ "location": [5.2, 4.4] }
-{ "index": { "_index": "hotels-index", "_id": "2" } }
-{ "location": [5.2, 3.9] }
-{ "index": { "_index": "hotels-index", "_id": "3" } }
-{ "location": [4.9, 3.4] }
-{ "index": { "_index": "hotels-index", "_id": "4" } }
-{ "location": [4.2, 4.6] }
-{ "index": { "_index": "hotels-index", "_id": "5" } }
-{ "location": [3.3, 4.5] }
+POST _bulk
+{"index": {"_index": "qa_demo", "_id": "1"}}
+{"text": "Chart and table of population level and growth rate for the Ogden-Layton metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\nThe current metro area population of Ogden-Layton in 2023 is 750,000, a 1.63% increase from 2022.\nThe metro area population of Ogden-Layton in 2022 was 738,000, a 1.79% increase from 2021.\nThe metro area population of Ogden-Layton in 2021 was 725,000, a 1.97% increase from 2020.\nThe metro area population of Ogden-Layton in 2020 was 711,000, a 2.16% increase from 2019."}
+{"index": {"_index": "qa_demo", "_id": "2"}}
+{"text": "Chart and table of population level and growth rate for the New York City metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\\nThe current metro area population of New York City in 2023 is 18,937,000, a 0.37% increase from 2022.\\nThe metro area population of New York City in 2022 was 18,867,000, a 0.23% increase from 2021.\\nThe metro area population of New York City in 2021 was 18,823,000, a 0.1% increase from 2020.\\nThe metro area population of New York City in 2020 was 18,804,000, a 0.01% decline from 2019."}
+{"index": {"_index": "qa_demo", "_id": "3"}}
+{"text": "Chart and table of population level and growth rate for the Chicago metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\\nThe current metro area population of Chicago in 2023 is 8,937,000, a 0.4% increase from 2022.\\nThe metro area population of Chicago in 2022 was 8,901,000, a 0.27% increase from 2021.\\nThe metro area population of Chicago in 2021 was 8,877,000, a 0.14% increase from 2020.\\nThe metro area population of Chicago in 2020 was 8,865,000, a 0.03% increase from 2019."}
 {% endcapture %}
 
 {% include code-block.html 

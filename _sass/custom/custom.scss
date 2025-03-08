@@ -392,10 +392,6 @@ div.highlighter-rouge {
   justify-content: flex-end; 
 }
 
-.code-container {
-  position: relative;
-}
-
 .button-container {
     position: absolute;
     bottom: 10px;
@@ -1266,6 +1262,32 @@ body {
   line-height: 24px;
 }
 
+.code-container {
+  position: relative;
+  padding-bottom: 3.5rem; /* Make room for buttons */
+  background-color: $code-background-color;
+}
+
+.button-container {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    gap: 8px;
+    background: inherit; /* Match parent background */
+}
+
+/* Add horizontal scroll to the code area */
+.code-container .highlight {
+  overflow-x: auto;
+  margin: 0;
+}
+
+.code-container .highlight pre {
+  margin: 0;
+  white-space: pre;
+}
+
 .code-tabs {
   margin-bottom: 1.5rem;
 }
@@ -1303,9 +1325,10 @@ body {
   display: block;
 }
 
-/* Preserve Rouge highlighting */
-.code-tabs .highlight {
-  margin: 0;
+/* Ensure copy buttons stay on top of scrolled content */
+.copy-button {
+  z-index: 1;
+  position: relative;
 }
 
 
