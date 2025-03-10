@@ -3,7 +3,7 @@ layout: default
 title: Vector search
 has_children: true
 has_toc: false
-nav_order: 20
+nav_order: 10
 redirect_from:
   - /vector-search/tutorials/
   - /ml-commons-plugin/tutorials/
@@ -30,7 +30,7 @@ other:
 
 # Vector search tutorials
 
-Explore the following tutorials to learn about implementing vector search applications using the OpenSearch vector database.
+Explore the following tutorials to learn about implementing vector search applications using the OpenSearch vector database. For more information about using OpenSearch as a vector database, see [Vector search]({{site.url}}{{site.baseurl}}/vector-search/).
 
 ## Vector search 101
 

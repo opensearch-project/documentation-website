@@ -1,46 +1,45 @@
 ---
 layout: default
 title: Reranking search results
-parent: Generative AI
 has_children: true
 has_toc: false
-nav_order: 10
+nav_order: 20
 redirect_from:
   - /vector-search/tutorials/reranking/
-  - /tutorials/gen-ai/reranking/
+  - /tutorials/reranking/
 reranking:
   - heading: Reranking search results using Cohere Rerank
-    link: /tutorials/gen-ai/reranking/reranking-cohere/
+    link: /tutorials/reranking/reranking-cohere/
     list:
       - "<b>Platform:</b> OpenSearch"
       - "<b>Model:</b> Cohere Rerank"  
       - "<b>Deployment:</b> Provider API"  
   - heading: Reranking search results using Cohere Rerank on Amazon Bedrock
-    link: /tutorials/gen-ai/reranking/reranking-cohere-bedrock/
+    link: /tutorials/reranking/reranking-cohere-bedrock/
     list:
       - "<b>Platform:</b> OpenSearch, Amazon OpenSearch Service"
       - "<b>Model:</b> Cohere Rerank"  
       - "<b>Deployment:</b> Amazon Bedrock" 
   - heading: Reranking search results using Amazon Bedrock models
-    link: /tutorials/gen-ai/reranking/reranking-bedrock/
+    link: /tutorials/reranking/reranking-bedrock/
     list:
       - "<b>Platform:</b> OpenSearch"
       - "<b>Model:</b> Amazon Bedrock reranker models"  
       - "<b>Deployment:</b> Amazon Bedrock"  
   - heading: Reranking search results using a cross-encoder in Amazon SageMaker
-    link: /tutorials/gen-ai/reranking/reranking-cross-encoder/
+    link: /tutorials/reranking/reranking-cross-encoder/
     list:
       - "<b>Platform:</b> OpenSearch"
       - "<b>Model:</b> Hugging Face MS MARCO"  
       - "<b>Deployment:</b> Amazon SageMaker" 
   - heading: Reranking search results using a reranker in Amazon SageMaker
-    link: /tutorials/gen-ai/reranking/reranking-sagemaker/
+    link: /tutorials/reranking/reranking-sagemaker/
     list:
       - "<b>Platform:</b> OpenSearch, Amazon OpenSearch Service"
       - "<b>Model:</b> Hugging Face BAAI/bge-reranker"  
       - "<b>Deployment:</b> Amazon SageMaker" 
   - heading: Reranking search results by a field
-    link: /tutorials/gen-ai/reranking/reranking-by-field/
+    link: /tutorials/reranking/reranking-by-field/
     list:
       - "<b>Platform:</b> OpenSearch, Amazon OpenSearch Service"
       - "<b>Model:</b> Cohere Rerank"  
@@ -49,6 +48,6 @@ reranking:
 
 # Reranking search results tutorials
 
-The following machine learning (ML) tutorials show you how to implement search result reranking.
+The following machine learning (ML) tutorials show you how to implement search result reranking. For more information about reranking, see [Reranking search results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/).
 
 {% include cards.html cards=page.reranking %}

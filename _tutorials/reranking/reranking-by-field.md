@@ -2,7 +2,6 @@
 layout: default
 title: Reranking search results by a field
 parent: Reranking search results
-grand_parent: Generative AI
 nav_order: 120
 redirect_from:
   - /ml-commons-plugin/tutorials/reranking-cohere/

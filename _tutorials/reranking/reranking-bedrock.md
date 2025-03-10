@@ -1,77 +1,115 @@
 ---
 layout: default
-title: Reranking search results using Cohere Rerank on Amazon Bedrock
+title: Reranking search results using Amazon Bedrock models
 parent: Reranking search results
-grand_parent: Generative AI
-nav_order: 95
+nav_order: 100
 redirect_from:
-  - /vector-search/tutorials/reranking/reranking-cohere-bedrock/
+  - /ml-commons-plugin/tutorials/reranking-bedrock/
+  - /vector-search/tutorials/reranking/reranking-bedrock/
 ---
 
-# Reranking search results using Cohere Rerank on Amazon Bedrock
-
-This tutorial shows you how to implement search result reranking in [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/) and self-managed OpenSearch using the [Cohere Rerank model](https://docs.aws.amazon.com/bedrock/latest/userguide/rerank-supported.html) hosted on Amazon Bedrock.
+# Reranking search results using Amazon Bedrock models
 
 A [reranking pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/) can rerank search results, providing a relevance score for each document in the search results with respect to the search query. The relevance score is calculated by a cross-encoder model. 
+
+This tutorial shows you how to use the [Amazon Bedrock Rerank API](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent-runtime_Rerank.html) to rerank search results using a model hosted on Amazon Bedrock. 
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}
 
-## Prerequisites: Test the model on Amazon Bedrock
+## Prerequisite: Test the model on Amazon Bedrock
 
-Before using your model, test it on Amazon Bedrock using the following code:
+Before using your model, test it on Amazon Bedrock. For supported reranker models, see [Supported Regions and models for reranking in Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/rerank-supported.html). For model IDs, see [Supported foundation models in Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html). To perform a reranking test, use the following code:
 
 ```python
 import json
 import boto3
 bedrock_region = "your_bedrock_model_region_like_us-west-2"
-bedrock_runtime_client = boto3.client("bedrock-runtime", region_name=bedrock_region)
+bedrock_agent_runtime_client = boto3.client("bedrock-agent-runtime", region_name=bedrock_region)
 
-modelId = "cohere.rerank-v3-5:0"
-contentType = "application/json"
-accept = "*/*"
+model_id = "amazon.rerank-v1:0"
 
-body = json.dumps({
-    "query": "What is the capital city of America?",
-    "documents": [
-        "Carson City is the capital city of the American state of Nevada.",
-        "The Commonwealth of the Northern Mariana Islands is a group of islands in the Pacific Ocean. Its capital is Saipan.",
-        "Washington, D.C. (also known as simply Washington or D.C., and officially as the District of Columbia) is the capital of the United States. It is a federal district.",
-        "Capital punishment (the death penalty) has existed in the United States since beforethe United States was a country. As of 2017, capital punishment is legal in 30 of the 50 states."
+response = bedrock_agent_runtime_client.rerank(
+    queries=[
+        {
+            "textQuery": {
+                "text": "What is the capital city of America?",
+            },
+            "type": "TEXT"
+        }
     ],
-    "api_version": 2
-})
-
-response = bedrock_runtime_client.invoke_model(
-    modelId=modelId,
-    contentType=contentType,
-    accept=accept, 
-    body=body
+    rerankingConfiguration={
+        "bedrockRerankingConfiguration": {
+            "modelConfiguration": {
+                "modelArn": f"arn:aws:bedrock:{bedrock_region}::foundation-model/{model_id}"
+            },
+        },
+        "type": "BEDROCK_RERANKING_MODEL"
+    },
+    sources=[
+        {
+            "inlineDocumentSource": {
+                "textDocument": {
+                    "text": "Carson City is the capital city of the American state of Nevada.",
+                },
+                "type": "TEXT"
+            },
+            "type": "INLINE"
+        },
+        {
+            "inlineDocumentSource": {
+                "textDocument": {
+                    "text": "The Commonwealth of the Northern Mariana Islands is a group of islands in the Pacific Ocean. Its capital is Saipan.",
+                },
+                "type": "TEXT"
+            },
+            "type": "INLINE"
+        },
+        {
+            "inlineDocumentSource": {
+                "textDocument": {
+                    "text": "Washington, D.C. (also known as simply Washington or D.C., and officially as the District of Columbia) is the capital of the United States. It is a federal district.",
+                },
+                "type": "TEXT"
+            },
+            "type": "INLINE"
+        },
+        {
+            "inlineDocumentSource": {
+                "textDocument": {
+                    "text": "Capital punishment (the death penalty) has existed in the United States since beforethe United States was a country. As of 2017, capital punishment is legal in 30 of the 50 states."
+                },
+                "type": "TEXT"
+            },
+            "type": "INLINE"
+        },        
+    ]
 )
-results = json.loads(response.get('body').read())["results"]
+
+results = response["results"]
 print(json.dumps(results, indent=2))
 ```
 {% include copy.html %}
 
-The response contains the reranking results ordered by relevance score:
+The reranked results are ordered by the highest score:
 
 ```json
 [
   {
     "index": 2,
-    "relevance_score": 0.7190094
+    "relevanceScore": 0.7711548805236816
   },
   {
     "index": 0,
-    "relevance_score": 0.32418242
+    "relevanceScore": 0.0025114635936915874
   },
   {
     "index": 1,
-    "relevance_score": 0.07456104
+    "relevanceScore": 2.4876489987946115e-05
   },
   {
     "index": 3,
-    "relevance_score": 0.06124987
+    "relevanceScore": 6.339210358419223e-06
   }
 ]
 ```
@@ -79,44 +117,47 @@ The response contains the reranking results ordered by relevance score:
 To sort the results by index, use the following code:
 
 ```python
-print(json.dumps(sorted(results, key=lambda x: x['index']), indent=2))
+print(json.dumps(sorted(results, key=lambda x: x['index']),indent=2))
 ```
-{% include copy.html %}
 
-The sorted results are as follows:
+The following are the results sorted by index:
 
 ```json
 [
   {
     "index": 0,
-    "relevance_score": 0.32418242
+    "relevanceScore": 0.0025114635936915874
   },
   {
     "index": 1,
-    "relevance_score": 0.07456104
+    "relevanceScore": 2.4876489987946115e-05
   },
   {
     "index": 2,
-    "relevance_score": 0.7190094
+    "relevanceScore": 0.7711548805236816
   },
   {
     "index": 3,
-    "relevance_score": 0.06124987
+    "relevanceScore": 6.339210358419223e-06
   }
 ]
 ```
 
 ## Step 1: Create a connector and register the model
 
-To create a connector for the model, send the following request. 
+To create a connector and register the model, use the following steps.
+
+### Step 1.1: Create a connector for the model
+
+First, create a connector for the model. 
 
 If you are using self-managed OpenSearch, supply your AWS credentials:
 
 ```json
 POST /_plugins/_ml/connectors/_create
 {
-  "name": "Amazon Bedrock Cohere rerank model",
-  "description": "Test connector for Amazon Bedrock Cohere rerank model",
+  "name": "Amazon Bedrock Rerank API",
+  "description": "Test connector for Amazon Bedrock Rerank API",
   "version": 1,
   "protocol": "aws_sigv4",
   "credential": {
@@ -126,187 +167,112 @@ POST /_plugins/_ml/connectors/_create
   },
   "parameters": {
     "service_name": "bedrock",
-    "endpoint": "bedrock-runtime",
+    "endpoint": "bedrock-agent-runtime",
     "region": "your_bedrock_model_region_like_us-west-2",
-    "model_name": "cohere.rerank-v3-5:0",
-    "api_version": 2
+    "api_name": "rerank",
+    "model_id": "amazon.rerank-v1:0"
   },
   "actions": [
     {
       "action_type": "PREDICT",
       "method": "POST",
-      "url": "https://${parameters. endpoint}.${parameters.region}.amazonaws.com/model/${parameters.model_name}/invoke",
+      "url": "https://${parameters.endpoint}.${parameters.region}.amazonaws.com/${parameters.api_name}",
       "headers": {
         "x-amz-content-sha256": "required",
         "content-type": "application/json"
       },
-      "pre_process_function": """
-        def query_text = params.query_text;
-        def text_docs = params.text_docs;
-        def textDocsBuilder = new StringBuilder('[');
-        for (int i=0; i<text_docs.length; i++) {
-          textDocsBuilder.append('"');
-          textDocsBuilder.append(text_docs[i]);
-          textDocsBuilder.append('"');
-          if (i<text_docs.length - 1) {
-            textDocsBuilder.append(',');
-          }
-        }
-        textDocsBuilder.append(']');
-        def parameters = '{ "query": "' + query_text + '",  "documents": ' + textDocsBuilder.toString() + ' }';
-        return  '{"parameters": ' + parameters + '}';
-        """,
+      "pre_process_function": "connector.pre_process.bedrock.rerank",
       "request_body": """
-        { 
-          "documents": ${parameters.documents},
-          "query": "${parameters.query}",
-          "api_version": ${parameters.api_version}
+        {
+          "queries": ${parameters.queries},
+          "rerankingConfiguration": {
+            "bedrockRerankingConfiguration": {
+              "modelConfiguration": {
+                "modelArn": "arn:aws:bedrock:${parameters.region}::foundation-model/${parameters.model_id}"
+              }
+            },
+            "type": "BEDROCK_RERANKING_MODEL"
+          },
+          "sources": ${parameters.sources}
         }
-        """,
-      "post_process_function": """
-        if (params.results == null || params.results.length == 0) {
-          throw new IllegalArgumentException("Post process function input is empty.");
-        }
-        def outputs = params.results;
-        def relevance_scores = new Double[outputs.length];
-        for (int i=0; i<outputs.length; i++) {
-          def index = new BigDecimal(outputs[i].index.toString()).intValue();
-          relevance_scores[index] = outputs[i].relevance_score;
-        }
-        def resultBuilder = new StringBuilder('[');
-        for (int i=0; i<relevance_scores.length; i++) {
-          resultBuilder.append(' {"name": "similarity", "data_type": "FLOAT32", "shape": [1],');
-          resultBuilder.append('"data": [');
-          resultBuilder.append(relevance_scores[i]);
-          resultBuilder.append(']}');
-          if (i<outputs.length - 1) {
-            resultBuilder.append(',');
-          }
-        }
-        resultBuilder.append(']');
-        return resultBuilder.toString();
-      """
+      """,
+      "post_process_function": "connector.post_process.bedrock.rerank"
     }
   ]
 }
 ```
 {% include copy-curl.html %}
 
-If you are using Amazon OpenSearch Service, you can provide an AWS Identity and Access Management (IAM) role Amazon Resource Name (ARN) that allows access to Amazon Bedrock:
+If you are using Amazon OpenSearch Service, you can provide an AWS Identity and Access Management (IAM) role Amazon Resource Name (ARN) that allows access to Amazon Bedrock. For more information, see the [AWS documentation](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ml-amazon-connector.html). Use the following request to create a connector:
 
 ```json
 POST /_plugins/_ml/connectors/_create
 {
-  "name": "Amazon Bedrock Cohere rerank model",
-  "description": "Test connector for Amazon Bedrock Cohere rerank model",
+  "name": "Amazon Bedrock Rerank API",
+  "description": "Test connector for Amazon Bedrock Rerank API",
   "version": 1,
   "protocol": "aws_sigv4",
   "credential": {
-    "roleArn": "your_role_arn_which_allows_access_to_bedrock_model"
+    "roleArn": "your_role_arn_which_allows_access_to_bedrock_agent_runtime_rerank_api"
   },
   "parameters": {
     "service_name": "bedrock",
-    "endpoint": "bedrock-runtime",
+    "endpoint": "bedrock-agent-runtime",
     "region": "your_bedrock_model_region_like_us-west-2",
-    "model_name": "cohere.rerank-v3-5:0",
-    "api_version": 2
-},
+    "api_name": "rerank",
+    "model_id": "amazon.rerank-v1:0"
+  },
   "actions": [
     {
       "action_type": "PREDICT",
       "method": "POST",
-      "url": "https://${parameters. endpoint}.${parameters.region}.amazonaws.com/model/${parameters.model_name}/invoke",
+      "url": "https://${parameters.endpoint}.${parameters.region}.amazonaws.com/${parameters.api_name}",
       "headers": {
         "x-amz-content-sha256": "required",
         "content-type": "application/json"
       },
-      "pre_process_function": """
-        def query_text = params.query_text;
-        def text_docs = params.text_docs;
-        def textDocsBuilder = new StringBuilder('[');
-        for (int i=0; i<text_docs.length; i++) {
-          textDocsBuilder.append('"');
-          textDocsBuilder.append(text_docs[i]);
-          textDocsBuilder.append('"');
-          if (i<text_docs.length - 1) {
-            textDocsBuilder.append(',');
-          }
-        }
-        textDocsBuilder.append(']');
-        def parameters = '{ "query": "' + query_text + '",  "documents": ' + textDocsBuilder.toString() + ' }';
-        return  '{"parameters": ' + parameters + '}';
-        """,
+      "pre_process_function": "connector.pre_process.bedrock.rerank",
       "request_body": """
-        { 
-          "documents": ${parameters.documents},
-          "query": "${parameters.query}",
-          "api_version": ${parameters.api_version}
+        {
+          "queries": ${parameters.queries},
+          "rerankingConfiguration": {
+            "bedrockRerankingConfiguration": {
+              "modelConfiguration": {
+                "modelArn": "arn:aws:bedrock:${parameters.region}::foundation-model/${parameters.model_id}"
+              }
+            },
+            "type": "BEDROCK_RERANKING_MODEL"
+          },
+          "sources": ${parameters.sources}
         }
-        """,
-      "post_process_function": """
-        if (params.results == null || params.results.length == 0) {
-          throw new IllegalArgumentException("Post process function input is empty.");
-        }
-        def outputs = params.results;
-        def relevance_scores = new Double[outputs.length];
-        for (int i=0; i<outputs.length; i++) {
-          def index = new BigDecimal(outputs[i].index.toString()).intValue();
-          relevance_scores[index] = outputs[i].relevance_score;
-        }
-        def resultBuilder = new StringBuilder('[');
-        for (int i=0; i<relevance_scores.length; i++) {
-          resultBuilder.append(' {"name": "similarity", "data_type": "FLOAT32", "shape": [1],');
-          resultBuilder.append('"data": [');
-          resultBuilder.append(relevance_scores[i]);
-          resultBuilder.append(']}');
-          if (i<outputs.length - 1) {
-            resultBuilder.append(',');
-          }
-        }
-        resultBuilder.append(']');
-        return resultBuilder.toString();
-      """
+      """,
+      "post_process_function": "connector.post_process.bedrock.rerank"
     }
   ]
 }
 ```
+{% include copy-curl.html %}
 
-For more information, see the [AWS documentation](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ml-amazon-connector.html).
+### Step 1.2: Register and deploy the model
 
 Use the connector ID from the response to register and deploy the model:
 
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
 {
-    "name": "Amazon Bedrock Cohere rerank model",
-    "function_name": "remote",
-    "description": "test rerank model",
-    "connector_id": "your_connector_id"
+  "name": "Amazon Bedrock Rerank API",
+  "function_name": "remote",
+  "description": "test Amazon Bedrock Rerank API",
+  "connector_id": "your_connector_id"
 }
 ```
 {% include copy-curl.html %}
 
 Note the model ID in the response; you'll use it in the following steps.
 
+### Step 1.3: Test the model
+
 Test the model by using the Predict API:
-
-```json
-POST _plugins/_ml/models/your_model_id/_predict
-{
-  "parameters": {
-    "query": "What is the capital city of America?",
-    "documents": [
-      "Carson City is the capital city of the American state of Nevada.",
-      "The Commonwealth of the Northern Mariana Islands is a group of islands in the Pacific Ocean. Its capital is Saipan.",
-      "Washington, D.C. (also known as simply Washington or D.C., and officially as the District of Columbia) is the capital of the United States. It is a federal district.",
-      "Capital punishment (the death penalty) has existed in the United States since beforethe United States was a country. As of 2017, capital punishment is legal in 30 of the 50 states."
-    ]
-  }
-}
-```
-{% include copy-curl.html %}
-
-Alternatively, you can test the model as follows:
 
 ```json
 POST _plugins/_ml/_predict/text_similarity/your_model_id
@@ -322,32 +288,91 @@ POST _plugins/_ml/_predict/text_similarity/your_model_id
 ```
 {% include copy-curl.html %}
 
-The connector `pre_process_function` transforms the input into the format required by the previously shown parameters.
+Alternatively, you can test the model using the following query. This query bypasses the `pre_process_function` and calls the Rerank API directly:
 
-By default, the Amazon Bedrock Rerank API output has the following format:
+```json
+POST _plugins/_ml/models/your_model_id/_predict
+{
+  "parameters": {
+    "queries": [
+      {
+        "textQuery": {
+            "text": "What is the capital city of America?"
+        },
+        "type": "TEXT"
+      }
+    ],
+    "sources": [
+        {
+            "inlineDocumentSource": {
+                "textDocument": {
+                    "text": "Carson City is the capital city of the American state of Nevada."
+                },
+                "type": "TEXT"
+            },
+            "type": "INLINE"
+        },
+        {
+            "inlineDocumentSource": {
+                "textDocument": {
+                    "text": "The Commonwealth of the Northern Mariana Islands is a group of islands in the Pacific Ocean. Its capital is Saipan."
+                },
+                "type": "TEXT"
+            },
+            "type": "INLINE"
+        },
+        {
+            "inlineDocumentSource": {
+                "textDocument": {
+                    "text": "Washington, D.C. (also known as simply Washington or D.C., and officially as the District of Columbia) is the capital of the United States. It is a federal district."
+                },
+                "type": "TEXT"
+            },
+            "type": "INLINE"
+        },
+        {
+            "inlineDocumentSource": {
+                "textDocument": {
+                    "text": "Capital punishment (the death penalty) has existed in the United States since beforethe United States was a country. As of 2017, capital punishment is legal in 30 of the 50 states."
+                },
+                "type": "TEXT"
+            },
+            "type": "INLINE"
+        }
+    ]
+  }
+}
+```
+{% include copy-curl.html %}
+
+The connector `pre_process_function` transforms the input into the format required by the Predict API `parameters`.
+
+By default, the Amazon Bedrock Rerank API output is formatted as follows:
 
 ```json
 [
   {
     "index": 2,
-    "relevance_score": 0.7190094
+    "relevanceScore": 0.7711548724998493
   },
   {
     "index": 0,
-    "relevance_score": 0.32418242
+    "relevanceScore": 0.0025114635138098534
   },
   {
     "index": 1,
-    "relevance_score": 0.07456104
+    "relevanceScore": 2.4876490010363496e-05
   },
   {
     "index": 3,
-    "relevance_score": 0.06124987
+    "relevanceScore": 6.339210403977635e-06
   }
 ]
 ```
 
-The connector `post_process_function` transforms the model's output into a format that the [rerank processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/) can interpret and orders the results by index. This adapted format is as follows:
+The connector `post_process_function` transforms the model's output into a format that the [Reranker processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/) can interpret and orders the results by index. 
+
+The response contains four `similarity` outputs. For each `similarity` output, the `data` array contains a relevance score for each document against the query. The `similarity` outputs are provided in the order of the input documents; the first similarity result pertains to the first document:
 
 ```json
 {
@@ -361,7 +386,7 @@ The connector `post_process_function` transforms the model's output into a forma
             1
           ],
           "data": [
-            0.32418242
+            0.0025114636
           ]
         },
         {
@@ -371,7 +396,7 @@ The connector `post_process_function` transforms the model's output into a forma
             1
           ],
           "data": [
-            0.07456104
+            2.487649e-05
           ]
         },
         {
@@ -381,7 +406,7 @@ The connector `post_process_function` transforms the model's output into a forma
             1
           ],
           "data": [
-            0.7190094
+            0.7711549
           ]
         },
         {
@@ -391,7 +416,7 @@ The connector `post_process_function` transforms the model's output into a forma
             1
           ],
           "data": [
-            0.06124987
+            6.3392104e-06
           ]
         }
       ],
@@ -401,15 +426,13 @@ The connector `post_process_function` transforms the model's output into a forma
 }
 ```
 
-The response contains four `similarity` objects. For each `similarity` object, the `data` array contains a relevance score for each document with respect to the query. The `similarity` objects are provided in the order of the input documents---the first object pertains to the first document. This differs from the default output of the Cohere Rerank model, which orders documents by relevance score. The document order is changed in the `connector.post_process.cohere.rerank` post-processing function so that the output is compatible with a reranking pipeline.
+## Step 2: Create a reranking pipeline
 
-## Step 2: Configure a reranking pipeline
-
-Follow these steps to configure a reranking pipeline.
+To create a reranking pipeline, use the following steps.
 
 ### Step 2.1: Ingest test data
 
-Send a bulk request to ingest test data:
+Use the following request to ingest data into your index:
 
 ```json
 POST _bulk
@@ -426,12 +449,12 @@ POST _bulk
 
 ### Step 2.2: Create a reranking pipeline
 
-Create a reranking pipeline with the Cohere Rerank model:
+Create a reranking pipeline using the Amazon Bedrock reranking model:
 
 ```json
 PUT /_search/pipeline/rerank_pipeline_bedrock
 {
-    "description": "Pipeline for reranking with Bedrock Cohere rerank model",
+    "description": "Pipeline for reranking with Bedrock rerank model",
     "response_processors": [
         {
             "rerank": {
@@ -448,12 +471,10 @@ PUT /_search/pipeline/rerank_pipeline_bedrock
 ```
 {% include copy-curl.html %}
 
-If you provide multiple field names in `document_fields`, the values of all fields are first concatenated, and then reranking is performed.
+If you provide multiple field names in `document_fields`, the values of all fields are first concatenated, after which reranking is performed.
 {: .note}
 
-### Step 2.3: Test the reranking
-
-To limit the number of returned results, you can specify the `size` parameter. For example, set `"size": 2` to return the top two documents.
+### Step 2.3: Test reranking
 
 First, test the query without using the reranking pipeline:
 
@@ -609,12 +630,12 @@ The first document in the response is `"Washington, D.C. (also known as simply W
       "value": 4,
       "relation": "eq"
     },
-    "max_score": 0.7190094,
+    "max_score": 0.7711549,
     "hits": [
       {
         "_index": "my-test-data",
         "_id": "3",
-        "_score": 0.7190094,
+        "_score": 0.7711549,
         "fields": {
           "passage_text": [
             "Washington, D.C. (also known as simply Washington or D.C., and officially as the District of Columbia) is the capital of the United States. It is a federal district."
@@ -631,7 +652,7 @@ The first document in the response is `"Washington, D.C. (also known as simply W
       {
         "_index": "my-test-data",
         "_id": "1",
-        "_score": 0.32418242,
+        "_score": 0.0025114636,
         "fields": {
           "passage_text": [
             "Carson City is the capital city of the American state of Nevada."
@@ -646,7 +667,7 @@ The first document in the response is `"Washington, D.C. (also known as simply W
       {
         "_index": "my-test-data",
         "_id": "2",
-        "_score": 0.07456104,
+        "_score": 02.487649e-05,
         "fields": {
           "passage_text": [
             "The Commonwealth of the Northern Mariana Islands is a group of islands in the Pacific Ocean. Its capital is Saipan."
@@ -662,7 +683,7 @@ The first document in the response is `"Washington, D.C. (also known as simply W
       {
         "_index": "my-test-data",
         "_id": "4",
-        "_score": 0.06124987,
+        "_score": 6.3392104e-06,
         "fields": {
           "passage_text": [
             "Capital punishment (the death penalty) has existed in the United States since beforethe United States was a country. As of 2017, capital punishment is legal in 30 of the 50 states."
@@ -683,7 +704,7 @@ The first document in the response is `"Washington, D.C. (also known as simply W
 }
 ```
 
-To avoid writing the query twice, use the `query_text_path` instead of `query_text`, as follows:
+You can reuse the same query by specifying the `query_text_path` instead of `query_text`:
 
 ```json
 POST my-test-data/_search?search_pipeline=rerank_pipeline_bedrock
@@ -710,3 +731,4 @@ POST my-test-data/_search?search_pipeline=rerank_pipeline_bedrock
 }
 ```
 {% include copy-curl.html %}
+

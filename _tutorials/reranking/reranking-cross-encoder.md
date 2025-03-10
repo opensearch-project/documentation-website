@@ -2,7 +2,6 @@
 layout: default
 title: Reranking search results using a cross-encoder in Amazon SageMaker
 parent: Reranking search results
-grand_parent: Generative AI
 nav_order: 110
 redirect_from:
   - /ml-commons-plugin/tutorials/reranking-cross-encoder/

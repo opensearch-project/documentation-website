@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Amazon Bedrock model guardrails 
-parent: Model controls
+parent: Model guardrails
 grand_parent: Generative AI
 nav_order: 170
 redirect_from:

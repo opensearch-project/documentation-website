@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Model controls
+title: Model guardrails
 parent: Generative AI
 has_children: true
 has_toc: false
@@ -17,8 +17,8 @@ model_controls:
       - "<b>Deployment:</b> Amazon Bedrock"   
 ---
 
-# Model controls tutorials
+# Model guardrails tutorials
 
-The following tutorials show you how to implement model controls.
+The following tutorials show you how to implement model guardrails.
 
 {% include cards.html cards=page.model_controls %}
