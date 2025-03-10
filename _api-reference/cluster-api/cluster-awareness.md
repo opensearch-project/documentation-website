@@ -15,31 +15,66 @@ redirect_from:
 
 To control the distribution of search or HTTP traffic, you can use the weights per awareness attribute to control the distribution of search or HTTP traffic across zones. This is commonly used for zonal deployments, heterogeneous instances, and routing traffic away from zones during zonal failure.
 
+<!-- spec_insert_start
+api: cluster.get_weighted_routing
+component: endpoints
+-->
 ## Endpoints
-
 ```json
-PUT /_cluster/routing/awareness/<attribute>/weights
-GET /_cluster/routing/awareness/<attribute>/weights?local
-GET /_cluster/routing/awareness/<attribute>/weights
+GET /_cluster/routing/awareness/{attribute}/weights
 ```
+<!-- spec_insert_end -->
 
+<!-- spec_insert_start
+api: cluster.put_weighted_routing
+component: endpoints
+omit_header: true
+-->
+```json
+PUT /_cluster/routing/awareness/{attribute}/weights
+```
+<!-- spec_insert_end -->
+
+<!-- spec_insert_start
+api: cluster.put_weighted_routing
+component: path_parameters
+-->
 ## Path parameters
 
-Parameter | Type | Description
-:--- | :--- | :---
-attribute | String | The name of the awareness attribute, usually `zone`. The attribute name must match the values listed in the request body when assigning weights to zones.
+The following table lists the available path parameters.
+
+| Parameter | Required | Data type | Description |
+| :--- | :--- | :--- | :--- |
+| `attribute` | **Required** | String | The name of the awareness attribute. |
+
+<!-- spec_insert_end -->
+
+<!-- spec_insert_start
+api: cluster.put_weighted_routing
+columns: Parameter, Data type, Description, Default
+component: query_parameters
+-->
+## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description | Default |
+| :--- | :--- | :--- | :--- |
+
+<!-- spec_insert_end -->
+
 
 ## Request body fields
 
 Parameter | Type | Description
 :--- | :--- | :---
-weights | JSON object | Assigns weights to attributes within the request body of the PUT request. Weights can be set in any ratio, for example, 2:3:5. In a 2:3:5 ratio with 3 zones, for every 100 requests sent to the cluster, each zone would receive either 20, 30, or 50 search requests in a random order. When assigned a weight of `0`, the zone does not receive any search traffic. 
-_version | String | Implements optimistic concurrency control (OCC) through versioning. The parameter uses simple versioning, such as `1`, and increments upward based on each subsequent modification. This allows any servers from which a request originates to validate whether or not a zone has been modified. 
+`weights` | JSON object | Assigns weights to attributes within the request body of the PUT request. Weights can be set in any ratio, for example, 2:3:5. In a 2:3:5 ratio with 3 zones, for every 100 requests sent to the cluster, each zone would receive either 20, 30, or 50 search requests in a random order. When assigned a weight of `0`, the zone does not receive any search traffic. 
+`_version` | String | Implements optimistic concurrency control (OCC) through versioning. The parameter uses simple versioning, such as `1`, and increments upward based on each subsequent modification. This allows any servers from which a request originates to validate whether or not a zone has been modified. 
 
 
 In the following example request body, `zone_1` and `zone_2` receive 50 requests each, whereas `zone_3` is prevented from receiving requests:
 
-```
+```json
 { 
       "weights":
       {
@@ -117,6 +152,7 @@ OpenSearch responds with the weight of each zone:
       },
       "_version":1
 }
+```
 
 
 ## Next steps
