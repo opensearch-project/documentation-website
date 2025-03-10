@@ -45,25 +45,25 @@ Field | Description
 :--- | :---
 conflicts | Indicates to OpenSearch what should happen if the Reindex operation runs into a version conflict. Valid options are `abort` and `proceed`. Default is `abort`.
 source | Information about the source index to include. Valid fields are `index`, `max_docs`, `query`, `remote`, `size`, `slice`, and `_source`.
-index | The name of the source index to copy data from.
-max_docs | The maximum number of documents to reindex.
-query | The search query to use for the reindex operation.
-remote | Information about a remote OpenSearch cluster to copy data from. Valid fields are `host`, `username`, `password`, `socket_timeout`, and `connect_timeout`.
-host | Host URL of the OpenSearch cluster to copy data from.
-username | Username to authenticate with the remote cluster.
-password | Password to authenticate with the remote cluster.
-socket_timeout | The wait time for socket reads. Default is 30s.
-connect_timeout | The wait time for remote connection timeouts. Default is 30s.
-size | The number of documents to reindex.
-slice | Whether to manually or automatically slice the reindex operation so it executes in parallel. Setting this field to `auto` allows OpenSearch to control the number of slices to use, which is one slice per shard, up to a maximum of 20. If there are multiple sources, the number of slices used are based on the index or backing index with the smallest number of shards.
-_source | Whether to reindex source fields. Specify a list of fields to reindex or true to reindex all fields. Default is `true`.
+source.index | The name of the source index to copy data from.
+source.max_docs | The maximum number of documents to reindex.
+source.query | The search query to use for the reindex operation.
+source.remote | Information about a remote OpenSearch cluster to copy data from. Valid fields are `host`, `username`, `password`, `socket_timeout`, and `connect_timeout`.
+source.remote.host | Host URL of the OpenSearch cluster to copy data from.
+source.remote.username | Username to authenticate with the remote cluster.
+source.remote.password | Password to authenticate with the remote cluster.
+source.remote.socket_timeout | The wait time for socket reads. Default is 30s.
+source.remote.connect_timeout | The wait time for remote connection timeouts. Default is 30s.
+source.size | The number of documents to reindex.
+source.slice | Whether to manually or automatically slice the reindex operation so it executes in parallel. Setting this field to `auto` allows OpenSearch to control the number of slices to use, which is one slice per shard, up to a maximum of 20. If there are multiple sources, the number of slices used are based on the index or backing index with the smallest number of shards.
+source._source | Whether to reindex source fields. Specify a list of fields to reindex or true to reindex all fields. Default is `true`.
 id | The ID to associate with manual slicing.
 max | Maximum number of slices.
 dest | Information about the destination index. Valid values are `index`, `version_type`, `op_type`, and `pipeline`.
-index | Name of the destination index.
-version_type | The indexing operation's version type. Valid values are `internal`, `external`, `external_gt` (retrieve the document if the specified version number is greater than the document’s current version), and `external_gte` (retrieve the document if the specified version number is greater or equal to than the document’s current version).
-op_type | Whether to copy over documents that are missing in the destination index. Valid values are `create` (ignore documents with the same ID from the source index) and `index` (copy everything from the source index).
-pipeline | Which ingest pipeline to utilize during the reindex.
+dest.index | Name of the destination index.
+dest.version_type | The indexing operation's version type. Valid values are `internal`, `external`, `external_gt` (retrieve the document if the specified version number is greater than the document’s current version), and `external_gte` (retrieve the document if the specified version number is greater or equal to than the document’s current version).
+dest.op_type | Whether to copy over documents that are missing in the destination index. Valid values are `create` (ignore documents with the same ID from the source index) and `index` (copy everything from the source index).
+dest.pipeline | Which ingest pipeline to utilize during the reindex.
 script | A script that OpenSearch uses to apply transformations to the data during the reindex operation.
 lang | The scripting language. Valid options are `painless`, `expression`, `mustache`, and `java`.
 
