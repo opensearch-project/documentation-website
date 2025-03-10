@@ -1,10 +1,10 @@
 ---
 layout: default
-title: LLM frameworks
+title: LLM framework integration
 nav_order: 75
 ---
 
-# LLM frameworks
+# LLM framework integration
 
 Several popular large language model (LLM) frameworks integrate with OpenSearch as a vector store, enabling you to build production-ready generative AI applications. These frameworks provide high-level abstractions and tools for working with LLMs, and their OpenSearch integrations allow you to use OpenSearch for efficient vector storage, retrieval, and similarity search:
 
