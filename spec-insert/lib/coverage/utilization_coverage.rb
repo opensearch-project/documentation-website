@@ -5,12 +5,13 @@ require 'logger'
 require_relative '../utils'
 require_relative '../api/action'
 
+# Renders utilization coverage of Spec-Insert components to a markdown file
 class UtilizationCoverage < Mustache
   self.template_file = "#{__dir__}/templates/utilization_coverage.mustache"
 
   def components
     total = Api::Action.all.count
-    ::Utils::COMPONENTS.map do | id, component|
+    ::Utils::COMPONENTS.map do |id, component|
       utilization = ::Utils.utilized_components.values.flatten.count { |comp| comp == id }
       percent = (utilization.to_f / total * 100).round(2)
       { component:, utilization:, total:, percent:, namespaces: namespace_utilization(id) }
@@ -21,7 +22,7 @@ class UtilizationCoverage < Mustache
 
   def namespace_utilization(component)
     Api::Action.by_namespace.entries.sort_by(&:first).map do |namespace, actions|
-      namespace = namespace.present? ? namespace : '[root]'
+      namespace = '[root]' unless namespace.present?
       actions = actions.map do |action|
         { name: action.full_name,
           utilized: ::Utils.utilized_components[action.full_name]&.include?(component) }

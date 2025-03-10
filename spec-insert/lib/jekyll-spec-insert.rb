@@ -36,7 +36,7 @@ class JekyllSpecInsert < Jekyll::Command
     excluded_paths = Utils.config_exclude.map { |path| /\.#{path}$/ }
 
     Listen.to(Dir.pwd, only: /\.md$/, ignore: excluded_paths) do |modified, added, _removed|
-      (modified + added).each { |file| process_file(file, fail_on_error: fail_on_error) }
+      (modified + added).each { |file| process_file(file, fail_on_error:) }
     end.start
 
     trap('INT') { exit }

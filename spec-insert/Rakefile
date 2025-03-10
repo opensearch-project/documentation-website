@@ -11,6 +11,7 @@ require 'active_support/all'
 require_relative 'lib/coverage/utilization_coverage'
 require_relative 'lib/utils'
 
+desc 'Generate utilization coverage of Spec-Insert components'
 task :generate_utilization_coverage do
   Utils.load_spec
   coverage = UtilizationCoverage.new.render

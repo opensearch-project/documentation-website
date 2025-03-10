@@ -4,6 +4,7 @@ require 'yaml'
 require_relative 'spec_hash'
 require_relative 'doc_processor'
 
+# Utility methods for the Spec-Insert
 module Utils
   REPO_ROOT = File.expand_path('../..', __dir__)
   SPEC_FILE = File.join(REPO_ROOT, 'spec-insert/opensearch-openapi.yaml')
@@ -37,9 +38,9 @@ module Utils
     return if !forced && File.exist?(SPEC_FILE) && (File.mtime(SPEC_FILE) > 1.day.ago)
     logger&.info 'Downloading OpenSearch API specification...'
     system 'curl -L -X GET ' \
-             'https://github.com/opensearch-project/opensearch-api-specification' \
-             '/releases/download/main-latest/opensearch-openapi.yaml ' \
-             "-o #{SPEC_FILE}"
+           'https://github.com/opensearch-project/opensearch-api-specification' \
+           '/releases/download/main-latest/opensearch-openapi.yaml ' \
+           "-o #{SPEC_FILE}"
   end
 
   # @return [Hash] where each is an API/action name and each value is an array of generated component for that API
@@ -48,7 +49,7 @@ module Utils
       logger = Logger.new(IO::NULL)
       spec_inserts = target_files.flat_map { |file| DocProcessor.new(file, logger:).spec_inserts }
       Set.new(spec_inserts.map { |insert| [insert.args.api, insert.args.component] })
-        .to_a.group_by(&:first).transform_values { |values| values.map(&:last) }
+         .to_a.group_by(&:first).transform_values { |values| values.map(&:last) }
     end
   end
 
