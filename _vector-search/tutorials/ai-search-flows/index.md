@@ -1,6 +1,6 @@
 ---
 layout: default
-title: AI search flows
+title: AI search workflows
 parent: Tutorials
 has_children: true
 has_toc: false

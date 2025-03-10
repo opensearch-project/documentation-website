@@ -1,14 +1,14 @@
 ---
 layout: default
-title: Building AI search flows in OpenSearch Dashboards 
-parent: Model controls
+title: Creating and customizing AI search workflows
+parent: AI search workflows
 grand_parent: Tutorials
 nav_order: 170
 redirect_from:
   - /ml-commons-plugin/tutorials/bedrock-guardrails/
 ---
 
-# Building AI search flows in OpenSearch Dashboards
+# Creating and customizing AI search workflows in OpenSearch Dashboards
 
 This tutorial shows you how to build automated AI search flows in OpenSearch Dashboards.
 
@@ -201,7 +201,7 @@ In this example, the `${vector}` placeholder has already been set as the **vecto
 
 ## Step 8: Enrich query results
 
-You can configure a series of [search response processors]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/search-processors/#search-response-processors) to enrich or transform the returned matching documents. In this example, you won't transform the output data. For example transformations, see [More examples](#implementation-examples).
+You can configure a series of [search response processors]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/search-processors/#search-response-processors) to enrich or transform the returned matching documents. In this example, you won't transform the output data. For example transformations, see [configuration examples](#implementation-examples).
 
 ## Step 9: Run a search
 
@@ -221,6 +221,8 @@ If you're importing the template into a different cluster, update any cluster-sp
 You have now implemented semantic search using OpenSearch Flow, with all of the required resources bundled up into a single template. You can import this template on the UI and rebuild for different clusters, or run the template directly using the [Flow Framework Provision API]({{site.url}}{{site.baseurl}}/automating-configurations/api/provision-workflow/).
 
 The following sections contain additional OpenSearch Flow configuration examples.
+
+<p id="implementation-examples"></p>
 
 ## Semantic search
 
@@ -599,7 +601,7 @@ Ensure the index settings include `index.knn: true` and your index contains a `k
 
 ### Ingest pipeline
 
-Cofigure a single ML inference processor. Map your image field to the `image_url` model input field or your text field to the `text` model input field, depending on what type of data you are ingesting and persisting in your index. For example, if building an application that returns relevant images based on text or image input, you want to persist images and should map the image field to the `image_url` field.
+Configure a single ML inference processor. Map your image field to the `image_url` model input field or your text field to the `text` model input field, depending on what type of data you are ingesting and persisting in your index. For example, if building an application that returns relevant images based on text or image input, you want to persist images and should map the image field to the `image_url` field.
 
 ### Search pipeline
 
