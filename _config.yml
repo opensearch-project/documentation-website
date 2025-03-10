@@ -127,6 +127,9 @@ collections:
   vector-search:
     permalink: /:collection/:path/
     output: true
+  tutorials:
+    permalink: /:collection/:path/
+    output: true
 
 opensearch_collection:
   # Define the collections used in the theme
@@ -136,6 +139,9 @@ opensearch_collection:
       nav_fold: true
     getting-started:
       name: Getting started
+      nav_fold: true
+    tutorials:
+      name: Tutorials
       nav_fold: true
     install-and-configure:
       name: Install and upgrade
