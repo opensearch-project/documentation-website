@@ -23,7 +23,7 @@ cards:
 
 # Tutorials
 
-Follow our step-by-step tutorials to learn OpenSearch features.
+Follow our step-by-step tutorials to learn how to use OpenSearch features.
 
 {% include cards.html cards=page.cards %}
 
