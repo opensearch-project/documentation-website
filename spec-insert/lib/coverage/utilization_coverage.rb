@@ -22,13 +22,14 @@ class UtilizationCoverage < Mustache
   def namespace_utilization(component)
     Api::Action.by_namespace.entries.sort_by(&:first).map do |namespace, actions|
       namespace = namespace.present? ? namespace : '[root]'
-      actions_covered = actions.select { |action| ::Utils.utilized_components[action.full_name]&.include?(component) }
-                               .map(&:full_name)
+      actions = actions.map do |action|
+        { name: action.full_name,
+          utilized: ::Utils.utilized_components[action.full_name]&.include?(component) }
+      end.sort_by { |action| action[:name] }
       total = actions.count
-      utilization = actions_covered.count
+      utilization = actions.count { |action| action[:utilized] }
       percent = (utilization.to_f / total * 100).round(2)
-      any_actions = actions_covered.any?
-      { namespace:, utilization:, total:, percent:, actions_covered:, any_actions: }
+      { namespace:, utilization:, total:, percent:, actions: }
     end
   end
 end

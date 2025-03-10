@@ -51,4 +51,12 @@ module Utils
         .to_a.group_by(&:first).transform_values { |values| values.map(&:last) }
     end
   end
+
+  # @param [String] value
+  # @return [Boolean]
+  def self.parse_boolean(value)
+    return true if value == true || value =~ /^(true|t|yes|y|1)$/i
+    return false if value == false || value.nil? || value =~ /^(false|f|no|n|0)$/i
+    raise ArgumentError, "invalid value for Boolean: #{value}"
+  end
 end

@@ -8,19 +8,10 @@ Below is a summary of the utilization coverage of each Spec Insert component. Th
 {{#namespaces}}
 <details name="namespace" style="padding: 5px">
 <summary style="background-color: #222; color: #ddd; padding: 7px"><code>{{{namespace}}}</code> namespace: {{utilization}}/{{total}}</summary>
-{{#any_actions}}
 
-APIs with <b>{{{component}}}</b> component inserted:
-
-{{#actions_covered}}
-  - {{.}}
-{{/actions_covered}}
-{{/any_actions}}
-
-{{^any_actions}}
-
-<i>No APIs of this namespace have had the <b>{{{component}}}</b> component inserted yet.</i>
-{{/any_actions}}
+{{#actions}}
+- {{#utilized}}<span style="color: green;">&check;</span>{{/utilized}}{{^utilized}}<span style="color: red;">&cross;</span>{{/utilized}} {{{name}}}
+{{/actions}}
 </details>
 {{/namespaces}}
 </details>
