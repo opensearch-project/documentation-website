@@ -52,6 +52,7 @@ Kerberos
 Kibana
 Kubernetes
 Lambda
+Langflow
 Linux
 Log4j
 Logstash
