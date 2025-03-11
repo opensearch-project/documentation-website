@@ -3,7 +3,7 @@ layout: default
 title: Conversational search using Cohere Command
 parent: RAG
 grand_parent: Vector search
-nav_order: 80
+nav_order: 150
 redirect_from:
   - /ml-commons-plugin/tutorials/conversational-search-cohere/
   - /vector-search/tutorials/conversational-search/conversational-search-cohere/

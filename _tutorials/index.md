@@ -18,7 +18,7 @@ cards:
     link: "/tutorials/gen-ai/"
   - heading: "Reranking search results"
     description: "Boost search relevance by reranking search results" 
-    link: "/tutorials/gen-ai/"
+    link: "/tutorials/reranking/"
   - heading: "OpenSearch Dashboards"
     description: "Follow this quickstart guide to start visualizing your data"
     link: "/dashboards/quickstart/"
