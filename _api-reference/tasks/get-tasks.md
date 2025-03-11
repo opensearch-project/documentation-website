@@ -9,24 +9,42 @@ nav_order: 20
 
 The Get Task API returns detailed information about a single task.
 
-<!-- spec_insert_start 
+<!-- spec_insert_start
 api: tasks.get
 component: endpoints
 -->
-
+## Endpoints
+```json
+GET /_tasks/{task_id}
+```
 <!-- spec_insert_end -->
 
-<!-- spec_insert_start 
+<!-- spec_insert_start
 api: tasks.get
 component: path_parameters
 -->
+## Path parameters
+
+The following table lists the available path parameters.
+
+| Parameter | Required | Data type | Description |
+| :--- | :--- | :--- | :--- |
+| `task_id` | **Required** | String | The ID of the task. |
 
 <!-- spec_insert_end -->
 
-<!-- spec_insert_start 
+<!-- spec_insert_start
 api: tasks.get
 component: query_parameters
 -->
+## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `timeout` | String | The amount of time to wait for a response. | `30s` |
+| `wait_for_completion` | Boolean | Waits for the matching task to complete. When `true`, the request is blocked until the task has completed. | `false` |
 
 <!-- spec_insert_end -->
 

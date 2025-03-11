@@ -9,24 +9,33 @@ nav_order: 10
 
 The List Tasks API returns a list of tasks running inside the cluster. 
 
-<!-- spec_insert_start 
+<!-- spec_insert_start
 api: tasks.list
 component: endpoints
 -->
-
+## Endpoints
+```json
+GET /_tasks
+```
 <!-- spec_insert_end -->
 
-<!-- spec_insert_start 
-api: tasks.list
-component: path_parameters
--->
-
-<!-- spec_insert_end -->
-
-<!-- spec_insert_start 
+<!-- spec_insert_start
 api: tasks.list
 component: query_parameters
 -->
+## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `actions` | List or String | A comma-separated list of actions that should be returned. Keep empty to return all. | N/A |
+| `detailed` | Boolean | When `true`, the response includes detailed information about shard recoveries. | `false` |
+| `group_by` | String | Groups tasks by parent/child relationships or nodes. <br> Valid values are: `nodes`, `none`, `parents` | `nodes` |
+| `nodes` | List | A comma-separated list of node IDs or names to limit the returned information. Use `_local` to return information from the node you're connecting to, specify the node name to get information from specific nodes, or keep the parameter empty to get information from all nodes. | N/A |
+| `parent_task_id` | String | Returns tasks with a specified parent task ID (node_id:task_number). Keep empty or set to -1 to return all. | N/A |
+| `timeout` | String | The amount of time to wait for a response. | N/A |
+| `wait_for_completion` | Boolean | Waits for the matching task to complete. When `true`, the request is blocked until the task has completed. | `false` |
 
 <!-- spec_insert_end -->
 
