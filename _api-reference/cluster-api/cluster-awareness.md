@@ -45,7 +45,7 @@ The following table lists the available path parameters.
 
 | Parameter | Required | Data type | Description |
 | :--- | :--- | :--- | :--- |
-| `attribute` | **Required** | String | The name of the awareness attribute. |
+| `attribute` | **Required** | String | The name of awareness attribute, usually `zone`. |
 
 <!-- spec_insert_end -->
 

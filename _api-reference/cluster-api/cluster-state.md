@@ -49,7 +49,7 @@ The following table lists the available query parameters. All query parameters a
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | `allow_no_indices` | Boolean | Whether to ignore a wildcard index expression that resolves into no concrete indexes. This includes the `_all` string or when no indexes have been specified. |
-| `cluster_manager_timeout` | String | A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts "0" without a unit and "-1" to indicate an unspecified value. |
+| `cluster_manager_timeout` | String | The amount of time to wait for a response from the cluster manager node. For more information about supported time units, see [Common parameters]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). |
 | `expand_wildcards` | List or String | Specifies the type of index that wildcard expressions can match. Supports comma-separated values. <br> Valid values are: <br> - `all`: Match any index, including hidden ones. <br> - `closed`: Match closed, non-hidden indexes. <br> - `hidden`: Match hidden indexes. Must be combined with open, closed, or both. <br> - `none`: Wildcard expressions are not accepted. <br> - `open`: Match open, non-hidden indexes. |
 | `flat_settings` | Boolean | Returns settings in a flat format. _(Default: `false`)_ |
 | `ignore_unavailable` | Boolean | Whether the specified concrete indexes should be ignored when unavailable (missing or closed). |

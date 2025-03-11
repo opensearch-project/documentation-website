@@ -39,7 +39,7 @@ The following table lists the available query parameters. All query parameters a
 | Parameter | Data type | Description | Default |
 | :--- | :--- | :--- | :--- |
 | `include_disk_info` | Boolean | When `true`, returns information about disk usage and shard sizes. | `false` |
-| `include_yes_decisions` | Boolean | When `true`, returns any `YES` decisions in the allocation explanation. | `false` |
+| `include_yes_decisions` | Boolean | When `true`, returns any `YES` decisions in the allocation explanation. `YES` decisions indicate when a particular shard allocation attempt was successful for the given node. | `false` |
 
 <!-- spec_insert_end -->
 

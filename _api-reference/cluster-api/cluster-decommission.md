@@ -59,7 +59,7 @@ The following table lists the available path parameters.
 | Parameter | Required | Data type | Description |
 | :--- | :--- | :--- | :--- |
 | `awareness_attribute_name` | **Required** | String | The name of the awareness attribute. |
-| `awareness_attribute_value` | **Required** | String | The value of the awareness attribute. |
+| `awareness_attribute_value` | **Required** | String | The value of the awareness attribute. For example, if you have shards allocated in two different zones, you can give each zone a value of `zone-a` or `zoneb`. The cluster decommission operation decommissions the zone listed in the method. |
 
 <!-- spec_insert_end -->
 

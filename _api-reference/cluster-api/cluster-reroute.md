@@ -31,14 +31,14 @@ columns: Parameter, Required, Data type, Description, Default
 
 The following table lists the available query parameters. All query parameters are optional.
 
-| Parameter | Data type | Description | Default |
-| :--- | :--- | :--- | :--- |
-| `cluster_manager_timeout` | String | A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts "0" without a unit and "-1" to indicate an unspecified value. | N/A |
-| `dry_run` | Boolean | When `true`, the request simulates the operation and returns the resulting state. | N/A |
-| `explain` | Boolean | When `true`, the response contains an explanation of why certain commands can or cannot be executed. | N/A |
-| `metric` | List or String | Limits the information returned to the specified metrics. <br> Valid values are: `_all`, `blocks`, `cluster_manager_node`, `master_node`, `metadata`, `nodes`, `routing_nodes`, `routing_table`, `version` | N/A |
-| `retry_failed` | Boolean | When `true`, retries shard allocation if it was blocked because of too many subsequent failures. | N/A |
-| `timeout` | String | A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts "0" without a unit and "-1" to indicate an unspecified value. | N/A |
+| Parameter | Required | Data type | Description | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| `cluster_manager_timeout` | _Optional_ | String | The amount of time to wait for a response from the cluster manager node. For more information about supported time units, see [Common parameters]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). | N/A |
+| `dry_run` | _Optional_ | Boolean | When `true`, the request simulates the operation and returns the resulting state. | N/A |
+| `explain` | _Optional_ | Boolean | When `true`, the response contains an explanation of why reroute certain commands can or cannot be executed. | N/A |
+| `metric` | _Optional_ | List or String | Limits the information returned to the specified metrics. <br> Valid values are: <br> - `_all`: Returns all available metrics. <br> - `blocks`: Returns information about cluster-level blocks. <br> - `cluster_manager_node`: Returns information about the current cluster manager node. <br> - `master_node`: The alias for `cluster_manager_node`. Deprecated, but maintained for backwards compatibility. <br> - `metadata`: Returns the cluster state metadata. <br> - `nodes`: Returns information about nodes in the cluster. <br> - `routing_nodes`: Returns the node-level shard allocations. <br> - `routing_table`: Returns index-level shard allocations. <br> - `version`: Returns the cluster state version. | N/A |
+| `retry_failed` | _Optional_ | Boolean | When `true`, retries shard allocation if it was blocked because of too many subsequent failures. | N/A |
+| `timeout` | _Optional_ | String | A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts "0" without a unit and "-1" to indicate an unspecified value. | N/A |
 
 <!-- spec_insert_end -->
 
