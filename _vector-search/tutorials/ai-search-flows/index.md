@@ -15,6 +15,6 @@ flows:
 
 # AI search flows tutorials
 
-The following tutorials show you how to build AI search flows.
+The following tutorials show you how to build AI search workflows.
 
 {% include cards.html cards=page.flows %}

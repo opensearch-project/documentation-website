@@ -14,7 +14,7 @@ This tutorial shows you how to build automated AI search flows in OpenSearch Das
 
 ## Prerequisite: Provision ML resources
 
-Before you start, select and provision the necessary machine learning (ML) resources depending on your use case. For example, to implement semantic search, you mush configure a text embedding model in your OpenSearch cluster. For more information about deploying ML models locally or connecting to externally hosted models, see [Integrating ML models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/).
+Before you start, select and provision the necessary machine learning (ML) resources depending on your use case. For example, to implement semantic search, you must configure a text embedding model in your OpenSearch cluster. For more information about deploying ML models locally or connecting to externally hosted models, see [Integrating ML models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/).
 
 ## Step 1: Select your use case
 
@@ -24,31 +24,31 @@ OpenSearch provides preset templates for common use cases and a custom option fo
 
 ![OpenSearch Flow template page]({{site.url}}{{site.baseurl}}/images/flow-tutorial/presets-page.png)
 
-Preset templates include preconfigured settings that you can customize by specifying your model and input fields. For advanced or specialized requirements, select **Custom** to start with a blank configuration. This option gives you complete control over all settings, allowing you to build your configuration from scratch. The following image illustrates a custom semantic search use case.
+Preset templates include preconfigured settings that you can customize by specifying your model and input fields. For advanced or specialized requirements, select **Custom** to start with a blank configuration. This option gives you complete control over all settings, allowing you to customize your configuration. The following image illustrates a custom semantic search use case.
 
 ## Step 2: Explore the Workflow Details page
 
-After selecting the use case, you will enter the **Workflow Details** page, which contains three main sections:
+After selecting the use case, the **Workflow Details** page appears, which contains three main sections:
 
 1. Ingest and search configuration forms: Used to configure ingest and search pipelines. An example ingest configuration is shown in the following image.
 
     ![Form]({{site.url}}{{site.baseurl}}/images/flow-tutorial/form.png)
 
-2. **Preview** workspace: A read-only visual helper that displays data flow and transformations during ingestion and search, shown in the following image. 
+2. **Preview** workspace: A read-only visual helper that displays the flow of data and transformations during ingestion and search, as shown in the following image. 
 
     ![Workspace]({{site.url}}{{site.baseurl}}/images/flow-tutorial/workspace.png)
 
     Toggle to the JSON view for detailed configurations.
 
-3. **Inspector**: Similar to an IDE, the **Inspector** displays workflow execution details, responses from the ingest/search operations, errors, and created resources, shown in the following image.
+3. **Inspector**: Similar to an integrated development environment (IDE), the **Inspector** displays workflow execution details, responses from the ingest/search operations, errors, and created resources, as shown in the following image.
 
     ![Inspector]({{site.url}}{{site.baseurl}}/images/flow-tutorial/inspector.png)
 
-4. Buttons: Manage your workflow by undoing changes, saving progress, exporting the configuration, or exiting, shown in the following image.
+4. Buttons: Manage your workflow by undoing changes, saving progress, exporting the configuration, or exiting, as shown in the following image.
 
     ![Buttons]({{site.url}}{{site.baseurl}}/images/flow-tutorial/buttons.png)
 
-    Depending on your `useNewHomePage` OpenSearch Dashboards setting, these buttons may look different in your local system.
+    Depending on your `useNewHomePage` OpenSearch Dashboards setting, these buttons may appear differently in your local system.
     {: .note}
 
 ## Step 3: Provide sample data
@@ -102,13 +102,13 @@ Enhance your data by configuring an ingest pipeline and chaining ingest processo
 
 ![enrich-data]({{site.url}}{{site.baseurl}}/images/flow-tutorial/enrich-data.png)
 
-Select and configure an ML inference processor to embed the input text. In this example, your cluster contains a deployed Amazon Titan Text Embeddings model hosted on Amazon Bedrock. The model has a defined interface: it expects a single input called `inputText` and returns a single output called `embedding`. Thus, you must map the OpenSearch index data to model inputs and outputs. In **Inputs**, specify how to select and transform data from the OpenSearch index to expected model inputs. In **Outputs**, specify how to select and transform the model outputs to new OpenSearch index fields. For example, you can specify a document field name or an expression using [JSONPath](https://en.wikipedia.org/wiki/JSONPath) to map a document field to a model input. 
+Select and configure an ML inference processor to embed the input text. In this example, your cluster contains a deployed Amazon Titan Text Embeddings model hosted on Amazon Bedrock. The model has a defined interface: it expects a single input called `inputText` and returns a single output called `embedding`. Thus, you must map the OpenSearch index data to model inputs and outputs. In **Inputs**, specify how to select data from the OpenSearch index and transform it into the expected model inputs. In **Outputs**, specify how to select the model outputs and transform them into new OpenSearch index fields. For example, you can specify a document field name or an expression using [JSONPath](https://en.wikipedia.org/wiki/JSONPath) to map a document field to a model input. 
 
 For this example, map the following fields:
 
-- **Inputs**: Map the `item_text` field to `inputText` model input.
+- **Inputs**: Map the `item_text` field to the `inputText` model input.
 
-- **Outputs**: Map the `embedding` model output to `my_embedding` field.
+- **Outputs**: Map the `embedding` model output to the `my_embedding` field.
 
 This example configuration is shown in the following image.
 
@@ -120,7 +120,7 @@ Select **Save** to return to the form.
 
 ### Advanced data transformations
 
-For complex input data, you might need to use expressions to map the input data. For example, you can extract nested values using JSONPath. To use expression transformations, under **Inputs**, select **Expression** in the **Input type**, as shown in the following image.
+For complex input data, you might need to use expressions to map the input data. For example, you can extract nested values using JSONPath. To use expression transformations, under **Inputs**, select **Expression** as the **Input type**, as shown in the following image.
 
 ![expression-ingest]({{site.url}}{{site.baseurl}}/images/flow-tutorial/expression-ingest.png)
 
@@ -144,15 +144,15 @@ For built-in use cases, some of this information is automatically populated, as 
 
 ![index-settings-updated]({{site.url}}{{site.baseurl}}/images/flow-tutorial/index-settings-updated.png)
 
-After configuring, select **Build and run ingestion** to create the index, configure the ingest pipeline, and bulk ingest sample data. The **Inspector** panel displays the OpenSearch response and any errors that may occur, as shown in the following image.
+After configuration, select **Build and run ingestion** to create the index, configure the ingest pipeline, and bulk ingest sample data. The **Inspector** panel displays the OpenSearch response and any errors that occur, as shown in the following image.
 
 ![build-and-run-ingestion-response]({{site.url}}{{site.baseurl}}/images/flow-tutorial/build-and-run-ingestion-response.png)
 
-Now that you've completed the ingest flow, proceed to configuring search by selecting **Search pipeline >**.
+Now that you've completed the ingest flow, you can configure a search by selecting **Search pipeline >**.
 
 ## Step 6: Configure a query
 
-Under **Edit query**, enter your query or select from preset query options. Note: The index is already set to the one you've configured in the ingest flow. If you haven't configured the ingest flow, select your vector index from the dropdown menu.  
+Under **Edit query**, enter your query or select from the preset query options. Note: The index is already set to the one you've configured in the ingest flow. If you haven't configured the ingest flow, select your vector index from the dropdown menu.  
 
 For semantic search, enter the following query in the **Query** field:
 
@@ -169,13 +169,13 @@ For semantic search, enter the following query in the **Query** field:
 ```
 {% include copy.html %}
 
-The query is shown in the following image:
+The query is shown in the following image.
 
 ![edit-query-term]({{site.url}}{{site.baseurl}}/images/flow-tutorial/edit-query-term.png)
 
 ## Step 7: Enrich the query
 
-You can enrich the query by configuring a series of processors - in this case, [search request processors]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/search-processors/#search-request-processors). Currently, only the [ML inference processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/ml-inference-search-request/) is supported. For this example, you'll configure an ML inference processor using the same Amazon Titan Text Embeddings model. 
+You can enrich the query by configuring a series of processors---in this case, [search request processors]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/search-processors/#search-request-processors). Currently, only the [ML inference processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/ml-inference-search-request/) is supported. For this example, you'll configure an ML inference processor using the same Amazon Titan Text Embeddings model. 
 
 For this example, map the following fields:
 
@@ -199,7 +199,7 @@ In this example, the `${vector}` placeholder has already been set as the **vecto
 
 ![override-query]({{site.url}}{{site.baseurl}}/images/flow-tutorial/override-query.png)
 
-## Step 8: Enrich query results
+## Step 8: Enrich the query results
 
 You can configure a series of [search response processors]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/search-processors/#search-response-processors) to enrich or transform the returned matching documents. In this example, you won't transform the output data. For example transformations, see [configuration examples](#implementation-examples).
 
@@ -209,7 +209,7 @@ You have now configured the flow. Select **Build and run query** to build the se
 
 ![search-response]({{site.url}}{{site.baseurl}}/images/flow-tutorial/search-response.png)
 
-## Step 10: Export workflow
+## Step 10: Export the workflow
 
 When you are satisfied with your workflow results, select **Export** to export the [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/). The template contains the configuration details for your index, ingest pipeline, and search pipeline. The template also contains OpenSearch Dashboards metadata. You can copy the template in JSON or YAML format, as shown in the following image.
 
@@ -218,7 +218,7 @@ When you are satisfied with your workflow results, select **Export** to export t
 If you're importing the template into a different cluster, update any cluster-specific IDs, such as model IDs.
 {: .note}
 
-You have now implemented semantic search using OpenSearch Flow, with all of the required resources bundled up into a single template. You can import this template on the UI and rebuild for different clusters, or run the template directly using the [Flow Framework Provision API]({{site.url}}{{site.baseurl}}/automating-configurations/api/provision-workflow/).
+You have now implemented semantic search using OpenSearch Flow, with all of the required resources bundled into a single template. You can import this template into the UI and rebuild it for different clusters or run the template directly using the [Flow Framework Provision API]({{site.url}}{{site.baseurl}}/automating-configurations/api/provision-workflow/).
 
 The following sections contain additional OpenSearch Flow configuration examples.
 
@@ -226,7 +226,7 @@ The following sections contain additional OpenSearch Flow configuration examples
 
 ## Semantic search
 
-This example demonstrates configuring semantic search.
+This example demonstrates how to configure semantic search.
 
 ### ML resources
 
@@ -234,7 +234,7 @@ Create and deploy an [Amazon Titan Text Embeddings model on Amazon Bedrock](http
 
 ### Index
 
-Ensure the index settings include `index.knn: true` and your index contains a `knn_vector` field specified in the mappings as follows:
+Ensure that the index settings include `index.knn: true` and that your index contains a `knn_vector` field specified in the mappings, as follows:
 
 ```json
 {
@@ -257,7 +257,7 @@ Ensure the index settings include `index.knn: true` and your index contains a `k
 
 ### Ingest pipeline
 
-Configure a single ML inference processor. Map your input text to the `inputText` model input field. Optionally,, map the output `embedding` to a new document field.
+Configure a single ML inference processor. Map your input text to the `inputText` model input field. Optionally, map the output `embedding` to a new document field.
 
 ### Search pipeline
 
@@ -286,7 +286,7 @@ Configure a single ML inference search request processor. Map the query field co
 
 ## Hybrid search 
 
-Hybrid search combines keyword and vector search. This example demonstrates configuring hybrid search.
+Hybrid search combines keyword and vector search. This example demonstrates how to configure hybrid search.
 
 ### ML resources
 
@@ -294,7 +294,7 @@ Create and deploy an [Amazon Titan Text Embeddings model on Amazon Bedrock](http
 
 ### Index
 
-Ensure the index settings include `index.knn: true` and your index contains a `knn_vector` field specified in the mappings as follows:
+Ensure that the index settings include `index.knn: true` and that your index contains a `knn_vector` field specified in the mappings, as follows:
 
 ```json
 {
@@ -323,7 +323,7 @@ Configure a single ML inference processor. Map your input text to the `inputText
 
 Configure an ML inference search request processor and a normalization processor.
 
-**For the ML inference processor**, map the query field containing the input text to the `inputText` model input field. Optionally, map the output `embedding` to a new field. Override the query to contain a `hybrid` query. Ensure to specify the `embedding_field`, `text_field`, and `text_field_input`:
+**For the ML inference processor**, map the query field containing the input text to the `inputText` model input field. Optionally, map the output `embedding` to a new field. Override the query so that it contains a `hybrid` query. Make sure to specify the `embedding_field`, `text_field`, and `text_field_input`:
 
 ```json
 {
@@ -363,11 +363,11 @@ Configure an ML inference search request processor and a normalization processor
 
 ## Basic RAG (document summarization)
 
-This example demonstrates configuring basic retrieval-augmented generation (RAG).
+This example demonstrates how to configure basic retrieval-augmented generation (RAG).
 
 Because the connector blueprint and model interface may evolve, the following example demonstrates a connector blueprint that simplifies interaction with the [Claude v1 messages API](https://docs.anthropic.com/en/api/getting-started#examples). This blueprint abstracts much of the complexity, exposing only a single `prompt` field as input to the model.  
 
-A sample input might look like this, with placeholders representing dynamically fetched results:  
+A sample input might appear as follows, with placeholders representing dynamically fetched results:  
 
 ```json
 {
@@ -395,7 +395,7 @@ Configure an ML inference search response processor using the following steps:
 
 ## 4. Multimodal search 
 
-Multimodal search searches by text and image. This example demonstrates configuring multimodal search.
+Multimodal search searches by text and image. This example demonstrates how to configure multimodal search.
 
 ### ML resources
 
@@ -403,7 +403,7 @@ Create and deploy an [Amazon Titan Multimodal Embeddings model on Amazon Bedrock
 
 ### Index
 
-Ensure the index settings include `index.knn: true` and your index contains a `knn_vector` field (to persist generated embeddings) and a `binary` field (to persist the image binary) specified in the mappings as follows:
+Ensure that the index settings include `index.knn: true` and that your index contains a `knn_vector` field (to persist generated embeddings) and a `binary` field (to persist the image binary) specified in the mappings, as follows:
 
 ```json
 {
@@ -429,15 +429,15 @@ Ensure the index settings include `index.knn: true` and your index contains a `k
 
 ### Ingest pipeline
 
-Configure a single ML inference processor. Map your input text field and input image field to the `inputText` and `inputImage` model input fields, respectively. If both text and image inputs are needed, ensure both are mapped. Alternatively, you can map only one input (either text or image) if a single input suffices for embedding generation.
+Configure a single ML inference processor. Map your input text field and input image field to the `inputText` and `inputImage` model input fields, respectively. If both text and image inputs are needed, ensure that both are mapped. Alternatively, you can map only one input (either text or image) if a single input is sufficient for embedding generation.
 
 Optionally, map the output `embedding` to a new document field.
 
 ### Search pipeline
 
-Configure a single ML inference search request processor. Map the input text field and input image field in the query to the `inputText`and `inputImage` model input fields, respectively. If both text and image inputs are needed, ensure both are mapped. Alternatively, you can map only one input (either text or image) if a single input suffices for embedding generation.
+Configure a single ML inference search request processor. Map the input text field and input image field in the query to the `inputText` and `inputImage` model input fields, respectively. If both text and image inputs are needed, ensure that both are mapped. Alternatively, you can map only one input (either text or image) if a single input is sufficient for embedding generation.
 
-Override the query to contain a `knn` query, including the embedding output:
+Override the query so that it contains a `knn` query, including the embedding output:
 
 ```json
 {
@@ -462,7 +462,7 @@ Override the query to contain a `knn` query, including the embedding output:
 
 ## Named entity recognition 
 
-This example demonstrates configuring Named entity recognition (NER).
+This example demonstrates how to configure named entity recognition (NER).
 
 ### ML resources
 
@@ -481,13 +481,13 @@ Configure a single ML inference processor. Map your input text field to the `tex
 ```
 {% include copy.html %}
 
-This configuration maps the extracted entities to the `entities_found` field, ensuring they are stored alongside each document.
+This configuration maps the extracted entities to the `entities_found` field, ensuring that they are stored alongside each document.
 
 ---
 
 ## Language detection and classification
 
-The following example demonstrates configuring language detection and classification.
+The following example demonstrates how to configure language detection and classification.
 
 ### ML resources
 
@@ -495,7 +495,7 @@ Create and deploy an [Amazon Comprehend Language Detection model](https://github
 
 ### Ingest pipeline
 
-Configure a single ML inference processor. Map your input text field to the `text` model input fields. To store the most relevant or most likely language detected for each document, transform the output (an array of languages) and persist it under the `detected_dominant_language` field. Use the following `output_map` configuration as a reference:
+Configure a single ML inference processor. Map your input text field to the `text` model input fields. To store the most relevant or most likely language detected for each document, transform the output (an array of languages) and persist it in the `detected_dominant_language` field. Use the following `output_map` configuration as a reference:
 
 ```json
 "output_map": [
@@ -510,22 +510,22 @@ Configure a single ML inference processor. Map your input text field to the `tex
 
 ## Reranking results
 
-Reranking can be implemented in various ways, depending on model capabilities. Typically, models require at least two inputs: the original query and the data to be assigned a relevance score. Some models support batching, allowing multiple results to be processed in a single inference call, while others require scoring each result individually.  
+Reranking can be implemented in various ways, depending on the capabilities of the model used. Typically, models require at least two inputs: the original query and the data to be assigned a relevance score. Some models support batching, allowing multiple results to be processed in a single inference call, while others require scoring each result individually.  
 
 In OpenSearch, this leads to two common reranking patterns:  
 
 1. **Batching enabled**  
-   - Collect all search results.  
-   - Pass the batched results to a single ML processor for scoring.  
-   - Return the top **n** ranked results.  
+   1. Collect all search results.  
+   1. Pass the batched results to a single ML processor for scoring.  
+   1. Return the top **n** ranked results.  
 
 2. **Batching disabled**  
-   - Collect all search results.  
-   - For each result, pass it to the ML processor to assign a new relevance score.  
-   - Send all results with updated scores to the rerank processor for sorting.  
-   - Return the top **n** ranked results.  
+   1. Collect all search results.  
+   1. Pass each result to the ML processor to assign a new relevance score.  
+   1. Send all results with updated scores to the rerank processor for sorting.  
+   1. Return the top **n** ranked results.  
 
-The following example demonstrates **Pattern 2 (batching disabled)** to highlight the rerank processor. However, note that the **Cohere Rerank** model used in this example **does support batching**, so you could also implement **Pattern 1** with this model if desired.
+The following example demonstrates **Pattern 2 (batching disabled)** to highlight the rerank processor. However, note that the **Cohere Rerank** model used in this example **does support batching**, so you could also implement **Pattern 1** with this model.
 
 ### ML resources
 
@@ -533,7 +533,7 @@ Create and deploy a [Cohere Rerank model](https://github.com/opensearch-project/
 
 ### Search pipeline
 
-Configure an ML inference **search response** processor, followed by a rerank **search response** processor. To follow reranking with batching disabled, use the ML processor to generate new relevance scores for the retrieved results and then apply the reranker to sort them accordingly.  
+Configure an ML inference **search response** processor, followed by a rerank **search response** processor. For reranking with batching disabled, use the ML processor to generate new relevance scores for the retrieved results and then apply the reranker to sort them accordingly.  
 
 Use the following ML processor configuration:  
 
@@ -553,7 +553,7 @@ Use the following `input_map` configuration as a reference:
 ```
 {% include copy.html %}
 
-Optionally, you can store the rescored result in the model output under a new field. You may also extract and persist only the relevance score if needed as follows:
+Optionally, you can store the rescored result in the model output in a new field. You can also extract and persist only the relevance score, as follows:
 
 ```json
 "input_map": [
@@ -570,7 +570,7 @@ Use the following rerank processor configuration: Under **target_field**, select
 
 ## Multimodal search (text or image) with a custom CLIP model
 
-The following example uses a custom CLIP model hosted on Amazon SageMaker. The model dynamically takes in a text or image URL as input and returns a vector embedding.
+The following example uses a custom CLIP model hosted on Amazon SageMaker. The model dynamically ingests a text or image URL as input and returns a vector embedding.
 
 ### ML resources
 
@@ -578,7 +578,7 @@ Create and deploy a [Custom CLIP Multimodal model](https://github.com/opensearch
 
 ### Index
 
-Ensure the index settings include `index.knn: true` and your index contains a `knn_vector` field specified in the mappings as follows:
+Ensure that the index settings include `index.knn: true` and that your index contains a `knn_vector` field specified in the mappings, as follows:
 
 ```json
 {
@@ -607,7 +607,7 @@ Configure a single ML inference processor. Map your image field to the `image_ur
 
 Configure a single ML inference search request processor. Map the input image field or the input text field in the query to the `image_url` or `text` model input fields, respectively. The CLIP model flexibly handles one or the other, so choose the option that best suits your use case.
 
-Override the query to contain a `knn` query, including the embedding output:
+Override the query so that it contains a `knn` query, including the embedding output:
 
 ```json
 {

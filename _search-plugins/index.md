@@ -32,7 +32,7 @@ OpenSearch supports the following search methods.
 
 ### Exact matching and keywords
 
-OpenSearch implements lexical (or keyword) text search using the BM25 algorithm to match and rank documents based on term frequency and document length.
+OpenSearch implements lexical (keyword) text search using the BM25 algorithm to match and rank documents based on term frequency and document length.
 
 {% include cards.html cards=page.keyword %}
 
