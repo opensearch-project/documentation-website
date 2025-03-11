@@ -49,22 +49,10 @@ The following table lists the available path parameters.
 
 <!-- spec_insert_end -->
 
-<!-- spec_insert_start
-api: cluster.put_weighted_routing
-columns: Parameter, Data type, Description, Default
-component: query_parameters
--->
-## Query parameters
-
-The following table lists the available query parameters. All query parameters are optional.
-
-| Parameter | Data type | Description | Default |
-| :--- | :--- | :--- | :--- |
-
-<!-- spec_insert_end -->
-
 
 ## Request body fields
+
+The following table lists the available request body fields.
 
 Parameter | Type | Description
 :--- | :--- | :---
