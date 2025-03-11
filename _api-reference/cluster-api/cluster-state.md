@@ -38,9 +38,41 @@ The following table lists the available path parameters. All path parameters are
 
 <!-- spec_insert_end -->
 
+### Supported metrics
+
+If you want to isolate the cluster state response to a specific metric, use one or more of the following:
+
+- `cluster_name`
+- `cluster_uuid`
+- `version`
+- `state_uuid`
+- `cluster_manager_node`
+- `blocks`
+- `nodes`
+- `metadata`
+  - `cluster_uuid`
+  - `templates`
+  - `indices`
+  - `index-graveyard`
+  - `cluster_coordination`
+  - `ingest`
+  - `repositories`
+  - `component_template`
+  - `index_template`
+  - `data_stream`
+  - `aliases`
+- `routing_table`
+  - `indices`
+- `routing_nodes`
+- `customs`
+- `snapshots`
+- `restore`
+- `snapshot_deletions`
+
 <!-- spec_insert_start
 api: cluster.state
 component: query_parameters
+remove_deprecated: true
 -->
 ## Query parameters
 
@@ -60,12 +92,16 @@ The following table lists the available query parameters. All query parameters a
 
 <!-- spec_insert_end -->
 
+
+
 ## Example request
 
-```json
-GET /_cluster/state/{metric}
-```
+The following example request lists the full cluster state.
 
+```json
+GET /_cluster/state/
+```
+{% include copy-curl.html %}
 
 ## Example response
 
