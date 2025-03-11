@@ -91,12 +91,12 @@ Use this guidance to troubleshoot any of the following snapshot verification iss
 
 #### Access denied error (403)
 
-If you encounter an error like `AccessDenied (Service: Amazon S3; Status Code: 403)`, verify that:
+If you encounter an error like `AccessDenied (Service: Amazon S3; Status Code: 403)`, verify the following:
 
-- You're using the S3 bucket created by Migration Assistant (recommended)
-- If using a custom S3 bucket, verify that:
-  - The IAM role assigned to your Elasticsearch cluster has the necessary S3 permissions
-  - The bucket name and AWS Region provided in the snapshot configuration match the actual S3 bucket you created
+- Make sure you're using the S3 bucket created by Migration Assistant.
+- If you're using a custom S3 bucket, verify that:
+  - The IAM role assigned to your Elasticsearch cluster has the necessary S3 permissions.
+  - The bucket name and AWS Region provided in the snapshot configuration match the actual S3 bucket you created.
 
 #### Older versions of Elasticsearch
 
