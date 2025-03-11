@@ -1,10 +1,11 @@
 ---
 layout: default
-title: Building workflows in OpenSearch Dashboards
+title: Building AI search workflows in OpenSearch Dashboards
+parent: AI search
 nav_order: 60
 ---
 
-# Building workflows in OpenSearch Dashboards
+# Building AI search workflows in OpenSearch Dashboards
 
 In OpenSearch Dashboards, you can iteratively build and test workflows containing ingest and search pipelines using OpenSearch Flow. Using a UI editor to build workflows simplifies the creation of artificial intelligence and machine learning (AI/ML) use cases that include ML inference processors, such as vector search and retrieval-augmented generation (RAG). Once your workflow is finalized, you can export it as a [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/) to recreate identical resources across multiple clusters.
 
