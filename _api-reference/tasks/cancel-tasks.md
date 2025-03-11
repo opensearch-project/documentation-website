@@ -6,8 +6,10 @@ nav_order: 30
 ---
 
 # Cancel tasks
+**Introduced 1.0**
+{: .label .label-purple }
 
-The Cancel Tasks API cancels a task, stopping the task from running inside the cluster. Not all tasks are cancelable. To see if a task is cancelable, refer to the `cancellable` field in the response to your `tasks` API request.
+The Cancel Tasks API cancels a task, stopping it from running inside the cluster. Not all tasks can be canceled. To determine if a task is cancelable, check the `cancellable` field in the response to your tasks API request.
 
 
 <!-- spec_insert_start
@@ -125,5 +127,5 @@ The following response shows that a bulk write and update task were cancelled wi
     }
   }
 }
-```json
+```
 

@@ -6,6 +6,8 @@ nav_order: 10
 ---
 
 # List tasks
+**Introduced 1.0**
+{: .label .label-purple }
 
 The List Tasks API returns a list of tasks running inside the cluster. 
 

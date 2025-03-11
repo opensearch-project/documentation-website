@@ -6,6 +6,8 @@ nav_order: 20
 ---
 
 # Get task
+**Introduced 1.0**
+{: .label .label-purple }
 
 The Get Task API returns detailed information about a single task.
 
