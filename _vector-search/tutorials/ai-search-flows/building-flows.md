@@ -365,7 +365,7 @@ Configure an ML inference search request processor and a normalization processor
 
 This example demonstrates how to configure basic retrieval-augmented generation (RAG).
 
-Because the connector blueprint and model interface may evolve, the following example demonstrates a connector blueprint that simplifies interaction with the [Claude v1 messages API](https://docs.anthropic.com/en/api/getting-started#examples). This blueprint abstracts much of the complexity, exposing only a single `prompt` field as input to the model.  
+The following example shows a simplified connector blueprint for the [Claude v1 messages API](https://docs.anthropic.com/en/api/getting-started#examples). While connector blueprints and model interfaces may evolve over time, this example demonstrates how to abstract complex API interactions into a single `prompt` field input.  
 
 A sample input might appear as follows, with placeholders representing dynamically fetched results:  
 
