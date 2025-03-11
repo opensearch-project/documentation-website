@@ -10,7 +10,7 @@ Before deciding if Migration Assistant is right for you, it's important to asses
 
 Migration Assistant addresses gaps found in other migration solutions, but in some cases, alternative tools may be a better fit.
 
-For instance, if you need to upgrade more than one major version, such as moving from Elasticsearch 6.8 to OpenSearch 2.15, Migration Assistant allows you to do this in a single hop. In contrast, other options like rolling upgrades or snapshot restore would require multiple steps because they cannot handle major version jumps without reindexing your data. Additionally, if you need to capture live traffic and perform a zero-downtime migration, Migration Assistant would be the right choice.
+For instance, if you need to upgrade more than one major version, such as moving from Elasticsearch 6.8 to OpenSearch 2.19, Migration Assistant allows you to do this in a single hop. In contrast, other options like rolling upgrades or snapshot restore would require multiple steps because they cannot handle major version jumps without reindexing your data. Additionally, if you need to capture live traffic and perform a zero-downtime migration, Migration Assistant would be the right choice.
 
 There are also tools available for migrating cluster configuration, templates, and aliases, which can be helpful depending on the complexity of your setup. These tools streamline the migration process by preserving critical settings and custom configurations.
 
@@ -19,14 +19,14 @@ There are also tools available for migrating cluster configuration, templates, a
 | **Source Version**          | **Target Version**               |
 |-----------------------------|----------------------------------|
 | Elasticsearch 5.6           | OpenSearch 1.3                   |
-| Elasticsearch 5.6           | OpenSearch 2.15                  |
+| Elasticsearch 5.6           | OpenSearch 2.19                  |
 | Elasticsearch 6.8           | OpenSearch 1.3                   |
-| Elasticsearch 6.8           | OpenSearch 2.15                  |
+| Elasticsearch 6.8           | OpenSearch 2.19                  |
 | Elasticsearch 7.10.2        | OpenSearch 1.3                   |
-| Elasticsearch 7.10.2        | OpenSearch 2.15                  |
+| Elasticsearch 7.10.2        | OpenSearch 2.19                  |
 | Elasticsearch 7.17          | OpenSearch 1.3                   |
-| Elasticsearch 7.17          | OpenSearch 2.15                  |
-| OpenSearch 1.3              | OpenSearch 2.15                  |
+| Elasticsearch 7.17          | OpenSearch 2.19                  |
+| OpenSearch 1.3              | OpenSearch 2.19                  |
 
  
 {: .note}
