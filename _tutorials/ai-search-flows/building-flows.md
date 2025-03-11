@@ -3,9 +3,7 @@ layout: default
 title: Creating and customizing AI search workflows
 parent: AI search workflows
 grand_parent: Tutorials
-nav_order: 170
-redirect_from:
-  - /ml-commons-plugin/tutorials/bedrock-guardrails/
+nav_order: 10
 ---
 
 # Creating and customizing AI search workflows in OpenSearch Dashboards
@@ -393,7 +391,7 @@ Configure an ML inference search response processor using the following steps:
 
 ---
 
-## 4. Multimodal search 
+## Multimodal search 
 
 Multimodal search searches by text and image. This example demonstrates how to configure multimodal search.
 

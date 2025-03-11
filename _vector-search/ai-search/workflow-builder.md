@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Building AI search workflows in OpenSearch Dashboards
+parent: AI search
 nav_order: 60
 ---
 

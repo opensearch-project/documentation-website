@@ -6,14 +6,14 @@ has_children: true
 has_toc: false
 nav_order: 80
 redirect_from:
-  - /vector-search/tutorials/ai-search-flows/
+  - /tutorials/ai-search-flows/
 flows:
-  - heading: Implementing AI search flows
-    link: /vector-search/tutorials/ai-search-flows/building-flows/
+  - heading: Creating and customizing AI search workflows
+    link: /tutorials/ai-search-flows/building-flows/
     description: "Learn how to build AI search flows in OpenSearch Dashboards"   
 ---
 
-# AI search flows tutorials
+# AI search workflows tutorials
 
 The following tutorials show you how to build AI search workflows.
 
