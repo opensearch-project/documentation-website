@@ -72,7 +72,7 @@ If you want to isolate the cluster state response to a specific metric, use one 
 <!-- spec_insert_start
 api: cluster.state
 component: query_parameters
-remove_deprecated: true
+include_deprecated: false
 -->
 ## Query parameters
 
@@ -88,10 +88,8 @@ The following table lists the available query parameters. All query parameters a
 | `local` | Boolean | Whether to return information from the local node only instead of from the cluster manager node. _(Default: `false`)_ |
 | `wait_for_metadata_version` | Integer | Wait for the metadata version to be equal or greater than the specified metadata version. |
 | `wait_for_timeout` | String | The maximum time to wait for `wait_for_metadata_version` before timing out. |
-| `master_timeout` <br> _DEPRECATED_ | String | _(Deprecated since 2.0: To promote inclusive language, use `cluster_manager_timeout` instead.)_ A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts "0" without a unit and "-1" to indicate an unspecified value. |
 
 <!-- spec_insert_end -->
-
 
 
 ## Example request
