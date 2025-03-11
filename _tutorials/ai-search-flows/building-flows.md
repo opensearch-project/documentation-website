@@ -2,7 +2,6 @@
 layout: default
 title: Creating and customizing AI search workflows
 parent: AI search workflows
-grand_parent: Tutorials
 nav_order: 10
 ---
 

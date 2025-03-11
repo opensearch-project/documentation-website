@@ -1,7 +1,6 @@
 ---
 layout: default
 title: AI search workflows
-parent: Tutorials
 has_children: true
 has_toc: false
 nav_order: 80
