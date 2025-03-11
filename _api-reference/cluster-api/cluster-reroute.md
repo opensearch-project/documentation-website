@@ -44,6 +44,8 @@ The following table lists the available query parameters. All query parameters a
 
 ## Request body fields
 
+The following table lists the available request body fields.
+
 | Field | Data type | Description | Required
 | :--- | :--- | :--- | :--- |
 | `commands` | Array | A list of reroute commands to run. For a list of supported commands, see the [Cluster Reroute API schema](https://github.com/opensearch-project/opensearch-api-specification/blob/595fb05011fb0d13f2b535aa21b02554657db8dc/spec/schemas/cluster.reroute.yaml#L9-L55).| Required. |
@@ -196,6 +198,8 @@ POST /_cluster/reroute
 ```
 
 ## Response body fields
+
+The following table lists the available response body fields.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
