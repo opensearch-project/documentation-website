@@ -63,6 +63,7 @@ Parameter | Type | Description
 In the following example request body, `zone_1` and `zone_2` receive 50 requests each, whereas `zone_3` is prevented from receiving requests:
 
 ```json
+PUT /_cluster/routing/awareness/zone/weights
 { 
       "weights":
       {
@@ -73,13 +74,13 @@ In the following example request body, `zone_1` and `zone_2` receive 50 requests
       "_version" : 1
 }
 ```
+{% include copy-curl.html %}
 
 ## Example requests
 
 ### Weighted round robin search
 
 The following example request creates a round robin shard allocation for search traffic by using an undefined ratio:
-
 
 ```json
 PUT /_cluster/routing/awareness/zone/weights
