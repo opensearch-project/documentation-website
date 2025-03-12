@@ -52,7 +52,7 @@ PUT /_cluster/settings
 There are two ways to configure conversational search:
 
 - [**Automated workflow**](#automated-workflow) (Recommended for quick setup): Automatically create an ingest pipeline and index with minimal configuration.
-- [**Manual setup**](#manual-setup)(Recommended for custom configurations): Manually configure each component for greater flexibility and control.
+- [**Manual setup**](#manual-setup) (Recommended for custom configurations): Manually configure each component for greater flexibility and control.
 
 ## Automated workflow
 
@@ -94,7 +94,7 @@ You can now continue with [steps 4, 5, and 6](#step-4-ingest-rag-data-into-an-in
 To manually configure conversational search, follow these steps:
 
 1. [Create a connector for a model](#step-1-create-a-connector-for-a-model).
-1. [Register and deploy the model](#step-2-register-and-deploy-the-model)
+1. [Register and deploy the model](#step-2-register-and-deploy-the-model).
 1. [Create a search pipeline](#step-3-create-a-search-pipeline).
 1. [Ingest RAG data into an index](#step-4-ingest-rag-data-into-an-index).
 1. [Create a conversation memory](#step-5-create-a-conversation-memory).

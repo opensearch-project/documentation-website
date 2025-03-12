@@ -22,7 +22,7 @@ Before using semantic search, you must set up a text embedding model. For more i
 There are two ways to configure semantic search:
 
 - [**Automated workflow**](#automated-workflow) (Recommended for quick setup): Automatically create an ingest pipeline and index with minimal configuration.
-- [**Manual setup**](#manual-setup)(Recommended for custom configurations): Manually configure each component for greater flexibility and control.
+- [**Manual setup**](#manual-setup) (Recommended for custom configurations): Manually configure each component for greater flexibility and control.
 
 ## Automated workflow
 

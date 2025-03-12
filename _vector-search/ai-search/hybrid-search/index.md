@@ -29,7 +29,7 @@ To follow this example, you must set up a text embedding model. For more informa
 There are two ways to configure hybrid search:
 
 - [**Automated workflow**](#automated-workflow) (Recommended for quick setup): Automatically create an ingest pipeline, an index, and a search pipeline with minimal configuration.
-- [**Manual setup**](#manual-setup)(Recommended for custom configurations): Manually configure each component for greater flexibility and control.
+- [**Manual setup**](#manual-setup) (Recommended for custom configurations): Manually configure each component for greater flexibility and control.
 
 ## Automated workflow
 

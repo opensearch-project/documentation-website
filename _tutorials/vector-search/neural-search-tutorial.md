@@ -75,7 +75,7 @@ This tutorial consists of the following steps:
 
 You can follow this tutorial by using your command line or the OpenSearch Dashboards [Dev Tools console]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/run-queries/).
 
-Some steps in the tutorial contain optional <span>Test it</span>{: .text-delta} sections. You can ensure that the step completed successfully by running requests in these sections.
+Some steps in the tutorial contain optional <span>Test it</span>{: .text-delta} sections. You can confirm that the step completed successfully by running the requests in these sections.
 
 After you're done, follow the steps in the [Clean up](#clean-up) section to delete all created components.
 
