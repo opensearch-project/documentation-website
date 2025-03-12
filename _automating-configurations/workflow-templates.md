@@ -131,7 +131,7 @@ The following workflow templates configure model deployment.
 This workflow creates and deploys an Amazon Bedrock embedding model (by default, `titan-embed-text-v1`).
 
 - **Use case**: `bedrock_titan_embedding_model_deploy`
-- **Created components**: A connector and model for Amazon Bedrock Titan embeddings
+- **Created components**: A connector and model for the Amazon Bedrock Titan embeddings model
 - **Required parameters**: 
   - `create_connector.credential.access_key`
   - `create_connector.credential.secret_key`
@@ -239,7 +239,7 @@ This workflow configures [semantic search]({{site.url}}{{site.baseurl}}/search-p
 - **Created components**:
   - A pretrained model (by default, `huggingface/sentence-transformers/paraphrase-MiniLM-L3-v2`)
   - An ingest pipeline with a `text_embedding` processor
-  - A linked k-NN index called `my-nlp-index`
+  - A vector index configured with the pipeline
   - A [`query_enricher`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-query-enricher/) search processor that sets a default model ID for neural queries.
 - **Required parameters**: None
 - [Defaults](https://github.com/opensearch-project/flow-framework/blob/main/src/main/resources/defaults/semantic-search-with-local-model-defaults.json)
@@ -254,7 +254,7 @@ This workflow configures [semantic search]({{site.url}}{{site.baseurl}}/search-p
 - **Created components**:
   - A Cohere embedding model (by default, `embed-english-v3.0`) connector and deployment
   - An ingest pipeline with a `text_embedding` processor
-  - A vector index
+  - A vector index configured with the pipeline
 - **Required parameters**:
   - `create_connector.credential.key`: API key for the Cohere model
 - [Defaults](https://github.com/opensearch-project/flow-framework/blob/main/src/main/resources/defaults/cohere-embedding-semantic-search-defaults.json)
@@ -269,7 +269,7 @@ This workflow configures [semantic search]({{site.url}}{{site.baseurl}}/search-p
 - **Created components**:
   - A Cohere embedding model connector and deployment
   - An ingest pipeline with a `text_embedding` processor
-  - A vector index
+  - A vector index configured with the pipeline
   - A [`query_enricher`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-query-enricher/) search processor that sets a default model ID for neural queries.
 - **Required parameters**:
   - `create_connector.credential.key`: API key for the Cohere model
@@ -284,7 +284,7 @@ This workflow configures [semantic search]({{site.url}}{{site.baseurl}}/search-p
 - **Use case**: `semantic_search_with_reindex`
 - **Created components**:
   - A Cohere embedding model connector and deployment
-  - A k-NN index
+  - A vector index configured with the pipeline
   - A reindexing process
 - **Required parameters**:
   - `create_connector.credential.key`: API key for the Cohere model
@@ -333,7 +333,7 @@ This workflow deploys an Amazon Bedrock multimodal model and configures a multim
 - **Created components**:
   - An Amazon Bedrock Titan multimodal embedding model connector and deployment
   - An ingest pipeline with a `text_image_embedding` processor
-  - A vector index for multimodal search
+  - A vector index for multimodal search configured with the pipeline
 - **Required parameters**:
   - `create_connector.credential.access_key`
   - `create_connector.credential.secret_key`
@@ -367,7 +367,7 @@ This workflow configures hybrid search and deploys a pretrained model.
 - **Created components**:
   - A pretrained model (by default, `huggingface/sentence-transformers/paraphrase-MiniLM-L3-v2`)
   - An ingest pipeline
-  - A vector index
+  - A vector index configured with the pipeline
   - A search pipeline with a `normalization_processor`
 - **Required parameters**: None
 - [Defaults](https://github.com/opensearch-project/flow-framework/blob/main/src/main/resources/defaults/hybrid-search-with-local-model-defaults.json)
