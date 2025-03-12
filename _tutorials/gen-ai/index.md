@@ -23,6 +23,6 @@ cards:
 
 # Generative AI tutorials
 
-Explore the following tutorials to learn about implementing generative AI applications using the OpenSearch vector database. For more information about OpenSearch machine learning functionality, see [Machine learning]({{site.url}}{{site.baseurl}}/ml-commons-plugin/).
+Explore the following tutorials to learn about implementing generative AI applications using the OpenSearch vector database. For more information about OpenSearch generative AI functionality, see [Vector search]({{site.url}}{{site.baseurl}}/vector-search/) and [Machine learning]({{site.url}}{{site.baseurl}}/ml-commons-plugin/).
 
 {% include cards.html cards=page.cards %}
