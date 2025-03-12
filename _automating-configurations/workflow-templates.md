@@ -120,7 +120,39 @@ GET /_plugins/_flow_framework/workflow/8xL8bowB8y25Tqfenm50/_status
 
 ## Supported workflow templates
 
-The following sections list the supported workflow templates. To use a workflow template, specify it in the `use_case` query parameter when creating a workflow.
+To use a workflow template, specify it in the `use_case` query parameter when creating a workflow. The following templates are supported:
+
+<details open markdown="block">
+  <summary>
+    The following templates are supported:
+  </summary>
+
+- Model deployment templates:
+  - [Amazon Bedrock Titan embedding](#amazon-bedrock-titan-embedding)
+  - [Amazon Bedrock Titan multimodal](#amazon-bedrock-titan-multimodal)
+  - [Cohere embedding](#cohere-embedding)
+  - [Cohere chat](#cohere-chat)
+  - [OpenAI embedding](#openai-embedding)
+  - [OpenAI chat](#openai-chat)
+- Semantic search templates:
+  - [Semantic search](#semantic-search)
+  - [Semantic search with query enricher](#semantic-search-with-query-enricher)
+  - [Semantic search using a local model](#semantic-search-using-a-local-model)
+  - [Semantic search using a Cohere embedding model](#semantic-search-using-a-cohere-embedding-model)
+  - [Semantic search using Cohere embedding models with a query enricher](#semantic-search-using-cohere-embedding-models-with-a-query-enricher)
+  - [Semantic search using Cohere embedding models with reindexing](#semantic-search-using-cohere-embedding-models-with-reindexing)
+- Neural sparse search templates:
+  - [Neural sparse search](#neural-sparse-search)
+- Multimodal search templates:
+  - [Multimodal search](#multimodal-search)
+  - [Multimodal search using Amazon Bedrock Titan](#multimodal-search-using-amazon-bedrock-titan)
+- Hybrid search templates:
+  - [Hybrid search](#hybrid-search)
+  - [Hybrid search using a local model](#hybrid-search-using-a-local-model)
+- Conversational search templates:
+  - [Conversational search using an LLM](#conversational-search-using-an-llm)
+
+</details>
 
 ## Model deployment templates
 
