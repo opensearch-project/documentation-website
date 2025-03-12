@@ -84,7 +84,7 @@ You can override the default algorithm in `opensearch.yml` using the optional de
 ```yml
 plugins.security.masked_fields.algorithm.default: SHA-256
 ```
-OpenSearch 3.x contains a bug fix to apply the default BLAKE2b algorithm correctly. You can override the default algorithm in OpenSearch 3.x to continue to produce the same masked values as OpenSearch 2.x and 1.x  in `opensearch.yml` using the optional default masking algorithm setting `plugins.security.masked_fields.algorithm.default`, as shown in the following example:
+OpenSearch 3.x contains a bug fix to apply the default BLAKE2b algorithm correctly. You can override the default algorithm in OpenSearch 3.x to continue to produce the same masked values as OpenSearch 1.x and 2.x  in `opensearch.yml` using the optional default masking algorithm setting `plugins.security.masked_fields.algorithm.default`, as shown in the following example:
 
 ```yml
 plugins.security.masked_fields.algorithm.default: BLAKE2B_LEGACY_DEFAULT
