@@ -2,7 +2,10 @@
 layout: default
 title: Creating and customizing AI search workflows
 parent: AI search workflows
+grand_parent: Generative AI
 nav_order: 10
+redirect_from:
+  - /tutorials/ai-search-flows/building-flows/
 ---
 
 # Creating and customizing AI search workflows in OpenSearch Dashboards
@@ -25,7 +28,7 @@ Preset templates include preconfigured settings that you can customize by specif
 
 ## Step 2: Explore the Workflow Details page
 
-After selecting the use case, the **Workflow Details** page appears, which contains three main sections:
+After selecting the use case, the **Workflow Details** page appears, which contains the following main sections:
 
 1. Ingest and search configuration forms: Used to configure ingest and search pipelines. An example ingest configuration is shown in the following image.
 
@@ -59,39 +62,37 @@ Begin by providing sample data in JSON array format. You can use the following o
 If you already have data and only need search functionality, skip this step by unchecking the **Enabled** checkbox.
 {: .note}
 
-For this example, you'll manually input sample data for an e-commerce store:
+For this example, you'll manually input sample data for an e-commerce store. On the **Import data** page, select **Upload** and enter the following JSON data:
 
-1. On the **Import data** page, select **Upload** and enter the following JSON data:
+```json
+[
+    {
+        "item_text": "red shoes",
+        "item_price": 100
+    }
+    {
+        "item_text": "blue sneakers",
+        "item_price": 50
+    }
+    {
+        "item_text": "purple high heels",
+        "item_price": 150
+    }
+    {
+        "item_text": "pair of jordans",
+        "item_price": 250
+    }
+    {
+        "item_text": "navy plaid shirt",
+        "item_price": 35
+    }
+]
+```
+{% include copy.html %}
 
-    ```json
-    [
-        {
-            "item_text": "red shoes",
-            "item_price": 100
-        }
-        {
-            "item_text": "blue sneakers",
-            "item_price": 50
-        }
-        {
-            "item_text": "purple high heels",
-            "item_price": 150
-        }
-        {
-            "item_text": "pair of jordans",
-            "item_price": 250
-        }
-        {
-            "item_text": "navy plaid shirt",
-            "item_price": 35
-        }
-    ]
-    ```
-    {% include copy.html %}
+Then select **Save**, as shown in the following image.
 
-    Then select **Save**, as shown in the following image.
-
-    ![import-data-populated]({{site.url}}{{site.baseurl}}/images/flow-tutorial/import-data-populated.png)
+![import-data-populated]({{site.url}}{{site.baseurl}}/images/flow-tutorial/import-data-populated.png)
 
 ## Step 4: Enrich your data
 
