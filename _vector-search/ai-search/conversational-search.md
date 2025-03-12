@@ -47,52 +47,60 @@ PUT /_cluster/settings
 ```
 {% include copy-curl.html %}
 
-## Setting Up conversational search in OpenSearch
+## Configuring conversational search
 
-There are two ways to set up multimodal search in OpenSearch:
+There are two ways to configure conversational search:
 
-- [**Automated Workflow**](#automating-setup) (Recommended for quick setup): Automatically create a connector, register and deploy the model, and set up a search pipeline with minimal configuration.
-- [**Manual Setup**](#manual-conversational-search-setup) (Recommended for custom configurations): Manually configure each component for greater flexibility and control.
+- [**Automated workflow**](#automated-workflow) (Recommended for quick setup): Automatically create an ingest pipeline and index with minimal configuration.
+- [**Manual setup**](#manual-setup)(Recommended for custom configurations): Manually configure each component for greater flexibility and control.
 
----
+## Automated workflow
 
-## Automating setup
-
-To simplify setup, the Flow Framework plugin allows you to automatically create a model connector, register and deploy the model, and set up a search pipeline with a single API call. You can also customize the workflow template, by adjusting default parameters before provisioning. Default values can be found [here](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/conversational-search-defaults.json).
+OpenSearch provides a [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/) that automatically creates a connector for the LLM, registers and deploys the LLM, and configures a search pipeline. You must provide the API key for the configured LLM when creating a workflow. Review the conversational search workflow template [defaults](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/conversational-search-defaults.json) to determine whether you need to update any of the parameters. For example, if the model endpoint is different from the default (`https://api.cohere.ai/v1/chat`), specify the endpoint of your model in the `create_connector.actions.url` parameter. To create the default conversational search workflow, send the following request:
 
 ```json
 POST /_plugins/_flow_framework/workflow?use_case=conversational_search_with_llm_deploy&provision=true
 {
-"create_connector.credential.key": "<YOUR_API_KEY>",
-"create_connector.actions.url": "https://api.cohere.ai/v1/chat"
+"create_connector.credential.key": "<YOUR_API_KEY>"
+}
+```
+{% include copy-curl.html %}
+
+OpenSearch responds with a workflow ID for the created workflow:
+
+```json
+{
+  "workflow_id" : "U_nMXJUBq_4FYQzMOS4B"
 }
 ```
 
-OpenSearch responds with a workflow ID, and the following resources are automatically created:
+To check the workflow status, send the following request:
 
-- **Model connector:** Connects to the specified LLM.
-- **Registered and deployed model:** The LLM is set up for inference.
-- **Search pipeline:** Configured to handle conversational queries.
+```json
+GET /_plugins/_flow_framework/workflow/U_nMXJUBq_4FYQzMOS4B/_status
+```
+{% include copy-curl.html %}
 
-After running this workflow, you can skip the first three setup steps and move directly to:
+Once the workflow completes, the `state` changes to `COMPLETED`. The workflow creates the following components:
 
-1. **Ingesting RAG data** into an index.
-2. **Using the pipeline** for retrieval-augmented generation (RAG).
+- A model connector: Connects to the specified model.
+- A registered and deployed model: The model is ready for inference.
+- A search pipeline: Configured to handle conversational queries.
 
-If you need a fully customized setup, use the following steps.
+You can now continue with [steps 4, 5, and 6](#step-4-ingest-rag-data-into-an-index) to ingest RAG data into the index, create a conversation memory, and use the pipeline for RAG.
 
-## Using conversational search
+## Manual setup
 
-To use conversational search, follow these steps:
+To manually configure conversational search, follow these steps:
 
-1. [Create a connector to a model](#step-1-create-a-connector-to-a-model).
+1. [Create a connector for a model](#step-1-create-a-connector-for-a-model).
 1. [Register and deploy the model](#step-2-register-and-deploy-the-model)
 1. [Create a search pipeline](#step-3-create-a-search-pipeline).
 1. [Ingest RAG data into an index](#step-4-ingest-rag-data-into-an-index).
 1. [Create a conversation memory](#step-5-create-a-conversation-memory).
 1. [Use the pipeline for RAG](#step-6-use-the-pipeline-for-rag).
 
-### Step 1: Create a connector to a model
+### Step 1: Create a connector for a model
 
 RAG requires an LLM in order to function. To connect to an LLM, create a [connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/). The following request creates a connector for the OpenAI GPT 3.5 model:
 
@@ -270,8 +278,6 @@ As of OpenSearch 2.12, the RAG technique has only been tested with OpenAI models
 {: .warning}
 
 Configuring the Cohere Command model to enable RAG requires using a post-processing function to transform the model output. For more information, see the [Cohere RAG Tutorial](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/tutorials/conversational_search/conversational_search_with_Cohere_Command.md).
-
-### Enabling RAG
 
 ### Step 5: Create a conversation memory
 

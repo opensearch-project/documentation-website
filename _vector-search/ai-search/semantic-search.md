@@ -17,43 +17,57 @@ Semantic search considers the context and intent of a query. In OpenSearch, sema
 Before using semantic search, you must set up a text embedding model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
 {: .note}
 
-## Setting up semantic search in OpenSearch
+## Configuring semantic search
 
-There are two ways to set up semantic search in OpenSearch:
+There are two ways to configure semantic search:
 
-- [**Automated Workflow**](#automating-setup) (Recommended for quick setup): Automatically create an ingest pipeline and index with minimal configuration.
-- [**Manual Setup**](#manual-semantic-search-setup)(Recommended for custom configurations): Manually configure each component for greater flexibility and control.
+- [**Automated workflow**](#automated-workflow) (Recommended for quick setup): Automatically create an ingest pipeline and index with minimal configuration.
+- [**Manual setup**](#manual-setup)(Recommended for custom configurations): Manually configure each component for greater flexibility and control.
 
----
+## Automated workflow
 
-## Automating setup
-
-To simplify setup, the Flow Framework plugin allows you to create both an ingest pipeline and an index with a single API call. By selecting a semantic search workflow template and adjusting the default parameters as needed, you can quickly provision the necessary components:
+OpenSearch provides a [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/) that automatically creates both an ingest pipeline and an index. You must provide the model ID for the configured model when creating a workflow. Review the semantic search workflow template [defaults](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/semantic-search-defaults.json) to determine whether you need to update any of the parameters. For example, if the model dimensionality is different from the default (`1024`), specify the dimensionality of your model in the `output_dimension` parameter. To create the default semantic search workflow, send the following request:
 
 ```json
 POST /_plugins/_flow_framework/workflow?use_case=semantic_search&provision=true
 {
-  "create_ingest_pipeline.model_id": "mBGzipQB2gmRjlv_dOoB",
-  "text_embedding.field_map.output.dimension": "768",
-  "text_embedding.field_map.input": "text"
+  "create_ingest_pipeline.model_id": "mBGzipQB2gmRjlv_dOoB"
+}
+```
+{% include copy-curl.html %}
+
+OpenSearch responds with a workflow ID for the created workflow:
+
+```json
+{
+  "workflow_id" : "U_nMXJUBq_4FYQzMOS4B"
 }
 ```
 
-OpenSearch responds with a workflow ID and automatically creates:
+To check the workflow status, send the following request:
 
-- **Ingest pipeline:** `nlp-ingest-pipeline`
-- **Index:** `my-nlp-index` (unless specified otherwise)
+```json
+GET /_plugins/_flow_framework/workflow/U_nMXJUBq_4FYQzMOS4B/_status
+```
+{% include copy-curl.html %}
 
-## Manual semantic search setup
+Once the workflow completes, the `state` changes to `COMPLETED`. The workflow creates the following components:
 
-To use semantic search, follow these steps:
+- An ingest pipeline named `nlp-ingest-pipeline`
+- An index named `my-nlp-index` 
+
+You can now continue with [steps 3 and 4](#step-3-ingest-documents-into-the-index) to ingest documents into the index and search the index.
+
+## Manual setup
+
+To manually configure semantic search, follow these steps:
 
 1. [Create an ingest pipeline](#step-1-create-an-ingest-pipeline).
 1. [Create an index for ingestion](#step-2-create-an-index-for-ingestion).
 1. [Ingest documents into the index](#step-3-ingest-documents-into-the-index).
 1. [Search the index](#step-4-search-the-index).
 
-## Step 1: Create an ingest pipeline
+### Step 1: Create an ingest pipeline
 
 To generate vector embeddings, you need to create an [ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) that contains a [`text_embedding` processor]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/processors/text-embedding/), which will convert the text in a document field to vector embeddings. The processor's `field_map` determines the input fields from which to generate vector embeddings and the output fields in which to store the embeddings.
 
@@ -79,7 +93,7 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
 
 To split long text into passages, use the `text_chunking` ingest processor before the `text_embedding` processor. For more information, see [Text chunking]({{site.url}}{{site.baseurl}}/search-plugins/text-chunking/).
 
-## Step 2: Create an index for ingestion
+### Step 2: Create an index for ingestion
 
 In order to use the text embedding processor defined in your pipeline, create a vector index, adding the pipeline created in the previous step as the default pipeline. Ensure that the fields defined in the `field_map` are mapped as correct types. Continuing with the example, the `passage_embedding` field must be mapped as a k-NN vector with a dimension that matches the model dimension. Similarly, the `passage_text` field should be mapped as `text`.
 
@@ -118,7 +132,7 @@ PUT /my-nlp-index
 
 For more information about creating a vector index and its supported methods, see [Creating a vector index]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/).
 
-## Step 3: Ingest documents into the index
+### Step 3: Ingest documents into the index
 
 To ingest documents into the index created in the previous step, send the following requests:
 
@@ -142,7 +156,7 @@ PUT /my-nlp-index/_doc/2
 
 Before the document is ingested into the index, the ingest pipeline runs the `text_embedding` processor on the document, generating text embeddings for the `passage_text` field. The indexed document includes the `passage_text` field, which contains the original text, and the `passage_embedding` field, which contains the vector embeddings. 
 
-## Step 4: Search the index
+### Step 4: Search the index
 
 To perform vector search on your index, use the `neural` query clause either in the [Search for a Model API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api/#search-for-a-model) or [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/) queries. You can refine the results by using a [vector search filter]({{site.url}}{{site.baseurl}}/search-plugins/knn/filter-search-knn/).
 
@@ -230,7 +244,7 @@ The response contains the matching document:
 }
 ```
 
-## Setting a default model on an index or field
+### Setting a default model on an index or field
 
 A [`neural`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/) query requires a model ID for generating vector embeddings. To eliminate passing the model ID with each neural query request, you can set a default model on a vector index or a field. 
 

@@ -19,40 +19,50 @@ Use multimodal search to search text and image data using multimodal embedding m
 Before using text search, you must set up a multimodal embedding model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
 {: .note}
 
-## Setting up multimodal search in OpenSearch
+## Configuring multimodal search
 
-There are two ways to set up multimodal search in OpenSearch:
+There are two ways to configure multimodal search:
 
-- [**Automated Workflow**](#automating-setup) (Recommended for quick setup): Automatically create an ingest pipeline and index with minimal configuration.
-- [**Manual Setup**](#manual-multimodal-search-setup) (Recommended for custom configurations): Manually configure each component for greater flexibility and control.
+- [**Automated workflow**](#automated-workflow) (Recommended for quick setup): Automatically create an ingest pipeline and index with minimal configuration.
+- [**Manual setup**](#manual-setup)(Recommended for custom configurations): Manually configure each component for greater flexibility and control.
 
----
+## Automated workflow
 
-## Automating setup
-
-To simplify setup, the Flow Framework plugin allows you to automatically create an ingest pipeline and an index with a single API call. This reduces manual configuration while ensuring best practices for multimodal search.
+OpenSearch provides a [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/) that automatically creates both an ingest pipeline and an index. You must provide the model ID for the configured model when creating a workflow. Review the multimodal search workflow template [defaults](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/multi-modal-search-defaults.json) to determine whether you need to update any of the parameters. For example, if the model dimensionality is different from the default (`1024`), specify the dimensionality of your model in the `output_dimension` parameter. To create the default multimodal search workflow, send the following request:
 
 ```json
 POST /_plugins/_flow_framework/workflow?use_case=multimodal_search&provision=true
 {
-"create_ingest_pipeline.model_id": "mBGzipQB2gmRjlv_dOoB",
-"text_image_embedding.field_map.output.dimension": "1024"
+"create_ingest_pipeline.model_id": "mBGzipQB2gmRjlv_dOoB"
+}
+```
+{% include copy-curl.html %}
+
+OpenSearch responds with a workflow ID for the created workflow:
+
+```json
+{
+  "workflow_id" : "U_nMXJUBq_4FYQzMOS4B"
 }
 ```
 
-OpenSearch responds with a workflow ID and automatically creates:
+To check the workflow status, send the following request:
 
-- **Ingest pipeline:** `nlp-ingest-pipeline`
-- **Index:** `my-nlp-index`
+```json
+GET /_plugins/_flow_framework/workflow/U_nMXJUBq_4FYQzMOS4B/_status
+```
+{% include copy-curl.html %}
 
-After running this workflow, you can proceed to ingest documents and perform multimodal search
+Once the workflow completes, the `state` changes to `COMPLETED`. The workflow creates the following components:
 
-If you need a fully customized setup, use the following steps.
+- An ingest pipeline named `nlp-ingest-pipeline`
+- An index named `my-nlp-index` 
 
+You can now continue with [steps 3 and 4](#step-3-ingest-documents-into-the-index) to ingest documents into the index and search the index.
 
-## Manual multimodal search setup
+## Manual setup
 
-To use multimodal search with text and image embeddings, follow these steps:
+To manually configure multimodal search with text and image embeddings, follow these steps:
 
 1. [Create an ingest pipeline](#step-1-create-an-ingest-pipeline).
 1. [Create an index for ingestion](#step-2-create-an-index-for-ingestion).
