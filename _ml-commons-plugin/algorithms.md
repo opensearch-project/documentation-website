@@ -7,7 +7,7 @@ nav_order: 125
 
 # Supported algorithms
 
-ML Commons supports various algorithms to help train and predict machine learning (ML) models or test data-driven predictions without a model. This page outlines the algorithms supported by the ML Commons plugin and the API operations they support.
+OpenSearch provides built-in machine learning (ML) algorithms that run natively within your cluster for tasks like anomaly detection, clustering, and predictive analytics. These algorithms allow you to analyze your data directly in OpenSearch without requiring external ML models or services. Each algorithm is optimized for specific use cases, from detecting unusual patterns in metrics to grouping similar data points together.
 
 ## Common limitations
 
