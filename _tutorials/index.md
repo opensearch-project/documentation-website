@@ -20,11 +20,8 @@ cards:
     description: "Enhance search relevance using machine learning models to intelligently reorder results" 
     link: "/tutorials/reranking/"
   - heading: "Generative AI applications"
-    description: "Create AI-powered applications like chatbots and advanced conversational systems" 
+    description: "Create AI-powered applications like RAG, chatbots, and advanced conversational systems" 
     link: "/tutorials/gen-ai/"
-  - heading: "AI search workflows"
-    link: "/tutorials/ai-search-flows/"
-    description: "Build and configure AI search applications visually in OpenSearch Dashboards"   
 ---
 
 # Tutorials
