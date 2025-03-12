@@ -21,7 +21,7 @@ There are two types of processors available for hybrid search:
 - [Score ranker processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/score-ranker-processor/) (Introduced 2.19): A rank-based processor that uses rank fusion to combine and rerank documents from multiple query clauses.
 
 **PREREQUISITE**<br>
-To follow this example, you must set up a text embedding model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model). If you have already generated text embeddings, ingest the embeddings into an index and skip to [Step 4](#step-4-configure-a-search-pipeline).
+To follow this example, you must set up a text embedding model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model). If you have already generated text embeddings, skip to [Step 3](#step-3-configure-a-search-pipeline).
 {: .note}
 
 ## Configuring hybrid search
@@ -33,7 +33,7 @@ There are two ways to configure hybrid search:
 
 ## Automated workflow
 
-OpenSearch provides a [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/) that automatically creates an ingest pipeline, an index, and a search pipeline. You must provide the model ID for the configured model when creating a workflow. Review the hybrid search workflow template [defaults](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/hybrid-search-defaults.json) to determine whether you need to update any of the parameters. For example, if the model dimensionality is different from the default (`1024`), specify the dimensionality of your model in the `output_dimension` parameter. To create the default hybrid search workflow, send the following request:
+OpenSearch provides a [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/#hybrid-search) that automatically creates an ingest pipeline, an index, and a search pipeline. You must provide the model ID for the configured model when creating a workflow. Review the hybrid search workflow template [defaults](https://github.com/opensearch-project/flow-framework/blob/main/src/main/resources/defaults/hybrid-search-defaults.json) to determine whether you need to update any of the parameters. For example, if the model dimensionality is different from the default (`1024`), specify the dimensionality of your model in the `output_dimension` parameter. To create the default hybrid search workflow, send the following request:
 
 ```json
 POST /_plugins/_flow_framework/workflow?use_case=hybrid_search&provision=true

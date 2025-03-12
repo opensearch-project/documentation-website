@@ -920,3 +920,7 @@ DELETE /_plugins/_ml/model_groups/Z1eQf4oB5Vm0Tdw8EIP2
 
 - Read about the basics of OpenSearch semantic search in [Building a semantic search engine in OpenSearch](https://opensearch.org/blog/semantic-search-solutions/).
 - Read about the combining keyword and semantic search, the normalization and combination technique options, and benchmarking tests in [The ABCs of semantic search in OpenSearch: Architectures, benchmarks, and combination strategies](https://opensearch.org/blog/semantic-science-benchmarks/).
+
+## Next steps
+
+- Explore [AI search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/index/) in OpenSearch.

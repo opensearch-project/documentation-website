@@ -16,6 +16,8 @@ This tutorial shows you how to apply Amazon Bedrock guardrails to your externall
 - [Using the Amazon Bedrock Guardrails standalone API](#using-the-amazon-bedrock-guardrails-standalone-api)
 - [Using guardrails embedded in the Amazon Bedrock Model Inference API](#using-guardrails-embedded-in-the-amazon-bedrock-model-inference-api)
 
+For more information about guardrails, see [Configuring model guardrails]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/guardrails/).
+
 Replace the placeholders starting with the prefix `your_` with your own values.
 {: .note}
 
