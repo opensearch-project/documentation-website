@@ -9,7 +9,7 @@ nav_order: 10
 **Introduced 1.0**
 {: .label .label-purple }
 
-The List Tasks API returns a list of tasks running inside the cluster. 
+The List Tasks API returns a list of tasks running in the cluster. 
 
 <!-- spec_insert_start
 api: tasks.list
@@ -52,7 +52,7 @@ GET /_tasks?nodes=opensearch-node1
 
 ## Example response
 
-The following example response shows information about running tasks:
+The following response shows information about running tasks:
 
 ```json
 {
@@ -98,16 +98,16 @@ The following example response shows information about running tasks:
 
 ### The `resource_stats` object
 
-The `resource_stats` object is only updated for tasks that support resource tracking. These stats are computed based on scheduled thread executions, including both threads that have finished working on the task and threads currently working on the task. Because the same thread may be scheduled to work on the same task multiple times, each instance of a given thread being scheduled to work on a given task is considered to be a single thread execution.
+The `resource_stats` object is only updated for tasks that support resource tracking. These statistics are computed based on scheduled thread executions, including both threads that have finished working on the task and threads currently working on the task. Because the same thread may be scheduled to work on the same task multiple times, each instance of a given thread being scheduled to work on a given task is considered to be a single thread execution.
 
 The following table lists all response fields in the `resource_stats` object. 
 
 Response field | Description |
 :--- | :--- |
 `average` | The average resource usage across all scheduled thread executions. |
-`total` | The sum of resource usages across all scheduled thread executions. |
+`total` | The total resource usage across all scheduled thread executions. |
 `min` | The minimum resource usage across all scheduled thread executions. |
 `max` | The maximum resource usage across all scheduled thread executions. |
-`thread_info` | Thread-count-related stats.|
+`thread_info` | Thread-count-related statistics.|
 `thread_info.active_threads` | The number of threads currently working on the task. |
 `thread_info.thread_executions` | The number of threads that have been scheduled to work on the task. |

@@ -12,20 +12,20 @@ redirect_from:
 **Introduced 1.0**
 {: .label .label-purple }
 
-A task is any operation you run in a cluster. For example, searching your data collection of books for a title or author name is a task. When you run OpenSearch, a task is automatically created to monitor your cluster's health and performance. For more information about all of the tasks currently executing in your cluster, you can use the `tasks` API operation.
+A task is any operation that you run in a cluster. For example, searching your data collection of books for a title or author name is a task. When you run OpenSearch, a task is automatically created to monitor your cluster's health and performance. For more information about all of the tasks currently executing in your cluster, you can use the `tasks` API operation.
 
 ## Attaching headers to tasks
 
-To associate requests with tasks for better tracking, you can provide a `X-Opaque-Id:<ID_number>` header as part of the HTTPS request reader of your `curl` command. The API will attach the specified header in the returned result.
+To associate requests with tasks for better tracking, you can provide an `X-Opaque-Id:<ID_number>` header as part of the HTTPS request reader of your `curl` command. The API will attach the specified header in the returned result.
 
-Usage:
+The following request returns tasks with an `X-Opaque-Id` of `111111`:
 
 ```bash
 curl -i -H "X-Opaque-Id: 111111" "https://localhost:9200/_tasks" -u 'admin:<custom-admin-password>' --insecure
 ```
 {% include copy.html %}
 
-The `_tasks` operation returns the following result.
+The `_tasks` operation returns the following result:
 
 ```json
 HTTP/1.1 200 OK
@@ -77,7 +77,7 @@ content-length: 768
   }
 }
 ```
-This operation supports the same parameters as the `tasks` operation. The following example shows how you can associate `X-Opaque-Id` with specific tasks:
+This operation supports the same parameters as the `tasks` operation. The following example shows you how to associate `X-Opaque-Id` with specific tasks:
 
 ```bash
 curl -i -H "X-Opaque-Id: 123456" "https://localhost:9200/_tasks?nodes=opensearch-node1" -u 'admin:<custom-admin-password>' --insecure

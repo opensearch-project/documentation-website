@@ -9,7 +9,7 @@ nav_order: 30
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Cancel Tasks API cancels a task, stopping it from running inside the cluster. Not all tasks can be canceled. To determine if a task is cancelable, check the `cancellable` field in the response to your tasks API request.
+The Cancel Tasks API cancels a task, stopping it from running in the cluster. Not all tasks can be canceled. To determine whether a task is cancelable, check the `cancellable` field in the Cancel Tasks API response.
 
 
 <!-- spec_insert_start
@@ -65,7 +65,7 @@ POST _tasks/_cancel?nodes=opensearch-node1,opensearch-node2
 
 ## Example response
 
-The following response shows that a bulk write and update task were cancelled without node failure, and provides additional information about the cancelled tasks:
+The following response shows that a bulk write and update task were canceled without a node failure and provides additional information about the canceled tasks:
 
 ```json
 {
