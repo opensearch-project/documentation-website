@@ -136,7 +136,7 @@ To use a workflow template, specify it in the `use_case` query parameter when cr
   - [OpenAI chat](#openai-chat)
 - Semantic search templates:
   - [Semantic search](#semantic-search)
-  - [Semantic search with query enricher](#semantic-search-with-query-enricher)
+  - [Semantic search with a query enricher](#semantic-search-with-a-query-enricher)
   - [Semantic search using a local model](#semantic-search-using-a-local-model)
   - [Semantic search using a Cohere embedding model](#semantic-search-using-a-cohere-embedding-model)
   - [Semantic search using Cohere embedding models with a query enricher](#semantic-search-using-cohere-embedding-models-with-a-query-enricher)
@@ -250,7 +250,7 @@ This workflow configures [semantic search]({{site.url}}{{site.baseurl}}/search-p
   - `create_ingest_pipeline.model_id`: The model ID of the text embedding model to be used
 - [Defaults](https://github.com/opensearch-project/flow-framework/blob/main/src/main/resources/defaults/semantic-search-defaults.json)
 
-### Semantic search with query enricher
+### Semantic search with a query enricher
 
 This workflow configures [semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/) with a default model for neural queries.
 
