@@ -23,9 +23,6 @@ other:
   - heading: "Semantic search"
     description: "Implement semantic search using various machine learning models"
     link: "/tutorials/vector-search/semantic-search/"
-  - heading: "RAG"
-    description: "Build retrieval-augmented generation and conversational search applications"
-    link: "/tutorials/vector-search/rag/"
 ---
 
 # Vector search tutorials

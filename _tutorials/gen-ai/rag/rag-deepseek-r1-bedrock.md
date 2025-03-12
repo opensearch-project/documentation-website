@@ -1,18 +1,19 @@
 ---
 layout: default
-title: RAG using the DeepSeek Chat API
+title: RAG using DeepSeek-R1 on Amazon Bedrock
 parent: RAG
-grand_parent: Vector search
-nav_order: 120
+grand_parent: Generative AI
+nav_order: 130
 redirect_from:
-  - /vector-search/tutorials/rag/rag-deepseek-chat/
+  - /vector-search/tutorials/rag/rag-deepseek-r1-bedrock/
+  - /tutorials/vector-search/rag/rag-deepseek-r1-bedrock/
 ---
 
-# RAG using the DeepSeek Chat API
+# RAG using DeepSeek-R1 on Amazon Bedrock
 
-This tutorial shows you how to implement retrieval-augmented generation (RAG) using [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/) and the [DeepSeek chat model](https://api-docs.deepseek.com/api/create-chat-completion).
+This tutorial shows you how to implement retrieval-augmented generation (RAG) using [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/) and the [DeepSeek-R1 model](https://huggingface.co/deepseek-ai/DeepSeek-R1).
 
-If you are using self-managed OpenSearch instead of Amazon OpenSearch Service, obtain a DeepSeek API key and create a connector to the DeepSeek chat model using [the blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/deepseek_connector_chat_blueprint.md). For more information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/). Then go directly to [Step 5](#step-5-create-and-test-the-model).
+If you are using self-managed OpenSearch instead of Amazon OpenSearch Service, create a connector to the DeepSeek-R1 model using [the blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/deepseek_connector_chat_blueprint.md). For more information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/). Then go directly to [Step 4](#step-4-create-and-test-the-model).
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}
@@ -24,48 +25,38 @@ Before you start, fulfill the following prerequisites.
 When configuring Amazon settings, only change the values mentioned in this tutorial. Keep all other settings at their default values.
 {: .important}
 
-### Obtain a DeepSeek API key
+### Deploy DeepSeek-R1 to Amazon Bedrock
 
-If you don't have a DeepSeek API key already, obtain one before starting this tutorial. 
+Follow [this notebook](https://github.com/DennisTraub/deepseekr1-on-bedrock/blob/main/deepseek-bedrock.ipynb) to deploy the DeepSeek-R1 model to Amazon Bedrock.
+
+Note the Amazon Bedrock DeepSeek-R1 model Amazon Resource Name (ARN); you'll use it in the following steps.
 
 ### Create an OpenSearch cluster
 
 Go to the [Amazon OpenSearch Service console](https://console.aws.amazon.com/aos/home) and create an OpenSearch domain.
 
-Note the domain Amazon Resource Name (ARN) and URL; you'll use them in the following steps.
+Note the domain ARN and URL; you'll use them in the following steps.
 
-## Step 1: Store the API key in AWS Secrets Manager
+## Step 1: Create an IAM role for Amazon Bedrock access
 
-Store your DeepSeek API key in [AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html):
+To invoke the DeepSeek-R1 model on Amazon Bedrock, you must create an AWS Identity and Access Management (IAM) role with appropriate permissions. The connector will use this role to invoke the model.
 
-1. Open AWS Secrets Manager.
-1. Select **Store a new secret**.
-1. Select **Other type of secret**.
-1. Create a key-value pair with **my_deepseek_key** as the key and your DeepSeek API key as the value.
-1. Name your secret `my_test_deepseek_secret`.
-
-Note the secret ARN; you'll use it in the following steps.
-
-## Step 2: Create an IAM role
-
-To use the secret created in Step 1, you must create an AWS Identity and Access Management (IAM) role with read permissions for the secret. This IAM role will be configured in the connector and will allow the connector to read the secret.
-
-Go to the IAM console, create a new IAM role named `my_deepseek_secret_role`, and add the following trust policy and permissions:
+Go to the IAM console, create a new IAM role named `my_invoke_bedrock_deepseek_model_role`, and add the following trust policy and permissions:
 
 - Custom trust policy:
 
 ```json
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "es.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "Service": "es.amazonaws.com"
+            },
+            "Action": "sts:AssumeRole"
+        }
+    ]
 }
 ```
 {% include copy.html %}
@@ -74,32 +65,31 @@ Go to the IAM console, create a new IAM role named `my_deepseek_secret_role`, an
 
 ```json
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": [
-        "secretsmanager:GetSecretValue",
-        "secretsmanager:DescribeSecret"
-      ],
-      "Effect": "Allow",
-      "Resource": "your_secret_arn_created_in_step1"
-    }
-  ]
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "bedrock:InvokeModel"
+            ],
+            "Effect": "Allow",
+            "Resource": "your_DeepSeek_R1_model_ARN"
+        }
+    ]
 }
 ```
 {% include copy.html %}
 
 Note the role ARN; you'll use it in the following steps.
 
-## Step 3: Configure an IAM role in Amazon OpenSearch Service
+## Step 2: Configure an IAM role in Amazon OpenSearch Service
 
 Follow these steps to configure an IAM role in Amazon OpenSearch Service.
 
-### Step 3.1: Create an IAM role for signing connector requests
+### Step 2.1: Create an IAM role for signing connector requests
 
 Generate a new IAM role specifically for signing your Create Connector API request.
 
-Create an IAM role named `my_create_deepseek_connector_role` with the following trust policy and permissions:
+Create an IAM role named `my_create_bedrock_deepseek_connector_role` with the following trust policy and permissions:
 
 - Custom trust policy:
 
@@ -119,7 +109,7 @@ Create an IAM role named `my_create_deepseek_connector_role` with the following 
 ```
 {% include copy.html %}
 
-You'll use the `your_iam_user_arn` IAM user to assume the role in Step 4.1.
+You'll use the `your_iam_user_arn` IAM user to assume the role in Step 3.1.
 
 - Permissions:
 
@@ -130,7 +120,7 @@ You'll use the `your_iam_user_arn` IAM user to assume the role in Step 4.1.
     {
       "Effect": "Allow",
       "Action": "iam:PassRole",
-      "Resource": "your_iam_role_arn_created_in_step2"
+      "Resource": "your_iam_role_arn_created_in_step1"
     },
     {
       "Effect": "Allow",
@@ -144,29 +134,29 @@ You'll use the `your_iam_user_arn` IAM user to assume the role in Step 4.1.
 
 Note this role ARN; you'll use it in the following steps.
 
-### Step 3.2: Map a backend role
+### Step 2.2: Map a backend role
 
 Follow these steps to map a backend role:
 
 1. Log in to OpenSearch Dashboards and select **Security** on the top menu.
 2. Select **Roles**, and then select the **ml_full_access** role. 
 3. On the **ml_full_access** role details page, select **Mapped users**, and then select **Manage mapping**. 
-4. Enter the IAM role ARN created in Step 3.1 in the **Backend roles** field, as shown in the following image.
+4. Enter the IAM role ARN created in Step 2.1 in the **Backend roles** field, as shown in the following image.
     ![Mapping a backend role]({{site.url}}{{site.baseurl}}/images/vector-search-tutorials/mapping_iam_role_arn.png)
-4. Select **Map**. 
+5. Select **Map**. 
 
 The IAM role is now successfully configured in your OpenSearch cluster.
 
-## Step 4: Create a connector
+## Step 3: Create a connector
 
-Follow these steps to create a connector for the DeepSeek chat model. For more information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
+Follow these steps to create a connector for the DeepSeek-R1 model. For more information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
 
-### Step 4.1: Get temporary credentials
+### Step 3.1: Get temporary credentials
 
-Use the credentials of the IAM user specified in Step 3.1 to assume the role:
+Use the credentials of the IAM user specified in Step 2.1 to assume the role:
 
 ```bash
-aws sts assume-role --role-arn your_iam_role_arn_created_in_step3.1 --role-session-name your_session_name
+aws sts assume-role --role-arn your_iam_role_arn_created_in_step2.1 --role-session-name your_session_name
 ```
 {% include copy.html %}
 
@@ -174,30 +164,16 @@ Copy the temporary credentials from the response and configure them in `~/.aws/c
 
 ```ini
 [default]
-AWS_ACCESS_KEY_ID=your_access_key_of_role_created_in_step3.1
-AWS_SECRET_ACCESS_KEY=your_secret_key_of_role_created_in_step3.1
-AWS_SESSION_TOKEN=your_session_token_of_role_created_in_step3.1
+AWS_ACCESS_KEY_ID=your_access_key_of_role_created_in_step2.1
+AWS_SECRET_ACCESS_KEY=your_secret_key_of_role_created_in_step2.1
+AWS_SESSION_TOKEN=your_session_token_of_role_created_in_step2.1
 ```
 {% include copy.html %}
 
-### Step 4.2: Create a connector
-
-Add the DeepSeek API endpoint to the trusted URL list:
-
-```json
-PUT /_cluster/settings
-{
-  "persistent": {
-    "plugins.ml_commons.trusted_connector_endpoints_regex": [
-      """^https://api\.deepseek\.com/.*$"""
-    ]
-  }
-}
-```
-{% include copy-curl.html %}
+### Step 3.2: Create a connector
 
 Run the following Python code with the temporary credentials configured in `~/.aws/credentials`:
- 
+
 ```python
 import boto3
 import requests 
@@ -214,28 +190,30 @@ path = '/_plugins/_ml/connectors/_create'
 url = host + path
 
 payload = {
-  "name": "DeepSeek Chat",
-  "description": "Test connector for DeepSeek Chat",
-  "version": "1",
-  "protocol": "http",
-  "parameters": {
-    "endpoint": "api.deepseek.com",
-    "model": "deepseek-chat"
-  },
+  "name": "DeepSeek R1 model connector",
+  "description": "Connector for my Bedrock DeepSeek model",
+  "version": "1.0",
+  "protocol": "aws_sigv4",
   "credential": {
-    "secretArn": "your_secret_arn_created_in_step1",
-    "roleArn": "your_iam_role_arn_created_in_step2"
+    "roleArn": "your_iam_role_arn_created_in_step1"
+  },
+  "parameters": {
+    "service_name": "bedrock",
+    "region": "your_bedrock_model_region",
+    "model_id": "your_deepseek_bedrock_model_arn",
+    "temperature": 0,
+    "max_gen_len": 4000
   },
   "actions": [
     {
-      "action_type": "predict",
+      "action_type": "PREDICT",
       "method": "POST",
-      "url": "https://${parameters.endpoint}/v1/chat/completions",
+      "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/${parameters.model_id}/invoke",
       "headers": {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer ${credential.secretArn.my_deepseek_key}"
+        "content-type": "application/json"
       },
-      "request_body": "{ \"model\": \"${parameters.model}\", \"messages\": ${parameters.messages} }"
+      "request_body": "{ \"prompt\": \"<｜begin▁of▁sentence｜><｜User｜>${parameters.inputs}<｜Assistant｜>\", \"temperature\": ${parameters.temperature}, \"max_gen_len\": ${parameters.max_gen_len} }",
+      "post_process_function": "\n      return '{' +\n               '\"name\": \"response\",'+\n               '\"dataAsMap\": {' +\n                  '\"completion\":\"' + escape(params.generation) + '\"}' +\n             '}';\n    "
     }
   ]
 }
@@ -251,22 +229,22 @@ print(r.text)
 The script outputs a connector ID:
 
 ```json
-{"connector_id":"duRJsZQBFSAM-WcznrIw"}
+{"connector_id":"HnS5sJQBVQUimUskjpFl"}
 ```
 
 Note the connector ID; you'll use it in the next step.
 
-## Step 5: Create and test the model
+## Step 4: Create and test the model
 
-Log in to OpenSearch Dashboards, open the DevTools console, and run the following requests to create and test the DeepSeek chat model.
+Log in to OpenSearch Dashboards, open the DevTools console, and run the following requests to create and test the DeepSeek-R1 model.
 
 1. Create a model group:
 
     ```json
     POST /_plugins/_ml/model_groups/_register
     {
-      "name": "DeepSeek Chat model",
-      "description": "Test model group for DeepSeek model"
+        "name": "Bedrock DeepSeek model",
+        "description": "Test model group for Bedrock DeepSeek model"
     }
     ```
     {% include copy-curl.html %}
@@ -275,21 +253,21 @@ Log in to OpenSearch Dashboards, open the DevTools console, and run the followin
 
     ```json
     {
-      "model_group_id": "UylKsZQBts7fa6byEx2M",
+      "model_group_id": "Vylgs5QBts7fa6bylR0v",
       "status": "CREATED"
     }
     ```
 
-1. Register the model:
+2. Register the model:
 
     ```json
     POST /_plugins/_ml/models/_register
     {
-      "name": "DeepSeek Chat model",
+      "name": "Bedrock DeepSeek R1 model",
       "function_name": "remote",
-      "description": "DeepSeek Chat model",
-      "model_group_id": "UylKsZQBts7fa6byEx2M",
-      "connector_id": "duRJsZQBFSAM-WcznrIw"
+      "description": "DeepSeek R1 model on Bedrock",
+      "model_group_id": "Vylgs5QBts7fa6bylR0v",
+      "connector_id": "KHS7s5QBVQUimUskoZGp"
     }
     ```
     {% include copy-curl.html %}
@@ -298,16 +276,16 @@ Log in to OpenSearch Dashboards, open the DevTools console, and run the followin
 
     ```json
     {
-      "task_id": "VClKsZQBts7fa6bypR0a",
+      "task_id": "hOS7s5QBFSAM-Wczv7KD",
       "status": "CREATED",
-      "model_id": "VSlKsZQBts7fa6bypR02"
+      "model_id": "heS7s5QBFSAM-Wczv7Kb"
     }
     ```
 
-1. Deploy the model:
+3. Deploy the model:
 
     ```json
-    POST /_plugins/_ml/models/VSlKsZQBts7fa6bypR02/_deploy
+    POST /_plugins/_ml/models/heS7s5QBFSAM-Wczv7Kb/_deploy
     ```
     {% include copy-curl.html %}
 
@@ -315,28 +293,19 @@ Log in to OpenSearch Dashboards, open the DevTools console, and run the followin
 
     ```json
     {
-      "task_id": "d-RKsZQBFSAM-Wcz3bKO",
+      "task_id": "euRhs5QBFSAM-WczTrI6",
       "task_type": "DEPLOY_MODEL",
       "status": "COMPLETED"
     }
     ```
 
-1. Test the model:
+4. Test the model:
 
     ```json
-    POST /_plugins/_ml/models/VSlKsZQBts7fa6bypR02/_predict
+    POST /_plugins/_ml/models/heS7s5QBFSAM-Wczv7Kb/_predict
     {
       "parameters": {
-        "messages": [
-          {
-            "role": "system",
-            "content": "You are a helpful assistant."
-          },
-          {
-            "role": "user",
-            "content": "Hello!"
-          }
-        ]
+        "inputs": "hello"
       }
     }
     ```
@@ -352,32 +321,7 @@ Log in to OpenSearch Dashboards, open the DevTools console, and run the followin
             {
               "name": "response",
               "dataAsMap": {
-                "id": "a351252c-7393-4c5d-9abe-1c47693ad336",
-                "object": "chat.completion",
-                "created": 1738141298,
-                "model": "deepseek-chat",
-                "choices": [
-                  {
-                    "index": 0,
-                    "message": {
-                      "role": "assistant",
-                      "content": "Hello! How can I assist you today? 😊"
-                    },
-                    "logprobs": null,
-                    "finish_reason": "stop"
-                  }
-                ],
-                "usage": {
-                  "prompt_tokens": 11,
-                  "completion_tokens": 11,
-                  "total_tokens": 22,
-                  "prompt_tokens_details": {
-                    "cached_tokens": 0
-                  },
-                  "prompt_cache_hit_tokens": 0,
-                  "prompt_cache_miss_tokens": 11
-                },
-                "system_fingerprint": "fp_3a5770e1b4"
+                "completion": """<think>\n\n</think>\n\nHello! How can I assist you today? 😊"""
               }
             }
           ],
@@ -387,23 +331,23 @@ Log in to OpenSearch Dashboards, open the DevTools console, and run the followin
     }
     ```
 
-## Step 6: Configure RAG
+## Step 5: Configure RAG
 
 Follow these steps to configure RAG.
 
-### Step 6.1: Create a search pipeline
+### Step 5.1: Create a search pipeline
 
 Create a search pipeline with a [RAG processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rag-processor/):
 
 ```json
-PUT /_search/pipeline/my-conversation-search-pipeline-deepseek-chat
+PUT /_search/pipeline/my-conversation-search-pipeline-deepseek
 {
   "response_processors": [
     {
       "retrieval_augmented_generation": {
         "tag": "Demo pipeline",
-        "description": "Demo pipeline Using DeepSeek Chat",
-        "model_id": "VSlKsZQBts7fa6bypR02",
+        "description": "Demo pipeline Using DeepSeek R1",
+        "model_id": "heS7s5QBFSAM-Wczv7Kb",
         "context_field_list": [
           "text"
         ],
@@ -416,7 +360,7 @@ PUT /_search/pipeline/my-conversation-search-pipeline-deepseek-chat
 ```
 {% include copy-curl.html %}
 
-### Step 6.2: Create a vector database
+### Step 5.2: Create a vector database
 
 Follow steps 1 and 2 of [this tutorial]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/) to create an embedding model and a vector index. Then ingest sample data into the index:
 
@@ -437,29 +381,29 @@ POST _bulk
 ```
 {% include copy-curl.html %}
 
-### Step 6.3: Search the index
+### Step 5.3: Search the index
 
 Run a vector search to retrieve documents from the vector database and use the DeepSeek model for RAG:
 
 ```json
-GET /my-nlp-index/_search?search_pipeline=my-conversation-search-pipeline-deepseek-chat
+GET /my-nlp-index/_search?search_pipeline=my-conversation-search-pipeline-deepseek
 {
   "query": {
     "neural": {
       "passage_embedding": {
         "query_text": "What's the population increase of New York City from 2021 to 2023? How is the trending comparing with Miami?",
-        "model_id": "USkHsZQBts7fa6bybx3G",
+        "model_id": "heS7s5QBFSAM-Wczv7Kb",
         "k": 5
       }
     }
   },
-  "size": 4,
+  "size": 2,
   "_source": [
     "text"
   ],
   "ext": {
-    "generative_qa_parameters": {      
-      "llm_model": "deepseek-chat",
+    "generative_qa_parameters": {
+      "llm_model": "bedrock/claude",
       "llm_question": "What's the population increase of New York City from 2021 to 2023? How is the trending comparing with Miami?",
       "context_size": 5,
       "timeout": 15
@@ -486,45 +430,38 @@ The response includes both the relevant documents retrieved from the vector sear
       "value": 6,
       "relation": "eq"
     },
-    "max_score": 0.05248103,
+    "max_score": 0.04107812,
     "hits": [
       {
         "_index": "my-nlp-index",
-        "_id": "2",
-        "_score": 0.05248103,
-        "_source": {
-          "text": """Chart and table of population level and growth rate for the New York City metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\nThe current metro area population of New York City in 2023 is 18,937,000, a 0.37% increase from 2022.\nThe metro area population of New York City in 2022 was 18,867,000, a 0.23% increase from 2021.\nThe metro area population of New York City in 2021 was 18,823,000, a 0.1% increase from 2020.\nThe metro area population of New York City in 2020 was 18,804,000, a 0.01% decline from 2019."""
-        }
-      },
-      {
-        "_index": "my-nlp-index",
         "_id": "4",
-        "_score": 0.029023321,
+        "_score": 0.04107812,
         "_source": {
           "text": """Chart and table of population level and growth rate for the Miami metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\nThe current metro area population of Miami in 2023 is 6,265,000, a 0.8% increase from 2022.\nThe metro area population of Miami in 2022 was 6,215,000, a 0.78% increase from 2021.\nThe metro area population of Miami in 2021 was 6,167,000, a 0.74% increase from 2020.\nThe metro area population of Miami in 2020 was 6,122,000, a 0.71% increase from 2019."""
         }
       },
       {
         "_index": "my-nlp-index",
-        "_id": "3",
-        "_score": 0.028097045,
+        "_id": "2",
+        "_score": 0.03810156,
         "_source": {
-          "text": """Chart and table of population level and growth rate for the Chicago metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\nThe current metro area population of Chicago in 2023 is 8,937,000, a 0.4% increase from 2022.\nThe metro area population of Chicago in 2022 was 8,901,000, a 0.27% increase from 2021.\nThe metro area population of Chicago in 2021 was 8,877,000, a 0.14% increase from 2020.\nThe metro area population of Chicago in 2020 was 8,865,000, a 0.03% increase from 2019."""
-        }
-      },
-      {
-        "_index": "my-nlp-index",
-        "_id": "6",
-        "_score": 0.026973149,
-        "_source": {
-          "text": """Chart and table of population level and growth rate for the Seattle metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\nThe current metro area population of Seattle in 2023 is 3,519,000, a 0.86% increase from 2022.\nThe metro area population of Seattle in 2022 was 3,489,000, a 0.81% increase from 2021.\nThe metro area population of Seattle in 2021 was 3,461,000, a 0.82% increase from 2020.\nThe metro area population of Seattle in 2020 was 3,433,000, a 0.79% increase from 2019."""
+          "text": """Chart and table of population level and growth rate for the New York City metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\nThe current metro area population of New York City in 2023 is 18,937,000, a 0.37% increase from 2022.\nThe metro area population of New York City in 2022 was 18,867,000, a 0.23% increase from 2021.\nThe metro area population of New York City in 2021 was 18,823,000, a 0.1% increase from 2020.\nThe metro area population of New York City in 2020 was 18,804,000, a 0.01% decline from 2019."""
         }
       }
     ]
   },
   "ext": {
     "retrieval_augmented_generation": {
-      "answer": "From 2021 to 2023, New York City's metro area population increased by 114,000, from 18,823,000 to 18,937,000, reflecting a growth rate of 0.61%. In comparison, Miami's metro area population grew by 98,000, from 6,167,000 to 6,265,000, with a higher growth rate of 1.59%. While New York City has a larger absolute population increase, Miami's population growth rate is significantly higher, indicating faster relative growth."
+      "answer": """You are a helpful assistant.\nGenerate a concise and informative answer in less than 100 words for the given question\nSEARCH RESULT 1: Chart and table of population level and growth rate for the Miami metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\nThe current metro area population of Miami in 2023 is 6,265,000, a 0.8% increase from 2022.\nThe metro area population of Miami in 2022 was 6,215,000, a 0.78% increase from 2021.\nThe metro area population of Miami in 2021 was 6,167,000, a 0.74% increase from 2020.\nThe metro area population of Miami in 2020 was 6,122,000, a 0.71% increase from 2019.\nSEARCH RESULT 2: Chart and table of population level and growth rate for the New York City metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\nThe current metro area population of New York City in 2023 is 18,937,000, a 0.37% increase from 2022.\nThe metro area population of New York City in 2022 was 18,867,000, a 0.23% increase from 2021.\nThe metro area population of New York City in 2021 was 18,823,000, a 0.1% increase from 2020.\nThe metro area population of New York City in 2020 was 18,804,000, a 0.01% decline from 2019.\nQUESTION: What's the population increase of New York City from 2021 to 2023? How is the trending comparing with Miami?\nOkay, I need to figure out the population increase of New York City from 2021 to 2023 and compare it with Miami's growth. Let me start by looking at the data provided.
+
+From SEARCH RESULT 2, in 2021, NYC's population was 18,823,000, and in 2022, it was 18,867,000. Then in 2023, it's 18,937,000. So, from 2021 to 2022, it increased by 44,000, and from 2022 to 2023, it went up by 70,000. Adding those together, the total increase from 2021 to 2023 is 114,000.
+
+Now, looking at Miami's data in SEARCH RESULT 1, in 2021, the population was 6,167,000, and in 2023, it's 6,265,000. That's an increase of 98,000 over the same period. 
+
+Comparing the two, NYC's increase is higher than Miami's. NYC went up by 114,000, while Miami was 98,000. Also, NYC's growth rate is a bit lower than Miami's. NYC's average annual growth rate is around 0.37%, whereas Miami's is about 0.75%. So, while NYC's population increased more in total, Miami's growth rate is higher. I should present this clearly, highlighting both the total increase and the growth rates to show the comparison accurately.
+</think>
+
+From 2021 to 2023, New York City's population increased by 114,000, compared to Miami's increase of 98,000. While NYC's total growth is higher, Miami's annual growth rate (0.75%) is notably faster than NYC's (0.37%)."""
     }
   }
 }

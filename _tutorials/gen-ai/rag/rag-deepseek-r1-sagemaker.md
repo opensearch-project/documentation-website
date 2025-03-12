@@ -2,10 +2,11 @@
 layout: default
 title: RAG using DeepSeek-R1 in Amazon SageMaker
 parent: RAG
-grand_parent: Vector search
+grand_parent: Generative AI
 nav_order: 140
 redirect_from:
   - /vector-search/tutorials/rag/rag-deepseek-r1-sagemaker/
+  - /tutorials/vector-search/rag/rag-deepseek-r1-sagemaker/
 ---
 
 # RAG using DeepSeek-R1 in Amazon SageMaker

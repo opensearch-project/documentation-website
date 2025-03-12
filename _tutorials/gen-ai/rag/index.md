@@ -1,48 +1,49 @@
 ---
 layout: default
 title: RAG
-parent: Vector search
+parent: Generative AI
 has_children: true
 has_toc: false
-nav_order: 120
+nav_order: 10
 redirect_from:
   - /vector-search/tutorials/rag/
   - /vector-search/tutorials/conversational-search/
   - /tutorials/vector-search/rag/
+  - /tutorials/gen-ai/rag/
 rag:
   - heading: Retrieval-augmented generation (RAG) using the DeepSeek Chat API
-    link: /tutorials/vector-search/rag/rag-deepseek-chat/  
+    link: /tutorials/gen-ai/rag/rag-deepseek-chat/  
     list:
       - "<b>Platform:</b> OpenSearch, Amazon OpenSearch Service"
       - "<b>Model:</b> DeepSeek Chat" 
       - '<b>Deployment:</b> Provider API'  
   - heading: RAG using DeepSeek-R1 on Amazon Bedrock
-    link: /tutorials/vector-search/rag/rag-deepseek-r1-bedrock/ 
+    link: /tutorials/gen-ai/rag/rag-deepseek-r1-bedrock/ 
     list:
       - '<b>Platform:</b> OpenSearch, Amazon OpenSearch Service'
       - '<b>Model:</b> DeepSeek-R1'  
       - "<b>Deployment:</b> Amazon Bedrock"  
   - heading: RAG using DeepSeek-R1 in Amazon SageMaker
-    link: /tutorials/vector-search/rag/rag-deepseek-r1-sagemaker/
+    link: /tutorials/gen-ai/rag/rag-deepseek-r1-sagemaker/
     list:
       - "<b>Platform:</b> OpenSearch, Amazon OpenSearch Service"  
       - "<b>Model:</b> DeepSeek-R1"  
       - "<b>Deployment:</b> Amazon SageMaker"  
 conversational_search:
   - heading: Conversational search using Cohere Command
-    link: /tutorials/vector-search/rag/conversational-search-cohere/ 
+    link: /tutorials/gen-ai/rag/conversational-search-cohere/ 
     list:
     - "<b>Platform:</b> OpenSearch"
     - "<b>Model:</b> Cohere Command"  
     - "<b>Deployment:</b> Provider API" 
   - heading: Conversational search using OpenAI
-    link: /tutorials/vector-search/rag/conversational-search-openai/ 
+    link: /tutorials/gen-ai/rag/conversational-search-openai/ 
     list:
     - "<b>Platform:</b> OpenSearch"
     - "<b>Model:</b> OpenAI GPT-4o"  
     - "<b>Deployment:</b> Provider API" 
   - heading: Conversational search using Anthropic Claude on Amazon Bedrock
-    link: /tutorials/vector-search/rag/conversational-search-claude-bedrock/ 
+    link: /tutorials/gen-ai/rag/conversational-search-claude-bedrock/ 
     list:
     - "<b>Platform:</b> OpenSearch"
     - "<b>Model:</b> Anthropic Claude"  
