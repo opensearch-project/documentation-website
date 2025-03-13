@@ -90,7 +90,7 @@ Post-filtering can significantly change the final search results and document sc
 
 ### Single query scenario
 
-Consider a query that returns the following resuts:
+Consider a query that returns the following results:
 - Query results before normalization: `[d2: 5.0, d4: 3.0, d1: 2.0]`
 - Normalized scores: `[d2: 1.0, d4: 0.33, d1: 0.0]`
 
