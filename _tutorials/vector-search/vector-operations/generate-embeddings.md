@@ -11,7 +11,7 @@ redirect_from:
 
 # Generating embeddings from arrays of objects
 
-This tutorial shows you how to generate embeddings for arrays of objects.
+This tutorial shows you how to generate embeddings for arrays of objects. For more information, see [Generating embeddings automatically]({{site.url}}{{site.baseurl}}/vector-search/getting-started/auto-generated-embeddings/).
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}

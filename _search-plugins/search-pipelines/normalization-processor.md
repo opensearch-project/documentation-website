@@ -42,7 +42,7 @@ Field | Data type | Description
 
 The following example demonstrates using a search pipeline with a `normalization-processor`. 
 
-For a comprehensive example, follow the [Neural search tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search#tutorial).
+For a comprehensive example, follow the [Getting started with semantic and hybrid search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search#tutorial).
 
 ### Creating a search pipeline 
 
@@ -112,7 +112,7 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 ```
 {% include copy-curl.html %}
 
-For more information about setting up hybrid search, see [Using hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/hybrid-search/#using-hybrid-search).
+For more information about setting up hybrid search, see [Hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/hybrid-search/).
 
 ## Search tuning recommendations
 
