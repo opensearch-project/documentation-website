@@ -10,7 +10,7 @@ redirect_from:
 
 # Semantic search using Amazon Bedrock Titan in another account
 
-Starting with OpenSearch version 2.15, you must configure a connector to an Amazon Bedrock model hosted in a different account than the account hosting Amazon OpenSearch Service. This tutorial shows you how to implement semantic search in [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/) using the [Amazon Bedrock Titan embedding model](https://docs.aws.amazon.com/bedrock/latest/userguide/titan-embedding-models.html) hosted in another account.
+Starting with OpenSearch version 2.15, you must configure a connector to an Amazon Bedrock model hosted in a different account than the account hosting Amazon OpenSearch Service. This tutorial shows you how to implement semantic search in [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/) using the [Amazon Bedrock Titan embedding model](https://docs.aws.amazon.com/bedrock/latest/userguide/titan-embedding-models.html) hosted in another account. For more information, see [Semantic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/semantic-search/).
 
 Amazon Bedrock has a [quota limit](https://docs.aws.amazon.com/bedrock/latest/userguide/quotas.html). For more information about increasing this limit, see [Increase model invocation capacity with Provisioned Throughput in Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/prov-throughput.html).
 {: .warning}
