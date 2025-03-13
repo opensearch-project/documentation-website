@@ -8,6 +8,18 @@ nav_exclude: true
 permalink: /search-plugins/
 redirect_from:
   - /search-plugins/index/
+keyword:
+  - heading: "Keyword (BM25) search"
+    description: "Find exact and close matches using traditional text search"
+    link: "/search-plugins/keyword-search/"
+vector:
+  - heading: "Vector search"
+    description: "Search by similarity using dense or sparse vector embeddings"
+    link: "/vector-search/"
+ai:
+  - heading: "AI search"
+    description: "Build intelligent search applications using AI models"
+    link: "/vector-search/ai-search/"
 ---
 
 # Search features
@@ -18,29 +30,23 @@ OpenSearch provides many features for customizing your search use cases and impr
 
 OpenSearch supports the following search methods.
 
-### Traditional lexical search
+### Exact matching and keywords
 
-OpenSearch supports [keyword (BM25) search]({{site.url}}{{site.baseurl}}/search-plugins/keyword-search/), which searches the document corpus for words that appear in the query.
+OpenSearch implements lexical (keyword) text search using the BM25 algorithm to match and rank documents based on term frequency and document length.
 
-### ML-powered search
+{% include cards.html cards=page.keyword %}
 
-OpenSearch supports the following machine learning (ML)-powered search methods:
+### Similarity and meaning
 
-- **Vector search**
+OpenSearch supports similarity (k-nearest neighbor) search using dense and sparse vector embeddings to power use cases such as semantic search, retrieval-augmented generation, and multimodal image search. 
 
-    - [k-NN search]({{site.url}}{{site.baseurl}}/search-plugins/knn/): Searches for the k-nearest neighbors to a search term across an index of vectors.
+{% include cards.html cards=page.vector %}
 
-- **Neural search**: [Neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/) facilitates generating vector embeddings at ingestion time and searching them at search time. Neural search lets you integrate ML models into your search and serves as a framework for implementing other search methods. The following search methods are built on top of neural search:
+### AI-powered search
 
-    - [Semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/): Considers the meaning of the words in the search context. Uses dense retrieval based on text embedding models to search text data. 
+OpenSearch supports AI-powered search capabilities beyond vector embeddings. OpenSearch's AI search enables search and ingestion flows to be enriched by any AI service to power the full range of AI-enhanced search use cases.
 
-    - [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/multimodal-search/): Uses multimodal embedding models to search text and image data. 
-
-    - [Neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/): Uses sparse retrieval based on sparse embedding models to search text data.
-
-    - [Hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/hybrid-search/): Combines traditional search and vector search to improve search relevance.
-
-    - [Conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/): Implements a retrieval-augmented generative search. 
+{% include cards.html cards=page.ai %}
 
 ## Query languages
 

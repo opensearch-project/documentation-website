@@ -30,7 +30,7 @@ Field masking works alongside field-level security on the same per-role, per-ind
 
 ## Set the salt setting
 
-You can set the salt (a random string used to hash your data) in `opensearch.yml` using the optional `plugins.security.compliance.salt` setting. The salt value must fullfil the following requirements:
+You can set the salt (a random string used to hash your data) in `opensearch.yml` using the optional `plugins.security.compliance.salt` setting. The salt value must fulfill the following requirements:
 
 - Must be at least 32 characters.
 - Use only ASCII characters.
@@ -84,7 +84,6 @@ You can override the default algorithm in `opensearch.yml` using the option defa
 ```yml
 plugins.security.masked_fields.algorithm.default: SHA-256
 ```
-.
 
 To specify a different algorithm, add it after the masked field in `roles.yml`, as shown in the following:
 
