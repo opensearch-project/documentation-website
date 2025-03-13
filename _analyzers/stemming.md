@@ -154,7 +154,7 @@ Although "organize" and "organic" share a common linguistic root, leading a stem
 
 Further stemming configuration can address these challenges, using the following methods:
 
-- **Explicit Stemming Overrides**: Rather than relying solely on algorithmic stemming, you can define specific rules. Using [`stemmer_override`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/stemmer_override/) allows you to make sure that "organize" remains unchanged, while "organic" is reduced to "organ." This grants granular control over the final form of terms.
+- **Explicit Stemming Overrides**: Rather than relying solely on algorithmic stemming, you can define specific rules. Using [`stemmer_override`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/stemmer-override/) allows you to make sure that "organize" remains unchanged, while "organic" is reduced to "organ." This grants granular control over the final form of terms.
 
 - **Keyword Preservation**: To maintain the integrity of crucial terms, the [`keyword_marker`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/keyword-marker/) token filter can be used. This filter designates specific words as keywords, preventing subsequent stemmer filters from altering them. In this example, "organize" could be marked as a keyword, ensuring it is indexed exactly as it appears.
 
