@@ -2,10 +2,11 @@
 layout: default
 title: Conversational search using Anthropic Claude on Amazon Bedrock
 parent: RAG
-grand_parent: Vector search
-nav_order: 90
+grand_parent: Generative AI
+nav_order: 160
 redirect_from:
   - /vector-search/tutorials/conversational-search/conversational-search-claude-bedrock/
+  - /tutorials/vector-search/rag/conversational-search/conversational-search-claude-bedrock/
 ---
 
 # Conversational search using Anthropic Claude on Amazon Bedrock

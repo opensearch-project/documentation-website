@@ -2,10 +2,11 @@
 layout: default
 title: Conversational search using OpenAI
 parent: RAG
-grand_parent: Vector search
-nav_order: 100
+grand_parent: Generative AI
+nav_order: 170
 redirect_from:
   - /vector-search/tutorials/conversational-search/conversational-search-openai/
+  - /tutorials/vector-search/rag/conversational-search/conversational-search-openai/
 ---
 
 # Conversational search using OpenAI
