@@ -206,6 +206,6 @@ You can override the `compression_level` for disk-optimized indexes in the same 
 
 ## Next steps
 
-- [Binary quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/binary-quantization/).
+- [Binary quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/binary-quantization/)
 - [Memory-optimized vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized/)
 - [k-NN query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/k-nn/)

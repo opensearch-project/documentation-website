@@ -2,7 +2,7 @@
 layout: default
 title: Building AI search workflows in OpenSearch Dashboards
 parent: AI search
-nav_order: 60
+nav_order: 80
 ---
 
 # Building AI search workflows in OpenSearch Dashboards
@@ -116,5 +116,5 @@ In **Outputs**, you can configure the values passed _from_ the model. There are 
 
 - For models and model interfaces recommended for use with OpenSearch Flow, see [Models](https://github.com/opensearch-project/dashboards-flow-framework/blob/main/documentation/models.md).
 
-- For a tutorial demonstrating how to use OpenSearch Flow to build different AI/ML use cases, see [Tutorial](https://github.com/opensearch-project/dashboards-flow-framework/blob/main/documentation/tutorial.md).
+- For a tutorial demonstrating how to use OpenSearch Flow to build different AI/ML use cases, see [Tutorial]({{site.url}}{{site.baseurl}}/tutorials/ai-search-flows/building-flows/).
 
