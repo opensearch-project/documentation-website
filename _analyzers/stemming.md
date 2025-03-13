@@ -117,8 +117,8 @@ The response contains the generated tokens:
 
 There are two categories of stemmers that can be configured:
 
-- [Algorithmic stemmers]({{site.url}}{{site.baseurl}}/analyzers/stemming/#algorithmic-stemmers/)
-- [Dictionary stemmers]({{site.url}}{{site.baseurl}}/analyzers/stemming/#dictionary-stemmers/)
+- [Algorithmic stemmers]({{site.url}}{{site.baseurl}}/analyzers/stemming/#algorithmic-stemmers)
+- [Dictionary stemmers]({{site.url}}{{site.baseurl}}/analyzers/stemming/#dictionary-stemmers)
 
 ### Algorithmic stemmers
 
@@ -154,10 +154,10 @@ Although "organize" and "organic" share a common linguistic root, leading a stem
 
 Further stemming configuration can address these challenges, using the following methods:
 
-- **Explicit Stemming Overrides**: Rather than relying solely on algorithmic stemming, you can define specific rules. Using [`stemmer_override`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/stemer-override/) allows you to make sure that "organize" remains unchanged, while "organic" is reduced to "organ." This grants granular control over the final form of terms.
+- **Explicit Stemming Overrides**: Rather than relying solely on algorithmic stemming, you can define specific rules. Using [`stemmer_override`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/stemmer_override/) allows you to make sure that "organize" remains unchanged, while "organic" is reduced to "organ." This grants granular control over the final form of terms.
 
 - **Keyword Preservation**: To maintain the integrity of crucial terms, the [`keyword_marker`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/keyword-marker/) token filter can be used. This filter designates specific words as keywords, preventing subsequent stemmer filters from altering them. In this example, "organize" could be marked as a keyword, ensuring it is indexed exactly as it appears.
 
-- **Conditional Stemming Control**: The [conditional]({{site.url}}{{site.baseurl}}/analyzers/token-filters/conditional/) token filter enables you to establish rules that determine whether a term should be stemmed. This can be based on various criteria, such as the term's presence in a predefined list.
+- **Conditional Stemming Control**: The [condition]({{site.url}}{{site.baseurl}}/analyzers/token-filters/condition/) token filter enables you to establish rules that determine whether a term should be stemmed. This can be based on various criteria, such as the term's presence in a predefined list.
 
 - **Language-Specific Term Exclusion**: For built-in language analyzers, the [`stem_exclusion`]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/english/#stem-exclusion) parameter provides a way to specify words that should be exempt from stemming. For instance, you could add "organize" to the stem_exclusion list, preventing the analyzer from stemming it. This is useful for preserving the distinct meaning of specific terms within a given language.
