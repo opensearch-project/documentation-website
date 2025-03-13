@@ -99,4 +99,4 @@ GET /my_rag_test_data/_search?search_pipeline=rag_pipeline
 ```
 {% include copy-curl.html %}
 
-For more information about setting up conversational search, see [Using conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/#using-conversational-search).
+For more information about setting up conversational search, see [Conversational search with RAG]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/).

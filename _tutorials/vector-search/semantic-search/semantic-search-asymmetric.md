@@ -10,7 +10,7 @@ redirect_from:
 
 # Semantic search using an asymmetric embedding model
 
-This tutorial shows you how to perform semantic search by generating text embeddings using an asymmetric embedding model. The tutorial uses the multilingual `intfloat/multilingual-e5-small` model from Hugging Face. 
+This tutorial shows you how to perform semantic search by generating text embeddings using an asymmetric embedding model. The tutorial uses the multilingual `intfloat/multilingual-e5-small` model from Hugging Face. For more information, see [Semantic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/semantic-search/).
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}

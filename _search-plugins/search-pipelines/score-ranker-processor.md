@@ -67,7 +67,7 @@ PUT /_search/pipeline/<rrf-pipeline>
 }
 ```
 
-For more information about setting up hybrid search, see [Using hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/hybrid-search/#using-hybrid-search).
+For more information about setting up hybrid search, see [Hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/hybrid-search/).
 
 ## Next steps
 

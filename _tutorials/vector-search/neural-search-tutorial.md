@@ -67,21 +67,19 @@ For a [custom local model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/custom
 
 For more information about ML-related cluster settings, see [ML Commons cluster settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/).
 
-## Tutorial overview
+## Tutorial
 
 This tutorial consists of the following steps:
 
 {% include list.html list_items=page.steps%}
 
-Some steps in the tutorial contain optional `Test it` sections. You can ensure that the step completed successfully by running requests in these sections.
+You can follow this tutorial by using your command line or the OpenSearch Dashboards [Dev Tools console]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/run-queries/).
+
+Some steps in the tutorial contain optional <span>Test it</span>{: .text-delta} sections. You can confirm that the step completed successfully by running the requests in these sections.
 
 After you're done, follow the steps in the [Clean up](#clean-up) section to delete all created components.
 
-## Tutorial
-
-You can follow this tutorial by using your command line or the OpenSearch Dashboards [Dev Tools console]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/run-queries/).
-
-## Step 1: Choose a model
+### Step 1: Choose a model
 
 First, you'll need to choose a language model in order to generate vector embeddings from text fields, both at ingestion time and query time.
 
@@ -106,7 +104,7 @@ Alternatively, you can choose one of the following options for your model:
 
 For information about choosing a model, see [Further reading](#further-reading). 
 
-## Step 2: Register and deploy the model 
+### Step 2: Register and deploy the model 
 
 To register the model, provide the model group ID in the register request:
 
@@ -286,11 +284,11 @@ GET /_plugins/_ml/profile/models
 ```
 </details>
 
-## Step 3: Ingest data
+### Step 3: Ingest data
 
 OpenSearch uses a language model to transform text into vector embeddings. During ingestion, OpenSearch creates vector embeddings for the text fields in the request. During search, you can generate vector embeddings for the query text by applying the same model, allowing you to perform vector similarity search on the documents.
 
-### Step 3(a): Create an ingest pipeline
+#### Step 3(a): Create an ingest pipeline
 
 Now that you have deployed a model, you can use this model to configure an [ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) that contains one processor: a task that transforms document fields before documents are ingested into an index. In this example, you'll set up a `text_embedding` processor that creates vector embeddings from text. You'll need the `model_id` of the model you set up in the previous section and a `field_map`, which specifies the name of the field from which to take the text (`text`) and the name of the field in which to record embeddings (`passage_embedding`):
 
@@ -346,7 +344,7 @@ The response contains the ingest pipeline:
 ```
 </details>
 
-### Step 3(b): Create a vector index
+#### Step 3(b): Create a vector index
 
 Now you'll create a vector index with a field named `text`, which contains an image description, and a [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/) field named `passage_embedding`, which contains the vector embedding of the text. Additionally, set the default ingest pipeline to the `nlp-ingest-pipeline` you created in the previous step:
 
@@ -399,7 +397,7 @@ GET /my-nlp-index/_mappings
 
 </details>
 
-### Step 3(c): Ingest documents into the index
+#### Step 3(c): Ingest documents into the index
 
 In this step, you'll ingest several sample documents into the index. The sample data is taken from the [Flickr image dataset](https://www.kaggle.com/datasets/hsankesara/flickr-image-dataset). Each document contains a `text` field corresponding to the image description and an `id` field corresponding to the image ID:
 
@@ -479,7 +477,7 @@ The response includes the document `_source` containing the original `text` and 
 }
 ```
 
-## Step 4: Search the data
+### Step 4: Search the data
 
 Now you'll search the index using a keyword search, a semantic search, and a combination of the two.
 
@@ -708,7 +706,7 @@ PUT /_search/pipeline/nlp-search-pipeline
 ```
 {% include copy-curl.html %}
 
-#### Step 2: Search with the hybrid query
+#### Step 2: Search using a hybrid query
 
 You'll use the [`hybrid` query]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/) to combine the `match` and `neural` query clauses. Make sure to apply the previously created `nlp-search-pipeline` to the request in the query parameter:
 
@@ -838,7 +836,53 @@ You can now experiment with different weights, normalization techniques, and com
 
 You can parameterize the search by using search templates. Search templates hide implementation details, reducing the number of nested levels and thus the query complexity. For more information, see [search templates]({{site.url}}{{site.baseurl}}/search-plugins/search-template/).
 
-### Clean up
+## Using automated workflows
+
+You can quickly set up semantic or hybrid search using [_automated workflows_]({{site.url}}{{site.baseurl}}/automating-configurations/). This approach automatically creates and provisions all necessary resources. For more information, see [Workflow templates]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/).
+
+### Automated semantic search setup
+
+OpenSearch provides a [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/) that automatically registers and deploys a default local model (`huggingface/sentence-transformers/paraphrase-MiniLM-L3-v2`) and creates an ingest pipeline and a vector index: 
+
+```json
+POST /_plugins/_flow_framework/workflow?use_case=semantic_search_with_local_model&provision=true
+```
+{% include copy-curl.html %}
+
+Review the semantic search workflow template [defaults](https://github.com/opensearch-project/flow-framework/blob/main/src/main/resources/defaults/semantic-search-with-local-model-defaults.json) to determine whether you need to update any of the parameters. For example, if you want to use a different model, specify the model name in the request body:
+
+```json
+POST /_plugins/_flow_framework/workflow?use_case=semantic_search_with_local_model&provision=true
+{
+  "register_local_pretrained_model.name": "huggingface/sentence-transformers/msmarco-distilbert-base-tas-b"
+}
+```
+{% include copy-curl.html %}
+
+OpenSearch responds with a workflow ID for the created workflow:
+
+```json
+{
+  "workflow_id" : "U_nMXJUBq_4FYQzMOS4B"
+}
+```
+
+To check the workflow status, send the following request:
+
+```json
+GET /_plugins/_flow_framework/workflow/U_nMXJUBq_4FYQzMOS4B/_status
+```
+{% include copy-curl.html %}
+
+Once the workflow completes, the `state` changes to `COMPLETED`. The workflow runs the following steps:
+
+1. [Step 2](#step-2-register-and-deploy-the-model) to register and deploy the model.
+1. [Step 3(a)](#step-3a-create-an-ingest-pipeline) to create an ingest pipeline.
+1. [Step 3(b)](#step-3b-create-a-vector-index) to create a vector index.
+
+You can now continue with [Step 3(c)](#step-3c-ingest-documents-into-the-index) to ingest documents into the index and [Step 4](#step-4-search-the-data) to search your data.
+
+## Clean up
 
 After you're done, delete the components you've created in this tutorial from the cluster:
 
@@ -876,3 +920,7 @@ DELETE /_plugins/_ml/model_groups/Z1eQf4oB5Vm0Tdw8EIP2
 
 - Read about the basics of OpenSearch semantic search in [Building a semantic search engine in OpenSearch](https://opensearch.org/blog/semantic-search-solutions/).
 - Read about the combining keyword and semantic search, the normalization and combination technique options, and benchmarking tests in [The ABCs of semantic search in OpenSearch: Architectures, benchmarks, and combination strategies](https://opensearch.org/blog/semantic-science-benchmarks/).
+
+## Next steps
+
+- Explore [AI search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/index/) in OpenSearch.
