@@ -24,7 +24,7 @@ The following workload parameters are supported by the vector search workload.
 | `target_index_dimension`                  | The dimension of the target index.                                                                                                              |
 | `target_index_space_type`                 | The target index space type.                                                                                                                    |
 | `target_index_bulk_size`                  | The target index bulk size.                                                                                                                     |
-| `target_index_bulk_index_data_set_format` | The format of the vector data set                                                                                                               |
+| `target_index_bulk_index_data_set_format` | The format of the vector dataset.                                                                                                               |
 | `target_index_bulk_index_data_set_path`   | The path to the vector dataset in the index.                                                                                                   |
 | `target_index_bulk_index_data_set_corpus` | The corpus name of the vector dataset.                                                                                                         |
 | `target_index_bulk_index_clients`         | The clients to be used for bulk ingestion. Must be a divisor of dataset size.                                                                  |
@@ -52,15 +52,15 @@ The following workload parameters are supported by the vector search workload.
 
 The workload supports the following test procedures.
 
-### No Train Test
+### No train test
 
-The No Train Test procedure tests vector search indices that require no training. You can define the underlying configuration of the vector search algorithm (such as specific engine or space type) as method definitions. Check vector search method definitions for more details.
+The no train test procedure tests vector search indices that require no training. You can define the underlying configuration of the vector search algorithm (such as specific engine or space type) as method definitions. 
 
-### No Train Test Index Only
+### No train test (Index only)
 
-Th No Train Test Index Only procedure is used to index vector search indexes that require no training. It's particularly useful when you want to benchmark only the indexing operation.
+The no train test (Index only) procedure is used to index vector search indexes that require no training. It's particularly useful when you want to benchmark only the indexing operation.
 
-### Force Merge Index
+### Force merge index
 
 The Force Merge Index procedure optimizes vector search indexes by performing force merge operations up to a given maximum number of segments. For large datasets, force merge is a costly operation. Therefore, it's better to have a separate procedure to trigger force merge operations occasionally based on user requirements.
 
@@ -68,9 +68,9 @@ The Force Merge Index procedure optimizes vector search indexes by performing fo
 
 The Search procedure benchmarks previously indexed vector search indexes. It's useful when you want to benchmark large vector search indexes without re-indexing each time, since load time can be substantial for large datasets. This procedure includes warmup operations to avoid cold start problems during vector search.
 
-### No Train Test AOSS
+### No train test (AOSS)
 
-The No Train Test AOSS procedure is similar to the No Train Test procedure but is specifically targeted for Amazon OpenSearch Serverless Vector Search Collection. This procedure doesn't include operations like **refresh** and **warmup** since they aren't supported by Vector Search Collection.
+The No train test (AOSS) procedure is similar to the No Train Test procedure but is specifically targeted for Amazon OpenSearch Serverless vector search collection. This procedure doesn't include operations like **refresh** and **warmup** since they aren't supported by Vector Search Collection.
 
 ### Train Test
 
