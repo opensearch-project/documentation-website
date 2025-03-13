@@ -60,21 +60,21 @@ The no train test procedure tests vector search indices that require no training
 
 The no train test (Index only) procedure is used to index vector search indexes that require no training. It's particularly useful when you want to benchmark only the indexing operation.
 
-### Force merge index
-
-The Force Merge Index procedure optimizes vector search indexes by performing force merge operations up to a given maximum number of segments. For large datasets, force merge is a costly operation. Therefore, it's better to have a separate procedure to trigger force merge operations occasionally based on user requirements.
-
-### Search
-
-The Search procedure benchmarks previously indexed vector search indexes. It's useful when you want to benchmark large vector search indexes without re-indexing each time, since load time can be substantial for large datasets. This procedure includes warmup operations to avoid cold start problems during vector search.
-
 ### No train test (AOSS)
 
 The No train test (AOSS) procedure is similar to the No Train Test procedure but is specifically targeted for Amazon OpenSearch Serverless vector search collection. This procedure doesn't include operations like **refresh** and **warmup** since they aren't supported by Vector Search Collection.
 
-### Train Test
+### Force merge index
+
+The Force Merge Index procedure optimizes vector search indexes by performing force merge operations up to a given maximum number of segments. For large datasets, force merge is a costly operation. Therefore, it's better to have a separate procedure to trigger force merge operations occasionally based on user requirements.
+
+### Train test
 
 The Train Test procedure benchmarks approximate k-NN search algorithms that require a training step. For example, the Faiss IVF requires a training step to cluster vectors. After the step is performed, the benchmark can search against a smaller number of cluster centroids instead of the entire dataset.
+
+### Search
+
+The Search procedure benchmarks previously indexed vector search indexes. It's useful when you want to benchmark large vector search indexes without re-indexing each time, since load time can be substantial for large datasets. This procedure includes warmup operations to avoid cold start problems during vector search.
 
 ## Custom runners
 
@@ -95,8 +95,11 @@ opensearch-benchmark execute-test \
     --pipeline benchmark-only \
     --kill-running-processes
 ```
+{% include copy.html %}
 
 ## Sample results
+
+When using the Vector Search workload, you can expect results similar to the following.
 
 ### Train test procedure
 
