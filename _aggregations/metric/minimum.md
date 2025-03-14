@@ -9,18 +9,32 @@ redirect_from:
 
 # Minimum aggregations
 
-The `min` metric is a single-value metric aggregations that returns the minimum value of a field.
+The `min` metric is a single-value metric that returns the minimum value of a field.
 
-The following example calculates the minimum of the `taxful_total_price` field:
+The `min` aggregation compares numeric fields using a `double` (double-precision) representation. Results should be considered approximate for fields containing only `long` or `unsigned_long` integer values greater than 2^53, since the number of significant bits in a `double` mantissa is 53.
+{: .note}
+
+## Parameters
+
+The `min` aggregation takes the following parameters:
+
+| Parameter | Required/Optional | Data type      | Description |
+| :--       | :--               | :--            | :--         |
+| `field`   | Required          | String         | Name of the field for which the minimum is computed.    |
+| `missing` | Optional          | Numeric        | Value to assign missing instances of the field. If not given, documents with missing values are omitted from the aggregation. |
+
+## Example
+
+This example finds the least expensive item --- the minimum value of the `base_unit_price` --- in the ecommerce sample data:
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
 {
   "size": 0,
   "aggs": {
-    "min_taxful_total_price": {
+    "min_base_unit_price": {
       "min": {
-        "field": "taxful_total_price"
+        "field": "products.base_unit_price"
       }
     }
   }
@@ -28,11 +42,13 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
+
+The response is as follows:
 
 ```json
 {
-  "took": 13,
+  "took": 15,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -49,9 +65,17 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
     "hits": []
   },
   "aggregations": {
-    "min_taxful_total_price": {
-      "value": 6.98828125
+    "min_base_unit_price": {
+      "value": 5.98828125
     }
   }
 }
 ```
+
+The aggregation name (`min_base_unit_price`) can be used as a key to retrieve the aggregation from the response.
+
+## Missing values
+
+You can assign a value to missing instances of the aggregated field. See [Missing aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/missing/).
+
+Missing values are normally ignored by `min`. If you use `missing` to assign a value less than any existing value, `min` returns this replacement value as the minimum value.
