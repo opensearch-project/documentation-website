@@ -8,25 +8,11 @@ nav_order: 10
 
 # Tiered cache
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/10024).    
-{: .warning}
-
 A tiered cache is a multi-level cache in which each tier has its own characteristics and performance levels. By combining different tiers, you can achieve a balance between cache performance and size.
 
 ## Types of tiered caches
 
 OpenSearch provides an implementation of a `_tiered` spillover `cache_`. This implementation spills any items removed from the upper tiers to the lower tiers of cache. The upper tier, such as the on-heap tier, is smaller in size but offers better latency. The lower tier, such as the disk cache, is larger in size but slower in terms of latency. OpenSearch offers both on-heap and disk tiers. 
-
-## Enabling a tiered cache
-
-To enable a tiered cache, configure the following setting in `opensearch.yml`:
-
-```yaml
-opensearch.experimental.feature.pluggable.caching.enabled: true
-```
-{% include copy.html %}
-
-For more information about ways to enable experimental features, see [Experimental feature flags]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
 
 ## Installing required plugins
 

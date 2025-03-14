@@ -25,9 +25,6 @@ OpenSearch supports the following on-heap cache types:
 **Introduced 2.14**
 {: .label .label-purple }
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/10024).    
-{: .warning}
-
 In addition to existing custom OpenSearch on-heap cache stores, cache plugins provide the following cache stores: 
 
 - **Disk cache**: Stores the precomputed result of a query on disk. Use a disk cache to cache much larger datasets, provided that the disk's latency is within an acceptable range.
