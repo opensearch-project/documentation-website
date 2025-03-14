@@ -3,7 +3,7 @@ layout: default
 title: Using sorting with a hybrid query
 parent: Hybrid search
 grand_parent: AI search
-has_children: true
+has_children: false
 nav_order: 30
 ---
 
