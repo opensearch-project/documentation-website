@@ -45,7 +45,7 @@ Setting | Static/Dynamic | Default | Description
 `index.knn.derived_source.enabled` (Experimental) | Static | `false` | Removes vectors from _source storage, reducing overall disk consumption for vector based indices. Only supported for non-nested fields. The feature is experimental in 2.19. It is not recommended for production use. No backwards compatibility guarantees are provided.
 `index.knn.algo_param.ef_construction` | Static | `100`   | Deprecated in 1.0.0. Use the [mapping parameters]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/) to set this value instead.
 `index.knn.algo_param.m` | Static | `16`    | Deprecated in 1.0.0. Use the [mapping parameters]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/) to set this value instead.
-`index.knn.space_type` | Static | `l2`    | Deprecated in 1.0.0. Use the [mapping parameters]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/) to set this value instead
+`index.knn.space_type` | Static | `l2`    | Deprecated in 1.0.0. Use the [mapping parameters]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/) to set this value instead.
 
 An index created in OpenSearch version 2.11 or earlier will still use the previous `ef_construction` and `ef_search` values (`512`).
 {: .note}
