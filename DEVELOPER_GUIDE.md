@@ -144,3 +144,23 @@ pretty: true
 -->
 <!-- spec_insert_end -->
 ```
+
+### Request and response bodies [WIP]
+To insert the request and response body tables of the `indices.create` API, use the following snippet:
+```markdown
+<!-- spec_insert_start
+api: indices.create
+component: request_body_parameters // or response_body_parameters
+-->
+<!-- spec_insert_end -->
+```
+Note that these components are still a work in progress and may not render correctly for all APIs.
+
+## Spec insert coverage report
+To generate a coverage report of the API components that are being used in the documentation, run the following command:
+```shell
+cd spec-insert
+bundle exec rake generate_utilization_coverage
+```
+The coverage report will be generated in the `spec-insert/utilization_coverage.md` by default.
+

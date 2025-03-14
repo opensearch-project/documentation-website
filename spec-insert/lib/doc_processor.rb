@@ -32,6 +32,11 @@ class DocProcessor
     rendered_content
   end
 
+  # @return [Array<SpecInsert>] the spec inserts targeted by this processor
+  def spec_inserts
+    find_insertions(File.readlines(@file_path)).map(&:last)
+  end
+
   private
 
   # @return Array<[Integer, Integer, SpecInsert]>

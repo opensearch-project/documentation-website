@@ -1,4 +1,6 @@
 param_table:
+  parameter_column:
+    freeform_text: _freeform field_
   default_column:
     empty_text: N/A
   required_column:
