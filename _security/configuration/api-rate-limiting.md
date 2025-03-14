@@ -73,13 +73,13 @@ auth_failure_listeners:
 
 The following table describes the individual settings for this type of configuration.
 
-| Setting | Description |
-| :--- | :--- |
-| `type` | The type of rate limiting. In this case, `ip`. |
-| `allowed_tries` | The number of login attempts allowed before login attempts are blocked. Be aware that increasing the number increases heap usage. |
+| Setting | Description                                                                                                                                                                                                                                                              |
+| :--- |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `type` | The type of rate limiting. In this case, `ip`.                                                                                                                                                                                                                           |
+| `allowed_tries` | The number of login attempts allowed before login attempts are blocked. Be aware that increasing the number increases heap usage.                                                                                                                                        |
 | `time_window_seconds` | The window of time during which the value for `allowed_tries` is enforced. For example, if `allowed_tries` is `3` and `time_window_seconds` is `60`, an IP address has 3 attempts to log in successfully within a 60-second time span before login attempts are blocked. |
-| `block_expiry_seconds` | The window of time during which login attempts remain blocked after a failed login. After this time elapses, login is reset and the IP address can attempt to log in again. |
-| `max_blocked_clients` | The maximum number of blocked IP addresses. This limits heap usage to avoid a potential DoS attack. |
-| `max_tracked_clients` | The maximum number of tracked IP addresses with failed login attempts. This limits heap usage to avoid a potential DoS attack. |
-| `ignore_hosts` | A list of IP addresses or hostname patterns to ignore for rate limiting. `config.dynamic.hosts_resolver_mode` must be set to `ip-hostname` to support hostname matching. |
+| `block_expiry_seconds` | The window of time during which login attempts remain blocked after a failed login. After this time elapses, login is reset and the IP address can attempt to log in again.                                                                                              |
+| `max_blocked_clients` | The maximum number of blocked IP addresses. This limits heap usage to avoid a potential DoS attack.                                                                                                                                                                      |
+| `max_tracked_clients` | The maximum number of tracked IP addresses with failed login attempts. This limits heap usage to avoid a potential DoS attack.                                                                                                                                           |
+| `ignore_hosts` | A list of IP addresses, CIDR ranges, or hostname patterns to ignore for rate limiting. `config.dynamic.hosts_resolver_mode` must be set to `ip-hostname` to support hostname matching.                                                                                    |
 
