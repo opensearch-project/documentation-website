@@ -9,7 +9,7 @@ redirect_from:
 
 # Extended stats aggregations
 
-The `extended_stats` aggregation is an extended version of the [`stats`]({{site.url}}{{site.baseurl}}/query-dsl/aggregations/metric/stats/) aggregation. It returns all the metrics returned by `stats`, plus the following:
+The `extended_stats` aggregation is a more comprehensive version of the [`stats`]({{site.url}}{{site.baseurl}}/query-dsl/aggregations/metric/stats/) aggregation. As well as the basic statistical measures provided by stats, `extended_stats` calculates:
 
 - Sum of squares
 - Variance
