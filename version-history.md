@@ -3,6 +3,7 @@ layout: default
 title: Version history
 nav_order: 2
 permalink: /version-history/
+canonical_url: https://opensearch.org/docs/latest/version-history/
 ---
 
 # Version history
