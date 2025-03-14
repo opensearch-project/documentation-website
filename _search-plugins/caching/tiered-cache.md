@@ -74,7 +74,8 @@ The following table lists additional settings for the `tiered_spillover` store s
 
 Setting | Data type | Default | Description
 :--- | :--- | :--- | :---
-`indices.requests.cache.tiered_spillover.disk.store.policies.took_time.threshold` | Time unit | `10ms` | A policy used to determine whether to cache a query into a disk cache based on its took time. This is a dynamic setting. Optional.
+`indices.requests.cache.tiered_spillover.policies.took_time.threshold` | Time unit | `0ms` | A policy used to determine whether to cache a query into the cache based on its query phase execution time. This is a dynamic setting. Optional.
+`indices.requests.cache.tiered_spillover.disk.store.policies.took_time.threshold` | Time unit | `10ms` | A policy used to determine whether to cache a query into the disk tier of the cache based on its query phase execution time. This is a dynamic setting. Optional.
 `indices.requests.cache.tiered_spillover.disk.store.enabled` | Boolean | `True` | Enables or disables the disk cache dynamically within a tiered spillover cache. Note: After disabling a disk cache, entries are not removed automatically and requires the cache to be manually cleared. Optional.
 `indices.requests.cache.tiered_spillover.onheap.store.size` | Percentage | 1% of the heap size | Defines the size of the on-heap cache within tiered cache. Optional.
 `indices.requests.cache.tiered_spillover.disk.store.size` | Long | `1073741824` (1 GB) | Defines the size of the disk cache within tiered cache. Optional.
