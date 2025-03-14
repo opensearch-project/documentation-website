@@ -12,7 +12,7 @@ The OpenSearch index request cache is a specialized caching mechanism designed t
 
 The cache is automatically invalidated at the configured refresh interval. The invalidation includes document updates (including document deletions) and changes to index settings. This ensures that stale results are never returned from the cache. When the cache size exceeds its configured limit, the least recently used entries are evicted to make room for new entries.
 
-Not all queries are eligible for the request cache. Profiled queries, scroll queries, and search requests with non-deterministic characteristics (such as `Math.random()` or DFS queries) or relative times (such as `now` or `new Date()`) are ineligible for caching. By default, only requests with `size=0` are cacheable, but this behavior can be changed with `indices.requests.cache.maximum_cacheable_size` in OpenSearch 2.19 and later.
+Some queries are ineligible for the request cache. These include profiled queries, scroll queries, and search requests with non-deterministic characteristics (such as those using `Math.random()` or DFS queries) or relative times (such as `now` or `new Date()`). By default, only requests with `size=0` are cacheable. In OpenSearch 2.19 and later, this behavior can be changed using `indices.requests.cache.maximum_cacheable_size`.
 {: .note}
 
 ## Configuring request caching
