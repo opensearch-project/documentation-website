@@ -27,7 +27,7 @@ For an OpenSearch Domain, two main configurations are typically required to ensu
   
 
 
-### Managed Service Role Mapping (Cross-Managed Migrations)**
+### Managed service role mapping (Cross-Managed Migrations)**
 
 When migrating between two managed clusters, for example, when both domains were created using the Amazon OpenSearch Service, provide Migration Assistant components with sufficient permissions to modify both the source and target clusters.
 
