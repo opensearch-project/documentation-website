@@ -78,7 +78,7 @@ class ParameterTableRenderer
     enums = extract_enum_values(param.schema)&.compact
     return '' unless enums.present?
     if enums.none? { |enum| enum[:description].present? }
-      "Valid values are: #{enums.map { |enum| "`#{enum[:value]}`" }.join(', ')}"
+      "Valid values are: #{enums.map { |enum| "`#{enum[:value]}`" }.join(', ').gsub(/, ([^,]+)$/, ', and \1')}."
     else
       "Valid values are: <br> #{enums.map { |enum| "- `#{enum[:value]}`: #{enum[:description]}" }
                                            .join(' <br> ')}"

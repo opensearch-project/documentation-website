@@ -73,7 +73,7 @@ The request body is __required__. It is a JSON object with the following fields.
 | Property | Data type | Description |
 | :--- | :--- | :--- |
 | `disk` | Object |  |
-| `enable` | String | Valid values are: `all`, `new_primaries`, `none`, `primaries` |
+| `enable` | String | Valid values are: `all`, `new_primaries`, `none`, and `primaries`. |
 | `include` | Object |  |
 | `initial_recovery` | Object |  |
 | `total_shards_per_node` | Integer or String | Certain APIs may return values, including numbers such as epoch timestamps, as strings. This setting captures this behavior while keeping the semantics of the field type.  Depending on the target language, code generators can keep the union or remove it and leniently parse strings to the target type. |
@@ -129,7 +129,7 @@ The request body is __required__. It is a JSON object with the following fields.
 
 | Property | Required | Data type | Description |
 | :--- | :--- | :--- | :--- |
-| `enable` | **Required** | String | Valid values are: `all`, `none`, `primaries`, `replicas` |
+| `enable` | **Required** | String | Valid values are: `all`, `none`, `primaries`, and `replicas`. |
 
 </details>
 <details markdown="block" name="indices.put_settings::request_body">
