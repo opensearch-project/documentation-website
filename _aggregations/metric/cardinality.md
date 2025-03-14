@@ -90,7 +90,7 @@ For high-cardinality string fields, storing hash values for the field in the ind
 
 ### Example: Controlling precision
 
-Set the precision threshold to 10000 unique values:
+Set the precision threshold to `10000` unique values:
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
