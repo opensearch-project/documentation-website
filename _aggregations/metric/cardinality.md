@@ -16,7 +16,7 @@ Cardinality count is approximate. See [Controlling precision](#controlling-preci
 
 ## Parameters
 
-The `cardinality` aggregation takes the following parameters: 
+The `cardinality` aggregation takes the following parameters.
 
 | Parameter             | Required/Optional | Data type       | Description |
 | :--                   | :--               |  :--            | :--         |
