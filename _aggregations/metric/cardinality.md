@@ -21,7 +21,7 @@ The `cardinality` aggregation takes the following parameters.
 | Parameter             | Required/Optional | Data type       | Description |
 | :--                   | :--               |  :--            | :--         |
 | `field`               | Required          | String          | The field for which the cardinality is estimated. |
-| `precision_threshold` | Optional          | Numeric         | Count below which good accuracy is expected.      |
+| `precision_threshold` | Optional          | Numeric         | Count below which good accuracy is expected. See [Controlling precision](#controlling-precision).     |
 | `execution_hint`      | Optional          | String          | How to run the aggregation. Allowed values are `ordinals` and `direct`. |
 | `missing`             | Optional          | Same as `field`'s type | Bucket to assign missing instances of the field. If not given, missing values are ignored. |
 
