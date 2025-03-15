@@ -2,7 +2,6 @@
 layout: default
 title: Hybrid
 parent: Compound queries
-grand_parent: Query DSL
 nav_order: 70
 ---
 
@@ -12,13 +11,9 @@ You can use a hybrid query to combine relevance scores from multiple queries int
 
 ## Example
 
-Before using a `hybrid` query, you must set up a machine learning (ML) model, ingest documents, and configure a search pipeline with a [`normalization-processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/).
+Learn how to use the `hybrid` query by following the steps in [Hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/hybrid-search/).
 
-To learn how to set up an ML model, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
-
-Once you set up an ML model, learn how to use the `hybrid` query by following the steps in [Using hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/hybrid-search/#using-hybrid-search).
-
-For a comprehensive example, follow the [Neural search tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search#tutorial).
+For a comprehensive example, follow the [Getting started with semantic and hybrid search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search#tutorial).
 
 ## Parameters
 

@@ -1,0 +1,43 @@
+name: PR Checklist
+
+on:
+  pull_request_target:
+    types: [opened]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  add-checklist:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Comment PR with checklist
+        uses: peter-evans/create-or-update-comment@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            Thank you for submitting your PR. The PR states are In progress (or Draft) -> Tech review -> Doc review -> Editorial review -> Merged.
+            
+            Before you submit your PR for doc review, make sure the content is technically accurate. If you need help finding a tech reviewer, tag a [maintainer](https://github.com/opensearch-project/documentation-website/blob/main/MAINTAINERS.md).
+
+            **When you're ready for doc review, tag the assignee of this PR**. The doc reviewer may push edits to the PR directly or leave comments and editorial suggestions for you to address (let us know in a comment if you have a preference). The doc reviewer will arrange for an editorial review.
+
+      - name: Auto assign PR to repo owner
+        uses: actions/github-script@v6
+        with:
+          script: |
+            let assignee = context.payload.pull_request.user.login;
+            const prOwners = ['Naarcha-AWS', 'kolchfa-aws', 'natebower'];
+            
+            if (!prOwners.includes(assignee)) {
+              assignee = 'kolchfa-aws'
+            }
+
+            github.rest.issues.addAssignees({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                assignees: [assignee]
+              });

@@ -115,20 +115,28 @@ openssl req -new -key node1-key.pem -out node1.csr
 For all host and client certificates, you should specify a subject alternative name (SAN) to ensure compliance with [RFC 2818 (HTTP Over TLS)](https://datatracker.ietf.org/doc/html/rfc2818). The SAN should match the corresponding CN so that both refer to the same DNS A record.
 {: .note }
 
-Before generating a signed certificate, create a SAN extension file which describes the DNS A record for the host:
+Before generating a signed certificate, create a SAN extension file that describes the DNS A record for the host. If you're connecting to a host that only has an IP address, either IPv4 or IPv6, use the `IP` syntax:
+
+**No IP**
 
 ```bash
 echo 'subjectAltName=DNS:node1.dns.a-record' > node1.ext
 ```
 
-Generate the certificate:
+**With IP**
+
+```bash
+echo subjectAltName=IP:127.0.0.1 > node1.ext
+```
+
+With the DNS A record described, generate the certificate:
 
 ```bash
 openssl x509 -req -in node1.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out node1.pem -days 730 -extfile node1.ext
 ```
 
 
-## Sample script
+## Sample script to generate self-signed PEM certificates
 
 If you already know the certificate details and don't want to specify them interactively, use the `-subj` option in your `root-ca.pem` and CSR commands. This script creates a root certificate, admin certificate, two node certificates, and a client certificate, all with an expiration dates of two years (730 days):
 
@@ -174,6 +182,34 @@ rm client.csr
 rm client.ext
 ```
 
+## Sample script to convert PEM certificates to keystore and truststore files
+
+You can use the following script to generate a keystore and a truststore from the previously generated PEM certificates:
+
+```bash
+#!/bin/sh
+
+# Convert node certificate
+cat root-ca.pem node1.pem node1-key.pem > combined-node1.pem
+echo "Enter password for node1-cert.p12"
+openssl pkcs12 -export -in combined-node1.pem -out node1-cert.p12 -name node1
+echo "Enter password for keystore.jks"
+keytool -importkeystore -srckeystore node1-cert.p12 -srcstoretype pkcs12 -destkeystore keystore.jks
+
+# Convert admin certificate
+cat root-ca.pem admin.pem admin-key.pem > combined-admin.pem
+echo "Enter password for admin-cert.p12"
+openssl pkcs12 -export -in combined-admin.pem -out admin-cert.p12 -name admin
+echo "Enter password for keystore.jks"
+keytool -importkeystore -srckeystore admin-cert.p12 -srcstoretype pkcs12 -destkeystore keystore.jks
+
+# Import certificates to truststore
+keytool -importcert -keystore truststore.jks -file root-ca.cer -storepass changeit -trustcacerts -deststoretype pkcs12
+
+# Cleanup
+rm combined-admin.pem
+rm combined-node1.pem
+```
 
 ## Add distinguished names to opensearch.yml
 

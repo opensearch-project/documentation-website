@@ -1,13 +1,15 @@
 ---
 layout: default
 title: Script
-nav_order: 30
+nav_order: 120
 has_children: false
 parent: Search processors
 grand_parent: Search pipelines
 ---
 
 # Script processor
+Introduced 2.8
+{: .label .label-purple }
 
 The `script` search request processor intercepts a search request and adds an inline Painless script that is run on incoming requests. The script can only run on the following request fields:
 
@@ -24,7 +26,7 @@ The `script` search request processor intercepts a search request and adds an in
 
 For request field definitions, see [search request fields]({{site.url}}{{site.baseurl}}/api-reference/search#request-body).
 
-## Request fields
+## Request body fields
 
 The following table lists all available request fields.
 

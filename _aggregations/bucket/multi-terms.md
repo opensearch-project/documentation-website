@@ -2,9 +2,9 @@
 layout: default
 title: Multi-terms
 parent: Bucket aggregations
-grand_parent: Aggregations
 nav_order: 130
 redirect_from:
+  - /query-dsl/aggregations/bucket/multi-terms/
   - /query-dsl/aggregations/multi-terms/
 ---
 
@@ -38,10 +38,15 @@ GET sample-index100/_search
         },{
           "field": "host" 
         }],
-        "order": {"max-cpu": "desc"}
+        "order": [{
+          "max-cpu": "desc"
+        },{
+          "max-memory": "desc"
+        }]
       },
       "aggs": {
-        "max-cpu": { "max": { "field": "cpu" } }
+        "max-cpu": { "max": { "field": "cpu" } },
+        "max-memory": { "max": { "field": "memory" } }
       }      
     }
   }
@@ -83,6 +88,23 @@ GET sample-index100/_search
           "doc_count": 2,
           "max-cpu": {
             "value": 90.0
+          },
+          "max-memory": {
+            "value": 50.0
+          }
+        },
+        {
+          "key": [
+            "dub1",
+            "h1"
+          ],
+          "key_as_string": "dub|h1",
+          "doc_count": 2,
+          "max-cpu": {
+            "value": 90.0
+          },
+          "max-memory": {
+            "value": 40.0
           }
         },
         {
@@ -94,6 +116,9 @@ GET sample-index100/_search
           "doc_count": 2,
           "max-cpu": {
             "value": 70.0
+          },
+          "max-memory": {
+            "value": 90.0
           }
         },
         {
@@ -104,6 +129,9 @@ GET sample-index100/_search
           "key_as_string": "iad|h2",
           "doc_count": 2,
           "max-cpu": {
+            "value": 50.0
+          },
+          "max-memory": {
             "value": 50.0
           }
         },
@@ -116,6 +144,9 @@ GET sample-index100/_search
           "doc_count": 2,
           "max-cpu": {
             "value": 15.0
+          },
+          "max-memory": {
+            "value": 20.0
           }
         }
       ]

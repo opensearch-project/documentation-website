@@ -23,18 +23,18 @@ The following naming conventions should be observed in OpenSearch Project conten
 
 #### Product names
 
-Capitalize product names. The OpenSearch Project has three products: OpenSearch, OpenSearch Dashboards, and Data Prepper. For example:
+Capitalize product names. The OpenSearch Project has three products: OpenSearch, OpenSearch Dashboards, and OpenSearch Data Prepper. For example:
 
-* “To install *OpenSearch*, download the Docker image.”
-* “To access *OpenSearch Dashboards*, open your browser and navigate to http://localhost:5601/app/home.”
-* “*Data Prepper* contains the following components:”
+* "To install *OpenSearch*, download the Docker image."
+* "To access *OpenSearch Dashboards*, open your browser and navigate to http://localhost:5601/app/home."
+* "*OpenSearch Data Prepper* contains the following components:"
 
 Capitalize the names of clients and tools. For example:
 
-* “The OpenSearch *Python* client provides a more natural syntax for interacting with your cluster.”
-* “The *Go* client retries requests for a maximum of three times by default.”
-* “The *OpenSearch Kubernetes Operator* is an open-source Kubernetes operator that helps automate the deployment and provisioning of OpenSearch and OpenSearch Dashboards in a containerized environment.”
-* “You can send events to *Logstash* from many different sources.”
+* "The OpenSearch *Python* client provides a more natural syntax for interacting with your cluster."
+* "The *Go* client retries requests for a maximum of three times by default."
+* "The *OpenSearch Kubernetes Operator* is an open-source Kubernetes operator that helps automate the deployment and provisioning of OpenSearch and OpenSearch Dashboards in a containerized environment."
+* "You can send events to *Logstash* from many different sources."
 
 #### Features
 
@@ -42,17 +42,17 @@ Features are the individual building blocks of user experiences, reflect the fun
 
 Use lowercase when referring to features, unless you are referring to a formally named feature that is specific to OpenSearch. For example:
 
-* “The Notifications plugin provides a central location for all of your *notifications* from OpenSearch plugins.”
-* “*Remote-backed storage* is an experimental feature. Therefore, we do not recommend the use of *remote-backed storage* in a production environment.”
-* “You can take and restore *snapshots* using the snapshot API.”
-* “You can use the *VisBuilder* visualization type in OpenSearch Dashboards to create data visualizations by using a drag-and-drop gesture” (You can refer to VisBuilder alone or qualify the term with “visualization type”).
+* "The Notifications plugin provides a central location for all of your *notifications* from OpenSearch plugins."
+* "*Remote-backed storage* is an experimental feature. Therefore, we do not recommend the use of *remote-backed storage* in a production environment."
+* "You can take and restore *snapshots* using the snapshot API."
+* "You can use the *VisBuilder* visualization type in OpenSearch Dashboards to create data visualizations by using a drag-and-drop gesture" (You can refer to VisBuilder alone or qualify the term with "visualization type").
 
 #### Plugin names
 
 A plugin is a feature or distinct component that extends the functionality of OpenSearch. For now, capitalize plugin names, but use *plugin* sparingly. The concept of plugins will become obsolete once we re-architect the product. For example:
 
-* “Interaction with the *ML Commons* plugin occurs through either the REST API or [ad](https://opensearch.org/docs/latest/search-plugins/sql/ppl/functions#ad) and [kmeans](https://opensearch.org/docs/latest/search-plugins/sql/ppl/functions#kmeans) Piped Processing Language (PPL) commands.”
-* “Use the *Neural Search* plugin to integrate ML language models into your search workloads.”
+* "Interaction with the *ML Commons* plugin occurs through either the REST API or [ad](https://opensearch.org/docs/latest/search-plugins/sql/ppl/functions#ad) and [kmeans](https://opensearch.org/docs/latest/search-plugins/sql/ppl/functions#kmeans) Piped Processing Language (PPL) commands."
+* "Use the *Neural Search* plugin to integrate ML language models into your search workloads."
 
 ### Voice and tone
 
@@ -66,9 +66,9 @@ Whenever possible, use the active voice instead of the passive voice. The passiv
 
 Refer to the reader as _you_ (second person), and refer to the OpenSearch Project as _we_ (first person). If there are multiple authors for a blog post, you can use _we_ to refer to the authors as individuals. Do not refer to the OpenSearch Project or to the AWS personnel working on the project as a *team*, as this implies differentiation within the community.
 
-Describe the actions that the user takes, rather than contextualizing from the feature perspective. For example, use phrases such as “With this feature, you can...” or “Use this feature to...” instead of saying a feature *allows*, *enables*, or *lets* the user do something.
+In most cases, try to describe the actions that the user takes rather than contextualizing from the feature perspective. For example, use phrases such as "With this feature, you can..." or "Use this feature to..." instead of saying a feature *allows*, *enables*, or *lets* the user do something.
 
-For procedures or instructions, ensure that action is taken by the user (“Then you can stop the container...”) rather than the writer (“We also have to stop the container...”). Reserve the first-person plural for speaking as the OpenSearch Project, with recommendations, warnings, or explanations.
+For procedures or instructions, ensure that action is taken by the user ("Then you can stop the container...") rather than the writer ("We also have to stop the container..."). Reserve the first-person plural for speaking as the OpenSearch Project, with recommendations, warnings, or explanations.
 
 In general, use the present tense. Use the future tense only when an event happens later than, not immediately after, the action under discussion.
 
@@ -84,11 +84,11 @@ Avoid excessive words, such as please. Be courteous but not wordy. Extra detail 
 
 | Personality trait | Description | Guidance |
 | :--------- | :------- | :------ |
-| **Clear and precise** | The OpenSearch Project understands that our community works, develops, and builds in roles and organizations that require precise thinking and thorough documentation. We strive to use precise language—to clearly say what we mean without leaving ideas open to interpretation, to support our assertions with facts and figures, and to provide credible and current (third-party) references where called for. <br> <br> We communicate in plain, direct language that is easily understood. Complex concepts are introduced in a concise, unambiguous way. High-level content is supported by links to more in-depth or technical content that users can engage with at their convenience. | - Write with clarity and choose words carefully. Think about the audience and how they might interpret your assertions. <br> - Be specific. Avoid estimates or general claims when exact data can be provided. <br> - Support claims with data. If something is “faster” or “more accurate,” say how much. <br> - When citing third-party references, include direct links. |
-| **Transparent and open** | As an open-source project, we exchange information with the community in an accessible and transparent manner. We publish our product plans in the open on GitHub, share relevant and timely information related to the project through our forum and/or our blog, and engage in open dialogues related to product and feature development in the public sphere. Anyone can view our roadmap, raise a question or an issue, or participate in our community meetings. | - Tell a complete story. If you’re walking the reader through a solution or sharing news, don’t skip important information. <br> - Be forthcoming. Communicate time-sensitive news and information in a thorough and timely manner. <br> - If there’s something the reader needs to know, say it up front. Don’t “bury the lede.” |
-| **Collaborative and supportive** | We’re part of a community that is here to help. We aim to be resourceful on behalf of the community and encourage others to do the same. To facilitate an open exchange of ideas, we provide forums through which the community can ask and answer one another’s questions. | - Use conversational language that welcomes and engages the audience. Have a dialogue. <br> - Invite discussion and feedback. We have several mechanisms for open discussion, including requests for comment (RFCs), a [community forum](https://forum.opensearch.org/), and [community meetings](https://www.meetup.com/OpenSearch/).
-| **Trustworthy and personable** | We stay grounded in the facts and the data. We do not overstate what our products are capable of. We demonstrate our knowledge in a humble but authoritative way and reliably deliver what we promise. We provide mechanisms and support that allow the audience to explore our products for themselves, demonstrating that our actions consistently match our words. <br> <br> We speak to the community in a friendly, welcoming, judgment-free way so that our audience perceives us as being approachable. Our content is people oriented and focused on empowering the user directly. | - Claims and assertions should be grounded in facts and data and supported accordingly. <br> - Do not exaggerate or overstate. Let the facts and results speak for themselves. <br> - Encourage the audience to explore our products for themselves. Offer guidance to help them do so. <br> - Write directly and conversationally. Have a dialogue with your audience. Imagine writing as if you’re speaking directly to the person for whom you’re creating content. <br> - Write from the community, for the community. Anyone creating or consuming content about OpenSearch is a member of the same group, with shared interest in learning about and building better search and analytics solutions. |
-| **Inclusive and accessible** | As an open-source project, The OpenSearch Project is for everyone, and we are inclusive. We value the diversity of backgrounds and perspectives in the OpenSearch community and welcome feedback from any contributor, regardless of their experience level. <br> <br> We design and create content so that people with disabilities can perceive, navigate, and interact with it. This ensures that our documentation is available and useful for everyone and helps improve the general usability of content. <br> <br> We understand our community is international and our writing takes that into account. We use plain language that avoids idioms and metaphors that may not be clear to the broader community. | - Use inclusive language to connect with the diverse and global OpenSearch Project audience.- Be careful with our word choices. <br> - Avoid [sensitive terms](https://github.com/opensearch-project/documentation-website/blob/main/STYLE_GUIDE.md#sensitive-terms). <br> - Don't use [offensive terms](https://github.com/opensearch-project/documentation-website/blob/main/STYLE_GUIDE.md#offensive-terms). <br> - Don't use ableist or sexist language or language that perpetuates racist structures or stereotypes. <br> - Links: Use link text that adequately describes the target page. For example, use the title of the target page instead of “here” or “this link.” In most cases, a formal cross-reference (the title of the page you’re linking to) is the preferred style because it provides context and helps readers understand where they’re going when they choose the link. <br> - Images: <br> &nbsp;&nbsp;- Add introductory text that provides sufficient context for each image. <br> &nbsp;&nbsp;- Add ALT text that describes the image for screen readers. <br> - Procedures: Not everyone uses a mouse, so use device-independent verbs; for example, use “choose” instead of “click.” <br> - Location: When you’re describing the location of something else in your content, such as an image or another section, use words such as “preceding,” “previous,” or “following” instead of “above” and “below.”
+| **Clear and precise** | The OpenSearch Project understands that our community works, develops, and builds in roles and organizations that require precise thinking and thorough documentation. We strive to use precise language—to clearly say what we mean without leaving ideas open to interpretation, to support our assertions with facts and figures, and to provide credible and current (third-party) references where called for. <br> <br> We communicate in plain, direct language that is easily understood. Complex concepts are introduced in a concise, unambiguous way. High-level content is supported by links to more in-depth or technical content that users can engage with at their convenience. | - Write with clarity and choose words carefully. Think about the audience and how they might interpret your assertions. <br> - Be specific. Avoid estimates or general claims when exact data can be provided. <br> - Support claims with data. If something is "faster" or "more accurate," say how much. <br> - When citing third-party references, include direct links. |
+| **Transparent and open** | As an open-source project, we exchange information with the community in an accessible and transparent manner. We publish our product plans in the open on GitHub, share relevant and timely information related to the project through our forum and/or our blog, and engage in open dialogues related to product and feature development in the public sphere. Anyone can view our roadmap, raise a question or an issue, or participate in our community meetings. | - Tell a complete story. If you're walking the reader through a solution or sharing news, don't skip important information. <br> - Be forthcoming. Communicate time-sensitive news and information in a thorough and timely manner. <br> - If there's something the reader needs to know, say it up front. Don't "bury the lede." |
+| **Collaborative and supportive** | We're part of a community that is here to help. We aim to be resourceful on behalf of the community and encourage others to do the same. To facilitate an open exchange of ideas, we provide forums through which the community can ask and answer one another's questions. | - Use conversational language that welcomes and engages the audience. Have a dialogue. <br> - Invite discussion and feedback. We have several mechanisms for open discussion, including requests for comment (RFCs), a [community forum](https://forum.opensearch.org/), and [community meetings](https://www.meetup.com/OpenSearch/).
+| **Trustworthy and personable** | We stay grounded in the facts and the data. We do not overstate what our products are capable of. We demonstrate our knowledge in a humble but authoritative way and reliably deliver what we promise. We provide mechanisms and support that allow the audience to explore our products for themselves, demonstrating that our actions consistently match our words. <br> <br> We speak to the community in a friendly, welcoming, judgment-free way so that our audience perceives us as being approachable. Our content is people oriented and focused on empowering the user directly. | - Claims and assertions should be grounded in facts and data and supported accordingly. <br> - Do not exaggerate or overstate. Let the facts and results speak for themselves. <br> - Encourage the audience to explore our products for themselves. Offer guidance to help them do so. <br> - Write directly and conversationally. Have a dialogue with your audience. Imagine writing as if you're speaking directly to the person for whom you're creating content. <br> - Write from the community, for the community. Anyone creating or consuming content about OpenSearch is a member of the same group, with shared interest in learning about and building better search and analytics solutions. |
+| **Inclusive and accessible** | As an open-source project, the OpenSearch Project is for everyone, and we are inclusive. We value the diversity of backgrounds and perspectives in the OpenSearch community and welcome feedback from any contributor, regardless of their experience level. <br> <br> We design and create content so that people with disabilities can perceive, navigate, and interact with it. This ensures that our documentation is available and useful for everyone and helps improve the general usability of content. <br> <br> We understand our community is international and our writing takes that into account. We use plain language that avoids idioms and metaphors that may not be clear to the broader community. | - Use inclusive language to connect with the diverse and global OpenSearch Project audience. <br> - Be careful with our word choices. <br> - Avoid [sensitive terms](https://github.com/opensearch-project/documentation-website/blob/main/STYLE_GUIDE.md#sensitive-terms). <br> - Don't use [offensive terms](https://github.com/opensearch-project/documentation-website/blob/main/STYLE_GUIDE.md#offensive-terms). <br> - Don't use ableist or sexist language or language that perpetuates racist structures or stereotypes. <br> - Links: Use link text that adequately describes the target page. For example, use the title of the target page instead of "here" or "this link." In most cases, a formal cross-reference (the title of the page you're linking to) is the preferred style because it provides context and helps readers understand where they're going when they choose the link. <br> - Images: <br> &nbsp;&nbsp;- Add introductory text that provides sufficient context for each image. <br> &nbsp;&nbsp;- Add ALT text that describes the image for screen readers. <br> - Procedures: Not everyone uses a mouse, so use device-independent verbs; for example, use "choose" instead of "click." <br> - Location: When you're describing the location of something else in your content, such as an image or another section, use words such as "preceding," "previous," or "following" instead of "above" and "below."
 
 ## Style guidelines
 
@@ -98,7 +98,7 @@ The following guidelines should be observed in OpenSearch Project content.
 
 Spell out acronyms the first time that you use them on a page and follow them with the acronym in parentheses. Use the format `spelled-out term (acronym)`. On subsequent use, use the acronym alone.
 
-Do not capitalize the spelled-out form of an acronym unless the spelled-out form is a proper noun or the community generally capitalizes it. In all cases, our usage should reflect the community’s usage.
+Do not capitalize the spelled-out form of an acronym unless the spelled-out form is a proper noun or the community generally capitalizes it. In all cases, our usage should reflect the community's usage.
 
 In general, spell out acronyms once on a page. However, you can spell them out more often for clarity.
 
@@ -117,15 +117,18 @@ The following table lists acronyms that you don't need to spell out.
 | Acronym | Spelled-out term |
 | :--------- | :------- |
 | 3D | three-dimensional |
+| AI | artificial intelligence |
 | API | application programming interface |
 | ASCII | American Standard Code for Information Interchange |
 | BASIC | Beginner's All-Purpose Symbolic Instruction Code |
 | BM25 | Best Match 25 |
+| CLI | command-line interface |
 | CPU | central processing unit |
 | CRUD | create, read, update, and delete |
 | CSV | comma-separated values |
 | DNS | Domain Name System |
 | DOS | disk operating system |
+| Faiss | Facebook AI Similarity Search |
 | FAQ | frequently asked questions |
 | FTP | File Transfer Protocol |
 | GIF | Graphics Interchange Format |
@@ -138,8 +141,11 @@ The following table lists acronyms that you don't need to spell out.
 | IP | Internet protocol |
 | JPEG | Joint Photographic Experts Group |
 | JSON | JavaScript Object Notation |
+| k-NN | k-nearest neighbors |
+| MS MARCO | Microsoft Machine Reading Comprehension |
 | NAT | network address translation |
 | NGINX | engine x |
+| NMSLIB | Non-Metric Space Library |
 | PDF | Portable Document Format |
 | RAM | random access memory |
 | REST | Representational State Transfer |
@@ -164,7 +170,7 @@ The following table lists acronyms that you don't need to spell out.
 Calling out code within a sentence or code block makes it clear to readers which items are code specific. The following is general guidance about using code examples and when to use `code font`:
 
 * In Markdown, use single backticks (`` ` ``) for inline code formatting and triple backticks (```` ``` ````) for code blocks. For example, writing `` `discovery.type` `` in Markdown will render as `discovery.type`. A line containing three backticks should be included both before and after an example code block.
-* In sentences, use code font for things relating to code, for example, “The `from` and `size` parameters are stateless, so the results are based on the latest available data.” 
+* In sentences, use code font for things relating to code, for example, "The `from` and `size` parameters are stateless, so the results are based on the latest available data." 
 * Use lead-in sentences to clarify the example. Exception: API examples, for which a caption-style lead-in (heading 4) is sufficient. 
 * Use the phrase *such as* for brief examples within a sentence.
 * Use language-specific indentation in code examples.
@@ -217,7 +223,7 @@ When using lead-in sentences, summarize, clarify, or refer to the example that f
 
 #### Referring to a variable or placeholder
 
-When introducing a code or command line example that refers to a variable or placeholder in the example, be direct by including the variable or placeholder name in the text. Surround the variable or placeholder name with angle brackets (`<` and `>`), for example, `<port>`. Don't refer to the variable or placeholder by its color or format because these can change. If variable or placeholder texts have a lot in common and there are several for the user to complete, be direct by including a “template” for the input in the replaceable text.
+When introducing a code or command line example that refers to a variable or placeholder in the example, be direct by including the variable or placeholder name in the text. Surround the variable or placeholder name with angle brackets (`<` and `>`), for example, `<port>`. Don't refer to the variable or placeholder by its color or format because these can change. If variable or placeholder texts have a lot in common and there are several for the user to complete, be direct by including a "template" for the input in the replaceable text.
 
    In the following example, replace `<component-x>` with your own information:
 
@@ -244,7 +250,7 @@ When introducing a code or command line example that refers to a variable or pla
 
 - Add ALT text that describes the image for screen readers.
 
-- When you’re describing the location of an image, use words such as *preceding*, *previous*, or *following* instead of *above* and *below*.
+- When you're describing the location of an image, use words such as *preceding*, *previous*, or *following* instead of *above* and *below*.
 
 - Text that introduces an image should be a complete sentence and end with a period, not a colon.
 
@@ -262,17 +268,17 @@ When introducing a code or command line example that refers to a variable or pla
 ### Lists
 
 The following guidelines apply to all list types:
-- Make lists parallel in content and structure. Don’t mix single words with phrases, don’t start some phrases with a noun and others with a verb, and don’t mix verb forms.
+- Make lists parallel in content and structure. Don't mix single words with phrases, don't start some phrases with a noun and others with a verb, and don't mix verb forms.
 - Present the items in alphabetical order if the order of items is arbitrary.
 - Capitalize the ﬁrst letter of the ﬁrst word of each list item.
-- If the list is simple, you don’t need end punctuation for the list items.
+- If the list is simple, you don't need end punctuation for the list items.
 - If the list has a mixture of phrases and sentences, punctuate each list item.
 - Punctuate each list item with a period if a list item has more than one sentence.
 - Punctuate list items consistently. If at least one item in a list requires a period, use a period for all items in that list.
 - Introductory sentences are required for lists.
 - Introductory sentences should be complete sentences.
 - Introductory sentences should end with a colon.
-- Don’t use semicolons, commas, or conjunctions (like and or or) at the end of list items.
+- Don't use semicolons, commas, or conjunctions (like and or or) at the end of list items.
 
 ### Numbers and measurement
 
@@ -327,15 +333,17 @@ We follow a slightly modified version of the _Microsoft Writing Style Guide_ gui
 
 ### Punctuation and capitalization
 
+- Use straight quotation marks (") and apostrophes (') instead of curly ones (”, ’).
+
 - Use only one space after a period.
 
-- Use contractions carefully for a more casual tone. Use common contractions. Avoid future tense (I’ll), archaic (‘twas), colloquial (ain’t), or compound (couldn’t’ve) contractions.
+- Use contractions carefully for a more casual tone. Use common contractions. Avoid future tense (I'll), archaic ('twas), colloquial (ain't), or compound (couldn't've) contractions.
 
 - Use sentence case for titles, headings, and table headers. Titles of standalone documents may use title case.
 
 - Use lowercase for nouns and noun phrases that are not proper nouns; for example, *big data*. This style follows the standard rules of American English grammar.
 
-- For plural forms of nouns that end in “s”, form the possessive case by adding only an apostrophe.
+- For plural forms of nouns that end in "s", form the possessive case by adding only an apostrophe.
 
 - When a colon introduces a list of words, a phrase, or other sentence fragment, the first word following the colon is lowercased unless it is a proper name. When a colon introduces one or more complete sentences, the first word following it is capitalized. When text introduces a table or image, it should be a complete sentence and end with a period, not a colon.
 
@@ -348,9 +356,9 @@ We follow a slightly modified version of the _Microsoft Writing Style Guide_ gui
 
 - An en dash (–) is the width of an uppercase N. In ranges, do not include spacing on either side. Use an en dash to indicate ranges in values and dates, separate a bullet heading from the following text in a list, or separate an open compound adjective (two compounds, only one of which is hyphenated) from the word that it modifies.
 
-- Words with prefixes are normally closed (no hyphen), whether they are nouns, verbs, adjectives, or adverbs. Note that some industry terms don’t follow this hyphenation guidance. For example, *Command Line Interface* and *high performance computing* aren’t hyphenated, and *machine learning* isn’t hyphenated when used as an adjective. Other terms are hyphenated to improve readability. Examples include *non-production*, *post-migration*, and *pre-migration*.
+- Words with prefixes are normally closed (no hyphen), whether they are nouns, verbs, adjectives, or adverbs. Note that some industry terms don't follow this hyphenation guidance. For example, *Command Line Interface* and *high performance computing* aren't hyphenated, and *machine learning* isn't hyphenated when used as an adjective. Other terms are hyphenated to improve readability. Examples include *non-production*, *post-migration*, and *pre-migration*.
 
-- In general, comparative or superlative modifiers with “more,” “most,” “less,” or “least” don’t require hyphens. Use one only if it’s needed to avoid ambiguity.
+- In general, comparative or superlative modifiers with "more," "most," "less," or "least" don't require hyphens. Use one only if it's needed to avoid ambiguity.
 
 - The ampersand (&) should never be used in a sentence as a replacement for the word and. An exception to this is in acronyms where the ampersand is commonly used, such as in Operations & Maintenance (O&M).
 
@@ -415,7 +423,7 @@ Follow these basic guidelines when writing UI text.
 
 ##### Style
 
-* Keep it short. Users don’t want to read dense text. Remember that UI text can expand by 30% when it’s translated into other languages.
+* Keep it short. Users don't want to read dense text. Remember that UI text can expand by 30% when it's translated into other languages.
 * Keep it simple. Try to use simple sentences (one subject, one verb, one main clause and idea) rather than compound or complex sentences.
 * Prefer active voice over passive voice. For example, "You can attach up to 10 policies" is active voice, and "Up to 10 policies can be attached" is passive voice.
 * Use device-agnostic language rather than mouse-specific language. For example, use _choose_ instead of _click_ (exception: use _select_ for checkboxes).
@@ -444,9 +452,9 @@ Follow these basic guidelines when writing UI text.
      * Failure recovery
      * Migrating from one cluster to another
 
-* Use the serial (Oxford) comma. For example, “issues, bug fixes, and features”, not “issues, bug fixes and features”.
-* Don’t use the ampersand (&).
-* Avoid Latinisms, such as _e.g._, _i.e._, or _etc._ Instead of _e.g._, use _for example_ or _such as_. Instead of _i.e._, use _that is_ or _specifically_. Generally speaking, _etc._ and its equivalents (such as _and more_ or _and so on_) aren’t necessary.
+* Use the serial (Oxford) comma. For example, "issues, bug fixes, and features", not "issues, bug fixes and features".
+* Don't use the ampersand (&).
+* Avoid Latinisms, such as _e.g._, _i.e._, or _etc._ Instead of _e.g._, use _for example_ or _such as_. Instead of _i.e._, use _that is_ or _specifically_. Generally speaking, _etc._ and its equivalents (such as _and more_ or _and so on_) aren't necessary.
 
 ## Special considerations for blog posts
 
@@ -460,7 +468,7 @@ Posts tend to be more personable, unlike technical documentation. Ask questions,
 
 **Keep it short.**
 
-Deep topics don’t necessarily require long posts. Shorter, more focused posts are easier for readers to digest. Consider breaking a long post into a series, which can also encourage repeat visitors to the blog channel.
+Deep topics don't necessarily require long posts. Shorter, more focused posts are easier for readers to digest. Consider breaking a long post into a series, which can also encourage repeat visitors to the blog channel.
 
 **Avoid redundancy.**
 
@@ -480,7 +488,7 @@ Our philosophy is that we positively impact users and our industry as we proacti
 
 The following terms may be associated with unconscious racial bias, violence, or politically sensitive topics and should not appear in OpenSearch Project content, if possible. Note that many of these terms are still present but on a path to not being supported. For example, `slave` was removed from the Python programming language in 2018, and the open-source community continues to work toward replacing these terms.
 
-| Don’t use      | Guidance/Use instead        |
+| Don't use      | Guidance/Use instead        |
 |----------------|-----------------------------|
 | abort          | Don't use because it has unpleasant associations and is unnecessarily harsh sounding. Use *stop*, *end*, or *cancel* instead.                    |
 | black day      | blocked day                 |
@@ -494,15 +502,14 @@ The following terms may be associated with unconscious racial bias, violence, or
 
 ### Sensitive terms
 
-The following terms may be problematic *in some contexts*. This doesn’t mean that you can’t use these terms—just be mindful of their potential associations when using them, and avoid using them to refer to people. 
+The following terms may be problematic *in some contexts*. This doesn't mean that you can't use these terms—just be mindful of their potential associations when using them, and avoid using them to refer to people. 
 
 | Avoid using              | Guidance/Use instead                |
 |--------------------------|-------------------------------------|
 | blackout                 | service outage, blocked             |
 | demilitarized zone (DMZ) | perimeter network, perimeter zone   |
-| primitive                | Avoid using *primitive* (especially plural *primitives*) as a colloquial way of referring to the basic concepts or elements that are associated with a feature or to the simplest elements in a programming language. For greatest clarity and to avoid sounding unpleasant, replace with *primitive data type* or *primitive type*. |
 
 ## Trademark policy
 
-The “OpenSearch” word mark should be used in its exact form and not abbreviated or combined with any other word or words (e.g., “OpenSearch” software rather than “OPNSRCH” or “OpenSearch-ified”). See the [OpenSearch Trademark Policy](https://opensearch.org/trademark-usage.html) for more information. Also refer to the policy and to the [OpenSearch Brand Guidelines](https://opensearch.org/brand.html) for guidance regarding the use of the OpenSearch logo. When using another party’s logo, refer to that party’s trademark guidelines.
+The "OpenSearch" word mark should be used in its exact form and not abbreviated or combined with any other word or words (e.g., "OpenSearch" software rather than "OPNSRCH" or "OpenSearch-ified"). See the [OpenSearch Trademark Policy](https://opensearch.org/trademark-usage.html) for more information. Also refer to the policy and to the [OpenSearch Brand Guidelines](https://opensearch.org/brand.html) for guidance regarding the use of the OpenSearch logo. When using another party's logo, refer to that party's trademark guidelines.
 

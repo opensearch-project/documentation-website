@@ -2,7 +2,6 @@
 layout: default
 title: Average
 parent: Metric aggregations
-grand_parent: Aggregations
 nav_order: 10
 redirect_from:
   - /query-dsl/aggregations/metric/average/
@@ -50,7 +49,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
     "hits": []
   },
   "aggregations": {
-    "sum_taxful_total_price": {
+    "avg_taxful_total_price": {
       "value": 75.05542864304813
     }
   }

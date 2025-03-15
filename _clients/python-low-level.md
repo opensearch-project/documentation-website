@@ -8,9 +8,15 @@ redirect_from:
 
 # Low-level Python client
 
-The OpenSearch low-level Python client (`opensearch-py`) provides wrapper methods for the OpenSearch REST API so that you can interact with your cluster more naturally in Python. Rather than sending raw HTTP requests to a given URL, you can create an OpenSearch client for your cluster and call the client's built-in functions. For the client's complete API documentation and additional examples, see the [`opensearch-py` API documentation](https://opensearch-project.github.io/opensearch-py/).
+The OpenSearch low-level Python client (`opensearch-py`) provides wrapper methods for the OpenSearch REST API so that you can interact with your cluster more naturally in Python. Rather than sending raw HTTP requests to a given URL, you can create an OpenSearch client for your cluster and call the client's built-in functions. 
 
-This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [opensearch-py repo](https://github.com/opensearch-project/opensearch-py).
+This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For additional information, see the following resources: 
+- [OpenSearch Python repo](https://github.com/opensearch-project/opensearch-py)
+- [API reference](https://opensearch-project.github.io/opensearch-py/api-ref.html) 
+- [User guides](https://github.com/opensearch-project/opensearch-py/tree/main/guides)
+- [Samples](https://github.com/opensearch-project/opensearch-py/tree/main/samples)
+
+If you have any questions or would like to contribute, you can [create an issue](https://github.com/opensearch-project/opensearch-py/issues) to interact with the OpenSearch Python team directly. 
 
 ## Setup
 
@@ -100,7 +106,7 @@ client = OpenSearch(
 
 ## Connecting to Amazon OpenSearch Service
 
-The following example illustrates connecting to Amazon OpenSearch Service:
+The following example illustrates connecting to Amazon OpenSearch Service using IAM credentials:
 
 ```python
 from opensearchpy import OpenSearch, RequestsHttpConnection, AWSV4SignerAuth
@@ -121,6 +127,25 @@ client = OpenSearch(
     pool_maxsize = 20
 )
 ```
+
+To connect to Amazon OpenSearch Service through HTTP with a username and password, use the following code:
+
+```python
+from opensearchpy import OpenSearch
+
+auth = ('admin', 'admin') # For testing only. Don't store credentials in code.
+
+client = OpenSearch(
+    hosts=[{"host": host, "port": 443}],
+    http_auth=auth,
+    http_compress=True,  # enables gzip compression for request bodies
+    use_ssl=True,
+    verify_certs=True,
+    ssl_assert_hostname=False,
+    ssl_show_warn=False,
+)
+```
+
 {% include copy.html %}
 
 ## Connecting to Amazon OpenSearch Serverless
@@ -349,3 +374,8 @@ print('\nDeleting index:')
 print(response)
 ```
 {% include copy.html %}
+
+## Next steps
+
+- For Python client API, see the [`opensearch-py` API documentation](https://opensearch-project.github.io/opensearch-py/).
+- For Python code samples, see [Samples](https://github.com/opensearch-project/opensearch-py/tree/main/samples).

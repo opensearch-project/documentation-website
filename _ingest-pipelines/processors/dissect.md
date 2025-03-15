@@ -5,6 +5,9 @@ parent: Ingest processors
 nav_order: 60
 ---
 
+This documentation describes using the `dissect` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `dissect` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/dissect/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.
+{: .note}
+
 # Dissect
 
 The `dissect` processor extracts values from a document text field and maps them to individual fields based on dissect patterns. The processor is well suited for field extractions from log messages with a known structure. Unlike the `grok` processor, `dissect` does not use regular expressions and has a simpler syntax.

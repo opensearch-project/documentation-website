@@ -3,7 +3,7 @@ name: Jekyll Build Verification
 on: [pull_request]
 
 jobs:
-  check:
+  jekyll-build:
     runs-on: ubuntu-latest
 
     steps:

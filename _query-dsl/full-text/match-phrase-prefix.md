@@ -2,7 +2,6 @@
 layout: default
 title: Match phrase prefix
 parent: Full-text queries
-grand_parent: Query DSL
 nav_order: 40
 ---
 
@@ -82,7 +81,7 @@ GET testindex/_search
 
 The response contains the matching document:
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>

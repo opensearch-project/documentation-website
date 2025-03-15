@@ -31,6 +31,7 @@ Options | Description | Default value | Required
 `wait_for_completion_timeout` |  The amount of time that you plan to wait for the results. You can see whatever results you get within this time just like in a normal search. You can poll the remaining results based on an ID. The maximum value is 300 seconds. | 1 second | No
 `keep_on_completion` |  Whether you want to save the results in the cluster after the search is complete. You can examine the stored results at a later time. | `false` | No
 `keep_alive` |  The amount of time that the result is saved in the cluster. For example, `2d` means that the results are stored in the cluster for 48 hours. The saved search results are deleted after this period or if the search is canceled. Note that this includes the query execution time. If the query overruns this time, the process cancels this query automatically. | 12 hours | No
+`index` | The name of the index to be searched. Can be an individual name, a comma-separated list of indexes, or a wildcard expression of index names. | All indexes in the cluster | No
 
 #### Example request
 

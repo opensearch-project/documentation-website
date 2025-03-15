@@ -6,10 +6,14 @@ nav_order: 10
 redirect_from:
    - /api-reference/ingest-apis/processors/append/
 ---
- 
+
+This documentation describes using the `append` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `add_entries` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/add-entries/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.
+{: .note}
+
 # Append processor
 
 The `append` processor is used to add values to a field:
+
 - If the field is an array, the `append` processor appends the specified values to that array.
 - If the field is a scalar field, the `append` processor converts it to an array and appends the specified values to that array.
 - If the field does not exist, the `append` processor creates an array with the specified values.
@@ -39,6 +43,7 @@ Parameter | Required/Optional | Description |
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running the processor. |
 `ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters errors. If set to `true`, failures are ignored. Default is `false`. |
+`allow_duplicates` | Optional | Specifies whether to append the values already contained in the field. If `true`, duplicate values are appended. Otherwise, they are skipped. |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
 `tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. |
 

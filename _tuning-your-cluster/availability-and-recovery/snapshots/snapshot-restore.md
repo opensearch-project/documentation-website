@@ -24,7 +24,7 @@ If you need to delete a snapshot, be sure to use the OpenSearch API rather than 
 
 ---
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Table of contents
   </summary>
@@ -68,7 +68,7 @@ Before you can take a snapshot, you have to "register" a snapshot repository. A 
    ```
   {% include copy-curl.html %}
 
-You will most likely not need to specify any parameters except for `location`. For allowed request parameters, see [Register or update snapshot repository API](https://opensearch.org/docs/latest/api-reference/snapshots/create-repository/).
+You will most likely not need to specify any parameters except for `location`. For allowed request parameters, see [Register or update snapshot repository API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-repository/).
 
 ### Amazon S3
 
@@ -101,11 +101,27 @@ You will most likely not need to specify any parameters except for `location`. F
 
    After the Docker cluster starts, skip to step 7.
 
+   If you're using [AWS IAM instance profile](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html) to allow OpenSearch nodes on AWS EC2 instances to inherit roles for policies when granting access to AWS S3 buckets, skip to step 8.
+
 1. Add your AWS access and secret keys to the OpenSearch keystore:
 
    ```bash
    sudo ./bin/opensearch-keystore add s3.client.default.access_key
    sudo ./bin/opensearch-keystore add s3.client.default.secret_key
+   ```
+
+1. (Optional) If you're using a custom S3 endpoint (for example, MinIO), disable the Amazon EC2 metadata connection:
+
+   ```bash
+   export AWS_EC2_METADATA_DISABLED=true
+   ```
+
+   If you're installing OpenSearch using Helm, update the following settings in your values file:
+
+   ```yml
+   extraEnvs:
+     - name: AWS_EC2_METADATA_DISABLED
+       value: "true"
    ```
 
 1. (Optional) If you're using temporary credentials, add your session token:
@@ -202,7 +218,147 @@ You will most likely not need to specify any parameters except for `location`. F
    ```
    {% include copy-curl.html %}
 
-You will most likely not need to specify any parameters except for `bucket` and `base_path`. For allowed request parameters, see [Register or update snapshot repository API](https://opensearch.org/docs/latest/api-reference/snapshots/create-repository/).
+You will most likely not need to specify any parameters except for `bucket` and `base_path`. For allowed request parameters, see [Register or update snapshot repository API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-repository/).
+
+
+### Registering a Microsoft Azure storage account using Helm 
+
+Use the following steps to register a snapshot repository backed by an Azure storage account for an OpenSearch cluster deployed using Helm.
+
+1. Create an Azure storage account. Then create a container within the storage account. For more information, see [Introduction to Azure Storage](https://learn.microsoft.com/en-us/azure/storage/common/storage-introduction).
+
+1. Create an OpenSearch keystore file using a bash script. To create the bash script, copy the contents of the following example into a file named `create-keystore.sh`:
+
+   ```bash
+   #!/bin/bash
+
+   /usr/share/opensearch/bin/opensearch-keystore create
+   echo $AZURE_SNAPSHOT_STORAGE_ACCOUNT | /usr/share/opensearch/bin/opensearch-keystore add --stdin azure.client.default.account
+   echo $AZURE_SNAPSHOT_STORAGE_ACCOUNT_KEY | /usr/share/opensearch/bin/opensearch-keystore add --stdin azure.client.default.key
+   cp /usr/share/opensearch/config/opensearch.keystore /tmp/keystore/opensearch.keystore
+   ```
+
+1. Create a Docker file. This file contains the details of your keystore, the OpenSearch instance, and the Azure repository. To create the file, copy the following example and save it as a `Dockerfile`: 
+
+   ```docker
+   FROM opensearchproject/opensearch:{{site.opensearch_version}}
+
+   RUN /usr/share/opensearch/bin/opensearch-plugin install --batch repository-azure
+   COPY --chmod=0775 create-keystore.sh create-keystore.sh
+   ```
+
+1. Use the following `docker build` command to build an OpenSearch image from your Dockerfile:
+
+   ```
+   docker build -t opensearch-custom:{{site.opensearch_version}} -f Dockerfile .
+   ```
+
+1. Create a Kubernetes secret containing the Azure storage account key by using the following manifest and command:
+
+   ```yaml
+   apiVersion: v1
+   kind: Secret
+   metadata:
+     name: opensearch
+   data:
+     azure-snapshot-storage-account-key: ### Insert base64 encoded key
+   ```
+
+1. [Deploy OpenSearch using Helm]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/helm/) with the following additional values. Specify the value of the storage account in the `AZURE_SNAPSHOT_STORAGE_ACCOUNT` environment variable:
+
+   ```yaml
+   extraInitContainers:
+   - name: keystore-generator
+     image: opensearch-custom:{{site.opensearch_version}}
+     command: ["/bin/bash", "-c"]
+     args: ["bash create-keystore.sh"]
+     env:
+     - name: AZURE_SNAPSHOT_STORAGE_ACCOUNT
+       value: ### Insert storage account name
+     - name: AZURE_SNAPSHOT_STORAGE_ACCOUNT_KEY
+       valueFrom:
+         secretKeyRef:
+           name: opensearch
+           key: azure-snapshot-storage-account-key
+     volumeMounts:
+     - name: keystore
+       mountPath: /tmp/keystore
+
+   extraVolumeMounts:
+   - name: keystore
+     mountPath: /usr/share/opensearch/config/opensearch.keystore
+     subPath: opensearch.keystore
+  
+   extraVolumes:
+   - name: keystore
+     emptyDir: {}
+
+   image:
+     repository: "opensearch-custom"
+     tag: {{site.opensearch_version}}
+   ```
+
+1. Register the repository using the Snapshot API. Replace `snapshot_container` with the name you specified in step 1, as shown in the following command:
+   ```json
+   PUT /_snapshot/my-azure-snapshot
+   {
+     "type": "azure",
+     "settings": {
+       "client": "default",
+       "container": "snapshot_container"
+     }
+   }
+   ```
+
+### Set up Microsoft Azure Blob Storage
+
+To use Azure Blob Storage as a snapshot repository, follow these steps:
+1. Install the `repository-azure` plugin on all nodes with the following command:
+
+   ```bash
+   ./bin/opensearch-plugin install repository-azure
+   ```
+
+1. After the `repository-azure` plugin is installed, define your Azure Blob Storage settings before initializing the node. Start by defining your Azure Storage account name using the following secure setting:
+
+   ```bash
+   ./bin/opensearch-keystore add azure.client.default.account
+   ```
+
+Choose one of the following options for setting up your Azure Blob Storage authentication credentials.
+
+#### Using an Azure Storage account key
+   
+Use the following setting to specify your Azure Storage account key:
+   
+```bash 
+./bin/opensearch-keystore add azure.client.default.key
+```
+
+#### Shared access signature
+   
+Use the following setting when accessing Azure with a shared access signature (SAS):
+         
+```bash
+./bin/opensearch-keystore add azure.client.default.sas_token      
+```
+
+#### Azure token credential 
+
+Starting in OpenSearch 2.15, you have the option to configure a token credential authentication flow in `opensearch.yml`. This method is distinct from connection string authentication, which requires a SAS or an account key.
+
+If you choose to use token credential authentication, you will need to choose a token credential type. Although Azure offers multiple token credential types, as of OpenSearch version 2.15, only [managed identity](https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/overview) is supported.
+
+To use managed identity, add your token credential type to `opensearch.yml` using either the `managed` or `managed_identity` value. This indicates that managed identity is being used to perform token credential authentication:
+
+```yml
+azure.client.default.token_credential_type: "managed_identity"
+``` 
+
+Note the following when using Azure token credentials:
+
+- Token credential support is disabled in `opensearch.yml` by default.
+- A token credential takes precedence over an Azure Storage account key or a SAS when multiple options are configured. 
 
 ## Take snapshots
 
@@ -333,19 +489,23 @@ POST /_snapshot/my-repository/2/_restore
 Request parameters | Description
 :--- | :---
 `indices` | The indexes you want to restore. You can use `,` to create a list of indexes, `*` to specify an index pattern, and `-` to exclude certain indexes. Don't put spaces between items. Default is all indexes.
-`ignore_unavailable` | If an index from the `indices` list doesn't exist, whether to ignore it rather than fail the restore operation. Default is false.
-`include_global_state` | Whether to restore the cluster state. Default is false.
-`include_aliases` | Whether to restore aliases alongside their associated indexes. Default is true.
-`partial` | Whether to allow the restoration of partial snapshots. Default is false.
-`rename_pattern` | If you want to rename indexes as you restore them, use this option to specify a regular expression that matches all indexes you want to restore. Use capture groups (`()`) to reuse portions of the index name.
-`rename_replacement` | If you want to rename indexes as you restore them, use this option to specify the replacement pattern. Use `$0` to include the entire matching index name, `$1` to include the content of the first capture group, and so on.
+`ignore_unavailable` | If an index from the `indices` list doesn't exist, whether to ignore it rather than fail the restore operation. Default is `false`.
+`include_global_state` | Whether to restore the cluster state. Default is `false`.
+`include_aliases` | Whether to restore aliases alongside their associated indexes. Default is `true`.
+`partial` | Whether to allow the restoration of partial snapshots. Default is `false`.
+`rename_pattern` | If you want to rename indexes, use this option to specify a regular expression that matches all the indexes that you want to restore and rename. Use capture groups (`()`) to reuse portions of the index name.
+`rename_replacement` | If you want to rename indexes, use this option to specify the name replacement pattern. Use `$0` to include the entire matching index name or the number of the capture group. For example, `$1` would include the content of the first capture group.
+`rename_alias_pattern` | If you want to rename aliases, use this option to specify a regular expression that matches all the aliases you want to restore and rename. Use capture groups (`()`) to reuse portions of the alias name.
+`rename_alias_replacement` | If you want to rename aliases, use this option to specify the name replacement pattern. Use `$0` to include the entire matching alias name or the number of the capture group. For example, `$1` would include the content of the first capture group.
 `index_settings` | If you want to change [index settings]({{site.url}}{{site.baseurl}}/im-plugin/index-settings/) applied during the restore operation, specify them here. You cannot change `index.number_of_shards`.
 `ignore_index_settings` | Rather than explicitly specifying new settings with `index_settings`, you can ignore certain index settings in the snapshot and use the cluster defaults applied during restore. You cannot ignore `index.number_of_shards`, `index.number_of_replicas`, or `index.auto_expand_replicas`.
 `storage_type` | `local` indicates that all snapshot metadata and index data will be downloaded to local storage. <br /><br > `remote_snapshot` indicates that snapshot metadata will be downloaded to the cluster, but the remote repository will remain the authoritative store of the index data. Data will be downloaded and cached as necessary to service queries. At least one node in the cluster must be configured with the [search role]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/) in order to restore a snapshot using the type `remote_snapshot`. <br /><br > Defaults to `local`.
 
 ### Conflicts and compatibility
 
-One way to avoid naming conflicts when restoring indexes is to use the `rename_pattern` and `rename_replacement` options. You can then, if necessary, use the `_reindex` API to combine the two. The simpler way is to delete existing indexes prior to restoring from a snapshot.
+One way to avoid index naming conflicts when restoring indexes is to use the `rename_pattern` and `rename_replacement` options. You can then, if necessary, use the `_reindex` API to combine the two. However, it may be simpler to delete the indexes that caused the conflict prior to restoring them from a snapshot.
+
+Similarly, to avoid alias naming conflicts when restoring indexes with aliases, you can use the `rename_alias_pattern` and `rename_alias_replacement` options. 
 
 You can use the `_close` API to close existing indexes prior to restoring from a snapshot, but the index in the snapshot has to have the same number of shards as the existing index.
 
@@ -355,7 +515,9 @@ We recommend ceasing write requests to a cluster before restoring from a snapsho
 1. A write request to the now-deleted alias creates a new index with the same name as the alias.
 1. The alias from the snapshot fails to restore due to a naming conflict with the new index.
 
-Snapshots are only forward-compatible by one major version. If you have an old snapshot, you can sometimes restore it into an intermediate cluster, reindex all indexes, take a new snapshot, and repeat until you arrive at your desired version, but you might find it easier to just manually index your data in the new cluster.
+Snapshots are only forward compatible by one major version. Snapshots taken by earlier OpenSearch versions can continue to be restored by the version of OpenSearch that originally took the snapshot, even after a version upgrade. For example, a snapshot taken by OpenSearch 2.11 or earlier can continue to be restored by a 2.11 cluster even after upgrading to 2.12.
+
+If you have an old snapshot taken from an earlier major OpenSearch version, you can restore it to an intermediate cluster one major version newer than the snapshot's version, reindex all indexes, take a new snapshot, and repeat until you arrive at your desired major version, but you may find it easier to manually index your data in the new cluster.
 
 ## Security considerations
 

@@ -15,14 +15,13 @@ This operation provides connection information for any remote OpenSearch cluster
 The response is more comprehensive and useful than a call to `_cluster/settings`, which only includes the cluster alias and seed nodes.
 
 
-## Path and HTTP methods
+## Endpoints
 
-```
+```json
 GET _remote/info
 ```
-{% include copy-curl.html %}
 
-## Response
+## Example Response
 
 ```json
 {

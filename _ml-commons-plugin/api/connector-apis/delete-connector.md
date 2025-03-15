@@ -2,7 +2,7 @@
 layout: default
 title: Delete connector
 parent: Connector APIs
-grand_parent: ML Commons API
+grand_parent: ML Commons APIs
 nav_order: 30
 ---
 
@@ -10,7 +10,7 @@ nav_order: 30
 
 Deletes a standalone connector. For more information, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 DELETE /_plugins/_ml/connectors/<connector_id>

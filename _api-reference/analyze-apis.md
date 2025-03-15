@@ -4,6 +4,7 @@ title: Analyze API
 has_children: true
 nav_order: 7
 redirect_from:
+  - /api-reference/analyze-apis/perform-text-analysis/
   - /opensearch/rest-api/analyze-apis/
   - /api-reference/analyze-apis/
 ---
@@ -19,9 +20,9 @@ The Analyze API analyzes a text string and returns the resulting tokens.
 If you use the Security plugin, you must have the `manage index` privilege. If you only want to analyze text, you must have the `manage cluster` privilege.
 {: .note}
 
-## Path and HTTP methods
+## Endpoints
 
-```
+```json
 GET /_analyze
 GET /{index}/_analyze
 POST /_analyze
@@ -60,7 +61,7 @@ Field | Data type | Description
 :--- | :--- | :---
 text | String or Array of Strings | Text to analyze. If you provide an array of strings, the text is analyzed as a multi-value field.
 
-#### Example requests
+## Example requests
 
 [Analyze array of text strings](#analyze-array-of-text-strings)
 
@@ -80,7 +81,7 @@ text | String or Array of Strings | Text to analyze. If you provide an array of 
 
 [Set a token limit](#set-a-token-limit)
 
-#### Analyze array of text strings
+### Analyze array of text strings
 
 When you pass an array of strings to the `text` field, it is analyzed as a multi-value field.
 
@@ -144,7 +145,7 @@ The previous request returns the following fields:
 }
 ````
 
-#### Apply a built-in analyzer
+### Apply a built-in analyzer
 
 If you omit the `index` path parameter, you can apply any of the built-in analyzers to the text string.
 
@@ -189,7 +190,7 @@ The previous request returns the following fields:
 }
 ````
 
-#### Apply a custom analyzer
+### Apply a custom analyzer
 
 You can create your own analyzer and specify it in an analyze request.
 
@@ -243,7 +244,7 @@ The previous request returns the following fields:
 }
 ````
 
-#### Apply a custom transient analyzer
+### Apply a custom transient analyzer
 
 You can build a custom transient analyzer from tokenizers, token filters, or character filters. Use the `filter` parameter to specify token filters.
 
@@ -372,7 +373,7 @@ The previous request returns the following fields:
 }
 ````
 
-#### Specify an index
+### Specify an index
 
 You can analyze text using an index's default analyzer, or you can specify a different analyzer.
 
@@ -445,7 +446,7 @@ The previous request returns the following fields:
 }
 ````
 
-#### Derive the analyzer from an index field
+### Derive the analyzer from an index field
 
 You can pass text and a field in the index. The API looks up the field's analyzer and uses it to analyze the text.
 
@@ -492,7 +493,7 @@ The previous request returns the following fields:
 }
 ````
 
-#### Specify a normalizer
+### Specify a normalizer
 
 Instead of using a keyword field, you can use the normalizer associated with the index. A normalizer causes the analysis change to produce a single token.
 
@@ -556,7 +557,7 @@ The previous request returns the following fields:
 }
 ````
 
-#### Get token details
+### Get token details
 
 You can obtain additional details for all tokens by setting the `explain` attribute to `true`.
 
@@ -639,7 +640,7 @@ The previous request returns the following fields:
 }
 ````
 
-#### Set a token limit
+### Set a token limit
 
 You can set a limit to the number of tokens generated. Setting a lower value reduces a node's memory usage. The default value is 10000.
 
@@ -658,7 +659,7 @@ PUT /books2
 The preceding request is an index API rather than an analyze API. See [Dynamic index-level index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#dynamic-index-level-index-settings) for additional details.
 {: .note}
 
-### Response fields
+## Response body fields
 
 The text analysis endpoints return the following response fields.
 

@@ -15,16 +15,24 @@ redirect_from:
 
 # Text analysis
 
-When you are searching documents using a full-text search, you want to receive all relevant results and not only exact matches. If you're looking for "walk", you're interested in results that contain any form of the word, like "Walk", "walked", or "walking." To facilitate full-text search, OpenSearch uses text analysis.
+When you are searching documents using a full-text search, you want to receive all relevant results. If you're looking for "walk", you're interested in results that contain any form of the word, like "Walk", "walked", or "walking". To facilitate full-text search, OpenSearch uses text analysis.
 
-Text analysis consists of the following steps:
+The objective of text analysis is to split the unstructured free text content of the source document into a sequence of terms, which are then stored in an inverted index. Subsequently, when a similar text analysis is applied to a user's query, the resulting sequence of terms facilitates the matching of relevant source documents.
 
-1. _Tokenize_ text into terms: For example, after tokenization, the phrase `Actions speak louder than words` is split into tokens `Actions`, `speak`, `louder`, `than`, and `words`.
-1. _Normalize_ the terms by converting them into a standard format, for example, converting them to lowercase or performing stemming (reducing the word to its root): For example, after normalization, `Actions` becomes `action`, `louder` becomes `loud`, and `words` becomes `word`.
+From a technical point of view, the text analysis process consists of several steps, some of which are optional:
+
+1. Before the free text content can be split into individual words, it may be beneficial to refine the text at the character level. The primary aim of this optional step is to help the tokenizer (the subsequent stage in the analysis process) generate better tokens. This can include removal of markup tags (such as HTML) or handling specific character patterns (like replacing the &#x1F642; emoji with the text `:slightly_smiling_face:`).
+
+2. The next step is to split the free text into individual words---_tokens_. This is performed by a _tokenizer_. For example, after tokenization, the sentence `Actions speak louder than words` is split into tokens `Actions`, `speak`, `louder`, `than`, and `words`.
+
+3. The last step is to process individual tokens by applying a series of token filters. The aim is to convert each token into a predictable form that is directly stored in the index, for example, by converting them to lowercase or performing stemming (reducing the word to its root). For example, the token `Actions` becomes `action`, `louder` becomes `loud`, and `words` becomes `word`.
+
+Although the terms ***token*** and ***term*** may sound similar and are occasionally used interchangeably, it is helpful to understand the difference between the two. In the context of Apache Lucene, each holds a distinct role. A ***token*** is created by a tokenizer during text analysis and often undergoes a number of additional modifications as it passes through the chain of token filters. Each token is associated with metadata that can be further used during the text analysis process. A ***term*** is a data value that is directly stored in the inverted index and is associated with much less metadata. During search, matching operates at the term level.
+{: .note}
 
 ## Analyzers
 
-In OpenSearch, text analysis is performed by an _analyzer_. Each analyzer contains the following sequentially applied components:
+In OpenSearch, the abstraction that encompasses text analysis is referred to as an _analyzer_. Each analyzer contains the following sequentially applied components:
 
 1. **Character filters**: First, a character filter receives the original text as a stream of characters and adds, removes, or modifies characters in the text. For example, a character filter can strip HTML characters from a string so that the text `<p><b>Actions</b> speak louder than <em>words</em></p>` becomes `\nActions speak louder than words\n`. The output of a character filter is a stream of characters.
 
@@ -35,24 +43,15 @@ In OpenSearch, text analysis is performed by an _analyzer_. Each analyzer contai
 An analyzer must contain exactly one tokenizer and may contain zero or more character filters and zero or more token filters.
 {: .note}
 
-## Built-in analyzers
+There is also a special type of analyzer called a ***normalizer***. A normalizer is similar to an analyzer except that it does not contain a tokenizer and can only include specific types of character filters and token filters. These filters can perform only character-level operations, such as character or pattern replacement, and cannot perform operations on the token as a whole. This means that replacing a token with a synonym or stemming is not supported. See [Normalizers]({{site.url}}{{site.baseurl}}/analyzers/normalizers/) for further details.
 
-The following table lists the built-in analyzers that OpenSearch provides. The last column of the table contains the result of applying the analyzer to the string `It’s fun to contribute a brand-new PR or 2 to OpenSearch!`.
+## Supported analyzers
 
-Analyzer | Analysis performed | Analyzer output 
-:--- | :--- | :---
-**Standard** (default) | - Parses strings into tokens at word boundaries <br> - Removes most punctuation <br> - Converts tokens to lowercase | [`it’s`, `fun`, `to`, `contribute`, `a`,`brand`, `new`, `pr`, `or`, `2`, `to`, `opensearch`]
-**Simple** | - Parses strings into tokens on any non-letter character <br> - Removes non-letter characters <br> - Converts tokens to lowercase  | [`it`, `s`, `fun`, `to`, `contribute`, `a`,`brand`, `new`, `pr`, `or`, `to`, `opensearch`]
-**Whitespace** | - Parses strings into tokens on white space | [`It’s`, `fun`, `to`, `contribute`, `a`,`brand-new`, `PR`, `or`, `2`, `to`, `OpenSearch!`]
-**Stop** | - Parses strings into tokens on any non-letter character <br> - Removes non-letter characters <br> - Removes stop words <br> - Converts tokens to lowercase | [`s`, `fun`, `contribute`, `brand`, `new`, `pr`, `opensearch`]
-**Keyword** (no-op) | - Outputs the entire string unchanged | [`It’s fun to contribute a brand-new PR or 2 to OpenSearch!`]
-**Pattern** | - Parses strings into tokens using regular expressions <br> - Supports converting strings to lowercase <br> - Supports removing stop words | [`it`, `s`, `fun`, `to`, `contribute`, `a`,`brand`, `new`, `pr`, `or`, `2`, `to`, `opensearch`]
-[**Language**]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/) | Performs analysis specific to a certain language (for example, `english`). | [`fun`, `contribut`, `brand`, `new`, `pr`, `2`, `opensearch`]
-**Fingerprint** | - Parses strings on any non-letter character <br> - Normalizes characters by converting them to ASCII <br> - Converts tokens to lowercase <br> - Sorts, deduplicates, and concatenates tokens into a single token <br> - Supports removing stop words | [`2 a brand contribute fun it's new opensearch or pr to`] <br> Note that the apostrophe was converted to its ASCII counterpart.
+For a list of supported analyzers, see [Analyzers]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/index/).
 
 ## Custom analyzers
 
-If needed, you can combine tokenizers, token filters, and character filters to create a custom analyzer.
+If needed, you can combine tokenizers, token filters, and character filters to create a custom analyzer. For more information, see [Creating a custom analyzer]({{site.url}}{{site.baseurl}}/analyzers/custom-analyzer/).
 
 ## Text analysis at indexing time and query time
 
@@ -160,6 +159,31 @@ The response provides information about the analyzers for each field:
 }
 ```
 
+## Normalizers
+
+Tokenization divides text into individual terms, but it does not address variations in token forms. Normalization resolves these issues by converting tokens into a standard format. This ensures that similar terms are matched appropriately, even if they are not identical.
+
+### Normalization techniques
+
+The following normalization techniques can help address variations in token forms:
+
+1. **Case normalization**: Converts all tokens to lowercase to ensure case-insensitive matching. For example, "Hello" is normalized to "hello".
+
+2. **Stemming**: Reduces words to their root form. For instance, "cars" is stemmed to "car" and "running" is normalized to "run".
+
+3. **Synonym handling:** Treats synonyms as equivalent. For example, "jogging" and "running" can be indexed under a common term, such as "run".
+
+### Normalization
+
+A search for `Hello` will match documents containing `hello` because of case normalization.
+
+A search for `cars` will also match documents containing `car` because of stemming.
+
+A query for `running` can retrieve documents containing `jogging` using synonym handling.
+
+Normalization ensures that searches are not limited to exact term matches, allowing for more relevant results. For instance, a search for `Cars running` can be normalized to match `car run`.
+
 ## Next steps
 
 - Learn more about specifying [index analyzers]({{site.url}}{{site.baseurl}}/analyzers/index-analyzers/) and [search analyzers]({{site.url}}{{site.baseurl}}/analyzers/search-analyzers/).
+- See the list of [supported analyzers]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/index/).

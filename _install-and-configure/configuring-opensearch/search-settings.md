@@ -17,9 +17,9 @@ OpenSearch supports the following search settings:
 
 - `search.default_allow_partial_results` (Dynamic, Boolean):  A cluster-level setting that allows returning partial search results if a request times out or a shard fails. If a search request contains an `allow_partial_search_results` parameter, the parameter takes precedence over this setting. Default is `true`. 
 
-- `search.cancel_after_time_interval` (Dynamic, time unit): A cluster-level setting that specifies the maximum amount of time that a search request can run before it is canceled at the shard level. After this time has been reached, a request is stopped and all associated tasks are canceled. Default is `-1`.
+- `search.cancel_after_time_interval` (Dynamic, time unit): A cluster-level setting that sets the default timeout for all search requests at the coordinating node level. After the specified time has been reached, the request is stopped and all associated tasks are canceled. Default is `-1` (no timeout).
 
-- `search.default_search_timeout` (Dynamic, time unit): A cluster-level setting that sets the default timeout for all search requests at the coordinating node level. If the `timeout` is specified in the search request, it takes precedence over this setting. Default is `-1` (no timeout).
+- `search.default_search_timeout` (Dynamic, time unit): A cluster-level setting that specifies the maximum amount of time that a search request can run before the request is canceled at the shard-level. If the `timeout` interval is specified in the search request, that interval takes precedence over the configured setting. Default is `-1`.
 
 - `search.default_keep_alive` (Dynamic, time unit): Specifies the default keep alive value for scroll and Point in Time (PIT) searches. Because a request may land on a shard multiple times (for example, during the query and fetch phases), OpenSearch opens a _request context_ that exists for the full duration of the request to ensure consistency of the shard state for each individual shard request. In a standard search, once the fetch phase completes, the request context is closed. For a scroll or a PIT search, OpenSearch keeps the request context open until explicitly closed (or until the keep alive time is reached). A background thread periodically checks all open scroll and PIT contexts and deletes the ones that have exceeded their keep alive timeout. The `search.keep_alive_interval` setting specifies how frequently the contexts are checked for expiration. The `search.default_keep_alive` setting is the default deadline for expiration. A scroll or PIT request can explicitly specify the keep alive, which takes precedence over this setting. Default is `5m`.
 
@@ -34,6 +34,12 @@ OpenSearch supports the following search settings:
 - `search.request_stats_enabled` (Dynamic, Boolean): Turns on node-level collection of phase-timing statistics from the perspective of the coordinator node. The request-level statistics keep track of how long (in total) search requests spend in each of the different search phases. You can retrieve these counters using the [Nodes Stats API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/). Default is `false`.
 
 - `search.highlight.term_vector_multi_value` (Static, Boolean): Specifies to highlight snippets across values of a multi-valued field. Default is `true`.
+
+- `search.max_aggregation_rewrite_filters` (Dynamic, integer): Determines the maximum number of rewrite filters allowed during aggregation. Set this value to `0` to disable the filter rewrite optimization for aggregations. This is an experimental feature and may change or be removed in future versions.
+
+- `search.dynamic_pruning.cardinality_aggregation.max_allowed_cardinality` (Dynamic, integer): Determines the threshold for applying dynamic pruning in cardinality aggregation. If a field’s cardinality exceeds this threshold, the aggregation reverts to the default method. This is an experimental feature and may change or be removed in future versions.
+
+- `search.keyword_index_or_doc_values_enabled` (Dynamic, Boolean): Determines whether to use the index or doc values when running `multi_term` queries on `keyword` fields. Default value is `false`.
 
 ## Point in Time settings
 

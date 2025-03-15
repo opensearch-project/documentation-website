@@ -13,43 +13,34 @@ redirect_from:
 
 You can include a query as part of your delete request so OpenSearch deletes all documents that match that query.
 
-## Example
+## Endpoints
 
 ```json
-POST sample-index1/_delete_by_query
-{
-  "query": {
-    "match": {
-      "movie-length": "124"
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-## Path and HTTP methods
-
-```
 POST <index>/_delete_by_query
 ```
 
-## URL parameters
-
-All URL parameters are optional.
+## Path parameters
 
 Parameter | Type | Description
 :--- | :--- | :--- | :---
 &lt;index&gt; | String | Name or list of the data streams, indexes, or aliases to delete from. Supports wildcards. If left blank, OpenSearch searches all indexes.
+
+## Query parameters
+
+All parameters are optional.
+
+Parameter | Type | Description
+:--- | :--- | :--- | :---
 allow_no_indices | Boolean | Whether to ignore wildcards that don’t match any indexes. Default is `true`.
 analyzer | String | The analyzer to use in the query string.
-analyze_wildcard | Boolean | Specifies whether to analyze wildcard and prefix queries. Default is false.
+analyze_wildcard | Boolean | Specifies whether to analyze wildcard and prefix queries. Default is `false`.
 conflicts | String | Indicates to OpenSearch what should happen if the delete by query operation runs into a version conflict. Valid options are `abort` and `proceed`. Default is `abort`.
-default_operator | String | Indicates whether the default operator for a string query should be AND or OR. Default is OR.
+default_operator | String | Indicates whether the default operator for a string query should be `AND` or `OR`. Default is `OR`.
 df | String | The default field in case a field prefix is not provided in the query string.
 expand_wildcards | String | Specifies the type of index that wildcard expressions can match. Supports comma-separated values. Valid values are `all` (match any index), `open` (match open, non-hidden indexes), `closed` (match closed, non-hidden indexes), `hidden` (match hidden indexes), and `none` (deny wildcard expressions). Default is `open`.
 from | Integer | The starting index to search from. Default is 0.
-ignore_unavailable | Boolean | Specifies whether to include missing or closed indexes in the response. Default is false.
-lenient | Boolean | Specifies whether OpenSearch should accept requests if queries have format errors (for example, querying a text field for an integer). Default is false.
+ignore_unavailable | Boolean | Specifies whether to include missing or closed indexes in the response and ignores unavailable shards during the search request. Default is `false`.
+lenient | Boolean | Specifies whether OpenSearch should accept requests if queries have format errors (for example, querying a text field for an integer). Default is `false`.
 max_docs | Integer | How many documents the delete by query operation should process at most. Default is all documents.
 preference | String | Specifies which shard or node OpenSearch should perform the delete by query operation on.
 q | String | Lucene query string's query.
@@ -74,7 +65,7 @@ wait_for_active_shards | String | The number of shards that must be active befor
 wait_for_completion | Boolean | Setting this parameter to false indicates to OpenSearch it should not wait for completion and perform this request asynchronously. Asynchronous requests run in the background, and you can use the [Tasks]({{site.url}}{{site.baseurl}}/api-reference/tasks) API to monitor progress.
 
 
-## Request body
+## Request body fields
 
 To search your index for specific documents, you must include a [query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index) in the request body that OpenSearch uses to match documents. If you don't use a query, OpenSearch treats your delete request as a simple [delete document operation]({{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-document).
 
@@ -88,7 +79,22 @@ To search your index for specific documents, you must include a [query]({{site.u
 }
 ```
 
-## Response
+## Example request
+
+```json
+POST sample-index1/_delete_by_query
+{
+  "query": {
+    "match": {
+      "movie-length": "124"
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+
+## Example response
 ```json
 {
   "took": 143,

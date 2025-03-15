@@ -106,6 +106,8 @@ jwt_auth_domain:
       jwt_url_parameter: null
       subject_key: null
       roles_key: null
+      required_audience: null
+      required_issuer: null
       jwt_clock_skew_tolerance_seconds: 20
   authentication_backend:
     type: noop
@@ -115,11 +117,13 @@ The following table lists the configuration parameters.
 
 Name | Description
 :--- | :---
-`signing_key` | The signing key to use when verifying the token. If you use a symmetric key algorithm, it is the base64-encoded shared secret. If you use an asymmetric algorithm, it contains the public key.
+`signing_key` | The signing key(s) used to verify the token. If you use a symmetric key algorithm, this is the Base64-encoded shared secret. If you use an asymmetric algorithm, the algorithm contains the public key. To pass multiple keys, use a comma-separated list or enumerate the keys.
 `jwt_header` | The HTTP header in which the token is transmitted. This is typically the `Authorization` header with the `Bearer` schema,`Authorization: Bearer <token>`. Default is `Authorization`. Replacing this field with a value other than `Authorization` prevents the audit log from properly redacting the JWT header from audit messages. It is recommended that users only use  `Authorization` when using JWTs with audit logging. 
 `jwt_url_parameter` | If the token is not transmitted in the HTTP header but rather as an URL parameter, define the name of the parameter here.
 `subject_key` | The key in the JSON payload that stores the username. If not set, the [subject](https://tools.ietf.org/html/rfc7519#section-4.1.2) registered claim is used.
 `roles_key` | The key in the JSON payload that stores the user's roles. The value of this key must be a comma-separated list of roles.
+`required_audience` | The name of the audience that the JWT must specify. You can set a single value (for example, `project1`) or multiple comma-separated values (for example, `project1,admin`). If you set multiple values, the JWT must have at least one required audience. This parameter corresponds to the [`aud` claim of the JWT](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.3).
+`required_issuer` | The target issuer of JWT stored in the JSON payload. This corresponds to the [`iss` claim of the JWT](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.1).
 `jwt_clock_skew_tolerance_seconds` | Sets a window of time, in seconds, to compensate for any disparity between the JWT authentication server and OpenSearch node clock times, thereby preventing authentication failures due to the misalignment. Security sets 30 seconds as the default. Use this setting to apply a custom value.
 
 Because JWTs are self-contained and the user is authenticated at the HTTP level, no additional `authentication_backend` is needed. Set this value to `noop`.
@@ -173,7 +177,7 @@ The default name of the header is `Authorization`. If required by your authentic
 As with HTTP basic authentication, you should use HTTPS instead of HTTP when transmitting JWTs in HTTP requests.
 
 
-### URL parameters for HTTP requests
+### Query parameters for HTTP requests
 
 Although the most common way to transmit JWTs in HTTP requests is to use a header field, the Security plugin also supports parameters. Configure the name of the `GET` parameter using the following key:
 
@@ -231,7 +235,7 @@ openid_auth_domain:
   transport_enabled: true
   order: 0
   http_authenticator:
-    type: openid
+    type: openid # use the OpenID Connect domain, since JWT is part of this authentication.
     challenge: false
     config:
       subject_key: preferred_username

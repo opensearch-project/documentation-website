@@ -13,50 +13,35 @@ redirect_from:
 
 You can include a query and a script as part of your update request so OpenSearch can run the script to update all of the documents that match the query.
 
-## Example
+
+## Endpoints
 
 ```json
-POST test-index1/_update_by_query
-{
-  "query": {
-    "term": {
-      "oldValue": 10
-    }
-  },
-  "script" : {
-    "source": "ctx._source.oldValue += params.newValue",
-    "lang": "painless",
-    "params" : {
-      "newValue" : 20
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-## Path and HTTP methods
-
-```
-POST <target-index1>, <target-index2>/_update_by_query
+POST <index1>, <index2>/_update_by_query
 ```
 
-## URL parameters
-
-All URL parameters are optional.
+## Path parameters
 
 Parameter | Type | Description
 :--- | :--- | :--- | :---
 &lt;index&gt; | String | Comma-separated list of indexes to update. To update all indexes, use * or omit this parameter.
+
+## Query parameters
+
+All parameters are optional.
+
+Parameter | Type | Description
+:--- | :--- | :--- | :---
 allow_no_indices | Boolean | Whether to ignore wildcards that don’t match any indexes. Default is `true`.
 analyzer | String | Analyzer to use in the query string.
-analyze_wildcard | Boolean | Whether the update operation should include wildcard and prefix queries in the analysis. Default is false.
+analyze_wildcard | Boolean | Whether the update operation should include wildcard and prefix queries in the analysis. Default is `false`.
 conflicts | String | Indicates to OpenSearch what should happen if the update by query operation runs into a version conflict. Valid options are `abort` and `proceed`. Default is `abort`.
 default_operator | String | Indicates whether the default operator for a string query should be `AND` or `OR`. Default is `OR`.
 df | String | The default field if a field prefix is not provided in the query string.
 expand_wildcards | String | Specifies the type of index that wildcard expressions can match. Supports comma-separated values. Valid values are `all` (match any index), `open` (match open, non-hidden indexes), `closed` (match closed, non-hidden indexes), `hidden` (match hidden indexes), and `none` (deny wildcard expressions). Default is `open`.
 from | Integer | The starting index to search from. Default is 0.
-ignore_unavailable | Boolean | Whether to exclude missing or closed indexes in the response. Default is false.
-lenient | Boolean | Specifies whether OpenSearch should accept requests if queries have format errors (for example, querying a text field for an integer). Default is false.
+ignore_unavailable | Boolean | Whether to exclude missing or closed indexes in the response and ignores unavailable shards during the search request. Default is `false`.
+lenient | Boolean | Specifies whether OpenSearch should accept requests if queries have format errors (for example, querying a text field for an integer). Default is `false`.
 max_docs | Integer | How many documents the update by query operation should process at most. Default is all documents.
 pipeline | String | ID of the pipeline to use to process documents.
 preference | String | Specifies which shard or node OpenSearch should perform the update by query operation on.
@@ -81,7 +66,7 @@ version | Boolean | Whether to include the document version as a match.
 wait_for_active_shards | String | The number of shards that must be active before OpenSearch executes the operation. Valid values are `all` or any integer up to the total number of shards in the index. Default is 1, which is the primary shard.
 wait_for_completion | boolean | When set to `false`, the response body includes a task ID and OpenSearch executes the operation asynchronously. The task ID can be used to check the status of the task or to cancel the task. Default is set to `true`.
 
-## Request body
+## Request body options
 
 To update your indexes and documents by query, you must include a [query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index) and a script in the request body that OpenSearch can run to update your documents. If you don't specify a query, then every document in the index gets updated.
 
@@ -102,7 +87,28 @@ To update your indexes and documents by query, you must include a [query]({{site
 }
 ```
 
-## Response
+## Example requests
+
+```json
+POST test-index1/_update_by_query
+{
+  "query": {
+    "term": {
+      "oldValue": 10
+    }
+  },
+  "script" : {
+    "source": "ctx._source.oldValue += params.newValue",
+    "lang": "painless",
+    "params" : {
+      "newValue" : 20
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+## Example response
 ```json
 {
   "took": 21,

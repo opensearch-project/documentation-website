@@ -26,7 +26,7 @@ GET /shakespeare/_search
 }
 ```
 
-In this example, the query has three optional clauses that are combined with an `OR`, so the document must match either `prince`, `king`, or `star`.
+In this example, the query has three optional clauses that are combined with an `OR`, so the document must match either `prince` and `king`, or `prince` and `star`, or `king` and `star`.
 
 ## Valid values
 

@@ -7,6 +7,9 @@ redirect_from:
    - /api-reference/ingest-apis/processors/lowercase/
 ---
 
+This documentation describes using the `kv` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `key_value` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/key-value/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.
+{: .note}
+
 # KV processor
 
 The `kv` processor automatically extracts specific event fields or messages that are in a `key=value` format. This structured format organizes your data by grouping it together based on keys and values. It's helpful for analyzing, visualizing, and using data, such as user behavior analytics, performance optimizations, or security investigations. 
@@ -31,7 +34,7 @@ The following is the syntax for the `kv` processor:
 The following table lists the required and optional parameters for the `kv` processor.
 
 | Parameter  | Required/Optional  | Description  |
-`field`  | Required  | The name of the field containing the data to be parsed. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
+`field`  | Required  | The name of the field containing the data to be parsed. |
 `field_split` | Required | The regex pattern for key-value pair splitting. |
 `value_split` | Required | The regex pattern for splitting the key from the value within a key-value pair, for example, equal sign `=` or colon `:`.
 `exclude_keys` | Optional | The keys to exclude from the document. Default is `null`. |
@@ -46,7 +49,7 @@ The following table lists the required and optional parameters for the `kv` proc
 `on_failure` | Optional | A list of processors to run if the processor fails. |
 `ignore_missing`  | Optional  | Specifies whether the processor should ignore documents that do not contain the specified field. Default is `false`.  |
 `tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. |
-`target_field`  | Optional  | The name of the field in which to insert the extracted keys. Default is `null`. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
+`target_field`  | Optional  | The name of the field in which to insert the extracted keys. Default is `null`. |
 
 ## Using the processor
 
@@ -82,8 +85,6 @@ To test the pipeline, run the following query:
 
 ```json
 POST _ingest/pipeline/kv-pipeline/_simulate
-
-```json
 {  
   "docs": [  
     {  
@@ -100,7 +101,7 @@ POST _ingest/pipeline/kv-pipeline/_simulate
 
 **Response**
 
-The following example response confirms that the pipeline is working as expected:
+The following example response confirms that, in addition to the original `message` field, the document contains fields generated from key-value pairs:
 
 ```json
 {  
@@ -129,8 +130,6 @@ The following query ingests a document into an index named `testindex1`:
 
 ```json
 PUT testindex1/_doc/1?pipeline=kv-pipeline
-
-```json
 {  
   "message": "goodbye=everybody hello=world"  
 }  

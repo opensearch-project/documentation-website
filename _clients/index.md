@@ -11,7 +11,10 @@ redirect_from:
 
 # OpenSearch language clients
 
-OpenSearch provides clients in JavaScript, Python, Ruby, Java, PHP, .NET, Go and Rust.
+OpenSearch provides clients in JavaScript, Python, Ruby, Java, PHP, .NET, Go, Hadoop, and Rust.
+
+The OpenSearch Java high-level REST client will be deprecated starting with OpenSearch 3.0.0 and will be removed in a future release. Switching to the [Java client]({{site.url}}{{site.baseurl}}/clients/java/) is recommended.
+{: .warning}
 
 ## OpenSearch clients
 
@@ -35,24 +38,23 @@ OpenSearch provides clients for the following programming languages and platform
   * [OpenSearch .NET clients]({{site.url}}{{site.baseurl}}/clients/dot-net/)
 * **Rust**
   * [OpenSearch Rust client]({{site.url}}{{site.baseurl}}/clients/rust/)
+* **Hadoop**
+  * [OpenSearch Hadoop client](https://github.com/opensearch-project/opensearch-hadoop) 
 
-For a client compatibility matrix, see the COMPATIBILITY.md file in the client's repository.
-{: .note}
-
-The OpenSearch Java high-level REST client will be deprecated starting with OpenSearch version 3.0.0 and will be removed in a future release. We recommend switching to the [Java client]({{site.url}}{{site.baseurl}}/clients/java/) instead.
-{: .warning}
 
 ## Legacy clients
 
-Most clients that work with Elasticsearch OSS 7.10.2 *should* work with OpenSearch, but the latest versions of those clients might include license or version checks that artificially break compatibility. This page includes recommendations around which versions of those clients to use for best compatibility with OpenSearch.
+Clients that work with Elasticsearch OSS 7.10.2 should work with OpenSearch 1.x. The latest versions of those clients, however, might include license or version checks that artificially break compatibility. The following table provides recommendations for which client versions to use for best compatibility with OpenSearch 1.x. For OpenSearch 2.0 and later, no Elasticsearch clients are fully compatible with OpenSearch.
 
-For a client compatibility matrix, see the COMPATIBILITY.md file in the client's repository.
-{: .note}
+While OpenSearch and Elasticsearch share several core features, mixing and matching the client and server has a high risk of errors and unexpected results. As OpenSearch and Elasticsearch continue to diverge, such risks may increase. Although your Elasticsearch client may continue working with your OpenSearch cluster, using OpenSearch clients for OpenSearch clusters is recommended.
+{: .warning}
+
+To view the compatibility matrix for a specific client, see the `COMPATIBILITY.md` file in the client's repository.
 
 Client | Recommended version
 :--- | :---
-[Elasticsearch Java low-level REST client](https://search.maven.org/artifact/org.elasticsearch.client/elasticsearch-rest-client/7.13.4/jar) | 7.13.4
-[Elasticsearch Java high-level REST client](https://search.maven.org/artifact/org.elasticsearch.client/elasticsearch-rest-high-level-client/7.13.4/jar) | 7.13.4
+[Elasticsearch Java low-level REST client](https://central.sonatype.com/artifact/org.elasticsearch.client/elasticsearch-rest-client/7.13.4) | 7.13.4
+[Elasticsearch Java high-level REST client](https://central.sonatype.com/artifact/org.elasticsearch.client/elasticsearch-rest-high-level-client/7.13.4) | 7.13.4
 [Elasticsearch Python client](https://pypi.org/project/elasticsearch/7.13.4/) | 7.13.4
 [Elasticsearch Node.js client](https://www.npmjs.com/package/@elastic/elasticsearch/v/7.13.0) | 7.13.0
 [Elasticsearch Ruby client](https://rubygems.org/gems/elasticsearch/versions/7.13.0) | 7.13.0

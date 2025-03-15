@@ -31,9 +31,9 @@ PUT /sample-index1/_split/split-index1
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
+## Endpoints
 
-```
+```json
 POST /<source-index>/_split/<target-index>
 PUT /<source-index>/_split/<target-index>
 ```
@@ -48,7 +48,14 @@ OpenSearch indexes have the following naming restrictions:
 
   `:`, `"`, `*`, `+`, `/`, `\`, `|`, `?`, `#`, `>`, or `<`
 
-## URL parameters
+## Path parameters
+
+Parameter | Type | Description
+:--- | :--- | :---
+&lt;source-index&gt; | String | The source index to split.
+&lt;target-index&gt; | String | The index to create.
+
+## Query parameters
 
 Your request must include the source and target indexes. All split index parameters are optional.
 
@@ -66,7 +73,7 @@ task_execution_timeout | Time | The explicit task execution timeout. Only useful
 
 The split index API operation creates a new target index, so you can specify any [index settings]({{site.url}}{{site.baseurl}}/im-plugin/index-settings/) and [aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias/) to apply to the target index.
 
-## Response
+## Example response
 
 ```json
 {

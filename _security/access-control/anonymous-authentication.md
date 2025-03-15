@@ -30,6 +30,19 @@ The following table describes the `anonymous_auth_enabled` setting. For more inf
 If you disable anonymous authentication, you must provide at least one `authc` in order for the Security plugin to initialize successfully.
 {: .important }
 
+## OpenSearch Dashboards configuration
+
+To enable anonymous authentication for OpenSearch Dashboards, you need to modify the `opensearch_dashboards.yml` file in the configuration directory of your OpenSearch Dashboards installation.
+
+Add the following setting to `opensearch_dashboards.yml`:
+
+```yml
+opensearch_security.auth.anonymous_auth_enabled: true
+```
+
+Anonymous login for OpenSearch Dashboards requires anonymous authentication to be enabled on the OpenSearch cluster.
+{: .important}
+
 ## Defining anonymous authentication privileges
 
 When anonymous authentication is enabled, your defined HTTP authenticators still try to find user credentials inside your HTTP request. If credentials are found, the user is authenticated. If none are found, the user is authenticated as an `anonymous` user.

@@ -2,7 +2,6 @@
 layout: default
 title: Top hits
 parent: Metric aggregations
-grand_parent: Aggregations
 nav_order: 130
 redirect_from:
   - /query-dsl/aggregations/metric/top-hits/

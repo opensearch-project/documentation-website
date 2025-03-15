@@ -1,10 +1,9 @@
 ---
 layout: default
 title: Train and predict 
-parent: Train and Predict APIs
-grand_parent: ML Commons API
-has_children: true
-nav_order: 10
+parent: Model APIs
+grand_parent: ML Commons APIs
+nav_order: 70
 ---
 
 ## Train and predict

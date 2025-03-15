@@ -3,7 +3,7 @@ layout: default
 title: opensearch
 parent: Sources
 grand_parent: Pipelines
-nav_order: 30
+nav_order: 50
 ---
 
 # opensearch
@@ -84,7 +84,7 @@ The `opensearch` source can be configured with Amazon OpenSearch Serverless by s
 
 ## Using metadata
 
-When the `opensource` source constructs Data Prepper events from documents in the cluster, the document index is stored in the EventMetadata with an `opensearch-index` key, and the document_id is stored in the `EventMetadata` with the `opensearch-document_id` as the key. This allows for conditional routing based on the index or `document_id`. The following example pipeline configuration sends events to an `opensearch` sink and uses the same index and `document_id` from the source cluster as in the destination cluster:
+When the `opensource` source constructs OpenSearch Data Prepper events from documents in the cluster, the document index is stored in the EventMetadata with an `opensearch-index` key, and the document_id is stored in the `EventMetadata` with the `opensearch-document_id` as the key. This allows for conditional routing based on the index or `document_id`. The following example pipeline configuration sends events to an `opensearch` sink and uses the same index and `document_id` from the source cluster as in the destination cluster:
 
 
 ```yaml
@@ -135,7 +135,7 @@ Option | Required | Type | Description
 
 ### Scheduling
 
-The `scheduling` configuration allows the user to configure how indexes are reprocessed in the source based on the the `index_read_count` and recount time `interval`.
+The `scheduling` configuration allows the user to configure how indexes are reprocessed in the source based on the `index_read_count` and recount time `interval`.
 
 For example, setting `index_read_count` to `3` with an `interval` of `1h` will result in all indexes being reprocessed 3 times, 1 hour apart. By default, indexes will only be processed once.
 
@@ -177,8 +177,8 @@ Option | Required | Type    | Description
 ### Default search behavior
 
 By default, the `opensearch` source will look up the cluster version and distribution to determine
-which `search_context_type` to use. For versions and distributions that support [Point in Time](https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/#point-in-time-with-search_after), `point_in_time` will be used.
-If `point_in_time` is not supported by the cluster, then [scroll](https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/#scroll-search) will be used. For Amazon OpenSearch Serverless collections, [search_after](https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/#the-search_after-parameter) will be used because neither `point_in_time` nor `scroll` are supported by collections.
+which `search_context_type` to use. For versions and distributions that support [Point in Time]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#point-in-time-with-search_after), `point_in_time` will be used.
+If `point_in_time` is not supported by the cluster, then [scroll]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#scroll-search) will be used. For Amazon OpenSearch Serverless collections, [search_after]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#the-search_after-parameter) will be used because neither `point_in_time` nor `scroll` are supported by collections.
 
 ### Connection
 
@@ -200,6 +200,26 @@ Option | Required | Type    | Description
 `sts_role_arn` | No | String  | The AWS Security Token Service (AWS STS) role to assume for requests to Amazon OpenSearch Service and Amazon OpenSearch Serverless. Default is `null`, which will use the [standard SDK behavior for credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
 `serverless` | No | Boolean | Should be set to `true` when processing from an Amazon OpenSearch Serverless collection. Defaults to `false`.
 
+## Metrics
+
+The `opensearch` source includes the following metrics.
+
+### Counters
+
+- `documentsProcessed`: Measures the total number of documents processed by the `opensearch` source plugin.
+- `indicesProcessed`: Measures the total number of indexes processed by the `opensearch` source plugin.
+- `processingErrors`: Measures the total number of index processing errors made by the `opensearch` source plugin.
+- `credentialsChanged`: Measures the number of times that the `opensearch` source refreshes basic credentials (username/password).
+- `clientRefreshErrors`: Measures the number of errors encountered when generating a new client due to the `opensearch` source refreshing basic credentials.
+
+### Timers
+
+- `indexProcessingTime`: Measures the `opensearch` source plugin index processing latency, in seconds.
+
+### Distribution summaries
+
+- `bytesReceived`: Measures the size distribution of incoming documents, in bytes, received by the `opensearch` source plugin.
+- `bytesProcessed`: Measures the size distribution of incoming document, in bytes, successfully processed by the `opensearch` source plugin.
 
 ## OpenSearch cluster security
 

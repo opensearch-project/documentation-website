@@ -11,7 +11,7 @@ redirect_from:
 
 One of the first steps when setting up the Security plugin is deciding which authentication backend to use. The role played by the backend in authentication is covered in [steps 2 and 3 of the authentication flow]({{site.url}}{{site.baseurl}}/security/authentication-backends/authc-index/#authentication-flow). The plugin has an internal user database, but many people prefer to use an existing authentication backend, such as an LDAP server, or some combination of the two.
 
-The primary file used to configure an authentication and authorization backend is `config/opensearch-security/config.yml`. This file defines how the Security plugin retrieves user credentials, how it verifies the credentials, and how it fetches additional roles when the backend selected for authentication and authorization supports this feature. This topic provides a basic overview of the configuration file and its requirements for setting up security. For information about configuring a specific backend, see [Authentication backends]({{site.url}}{{site.baseurl}}/security/authentication-backends/authc-index/).
+The primary file used to configure the authentication and authorization backend is `/usr/share/opensearch/config/opensearch-security/config.yml`. This file defines how the Security plugin retrieves user credentials, how the plugin verifies the credentials, and how the plugin fetches additional roles when the backend selected for authentication and authorization supports this feature. This topic provides a basic overview of the configuration file and its requirements for setting up security. For information about configuring a specific backend, see [Authentication backends]({{site.url}}{{site.baseurl}}/security/authentication-backends/authc-index/).
 
 The `config.yml` file includes three main parts:
 
@@ -97,6 +97,7 @@ The `type` setting for `http_authenticator` accepts the following values. For mo
 | Value | Description |
 | :--- | :--- |
 | `basic` | HTTP basic authentication. For more information about using basic authentication, see the HTTP basic authentication documentation. |
+| `kerberos` | Kerberos authentication. See the Kerberos documentation for additional configuration information. |
 | `jwt` | JSON Web Token (JWT) authentication. See the JSON Web Token documentation for additional configuration information. |
 | `openid` | OpenID Connect authentication. See the OpenID Connect documentation for additional configuration information. |
 | `saml` | SAML authentication. See the SAML documentation for additional configuration information. |
@@ -162,65 +163,4 @@ To learn about configuring the authentication backends, see the [Authentication 
 * [Active Directory and LDAP]({{site.url}}{{site.baseurl}}/security/authentication-backends/ldap/)
 * [Proxy-based authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/proxy/)
 * [Client certificate authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/client-auth/)
-
-
-<!--- Remvoving Kerberos documentation until issue #907 is resolved.
-### Kerberos
-
-Kerberos authentication does not work with OpenSearch Dashboards. To track OpenSearch's progress in adding support for Kerberos in OpenSearch Dashboards, see [issue #907](https://github.com/opensearch-project/security-dashboards-plugin/issues/907) in the Dashboard's Security plugin repository. 
-{: .warning }
-
-Due to the nature of Kerberos, you must define some settings in `opensearch.yml` and some in `config.yml`.
-
-In `opensearch.yml`, define the following:
-
-```yml
-plugins.security.kerberos.krb5_filepath: '/etc/krb5.conf'
-plugins.security.kerberos.acceptor_keytab_filepath: 'eskeytab.tab'
-```
-
-- `plugins.security.kerberos.krb5_filepath` defines the path to your Kerberos configuration file. This file contains various settings regarding your Kerberos installation, for example, the realm names, hostnames, and ports of the Kerberos key distribution center (KDC).
-
-- `plugins.security.kerberos.acceptor_keytab_filepath` defines the path to the keytab file, which contains the principal that the Security plugin uses to issue requests against Kerberos.
-
-- `plugins.security.kerberos.acceptor_principal: 'HTTP/localhost'` defines the principal that the Security plugin uses to issue requests against Kerberos. This value must be present in the keytab file.
-
-Due to security restrictions, the keytab file must be placed in `config` or a subdirectory, and the path in `opensearch.yml` must be relative, not absolute.
-{: .note }
-
-
-#### Dynamic configuration
-
-A typical Kerberos authentication domain in `config.yml` looks like this:
-
-```yml
-    authc:
-      kerberos_auth_domain:
-        enabled: true
-        order: 1
-        http_authenticator:
-          type: kerberos
-          challenge: true
-          config:
-            krb_debug: false
-            strip_realm_from_principal: true
-        authentication_backend:
-          type: noop
-```
-
-Authentication against Kerberos through a browser on an HTTP level is achieved using SPNEGO. Kerberos/SPNEGO implementations vary, depending on your browser and operating system. This is important when deciding if you need to set the `challenge` flag to `true` or `false`.
-
-As with [HTTP Basic Authentication](#http-basic), this flag determines how the Security plugin should react when no `Authorization` header is found in the HTTP request or if this header does not equal `negotiate`.
-
-If set to `true`, the Security plugin sends a response with status code 401 and a `WWW-Authenticate` header set to `negotiate`. This tells the client (browser) to resend the request with the `Authorization` header set. If set to `false`, the Security plugin cannot extract the credentials from the request, and authentication fails. Setting `challenge` to `false` thus makes sense only if the Kerberos credentials are sent in the initial request.
-
-As the name implies, setting `krb_debug` to `true` will output Kerberos-specific debugging messages to `stdout`. Use this setting if you encounter problems with your Kerberos integration.
-
-If you set `strip_realm_from_principal` to `true`, the Security plugin strips the realm from the user name.
-
-
-#### Authentication backend
-
-Because Kerberos/SPNEGO authenticates users on an HTTP level, no additional `authentication_backend` is needed. Set this value to `noop`.
---->
-
+* [Kerberos authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/kerberos/)

@@ -4,7 +4,8 @@ title: compare
 nav_order: 55
 parent: Command reference
 grand_parent: OpenSearch Benchmark Reference
-redirect_from: /benchmark/commands/compare/
+redirect_from: 
+  - /benchmark/commands/compare/
 ---
 
 <!-- vale off -->
@@ -129,7 +130,7 @@ You can use the following options to customize the results of your test comparis
 - `--baseline`: The baseline TestExecution ID used to compare the contender TestExecution.  
 - `--contender`: The TestExecution ID for the contender being compared to the baseline. 
 - `--results-format`: Defines the output format for the command line results, either `markdown` or `csv`. Default is `markdown`.
-- `--results-number-align`: Defines the column number alignment for when the `compare` command outputs results. Default is `right`.
+- `--results-numbers-align`: Defines the column number alignment for when the `compare` command outputs results. Default is `right`.
 - `--results-file`: When provided a file path, writes the compare results to the file indicated in the path. 
 - `--show-in-results`: Determines whether or not to include the comparison in the results file. 
 

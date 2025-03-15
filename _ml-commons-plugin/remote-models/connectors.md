@@ -7,7 +7,7 @@ nav_order: 61
 parent: Connecting to externally hosted models 
 grand_parent: Integrating ML models
 redirect_from: 
-  - ml-commons-plugin/extensibility/connectors/
+  - /ml-commons-plugin/extensibility/connectors/
 ---
 
 # Creating connectors for third-party ML platforms
@@ -19,7 +19,7 @@ Connectors facilitate access to models hosted on third-party machine learning (M
 OpenSearch provides connectors for several platforms, for example:
 
 - [Amazon SageMaker](https://aws.amazon.com/sagemaker/) allows you to host and manage the lifecycle of text embedding models, powering semantic search queries in OpenSearch. When connected, Amazon SageMaker hosts your models and OpenSearch is used to query inferences. This benefits Amazon SageMaker users who value its functionality, such as model monitoring, serverless hosting, and workflow automation for continuous training and deployment.
-- [OpenAI ChatGPT](https://openai.com/blog/chatgpt) enables you to invoke an OpenAI chat model from inside an OpenSearch cluster.
+- [OpenAI ChatGPT](https://platform.openai.com/docs/introduction) enables you to invoke an OpenAI chat model from inside an OpenSearch cluster.
 - [Cohere](https://cohere.com/) allows you to use data from OpenSearch to power the Cohere large language models.
 - [Amazon Bedrock](https://aws.amazon.com/bedrock/) supports models like [Bedrock Titan Embeddings](https://aws.amazon.com/bedrock/titan/), which can drive semantic search and retrieval-augmented generation in OpenSearch.
 
@@ -35,17 +35,32 @@ As an ML developer, you can also create connector blueprints for other platforms
 
 The following table lists all connector blueprints provided by OpenSearch. Follow the links to each connector blueprint for an example request that you can use to create the connector, including all parameters, and an example Predict API request.
 
-Platform | Model | Connector blueprint
-:--- | :--- | :---
-[Amazon Bedrock](https://aws.amazon.com/bedrock/) | [AI21 Labs Jurassic-2 Mid](https://aws.amazon.com/bedrock/jurassic/) | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_ai21labs_jurassic_blueprint.md)
-[Amazon Bedrock](https://aws.amazon.com/bedrock/) | [Anthropic Claude v2](https://aws.amazon.com/bedrock/claude/) | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_anthropic_claude_blueprint.md)
-[Amazon Bedrock](https://aws.amazon.com/bedrock/) | [Titan Text Embeddings](https://aws.amazon.com/bedrock/titan/) | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_titan_embedding_blueprint.md)
-[Amazon SageMaker](https://aws.amazon.com/sagemaker/) | Text embedding models | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/sagemaker_connector_blueprint.md)
-[Cohere](https://cohere.com/) | The `embed-english-v2.0` [text embedding model](https://docs.cohere.com/reference/embed) | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/cohere_v2_connector_embedding_blueprint.md)
-[Cohere](https://cohere.com/) | The `embed-english-v3.0` [text embedding model](https://docs.cohere.com/reference/embed) | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/cohere_v3_connector_embedding_blueprint.md)
-[OpenAI](https://openai.com/) | Chat models (for example, `gpt-3.5-turbo`) | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/open_ai_connector_chat_blueprint.md)
-[OpenAI](https://openai.com/) | Completion models (for example, `text-davinci-003`) | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/open_ai_connector_completion_blueprint.md)
-[OpenAI](https://openai.com/) | Text embedding models (for example, `text-embedding-ada-002`) | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/openai_connector_embedding_blueprint.md)
+| Platform                                                                                                     | Model                                                                                                                                                                   | Connector blueprint                                                                                                                                                         |
+|:-------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [Aleph Alpha](https://aleph-alpha.com/)                                                                      | [Luminous-Base Embedding Model](https://docs.aleph-alpha.com/api/semantic-embed/)                                                                                       | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/aleph_alpha_connector_luminous_base_embedding_blueprint.md)          |
+| [Amazon Bedrock](https://aws.amazon.com/bedrock/)                                                            | [AI21 Labs Jurassic-2 Mid](https://aws.amazon.com/bedrock/jurassic/)                                                                                                    | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_ai21labs_jurassic_blueprint.md)                    |
+| [Amazon Bedrock](https://aws.amazon.com/bedrock/)                                                            | [Anthropic Claude v2](https://aws.amazon.com/bedrock/claude/)                                                                                                           | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_anthropic_claude_blueprint.md)                     |
+| [Amazon Bedrock](https://aws.amazon.com/bedrock/)                                                            | [Anthropic Claude v3](https://aws.amazon.com/bedrock/claude/)                                                                                                           | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/bedrock_connector_anthropic_claude3_blueprint.md)                   |
+| [Amazon Bedrock](https://aws.amazon.com/bedrock/)                                                            | [Cohere Embed Model v3 - English](https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-embed.html)                                                     | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/bedrock_connector_cohere_cohere.embed-english-v3_blueprint.md)      |
+| [Amazon Bedrock](https://aws.amazon.com/bedrock/)                                                            | [Cohere Embed Model v3 - Multilingual](https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-embed.html)                                                | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/bedrock_connector_cohere_cohere.embed-multilingual-v3_blueprint.md) |
+| [Amazon Bedrock](https://aws.amazon.com/bedrock/)                                                            | [Titan Text Embeddings](https://docs.aws.amazon.com/bedrock/latest/userguide/titan-embedding-models.html)                                                               | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_titan_embedding_blueprint.md)                      |
+| [Amazon Bedrock](https://aws.amazon.com/bedrock/)                                                            | [Titan Multimodal Embeddings](https://docs.aws.amazon.com/bedrock/latest/userguide/titan-multiemb-models.html)                                                          | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/bedrock_connector_titan_multimodal_embedding_blueprint.md)          |
+| [Amazon Bedrock Converse](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_Converse.html) | [Anthropic Claude 3 Sonet](https://aws.amazon.com/bedrock/claude/)                                                                                                      | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/bedrock_connector_converse_blueprint.md)                            |
+| [Amazon Comprehend](https://aws.amazon.com/comprehend/)                                                      | [Metadata Embedding Model](https://docs.aws.amazon.com/comprehend/)                                                                                                     | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/amazon_comprehend_connector_blueprint.md)                           |
+| [Amazon Textract](https://aws.amazon.com/textract/)                                                          | [Amazon Textract Model](https://docs.aws.amazon.com/textract/)                                                                                                          | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/amazon_textract_connector_blueprint.md)                             |
+| [Amazon SageMaker](https://aws.amazon.com/sagemaker/)                                                        | [Text embedding models for batch inference](https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateModel.html)                                             | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/batch_inference_sagemaker_connector_blueprint.md)                   |
+| [Amazon SageMaker](https://aws.amazon.com/sagemaker/)                                                        | [Text embedding models](https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateModel.html)                                                                 | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/sagemaker_connector_blueprint.md)                                    |
+| [Azure OpenAI](https://azure.microsoft.com/en-us/products/ai-services/openai-service)                        | [Chat models](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models?tabs=global-standard%2Cstandard-chat-completions#gpt-4) (for example, `gpt-4`) | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/azure_openai_connector_chat_blueprint.md)                           |
+| [Azure OpenAI](https://azure.microsoft.com/en-us/products/ai-services/openai-service)                        | [Text embedding models](https://learn.microsoft.com/en-us/azure/ai-services/openai/reference#embeddings) (for example, `text-embedding-ada-002`)                        | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/azure_openai_connector_embedding_blueprint.md)                      |
+| [Cohere](https://cohere.com/)                                                                                | [Chat models](https://docs.cohere.com/reference/chat)                                                                                                                   | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/cohere_connector_chat_blueprint.md)                                 |
+| [Cohere](https://cohere.com/)                                                                                | [Multimodal embedding models](https://docs.cohere.com/reference/embed) (for example, `embed-english-v3.0`)                                                              | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/cohere_connector_image_embedding_blueprint.md)                      |
+| [Cohere](https://cohere.com/)                                                                                | [Text embedding models](https://docs.cohere.com/reference/embed)                                                                                                        | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/cohere_connector_embedding_blueprint.md)                             |
+| [DeepSeek](https://www.deepseek.com/)                                                                        | [Chat model](https://api-docs.deepseek.com/api/create-chat-completion)                                                                                                  | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/deepseek_connector_chat_blueprint.md)                               |
+| [Google Cloud Platform](https://cloud.google.com/)                                                           | [VertexAI Embedding Model](https://cloud.google.com/vertex-ai/generative-ai/docs/embeddings/get-text-embeddings)                                                        | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/gcp_vertexai_connector_embedding_blueprint.md)                      |
+| [OpenAI](https://openai.com/)                                                                                | [Chat models](https://platform.openai.com/docs/models) (for example, `gpt-3.5-turbo`)                                                                                   | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/open_ai_connector_chat_blueprint.md)                                 |
+| [OpenAI](https://openai.com/)                                                                                | [Completion models](https://platform.openai.com/docs/models) (for example, `text-davinci-003`)                                                                          | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/open_ai_connector_completion_blueprint.md)                           |
+| [OpenAI](https://openai.com/)                                                                                | [Text embedding models](https://platform.openai.com/docs/models#embeddings) (for example, `text-embedding-ada-002`)                                                     | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/openai_connector_embedding_blueprint.md)                             |
+| [OpenAI](https://openai.com/)                                                                                | [Text embedding models for batch inference](https://platform.openai.com/docs/guides/batch/overview#model-availability)                                                  | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/batch_inference_openAI_connector_blueprint.md)                      |
 
 ## Creating a connector
 
@@ -214,20 +229,21 @@ The `parameters` section requires the following options when using `aws_sigv4` a
 
 ### Cohere connector
 
-You can use the following example request to create a standalone Cohere connector:
+You can use the following example request to create a standalone Cohere connector using the Embed V3 model. For more information, see [Cohere connector blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/cohere_connector_embedding_blueprint.md). 
 
 ```json
 POST /_plugins/_ml/connectors/_create
 {
-  "name": "<YOUR CONNECTOR NAME>",
-  "description": "<YOUR CONNECTOR DESCRIPTION>",
-  "version": "<YOUR CONNECTOR VERSION>",
+  "name": "Cohere Embed Model",
+  "description": "The connector to Cohere's public embed API",
+  "version": "1",
   "protocol": "http",
   "credential": {
-    "cohere_key": "<YOUR Cohere API KEY HERE>"
+    "cohere_key": "<ENTER_COHERE_API_KEY_HERE>"
   },
   "parameters": {
-    "model": "embed-english-v2.0",
+    "model": "embed-english-v3.0",
+    "input_type":"search_document",
     "truncate": "END"
   },
   "actions": [
@@ -236,9 +252,10 @@ POST /_plugins/_ml/connectors/_create
       "method": "POST",
       "url": "https://api.cohere.ai/v1/embed",
       "headers": {
-        "Authorization": "Bearer ${credential.cohere_key}"
+        "Authorization": "Bearer ${credential.cohere_key}",
+        "Request-Source": "unspecified:opensearch"
       },
-      "request_body": "{ \"texts\": ${parameters.texts}, \"truncate\": \"${parameters.truncate}\", \"model\": \"${parameters.model}\" }", 
+      "request_body": "{ \"texts\": ${parameters.texts}, \"truncate\": \"${parameters.truncate}\", \"model\": \"${parameters.model}\", \"input_type\": \"${parameters.input_type}\" }",
       "pre_process_function": "connector.pre_process.cohere.embedding",
       "post_process_function": "connector.post_process.cohere.embedding"
     }
@@ -281,6 +298,40 @@ POST /_plugins/_ml/connectors/_create
       "post_process_function": "\n      def name = \"sentence_embedding\";\n      def dataType = \"FLOAT32\";\n      if (params.embedding == null || params.embedding.length == 0) {\n        return params.message;\n      }\n      def shape = [params.embedding.length];\n      def json = \"{\" +\n                 \"\\\"name\\\":\\\"\" + name + \"\\\",\" +\n                 \"\\\"data_type\\\":\\\"\" + dataType + \"\\\",\" +\n                 \"\\\"shape\\\":\" + shape + \",\" +\n                 \"\\\"data\\\":\" + params.embedding +\n                 \"}\";\n      return json;\n    "
     }
   ]
+}
+```
+{% include copy-curl.html %}
+
+## Updating connector credentials
+
+In some cases, you may need to update credentials, such as `access_key`, used to connect to externally hosted models. To do this without undeploying the model, provide the new credentials in an update request.
+
+### Connector for a specific model
+
+To update credentials for a connector linked to a specific model, provide the new credentials in the following request:
+
+```json
+PUT /_plugins/_ml/models/<model_id>
+{
+  "connectors": {
+    "credential": {
+      "openAI_key": "YOUR NEW OPENAI KEY"
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Standalone connector
+
+To update credentials for a standalone connector, provide the new credentials in the following request:
+
+```json
+PUT /_plugins/_ml/connectors/<connector_id>
+{
+  "credential": {
+    "openAI_key": "YOUR NEW OPENAI KEY"
+  }
 }
 ```
 {% include copy-curl.html %}

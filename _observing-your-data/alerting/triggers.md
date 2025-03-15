@@ -125,15 +125,82 @@ Variable | Data type | Description
 #### Other variables
 
 Variable | Data type | Description
-:--- | :--- : :---
-`ctx.results` | Array | An array with one element (`ctx.results[0]`). Contains the query results. This variable is empty if the trigger was unable to retrieve results. See `ctx.error`.
+:--- | :--- | : ---
+`ctx.results` | Array | An array with one element (`ctx.results.0`). Contains the query results. This variable is empty if the trigger is unable to retrieve results. See `ctx.error`.
 `ctx.last_update_time` | Milliseconds | Unix epoch time of when the monitor was last updated.
 `ctx.periodStart` | String | Unix timestamp for the beginning of the period during which the alert was triggered. For example, if a monitor runs every 10 minutes, a period might begin at 10:40 and end at 10:50.
 `ctx.periodEnd` | String | The end of the period during which the alert triggered.
 `ctx.error` | String | The error message displayed if the trigger was unable to retrieve results or could not be evaluated, typically due to a compile error or null pointer exception. Null otherwise.
 `ctx.alert` | Object | The current, active alert (if it exists). Includes `ctx.alert.id`, `ctx.alert.version`, and `ctx.alert.isAcknowledged`. Null if no alert is active. Only available with query-level monitors.
-`ctx.dedupedAlerts` | Object | Alerts that have been triggered. OpenSearch keeps the existing alert to prevent the plugin from creating endless numbers of the same alert. Only available with bucket-level monitors.
-`ctx.newAlerts` | Object | Newly created alerts. Only available with bucket-level monitors.
-`ctx.completedAlerts` | Object | Alerts that are no longer ongoing. Only available with bucket-level monitors.
-`bucket_keys` | String | Comma-separated list of the monitor's bucket key values. Available only for `ctx.dedupedAlerts`, `ctx.newAlerts`, and `ctx.completedAlerts`. Accessed through `ctx.dedupedAlerts[0].bucket_keys`.
-`parent_bucket_path` | String | The parent bucket path of the bucket that triggered the alert. Accessed through `ctx.dedupedAlerts[0].parent_bucket_path`.
+`ctx.alerts` | Array | Newly created alerts. Includes the `ctx.alerts.0.finding_ids` that triggered the alert and the `ctx.alerts.0.related_doc_ids` associated with the findings. Only available with document-level monitors.
+`ctx.dedupedAlerts` | Array | Triggered alerts. OpenSearch keeps the existing alert to prevent the plugin from perpetually creating the same alert. Only available with bucket-level monitors.
+`ctx.newAlerts` | Array | Newly created alerts. Only available with bucket-level monitors.
+`ctx.completedAlerts` | Array | Completed or expired alerts. Only available with bucket-level monitors.
+`bucket_keys` | String | A comma-separated list of the monitor's bucket key values. Available only for `ctx.dedupedAlerts`, `ctx.newAlerts`, and `ctx.completedAlerts`. Accessed through the `ctx.dedupedAlerts.0.bucket_keys` variable.
+`parent_bucket_path` | String | The parent bucket path of the bucket that triggered the alert. Accessed through `ctx.dedupedAlerts.0.parent_bucket_path`.
+`associated_queries` | Array | An array of document-level monitor queries that triggered the creation of the finding associated with the alert. Only available with document-level monitors. Accessed through the `ctx.alerts.0.associated_queries` variable.
+`sample_documents` | Array | An array of sample documents that matched the monitor query. Only available with bucket- and document-level monitors. Accessed through the `ctx.newAlerts.0.sample_documents` and `ctx.alerts.0.sample_documents` variables, respectively.
+
+#### The `associated_queries` and `sample_documents` variables
+
+Per bucket and per document monitors support printing sample documents in notification messages. Per document monitors support printing the list of queries that triggered the creation of the finding associated with the alert. When the monitor runs, it adds each new alert to the `ctx` variables, for example, `newAlerts` for per bucket monitors and `alerts` for per document monitors. Each alert has its own list of `sample_documents`, and each per document monitor alert has its own list of `associated_queries`. The message template can be formatted to iterate through the list of alerts, the list of `associated_queries`, and the `sample_documents` for each alert.
+
+An alerting monitor uses the permissions of the user that created it. Be mindful of the Notifications plugin channel to which alert messages are sent and the content of the message mustache template. To learn more about security in the Alerting plugin, see [Alerting security]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/security/).
+{: .note}
+
+#### Sample document variables
+
+Variable | Data type | Description
+:--- | :--- | : ---
+`_index` | String | The index containing the sample document.
+`_id` | String | The sample document ID.
+`_score` | Float | A positive 32-bit floating-point number illustrating the relevance of the returned document.
+`_source` | Object | The JSON payload of the sample document.
+
+##### Mustache template example
+
+{% raw %}
+```groovy
+Alerts:
+{{#ctx.alerts}}
+    RULES
+    {{#associated_queries}}
+        Name: {{name}}
+        Id: {{id}}
+        Tags: {{tags}}
+    ------------------------
+    {{/associated_queries}}
+{{/ctx.alerts}}
+```
+{% endraw %}
+
+#### Associated query variables
+
+Variable | Data type | Description
+:--- | :--- | : ---
+`id` | String | The ID of the document-level query.
+`name` | String | The name of the document-level query.
+`tags` | Array | An array of tags (each of type String) configured for the document-level query.
+
+##### Mustache template example
+
+The `_source` object in this example is based on the `opensearch_dashboards_sample_data_ecommerce` index available in OpenSearch Dashboards. In this example, the message template is accessing the `ctx.alerts` variable of a per document monitor.
+{: .note}
+
+{% raw %}
+```groovy
+Alerts
+{{#ctx.alerts}}
+    Sample documents:
+    {{#sample_documents}}
+        Index: {{_index}}
+        Document ID: {{_id}}
+       
+        Order date: {{_source.order_date}}
+        Order ID: {{_source.order_id}}
+        Clothing category: {{_source.category}}
+        -----------------
+    {{/sample_documents}}
+{{/ctx.alerts}}
+```
+{% endraw %}

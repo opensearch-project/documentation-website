@@ -111,10 +111,31 @@ For a callout with multiple paragraphs or lists, use `>`:
 
 ## Collapsible blocks
 
-To insert a collapsible block, use the `<details>` element as follows:
+To insert an open collapsible block, use the `<details>` element as follows:
 
 ````html
 <details open markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
+
+```json
+{
+  "_nodes" : {
+    "total" : 1,
+    "successful" : 1,
+    "failed" : 0
+  }
+}
+```
+</details>
+````
+
+To insert a closed collapsible block, omit the `open` state:
+
+````html
+<details markdown="block">
   <summary>
     Response
   </summary>
@@ -376,6 +397,12 @@ Some Markdown paragraph. Here's a formula:
 </p>
 
 And back to Markdown.
+```
+
+Alternatively, you can use double dollar signs (`$$`) for both display and inline math directly in Markdown:
+
+```
+The probability of selecting pair $$i$$ is proportional to $$1 \over i^\alpha$$.
 ```
 
 ## Tables

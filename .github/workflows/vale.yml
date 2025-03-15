@@ -1,4 +1,4 @@
-name: Style check
+name: Style Check
 
 on:
   pull_request:
@@ -21,3 +21,4 @@ jobs:
           filter_mode: added
           vale_flags: "--no-exit"
           version: 2.28.0
+        continue-on-error: true

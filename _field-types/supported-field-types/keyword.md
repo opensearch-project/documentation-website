@@ -11,6 +11,8 @@ redirect_from:
 ---
 
 # Keyword field type
+**Introduced 1.0**
+{: .label .label-purple }
 
 A keyword field type contains a string that is not analyzed. It allows only exact, case-sensitive matches.
 
@@ -52,7 +54,7 @@ Parameter | Description
 `index` | A Boolean value that specifies whether the field should be searchable. Default is `true`. To reduce disk space, set `index` to `false`.
 `index_options` | Information to be stored in the index that will be considered when calculating relevance scores. Can be set to `freqs` for term frequency. Default is `docs`.
 `meta` | Accepts metadata for this field.
-`normalizer` | Specifies how to preprocess this field before indexing (for example, make it lowercase). Default is `null` (no preprocessing).
+[`normalizer`]({{site.url}}{{site.baseurl}}/analyzers/normalizers/) | Specifies how to preprocess this field before indexing (for example, make it lowercase). Default is `null` (no preprocessing).
 `norms` | A Boolean value that specifies whether the field length should be used when calculating relevance scores. Default is `false`.
 [`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | A value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, the field is treated as missing when its value is `null`. Default is `null`.
 `similarity` | The ranking algorithm for calculating relevance scores. Default is `BM25`. 

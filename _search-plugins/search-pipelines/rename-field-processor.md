@@ -1,17 +1,19 @@
 ---
 layout: default
 title: Rename field
-nav_order: 20
+nav_order: 100
 has_children: false
 parent: Search processors
 grand_parent: Search pipelines
 ---
 
 # Rename field processor
+Introduced 2.8
+{: .label .label-purple }
 
 The `rename_field` search response processor intercepts a search response and renames the specified field. This is useful when your index and your application use different names for the same field. For example, if you rename a field in your index, the `rename_field` processor can change the new name to the old one before sending the response to your application.
 
-## Request fields
+## Request body fields
 
 The following table lists all available request fields.
 

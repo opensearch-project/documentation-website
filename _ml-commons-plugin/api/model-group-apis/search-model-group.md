@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Search for a model group
+title: Search model group
 parent: Model group APIs
-grand_parent: ML Commons API
-nav_order: 30
+grand_parent: ML Commons APIs
+nav_order: 40
 ---
 
 # Search for a model group

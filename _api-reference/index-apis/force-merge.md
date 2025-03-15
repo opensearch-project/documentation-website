@@ -11,6 +11,13 @@ nav_order: 37
 
 The force merge API operation forces a merge on the shards of one or more indexes. For a data stream, the API forces a merge on the shards of the stream's backing index.
 
+## Endpoints
+
+```json
+POST /_forcemerge
+POST /<index>/_forcemerge/
+```
+
 ## The merge operation
 
 In OpenSearch, a shard is a Lucene index, which consists of _segments_ (or segment files). Segments store the indexed data. Periodically, smaller segments are merged into larger ones and the larger segments become immutable. Merging reduces the overall number of segments on each shard and frees up disk space. 
@@ -45,12 +52,6 @@ When you force merge multiple indexes, the merge operation is executed on each s
 
 It can be useful to force merge data streams in order to manage a data stream's backing indexes, especially after a rollover operation. Time-based indexes receive indexing requests only during a specified time period. Once that time period has elapsed and the index receives no more write requests, you can force merge segments of all index shards into one segment. Searches on single-segment shards are more efficient because they use simpler data structures.
 
-## Path and HTTP methods
-
-```json
-POST /_forcemerge
-POST /<index>/_forcemerge/
-```
 
 ## Path parameters
 
@@ -72,36 +73,58 @@ The following table lists the available query parameters. All query parameters a
 | `ignore_unavailable` | Boolean | If `true`, OpenSearch ignores missing or closed indexes. If `false`, OpenSearch returns an error if the force merge operation encounters missing or closed indexes. Default is `false`. |
 | `max_num_segments` | Integer | The number of larger segments into which smaller segments are merged. Set this parameter to `1` to merge all segments into one segment. The default behavior is to perform the merge as necessary. |
 | `only_expunge_deletes` | Boolean | If `true`, the merge operation only expunges segments containing a certain percentage of deleted documents. The percentage is 10% by default and is configurable in the `index.merge.policy.expunge_deletes_allowed` setting. Prior to OpenSearch 2.12, `only_expunge_deletes` ignored the `index.merge.policy.max_merged_segment` setting. Starting with OpenSearch 2.12, using `only_expunge_deletes` does not produce segments larger than `index.merge.policy.max_merged_segment` (by default, 5 GB). For more information, see [Deleted documents](#deleted-documents). Default is `false`. |
+| `primary_only` | Boolean | If set to `true`, then the merge operation is performed only on the primary shards of an index. This can be useful when you want to take a snapshot of the index after the merge is complete. Snapshots only copy segments from the primary shards. Merging the primary shards can reduce resource consumption. Default is `false`. |
 
-#### Example request: Force merge a specific index
+## Example requests
+
+The following examples show how to use the Force merge API.
+
+### Force merge a specific index
+
+The following example force merges a specific index:
 
 ```json
 POST /testindex1/_forcemerge
 ```
 {% include copy-curl.html %}
 
-#### Example request: Force merge multiple indexes
+### Force merge multiple indexes
+
+The following example force merges multiple indexes:
 
 ```json
 POST /testindex1,testindex2/_forcemerge
 ```
 {% include copy-curl.html %}
 
-#### Example request: Force merge all indexes
+### Force merge all indexes
+
+The following example force merges all indexes:
 
 ```json
 POST /_forcemerge
 ```
 {% include copy-curl.html %}
 
-#### Example request: Force merge a data stream's backing indexes into one segment
+### Force merge a data stream's backing indexes into one segment
+
+The following example force merges a data stream's backing indexes into one segment:
 
 ```json
 POST /.testindex-logs/_forcemerge?max_num_segments=1
 ```
 {% include copy-curl.html %}
 
-#### Example response
+### Force merge primary shards
+
+The following example force merges an index's primary shards:
+
+```json
+POST /.testindex-logs/_forcemerge?primary_only=true
+```
+{% include copy-curl.html %}
+
+## Example response
 
 ```json
 {
@@ -113,7 +136,7 @@ POST /.testindex-logs/_forcemerge?max_num_segments=1
 }
 ```
 
-## Response fields
+## Response body fields
 
 The following table lists all response fields.
 

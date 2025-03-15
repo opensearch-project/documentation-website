@@ -1,0 +1,33 @@
+name: Automerge Backport
+on:
+  pull_request:
+  pull_request_review:
+    types:
+      - submitted
+  check_suite:
+    types:
+      - completed
+  status: {}
+jobs:
+  automerge-backport:
+    if: |
+      github.repository == 'opensearch-project/documentation-website' &&
+      startsWith(github.event.pull_request.head.ref, 'backport/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait some time so that label and approval is up
+        run: sleep 30
+      - id: automerge
+        name: automerge
+        uses: "pascalgn/automerge-action@v0.16.2"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          MERGE_LABELS: "backport-automerge,!On hold"
+          MERGE_FILTER_AUTHOR: "opensearch-trigger-bot[bot]"
+          MERGE_REQUIRED_APPROVALS: "1"
+          MERGE_RETRIES: "30"
+          MERGE_RETRY_SLEEP: "10000"
+          MERGE_ERROR_FAIL: "true"
+          MERGE_FORKS: "false"
+          MERGE_METHOD: "squash"
+          MERGE_DELETE_BRANCH: "true"

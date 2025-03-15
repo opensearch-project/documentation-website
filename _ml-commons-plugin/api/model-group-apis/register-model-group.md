@@ -2,7 +2,7 @@
 layout: default
 title: Register model group
 parent: Model group APIs
-grand_parent: ML Commons API
+grand_parent: ML Commons APIs
 nav_order: 10
 ---
 
@@ -21,7 +21,7 @@ For more information, see [Model access control]({{site.url}}{{site.baseurl}}/ml
 POST /_plugins/_ml/model_groups/_register
 ```
 
-## Request fields
+## Request body fields
 
 The following table lists the available request fields. 
 
@@ -54,7 +54,7 @@ POST /_plugins/_ml/model_groups/_register
 }
 ```
 
-## Response fields
+## Response body fields
 
 The following table lists the available response fields. 
 

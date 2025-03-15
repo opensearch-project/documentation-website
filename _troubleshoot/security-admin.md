@@ -24,8 +24,8 @@ If `securityadmin.sh` can't reach the cluster, it outputs:
 
 ```
 OpenSearch Security Admin v6
-Will connect to localhost:9300
-ERR: Seems there is no opensearch running on localhost:9300 - Will exit
+Will connect to localhost:9200
+ERR: Seems there is no opensearch running on localhost:9200 - Will exit
 ```
 
 
@@ -36,9 +36,9 @@ By default, `securityadmin.sh` uses `localhost`. If your cluster runs on any oth
 
 ### Check the port
 
-Check that you are running `securityadmin.sh` against the transport port, **not** the HTTP port.
+Check that you are running `securityadmin.sh` against the HTTP port, **not** the transport port.
 
-By default, `securityadmin.sh` uses `9300`. If your cluster runs on a different port, use the `-p` option to specify the port number.
+By default, `securityadmin.sh` uses `9200`. If your cluster runs on a different port, use the `-p` option to specify the port number.
 
 
 ## None of the configured nodes are available
@@ -92,7 +92,7 @@ Connected as CN=node-0.example.com,OU=SSL,O=Test,L=Test,C=DE
 ERR: CN=node-0.example.com,OU=SSL,O=Test,L=Test,C=DE is not an admin user
 ```
 
-You must use an admin certificate when executing the script. To learn more, see [Configuring admin certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates).
+You must use an admin certificate when executing the script. To learn more, see  [Configuring super admin certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates).
 
 ## Use the diagnose option
 

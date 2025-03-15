@@ -17,7 +17,35 @@ The most basic cluster allocation explain request finds an unassigned shard and 
 If you add some options, you can instead get information on a specific shard, including why OpenSearch assigned it to its current node.
 
 
-## Example
+## Endpoints
+
+```json
+GET _cluster/allocation/explain
+POST _cluster/allocation/explain
+```
+
+## Query parameters
+
+All parameters are optional.
+
+Parameter | Type | Description
+:--- | :--- | :---
+include_yes_decisions | Boolean | OpenSearch makes a series of yes or no decisions when trying to allocate a shard to a node. If this parameter is true, OpenSearch includes the (generally more numerous) "yes" decisions in its response. Default is `false`.
+include_disk_info | Boolean | Whether to include information about disk usage in the response. Default is `false`.
+
+
+## Request body fields
+
+All cluster allocation explain fields are optional.
+
+Field | Type | Description
+:--- | :--- | :---
+current_node | String | If you only want an explanation if the shard happens to be on a particular node, specify that node name here.
+index | String | The name of the shard's index.
+primary | Boolean | Whether to provide an explanation for the primary shard (true) or its first replica (false), which share the same shard ID.
+shard | Integer | The shard ID that you want an explanation for.
+
+## Example request
 
 ```json
 GET _cluster/allocation/explain?include_yes_decisions=true
@@ -29,37 +57,8 @@ GET _cluster/allocation/explain?include_yes_decisions=true
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
 
-```
-GET _cluster/allocation/explain
-POST _cluster/allocation/explain
-```
-
-
-## URL parameters
-
-All cluster allocation explain parameters are optional.
-
-Parameter | Type | Description
-:--- | :--- | :---
-include_yes_decisions | Boolean | OpenSearch makes a series of yes or no decisions when trying to allocate a shard to a node. If this parameter is true, OpenSearch includes the (generally more numerous) "yes" decisions in its response. Default is false.
-include_disk_info | Boolean | Whether to include information about disk usage in the response. Default is false.
-
-
-## Request body
-
-All cluster allocation explain fields are optional.
-
-Field | Type | Description
-:--- | :--- | :---
-current_node | String | If you only want an explanation if the shard happens to be on a particular node, specify that node name here.
-index | String | The name of the shard's index.
-primary | Boolean | Whether to provide an explanation for the primary shard (true) or its first replica (false), which share the same shard ID.
-shard | Integer | The shard ID that you want an explanation for.
-
-
-## Response
+## Example response
 
 ```json
 {

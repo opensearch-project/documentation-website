@@ -222,10 +222,10 @@ public class OpenSearchClientExample {
     System.setProperty("javax.net.ssl.trustStore", "/full/path/to/keystore");
     System.setProperty("javax.net.ssl.trustStorePassword", "password-to-keystore");
 
-    final HttpHost host = new HttpHost("https", 9200, "localhost");
+    final HttpHost host = new HttpHost("https", "localhost", 9200);
     final BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider();
     //Only for demo purposes. Don't specify your credentials in code.
-    credentialsProvider.setCredentials(new AuthScope(host), new UsernamePasswordCredentials("admin", "admin"));
+    credentialsProvider.setCredentials(new AuthScope(host), new UsernamePasswordCredentials("admin", "admin".toCharArray()));
 
     //Initialize the client with SSL and TLS enabled
     final RestClient restClient = RestClient.builder(host).
@@ -344,7 +344,7 @@ client.delete(b -> b.index(index).id("1"));
 The following sample code deletes an index:
 
 ```java
-DeleteIndexRequest deleteIndexRequest = new DeleteRequest.Builder().index(index).build();
+DeleteIndexRequest deleteIndexRequest = new DeleteIndexRequest.Builder().index(index).build();
 DeleteIndexResponse deleteIndexResponse = client.indices().delete(deleteIndexRequest);
 ```
 {% include copy.html %}

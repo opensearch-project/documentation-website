@@ -2,7 +2,7 @@
 layout: default
 title: Delete task
 parent: Tasks APIs
-grand_parent: ML Commons API
+grand_parent: ML Commons APIs
 nav_order: 20
 ---
 
@@ -13,7 +13,7 @@ Deletes a task based on the `task_id`.
 ML Commons does not check the task status when running the delete request. There is a risk that a currently running task could be deleted before the task completes. To check the status of a task, run `GET /_plugins/_ml/tasks/<task_id>` before task deletion.
 {: .note}
 
-### Path and HTTP methods
+### Endpoints
 
 ```json
 DELETE /_plugins/_ml/tasks/<task_id>

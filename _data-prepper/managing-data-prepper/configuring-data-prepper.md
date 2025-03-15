@@ -1,16 +1,16 @@
 ---
 layout: default
-title: Configuring Data Prepper
-parent: Managing Data Prepper
+title: Configuring OpenSearch Data Prepper
+parent: Managing OpenSearch Data Prepper
 nav_order: 5
 redirect_from:
  - /clients/data-prepper/data-prepper-reference/
  - /monitoring-plugins/trace/data-prepper-reference/
 ---
 
-# Configuring Data Prepper
+# Configuring OpenSearch Data Prepper
 
-You can customize your Data Prepper configuration by editing the `data-prepper-config.yaml` file in your Data Prepper installation. The following configuration options are independent from pipeline configuration options. 
+You can customize your OpenSearch Data Prepper configuration by editing the `data-prepper-config.yaml` file in your Data Prepper installation. The following configuration options are independent from pipeline configuration options. 
 
 
 ## Data Prepper configuration
@@ -65,9 +65,9 @@ Option | Required | Type | Description
 ssl | No | Boolean | Enables TLS/SSL. Default is `true`.
 ssl_certificate_file | Conditionally | String | The SSL certificate chain file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. Required if `ssl` is true and `use_acm_certificate_for_ssl` is false. Defaults to `config/default_certificate.pem` which is the default certificate file. Read more about how the certificate file is generated [here](https://github.com/opensearch-project/data-prepper/tree/main/examples/certificates).
 ssl_key_file | Conditionally | String | The SSL key file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. Required if `ssl` is true and `use_acm_certificate_for_ssl` is false. Defaults to `config/default_private_key.pem` which is the default private key file. Read more about how the default private key file is generated [here](https://github.com/opensearch-project/data-prepper/tree/main/examples/certificates).
-ssl_insecure_disable_verification | No | Boolean | Disables the verification of server's TLS certificate chain. Default is false.
-ssl_fingerprint_verification_only | No | Boolean | Disables the verification of server's TLS certificate chain and instead verifies only the certificate fingerprint. Default is false.
-use_acm_certificate_for_ssl | No | Boolean | Enables TLS/SSL using certificate and private key from AWS Certificate Manager (ACM). Default is false.
+ssl_insecure_disable_verification | No | Boolean | Disables the verification of server's TLS certificate chain. Default is `false`.
+ssl_fingerprint_verification_only | No | Boolean | Disables the verification of server's TLS certificate chain and instead verifies only the certificate fingerprint. Default is `false`.
+use_acm_certificate_for_ssl | No | Boolean | Enables TLS/SSL using certificate and private key from AWS Certificate Manager (ACM). Default is `false`.
 acm_certificate_arn | Conditionally | String | The ACM certificate ARN. The ACM certificate takes preference over S3 or a local file system certificate. Required if `use_acm_certificate_for_ssl` is set to true.
 acm_private_key_password | No | String | The ACM private key password that decrypts the private key. If not provided, Data Prepper generates a random password.
 acm_certificate_timeout_millis | No | Integer | The timeout in milliseconds for ACM to get certificates. Default is 120000.
@@ -103,8 +103,7 @@ check_interval | No | Duration | Specifies the time between checks of the heap s
 
 ### Extension plugins
 
-Since Data Prepper 2.5, Data Prepper provides support for user configurable extension plugins. Extension plugins are shared common 
-configurations shared across pipeline plugins, such as [sources, buffers, processors, and sinks]({{site.url}}{{site.baseurl}}/data-prepper/index/#concepts).
+Data Prepper provides support for user-configurable extension plugins. Extension plugins are common configurations shared across pipeline plugins, such as [sources, buffers, processors, and sinks]({{site.url}}{{site.baseurl}}/data-prepper/index/#key-concepts-and-fundamentals).
 
 ### AWS extension plugins
 
@@ -128,6 +127,7 @@ extensions:
         region: <YOUR_REGION_1>
         sts_role_arn: <YOUR_STS_ROLE_ARN_1>
         refresh_interval: <YOUR_REFRESH_INTERVAL>
+        disable_refresh: false
       <YOUR_SECRET_CONFIG_ID_2>:
         ...
 ```
@@ -148,7 +148,8 @@ Option | Required | Type | Description
 secret_id  | Yes | String | The AWS secret name or ARN.                                                                                                                                                                                              |
 region | No | String   | The AWS region of the secret. Defaults to `us-east-1`.                                                                                                                                                                            
 sts_role_arn | No | String   | The AWS Security Token Service (AWS STS) role to assume for requests to the AWS Secrets Manager. Defaults to `null`, which will use the [standard SDK behavior for credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html). 
-refresh_interval | No | Duration | The refreshment interval for AWS secrets extension plugin to poll new secret values. Defaults to `PT1H`. See [Automatically refreshing secrets](#automatically-refreshing-secrets) for details.                             
+refresh_interval | No | Duration | The refreshment interval for the AWS Secrets extension plugin to poll new secret values. Defaults to `PT1H`. For more information, see [Automatically refreshing secrets](#automatically-refreshing-secrets).
+disable_refresh | No | Boolean | Disables regular polling on the latest secret values inside the AWS secrets extension plugin. Defaults to `false`. When set to `true`, `refresh_interval` will not be used.
 
 #### Reference secrets
 ß

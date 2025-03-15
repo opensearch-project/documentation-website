@@ -19,8 +19,9 @@ In most cases, you want to configure both authentication and authorization. You 
 
 We provide a fully functional example that can help you understand how to use an LDAP server for both authentication and authorization.
 
-1. Download and unzip [the example zip file]({{site.url}}{{site.baseurl}}/assets/examples/ldap-example.zip).
-1. At the command line, run `docker-compose up`.
+1. Download and unzip [the example zip file]({{site.url}}{{site.baseurl}}/assets/examples/ldap-example-v2.13.zip).
+1. Update the `.env` file with a strong password for `admin` user.
+1. At the command line, run `docker compose up`.
 1. Review the files:
 
    * `docker-compose.yml` defines a single OpenSearch node, an LDAP server, and a PHP administration tool for the LDAP server.
@@ -60,8 +61,21 @@ We provide a fully functional example that can help you understand how to use an
 
 To enable LDAP authentication and authorization, add the following lines to `config/opensearch-security/config.yml`:
 
+The internal user database authentication should also be enabled because OpenSearch Dashboards connects to OpenSearch using the `kibanaserver` internal user.
+{: .note}
+
 ```yml
 authc:
+  internal_auth:
+    order: 0
+    description: "HTTP basic authentication using the internal user database"
+    http_enabled: true
+    transport_enabled: true
+    http_authenticator:
+      type: basic
+      challenge: false
+    authentication_backend:
+      type: internal
   ldap:
     http_enabled: true
     transport_enabled: true
@@ -155,7 +169,7 @@ By default, the Security plugin validates the TLS certificate of the LDAP server
 
 ```
 plugins.security.ssl.transport.pemtrustedcas_filepath: ...
-plugins.security.ssl.http.truststore_filepath: ...
+plugins.security.ssl.transport.truststore_filepath: ...
 ```
 
 If your server uses a certificate signed by a different CA, import this CA into your truststore or add it to your trusted CA file on each node.
@@ -175,10 +189,12 @@ config:
 ```yml
 config:
   pemtrustedcas_content: |-
+    -----BEGIN CERTIFICATE-----
     MIID/jCCAuagAwIBAgIBATANBgkqhkiG9w0BAQUFADCBjzETMBEGCgmSJomT8ixk
     ARkWA2NvbTEXMBUGCgmSJomT8ixkARkWB2V4YW1wbGUxGTAXBgNVBAoMEEV4YW1w
     bGUgQ29tIEluYy4xITAfBgNVBAsMGEV4YW1wbGUgQ29tIEluYy4gUm9vdCBDQTEh
     ...
+    -----END CERTIFICATE-----
 ```
 
 
@@ -204,16 +220,20 @@ or
 ```yml
 config:
   pemkey_content: |-
+    -----BEGIN PRIVATE KEY-----
     MIID2jCCAsKgAwIBAgIBBTANBgkqhkiG9w0BAQUFADCBlTETMBEGCgmSJomT8ixk
     ARkWA2NvbTEXMBUGCgmSJomT8ixkARkWB2V4YW1wbGUxGTAXBgNVBAoMEEV4YW1w
     bGUgQ29tIEluYy4xJDAiBgNVBAsMG0V4YW1wbGUgQ29tIEluYy4gU2lnbmluZyBD
     ...
+    -----END PRIVATE KEY-----
   pemkey_password: private_key_password
   pemcert_content: |-
+    -----BEGIN CERTIFICATE-----
     MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCHRZwzwGlP2FvL
     oEzNeDu2XnOF+ram7rWPT6fxI+JJr3SDz1mSzixTeHq82P5A7RLdMULfQFMfQPfr
     WXgB4qfisuDSt+CPocZRfUqqhGlMG2l8LgJMr58tn0AHvauvNTeiGlyXy0ShxHbD
     ...
+    -----END CERTIFICATE-----
 ```
 
 Name | Description
@@ -509,6 +529,7 @@ Name | Description
 `resolve_nested_roles`  | Boolean. Whether or not to resolve nested roles. Default is `false`.
 `max_nested_depth`  | Integer. When `resolve_nested_roles` is `true`, this defines the maximum number of nested roles to traverse. Setting smaller values can reduce the amount of data retrieved from LDAP and improve authentication times at the cost of failing to discover deeply nested roles. Default is `30`.
 `skip_users`  | Array of users that should be skipped when retrieving roles. Wildcards and regular expressions are supported.
+`exclude_roles`  | Array of roles that should be excluded when retrieving roles. Wildcards are supported.
 `nested_role_filter`  | Array of role DNs that should be filtered before resolving nested roles. Wildcards and regular expressions are supported.
 `rolesearch_enabled`  | Boolean. Enable or disable the role search. Default is `true`.
 `custom_attr_allowlist`  | String array. Specifies the LDAP attributes that should be made available for variable substitution.

@@ -12,9 +12,9 @@ redirect_from:
 
 A task is any operation you run in a cluster. For example, searching your data collection of books for a title or author name is a task. When you run OpenSearch, a task is automatically created to monitor your cluster's health and performance. For more information about all of the tasks currently executing in your cluster, you can use the `tasks` API operation.
 
-The following request returns information about all of your tasks:
+## Endpoints
 
-```
+```json
 GET _tasks
 ```
 {% include copy-curl.html %}
@@ -28,59 +28,7 @@ GET _tasks/<task_id>
 
 Note that if a task finishes running, it won't be returned as part of your request. For an example of a task that takes a little longer to finish, you can run the [`_reindex`]({{site.url}}{{site.baseurl}}/opensearch/reindex-data) API operation on a larger document, and then run `tasks`.
 
-#### Example response
-```json
-{
-  "nodes": {
-    "Mgqdm0r9SEGClWxp_RbnaQ": {
-      "name": "opensearch-node1",
-      "transport_address": "172.18.0.3:9300",
-      "host": "172.18.0.3",
-      "ip": "172.18.0.3:9300",
-      "roles": [
-        "data",
-        "ingest",
-        "master",
-        "remote_cluster_client"
-      ],
-      "tasks": {
-        "Mgqdm0r9SEGClWxp_RbnaQ:17416": {
-          "node": "Mgqdm0r9SEGClWxp_RbnaQ",
-          "id": 17416,
-          "type": "transport",
-          "action": "cluster:monitor/tasks/lists",
-          "start_time_in_millis": 1613599752458,
-          "running_time_in_nanos": 994000,
-          "cancellable": false,
-          "headers": {}
-          }
-        },
-        "Mgqdm0r9SEGClWxp_RbnaQ:17413": {
-          "node": "Mgqdm0r9SEGClWxp_RbnaQ",
-          "id": 17413,
-          "type": "transport",
-          "action": "indices:data/write/bulk",
-          "start_time_in_millis": 1613599752286,
-          "running_time_in_nanos": 172846500,
-          "cancellable": false,
-          "parent_task_id": "Mgqdm0r9SEGClWxp_RbnaQ:17366",
-          "headers": {}
-        },
-        "Mgqdm0r9SEGClWxp_RbnaQ:17366": {
-          "node": "Mgqdm0r9SEGClWxp_RbnaQ",
-          "id": 17366,
-          "type": "transport",
-          "action": "indices:data/write/reindex",
-          "start_time_in_millis": 1613599750929,
-          "running_time_in_nanos": 1529733100,
-          "cancellable": true,
-          "headers": {}
-        }
-      }
-    }
-  }
-}
-```
+## Query parameters
 
 You can also use the following parameters with your query.
 
@@ -95,16 +43,30 @@ Parameter | Data type | Description |
 `timeout` | Time | An explicit operation timeout. (Default: 30 seconds)
 `cluster_manager_timeout` | Time | The time to wait for a connection to the primary node. (Default: 30 seconds)
 
-For example, this request returns tasks currently running on a node named `opensearch-node1`:
 
-#### Example request
+## Example requests
+
+### Return information about running tasks
+
+The following request returns tasks currently running on a node named `opensearch-node1`:
 
 ```json
 GET /_tasks?nodes=opensearch-node1
 ```
 {% include copy-curl.html %}
 
-#### Example response
+### Return information about active search tasks
+
+The following request returns detailed information about active search tasks:
+
+```bash
+curl -XGET "localhost:9200/_tasks?actions=*search&detailed
+```
+{% include copy.html %}
+
+## Example response
+
+The following example response shows information about running tasks:
 
 ```json
 {
@@ -148,76 +110,6 @@ GET /_tasks?nodes=opensearch-node1
 }
 ```
 
-The following request returns detailed information about active search tasks:
-
-#### Example request
-
-```bash
-curl -XGET "localhost:9200/_tasks?actions=*search&detailed
-```
-{% include copy.html %}
-
-#### Example response
-
-```json
-{
-  "nodes" : {
-    "CRqNwnEeRXOjeTSYYktw-A" : {
-      "name" : "runTask-0",
-      "transport_address" : "127.0.0.1:9300",
-      "host" : "127.0.0.1",
-      "ip" : "127.0.0.1:9300",
-      "roles" : [
-        "cluster_manager",
-        "data",
-        "ingest",
-        "remote_cluster_client"
-      ],
-      "attributes" : {
-        "testattr" : "test",
-        "shard_indexing_pressure_enabled" : "true"
-      },
-      "tasks" : {
-        "CRqNwnEeRXOjeTSYYktw-A:677" : {
-          "node" : "CRqNwnEeRXOjeTSYYktw-A",
-          "id" : 677,
-          "type" : "transport",
-          "action" : "indices:data/read/search",
-          "description" : "indices[], search_type[QUERY_THEN_FETCH], source[{\"query\":{\"query_string\":<QUERY_STRING>}}]",
-          "start_time_in_millis" : 1660106254525,
-          "running_time_in_nanos" : 1354236,
-          "cancellable" : true,
-          "cancelled" : false,
-          "headers" : { },
-          "resource_stats" : {
-            "average" : {
-              "cpu_time_in_nanos" : 0,
-              "memory_in_bytes" : 0
-            },
-            "total" : {
-              "cpu_time_in_nanos" : 0,
-              "memory_in_bytes" : 0
-            },
-            "min" : {
-              "cpu_time_in_nanos" : 0,
-              "memory_in_bytes" : 0
-            },
-            "max" : {
-              "cpu_time_in_nanos" : 0,
-              "memory_in_bytes" : 0
-            },
-            "thread_info" : {
-              "thread_executions" : 0,
-              "active_threads" : 0
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-```
 
 ### The `resource_stats` object
 

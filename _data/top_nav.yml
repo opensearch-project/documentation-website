@@ -1,133 +1,82 @@
 items:
-  -
-    label: OpenSearchCon
-    fragments: 
-      - opensearchcon
-      - sessions
-      - speakers
-      - exhibitors
-      - workshops
-      - unconference
-      - opensearchcon2023-cfp
+  - label: OpenSearchCon
     children:
-      -
-        label: 2024 - Stay Informed
-        url: /events/opensearchcon/
-      -
-        label: Sessions
-        url: /events/opensearchcon/sessions/
-      -
-        label: Speakers
-        url: /events/opensearchcon/speakers/
-      -
-        label: Exhibitors
-        url: /events/opensearchcon/exhibitors/
-      -
-        label: Workshops
-        url: /events/opensearchcon/workshops/
-      -
-        label: Unconference
-        url: /events/opensearchcon/unconference/
-      -
-        label: CFP is closed
-        url: /opensearchcon2023-cfp.html
-  -
-    label: Download
-    fragments:
-      - downloads
-      - versions
+      - label: 2024 Europe
+        url: /events/opensearchcon/2024/europe/index.html
+      - label: 2024 North America
+        url: /events/opensearchcon/2024/north-america/index.html
+      #        children:
+      #          - label: Speakers
+      #            url: /events/opensearchcon/2024/north-america/speakers/index.html
+      #          - label: Sessions
+      #            url: /events/opensearchcon/2024/north-america/sessions/index.html
+      #          - label: Exhibitors
+      #            url: /events/opensearchcon/2024/north-america/exhibitors/index.html
+      #          - label: Workshops
+      #            url: /events/opensearchcon/2024/north-america/workshops/index.html
+      #          - label: Unconference
+      #            url: /events/opensearchcon/2024/north-america/unconference/index.html
+      - label: 2024 India
+        url: /events/opensearchcon/2024/india/index.html
+      - label: Archive
+        children:
+          - label: 2023 North America
+            url: /events/opensearchcon/2023/north-america/index.html
+          - label: 2022 North America
+            url: /events/opensearchcon/2022/north-america/index.html
+  - label: Download
     url: /downloads.html
-  -
-    label: About
+  - label: About
     url: /about.html
-    fragments:
-      - about
-      - releases
-      - roadmap
-      - faq
     children:
-      -
-       label: Releases
-       url: /releases.html
-      -
-       label: Roadmap
-       url: https://github.com/orgs/opensearch-project/projects/1
-      -
-       label: FAQ
-       url: /faq
-  -
-    label: Community
-    fragments:
-      - events
-      - community_projects
-      - blog
-      - partners
-      - slack
+      - label: Releases
+        url: /releases.html
+      - label: Roadmap
+        url: https://github.com/orgs/opensearch-project/projects/1
+      - label: FAQ
+        url: /faq/
+  - label: Community
     children:
-      -
-        label: Blog
-        url: /blog
-      -
-        label: Forum
+      - label: Blog
+        url: /blog/
+      - label: Forum
         url: https://forum.opensearch.org/
-      -
-        label: Slack
+      - label: Slack
         url: /slack.html
-      -
-        label: Events
+      - label: Events
         url: /events
-      -
-        label: Partners
-        url: /partners
-      -
-        label: Projects
-        url: /community_projects
-  -
-    label: Documentation
-    fragments: 
-    - docs
-    - opensearch
-    - data-prepper
-    - clients
-    - benchmark
+        class_name: events-page-menu-link__device-based
+      - label: Partners
+        url: /partners/
+      - label: Projects
+        url: /community_projects/
+      - label: Members
+        url: /community/members/index.html
+  - label: Documentation
     url: /docs/latest/
     children:
-      -
-        label: OpenSearch and Dashboards
+      - label: OpenSearch and Dashboards
         url: /docs/latest/about/
-      -
-        label: Data Prepper
+      - label: Data Prepper
         url: /docs/latest/data-prepper/
-      -
-        label: Clients
+      - label: Clients
         url: /docs/latest/clients/
-      -
-        label: Benchmark
+      - label: Benchmark
         url: /docs/latest/benchmark/
-  -
-    label: Platform
+      - label: Migration Assistant
+        url: /docs/latest/migration-assistant/
+  - label: Platform
     url: /platform/index.html
-    fragments: 
-      - platform
-      - search
-      - observability
-      - security-analytics
-      - vector-database
-      - benchmarks
     children:
       - label: Search
         url: /platform/search/index.html
       - label: Observability
         url: /platform/observability/index.html
-      -
-        label: Security Analytics
+      - label: Security Analytics
         url: /platform/security-analytics/index.html
-      -
-        label: Vector Database
+      - label: Vector Database
         url: /platform/search/vector-database.html
-      -
-        label: Playground Demo
+      - label: Playground Demo
         url: https://playground.opensearch.org/
-      -
-        label: Performance Benchmarks
-        url: /benchmarks
+      - label: Performance Benchmarks
+        url: /benchmarks/

@@ -108,6 +108,7 @@ ISM supports the following operations:
 - [rollover](#rollover)
 - [notification](#notification)
 - [snapshot](#snapshot)
+- [convert-index-to-remote](#convert_index_to_remote)
 - [index_priority](#index_priority)
 - [allocation](#allocation)
 - [rollup](#rollup)
@@ -406,6 +407,33 @@ Parameter | Description | Type | Required | Default
 }
 ```
 
+### convert_index_to_remote
+
+Converts an index from a local snapshot repository to a remote repository.
+
+The `convert_index_to_remote` operation has the following parameters.
+
+Parameter | Description | Type | Required | Default
+:--- | :--- |:--- |:--- |
+`repository` | The repository name registered through the native snapshot API operations.  | `string` | Yes | N/A
+`snapshot` | The snapshot name created through the snapshot action.  | `string` | Yes | N/A
+
+Make sure that the repository name used in the `convert_index_to_remote` operation matches the repository name specified during the snapshot action. Additionally, you can reference the snapshot using `{{ctx.index}}`, as shown in the following example policy:
+
+```json
+{
+   "snapshot": {
+      "repository": "my_backup",
+      "snapshot": "{{ctx.index}}"
+   }, 
+   "convert_index_to_remote": {
+      "repository": "my_backup",
+      "snapshot": "{{ctx.index}}"
+   }
+}
+```
+{% include copy.html %}
+
 ### index_priority
 
 Set the priority for the index in a specific state. Unallocated shards of indexes are recovered in the order of their priority, whenever possible. The indexes with higher priority values are recovered first followed by the indexes with lower priority values.
@@ -457,7 +485,7 @@ Parameter | Description | Type | Required
 Rollup jobs can be continuous or non-continuous. A rollup job created using an ISM policy can only be non-continuous.
 {: .note }
 
-#### Path and HTTP methods
+#### Endpoints
 
 ````bash
 PUT _plugins/_rollup/jobs/<rollup_id>
@@ -484,6 +512,11 @@ GET _plugins/_rollup/jobs/<rollup_id>/_explain
                             "ism_rollup": {
                                 "description": "Creating rollup through ISM",
                                 "target_index": "target",
+                                "target_index_settings":{
+                                    "index.number_of_shards": 1,
+                                    "index.number_of_replicas": 1,
+                                    "index.codec": "best_compression"
+                                 },
                                 "page_size": 1000,
                                 "dimensions": [
                                     {
@@ -539,7 +572,7 @@ GET _plugins/_rollup/jobs/<rollup_id>/_explain
 }
 ````
 
-#### Request fields
+#### Request body fields
 
 Request fields are required when creating an ISM policy. You can reference the [Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/rollup-api/#create-or-update-an-index-rollup-job) page for request field options.
 

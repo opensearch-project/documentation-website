@@ -9,9 +9,9 @@ redirect_from:
 
 # Upgrading OpenSearch
 
-The OpenSearch Project releases regular updates that include new features, enhancements, and bug fixes. OpenSearch uses [Semantic Versioning](https://semver.org/), which means that breaking changes are only introduced between major version releases. To learn about upcoming features and fixes, review the [OpenSearch Project Roadmap](https://github.com/orgs/opensearch-project/projects/1) on GitHub. To view a list of previous releases or to learn more about how OpenSearch uses versioning, see [Release Schedule and Maintenance Policy]({{site.url}}/releases.html).
+The OpenSearch Project releases regular updates that include new features, enhancements, and bug fixes. OpenSearch uses [Semantic Versioning](https://semver.org/), which means that breaking changes are only introduced between major version releases. To learn about upcoming features and fixes, review the [OpenSearch Project Roadmap](https://github.com/orgs/opensearch-project/projects/206) on GitHub. To view a list of previous releases or to learn more about how OpenSearch uses versioning, see [Release Schedule and Maintenance Policy]({{site.url}}/releases.html).
 
-We recognize that users are excited about upgrading OpenSearch in order to enjoy the latest features, and we will continue to expand on these upgrade and migration documents to cover additional topics, such as upgrading OpenSearch Dashboards and preserving custom configurations, such as for plugins. To see what's coming next or to make a request for future content, leave a comment on the [upgrade and migration documentation meta issue](https://github.com/opensearch-project/documentation-website/issues/2830) in the [OpenSearch Project](https://github.com/opensearch-project) on GitHub.
+We recognize that users are excited about upgrading OpenSearch in order to enjoy the latest features, and we will continue to expand on these upgrade and migration documents to cover additional topics, such as upgrading OpenSearch Dashboards and preserving custom configurations, such as for plugins.
 
 If you would like a specific process to be added or would like to contribute, [create an issue](https://github.com/opensearch-project/documentation-website/issues) on GitHub. See the [Contributor Guidelines](https://github.com/opensearch-project/documentation-website/blob/main/CONTRIBUTING.md) to learn how you can help.
 {: .tip}
@@ -136,6 +136,31 @@ td {
         <th>Lucene Version</th>
         <th>OpenSearch Version</th>
         <th>Elasticsearch Version</th>
+    </tr>
+    <tr>
+        <td>9.10.0</td>
+        <td>2.14.0<br>2.13.0</td>
+        <td>8.13</td>
+    </tr>
+    <tr>
+        <td>9.9.2</td>
+        <td>2.12.0</td>
+        <td>&#8212;</td>
+    </tr>
+    <tr>
+        <td>9.7.0</td>
+        <td>2.11.1<br>2.9.0</td>
+        <td>8.9.0</td>
+    </tr>
+    <tr>
+        <td>9.6.0</td>
+        <td>2.8.0</td>
+        <td>8.8.0</td>
+    </tr>
+    <tr>
+        <td>9.5.0</td>
+        <td>2.7.0<br>2.6.0</td>
+        <td>8.7.0</td>
     </tr>
     <tr>
         <td>9.4.2</td>

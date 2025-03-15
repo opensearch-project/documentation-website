@@ -5,8 +5,10 @@ has_children: true
 has_toc: false
 nav_order: 40
 redirect_from: 
+  - /opensearch/query-dsl/compound/index/
   - /query-dsl/compound/index/
   - /query-dsl/query-dsl/compound/
+  - /query-dsl/compound/
 ---
 
 # Compound queries

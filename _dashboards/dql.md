@@ -20,7 +20,7 @@ DQL and query string query (Lucene) language are the two search bar language opt
 
 To follow this tutorial in OpenSearch Dashboards, expand the following setup steps.
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Setup
   </summary>

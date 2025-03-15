@@ -1,13 +1,20 @@
 Active Directory
 Adoptium
+AI21 Labs Jurassic
 Amazon
 Amazon OpenSearch Serverless
 Amazon OpenSearch Service
 Amazon Bedrock
 Amazon SageMaker
+AWS Secrets Manager
 Ansible
+Anthropic Claude
 Auditbeat
 AWS Cloud
+Cohere Command
+Cohere Embed
+Cohere Embed English
+Cohere Embed Multilingual
 Cognito
 Dashboards Query Language
 Data Prepper
@@ -45,6 +52,7 @@ Kerberos
 Kibana
 Kubernetes
 Lambda
+Langflow
 Linux
 Log4j
 Logstash
@@ -59,8 +67,11 @@ Open Distro
 OpenAI
 OpenID Connect
 OpenSearch
+OpenSearch Assistant
+OpenSearch Assistant Toolkit
 OpenSearch Benchmark
 OpenSearch Dashboards
+OpenSearch Flow
 OpenSearch Playground
 OpenSearch Project
 OpenSearch Service
@@ -73,19 +84,25 @@ Painless
 Peer Forwarder
 Performance Analyzer
 Piped Processing Language
-Point in Time
 Powershell
 Python
 PyTorch
 Querqy
 Query Workbench
+RankLib
 RCF Summarize
 RPM Package Manager
 Ruby
 Simple Schema for Observability
 Tableau
+Textract
+Titan
+Titan Multimodal Embeddings
+Titan Text Embeddings
 TorchScript
 Tribuo
 VisBuilder
 Winlogbeat
+XGBoost
+Zipf
 Zstandard

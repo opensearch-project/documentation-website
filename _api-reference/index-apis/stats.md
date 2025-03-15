@@ -14,10 +14,11 @@ The Index Stats API provides index statistics. For data streams, the API provide
 When a shard moves to a different node, the shard-level statistics for the shard are cleared. Although the shard is no longer part of the node, the node preserves any node-level statistics to which the shard contributed.
 {: .note}
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /_stats
+GET /_stats/<metric>
 GET /<index_ids>/_stats
 GET /<index_ids>/_stats/<metric>
 ```
@@ -70,18 +71,69 @@ Parameter | Data type | Description
 `include_segment_file_sizes` | Boolean | Specifies whether to report the aggregated disk usage of each Lucene index file. Only applies to `segments` statistics. Default is `false`.
 `include_unloaded_segments` | Boolean | Specifies whether to include information from segments that are not loaded into memory. Default is `false`.
 
-#### Example request: One index
+## Example requests
+
+The following example requests show how to use the Index Stats API.
+
+### One index
+
+The following example returns index stats for a single index:
 
 ```json
 GET /testindex/_stats
 ```
 {% include copy-curl.html %}
 
-#### Example response
+### Comma-separated list of indexes
+
+The following example returns stats for multiple indexes:
+
+```json
+GET /testindex1,testindex2/_stats
+```
+{% include copy-curl.html %}
+
+### Wildcard expression
+
+The following example returns starts about any index that starts with `testindex`:
+
+```json
+GET /testindex*/_stats
+```
+{% include copy-curl.html %}
+
+### Specific stats
+
+The following example returns index stats related to the index and flush operations:
+
+```json
+GET /testindex/_stats/refresh,flush
+```
+{% include copy-curl.html %}
+
+### Expand wildcards
+
+The following example expands all wildcards related to index stats:
+
+```json
+GET /testindex*/_stats?expand_wildcards=open,hidden
+```
+{% include copy-curl.html %}
+
+### Shard-level statistics
+
+The following example returns shard level stats about a test index:
+
+```json
+GET /testindex/_stats?level=shards
+```
+{% include copy-curl.html %}
+
+## Example response
 
 By default, the returned statistics are aggregated in the `primaries` and `total` aggregations. The `primaries` aggregation contains statistics for the primary shards. The `total` aggregation contains statistics for both primary and replica shards. The following is an example Index Stats API response: 
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>
@@ -773,50 +825,6 @@ By default, the returned statistics are aggregated in the `primaries` and `total
 ```
 </details>
 
-#### Example request: Comma-separated list of indexes
+## Response body fields
 
-```json
-GET /testindex1,testindex2/_stats
-```
-{% include copy-curl.html %}
-
-#### Example request: Wildcard expression
-
-```json
-GET /testindex*/_stats
-```
-{% include copy-curl.html %}
-
-#### Example request: Specific stats
-
-```json
-GET /testindex/_stats/refresh,flush
-```
-{% include copy-curl.html %}
-
-#### Example request: Expand wildcards
-
-```json
-GET /testindex*/_stats?expand_wildcards=open,hidden
-```
-{% include copy-curl.html %}
-
-#### Example request: Shard-level statistics
-
-```json
-GET /testindex/_stats?level=shards
-```
-{% include copy-curl.html %}
-
-## Concurrent segment search
-
-Starting in OpenSearch 2.10, [concurrent segment search]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search/) allows each shard-level request to search segments in parallel during the query phase. If you [enable the experimental concurrent segment search feature flag]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search#enabling-the-feature-flag), the Index Stats API response will contain several additional fields with statistics about slices (units of work executed by a thread). These fields will be provided whether or not the cluster and index settings for concurrent segment search are enabled. For more information about slices, see [Concurrent segment search]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search#searching-segments-concurrently).
-
-The following table provides information about the added response fields.
-
-|Response field	| Description	|
-|:---	|:---	| 
-|`search.concurrent_avg_slice_count`	|The average slice count of all search requests. This is computed as the total slice count divided by the total number of concurrent search requests.	|
-|`search.concurrent_query_total`	|The total number of query operations that use concurrent segment search.	|
-|`search.concurrent_query_time_in_millis`	|The total amount of time taken by all query operations that use concurrent segment search, in milliseconds.	|
-|`search.concurrent_query_current`	|The number of currently running query operations that use concurrent segment search.	|
+For information about response fields, see [Nodes Stats API response fields]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/#indices).

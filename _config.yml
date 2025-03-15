@@ -5,10 +5,10 @@ baseurl: "/docs/latest" # the subpath of your site, e.g. /blog
 url: "https://opensearch.org" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: /:path/
 
-opensearch_version: '2.11.1'
-opensearch_dashboards_version: '2.11.1'
-opensearch_major_minor_version: '2.11'
-lucene_version: '9_7_0'
+opensearch_version: '2.19.1'
+opensearch_dashboards_version: '2.19.1'
+opensearch_major_minor_version: '2.19'
+lucene_version: '9_12_0'
 
 # Build settings
 markdown: kramdown
@@ -29,9 +29,6 @@ color_scheme: opensearch
 collections:
   # Define a collection named "tests", its documents reside in the "_tests" directory
   install-and-configure:
-    permalink: /:collection/:path/
-    output: true
-  upgrade-to:
     permalink: /:collection/:path/
     output: true
   im-plugin:
@@ -57,7 +54,7 @@ collections:
     output: true
   search-plugins:
     permalink: /:collection/:path/
-    output: true  
+    output: true
   ml-commons-plugin:
     permalink: /:collection/:path/
     output: true  
@@ -94,6 +91,9 @@ collections:
   data-prepper: 
     permalink: /:collection/:path/
     output: true
+  migration-assistant:
+    permalink: /:collection/:path/
+    output: true
   tools:
     permalink: /:collection/:path/
     output: true
@@ -112,6 +112,24 @@ collections:
   about:
     permalink: /:collection/:path/
     output: true
+  automating-configurations:
+    permalink: /:collection/:path/
+    output: true
+  dashboards-assistant:
+    permalink: /:collection/:path/
+    output: true
+  getting-started:
+    permalink: /:collection/:path/
+    output: true
+  workspace:
+    permalink: /:collection/:path/
+    output: true
+  vector-search:
+    permalink: /:collection/:path/
+    output: true
+  tutorials:
+    permalink: /:collection/:path/
+    output: true
 
 opensearch_collection:
   # Define the collections used in the theme
@@ -119,14 +137,15 @@ opensearch_collection:
     about:
       name: About OpenSearch
       nav_fold: true
+    getting-started:
+      name: Getting started
+      nav_fold: true
+    tutorials:
+      name: Tutorials
+      nav_fold: true
     install-and-configure:
       name: Install and upgrade
       nav_fold: true
-    upgrade-to:
-      name: Migrate to OpenSearch
-      # nav_exclude: true
-      nav_fold: true
-      # search_exclude: true
     im-plugin:
       name: Managing Indexes
       nav_fold: true
@@ -161,10 +180,16 @@ opensearch_collection:
       name: Aggregations
       nav_fold: true
     search-plugins:
-      name: Search 
+      name: Search features
+      nav_fold: true
+    vector-search:
+      name: Vector search 
       nav_fold: true
     ml-commons-plugin:
       name: Machine learning
+      nav_fold: true
+    automating-configurations:
+      name: Automating configurations
       nav_fold: true
     monitoring-your-cluster:
       name: Monitoring your cluster
@@ -187,11 +212,18 @@ opensearch_collection:
     developer-documentation:
       name: Developer documentation
       nav_fold: true
+    
 
 clients_collection:
   collections:
     clients:
         name: Clients
+        nav_fold: true
+
+migration_assistant_collection:
+  collections:
+    migration-assistant:
+        name: Migration Assistant
         nav_fold: true
 
 benchmark_collection:
@@ -203,7 +235,7 @@ benchmark_collection:
 data_prepper_collection:
   collections:
     data-prepper: 
-      name: Data Prepper
+      name: OpenSearch Data Prepper
       nav_fold: true
 
 # Defaults
@@ -220,7 +252,7 @@ defaults:
       path: "_data-prepper"
     values:
       section: "data-prepper"
-      section-name: "Data Prepper"
+      section-name: "OpenSearch Data Prepper"
   -
     scope:
       path: "_clients"
@@ -233,6 +265,12 @@ defaults:
     values:
       section: "benchmark"
       section-name: "Benchmark"
+  -
+    scope:
+      path: "_migration-assistant"
+    values:
+      section: "migration-assistant"
+      section-name: "Migration Assistant"
 
 # Enable or disable the site search
 # By default, just-the-docs enables its JSON file-based search. We also have an OpenSearch-driven search functionality.
@@ -292,6 +330,7 @@ plugins:
   - jekyll-remote-theme
   - jekyll-redirect-from
   - jekyll-sitemap
+  - jekyll-spec-insert
 
 # This format has to conform to RFC822
 last-modified-at:
@@ -301,6 +340,8 @@ last-modified-at:
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
 exclude:
+  - README.md
+  - DEVELOPER_GUIDE.md
   - Gemfile
   - Gemfile.lock
   - node_modules
@@ -308,6 +349,12 @@ exclude:
   - vendor/cache/
   - vendor/gems/
   - vendor/ruby/
-  - README.md
-  - .idea
-  - templates
+  - templates/
+  - .sass-cache/
+  - .jekyll-cache/
+  - .idea/
+  - .github/
+  - .bundle/
+  - _site/
+  - spec-insert
+  - release-notes

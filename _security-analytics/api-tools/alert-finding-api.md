@@ -71,7 +71,7 @@ GET /_plugins/_security_analytics/alerts?detectorType=windows
 }
 ```
 
-#### Response fields
+#### Response body fields
 
 Alerts persist until you resolve the root cause and have the following states:
 
@@ -92,7 +92,7 @@ Sends an acknowledgement when an alert is triggered.
 ### Example request
 
 ```json
-POST /_plugins/_security_analytics/<detector_id>/_acknowledge/alerts
+POST /_plugins/_security_analytics/detectors/<detector_id>/_acknowledge/alerts
 
 {"alerts":["4dc7f5a9-2c82-4786-81ca-433a209d5205"]}
 ```
@@ -149,12 +149,229 @@ You can specify the following parameters when getting findings.
 
 Parameter | Description 
 :--- | :---
-`detector_id` | The ID of the detector used to fetch alerts. Optional when the `detectorType` is specified. Otherwise required.
-`detectorType` | The type of detector used to fetch alerts. Optional when the `detector_id` is specified. Otherwise required.
+`detector_id` | The ID of the detector used to fetch alerts. Optional.
+`detectorType` | The type of detector used to fetch alerts. Optional.
 `sortOrder` | The order used to sort the list of findings. Possible values are `asc` or `desc`. Optional.
 `size` | An optional limit for the maximum number of results returned in the response. Optional.
+`startIndex` | The pagination indicator. Optional.
+`detectionType` |  The detection rule type that dictates the retrieval type for the findings. When the detection type is `threat`, it fetches threat intelligence feeds. When the detection type is `rule`, findings are fetched based on the detector's rule. Optional.
+`severity` |  The severity of the detector rule used to fetch alerts. Severity can be `critical`, `high`, `medium`, or `low`. Optional.
 
 ### Example request
+
+```json
+GET /_plugins/_security_analytics/findings/_search
+{
+  "total_findings": 2,
+  "findings": [
+    {
+      "detectorId": "b9ZN040Bjlggkcgx1d1W",
+      "id": "35efb736-c5d9-499d-b9b5-31f0a7d61251",
+      "related_doc_ids": [
+        "1"
+      ],
+      "index": "smallidx",
+      "queries": [
+        {
+          "id": "QdZN040Bjlggkcgxdd3X",
+          "name": "QdZN040Bjlggkcgxdd3X",
+          "fields": [],
+          "query": "field1: *value1*",
+          "tags": [
+            "high",
+            "ad_ldap"
+          ]
+        }
+      ],
+      "timestamp": 1708647166500,
+      "document_list": [
+        {
+          "index": "smallidx",
+          "id": "1",
+          "found": true,
+          "document": "{\n  \"field1\": \"value1\"\n}\n"
+        }
+      ]
+    },
+    {
+      "detectorId": "O9ZM040Bjlggkcgx6N1S",
+      "id": "a5022930-4503-4ca8-bf0a-320a2b1fb433",
+      "related_doc_ids": [
+        "1"
+      ],
+      "index": "smallidx",
+      "queries": [
+        {
+          "id": "KtZM040Bjlggkcgxkd04",
+          "name": "KtZM040Bjlggkcgxkd04",
+          "fields": [],
+          "query": "field1: *value1*",
+          "tags": [
+            "critical",
+            "ad_ldap"
+          ]
+        }
+      ],
+      "timestamp": 1708647166500,
+      "document_list": [
+        {
+          "index": "smallidx",
+          "id": "1",
+          "found": true,
+          "document": "{\n  \"field1\": \"value1\"\n}\n"
+        }
+      ]
+    }
+  ]
+}
+
+```
+
+```json
+GET /_plugins/_security_analytics/findings/_search?severity=high
+{
+    "total_findings": 1,
+    "findings": [
+        {
+            "detectorId": "b9ZN040Bjlggkcgx1d1W",
+            "id": "35efb736-c5d9-499d-b9b5-31f0a7d61251",
+            "related_doc_ids": [
+                "1"
+            ],
+            "index": "smallidx",
+            "queries": [
+                {
+                    "id": "QdZN040Bjlggkcgxdd3X",
+                    "name": "QdZN040Bjlggkcgxdd3X",
+                    "fields": [],
+                    "query": "field1: *value1*",
+                    "tags": [
+                        "high",
+                        "ad_ldap"
+                    ]
+                }
+            ],
+            "timestamp": 1708647166500,
+            "document_list": [
+                {
+                    "index": "smallidx",
+                    "id": "1",
+                    "found": true,
+                    "document": "{\n  \"field1\": \"value1\"\n}\n"
+                }
+            ]
+        }
+    ]
+}
+        
+```
+
+```json
+GET /_plugins/_security_analytics/findings/_search?detectionType=rule
+{
+    "total_findings": 2,
+    "findings": [
+        {
+            "detectorId": "b9ZN040Bjlggkcgx1d1W",
+            "id": "35efb736-c5d9-499d-b9b5-31f0a7d61251",
+            "related_doc_ids": [
+                "1"
+            ],
+            "index": "smallidx",
+            "queries": [
+                {
+                    "id": "QdZN040Bjlggkcgxdd3X",
+                    "name": "QdZN040Bjlggkcgxdd3X",
+                    "fields": [],
+                    "query": "field1: *value1*",
+                    "tags": [
+                        "high",
+                        "ad_ldap"
+                    ]
+                }
+            ],
+            "timestamp": 1708647166500,
+            "document_list": [
+                {
+                    "index": "smallidx",
+                    "id": "1",
+                    "found": true,
+                    "document": "{\n  \"field1\": \"value1\"\n}\n"
+                }
+            ]
+        },
+        {
+            "detectorId": "O9ZM040Bjlggkcgx6N1S",
+            "id": "a5022930-4503-4ca8-bf0a-320a2b1fb433",
+            "related_doc_ids": [
+                "1"
+            ],
+            "index": "smallidx",
+            "queries": [
+                {
+                    "id": "KtZM040Bjlggkcgxkd04",
+                    "name": "KtZM040Bjlggkcgxkd04",
+                    "fields": [],
+                    "query": "field1: *value1*",
+                    "tags": [
+                        "critical",
+                        "ad_ldap"
+                    ]
+                }
+            ],
+            "timestamp": 1708647166500,
+            "document_list": [
+                {
+                    "index": "smallidx",
+                    "id": "1",
+                    "found": true,
+                    "document": "{\n  \"field1\": \"value1\"\n}\n"
+                }
+            ]
+        }
+    ]
+}
+
+
+```
+```json
+GET /_plugins/_security_analytics/findings/_search?detectionType=rule&severity=high
+{
+    "total_findings": 1,
+    "findings": [
+        {
+            "detectorId": "b9ZN040Bjlggkcgx1d1W",
+            "id": "35efb736-c5d9-499d-b9b5-31f0a7d61251",
+            "related_doc_ids": [
+                "1"
+            ],
+            "index": "smallidx",
+            "queries": [
+                {
+                    "id": "QdZN040Bjlggkcgxdd3X",
+                    "name": "QdZN040Bjlggkcgxdd3X",
+                    "fields": [],
+                    "query": "field1: *value1*",
+                    "tags": [
+                        "high",
+                        "ad_ldap"
+                    ]
+                }
+            ],
+            "timestamp": 1708647166500,
+            "document_list": [
+                {
+                    "index": "smallidx",
+                    "id": "1",
+                    "found": true,
+                    "document": "{\n  \"field1\": \"value1\"\n}\n"
+                }
+            ]
+        }
+    ]
+}
+        
+```
 
 ```json
 GET /_plugins/_security_analytics/findings/_search?*detectorType*=

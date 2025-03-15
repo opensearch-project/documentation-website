@@ -3,7 +3,6 @@ layout: default
 title: Intervals
 nav_order: 80
 parent: Full-text queries
-grand_parent: Query DSL
 ---
 
 # Intervals query
@@ -73,7 +72,7 @@ GET /testindex/_search
 
 The query returns both documents:
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>
@@ -262,7 +261,7 @@ POST /testindex/_search
 
 The response contains only document 2:
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>
@@ -332,7 +331,7 @@ POST /testindex/_search
 
 The response contains document 2:
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>

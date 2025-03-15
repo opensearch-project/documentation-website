@@ -67,7 +67,7 @@ You can use the following [cluster settings]({{site.url}}{{site.baseurl}}//api-r
 | cluster.default.index.refresh_interval | Time unit | Sets the refresh interval when the `index.refresh_interval` setting is not provided. This setting can be useful when you want to set a default refresh interval across all indexes in a cluster and also support the `searchIdle` setting. You cannot set the interval lower than the `cluster.minimum.index.refresh_interval` setting. |
 | cluster.minimum.index.refresh_interval | Time unit | Sets the minimum refresh interval and applies it to all indexes in the cluster. The `cluster.default.index.refresh_interval` setting should be higher than this setting's value. If, during index creation, the `index.refresh_interval` setting is lower than the minimum, index creation fails. |
 | cluster.remote_store.translog.buffer_interval | Time unit | The default value of the translog buffer interval used when performing periodic translog updates. This setting is only effective when the index setting `index.remote_store.translog.buffer_interval` is not present. |
-
+| cluster.remote_store.translog.max_readers | Integer | Sets the maximum number of open translog files for remote-backed indexes. This limits the total number of translog files per shard. After reaching this limit, the remote store flushes the translog files. Default is `1000`. The minimum required is `100`. |
 
 ## Restoring from a backup
 
@@ -105,7 +105,7 @@ You can use remote-backed storage to:
 
 ## Benchmarks
 
-The OpenSearch Project has run remote store using multiple workload options available within the [OpenSearch Benchmark](https://opensearch.org/docs/latest/benchmark/index/) tool. This section summarizes the benchmark results for the following workloads: 
+The OpenSearch Project has run remote store using multiple workload options available within the [OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/index/) tool. This section summarizes the benchmark results for the following workloads: 
 
 - [StackOverflow](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/so)
 - [HTTP logs](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/http_logs)

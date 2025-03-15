@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Distrbuted tracing 
+title: Distributed tracing 
 parent: Trace Analytics
 nav_order: 65
 ---
@@ -124,7 +124,16 @@ testClusters {
 
 ### Enable distributed tracing
 
-Once you've enabled the feature flag, you can enable the tracer (which is disabled by default) by using the following dynamic setting that enables tracing in the running cluster:
+Once you've enabled the feature flag, do the following:
+
+1. Enable the tracing framework feature by adding the following setting in the `opensearch.yaml` file:
+
+```bash
+telemetry.feature.tracer.enabled=true
+```
+{% include copy.html %}
+
+2. Enable the tracer in the running cluster by adding the following dynamic setting:
 
 ```bash
 telemetry.tracer.enabled=true
@@ -145,8 +154,7 @@ Currently, the distributed tracing feature generates traces and spans for HTTP r
     - `telemetry.otel.tracer.exporter.batch_size`: Configures the maximum batch size for each export to reduce input/output. This value should always be less than the `max_queue_size`. Default is `512`.
 2. **Exporters:** Exporters are responsible for persisting the data. OpenTelemetry provides several out-of-the-box exporters, and OpenSearch supports the following:
     - `LoggingSpanExporter`: Exports spans to a log file, generating a separate file in the logs directory `_otel_traces.log`. Default is `telemetry.otel.tracer.span.exporter.class=io.opentelemetry.exporter.logging.LoggingSpanExporter`.
-    - `OtlpGrpcSpanExporter`: Exports spans through gRPC. To use this exporter, you need to install the `otel-collector` on the node. By default, it writes to the http://localhost:4317/ endpoint. To use this exporter, set the following static setting: `telemetry.otel.tracer.span.exporter.class=org.opensearch.telemetry.tracing.exporter.OtlpGrpcSpanExporterProvider`.
-    - `LoggingSpanExporter`: Exports spans to a log file, generating a separate file in the logs directory `_otel_traces.log`. Default is `telemetry.otel.tracer.span.exporter.class=io.opentelemetry.exporter.logging.LoggingSpanExporter`.
+    - `OtlpGrpcSpanExporter`: Exports spans through gRPC. To use this exporter, you need to install the `otel-collector` on the node. By default, it writes to the http://localhost:4317/ endpoint. To use this exporter, set the following static setting: `telemetry.otel.tracer.span.exporter.class=io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter`.
 
 ### Sampling
 

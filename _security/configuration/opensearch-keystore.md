@@ -9,6 +9,9 @@ nav_order: 50
 
 `opensearch-keystore` is a utility script used to manage an OpenSearch keystore. An OpenSearch keystore provides a secure method of storing sensitive information, such as passwords and keys, used in an OpenSearch cluster. The script allows you to securely create, list, add, and remove settings. It is included in the OpenSearch distribution. 
 
+This keystore is separate from the keystore and truststore used to store TLS certificates in JKS or PKCS12/PFX format in order to secure the transport and HTTP layers. For information about those keystores, refer to [Keystore and truststore files]({{site.url}}{{site.baseurl}}/security/configuration/tls/#keystore-and-truststore-files).
+{: .note} 
+
 ## Usage
 
 In order to use the `opensearch-keystore` script, you must have access to the file system containing the OpenSearch installation and the ability to execute OpenSearch scripts.
@@ -48,7 +51,7 @@ The following examples provide the basic syntax for common `opensearch-keystore`
 
 ### Creating a new keystore
 
-**Command**
+The following command creates a new keystore:
 
 ```bash
 ./bin/opensearch-keystore create
@@ -56,8 +59,6 @@ The following examples provide the basic syntax for common `opensearch-keystore`
 {% include copy.html %}
 
 If a keystore already exists, the script will ask whether you would like to overwrite the existing keystore.
-   
-**Response**
 
 The script responds with a confirmation that the keystore was created:
    
@@ -65,16 +66,36 @@ The script responds with a confirmation that the keystore was created:
 Created opensearch keystore in $OPENSEARCH_HOME/config/opensearch.keystore
 ```
 
+### Setting a keystore password
+
+The following command sets a new keystore password:
+
+```bash
+./bin/opensearch-keystore passwd
+```
+{% include copy.html %}
+
+If a keystore password already exists, the script will ask for the current keystore password before you can reset the password.
+   
+**Response**
+
+The script responds with a confirmation that the keystore password was set successfully:
+   
+```bash
+OpenSearch keystore password changed successfully.
+```
+
+When starting OpenSearch you will be prompted to enter the keystore password. Alternatively, you can set the environment variable KEYSTORE_PASSWORD to avoid being prompted for password on startup.
+{: .note}
+
 ### Listing settings in the keystore
 
-**Command**
+The following commands list all setting currently in the keystore:
    
 ```bash
 ./bin/opensearch-keystore list
 ```
 {% include copy.html %}
-
-**Response**
 
 The script responds with a list of settings in the keystore:
 
@@ -85,32 +106,29 @@ plugins.security.ssl.http.pemkey_password_secure
 
 ### Adding a new setting
 
+The following command adds a new keystore setting:
+
 ```bash
 ./bin/opensearch-keystore add plugins.security.ssl.http.pemkey_password_secure
 ```
 {% include copy.html %}
 
-**Response**
-
 After this command, you will be prompted to enter the secret key securely.
 
 ### Removing a setting
 
-**Command**
+The following command removes a keystore setting:
 
 ```bash
 ./bin/opensearch-keystore remove plugins.security.ssl.http.pemkey_password_secure
 ```
 {% include copy.html %}
 
-**Response**
-
 No response exists for this command. To confirm that the setting was deleted, use `opensearch-keystore list`.
 
-## Referring to keystore entries
+For a complete list of secure settings that can be configured using `opensearch-keystore`, refer to [(Advanced) Using encrypted password settings for SSL]({{site.url}}{{site.baseurl}}/security/configuration/tls/#advanced-using-encrypted-password-settings-for-ssl).
+{: .note}
 
-After a setting has been added to a keystore, you can refer back to that setting in your OpenSearch configuration. To refer back to the setting, add the keystore setting name as a placeholder in the `opensearch.yml` configuration file, as shown in the following example:
+## Keystore entries as OpenSearch settings
 
-```bash
-plugins.security.ssl.http.pemkey_password_secure: ${plugins.security.ssl.http.pemkey_password_secure}
-```
+After a setting has been added to a keystore, it is implicitly added to the OpenSearch configuration as if it were another entry in `opensearch.yml`. To modify a keystore entry use `./bin/opensearch-keystore upgrade <setting>`. To remove an entry, use `./bin/opensearch-keystore remove <setting>`.

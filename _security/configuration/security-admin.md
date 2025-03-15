@@ -18,15 +18,18 @@ The first job of the script is to initialize the `.opendistro_security` index. T
 
 The script can be found at `/plugins/opensearch-security/tools/securityadmin.sh`. This is a relative path showing where the `securityadmin.sh` script is located. The absolute path depends on the directory where you've installed OpenSearch. For example, if you use Docker to install OpenSearch, the path will resemble the following: `/usr/share/opensearch/plugins/opensearch-security/tools/securityadmin.sh`.
 
+The `securityadmin.sh` script requires SSL/TLS HTTP to be enabled for your OpenSearch cluster. Set `plugins.security.ssl.http.enabled: true` in your `opensearch.yml` file before proceeding. If your cluster does not use SSL/TLS on the HTTP layer but requires `securityadmin.sh`, enable SSL/TLS on a single node, such as the`ingest` node, and then run `securityadmin.sh` on that node. Enable this setting by configuring the [REST layer TLS]({{site.url}}{{site.baseurl}}/security/configuration/tls/#rest-layer-tls) settings on only one node. Restarting OpenSearch on that node is necessary following  any change to the `opensearch.yml` file.
+{: .note}
+
 ## A word of caution
 
-If you make changes to the configuration files in `config/opensearch-security`, OpenSearch does _not_ automatically apply these changes. Instead, you must run `securityadmin.sh` to load the updated files into the index.
+If you make changes to the configuration files in `config/opensearch-security`, OpenSearch does _not_ automatically apply these changes. Instead, you must run `securityadmin.sh` to load the updated files into the index. The `securityadmin.sh` file can be found in `<OPENSEARCH_HOME>/plugins/opensearch-security/tools/securityadmin.[sh|bat]`.
 
 Running `securityadmin.sh` **overwrites** one or more portions of the `.opendistro_security` index. Run it with extreme care to avoid losing your existing resources. Consider the following example:
 
 1. You initialize the `.opendistro_security` index.
 1. You create ten users using the REST API.
-1. You decide to create a new [reserved user]({{site.url}}{{site.baseurl}}/security/access-control/api/#reserved-and-hidden-resources) using `internal_users.yml`.
+1. You decide to create a new [reserved user]({{site.url}}{{site.baseurl}}/security/access-control/api/#reserved-and-hidden-resources) using `internal_users.yml`, found in `<OPENSEARCH_HOME>/config/opensearch-security/` directory.
 1. You run `securityadmin.sh` again to load the new reserved user into the index.
 1. You lose all ten users that you created using the REST API.
 
@@ -86,8 +89,6 @@ You can't use node certificates as admin certificates. The two must be separate.
 
 The `securityadmin.sh` tool can be run from any machine that has access to the HTTP port of your OpenSearch cluster (the default port is 9200). You can change the Security plugin configuration without having to access your nodes through SSH.
 
-`securityadmin.sh` requires that SSL/TLS transport is enabled on your opensearch cluster. In other words, make sure that the `plugins.security.ssl.http.enabled: true` is set in `opensearch.yml` before proceeding.
-{: .note}
 
 Each node also includes the tool at `plugins/opensearch-security/tools/securityadmin.sh`. You might need to make the script executable before running it:
 
@@ -100,6 +101,8 @@ To print all available command line options, run the script with no arguments:
 ```bash
 ./plugins/opensearch-security/tools/securityadmin.sh
 ```
+
+## Using `securityadmin` with PEM files
 
 To load your initial configuration (all YAML files), you might use the following command:
 
@@ -124,6 +127,31 @@ Name | Description
 `-keypass` | The password of the private key of the admin certificate, if any.
 `-cacert` | The location of the PEM file containing the root certificate. You can use an absolute or relative path. Relative paths are resolved relative to the execution directory of `securityadmin.sh`.
 
+## Using `securityadmin` with keystore and truststore files
+
+JKS format keystore files are compatible with `securityadmin.sh`, as shown in the following example setting:
+
+```bash
+./securityadmin.sh -cd ../../../config/opensearch-security -icl -nhnv
+  -ts <path/to/truststore> -tspass <truststore password>
+  -ks <path/to/keystore> -kspass <keystore password>
+```
+
+Use the following options to control the keystore and truststore settings.
+
+Name | Description
+:--- | :---
+`-ks` | The location of the keystore containing the admin certificate and all intermediate certificates, if any. You can use an absolute or relative path. Relative paths are resolved relative to the `securityadmin.sh` execution directory.
+`-kspass` | The keystore password.
+`-kst` | The keystore type, either JKS or PKCS#12/PFX. If not specified, the Security plugin tries to determine the type based on the file extension.
+`-ksalias` | The alias of the admin certificate, if any.
+`-ts` | The location of the truststore containing the root certificate. You can use an absolute or relative path. Relative paths are resolved relative to the `securityadmin.sh` execution directory.
+`-tspass` | The truststore password.
+`-tst` | The truststore type, either JKS or PKCS#12/PFX. If not specified, the Security plugin tries to determine the type based on the file extension.
+`-tsalias` | The alias for the root certificate, if any.
+
+The certificate authority (CA) that signs the `admin` certificate can differ from the one used for signing transport or HTTP certificates. The CA does, however, need to be added to the truststore in order to validate the certificate. See [Generate node and client certificates]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/#optional-generate-node-and-client-certificates) for more information.
+{: .note}
 
 ## Sample commands
 
@@ -162,30 +190,6 @@ Apply all YAML files in `config/opensearch-security/` with keystore and truststo
 ```
 
 
-## Using securityadmin with keystore and truststore files
-
-You can also use keystore files in JKS format in conjunction with `securityadmin.sh`:
-
-```bash
-./securityadmin.sh -cd ../../../config/opensearch-security -icl -nhnv
-  -ts <path/to/truststore> -tspass <truststore password>
-  -ks <path/to/keystore> -kspass <keystore password>
-```
-
-Use the following options to control the key and truststore settings.
-
-Name | Description
-:--- | :---
-`-ks` | The location of the keystore containing the admin certificate and all intermediate certificates, if any. You can use an absolute or relative path. Relative paths are resolved relative to the execution directory of `securityadmin.sh`.
-`-kspass` | The password for the keystore.
-`-kst` | The key store type, either JKS or PKCS#12/PFX. If not specified, the Security plugin tries to determine the type from the file extension.
-`-ksalias` | The alias of the admin certificate, if any.
-`-ts` | The location of the truststore containing the root certificate. You can use an absolute or relative path. Relative paths are resolved relative to the execution directory of `securityadmin.sh`.
-`-tspass` | The password for the truststore.
-`-tst` | The truststore type, either JKS or PKCS#12/PFX. If not specified, the Security plugin tries to determine the type from the file extension.
-`-tsalias` | The alias for the root certificate, if any.
-
-
 ### OpenSearch settings
 
 If you run a default OpenSearch installation, which listens on port 9200 and uses `opensearch` as a cluster name, you can omit the following settings altogether. Otherwise, specify your OpenSearch settings by using the following switches.
@@ -193,11 +197,11 @@ If you run a default OpenSearch installation, which listens on port 9200 and use
 Name | Description
 :--- | :---
 `-h` | OpenSearch hostname. Default is `localhost`.
-`-p` | OpenSearch port. Default is 9200 - not the HTTP port.
+`-p` | OpenSearch port. Default is 9200
 `-cn` | Cluster name. Default is `opensearch`.
 `-icl` | Ignore cluster name.
 `-sniff` | Sniff cluster nodes. Sniffing detects available nodes using the OpenSearch `_cluster/state` API.
-`-arc,--accept-red-cluster` | Execute `securityadmin.sh` even if the cluster state is red. Default is false, which means the script will not execute on a red cluster.
+`-arc,--accept-red-cluster` | Execute `securityadmin.sh` even if the cluster state is red. Default is `false`, which means the script will not execute on a red cluster.
 
 
 ### Certificate validation settings
@@ -206,7 +210,7 @@ Use the following options to control certificate validation.
 
 Name | Description
 :--- | :---
-`-nhnv` | Do not validate hostname. Default is false.
+`-nhnv` | Do not validate hostname. Default is `false`.
 `-nrhn` | Do not resolve hostname. Only relevant if `-nhnv` is not set.
 
 

@@ -12,11 +12,13 @@ redirect_from:
   - /search-plugins/ppl/index/
   - /search-plugins/ppl/endpoint/
   - /search-plugins/ppl/protocol/
+  - /search-plugins/sql/ppl/index/
+  - /observability-plugin/ppl/index/
 ---
 
 # PPL
 
-Piped Processing Language (PPL) is a query language that focuses on processing data in a sequential, step-by-step manner. PPL uses the pipe (`|`) operator to combine commands to find and retrieve data. It is the primary language used with observability in OpenSearch and supports multi-data queries.
+Piped Processing Language (PPL) is a query language that focuses on processing data in a sequential, step-by-step manner. PPL uses the pipe (`|`) operator to combine commands to find and retrieve data. It is particularly well suited for analyzing observability data, such as logs, metrics, and traces, due to its ability to handle semi-structured data efficiently.
 
 ## PPL syntax
 
@@ -35,7 +37,15 @@ PPL filters, transforms, and aggregates data using a series of commands. See [Co
 
 ## Using PPL within OpenSearch
 
-To use PPL, you must have installed OpenSearch Dashboards. PPL is available within the [Query Workbench tool](https://playground.opensearch.org/app/opensearch-query-workbench#/). See the [Query Workbench]({{site.url}}{{site.baseurl}}/dashboards/query-workbench/) documentation for a tutorial on using PPL within OpenSearch.
+The SQL plugin is required to run PPL queries in OpenSearch. If you're running a minimal distribution of OpenSearch, you might have to [install the SQL plugin]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) before using PPL.
+{: .note}
+
+You can run PPL queries interactively in OpenSearch Dashboards or programmatically using the ``_ppl`` endpoint. 
+
+In OpenSearch Dashboards, the [Query Workbench tool](https://playground.opensearch.org/app/opensearch-query-workbench#/) provides an interactive testing environment, documented in [Query Workbench documentation]({{site.url}}{{site.baseurl}}/dashboards/query-workbench/).
+
+To run a PPL query using the API, see [SQL and PPL API]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql-ppl-api/).
+
 
 ## Developer documentation
 
@@ -45,3 +55,4 @@ Developers can find information in the following resources:
 - [OpenSearch PPL Reference Manual](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/index.rst)
 - [Observability](https://github.com/opensearch-project/dashboards-observability/) using [PPL-based visualizations](https://github.com/opensearch-project/dashboards-observability#event-analytics)
 - PPL [Data Types](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/general/datatypes.rst)
+- [Cross-cluster search](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/cross_cluster_search.rst#using-cross-cluster-search-in-ppl) in PPL

@@ -2,7 +2,6 @@
 layout: default
 title: Constant score
 parent: Compound queries
-grand_parent: Query DSL
 nav_order: 40
 redirect_from:
   - /query-dsl/query-dsl/compound/constant-score/

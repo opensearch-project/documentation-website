@@ -32,10 +32,10 @@ The SQL plugin supports the following common functions shared across the SQL and
 | `expm1`    | `expm1(number T) -> double`                                      | `SELECT expm1(0.5)`                            |
 | `floor`    | `floor(number T) -> long`                                        | `SELECT floor(0.5)`                            |
 | `ln`       | `ln(number T) -> double`                                         | `SELECT ln(10)`                                |
-| `log`      | `log(number T) -> double` or `log(number T, number T) -> double` | `SELECT log(10)`, `SELECT log(2, 16)`          |
+| `log`      | `log(number T) -> double` or `log(number T, number T) -> double` | `SELECT log(10) -> 2.3`, `SELECT log(2, 16) -> 4`|
 | `log2`     | `log2(number T) -> double`                                       | `SELECT log2(10)`                              |
-| `log10`    | `log10(number T) -> double`                                      | `SELECT log10(10)`                             |
-| `mod`      | `mod(number T, number T) -> T`                                   | `SELECT mod(2, 3)`                             |
+| `log10`    | `log10(number T) -> double`                                      | `SELECT log10(100)`                       |
+| `mod`      | `mod(number T, number T) -> T`                                   | `SELECT mod(10,4) -> 2 `                             |
 | `modulus`  | `modulus(number T, number T) -> T`                               | `SELECT modulus(2, 3)`                         |
 | `multiply` | `multiply(number T, number T) -> T`                              | `SELECT multiply(2, 3)`                        |
 | `pi`       | `pi() -> double`                                                 | `SELECT pi()`                                  |
@@ -162,7 +162,7 @@ Functions marked with * are only available in SQL.
 | `replace`   | `replace(string, string, string) -> string`                                         | `SELECT replace('hello', 'l', 'x')`                            |
 | `right`     | `right(string, integer) -> string`                                                  | `SELECT right('hello', 2)`                                     |
 | `rtrim`     | `rtrim(string) -> string`                                                           | `SELECT rtrim('hello   ')`                                     |
-| `substring` | `substring(string, integer, integer) -> string`                                     | `SELECT substring('hello', 2, 4)`                              |
+| `substring` | `substring(string, integer, integer) -> string`                                     | `SELECT substring('hello', 2, 2) -> 'el'`                      |
 | `trim`      | `trim(string) -> string`                                                            | `SELECT trim('   hello')`                                      |
 | `upper`     | `upper(string) -> string`                                                           | `SELECT upper('hello world')`                                  |
 

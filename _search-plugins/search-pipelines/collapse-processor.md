@@ -1,13 +1,15 @@
 ---
 layout: default
 title: Collapse
-nav_order: 7
+nav_order: 10
 has_children: false
 parent: Search processors
 grand_parent: Search pipelines
 ---
 
 # Collapse processor
+Introduced 2.12
+{: .label .label-purple }
 
 The `collapse` response processor discards hits that have the same value for a particular field as a previous document in the result set.
 This is similar to passing the `collapse` parameter in a search request, but the response processor is applied to the
@@ -18,7 +20,7 @@ Using the `collapse` response processor will likely result in fewer than `size` 
 from a set whose size is already less than or equal to `size`. To increase the likelihood of returning `size` hits, use the 
 `oversample` request processor and `truncate_hits` response processor, as shown in [this example]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/truncate-hits-processor/#oversample-collapse-and-truncate-hits).
 
-## Request fields
+## Request body fields
 
 The following table lists all request fields.
 

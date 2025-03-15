@@ -24,8 +24,12 @@ _Cluster state_ is an internal data structure that contains the metadata of the 
 The cluster state metadata is managed by the elected cluster manager node and is essential for the cluster to properly function. When the cluster loses the majority of the cluster manager nodes permanently, then the cluster may experience data loss because the latest cluster state metadata might not be present in the surviving cluster manager nodes. Persisting the state of all the cluster manager nodes in the cluster to remote-backed storage provides better durability.
 
 When the remote cluster state feature is enabled, the cluster metadata will be published to a remote repository configured in the cluster.
-Any time new cluster manager nodes are launched after disaster recovery, the nodes will automatically bootstrap using the latest metadata stored in the remote repository. 
-After the metadata is restored automatically from the latest metadata stored, and if the data nodes are unchanged in the index data, the metadata lost will be automatically recovered. However, if the data nodes have been replaced, then you can restore the index data by invoking the `_remotestore/_restore` API as described in the [remote store documentation]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/).
+Any time new cluster manager nodes are launched after disaster recovery, the nodes will automatically bootstrap using the latest metadata stored in the remote repository. This provides metadata durability. 
+
+You can enable remote cluster state independently of remote-backed data storage.
+{: .note}
+
+If you require data durability, you must enable remote-backed data storage as described in the [remote store documentation]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/).
 
 ## Configuring the remote cluster state
 
@@ -50,13 +54,50 @@ In addition to the mandatory static settings, you can configure the following dy
 
 Setting | Default | Description
 :--- | :--- | :---
-`cluster.remote_store.state.index_metadata.upload_timeout` | 20s | The amount of time to wait for index metadata upload to complete. Note that index metadata for separate indexes is uploaded in parallel.
-`cluster.remote_store.state.global_metadata.upload_timeout` | 20s | The amount of time to wait for global metadata upload to complete. Global metadata contains globally applicable metadata, such as templates, cluster settings, data stream metadata, and repository metadata.
-`cluster.remote_store.state.metadata_manifest.upload_timeout` | 20s | The amount of time to wait for the manifest file upload to complete. The manifest file contains the details of each of the files uploaded for a single cluster state, both index metadata files and global metadata files. 
+`cluster.remote_store.state.index_metadata.upload_timeout` | 20s | Deprecated. Use `cluster.remote_store.state.global_metadata.upload_timeout` instead.
+`cluster.remote_store.state.global_metadata.upload_timeout` | 20s | The amount of time to wait for the cluster state upload to complete.
+`cluster.remote_store.state.metadata_manifest.upload_timeout` | 20s | The amount of time to wait for the manifest file upload to complete. The manifest file contains the details of each of the files uploaded for a single cluster state, both index metadata files and global metadata files.
+`cluster.remote_store.state.cleanup_interval` | 300s | The interval at which the asynchronous remote state clean-up task runs. This task deletes any old remote state files. 
 
 
 ## Limitations
 
 The remote cluster state functionality has the following limitations:
 - Unsafe bootstrap scripts cannot be run when the remote cluster state is enabled. When a majority of cluster-manager nodes are lost and the cluster goes down, the user needs to replace any remaining cluster manager nodes and reseed the nodes in order to bootstrap a new cluster.
-- The remote cluster state cannot be enabled without first configuring remote-backed storage.
+
+## Remote cluster state publication
+
+The cluster manager node processes updates to the cluster state. It then publishes the updated cluster state through the local transport layer to all of the follower nodes. With the `remote_store.publication` feature enabled, the cluster state is backed up to the remote store during every state update. The follower nodes can then fetch the state from the remote store directly, which reduces the overhead on the cluster manager node for publication. 
+
+To enable this feature, configure the following setting in `opensearch.yml`:
+
+```yml
+# Enable Remote cluster state publication
+cluster.remote_store.publication.enabled: true
+```
+
+Enabling the setting does not change the publication flow, and follower nodes will not send acknowledgements back to the cluster manager node
+until they download the updated cluster state from the remote store.
+
+You must enable the remote cluster state feature in order for remote publication to work. To modify the remote publication behavior, the following routing table repository settings can be used, which contain the shard allocation details for each index in the remote cluster state:
+
+```yml
+# Remote routing table repository settings
+node.attr.remote_store.routing_table.repository: my-remote-routing-table-repo
+node.attr.remote_store.repository.my-remote-routing-table-repo.type: s3
+node.attr.remote_store.repository.my-remote-routing-table-repo.settings.bucket: <Bucket Name 3>
+node.attr.remote_store.repository.my-remote-routing-table-repo.settings.region: <Bucket region>
+```
+
+You do not have to use different remote store repositories for state and routing because both state and routing can use the same repository settings.
+
+To configure remote publication, use the following cluster settings.
+
+Setting | Default  | Description
+:--- |:---| :---
+`cluster.remote_store.state.read_timeout` | 20s | The amount of time to wait for the remote state download to complete on the follower node.
+`cluster.remote_store.state.path.prefix` | "" (Empty string) | The fixed prefix to add to the index metadata files in the blob store.
+`cluster.remote_store.index_metadata.path_type` | `HASHED_PREFIX`  | The path type used for creating an index metadata path in the blob store. Valid values are `FIXED`, `HASHED_PREFIX`, and `HASHED_INFIX`.
+`cluster.remote_store.index_metadata.path_hash_algo` | `FNV_1A_BASE64 `  | The algorithm that constructs the prefix or infix for the index metadata path in the blob store. This setting is applied if the ``cluster.remote_store.index_metadata.path_type` setting is `HASHED_PREFIX` or `HASHED_INFIX`. Valid algorithm values are `FNV_1A_BASE64` and `FNV_1A_COMPOSITE_1`.
+`cluster.remote_store.routing_table.path.prefix` | "" (Empty string) | The fixed prefix to add for the index routing files in the blob store.
+  

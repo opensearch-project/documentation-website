@@ -41,11 +41,12 @@ Use the following configuration options with the `kafka` buffer.
 
 Option | Required | Type | Description
 --- | --- | --- | ---
-`bootstrap_servers` | Yes | String list | The host and port for the initial connection to the Kafka cluster. You can configure multiple Kafka brokers by using the IP address or the port number for each broker. When using [Amazon Managed Streaming for Apache Kafka (Amazon MSK)](https://aws.amazon.com/msk/) as your Kafka cluster, the bootstrap server information is obtained from Amazon MSK using the Amazon Resource Name (ARN) provided in the configuration.
-`topics` | Yes | List | A list of [topics](#topic) to use. You must supply one topic per buffer.
 `authentication` | No | [Authentication](#authentication) | Sets the authentication options for both the pipeline and Kafka. For more information, see [Authentication](#authentication).
-`encryption` | No | [Encryption](#encryption) | The encryption configuration for encryption in transit. For more information, see [Encryption](#encryption).
 `aws` | No | [AWS](#aws) | The AWS configuration. For more information, see [aws](#aws).
+`bootstrap_servers` | Yes | String list | The host and port for the initial connection to the Kafka cluster. You can configure multiple Kafka brokers by using the IP address or the port number for each broker. When using [Amazon Managed Streaming for Apache Kafka (Amazon MSK)](https://aws.amazon.com/msk/) as your Kafka cluster, the bootstrap server information is obtained from Amazon MSK using the Amazon Resource Name (ARN) provided in the configuration.
+`encryption` | No | [Encryption](#encryption) | The encryption configuration for encryption in transit. For more information, see [Encryption](#encryption).
+`producer_properties` | No | [Producer Properties](#producer_properties) | A list of configurable Kafka producer properties. 
+`topics` | Yes | List | A list of [topics](#topic) for the buffer to use. You must supply one topic per buffer.
 
 
 ### topic
@@ -58,12 +59,12 @@ Option | Required | Type | Description
 `name` | Yes | String | The name of the Kafka topic.
 `group_id` | Yes | String | Sets Kafka's `group.id` option.
 `workers` | No | Integer | The number of multithreaded consumers associated with each topic. Default is `2`. The maximum value is `200`.
-`encryption_key` | No | String | An Advanced Encryption Standard (AES) encryption key used to encrypt and decrypt data within Data Prepper before sending it to Kafka. This value must be plain text or encrypted using AWS Key Management Service (AWS KMS).
+`encryption_key` | No | String | An Advanced Encryption Standard (AES) encryption key used to encrypt and decrypt data within OpenSearch Data Prepper before sending it to Kafka. This value must be plain text or encrypted using AWS Key Management Service (AWS KMS).
 `kms` | No | AWS KMS key | When configured, uses an AWS KMS key to encrypt data. See [`kms`](#kms) for more information.
 `auto_commit` | No | Boolean | When `false`, the consumer offset will not be periodically committed to Kafka in the background. Default is `false`.
 `commit_interval` | No | Integer | When `auto_commit` is set to `true`, sets how often, in seconds, the consumer offsets are auto-committed to Kafka through Kafka's `auto.commit.interval.ms` option. Default is `5s`.
 `session_timeout` | No | Integer | The amount of time during which the source detects client failures when using Kafka's group management features, which can be used to balance the data stream. Default is `45s`.
-`auto_offset_reset` | No | String | Automatically resets the offset to the earliest or the latest offset through Kafka's `auto.offset.reset` option. Default is `latest`.
+`auto_offset_reset` | No | String | Automatically resets the offset to the earliest or the latest offset through Kafka's `auto.offset.reset` option. Default is `earliest`.
 `thread_waiting_time` | No | Integer | The amount of time that a thread waits for the preceding thread to complete its task and to signal the next thread. The Kafka consumer API poll timeout value is set to half of this setting. Default is `5s`.
 `max_partition_fetch_bytes` | No | Integer | Sets the maximum limit, in megabytes, for data returns from each partition through Kafka's `max.partition.fetch.bytes` setting. Default is `1mb`.
 `heart_beat_interval` | No | Integer | The expected amount of time between heartbeats to the consumer coordinator when using Kafka's group management facilities through Kafka's `heartbeat.interval.ms` setting. Default is `5s`.
@@ -73,6 +74,7 @@ Option | Required | Type | Description
 `retry_backoff` | No | Integer | The amount of time to wait before attempting to retry a failed request to a given topic partition. Default is `10s`.
 `max_poll_interval` | No | Integer | The maximum delay between invocations of a `poll()` when using group management through Kafka's `max.poll.interval.ms` option. Default is `300s`.
 `consumer_max_poll_records` | No | Integer | The maximum number of records returned in a single `poll()` call through Kafka's `max.poll.records` setting. Default is `500`.
+`max_message_bytes` | No | Integer | The maximum size of the message, in bytes. Default is 1 MB.
 
 
 ### kms
@@ -122,6 +124,14 @@ Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `type` | No | String | The encryption type. Use `none` to disable encryption. Default is `ssl`.
 `insecure` | No | Boolean | A Boolean flag used to turn off SSL certificate verification. If set to `true`, certificate authority (CA) certificate verification is turned off and insecure HTTP requests are sent. Default is `false`.
+
+#### producer_properties
+
+Use the following configuration options to configure a Kafka producer.
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+`max_request_size` | No | Integer | The maximum size of the request that the producer sends to Kafka. Default is 1 MB.
 
 
 #### aws

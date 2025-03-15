@@ -2,7 +2,6 @@
 layout: default
 title: Stats
 parent: Metric aggregations
-grand_parent: Aggregations
 nav_order: 110
 redirect_from:
   - /query-dsl/aggregations/metric/stats/
