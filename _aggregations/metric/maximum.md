@@ -25,7 +25,7 @@ The `max` aggregation takes the following parameters.
 
 ## Example
 
-This example finds the most expensive item --- the maximum value of the `base_unit_price` --- in the ecommerce sample data:
+This example finds the most expensive item---the item with the maximum value of the `base_unit_price`---in the e-commerce sample data:
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
