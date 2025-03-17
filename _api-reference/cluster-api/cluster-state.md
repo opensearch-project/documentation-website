@@ -34,7 +34,7 @@ The following table lists the available path parameters. All path parameters are
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | `index` | List or String | A comma-separated list of data streams, indexes, and aliases used to limit the request. Supports wildcards (`*`). To target all data streams and indexes, omit this parameter or use `*` or `_all`. |
-| `metric` | List | Limits the information returned to only the specified metrics. |
+| `metric` | List | Limits the information returned to only the [specified metric groups]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-stats/#metric-groups). |
 
 <!-- spec_insert_end -->
 
@@ -83,7 +83,7 @@ The following table lists the available query parameters. All query parameters a
 | `allow_no_indices` | Boolean | Whether to ignore a wildcard index expression that resolves into no concrete indexes. This includes the `_all` string or when no indexes have been specified. |
 | `cluster_manager_timeout` | String | The amount of time to wait for a response from the cluster manager node. For more information about supported time units, see [Common parameters]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). |
 | `expand_wildcards` | List or String | Specifies the type of index that wildcard expressions can match. Supports comma-separated values. <br> Valid values are: <br> - `all`: Match any index, including hidden ones. <br> - `closed`: Match closed, non-hidden indexes. <br> - `hidden`: Match hidden indexes. Must be combined with open, closed, or both. <br> - `none`: Wildcard expressions are not accepted. <br> - `open`: Match open, non-hidden indexes. |
-| `flat_settings` | Boolean | Returns settings in a flat format. _(Default: `false`)_ |
+| `flat_settings` | Boolean | Whether to return settings in the flat form, which can improve readability, especially for heavily nested settings. For example, the flat form of `"cluster": { "max_shards_per_node": 500 }` is `"cluster.max_shards_per_node": "500"`. _(Default: `false`)_ |
 | `ignore_unavailable` | Boolean | Whether the specified concrete indexes should be ignored when unavailable (missing or closed). |
 | `local` | Boolean | Whether to return information from the local node only instead of from the cluster manager node. _(Default: `false`)_ |
 | `wait_for_metadata_version` | Integer | Wait for the metadata version to be equal or greater than the specified metadata version. |

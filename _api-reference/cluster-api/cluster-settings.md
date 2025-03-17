@@ -47,7 +47,7 @@ The following table lists the available query parameters. All query parameters a
 | Parameter | Data type | Description | Default |
 | :--- | :--- | :--- | :--- |
 | `cluster_manager_timeout` | String | The amount of time to wait for a response from the cluster manager node. For more information about supported time units, see [Common parameters]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). | N/A |
-| `flat_settings` | Boolean | Returns settings in a flat format. | `false` |
+| `flat_settings` | Boolean | Whether to return settings in the flat form, which can improve readability, especially for heavily nested settings. For example, the flat form of `"cluster": { "max_shards_per_node": 500 }` is `"cluster.max_shards_per_node": "500"`. | `false` |
 | `timeout` | String | A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts "0" without a unit and "-1" to indicate an unspecified value. | N/A |
 
 <!-- spec_insert_end -->
