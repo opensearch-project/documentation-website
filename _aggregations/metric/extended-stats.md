@@ -155,7 +155,7 @@ POST _bulk
 
 ### Example: Replacing a missing value
 
-Compute `extended_stats`, replacing the missing GPA field with 0:
+Compute `extended_stats`, replacing the missing GPA field with `0`:
 
 ```json
 GET students/_search
