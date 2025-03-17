@@ -32,7 +32,7 @@ The `std_deviation_bounds` object defines a range that spans the specified numbe
 
 ## Parameters
 
-The `extended_stats` aggregation takes the following parameters: 
+The `extended_stats` aggregation takes the following parameters.
 
 | Parameter | Required/Optional | Data type             | Description |
 | :--       | :--               | :--                   | :--         |
