@@ -109,11 +109,13 @@ The following deprecated settings have been removed from the k-NN plugin:
 - `index.knn.algo_param.m` index setting
 - `index.knn.space_type` index setting
 
+The NMSLIB engine is now deprecated. We recommend using the Faiss or Lucene engines instead.
+
 For more information, see [pull #2564](https://github.com/opensearch-project/k-NN/pull/2564).
 
 ### Performance Analyzer plugin
 
-The `performance-analyzer-rca` agent has been removed. We recommend transitioning to the Telemetry Plugin for performance monitoring and analysis. The Telemetry Plugin, using the OpenTelemetry framework, allows for seamless integration with lightweight open-source agents to publish performance metrics to observability stores. For more information, see [issue #591](https://github.com/opensearch-project/performance-analyzer-rca/issues/591).
+The `performance-analyzer-rca` agent has been removed. We recommend transitioning to the [Telemetry plugin](https://github.com/opensearch-project/performance-analyzer/issues/585) for performance monitoring and analysis. The Telemetry Plugin, using the OpenTelemetry framework, allows for seamless integration with lightweight open-source agents to publish performance metrics to observability stores. For more information, see [issue #591](https://github.com/opensearch-project/performance-analyzer-rca/issues/591).
 
 ### SQL plugin
 
@@ -141,3 +143,13 @@ For more information, see [issue #3248](https://github.com/opensearch-project/sq
     - Trace analytics for tracing-related use cases
 
     For more information, see [issue #430](https://github.com/opensearch-project/dashboards-visualizations/issues/430).
+
+### Dashboards Observability plugin
+
+The legacy notebooks feature has been removed from `dashboards-observability`. Key changes include:
+
+- Legacy notebooks (previously stored in `.opensearch-observability` index) are no longer supported.
+- Only notebooks stored in `.kibana` index (introduced in version 2.17) are supported.
+- You must migrate your notebooks to the new storage system before upgrading to 3.0.
+
+For more information, see [issue #2350](https://github.com/opensearch-project/dashboards-observability/issues/2350).
