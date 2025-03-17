@@ -11,7 +11,7 @@ redirect_from:
 
 The `max` metric is a single-value metric that returns the maximum value of a field.
 
-The `max` aggregation compares numeric fields using a `double` (double-precision) representation. Results should be considered approximate for fields containing `long` or `unsigned_long` integer values greater than 2^53, since the number of significant bits in a `double` mantissa is 53.
+The `max` aggregation compares numeric fields using a `double` (double-precision) representation. Results should be considered approximate for fields containing `long` or `unsigned_long` integer values greater than 2<sup>53</sup> because the number of significant bits in a `double` mantissa is 53.
 {: .note}
 
 ## Parameters
