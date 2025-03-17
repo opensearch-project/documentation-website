@@ -173,7 +173,7 @@ GET students/_search
 ```
 {% include copy-curl.html %}
 
-The response is as follows. Compare to the next example, where missing values are ignored.
+The response is as follows. Compare to the next example, where missing values are ignored:
 
 ```json
 ...
