@@ -122,7 +122,7 @@ The `performance-analyzer-rca` agent has been removed. We recommend transitionin
 - OpenSearch query DSL response format has been removed.
 - `DELETE` statement support has been removed.
 - The `plugins.sql.delete.enabled` setting has been removed.
-- The legacy Spark Connector module has been deprecated.
+- The legacy Spark Connector module has been deprecated. For information about connecting to Spark, see [`async-query-core`](https://github.com/opensearch-project/sql/blob/main/async-query-core/README.md).
 - Deprecated OpenDistro endpoints and legacy settings with the `opendistro` prefix have been removed.
 - The `plugins.sql.pagination.api` is removed and the Scroll API is deprecated. Pagination now defaults to Point in Time.
 
