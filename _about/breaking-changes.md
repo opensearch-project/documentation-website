@@ -47,7 +47,7 @@ OpenSearch 2.5 contains a bug fix to correct the behavior of the `case_insensiti
 
 ### System index access
 
-Access to system indexes throught the REST API is now completely blocked. This functionality was previously deprecated since OpenSearch 1.x. For more information, see [issue #7936](https://github.com/opensearch-project/OpenSearch/issues/7936).
+Access to system indexes through the REST API is now completely blocked. This functionality was previously deprecated since OpenSearch 1.x. For more information, see [issue #7936](https://github.com/opensearch-project/OpenSearch/issues/7936).
 
 ### Document ID length limits
 
