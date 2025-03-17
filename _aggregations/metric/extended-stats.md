@@ -28,7 +28,7 @@ The `extended_stats` aggregation is a more comprehensive version of the [`stats`
 
 The standard deviation and variance are population statistics; they are always equal to the population standard deviation and variance, respectively.
 
-The `std_deviation_bounds` object provides values representing an interval of plus or minus a number of standard deviations from the mean (two by default). This object is always displayed, but is meaningful only for normally distributed data. It's up to you to verify that your data set has a normal distribution.
+The `std_deviation_bounds` object defines a range that spans the specified number of standard deviations above and below the mean (default is two standard deviations). This object is always included in the output but is meaningful only for normally distributed data. Before interpreting these values, verify that your dataset follows a normal distribution.
 
 ## Parameters
 
