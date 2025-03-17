@@ -140,7 +140,7 @@ This changes the standard deviation bounds:
 
 You can assign a value to missing instances of the aggregated field. See [Missing aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/missing/).
 
-Prepare an example by inserting an index as follows:
+Prepare an example index by ingesting the following documents:
 
 ```json
 POST _bulk
