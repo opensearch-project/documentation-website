@@ -38,7 +38,7 @@ The `extended_stats` aggregation takes the following parameters.
 | :--       | :--               | :--                   | :--         |
 | `field`   | Required          | String                | The name of the field for which the extended stats are returned. |
 | `sigma`   | Optional          | Double (non-negative) | One-tailed interval represented by the `std_deviation_bounds` object. Default is 2. |
-| `missing` | Optional          | Numeric        | Value to assign missing instances of the field. If not given, documents with missing values are omitted from the extended stats. |
+| `missing` | Optional          | Numeric        | The value to assign missing instances of the field. If not given, documents with missing values are omitted from the extended stats. |
 
 ## Example
 
