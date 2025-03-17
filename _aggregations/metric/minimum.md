@@ -25,7 +25,7 @@ The `min` aggregation takes the following parameters.
 
 ## Example
 
-This example finds the least expensive item --- the minimum value of the `base_unit_price` --- in the ecommerce sample data:
+This example finds the least expensive item---the item with the minimum value of the `base_unit_price`---in the e-commerce sample data:
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
@@ -72,7 +72,7 @@ The response is as follows:
 }
 ```
 
-The aggregation name (`min_base_unit_price`) can be used as a key to retrieve the aggregation from the response.
+You can use the aggregation name (`min_base_unit_price`) as a key to retrieve the aggregation from the response.
 
 ## Missing values
 
