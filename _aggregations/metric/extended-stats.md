@@ -94,7 +94,7 @@ The response is as follows:
 
 ## Defining bounds
 
-You can set the `std_deviation_bounds` plus-or-minus interval to any non-negative value using the `sigma` parameter.
+You can define the number of standard deviations used to calculate the `std_deviation_bounds` interval by setting the `sigma` parameter to any non-negative value.
 
 ### Example: Defining bounds
 
