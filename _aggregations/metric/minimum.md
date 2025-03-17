@@ -16,7 +16,7 @@ The `min` aggregation compares numeric fields using a `double` (double-precision
 
 ## Parameters
 
-The `min` aggregation takes the following parameters:
+The `min` aggregation takes the following parameters.
 
 | Parameter | Required/Optional | Data type      | Description |
 | :--       | :--               | :--            | :--         |
