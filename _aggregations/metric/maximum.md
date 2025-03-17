@@ -20,7 +20,7 @@ The `max` aggregation takes the following parameters.
 
 | Parameter | Required/Optional | Data type      | Description |
 | :--       | :--               | :--            | :--         |
-| `field`   | Required          | String         | Name of the field for which the maximum is computed.    |
+| `field`   | Required          | String         | The name of the field for which the maximum is computed.    |
 | `missing` | Optional          | Numeric        | Value to assign missing instances of the field. If not given, documents with missing values are omitted from the aggregation. |
 
 ## Example
