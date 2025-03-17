@@ -233,7 +233,7 @@ OpenSearch supports the following dynamic index-level index settings:
 
 - `index.query.default_field` (List): A field or list of fields that OpenSearch uses in queries in case a field isn't specified in the parameters.
 
-- `index.query.max_nested_depth` (Integer): The maximum number of nesting levels for `nested` queries. Default is `20`. Minimum is 1 (single `nested` query).
+- `index.query.max_nested_depth` (Integer): The maximum number of nesting levels for `nested` queries. Default is `20`. Minimum is `1` (single `nested` query).
 
 - `index.requests.cache.enable` (Boolean): Enables or disables the index request cache. Default is `true`. For more information, see [Index request cache]({{site.url}}{{site.baseurl}}/search-plugins/caching/request-cache/).
 
