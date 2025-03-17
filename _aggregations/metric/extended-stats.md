@@ -223,7 +223,7 @@ GET students/_search
 ```
 {% include copy-curl.html %}
 
-The aggregator calculates the extended statistics, omitting documents with missing values in the field (the default behavior).
+OpenSearch calculates the extended statistics, omitting documents with missing values in the field (the default behavior):
 
 ```json
 ...
