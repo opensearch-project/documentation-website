@@ -16,7 +16,7 @@ The `max` aggregation compares numeric fields using a `double` (double-precision
 
 ## Parameters
 
-The `max` aggregation takes the following parameters:
+The `max` aggregation takes the following parameters.
 
 | Parameter | Required/Optional | Data type      | Description |
 | :--       | :--               | :--            | :--         |
