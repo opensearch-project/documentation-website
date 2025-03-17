@@ -72,7 +72,7 @@ The response is as follows:
 }
 ```
 
-The aggregation name (`max_base_unit_price`) can be used as a key to retrieve the aggregation from the response.
+You can use the aggregation name (`max_base_unit_price`) as a key to retrieve the aggregation from the response.
 
 ## Missing values
 
