@@ -33,7 +33,7 @@ The following table lists the available path parameters. All path parameters are
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
-| `task_id` | String | The ID of the task. |
+| `task_id` | String | The task ID. |
 
 <!-- spec_insert_end -->
 
@@ -48,8 +48,8 @@ The following table lists the available query parameters. All query parameters a
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | `actions` | List or String | A comma-separated list of actions that should be returned. Keep empty to return all. |
-| `nodes` | List | A comma-separated list of node IDs or names to limit the returned information. Use `_local` to return information from the node you're connecting to, specify the node name to get information from specific nodes, or keep the parameter empty to get information from all nodes. |
-| `parent_task_id` | String | Returns tasks with a specified parent task ID (node_id:task_number). Keep empty or set to -1 to return all. |
+| `nodes` | List | A comma-separated list of node IDs or names used to limit the returned information. Use `_local` to return information from the node you're connecting to, specify the node name to get information from a specific node, or keep the parameter empty to get information from all nodes. |
+| `parent_task_id` | String | Returns tasks with a specified parent task ID (`node_id:task_number`). Keep empty or set to -1 to return all. |
 | `wait_for_completion` | Boolean | Waits for the matching task to complete. When `true`, the request is blocked until the task has completed. _(Default: `false`)_ |
 
 <!-- spec_insert_end -->

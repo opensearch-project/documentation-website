@@ -31,7 +31,7 @@ The following table lists the available path parameters.
 
 | Parameter | Required | Data type | Description |
 | :--- | :--- | :--- | :--- |
-| `task_id` | **Required** | String | The ID of the task. |
+| `task_id` | **Required** | String | The task ID. |
 
 <!-- spec_insert_end -->
 
