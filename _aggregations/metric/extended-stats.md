@@ -42,7 +42,7 @@ The `extended_stats` aggregation takes the following parameters.
 
 ## Example
 
-This example returns extended stats for `taxful_total_price` in the ecommerce sample data:
+This example returns extended stats for `taxful_total_price` in the e-commerce sample data:
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
