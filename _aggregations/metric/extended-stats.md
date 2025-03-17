@@ -98,7 +98,7 @@ You can define the number of standard deviations used to calculate the `std_devi
 
 ### Example: Defining bounds
 
-Set the `std_deviation_bounds` standard deviations to 3:
+Set the `std_deviation_bounds` standard deviations to `3`:
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
