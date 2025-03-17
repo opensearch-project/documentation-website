@@ -31,7 +31,7 @@ more_cards:
     link: "/vector-search/optimizing-storage/"
   - heading: "Sparse vector support"
     description: "Combine semantic understanding with traditional search efficiency using <b>neural sparse search</b>"
-    link: "/vector-search/filter-search-knn/"
+    link: "/vector-search/ai-search/neural-sparse-search/"
   - heading: "Multi-vector support"
     description: "Store and search multiple vectors per document using nested fields"
     link: "/vector-search/specialized-operations/nested-search-knn/"
