@@ -6,24 +6,24 @@ nav_order: 140
 
 # Stemming
 
-Stemming is the process of reducing words to their root or base form, known as the "stem." This technique ensures that different variations of a word match during search operations. For example, the words "running," "runner," and "ran" can all be reduced to the stem "run," allowing searches for any of these terms to return relevant results.
+Stemming is the process of reducing words to their root or base form, known as the _stem_. This technique ensures that different variations of a word match during search operations. For example, the words "running," "runner," and "ran" can all be reduced to the stem "run," allowing searches for any of these terms to return relevant results.
 
-In natural language, words often appear in various forms due to conjugation, pluralization, or derivation. Stemming achieves the following:
+In natural language, words often appear in various forms because of conjugation, pluralization, or derivation. Stemming improves search in the following ways:
 
-- **Improving Search Recall**: By matching different word forms to a common stem, stemming increases the number of relevant documents retrieved.
-- **Reducing Index Size**: Storing only the stemmed versions of words can decrease the overall size of the search index.
+- **Improves search recall**: By matching different word forms to a common stem, stemming increases the number of relevant documents retrieved.
+- **Reduces index size**: Storing only the stemmed versions of words can decrease the overall size of the search index.
 
-Stemming is configured using token filters within analyzers. An analyzer is a combination of:
+Stemming is configured using token filters within [analyzers]({{site.url}}{{site.baseurl}}/analyzers/#analyzers). An analyzer comprises the following components:
 
-1. **Character Filters**: Modifies the stream of characters before tokenization.
-2. **Tokenizer**: Splits text into tokens (typically words).
-3. **Token Filters**: Modifies tokens, such as by applying stemming.
+1. **Character filters**: Modify the stream of characters before tokenization.
+2. **Tokenizer**: Splits text into tokens (typically, words).
+3. **Token filters**: Modify tokens after tokenization, for example, by applying stemming.
 
 ## Stemming example using built-in token filters
 
-To implement stemming, you can configure a built-in token filters such as [`porter_stem`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/porter-stem/) or [`kstem`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/kstem/).
+To implement stemming, you can configure a built-in token filter such as [`porter_stem`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/porter-stem/) or [`kstem`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/kstem/) filter.
 
-The Porter stemming algorithm is a common algorithmic stemmer for English.
+The [Porter stemming algorithm](https://snowballstem.org/algorithms/porter/stemmer.html) is a common algorithmic stemmer for English.
 
 ### Creating an index with custom analyzer
 
@@ -58,7 +58,7 @@ This configuration is comprised of the following:
 
 ### Testing the analyzer
 
-To see the stemming in action, analyze a sample text using the previously configured custom analyzer:
+To examine the stemming action, analyze a sample text using the previously configured custom analyzer:
 
 ```json
 POST /my_stemming_index/_analyze
@@ -113,51 +113,52 @@ The response contains the generated tokens:
 }
 ```
 
-## Stemmers categories
+## Stemmer categories
 
-There are two categories of stemmers that can be configured:
+You can configure stemmers of the following categories:
 
 - [Algorithmic stemmers]({{site.url}}{{site.baseurl}}/analyzers/stemming/#algorithmic-stemmers)
 - [Dictionary stemmers]({{site.url}}{{site.baseurl}}/analyzers/stemming/#dictionary-stemmers)
 
 ### Algorithmic stemmers
 
-Algorithmic stemmers apply predefined rules to systematically strip affixes (prefixes and suffixes) from words, reducing them to their stems. See following list of token filters examples that use algorithmic stemmers:
+Algorithmic stemmers apply predefined rules to systematically strip affixes (prefixes and suffixes) from words, reducing them to their stems. The following token filters use algorithmic stemmers:
 
-[`porter_stem`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/porter-stem/): Applies the Porter stemming algorithm, primarily for English, to remove common suffixes and reduce words to their stems. For example, "running" becomes "run".
+- [`porter_stem`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/porter-stem/): Applies the Porter stemming algorithm, primarily for English, to remove common suffixes and reduce words to their stems. For example, "running" becomes "run".
 
-[`kstem`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/kstem/): A lightweight stemmer designed for English that combines algorithmic stemming with a built-in dictionary. It reduces plurals to singulars, converts verb tenses to their base forms, and removes common derivational endings. 
-
-
-[`stemmer`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/stemmer/): Provides algorithmic stemming for various languages, including English, with options for different stemming algorithms like `light_english`, `minimal_english`, and `porter2`. 
+- [`kstem`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/kstem/): A lightweight stemmer designed for the English langugage, which combines algorithmic stemming with a built-in dictionary. It reduces plurals to singulars, converts verb tenses to their base forms, and removes common derivational endings. 
 
 
-[`snowball`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/snowball/): Utilizes the Snowball algorithm to provide efficient and accurate stemming for multiple languages, including English, French, German, and others. 
+- [`stemmer`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/stemmer/): Provides algorithmic stemming for various languages, including English, with options for different stemming algorithms like `light_english`, `minimal_english`, and `porter2`. 
+
+
+- [`snowball`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/snowball/): Applies the Snowball algorithm to provide efficient and accurate stemming for multiple languages, including English, French, German, and others. 
 
 ### Dictionary stemmers
 
 Dictionary stemmers rely on extensive dictionaries to map words to their root forms, effectively handling irregular words. They look up each word in a precompiled list to find its corresponding stem. This operation is more resource intensive but often yields better results for irregular words and words which might appear to have a similar stem but are very different in their meaning.
 
-The most prominent example of a dictionary stemmer is [`hunspell`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/hunspell/) token filter, which leverages Hunspell, a spell checker engine used in many open-source applications.
+The most prominent example of a dictionary stemmer is the [`hunspell`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/hunspell/) token filter, which uses Hunspell---a spell checker engine used in many open-source applications.
 
-### Consideration
+### Considerations
+When selecting a stemmer, take note of the following considerations:
 
-- Algorithmic Stemmers are suitable when processing speed and memory efficiency are priorities, and the language has relatively regular morphological patterns.
-- Dictionary Stemmers are ideal when accuracy in handling irregular word forms is crucial, and resources are available to support the increased memory usage and processing time.
+- Algorithmic stemmers are suitable when processing speed and memory efficiency are priorities and the language has relatively regular morphological patterns.
+- Dictionary stemmers are ideal when accuracy in handling irregular word forms is crucial and resources are available to support the increased memory usage and processing time.
 
-Choose algorithmic stemmers for speed and efficiency with regular languages. Opt for dictionary stemmers for accuracy with complex languages, acknowledging the increased resource requirements.
+Choose algorithmic stemmers for speed and efficiency when processing words in languages with consistent morphological patterns. Use dictionary stemmers for greater accuracy in complex languages, provided that the increased resource requirements are acceptable.
 {: .note}
 
 ### Additional stemming configuration
 
-Although "organize" and "organic" share a common linguistic root, leading a stemmer to produce "organ" for both, their conceptual differences are significant. In practical search scenarios, this shared root can lead to irrelevant matches.
+Although "organize" and "organic" share a common linguistic root, leading a stemmer to produce "organ" for both, their conceptual differences are significant. In practical search scenarios, this shared root can lead to irrelevant matches returned as part of search results.
 
-Further stemming configuration can address these challenges, using the following methods:
+You can address these challenges by further configuring stemming using the following methods:
 
-- **Explicit Stemming Overrides**: Rather than relying solely on algorithmic stemming, you can define specific rules. Using [`stemmer_override`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/stemmer-override/) allows you to make sure that "organize" remains unchanged, while "organic" is reduced to "organ." This grants granular control over the final form of terms.
+- **Explicit stemming overrides**: Rather than relying solely on algorithmic stemming, you can define specific stemming rules. Using [`stemmer_override`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/stemmer-override/) allows you to ensure that "organize" remains unchanged, while "organic" is reduced to "organ." This grants granular control over the final form of terms.
 
-- **Keyword Preservation**: To maintain the integrity of crucial terms, the [`keyword_marker`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/keyword-marker/) token filter can be used. This filter designates specific words as keywords, preventing subsequent stemmer filters from altering them. In this example, "organize" could be marked as a keyword, ensuring it is indexed exactly as it appears.
+- **Keyword preservation**: To maintain the integrity of crucial terms, you can use the [`keyword_marker`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/keyword-marker/) token filter. This filter designates specific words as keywords, preventing subsequent stemmer filters from altering them. In this example, you can mark "organize" as a keyword, ensuring that it is indexed exactly as it appears.
 
-- **Conditional Stemming Control**: The [condition]({{site.url}}{{site.baseurl}}/analyzers/token-filters/condition/) token filter enables you to establish rules that determine whether a term should be stemmed. This can be based on various criteria, such as the term's presence in a predefined list.
+- **Conditional stemming control**: The [condition]({{site.url}}{{site.baseurl}}/analyzers/token-filters/condition/) token filter enables you to establish rules that determine whether a term should be stemmed. These can be based on various criteria, such as the term's presence in a predefined list.
 
-- **Language-Specific Term Exclusion**: For built-in language analyzers, the [`stem_exclusion`]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/english/#stem-exclusion) parameter provides a way to specify words that should be exempt from stemming. For instance, you could add "organize" to the stem_exclusion list, preventing the analyzer from stemming it. This is useful for preserving the distinct meaning of specific terms within a given language.
+- **Language-specific term exclusion**: For built-in language analyzers, the [`stem_exclusion`]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/english/#stem-exclusion) parameter provides a way to specify words that should be exempt from stemming. For example, you can add "organize" to the `stem_exclusion` list, preventing the analyzer from stemming it. This is useful for preserving the distinct meaning of specific terms within a given language.
