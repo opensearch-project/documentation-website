@@ -27,7 +27,7 @@ The `cardinality` aggregation takes the following parameters.
 
 ## Example
 
-The following example request finds the number of unique product IDs in the sample e-commerce data:
+The following example request finds the number of unique product IDs in the OpenSearch Dashboards sample e-commerce data:
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
@@ -82,7 +82,7 @@ You can control the trade-off between memory and accuracy by using the `precisio
 
 The default value of `precision_threshold` is 3,000. The maximum supported value is 40,000.
 
-The cardinality aggregation uses the [HyperLogLog++ algorithm](https://static.googleusercontent.com/media/research.google.com/fr//pubs/archive/40671.pdf). Cardinality counts are typically very accurate up to the precision threshold and are within 6% of the true count in most other cases, even with a threshold as low as 100.
+The cardinality aggregation uses the [HyperLogLog++ algorithm](https://static.googleusercontent.com/media/research.google.com/fr//pubs/archive/40671.pdf). Cardinality counts are typically very accurate up to the precision threshold and are within 6% of the true count in most other cases, even with a threshold of as low as 100.
 
 ### Precomputing hashes
 
