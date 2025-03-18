@@ -50,31 +50,31 @@ The following workload parameters are supported by the vector search workload.
 
 ## Test procedures
 
-The workload supports the following test procedures.
+The vector search workload supports the following test procedures.
 
-### No train test
+### No-train test procedure
 
-The no train test procedure tests vector search indexes that require no training. You can define the underlying configuration of the vector search algorithm (such as specifying a specific engine or space type) as method definitions. 
+The no-train test procedure tests vector search indexes that require no training. You can define the underlying configuration of the vector search algorithm (such as specifying a specific engine or space type) as method definitions. 
 
-### No train test (index only)
+### No-train test (index only) procedure
 
-The no train test (index only) procedure is used to index vector search indexes that require no training. This can be particularly useful when you want to benchmark only the indexing operation.
+The no-train test (index only) procedure is used to index vector search indexes that require no training. This can be particularly useful when you want to benchmark only the indexing operation.
 
-### No train test (AOSS)
+### No-train test (Amazon OpenSearch Serverless)
 
-The no train test (AOSS) procedure is similar to the no train test procedure but is specifically used for Amazon OpenSearch Serverless vector search collections. This procedure doesn't include operations like **refresh** and **warmup** because they aren't supported by vector search collections.
+The no-train test procedure for Amazon OpenSearch Serverless is used specifically for OpenSearch Serverless vector search collections. This procedure doesn't include operations like **refresh** and **warmup** because they aren't supported by vector search collections.
 
-### Force merge index
+### Force merge index procedure
 
-The Force Merge Index procedure optimizes vector search indexes by performing force merge operations up to a given maximum number of segments. For large datasets, force merging is a costly operation. Therefore, we recommend using a separate procedure to occasionally trigger force merge operations based on user requirements.
+The force merge index procedure optimizes vector search indexes by performing force merge operations up to a given maximum number of segments. For large datasets, force merging is a costly operation. Therefore, we recommend using a separate procedure to occasionally trigger force merge operations based on user requirements.
 
-### Train test
+### Train test procedure
 
-The Train Test procedure benchmarks approximate k-NN search algorithms that require a training step. For example, the Faiss IVF requires a training step to cluster vectors. After the step is performed, the benchmark can search against a smaller number of cluster centroids instead of the entire dataset.
+The train test procedure benchmarks approximate k-NN search algorithms that require a training step. For example, the Faiss Inverted File Indexing (IVF) technique requires a training step in order to retrieve cluster vectors. After the step is performed, the benchmark can search a smaller number of cluster centroids instead of the entire dataset.
 
-### Search
+### Search procedure
 
-The Search procedure benchmarks previously indexed vector search indexes. This can be useful when you want to benchmark large vector search indexes without reindexing each time because load time can be substantial for large datasets. This procedure includes warmup operations intended to avoid cold start problems during vector search.
+The search procedure benchmarks previously indexed vector search indexes. This can be useful when you want to benchmark large vector search indexes without reindexing each time because load time can be substantial for large datasets. This procedure includes warmup operations intended to avoid cold start problems during vector search.
 
 ## Custom runners
 
