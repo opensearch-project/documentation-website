@@ -13,7 +13,7 @@ The `avg` metric is a single-value metric that returns the average value of a fi
 
 ## Parameters
 
-The `avg` aggregation takes the following parameters: 
+The `avg` aggregation takes the following parameters.
 
 | Parameter | Required/Optional | Data type       | Description |
 | :--       | :--               | :--            | :--         |
@@ -41,7 +41,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 
 ## Example response
 
-The response is as follows:
+The response contains the average of the `taxful_total_price`:
 
 ```json
 {
@@ -69,13 +69,13 @@ The response is as follows:
 }
 ```
 
-The aggregation name (`avg_taxful_total_price`)  can be used as a key to retrieve the aggregation from the response.
+You can use the aggregation name (`avg_taxful_total_price`) as a key to retrieve the aggregation from the response.
 
 ## Missing values
 
 You can assign a value to missing instances of the aggregated field. See [Missing aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/missing/).
 
-Prepare an example by inserting an index as follows. Note that the second document is missing a `gpa` value.
+Prepare an example index by ingesting the following documents. Note that the second document is missing a `gpa` value:
 
 ```json
 POST _bulk
@@ -90,7 +90,7 @@ POST _bulk
 
 ### Example: Replacing a missing value
 
-Take the average, replacing the missing GPA field with 0:
+Take the average, replacing the missing GPA field with `0`:
 
 ```json
 GET students/_search
@@ -108,7 +108,7 @@ GET students/_search
 ```
 {% include copy-curl.html %}
 
-The response is as follows. Compare to the next example, where missing values are ignored.
+The response is as follows. Compare to the next example, where missing values are ignored:
 
 ```json
 {
