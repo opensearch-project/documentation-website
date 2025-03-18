@@ -16,7 +16,6 @@ The following table lists all available cluster-level vector search settings. Fo
 
 Setting | Static/Dynamic | Default | Description
 :--- | :--- | :--- | :---
-`knn.plugin.enabled`| Dynamic | `true` | Enables or disables the k-NN plugin.
 `knn.algo_param.index_thread_qty` | Dynamic | `1` | The number of threads used for native library and Lucene library (for OpenSearch version 2.19 and later) index creation. Keeping this value low reduces the CPU impact of the k-NN plugin but also reduces indexing performance.
 `knn.cache.item.expiry.enabled` | Dynamic | `false` | Whether to remove native library indexes from memory that have not been accessed in a specified period of time.
 `knn.cache.item.expiry.minutes` | Dynamic | `3h` | If enabled, the amount of idle time before a native library index is removed from memory.
@@ -43,9 +42,6 @@ Setting | Static/Dynamic | Default | Description
 `index.knn.advanced.approximate_threshold` | Dynamic | `15000` | The number of vectors that a segment must have before creating specialized data structures for ANN search. Set to `-1` to disable building vector data structures and to `0` to always build them.
 `index.knn.advanced.filtered_exact_search_threshold`| Dynamic | None    | The filtered ID threshold value used to switch to exact search during filtered ANN search. If the number of filtered IDs in a segment is lower than this setting's value, then exact search will be performed on the filtered IDs.
 `index.knn.derived_source.enabled` (Experimental) | Static | `false` | Removes vectors from `_source` storage, reducing overall disk consumption for vector indexes. Only supported for non-nested fields. This feature is experimental in OpenSearch 2.19. It is not recommended for production use. Backward compatibility is not guaranteed.
-`index.knn.algo_param.ef_construction` | Static | `100`   | Deprecated in 1.0.0. Use the [mapping parameters]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/) to set this value instead.
-`index.knn.algo_param.m` | Static | `16`    | Deprecated in 1.0.0. Use the [mapping parameters]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/) to set this value instead.
-`index.knn.space_type` | Static | `l2`    | Deprecated in 1.0.0. Use the [mapping parameters]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/) to set this value instead.
 
 An index created in OpenSearch version 2.11 or earlier will still use the previous `ef_construction` and `ef_search` values (`512`).
 {: .note}
