@@ -63,7 +63,7 @@ The behavior of empty node roles configuration using environment variables has b
 
 ### JSON Processing Limits
 
-New default limits have been introduced for JSON processing (via the Jackson library) throughout OpenSearch:
+New default limits have been introduced for JSON processing (using the Jackson library) throughout OpenSearch:
 
 - Maximum nesting depth of JSON objects and arrays is limited to 1,000 levels
 - Maximum length of JSON property names is limited to 50,000 units (bytes or chars, depending on input source)
