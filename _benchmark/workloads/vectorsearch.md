@@ -6,9 +6,9 @@ nav_order: 35
 
 # Vector search
 
-The vector search workload benchmarks OpenSearch's Vector Engine capabilities for both indexing and search operations. It tests various vector search algorithms, quantization methods, and index configurations to measure performance metrics like throughput, latency, and recall accuracy. The workload supports different datasets and can evaluate both trained and untrained vector search methods.
+The vector search workload benchmarks OpenSearch's vector engine capabilities for both indexing and search operations. It tests various vector search algorithms, quantization methods, and index configurations to measure performance metrics like throughput, latency, and recall accuracy. The workload supports different datasets and can evaluate both trained and untrained vector search methods.
 
-This workload currently supports datasets in either the `HDF5` or `BIG-ANN` formats. To download the datasets, use this [link](http://corpus-texmex.irisa.fr/).
+This workload currently supports datasets in either the `HDF5` or `BIG-ANN` formats. To download the datasets, use [this link](http://corpus-texmex.irisa.fr/).
 
 ## Supported workload parameters
 
@@ -16,9 +16,9 @@ The following workload parameters are supported by the vector search workload.
 
 | Name                                      | Description                                                                                                                                     |
 | ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| `target_index_name`                       | The name of index to add vectors to .                                                                                                           |
-| `target_field_name`                       | The name of the field to add vectors to. Use "." to indicate a nested field                                                                     |
-| `target_index_body`                       | The path to the target index .definition                                                                                                        |
+| `target_index_name`                       | The name of index to which to add vectors.                                                                                                           |
+| `target_field_name`                       | The name of the field to which to add vectors. Use "." to indicate a nested field.                                                                     |
+| `target_index_body`                       | The path to the target index definition.                                                                                                        |
 | `target_index_primary_shards`             | The target index's primary shards.                                                                                                              |
 | `target_index_replica_shards`             | The target index's replica shards.                                                                                                              |
 | `target_index_dimension`                  | The dimension of the target index.                                                                                                              |
@@ -28,23 +28,23 @@ The following workload parameters are supported by the vector search workload.
 | `target_index_bulk_index_data_set_path`   | The path to the vector dataset in the index.                                                                                                   |
 | `target_index_bulk_index_data_set_corpus` | The corpus name of the vector dataset.                                                                                                         |
 | `target_index_bulk_index_clients`         | The clients to be used for bulk ingestion. Must be a divisor of dataset size.                                                                  |
-| `target_index_max_num_segments`           | The number of segments to merge into the target index before beginning to search .                                                              |
+| `target_index_max_num_segments`           | The number of segments to merge into the target index before beginning to search.                                                              |
 | `target_index_force_merge_timeout`        | The amount of time (in seconds) to wait before force merging requests.                                                                          |
 | `hnsw_ef_search `                         | THE `HNSW ef` search parameter.                                                                                                                 |
-| hnsw_ef_construction                      | The `HNSW ef` construction parameter.                                                                                                           |
+| `hnsw_ef_construction`                      | The `HNSW ef` construction parameter.                                                                                                           |
 | `id_field_name`                           | The name of the field that will be used to identify documents in an index.                                                                      |
 | `hnsw_m `                                 | The `HNSW m` parameter.                                                                                                                         |
-| `query_k`                                 | The number of neighbors to return for the search. Only one of `query_k`, `query_max_distance`, and, `query_min_score` can be provided.          |
-| `query_max_distance `                     | The maximum distance to be returned for the vector search. Only one of `query_k`, `query_max_distance`, and, `query_min_score` can be provided. |
-| `query_min_score`                         | The minimum score to be returned for the vector search. Only one of `query_k`, `query_max_distance`, and, `query_min_score` can be provided.    |
-| `query_data_set_format`                   | The format of the vector dataset used for queries. Only one of `query_k`, `query_max_distance`, and, `query_min_score` can be provided.        |
+| `query_k`                                 | The number of neighbors to return for the search. Only one of `query_k`, `query_max_distance`, or `query_min_score` can be provided.          |
+| `query_max_distance `                     | The maximum distance to be returned for the vector search. Only one of `query_k`, `query_max_distance`, or `query_min_score` can be provided. |
+| `query_min_score`                         | The minimum score to be returned for the vector search. Only one of `query_k`, `query_max_distance`, or `query_min_score` can be provided.    |
+| `query_data_set_format`                   | The format of the vector dataset used for queries. Only one of `query_k`, `query_max_distance`, or `query_min_score` can be provided.        |
 | `query_data_set_path`                     | The path to the vector dataset used for queries.                                                                                               |
-| `query_count`                             | The number of queries for the search operation.                                                                                                 |
-| `query_body`                              | The JSON properties that will be merged with search body                                                                                        |
-| `search_clients`                          | The number of clients to use for running queries.                                                                                               |
-| `repetitions`                             | THe number of repetitions until the dataset is exhausted. Default is `1`.                                                                      |
-| `target_throughput`                       | The target throughput for each query operation in requests per second. Default is `10`.                                                         |
-| `time_period`                             | The period of time dedicated for the run the benchmark test in seconds. Default is `900`.                                                       |
+| `query_count`                             | The number of queries used for the search operation.                                                                                                 |
+| `query_body`                              | The JSON properties that will be merged with the search body.                                                                                        |
+| `search_clients`                          | The number of clients used to run queries.                                                                                               |
+| `repetitions`                             | The number of repetitions completed until the dataset is exhausted. Default is `1`.                                                                      |
+| `target_throughput`                       | The target throughput for each query operation, in requests per second. Default is `10`.                                                         |
+| `time_period`                             | The period of time dedicated to running the benchmark test, in seconds. Default is `900`.                                                       |
 
 
 
@@ -54,19 +54,19 @@ The workload supports the following test procedures.
 
 ### No train test
 
-The no train test procedure tests vector search indices that require no training. You can define the underlying configuration of the vector search algorithm (such as specific engine or space type) as method definitions. 
+The no train test procedure tests vector search indexes that require no training. You can define the underlying configuration of the vector search algorithm (such as specifying a specific engine or space type) as method definitions. 
 
-### No train test (Index only)
+### No train test (index only)
 
-The no train test (Index only) procedure is used to index vector search indexes that require no training. It's particularly useful when you want to benchmark only the indexing operation.
+The no train test (index only) procedure is used to index vector search indexes that require no training. This can be particularly useful when you want to benchmark only the indexing operation.
 
 ### No train test (AOSS)
 
-The No train test (AOSS) procedure is similar to the No Train Test procedure but is specifically targeted for Amazon OpenSearch Serverless vector search collection. This procedure doesn't include operations like **refresh** and **warmup** since they aren't supported by Vector Search Collection.
+The no train test (AOSS) procedure is similar to the no train test procedure but is specifically used for Amazon OpenSearch Serverless vector search collections. This procedure doesn't include operations like **refresh** and **warmup** because they aren't supported by vector search collections.
 
 ### Force merge index
 
-The Force Merge Index procedure optimizes vector search indexes by performing force merge operations up to a given maximum number of segments. For large datasets, force merge is a costly operation. Therefore, it's better to have a separate procedure to trigger force merge operations occasionally based on user requirements.
+The Force Merge Index procedure optimizes vector search indexes by performing force merge operations up to a given maximum number of segments. For large datasets, force merging is a costly operation. Therefore, we recommend using a separate procedure to occasionally trigger force merge operations based on user requirements.
 
 ### Train test
 
@@ -74,15 +74,15 @@ The Train Test procedure benchmarks approximate k-NN search algorithms that requ
 
 ### Search
 
-The Search procedure benchmarks previously indexed vector search indexes. It's useful when you want to benchmark large vector search indexes without re-indexing each time, since load time can be substantial for large datasets. This procedure includes warmup operations to avoid cold start problems during vector search.
+The Search procedure benchmarks previously indexed vector search indexes. This can be useful when you want to benchmark large vector search indexes without reindexing each time because load time can be substantial for large datasets. This procedure includes warmup operations intended to avoid cold start problems during vector search.
 
 ## Custom runners
 
-Only one custom runner, `warmup-knn-indices`, is supported in the Vector Search workload. This runner will warm up K-NN indexes and retry the warm up until it succeeds. 
+Only one custom runner, `warmup-knn-indices`, is supported by the vector search workload. This runner will warm up k-NN indexes and retry the warmup until it succeeds.
 
 ## Running the workload
 
-To run the Vector Search workload, use the following command:
+To run the vector search workload, use the following command:
 
 ```bash
 export ENDPOINT=<cluster-endpoint>
@@ -99,11 +99,11 @@ opensearch-benchmark execute-test \
 
 ## Sample results
 
-When using the Vector Search workload, you can expect results similar to the following.
+When using the vector search workload, you can expect results similar to the following.
 
 ### Train test procedure
 
-The following example shows results from the train test procedure:
+The following example provides results from the train test procedure:
 
 
 ```
@@ -194,7 +194,7 @@ The following example shows results from the train test procedure:
 
 ### Faiss results
 
-The following sample outputs are from the Faiss IVF benchmarking procedure. For brevity, the test used 100 search queries instead of the 10,000 specified in the parameter files. All other parameters remain the same as those in the `params/train` folder. The first run demonstrates results without quantization, the second run shows scalar quantization, and the third run illustrates product quantization. Note that quantization may cause search recall to drop.
+The following sample outputs were generated using the Faiss IVF benchmarking procedure. For brevity, the test used 100 search queries instead of the 10,000 specified in the parameter files. All other parameters remain the same as those in the `params/train` folder. The first run demonstrates results without quantization, the second run demonstrates scalar quantization, and the third run demonstrates product quantization. Note that quantization may cause search recall to drop.
 
 #### Faiss IVF with no quantization/flat encoding
 
