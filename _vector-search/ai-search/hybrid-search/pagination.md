@@ -3,7 +3,7 @@ layout: default
 title: Paginating hybrid query results
 parent: Hybrid search
 grand_parent: AI search
-has_children: true
+has_children: false
 nav_order: 60
 ---
 
