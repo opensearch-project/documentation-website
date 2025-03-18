@@ -52,7 +52,7 @@ GET /_tasks?nodes=opensearch-node1
 
 ## Example response
 
-The following response shows information about running tasks:
+The following response provides information about running tasks:
 
 ```json
 {
