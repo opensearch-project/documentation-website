@@ -9,7 +9,7 @@ redirect_from:
 
 # Extended stats aggregations
 
-The `extended_stats` aggregation is a more comprehensive version of the [`stats`]({{site.url}}{{site.baseurl}}/query-dsl/aggregations/metric/stats/) aggregation. As well as the basic statistical measures provided by stats, `extended_stats` calculates:
+The `extended_stats` aggregation is a more comprehensive version of the [`stats`]({{site.url}}{{site.baseurl}}/query-dsl/aggregations/metric/stats/) aggregation. As well as the basic statistical measures provided by `stats`, `extended_stats` calculates the following:
 
 - Sum of squares
 - Variance
@@ -38,11 +38,11 @@ The `extended_stats` aggregation takes the following parameters.
 | :--       | :--               | :--                   | :--         |
 | `field`   | Required          | String                | The name of the field for which the extended stats are returned. |
 | `sigma`   | Optional          | Double (non-negative) | The number of standard deviations above and below the mean used to calculate the `std_deviation_bounds` interval. Default is `2`. |
-| `missing` | Optional          | Numeric        | The value to assign missing instances of the field. If not given, documents with missing values are omitted from the extended stats. |
+| `missing` | Optional          | Numeric        | The value assigned to missing instances of the field. If not provided, documents containing missing values are omitted from the extended stats. |
 
 ## Example
 
-This example returns extended stats for `taxful_total_price` in the e-commerce sample data:
+The following example request returns extended stats for `taxful_total_price` in the sample e-commerce data:
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
@@ -61,7 +61,9 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 
 ## Example response
 
-The response is as follows:
+## Example response
+
+The response contains extended stats for `taxful_total_price`:
 
 ```json
 ...
@@ -98,7 +100,7 @@ You can define the number of standard deviations used to calculate the `std_devi
 
 ### Example: Defining bounds
 
-Set the `std_deviation_bounds` standard deviations to `3`:
+Set the number of `std_deviation_bounds` standard deviations to `3`:
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
@@ -138,7 +140,7 @@ This changes the standard deviation bounds:
 
 ## Missing values
 
-You can assign a value to missing instances of the aggregated field. See [Missing aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/missing/).
+You can assign a value to missing instances of the aggregated field. See [Missing aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/missing/) for more information.
 
 Prepare an example index by ingesting the following documents:
 
@@ -173,7 +175,7 @@ GET students/_search
 ```
 {% include copy-curl.html %}
 
-The response is as follows. Compare to the next example, where missing values are ignored:
+In the response, all missing values of `gpa` are replaced with `0`:
 
 ```json
 ...
@@ -206,7 +208,7 @@ The response is as follows. Compare to the next example, where missing values ar
 
 ### Example: Ignoring a missing value
 
-Compute `extended_stats`, but without assigning the `missing` parameter:
+Compute `extended_stats` but without assigning the `missing` parameter:
 
 ```json
 GET students/_search
@@ -223,7 +225,7 @@ GET students/_search
 ```
 {% include copy-curl.html %}
 
-OpenSearch calculates the extended statistics, omitting documents with missing values in the field (the default behavior):
+OpenSearch calculates the extended statistics, omitting documents containing missing field values (the default behavior):
 
 ```json
 ...
@@ -254,4 +256,4 @@ OpenSearch calculates the extended statistics, omitting documents with missing v
 }
 ```
 
-The document with the missing GPA is omitted from this calculation. Note the difference in `count`.
+The document containing the missing GPA value is omitted from this calculation. Note the difference in `count`.
