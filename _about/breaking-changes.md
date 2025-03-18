@@ -43,7 +43,11 @@ A Lucene upgrade forced OpenSearch to drop support for JDK 8. As a consequence, 
 
 OpenSearch 2.5 contains a bug fix to correct the behavior of the `case_insensitive` parameter for the `wildcard` query on text fields. As a result, a wildcard query on text fields that ignored case sensitivity and erroneously returned results prior to the bug fix will not return the same results. For more information, see issue [#8711](https://github.com/opensearch-project/OpenSearch/issues/8711).
 
-## 3.0
+## 3.0.0
+
+### JDK requirement
+
+The minimum supported JDK version is JDK 21.
 
 ### System index access
 
