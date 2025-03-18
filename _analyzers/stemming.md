@@ -136,7 +136,7 @@ Algorithmic stemmers apply predefined rules to systematically strip affixes (pre
 
 ### Dictionary stemmers
 
-Dictionary stemmers rely on extensive dictionaries to map words to their root forms, effectively handling irregular words. They look up each word in a precompiled list to find its corresponding stem. This operation is more resource intensive but often yields better results for irregular words and words that might appear to have a similar stem but are very different in their meaning.
+Dictionary stemmers rely on extensive dictionaries to map words to their root forms, effectively stemming irregular words. They look up each word in a precompiled list to find its corresponding stem. This operation is more resource intensive but often yields better results for irregular words and words that might appear to have a similar stem but are very different in their meaning.
 
 The most prominent example of a dictionary stemmer is the [`hunspell`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/hunspell/) token filter, which uses Hunspell---a spell checker engine used in many open-source applications.
 
