@@ -17,12 +17,12 @@ The `avg` aggregation takes the following parameters:
 
 | Parameter | Required/Optional | Data type       | Description |
 | :--       | :--               | :--            | :--         |
-| `field`   | Required          | Numeric         | The field for which the average is computed    |
-| `missing` | Optional          | Numeric         | Value to assign missing instances of the field |
+| `field`   | Required          | String         | The field for which the average is computed.    |
+| `missing` | Optional          | Float         | The value to assign to missing instances of the field. By default, `avg` omits missing values from the calculation. |
 
 ## Example
 
-This example calculates the average of the `taxful_total_price` field in the commerce sample data:
+ This example calculates the average of the `taxful_total_price` field in the e-commerce sample data:
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
@@ -73,12 +73,11 @@ The aggregation name (`avg_taxful_total_price`)  can be used as a key to retriev
 
 ## Missing values
 
-You can assign a value to missing instances of the aggregated field. See [Missing Aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/missing/).
+You can assign a value to missing instances of the aggregated field. See [Missing aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/missing/).
 
-Prepare an example by inserting an index as follows:
+Prepare an example by inserting an index as follows. Note that the second document is missing a `gpa` value.
 
-```
-DELETE /students
+```json
 POST _bulk
 { "create": { "_index": "students", "_id": "1" } }
 { "name": "John Doe", "gpa": 3.89, "grad_year": 2022}
@@ -156,7 +155,7 @@ GET students/_search
 ```
 {% include copy-curl.html %}
 
-The aggregator calculate the average, omitting documents with missing values in the field (the default behavior).
+The aggregator calculates the average, omitting documents with missing values in the field (the default behavior):
 
 ```json
 {
