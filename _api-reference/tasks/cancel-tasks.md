@@ -56,7 +56,7 @@ The following table lists the available query parameters. All query parameters a
 
 ## Example request
 
-The following request cancels any tasks found on two nodes in the cluster, `opensearch-node1` and `opensearch-node2`:
+The following request cancels any tasks currently running on `opensearch-node1` and `opensearch-node2`:
 
 ```
 POST _tasks/_cancel?nodes=opensearch-node1,opensearch-node2
