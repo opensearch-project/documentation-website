@@ -12,7 +12,7 @@ redirect_from:
 The `cardinality` metric is a single-value metric that counts the number of unique or distinct values of a field.
 
 
-Cardinality count is approximate. See [Controlling precision](#controlling-precision).
+Cardinality count is approximate. See [Controlling precision](#controlling-precision) for more information.
 
 ## Parameters
 
@@ -21,13 +21,13 @@ The `cardinality` aggregation takes the following parameters.
 | Parameter             | Required/Optional | Data type       | Description |
 | :--                   | :--               |  :--            | :--         |
 | `field`               | Required          | String          | The field for which the cardinality is estimated. |
-| `precision_threshold` | Optional          | Numeric         | Count below which good accuracy is expected. See [Controlling precision](#controlling-precision).     |
+| `precision_threshold` | Optional          | Numeric         | The threshold below which counts are expected to be close to accurate. See [Controlling precision](#controlling-precision) for more information.     |
 | `execution_hint`      | Optional          | String          | How to run the aggregation. Valid values are `ordinals` and `direct`. |
-| `missing`             | Optional          | Same as `field`'s type | Bucket to assign missing instances of the field. If not given, missing values are ignored. |
+| `missing`             | Optional          | Same as `field`'s type | The bucket used to store missing instances of the field. If not provided, missing values are ignored. |
 
 ## Example
 
-The following example finds the number of unique product IDs in the commerce sample data:
+The following example request finds the number of unique product IDs in the sample e-commerce data:
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
@@ -78,15 +78,15 @@ The aggregation returns the following:
 
 An accurate cardinality calculation requires loading all the values into a hash set and returning its size. This approach doesn't scale well; it can require huge amounts of memory and cause high latencies.
 
-You can control the trade-off between memory and accuracy with the `precision_threshold` setting. This parameter sets the threshold below which counts are expected to be close to accurate. Counts higher than this value might be less accurate.
+You can control the trade-off between memory and accuracy by using the `precision_threshold` setting. This parameter sets the threshold below which counts are expected to be close to accurate. Counts higher than this value may be less accurate.
 
 The default value of `precision_threshold` is 3,000. The maximum supported value is 40,000.
 
-The cardinality aggregation uses the [HyperLogLog++ algorithm](https://static.googleusercontent.com/media/research.google.com/fr//pubs/archive/40671.pdf). Cardinality counts are typically very accurate up to the precision threshold, and are within 6% of the true count in most other cases, even with a threshold as low as 100.
+The cardinality aggregation uses the [HyperLogLog++ algorithm](https://static.googleusercontent.com/media/research.google.com/fr//pubs/archive/40671.pdf). Cardinality counts are typically very accurate up to the precision threshold and are within 6% of the true count in most other cases, even with a threshold as low as 100.
 
-### Pre-computing hashes
+### Precomputing hashes
 
-For high-cardinality string fields, storing hash values for the field in the index and computing the cardinality of the hash can save compute and memory resources. Use this approach with caution; it is more efficient only for sets with long strings and/or high cardinality. Numeric fields and less taxing string sets are better processed directly.
+For high-cardinality string fields, storing hash values for the index field and computing the cardinality of the hash can save compute and memory resources. Use this approach with caution; it is more efficient only for sets with long strings and/or high cardinality. Numeric fields and less memory-consuming string sets are better processed directly.
 
 ### Example: Controlling precision
 
@@ -108,7 +108,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 ```
 {% include copy-curl.html %}
 
-The response is similar to the result with the default threshold, but the returned value is slightly different. Vary the `precision_threshold` parameter to see its effect on the cardinality estimate.
+The response is similar to the result with the default threshold, but the returned value is slightly different. Vary the `precision_threshold` parameter to see how it affects the cardinality estimate.
 
 ## Configuring aggregation execution  
 
@@ -147,6 +147,6 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 
 ## Missing values
 
-You can assign a value to missing instances of the aggregated field. See [Missing aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/missing/).
+You can assign a value to missing instances of the aggregated field. See [Missing aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/missing/) for more information.
 
 Replacing missing values in a cardinality aggregation adds the replacement value to the list of unique values, increasing the actual cardinality by one.
