@@ -14,19 +14,38 @@ The goal of the Migration Assistant is to streamline the process of migrating fr
 
 ## Understanding breaking changes
 
-Before performing any upgrade or migration, you should review any documentation of breaking changes.  Even if the cluster is migrated there might be changes required for clients to connect to the new cluster
+Before performing any upgrade or migration, you should review any documentation of breaking changes. Even if the cluster is migrated there might be changes required for clients to connect to the new cluster
 
-## Upgrade and breaking changes guides
+<link rel="stylesheet" href="{{site.url}}{{site.baseurl}}/migration-assistant/assets/css/breaking-changes-selector.css">
 
-For migrations paths between Elasticsearch 6.8 and OpenSearch 2.x users should be familiar with documentation in the links below that apply to their specific case:
+<div class="breaking-changes-selector">
+  <h4>Find Breaking Changes for Your Migration Path</h4>
+  
+  <div>
+    <label for="source-version">Source:</label>
+    <select id="source-version">
+      <option value="">Select</option>
+      <!-- Source versions will be populated by JavaScript -->
+    </select>
+    
+    <label for="target-version">Target:</label>
+    <select id="target-version">
+      <option value="">Select</option>
+      <!-- Target versions will be populated by JavaScript -->
+    </select>
+  </div>
+  
+  <div>
+    <label>Components:</label>
+    <!-- Components will be populated by JavaScript -->
+    <span id="component-checkboxes"></span>
+  </div>
+  
+  <div id="breaking-changes-results"></div>
+</div>
 
-* [Upgrading Amazon Service Domains](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/version-migration.html).
-
-* [Changes from Elasticsearch to OpenSearch fork](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/rename.html).
-
-* [OpenSearch Breaking Changes]({{site.url}}{{site.baseurl}}/breaking-changes/).
-
-The next step is to set up a proper test bed to verify that your applications will work as expected on the target version.
+<script src="{{site.url}}{{site.baseurl}}/migration-assistant/assets/js/breaking-changes-data.js"></script>
+<script src="{{site.url}}{{site.baseurl}}/migration-assistant/assets/js/breaking-changes-filter.js"></script>
 
 ## Impact of data transformations
 
@@ -46,5 +65,8 @@ We recommend running production-like queries against the target cluster before s
 
 For complex migrations involving multiple transformations or breaking changes, we highly recommend performing a trial migration with representative, non-production data (e.g., in a staging environment) to fully test client compatibility with the target cluster.
 
+## Included transformations
 
+The following transformations are included in the Migration Assistant. They can be enabled, combined, and configured to tailor a migration to your needs. To request additional transformations to be built into the Migration Assistant, open a github issue [here](https://github.com/opensearch-project/opensearch-migrations/issues).
 
+- [Type Mapping Deprecation](../handling-type-mapping-deprecation)
