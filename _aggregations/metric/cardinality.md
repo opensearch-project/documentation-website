@@ -46,7 +46,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 
 ## Example response
 
-The aggregation returns the following:
+As shown in the following example response, the aggregation returns the cardinality count in the `unique_products` variable:
 
 ```json
 {
