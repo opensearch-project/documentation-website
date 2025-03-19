@@ -45,7 +45,7 @@ module Api
         BodyParameter.new(name:, schema: prop, required: schema.required&.include?(name))
       end.sort { |a, b| a.name <=> b.name }
       return parameters unless schema.additionalProperties
-      additional_schema = schema.additionalProperties === true ? {} : schema.additionalProperties
+      additional_schema = schema.additionalProperties == true ? {} : schema.additionalProperties
       free_form_name = CONFIG.param_table.parameter_column.freeform_text
       parameters + [BodyParameter.new(name: free_form_name, schema: SpecHash.new(additional_schema))]
     end
