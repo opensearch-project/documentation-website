@@ -170,18 +170,18 @@ Look for failing tasks by navigating to **Traffic Capture Proxy ECS**. Change **
 
 ### Snapshot and S3 bucket issues
 
-When using the CDK deployment for Migration Assistant, you might encounter the following errors during snapshot creation and deletion:
+When using the CDK deployment for Migration Assistant, you might encounter the following errors during snapshot creation and deletion.
 
 #### Bucket permissions
 
-To make sure you can delete snapshots as well as create them during the CDK deployment process, confirm that `OSMigrations-dev-<region>-CustomS3AutoDeleteObjects` stack has S3 object deletion rights. Then, verify that `OSMigrations-dev-<region>-default-SnapshotRole` has the following S3 permissions:  
+To make sure that you can delete snapshots as well as create them during the CDK deployment process, confirm that the `OSMigrations-dev-<region>-CustomS3AutoDeleteObjects` stack has S3 object deletion rights. Then, verify that `OSMigrations-dev-<region>-default-SnapshotRole` has the following S3 permissions:  
 
   - List bucket contents  
   - Read/Write/Delete objects
 
 #### Snapshot conflicts
 
-To prevent snapshot conflicts, use `console snapshot delete` command from the migration console. If you delete snapshots or snapshot repositories in a place other than the migration console, you could encounter "already exists" errors.
+To prevent snapshot conflicts, use the `console snapshot delete` command from the migration console. If you delete snapshots or snapshot repositories in a location other than the migration console, you might encounter "already exists" errors.
 
 ## Resetting before migration
 
