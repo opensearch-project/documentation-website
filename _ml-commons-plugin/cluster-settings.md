@@ -2,13 +2,12 @@
 layout: default
 title: ML Commons cluster settings
 has_children: false
-nav_order: 10
+nav_order: 140
 ---
 
-# ML Commons cluster settings
+# ML cluster settings
 
-
-To enhance and customize your OpenSearch cluster for machine learning (ML), you can add and modify several configuration settings for the ML Commons plugin in your 'opensearch.yml' file. 
+To enhance and customize your OpenSearch cluster for machine learning (ML), you can add and modify several configuration settings for the ML Commons plugin in your `opensearch.yml` file. 
 
 To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
@@ -325,7 +324,7 @@ plugins.ml_commons.model_auto_redeploy.enable: true
 
 ### Values
 
-- Default value: true
+- Default value: `true`
 - Valid values: `false`, `true`
 
 ## Set retires for auto redeploy

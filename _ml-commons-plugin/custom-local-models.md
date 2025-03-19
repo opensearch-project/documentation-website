@@ -320,7 +320,7 @@ The response contains the tokens and weights:
 
 ## Step 5: Use the model for search
 
-To learn how to use the model for vector search, see [Using an ML model for neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/#using-an-ml-model-for-neural-search).
+To learn how to use the model for vector search, see [AI search methods]({{site.url}}{{site.baseurl}}/vector-search/ai-search/#ai-search-methods).
 
 ## Question answering models
 
