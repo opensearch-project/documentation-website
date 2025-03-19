@@ -9,41 +9,15 @@ redirect_from:
 
 # Dashboards Query Language (DQL)
 
-Dashboards Query Language (DQL) is a simple text-based query language used to filter data in OpenSearch Dashboards. For example, to display your site visitor data for a host in the United States, you would enter `geo.dest:US` in the search field, as shown in the following image.
+Dashboards Query Language (DQL) is a simple text-based query language used to filter data in OpenSearch Dashboards. 
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dql-interface.png" alt="Search term using DQL toolbar in Dashboard" width="500">
+DQL and [query string query]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) (Lucene) language are the two search bar language options in Discover and Dashboards. This page provides a reference for the DQL syntax. For the Lucene syntax, see [Query string query]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/). For a syntax comparison, see the [Command quick reference](#dql-and-query-string-query-quick-reference).
 
-## DQL and query string query compared
+By default, OpenSearch Dashboards use DQL syntax. To switch to query string query (Lucene), select the **DQL** button next to the search box and then toggle the **On** switch, as shown in the following image. 
 
-DQL and [query string query (Lucene)]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) language are the two search bar language options in Discover and Dashboards. To compare these language options, see [Discover and Dashboard search bar]({{site.url}}{{site.baseurl}}/dashboards/index/#discover-and-dashboard-search-bar).
-{: .tip}
+![Search term using DQL toolbar in Dashboard]({{site.url}}{{site.baseurl}}/images/dashboards/dql-interface.png)
 
-The following table provides a quick reference for both query language commands.
-
-| Feature | DQL | Query string query |
-|:---|:---|:---|
-| Basic term search | `wind` | `wind` |
-| Exact phrase search | `"wind rises"` | `"wind rises"` |
-| Field-specific search | `title: wind` | `title:wind` |
-| Existence of a field | `description:*` | `_exists_:description` |
-| Multiple terms in field | `title: (wind OR rises)` | `title:(wind OR rises)` |
-| Field with spaces | `article*title: wind` | `article\ title:wind` |
-| Escape special characters | `format: 2\*3` | `format:2\*3` |
-| Multiple field search | `title: wind OR description: film` | `title:wind OR description:film` |
-| Nested field search | See [Nested fields](#nested-fields) | Not supported |
-| Numeric range | `page_views >= 100 and page_views <= 300` <br> `not page_views: 100` <br>  See [Ranges](#ranges)| `page_views:[100 TO 300]` <br> `account_number: [1 TO 15]` <br> `account_number: (>=1 AND <=15)` <br> `account_number: (+>=1 +<=15)` <br> `account_number: [15 TO *]` <br> `account_number: >=15` <br> See [Ranges]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/#ranges)|
-| Date range | `date >= "1939-01-01" and date <= "2013-12-31"` | `date:[1939-01-01 TO 2013-12-31]` |
-| Exclusive range | Not supported | `page_views:{100 TO 300}` |
-| Boolean AND | `media_type: film AND page_views: 100` | `media_type:film AND page_views:100` |
-| Boolean NOT | `NOT media_type: article` | `-media_type:article` or `NOT media_type:article` |
-| Required/Prohibited operators | Not supported | `+title:wind -media_type:article` Supports both `+` (required operator) and `-` (prohibited operator) |
-| Wildcards | `title: wind*`<br><br> Only supports `*` (multiple characters)  | `title:wind*` or `title:w?nd` <br><br>Supports `*` (multiple characters) and `?` (single character) |
-| Regular expressions | Not supported | `title:/w[a-z]nd/` |
-| Fuzzy search | Not supported | `title:wind~2` |
-| Proximity search | Not supported | `"wind rises"~2` |
-| Boosting terms | Not supported | `title:wind^2` |
-| Required term | Not supported | `+title:wind` |
-| Reserved characters | `\ ( ) : < > " *` | `+ - = && \|\| > < ! ( ) { } [ ] ^ " ~ * ? : \ /` |
+The syntax changes to **Lucene**. To switch back to DQL, select the **Lucene** button and toggle the **Off** switch.
 
 ## Setup
 
@@ -144,6 +118,36 @@ On the main menu, select **Discover**. In the upper-left corner, select `testind
 The [Object fields](#object-fields) and [Nested fields](#nested-fields) sections provide links for additional setup needed to try queries in those sections.
 {: .note}
 </details>
+
+## DQL and query string query quick reference
+
+The following table provides a quick reference for both query language commands. 
+
+| Feature | DQL | Query string query (Lucene)|
+|:---|:---|:---|
+| Basic term search | `wind` | `wind` |
+| Multiple terms | `wind gone` (finds documents containing `wind` or `gone`) | `wind gone` (finds documents containing `wind` or `gone`) |
+| Exact phrase search | `"wind rises"` | `"wind rises"` |
+| Field-specific search | `title: wind` | `title:wind` |
+| Existence of a field | `description:*` | `_exists_:description` |
+| Multiple terms in field | `title: (wind OR rises)` <br><br> | `title:(wind OR rises)` |
+| Field containing spaces | `article*title: wind` | `article\ title:wind` |
+| Escaping special characters | `format: 2\*3` | `format:2\*3` |
+| Multiple field search | `title: wind OR description: film` | `title:wind OR description:film` |
+| Nested field search | See [Nested fields](#nested-fields) | Not supported |
+| Numeric range | `page_views >= 100 and page_views <= 300` <br><br> `not page_views: 100` (results include documents with missing `page_views` field) <br><br>   See [Ranges](#ranges)| `page_views:[100 TO 300]` <br><br>  `page_views:(>=100 AND <=300)` <br><br>  `page_views:(+>=100 +<=300)` <br><br>  `page_views:[100 TO *]` <br><br>  `page_views:>=100` <br><br>  `NOT page_views:100` (results include documents with missing `page_views` field) <br><br> See [Ranges]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/#ranges)|
+| Date range | `date >= "1939-01-01" and date <= "2013-12-31"` <br><br> `not date: "1939-09-08"` | `date:[1939-01-01 TO 2013-12-31]` <br><br> `NOT date:1939-09-08` <br><br> Supports all numeric range syntax constructs|
+| Exclusive range | Not supported | `page_views: {100 TO 300}` (returns documents whose `page_views` are between `100` and `300`, but not including `100` and `300`) |
+| Boolean `AND` | `media_type:film AND page_views:100` <br><br> `media_type:film and page_views:100`| `media_type:film AND page_views:100` <br><br> `+media_type:film +page_views:100`|
+| Boolean `NOT` | `NOT media_type: article` <br><br> `not media_type: article` | `NOT media_type:article` <br><br> `-media_type:article`  |
+| Boolean `OR` | `title: wind OR description: film` <br><br> `title: wind or description: film` | `title: wind OR description: film` |
+| Required/Prohibited operators | Not supported | Supports both `+` (required operator) and `-` (prohibited operator) <br><br> `+title:wind -media_type:article` (returns documents in which `title` contains `wind` but `media_type` does not contain `article`)  |
+| Wildcards | `title: wind*`<br><br> `titl*: wind` <br><br> Only supports `*` (multiple characters)  | `title:wind*` or `title:w?nd` <br><br> Does not support wildcards in field names <br><br> Supports `*` (multiple characters) and `?` (single character) |
+| Regular expressions | Not supported | `title:/w[a-z]nd/` |
+| Fuzzy search | Not supported | `title:wind~2` |
+| Proximity search | Not supported | `"wind rises"~2` |
+| Boosting terms | Not supported | `title:wind^2` |
+| Reserved characters | `\ ( ) : < > " *` | `+ - = && \|\| > < ! ( ) { } [ ] ^ " ~ * ? : \ /` |
 
 ## Search for terms
 
