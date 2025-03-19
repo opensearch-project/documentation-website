@@ -100,8 +100,8 @@ The following sample CDK performs a live capture migration with C&R:
     "captureProxyServiceEnabled": true,
     "captureProxyExtraArgs": "",
     "trafficReplayerServiceEnabled": true,
-    "trafficReplayerExtraArgs": "",
-    "artifactBucketRemovalPolicy": "DESTROY"
+    "trafficReplayerExtraArgs": "--speedup-factor 2.0",
+    "targetClusterProxyServiceEnabled": true
   }
 }
 ```
@@ -116,7 +116,7 @@ Performing a live capture migration requires that a Capture Proxy be configured 
 | `captureProxyExtraArgs`  | `"--suppressCaptureForHeaderMatch user-agent .*elastic-java/7.17.0.*"`  | Extra arguments for the Capture Proxy command, including options specified by the [Capture Proxy](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/trafficCaptureProxyServer/src/main/java/org/opensearch/migrations/trafficcapture/proxyserver/CaptureProxy.java).  |
 | `trafficReplayerServiceEnabled` | `true`  | Enables the Traffic Replayer service deployment using a CloudFormation stack.  |
 | `trafficReplayerExtraArgs`      | `"--sigv4-auth-header-service-region es,us-east-1 --speedup-factor 5"`                 | Extra arguments for the Traffic Replayer command, including options for auth headers and other parameters specified by the [Traffic Replayer](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/trafficReplayer/src/main/java/org/opensearch/migrations/replay/TrafficReplayer.java). |
-
+| `targetClusterProxyServiceEnabled` | `true` | Enables the target cluster proxy service deployment using a CloudFormation stack. |
 
 For arguments available in `captureProxyExtraArgs`, see the `@Parameter` fields in [`CaptureProxy.java`](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/trafficCaptureProxyServer/src/main/java/org/opensearch/migrations/trafficcapture/proxyserver/CaptureProxy.java). For `trafficReplayerExtraArgs`, see the `@Parameter` fields in [TrafficReplayer.java](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/trafficReplayer/src/main/java/org/opensearch/migrations/replay/TrafficReplayer.java).
 
