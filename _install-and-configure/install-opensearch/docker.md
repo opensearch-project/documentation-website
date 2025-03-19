@@ -297,7 +297,7 @@ docker compose logs <serviceName>
 ```
 {% include copy.html %}
 
-Verify access to OpenSearch Dashboards by connecting to http://localhost:5601 from a browser. For OpenSearch 2.12 and above, you will need to use the username and password that you have set. Until OpenSearch 2.12, the default username and password were `admin`. We do not recommend using this configuration on hosts that are accessible from the public internet until you have customized the security configuration of your deployment.
+Verify access to OpenSearch Dashboards by connecting to http://localhost:5601 from a browser. For OpenSearch 2.12 and later, you must use the username and password that you have configured. For earlier versions, the default username and password are `admin`. We do not recommend using this configuration on hosts that are accessible from the public internet until you have customized the security configuration of your deployment.
 
 Remember that `localhost` cannot be accessed remotely. If you are deploying these containers to a remote host, then you will need to establish a network connection and replace `localhost` with the IP or DNS record corresponding to the host.
 {: .note}
