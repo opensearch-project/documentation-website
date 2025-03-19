@@ -2,7 +2,7 @@
 api: indices.put_settings
 component: request_body_parameters
 -->
-## Request body
+## Request body fields
 
 The index settings to be updated.
 
