@@ -181,7 +181,7 @@ To make sure you can delete snapshots as well as create them during the CDK depl
 
 #### Snapshot conflicts
 
-To prevent snapshot conflicts, use `console snapshot delete` command from the migration console. If you delete snapshots or snapshot repositories in a place other than the migration consolve, you could encounter "already exists" errors.
+To prevent snapshot conflicts, use `console snapshot delete` command from the migration console. If you delete snapshots or snapshot repositories in a place other than the migration console, you could encounter "already exists" errors.
 
 ## Resetting before migration
 
