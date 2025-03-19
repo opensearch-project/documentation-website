@@ -20,7 +20,7 @@ Consider the following criteria when deciding which workload would work best for
 - The data types that your cluster uses compared to the data structure of the documents contained in the workload. Each workload contains an example document so that you can compare data types, or you can view the index mappings and data types in the `index.json` file.
 - The query types most commonly used inside your cluster. The `operations/default.json` file contains information about the query types and workload operations. For a list of common operations, see [Common operations]({{site.url}}{{site.baseurl}}/benchmark/user-guide/understanding-workloads/common-operations/).
 
-## General search clusters
+## General search use cases: `nyc_taxis`
 
 For benchmarking clusters built for general search use cases, start with the [nyc_taxis](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/nyc_taxis) workload. It contains the contains the following:
 
@@ -34,9 +34,9 @@ This workload tests the following queries and search functions:
 - Geo-distance queries.
 - Aggregations.
 
-## Vector search
+## Vector data: `vectorsearch`
 
-The Vector search workload is designed to benchmark vector search capabilities, including performance and accuracy. It contains the following:
+The [vectorsearch](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/vectorsearch)  workload is designed to benchmark vector search capabilities, including performance and accuracy. It contains the following:
 
 - **Data type:** High-dimensional vector data, often representing embeddings of text or images.
 - **Cluster requirements:** Requires a cluster with vector search capabilities enabled.
@@ -47,13 +47,13 @@ This workload tests the following queries and search functions:
 - Hybrid searches combining vector similarity with metadata filtering.
 - Indexing performance for high-dimensional vector data.
 
-## Big5
+## Comprehensive search solutions: `big5`
 
-The Big5 workload is a comprehensive benchmark suite for testing various aspects of search engine performance, including overall search engine performance across multiple use cases. It contains the following:
+The [big5](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/big5) workload is a comprehensive benchmark suite for testing various aspects of search engine performance, including overall search engine performance across multiple use cases. It contains the following:
 
 - **Data type:** A mix of different data types, including text, numeric, and structured data.
 - **Cluster requirements:** Suitable for medium to large clusters, as it's designed to stress-test various components.
-- 
+
 This workload tests the following queries and search functions:
 
 - Full-text search performance.
@@ -62,9 +62,9 @@ This workload tests the following queries and search functions:
 - Sorting and pagination.
 - Indexing performance for various data types.
 
-## Percolator
+## `percolator`
 
-The Percolator workload is designed to test the performance of the percolator query type. It contains the following:
+The [percolator](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/percolator) workload is designed to test the performance of the percolator query type. It contains the following:
 
 - **Data type:** A set of stored queries and documents to be matched against those queries.
 - **Cluster requirements:** Suitable for clusters that make heavy use of the percolator feature.
@@ -75,7 +75,7 @@ This workload tests the following queries and search functions:
 - Matching performance for percolator queries.
 - Scalability with increasing numbers of stored queries.
 
-## Log data
+## Log data: `http_logs`
 
 For benchmarking clusters built for indexing and search with log data, use the [http_logs](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/http_logs) workload. It contains the following:
 
