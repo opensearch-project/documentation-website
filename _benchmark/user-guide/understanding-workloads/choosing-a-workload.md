@@ -22,16 +22,70 @@ Consider the following criteria when deciding which workload would work best for
 
 ## General search clusters
 
-For benchmarking clusters built for general search use cases, start with the [nyc_taxis](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/nyc_taxis) workload. This workload contains data about the rides taken in yellow taxis in New York City in 2015. This is ideal for testing the following types of queries:
+For benchmarking clusters built for general search use cases, start with the [nyc_taxis](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/nyc_taxis) workload. It contains the contains the following:
 
-<!---- List query types ----->
+- **Data type:** Ride data from yellow taxis in New York City in 2015.
+- **Cluster requirements:** Suitable for small to medium-sized clusters.
+
+This workload tests the following queries and search functions:
+
+- Range queries on pickup and dropoff times.
+- Term queries on various fields.
+- Geo-distance queries.
+- Aggregations.
 
 ## Vector search
 
+The Vector search workload is designed to benchmark vector search capabilities, including performance and accuracy. It contains the following:
+
+- **Data type:** High-dimensional vector data, often representing embeddings of text or images.
+- **Cluster requirements:** Requires a cluster with vector search capabilities enabled.
+
+This workload tests the following queries and search functions:
+
+- k-NN vector searches.
+- Hybrid searches combining vector similarity with metadata filtering.
+- Indexing performance for high-dimensional vector data.
+
 ## Big5
+
+The Big5 workload is a comprehensive benchmark suite for testing various aspects of search engine performance, including overall search engine performance across multiple use cases. It contains the following:
+
+- **Data type:** A mix of different data types, including text, numeric, and structured data.
+- **Cluster requirements:** Suitable for medium to large clusters, as it's designed to stress-test various components.
+- 
+This workload tests the following queries and search functions:
+
+- Full-text search performance.
+- Aggregation performance.
+- Complex boolean queries.
+- Sorting and pagination.
+- Indexing performance for various data types.
+
+## Percolator
+
+The Percolator workload is designed to test the performance of the percolator query type. It contains the following:
+
+- **Data type:** A set of stored queries and documents to be matched against those queries.
+- **Cluster requirements:** Suitable for clusters that make heavy use of the percolator feature.
+
+This workload tests the following queries and search functions:
+
+- Indexing performance for storing queries.
+- Matching performance for percolator queries.
+- Scalability with increasing numbers of stored queries.
 
 ## Log data
 
-For benchmarking clusters built for indexing and search with log data, use the [http_logs](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/http_logs) workload. This workload contains data about the 1998 World Cup. This is ideal for testing the following types of queries:
+For benchmarking clusters built for indexing and search with log data, use the [http_logs](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/http_logs) workload. It contains the following:
 
+- **Data type:** HTTP access logs from the 1998 World Cup website.
+- **Queries tested:** Time-based queries, term queries, and aggregations typical in log analysis.
+- **Cluster requirements:** Suitable for clusters optimized for time-series data and log analytics.
 
+This workload tests the following queries and search functions:
+
+- Time-range queries.
+- Term queries on fields like status code and user agent.
+- Aggregations for metrics like request count and average response size.
+- Cardinality aggregations on fields like IP address.
