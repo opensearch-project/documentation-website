@@ -9,7 +9,7 @@ redirect_from:
 
 # Cardinality aggregations
 
-The `cardinality` metric is a single-value metric that counts the number of unique or distinct values of a field.
+The `cardinality` aggregation is a single-value metric aggregation that counts the number of unique or distinct values of a field.
 
 
 Cardinality count is approximate. See [Controlling precision](#controlling-precision) for more information.
