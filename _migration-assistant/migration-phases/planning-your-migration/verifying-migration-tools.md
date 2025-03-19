@@ -170,7 +170,7 @@ Look for failing tasks by navigating to **Traffic Capture Proxy ECS**. Change **
 
 ### Snapshot and S3 bucket issues
 
-When using the CDK deployment for Migration Assistant, you might encounter the following errors duing snapshot creation and deletion:
+When using the CDK deployment for Migration Assistant, you might encounter the following errors during snapshot creation and deletion:
 
 #### Bucket permissions
 
