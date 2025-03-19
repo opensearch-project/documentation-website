@@ -29,14 +29,14 @@ For benchmarking clusters built for general search use cases, start with the [ny
 
 This workload tests the following queries and search functions:
 
-- Range queries on pickup and dropoff times.
+- Range queries.
 - Term queries on various fields.
 - Geo-distance queries.
 - Aggregations.
 
 ## Vector data: `vectorsearch`
 
-The [vectorsearch](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/vectorsearch)  workload is designed to benchmark vector search capabilities, including performance and accuracy. It contains the following:
+The [`vectorsearch`](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/vectorsearch)  workload is designed to benchmark vector search capabilities, including performance and accuracy. It contains the following:
 
 - **Data type:** High-dimensional vector data, often representing embeddings of text or images.
 - **Cluster requirements:** Requires a cluster with vector search capabilities enabled.
@@ -58,11 +58,11 @@ This workload tests the following queries and search functions:
 
 - Full-text search performance.
 - Aggregation performance.
-- Complex boolean queries.
+- Complex Boolean queries.
 - Sorting and pagination.
 - Indexing performance for various data types.
 
-## `percolator`
+## Percolator queries: `percolator`
 
 The [percolator](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/percolator) workload is designed to test the performance of the percolator query type. It contains the following:
 
