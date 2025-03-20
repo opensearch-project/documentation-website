@@ -13,7 +13,7 @@ Dashboards Query Language (DQL) is a simple text-based query language used to fi
 
 DQL and [query string query]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) (Lucene) language are the two search bar language options in Discover and Dashboards. This page provides a reference for the DQL syntax. For the Lucene syntax, see [Query string query]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/). For a syntax comparison, see the [Command quick reference](#dql-and-query-string-query-quick-reference).
 
-By default, OpenSearch Dashboards use DQL syntax. To switch to query string query (Lucene), select the **DQL** button next to the search box and then toggle the **On** switch, as shown in the following image. 
+By default, OpenSearch Dashboards uses DQL syntax. To switch to query string query (Lucene), select the **DQL** button next to the search box and then toggle the **On** switch, as shown in the following image. 
 
 ![Search term using DQL toolbar in Dashboard]({{site.url}}{{site.baseurl}}/images/dashboards/dql-interface.png)
 
@@ -137,7 +137,7 @@ The following table provides a quick reference for both query language commands.
 | Nested field search | See [Nested fields](#nested-fields) | Not supported |
 | Numeric range | `page_views >= 100 and page_views <= 300` <br><br> `not page_views: 100` (results include documents with missing `page_views` field) <br><br>   See [Ranges](#ranges)| `page_views:[100 TO 300]` <br><br>  `page_views:(>=100 AND <=300)` <br><br>  `page_views:(+>=100 +<=300)` <br><br>  `page_views:[100 TO *]` <br><br>  `page_views:>=100` <br><br>  `NOT page_views:100` (results include documents with missing `page_views` field) <br><br> See [Ranges]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/#ranges)|
 | Date range | `date >= "1939-01-01" and date <= "2013-12-31"` <br><br> `not date: "1939-09-08"` | `date:[1939-01-01 TO 2013-12-31]` <br><br> `NOT date:1939-09-08` <br><br> Supports all numeric range syntax constructs|
-| Exclusive range | Not supported | `page_views: {100 TO 300}` (returns documents whose `page_views` are between `100` and `300`, but not including `100` and `300`) |
+| Exclusive range | Not supported | `page_views: {100 TO 300}` (returns documents whose `page_views` are between `100` and `300`, excluding `100` and `300`) |
 | Boolean `AND` | `media_type:film AND page_views:100` <br><br> `media_type:film and page_views:100`| `media_type:film AND page_views:100` <br><br> `+media_type:film +page_views:100`|
 | Boolean `NOT` | `NOT media_type: article` <br><br> `not media_type: article` | `NOT media_type:article` <br><br> `-media_type:article`  |
 | Boolean `OR` | `title: wind OR description: film` <br><br> `title: wind or description: film` | `title: wind OR description: film` |
