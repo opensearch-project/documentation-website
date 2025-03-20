@@ -15,7 +15,7 @@ class BodyParameters < BaseMustacheRenderer
   end
 
   def header
-    @header ||= "#{@is_request ? 'Request' : 'Response'} body"
+    @header ||= "#{@is_request ? 'Request' : 'Response'} body fields"
   end
 
   def description
