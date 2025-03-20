@@ -64,7 +64,7 @@ The request body is __required__. It is a JSON object with the following fields.
 </details>
 <details markdown="block" name="indices.put_settings::request_body">
   <summary>
-    Request body: <code>routing</code> > <code>allocation</code>
+    Request body fields: <code>routing</code> > <code>allocation</code>
   </summary>
   {: .text-delta}
 
@@ -81,7 +81,7 @@ The request body is __required__. It is a JSON object with the following fields.
 </details>
 <details markdown="block" name="indices.put_settings::request_body">
   <summary>
-    Request body: <code>routing</code> > <code>allocation</code> > <code>disk</code>
+    Request body fields: <code>routing</code> > <code>allocation</code> > <code>disk</code>
   </summary>
   {: .text-delta}
 
@@ -94,7 +94,7 @@ The request body is __required__. It is a JSON object with the following fields.
 </details>
 <details markdown="block" name="indices.put_settings::request_body">
   <summary>
-    Request body: <code>routing</code> > <code>allocation</code> > <code>include</code>
+    Request body fields: <code>routing</code> > <code>allocation</code> > <code>include</code>
   </summary>
   {: .text-delta}
 
@@ -108,7 +108,7 @@ The request body is __required__. It is a JSON object with the following fields.
 </details>
 <details markdown="block" name="indices.put_settings::request_body">
   <summary>
-    Request body: <code>routing</code> > <code>allocation</code> > <code>initial_recovery</code>
+    Request body fields: <code>routing</code> > <code>allocation</code> > <code>initial_recovery</code>
   </summary>
   {: .text-delta}
 
@@ -121,7 +121,7 @@ The request body is __required__. It is a JSON object with the following fields.
 </details>
 <details markdown="block" name="indices.put_settings::request_body">
   <summary>
-    Request body: <code>routing</code> > <code>rebalance</code>
+    Request body fields: <code>routing</code> > <code>rebalance</code>
   </summary>
   {: .text-delta}
 
@@ -134,7 +134,7 @@ The request body is __required__. It is a JSON object with the following fields.
 </details>
 <details markdown="block" name="indices.put_settings::request_body">
   <summary>
-    Request body: <code>soft_deletes</code>
+    Request body fields: <code>soft_deletes</code>
   </summary>
   {: .text-delta}
 
@@ -149,7 +149,7 @@ The request body is __required__. It is a JSON object with the following fields.
 </details>
 <details markdown="block" name="indices.put_settings::request_body">
   <summary>
-    Request body: <code>soft_deletes</code> > <code>retention</code>
+    Request body fields: <code>soft_deletes</code> > <code>retention</code>
   </summary>
   {: .text-delta}
 
@@ -164,7 +164,7 @@ The retention settings for soft deletes.
 </details>
 <details markdown="block" name="indices.put_settings::request_body">
   <summary>
-    Request body: <code>soft_deletes</code> > <code>retention_lease</code>
+    Request body fields: <code>soft_deletes</code> > <code>retention_lease</code>
   </summary>
   {: .text-delta}
 
@@ -182,7 +182,7 @@ The retention settings for soft deletes.
 api: indices.put_settings
 component: response_body_parameters
 -->
-## Response body
+## Response body fields
 
 The response body is a JSON object with the following fields.
 
