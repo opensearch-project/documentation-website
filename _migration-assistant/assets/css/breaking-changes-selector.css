@@ -29,3 +29,27 @@
 #breaking-changes-results ul {
   margin-top: 10px;
 }
+
+.transformation-info {
+  margin-left: 20px;
+  padding: 5px 10px;
+  background-color: #e6f7ff;
+  border-left: 3px solid #1890ff;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 0.9em;
+}
+
+.component-checkbox {
+  display: inline-block;
+  margin-left: 20px;
+}
+
+.transformation-request {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-style: italic;
+}
