@@ -37,7 +37,7 @@ The request body is __required__. It is a JSON object with the following fields.
 </details>
 <details markdown="block" name="indices.put_settings::request_body">
   <summary>
-    Request body: <code>lifecycle</code> > <code>step</code>
+    Request body fields: <code>lifecycle</code> > <code>step</code>
   </summary>
   {: .text-delta}
 
@@ -50,7 +50,7 @@ The request body is __required__. It is a JSON object with the following fields.
 </details>
 <details markdown="block" name="indices.put_settings::request_body">
   <summary>
-    Request body: <code>routing</code>
+    Request body fields: <code>routing</code>
   </summary>
   {: .text-delta}
 
