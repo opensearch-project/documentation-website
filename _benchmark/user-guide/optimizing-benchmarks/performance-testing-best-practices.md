@@ -70,7 +70,7 @@ These settings offer ample storage space for your documents and test results wit
 
 ## Running tests
 
-Running benchmark tests involves not just running the benchmark but also monitoring the system during the test and ensuring consistent conditions across test runs.
+Running benchmark tests involves monitoring the system during the test and ensuring consistent conditions across test runs.
 
 While you can run a basic test, you can customize your test run with additional Benchmark command options. The following example runs a `geonames` workload test that targets a specific host, and outputs the test results as a `csv`:
 
