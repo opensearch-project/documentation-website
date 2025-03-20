@@ -1,0 +1,31 @@
+.breaking-changes-selector {
+  background: #f5f7f7;
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.breaking-changes-selector div {
+  margin: 10px 0;
+}
+
+.breaking-changes-selector label {
+  margin-right: 8px;
+}
+
+.breaking-changes-selector select {
+  margin-right: 15px;
+  padding: 4px;
+}
+
+.breaking-changes-selector input[type="checkbox"] {
+  margin-right: 4px;
+}
+
+#breaking-changes-results {
+  margin-top: 15px;
+}
+
+#breaking-changes-results ul {
+  margin-top: 10px;
+}
