@@ -2,12 +2,15 @@
 layout: default
 title: Creating and customizing AI search workflows
 parent: AI search workflows
+grand_parent: Generative AI
 nav_order: 10
+redirect_from:
+  - /tutorials/ai-search-flows/building-flows/
 ---
 
 # Creating and customizing AI search workflows in OpenSearch Dashboards
 
-This tutorial shows you how to build automated AI search flows in OpenSearch Dashboards.
+This tutorial shows you how to build automated AI search workflows in OpenSearch Dashboards. For more information, see [Building AI search workflows in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflow-builder/).
 
 ## Prerequisite: Provision ML resources
 
@@ -352,7 +355,7 @@ Configure an ML inference search request processor and a normalization processor
 ```
 {% include copy.html %}
 
-**For the normalization processor**, configure weights for each subquery. For more information, see the [hybrid search normalization processor example]({{site.url}}{{site.baseurl}}/search-plugins/hybrid-search/#step-4-configure-a-search-pipeline).
+**For the normalization processor**, configure weights for each subquery. For more information, see the [hybrid search normalization processor example]({{site.url}}{{site.baseurl}}/search-plugins/hybrid-search/#step-3-configure-a-search-pipeline).
 
 ---
 
