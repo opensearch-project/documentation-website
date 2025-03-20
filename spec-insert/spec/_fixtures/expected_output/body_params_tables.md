@@ -19,7 +19,7 @@ The request body is __required__. It is a JSON object with the following fields.
 
 <details markdown="block" name="indices.put_settings::request_body">
   <summary>
-    Request body: <code>lifecycle</code>
+    Request body fields: <code>lifecycle</code>
   </summary>
   {: .text-delta}
 
