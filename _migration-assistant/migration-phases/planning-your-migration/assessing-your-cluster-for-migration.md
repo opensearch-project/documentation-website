@@ -36,13 +36,17 @@ Before performing any upgrade or migration, you should review any documentation 
   </div>
   
   <div>
-    <label>Components:</label>
+    <label>Include Optional Components:</label><br>
     <!-- Components will be populated by JavaScript -->
     <span id="component-checkboxes"></span>
   </div>
   
   <div id="breaking-changes-results"></div>
 </div>
+
+<div id="migration-data" 
+     data-migration-paths="{{ site.data.migration-assistant.valid_migrations.migration_paths | jsonify | escape }}" 
+     style="display:none;"></div>
 
 <script src="{{site.url}}{{site.baseurl}}/migration-assistant/assets/js/breaking-changes-data.js"></script>
 <script src="{{site.url}}{{site.baseurl}}/migration-assistant/assets/js/breaking-changes-filter.js"></script>
@@ -69,4 +73,4 @@ For complex migrations involving multiple transformations or breaking changes, w
 
 The following transformations are included in the Migration Assistant. They can be enabled, combined, and configured to tailor a migration to your needs. To request additional transformations to be built into the Migration Assistant, open a github issue [here](https://github.com/opensearch-project/opensearch-migrations/issues).
 
-- [Type Mapping Deprecation](../handling-type-mapping-deprecation)
+- [Type Mapping Deprecation]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/planning-your-migration/handling-type-mapping-deprecation)

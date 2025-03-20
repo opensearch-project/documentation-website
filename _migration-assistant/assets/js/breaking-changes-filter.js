@@ -9,6 +9,11 @@
  * - Supports bidirectional filtering of source and target versions
  */
 document.addEventListener('DOMContentLoaded', () => {
+  // Wait for migration data to be initialized
+  if (typeof initializeMigrationData === 'function') {
+    initializeMigrationData();
+  }
+  
   // Cache DOM elements
   const src = document.getElementById('source-version');
   const tgt = document.getElementById('target-version');
@@ -36,9 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     dropdown.appendChild(createOption('', placeholder));
     
-    versions.forEach(versionStr => {
-      const [type, value] = versionStr.split(':');
-      dropdown.appendChild(createOption(versionStr, `${type} ${value}`));
+    versions.forEach(version => {
+      dropdown.appendChild(createOption(version, version));
     });
     
     if (currentValue && versions.includes(currentValue)) {
@@ -47,13 +51,13 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   
   // Get all available version strings
-  const allVersionStrings = VERSIONS.map(v => `${v.type}:${v.value}`);
+  const allVersions = VERSIONS;
   
   // Populate source dropdown with all versions initially
-  populateDropdown(src, allVersionStrings, 'Select Source');
+  populateDropdown(src, allVersions, 'Select Source');
   
   // Populate target dropdown with all versions initially
-  populateDropdown(tgt, allVersionStrings, 'Select Target');
+  populateDropdown(tgt, allVersions, 'Select Target');
   
   // Function to update target dropdown based on selected source
   const updateTargetDropdown = () => {
@@ -68,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
       populateDropdown(tgt, validTargets, 'Select Target');
     } else {
       // If no source selected, show all possible targets
-      populateDropdown(tgt, allVersionStrings, 'Select Target');
+      populateDropdown(tgt, allVersions, 'Select Target');
     }
     
     isUpdating = false;
@@ -88,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
       populateDropdown(src, validSources, 'Select Source');
     } else {
       // If no target selected, show all possible sources
-      populateDropdown(src, allVersionStrings, 'Select Source');
+      populateDropdown(src, allVersions, 'Select Source');
     }
 
     isUpdating = false;
@@ -99,28 +103,23 @@ document.addEventListener('DOMContentLoaded', () => {
   src.addEventListener('change', updateTargetDropdown);
   tgt.addEventListener('change', updateSourceDropdown);
   
-  const uiComponents = COMPONENTS;
+  // Only show Dashboards as an optional component
+  const span = document.createElement('span');
+  span.className = 'component-checkbox';
   
-  uiComponents.forEach(comp => {
-    const id = `component-${comp}`;
-    
-    const span = document.createElement('span');
-    span.className = 'component-checkbox';
-    
-    const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.id = id;
-    checkbox.value = comp;
-    checkbox.checked = true; // Check by default
-    
-    const label = document.createElement('label');
-    label.htmlFor = id;
-    label.textContent = comp.charAt(0).toUpperCase() + comp.slice(1);
-    
-    span.appendChild(checkbox);
-    span.appendChild(label);
-    componentContainer.appendChild(span);
-  });
+  const checkbox = document.createElement('input');
+  checkbox.type = 'checkbox';
+  checkbox.id = 'component-dashboards';
+  checkbox.value = 'dashboards';
+  checkbox.checked = false; // Unchecked by default
+  
+  const label = document.createElement('label');
+  label.htmlFor = 'component-dashboards';
+  label.textContent = 'Dashboards';
+  
+  span.appendChild(checkbox);
+  span.appendChild(label);
+  componentContainer.appendChild(span);
   
   // Get all checkboxes
   const checkboxes = document.querySelectorAll('#component-checkboxes input[type="checkbox"]');
@@ -147,24 +146,54 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // Filter breaking changes based on selection
-    const relevantChanges = breakingChanges.filter(change => 
-      change.src.includes(selectedSrc) && 
-      change.tgt.includes(selectedTgt) && 
-      (change.comp.length === 0 || 
-       selectedComp.length === 0 || 
-       change.comp.some(c => selectedComp.includes(c)))
-    );
+    const relevantChanges = breakingChanges.filter(change => {
+      // Always include changes with source and target match
+      const versionMatch = change.src.includes(selectedSrc) && change.tgt.includes(selectedTgt);
+      
+      // For component filtering:
+      // - Always include changes with empty comp array (default/data components)
+      // - Only include dashboard components if the checkbox is checked
+      const componentMatch = 
+        change.comp.length === 0 || // Include changes with no specific component (default/data)
+        (change.comp.includes('dashboards') && selectedComp.includes('dashboards')); // Only include dashboards if selected
+      
+      return versionMatch && componentMatch;
+    });
     
     // Display results
     if (relevantChanges.length) {
       results.innerHTML = `
         <h4>Relevant Breaking Changes:</h4>
-        <ul>${relevantChanges.map(change => 
-          `<li><a href="${change.url}">${change.title}</a>: ${change.desc}</li>`
-        ).join('')}</ul>
+        <ul>${relevantChanges.map(change => {
+          let transformationHtml = '';
+          if (change.transformation) {
+            transformationHtml = `
+              <div class="transformation-info">
+                <strong>Available Migration Assistant Transformation:</strong> 
+                <a href="${change.transformation.url}">${change.transformation.title}</a>
+              </div>
+            `;
+          }
+          return `
+            <li>
+              <a href="${change.url}">${change.title}</a>: ${change.desc}
+              ${transformationHtml}
+            </li>
+          `;
+        }).join('')}</ul>
+        <p class="transformation-request">
+          To request additional transformations to be built into the Migration Assistant, 
+          open a github issue <a href="https://github.com/opensearch-project/opensearch-migrations/issues">here</a>.
+        </p>
       `;
     } else {
-      results.innerHTML = '<p>No specific breaking changes found for your selection.</p>';
+      results.innerHTML = `
+        <p>No specific breaking changes found for your selection.</p>
+        <p class="transformation-request">
+          To request additional transformations to be built into the Migration Assistant, 
+          open a github issue <a href="https://github.com/opensearch-project/opensearch-migrations/issues">here</a>.
+        </p>
+      `;
     }
   };
   
