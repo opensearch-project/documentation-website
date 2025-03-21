@@ -6,6 +6,7 @@ parent: User guide
 redirect_from:
   - /benchmark/installing-benchmark/
 canonical_url: https://opensearch.org/docs/latest/benchmark/user-guide/installing-benchmark/
+redirect_to: https://opensearch.org/docs/latest/benchmark/user-guide/installing-benchmark/
 ---
 
 # Installing OpenSearch Benchmark
