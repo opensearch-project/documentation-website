@@ -6,6 +6,9 @@ has_toc: false
 nav_order: 47
 nav_exclude: true
 permalink: /tutorials/
+redirect_from:
+  - /ml-commons-plugin/tutorials/
+  - /ml-commons-plugin/tutorials/index/
 cards:
   - heading: "Searching data 101"
     description: "Learn the fundamentals of search and explore OpenSearch query languages and types" 
