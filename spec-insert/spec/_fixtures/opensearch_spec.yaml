@@ -59,6 +59,30 @@ paths:
         - $ref: '#/components/parameters/search___query.analyze_wildcard'
         - $ref: '#/components/parameters/search___query.analyzer'
         - $ref: '#/components/parameters/search___query.expand_wildcards'
+  /_settings:
+    put:
+      operationId: indices.put_settings.0
+      x-operation-group: indices.put_settings
+      x-version-added: '1.0'
+      description: Updates the index settings.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/api-reference/index-apis/update-settings/
+      requestBody:
+        $ref: '#/components/requestBodies/indices.put_settings'
+      responses:
+        '200':
+          $ref: '#/components/responses/indices.put_settings___200'
+
+  /_bulk:
+    post:
+      operationId: bulk.0
+      x-operation-group: bulk
+      x-version-added: '1.0'
+      description: Allows to perform multiple index/update/delete operations in a single request.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/api-reference/document-apis/bulk/
+      requestBody:
+        $ref: '#/components/requestBodies/bulk'
 components:
 
   parameters:
@@ -149,6 +173,43 @@ components:
             items:
               $ref: '#/components/schemas/_common___ExpandWildcardsCompact'
 
+  requestBodies:
+
+    indices.put_settings:
+      required: true
+      content:
+        application/json:
+          schema:
+            title: settings
+            $ref: '#/components/schemas/indices._common___IndexSettings'
+
+    bulk:
+      content:
+        application/x-ndjson:
+          schema:
+            type: array
+            items:
+              anyOf:
+                - type: object
+                - type: object
+                  properties:
+                    index:
+                      type: string
+                    action:
+                      type: string
+                      enum: [index, create, delete, update]
+                    data:
+                      type: object
+            description: The operation definition and data (action-data pairs), separated by newlines
+      required: true
+
+  responses:
+
+    indices.put_settings___200:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/_common___AcknowledgedResponseBase'
   schemas:
 
     _common___Indices:
@@ -178,3 +239,218 @@ components:
         - closed
         - none
         - all
+
+    _common___AcknowledgedResponseBase:
+      type: object
+      properties:
+        acknowledged:
+          description: For a successful response, this value is always true. On failure, an exception is returned instead.
+          type: boolean
+      required:
+        - acknowledged
+
+    indices._common___IndexSettings:
+      type: object
+      description: The index settings to be updated.
+      properties:
+        mode:
+          type: string
+        routing_path:
+          $ref: '#/components/schemas/_common___StringOrStringArray'
+        soft_deletes:
+          items:
+            $ref: '#/components/schemas/indices._common___SoftDeletes'
+        soft_deletes.retention_lease.period:
+          $ref: '#/components/schemas/_common___Duration'
+        routing:
+          $ref: '#/components/schemas/indices._common___IndexRouting'
+        lifecycle:
+          $ref: '#/components/schemas/indices._common___IndexSettingsLifecycle'
+
+    _common___StringOrStringArray:
+      oneOf:
+        - type: string
+        - type: array
+          items:
+            type: string
+
+    indices._common___SoftDeletes:
+      type: object
+      properties:
+        enabled:
+          description: Indicates whether soft deletes are enabled on the index.
+          $ref: '#/components/schemas/_common___StringifiedBoolean'
+        retention:
+          $ref: '#/components/schemas/indices._common___SoftDeletesRetention'
+        retention_lease:
+          $ref: '#/components/schemas/indices._common___RetentionLease'
+
+    _common___Duration:
+      description: |-
+        A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and
+        `d` (days). Also accepts "0" without a unit and "-1" to indicate an unspecified value.
+      pattern: ^(?:(-1)|([0-9\.]+)(?:d|h|m|s|ms|micros|nanos))$
+      type: string
+
+    indices._common___IndexRouting:
+      type: object
+      properties:
+        allocation:
+          $ref: '#/components/schemas/indices._common___IndexRoutingAllocation'
+        rebalance:
+          $ref: '#/components/schemas/indices._common___IndexRoutingRebalance'
+
+    _common___StringifiedEpochTimeUnitMillis:
+      description: |-
+        Certain APIs may return values, including numbers such as epoch timestamps, as strings. This setting captures
+        this behavior while keeping the semantics of the field type.
+
+        Depending on the target language, code generators can keep the union or remove it and leniently parse
+        strings to the target type.
+      oneOf:
+        - $ref: '#/components/schemas/_common___EpochTimeUnitMillis'
+        - type: string
+
+    _common___EpochTimeUnitMillis:
+      allOf:
+        - $ref: '#/components/schemas/_common___UnitMillis'
+
+    _common___UnitMillis:
+      description: The time unit for milliseconds.
+      type: integer
+      format: int64
+
+    indices._common___IndexSettingsLifecycle:
+      type: object
+      properties:
+        name:
+          type: string
+        indexing_complete:
+          $ref: '#/components/schemas/_common___StringifiedBoolean'
+        origination_date:
+          description: |-
+            If specified, this is the timestamp used to calculate the index age for its phase transitions. Use this setting
+            if you create a new index that contains old data and want to use the original creation date to calculate the index
+            age. Specified as a Unix epoch value in milliseconds.
+          $ref: '#/components/schemas/_common___StringifiedEpochTimeUnitMillis'
+        parse_origination_date:
+          description: |-
+            Set to `true` to parse the origination date from the index name. This origination date is used to calculate the index age
+            for its phase transitions. The index name must match the pattern `^.*-{date_format}-\\d+`, where the `date_format` is
+            `yyyy.MM.dd` and the trailing digits are optional. An index that was rolled over would normally match the full format,
+            for example `logs-2016.10.31-000002`). If the index name doesn't match the pattern, index creation fails.
+          type: boolean
+        step:
+          $ref: '#/components/schemas/indices._common___IndexSettingsLifecycleStep'
+        rollover_alias:
+          description: |-
+            The index alias to update when the index rolls over. Specify when using a policy that contains a rollover action.
+            When the index rolls over, the alias is updated to reflect that the index is no longer the write index. For more
+            information about rolling indexes, see Rollover.
+          type: string
+      required:
+        - name
+
+    _common___StringifiedLong:
+      oneOf:
+        - type: integer
+          format: int64
+        - type: string
+
+    _common___StringifiedBoolean:
+      description: |-
+        Certain APIs may return values, including numbers such as epoch timestamps, as strings. This setting captures
+        this behavior while keeping the semantics of the field type.
+
+        Depending on the target language, code generators can keep the union or remove it and leniently parse
+        strings to the target type.
+      oneOf:
+        - type: boolean
+        - type: string
+
+    _common___StringifiedInteger:
+      description: |-
+        Certain APIs may return values, including numbers such as epoch timestamps, as strings. This setting captures
+        this behavior while keeping the semantics of the field type.
+
+        Depending on the target language, code generators can keep the union or remove it and leniently parse
+        strings to the target type.
+      oneOf:
+        - type: integer
+        - type: string
+
+    indices._common___SoftDeletesRetention:
+      type: object
+      description: The retention settings for soft deletes.
+      properties:
+        operations:
+          $ref: '#/components/schemas/_common___StringifiedLong'
+
+    indices._common___RetentionLease:
+      type: object
+      properties:
+        period:
+          $ref: '#/components/schemas/_common___Duration'
+      required:
+        - period
+
+    indices._common___IndexRoutingAllocation:
+      type: object
+      properties:
+        enable:
+          $ref: '#/components/schemas/indices._common___IndexRoutingAllocationOptions'
+        include:
+          $ref: '#/components/schemas/indices._common___IndexRoutingAllocationInclude'
+        initial_recovery:
+          $ref: '#/components/schemas/indices._common___IndexRoutingAllocationInitialRecovery'
+        disk:
+          $ref: '#/components/schemas/indices._common___IndexRoutingAllocationDisk'
+        total_shards_per_node:
+          $ref: '#/components/schemas/_common___StringifiedInteger'
+
+    indices._common___IndexRoutingAllocationDisk:
+      type: object
+      properties:
+        threshold_enabled:
+          $ref: '#/components/schemas/_common___StringifiedBoolean'
+    indices._common___IndexRoutingAllocationInclude:
+      type: object
+      properties:
+        _tier_preference:
+          type: string
+        _id:
+          type: string
+    indices._common___IndexRoutingAllocationInitialRecovery:
+      type: object
+      properties:
+        _id:
+          type: string
+    indices._common___IndexRoutingAllocationOptions:
+      type: string
+      enum:
+        - all
+        - new_primaries
+        - none
+        - primaries
+
+    indices._common___IndexRoutingRebalance:
+      type: object
+      properties:
+        enable:
+          $ref: '#/components/schemas/indices._common___IndexRoutingRebalanceOptions'
+      required:
+        - enable
+
+    indices._common___IndexRoutingRebalanceOptions:
+      type: string
+      enum:
+        - all
+        - none
+        - primaries
+        - replicas
+
+    indices._common___IndexSettingsLifecycleStep:
+      type: object
+      properties:
+        wait_time_threshold:
+          $ref: '#/components/schemas/_common___Duration'
