@@ -113,7 +113,7 @@ For a callout with multiple paragraphs or lists, use `>`:
 
 ## Cards
 
-To add cards to a page, specify the card in the front matter as follows. The `description`, `link`, and `list` are optional. Use relative links. You can optionally style the text using HTML tags:
+To add a card to a page, specify it in the front matter as follows. The `description`, `link`, and `list` are optional. Use relative links. You can optionally style the text using HTML tags:
 
 ```yaml
 tutorial_cards:
@@ -430,7 +430,7 @@ The probability of selecting pair $$i$$ is proportional to $$1 \over i^\alpha$$.
 
 ## Steps
 
-To insert steps, specify the steps in the front matter as follows. Steps are automatically numbered. Use relative links. The `description` and `link` are optional:
+To insert steps, specify them in the front matter as follows. Steps are automatically numbered. Use relative links. The `description` and `link` are optional:
 
 ```yaml
 steps:
