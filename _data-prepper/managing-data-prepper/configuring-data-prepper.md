@@ -7,6 +7,7 @@ redirect_from:
  - /clients/data-prepper/data-prepper-reference/
  - /monitoring-plugins/trace/data-prepper-reference/
 canonical_url: https://opensearch.org/docs/latest/data-prepper/managing-data-prepper/configuring-data-prepper/
+redirect_to: https://opensearch.org/docs/latest/data-prepper/managing-data-prepper/configuring-data-prepper/
 ---
 
 # Configuring Data Prepper

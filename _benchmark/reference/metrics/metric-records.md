@@ -7,6 +7,7 @@ grand_parent: OpenSearch Benchmark Reference
 redirect_from:
   - /benchmark/metrics/metric-records/
 canonical_url: https://opensearch.org/docs/latest/benchmark/reference/metrics/metric-records/
+redirect_to: https://opensearch.org/docs/latest/benchmark/reference/metrics/metric-records/
 ---
 
 # Metric records

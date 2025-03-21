@@ -7,6 +7,7 @@ grand_parent: User guide
 redirect_from: 
   - /benchmark/user-guide/target-throughput/
 canonical_url: https://opensearch.org/docs/latest/benchmark/user-guide/optimizing-benchmarks/target-throughput/
+redirect_to: https://opensearch.org/docs/latest/benchmark/user-guide/optimizing-benchmarks/target-throughput/
 ---
 
 # Target throughput

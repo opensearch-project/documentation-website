@@ -3,6 +3,7 @@ layout: default
 title: PHP client
 nav_order: 70
 canonical_url: https://opensearch.org/docs/latest/clients/php/
+redirect_to: https://opensearch.org/docs/latest/clients/php/
 ---
 
 # PHP client

@@ -5,6 +5,7 @@ nav_order: 15
 grand_parent: User guide
 parent: Understanding workloads
 canonical_url: https://opensearch.org/docs/latest/benchmark/user-guide/understanding-workloads/anatomy-of-a-workload/
+redirect_to: https://opensearch.org/docs/latest/benchmark/user-guide/understanding-workloads/anatomy-of-a-workload/
 ---
 
 # Anatomy of a workload
