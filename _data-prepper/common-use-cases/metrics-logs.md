@@ -4,6 +4,7 @@ title: Deriving metrics from logs
 parent: Common use cases
 nav_order: 15
 canonical_url: https://opensearch.org/docs/latest/data-prepper/common-use-cases/metrics-logs/
+redirect_to: https://opensearch.org/docs/latest/data-prepper/common-use-cases/metrics-logs/
 ---
 
 # Deriving metrics from logs

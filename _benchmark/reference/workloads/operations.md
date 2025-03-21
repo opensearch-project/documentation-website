@@ -5,6 +5,7 @@ parent: Workload reference
 grand_parent: OpenSearch Benchmark Reference
 nav_order: 100
 canonical_url: https://opensearch.org/docs/latest/benchmark/reference/workloads/operations/
+redirect_to: https://opensearch.org/docs/latest/benchmark/reference/workloads/operations/
 ---
 
 <!-- vale off -->
