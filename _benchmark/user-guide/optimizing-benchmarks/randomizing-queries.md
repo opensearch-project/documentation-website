@@ -6,6 +6,7 @@ parent: Optimizing benchmarks
 grand_parent: User guide
 has_math: true
 canonical_url: https://opensearch.org/docs/latest/benchmark/user-guide/optimizing-benchmarks/randomizing-queries/
+redirect_to: https://opensearch.org/docs/latest/benchmark/user-guide/optimizing-benchmarks/randomizing-queries/
 ---
 
 # Randomizing queries

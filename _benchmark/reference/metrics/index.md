@@ -6,6 +6,7 @@ has_children: true
 parent: OpenSearch Benchmark Reference
 redirect_from: /benchmark/metrics/index/
 canonical_url: https://opensearch.org/docs/latest/benchmark/reference/metrics/index/
+redirect_to: https://opensearch.org/docs/latest/benchmark/reference/metrics/index/
 ---
 
 # Metrics

@@ -6,6 +6,7 @@ nav_order: 15
 redirect_from: 
   - /data-prepper/common-use-cases/
 canonical_url: https://opensearch.org/docs/latest/data-prepper/common-use-cases/common-use-cases/
+redirect_to: https://opensearch.org/docs/latest/data-prepper/common-use-cases/common-use-cases/
 ---
 
 # Common use cases
