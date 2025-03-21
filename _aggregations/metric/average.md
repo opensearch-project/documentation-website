@@ -22,7 +22,7 @@ The `avg` aggregation takes the following parameters.
 
 ## Example
 
- This example calculates the average of the `taxful_total_price` field in the e-commerce sample data:
+ The following example request calculates the average of the `taxful_total_price` field in the OpenSearch Dashboards e-commerce sample data:
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
@@ -73,7 +73,7 @@ You can use the aggregation name (`avg_taxful_total_price`) as a key to retrieve
 
 ## Missing values
 
-You can assign a value to missing instances of the aggregated field. See [Missing aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/missing/).
+You can assign a value to missing instances of the aggregated field. See [Missing aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/missing/) for more information.
 
 Prepare an example index by ingesting the following documents. Note that the second document is missing a `gpa` value:
 
@@ -138,7 +138,7 @@ The response is as follows. Compare to the next example, where missing values ar
 
 ### Example: Ignoring a missing value
 
-Take the average, but without assigning the `missing` parameter:
+Take the average but without assigning the `missing` parameter:
 
 ```json
 GET students/_search
@@ -155,7 +155,7 @@ GET students/_search
 ```
 {% include copy-curl.html %}
 
-The aggregator calculates the average, omitting documents with missing values in the field (the default behavior):
+The aggregator calculates the average, omitting documents containing missing field values (the default behavior):
 
 ```json
 {
