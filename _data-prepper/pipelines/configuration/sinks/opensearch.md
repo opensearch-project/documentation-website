@@ -5,6 +5,7 @@ parent: Sinks
 grand_parent: Pipelines
 nav_order: 50
 canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/sinks/opensearch/
+redirect_to: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/sinks/opensearch/
 ---
 
 # opensearch

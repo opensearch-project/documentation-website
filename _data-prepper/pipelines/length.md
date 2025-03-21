@@ -5,6 +5,7 @@ parent: Functions
 grand_parent: Pipelines
 nav_order: 30
 canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/length/
+redirect_to: https://opensearch.org/docs/latest/data-prepper/pipelines/length/
 ---
 
 # length()

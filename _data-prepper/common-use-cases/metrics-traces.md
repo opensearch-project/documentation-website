@@ -4,6 +4,7 @@ title: Deriving metrics from traces
 parent: Common use cases
 nav_order: 20
 canonical_url: https://opensearch.org/docs/latest/data-prepper/common-use-cases/metrics-traces/
+redirect_to: https://opensearch.org/docs/latest/data-prepper/common-use-cases/metrics-traces/
 ---
 
 # Deriving metrics from traces

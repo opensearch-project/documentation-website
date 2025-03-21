@@ -5,6 +5,7 @@ nav_order: 15
 parent: Optimizing benchmarks
 grand_parent: User guide
 canonical_url: https://opensearch.org/docs/latest/benchmark/user-guide/optimizing-benchmarks/distributed-load/
+redirect_to: https://opensearch.org/docs/latest/benchmark/user-guide/optimizing-benchmarks/distributed-load/
 ---
 
 # Running distributed loads 

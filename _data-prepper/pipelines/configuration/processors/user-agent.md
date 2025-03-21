@@ -5,6 +5,7 @@ parent: Processors
 grand_parent: Pipelines
 nav_order: 130
 canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/user-agent/
+redirect_to: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/user-agent/
 ---
 
 # user_agent
