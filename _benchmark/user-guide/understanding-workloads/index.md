@@ -4,6 +4,8 @@ title: Understanding workloads
 nav_order: 10
 parent: User guide
 has_children: true
+canonical_url: https://opensearch.org/docs/latest/benchmark/user-guide/understanding-workloads/index/
+redirect_to: https://opensearch.org/docs/latest/benchmark/user-guide/understanding-workloads/index/
 ---
 
 # Understanding workloads

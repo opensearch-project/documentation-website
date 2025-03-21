@@ -4,6 +4,8 @@ title: Working with workloads
 nav_order: 15
 parent: User guide
 has_children: true
+canonical_url: https://opensearch.org/docs/latest/benchmark/user-guide/working-with-workloads/index/
+redirect_to: https://opensearch.org/docs/latest/benchmark/user-guide/working-with-workloads/index/
 ---
 
 # Working with workloads

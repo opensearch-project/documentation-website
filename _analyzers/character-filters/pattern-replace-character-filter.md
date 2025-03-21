@@ -3,6 +3,7 @@ layout: default
 title: Pattern replace
 parent: Character filters
 nav_order: 130
+canonical_url: https://opensearch.org/docs/latest/analyzers/character-filters/pattern-replace-character-filter/
 ---
 
 # Pattern replace character filter

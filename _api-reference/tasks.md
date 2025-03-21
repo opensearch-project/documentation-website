@@ -4,6 +4,7 @@ title: Tasks
 nav_order: 85
 redirect_from:
  - /opensearch/rest-api/tasks/
+canonical_url: https://opensearch.org/docs/latest/api-reference/tasks/
 ---
 
 # Tasks

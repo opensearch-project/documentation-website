@@ -6,6 +6,7 @@ grand_parent: Mapping and field types
 nav_order: 15
 has_children: false
 has_toc: false
+canonical_url: https://opensearch.org/docs/latest/field-types/mapping-parameters/coerce/
 ---
 
 # Coerce

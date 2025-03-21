@@ -6,6 +6,7 @@ has_children: true
 has_toc: false
 redirect_from:
     - /analyzers/supported-analyzers/index/
+canonical_url: https://opensearch.org/docs/latest/analyzers/supported-analyzers/index/
 ---
 
 # Analyzers

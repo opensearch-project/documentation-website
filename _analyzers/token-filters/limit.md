@@ -3,6 +3,7 @@ layout: default
 title: Limit
 parent: Token filters
 nav_order: 250
+canonical_url: https://opensearch.org/docs/latest/analyzers/token-filters/limit/
 ---
 
 # Limit token filter

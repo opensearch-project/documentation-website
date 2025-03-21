@@ -2,6 +2,7 @@
 layout: default
 title: Validate Query
 nav_order: 87
+canonical_url: https://opensearch.org/docs/latest/api-reference/validate/
 ---
 
 # Validate Query

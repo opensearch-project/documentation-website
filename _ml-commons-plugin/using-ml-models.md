@@ -7,6 +7,7 @@ nav_order: 50
 redirect_from:
    - /ml-commons-plugin/model-serving-framework/
    - /ml-commons-plugin/ml-framework/
+canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/using-ml-models/
 ---
 
 # Using ML models within OpenSearch

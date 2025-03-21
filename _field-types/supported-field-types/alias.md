@@ -7,6 +7,7 @@ parent: Supported field types
 redirect_from:
   - /opensearch/supported-field-types/alias/
   - /field-types/alias/
+canonical_url: https://opensearch.org/docs/latest/field-types/supported-field-types/alias/
 ---
 
 # Alias field type

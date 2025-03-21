@@ -6,6 +6,7 @@ grand_parent: SQL and PPL
 nav_order: 72
 redirect_from:
   - /search-plugins/sql/odbc/
+canonical_url: https://opensearch.org/docs/latest/search-plugins/sql/sql/odbc/
 ---
 
 # ODBC driver

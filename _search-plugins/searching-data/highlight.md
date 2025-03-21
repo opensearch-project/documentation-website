@@ -5,6 +5,7 @@ parent: Search options
 nav_order: 50
 redirect_from:
   - /opensearch/search/highlight/
+canonical_url: https://opensearch.org/docs/latest/search-plugins/searching-data/highlight/
 ---
 
 # Highlight query matches

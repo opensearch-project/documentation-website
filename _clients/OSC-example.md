@@ -4,6 +4,8 @@ title: More advanced features of the high-level .NET client
 nav_order: 12
 has_children: false
 parent: .NET clients
+canonical_url: https://opensearch.org/docs/latest/clients/OSC-example/
+redirect_to: https://opensearch.org/docs/latest/clients/OSC-example/
 ---
 
 # More advanced features of the high-level .NET client (OpenSearch.Client)

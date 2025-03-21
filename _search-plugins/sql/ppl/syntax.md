@@ -4,6 +4,7 @@ title: Syntax
 parent: PPL
 grand_parent: SQL and PPL
 nav_order: 1
+canonical_url: https://opensearch.org/docs/latest/search-plugins/sql/ppl/syntax/
 ---
 
 # PPL syntax

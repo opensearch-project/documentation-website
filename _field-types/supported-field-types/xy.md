@@ -8,6 +8,7 @@ parent: Supported field types
 redirect_from:
   - /opensearch/supported-field-types/xy/
   - /field-types/xy/
+canonical_url: https://opensearch.org/docs/latest/field-types/supported-field-types/xy/
 ---
 
 # Cartesian field types

@@ -3,6 +3,7 @@ layout: default
 title: Data sources
 nav_order: 110
 has_children: true
+canonical_url: https://opensearch.org/docs/latest/dashboards/management/data-sources/
 ---
 
 # Data sources

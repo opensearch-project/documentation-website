@@ -4,6 +4,7 @@ title: Indonesian
 parent: Language analyzers
 grand_parent: Analyzers
 nav_order: 210
+canonical_url: https://opensearch.org/docs/latest/analyzers/language-analyzers/indonesian/
 ---
 
 # Indonesian analyzer

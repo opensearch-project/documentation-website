@@ -4,6 +4,8 @@ title: Choosing a workload
 nav_order: 20
 grand_parent: User guide
 parent: Understanding workloads
+canonical_url: https://opensearch.org/docs/latest/benchmark/user-guide/understanding-workloads/choosing-a-workload/
+redirect_to: https://opensearch.org/docs/latest/benchmark/user-guide/understanding-workloads/choosing-a-workload/
 ---
 
 # Choosing a workload

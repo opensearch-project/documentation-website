@@ -4,6 +4,8 @@ title: aws_lambda
 parent: Sinks
 grand_parent: Pipelines
 nav_order: 10
+canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/sinks/aws-lambda/
+redirect_to: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/sinks/aws-lambda/
 ---
 
 ----------------------------------------------------------------------------------------

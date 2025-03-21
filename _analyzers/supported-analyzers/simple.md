@@ -3,6 +3,7 @@ layout: default
 title: Simple analyzer
 parent: Analyzers
 nav_order: 100
+canonical_url: https://opensearch.org/docs/latest/analyzers/supported-analyzers/simple/
 ---
 
 # Simple analyzer

@@ -3,6 +3,7 @@ layout: default
 title: Deprovision a workflow
 parent: Workflow APIs
 nav_order: 70
+canonical_url: https://opensearch.org/docs/latest/automating-configurations/api/deprovision-workflow/
 ---
 
 # Deprovision a workflow

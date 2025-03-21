@@ -4,6 +4,7 @@ title: Russian
 parent: Language analyzers
 grand_parent: Analyzers
 nav_order: 280
+canonical_url: https://opensearch.org/docs/latest/analyzers/language-analyzers/russian/
 ---
 
 # Russian analyzer

@@ -5,6 +5,7 @@ parent: SQL and PPL
 nav_order: 77
 redirect_from:
   - /search-plugins/sql/settings/
+canonical_url: https://opensearch.org/docs/latest/search-plugins/sql/settings/
 ---
 
 # SQL settings

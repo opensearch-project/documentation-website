@@ -3,6 +3,7 @@ layout: default
 title: OpenSearch keystore
 parent: Configuration
 nav_order: 50
+canonical_url: https://opensearch.org/docs/latest/security/configuration/opensearch-keystore/
 ---
 
 # OpenSearch keystore

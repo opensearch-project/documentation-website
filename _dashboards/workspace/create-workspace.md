@@ -3,6 +3,7 @@ layout: default
 title: Create a workspace
 parent: Workspace for OpenSearch Dashboards
 nav_order: 1
+canonical_url: https://opensearch.org/docs/latest/dashboards/workspace/create-workspace/
 ---
 
 # Create a workspace

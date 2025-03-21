@@ -7,6 +7,7 @@ parent: Supported field types
 redirect_from:
   - /opensearch/supported-field-types/range/
   - /field-types/range/
+canonical_url: https://opensearch.org/docs/latest/field-types/supported-field-types/range/
 ---
 
 # Range field types

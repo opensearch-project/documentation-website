@@ -4,6 +4,7 @@ title: Hindi
 parent: Language analyzers
 grand_parent: Analyzers
 nav_order: 190
+canonical_url: https://opensearch.org/docs/latest/analyzers/language-analyzers/hindi/
 ---
 
 # Hindi analyzer

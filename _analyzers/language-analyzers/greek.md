@@ -4,6 +4,7 @@ title: Greek
 parent: Language analyzers
 grand_parent: Analyzers
 nav_order: 180
+canonical_url: https://opensearch.org/docs/latest/analyzers/language-analyzers/greek/
 ---
 
 # Greek analyzer

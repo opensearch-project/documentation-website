@@ -3,6 +3,7 @@ layout: default
 title: TSVB
 parent: Building data visualizations
 nav_order: 45
+canonical_url: https://opensearch.org/docs/latest/dashboards/visualize/tsvb/
 ---
 
 # TSVB

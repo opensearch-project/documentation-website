@@ -8,6 +8,7 @@ grand_parent: Supported field types
 redirect_from:
   - /opensearch/supported-field-types/text/
   - /field-types/text/
+canonical_url: https://opensearch.org/docs/latest/field-types/supported-field-types/text/
 ---
 
 # Text field type

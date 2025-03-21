@@ -4,6 +4,7 @@ title: Turkish
 parent: Language analyzers
 grand_parent: Analyzers
 nav_order: 330
+canonical_url: https://opensearch.org/docs/latest/analyzers/language-analyzers/turkish/
 ---
 
 # Turkish analyzer

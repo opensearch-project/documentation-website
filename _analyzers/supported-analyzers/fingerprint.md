@@ -3,6 +3,7 @@ layout: default
 title: Fingerprint analyzer
 parent: Analyzers
 nav_order: 60
+canonical_url: https://opensearch.org/docs/latest/analyzers/supported-analyzers/fingerprint/
 ---
 
 # Fingerprint analyzer
