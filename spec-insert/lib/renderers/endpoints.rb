@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'base_mustache_renderer'
+require_relative 'components/base_mustache_renderer'
 
 # Renders Endpoints
 class Endpoints < BaseMustacheRenderer
