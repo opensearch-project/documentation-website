@@ -36,20 +36,20 @@ Proper test configuration includes setting appropriate parameters for your test 
 The following example shows a basic benchmark configuration file. This configuration includes essential parameters such as warmup time, test duration, and the number of clients:
 
 ```json
-{
-  "name": "my-benchmark",
-  "description": "Basic performance test",
-  "test_procedures": [
-    {
-      "operation": {
-        "warmup-time-period": 300,
-        "time-period": 3600,
-        "clients": 8
-      }
+     {
+      "name": "my-benchmark-test-procedure",
+      "description": "This test procedure runs term query against a cluster. It includes a 300-second warm-up, followed by a 3600-second benchmark using 8 concurrent clients.",
+      "schedule": [
+        {
+          "operation": "term",
+          "warmup-time=period": 300,
+          "time-period": 3600,
+          "clients": 8
+        }
+      ]
     }
-  ]
-}
 ```
+{% include copy.html %}
 
 ### Index settings
 
@@ -83,6 +83,7 @@ opensearch-benchmark run \
   --report-format=csv \
   --report-file=benchmark-results.csv
 ```
+{% include copy.html %}
 
 ### Monitoring during tests
 
@@ -99,6 +100,7 @@ curl localhost:9200/_cat/indices?v
 # Monitor cluster health
 curl localhost:9200/_cluster/health?pretty
 ```
+{% include copy.html %}
 
 ## Metrics collection
 
@@ -120,6 +122,7 @@ Configure your benchmark to collect comprehensive metrics. The following configu
   }
 }
 ```
+{% include copy.html %}
 
 ### Sample metrics to track
 
@@ -144,6 +147,7 @@ metrics_to_track = {
     }
 }
 ```
+{% include copy.html %}
 
 ### Metrics calculation
 
@@ -151,7 +155,7 @@ OpenSearch Benchmark calculates metrics differently from traditional client-serv
 
 ## Integration with OpenSearch Dashboards
 
-To integrate OpenSearch Benchmark results with OpenSearch Dashboards, you can perform one of the following:
+To integrate OpenSearch Benchmark results with OpenSearch Dashboards, use the following steps:
 
 1. [Configure OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/user-guide/install-and-configure/configuring-benchmark/) to store results in OpenSearch.
 2. Create index patterns in OpenSearch Dashboards for the benchmark results.
@@ -189,7 +193,7 @@ Proper documentation of your test environment is crucial for reproducibility and
 
 Don't omit environment details from your test reports.
 
-Instead, always document comprehensive details about your test environment. This should include hardware specifications, software versions, and any relevant configuration settings. as shown in the following example:
+Instead, always document comprehensive details about your test environment. This should include hardware specifications, software versions, and any relevant configuration settings. The following example shows how you can add environment details when running OpenSearch Benchmark with a Python script: 
 
 ```python
 # DO: Document environment details
@@ -205,6 +209,7 @@ def run_benchmark():
     results = opensearch_benchmark.run()
     return {'environment': environment, 'results': results}
 ```
+{% include copy.html %}
 
 By documenting these details, you ensure that your test results can be properly interpreted and that the tests can be reproduced if necessary.
 
@@ -226,11 +231,7 @@ By carefully reviewing these logs, you can often identify the root cause of perf
 
 ## Security considerations
 
-Security should never be an afterthought in performance testing. It's important to include security configurations that match your production environment to get realistic performance measurements.
-
-### SSL configuration
-
-The following example of how to configure SSL in `opensearch.yml` for secure communications during benchmark testing:
+In most cases, a basic authentication protocol should work for testing. However, you can use SSL for secure communication during benchmark testing, as shown in the following example `opensearch.yml` configuration:
 
 ```yaml
 security:
@@ -241,20 +242,7 @@ security:
   client_certificate: /path/to/client.crt
   client_key: /path/to/client.key
 ```
-
-### Authentication setup
-
-When testing with authentication enabled, ensure your benchmark includes the appropriate authentication headers:
-
-```python
-headers = {
-    'Authorization': 'Basic {}'.format(
-        base64.b64encode(
-            '{}:{}'.format(username, password).encode()
-        ).decode()
-    )
-}
-```
+{% include copy.html %}
 
 ## Maintenance
 
@@ -272,6 +260,7 @@ opensearch-benchmark update-workload geonames
 # Clean old data
 opensearch-benchmark clean
 ```
+{% include copy.html %}
 
 ## Amazon OpenSearch Serverless considerations
 
