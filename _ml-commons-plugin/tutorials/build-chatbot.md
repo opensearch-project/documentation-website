@@ -3,6 +3,7 @@ layout: default
 title: Build your own chatbot
 parent: Tutorials
 nav_order: 60
+canonical_url: https://opensearch.org/docs/latest/tutorials/gen-ai/chatbots/build-chatbot/
 ---
 
 # Build your own chatbot

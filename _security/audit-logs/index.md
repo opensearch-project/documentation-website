@@ -7,6 +7,7 @@ has_toc: false
 redirect_from:
   - /security/audit-logs/index/
   - /security-plugin/audit-logs/index/
+canonical_url: https://opensearch.org/docs/latest/security/audit-logs/index/
 ---
 
 # Audit logs

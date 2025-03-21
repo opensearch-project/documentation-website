@@ -3,6 +3,7 @@ layout: default
 title: RAG chatbot
 parent: Tutorials
 nav_order: 50
+canonical_url: https://opensearch.org/docs/latest/tutorials/gen-ai/chatbots/rag-chatbot/
 ---
 
 # RAG chatbot

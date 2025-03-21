@@ -5,6 +5,7 @@ nav_order: 35
 has_children: false
 redirect_from:
   - /search-plugins/neural-text-search/
+canonical_url: https://opensearch.org/docs/latest/vector-search/ai-search/semantic-search/
 ---
 
 # Semantic search

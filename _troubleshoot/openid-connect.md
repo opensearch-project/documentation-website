@@ -2,6 +2,7 @@
 layout: default
 title: Troubleshoot OpenID Connect
 nav_order: 30
+canonical_url: https://opensearch.org/docs/latest/troubleshoot/openid-connect/
 ---
 
 # OpenID Connect troubleshooting

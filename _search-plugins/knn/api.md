@@ -4,6 +4,7 @@ title: k-NN plugin API
 nav_order: 30
 parent: k-NN search
 has_children: false
+canonical_url: https://opensearch.org/docs/latest/vector-search/api/
 ---
 
 # k-NN plugin API

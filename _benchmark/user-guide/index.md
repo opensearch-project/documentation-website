@@ -3,6 +3,7 @@ layout: default
 title: User guide
 nav_order: 5
 has_children: true
+canonical_url: https://opensearch.org/docs/latest/benchmark/user-guide/index/
 ---
 
 # OpenSearch Benchmark User Guide

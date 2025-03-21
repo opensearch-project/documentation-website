@@ -4,6 +4,7 @@ title: Create or update message
 parent: Memory APIs
 grand_parent: ML Commons APIs
 nav_order: 40
+canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/api/memory-apis/create-message/
 ---
 
 # Create or update a message

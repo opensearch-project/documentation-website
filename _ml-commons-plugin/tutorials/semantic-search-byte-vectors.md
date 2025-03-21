@@ -3,6 +3,7 @@ layout: default
 title: Semantic search using byte vectors
 parent: Tutorials
 nav_order: 10
+canonical_url: https://opensearch.org/docs/latest/tutorials/vector-search/vector-operations/semantic-search-byte-vectors/
 ---
 
 # Semantic search using byte-quantized vectors

@@ -3,6 +3,7 @@ layout: default
 title: Using Amazon Bedrock guardrails 
 parent: Tutorials
 nav_order: 25
+canonical_url: https://opensearch.org/docs/latest/tutorials/gen-ai/model-controls/bedrock-guardrails/
 ---
 
 # Using Amazon Bedrock guardrails 

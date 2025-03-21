@@ -3,6 +3,7 @@ layout: default
 title: Hybrid search
 has_children: false
 nav_order: 60
+canonical_url: https://opensearch.org/docs/latest/vector-search/ai-search/hybrid-search/index/
 ---
 
 # Hybrid search

@@ -5,6 +5,7 @@ parent: Metric aggregations
 nav_order: 20
 redirect_from:
   - /query-dsl/aggregations/metric/cardinality/
+canonical_url: https://opensearch.org/docs/latest/aggregations/metric/cardinality/
 ---
 
 # Cardinality aggregations

@@ -5,6 +5,7 @@ nav_order: 21
 parent: k-NN search
 has_children: false
 has_math: true
+canonical_url: https://opensearch.org/docs/latest/vector-search/specialized-operations/nested-search-knn/
 ---
 
 # k-NN search with nested fields

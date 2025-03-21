@@ -3,6 +3,7 @@ layout: default
 title: RAG chatbot with a conversational flow agent
 parent: Tutorials
 nav_order: 40
+canonical_url: https://opensearch.org/docs/latest/tutorials/gen-ai/chatbots/rag-conversational-agent/
 ---
 
 # RAG chatbot with a conversational flow agent
