@@ -4,6 +4,7 @@ title: S3 logs
 parent: Common use cases
 nav_order: 40
 canonical_url: https://opensearch.org/docs/latest/data-prepper/common-use-cases/s3-logs/
+redirect_to: https://opensearch.org/docs/latest/data-prepper/common-use-cases/s3-logs/
 ---
 
 # S3 logs

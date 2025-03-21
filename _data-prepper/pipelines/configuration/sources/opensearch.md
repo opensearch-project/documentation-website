@@ -5,6 +5,7 @@ parent: Sources
 grand_parent: Pipelines
 nav_order: 30
 canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/sources/opensearch/
+redirect_to: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/sources/opensearch/
 ---
 
 # opensearch
