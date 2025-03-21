@@ -3,7 +3,6 @@ layout: default
 title: Log enrichment
 parent: Common use cases
 nav_order: 35
-canonical_url: https://opensearch.org/docs/latest/data-prepper/common-use-cases/log-enrichment/
 redirect_to: https://opensearch.org/docs/latest/data-prepper/common-use-cases/log-enrichment/
 ---
 

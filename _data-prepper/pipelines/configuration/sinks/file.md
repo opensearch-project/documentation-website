@@ -4,7 +4,6 @@ title: file
 parent: Sinks
 grand_parent: Pipelines
 nav_order: 45
-canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/sinks/file/
 redirect_to: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/sinks/file/
 ---
 

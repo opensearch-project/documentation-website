@@ -4,7 +4,6 @@ title: test_procedures
 parent: Workload reference
 grand_parent: OpenSearch Benchmark Reference
 nav_order: 110
-canonical_url: https://opensearch.org/docs/latest/benchmark/reference/workloads/test-procedures/
 redirect_to: https://opensearch.org/docs/latest/benchmark/reference/workloads/test-procedures/
 ---
 

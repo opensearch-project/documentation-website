@@ -3,7 +3,6 @@ layout: default
 title: Tutorials
 nav_order: 10
 has_children: true
-canonical_url: https://opensearch.org/docs/latest/benchmark/tutorials/index/
 redirect_to: https://opensearch.org/docs/latest/benchmark/tutorials/index/
 ---
 

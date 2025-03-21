@@ -4,7 +4,6 @@ title: kafka
 parent: Buffers
 grand_parent: Pipelines
 nav_order: 80
-canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/buffers/kafka/
 redirect_to: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/buffers/kafka/
 ---
 

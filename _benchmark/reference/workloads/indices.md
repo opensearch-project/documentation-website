@@ -6,7 +6,6 @@ grand_parent: OpenSearch Benchmark Reference
 nav_order: 65
 redirect_from:
   - /benchmark/workloads/indices/
-canonical_url: https://opensearch.org/docs/latest/benchmark/reference/workloads/indices/
 redirect_to: https://opensearch.org/docs/latest/benchmark/reference/workloads/indices/
 ---
 

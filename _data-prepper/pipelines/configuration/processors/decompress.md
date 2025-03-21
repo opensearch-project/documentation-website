@@ -4,7 +4,6 @@ title: decompress
 parent: Processors
 grand_parent: Pipelines
 nav_order: 40
-canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/decompress/
 redirect_to: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/decompress/
 ---
 

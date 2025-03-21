@@ -7,7 +7,6 @@ nav_exclude: true
 permalink: /clients/
 redirect_from:
   - /clients/index/
-canonical_url: https://opensearch.org/docs/latest/clients/
 redirect_to: https://opensearch.org/docs/latest/clients/
 ---
 

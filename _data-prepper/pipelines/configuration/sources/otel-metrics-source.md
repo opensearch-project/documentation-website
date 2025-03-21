@@ -4,7 +4,6 @@ title: otel_metrics_source
 parent: Sources
 grand_parent: Pipelines
 nav_order: 10
-canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/sources/otel-metrics-source/
 redirect_to: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/sources/otel-metrics-source/
 ---
 

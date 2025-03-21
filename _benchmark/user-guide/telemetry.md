@@ -3,7 +3,6 @@ layout: default
 title: Enabling telemetry devices
 nav_order: 30
 parent: User guide
-canonical_url: https://opensearch.org/docs/latest/benchmark/user-guide/telemetry/
 redirect_to: https://opensearch.org/docs/latest/benchmark/user-guide/telemetry/
 ---
 

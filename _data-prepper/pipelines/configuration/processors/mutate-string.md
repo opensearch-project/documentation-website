@@ -4,7 +4,6 @@ title: Mutate string
 parent: Processors
 grand_parent: Pipelines
 nav_order: 70
-canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/mutate-string/
 redirect_to: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/mutate-string/
 ---
 

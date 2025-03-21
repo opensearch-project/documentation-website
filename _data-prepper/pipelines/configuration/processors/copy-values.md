@@ -4,7 +4,6 @@ title: copy_values
 parent: Processors
 grand_parent: Pipelines
 nav_order: 48
-canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/copy-values/
 redirect_to: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/copy-values/
 ---
 

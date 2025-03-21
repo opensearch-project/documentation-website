@@ -3,7 +3,6 @@ layout: default
 title: Ruby client
 nav_order: 60
 has_children: false
-canonical_url: https://opensearch.org/docs/latest/clients/ruby/
 redirect_to: https://opensearch.org/docs/latest/clients/ruby/
 ---
 

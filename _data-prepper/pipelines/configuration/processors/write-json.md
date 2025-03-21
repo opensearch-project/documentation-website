@@ -4,7 +4,6 @@ title: write_json
 parent: Processors
 grand_parent: Pipelines
 nav_order: 56
-canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/write-json/
 redirect_to: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/write-json/
 ---
 

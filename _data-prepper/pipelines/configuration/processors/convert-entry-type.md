@@ -4,7 +4,6 @@ title: convert_entry_type
 parent: Processors
 grand_parent: Pipelines
 nav_order: 47
-canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/convert-entry-type/
 redirect_to: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/convert-entry-type/
 ---
 

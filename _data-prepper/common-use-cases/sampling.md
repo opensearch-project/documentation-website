@@ -3,7 +3,6 @@ layout: default
 title: Sampling
 parent: Common use cases
 nav_order: 45
-canonical_url: https://opensearch.org/docs/latest/data-prepper/common-use-cases/sampling/
 redirect_to: https://opensearch.org/docs/latest/data-prepper/common-use-cases/sampling/
 ---
 

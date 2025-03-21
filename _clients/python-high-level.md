@@ -2,7 +2,6 @@
 layout: default
 title: High-level Python client
 nav_order: 5
-canonical_url: https://opensearch.org/docs/latest/clients/python-high-level/
 redirect_to: https://opensearch.org/docs/latest/clients/python-high-level/
 ---
 

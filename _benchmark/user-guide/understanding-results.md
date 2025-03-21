@@ -3,7 +3,6 @@ layout: default
 title: Understanding benchmark results
 nav_order: 22
 parent: User guide
-canonical_url: https://opensearch.org/docs/latest/benchmark/user-guide/understanding-results/
 redirect_to: https://opensearch.org/docs/latest/benchmark/user-guide/understanding-results/
 ---
 

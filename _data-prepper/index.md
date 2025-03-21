@@ -10,7 +10,6 @@ redirect_from:
   - /clients/data-prepper/index/
   - /monitoring-plugins/trace/data-prepper/
   - /data-prepper/index/
-canonical_url: https://opensearch.org/docs/latest/data-prepper/
 redirect_to: https://opensearch.org/docs/latest/data-prepper/
 ---
 

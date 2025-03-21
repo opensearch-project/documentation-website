@@ -3,7 +3,6 @@ layout: default
 title: Text processing
 parent: Common use cases
 nav_order: 55
-canonical_url: https://opensearch.org/docs/latest/data-prepper/common-use-cases/text-processing/
 redirect_to: https://opensearch.org/docs/latest/data-prepper/common-use-cases/text-processing/
 ---
 

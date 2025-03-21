@@ -3,7 +3,6 @@ layout: default
 title: AWS Signature Version 4 support
 nav_order: 70
 parent: Tutorials
-canonical_url: https://opensearch.org/docs/latest/benchmark/tutorials/sigv4/
 redirect_to: https://opensearch.org/docs/latest/benchmark/tutorials/sigv4/
 ---
 

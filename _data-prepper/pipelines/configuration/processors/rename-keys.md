@@ -4,7 +4,6 @@ title: rename_keys
 parent: Processors
 grand_parent: Pipelines
 nav_order: 85
-canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/rename-keys/
 redirect_to: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/rename-keys/
 ---
 
