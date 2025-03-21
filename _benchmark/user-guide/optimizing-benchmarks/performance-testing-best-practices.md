@@ -14,9 +14,9 @@ When conducting performance testing with OpenSearch Benchmark, it's crucial to f
 
 Performance testing requires careful attention to the testing environment. A properly configured environment is crucial for obtaining reliable and reproducible results.
 
-When setting up your testing environment, it's essential to use hardware that closely matches your production environment. Using development or underpowered hardware will not provide meaningful results that can translate to production performance.
+When setting up your testing environment, it's essential to use hardware that closely matches your production environment. Using development or under powered hardware will not provide meaningful results that can translate to production performance. Local machines often have limited hardware, and local development libraries can conflict with the workload's library, preventing the Benchmark test from running effectively.
 
-For best results, make sure that your cluster or test machine fulfills the following recommended minimum requirements:
+For best results, make sure that your load generation host or machine running OpenSearch Benchmark follows the minimum hardware requirements:
 
 - CPU: 8+ cores
 - RAM: 32GB+
@@ -24,7 +24,7 @@ For best results, make sure that your cluster or test machine fulfills the follo
 - Network: 10Gbps
 
 
-It's recommended to provision a test cluster and configure its settings to reflect what you are most likely to deploy in production. Local machines often have limited hardware, and local development libraries can conflict with the workload's library, preventing the Benchmark test from running effectively.
+It's recommended to provision a test cluster and configure its settings to reflect what you are most likely to deploy in production.
 
 
 ## Test configuration
@@ -51,15 +51,15 @@ The following example shows a basic benchmark configuration file. This configura
 }
 ```
 
-### Cluster settings
+### Index settings
 
-Your OpenSearch cluster settings should be optimized for your specific use case, such as the following index settings:
+Your OpenSearch index settings should be optimized for your specific use case. Try and set the number of shards per index to match your production cluster. However, if you're developer who wants to focus on a single shard's performance and limit the variables impacting performance, use a single primary shard, as shown in the following example `index_settings`: 
 
 ```json
 {
   "index_settings": {
-    "number_of_shards": 3,
-    "number_of_replicas": 1,
+    "number_of_shards": 1,
+    "number_of_replicas": 0,
     "refresh_interval": "30s"
   }
 }
@@ -72,7 +72,7 @@ These settings offer ample storage space for your documents and test results wit
 
 Running benchmark tests involves monitoring the system during the test and ensuring consistent conditions across test runs.
 
-While you can run a basic test, you can customize your test run with additional Benchmark command options. The following example runs a `geonames` workload test that targets a specific host, and outputs the test results as a `csv`:
+While you can run a basic test, you can customize your test run with additional [Benchmark command options]({{site.url}}{{site.baseurl}}/benchmark/reference/commands/index/). The following example runs a `geonames` workload test that targets a specific host, and outputs the test results as a `csv`, which can be used for further analysis of the benchmark's metrics:
 
 ```bash
 opensearch-benchmark run \
@@ -94,6 +94,7 @@ vmstat 1
 
 # Monitor OpenSearch metrics
 curl localhost:9200/_cat/nodes?v
+curl localhost:9200/_cat/indices?v
 
 # Monitor cluster health
 curl localhost:9200/_cluster/health?pretty
@@ -152,7 +153,7 @@ OpenSearch Benchmark calculates metrics differently from traditional client-serv
 
 To integrate OpenSearch Benchmark results with OpenSearch Dashboards, you can perform one of the following:
 
-1. Configure OpenSearch Benchmark to store results in OpenSearch.
+1. [Configure OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/user-guide/install-and-configure/configuring-benchmark/) to store results in OpenSearch.
 2. Create index patterns in OpenSearch Dashboards for the benchmark results.
 3. Create visualizations and dashboards to analyze the benchmark data.
 
@@ -165,13 +166,13 @@ When conducting performance tests with OpenSearch Benchmark, it's important to b
 
 Proper warmup is crucial for accurate performance testing. Without an adequate warmup period, your test results may be skewed by initial system instabilities or caching effects.
 
-Don't run tests without a warmup period
+Don't run tests without a warmup period.
 
 Instead, always include an adequate warmup period in your tests. This allows the system to reach a steady state before measurements begin. The following example gives a `geonames` run a warmup period of `300s`.
 
 ```python
 # DO: Include adequate warmup
-opensearch-benchmark run --workload=geonames --warmup-time-period=300
+opensearch-benchmark execute-test --workload=geonames --workload-params="warmup_time_period:300"
 ```
 
 The appropriate warmup time can vary depending on your specific workload and system configuration. Start with at least 5 minutes (300 seconds) and adjust as needed based on your observations.
@@ -180,13 +181,13 @@ The appropriate warmup time can vary depending on your specific workload and sys
 
 One of the most common mistakes in performance testing is comparing results from different environments. Results obtained from a laptop or development machine are not comparable to those from a production server due to differences in hardware, network conditions, and other environmental factors.
 
-Instead, make that all comparisons are made within the same or identical environments. If you need to compare different configurations, make sure to change only one variable at a time while keeping the environment consistent.
+Instead, make sure that all comparisons are made within the same or identical environments. If you need to compare different configurations, make sure to change only one variable at a time while keeping the environment consistent.
 
 ### Document environment details
 
 Proper documentation of your test environment is crucial for reproducibility and accurate analysis. Without detailed environment information, it becomes difficult to interpret results or reproduce tests in the future.
 
-Don't omit environment details from your test reports:
+Don't omit environment details from your test reports.
 
 Instead, always document comprehensive details about your test environment. This should include hardware specifications, software versions, and any relevant configuration settings. as shown in the following example:
 
@@ -211,7 +212,7 @@ By documenting these details, you ensure that your test results can be properly 
 
 When encountering issues or unexpected results, OpenSearch Benchmark logs can provide valuable insights. Here's how to effectively use logs for troubleshooting:
 
-1. Navigate to the log file: The main log file is typically located at `~/.benchmark/logs/benchmark.log`.
+1. Navigate to the log file: The main log file is typically located at `~/.osb/logs/benchmark.log`.
 
 2. Look for error messages. Search for lines containing "ERROR" or "WARNING" to identify potential issues.
 
@@ -229,7 +230,7 @@ Security should never be an afterthought in performance testing. It's important 
 
 ### SSL configuration
 
-Here's an example of how to configure SSL for secure communications during benchmark testing:
+The following example of how to configure SSL in `opensearch.yml` for secure communications during benchmark testing:
 
 ```yaml
 security:
