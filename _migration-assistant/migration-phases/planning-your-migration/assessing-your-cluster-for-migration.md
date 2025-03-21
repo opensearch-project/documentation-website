@@ -48,8 +48,7 @@ Before performing any upgrade or migration, you should review any documentation 
      data-migration-paths="{{ site.data.migration-assistant.valid_migrations.migration_paths | jsonify | escape }}" 
      style="display:none;"></div>
 
-<script src="{{site.url}}{{site.baseurl}}/migration-assistant/assets/js/breaking-changes-data.js"></script>
-<script src="{{site.url}}{{site.baseurl}}/migration-assistant/assets/js/breaking-changes-filter.js"></script>
+<script type="module" src="{{site.url}}{{site.baseurl}}/migration-assistant/assets/js/breaking-changes-index.js"></script>
 
 ## Impact of data transformations
 

@@ -8,6 +8,7 @@
  * - Displays results in a formatted list
  * - Supports bidirectional filtering of source and target versions
  */
+import { isVersionBetween, getVersionIndex } from './breaking-changes-data.js';
 document.addEventListener('DOMContentLoaded', () => {
   // Wait for migration data to be initialized
   if (typeof initializeMigrationData === 'function') {
@@ -147,8 +148,20 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Filter breaking changes based on selection
     const relevantChanges = breakingChanges.filter(change => {
-      // Always include changes with source and target match
-      const versionMatch = change.src.includes(selectedSrc) && change.tgt.includes(selectedTgt);
+      // Check if the breaking change applies to this migration path
+      const sourceVersionIdx = getVersionIndex(selectedSrc);
+      const targetVersionIdx = getVersionIndex(selectedTgt);
+      const introducedInIdx = getVersionIndex(change.introducedIn);
+      
+      // A breaking change applies if:
+      // 1. The breaking change was introduced in a version that is between source and target (inclusive of target)
+      // 2. The source version is at or after the minimum source version affected
+      // 3. The target version is at or before the maximum target version affected
+      const versionMatch = 
+        introducedInIdx <= targetVersionIdx && // Breaking change was introduced at or before target
+        sourceVersionIdx < targetVersionIdx && // Valid migration path (source before target)
+        sourceVersionIdx >= getVersionIndex(change.affects.minSource) && // Source is affected
+        targetVersionIdx <= getVersionIndex(change.affects.maxTarget); // Target is affected
       
       // For component filtering:
       // - Always include changes with empty comp array (default/data components)
