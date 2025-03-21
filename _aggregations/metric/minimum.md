@@ -44,7 +44,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 
 ## Example response
 
-The response is as follows:
+As shown in the following example response, the aggregation returns the minimum value of `products.base_unit_price`:
 
 ```json
 {
