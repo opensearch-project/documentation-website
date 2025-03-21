@@ -5,7 +5,7 @@ nav_order: 27
 parent: k-NN search
 has_children: false
 has_math: true
-canonical_url: https://opensearch.org/docs/latest/vector-search/optimizing-storage/knn-vector-quantization/
+canonical_url: https://opensearch.org/docs/latest/search-plugins/knn/knn-vector-quantization/
 ---
 
 # k-NN vector quantization

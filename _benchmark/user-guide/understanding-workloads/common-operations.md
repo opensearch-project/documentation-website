@@ -4,6 +4,7 @@ title: Common operations
 nav_order: 16
 grand_parent: User guide
 parent: Understanding workloads
+canonical_url: https://opensearch.org/docs/latest/benchmark/user-guide/understanding-workloads/common-operations/
 ---
 
 # Common operations

@@ -5,7 +5,7 @@ nav_order: 40
 has_children: false
 redirect_from:
   - /search-plugins/neural-multimodal-search/
-canonical_url: https://opensearch.org/docs/latest/vector-search/ai-search/multimodal-search/
+canonical_url: https://opensearch.org/docs/latest/search-plugins/multimodal-search/
 ---
 
 # Multimodal search

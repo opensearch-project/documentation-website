@@ -6,7 +6,7 @@ has_children: true
 has_toc: false
 redirect_from:
   - /search-plugins/knn/
-canonical_url: https://opensearch.org/docs/latest/vector-search/vector-search-techniques/index/
+canonical_url: https://opensearch.org/docs/latest/search-plugins/knn/index/
 ---
 
 # k-NN search

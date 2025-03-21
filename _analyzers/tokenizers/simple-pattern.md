@@ -3,6 +3,7 @@ layout: default
 title: Simple pattern
 parent: Tokenizers
 nav_order: 110
+canonical_url: https://opensearch.org/docs/latest/analyzers/tokenizers/simple-pattern/
 ---
 
 # Simple pattern tokenizer

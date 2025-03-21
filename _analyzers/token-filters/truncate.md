@@ -3,6 +3,7 @@ layout: default
 title: Truncate
 parent: Token filters
 nav_order: 440
+canonical_url: https://opensearch.org/docs/latest/analyzers/token-filters/truncate/
 ---
 
 # Truncate token filter
