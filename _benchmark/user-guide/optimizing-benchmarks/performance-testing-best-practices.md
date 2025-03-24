@@ -227,7 +227,7 @@ When encountering issues or unexpected results, OpenSearch Benchmark logs can pr
 
 5. Pay attention to the duration of different phases of the benchmark, including warmup and measurement periods.
 
-By carefully reviewing these logs, you can often identify the root cause of performance issues or unexpected benchmark results.
+By carefully reviewing these logs, you can often identify the root cause of performance issues or unexpected benchmark results. If you encounter a log error that you do not recognize, submit an issue to the [OpenSearch Benchmark repository](https://github.com/opensearch-project/opensearch-benchmark). 
 
 ## Security considerations
 
