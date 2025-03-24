@@ -2,6 +2,7 @@
 layout: default
 title: Span queries
 has_children: true
+has_toc: false
 nav_order: 60
 redirect_from: 
   - /opensearch/query-dsl/span-query/
