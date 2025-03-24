@@ -38,7 +38,7 @@ You can set the salt (a random string used to hash your data) in `opensearch.yml
 The following example shows a salt value:
 
 ```yml
-plugins.security.compliance.salt: abcdefghijklmnopqrstuvqxyz1234567890
+plugins.security.compliance.salt: abcdefghijklmnop
 ```
 
 Although setting the salt is optional, it is highly recommended.
