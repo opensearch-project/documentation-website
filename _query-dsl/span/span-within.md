@@ -8,12 +8,12 @@ nav_order: 90
 
 # Span within query
 
-The `span_within` query matches spans that are enclosed by another span query. It is the opposite of [`span_containing`]({{site.url}}{{site.baseurl}}/query-dsl/span/span-containing/): `span_containing` returns the larger spans that contain smaller ones, whereas `span_within` returns the smaller spans that are enclosed by larger ones.
+The `span_within` query matches spans that are enclosed by another span query. It is the opposite of [`span_containing`]({{site.url}}{{site.baseurl}}/query-dsl/span/span-containing/): `span_containing` returns larger spans containing smaller ones, whereas `span_within` returns smaller spans enclosed by larger ones.
 
 For example, you can use the `span_within` query to:
-- Find shorter phrases that appear within longer phrases
-- Match terms that occur within specific contexts
-- Identify smaller patterns enclosed by larger patterns
+- Find shorter phrases that appear within longer phrases.
+- Match terms that occur within specific contexts.
+- Identify smaller patterns enclosed by larger patterns.
 
 ## Example
 
@@ -103,5 +103,5 @@ The following table lists all top-level parameters supported by `span_within` qu
 
 | Parameter | Data type | Description |
 |:----------|:-----|:------------|
-| `little` | Object | The span query that must be contained within the `big` span. This defines the span you're looking for within a larger context. |
+| `little` | Object | The span query that must be contained within the `big` span. This defines the span you're searching for within a larger context. |
 | `big` | Object | The containing span query that defines the boundaries within which the `little` span must appear. This establishes the context for your search. |

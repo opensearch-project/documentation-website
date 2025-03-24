@@ -11,14 +11,14 @@ nav_order: 40
 The `span_multi` query allows you to wrap a multi-term query (like `wildcard`, `fuzzy`, `prefix`, `range`, or `regexp`) as a span query. This enables you to use these more flexible matching queries within other span queries.
 
 For example, you can use the `span_multi` query to:
-- Find words with common prefixes near other terms
-- Match fuzzy variations of words within spans
-- Use regular expressions in span queries
+- Find words with common prefixes near other terms.
+- Match fuzzy variations of words within spans.
+- Use regular expressions in span queries.
 
->Using `span_multi` queries can potentially match many terms. To avoid excessive memory usage, you can:
->- Set the `rewrite` parameter on the multi-term query.
+>`span_multi` queries can potentially match many terms. To avoid excessive memory usage, you can:
+>- Set the `rewrite` parameter for the multi-term query.
 >- Use the `top_terms_*` rewrite method.
->- If you use `span_multi` only for a `prefix` query, consider enabling the `index_prefixes` option for the text field instead. This automatically rewrites any `prefix` query on the field into a single-term query that matches the indexed prefix.
+>- Consider enabling the `index_prefixes` option for the text field if you use `span_multi` only for a `prefix` query. This automatically rewrites any `prefix` query on the field into a single-term query that matches the indexed prefix.
 {: .note}
 
 ## Example
@@ -131,4 +131,4 @@ The following table lists all top-level parameters supported by `span_multi` que
 
 | Parameter | Data type | Description |
 |:----------|:-----|:------------|
-| `match` | Object | The multi-term query to wrap (can be prefix, wildcard, fuzzy, range, or regexp). |
+| `match` | Object | The multi-term query to wrap (can be `prefix`, `wildcard`, `fuzzy`, `range`, or `regexp`). |

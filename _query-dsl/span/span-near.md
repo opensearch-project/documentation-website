@@ -11,16 +11,16 @@ nav_order: 50
 The `span_near` query matches spans that are near one another. You can specify how far apart the spans can be and whether they need to appear in a specific order.
 
 For example, you can use the `span_near` query to:
-- Find terms that appear within a certain distance of each other
-- Match phrases where words appear in a specific order
-- Find related concepts that appear close together in text
+- Find terms that appear within a certain distance of each other.
+- Match phrases in which words appear in a specific order.
+- Find related concepts that appear close to each other in text.
 
 ## Example
 
 To try the examples in this section, complete the [setup steps]({{site.url}}{{site.baseurl}}/query-dsl/span/#setup).
 {: .tip}
 
-The following query searches for any form of "sleeve" and "long" appearing next to each other, in any order:
+The following query searches for any forms of "sleeve" and "long" appearing next to each other, in any order:
 
 ```json
 GET /clothing/_search
@@ -47,7 +47,7 @@ GET /clothing/_search
 ```
 {% include copy-curl.html %}
 
-The query matches documents 1 ("Long-sleeved...") and 2 ("...long fluttered sleeves..."). In document 1, the words are next to each other, while in document 2 they are within the specified slop distance of `1` (there is one word between them).
+The query matches documents 1 ("Long-sleeved...") and 2 ("...long fluttered sleeves..."). In document 1, the words are next to each other, while in document 2, they are within the specified slop distance of `1` (there is 1 word between them).
 
 <details markdown="block">
   <summary>

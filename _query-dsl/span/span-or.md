@@ -8,19 +8,19 @@ nav_order: 70
 
 # Span or query
 
-The `span_or` query combines multiple span queries and matches the union of their spans. It matches if any of its contained span queries match.
+The `span_or` query combines multiple span queries and matches the union of their spans. A match occurs if at least one of the contained span queries matches.
 
 For example, you can use the `span_or` query to:
-- Find spans matching any of several patterns
-- Combine different span patterns as alternatives
-- Match multiple variations of spans in a single query
+- Find spans matching any of several patterns.
+- Combine different span patterns as alternatives.
+- Match multiple span variations in a single query.
 
 ## Example
 
 To try the examples in this section, complete the [setup steps]({{site.url}}{{site.baseurl}}/query-dsl/span/#setup).
 {: .tip}
 
-The following query searches for either "formal collar" or "button collar" appearing within 2 words:
+The following query searches for either "formal collar" or "button collar" appearing within 2 words of each other:
 
 ```json
 GET /clothing/_search
@@ -124,4 +124,4 @@ The following table lists all top-level parameters supported by `span_or` querie
 
 | Parameter | Data type | Description |
 |:----------|:-----|:------------|
-| `clauses` | Array | Array of span queries to match. The query matches if any of these span queries match. Must contain at least one span query. Required. |
+| `clauses` | Array | The array of span queries to match. The query matches if any of these span queries match. Must contain at least one span query. Required. |

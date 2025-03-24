@@ -11,9 +11,9 @@ nav_order: 20
 The `field_masking_span` query allows span queries to match across different fields by "masking" the true field of a query. This is particularly useful when working with multi-fields (the same content indexed with different analyzers) or when you need to run span queries like `span_near` or `span_or` across different fields (which is normally not allowed).
 
 For example, you can use the `field_masking_span` query to:
-- Match terms across a raw field and its stemmed version
-- Combine span queries on different fields in a single span operation
-- Work with the same content indexed using different analyzers
+- Match terms across a raw field and its stemmed version.
+- Combine span queries on different fields in a single span operation.
+- Work with the same content indexed using different analyzers.
 
 When using field masking, the relevance score is calculated using the characteristics (norms) of the masked field rather than the actual field being searched. This means that if the masked field has different properties (like length or boost values) than the field being searched, you might receive unexpected scoring results.
 {: .note}
@@ -113,4 +113,4 @@ The following table lists all top-level parameters supported by `field_masking_s
 | Parameter | Data type | Description |
 |:----------|:-----|:------------|
 | `query` | Object | The span query to execute on the actual field. |
-| `field` | String | The field name to mask the query as. Other span queries will treat this query as if it were executing on this field. |
+| `field` | String | The field name used to mask the query. Other span queries will treat this query as if it were executing on this field. |

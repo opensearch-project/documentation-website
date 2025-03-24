@@ -8,11 +8,11 @@ nav_order: 30
 
 # Span first query
 
-The `span_first` query matches spans that begin at the start of a field and end within a specified number of positions. This query is useful when you want to find terms or phrases that appear near the beginning of a text.
+The `span_first` query matches spans that begin at the start of a field and end within a specified number of positions. This query is useful when you want to find terms or phrases that appear near the beginning of a document.
 
 For example, you can use the `span_first` query to perform the following searches:
 
-- Find documents where specific terms appear in the first few words of a field
+- Find documents in which specific terms appear in the first few words of a field.
 - Ensure certain phrases occur at or near the beginning of a text
 - Match patterns only when they appear within a specified distance from the start
 
@@ -41,7 +41,7 @@ GET /clothing/_search
 {% include copy-curl.html %}
 
 The query matches documents 1 and 2:
-- Documents 1 and 2 contains the word `dress` in the third position ("Long-sleeved dress..." and "Beautiful long dress"). Indexing of the words starts with 0, so the word "dress" is at position 2. 
+- Documents 1 and 2 contain the word `dress` at the third position ("Long-sleeved dress..." and "Beautiful long dress"). Indexing of the words starts with 0, so the word "dress" is at position 2. 
 - The position of the word `dress` must be less than `4`, as specified by the `end` parameter.
 
 <details markdown="block">
@@ -98,5 +98,5 @@ The following table lists all top-level parameters supported by `span_first` que
 
 | Parameter | Data type | Description |
 |:----------|:-----|:------------|
-| `match` | Object | The span query to match. This defines the pattern you're looking for at the start of the field. |
-| `end` | Integer | The maximum end position (exclusive) allowed for the span query match. For example, `end: 4` matches terms in positions 0--3. |
+| `match` | Object | The span query to match. This defines the pattern you're searching for at the start of the field. |
+| `end` | Integer | The maximum end position (exclusive) allowed for the span query match. For example, `end: 4` matches terms at positions 0--3. |

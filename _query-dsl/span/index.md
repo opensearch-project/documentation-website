@@ -22,17 +22,17 @@ Span queries include the following query types:
 
 - [**Span first**]({{site.url}}{{site.baseurl}}/query-dsl/span/span-first/): Matches terms or phrases that appear within a specified number of positions from the start of a field. Useful for finding content at the beginning of text.
 
-- [**Span multi-term**]({{site.url}}{{site.baseurl}}/query-dsl/span/span-multi-term/): Enables multi-term queries (like prefix, wildcard, or fuzzy) to work within span queries. Allows for more flexible matching patterns in span searches.
+- [**Span multi-term**]({{site.url}}{{site.baseurl}}/query-dsl/span/span-multi-term/): Enables multi-term queries (like `prefix`, `wildcard`, or `fuzzy`) to work within span queries. Allows for more flexible matching patterns in span searches.
 
-- [**Span near**]({{site.url}}{{site.baseurl}}/query-dsl/span/span-near/): Finds terms or phrases that appear within a specified distance of each other. Can require matches to appear in a specific order and control how many words can appear between them.
+- [**Span near**]({{site.url}}{{site.baseurl}}/query-dsl/span/span-near/): Finds terms or phrases that appear within a specified distance of each other. You can require matches to appear in a specific order and control how many words can appear between them.
 
-- [**Span not**]({{site.url}}{{site.baseurl}}/query-dsl/span/span-not/): Excludes matches that overlap with another span query. Useful for finding terms except when they appear in specific phrases or contexts.
+- [**Span not**]({{site.url}}{{site.baseurl}}/query-dsl/span/span-not/): Excludes matches that overlap with another span query. Useful for finding terms when they do not appear in specific phrases or contexts.
 
 - [**Span or**]({{site.url}}{{site.baseurl}}/query-dsl/span/span-or/): Matches documents that satisfy any of the provided span queries. Combines multiple span patterns with OR logic.
 
 - [**Span term**]({{site.url}}{{site.baseurl}}/query-dsl/span/span-term/): The basic building block for span queries. Matches a single term while maintaining position information for use in other span queries.
 
-- [**Span within**]({{site.url}}{{site.baseurl}}/query-dsl/span/span-within/): Returns smaller spans that are enclosed by larger spans. The opposite of `span_containing` query.
+- [**Span within**]({{site.url}}{{site.baseurl}}/query-dsl/span/span-within/): Returns smaller spans that are enclosed by larger spans. The opposite of the `span_containing` query.
 
 ## Setup
 

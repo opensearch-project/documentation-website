@@ -11,9 +11,9 @@ nav_order: 80
 The `span_term` query is the most basic span query that matches spans containing a single term. It serves as a building block for more complex span queries.
 
 For example, you can use the `span_term` query to:
-- Find exact term matches that can be used in other span queries
-- Match specific words while maintaining position information
-- Create basic spans that can be combined with other span queries
+- Find exact term matches that can be used in other span queries.
+- Match specific words while maintaining position information.
+- Create basic spans that can be combined with other span queries.
 
 ## Example
 
@@ -116,7 +116,7 @@ The query matches documents 1 and 2 because they contain the exact term "formal"
 
 ## Parameters
 
-The following table lists all ways to specify a span_term query.
+The following table lists all top-level parameters supported by `span_term` queries.
 
 | Parameter  | Data type | Description |
 |:----------------|:------------|:--------|

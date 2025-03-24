@@ -8,12 +8,12 @@ nav_order: 60
 
 # Span not query
 
-The `span_not` query excludes spans that overlap with another span query. You can also specify how far before or after the excluded spans the matches cannot occur.
+The `span_not` query excludes spans that overlap with another span query. You can also specify the distance before or after the excluded spans within which matches cannot occur.
 
 For example, you can use the `span_not` query to:
-- Find terms except when they appear in certain phrases
-- Match spans unless they are near specific terms
-- Exclude matches that occur within a certain distance of other patterns
+- Find terms except when they appear in certain phrases.
+- Match spans unless they are near specific terms.
+- Exclude matches that occur within a certain distance of other patterns.
 
 ## Example
 
