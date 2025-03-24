@@ -40,13 +40,14 @@ The following table lists the available query parameters. All query parameters a
 | Parameter | Data type | Description | Default |
 | :--- | :--- | :--- | :--- |
 | `active_only` | Boolean | If `true`, the response only includes ongoing shard recoveries. | `false` |
-| `bytes` | String | The units used to display byte values. <br> Valid values are: `b`, `kb`, `k`, `mb`, `m`, `gb`, `g`, `tb`, `t`, `pb`, `p` | N/A |
+| `bytes` | String | The units used to display byte values. <br> Valid values are: `b`, `kb`, `k`, `mb`, `m`, `gb`, `g`, `tb`, `t`, `pb`, and `p`. | N/A |
 | `detailed` | Boolean | When `true`, includes detailed information about shard recoveries. | `false` |
 | `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | N/A |
 | `h` | List | A comma-separated list of column names to display. | N/A |
 | `help` | Boolean | Returns help information. | `false` |
+| `index` | List | A comma-separated list of data streams, indexes, and aliases used to limit the request. Supports wildcards (`*`). To target all data streams and indexes, omit this parameter or use `*` or `_all`. | N/A |
 | `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
-| `time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/). <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, `d` | N/A |
+| `time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/). <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, and `d`. | N/A |
 | `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
 
 <!-- spec_insert_end -->
