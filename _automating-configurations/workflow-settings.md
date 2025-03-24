@@ -2,6 +2,7 @@
 layout: default
 title: Workflow settings
 nav_order: 30
+canonical_url: https://opensearch.org/docs/latest/automating-configurations/workflow-settings/
 ---
 
 # Workflow settings

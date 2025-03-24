@@ -7,6 +7,7 @@ has_toc: false
 redirect_from:
   - /security/multi-tenancy/
   - /security-plugin/access-control/multi-tenancy/
+canonical_url: https://opensearch.org/docs/latest/security/multi-tenancy/tenant-index/
 ---
 
 # OpenSearch Dashboards multi-tenancy

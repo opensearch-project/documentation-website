@@ -3,6 +3,7 @@ layout: default
 title: Kuromoji completion
 parent: Token filters
 nav_order: 230
+canonical_url: https://opensearch.org/docs/latest/analyzers/token-filters/kuromoji-completion/
 ---
 
 # Kuromoji completion token filter

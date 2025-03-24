@@ -3,6 +3,7 @@ layout: default
 title: Snowball
 parent: Token filters
 nav_order: 380
+canonical_url: https://opensearch.org/docs/latest/analyzers/token-filters/snowball/
 ---
 
 # Snowball token filter

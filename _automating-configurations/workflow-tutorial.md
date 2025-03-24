@@ -2,6 +2,7 @@
 layout: default
 title: Workflow tutorial
 nav_order: 20
+canonical_url: https://opensearch.org/docs/latest/automating-configurations/workflow-tutorial/
 ---
 
 # Workflow tutorial

@@ -10,6 +10,7 @@ redirect_from:
   - /docs/opensearch/
   - /opensearch/
   - /opensearch/index/
+canonical_url: https://opensearch.org/docs/latest/about/
 ---
 
 {%- comment -%}The `/docs/opensearch/` redirect is specifically to support the UI links in OpenSearch Dashboards 1.0.0.{%- endcomment -%}

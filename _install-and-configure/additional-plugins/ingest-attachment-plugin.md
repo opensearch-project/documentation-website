@@ -4,6 +4,7 @@ title: Ingest-attachment plugin
 parent: Installing plugins
 nav_order: 20
 
+canonical_url: https://opensearch.org/docs/latest/install-and-configure/additional-plugins/ingest-attachment-plugin/
 ---
 
 # Ingest-attachment plugin

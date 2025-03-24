@@ -4,6 +4,7 @@ title: Classic
 parent: Tokenizers
 nav_order: 35
 
+canonical_url: https://opensearch.org/docs/latest/analyzers/tokenizers/classic/
 ---
 
 # Classic tokenizer

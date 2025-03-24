@@ -4,6 +4,7 @@ title: Swedish
 parent: Language analyzers
 grand_parent: Analyzers
 nav_order: 310
+canonical_url: https://opensearch.org/docs/latest/analyzers/language-analyzers/swedish/
 ---
 
 # Swedish analyzer

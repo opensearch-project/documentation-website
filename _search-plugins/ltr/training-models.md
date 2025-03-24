@@ -4,6 +4,7 @@ title: Uploading trained models
 nav_order: 60
 parent: Learning to Rank
 has_children: false
+canonical_url: https://opensearch.org/docs/latest/search-plugins/ltr/training-models/
 ---
 
 # Uploading trained models

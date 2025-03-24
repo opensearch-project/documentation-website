@@ -4,6 +4,7 @@ title: ML ranking core concepts
 nav_order: 10
 parent: Learning to Rank
 has_children: false
+canonical_url: https://opensearch.org/docs/latest/search-plugins/ltr/core-concepts/
 ---
 
 # ML ranking core concepts

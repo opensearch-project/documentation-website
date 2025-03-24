@@ -6,6 +6,7 @@ has_children: true
 has_toc: false
 nav_order: 27
 redirect_from: /ml-commons-plugin/api/agent-apis/
+canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/api/agent-apis/index/
 ---
 
 # Agent APIs

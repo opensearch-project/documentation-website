@@ -3,6 +3,7 @@ layout: default
 title: UAX URL email
 parent: Tokenizers
 nav_order: 150
+canonical_url: https://opensearch.org/docs/latest/analyzers/tokenizers/uax-url-email/
 ---
 
 # UAX URL email tokenizer

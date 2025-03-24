@@ -2,6 +2,7 @@
 layout: default
 title: Ranking evaluation
 nav_order: 60
+canonical_url: https://opensearch.org/docs/latest/api-reference/rank-eval/
 ---
 
 # Ranking evaluation

@@ -6,6 +6,7 @@ has_toc: false
 nav_order: 60
 parent: Tools
 grand_parent: Agents and tools
+canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/agents-tools/tools/ppl-tool/
 ---
 
 # PPL tool
