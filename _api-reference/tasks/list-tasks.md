@@ -33,7 +33,7 @@ The following table lists the available query parameters. All query parameters a
 | :--- | :--- | :--- | :--- |
 | `actions` | List or String | A comma-separated list of actions that should be returned. Keep empty to return all. | N/A |
 | `detailed` | Boolean | When `true`, the response includes detailed information about shard recoveries. | `false` |
-| `group_by` | String | Groups tasks by parent/child relationships or nodes. <br> Valid values are: `nodes`, `none`, `parents` | `nodes` |
+| `group_by` | String | Groups tasks by parent/child relationships or nodes. <br> Valid values are: `nodes`, `none`, and `parents`. | `nodes` |
 | `nodes` | List | A comma-separated list of node IDs or names used to limit the returned information. Use `_local` to return information from the node you're connecting to, specify the node name to get information from a specific node, or keep the parameter empty to get information from all nodes. | N/A |
 | `parent_task_id` | String | Returns tasks with a specified parent task ID (`node_id:task_number`). Keep empty or set to -1 to return all. | N/A |
 | `timeout` | String | The amount of time to wait for a response. | N/A |
