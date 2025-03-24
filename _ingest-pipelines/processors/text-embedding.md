@@ -45,6 +45,7 @@ The following table lists the required and optional parameters for the `text_emb
 `if` | String containing a Boolean expression | Optional | A condition for running the processor.|
 `ignore_failure` | Boolean | Optional | Specifies whether the processor continues execution even if it encounters an error. If set to `true`, the processor failure is ignored. Default is `false`.|
 `on_failure` | List | Optional | A list of processors to run if the processor fails. |
+`skip_existing` | Boolean | Optional | Specifies whether the processor skips making inference call for fields that already have embeddings. If set to `true`, the processor will not make inference call on fields where the embeddings haven't changed. Default is `false`.|
 
 ## Using the processor
 
