@@ -7,7 +7,6 @@ redirect_from:
   - /opensearch/query-dsl/span-query/
   - /query-dsl/query-dsl/span-query/
   - /query-dsl/span-query/
-  - /query-dsl/span/index/
   - /query-dsl/span/
 ---
 
