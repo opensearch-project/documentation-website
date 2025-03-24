@@ -101,7 +101,7 @@ The query matches document 1 because:
 
 The following table lists all top-level parameters supported by `span_within` queries. All parameters are required.
 
-| Parameter | Type | Description |
+| Parameter | Data type | Description |
 |:----------|:-----|:------------|
 | `little` | Object | The span query that must be contained within the `big` span. This defines the span you're looking for within a larger context. |
 | `big` | Object | The containing span query that defines the boundaries within which the `little` span must appear. This establishes the context for your search. |
