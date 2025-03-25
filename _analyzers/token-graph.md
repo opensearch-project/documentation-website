@@ -10,9 +10,9 @@ Token graphs represent how tokens relate to each other during text analysis, esp
 
 Each token is assigned the following:
 
-- **position** – location where the token appears in the text
+- `position` – location where the token appears in the text
 
-- **positionLength** – how many positions the token spans (used in multi-word expressions)
+- `positionLength` – how many positions the token spans (used in multi-word expressions)
 
 Token graphs use this information to build a graph structure of token relationships, which is later used during query parsing. Graph-aware token filters such [`synonym_graph`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/synonym-graph/) and [`word_delimiter_graph`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/word-delimiter-graph/) enable you to match phrases more accurately.
 
@@ -20,7 +20,7 @@ Following diagram demonstrates the relationship between `position` and `position
 
 <img src="{{site.url}}{{site.baseurl}}/images/nyc-token-graph.png" alt="token graph" width="700">
 
-## Token graphs in indexing vs querying
+## Token graphs during indexing and querying
 
 At index time, `positionLength` is ignored and token graphs are not used.
 
@@ -29,7 +29,7 @@ At query time, token graphs are used by queries such as:
 - [match]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match/)
 - [match_phrase]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-phrase/)
 
-## Example: synonym vs synonym_graph
+## Example: Synonym vs synonym_graph
 
 To better understand the difference between graph-aware token filters and standard token filters, you can use the following steps to compare [`synonym`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/synonym/) token filter with [`synonym_graph`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/synonym-graph/) token filter:
 
