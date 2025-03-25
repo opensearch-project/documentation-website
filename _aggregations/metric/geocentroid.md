@@ -7,7 +7,7 @@ nav_order: 45
 
 # Geocentroid
 
-The `geo_centroid` metric is a multi-value metric that calculates the weighted geographic center or focal point of a set of `geo_point` values. It returns the centroid location as a latitude-longitude pair.
+The `geo_centroid` metric is a multi-value aggregation that calculates the geographic center or focal point of a set of `geo_point` values. It returns the centroid location as a latitude-longitude pair.
 
 ## Parameters
 
@@ -39,7 +39,7 @@ GET /opensearch_dashboards_sample_data_ecommerce/_search
 
 ## Example response
 
-The response is as follows:
+The response includes a `centroid` object with `lat` and `lon` properties representing the centroid location of all indexed data points, as shown in the following example:
 
 ```json
 {
