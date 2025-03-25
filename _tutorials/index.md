@@ -6,6 +6,9 @@ has_toc: false
 nav_order: 47
 nav_exclude: true
 permalink: /tutorials/
+redirect_from:
+  - /ml-commons-plugin/tutorials/
+  - /ml-commons-plugin/tutorials/index/
 cards:
   - heading: "Searching data 101"
     description: "Learn the fundamentals of search and explore OpenSearch query languages and types" 
@@ -20,11 +23,8 @@ cards:
     description: "Enhance search relevance using machine learning models to intelligently reorder results" 
     link: "/tutorials/reranking/"
   - heading: "Generative AI applications"
-    description: "Create AI-powered applications like chatbots and advanced conversational systems" 
+    description: "Create AI-powered applications like RAG, chatbots, and advanced conversational systems" 
     link: "/tutorials/gen-ai/"
-  - heading: "AI search workflows"
-    link: "/tutorials/ai-search-flows/"
-    description: "Build and configure AI search applications visually in OpenSearch Dashboards"   
 ---
 
 # Tutorials
