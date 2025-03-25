@@ -36,7 +36,7 @@ To better understand the difference between graph-aware token filters and standa
 1. Create index with [`synonym`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/synonym/) token filter (not graph-aware)
 
     ```json
-    curl -X PUT "https://localhost:9200/synonym_index" -u admin:admin -k -H 'Content-Type: application/json' -d'
+    PUT /synonym_index
     {
       "settings": {
         "analysis": {
@@ -63,7 +63,6 @@ To better understand the difference between graph-aware token filters and standa
         }
       }
     }
-    '
     ```
     {% include copy-curl.html %}
 
