@@ -32,7 +32,7 @@ Global ordinals are used if a search includes any of the following:
 The following request creates an index named `products` with `eager_global_ordinals` enabled:
 
 ```json
-curl -X PUT "https://localhost:9200/products" -u admin:admin -k -H 'Content-Type: application/json' -d'
+PUT /products
 {
   "mappings": {
     "properties": {
@@ -42,24 +42,24 @@ curl -X PUT "https://localhost:9200/products" -u admin:admin -k -H 'Content-Type
       }
     }
   }
-}'
+}
 ```
 {% include copy-curl.html %}
 
 The following request indexes a document:
 
 ```json
-curl -X PUT "https://localhost:9200/products/_doc/1" -u admin:admin -k -H 'Content-Type: application/json' -d'
+PUT /products/_doc/1
 {
   "size": "ABC123"
-}'
+}
 ```
 {% include copy-curl.html %}
 
 The following request runs a terms aggregation:
 
 ```json
-curl -X POST "https://localhost:9200/products/_search" -u admin:admin -k -H 'Content-Type: application/json' -d'
+POST /products/_search
 {
   "size": 0,
   "aggs": {
@@ -69,6 +69,6 @@ curl -X POST "https://localhost:9200/products/_search" -u admin:admin -k -H 'Con
       }
     }
   }
-}'
+}
 ```
 {% include copy-curl.html %}
