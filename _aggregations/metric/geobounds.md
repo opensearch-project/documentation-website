@@ -13,16 +13,16 @@ The `geo_bounds` metric is a multi-value metric that calculates the [geographic 
 
 ## Parameters
 
-The `geo_bounds` aggregation takes the following parameters: 
+The `geo_bounds` aggregation takes the following parameters.
 
 | Parameter        | Required/Optional | Data type      | Description |
 | :--              | :--               | :--            | :--         |
 | `field`          | Required          | String         | Name of the field containing the geopoints or geoshape for which the geobound is computed. |
-| `wrap_longitude` | Optional          | Boolean        | Whether to allow the bounding box to overlap the international date line. The default is true. |
+| `wrap_longitude` | Optional          | Boolean        | Whether to allow the bounding box to overlap the international date line. Default is `true`. |
 
 ## Example
 
-This example returns the `geo_bounds` for the `geoip.location` of every order in the ecommerce sample data (each `geoip.location` is a geopoint):
+This example returns the `geo_bounds` for the `geoip.location` of every order in the e-commerce sample data (each `geoip.location` is a geopoint):
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
@@ -188,7 +188,7 @@ GET national_parks/_search
 ```
 {% include copy-curl.html %}
 
-Note that the new resulting geobound encompasses a larger area to avoid overlapping the dateline.
+Note that the new resulting geobound encompasses a larger area to avoid overlapping the dateline:
 
 ```json
 {
