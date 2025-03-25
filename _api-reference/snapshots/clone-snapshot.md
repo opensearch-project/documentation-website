@@ -11,43 +11,65 @@ Introduced 1.0
 
 Creates a clone of all or part of a snapshot, in the same repository as the original.
 
-## Path and HTTP methods
 
+<!-- spec_insert_start
+api: snapshot.clone
+component: endpoints
+-->
+## Endpoints
 ```json
-PUT /_snapshot/<repository>/<snapshot>/_clone/<target_snapshot>
-{
-	“indices” : “an_index,another_index”
-}
+PUT /_snapshot/{repository}/{snapshot}/_clone/{target_snapshot}
 ```
+<!-- spec_insert_end -->
 
+<!-- spec_insert_start
+api: snapshot.clone
+component: path_parameters
+-->
 ## Path parameters
 
-The following table lists the available path parameters. All path parameters are optional.
+The following table lists the available path parameters.
 
-| Parameter | Data type | Description |
-| :--- | :--- | :--- |
-| `repository` | String | Name of repository that contains snapshot. |
-| `snapshot` | String | Name of original snapshot. |
-| `target_snapshot` | String | Name of cloned snapshot to create. |
+| Parameter | Required | Data type | Description |
+| :--- | :--- | :--- | :--- |
+| `repository` | **Required** | String | The name of repository which will contain the snapshots clone. |
+| `snapshot` | **Required** | String | The name of the original snapshot. |
+| `target_snapshot` | **Required** | String | The name of the cloned snapshot. |
 
+<!-- spec_insert_end -->
+
+
+<!-- spec_insert_start
+api: snapshot.clone
+component: query_parameters
+include_deprecated: false
+-->
 ## Query parameters
 
 The following table lists the available query parameters. All query parameters are optional.
 
-| Parameter |  Data type | Description |
+| Parameter | Data type | Description |
 | :--- | :--- | :--- |
-| `cluster_manager_timeout` | Time | The amount of time to wait for a response from the cluster manager node.  Optional, default is 30 seconds. (Formerly called `master_timeout`.)|
+| `cluster_manager_timeout` | String | The amount of time to wait for a response from the cluster manager node. For more information about supported time units, see [Common parameters]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). |
 
-## Request fields
+<!-- spec_insert_end -->
 
-The following table lists the available request body fields.
 
-| Field | Data type | Description |
-| :--- | :--- | :--- |
-| `indices` | String | A list of indices to clone from the original snapshot into the target snapshot, separated by commas. Do not put spaces between items. The wildcard symbol (`*`) can be used to specify index patterns, and `-` can be used to exclude indices. Required. |
-| `ignore_unavailable` | Boolean | If an index from the indices list doesn’t exist, whether to ignore and proceed. Optional, default is `false`. |
-| `include_global_state` | Boolean | Whether to include cluster state in the snapshot. Optional, default is `true`. |
-| `partial` | Boolean | Whether to allow partial snapshots. Optional; default is `false`, which fails the entire snapshot if one or more shards fails to store. |
+<!-- spec_insert_start
+api: snapshot.clone
+component: request_body_parameters
+-->
+## Request body fields
+
+The snapshot clone definition.
+
+The request body is __required__. It is a JSON object with the following fields.
+
+| Property | Required | Data type | Description |
+| :--- | :--- | :--- | :--- |
+| `indices` | **Required** | String |  |
+
+<!-- spec_insert_end -->
 
 ## Example request
 
