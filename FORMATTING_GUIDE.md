@@ -9,6 +9,7 @@ This guide provides an overview of the formatted elements commonly used in the O
 * [Adding pages or sections](#adding-pages-or-sections)
 * [Buttons](#buttons)
 * [Callouts](#callouts)
+* [Cards](#cards)
 * [Collapsible blocks](#collapsible-blocks)
 * [Dashes](#dashes)
 * [Horizontal rule](#horizontal-rule)
@@ -22,6 +23,7 @@ This guide provides an overview of the formatted elements commonly used in the O
   * [Nested lists](#nested-lists) 
   * [Lists with code snippets or images](#lists-with-code-snippets-or-images)
 * [Math](#math)
+* [Steps](#steps)
 * [Tables](#tables)
 * [Text style](#text-style)
 * [Variables in curly braces](#variables-in-curly-braces)
@@ -107,6 +109,27 @@ For a callout with multiple paragraphs or lists, use `>`:
 >   * OpenSearch [`geospatial`](https://github.com/opensearch-project/geospatial_) backend plugin
 {: .note}
 
+```
+
+## Cards
+
+To add a card to a page, specify it in the front matter as follows. The `description`, `link`, and `list` are optional. Use relative links. You can optionally style the text using HTML tags:
+
+```yaml
+tutorial_cards:
+  - heading: "Getting started with semantic and hybrid search"
+    description: "Learn how to implement semantic and hybrid search"
+    link: "/vector-search/tutorials/neural-search-tutorial/"
+    list:
+      - "<b>Platform:</b> OpenSearch"
+      - "<b>Model:</b> Anthropic Claude" 
+      - "<b>Deployment:</b> Amazon Bedrock"  
+```
+
+Insert an include in the page body where you want the cards to appear:
+
+```
+{% include cards.html cards=page.tutorial_cards %}  
 ```
 
 ## Collapsible blocks
@@ -403,6 +426,26 @@ Alternatively, you can use double dollar signs (`$$`) for both display and inlin
 
 ```
 The probability of selecting pair $$i$$ is proportional to $$1 \over i^\alpha$$.
+```
+
+## Steps
+
+To insert steps, specify them in the front matter as follows. Steps are automatically numbered. Use relative links. The `description` and `link` are optional:
+
+```yaml
+steps:
+  - heading: "Create an OpenSearch index"
+    description: "Create an OpenSearch index to store your embeddings."
+    link: "/vector-search/creating-vector-index/#storing-raw-vectors-or-embeddings-generated-outside-of-opensearch"
+  - heading: "Ingest embeddings"
+    description: "Ingest your embeddings into the index."
+    link: "/vector-search/ingesting-data/#raw-vector-ingestion"
+```
+
+Insert an include in the page body where you want the steps to appear:
+
+```
+{% include list.html list_items=page.steps%}
 ```
 
 ## Tables
