@@ -5,7 +5,7 @@
  * Provides a clean separation between UI logic and data logic
  */
 
-import BreakingChangesModule, { VERSIONS, VERSION_ORDER, MIGRATION_MAP, breakingChanges, getVersionIndex } from './breaking-changes-module.js';
+import { VERSIONS, MIGRATION_MAP, breakingChanges, getVersionIndex } from './breaking-changes-module.js';
 
 const BreakingChangesUI = (function() {
   // Cache for DOM elements
@@ -145,9 +145,12 @@ const BreakingChangesUI = (function() {
         targets.forEach(target => allTargetVersions.add(target));
       });
       
-      // Convert Set to Array
-      const targetVersions = Array.from(allTargetVersions);
-      console.log('Filtered target versions:', targetVersions);
+      // Convert Set to Array and sort in reverse order (latest version first)
+      const targetVersions = Array.from(allTargetVersions).sort((a, b) => {
+        // Use the version index to sort in reverse order
+        return getVersionIndex(b) - getVersionIndex(a);
+      });
+      console.log('Filtered target versions (latest first):', targetVersions);
       
       // Populate target dropdown with filtered versions
       this.populateDropdown(elements.targetSelect, targetVersions, 'Select Target');
@@ -163,9 +166,12 @@ const BreakingChangesUI = (function() {
       const selectedSource = elements.sourceSelect.value;
       
       if (selectedSource) {
-        // Get valid targets for this source
-        const validTargets = MIGRATION_MAP.sourceToTargets[selectedSource] || [];
-        console.log('Valid targets for', selectedSource, ':', validTargets);
+        // Get valid targets for this source and sort in reverse order (latest version first)
+        const validTargets = (MIGRATION_MAP.sourceToTargets[selectedSource] || []).sort((a, b) => {
+          // Use the version index to sort in reverse order
+          return getVersionIndex(b) - getVersionIndex(a);
+        });
+        console.log('Valid targets for', selectedSource, '(latest first):', validTargets);
         this.populateDropdown(elements.targetSelect, validTargets, 'Select Target');
       } else {
         // If no source selected, show all possible targets
@@ -325,6 +331,7 @@ const BreakingChangesUI = (function() {
           
           const versionMatch = 
             introducedInIdx <= targetVersionIdx && // Breaking change was introduced at or before target
+            introducedInIdx > sourceVersionIdx && // Breaking change was introduced after source
             sourceVersionIdx < targetVersionIdx && // Valid migration path (source before target)
             sourceVersionIdx >= getVersionIndex(minSource) && // Source is affected
             targetVersionIdx <= getVersionIndex(maxTarget); // Target is affected
@@ -347,11 +354,15 @@ const BreakingChangesUI = (function() {
     /**
      * Display filtered breaking changes
      * @param {Array} changes - Array of breaking changes to display
+     * @param {HTMLElement} container - Optional container element to display results in (defaults to elements.resultsContainer)
      */
-    displayResults(changes) {
+    displayResults(changes, container = null) {
+      // Use the provided container or default to the UI module's container
+      const resultsContainer = container || elements.resultsContainer;
+      
       if (changes.length) {
-        elements.resultsContainer.innerHTML = `
-          <h4>Relevant Breaking Changes:</h4>
+        resultsContainer.innerHTML = `
+          <h4>Relevant breaking changes:</h4>
           <ul>${changes.map(change => {
             let transformationHtml = '';
             if (change.transformation) {
@@ -371,15 +382,15 @@ const BreakingChangesUI = (function() {
           }).join('')}</ul>
           <p class="transformation-request">
             To request additional transformations to be built into the Migration Assistant, 
-            open a github issue <a href="https://github.com/opensearch-project/opensearch-migrations/issues">here</a>.
+            open a GitHub issue <a href="https://github.com/opensearch-project/opensearch-migrations/issues">here</a>.
           </p>
         `;
       } else {
-        elements.resultsContainer.innerHTML = `
+        resultsContainer.innerHTML = `
           <p>No specific breaking changes found for your selection.</p>
           <p class="transformation-request">
             To request additional transformations to be built into the Migration Assistant, 
-            open a github issue <a href="https://github.com/opensearch-project/opensearch-migrations/issues">here</a>.
+            open a GitHub issue <a href="https://github.com/opensearch-project/opensearch-migrations/issues">here</a>.
           </p>
         `;
       }

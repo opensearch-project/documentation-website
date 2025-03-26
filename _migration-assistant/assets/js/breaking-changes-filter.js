@@ -9,6 +9,7 @@
  * - Supports bidirectional filtering of source and target versions
  */
 import { getVersionIndex, breakingChanges } from './breaking-changes-data.js';
+import BreakingChangesUI from './breaking-changes-ui.js';
 document.addEventListener('DOMContentLoaded', () => {
   // Wait for migration data to be initialized
   if (typeof initializeMigrationData === 'function') {
@@ -132,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Show message if source or target not selected
     if (!selectedSrc || !selectedTgt) {
-      results.innerHTML = '<p>Please select both source and target versions to see breaking changes.</p>';
+      results.innerHTML = '<p>Select both source and target versions to see breaking changes.</p>';
       return;
     }
     
@@ -164,6 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
       
       const versionMatch = 
         introducedInIdx <= targetVersionIdx && // Breaking change was introduced at or before target
+        introducedInIdx > sourceVersionIdx && // Breaking change was introduced after source
         sourceVersionIdx < targetVersionIdx && // Valid migration path (source before target)
         sourceVersionIdx >= getVersionIndex(minSource) && // Source is affected
         targetVersionIdx <= getVersionIndex(maxTarget); // Target is affected
@@ -178,41 +180,8 @@ document.addEventListener('DOMContentLoaded', () => {
       return versionMatch && componentMatch;
     });
     
-    // Display results
-    if (relevantChanges.length) {
-      results.innerHTML = `
-        <h4>Relevant Breaking Changes:</h4>
-        <ul>${relevantChanges.map(change => {
-          let transformationHtml = '';
-          if (change.transformation) {
-            transformationHtml = `
-              <div class="transformation-info">
-                <strong>Available Migration Assistant Transformation:</strong> 
-                <a href="${change.transformation.url}">${change.transformation.title}</a>
-              </div>
-            `;
-          }
-          return `
-            <li>
-              <a href="${change.url}">${change.title}</a>: ${change.desc}
-              ${transformationHtml}
-            </li>
-          `;
-        }).join('')}</ul>
-        <p class="transformation-request">
-          To request additional transformations to be built into the Migration Assistant, 
-          open a github issue <a href="https://github.com/opensearch-project/opensearch-migrations/issues">here</a>.
-        </p>
-      `;
-    } else {
-      results.innerHTML = `
-        <p>No specific breaking changes found for your selection.</p>
-        <p class="transformation-request">
-          To request additional transformations to be built into the Migration Assistant, 
-          open a github issue <a href="https://github.com/opensearch-project/opensearch-migrations/issues">here</a>.
-        </p>
-      `;
-    }
+    // Use the UI module's displayResults function to avoid duplication
+    BreakingChangesUI.UIManager.displayResults(relevantChanges, results);
   };
   
   // Add event listeners for checkboxes

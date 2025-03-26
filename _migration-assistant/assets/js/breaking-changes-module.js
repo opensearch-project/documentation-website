@@ -140,6 +140,7 @@ const BreakingChangesModule = (function() {
         
         const versionMatch = 
           introducedInIdx <= targetVersionIdx && // Breaking change was introduced at or before target
+          introducedInIdx > sourceVersionIdx && // Breaking change was introduced after source
           sourceVersionIdx < targetVersionIdx && // Valid migration path (source before target)
           sourceVersionIdx >= VersionManager.getVersionIndex(minSource) && // Source is affected
           targetVersionIdx <= VersionManager.getVersionIndex(maxTarget); // Target is affected
