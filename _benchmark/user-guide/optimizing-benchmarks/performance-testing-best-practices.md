@@ -19,7 +19,7 @@ When setting up your testing environment, it's essential to use hardware that cl
 For the best results, make sure that your load generation host or machine running OpenSearch Benchmark follows the minimum hardware requirements:
 
 - CPU: 8+ cores
-- RAM: 32GB+
+- RAM: 32+ GB
 - Storage: Solid-state drive (SSD)/NVMe
 - Network: 10 Gbps
 
