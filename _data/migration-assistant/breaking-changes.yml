@@ -42,30 +42,14 @@ breaking_changes:
     comp: []
     transformation:
       title: "Type Mapping Deprecation"
-      url: "/migration-assistant/migration-phases/planning-your-migration/handling-type-mapping-deprecation/"
-  - title: "Elasticsearch 6.0 Breaking Changes"
-    url: "https://www.elastic.co/guide/en/elasticsearch/reference/6.8/breaking-changes-6.0.html"
+      url: "/docs/latest/migration-assistant/migration-phases/planning-your-migration/handling-type-mapping-deprecation/"
+  - title: "Elasticsearch 6.0 - 6.6 Breaking Changes"
+    url: "https://www.elastic.co/guide/en/elasticsearch/reference/6.8/breaking-changes.html"
     introducedIn: "Elasticsearch 6.8"
     comp: []
-  - title: "Elasticsearch 6.2 Breaking Changes"
-    url: "https://wwwhttps://www.elastic.co/guide/en/elasticsearch/reference/6.8/breaking-changes-6.2.html"
-    introducedIn: "Elasticsearch 6.8"
-    comp: []
-  - title: "Elasticsearch 6.3 Breaking Changes"
-    url: "https://www.elastic.co/guide/en/elasticsearch/reference/6.8/breaking-changes-6.3.html"
-    introducedIn: "Elasticsearch 6.8"
-    comp: []
-  - title: "Elasticsearch 6.4 Breaking Changes"
-    url: "https://www.elastic.co/guide/en/elasticsearch/reference/6.8/breaking-changes-6.4.html"
-    introducedIn: "Elasticsearch 6.8"
-    comp: []
-  - title: "Elasticsearch 6.6 Breaking Changes"
-    url: "https://www.elastic.co/guide/en/elasticsearch/reference/6.8/breaking-changes-6.6.html"
-    introducedIn: "Elasticsearch 6.8"
-    comp: []
-  - title: "Elasticsearch 6.7 Breaking Changes"
-    url: "https://www.elastic.co/guide/en/elasticsearch/reference/6.8/breaking-changes-6.7.html"
-    introducedIn: "Elasticsearch 6.8"
+  - title: "Elasticsearch 7.0 - 7.10 Breaking Changes"
+    url: "https://www.elastic.co/guide/en/elasticsearch/reference/7.10/breaking-changes.html"
+    introducedIn: "Elasticsearch 7.10"
     comp: []
   - title: "Kibana 6 Breaking Changes"
     url: "https://www.elastic.co/guide/en/kibana/6.8/breaking-changes.html"

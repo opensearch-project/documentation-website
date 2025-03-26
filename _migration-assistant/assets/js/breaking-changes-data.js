@@ -8,9 +8,11 @@
  *   - title: Display name of the breaking change
  *   - url: Link to documentation
  *   - introducedIn: Version where the breaking change was introduced
- *   - affects: Object with minSource and maxTarget versions
+ *   - affects (optional): Object with minSource and maxTarget versions
+ *     - minSource: Minimum source version affected
+ *     - maxTarget: Maximum target version affected
  *   - comp: Array of components affected
- *   - transformation: Optional object with transformation information
+ *   - transformation (optional): Optional object with transformation information
  */
 
 // Variables to store version ordering
@@ -165,20 +167,21 @@ function initializeMigrationData() {
 
 // Function to initialize the breaking changes data from the data attribute
 function initializeBreakingChangesData() {
-  const breakingChangesElement = document.getElementById('breaking-changes-data');
+  const migrationDataElement = document.getElementById('migration-data');
   
-  if (breakingChangesElement && breakingChangesElement.dataset.breakingChanges) {
-    try {
-      // Parse the JSON data from the data attribute
-      breakingChanges = JSON.parse(breakingChangesElement.dataset.breakingChanges);
-      console.log('Loaded breaking changes data:', breakingChanges.length);
-    } catch (error) {
-      console.error('Failed to parse breaking changes data:', error);
-      // Fallback to empty array if parsing fails
-      breakingChanges = [];
-    }
-  } else {
-    console.error('Breaking changes data element not found or empty');
+  if (!migrationDataElement || !migrationDataElement.dataset.breakingChanges) {
+    console.error('Breaking changes data not found in migration-data element. Make sure to add data-breaking-changes attribute.');
+    return;
+  }
+  
+  try {
+    // Parse the JSON data from the data attribute
+    breakingChanges = JSON.parse(migrationDataElement.dataset.breakingChanges);
+    console.log('Loaded breaking changes data:', breakingChanges.length);
+  } catch (error) {
+    console.error('Failed to parse breaking changes data:', error);
+    // Fallback to empty array if parsing fails
+    breakingChanges = [];
   }
 }
 
@@ -187,3 +190,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeMigrationData();
   initializeBreakingChangesData();
 });
+
+// Export the breaking changes array for use in other modules
+export { breakingChanges };

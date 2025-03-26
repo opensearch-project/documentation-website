@@ -283,11 +283,16 @@ const BreakingChangesUI = (function() {
           // 1. The breaking change was introduced in a version that is between source and target (inclusive of target)
           // 2. The source version is at or after the minimum source version affected
           // 3. The target version is at or before the maximum target version affected
+          
+          // Handle optional affects field by using defaults if not present
+          const minSource = change.affects && change.affects.minSource ? change.affects.minSource : VERSIONS[0]; // Default to oldest version
+          const maxTarget = change.affects && change.affects.maxTarget ? change.affects.maxTarget : VERSIONS[VERSIONS.length - 1]; // Default to newest version
+          
           const versionMatch = 
             introducedInIdx <= targetVersionIdx && // Breaking change was introduced at or before target
             sourceVersionIdx < targetVersionIdx && // Valid migration path (source before target)
-            sourceVersionIdx >= getVersionIndex(change.affects.minSource) && // Source is affected
-            targetVersionIdx <= getVersionIndex(change.affects.maxTarget); // Target is affected
+            sourceVersionIdx >= getVersionIndex(minSource) && // Source is affected
+            targetVersionIdx <= getVersionIndex(maxTarget); // Target is affected
           
           // For component filtering:
           // - Always include changes with empty comp array (default/data components)
