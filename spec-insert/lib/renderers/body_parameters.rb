@@ -11,7 +11,7 @@ class BodyParameters < BaseMustacheRenderer
     super(action, args)
     @is_request = is_request
     @body = is_request ? @action.request_body : @action.response_body
-    @params_group = @body.params_group
+    @empty = @body.empty
   end
 
   def header
@@ -21,32 +21,39 @@ class BodyParameters < BaseMustacheRenderer
   def description
     name = "The #{@is_request ? 'request' : 'response'} body"
     required = @body.required ? ' is __required__. It' : ' is optional. It' if @is_request
-    schema_desc = if @params_group.is_array
+    schema_desc = if @body.params_group.is_array
                     "#{name}#{required} is an __array of JSON objects__ (NDJSON). Each object has the following fields."
                   else
                     "#{name}#{required} is a JSON object with the following fields."
                   end
-    [@params_group.description, schema_desc].compact.reject(&:empty?).join("\n\n")
+    [@body.params_group.description, schema_desc].compact.reject(&:empty?).join("\n\n")
   end
 
   def required
     @body.required
   end
 
-  def table
-    ParameterTableRenderer.new(@params_group.parameters, @args, is_body: true).render
+  def root_tables
+    render_tables(@body.params_group)
   end
 
   def descendants
-    @params_group.descendants.sort_by(&:ancestors).map do |group|
+    @body.params_group.descendants.map do |group|
       { block_name: "#{@args.api}::#{@is_request ? 'request' : 'response'}_body",
         summary: "#{header}: <code>#{group.ancestors.join('</code> > <code>')}</code>",
         description: descendant_desc(group),
-        table: ParameterTableRenderer.new(group.parameters, @args, is_body: true).render }
+        descendant_tables: render_tables(group) }
     end
   end
 
   private
+
+  # @param [Api::BodyParameterGroup] group
+  # @return [Array<String>]
+  def render_tables(group)
+    return group.members.flat_map { |g| render_tables(g) } if group.is_nested
+    [ParameterTableRenderer.new(group.members, @args, is_body: true).render]
+  end
 
   # @param [Api::BodyParameterGroup] group
   def descendant_desc(group)
