@@ -14,9 +14,9 @@ The `median_absolute_deviation` metric is a single-value metric. Median absolute
 Median absolute deviation is less affected by outliers than standard deviation, which relies on squared error terms, and is useful for describing data that is not normally distributed.
 
 Median absolute deviation is computed as follows:<br/>
-median_absolute_deviation = median( | X<sub>i</sub> - Median(X<sub>i</sub>) | )
+median_absolute_deviation = Median( | X<sub>i</sub> - Median(X<sub>i</sub>) | )
 
-In practice, for large datasets `median_absolute_deviation` is estimated. You can adjust the trade-off between estimation accuracy and performance; see [Adjusting estimation accuracy](#adjusting-estimation-accuracy).
+OpenSearch estimates `median_absolute_deviation`, rather than calculating it directly, due to memory limitations. This estimation is computationally expensive. You can adjust the trade-off between estimation accuracy and performance; see [Adjusting estimation accuracy](https://github.com/opensearch-project/documentation-website/pull/9453/files#adjusting-estimation-accuracy) for details.
 
 ## Parameters
 
@@ -25,7 +25,7 @@ The `median_absolute_deviation` aggregation takes the following parameters.
 | Parameter | Required/Optional | Data type      | Description |
 | :--       | :--               | :--            | :--         |
 | `field`   | Required          | String         | The name of the numeric field for which the median absolute deviation is computed. |
-| `missing` | Optional          | Numeric        | The value to assign missing instances of the field. If not provided, documents with missing values are omitted from the average. |
+| `missing` | Optional          | Numeric        | The value to assign missing instances of the field. If not provided, documents with missing values are omitted from the estimation. |
 | `compression` | Optional          | Numeric        | A parameter that [adjusts the balance between estimate accuracy and performance](#adjusting-estimation-accuracy). The value of `compression` must be greater than `0`. The default value is `1000`. |
 
 ## Example
@@ -103,9 +103,11 @@ GET opensearch_dashboards_sample_data_flights/_search
 ```
 {% include copy-curl.html %}
 
-The estimation error depends on the dataset, but is usually below 5%, even for `compression` values as low as 100. (The low example value of `10` is used here to illustrate the tradeoff effect, and is not recommended.)
+The estimation error depends on the dataset, but is usually below 5%, even for `compression` values as low as 100. (The low example value of `10` is used here to illustrate the trade-off effect, and is not recommended.)
 
-Note the different value of the estimated parameter in the following response. For reference, the true median absolute deviation of `DistanceMiles` is `1831.076904296875`:
+Note the decreased computation time (`took` time) and the slightly less accurate value of the estimated parameter in the following response.
+
+For reference, OpenSearch's best estimate (with `compression` set arbitrarily high) for the median absolute deviation of `DistanceMiles` is `1831.076904296875`:
 
 
 ```json
