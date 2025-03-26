@@ -39,6 +39,10 @@ const BreakingChangesUI = (function() {
         return;
       }
       
+      // Store original values before populating dropdowns
+      const originalSourceValue = elements.sourceSelect.value;
+      const originalTargetValue = elements.targetSelect.value;
+      
       // Set up event listeners
       this.setupEventListeners();
       
@@ -51,8 +55,24 @@ const BreakingChangesUI = (function() {
       // Set up component checkboxes
       this.setupComponentCheckboxes();
       
+      // Restore original values if they were set (e.g., when navigating back to the page)
+      if (originalSourceValue && originalTargetValue) {
+        console.log('Restoring pre-selected values:', originalSourceValue, originalTargetValue);
+        elements.sourceSelect.value = originalSourceValue;
+        elements.targetSelect.value = originalTargetValue;
+      }
+      
       // Initialize results
       this.updateResults();
+      
+      // Use requestAnimationFrame to wait for the next rendering cycle
+      // This ensures the DOM has been updated before we check for selected values
+      requestAnimationFrame(() => {
+        if (elements.sourceSelect.value && elements.targetSelect.value) {
+          console.log('Selected values detected, updating results after DOM update');
+          this.updateResults();
+        }
+      });
     },
 
     /**
@@ -114,8 +134,23 @@ const BreakingChangesUI = (function() {
      * @param {Array} versions - Array of version strings
      */
     populateVersionDropdowns(versions) {
+      // Populate source dropdown with all versions
       this.populateDropdown(elements.sourceSelect, versions, 'Select Source');
-      this.populateDropdown(elements.targetSelect, versions, 'Select Target');
+      
+      // For target dropdown, only show versions that are targets for any source
+      const allTargetVersions = new Set();
+      
+      // Collect all target versions from the migration map
+      Object.values(MIGRATION_MAP.sourceToTargets).forEach(targets => {
+        targets.forEach(target => allTargetVersions.add(target));
+      });
+      
+      // Convert Set to Array
+      const targetVersions = Array.from(allTargetVersions);
+      console.log('Filtered target versions:', targetVersions);
+      
+      // Populate target dropdown with filtered versions
+      this.populateDropdown(elements.targetSelect, targetVersions, 'Select Target');
     },
 
     /**
