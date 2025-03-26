@@ -111,7 +111,7 @@ The following table lists all built-in date formats:
 | `date_hour_minute` / `strict_date_hour_minute` | Combines a full date, two-digit hour, and two-digit minute (`yyyy-MM-ddTHH:mm`). | `2025-03-26T10:30` |
 | `date_hour_minute_second` / `strict_date_hour_minute_second` | Combines a full date, two-digit hour, minute, and second (`yyyy-MM-ddTHH:mm:ss`). | `2025-03-26T10:30:00` |
 | `date_hour_minute_second_fraction` / `strict_date_hour_minute_second_fraction` | Combines a full date, two-digit hour, minute, second, and three-digit fraction (`yyyy-MM-ddTHH:mm:ss.SSS`). | `2025-03-26T10:30:00.123` |
-| `date_hour_minute_second_millis` / `strict_date_hour_minute_second_millis` | Same as above, explicitly for millisecond precision (`yyyy-MM-ddTHH:mm:ss.SSS`). | `2025-03-26T10:30:00.123` |
+| `date_hour_minute_second_millis` / `strict_date_hour_minute_second_millis` | Similar to `date_hour_minute_second_fraction`, explicitly for millisecond precision (`yyyy-MM-ddTHH:mm:ss.SSS`). | `2025-03-26T10:30:00.123` |
 | `date_time` / `strict_date_time` | Combines a full date and time with milliseconds (`yyyy-MM-ddTHH:mm:ss.SSSZ`). | `2025-03-26T10:30:00.000Z` |
 | `date_time_no_millis` / `strict_date_time_no_millis` | Combines a full date and time without milliseconds (`yyyy-MM-ddTHH:mm:ssZ`). | `2025-03-26T10:30:00Z` |
 | `hour` / `strict_hour` | Formatter for a two-digit hour (`HH`). | `10` |
