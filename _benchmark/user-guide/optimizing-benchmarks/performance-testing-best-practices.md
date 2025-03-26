@@ -126,7 +126,7 @@ Configure your benchmark to collect comprehensive metrics. The following configu
 
 ### Sample metrics to track
 
-Here's a comprehensive list of metrics that should be tracked during performance testing. The following Python structure can be used as a template for your metrics collection strategy:
+The following Python structure can be used as a template for your metrics collection strategy and includes a list of metrics that should be tracked during performance testing:
 
 ```python
 metrics_to_track = {
@@ -175,7 +175,6 @@ Don't run tests without a warmup period.
 Instead, always include an adequate warmup period in your tests. This allows the system to reach a steady state before measurements begin. The following example gives a `geonames` run a warmup period of `300s`.
 
 ```python
-# DO: Include adequate warmup
 opensearch-benchmark execute-test --workload=geonames --workload-params="warmup_time_period:300"
 ```
 
@@ -264,4 +263,4 @@ opensearch-benchmark clean
 
 ## Amazon OpenSearch Serverless considerations
 
-When testing with Amazon OpenSearch Serverless, be aware that not all test procedures may be supported. Always check the README of the workload you're using to see if it's compatible with AOSS. If compatibility information is not provided, you may need to test the procedures individually to determine which ones are supported.
+When testing with Amazon OpenSearch Serverless, be aware that not all test procedures may be supported. Always check the `README.md` of the [workload](https://github.com/opensearch-project/opensearch-benchmark-workloads) you're using to see if it's compatible with AOSS. If compatibility information is not provided, you may need to test the procedures individually to determine which ones are supported.
