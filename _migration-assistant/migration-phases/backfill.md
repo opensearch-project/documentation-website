@@ -82,6 +82,11 @@ Depending on the size of the data in the source cluster and the bandwidth alloca
 
 From the snapshot you created of your source cluster, you can begin backfilling documents into the target cluster. Once you have started this process, a fleet of workers will spin up to read the snapshot and reindex documents into the target cluster. This fleet of workers can be scaled to increased the speed at which documents are reindexed into the target cluster.
 
+### Cloudwatch Metrics and Dashboard
+The Migration Assistant creates a CloudWatch Dashboard you can use to visualize the health and performance of the backfill process.  It brings together the metrics for the backfill workers and, for those migrating to Amazon OpenSearch Service, the target cluster.
+
+You can find the Backfill dashboard in the AWS Console for CloudWatch Dashboards, in the region you have deployed the Migration Assistant.  The metric graphs for your target cluster will be blank until you select the OpenSearch Domain you're migrating to from the drop-down menu at the top of the Dashboard.
+
 ### Checking the starting state of the clusters
 
 You can check the indexes and document counts of the source and target clusters by running the `cat-indices` command. This can be used to monitor the difference between the source and target for any migration scenario. Check the indexes of both clusters using the following command:
@@ -139,13 +144,37 @@ console backfill scale 5
 
 We recommend slowly scaling up the fleet while monitoring the health metrics of the target cluster to avoid over-saturating it. [Amazon OpenSearch Service domains](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/monitoring.html) provide a number of metrics and logs that can provide this insight.
 
+### Pausing the migration
+
+If you need to pause the migration, you do so using the command:
+
+```shell
+console backfill pause
+```
+
+This will spin down any and all existing workers while leaving the backfill operation in a state it can be restarted.  When it's time to restart the migration, you can run `console backfill start` or just scale up the worker count to your desired number with `console backfill scale <worker_count>`.
+
 ### Stopping the migration
 
-Backfill requires manually stopping the fleet. Once all the data has been migrated, you can shut down the fleet and all its workers using the following command:
-Backfill requires manually stopping the fleet. Once all the data has been migrated, you can shut down the fleet and all its workers using the following command:
+Backfill requires manually stopping the migration. Stopping the migration spins down any and all workers and cleans up all metadata used to track and coordinate the migration. Once the status checks report your data has been complete migrated, you can stop the migration with the command:
+
 ```shell
 console backfill stop
 ```
+
+Example stop output
+
+```shell
+Backfill stopped successfully.
+Service migration-aws-integ-reindex-from-snapshot set to 0 desired count. Currently 0 running and 5 pending.
+Archiving the working state of the backfill operation...
+RFS Workers are still running, waiting for them to complete...
+Backfill working state archived to: /shared-logs-output/migration-console-default/backfill_working_state/working_state_backup_20241115174822.json
+```
+
+</details>
+
+You cannot restart a stopped migration.  If you want to pause a migration, use `console backfill pause` instead.
 
 ### Amazon CloudWatch metrics and dashboard
 
