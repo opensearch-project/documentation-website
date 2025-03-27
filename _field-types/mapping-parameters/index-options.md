@@ -14,16 +14,16 @@ The `index_options` mapping parameter controls the level of detail stored in the
 
 Depending on your requirements, you can choose from the following options:
 
-- **docs:**  
+- `docs`:
   Only the existence of a term is indexed. No frequency or position information is stored. This option minimizes index size and is sufficient when you only need to confirm that a term appears in a document.
 
-- **freqs:**  
+- `freqs`:
   In addition to recording the existence of terms, the index stores the frequency (the number of times a term appears in a document). This can improve relevance scoring but does not include positional data.
 
-- **positions:**  
+- `positions`:
   This setting stores term positions (the order and location of terms within the document) along with frequency data. It is required for phrase queries and proximity searches.
 
-- **offsets:**  
+- `offsets`:  
   The most detailed option, `offsets` includes term offsets (the exact start and end character positions within the field). This is particularly useful for highlighting matched terms, however it requires additional storage.
 
 By default, text fields are indexed with the `positions` option, balancing functionality and index size.
