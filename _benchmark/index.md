@@ -8,7 +8,7 @@ has_toc: false
 permalink: /benchmark/
 redirect_from:
   - /benchmark/index/
-  - /benchmark/tutorials/
+  - /benchmark/tutorials/index/
 ---
 
 # OpenSearch Benchmark
