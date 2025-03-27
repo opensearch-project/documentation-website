@@ -170,7 +170,7 @@ Use the following steps to set up AWS Signature Version 4:
 
 1. Create an IAM role or user in the AWS Management Console. 
 
-2. Set up your environment variables:
+2. Set up your environment variables. If you're testing using Amazon OpenSearch Serverless, set `OSB_SERVICE` to `aoss`.
 
    - For an IAM user, configure the following environment variables:
 
@@ -193,10 +193,8 @@ Use the following steps to set up AWS Signature Version 4:
    ```
    {% include copy.html %}
 
-  If you're testing using Amazon OpenSearch Serverless, set `OSB_SERVICE` to `aoss`.
-  {: .note}
 
-3. Customize and run the following `execute-test` command with the ` --client-options=amazon_aws_log_in:environment` flag. This flag provides the location of your exported credentials to OpenSearch Benchmark.
+3. Customize and run the following `execute-test` command with the `--client-options=amazon_aws_log_in:environment` flag. This flag provides the location of your exported credentials to OpenSearch Benchmark.
 
    ```bash
    opensearch-benchmark execute-test \
