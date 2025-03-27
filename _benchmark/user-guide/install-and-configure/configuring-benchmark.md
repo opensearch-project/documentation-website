@@ -162,17 +162,17 @@ This section defines how OpenSearch versions are distributed.
 
 ## Running OpenSearch Benchmark with AWS Signature Version 4
 
-OpenSearch Benchmark supports AWS Signature Version 4 authentication.  To run OpenSearch Benchmark with AWS Signature Version 4, you need to set up an [AWS Identity and Access Management (IAM) user or role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create.html) and provide it access to the OpenSearch cluster using AWS Signature Version 4 authentication. 
+OpenSearch Benchmark supports AWS Signature Version 4 authentication. To run OpenSearch Benchmark with AWS Signature Version 4, you need to set up an [AWS Identity and Access Management (IAM) user or role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create.html) and provide it access to the OpenSearch cluster using AWS Signature Version 4 authentication. 
 
-The choice between an IAM role or user depends on your test cluster's access management requirements. For more information on deciding whether to use a role or user, see [When to create an IAM user (instead of a role)](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html#id_which-to-choose).
+Whether to use an IAM role or user depends on your test cluster's access management requirements. For more information about whether to use an IAM role or user, see [When to create an IAM user (instead of a role)](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html#id_which-to-choose).
 
-After deciding, use the following steps to set up AWS Signature Version 4:
+Use the following steps to set up AWS Signature Version 4:
 
-1. Create a role or user in the AWS Management Console. 
+1. Create an IAM role or user in the AWS Management Console. 
 
-2. Set up your environment variables.
+2. Set up your environment variables:
 
-   For an IAM user, configure the following environment variables:
+   - For an IAM user, configure the following environment variables:
 
    ```bash
    export OSB_AWS_ACCESS_KEY_ID=<IAM USER AWS ACCESS KEY ID>
@@ -182,7 +182,7 @@ After deciding, use the following steps to set up AWS Signature Version 4:
    ```
    {% include copy.html %}
 
-   For an IAM role, configure the following environment variables:
+   - For an IAM role, configure the following environment variables:
 
    ```bash
    export OSB_AWS_ACCESS_KEY_ID=<IAM Role AWS ACCESS KEY ID>
