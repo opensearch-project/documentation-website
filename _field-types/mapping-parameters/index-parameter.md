@@ -14,7 +14,7 @@ The `index` mapping parameter controls whether a field is searchable by includin
 
 By default, all field types are indexed.
 
-## Enabling Indexing on a Field
+## Enabling indexing on a field
 
 The following request creates an index named `products` with a `description` field that is indexed (the default behavior):
 
@@ -82,7 +82,7 @@ Expected result:
 }
 ```
 
-## Disabling Indexing on a Field
+## Disabling indexing on a field
 
 Execute the following command to create an index named `products-no-index` with a `description` field that is not indexed:
 
