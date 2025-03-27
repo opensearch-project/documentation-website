@@ -162,9 +162,9 @@ This section defines how OpenSearch versions are distributed.
 
 ## Running OpenSearch Benchmark with AWS Signature Version 4
 
-OpenSearch Benchmark supports AWS Signature Version 4 authentication. To run Benchmark with Signature Version 4, use the following steps:
+OpenSearch Benchmark supports AWS Signature Version 4 authentication. To run OpenSearch Benchmark with AWS Signature Version 4, use the following steps:
 
-1. Set up an [IAM user or an IAM Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create.html) and provide it access to the OpenSearch cluster using Signature Version 4 authentication.
+1. Set up an [AWS Identity and Access Management (IAM) user or role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create.html) and provide it access to the OpenSearch cluster using AWS Signature Version 4 authentication.
 
 2. Set up the following environment variables for your IAM user:
 
@@ -187,9 +187,9 @@ OpenSearch Benchmark supports AWS Signature Version 4 authentication. To run Ben
    ```
    {% include copy.html %}
 
-  If you're testing against Amazon OpenSearch Serverless, set `OSB_SERVICE` to `aoss`.
+  If you're testing using Amazon OpenSearch Serverless, set `OSB_SERVICE` to `aoss`.
 
-3. Customize and run the following `execute-test` command with the ` --client-options=amazon_aws_log_in:environment` flag. This flag tells OpenSearch Benchmark the location of your exported credentials.
+3. Customize and run the following `execute-test` command with the ` --client-options=amazon_aws_log_in:environment` flag. This flag provides the location of your exported credentials to OpenSearch Benchmark.
 
    ```bash
    opensearch-benchmark execute-test \
