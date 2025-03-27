@@ -16,7 +16,7 @@ For example, say you're a system architect at a rideshare company. As a rideshar
 
 Consider the following criteria when deciding which workload would work best for benchmarking your cluster:
 
-- The cluster's use case. 
+- The cluster's use case and the size of the cluster. Small clusters usually contain 1 - 10 nodes and are sutiable for development environments. Medium clusters usually contain 11 - 50 nodes and are used for testing environments that more closely resemble a production cluster. 
 - The data types that your cluster uses compared to the data structure of the documents contained in the workload. Each workload contains an example document so that you can compare data types, or you can view the index mappings and data types in the `index.json` file.
 - The query types most commonly used inside your cluster. The `operations/default.json` file contains information about the query types and workload operations. For a list of common operations, see [Common operations]({{site.url}}{{site.baseurl}}/benchmark/user-guide/understanding-workloads/common-operations/).
 
