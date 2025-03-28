@@ -9,7 +9,7 @@ nav_order: 10
 Introduced 1.0
 {: .label .label-purple }
 
-Creates a clone of all or part of a snapshot, in the same repository as the original.
+Creates a clone of all or part of a snapshot in the same repository as the original.
 
 
 <!-- spec_insert_start
@@ -32,7 +32,7 @@ The following table lists the available path parameters.
 
 | Parameter | Required | Data type | Description |
 | :--- | :--- | :--- | :--- |
-| `repository` | **Required** | String | The name of repository which will contain the snapshots clone. |
+| `repository` | **Required** | String | The name of repository that will contain the snapshot clone. |
 | `snapshot` | **Required** | String | The name of the original snapshot. |
 | `target_snapshot` | **Required** | String | The name of the cloned snapshot. |
 
@@ -70,7 +70,7 @@ PUT /_snapshot/my-opensearch-repo/my_snapshot/_clone/my_new_snapshot
 
 ## Example response
 
-The following example shows an API response:
+The successful creation of a snapshot clone returns the following response:
 
 ```json
 { 
