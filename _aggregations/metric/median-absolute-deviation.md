@@ -9,14 +9,18 @@ redirect_from:
 
 # Median absolute deviation aggregations
 
-The `median_absolute_deviation` metric is a single-value metric. Median absolute deviation is a variability metric that measures dispersion from the median.
+The `median_absolute_deviation` aggregation is a single-value metric aggregation. Median absolute deviation is a variability metric that measures dispersion from the median.
 
 Median absolute deviation is less affected by outliers than standard deviation, which relies on squared error terms, and is useful for describing data that is not normally distributed.
 
-Median absolute deviation is computed as follows:<br/>
-median_absolute_deviation = Median( | X<sub>i</sub> - Median(X<sub>i</sub>) | )
+Median absolute deviation is computed as follows:
 
-OpenSearch estimates `median_absolute_deviation`, rather than calculating it directly, due to memory limitations. This estimation is computationally expensive. You can adjust the trade-off between estimation accuracy and performance; see [Adjusting estimation accuracy](https://github.com/opensearch-project/documentation-website/pull/9453/files#adjusting-estimation-accuracy) for details.
+```
+median_absolute_deviation = median( | x<sub>i</sub> - median(x<sub>i</sub>) | )
+```
+
+
+OpenSearch estimates `median_absolute_deviation`, rather than calculating it directly, because of memory limitations. This estimation is computationally expensive. You can adjust the trade-off between estimation accuracy and performance. For more information, see [Adjusting estimation accuracy](https://github.com/opensearch-project/documentation-website/pull/9453/files#adjusting-estimation-accuracy).
 
 ## Parameters
 
