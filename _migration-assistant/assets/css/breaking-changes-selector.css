@@ -1,0 +1,55 @@
+.breaking-changes-selector {
+  background: #f5f7f7;
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.breaking-changes-selector div {
+  margin: 10px 0;
+}
+
+.breaking-changes-selector label {
+  margin-right: 8px;
+}
+
+.breaking-changes-selector select {
+  margin-right: 15px;
+  padding: 4px;
+}
+
+.breaking-changes-selector input[type="checkbox"] {
+  margin-right: 4px;
+}
+
+#breaking-changes-results {
+  margin-top: 15px;
+}
+
+#breaking-changes-results ul {
+  margin-top: 10px;
+}
+
+.transformation-info {
+  margin-left: 20px;
+  padding: 5px 10px;
+  background-color: #e6f7ff;
+  border-left: 3px solid #1890ff;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 0.9em;
+}
+
+.component-checkbox {
+  display: inline-block;
+  margin-left: 20px;
+}
+
+.transformation-request {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-style: italic;
+}
