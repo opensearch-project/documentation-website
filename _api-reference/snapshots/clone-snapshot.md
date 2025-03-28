@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Clone Snapshot
+title: Clone snapshot
 parent: Snapshot APIs
 nav_order: 10
 ---
