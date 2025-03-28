@@ -5,7 +5,7 @@ parent: Snapshot APIs
 nav_order: 10
 ---
 
-# Clone Snapshot
+# Clone snapshot
 Introduced 1.0
 {: .label .label-purple }
 
@@ -54,22 +54,6 @@ The following table lists the available query parameters. All query parameters a
 
 <!-- spec_insert_end -->
 
-
-<!-- spec_insert_start
-api: snapshot.clone
-component: request_body_parameters
--->
-## Request body fields
-
-The snapshot clone definition.
-
-The request body is __required__. It is a JSON object with the following fields.
-
-| Property | Required | Data type | Description |
-| :--- | :--- | :--- | :--- |
-| `indices` | **Required** | String |  |
-
-<!-- spec_insert_end -->
 
 ## Example request
 
