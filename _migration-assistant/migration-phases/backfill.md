@@ -178,7 +178,7 @@ You cannot restart a stopped migration.  If you want to pause a migration, use `
 
 ### Amazon CloudWatch metrics and dashboard
 
-Migration Assistant creates an Amazon CloudWatch dashboard that you can use to visualize the health and performance of the backfill process. It combines the metrics for the backfill workers and, for those migrating to Amazon OpenSearch Service, the target cluster.
+Migration Assistant creates an Amazon CloudWatch dashboard 'MigrationAssistant_ReindexFromSnapshot_Dashboard' that you can use to visualize the health and performance of the backfill process. It combines the metrics for the backfill workers and, for those migrating to Amazon OpenSearch Service, the target cluster.
 
 You can find the backfill dashboard in the CloudWatch console based on the AWS Region in which you have deployed Migration Assistant. The metric graphs for your target cluster will be blank until you select the OpenSearch domain you're migrating to from the dropdown menu at the top of the dashboard.
 
