@@ -57,7 +57,7 @@ The following table lists the available query parameters. All query parameters a
 
 ## Example request
 
-The following request copies indices `index_a` and `index_b` from `my_snapshot`, a snapshot located in repository `my-opensearch-repo`, into a new snapshot in the same repository called `my_new_snapshot`:
+The following request clones indexes `index_a` and `index_b` from `my_snapshot`, a snapshot located in the snapshot repository `my-opensearch-repo`, into a new snapshot in the same repository called `my_new_snapshot`:
 
 ```json
 PUT /_snapshot/my-opensearch-repo/my_snapshot/_clone/my_new_snapshot
