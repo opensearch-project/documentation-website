@@ -14,12 +14,12 @@ The goal of the Migration Assistant is to streamline the process of migrating fr
 
 ## Understanding breaking changes
 
-Before performing any upgrade or migration, you should review any documentation of breaking changes. Even if the cluster is migrated there might be changes required for clients to connect to the new cluster
+Before performing any upgrade or migration, you should review any breaking changes that might exist between version, because there might be changes required for clients to connect to the new cluster:
 
 <link rel="stylesheet" href="{{site.url}}{{site.baseurl}}/migration-assistant/assets/css/breaking-changes-selector.css">
 
 <div class="breaking-changes-selector">
-  <h4>Find Breaking Changes for Your Migration Path</h4>
+  <h4>Find breaking changes for your migration path</h4>
   
   <div>
     <label for="source-version">Source:</label>
@@ -69,8 +69,8 @@ We recommend running production-like queries against the target cluster before s
 
 For complex migrations involving multiple transformations or breaking changes, we highly recommend performing a trial migration with representative, non-production data (e.g., in a staging environment) to fully test client compatibility with the target cluster.
 
-## Included transformations
+## Supported transformations
 
-The following transformations are included in the Migration Assistant. They can be enabled, combined, and configured to tailor a migration to your needs. To request additional transformations to be built into the Migration Assistant, open a github issue [here](https://github.com/opensearch-project/opensearch-migrations/issues).
+The following transformations are included in the Migration Assistant. They can be enabled, combined, and configured to tailor a migration to your needs. To request additional transformations to be built into the Migration Assistant, open a GitHub issue [in the OpenSearch migrations repository](https://github.com/opensearch-project/opensearch-migrations/issues).
 
-- [Type Mapping Deprecation]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/planning-your-migration/handling-type-mapping-deprecation)
+- [Type mapping deprecation]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/planning-your-migration/handling-type-mapping-deprecation/)
