@@ -139,17 +139,39 @@ console backfill scale 5
 
 We recommend slowly scaling up the fleet while monitoring the health metrics of the target cluster to avoid over-saturating it. [Amazon OpenSearch Service domains](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/monitoring.html) provide a number of metrics and logs that can provide this insight.
 
+### Pausing the migration
+
+If you need to pause the migration, you do so using the command:
+
+```shell
+console backfill pause
+```
+
+This will spin down any and all existing workers while leaving the backfill operation in a state it can be restarted.  When it's time to restart the migration, you can run `console backfill start` or just scale up the worker count to your desired number with `console backfill scale <worker_count>`.
+
 ### Stopping the migration
 
-Backfill requires manually stopping the fleet. Once all the data has been migrated, you can shut down the fleet and all its workers using the following command:
-Backfill requires manually stopping the fleet. Once all the data has been migrated, you can shut down the fleet and all its workers using the following command:
+Completing the backfill process requires manually stopping the migration. Stopping the migration spins down any and all workers and cleans up all metadata used to track and coordinate the migration. Once the status checks report your data has been completely migrated, you can stop the migration with the command:
+
 ```shell
 console backfill stop
 ```
 
-### Amazon CloudWatch metrics and dashboard
+Example stop output:
 
-Migration Assistant creates an Amazon CloudWatch dashboard that you can use to visualize the health and performance of the backfill process. It combines the metrics for the backfill workers and, for those migrating to Amazon OpenSearch Service, the target cluster.
+```shell
+Backfill stopped successfully.
+Service migration-aws-integ-reindex-from-snapshot set to 0 desired count. Currently 0 running and 5 pending.
+Archiving the working state of the backfill operation...
+RFS Workers are still running, waiting for them to complete...
+Backfill working state archived to: /shared-logs-output/migration-console-default/backfill_working_state/working_state_backup_20241115174822.json
+```
+
+You cannot restart a stopped migration.  If you want to pause a migration, use `console backfill pause` instead.
+
+### CloudWatch Metrics and dashboard
+
+Migration Assistant creates an Amazon CloudWatch dashboard 'MigrationAssistant_ReindexFromSnapshot_Dashboard' that you can use to visualize the health and performance of the backfill process. It combines the metrics for the backfill workers and, for those migrating to Amazon OpenSearch Service, the target cluster.
 
 You can find the backfill dashboard in the CloudWatch console based on the AWS Region in which you have deployed Migration Assistant. The metric graphs for your target cluster will be blank until you select the OpenSearch domain you're migrating to from the dropdown menu at the top of the dashboard.
 
