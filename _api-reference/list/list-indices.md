@@ -79,5 +79,21 @@ next_token MTcyOTE5NTQ5NjM5N3wub3BlbnNlYXJjaC1zYXAtbG9nLXR5cGVzLWNvbmZpZw==
 **JSON format**
 
 ```json
-{"next_token":"MTcyOTE5NTQ5NjM5N3wub3BlbnNlYXJjaC1zYXAtbG9nLXR5cGVzLWNvbmZpZw==","indices":[{"health":"green","status":"open","index":"movies","uuid":"UZbpfERBQ1-3GSH2bnM3sg","pri":"1","rep":"1","docs.count":"1","docs.deleted":"0","store.size":"7.7kb","pri.store.size":"3.8kb"}]}
+{
+  "next_token": "MTcyOTE5NTQ5NjM5N3wub3BlbnNlYXJjaC1zYXAtbG9nLXR5cGVzLWNvbmZpZw==",
+  "indices": [
+    {
+      "health": "green",
+      "status": "open",
+      "index": "movies",
+      "uuid": "UZbpfERBQ1-3GSH2bnM3sg",
+      "pri": "1",
+      "rep": "1",
+      "docs.count": "1",
+      "docs.deleted": "0",
+      "store.size": "7.7kb",
+      "pri.store.size": "3.8kb"
+    }
+  ]
+}
 ```
