@@ -12,7 +12,7 @@ has_toc: false
 
 The `eager_global_ordinals` mapping parameter controls when global ordinals are built for a field. When enabled, global ordinals are computed during index refresh rather than "lazily" during query execution. This can improve performance for operations that rely on global ordinals, for example, sorting and aggregations on keyword fields. However, it may also increase index refresh times and memory usage.
 
-Global ordinals represent a mapping from term values to integer identifiers and are used internally to quickly execute aggregations and sort operations. By loading them "eagerly", the system reduces query latency at the cost of additional upfront processing during indexing.
+Global ordinals represent a mapping from term values to integer identifiers and are used internally to quickly execute aggregations and sort operations. By loading them "eagerly," the system reduces query latency at the cost of additional upfront processing during indexing.
 
 By default, `eager_global_ordinals` are disabled, ensuring that the cluster is optimized for indexing speed.
 
