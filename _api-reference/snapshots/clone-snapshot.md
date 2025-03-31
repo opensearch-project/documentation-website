@@ -32,7 +32,7 @@ The following table lists the available path parameters.
 
 | Parameter | Required | Data type | Description |
 | :--- | :--- | :--- | :--- |
-| `repository` | **Required** | String | The name of repository that will contain the snapshot clone. |
+| `repository` | **Required** | String | The name of repository which will contain the snapshots clone. |
 | `snapshot` | **Required** | String | The name of the original snapshot. |
 | `target_snapshot` | **Required** | String | The name of the cloned snapshot. |
 
