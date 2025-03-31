@@ -11,7 +11,7 @@ redirect_from:
 
 The `median_absolute_deviation` aggregation is a single-value metric aggregation. Median absolute deviation is a variability metric that measures dispersion from the median.
 
-Median absolute deviation is less affected by outliers than standard deviation, which relies on squared error terms, and is useful for describing data that is not normally distributed.
+Median absolute deviation is less affected by outliers than standard deviation, which relies on squared error terms and is useful for describing data that is not normally distributed.
 
 Median absolute deviation is computed as follows:
 
@@ -29,12 +29,12 @@ The `median_absolute_deviation` aggregation takes the following parameters.
 | Parameter | Required/Optional | Data type      | Description |
 | :--       | :--               | :--            | :--         |
 | `field`   | Required          | String         | The name of the numeric field for which the median absolute deviation is computed. |
-| `missing` | Optional          | Numeric        | The value to assign missing instances of the field. If not provided, documents with missing values are omitted from the estimation. |
+| `missing` | Optional          | Numeric        | The value to assign to missing instances of the field. If not provided, documents with missing values are omitted from the estimation. |
 | `compression` | Optional          | Numeric        | A parameter that [adjusts the balance between estimate accuracy and performance](#adjusting-estimation-accuracy). The value of `compression` must be greater than `0`. The default value is `1000`. |
 
 ## Example
 
-The following example calculates the median absolute deviation of the `DistanceMiles` field in the flights sample dataset:
+The following example calculates the median absolute deviation of the `DistanceMiles` field in the `opensearch_dashboards_sample_data_flights` dataset:
 
 ```json
 GET opensearch_dashboards_sample_data_flights/_search
@@ -85,7 +85,7 @@ As shown in the following example response, the aggregation returns an estimate 
 
 OpenSearch ignores missing and null values when computing `median_absolute_deviation`.
 
-You can assign a value to missing instances of the aggregated field. See [Missing aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/missing/).
+You can assign a value to missing instances of the aggregated field. See [Missing aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/missing/) for more information.
 
 ## Adjusting estimation accuracy
 
@@ -107,7 +107,7 @@ GET opensearch_dashboards_sample_data_flights/_search
 ```
 {% include copy-curl.html %}
 
-The estimation error depends on the dataset, but is usually below 5%, even for `compression` values as low as 100. (The low example value of `10` is used here to illustrate the trade-off effect, and is not recommended.)
+The estimation error depends on the dataset but is usually below 5%, even for `compression` values as low as `100`. (The low example value of `10` is used here to illustrate the trade-off effect and is not recommended.)
 
 Note the decreased computation time (`took` time) and the slightly less accurate value of the estimated parameter in the following response.
 
