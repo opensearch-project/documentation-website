@@ -22,7 +22,7 @@ The following table lists all top-level parameters supported by `hybrid` queries
 Parameter | Description
 :--- | :---
 `queries` | An array of one or more query clauses that are used to match documents. A document must match at least one query clause in order to be returned in the results. The documents' relevance scores from all query clauses are combined into one score by applying a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/). The maximum number of query clauses is 5. Required.
-`filter` | A QueryBuilder as filter to be pushed down to all the sub queries of hybrid query. This allows the users to apply additional filtering criteria to their hybrid queries, enhancing the flexibility of hybrid queries.
+`filter` | A filter to apply to all the subqueries of the hybrid query. 
 
 ## Disabling hybrid queries
 
