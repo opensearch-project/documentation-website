@@ -3,6 +3,8 @@ layout: default
 title: Building AI search workflows in OpenSearch Dashboards
 parent: AI search
 nav_order: 80
+redirect_from:
+   - /automating-configurations/workflow-builder/
 ---
 
 # Building AI search workflows in OpenSearch Dashboards
