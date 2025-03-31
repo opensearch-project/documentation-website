@@ -11,13 +11,13 @@ redirect_from:
   - /vector-search/tutorials/neural-search-tutorial/
 steps:
   - heading: "Choose a model for embedding generation"
-    link: "/vector-search/tutorials/neural-search-tutorial/#step-1-choose-a-model"
+    link: "/tutorials/vector-search/neural-search-tutorial/#step-1-choose-a-model"
   - heading: "Register and deploy the model"
-    link: "/vector-search/tutorials/neural-search-tutorial/#step-2-register-and-deploy-the-model"
+    link: "/tutorials/vector-search/neural-search-tutorial/#step-2-register-and-deploy-the-model"
   - heading: "Ingest data"
-    link: "/vector-search/tutorials/neural-search-tutorial/#step-3-ingest-data"
+    link: "/tutorials/vector-search/neural-search-tutorial/#step-3-ingest-data"
   - heading: "Search the data"
-    link: "/vector-search/tutorials/neural-search-tutorial/#step-4-search-the-data"
+    link: "/tutorials/vector-search/neural-search-tutorial/#step-4-search-the-data"
 ---
 
 # Getting started with semantic and hybrid search
