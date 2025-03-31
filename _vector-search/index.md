@@ -55,7 +55,9 @@ OpenSearch [vector search]({{site.url}}{{site.baseurl}}/vector-search/getting-st
 
 The following video introduces key vector search features in OpenSearch and provides a step-by-step demo of using OpenSearch as a vector database.
 
+<span class="centering-container">
 {% include youtube-player.html id='oX0HMAztP8E' %}
+</span>
 
 To follow the demo, use these steps.
 
@@ -66,6 +68,7 @@ To follow the demo, use these steps.
   {: .fs-5 .fw-700}
 
 ### Prerequisites
+{:.no_toc} 
 
 Download the sample data for this demo:
 
@@ -94,6 +97,7 @@ PUT /_cluster/settings
 {% include copy-curl.html %}
 
 ### Step 1: Register and deploy a model
+{:.no_toc} 
 
 Register and deploy a machine learning (ML) model provided by OpenSearch:
 
@@ -117,6 +121,7 @@ GET /_plugins/_ml/tasks/<task_id>
 Once the task is complete, the task state will change to `COMPLETED` and the Tasks API response will contain a model ID for the registered model. Note the model ID; you'll use it in the following steps.
 
 ### Step 2: Create an ingest pipeline 
+{:.no_toc} 
 
 Create an ingest pipeline that will generate vector embeddings from text:
 
@@ -150,6 +155,7 @@ POST /_plugins/_ml/_predict/text_embedding/<model_id>
 {% include copy-curl.html %}
 
 ### Step 3: Create an index
+{:.no_toc} 
 
 Create a vector index and set the default ingest pipeline to the ingest pipeline created in the previous step:
 
@@ -173,6 +179,7 @@ PUT /neural_search_pqa
 {% include copy-curl.html %}
 
 ### Step 4: Ingest data
+{:.no_toc} 
 
 Ingest the data you prepared in Prerequisites:
 
@@ -196,6 +203,7 @@ GET /neural_search_pqa/_search
 {% include copy-curl.html %}
 
 ### Step 5: Search the data
+{:.no_toc} 
 
 Now, search the data using various search methods.
 
@@ -1100,6 +1108,7 @@ GET /neural_search_pqa/_search
 {% include copy-curl.html %}
 
 ### Clean up
+{:.no_toc} 
 
 Undeploy the model:
 
