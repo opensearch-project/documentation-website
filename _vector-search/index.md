@@ -53,7 +53,7 @@ OpenSearch [vector search]({{site.url}}{{site.baseurl}}/vector-search/getting-st
 
 ## Overview
 
-The following video introduces key vector search features in OpenSearch and provides a step-by-step demo of using OpenSearch as a vector database.
+Watch this video to learn about key vector search features in OpenSearch and see a step-by-step demo of using OpenSearch as a vector database.
 
 {% include youtube-player.html id='oX0HMAztP8E' %}
 
