@@ -26,3 +26,4 @@ Parameter | Description
 `ignore_malformed` | Specifies whether malformed values should be ignored. Default value is `false`, which means that malformed values are not ignored. Allowed values are `true` or `false`.
 `index` | Specifies whether a field should be indexed. Default value is `true`, which means that the field is indexed. Allowed values are `true` or `false`.
 `index_options` | Specifies what information should be stored in an index for scoring purposes. Default value is `docs`, which means that only the document numbers are stored in the index. Allowed values are `docs`, `freqs`, `positions`, or `offsets`.
+[`index_phrases`]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/index-phrases/) | Determines if extra phrase tokens are generated for text fields to improve the performance of phrase queries.  Default is `false`.
