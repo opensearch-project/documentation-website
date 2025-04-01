@@ -82,7 +82,7 @@ head -n 5000 amazon_pqa_headsets.json |  awk '{ print "{\"index\":{\"_index\":\"
 ```
 {% include copy.html %}
 
-Enable running ML models on data nodes (not recommended for production environments):
+Enable running machine learning (ML) models on data nodes (not recommended for production environments):
 
 ```json
 PUT /_cluster/settings
@@ -97,7 +97,7 @@ PUT /_cluster/settings
 ### Step 1: Register and deploy a model
 {:.no_toc} 
 
-Register and deploy a machine learning (ML) model provided by OpenSearch:
+Register and deploy an ML model provided by OpenSearch:
 
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
@@ -179,7 +179,7 @@ PUT /neural_search_pqa
 ### Step 4: Ingest data
 {:.no_toc} 
 
-Ingest the data you prepared in Prerequisites:
+Ingest the data you prepared in the [Prerequisites](#prerequisites) section:
 
 ```bash
 curl -XPOST -u "<username>:<password>" -k https://localhost:9200/_bulk --data-binary @neural_search_amazon_pqa_headsets.json  -H 'Content-Type: application/json'
@@ -203,7 +203,7 @@ GET /neural_search_pqa/_search
 ### Step 5: Search the data
 {:.no_toc} 
 
-Now, search the data using various search methods.
+Now search the data using the following search methods.
 
 #### Semantic search
 
