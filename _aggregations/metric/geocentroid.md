@@ -71,7 +71,7 @@ The response includes a `centroid` object with `lat` and `lon` properties repres
 }
 ```
 
-The response includes a `centroid` object with `lat` and `lon` properties representing the focal point of all the `geoip.location` points. The centroid location is in the Atlantic Ocean north of Morocco. Interesting but not very meaningful, given the wide geographical dispersion of orders in the database.
+The centroid location is in the Atlantic Ocean north of Morocco. Not very meaningful, given the wide geographical dispersion of orders in the database.
 
 ## Nesting under other aggregations
 
