@@ -11,7 +11,7 @@ The `geo_centroid` aggregation calculates the geographic center or focal point o
 
 ## Parameters
 
-The `geo_centroid` aggregation takes the following parameter:
+The `geo_centroid` aggregation takes the following parameter.
 
 | Parameter        | Required/Optional | Data type      | Description |
 | :--              | :--               | :--            | :--         |
@@ -19,7 +19,7 @@ The `geo_centroid` aggregation takes the following parameter:
 
 ## Example
 
-This example returns the `geo_centroid` for the `geoip.location` of every order in the ecommerce sample data. Each `geoip.location` is a geopoint:
+This example returns the `geo_centroid` for the `geoip.location` of every order in the e-commerce sample data. Each `geoip.location` is a geopoint:
 
 
 ```json
@@ -39,7 +39,7 @@ GET /opensearch_dashboards_sample_data_ecommerce/_search
 
 ## Example response
 
-The response includes a `centroid` object with `lat` and `lon` properties representing the centroid location of all indexed data points, as shown in the following example:
+The response includes a `centroid` object with `lat` and `lon` properties representing the centroid location of all indexed data points:
 
 ```json
 {
