@@ -69,7 +69,7 @@ To better understand the difference between graph-aware token filters and standa
 2. Create index with [`synonym_graph`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/synonym-graph/) token filter (graph-aware)
 
     ```json
-    curl -X PUT "https://localhost:9200/synonym_graph_index" -u admin:admin -k -H 'Content-Type: application/json' -d'
+    PUT /synonym_graph_index
     {
       "settings": {
         "analysis": {
@@ -96,35 +96,34 @@ To better understand the difference between graph-aware token filters and standa
         }
       }
     }
-    '
     ```
     {% include copy-curl.html %}
 
 3. Create the same document in each index
 
     ```json
-    curl -X POST "https://localhost:9200/synonym_index/_doc/1" -u admin:admin -k -H 'Content-Type: application/json' -d '
-    { "content": "ssd is critical" }'
+    PUT /synonym_index/_doc/1
+    { "content": "ssd is critical" }
     ```
     {% include copy-curl.html %}
     
     ```json
-    curl -X POST "https://localhost:9200/synonym_graph_index/_doc/1" -u admin:admin -k -H 'Content-Type: application/json' -d '
-    { "content": "ssd is critical" }'
+    PUT /synonym_graph_index/_doc/1
+    { "content": "ssd is critical" }
     ```
     {% include copy-curl.html %}
 
 4. Search the non graph-aware index
 
     ```json
-    curl -X POST "https://localhost:9200/synonym_index/_search" -u admin:admin -k -H 'Content-Type: application/json' -d '
+    POST /synonym_index/_search
     {
       "query": {
         "match_phrase": {
-          "content": "domain name system is critical"
+          "content": "solid state drive is critical"
         }
       }
-    }'
+    }
     ```
     {% include copy-curl.html %}
   
