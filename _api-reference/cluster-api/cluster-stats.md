@@ -40,7 +40,7 @@ The following table lists the available path parameters. All path parameters are
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | `index_metric` | List | A comma-separated list of [index metric groups]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-stats/#index-metric-groups), for example, `docs,store`. |
-| `metric` | List | Limit the information returned to the specified metrics. |
+| `metric` | List | Limit the information returned to the [specified metrics](#metric-groups). |
 | `node_id` | List or String | A comma-separated list of node IDs used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters). |
 
 <!-- spec_insert_end -->
