@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Token Graph
+title: Token graphs
 nav_order: 150
 ---
 
@@ -10,21 +10,21 @@ Token graphs show how tokens relate to each other during text analysis, particul
 
 Each token is assigned the following metadata:
 
-- `position` – location where the token appears in the text
+- `position` – The location of the token in the text
 
-- `positionLength` – how many positions the token spans (used in multi-word expressions)
+- `positionLength` – How many positions the token spans (used in multi-word expressions)
 
-Token graphs use this information to build a graph structure of token relationships, which is later used during query parsing. Graph-aware token filters such [`synonym_graph`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/synonym-graph/) and [`word_delimiter_graph`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/word-delimiter-graph/) enable you to match phrases more accurately.
+Token graphs use this information to build a graph structure of token relationships, which is later used during query parsing. Graph-aware token filters, such as [`synonym_graph`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/synonym-graph/) and [`word_delimiter_graph`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/word-delimiter-graph/), enable you to match phrases more accurately.
 
-The following diagram demonstrates the relationship between `position` and `positionLength` when using [`synonym_graph`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/synonym-graph/). The "NYC" token is assigned a `position` of `0` and a `positionLength` of `3`.
+The following diagram depicts the relationship between `position` and `positionLength` when using [`synonym_graph`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/synonym-graph/). The "NYC" token is assigned a `position` of `0` and a `positionLength` of `3`.
 
 <img src="{{site.url}}{{site.baseurl}}/images/nyc-token-graph.png" alt="token graph" width="700">
 
-## Token graphs during indexing and querying
+## Using token graphs during indexing and querying
 
 At index time, `positionLength` is ignored and token graphs are not used.
 
-During query execution, various query types can leverage token graphs, with the most frequently used being:
+During query execution, various query types can leverage token graphs, with the following being the most frequently used:
 
 - [`match`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match/)
 - [`match_phrase`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-phrase/)
@@ -33,7 +33,7 @@ During query execution, various query types can leverage token graphs, with the 
 
 To better understand the difference between graph-aware token filters and standard token filters, you can use the following steps to compare the [`synonym`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/synonym/) token filter with the [`synonym_graph`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/synonym-graph/) token filter:
 
-1. Create an index with a [`synonym`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/synonym/) token filter (not graph-aware):
+1. Create an index with a [`synonym`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/synonym/) token filter (not graph aware):
 
     ```json
     PUT /synonym_index
@@ -66,7 +66,7 @@ To better understand the difference between graph-aware token filters and standa
     ```
     {% include copy-curl.html %}
 
-2. Create an index with a [`synonym_graph`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/synonym-graph/) token filter (graph-aware):
+2. Create an index with a [`synonym_graph`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/synonym-graph/) token filter (graph aware):
 
     ```json
     PUT /synonym_graph_index
@@ -113,7 +113,7 @@ To better understand the difference between graph-aware token filters and standa
     ```
     {% include copy-curl.html %}
 
-4. Search the non graph-aware index:
+4. Search the non-graph-aware index:
 
     ```json
     POST /synonym_index/_search
