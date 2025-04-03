@@ -6,9 +6,9 @@ nav_order: 150
 
 # Token graphs
 
-Token graphs represent how tokens relate to each other during text analysis, especially when dealing with multi-word synonyms or compound words. They are important for accurate query matching and phrase expansion.
+Token graphs show how tokens relate to each other during text analysis, particularly when handling multi-word synonyms or compound words. They help ensure accurate query matching and phrase expansion.
 
-Each token is assigned the following:
+Each token is assigned the following metadata:
 
 - `position` – location where the token appears in the text
 
@@ -16,7 +16,7 @@ Each token is assigned the following:
 
 Token graphs use this information to build a graph structure of token relationships, which is later used during query parsing. Graph-aware token filters such [`synonym_graph`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/synonym-graph/) and [`word_delimiter_graph`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/word-delimiter-graph/) enable you to match phrases more accurately.
 
-Following diagram demonstrates the relationship between `position` and `positionLength` when using [`synonym_graph`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/synonym-graph/). "NYC" token is assigned `position` of `0` and `positionLength` of `3`.
+The following diagram demonstrates the relationship between `position` and `positionLength` when using [`synonym_graph`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/synonym-graph/). The "NYC" token is assigned a `position` of `0` and a `positionLength` of `3`.
 
 <img src="{{site.url}}{{site.baseurl}}/images/nyc-token-graph.png" alt="token graph" width="700">
 
@@ -26,14 +26,14 @@ At index time, `positionLength` is ignored and token graphs are not used.
 
 At query time, token graphs are used by queries such as:
 
-- [match]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match/)
-- [match_phrase]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-phrase/)
+- [`match`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match/)
+- [`match_phrase`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-phrase/)
 
-## Example: Synonym vs synonym_graph
+## Example: Synonym compared to synonym graph
 
-To better understand the difference between graph-aware token filters and standard token filters, you can use the following steps to compare [`synonym`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/synonym/) token filter with [`synonym_graph`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/synonym-graph/) token filter:
+To better understand the difference between graph-aware token filters and standard token filters, you can use the following steps to compare the [`synonym`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/synonym/) token filter with the [`synonym_graph`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/synonym-graph/) token filter:
 
-1. Create index with [`synonym`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/synonym/) token filter (not graph-aware)
+1. Create an index with a [`synonym`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/synonym/) token filter (not graph-aware):
 
     ```json
     PUT /synonym_index
@@ -66,7 +66,7 @@ To better understand the difference between graph-aware token filters and standa
     ```
     {% include copy-curl.html %}
 
-2. Create index with [`synonym_graph`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/synonym-graph/) token filter (graph-aware)
+2. Create an index with a [`synonym_graph`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/synonym-graph/) token filter (graph-aware):
 
     ```json
     PUT /synonym_graph_index
@@ -99,7 +99,7 @@ To better understand the difference between graph-aware token filters and standa
     ```
     {% include copy-curl.html %}
 
-3. Create the same document in each index
+3. Create the same document in each index:
 
     ```json
     PUT /synonym_index/_doc/1
@@ -113,7 +113,7 @@ To better understand the difference between graph-aware token filters and standa
     ```
     {% include copy-curl.html %}
 
-4. Search the non graph-aware index
+4. Search the non graph-aware index:
 
     ```json
     POST /synonym_index/_search
@@ -127,7 +127,7 @@ To better understand the difference between graph-aware token filters and standa
     ```
     {% include copy-curl.html %}
   
-    Expected result (no hits):
+    The response contains no hits:
     
     ```json
     {
@@ -150,7 +150,7 @@ To better understand the difference between graph-aware token filters and standa
     }
     ```
 
-5. Search the graph-aware index
+5. Search the graph-aware index:
 
     ```json
     POST /synonym_graph_index/_search
@@ -164,7 +164,7 @@ To better understand the difference between graph-aware token filters and standa
     ```
     {% include copy-curl.html %}
     
-    Expected result (1 hit): 
+    The response contains one hit: 
     
     ```json
     {
@@ -196,6 +196,6 @@ To better understand the difference between graph-aware token filters and standa
     }
     ```
 
-The reason there is a hit using graph-aware token filter is because during the [`match_phrase`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-phrase/) query additional subquery is generated using the token graph. Following diagram is demonstrating the token graph created using the graph-aware token filter:
+A hit occurs when using the graph-aware token filter because during the [`match_phrase`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-phrase/) query, an additional subquery is generated using the token graph. The following diagram illustrates the token graph created by the graph-aware token filter.
 
 <img src="{{site.url}}{{site.baseurl}}/images/ssd-token-graph.png" alt="token graph" width="700">
