@@ -25,7 +25,6 @@ The AWS Management Console can also be used to remove Migration Assistant resour
 
 You can uninstall the Migration Assistant for Amazon OpenSearch Service solution from the AWS Management Console or by using the AWS Command Line Interface. Manually remove the contents of the bucket that matches `cdk-<unique id>-assets-<account id>-<region>` created by this solution. Migration Assistant for Amazon OpenSearch Service does not automatically delete S3 buckets in case you have stored data to retain.
 
-### Steps to delete the CloudFormation stacks:
 
 1. Sign in to the **CloudFormation console**.
 2. On the **Stacks** page, select this solution’s installation stack. Depending on what options you enabled for the deployment, the solution creates different AWS CloudFormation stacks.
