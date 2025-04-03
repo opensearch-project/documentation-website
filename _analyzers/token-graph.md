@@ -24,7 +24,7 @@ The following diagram demonstrates the relationship between `position` and `posi
 
 At index time, `positionLength` is ignored and token graphs are not used.
 
-At query time, token graphs are used by queries such as:
+During query execution, various query types can leverage token graphs, with the most frequently used being:
 
 - [`match`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match/)
 - [`match_phrase`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-phrase/)
