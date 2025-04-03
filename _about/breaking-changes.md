@@ -41,4 +41,9 @@ A Lucene upgrade forced OpenSearch to drop support for JDK 8. As a consequence, 
 
 ### Wildcard query behavior for text fields
 
-OpenSearch 2.5 contains a bug fix to correct the behavior of the `case_insensitive` parameter for the `wildcard` query on text fields. As a result, a wildcard query on text fields that ignored case sensitivity and erroneously returned results prior to the bug fix will not return the same results. For more information, see issue [#8711](https://github.com/opensearch-project/OpenSearch/issues/8711).
+OpenSearch 2.5 contains a bug fix that corrects the behavior of the `case_insensitive` parameter for the `wildcard` query on text fields. As a result, a wildcard query on text fields that ignored case sensitivity and erroneously returned results prior to the bug fix will not return the same results. For more information, see issue [#8711](https://github.com/opensearch-project/OpenSearch/issues/8711).
+
+## 2.19.0
+
+### Nested value support in the text embedding processor
+The `text_embedding` processor no longer replaces nested values like `_ingest._value` when evaluating fields like `title_tmp:_ingest._value.title_embedding`. Instead, you must directly specify the nested key as `books.title:title_embedding` to achieve the desired output. For more information, see issue [#1243](https://github.com/opensearch-project/neural-search/issues/1243).
