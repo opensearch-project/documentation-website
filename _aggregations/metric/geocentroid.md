@@ -15,11 +15,11 @@ The `geo_centroid` aggregation takes the following parameter.
 
 | Parameter        | Required/Optional | Data type      | Description |
 | :--              | :--               | :--            | :--         |
-| `field`          | Required          | String         | Name of the field containing the geopoints for which the geocentroid is computed. |
+| `field`          | Required          | String         | The name of the field containing the geopoints for which the geocentroid is computed. |
 
 ## Example
 
-This example returns the `geo_centroid` for the `geoip.location` of every order in the e-commerce sample data. Each `geoip.location` is a geopoint:
+The following example returns the `geo_centroid` for the `geoip.location` of every order in the e-commerce sample data. Each `geoip.location` is a geopoint:
 
 
 ```json
@@ -71,7 +71,7 @@ The response includes a `centroid` object with `lat` and `lon` properties repres
 }
 ```
 
-The centroid location is in the Atlantic Ocean north of Morocco. Not very meaningful, given the wide geographical dispersion of orders in the database.
+The centroid location is in the Atlantic Ocean north of Morocco. This is not very meaningful, given the wide geographical dispersion of orders in the database.
 
 ## Nesting under other aggregations
 
@@ -105,7 +105,7 @@ GET /opensearch_dashboards_sample_data_ecommerce/_search
 ```
 {% include copy-curl.html %}
 
-This returns a centroid location for each continent bucket:
+This returns a centroid location for each continent's bucket:
 
 <details open markdown="block">
   <summary>
