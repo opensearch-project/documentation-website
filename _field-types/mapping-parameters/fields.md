@@ -39,7 +39,7 @@ PUT /articles
 
 ## Using different analyzers
 
-In the follwoing example the same `title` field is indexed using two different analyzers. The main field uses the default analyzer for full-text search, while the `ngrams` sub-field uses a custom `n-gram` analyzer to support features like autocomplete:
+In the following example the same `title` field is indexed using two different analyzers. The main field uses the default analyzer for full-text search, while the `ngrams` sub-field uses a custom `n-gram` analyzer to support features like autocomplete:
 
 ```json
 PUT /articles
