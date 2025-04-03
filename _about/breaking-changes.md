@@ -45,7 +45,7 @@ OpenSearch 2.5 contains a bug fix that corrects the behavior of the `case_insens
 
 ## 2.19.0
 
-### Nested value support in text embedding processor
+### Nested value support in the text embedding processor
 The `text_embedding` processor no longer replaces nested values like `_ingest._value` when evaluating fields like `title_tmp:_ingest._value.title_embedding`. Instead, you must directly specify the nested key as `books.title:title_embedding` to achieve the desired output. For more information, see issue [#1243](https://github.com/opensearch-project/neural-search/issues/1243).
 
 ## 3.0.0
