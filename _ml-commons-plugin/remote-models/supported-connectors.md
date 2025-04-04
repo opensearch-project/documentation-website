@@ -13,12 +13,12 @@ redirect_from:
 
 OpenSearch provides two types of connector blueprints: 
 
-- **Standard blueprints (recommended for OpenSearch 2.14.0+)**:
+- **Standard blueprints (recommended for OpenSearch 2.14+)**:
 
   - Designed for connectors that pass input directly to the model and return its raw output without requiring additional transformations.
   - Use a registered model without any pre-processing or post-processing functions.
   - Compatible with machine learning (ML) inference processors: [ingest processors]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/processors/ml-inference/), [search request processors]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/ml-inference-search-request/), and [search response processors]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/ml-inference-search-response/).
-  - Ideal for new implementations in OpenSearch 2.14.0 and later versions.
+  - Ideal for new implementations in OpenSearch 2.14 and later.
 
 - **Legacy blueprints**:
 
