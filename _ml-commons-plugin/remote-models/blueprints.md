@@ -49,7 +49,7 @@ For example, the following blueprint is a specification for an Amazon SageMaker 
 
 ## OpenSearch-provided connector blueprints
 
-OpenSearch provides connector blueprints for several machine learning (ML) platforms and models. For a list of all connector blueprints provided by OpenSearch, see [Supported connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/#supported-connectors).
+OpenSearch provides connector blueprints for several machine learning (ML) platforms and models. For a list of all connector blueprints provided by OpenSearch, see [Supported connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/).
 
 As an ML developer, you can build connector blueprints for other platforms. Using those blueprints, administrators and data scientists can create connectors for models hosted on those platforms. 
 
