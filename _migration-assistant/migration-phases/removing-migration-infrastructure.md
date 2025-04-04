@@ -7,7 +7,7 @@ parent: Migration phases
 
 # Removing migration infrastructure
 
-After a migration is complete, you should remove all resources except for the target cluster, and optionally your Amazon CloudWatch Logs and Traffic Replayer logs.
+After a migration is complete, you should remove all resources except for the target cluster and, optionally, your Amazon CloudWatch logs and Traffic Replayer logs.
 
 To remove all the AWS Cloud Development Kit (AWS CDK) stack(s) created during a deployment, run the following command within the CDK directory:
 
@@ -19,7 +19,7 @@ cdk destroy "*" --c contextId=<CONTEXT_ID>
 
 Follow the instructions on the command line to remove the deployed resources from your AWS account.
 
-You can also use the AWS Management Console to remove Migration Assistant resources and confirm that they are no longer in the account.
+You can also use the AWS Management Console to remove Migration Assistant resources and confirm that they are no longer present in the account.
 
 ## Uninstalling Migration Assistant for Amazon OpenSearch Service
 

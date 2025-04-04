@@ -285,10 +285,10 @@ The `readable-tuples.log` should appear similar to the following:
 
 
 ## Amazon CloudWatch metrics and dashboard
-The Migration Assistant creates an Amazon CloudWatch dashboard named `MigrationAssistant_ReindexFromSnapshot` Dashboard to visualize the health and performance of the backfill process. This dashboard combines metrics for the backfill workers and migration to Amazon OpenSearch Service, providing insights into the performance and health of the Capture Proxy and Traffic Replayer components, including metrics such as:
+Migration Assistant creates an Amazon CloudWatch dashboard named `MigrationAssistant_ReindexFromSnapshot_Dashboard` to visualize the health and performance of the backfill process. This dashboard combines metrics for the backfill workers and migration to Amazon OpenSearch Service, providing insights into the performance and health of the Capture Proxy and Traffic Replayer components, including metrics such as:
 
-- The number of bytes read and written 
-- The number of active connections
+- The number of bytes read and written.
+- The number of active connections.
 - The replay speed multiplier. 
 
 You can find the Capture and Replay dashboard in the AWS Management Console for CloudWatch Dashboards, in the region where you deployed the Migration Assistant.
@@ -316,4 +316,4 @@ The following metrics are also reported:
 
 ## CloudWatch considerations
 
-Metrics and Dashboards pushed to CloudWatch may experience a visibility lag of around 5 minutes. CloudWatch also retains higher-resolution data for a shorter period than lower-resolution data. For more information, see [Amazon CloudWatch concepts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html).
+Metrics and dashboards pushed to CloudWatch may experience a visibility lag of around 5 minutes. CloudWatch also retains higher-resolution data for a shorter period than lower-resolution data. For more information, see [Amazon CloudWatch concepts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html).
