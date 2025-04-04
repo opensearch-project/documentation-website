@@ -192,18 +192,24 @@ POST /_plugins/_knn/models/my-model/_train
   "training_field": "train-field",
   "dimension": 4,
   "description": "My model description",
-  "space_type": "l2",
   "method": {
     "name": "ivf",
     "engine": "faiss",
     "parameters": {
-      "nlist": 4,
-      "nprobes": 2
+      "encoder": {
+        "name": "pq",
+        "parameters": {
+          "code_size": 2,
+          "m": 2
+        }
+      }
     }
   }
 }
 ```
 {% include copy-curl.html %}
+
+For more information about the method parameters, see [IVF training requirements]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/#ivf-training-requirements).
 
 The Train API returns as soon as the training job is started. To check the job status, use the Get Model API:
 
