@@ -50,15 +50,14 @@ After you have routed the client based on your use case, test adding records aga
 
 In the migration console, run the following command:
 
-   ```bash
-   console kafka describe-topic-records
-   ```
-   {% include copy.html %}
+```bash
+console kafka describe-topic-records
+```
+{% include copy.html %}
    
-   Note the records in the logging topic.
+Note the records in the logging topic.
    
 After a short period, execute the same command again and compare the increased number of records against the expected HTTP requests.
-
 
 ## Creating a snapshot
 
@@ -159,8 +158,9 @@ Completing the backfill process requires manually stopping the migration. Stoppi
 ```shell
 console backfill stop
 ```
+{% include copy.html %}
 
-Example stop output:
+Migration Assistant should return the following response:
 
 ```shell
 Backfill stopped successfully.
