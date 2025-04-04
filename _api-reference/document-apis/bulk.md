@@ -43,7 +43,6 @@ refresh | Enum | Whether to refresh the affected shards after performing the ind
 require_alias | Boolean | Set to `true` to require that all actions target an index alias rather than an index. Default is `false`.
 routing | String | Routes the request to the specified shard.
 timeout | Time | How long to wait for the request to return. Default is `1m`.
-type | String | (Deprecated) The default document type for documents that don't specify a type. Default is `_doc`. We highly recommend ignoring this parameter and using the `_doc` type for all indexes.
 wait_for_active_shards | String | Specifies the number of active shards that must be available before OpenSearch processes the bulk request. Default is `1` (only the primary shard). Set to `all` or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have 2 replicas distributed across 2 additional nodes in order for the request to succeed.
 {% comment %}_source | List | asdf
 _source_excludes | List | asdf
