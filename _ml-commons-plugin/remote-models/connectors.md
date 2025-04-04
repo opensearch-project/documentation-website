@@ -27,7 +27,7 @@ OpenSearch provides connectors for several platforms, for example:
 
 A _connector blueprint_ defines the set of parameters (the request body) you need to provide when sending an API request to create a specific connector. Connector blueprints may differ based on the platform and the model that you are accessing.
 
-OpenSearch provides connector blueprints for several ML platforms and models. For a full list of connector blueprints provided by OpenSearch, see [Supported connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/supported-connectors). 
+OpenSearch provides connector blueprints for several ML platforms and models. For a full list of connector blueprints provided by OpenSearch, see [Supported connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/). 
 
 As an ML developer, you can also create connector blueprints for other platforms and models. Data scientists and administrators can then use the blueprint to create connectors. They are only required to enter their `credential` settings, such as `openAI_key`, for the service to which they are connecting. For information about creating connector blueprints, including descriptions of all parameters, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
 
@@ -116,7 +116,7 @@ POST /_plugins/_ml/models/_register
 
 ## Connector examples
 
-The following sections contain examples of connectors for popular ML platforms. For a full list of supported connectors, see [Supported connectors](#supported-connectors).
+The following sections contain examples of connectors for popular ML platforms. For a full list of supported connectors, see [Supported connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/).
 
 ### OpenAI chat connector
 
@@ -308,5 +308,6 @@ PUT /_plugins/_ml/connectors/<connector_id>
 
 ## Next steps
 
+- For a full list of connector blueprints provided by OpenSearch, see [Supported connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/).
 - To learn more about connecting to external models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/).
 - To learn more about model access control and model groups, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).

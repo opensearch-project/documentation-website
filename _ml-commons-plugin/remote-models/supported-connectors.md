@@ -2,7 +2,7 @@
 layout: default
 title: Supported connectors
 has_children: false
-nav_order: 65
+nav_order: 63
 parent: Connecting to externally hosted models
 grand_parent: Integrating ML models
 redirect_from:
@@ -11,23 +11,23 @@ redirect_from:
 
 # Supported connectors
 
-OpenSearch offers two approaches for implementing connector blueprints:
+OpenSearch provides two types of connector blueprints: 
 
-### Standard blueprints (recommended for OpenSearch 2.14.0+):
+- **Standard blueprints (recommended for OpenSearch 2.14.0+)**:
 
-- Designed for creating connectors with input and output formats that naturally align with the model's requirements.
-- Registered model without pre or post processing functions.
-- Compatible with ML inference processors（[ml inference ingest processors]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/processors/ml-inference/)/[ml inference request processors]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/ml-inference-search-request)/[ml inference response processors]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/ml-inference-search-response).
-- Ideal for new implementations in OpenSearch 2.14.0 and later versions.
+  - Designed for connectors that pass input directly to the model and return its raw output without requiring additional transformations.
+  - Use a registered model without any pre-processing or post-processing functions.
+  - Compatible with machine learning (ML) inference processors: [ingest processors]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/processors/ml-inference/), [search request processors]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/ml-inference-search-request/), and [search response processors]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/ml-inference-search-response/).
+  - Ideal for new implementations in OpenSearch 2.14.0 and later versions.
 
-### Legacy Blueprints:
+- **Legacy blueprints**:
 
-- Suitable for specific input and output formatting requirements.
-- Include pre and post processing functions.
-- Recommended for existing implementations.
-- Compatible with neural search queries ([neural search]({{site.url}}{{site.baseurl}}/neural-search-plugin/index/)).
+  - Suitable for specific input and output formatting requirements.
+  - Include pre- and post-processing functions.
+  - Recommended for existing implementations.
+  - Compatible with [neural search]({{site.url}}{{site.baseurl}}/neural-search-plugin/index/) queries.
 
-The following table provides a comprehensive list of connector blueprints available in OpenSearch. Each blueprint link offers an example request for creating the connector, including all necessary parameters, as well as a sample Predict API request.
+The following table provides a comprehensive list of connector blueprints available in OpenSearch. Each blueprint link offers an example request for creating the connector, including all necessary parameters, and a sample Predict API request.
 
 | Platform                                                                                                     | Model                                                                                                                                                                   | Legacy blueprint                                                                                                                                                             | Standard blueprint                                                                                                                                                                                       |
 |:-------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -57,5 +57,3 @@ The following table provides a comprehensive list of connector blueprints availa
 | [OpenAI](https://openai.com/)                                                                                | [Text embedding models](https://platform.openai.com/docs/models#embeddings) (for example, `text-embedding-ada-002`)                                                     | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/openai_connector_embedding_blueprint.md)                              | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/standard_blueprints/openai_connector_embedding_standard_blueprint.md)                            |
 | [OpenAI](https://openai.com/)                                                                                | [Text embedding models for batch inference](https://platform.openai.com/docs/guides/batch/overview#model-availability)                                                  | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/batch_inference_openAI_connector_blueprint.md)                       | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/batch_inference_openAI_connector_blueprint.md)                                                   |
 
-
----
