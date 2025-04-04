@@ -284,8 +284,8 @@ The `readable-tuples.log` should appear similar to the following:
 ```
 
 
-## Cloudwatch metrics and dashboard
-The Migration Assistant creates an Amazon CloudWatch dashboard named MigrationAssistant_ReindexFromSnapshot_Dashboard to visualize the health and performance of the backfill process. This dashboard combines metrics for the backfill workers and migration to Amazon OpenSearch Service, providing insights into the performance and health of the Capture Proxy and Traffic Replayer components, including metrics such as:
+## Amazon CloudWatch metrics and dashboard
+The Migration Assistant creates an Amazon CloudWatch dashboard named `MigrationAssistant_ReindexFromSnapshot` Dashboard to visualize the health and performance of the backfill process. This dashboard combines metrics for the backfill workers and migration to Amazon OpenSearch Service, providing insights into the performance and health of the Capture Proxy and Traffic Replayer components, including metrics such as:
 
 - The number of bytes read and written 
 - The number of active connections

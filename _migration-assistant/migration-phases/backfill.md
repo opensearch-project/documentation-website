@@ -172,7 +172,7 @@ Backfill working state archived to: /shared-logs-output/migration-console-defaul
 
 You cannot restart a stopped migration. Instead you can pause the backfill process using `console backfill pause`.
 
-### CloudWatch metrics and dashboard
+### Amazon CloudWatch metrics and dashboard
 
 Migration Assistant creates an Amazon CloudWatch dashboard, named `MigrationAssistant_ReindexFromSnapshot_Dashboard`, that you can use to visualize the health and performance of the backfill process. It combines the metrics for the backfill workers and, for those migrating to Amazon OpenSearch Service, the target cluster.
 
