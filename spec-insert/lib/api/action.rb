@@ -65,7 +65,7 @@ module Api
       @request_body ||= begin
         operation = @operations.find { |op| op.spec.requestBody.present? }
         required = @operations.all? { |op| op.spec.requestBody&.required }
-        Body.new(operation&.spec&.requestBody&.content, required:)
+        Body.new(operation&.spec.requestBody.content, required:)
       end
     end
 

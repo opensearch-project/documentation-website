@@ -40,7 +40,7 @@ class UtilizationCoverage < Mustache
       logger = Logger.new(IO::NULL)
       spec_inserts = ::Utils.target_files.flat_map { |file| DocProcessor.new(file, logger:).spec_inserts }
       Set.new(spec_inserts.map { |insert| [insert.args.api, insert.args.component] })
-        .to_a.group_by(&:first).transform_values { |values| values.map(&:last) }
+         .to_a.group_by(&:first).transform_values { |values| values.map(&:last) }
     end
   end
 end
