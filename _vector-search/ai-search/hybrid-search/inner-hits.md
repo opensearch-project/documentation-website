@@ -403,7 +403,7 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline&explain=true
 ```
 {% include copy-curl.html %}
 
-The response contains the `explanation` details that show the relevant information about score mode, number of children contributing to the parent document, normalization, score combination techniques etc.
+The response contains the `explanation` details that show the relevant information about score mode, number of children contributing to the parent document, normalization and score combination techniques.
 ```json
 {
   "hits": {
