@@ -392,7 +392,7 @@ The Security plugin supports the following transport layer security settings:
 plugins.security.nodes_dn:
   - "CN=*.example.com, OU=SSL, O=Test, L=Test, C=DE"
   - "CN=node.other.com, OU=SSL, O=Test, L=Test, C=DE"
-  - "CN=node.example.com, OU=SSL\, Inc., L=Test, C=DE" # escape additional comma with `\`
+  - "CN=node.example.com, OU=SSL\\, Inc., L=Test, C=DE" # escape additional comma with `\\`
 plugins.security.authcz.admin_dn:
   - CN=kirk,OU=client,O=client,L=test, C=de
 plugins.security.roles_mapping_resolution: MAPPING_ONLY
