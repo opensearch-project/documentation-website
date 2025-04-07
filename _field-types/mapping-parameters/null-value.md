@@ -10,7 +10,7 @@ has_toc: false
 
 # Null value
 
-The `null_value` mapping parameter allows you to replace explicit `null` values with a predefined substitute during indexing. By default, if a field is set to `null`, it is simply not indexed and cannot be searched. With `null_value` defined, the specified replacement value is indexed instead, making it possible to query or aggregate on documents where a field was originally `null`, however, it does not modify the `_source` of the document.
+The `null_value` mapping parameter allows you to replace explicit `null` values with a predefined substitute during indexing. By default, if a field is set to `null`, it is not indexed and cannot be searched. With `null_value` defined, the specified replacement value is indexed instead, making it possible to query or aggregate on documents where a field was originally `null`, however, it does not modify the `_source` of the document.
 
 The `null_value` must be of the same type as the field it is applied to. For instance, a `date` field cannot use a `boolean` such as `true` as its `null_value`. It must be a valid date string.
 {: .important}
