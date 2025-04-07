@@ -170,6 +170,47 @@ The `serviceSigningName` can be `es` for an Elasticsearch or OpenSearch domain, 
 
 All of these authentication options apply to both source and target clusters.
 
+## Bring your own snapshot options
+
+An existing snapshot can alternatively be used to perform metadata as well as backfill migrations, instead of using the Migration Assistant to create a snapshot.
+
+```json
+    "snapshot": {
+        "snapshotName": "my-snapshot-name",
+        "s3Uri": "s3://my-s3-bucket-name/my-bucket-path-to-snapshot-repo",
+        "s3Region": "us-east-2"
+    }
+```
+{% include copy.html %}
+
+As a default, S3 buckets will automatically allow roles in the same account (with the appropriate `s3:*` permissions) to access the S3 bucket regardless of region. So if the external S3 bucket being utilized is in the same account as the Migration Assistant deployment, no IAM configuration may be required to access this bucket.
+If a custom permission model has been used with S3, or if the S3 bucket is in a separate account from the Migration Assistant deployment, a custom bucket policy (similar to below) or ACL will be needed to allow access to the Migration Assistant.
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowExternalAccountReadAccessToBucket",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::<ACCOUNT_ID>:root"
+      },
+      "Action": [
+        "s3:GetObject",
+        "s3:ListBucket",
+        "s3:GetBucketLocation"
+      ],
+      "Resource": [
+        "arn:aws:s3:::my-s3-bucket-name",
+        "arn:aws:s3:::my-s3-bucket-name/*"
+      ]
+    }
+  ]
+}
+```
+{% include copy.html %}
+
 ## Network configuration
 
 The migration tooling expects the source cluster, target cluster, and migration resources to exist in the same VPC. If this is not the case, manual networking setup outside of this documentation is likely required.
