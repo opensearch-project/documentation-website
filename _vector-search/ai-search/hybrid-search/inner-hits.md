@@ -351,8 +351,7 @@ PUT /_search/pipeline/nlp-search-pipeline
           "technique": "min_max"
         },
         "combination": {
-          "technique": "arithmetic_mean",
-          "parameters": {}
+          "technique": "arithmetic_mean"
         }
       }
     }
