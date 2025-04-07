@@ -15,13 +15,13 @@ Hybrid search users can retrieve the underlying nested inner objects or child do
 During hybrid query execution, each subquery retrieves the parent documents based on the relevant hidden inner hits. Following that, parent documents from all the subqueries are normalized and combined. Then, relevant inner_hits for each parent document are fetched from the shards.
 
 The major difference between inner hits with traditional query and hybrid query is as follows:
-1. The parent documents order in the final search response of traditional query will be determined by the inner_hits relevancy.
+1. The parent documents order in the final search response of traditional query will be determined by the inner_hits score.
 2. The parent documents order in the final search response of hybrid query will be determined by the hybrid score (i.e. normalized score). However, the parent documents are fetched from the shard based on the inner hits relevancy. 
 
 The inner hits will reflect the raw scores (i.e. scores prior to normalization) information and parent documents will reflect the hybrid score in the final search response.
 {: .note}
 
-Users can understand the relevancy between `inner_hits` score and hybrid score by passing `explain` flag with the hybrid query search request.
+Users can see the relevancy between `inner_hits` score and hybrid score by passing `explain` flag with the hybrid query search request.
 
 `explain` is an expensive operation in terms of both resources and time. For production clusters, we recommend using it sparingly for the purpose of troubleshooting.
 {: .warning }
@@ -405,7 +405,36 @@ The response contain the relevant inner hits on both the paths `user` and `locat
 ```
 
 ## Understanding the relevancy between inner_hits and parent documents by passing `explain` flag
-User can pass `explain` flag in the search request to understand the search response formation. To know more about using explain api with hybrid query, read [Hybrid score explanation processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/explanation-processor/) and [Hybrid search explain]({{site.url}}{{site.baseurl}}/_vector-search/ai-search/hybrid-search/explain/).
+User can add `hybrid_score_explanation` response processor in the search pipeline created at Step 2 to enable the explain feature. They can then pass the `explain` flag in the search request to understand the search response formation. To know more about using explain api with hybrid query, read [Hybrid score explanation processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/explanation-processor/) and [Hybrid search explain]({{site.url}}{{site.baseurl}}/_vector-search/ai-search/hybrid-search/explain/).
+
+### Enable `hybrid_score_explanation` response processor
+```json
+PUT /_search/pipeline/nlp-search-pipeline
+{
+  "description": "Post processor for hybrid search",
+  "phase_results_processors": [
+    {
+      "normalization-processor": {
+        "normalization": {
+          "technique": "min_max"
+        },
+        "combination": {
+          "technique": "arithmetic_mean",
+          "parameters": {}
+        }
+      }
+    }
+  ],
+  "response_processors": [
+    {
+      "hybrid_score_explanation": {}
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+### Pass `explain` flag in the search request
 ```json
 GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline&explain=true
 {
@@ -920,8 +949,741 @@ The response contains the `explanation` details that show the relevant informati
 }
 ```
 
-## Sorting and Pagination with inner hits
-1. To apply sorting, users can add `sort` sub-clause in the `inner_hits` clause.
-2. To apply pagination users can pass `from` and `size` parameters in the `inner_hits` clause.
-3. Users can also define custom name for the inner hits in the search response. This is useful in differentiating between multiple inner hits in a single query.
-To know more about it, please read documentation [Inner hits parameter]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/inner-hits/#inner_hits-parameters)
+## Sorting with inner hits
+To apply sorting, users can add `sort` sub-clause in the `inner_hits` clause. For example `user.age` sort condition is added in the `inner_hits` clause.
+```json
+GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
+{
+    "query": {
+        "hybrid": {
+            "queries": [
+                {
+                    "nested": {
+                        "path": "user",
+                        "query": {
+                            "match": {
+                                "user.name": "John"
+                            }
+                        },
+                        "score_mode":"sum",
+                        "inner_hits": {
+                           "sort": [
+                              {
+                                "user.age": {
+                                    "order":"desc"
+                                }
+                              }
+                           ]
+                        }
+                    }
+                },
+                {
+                    "nested": {
+                        "path": "location",
+                        "query": {
+                            "match": {
+                                "location.city": "Udaipur"
+                            }
+                        },
+                        "inner_hits": {}
+                    }
+                }
+            ]
+        }
+    }
+}
+```
+{% include copy-curl.html %}
+
+The response contains `user` inner hits sorted by their `age` with a `null` score.
+```json
+{
+  "hits": [
+    {
+      "_index": "my-nlp-index",
+      "_id": "1",
+      "_score": 1.0,
+      "_source": {
+        "user": [
+          {
+            "name": "John Alder",
+            "age": 35
+          },
+          {
+            "name": "Sammy",
+            "age": 34
+          },
+          {
+            "name": "Mike",
+            "age": 32
+          },
+          {
+            "name": "Maples",
+            "age": 30
+          }
+        ],
+        "location": [
+          {
+            "city": "Amsterdam",
+            "state": "Netherlands"
+          },
+          {
+            "city": "Udaipur",
+            "state": "Rajasthan"
+          },
+          {
+            "city": "Naples",
+            "state": "Italy"
+          }
+        ]
+      },
+      "inner_hits": {
+        "location": {
+          "hits": {
+            "total": {
+              "value": 1,
+              "relation": "eq"
+            },
+            "max_score": 0.44583148,
+            "hits": [
+              {
+                "_index": "my-nlp-index",
+                "_id": "1",
+                "_nested": {
+                  "field": "location",
+                  "offset": 1
+                },
+                "_score": 0.44583148,
+                "_source": {
+                  "city": "Udaipur",
+                  "state": "Rajasthan"
+                }
+              }
+            ]
+          }
+        },
+        "user": {
+          "hits": {
+            "total": {
+              "value": 1,
+              "relation": "eq"
+            },
+            "max_score": null,
+            "hits": [
+              {
+                "_index": "my-nlp-index",
+                "_id": "1",
+                "_nested": {
+                  "field": "user",
+                  "offset": 0
+                },
+                "_score": null,
+                "_source": {
+                  "name": "John Alder",
+                  "age": 35
+                },
+                "sort": [
+                  35
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "_index": "my-nlp-index",
+      "_id": "2",
+      "_score": 5.0E-4,
+      "_source": {
+        "user": [
+          {
+            "name": "John Wick",
+            "age": 46
+          },
+          {
+            "name": "John Snow",
+            "age": 40
+          },
+          {
+            "name": "Sansa Stark",
+            "age": 22
+          },
+          {
+            "name": "Arya Stark",
+            "age": 20
+          }
+        ],
+        "location": [
+          {
+            "city": "Tromso",
+            "state": "Norway"
+          },
+          {
+            "city": "Los Angeles",
+            "state": "California"
+          },
+          {
+            "city": "London",
+            "state": "UK"
+          }
+        ]
+      },
+      "inner_hits": {
+        "location": {
+          "hits": {
+            "total": {
+              "value": 0,
+              "relation": "eq"
+            },
+            "max_score": null,
+            "hits": [
+              
+            ]
+          }
+        },
+        "user": {
+          "hits": {
+            "total": {
+              "value": 2,
+              "relation": "eq"
+            },
+            "max_score": null,
+            "hits": [
+              {
+                "_index": "my-nlp-index",
+                "_id": "2",
+                "_nested": {
+                  "field": "user",
+                  "offset": 0
+                },
+                "_score": null,
+                "_source": {
+                  "name": "John Wick",
+                  "age": 46
+                },
+                "sort": [
+                  46
+                ]
+              },
+              {
+                "_index": "my-nlp-index",
+                "_id": "2",
+                "_nested": {
+                  "field": "user",
+                  "offset": 1
+                },
+                "_score": null,
+                "_source": {
+                  "name": "John Snow",
+                  "age": 40
+                },
+                "sort": [
+                  40
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
+```
+
+## Pagination with inner hits
+To apply pagination user can pass `from` and `size` parameters in the `inner_hits` clause. For example, the inner hits for field `user` are requested for `from` = 2 and `size` = 2. 
+```json
+GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
+{
+    "query": {
+        "hybrid": {
+            "queries": [
+                {
+                    "nested": {
+                        "path": "user",
+                        "query": {
+                            "match_all": {}
+                        },
+                        "inner_hits": {
+                           "from": 2,
+                           "size": 2        
+                        }
+                    }
+                },
+                {
+                    "nested": {
+                        "path": "location",
+                        "query": {
+                            "match": {
+                                "location.city": "Udaipur"
+                            }
+                        },
+                        "inner_hits": {}
+                    }
+                }
+            ]
+        }
+    }
+}
+```
+{% include copy-curl.html %}
+
+The response contains `user` field inner hits starting from offset 2. The first 2 elements are trimmed in the search response.
+
+```json
+{
+  "hits": [
+    {
+      "_index": "my-nlp-index",
+      "_id": "1",
+      "_score": 1.0,
+      "_source": {
+        "user": [
+          {
+            "name": "John Alder",
+            "age": 35
+          },
+          {
+            "name": "Sammy",
+            "age": 34
+          },
+          {
+            "name": "Mike",
+            "age": 32
+          },
+          {
+            "name": "Maples",
+            "age": 30
+          }
+        ],
+        "location": [
+          {
+            "city": "Amsterdam",
+            "state": "Netherlands"
+          },
+          {
+            "city": "Udaipur",
+            "state": "Rajasthan"
+          },
+          {
+            "city": "Naples",
+            "state": "Italy"
+          }
+        ]
+      },
+      "inner_hits": {
+        "location": {
+          "hits": {
+            "total": {
+              "value": 1,
+              "relation": "eq"
+            },
+            "max_score": 0.44583148,
+            "hits": [
+              {
+                "_index": "my-nlp-index",
+                "_id": "1",
+                "_nested": {
+                  "field": "location",
+                  "offset": 1
+                },
+                "_score": 0.44583148,
+                "_source": {
+                  "city": "Udaipur",
+                  "state": "Rajasthan"
+                }
+              }
+            ]
+          }
+        },
+        "user": {
+          "hits": {
+            "total": {
+              "value": 4,
+              "relation": "eq"
+            },
+            "max_score": 1.0,
+            "hits": [
+              {
+                "_index": "my-nlp-index",
+                "_id": "1",
+                "_nested": {
+                  "field": "user",
+                  "offset": 2
+                },
+                "_score": 1.0,
+                "_source": {
+                  "name": "Mike",
+                  "age": 32
+                }
+              },
+              {
+                "_index": "my-nlp-index",
+                "_id": "1",
+                "_nested": {
+                  "field": "user",
+                  "offset": 3
+                },
+                "_score": 1.0,
+                "_source": {
+                  "name": "Maples",
+                  "age": 30
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "_index": "my-nlp-index",
+      "_id": "2",
+      "_score": 0.5,
+      "_source": {
+        "user": [
+          {
+            "name": "John Wick",
+            "age": 46
+          },
+          {
+            "name": "John Snow",
+            "age": 40
+          },
+          {
+            "name": "Sansa Stark",
+            "age": 22
+          },
+          {
+            "name": "Arya Stark",
+            "age": 20
+          }
+        ],
+        "location": [
+          {
+            "city": "Tromso",
+            "state": "Norway"
+          },
+          {
+            "city": "Los Angeles",
+            "state": "California"
+          },
+          {
+            "city": "London",
+            "state": "UK"
+          }
+        ]
+      },
+      "inner_hits": {
+        "location": {
+          "hits": {
+            "total": {
+              "value": 0,
+              "relation": "eq"
+            },
+            "max_score": null,
+            "hits": []
+          }
+        },
+        "user": {
+          "hits": {
+            "total": {
+              "value": 4,
+              "relation": "eq"
+            },
+            "max_score": 1.0,
+            "hits": [
+              {
+                "_index": "my-nlp-index",
+                "_id": "2",
+                "_nested": {
+                  "field": "user",
+                  "offset": 2
+                },
+                "_score": 1.0,
+                "_source": {
+                  "name": "Sansa Stark",
+                  "age": 22
+                }
+              },
+              {
+                "_index": "my-nlp-index",
+                "_id": "2",
+                "_nested": {
+                  "field": "user",
+                  "offset": 3
+                },
+                "_score": 1.0,
+                "_source": {
+                  "name": "Arya Stark",
+                  "age": 20
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
+```
+
+## Custom name for inner_hits field
+User can also define custom name for the inner hits in the search response. This is useful in differentiating between multiple inner hits in a single query. For example, user provides custom name `coordinates` for the `location` field inner hits.
+```json
+{
+    "query": {
+        "hybrid": {
+            "queries": [
+                {
+                    "nested": {
+                        "path": "user",
+                        "query": {
+                            "match_all": {}
+                        },
+                        "inner_hits": {
+                           "name":"coordinates" 
+                        }
+                    }
+                },
+                {
+                    "nested": {
+                        "path": "location",
+                        "query": {
+                            "match": {
+                                "location.city": "Udaipur"
+                            }
+                        },
+                        "inner_hits": {}
+                    }
+                }
+            ]
+        }
+    }
+}
+```
+{% include copy-curl.html %}
+
+The response contains `user` field inner hits renamed to `coordinates`.
+```json
+{
+    "hits": [
+      {
+        "_index": "my-nlp-index",
+        "_id": "1",
+        "_score": 1.0,
+        "_source": {
+          "user": [
+            {
+              "name": "John Alder",
+              "age": 35
+            },
+            {
+              "name": "Sammy",
+              "age": 34
+            },
+            {
+              "name": "Mike",
+              "age": 32
+            },
+            {
+              "name": "Maples",
+              "age": 30
+            }
+          ],
+          "location": [
+            {
+              "city": "Amsterdam",
+              "state": "Netherlands"
+            },
+            {
+              "city": "Udaipur",
+              "state": "Rajasthan"
+            },
+            {
+              "city": "Naples",
+              "state": "Italy"
+            }
+          ]
+        },
+        "inner_hits": {
+          "coordinates": {
+            "hits": {
+              "total": {
+                "value": 4,
+                "relation": "eq"
+              },
+              "max_score": 1.0,
+              "hits": [
+                {
+                  "_index": "my-nlp-index",
+                  "_id": "1",
+                  "_nested": {
+                    "field": "user",
+                    "offset": 0
+                  },
+                  "_score": 1.0,
+                  "_source": {
+                    "name": "John Alder",
+                    "age": 35
+                  }
+                },
+                {
+                  "_index": "my-nlp-index",
+                  "_id": "1",
+                  "_nested": {
+                    "field": "user",
+                    "offset": 1
+                  },
+                  "_score": 1.0,
+                  "_source": {
+                    "name": "Sammy",
+                    "age": 34
+                  }
+                },
+                {
+                  "_index": "my-nlp-index",
+                  "_id": "1",
+                  "_nested": {
+                    "field": "user",
+                    "offset": 2
+                  },
+                  "_score": 1.0,
+                  "_source": {
+                    "name": "Mike",
+                    "age": 32
+                  }
+                }
+              ]
+            }
+          },
+          "location": {
+            "hits": {
+              "total": {
+                "value": 1,
+                "relation": "eq"
+              },
+              "max_score": 0.44583148,
+              "hits": [
+                {
+                  "_index": "my-nlp-index",
+                  "_id": "1",
+                  "_nested": {
+                    "field": "location",
+                    "offset": 1
+                  },
+                  "_score": 0.44583148,
+                  "_source": {
+                    "city": "Udaipur",
+                    "state": "Rajasthan"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "_index": "my-nlp-index",
+        "_id": "2",
+        "_score": 0.5,
+        "_source": {
+          "user": [
+            {
+              "name": "John Wick",
+              "age": 46
+            },
+            {
+              "name": "John Snow",
+              "age": 40
+            },
+            {
+              "name": "Sansa Stark",
+              "age": 22
+            },
+            {
+              "name": "Arya Stark",
+              "age": 20
+            }
+          ],
+          "location": [
+            {
+              "city": "Tromso",
+              "state": "Norway"
+            },
+            {
+              "city": "Los Angeles",
+              "state": "California"
+            },
+            {
+              "city": "London",
+              "state": "UK"
+            }
+          ]
+        },
+        "inner_hits": {
+          "coordinates": {
+            "hits": {
+              "total": {
+                "value": 4,
+                "relation": "eq"
+              },
+              "max_score": 1.0,
+              "hits": [
+                {
+                  "_index": "my-nlp-index",
+                  "_id": "2",
+                  "_nested": {
+                    "field": "user",
+                    "offset": 0
+                  },
+                  "_score": 1.0,
+                  "_source": {
+                    "name": "John Wick",
+                    "age": 46
+                  }
+                },
+                {
+                  "_index": "my-nlp-index",
+                  "_id": "2",
+                  "_nested": {
+                    "field": "user",
+                    "offset": 1
+                  },
+                  "_score": 1.0,
+                  "_source": {
+                    "name": "John Snow",
+                    "age": 40
+                  }
+                },
+                {
+                  "_index": "my-nlp-index",
+                  "_id": "2",
+                  "_nested": {
+                    "field": "user",
+                    "offset": 2
+                  },
+                  "_score": 1.0,
+                  "_source": {
+                    "name": "Sansa Stark",
+                    "age": 22
+                  }
+                }
+              ]
+            }
+          },
+          "location": {
+            "hits": {
+              "total": {
+                "value": 0,
+                "relation": "eq"
+              },
+              "max_score": null,
+              "hits": []
+            }
+          }
+        }
+      }
+    ]
+}
+```
