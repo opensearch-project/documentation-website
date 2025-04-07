@@ -95,10 +95,10 @@ PUT /_search/pipeline/nlp-search-pipeline
 ### Step 3: Ingest the documents into the index
 To ingest documents into the index created in the previous step, send the following request:
 ```json
-PUT /my-nlp-index/_bulk
-{{"index": {"_index": "my-nlp-index1"}}
+POST /my-nlp-index/_bulk
+{{"index": {"_index": "my-nlp-index"}}
 {"user":[{"name":"John Alder","age":35},{"name":"Sammy","age":34},{"name":"Mike","age":32},{"name":"Maples","age":30}],"location":[{"city":"Amsterdam","state":"Netherlands"},{"city":"Udaipur","state":"Rajasthan"},{"city":"Naples","state":"Italy"}]}
-{"index": {"_index": "my-nlp-index1"}}
+{"index": {"_index": "my-nlp-index"}}
 {"user":[{"name":"John Wick","age":46},{"name":"John Snow","age":40},{"name":"Sansa Stark","age":22},{"name":"Arya Stark","age":20}],"location":[{"city":"Tromso","state":"Norway"},{"city":"Los Angeles","state":"California"},{"city":"London","state":"UK"}]}
 ```
 {% include copy-curl.html %}
