@@ -205,3 +205,56 @@ Expected result:
   }
 }
 ```
+
+## Highlighting with term vectors
+
+Use the following command to search for the term "analytics" and highlight it using the field's stored term vectors:
+
+```json
+POST /articles/_search
+{
+  "query": {
+    "match": {
+      "content": "analytics"
+    }
+  },
+  "highlight": {
+    "fields": {
+      "content": {
+        "type": "fvh"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Expected result:
+
+```json
+{
+  ...
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 0.2876821,
+    "hits": [
+      {
+        "_index": "articles",
+        "_id": "1",
+        "_score": 0.2876821,
+        "_source": {
+          "content": "OpenSearch is an open-source search and analytics suite."
+        },
+        "highlight": {
+          "content": [
+            "OpenSearch is an open-source search and <em>analytics</em> suite."
+          ]
+        }
+      }
+    ]
+  }
+}
+```
