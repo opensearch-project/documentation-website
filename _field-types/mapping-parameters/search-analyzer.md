@@ -54,7 +54,7 @@ PUT /articles
 
 ## Indexing a document
 
-Use the following command to index a document with a full phrase in the title field. The edge n-gram analyzer will store terms like "se", "sea", "sear", "searc", "search".
+Use the following command to index a document with a full phrase in the title field. The edge n-gram analyzer will store terms such as `se`, `sea`, `sear`, `searc`, `search`.
 
 ```json
 PUT /articles/_doc/1
