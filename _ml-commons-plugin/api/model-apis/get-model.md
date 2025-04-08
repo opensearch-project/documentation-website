@@ -57,18 +57,18 @@ GET /_plugins/_ml/models/N8AE1osB0jLkkocYjz7D
 }
 ```
 
-#### Valid model states
+## Valid model states
 
-When a model is registered, deployed, or undeployed with in OpenSearch ML, it transitions through various model states that reflect its availability. These states help track where the model is in terms of readiness for use, loading status, or failure conditions.
+When a model is registered, deployed, or undeployed in OpenSearch, it transitions through various model states that reflect its availability. These states help you track the model's readiness for use, loading status, or failure conditions.
 
-The following table lists all the valid states for a model on an OpenSearch cluster.
+The following table lists all valid model states.
 
-| model state          | Description                                                                                              |
+| Model state          | Description                                                                                              |
 |:---------------------|:---------------------------------------------------------------------------------------------------------|
 | `REGISTERING `       | The model is in the process of being registered to the cluster.                                          |
 | `REGISTERED`         | The model metadata is registered on the cluster but not yet deployed.                                    |
 | `DEPLOYED`           | The model has been successfully deployed/loaded to all eligible worker nodes and is ready for inference. |
 | `DEPLOYING`          | The model is in the process of being deployed to memory.                                                 |
 | `PARTIALLY_DEPLOYED` | The model has been deployed to some of the eligible worker nodes.                                        |
-| `UNDEPLOYED`         | The model has been successfully unloaded/undeployed from memory of all the nodes.                        |
-| `DEPLOY_FAILED`      | An error occurred while trying to deploy the model to nodes on the cluster.                              |
+| `UNDEPLOYED`         | The model has been successfully unloaded/undeployed from memory on all the nodes.                        |
+| `DEPLOY_FAILED`      | An error occurred while trying to deploy the model to cluster nodes.                              |
