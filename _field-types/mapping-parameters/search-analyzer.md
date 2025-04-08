@@ -10,13 +10,13 @@ has_toc: false
 
 # Search analyzer
 
-The `search_analyzer` mapping parameter specifies the analyzer to be used at **search time** for a text field. This allows the analyzer used for indexing (`analyzer`) to differ from the one used for searching (`search_analyzer`), offering greater control over how search terms are interpreted and matched.
+The `search_analyzer` mapping parameter specifies the analyzer to be used at search time for a text field. This allows the analyzer used for indexing to differ from the one used for searching, offering greater control over how search terms are interpreted and matched.
 
-By default, the same analyzer is used for both indexing and searching. However, using a custom `search_analyzer` can be helpful in cases where you want to apply looser or stricter matching rules during search, such as using [`stemming`]({{site.url}}{{site.baseurl}}/analyzers/stemming/) or removing stopwords only at search time.
+By default, the same analyzer is used for both indexing and searching. However, using a custom `search_analyzer` can be helpful when you want to apply looser or stricter matching rules during search, such as using [`stemming`]({{site.url}}{{site.baseurl}}/analyzers/stemming/) or removing stopwords only at search time.
 
 ## Setting a search analyzer
 
-The following example creates an index named `articles` with a field `title` that uses [`n-gram tokenizer`]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/ngram/) inside custom analyzer for indexing and the [`standard analyzer`]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/standard/) for search:
+The following example creates an index named `articles` with a field `title` that uses custom analyzer with [`n-gram tokenizer`]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/ngram/) for indexing and the [`standard analyzer`]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/standard/) for search:
 
 ```json
 PUT /articles
@@ -104,5 +104,3 @@ Expected result:
   }
 }
 ```
-
-This flexibility allows for better control over how content is indexed compared to how queries are interpreted, improving both precision and recall.
