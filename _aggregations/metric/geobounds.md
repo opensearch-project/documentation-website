@@ -95,7 +95,8 @@ PUT national_parks
     }
   }
 }
-
+```
+{% include copy-curl.html %}
 
 Ingest documents into the index:
 
