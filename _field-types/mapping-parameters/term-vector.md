@@ -19,7 +19,7 @@ Enabling `term_vector` increases index size. Use only when you need detailed ter
 
 ## Configuration options
 
-Available options for `term_vector` are the following:
+Available configuration options for `term_vector` are the following:
 
 - `"no"` (default): Term vectors are not stored.
 - `"yes"`: Store term frequencies and basic positions.
