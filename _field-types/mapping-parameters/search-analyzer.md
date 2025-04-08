@@ -14,6 +14,9 @@ The `search_analyzer` mapping parameter specifies the analyzer to be used at sea
 
 By default, the same analyzer is used for both indexing and searching. However, using a custom `search_analyzer` can be helpful when you want to apply looser or stricter matching rules during search, such as using [`stemming`]({{site.url}}{{site.baseurl}}/analyzers/stemming/) or removing stopwords only at search time. For further details see [Search analyzers]({{site.url}}{{site.baseurl}}/analyzers/search-analyzers/).
 
+Using a different analyzer at search time may result in additional processing overhead during query execution, as the search analyzer must re-analyze the input query before executing the search.
+{: .important}
+
 ## Setting a search analyzer
 
 The following example creates an index named `articles` with a field `title` that uses custom analyzer with [`n-gram tokenizer`]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/ngram/) for indexing and the [`standard analyzer`]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/standard/) for search:
