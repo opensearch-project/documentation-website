@@ -9,7 +9,7 @@ redirect_from:
 
 # Geobounds aggregations
 
-The `geo_bounds` metric is a multi-value metric that calculates the [geographic bounding box](https://docs.ogc.org/is/12-063r5/12-063r5.html#30) encompassing all of a set of `geo_point` or `geo_shape` objects. The bounding box is returned as the upper-left and lower-right vertices of the rectangle given as a decimal-encoded latitude-longitude (lat-lon) pair.
+The `geo_bounds` aggregation is a multi-value aggregation that calculates the [geographic bounding box](https://docs.ogc.org/is/12-063r5/12-063r5.html#30) encompassing a set of [`geo_point`](https://opensearch.org/docs/latest/field-types/supported-field-types/geo-point/) or [`geo_shape`](https://opensearch.org/docs/latest/field-types/supported-field-types/geo-shape/) objects. The bounding box is returned as the upper-left and lower-right vertices of the rectangle given as a decimal-encoded latitude-longitude (lat-lon) pair.
 
 ## Parameters
 
@@ -17,7 +17,7 @@ The `geo_bounds` aggregation takes the following parameters.
 
 | Parameter        | Required/Optional | Data type      | Description |
 | :--              | :--               | :--            | :--         |
-| `field`          | Required          | String         | Name of the field containing the geopoints or geoshape for which the geobound is computed. |
+| `field`          | Required          | String         | The name of the field containing the geopoints or geoshapes for which the geobounds are computed. |
 | `wrap_longitude` | Optional          | Boolean        | Whether to allow the bounding box to overlap the international date line. Default is `true`. |
 
 ## Example
@@ -41,7 +41,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 
 ## Example response
 
-The response is as follows:
+As shown in the following example response, the aggregation returns the `geobounds` containing all `geopoints` in the `geoip.location` field:
 
 ```json
 {
@@ -84,9 +84,6 @@ You can run a `geo_bounds` aggregation on geoshapes.
 
 Prepare an example by inserting an index containing a geoshape field:
 
-GeoJSON input specifies longitude first.
-{: .note}
-
 ```json
 PUT national_parks
 {
@@ -99,6 +96,10 @@ PUT national_parks
   }
 }
 
+
+Ingest documents into the index:
+
+```json
 POST _bulk
 { "create": { "_index": "national_parks", "_id": "1" } }
 {"name": "Yellowstone National Park", "location": {"type": "envelope","coordinates": [ [-111.15, 45.12], [-109.83, 44.12] ]}}
