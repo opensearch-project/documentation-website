@@ -41,7 +41,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 
 ## Example response
 
-As shown in the following example response, the aggregation returns the `geobounds` containing all `geopoints` in the `geoip.location` field:
+As shown in the following example response, the aggregation returns the `geobounds` containing all geopoints in the `geoip.location` field:
 
 ```json
 {
