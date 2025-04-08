@@ -12,7 +12,7 @@ has_toc: false
 
 The `search_analyzer` mapping parameter specifies the analyzer to be used at search time for a text field. This allows the analyzer used for indexing to differ from the one used for searching, offering greater control over how search terms are interpreted and matched.
 
-By default, the same analyzer is used for both indexing and searching. However, using a custom `search_analyzer` can be helpful when you want to apply looser or stricter matching rules during search, such as using [`stemming`]({{site.url}}{{site.baseurl}}/analyzers/stemming/) or removing stopwords only at search time.
+By default, the same analyzer is used for both indexing and searching. However, using a custom `search_analyzer` can be helpful when you want to apply looser or stricter matching rules during search, such as using [`stemming`]({{site.url}}{{site.baseurl}}/analyzers/stemming/) or removing stopwords only at search time. For further details see [Search analyzers]({{site.url}}{{site.baseurl}}/analyzers/search-analyzers/).
 
 ## Setting a search analyzer
 
