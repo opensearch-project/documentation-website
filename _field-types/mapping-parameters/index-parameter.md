@@ -10,9 +10,20 @@ has_toc: false
 
 # Index
 
-The `index` mapping parameter controls whether a field is searchable by including it in the inverted index. When set to `true`, the field is indexed and available for queries. When set to `false`, the field is stored in the document but not indexed, making it non-searchable. Disabling indexing for a field can reduce index size and improve indexing performance when you do not need to search that field. For example, you can disable indexing on large text fields or metadata that is only used for display.
+The `index` mapping parameter controls whether a field is searchable by including it in the inverted index. When set to `true`, the field is indexed and available for queries. When set to `false`, the field is stored in the document but not indexed, making it non-searchable. If you do not need to search a particular field, disabling indexing for that field can reduce index size and improve indexing performance. For example, you can disable indexing on large text fields or metadata that is only used for display.
 
 By default, all field types are indexed.
+
+## Supported data types
+
+The `index` mapping parameter can be applied to the following data types:
+
+- [Text field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/)
+- [Keyword field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/keyword/)
+- [Date field types]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/dates/)
+- [Numeric field types]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/numeric/)
+- [Boolean field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/boolean/)
+- [IP address field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/ip/)
 
 ## Enabling indexing on a field
 
