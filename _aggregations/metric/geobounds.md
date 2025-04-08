@@ -82,7 +82,7 @@ As shown in the following example response, the aggregation returns the `geoboun
 
 You can run a `geo_bounds` aggregation on geoshapes.
 
-Prepare an example by inserting an index containing a geoshape field:
+Prepare an example by inserting an index containing a geoshape field. GeoJSON input specifies longitude first:
 
 ```json
 PUT national_parks
