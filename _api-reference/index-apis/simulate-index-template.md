@@ -11,19 +11,42 @@ The Simulate Index Template API helps you preview how index templates will be ap
 
 ## Endpoints
 
-| Endpoint | Description |
-|---------|-------------|
-| `/_index_template/_simulate` | Simulates an index template using a definition provided in the request body. |
-| `/_index_template/_simulate/<template-name>` | Simulates how a specific index template would be applied. |
-| `/_index_template/_simulate_index/<index-name>` | Simulates how templates (including matching component templates) would apply to a real index. |
+```json
+POST /_index_template/_simulate
+POST /_index_template/_simulate/<template_name>
+POST /_index_template/_simulate_index/<index_name>
+```
 
+## Path parameters
+
+The following table lists the available path parameters.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `template_name` | String | Name of the index template to simulate. |
+| `index_name` | String | Name of the index to simulate template resolution on. |
+
+## Request body fields
+
+The following table lists the available request body fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `index_patterns` | Array | Index patterns the template applies to. |
+| `template` | Object | The template definition. |
+| `template.settings` | Object | Index settings to apply. |
+| `template.mappings` | Object | Field mappings to apply. |
+| `template.aliases` | Object | Aliases to apply. |
+| `priority` | Integer | Priority of the template. |
+| `version` | Integer | Template version. |
+| `_meta` | Object | Metadata for the template. |
+
+## Example requests
 
 ### Simulate a template
 
-Use the following command to preview the outcome of a new template without actually storing it:
-
 ```json
-POST _index_template/_simulate
+POST /_index_template/_simulate
 {
   "index_patterns": ["log-*"],
   "template": {
@@ -43,29 +66,6 @@ POST _index_template/_simulate
 ```
 {% include copy-curl.html %}
 
-Expected result:
-
-```json
-{
-  "template": {
-    "settings": {
-      "index": {
-        "number_of_shards": "1"
-      }
-    },
-    "mappings": {
-      "properties": {
-        "message": {
-          "type": "text"
-        }
-      }
-    },
-    "aliases": {}
-  },
-  "overlapping": []
-}
-```
-
 ### Simulate a named template
 
 You can simulate specific template by specifying the name of the template.
@@ -73,7 +73,7 @@ You can simulate specific template by specifying the name of the template.
 The first step is to create a template named `template_for_simulation` using the following command:
 
 ```json
-PUT _index_template/template_for_simulation
+PUT /_index_template/template_for_simulation
 {
   "index_patterns": ["logs-sim-*"],
   "template": {
@@ -112,37 +112,7 @@ POST /_index_template/_simulate/template_for_simulation
 ```
 {% include copy-curl.html %}
 
-Expected result:
-
-```json
-{
-  "template": {
-    "settings": {
-      "index": {
-        "number_of_shards": "1",
-        "number_of_replicas": "1"
-      }
-    },
-    "mappings": {
-      "properties": {
-        "level": {
-          "type": "keyword"
-        },
-        "message": {
-          "type": "text"
-        },
-        "timestamp": {
-          "type": "date"
-        }
-      }
-    },
-    "aliases": {}
-  },
-  "overlapping": []
-}
-```
-
-### Simulate template on a specific index name
+### Simulate template on a specific index
 
 Simulating template on a specific index name is particularly useful for resolving conflicts or debugging priority issues among templates.
 The following command demonstrates how all applicable templates, with overlapping index patterns, would apply to an index named `"logs-sim-1"`.
@@ -152,7 +122,7 @@ POST /_index_template/_simulate_index/logs-sim-1
 ```
 {% include copy-curl.html %}
 
-Expected result:
+## Example response
 
 ```json
 {
@@ -181,3 +151,17 @@ Expected result:
   "overlapping": []
 }
 ```
+
+## Response body fields
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `template` | Object | The effective template applied. |
+| `template.settings` | Object | The resolved index settings. |
+| `template.mappings` | Object | The resolved field mappings. |
+| `template.aliases` | Object | The resolved aliases. |
+| `overlapping` | Array | A list of overlapping templates. |
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/index_template/simulate]`.
