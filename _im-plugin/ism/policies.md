@@ -496,17 +496,10 @@ Stops replication and converts the follower index to a regular index.
 }
 ```
 
-When cross-cluster replication is enabled, the follower index becomes read-only, preventing any write operations.
-This action can be performed before other write operations to manage replicated indices, in a follower cluster.  
-For example, you could have a policy that runs stop_replication and then delete action on the index.
+When cross-cluster replication is enabled, the follower index becomes read-only, preventing all write operations. To manage replicated indexes on a follower cluster, you can perform the `stop_replication` action before performing other write operations. For example, you can define a policy that first runs `stop_replication` and then deletes the index by running a `delete` action.
 
-**Note:** If security is enabled, in addition to [stop replication permissions]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/permissions/#replication-permissions), `indices:admin/plugins/replication/index/stop
-`
-the user must also have this permission to use this action in ISM.
-
-```
-indices:internal/plugins/replication/index/stop
-```
+If security is enabled, in addition to [stop replication permissions]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/permissions/#replication-permissions), you must have the `indices:internal/plugins/replication/index/stop` permission in order to use the `stop_replication` action.
+{: .note}
 
 #### Endpoints
 
