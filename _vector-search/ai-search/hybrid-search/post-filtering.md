@@ -4,7 +4,7 @@ title: Hybrid search with post-filtering
 parent: Hybrid search
 grand_parent: AI search
 has_children: false
-nav_order: 10
+nav_order: 40
 ---
 
 # Hybrid search with post-filtering
