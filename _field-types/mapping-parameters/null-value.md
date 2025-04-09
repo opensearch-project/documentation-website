@@ -10,14 +10,14 @@ has_toc: false
 
 # Null value
 
-The `null_value` mapping parameter allows you to replace explicit `null` values with a predefined substitute during indexing. By default, if a field is set to `null`, it is not indexed and cannot be searched. With `null_value` defined, the specified replacement value is indexed instead, making it possible to query or aggregate on documents where a field was originally `null`, however, it does not modify the `_source` of the document.
+The `null_value` mapping parameter allows you to replace explicit `null` values with a predefined substitute during indexing. By default, if a field is set to `null`, it is not indexed and cannot be searched. With `null_value` defined, the specified replacement value is indexed instead. This allows you to query or aggregate documents in which a field was originally `null` without modifying the document `_source`.
 
-The `null_value` must be of the same type as the field it is applied to. For instance, a `date` field cannot use a `boolean` such as `true` as its `null_value`. It must be a valid date string.
+The `null_value` must be of the same type as the field it is applied to. For instance, a `date` field cannot use a `boolean` such as `true` as its `null_value`; the `null_value` must be a valid date string.
 {: .important}
 
 ## Setting a null_value on a field
 
-The following request creates an index named `products` where the `category` field is of type `keyword` and replaces `null` values with `"unknown"` during indexing:
+The following request creates an index named `products`. The `category` field is of type `keyword` and replaces `null` values with `"unknown"` during indexing:
 
 ```json
 PUT /products
@@ -36,7 +36,7 @@ PUT /products
 
 ## Indexing a document with a null value
 
-Use the following command to index a document that has null for category:
+Use the following command to index a document, in which the `category` field is set to `null`:
 
 ```json
 PUT /products/_doc/1
@@ -48,7 +48,7 @@ PUT /products/_doc/1
 
 ## Querying the null substitute
 
-Use the following command to search for documents where category was previously `null`:
+Use the following command to search for documents in which category was previously `null`:
 
 ```json
 POST /products/_search
@@ -62,7 +62,7 @@ POST /products/_search
 ```
 {% include copy-curl.html %}
 
-Expected result:
+The response contains the matching document:
 
 ```json
 {
@@ -87,7 +87,7 @@ Expected result:
 }
 ```
 
-## Aggregating on null substitute
+## Aggregating on a null substitute
 
 Since the null replacement is indexed, it also appears in aggregations. Use the following command to perform a `terms` aggregation on the `category` field:
 
@@ -106,7 +106,7 @@ POST /products/_search
 ```
 {% include copy-curl.html %}
 
-Expected result:
+The response contains aggregated results:
 
 ```json
 {
