@@ -206,7 +206,7 @@ The following table lists all top-level parameters supported by `distance_featur
 | Parameter | Required/Optional | Description |
 |-----------|-------------------|-------------|
 | `field`   | Required          | The name of the field used to calculate distances. Must be a `date`, `date_nanos`, or `geo_point` field with `index: true` (default) and `doc_values: true` (default). |
-| `origin`  | Required          | The point of origin used to calculate distances. Use a [date]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/) or [date math expression]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/#date-math) (for example, `now-1h`) for `date` fields, or a [geopoint]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/geo-point/) for `geo_point` fields. |
+| `origin`  | Required          | The point of origin used to calculate distances. Use a [date]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/) or [date math expression]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/#date-math) (for example, `now-1h`) for `date` fields or a [geopoint]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/geo-point/) for `geo_point` fields. |
 | `pivot`   | Required          | The distance from the `origin` at which scores receive half of the `boost` value. Use a time unit (for example, `10d`) for date fields or a distance unit (for example, `1km`) for geographic fields. For more information, see [Units]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#units).|
 | `boost`   | Optional          | A multiplier for the relevance score of matching documents. Must be a non-negative float. Default is `1.0`. |
 
@@ -220,4 +220,4 @@ where $$\text{distance}$$ is the absolute difference between the `origin` and th
 
 ## Skipping non-competitive hits
 
-Unlike other score-modifying queries like `function_score` query, the `distance_feature` query is optimized to efficiently skip non-competitive hits when total hit tracking (`track_total_hits`) is disabled.
+Unlike other score-modifying queries like the `function_score` query, the `distance_feature` query is optimized to efficiently skip non-competitive hits when total hit tracking (`track_total_hits`) is disabled.
