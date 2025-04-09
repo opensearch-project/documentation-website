@@ -66,9 +66,9 @@ The following table lists all valid model states.
 | Model state          | Description                                                                                              |
 |:---------------------|:---------------------------------------------------------------------------------------------------------|
 | `REGISTERING `       | The model is in the process of being registered to the cluster.                                          |
-| `REGISTERED`         | The model metadata is registered on the cluster but not yet deployed.                                    |
+| `REGISTERED`         | The model metadata is registered to the cluster but not yet deployed.                                    |
 | `DEPLOYED`           | The model has been successfully deployed/loaded to all eligible worker nodes and is ready for inference. |
 | `DEPLOYING`          | The model is in the process of being deployed to memory.                                                 |
 | `PARTIALLY_DEPLOYED` | The model has been deployed to some of the eligible worker nodes.                                        |
 | `UNDEPLOYED`         | The model has been successfully unloaded/undeployed from memory on all the nodes.                        |
-| `DEPLOY_FAILED`      | An error occurred while trying to deploy the model to cluster nodes.                              |
+| `DEPLOY_FAILED`      | An error occurred while trying to deploy the model to the cluster nodes.                              |
