@@ -17,11 +17,10 @@ The Simulate Index Template API helps you preview how index templates will be ap
 | `/_index_template/_simulate/<template-name>` | Simulates how a specific index template would be applied. |
 | `/_index_template/_simulate_index/<index-name>` | Simulates how templates (including matching component templates) would apply to a real index. |
 
-## Example requests
 
-### Simulate a template without saving it
+### Simulate a template
 
-Use the following command to preview the outcome of a new template without actually storing it.
+Use the following command to preview the outcome of a new template without actually storing it:
 
 ```json
 POST _index_template/_simulate
