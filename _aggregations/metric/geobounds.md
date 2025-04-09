@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/metric/geobounds/
 ---
 
-# Geobounds aggregations
+# Geobounds aggregation
 
 The `geo_bounds` aggregation is a multi-value aggregation that calculates the [geographic bounding box](https://docs.ogc.org/is/12-063r5/12-063r5.html#30) encompassing a set of [`geo_point`](https://opensearch.org/docs/latest/field-types/supported-field-types/geo-point/) or [`geo_shape`](https://opensearch.org/docs/latest/field-types/supported-field-types/geo-shape/) objects. The bounding box is returned as the upper-left and lower-right vertices of the rectangle given as a decimal-encoded latitude-longitude (lat-lon) pair.
 
@@ -22,7 +22,7 @@ The `geo_bounds` aggregation takes the following parameters.
 
 ## Example
 
-This example returns the `geo_bounds` for the `geoip.location` of every order in the e-commerce sample data (each `geoip.location` is a geopoint):
+The following example returns the `geo_bounds` for the `geoip.location` of every order in the e-commerce sample data (each `geoip.location` is a geopoint):
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
@@ -170,9 +170,9 @@ The response contains the smallest geo-bounding box that encloses all shapes in 
 
 ## Wrapping longitude
 
-If the optional `wrap_longitude` parameter is set to `true`, the bounding box can overlap the international date line (180&deg; meridian) and return a `bounds` object in which the top-left longitude is greater than the bottom-right longitude. The default value for `wrap_longitude` is `true`.
+If the optional `wrap_longitude` parameter is set to `true`, the bounding box can overlap the international date line (180&deg; meridian) and return a `bounds` object in which the upper-left longitude is greater than the lower-right longitude. The default value for `wrap_longitude` is `true`.
 
-Re-run the `geo_bounds` aggregation on the national parks geoshape with `wrap_longitude` set to `false`:
+Rerun the `geo_bounds` aggregation on the national parks geoshape with `wrap_longitude` set to `false`:
 
 ```json
 GET national_parks/_search
