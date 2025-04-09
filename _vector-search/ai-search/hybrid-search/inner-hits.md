@@ -19,7 +19,7 @@ To learn more about how `inner_hits` works, see [Retrieve inner hits]({{site.url
 During hybrid query execution, documents are scored and retrieved as follows:
 
 1. Each subquery selects parent documents based on the relevance of their inner hits.
-1. The selected parent documents from all subqueries are combined and their scores are normalized to produce a hybrid score.
+1. The selected parent documents from all subqueries are combined, and their scores are normalized to produce a hybrid score.
 1. For each parent document, the relevant `inner_hits` are retrieved from the shards and included in the final response.
 
 Hybrid queries handle inner hits differently than traditional queries when determining final search results:
@@ -115,7 +115,7 @@ POST /my-nlp-index/_bulk
 
 ### Step 4: Search the index using hybrid search and fetch inner hits
 
-The following request runs a hybrid query to search for matches in two nested fields: `user` and `location`. It combines the results from each field into a single ranked list of parent documents, while also retrieving the matching nested objects using `inner_hits`:
+The following request runs a hybrid query to search for matches in two nested fields: `user` and `location`. It combines the results from each field into a single ranked list of parent documents while also retrieving the matching nested objects using `inner_hits`:
 
 ```json
 GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
@@ -320,7 +320,7 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline&explain=true
 ```
 {% include copy-curl.html %}
 
-The response includes an `_explanation` object with detailed scoring information. The nested `details` array provides the relevant information about the score mode used, the number of child documents contributing to the parent document's score, and how the scores were normalized and combined:
+The response includes an `_explanation` object containing detailed scoring information. The nested `details` array provides the relevant information about the score mode used, the number of child documents contributing to the parent document's score, and how the scores were normalized and combined:
 
 ```json
 {
@@ -417,7 +417,7 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 ```
 {% include copy-curl.html %}
 
-In the response, the `user` inner hits are sorted by age in descending order rather than by relevance, which is why the `_score` field shows as `null` (scores are not calculated when custom sorting is applied):
+In the response, the `user` inner hits are sorted by age in descending order rather than by relevance, which is why the `_score` field is `null` (scores are not calculated when custom sorting is applied):
 
 ```json
 ...
@@ -469,7 +469,7 @@ In the response, the `user` inner hits are sorted by age in descending order rat
 
 ## Pagination with inner hits
 
-To paginate inner hit results, specify the `from` parameter (starting position) and `size` parameter (number of results) in the `inner_hits` clause. The following example specifies to retrieve only the third and fourth nested objects from the `user` field by setting `from` to `2` (skip the first two) and `size` to `2` (return two results):
+To paginate inner hit results, specify the `from` parameter (starting position) and `size` parameter (number of results) in the `inner_hits` clause. The following example request retrieves only the third and fourth nested objects from the `user` field by setting `from` to `2` (skip the first two) and `size` to `2` (return two results):
 
 ```json
 GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
@@ -507,7 +507,7 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 ```
 {% include copy-curl.html %}
 
-The response contains the `user` field inner hits starting from the offset `2`:
+The response contains the `user` field inner hits starting from the offset of `2`:
 
 ```json
 ...
@@ -553,7 +553,7 @@ The response contains the `user` field inner hits starting from the offset `2`:
 
 ## Defining a custom name for the inner_hits field
 
-To differentiate between multiple inner hits in a single query, you can define custom names for inner hits in the search response. For example, provide a custom name `coordinates` for the `location` field inner hits as follows:
+To differentiate between multiple inner hits in a single query, you can define custom names for inner hits in the search response. For example, you can provide a custom name, `coordinates`, for the `location` field inner hits as follows:
 
 ```json
 GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline

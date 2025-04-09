@@ -203,4 +203,4 @@ Field | Description
 
 ## Next steps
 
-- To learn how to use `explain` with inner hits, see [Using inner hits in hybrid queries]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/inner-hits/)
+- To learn how to use `explain` with inner hits, see [Using inner hits in hybrid queries]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/inner-hits/).
