@@ -1,0 +1,103 @@
+---
+layout: default
+title: Resolve index
+parent: Index APIs
+nav_order: 19
+---
+
+# Resolve index
+
+The resolve index API helps you understand how OpenSearch resolves aliases, data streams, and concrete indices that match a specified name or wildcard expression.
+
+## Endpoints
+
+```json
+GET /_resolve/index/<name>
+```
+
+## Path parameters
+
+The following table lists the available path parameters. All path parameters are required.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `name` | String | The name, alias, data stream, or wildcard expression to resolve. |
+
+## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `expand_wildcards` | String | Controls how wildcard expressions expand to matching indices. Multiple values can be combined with commas. Valid values are:<br>• `all` – Expand to open and closed indices, including hidden ones.<br>• `open` – Expand only to open indices.<br>• `closed` – Expand only to closed indices.<br>• `hidden` – Include hidden indices (must be used with `open`, `closed`, or both).<br>• `none` – Wildcard expressions are not accepted.<br>**Default:** `open`. |
+
+## Request body fields
+
+This API does not support a request body.
+
+## Example request(s)
+
+### Resolve a concrete index
+
+The following example shows an API request with concrete index:
+
+```json
+GET _resolve/index/my-index-001
+```
+{% include copy-curl.html %}
+
+### Resolve indices using a wildcard
+
+The following example shows an API request with a wildcard:
+
+```json
+GET _resolve/index/my-index-*
+```
+{% include copy-curl.html %}
+
+### Resolve a data stream or alias
+
+If an alias or data stream named `logs-app` exists, use the following command to resolve it:
+
+```json
+GET _resolve/index/logs-app
+```
+{% include copy-curl.html %}
+
+### Resolve hidden indices using a wildcard in remote cluster
+
+The following example shows an API request using wildcard, remote cluster and `expand_wildcards` configured to `hidden`:
+
+```json
+GET _resolve/index/my-index-*,remote-cluster:my-index-*?expand_wildcards=hidden
+```
+{% include copy-curl.html %}
+
+## Example response
+
+```json
+{
+  "indices": [
+    {
+      "name": "my-index-001",
+      "attributes": [
+        "open"
+      ]
+    }
+  ],
+  "aliases": [],
+  "data_streams": []
+}
+```
+
+## Response body fields
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `indices` | Array | A list of resolved concrete indices. |
+| `aliases` | Array | A list of resolved index aliases. |
+| `data_streams` | Array | A list of matched data streams. |
+
+## Required permissions
+
+If you use the Security plugin, the user running these queries needs to have at least `read` permission on the resolved index. 
