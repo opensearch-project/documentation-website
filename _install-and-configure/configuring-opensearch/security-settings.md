@@ -307,16 +307,6 @@ The Security plugin supports the following REST layer TLS key store and trust st
 
 For more information, see [REST layer TLS]({{site.url}}{{site.baseurl}}/security/configuration/tls/#rest-layer-tls-1).
 
-## OpenSSL settings
-
-The Security plugin supports the following OpenSSL settings:
-
-- `plugins.security.ssl.transport.enable_openssl_if_available` (Static): Enables OpenSSL on the transport layer if available. Optional. Default is `true`.
-
-- `plugins.security.ssl.http.enable_openssl_if_available` (Static): Enables OpenSSL on the REST layer if available. Optional. Default is `true`.
-
-For more information, see [OpenSSL]({{site.url}}{{site.baseurl}}/security/configuration/tls/#advanced-openssl).
-
 ## X.509 PEM certificates and PKCS #8 keys---transport layer TLS settings
 
 The Security plugin supports the following transport layer TLS settings related to X.509 PEM certificates and PKCS #8 keys:
