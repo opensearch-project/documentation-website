@@ -45,6 +45,8 @@ The following table lists the available request body fields.
 
 ### Simulate a template
 
+You can use the following command to simulate a template without creating it:
+
 ```json
 POST /_index_template/_simulate
 {
@@ -105,7 +107,7 @@ PUT /_index_template/template_for_simulation
 ```
 {% include copy-curl.html %}
 
-Use the following command to simulate template named `template_for_simulation`:
+You can now use the following command to simulate template named `template_for_simulation`:
 
 ```json
 POST /_index_template/_simulate/template_for_simulation
