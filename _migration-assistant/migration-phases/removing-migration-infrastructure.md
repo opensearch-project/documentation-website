@@ -9,7 +9,7 @@ parent: Migration phases
 
 After a migration is complete, you should remove all resources except for the target cluster and, optionally, your Amazon CloudWatch logs and Traffic Replayer logs.
 
-To remove all the AWS Cloud Development Kit (AWS CDK) stack(s) created during a deployment, run the following command within the CDK directory:
+To remove the AWS Cloud Development Kit (AWS CDK) stack(s) created during a deployment, run the following command within the CDK directory:
 
 ```bash  
 cd deployment/cdk/opensearch-service-migration
@@ -23,6 +23,6 @@ You can also use the AWS Management Console to remove Migration Assistant resour
 
 ## Uninstalling Migration Assistant for Amazon OpenSearch Service
 
-You can uninstall the Migration Assistant for Amazon OpenSearch Service solution from the AWS Management Console or by using the AWS Command Line Interface (AWS CLI). Manually remove the contents of the Amazon S3 bucket that matches cdk-<unique id>-assets-<account id>-<region> created by this solution. Migration Assistant for Amazon OpenSearch Service does not automatically delete Amazon S3 buckets in case you have stored data to retain. 
+You can uninstall Migration Assistant for Amazon OpenSearch Service from the AWS Management Console or by using the AWS Command Line Interface (AWS CLI). Manually remove the contents of the Amazon Simple Storage Service (Amazon S3) bucket that matches the syntax `cdk-<unique id>-assets-<account id>-<region>`, the bucket created by Migration Assistant. Migration Assistant for Amazon OpenSearch Service does not automatically delete Amazon S3 buckets. 
 
 To delete the stored data and the AWS CloudFormation stacks created by Migration Assistant, see [Uninstall the solution](https://docs.aws.amazon.com/solutions/latest/migration-assistant-for-amazon-opensearch-service/uninstall-the-solution.html) in the Amazon OpenSearch Service documentation.
