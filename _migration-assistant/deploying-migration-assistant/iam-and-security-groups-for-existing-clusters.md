@@ -25,7 +25,7 @@ For an OpenSearch Domain, two main configurations are typically required to ensu
    - An open access policy that allows all access.
    - Configured to allow at least the AWS Identity and Access Management (IAM) task roles for the applicable migration services (Traffic Replayer, Migration Console, `Reindex-from-Snapshot`) to access the domain.
   
-### Managed service role mapping (Cross-managed-cluster migrations)**
+### Managed service role mapping (Cross-managed-cluster migrations)
 
 When migrating between two managed clusters, for example, when both domains were created using Amazon OpenSearch Service, provide Migration Assistant components with sufficient permissions to modify both the source and target clusters.
 
