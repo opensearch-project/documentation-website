@@ -172,7 +172,7 @@ All of these authentication options apply to both source and target clusters.
 
 ## Bring your own snapshot options
 
-An existing snapshot can alternatively be used to perform metadata as well as backfill migrations, instead of using the Migration Assistant to create a snapshot.
+An existing Amazon S3 snapshot can alternatively be used to perform metadata as well as backfill migrations, instead of using the Migration Assistant to create a snapshot.
 
 ```json
     "snapshot": {
@@ -183,7 +183,11 @@ An existing snapshot can alternatively be used to perform metadata as well as ba
 ```
 {% include copy.html %}
 
-As a default, S3 buckets will automatically allow roles in the same account (with the appropriate `s3:*` permissions) to access the S3 bucket regardless of region. If the external S3 bucket being utilized is in the same account as the Migration Assistant deployment, no further IAM configuration is required to access this bucket. If a custom permission model has been used with S3, then any Access control list (ACL) or custom bucket policy used should allow the Migration Assistant task roles for Reindex-from-Snapshot and the Migration Console to read from the S3 bucket. If the S3 bucket is in a separate account from the Migration Assistant deployment, a custom bucket policy similar to the following will be needed to allow access to the Migration Assistant.
+By default, Amazon S3 buckets automatically allow roles in the same AWS account (with the appropriate `s3:*` permissions) to access the S3 bucket, regardless of the bucket's Region. If the external S3 bucket being used is in the same AWS account as the Migration Assistant deployment, no further IAM configuration is required to access this bucket.
+
+If a custom permission model has been used with Amazon S3, any Access Control List (ACL) or custom bucket policy should allow the Migration Assistant task roles for Reindex-from-Snapshot and the Migration Console to read from the S3 bucket.
+
+If the S3 bucket is in a separate AWS account from the Migration Assistant deployment, a custom bucket policy similar to the following will be needed to allow access to the Migration Assistant:
 
 ```json
 {
