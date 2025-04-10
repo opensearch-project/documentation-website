@@ -166,4 +166,4 @@ POST /_index_template/_simulate_index/logs-sim-1
 
 ## Required permissions
 
-If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/index_template/simulate]`.
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/index_template/simulate`.
