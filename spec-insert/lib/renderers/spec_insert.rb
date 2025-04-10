@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative 'components/base_mustache_renderer'
-require_relative '../insert_arguments'
 require_relative '../api/action'
 require_relative '../spec_insert_error'
 require_relative 'endpoints'
@@ -13,9 +12,8 @@ require_relative 'body_parameters'
 class SpecInsert < BaseMustacheRenderer
   self.template_file = "#{__dir__}/templates/spec_insert.mustache"
 
-  # @param [Array<String>] lines the lines between "<!-- doc_insert_start" and "<!-- spec_insert_end -->"
-  def initialize(lines)
-    args = InsertArguments.new(lines)
+  # @param [InsertArguments]
+  def initialize(args)
     action = Api::Action.by_full_name[args.api]
     super(action, args)
     raise SpecInsertError, '`api` argument not specified.' unless @args.api
@@ -25,6 +23,9 @@ class SpecInsert < BaseMustacheRenderer
   def arguments
     @args.raw.map { |key, value| { key:, value: } }
   end
+
+  def api; @args.api end
+  def component; @args.component end
 
   def content
     raise SpecInsertError, '`component` argument not specified.' unless @args.component

@@ -60,24 +60,23 @@ module Api
                  .map { |params| Parameter.from_param_specs(params, @operations.size) }
     end
 
-    # @return [Api::Body, nil] Request body
+    # @return [Api::Body] Request body
     def request_body
-      @request_body ||=
-        begin
-          operation = @operations.find { |op| op.spec.requestBody.present? }
-          required = @operations.all? { |op| op.spec.requestBody.required }
-          operation.nil? ? nil : Body.new(operation.spec.requestBody.content, required:)
-        end
+      @request_body ||= begin
+        operation = @operations.find { |op| op.spec.requestBody.present? }
+        required = @operations.all? { |op| op.spec.requestBody&.required }
+        content = operation ? operation.spec.requestBody.content : nil
+        Body.new(content, required:)
+      end
     end
 
     # @return [Api::Body] Response body
     def response_body
-      @response_body ||=
-        begin
-          spec = @operations.first.spec
-          code = SUCCESS_CODES.find { |c| spec.responses[c].present? }
-          Body.new(@operations.first.spec.responses[code].content, required: nil)
-        end
+      @response_body ||= begin
+        spec = @operations.first.spec
+        code = SUCCESS_CODES.find { |c| spec.responses[c].present? }
+        Body.new(spec.responses[code].content, required: nil)
+      end
     end
 
     # @return [String] Full name of the action (i.e. namespace.action)
