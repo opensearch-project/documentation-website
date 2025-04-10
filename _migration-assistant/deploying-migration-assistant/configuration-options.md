@@ -183,8 +183,7 @@ An existing snapshot can alternatively be used to perform metadata as well as ba
 ```
 {% include copy.html %}
 
-As a default, S3 buckets will automatically allow roles in the same account (with the appropriate `s3:*` permissions) to access the S3 bucket regardless of region. If the external S3 bucket being utilized is in the same account as the Migration Assistant deployment, no further IAM configuration is required to access this bucket.
-If a custom permission model has been used with S3, or if the S3 bucket is in a separate account from the Migration Assistant deployment, a custom bucket policy (similar to below) or ACL will be needed to allow access to the Migration Assistant.
+As a default, S3 buckets will automatically allow roles in the same account (with the appropriate `s3:*` permissions) to access the S3 bucket regardless of region. If the external S3 bucket being utilized is in the same account as the Migration Assistant deployment, no further IAM configuration is required to access this bucket. If a custom permission model has been used with S3, then any Access control list (ACL) or custom bucket policy used should allow the Migration Assistant task roles for Reindex-from-Snapshot and the Migration Console to read from the S3 bucket. If the S3 bucket is in a separate account from the Migration Assistant deployment, a custom bucket policy similar to the following will be needed to allow access to the Migration Assistant.
 
 ```json
 {
