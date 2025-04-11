@@ -36,7 +36,7 @@ PUT /products
 
 ## Indexing a document with a null value
 
-Use the following command to index a document, in which the `category` field is set to `null`:
+Use the following command to index a document in which the `category` field is set to `null`:
 
 ```json
 PUT /products/_doc/1
@@ -48,7 +48,7 @@ PUT /products/_doc/1
 
 ## Querying the null substitute
 
-Use the following command to search for documents in which category was previously `null`:
+Use the following command to search for documents in which the `category` field was previously `null`:
 
 ```json
 POST /products/_search
@@ -89,7 +89,7 @@ The response contains the matching document:
 
 ## Aggregating on a null substitute
 
-Since the null replacement is indexed, it also appears in aggregations. Use the following command to perform a `terms` aggregation on the `category` field:
+Because the null replacement is indexed, it also appears in aggregations. Use the following command to perform a `terms` aggregation on the `category` field:
 
 ```json
 POST /products/_search
