@@ -124,11 +124,11 @@ To highlight the search terms, the highlighter needs the start and end character
 
 - [**Term vectors**]: If you set the [`term_vector` parameter]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text#term-vector-parameter) to  `with_positions_offsets` when mapping a text field, the highlighter uses the `term_vector` to highlight the field. Storing term vectors requires the most disk space. However, it makes highlighting faster for fields larger than 1 MB and for multi-term queries like prefix or wildcard because term vectors provide access to the dictionary of terms for each document.
 
-- **Text reanalysis**: In the absence of both postings and term vectors, the highlighter reanalyzes text in order to highlight it. For every document and every field that needs highlighting, the highlighter creates a small in-memory index and reruns the original query through Lucene’s query execution planner to access low-level match information for the current document. Reanalyzing the text works well in most use cases. However, this method is more memory and time intensive for large fields.
+- **Text reanalysis**: In the absence of both postings and term vectors, the highlighter reanalyzes text in order to highlight it. For every document and every field that needs highlighting, the highlighter creates a small in-memory index and reruns the original query through Lucene's query execution planner to access low-level match information for the current document. Reanalyzing the text works well in most use cases. However, this method is more memory and time intensive for large fields.
 
 ## Highlighter types
 
-OpenSearch supports three highlighter implementations: `plain`, `unified`, and `fvh` (Fast Vector Highlighter). 
+OpenSearch supports four highlighter implementations: `plain`, `unified`, `fvh` (Fast Vector Highlighter), and `semantic`. 
 
 The following table lists the methods of obtaining the offsets for each highlighter.
 
@@ -137,6 +137,7 @@ Highlighter | Method of obtaining offsets
 [`unified`](#the-unified-highlighter) | Term vectors if `term_vector` is set to `with_positions_offsets`,<br> postings if `index_options` is set to `offsets`, <br> text reanalysis otherwise.
 [`fvh`](#the-fvh-highlighter) | Term vectors.
 [`plain`](#the-plain-highlighter) | Text reanalysis.
+[`semantic`](#the-semantic-highlighter) | Model inference.
 
 ### Setting the highlighter type
 
@@ -170,13 +171,24 @@ The `fvh` highlighter is based on the Lucene Fast Vector Highlighter. To use thi
 
 The `plain` highlighter is based on the standard Lucene highlighter. It requires the highlighted fields to be stored either individually or in the `_source` field. The `plain` highlighter mirrors the query matching logic, in particular word importance and positions in phrase queries. It works for most use cases but may be slow for large fields because it has to reanalyze the text to be highlighted. 
 
+### The `semantic` highlighter
+
+The `semantic` highlighter leverages machine learning (ML) models to identify and highlight the most semantically relevant sentences or passages within a text field, based on the query's meaning. This goes beyond traditional lexical matching offered by other highlighters. It does not rely on offsets from postings or term vectors but instead uses a deployed ML model (specified by `model_id`) to perform inference on the field content. This approach allows highlighting contextually relevant text even when exact terms don't match the query. Highlighting is performed at the sentence level.
+
+Using the `semantic` highlighter requires the `neural-search` and `ml-commons` plugins to be installed and configured with a suitable deployed sentence highlighting model.
+{: .note}
+
+To use the `semantic` highlighter, you must specify a `model_id` within the `highlight.options` object. This model is responsible for determining which parts of the text are semantically similar to the query.
+
+For a step-by-step guide, see the [Semantic Highlighting Tutorial](../_tutorials/vector-search/semantic-highlighting-tutorial.html).
+
 ## Highlighting options
 
 The following table describes the highlighting options you can specify on a global or field level. Field-level settings override global settings.
 
 Option | Description
 :--- | :---
-type | Specifies the highlighter to use. Valid values are `unified`, `fvh`, and `plain`. Default is `unified`.
+type | Specifies the highlighter to use. Valid values are `unified`, `fvh`, `plain`, and `semantic`. Default is `unified`.
 fields | Specifies the fields to search for text to be highlighted. Supports wildcard expressions. If you use wildcards, only `text` and `keyword` fields are highlighted. For example, you can set `fields` to `my_field*` to include all `text` and `keyword` fields that start with the prefix `my_field`. 
 force_source | Specifies that field values for highlighting should be obtained from the `_source` field rather than from stored field values. Default is `false`.
 require_field_match | Specifies whether to highlight only fields that contain a search query match. Default is `true`. To highlight all fields, set this option to `false`.
@@ -198,6 +210,8 @@ matched_fields | Combines matches from different fields to highlight one field. 
 no_match_size | Specifies the number of characters, starting from the beginning of the field, to return if there are no matching fragments to highlight. Default is 0.
 phrase_limit | The number of matching phrases in a document that are considered. Limits the number of phrases to analyze by the `fvh` highlighter to avoid consuming a lot of memory. If `matched_fields` are used, `phrase_limit` specifies the number of phrases for each matched field. A higher `phrase_limit` leads to increased query time and more memory consumption. Valid only for the `fvh` highlighter. Default is 256.
 max_analyzer_offset | Specifies the maximum number of characters to be analyzed by a highlight request. The remaining text will not be processed. If the text to be highlighted exceeds this offset, then an empty highlight is returned. The maximum number of characters that will be analyzed for a highlight request is defined by `index.highlight.max_analyzed_offset`. When this limit is reached, an error is returned. Set the `max_analyzer_offset` to a lower value than `index.highlight.max_analyzed_offset` to avoid the error.
+options | A global object containing options specific to certain highlighters.
+options.model_id | The ID of the deployed ML model to use for highlighting. Required and valid only for the `semantic` highlighter.
 
 The unified highlighter's sentence scanner splits sentences larger than `fragment_size` at the first word boundary after `fragment_size` is reached. To return whole sentences without splitting them, set `fragment_size` to 0.
 {: .note}
@@ -959,9 +973,77 @@ The response lists documents that contain the word "bragging" first:
 }
 ```
 
+## Using the `semantic` highlighter
+
+The `semantic` highlighter uses a specified ML model to find passages in the text that are semantically relevant to the search query, even if there are no exact keyword matches. Highlighting occurs at the sentence level.
+
+To use the `semantic` highlighter, set the `type` to `semantic` in the `fields` object and provide the `model_id` of a deployed sentence transformer or question-answering model within the global `highlight.options` object.
+
+The following example uses a neural query to find documents related to "treatments for neurodegenerative diseases" and then applies semantic highlighting using the specified `sentence_model_id`:
+
+```json
+POST neural-search-index/_search
+{
+  "_source": {
+    "excludes": ["text_embedding"]
+  },
+  "query": {
+    "neural": {
+      "text_embedding": {
+        "query_text": "treatments for neurodegenerative diseases",
+        "model_id": "your-text-embedding-model-id",
+        "k": 5
+      }
+    }
+  },
+  "highlight": {
+    "fields": {
+      "text": {
+        "type": "semantic"
+      }
+    },
+    "options": {
+      "model_id": "your-sentence-model-id"
+    }
+  }
+}
+```
+
+The response includes a `highlight` object for each hit, showing the most semantically relevant sentence emphasized with `<em>` tags. Note that model IDs are placeholders.
+
+```json
+{
+  "took": 628,
+  "timed_out": false,
+  "_shards": { ... },
+  "hits": {
+    "total": { "value": 5, "relation": "eq" },
+    "max_score": 0.4841726,
+    "hits": [
+      {
+        "_index": "neural-search-index",
+        "_id": "srL7G5YBmDiZSe-G2pDc",
+        "_score": 0.4841726,
+        "_source": {
+          "text": "Alzheimer's disease is a progressive neurodegenerative disorder characterized by accumulation of amyloid-beta plaques and neurofibrillary tangles in the brain. Early symptoms include short-term memory impairment, followed by language difficulties, disorientation, and behavioral changes. While traditional treatments such as cholinesterase inhibitors and memantine provide modest symptomatic relief, they do not alter disease progression. Recent clinical trials investigating monoclonal antibodies targeting amyloid-beta, including aducanumab, lecanemab, and donanemab, have shown promise in reducing plaque burden and slowing cognitive decline. Early diagnosis using biomarkers such as cerebrospinal fluid analysis and PET imaging may facilitate timely intervention and improved outcomes."
+        },
+        "highlight": {
+          "text": [
+            "Alzheimer's disease is a progressive neurodegenerative disorder ... <em>Recent clinical trials investigating monoclonal antibodies targeting amyloid-beta, including aducanumab, lecanemab, and donanemab, have shown promise in reducing plaque burden and slowing cognitive decline.</em> Early diagnosis using biomarkers ..."
+          ]
+        }
+      },
+      // ... other hits with highlighted sentences ...
+    ]
+  }
+}
+```
+Note that the highlighted fragments in the example response have been truncated for brevity. The `semantic` highlighter returns the full sentence containing the most relevant passage.
+
 ## Query limitations
 
 Note the following limitations:
 
-- When extracting terms to highlight, highlighters don’t reflect the Boolean logic of a query. Therefore, for some complex Boolean queries, such as nested Boolean queries and queries using `minimum_should_match`, OpenSearch may highlight terms that don’t correspond to query matches.
+- When extracting terms to highlight, highlighters don't reflect the Boolean logic of a query. Therefore, for some complex Boolean queries, such as nested Boolean queries and queries using `minimum_should_match`, OpenSearch may highlight terms that don't correspond to query matches.
 - The `fvh` highlighter does not support span queries.
+- The `semantic` highlighter requires a deployed ML model specified by `model_id` in the `highlight.options`. It does not use traditional offset methods (postings, term vectors) and relies solely on model inference.

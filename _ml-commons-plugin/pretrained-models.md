@@ -76,7 +76,22 @@ The following table provides a list of cross-encoder models and artifact links y
 | Model name | Version | TorchScript artifact | ONNX artifact |
 |:---|:---|:---|:---|
 | `huggingface/cross-encoders/ms-marco-MiniLM-L-6-v2` | 1.0.2 | - [model_url](https://artifacts.opensearch.org/models/ml-models/huggingface/cross-encoders/ms-marco-MiniLM-L-6-v2/1.0.2/torch_script/cross-encoders_ms-marco-MiniLM-L-6-v2-1.0.2-torch_script.zip) <br>- [config_url](https://artifacts.opensearch.org/models/ml-models/huggingface/cross-encoders/ms-marco-MiniLM-L-6-v2/1.0.2/torch_script/config.json) | - [model_url](https://artifacts.opensearch.org/models/ml-models/huggingface/cross-encoders/ms-marco-MiniLM-L-6-v2/1.0.2/onnx/cross-encoders_ms-marco-MiniLM-L-6-v2-1.0.2-onnx.zip) <br>- [config_url](https://artifacts.opensearch.org/models/ml-models/huggingface/cross-encoders/ms-marco-MiniLM-L-6-v2/1.0.2/onnx/config.json) |
-| `huggingface/cross-encoders/ms-marco-MiniLM-L-12-v2` | 1.0.2 | - [model_url](https://artifacts.opensearch.org/models/ml-models/huggingface/cross-encoders/ms-marco-MiniLM-L-12-v2/1.0.2/torch_script/cross-encoders_ms-marco-MiniLM-L-12-v2-1.0.2-torch_script.zip) <br>- [config_url](https://artifacts.opensearch.org/models/ml-models/huggingface/cross-encoders/ms-marco-MiniLM-L-12-v2/1.0.2/torch_script/config.json) | - [model_url](https://artifacts.opensearch.org/models/ml-models/huggingface/cross-encoders/ms-marco-MiniLM-L-12-v2/1.0.2/onnx/cross-encoders_ms-marco-MiniLM-L-12-v2-1.0.2-onnx.zip) <br>- [config_url](https://artifacts.opensearch.org/models/ml-models/huggingface/cross-encoders/ms-marco-MiniLM-L-12-v2/1.0.2/onnx/config.json) 
+| `huggingface/cross-encoders/ms-marco-MiniLM-L-12-v2` | 1.0.2 | - [model_url](https://artifacts.opensearch.org/models/ml-models/huggingface/cross-encoders/ms-marco-MiniLM-L-12-v2/1.0.2/torch_script/cross-encoders_ms-marco-MiniLM-L-12-v2-1.0.2-torch_script.zip) <br>- [config_url](https://artifacts.opensearch.org/models/ml-models/huggingface/cross-encoders/ms-marco-MiniLM-L-12-v2/1.0.2/torch_script/config.json) | - [model_url](https://artifacts.opensearch.org/models/ml-models/huggingface/cross-encoders/ms-marco-MiniLM-L-12-v2/1.0.2/onnx/cross-encoders_ms-marco-MiniLM-L-12-v2-1.0.2-onnx.zip) <br>- [config_url](https://artifacts.opensearch.org/models/ml-models/huggingface/cross-encoders/ms-marco-MiniLM-L-12-v2/1.0.2/onnx/config.json)
+
+### Semantic sentence highlighting models
+**Introduced 3.0.0**
+{: .label .label-purple }
+
+Semantic sentence highlighting models are specifically designed to work with the [`semantic` highlighter]({{site.url}}{{site.baseurl}}/_search-plugins/searching-data/highlight.html#the-semantic-highlighter). These models analyze the text content of a document and identify the sentence(s) that are most semantically relevant to the search query.
+
+For a tutorial on using these models with the semantic highlighter, see [Using semantic highlighting]({{site.url}}{{site.baseurl}}/_tutorials/vector-search/semantic-highlighting-tutorial.html).
+
+The following table provides a list of semantic sentence highlighting models and artifact links you can use to download them. Note that you must prefix the model name with `opensearch/`, as shown in the **Model name** column.
+
+| Model name | Version | TorchScript artifact | Description |
+|:---|:---|:---|:---|
+| `opensearch/semantic-sentence-highlighter-model-v1` | 1.0.0 | - [model_url](placeholder-link) <br>- [config_url](placeholder-link) | A model optimized for identifying semantically relevant sentences for highlighting. (Artifacts coming soon) |
+
 
 ## Prerequisites
 
@@ -175,7 +190,7 @@ When the operation is complete, the state changes to `COMPLETED`:
 }
 ```
 
-Take note of the returned `model_id` because you’ll need it to deploy the model.
+Take note of the returned `model_id` because you'll need it to deploy the model.
 
 ## Step 3: Deploy the model
 
