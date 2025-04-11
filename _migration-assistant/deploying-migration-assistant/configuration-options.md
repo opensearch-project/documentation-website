@@ -118,7 +118,7 @@ Performing a live capture migration requires that a Capture Proxy be configured 
 | `trafficReplayerExtraArgs`      | `"--sigv4-auth-header-service-region es,us-east-1 --speedup-factor 5"`                 | Extra arguments for the Traffic Replayer command, including options for auth headers and other parameters specified by the [Traffic Replayer](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/trafficReplayer/src/main/java/org/opensearch/migrations/replay/TrafficReplayer.java). |
 | `targetClusterProxyServiceEnabled` | `true` | Enables the target cluster proxy service deployment using a CloudFormation stack. |
 
-For arguments available in `captureProxyExtraArgs`, see the `@Parameter` fields in [`CaptureProxy.java`](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/trafficCaptureProxyServer/src/main/java/org/opensearch/migrations/trafficcapture/proxyserver/CaptureProxy.java). For `trafficReplayerExtraArgs`, see the `@Parameter` fields in [TrafficReplayer.java](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/trafficReplayer/src/main/java/org/opensearch/migrations/replay/TrafficReplayer.java).
+For arguments available in `captureProxyExtraArgs`, see the `@Parameter` fields in [`CaptureProxy.java`](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/trafficCaptureProxyServer/src/main/java/org/opensearch/migrations/trafficcapture/proxyserver/CaptureProxy.java). For `trafficReplayerExtraArgs`, see the `@Parameter` fields in [`TrafficReplayer.java`](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/trafficReplayer/src/main/java/org/opensearch/migrations/replay/TrafficReplayer.java).
 
 
 ## Cluster authentication options
@@ -169,6 +169,50 @@ Both the source and target cluster can use no authentication, authentication lim
 The `serviceSigningName` can be `es` for an Elasticsearch or OpenSearch domain, or `aoss` for an OpenSearch Serverless collection.
 
 All of these authentication options apply to both source and target clusters.
+
+## Bring-your-own-snapshot options
+
+An existing Amazon Simple Storage Service (Amazon S3) snapshot can alternatively be used to perform [metadata]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrating-metadata/) and [backfill]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/) migrations instead of using Migration Assistant to create a snapshot:
+
+```json
+    "snapshot": {
+        "snapshotName": "my-snapshot-name",
+        "s3Uri": "s3://my-s3-bucket-name/my-bucket-path-to-snapshot-repo",
+        "s3Region": "us-east-2"
+    }
+```
+{% include copy.html %}
+
+By default, Amazon S3 buckets automatically allow roles in the same AWS account (with the appropriate `s3:*` permissions) to access the S3 bucket, regardless of the bucket's AWS Region. If the external S3 bucket being used is in the same AWS account as the Migration Assistant deployment, no further AWS Identity and Access Management (IAM) configuration is required to access the bucket.
+
+If a custom permission model has been used with Amazon S3, any access control list (ACL) or custom bucket policy should allow the Migration Assistant task roles for RFS and the migration console to read from the S3 bucket.
+
+If the S3 bucket is in a separate AWS account from the Migration Assistant deployment, a custom bucket policy similar to the following will be needed to allow access to Migration Assistant:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowExternalAccountReadAccessToBucket",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::<ACCOUNT_ID>:root"
+      },
+      "Action": [
+        "s3:GetObject",
+        "s3:ListBucket",
+        "s3:GetBucketLocation"
+      ],
+      "Resource": [
+        "arn:aws:s3:::my-s3-bucket-name",
+        "arn:aws:s3:::my-s3-bucket-name/*"
+      ]
+    }
+  ]
+}
+```
+{% include copy.html %}
 
 ## Network configuration
 
