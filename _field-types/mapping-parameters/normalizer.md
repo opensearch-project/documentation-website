@@ -10,12 +10,12 @@ has_toc: false
 
 # Normalizer
 
-The `normalizer` mapping parameter defines a custom normalization process for keyword fields. Unlike [analyzers]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/index/) for text fields which generate multiple tokens, [normalizers]({{site.url}}{{site.baseurl}}/analyzers/normalizers/) transform the entire field value into a single token using a set of token filters. When you define a normalizer, the keyword field is processed by the specified filters before it is stored, while keeping the `_source` of the document unchanged.
+The `normalizer` mapping parameter defines a custom normalization process for keyword fields. Unlike [analyzers]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/index/) for text fields, which generate multiple tokens, [normalizers]({{site.url}}{{site.baseurl}}/analyzers/normalizers/) transform the entire field value into a single token using a set of token filters. When you define a normalizer, the keyword field is processed by the specified filters before it is stored, while keeping the `_source` of the document unchanged.
 
 
 ## Defining a normalizer
 
-The following request creates an index named `products` with a custom normalizer called `my_normalizer` applied to `code` field which uses the `trim` and `lowercase` filters:
+The following request creates an index named `products` with a custom normalizer called `my_normalizer`. The normalizer is applied to the `code` field, which uses the `trim` and `lowercase` filters:
 
 ```json
 PUT /products
@@ -42,7 +42,7 @@ PUT /products
 ```
 {% include copy-curl.html %}
 
-You can index a document using the following command, the `code` field will be normalized by trimming any extra spaces and converting the text to lowercase:
+When you ingest a document into the index, the `code` field is normalized by trimming any extra spaces and converting the text to lowercase:
 
 ```json
 PUT /products/_doc/1
@@ -52,7 +52,7 @@ PUT /products/_doc/1
 ```
 {% include copy-curl.html %}
 
-Use the following command to query the index:
+Search for the indexed document using lowercased and trimmed text in the query:
 
 ```json
 POST /products/_search
@@ -66,7 +66,7 @@ POST /products/_search
 ```
 {% include copy-curl.html %}
 
-As the `code` field is normalized, a `term` query using the trimmed and lowercase value will successfully match the stored document:
+Because the `code` field is normalized, the `term` query successfully matches the stored document:
 
 ```json
 {
