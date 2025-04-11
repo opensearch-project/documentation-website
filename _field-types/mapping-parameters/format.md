@@ -14,7 +14,7 @@ The `format` mapping parameter specifies the date formats that a date field can 
 
 ## Example: Defining a custom date format
 
-Create index `events` with `event_date` field configured to a custom date format `yyyy-MM-dd HH:mm:ss` using following request:
+Create an `events` index with the `event_date` field configured to a custom `yyyy-MM-dd HH:mm:ss` date format:
 
 ```json
 PUT events
@@ -31,9 +31,9 @@ PUT events
 ```
 {% include copy-curl.html %}
 
-Index a document using matching format `"2025-03-26 15:30:00"` for the `event_date` field:
+Index a document using the specified format for the `event_date` field:
 
-```
+```json
 PUT events/_doc/1
 {
   "event_name": "Conference",
@@ -44,7 +44,7 @@ PUT events/_doc/1
 
 ## Example: Using multiple date formats
 
-Create an index where `log_timestamp` field accepts both the custom date format `yyyy-MM-dd HH:mm:ss` and the `epoch_millis` format using the following request:
+Create an index containing a `log_timestamp` field, which accepts both the custom `yyyy-MM-dd HH:mm:ss` date format and the `epoch_millis` format:
 
 ```json
 PUT logs
@@ -61,7 +61,7 @@ PUT logs
 ```
 {% include copy-curl.html %}
 
-Index the first document using date-time string `"2025-03-26 08:45:00"`:
+Index the first document using the custom format:
 
 ```json
 PUT logs/_doc/1
@@ -72,7 +72,7 @@ PUT logs/_doc/1
 ```
 {% include copy-curl.html %}
 
-Index the second document using the millisecond representation `1711442700000`:
+Index the second document using the millisecond format:
 
 ```json
 PUT logs/_doc/2
