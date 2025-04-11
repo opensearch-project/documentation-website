@@ -58,11 +58,11 @@ Parameter | Description
 `norms` | A Boolean value that specifies whether the field length should be used when calculating relevance scores. Default is `false`.
 [`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | A value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, the field is treated as missing when its value is `null`. Default is `null`.
 `similarity` | The ranking algorithm for calculating relevance scores. Default is index default, which is `BM25`.
-`useSimilarity` | With default of `false`, constant_score is used that leads to lower latency. Set this to `true` if you old behavior of scoring, but expect worse search latency. See example below.
+`use_similarity` | With default of `false`, constant_score is used that leads to lower latency. Set this to `true` to achieve old behavior of scoring, but expect worse search latency. See example below.
 `split_queries_on_whitespace` | A Boolean value that specifies whether full-text queries should be split on white space. Default is `false`.
 `store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the `_source` field. Default is `false`. 
 
-#### Example term search with useSimilarity set to false (Default) - Took time is 10ms, all scores are 1.0. 
+#### Example term search with use_similarity set to false (Default) - Took time is 10ms, all scores are 1.0 
 
 ```json
 curl - X POST "http://localhost:9200/big5/_search?pretty=true"\ -
@@ -109,7 +109,7 @@ curl - X POST "http://localhost:9200/big5/_search?pretty=true"\ -
 }
 ```
 
-#### Example term search with useSimilarity set to true - took time 200ms, scores are based on BM25
+#### Example term search with use_similarity set to true - took time 200ms, scores are based on BM25
 
 Set the parameter and check
 ```json
@@ -118,7 +118,7 @@ curl -X PUT "http://localhost:9200/big5/_mapping?pretty" \
 -d '{
   "properties": {
     "process.name": {
-       "type":"keyword", "useSimilarity": true
+       "type":"keyword", "use_similarity": true
     }
   }
 }'
@@ -135,7 +135,7 @@ GET "http://localhost:9200/big5/_mapping/field/process.name?pretty=true"
         "mapping" : {
           "name" : {
             "type" : "keyword",
-            "useSimilarity" : true
+            "use_similarity" : true
           }
         }
       }
