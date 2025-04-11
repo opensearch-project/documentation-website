@@ -15,6 +15,7 @@ The `http` plugin accepts HTTP requests from clients. The following table descri
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 port | No | Integer | The port that the source is running on. Default value is `2021`. Valid options are between `0` and `65535`.
+path | No | String | The URI path for log ingestion should start with a forward slash (/), for example, `/${pipelineName}/logs`. The `${pipelineName}` placeholder will be replaced with the pipeline name. The default value is `/log/ingest`.
 health_check_service | No | Boolean | Enables the health check service on the `/health` endpoint on the defined port. Default value is `false`.
 unauthenticated_health_check | No | Boolean | Determines whether or not authentication is required on the health check endpoint. OpenSearch Data Prepper ignores this option if no authentication is defined. Default value is `false`.
 request_timeout | No | Integer | The request timeout, in milliseconds. Default value is `10000`.
