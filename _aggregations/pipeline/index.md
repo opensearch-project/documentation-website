@@ -7,6 +7,8 @@ redirect_from:
   - /opensearch/pipeline-agg/
   - /query-dsl/aggregations/pipeline-agg/
   - /query-dsl/aggregations/index/
+  - /aggregations/pipeline/
+  - /aggregations/pipeline-agg/
 ---
 
 # Pipeline aggregations
