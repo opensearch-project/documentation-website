@@ -85,4 +85,4 @@ PUT logs/_doc/2
 
 ## Built-in date formats
 
-For comprehensive list of built-in date format see [Built-in formats]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/#built-in-formats)
+For a comprehensive list of built-in date formats, see [Built-in formats]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/#built-in-formats).
