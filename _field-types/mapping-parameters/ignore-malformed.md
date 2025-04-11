@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Ignore_malformed
+title: Ignore malformed
 parent: Mapping parameters
 grand_parent: Mapping and field types
 nav_order: 45
@@ -8,15 +8,15 @@ has_children: false
 has_toc: false
 ---
 
-# ignore_malformed
+# Ignore malformed
 
-The `ignore_malformed` mapping parameter instructs the indexing engine to ignore values that do not match the field’s expected format. When enabled, malformed values are not indexed, preventing entire document rejection due to data format issues. This ensures that documents are still stored even if one or more fields contain data that cannot be parsed.
+The `ignore_malformed` mapping parameter instructs the indexing engine to ignore values that do not match the field’s expected format. When enabled, malformed values are not indexed, preventing entire-document rejection because of data format issues. This ensures that documents are still stored even if one or more fields contain data that cannot be parsed.
 
 By default, `ignore_malformed` is disabled, which means that if a value cannot be parsed according to the field type, the entire document indexing will fail.
 
-## Example: Without ignore_malformed
+## Example: ignore_malformed off
 
-Use the following command to create an index named `people_no_ignore` with an `age` field of type `integer` and `ignore_malformed` set to `false` (default):
+Create an index named `people_no_ignore` containing an `age` field of type `integer`. By default, `ignore_malformed` is set to `false`:
 
 ```json
 PUT /people_no_ignore
@@ -24,8 +24,7 @@ PUT /people_no_ignore
   "mappings": {
     "properties": {
       "age": {
-        "type": "integer",
-        "ignore_malformed": false
+        "type": "integer"
       }
     }
   }
@@ -33,7 +32,7 @@ PUT /people_no_ignore
 ```
 {% include copy-curl.html %}
 
-Index a document with a malformed value using the following command:
+Index a document with a malformed value:
 
 ```json
 PUT /people_no_ignore/_doc/1
@@ -43,7 +42,7 @@ PUT /people_no_ignore/_doc/1
 ```
 {% include copy-curl.html %}
 
-Expected result:
+The request fails because of the malformed value:
 
 ```json
 {
@@ -65,9 +64,9 @@ Expected result:
 }
 ```
 
-## Example: With ignore_malformed
+## Example: ignore_malformed on
 
-Use the following command to create an index named `people_ignore` where the `age` field uses `ignore_malformed` set to `true`.
+Create an index named `people_ignore`, in which the `age` field has `ignore_malformed` set to `true`:
 
 ```json
 PUT /people_ignore
@@ -84,7 +83,7 @@ PUT /people_ignore
 ```
 {% include copy-curl.html %}
 
-Index a document with a malformed value using the following command:
+Index a document with a malformed value:
 
 ```json
 PUT /people_ignore/_doc/1
@@ -94,14 +93,14 @@ PUT /people_ignore/_doc/1
 ```
 {% include copy-curl.html %}
 
-Retrieve the document using the following command:
+Retrieve the document:
 
 ```json
 GET /people_ignore/_doc/1
 ```
 {% include copy-curl.html %}
 
-Expected result:
+The response shows that the document was indexed successfully, despite having a malformed value:
 
 ```json
 {
