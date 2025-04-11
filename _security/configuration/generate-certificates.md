@@ -77,7 +77,7 @@ openssl req -new -key admin-key.pem -out admin.csr
 
 Follow the prompts to fill in the details. You don't need to specify a challenge password. As noted in the [OpenSSL Cookbook](https://www.feistyduck.com/books/openssl-cookbook/){:target='\_blank'}, "Having a challenge password does not increase the security of the CSR in any way."
 
-If you generate TLS certificates and have enabled hostname verification by setting `plugins.security.ssl.transport.enforce_hostname_verification` to `true` (default), be sure to specify a common name (CN) for each certificate signing request (CSR) that matches the corresponding DNS A record of the intended node.
+If you generate TLS certificates and have enabled hostname verification by setting `transport.ssl.enforce_hostname_verification` to `true` (default), be sure to specify a common name (CN) for each certificate signing request (CSR) that matches the corresponding DNS A record of the intended node.
 
 If you want to use the same node certificate on all nodes (not recommended), set hostname verification to `false`. For more information, see [Configure TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/#advanced-hostname-verification-and-dns-lookup).
 
@@ -256,7 +256,7 @@ On one node, the security configuration portion of `opensearch.yml` might look l
 plugins.security.ssl.transport.pemcert_filepath: node1.pem
 plugins.security.ssl.transport.pemkey_filepath: node1-key.pem
 plugins.security.ssl.transport.pemtrustedcas_filepath: root-ca.pem
-plugins.security.ssl.transport.enforce_hostname_verification: false
+transport.ssl.enforce_hostname_verification: false
 plugins.security.ssl.http.enabled: true
 plugins.security.ssl.http.pemcert_filepath: node1.pem
 plugins.security.ssl.http.pemkey_filepath: node1-key.pem
