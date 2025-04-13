@@ -303,6 +303,20 @@ _<sup>1</sup>Dashboard Notebooks was merged in to the Observability plugin with 
 _<sup>2</sup>Performance Analyzer is not available on Windows._
 
 
+### Downloading Plugin Distributions (for offline installation)
+
+Each bundled plugin distribution could be downloaded and installed from a [ZIP file](#install-a-plugin-from-a-zip-file) offline. Please use the official plugins repository URL template for such purpose:
+
+```
+https://artifacts.opensearch.org/releases/plugins/<plugin-name>/<version>/<plugin-name>-<version>.zip
+```
+
+The `<plugin-name>` correponds to the name of the bundled plugin being downloaded (fe, `analysis-icu`), whereas `<version>` should match the version of the OpenSearch distribution (fe, `2.19.1`). For example, here is an URL to download `analysis-icu` bundled plugin distribution for OpenSearch version `2.19.1`:
+
+```
+https://artifacts.opensearch.org/releases/plugins/analysis-icu/2.19.1/analysis-icu-2.19.1.zip
+```
+
 ### Additional plugins
 
 There are many more plugins available in addition to those provided by the default distribution. These additional plugins have been built by OpenSearch developers or members of the OpenSearch community. For a list of additional plugins you can install, see [Additional plugins]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/index/).
