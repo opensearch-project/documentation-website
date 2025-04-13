@@ -1,22 +1,20 @@
 # frozen_string_literal: true
 
-require_relative 'base_mustache_renderer'
-require_relative '../insert_arguments'
+require_relative 'components/base_mustache_renderer'
 require_relative '../api/action'
 require_relative '../spec_insert_error'
 require_relative 'endpoints'
 require_relative 'path_parameters'
 require_relative 'query_parameters'
+require_relative 'body_parameters'
 
 # Class to render spec insertions
 class SpecInsert < BaseMustacheRenderer
-  COMPONENTS = Set.new(%w[query_params path_params endpoints]).freeze
   self.template_file = "#{__dir__}/templates/spec_insert.mustache"
 
-  # @param [Array<String>] arg_lines the lines between "<!-- doc_insert_start" and "-->"
-  def initialize(arg_lines)
-    args = InsertArguments.new(arg_lines)
-    action = Action.actions[args.api]
+  # @param [InsertArguments]
+  def initialize(args)
+    action = Api::Action.by_full_name[args.api]
     super(action, args)
     raise SpecInsertError, '`api` argument not specified.' unless @args.api
     raise SpecInsertError, "API Action '#{@args.api}' does not exist in the spec." unless @action
@@ -25,6 +23,9 @@ class SpecInsert < BaseMustacheRenderer
   def arguments
     @args.raw.map { |key, value| { key:, value: } }
   end
+
+  def api; @args.api end
+  def component; @args.component end
 
   def content
     raise SpecInsertError, '`component` argument not specified.' unless @args.component
@@ -35,6 +36,10 @@ class SpecInsert < BaseMustacheRenderer
       PathParameters.new(@action, @args).render
     when :endpoints
       Endpoints.new(@action, @args).render
+    when :request_body_parameters
+      BodyParameters.new(@action, @args, is_request: true).render
+    when :response_body_parameters
+      BodyParameters.new(@action, @args, is_request: false).render
     else
       raise SpecInsertError, "Invalid component: #{@args.component}"
     end

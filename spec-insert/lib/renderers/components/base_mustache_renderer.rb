@@ -6,12 +6,21 @@ require 'mustache'
 class BaseMustacheRenderer < Mustache
   self.template_path = "#{__dir__}/templates"
 
-  # @param [Action] action API Action
+  # @param [Api::Action]
+  attr_reader :action
+  # @param [InsertArguments]
+  attr_reader :args
+
+  # @param [Api::Action] action API Action
   # @param [InsertArguments] args
   def initialize(action, args)
     super()
     @action = action
     @args = args
+  end
+
+  def render
+    @empty ? nil : super
   end
 
   def omit_header

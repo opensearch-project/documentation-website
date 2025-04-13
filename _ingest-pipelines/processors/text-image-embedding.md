@@ -44,6 +44,7 @@ The following table lists the required and optional parameters for the `text_ima
 `field_map.image`  | String | Optional | The name of the field from which to obtain the image for generating vector embeddings. You must specify at least one `text` or `image`.
 `description`  | String | Optional  | A brief description of the processor.  |
 `tag` | String | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
+`skip_existing` | Boolean | Optional | When `true`, the processor does not make inference calls for fields that already contain embeddings, leaving existing embeddings unchanged. Default is `false`.|
 
 ## Using the processor
 
