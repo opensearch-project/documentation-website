@@ -9,53 +9,90 @@ nav_order: 20
 
 # Accessing data in pipelines
 
-In ingest pipelines, you access the data of incoming documents using the `ctx` object. This object represents the document being processed and allows you to read, modify, or enrich its fields.
+In ingest pipelines, you access the data of incoming documents using the `ctx` object. This object represents the document being processed and allows you to read, modify, or enrich its fields. Processors in a pipeline have read and write access to both the `_source` fields of a document and its metadata fields.
 
-## Accessing document fields
+## Accessing fields in the source
 
-The `ctx` object exposes all document fields. You can access them directly using dot notation.
-
-### Example: Access a top-level field
-
-Given the following example document:
+To access a field in the document _source refer to fields by their name:
 
 ```json
 {
-  "user": "alice"
-}
-```
-
-You can access `user` using:
-
-```json
-"field": "ctx.user"
-```
-
-### Example: Access nested fields
-
-Given the following example document:
-
-```json
-{
-  "user": {
-    "name": "alice"
+  "set": {
+    "field": "my_field",
+    "value": 582.1
   }
 }
 ```
 
-You can access `user.name` using:
+You can also explicitly refer to the field using `_source`:
 
 ```json
-"field": "ctx.user.name"
+{
+  "set": {
+    "field": "_source.my_field",
+    "value": 582.1
+  }
+}
 ```
 
-## Using `ctx` in Mustache templates
+## Accessing metadata fields
 
-Some processors support Mustache templates for dynamic field values. Use triple curly braces `{% raw %}{{{}}}{% endraw %}` to access the value of a field.
+Similarly to `_source` field, you can access metadata fields. These include:
 
-### Example: Dynamic greeting using `set` processor
+- `_index`
+- `_type`
+- `_id`
+- `_routing`
 
-If the document has `"user": "alice"`, Use the following syntax to produce the result `"greeting": "Hello, alice!"`.
+For example, the following command sets the `_id` metadata field:
+
+```json
+{
+  "set": {
+    "field": "_id",
+    "value": "1"
+  }
+}
+```
+
+To read a metadata field in a template, use double curly braces:
+
+```json
+{
+  "set": {
+    "field": "index_used",
+    "value": "{% raw %}{{_index}}{% endraw %}"
+  }
+}
+```
+
+You cannot use `{% raw %}{{_id}}{% endraw %}` in a processor if the document ID is auto-generated.
+{: .note}
+
+## Accessing ingest metadata fields
+
+Ingest-specific metadata under the `_ingest.timestamp` field is added automatically and records when the document was received by the ingest node. 
+
+Example:
+
+```json
+{
+  "set": {
+    "field": "received",
+    "value": "{% raw %}{{_ingest.timestamp}}{% endraw %}"
+  }
+}
+```
+
+This value is transient and will not be indexed unless explicitly written into the document like above.
+
+To access a field named `_ingest` in the source, use `_source._ingest` to avoid confusion with ingest metadata.
+
+## Accessing fields using Mustache templates
+
+Many processors support [Mustache templates](https://mustache.github.io/). Use triple curly braces `{% raw %}{{{field}}}{% endraw %}` to inject field values directly without escaping.
+
+### Example: Greeting template
 
 ```json
 {
@@ -66,13 +103,37 @@ If the document has `"user": "alice"`, Use the following syntax to produce the r
 }
 ```
 
+## Dynamic field names
+
+You can dynamically name fields based on values of other fields.
+
+```json
+{
+  "set": {
+    "field": "{% raw %}{{service}}{% endraw %}",
+    "value": "{% raw %}{{code}}{% endraw %}"
+  }
+}
+```
+
+## Example: Dynamic index name
+
+Set the target index dynamically from the document:
+
+```json
+{
+  "set": {
+    "field": "_index",
+    "value": "{% raw %}{{geoip.country_iso_code}}{% endraw %}"
+  }
+}
+```
+
 ## Using `ctx` in script processors
 
-The `script` processor allows you to write logic using [Painless]({{site.url}}{{site.baseurl}}/api-reference/script-apis/exec-script/) scripting language.
+To perform advanced logic, use the `script` processor with [Painless]({{site.url}}{{site.baseurl}}/api-reference/script-apis/exec-script/).
 
-### Example: Copy a value from one field to another
-
-Use the following syntax to copy `timestamp` field to `event_time` field:
+### Example: Copy a field
 
 ```json
 {
@@ -83,11 +144,7 @@ Use the following syntax to copy `timestamp` field to `event_time` field:
 }
 ```
 
-## Full example: Accessing and modifying fields
-
-This following pipeline:
-- Sets `full_name` using Mustache templates from nested fields
-- Extracts the year from `timestamp` and sets it to `year`
+## Full pipeline example
 
 ```json
 PUT _ingest/pipeline/ctx-access-pipeline
@@ -105,15 +162,23 @@ PUT _ingest/pipeline/ctx-access-pipeline
         "lang": "painless",
         "source": "ctx.year = ctx.timestamp.substring(0, 4);"
       }
+    },
+    {
+      "set": {
+        "field": "received",
+        "value": "{% raw %}{{_ingest.timestamp}}{% endraw %}"
+      }
     }
   ]
 }
 ```
 {% include copy-curl.html %}
 
-### Testing the pipeline
+---
 
-You can use [_simulate]({{site.url}}{{site.baseurl}}/ingest-pipelines/simulate-ingest/) operation to test the created pipeline:
+## Testing the pipeline
+
+You can use the [`_simulate`]({{site.url}}{{site.baseurl}}/ingest-pipelines/simulate-ingest/) API to test the pipeline:
 
 ```json
 POST _ingest/pipeline/ctx-access-pipeline/_simulate
@@ -133,7 +198,7 @@ POST _ingest/pipeline/ctx-access-pipeline/_simulate
 ```
 {% include copy-curl.html %}
 
-The returned result demonstrates the effect of the processors in the pipeline:
+### Simulated result
 
 ```json
 {
@@ -144,15 +209,16 @@ The returned result demonstrates the effect of the processors in the pipeline:
         "_id": "_id",
         "_source": {
           "full_name": "Alice Smith",
+          "year": "2025",
+          "received": "2025-04-14T18:27:59.288665421Z",
           "user": {
             "last": "Smith",
             "first": "Alice"
           },
-          "year": "2025",
           "timestamp": "2025-04-14T10:00:00Z"
         },
         "_ingest": {
-          "timestamp": "2025-04-14T16:26:21.286147633Z"
+          "timestamp": "2025-04-14T18:27:59.288665421Z"
         }
       }
     }
