@@ -11,88 +11,122 @@ nav_order: 20
 
 In ingest pipelines, you access the data of incoming documents using the `ctx` object. This object represents the document being processed and allows you to read, modify, or enrich its fields. Processors in a pipeline have read and write access to both the `_source` fields of a document and its metadata fields.
 
-## Accessing fields in the source
+## Accessing document fields
 
-To access a field in the document _source refer to fields by their name:
+The `ctx` object exposes all document fields. You can access them directly using dot notation.
+
+### Example: Access a top-level field
+
+Given the following example document:
 
 ```json
 {
-  "set": {
-    "field": "my_field",
-    "value": 582.1
+  "user": "alice"
+}
+```
+
+You can access `user` using:
+
+```json
+"field": "ctx.user"
+```
+
+### Example: Access nested fields
+
+Given the following example document:
+
+```json
+{
+  "user": {
+    "name": "alice"
   }
 }
 ```
 
-You can also explicitly refer to the field using `_source`:
+You can access `user.name` using:
+
+```json
+"field": "ctx.user.name"
+```
+
+## Accessing fields in the source
+
+To access a field in the document _source, refer to fields by their name:
 
 ```json
 {
   "set": {
-    "field": "_source.my_field",
-    "value": 582.1
+    "field": "environment",
+    "value": "production"
+  }
+}
+```
+
+Or explicitly use `_source`:
+
+```json
+{
+  "set": {
+    "field": "_source.environment",
+    "value": "production"
   }
 }
 ```
 
 ## Accessing metadata fields
 
-Similarly to `_source` field, you can access metadata fields. These include:
+You can read or write metadata fields such as:
 
 - `_index`
 - `_type`
 - `_id`
 - `_routing`
 
-For example, the following command sets the `_id` metadata field:
+### Example: Set `_routing` dynamically
 
 ```json
 {
   "set": {
-    "field": "_id",
-    "value": "1"
+    "field": "_routing",
+    "value": "{% raw %}{{region}}{% endraw %}"
   }
 }
 ```
 
-To read a metadata field in a template, use double curly braces:
-
-```json
-{
-  "set": {
-    "field": "index_used",
-    "value": "{% raw %}{{_index}}{% endraw %}"
-  }
-}
-```
-
-You cannot use `{% raw %}{{_id}}{% endraw %}` in a processor if the document ID is auto-generated.
+Using `{% raw %}{{_id}}{% endraw %}` is not supported when document IDs are auto-generated.
 {: .note}
 
 ## Accessing ingest metadata fields
 
-Ingest-specific metadata under the `_ingest.timestamp` field is added automatically and records when the document was received by the ingest node. 
-
-Example:
+The `_ingest.timestamp` field represents when the ingest node received the document. To persist this timestamp:
 
 ```json
 {
   "set": {
-    "field": "received",
+    "field": "received_at",
     "value": "{% raw %}{{_ingest.timestamp}}{% endraw %}"
   }
 }
 ```
 
-This value is transient and will not be indexed unless explicitly written into the document like above.
+## Using `ctx` in Mustache templates
 
-To access a field named `_ingest` in the source, use `_source._ingest` to avoid confusion with ingest metadata.
+Use Mustache templates to insert field values into processor settings. Use triple curly braces for unescaped field values.
 
-## Accessing fields using Mustache templates
+### Example: Combine source fields
 
-Many processors support [Mustache templates](https://mustache.github.io/). Use triple curly braces `{% raw %}{{{field}}}{% endraw %}` to inject field values directly without escaping.
+```json
+{
+  "set": {
+    "field": "log_label",
+    "value": "{% raw %}{{{app}}}_{{{env}}}{% endraw %}"
+  }
+}
+```
 
-### Example: Greeting template
+### Example: Dynamic greeting using `set` processor
+
+If the document has `"user": "alice"`, use the following syntax to produce the result `"greeting": "Hello, alice!"`.
 
 ```json
 {
@@ -105,7 +139,7 @@ Many processors support [Mustache templates](https://mustache.github.io/). Use t
 
 ## Dynamic field names
 
-You can dynamically name fields based on values of other fields.
+You can use a field's value as the name of a new field.
 
 ```json
 {
@@ -116,24 +150,33 @@ You can dynamically name fields based on values of other fields.
 }
 ```
 
-## Example: Dynamic index name
-
-Set the target index dynamically from the document:
+## Example: Route to dynamic index based on status
 
 ```json
 {
   "set": {
     "field": "_index",
-    "value": "{% raw %}{{geoip.country_iso_code}}{% endraw %}"
+    "value": "{% raw %}{{status}}{% endraw %}-events"
   }
 }
 ```
 
 ## Using `ctx` in script processors
 
-To perform advanced logic, use the `script` processor with [Painless]({{site.url}}{{site.baseurl}}/api-reference/script-apis/exec-script/).
+Use the `script` processor for advanced transformations.
 
-### Example: Copy a field
+### Example: Add a field only if another is missing
+
+```json
+{
+  "script": {
+    "lang": "painless",
+    "source": "if (ctx.error_message == null) { ctx.error_message = 'none'; }"
+  }
+}
+```
+
+### Example: Copy a value from one field to another
 
 ```json
 {
@@ -147,56 +190,50 @@ To perform advanced logic, use the `script` processor with [Painless]({{site.url
 ## Full pipeline example
 
 ```json
-PUT _ingest/pipeline/ctx-access-pipeline
+PUT _ingest/pipeline/example-pipeline
 {
-  "description": "Demonstrates accessing and modifying fields using ctx",
+  "description": "Sets tags, log label, and defaults error message",
   "processors": [
     {
       "set": {
-        "field": "full_name",
-        "value": "{% raw %}{{{user.first}}} {{{user.last}}}{% endraw %}"
+        "field": "tagline",
+        "value": "{% raw %}{{{user.first}}} from {{{department}}}{% endraw %}"
       }
     },
     {
       "script": {
         "lang": "painless",
-        "source": "ctx.year = ctx.timestamp.substring(0, 4);"
+        "source": "ctx.year = ctx.date.substring(0, 4);"
       }
     },
     {
       "set": {
-        "field": "received",
+        "field": "received_at",
         "value": "{% raw %}{{_ingest.timestamp}}{% endraw %}"
       }
     }
   ]
 }
 ```
-{% include copy-curl.html %}
-
----
 
 ## Testing the pipeline
 
-You can use the [`_simulate`]({{site.url}}{{site.baseurl}}/ingest-pipelines/simulate-ingest/) API to test the pipeline:
-
 ```json
-POST _ingest/pipeline/ctx-access-pipeline/_simulate
+POST _ingest/pipeline/example-pipeline/_simulate
 {
   "docs": [
     {
       "_source": {
         "user": {
-          "first": "Alice",
-          "last": "Smith"
+          "first": "Liam"
         },
-        "timestamp": "2025-04-14T10:00:00Z"
+        "department": "Engineering",
+        "date": "2024-12-03T14:05:00Z"
       }
     }
   ]
 }
 ```
-{% include copy-curl.html %}
 
 ### Simulated result
 
@@ -208,17 +245,17 @@ POST _ingest/pipeline/ctx-access-pipeline/_simulate
         "_index": "_index",
         "_id": "_id",
         "_source": {
-          "full_name": "Alice Smith",
-          "year": "2025",
-          "received": "2025-04-14T18:27:59.288665421Z",
           "user": {
-            "last": "Smith",
-            "first": "Alice"
+            "first": "Liam"
           },
-          "timestamp": "2025-04-14T10:00:00Z"
+          "department": "Engineering",
+          "date": "2024-12-03T14:05:00Z",
+          "tagline": "Liam from Engineering",
+          "year": "2024",
+          "received_at": "2025-04-14T18:40:00.000Z"
         },
         "_ingest": {
-          "timestamp": "2025-04-14T18:27:59.288665421Z"
+          "timestamp": "2025-04-14T18:40:00.000Z"
         }
       }
     }
