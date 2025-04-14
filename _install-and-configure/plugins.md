@@ -305,7 +305,7 @@ _<sup>2</sup>Performance Analyzer is not available on Windows._
 
 ### Downloading plugin distributions for offline installation
 
-Each bundled plugin distribution can be downloaded and installed from a [zip file](#install-a-plugin-from-a-zip-file) offline using the official plugins repository URL template:
+Each bundled plugin distribution can be downloaded and installed from a [zip file](#install-a-plugin-from-a-zip-file) offline using the official `plugins` repository URL template:
 
 ```html
 https://artifacts.opensearch.org/releases/plugins/<plugin-name>/<version>/<plugin-name>-<version>.zip
