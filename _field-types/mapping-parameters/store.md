@@ -12,7 +12,7 @@ has_toc: false
 
 The `store` mapping parameter determines whether the value of a field should be stored separately from the `_source` and made directly retrievable using the `stored_fields` option in a search request.
 
-By default, `store` is set to `false`, meaning field values are not stored individually and are only available as part of the document `_source`. If `store` is set to `true`, you can disable the `_source` to save disk space and still retrieve specific fields.
+By default, `store` is set to `false`, meaning field values are not stored individually and are only available as part of the document `_source`. If `store` is set to `true`, you can disable the `_source` to save disk space and still [retrieve specific fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/).
 
 ## Example: Enabling store on a field
 
