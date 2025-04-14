@@ -12,11 +12,11 @@ has_toc: false
 
 The `store` mapping parameter determines whether the value of a field should be stored separately from the `_source` and made directly retrievable using the `stored_fields` option in a search request.
 
-By default, `store` is set to `false`, meaning field values are not stored individually and are only available as part of the document `_source`. If `store` is set to `true`, you can disable the `_source` to save disk space and still [retrieve specific fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/).
+By default, `store` is set to `false`, meaning that field values are not stored individually and are only available as part of the document `_source`. If `store` is set to `true`, you can disable the `_source` to save disk space and still [retrieve specific fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/).
 
-## Example: Enabling store on a field
+## Example: Enabling `store` on a field
 
-The following request creates an index named `products`, in which the `model` field is stored separately from the `_source`:
+The following request creates an index named `products` in which the `model` field is stored separately from the `_source`:
 
 ```json
 PUT /products
@@ -62,13 +62,13 @@ POST /products/_search
 ```
 {% include copy-curl.html %}
 
-This query returns the `model` field stored separately, even though `_source` is still available.
+This query returns the `model` field stored separately even though the `_source` is still available.
 
 ---
 
 ## Example: Storing fields with `_source` disabled
 
-If you want to save disk space and don't need the full original document later (for example, for reindexing or updates), you can disable `_source` and store only necessary fields:
+If you want to save disk space and don't need to access the full original document later (for example, for reindexing or updates), you can disable `_source` and store only necessary fields:
 
 ```json
 PUT /products_no_source
@@ -117,7 +117,7 @@ POST /products_no_source/_search
 ```
 {% include copy-curl.html %}
 
-This query returns the `model` field retrieved from stored fields without accessing `_source`.
+This query returns the `model` field retrieved from stored fields without accessing the `_source`.
 
 If you attempt to retrieve the `_source` as follows:
 
@@ -125,7 +125,7 @@ If you attempt to retrieve the `_source` as follows:
 GET /products_no_source/_doc/1
 ```
 
-The `_source` in the response will be `null`. This demonstrates that the full document is no longer available and only stored fields can be retrieved because `_source` is disabled:
+Then the `_source` in the response will be `null`. This demonstrates that the full document is no longer available and that only stored fields can be retrieved because `_source` is disabled:
 
 ```json
 {
