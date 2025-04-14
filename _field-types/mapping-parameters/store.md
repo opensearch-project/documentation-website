@@ -117,7 +117,7 @@ POST /products_no_source/_search
 ```
 {% include copy-curl.html %}
 
-This query returns the `model` field retrieved from stored fields without accessing the `_source`.
+This query returns the `model` field retrieved from `stored_fields` without accessing the `_source`.
 
 If you attempt to retrieve the `_source` as follows:
 
