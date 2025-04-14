@@ -12,9 +12,9 @@ has_toc: false
 
 The `store` mapping parameter determines whether the value of a field should be stored separately from the `_source` and made directly retrievable using the `stored_fields` option in a search request.
 
-By default, `store` is set to `false`, therefore field values are not stored individually, they are only available as part of the `_source` document. If `store` is set to `true`, you can exclude the `_source` to save disk space but still fetch certain fields.
+By default, `store` is set to `false`, meaning field values are not stored individually and are only available as part of the `_source` document. If `store` is set to `true`, you can disable the `_source` to save disk space and still retrieve specific fields.
 
-## Enabling store on a field
+## Example: Enabling store on a field
 
 The following request creates an index named `products` where the `model` field is stored separately from the `_source`:
 
@@ -36,9 +36,7 @@ PUT /products
 ```
 {% include copy-curl.html %}
 
-## Indexing a document
-
-Use the following request to index a sample document:
+### Indexing a document
 
 ```json
 PUT /products/_doc/1
@@ -49,9 +47,7 @@ PUT /products/_doc/1
 ```
 {% include copy-curl.html %}
 
-## Retrieving only the stored field
-
-To retrieve only the stored `model` field and not the full `_source`, use following command with the `stored_fields` parameter in a search request:
+### Retrieving only the stored field
 
 ```json
 POST /products/_search
@@ -66,29 +62,76 @@ POST /products/_search
 ```
 {% include copy-curl.html %}
 
-Expected result:
+This returns the `model` field stored separately, even though `_source` is still available.
+
+---
+
+## Example: Storing fields with `_source` disabled
+
+If you want to save disk space and don't need the full original document later (e.g., for reindexing or updates), you can disable `_source` and store only necessary fields:
+
+```json
+PUT /products_no_source
+{
+  "mappings": {
+    "_source": {
+      "enabled": false
+    },
+    "properties": {
+      "model": {
+        "type": "keyword",
+        "store": true
+      },
+      "name": {
+        "type": "text"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Indexing a document
+
+```json
+PUT /products_no_source/_doc/1
+{
+  "model": "KB-2002",
+  "name": "Mechanical Keyboard"
+}
+```
+{% include copy-curl.html %}
+
+### Retrieving the stored field
+
+```json
+POST /products_no_source/_search
+{
+  "query": {
+    "match": {
+      "name": "Keyboard"
+    }
+  },
+  "stored_fields": ["model"]
+}
+```
+{% include copy-curl.html %}
+
+This shows the `model` field retrieved from stored fields without accessing `_source`.
+
+### Attempting to retrieve the `_source`
+
+```json
+GET /products_no_source/_doc/1
+```
+
+Since `_source` is disabled, the response demonstrates that the full document is no longer available and only stored fields can be retrieved:
 
 ```json
 {
-  ...
-  "hits": {
-    "total": {
-      "value": 1,
-      "relation": "eq"
-    },
-    "max_score": 0.2876821,
-    "hits": [
-      {
-        "_index": "products",
-        "_id": "1",
-        "_score": 0.2876821,
-        "fields": {
-          "type": [
-            "WM-1001"
-          ]
-        }
-      }
-    ]
-  }
+  "_index": "products_no_source",
+  "_id": "1",
+  "found": true,
+  "_source": null
 }
 ```
