@@ -41,9 +41,7 @@ The following table lists the available request body fields.
 | `version` | Integer | Template version. |
 | `_meta` | Object | Metadata for the template. |
 
-## Example requests
-
-### Simulate a template
+### Example request: Simulate a template
 
 You can use the following command to simulate a template without creating it:
 
@@ -68,7 +66,7 @@ POST /_index_template/_simulate
 ```
 {% include copy-curl.html %}
 
-### Simulate a named template
+### Example request: Simulate a named template
 
 You can simulate specific template by specifying the name of the template.
 
@@ -114,7 +112,7 @@ POST /_index_template/_simulate/template_for_simulation
 ```
 {% include copy-curl.html %}
 
-### Simulate template on a specific index
+### Example request: Simulate template on a specific index
 
 Simulating template on a specific index name is particularly useful for resolving conflicts or debugging priority issues among templates.
 The following command demonstrates how all applicable templates, with overlapping index patterns, would apply to an index named `"logs-sim-1"`.
