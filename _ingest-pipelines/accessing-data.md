@@ -51,7 +51,7 @@ You can access `user.name` using:
 
 ## Accessing fields in the source
 
-To access a field in the document _source, refer to fields by their name:
+To access a field in the document `_source`, refer to fields by their name:
 
 ```json
 {
