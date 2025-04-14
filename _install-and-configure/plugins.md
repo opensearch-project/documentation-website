@@ -311,7 +311,7 @@ Each bundled plugin distribution can be downloaded and installed offline from a 
 https://artifacts.opensearch.org/releases/plugins/<plugin-name>/<version>/<plugin-name>-<version>.zip
 ```
 
-The `<plugin-name>` correponds to the name of the bundled plugin (for example, `analysis-icu`). The `<version>` must match the version of the OpenSearch distribution (for example, `2.19.1`). 
+The `<plugin-name>` corresponds to the name of the bundled plugin (for example, `analysis-icu`). The `<version>` must match the version of the OpenSearch distribution (for example, `2.19.1`). 
 
 For example, use the following URL to download the `analysis-icu` bundled plugin distribution for OpenSearch version `2.19.1`:
 
