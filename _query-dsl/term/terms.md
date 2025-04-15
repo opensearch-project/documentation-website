@@ -251,7 +251,7 @@ Parameter | Data type | Description
 `id` | String | The document ID of the document from which to fetch field values. Required.
 `path` | String | The name of the field from which to fetch field values. Specify nested fields using dot path notation. Required.
 `routing` | String | Custom routing value of the document from which to fetch field values. Optional. Required if a custom routing value was provided when the document was indexed.
-`store` | Bool | Do the lookup on the stored field, instead of _source. Optional.
+`store` | Boolean | Whether to perform the lookup on the stored field instead of `_source`. Optional.
 
 ## Bitmap filtering
 **Introduced 2.17**
