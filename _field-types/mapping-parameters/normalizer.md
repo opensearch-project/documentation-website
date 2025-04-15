@@ -10,7 +10,7 @@ has_toc: false
 
 # Normalizer
 
-The `normalizer` mapping parameter defines a custom normalization process for keyword fields. Unlike [analyzers]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/index/) for text fields, which generate multiple tokens, [normalizers]({{site.url}}{{site.baseurl}}/analyzers/normalizers/) transform the entire field value into a single token using a set of token filters. When you define a normalizer, the keyword field is processed by the specified filters before it is stored, while keeping the `_source` of the document unchanged.
+The `normalizer` mapping parameter defines a custom normalization process for keyword fields. Unlike [analyzers]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/index/) for text fields, which generate multiple tokens, [normalizers]({{site.url}}{{site.baseurl}}/analyzers/normalizers/) transform the entire field value into a single token using a set of token filters. When you define a normalizer, the keyword field is processed by the specified filters before it is stored while keeping the `_source` of the document unchanged.
 
 
 ## Defining a normalizer
@@ -52,7 +52,7 @@ PUT /products/_doc/1
 ```
 {% include copy-curl.html %}
 
-Search for the indexed document using lowercased and trimmed text in the query:
+Search for the indexed document using lowercase and trimmed text in the query:
 
 ```json
 POST /products/_search
