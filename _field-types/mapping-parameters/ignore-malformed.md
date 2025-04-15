@@ -10,9 +10,9 @@ has_toc: false
 
 # Ignore malformed
 
-The `ignore_malformed` mapping parameter instructs the indexing engine to ignore values that do not match the field’s expected format. When enabled, malformed values are not indexed, preventing entire-document rejection because of data format issues. This ensures that documents are still stored even if one or more fields contain data that cannot be parsed.
+The `ignore_malformed` mapping parameter instructs the indexing engine to ignore values that do not match the field's expected format. When enabled, malformed values are not indexed, preventing entire-document rejection because of data format issues. This ensures that documents are still stored even if one or more fields contain data that cannot be parsed.
 
-By default, `ignore_malformed` is disabled, which means that if a value cannot be parsed according to the field type, the entire document indexing will fail.
+By default, `ignore_malformed` is disabled, which means that if a value cannot be parsed according to the field type, indexing will fail for the entire document.
 
 ## Example: ignore_malformed off
 
@@ -66,7 +66,7 @@ The request fails because of the malformed value:
 
 ## Example: ignore_malformed on
 
-Create an index named `people_ignore`, in which the `age` field has `ignore_malformed` set to `true`:
+Create an index named `people_ignore` in which the `age` field has `ignore_malformed` set to `true`:
 
 ```json
 PUT /people_ignore
