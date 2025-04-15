@@ -159,7 +159,7 @@ For more information about these parameters, see the [Faiss documentation](https
 
 ### IVF training requirements
 
-The IVF algorithm requires a training step. To create an index that uses IVF, you need to train a model with the [Train API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-a-model), passing the IVF method definition. IVF requires, at a minimum, that there be `nlist` training data points, but we recommend [that you use more than this](https://github.com/facebookresearch/faiss/wiki/Guidelines-to-choose-an-index#how-big-is-the-dataset). Training data can be the same as the data you plan to index or come from a separate dataset.
+The IVF algorithm requires a training step. To create an index that uses IVF, you need to train a model with the [Train API]({{site.url}}{{site.baseurl}}/vector-search/api/knn#train-a-model), passing the IVF method definition. IVF requires, at a minimum, that there be `nlist` training data points, but we recommend [that you use more than this](https://github.com/facebookresearch/faiss/wiki/Guidelines-to-choose-an-index#how-big-is-the-dataset). Training data can be the same as the data you plan to index or come from a separate dataset.
 
 ### Supported encoders
 
