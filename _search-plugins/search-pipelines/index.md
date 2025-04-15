@@ -4,6 +4,8 @@ title: Search pipelines
 nav_order: 100
 has_children: true
 has_toc: false
+redirect_from:
+  - /search-plugins/search-pipelines/
 ---
 
 # Search pipelines
