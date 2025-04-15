@@ -10,7 +10,7 @@ has_toc: false
 
 # Format
 
-The `format` mapping parameter specifies the [Built-in date formats]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/#built-in-formats) that a date field can accept during indexing. By defining the expected date formats, you ensure that date values are correctly parsed and stored, facilitating accurate search and aggregation operations.
+The `format` mapping parameter specifies the [built-in date formats]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/#built-in-formats) that a date field can accept during indexing. By defining the expected date formats, you ensure that date values are correctly parsed and stored, facilitating accurate search and aggregation operations.
 
 ## Example: Defining a custom date format
 
