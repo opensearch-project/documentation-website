@@ -17,18 +17,53 @@ Deletes a snapshot from a repository.
 
 * To view a list of your snapshots, see [cat snapshots]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-snapshots).
 
-## Path and HTTP method
-
+<!-- spec_insert_start
+api: snapshot.delete
+component: endpoints
+-->
+## Endpoints
 ```json
-DELETE _snapshot/<repository>/<snapshot>
+DELETE /_snapshot/{repository}/{snapshot}
 ```
+<!-- spec_insert_end -->
 
+
+<!-- spec_insert_start
+api: snapshot.delete
+component: path_parameters
+-->
 ## Path parameters
 
-Parameter | Data type | Description
-:--- | :--- | :---
-repository | String | Repository that contains the snapshot. |
-snapshot | String | Snapshot to delete. |
+The following table lists the available path parameters.
+
+| Parameter | Required | Data type | Description |
+| :--- | :--- | :--- | :--- |
+| `repository` | **Required** | String | The name of the snapshot repository to delete. |
+| `snapshot` | **Required** | String | A comma-separated list of snapshot names to delete from the repository. |
+
+<!-- spec_insert_end -->
+
+<!-- spec_insert_start
+api: snapshot.delete
+component: query_parameters
+include_deprecated: false
+-->
+## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `cluster_manager_timeout` | String | The amount of time to wait for a response from the cluster manager node. For more information about supported time units, see [Common parameters]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). |
+
+<!-- spec_insert_end -->
+
+<!-- spec_insert_start
+api: snapshot.delete
+component: request_body_parameters
+-->
+<!-- API snapshot.delete does NOT have a request_body_parameters component -->
+<!-- spec_insert_end -->
 
 ## Example request
 

@@ -15,17 +15,54 @@ A repository in OpenSearch is simply a configuration that maps a repository name
 
 To learn more about repositories, see [Register or update snapshot repository]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-repository).
 
+<!-- spec_insert_start
+api: snapshot.delete_repository
+component: endpoints
+-->
 ## Endpoints
-
 ```json
-DELETE _snapshot/<repository>
+DELETE /_snapshot/{repository}
 ```
+<!-- spec_insert_end -->
 
+
+<!-- spec_insert_start
+api: snapshot.delete_repository
+component: path_parameters
+-->
 ## Path parameters
 
-Parameter | Data type | Description
-:--- | :--- | :---
-repository | String | Repository to delete. |
+The following table lists the available path parameters.
+
+| Parameter | Required | Data type | Description |
+| :--- | :--- | :--- | :--- |
+| `repository` | **Required** | List or String | The name of the snapshot repository to unregister. Wildcard (`*`) patterns are supported. |
+
+<!-- spec_insert_end -->
+
+<!-- spec_insert_start
+api: snapshot.delete_repository
+component: query_parameters
+-->
+## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `cluster_manager_timeout` | String | The amount of time to wait for a response from the cluster manager node. For more information about supported time units, see [Common parameters]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). |
+| `timeout` | String | The amount of time to wait for a response. |
+| `master_timeout` <br> _DEPRECATED_ | String | _(Deprecated since 2.0: To promote inclusive language, use `cluster_manager_timeout` instead.)_ Explicit operation timeout for connection to cluster-manager node |
+
+<!-- spec_insert_end -->
+
+<!-- spec_insert_start
+api: snapshot.delete_repository
+component: request_body_parameters
+-->
+<!-- API snapshot.delete_repository does NOT have a request_body_parameters component -->
+<!-- spec_insert_end -->
+
 
 ## Example request
 
@@ -48,3 +85,4 @@ Upon success, the response returns the following JSON object:
 
 To verify that the repository was deleted, use the [Get snapshot repository]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot-repository) API, passing the repository name as the `repository` path parameter.
 {: .note}
+

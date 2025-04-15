@@ -55,6 +55,23 @@ The following table lists the available query parameters. All query parameters a
 <!-- spec_insert_end -->
 
 
+<!-- spec_insert_start
+api: snapshot.clone
+component: request_body_parameters
+-->
+## Request body fields
+
+The snapshot clone definition.
+
+The request body is __required__. It is a JSON object with the following fields.
+
+| Property | Required | Data type | Description |
+| :--- | :--- | :--- | :--- |
+| `indices` | **Required** | String |  |
+
+<!-- spec_insert_end -->
+
+
 ## Example request
 
 The following request clones indexes `index_a` and `index_b` from `my_snapshot`, a snapshot located in the snapshot repository `my-opensearch-repo`, into a new snapshot in the same repository called `my_new_snapshot`:

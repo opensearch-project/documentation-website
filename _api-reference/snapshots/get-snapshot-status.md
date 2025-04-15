@@ -22,39 +22,49 @@ If you use the Security plugin, you must have the `monitor_snapshot`, `create_sn
 GET _snapshot/<repository>/<snapshot>/_status
 ```
 
+<!-- spec_insert_start
+api: snapshot.status
+component: endpoints
+-->
+## Endpoints
+```json
+GET /_snapshot/_status
+GET /_snapshot/{repository}/_status
+GET /_snapshot/{repository}/{snapshot}/_status
+```
+<!-- spec_insert_end -->
+
+
+<!-- spec_insert_start
+api: snapshot.status
+component: path_parameters
+-->
 ## Path parameters
 
-Path parameters are optional. 
+The following table lists the available path parameters. All path parameters are optional.
 
-| Parameter | Data type | Description | 
-:--- | :--- | :---
-| repository | String | The repository containing the snapshot. |
-| snapshot | List | The snapshot(s) to return. |
-| index | List | The indexes to include in the response. |
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `repository` | String | The name of the repository containing the snapshot. |
+| `snapshot` | List or String | A comma-separated list of snapshot names. |
 
-Three request variants provide flexibility:
+<!-- spec_insert_end -->
 
-* `GET _snapshot/_status` returns the status of all currently running snapshots in all repositories.
+<!-- spec_insert_start
+api: snapshot.status
+component: query_parameters
+-->
+## Query parameters
 
-* `GET _snapshot/<repository>/_status` returns all currently running snapshots in the specified repository. This is the preferred variant.
+The following table lists the available query parameters. All query parameters are optional.
 
-* `GET _snapshot/<repository>/<snapshot>/_status` returns detailed status information for a specific snapshot(s) in the specified repository, regardless of whether it's currently running. 
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `cluster_manager_timeout` | String | The amount of time to wait for a response from the cluster manager node. For more information about supported time units, see [Common parameters]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). |
+| `ignore_unavailable` | Boolean | Whether to ignore any unavailable snapshots, When `false`, a `SnapshotMissingException` is thrown. _(Default: `false`)_ |
+| `master_timeout` <br> _DEPRECATED_ | String | _(Deprecated since 2.0: To promote inclusive language, use `cluster_manager_timeout` instead.)_ Explicit operation timeout for connection to cluster-manager node |
 
-* `GET /_snapshot/<repository>/<snapshot>/<index>/_status` returns detailed status information only for the specified indexes in a specific snapshot in the specified repository. Note that this endpoint works only for indexes belonging to a specific snapshot.
-
-Snapshot API calls only work if the total number of shards across the requested resources, such as snapshots and indexes created from snapshots, is smaller than the limit specified by the following cluster setting:
-
-- `snapshot.max_shards_allowed_in_status_api`(Dynamic, integer): The maximum number of shards that can be included in the Snapshot Status API response. Default value is `200000`. Not applicable for [shallow snapshots v2]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/snapshot-interoperability##shallow-snapshot-v2), where the total number and sizes of files are returned as 0. 
-
-
-Using the API to return the state of snapshots that are not currently running can be very costly in terms of both machine resources and processing time when querying data in the cloud. For each snapshot, each request causes a file read of all of the snapshot's shards. 
-{: .warning}
-
-## Request body fields
-
-| Field | Data type | Description | 
-:--- | :--- | :---
-| ignore_unavailable | Boolean | How to handle requests for unavailable snapshots and indexes. If `false`, the request returns an error for unavailable snapshots and indexes. If `true`, the request ignores unavailable snapshots and indexes, such as those that are corrupted or temporarily cannot be returned. Default is `false`.|
+<!-- spec_insert_end -->
 
 ## Example request
 
@@ -383,55 +393,295 @@ The `GET _snapshot/my-opensearch-repo/my-first-snapshot/_status` request returns
 }
 ````
 
+<!-- spec_insert_start
+api: snapshot.status
+component: response_body_parameters
+-->
 ## Response body fields
 
-| Field | Data type | Description | 
-:--- | :--- | :---
-| repository | String | Name of repository that contains the snapshot. |
-| snapshot | String | Snapshot name. |
-| uuid | String | A snapshot's universally unique identifier (UUID). |
-| state | String | Snapshot's current status. See [Snapshot states](#snapshot-states).  |
-| include_global_state | Boolean | Whether the current cluster state is included in the snapshot. |
-| shards_stats | Object | Snapshot's shard counts. See [Shard stats](#shard-stats). |
-| stats | Object | Information about files included in the snapshot. `file_count`: number of files. `size_in_bytes`: total size of all files. See [Snapshot file stats](#snapshot-file-stats). |
-| index | list of Objects | List of objects that contain information about the indices in the snapshot. See [Index objects](#index-objects).|
+The response body is a JSON object with the following fields.
 
-### Snapshot states
+| Property | Required | Data type | Description |
+| :--- | :--- | :--- | :--- |
+| `snapshots` | **Required** | Array of Objects |  |
 
-| State | Description | 
-:--- | :--- |
-| FAILED | The snapshot terminated in an error and no data was stored. |
-| IN_PROGRESS | The snapshot is currently running. |
-| PARTIAL | The global cluster state was stored, but data from at least one shard was not stored. The `failures` property of the [Create snapshot]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-snapshot) response contains additional details. |
-| SUCCESS | The snapshot finished and all shards were stored successfully. |
+<details markdown="block" name="snapshot.status::response_body">
+  <summary>
+    Response body fields: <code>snapshots</code>
+  </summary>
+  {: .text-delta}
 
-### Shard stats
+`snapshots` is an __array of JSON objects__ (NDJSON). Each object has the following fields.
 
-All property values are integers.
+| Property | Data type | Description |
+| :--- | :--- | :--- |
+| `include_global_state` | Boolean | Whether the snapshot includes the cluster state. |
+| `indices` | Object | The status of indexes in the snapshot. |
+| `repository` | String | The name of the repository containing the snapshot. |
+| `shards_stats` | Object | The statistics about snapshot shards. |
+| `snapshot` | String | The name of the snapshot. |
+| `state` | String | The current state of the snapshot. |
+| `stats` | Object | The detailed statistics about the snapshot. |
+| `uuid` | String | The universally unique identifier. |
 
-| Property | Description | 
-:--- | :--- |
-| initializing | Number of shards that are still initializing. |
-| started | Number of shards that have started but not are not finalized. |
-| finalizing | Number of shards that are finalizing but are not done. |
-| done | Number of shards that initialized, started, and finalized successfully. |
-| failed | Number of shards that failed to be included in the snapshot. |
-| total | Total number of shards included in the snapshot. |
+</details>
+<details markdown="block" name="snapshot.status::response_body">
+  <summary>
+    Response body fields: <code>snapshots</code> > <code>indices</code>
+  </summary>
+  {: .text-delta}
 
-### Snapshot file stats
+The status of indexes in the snapshot.
 
-| Property | Type | Description | 
-:--- | :--- | :--- |
-| incremental | Object | Number and size of files that still need to be copied during snapshot creation. For completed snapshots, `incremental` provides the number and size of files that were not already in the repository and were copied as part of the incremental snapshot. |
-| processed | Object | Number and size of files already uploaded to the snapshot. The processed `file_count` and `size_in_bytes` are incremented in stats after a file is uploaded. |
-| total | Object | Total number and size of files that are referenced by the snapshot. | 
-| start_time_in_millis | Long | Time (in milliseconds) when snapshot creation began. |
-| time_in_millis | Long | Total time (in milliseconds) that the snapshot took to complete. |
+`indices` is a JSON object with the following fields.
 
-### Index objects
+| Property | Data type | Description |
+| :--- | :--- | :--- |
+| `-- freeform field --` | Object |  |
 
-| Property | Type | Description | 
-:--- | :--- | :--- |
-| shards_stats | Object | See [Shard stats](#shard-stats). |
-| stats | Object | See [Snapshot file stats](#snapshot-file-stats). |
-| shards | List of objects | Contains information about the shards included in the snapshot. OpenSearch returns the following properties about the shard: <br /><br /> **stage**: The current state of shards in the snapshot. Shard states are: <br /><br /> * DONE: The number of shards in the snapshot that were successfully stored in the repository. <br /><br /> * FAILURE: The number of shards in the snapshot that were not successfully stored in the repository. <br /><br /> * FINALIZE: The number of shards in the snapshot that are in the finalizing stage of being stored in the repository. <br /><br />* INIT: The number of shards in the snapshot that are in the initializing stage of being stored in the repository.<br /><br />* STARTED:  The number of shards in the snapshot that are in the started stage of being stored in the repository.<br /><br /> **stats**: See [Snapshot file stats](#snapshot-file-stats). <br /><br /> **total**: The total number and sizes of files referenced by the snapshot. <br /><br /> **start_time_in_millis**: The time (in milliseconds) when snapshot creation began. <br /><br /> **time_in_millis**: The total amount of time (in milliseconds) that the snapshot took to complete.  |
+</details>
+<details markdown="block" name="snapshot.status::response_body">
+  <summary>
+    Response body fields: <code>snapshots</code> > <code>indices</code> > <code>-- freeform field --</code>
+  </summary>
+  {: .text-delta}
+
+`-- freeform field --` is a JSON object with the following fields.
+
+| Property | Data type | Description |
+| :--- | :--- | :--- |
+| `shards` | Object | The status of individual shards in the snapshot. |
+| `shards_stats` | Object | The statistics about snapshot shards. |
+| `stats` | Object | The detailed statistics about the snapshot. |
+
+</details>
+<details markdown="block" name="snapshot.status::response_body">
+  <summary>
+    Response body fields: <code>snapshots</code> > <code>indices</code> > <code>-- freeform field --</code> > <code>shards</code>
+  </summary>
+  {: .text-delta}
+
+The status of individual shards in the snapshot.
+
+`shards` is a JSON object with the following fields.
+
+| Property | Data type | Description |
+| :--- | :--- | :--- |
+| `-- freeform field --` | Object |  |
+
+</details>
+<details markdown="block" name="snapshot.status::response_body">
+  <summary>
+    Response body fields: <code>snapshots</code> > <code>indices</code> > <code>-- freeform field --</code> > <code>shards</code> > <code>-- freeform field --</code>
+  </summary>
+  {: .text-delta}
+
+`-- freeform field --` is a JSON object with the following fields.
+
+| Property | Required | Data type | Description |
+| :--- | :--- | :--- | :--- |
+| `stage` | **Required** | String | The current stage of the shard snapshot. <br> Valid values are: <br> - `DONE`: The number of shards in the snapshot that were successfully stored in the repository. <br> - `FAILURE`: The number of shards in the snapshot that were not successfully stored in the repository. <br> - `FINALIZE`: The number of shards in the snapshot that are in the finalizing stage of being stored in the repository. <br> - `INIT`: The number of shards in the snapshot that are in the initializing stage of being stored in the repository. <br> - `STARTED`: The number of shards in the snapshot that are in the started stage of being stored in the repository. |
+| `stats` | **Required** | Object | The statistical summary of the shard snapshot. |
+| `node` | _Optional_ | String | The unique identifier of a node. |
+| `reason` | _Optional_ | String | The reason for the current shard status. |
+
+</details>
+<details markdown="block" name="snapshot.status::response_body">
+  <summary>
+    Response body fields: <code>snapshots</code> > <code>indices</code> > <code>-- freeform field --</code> > <code>shards</code> > <code>-- freeform field --</code> > <code>stats</code>
+  </summary>
+  {: .text-delta}
+
+The statistical summary of the shard snapshot.
+
+`stats` is a JSON object with the following fields.
+
+| Property | Data type | Description |
+| :--- | :--- | :--- |
+| `incremental` | Object | The incremental statistics for the shard snapshot. |
+| `processed` | Object | The processed statistics for the shard snapshot. |
+| `start_time_in_millis` | Integer | The time unit for milliseconds. |
+| `time` | String | A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts `0` without a unit and `-1` to indicate an unspecified value. |
+| `time_in_millis` | Integer | The time unit for milliseconds. |
+| `total` | Object | The total statistics for the shard snapshot. |
+
+</details>
+<details markdown="block" name="snapshot.status::response_body">
+  <summary>
+    Response body fields: <code>snapshots</code> > <code>indices</code> > <code>-- freeform field --</code> > <code>shards</code> > <code>-- freeform field --</code> > <code>stats</code> > <code>incremental</code>
+  </summary>
+  {: .text-delta}
+
+The incremental statistics for the shard snapshot.
+
+`incremental` is a JSON object with the following fields.
+
+| Property | Data type | Description |
+| :--- | :--- | :--- |
+| `file_count` | Integer | The number of files in the shard snapshot. |
+| `size_in_bytes` | Integer | The size in bytes. |
+
+</details>
+<details markdown="block" name="snapshot.status::response_body">
+  <summary>
+    Response body fields: <code>snapshots</code> > <code>indices</code> > <code>-- freeform field --</code> > <code>shards</code> > <code>-- freeform field --</code> > <code>stats</code> > <code>processed</code>
+  </summary>
+  {: .text-delta}
+
+The processed statistics for the shard snapshot.
+
+`processed` is a JSON object with the following fields.
+
+| Property | Data type | Description |
+| :--- | :--- | :--- |
+| `file_count` | Integer | The number of files in the shard snapshot. |
+| `size_in_bytes` | Integer | The size in bytes. |
+
+</details>
+<details markdown="block" name="snapshot.status::response_body">
+  <summary>
+    Response body fields: <code>snapshots</code> > <code>indices</code> > <code>-- freeform field --</code> > <code>shards</code> > <code>-- freeform field --</code> > <code>stats</code> > <code>total</code>
+  </summary>
+  {: .text-delta}
+
+The total statistics for the shard snapshot.
+
+`total` is a JSON object with the following fields.
+
+| Property | Data type | Description |
+| :--- | :--- | :--- |
+| `file_count` | Integer | The number of files in the shard snapshot. |
+| `size_in_bytes` | Integer | The size in bytes. |
+
+</details>
+<details markdown="block" name="snapshot.status::response_body">
+  <summary>
+    Response body fields: <code>snapshots</code> > <code>indices</code> > <code>-- freeform field --</code> > <code>shards_stats</code>
+  </summary>
+  {: .text-delta}
+
+The statistics about snapshot shards.
+
+`shards_stats` is a JSON object with the following fields.
+
+| Property | Data type | Description |
+| :--- | :--- | :--- |
+| `done` | Integer | The number of completed shard snapshots. |
+| `failed` | Integer | The number of failed shard snapshots. |
+| `finalizing` | Integer | The number of finalizing shard snapshots. |
+| `initializing` | Integer | The number of initializing shard snapshots. |
+| `started` | Integer | The number of started shard snapshots. |
+| `total` | Integer | The total number of shard snapshots. |
+
+</details>
+<details markdown="block" name="snapshot.status::response_body">
+  <summary>
+    Response body fields: <code>snapshots</code> > <code>indices</code> > <code>-- freeform field --</code> > <code>stats</code>
+  </summary>
+  {: .text-delta}
+
+The detailed statistics about the snapshot.
+
+`stats` is a JSON object with the following fields.
+
+| Property | Data type | Description |
+| :--- | :--- | :--- |
+| `incremental` | Object | The incremental statistics for the snapshot. |
+| `processed` | Object | The processed statistics for the snapshot. |
+| `start_time_in_millis` | Integer | The time unit for milliseconds. |
+| `time` | String | A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts `0` without a unit and `-1` to indicate an unspecified value. |
+| `time_in_millis` | Integer | The time unit for milliseconds. |
+| `total` | Object | The total statistics for the snapshot. |
+
+</details>
+<details markdown="block" name="snapshot.status::response_body">
+  <summary>
+    Response body fields: <code>snapshots</code> > <code>indices</code> > <code>-- freeform field --</code> > <code>stats</code> > <code>incremental</code>
+  </summary>
+  {: .text-delta}
+
+The incremental statistics for the snapshot.
+
+`incremental` is a JSON object with the following fields.
+
+| Property | Data type | Description |
+| :--- | :--- | :--- |
+| `file_count` | Integer | The number of files in the snapshot. |
+| `size_in_bytes` | Integer | The size in bytes. |
+
+</details>
+<details markdown="block" name="snapshot.status::response_body">
+  <summary>
+    Response body fields: <code>snapshots</code> > <code>indices</code> > <code>-- freeform field --</code> > <code>stats</code> > <code>processed</code>
+  </summary>
+  {: .text-delta}
+
+The processed statistics for the snapshot.
+
+`processed` is a JSON object with the following fields.
+
+| Property | Data type | Description |
+| :--- | :--- | :--- |
+| `file_count` | Integer | The number of files in the snapshot. |
+| `size_in_bytes` | Integer | The size in bytes. |
+
+</details>
+<details markdown="block" name="snapshot.status::response_body">
+  <summary>
+    Response body fields: <code>snapshots</code> > <code>indices</code> > <code>-- freeform field --</code> > <code>stats</code> > <code>total</code>
+  </summary>
+  {: .text-delta}
+
+The total statistics for the snapshot.
+
+`total` is a JSON object with the following fields.
+
+| Property | Data type | Description |
+| :--- | :--- | :--- |
+| `file_count` | Integer | The number of files in the snapshot. |
+| `size_in_bytes` | Integer | The size in bytes. |
+
+</details>
+<details markdown="block" name="snapshot.status::response_body">
+  <summary>
+    Response body fields: <code>snapshots</code> > <code>shards_stats</code>
+  </summary>
+  {: .text-delta}
+
+The statistics about snapshot shards.
+
+`shards_stats` is a JSON object with the following fields.
+
+| Property | Data type | Description |
+| :--- | :--- | :--- |
+| `done` | Integer | The number of completed shard snapshots. |
+| `failed` | Integer | The number of failed shard snapshots. |
+| `finalizing` | Integer | The number of finalizing shard snapshots. |
+| `initializing` | Integer | The number of initializing shard snapshots. |
+| `started` | Integer | The number of started shard snapshots. |
+| `total` | Integer | The total number of shard snapshots. |
+
+</details>
+<details markdown="block" name="snapshot.status::response_body">
+  <summary>
+    Response body fields: <code>snapshots</code> > <code>stats</code>
+  </summary>
+  {: .text-delta}
+
+The detailed statistics about the snapshot.
+
+`stats` is a JSON object with the following fields.
+
+| Property | Data type | Description |
+| :--- | :--- | :--- |
+| `incremental` | Object | The incremental statistics for the snapshot. |
+| `processed` | Object | The processed statistics for the snapshot. |
+| `start_time_in_millis` | Integer | The time unit for milliseconds. |
+| `time` | String | A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts `0` without a unit and `-1` to indicate an unspecified value. |
+| `time_in_millis` | Integer | The time unit for milliseconds. |
+| `total` | Object | The total statistics for the snapshot. |
+
+</details>
+<!-- spec_insert_end -->
+
+

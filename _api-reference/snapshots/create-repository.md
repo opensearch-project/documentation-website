@@ -19,24 +19,124 @@ There are two types of snapshot repositories:
 
 For instructions on creating a repository, see [Register repository]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#register-repository).
 
+<!-- spec_insert_start
+api: snapshot.create_repository
+component: endpoints
+-->
 ## Endpoints
-
 ```json
-POST /_snapshot/<repository>/ 
-PUT /_snapshot/<repository>/
+POST /_snapshot/{repository}
+PUT  /_snapshot/{repository}
 ```
+<!-- spec_insert_end -->
 
+
+<!-- spec_insert_start
+api: snapshot.create_repository
+component: path_parameters
+-->
 ## Path parameters
 
-Parameter | Data type | Description
-:--- | :--- | :---
-`repository` | String | Repository name |
+The following table lists the available path parameters.
 
-## Request parameters
+| Parameter | Required | Data type | Description |
+| :--- | :--- | :--- | :--- |
+| `repository` | **Required** | String | The name for the newly registered repository. |
 
-Request parameters depend on the type of repository: `fs` or `s3`.
+<!-- spec_insert_end -->
 
-### Common parameters
+<!-- spec_insert_start
+api: snapshot.create_repository
+component: query_parameters
+include_deprecated: false
+-->
+## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `cluster_manager_timeout` | String | The amount of time to wait for a response from the cluster manager node. For more information about supported time units, see [Common parameters]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). |
+| `timeout` | String | The amount of time to wait for a response. |
+| `verify` | Boolean | When `true`, verifies the creation of the snapshot repository. |
+
+<!-- spec_insert_end -->
+
+<!-- spec_insert_start
+api: snapshot.create_repository
+component: request_body_parameters
+-->
+## Request body fields
+
+The repository definition.
+
+The request body is __required__. It is a JSON object with the following fields.
+
+| Property | Required | Data type | Description |
+| :--- | :--- | :--- | :--- |
+| `settings` | **Required** | Object | The settings for the snapshot repository. |
+| `type` | **Required** | String |  |
+| `repository` | _Optional_ | Object | The name of the repository to store the snapshot. |
+
+<details markdown="block" name="snapshot.create_repository::request_body">
+  <summary>
+    Request body fields: <code>repository</code>
+  </summary>
+  {: .text-delta}
+
+The name of the repository to store the snapshot.
+
+`repository` is a JSON object with the following fields.
+
+| Property | Data type | Description |
+| :--- | :--- | :--- |
+| `settings` | Object | The settings for the snapshot repository. |
+| `type` | String | The type of the snapshot repository. |
+| `uuid` | String | The universally unique identifier. |
+
+</details>
+<details markdown="block" name="snapshot.create_repository::request_body">
+  <summary>
+    Request body fields: <code>repository</code> > <code>settings</code>
+  </summary>
+  {: .text-delta}
+
+The settings for the snapshot repository.
+
+`settings` is a JSON object with the following fields.
+
+| Property | Data type | Description |
+| :--- | :--- | :--- |
+| `chunk_size` | String | The chunk size for the repository. |
+| `compress` | Boolean or String | Certain APIs may return values, including numbers such as epoch timestamps, as strings. This setting captures this behavior while keeping the semantics of the field type.  Depending on the target language, code generators can keep the union or remove it and leniently parse strings to the target type. |
+| `concurrent_streams` | Integer or String | Certain APIs may return values, including numbers such as epoch timestamps, as strings. This setting captures this behavior while keeping the semantics of the field type.  Depending on the target language, code generators can keep the union or remove it and leniently parse strings to the target type. |
+| `location` | String | The location where snapshots are stored. |
+| `read_only` | Boolean or String | Certain APIs may return values, including numbers such as epoch timestamps, as strings. This setting captures this behavior while keeping the semantics of the field type.  Depending on the target language, code generators can keep the union or remove it and leniently parse strings to the target type. |
+
+</details>
+<details markdown="block" name="snapshot.create_repository::request_body">
+  <summary>
+    Request body fields: <code>settings</code>
+  </summary>
+  {: .text-delta}
+
+The settings for the snapshot repository.
+
+`settings` is a JSON object with the following fields.
+
+| Property | Data type | Description |
+| :--- | :--- | :--- |
+| `chunk_size` | String | The chunk size for the repository. |
+| `compress` | Boolean or String | Certain APIs may return values, including numbers such as epoch timestamps, as strings. This setting captures this behavior while keeping the semantics of the field type.  Depending on the target language, code generators can keep the union or remove it and leniently parse strings to the target type. |
+| `concurrent_streams` | Integer or String | Certain APIs may return values, including numbers such as epoch timestamps, as strings. This setting captures this behavior while keeping the semantics of the field type.  Depending on the target language, code generators can keep the union or remove it and leniently parse strings to the target type. |
+| `location` | String | The location where snapshots are stored. |
+| `read_only` | Boolean or String | Certain APIs may return values, including numbers such as epoch timestamps, as strings. This setting captures this behavior while keeping the semantics of the field type.  Depending on the target language, code generators can keep the union or remove it and leniently parse strings to the target type. |
+
+</details>
+<!-- spec_insert_end -->
+
+
+### Repository specific parameters
 
 The following table lists parameters that can be used with both the `fs` and `s3` repositories.
 
@@ -136,3 +236,19 @@ Upon success, the following JSON object is returned:
 
 To verify that the repository was registered, use the [Get snapshot repository]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot-repository) API, passing the repository name as the `repository` path parameter.
 {: .note}
+
+<!-- spec_insert_start
+api: indices.create
+component: response_body_parameters
+-->
+## Response body fields
+
+The response body is a JSON object with the following fields.
+
+| Property | Required | Data type | Description |
+| :--- | :--- | :--- | :--- |
+| `acknowledged` | **Required** | Boolean |  |
+| `index` | **Required** | String |  |
+| `shards_acknowledged` | **Required** | Boolean |  |
+
+<!-- spec_insert_end -->

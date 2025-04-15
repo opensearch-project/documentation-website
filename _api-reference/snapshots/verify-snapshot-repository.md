@@ -17,6 +17,48 @@ If verification is successful, the verify snapshot repository API returns a list
 If you use the Security plugin, you must have the `manage cluster` privilege.
 {: .note}
 
+<!-- spec_insert_start
+api: snapshot.verify_repository
+component: endpoints
+-->
+## Endpoints
+```json
+POST /_snapshot/{repository}/_verify
+```
+<!-- spec_insert_end -->
+
+
+<!-- spec_insert_start
+api: snapshot.verify_repository
+component: path_parameters
+-->
+## Path parameters
+
+The following table lists the available path parameters.
+
+| Parameter | Required | Data type | Description |
+| :--- | :--- | :--- | :--- |
+| `repository` | **Required** | String | The name of the repository containing the snapshot. |
+
+<!-- spec_insert_end -->
+
+<!-- spec_insert_start
+api: snapshot.verify_repository
+component: query_parameters
+include_deprecated: false
+-->
+## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `cluster_manager_timeout` | String | The amount of time to wait for a response from the cluster manager node. For more information about supported time units, see [Common parameters]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). |
+| `timeout` | String | The amount of time to wait for a response. |
+
+<!-- spec_insert_end -->
+
+
 ## Endpoints
 
 ```json
@@ -76,8 +118,42 @@ In the preceding sample, one node is connected to the snapshot repository. If mo
 }
 ````
 
+<!-- spec_insert_start
+api: snapshot.verify_repository
+component: response_body_parameters
+-->
 ## Response body fields
 
-| Field | Data type | Description | 
-:--- | :--- | :---
-| nodes | Object | A list (not an array) of nodes connected to the snapshot repository. Each node itself is a property where the node ID is the key and the name has an ID (Object) and a name (String). |
+The response body is a JSON object with the following fields.
+
+| Property | Required | Data type | Description |
+| :--- | :--- | :--- | :--- |
+| `nodes` | **Required** | Object |  |
+
+<details markdown="block" name="snapshot.verify_repository::response_body">
+  <summary>
+    Response body fields: <code>nodes</code>
+  </summary>
+  {: .text-delta}
+
+`nodes` is a JSON object with the following fields.
+
+| Property | Data type | Description |
+| :--- | :--- | :--- |
+| `-- freeform field --` | Object |  |
+
+</details>
+<details markdown="block" name="snapshot.verify_repository::response_body">
+  <summary>
+    Response body fields: <code>nodes</code> > <code>-- freeform field --</code>
+  </summary>
+  {: .text-delta}
+
+`-- freeform field --` is a JSON object with the following fields.
+
+| Property | Required | Data type | Description |
+| :--- | :--- | :--- | :--- |
+| `name` | **Required** | String | The name of a resource or configuration element. |
+
+</details>
+<!-- spec_insert_end -->
