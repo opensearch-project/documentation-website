@@ -6,6 +6,7 @@ has_children: true
 has_toc: false
 redirect_from:
   - /vector-search/api/knn/
+  - /vector-search/api/
 ---
 
 # Vector search API
