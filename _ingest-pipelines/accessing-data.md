@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Accessing data in pipeline
+title: Accessing data in a pipeline
 nav_order: 20
 ---
 
-# Accessing data in pipelines
+# Accessing data in a pipeline
 
-In ingest pipelines, you access the document data using the `ctx` object. This object represents the processed document and allows you to read, modify, or enrich the document fields. Processors in a pipeline have read and write access to both the `_source` field of a document and its metadata fields.
+In ingest pipelines, you can access the document data using the `ctx` object. This object represents the processed document and allows you to read, modify, or enrich the document fields. Pipeline processors have read and write access to both the `_source` field of a document and its metadata fields.
 
 ## Accessing document fields
 
@@ -28,7 +28,7 @@ You can access `user` as follows:
 "field": "ctx.user"
 ```
 
-### Example: Access nested fields
+### Example: Access a nested field
 
 Given the following example document:
 
@@ -46,9 +46,9 @@ You can access `user.name` as follows:
 "field": "ctx.user.name"
 ```
 
-## Accessing fields in the source
+## Accessing a field in the source
 
-To access a field in the document `_source`, refer to fields by their names:
+To access a field in the document `_source`, refer to the field by its name:
 
 ```json
 {
@@ -72,7 +72,7 @@ Alternatively, you can explicitly use `_source`:
 
 ## Accessing metadata fields
 
-You can read or write to metadata fields such as:
+You can read or write to metadata fields such as the following:
 
 - `_index`
 - `_type`
@@ -95,7 +95,7 @@ Using `{% raw %}{{_id}}{% endraw %}` is not supported when document IDs are auto
 
 ## Accessing ingest metadata fields
 
-The `_ingest.timestamp` field represents the time when the ingest node received the document. To persist this timestamp, use the `set` processor:
+The `_ingest.timestamp` field represents the time at which the ingest node received the document. To persist this timestamp, use the `set` processor:
 
 ```json
 {
@@ -123,9 +123,9 @@ The following processor configuration combines the `app` and `env` fields, separ
 }
 ```
 
-### Example: Generating a dynamic greeting using the set processor
+### Example: Generating a dynamic greeting using the `set` processor
 
-If a document's `user` field is set to `alice`, use the following syntax to produce the result `"greeting": "Hello, alice!"`.
+If a document's `user` field is set to `alice`, use the following syntax to produce the result `"greeting": "Hello, alice!"`:
 
 ```json
 {
@@ -138,7 +138,7 @@ If a document's `user` field is set to `alice`, use the following syntax to prod
 
 ## Dynamic field names
 
-You can use a field's value as the name of a new field.
+You can use a field's value as the name of a new field:
 
 ```json
 {
@@ -151,7 +151,7 @@ You can use a field's value as the name of a new field.
 
 ## Example: Routing to a dynamic index based on status
 
-The following processor configuration sets the target index dynamically by appending `-events` to the value of the `status` field.
+The following processor configuration sets the target index dynamically by appending `-events` to the value of the `status` field:
 
 ```json
 {
@@ -162,7 +162,7 @@ The following processor configuration sets the target index dynamically by appen
 }
 ```
 
-## Using `ctx` in script processors
+## Using `ctx` in the `script` processor
 
 Use the `script` processor for advanced transformations.
 
@@ -192,9 +192,9 @@ The following processor copies the value from the `timestamp` field into a new f
 }
 ```
 
-## A complete pipeline example
+## Example of a complete pipeline
 
-The following example defines a complete ingest pipeline that sets a tagline using `source` field, extracts the `year` from the `date` field, and records the document’s ingest timestamp in the `received_at` field:
+The following example defines a complete ingest pipeline that sets a tagline using the `source` field, extracts the `year` from the `date` field, and records the document’s ingest timestamp in the `received_at` field:
 
 ```json
 PUT _ingest/pipeline/example-pipeline
