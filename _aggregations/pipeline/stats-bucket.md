@@ -26,8 +26,6 @@ The `stats_bucket` aggregation takes the following parameters.
 
 ## Example
 
-The following example returns the basic stats for the buckets returned by the `sum_of_bytes` aggregation nested into the `visits_per_month` aggregation:
-
 The following example creates a date histogram with a one-month interval from the OpenSearch Dashboards e-commerce sample data. The `sum` sub-aggregation calculates the sum of all bytes for each month. Finally, the `stats_bucket` aggregation returns the `count`, `avg`, `sum`, `min`, and `max` stats from these sums:
 
 ```json

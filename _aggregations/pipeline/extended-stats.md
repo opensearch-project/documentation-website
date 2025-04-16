@@ -10,7 +10,7 @@ redirect_from:
 
 # Extended stats bucket aggregations
 
-The `extended_stats_bucket` aggregation is a more comprehensive version of the [`stats_bucket`]({{site.url}}{{site.baseurl}}/query-dsl/aggregations/pipeline/stats-bucket/) aggregation. As well as the basic statistical measures provided by `stats_bucket`, `extended_stats_bucket` calculates the following:
+The `extended_stats_bucket` aggregation is a more comprehensive version of the [`stats_bucket`]({{site.url}}{{site.baseurl}}/query-dsl/aggregations/pipeline/stats-bucket/) aggregation. As well as the basic statistical measures provided by `stats_bucket`, `extended_stats_bucket` calculates the following metrics:
 
 - Sum of squares
 - Variance
@@ -48,9 +48,6 @@ The `extended_stats_bucket` aggregation takes the following parameters.
 
 The following example creates a date histogram with a one-month interval from the OpenSearch Dashboards e-commerce sample data. The `sum` sub-aggregation calculates the sum of all bytes for each month. Finally, the `extended_stats_bucket` aggregation returns the extended stats for these sums:
 
-
-The following example returns the extended stats for the buckets returned by the `sum_of_bytes` aggregation nested into the `visits_per_month` aggregation:
-
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
 {
@@ -83,7 +80,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 
 ## Example response
 
-The response contains extended stats for the selected buckets. Note that the standard deviation bounds are for a three-sigma range; changing `sigma` (or letting it default to `2`) gives different resuilts:
+The response contains extended stats for the selected buckets. Note that the standard deviation bounds are for a three-sigma range; changing `sigma` (or letting it default to `2`) gives different results:
 
 ```json
 {
