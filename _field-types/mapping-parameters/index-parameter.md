@@ -18,12 +18,12 @@ By default, all field types are indexed.
 
 The `index` mapping parameter can be applied to the following data types:
 
-- [Text field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/)
-- [Keyword field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/keyword/)
+- [Text]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/)
+- [Keyword]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/keyword/)
 - [Date field types]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/dates/)
 - [Numeric field types]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/numeric/)
-- [Boolean field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/boolean/)
-- [IP address field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/ip/)
+- [Boolean]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/boolean/)
+- [IP address]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/ip/)
 
 ## Enabling indexing on a field
 
@@ -44,7 +44,7 @@ PUT /products
 ```
 {% include copy-curl.html %}
 
-You can index a document using the following command:
+Index a document using the following request:
 
 ```json
 PUT /products/_doc/1
@@ -54,7 +54,7 @@ PUT /products/_doc/1
 ```
 {% include copy-curl.html %}
 
-Execute the following command to query the description field:
+Query the description field:
 
 ```json
 POST /products/_search
@@ -95,7 +95,7 @@ Expected result:
 
 ## Disabling indexing on a field
 
-Execute the following command to create an index named `products-no-index` with a `description` field that is not indexed:
+Create an index named `products-no-index` with a `description` field that is not indexed:
 
 ```json
 PUT /products-no-index
@@ -112,7 +112,7 @@ PUT /products-no-index
 ```
 {% include copy-curl.html %}
 
-Index a document using the following command:
+Index a document using the following request:
 
 ```json
 PUT /products-no-index/_doc/1
@@ -122,7 +122,7 @@ PUT /products-no-index/_doc/1
 ```
 {% include copy-curl.html %}
 
-Execute the following command to query `products-no-index` using the `description` field:
+Query `products-no-index` using the `description` field:
 
 ```json
 POST /products-no-index/_search
