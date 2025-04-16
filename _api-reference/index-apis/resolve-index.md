@@ -31,10 +31,6 @@ The following table lists the available query parameters. All query parameters a
 | :--- | :--- | :--- |
 | `expand_wildcards` | String | Controls how wildcard expressions expand to matching indexes. Multiple values can be combined using commas. Valid values are:<br>• `all` – Expand to open and closed indexes, including hidden ones.<br>• `open` – Expand only to open indexes.<br>• `closed` – Expand only to closed indexes.<br>• `hidden` – Include hidden indexes (must be used with `open`, `closed`, or both).<br>• `none` – Wildcard expressions are not accepted.<br>**Default**: `open`. |
 
-## Request body fields
-
-This API does not support a request body.
-
 ## Example requests
 
 The following sections provide Resolve API example requests.
