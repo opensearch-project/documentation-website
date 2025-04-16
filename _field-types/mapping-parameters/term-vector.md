@@ -19,19 +19,19 @@ Enabling `term_vector` increases index size. Use only when you need detailed ter
 
 ## Configuration options
 
-Available configuration options for `term_vector` are the following:
+The `term_vector` parameter supports the following valid values:
 
-- `"no"` (default): Term vectors are not stored.
-- `"yes"`: Store term frequencies and basic positions.
-- `"with_positions"`: Store term positions.
-- `"with_offsets"`: Store character offsets.
-- `"with_positions_offsets"`: Store both positions and offsets.
-- `"with_positions_payloads"`: Store positions and payloads (if payloads are indexed).
-- `"with_positions_offsets_payloads"`: Store all term vector data.
+- `no` (default): Term vectors are not stored.
+- `yes`: Store term frequencies and basic positions.
+- `with_positions`: Store term positions.
+- `with_offsets`: Store character offsets.
+- `with_positions_offsets`: Store both positions and offsets.
+- `with_positions_payloads`: Store positions and payloads (if payloads are indexed).
+- `with_positions_offsets_payloads`: Store all term vector data.
 
 ## Enabling term_vector on a field
 
-The following request creates an index named `articles` with the `content` field configured to store term vectors including positions and offsets:
+The following request creates an index named `articles` with the `content` field configured to store term vectors, including positions and offsets:
 
 ```json
 PUT /articles
@@ -48,9 +48,8 @@ PUT /articles
 ```
 {% include copy-curl.html %}
 
-## Indexing a document
 
-Use the following command to index a sample document:
+Index a sample document:
 
 ```json
 PUT /articles/_doc/1
@@ -60,9 +59,8 @@ PUT /articles/_doc/1
 ```
 {% include copy-curl.html %}
 
-## Retrieving term vectors
 
-Use the following command to retrieve term-level statistics using the `_termvectors` API:
+Retrieve term-level statistics using the `_termvectors` API:
 
 ```json
 POST /articles/_termvectors/1
