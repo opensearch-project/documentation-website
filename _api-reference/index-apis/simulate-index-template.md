@@ -7,7 +7,7 @@ nav_order: 29
 
 # Simulate index templates
 
-The Simulate Index Template API helps you preview how index templates will be applied to an index or simulate an index template definition before creating it.
+The Simulate Index Template API helps you preview how index templates will be applied to an index or simulate an index template before creating it.
 
 ## Endpoints
 
@@ -23,8 +23,8 @@ The following table lists the available path parameters.
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
-| `template_name` | String | Name of the index template to simulate. |
-| `index_name` | String | Name of the index to simulate template resolution on. |
+| `template_name` | String | The name of the index template to simulate. |
+| `index_name` | String | The name of the index to user for simulating template resolution. |
 
 ## Request body fields
 
@@ -32,18 +32,18 @@ The following table lists the available request body fields.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
-| `index_patterns` | Array | Index patterns the template applies to. |
+| `index_patterns` | Array | The index patterns the template applies to. |
 | `template` | Object | The template definition. |
-| `template.settings` | Object | Index settings to apply. |
-| `template.mappings` | Object | Field mappings to apply. |
-| `template.aliases` | Object | Aliases to apply. |
-| `priority` | Integer | Priority of the template. |
-| `version` | Integer | Template version. |
+| `template.settings` | Object | The index settings to apply. |
+| `template.mappings` | Object | The field mappings to apply. |
+| `template.aliases` | Object | The aliases to apply. |
+| `priority` | Integer | The template priority. |
+| `version` | Integer | The template version. |
 | `_meta` | Object | Metadata for the template. |
 
 ### Example request: Simulate a template
 
-You can use the following command to simulate a template without creating it:
+Use the following request to simulate a template without creating it:
 
 ```json
 POST /_index_template/_simulate
@@ -68,9 +68,9 @@ POST /_index_template/_simulate
 
 ### Example request: Simulate a named template
 
-You can simulate specific template by specifying the name of the template.
+You can simulate a specific template by specifying the name of the template.
 
-The first step is to create a template named `template_for_simulation` using the following command:
+The first step is to create a template named `template_for_simulation` using the following request:
 
 ```json
 PUT /_index_template/template_for_simulation
@@ -105,17 +105,17 @@ PUT /_index_template/template_for_simulation
 ```
 {% include copy-curl.html %}
 
-You can now use the following command to simulate template named `template_for_simulation`:
+You can now simulate the template named `template_for_simulation`:
 
 ```json
 POST /_index_template/_simulate/template_for_simulation
 ```
 {% include copy-curl.html %}
 
-### Example request: Simulate template on a specific index
+### Example request: Simulate a template on a specific index
 
-Simulating template on a specific index name is particularly useful for resolving conflicts or debugging priority issues among templates.
-The following command demonstrates how all applicable templates, with overlapping index patterns, would apply to an index named `"logs-sim-1"`.
+Simulating a template on a specific index name is particularly useful for resolving conflicts or debugging priority issues among templates.
+The following request demonstrates how all applicable templates, with overlapping index patterns, will be applied to an index named `logs-sim-1`:
 
 ```json
 POST /_index_template/_simulate_index/logs-sim-1
