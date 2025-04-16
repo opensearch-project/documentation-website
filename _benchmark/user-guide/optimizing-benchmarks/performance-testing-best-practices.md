@@ -6,7 +6,7 @@ parent: Optimizing benchmarks
 grand_parent: User guide
 ---
 
-# Performance testing best practices for OpenSearch Benchmark
+# Performance testing best practices
 
 When conducting performance testing using OpenSearch Benchmark, it's crucial to follow some key best practices to ensure accurate, reliable, and meaningful results. These practices help in creating realistic test scenarios, minimizing external factors that could skew results, and generating comparable and reproducible benchmarks. By adhering to these guidelines, you can gain valuable insights into your cluster's performance, including identifying bottlenecks and making informed decisions about cluster configuration and optimization.
 
