@@ -6,7 +6,7 @@ nav_order: 20
 
 # Accessing data in pipelines
 
-In ingest pipelines, you access the document data using the `ctx` object. This object represents the processed document and allows you to read, modify, or enrich the document fields. Processors in a pipeline have read and write access to both the `_source` fields of a document and its metadata fields.
+In ingest pipelines, you access the document data using the `ctx` object. This object represents the processed document and allows you to read, modify, or enrich the document fields. Processors in a pipeline have read and write access to both the `_source` field of a document and its metadata fields.
 
 ## Accessing document fields
 
