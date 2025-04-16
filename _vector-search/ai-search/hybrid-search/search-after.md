@@ -3,8 +3,8 @@ layout: default
 title: Hybrid search with search_after
 parent: Hybrid search
 grand_parent: AI search
-has_children: true
-nav_order: 40
+has_children: false
+nav_order: 30
 ---
 
 # Hybrid search with search_after
