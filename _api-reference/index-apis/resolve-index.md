@@ -33,7 +33,7 @@ The following table lists the available query parameters. All query parameters a
 
 ## Example requests
 
-The following sections provide Resolve API example requests.
+The following sections provide example Resolve API requests.
 
 
 ### Resolve a concrete index
