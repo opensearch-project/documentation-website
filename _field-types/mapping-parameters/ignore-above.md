@@ -10,7 +10,7 @@ has_toc: false
 
 # ignore_above
 
-The `ignore_above` mapping parameter limits the maximum number that are permitted for a string to be indexed. If the length of a string exceeds the specified threshold, the value is stored with the document but is not indexed. This can help prevent the index from bloating with unusually long values and can keep queries efficient.
+The `ignore_above` mapping parameter limits the maximum number of characters that are permitted for a string to be indexed. If the length of a string exceeds the specified threshold, the value is stored with the document but is not indexed. This can help prevent the index from bloating with unusually long values and can keep queries efficient.
 
 By default, if you do not specify `ignore_above`, all string values will be fully indexed.
 
@@ -23,7 +23,7 @@ PUT /test-no-ignore
 {
   "mappings": {
     "properties": {
-      "number": {
+      "sentence": {
         "type": "keyword"
       }
     }
@@ -37,7 +37,7 @@ Index a document with a long string value using the following command:
 ```json
 PUT /test-no-ignore/_doc/1
 {
-  "number": "text longer than 10 characters"
+  "sentence": "text longer than 10 characters"
 }
 ```
 {% include copy-curl.html %}
@@ -49,14 +49,14 @@ POST /test-no-ignore/_search
 {
   "query": {
     "term": {
-      "number": "text longer than 10 characters"
+      "sentence": "text longer than 10 characters"
     }
   }
 }
 ```
 {% include copy-curl.html %}
 
-The document is returned because the number field was indexed:
+The document is returned because the `sentence` field was indexed:
 
 ```json
 {
@@ -73,7 +73,7 @@ The document is returned because the number field was indexed:
         "_id": "1",
         "_score": 0.13353139,
         "_source": {
-          "number": "text longer than 10 characters"
+          "sentence": "text longer than 10 characters"
         }
       }
     ]
@@ -90,7 +90,7 @@ PUT /test-ignore
 {
   "mappings": {
     "properties": {
-      "number": {
+      "sentence": {
         "type": "keyword",
         "ignore_above": 10
       }
@@ -105,7 +105,7 @@ Index the same document with the long string value using the following command:
 ```json
 PUT /test-ignore/_doc/1
 {
-  "number": "text longer than 10 characters"
+  "sentence": "text longer than 10 characters"
 }
 ```
 {% include copy-curl.html %}
@@ -117,14 +117,14 @@ POST /test-ignore/_search
 {
   "query": {
     "term": {
-      "number": "text longer than 10 characters"
+      "sentence": "text longer than 10 characters"
     }
   }
 }
 ```
 {% include copy-curl.html %}
 
-There are not hits returned because the string in field `number` exceeded the `ignore_above` threshold and was not indexed:
+There are not hits returned because the string in field `sentence` exceeded the `ignore_above` threshold and was not indexed:
 
 ```json
 {
@@ -171,7 +171,7 @@ Returned hits include the document:
         "_id": "1",
         "_score": 1,
         "_source": {
-          "number": "text longer than 10 characters"
+          "sentence": "text longer than 10 characters"
         }
       }
     ]
