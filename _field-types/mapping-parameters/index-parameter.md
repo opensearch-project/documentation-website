@@ -20,10 +20,10 @@ The `index` mapping parameter can be applied to the following data types:
 
 - [Text]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/)
 - [Keyword]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/keyword/)
-- [Date field types]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/dates/)
-- [Numeric field types]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/numeric/)
 - [Boolean]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/boolean/)
 - [IP address]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/ip/)
+- [Date field types]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/dates/)
+- [Numeric field types]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/numeric/)
 
 ## Enabling indexing on a field
 
@@ -35,8 +35,7 @@ PUT /products
   "mappings": {
     "properties": {
       "description": {
-        "type": "text",
-        "index": true
+        "type": "text"
       }
     }
   }
@@ -68,7 +67,7 @@ POST /products/_search
 ```
 {% include copy-curl.html %}
 
-Expected result:
+The following response confirms that the indexed document was successfully matched by the query:
 
 ```json
 {
@@ -136,7 +135,7 @@ POST /products-no-index/_search
 ```
 {% include copy-curl.html %}
 
-Expected result:
+The following error response indicates that the search query failed because the description field is not indexed:
 
 ```json
 {
