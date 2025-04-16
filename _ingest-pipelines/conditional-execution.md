@@ -2,9 +2,6 @@
 layout: default
 title: Conditional execution
 nav_order: 40
-redirect_from:
-  - /opensearch/rest-api/ingest-apis/conditional-execution/
-  - /api-reference/ingest-apis/conditional-execution/
 ---
 
 # Conditional execution
