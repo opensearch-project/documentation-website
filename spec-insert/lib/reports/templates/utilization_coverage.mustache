@@ -1,0 +1,19 @@
+## Spec Insert Utilization Coverage
+
+The following table is a summary of the utilization coverage of each Spec Insert component. The utilization coverage is calculated as the percentage of APIs in the spec that have had the component inserted. The coverage is further broken down by the namespace for each component.
+{{#components}}
+<blockquote>
+<details name="component">
+  <summary><b style="font-size: 120%">{{{component}}}: {{percent}}% </b>- {{utilization}} of {{total}} APIs covered</summary>
+{{#namespaces}}
+<details name="namespace" style="padding: 5px">
+<summary style="background-color: #222; color: #ddd; padding: 7px"><code>{{{namespace}}}</code> namespace: {{utilization}}/{{total}}</summary>
+
+{{#actions}}
+- {{#utilized}}<span style="color: green;">&check;</span>{{/utilized}}{{^utilized}}<span style="color: red;">&cross;</span>{{/utilized}} {{{name}}}
+{{/actions}}
+</details>
+{{/namespaces}}
+</details>
+</blockquote>
+{{/components}}

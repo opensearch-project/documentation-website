@@ -3,8 +3,8 @@ layout: default
 title: Using sorting with a hybrid query
 parent: Hybrid search
 grand_parent: AI search
-has_children: true
-nav_order: 30
+has_children: false
+nav_order: 10
 ---
 
 # Using sorting with a hybrid query

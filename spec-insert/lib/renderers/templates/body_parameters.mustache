@@ -1,0 +1,15 @@
+{{^omit_header}}
+## {{{header}}}
+
+{{{description}}}
+{{/omit_header}}
+{{#root_tables}}{{{.}}}{{/root_tables}}{{#descendants}}
+<details markdown="block" name="{{{block_name}}}">
+  <summary>
+    {{{summary}}}
+  </summary>
+  {: .text-delta}
+
+{{{description}}}
+{{#descendant_tables}}{{{.}}}{{/descendant_tables}}
+</details>{{/descendants}}

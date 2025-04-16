@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative 'base_mustache_renderer'
-require_relative 'parameter_table_renderer'
+require_relative 'components/base_mustache_renderer'
+require_relative 'components/parameter_table_renderer'
 
 # Renders query parameters
 class QueryParameters < BaseMustacheRenderer
@@ -19,8 +19,8 @@ class QueryParameters < BaseMustacheRenderer
 
   def params
     return @params if defined?(@params)
-    @params = @action.arguments.select { |arg| arg.location == ArgLocation::QUERY }
-    @params += Parameter.global if @args.include_global
+    @params = @action.query_parameters
+    @params += Api::Parameter.global if @args.include_global
     @params
   end
 end

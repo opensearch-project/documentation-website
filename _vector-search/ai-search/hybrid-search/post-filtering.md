@@ -3,8 +3,8 @@ layout: default
 title: Hybrid search with post-filtering
 parent: Hybrid search
 grand_parent: AI search
-has_children: true
-nav_order: 10
+has_children: false
+nav_order: 40
 ---
 
 # Hybrid search with post-filtering
@@ -83,3 +83,43 @@ Compare the results to the results in the [example without post-filtering]({{sit
   }
 }
 ```
+
+## How post-filtering affects search results and scoring
+
+Post-filtering can significantly change the final search results and document scores. Consider the following scenarios.
+
+### Single-query scenario
+
+Consider a query that returns the following results:
+- Query results before normalization: `[d2: 5.0, d4: 3.0, d1: 2.0]`
+- Normalized scores: `[d2: 1.0, d4: 0.33, d1: 0.0]`
+
+After applying a post-filter to the initial query results, the results are as follows:
+- Post-filter matches `[d2, d4]`
+- Resulting scores: `[d2: 1.0, d4: 0.0]`
+
+Note how document `d4`'s score changes from `0.33` to `0.0` after applying the post-filter.
+
+### Multiple-query scenario
+
+Consider a query with two subqueries:
+- Query 1 results: `[d2: 5.0, d4: 3.0, d1: 2.0]`
+- Query 2 results: `[d1: 1.0, d5: 0.5, d4: 0.25]`
+- Normalized scores:
+  - Query 1: `[d2: 1.0, d4: 0.33, d1: 0.0]`
+  - Query 2: `[d1: 1.0, d5: 0.33, d4: 0.0]`
+- Combined initial scores: `[d2: 1.0, d1: 0.5, d5: 0.33, d4: 0.165]`
+
+After applying a post-filter to the initial query results, the results are as follows:
+- Post-filter matches `[d2, d4]`
+- Resulting scores:
+  - Query 1: `[d2: 5.0, d4: 3.0]`
+  - Query 2: `[d4: 0.25]`
+- Normalized scores:
+  - Query 1: `[d2: 1.0, d4: 0.0]`
+  - Query 2: `[d4: 1.0]`
+- Combined final scores: `[d2: 1.0, d4: 0.5]`
+
+Observe that:
+- Document `d2`'s score remains unchanged.
+- Document `d4`'s score has changed.
