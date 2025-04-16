@@ -1,15 +1,12 @@
 ---
 layout: default
 title: Accessing data in pipeline
-redirect_from:
-  - /opensearch/rest-api/ingest-apis/accessing-data/
-  - /api-reference/ingest-apis/accessing-data/
 nav_order: 20
 ---
 
 # Accessing data in pipelines
 
-In ingest pipelines, you access the data of incoming documents using the `ctx` object. This object represents the document being processed and allows you to read, modify, or enrich its fields. Processors in a pipeline have read and write access to both the `_source` fields of a document and its metadata fields.
+In ingest pipelines, you access the document data using the `ctx` object. This object represents the processed document and allows you to read, modify, or enrich the document fields. Processors in a pipeline have read and write access to both the `_source` fields of a document and its metadata fields.
 
 ## Accessing document fields
 
@@ -25,7 +22,7 @@ Given the following example document:
 }
 ```
 
-You can access `user` using:
+You can access `user` as follows:
 
 ```json
 "field": "ctx.user"
@@ -43,7 +40,7 @@ Given the following example document:
 }
 ```
 
-You can access `user.name` using:
+You can access `user.name` as follows:
 
 ```json
 "field": "ctx.user.name"
@@ -51,7 +48,7 @@ You can access `user.name` using:
 
 ## Accessing fields in the source
 
-To access a field in the document `_source`, refer to fields by their name:
+To access a field in the document `_source`, refer to fields by their names:
 
 ```json
 {
@@ -62,7 +59,7 @@ To access a field in the document `_source`, refer to fields by their name:
 }
 ```
 
-Or explicitly use `_source`:
+Alternatively, you can explicitly use `_source`:
 
 ```json
 {
@@ -75,7 +72,7 @@ Or explicitly use `_source`:
 
 ## Accessing metadata fields
 
-You can read or write metadata fields such as:
+You can read or write to metadata fields such as:
 
 - `_index`
 - `_type`
@@ -98,7 +95,7 @@ Using `{% raw %}{{_id}}{% endraw %}` is not supported when document IDs are auto
 
 ## Accessing ingest metadata fields
 
-The `_ingest.timestamp` field represents when the ingest node received the document. To persist this timestamp:
+The `_ingest.timestamp` field represents the time when the ingest node received the document. To persist this timestamp, use the `set` processor:
 
 ```json
 {
@@ -111,9 +108,9 @@ The `_ingest.timestamp` field represents when the ingest node received the docum
 
 ## Using `ctx` in Mustache templates
 
-Use Mustache templates to insert field values into processor settings. Use triple curly braces for unescaped field values.
+Use Mustache templates to insert field values into processor settings. Use triple curly braces (`{{{` and `}}}`) for unescaped field values.
 
-### Example: Combine source fields
+### Example: Combining source fields
 
 ```json
 {
@@ -124,9 +121,9 @@ Use Mustache templates to insert field values into processor settings. Use tripl
 }
 ```
 
-### Example: Dynamic greeting using `set` processor
+### Example: Generating a dynamic greeting using the set processor
 
-If the document has `"user": "alice"`, use the following syntax to produce the result `"greeting": "Hello, alice!"`.
+If a document's `user` field is set to `alice`, use the following syntax to produce the result `"greeting": "Hello, alice!"`.
 
 ```json
 {
@@ -150,7 +147,7 @@ You can use a field's value as the name of a new field.
 }
 ```
 
-## Example: Route to dynamic index based on status
+## Example: Routing to a dynamic index based on status
 
 ```json
 {
@@ -165,7 +162,7 @@ You can use a field's value as the name of a new field.
 
 Use the `script` processor for advanced transformations.
 
-### Example: Add a field only if another is missing
+### Example: Adding a field only if another is missing
 
 ```json
 {
@@ -176,7 +173,7 @@ Use the `script` processor for advanced transformations.
 }
 ```
 
-### Example: Copy a value from one field to another
+### Example: Copying a value from one field to another
 
 ```json
 {
@@ -187,7 +184,7 @@ Use the `script` processor for advanced transformations.
 }
 ```
 
-## Full pipeline example
+## A complete pipeline example
 
 ```json
 PUT _ingest/pipeline/example-pipeline
@@ -216,7 +213,7 @@ PUT _ingest/pipeline/example-pipeline
 }
 ```
 
-## Testing the pipeline
+To test the pipeline, use the following request:
 
 ```json
 POST _ingest/pipeline/example-pipeline/_simulate
@@ -235,7 +232,7 @@ POST _ingest/pipeline/example-pipeline/_simulate
 }
 ```
 
-### Simulated result
+The response contains...
 
 ```json
 {
