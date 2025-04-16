@@ -12,7 +12,7 @@ class UtilizationCoverage < Mustache
   def components
     total = Api::Action.all.count
     ::Utils::COMPONENTS.map do |id, component|
-      utilization = ::Utils.utilized_components.values.flatten.count { |comp| comp == id }
+      utilization = utilized_components.values.flatten.count { |comp| comp == id }
       percent = (utilization.to_f / total * 100).round(2)
       { component:, utilization:, total:, percent:, namespaces: namespace_utilization(id) }
     end
@@ -25,12 +25,22 @@ class UtilizationCoverage < Mustache
       namespace = '[root]' unless namespace.present?
       actions = actions.map do |action|
         { name: action.full_name,
-          utilized: ::Utils.utilized_components[action.full_name]&.include?(component) }
+          utilized: utilized_components[action.full_name]&.include?(component) }
       end.sort_by { |action| action[:name] }
       total = actions.count
       utilization = actions.count { |action| action[:utilized] }
       percent = (utilization.to_f / total * 100).round(2)
       { namespace:, utilization:, total:, percent:, actions: }
+    end
+  end
+
+  # @return [Hash] where each is an API/action name and each value is an array of generated component for that API
+  def utilized_components
+    @utilized_components ||= begin
+      logger = Logger.new(IO::NULL)
+      spec_inserts = ::Utils.target_files.flat_map { |file| DocProcessor.new(file, logger:).spec_inserts }
+      Set.new(spec_inserts.map { |insert| [insert.args.api, insert.args.component] })
+         .to_a.group_by(&:first).transform_values { |values| values.map(&:last) }
     end
   end
 end
