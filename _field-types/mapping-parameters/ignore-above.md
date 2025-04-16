@@ -37,37 +37,30 @@ Index a document with a long string value using the following command:
 ```json
 PUT /test-no-ignore/_doc/1
 {
-  "number": "123456789012345"
+  "number": "text longer than 10 characters"
 }
 ```
 {% include copy-curl.html %}
 
-Running a search query for the full 15-character string using the following command:
+Running a search term query for the full 15-character string using the following command:
 
 ```json
 POST /test-no-ignore/_search
 {
   "query": {
     "term": {
-      "number": "123456789012345"
+      "number": "text longer than 10 characters"
     }
   }
 }
 ```
 {% include copy-curl.html %}
 
-Expected result:
+The document is returned because the number field was indexed:
 
 ```json
 {
-  "took": 10,
-  "timed_out": false,
-  "_shards": {
-    "total": 1,
-    "successful": 1,
-    "skipped": 0,
-    "failed": 0
-  },
+  ...
   "hits": {
     "total": {
       "value": 1,
@@ -80,7 +73,7 @@ Expected result:
         "_id": "1",
         "_score": 0.13353139,
         "_source": {
-          "number": "123456789012345"
+          "number": "text longer than 10 characters"
         }
       }
     ]
@@ -112,26 +105,26 @@ Index the same document with the long string value using the following command:
 ```json
 PUT /test-ignore/_doc/1
 {
-  "number": "123456789012345"
+  "number": "text longer than 10 characters"
 }
 ```
 {% include copy-curl.html %}
 
-Run the search query using the following command:
+Run the search term query using the following command:
 
 ```json
 POST /test-ignore/_search
 {
   "query": {
     "term": {
-      "number": "123456789012345"
+      "number": "text longer than 10 characters"
     }
   }
 }
 ```
 {% include copy-curl.html %}
 
-Expected result:
+There are not hits returned because the string in field `number` exceeded the `ignore_above` threshold and was not indexed:
 
 ```json
 {
@@ -154,4 +147,34 @@ Expected result:
 }
 ```
 
-The query returns no results because the long string exceeded the `ignore_above` threshold and was not indexed.
+However the document is still present, which can be confirmed using the following command:
+
+```json
+GET test-ignore/_search
+```
+{% include copy-curl.html %}
+
+Returned hits include the document:
+
+```json
+{
+  ...
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "test-ignore",
+        "_id": "1",
+        "_score": 1,
+        "_source": {
+          "number": "text longer than 10 characters"
+        }
+      }
+    ]
+  }
+}
+```
