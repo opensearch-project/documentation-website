@@ -42,7 +42,7 @@ PUT /test-no-ignore/_doc/1
 ```
 {% include copy-curl.html %}
 
-Running a search term query for the full 15-character string using the following command:
+Running a search term query for the full string using the following command:
 
 ```json
 POST /test-no-ignore/_search
