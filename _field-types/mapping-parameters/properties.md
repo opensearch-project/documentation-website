@@ -76,10 +76,10 @@ PUT /products/_doc/1
 
 ## Querying and aggregating using dot notation
 
-You can query or aggregate on sub-fields inside objects using dot notation. Use the following command to execute a query that:
+You can query or aggregate on object subfields using dot notation. Use the following command to execute a query that:
 
-- Uses `dimensions.width` field to filter documents where `width` is between `5` and `10`.
-- Creates [histogram aggregation]({{site.url}}{{site.baseurl}}/aggregations/bucket/histogram/) on `dimensions.depth` field which creates buckets for products `depth` using intervals of `0.5`.
+- Filters documents on the `dimensions.width` field, returning documents in which `width` is between `5` and `10`.
+- Creates a [histogram aggregation]({{site.url}}{{site.baseurl}}/aggregations/bucket/histogram/) on the `dimensions.depth` field, creating buckets for products using `depth` intervals of `0.5`.
 
 ```json
 POST /products/_search
