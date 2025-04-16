@@ -2,7 +2,7 @@
 layout: default
 title: Resolve index
 parent: Index APIs
-nav_order: 19
+nav_order: 62
 ---
 
 # Resolve index
@@ -35,11 +35,13 @@ The following table lists the available query parameters. All query parameters a
 
 This API does not support a request body.
 
-## Example request(s)
+## Example requests
+
+The following sections provide Resolve API example requests.
+
 
 ### Resolve a concrete index
 
-The following example shows an API request with a concrete index:
 
 ```json
 GET _resolve/index/my-index-001
@@ -48,7 +50,6 @@ GET _resolve/index/my-index-001
 
 ### Resolve indexes using a wildcard
 
-The following example shows an API request with a wildcard:
 
 ```json
 GET _resolve/index/my-index-*
@@ -57,7 +58,7 @@ GET _resolve/index/my-index-*
 
 ### Resolve a data stream or alias
 
-If an alias or data stream named `logs-app` exists, use the following command to resolve it:
+If an alias or data stream named `logs-app` exists, use the following request to resolve it:
 
 ```json
 GET _resolve/index/logs-app
