@@ -55,7 +55,7 @@ PUT /products
 
 ## Indexing a document
 
-Use the following command to index a document with nested fields:
+Use the following command to index a document with [nested fields]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/nested/):
 
 ```json
 PUT /products/_doc/1
@@ -104,7 +104,7 @@ POST /products/_search
 ```
 {% include copy-curl.html %}
 
-Expected result:
+The following response shows a matching document where the dimensions.width field falls within the specified range. It also includes a histogram aggregation result for dimensions.depth:
 
 ```json
 {
