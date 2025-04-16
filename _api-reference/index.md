@@ -38,7 +38,7 @@ This reference includes the REST APIs supported by OpenSearch. If a REST API is 
 - [Index state management API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/)
 - [ISM error prevention API]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/api/)
 - [Ingest APIs]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/)
-- [k-NN plugin API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api/)
+- [Vector search API]({{site.url}}{{site.baseurl}}/vector-search/api/)
 - [ML Commons API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/) 
 - [Multi-search]({{site.url}}{{site.baseurl}}/api-reference/multi-search/)
 - [Nodes APIs]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/)
