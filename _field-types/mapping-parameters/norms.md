@@ -10,9 +10,9 @@ has_toc: false
 
 # Norms
 
-The `norms` mapping parameter controls whether normalization factors are computed and stored for a field. These factors are used during query scoring to adjust the relevance of the search results, however, storing `norms` increases the index size and consumes additional memory.
+The `norms` mapping parameter controls whether normalization factors are computed and stored for a field. These factors are used during query scoring to adjust the relevance of the search results. However, storing `norms` increases the index size and consumes additional memory.
 
-By default, `norms` are enabled on `text` fields where relevance scoring is important. Fields that do not require these scoring features are configured with `norms` disabled, such as `keyword` fields used only for filtering.
+By default, `norms` are enabled on `text` fields, for which relevance scoring is important. Fields that do not require these scoring features, such as `keyword` fields used only for filtering, are configured with `norms` disabled.
 
 ## Disabling norms on a field
 
@@ -33,7 +33,7 @@ PUT /products
 ```
 {% include copy-curl.html %}
 
-You can disable `norms` on a field in an existing index using the following command:
+To disable `norms` on a field in an existing index, use the following request:
 
 ```json
 PUT /products/_mapping
@@ -48,7 +48,7 @@ PUT /products/_mapping
 ```
 {% include copy-curl.html %}
 
-Enabling `norms` on a field which has `norms` disabled is not possible. This will generate the following error:
+Enabling `norms` on a field that has `norms` disabled is impossible and will result in the following error:
 
 ```json
 {
