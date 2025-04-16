@@ -10,7 +10,9 @@ redirect_from:
 
 # Optimizing vector search using Cohere compressed embeddings
 
-This tutorial shows you how to optimize vector search using Cohere compressed embeddings in OpenSearch 2.19 or later. These embeddings allow for more efficient storage and faster retrieval of vector representations, making them ideal for large-scale search applications.
+This tutorial shows you how to optimize vector search using Cohere compressed embeddings. These embeddings allow for more efficient storage and faster retrieval of vector representations, making them ideal for large-scale search applications.
+
+This tutorial is compatible with version 2.17 and later, except for [Using a template query and a search pipeline](#using-a-template-query-and-a-search-pipeline) in [Step 4: Search the index](#step-4-search-the-index), which requires version 2.19 or later.
 
 This tutorial uses the Cohere Embed Multilingual v3 model on Amazon Bedrock. For more information about using Cohere compressed embeddings on Amazon Bedrock, see [this blog post](https://aws.amazon.com/about-aws/whats-new/2024/06/amazon-bedrock-compressed-embeddings-cohere-embed/).
 
