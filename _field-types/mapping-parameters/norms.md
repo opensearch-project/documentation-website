@@ -12,9 +12,9 @@ has_toc: false
 
 The `norms` mapping parameter controls whether normalization factors are computed and stored for a field. These factors are used during query scoring to adjust the relevance of the search results. However, storing `norms` increases the index size and consumes additional memory.
 
-By default, `norms` are enabled on `text` fields, for which relevance scoring is important. Fields that do not require these scoring features, such as `keyword` fields used only for filtering, are configured with `norms` disabled.
+By default, `norms` is enabled on `text` fields, for which relevance scoring is important. Fields that do not require these scoring features, such as `keyword` fields used only for filtering, are configured with `norms` disabled.
 
-## Disabling norms on a field
+## Disabling `norms` on a field
 
 The following request creates an index named `products` with the `description` field as a `text` field with `norms` disabled:
 
