@@ -22,11 +22,11 @@ Enabling `term_vector` increases index size. Use only when you need detailed ter
 The `term_vector` parameter supports the following valid values:
 
 - `no` (default): Term vectors are not stored.
-- `yes`: Store term frequencies and basic positions.
-- `with_positions`: Store term positions.
-- `with_offsets`: Store character offsets.
+- `yes`: Store term frequencies (The number of times a term appears in the specific document) and basic positions.
+- `with_positions`: Store term positions. The order in which the term appears in the field.
+- `with_offsets`: Store character offsets. The exact start and end character positions of the term within the field text
 - `with_positions_offsets`: Store both positions and offsets.
-- `with_positions_payloads`: Store positions and payloads (if payloads are indexed).
+- `with_positions_payloads`: Store term positions along with payloads, which are optional pieces of custom metadata (such as tags or numeric values) that can be attached to individual terms during indexing. Payloads are used in advanced scenarios like custom scoring or tagging but require special analyzers to be set up.
 - `with_positions_offsets_payloads`: Store all term vector data.
 
 ## Enabling term_vector on a field
@@ -73,7 +73,7 @@ POST /articles/_termvectors/1
 ```
 {% include copy-curl.html %}
 
-Expected result:
+The following response includes detailed term-level statistics for the `content` field in document ID `1`, such as term frequency, document frequency, token positions, and character offsets:
 
 ```json
 {
@@ -206,7 +206,7 @@ Expected result:
 
 ## Highlighting with term vectors
 
-Use the following command to search for the term "analytics" and highlight it using the field's stored term vectors:
+Use the following command to search for the term "analytics" and [highlight]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/highlight/) it using the field's stored term vectors:
 
 ```json
 POST /articles/_search
@@ -227,7 +227,7 @@ POST /articles/_search
 ```
 {% include copy-curl.html %}
 
-Expected result:
+The following response shows a matched document where the term "analytics" was found in the `content` field. The `highlight` section includes the matched term wrapped in `<em>` tags, using the field’s stored term vectors for efficient and accurate highlighting.
 
 ```json
 {
