@@ -37,7 +37,7 @@ The following table lists the available request body fields.
 | `template.settings` | Object | The index settings to apply. |
 | `template.mappings` | Object | The field mappings to apply. |
 | `template.aliases` | Object | The aliases to apply. |
-| `priority` | Integer | The template priority. |
+| `priority` | Integer | The template's priority value, used to determine which template is applied when multiple templates match an index. Higher values take precedence. |
 | `version` | Integer | The template version. |
 | `_meta` | Object | Metadata for the template. |
 
@@ -160,7 +160,7 @@ POST /_index_template/_simulate_index/logs-sim-1
 | `template.settings` | Object | The resolved index settings. |
 | `template.mappings` | Object | The resolved field mappings. |
 | `template.aliases` | Object | The resolved aliases. |
-| `overlapping` | Array | A list of overlapping templates. |
+| `overlapping` | Array | A list of other index templates that match the same index pattern but were not applied. |
 
 ## Required permissions
 
