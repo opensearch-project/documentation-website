@@ -90,9 +90,7 @@ If null-safe operator `?.` is not configured, indexing any document which doesn'
 
 ## Handling flattened fields
 
-If your document has a flattened field, for example: `"app.env": "debug"`, use the [`dot_expander`]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/dot-expander/) processor to convert it into a nested structure.
-
-### Example: Using dot_expander
+If your document has a flattened field, for example: `"app.env": "debug"`, use the [`dot_expander`]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/dot-expander/) processor to convert it into a nested structure:
 
 ```json
 PUT _ingest/pipeline/drop_debug_env
