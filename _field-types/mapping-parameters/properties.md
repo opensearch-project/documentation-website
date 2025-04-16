@@ -16,7 +16,7 @@ By using `properties`, you gain full control over how your data is indexed and s
 
 ## Defining fields with properties
 
-The following request creates an index named `products` with a structured mapping using the `properties` parameter. It includes a nested object field called `dimensions` with sub-fields:
+The following request creates an index named `products` with a structured mapping using the `properties` parameter. It includes a nested object field called `dimensions` with subfields:
 
 ```json
 PUT /products
@@ -104,7 +104,7 @@ POST /products/_search
 ```
 {% include copy-curl.html %}
 
-The following response shows a matching document where the dimensions.width field falls within the specified range. It also includes a histogram aggregation result for dimensions.depth:
+The following response shows a matching document in which the `dimensions.width` field falls within the specified range. It also includes a histogram aggregation result for `dimensions.depth`:
 
 ```json
 {
