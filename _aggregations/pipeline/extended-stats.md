@@ -85,6 +85,8 @@ GET opensearch_dashboards_sample_data_logs/_search
 
 The response contains extended stats for the selected buckets. Note that the standard deviation bounds are for a three-sigma range; changing `sigma` (or letting it default to `2`) gives different resuilts:
 
+<details open markdown="block">
+
 ```json
 {
   "took": 6,
@@ -176,3 +178,5 @@ The response contains extended stats for the selected buckets. Note that the sta
   }
 }
 ```
+
+</details>
