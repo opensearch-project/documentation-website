@@ -105,7 +105,7 @@ Follow these steps to set up your local copy of the repository:
 Assuming you have `docker-compose` installed, run the following command:
 
    ```
-   docker compose -f docker-compose.dev.yml up
+   docker-compose -f docker-compose.dev.yml up
    ```
 
 #### Troubleshooting
@@ -176,5 +176,3 @@ ruby -v
 ## Getting help
 
 For help with the contribution process, reach out to one of the [points of contact](README.md#points-of-contact).
-
-
