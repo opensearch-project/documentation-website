@@ -178,3 +178,12 @@ bundle exec rake generate_utilization_coverage
 
 The coverage report will be generated in the `spec-insert/utilization_coverage.md` by default.
 
+## Spec insert generate dry-run report
+
+To generate a dry-run report of all APIs with all available spec insert components, run the following command:
+
+```shell
+cd spec-insert
+bundle exec rake generate_dry_run_report
+```
+This will also generate a markdown (.md) file for each API with their rendered components in the `spec-insert/dry_run` folder. This allows you to preview the rendered components for all APIs without modifying the original documentation files. A report summarizing the errors found during the dry-run will be generated in the `spec-insert/dry_run_report.md` file.
