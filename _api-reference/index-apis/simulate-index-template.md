@@ -7,7 +7,7 @@ nav_order: 29
 
 # Simulate index templates
 
-The Simulate Index Template API helps you preview how index templates will be applied to an index or simulate an index template before creating it.
+You can use the Simulate Index Template API to preview how index templates will be applied to an index or simulate an index template before creating it.
 
 ## Endpoints
 
@@ -24,7 +24,7 @@ The following table lists the available path parameters.
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | `template_name` | String | The name of the index template to simulate. |
-| `index_name` | String | The name of the index to user for simulating template resolution. |
+| `index_name` | String | The name of the index to use for simulating template resolution. |
 
 ## Request body fields
 
@@ -32,7 +32,7 @@ The following table lists the available request body fields.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
-| `index_patterns` | Array | The index patterns the template applies to. |
+| `index_patterns` | Array | The index patterns to which the template applies. |
 | `template` | Object | The template definition. |
 | `template.settings` | Object | The index settings to apply. |
 | `template.mappings` | Object | The field mappings to apply. |
@@ -70,7 +70,7 @@ POST /_index_template/_simulate
 
 You can simulate a specific template by specifying the name of the template.
 
-The first step is to create a template named `template_for_simulation` using the following request:
+First, create a template named `template_for_simulation` using the following request:
 
 ```json
 PUT /_index_template/template_for_simulation
@@ -156,7 +156,7 @@ POST /_index_template/_simulate_index/logs-sim-1
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
-| `template` | Object | The effective template applied. |
+| `template` | Object | The template applied. |
 | `template.settings` | Object | The resolved index settings. |
 | `template.mappings` | Object | The resolved field mappings. |
 | `template.aliases` | Object | The resolved aliases. |
@@ -164,4 +164,4 @@ POST /_index_template/_simulate_index/logs-sim-1
 
 ## Required permissions
 
-If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/index_template/simulate`.
+If you are using the Security plugin, make sure you have the appropriate permissions: `indices:admin/index_template/simulate`.
