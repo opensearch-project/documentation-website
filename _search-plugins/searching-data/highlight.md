@@ -210,7 +210,7 @@ matched_fields | Combines matches from different fields to highlight one field. 
 no_match_size | Specifies the number of characters, starting from the beginning of the field, to return if there are no matching fragments to highlight. Default is 0.
 phrase_limit | The number of matching phrases in a document that are considered. Limits the number of phrases to analyze by the `fvh` highlighter to avoid consuming a lot of memory. If `matched_fields` are used, `phrase_limit` specifies the number of phrases for each matched field. A higher `phrase_limit` leads to increased query time and more memory consumption. Valid only for the `fvh` highlighter. Default is 256.
 max_analyzer_offset | Specifies the maximum number of characters to be analyzed by a highlight request. The remaining text will not be processed. If the text to be highlighted exceeds this offset, then an empty highlight is returned. The maximum number of characters that will be analyzed for a highlight request is defined by `index.highlight.max_analyzed_offset`. When this limit is reached, an error is returned. Set the `max_analyzer_offset` to a lower value than `index.highlight.max_analyzed_offset` to avoid the error.
-options | A global object containing options specific to certain highlighters.
+options | A global object containing highlighter-specific options.
 options.model_id | The ID of the deployed ML model to use for highlighting. Required and valid only for the `semantic` highlighter.
 
 The unified highlighter's sentence scanner splits sentences larger than `fragment_size` at the first word boundary after `fragment_size` is reached. To return whole sentences without splitting them, set `fragment_size` to 0.
