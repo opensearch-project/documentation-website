@@ -8,7 +8,7 @@ redirect_from:
   - /query-dsl/aggregations/pipeline/extended-stats/
 ---
 
-# Extended stats bucket aggregations
+# Extended stats bucket aggregation
 
 The `extended_stats_bucket` aggregation is a more comprehensive version of the [`stats_bucket`]({{site.url}}{{site.baseurl}}/query-dsl/aggregations/pipeline/stats-bucket/) aggregation. As well as the basic statistical measures provided by `stats_bucket`, `extended_stats_bucket` calculates the following metrics:
 
@@ -31,7 +31,7 @@ The standard deviation and variance are population statistics; they are always e
 
 The `std_deviation_bounds` object defines a range that spans the specified number of standard deviations above and below the mean (default is two standard deviations). This object is always included in the output but is meaningful only for normally distributed data. Before interpreting these values, verify that your dataset follows a normal distribution.
 
-The specified metric must be numeric and the sibling aggregation must be a multi-bucket aggregation.
+The specified metric must be numeric, and the sibling aggregation must be a multi-bucket aggregation.
 
 ## Parameters
 
@@ -46,7 +46,7 @@ The `extended_stats_bucket` aggregation takes the following parameters.
 
 ## Example
 
-The following example creates a date histogram with a one-month interval from the OpenSearch Dashboards e-commerce sample data. The `sum` sub-aggregation calculates the sum of all bytes for each month. Finally, the `extended_stats_bucket` aggregation returns the extended stats for these sums:
+The following example creates a date histogram with a one-month interval using the OpenSearch Dashboards e-commerce sample data. The `sum` sub-aggregation calculates the sum of all bytes for each month. Finally, the `extended_stats_bucket` aggregation returns the extended stats for these sums:
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -80,7 +80,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 
 ## Example response
 
-The response contains extended stats for the selected buckets. Note that the standard deviation bounds are for a three-sigma range; changing `sigma` (or letting it default to `2`) gives different results:
+The response contains extended stats for the selected buckets. Note that the standard deviation bounds are for a three-sigma range; changing `sigma` (or letting it default to `2`) returns different results:
 
 <details open markdown="block">
 

@@ -8,11 +8,11 @@ redirect_from:
   - /query-dsl/aggregations/pipeline/stats-bucket/
 ---
 
-# Stats bucket aggregations
+# Stats bucket aggregation
 
 The `stats_bucket` aggregation is a sibling aggregation that returns a variety of stats (`count`, `min`, `max`, `avg`, and `sum`) for the buckets of a previous aggregation.
 
-The specified metric must be numeric and the sibling aggregation must be a multi-bucket aggregation.
+The specified metric must be numeric, and the sibling aggregation must be a multi-bucket aggregation.
 
 ## Parameters
 
@@ -26,7 +26,7 @@ The `stats_bucket` aggregation takes the following parameters.
 
 ## Example
 
-The following example creates a date histogram with a one-month interval from the OpenSearch Dashboards e-commerce sample data. The `sum` sub-aggregation calculates the sum of all bytes for each month. Finally, the `stats_bucket` aggregation returns the `count`, `avg`, `sum`, `min`, and `max` stats from these sums:
+The following example creates a date histogram with a one-month interval using the OpenSearch Dashboards e-commerce sample data. The `sum` sub-aggregation calculates the sum of all bytes for each month. Finally, the `stats_bucket` aggregation returns the `count`, `avg`, `sum`, `min`, and `max` stats from these sums:
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
