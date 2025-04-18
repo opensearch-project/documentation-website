@@ -22,13 +22,14 @@ You can configure the `otel_logs_source` source with the following options.
 | :--- | :--- | :--- |
 | port | int | Represents the port that the `otel_logs_source` source is running on. Default value is `21892`. |
 | path | string | Represents the path for sending unframed HTTP requests. You can use this option to support an unframed gRPC request with an HTTP idiomatic path to a configurable path. The path should start with `/`, and its length should be at least 1. The `/opentelemetry.proto.collector.logs.v1.LogsService/Export` endpoint is disabled for both gRPC and HTTP requests if the path is configured. The path can contain a `${pipelineName}` placeholder, which is replaced with the pipeline name. If the value is empty and `unframed_requests` is `true`, then the source provides the path `/opentelemetry.proto.collector.logs.v1.LogsService/Export`. |
-| max_request_length | No | ByteCount | The maximum number of bytes allowed in the payload of a single gRPC or HTTP request. Default value is `10mb`.
+| max_request_length | No | The maximum number of bytes allowed in the payload of a single gRPC or HTTP request. Default value is `10mb`. |
 | request_timeout | int | Represents the request timeout duration in milliseconds. Default value is `10000`. |
 | health_check_service | Boolean | Enables the gRPC health check service under `grpc.health.v1/Health/Check`. Default value is `false`. |
 | proto_reflection_service | Boolean | Enables a reflection service for Protobuf services (see [ProtoReflectionService](https://grpc.github.io/grpc-java/javadoc/io/grpc/protobuf/services/ProtoReflectionService.html) and [gRPC reflection](https://github.com/grpc/grpc-java/blob/master/documentation/server-reflection-tutorial.md)). Default value is `false`. |
 | unframed_requests | Boolean | Enables requests that are not framed using the gRPC wire protocol. Default value is `false`. |
 | thread_count  | int | The number of threads to keep in the `ScheduledThreadPool`. Default value is `500`. |
 | max_connection_count | int | The maximum number of open connections allowed. Default value is `500`. |
+| compression | string | The compression type applied on the client request payload. Can be `none` or `gzip`. Use `gzip` to apply GZip de-compression on the incoming request. Defaults to `none` which means no compression. |
 
 ### SSL
 
