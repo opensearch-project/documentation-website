@@ -3,7 +3,7 @@
 
 {{{description}}}
 {{/omit_header}}
-{{{table}}}{{#descendants}}
+{{#root_tables}}{{{.}}}{{/root_tables}}{{#descendants}}
 <details markdown="block" name="{{{block_name}}}">
   <summary>
     {{{summary}}}
@@ -11,5 +11,5 @@
   {: .text-delta}
 
 {{{description}}}
-{{{table}}}
+{{#descendant_tables}}{{{.}}}{{/descendant_tables}}
 </details>{{/descendants}}

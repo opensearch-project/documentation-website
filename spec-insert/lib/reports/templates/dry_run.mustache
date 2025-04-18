@@ -1,0 +1,20 @@
+# Rendered Components of API `{{{api_name}}}`
+
+{{#components}}
+{{#error}}
+
+---
+
+### <span style="color:rgba(255,0,0,0.5);"> Component `{{{component}}}` failed to render due to the following error: </span>
+
+```
+{{{message}}}
+```
+
+---
+
+{{/error}}
+{{^error}}
+{{{component}}}
+{{/error}}
+{{/components}}
