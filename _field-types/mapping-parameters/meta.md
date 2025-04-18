@@ -1,6 +1,6 @@
 ---
 layout: default
-title: _meta
+title: Meta
 parent: Mapping parameters
 grand_parent: Mapping and field types
 nav_order: 100
@@ -10,9 +10,9 @@ has_toc: false
 
 # Meta
 
-The `_meta` mapping parameter allows you to attach arbitrary metadata to your mapping definition. This metadata is stored alongside your mapping and is returned when the mapping is retrieved, serving solely as informational context without influencing indexing or search operations.
+The `_meta` mapping parameter allows you to attach metadata to your mapping definition. This metadata is stored alongside your mapping and is returned when the mapping is retrieved, serving solely as informational context without influencing indexing or search operations.
 
-You can use `_meta` mapping parameter to document important details such as version information, descriptions, or authorship. Metadata can also be updated by submitting a mapping update which will override the existing metadata.
+You can use the `_meta` mapping parameter to provide important details, such as version information, descriptions, or authorship. Metadata can also be updated by submitting a mapping update that overrides the existing metadata.
 
 
 ## Enabling meta on a mapping
@@ -42,7 +42,7 @@ PUT /products
 
 ### Updating metadata on an index
 
-You can use the following command to update the `_meta` mapping parameter on an index:
+Use the following request to update the `_meta` mapping parameter on an index:
 
 ```json
 PUT /products/_mapping
@@ -71,7 +71,7 @@ PUT /products/_doc/1
 
 ### Retrieve the meta information
 
-To verify that your `_meta` information is stored, you can retrieve the mapping for the index using the following command:
+To verify that your `_meta` information is stored, you can retrieve the mapping for the index:
 
 ```json
 GET /products/_mapping
