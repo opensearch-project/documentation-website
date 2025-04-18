@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Index_options
+title: Index options
 parent: Mapping parameters
 grand_parent: Mapping and field types
 nav_order: 70
@@ -8,25 +8,25 @@ has_children: false
 has_toc: false
 ---
 
-# index_options
+# Index options
 
 The `index_options` mapping parameter controls the level of detail stored in the inverted index for text fields. This setting directly influences both the index size and the capabilities available for scoring, phrase matching, and highlighting.
 
-Depending on your requirements, you can choose from the following options:
+The `index_options` parameter has the following valid values.
 
-| Option     | Stores                          | Description |
+| Value     | Stores                          | Description |
 |------------|----------------------------------|-------------|
 | `docs`     | Document IDs only               | Indexes only the existence of a term in documents. Does not store frequency or position. Minimizes index size; suitable for simple existence checks. |
-| `freqs`    | Document IDs + Term Frequency   | Adds term frequency information. Useful for improved relevance scoring, but does not support phrase or proximity queries. |
-| `positions`| Document IDs + Term Frequency + Term Positions | Includes term order and location in the document. Required for phrase queries and proximity searches. |
-| `offsets`  | Document IDs + Term Frequency + Term Positions + Offsets | Most detailed. Adds character offsets for matched terms. Useful for highlighting but increases storage size. |
+| `freqs`    | Document IDs + term frequency   | Adds term frequency information. Useful for improved relevance scoring, but does not support phrase or proximity queries. |
+| `positions`| Document IDs + term frequency + term positions | Includes term order and location in the document. Required for phrase queries and proximity searches. |
+| `offsets`  | Document IDs + term frequency + term positions + offsets | Most detailed. Adds character offsets for matched terms. Useful for highlighting but increases storage size. |
 
 
 By default, text fields are indexed with the `positions` option, balancing functionality and index size.
 
 ## Example: Setting index_options on a field
 
-The following example demonstrates how to create an index named `products` with a `description` field that uses the `positions` setting for `index_options`:
+Create an index named `products` with a `description` field that uses the `positions` setting for `index_options`:
 
 ```json
 PUT /products
@@ -43,7 +43,7 @@ PUT /products
 ```
 {% include copy-curl.html %}
 
-You can index a document with content in the description field using the following command:
+Index a document with content in the `description` field:
 
 ```json
 PUT /products/_doc/1
@@ -53,7 +53,7 @@ PUT /products/_doc/1
 ```
 {% include copy-curl.html %}
 
-You can now run a phrase query against the `description` field sing the following command:
+Run a phrase query against the `description` field:
 
 ```json
 POST /products/_search
