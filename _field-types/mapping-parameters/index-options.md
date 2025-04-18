@@ -67,7 +67,7 @@ POST /products/_search
 ```
 {% include copy-curl.html %}
 
-Expected result:
+The phrase query successfully matches the document, demonstrating how the `positions` setting in `index_options` enables accurate phrase matching within the `description` field:
 
 ```json
 {
