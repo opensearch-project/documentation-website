@@ -17,10 +17,9 @@ The `index_options` parameter has the following valid values.
 | Value     | Stores                          | Description |
 |------------|----------------------------------|-------------|
 | `docs`     | Document IDs only               | Indexes only the existence of a term in documents. Does not store frequency or position. Minimizes index size; suitable for simple existence checks. |
-| `freqs`    | Document IDs + term frequency   | Adds term frequency information. Useful for improved relevance scoring, but does not support phrase or proximity queries. |
+| `freqs`    | Document IDs + term frequency   | Adds term frequency information. Useful for improved relevance scoring but does not support phrase or proximity queries. |
 | `positions`| Document IDs + term frequency + term positions | Includes term order and location in the document. Required for phrase queries and proximity searches. |
 | `offsets`  | Document IDs + term frequency + term positions + offsets | Most detailed. Adds character offsets for matched terms. Useful for highlighting but increases storage size. |
-
 
 By default, text fields are indexed with the `positions` option, balancing functionality and index size.
 
