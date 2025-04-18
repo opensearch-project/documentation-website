@@ -10,7 +10,7 @@ has_toc: false
 
 # Ignore above
 
-The `ignore_above` mapping parameter limits the maximum number of characters for an indexed string. If a string's length exceeds the specified threshold, the value is stored with the document but is not indexed. This can help prevent the index from bloating with unusually long values and can keep queries efficient.
+The `ignore_above` mapping parameter limits the maximum number of characters for an indexed string. If a string's length exceeds the specified threshold, the value is stored with the document but is not indexed. This can help prevent the index from bloating with unusually long values and can ensure efficient queries.
 
 By default, if you do not specify `ignore_above`, all string values will be fully indexed.
 
@@ -147,7 +147,7 @@ No results are returned because the string in the `sentence` field exceeded the 
 }
 ```
 
-However the document is still present, which can be confirmed using the following request:
+However, the document is still present, which can be confirmed using the following request:
 
 ```json
 GET test-ignore/_search
