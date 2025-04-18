@@ -17,7 +17,7 @@ You can use the `_meta` mapping parameter to provide important details, such as 
 
 ## Enabling meta on a mapping
 
-The following request creates an index named `products` with a `_meta` mapping parameter containing version and description details:
+The following request creates an index named `products` with a `_meta` mapping parameter containing version and description information:
 
 ```json
 PUT /products
