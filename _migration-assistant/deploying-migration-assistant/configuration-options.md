@@ -170,7 +170,18 @@ The `serviceSigningName` can be `es` for an Elasticsearch or OpenSearch domain, 
 
 All of these authentication options apply to both source and target clusters.
 
-## Bring-your-own-snapshot options
+## Snapshot options
+
+### Snapshot of a managed service source
+
+If the source cluster is on the AWS OpenSearch Managed Service, it's necessary for an additional IAM role to be set up and passed with the snapshot creation call, as described in the [AWS documentation](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains-snapshots.html). This can be automatically managed by the Migration Assistant. Managed Service snapshots are only compatible with SigV4 auth. The following parameter ensures that the additional IAM role is create and passed:
+
+| Name  | Example | Description |
+| :--- | :--- | :--- |
+| `managedServiceSourceSnapshotEnabled` | `true` | Create the necessary roles and trust relationships to take a snapshot of a managed service source cluster. This is only compatible with SigV4 auth.|
+
+
+### Bring-your-own-snapshot
 
 An existing Amazon Simple Storage Service (Amazon S3) snapshot can alternatively be used to perform [metadata]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrating-metadata/) and [backfill]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/) migrations instead of using Migration Assistant to create a snapshot:
 
