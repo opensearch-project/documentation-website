@@ -27,6 +27,7 @@ The primary goal of the gRPC plugin is to:
 ## Enabling the plugin
 
 To enable the gRPC plugin (transport-grpc) in OpenSearch, 
+1. Install the **transport-grpc** plugin, following the [OpenSearch plugins guide]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).  
 
 1. Add the following settings to `opensearch.yml`:
 ```
@@ -40,7 +41,7 @@ aux.transport.types: [experimental-secure-transport-grpc]
 aux.transport.experimental-transport-grpc.port: '9400-9500' // optional
 ```
 
-2. Configure additional settings if needed following the [Advanced GRPC settings](#advanced-grpc-settings) section.
+1. Configure additional settings if needed following the [Advanced GRPC settings](#advanced-grpc-settings) section.
 ```
 grpc.host: localhost
 grpc.publish_host: 10.74.124.163
