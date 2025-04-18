@@ -1,6 +1,6 @@
 ---
 layout: default
-title: ignore_above
+title: Ignore above
 parent: Mapping parameters
 grand_parent: Mapping and field types
 nav_order: 45
@@ -8,15 +8,15 @@ has_children: false
 has_toc: false
 ---
 
-# ignore_above
+# Ignore above
 
-The `ignore_above` mapping parameter limits the maximum number of characters that are permitted for a string to be indexed. If the length of a string exceeds the specified threshold, the value is stored with the document but is not indexed. This can help prevent the index from bloating with unusually long values and can keep queries efficient.
+The `ignore_above` mapping parameter limits the maximum number of characters for an indexed string. If a string's length exceeds the specified threshold, the value is stored with the document but is not indexed. This can help prevent the index from bloating with unusually long values and can keep queries efficient.
 
 By default, if you do not specify `ignore_above`, all string values will be fully indexed.
 
 ## Example: Without ignore_above
 
-Create an index with a keyword field without the `ignore_above` parameter using the following command:
+Create an index with a `keyword` field without specifying the `ignore_above` parameter:
 
 ```json
 PUT /test-no-ignore
@@ -32,7 +32,7 @@ PUT /test-no-ignore
 ```
 {% include copy-curl.html %}
 
-Index a document with a long string value using the following command:
+Index a document with a long string value:
 
 ```json
 PUT /test-no-ignore/_doc/1
@@ -42,7 +42,7 @@ PUT /test-no-ignore/_doc/1
 ```
 {% include copy-curl.html %}
 
-Running a search term query for the full string using the following command:
+Run a term query for the full string:
 
 ```json
 POST /test-no-ignore/_search
@@ -83,7 +83,7 @@ The document is returned because the `sentence` field was indexed:
 
 ## Example: With ignore_above
 
-Create an index with the `ignore_above` parameter set to `10` on the same field using the following command:
+Create an index with the `ignore_above` parameter set to `10` on the same field:
 
 ```json
 PUT /test-ignore
@@ -100,7 +100,7 @@ PUT /test-ignore
 ```
 {% include copy-curl.html %}
 
-Index the same document with the long string value using the following command:
+Index the same document with the long string value:
 
 ```json
 PUT /test-ignore/_doc/1
@@ -110,7 +110,7 @@ PUT /test-ignore/_doc/1
 ```
 {% include copy-curl.html %}
 
-Run the search term query using the following command:
+Run a term query for the full string:
 
 ```json
 POST /test-ignore/_search
@@ -124,7 +124,7 @@ POST /test-ignore/_search
 ```
 {% include copy-curl.html %}
 
-There are not hits returned because the string in field `sentence` exceeded the `ignore_above` threshold and was not indexed:
+No results are returned because the string in the `sentence` field exceeded the `ignore_above` threshold and was not indexed:
 
 ```json
 {
@@ -147,14 +147,14 @@ There are not hits returned because the string in field `sentence` exceeded the 
 }
 ```
 
-However the document is still present, which can be confirmed using the following command:
+However the document is still present, which can be confirmed using the following request:
 
 ```json
 GET test-ignore/_search
 ```
 {% include copy-curl.html %}
 
-Returned hits include the document:
+The returned hits include the document:
 
 ```json
 {
