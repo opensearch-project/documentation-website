@@ -96,6 +96,7 @@ p\d{2}
 [Pp]repper
 [Pp]reprocess
 [Pp]retrain
+[Pp]rotobufs?
 [Pp]seudocode
 [Qq]uantiles?
 [Qq]uantiz(e|ation|ing|er)
