@@ -9,4 +9,4 @@ services:
     command: bash -c "bundler install && bash build.sh"
     environment:
       BUNDLE_PATH: /app/vendor/bundle  # Avoid installing gems globally.
-      DOCKER_BUILD: true               # Signify build.sh to bind to 0.0.0.0 for effective doc access from host.
+      DOCKER_BUILD: 'true'               # Signify build.sh to bind to 0.0.0.0 for effective doc access from host.
