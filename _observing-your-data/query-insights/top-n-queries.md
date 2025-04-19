@@ -96,6 +96,177 @@ GET /_insights/top_queries?type=memory
 ```
 {% include copy-curl.html %}
 
+Example response:
+
+```json
+{
+  "top_queries" : [
+    {
+      "timestamp" : 1745021834451,
+      "id" : "36506bd2-7bca-4a0a-a6b8-f3e7db2b0745",
+      "group_by" : "NONE",
+      "indices" : [
+        "my-index-0"
+      ],
+      "source" : {
+        "size" : 20,
+        "query" : {
+          "bool" : {
+            "must" : [
+              {
+                "match_phrase" : {
+                  "message" : {
+                    "query" : "document",
+                    "slop" : 0,
+                    "zero_terms_query" : "NONE",
+                    "boost" : 1.0
+                  }
+                }
+              },
+              {
+                "match" : {
+                  "user.id" : {
+                    "query" : "userId",
+                    "operator" : "OR",
+                    "prefix_length" : 0,
+                    "max_expansions" : 50,
+                    "fuzzy_transpositions" : true,
+                    "lenient" : false,
+                    "zero_terms_query" : "NONE",
+                    "auto_generate_synonyms_phrase_query" : true,
+                    "boost" : 1.0
+                  }
+                }
+              }
+            ],
+            "adjust_pure_negative" : true,
+            "boost" : 1.0
+          }
+        }
+      },
+      "task_resource_usages" : [
+        {
+          "action" : "indices:data/read/search[phase/query]",
+          "taskId" : 28,
+          "parentTaskId" : 27,
+          "nodeId" : "BBgWzu8QR0qDkR0G45aw8w",
+          "taskResourceUsage" : {
+            "cpu_time_in_nanos" : 22664000,
+            "memory_in_bytes" : 6604536
+          }
+        },
+        {
+          "action" : "indices:data/read/search",
+          "taskId" : 27,
+          "parentTaskId" : -1,
+          "nodeId" : "BBgWzu8QR0qDkR0G45aw8w",
+          "taskResourceUsage" : {
+            "cpu_time_in_nanos" : 119000,
+            "memory_in_bytes" : 3920
+          }
+        }
+      ],
+      "node_id" : "BBgWzu8QR0qDkR0G45aw8w",
+      "phase_latency_map" : {
+        "expand" : 0,
+        "query" : 23,
+        "fetch" : 0
+      },
+      "labels" : {
+        "X-Opaque-Id" : "query-label-1"
+      },
+      "search_type" : "query_then_fetch",
+      "total_shards" : 1,
+      "measurements" : {
+        "memory" : {
+          "number" : 6608456,
+          "count" : 1,
+          "aggregationType" : "NONE"
+        },
+        "latency" : {
+          "number" : 24,
+          "count" : 1,
+          "aggregationType" : "NONE"
+        },
+        "cpu" : {
+          "number" : 22783000,
+          "count" : 1,
+          "aggregationType" : "NONE"
+        }
+      }
+    },
+    {
+      "timestamp" : 1745021826937,
+      "id" : "86e161d0-e982-48c2-b8da-e3a3763f2e36",
+      "group_by" : "NONE",
+      "indices" : [
+        "my-index-*"
+      ],
+      "source" : {
+        "size" : 20,
+        "query" : {
+          "term" : {
+            "user.id" : {
+              "value" : "userId",
+              "boost" : 1.0
+            }
+          }
+        }
+      },
+      "task_resource_usages" : [
+        {
+          "action" : "indices:data/read/search[phase/query]",
+          "taskId" : 26,
+          "parentTaskId" : 25,
+          "nodeId" : "BBgWzu8QR0qDkR0G45aw8w",
+          "taskResourceUsage" : {
+            "cpu_time_in_nanos" : 11020000,
+            "memory_in_bytes" : 4292272
+          }
+        },
+        {
+          "action" : "indices:data/read/search",
+          "taskId" : 25,
+          "parentTaskId" : -1,
+          "nodeId" : "BBgWzu8QR0qDkR0G45aw8w",
+          "taskResourceUsage" : {
+            "cpu_time_in_nanos" : 1032000,
+            "memory_in_bytes" : 115816
+          }
+        }
+      ],
+      "node_id" : "BBgWzu8QR0qDkR0G45aw8w",
+      "phase_latency_map" : {
+        "expand" : 0,
+        "query" : 15,
+        "fetch" : 1
+      },
+      "labels" : { },
+      "search_type" : "query_then_fetch",
+      "total_shards" : 1,
+      "measurements" : {
+        "memory" : {
+          "number" : 4408088,
+          "count" : 1,
+          "aggregationType" : "NONE"
+        },
+        "latency" : {
+          "number" : 23,
+          "count" : 1,
+          "aggregationType" : "NONE"
+        },
+        "cpu" : {
+          "number" : 12052000,
+          "count" : 1,
+          "aggregationType" : "NONE"
+        }
+      }
+    }
+  ]
+}
+```
+
+
 If your query returns no results, ensure that top N query monitoring is enabled for the target metric type and that search requests were made within the current [time window](#configuring-the-window-size).
 {: .important}
 
