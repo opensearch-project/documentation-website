@@ -10,16 +10,14 @@ has_toc: false
 
 # Search analyzer
 
-The `search_analyzer` mapping parameter specifies the analyzer to be used at search time for a text field. This allows the analyzer used for indexing to differ from the one used for searching, offering greater control over how search terms are interpreted and matched.
+The `search_analyzer` mapping parameter specifies the analyzer to be used at search time for a [`text`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) field. This allows the analyzer used for indexing to differ from the one used for searching, offering greater control over how search terms are interpreted and matched.
 
-By default, the same analyzer is used for both indexing and searching. However, using a custom `search_analyzer` can be helpful when you want to apply looser or stricter matching rules during search, such as using [`stemming`]({{site.url}}{{site.baseurl}}/analyzers/stemming/) or removing stopwords only at search time. For further details see [Search analyzers]({{site.url}}{{site.baseurl}}/analyzers/search-analyzers/).
+By default, the same analyzer is used for both indexing and searching. However, using a custom `search_analyzer` can be helpful when you want to apply looser or stricter matching rules during search, such as using [`stemming`]({{site.url}}{{site.baseurl}}/analyzers/stemming/) or removing stopwords only at search time. For further details and use cases, see [Search analyzers]({{site.url}}{{site.baseurl}}/analyzers/search-analyzers/).
+{: .note}
 
-Using a different analyzer at search time may result in additional processing overhead during query execution, as the search analyzer must re-analyze the input query before executing the search.
-{: .important}
+## Quick example
 
-## Setting a search analyzer
-
-The following example creates an index named `articles` with a field `title` that uses custom analyzer with [`n-gram tokenizer`]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/ngram/) for indexing and the [`standard analyzer`]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/standard/) for search:
+The following example creates a field that uses an `edge_ngram_analyzer` with [`Edge n-gram tokenizer`]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/edge-n-gram/) for indexing and a [standard analyzer]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/standard/) for searching:
 
 ```json
 PUT /articles
@@ -55,55 +53,4 @@ PUT /articles
 ```
 {% include copy-curl.html %}
 
-## Indexing a document
-
-Use the following command to index a document with a full phrase in the title field. The edge n-gram analyzer will store terms such as `se`, `sea`, `sear`, `searc`, `search`.
-
-```json
-PUT /articles/_doc/1
-{
-  "title": "Search Analyzer in Action"
-}
-```
-{% include copy-curl.html %}
-
-## Querying with the search analyzer
-
-Use the following command to query the title field. The [`standard analyzer`]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/standard/) will be used at search time. This ensures that full terms like "search" or "analyzer" can match documents that were indexed using `n-grams`:
-
-```json
-POST /articles/_search
-{
-  "query": {
-    "match": {
-      "title": "search"
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-Expected result:
-
-```json
-{
-  ...
-  "hits": {
-    "total": {
-      "value": 1,
-      "relation": "eq"
-    },
-    "max_score": 0.2876821,
-    "hits": [
-      {
-        "_index": "articles",
-        "_id": "1",
-        "_score": 0.2876821,
-        "_source": {
-          "title": "Search Analyzer in Action"
-        }
-      }
-    ]
-  }
-}
-```
+For a full explanation of how search analyzers work and more examples, see [Search analyzers]({{site.url}}{{site.baseurl}}/analyzers/search-analyzers/).
