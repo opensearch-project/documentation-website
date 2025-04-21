@@ -20,7 +20,10 @@ To enable, set:
 ```yaml
 plugins.security.resource_sharing.enabled: true
 ```
-{: .note } 
+{: .note }
+
+Each plugin aiming to support this feature must be onboarded onto it. Plugin developers can refer the [RESOURCE_ACCESS_CONTROL_FOR_PLUGINS.md](https://github.com/opensearch-project/security/blob/main/RESOURCE_ACCESS_CONTROL_FOR_PLUGINS.md) 
+{: .tip }
 
 ## 1. Overview
 
