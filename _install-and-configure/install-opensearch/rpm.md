@@ -40,7 +40,7 @@ This guide assumes that you are comfortable working from the Linux command line 
 1. Import the public GNU Privacy Guard (GPG) key. This key verifies that your OpenSearch instance is signed.
    
     ```bash
-    sudo rpm --import https://artifacts.opensearch.org/publickeys/opensearch.pgp
+    sudo rpm --import https://artifacts.opensearch.org/publickeys/opensearch-release.pgp
     ```
     {% include copy.html %}
    
