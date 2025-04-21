@@ -9,9 +9,9 @@ redirect_from:
 
 # Matrix stats aggregations
 
-The `matrix_stats` metric is a multi-value metric that generates covariance statistics for two or more fields in matrix form. 
+The `matrix_stats` metric is a multi-value metric aggregation that generates covariance statistics for two or more fields in matrix form. 
 
-The `matrix_stats` metric does not support scripting.
+The `matrix_stats` aggregation does not support scripting.
 {: .note}
 
 ## Parameters
