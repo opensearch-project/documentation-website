@@ -151,7 +151,7 @@ Both the source and target cluster can use no authentication, authentication lim
 ```
 {% include copy.html %}
 
-### Signature Version 4 authentication
+### AWS Signature Version 4 authentication
 
 ```json
     "sourceCluster": {
