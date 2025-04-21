@@ -78,22 +78,31 @@ The **Refresh** button reloads the query data based on the selected filters and 
 
 ### F. Metrics table
 
-The metrics table displays the following metrics for each query.
+The metrics table dynamically adapts based on the selected Type filter (query, group, or both).  Dynamic columns reduce clutter and increase clarity by tailoring the displayed data to the selected query type. The interface adapts in the following ways, illustrated in the screenshots below:
 
-| Metric                  | Description                                                                 |
-|-------------------------|-----------------------------------------------------------------------------|
-| **ID**                  | The unique identifier for the query.                                         |
-| **Type**                | The type of query, such as `query`or `group`.                               |
-| **Query Count**         | The number of times that the query has been executed.                            |
-| **Timestamp**           | When the query was run.                                                     |
-| **Latency**             | The time taken for the query to execute.                                    |
-| **CPU Time**            | The CPU resources consumed by the query.                                    |
-| **Memory Usage**        | The memory usage of the query.                                              |
-| **Indexes**             | The index or indexes on which the query was executed.                       |
-| **Search Type**         | The type of search used, for example, `query then fetch`.                   |
-| **Coordinator Node ID** | The node that coordinated the query.                                        |
-| **Total Shards**        | The total number of shards involved in running the query.                    |
+![Column Display for Query Selected](../../images/Query-Insights/OnlyQueryColDisplay.png)
+![Column Display for Group Selected](../../images/Query-Insights/OnlyGroupColDisplay.png)
+![Column Display for Both Selected](../../images/Query-Insights/BothColDisplay.png)
 
+
+| Column Name             | Description                                                    | Query Selected     | Group Selected       | Query + Group Selected           |
+|-------------------------|----------------------------------------------------------------|--------------------|----------------------|----------------------------------|
+| **ID**                  | Unique identifier for the query or group                       | `ID`               | `ID`                 | `ID`                             |
+| **Type**                | Indicates whether the entry is a query or a group              | `Type`             | `Type`               | `Type`                           |
+| **Query Count**         | Number of queries aggregated in the group                      | Not shown          | `Query Count`        | `Query Count` (only for group)   |
+| **Timestamp**           | Time when the query or group was recorded (may be empty for groups) | `Timestamp`     | Not shown            | `Timestamp` (only for query)     |
+| **Latency**             | Time taken for individual queries to execute                   | `Latency`          | `Average Latency`    | `Avg Latency / Latency`          |
+| **CPU Time**            | CPU resources consumed                                         | `CPU Time`         | `Average CPU Time`   | `Avg CPU Time / CPU Time`        |
+| **Memory Usage**        | Memory used during execution                                   | `Memory Usage`     | `Average Memory Usage` | `Avg Memory Usage / Memory Usage` |
+| **Indexes**             | Indexes involved in the query or group                         | `Indexes`          | Not shown            | `Indexes` (only for query)       |
+| **Search Type**         | Search execution method used (e.g., query then fetch)          | `Search Type`      | Not shown            | `Search Type` (only for query)   |
+| **Coordinator Node ID** | Node that coordinated the query                                | `Coordinator Node ID` | Not shown         | `Coordinator Node ID` (only for query) |
+| **Total Shards**        | Number of shards involved in query processing                  | `Total Shards`     | Not shown            | `Total Shards` (only for query)  |
+
+When Query + Group is selected:
+
+- If all displayed rows are queries, the table behaves like Query Selected.
+- If all displayed rows are groups, the table behaves like Group Selected.
 
 ## Query details
 
