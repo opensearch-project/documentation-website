@@ -108,7 +108,7 @@ The `_ingest.timestamp` field represents the time at which the ingest node recei
 
 ## Using `ctx` in Mustache templates
 
-Use Mustache templates to insert field values into processor settings. Use triple curly braces (`{{{` and `}}}`) for unescaped field values.
+Use Mustache templates to insert field values into processor settings. Use triple curly braces ({% raw %}`{{{` and `}}}`{% endraw %}) for unescaped field values.
 
 ### Example: Combining source fields
 
