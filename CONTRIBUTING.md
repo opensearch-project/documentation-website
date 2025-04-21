@@ -102,7 +102,7 @@ Follow these steps to set up your local copy of the repository:
 
 ##### Building by using containerization
 
-Assuming you have `docker-compose` installed, run the following command:
+Assuming you have Docker installed, run the following command:
 
    ```
    docker compose -f docker-compose.dev.yml up
