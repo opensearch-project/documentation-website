@@ -151,7 +151,7 @@ metrics_to_track = {
 
 ### Calculating metrics
 
-OpenSearch Benchmark calculates metrics differently than traditional client-server systems. For detailed information about how metrics are calculated, see [Differences between OpenSearch Benchmark and a traditional client-server system](https://opensearch.org/docs/latest/benchmark/user-guide/concepts/#differences-between-opensearch-benchmark-and-a-traditional-client-server-system).
+OpenSearch Benchmark calculates metrics differently than traditional client-server systems. For detailed information about how metrics are calculated, see [Differences between OpenSearch Benchmark and a traditional client-server system]({{site.url}}{{site.baseurl}}/benchmark/user-guide/concepts/#differences-between-opensearch-benchmark-and-a-traditional-client-server-system).
 
 ## Integration with OpenSearch Dashboards
 
