@@ -173,12 +173,12 @@ The `plain` highlighter is based on the standard Lucene highlighter. It requires
 
 ### The `semantic` highlighter
 
-The `semantic` highlighter uses machine learning (ML) models to identify and highlight the most semantically relevant sentences or passages within a text field, based on the query's meaning. This goes beyond traditional lexical matching offered by other highlighters. It does not rely on offsets from postings or term vectors but instead uses a deployed ML model (specified by the `model_id`) to perform inference on the field content. This approach allows highlighting contextually relevant text even when exact terms don't match the query. Highlighting is performed at the sentence level.
+The `semantic` highlighter uses machine learning (ML) models to identify and highlight the most semantically relevant sentences or passages within a text field, based on the query's meaning. This goes beyond traditional lexical matching offered by other highlighters. It does not rely on offsets from postings or term vectors but instead uses a deployed ML model (specified by the `model_id`) to perform inference on the field content. This approach allows you to highlight contextually relevant text even when exact terms don't match the query. Highlighting is performed at the sentence level.
 
 Before using the `semantic` highlighter, you must configure and deploy a sentence highlighting model. For more information about using ML models in OpenSearch, see [Integrating ML models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/). For information about OpenSearch-provided sentence highlighting models, see [Semantic sentence highlighting models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#semantic-sentence-highlighting-models).
 {: .note}
 
-To use the `semantic` highlighter, you must specify a `model_id` in the `highlight.options` object. The model is determines which parts of the text are semantically similar to the query.
+To use the `semantic` highlighter, you must specify a `model_id` in the `highlight.options` object. The model determines which parts of the text are semantically similar to the query.
 
 For a step-by-step guide, see the [semantic highlighting tutorial]({{site.url}}{{site.baseurl}}/tutorials/vector-search/semantic-highlighting-tutorial/).
 
@@ -211,11 +211,11 @@ fragment_offset | Specifies the character offset from which you want to start hi
 `fragment_size` | The size of a highlighted fragment, specified as the number of characters. If `number_of_fragments` is set to 0, `fragment_size` is ignored. Default is 100.
 number_of_fragments| The maximum number of returned fragments. If `number_of_fragments` is set to 0, OpenSearch returns the highlighted contents of the entire field. Default is 5.
 <<<<<<< HEAD
-`order` | The sort order for the highlighted fragments. Set `order` to `score` to sort fragments by relevance. Each highlighter has a different algorithm for calculating relevance scores. Default is `none`.
-`highlight_query` | Specifies that matches for a query other than the search query should be highlighted. The `highlight_query` option is useful when you use a faster query to get document matches and a slower query (for example, `rescore_query`) to refine the results. We recommend to include the search query as part of the `highlight_query`.
+`order` | The sort order for the highlighted fragments. Set `order` to `score` to sort fragments by relevance. Each highlighter uses a different algorithm to calculate relevance scores. Default is `none`.
+`highlight_query` | Specifies that matches for a query other than the search query should be highlighted. The `highlight_query` option is useful when using a faster query to get document matches and a slower query (for example, `rescore_query`) to refine the results. We recommend including the search query as part of the `highlight_query`.
 `matched_fields` | Combines matches from different fields to highlight one field. The most common use case for this functionality is highlighting text that is analyzed in different ways and kept in multi-fields. All fields in the `matched_fields` list must have the `term_vector` field set to `with_positions_offsets`. The field in which the matches are combined is the only loaded field, so it is beneficial to set its `store` option to `yes`.  Valid only for the `fvh` highlighter.
 `no_match_size` | Specifies the number of characters, starting from the beginning of the field, to return if there are no matching fragments to highlight. Default is 0.
-`phrase_limit` | The number of matching phrases in a document that are considered. Limits the number of phrases to analyze by the `fvh` highlighter to avoid consuming a lot of memory. If `matched_fields` are used, `phrase_limit` specifies the number of phrases for each matched field. A higher `phrase_limit` leads to increased query time and more memory consumption. Valid only for the `fvh` highlighter. Default is 256.
+`phrase_limit` | The number of matching phrases in a document that are considered. Limits the number of phrases to be analyzed by the `fvh` highlighter in order to avoid consuming a lot of memory. If `matched_fields` are used, `phrase_limit` specifies the number of phrases for each matched field. A higher `phrase_limit` leads to increased query time and more memory consumption. Valid only for the `fvh` highlighter. Default is 256.
 `max_analyzer_offset` | Specifies the maximum number of characters to be analyzed by a highlight request. The remaining text will not be processed. If the text to be highlighted exceeds this offset, then an empty highlight is returned. The maximum number of characters that will be analyzed for a highlight request is defined by `index.highlight.max_analyzed_offset`. When this limit is reached, an error is returned. Set the `max_analyzer_offset` to a lower value than `index.highlight.max_analyzed_offset` to avoid the error.
 `options` | A global object containing highlighter-specific options. 
 `options.model_id` | The ID of the deployed ML model to use for highlighting. Required. Valid only for the `semantic` highlighter.
@@ -993,13 +993,13 @@ The response lists documents that contain the word "bragging" first:
 ## Using the `semantic` highlighter
 
 <<<<<<< HEAD
-The `semantic` highlighter uses the specified ML model to find passages in the text that are semantically relevant to the search query, even if there are no exact keyword matches. Highlighting occurs at the sentence level.
+The `semantic` highlighter uses the specified ML model to find passages in text that are semantically relevant to the search query, even if there are no exact keyword matches. Highlighting occurs at the sentence level.
 
 To use the `semantic` highlighter, set the `type` to `semantic` in the `fields` object and provide the `model_id` of the deployed sentence transformer or question-answering model within the global `highlight.options` object.
 
 The following example uses a `neural` query to find documents related to "treatments for neurodegenerative diseases" and then applies semantic highlighting using the specified `sentence_model_id`:
 =======
-The `semantic` highlighter uses a specified ML model to find passages in the text that are semantically relevant to the search query, even if there are no exact keyword matches. Highlighting occurs at the sentence level.
+The `semantic` highlighter uses a specified ML model to find passages in text that are semantically relevant to the search query, even if there are no exact keyword matches. Highlighting occurs at the sentence level.
 
 To use the `semantic` highlighter, set the `type` to `semantic` in the `fields` object and provide the `model_id` of a deployed sentence transformer or question-answering model within the global `highlight.options` object.
 

@@ -90,7 +90,7 @@ The following table provides a list of semantic sentence highlighting models and
 
 | Model name | Version | TorchScript artifact | Description |
 |:---|:---|:---|:---|
-| `opensearch/semantic-sentence-highlighter-model-v1` | 1.0.0 | - [model_url](placeholder-link) <br>- [config_url](placeholder-link) | A model optimized for identifying semantically relevant sentences for highlighting. (Artifacts coming soon) |
+| `opensearch/semantic-sentence-highlighter-model-v1` | 1.0.0 | - [model_url](placeholder-link) <br>- [config_url](placeholder-link) | A model optimized for identifying semantically relevant sentences to be highlighted. (Artifacts coming soon) |
 
 
 ## Prerequisites

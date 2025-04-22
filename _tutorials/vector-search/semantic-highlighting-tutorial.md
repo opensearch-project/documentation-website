@@ -22,7 +22,7 @@ Before you begin, ensure you have the following:
 -  A deployed text embedding model suitable for generating vector embeddings from your text data. See [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
 -  A deployed sentence transformer or question-answering model specifically designed for semantic highlighting. OpenSearch plans to release pretrained models suitable for this task. For this tutorial, placeholder model IDs are used.
 
-## Step 1: Set up the index
+## Step 1: Create an index
 
 First, create an index to store your text data and its corresponding vector embeddings. You'll need a `text` field for the original content and a `knn_vector` field for the embeddings:
 
@@ -65,7 +65,7 @@ You need two types of models for semantic highlighting:
 1.  **Text embedding model**: To convert the search query and document text into vectors.
 2.  **Sentence highlighting model**: To analyze the text and identify the most relevant sentences.
 
-First, register and deploy a text embedding model. Model group ID is optional (see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/)):
+First, register and deploy a text embedding model. The model group ID is optional (see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/)):
 
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
@@ -171,7 +171,7 @@ Combine a neural search query with the semantic highlighter:
 5.  Add a global `highlight.options` object.
 6.  In `options`, provide the `model_id` of your deployed sentence highlighting model.
 
-Use the following request to retrieve top five matching documents (specified in the `k` parameter). Replace the placeholder model IDs (`TEXT_EMBEDDING_MODEL_ID` and `SEMANTIC_HIGHLIGHTING_MODEL_ID`) with the model IDs obtained after successful deployment in Step 2:
+Use the following request to retrieve the top five matching documents (specified in the `k` parameter). Replace the placeholder model IDs (`TEXT_EMBEDDING_MODEL_ID` and `SEMANTIC_HIGHLIGHTING_MODEL_ID`) with the model IDs obtained after successful deployment in Step 2:
 
 ```json
 POST /neural-search-index/_search
