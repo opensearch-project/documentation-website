@@ -81,7 +81,7 @@ GET /_insights/top_queries
 
 ### Query parameters
 
-All parameters are optional.
+The following table lists the available query parameters. All query parameters are optional.
 
 Parameter | Type     | Description
 :--- |:---------| :---
