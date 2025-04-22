@@ -21,7 +21,8 @@ Pull-based ingestion is an experimental feature and not fully ready for producti
 ## Requirements
 
 * Ingestion plugin for respective streaming source needs to be included for using pull-based ingestion. Currently available plugins include **ingestion-kafka** and **ingestion-kinesis**.
-* Pull-based ingestion is supported with segment replication and remote store.
+* Pull-based ingestion is supported with segment replication and remote store. It does not work with document replication.
+* Pull-based ingestion must be specified at the time of index creation. It is not possible to flip a push-based index to use pull-based ingestion.
 
 ## Create index with pull-based ingestion
 
@@ -60,7 +61,7 @@ PUT -H 'Content-Type: application/json' http://localhost:9200/my-index --data '
 ```
 {% include copy-curl.html %}
 
-The setting has the following components under ingestion_source:
+The setting has the following generic components under ingestion_source:
 * **type**: The pull-based ingestion plugin type, currently `kafka` and `kinesis` are supported.
 * **pointer.init.reset**: Configuration of initial reset to the pointer in the stream, which can be `earliest`, `latest`, `rewind_by_offset`, `rewind_by_timestamp`, `none`.
 * **pointer.init.reset.value**: Only required when the "pointer.init.reset" is set to  `rewind_by_offset` or `rewind_by_timestamp`, this field represents the offset value or timestamp value in milliseconds.
@@ -68,8 +69,9 @@ The setting has the following components under ingestion_source:
 * **max_batch_size**: Defines the max poll size per batch.
 * **poll.timeout**: Defines the poll timeout
 * **num_processor_threads**: Defines the number of writer threads. Default value is 1.
-* **param**: A map of configurations specific to a plugin. For example, Kafka plugin has the topic and bootstrap_servers, also this param can be used to directly configure Kafka consumers.
 
+Following are implementation specific components under ingestion_source:
+* **param**: A map of configurations specific to a plugin. For example, Kafka plugin has the topic and bootstrap_servers, also this param can be used to directly configure Kafka consumers.
 
 Streams can be partitioned. For example, Kafka topic has partitions and Kinesis has shards. In pull-based ingestion, 
 the OpenSearch shard has one-to-one mapping to the stream partitions. OpenSearch fails to start if its number of shards 
@@ -84,7 +86,7 @@ Each message or record published to the streaming source must follow the format 
 
 Field    | Type   | Required | Description
 :--- | :--- | :--- | :---
-`_id` | String | No | Unique identifier for a document. It is auto-generated if not provided by the user. This field must be included in order to update a document.
+`_id` | String | No | Unique identifier for a document. It is auto-generated if not provided by the user. This field must be included in order to update or delete a document.
 `_version` | Long | No | This field indicates the version of the document. Versions must be maintained externally by the user. If a version is provided, messages with a lower version than that present in the index will be dropped. If a version is not provided, there will be no version checks applied. 
 `_op_type` | String | No | Supported values: `index`, `delete` <br>- index: creates a new document, or updates existing one if present in the index. <br>- delete: soft delete a document.
 `_source` | Object | Yes | This field contains the message payload.
