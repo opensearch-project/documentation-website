@@ -83,7 +83,7 @@ GET /_insights/top_queries
 
 The following table lists the available query parameters. All query parameters are optional.
 
-Parameter | Type     | Description
+Parameter | Data type     | Description
 :--- |:---------| :---
 type    | String   | The metric type for which to retrieve Top N queries data. Results will be sorted in descending order based on this metric. Default is `latency`.
 from    | Datetime | The start of the time range for fetching historical Top N queries. For more information, see [Monitoring historical top N queries](#monitoring-historical-top-N-queries).
