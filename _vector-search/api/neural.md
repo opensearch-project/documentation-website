@@ -64,7 +64,7 @@ GET /_plugins/_neural/node1,node2/stats/stat1,stat2?include_metadata=true,flat_s
 
 #### Example response
 
-If `include_metadata` is `false`, the response looks like this:
+If `include_metadata` is `false`, the response appears as follows:
 
 ```json
 {
@@ -101,7 +101,7 @@ If `include_metadata` is `false`, the response looks like this:
 }
 ```
 
-If `include_metadata` is `true`, the response looks like this:
+If `include_metadata` is `true`, the response appears as follows:
 
 ```json
 {
@@ -158,9 +158,9 @@ If `include_metadata` is `true`, the response looks like this:
 
 The following sections describe response body fields.
 
-#### Statistics categories
+#### Categories of statistics
 
-The following table lists all statistics categories.
+The following table lists all categories of statistics.
 
 | Category | Data type | Description |
 | :--- | :--- | :--- |
@@ -170,11 +170,11 @@ The following table lists all statistics categories.
 
 #### Available statistics
 
-The following table lists the available statistics. For statistics with paths prefixed with `nodes.<node_id>`, aggregate cluster-level stats are also available at the same path prefixed with `all_nodes`.
+The following table lists the available statistics. For statistics with paths prefixed with `nodes.<node_id>`, aggregate cluster-level statistics are also available at the same path prefixed with `all_nodes`.
 
 | Statistic name | Category | Statistic path within category | Description |
 | :--- | :--- | :--- | :--- |
-| `cluster_version` | `info` | `cluster_version` | Version of the cluster. |
+| `cluster_version` | `info` | `cluster_version` | The version of the cluster. |
 | `text_embedding_processors_in_pipelines` | `info` |  `processors.ingest.text_embedding_processors_in_pipelines` | The number of text embedding processors configured in ingest pipelines. |
 | `text_embedding_executions` | `nodes`, `all_nodes` | `processors.ingest.text_embedding_executions` | The number of text embedding processor executions per node. |
 
@@ -195,7 +195,7 @@ The `info_string` object contains the following metadata fields.
 | Metadata field | Data type | Description |
 | :--- | :--- | :--- |
 | `value` | String | The actual string value of the statistic. |
-| `stat_type` | String | `info_string` |
+| `stat_type` | String | Always set to `info_string`. |
 
 <p id="info-counter"></p>
 
@@ -204,7 +204,7 @@ The `info_counter` object contains the following metadata fields.
 | Metadata field | Data type | Description |
 | :--- | :--- | :--- |
 | `value` | Integer | The current count value. |
-| `stat_type` | String | Always set to `info_counter` |
+| `stat_type` | String | Always set to `info_counter`. |
 
 <p id="timestamped-event-counter"></p>
 
@@ -212,7 +212,7 @@ The `timestamped_event_counter` object contains the following metadata fields.
 
 | Metadata field | Data type | Description |
 | :--- | :--- | :--- |
-| `value` | Integer | The total number of events since the node started. |
-| `stat_type` | String | `timestamped_event_counter` |
+| `value` | Integer | The total number of events that occurred since the node started. |
+| `stat_type` | String | Always set to `timestamped_event_counter`. |
 | `trailing_interval_value` | Integer | The number of events that occurred in the past 5 minutes. |
 | `minutes_since_last_event` | Integer | The amount of time (in minutes) since the last recorded event. |
