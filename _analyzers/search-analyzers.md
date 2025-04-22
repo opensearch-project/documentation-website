@@ -128,8 +128,8 @@ POST /articles/_search
 ```
 {% include copy-curl.html %}
 
-The response demonstrates that despite the query containing only partial word "sear", it matches the document "Search Analyzer in Action" because the n-gram tokens generated at index time include that prefix.
-This mirrors the [autocomplete functionality]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/autocomplete/), where typing a prefix can retrieve full matches.
+The response demonstrates that the query containing "sear" matches the document "Search Analyzer in Action" because the n-gram tokens generated at index time include that prefix.
+This mirrors the [autocomplete functionality]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/autocomplete/), in which typing a prefix can retrieve full matches:
 
 ```json
 {
