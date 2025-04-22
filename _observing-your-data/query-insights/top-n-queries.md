@@ -85,7 +85,7 @@ The following table lists the available query parameters. All query parameters a
 
 Parameter | Data type     | Description
 :--- |:---------| :---
-type    | String   | The metric type for which to retrieve Top N queries data. Results will be sorted in descending order based on this metric. Default is `latency`.
+`type`    | String   | The metric type for which to retrieve top N query data. Results will be sorted in descending order based on this metric. Valid values are `latency`, `cpu`, and `memory`. Default is `latency`.
 from    | Datetime | The start of the time range for fetching historical Top N queries. For more information, see [Monitoring historical top N queries](#monitoring-historical-top-N-queries).
 to      | Datetime | The end of the time range for fetching historical Top N queries. For more information, see [Monitoring historical top N queries](#monitoring-historical-top-N-queries).
 id      | String   | The ID of a specific top query record to retrieve.
