@@ -704,10 +704,6 @@ A piece of an index that consumes CPU and memory. Operates as a full Lucene inde
 
 Don't use. Both *simple* and *simply* are not neutral in tone and might sound condescending to some users. If you mean *only*, use *only* instead.
 
-**since**
-
-Use only to describe time events. Don't use in place of *because*.
-
 **slave**
 
 Do not use. Use *replica*, *secondary*, or *standby* instead.
