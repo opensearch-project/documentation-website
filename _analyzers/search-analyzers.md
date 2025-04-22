@@ -65,7 +65,7 @@ PUT /testindex
 ```
 {% include copy-curl.html %}
 
-### Example: Using edge n-gram analyzer for indexing and standard analyzer for search
+### Example: Using the edge n-gram analyzer for indexing and the standard analyzer for search
 
 The following configuration enables [autocomplete]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/autocomplete/)-like behavior, where you can type the beginning of a word and still receive relevant matches:
 
@@ -103,7 +103,7 @@ PUT /articles
 ```
 {% include copy-curl.html %}
 
-The `edge_ngram_analyzer` is applied at index time, breaking input strings into partial prefixes (n-grams), which allows the index to store fragments like "se", "sea", "sear" and so on. 
+The `edge_ngram_analyzer` is applied at index time, breaking input strings into partial prefixes (n-grams), which allows the index to store fragments like "se", "sea", "sear", and so on. 
 Use the following request to index a document:
 
 ```json
@@ -114,7 +114,7 @@ PUT /articles/_doc/1
 ```
 {% include copy-curl.html %}
 
-Use the following request to search for partial word `sear` in the `title` field:
+Use the following request to search for the partial word `sear` in the `title` field:
 
 ```json
 POST /articles/_search
