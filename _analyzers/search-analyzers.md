@@ -24,7 +24,7 @@ In most cases, specifying a search analyzer that is different from the index ana
 
 ## Specifying a search analyzer at query time
 
-You can override the default analyzer behavior by explicitly setting the analyzer in the query. The following query uses the `english` analyzer to stem the input terms.
+You can override the default analyzer behavior by explicitly setting the analyzer in the query. The following query uses the `english` analyzer to stem the input terms:
 
 ```json
 GET /shakespeare/_search
@@ -41,7 +41,7 @@ GET /shakespeare/_search
 ```
 {% include copy-curl.html %}
 
-## Specifying a search analyzer in mappings
+## Specifying a search analyzer in the mappings
 
 When defining mappings, you can provide both the `analyzer` (used at index time) and `search_analyzer` (used at query time) for any [`text`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) field.
 
@@ -113,7 +113,7 @@ PUT /articles/_doc/1
 ```
 {% include copy-curl.html %}
 
-Use the following request to perform a search using `title` field:
+Use the following request to search for `sear` in the `title` field:
 
 ```json
 POST /articles/_search
@@ -127,7 +127,7 @@ POST /articles/_search
 ```
 {% include copy-curl.html %}
 
-The response demonstrates that despite different analysis strategies, the indexed n-gram terms were sufficient to match the search token.
+The response demonstrates that despite different analysis strategies, the indexed n-gram terms were sufficient to match the search token:
 
 ```json
 {
@@ -154,7 +154,7 @@ The response demonstrates that despite different analysis strategies, the indexe
 
 ## Setting a default search analyzer for an index
 
-Use `analysis.analyzer.default_search` to define a search analyzer for all fields unless overridden.
+Specify `analysis.analyzer.default_search` to define a search analyzer for all fields unless overridden:
 
 ```json
 PUT /testindex
