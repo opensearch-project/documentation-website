@@ -89,7 +89,7 @@ Parameter | Data type     | Description
 `from`    | String | The start of the time range for fetching historical top N queries. For more information, see [Monitoring historical top N queries](#monitoring-historical-top-N-queries).
 `to`      | String | The end of the time range for fetching historical top N queries. For more information, see [Monitoring historical top N queries](#monitoring-historical-top-N-queries).
 `id`      | String   | The ID of a specific top query record to retrieve.
-verbose | Boolean  | Indicates whether to return verbose output. Default is `true`.
+`verbose` | Boolean  | Indicates whether to return verbose output. Default is `true`.
 
 If your query returns no results, ensure that top N query monitoring is enabled for the target metric type and that search requests were made within the current [time window](#configuring-the-window-size).
 {: .important}
