@@ -8,8 +8,11 @@
 
 require 'rake'
 require 'active_support/all'
-require_relative 'lib/coverage/utilization_coverage'
+require_relative 'lib/reports/utilization_coverage'
+require_relative 'lib/reports/dry_run_report'
 require_relative 'lib/utils'
+require_relative 'lib/renderers/spec_insert'
+require_relative 'lib/insert_arguments'
 
 desc 'Generate utilization coverage of Spec-Insert components'
 task :generate_utilization_coverage do
@@ -18,4 +21,24 @@ task :generate_utilization_coverage do
   file = File.join(__dir__, 'utilization_coverage.md')
   File.write(file, coverage)
   puts "Utilization coverage written to #{file}"
+end
+
+desc 'Generate all Spec-Insert components for all APIs and summarize the results'
+task :generate_dry_run_report do
+  Utils.load_spec
+  report = DryRunReport.new.render
+  file = File.join(__dir__, 'dry_run_report.md')
+  File.write(file, report)
+  puts "Dry run report written to #{file}"
+end
+
+desc 'Generate a specific component into the console'
+task :dry_run_generate, [:api, :component] do |_, args|
+  Utils.load_spec
+  render = SpecInsert.new(InsertArguments.new(args)).render
+  output = "./dry-run/_#{args[:api]}_#{args[:component]}.md"
+  File.write(output, render)
+
+  puts render
+  puts "\n\nThe above render has been written to #{output}"
 end
