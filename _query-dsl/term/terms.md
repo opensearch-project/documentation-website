@@ -28,6 +28,8 @@ A document is returned if it matches any of the terms in the array.
 
 By default, the maximum number of terms allowed in a `terms` query is 65,536. To change the maximum number of terms, update the `index.max_terms_count` setting.
 
+Pass long term arrays as sorted (ordered as UTF-8 bytes ascending) to optimize query speed. 
+
 The ability to [highlight results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/highlight/) for terms queries may not be guaranteed, depending on the highlighter type and the number of terms in the query.
 {: .note}
 
