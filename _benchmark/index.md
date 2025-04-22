@@ -53,7 +53,7 @@ OpenSearch Benchmark can be installed directly on a compatible host running Linu
 {% include list.html list_items=page.items%}
 
 <span class="centering-container">
-[Get started]({{site.url}}{{site.baseurl}}/vector-search/getting-started/){: .btn-dark-blue}
+[Get started]({{site.url}}{{site.baseurl}}/benchmark/quickstart/){: .btn-dark-blue}
 </span>
 
 ## Customize your Benchmarks
