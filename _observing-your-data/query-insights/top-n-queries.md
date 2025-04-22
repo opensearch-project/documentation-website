@@ -79,22 +79,17 @@ GET /_insights/top_queries
 ```
 {% include copy-curl.html %}
 
-Specify the `type` parameter to retrieve the top N results for other metric types. The results will be sorted in descending order based on the specified metric type.
+### Query parameters
 
-```json
-GET /_insights/top_queries?type=latency
-```
-{% include copy-curl.html %}
+The following table lists the available query parameters. All query parameters are optional.
 
-```json
-GET /_insights/top_queries?type=cpu
-```
-{% include copy-curl.html %}
-
-```json
-GET /_insights/top_queries?type=memory
-```
-{% include copy-curl.html %}
+Parameter | Data type     | Description
+:--- |:---------| :---
+`type`    | String   | The metric type for which to retrieve top N query data. Results will be sorted in descending order based on this metric. Valid values are `latency`, `cpu`, and `memory`. Default is `latency`.
+`from`    | String | The start of the time range for fetching historical top N queries. For more information, see [Monitoring historical top N queries](#monitoring-historical-top-N-queries).
+`to`      | String | The end of the time range for fetching historical top N queries. For more information, see [Monitoring historical top N queries](#monitoring-historical-top-N-queries).
+`id`      | String   | The ID of a specific top query record to retrieve.
+`verbose` | Boolean  | Indicates whether to return verbose output. Default is `true`.
 
 If your query returns no results, ensure that top N query monitoring is enabled for the target metric type and that search requests were made within the current [time window](#configuring-the-window-size).
 {: .important}
@@ -148,7 +143,7 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-Use the `delete_after_days` setting (integer) to specify the number of days after which local indexes are automatically deleted. Query Insights runs a scheduled job once per day to delete top N local indexes older than the specified number of days. The default value for `delete_after_days` is 7, with valid values ranging from `1` to `180`.
+Use the `delete_after_days` setting (integer) to specify the number of days after which local indexes are automatically deleted. Query Insights runs a job once per day at 00:05 UTC to delete top N local indexes older than the specified number of days. The default value for `delete_after_days` is 7, with valid values ranging from `1` to `180`.
 
 For example, to delete local indexes older than 10 days, send the following request:
 
