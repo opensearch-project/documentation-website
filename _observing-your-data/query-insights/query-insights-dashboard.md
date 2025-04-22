@@ -81,9 +81,16 @@ The **Refresh** button reloads the query data based on the selected filters and 
 The metrics table dynamically adapts based on the selected Type filter (query, group, or both).  Dynamic columns reduce clutter and increase clarity by tailoring the displayed data to the selected query type. The interface adapts in the following ways, illustrated in the screenshots below:
 
 ![Column Display for Query Selected](../../images/Query-Insights/OnlyQueryColDisplay.png)
+
+Only queries are selected → Displays individual metrics: columns include Latency, CPU Time, and Memory Usage. The Query Count column is not displayed since each row represents a single query.
+
 ![Column Display for Group Selected](../../images/Query-Insights/OnlyGroupColDisplay.png)
+
+Only groups are selected → Displays aggregated metrics: columns include Average Latency, Average CPU Time, and Average Memory Usage. The Query Count column is shown to indicate how many queries are in each group.
+
 ![Column Display for Both Selected](../../images/Query-Insights/BothColDisplay.png)
 
+Both groups and queries are selected → Displays combined metrics: columns include both averaged and raw values, such as Avg Latency / Latency. The Query Count column is shown only for grouped rows.
 
 | Column Name             | Description                                                    | Query Selected     | Group Selected       | Query + Group Selected           |
 |-------------------------|----------------------------------------------------------------|--------------------|----------------------|----------------------------------|
