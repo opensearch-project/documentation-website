@@ -39,7 +39,7 @@ PUT neural-search-index
       },
       "text_embedding": {
         "type": "knn_vector",
-        "dimension": 768, 
+        "dimension": 384, 
         "method": {
           "name": "hnsw",
           "space_type": "l2",
@@ -72,7 +72,6 @@ POST /_plugins/_ml/models/_register?deploy=true
 {
   "name": "huggingface/sentence-transformers/all-MiniLM-L6-v2",
   "version": "1.0.1", 
-  "model_group_id": "your-embedding-model-group-id", 
   "model_format": "TORCH_SCRIPT"
 }
 ```
@@ -92,9 +91,8 @@ Next, register a pretrained semantic sentence highlighting model:
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
 {
-  "name": "opensearch/semantic-sentence-highlighter-model-v1",
+  "name": "TODO: placeholder-model-id",
   "version": "1.0.0",
-  "model_group_id": "your-highlighting-model-group-id"
   "model_format": "TORCH_SCRIPT"
 }
 ```
@@ -186,7 +184,7 @@ POST /neural-search-index/_search
       "text_embedding": {
         "query_text": "treatments for neurodegenerative diseases",
         "model_id": "<your-text-embedding-model-id>", 
-        "k": 5 
+        "k": 2
       }
     }
   },
@@ -210,43 +208,51 @@ The search results include a `highlight` object within each hit. The specified `
 
 ```json
 {
-  "took": 712,
+  "took": 711,
   "timed_out": false,
-  "_shards": { ... },
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
   "hits": {
-    "total": { "value": 3, "relation": "eq" },
-    "max_score": 0.4841726,
+    "total": {
+      "value": 2,
+      "relation": "eq"
+    },
+    "max_score": 0.52716815,
     "hits": [
       {
         "_index": "neural-search-index",
         "_id": "1",
-        "_score": 0.4841726,
+        "_score": 0.52716815,
         "_source": {
-          "text": "Alzheimer's disease is a progressive neurodegenerative disorder characterized by accumulation of amyloid-beta plaques and neurofibrillary tangles in the brain. Early symptoms include short-term memory impairment, followed by language difficulties, disorientation, and behavioral changes. While traditional treatments such as cholinesterase inhibitors and memantine provide modest symptomatic relief, they do not alter disease progression. Recent clinical trials investigating monoclonal antibodies targeting amyloid-beta, including aducanumab, lecanemab, and donanemab, have shown promise in reducing plaque burden and slowing cognitive decline. Early diagnosis using biomarkers such as cerebrospinal fluid analysis and PET imaging may facilitate timely intervention and improved outcomes."
+          "text": "Alzheimer's disease is a progressive neurodegenerative disorder ..." // Shortened for brevity
         },
         "highlight": {
           "text": [
             // Highlighted sentence may differ based on the exact model used
-            "Alzheimer's disease is a progressive neurodegenerative disorder ... <em>Recent clinical trials investigating monoclonal antibodies targeting amyloid-beta, including aducanumab, lecanemab, and donanemab, have shown promise in reducing plaque burden and slowing cognitive decline.</em> Early diagnosis using biomarkers ..."
+            "Alzheimer's disease is a progressive neurodegenerative disorder characterized by accumulation of amyloid-beta plaques and neurofibrillary tangles in the brain. Early symptoms include short-term memory impairment, followed by language difficulties, disorientation, and behavioral changes. While traditional treatments such as cholinesterase inhibitors and memantine provide modest symptomatic relief, they do not alter disease progression. <em>Recent clinical trials investigating monoclonal antibodies targeting amyloid-beta, including aducanumab, lecanemab, and donanemab, have shown promise in reducing plaque burden and slowing cognitive decline.</em> Early diagnosis using biomarkers such as cerebrospinal fluid analysis and PET imaging may facilitate timely intervention and improved outcomes."
           ]
         }
       },
       {
         "_index": "neural-search-index",
         "_id": "2",
-        "_score": 0.45079497,
-        // ... source for document 2 ...
+        "_score": 0.4364841,
+        "_source": {
+          "text": "Major depressive disorder is characterized by persistent feelings of sadness ..." // Shortened for brevity
+        },
         "highlight": {
           "text": [
              // Highlighted sentence for document 2
-            "Major depressive disorder is characterized by persistent feelings of sadness... <em>Cognitive-behavioral therapy demonstrates comparable efficacy to medication for mild to moderate depression and may provide more durable benefits.</em> Treatment-resistant depression may respond to augmentation strategies..."
-          ]
+            "Major depressive disorder is characterized by persistent feelings of sadness, anhedonia, and neurovegetative symptoms affecting sleep, appetite, and energy levels. First-line pharmacological treatments include selective serotonin reuptake inhibitors (SSRIs) and serotonin-norepinephrine reuptake inhibitors (SNRIs), with response rates of approximately 60-70%. <em>Cognitive-behavioral therapy demonstrates comparable efficacy to medication for mild to moderate depression and may provide more durable benefits.</em> Treatment-resistant depression may respond to augmentation strategies including atypical antipsychotics, lithium, or thyroid hormone. Electroconvulsive therapy remains the most effective intervention for severe or treatment-resistant depression, while newer modalities such as transcranial magnetic stimulation and ketamine infusion offer promising alternatives with fewer side effects."          ]
         }
-      },
-      // ... other hits ...
+      }
     ]
   }
 }
 ```
 
-The `semantic` highlighter identifies the sentence that best captures the essence of the query ("treatments for neurodegenerative diseases") within the context of each retrieved document. You can customize the highlight tags using the `pre_tags` and `post_tags` parameters if needed. For more information, see [Changing the highlighting tags]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/highlight/#changing-the-highlighting-tags).
+The `semantic` highlighter identifies the sentence determined by the model to be semantically relevant to the query ("treatments for neurodegenerative diseases") within the context of each retrieved document. You can customize the highlight tags using the `pre_tags` and `post_tags` parameters if needed. For more information, see [Changing the highlighting tags]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/highlight/#changing-the-highlighting-tags).
