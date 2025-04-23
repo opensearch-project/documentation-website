@@ -78,7 +78,7 @@ The **Refresh** button reloads the query data based on the selected filters and 
 
 ### F. Metrics table
 
-The metrics table dynamically adapts based on the selected Type filter (query, group, or both).  Dynamic columns reduce clutter and increase clarity by tailoring the displayed data to the selected query type. The interface adapts in the following ways, illustrated in the screenshots below:
+The metrics table dynamically adapts based on the selected Type filter (query, group, or both).  Dynamic columns reduce clutter and increase clarity by tailoring the displayed data to the selected query type. The interface adapts in the following ways, illustrated in the screenshots the following:
 
 ![Column Display for Query Selected](../../images/Query-Insights/OnlyQueryColDisplay.png)
 
