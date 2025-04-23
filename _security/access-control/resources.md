@@ -21,7 +21,7 @@ The Resource Sharing extension in the OpenSearch Security plugin provides fine-g
 
 ## Enabling the resource sharing extension
 
-To enable the resource sharing extension, follow these steps.
+To enable the resource sharing extension, set up the plugin and permission settings.
 
 ### Plugin settings
 
@@ -131,7 +131,7 @@ The resource sharing metadata is stored as JSON documents that define ownership,
 
 ## Action groups
 
-Action groups define permission levels for shared resources, for example, `default`. To share resources across the action groups, use the `share_with` array in that resource's configuration and add wildcards for each default role:
+Action groups define permission levels for shared resources. As of OpenSearch 3.0, the only supposted action group for resource sharing is `default`. To share resources across the action groups, use the `share_with` array in that resource's configuration and add wildcards for each default role:
 
 ```json
 {
