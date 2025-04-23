@@ -11,7 +11,7 @@ nav_order: 10
 **Introduced 3.0**
 {: .label .label-purple }
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
 {: .warning}
 
 OpenSearch provides the following APIs to manage pull-based ingestion.
@@ -83,8 +83,6 @@ The following table lists the available query parameters. All query parameters a
 POST /my-index/ingestion/_resume
 ```
 {% include copy-curl.html %}
-
-Ah, thank you for those clarifications. I'll proceed with the Get State API section using those guidelines:
 
 ## Get ingestion state
 
