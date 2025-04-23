@@ -15,7 +15,7 @@ more_cards:
     description: "Set specific throughput targets to match your production workload patterns"
     link: "/benchmark/user-guide/optimizing-benchmarks/target-throughput/"
   - heading: "Performance testing best practices"
-    description: "Follow these principals to achieve more meaningful benchmark results"
+    description: "Follow these best practices to achieve more meaningful benchmark results"
     link: "/benchmark/user-guide/optimizing-benchmarks/performance-testing-best-practices/"
   - heading: "Randomizing queries"
     description: "Generate varied search patterns to simulate real-world queries"
@@ -24,6 +24,6 @@ more_cards:
 
 # Optimizing benchmarks
 
-This section details different ways you can optimize the benchmark tools for your cluster.
+This section provides information about optimizing the benchmark tools for your cluster.
 
 {% include cards.html cards=page.more_cards %}

@@ -6,13 +6,13 @@ parent: User guide
 has_children: true
 items:
   - heading: "Anatomy of a workload"
-    description: "Understand each component that comprises a workload."
+    description: "Understand each component of a workload"
     link: "/benchmark/user-guide/understanding-workloads/anatomy-of-a-workload/"
   - heading: "Choosing a workload"
-    description: "Decide which workload best matches your data set."
+    description: "Determine which workload best matches your dataset"
     link: "/benchmark/user-guide/understanding-workloads/choosing-a-workload/"
   - heading: "Common operations"
-    description: "Familiarize yourself with the most common queries found in each task."
+    description: "Familiarize yourself with common operations"
     link: "/benchmark/user-guide/understanding-workloads/common-operations/"
 ---
 
