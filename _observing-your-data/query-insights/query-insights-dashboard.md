@@ -82,15 +82,15 @@ The metrics table dynamically adapts based on your **Type** filter selection (**
 
 ![Column Display for Query Selected](../../images/Query-Insights/OnlyQueryColDisplay.png)
 
-When you select **Queries only**, the table displays individual metrics, including **Latency**, **CPU Time**, and **Memory Usage**. The **Query Count** column isn't displayed because each row represents a single query.
+When you select **queries only**, the table displays individual metrics, including **Latency**, **CPU Time**, and **Memory Usage**. The **Query Count** column isn't displayed because each row represents a single query.
 
 ![Column Display for Group Selected](../../images/Query-Insights/OnlyGroupColDisplay.png)
 
-When you select **Groups only**, the table displays aggregated metrics, including **Average Latency**, **Average CPU Time**, and **Average Memory Usage**. The **Query Count** column shows how many queries are in each group.
+When you select **groups only**, the table displays aggregated metrics, including **Average Latency**, **Average CPU Time**, and **Average Memory Usage**. The **Query Count** column shows how many queries are in each group.
 
 ![Column Display for Both Selected](../../images/Query-Insights/BothColDisplay.png)
 
-When you select both groups and queries, the table displays combined metrics, including both averaged and raw values, such as **Avg Latency / Latency**. 
+When you select both **groups** and **queries**, the table displays combined metrics, including both averaged and raw values, such as **Avg Latency / Latency**. 
 
 The following table provides descriptions for each metric and the metric's related query and group when selected.
 
