@@ -9,6 +9,30 @@ permalink: /benchmark/
 redirect_from:
   - /benchmark/index/
   - /benchmark/tutorials/index/
+tutorial_cards:
+  - heading: "Get started with OpenSearch Benchmark"
+    description: "Run your first OpenSearch Benchmark workload and receive performance metrics"
+    link: "/benchmark/quickstart/"
+  - heading: "Choosing a workload"
+    description: "Choose a benchmark workload based on your cluster's use case"
+    link: "/benchmark/user-guide/understanding-workloads/choosing-a-workload/"
+more_cards: 
+  - heading: "User guide"
+    description: "Learn how to benchmark the performance of your cluster"
+    link: "/benchmark/user-guide/index/"
+  - heading: "Reference"
+    description: "Learn about OpenSearch Benchmark commands and options"
+    link: "/benchmark/reference/index/"
+items:
+  - heading: "Install and configure OpenSearch Benchmark"
+    description: "Install OpenSearch Benchmark and configure your experience"
+    link: "/benchmark/user-guide/install-and-configure/installing-benchmark/"
+  - heading: "Run a workload"
+    description: "Run a workload and receive performance metrics." 
+    link: "/benchmark/user-guide/working-with-workloads/running-workloads/"
+  - heading: "Analyze performance metrics"
+    description: "View your benchmark report and analyze your metrics"  
+    link: "/benchmark/user-guide/understanding-results/summary-reports/"
 ---
 
 # OpenSearch Benchmark
@@ -19,18 +43,25 @@ OpenSearch Benchmark is a macrobenchmark utility provided by the [OpenSearch Pro
 - Informing decisions about when to upgrade your cluster to a new version.
 - Determining how changes to your workflow---such as modifying mappings or queries---might impact your cluster.
 
+## Get started
+
 OpenSearch Benchmark can be installed directly on a compatible host running Linux or macOS. You can also run OpenSearch Benchmark in a Docker container. See [Installing OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/installing-benchmark/) for more information.
+{: .info }
 
-The following diagram visualizes how OpenSearch Benchmark works when run against a local host:
+{% include cards.html cards=page.tutorial_cards %}
 
-![Benchmark workflow]({{site.url}}{{site.baseurl}}/images/benchmark/osb-workflow.jpg).
+{% include list.html list_items=page.items%}
 
-The OpenSearch Benchmark documentation is split into four sections:
+<span class="centering-container">
+[Get started]({{site.url}}{{site.baseurl}}/benchmark/quickstart/){: .btn-dark-blue}
+</span>
 
-- [Quickstart]({{site.url}}{{site.baseurl}}/benchmark/quickstart/): Learn how to quickly run and install OpenSearch Benchmark.
-- [User guide]({{site.url}}{{site.baseurl}}/benchmark/user-guide/index/): Dive deep into how OpenSearch Benchmark can help you track the performance of your cluster.
-- [Tutorials]({{site.url}}{{site.baseurl}}/benchmark/tutorials/index/): Use step-by-step guides for more advanced benchmarking configurations and functionality.
-- [Reference]({{site.url}}{{site.baseurl}}/benchmark/reference/index/): A detailed reference of metrics, commands, telemetry devices, and workloads.
+## Customize your benchmarks
+
+{% include cards.html cards=page.more_cards %}
+
+
+
 
 
 
