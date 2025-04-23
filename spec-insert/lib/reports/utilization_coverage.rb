@@ -3,6 +3,7 @@
 require 'mustache'
 require 'logger'
 require_relative '../utils'
+require_relative '../doc_processor'
 require_relative '../api/action'
 
 # Renders utilization coverage of Spec-Insert components to a markdown file
