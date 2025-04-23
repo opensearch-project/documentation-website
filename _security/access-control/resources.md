@@ -1,92 +1,115 @@
 ---
 layout: default
-title: Resource Sharing and Access Control
+title: Sharing resources between access roles
 parent: Access control
 nav_order: 130
 ---
 
-# Resource Sharing and Access Control
+# Sharing resources between access roles
+
 **Introduced 3.0**
 {: .label .label-purple }
 
+This is an experimental feature and we don't recommend using it in a production environment. For updates on the feature's progress or to provide feedback, join the discussion in the [OpenSearch forum](https://forum.opensearch.org/).    
+{: .warning}
 
-Available from version 3.0.0 on fresh clusters only.
-{: .info }
+The Resource Sharing extension in the OpenSearch Security plugin provides fine-grained, resource-level access management for plugin-declared resources. It builds on top of existing index-level authorization to enable you to:
 
-Marked experimental and is disabled by default.
-{: .warning }
+- Share and revoke access as a resource owner.
+- View and manage all resources as a super-admin.
+- Define custom shareable resources through a standardized Service Provider Interface (SPI).
 
-To enable, set:
+## Enabling the resource sharing extension
+
+To enable the resource sharing extension, follow these steps.
+
+### Plugin settings
+
+To enable resource sharing, add the following settings to `opensearch.yaml`:
+
 ```yaml
 plugins.security.resource_sharing.enabled: true
+plugins.security.system_indices.enabled: true
 ```
-{: .note }
+{% include copy.html %}
 
-Each plugin aiming to support this feature must be onboarded onto it. Plugin developers can refer the [RESOURCE_ACCESS_CONTROL_FOR_PLUGINS.md](https://github.com/opensearch-project/security/blob/main/RESOURCE_ACCESS_CONTROL_FOR_PLUGINS.md) 
+For information about implementing this feature in your plugin, see [Resource access control for plugins](https://github.com/opensearch-project/security/blob/main/RESOURCE_ACCESS_CONTROL_FOR_PLUGINS.md).
 {: .tip }
 
-## 1. Overview
+### Cluster permissions
 
-OpenSearch lacked a fine-grained access control (FGAC) mechanism at the resource level for plugins, forcing each plugin to develop its own custom authorization logic. This lack of standardization led to inconsistent security enforcement, with broad permissions being assigned and an increased risk of unauthorized access. Maintaining separate access control implementations across multiple plugins also resulted in high maintenance overhead. For example, in the Anomaly Detection plugin a user with delete permissions could remove all detectors instead of just their own, illustrating the need for a centralized, standardized solution.
+The Security plugin must have the following access:
 
-The Resource Sharing and Access Control extension in the OpenSearch Security Plugin provides fine-grained, resource-level access management for plugin-declared resources. It builds on top of existing index-level authorization to let:
+- Permissions to make share, verify, and list requests.
+- Shared access to all cluster components, or be the owner of the cluster.
 
-Resource owners share and revoke access
+To grant the resource sharing extension these permissions, add the following role to `roles.yaml`:
 
-Super-admins view and manage all resources
+```yaml
+sample_full_access:
+  cluster_permissions:
+    - 'cluster:admin/sample-resource-plugin/*'
 
-Plugin authors define custom shareable resources via a standardized SPI interface
+sample_read_access:
+  cluster_permissions:
+    - 'cluster:admin/sample-resource-plugin/get'
+```
+{% include copy.html %}
 
----
+## Resource sharing components
 
-## 2. Components
+The resource sharing extension consists of key components that work together to provide standardized access management. The primary component is the Service Provider Interface (SPI), which serves as the foundation for plugin integration and resource management.
 
-### 2.1 `opensearch-security-spi`
+### opensearch-security-spi
 
-A Service Provider Interface (SPI) that:
+The `opensearch-security-spi` component:
 
 - Defines `ResourceSharingExtension` for plugin implementations.
 - Tracks registered resource plugins at startup.
 - Exposes a `ResourceSharingClient` for performing share, revoke, verify, and list operations.
 
-#### Plugin Requirements
+You can customize this component based on the SPI implementation. To customize, create an extension file `src/main/resources/META-INF/services/org.opensearch.security.spi.ResourceSharingExtension` containing your SPI's class name:
 
-##### 1. Feature Flag and Protection
-    - Enable `plugins.security.resource_sharing.enabled: true`
-    - Resource indices must be system indices with system index protection enabled (`plugins.security.system_indices.enabled: true`).
+```
+com.example.MyResourceSharingExtension
+```
+{% include copy.html %}
 
-##### 2. Build Configuration  
-   Add to `build.gradle`:
-   ```gradle
-   compileOnly group: 'org.opensearch', name: 'opensearch-security-spi', version: "${opensearch_build}"
-   opensearchplugin {
-     name '<your-plugin>'
-     description '<description>'
-     classname '<your.classpath>'
-     extendedPlugins = ['opensearch-security;optional=true']
-   }
-   ```
+### API
 
-##### 3. SPI Registration  
-   Create `src/main/resources/META-INF/services/org.opensearch.security.spi.ResourceSharingExtension` containing your implementation’s fully qualified class name:
-   ```
-   com.example.MyResourceSharingExtension
-   ```
+All sharing metadata is stored in the `.opensearch_resource_sharing` system index, as shown in the following table.
 
----
+| Field | Type | Description |
+| :--- | :--- | :--- |
+| `source_idx`  | String | The system index holding the resource |
+| `resource_id` | String | The resource ID   |
+| `created_by`  | Object | The name of the user who created the resource    |
+| `share_with`  | Object | A map of `action-groups` to access definitions  |
 
-## 3. API Design
+#### Java client APIs
 
-All sharing metadata is stored in the system index `.opensearch_resource_sharing`.
+Use the following classes when interacting with the extension through the Java client:
 
-| Field         | Type   | Description                                 |
-| ------------- | ------ | ------------------------------------------- |
-| `source_idx`  | String | System index holding the resource           |
-| `resource_id` | String | Unique resource identifier                  |
-| `created_by`  | Object | Creator information                         |
-| `share_with`  | Object | Map of action-groups to access definitions  |
+```java
+ResourceSharingClient client = ResourceSharingClientAccessor.getResourceSharingClient();
 
-### 3.1 Document Structure
+// Verify access
+client.verifyResourceAccess(resourceId, indexName, listener);
+
+// Share resource
+client.share(resourceId, indexName, recipients, listener);
+
+// Revoke access
+client.revoke(resourceId, indexName, recipients, listener);
+
+// List accessible IDs
+client.getAccessibleResourceIds(indexName, listener);
+```
+{% include copy.html %}
+
+### Document structure
+
+The resource sharing metadata is stored as JSON documents that define ownership, permissions, and access patterns. Each document contains fields that specify the resource location, identifier, creator information, and sharing configuration:
 
 ```json
 {
@@ -104,92 +127,47 @@ All sharing metadata is stored in the system index `.opensearch_resource_sharing
   }
 }
 ```
+{% include copy.html %}
 
-### 3.2 Java Client APIs
+## Action groups
 
-```java
-ResourceSharingClient client = ResourceSharingClientAccessor.getResourceSharingClient();
+Action groups define permission levels for shared resources, for example, `default`. To share resources across the action groups, use the `share_with` array in that resource's configuration and add wildcards for each default role:
 
-// 1. Verify access
-client.verifyResourceAccess(resourceId, indexName, listener);
-
-// 2. Share resource
-client.share(resourceId, indexName, recipients, listener);
-
-// 3. Revoke access
-client.revoke(resourceId, indexName, recipients, listener);
-
-// 4. List accessible IDs
-client.getAccessibleResourceIds(indexName, listener);
-```
-
----
-
-## 4. Action Groups
-
-- Action-groups define permission levels (currently only default).
-- To make a resource public, use wildcards:
-  ```json
-  {
-    "share_with": {
-      "default": {
-        "users": ["*"],
-        "roles": ["*"],
-        "backend_roles": ["*"]
-      }
+```json
+{
+  "share_with": {
+    "default": {
+      "users": ["*"],
+      "roles": ["*"],
+      "backend_roles": ["*"]
     }
   }
-  ```
-- To keep a resource private (only owner and super-admin):
-  ```json
-  { "share_with": {} }
-  ```
-
----
-
-## 5. User and Admin Setup
-
-### 5.1 Cluster Permissions
-
-In `roles.yml`, grant plugin API permissions:
-
-```yaml
-sample_full_access:
-  cluster_permissions:
-    - 'cluster:admin/sample-resource-plugin/*'
-
-sample_read_access:
-  cluster_permissions:
-    - 'cluster:admin/sample-resource-plugin/get'
+}
 ```
+{% include copy.html %}
 
-### 5.2 Access Rules
+To keep a resource private, keep the `share_with` array empty:
 
-1. Must have plugin API permission to call share, verify, or list.
-2. Resource must be shared or the user must be the owner to grant access.
-3. No additional index permissions are needed; system indices are protected.
+```json
+{ "share_with": {} }
+```
+{% include copy.html %}
 
----
+## Restrictions
 
-## 6. Restrictions
+Before implementing resource sharing and access control, be aware of the following limitations that help maintain security and consistency across the system:
 
 - Only resource owners or super-admins can share or revoke access.
-- Resources must reside in system indices.
+- Resources must reside in system indexes.
 - Disabling system index protection exposes resources to direct index-level access.
 
----
+## Best practices
 
-## 7. Best Practices
+To ensure secure and efficient implementation of resource sharing and access control, follow these recommended practices:
 
 - Declare and register extensions correctly.
 - Use the SPI client APIs instead of manual index queries.
 - Enable only on fresh 3.0.0+ clusters to avoid upgrade issues.
-- Grant minimal required scope when sharing.
+- Grant minimal required permissions when sharing resources.
 
----
-
-## 8. Additional Notes
-
-- Requires `plugins.security.resource_sharing.enabled: true`.
-- Relies on system index protection (`plugins.security.system_indices.enabled: true`).
-- Experimental feature subject to future API changes.
+These practices help maintain security, improve maintainability, and prevent potential issues during upgrades or system changes.
