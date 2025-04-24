@@ -10,13 +10,13 @@ has_toc: false
 
 # Fields
 
-The `fields` mapping parameter enables you to index the same field in multiple ways by defining additional sub-fields. With multi-fields, the primary field value is stored using its main mapping, while one or more sub-fields can be configured with alternate mappings, for example different data types or analyzers which support varied search and aggregation requirements.
+The `fields` mapping parameter enables you to index the same field in multiple ways by defining additional subfields. With multi-fields, the primary field value is stored using its main mapping. Additionally, you can configure one or more subfields with alternate mappings, for example, different data types or analyzers which support varied search and aggregation requirements.
 
-Multi-fields are especially useful when you need to perform full-text searches on one representation of the data and exact-match operations (like sorting or aggregations) on another. Additionally, you can index the same field with different analyzers. For example, one sub-field might use the default analyzer for general text searches, while another sub-field uses a custom analyzer for generating `n-grams` to support autocomplete or fuzzy matching.
+Multi-fields are especially useful when you need to perform full-text searches on one representation of the data and exact-match operations (like sorting or aggregations) on another. Additionally, you can index the same field with different analyzers. For example, one subfield might use the default analyzer for general text searches, while another subfield uses a custom analyzer for generating n-grams to support autocomplete or fuzzy matching.
 
 ## Configuring multi-fields
 
-In the following example an index named `articles` is created with a `title` field that is analyzed as full text. A sub-field named `raw` is defined under `fields` to store the same value as a `keyword` for exact-match queries:
+In the following example, an index named `articles` is created with a `title` field that is analyzed as full text. A subfield named `raw` is defined under `fields` to store the same value as a `keyword` for exact-match queries:
 
 ```json
 PUT /articles
@@ -39,7 +39,7 @@ PUT /articles
 
 ## Using different analyzers
 
-In the following example the same `title` field is indexed using two different analyzers. The main field uses the default analyzer for full-text search, while the `ngrams` sub-field uses a custom `n-gram` analyzer to support features like autocomplete:
+In the following example, the same `title` field is indexed using two different analyzers. The main field uses the default analyzer for full-text search, while the `ngrams` subfield uses a custom n-gram analyzer to support features like autocomplete:
 
 ```json
 PUT /articles
@@ -88,7 +88,8 @@ PUT /articles
 {% include copy-curl.html %}
 
 ## Indexing a document
-After the index is created, you can index documents. The `title` field will be processed as defined by its mapping, and its sub-fields will provide alternate representations of the same value:
+
+After the index is created, you can index documents into it. The `title` field will be processed as defined by its mapping, and its subfields will provide alternate representations of the same value:
 
 ```json
 PUT /articles/_doc/1
@@ -100,7 +101,7 @@ PUT /articles/_doc/1
 
 ## Querying multi-fields
 
-You can target the additional sub-fields in queries to suit different requirements. For example, to perform an aggregation on the exact value of the title, query the `title.raw` sub-field using the following command:
+You can target the additional subfields in queries to suit different requirements. For example, to perform an aggregation on the exact value of the title, query the `title.raw` subfield using the following request:
 
 ```json
 POST /articles/_search
@@ -145,7 +146,7 @@ Expected result:
 }
 ```
 
-Alternatively, to utilize the autocomplete functionality, you can run a `match` query on the `title.ngrams` sub-field:
+Alternatively, to use the autocomplete functionality, you can run a `match` query on the `title.ngrams` subfield:
 
 ```json
 POST /articles/_search
