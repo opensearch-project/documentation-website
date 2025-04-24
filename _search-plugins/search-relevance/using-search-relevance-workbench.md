@@ -9,7 +9,7 @@ redirect_from:
   - /search-plugins/search-relevance/
 ---
 
-# Using Search Relevance Workbench
+# Using Search Relevance Workbench 
 
 The Search Relevance Workbench consists of a frontend and a backend component. 
 [The frontend component](https://github.com/opensearch-project/dashboards-search-relevance) is implemented as a plugin for OpenSearch Dashboards. 
@@ -19,7 +19,7 @@ A feature of the Search Relevance Workbench is that users can perform experiment
 
 ## Creating a Query Set
 
-The first step to get started with comparing search configurations is to create a set of queries to run the search. If the users has access to search behavior data, adhering to the UBI standard, one way of doing this is by making a POST request to the endpoint `_plugins/search_relevance/query_sets/create`. 
+The first step to get started with comparing search configurations is to create a set of queries to run the search. If the users has access to search behavior data, adhering to the UBI standard, one way of doing this is by making a POST request to the endpoint ` _plugins/search_relevance/query_sets/create`. 
 
 Example:
 ```json
