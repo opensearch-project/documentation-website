@@ -3,15 +3,13 @@ layout: default
 title: Search gRPC
 parent: GRPC APIs
 nav_order: 20
-redirect_from:
- - /opensearch/rest-api/grpc-apis/search/
 ---
 
 # Search (gRPC)
 **Introduced 3.0**
 {: .label .label-purple }
 
-The gRPC Search API provides a performant, binary interface to run [OpenSearch queries]({{site.url}}{{site.baseurl}}/api-reference/search/) using Protocol Buffers over gRPC. It mirrors the capabilities of the HTTP Search API while benefiting from protobuf-typed contracts and gRPC transport. The gRPC APis are ideal for low-latency, high-throughput applications.
+The gRPC Search API provides a performant, binary interface to run [queries]({{site.url}}{{site.baseurl}}/api-reference/search/) using protocol buffers over gRPC. It mirrors the capabilities of the HTTP Search API while benefiting from protobuf-typed contracts and gRPC transport. The gRPC APis are ideal for low-latency, high-throughput applications.
 
 This plugin is experimental and not recommended for production use. APIs and behavior may change without notice in future releases.
 {: .note}
@@ -23,12 +21,15 @@ This plugin is experimental and not recommended for production use. APIs and beh
 * [search.proto](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto)   
 1. Java clients can also download the  `opensearch-protobufs`  jar from the [Central Maven repository](https://repo1.maven.org/maven2/org/opensearch/protobufs/0.3.0).
 
-## Usage notes 
 
-* Currently, only basic queries (`match_all`, `term`, `terms`, `match_none`) are supported. Additional query types will be supported in future releases.  
-* The source documents will be returned as bytes. Use base64 decoding to read `_source` field in the GRPC response. 
+Currently, only basic queries (`match_all`, `term`, `terms`, `match_none`) are supported. Additional query types will be supported in future releases.  
+{: .note}
+
+The source documents are returned as bytes. Use Base64 decoding to read the `_source` field in the gRPC response. 
 
 ## Request fields 
+
+The gRPC Search API supports the following request fields.
 ### SearchRequest fields 
 
 The [SearchRequest](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L18) message is the top-level container for a gRPC search request. 
@@ -168,9 +169,11 @@ Note that some query types are currently unsupported. Only `match_all`, `term`, 
 
 ## Supported queries 
 
-### 1. Match all query 
+The gRPC Search API supports the following queries.
 
-Returns all documents from the index, capped to a maximum of 50 docs.
+### Match all query 
+
+Returns all documents from the index. For example, the following request returns a maximum of 50 documents from the index:
 
 ```json
 {
@@ -184,9 +187,9 @@ Returns all documents from the index, capped to a maximum of 50 docs.
 ```
 {% include copy.html %}
 
-### 2. Term query 
+### Term query 
 
-Match a single field with a specific term.
+Matches a single field with a specific term:
 
 ```json
 {
@@ -207,11 +210,11 @@ Match a single field with a specific term.
 ```
 {% include copy.html %}
 
-### 3. Terms query 
+### Terms query 
 
-Match documents where a specific field contains any  value from a list. 
+Matches documents in which a specific field contains any value from a list. 
 
-The following query searches for lines with the IDs 61809 and 61810:
+For example, the following query searches for lines with the IDs 61809 and 61810:
 
 ```json
 {
@@ -232,13 +235,12 @@ The following query searches for lines with the IDs 61809 and 61810:
    }
  }
 }
-EOM
 ```
 {% include copy.html %}
 
-### 4. Terms query with terms lookup
+### Terms query with terms lookup
 
-Match documents in the `students` index for every student whose `id` matches one of the values in the `enrolled` array:
+Matches documents in the `students` index for every student whose `id` matches one of the values in the `enrolled` array:
 
 ```json
 {
@@ -263,9 +265,9 @@ Match documents in the `students` index for every student whose `id` matches one
 {% include copy.html %}
 
 
-### 5. Match none
+### Match none
 
-The counterpart to the Match All query. 
+Matches none of the documents:
 
 ```json
 {
@@ -278,7 +280,10 @@ The counterpart to the Match All query.
 ```
 {% include copy.html %}
 
-## Response 
+## Response fields
+
+The gRPC Search API provides the following response fields.
+
 ### SearchResponse fields 
 
 | Field | Protobuf Type | Description |

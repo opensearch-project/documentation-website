@@ -3,20 +3,17 @@ layout: default
 title: GRPC APIs
 has_children: true
 nav_order: 25
-redirect_from:
-  - /opensearch/rest-api/grpc-apis/index/
 ---
 
 # GRPC APIs
 **Introduced 3.0**
 {: .label .label-purple }
 
-The OpenSearch gRPC plugin provides an alternative, high-performance transport layer using [gRPC](https://grpc.io/) for communication with OpenSearch. This feature uses Protocol Buffers over gRPC for lower overhead and faster serialization, and delivers performance gains over HTTP, especially from request-side latencies, per initial benchmarking results.
+The OpenSearch gRPC plugin provides an alternative, high-performance transport layer using [gRPC](https://grpc.io/) for communication with OpenSearch. It uses protocol buffers over gRPC for lower overhead and faster serialization. This reduces overhead, speeds up serialization, and improves request-side latency, based on initial benchmarking results.
 
 This plugin is experimental and not recommended for production use. APIs and behavior may change without notice in future releases.
 {: .note}
 
-## Purpose
 
 The primary goal of the gRPC plugin is to:
 
@@ -27,26 +24,30 @@ The primary goal of the gRPC plugin is to:
 ## Enabling the plugin
 
 To enable the gRPC plugin (transport-grpc) in OpenSearch, 
-1. Install the **transport-grpc** plugin, following the [OpenSearch plugins guide]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).  
+1. Install the `transport-grpc` plugin. For more information, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).  
 
 1. Add the following settings to `opensearch.yml`:
-```
+```yaml
 aux.transport.types: [experimental-transport-grpc]
 aux.transport.experimental-transport-grpc.port: '9400-9500' // optional
 ```
+{% include copy.html %}
 
-Alternatively, configure a secure transport using:
-```
+Alternatively, configure a secure transport using the following settings:
+```yaml
 aux.transport.types: [experimental-secure-transport-grpc]
 aux.transport.experimental-transport-grpc.port: '9400-9500' // optional
 ```
+{% include copy-curl.html %}
 
-1. Configure additional settings if needed following the [Advanced GRPC settings](#advanced-grpc-settings) section.
-```
+1. Configure additional settings if needed (see [Advanced GRPC settings](#advanced-grpc-settings)):
+```yaml
 grpc.host: localhost
 grpc.publish_host: 10.74.124.163
 grpc.bind_host: 0.0.0.0
 ```
+{% include copy.html %}
+
 
 ## Advanced GRPC settings
 
@@ -62,13 +63,15 @@ These settings are similar to the [HTTP Network settings]({{site.url}}{{site.bas
 
 ## Client usage
 
-There are two ways to use the Protobufs. 
+There are two ways to use the protobufs:
 
-1. **Raw Protobufs:** Download the raw Protobuf schema in the [OpenSearch Protobufs GitHub repository (v0.3.0)](https://github.com/opensearch-project/opensearch-protobufs).   
-2. **Java clients only:** Download the `opensearch-protobufs` jar from the Central Maven repository: [https://repo1.maven.org/maven2/org/opensearch/protobufs/0.3.0](https://repo1.maven.org/maven2/org/opensearch/protobufs/0.3.0) 
+1. **Raw protobufs:** Download the raw protobuf schema from the [OpenSearch Protobufs GitHub repository (v0.3.0)](https://github.com/opensearch-project/opensearch-protobufs).   
+2. **Java clients only:** Download the `opensearch-protobufs` jar from the Central Maven repository: [https://repo1.maven.org/maven2/org/opensearch/protobufs/0.3.0](https://repo1.maven.org/maven2/org/opensearch/protobufs/0.3.0).
 
 ## Supported APIs
-As this feature is currently under development, the supported APIs right now are [Bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) and [Search]({{site.url}}{{site.baseurl}}/api-reference/search/) (select query types).
+This feature is currently under development and currently supports the following APIs:
+- [Bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/))
+- [Search]({{site.url}}{{site.baseurl}}/api-reference/search/) (for select query types).
 
 See detailed API Documentation for more information and example requests: 
 

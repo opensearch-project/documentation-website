@@ -1,17 +1,15 @@
 ---
 layout: default
 title: Bulk gRPC
-parent: GRPC APIs
+parent: gRPC APIs
 nav_order: 20
-redirect_from:
- - /opensearch/rest-api/grpc-apis/bulk/
 ---
 
 # Bulk (gRPC)
 **Introduced 3.0**
 {: .label .label-purple }
 
-The gRPC Bulk API provides an efficient, binary-encoded alternative to the [HTTP Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) for performing multiple document operations—such as indexing, updating, and deleting—in a single call. This service leverages Protocol Buffers and mirrors the REST API in terms of parameters and structure.
+The gRPC Bulk API provides an efficient, binary-encoded alternative to the [HTTP Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) for performing multiple document operations—such as indexing, updating, and deleting—in a single call. This service uses protocol buffers and mirrors the REST API in terms of parameters and structure.
 
 This plugin is experimental and not recommended for production use. APIs and behavior may change without notice in future releases.
 {: .note}
@@ -24,23 +22,26 @@ This plugin is experimental and not recommended for production use. APIs and beh
 1. Java clients can also download the `opensearch-protobufs` jar from the [Central Maven repository](https://repo1.maven.org/maven2/org/opensearch/protobufs/0.3.0).
 
 
-## Documents as base64-encoded bytes
+## Document format
 
-Documents should be provided as bytes, and will be returned as bytes as well. 
+Documents must be provided and are returned as bytes. 
 
-Use base64 encoding to provide documents in the GRPC request.
+Use Base64 encoding to provide documents in a gRPC request.
 {: .note }
 
-For example, instead of providing a document like: 
+For example, consider the following document in a regular Bulk API request: 
+
 ```json
 "doc":  "{\"title\": \"Inception\", \"year\": 2010}"
 ```
-provide the document with base64 encoding: 
+
+For a gRPC Bulk API request, provide the same document in Base64 encoding: 
+
 ```json
 "doc": "eyJ0aXRsZSI6ICJJbmNlcHRpb24iLCAieWVhciI6IDIwMTB9"
 ```
 
-## BulkRequest fields
+## Bulk request fields
 
 The [BulkRequest](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/document.proto#L16) message is the top-level container for a gRPC bulk operation. 
 
