@@ -3,6 +3,7 @@ layout: default
 title: Concepts
 nav_order: 3
 parent: User guide
+has_toc: false
 redirect_from: 
   - /benchmark/user-guide/concepts/
 ---
