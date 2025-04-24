@@ -3,6 +3,7 @@ layout: default
 title: Creating correlation rules
 parent: Setting up Security Analytics
 nav_order: 17
+canonical_url: https://docs.opensearch.org/docs/latest/security-analytics/sec-analytics-config/correlation-config/
 ---
 
 # Creating correlation rules

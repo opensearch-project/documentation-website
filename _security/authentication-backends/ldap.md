@@ -6,6 +6,7 @@ nav_order: 60
 redirect_from:
   - /security/configuration/ldap/
   - /security-plugin/configuration/ldap/
+canonical_url: https://docs.opensearch.org/docs/latest/security/authentication-backends/ldap/
 ---
 
 # Active Directory and LDAP

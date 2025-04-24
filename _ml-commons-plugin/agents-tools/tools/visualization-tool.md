@@ -6,6 +6,7 @@ has_toc: false
 nav_order: 120
 parent: Tools
 grand_parent: Agents and tools
+canonical_url: https://docs.opensearch.org/docs/latest/ml-commons-plugin/agents-tools/tools/visualization-tool/
 ---
 
 # Visualization tool

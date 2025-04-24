@@ -3,6 +3,7 @@ layout: default
 title: URL decode
 parent: Ingest processors
 nav_order: 320
+canonical_url: https://docs.opensearch.org/docs/latest/ingest-pipelines/processors/urldecode/
 ---
 
 # URL decode processor

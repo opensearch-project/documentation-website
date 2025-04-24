@@ -3,6 +3,7 @@ layout: default
 title: Keyword marker
 parent: Token filters
 nav_order: 200
+canonical_url: https://docs.opensearch.org/docs/latest/analyzers/token-filters/keyword-marker/
 ---
 
 # Keyword marker token filter

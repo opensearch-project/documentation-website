@@ -7,6 +7,7 @@ nav_order: 10
 has_children: false
 redirect_from:
   - /search-plugins/neural-sparse-with-pipelines/
+canonical_url: https://docs.opensearch.org/docs/latest/vector-search/ai-search/neural-sparse-with-pipelines/
 ---
 
 # Generating sparse vector embeddings automatically

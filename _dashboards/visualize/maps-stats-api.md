@@ -5,6 +5,7 @@ nav_order: 20
 grand_parent: Building data visualizations
 parent: Coordinate and region maps 
 has_children: false
+canonical_url: https://docs.opensearch.org/docs/latest/dashboards/visualize/maps-stats-api/
 ---
 
 # Maps Stats API

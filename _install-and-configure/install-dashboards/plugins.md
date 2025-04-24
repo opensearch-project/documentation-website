@@ -5,6 +5,7 @@ nav_order: 100
 redirect_from: 
   - /dashboards/install/plugins/
   - /install-and-configure/install-dashboards/plugins/
+canonical_url: https://docs.opensearch.org/docs/latest/install-and-configure/install-dashboards/plugins/
 ---
 
 # Managing OpenSearch Dashboards plugins

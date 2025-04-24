@@ -3,6 +3,7 @@ layout: default
 title: Log type APIs
 parent: API tools
 nav_order: 56
+canonical_url: https://docs.opensearch.org/docs/latest/security-analytics/api-tools/log-type-api/
 ---
 
 # Log type APIs

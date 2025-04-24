@@ -6,6 +6,7 @@ nav_order: 20
 has_children: false
 redirect_from:
 - /opensearch/rest-api/cat/cat-health/
+canonical_url: https://docs.opensearch.org/docs/latest/api-reference/cat/cat-health/
 ---
 
 # CAT health

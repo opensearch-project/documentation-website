@@ -7,6 +7,7 @@ nav_order: 2
 redirect_from:
   - /observability-plugin/ppl/commands/
   - /search-plugins/ppl/commands/
+canonical_url: https://docs.opensearch.org/docs/latest/search-plugins/sql/ppl/functions/
 ---
 
 # Commands

@@ -5,6 +5,7 @@ parent: ML Commons APIs
 has_children: false
 has_toc: false
 nav_order: 35
+canonical_url: https://docs.opensearch.org/docs/latest/ml-commons-plugin/api/async-batch-ingest/
 ---
 
 # Asynchronous batch ingestion

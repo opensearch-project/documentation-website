@@ -3,6 +3,7 @@ layout: default
 title: Google Workspace
 parent: Supported log types
 nav_order: 45
+canonical_url: https://docs.opensearch.org/docs/latest/security-analytics/log-types-reference/gworkspace/
 ---
 
 # Google Workspace

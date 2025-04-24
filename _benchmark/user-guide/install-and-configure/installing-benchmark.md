@@ -7,6 +7,7 @@ parent: Install and configure
 redirect_from:
   - /benchmark/installing-benchmark/
   - /benchmark/user-guide/installing-benchmark/
+canonical_url: https://docs.opensearch.org/docs/latest/benchmark/user-guide/install-and-configure/installing-benchmark/
 ---
 
 # Installing OpenSearch Benchmark

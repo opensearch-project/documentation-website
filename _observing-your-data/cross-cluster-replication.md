@@ -2,6 +2,7 @@
 layout: default
 title: Cross-cluster search
 nav_order: 140
+canonical_url: https://docs.opensearch.org/docs/latest/observing-your-data/cross-cluster-replication/
 ---
 
 # Cross-cluster search

@@ -2,6 +2,7 @@
 layout: default
 title: Search your data
 nav_order: 50
+canonical_url: https://docs.opensearch.org/docs/latest/getting-started/search-data/
 ---
 
 # Search your data

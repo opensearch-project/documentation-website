@@ -7,6 +7,7 @@ nav_order: 71
 redirect_from:
   - /search-plugins/sql/jdbc/
 
+canonical_url: https://docs.opensearch.org/docs/latest/search-plugins/sql/sql/jdbc/
 ---
 
 # JDBC driver

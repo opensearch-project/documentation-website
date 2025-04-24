@@ -3,6 +3,7 @@ layout: default
 title: Dev Tools
 nav_order: 120
 has_children: true
+canonical_url: https://docs.opensearch.org/docs/latest/dashboards/dev-tools/index-dev/
 ---
 
 # Dev Tools

@@ -3,6 +3,7 @@ layout: default
 title: Backfill
 nav_order: 90
 parent: Migration phases
+canonical_url: https://docs.opensearch.org/docs/latest/migration-assistant/migration-phases/backfill/
 ---
 
 # Backfill

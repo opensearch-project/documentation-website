@@ -8,6 +8,7 @@ redirect_from:
    - /query-dsl/query-dsl/geo-and-xy/
    - /query-dsl/query-dsl/geo-and-xy/index/
    - /query-dsl/geo-and-xy/
+canonical_url: https://docs.opensearch.org/docs/latest/query-dsl/geo-and-xy/index/
 ---
 
 # Geographic and xy queries

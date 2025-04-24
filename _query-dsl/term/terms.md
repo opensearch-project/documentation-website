@@ -3,6 +3,7 @@ layout: default
 title: Terms
 parent: Term-level queries
 nav_order: 80
+canonical_url: https://docs.opensearch.org/docs/latest/query-dsl/term/terms/
 ---
 
 # Terms query

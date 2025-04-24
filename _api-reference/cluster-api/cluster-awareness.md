@@ -7,6 +7,7 @@ has_children: false
 redirect_from:
   - /api-reference/cluster-awareness/
   - /opensearch/rest-api/cluster-awareness/
+canonical_url: https://docs.opensearch.org/docs/latest/api-reference/cluster-api/cluster-awareness/
 ---
 
 # Cluster routing and awareness

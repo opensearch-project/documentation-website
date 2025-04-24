@@ -8,6 +8,7 @@ grand_parent: Search options
 redirect_from:
   - /opensearch/point-in-time-api/
   - /search-plugins/point-in-time-api/
+canonical_url: https://docs.opensearch.org/docs/latest/search-plugins/searching-data/point-in-time-api/
 ---
 
 # Point in Time API

@@ -4,6 +4,7 @@ title: Remote cluster information
 nav_order: 67
 redirect_from: 
  - /opensearch/rest-api/remote-info/
+canonical_url: https://docs.opensearch.org/docs/latest/api-reference/remote-info/
 ---
 
 # Remote cluster information

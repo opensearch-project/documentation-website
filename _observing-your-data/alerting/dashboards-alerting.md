@@ -3,6 +3,7 @@ layout: default
 title: Alerting dashboards and visualizations 
 parent: Alerting
 nav_order: 50
+canonical_url: https://docs.opensearch.org/docs/latest/observing-your-data/alerting/dashboards-alerting/
 ---
 
 # Alerting dashboards and visualizations

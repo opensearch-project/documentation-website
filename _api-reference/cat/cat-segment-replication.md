@@ -4,6 +4,7 @@ title: CAT segment replication
 parent: CAT API
 nav_order: 53
 has_children: false
+canonical_url: https://docs.opensearch.org/docs/latest/api-reference/cat/cat-segment-replication/
 ---
 
 # CAT segment replication

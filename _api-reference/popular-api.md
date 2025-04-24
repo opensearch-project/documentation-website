@@ -4,6 +4,7 @@ title: Popular APIs
 nav_order: 96
 redirect_from:
   - /opensearch/popular-api/
+canonical_url: https://docs.opensearch.org/docs/latest/api-reference/popular-api/
 ---
 
 # Popular APIs

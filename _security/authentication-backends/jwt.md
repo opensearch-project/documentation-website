@@ -4,6 +4,7 @@ title: JSON Web Token
 parent: Authentication backends
 nav_order: 47
 redirect_from:
+canonical_url: https://docs.opensearch.org/docs/latest/security/authentication-backends/jwt/
 ---
 
 

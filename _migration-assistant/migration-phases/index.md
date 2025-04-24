@@ -7,6 +7,7 @@ has_toc: false
 permalink: /migration-phases/
 redirect_from: 
   - /migration-phases/index/
+canonical_url: https://docs.opensearch.org/docs/latest/migration-phases/
 ---
 
 # Migration phases

@@ -6,6 +6,7 @@ parent: Anomaly detection
 has_children: false
 redirect_from: 
   - /monitoring-plugins/ad/security/
+canonical_url: https://docs.opensearch.org/docs/latest/observing-your-data/ad/security/
 ---
 
 # Anomaly detection security

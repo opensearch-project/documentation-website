@@ -8,6 +8,7 @@ grand_parent: Supported field types
 redirect_from:
   - /opensearch/supported-field-types/nested/
   - /field-types/nested/
+canonical_url: https://docs.opensearch.org/docs/latest/field-types/supported-field-types/nested/
 ---
 
 # Nested field type

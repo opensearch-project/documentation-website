@@ -5,6 +5,7 @@ parent: Document APIs
 nav_order: 10
 redirect_from: 
  - /opensearch/rest-api/document-apis/update-document/
+canonical_url: https://docs.opensearch.org/docs/latest/api-reference/document-apis/update-document/
 ---
 
 # Update document

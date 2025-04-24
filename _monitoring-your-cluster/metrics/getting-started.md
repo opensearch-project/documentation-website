@@ -6,6 +6,7 @@ has_children: false
 has_toc: false
 redirect_from:
   - /monitoring-your-cluster/metrics/
+canonical_url: https://docs.opensearch.org/docs/latest/monitoring-your-cluster/metrics/getting-started/
 ---
 
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/10141).    

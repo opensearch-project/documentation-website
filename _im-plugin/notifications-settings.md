@@ -2,6 +2,7 @@
 layout: default
 title: Notification settings
 nav_order: 100
+canonical_url: https://docs.opensearch.org/docs/latest/im-plugin/notifications-settings/
 ---
 
 # Notification settings

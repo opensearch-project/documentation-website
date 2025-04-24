@@ -5,6 +5,7 @@ parent: Metric aggregations
 nav_order: 10
 redirect_from:
   - /query-dsl/aggregations/metric/average/
+canonical_url: https://docs.opensearch.org/docs/latest/aggregations/metric/average/
 ---
 
 # Average aggregations

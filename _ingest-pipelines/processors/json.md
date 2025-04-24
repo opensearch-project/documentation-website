@@ -3,6 +3,7 @@ layout: default
 title: JSON
 parent: Ingest processors
 nav_order: 170
+canonical_url: https://docs.opensearch.org/docs/latest/ingest-pipelines/processors/json/
 ---
 
 # JSON processor

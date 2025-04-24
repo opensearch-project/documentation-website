@@ -4,6 +4,7 @@ title: Span not
 parent: Span queries
 grand_parent: Query DSL
 nav_order: 60
+canonical_url: https://docs.opensearch.org/docs/latest/query-dsl/span/span-not/
 ---
 
 # Span not query

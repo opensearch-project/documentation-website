@@ -2,6 +2,7 @@
 layout: default
 title: Normalizers
 nav_order: 110
+canonical_url: https://docs.opensearch.org/docs/latest/analyzers/normalizers/
 ---
 
 # Normalizers

@@ -4,6 +4,7 @@ title: Delete controller
 parent: Controller APIs
 grand_parent: ML Commons APIs
 nav_order: 50
+canonical_url: https://docs.opensearch.org/docs/latest/ml-commons-plugin/api/controller-apis/delete-controller/
 ---
 
 # Delete a controller
