@@ -55,7 +55,7 @@ As a response of either one of those requests, the user will gain a query_set_id
 Search configurations decide how each query of the query set is run. To create a search configuration, a POST request can be made to the endpoint `_plugins/search_relevance/search_configurations`. Some details which may be optionally specified in the search configuration are the query_body, [search_pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/), and [search_template]({{site.url}}{{site.baseurl}}/api-reference/search-template/). The query body is defined using the [OpenSearch Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/). 
 
 Example:
-```json
+```
 PUT _plugins/search_relevance/search_configurations  
 {  
   "search_configuration_name": "hybrid_search_default",  
