@@ -7,13 +7,20 @@ require_relative 'spec_insert_error'
 class InsertArguments
   attr_reader :raw
 
+  # @param [Hash] args raw arguments read from the doc insert marker
+  def initialize(args)
+    @raw = args.to_h.with_indifferent_access
+  end
+
   # @param [Array<String>] lines the lines between "<!-- doc_insert_start" and "<!-- spec_insert_end -->"
-  def initialize(lines)
+  # @return [InsertArguments]
+  def self.from_marker(lines)
     end_index = lines.each_with_index.find { |line, _index| line.match?(/^\s*-->/) }&.last&.- 1
-    @raw = lines[1..end_index].filter { |line| line.include?(':') }.to_h do |line|
+    args = lines[1..end_index].filter { |line| line.include?(':') }.to_h do |line|
       key, value = line.split(':')
       [key.strip, value.strip]
     end
+    new(args)
   end
 
   # @return [String]

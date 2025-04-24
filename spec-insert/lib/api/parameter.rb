@@ -82,6 +82,7 @@ module Api
       return parse_array(schema) if type == 'array' || schema.items.present?
       return 'NULL' if type == 'null'
       return 'Object' if type == 'object' || type.nil?
+      return type.map { |t| parse_doc_type(SpecHash.new({ 'type' => t })) }.uniq.sort.join(' or ') if type.is_a?(Array)
       raise "Unhandled JSON Schema Type: #{type}"
     end
 
