@@ -11,13 +11,12 @@ redirect_from:
   - /api-reference/index/
 ---
 
-# REST API reference
-**Introduced 1.0**
-{: .label .label-purple }
-
+# API reference
 You can use REST APIs for most operations in OpenSearch. In this reference, we provide a description of the API, and details that include the endpoints, supported parameters, and example requests and responses.
 
-This reference includes the REST APIs supported by OpenSearch. If a REST API is missing, please provide feedback or submit a pull request in GitHub.
+New experimental GRPC APIs were also rolled out as in OpenSearch 3.0, and are continuing to undergo development. 
+
+This reference includes the REST and GRPC APIs supported by OpenSearch. If a REST or GRPC API is missing, please provide feedback or submit a pull request in GitHub.
 {: .tip }
 
 ## Related articles 
@@ -32,6 +31,7 @@ This reference includes the REST APIs supported by OpenSearch. If a REST API is 
 - [Count]({{site.url}}{{site.baseurl}}/api-reference/count/)
 - [Cross-cluster replication API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/api/)
 - [Document APIs]({{site.url}}{{site.baseurl}}/api-reference/document-apis/index/)
+- [GRPC APIs]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/index/)
 - [Explain]({{site.url}}{{site.baseurl}}/api-reference/explain/)
 - [Index APIs]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index/)
 - [Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/rollup-api/)
@@ -62,15 +62,3 @@ This reference includes the REST APIs supported by OpenSearch. If a REST API is 
 - [Tasks]({{site.url}}{{site.baseurl}}/api-reference/tasks/)
 - [Transforms API]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/transforms-apis/)
 - [Hot reload TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/#hot-reloading-tls-certificates)
-
-## GRPC API reference
-**Introduced 3.0**
-{: .label .label-purple }
-
-
-The OpenSearch gRPC plugin provides an alternative, high-performance transport layer using gRPC for communication with OpenSearch, an experimental feature released in OS 3.0. This feature uses Protocol Buffers over gRPC for lower overhead and faster serialization, and delivers performance gains over HTTP per initial benchmarking results. 
-
-This plugin is experimental and not recommended for production use. APIs and behavior may change without notice in future releases.
-
-## Related articles
-- [GRPC APIs]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/index/)

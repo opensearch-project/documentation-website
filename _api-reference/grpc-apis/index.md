@@ -9,11 +9,10 @@ nav_order: 25
 **Introduced 3.0**
 {: .label .label-purple }
 
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/16787).    
+{: .warning}
+
 The OpenSearch gRPC plugin provides an alternative, high-performance transport layer using [gRPC](https://grpc.io/) for communication with OpenSearch. It uses protocol buffers over gRPC for lower overhead and faster serialization. This reduces overhead, speeds up serialization, and improves request-side latency, based on initial benchmarking results.
-
-This plugin is experimental and not recommended for production use. APIs and behavior may change without notice in future releases.
-{: .note}
-
 
 The primary goal of the gRPC plugin is to:
 
@@ -70,16 +69,5 @@ There are two ways to use the protobufs:
 
 ## Supported APIs
 This feature is currently under development and currently supports the following APIs:
-- [Bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/))
+- [Bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/)
 - [Search]({{site.url}}{{site.baseurl}}/api-reference/search/) (for select query types).
-
-See detailed API Documentation for more information and example requests: 
-
-* [Bulk API (gRPC) Usage Guide]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) 
-* [Search API (gRPC) Usage guide]({{site.url}}{{site.baseurl}}/api-reference/search/) 
-
-## Notes
-
-* The plugin is currently **not enabled by default**.  
-* Submitting requests requires **Protobuf and gRPC** setup on client side.  
-* Only the **[Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/)** and limited functionality of the **[Search APIs]({{site.url}}{{site.baseurl}}/api-reference/search/)** are implemented at this stage.
