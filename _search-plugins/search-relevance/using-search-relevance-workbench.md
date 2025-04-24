@@ -63,3 +63,20 @@ PUT _plugins/search_relevance/search_configurations
   "search_pipeline": "hybrid_search"  
 }
 ```
+
+## Running the Search Result List Comparison Experiment
+
+By comparing search results, users can gauge how modifying the search configurations can impact their search results. To run an experiment, the user must ahve 2 search configurations names to use and a query set. By making a POST request to the endpoint `_plugins/search_relevance/experiments`, an experiment is created.
+
+Example:
+```
+POST _plugins/search_relevance/experiments  
+{  
+ "query_set_id": "f0803ed1-6db5-456d-aeb8-1ea3804f5915",  
+ "search_configurations": \["baseline", "hybrid_search"\],  
+ "k": 10  
+}
+```
+
+Now, the experiment is created, and the experiment may be run when the user hits the evaluation button. 
+

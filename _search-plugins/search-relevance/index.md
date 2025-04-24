@@ -19,3 +19,5 @@ OpenSearch provides the following search relevance features:
 - [Reranking search results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/) using a cross-encoder reranker. 
 
 - [Query rewriting]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/query-rewriting/).
+
+- [Using Search Relevance Workbench]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/query-rewriting/using-search-relevance-workbench).
