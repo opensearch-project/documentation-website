@@ -10,7 +10,7 @@ nav_order: 60
 **Introduced 3.0**
 {: .label .label-purple }
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
 {: .warning}
 
 Pull-based ingestion enables OpenSearch to ingest data from streaming sources such as Apache Kafka or Amazon Kinesis. Unlike traditional ingestion methods where clients actively push data to OpenSearch through REST APIs, pull-based ingestion allows OpenSearch to control the data flow by retrieving data directly from streaming sources. This approach provides exactly-once ingestion semantics and native backpressure handling, helping prevent server overload during traffic spikes.
@@ -22,12 +22,12 @@ Before using pull-based ingestion, ensure that the following prerequisites are m
 * Install an ingestion plugin for your streaming source using the command `bin/opensearch-plugin install <plugin-name>`. For more information, see [Additional plugins]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/index/). OpenSearch supports the following ingestion plugins: 
   - `ingestion-kafka`
   - `ingestion-kinesis`
-* Enable [segment replication]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/segment-replication/index/) or [remote-backed storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/). Pull-based ingestion is not compatible with document replication.
+* Enable [segment replication]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/segment-replication/index/) with [remote-backed storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/). Pull-based ingestion is not compatible with document replication.
 * Configure pull-based ingestion during [index creation](#creating-an-index-for-pull-based-ingestion). You cannot convert an existing push-based index to a pull-based one.
 
 ## Creating an index for pull-based ingestion
 
-To ingest data from a streaming source, first create an index with pull-based ingestion settings. The following request creates an index that pulls data from a Kafka topic (a category or feed name to which data is published):
+To ingest data from a streaming source, first create an index with pull-based ingestion settings. The following request creates an index that pulls data from a Kafka topic:
 
 ```json
 PUT /my-index
@@ -67,18 +67,18 @@ The `ingestion_source` parameters control how OpenSearch pulls data from the str
 
 | Parameter | Description |
 | :--- | :--- |
-| `type` | The streaming source type. Valid values are `kafka` or `kinesis`. |
-| `pointer.init.reset` | Determines where to start reading from the stream. Valid values are `earliest`, `latest`, `rewind_by_offset`, `rewind_by_timestamp`, or `none`. See [Stream position](#stream-position). |
+| `type` | The streaming source type. Required. Valid values are `kafka` or `kinesis`. |
+| `pointer.init.reset` | Determines where to start reading from the stream. Optional. Valid values are `earliest`, `latest`, `rewind_by_offset`, `rewind_by_timestamp`, or `none`. See [Stream position](#stream-position). |
 | `pointer.init.reset.value` | Required only for `rewind_by_offset` or `rewind_by_timestamp`. Specifies the offset value or timestamp in milliseconds. See [Stream position](#stream-position). |
 | `error_strategy` | How to handle failed messages. Optional. Valid values are `DROP` (failed messages are skipped and ingestion continues) and `BLOCK` (when a message fails, ingestion stops). Default is `DROP`. We recommend using `DROP` for the current experimental release. |
-| `max_batch_size` | The maximum number of records to retrieve in each poll operation. |
-| `poll.timeout` | The maximum time to wait for data in each poll operation. |
-| `num_processor_threads` | The number of threads for processing ingested data. Default is 1. |
-| `param` | Source-specific configuration parameters. For example, the `ingest-kafka` plugin requires the `topic` and `bootstrap_servers` parameters. |
+| `max_batch_size` | The maximum number of records to retrieve in each poll operation. Optional. |
+| `poll.timeout` | The maximum time to wait for data in each poll operation. Optional. |
+| `num_processor_threads` | The number of threads for processing ingested data. Optional. Default is 1. |
+| `param` | Source-specific configuration parameters. Required. <br>&ensp;&#x2022; `ingest-kafka` plugin requires `topic` and `bootstrap_servers`. Additional Kafka configurations such as `fetch.min.bytes` can optionally be provided.<br>&ensp;&#x2022; `ingest-kinesis` plugin requires `stream`, `region`, `access_key` and `secret_key`. `endpoint_override` can optionally be provided. |
 
 ### Stream position
 
-When creating an index, you can specify where OpenSearch should start reading from the stream by configuring the `pointer.init.reset` and `pointer.init.reset.value` settings in the `ingestion_source` parameter. 
+When creating an index, you can specify where OpenSearch should start reading from the stream by configuring the `pointer.init.reset` and `pointer.init.reset.value` settings in the `ingestion_source` parameter. OpenSearch will resume reading from the last commited position for existing indexes.
 
 The following table provides the `pointer.init.reset` valid values and their corresponding `pointer.init.reset.value` values.
 
@@ -88,7 +88,7 @@ The following table provides the `pointer.init.reset` valid values and their cor
 | `latest` | Current end of stream | None | 
 | `rewind_by_offset` | Specific offset in the stream | A positive integer offset. Required. | 
 | `rewind_by_timestamp` | Specific point in time | A Unix timestamp in milliseconds. Required. <br> For Kafka streams, , defaults to Kafka's `auto.offset.reset` policy if no messages are found for the given timestamp. |
-| `none` | No starting point | None | 
+| `none` | Last commited position for existing indexes | None | 
 
 ### Stream partitioning
 
