@@ -43,8 +43,8 @@ Query Insights provides several ways to monitor and analyze your search queries:
 
 -   **[Top N queries]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/)**: Identify the most resource-intensive or slowest queries over specific time frames based on various performance metrics.
 -   **[Grouping top N queries]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/grouping-top-n-queries/)**: Discover patterns and analyze similar slow queries by grouping them based on query source structure.
--   **[Live queries monitoring]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/live-queries/)**: Get real-time visibility into search queries currently executing within your cluster to identify and debug long-running or resource-heavy queries *now*.
--   **[Query insights dashboards]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/query-insights-dashboard/)**: Visualize and configure top queries insights interactively on OpenSearch Dashboards.
+-   **[Live queries monitoring]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/live-queries/)**: Get real-time visibility into search queries currently executing within your cluster to identify and debug queries that are currently long-running or resource-heavy.
+-   **[Query insights dashboards]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/query-insights-dashboard/)**: Visualize and configure top query insights interactively in OpenSearch Dashboards.
 -   **[Query metrics]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/query-metrics/)**: Understand the specific performance metrics per query type.
 
 ## Query Insights plugin health

@@ -8,51 +8,37 @@ nav_order: 20
 # Live queries
 **Introduced 3.0**
 
-Monitoring live queries using query insights allows you to get real-time visibility into the search queries that are currently executing within your OpenSearch cluster. This is useful for identifying and debugging queries that might be running for an unexpectedly long time or consuming significant resources *right now*.
+Use the Live Queries API to retrieve currently running search queries across the cluster or on specific nodes. Monitoring live queries using Query Insights allows you to get real-time visibility into the search queries that are currently executing within your OpenSearch cluster. This is useful for identifying and debugging queries that might be running for an unexpectedly long time or consuming significant resources at the moment.
 
-## Monitoring live queries
+The API returns a list of currently executing search queries, sorted by a specified metric (defaulting to `latency`) in a descending order. The response includes the details for each live query, such as the query source, search type, involved indexes, node ID, start time, latency and resource usage (on the coordinator node) so far.
 
-You can use the Live Queries API endpoint to retrieve currently running search queries across the cluster or on specific nodes.
-
-### API endpoint
-To retrieve live queries across all nodes in the cluster:
+## Endpoints
 
 ```json
 GET /_insights/live_queries
 ```
-{% include copy-curl.html %}
 
-The API returns a list of currently executing search queries, sorted by a specified metric (defaulting to latency) in descending order.
+## Query parameters
 
-You can control the output and sorting behavior using the following query parameters:
+The following table lists the available query parameters. All query parameters are optional.
 
-*   `verbose`: (Optional, Boolean, defaults to `true`) Set to `false` for a more concise output without the detailed query information.
-*   `nodeId`: (Optional, String) A comma-separated list of node IDs to filter the results. If omitted, queries from all nodes are returned.
-*   `sort`: (Optional, String, defaults to `latency`) Specifies the metric to sort the results by. Valid values are `latency`, `cpu`, `memory`.
-*   `size`: (Optional, Integer, defaults to 100) Limits the number of query records returned.
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `verbose` | Boolean | Whether to include detailed query information in the output. Default is `true`. |
+| `nodeId` | String | A comma-separated list of node IDs to filter the results. If omitted, queries from all nodes are returned. |
+| `sort` | String | The metric to sort the results by. Valid values are `latency`, `cpu`, `memory`. Default is `latency`. |
+| `size` | Integer | The number of query records to return. Default is 100. |
 
-Example requesting top 10 queries sorted by CPU usage, with verbose output disabled:
+## Example request
+
+The following example request fetches top 10 queries sorted by CPU usage, with verbose output disabled:
+
 ```json
 GET /_insights/live_queries?verbose=false&sort=cpu&size=10
 ```
 {% include copy-curl.html %}
 
-The response includes details for each live query, such as the query source, search type, involved indices, node id, start time, latency and resource usages (on coordinator node) so far.
-
-**Response fields:**
-
-| Field               | Data Type | Description                                                                                                |
-| :------------------ | :-------- | :--------------------------------------------------------------------------------------------------------- |
-| `timestamp`         | Long      | The time the query task started, in milliseconds since the epoch.                                          |
-| `id`          | String    | The unique identifier of the Search Request, i.e. SearchTask ID associated with the query.                                     |
-| `description`| String | A description of the query, including the indices, search type, and query source. Only included if `verbose` is `true` (the default).          |
-| `node_id`| String    | The coordinator node ID of the node where the query task is running.                                                        |
-| `measurements`      | Object    | An object containing performance metrics gathered so far for the query.                                     |
-| `measurements.LATENCY` | Object    | Contains the `value` (current running time in nanoseconds) and `unit` (`nanos`).                           |
-| `measurements.CPU`    | Object    | Contains the `value` (CPU time consumed so far in nanoseconds) and `unit` (`nanos`).                      |
-| `measurements.MEMORY` | Object    | Contains the `value` (heap memory used so far in bytes) and `unit` (`bytes`).                             |
-
-Example response:
+## Example response
 
 ```json
 {
@@ -106,3 +92,16 @@ Example response:
   ]
 }
 ```
+
+## Response fields
+
+| Field               | Data type | Description                                                                                                |
+| :------------------ | :-------- | :--------------------------------------------------------------------------------------------------------- |
+| `timestamp`         | Long      | The time the query task started, in milliseconds since the epoch.                                          |
+| `id`          | String    | The unique identifier of the search request (the search task ID associated with the query).                                     |
+| `description`| String | A description of the query, including the indexes on which it runs, search type, and query source. Only included if `verbose` is `true` (default).          |
+| `node_id`| String    | The coordinator node ID of the node where the query task is running.                                                        |
+| `measurements`      | Object    | An object containing performance metrics gathered so far for the query.                                     |
+| `measurements.LATENCY` | Object    | Contains the `value` (current running time in nanoseconds) and `unit` (`nanos`).                           |
+| `measurements.CPU`    | Object    | Contains the `value` (CPU time consumed so far in nanoseconds) and `unit` (`nanos`).                      |
+| `measurements.MEMORY` | Object    | Contains the `value` (heap memory used so far in bytes) and `unit` (`bytes`).                             |

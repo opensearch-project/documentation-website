@@ -96,7 +96,13 @@ GET /_insights/top_queries?type=memory
 ```
 {% include copy-curl.html %}
 
-Example response:
+### Example response
+
+<details markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
 
 ```json
 {
@@ -266,6 +272,7 @@ Example response:
 }
 ```
 
+</details>
 
 If your query returns no results, ensure that top N query monitoring is enabled for the target metric type and that search requests were made within the current [time window](#configuring-the-window-size).
 {: .important}
