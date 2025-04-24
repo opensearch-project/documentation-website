@@ -5,10 +5,12 @@ Amazon
 Amazon OpenSearch Serverless
 Amazon OpenSearch Service
 Amazon Bedrock
+Amazon Kinesis
 Amazon SageMaker
 AWS Secrets Manager
 Ansible
 Anthropic Claude
+Apache Kafka
 Auditbeat
 AWS Cloud
 Cohere Command
@@ -50,6 +52,7 @@ JSON Web Token
 Keycloak
 Kerberos
 Kibana
+Kinesis
 Kubernetes
 Lambda
 Langflow
