@@ -6,6 +6,7 @@ nav_order: 50
 has_children: false
 redirect_from:
 - /opensearch/rest-api/cat/cat-recovery/
+canonical_url: https://docs.opensearch.org/docs/latest/api-reference/cat/cat-recovery/
 ---
 
 # CAT recovery

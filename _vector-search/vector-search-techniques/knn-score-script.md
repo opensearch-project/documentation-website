@@ -7,6 +7,7 @@ has_children: true
 has_math: true
 redirect_from:
   - /search-plugins/knn/knn-score-script/ 
+canonical_url: https://docs.opensearch.org/docs/latest/vector-search/vector-search-techniques/knn-score-script/
 ---
 
 # Exact k-NN search with a scoring script

@@ -3,6 +3,7 @@ layout: default
 title: Collapse search results
 parent: Searching data
 nav_order: 40
+canonical_url: https://docs.opensearch.org/docs/latest/search-plugins/collapse-search/
 ---
 
 # Collapse search results

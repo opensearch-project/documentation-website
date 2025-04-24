@@ -4,6 +4,7 @@ title: parse_ion
 parent: Processors
 grand_parent: Pipelines
 nav_order: 79
+canonical_url: https://docs.opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/parse-ion/
 ---
 
 # parse_ion

@@ -2,6 +2,7 @@
 layout: default
 title: Match all queries
 nav_order: 65
+canonical_url: https://docs.opensearch.org/docs/latest/query-dsl/match-all/
 ---
 
 # Match all queries

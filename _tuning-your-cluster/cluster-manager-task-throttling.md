@@ -3,6 +3,7 @@ layout: default
 title: Cluster manager task throttling
 nav_order: 10
 has_children: false
+canonical_url: https://docs.opensearch.org/docs/latest/tuning-your-cluster/cluster-manager-task-throttling/
 ---
 
 # Cluster manager task throttling

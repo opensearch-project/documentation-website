@@ -20,6 +20,7 @@ more_cards:
   - heading: "Randomizing queries"
     description: "Generate varied search patterns to simulate real-world queries"
     link: "/benchmark/user-guide/optimizing-benchmarks/randomizing-queries/"
+canonical_url: https://docs.opensearch.org/docs/latest/benchmark/user-guide/optimizing-benchmarks/index/
 ---
 
 # Optimizing benchmarks

@@ -3,6 +3,7 @@ layout: default
 title: Creating detectors
 parent: Setting up Security Analytics
 nav_order: 15
+canonical_url: https://docs.opensearch.org/docs/latest/security-analytics/sec-analytics-config/detectors-config/
 ---
 
 # Creating detectors

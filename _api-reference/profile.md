@@ -2,6 +2,7 @@
 layout: default
 title: Profile
 nav_order: 55
+canonical_url: https://docs.opensearch.org/docs/latest/api-reference/profile/
 ---
 
 # Profile

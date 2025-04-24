@@ -3,6 +3,7 @@ layout: default
 title: Cancel tasks
 parent: Tasks API
 nav_order: 30
+canonical_url: https://docs.opensearch.org/docs/latest/api-reference/tasks/cancel-tasks/
 ---
 
 # Cancel tasks

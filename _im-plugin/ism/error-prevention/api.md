@@ -4,6 +4,7 @@ title: ISM Error Prevention API
 parent: ISM Error Prevention
 grand_parent: Index State Management
 nav_order: 10
+canonical_url: https://docs.opensearch.org/docs/latest/im-plugin/ism/error-prevention/api/
 ---
 
 # ISM Error Prevention API

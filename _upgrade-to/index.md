@@ -6,6 +6,7 @@ nav_exclude: true
 permalink: /upgrade-to/
 redirect_from:
   - /upgrade-to/index/
+canonical_url: https://docs.opensearch.org/docs/latest/upgrade-to/
 ---
 
 # Upgrading OpenSearch

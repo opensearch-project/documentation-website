@@ -4,6 +4,7 @@ title: Span within
 parent: Span queries
 grand_parent: Query DSL
 nav_order: 90
+canonical_url: https://docs.opensearch.org/docs/latest/query-dsl/span/span-within/
 ---
 
 # Span within query

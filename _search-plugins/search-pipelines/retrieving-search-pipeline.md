@@ -5,6 +5,7 @@ nav_order: 25
 has_children: false
 parent: Search pipelines
 grand_parent: Search
+canonical_url: https://docs.opensearch.org/docs/latest/search-plugins/search-pipelines/retrieving-search-pipeline/
 ---
 
 # Retrieving search pipelines

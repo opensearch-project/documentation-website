@@ -3,6 +3,7 @@ layout: default
 title: Removing migration infrastructure
 nav_order: 120
 parent: Migration phases
+canonical_url: https://docs.opensearch.org/docs/latest/migration-assistant/migration-phases/removing-migration-infrastructure/
 ---
 
 # Removing migration infrastructure

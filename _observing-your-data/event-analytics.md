@@ -4,6 +4,7 @@ title: Event analytics
 nav_order: 20
 redirect_from:
   - /observability-plugin/event-analytics/
+canonical_url: https://docs.opensearch.org/docs/latest/observing-your-data/event-analytics/
 ---
 
 # Event analytics

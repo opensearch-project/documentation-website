@@ -4,6 +4,7 @@ title: kafka
 parent: Sources
 grand_parent: Pipelines
 nav_order: 40
+canonical_url: https://docs.opensearch.org/docs/latest/data-prepper/pipelines/configuration/sources/kafka/
 ---
 
 # kafka

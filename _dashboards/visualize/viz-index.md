@@ -3,6 +3,7 @@ layout: default
 title: Building data visualizations
 nav_order: 40
 has_children: true
+canonical_url: https://docs.opensearch.org/docs/latest/dashboards/visualize/viz-index/
 ---
 
 # Building data visualizations

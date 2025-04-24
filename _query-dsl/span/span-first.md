@@ -4,6 +4,7 @@ title: Span first
 parent: Span queries
 grand_parent: Query DSL
 nav_order: 30
+canonical_url: https://docs.opensearch.org/docs/latest/query-dsl/span/span-first/
 ---
 
 # Span first query

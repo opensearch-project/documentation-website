@@ -4,6 +4,7 @@ title: Create controller
 parent: Controller APIs
 grand_parent: ML Commons APIs
 nav_order: 10
+canonical_url: https://docs.opensearch.org/docs/latest/ml-commons-plugin/api/controller-apis/create-controller/
 ---
 
 # Create or update a controller

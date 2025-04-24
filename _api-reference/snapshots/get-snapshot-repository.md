@@ -3,6 +3,7 @@ layout: default
 title: Get Snapshot Repository
 parent: Snapshot APIs
 nav_order: 2
+canonical_url: https://docs.opensearch.org/docs/latest/api-reference/snapshots/get-snapshot-repository/
 ---
 
 # Get snapshot repository.

@@ -4,6 +4,7 @@ title: Get message traces
 parent: Memory APIs
 grand_parent: ML Commons APIs
 nav_order: 70
+canonical_url: https://docs.opensearch.org/docs/latest/ml-commons-plugin/api/memory-apis/get-message-traces/
 ---
 
 # Get message traces

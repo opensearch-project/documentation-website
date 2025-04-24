@@ -7,6 +7,7 @@ nav_exclude: true
 permalink: /integrations/
 redirect_from:
   - /integrations/index/
+canonical_url: https://docs.opensearch.org/docs/latest/integrations/
 ---
 
 # Integrations in OpenSearch Dashboards

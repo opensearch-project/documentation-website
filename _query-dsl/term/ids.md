@@ -3,6 +3,7 @@ layout: default
 title: IDs
 parent: Term-level queries
 nav_order: 30
+canonical_url: https://docs.opensearch.org/docs/latest/query-dsl/term/ids/
 ---
 
 # IDs query

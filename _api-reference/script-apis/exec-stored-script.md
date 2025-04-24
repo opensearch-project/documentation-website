@@ -3,6 +3,7 @@ layout: default
 title: Execute Painless stored script
 parent: Script APIs
 nav_order: 2
+canonical_url: https://docs.opensearch.org/docs/latest/api-reference/script-apis/exec-stored-script/
 ---
 
 # Execute Painless stored script

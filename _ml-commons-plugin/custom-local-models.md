@@ -4,6 +4,7 @@ title: Custom models
 parent: Using ML models within OpenSearch
 grand_parent: Integrating ML models
 nav_order: 120
+canonical_url: https://docs.opensearch.org/docs/latest/ml-commons-plugin/custom-local-models/
 ---
 
 # Custom local models

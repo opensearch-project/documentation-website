@@ -3,6 +3,7 @@ layout: default
 title: API rate limiting
 parent: Configuration
 nav_order: 30
+canonical_url: https://docs.opensearch.org/docs/latest/security/configuration/api-rate-limiting/
 ---
 
 

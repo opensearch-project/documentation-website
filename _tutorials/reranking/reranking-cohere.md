@@ -6,6 +6,7 @@ nav_order: 90
 redirect_from:
   - /ml-commons-plugin/tutorials/reranking-cohere/
   - /vector-search/tutorials/reranking/reranking-cohere/
+canonical_url: https://docs.opensearch.org/docs/latest/tutorials/reranking/reranking-cohere/
 ---
 
 # Reranking search results using Cohere Rerank

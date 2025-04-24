@@ -3,6 +3,7 @@ layout: default
 title: Provision a workflow
 parent: Workflow APIs
 nav_order: 30
+canonical_url: https://docs.opensearch.org/docs/latest/automating-configurations/api/provision-workflow/
 ---
 
 # Provision a workflow

@@ -3,6 +3,7 @@ layout: default
 title: Settings
 parent: Index State Management
 nav_order: 4
+canonical_url: https://docs.opensearch.org/docs/latest/im-plugin/ism/settings/
 ---
 
 # ISM settings

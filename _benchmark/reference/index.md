@@ -5,6 +5,7 @@ nav_order: 25
 has_children: true
 redirect_from:
   - /benchmark/commands/index/
+canonical_url: https://docs.opensearch.org/docs/latest/benchmark/reference/index/
 ---
 
 # OpenSearch Benchmark Reference

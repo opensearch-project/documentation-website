@@ -6,6 +6,7 @@ has_children: false
 redirect_from:
   - /opensearch/pipeline-agg/
   - /query-dsl/aggregations/pipeline-agg/
+canonical_url: https://docs.opensearch.org/docs/latest/aggregations/pipeline-agg/
 ---
 
 # Pipeline aggregations

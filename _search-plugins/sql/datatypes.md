@@ -3,6 +3,7 @@ layout: default
 title: Data Types
 parent: SQL and PPL
 nav_order: 7
+canonical_url: https://docs.opensearch.org/docs/latest/search-plugins/sql/datatypes/
 ---
 
 # Data types

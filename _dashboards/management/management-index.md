@@ -3,6 +3,7 @@ layout: default
 title: Dashboards Management
 nav_order: 100
 has_children: true
+canonical_url: https://docs.opensearch.org/docs/latest/dashboards/management/management-index/
 ---
 
 # Dashboards Management

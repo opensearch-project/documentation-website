@@ -5,6 +5,7 @@ nav_order: 80
 has_children: true
 redirect_from:
   - /dashboards/admin-ui-index/
+canonical_url: https://docs.opensearch.org/docs/latest/dashboards/im-dashboards/index/
 ---
 
 # Index Management

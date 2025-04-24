@@ -3,6 +3,7 @@ layout: default
 title: Search settings
 parent: Configuring OpenSearch
 nav_order: 80
+canonical_url: https://docs.opensearch.org/docs/latest/install-and-configure/configuring-opensearch/search-settings/
 ---
 
 # Search settings

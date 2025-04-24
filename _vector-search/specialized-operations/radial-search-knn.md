@@ -7,6 +7,7 @@ has_children: false
 has_math: true
 redirect_from:
   - /search-plugins/knn/radial-search-knn/
+canonical_url: https://docs.opensearch.org/docs/latest/vector-search/specialized-operations/radial-search-knn/
 ---
 
 # Radial search

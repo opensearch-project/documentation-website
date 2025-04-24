@@ -3,6 +3,7 @@ layout: default
 title: Other log type mappings
 parent: Supported log types
 nav_order: 110
+canonical_url: https://docs.opensearch.org/docs/latest/security-analytics/log-types-reference/other/
 ---
 
 # Other log type mappings

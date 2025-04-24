@@ -3,6 +3,7 @@ layout: default
 title: Delimited term frequency
 parent: Token filters
 nav_order: 100
+canonical_url: https://docs.opensearch.org/docs/latest/analyzers/token-filters/delimited-term-frequency/
 ---
 
 # Delimited term frequency token filter

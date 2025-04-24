@@ -5,6 +5,7 @@ nav_order: 99
 parent: Migration phases
 has_toc: false
 has_children: true
+canonical_url: https://docs.opensearch.org/docs/latest/migration-assistant/migration-phases/live-traffic-migration/index/
 ---
 
 # Live traffic migration

@@ -19,6 +19,7 @@ cards:
   - heading: "Model guardrails"
     description: "Add safety boundaries to your models to ensure controlled responses"
     link: "/tutorials/gen-ai/model-controls/"
+canonical_url: https://docs.opensearch.org/docs/latest/tutorials/gen-ai/index/
 ---
 
 # Generative AI tutorials
