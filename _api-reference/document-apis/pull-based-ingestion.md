@@ -88,7 +88,7 @@ The following table provides the `pointer.init.reset` valid values and their cor
 | `latest` | Current end of stream | None | 
 | `rewind_by_offset` | Specific offset in the stream | A positive integer offset. Required. | 
 | `rewind_by_timestamp` | Specific point in time | A Unix timestamp in milliseconds. Required. <br> For Kafka streams, , defaults to Kafka's `auto.offset.reset` policy if no messages are found for the given timestamp. |
-| `none` | Last commited position for existing indexes | None | 
+| `none` | Last committed position for existing indexes | None | 
 
 ### Stream partitioning
 
