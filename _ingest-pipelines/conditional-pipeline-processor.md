@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Conditionals with the Pipeline Processor
+title: Conditionals with the pipeline processor
 nav_order: 60
 ---
 
-# Conditionals with the Pipeline Processor
+# Conditionals with the pipeline processor
 
 The pipeline processor in ingest pipelines allows conditional execution of different sub-pipelines based on document contents. This provides powerful flexibility when different types of documents require separate processing logic. You can use the `if` parameter in the `pipeline` processor to direct documents into different pipelines based on field values, data types, or content structure. Each pipeline can then apply its own set of processors independently. This approach keeps your pipelines modular and maintainable by applying logic only where it’s relevant.
 
