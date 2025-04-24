@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Regex Conditionals
+title: Regex conditionals
 nav_order: 70
 ---
 
-# Regex Conditionals
+# Regex conditionals
 
-Ingest pipelines support conditional logic using regular expressions via the Painless scripting language. This allows fine-grained control over which documents get processed based on the structure and contents of text fields. Regular expressions can be used within the `if` parameter to evaluate string patterns. This is especially useful for matching IP formats, validating email addresses, identifying UUIDs, or processing logs with specific keywords.
+Ingest pipelines support conditional logic using regular expressions with the Painless scripting language. This allows fine-grained control over which documents get processed based on the structure and contents of text fields. Regular expressions can be used within the `if` parameter to evaluate string patterns. This is especially useful for matching IP formats, validating email addresses, identifying UUIDs, or processing logs with specific keywords.
 
 ## Example: Email domain filtering
 
