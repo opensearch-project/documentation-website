@@ -189,6 +189,7 @@ You can use an existing Amazon Simple Storage Service (Amazon S3) snapshot to pe
 ```json
     "snapshot": {
         "snapshotName": "my-snapshot-name",
+        "snapshotRepoName": "my-snapshot-repo",
         "s3Uri": "s3://my-s3-bucket-name/my-bucket-path-to-snapshot-repo",
         "s3Region": "us-east-2"
     }
