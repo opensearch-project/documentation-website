@@ -10,7 +10,7 @@ has_toc: false
 
 # Fields
 
-The `fields` mapping parameter enables you to index the same field in multiple ways by defining additional subfields. With multi-fields, the primary field value is stored using its main mapping. Additionally, you can configure one or more subfields with alternate mappings, for example, different data types or analyzers which support varied search and aggregation requirements.
+The `fields` mapping parameter enables you to index the same field in multiple ways by defining additional subfields. With multi-fields, the primary field value is stored using its main mapping. Additionally, you can configure one or more subfields with alternate mappings, for example, different data types or analyzers that support varied search and aggregation requirements.
 
 Multi-fields are especially useful when you need to perform full-text searches on one representation of the data and exact-match operations (like sorting or aggregations) on another. Additionally, you can index the same field with different analyzers. For example, one subfield might use the default analyzer for general text searches, while another subfield uses a custom analyzer for generating n-grams to support autocomplete or fuzzy matching.
 
@@ -160,7 +160,7 @@ POST /articles/_search
 ```
 {% include copy-curl.html %}
 
-The `title.ngrams` subfield uses a custom n-gram analyzer, therefore prefix "Und" successfully matches the start of the word "Understanding":
+The `title.ngrams` subfield uses a custom n-gram analyzer, therefore the prefix "Und" successfully matches the start of the word "Understanding":
 
 ```json
 {
