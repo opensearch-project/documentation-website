@@ -19,9 +19,9 @@ A feature of the Search Relevance Workbench is that users can perform experiment
 
 ## Creating a Query Set
 
-The first step to get started with comparing search configurations is to create a set of queries to run the search. If the users has access to search behavior data, adhering to the UBI standard, one way of doing this is by making a post request to the endpoint `_plugins/search_relevance/query_sets/create`. 
+The first step to get started with comparing search configurations is to create a set of queries to run the search. If the users has access to search behavior data, adhering to the UBI standard, one way of doing this is by making a POST request to the endpoint `_plugins/search_relevance/query_sets/create`. 
 
-For Example:
+Example:
 ```json
 POST _plugins/search_relevance/query_sets/create
 {
@@ -36,10 +36,10 @@ POST _plugins/search_relevance/query_sets/create
 
 This request would create a query set which has 50 queries and sampled from the behavior data using a Probability-Proportional-to-Size-Sampling technique. 
 
-Sometimes, the user might not have rather import their own external query set data. This can be done through a put request to the endpoint `_plugins/search_relevance/query_sets`. 
+Sometimes, the user might not have rather import their own external query set data. This can be done through a PUT request to the endpoint `_plugins/search_relevance/query_sets`. 
 
-For Example: 
-```json
+Example: 
+```
 PUT _plugins/search_relevance/query_sets  
   \-H "Content-Type: multipart/form-data" \\  
   \-F "file=@query_set.csv" \\  
@@ -49,3 +49,17 @@ PUT _plugins/search_relevance/query_sets
 This would create query set which is sampled from `query_set.csv`. 
 
 As a response of either one of those requests, the user will gain a query_set_id which will be used later on when expermenting with this query set.
+
+## Creating Search Configurations
+
+Search configurations decide how each query of the query set is run. To create a search configuration, a POST request can be made to the endpoint `_plugins/search_relevance/search_configurations`. Some details which may be optionally specified in the search configuration are the query_body, [search_pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/), and [search_template]({{site.url}}{{site.baseurl}}/api-reference/search-template/). The query body is defined using the [OpenSearch Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/). 
+
+Example:
+```json
+PUT _plugins/search_relevance/search_configurations  
+{  
+  "search_configuration_name": "hybrid_search_default",  
+  "query_body":  "{\\"query\\": {\\"multi_match\\": {\\"query\\": \\"%SearchText%\\", \\"fields\\": \[\\"id\\", \\"title\\", \\"category\\", \\"bullets\\", \\"description\\", \\"attrs.Brand\\", \\"attrs.Color\\"\] }}}",  
+  "search_pipeline": "hybrid_search"  
+}
+```
