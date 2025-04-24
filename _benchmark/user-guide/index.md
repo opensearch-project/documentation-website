@@ -9,7 +9,7 @@ user_cards:
     link: "/benchmark/user-guide/concepts/"
   - heading: "Install and configure OpenSearch Benchmark"
     description: "Install OpenSearch Benchmark and configure your experience"
-    link: "/benchmark/user-guide/install-and-configure/install-benchmark/"
+    link: "/benchmark/user-guide/install-and-configure/index/"
   - heading: "Understanding workloads"
     description: "Dive deep into each workload component and choose a workload"
     link: "/benchmark/user-guide/understanding-workloads/index/"
