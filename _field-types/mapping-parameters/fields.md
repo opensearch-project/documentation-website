@@ -118,7 +118,7 @@ POST /articles/_search
 ```
 {% include copy-curl.html %}
 
-Expected result:
+The `title.raw` subfield, mapped as a `keyword`, allows exact-match aggregations even though the original title field is full-text analyzed:
 
 ```json
 {
@@ -160,7 +160,7 @@ POST /articles/_search
 ```
 {% include copy-curl.html %}
 
-Expected result:
+The `title.ngrams` subfield uses a custom n-gram analyzer, therefore prefix "Und" successfully matches the start of the word "Understanding":
 
 ```json
 {
