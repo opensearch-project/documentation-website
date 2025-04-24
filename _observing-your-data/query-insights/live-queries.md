@@ -10,7 +10,7 @@ nav_order: 20
 
 Use the Live Queries API to retrieve currently running search queries across the cluster or on specific nodes. Monitoring live queries using Query Insights allows you to get real-time visibility into the search queries that are currently executing within your OpenSearch cluster. This is useful for identifying and debugging queries that might be running for an unexpectedly long time or consuming significant resources at the moment.
 
-The API returns a list of currently executing search queries, sorted by a specified metric (defaulting to `latency`) in a descending order. The response includes the details for each live query, such as the query source, search type, involved indexes, node ID, start time, latency and resource usage (on the coordinator node) so far.
+The API returns a list of currently executing search queries, sorted by a specified metric (defaulting to `latency`) in descending order. The response includes the details for each live query, such as the query source, search type, involved indexes, node ID, start time, latency, and resource usage (on the coordinator node) so far.
 
 ## Endpoints
 
@@ -25,13 +25,13 @@ The following table lists the available query parameters. All query parameters a
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | `verbose` | Boolean | Whether to include detailed query information in the output. Default is `true`. |
-| `nodeId` | String | A comma-separated list of node IDs to filter the results. If omitted, queries from all nodes are returned. |
-| `sort` | String | The metric to sort the results by. Valid values are `latency`, `cpu`, `memory`. Default is `latency`. |
+| `nodeId` | String | A comma-separated list of node IDs used to filter the results. If omitted, queries from all nodes are returned. |
+| `sort` | String | The metric to sort the results by. Valid values are `latency`, `cpu`, or `memory`. Default is `latency`. |
 | `size` | Integer | The number of query records to return. Default is 100. |
 
 ## Example request
 
-The following example request fetches top 10 queries sorted by CPU usage, with verbose output disabled:
+The following example request fetches the top 10 queries sorted by CPU usage, with verbose output disabled:
 
 ```json
 GET /_insights/live_queries?verbose=false&sort=cpu&size=10
@@ -97,10 +97,10 @@ GET /_insights/live_queries?verbose=false&sort=cpu&size=10
 
 | Field               | Data type | Description                                                                                                |
 | :------------------ | :-------- | :--------------------------------------------------------------------------------------------------------- |
-| `timestamp`         | Long      | The time the query task started, in milliseconds since the epoch.                                          |
+| `timestamp`         | Long      | The time at which the query task started, in milliseconds since the epoch.                                          |
 | `id`          | String    | The unique identifier of the search request (the search task ID associated with the query).                                     |
 | `description`| String | A description of the query, including the indexes on which it runs, search type, and query source. Only included if `verbose` is `true` (default).          |
-| `node_id`| String    | The coordinator node ID of the node where the query task is running.                                                        |
+| `node_id`| String    | The coordinator node ID of the node on which the query task is running.                                                        |
 | `measurements`      | Object    | An object containing performance metrics gathered so far for the query.                                     |
 | `measurements.LATENCY` | Object    | Contains the `value` (current running time in nanoseconds) and `unit` (`nanos`).                           |
 | `measurements.CPU`    | Object    | Contains the `value` (CPU time consumed so far in nanoseconds) and `unit` (`nanos`).                      |
