@@ -6,7 +6,7 @@ has_children: false
 redirect_from:
   - /integrations/
   - /integrations/index/
-  - /dashboards/integrations/index/
+  - /dashboards/integrations/
 ---
 
 # Integrations in OpenSearch Dashboards
