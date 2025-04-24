@@ -74,7 +74,7 @@ The `ingestion_source` parameters control how OpenSearch pulls data from the str
 | `max_batch_size` | The maximum number of records to retrieve in each poll operation. Optional. |
 | `poll.timeout` | The maximum time to wait for data in each poll operation. Optional. |
 | `num_processor_threads` | The number of threads for processing ingested data. Optional. Default is 1. |
-| `param` | Source-specific configuration parameters. Required. <br>&ensp;&#x2022; `ingest-kafka` plugin requires `topic` and `bootstrap_servers`. Additional Kafka configurations such as `fetch.min.bytes` can optionally be provided.<br>&ensp;&#x2022; `ingest-kinesis` plugin requires `stream`, `region`, `access_key` and `secret_key`. `endpoint_override` can optionally be provided. |
+| `param` | Source-specific configuration parameters. Required. <br>&ensp;&#x2022; The `ingest-kafka` plugin requires `topic` and `bootstrap_servers`. You can optionally provide additional Kafka configurations such as `fetch.min.bytes`.<br>&ensp;&#x2022; The `ingest-kinesis` plugin requires `stream`, `region`, `access_key` and `secret_key`. You can optionally provide `endpoint_override`. |
 
 ### Stream position
 
