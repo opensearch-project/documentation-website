@@ -75,7 +75,7 @@ The following table lists the available query parameters. All query parameters a
 | Parameter | Data type |  Description |
 | :--- | :--- | :--- | :--- |
 | `cluster_manager_timeout` | Time units | The amount of time to wait for a connection to the cluster manager node. Default is `30s`. |
-| `timeout` | Time units| The amount of time to wait for a response from the cluster. Default is `30s`. |
+| `timeout` | Time units | The amount of time to wait for a response from the cluster. Default is `30s`. |
 
 ### Example request
 
@@ -100,7 +100,7 @@ The following table lists the available path parameters.
 
 | Parameter | Data type | Required/Optional | Description |
 | :--- | :--- | :--- | :--- |
-| `index` | String | Required | The index for which to return ingestion state. Can be a comma-separated list of multiple index names. |
+| `index` | String | Required | The index for which to return the ingestion state. Can be a comma-separated list of multiple index names. |
 
 ### Query parameters
 

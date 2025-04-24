@@ -63,7 +63,7 @@ PUT /my-index
 
 ### Ingestion source parameters
 
-The `ingestion_source` parameters control how OpenSearch pulls data from the streaming source. A _poll_ is an operation in which OpenSearch actively requests a batch of data from the streaming source. The following table lists all parameters `ingestion_source` supports.
+The `ingestion_source` parameters control how OpenSearch pulls data from the streaming source. A _poll_ is an operation in which OpenSearch actively requests a batch of data from the streaming source. The following table lists all parameters that `ingestion_source` supports.
 
 | Parameter | Description |
 | :--- | :--- |
@@ -80,7 +80,7 @@ The `ingestion_source` parameters control how OpenSearch pulls data from the str
 
 When creating an index, you can specify where OpenSearch should start reading from the stream by configuring the `pointer.init.reset` and `pointer.init.reset.value` settings in the `ingestion_source` parameter. OpenSearch will resume reading from the last commited position for existing indexes.
 
-The following table provides the `pointer.init.reset` valid values and their corresponding `pointer.init.reset.value` values.
+The following table provides the valid `pointer.init.reset` values and their corresponding `pointer.init.reset.value` values.
 
 | `pointer.init.reset` | Starting ingestion point | `pointer.init.reset.value` | 
 | :--- | :--- | :--- | 
@@ -99,14 +99,14 @@ When using partitioned streams (such as Kafka topics or Kinesis shards), note th
 - Extra shards beyond the number of partitions remain empty.
 - Documents must be sent to the same partition for successful updates.
 
-When using pull-based ingestion, traditional REST API-based ingestion is disabled for the index.
+When using pull-based ingestion, traditional REST API--based ingestion is disabled for the index.
 {: .note}
 
 ### Updating the error policy
 
 You can use the [Update Settings API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/update-settings/) to dynamically update the error policy by setting `index.ingestion_source.error_strategy` to either `DROP` or `BLOCK`. 
 
-The following example shows how to update the error policy:
+The following example demonstrates how to update the error policy:
 
 ```json
 PUT /my-index/_settings
@@ -130,7 +130,7 @@ Each data unit in the streaming source (Kafka message or Kinesis record) must in
 | Field | Data type | Required | Description |
 | :--- | :--- | :--- | :--- |
 | `_id` | String | No | A unique identifier for a document. If not provided, OpenSearch auto-generates an ID. Required for document updates or deletions. |
-| `_version` | Long | No | A document version number, which must be maintained externally. If provided, OpenSearch drops messages with versions lower than the current document version. If not provided, no version checking occurs. |
+| `_version` | Long | No | A document version number, which must be maintained externally. If provided, OpenSearch drops messages with versions earlier than the current document version. If not provided, no version checking occurs. |
 | `_op_type` | String | No | The operation to perform. Valid values are:<br>- `index`: Creates a new document or updates an existing one<br>- `delete`: Soft deletes a document |
 | `_source` | Object | Yes | The message payload containing the document data. |
 
