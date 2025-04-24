@@ -28,7 +28,7 @@ To enable the resource sharing extension, set up the plugin and permission setti
 To enable resource sharing, add the following settings to `opensearch.yaml`:
 
 ```yaml
-plugins.security.resource_sharing.enabled: true
+plugins.security.experimental.resource_sharing.enabled: true
 plugins.security.system_indices.enabled: true
 ```
 {% include copy.html %}
