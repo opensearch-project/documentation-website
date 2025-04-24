@@ -19,4 +19,33 @@ A feature of the Search Relevance Workbench is that users can perform experiment
 
 ## Creating a Query Set
 
-The first step to get started with comparing search configurations is to create a set of queries to run the search. One way of doing this is by making a post request to the endpoint ==_plugins/search_relevance/query_sets/create==
+The first step to get started with comparing search configurations is to create a set of queries to run the search. If the users has access to search behavior data, adhering to the UBI standard, one way of doing this is by making a post request to the endpoint `_plugins/search_relevance/query_sets/create`. 
+
+For Example:
+```json
+POST _plugins/search_relevance/query_sets/create
+{
+  "parameters": {
+    "sampler": "pptss",  
+    "name": "Chorus Representative Query Set",  
+    "description": "Representative query set of Chorus Electronics",  
+    "querySetSize": 50  
+  }
+}
+```
+
+This request would create a query set which has 50 queries and sampled from the behavior data using a Probability-Proportional-to-Size-Sampling technique. 
+
+Sometimes, the user might not have rather import their own external query set data. This can be done through a put request to the endpoint `_plugins/search_relevance/query_sets`. 
+
+For Example: 
+```json
+PUT _plugins/search_relevance/query_sets  
+  \-H "Content-Type: multipart/form-data" \\  
+  \-F "file=@query_set.csv" \\  
+  \-F 'params={"name": "Chorus Representative Query Set", "sampler": "manual", "description": "query set import for Chorus"}'
+```
+
+This would create query set which is sampled from `query_set.csv`. 
+
+As a response of either one of those requests, the user will gain a query_set_id which will be used later on when expermenting with this query set.
