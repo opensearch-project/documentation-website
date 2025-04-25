@@ -106,7 +106,7 @@ The following optional fields can also be provided.
 | `require_alias` | `bool` | Enforces use of index aliases only. Optional. |
 
 #### Example request
-
+The following example shows a bulk request with a create operation. It will create a document (provided in base-64 encoding, which represents `{"title": "Inception", "year": 2010}`) to the index `movies` with ID `tt1375666`.
 ```json
 {
   "index": "movies",
@@ -141,7 +141,7 @@ All the following fields are optional except the `id`.
 
 
 ### Example request
-
+The following example shows a bulk request with a delete operation. It will delete a document with ID `tt1392214` from the index `movies`.
 ```json
 {
   "index": "movies",
@@ -181,7 +181,7 @@ The following optional fields can also be provided.
 
 
 #### Example request
-Example request payload sent to the `org.opensearch.protobufs.services.DocumentService/Bulk` method:
+The following example shows a bulk request with an index operation. It will index a base-64 encoded document with ID `tt0468569` to the index `movies`.
 ```json
 {
   "index": "movies",
@@ -218,6 +218,7 @@ All fields of the `UpdateOperation` below are optional except the `id`.
 
 
 #### Example request
+The following example shows a bulk request with an update operation. It will update a document with ID `tt1375666` in the index `movies` to `{"year": 2011}`.
 
 ```json
 {
@@ -244,6 +245,7 @@ To upsert a document, provide an `UpdateOperation`, but specify `doc_as_upsert` 
 
 
 #### Example request
+The following example shows a bulk request with an upsert operation. It will update the `year` field of a document with ID `tt1375666` in the index `movies` to `{"year": 2012}`.
 
 ```json
 {
@@ -270,6 +272,7 @@ Run a stored or inline script to modify a document.
 To specify a script, provide an `UpdateOperation`, and additionally provide a `script` field outside of the `UpdateOperation`. 
 
 #### Example request
+The following example shows a bulk request with an script operation. It will increment the `year` field of a document with ID `tt1375666` in the index `movies` by 1.
 
 ```json
 {
@@ -342,6 +345,7 @@ Each `ResponseItem` corresponds to a single operation in the request.
  
 ### Example response
 
+The following example shows a sample bulk response:
 ```json
 {
   "bulkResponseBody": {

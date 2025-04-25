@@ -349,6 +349,9 @@ The following table lists the supported fields for the `Hit` message.
 {: .note}
 
 ### Example response
+
+The following example shows an example of a search response:
+
 ```json
 {
   "responseBody": {
