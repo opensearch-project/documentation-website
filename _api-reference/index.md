@@ -19,7 +19,7 @@ New experimental GRPC APIs were also rolled out as in OpenSearch 3.0, and are co
 This reference includes the REST and GRPC APIs supported by OpenSearch. If a REST or GRPC API is missing, please provide feedback or submit a pull request in GitHub.
 {: .tip }
 
-## Related articles 
+## Related REST API articles 
 
 - [Analyze API]({{site.url}}{{site.baseurl}}/api-reference/analyze-apis/)
 - [Access control API]({{site.url}}{{site.baseurl}}/security/access-control/api/)
@@ -31,7 +31,6 @@ This reference includes the REST and GRPC APIs supported by OpenSearch. If a RES
 - [Count]({{site.url}}{{site.baseurl}}/api-reference/count/)
 - [Cross-cluster replication API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/api/)
 - [Document APIs]({{site.url}}{{site.baseurl}}/api-reference/document-apis/index/)
-- [GRPC APIs]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/index/)
 - [Explain]({{site.url}}{{site.baseurl}}/api-reference/explain/)
 - [Index APIs]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index/)
 - [Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/rollup-api/)
@@ -62,3 +61,6 @@ This reference includes the REST and GRPC APIs supported by OpenSearch. If a RES
 - [Tasks]({{site.url}}{{site.baseurl}}/api-reference/tasks/)
 - [Transforms API]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/transforms-apis/)
 - [Hot reload TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/#hot-reloading-tls-certificates)
+
+## Related GRPC API articles 
+- [GRPC APIs]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/index/)
