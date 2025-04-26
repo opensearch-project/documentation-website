@@ -34,14 +34,16 @@ The following table lists the available request fields.
 Field | Data type | Required/Optional | Agent type | Description
 :---  | :--- | :--- | :--- | :---
 `name`| String | Required | All | The agent name. |
-`type` | String | Required | All | The agent type. Valid values are `flow`, `conversational_flow`, and `conversational`. For more information, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/). |
+`type` | String | Required | All | The agent type. Valid values are `flow`, `conversational_flow`, `conversational` and `plan_execute_and_reflect`. For more information, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/). |
 `description` | String | Optional| All | A description of the agent. |
 `tools` | Array | Optional | All | A list of tools for the agent to execute. 
 `app_type` | String | Optional | All | Specifies an optional agent category. You can then perform operations on all agents in the category. For example, you can delete all messages for RAG agents.
 `memory.type` | String | Optional | `conversational_flow`, `conversational` | Specifies where to store the conversational memory. Currently, the only supported type is `conversation_index` (store the memory in a conversational system index).
 `llm.model_id` | String | Required | `conversational` | The model ID of the LLM to which to send questions.
 `llm.parameters.response_filter` | String | Required | `conversational` | The pattern for parsing the LLM response. For each LLM, you need to provide the field where the response is located. For example, for the Anthropic Claude model, the response is located in the `completion` field, so the pattern is `$.completion`. For OpenAI models, the pattern is `$.choices[0].message.content`.
-`llm.parameters.max_iteration` | Integer | Optional | `conversational` | The maximum number of messages to send to the LLM. Default is `3`.
+`llm.parameters.max_iteration` | Integer | Optional | `conversational` | The maximum number of messages to send to the LLM. Default is `10`.
+`llm.parameters.max_steps` | Integer | Optional | `plan_execute_and_reflect` | The maximum number of steps executed by the LLM. Default is `20`.
+`parameters._llm_interface` | String | Optional | `plan_execute_and_reflect`, `conversational` | Specifies how to parse the model output when using function calling. Valid values are `bedrock/converse/claude`, `bedrock/converse/deepseek_r1` and `openai/v1/chat/completions`.
 
 The `tools` array contains a list of tools for the agent. Each tool contains the following fields.
 
@@ -178,6 +180,41 @@ POST /_plugins/_ml/agents/_register
       "description": "Use this tool to get OpenSearch index information: (health, status, index, uuid, primary count, replica count, docs.count, docs.deleted, store.size, primary.store.size)."
     }
   ]
+}
+```
+{% include copy-curl.html %}
+
+#### Example request: Plan, Execute and Reflect agent
+
+```json
+POST /_plugins/_ml/agents/_register
+{
+  "name": "My plan execute and reflect agent",
+  "type": "plan_execute_and_reflect",
+  "description": "this is a test agent",
+  "llm": {
+    "model_id": "<llm_model_id>",
+    "parameters": {
+      "prompt": "${parameters.question}"
+  }},
+  "memory": {
+    "type": "conversation_index"
+  },
+  "parameters": {
+    "_llm_interface": "<llm_interface>"
+  },
+  "tools": [
+    {
+      "type": "ListIndexTool"
+    },
+    {
+      "type": "SearchIndexTool"
+    },
+    {
+      "type": "IndexMappingTool"
+    }
+  ],
+  "app_type": "os_chat"
 }
 ```
 {% include copy-curl.html %}

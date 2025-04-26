@@ -18,6 +18,14 @@ When an agent is executed, it runs the tools with which it is configured.
 POST /_plugins/_ml/agents/<agent_id>/_execute
 ```
 
+## Request Parameters
+The following table lists the available request parameters.
+
+Field | Data type | Required/Optional | Description
+:---  | :--- | :--- 
+`async`| Boolean | Optional | Specifies whether the agent should be executed asynchronously or not. If set to `true`, returns a `task_id` to track execution. By default, runs synchronously.
+
+
 ## Request body fields
 
 The following table lists the available request fields.

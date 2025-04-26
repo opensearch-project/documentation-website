@@ -21,7 +21,7 @@ An _agent_ is a coordinator that uses a large language model (LLM) to solve a pr
 - [_Flow agent_](#flow-agents): Runs tools sequentially, in the order specified in its configuration. The workflow of a flow agent is fixed. Useful for retrieval-augmented generation (RAG).
 - [_Conversational flow agent_](#conversational-flow-agents): Runs tools sequentially, in the order specified in its configuration. The workflow of a conversational flow agent is fixed. Stores conversation history so that users can ask follow-up questions. Useful for creating a chatbot.
 - [_Conversational agent_](#conversational-agents): Reasons in order to provide a response based on the available knowledge, including the LLM knowledge base and a set of tools provided to the LLM. The LLM reasons iteratively to decide what action to take until it obtains the final answer or reaches the iteration limit. Stores conversation history so that users can ask follow-up questions. The workflow of a conversational agent is variable, based on follow-up questions. For specific questions, uses the Chain-of-Thought (CoT) process to select the best tool from the configured tools for providing a response to the question. Useful for creating a chatbot that employs RAG.
-- [_Plan, Execute, and Reflect agent_](#plan-execute-and-reflect-agents): Dynamically plans, executes, and refines multi-step workflows to solve complex tasks. Internally, it uses a conversational agent to execute each individual step in the plan. The agent automatically selects the most appropriate tool for each step based on tool descriptions and context. Ideal for long-running, exploratory processes that benefit from iterative reasoning and adaptive execution. Useful for conducting research or performing RCA.
+- [_Plan, Execute, and Reflect agent_](#plan-execute-and-reflect-agents) **Introduced 3.0**{: .label .label-purple }: Dynamically plans, executes, and refines multi-step workflows to solve complex tasks. Internally, it uses a conversational agent to execute each individual step in the plan. The agent automatically selects the most appropriate tool for each step based on tool descriptions and context. Ideal for long-running, exploratory processes that benefit from iterative reasoning and adaptive execution. Useful for conducting research or performing RCA.
 
 ### Flow agents
 
@@ -153,14 +153,20 @@ POST /_plugins/_ml/agents/_register
 ```
 
 ### Plan, Execute, and Reflect agents
+**Introduced 3.0**
+{: .label .label-purple }
 
-The **Plan, Execute, and Reflect agent** is designed for solving complex tasks that require iterative reasoning and step-by-step execution. It uses one LLM to create and update a plan (planner) and another LLM (or the same one, by default) to execute each individual step through a built-in conversational agent.
+The Plan, Execute, and Reflect agent is designed for solving complex tasks that require iterative reasoning and step-by-step execution. It uses one LLM to create and update a plan (planner) and another LLM (or the same one, by default) to execute each individual step through a built-in conversational agent.
 
 The Plan, Execute, and Reflect agent works in three phases:
 
 - **Planning** – The planner LLM generates an initial step-by-step plan using the available tools.
 - **Execution** – Each step is executed sequentially using the conversational agent and the available tools.
 - **Re-evaluation** – After executing each step, the planner LLM re-evaluates the plan using intermediate results. Therefore, the plan can be adjusted dynamically to skip, add, or change steps based on new context.
+
+Similarly to a conversational agent, the Plan, Execute, and Reflect agent stores the interaction between the LLM and the agent in a memory index. In the following example, the agent uses a `conversation_index` to persist the execution history, including the user’s question, intermediate results, and final outputs.
+
+The agent automatically selects the most appropriate tool for each step based on the tool descriptions and current context.
 
 The agent currently supports re-evaluation only after each step. This allows it to dynamically adapt the plan based on intermediate results before proceeding to the next step.
 
