@@ -22,9 +22,9 @@ Without concurrent segment search, Lucene executes a request sequentially across
 
 ## Enabling concurrent segment search at the index or cluster level
 
-Starting with OpenSearch version 2.17, you can use the `search.concurrent_segment_search.mode` setting to configure concurrent segment search on your cluster. The existing `search.concurrent_segment_search.enabled` setting will be deprecated in future version releases in favor of the new setting.
+Starting with OpenSearch version 3.0, concurrent segment search will be enabled by default in `auto` mode on the cluster. After upgrading, aggregation workloads may experience increased CPU utilization. We recommend monitoring your cluster's resource usage and adjusting your infrastructure capacity as needed to maintain optimal performance.
 
-By default, concurrent segment search is enabled as `auto` mode on the cluster. 
+Starting with OpenSearch version 2.17, you can use the `search.concurrent_segment_search.mode` setting to configure concurrent segment search on your cluster. The existing `search.concurrent_segment_search.enabled` setting will be deprecated in future version releases in favor of the new setting.
 
 You can enable concurrent segment search at two levels:
 
@@ -111,9 +111,6 @@ PUT <index-name>/_settings
 ```
 {% include copy-curl.html %}
 
-
-
-
 ## Slicing mechanisms
 
 You can choose one of two available mechanisms for assigning segments to slices: the default [Lucene mechanism](#the-lucene-mechanism) or the [max slice count mechanism](#the-max-slice-count-mechanism).
@@ -128,8 +125,7 @@ The _max slice count_ mechanism is an alternative slicing mechanism that uses a 
 
 ### Setting the slicing mechanism
 
-By default, concurrent segment search uses the Lucene mechanism to calculate the number of slices for each shard-level request.
-To use the max slice count mechanism instead, you can set the slice count for concurrent segment search at either the cluster level or index level.
+Starting 3.0, by default, concurrent segment search will use max slice count mechanism and use the formula `Math.max(1, Math.min(Runtime.getRuntime().availableProcessors() / 2, 4))`. To update the max slice count, you can also explicitly set the slice count for concurrent segment search at either the cluster level or index level
 
 To configure the slice count for all indexes in a cluster, use the following dynamic cluster setting:
 
@@ -158,12 +154,17 @@ Both the cluster- and index-level `search.concurrent.max_slice_count` settings c
 - Positive integer: Use the max target slice count mechanism. Usually, a value between 2 and 8 should be sufficient.
 
 ## General guidelines
+
 Concurrent segment search helps to improve the performance of search requests at the cost of consuming more resources, such as CPU or JVM heap. It is important to test your workload in order to understand whether the cluster is sized correctly for concurrent segment search. We recommend adhering to the following concurrent segment search guidelines:
 
 * Start with a slice count of 2 and measure the performance of your workload. If resource utilization exceeds the recommended values, then consider scaling your cluster. Based on our testing, we have observed that if your workload is already consuming more than 50% of your CPU resources, then you need to scale your cluster for concurrent segment search.
 * If your slice count is 2 and you still have available resources in the cluster, then you can increase the slice count to a higher number, such as 4 or 6, while monitoring search latency and resource utilization in the cluster. 
 * When many clients send search requests in parallel, a lower slice count usually works better. This is reflected in CPU utilization because a higher number of clients leads to more queries per second, which translates to higher resource usage.
 
+When upgrading to OpenSearch 3.0, be aware that workloads with aggregations may experience higher CPU utilization due to concurrent search being enabled by default in auto mode. If your OpenSearch 2.x cluster's CPU utilization exceeds 25% with aggregation workloads, consider the following options before upgrading:
+
+1. Plan to scale your cluster's resources to accommodate the increased CPU demands
+2. Prepare to disable concurrent search if scaling is not feasible for your use case
 
 ## Limitations
 
