@@ -3,6 +3,7 @@ layout: default
 title: Working with workloads
 nav_order: 15
 parent: User guide
+has_toc: false
 has_children: true
 canonical_url: https://docs.opensearch.org/docs/latest/benchmark/user-guide/working-with-workloads/index/
 ---
