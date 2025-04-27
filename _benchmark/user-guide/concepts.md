@@ -13,7 +13,7 @@ redirect_from:
 Before using OpenSearch Benchmark, familiarize yourself with the following concepts.
 
 
-The following diagram visualizes how OpenSearch Benchmark works when run against a local host.
+The following diagram illustrates how OpenSearch Benchmark operates when running against a local host.
 
 ![Benchmark workflow]({{site.url}}{{site.baseurl}}/images/benchmark/osb-workflow.jpg).
 
