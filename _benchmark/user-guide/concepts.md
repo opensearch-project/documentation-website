@@ -10,8 +10,9 @@ redirect_from:
 
 # Concepts
 
-Before using OpenSearch Benchmark, familiarize yourself with the following concepts.
+Before you start using OpenSearch Benchmark, it's helpful to understand the following concepts, in order to effectively design, run, and analyze your benchmarks to evaluate OpenSearch performance under different scenarios.
 
+## Benchmark architecture
 
 The following diagram illustrates how OpenSearch Benchmark operates when running against a local host.
 
