@@ -32,65 +32,65 @@ PUT _cluster/settings
   "persistent": {
     "cluster_manager.throttling.thresholds" : {
       "<task-type>" : {
-          "value" : <threshold limit>
+          "value" : <threshold>
       }
     }
   }
 }
 ```
 
-The following table describes the `cluster_manager.throttling.thresholds` object.
+The `cluster_manager.throttling.thresholds` object contains the following fields.
 
-Field Name | Description
+Field name | Description
 :--- | :---
-task-type | The task type. See [supported task types and default thresholds](#supported-task-types-and-default-thresholds) for a list of valid values.
-value | The maximum number of tasks of the `task-type` type in the cluster manager's pending task queue. <br> The default values can be found in the [supported task types and default thresholds](#supported-task-types-and-default-thresholds) section.
+`<task-type>` | The task type. For a list of valid task types, see [supported task types and default thresholds](#supported-task-types-and-default-thresholds).
+`<task-type>.value` | The maximum number of tasks of the `task-type` type in the cluster manager's pending task queue. <br> For default thresholds for each task type, see [Supported task types and default thresholds](#supported-task-types-and-default-thresholds).
 
 ## Supported task types and default thresholds
 
-The following table lists all supported task types and their default threshold values:
+The following table lists all supported task types and their default throttling threshold values.
 
-Task Type | Threshold
+Task type | Threshold
 :--- | :---
-create-index | 50
-update-settings | 50
-cluster-update-settings | 50
-auto-create | 200
-delete-index | 50
-delete-dangling-index | 50
-create-data-stream | 50
-remove-data-stream | 50
-rollover-index | 200
-index-aliases | 200
-put-mapping | 10000
-create-index-template | 50
-remove-index-template | 50
-create-component-template | 50
-remove-component-template | 50
-create-index-template-v2 | 50
-remove-index-template-v2 | 50
-put-pipeline | 50
-delete-pipeline | 50
-put-search-pipeline | 50
-delete-search-pipeline | 50
-create-persistent-task | 50
-finish-persistent-task | 50
-remove-persistent-task | 50
-update-task-state | 50
-create-query-group | 50
-delete-query-group | 50
-update-query-group | 50
-put-script | 50
-delete-script | 50
-put-repository | 50
-delete-repository | 50
-create-snapshot | 50
-delete-snapshot | 50
-update-snapshot-state | 5000
-restore-snapshot | 50
-cluster-reroute-api | 50
+`create-index `| 50
+`update-settings` | 50
+`cluster-update-settings` | 50
+`auto-create` | 200
+`delete-index` | 50
+`delete-dangling-index `| 50
+`create-data-stream` | 50
+`remove-data-stream` | 50
+`rollover-index` | 200
+`index-aliases` | 200
+`put-mapping` | 10000
+`create-index-template` | 50
+`remove-index-template` | 50
+`create-component-template` | 50
+`remove-component-template` | 50
+`create-index-template-v2` | 50
+`remove-index-template-v2` | 50
+`put-pipeline` | 50
+`delete-pipeline` | 50
+`put-search-pipeline` | 50
+`delete-search-pipeline` | 50
+`create-persistent-task` | 50
+`finish-persistent-task` | 50
+`remove-persistent-task` | 50
+`update-task-state` | 50
+`create-query-group` | 50
+`delete-query-group` | 50
+`update-query-group` | 50
+`put-script` | 50
+`delete-script` | 50
+`put-repository` | 50
+`delete-repository` | 50
+`create-snapshot` | 50
+`delete-snapshot` | 50
+`update-snapshot-state` | 5000
+`restore-snapshot` | 50
+`cluster-reroute-api` | 50
 
-#### Example request
+## Example request
 
 The following request sets the throttling threshold for the `put-mapping` task type to 100:
 
