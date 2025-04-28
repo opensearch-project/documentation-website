@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Search gRPC
-parent: GRPC APIs
+parent: gRPC APIs
 nav_order: 20
 ---
 
@@ -15,79 +15,79 @@ This is an experimental feature and is not recommended for use in a production e
 
 The gRPC Search API provides a performant, binary interface to run [queries]({{site.url}}{{site.baseurl}}/api-reference/search/) using protocol buffers over gRPC. It mirrors the capabilities of the HTTP Search API while benefiting from protobuf-typed contracts and gRPC transport. The gRPC APis are ideal for low-latency, high-throughput applications.
 
-## Client protobufs
-In order for users to submit GRPC requests, a set of protobufs are required on the client-side. These can be obtained by one of the following ways.
-1. Download the raw protobufs from the [OpenSearch Protobufs GitHub repository (v0.3.0)](https://github.com/opensearch-project/opensearch-protobufs). Client-side code can then be generated using the protocol buffer compiler for these [supported languages](https://grpc.io/docs/languages/). 
-1. For Java clients specifically, download the `opensearch-protobufs` jar from the [Central Maven repository](https://repo1.maven.org/maven2/org/opensearch/protobufs/0.3.0). 
+## Prerequisite
 
-## GRPC service and method
-[`SearchService`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/services/search_service.proto#L22) is where all the GRPC Search APIs reside.
+To submit gRPC requests, you must have a set of protobufs on the client side. For ways to obtain the protobufs, see [Using gRPC APIs]({{site.url}}{{site.baseurl}}/api-reference/using-grpc-apis/).
 
-Search requests can be submitted by invoking the GRPC method `Search` within the `SearchService`. The method takes in a [`SearchRequest`](#searchrequest-fields) and returns a [`SearchResponse`](#searchresponse-fields).
+## gRPC service and method
 
-### 
+gRPC Document APIs reside in the [`SearchService`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/services/search_service.proto#L22).
 
-Currently, only basic queries (`match_all`, `term`, `terms`, `match_none`) are supported. Additional query types will be supported in future releases.  
+You can submit search requests by invoking the [`Search`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/services/document_service.proto#L23) gRPC method within the `SearchService`. The method takes in a [`SearchRequest`](#searchrequest-fields) and returns a [`SearchResponse`](#searchresponse-fields).
+
+Currently, only the following basic queries are supported: [`match_all`](#match-all-query), [`term`](#term-query), 
+[`terms`](#terms-query), and [`match_none`](#match-none-query). Additional query types will be supported in future releases.  
 {: .note}
 
 ## Request fields 
 
 The gRPC Search API supports the following request fields.
+
 ### SearchRequest fields 
 
 The [`SearchRequest`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L18) message accepts the following fields. All fields are optional. 
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
-| `index` | `repeated string` | A list of indices to search. Defaults to all indices if not provided. Optional. |
-| `source` | [`SourceConfigParam`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L154) | Whether to include the `_source` field in the response. Optional. |
-| `source_excludes` | `repeated string` | Fields to exclude from `_source`. Ignored if `source` is false. Optional. |
-| `source_includes` | `repeated string` | Fields to include in `_source`. Ignored if `source` is false. Optional. |
-| `allow_no_indices` | `bool` | Whether to ignore wildcards that match no indices. Default is true. Optional. |
-| `allow_partial_search_results` | `bool` | Return partial results on error or timeout. Default is true. Optional. |
-| `analyze_wildcard` | `bool` | Analyze wildcard/prefix queries. Default is false. Optional. |
-| `analyzer` | `string` | Analyzer to use with the `q` query string. Optional. |
-| `batched_reduce_size` | `int32` | Number of shards to reduce on a node. Default is 512. Optional. |
-| `cancel_after_time_interval` | `string` | Time after which the request will be canceled. Default is -1. Optional. |
-| `ccs_minimize_roundtrips` | `bool` | Minimize round-trips between node and remote clusters. Default is true. Optional. |
-| `default_operator` | [`Operator`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L43) | Default operator for query strings (`AND` or `OR`). Default is `OR`. Optional. |
-| `df` | `string` | Default field for query strings without field prefixes. Optional. |
-| `docvalue_fields` | `repeated string` | Fields to return as doc values. Optional. |
-| `expand_wildcards` | `repeated` [`ExpandWildcard`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L56) | Types of indices that wildcard patterns match. Default is `open`. Optional. |
-| `explain` | `bool` | Return document score computation details. Default is false. Optional. |
-| `from` | `int32` | Starting index for paginated results. Default is 0. Optional. |
-| `ignore_throttled` | `bool` | Ignore frozen indices when resolving aliases. Default is true. Optional. |
-| `ignore_unavailable` | `bool` | Ignore unavailable indices or shards. Default is false. Optional. |
-| `include_named_queries_score` | `bool` | Include scores for named queries. Default is false. Optional. |
-| `lenient` | `bool` | Accept format errors in queries. Default is false. Optional. |
-| `max_concurrent_shard_requests` | `int32` | Number of concurrent shard requests per node. Default is 5. Optional. |
-| `phase_took` | `bool` | Return phase-level took values. Default is false. Optional. |
-| `pre_filter_shard_size` | `int32` | Threshold to trigger prefiltering by shard size. Default is 128. Optional. |
-| `preference` | `string` | Shard or node preferences for query execution. Optional. |
-| `q` | `string` | Query string in Lucene syntax. Optional. |
-| `request_cache` | `bool` | Use request cache. Defaults to index settings. Optional. |
-| `rest_total_hits_as_int` | `bool` | Return total hits as integer. Default is false. Optional. |
-| `routing` | `repeated string` | Routing values to direct requests to specific shards. Optional. |
-| `scroll` | `string` | Duration to keep the search context alive for scrolling. Optional. |
-| `search_pipeline` | `string` | Name of the search pipeline to use. Optional. |
-| `search_type` | [`SearchType`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L109) | Method for calculating relevance scores. Default is `QUERY_THEN_FETCH`. Optional. |
-| `seq_no_primary_term` | `bool` | Return sequence number and primary term. Optional. |
-| `size` | `int32` | Number of results to return. Optional. |
-| `sort` | `repeated` [`SortOrder`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L122) | Fields and directions to sort results by. Optional. |
-| `stats` | `repeated string` | Tags to associate with the request for logging. Optional. |
-| `stored_fields` | `repeated string` | List of stored fields to include in the response. Optional. |
-| `suggest_field` | `string` | Field to base suggestions on. Optional. |
-| `suggest_mode` | [`SuggestMode`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L145) | Suggestion mode (e.g., `always`, `missing`, `popular`). Optional. |
-| `suggest_size` | `int32` | Number of suggestions to return. Optional. |
-| `suggest_text` | `string` | Input text for generating suggestions. Optional. |
-| `terminate_after` | `int32` | Max docs to process before early termination. Default is 0. Optional. |
-| `timeout` | `string` | Max time to wait for query execution. Default is 1m. Optional. |
-| `track_scores` | `bool` | Whether to return document scores. Default is false. Optional. |
-| `track_total_hits` | [`TrackHits`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L309) | Whether to include total hits metadata. Optional. |
-| `typed_keys` | `bool` | Include type info in aggregation and suggestion keys. Default is true. Optional. |
-| `verbose_pipeline` | `bool` | Enable verbose mode for the search pipeline. Optional. |
-| `version` | `bool` | Return document version in the response. Optional. |
-| `request_body` | [`SearchRequestBody`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L176) | The main search request payload, including query and filters. Optional. |
+| `index` | `repeated string` | A list of indexes to search. If not provided, defaults to all indexes. |
+| `source` | [`SourceConfigParam`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L154) | Controls whether to return the full `_source`, no `_source`, or only specific fields from `_source` in the response. |
+| `source_excludes` | `repeated string` | Fields to exclude from `_source`. Ignored if `source` is `false`. |
+| `source_includes` | `repeated string` | Fields to include in `_source`. Ignored if `source` is `false`.  |
+| `allow_no_indices` | `bool` | Whether to ignore wildcards that match no indexes. Default is `true`. |
+| `allow_partial_search_results` | `bool` | Whether to return partial results on error or timeout. Default is `true`. |
+| `analyze_wildcard` | `bool` | Whether to analyze wildcard/prefix queries. Default is `false`.  |
+| `analyzer` | `string` | The analyzer to use with the `q` query string.  |
+| `batched_reduce_size` | `int32` | The number of shards to reduce on a node. Default is `512`.  |
+| `cancel_after_time_interval` | `string` | The time after which the request will be canceled. Default is `-1`. |
+| `ccs_minimize_roundtrips` | `bool` | Whether to minimize round trips between the node and remote clusters. Default is `true`.  |
+| `default_operator` | [`Operator`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L43) | The default operator for query strings. Valid values are `AND` or `OR`. Default is `OR`.  |
+| `df` | `string` | The default field for query strings without field prefixes.  |
+| `docvalue_fields` | `repeated string` | The fields to return as doc values. |
+| `expand_wildcards` | `repeated` [`ExpandWildcard`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L56) | Specifies the type of index that wildcard expressions can match. Valid values are `all` (match any index), `open` (match open, non-hidden indexes), `closed` (match closed, non-hidden indexes), `hidden` (match hidden indexes), and `none` (deny wildcard expressions). Default is `open`.|
+| `explain` | `bool` | Whether to return document score computation details. Default is `false`. |
+| `from` | `int32` | The starting index for paginated results. Default is `0`. |
+| `ignore_throttled` | `bool` | Whether to ignore frozen indexes when resolving aliases. Default is `true`. |
+| `ignore_unavailable` | `bool` | Whether to ignore unavailable indexes or shards. Default is `false`. |
+| `include_named_queries_score` | `bool` | Whether to include scores for named queries. Default is `false`. |
+| `lenient` | `bool` | Whether to accept format errors in queries. Default is `false`. |
+| `max_concurrent_shard_requests` | `int32` | The number of concurrent shard requests per node. Default is `5`. |
+| `phase_took` | `bool` | Whether to return phase-level `took` values. Default is `false`. |
+| `pre_filter_shard_size` | `int32` | The threshold to trigger prefiltering by shard size. Default is `128`. |
+| `preference` | `string` | Shard or node preferences for query execution. |
+| `q` | `string` | The query string in [Lucene syntax]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/#query-string-syntax). |
+| `request_cache` | `bool` | Whether to use request cache. Defaults to the index's settings. |
+| `rest_total_hits_as_int` | `bool` | Whether to return the number of total hits as an integer. Default is `false`. |
+| `routing` | `repeated string` | The routing values in order to direct requests to specific shards. |
+| `scroll` | `string` | The amount of time to keep the search context alive for scrolling. |
+| `search_pipeline` | `string` | The name of the search pipeline to use. |
+| `search_type` | [`SearchType`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L109) | The method for calculating relevance scores. Valid values are `QUERY_THEN_FETCH` and `DFS_QUERY_THEN_FETCH`.Default is `QUERY_THEN_FETCH`. |
+| `seq_no_primary_term` | `bool` | Whether to return the sequence number and primary term. |
+| `size` | `int32` | The number of results to return. |
+| `sort` | `repeated` [`SortOrder`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L122) | The fields and directions to sort the results by. |
+| `stats` | `repeated string` | The tags to associate with the request for logging. |
+| `stored_fields` | `repeated string` | A list of stored fields to include in the response. |
+| `suggest_field` | `string` | The field to base suggestions on. |
+| `suggest_mode` | [`SuggestMode`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L145) | The suggestion mode (for example, `always`, `missing`, `popular`). |
+| `suggest_size` | `int32` | The number of suggestions to return. |
+| `suggest_text` | `string` | The input text for generating suggestions. |
+| `terminate_after` | `int32` | The maximum number of documents to process before early termination. Default is `0`. |
+| `timeout` | `string` | The maximum amount of time to wait for query execution. Default is `1m`. |
+| `track_scores` | `bool` | Whether to return document scores. Default is `false`. |
+| `track_total_hits` | [`TrackHits`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L309) | Whether to include total hits metadata. |
+| `typed_keys` | `bool` | Whether to include type information in aggregation and suggestion keys. Default is `true`. |
+| `verbose_pipeline` | `bool` | Whether to enable verbose mode for the search pipeline. |
+| `version` | `bool` | Whether to return the document version in the response. |
+| `request_body` | [`SearchRequestBody`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L176) | The main search request payload, including query and filters. |
  
 ### SearchRequestBody fields
 
@@ -95,88 +95,90 @@ The `SearchRequestBody` message accepts the following fields. All fields are opt
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
-| `collapse` | [`FieldCollapse`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L975) | Groups results by a field; returns only the top document per group. Optional. |
-| `explain` | `bool` | Returns scoring explanations for matched documents. Optional. |
-| `ext` | [`ObjectMap`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L76) | Plugin-specific metadata, e.g., for extensions like RAG. Optional. |
-| `from` | `int32` | Starting index for results. Default is 0. Optional. |
-| `highlight` | [`Highlight`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L585) | Highlights matched terms in the result snippets. Optional. |
-| `track_total_hits` | [`TrackHits`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L309) | Whether to return total hit count. Optional. |
-| `indices_boost` | `repeated` [`NumberMap`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L747) | Per-index boost multipliers. Format: `<index>: <boost>`. Optional. |
-| `docvalue_fields` | `repeated` [`FieldAndFormat`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L962) | Fields returned using doc values, optionally formatted. Optional. |
-| `min_score` | float | Minimum score required for a document to be included in results. Optional. |
-| `post_filter` | [`QueryContainer`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L342) | Filters hits after aggregations are applied. Optional. |
-| `profile` | `bool` | Enables profiling to analyze query performance. Optional. |
-| `search_pipeline` | `string` | Name of search pipeline to apply. Optional. |
-| `verbose_pipeline` | `bool` | Enables verbose logging in the search pipeline. Optional. |
-| `query` | [`QueryContainer`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L342) | The query DSL for the search. Optional. |
-| `rescore` | `repeated` [Rescore`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L631) | Re-ranks top N hits to improve precision. Optional. |
-| `script_fields` | `map<string, `[`ScriptField`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L580)`>` | Custom fields whose values are computed by scripts. Optional. |
-| `search_after` | `repeated` [FieldValue`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L2002) | Cursor-based pagination using values from previous page. Optional. |
-| `size` | `int32` | Number of results to return. Default is 10. Optional. |
-| `slice` | [`SlicedScroll`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L641) | Split scroll context into slices for parallel processing. Optional. |
-| `sort` | `repeated` [SortCombinations`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L814) | Sorting rules (e.g., by field, score, or custom order). Optional. |
-| `source` | [`SourceConfig`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L176) | Controls inclusion and filtering of `_source` field. Optional. |
-| `fields` | `repeated` [`FieldAndFormat`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L962) | Additional fields to return with formatting options. Optional. |
-| `suggest` | [`Suggester`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L654) | Suggestion queries for autocomplete or corrections. Optional. |
-| `terminate_after` | `int32` | Max docs to collect before terminating search early. Default is 0. Optional. |
-| `timeout` | `string` | Time limit for query execution before it times out. Optional. |
-| `track_scores` | `bool` | Whether to return document scores in results. Optional. |
-| `include_named_queries_score` | `bool` | Whether to include scores for named queries. Optional. |
-| `version` | `bool` | Includes document version in the response. Optional. |
-| `seq_no_primary_term` | `bool` | Includes sequence number and primary term for each hit. Optional. |
-| `stored_fields` | `repeated string` | Stored fields to return (excludes `_source` unless re-enabled). Optional. |
-| `pit` | [`PointInTimeReference`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L752) | Point in Time reference to search a fixed snapshot. Optional. |
-| `stats` | `repeated string` | Tagging or logging fields to associate with the request. Optional. |
-| `derived` | `map<string, `[`DerivedField`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L292)`>` | Dynamically computed fields returned in the response. Optional. |
+| `collapse` | [`FieldCollapse`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L975) | Groups the results by a field; returns only the top document per group. |
+| `explain` | `bool` | Returns scoring explanations for matched documents. |
+| `ext` | [`ObjectMap`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L76) | Plugin-specific metadata, for example, for extensions like RAG. |
+| `from` | `int32` | The starting index for paginated results. Default is `0`. |
+| `highlight` | [`Highlight`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L585) | Highlights matched terms in the result snippets. |
+| `track_total_hits` | [`TrackHits`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L309) | Whether to return the total hit count. |
+| `indices_boost` | `repeated` [`NumberMap`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L747) | Per-index boost multipliers in the `<index>: <boost>` format. |
+| `docvalue_fields` | `repeated` [`FieldAndFormat`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L962) | The fields returned using doc values, optionally formatted. |
+| `min_score` | float | The minimum score required for a document to be included in results. |
+| `post_filter` | [`QueryContainer`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L342) | Filters hits after aggregations are applied. |
+| `profile` | `bool` | Enables profiling to analyze query performance. |
+| `search_pipeline` | `string` | The name of the search pipeline to apply. |
+| `verbose_pipeline` | `bool` | Enables verbose logging in the search pipeline. |
+| `query` | [`QueryContainer`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L342) | The query DSL for the search. |
+| `rescore` | `repeated` [`Rescore`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L631) | Reranks top N hits to improve precision. |
+| `script_fields` | `map<string, `[`ScriptField`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L580)`>` | Custom fields whose values are computed by scripts. |
+| `search_after` | `repeated` [`FieldValue`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L2002) | Cursor-based pagination using values from previous page. |
+| `size` | `int32` | The number of results to return. Default is `10`. |
+| `slice` | [`SlicedScroll`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L641) | Split scroll context into slices for parallel processing. |
+| `sort` | `repeated` [`SortCombinations`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L814) | The sorting rules (for example, by field, score, or custom order). |
+| `source` | [`SourceConfig`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L176) | Controls whether to return the full `_source`, no `_source`, or only specific fields from `_source` in the response. |
+| `fields` | `repeated` [`FieldAndFormat`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L962) | Additional fields to return, with formatting options. |
+| `suggest` | [`Suggester`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L654) | Suggestion queries for autocomplete or corrections. |
+| `terminate_after` | `int32` | The maximum number of documents to process before early termination. Default is `0`. |
+| `timeout` | `string` | The maximum amount of time to wait for query execution. |
+| `track_scores` | `bool` | Whether to return document scores in the results. |
+| `include_named_queries_score` | `bool` | Whether to include scores for named queries. |
+| `version` | `bool` | Whether to include the document version in the response. |
+| `seq_no_primary_term` | `bool` | Whether to include the sequence number and primary term for each hit. |
+| `stored_fields` | `repeated string` | The stored fields to return (excludes `_source` unless re-enabled). |
+| `pit` | [`PointInTimeReference`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L752) | The Point in Time reference to search a fixed snapshot. |
+| `stats` | `repeated string` | The tagging or logging fields to associate with the request. |
+| `derived` | `map<string, `[`DerivedField`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L292)`>` | Dynamically computed fields returned in the response. |
 
 
-### `QueryContainer` fields
-The entrypoint for all supported query types is `QueryContainer`. 
+### QueryContainer fields
 
-**Exactly one** of the below fields must be provided inside each `QueryContainer` message. 
+`QueryContainer` is the entry point for all supported query types. 
 
-Note that some query types are currently unsupported. Only `match_all`, `term`, `terms`, and `match_none` are currently supported in the experimental 3.0.0 release.
+**Exactly one** of the following fields must be provided inside each `QueryContainer` message. 
+
+Note that some query types are currently unsupported. Currently, only the [`match_all`](#match-all-query), [`term`](#term-query), [`terms`](#terms-query), and [`match_none`](#match-none-query) are supported.  
+{: .note}
 
 | Field | Protobuf type | Description |
 | :---- | :------------- | :---------- |
-| `bool` | [`BoolQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1290) | A Boolean query that combines multiple clauses using AND/OR/NOT logic. Must be the only field set. Optional. |
-| `boosting` | [`BoostingQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1322) | Boosts results matching a positive query, and demotes results matching a negative query. Must be the only field set. Optional. |
-| `constant_score` | [`ConstantScoreQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1338) | Wraps a filter and assigns a constant relevance score to all matching documents. Must be the only field set. Optional. |
-| `dis_max` | [`DisMaxQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1349) | Returns documents matching any clause; uses the highest score if multiple clauses match. Must be the only field set. Optional. |
-| `function_score` | [`FunctionScoreQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1364) | Adjusts scores of results using custom functions. Must be the only field set. Optional. |
-| `exists` | [`ExistsQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1007) | Matches documents that contain a specific field. Must be the only field set. Optional. |
-| `fuzzy` | `map<string, `[`FuzzyQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1929)`>` | Matches terms similar to the search term (fuzzy matching). Only one entry allowed. Must be the only field set. Optional. |
-| `ids` | [`IdsQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L2011) | Matches documents by `_id` values. Must be the only field set. Optional. |
-| `prefix` | `map<string, `[`PrefixQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1547)`>` | Matches terms with a specific prefix. Only one entry allowed. Must be the only field set. Optional. |
-| `range` | `map<string, `[`RangeQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1797)`>` | Matches terms within a specified range. Only one entry allowed. Must be the only field set. Optional. |
-| `regexp` | `map<string, `[`RegexpQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1804)`>` | Matches terms using regular expressions. Only one entry allowed. Must be the only field set. Optional. |
-| `term` | `map<string, `[`TermQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1670)`>` | Matches exact terms (no analysis). Only one entry allowed. Must be the only field set. Optional. |
-| `terms` | [`TermsQueryField`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1607) | Matches any document containing one or more specified terms in a field. Must be the only field set. Optional. |
-| `terms_set` | `map<string, `[`TermsSetQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1647)`>` | Matches documents with a minimum number of exact terms in a field. Only one entry allowed. Must be the only field set. Optional. |
-| `wildcard` | `map<string, `[`WildcardQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1071)`>` | Matches terms using a wildcard pattern. Only one entry allowed. Must be the only field set. Optional. |
-| `match` | `map<string, `[`MatchQueryTypeless`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1163)`>` | Full-text match on text or exact-value fields. Only one entry allowed. Must be the only field set. Optional. |
-| `match_bool_prefix` | `map<string, `[`MatchBoolPrefixQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L2079)`>` | Matches full words and prefixes in a Boolean-style query. Only one entry allowed. Must be the only field set. Optional. |
-| `match_phrase` | `map<string, `[`MatchPhraseQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L2206)`>` | Matches an exact phrase in order. Only one entry allowed. Must be the only field set. Optional. |
-| `match_phrase_prefix` | `map<string, `[`MatchPhrasePrefixQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L2171)`>` | Matches a phrase where the last term is treated as a prefix. Only one entry allowed. Must be the only field set. Optional. |
-| `multi_match` | [`MultiMatchQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L2236) | Searches multiple fields with a single query string. Must be the only field set. Optional. |
-| `query_string` | [`QueryStringQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1690) | Parses advanced queries from a single string. Must be the only field set. Optional. |
-| `simple_query_string` | [`SimpleQueryStringQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1690) | Less strict syntax alternative to `query_string`. Ignores invalid syntax. Must be the only field set. Optional. |
-| `intervals` | `map<string, `[`IntervalsQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1453)`>` | Matches terms based on position/proximity. Only one entry allowed. Must be the only field set. Optional. |
-| `knn` | `map<string, `[`KnnField`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1126)`>` | k-Nearest Neighbors query across vector fields. Only one entry allowed. Must be the only field set. Optional. |
-| `match_all` | [`MatchAllQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L2068) | Matches all documents in the index. Must be the only field set. Optional. |
-| `match_none` | [`MatchNoneQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L2156) | Matches no documents. Must be the only field set. Optional. |
-| `script_score` | [`ScriptScoreQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L991) | Custom scoring using scripts. Must be the only field set. Optional. |
-| `nested` | [`NestedQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L499) | Wraps a query targeting nested fields. Must be the only field set. Optional. |
+| `bool` | [`BoolQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1290) | A Boolean query that combines multiple clauses using `AND`/`OR`/`NOT` logic. Must be the only field set. |
+| `boosting` | [`BoostingQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1322) | Boosts the results matching a positive query and demotes the results matching a negative query. Must be the only field set. |
+| `constant_score` | [`ConstantScoreQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1338) | Wraps a filter and assigns a constant relevance score to all matching documents. Must be the only field set. |
+| `dis_max` | [`DisMaxQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1349) | Returns documents matching any clause; uses the highest score if multiple clauses match. Must be the only field set. |
+| `function_score` | [`FunctionScoreQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1364) | Adjusts the scores of results using custom functions. Must be the only field set. |
+| `exists` | [`ExistsQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1007) | Matches documents that contain a specific field. Must be the only field set. |
+| `fuzzy` | `map<string, `[`FuzzyQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1929)`>` | Matches terms similar to the search term (fuzzy matching). Only one entry allowed. Must be the only field set. |
+| `ids` | [`IdsQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L2011) | Matches documents by `_id` values. Must be the only field set. |
+| `prefix` | `map<string, `[`PrefixQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1547)`>` | Matches terms with a specific prefix. Only one entry allowed. Must be the only field set. |
+| `range` | `map<string, `[`RangeQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1797)`>` | Matches terms within a specified range. Only one entry allowed. Must be the only field set. |
+| `regexp` | `map<string, `[`RegexpQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1804)`>` | Matches terms using regular expressions. Only one entry allowed. Must be the only field set. |
+| `term` | `map<string, `[`TermQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1670)`>` | Matches exact terms (no analysis). Only one entry allowed. Must be the only field set. |
+| `terms` | [`TermsQueryField`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1607) | Matches any document containing one or more specified terms in a field. Must be the only field set. |
+| `terms_set` | `map<string, `[`TermsSetQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1647)`>` | Matches documents with a minimum number of exact terms in a field. Only one entry allowed. Must be the only field set. |
+| `wildcard` | `map<string, `[`WildcardQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1071)`>` | Matches terms using a wildcard pattern. Only one entry allowed. Must be the only field set. |
+| `match` | `map<string, `[`MatchQueryTypeless`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1163)`>` | Full-text match on text or exact-value fields. Only one entry allowed. Must be the only field set. |
+| `match_bool_prefix` | `map<string, `[`MatchBoolPrefixQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L2079)`>` | Matches full words and prefixes in a Boolean-style query. Only one entry allowed. Must be the only field set. |
+| `match_phrase` | `map<string, `[`MatchPhraseQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L2206)`>` | Matches an exact phrase in order. Only one entry allowed. Must be the only field set. |
+| `match_phrase_prefix` | `map<string, `[`MatchPhrasePrefixQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L2171)`>` | Matches a phrase in which the last term is treated as a prefix. Only one entry allowed. Must be the only field set. |
+| `multi_match` | [`MultiMatchQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L2236) | Searches multiple fields using a single query string. Must be the only field set. |
+| `query_string` | [`QueryStringQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1690) | Parses advanced queries written as a single string. Must be the only field set. |
+| `simple_query_string` | [`SimpleQueryStringQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1690) | A less strict syntax alternative to `query_string`. Ignores invalid syntax. Must be the only field set. |
+| `intervals` | `map<string, `[`IntervalsQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1453)`>` | Matches terms based on position/proximity. Only one entry allowed. Must be the only field set. |
+| `knn` | `map<string, `[`KnnField`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L1126)`>` | A k-nearest neighbors query across vector fields. Only one entry allowed. Must be the only field set. |
+| `match_all` | [`MatchAllQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L2068) | Matches all documents in the index. Must be the only field set. |
+| `match_none` | [`MatchNoneQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L2156) | Matches no documents. Must be the only field set. |
+| `script_score` | [`ScriptScoreQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L991) | Applies custom scoring using scripts. Must be the only field set. |
+| `nested` | [`NestedQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L499) | Wraps a query targeting nested fields. Must be the only field set. |
 
 ## Supported queries 
 
 The gRPC Search API supports the following queries.
 
-All examples below show valid request payloads that can be sent to the `SearchService/Search` GRPC method.
+All of the following examples show valid request payloads that can be sent to the `SearchService/Search` gRPC method.
 
 ### Match all query 
 
-Returns all documents from the index. For example, the following request returns a maximum of 50 documents from the index:
+A `match_all` query returns all documents in the index. For example, the following request returns a maximum of 50 documents from the index:
 
 ```json
 {
@@ -192,7 +194,7 @@ Returns all documents from the index. For example, the following request returns
 
 ### Term query 
 
-Matches a single field with a specific term:
+A `term` query matches a single field with a specific term. For example the following query searches for titles containing the word `Rush`:
 
 ```json
 {
@@ -215,9 +217,7 @@ Matches a single field with a specific term:
 
 ### Terms query 
 
-Matches documents in which a specific field contains any value from a list. 
-
-For example, the following query searches for lines with the IDs 61809 and 61810:
+A `terns` query matches documents in which a specific field contains any value from a list. For example, the following query searches for lines with the IDs `61809` and `61810`:
 
 ```json
 {
@@ -241,9 +241,9 @@ For example, the following query searches for lines with the IDs 61809 and 61810
 ```
 {% include copy.html %}
 
-### Terms query with terms lookup
+### Terms query with a terms lookup
 
-Matches documents in the `students` index for every student whose `id` matches one of the values in the `enrolled` array:
+A `terms` query with `terms` lookup is a specialized form of the `terms` query that allows you to fetch the terms for filtering from another document in your cluster, rather than specifying them directly in the query. For example,  the following request matches documents in the `students` index for every student whose `id` matches one of the values in the `enrolled` array:
 
 ```json
 {
@@ -268,9 +268,9 @@ Matches documents in the `students` index for every student whose `id` matches o
 {% include copy.html %}
 
 
-### Match none
+### Match none query
 
-Matches none of the documents:
+A `match_none` query matches none of the documents:
 
 ```json
 {
@@ -288,6 +288,7 @@ Matches none of the documents:
 The gRPC Search API provides the following response fields.
 
 ### SearchResponse fields 
+
 The following table lists the supported fields for the [`SearchResponse`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L317) message.
 
 | Field | Protobuf type | Description |
@@ -296,61 +297,62 @@ The following table lists the supported fields for the [`SearchResponse`](https:
 
 ### ResponseBody fields  
 
+The `ResponseBody` contains the following fields.
+
 The source documents are returned as bytes. Use Base64 decoding to read the `_source` field in the gRPC response. 
 {: .note}
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
-| `took` | `int64` | Time taken to execute the search (in ms). |
+| `took` | `int64` | The amount of time it took to process the search request, in milliseconds. |
 | `timed_out` | `bool` | Whether the search timed out. |
-| `shards` | [`ShardStatistics`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L268) | Shard-level success/failure/total metadata. |
-| `phase_took` | [`PhaseTook`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L394) | Phase-level took time values in the response. |
-| `hits` | [`HitsMetadata`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L411) | Main document results and metadata. |
-| `profile` | [`Profile`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L594) | Profiling data for query execution (debugging/perf insights). |
-| `fields` | [`ObjectMap`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L76) | Top-level key-value field structure from the response (if any). |
+| `shards` | [`ShardStatistics`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L268) | The shard-level success/failure/total metadata. |
+| `phase_took` | [`PhaseTook`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L394) | The phase-level `took` time values in the response. |
+| `hits` | [`HitsMetadata`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L411) | The main document results and metadata. |
+| `profile` | [`Profile`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L594) | Profiling data for query execution (debugging/performance insights). |
+| `fields` | [`ObjectMap`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L76) | The top-level key-value field structure from the response (if any). |
 
 ### HitsMetadata fields
 
-Each `Hit` represents a single document matched by the query.
+The `HitsMetadata` object contains information about the search results, including the total number of matching documents and an array of individual document matches. It includes the following fields.
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
 | `total` | [`TotalHits`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L437) | Metadata about the total number of matching documents (value \+ relation). |
-| `max_score` | [`MaxScore`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L424) | The highest relevance score of returned hits (may be null). |
-| `hits` | `repeated` [`Hit`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L460) | The actual list of matched documents. Each hit includes index, ID, score, and source. |
+| `max_score` | [`MaxScore`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L424) | The highest relevance score of the returned hits (may be `null`). |
+| `hits` | `repeated` [`Hit`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L460) | The actual list of matched documents. Each hit includes core fields like `index`, `id`, `score`, and `source`, along with additional optional fields. |
 
 ### Hit fields
-The following table lists the supported fields for the `Hit` message.
+
+Each `Hit` represents a single document matched by the query and contains the following fields. 
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
-| `index` | `string` | Name of the index containing the returned document. |
-| `id` | `string` | Unique ID for the document (within the index). |
-| `score` | [`Score`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L469) | Relevance score of the hit. |
-| `explanation` | [`Explanation`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L951) | Text explanation of how the _score was calculated. |
-| `fields` | [`ObjectMap`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L76) | Field values of the document. |
+| `index` | `string` | The name of the index containing the returned document. |
+| `id` | `string` | The unique ID for the document within the index. |
+| `score` | [`Score`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L469) | The relevance score of the hit. |
+| `explanation` | [`Explanation`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L951) | Text explanation of how the `_score` was calculated. |
+| `fields` | [`ObjectMap`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L76) | The document field values. |
 | `highlight` | `map<string, `[`StringArray`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L165)`>` | Highlighted fields and fragments per hit. |
-| `inner_hits` | `map<string, `[`InnerHitsResult`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L453)`>` | Nested hits responsible for the match in another scope. |
-| `matched_queries` | `repeated string` | List of query names that matched for this document. |
-| `nested` | [`NestedIdentity`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L962) | Path to the inner nested object from which this hit originated. |
-| `ignored` | `repeated string` | List of ignored fields. |
+| `inner_hits` | `map<string, `[`InnerHitsResult`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L453)`>` | The nested hits responsible for the match in another scope. |
+| `matched_queries` | `repeated string` | A list of query names that matched for this document. |
+| `nested` | [`NestedIdentity`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L962) | The path to the inner nested object from which this hit originated. |
+| `ignored` | `repeated string` | A list of ignored fields. |
 | `ignored_field_values` | `map<string, `[`StringArray`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L165)`>` | Raw, unprocessed values from the document's original JSON. |
-| `shard` | `string` | Shard ID from which this hit was retrieved. |
-| `node` | `string` | Node ID from which this hit was retrieved. |
-| `routing` | `string` | Routing value used for custom shard routing. |
-| `source` | `bytes` | Base64-encoded _source document. |
-| `seq_no` | `int64` | Sequence number (used for indexing history/versioning). |
-| `primary_term` | `int64` | Primary term number (used for optimistic concurrency control). |
-| `version` | `int64` | Document version number. |
-| `sort` | `repeated` [`FieldValue`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L2002) | Sort values used in the result sorting. |
-| `meta_fields` | [`ObjectMap`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L76) | Metadata values for the document. |
+| `shard` | `string` | The shard ID from which this hit was retrieved. |
+| `node` | `string` | The node ID from which this hit was retrieved. |
+| `routing` | `string` | The routing value used for custom shard routing. |
+| `source` | `bytes` | Base64-encoded `_source` document. |
+| `seq_no` | `int64` | The sequence number (used for indexing history and versioning). |
+| `primary_term` | `int64` | The primary term number (used for optimistic concurrency control). |
+| `version` | `int64` | The document version number. |
+| `sort` | `repeated` [`FieldValue`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L2002) | The sort values used in the result sorting. |
+| `meta_fields` | [`ObjectMap`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L76) | The metadata values for the document. |
 
 `source` is base64-encoded and must be decoded to obtain the JSON document.
 {: .note}
 
-### Example response
-
-The following example shows an example of a search response:
+## Example response
 
 ```json
 {
@@ -389,7 +391,8 @@ The following example shows an example of a search response:
 {% include copy.html %}
 
 ## Java gRPC client example 
-The following example shows a Java client that submits a sample Search term query GRPC request, then prints the number of hits returned in the search response. 
+
+The following example shows a Java client-side program that submits a sample search term query gRPC request, then prints the number of hits returned in the search response:
 
 ```java
 import org.opensearch.protobufs.*;
