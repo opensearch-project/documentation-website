@@ -3,7 +3,9 @@ layout: default
 title: Connect to External MCP Server (Experimental)
 has_children: false
 has_toc: false
-nav_order: 29
+nav_order: 1
+parent: Model Context Protocol (MCP)
+grand_parent: Machine learning
 ---
 
 # Connect to External MCP Server (Experimental)
@@ -142,7 +144,7 @@ Content-Type: application/json
 ### Step 3: Registering an Agent with MCP Connectors
 
 Currently MCP tools can only be added to the `conversational` and `plan_and_execute agents`. To enable external MCP tools, include one or more MCP connectors in your agent's `parameters.mcp_connectors` array. Each entry must specify: 
-- **mcp_connector_id**: The connector ID created in Step 1.
+- **mcp_connector_id**: The connector ID created in Step 1.
 - **tool_filters**(optional): An array of Java-style regular expressions to whitelist specific tools by their IDs.
 
 -- If omitted or set to an empty array, all tools exposed by the connector will be available.
@@ -176,8 +178,8 @@ Content-Type: application/json
       {
         "mcp_connector_id": "<MCP_CONNECTOR_ID_FROM_STEP_1`>",
         "tool_filters": [
-          "^get_forecast",    // only tools starting with “get_forecast”
-          "search_indices"    // exact match for “search_indices”
+          "^get_forecast",    // only tools starting with "get_forecast"
+          "search_indices"    // exact match for "search_indices"
         ]
       }
     ]
