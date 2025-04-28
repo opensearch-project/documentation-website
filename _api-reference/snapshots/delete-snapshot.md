@@ -11,9 +11,9 @@ nav_order: 7
 
 The Delete Snapshot API permanently removes a snapshot from a repository. Deleting snapshots that are no longer needed helps free up storage space and keep your repository organized.
 
-* For more information about snapshots, see [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index).
-* To view a list of your repositories, see [Cat Repositories]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-repositories).
-* To view a list of your snapshots, see [Cat Snapshots]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-snapshots).
+* For more information about snapshots, see [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/).
+* To view a list of your repositories, see [Cat Repositories]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-repositories/).
+* To view a list of your snapshots, see [Cat Snapshots]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-snapshots/).
 
 <!-- spec_insert_start
 api: snapshot.delete
@@ -82,5 +82,5 @@ Upon success, the response returns the following JSON object:
 }
 ```
 
-To verify that the snapshot was deleted, use the [Get Snapshot]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot) API, passing the repository name and snapshot name as path parameters.
+To verify that the snapshot was deleted, use the [Get Snapshot]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot/) API, passing the repository name and snapshot name as path parameters.
 {: .note}

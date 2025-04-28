@@ -9,10 +9,10 @@ nav_order: 6
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Get Snapshot API retrieves information about one or more snapshots within a repository. This information includes details about snapshot creation, included indices, and status.
+The Get Snapshot API retrieves information about one or more snapshots within a repository. This information includes details about snapshot creation, included indexes, and status.
 
-* For more information about snapshots, see [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index).
-* To view a list of your repositories, see [Get Snapshot Repository]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot-repository).
+* For more information about snapshots, see [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/).
+* To view a list of your repositories, see [Get Snapshot Repository]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot-repository/).
 
 
 <!-- spec_insert_start
@@ -127,7 +127,7 @@ Each snapshot object in the `snapshots` array contains the following information
 | `uuid` | String | The universally unique identifier for the snapshot. |
 | `version_id` | Integer | The build ID of the OpenSearch version that created the snapshot. |
 | `version` | String | The OpenSearch version that created the snapshot. |
-| `indices` | Array of Strings | The list of indices included in the snapshot. |
+| `indices` | Array of Strings | The list of indexes included in the snapshot. |
 | `data_streams` | Array of Strings | The list of data streams included in the snapshot. |
 | `state` | String | The current state of the snapshot. Possible values include `IN_PROGRESS`, `SUCCESS`, `FAILED`, and `PARTIAL`. |
 | `include_global_state` | Boolean | Whether the snapshot includes the cluster state. |

@@ -11,8 +11,8 @@ nav_order: 5
 
 The Create Snapshot API creates a snapshot of your cluster's data within an existing repository. Snapshots serve as backups that you can use to restore your data or migrate it between clusters.
 
-* For more information about snapshots, see [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index).
-* To view a list of your repositories, see [Get Snapshot Repository]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot-repository).
+* For more information about snapshots, see [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/).
+* To view a list of your repositories, see [Get Snapshot Repository]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot-repository/).
 
 <!-- spec_insert_start
 api: snapshot.create
@@ -74,8 +74,6 @@ The request body is optional. It is a JSON object with the following fields.
 
 ## Example requests
 
-### Basic request
-
 The following request creates a snapshot called `my-first-snapshot` in an S3 repository called `my-s3-repository`:
 
 ```json
@@ -85,7 +83,7 @@ POST _snapshot/my-s3-repository/my-first-snapshot
 
 ### Request with configuration
 
-You can add a request body to include or exclude specific indices or specify other settings:
+You can add a request body to include or exclude specific indexes or specify other settings:
 
 ```json
 PUT _snapshot/my-s3-repository/2
@@ -112,7 +110,7 @@ When `wait_for_completion=false` (the default), the API returns a simple acknowl
 }
 ```
 
-To verify that the snapshot was created, use the [Get Snapshot]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot) API, passing the snapshot name as the `snapshot` path parameter.
+To verify that the snapshot was created, use the [Get Snapshot]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot/) API, passing the snapshot name as the `snapshot` path parameter.
 {: .note}
 
 ### With `wait_for_completion=true`

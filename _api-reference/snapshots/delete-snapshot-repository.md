@@ -13,7 +13,7 @@ The Delete Snapshot Repository API removes a snapshot repository configuration f
 
 A repository in OpenSearch is a configuration that maps a repository name to a type (file system or S3) along with storage location information. When you delete a repository, only the configuration is removed from OpenSearch—the physical storage location (file system directory or S3 bucket) and any snapshots it contains remain intact.
 
-For more information about repositories, see [Register Snapshot Repository]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-repository).
+For more information about repositories, see [Register Snapshot Repository]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-repository/).
 
 <!-- spec_insert_start
 api: snapshot.delete_repository

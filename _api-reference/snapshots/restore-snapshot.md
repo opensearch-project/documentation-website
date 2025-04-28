@@ -12,11 +12,11 @@ nav_order: 9
 
 Restores a snapshot of a cluster or specified data streams and indices. 
 
-* For information about indices and clusters, see [Introduction to OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/index).
+* For information about indexes and clusters, see [Introduction to OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/index/).
 
-* For information about data streams, see [Data streams]({{site.url}}{{site.baseurl}}/opensearch/data-streams).
+* For information about data streams, see [Data streams]({{site.url}}{{site.baseurl}}/opensearch/data-streams/).
 
-If open indexes with the same name that you want to restore already exist in the cluster, you must close, delete, or rename the indexes. See [Example request](#example-request) for information about renaming an index. See [Close index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/close-index) for information about closing an index.
+If open indexes with the same name that you want to restore already exist in the cluster, you must close, delete, or rename the indexes. See [Example request](#example-request) for information about renaming an index. See [Close index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/close-index/) for information about closing an index.
 {: .note}
 
 <!-- spec_insert_start
@@ -67,19 +67,19 @@ The request body is optional. It is a JSON object with the following fields.
 
 | Property | Data type | Description | Default |
 | :--- | :--- | :--- | :--- |
-| `indices` | String or Array of Strings | A comma-separated list of data streams, indices, and aliases to restore from the snapshot. Supports wildcards (`*`). To restore all data streams and indices, omit this parameter or use `*` or `_all`. | All indices in the snapshot |
-| `ignore_unavailable` | Boolean | When `true`, the request ignores any data streams and indices that are missing or closed. When `false`, the request returns an error for any missing or closed data streams or indices. | `false` |
+| `indices` | String or Array of Strings | A comma-separated list of data streams, indexes, and aliases to restore from the snapshot. Supports wildcards (`*`). To restore all data streams and indexes, omit this parameter or use `*` or `_all`. | `_all` |
+| `ignore_unavailable` | Boolean | When `true`, the request ignores any data streams and indexes that are missing or closed. When `false`, the request returns an error for any missing or closed data streams or indexes. | `false` |
 | `include_global_state` | Boolean | When `true`, restores the cluster state from the snapshot. The cluster state includes persistent cluster settings, composable index templates, legacy index templates, ingest pipelines, and ILM policies. | `false` |
-| `include_aliases` | Boolean | When `true`, restores index aliases from the original snapshot. When `false`, aliases along with associated indices are not restored. | `true` |
-| `partial` | Boolean | When `true`, allows the restoration of a partial snapshot from indices with unavailable shards. Only shards that were successfully included in the snapshot will be restored. All missing shards will be recreated as empty. When `false`, the entire restore operation fails if any indices in the snapshot do not have all primary shards available. | `false` |
-| `index_settings` | Object | Index settings to add or change in all restored indices. Use this parameter to override index settings during snapshot restoration. For data streams, these settings are applied to the restored backing indices. | N/A |
+| `include_aliases` | Boolean | When `true`, restores index aliases from the original snapshot. When `false`, aliases along with associated indexes are not restored. | `true` |
+| `partial` | Boolean | When `true`, allows the restoration of a partial snapshot from indexes with unavailable shards. Only shards that were successfully included in the snapshot will be restored. All missing shards will be recreated as empty. When `false`, the entire restore operation fails if any indexes in the snapshot do not have all primary shards available. | `false` |
+| `index_settings` | Object | Index settings to add or change in all restored indexes. Use this parameter to override index settings during snapshot restoration. For data streams, these settings are applied to the restored backing indexes. | N/A |
 | `ignore_index_settings` | Array of Strings | A comma-separated list of index settings that you don't want to restore from a snapshot. | N/A |
-| `rename_pattern` | String | A pattern to apply to the restored data streams and indices. Data streams and indices matching the rename pattern will be renamed according to the `rename_replacement` setting. Uses regular expression syntax that supports referencing the original text. | N/A |
-| `rename_replacement` | String | The replacement string used with `rename_pattern` to rename restored data streams and indices. | N/A |
+| `rename_pattern` | String | A pattern to apply to the restored data streams and indexes. Data streams and indexes matching the rename pattern will be renamed according to the `rename_replacement` setting. Uses regular expression syntax that supports referencing the original text. | N/A |
+| `rename_replacement` | String | The replacement string used with `rename_pattern` to rename restored data streams and indexes. | N/A |
 | `rename_alias_pattern` | String | A pattern to apply to the restored aliases. Aliases matching the pattern will be renamed according to the `rename_alias_replacement` setting. Uses regular expression syntax that supports referencing the original text. | N/A |
 | `rename_alias_replacement` | String | The replacement string used with `rename_alias_pattern` to rename restored aliases. | N/A |
 | `source_remote_store_repository` | String | The name of the remote store repository of the source index being restored. If not provided, the Snapshot Restore API will use the repository that was registered when the snapshot was created. | N/A |
-| `storage_type` | String | Where the authoritative store of the restored indices' data will be. A value of `local` indicates that all snapshot metadata and index data will be downloaded to local storage. A value of `remote_snapshot` indicates that snapshot metadata will be downloaded to the cluster, but the remote repository will remain the authoritative store of the index data, which will be downloaded and cached as needed. | `local` |
+| `storage_type` | String | Where the authoritative store of the restored indexes' data will be. A value of `local` indicates that all snapshot metadata and index data will be downloaded to local storage. A value of `remote_snapshot` indicates that snapshot metadata will be downloaded to the cluster, but the remote repository will remain the authoritative store of the index data, which will be downloaded and cached as needed. | `local` |
 
 ## Example request
 

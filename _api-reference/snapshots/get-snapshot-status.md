@@ -11,7 +11,7 @@ nav_order: 8
 
 The Get Snapshot Status API returns detailed information about a snapshot's state during and after snapshot creation. This API is useful for monitoring snapshot progress and troubleshooting issues.
 
-For information about creating snapshots, see [Create Snapshot]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-snapshot).
+For information about creating snapshots, see [Create Snapshot]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-snapshot/).
 
 If you use the Security plugin, you must have the `monitor_snapshot`, `create_snapshot`, or `manage cluster` privileges.
 {: .note}
