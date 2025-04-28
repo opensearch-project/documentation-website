@@ -1,41 +1,43 @@
 ---
 layout: default
-title: k-NN
-parent: Specialized queries
+title: k-NN query explain
+parent: k-NN
+grand_parent: Specialized queries
 nav_order: 10
 ---
 
 # k-NN query explain
 **Introduced 3.0**
 {: .label .label-purple }
-You can provide the `explain` parameter to understand how scores are calculated, normalized, and combined in knn queries. When enabled, it provides detailed information about the scoring process for each search result. This includes revealing the score normalization techniques used, how different scores were combined, and the calculations for individual subquery scores. This comprehensive insight makes it easier to understand and optimize your knn query results. For more information about `explain`, see [Explain API]({{site.url}}{{site.baseurl}}/api-reference/explain/).
+
+You can provide the `explain` parameter to understand how scores are calculated, normalized, and combined in `knn` queries. When enabled, it provides detailed information about the scoring process for each search result. This includes revealing the score normalization techniques used, how different scores were combined, and the calculations for individual subquery scores. This comprehensive insight makes it easier to understand and optimize your `knn` query results. For more information about `explain`, see [Explain API]({{site.url}}{{site.baseurl}}/api-reference/explain/).
 
 `explain` is an expensive operation in terms of both resources and time. For production clusters, we recommend using it sparingly for the purpose of troubleshooting.
 {: .warning }
 
-You can provide the `explain` parameter in a URL when running a complete knn query using the following syntax for Faiss engine:
+You can provide the `explain` parameter in a URL when running a complete `knn` query for the Faiss engine using the following syntax:
 
 ```json
 GET <index>/_search?explain=true
 POST <index>/_search?explain=true
 ```
 
-`explain` for KNN Search for all types of queries with Lucene engine does not return detailed explanation as with faiss engine.
-{: .warning }
+`explain` for k-NN search for all types of queries with Lucene engine does not return detailed explanation as with the Faiss engine.
+{: .note }
 
-Below are the sample query/response linked for following types of knn search with faiss engine -
+The `explain` parameter works for the following types of k-NN search with the Faiss engine:
 
-- Approximate Nearest Neighbor Search
-- Approximate Nearest Neighbor Search with Exact Search
-- Disk-based Search
-- Knn Search with Efficient Filtering
-- Radial Search
-- KNN search with term query
+- [Approximate k-NN search]({{site.url}}{{site.baseurl}}/vector-search/vector-search-techniques/approximate-knn/)
+- Approximate k-NN search with [exact search]({{site.url}}{{site.baseurl}}/vector-search/vector-search-techniques/knn-score-script/)
+- [Disk-based search]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/disk-based-vector-search/)
+- [k-NN search with efficient filtering]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/efficient-knn-filtering/)
+- [Radial search]({{site.url}}{{site.baseurl}}/vector-search/specialized-operations/radial-search-knn/)
+- k-NN search with a `term` query
 
-`explain` for KNN Search with Nested Fields does not return detailed explanation yet like other searches.
-{: .warning }
+`explain` for k-NN Search with nested fields does not return detailed explanation like other searches.
+{: .note }
 
-To see the `explain` output for all results, set the parameter to `true` either in the URL or in the request body:
+You can provide the `explain` parameter as a query parameter:
 
 ```json
 GET my-knn-index/_search?explain=true
@@ -52,11 +54,29 @@ GET my-knn-index/_search?explain=true
 ```
 {% include copy-curl.html %}
 
-The response contains scoring information:
+Alternatively, you can provide the `explain` parameter in the request body:
+
+```json
+GET my-knn-index/_search
+{
+  "query": {
+    "knn": {
+      "my_vector": {
+      "vector": [2, 3, 5, 7],
+      "k": 2
+      }
+    }
+  },
+  "explain": true
+}
+```
+{% include copy-curl.html %}
+
+## Example: Approximate k-NN search
 
 <details markdown="block">
   <summary>
-    Sample Response for Approximate Nearest Search
+    Example response
   </summary>
   {: .text-delta}
 
@@ -149,9 +169,11 @@ The response contains scoring information:
 ```
 </details>
 
+## Example: Approximate k-NN search with exact search
+
 <details markdown="block">
   <summary>
-    Sample Response for Approximate Nearest Search with Exact Search
+    Example response
   </summary>
   {: .text-delta}
 
@@ -231,9 +253,11 @@ The response contains scoring information:
 ```
 </details>
 
+## Example: Disk-based search
+
 <details markdown="block">
   <summary>
-    Sample Response for Disk-based Search
+    Example response
   </summary>
   {: .text-delta}
 
@@ -291,10 +315,11 @@ The response contains scoring information:
 ```
 </details>
 
+## Example: k-NN search with efficient filtering
 
 <details markdown="block">
   <summary>
-    Sample Response for Efficient filtering
+    Example response
   </summary>
   {: .text-delta}
 
@@ -375,7 +400,8 @@ The response contains scoring information:
 ```
 </details>
 
-Sample Query for Radial Search
+## Example: Radial search
+
 ```json
 GET my-knn-index/_search?explain=true
 {
@@ -393,7 +419,7 @@ GET my-knn-index/_search?explain=true
 
 <details markdown="block">
   <summary>
-    Sample Response for Radial Search
+    Example response
   </summary>
   {: .text-delta}
 
@@ -483,7 +509,8 @@ GET my-knn-index/_search?explain=true
 ```
 </details>
 
-Sample Query for KNN search with term query
+## Example: k-NN search with a term query
+
 ```json
 GET my-knn-index/_search?explain=true
 {
@@ -512,7 +539,7 @@ GET my-knn-index/_search?explain=true
 
 <details markdown="block">
   <summary>
-    Sample Response for KNN search with term query
+    Example response
   </summary>
   {: .text-delta}
 
@@ -626,5 +653,5 @@ GET my-knn-index/_search?explain=true
 
 Field | Description
 :--- | :---
-`explanation` | The `explanation` object has three properties: `value`, `description`, and `details`. The `value` property shows the result of the calculation, `description` explains what type of calculation was performed, and `details` shows any subcalculations performed. For score normalization, the information in the `description` property includes the technique used for normalization or combination and the corresponding score.
+`explanation` | The `explanation` object contains the following fields: <br> - `value`: Contains the calculation result.<br> - `description`: Explains what type of calculation was performed. For score normalization, the information in the `description` field includes the technique used for normalization or combination and the corresponding score. <br> - `details`: Shows any subcalculations performed. 
 
