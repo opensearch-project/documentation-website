@@ -7,7 +7,7 @@ nav_order: 50
 
 # Standard analyzer
 
-The `standard` analyzer is the built-in default analyzer used for general-purpose full-text search in OpenSearch and Elasticsearch. It is designed to provide consistent, language-agnostic text processing by efficiently breaking down text into searchable terms.
+The `standard` analyzer is the built-in default analyzer used for general-purpose full-text search in OpenSearch. It is designed to provide consistent, language-agnostic text processing by efficiently breaking down text into searchable terms.
 
 The `standard` analyzer performs the following operations:
 
