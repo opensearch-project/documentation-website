@@ -48,9 +48,9 @@ There are also tools available for migrating cluster configuration, templates, a
   </tbody>
 </table>
 
-{: .note}
-
 ### Supported source and target platforms
+
+The following list details the supported source and target platforms:
 
 * Self-managed (hosted by cloud provider or on-premises)
 * AWS OpenSearch
