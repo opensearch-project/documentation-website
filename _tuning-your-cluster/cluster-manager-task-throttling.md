@@ -106,6 +106,4 @@ PUT _cluster/settings
   }
 }
 ```
-
-
-
+{% include copy-curl.html %}
