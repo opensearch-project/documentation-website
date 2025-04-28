@@ -50,7 +50,7 @@ There are also tools available for migrating cluster configuration, templates, a
 
 ### Supported source and target platforms
 
-The following list details the supported source and target platforms:
+The following source and target platforms are supported:
 
 * Self-managed (hosted by cloud provider or on-premises)
 * AWS OpenSearch
