@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Search gRPC
+title: Search (gRPC)
 parent: gRPC APIs
 nav_order: 20
 ---
@@ -17,7 +17,7 @@ The gRPC Search API provides a performant, binary interface to run [queries]({{s
 
 ## Prerequisite
 
-To submit gRPC requests, you must have a set of protobufs on the client side. For ways to obtain the protobufs, see [Using gRPC APIs]({{site.url}}{{site.baseurl}}/api-reference/using-grpc-apis/).
+To submit gRPC requests, you must have a set of protobufs on the client side. For ways to obtain the protobufs, see [Using gRPC APIs]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/index/#using-grpc-apis).
 
 ## gRPC service and method
 
