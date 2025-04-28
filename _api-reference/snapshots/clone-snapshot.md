@@ -9,8 +9,7 @@ nav_order: 10
 Introduced 1.0
 {: .label .label-purple }
 
-Creates a clone of all or part of a snapshot in the same repository as the original.
-
+The Clone Snapshot API creates a copy of all or part of an existing snapshot within the same repository. This is useful when you want to preserve a specific version of a snapshot while continuing to modify the original.
 
 <!-- spec_insert_start
 api: snapshot.clone
@@ -32,7 +31,7 @@ The following table lists the available path parameters.
 
 | Parameter | Required | Data type | Description |
 | :--- | :--- | :--- | :--- |
-| `repository` | **Required** | String | The name of repository which will contain the snapshots clone. |
+| `repository` | **Required** | String | The name of the repository that contains the source snapshot and where the cloned snapshot will be stored. |
 | `snapshot` | **Required** | String | The name of the original snapshot. |
 | `target_snapshot` | **Required** | String | The name of the cloned snapshot. |
 
@@ -67,7 +66,7 @@ The request body is __required__. It is a JSON object with the following fields.
 
 | Property | Required | Data type | Description |
 | :--- | :--- | :--- | :--- |
-| `indices` | **Required** | String |  |
+| `indices` | **Required** | String | A comma-separated list of index patterns to clone from the source snapshot. Wildcards are supported. |
 
 <!-- spec_insert_end -->
 

@@ -1,26 +1,20 @@
 ---
 layout: default
-title: Get Snapshot Repository
+title: Get snapshot repository
 parent: Snapshot APIs
 nav_order: 2
 ---
 
-# Get snapshot repository.
+# Get snapshot repository
 **Introduced 1.0**
 {: .label .label-purple }
 
-Retrieves information about a snapshot repository.
+The Get Snapshot Repository API retrieves information about one or more snapshot repositories in your OpenSearch cluster.
 
-To learn more about repositories, see [Register repository]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#register-repository).
+For more information about repositories, see [Register repository]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#register-repository).
 
-You can also get details about a snapshot during and after snapshot creation. See [Get snapshot status]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot-status/).
+You can also get details about a snapshot during and after snapshot creation. See [Get Snapshot Status]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot-status/).
 {: .note}
-
-## Endpoints
-
-```json
-GET /_snapshot/<repository>
-```
 
 <!-- spec_insert_start
 api: snapshot.get_repository
@@ -51,6 +45,7 @@ The following table lists the available path parameters. All path parameters are
 <!-- spec_insert_start
 api: snapshot.get_repository
 component: query_parameters
+include_deprecated: false
 -->
 ## Query parameters
 
@@ -60,7 +55,6 @@ The following table lists the available query parameters. All query parameters a
 | :--- | :--- | :--- |
 | `cluster_manager_timeout` | String | The amount of time to wait for a response from the cluster manager node. For more information about supported time units, see [Common parameters]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). |
 | `local` | Boolean | Whether to get information from the local node. _(Default: `false`)_ |
-| `master_timeout` <br> _DEPRECATED_ | String | _(Deprecated since 2.0: To promote inclusive language, use `cluster_manager_timeout` instead.)_ Explicit operation timeout for connection to cluster-manager node |
 
 <!-- spec_insert_end -->
 
@@ -91,52 +85,45 @@ Upon success, the response returns repositry information. This sample is for an 
 }
 ````
 
-<!-- spec_insert_start
-api: snapshot.get_repository
-component: response_body_parameters
--->
 ## Response body fields
 
-The response body is a JSON object with the following fields.
+The response body is a JSON object where each key is a repository name and each value contains information about that repository.
+
+For each repository, the response includes the following fields:
 
 | Property | Data type | Description |
 | :--- | :--- | :--- |
-| `-- freeform field --` | Object | The name of the repository to store the snapshot. |
+| `type` | String | The type of the snapshot repository (e.g., `fs` or `s3`). |
+| `settings` | Object | The settings configured for the snapshot repository. |
+| `uuid` | String | The universally unique identifier for the repository, if applicable. |
 
-<details markdown="block" name="snapshot.get_repository::response_body">
+<details markdown="block">
   <summary>
-    Response body fields: <code>-- freeform field --</code>
+    Repository settings fields
   </summary>
   {: .text-delta}
 
-The name of the repository to store the snapshot.
+The `settings` object contains fields specific to the repository type:
 
-`-- freeform field --` is a JSON object with the following fields.
-
-| Property | Data type | Description |
-| :--- | :--- | :--- |
-| `settings` | Object | The settings for the snapshot repository. |
-| `type` | String | The type of the snapshot repository. |
-| `uuid` | String | The universally unique identifier. |
-
-</details>
-<details markdown="block" name="snapshot.get_repository::response_body">
-  <summary>
-    Response body fields: <code>-- freeform field --</code> > <code>settings</code>
-  </summary>
-  {: .text-delta}
-
-The settings for the snapshot repository.
-
-`settings` is a JSON object with the following fields.
+**For `fs` repositories:**
 
 | Property | Data type | Description |
 | :--- | :--- | :--- |
-| `chunk_size` | String | The chunk size for the repository. |
-| `compress` | Boolean or String | Certain APIs may return values, including numbers such as epoch timestamps, as strings. This setting captures this behavior while keeping the semantics of the field type.  Depending on the target language, code generators can keep the union or remove it and leniently parse strings to the target type. |
-| `concurrent_streams` | Integer or String | Certain APIs may return values, including numbers such as epoch timestamps, as strings. This setting captures this behavior while keeping the semantics of the field type.  Depending on the target language, code generators can keep the union or remove it and leniently parse strings to the target type. |
-| `location` | String | The location where snapshots are stored. |
-| `read_only` | Boolean or String | Certain APIs may return values, including numbers such as epoch timestamps, as strings. This setting captures this behavior while keeping the semantics of the field type.  Depending on the target language, code generators can keep the union or remove it and leniently parse strings to the target type. |
+| `location` | String | The file system location where snapshots are stored. |
+| `chunk_size` | String | The chunk size used for the repository. |
+| `compress` | Boolean | Whether metadata files are compressed. |
+| `readonly` | Boolean | Whether the repository is read-only. |
+
+**For `s3` repositories:**
+
+| Property | Data type | Description |
+| :--- | :--- | :--- |
+| `bucket` | String | The S3 bucket name. |
+| `base_path` | String | The path within the bucket where snapshots are stored. |
+| `chunk_size` | String | The chunk size used for the repository. |
+| `compress` | Boolean | Whether metadata files are compressed. |
+| `readonly` | Boolean | Whether the repository is read-only. |
+
+Additional settings may be present depending on the repository configuration.
 
 </details>
-<!-- spec_insert_end -->

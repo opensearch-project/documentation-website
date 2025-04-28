@@ -1,23 +1,23 @@
 ---
 layout: default
-title: Register Snapshot Repository
+title: Register or update snapshot repository
 parent: Snapshot APIs
 nav_order: 1
 ---
 
-# Registering or updating a snapshot repository
+# Register or update snapshot reposity
 **Introduced 1.0**
 {: .label .label-purple }
 
-You can register a new repository in which to store snapshots or update information for an existing repository by using the snapshots API.
+The Register Snapshot Repository API lets you register a new repository for storing snapshots or update information for an existing repository.
 
 There are two types of snapshot repositories:
 
-* File system (`fs`): For instructions on creating an `fs` repository, see [Register repository shared file system]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#shared-file-system).
+* File system (`fs`): Stores snapshots in a shared file system accessible to all cluster nodes. For instructions on creating an `fs` repository, see [Register repository shared file system]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#shared-file-system).
 
-* Amazon Simple Storage Service (Amazon S3) bucket (`s3`): For instructions on creating an `s3` repository, see [Register repository Amazon S3]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#amazon-s3).
+* Amazon Simple Storage Service (`s3`): Stores snapshots in an Amazon S3 bucket. For instructions on creating an `s3` repository, see [Register repository Amazon S3]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#amazon-s3).
 
-For instructions on creating a repository, see [Register repository]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#register-repository).
+For general repository creation instructions, see [Register repository]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#register-repository).
 
 <!-- spec_insert_start
 api: snapshot.create_repository
@@ -58,7 +58,7 @@ The following table lists the available query parameters. All query parameters a
 | :--- | :--- | :--- |
 | `cluster_manager_timeout` | String | The amount of time to wait for a response from the cluster manager node. For more information about supported time units, see [Common parameters]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). |
 | `timeout` | String | The amount of time to wait for a response. |
-| `verify` | Boolean | When `true`, verifies the creation of the snapshot repository. |
+| `verify` | Boolean | When `true`, verifies the repository is accessible on all nodes in the cluster. Default is `true`.  |
 
 <!-- spec_insert_end -->
 
@@ -74,9 +74,9 @@ The request body is __required__. It is a JSON object with the following fields.
 
 | Property | Required | Data type | Description |
 | :--- | :--- | :--- | :--- |
-| `settings` | **Required** | Object | The settings for the snapshot repository. |
-| `type` | **Required** | String |  |
-| `repository` | _Optional_ | Object | The name of the repository to store the snapshot. |
+| `type` | **Required** | String | The type of repository to register, either `fs` or `s3`. |
+| `settings` | **Required** | Object | The settings for the snapshot repository. See [Repository specific parameters](#repository-specific-parameters) for available options. |
+| `repository` | Optional | Object | The name of the repository to store the snapshot. |
 
 <details markdown="block" name="snapshot.create_repository::request_body">
   <summary>
@@ -108,10 +108,10 @@ The settings for the snapshot repository.
 | Property | Data type | Description |
 | :--- | :--- | :--- |
 | `chunk_size` | String | The chunk size for the repository. |
-| `compress` | Boolean or String | Certain APIs may return values, including numbers such as epoch timestamps, as strings. This setting captures this behavior while keeping the semantics of the field type.  Depending on the target language, code generators can keep the union or remove it and leniently parse strings to the target type. |
-| `concurrent_streams` | Integer or String | Certain APIs may return values, including numbers such as epoch timestamps, as strings. This setting captures this behavior while keeping the semantics of the field type.  Depending on the target language, code generators can keep the union or remove it and leniently parse strings to the target type. |
+| `compress` | Boolean or String | Whether to compress metadata files. |
+| `concurrent_streams` | Integer or String | The number of concurrent streams for repository operations. |
 | `location` | String | The location where snapshots are stored. |
-| `read_only` | Boolean or String | Certain APIs may return values, including numbers such as epoch timestamps, as strings. This setting captures this behavior while keeping the semantics of the field type.  Depending on the target language, code generators can keep the union or remove it and leniently parse strings to the target type. |
+| `read_only` | Boolean or String | Whether the repository is read-only. |
 
 </details>
 <details markdown="block" name="snapshot.create_repository::request_body">
@@ -127,10 +127,10 @@ The settings for the snapshot repository.
 | Property | Data type | Description |
 | :--- | :--- | :--- |
 | `chunk_size` | String | The chunk size for the repository. |
-| `compress` | Boolean or String | Certain APIs may return values, including numbers such as epoch timestamps, as strings. This setting captures this behavior while keeping the semantics of the field type.  Depending on the target language, code generators can keep the union or remove it and leniently parse strings to the target type. |
-| `concurrent_streams` | Integer or String | Certain APIs may return values, including numbers such as epoch timestamps, as strings. This setting captures this behavior while keeping the semantics of the field type.  Depending on the target language, code generators can keep the union or remove it and leniently parse strings to the target type. |
+| `compress` | Boolean or String | Whether to compress metadata files. |
+| `concurrent_streams` | Integer or String | The number of concurrent streams for repository operations. |
 | `location` | String | The location where snapshots are stored. |
-| `read_only` | Boolean or String | Certain APIs may return values, including numbers such as epoch timestamps, as strings. This setting captures this behavior while keeping the semantics of the field type.  Depending on the target language, code generators can keep the union or remove it and leniently parse strings to the target type. |
+| `read_only` | Boolean or String | Whether the repository is read-only. |
 
 </details>
 <!-- spec_insert_end -->
@@ -140,10 +140,10 @@ The settings for the snapshot repository.
 
 The following table lists parameters that can be used with both the `fs` and `s3` repositories.
 
-Request field | Description
-:--- | :---
-`prefix_mode_verification` | When enabled, adds a hashed value of a random seed to the prefix for repository verification. For remote-store-enabled clusters, you can add the `setting.prefix_mode_verification` setting to the node attributes for the supplied repository. This field works with both new and existing repositories. Optional.
-`shard_path_type` | Controls the path structure of shard-level blobs. Supported values are `FIXED`, `HASHED_PREFIX`, and `HASHED_INFIX`. For more information about each value, see [shard_path_type values](#shard_path_type-values)/. Default is `FIXED`. Optional.
+| Request field | Data type | Description |
+|:--- | :--- | :--- |
+| `prefix_mode_verification` | Boolean | When enabled, adds a hashed value of a random seed to the prefix for repository verification. For remote-store-enabled clusters, you can add the `setting.prefix_mode_verification` setting to the node attributes for the supplied repository. This field works with both new and existing repositories. Optional. |
+| `shard_path_type` | String | Controls the path structure of shard-level blobs. Supported values are `FIXED`, `HASHED_PREFIX`, and `HASHED_INFIX`. For more information about each value, see [shard_path_type values](#shard_path_type-values). Default is `FIXED`. Optional. |
 
 #### shard_path_type values
 
@@ -155,37 +155,41 @@ The following values are supported in the `shard_path_type` setting:
 
 ### fs repository
 
-Request field | Description
-:--- | :---
-`location` | The file system directory for snapshots, such as a mounted directory from a file server or a Samba share. Must be accessible by all nodes. Required.
-`chunk_size` | Breaks large files into chunks during snapshot operations (e.g. `64mb`, `1gb`), which is important for cloud storage providers and far less important for shared file systems. Default is `null` (unlimited). Optional.
-`compress` | Whether to compress metadata files. This setting does not affect data files, which might already be compressed, depending on your index settings. Default is `false`. Optional.
-`max_restore_bytes_per_sec` | The maximum rate at which snapshots restore. Default is 40 MB per second (`40m`). Optional.
-`max_snapshot_bytes_per_sec` | The maximum rate at which snapshots take. Default is 40 MB per second (`40m`). Optional.
-`remote_store_index_shallow_copy` | Boolean | Determines whether the snapshot of the remote store indexes are captured as a shallow copy. Default is `false`.
-`shallow_snapshot_v2` | Boolean | Determines whether the snapshots of the remote store indexes are captured as a [shallow copy v2]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/snapshot-interoperability/#shallow-snapshot-v2). Default is `false`.
-`readonly` | Whether the repository is read-only. Useful when migrating from one cluster (`"readonly": false` when registering) to another cluster (`"readonly": true` when registering). Optional.
+The following table lists parameters specific to `fs` repositories:
+
+| Request field | Data type | Description |
+|:--- | :--- | :--- |
+| `location` | String | The file system directory for snapshots, such as a mounted directory from a file server or a Samba share. Must be accessible by all nodes. Required. |
+| `chunk_size` | String | Breaks large files into chunks during snapshot operations (e.g. `64mb`, `1gb`), which is important for cloud storage providers and far less important for shared file systems. Default is `null` (unlimited). Optional. |
+| `compress` | Boolean | Whether to compress metadata files. This setting does not affect data files, which might already be compressed, depending on your index settings. Default is `false`. Optional. |
+| `max_restore_bytes_per_sec` | String | The maximum rate at which snapshots restore. Default is 40 MB per second (`40m`). Optional. |
+| `max_snapshot_bytes_per_sec` | String | The maximum rate at which snapshots take. Default is 40 MB per second (`40m`). Optional. |
+| `remote_store_index_shallow_copy` | Boolean | Determines whether the snapshot of the remote store indexes are captured as a shallow copy. Default is `false`. Optional. |
+| `shallow_snapshot_v2` | Boolean | Determines whether the snapshots of the remote store indexes are captured as a [shallow copy v2]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/snapshot-interoperability/#shallow-snapshot-v2). Default is `false`. Optional. |
+| `readonly` | Boolean | Whether the repository is read-only. Useful when migrating from one cluster (`"readonly": false` when registering) to another cluster (`"readonly": true` when registering). Optional. |
 
 
 #### s3 repository
 
-Request field | Description
-:--- | :---
-`base_path` | The path within the bucket in which you want to store snapshots (for example, `my/snapshot/directory`). Optional. If not specified, snapshots are stored in the S3 bucket root.
-`bucket` | Name of the S3 bucket. Required.
-`buffer_size` | The threshold beyond which chunks (of `chunk_size`) should be broken into pieces (of `buffer_size`) and sent to S3 using a different API. Default is the smaller of two values: 100 MB or 5% of the Java heap. Valid values are between `5mb` and `5gb`. We don't recommend changing this option.
-`canned_acl` | S3 has several [canned ACLs](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl) that the `repository-s3` plugin can add to objects as it creates them in S3. Default is `private`. Optional.
-`chunk_size` | Breaks files into chunks during snapshot operations (e.g. `64mb`, `1gb`), which is important for cloud storage providers and far less important for shared file systems. Default is `1gb`. Optional.
-`client` | When specifying client settings (e.g. `s3.client.default.access_key`), you can use a string other than `default` (e.g. `s3.client.backup-role.access_key`). If you used an alternate name, change this value to match. Default and recommended value is `default`. Optional.
-`compress` | Whether to compress metadata files. This setting does not affect data files, which might already be compressed, depending on your index settings. Default is `false`. Optional.
-`disable_chunked_encoding` | Disables chunked encoding for compatibility with some storage services. Default is `false`. Optional.
-`max_restore_bytes_per_sec` | The maximum rate at which snapshots restore. Default is 40 MB per second (`40m`). Optional.
-`max_snapshot_bytes_per_sec` | The maximum rate at which snapshots take. Default is 40 MB per second (`40m`). Optional.
-`readonly` | Whether the repository is read-only. Useful when migrating from one cluster (`"readonly": false` when registering) to another cluster (`"readonly": true` when registering). Optional.
-`remote_store_index_shallow_copy` | Boolean | Whether the snapshot of the remote store indexes is captured as a shallow copy. Default is `false`.
-`shallow_snapshot_v2` | Boolean | Determines whether the snapshots of the remote store indexes are captured as a [shallow copy v2]([shallow copy v2]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/snapshot-interoperability/#shallow-snapshot-v2). Default is `false`.
-`server_side_encryption` | Whether to encrypt snapshot files in the S3 bucket. This setting uses AES-256 with S3-managed keys. See [Protecting data using server-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html). Default is `false`. Optional.
-`storage_class` | Specifies the [S3 storage class](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html) for the snapshots files. Default is `standard`. Do not use the `glacier` and `deep_archive` storage classes. Optional.
+The following table lists parameters specific to `s3` repositories:
+
+| Request field | Data type | Description |
+|:--- | :--- | :--- |
+| `bucket` | String | Name of the S3 bucket. Required. |
+| `base_path` | String | The path within the bucket in which to store snapshots (for example, `my/snapshot/directory`). Optional. If not specified, snapshots are stored in the S3 bucket root. |
+| `buffer_size` | String | The threshold beyond which chunks (of `chunk_size`) should be broken into pieces (of `buffer_size`) and sent to S3 using a different API. Default is the smaller of two values: 100 MB or 5% of the Java heap. Valid values are between `5mb` and `5gb`. We don't recommend changing this option. |
+| `canned_acl` | String | S3 has several [canned ACLs](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl) that the `repository-s3` plugin can add to objects as it creates them in S3. Default is `private`. Optional. |
+| `chunk_size` | String | Breaks files into chunks during snapshot operations (e.g. `64mb`, `1gb`), which is important for cloud storage providers and far less important for shared file systems. Default is `1gb`. Optional. |
+| `client` | String | When specifying client settings (e.g. `s3.client.default.access_key`), you can use a string other than `default` (e.g. `s3.client.backup-role.access_key`). If you used an alternate name, change this value to match. Default and recommended value is `default`. Optional. |
+| `compress` | Boolean | Whether to compress metadata files. This setting does not affect data files, which might already be compressed, depending on your index settings. Default is `false`. Optional. |
+| `disable_chunked_encoding` | Boolean | Disables chunked encoding for compatibility with some storage services. Default is `false`. Optional. |
+| `max_restore_bytes_per_sec` | String | The maximum rate at which snapshots restore. Default is 40 MB per second (`40m`). Optional. |
+| `max_snapshot_bytes_per_sec` | String | The maximum rate at which snapshots take. Default is 40 MB per second (`40m`). Optional. |
+| `readonly` | Boolean | Whether the repository is read-only. Useful when migrating from one cluster (`"readonly": false` when registering) to another cluster (`"readonly": true` when registering). Optional. |
+| `remote_store_index_shallow_copy` | Boolean | Whether the snapshot of the remote store indexes is captured as a shallow copy. Default is `false`. Optional. |
+| `shallow_snapshot_v2` | Boolean | Determines whether the snapshots of the remote store indexes are captured as a [shallow copy v2]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/snapshot-interoperability/#shallow-snapshot-v2). Default is `false`. Optional. |
+| `server_side_encryption` | Boolean | Whether to encrypt snapshot files in the S3 bucket. This setting uses AES-256 with S3-managed keys. See [Protecting data using server-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html). Default is `false`. Optional. |
+| `storage_class` | String | Specifies the [S3 storage class](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html) for the snapshots files. Default is `standard`. Do not use the `glacier` and `deep_archive` storage classes. Optional. |
 
 For the `base_path` parameter, do not enter the `s3://` prefix when entering your S3 bucket details. Only the name of the bucket is required.
 {: .note}
@@ -237,18 +241,3 @@ Upon success, the following JSON object is returned:
 To verify that the repository was registered, use the [Get snapshot repository]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot-repository) API, passing the repository name as the `repository` path parameter.
 {: .note}
 
-<!-- spec_insert_start
-api: indices.create
-component: response_body_parameters
--->
-## Response body fields
-
-The response body is a JSON object with the following fields.
-
-| Property | Required | Data type | Description |
-| :--- | :--- | :--- | :--- |
-| `acknowledged` | **Required** | Boolean |  |
-| `index` | **Required** | String |  |
-| `shards_acknowledged` | **Required** | Boolean |  |
-
-<!-- spec_insert_end -->

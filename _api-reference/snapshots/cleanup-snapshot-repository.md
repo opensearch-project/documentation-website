@@ -1,15 +1,15 @@
 ---
 layout: default
-title: Cleanup Snapshot Repository
+title: Cleanup snapshot repository
 parent: Snapshot APIs
 nav_order: 11
 ---
 
-# Cleanup Snapshot Repository 
+# Cleanup snapshot repository 
 Introduced 1.0
 {: .label .label-purple }
 
-The Cleanup Snapshot Repository API clears a snapshot repository of data no longer referenced by any existing snapshot.
+The Cleanup Snapshot Repository API removes data from a snapshot repository that is no longer referenced by any existing snapshot. This helps reclaim storage space and optimize repository performance.
 
 <!-- spec_insert_start
 api: snapshot.cleanup_repository
@@ -69,7 +69,7 @@ The response body is a JSON object with the following fields.
 
 | Property | Required | Data type | Description |
 | :--- | :--- | :--- | :--- |
-| `results` | **Required** | Object |  |
+| `results` | **Required** | Object | Details the results and metrics of the snapshot cleanup operation. |
 
 <details markdown="block" name="snapshot.cleanup_repository::response_body">
   <summary>

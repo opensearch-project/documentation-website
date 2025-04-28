@@ -9,13 +9,11 @@ nav_order: 7
 **Introduced 1.0**
 {: .label .label-purple }
 
-Deletes a snapshot from a repository.
+The Delete Snapshot API permanently removes a snapshot from a repository. Deleting snapshots that are no longer needed helps free up storage space and keep your repository organized.
 
-* To learn more about snapshots, see [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index).
-
-* To view a list of your repositories, see [cat repositories]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-repositories).
-
-* To view a list of your snapshots, see [cat snapshots]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-snapshots).
+* For more information about snapshots, see [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index).
+* To view a list of your repositories, see [Cat Repositories]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-repositories).
+* To view a list of your snapshots, see [Cat Snapshots]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-snapshots).
 
 <!-- spec_insert_start
 api: snapshot.delete
@@ -38,7 +36,7 @@ The following table lists the available path parameters.
 
 | Parameter | Required | Data type | Description |
 | :--- | :--- | :--- | :--- |
-| `repository` | **Required** | String | The name of the snapshot repository to delete. |
+| `repository` | **Required** | String | The name of the repository containing the snapshot to delete. |
 | `snapshot` | **Required** | String | A comma-separated list of snapshot names to delete from the repository. |
 
 <!-- spec_insert_end -->
@@ -84,5 +82,5 @@ Upon success, the response returns the following JSON object:
 }
 ```
 
-To verify that the snapshot was deleted, use the [Get snapshot]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot) API, passing the snapshot name as the `snapshot` path parameter.
+To verify that the snapshot was deleted, use the [Get Snapshot]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot) API, passing the repository name and snapshot name as path parameters.
 {: .note}
