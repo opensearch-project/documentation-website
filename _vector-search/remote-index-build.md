@@ -12,7 +12,7 @@ Introduced 3.0
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/k-NN/issues/2391).    
 {: .warning}
 
-Starting with version 3.0, OpenSearch supports building vector indexes using GPUs with a remote index build service. Using GPUs dramatically reduces index build times and decreases costs. 
+Starting with version 3.0, OpenSearch supports building vector indexes using GPUs with a remote index build service. Using GPUs dramatically reduces index build times and decreases costs. For benchmarking results, see [this blog post](https://opensearch.org/blog/GPU-Accelerated-Vector-Search-OpenSearch-New-Frontier/).
 
 ## Prerequisites
 
