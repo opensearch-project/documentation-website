@@ -139,7 +139,7 @@ The response body is a JSON object with the following fields.
 | Property | Data type | Description |
 | :--- | :--- | :--- |
 | `snapshot` | String | The name of the snapshot that was restored. |
-| `indices` | Array of Strings | The list of indices that were restored. |
+| `indices` | Array of Strings | The list of indexes that were restored. |
 | `shards` | Object | Statistics about the restored shards. |
 
 </details>
