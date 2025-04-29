@@ -40,6 +40,8 @@ You can provision connectors in two ways:
 
 2. [Create a connector for a specific externally hosted model](#creating-a-connector-for-a-specific-model): Alternatively, you can create a connector that can only be used with the model for which it was created. To access such a connector, you only need access to the model itself because the connection is established inside the model. These connectors are saved in the model index.
 
+NOTE: We also support connector creation through CLI in our ML Python client (opensearch-py-ml), which significantly simplifies the connector creation process, especially for Amazon OpenSearch Service (AOS) users. It automates configuration steps, making the setup more straightforward and less error-prone. For more detailed information on using the CLI, please refer to our [CLI documentation].
+
 ## Creating a standalone connector
 
 Standalone connectors can be used by multiple models. To create a standalone connector, send a request to the `connectors/_create` endpoint and provide all of the parameters described in [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/):
