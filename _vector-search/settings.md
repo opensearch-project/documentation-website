@@ -76,7 +76,7 @@ The following remote index build settings apply at the index level.
 
 Setting | Static/Dynamic | Default | Description
 :--- | :--- | :--- | :---
-`index.knn.remote_index_build.enabled` | Dynamic | `false` | Enables remote index building for the index. Currently, the remote index build service supports [Faiss]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/#faiss-engine) indexes with the `hnsw` method and `FP32` data type.
+`index.knn.remote_index_build.enabled` | Dynamic | `false` | Enables remote index building for the index. Currently, the remote index build service supports [Faiss]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/#faiss-engine) indexes with the `hnsw` method and the default 32-bit floating-point (`FP32`) vectors.
 `index.knn.remote_index_build.size_threshold` | Dynamic | `50mb` | The minimum size required to enable remote vector builds.
 
 ### Remote build authentication
@@ -87,5 +87,6 @@ The remote build service username and password are secure settings that must be 
 ./bin/opensearch-keystore add knn.remote_index_build.client.username
 ./bin/opensearch-keystore add knn.remote_index_build.client.password
 ```
+{% include copy.html %}
 
 You can reload the secure settings without restarting the node using the [Nodes Reload Secure]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-reload-secure/) API.

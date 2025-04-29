@@ -25,7 +25,7 @@ Enable remote index build for both for the cluster and the chosen index by confi
 Setting | Static/Dynamic | Default | Description
 :--- | :--- | :--- | :---
 `knn.feature.remote_index_build.enabled` | Dynamic | `false` | A feature flag that enables remote vector index building for the cluster. For more information about enabling feature flags, see [Experimental feature flags]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
-`index.knn.remote_index_build.enabled` | Dynamic | `false` | Enables remote index building for the index. Currently, the remote index build service supports [Faiss]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/#faiss-engine) indexes with the `hnsw` method and `FP32` data type. For more information about updating dynamic settings, see [Dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings).
+`index.knn.remote_index_build.enabled` | Dynamic | `false` | Enables remote index building for the index. Currently, the remote index build service supports [Faiss]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/#faiss-engine) indexes with the `hnsw` method and the default 32-bit floating-point (`FP32`) vectors. For more information about updating dynamic settings, see [Dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings).
 
 ### Step 2: Create and register the remote vector repository
 
@@ -40,7 +40,7 @@ Configure the remote endpoint in k-NN settings by setting `knn.remote_index_buil
 
 ## Configuring remote index build settings
 
-For information about configuring any remaining remote index build settings, see [Remote index build settings]({{site.url}}{{site.baseurl}}/vector-search/settings/#remote-index-build-settings).
+Remote index build supports several additional optional settings. For information about configuring any remaining remote index build settings, see [Remote index build settings]({{site.url}}{{site.baseurl}}/vector-search/settings/#remote-index-build-settings).
 
 ## Using remote index build
 
