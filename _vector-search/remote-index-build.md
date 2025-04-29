@@ -20,7 +20,7 @@ Before configuring the remote index build settings, ensure you fulfill the follo
 
 ### Step 1: Enable remote index build
 
-Enable remote index build for both for the cluster and the chosen index by configuring the following settings. 
+Enable remote index build for both the cluster and the chosen index by configuring the following settings. 
 
 Setting | Static/Dynamic | Default | Description
 :--- | :--- | :--- | :---
