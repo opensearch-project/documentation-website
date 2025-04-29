@@ -2,7 +2,10 @@
 layout: default
 title: k-NN
 parent: Specialized queries
+has_children: true
 nav_order: 10
+redirect_from:
+  - /query-dsl/specialized/k-nn/
 ---
 
 # k-NN query
