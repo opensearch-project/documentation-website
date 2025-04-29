@@ -12,7 +12,7 @@ Introduced 3.0
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/k-NN/issues/2391).    
 {: .warning}
 
-Starting with version 3.0, OpenSearch supports building vector indexes using GPUs with a remote index build service. Using GPUs dramatically reduces index build times and decreases costs. For benchmarking results, see [this blog post](https://opensearch.org/blog/GPU-Accelerated-Vector-Search-OpenSearch-New-Frontier/).
+Starting with version 3.0, OpenSearch supports building vector indexes using a GPU-accelerated remote index build service. Using GPUs dramatically reduces index build times and decreases costs. For benchmarking results, see [this blog post](https://opensearch.org/blog/GPU-Accelerated-Vector-Search-OpenSearch-New-Frontier/).
 
 ## Prerequisites
 
@@ -29,7 +29,9 @@ Setting | Static/Dynamic | Default | Description
 
 ### Step 2: Create and register the remote vector repository
 
-The remote vector repository acts as an intermediate object store between the OpenSearch cluster and the remote build service. The cluster uploads vectors and doc IDs to this repository. The remote build service then downloads these and eventually uploads a completed index build in response. To create and register the repository, follow the steps in [Register repository]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#register-repository). Then set the `knn.remote_index_build.vector_repo` dynamic setting to the name of this registered repository.
+The remote vector repository acts as an intermediate object store between the OpenSearch cluster and the remote build service. The cluster uploads vectors and document IDs to the repository. The remote build service retrieves the data, builds the index externally, and uploads the completed result back to the repository.
+
+To create and register the repository, follow the steps in [Register repository]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#register-repository). Then set the `knn.remote_index_build.vector_repo` dynamic setting to the name of this registered repository.
 
 The remote build service currently only supports Amazon S3 repositories.
 {: .note}
