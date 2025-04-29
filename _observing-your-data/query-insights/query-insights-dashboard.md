@@ -98,15 +98,15 @@ The following table provides descriptions for each metric and the metric's relat
 | :--- | :--- | :--- | :--- | :--- |
 | **ID**                  | The unique identifier for the query or group. | `ID`   | `ID`   | `ID`  |
 | **Type**                | Indicates whether the entry is a query or a group. | `Type`  | `Type` | `Type`  |
-| **Query Count**         | The number of queries aggregated in the group.  | Not shown  | `Query Count`        | `Query Count` (only for group)   |
-| **Timestamp**           | The time at which the query or group was recorded (may be empty for groups). | `Timestamp`     | Not shown            | `Timestamp` (only for query)     |
+| **Query Count**         | The number of queries aggregated in the group.  | Not shown  | `Query Count`        | `Query Count`   |
+| **Timestamp**           | The time at which the query or group was recorded (may be empty for groups). | `Timestamp`     | Not shown            | `Timestamp`    |
 | **Latency**             | The amount of time taken for individual queries to execute.  | `Latency`          | `Average Latency`    | `Avg Latency/Latency`          |
 | **CPU Time**            | The number of CPU resources consumed. | `CPU Time`         | `Average CPU Time`   | `Avg CPU Time/CPU Time`        |
 | **Memory Usage**        | The amount of memory used during execution.  | `Memory Usage`     | `Average Memory Usage` | `Avg Memory Usage/Memory Usage` |
-| **Indexes**             | A list of indexes involved in the query or group. | `Indexes`  | Not shown            | `Indexes` (only for query)       |
-| **Search Type**         | The search execution method used (such as query then fetch).  | `Search Type`      | Not shown            | `Search Type` (only for query)   |
-| **Coordinator Node ID** | The node that coordinated the query.  | `Coordinator Node ID` | Not shown         | `Coordinator Node ID` (only for query) |
-| **Total Shards**        | The number of shards involved in query processing.   | `Total Shards`     | Not shown            | `Total Shards` (only for query)  |
+| **Indexes**             | A list of indexes involved in the query or group. | `Indexes`  | Not shown            | `Indexes`  (only for the query)  |
+| **Search Type**         | The search execution method used (such as `query` or `fetch`).  | `Search Type`      | Not shown            | `Search Type`  |
+| **Coordinator Node ID** | The node that coordinated the query.  | `Coordinator Node ID` | Not shown         | `Coordinator Node ID` |
+| **Total Shards**        | The number of shards involved in query processing.   | `Total Shards`     | Not shown            | `Total Shards`  |
 
 When you select **Query + Group**:
 
