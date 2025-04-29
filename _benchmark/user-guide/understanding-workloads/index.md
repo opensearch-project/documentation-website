@@ -3,6 +3,7 @@ layout: default
 title: Understanding workloads
 nav_order: 10
 parent: User guide
+has_toc: false
 has_children: true
 items:
   - heading: "Anatomy of a workload"
