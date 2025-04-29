@@ -647,6 +647,7 @@ GET my-knn-index/_search?explain=true
   }
 }
 ```
+
 </details>
 
 ## Response body fields
