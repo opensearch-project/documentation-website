@@ -2,7 +2,7 @@
 layout: default
 title: Reindex document
 parent: Document APIs
-nav_order: 60
+nav_order: 17
 redirect_from: 
   - /opensearch/reindex-data/
   - /opensearch/rest-api/document-apis/reindex/
