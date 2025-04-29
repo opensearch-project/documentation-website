@@ -130,13 +130,13 @@ This change improves alignment with Lucene standards and simplifies scoring beha
 
 - In `LegacyBM25Similarity`, scores included an extra constant factor of `k₁ + 1` in the numerator of the `BM25` formula.
 
-- In `BM25Similarity`, this constant was removed for cleaner normalization (see [BM25 - Wikipedia](https://en.wikipedia.org/wiki/Okapi_BM25) and Lucene [GitHub issue](https://github.com/apache/lucene/issues/9609)).
+- In `BM25Similarity`, this constant was removed for cleaner normalization (see [BM25](https://en.wikipedia.org/wiki/Okapi_BM25) and the corresponding [Lucene GitHub issue](https://github.com/apache/lucene/issues/9609)).
 
 - Scores produced by `BM25Similarity` are lower than those produced by `LegacyBM25Similarity`, typically by a factor of about `2.2`.
 
 - Ranking is unaffected, because the constant factor does not change the relative order of documents.
 
-- To retain the old scoring behavior, explicitly configure your field or index to use `LegacyBM25` (see Configuring `LegacyBM25Similarity` [section](https://opensearch.org/docs/latest/search-plugins/keyword-search/#configuring-legacy-bm25-similarity)).
+- To retain the old scoring behavior, explicitly configure your field or index to use `LegacyBM25` (see [Configuring legacy BM25 similarity](#configuring-legacy-bm25-similarity)).
 
 
 ## Specifying similarity
