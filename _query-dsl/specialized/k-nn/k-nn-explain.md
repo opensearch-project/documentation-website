@@ -22,7 +22,7 @@ GET <index>/_search?explain=true
 POST <index>/_search?explain=true
 ```
 
-`explain` for k-NN search for all types of queries with Lucene engine does not return detailed explanation as with the Faiss engine.
+`explain` for k-NN search for all types of queries with the Lucene engine does not return a detailed explanation as with the Faiss engine.
 {: .note }
 
 The `explain` parameter works for the following types of k-NN search with the Faiss engine:
@@ -34,7 +34,7 @@ The `explain` parameter works for the following types of k-NN search with the Fa
 - [Radial search]({{site.url}}{{site.baseurl}}/vector-search/specialized-operations/radial-search-knn/)
 - k-NN search with a `term` query
 
-`explain` for k-NN Search with nested fields does not return detailed explanation like other searches.
+`explain` for k-NN search with nested fields does not return a detailed explanation as with other searches.
 {: .note }
 
 You can provide the `explain` parameter as a query parameter:
