@@ -64,7 +64,7 @@ The following remote index build settings apply at the cluster level.
 
 Setting | Static/Dynamic | Default | Description
 :--- | :--- | :--- | :---
-`knn.feature.remote_index_build.enabled` | Dynamic | `false` | A feature flag that enables remote vector index building for the cluster.
+`knn.feature.remote_index_build.enabled` | Dynamic | `false` | Enables remote vector index building for the cluster.
 `knn.remote_index_build.vector_repo` | Dynamic | None | The repository to which the remote index builder should write.
 `knn.remote_index_build.client.endpoint` | Dynamic | None | The endpoint URL of the remote build service.
 `knn.remote_index_build.client.poll_interval` | Dynamic | `5s` | How frequently the client should poll the remote build service for job status.

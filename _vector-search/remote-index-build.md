@@ -16,16 +16,16 @@ Starting with version 3.0, OpenSearch supports building vector indexes using GPU
 
 ## Prerequisites
 
-Before configuring the remote index build settings, ensure you fulfill the following prerequisites.
+Before configuring the remote index build settings, ensure you fulfill the following prerequisites. For more information about updating dynamic settings, see [Dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings).
 
 ### Step 1: Enable remote index build
 
-Enable remote index build for both for the cluster and the chosen index by configuring the following settings.
+Enable remote index build for both for the cluster and the chosen index by configuring the following settings. 
 
 Setting | Static/Dynamic | Default | Description
 :--- | :--- | :--- | :---
-`knn.feature.remote_index_build.enabled` | Dynamic | `false` | A feature flag that enables remote vector index building for the cluster. For more information about enabling feature flags, see [Experimental feature flags]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
-`index.knn.remote_index_build.enabled` | Dynamic | `false` | Enables remote index building for the index. Currently, the remote index build service supports [Faiss]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/#faiss-engine) indexes with the `hnsw` method and the default 32-bit floating-point (`FP32`) vectors. For more information about updating dynamic settings, see [Dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings).
+`knn.feature.remote_index_build.enabled` | Dynamic | `false` | Enables remote vector index building for the cluster. 
+`index.knn.remote_index_build.enabled` | Dynamic | `false` | Enables remote index building for the index. Currently, the remote index build service supports [Faiss]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/#faiss-engine) indexes with the `hnsw` method and the default 32-bit floating-point (`FP32`) vectors. 
 
 ### Step 2: Create and register the remote vector repository
 
