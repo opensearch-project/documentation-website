@@ -111,7 +111,7 @@ The `SearchRequestBody` message accepts the following fields. All fields are opt
 | `query` | [`QueryContainer`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L342) | The query domain-specific language (DSL) for the search. |
 | `rescore` | `repeated` [`Rescore`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L631) | Reranks the top N hits to improve precision. |
 | `script_fields` | `map<string, `[`ScriptField`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L580)`>` | Custom fields whose values are computed by scripts. |
-| `search_after` | `repeated` [`FieldValue`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L2002) | Cursor-based pagination using values from previous page. |
+| `search_after` | `repeated` [`FieldValue`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L2002) | Cursor-based pagination using values from the previous page. |
 | `size` | `int32` | The number of results to return. Default is `10`. |
 | `slice` | [`SlicedScroll`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L641) | Split scroll context into slices for parallel processing. |
 | `sort` | `repeated` [`SortCombinations`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L814) | The sorting rules (for example, by field, score, or custom order). |
