@@ -13,11 +13,11 @@ The Search Relevance Workbench consists of a frontend and a backend component.
 [The frontend component](https://github.com/opensearch-project/dashboards-search-relevance) is implemented as a plugin for OpenSearch Dashboards. 
 [The backend component](https://github.com/o19s/search-relevance/) is an OpenSearch plugin.
 
-A feature of the Search Relevance Workbench is that users can perform experiments to quantify the quality of the search given the configuration. To configure the workbench, the users can choose or create a query set and a list of 2 search configurations to compare side-by-side. What happens is that all of the queries in the query set are run under the search configurations, and after the search metrics are ready, users can look into the particular queries and compare the metrics.
+A feature of the Search Relevance Workbench is that you can perform experiments to quantify the quality of the search given the configuration. To configure the workbench, you can choose or create a query set and a list of 2 search configurations to compare side-by-side. What happens is that all of the queries in the query set are run under the search configurations, and after the search metrics are ready, you can look into the particular queries and compare the metrics.
 
 ## Creating a query set
 
-The first step to get started with comparing search configurations is to create a set of queries to run the search. If the users has access to search behavior data, adhering to the UBI standard, one way of doing this is by making a POST request to the endpoint ` _plugins/search_relevance/query_sets/create`. 
+The first step to get started with comparing search configurations is to create a set of queries to run the search. If you has access to search behavior data, adhering to the UBI standard, one way of doing this is by making a POST request to the endpoint ` _plugins/search_relevance/query_sets/create`. 
 
 Example:
 ```json
@@ -34,7 +34,7 @@ POST _plugins/search_relevance/query_sets/create
 
 This request would create a query set which has 50 queries and sampled from the behavior data using a Probability-Proportional-to-Size-Sampling technique. 
 
-Sometimes, the user might not have rather import their own external query set data. This can be done through a PUT request to the endpoint `_plugins/search_relevance/query_sets`. 
+Sometimes, yoou might rather import their own external query set data. This can be done through a PUT request to the endpoint `_plugins/search_relevance/query_sets`. 
 
 Example: 
 ```
@@ -46,11 +46,11 @@ PUT _plugins/search_relevance/query_sets
 
 This would create query set which is sampled from `query_set.csv`. 
 
-As a response of either one of those requests, the user will gain a query_set_id which will be used later on when expermenting with this query set.
+As a response of either one of those requests, you will gain a query_set_id which will be used later on when expermenting with this query set.
 
 ## Creating search configurations
 
-Search configurations decide how each query of the query set is run. To create a search configuration, a POST request can be made to the endpoint `_plugins/search_relevance/search_configurations`. Some details which may be optionally specified in the search configuration are the query_body, [search_pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/), and [search_template]({{site.url}}{{site.baseurl}}/api-reference/search-template/). The query body is defined using the [OpenSearch Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/). 
+Search configurations decide how each query of the query set is run. To create a search configuration, you can make a POST request to the endpoint `_plugins/search_relevance/search_configurations`. Some details which may be optionally specified in the search configuration are the query_body, [search_pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/), and [search_template]({{site.url}}{{site.baseurl}}/api-reference/search-template/). The query body is defined using the [OpenSearch Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/). 
 
 Example:
 ```
@@ -64,7 +64,7 @@ PUT _plugins/search_relevance/search_configurations
 
 ## Running the search result list comparison experiment
 
-By comparing search results, users can gauge how modifying the search configurations can impact their search results. To run an experiment, the user must have 2 search configurations names to use and a query set. By making a POST request to the endpoint `_plugins/search_relevance/experiments`, an experiment is created.
+By comparing search results, you can gauge how modifying the search configurations can impact their search results. To run an experiment, you must have 2 search configurations names to use and a query set. By making a POST request to the endpoint `_plugins/search_relevance/experiments`, you create an experiment.
 
 Example:
 ```
@@ -76,5 +76,5 @@ POST _plugins/search_relevance/experiments
 }
 ```
 
-Now, the experiment is created, and the experiment may be run when the user hits the evaluation button. 
+Now, the experiment is created, and the experiment may be run when you hit the evaluation button. 
 
