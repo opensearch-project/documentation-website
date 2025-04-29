@@ -90,7 +90,7 @@ When you select **groups only**, the table displays aggregated metrics, includin
 
 ![Column Display for Both Selected](../../images/Query-Insights/BothColDisplay.png)
 
-When you select both **groups** and **queries**, the table displays combined metrics, including both averaged and raw values, such as **Avg Latency / Latency**. 
+When you select both **groups** and **queries**, the table displays combined metrics, including both averaged and raw values, such as **Avg Latency/Latency**. 
 
 The following table provides descriptions for each metric and the metric's related query and group when selected.
 
@@ -100,9 +100,9 @@ The following table provides descriptions for each metric and the metric's relat
 | **Type**                | Indicates whether the entry is a query or a group. | `Type`  | `Type` | `Type`  |
 | **Query Count**         | The number of queries aggregated in the group.  | Not shown  | `Query Count`        | `Query Count` (only for group)   |
 | **Timestamp**           | The amount of time when the query or group was recorded (may be empty for groups). | `Timestamp`     | Not shown            | `Timestamp` (only for query)     |
-| **Latency**             | The amount of time taken for individual queries to execute.  | `Latency`          | `Average Latency`    | `Avg Latency / Latency`          |
-| **CPU Time**            | The number of CPU resources consumed. | `CPU Time`         | `Average CPU Time`   | `Avg CPU Time / CPU Time`        |
-| **Memory Usage**        | The amount of memory used during execution.  | `Memory Usage`     | `Average Memory Usage` | `Avg Memory Usage / Memory Usage` |
+| **Latency**             | The amount of time taken for individual queries to execute.  | `Latency`          | `Average Latency`    | `Avg Latency/Latency`          |
+| **CPU Time**            | The number of CPU resources consumed. | `CPU Time`         | `Average CPU Time`   | `Avg CPU Time/CPU Time`        |
+| **Memory Usage**        | The amount of memory used during execution.  | `Memory Usage`     | `Average Memory Usage` | `Avg Memory Usage/Memory Usage` |
 | **Indexes**             | A list of indexes involved in the query or group. | `Indexes`  | Not shown            | `Indexes` (only for query)       |
 | **Search Type**         | The search execution method used (such as query then fetch).  | `Search Type`      | Not shown            | `Search Type` (only for query)   |
 | **Coordinator Node ID** | The node that coordinated the query.  | `Coordinator Node ID` | Not shown         | `Coordinator Node ID` (only for query) |
