@@ -58,22 +58,8 @@ sample_read_access:
 
 ## Resource sharing components
 
-The resource sharing extension consists of key components that work together to provide standardized access management. The primary component is the Service Provider Interface (SPI), which serves as the foundation for plugin integration and resource management.
+The resource sharing extension consists of key components that work together to provide standardized access management.
 
-### opensearch-security-spi
-
-The `opensearch-security-spi` component:
-
-- Defines `ResourceSharingExtension` for plugin implementations.
-- Tracks registered resource plugins at startup.
-- Exposes a `ResourceSharingClient` for performing share, revoke, verify, and list operations.
-
-You can customize this component based on the SPI implementation. To customize, create an extension file `src/main/resources/META-INF/services/org.opensearch.security.spi.ResourceSharingExtension` containing your SPI's class name:
-
-```
-com.example.MyResourceSharingExtension
-```
-{% include copy.html %}
 
 ### API
 
@@ -86,26 +72,6 @@ All sharing metadata is stored in the `.opensearch_resource_sharing` system inde
 | `created_by`  | Object | The name of the user who created the resource    |
 | `share_with`  | Object | A map of `action-groups` to access definitions  |
 
-#### Java client APIs
-
-Use the following classes when interacting with the extension through the Java client:
-
-```java
-ResourceSharingClient client = ResourceSharingClientAccessor.getResourceSharingClient();
-
-// Verify access
-client.verifyResourceAccess(resourceId, indexName, listener);
-
-// Share resource
-client.share(resourceId, indexName, recipients, listener);
-
-// Revoke access
-client.revoke(resourceId, indexName, recipients, listener);
-
-// List accessible IDs
-client.getAccessibleResourceIds(indexName, listener);
-```
-{% include copy.html %}
 
 ### Document structure
 
