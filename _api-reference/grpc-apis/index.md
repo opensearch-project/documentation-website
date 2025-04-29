@@ -59,7 +59,7 @@ OpenSearch supports the following advanced network settings for gRPC communicati
 
 - `grpc.bind_host` (Static, list): Specifies an address or addresses to which an OpenSearch node binds to listen for incoming gRPC connections. 
 
-- `grpc.publish_host` (Static, list): Specifies an address or addresses that an OpenSearch node publishes to other nodes to facilitate gRPC communication.
+- `grpc.publish_host` (Static, list): Specifies an address or addresses that an OpenSearch node publishes to other nodes for gRPC communication.
 
 These settings are similar to the [HTTP Network settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/network-settings/#advanced-http-settings).
 
