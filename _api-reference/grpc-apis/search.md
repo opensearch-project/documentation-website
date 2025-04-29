@@ -65,7 +65,7 @@ The [`SearchRequest`](https://github.com/opensearch-project/opensearch-protobufs
 | `pre_filter_shard_size` | `int32` | The threshold at which to trigger prefiltering by shard size. Default is `128`. |
 | `preference` | `string` | The shard or node preferences for query execution. |
 | `q` | `string` | The query string in [Lucene syntax]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/#query-string-syntax). |
-| `request_cache` | `bool` | Whether to use request cache. Defaults to the index's settings. |
+| `request_cache` | `bool` | Whether to use the request cache. Defaults to the index's settings. |
 | `rest_total_hits_as_int` | `bool` | Whether to return the number of total hits as an integer. Default is `false`. |
 | `routing` | `repeated string` | The routing values used to direct requests to specific shards. |
 | `scroll` | `string` | The amount of time to keep the search context alive for scrolling. |
