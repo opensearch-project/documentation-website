@@ -8,8 +8,11 @@ nav_order: 35
 ---
 
 # Asynchronous batch ingestion
-**Introduced 2.17**
+**Deprecated 3.0**
 {: .label .label-purple }
+
+This feature has been deprecated. Please use DataPrepper for similar functionality. To request reinstatement of this feature, open an issue at 
+https://github.com/opensearch-project/ml-commons/issues 
 
 Use the Asynchronous Batch Ingestion API to ingest data into your OpenSearch cluster from your files on remote file servers, such as Amazon Simple Storage Service (Amazon S3) or OpenAI. For detailed configuration steps, see [Asynchronous batch ingestion]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/async-batch-ingestion/).
 
