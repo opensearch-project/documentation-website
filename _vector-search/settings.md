@@ -41,7 +41,7 @@ Setting | Static/Dynamic | Default | Description
 `index.knn.algo_param.ef_search` | Dynamic | `100`   | `ef` (or `efSearch`) represents the size of the dynamic list for the nearest neighbors used during a search. Higher `ef` values lead to a more accurate but slower search. `ef` cannot be set to a value lower than the number of queried nearest neighbors, `k`. `ef` can take any value between `k` and the size of the dataset. 
 `index.knn.advanced.approximate_threshold` | Dynamic | `15000` | The number of vectors that a segment must have before creating specialized data structures for ANN search. Set to `-1` to disable building vector data structures and to `0` to always build them.
 `index.knn.advanced.filtered_exact_search_threshold`| Dynamic | None    | The filtered ID threshold value used to switch to exact search during filtered ANN search. If the number of filtered IDs in a segment is lower than this setting's value, then exact search will be performed on the filtered IDs.
-`index.knn.derived_source.enabled` | Static | `true` | Removes vectors from `_source` storage, reducing overall disk consumption for vector indexes.
+`index.knn.derived_source.enabled` | Static | `true` | Prevents vectors from being stored in `_source`, reducing disk usage for vector indexes.
 
 An index created in OpenSearch version 2.11 or earlier will still use the previous `ef_construction` and `ef_search` values (`512`).
 {: .note}
