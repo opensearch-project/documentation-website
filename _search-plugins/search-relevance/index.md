@@ -20,4 +20,4 @@ OpenSearch provides the following search relevance features:
 
 - [Query rewriting]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/query-rewriting/).
 
-- [Using Search Relevance Workbench]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/query-rewriting/using-search-relevance-workbench).
+- [Using Search Relevance Workbench]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/using-search-relevance-workbench/).
