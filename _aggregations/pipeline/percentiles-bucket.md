@@ -4,16 +4,15 @@ title: Percentiles bucket
 parent: Pipeline aggregations
 nav_order: 160
 redirect_from:
-  - /query-dsl/aggregations/pipeline/percentiles-bucket/
 ---
 
 # Percentiles bucket aggregations
 
 The `percentiles_bucket` aggregation is a sibling aggregation that calculates the percentile placement of bucketed metrics.
 
-The `percentiles_bucket` does not interpolate to calculate percentiles. Each percentile value is the closest value that is less than or equal to that percentile.
+The `percentiles_bucket` aggregation computes percentiles exactly, without approximation or interpolation. Each percentile is returned as the closest value less than or equal to the target percentile.
 
-The `percentiles_bucket` aggregation computes percentiles exactly, without approximating. This requires the entire list of values be kept temporarily in memory, even for large data sets. In contrast, [the `percentiles` metric aggregation]({{site.url}}{{site.baseurl}}/aggregations/metric/percentile) uses less memory, but approximates the percentages.
+The `percentiles_bucket` aggregation requires that the entire list of values be kept temporarily in memory, even for large data sets. In contrast, [the `percentiles` metric aggregation]({{site.url}}{{site.baseurl}}/aggregations/metric/percentile) uses less memory, but approximates the percentages.
 
 The specified metric must be numeric and the sibling aggregation must be a multi-bucket aggregation.
 
@@ -23,11 +22,11 @@ The `avg_bucket` aggregation takes the following parameters.
 
 | Parameter             | Required/Optional | Data type       | Description |
 | :--                   | :--               |  :--            | :--         |
-| `buckets_path`        | Required          | String          | The path of the aggregation buckets to be aggregated. See [Pipeline aggregations]({{site.url}}{{site.baseurl}}/aggregations/pipeline/index#pipeline-aggregation-syntax). |
+| `buckets_path`        | Required          | String          | The path of the aggregation buckets to aggregate. See [Pipeline aggregations]({{site.url}}{{site.baseurl}}/aggregations/pipeline/index#buckets-path-property). |
 | `gap_policy`          | Optional          | String          | The policy to apply to missing data. Valid values are `skip`, `insert_zeros`, and `keep_values`. Default is `skip`. |
 | `format`              | Optional          | String          | A [DecimalFormat](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/text/DecimalFormat.html) formatting string. Returns the formatted output in the aggregation's `value_as_string` property. |
-| `percents`            | Optional          | List            | A list containing any number of numeric percentage values to be included in the output. Valid values are between 0.0 and 100.0 inclusive. Default is `[1.0, 5.0, 25.0, 50.0, 75.0, 95.0, 99.0]`. |
-| `keyed`               | Optional          | Boolean         | A flag that formats the output as a dictionary rather than an array of key-value pair objects. Default is `true`. |
+| `percents`            | Optional          | List            | A list containing any number of numeric percentage values to be included in the output. Valid values are between 0.0 and 100.0, inclusive. Default is `[1.0, 5.0, 25.0, 50.0, 75.0, 95.0, 99.0]`. |
+| `keyed`               | Optional          | Boolean         | Whether to format the output as a dictionary rather than an array of key-value pair objects. Default is `true` (format the output as key-value pairs). |
 
 
 ## Example
@@ -147,13 +146,15 @@ The aggregation returns the default percentile values for the weekly price total
 ```
 </details>
 
-## Example: options
+## Example: Options
 
-The following example computes percentiles on the same data as the previous example, but with the following differences:
+The next example computes percentiles on the same data as the previous example, but with the following differences:
 
 - The `percents` parameter specifies that only the 25th, 50th, and 75th percentiles be calculated 
 - String-formatted outputs are appended using the `format` parameter
-- Results are displayed as key-value pair objects (with string values appended) by setting the `keyed` parameter to `false'
+- Results are displayed as key-value pair objects (with string values appended) by setting the `keyed` parameter to `false`
+
+The example is as follows:
 
 ```json
 POST /opensearch_dashboards_sample_data_ecommerce/_search
@@ -186,7 +187,7 @@ POST /opensearch_dashboards_sample_data_ecommerce/_search
 ```
 {% include copy-curl.html %}
 
-## Example results: options
+## Example response: Options
 
 The options modify the output of the aggregation:
 
