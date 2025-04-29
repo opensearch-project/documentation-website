@@ -35,7 +35,7 @@ To enable the gRPC plugin (`transport-grpc`) in OpenSearch:
     ```
     {% include copy.html %}
 
-    Alternatively, configure a secure transport using the following settings:
+    Alternatively, configure a secure transport protocol using the following settings:
     ```yaml
     aux.transport.types: [experimental-secure-transport-grpc]
     aux.transport.experimental-transport-grpc.port: '9400-9500' // optional

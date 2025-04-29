@@ -26,7 +26,7 @@ You can submit bulk requests by invoking the [`Bulk`](https://github.com/opensea
 
 ## Document format
 
-In gRPC, documents must be provided and are returned as bytes. Use Base64 encoding to provide documents in a gRPC request.
+In gRPC, documents must be provided and returned as bytes. Use Base64 encoding to provide documents in a gRPC request.
 {: .note }
 
 For example, consider the following document in a regular Bulk API request: 
