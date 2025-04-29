@@ -80,15 +80,15 @@ The **Refresh** button reloads the query data based on the selected filters and 
 
 The metrics table dynamically adapts based on your **Type** filter selection (**Query**, **Group**, or both). Dynamic columns improve clarity by showing only the relevant data for each query type.
 
-When you select **queries only**, the table displays individual metrics, including **Latency**, **CPU Time**, and **Memory Usage**. The **Query Count** column isn't displayed because each row represents a single query, as shown in the following image:
+When you select **queries only**, the table displays individual metrics, including **Latency**, **CPU Time**, and **Memory Usage**. The **Query Count** column isn't displayed because each row represents a single query, as shown in the following image.
 
 ![Column Display for Query Selected](../../images/Query-Insights/OnlyQueryColDisplay.png)
 
-When you select **groups only**, the table displays aggregated metrics, including **Average Latency**, **Average CPU Time**, and **Average Memory Usage**. The **Query Count** column shows how many queries are in each group, as shown in the following image:
+When you select **groups only**, the table displays aggregated metrics, including **Average Latency**, **Average CPU Time**, and **Average Memory Usage**. The **Query Count** column shows how many queries are in each group, as shown in the following image.
 
 ![Column Display for Group Selected](../../images/Query-Insights/OnlyGroupColDisplay.png)
 
-When you select both **groups** and **queries**, the table displays combined metrics, including both averaged and raw values, such as **Avg Latency/Latency**, as shown in the following image:
+When you select both **groups** and **queries**, the table displays combined metrics, including both averaged and raw values, as shown in the following image.
 
 ![Column Display for Both Selected](../../images/Query-Insights/BothColDisplay.png)
 
