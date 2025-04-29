@@ -78,7 +78,7 @@ The **Refresh** button reloads the query data based on the selected filters and 
 
 ### F. Metrics table
 
-The metrics table dynamically adapts based on your **Type** filter selection (**Query**, **Group**, or both). Dynamic columns improve clarity by showing only the relevant data for each query type. The interface adapts in the following ways:
+The metrics table dynamically adapts based on your **Type** filter selection (**Query**, **Group**, or both). Dynamic columns improve clarity by showing only the relevant data for each query type. The following images should how the interface adapts in the following ways:
 
 ![Column Display for Query Selected](../../images/Query-Insights/OnlyQueryColDisplay.png)
 
@@ -96,10 +96,10 @@ The following table provides descriptions for each metric and the metric's relat
 
 | Column name | Description  | Query selected | Group selected | Query + group selected |
 | :--- | :--- | :--- | :--- | :--- |
-| **ID**                  | Unique identifier for the query or group. | `ID`   | `ID`   | `ID`  |
+| **ID**                  | The unique identifier for the query or group. | `ID`   | `ID`   | `ID`  |
 | **Type**                | Indicates whether the entry is a query or a group. | `Type`  | `Type` | `Type`  |
 | **Query Count**         | The number of queries aggregated in the group.  | Not shown  | `Query Count`        | `Query Count` (only for group)   |
-| **Timestamp**           | The amount of time when the query or group was recorded (may be empty for groups). | `Timestamp`     | Not shown            | `Timestamp` (only for query)     |
+| **Timestamp**           | The time at which the query or group was recorded (may be empty for groups). | `Timestamp`     | Not shown            | `Timestamp` (only for query)     |
 | **Latency**             | The amount of time taken for individual queries to execute.  | `Latency`          | `Average Latency`    | `Avg Latency/Latency`          |
 | **CPU Time**            | The number of CPU resources consumed. | `CPU Time`         | `Average CPU Time`   | `Avg CPU Time/CPU Time`        |
 | **Memory Usage**        | The amount of memory used during execution.  | `Memory Usage`     | `Average Memory Usage` | `Avg Memory Usage/Memory Usage` |
@@ -110,8 +110,8 @@ The following table provides descriptions for each metric and the metric's relat
 
 When you select **Query + Group**:
 
-- If all displayed rows are queries, the table follows the **Query Selected** behavior.
-- If all displayed rows are groups, the table follows the **Group Selected** behavior.
+- If all displayed rows are queries, then the table follows the **Query Selected** behavior.
+- If all displayed rows are groups, then the table follows the **Group Selected** behavior.
 
 ## Query details
 
