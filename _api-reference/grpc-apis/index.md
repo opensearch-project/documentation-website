@@ -21,11 +21,11 @@ The primary goal of the gRPC plugin is to:
 
 * Offer a **binary-encoded** alternative to HTTP/REST-based communication.  
 * **Improve performance** for bulk workloads and large-scale ingestion scenarios.  
-* **Enable more efficient client integrations** across languages, like Java, Go, Python, using native gRPC stubs.
+* **Enable more efficient client integrations** across languages, like Java, Go, and Python, using native gRPC stubs.
 
 ## Enabling the plugin
 
-To enable the gRPC plugin (transport-grpc) in OpenSearch, 
+To enable the gRPC plugin (`transport-grpc`) in OpenSearch: 
 1. Install the `transport-grpc` plugin. For more information, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).  
 
 1. Add the following settings to `opensearch.yml`:
@@ -55,11 +55,11 @@ To enable the gRPC plugin (transport-grpc) in OpenSearch,
 
 OpenSearch supports the following advanced network settings for gRPC communication:
 
-- `grpc.host` (Static, list): Sets the address of an OpenSearch node for gRPC communication. The `grpc.host` setting is a combination of `grpc.bind_host` and `grpc.publish_host` if they are the same value. An alternative to `grpc.host` is to configure `grpc.bind_host` and `grpc.publish_host` separately as needed. 
+- `grpc.host` (Static, list): Sets the address of an OpenSearch node for gRPC communication. The `grpc.host` setting is a combination of `grpc.bind_host` and `grpc.publish_host` if they are the same value. An alternative to `grpc.host` is to configure `grpc.bind_host` and `grpc.publish_host` separately, as needed. 
 
 - `grpc.bind_host` (Static, list): Specifies an address or addresses to which an OpenSearch node binds to listen for incoming gRPC connections. 
 
-- `grpc.publish_host` (Static, list): Specifies an address or addresses that an OpenSearch node publishes to other nodes for gRPC communication.
+- `grpc.publish_host` (Static, list): Specifies an address or addresses that an OpenSearch node publishes to other nodes to facilitate gRPC communication.
 
 These settings are similar to the [HTTP Network settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/network-settings/#advanced-http-settings).
 

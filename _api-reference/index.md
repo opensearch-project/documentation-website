@@ -13,7 +13,7 @@ redirect_from:
 
 # API reference
 
-You can use [REST APIs](#rest-apis) for most operations in OpenSearch. Starting with OpenSearch 3.0, you can use alternative  experimental [gRPC APIs](#grpc-apis). 
+You can use [REST APIs](#rest-apis) for most operations in OpenSearch. Starting with OpenSearch 3.0, you can use alternative experimental [gRPC APIs](#grpc-apis). 
 
 ## REST APIs 
 **Introduced 1.0**
@@ -66,4 +66,4 @@ OpenSearch supports the following REST APIs:
 **Introduced 3.0**
 {: .label .label-purple }
 
-OpenSearch 3.0 introduces gRPC APIs, offering a high-performance alternative to traditional REST interfaces. These APIs use the gRPC protocol to provide more efficient communication with OpenSearch clusters. For more information and supported APIs, see [gRPC APIs]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/).
+Starting with OpenSearch 3.0, you can use gRPC APIs---a high-performance alternative to traditional REST interfaces. These APIs use the gRPC protocol to provide more efficient communication with OpenSearch clusters. For more information and supported APIs, see [gRPC APIs]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/).
