@@ -87,7 +87,7 @@ The [`SearchRequest`](https://github.com/opensearch-project/opensearch-protobufs
 | `typed_keys` | `bool` | Whether to include type information in aggregation and suggestion keys. Default is `true`. |
 | `verbose_pipeline` | `bool` | Whether to enable verbose mode for the search pipeline. |
 | `version` | `bool` | Whether to return the document version in the response. |
-| `request_body` | [`SearchRequestBody`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L176) | The main search request payload, including query and filters. |
+| `request_body` | [`SearchRequestBody`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L176) | The main search request payload, including the query and filters. |
  
 ### SearchRequestBody fields
 
