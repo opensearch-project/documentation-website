@@ -1,20 +1,23 @@
 ---
 layout: default
-title: LIST Index tool
+title: List Index tool
 has_children: false
 has_toc: false
-nav_order: 20
+nav_order: 35
 parent: Tools
 grand_parent: Agents and tools
 ---
 
 <!-- vale off -->
-# LIST Index tool
+# List Index tool
 **Introduced 3.0**
 {: .label .label-purple }
 <!-- vale on -->
 
-The `ListIndexTool` retrieves index information for the OpenSearch cluster, similarly to the [LIST Indices API]({{site.url}}{{site.baseurl}}/api-reference/list/list-indices/).
+The `ListIndexTool` retrieves index information for the OpenSearch cluster, similarly to the [List Indices API]({{site.url}}{{site.baseurl}}/api-reference/list/list-indices/).
+
+The `ListIndexTool` replaces the `CatIndexTool` starting with OpenSearch version 3.0.
+{: .note}
 
 ## Step 1: Register a flow agent that will run the ListIndexTool
 
@@ -118,9 +121,10 @@ The following table lists all tool parameters that are available when registerin
 Parameter | Type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `input` | String | Required | The user input used to return index information.
-`indices` | String | Optional | A comma-delimited list of one or more indexes on which to run the LIST operation. Default is an empty list, which means all indexes.
-`local` | Boolean | Optional | When `true`, retrieves information from the local node only instead of the cluster manager node (default is `false`).
-`page_size` | Number | Optional | List index API collects all indices status in paginated approach, this number is to control how many indices results returned on each paginated call (default is 100).
+`indices` | String | Optional | A comma-delimited list of one or more indexes on which to run the list index operation. Default is an empty list, which means all indexes.
+`local` | Boolean | Optional | When `true`, retrieves information from the local node only instead of the cluster manager node. Default is `false`.
+`page_size` | Integer | Optional | Specifies the number of index results returned per page when using the List Indices API. The API retrieves index status in a paginated manner. Default is `100`.
+
 ## Execute parameters
 
 The following table lists all tool parameters that are available when running the agent.
