@@ -6,14 +6,13 @@ grand_parent: SQL and PPL
 nav_order: 3
 ---
 
-# PPL Subsearch (experimental)
+# PPL subsearch (experimental)
 
 The `subquery` (aka subquery) contain 4 types: `in`, `exists`, `scalar` and `relation`. The first three are expressions, they are used in `where` command (`where <boolean expression>`) and search filter (`search source=* <boolean expression>`). The last one is a statement.
 
-## In Subsearch
+## In subsearch
 
 ### Syntax
-
 ```sql
 where <field> [not] in [ search source=... | ... | ... ]
 ```
@@ -32,10 +31,9 @@ source = outer | where a in [ source = inner1 | where b not in [ source = inner2
 source = table1 | inner join left = l right = r on l.a = r.a AND r.a in [ source = inner | fields d ] | fields l.a, r.a, b, c //as join filter
 ```
 
-## Exists Subsearch
+## Exists subsearch
 
 ### Syntax
-
 ```sql
 where [not] exists [ search source=... | ... | ... ]
 ```
@@ -57,10 +55,9 @@ source = outer | where not exists [ source = inner | where c > 10 ] //uncorrelat
 source = outer | where exists [ source = inner ] | eval l = "nonEmpty" | fields l //special uncorrelated exists
 ```
 
-## Scala Subsearch
+## Scala subsearch
 
 ### Syntax
-
 ```sql
 where <field> = [ search source=... | ... | ... ]
 ```
@@ -96,10 +93,9 @@ source = outer | where a = [ source = inner | stats max(c) | sort c ] OR b = [ s
 source = outer | where a = [ source = inner | where c =  [ source = nested | stats max(e) by f | sort f ] | stats max(d) by c | sort c | head 1 ]
 ```
 
-## Relation Subsearch
+## Relation subsearch
 
 ### Syntax
-
 ```sql
 join on <condition> [ search source=... | ... | ... ] [as alias]
 ```

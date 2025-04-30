@@ -79,7 +79,7 @@ The query with `aggregation` and `join` does not support pagination for now.
 
 Before 3.0.0, the SQL plugin has two query processing engines, `V1` and `V2`. Most of the features are supported by both engines, but only the new engine is actively being developed. A query that is first executed on the `V2` engine falls back to the `V1` engine in case of failure. If a query is supported in `V2` but not included in `V1`, the query will fail with an error response.
 
-From 3.0.0, the SQL plugin introduces a new query engine (`V3`) which leverages Apache Calcite to optimize and execute query. As an experimental feature in v3.0.0, the `V3` engine disabled by default. To enable this new engine, please set `plugins.calcite.enabled` to true. Similar, a query that is first executed on the `V3` engine falls back to the `V2` engine in case of failure. Read [PPL Engine V3](https://github.com/opensearch-project/sql/blob/main/docs/dev/intro-v3-engine.md) for details.
+From 3.0.0, the SQL plugin introduces a new query engine (`V3`) which leverages Apache Calcite to optimize and execute query. As an experimental feature in v3.0.0, the `V3` engine disabled by default. To enable this new engine, set `plugins.calcite.enabled` to true. Similar, a query that is first executed on the `V3` engine falls back to the `V2` engine in case of failure. Read [PPL Engine V3](https://github.com/opensearch-project/sql/blob/main/docs/dev/intro-v3-engine.md) for details.
 
 ### V1 engine limitations
 
@@ -125,7 +125,7 @@ For the following functionalities in `V3` engine, the query will be forwarded to
   - `ML`
   - `Kmeans`
 - Commands with `fetch_size` parameter
-- query with metadata fields, `_id`, `_doc`, etc.
+- query with metadata fields, such as `_id`, `_doc`.
 - Json relevant functions
   - `cast to json`
   - `json`
