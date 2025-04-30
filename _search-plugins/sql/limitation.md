@@ -79,7 +79,7 @@ The query with `aggregation` and `join` does not support pagination for now.
 
 Before 3.0.0, the SQL plugin has two query processing engines, `V1` and `V2`. Most of the features are supported by both engines, but only the new engine is actively being developed. A query that is first executed on the `V2` engine falls back to the `V1` engine in case of failure. If a query is supported in `V2` but not included in `V1`, the query will fail with an error response.
 
-From 3.0.0, the SQL plugin introduces a new query engine (`V3`) which leverages Apache Calcite to optimize and execute query. As an experimental feature in v3.0.0, the `V3` engine disabled by default. To enable this new engine, set `plugins.calcite.enabled` to true. Similar, a query that is first executed on the `V3` engine falls back to the `V2` engine in case of failure. Read [PPL Engine V3](https://github.com/opensearch-project/sql/blob/main/docs/dev/intro-v3-engine.md) for details.
+From 3.0.0, the SQL plugin introduces a new query engine (`V3`) which leverages Apache Calcite to optimize and execute query. As an experimental feature in v3.0.0, the `V3` engine is disabled by default. To enable this new engine, set `plugins.calcite.enabled` to true. Similar to the 'V2' -> 'V1' logic, a query that is first executed on the `V3` engine falls back to the `V2` engine in case of failure. Read [PPL Engine V3](https://github.com/opensearch-project/sql/blob/main/docs/dev/intro-v3-engine.md) for details.
 
 ### V1 engine limitations
 
@@ -103,16 +103,14 @@ Such queries are successfully executed by the `V2` engine unless they have `V1`-
 
 ### V3 engine limitations and restrictions
 
-For the following commands or functions, we add some defensive restrictions to ensure security.
-
 #### New restrictions
 - `eval` won't allow to use [Metadata Fields of OpenSearch](https://docs.opensearch.org/docs/latest/field-types/metadata-fields/index/) as the fields
 - `rename` won't allow renaming to a [Metadata Fields of OpenSearch](https://docs.opensearch.org/docs/latest/field-types/metadata-fields/index/)
 - `as` won't allow to use [Metadata Fields of OpenSearch](https://docs.opensearch.org/docs/latest/field-types/metadata-fields/index/) as the alias name
 
+#### Unsupported functionalities
 For the following functionalities in `V3` engine, the query will be forwarded to the `V2` query engine.
 
-#### Unsupported functionalities
 - `trendline`
 - `show datasource`
 - `describe`

@@ -228,6 +228,14 @@ POST _plugins/_ppl/_explain
 
 For queries that require post-processing, the `explain` response includes a query plan in addition to the OpenSearch DSL. For those queries that don't require post processing, you can see a complete DSL.
 
+## New explain API (experimental)
+
+From 3.0.0, when `plugins.calcite.enabled` set to true, the `explain` response is different from the response in `V2` and it accepts 4 formats: `standard` (the default format), `simple`,  `cost` and `extended`.
+* standard (default if not specified): display logical and physical plan
+* simple: display logical plan without attributes
+* cost: display logical and physical plan and its cost
+* extended: display logical and physical plan and generated code
+
 #### Sample explain request when plugins.calcite.enabled set to true
 
 ```json
