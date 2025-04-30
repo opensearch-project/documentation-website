@@ -173,7 +173,7 @@ POST /_plugins/_ml/agents/_register
       }
     },
     {
-      "type": "CatIndexTool",
+      "type": "ListIndexTool",
       "name": "RetrieveIndexMetaTool",
       "description": "Use this tool to get OpenSearch index information: (health, status, index, uuid, primary count, replica count, docs.count, docs.deleted, store.size, primary.store.size)."
     }

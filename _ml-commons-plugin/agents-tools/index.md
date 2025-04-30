@@ -12,7 +12,7 @@ redirect_from:
 **Introduced 2.13**
 {: .label .label-purple }
 
-You can automate machine learning (ML) tasks using agents and tools. An _agent_ orchestrates and runs ML models and tools. A _tool_ performs a set of specific tasks. Some examples of tools are the `VectorDBTool`, which supports vector search, and the `CATIndexTool`, which executes the `cat indices` operation. For a list of supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
+You can automate machine learning (ML) tasks using agents and tools. An _agent_ orchestrates and runs ML models and tools. A _tool_ performs a set of specific tasks. Some examples of tools are the `VectorDBTool`, which supports vector search, and the `ListIndexTool`, which executes the `cat indices` operation. For a list of supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
 
 ## Agents
 
@@ -109,7 +109,7 @@ Assistant:"""
 
 ### Conversational agents
 
-Similarly to a conversational flow agent, a conversational agent stores the conversation in an index, in the following example, the `conversation_index`. A conversational agent can be configured with an LLM and a set of supplementary tools that perform specific jobs. For example, you can set up an LLM and a `CATIndexTool` when configuring an agent. When you send a question to the model, the agent also includes the `CATIndexTool` as context. The LLM then decides whether it needs to use the `CATIndexTool` to answer questions like "How many indexes are in my cluster?" The context allows an LLM to answer specific questions that are outside of its knowledge base. For example, the following agent is configured with an LLM and a `CATIndexTool` that retrieves information about your OpenSearch indexes:
+Similarly to a conversational flow agent, a conversational agent stores the conversation in an index, in the following example, the `conversation_index`. A conversational agent can be configured with an LLM and a set of supplementary tools that perform specific jobs. For example, you can set up an LLM and a `ListIndexTool` when configuring an agent. When you send a question to the model, the agent also includes the `ListIndexTool` as context. The LLM then decides whether it needs to use the `ListIndexTool` to answer questions like "How many indexes are in my cluster?" The context allows an LLM to answer specific questions that are outside of its knowledge base. For example, the following agent is configured with an LLM and a `ListIndexTool` that retrieves information about your OpenSearch indexes:
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -142,7 +142,7 @@ POST /_plugins/_ml/agents/_register
       }
     },
     {
-      "type": "CatIndexTool",
+      "type": "ListIndexTool",
       "name": "RetrieveIndexMetaTool",
       "description": "Use this tool to get OpenSearch index information: (health, status, index, uuid, primary count, replica count, docs.count, docs.deleted, store.size, primary.store.size)."
     }
