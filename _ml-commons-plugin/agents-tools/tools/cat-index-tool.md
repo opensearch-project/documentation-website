@@ -16,9 +16,9 @@ grand_parent: Agents and tools
 **This tool is deprecated in OpenSearch 3.0**
 {: .label .label-red }
 
-The `CatIndexTool` retrieves index information for the OpenSearch cluster, similarly to the [CAT Indices API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/).
+The `ListIndexTool` retrieves index information for the OpenSearch cluster, similarly to the [CAT Indices API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/).
 
-## Step 1: Register a flow agent that will run the CatIndexTool
+## Step 1: Register a flow agent that will run the ListIndexTool
 
 A flow agent runs a sequence of tools in order and returns the last tool's output. To create a flow agent, send the following register agent request:
 
@@ -27,11 +27,11 @@ POST /_plugins/_ml/agents/_register
 {
   "name": "Test_Agent_For_CatIndex_tool",
   "type": "flow",
-  "description": "this is a test agent for the CatIndexTool",
+  "description": "this is a test agent for the ListIndexTool",
   "tools": [
     {
-      "type": "CatIndexTool",
-      "name": "DemoCatIndexTool",
+      "type": "ListIndexTool",
+      "name": "DemoListIndexTool",
       "parameters": {
         "input": "${parameters.question}"
       }
