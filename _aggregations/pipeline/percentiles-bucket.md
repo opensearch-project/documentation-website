@@ -12,9 +12,9 @@ The `percentiles_bucket` aggregation is a sibling aggregation that calculates th
 
 The `percentiles_bucket` aggregation computes percentiles exactly, without approximation or interpolation. Each percentile is returned as the closest value less than or equal to the target percentile.
 
-The `percentiles_bucket` aggregation requires that the entire list of values be kept temporarily in memory, even for large data sets. In contrast, [the `percentiles` metric aggregation]({{site.url}}{{site.baseurl}}/aggregations/metric/percentile) uses less memory, but approximates the percentages.
+The `percentiles_bucket` aggregation requires that the entire list of values be kept temporarily in memory, even for large datasets. In contrast, [the `percentiles` metric aggregation]({{site.url}}{{site.baseurl}}/aggregations/metric/percentile/) uses less memory but approximates the percentages.
 
-The specified metric must be numeric and the sibling aggregation must be a multi-bucket aggregation.
+The specified metric must be numeric, and the sibling aggregation must be a multi-bucket aggregation.
 
 ## Parameters
 
@@ -26,7 +26,7 @@ The `avg_bucket` aggregation takes the following parameters.
 | `gap_policy`          | Optional          | String          | The policy to apply to missing data. Valid values are `skip`, `insert_zeros`, and `keep_values`. Default is `skip`. |
 | `format`              | Optional          | String          | A [DecimalFormat](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/text/DecimalFormat.html) formatting string. Returns the formatted output in the aggregation's `value_as_string` property. |
 | `percents`            | Optional          | List            | A list containing any number of numeric percentage values to be included in the output. Valid values are between 0.0 and 100.0, inclusive. Default is `[1.0, 5.0, 25.0, 50.0, 75.0, 95.0, 99.0]`. |
-| `keyed`               | Optional          | Boolean         | Whether to format the output as a dictionary rather than an array of key-value pair objects. Default is `true` (format the output as key-value pairs). |
+| `keyed`               | Optional          | Boolean         | Whether to format the output as a dictionary rather than as an array of key-value pair objects. Default is `true` (format the output as key-value pairs). |
 
 
 ## Example
@@ -148,11 +148,11 @@ The aggregation returns the default percentile values for the weekly price total
 
 ## Example: Options
 
-The next example computes percentiles on the same data as the previous example, but with the following differences:
+The next example computes percentiles using the same data as in the previous example but with the following differences:
 
-- The `percents` parameter specifies that only the 25th, 50th, and 75th percentiles be calculated 
-- String-formatted outputs are appended using the `format` parameter
-- Results are displayed as key-value pair objects (with string values appended) by setting the `keyed` parameter to `false`
+- The `percents` parameter specifies that only the 25th, 50th, and 75th percentiles be calculated.
+- String-formatted outputs are appended using the `format` parameter.
+- Results are displayed as key-value pair objects (with string values appended) by setting the `keyed` parameter to `false`.
 
 The example is as follows:
 
