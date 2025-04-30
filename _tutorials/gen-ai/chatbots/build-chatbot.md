@@ -313,7 +313,7 @@ Note the following testing tips:
    - Avoid configuring many tools in an agent.
    - Provide a detailed tool description clarifying what the tool can do. 
    - Specify the tool to use in the LLM question, for example, `Can you use the PPLTool to query the opensearch_dashboards_sample_data_ecommerce index so it can calculate how many orders were placed last week?`.
-   - Specify the tool to use when executing an agent. For example, specify that only `PPLTool` and `ListIndexTool` should be used to process the current request.
+   - Specify the tool to use when executing an agent. For example, specify that only the `PPLTool` and `ListIndexTool` should be used to process the current request.
 
 Test the agent:
 

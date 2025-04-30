@@ -167,4 +167,4 @@ For more information, see issue [#2350](https://github.com/opensearch-project/da
 
 ### ML Commons plugin
 
-- The `CatIndexTool` is removed in favor of `ListIndexTool`.
+- The `CatIndexTool` is removed in favor of the `ListIndexTool`.
