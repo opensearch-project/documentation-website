@@ -124,7 +124,7 @@ Algorithm | Description
 
 ### Important changes to BM25 scoring in OpenSearch 3.0
 
-In OpenSearch 3.0, the default similarity algorithm switched from `LegacyBM25Similarity` to Lucene’s native `BM25Similarity`.
+In OpenSearch 3.0, the default similarity algorithm changed from `LegacyBM25Similarity` to Lucene's native `BM25Similarity`.
 
 This change improves alignment with Lucene standards and simplifies scoring behavior, but it introduces an important difference:
 
@@ -134,7 +134,7 @@ This change improves alignment with Lucene standards and simplifies scoring beha
 
 - Scores produced by `BM25Similarity` are lower than those produced by `LegacyBM25Similarity`, typically by a factor of about `2.2`.
 
-- Ranking is unaffected, because the constant factor does not change the relative order of documents.
+- Ranking is unaffected because the constant factor does not change the relative order of documents.
 
 - To retain the old scoring behavior, explicitly configure your field or index to use `LegacyBM25` (see [Configuring legacy BM25 similarity](#configuring-legacy-bm25-similarity)).
 
