@@ -77,7 +77,9 @@ The query with `aggregation` and `join` does not support pagination for now.
 
 ## Query processing engines
 
-The SQL plugin has two query processing engines, `V1` and `V2`. Most of the features are supported by both engines, but only the new engine is actively being developed. A query that is first executed on the `V2` engine falls back to the `V1` engine in case of failure. If a query is supported in `V2` but not included in `V1`, the query will fail with an error response.
+Before 3.0.0, the SQL plugin has two query processing engines, `V1` and `V2`. Most of the features are supported by both engines, but only the new engine is actively being developed. A query that is first executed on the `V2` engine falls back to the `V1` engine in case of failure. If a query is supported in `V2` but not included in `V1`, the query will fail with an error response.
+
+From 3.0.0, the SQL plugin introduces a new query engine (`V3`) which leverages Apache Calcite to optimize and execute query. As an experimental feature in v3.0.0, the `V3` engine disabled by default. To enable this new engine, please set `plugins.calcite.enabled` to true. Similar, a query that is first executed on the `V3` engine falls back to the `V2` engine in case of failure. Read [PPL Engine V3](https://github.com/opensearch-project/sql/blob/main/docs/dev/intro-v3-engine.md) for details.
 
 ### V1 engine limitations
 
@@ -98,3 +100,57 @@ Such queries are successfully executed by the `V2` engine unless they have `V1`-
 * JOINs and sub-queries are not supported. To stay up to date on the development for JOINs and sub-queries, track [GitHub issue #1441](https://github.com/opensearch-project/sql/issues/1441) and [GitHub issue #892](https://github.com/opensearch-project/sql/issues/892).
 * OpenSearch does not natively support the array data type but does allow multi-value fields implicitly. The SQL/PPL plugin adheres strictly to the data type semantics defined in index mappings. When parsing OpenSearch responses, it expects data to match the declared type and does not interpret all data in an array. If the [`plugins.query.field_type_tolerance`](https://github.com/opensearch-project/sql/blob/main/docs/user/admin/settings.rst#plugins-query-field-type-tolerance) setting is enabled, the SQL/PPL plugin handles array datasets by returning scalar data types, allowing basic queries (for example, `SELECT * FROM tbl WHERE condition`). However, using multi-value fields in expressions or functions will result in exceptions. If this setting is disabled or not set, only the first element of an array is returned, preserving the default behavior.
 * PartiQL syntax for `nested` queries is not supported.
+
+### V3 engine limitations and restrictions
+
+For the following commands or functions, we add some defensive restrictions to ensure security.
+
+#### New restrictions
+- `eval` won't allow to use [Metadata Fields of OpenSearch](https://docs.opensearch.org/docs/latest/field-types/metadata-fields/index/) as the fields
+- `rename` won't allow renaming to a [Metadata Fields of OpenSearch](https://docs.opensearch.org/docs/latest/field-types/metadata-fields/index/)
+- `as` won't allow to use [Metadata Fields of OpenSearch](https://docs.opensearch.org/docs/latest/field-types/metadata-fields/index/) as the alias name
+
+For the following functionalities in `V3` engine, the query will be forwarded to the `V2` query engine.
+
+#### Unsupported functionalities
+- `trendline`
+- `show datasource`
+- `describe`
+- `top` and `rare`
+- `fillnull`
+- `patterns`
+- `dedup` with `consecutive=true`
+- Search relevant commands
+  - `AD`
+  - `ML`
+  - `Kmeans`
+- Commands with `fetch_size` parameter
+- query with metadata fields, `_id`, `_doc`, etc.
+- Json relevant functions
+  - `cast to json`
+  - `json`
+  - `json_valid`
+- Search relevant functions
+  - `match`
+  - `match_phrase`
+  - `match_bool_prefix`
+  - `match_phrase_prefix`
+  - `simple_query_string`
+  - `query_string`
+  - `multi_match`
+
+#### Behaviors changes
+
+Because of implementation changed internally, following behaviors are changed from v3.0.0. (Behaviors in V3 is correct)
+
+| Item | V2 | V3
+:--- | :--- | :---
+| Return type of `timestampdiff` | timestamp | int
+| Return type of `regexp` | int | boolean
+| Return type of `count`,`dc`,`distinct_count` | int | bigint
+| Return type of `ceiling`,`floor`,`sign` | int | same type with input
+| like(firstname, 'Ambe_') on value "Amber JOHnny" | true | false
+| like(firstname, 'Ambe*') on value "Amber JOHnny" | true | false
+| cast(firstname as boolean) | false | null
+| Sum multiple `null` values when pushdown enabled | 0 | null
+| percentile(null, 50) | 0 | null

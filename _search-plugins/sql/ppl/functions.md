@@ -771,3 +771,186 @@ sepal_length_in_cm | sepal_width_in_cm | petal_length_in_cm | petal_width_in_cm 
 | 5.1 | 3.5 | 1.4 | 0.2 | 1   
 | 5.6 | 3.0 | 4.1 | 1.3 | 0
 | 6.7 | 2.5 | 5.8 | 1.8 | 2
+
+## join (experimental)
+
+Using `join` command to combines two datasets together. The left side could be an index or results from a piped commands, the right side could be either an index or a subquery.
+
+### Syntax
+
+```sql
+[join-type] join [left-alias] [right-alias] on <join-criteria> <right-dataset>
+* joinCriteria: mandatory. It could be any comparison expression.
+* right-dataset: mandatory. Right dataset could be either an index or a subquery with/without alias.
+```
+
+Field | Description                                                                                                           | Type | Required | Default
+:--- |:----------------------------------------------------------------------------------------------------------------------|:--- |:-----|:---
+`join-type` | The type of join to perform. Could be `inner`, `left`, `right`, `full`, `cross`, `semi` and `anti`.                   | `String` | No   | `inner`
+`left-alias` | The subquery alias to use with the left join side, to avoid ambiguous naming. Fixed pattern: `left = <left-alias>`    | `String` | No   |
+`right-alias` | The subquery alias to use with the right join side, to avoid ambiguous naming. Fixed pattern: `right = <right-alias>` | `String` | No   |
+`join-criteria` | It could be any comparison expression.                                                                                | `String` | Yes  | -
+`right-dataset` | Right dataset could be either an index or a subquery with/without alias.                                              | `String` | Yes  | -
+
+Example with two indices: state_country and occupation.
+
+state_country:
+
+| name  | age | state      | country
+:--- | :--- | :--- | :---
+| Jake  | 70  | California | USA
+| Hello | 30  | New York   | USA
+| John  | 25  | Ontario    | Canada
+| Jane  | 20  | Quebec     | Canada
+| Jim   | 27  | B.C        | Canada
+| Peter | 57  | B.C        | Canada
+| Rick  | 70  | B.C        | Canada
+| David | 40  | Washington | USA
+
+occupation:
+
+| name  | occupation  | country | salary
+:--- | :--- | :--- | :---
+| Jake  | Engineer    | England | 100000
+| Hello | Artist      | USA     | 70000
+| John  | Doctor      | Canada  | 120000
+| David | Doctor      | USA     | 120000
+| David | Unemployed  | Canada  | 0
+| Jane  | Scientist   | Canada  | 90000
+
+**Example 1: Two indices join**
+
+To remove duplicate documents with the same gender:
+
+```sql
+search source = state_country
+| inner join left=a right=b ON a.name = b.name occupation
+| stats avg(salary) by span(age, 10) as age_span, b.country
+```
+
+| avg(salary) | age_span | b.country
+:--- | :--- | :---
+120000.0 | 40 | USA
+105000.0 | 20 | Canada
+0.0 | 40 | Canada
+70000.0 | 30 | USA
+100000.0 | 70 | England
+
+**Example 2: Join with subsearch**
+
+```sql
+search source = state_country as a
+| where country = 'USA' OR country = 'England'
+| left join on a.name = b.name [
+    source = occupation
+    | where salary > 0
+    | fields name, country, salary
+    | sort salary
+    | head 3
+  ] as b
+| stats avg(salary) by span(age, 10) as age_span, b.country
+```
+
+| avg(salary) | age_span | b.country
+:--- | :--- | :---
+null | 40 | null
+70000.0 | 30 | USA
+100000.0 | 70 | England
+
+### Limitations
+
+The `join` command works only when `plugins.calcite.enabled` set to true.
+
+## lookup (experimental)
+
+`lookup` command enriches your search data by adding or replacing data from a lookup index (dimension table).
+You can extend fields of an index with values from a dimension table, append or replace values when lookup condition is matched.
+As an alternative of join command, lookup command is more suitable for enriching the source data with a static dataset.
+
+### Syntax
+
+```sql
+lookup <lookup-index> (<lookup-mapping-field> [as <source-mapping-field>])... [(replace | append) (<input-field> [AS <output-field>])...]
+```
+
+ Field                 | Description                                                                                                                                                                                                                                                                                                                                                                | Required | Default
+:----------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----|:---
+ `lookup-index`        | The name of lookup index (dimension table).                                                                                                                                                                                                                                                                                                                                | Yes  | -
+ `lookup-mapping-field`| A mapping key in `lookup-index`, analogy to a join key from right table. You can specify multiple `lookup-mapping-field` with comma-delimited.                                                                                                                                                                                                                             | Yes | -
+ `source-mapping-field`| A mapping key from source (left side), analogy to a join key from left side.                                                                                                                                                                                                                                                                                               | No | `lookup-mapping-field`
+ `replace` \| `append`   | The output strategies. If you specify `replace`, matched values in `lookup-index` field overwrite the values in result. If you specify `append`, matched values in `lookup-index` field only append to the missing values in result.                                                                                                                                       | Yes | `replace`
+`input-field` | A field in `lookup-index` where matched values are applied to result output. You can specify multiple `input-field` with comma-delimited. If you don't specify any `input-field`, all fields expect `lookup-mapping-field` from `lookup-index` where matched values are applied to result output.                                                                          | No |
+`output-field` | A field of output. You can specify zero or multiple `output-field`. If you specify `output-field` with an existing field name in source query, its values will be replaced or appended by matched values from `input-field`. If the field specified in `output-field` is a new field, an extended new field will be applied to the results. | No |
+
+
+Example with two indices: worker and work_information.
+
+worker:
+
+| id | name | occupation | country | salary
+:--- | :--- | :--- | :--- | :---
+| 1000 | Jake | Engineer | England | 100000
+| 1001 | Hello | Artist | USA | 70000
+| 1002 | John | Doctor | Canada | 120000
+| 1003 | David | Doctor | - | 120000
+| 1004 | David | - | Canada | 0
+| 1005 | Jane | Scientist | Canada | 90000
+
+work_information:
+
+| uid | name  | department | occupation
+:--- | :--- | :--- | :---
+| 1000 | Jake  | IT | Engineer |
+| 1002 | John  | DATA | Scientist |
+| 1003 | David | HR | Doctor |
+| 1005 | Jane  | DATA | Engineer |
+| 1006 | Tom   | SALES | Artist |
+
+**Example 1: replace**
+
+```sql
+source = worker | lookup work_information uid as id replace department
+```
+
+| id | name | occupation | country | salary | department
+:--- | :--- | :--- | :--- | :--- | :---
+1000 | Jake | Engineer | England | 100000 | IT
+1001 | Hello | Artist | USA | 70000 | null
+1002 | John | Doctor | Canada | 120000 | DATA
+1003 | David | Doctor | null | 120000 | HR
+1004 | David | null | Canada | 0 | null
+1005 | Jane | Scientist | Canada | 90000 | DATA
+
+
+**Example 2: no input-field**
+
+```sql
+source = worker | lookup work_information uid as id, name
+```
+
+| id | name | occupation | country | salary | department
+:--- | :--- |:-----------| :--- | :--- | :---
+1000 | Jake | Engineer   | England | 100000 | IT
+1001 | Hello | null       | USA | 70000 | null
+1002 | John | Scientist  | Canada | 120000 | DATA
+1003 | David | Doctor     | null | 120000 | HR
+1004 | David | null       | Canada | 0 | null
+1005 | Jane | Engineer  | Canada | 90000 | DATA
+
+**Example 3: replace output-field as a new field**
+```sql
+source = worker | lookup work_information name replace occupation AS new_col
+```
+
+| id | name | occupation | country | salary | new_col
+:--- | :--- |:-----------| :--- | :--- | :---
+1000 | Jake | Engineer | England | 100000 | Engineer
+1001 | Hello | Artist | USA | 70000 | null
+1002 | John | Doctor | Canada | 120000 | Scientist
+1003 | David | Doctor | null | 120000 | Doctor
+1004 | David | null | Canada | 0 | Doctor
+1005 | Jane | Scientist | Canada | 90000 | Engineer
+
+### Limitations
+
+The `lookup` command works only when `plugins.calcite.enabled` set to true.

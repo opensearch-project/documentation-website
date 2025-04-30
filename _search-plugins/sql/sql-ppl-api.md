@@ -228,6 +228,56 @@ POST _plugins/_ppl/_explain
 
 For queries that require post-processing, the `explain` response includes a query plan in addition to the OpenSearch DSL. For those queries that don't require post processing, you can see a complete DSL.
 
+#### Sample explain request when plugins.calcite.enabled set to true
+
+```json
+POST _plugins/_ppl/_explain
+{
+  "query" : "source=state_country | where country = 'USA' OR country = 'England' | stats count() by country"
+}
+```
+
+#### Sample PPL query explain response when plugins.calcite.enabled set to true
+
+```json
+{
+  "calcite": {
+    "logical": """LogicalProject(count()=[$1], country=[$0])
+  LogicalAggregate(group=[{1}], count()=[COUNT()])
+    LogicalFilter(condition=[SEARCH($1, Sarg['England', 'USA':CHAR(7)]:CHAR(7))])
+      CalciteLogicalIndexScan(table=[[OpenSearch, state_country]])
+""",
+    "physical": """EnumerableCalc(expr#0..1=[{inputs}], count()=[$t1], country=[$t0])
+  CalciteEnumerableIndexScan(table=[[OpenSearch, state_country]], PushDownContext=[[FILTER->SEARCH($1, Sarg['England', 'USA':CHAR(7)]:CHAR(7)), AGGREGATION->rel#53:LogicalAggregate.NONE.[](input=RelSubset#43,group={1},count()=COUNT())], OpenSearchRequestBuilder(sourceBuilder={"from":0,"size":0,"timeout":"1m","query":{"terms":{"country":["England","USA"],"boost":1.0}},"sort":[{"_doc":{"order":"asc"}}],"aggregations":{"composite_buckets":{"composite":{"size":1000,"sources":[{"country":{"terms":{"field":"country","missing_bucket":true,"missing_order":"first","order":"asc"}}}]},"aggregations":{"count()":{"value_count":{"field":"_index"}}}}}}, requestedTotalSize=10000, pageSize=null, startFrom=0)])
+"""
+  }
+}
+```
+When `plugins.calcite.enabled` set to true, you can set explain `format`. The `_explain` endpoint supports `simple`, `standard`, `cost`, and `extended` formats.
+
+#### Sample explain request with format when plugins.calcite.enabled set to true
+
+```json
+POST _plugins/_ppl/_explain?format=simple
+{
+  "query" : "source=state_country | where country = 'USA' OR country = 'England' | stats count() by country"
+}
+```
+
+#### Sample PPL query explain response with format when plugins.calcite.enabled set to true
+
+```json
+{
+  "calcite": {
+    "logical": """LogicalProject
+  LogicalAggregate
+    LogicalFilter
+      CalciteLogicalIndexScan
+"""
+  }
+}
+```
+
 ## Paginating results
 
 To get back a paginated response, use the `fetch_size` parameter. The value of `fetch_size` should be greater than 0. The default value is 1,000. A value of 0 will fall back to a non-paginated response.
