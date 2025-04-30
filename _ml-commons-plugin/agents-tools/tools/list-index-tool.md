@@ -10,7 +10,7 @@ grand_parent: Agents and tools
 
 <!-- vale off -->
 # LIST Index tool
-**Introduced 2.13**
+**Introduced 3.0**
 {: .label .label-purple }
 <!-- vale on -->
 
