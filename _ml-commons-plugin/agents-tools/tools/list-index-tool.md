@@ -1,35 +1,38 @@
 ---
 layout: default
-title: CAT Index tool
+title: List Index tool
 has_children: false
 has_toc: false
-nav_order: 20
+nav_order: 35
 parent: Tools
 grand_parent: Agents and tools
 ---
 
 <!-- vale off -->
-# CAT Index tool
-**Introduced 2.13**
+# List Index tool
+**Introduced 3.0**
 {: .label .label-purple }
 <!-- vale on -->
 
-The `CatIndexTool` retrieves index information for the OpenSearch cluster, similarly to the [CAT Indices API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/).
+The `ListIndexTool` retrieves index information for the OpenSearch cluster, similarly to the [List Indices API]({{site.url}}{{site.baseurl}}/api-reference/list/list-indices/).
 
-## Step 1: Register a flow agent that will run the CatIndexTool
+The `ListIndexTool` replaces the `CatIndexTool` starting with OpenSearch version 3.0.
+{: .note}
+
+## Step 1: Register a flow agent that will run the ListIndexTool
 
 A flow agent runs a sequence of tools in order and returns the last tool's output. To create a flow agent, send the following register agent request:
 
 ```json
 POST /_plugins/_ml/agents/_register
 {
-  "name": "Test_Agent_For_CatIndex_tool",
+  "name": "Test_Agent_For_ListIndex_tool",
   "type": "flow",
-  "description": "this is a test agent for the CatIndexTool",
+  "description": "this is a test agent for the ListIndexTool",
   "tools": [
     {
-      "type": "CatIndexTool",
-      "name": "DemoCatIndexTool",
+      "type": "ListIndexTool",
+      "name": "DemoListIndexTool",
       "parameters": {
         "input": "${parameters.question}"
       }
@@ -118,8 +121,9 @@ The following table lists all tool parameters that are available when registerin
 Parameter | Type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `input` | String | Required | The user input used to return index information.
-`index` | String | Optional | A comma-delimited list of one or more indexes on which to run the CAT operation. Default is an empty list, which means all indexes.
-`local` | Boolean | Optional | When `true`, retrieves information from the local node only instead of the cluster manager node (default is `false`).
+`indices` | String | Optional | A comma-delimited list of one or more indexes on which to run the list index operation. Default is an empty list, which means all indexes.
+`local` | Boolean | Optional | When `true`, retrieves information from the local node only instead of the cluster manager node. Default is `false`.
+`page_size` | Integer | Optional | Specifies the number of index results returned per page when using the List Indices API. The API retrieves index status in a paginated manner. Default is `100`.
 
 ## Execute parameters
 
