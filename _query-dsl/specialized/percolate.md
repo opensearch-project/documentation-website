@@ -404,7 +404,7 @@ GET /my_percolator_index/_search
 {% include copy-curl.html %}
 
 
-## Batch vs named percolation
+## Batch compared to named percolation
 
 Both `documents` and `bool` with `name` approaches can be used to percolate multiple documents, but they differ in how results are labeled, interpreted, and controlled. They provide functionally similar results but with important structural differences. See following comparison:
 
@@ -415,7 +415,7 @@ Both `documents` and `bool` with `name` approaches can be used to percolate mult
 | Response field for match slot | `_percolator_document_slot: [0]`              | `_percolator_document_slot_<name>: [0]`          |
 | Highlight prefix              | `0_title`, `1_title`                           | `apple_doc_title`, `banana_doc_title`            |
 | Custom control per doc        | Not possible                                | Can customize each clause                     |
-| Supports boosts / filters     | No                                           | Yes (per clause)                              |
+| Supports boosts and filters     | No                                           | Yes (per clause)                              |
 | Performance                   | Best for large batches                      | Slightly slower with many clauses              |
 | Use case                      | Bulk matching jobs, large event streams        | Per-document tracing, testing, custom control    |
 
