@@ -22,9 +22,7 @@ Without concurrent segment search, Lucene executes a request sequentially across
 
 ## Enabling concurrent segment search at the index or cluster level
 
-Starting with OpenSearch version 3.0, concurrent segment search will be enabled by default in `auto` mode on the cluster. After upgrading, aggregation workloads may experience increased CPU utilization. We recommend monitoring your cluster's resource usage and adjusting your infrastructure capacity as needed to maintain optimal performance.
-
-Starting with OpenSearch version 2.17, you can use the `search.concurrent_segment_search.mode` setting to configure concurrent segment search on your cluster. The existing `search.concurrent_segment_search.enabled` setting will be deprecated in future version releases in favor of the new setting.
+To configure concurrent segment search on your cluster, use the `search.concurrent_segment_search.mode` setting. The older `search.concurrent_segment_search.enabled` setting will be deprecated in future version releases in favor of the new setting.
 
 You can enable concurrent segment search at two levels:
 
@@ -36,11 +34,14 @@ The index-level setting takes priority over the cluster-level setting. Thus, if 
 
 Both the cluster- and index-level `search.concurrent_segment_search.mode` settings accept the following values:
 
-- `all`: Enables concurrent segment search across all search requests. This is equivalent to setting `search.concurrent_segment_search.enabled` to `true`.
+- `all`: Enables concurrent segment search across all search requests. This is equivalent to setting `search.concurrent_segment_search.enabled` to `true`. Concurrent segment search is disabled by default in this mode.
 
-- `none`: Disables concurrent segment search for all search requests, effectively turning off the feature. This is equivalent to setting `search.concurrent_segment_search.enabled` to `false`. This is the **default** behavior.
+- `none`: Disables concurrent segment search for all search requests, effectively turning off the feature. This is equivalent to setting `search.concurrent_segment_search.enabled` to `false`. This is the **default** behavior. Concurrent segment search is disabled by default in this mode.
 
-- `auto`: In this mode, OpenSearch will use the pluggable _concurrent search decider_ to decide whether to use a concurrent or sequential path for the search request based on the query evaluation and the presence of aggregations in the request. By default, if there are no deciders configured by any plugin, then the decision to use concurrent search will be made based on the presence of aggregations in the request. For more information about the pluggable decider semantics, see [Pluggable concurrent search deciders](#pluggable-concurrent-search-deciders-concurrentsearchrequestdecider).
+- `auto`: In this mode, OpenSearch will use the pluggable _concurrent search decider_ to decide whether to use a concurrent or sequential path for the search request based on the query evaluation and the presence of aggregations in the request. By default, if there are no deciders configured by any plugin, then the decision to use concurrent search will be made based on the presence of aggregations in the request. For more information about the pluggable decider semantics, see [Pluggable concurrent search deciders](#pluggable-concurrent-search-deciders-concurrentsearchrequestdecider). Starting with OpenSearch version 3.0, concurrent segment search is enabled by default in this mode.
+
+Starting with OpenSearch version 3.0, concurrent segment search is enabled by default on clusters in `auto` mode. After upgrading, aggregation workloads may experience increased CPU utilization. We recommend monitoring your cluster's resource usage and adjusting your infrastructure capacity as needed to maintain optimal performance.
+{: .important}
 
 To enable concurrent segment search for all search requests across every index in the cluster, send the following request:
 
@@ -113,19 +114,26 @@ PUT <index-name>/_settings
 
 ## Slicing mechanisms
 
-You can choose one of two available mechanisms for assigning segments to slices: the default [Lucene mechanism](#the-lucene-mechanism) or the [max slice count mechanism](#the-max-slice-count-mechanism).
-
-### The Lucene mechanism
-
-By default, Lucene assigns a maximum of 250K documents or 5 segments (whichever is met first) to each slice in a shard. For example, consider a shard with 11 segments. The first 5 segments have 250K documents each, and the next 6 segments have 20K documents each. The first 5 segments will be assigned to 1 slice each because they each contain the maximum number of documents allowed for a slice. Then the next 5 segments will all be assigned to another single slice because of the maximum allowed segment count for a slice. The 11th slice will be assigned to a separate slice. 
+You can choose one of two available mechanisms for assigning segments to slices: the default [max slice count mechanism](#the-max-slice-count-mechanism) or the [Lucene mechanism](#the-lucene-mechanism).
 
 ### The max slice count mechanism
 
-The _max slice count_ mechanism is an alternative slicing mechanism that uses a dynamically configurable maximum number of slices and divides segments among the slices in a round-robin fashion. This is useful when there are already too many top-level shard requests and you want to limit the number of slices per request in order to reduce competition between the slices.
+The _max slice count_ mechanism is a slicing mechanism that uses a dynamically configurable maximum number of slices and divides segments among the slices in a round-robin fashion. This is useful when there are already too many top-level shard requests and you want to limit the number of slices per request in order to reduce competition between the slices.
+
+Starting with OpenSearch version 3.0, concurrent segment search uses the max slice count mechanism by default. The max slice count is calculated as `Math.max(1, Math.min(Runtime.getRuntime().availableProcessors() / 2, 4))`. You can also explicitly set the `max_slice_count` parameter at either the cluster level or index level. For more information, see [Setting the slicing mechanism](#setting-the-slicing-mechanism).
+
+### The Lucene mechanism
+
+The Lucene mechanism is an alternative to the max slice count mechanism. By default, Lucene assigns a maximum of 250K documents or 5 segments (whichever is met first) to each slice in a shard. For example, consider a shard with 11 segments. The first 5 segments have 250K documents each, and the next 6 segments have 20K documents each. The first 5 segments will be assigned to 1 slice each because they each contain the maximum number of documents allowed for a slice. Then the next 5 segments will all be assigned to another single slice because of the maximum allowed segment count for a slice. The 11th slice will be assigned to a separate slice. 
 
 ### Setting the slicing mechanism
 
-Starting 3.0, by default, concurrent segment search will use max slice count mechanism and use the formula `Math.max(1, Math.min(Runtime.getRuntime().availableProcessors() / 2, 4))`. To update the max slice count, you can also explicitly set the slice count for concurrent segment search at either the cluster level or index level
+You can set the slicing mechanism at the cluster level or index level by updating the `search.concurrent.max_slice_count` setting.
+
+Both the cluster- and index-level `search.concurrent.max_slice_count` settings can take the following valid values:
+
+- Positive integer: Use the max target slice count mechanism. Usually, a value between 2 and 8 should be sufficient.
+- `0`: Use the Lucene mechanism.
 
 To configure the slice count for all indexes in a cluster, use the following dynamic cluster setting:
 
@@ -149,10 +157,6 @@ PUT <index-name>/_settings
 ```
 {% include copy-curl.html %}
 
-Both the cluster- and index-level `search.concurrent.max_slice_count` settings can take the following valid values:
-- `0`: Use the default Lucene mechanism.
-- Positive integer: Use the max target slice count mechanism. Usually, a value between 2 and 8 should be sufficient.
-
 ## General guidelines
 
 Concurrent segment search helps to improve the performance of search requests at the cost of consuming more resources, such as CPU or JVM heap. It is important to test your workload in order to understand whether the cluster is sized correctly for concurrent segment search. We recommend adhering to the following concurrent segment search guidelines:
@@ -161,10 +165,10 @@ Concurrent segment search helps to improve the performance of search requests at
 * If your slice count is 2 and you still have available resources in the cluster, then you can increase the slice count to a higher number, such as 4 or 6, while monitoring search latency and resource utilization in the cluster. 
 * When many clients send search requests in parallel, a lower slice count usually works better. This is reflected in CPU utilization because a higher number of clients leads to more queries per second, which translates to higher resource usage.
 
-When upgrading to OpenSearch 3.0, be aware that workloads with aggregations may experience higher CPU utilization due to concurrent search being enabled by default in auto mode. If your OpenSearch 2.x cluster's CPU utilization exceeds 25% with aggregation workloads, consider the following options before upgrading:
+When upgrading to OpenSearch 3.0, be aware that workloads with aggregations may experience higher CPU utilization because concurrent search is enabled by default in `auto` mode. If your OpenSearch 2.x cluster's CPU utilization exceeds 25% when running aggregation workloads, consider the following options before upgrading:
 
-1. Plan to scale your cluster's resources to accommodate the increased CPU demands
-2. Prepare to disable concurrent search if scaling is not feasible for your use case
+- Plan to scale your cluster's resources to accommodate the increased CPU demands.
+- Prepare to disable concurrent search if scaling is not feasible for your use case.
 
 ## Limitations
 
