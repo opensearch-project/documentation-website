@@ -18,9 +18,9 @@ Starting with version 3.0, OpenSearch supports building vector indexes using a G
 
 Before configuring the remote index build settings, ensure you fulfill the following prerequisites. For more information about updating dynamic settings, see [Dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings).
 
-### Step 1: Enable remote index build
+### Step 1: Enable the remote index build service
 
-Enable remote index build for both the cluster and the chosen index by configuring the following settings. 
+Enable the remote index build service for both the cluster and the chosen index by configuring the following settings. 
 
 Setting | Static/Dynamic | Default | Description
 :--- | :--- | :--- | :---
@@ -31,19 +31,19 @@ Setting | Static/Dynamic | Default | Description
 
 The remote vector repository acts as an intermediate object store between the OpenSearch cluster and the remote build service. The cluster uploads vectors and document IDs to the repository. The remote build service retrieves the data, builds the index externally, and uploads the completed result back to the repository.
 
-To create and register the repository, follow the steps in [Register repository]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#register-repository). Then set the `knn.remote_index_build.vector_repo` dynamic setting to the name of this registered repository.
+To create and register the repository, follow the steps in [Register repository]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#register-repository). Then set the `knn.remote_index_build.vector_repo` dynamic setting to the name of the registered repository.
 
-The remote build service currently only supports Amazon S3 repositories.
+The remote build service currently only supports Amazon Simple Storage Service (Amazon S3) repositories.
 {: .note}
 
 ### Step 3: Set up a remote vector index builder
 
-Configure the remote endpoint in k-NN settings by setting `knn.remote_index_build.client.endpoint` to a running [remote vector index builder](https://github.com/opensearch-project/remote-vector-index-builder) instance. For instructions to set up the remote service, see [the user guide](https://github.com/opensearch-project/remote-vector-index-builder/blob/main/USER_GUIDE.md).
+Configure the remote endpoint in the k-NN settings by setting `knn.remote_index_build.client.endpoint` to a running [remote vector index builder](https://github.com/opensearch-project/remote-vector-index-builder) instance. For instructions on setting up the remote service, see [the user guide](https://github.com/opensearch-project/remote-vector-index-builder/blob/main/USER_GUIDE.md).
 
 ## Configuring remote index build settings
 
-Remote index build supports several additional optional settings. For information about configuring any remaining remote index build settings, see [Remote index build settings]({{site.url}}{{site.baseurl}}/vector-search/settings/#remote-index-build-settings).
+The remote index build service supports several additional, optional settings. For information about configuring any remaining remote index build settings, see [Remote index build settings]({{site.url}}{{site.baseurl}}/vector-search/settings/#remote-index-build-settings).
 
-## Using remote index build
+## Using the remote index build service
 
-Once remote index build is configured, any index with it enabled will use the remote vector index builder for builds that meet the configured `index.knn.remote_index_build.size_threshold`.
+Once the remote index build service is configured, any index on which it is enabled will use the remote vector index builder for builds that meet the configured `index.knn.remote_index_build.size_threshold`.

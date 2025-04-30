@@ -68,7 +68,7 @@ Setting | Static/Dynamic | Default | Description
 `knn.remote_index_build.vector_repo` | Dynamic | None | The repository to which the remote index builder should write.
 `knn.remote_index_build.client.endpoint` | Dynamic | None | The endpoint URL of the remote build service.
 `knn.remote_index_build.client.poll_interval` | Dynamic | `5s` | How frequently the client should poll the remote build service for job status.
-`knn.remote_index_build.client.timeout` | Dynamic | `60m` | The maximum amount of time to wait for remote build completion before falling back to CPU-based build.
+`knn.remote_index_build.client.timeout` | Dynamic | `60m` | The maximum amount of time to wait for remote build completion before falling back to a CPU-based build.
 
 ### Index settings
 
@@ -89,4 +89,4 @@ The remote build service username and password are secure settings that must be 
 ```
 {% include copy.html %}
 
-You can reload the secure settings without restarting the node using the [Nodes Reload Secure]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-reload-secure/) API.
+You can reload the secure settings without restarting the node by using the [Nodes Reload Secure]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-reload-secure/) API.
