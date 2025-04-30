@@ -18,12 +18,14 @@ When an agent is executed, it runs the tools with which it is configured.
 POST /_plugins/_ml/agents/<agent_id>/_execute
 ```
 
+From 3.0, agents can also be executed asynchronously by passing query parameter `async=true` 
+
 ## Request Parameters
 The following table lists the available request parameters.
 
 Field | Data type | Required/Optional | Description
 :---  | :--- | :--- 
-`async`| Boolean | Optional | Specifies whether the agent should be executed asynchronously or not. If set to `true`, returns a `task_id` to track execution. By default, runs synchronously.
+`async` **Introduced 3.0**| Boolean | Optional | If set to `true`, executes agent asynchronously and returns a `task_id` to track execution. `false` by default,
 
 
 ## Request body fields

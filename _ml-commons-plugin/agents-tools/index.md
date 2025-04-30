@@ -156,6 +156,8 @@ POST /_plugins/_ml/agents/_register
 **Introduced 3.0**
 {: .label .label-purple }
 
+Plan, Execute and Reflect agent is an experimental feature.
+
 The Plan, Execute, and Reflect agent is designed for solving complex tasks that require iterative reasoning and step-by-step execution. It uses one LLM to create and update a plan (planner) and another LLM (or the same one, by default) to execute each individual step through a built-in conversational agent.
 
 The Plan, Execute, and Reflect agent works in three phases:

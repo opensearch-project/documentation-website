@@ -17,6 +17,7 @@ Agents may be of the following types:
 - Flow agent
 - Conversational flow agent
 - Conversational agent
+- Plan, Execute and Reflect
 
 For more information about agents, see [Agents and tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/).
 
@@ -43,7 +44,7 @@ Field | Data type | Required/Optional | Agent type | Description
 `llm.parameters.response_filter` | String | Required | `conversational` | The pattern for parsing the LLM response. For each LLM, you need to provide the field where the response is located. For example, for the Anthropic Claude model, the response is located in the `completion` field, so the pattern is `$.completion`. For OpenAI models, the pattern is `$.choices[0].message.content`.
 `llm.parameters.max_iteration` | Integer | Optional | `conversational` | The maximum number of messages to send to the LLM. Default is `10`.
 `llm.parameters.max_steps` | Integer | Optional | `plan_execute_and_reflect` | The maximum number of steps executed by the LLM. Default is `20`.
-`parameters._llm_interface` | String | Optional | `plan_execute_and_reflect`, `conversational` | Specifies how to parse the model output when using function calling. Valid values are `bedrock/converse/claude`, `bedrock/converse/deepseek_r1` and `openai/v1/chat/completions`.
+`parameters._llm_interface` | String | Optional | `plan_execute_and_reflect`, `conversational` | Specifies how to parse the model output when using function calling. Currently, the only supported values are `bedrock/converse/claude`, `bedrock/converse/deepseek_r1` and `openai/v1/chat/completions`.
 
 The `tools` array contains a list of tools for the agent. Each tool contains the following fields.
 
@@ -196,7 +197,8 @@ POST /_plugins/_ml/agents/_register
     "model_id": "<llm_model_id>",
     "parameters": {
       "prompt": "${parameters.question}"
-  }},
+    }
+  },
   "memory": {
     "type": "conversation_index"
   },
