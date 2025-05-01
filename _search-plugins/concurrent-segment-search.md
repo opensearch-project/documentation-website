@@ -167,7 +167,7 @@ Concurrent segment search helps to improve the performance of search requests at
 
 When upgrading to OpenSearch 3.0, be aware that workloads with aggregations may experience higher CPU utilization because concurrent search is enabled by default in `auto` mode. If your OpenSearch 2.x cluster's CPU utilization exceeds 25% when running aggregation workloads, consider the following options before upgrading:
 
-- Plan to scale your cluster's resources to accommodate the increased CPU demands.
+- Plan to scale your cluster's resources to accommodate the increased CPU demand.
 - Prepare to disable concurrent search if scaling is not feasible for your use case.
 
 ## Limitations
