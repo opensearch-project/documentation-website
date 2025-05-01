@@ -51,15 +51,15 @@ POST /_plugins/_ml/mcp/tools/_register
           "properties": {
             "engine": {
               "type": "string",
-              "description": "search engine will be used by tool"
+              "description": "The search engine that will be used by the tool."
             },
             "query": {
               "type": "string",
-              "description": "search query parameter, will be used perform search by engine"
+              "description": "The search query parameter that will be used by the engine to perform the search."
             },
             "next_page": {
               "type": "string",
-              "description": "search result's next page link, if this is passed, the WebSearchTool will fetch the next_page result with the link and crawl the links on the page"
+              "description": "The search result's next page link. If this is provided, the WebSearchTool will fetch the next page results using this link and crawl the links on the page."
             }
           },
           "required": [
@@ -82,7 +82,7 @@ POST /_plugins/_ml/agents/_register
 {
   "type": "PPLTool",
   "name": "TransferQuestionToPPLAndExecuteTool",
-  "description": "Use this tool to transfer natural language to generate PPL and execute PPL to query inside. Use this tool after you know the index name, otherwise, call IndexRoutingTool first. The input parameters are: {index:IndexName, question:UserQuestion}",
+  "description": "Use this tool to convert natural language into PPL queries and execute them. Use this tool after you know the index name; otherwise, call IndexRoutingTool first. The input parameters are: {index: IndexName, question: UserQuestion}",
   "parameters": {
     "model_id": "${your_model_id}",
     "model_type": "FINETUNE"
@@ -93,11 +93,11 @@ POST /_plugins/_ml/agents/_register
       "properties": {
         "question": {
           "type": "string",
-          "description": "The user natual language question that needs to be transferred to PPL"
+          "description": "The user's natural language question that needs to be converted to PPL."
         },
         "index": {
           "type": "string",
-          "description": "The index that the PPL will be generated based on"
+          "description": "The index on which the generated PPL query will be executed."
         }
       }
     }

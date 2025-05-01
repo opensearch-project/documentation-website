@@ -7,7 +7,7 @@ has_toc: false
 nav_order: 20
 redirect_from: 
   - /ml-commons-plugin/extensibility/index/
-  - /ml-commons-plugin/agents-and-tools/tools/
+  - /ml-commons-plugin/agents-tools/tools/
 ---
 
 # Tools
