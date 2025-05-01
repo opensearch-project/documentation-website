@@ -20,6 +20,7 @@ These rules are designed to automatically assign feature values to incoming quer
 PUT /_rules/{feature_type}
 POST /_rules/{feature_type}
 ```
+
 ### Update a rule
 
 ```json
@@ -40,25 +41,42 @@ GET /_rules/{feature_type}
 DELETE /_rules/{feature_type}/{_id}
 ```
 
+## Path parameters
+
+The following table lists the available path parameters.
+
+| Parameter | Data type | Description  |
+| :--- | :--- | :--- |
+| `feature_type` | String    | The category of the rule that defines the type of feature, such as `workload_group`. |
+| `_id`          | String    | The unique identifier for the rule. Required for update, get, and delete operations. |
+
+## Query parameters
+
+The following table lists the available query parameters.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `search_after` | String | The token to retrieve the next page of results for pagination. |
+| `<attribute_key>` | String | Filters results to rules where `<attribute_key>` matches one of the specified values. |
+
+## Request body fields
+
+The following table lists the fields available in the request body.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `description` | String | A human-readable explanation or purpose of the rule. |
+| `<attribute_key>` | Array | A list of attribute values that must match the query for the rule to apply. |
+| `<feature_type>` | String | The feature value assigned when the rule matches. |
+
+
 ## Example requests
 
 The following example demonstrates how to use the Rule Lifecycle API to create a rule.
 
 ### Create a rule
 
-```json
-PUT _rules/{feature_type}
-{
-  "description": "description of the rule",
-  "<attribute1>": ["value1", "value2", "..."],
-  "<attribute2>": ["value1", "value2", "..."],
-  "<feature_type_name>": "feature_value"
-}
-```
-{% include copy-curl.html %}
-
-In the example below, we create a rule for the feature type workload_group, which has one attribute named index_pattern. 
-The rule resolves to the workload group with ID EITBzjFkQ6CA-semNWGtRQ.
+The following request creates a rule that assigns a workload_group value based on matching index_pattern attributes:
 
 ```json
 PUT _rules/workload_group
@@ -72,23 +90,7 @@ PUT _rules/workload_group
 
 ### Update a rule
 
-The following example demonstrates how to use the Rule Lifecycle API to update a rule.
-
-```json
-PUT _rules/{feature_type}/{_id}
-{
-  "description": "updated description of the rule",
-  "<attribute1>": ["updated_value1", "updated_value2", "..."],
-  "<attribute2>": ["updated_value1", "updated_value2", "..."],
-  "<feature_type_name>": "updated_feature_value"
-}
-```
-{% include copy-curl.html %}
-
-In the example below, we update a rule with _id 0A6RULxkQ9yLqn4r8LPrIg.
-Note:
-1. The feature type cannot be changed.
-2. Fields that do not need to be updated can be omitted from the request body.
+The following request updates a rule with ID `0A6RULxkQ9yLqn4r8LPrIg`:
 
 ```json
 PUT _rules/workload_group/0A6RULxkQ9yLqn4r8LPrIg
@@ -100,37 +102,49 @@ PUT _rules/workload_group/0A6RULxkQ9yLqn4r8LPrIg
 ```
 {% include copy-curl.html %}
 
+You can't change the feature_type. Fields that are not updated can be omitted.
+{: .note }
+
 ### Get a rule
-To get a single rule, use the endpoint:
+
+The following request retrieves a rule by ID:
 
 ```json
 GET /_rules/{feature_type}/{_id}
 ```
+{% include copy-curl.html %}
 
-To get all rules for a feature type, use the endpoint:
+The following request retrieves all rules for a feature type:
+
 ```json
 GET /_rules/{feature_type}
 ```
+{% include copy-curl.html %}
 
-To get all rules for a feature type with filtering based on attribute values, use the endpoint below.
-This example returns all rules of the feature type 'workload_group' that contain the attribute index_pattern with values a or b.
+The following request returns all rules of the feature type 'workload_group' that contain the attribute `index_pattern` with values `a` or `b`:
+
 ```json
-"GET /_rules/workload_group?index_pattern=a,b"
+GET /_rules/workload_group?index_pattern=a,b
 ```
+{% include copy-curl.html %}
 
-If the get request returns too many results to be included in one response, the system paginates the results and includes a `search_after` field in the response.
-To get the next page of results, send another request using the same endpoint and filters, and add the search_after value from the previous response as a query parameter.
+If a `GET` request returns more results than can be included in a single response, the system paginates the results and includes a `search_after` field in the response.  
+To retrieve the next page, send another request to the same endpoint using the same filters, and include the `search_after` value from the previous response as a query parameter.
 
-This example continues the search for all rules of the feature type 'workload_group' that contain the attribute index_pattern with values a or b.
+The following example continues the search for all rules of the `workload_group` feature type where the `index_pattern` attribute contains the values `a` or `b`:
+
 ```json
 "GET /_rules/workload_group?index_pattern=a,b&search_after=z1MJApUB0zgMcDmz-UQq"
 ```
+{% include copy-curl.html %}
 
 ## Example responses
 
-OpenSearch returns responses similar to the following.
-
-### Create a rule
+<details open markdown="block"> 
+  <summary> 
+    Response: Create or update rule 
+  </summary> 
+  {: .text-delta }
 
 ```json
 {
@@ -142,19 +156,14 @@ OpenSearch returns responses similar to the following.
 }
 ```
 
-### Update a rule
+</details>
 
-```json
-{
-  "_id": "wi6VApYBoX5wstmtU_8l",
-  "description": "updated description for rule",
-  "index_pattern": ["log*"],
-  "workload_group": "EITBzjFkQ6CA-semNWGtRQ",
-  "updated_at": "2025-04-05T20:54:22.406Z"
-}
-```
 
-### Get a rule
+<details markdown="block"> 
+  <summary> 
+    Response: Get rules 
+  </summary> 
+  {: .text-delta }
 
 ```json
 {
@@ -171,16 +180,21 @@ OpenSearch returns responses similar to the following.
   "search_after": ["z1MJApUB0zgMcDmz-UQq"]
 }
 ```
-If the `search_after` field is present in the response, it indicates that there are more results available; 
-pass its value as a query parameter in the next GET request (`GET /_rules/{feature_type}/search_after=z1MJApUB0zgMcDmz-UQq`) to retrieve the next page of results.
+
+If the `search_after` field is present in the response, more results are available.  
+To retrieve the next page, include the `search_after` value in the next `GET` request as a query parameter, such as `GET /_rules/{feature_type}?search_after=z1MJApUB0zgMcDmz-UQq`.
+
+</details>
 
 
-## Fields description
+## Response body fields
 
-| Field          | Description	                                                                                                                                                  |
-|:---------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `feature_type` | The category of the rule that defines the type of feature it applies to (e.g., `workload_group`).                                                             |                                                                                                                                                                                                                                                                                            
-| `_id`          | Rule id. Unique identifier of the rule                                                                                                                        |                                                                                                                                                                                                                                                                                               
-| `description`  | A human-readable explanation or purpose of the rule.                                                                                                          |                                   
-| `updated_at`   | Timestamp indicating when the rule was last modified.                                                                                                         |                                                                                                                                                                                                                 
-| `search_after` | A token returned when there are more results available for pagination. Use it as a query parameter in the next request to retrieve the next page of results.  |
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `_id` | String | The unique identifier for the rule. |
+| `description` | String | An explanation or purpose of the rule. |
+| `updated_at` | String | The timestamp of the most recent update to the rule in UTC format. |
+| `<attribute_key>` | Array | The attribute values used to match incoming queries. |
+| `<feature_type>` | String | The value assigned to the feature type if the rule matches. |
+| `search_after` | Array | The token for paginating additional results. Present only if more results exist. |
+                                                                                                                                                                                                            
