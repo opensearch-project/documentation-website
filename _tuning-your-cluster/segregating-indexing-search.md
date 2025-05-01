@@ -1,39 +1,49 @@
 ---
 layout: default
-title: Segregating Indexing and Search Workloads
+title: Seperate index and search workloads
 nav_order: 42
 has_children: false
 ---
 
-# Segregating Indexing and Search Workloads
+# Separate index and search workloads
 
-In a Remote Store enabled cluster with a Segment Replication enabled index, indexing and search workloads can be segregated across different hardware by utilizing the specialized `search` node role and provisioning corresponding search replicas in the index.
+In a remote store enabled cluster with a Segment Replication enabled index, you can segregate indexing and search workloads across different hardware by using the specialized `search` node role and provisioning corresponding search replicas in the index.
 
-We introduce refined terminology to distinguish between two types of replicas:
+OpenSearch uses two types of replicas:
 
-- **Write-Replica**: Acts as a redundant copy of the primary shard. In the event of a primary shard failure (e.g., due to node drop or hardware issues), a write-replica is eligible to be promoted as the new primary, ensuring high availability for write operations.
-- **Search-Replica**: Dedicated exclusively to serving search queries. Search replicas cannot be promoted as primaries.
+- **Write replicas**: Act as redundant copies of the primary shard. If a primary shard fails (for example, due to node drop or hardware issues), a write replica can be promoted as the new primary to ensure high availability for write operations.
+- **Search replicas**: Serve search queries exclusively. Search replicas cannot be promoted as primaries.
 
-## Benefits of segregating Workloads
+## Benefits
 
-1. Parallel and Isolated Processing: Indexing and search workloads can be processed in parallel and isolated from each other, improving overall system throughput and ensuring predictable performance for each workload.
-2. Independent Scalability: Indexing and search can be scaled independently by adding more data nodes (for write-replicas) or search nodes (for search-replicas), without affecting each other’s throughput.
-3. Failure Resilience: Failures in indexing or search do not affect the other, improving overall system availability.
-4. Cost Efficiency and Performance: Use specialized hardware — e.g., compute-optimized instances for indexing and memory-optimized for search — to reduce costs and enhance performance.
-5. Tuning Flexibility: Performance settings like buffers and caches can be optimized separately for indexing and search workloads.
+Separating index and search workloads provides the following benefits:
 
-## Configuring Search Nodes
+1. **Parallel and isolated processing**: Process indexing and search workloads in parallel and isolate them from each other to improve overall system throughput and ensure predictable performance.
+2. **Independent scalability**: Scale indexing and search independently by adding more data nodes (for write replicas) or search nodes (for search replicas).
+3. **Failure resilience**: Prevent failures in indexing or search from affecting each other to improve overall system availability.
+4. **Cost efficiency and performance**: Use specialized hardware (for example, compute-optimized instances for indexing and memory-optimized for search) to reduce costs and enhance performance.
+5. **Tuning flexibility**: Optimize performance settings like buffers and caches separately for indexing and search workloads.
 
-To configure a node for search-only workloads, update `opensearch.yml`:
+## Setting up workload separation
+
+To separate index and search workloads, you need to configure search nodes, enable the remote store, and add search replicas to your index. Follow these steps to set up workload separation in your cluster:
+
+### Step 1: Configure search nodes
+
+Before you can separate your workloads, you need to designate specific nodes for search operations. Search nodes are dedicated to serving search requests and can help optimize your cluster's search performance.
+
+The following request configures a node for search-only workloads in `opensearch.yml`:
 
 ```yaml
 node.name: searcher-node1
 node.roles: [ search ]
 ```
 
-## Enabling Remote Store
+### Step 2: Enable Remote Store
 
-To enable a remote store (e.g., Amazon S3), set the repository configuration in `opensearch.yml`:
+The remote store provides a centralized storage location for your index data. This configuration is essential for segment replication and ensures that all nodes can access the same data, regardless of their role. Remote storage is particularly useful in cloud environments where you want to separate storage from compute resources.
+
+The following request sets the repository configuration for a remote store (for example, Amazon S3) in `opensearch.yml`:
 
 ```yaml
 node.attr.remote_store.segment.repository: "my-repository"
@@ -45,17 +55,21 @@ node.attr.remote_store.repository.my-repository.settings.base_path: <Bucket Base
 node.attr.remote_store.repository.my-repository.settings.region: <Region>
 ```
 
-For more details, please check [remote-backed storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/).
+For more information, see [Remote-backed storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/).
 
-## Adding Search Replicas to an Index
+### Step 3: Add search replicas to an index
 
-By default, indexes created in a remote-store-enabled cluster use segment replication (i.e., replication type as SEGMENT). For more details, please check [segment replication]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/segment-replication/index/)
+After configuring your nodes and the remote store, you need to set up search replicas for your indexes. Search replicas are copies of your index that are dedicated to handling search requests, allowing you to scale your search capacity independently of your indexing capacity.
 
-Search replicas can be added for an index using index settings `number_of_search_replicas`(default is 0) in the following ways.  
+By default, indexes created in a remote-store-enabled cluster use segment replication. For more information, see [Segment replication]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/segment-replication/index/).
 
-- Option 1: Create an Index with Search Replicas:
+You can add search replicas for an index using the `number_of_search_replicas` setting (default is 0) in one the following ways.
 
-The following request creates the index `my-index` with 1 primary, 1 replica and 2 search replicas.
+#### Option 1: Create an index with search replicas
+
+Use this option when you're creating a new index and want to configure search replicas from the start. This approach is ideal for planning your workload separation strategy before indexing data.
+
+The following request creates an index with one primary, one replica, and two search replicas:
 
 ```json
 PUT /my-index
@@ -71,7 +85,11 @@ PUT /my-index
 ```
 {% include copy-curl.html %}
 
-- Option 2: Update the search replica count for an existing index
+#### Option 2: Update the search replica count for an existing index
+
+Use this option when you have an existing index and want to add or modify search replicas. This is useful when you need to adjust your search capacity based on changing workload demands.
+
+The following request updates the search replica count:
 
 ```json
 PUT /my-index/_settings
@@ -85,7 +103,11 @@ PUT /my-index/_settings
 ```
 {% include copy-curl.html %}
 
-- Option 3: Restoring index from a snapshot with search replicas
+#### Option 3: Restore an index from a snapshot with search replicas
+
+Use this option when you're restoring an index from a snapshot and want to configure search replicas during the restore process. This is particularly useful for disaster recovery scenarios or when migrating indexes between clusters.
+
+The following request restores an index from a snapshot with search replicas:
 
 ```json
 POST /_snapshot/my-repository/my-snapshot/_restore
@@ -99,10 +121,13 @@ POST /_snapshot/my-repository/my-snapshot/_restore
 ```
 {% include copy-curl.html %}
 
-## Enforcing cluster-level search request routing
+## Additional configuration
 
-When search replicas are enabled, all search traffic is routed to them by default. 
-To enforce or relax this routing behavior, use the following setting:
+After setting up basic workload separation, you can fine-tune your configuration to optimize performance and resource utilization. The following settings allow you to control search routing, automatically scale replicas, and manage write workloads based on your specific needs:
+
+### Enforce cluster-level search request routing
+
+When search replicas are enabled, all search traffic is routed to them by default. The following request enforces or relaxes this routing behavior:
 
 ```json
 PUT /_cluster/settings
@@ -115,20 +140,17 @@ PUT /_cluster/settings
 {% include copy-curl.html %}
 
 - `true` (default): Route only to search replicas.
-- `false`: Allow fallback to primary/write-replicas if needed.
+- `false`: Allow fallback to primary/write replicas if needed.
 
-## Auto-Scaling Search Replicas
+### Auto-scale search replicas
 
-Use `auto_expand_search_replicas` index setting to automatically scale search replicas based on the number of available search nodes in the cluster.
-For more details, please check [index-settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#dynamic-index-level-index-settings)
+Use the `auto_expand_search_replicas` index setting to automatically scale search replicas based on the number of available search nodes in the cluster. For more information, see [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#dynamic-index-level-index-settings).
 
+### Turn off write workloads
 
-## Turn off Write Workloads
+You can use the `_scale` API to turn off primary shards and write replicas if you don't expect any writes to an index. In write-once, read-many scenarios (like log analytics), you can scale down primary and write replicas, leaving only search replicas active to free up resources.
 
-By using `_scale` API user can choose to turn off primary shards and write-replicas in case they don’t expect any writing to that index.
-In write-once, read-many scenarios (like log analytics), you can scale down primary and write replicas, leaving only search replicas active. This will free up the resources.
-
-Turn Off Writers:
+The following request turns off writers:
 
 ```json
 POST my_index/_scale 
@@ -138,12 +160,12 @@ POST my_index/_scale
 ```
 {% include copy-curl.html %}
 
-Turn On Writers:
+The following request turns on writers:
 
 ```json
 POST my_index/_scale 
 {
-   "search_only":false
+   "search_only": false
 }
 ```
 {% include copy-curl.html %}
