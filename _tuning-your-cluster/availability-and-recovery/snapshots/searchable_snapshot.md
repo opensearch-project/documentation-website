@@ -34,7 +34,7 @@ node.roles: [ warm ]
 node.search.cache.size: 50gb
 ```
 
-If you're running Docker, you can create a node with the `warm` node role by adding the line `- node.roles=warn` to your `docker-compose.yml` file:
+If you're running Docker, you can create a node with the `warm` node role by adding the line `- node.roles=warm` to your `docker-compose.yml` file:
 
 ```yaml
 version: '3'
