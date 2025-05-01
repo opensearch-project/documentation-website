@@ -164,3 +164,7 @@ The legacy notebooks feature has been removed from `dashboards-observability`. K
 - You must migrate your notebooks to the new storage system before upgrading to version 3.0.
 
 For more information, see issue [#2350](https://github.com/opensearch-project/dashboards-observability/issues/2350).
+
+### ML Commons plugin
+
+- The `CatIndexTool` is removed in favor of the `ListIndexTool`.
