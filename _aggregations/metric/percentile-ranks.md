@@ -44,3 +44,29 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
  }
 }
 ```
+
+This response indicates that the value `10` is at the `5.5`th percentile and the value `15` is at the `8.3`rd percentile. 
+
+As with the `percentiles` aggregation, you can control the level of approximation by setting the optional `tdigest.compression` field. A larger value increases the precision of the approximation but uses more heap space. The default value is 100.
+
+For example, use the following request to set `compression` to `200`: 
+
+```json
+GET opensearch_dashboards_sample_data_ecommerce/_search
+{
+  "size": 0,
+  "aggs": {
+    "percentile_rank_taxful_total_price": {
+      "percentile_ranks": {
+        "field": "taxful_total_price",
+        "values": [
+          10,
+          15
+        ],
+        "tdigest": { 
+          "compression": 200
+        }
+      }
+    }
+  }
+}
