@@ -10,15 +10,9 @@ redirect_from:
 
 # Derivative aggregations
 
-The `derivative` aggregation is a parent aggregation used to calculates first-order and second-order derivatives of each bucket of an aggregation. "First-order derivative" and "second-order derivative" are often shortened to "first derivative" and "second derivative" respectively. This page uses the shortened terms.
-
-In mathematics, the first derivative of a function is its instantaneous rate of change at any point in its domain. This is commonly represented as the slope of a tangent on a graph of the function. To learn more about derivatives, see [Wikipedia](https://en.wikipedia.org/wiki/Derivative).
+The `derivative` aggregation is a parent aggregation used to calculate first-order and second-order derivatives of each bucket of an aggregation. "First-order derivative" and "second-order derivative" are often shortened to "first derivative" and "second derivative" respectively. This page uses the shortened terms.
 
 For an ordered series of buckets, `derivative` approximates a first derivative as the difference between metric values in the current previous buckets.
-
-The second derivative indicates how the rate of change of a quantity is itself changing, approximated as the difference between the current and previous first derivatives.
-
-A derivative can be positive or negative, indicating an increasing or decreasing function respectively.
 
 ## Parameters
 
@@ -30,7 +24,7 @@ The `derivative` aggregation takes the following parameters.
 | `gap_policy`          | Optional          | String          | The policy to apply to missing data. Valid values are `skip` and `insert_zeros`. Default is `skip`. |
 | `format`              | Optional          | String          | A [DecimalFormat](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/text/DecimalFormat.html) formatting string. Returns the formatted output in the aggregation's `value_as_string` property. |
 
-## Example
+## Example: First derivative
 
 The following example creates a date histogram with a one-month interval from the OpenSearch Dashboards e-commerce sample data. The `sum` sub-aggregation calculates the sum of all bytes for each month. Finally, the `derivative` aggregation calculates the first derivative of the `sum` sub-aggregation. The first derivative is estimated as the difference between the number of bytes in the current month and the previous month:
 
@@ -62,7 +56,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
-## Example response
+## Example response: First derivative
 
 The response shows derivatives computed for the second and third buckets: 
 
@@ -125,9 +119,9 @@ The response shows derivatives computed for the second and third buckets:
 
 No derivative is calculated for the first bucket because no previous bucket is available for that bucket.
 
-## Example: second derivative
+## Example: Second derivative
 
-The second derivative is the derivative of the first derivative. To calculate a second derivative, chain one derivative aggregation to another:
+To calculate a second derivative, chain one derivative aggregation to another:
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -162,7 +156,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
-## Example response: second derivative
+## Example response: Second derivative
 
 ```json
 {
