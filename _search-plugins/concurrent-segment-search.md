@@ -120,7 +120,7 @@ You can choose one of two available mechanisms for assigning segments to slices:
 
 The _max slice count_ mechanism is a slicing mechanism that uses a dynamically configurable maximum number of slices and divides segments among the slices in a round-robin fashion. This is useful when there are already too many top-level shard requests and you want to limit the number of slices per request in order to reduce competition between the slices.
 
-Starting with OpenSearch version 3.0, concurrent segment search uses the max slice count mechanism by default. The max slice count is calculated as `Math.max(1, Math.min(Runtime.getRuntime().availableProcessors() / 2, 4))`. You can also explicitly set the `max_slice_count` parameter at either the cluster level or index level. For more information, see [Setting the slicing mechanism](#setting-the-slicing-mechanism).
+Starting with OpenSearch version 3.0, concurrent segment search uses the max slice count mechanism by default. The max slice count is calculated at the cluster startup time using the formula `Math.max(1, Math.min(Runtime.getRuntime().availableProcessors() / 2, 4))`. You can override this value by explicitly setting the `max_slice_count` parameter at either the cluster level or index level. For more information about updating `max_slice_count`, see [Setting the slicing mechanism](#setting-the-slicing-mechanism). To revert back to the default calculated value, set `max_slice_count` to `null`. 
 
 ### The Lucene mechanism
 
