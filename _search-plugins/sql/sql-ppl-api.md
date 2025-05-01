@@ -261,7 +261,6 @@ POST _plugins/_ppl/_explain
   }
 }
 ```
-When `plugins.calcite.enabled` set to true, you can set explain `format`. The `_explain` endpoint supports `simple`, `standard`, `cost`, and `extended` formats.
 
 #### Sample explain request with format when plugins.calcite.enabled set to true
 
