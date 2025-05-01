@@ -9,10 +9,9 @@ grand_parent: Integrating ML models
 
 # Asynchronous batch ingestion
 **Deprecated 3.0**
-{: .label .label-purple }
+{: .label .label-red }
 
-This feature has been deprecated. Please use DataPrepper for similar functionality. To request reinstatement of this feature, open an issue at 
-https://github.com/opensearch-project/ml-commons/issues 
+This feature is deprecated. For similar functionality, use [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/). If you'd like to see this feature reinstated, [open an issue](https://github.com/opensearch-project/ml-commons/issues) in the ML Commons repository.
 
 [Batch ingestion]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/batch-ingestion/) configures an ingest pipeline, which processes documents one by one. For each document, batch ingestion calls an externally hosted model to generate text embeddings from the document text and then ingests the document, including text and embeddings, into an OpenSearch index.
 
