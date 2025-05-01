@@ -106,7 +106,7 @@ OpenSearch supports the following cluster-level routing and shard allocation set
 
 - `cluster.allocator.existing_shards_allocator.batch_enabled` (Static, Boolean): Enables batch allocation of unassigned shards that already exist on the disk, as opposed to allocating one shard at a time. This reduces memory and transport overhead by fetching any unassigned shard metadata in a batch call. Default is `false`.
 
-- `cluster.routing.allocation.total_shards_per_node` (Dynamic, integer): Maximum number of primary and replica shards (total) that can be allocated on a single node. Defaults to `-1` (unlimited). Helps distribute shards evenly across nodes by limiting the total number of shards per node. Use with caution as shards may remain unallocated if nodes reach their configured limits.
+- `cluster.routing.allocation.total_shards_per_node` (Dynamic, integer): The maximum combined total number of primary and replica shards that can be allocated to a single node. Default is `-1` (unlimited). Helps distribute shards evenly across nodes by limiting the total number of shards per node. Use with caution because shards may remain unallocated if nodes reach their configured limits.
 
 - `cluster.routing.allocation.total_primary_shards_per_node` (Dynamic, integer): Maximum number of primary shards that can be allocated on a single node. This setting is applicable only for remote-backed clusters. Defaults to `-1`(unlimited). Helps distribute primary shards evenly across nodes by limiting primary shards per node. Use with caution as primary shards may remain unallocated if nodes reach their configured limits.
 
