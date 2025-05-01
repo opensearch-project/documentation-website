@@ -199,10 +199,7 @@ Data can be missing from nested aggregations for a number of reasons, including:
 
 You can specify a policy to deal with missing data using the `gap_policy` property. 
 
-You can set the `gap_policy` property to do one of two things:
-
-- Skip the missing data
-- Replace the missing data with zeros
+You can set the `gap_policy` property to skip the missing data or replace the missing data with zeros.
 
 The `gap_policy` parameter is valid with all pipeline aggregations. The valid values for the parameter are:
 
