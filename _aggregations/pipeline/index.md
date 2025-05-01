@@ -13,40 +13,40 @@ redirect_from:
 
 # Pipeline aggregations
 
-Pipeline aggregations chain together aggregations by piping the result of one aggregation to the input of another. They compute complex statistical and mathematical measures like derivatives, moving averages, and cumulative sums. Some pipeline aggregations duplicate the functionality of metric and bucket aggregations, but in many cases are more intuitive to use.
+Pipeline aggregations chain together multiple aggregations by using the output of one aggregation as the input for another. They compute complex statistical and mathematical measures like derivatives, moving averages, and cumulative sums. Some pipeline aggregations duplicate the functionality of metric and bucket aggregations, but in many cases are more intuitive to use.
 
-Pipeline aggregations are run after all other sibling aggregations. This has performance implications. For example, using the `bucket_selector` pipeline aggregation to narrow a list of buckets does not reduce computations performed on omitted buckets.
+Pipeline aggregations are executed after all other sibling aggregations. This has performance implications. For example, using the `bucket_selector` pipeline aggregation to narrow a list of buckets does not reduce the number of computations performed on omitted buckets.
 {: .note}
 
-Pipeline aggregations cannot be sub-aggregated, but can be chained with other pipeline aggregations. For example, you calculate a second derivative by chaining two consecutive `derivative` aggregations. Keep in mind that pipeline aggregations append to existing output. So for example computing a second derivative by chaining `derivative` aggregations outputs both the first and second derivatives.
+Pipeline aggregations cannot be sub-aggregated, but can be chained with other pipeline aggregations. For example, you calculate a second derivative by chaining two consecutive `derivative` aggregations. Keep in mind that pipeline aggregations append to existing output. For example, computing a second derivative by chaining `derivative` aggregations outputs both the first and second derivatives.
 
-## Types of pipeline aggregations
+## Pipeline aggregation types
 
-Pipeline aggregations are of two types, sibling and parent.
+Pipeline aggregations are of two types, [sibling](#sibling-aggregations) and [parent](#parent-aggregations).
 
 ### Sibling aggregations
 
-A sibling pipeline aggregation takes the output of a nested aggregation and produces new buckets or new aggregations at the same level as the nested buckets.
+A _sibling_ pipeline aggregation takes the output of a nested aggregation and produces new buckets or new aggregations at the same level as the nested buckets.
 
-A sibling aggregation must be a multi-bucket aggregation (have multiple grouped values for a certain field) and the metric must be a numeric value.
+A sibling aggregation must be a multi-bucket aggregation (have multiple grouped values for a certain field), and the metric must be a numeric value.
 
 `min_bucket`, `max_bucket`, `sum_bucket`, and `avg_bucket` are common sibling aggregations.
 
 ### Parent aggregations
 
-A parent aggregation takes the output of an outer aggregation and produces new buckets or new aggregations at the same level as the existing buckets.
+A _parent_ aggregation takes the output of an outer aggregation and produces new buckets or new aggregations at the same level as the existing buckets.
 
 The specified metric for a parent aggregation must be a numeric value.
 
-We strongly recommend setting `min_doc_count` to `0` (the default for `histogram` aggregations) for parent aggregations. If `min_doc_count` is greater than `0` the aggregation omits buckets, which might lead to incorrect results.
+We strongly recommend setting `min_doc_count` to `0` (the default for `histogram` aggregations) for parent aggregations. If `min_doc_count` is greater than `0`, then the aggregation omits buckets, which might lead to incorrect results.
 {: .important}
 
 `derivatives` and `cumulative_sum` are common parent aggregations.
 
 ## Buckets path property
 
-A pipeline aggregation uses the `buckets_path` property to access the results of other aggregations.
-The `buckets_path` property has the following syntax:
+A pipeline aggregation uses the `buckets_path` parameter to access the results of other aggregations.
+The `buckets_path` parameter has the following syntax:
 
 ```
 buckets_path = <AGG_NAME>[<AGG_SEPARATOR>,<AGG_NAME>]*[<METRIC_SEPARATOR>, <METRIC>];
