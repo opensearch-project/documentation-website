@@ -10,7 +10,7 @@ nav_order: 20
 **Introduced 3.0**
 {: .label .label-purple }
 
-Use this API to delete one or more MCP tools by name.
+Use this API to delete one or more MCP-based tools by name.
 
 ## Endpoints
 
