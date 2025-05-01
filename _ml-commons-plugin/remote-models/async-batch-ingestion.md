@@ -11,7 +11,7 @@ grand_parent: Integrating ML models
 **Deprecated 3.0**
 {: .label .label-red }
 
-This feature is deprecated. For similar functionality, use [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/). If you'd like to see this feature reinstated, [open an issue](https://github.com/opensearch-project/ml-commons/issues) in the ML Commons repository.
+This feature is deprecated. For similar functionality, use [OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/). If you'd like to see this feature reinstated, [create an issue](https://github.com/opensearch-project/ml-commons/issues) in the ML Commons repository.
 {: .warning}
 
 
