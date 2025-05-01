@@ -1,16 +1,18 @@
 ---
 layout: default
-title: SSE Message 
-parent: Agent APIs
+title: MCP SSE message 
+parent: MCP Server APIs
 grand_parent: ML Commons APIs
-nav_order: 50
+nav_order: 40
 ---
 
-# SSE Message 
+# MCP SSE message
 **Introduced 3.0**
 {: .label .label-purple }
 
-This is the standard message interaction endpoint of MCP protocol, you can use this API to send messages to MCP server in OpenSearch. Usually you don't need to explicitly interact with this API if you're using standard MCP client. You can checkout the example client here: https://github.com/zane-neo/opensearch-mcpserver-test-example
+This endpoint handles standard message interactions for the Model Context Protocol (MCP). It enables communication with the MCP server in OpenSearch through server-sent events (SSE).
+
+Most users won't need to interact with this API directly when using a standard MCP client. For implementation examples, see the [OpenSearch MCP client reference implementation](https://github.com/zane-neo/opensearch-mcpserver-test-example).
 
 ## Endpoints
 
@@ -18,29 +20,49 @@ This is the standard message interaction endpoint of MCP protocol, you can use t
 POST /_plugins/_ml/mcp/sse/message
 ```
 
-#### Example request
+## Request body fields
+
+The following table lists the available request fields.
+
+| Field | Data type | Required/Optional | Description |
+|:------|:----------|:------------------|:------------|
+| `jsonrpc` | String |  | The JSON-RPC version. |
+| `id` | String |  | A unique ID for the request. |
+| `method` | String |  | The operation to perform, such as `tools/call`. |
+| `params` | Object | Required | The top-level container for request parameters. |
+| `params.name` | String | Required | The name of the tool to call. |
+| `params.arguments` | Object | Required | The arguments to pass to the tool. |
+| `params.arguments.input` | Object | Required | The input parameters for the tool. The parameters are dependent on the tool type. For information about specific tool types, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/). |
+
+## Example request
+
+The SSE Message API provides direct, low-level access to tools using the [JSON-RPC](https://www.jsonrpc.org/) (remote procedure call) protocol structure. This differs from the agent framework approach, where tools are configured using `parameters` during agent registration. When using this API directly, you'll structure your request with `params` and `arguments` fields according to the JSON-RPC specification, bypassing the agent framework entirely:
 
 ```json
 POST /_plugins/_ml/mcp/sse/message
 {
-    "jsonrpc": "2.0",
-    "id": "110",
-    "method": "tools/call",
-    "params": {
-        "name": "ListIndexTool1",
-        "arguments": {
-            "input": {
-                "index": ["test"]
-            }
-        }
+  "jsonrpc": "2.0",
+  "id": "110",
+  "method": "tools/call",
+  "params": {
+    "name": "ListIndexTool1",
+    "arguments": {
+      "input": {
+        "index": [
+          "test"
+        ]
+      }
     }
+  }
 }
 ```
 {% include copy-curl.html %}
 
-#### Example response
-OpenSearch responses a SSE data stream to client:
-```
+## Example response
+
+OpenSearch responds with an SSE data stream to the client:
+
+```json
 event: message
 data: {
   "jsonrpc": "2.0",
@@ -65,5 +87,4 @@ data: {
     ]
   }
 }
-
 ```

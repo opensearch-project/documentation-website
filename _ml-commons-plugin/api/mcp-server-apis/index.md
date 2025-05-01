@@ -4,15 +4,16 @@ title: MCP Server APIs
 parent: ML Commons APIs
 has_children: true
 has_toc: false
-nav_order: 27
-redirect_from: /ml-commons-plugin/api/mcp-server-apis/
+nav_order: 40
+redirect_from: 
+  - /ml-commons-plugin/api/mcp-server-apis/
 ---
 
-# MCP Server APIs
+# MCP server APIs
 **Introduced 3.0**
 {: .label .label-purple }
 
-[MCP](https://modelcontextprotocol.io/introduction) is an protocol that defines how agent can discover tools and execute tools, in OpenSearch 3.0, we introduces the MCP server feature that supports external agents to connect to leverage the tools in OpenSearch. For more information aount tools, see [tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
+[MCP](https://modelcontextprotocol.io/introduction) is an protocol that defines how an agent can discover and execute tools. The MCP server allows external [agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/#agents) to connect and use [tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/ml-commons-plugin/agents-tools/tools/) available in OpenSearch. For a list of supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/).
 
 ML Commons supports the following MCP APIs:
 
