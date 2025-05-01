@@ -199,16 +199,14 @@ Data can be missing from nested aggregations for a number of reasons, including:
 
 You can specify a policy to deal with missing data using the `gap_policy` property. 
 
-You can set the `gap_policy` property to do one of three things:
+You can set the `gap_policy` property to do one of two things:
 
 - Skip the missing data
-- Use non-numerical data if it is non-null and not `NaN`, otherwise skip the data
 - Replace the missing data with zeros
 
 The `gap_policy` parameter is valid with all pipeline aggregations. The valid values for the parameter are:
 
 | Value | Action |
 | -- | -- |
-| `skip` | Ignore the bucket containing the missing data. |
-|`keep_values` | Skip buckets with `null` and `NaN` values; otherwise use the provided value. |
+| `skip` | Ignore buckets containing missing data. |
 |`insert_zeros` | Replace missing values with zero (0) and continue as normal. |
