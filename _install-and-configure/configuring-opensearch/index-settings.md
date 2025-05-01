@@ -259,7 +259,7 @@ OpenSearch supports the following dynamic index-level index settings:
 
 - `index.routing.allocation.total_shards_per_node` (Integer): The maximum combined total number of primary and replica shards from a single index that can be allocated to a single node. Default is `-1` (unlimited). Helps control per-index shard distribution across nodes by limiting the number of shards per node. Use with caution because shards from this index may remain unallocated if nodes reach their configured limits.
 
-- `index.routing.allocation.total_primary_shards_per_node` (Integer): Maximum number of primary shards from a single index that can be allocated on a single node. This setting is applicable only for remote-backed clusters. Defaults to `-1` (unlimited). Helps control per-index primary shard distribution across nodes by limiting primary shards per node. Use with caution as primary shards from this index may remain unallocated if nodes reach their configured limits.
+- `index.routing.allocation.total_primary_shards_per_node` (Integer): The maximum number of primary shards from a single index that can be allocated to a single node. This setting is applicable only for remote-backed clusters. Default is `-1` (unlimited). Helps control per-index primary shard distribution across nodes by limiting the number of primary shards per node. Use with caution because primary shards from this index may remain unallocated if nodes reach their configured limits.
 
 ### Updating a dynamic index setting
 
