@@ -174,3 +174,8 @@ Nodes that use searchable snapshots must have the `warm` node role. Key changes 
 - You must update node role configurations before upgrading to version 3.0 if your cluster uses searchable snapshots.
 
 For more information, see pull request [#17573](https://github.com/opensearch-project/OpenSearch/pull/17573).
+
+### ML Commons plugin
+
+- The `CatIndexTool` is removed in favor of the `ListIndexTool`.
+
