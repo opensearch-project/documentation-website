@@ -47,7 +47,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 
 This response means the value `10` is at the `5.5`th percentile, and the value `15` is at the `8.3`rd percentile. 
 
-Like in the percentiles aggregation, you can control the level of approximation using the optional `tdigest.compression` field. A larger value means the data structure that approximates percentiles is more accurate, but uses more heap space. The default value is 100. 
+As with the `percentiles` aggregation, you can control the level of approximation by setting the optional `tdigest.compression` field. A larger value increases the precision of the approximation but uses more heap space. The default value is 100.
 
 For example, to set compression to 200: 
 
