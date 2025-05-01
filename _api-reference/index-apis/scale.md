@@ -9,7 +9,9 @@ nav_order: 50
 **Introduced 3.0**
 {: .label .label-purple }
 
-The Scale API allows you to enable or disable `search_only` mode on an index. In `search_only` mode, an index retains only its search replicas, scaling down primary and regular replica shards. This feature supports scenarios such as scale-to-zero and reader/writer separation, helping optimize resources during periods of reduced write traffic.
+The Scale API allows you to enable or disable the `search_only` mode on an index. When an index is in `search_only` mode, it retains only its search replicas and scales down primary and regular replica shards. This optimization helps reduce resource consumption during periods of low write activity while maintaining search capabilities.
+
+This feature supports scenarios such as scale-to-zero deployments and reader/writer separation patterns, which can significantly improve resource utilization and reduce costs in production environments.
 
 If you use the Security plugin, you must have the `manage index` privileges.
 {: .note}
@@ -22,19 +24,25 @@ POST /<index>/_scale
 
 ## Path parameters
 
-| Parameter | Data type | Description |
-| :--- | :--- | :--- |
-| index | String | The name of the index to scale. Wildcards are not supported. |
+The following table lists the available path parameters.
+
+| Parameter | Required | Data type | Description |
+| :--- | :--- | :--- | :--- |
+| `index` | **Required** | String | The name of the index to scale. Wildcards are not supported. |
 
 ## Request body fields
 
-| Field | Data Type | Description | Required |
+The following table lists the available request body fields.
+
+| Field | Required | Data type | Description |
 | :--- | :--- | :--- | :--- |
-| search_only | Boolean | Enables (`true`) or disables (`false`) search-only mode on the index. | Yes |
+| `search_only` | **Required** | Boolean | When `true`, enables search-only mode on the index. When `false`, disables search-only mode and restores the index to normal operation. |
 
 ## Example requests
 
 ### Enable search-only mode
+
+The following request enables search-only mode for an index named `my-index`:
 
 ```json
 POST /my-index/_scale
@@ -46,6 +54,8 @@ POST /my-index/_scale
 
 ### Disable search-only mode
 
+The following request disables search-only mode and returns the index to normal operation:
+
 ```json
 POST /my-index/_scale
 {
@@ -55,6 +65,8 @@ POST /my-index/_scale
 {% include copy-curl.html %}
 
 ## Example response
+
+The API returns the following response:
 
 ```json
 {
