@@ -1,22 +1,25 @@
 ---
 layout: default
-title: Web Search tool
+title: Web search tool
 has_children: false
 has_toc: false
-nav_order: 35
+nav_order: 130
 parent: Tools
 grand_parent: Agents and tools
 ---
 
 <!-- vale off -->
-# List Index tool
+# Web search tool
 **Introduced 3.0**
 {: .label .label-purple }
 <!-- vale on -->
 
-The `WebSearchTool` retrieves search result content with user's question, it supports google,bing,duckduckgo as search engine or a customer API to perform search on.
+The `WebSearchTool` retrieves search results based on a user's question. It supports [Google](#using-google-as-a-search-engine), Bing, and [DuckDuckGo](#using-duckduckgo-as-a-search-engine) as search engines, or can use a [custom API](#using-a-custom-api-as-a-search-engine) to perform searches.
 
-## Example: Use duckduckgo as engine to run WebSearchTool
+## Using DuckDuckGo as a search engine
+
+To use DuckDuckGo as a search engine with the `WebSearchTool`, follow these steps.
+
 ### Step 1: Register a flow agent that will run the WebSearchTool
 
 A flow agent runs a sequence of tools in order and returns the last tool's output. To create a flow agent, send the following register agent request:
@@ -53,9 +56,7 @@ OpenSearch responds with an agent ID:
 
 ### Step 2: Run the agent
 
-Before you run the agent, make sure that you have credentials for google search or bing search or customer API, duckduckgo doesn't require any credentials.
-
-Then, run the agent by sending the following request:
+Then, run the agent by sending the following request (DuckDuckGo doesn't require any credentials):
 
 ```json
 POST /_plugins/_ml/agents/9X7xWI0Bpc3sThaJdY9i/_execute
@@ -67,7 +68,7 @@ POST /_plugins/_ml/agents/9X7xWI0Bpc3sThaJdY9i/_execute
 ```
 {% include copy-curl.html %} 
 
-OpenSearch returns the index information:
+OpenSearch returns the web search results:
 
 ```json
 {
@@ -101,7 +102,10 @@ OpenSearch returns the index information:
 }
 ```
 
-## Example: Use google as engine to run WebSearchTool
+## Using Google as a search engine
+
+To use Google as a search engine with the `WebSearchTool`, follow these steps.
+
 ### Step 1: Register a flow agent that will run the WebSearchTool
 
 A flow agent runs a sequence of tools in order and returns the last tool's output. To create a flow agent, send the following register agent request:
@@ -140,7 +144,7 @@ OpenSearch responds with an agent ID:
 
 ### Step 2: Run the agent
 
-Before you run the agent, make sure that you have credentials for google search or bing search or customer API, duckduckgo doesn't require any credentials.
+Before you run the agent, ensure that you have obtained credentials needed to access Google search programmatically.
 
 Then, run the agent by sending the following request:
 
@@ -154,7 +158,7 @@ POST /_plugins/_ml/agents/9X7xWI0Bpc3sThaJdY9i/_execute
 ```
 {% include copy-curl.html %} 
 
-OpenSearch returns the index information:
+OpenSearch returns the web search results:
 
 ```json
 {
@@ -188,10 +192,21 @@ OpenSearch returns the index information:
 }
 ```
 
-## Example: Use custom API as engine to run WebSearchTool
+## Using a custom API as a search engine
+
+To use a custom API as a search engine with the `WebSearchTool`, follow these steps.
+
 ### Step 1: Register a flow agent that will run the WebSearchTool
 
-To use custom endpoint to perform search on, you need to configure the `Authorization` for authorzation and `endpoint` to connect to and `custom_res_url_jsonpath` to parse the response, your API should return a json format response and the links should able to be retrieved with jsonpath approach. Other parameters like `query_key`, `offset_key` and `limit_key` are not mandatory but if your API has different value to the default values, you should specify them.
+To use a custom endpoint for search, you need to configure the following parameters:
+
+- `Authorization`: For authentication
+- `endpoint`: For the API connection
+- `custom_res_url_jsonpath`: For parsing the JSON response and extracting links
+
+Your API must return responses in JSON format. The links returned by the API must be retrievable using [JSONPath](https://en.wikipedia.org/wiki/JSONPath) expressions. Other parameters like `query_key`, `offset_key`, and `limit_key` are optional, but should be specified if your API uses different values than the defaults.
+
+To create a flow agent, send the following register agent request:
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -230,7 +245,7 @@ OpenSearch responds with an agent ID:
 
 ### Step 2: Run the agent
 
-Before you run the agent, make sure that you have credentials for google search or bing search or customer API, duckduckgo doesn't require any credentials.
+Before you run the agent, ensure that you have obtained credentials needed to access your custom search API programmatically.
 
 Then, run the agent by sending the following request:
 
@@ -244,7 +259,7 @@ POST /_plugins/_ml/agents/9X7xWI0Bpc3sThaJdY9i/_execute
 ```
 {% include copy-curl.html %} 
 
-OpenSearch returns the index information:
+OpenSearch returns the web search results:
 
 ```json
 {
@@ -284,18 +299,19 @@ OpenSearch returns the index information:
 
 The following table lists all tool parameters that are available when registering an agent.
 
-Parameter | Type | Required/Optional | Description
-:--- | :--- | :--- | :---
-`engine` | String | Required | The engine will be used to perform search on, valid values are: google|bing|duckduckgo|custom.
-`engine_id` | String | Optional | The engine id of google, mandatory for google.
-`api_key` | String | Optional | api key for search API to authorization, mandatory for google and bing.
-`endpoint` | String | Optional | endpoint of custom search API, mandatory for custom search API.
-`Authorization` | String | Optional | Authorization header value for custom API search, mandatory for custom API, mandatory for custom search API.
-`query_key` | String | Optional | query key for custom search API, e.g. if the query_key is `my_query_key`, then the full search endpoint will be: `${endpoint}?my_query_key=${question}`, default value is `q`.
-`offset_key` | String | Optional | offset key for pagination for custom search API, e.g. if the offset_key is `start`, then the next_page of the custom API will be: `${endpoint}?my_query_key=${question}&start=10`, default value is `offset`.
-`limit_key` | String | Optional | the result limit key for custom search API, e.g. if the limit_key is 10 (which mean one page has 10 items), then the next_page of the custom API will be: `${endpoint}?my_query_key=${question}&start=10&limit=10`, default value is `limit`.
-`custom_res_url_jsonpath` | String | Optional | the result url parsing json path, e.g. if you result is a list of items that contains url, then a valid jsonpath could be: `$[*].link`, mandatory for custom search API.
 
+
+| Parameter | Type | Required/Optional | Description |
+|:---|:---|:---|:---|
+| `engine` | String | Required | The search engine to use. Valid values are `google`, `bing`, `duckduckgo`, or `custom`. |
+| `engine_id` | String | Optional | The Custom Search Engine ID for Google. Required when `engine` is set to `google`. |
+| `api_key` | String | Optional | The API key for authentication. Required when `engine` is set to `google` or `bing`. |
+| `endpoint` | String | Optional | The URL endpoint for the custom search API. Required when `engine` is set to `custom`. |
+| `Authorization` | String | Optional | The authorization header value for the custom API. Required when `engine` is set to `custom`. |
+| `query_key` | String | Optional | The parameter name for the search query in the custom API URL (for example, `${endpoint}?my_query_key=${question}`). Default is `q`. |
+| `offset_key` | String | Optional | The parameter name for pagination offset in the custom API URL (for example, `${endpoint}?q=${question}&start=10`). Default is `offset`. |
+| `limit_key` | String | Optional | The parameter name for result limit in the custom API URL (for example, `${endpoint}?q=${question}&start=10&limit=10`). Default is `limit`. |
+| `custom_res_url_jsonpath` | String | Optional | The JSONPath expression to extract URLs from the custom API response (for example, `$[*].link`). Required when `engine` is set to `custom`. |
 
 ## Execute parameters
 
