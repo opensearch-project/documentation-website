@@ -19,9 +19,9 @@ The searchable snapshot feature incorporates techniques like caching frequently 
 As of OpenSearch 3.0, nodes that use the searchable snapshots feature must have the `warm` node role instead of the `search` role.
 {: .important}
 
-To configure the searchable snapshots feature, create a node in your `opensearch.yml file` and define the node role as `warm`. Optionally, you can also configure the `cache.size` property for the node.
+To configure the searchable snapshots feature, create a node in your `opensearch.yml` file and define the node role as `warm`. Optionally, you can also configure the `cache.size` property for the node.
 
-A `warm` node reserves storage for the cache to perform searchable snapshot queries. In the case of a dedicated search node where the node exclusively has the `warm` role, this value defaults to a fixed percentage (80%) of available storage. In other cases, the value needs to be configured by the user using the `node.search.cache.size` setting.
+A `warm` node reserves storage for the cache to perform searchable snapshot queries. In the case of a dedicated search node where the node exclusively has the `warm` role, this value defaults to a fixed percentage (80%) of available storage. In other cases, the value needs to be configured using the `node.search.cache.size` setting.
 
 Parameter | Type | Description
 :--- | :--- | :---
