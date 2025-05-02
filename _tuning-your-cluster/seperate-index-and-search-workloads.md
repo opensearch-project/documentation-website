@@ -150,7 +150,7 @@ Use the `auto_expand_search_replicas` index setting to automatically scale searc
 
 You can use the `_scale` API to turn off primary shards and write replicas if you don't expect any writes to an index. In write-once, read-many scenarios (like log analytics), you can scale down primary and write replicas, leaving only search replicas active to free up resources.
 
-The following [Scale]({{site.url}}{{site.baseurl}}/api-reference/index-apis/scale/) request turns off writers:
+The following [Scale]({{site.url}}{{site.baseurl}}/api-reference/index-apis/scale/) request turns off writer replicas:
 
 ```json
 POST my_index/_scale 
@@ -160,7 +160,7 @@ POST my_index/_scale
 ```
 {% include copy-curl.html %}
 
-The following request turns on writers:
+The following request turns on writer replicas:
 
 ```json
 POST my_index/_scale 
