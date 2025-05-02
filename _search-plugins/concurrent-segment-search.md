@@ -22,7 +22,7 @@ Without concurrent segment search, Lucene executes a request sequentially across
 
 ## Enabling concurrent segment search at the index or cluster level
 
-Starting with OpenSearch version 3.0, concurrent segment search is enabled by default on clusters. The default concurrent segment search mode is `auto`. After upgrading, aggregation workloads may experience increased CPU utilization. We recommend monitoring your cluster's resource usage and adjusting your infrastructure capacity as needed to maintain optimal performance.
+Starting with OpenSearch version 3.0, concurrent segment search is enabled at the cluster level by default. The default concurrent segment search mode is `auto`. After upgrading, aggregation workloads may experience increased CPU utilization. We recommend monitoring your cluster's resource usage and adjusting your infrastructure capacity as needed to maintain optimal performance.
 {: .important}
 
 To configure concurrent segment search on your cluster, use the `search.concurrent_segment_search.mode` setting. The older `search.concurrent_segment_search.enabled` setting will be deprecated in future version releases in favor of the new setting.
