@@ -13,7 +13,7 @@ The Scale API allows you to enable or disable the `search_only` mode on an index
 
 This feature supports scenarios such as scale-to-zero deployments and reader/writer separation patterns, which can significantly improve resource utilization and reduce costs in production environments.
 
-If you use the Security plugin, you must have the `manage index` privileges.
+If you are using the Security plugin, you must have the `manage index` privileges.
 {: .note}
 
 ## Endpoints
@@ -36,7 +36,7 @@ The following table lists the available request body fields.
 
 | Field | Required | Data type | Description |
 | :--- | :--- | :--- | :--- |
-| `search_only` | **Required** | Boolean | When `true`, enables search-only mode on the index. When `false`, disables search-only mode and restores the index to normal operation. |
+| `search_only` | **Required** | Boolean | When `true`, enables search-only mode on the index. When `false`, disables search-only mode and restores the index to normal operations. |
 
 ## Example requests
 
@@ -54,7 +54,7 @@ POST /my-index/_scale
 
 ### Disable search-only mode
 
-The following request disables search-only mode and returns the index to normal operation:
+The following request disables search-only mode and returns the index to normal operations:
 
 ```json
 POST /my-index/_scale
