@@ -5,7 +5,7 @@ parent: Agents and tools
 has_children: true
 nav_order: 30
 redirect_from:
-  - /ml-commons-plugin/mcp/
+  - /ml-commons-plugin/agents-tools/mcp/
 ---
 
 # Using MCP tools
@@ -24,4 +24,4 @@ Connecting to external MCP servers expands agent capabilities to include the fol
 - Implementing secure authentication and authorization for tool access
 - Interacting with various tools through a consistent, standardized interface
 
-To start using MCP, see [Connecting to an external MCP server]({{site.url}}{{site.baseurl}}/ml-commons-plugin/mcp/mcp-connector/). 
+To start using MCP, see [Connecting to an external MCP server]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/mcp/mcp-connector/). 
