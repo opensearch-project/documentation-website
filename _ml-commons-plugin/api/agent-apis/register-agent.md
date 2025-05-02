@@ -186,6 +186,8 @@ POST /_plugins/_ml/agents/_register
 {% include copy-curl.html %}
 
 #### Example request: Plan, Execute and Reflect agent
+**Introduced 3.0**
+{: .label .label-purple }
 
 ```json
 POST /_plugins/_ml/agents/_register

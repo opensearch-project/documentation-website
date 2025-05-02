@@ -1,8 +1,8 @@
 ---
 layout: default
 title: RAG chatbot
-parent: Chatbots and agents
-grand_parent: Generative AI
+parent: Chatbots
+grand_parent: Agentic AI
 nav_order: 150
 redirect_from:
   - /ml-commons-plugin/tutorials/rag-chatbot/

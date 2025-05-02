@@ -204,6 +204,7 @@ It is important to provide thorough descriptions of the tools so that the LLM ca
 
 ## Next steps
 
+- To learn more about how to register agents, see [Register Agent]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/register-agent.md).
 - For a list of supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
 - For a step-by-step tutorial, see [Agents and tools tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents-tools-tutorial/).
 - For supported APIs, see [Agent APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/).
