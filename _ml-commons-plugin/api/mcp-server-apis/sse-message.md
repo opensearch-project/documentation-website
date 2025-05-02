@@ -41,17 +41,14 @@ The SSE Message API provides direct, low-level access to tools using the [JSON-R
 ```json
 POST /_plugins/_ml/mcp/sse/message
 {
-  "jsonrpc": "2.0",
-  "id": "110",
-  "method": "tools/call",
-  "params": {
-    "name": "ListIndexTool1",
-    "arguments": {
-      "input": {
-        "index": [
-          "test"
-        ]
-      }
+    "jsonrpc": "2.0",
+    "id": "110",
+    "method": "tools/call",
+    "params": {
+        "name": "ListIndexTool1",
+        "arguments": {
+            "indice": ["test"]
+        }
     }
   }
 }

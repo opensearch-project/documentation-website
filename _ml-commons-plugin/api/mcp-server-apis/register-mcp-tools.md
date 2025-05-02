@@ -78,7 +78,7 @@ POST /_plugins/_ml/mcp/tools/_register
 ## Example request: PPLTool
 
 ```json
-POST /_plugins/_ml/agents/_register
+POST /_plugins/_ml/mcp/tools/_register
 {
   "type": "PPLTool",
   "name": "TransferQuestionToPPLAndExecuteTool",
