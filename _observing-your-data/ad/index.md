@@ -298,11 +298,11 @@ You can analyze anomalies using the following visualizations:
     - **Confidence** estimate of the probability that the reported anomaly grade matches the expected anomaly grade. Confidence increases as the model observes more data and learns the data behavior and trends. Note that confidence is distinct from model accuracy.
     - **Last anomaly occurrence** is the time at which the last anomaly occurred.
 
-Underneath **Anomaly overview** or **Anomaly history** are:
+The following sections can be found under **Anomaly overview** and **Anomaly history**:
 
 - **Feature breakdown** plots the features based on the aggregation method. You can vary the date-time range of the detector. Selecting a point on the feature line chart shows the **Feature output**, the number of times a field appears in your index, and the **Expected value**, a predicted value for the feature output. Where there is no anomaly, the output and expected values are equal.
 
-- **Anomaly occurrences** shows the `Start time`, `End time`, `Data confidence`, and `Anomaly grade` for each detected anomaly.
+- **Anomaly occurrences** shows the `Start time`, `End time`, `Data confidence`, and `Anomaly grade` for each detected anomaly. To view logs related to an occurrence in Discover, select the **View in Discover** icon in the **Actions** column. The logs include a 10-minute buffer before and after the start and end times.
 
 Selecting a point on the anomaly line chart shows **Feature Contribution**, the percentage of a feature that contributes to the anomaly
 
