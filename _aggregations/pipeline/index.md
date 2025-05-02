@@ -52,12 +52,12 @@ The `buckets_path` parameter has the following syntax:
 buckets_path = <AGG_NAME>[<AGG_SEPARATOR>,<AGG_NAME>]*[<METRIC_SEPARATOR>, <METRIC>];
 ```
 
-where:
-
-- `AGG_NAME` is the name of the aggregation.
-- `AGG_SEPARATOR` separates aggregation names. It's represented as `>`.
-- `METRIC_SEPARATOR` separates the final aggregation from its metrics. It's represented as `.`.
-- `METRIC` is the name of the metric. It is required in the case of multi-value metric aggregations.
+| Element | Literal character | Description |
+| :-- | :-- | :-- | 
+| `AGG_NAME` |  | The name of the aggregation. |
+| `AGG_SEPARATOR` | `>` |  The character used to separate aggregation names. |
+| `METRIC_SEPARATOR`| `.` |  The character used to separate final aggregation from its metrics. |
+| `METRIC` |  | The name of the metric. Required for multi-value metric aggregations. |
 
 For example, `my_sum.sum` selects the `sum` metric of an aggregation called `my_sum`. `popular_tags>my_sum.sum` nests `my_sum.sum` into the `popular_tags` aggregation.
 
