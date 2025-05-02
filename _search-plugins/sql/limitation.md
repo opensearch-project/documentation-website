@@ -151,14 +151,14 @@ The `V3` engine doesn't support all the functionality available in previous engi
 
 Because the `V3` engine uses a different implementation internally, some behaviors have changed from previous versions. The behaviors in `V3` are considered correct, but they may produce different results than the same queries in `V2`. The following table highlights these differences:
 
-| Item | V2 | V3
+Item | V2 | V3
 :--- | :--- | :---
-| Return type of `timestampdiff` | timestamp | int
-| Return type of `regexp` | int | boolean
-| Return type of `count`,`dc`,`distinct_count` | int | bigint
-| Return type of `ceiling`,`floor`,`sign` | int | same type with input
-| like(firstname, 'Ambe_') on value "Amber JOHnny" | true | false
-| like(firstname, 'Ambe*') on value "Amber JOHnny" | true | false
-| cast(firstname as boolean) | false | null
-| Sum multiple `null` values when pushdown enabled | 0 | null
-| percentile(null, 50) | 0 | null
+Return type of `timestampdiff` | timestamp | int
+Return type of `regexp` | int | boolean
+Return type of `count`,`dc`,`distinct_count` | int | bigint
+Return type of `ceiling`,`floor`,`sign` | int | same type with input
+like(firstname, 'Ambe_') on value "Amber JOHnny" | true | false
+like(firstname, 'Ambe*') on value "Amber JOHnny" | true | false
+cast(firstname as boolean) | false | null
+Sum multiple `null` values when pushdown enabled | 0 | null
+percentile(null, 50) | 0 | null
