@@ -47,12 +47,6 @@ To enable the gRPC plugin (`transport-grpc`) in OpenSearch:
     grpc.host: localhost
     grpc.publish_host: 10.74.124.163
     grpc.bind_host: 0.0.0.0
-    
-    grpc.netty.worker_count: 2
-    grpc.netty.max_concurrent_connection_calls: 200
-    grpc.netty.max_connection_age: 500ms
-    grpc.netty.max_connection_idle: 2m
-    grpc.netty.keepalive_timeout: 1s
     ```
     {% include copy.html %}
 
