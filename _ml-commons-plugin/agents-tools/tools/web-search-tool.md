@@ -1,6 +1,6 @@
 ---
 layout: default
-title: List Index tool
+title: Web Search tool
 has_children: false
 has_toc: false
 nav_order: 35
@@ -14,26 +14,25 @@ grand_parent: Agents and tools
 {: .label .label-purple }
 <!-- vale on -->
 
-The `ListIndexTool` retrieves index information for the OpenSearch cluster, similarly to the [List Indices API]({{site.url}}{{site.baseurl}}/api-reference/list/list-indices/).
+The `WebSearchTool` retrieves search result content with user's question, it supports google,bing,duckduckgo as search engine or a customer API to perform search on.
 
-The `ListIndexTool` replaces the `CatIndexTool` starting with OpenSearch version 3.0.
-{: .note}
-
-## Step 1: Register a flow agent that will run the ListIndexTool
+## Example: Use duckduckgo as engine to run WebSearchTool
+### Step 1: Register a flow agent that will run the WebSearchTool
 
 A flow agent runs a sequence of tools in order and returns the last tool's output. To create a flow agent, send the following register agent request:
 
 ```json
 POST /_plugins/_ml/agents/_register
 {
-  "name": "Test_Agent_For_ListIndex_tool",
+  "name": "Test_Agent_For_WebSearch_tool",
   "type": "flow",
-  "description": "this is a test agent for the ListIndexTool",
+  "description": "this is a test agent for the WebSearchTool",
   "tools": [
     {
-      "type": "ListIndexTool",
-      "name": "DemoListIndexTool",
+      "type": "WebSearchTool",
+      "name": "DuckduckgoWebSearchTool",
       "parameters": {
+        "engine": "duckduckgo",
         "input": "${parameters.question}"
       }
     }
@@ -52,9 +51,9 @@ OpenSearch responds with an agent ID:
 }
 ```
 
-## Step 2: Run the agent
+### Step 2: Run the agent
 
-Before you run the agent, make sure that you add the sample OpenSearch Dashboards `Sample eCommerce orders` dataset. To learn more, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/quickstart#adding-sample-data).
+Before you run the agent, make sure that you have credentials for google search or bing search or customer API, duckduckgo doesn't require any credentials.
 
 Then, run the agent by sending the following request:
 
@@ -62,7 +61,7 @@ Then, run the agent by sending the following request:
 POST /_plugins/_ml/agents/9X7xWI0Bpc3sThaJdY9i/_execute
 {
   "parameters": {
-    "question": "How many indices do I have?"
+    "question": "How to create a index pattern in OpenSearch?"
   }
 }
 ```
@@ -77,36 +76,24 @@ OpenSearch returns the index information:
       "output": [
         {
           "name": "response",
-          "result": """health    status    index    uuid    pri    rep    docs.count    docs.deleted    store.size    pri.store.size
-green    open    .plugins-ml-model-group    lHgGEgJhT_mpADyOZoXl2g    1    1    9    2    33.4kb    16.7kb
-green    open    .plugins-ml-memory-meta    b2LEpv0QS8K60QBjXtRm6g    1    1    13    0    95.1kb    47.5kb
-green    open    .ql-datasources    9NXm_tMXQc6s_4uRToSNkQ    1    1    0    0    416b    208b
-green    open    sample-ecommerce    UPYOQcAfRGqFAlSxcZlRjw    1    1    40320    0    4.1mb    2mb
-green    open    .plugins-ml-task    xYTlprYCQnaaYici69SOjA    1    1    117    0    115.5kb    57.6kb
-green    open    .opendistro_security    7DAqhm9QQmeEsQYhA40cJg    1    1    10    0    117kb    58.5kb
-green    open    sample-host-health    Na5tq6UiTt6r_qYME1vV-w    1    1    40320    0    2.6mb    1.3mb
-green    open    .opensearch-observability    6PthtLluSKyYCdZR3Mw0iw    1    1    0    0    416b    208b
-green    open    .plugins-ml-model    WYcjBHcnRuSDHeVWPVupoA    1    1    191    45    4.2gb    2.1gb
-green    open    index_for_neural_sparse    GQswGabQRIazM_trnqaDrw    1    1    5    0    28.4kb    14.2kb
-green    open    security-auditlog-2024.01.30    BhXR7Nd3QVOVGxJNpR0-jw    1    1    27768    0    13.8mb    7mb
-green    open    sample-http-responses    0gmYYYdOTiCbVUvl_uDL0w    1    1    40320    0    2.5mb    1.2mb
-green    open    security-auditlog-2024.02.01    2VD1ieDGS5m-TfjIdfT8Eg    1    1    39305    0    39mb    18.6mb
-green    open    opensearch_dashboards_sample_data_ecommerce    wnE6r7OvSPqc5YHj8wHSLA    1    1    4675    0    8.8mb    4.4mb
-green    open    security-auditlog-2024.01.31    cNRK5-2eTwes0SRlXTl0RQ    1    1    34520    0    20.5mb    9.8mb
-green    open    .plugins-ml-memory-message    wTNBU4BBQVSFcFhNlUdfBQ    1    1    93    0    358.2kb    181.9kb
-green    open    .plugins-flow-framework-state    dJUNDv9MSJ2jjwKbzXPlrw    1    1    39    0    114.1kb    57kb
-green    open    .plugins-ml-agent    7X1IzoLuSGmIujOh9i5mmg    1    1    30    0    170.7kb    85.3kb
-green    open    .plugins-flow-framework-templates    _ecC0KahTlmG_3tFUst7Uw    1    1    18    0    175.8kb    87.9kb
-green    open    .plugins-ml-connector    q45iJfVjQ5KgxeNC65DLSw    1    1    11    0    313.1kb    156.5kb
-green    open    .kibana_1    vRjXK4bHSUueB_4iXiQ8yw    1    1    257    0    264kb    132kb
-green    open    .plugins-ml-config    G7gxGQB7TZeQzBasHd5PUg    1    1    1    0    7.8kb    3.9kb
-green    open    .plugins-ml-controller    NQTZPREZRhWoDdjCglRLFg    1    1    0    0    50.1kb    49.9kb
-green    open    opensearch_dashboards_sample_data_logs    9gpOTB3rRgqBLvqis_k5LQ    1    1    14074    0    18mb    9mb
-green    open    .plugins-flow-framework-config    JlKPsCh6SEq-Jh6rPL_x9Q    1    1    1    0    7.8kb    3.9kb
-green    open    opensearch_dashboards_sample_data_flights    pJde0irnTce4-uobHwYmMQ    1    1    13059    0    11.9mb    5.9mb
-green    open    my_test_data    T4hwNs7CTJGIfw2QpCqQ_Q    1    1    6    0    91.7kb    45.8kb
-green    open    .opendistro-job-scheduler-lock    XjgmXAVKQ4e8Y-ac54VBzg    1    1    3    3    36.2kb    21.3kb
-"""
+          "result": """
+            {
+                "next_page": "https://html.duckduckgo.com/html?q=how+to+create+index+pattern+in+OpenSearch&ia=web&dc=11",
+                "items": [
+                  {
+                    "url": "http://someurl",
+                    "title": "the page result title",
+                    "content": "the page content..."
+                  },
+                  {
+                    "url": "https://anotherurl",
+                    "title": "the page result title",
+                    "content": "the page content..."
+                  }
+                  ...
+                ]
+            }
+          """
         }
       ]
     }
@@ -114,16 +101,201 @@ green    open    .opendistro-job-scheduler-lock    XjgmXAVKQ4e8Y-ac54VBzg    1  
 }
 ```
 
+## Example: Use google as engine to run WebSearchTool
+### Step 1: Register a flow agent that will run the WebSearchTool
+
+A flow agent runs a sequence of tools in order and returns the last tool's output. To create a flow agent, send the following register agent request:
+
+```json
+POST /_plugins/_ml/agents/_register
+{
+  "name": "Test_Agent_For_WebSearch_tool",
+  "type": "flow",
+  "description": "this is a test agent for the WebSearchTool",
+  "tools": [
+    {
+      "type": "WebSearchTool",
+      "name": "GoogleWebSearchTool",
+      "parameters": {
+        "engine": "google",
+        "engine_id": "${your_google_engine_id}",
+        "api_key": "${your_google_api_key}",
+        "input": "${parameters.question}"
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %} 
+
+For parameter descriptions, see [Register parameters](#register-parameters).
+
+OpenSearch responds with an agent ID:
+
+```json
+{
+  "agent_id": "9X7xWI0Bpc3sThaJdY9i"
+}
+```
+
+### Step 2: Run the agent
+
+Before you run the agent, make sure that you have credentials for google search or bing search or customer API, duckduckgo doesn't require any credentials.
+
+Then, run the agent by sending the following request:
+
+```json
+POST /_plugins/_ml/agents/9X7xWI0Bpc3sThaJdY9i/_execute
+{
+  "parameters": {
+    "question": "How to create a index pattern in OpenSearch?"
+  }
+}
+```
+{% include copy-curl.html %} 
+
+OpenSearch returns the index information:
+
+```json
+{
+  "inference_results": [
+    {
+      "output": [
+        {
+          "name": "response",
+          "result": """
+            {
+                "next_page": "https://customsearch.googleapis.com/customsearch/v1?q=how+to+create+index+pattern+in+OpenSearch&start=10",
+                "items": [
+                  {
+                    "url": "http://someurl",
+                    "title": "the page result title",
+                    "content": "the page content..."
+                  },
+                  {
+                    "url": "https://anotherurl",
+                    "title": "the page result title",
+                    "content": "the page content..."
+                  }
+                  ...
+                ]
+            }
+          """
+        }
+      ]
+    }
+  ]
+}
+```
+
+## Example: Use custom API as engine to run WebSearchTool
+### Step 1: Register a flow agent that will run the WebSearchTool
+
+To use custom endpoint to perform search on, you need to configure the `Authorization` for authorzation and `endpoint` to connect to and `custom_res_url_jsonpath` to parse the response, your API should return a json format response and the links should able to be retrieved with jsonpath approach. Other parameters like `query_key`, `offset_key` and `limit_key` are not mandatory but if your API has different value to the default values, you should specify them.
+
+```json
+POST /_plugins/_ml/agents/_register
+{
+  "name": "Test_Agent_For_WebSearch_tool",
+  "type": "flow",
+  "description": "this is a test agent for the WebSearchTool",
+  "tools": [
+    {
+      "type": "WebSearchTool",
+      "name": "CustomWebSearchTool",
+      "parameters": {
+        "engine": "custom",
+        "endpoint": "${your_custom_endpoint}",
+        "custom_res_url_jsonpath": "$.data[*].link",
+        "Authorization": "Bearer xxxx",
+        "query_key": "q",
+        "offset_key": "offset",
+        "limit_key": "limit"
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %} 
+
+For parameter descriptions, see [Register parameters](#register-parameters).
+
+OpenSearch responds with an agent ID:
+
+```json
+{
+  "agent_id": "9X7xWI0Bpc3sThaJdY9i"
+}
+```
+
+### Step 2: Run the agent
+
+Before you run the agent, make sure that you have credentials for google search or bing search or customer API, duckduckgo doesn't require any credentials.
+
+Then, run the agent by sending the following request:
+
+```json
+POST /_plugins/_ml/agents/9X7xWI0Bpc3sThaJdY9i/_execute
+{
+  "parameters": {
+    "question": "How to create a index pattern in OpenSearch?"
+  }
+}
+```
+{% include copy-curl.html %} 
+
+OpenSearch returns the index information:
+
+```json
+{
+  "inference_results": [
+    {
+      "output": [
+        {
+          "name": "response",
+          "result": """
+            {
+                "next_page": "{your_custom_endpoint}?q=how+to+create+index+pattern+in+OpenSearch&offset=10&limit=10",
+                "items": [
+                  {
+                    "url": "http://someurl",
+                    "title": "the page result title",
+                    "content": "the page content..."
+                  },
+                  {
+                    "url": "https://anotherurl",
+                    "title": "the page result title",
+                    "content": "the page content..."
+                  }
+                  ...
+                ]
+            }
+          """
+        }
+      ]
+    }
+  ]
+}
+```
+
+
+
 ## Register parameters
 
 The following table lists all tool parameters that are available when registering an agent.
 
 Parameter | Type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`input` | String | Required | The user input used to return index information.
-`indices` | String | Optional | A comma-delimited list of one or more indexes on which to run the list index operation. Default is an empty list, which means all indexes.
-`local` | Boolean | Optional | When `true`, retrieves information from the local node only instead of the cluster manager node. Default is `false`.
-`page_size` | Integer | Optional | Specifies the number of index results returned per page when using the List Indices API. The API retrieves index status in a paginated manner. Default is `100`.
+`engine` | String | Required | The engine will be used to perform search on, valid values are: google|bing|duckduckgo|custom.
+`engine_id` | String | Optional | The engine id of google, mandatory for google.
+`api_key` | String | Optional | api key for search API to authorization, mandatory for google and bing.
+`endpoint` | String | Optional | endpoint of custom search API, mandatory for custom search API.
+`Authorization` | String | Optional | Authorization header value for custom API search, mandatory for custom API, mandatory for custom search API.
+`query_key` | String | Optional | query key for custom search API, e.g. if the query_key is `my_query_key`, then the full search endpoint will be: `${endpoint}?my_query_key=${question}`, default value is `q`.
+`offset_key` | String | Optional | offset key for pagination for custom search API, e.g. if the offset_key is `start`, then the next_page of the custom API will be: `${endpoint}?my_query_key=${question}&start=10`, default value is `offset`.
+`limit_key` | String | Optional | the result limit key for custom search API, e.g. if the limit_key is 10 (which mean one page has 10 items), then the next_page of the custom API will be: `${endpoint}?my_query_key=${question}&start=10&limit=10`, default value is `limit`.
+`custom_res_url_jsonpath` | String | Optional | the result url parsing json path, e.g. if you result is a list of items that contains url, then a valid jsonpath could be: `$[*].link`, mandatory for custom search API.
+
 
 ## Execute parameters
 
