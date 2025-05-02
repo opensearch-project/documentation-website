@@ -13,7 +13,7 @@ redirect_from:
 **Introduced 3.0**
 {: .label .label-purple }
 
-[Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction) is a protocol that defines how an agent can discover and execute tools. The MCP server allows external [agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/#agents) to connect to and use [tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/) available in OpenSearch. For a list of supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/).
+[Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction) is a protocol that defines how an agent can discover and execute tools. The MCP server allows external agents to connect to and use [tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/) available in OpenSearch. For a list of supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/).
 
 ML Commons supports the following MCP APIs:
 
