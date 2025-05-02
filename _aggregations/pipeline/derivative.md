@@ -3,16 +3,13 @@ layout: default
 title: Derivative
 parent: Pipeline aggregations
 nav_order: 70
-redirect_from:
-  - /query-dsl/aggregations/pipeline-agg#derivative/
-  - /query-dsl/aggregations/pipeline/derivative/
 ---
 
 # Derivative aggregations
 
-The `derivative` aggregation is a parent aggregation used to calculate first-order and second-order derivatives of each bucket of an aggregation. "First-order derivative" and "second-order derivative" are often shortened to "first derivative" and "second derivative" respectively. This page uses the shortened terms.
+The `derivative` aggregation is a parent aggregation used to calculate first-order and second-order derivatives of each bucket of an aggregation. "First-order derivative" and "second-order derivative" are often shortened to "first derivative" and "second derivative," respectively. This page uses the shortened terms.
 
-For an ordered series of buckets, `derivative` approximates a first derivative as the difference between metric values in the current previous buckets.
+For an ordered series of buckets, `derivative` approximates a first derivative as the difference between metric values in the current and previous buckets.
 
 ## Parameters
 
