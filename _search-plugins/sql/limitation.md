@@ -147,7 +147,7 @@ The `V3` engine doesn't support all the functionality available in previous engi
   - `query_string`
   - `multi_match`
 
-#### Behaviors changes
+#### `V2` and `V3` comparison
 
 Because the `V3` engine uses a different implementation internally, some behaviors have changed from previous versions. The behaviors in `V3` are considered correct, but they may produce different results than the same queries in `V2`. The following table highlights these differences:
 
