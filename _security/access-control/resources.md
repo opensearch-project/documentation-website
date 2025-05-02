@@ -56,44 +56,6 @@ sample_read_access:
 ```
 {% include copy.html %}
 
-## Resource sharing components
-
-The resource sharing extension consists of key components that work together to provide standardized access management.
-
-
-### API
-
-All sharing metadata is stored in the `.opensearch_resource_sharing` system index, as shown in the following table.
-
-| Field | Type | Description |
-| :--- | :--- | :--- |
-| `source_idx`  | String | The system index holding the resource |
-| `resource_id` | String | The resource ID   |
-| `created_by`  | Object | The name of the user who created the resource    |
-| `share_with`  | Object | A map of `action-groups` to access definitions  |
-
-
-### Document structure
-
-The resource sharing metadata is stored as JSON documents that define ownership, permissions, and access patterns. Each document contains fields that specify the resource location, identifier, creator information, and sharing configuration:
-
-```json
-{
-  "source_idx": ".plugins-ml-model-group",
-  "resource_id": "model-group-123",
-  "created_by": {
-    "user": "darshit"
-  },
-  "share_with": {
-    "default": {
-      "users": ["user1"],
-      "roles": ["viewer_role"],
-      "backend_roles": ["data_analyst"]
-    }
-  }
-}
-```
-{% include copy.html %}
 
 ## Action groups
 
