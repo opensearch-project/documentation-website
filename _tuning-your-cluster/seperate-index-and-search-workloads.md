@@ -160,7 +160,7 @@ POST my_index/_scale
 ```
 {% include copy-curl.html %}
 
-The following request turns on writer replicas:
+The following Scale request turns on writer replicas:
 
 ```json
 POST my_index/_scale 
