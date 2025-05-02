@@ -22,6 +22,9 @@ Without concurrent segment search, Lucene executes a request sequentially across
 
 ## Enabling concurrent segment search at the index or cluster level
 
+Starting with OpenSearch version 3.0, concurrent segment search is enabled by default on clusters. The default concurrent segment search mode is `auto`. After upgrading, aggregation workloads may experience increased CPU utilization. We recommend monitoring your cluster's resource usage and adjusting your infrastructure capacity as needed to maintain optimal performance.
+{: .important}
+
 To configure concurrent segment search on your cluster, use the `search.concurrent_segment_search.mode` setting. The older `search.concurrent_segment_search.enabled` setting will be deprecated in future version releases in favor of the new setting.
 
 You can enable concurrent segment search at two levels:
@@ -34,14 +37,11 @@ The index-level setting takes priority over the cluster-level setting. Thus, if 
 
 Both the cluster- and index-level `search.concurrent_segment_search.mode` settings accept the following values:
 
-- `all`: Enables concurrent segment search across all search requests. This is equivalent to setting `search.concurrent_segment_search.enabled` to `true`. Concurrent segment search is disabled by default in this mode.
+- `auto` (Default): In this mode, OpenSearch will use the pluggable _concurrent search decider_ to decide whether to use a concurrent or sequential path for the search request based on the query evaluation and the presence of aggregations in the request. By default, if there are no deciders configured by any plugin, then the decision to use concurrent search will be made based on the presence of aggregations in the request. For more information about the pluggable decider semantics, see [Pluggable concurrent search deciders](#pluggable-concurrent-search-deciders-concurrentsearchrequestdecider). 
 
-- `none`: Disables concurrent segment search for all search requests, effectively turning off the feature. This is equivalent to setting `search.concurrent_segment_search.enabled` to `false`. This is the **default** behavior. Concurrent segment search is disabled by default in this mode.
+- `all`: Enables concurrent segment search across all search requests. This is equivalent to setting `search.concurrent_segment_search.enabled` to `true`. 
 
-- `auto`: In this mode, OpenSearch will use the pluggable _concurrent search decider_ to decide whether to use a concurrent or sequential path for the search request based on the query evaluation and the presence of aggregations in the request. By default, if there are no deciders configured by any plugin, then the decision to use concurrent search will be made based on the presence of aggregations in the request. For more information about the pluggable decider semantics, see [Pluggable concurrent search deciders](#pluggable-concurrent-search-deciders-concurrentsearchrequestdecider). Starting with OpenSearch version 3.0, concurrent segment search is enabled by default in this mode.
-
-Starting with OpenSearch version 3.0, concurrent segment search is enabled by default on clusters in `auto` mode. After upgrading, aggregation workloads may experience increased CPU utilization. We recommend monitoring your cluster's resource usage and adjusting your infrastructure capacity as needed to maintain optimal performance.
-{: .important}
+- `none`: Disables concurrent segment search for all search requests, effectively turning off the feature. This is equivalent to setting `search.concurrent_segment_search.enabled` to `false`.
 
 To enable concurrent segment search for all search requests across every index in the cluster, send the following request:
 
