@@ -4,7 +4,7 @@ title: Agentic AI
 parent: Generative AI
 has_children: true
 has_toc: false
-nav_order: 30
+nav_order: 20
 redirect_from:
   - /tutorials/gen-ai/agents/
 flows:

@@ -156,7 +156,8 @@ POST /_plugins/_ml/agents/_register
 **Introduced 3.0**
 {: .label .label-purple }
 
-Plan, Execute and Reflect agent is an experimental feature.
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/ml-commons/issues/3745).    
+{: .warning}
 
 The Plan, Execute, and Reflect agent is designed for solving complex tasks that require iterative reasoning and step-by-step execution. It uses one LLM to create and update a plan (planner) and another LLM (or the same one, by default) to execute each individual step through a built-in conversational agent.
 
