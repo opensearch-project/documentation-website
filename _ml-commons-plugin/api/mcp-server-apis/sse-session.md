@@ -12,7 +12,11 @@ nav_order: 30
 
 The SSE Session API creates a Server-Sent Events (SSE) session between a client and the Model Context Protocol (MCP) server in OpenSearch. The session establishes a persistent connection that allows the server to push updates to the client.
 
-Most users won't need to interact with this API directly when using a standard MCP client library, which handles session management automatically. For implementation examples, see the [OpenSearch MCP client reference implementation](https://github.com/zane-neo/opensearch-mcpserver-test-example).
+Most users won't need to interact with this API directly when using a standard MCP client library, which handles session management automatically. 
+
+{% comment %} 
+For an example client implementation, see the [OpenSearch MCP client reference implementation](https://github.com/zane-neo/opensearch-mcpserver-test-example).
+{% endcomment %}
 
 ## URL construction methods
 

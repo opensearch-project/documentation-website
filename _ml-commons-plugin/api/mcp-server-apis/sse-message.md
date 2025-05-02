@@ -12,7 +12,11 @@ nav_order: 40
 
 This endpoint handles standard message interactions for the Model Context Protocol (MCP). It enables communication with the MCP server in OpenSearch through server-sent events (SSE).
 
-Most users won't need to interact with this API directly when using a standard MCP client. For implementation examples, see the [OpenSearch MCP client reference implementation](https://github.com/zane-neo/opensearch-mcpserver-test-example).
+Most users won't need to interact with this API directly when using a standard MCP client. 
+
+{% comment %} 
+For an example client implementation, see the [OpenSearch MCP client reference implementation](https://github.com/zane-neo/opensearch-mcpserver-test-example).
+{% endcomment %}
 
 ## Endpoints
 
@@ -41,15 +45,14 @@ The SSE Message API provides direct, low-level access to tools using the [JSON-R
 ```json
 POST /_plugins/_ml/mcp/sse/message
 {
-    "jsonrpc": "2.0",
-    "id": "110",
-    "method": "tools/call",
-    "params": {
-        "name": "ListIndexTool1",
-        "arguments": {
-            "indice": ["test"]
-        }
-    }
+  "jsonrpc": "2.0",
+  "id": "110",
+  "method": "tools/call",
+  "params": {
+      "name": "ListIndexTool1",
+      "arguments": {
+          "indices": ["test"]
+      }
   }
 }
 ```
@@ -75,7 +78,7 @@ data: {
             "indices": {
               "type": "array",
               "items": { "type": "string" },
-              "description": "OpenSearch index name list, separated by comma. for example: [\"index1\", \"index2\"], use empty array [] to list all indices in the cluster"
+              "description": "A comma-separated list of OpenSearch index names. For example: [\"index1\", \"index2\"]. Use [] (an empty array) to list all indices in the cluster."
             }
           },
           "additionalProperties": false
