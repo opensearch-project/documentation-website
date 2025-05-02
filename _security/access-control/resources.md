@@ -43,7 +43,7 @@ The Security plugin must have the following access:
 - Permissions to make share, verify, and list requests.
 - Shared access to all cluster components, or be the owner of the cluster.
 
-To grant the resource sharing extension these permissions, add the following role to `roles.yaml`:
+To grant the resource sharing extension these permissions, add the following roles to `roles.yaml`. These roles will be assigned to anyone conducting resource sharing:
 
 ```yaml
 sample_full_access:
@@ -97,7 +97,7 @@ The resource sharing metadata is stored as JSON documents that define ownership,
 
 ## Action groups
 
-Action groups define permission levels for shared resources. As of OpenSearch 3.0, the only supposted action group for resource sharing is `default`. To share resources across the action groups, use the `share_with` array in that resource's configuration and add wildcards for each default role:
+Action groups define permission levels for shared resources. As of OpenSearch 3.0, the only supported action group for resource sharing is `default`. To share resources across the action groups, use the `share_with` array in that resource's configuration and add wildcards for each default role:
 
 ```json
 {
