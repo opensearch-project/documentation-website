@@ -228,15 +228,19 @@ POST _plugins/_ppl/_explain
 
 For queries that require post-processing, the `explain` response includes a query plan in addition to the OpenSearch DSL. For those queries that don't require post processing, you can see a complete DSL.
 
-## New explain API (experimental)
+## `Explain` query plans
 
-From 3.0.0, when `plugins.calcite.enabled` set to true, the `explain` response is different from the response in `V2` and it accepts 4 formats: `standard` (the default format), `simple`,  `cost` and `extended`.
-* standard (default if not specified): display logical and physical plan
-* simple: display logical plan without attributes
-* cost: display logical and physical plan and its cost
-* extended: display logical and physical plan and generated code
 
-#### Sample explain request when plugins.calcite.enabled set to true
+Starting with OpenSearch 3.0.0, when you set `plugins.calcite.enabled` to `true`, the `explain` response provides enhanced information about query execution plans. The API supports the following output formats:
+
+- `standard`: Displays logical and physical plans (default if not specified)
+- `simple`: Displays logical plan without attributes
+- `cost`: Displays logical and physical plans with their costs
+- `extended`: Displays logical and physical plans with generated code
+
+### Examples
+
+The following request shows a basic explain query:
 
 ```json
 POST _plugins/_ppl/_explain
@@ -244,8 +248,9 @@ POST _plugins/_ppl/_explain
   "query" : "source=state_country | where country = 'USA' OR country = 'England' | stats count() by country"
 }
 ```
+{% include copy.html %}
 
-#### Sample PPL query explain response when plugins.calcite.enabled set to true
+The following response shows the standard format output with both logical and physical plans:
 
 ```json
 {
@@ -261,8 +266,9 @@ POST _plugins/_ppl/_explain
   }
 }
 ```
+{% include copy.html %}
 
-#### Sample explain request with format when plugins.calcite.enabled set to true
+The following request shows how to specify a format parameter:
 
 ```json
 POST _plugins/_ppl/_explain?format=simple
@@ -270,8 +276,9 @@ POST _plugins/_ppl/_explain?format=simple
   "query" : "source=state_country | where country = 'USA' OR country = 'England' | stats count() by country"
 }
 ```
+{% include copy.html %}
 
-#### Sample PPL query explain response with format when plugins.calcite.enabled set to true
+The following response shows the simplified output format:
 
 ```json
 {
@@ -284,6 +291,7 @@ POST _plugins/_ppl/_explain?format=simple
   }
 }
 ```
+{% include copy.html %}
 
 ## Paginating results
 
