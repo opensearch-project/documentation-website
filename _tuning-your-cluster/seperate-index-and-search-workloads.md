@@ -12,7 +12,7 @@ In a remote store enabled cluster with a Segment Replication enabled index, you 
 OpenSearch uses two types of replicas:
 
 - **Write replicas**: Act as redundant copies of the primary shard. If a primary shard fails (for example, due to node drop or hardware issues), a write replica can be promoted as the new primary to ensure high availability for write operations.
-- **Search replicas**: Serve search queries exclusively. Search replicas cannot be promoted as primaries.
+- **Search replicas**: Act for search queries exclusively. Search replicas cannot be promoted as primaries.
 
 ## Benefits of seperating workloads
 
