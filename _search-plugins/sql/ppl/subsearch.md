@@ -241,4 +241,4 @@ source = [  /* relation subsearch */
 
 ## Limitations
 
-PPL subsearch works only when `plugins.calcite.enabled` is set to true.
+PPL subsearch works only when `plugins.calcite.enabled` is set to `true`.
