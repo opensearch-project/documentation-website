@@ -43,7 +43,7 @@ We strongly recommend setting `min_doc_count` to `0` (the default for `histogram
 
 `derivatives` and `cumulative_sum` are common parent aggregations.
 
-## Buckets path property
+## Buckets path
 
 A pipeline aggregation uses the `buckets_path` parameter to access the results of other aggregations.
 The `buckets_path` parameter has the following syntax:
@@ -61,10 +61,22 @@ where:
 
 For example, `my_sum.sum` selects the `sum` metric of an aggregation called `my_sum`. `popular_tags>my_sum.sum` nests `my_sum.sum` into the `popular_tags` aggregation.
 
-The following parameters are optional:
+# Data gaps
 
-- `gap_policy`: Real-world data can contain gaps or null values. You can specify the policy to deal with such missing data with the `gap_policy` property. You can either set the `gap_policy` property to `skip` to skip the missing data and continue from the next available value, or `insert_zeros` to replace the missing values with zero and continue running.
-- `format`: You can provide a format string for the output value; for example, `yyyy-MM-dd` for a date value.
+Real-world data can be missing from nested aggregations for a number of reasons, including:
+
+- Missing values in documents
+- Empty buckets anywhere in the chain of aggregations
+- Data needed to calculate a bucket value is missing (for example, rolling functions such as `derivative` require one or more previous values to start).
+
+You can specify a policy to deal with missing data using the `gap_policy` property: either skip the missing data or replace the missing data with zeros.
+
+The `gap_policy` parameter is valid with all pipeline aggregations.
+
+| Parameter             | Required/Optional | Data type       | Description |
+| :--                   | :--               |  :--            | :--         |
+| `gap_policy`          | Optional          | String          | The policy to apply to missing data. Valid values are `skip` and `insert_zeros`. Default is `skip`. |
+| `format`              | Optional          | String          | A [DecimalFormat](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/text/DecimalFormat.html) formatting string. Returns the formatted output in the aggregation's `value_as_string` property. |
 
 ### Buckets path example
 
@@ -189,21 +201,3 @@ The results show stats on the *document counts* of the buckets:
 }
 ```
 
-## Data gaps
-
-Data can be missing from nested aggregations for a number of reasons, including:
-
-- Missing values in documents
-- Empty buckets anywhere in the chain of aggregations
-- Data needed to calculate a bucket value is missing (for example, rolling functions such as `derivative` require one or more previous values to start).
-
-You can specify a policy to deal with missing data using the `gap_policy` property. 
-
-You can set the `gap_policy` property to skip the missing data or replace the missing data with zeros.
-
-The `gap_policy` parameter is valid with all pipeline aggregations. The valid values for the parameter are:
-
-| Value | Action |
-| -- | -- |
-| `skip` | Ignore buckets containing missing data. |
-|`insert_zeros` | Replace missing values with zero (0) and continue as normal. |
