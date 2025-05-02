@@ -10,7 +10,7 @@ nav_order: 40
 **Introduced 3.0**
 {: .label .label-purple }
 
-This endpoint handles standard message interactions for the Model Context Protocol (MCP). It enables communication with the MCP server in OpenSearch through server-sent events (SSE).
+This endpoint handles standard message interactions for the Model Context Protocol (MCP). It enables communication with the MCP server in OpenSearch through Server-Sent Events (SSE).
 
 Most users won't need to interact with this API directly when using a standard MCP client. 
 
@@ -60,7 +60,7 @@ POST /_plugins/_ml/mcp/sse/message
 
 ## Example response
 
-OpenSearch responds with an SSE data stream to the client:
+OpenSearch sends an SSE data stream to the client:
 
 ```json
 event: message

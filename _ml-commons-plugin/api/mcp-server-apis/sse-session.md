@@ -24,15 +24,15 @@ The SSE Session API supports two different methods of URL construction to accomm
 
 ### Default URL construction
 
-When `append_to_base_url` is set to `false` (default), the API returns a relative path that clients need to append to their base URL.
+When `append_to_base_url` is set to `false` (default), the API returns a relative path that clients must append to their base URL.
 
-The Java MCP client accepts a baseUri (for example, `http://localhost:9200`) when creating the HTTP SSE connection. The default SSE URI is `/sse`, so the full SSE URL becomes `baseUri + /sse` and the message endpoint is constructed as `baseUri + sse.data`.
+The Java MCP client accepts a baseURI (for example, `http://localhost:9200`) when creating the HTTP SSE connection. The default SSE URI is `/sse`, so the full SSE URL becomes `baseUri + /sse` and the message endpoint is constructed as `baseUri + sse.data`.
 
 ### Complete path URL construction
 
 When `append_to_base_url` is set to `true`, the API returns a complete path that includes the plugin prefix.
 
-The Python MCP client accepts an endpoint as the SSE endpoint (for example, `http://localhost:8000/_plugins/_ml/mcp/sse`) and concatenates it with `sse.data`. Setting `append_to_base_url=true` ensures the correct message endpoint is constructed as `/_plugins/_ml/mcp/sse/message`.
+The Python MCP client accepts an endpoint as the SSE endpoint (for example, `http://localhost:8000/_plugins/_ml/mcp/sse`) and concatenates it with `sse.data`. Setting `append_to_base_url=true` ensures that the correct message endpoint is constructed as `/_plugins/_ml/mcp/sse/message`.
 
 ## Endpoints
 
@@ -55,7 +55,7 @@ GET /_plugins/_ml/mcp/sse
 
 ## Example response: Default URL construction
 
-OpenSearch responds with an SSE data stream to the client:
+OpenSearch sends an SSE data stream to the client:
 
 ```yaml
 event: endpoint
@@ -71,7 +71,7 @@ GET /_plugins/_ml/mcp/sse?append_to_base_url=true
 
 ## Example response: Complete path URL construction
 
-OpenSearch responds with an SSE data stream to the client:
+OpenSearch sends an SSE data stream to the client:
 
 ```yaml
 event: endpoint
