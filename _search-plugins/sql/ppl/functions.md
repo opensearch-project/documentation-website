@@ -772,9 +772,12 @@ sepal_length_in_cm | sepal_width_in_cm | petal_length_in_cm | petal_width_in_cm 
 | 5.6 | 3.0 | 4.1 | 1.3 | 0
 | 6.7 | 2.5 | 5.8 | 1.8 | 2
 
-## join (experimental)
+## join
 
-Using `join` command to combines two datasets together. The left side could be an index or results from a piped commands, the right side could be either an index or a subquery.
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
+{: .warning}
+
+Using the `join` command combines two datasets together. The left side can be an index or results from piped commands, while the right side can be either an index or a subquery.
 
 ### Syntax
 
@@ -784,17 +787,17 @@ Using `join` command to combines two datasets together. The left side could be a
 * right-dataset: mandatory. Right dataset could be either an index or a subquery with/without alias.
 ```
 
-Field | Description                                                                                                           | Type | Required | Default
-:--- |:----------------------------------------------------------------------------------------------------------------------|:--- |:-----|:---
-`join-type` | The type of join to perform. Could be `inner`, `left`, `right`, `full`, `cross`, `semi` and `anti`.                   | `String` | No   | `inner`
+Field | Description | Type | Required | Default
+:--- |:--- | :--- | :--- | :---
+`join-type` | The type of join to perform. Valid values are `inner`, `left`, `right`, `full`, `cross`, `semi` and `anti`.  | `String` | No   | `inner`
 `left-alias` | The subquery alias to use with the left join side, to avoid ambiguous naming. Fixed pattern: `left = <left-alias>`    | `String` | No   |
 `right-alias` | The subquery alias to use with the right join side, to avoid ambiguous naming. Fixed pattern: `right = <right-alias>` | `String` | No   |
-`join-criteria` | It could be any comparison expression.                                                                                | `String` | Yes  | -
-`right-dataset` | Right dataset could be either an index or a subquery with/without alias.                                              | `String` | Yes  | -
+`join-criteria` | Any comparison expression.  | `String` | Yes  | -
+`right-dataset` | Either an index or a subquery with/without alias.  | `String` | Yes  | -
 
-Example with two indices: state_country and occupation.
+The following examples use the `state_country` and `occupation` indexes:
 
-state_country:
+`state_country`:
 
 | name  | age | state      | country
 :--- | :--- | :--- | :---
@@ -807,7 +810,7 @@ state_country:
 | Rick  | 70  | B.C        | Canada
 | David | 40  | Washington | USA
 
-occupation:
+`occupation`:
 
 | name  | occupation  | country | salary
 :--- | :--- | :--- | :---
@@ -818,9 +821,9 @@ occupation:
 | David | Unemployed  | Canada  | 0
 | Jane  | Scientist   | Canada  | 90000
 
-**Example 1: Two indices join**
+**Example 1: Two indexes join**
 
-To remove duplicate documents with the same gender:
+The following example performs an inner join between two indexes:
 
 ```sql
 search source = state_country
@@ -837,6 +840,8 @@ search source = state_country
 100000.0 | 70 | England
 
 **Example 2: Join with subsearch**
+
+The following example performs a left join with a subsearch:
 
 ```sql
 search source = state_country as a
@@ -859,13 +864,14 @@ null | 40 | null
 
 ### Limitations
 
-The `join` command works only when `plugins.calcite.enabled` set to true.
+The `join` command works only when `plugins.calcite.enabled` is set to `true`.
 
-## lookup (experimental)
+## lookup
 
-`lookup` command enriches your search data by adding or replacing data from a lookup index (dimension table).
-You can extend fields of an index with values from a dimension table, append or replace values when lookup condition is matched.
-As an alternative of join command, lookup command is more suitable for enriching the source data with a static dataset.
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
+{: .warning}
+
+The `lookup` command enriches your search data by adding or replacing data from a lookup index (dimension table). You can extend fields of an index with values from a dimension table, append or replace values when lookup condition is matched. As an alternative to the `join` command, the `lookup` command is more suitable for enriching the source data with a static dataset.
 
 ### Syntax
 
@@ -873,19 +879,18 @@ As an alternative of join command, lookup command is more suitable for enriching
 lookup <lookup-index> (<lookup-mapping-field> [as <source-mapping-field>])... [(replace | append) (<input-field> [AS <output-field>])...]
 ```
 
- Field | Description | Required | Default
+Field | Description | Required | Default
 :--- | :--- | :--- | :---
- `lookup-index` | The name of lookup index (dimension table). | Yes | -
- `lookup-mapping-field`| A mapping key in `lookup-index`, analogy to a join key from right table. You can specify multiple `lookup-mapping-field` with comma-delimited. | Yes | -
- `source-mapping-field`| A mapping key from source (left side), analogy to a join key from left side. | No | `lookup-mapping-field`
- `replace` \| `append` | The output strategies. If you specify `replace`, matched values in `lookup-index` field overwrite the values in result. If you specify `append`, matched values in `lookup-index` field only append to the missing values in result. | No | `replace`
-`input-field` | A field in `lookup-index` where matched values are applied to result output. You can specify multiple `input-field` with comma-delimited. If you don't specify any `input-field`, all fields except `lookup-mapping-field` from `lookup-index` where matched values are applied to result output. | No |
-`output-field` | A field of output. You can specify zero or multiple `output-field`. If you specify `output-field` with an existing field name in source query, its values will be replaced or appended by matched values from `input-field`. If the field specified in `output-field` is a new field, an extended new field will be applied to the results. | No | `input-field`
+`lookup-index` | The name of lookup index (dimension table). | Yes | -
+`lookup-mapping-field`| A mapping key in `lookup-index`, analogous to a `join` key from right table. You can specify multiple `lookup-mapping-field` values with commas. | Yes | -
+`source-mapping-field`| A mapping key from source (left side), analogous to a `join` key from left side. | No | `lookup-mapping-field`
+`replace` \| `append` | The output strategies. If you specify `replace`, matched values in `lookup-index` field overwrite the values in result. If you specify `append`, matched values in `lookup-index` field only append to the missing values in result. | No | `replace`
+`input-field` | A field in `lookup-index` where matched values are applied to result output. You can specify multiple `input-field` values with commas. If you don't specify any `input-field`, all fields except `lookup-mapping-field` from `lookup-index` where matched values are applied to result output. | No |
+`output-field` | A field of output. You can specify zero or multiple `output-field` values. If you specify `output-field` with an existing field name in source query, its values will be replaced or appended by matched values from `input-field`. If the field specified in `output-field` is a new field, an extended new field will be applied to the results. | No | `input-field`
 
+The following examples use the `workers` and `work_information` indexes:
 
-Example with two indices: workers and work_information.
-
-workers:
+`workers`:
 
 | id | name | occupation | country | salary
 :--- | :--- | :--- | :--- | :---
@@ -896,7 +901,7 @@ workers:
 | 1004 | David | - | Canada | 0
 | 1005 | Jane | Scientist | Canada | 90000
 
-work_information:
+`work_information`:
 
 | uid | name  | department | occupation
 :--- | :--- | :--- | :---
@@ -906,7 +911,9 @@ work_information:
 | 1005 | Jane  | DATA | Engineer |
 | 1006 | Tom   | SALES | Artist |
 
-**Example 1: lookup workers and return the corresponding department**
+**Example 1: Lookup workers and return the corresponding department**
+
+The following example looks up workers and returns the corresponding department:
 
 ```sql
 source = workers | lookup work_information uid as id append department
@@ -922,7 +929,9 @@ source = workers | lookup work_information uid as id append department
 1005 | Jane | Scientist | Canada | 90000 | DATA
 
 
-**Example 2: lookup workers and replace its occupation and department from work_information to output**
+**Example 2: Lookup workers and replace occupation and department**
+
+The following example looks up workers and replaces occupation and department from work_information:
 
 ```sql
 source = workers | lookup work_information uid as id, name
@@ -937,7 +946,10 @@ source = workers | lookup work_information uid as id, name
 1004 | David | null       | Canada | 0 | null
 1005 | Jane | Engineer  | Canada | 90000 | DATA
 
-**Example 3: lookup workers and append occupation from work_information as a new occupation to output**
+**Example 3: Lookup workers and create a new occupation field**
+
+The following example looks up workers and appends occupation from work_information as a new field:
+
 ```sql
 source = workers | lookup work_information name replace occupation as new_occupation
 ```
@@ -953,4 +965,4 @@ source = workers | lookup work_information name replace occupation as new_occupa
 
 ### Limitations
 
-The `lookup` command works only when `plugins.calcite.enabled` set to true.
+The `lookup` command works only when `plugins.calcite.enabled` is set to `true`.
