@@ -30,7 +30,7 @@ POST /_plugins/_ml/mcp/tools/_remove
 
 ## Example response
 
-OpenSearch responds with the tool ID and removal status for each tool:
+OpenSearch responds with the instance ID and the status of tool deletion for each instance:
 
 ```json
 {
