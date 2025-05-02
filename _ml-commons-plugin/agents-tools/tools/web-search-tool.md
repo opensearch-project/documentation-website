@@ -14,7 +14,7 @@ grand_parent: Agents and tools
 {: .label .label-purple }
 <!-- vale on -->
 
-The `WebSearchTool` retrieves search results based on a user's question. It supports [Google](#using-google-as-a-search-engine), Bing, and [DuckDuckGo](#using-duckduckgo-as-a-search-engine) as search engines, or can use a [custom API](#using-a-custom-api-as-a-search-engine) to perform searches.
+The `WebSearchTool` retrieves search results based on a user's question. It supports [Google](#using-google-as-a-search-engine), Bing, and [DuckDuckGo](#using-duckduckgo-as-a-search-engine) as search engines or can use a [custom API](#using-a-custom-api-as-a-search-engine) to perform searches.
 
 ## Using DuckDuckGo as a search engine
 
@@ -144,7 +144,7 @@ OpenSearch responds with an agent ID:
 
 ### Step 2: Run the agent
 
-Before you run the agent, ensure that you have obtained credentials needed to access Google search programmatically.
+Before you run the agent, ensure that you have obtained the credentials needed to access Google search programmatically.
 
 Then, run the agent by sending the following request:
 
@@ -204,7 +204,7 @@ To use a custom endpoint for search, you need to configure the following paramet
 - `endpoint`: For the API connection
 - `custom_res_url_jsonpath`: For parsing the JSON response and extracting links
 
-Your API must return responses in JSON format. The links returned by the API must be retrievable using [JSONPath](https://en.wikipedia.org/wiki/JSONPath) expressions. Other parameters like `query_key`, `offset_key`, and `limit_key` are optional, but should be specified if your API uses different values than the defaults.
+Your API must return responses in JSON format. The links returned by the API must be retrievable using [JSONPath](https://en.wikipedia.org/wiki/JSONPath) expressions. Other parameters like `query_key`, `offset_key`, and `limit_key` are optional but should be specified if your API uses different values than the defaults.
 
 To create a flow agent, send the following register agent request:
 
@@ -245,7 +245,7 @@ OpenSearch responds with an agent ID:
 
 ### Step 2: Run the agent
 
-Before you run the agent, ensure that you have obtained credentials needed to access your custom search API programmatically.
+Before you run the agent, ensure that you have obtained the credentials needed to access your custom search API programmatically.
 
 Then, run the agent by sending the following request:
 
@@ -309,9 +309,9 @@ The following table lists all tool parameters that are available when registerin
 | `endpoint` | String | Optional | The URL endpoint for the custom search API. Required when `engine` is set to `custom`. |
 | `Authorization` | String | Optional | The authorization header value for the custom API. Required when `engine` is set to `custom`. |
 | `query_key` | String | Optional | The parameter name for the search query in the custom API URL (for example, `${endpoint}?my_query_key=${question}`). Default is `q`. |
-| `offset_key` | String | Optional | The parameter name for pagination offset in the custom API URL (for example, `${endpoint}?q=${question}&start=10`). Default is `offset`. |
-| `limit_key` | String | Optional | The parameter name for result limit in the custom API URL (for example, `${endpoint}?q=${question}&start=10&limit=10`). Default is `limit`. |
-| `custom_res_url_jsonpath` | String | Optional | The JSONPath expression to extract URLs from the custom API response (for example, `$[*].link`). Required when `engine` is set to `custom`. |
+| `offset_key` | String | Optional | The parameter name for the pagination offset in the custom API URL (for example, `${endpoint}?q=${question}&start=10`). Default is `offset`. |
+| `limit_key` | String | Optional | The parameter name for the result limit in the custom API URL (for example, `${endpoint}?q=${question}&start=10&limit=10`). Default is `limit`. |
+| `custom_res_url_jsonpath` | String | Optional | The JSONPath expression used to extract URLs from the custom API response (for example, `$[*].link`). Required when `engine` is set to `custom`. |
 
 ## Execute parameters
 
