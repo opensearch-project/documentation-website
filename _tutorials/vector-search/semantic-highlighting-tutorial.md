@@ -17,10 +17,21 @@ Replace the placeholders beginning with the prefix `your_` with your own values.
 
 ## Prerequisites
 
-Before you begin, ensure you have the following:
+To ensure local basic setup works, specify the following cluster settings:
 
--  A deployed text embedding model suitable for generating vector embeddings from your text data. See [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
--  A deployed sentence transformer or question-answering model specifically designed for semantic highlighting. OpenSearch plans to release pretrained models suitable for this task. For this tutorial, placeholder model IDs are used.
+```json
+PUT _cluster/settings
+{
+  "persistent": {
+    "plugins.ml_commons.allow_registering_model_via_url": "true",
+    "plugins.ml_commons.only_run_on_ml_node": "false",
+    "plugins.ml_commons.model_access_control_enabled": "true"
+  }
+}
+```
+{% include copy-curl.html %}
+
+This example uses a simple setup with no dedicated ML nodes and allows running a model on a non-ML node. On clusters with dedicated ML nodes, specify `"only_run_on_ml_node": "true"` for improved performance. For more information, see [ML Commons cluster settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/).
 
 ## Step 1: Create an index
 
@@ -65,7 +76,7 @@ You need two types of models for semantic highlighting:
 1.  **Text embedding model**: To convert the search query and document text into vectors.
 2.  **Sentence highlighting model**: To analyze the text and identify the most relevant sentences.
 
-First, register and deploy a text embedding model. The model group ID is optional (see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/)):
+First, register and deploy a text embedding model:
 
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
@@ -91,9 +102,10 @@ Next, register a pretrained semantic sentence highlighting model:
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
 {
-  "name": "TODO: placeholder-model-id",
+  "name": "amazon/sentence-highlighting/opensearch-semantic-highlighter-v1",
   "version": "1.0.0",
-  "model_format": "TORCH_SCRIPT"
+  "model_format": "TORCH_SCRIPT",
+  "function_name": "QUESTION_ANSWERING"
 }
 ```
 {% include copy-curl.html %}

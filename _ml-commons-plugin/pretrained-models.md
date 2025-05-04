@@ -90,7 +90,8 @@ The following table provides a list of semantic sentence highlighting models and
 
 | Model name | Version | TorchScript artifact | Description |
 |:---|:---|:---|:---|
-| `opensearch/semantic-sentence-highlighter-model-v1` | 1.0.0 | - [model_url](placeholder-link) <br>- [config_url](placeholder-link) | A model optimized for identifying semantically relevant sentences to be highlighted. (Artifacts coming soon) |
+| `amazon/sentence-highlighting/opensearch-semantic-highlighter-v1` | 1.0.0 | - [model_url](https://artifacts.opensearch.org/models/ml-models/amazon/sentence-highlighting/opensearch-semantic-highlighter-v1/1.0.0/torch_script/sentence-highlighting_opensearch-semantic-highlighter-v1-1.0.0-torch_script.zip) <br>- [config_url](https://artifacts.opensearch.org/models/ml-models/amazon/sentence-highlighting/opensearch-semantic-highlighter-v1/1.0.0/torch_script/config.json
+) | A model optimized for identifying semantically relevant sentences to be highlighted. |
 
 
 ## Prerequisites
