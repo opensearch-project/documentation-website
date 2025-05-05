@@ -74,7 +74,7 @@ The following table describes the connector parameters. For more information abo
 
 | Parameter | Data type | Required | Description |
 |:----------|:---------|:------------|
-| `protocol` | String | Yes | Specify `mcp_sse` to use the SSE protocol (currently the only supported protocol type).  |
+| `protocol` | String | Yes | Specify `mcp_sse` to use the SSE protocol (currently the only supported protocol type for MCP).  |
 | `url` | String | Yes | The complete base URL of the MCP server, including protocol, hostname, and port, if not using the default port (for example, `https://my-mcp-server.com:8443`). |
 | `credential` | Object | Yes | Contains sensitive authentication information such as API keys or tokens. Values stored in this object can be securely referenced in the `headers` section using the `${credential.*}` syntax. |
 | `headers` | Object | No | The HTTP headers to include with requests to the MCP server. For authentication headers, use the `${credential.*}` syntax to reference values from the `credential` object (for example, `"Authorization": "Bearer ${credential.mcp_server_key}"`).  |
