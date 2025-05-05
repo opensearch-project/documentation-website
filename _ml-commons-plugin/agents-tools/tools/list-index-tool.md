@@ -120,7 +120,6 @@ The following table lists all tool parameters that are available when registerin
 
 Parameter | Type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`input` | String | Required | The user input used to return index information.
 `indices` | String | Optional | A comma-delimited list of one or more indexes on which to run the list index operation. Default is an empty list, which means all indexes.
 `local` | Boolean | Optional | When `true`, retrieves information from the local node only instead of the cluster manager node. Default is `false`.
 `page_size` | Integer | Optional | Specifies the number of index results returned per page when using the List Indices API. The API retrieves index status in a paginated manner. Default is `100`.
