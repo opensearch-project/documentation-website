@@ -885,7 +885,7 @@ Field | Description | Required | Default
 `lookup-mapping-field`| A mapping key in the `lookup-index`, analogous to a `join` key from the right table. You can specify multiple `lookup-mapping-field` values with commas. | Yes | N/A
 `source-mapping-field`| A mapping key from the source (left side), analogous to a `join` key from the left side. | No | `lookup-mapping-field`
 `replace` \| `append` | The output strategies. When specifying `replace`, matched values in the `lookup-index` field overwrite the values in the results. If you specify `append`, matched values in the `lookup-index` field only append to the missing values in the results. | No | `replace`
-`input-field` | A field in `lookup-index` where matched values are applied to the result output. You can specify multiple `input-field` values with commas. If you don't specify any `input-field`, all fields except `lookup-mapping-field` from `lookup-index` where matched values are applied to the result output. | No | N/A
+`input-field` | A field in `lookup-index` where matched values are applied to the result output. You can specify multiple `input-field` values with commas. If you don't specify any `input-field`, all fields except `lookup-mapping-field` from `lookup-index` are matched values that are applied to the result output. | No | N/A
 `output-field` | A field of output. You can specify zero or multiple `output-field` values. If you specify `output-field` with an existing field name in the source query, its values will be replaced or appended by the matched values from `input-field`. If the field specified in `output-field` is a new field, an extended new field will be applied to the results. | No | `input-field`
 
 The following examples use the `workers` and `work_information` indexes.
