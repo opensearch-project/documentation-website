@@ -2,7 +2,7 @@
 layout: default
 title: Blocks
 parent: Index APIs
-nav_order: 6
+nav_order: 7
 ---
 
 # Blocks

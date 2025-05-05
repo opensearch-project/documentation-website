@@ -18,7 +18,7 @@ The approximate k-NN search methods in OpenSearch use approximate nearest neighb
 For information about the algorithms OpenSearch supports, see [Methods and engines]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/).
 {: .note}
 
-OpenSearch builds a native library index of the vectors for each `knn-vector` field/Lucene segment pair during indexing, which can be used to efficiently find the k-nearest neighbors to a query vector during search. To learn more about Lucene segments, see the [Apache Lucene documentation](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/codecs/lucene87/package-summary.html#package.description). These native library indexes are loaded into native memory during search and managed by a cache. To learn more about preloading native library indexes into memory, see [Warmup API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#warmup-operation). Additionally, you can see which native library indexes are already loaded into memory using the [Stats API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#stats).
+OpenSearch builds a native library index of the vectors for each `knn-vector` field/Lucene segment pair during indexing, which can be used to efficiently find the k-nearest neighbors to a query vector during search. To learn more about Lucene segments, see the [Apache Lucene documentation](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/codecs/lucene87/package-summary.html#package.description). These native library indexes are loaded into native memory during search and managed by a cache. To learn more about preloading native library indexes into memory, see [Warmup API]({{site.url}}{{site.baseurl}}/vector-search/api/knn#warmup-operation). Additionally, you can see which native library indexes are already loaded into memory using the [Stats API]({{site.url}}{{site.baseurl}}/vector-search/api/knn#stats).
 
 Because the native library indexes are constructed during indexing, it is not possible to apply a filter on an index and then use this search method. All filters are applied to the results produced by the ANN search.
 
@@ -143,7 +143,7 @@ Starting in OpenSearch 2.14, you can use `k`, `min_score`, or `max_distance` for
 
 ## Building a vector index from a model
 
-For some of the algorithms that OpenSearch supports, the native library index needs to be trained before it can be used. It would be expensive to train every newly created segment, so, instead, OpenSearch features the concept of a *model* that initializes the native library index during segment creation. You can create a model by calling the [Train API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-a-model) and passing in the source of the training data and the method definition of the model. Once training is complete, the model is serialized to a k-NN model system index. Then, during indexing, the model is pulled from that index to initialize the segments.
+For some of the algorithms that OpenSearch supports, the native library index needs to be trained before it can be used. It would be expensive to train every newly created segment, so, instead, OpenSearch features the concept of a *model* that initializes the native library index during segment creation. You can create a model by calling the [Train API]({{site.url}}{{site.baseurl}}/vector-search/api/knn#train-a-model) and passing in the source of the training data and the method definition of the model. Once training is complete, the model is serialized to a k-NN model system index. Then, during indexing, the model is pulled from that index to initialize the segments.
 
 To train a model, you first need an OpenSearch index containing training data. Training data can come from any `knn_vector` field that has a dimension matching the dimension of the model you want to create. Training data can be the same as the data you plan to index or come from a separate dataset. To create a training index, send the following request:
 
@@ -192,18 +192,24 @@ POST /_plugins/_knn/models/my-model/_train
   "training_field": "train-field",
   "dimension": 4,
   "description": "My model description",
-  "space_type": "l2",
   "method": {
     "name": "ivf",
     "engine": "faiss",
     "parameters": {
-      "nlist": 4,
-      "nprobes": 2
+      "encoder": {
+        "name": "pq",
+        "parameters": {
+          "code_size": 2,
+          "m": 2
+        }
+      }
     }
   }
 }
 ```
 {% include copy-curl.html %}
+
+For more information about the method parameters, see [IVF training requirements]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/#ivf-training-requirements).
 
 The Train API returns as soon as the training job is started. To check the job status, use the Get Model API:
 
