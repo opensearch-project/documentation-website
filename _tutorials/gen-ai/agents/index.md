@@ -8,6 +8,13 @@ nav_order: 20
 redirect_from:
   - /tutorials/gen-ai/agents/
 flows:
+  - heading: "Building a flow agent"
+    link: /ml-commons-plugin/agents-tools/agents-tools-tutorial/
+    description: "Learn how to build a flow agent for RAG."
+    list: 
+      - "<b>Platform:</b> OpenSearch"
+      - "<b>Model:</b> Anthropic Claude"  
+      - "<b>Deployment:</b> Amazon Bedrock"  
   - heading: "Building a plan, execute, and reflect agent"
     link: /tutorials/gen-ai/agents/build-plan-execute-reflect-agent/
     description: "Learn how to build a powerful <i>plan, execute, and reflect</i> agent for solving complex problems."
@@ -17,7 +24,7 @@ flows:
       - "<b>Deployment:</b> Amazon Bedrock"  
   - heading: Building chatbots
     link: /tutorials/gen-ai/agents/chatbots/
-    description: "Learn how to build chatbots using agents."   
+    description: "Learn how to build your own chatbots using RAG, conversational flow agents, and more."   
 ---
 
 # Agentic AI tutorials

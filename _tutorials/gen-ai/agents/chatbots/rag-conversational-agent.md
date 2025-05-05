@@ -249,7 +249,7 @@ POST /_plugins/_ml/models/your_LLM_model_id/_predict
 
 ## Step 3: Register an agent
 
-OpenSearch provides the following agent types: `flow`, `conversational_flow`, and `conversational`. For more information about agents, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/#agents).
+OpenSearch provides the following agent types: `flow`, `conversational_flow`, and `conversational`. For more information about agents, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/).
 
 You will use a `conversational_flow` agent in this tutorial. The agent consists of the following:
 

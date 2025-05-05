@@ -11,7 +11,7 @@ nav_order: 10
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/ml-commons/issues/3745).    
 {: .warning}
 
-This tutorial describes how to build and use a _plan, execute, and reflect_ agent. This agent can be used to solve complex problems that benefit from multi-step execution and reasoning. In this example, we will ask the agent to analyze flight data in our OpenSearch index. For more information about this agent, see [Plan, execute, and reflect agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/#plan-execute-and-reflect-agents).
+This tutorial describes how to build and use a _plan, execute, and reflect_ agent. This agent can be used to solve complex problems that benefit from multi-step execution and reasoning. In this example, we will ask the agent to analyze flight data in our OpenSearch index. For more information about this agent, see [Plan, execute, and reflect agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/).
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}
@@ -22,7 +22,7 @@ Log in to the OpenSearch Dashboards home page, select **Add sample data** and ad
 
 ## Step 1: Prepare an LLM
 
-A plan, execute, and reflect agent requires a large language model (LLM) to function. This tutorial uses the [Anthropic Claude 3.7 model hosted on Amazon Bedrock](https://aws.amazon.com/bedrock/claude/). You can also [use other supported LLMs](#using-other-llms).
+A plan, execute, and reflect agent requires a large language model (LLM) to function. This tutorial uses the [Anthropic Claude 3.7 model hosted on Amazon Bedrock](https://aws.amazon.com/bedrock/claude/). You can also [use other supported LLMs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/#supported-llms).
 
 ### Step 1(a): Create a connector
 
@@ -328,97 +328,7 @@ POST _plugins/_ml/agents/your_agent_id/_execute?async=true
 ```
 {% include copy-curl.html %}
 
-## Step 3 (Optional): Create an agent with custom prompts
+## Next steps
 
-The plan, execute, and reflect agent uses several predefined prompts that control its behavior. For more information about these prompts and how to modify them, see [Default promtpts]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/#default-prompts).
-
-## Using other LLMs
-
-You can configure a plan, execute, and reflect agent with several other models by modifying the connector in [Step 1(a): Create a connector](#step-1a-create-a-connector) and providing a model-specific `llm_interface` parameter in [Step 2: Create an agent](#step-2-create-an-agent):
-
-```json
-"parameters": {
-  "_llm_interface": "bedrock/converse/claude"
-},
-```
-
-All steps remain the same.
-
-### OpenAI GPT-4o
-
-To create a connector for an OpenAI GPT-4o model, send the following request: 
-
-```json
-POST /_plugins/_ml/connectors/_create
-{
-    "name": "My openai connector: gpt-4",
-    "description": "The connector to openai chat model",
-    "version": 1,
-    "protocol": "http",
-    "parameters": {
-        "model": "gpt-4o"
-    },
-    "credential": {
-        "openAI_key": "your_open_ai_key"
-    },
-    "actions": [
-        {
-        "action_type": "predict",
-        "method": "POST",
-        "url": "https://api.openai.com/v1/chat/completions",
-        "headers": {
-            "Authorization": "Bearer ${credential.openAI_key}"
-        },
-        "request_body": "{ \"model\": \"${parameters.model}\", \"messages\": [{\"role\":\"developer\",\"content\":\"${parameters.system_prompt}\"},${parameters._chat_history:-}{\"role\":\"user\",\"content\":\"${parameters.prompt}\"}${parameters._interactions:-}]${parameters.tool_configs:-} }"
-        }
-    ]
-}
-```
-{% include copy-curl.html %}
-
-Then register the model and register an agent, specifying `openai/v1/chat/completions` in the `_llm_interface` field.
-
-### Deepseek R1
-
-To create a connector for a DeepSeek R1 hosted on Amazon Bedrock, send the following request:
-
-```json
-POST /_plugins/_ml/connectors/_create
-{
-    "name": "My DeepSeek R1 connector",
-    "description": "my test connector",
-    "version": 1,
-    "protocol": "aws_sigv4",
-    "parameters": {
-        "region": "your_region",
-        "service_name": "bedrock",
-        "model": "us.deepseek.r1-v1:0"
-    },
-    "credential": {
-        "access_key": "your_access_key",
-        "secret_key": "your_secret_key",
-        "session_token": "your_session_token"
-    },
-    "actions": [
-        {
-        "action_type": "predict",
-        "method": "POST",
-        "url": "https://bedrock-runtime.${parameters.region}.amazonaws.com/model/${parameters.model}/converse",
-        "headers": {
-            "content-type": "application/json"
-        },
-        "request_body": "{ \"system\": [{\"text\": \"${parameters.system_prompt}\"}], \"messages\": [${parameters._chat_history:-}{\"role\":\"user\",\"content\":[{\"text\":\"${parameters.prompt}\"}]}${parameters._interactions:-}] }"
-        }
-    ]
-}
-```
-{% include copy-curl.html %}
-
-Then register the model and register an agent, specifying `bedrock/converse/deepseek_r1` in the `_llm_interface` field.
- 
-Because the Deepseek R1 model hosted on Amazon Bedrock lacks default function-calling support, provide the following prompt as an `executor_system_prompt` during agent registration:
-
-```json
-"You are a helpful assistant. You can ask Human to use tools to look up information that may be helpful in answering the users original question. The tools the human can use are:\n[${parameters._tools.toString()}]\n\nIf need to use tool, return which tool should be used and the input to user is enough. User will run the tool to get information. To make it easier for user to parse the response to know whether they should invoke a tool or not, please also return \"stop_reason\", it only return one of two enum values: [end_turn, tool_use], add a random tool call id to differenciate in case same tool invoked multiple times. Tool call id follow this pattern \"tool_use_<random string>\". The random string should be some UUID.\n\nFor example, you should return a json like this if need to use tool:\n{\"stop_reason\": \"tool_use\", \"tool_calls\": [{\"id\":\"tool_use_IIHBxMgOTjGb6ascCiOILg\",tool_name\":\"search_opensearch_index\",\"input\": {\"index\":\"population_data\",\"query\":{\"query\":{\"match\":{\"city\":\"New York City\"}}}}}]}\n\nIf don't need to use tool, return a json like this:\n{\"stop_reason\": \"end_turn\", \"message\": {\"role\":\"user\",\"content\":[{\"text\":\"What is the most popular song on WZPZ?\"}]}}\n\nNOTE: Don't wrap response in markdown ```json<response>```. For example don't return ```json\\n{\"stop_reason\": \"end_turn\", \"message\": {\"role\":\"user\",\"content\":[{\"text\":\"What is the most popular song on WZPZ?\"}]}}```\n"
-```
-{% include copy.html %}
+- For information about using other models, see [Supported LLMs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/#supported-llms)
+- For information about creating agents with custom prompts, see [Modifying default prompts]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/#modifying-default-prompts)
