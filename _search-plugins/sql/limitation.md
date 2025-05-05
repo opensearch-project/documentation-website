@@ -79,11 +79,11 @@ The query with `aggregation` and `join` does not support pagination for now.
 
 Before OpenSearch 3.0.0, the SQL plugin used two query processing engines: `V1` and `V2`. Both engines supported most features, but only `V2` was under active development. When you ran a query, the plugin first tried to execute it using the `V2` engine and fell back to `V1` if execution failed. If a query was supported in `V2` but not in `V1`, the query would fail and return an error response.
 
-Starting with OpenSearch 3.0.0, the SQL plugin introduces a new query engine (`V3`) that leverages Apache Calcite for query optimization and execution. Because `V3` is an experimental feature in OpenSearch 3.0.0, it's disabled by default. To enable this new engine, set `plugins.calcite.enabled` to `true`. Similar to the `V2` to `V1` fallback logic, when you run a query, the plugin first tries to execute it using the `V3` engine and falls back to `V2` if execution fails. For more information about `V3`, see [PPL Engine V3](https://github.com/opensearch-project/sql/blob/main/docs/dev/intro-v3-engine.md).
+Starting with OpenSearch 3.0.0, the SQL plugin introduced a new query engine (`V3`) that leverages Apache Calcite for query optimization and execution. Because `V3` is an experimental feature in OpenSearch 3.0.0, it's disabled by default. To enable this new engine, set `plugins.calcite.enabled` to `true`. Similar to the `V2` to `V1` fallback logic, when you run a query, the plugin first tries to execute it using the `V3` engine and falls back to `V2` if execution fails. For more information about `V3`, see [PPL Engine V3](https://github.com/opensearch-project/sql/blob/main/docs/dev/intro-v3-engine.md).
 
 ### V1 engine limitations
 
-The `V1` query engine is the original SQL processing engine in OpenSearch. While it's been largely replaced by newer engines, understanding its limitations helps explain certain query behaviors, especially when queries fall back from `V2` to `V1`. The following limitations apply specifically to the V1 engine:
+The `V1` query engine is the original SQL processing engine in OpenSearch. While it's been largely replaced by newer engines, understanding its limitations helps explain certain query behaviors, especially when queries fall back from `V2` to `V1`. The following limitations apply specifically to the `V1` engine:
 
 * The select literal expression without `FROM` clause is not supported. For example, `SELECT 1` is not supported.
 * The `WHERE` clause does not support expressions. For example, `SELECT FlightNum FROM opensearch_dashboards_sample_data_flights where (AvgTicketPrice + 100) <= 1000` is not supported.
@@ -107,19 +107,19 @@ The `V2` query engine handles most modern SQL query patterns. However, it has ce
 
 ### V3 engine limitations and restrictions
 
-The `V3` query engine introduces enhanced query processing capabilities using Apache Calcite. As an experimental feature in OpenSearch 3.0.0, it has certain limitations and behavioral differences you should be aware of when developing queries. These limitations fall into three categories: new restrictions, unsupported functionalities, and behavior changes.
+The `V3` query engine provides enhanced query processing capabilities using Apache Calcite. As an experimental feature in OpenSearch 3.0.0, it has certain limitations and behavioral differences you should be aware of when developing queries. These limitations fall into three categories: new restrictions, unsupported functionalities, and behavior changes.
 
 #### Restrictions
 
-The `V3` engine introduces stricter validation around OpenSearch metadata fields. When working with commands that manipulate field names, be aware of the following restrictions:
+The `V3` engine introduces stricter validation for OpenSearch metadata fields. When working with commands that manipulate field names, be aware of the following restrictions:
 
-- `eval` won't allow you to use [metadata fields of OpenSearch]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/index/) as the fields
-- `rename` won't allow renaming to a [metadata field of OpenSearch]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/index/)
-- `as` won't allow you to use [metadata fields of OpenSearch]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/index/) as the alias name
+- `eval` won't allow you to use [OpenSearch metadata fields]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/index/) as the fields.
+- `rename` won't allow renaming to an [OpenSearch metadata field]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/index/).
+- `as` won't allow you to use an [OpenSearch metadata field]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/index/) as the alias name.
 
 ### Unsupported functionalities
 
-The `V3` engine doesn't support all the functionality available in previous engines. For the following features, the query will automatically be forwarded to the V2 query engine:
+The `V3` engine doesn't support all the functionality available in previous engines. For the following features, the query will automatically be forwarded to the `V2` query engine:
 
 - `trendline`
 - `show datasource`
@@ -128,17 +128,17 @@ The `V3` engine doesn't support all the functionality available in previous engi
 - `fillnull`
 - `patterns`
 - `dedup` with `consecutive=true`
-- Search relevant commands:
+- Search-relevant commands:
   - `AD`
   - `ML`
   - `Kmeans`
-- Commands with `fetch_size` parameter
-- Queries with metadata fields, such as `_id`, `_doc`
+- Commands with the `fetch_size` parameter
+- Queries with metadata fields, such as `_id` or `_doc`
 - JSON-relevant functions:
   - `cast to json`
   - `json`
   - `json_valid`
-- Search relevant functions:
+- Search-relevant functions:
   - `match`
   - `match_phrase`
   - `match_bool_prefix`
@@ -147,11 +147,11 @@ The `V3` engine doesn't support all the functionality available in previous engi
   - `query_string`
   - `multi_match`
 
-#### `V2` and `V3` comparison
+#### V2 compared to V3
 
-Because the `V3` engine uses a different implementation internally, some behaviors have changed from previous versions. The behaviors in `V3` are considered correct, but they may produce different results than the same queries in `V2`. The following table highlights these differences:
+Because the `V3` engine uses a different implementation internally, some behaviors have changed from previous versions. The behaviors in `V3` are considered correct, but they may produce different results than the same queries in `V2`. The following table highlights these differences.
 
-Item | V2 | V3
+Item | `V2` | `V3`
 :--- | :--- | :---
 Return type of `timestampdiff` | timestamp | int
 Return type of `regexp` | int | boolean

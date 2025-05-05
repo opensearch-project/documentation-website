@@ -22,7 +22,7 @@ The first three subsearch commands (`in`, `exists`, and `scalar`) are expression
 
 ## `in`
 
-An `in` subsearch allows you to check if a field's value exists in the results of another query. This is useful when you want to filter your results based on data from another index or query.
+An `in` subsearch allows you to check whether a field's value exists in the results of another query. This is useful when you want to filter your results based on data from another index or query.
 
 ### Syntax
 
@@ -49,7 +49,7 @@ source = table1 | inner join left = l right = r on l.a = r.a AND r.a in [ source
 
 ## `exists`
 
-An `exists` subsearch checks if any results are returned by the subsearch query. It's particularly useful for correlated subqueries where you want to check the existence of related records.
+An `exists` subsearch checks whether any results are returned by the subsearch query. This is particularly useful for correlated subqueries where you want to check the existence of related records.
 
 ### Syntax
 
@@ -60,17 +60,17 @@ where [not] exists [ search source=... | ... | ... ]
 
 ### Usage
 
-The following examples demonstrate different ways to implement `scalar` subsearches, from simple aggregation comparisons to complex nested calculations.
+The following examples demonstrate different ways to implement `exists` subsearches, from simple aggregation comparisons to complex nested calculations.
 
 They are created with the following assumptions: 
 
-- `a`, `b` are fields of table outer
-- `c`, `d` are fields of table inner
+- `a` and `b` are fields of table outer.
+- `c` and `d` are fields of table inner.
 - `e`, `f` are fields of table nested
 
 #### Correlated
 
-In the following example. the inner query references fields from the outer query (such as when a = c), creating a dependency between the queries. The subsearch is evaluated once for each row in the outer query:
+In the following example, the inner query references fields from the outer query (such as when a = c), creating a dependency between the queries. The subsearch is evaluated once for each row in the outer query:
 
 
 ```sql
@@ -87,7 +87,7 @@ source = table as t1 exists [ source = table as t2 | where t1.a = t2.a ]
 
 #### Uncorrelated
 
-In the following example, the subsearches are independent of the outer query. The inner query doesn't reference any fields from the outer query, so it's evaluated only once regardless of how many rows are in the outer query:
+In the following example, the subsearches are independent of the outer query. The inner query doesn't reference any fields from the outer query, so it's evaluated only once, regardless of how many rows are in the outer query:
 
 ```sql
 source = outer | where exists [ source = inner | where c > 10 ]
@@ -106,7 +106,7 @@ source = outer | where exists [ source = inner1 | where a = c | where exists [ s
 
 ## `scalar`
 
-A scalar subsearch returns a single value that you can use in comparisons or calculations. This is useful when you need to compare a field against an aggregated value from another query.
+A `scalar` subsearch returns a single value that you can use in comparisons or calculations. This is useful when you need to compare a field against an aggregated value from another query.
 
 ### Syntax
 
@@ -133,7 +133,7 @@ source = outer a > [ source = inner | stats min(c) ] | fields a
 
 #### Correlated
 
-In the following example, the scalar subsearch references fields from the outer query, creating a dependency where the inner query result depends on each row of the outer query:
+In the following example, the `scalar` subsearch references fields from the outer query, creating a dependency where the inner query result depends on each row of the outer query:
 
 ```sql
 source = outer | eval m = [ source = inner | where outer.b = inner.d | stats max(c) ] | fields m, a
@@ -149,7 +149,7 @@ source = outer [ source = inner | where outer.b = inner.d OR inner.d = 1 | stats
 
 #### Nested
 
-The following example demonstrates how to nest multiple scalar subsearches to create complex comparisons or use one subsearch result within another:
+The following example demonstrates how to nest multiple `scalar` subsearches to create complex comparisons or use one subsearch result within another:
 
 ```sql
 source = outer | where a = [ source = inner | stats max(c) | sort c ] OR b = [ source = inner | where c = 1 | stats min(d) | sort d ]
@@ -159,7 +159,7 @@ source = outer | where a = [ source = inner | where c =  [ source = nested | sta
 
 ## `relation`
 
-A relation subsearch allows you to use a query result as a dataset in a join operation. This is useful when you need to join with a filtered or transformed dataset rather than joining directly with a static index.
+A `relation` subsearch allows you to use a query result as a dataset in a join operation. This is useful when you need to join with a filtered or transformed dataset rather than joining directly with a static index.
 
 ### Syntax
 
@@ -170,7 +170,7 @@ join on <condition> [ search source=... | ... | ... ] [as alias]
 
 ### Usage
 
-The following example demonstrates how to use relation subsearches in join operations. The first example shows how to join with a filtered dataset, while the second shows how to nest a relation subsearch within another query:
+The following example demonstrates how to use `relation` subsearches in join operations. The first example shows how to join with a filtered dataset, while the second shows how to nest a `relation` subsearch within another query:
 
 ```sql
 source = table1 | join left = l right = r on condition [ source = table2 | where d > 10 | head 5 ] //subquery in join right side
@@ -180,13 +180,13 @@ source = [ source = table1 | join left = l right = r [ source = table2 | where d
           
 ## Examples
 
-The following examples demonstrate how different subsearch types work together in query scenarios, such as multi-level queries, or nesting multiple subsearch types.
+The following examples demonstrate how different subsearch types work together in query scenarios, such as multi-level queries or nesting multiple subsearch types.
 
 ### Complex query examples
 
 The following examples demonstrate how to combine different types of subsearches in complex queries.
 
-**Example 1: Query with `in` and `scalar` subsearch**
+**Example 1: Query with `in` and `scalar` subsearches**
 
 The following query uses both `in` and `scalar` subsearches to find suppliers from Canada who supply parts with names starting with "forest" and have availability quantities greater than half of the total quantity ordered in 1994:
 
@@ -214,9 +214,9 @@ source = supplier
      | fields ps_suppkey
 ```
 
-**Example 2: Query with `relation`, `scalar` and `exists` subsearch**
+**Example 2: Query with `relation`, `scalar`, and `exists` subsearches**
 
-The following query uses relation, scalar, and exists subsearches to find customers from specific country codes with account balances above average who have not placed any orders:
+The following query uses `relation`, `scalar`, and `exists` subsearches to find customers from specific country codes with above-average account balances who have not placed any orders:
 
 ```sql
 source = [  /* relation subsearch */

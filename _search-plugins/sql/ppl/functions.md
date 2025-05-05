@@ -777,7 +777,7 @@ sepal_length_in_cm | sepal_width_in_cm | petal_length_in_cm | petal_width_in_cm 
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
 {: .warning}
 
-Using the `join` command combines two datasets together. The left side can be an index or results from piped commands, while the right side can be either an index or a subquery.
+You can combine two datasets using the `join` command. The left side can be an index or results from piped commands, while the right side can be either an index or a subquery.
 
 ### Syntax
 
@@ -789,17 +789,17 @@ Using the `join` command combines two datasets together. The left side can be an
 
 Field | Description | Type | Required | Default
 :--- |:--- | :--- | :--- | :---
-`join-type` | The type of join to perform. Valid values are `inner`, `left`, `right`, `full`, `cross`, `semi` and `anti`.  | `String` | No   | `inner`
-`left-alias` | The subquery alias to use with the left join side, to avoid ambiguous naming. Fixed pattern: `left = <left-alias>`    | `String` | No   |
-`right-alias` | The subquery alias to use with the right join side, to avoid ambiguous naming. Fixed pattern: `right = <right-alias>` | `String` | No   |
-`join-criteria` | Any comparison expression.  | `String` | Yes  | -
-`right-dataset` | Either an index or a subquery with/without alias.  | `String` | Yes  | -
+`join-type` | The type of join to perform. Valid values are `inner`, `left`, `right`, `full`, `cross`, `semi`, and `anti`.  | `String` | No   | `inner`
+`left-alias` | The subquery alias to use with the left join side in order to avoid ambiguous naming. Fixed pattern: `left = <left-alias>`    | `String` | No   |
+`right-alias` | The subquery alias to use with the right join side in order to avoid ambiguous naming. Fixed pattern: `right = <right-alias>` | `String` | No   |
+`join-criteria` | Any comparison expression.  | `String` | Yes  | N/A
+`right-dataset` | Either an index or a subquery with/without alias.  | `String` | Yes  | N/A
 
-The following examples use the `state_country` and `occupation` indexes:
+The following examples use the `state_country` and `occupation` indexes.
 
 `state_country`:
 
-| name  | age | state      | country
+| Name  | Age | State   | Country
 :--- | :--- | :--- | :---
 | Jake  | 70  | California | USA
 | Hello | 30  | New York   | USA
@@ -812,7 +812,7 @@ The following examples use the `state_country` and `occupation` indexes:
 
 `occupation`:
 
-| name  | occupation  | country | salary
+| Name  | Occupation  | Country | Salary
 :--- | :--- | :--- | :---
 | Jake  | Engineer    | England | 100000
 | Hello | Artist      | USA     | 70000
@@ -821,7 +821,7 @@ The following examples use the `state_country` and `occupation` indexes:
 | David | Unemployed  | Canada  | 0
 | Jane  | Scientist   | Canada  | 90000
 
-**Example 1: Two indexes join**
+**Example 1: Join two indexes**
 
 The following example performs an inner join between two indexes:
 
@@ -839,7 +839,7 @@ search source = state_country
 70000.0 | 30 | USA
 100000.0 | 70 | England
 
-**Example 2: Join with subsearch**
+**Example 2: Join with a subsearch**
 
 The following example performs a left join with a subsearch:
 
@@ -871,7 +871,7 @@ The `join` command works only when `plugins.calcite.enabled` is set to `true`.
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
 {: .warning}
 
-The `lookup` command enriches your search data by adding or replacing data from a lookup index (dimension table). You can extend fields of an index with values from a dimension table, append or replace values when lookup condition is matched. As an alternative to the `join` command, the `lookup` command is more suitable for enriching the source data with a static dataset.
+The `lookup` command enriches your search data by adding or replacing data from a lookup index (dimension table). You can extend index fields with values from a dimension table, or append/replace values when a lookup condition is matched. As an alternative to the `join` command, the `lookup` command is more suitable for enriching the source data with a static dataset.
 
 ### Syntax
 
@@ -888,7 +888,7 @@ Field | Description | Required | Default
 `input-field` | A field in `lookup-index` where matched values are applied to result output. You can specify multiple `input-field` values with commas. If you don't specify any `input-field`, all fields except `lookup-mapping-field` from `lookup-index` where matched values are applied to result output. | No |
 `output-field` | A field of output. You can specify zero or multiple `output-field` values. If you specify `output-field` with an existing field name in source query, its values will be replaced or appended by matched values from `input-field`. If the field specified in `output-field` is a new field, an extended new field will be applied to the results. | No | `input-field`
 
-The following examples use the `workers` and `work_information` indexes:
+The following examples use the `workers` and `work_information` indexes.
 
 `workers`:
 

@@ -174,7 +174,7 @@ Starting with OpenSearch 3.0.0, when you set `plugins.calcite.enabled` to `true`
 
 #### Basic SQL query
 
-The following request shows a basic SQL explain query:
+The following request shows a basic SQL `explain` query:
 
 ```json
 POST _plugins/_sql/_explain
@@ -207,7 +207,7 @@ The response shows the query execution plan:
 ```
 {% include copy.html %}
 
-#### Advanced query with Calcite engine
+#### Advanced query with the Calcite engine
 
 The following request demonstrates a more complex query using the Calcite engine:
 
