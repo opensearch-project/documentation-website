@@ -249,6 +249,115 @@ POST /logs/_search
 ```
 {% include copy-curl.html %}
 
+#### Keyword and numeric terms aggregations
+
+You can use [terms aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/terms/) on both keyword and numeric fields with star-tree index search.
+
+For star-tree search compatibility with terms aggregations, remember the following behaviors:
+
+- The fields used in the terms aggregation should be part of the dimensions defined in the star-tree index.
+- Metric sub-aggregations are optional as long as the relevant metrics are part of the star-tree configuration.
+
+The following example aggregates logs by the `user_id` field and returns the counts for each unique user:
+
+```json
+POST /logs/_search
+{
+    "size": 0,
+    "aggs": {
+        "users": {
+            "terms": {
+                "field": "user_id"
+            }
+        }
+    }
+}
+```
+{% include copy-curl.html %}
+
+The following example aggregates orders by the `order_quantity` and calculates the average `total_price` for each quantity:
+
+```json
+POST /orders/_search
+{
+    "size": 0,
+    "aggs": {
+        "quantities": {
+            "terms": {
+                "field": "order_quantity"
+            },
+            "aggs": {
+                "avg_total_price": {
+                    "avg": {
+                        "field": "total_price"
+                    }
+                }
+            }
+        }
+    }
+}
+```
+{% include copy-curl.html %}
+
+#### Range aggregations
+
+You can use [range aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/range/) on numeric fields with star-tree index search.
+
+For range aggregations to work effectively with a star-tree index, remember the following behaviors:
+
+- The field used in the range aggregation should be part of the dimensions defined in the star-tree index.
+- You can include metric sub-aggregations to compute metrics within each defined range, as long as the relevant metrics are part of the star-tree configuration.
+
+The following example aggregates documents based on predefined ranges of the `temperature` field:
+
+```json
+POST /sensors/_search
+{
+    "size": 0,
+    "aggs": {
+        "temperature_ranges": {
+            "range": {
+                "field": "temperature",
+                "ranges": [
+                    { "to": 20 },
+                    { "from": 20, "to": 30 },
+                    { "from": 30 }
+                ]
+            }
+        }
+    }
+}
+```
+{% include copy-curl.html %}
+
+The following example aggregates sales data by price ranges and calculates the total `quantity` sold within each range:
+
+```json
+POST /sales/_search
+{
+    "size": 0,
+    "aggs": {
+        "price_ranges": {
+            "range": {
+                "field": "price",
+                "ranges": [
+                    { "to": 100 },
+                    { "from": 100, "to": 500 },
+                    { "from": 500 }
+                ]
+            },
+            "aggs": {
+                "total_quantity": {
+                    "sum": {
+                        "field": "quantity"
+                    }
+                }
+            }
+        }
+    }
+}
+```
+{% include copy-curl.html %}
 
 ## Using queries without a star-tree index
 
