@@ -897,8 +897,8 @@ The following examples use the `workers` and `work_information` indexes.
 | 1000 | Jake | Engineer | England | 100000
 | 1001 | Hello | Artist | USA | 70000
 | 1002 | John | Doctor | Canada | 120000
-| 1003 | David | Doctor | - | 120000
-| 1004 | David | - | Canada | 0
+| 1003 | David | Doctor | N/A | 120000
+| 1004 | David | N/A | Canada | 0
 | 1005 | Jane | Scientist | Canada | 90000
 
 `work_information`:
