@@ -249,30 +249,28 @@ POST /logs/_search
 ```
 {% include copy-curl.html %}
 
-#### Keyword and Numeric Terms Aggregations
+#### Keyword and numeric terms aggregations
 
-You can leverage [terms aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/terms/) on both keyword and numeric fields, and these can be made searchable within a star-tree index.
+You can use [terms aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/terms/) on both keyword and numeric fields with star-tree index search.
 
-For star-tree search compatibility with terms aggregations, keep in mind the following:
+For star-tree search compatibility with terms aggregations, remember the following behaviors:
 
-- The fields used in the terms aggregation should be part of dimentsions defined in the star-tree index.
-- Metric sub-aggregations are otpional, given the relevant metrics are part of star-tree configuration.
- 
-The following examples demonstrate terms aggregations with and without a metric sub-aggregation.
+- The fields used in the terms aggregation should be part of dimensions defined in the star-tree index.
+- Metric sub-aggregations are optional as long as the relevant metrics are part of the star-tree configuration.
 
 This example aggregates logs by the `user_id` field and returns the counts for each unique user:
 
 ```json
 POST /logs/_search
 {
-    "size": 0,
-    "aggs": {
-        "users": {
-            "terms": {
-                "field": "user_id"
-            }
-        }
-    }
+    "size": 0,
+    "aggs": {
+        "users": {
+            "terms": {
+                "field": "user_id"
+            }
+        }
+    }
 }
 ```
 {% include copy-curl.html %}
@@ -282,54 +280,52 @@ This example aggregates orders by the `order_quantity` and calculates the averag
 ```json
 POST /orders/_search
 {
-    "size": 0,
-    "aggs": {
-        "quantities": {
-            "terms": {
-                "field": "order_quantity"
-            },
-            "aggs": {
-                "avg_total_price": {
-                    "avg": {
-                        "field": "total_price"
-                    }
-                }
-            }
-        }
-    }
+    "size": 0,
+    "aggs": {
+        "quantities": {
+            "terms": {
+                "field": "order_quantity"
+            },
+            "aggs": {
+                "avg_total_price": {
+                    "avg": {
+                        "field": "total_price"
+                    }
+                }
+            }
+        }
+    }
 }
 ```
 {% include copy-curl.html %}
 
-#### Range Aggregations
+#### Range aggregations
 
-You can utilize [range aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/range/) on numeric fields, and these can also benefit from star-tree index search capabilities.
+You can use [range aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/range/) on numeric fields to benefit from star-tree index search capabilities.
 
-For range aggregations to be effectively used with a star-tree index:
+For range aggregations to work effectively with a star-tree index, remember the following behaviors:
 
-- The field on which ranges is defined in the aggregation request should be part of dimentsions defined in the star-tree index.
-- Metric sub-aggregations can be included to compute metrics within each defined range, given the relevant metrics are part of star-tree configuration.
-  
-The following examples illustrate range aggregations both with and without metric sub-aggregations.
+- The field used in the range aggregation should be part of dimensions defined in the star-tree index
+- You can include metric sub-aggregations to compute metrics within each defined range, as long as the relevant metrics are part of the star-tree configuration
 
 This example aggregates documents based on predefined ranges of the `temperature` field:
 
 ```json
 POST /sensors/_search
 {
-    "size": 0,
-    "aggs": {
-        "temperature_ranges": {
-            "range": {
-                "field": "temperature",
-                "ranges": [
-                    { "to": 20 },
-                    { "from": 20, "to": 30 },
-                    { "from": 30 }
-                ]
-            }
-        }
-    }
+    "size": 0,
+    "aggs": {
+        "temperature_ranges": {
+            "range": {
+                "field": "temperature",
+                "ranges": [
+                    { "to": 20 },
+                    { "from": 20, "to": 30 },
+                    { "from": 30 }
+                ]
+            }
+        }
+    }
 }
 ```
 {% include copy-curl.html %}
@@ -339,26 +335,26 @@ This example aggregates sales data by price ranges and calculates the total `qua
 ```json
 POST /sales/_search
 {
-    "size": 0,
-    "aggs": {
-        "price_ranges": {
-            "range": {
-                "field": "price",
-                "ranges": [
-                    { "to": 100 },
-                    { "from": 100, "to": 500 },
-                    { "from": 500 }
-                ]
-            },
-            "aggs": {
-                "total_quantity": {
-                    "sum": {
-                        "field": "quantity"
-                    }
-                }
-            }
-        }
-    }
+    "size": 0,
+    "aggs": {
+        "price_ranges": {
+            "range": {
+                "field": "price",
+                "ranges": [
+                    { "to": 100 },
+                    { "from": 100, "to": 500 },
+                    { "from": 500 }
+                ]
+            },
+            "aggs": {
+                "total_quantity": {
+                    "sum": {
+                        "field": "quantity"
+                    }
+                }
+            }
+        }
+    }
 }
 ```
 {% include copy-curl.html %}
