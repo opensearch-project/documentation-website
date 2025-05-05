@@ -12,12 +12,12 @@ redirect_from:
 
 # Pipeline aggregations
 
-Pipeline aggregations chain together multiple aggregations by using the output of one aggregation as the input for another. They compute complex statistical and mathematical measures like derivatives, moving averages, and cumulative sums. Some pipeline aggregations duplicate the functionality of metric and bucket aggregations, but in many cases are more intuitive to use.
+Pipeline aggregations chain together multiple aggregations by using the output of one aggregation as the input for another. They compute complex statistical and mathematical measures like derivatives, moving averages, and cumulative sums. Some pipeline aggregations duplicate the functionality of metric and bucket aggregations but, in many cases, are more intuitive to use.
 
 Pipeline aggregations are executed after all other sibling aggregations. This has performance implications. For example, using the `bucket_selector` pipeline aggregation to narrow a list of buckets does not reduce the number of computations performed on omitted buckets.
 {: .note}
 
-Pipeline aggregations cannot be sub-aggregated, but can be chained with other pipeline aggregations. For example, you calculate a second derivative by chaining two consecutive `derivative` aggregations. Keep in mind that pipeline aggregations append to existing output. For example, computing a second derivative by chaining `derivative` aggregations outputs both the first and second derivatives.
+Pipeline aggregations cannot be sub-aggregated but can be chained to other pipeline aggregations. For example, you can calculate a second derivative by chaining two consecutive `derivative` aggregations. Keep in mind that pipeline aggregations append to existing output. For example, computing a second derivative by chaining `derivative` aggregations outputs both the first and second derivatives.
 
 ## Pipeline aggregation types
 
@@ -55,7 +55,7 @@ buckets_path = <AGG_NAME>[<AGG_SEPARATOR>,<AGG_NAME>]*[<METRIC_SEPARATOR>, <METR
 | :-- | :-- | :-- | 
 | `AGG_NAME` |  | The name of the aggregation. |
 | `AGG_SEPARATOR` | `>` |  The character used to separate aggregation names. |
-| `METRIC_SEPARATOR`| `.` |  The character used to separate final aggregation from its metrics. |
+| `METRIC_SEPARATOR`| `.` |  The character used to separate the final aggregation from its metrics. |
 | `METRIC` |  | The name of the metric. Required for multi-value metric aggregations. |
 
 For example, `my_sum.sum` selects the `sum` metric of an aggregation called `my_sum`. `popular_tags>my_sum.sum` nests `my_sum.sum` into the `popular_tags` aggregation.
@@ -129,9 +129,9 @@ The pipeline aggregation returns the total memory summed from all the buckets:
 
 ### Count paths
 
-You can direct the `buckets_path` to use a count rather than a value as its input. To do so, use the special `_count` buckets path variable.
+You can direct the `buckets_path` to use a count rather than a value as its input. To do so, use the `_count` buckets path variable.
 
-The following example computes basic stats on a histogram of the number of bytes from the OpenSearch Dashboards logs sample data. It creates a histogram of values in the `bytes` field, then computes the stats on the counts in the histogram buckets.
+The following example computes basic stats on a histogram of the number of bytes from the OpenSearch Dashboards logs sample data. It creates a histogram of values in the `bytes` field and then computes the stats on the counts in the histogram buckets.
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -154,7 +154,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
-The results show stats on the *document counts* of the buckets:
+The results show stats about the *document counts* of the buckets:
 
 ```json
 {
@@ -187,13 +187,13 @@ The results show stats on the *document counts* of the buckets:
 
 Real-world data can be missing from nested aggregations for a number of reasons, including:
 
-- Missing values in documents
-- Empty buckets anywhere in the chain of aggregations
-- Data needed to calculate a bucket value is missing (for example, rolling functions such as `derivative` require one or more previous values to start).
+- Missing values in documents.
+- Empty buckets anywhere in the chain of aggregations.
+- Missing data needed to calculate a bucket value (for example, rolling functions such as `derivative` require one or more previous values to start).
 
-You can specify a policy to deal with missing data using the `gap_policy` property: either skip the missing data or replace the missing data with zeros.
+You can specify a policy to handle missing data using the `gap_policy` property: either skip the missing data or replace the missing data with zeros.
 
-The `gap_policy` parameter is valid with all pipeline aggregations.
+The `gap_policy` parameter is valid for all pipeline aggregations.
 
 | Parameter             | Required/Optional | Data type       | Description |
 | :--                   | :--               |  :--            | :--         |
