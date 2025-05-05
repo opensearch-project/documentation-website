@@ -139,6 +139,8 @@ PUT /_cluster/settings
 ```
 {% include copy-curl.html %}
 
+The `cluster.routing.search_replica.strict` setting supports the following options:
+
 - `true` (default): Route only to search replicas.
 - `false`: Allow fallback to primary/write replicas if needed.
 
