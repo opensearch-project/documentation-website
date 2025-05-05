@@ -5,7 +5,7 @@ parent: Agentic AI
 grand_parent: Generative AI
 has_children: true
 has_toc: false
-nav_order: 20
+nav_order: 10
 redirect_from:
   - /vector-search/tutorials/chatbots/
   - /tutorials/gen-ai/agents/chatbots/

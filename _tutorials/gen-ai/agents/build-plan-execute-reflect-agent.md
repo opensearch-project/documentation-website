@@ -3,7 +3,7 @@ layout: default
 title: Building a plan-execute-reflect agent
 parent: Agentic AI
 grand_parent: Generative AI
-nav_order: 10
+nav_order: 20
 ---
 
 # Building a plan-execute-reflect agent
