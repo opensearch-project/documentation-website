@@ -6,28 +6,30 @@ parent: Workload management
 grand_parent: Availability and recovery
 ---
 
-# Rule-based Auto-tagging in OpenSearch
+# Rule-based auto-tagging in OpenSearch
+In this guide we will walk you through how to use the rule based auto-tagging. Auto-tagging enriches the request with the target label which a consuming feature (such as workload-management) consumes.
+## What is rule-based auto-tagging?
 
-## What is Rule-based Auto-tagging?
+Rule-based Auto-tagging automatically assigns workload groups to incoming search requests in OpenSearch. This feature helps you implement automated feature policies without manual intervention.
+throughout this guide I will take a sample feature which uses rule framework for auto-tagging i,e; workload-management
 
-Rule-based Auto-tagging automatically assigns workload groups to incoming search requests in OpenSearch. This feature helps you implement automated workload management policies without manual intervention.
-
-## Key Concepts
+## Key concepts
 
 - **Rule**: Defines criteria for tagging search requests
-- **Index Pattern**: Prefix-based pattern matching target indices (e.g., "logs-*")
-- **Workload Group**: Label assigned to requests for workload management
+- **Attributes**: Prefix-based pattern matching for the given attribute value (e.g., attribute could be index pattern, security context values such as username, role, group etc.)
+- **Label**: Label assigned to requests for the client feature (e,g; workload management feature will use 'workload_group' as label)
 - **Auto-tagging**: Process of assigning workload groups based on rules
 - **Pattern Specificity**: More specific patterns take precedence e,g; `logs-prod-2025` will match `logs-prod-*` pattern over `logs-*`
 
-## How to Set Up Rule-based Auto-tagging
+## How to set up rule-based auto-tagging
+Now we will learn about how can we set up the auto-tagging in opensearch.
 
-### Before You Begin
+### Before you begin
 
-- Ensure you have an OpenSearch cluster with the workload-management plugin installed
+- Ensure you have an OpenSearch cluster with the feature (e,g; workload-management uses this framework for autotagging) plugin installed
 - Verify you have administrative access to the cluster
 
-### Managing Rules
+### Managing rules
 
 Create or update a rule:
 ```http
@@ -49,33 +51,33 @@ Delete a rule:
 DELETE /_rules/workload_group/{rule_id}
 ```
 
-### Rule Structure
+### Rule structure
 ```json
 {
     "_id": "fwehf8302582mglfio349==",  // System-generated
-    "description": "Assign Query Group for Index Logs123",
+    "description": "Assign Workload Group for Index Logs123",
     "index_pattern": ["logs123"],  // Exact match or prefix pattern only
     "workload_group": "dev_workload_group_id",
     "updated_at": "01-10-2025T21:23:21.456Z"  // System-generated timestamp
 }
 ```
 
-## How Pattern Matching Works
+## How pattern matching works
 
-### Supported Pattern Types
+### Supported pattern types
 
 1. Exact matches: `logs-2025-04`
 2. Prefix patterns: `logs-2025-*`
 
-Note: OpenSearch doesn't support suffix patterns (`*-logs`) or generic patterns (`*-logs-*`).
+Note: This feature doesn't support suffix patterns (`*-logs`) or generic patterns (`*-logs-*`).
 
-### Pattern Precedence
+### Pattern precedence
 
 1. Exact matches have highest priority
 2. Longer prefix patterns take precedence over shorter ones
    Example: `logs-prod-2025-*` is more specific than `logs-prod-*`
 
-### Evaluation Process
+### Evaluation process
 
 1. OpenSearch receives a search request
 2. The system compares request indices against defined rules
@@ -84,7 +86,7 @@ Note: OpenSearch doesn't support suffix patterns (`*-logs`) or generic patterns 
 
 ## Examples
 
-### Production vs Development Logs
+### Production vs development logs
 
 ```json
 // Rule 1: Production Logs
@@ -110,7 +112,7 @@ GET /logs-dev-2025/_search
 // Result: Tagged with "development"
 ```
 
-### Handling Specificity
+### Handling specificity
 
 ```json
 // Rule 1: General Logs
@@ -132,26 +134,25 @@ GET /logs-prod-service-2025/_search
 // Result: Tagged with "prod_service" (more specific match wins)
 ```
 
-## Benefits of Rule-based Auto-tagging
+## Benefits of rule-based auto-tagging
 
 - Automates request tagging
 - Ensures consistent policy application
-- Scales to new indices automatically
+- Scales to new attributes automatically
 - Reduces administrative overhead
 - Minimizes manual errors
-- Centralizes workload management
 - Allows easy policy updates
 
-## Best Practices
+## Best practices
+The following best practices will help you familiarize with correct usage and avoid common pitfalls
 
-### Designing Rules
+### Designing rules
 
 1. Use specific prefix patterns for precise control
 2. Clearly document each rule's purpose
-3. Use consistent workload group naming
-4. Create a hierarchical pattern structure
+3. Create a hierarchical pattern structure
 
-### Creating Patterns
+### Creating patterns
 
 1. Start with the most specific patterns needed
 2. Use consistent delimiters in index names
@@ -169,8 +170,8 @@ GET /logs-prod-service-2025/_search
 
 **Common issues and solutions:**
 
-1. **No Workload Group Assigned**: Ensure your index pattern is a valid prefix
-2. **Unexpected Workload Group**: Look for more specific matching patterns
+1. **No Label Assigned**: Ensure your index pattern is a valid prefix
+2. **Unexpected Feature Label**: Look for more specific matching patterns
 3. **Rule Not Working**: Verify the pattern follows the prefix-only format
 
 **To validate your setup:**
@@ -178,5 +179,5 @@ GET /logs-prod-service-2025/_search
 
 - Test new rules with sample requests before production use
 - Use the list rules API to verify pattern matching
-- Check your logs for rule evaluation results
+- Check the consuming feature specific logs/stats to verify the correctness
 
