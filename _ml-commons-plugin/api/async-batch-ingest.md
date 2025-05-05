@@ -4,7 +4,7 @@ title: Asynchronous batch ingestion
 parent: ML Commons APIs
 has_children: false
 has_toc: false
-nav_order: 35
+nav_order: 80
 ---
 
 # Asynchronous batch ingestion
