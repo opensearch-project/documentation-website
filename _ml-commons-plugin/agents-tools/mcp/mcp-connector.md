@@ -150,7 +150,7 @@ Each connector must specify the following parameters in the `parameters.mcp_conn
 | Parameter | Data type | Required | Description | 
 |:--- |:--- |:--- |:--- |
 | `mcp_connector_id` | String | Yes | The connector ID of the MCP connector. | 
-| `tool_filters` | Array | No | An array of Java-style regular expressions that specify which tools from the MCP server to make available to the agent. A tool will be included if it matches at least one of the regular expressions in the array. If omitted or set to an empty array, all tools exposed by the connector will be available. Use `^/$` anchors or literal strings to precisely match tool names. For example, `^get_forecast` matches any tool starting with "get_forecast", while `search_indices` matches only "search_indices".|
+| `tool_filters` | Array | No | An array of Java-style regular expressions that specify which tools from the MCP server to make available to the agent. A tool will be included if it matches at least one of the regular expressions in the array. If omitted or set to an empty array, all tools exposed by the connector will be available. Use the `^` or `$` anchors or literal strings to precisely match tool names. For example, `^get_forecast` matches any tool starting with "get_forecast", while `search_indices` matches only "search_indices".|
 
 In this example, you'll register a conversational agent using the connector ID created in Step 1. The MCP server has two tools available (`get_alerts` and `get_forecasts`), but due to our regex pattern `^get_alerts$`, only the `get_alerts` tool will be included in the agent's configuration:
 
