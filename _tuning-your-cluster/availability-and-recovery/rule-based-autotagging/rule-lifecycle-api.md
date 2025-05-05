@@ -8,8 +8,7 @@ grand_parent: Availability and recovery
 
 # Rule Lifecycle API
 
-The Rule Lifecycle API allows you to create, update, retrieve, and delete rules.
-Each rule is associated with a specific feature type and contains a feature value and at least one attribute.
+The Rule Lifecycle API allows you to create, update, retrieve, and delete rules. Each rule is associated with a specific feature type and contains a feature value and at least one attribute.
 These rules are designed to automatically assign feature values to incoming queries based on the specified attributes, helping to categorize and manage queries automatically.
 
 ## Endpoints
@@ -65,7 +64,7 @@ The following table lists the fields available in the request body.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
-| `description` | String | A human-readable explanation or purpose of the rule. |
+| `description` | String | The human-readable explanation or purpose of the rule. |
 | `<attribute_key>` | Array | A list of attribute values that must match the query for the rule to apply. |
 | `<feature_type>` | String | The feature value assigned when the rule matches. |
 
@@ -76,7 +75,7 @@ The following example demonstrates how to use the Rule Lifecycle API to create a
 
 ### Create a rule
 
-The following request creates a rule that assigns a workload_group value based on matching index_pattern attributes:
+The following request creates a rule that assigns a `workload_group` value based on matching `index_pattern` attributes:
 
 ```json
 PUT _rules/workload_group
@@ -192,7 +191,7 @@ To retrieve the next page, include the `search_after` value in the next `GET` re
 | Field | Data type | Description |
 | :--- | :--- | :--- |
 | `_id` | String | The unique identifier for the rule. |
-| `description` | String | An explanation or purpose of the rule. |
+| `description` | String | The explanation or purpose of the rule. |
 | `updated_at` | String | The timestamp of the most recent update to the rule in UTC format. |
 | `<attribute_key>` | Array | The attribute values used to match incoming queries. |
 | `<feature_type>` | String | The value assigned to the feature type if the rule matches. |
