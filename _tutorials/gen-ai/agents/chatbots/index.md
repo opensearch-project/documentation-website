@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Chatbots
+title: Building chatbots
 parent: Agentic AI
 grand_parent: Generative AI
 has_children: true
@@ -30,7 +30,7 @@ chatbots:
       - "<b>Deployment:</b> Amazon Bedrock"
 ---
 
-# Chatbots with agents tutorials
+# Building chatbots tutorials
 
 The following machine learning (ML) tutorials show you how to implement chatbots using agents.
 

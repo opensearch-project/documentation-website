@@ -14,10 +14,10 @@ Use this API to register an agent.
 
 Agents may be of the following types:
 
-- Flow agent
-- Conversational flow agent
-- Conversational agent
-- Plan, Execute and Reflect
+- _Flow_ agent
+- _Conversational flow_ agent
+- _Conversational agent_
+- _Plan, execute, and reflect_ agent
 
 For more information about agents, see [Agents and tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/).
 
@@ -44,17 +44,21 @@ Field | Data type | Required/Optional | Agent type | Description
 `llm.parameters.response_filter` | String | Required | `conversational` | The pattern for parsing the LLM response. For each LLM, you need to provide the field where the response is located. For example, for the Anthropic Claude model, the response is located in the `completion` field, so the pattern is `$.completion`. For OpenAI models, the pattern is `$.choices[0].message.content`.
 `llm.parameters.max_iteration` | Integer | Optional | `conversational` | The maximum number of messages to send to the LLM. Default is `10`.
 `llm.parameters.max_steps` | Integer | Optional | `plan_execute_and_reflect` | The maximum number of steps executed by the LLM. Default is `20`.
-`parameters._llm_interface` | String | Optional | `plan_execute_and_reflect`, `conversational` | Specifies how to parse the model output when using function calling. Currently, the only supported values are `bedrock/converse/claude`, `bedrock/converse/deepseek_r1` and `openai/v1/chat/completions`.
+`llm.parameters.executor_agent_id`| Integer | Optional | `plan_execute_and_reflect` | The `plan_execute_and_reflect` agent internally uses a `conversational` agent to execute each step. By default, this executor agent uses the same model as the planning model specified in the `llm` configuration. To use a different model for executing steps, create a `conversational` agent using another model and pass the agent ID in this field. This can be useful if you want to use different models for planning and execution.
+`parameters` | Object | Optional | All | Agent parameters, which may be used to control the `max_steps` executed by the agent, modify default prompts, and so on.
+`parameters._llm_interface` | String | Required | `plan_execute_and_reflect`, `conversational` | Specifies how to parse the LLM output when using function calling. Valid values are: <br> - `bedrock/converse/claude`: Anthropic Claude conversational models hosted on Amazon Bedrock  <br> - `bedrock/converse/deepseek_r1`: DeepSeek R1 models hosted on Amazon Bedrock <br> - `openai/v1/chat/completions`: OpenAI chat completion models hosted on OpenAI. Each interface defines a default response schema and function call parser. You can also manually configure function calling for other models using internal parameters.
 
 The `tools` array contains a list of tools for the agent. Each tool contains the following fields.
 
 Field | Data type | Required/Optional | Description
 :---  | :--- | :---
+`type` | String | Required | The tool type. For a list of supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
 `name`| String | Optional | The tool name. The tool name defaults to the `type` parameter value. If you need to include multiple tools of the same type in an agent, specify different names for the tools. |
-`type` | String | Required | The tool type. For a list of supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/). 
+`description`| String | Optional | The tool description. Defaults to a built-in description for the specified type. | 
 `parameters` | Object | Optional | The parameters for this tool. The parameters are highly dependent on the tool type. You can find information about specific tool types in [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
+`attributes.input_schema` | Object | Optional | The expected input format for this tool. Used to define the structure the LLM should follow when calling the tool.
 
-#### Example request: Flow agent
+## Example request: Flow agent
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -89,7 +93,7 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %}
 
-#### Example request: Conversational flow agent
+## Example request: Conversational flow agent
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -140,7 +144,7 @@ Assistant:"""
 ```
 {% include copy-curl.html %}
 
-#### Example request: Conversational agent
+## Example request: Conversational agent
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -185,7 +189,7 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %}
 
-#### Example request: Plan, Execute and Reflect agent
+## Example request: Plan, execute, and reflect agent
 **Introduced 3.0**
 {: .label .label-purple }
 
@@ -223,7 +227,7 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 OpenSearch responds with an agent ID that you can use to refer to the agent:
 

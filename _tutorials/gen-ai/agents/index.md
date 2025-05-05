@@ -8,12 +8,16 @@ nav_order: 20
 redirect_from:
   - /tutorials/gen-ai/agents/
 flows:
-  - heading: Building a plan, execute and reflect agent
+  - heading: "Building a plan, execute, and reflect agent"
     link: /tutorials/gen-ai/agents/build-plan-execute-reflect-agent/
-    description: "Learn how to build a powerful plan, execute and reflect agent capable of solving complex problems."
-  - heading: Build Chatbots
+    description: "Learn how to build a powerful <i>plan, execute, and reflect</i> agent for solving complex problems."
+    list: 
+      - "<b>Platform:</b> OpenSearch"
+      - "<b>Model:</b> Anthropic Claude 3.7 Sonnet"  
+      - "<b>Deployment:</b> Amazon Bedrock"  
+  - heading: Building chatbots
     link: /tutorials/gen-ai/agents/chatbots/
-    description: "Learn how to build chatbots by leveraging agents."   
+    description: "Learn how to build chatbots using agents."   
 ---
 
 # Agentic AI tutorials
