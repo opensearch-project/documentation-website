@@ -881,11 +881,11 @@ lookup <lookup-index> (<lookup-mapping-field> [as <source-mapping-field>])... [(
 
 Field | Description | Required | Default
 :--- | :--- | :--- | :---
-`lookup-index` | The name of lookup index (dimension table). | Yes | -
-`lookup-mapping-field`| A mapping key in the `lookup-index`, analogous to a `join` key from the right table. You can specify multiple `lookup-mapping-field` values with commas. | Yes | -
+`lookup-index` | The name of lookup index (dimension table). | Yes | N/A
+`lookup-mapping-field`| A mapping key in the `lookup-index`, analogous to a `join` key from the right table. You can specify multiple `lookup-mapping-field` values with commas. | Yes | N/A
 `source-mapping-field`| A mapping key from the source (left side), analogous to a `join` key from the left side. | No | `lookup-mapping-field`
 `replace` \| `append` | The output strategies. When specifying `replace`, matched values in `lookup-index` field overwrite the values in result. If you specify `append`, matched values in `lookup-index` field only append to the missing values in result. | No | `replace`
-`input-field` | A field in `lookup-index` where matched values are applied to the result output. You can specify multiple `input-field` values with commas. If you don't specify any `input-field`, all fields except `lookup-mapping-field` from `lookup-index` where matched values are applied to the result output. | No |
+`input-field` | A field in `lookup-index` where matched values are applied to the result output. You can specify multiple `input-field` values with commas. If you don't specify any `input-field`, all fields except `lookup-mapping-field` from `lookup-index` where matched values are applied to the result output. | No | N/A
 `output-field` | A field of output. You can specify zero or multiple `output-field` values. If you specify `output-field` with an existing field name in the source query, its values will be replaced or appended by the matched values from `input-field`. If the field specified in `output-field` is a new field, an extended new field will be applied to the results. | No | `input-field`
 
 The following examples use the `workers` and `work_information` indexes.
@@ -929,7 +929,7 @@ source = workers | lookup work_information uid as id append department
 1005 | Jane | Scientist | Canada | 90000 | DATA
 
 
-**Example 2: Look up workers and replace occupation and department**
+**Example 2: Look up workers and replace their occupation and department**
 
 The following example looks up workers and replaces their occupation and department using their `work_information`:
 

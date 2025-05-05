@@ -66,7 +66,7 @@ They are created with the following assumptions:
 
 - `a` and `b` are fields of table outer.
 - `c` and `d` are fields of table inner.
-- `e`, `f` are fields of table nested
+- `e` and `f` are fields of table nested.
 
 #### Correlated
 
