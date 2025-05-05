@@ -831,7 +831,7 @@ search source = state_country
 | stats avg(salary) by span(age, 10) as age_span, b.country
 ```
 
-| avg(salary) | age_span | b.country
+avg(salary) | age_span | b.country
 :--- | :--- | :---
 120000.0 | 40 | USA
 105000.0 | 20 | Canada
