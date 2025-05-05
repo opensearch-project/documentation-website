@@ -111,7 +111,7 @@ POST /_plugins/_ml/mcp/tools/_register
 
 ## Example response
 
-OpenSearch responds with the instance ID and the status of the creation of all tools for each instance:
+OpenSearch responds with the node ID and the status of the creation of all tools for each node:
 
 ```json
 {
