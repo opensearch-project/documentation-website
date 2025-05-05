@@ -10,7 +10,7 @@ grand_parent: Availability and recovery
 
 Rule-based auto-tagging is a versatile feature in OpenSearch that automatically assigns specific values to incoming requests based on predefined rules. Each OpenSearch feature can define its own attributes for matching and values to be assigned.
 
-## What is rule-based auto-tagging?
+## What is rule-based auto-tagging
 
 Rule-based auto-tagging automatically evaluates incoming requests against a set of predefined rules by matching request attributes. When a rule matches, it assigns a feature-specific value to the request. For example, the workload management feature uses index patterns as an attribute and assigns workload group IDs.
 
@@ -24,6 +24,7 @@ Before diving into the details, let's understand the key components:
 - **Pattern Matching**: How attribute values are matched (exact or pattern-based)
 
 ## Rule structure and management
+Proper rule structure and management are crucial for effective auto-tagging Here we'll explore the rule schema and how to manage rules
 
 ### Rule schema
 
