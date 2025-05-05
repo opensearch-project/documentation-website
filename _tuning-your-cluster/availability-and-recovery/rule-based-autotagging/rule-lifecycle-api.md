@@ -13,7 +13,7 @@ These rules are designed to automatically assign feature values to incoming quer
 
 ## Endpoints
 
-This section describes the API endpoints available for managing rules across different feature types.
+The following sections describe the API endpoints available for managing rules across different feature types.
 
 ### Create a rule
 
