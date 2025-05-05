@@ -1,29 +1,28 @@
 ---
 layout: default
 title: Building chatbots
-parent: Agentic AI
-grand_parent: Generative AI
+parent: Generative AI
 has_children: true
 has_toc: false
-nav_order: 10
+nav_order: 30
 redirect_from:
   - /vector-search/tutorials/chatbots/
-  - /tutorials/gen-ai/agents/chatbots/
+  - /tutorials/gen-ai/chatbots/
 chatbots:
   - heading: RAG chatbot
-    link: /tutorials/gen-ai/agents/chatbots/rag-chatbot/
+    link: /tutorials/gen-ai/chatbots/rag-chatbot/
     list:
       - "<b>Platform:</b> OpenSearch"
       - "<b>Model:</b> Anthropic Claude" 
       - "<b>Deployment:</b> Amazon Bedrock"  
   - heading: RAG with a conversational flow agent
-    link: /tutorials/gen-ai/agents/chatbots/rag-conversational-agent/
+    link: /tutorials/gen-ai/chatbots/rag-conversational-agent/
     list: 
       - "<b>Platform:</b> OpenSearch"
       - "<b>Model:</b> Anthropic Claude"  
       - "<b>Deployment:</b> Amazon Bedrock"  
   - heading: Build your own chatbot
-    link: /tutorials/gen-ai/agents/chatbots/build-chatbot/
+    link: /tutorials/gen-ai/chatbots/build-chatbot/
     list: 
       - "<b>Platform:</b> OpenSearch"
       - "<b>Model:</b> Anthropic Claude"  

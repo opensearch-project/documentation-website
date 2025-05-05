@@ -21,10 +21,7 @@ flows:
     list: 
       - "<b>Platform:</b> OpenSearch"
       - "<b>Model:</b> Anthropic Claude 3.7 Sonnet"  
-      - "<b>Deployment:</b> Amazon Bedrock"  
-  - heading: Building chatbots
-    link: /tutorials/gen-ai/agents/chatbots/
-    description: "Learn how to build your own chatbots using RAG, conversational flow agents, and more."   
+      - "<b>Deployment:</b> Amazon Bedrock"
 ---
 
 # Agentic AI tutorials

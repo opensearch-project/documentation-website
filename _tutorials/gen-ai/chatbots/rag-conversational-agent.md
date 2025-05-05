@@ -2,14 +2,14 @@
 layout: default
 title: RAG chatbot with a conversational flow agent
 parent: Building chatbots
-grand_parent: Agentic AI
-nav_order: 170
+grand_parent: Generative AI
+nav_order: 160
 has_children: false
 has_toc: false
 redirect_from:
   - /ml-commons-plugin/tutorials/rag-conversational-agent/
   - /vector-search/tutorials/chatbots/rag-conversational-agent/
-  - /tutorials/gen-ai/agents/chatbots/rag-conversational-agent/
+  - /tutorials/gen-ai/chatbots/rag-conversational-agent/
 ---
 
 # RAG chatbot with a conversational flow agent
