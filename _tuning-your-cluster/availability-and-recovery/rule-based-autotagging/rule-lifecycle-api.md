@@ -13,7 +13,11 @@ These rules are designed to automatically assign feature values to incoming quer
 
 ## Endpoints
 
+This section describes the API endpoints available for managing rules across different feature types.
+
 ### Create a rule
+
+Use the followiing endpoint to add a new rule for a specific feature type:
 
 ```json
 PUT /_rules/{feature_type}
@@ -22,6 +26,8 @@ POST /_rules/{feature_type}
 
 ### Update a rule
 
+Use the following endpoint to modify an existing rule by specifying both the feature type and rule ID in the path parameters:
+
 ```json
 PUT /_rules/{feature_type}/{_id}
 POST /_rules/{feature_type}/{_id}
@@ -29,12 +35,16 @@ POST /_rules/{feature_type}/{_id}
 
 ### Get a rule
 
+Use the following endpoint to retrieve either a specific rule by ID or list all rules for a feature type:
+
 ```json
 GET /_rules/{feature_type}/{_id}
 GET /_rules/{feature_type}
 ```
 
 ### Delete a rule
+
+Use the following endpoint to remove a rule by specifying both the feature type and rule ID:
 
 ```json
 DELETE /_rules/{feature_type}/{_id}
