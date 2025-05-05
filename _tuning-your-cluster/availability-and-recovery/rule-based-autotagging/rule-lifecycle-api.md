@@ -47,7 +47,7 @@ The following table lists the available path parameters.
 | Parameter | Data type | Description  |
 | :--- | :--- | :--- |
 | `feature_type` | String    | The category of the rule that defines the type of feature, such as `workload_group`. |
-| `_id`          | String    | The unique identifier for the rule. Required for update, get, and delete operations. |
+| `_id`          | String    | The unique identifier for the rule. Required for `UPDATE`, `GET`, and `DELETE` operations. |
 
 ## Query parameters
 
@@ -55,7 +55,7 @@ The following table lists the available query parameters.
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
-| `search_after` | String | The token to retrieve the next page of results for pagination. |
+| `search_after` | String | The token used to retrieve the next page of results for pagination. |
 | `<attribute_key>` | String | Filters results to rules where `<attribute_key>` matches one of the specified values. |
 
 ## Request body fields
@@ -65,7 +65,7 @@ The following table lists the fields available in the request body.
 | Field | Data type | Description |
 | :--- | :--- | :--- |
 | `description` | String | The human-readable explanation or purpose of the rule. |
-| `<attribute_key>` | Array | A list of attribute values that must match the query for the rule to apply. |
+| `<attribute_key>` | Array | A list of attribute values that must match the query in order for the rule to apply. |
 | `<feature_type>` | String | The feature value assigned when the rule matches. |
 
 
@@ -101,7 +101,7 @@ PUT _rules/workload_group/0A6RULxkQ9yLqn4r8LPrIg
 ```
 {% include copy-curl.html %}
 
-You can't change the feature_type. Fields that are not updated can be omitted.
+You can't change the `feature_type`. Fields that are not updated can be omitted.
 {: .note }
 
 ### Get a rule
@@ -120,7 +120,7 @@ GET /_rules/{feature_type}
 ```
 {% include copy-curl.html %}
 
-The following request returns all rules of the feature type 'workload_group' that contain the attribute `index_pattern` with values `a` or `b`:
+The following request returns all rules of the feature type `workload_group` that contain the attribute `index_pattern` with values `a` or `b`:
 
 ```json
 GET /_rules/workload_group?index_pattern=a,b
@@ -128,7 +128,7 @@ GET /_rules/workload_group?index_pattern=a,b
 {% include copy-curl.html %}
 
 If a `GET` request returns more results than can be included in a single response, the system paginates the results and includes a `search_after` field in the response.  
-To retrieve the next page, send another request to the same endpoint using the same filters, and include the `search_after` value from the previous response as a query parameter.
+To retrieve the next page, send another request to the same endpoint using the same filters and include the `search_after` value from the previous response as a query parameter.
 
 The following example continues the search for all rules of the `workload_group` feature type where the `index_pattern` attribute contains the values `a` or `b`:
 
