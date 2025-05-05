@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Build your own chatbot
-parent: Building chatbots
+parent: Chatbots
 grand_parent: Generative AI
 has_children: false
 has_toc: false

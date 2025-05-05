@@ -1,7 +1,7 @@
 ---
 layout: default
 title: RAG chatbot
-parent: Building chatbots
+parent: Chatbots
 grand_parent: Generative AI
 nav_order: 150
 has_children: false

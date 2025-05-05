@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Building chatbots
+title: Chatbots
 parent: Generative AI
 has_children: true
 has_toc: false

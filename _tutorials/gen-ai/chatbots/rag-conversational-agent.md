@@ -1,7 +1,7 @@
 ---
 layout: default
 title: RAG chatbot with a conversational flow agent
-parent: Building chatbots
+parent: Chatbots
 grand_parent: Generative AI
 nav_order: 160
 has_children: false

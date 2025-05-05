@@ -67,29 +67,32 @@ For more information about the Register Agent API request fields, see [Request b
 
 ## Supported LLMs
 
-The plan-execute-reflect agent supports the following LLMs:
+The plan-execute-reflect agent provides built-in function calling interfaces for the following LLMs:
 
 - [Anthropic Claude 3.7 model hosted on Amazon Bedrock](https://aws.amazon.com/bedrock/claude/)
 - OpenAI GPT-4o model
 - DeepSeek R1 model hosted on Amazon Bedrock
 
+You can configure other LLMs to work with the plan-execute-reflect agent by configuring the internal parameters that `_llm_interface` sets.
+To request default support for an LLM, create a feature request issue in [ml-commons](https://github.com/opensearch-project/ml-commons/issues).
+
 For a step-by-step tutorial on using a plan-execute-reflect agent, see [Building a plan-execute-reflect agent]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/agents/build-plan-execute-reflect-agent/).
 
-To configure a plan-execute-reflect agent with a particular model, you need to modify the connector in [Step 1(a): Create a connector]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/agents/build-plan-execute-reflect-agent/#step-1a-create-a-connector) and providing a model-specific `llm_interface` parameter in [Step 2: Create an agent]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/agents/build-plan-execute-reflect-agent/#step-2-create-an-agent): 
+To configure a plan-execute-reflect agent with a particular model, you need to modify the connector in [Step 1(a): Create a connector]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/agents/build-plan-execute-reflect-agent/#step-1a-create-a-connector) and provide a model-specific `llm_interface` parameter in [Step 2: Create an agent]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/agents/build-plan-execute-reflect-agent/#step-2-create-an-agent): 
 
 ```json
 "parameters": {
   "_llm_interface": "bedrock/converse/claude"
-},
+}
 ```
 
 For valid values of the `_llm_interface` field, see [Request body fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/#request-body-fields).
 
 The following examples provide the connector and agent creation requests for the supported models.
 
-### Anthropic Claude
+### Anthropic Claude on Amazon Bedrock
 
-To create a connector for the Anthropic Claude 3.7 Sonnet model, use the following request:
+To create a connector for the Anthropic Claude 3.7 Sonnet model hosted on Amazon Bedrock, use the following request:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -152,7 +155,7 @@ POST _plugins/_ml/agents/_register
     {
       "type": "IndexMappingTool"
     }
-  ],
+  ]
 }
 ```
 {% include copy-curl.html %}
@@ -191,7 +194,7 @@ POST /_plugins/_ml/connectors/_create
 
 Then register the model and register an agent, specifying `openai/v1/chat/completions` in the `_llm_interface` field.
 
-### Deepseek R1
+### Deepseek R1 on Amazon Bedrock
 
 To create a connector for a DeepSeek R1 hosted on Amazon Bedrock, use the following request:
 
@@ -243,14 +246,16 @@ The plan-execute-reflect agent uses the following predefined prompts. You can cu
 - During agent registration in the `parameters` object
 - Dynamically during agent execution
 
-### Planner template and prompt 
+### Planner template and prompt
 
+To create a custom planner prompt template, modify the `planner_prompt_template` parameter.
 The following template is used to ask the LLM to devise a plan for the given task:
 
 ```json
 ${parameters.planner_prompt} \n Objective: ${parameters.user_prompt} \n ${parameters.plan_execute_reflect_response_format}
 ```
 
+To create a custom planner prompt, modify the `planner_prompt` parameter.
 The following prompt is used to ask the LLM to devise a plan for the given task:
 
 ```
@@ -259,6 +264,7 @@ For the given objective, come up with a simple step by step plan. This plan shou
 
 ### Planner prompt with a history template
 
+To create a custom planner prompt with history template, modify the `planner_with_history_template` parameter.
 The following template is used when `memory_id` is provided during agent execution to give the LLM context about the previous task:
 
 ```json
@@ -267,12 +273,14 @@ ${parameters.planner_prompt} \n Objective: ${parameters.user_prompt} \n\n You ha
 
 ### Reflection prompt and template
 
+To create a custom reflection prompt template, modify the `reflect_prompt_template` parameter.
 The following template is used to ask the LLM to rethink the original plan based on completed steps:
 
 ```json
 ${parameters.planner_prompt} \n Objective: ${parameters.user_prompt} \n Original plan:\n [${parameters.steps}] \n You have currently executed the following steps: \n [${parameters.completed_steps}] \n ${parameters.reflect_prompt} \n ${parameters.plan_execute_reflect_response_format}
 ```
 
+To create a custom reflection prompt, modify the `reflect_prompt` parameter.
 The following prompt is used to ask the LLM to rethink the original plan:
 
 ```
@@ -281,6 +289,7 @@ Update your plan accordingly. If no more steps are needed and you can return to 
 
 ### Planner system prompt
 
+To create a custom planner system prompt, modify the `system_prompt` parameter.
 The following is the planner system prompt:
 
 ```
@@ -289,6 +298,7 @@ You are part of an OpenSearch cluster. When you deliver your final result, inclu
 
 ### Executor system prompt
 
+To create a custom executor system prompt, modify the `executor_system_prompt` parameter.
 The following is the executor system prompt:
 
 ```
