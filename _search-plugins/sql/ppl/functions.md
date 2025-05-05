@@ -884,9 +884,9 @@ Field | Description | Required | Default
 `lookup-index` | The name of lookup index (dimension table). | Yes | -
 `lookup-mapping-field`| A mapping key in `lookup-index`, analogous to a `join` key from right table. You can specify multiple `lookup-mapping-field` values with commas. | Yes | -
 `source-mapping-field`| A mapping key from source (left side), analogous to a `join` key from left side. | No | `lookup-mapping-field`
-`replace` \| `append` | The output strategies. If you specify `replace`, matched values in `lookup-index` field overwrite the values in result. If you specify `append`, matched values in `lookup-index` field only append to the missing values in result. | No | `replace`
-`input-field` | A field in `lookup-index` where matched values are applied to result output. You can specify multiple `input-field` values with commas. If you don't specify any `input-field`, all fields except `lookup-mapping-field` from `lookup-index` where matched values are applied to result output. | No |
-`output-field` | A field of output. You can specify zero or multiple `output-field` values. If you specify `output-field` with an existing field name in source query, its values will be replaced or appended by matched values from `input-field`. If the field specified in `output-field` is a new field, an extended new field will be applied to the results. | No | `input-field`
+`replace` \| `append` | The output strategies. When specifying `replace`, matched values in `lookup-index` field overwrite the values in result. If you specify `append`, matched values in `lookup-index` field only append to the missing values in result. | No | `replace`
+`input-field` | A field in `lookup-index` where matched values are applied to the result output. You can specify multiple `input-field` values with commas. If you don't specify any `input-field`, all fields except `lookup-mapping-field` from `lookup-index` where matched values are applied to the result output. | No |
+`output-field` | A field of output. You can specify zero or multiple `output-field` values. If you specify `output-field` with an existing field name in the source query, its values will be replaced or appended by the matched values from `input-field`. If the field specified in `output-field` is a new field, an extended new field will be applied to the results. | No | `input-field`
 
 The following examples use the `workers` and `work_information` indexes.
 
@@ -911,7 +911,7 @@ The following examples use the `workers` and `work_information` indexes.
 | 1005 | Jane  | DATA | Engineer |
 | 1006 | Tom   | SALES | Artist |
 
-**Example 1: Lookup workers and return the corresponding department**
+**Example 1: Look up workers and return the corresponding department**
 
 The following example looks up workers and returns the corresponding department:
 
@@ -929,9 +929,9 @@ source = workers | lookup work_information uid as id append department
 1005 | Jane | Scientist | Canada | 90000 | DATA
 
 
-**Example 2: Lookup workers and replace occupation and department**
+**Example 2: Look up workers and replace occupation and department**
 
-The following example looks up workers and replaces occupation and department from work_information:
+The following example looks up workers and replaces the occupation and department using their `work_information`:
 
 ```sql
 source = workers | lookup work_information uid as id, name
@@ -946,9 +946,9 @@ source = workers | lookup work_information uid as id, name
 1004 | David | null       | Canada | 0 | null
 1005 | Jane | Engineer  | Canada | 90000 | DATA
 
-**Example 3: Lookup workers and create a new occupation field**
+**Example 3: Look up workers and create a new occupation field**
 
-The following example looks up workers and appends occupation from work_information as a new field:
+The following example looks up workers and appends their occupation from `work_information` as a new field:
 
 ```sql
 source = workers | lookup work_information name replace occupation as new_occupation

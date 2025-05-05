@@ -11,14 +11,14 @@ nav_order: 3
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
 {: .warning}
 
-Subsearch (also known as subquery) allows you to use the results of one query within another query. OpenSearch PPL supports four types of subsearch: 
+A subsearch (also known as a subquery) allows you to use the results of one query within another query. OpenSearch Piped Processing Language (PPL) supports four types of subsearch commands: 
 
 - [`in`](#in)
 - [`exists`](#exists)
 - [`scalar`](#scalar)
 - [`relation`](#relation) 
 
-The first three subsearch commands (`in`, `exists`, and `scalar`) are expressions that you can use in the `where` command (`where <boolean expression>`) and search filter (`search source=* <boolean expression>`). The `relation` subsearch command is a statement, which can be used in a `join` operation.
+The first three subsearch commands (`in`, `exists`, and `scalar`) are expressions that you can use in the `where` command (`where <boolean expression>`) and search filter (`search source=* <boolean expression>`). The `relation` subsearch command is a statement that be used in a `join` operation.
 
 ## `in`
 
