@@ -157,8 +157,8 @@ Return type of `timestampdiff` | timestamp | int
 Return type of `regexp` | int | boolean
 Return type of `count`,`dc`,`distinct_count` | int | bigint
 Return type of `ceiling`,`floor`,`sign` | int | same type with input
-like(firstname, 'Ambe_') on value "Amber JOHnny" | true | false
-like(firstname, 'Ambe*') on value "Amber JOHnny" | true | false
-cast(firstname as boolean) | false | null
-Sum multiple `null` values when pushdown enabled | 0 | null
-percentile(null, 50) | 0 | null
+`like(firstname, 'Ambe_')` on value "Amber JOHnny" | true | false
+`like(firstname, 'Ambe*')` on value "Amber JOHnny" | true | false
+`cast(firstname as boolean)` | false | null
+Sum of multiple `null` values when `pushdown` is enabled | 0 | null
+`percentile(null, 50) | 0 | null`
