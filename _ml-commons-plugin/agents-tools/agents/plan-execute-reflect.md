@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Plan, execute, and reflect agents
+title: Plan-execute-reflect agents
 has_children: false
 has_toc: false
 nav_order: 40
@@ -8,30 +8,30 @@ parent: Agents
 grand_parent: Agents and tools
 ---
 
-# Plan, execute, and reflect agents
+# Plan-execute-reflect agents
 **Introduced 3.0**
 {: .label .label-purple }
 
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/ml-commons/issues/3745).    
 {: .warning}
 
-Plan, execute, and reflect agents are designed for solving complex tasks that require iterative reasoning and step-by-step execution. These agents use one LLM (the _planner_) to create and update a plan and another LLM (or the same one by default) to execute each individual step using a built-in conversational agent.
+Plan-execute-reflect agents are designed for solving complex tasks that require iterative reasoning and step-by-step execution. These agents use one LLM (the _planner_) to create and update a plan and another LLM (or the same one by default) to execute each individual step using a built-in conversational agent.
 
-A plan, execute, and reflect agent works in three phases:
+A plan-execute-reflect agent works in three phases:
 
 - **Planning** – The planner LLM generates an initial step-by-step plan using the available tools.
 - **Execution** – Each step is executed sequentially using the conversational agent and the available tools.
 - **Re-evaluation** – After executing each step, the planner LLM re-evaluates the plan using intermediate results. The LLM can adjust the plan dynamically to skip, add, or change steps based on new context.
 
-Similarly to a conversational agent, the plan, execute, and reflect agent stores the interaction between the LLM and the agent in a memory index. In the following example, the agent uses a `conversation_index` to persist the execution history, including the user's question, intermediate results, and final outputs.
+Similarly to a conversational agent, the plan-execute-reflect agent stores the interaction between the LLM and the agent in a memory index. In the following example, the agent uses a `conversation_index` to persist the execution history, including the user's question, intermediate results, and final outputs.
 
 The agent automatically selects the most appropriate tool for each step based on the tool descriptions and current context.
 
 The agent currently supports re-evaluation only after each step. This allows the agent to dynamically adapt the plan based on intermediate results before proceeding to the next step.
 
-## Creating a plan, execute, and reflect agent
+## Creating a plan-execute-reflect agent
 
-The following example request creates a plan, execute, and reflect agent with three tools:
+The following example request creates a plan-execute-reflect agent with three tools:
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -67,15 +67,15 @@ For more information about the Register Agent API request fields, see [Request b
 
 ## Supported LLMs
 
-The plan, execute, and reflect agent supports the following LLMs:
+The plan-execute-reflect agent supports the following LLMs:
 
 - [Anthropic Claude 3.7 model hosted on Amazon Bedrock](https://aws.amazon.com/bedrock/claude/)
 - OpenAI GPT-4o model
 - DeepSeek R1 model hosted on Amazon Bedrock
 
-For a step-by-step tutorial on using a plan, execute, and reflect agent, see [Building a plan, execute, and reflect agent]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/agents/build-plan-execute-reflect-agent/).
+For a step-by-step tutorial on using a plan-execute-reflect agent, see [Building a plan-execute-reflect agent]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/agents/build-plan-execute-reflect-agent/).
 
-To configure a plan, execute, and reflect agent with a particular model, you need to modify the connector in [Step 1(a): Create a connector]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/agents/build-plan-execute-reflect-agent/#step-1a-create-a-connector) and providing a model-specific `llm_interface` parameter in [Step 2: Create an agent]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/agents/build-plan-execute-reflect-agent/#step-2-create-an-agent): 
+To configure a plan-execute-reflect agent with a particular model, you need to modify the connector in [Step 1(a): Create a connector]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/agents/build-plan-execute-reflect-agent/#step-1a-create-a-connector) and providing a model-specific `llm_interface` parameter in [Step 2: Create an agent]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/agents/build-plan-execute-reflect-agent/#step-2-create-an-agent): 
 
 ```json
 "parameters": {
@@ -123,7 +123,7 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-To create a plan, execute, and reflect agent with the Anthropic Claude 3.7 Sonnet model, use the following request:
+To create a plan-execute-reflect agent with the Anthropic Claude 3.7 Sonnet model, use the following request:
 
 ```json
 POST _plugins/_ml/agents/_register
@@ -238,7 +238,7 @@ Because the Deepseek R1 model hosted on Amazon Bedrock lacks default function-ca
 
 ## Default prompts
 
-The plan, execute, and reflect agent uses the following predefined prompts. You can customize the prompts by providing new ones in the following ways:
+The plan-execute-reflect agent uses the following predefined prompts. You can customize the prompts by providing new ones in the following ways:
 
 - During agent registration in the `parameters` object
 - Dynamically during agent execution
@@ -359,6 +359,6 @@ POST _plugins/_ml/agents/your_agent_id/_execute?async=true
 
 - To learn more about registering agents, see [Register Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/).
 - For a list of supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
-- For a step-by-step tutorial on using a plan, execute, and reflect agent, see [Building a plan, execute, and reflect agent]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/agents/build-plan-execute-reflect-agent/)
+- For a step-by-step tutorial on using a plan-execute-reflect agent, see [Building a plan-execute-reflect agent]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/agents/build-plan-execute-reflect-agent/)
 - For supported APIs, see [Agent APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/).
 - To use agents and tools in configuration automation, see [Automating configurations]({{site.url}}{{site.baseurl}}/automating-configurations/index/).

@@ -1,17 +1,17 @@
 ---
 layout: default
-title: Building a plan, execute, and reflect agent
+title: Building a plan-execute-reflect agent
 parent: Agentic AI
 grand_parent: Generative AI
 nav_order: 10
 ---
 
-# Building a plan, execute, and reflect agent
+# Building a plan-execute-reflect agent
 
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/ml-commons/issues/3745).    
 {: .warning}
 
-This tutorial describes how to build and use a _plan, execute, and reflect_ agent. This agent can be used to solve complex problems that benefit from multi-step execution and reasoning. In this example, we will ask the agent to analyze flight data in our OpenSearch index. For more information about this agent, see [Plan, execute, and reflect agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/).
+This tutorial describes how to build and use a _plan-execute-reflect_ agent. This agent can be used to solve complex problems that benefit from multi-step execution and reasoning. In this example, we will ask the agent to analyze flight data in our OpenSearch index. For more information about this agent, see [Plan-execute-reflect agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/).
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}
@@ -22,7 +22,7 @@ Log in to the OpenSearch Dashboards home page, select **Add sample data** and ad
 
 ## Step 1: Prepare an LLM
 
-A plan, execute, and reflect agent requires a large language model (LLM) to function. This tutorial uses the [Anthropic Claude 3.7 model hosted on Amazon Bedrock](https://aws.amazon.com/bedrock/claude/). You can also [use other supported LLMs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/#supported-llms).
+A plan-execute-reflect agent requires a large language model (LLM) to function. This tutorial uses the [Anthropic Claude 3.7 model hosted on Amazon Bedrock](https://aws.amazon.com/bedrock/claude/). You can also [use other supported LLMs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/#supported-llms).
 
 ### Step 1(a): Create a connector
 

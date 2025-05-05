@@ -17,7 +17,7 @@ Agents may be of the following types:
 - _Flow_ agent
 - _Conversational flow_ agent
 - _Conversational agent_
-- _Plan, execute, and reflect_ agent
+- _Plan-execute-reflect_ agent
 
 For more information about agents, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/).
 
@@ -189,7 +189,7 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %}
 
-## Example request: Plan, execute, and reflect agent
+## Example request: Plan-execute-reflect agent
 **Introduced 3.0**
 {: .label .label-purple }
 
