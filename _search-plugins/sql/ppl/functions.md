@@ -793,7 +793,7 @@ Field | Description | Type | Required | Default
 `left-alias` | The subquery alias to use with the left join side in order to avoid ambiguous naming. Fixed pattern: `left = <left-alias>`    | `String` | No   | N/A
 `right-alias` | The subquery alias to use with the right join side in order to avoid ambiguous naming. Fixed pattern: `right = <right-alias>` | `String` | No   | N/A
 `join-criteria` | Any comparison expression.  | `String` | Yes  | N/A
-`right-dataset` | Either an index or a subquery with/without alias.  | `String` | Yes  | N/A
+`right-dataset` | Either an index or a subquery with/without an alias.  | `String` | Yes  | N/A
 
 The following examples use the `state_country` and `occupation` indexes.
 
