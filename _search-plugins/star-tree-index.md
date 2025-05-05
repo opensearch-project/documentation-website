@@ -255,10 +255,10 @@ You can use [terms aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucke
 
 For star-tree search compatibility with terms aggregations, remember the following behaviors:
 
-- The fields used in the terms aggregation should be part of dimensions defined in the star-tree index.
+- The fields used in the terms aggregation should be part of the dimensions defined in the star-tree index.
 - Metric sub-aggregations are optional as long as the relevant metrics are part of the star-tree configuration.
 
-This example aggregates logs by the `user_id` field and returns the counts for each unique user:
+The following example aggregates logs by the `user_id` field and returns the counts for each unique user:
 
 ```json
 POST /logs/_search
@@ -275,7 +275,7 @@ POST /logs/_search
 ```
 {% include copy-curl.html %}
 
-This example aggregates orders by the `order_quantity` and calculates the average `total_price` for each quantity:
+The following example aggregates orders by the `order_quantity` and calculates the average `total_price` for each quantity:
 
 ```json
 POST /orders/_search
@@ -305,10 +305,10 @@ You can use [range aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucke
 
 For range aggregations to work effectively with a star-tree index, remember the following behaviors:
 
-- The field used in the range aggregation should be part of dimensions defined in the star-tree index
-- You can include metric sub-aggregations to compute metrics within each defined range, as long as the relevant metrics are part of the star-tree configuration
+- The field used in the range aggregation should be part of the dimensions defined in the star-tree index.
+- You can include metric sub-aggregations to compute metrics within each defined range, as long as the relevant metrics are part of the star-tree configuration.
 
-This example aggregates documents based on predefined ranges of the `temperature` field:
+The following example aggregates documents based on predefined ranges of the `temperature` field:
 
 ```json
 POST /sensors/_search
@@ -330,7 +330,7 @@ POST /sensors/_search
 ```
 {% include copy-curl.html %}
 
-This example aggregates sales data by price ranges and calculates the total `quantity` sold within each range:
+The following example aggregates sales data by price ranges and calculates the total `quantity` sold within each range:
 
 ```json
 POST /sales/_search
