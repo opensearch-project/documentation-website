@@ -159,12 +159,22 @@ total | Integer | The total number of rows (documents) in the index.
 size | Integer | The number of results to return in one response.
 status | String | The HTTP response status OpenSearch returns after running the query.
 
-## Explain API
+## `Explain` API
 
-The SQL plugin has an `explain` feature that shows how a query is executed against OpenSearch, which is useful for debugging and development. A POST request to the `_plugins/_sql/_explain` or `_plugins/_ppl/_explain` endpoint returns [OpenSearch domain-specific language]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/) (DSL) in JSON format, explaining the query.
-You can execute the explain API operation either in command line using `curl` or in the Dashboards console, like in the example below. 
+The SQL plugin's `explain` feature shows how a query is executed against OpenSearch, which is useful for debugging and development. A POST request to the `_plugins/_sql/_explain` or `_plugins/_ppl/_explain` endpoint returns [OpenSearch domain-specific language]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/) (DSL) in JSON format.
 
-#### Sample explain request for an SQL query
+Starting with OpenSearch 3.0.0, when you set `plugins.calcite.enabled` to `true`, the `explain` response provides enhanced information about query execution plans. The API supports four output formats:
+
+- `standard`: Displays logical and physical plans (default if not specified)
+- `simple`: Displays logical plan without attributes
+- `cost`: Displays logical and physical plans with their costs
+- `extended`: Displays logical and physical plans with generated code
+
+### Examples
+
+#### Basic SQL query
+
+The following request shows a basic SQL explain query:
 
 ```json
 POST _plugins/_sql/_explain
@@ -172,8 +182,9 @@ POST _plugins/_sql/_explain
   "query": "SELECT firstname, lastname FROM accounts WHERE age > 20"
 }
 ```
+{% include copy.html %}
 
-#### Sample SQL query explain response
+The response shows the query execution plan:
 
 ```json
 {
@@ -194,53 +205,11 @@ POST _plugins/_sql/_explain
   }
 }
 ```
+{% include copy.html %}
 
-#### Sample explain request for a PPL query
+#### Advanced query with Calcite engine
 
-```json
-POST _plugins/_ppl/_explain
-{
-  "query" : "source=accounts | fields firstname, lastname"
-}
-```
-
-#### Sample PPL query explain response
-
-```json
-{
-  "root": {
-    "name": "ProjectOperator",
-    "description": {
-      "fields": "[firstname, lastname]"
-    },
-    "children": [
-      {
-        "name": "OpenSearchIndexScan",
-        "description": {
-          "request": """OpenSearchQueryRequest(indexName=accounts, sourceBuilder={"from":0,"size":200,"timeout":"1m","_source":{"includes":["firstname","lastname"],"excludes":[]}}, searchDone=false)"""
-        },
-        "children": []
-      }
-    ]
-  }
-}
-```
-
-For queries that require post-processing, the `explain` response includes a query plan in addition to the OpenSearch DSL. For those queries that don't require post processing, you can see a complete DSL.
-
-## `Explain` query plans
-
-
-Starting with OpenSearch 3.0.0, when you set `plugins.calcite.enabled` to `true`, the `explain` response provides enhanced information about query execution plans. The API supports the following output formats:
-
-- `standard`: Displays logical and physical plans (default if not specified)
-- `simple`: Displays logical plan without attributes
-- `cost`: Displays logical and physical plans with their costs
-- `extended`: Displays logical and physical plans with generated code
-
-### Examples
-
-The following request shows a basic explain query:
+The following request demonstrates a more complex query using the Calcite engine:
 
 ```json
 POST _plugins/_ppl/_explain
@@ -250,7 +219,7 @@ POST _plugins/_ppl/_explain
 ```
 {% include copy.html %}
 
-The following response shows the standard format output with both logical and physical plans:
+The response shows both logical and physical plans in the standard format:
 
 ```json
 {
@@ -268,7 +237,7 @@ The following response shows the standard format output with both logical and ph
 ```
 {% include copy.html %}
 
-The following request shows how to specify a format parameter:
+For a simplified view of the query plan, you can use the `simple` format:
 
 ```json
 POST _plugins/_ppl/_explain?format=simple
@@ -278,7 +247,7 @@ POST _plugins/_ppl/_explain?format=simple
 ```
 {% include copy.html %}
 
-The following response shows the simplified output format:
+The response shows a condensed logical plan:
 
 ```json
 {
@@ -292,6 +261,8 @@ The following response shows the simplified output format:
 }
 ```
 {% include copy.html %}
+
+For queries that require post-processing, the `explain` response includes a query plan in addition to the OpenSearch DSL. For queries that don't require post-processing, you'll see only the complete DSL.
 
 ## Paginating results
 
