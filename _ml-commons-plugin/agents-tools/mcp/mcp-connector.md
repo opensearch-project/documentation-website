@@ -10,7 +10,7 @@ nav_order: 10
 **Introduced 3.0**
 {: .label .label-purple }
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion in the [OpenSearch forum](https://forum.opensearch.org/).
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).
 {: .warning}
 
 OpenSearch supports agentic workflows using [agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/#agents). While OpenSearch provides built-in tools for running complex queries, [Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction) enables integration with external tools and data sources. MCP is an open protocol standard that provides a standardized way for AI models to connect to external data sources and tools, acting as a "universal adapter" for remote MCP server tools.
@@ -50,7 +50,7 @@ Ensure you have a running MCP server that is accessible from your OpenSearch clu
 
 ## Step 1: Create an MCP connector
 
-An MCP Connector stores connection details and credentials for your MCP server. To create an MCP connector, send the following request:
+An MCP connector stores connection details and credentials for your MCP server. To create an MCP connector, send the following request:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -74,10 +74,10 @@ The following table describes the connector parameters. For more information abo
 
 | Parameter | Data type | Required | Description |
 |:----------|:---------|:------------|
-| `protocol` | String | Yes | Specify `mcp_sse` to use the Server-Sent Events protocol (currently the only supported protocol type).  |
-| `url` | String | Yes | The complete base URL of the MCP server, including protocol, hostname, and port if not using the default port (for example, `https://my-mcp-server.com:8443`). |
+| `protocol` | String | Yes | Specify `mcp_sse` to use the SSE protocol (currently the only supported protocol type).  |
+| `url` | String | Yes | The complete base URL of the MCP server, including protocol, hostname, and port, if not using the default port (for example, `https://my-mcp-server.com:8443`). |
 | `credential` | Object | Yes | Contains sensitive authentication information such as API keys or tokens. Values stored in this object can be securely referenced in the `headers` section using the `${credential.*}` syntax. |
-| `headers` | Object | No | HTTP headers to include with requests to the MCP server. For authentication headers, use the `${credential.*}` syntax to reference values from the `credential` object (e.g., `"Authorization": "Bearer ${credential.mcp_server_key}"`).  |
+| `headers` | Object | No | The HTTP headers to include with requests to the MCP server. For authentication headers, use the `${credential.*}` syntax to reference values from the `credential` object (for example, `"Authorization": "Bearer ${credential.mcp_server_key}"`).  |
 
 The response contains the connector ID:
 
@@ -150,9 +150,9 @@ Each connector must specify the following parameters in the `parameters.mcp_conn
 | Parameter | Data type | Required | Description | 
 |:--- |:--- |:--- |:--- |
 | `mcp_connector_id` | String | Yes | The connector ID of the MCP connector. | 
-| `tool_filters` | Array | No | An array of Java-style regular expressions that specify which tools from the MCP server to make available to the agent. If omitted or set to an empty array, all tools exposed by the connector will be available. Use `^/$` anchors or literal strings to precisely match tool names. For example, `^get_forecast` matches any tool starting with get_forecast, while `search_indices` matches only `search_indices`.|
+| `tool_filters` | Array | No | An array of Java-style regular expressions that specify which tools from the MCP server to make available to the agent. If omitted or set to an empty array, all tools exposed by the connector will be available. Use `^/$` anchors or literal strings to precisely match tool names. For example, `^get_forecast` matches any tool starting with "get_forecast", while `search_indices` matches only "search_indices".|
 
-In this example, you'll register a conversational agent using the connector ID created in Step 1. The following request specifies to use only tools starting with "get_forecast" or tools exactly named "search_indices":
+In this example, you'll register a conversational agent using the connector ID created in Step 1. The following request specifies that only tools starting with "get_forecast" or tools exactly named "search_indices" should be used:
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -192,7 +192,7 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %}
 
-The resonse contains the agent ID:
+The response contains the agent ID:
 
 ```json
 {
