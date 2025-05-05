@@ -301,7 +301,7 @@ POST /orders/_search
 
 #### Range aggregations
 
-You can use [range aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/range/) on numeric fields to benefit from star-tree index search capabilities.
+You can use [range aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/range/) on numeric fields with star-tree index search.
 
 For range aggregations to work effectively with a star-tree index, remember the following behaviors:
 
