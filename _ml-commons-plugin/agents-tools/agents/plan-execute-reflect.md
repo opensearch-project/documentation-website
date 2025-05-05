@@ -238,7 +238,7 @@ Because the Deepseek R1 model hosted on Amazon Bedrock lacks default function-ca
 
 ## Default prompts
 
-The plan, execute, and reflect agent uses the following predefined prompts. You can modify the prompts by providing new ones in the following ways:
+The plan, execute, and reflect agent uses the following predefined prompts. You can customize the prompts by providing new ones in the following ways:
 
 - During agent registration in the `parameters` object
 - Dynamically during agent execution

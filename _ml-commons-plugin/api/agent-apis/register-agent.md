@@ -56,7 +56,7 @@ Field | Data type | Required/Optional | Description
 `name`| String | Optional | The tool name. The tool name defaults to the `type` parameter value. If you need to include multiple tools of the same type in an agent, specify different names for the tools. |
 `description`| String | Optional | The tool description. Defaults to a built-in description for the specified type. | 
 `parameters` | Object | Optional | The parameters for this tool. The parameters are highly dependent on the tool type. You can find information about specific tool types in [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
-`attributes.input_schema` | Object | Optional | The expected input format for this tool. Used to define the structure the LLM should follow when calling the tool.
+`attributes.input_schema` | Object | Optional | The expected input format for this tool defined as a [JSON schema](https://json-schema.org/). Used to define the structure the LLM should follow when calling the tool.
 
 ## Example request: Flow agent
 
