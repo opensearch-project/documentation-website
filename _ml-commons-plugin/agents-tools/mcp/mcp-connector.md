@@ -74,7 +74,7 @@ The following table describes the connector parameters. For more information abo
 
 | Parameter | Data type | Required | Description |
 |:----------|:---------|:------------|
-| `protocol` | String | Yes | Specify `mcp_sse` to use the SSE protocol (currently the only supported protocol type for MCP).  |
+| `protocol` | String | Yes | Specify `mcp_sse` to use the SSE protocol (the only supported protocol type for MCP).  |
 | `url` | String | Yes | The complete base URL of the MCP server, including protocol, hostname, and port, if not using the default port (for example, `https://my-mcp-server.com:8443`). |
 | `credential` | Object | Yes | Contains sensitive authentication information such as API keys or tokens. Values stored in this object can be securely referenced in the `headers` section using the `${credential.*}` syntax. |
 | `headers` | Object | No | The HTTP headers to include with requests to the MCP server. For authentication headers, use the `${credential.*}` syntax to reference values from the `credential` object (for example, `"Authorization": "Bearer ${credential.mcp_server_key}"`).  |
@@ -152,7 +152,7 @@ Each connector must specify the following parameters in the `parameters.mcp_conn
 | `mcp_connector_id` | String | Yes | The connector ID of the MCP connector. | 
 | `tool_filters` | Array | No | An array of Java-style regular expressions that specify which tools from the MCP server to make available to the agent. A tool will be included if it matches at least one of the regular expressions in the array. If omitted or set to an empty array, all tools exposed by the connector will be available. Use `^/$` anchors or literal strings to precisely match tool names. For example, `^get_forecast` matches any tool starting with "get_forecast", while `search_indices` matches only "search_indices".|
 
-In this example, you'll register a conversational agent using the connector ID created in Step 1. The following request specifies that only tools starting with "get_forecast" or tools exactly named "search_indices" should be used:
+In this example, you'll register a conversational agent using the connector ID created in Step 1. The MCP server has two tools available (`get_alerts` and `get_forecasts`), but due to our regex pattern `^get_alerts$`, only the `get_alerts` tool will be included in the agent's configuration:
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -176,7 +176,6 @@ POST /_plugins/_ml/agents/_register
     "mcp_connectors": [
       {
         "mcp_connector_id": "<MCP_CONNECTOR_ID_FROM_STEP_1>",
-        /* MCP server has get_alerts and get_forecasts tools, but only get_alerts will be included due to regex pattern */
         "tool_filters": [
           "^get_alerts$"
         ]
