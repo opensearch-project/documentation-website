@@ -7,41 +7,53 @@ grand_parent: Availability and recovery
 ---
 
 # Rule-based auto-tagging in OpenSearch
-In this guide we will walk you through how to use the rule based auto-tagging. Auto-tagging enriches the request with the target label which a consuming feature (such as workload-management) consumes.
+
+Rule-based auto-tagging is a versatile feature in OpenSearch that automatically assigns specific values to incoming requests based on predefined rules. Each OpenSearch feature can define its own attributes for matching and values to be assigned.
+
 ## What is rule-based auto-tagging?
 
-Rule-based Auto-tagging automatically assigns workload groups to incoming search requests in OpenSearch. This feature helps you implement automated feature policies without manual intervention.
-throughout this guide I will take a sample feature which uses rule framework for auto-tagging i,e; workload-management
+Rule-based auto-tagging automatically evaluates incoming requests against a set of predefined rules by matching request attributes. When a rule matches, it assigns a feature-specific value to the request. For example, the workload management feature uses index patterns as an attribute and assigns workload group IDs.
 
 ## Key concepts
 
-- **Rule**: Defines criteria for tagging search requests
-- **Attributes**: Prefix-based pattern matching for the given attribute value (e.g., attribute could be index pattern, security context values such as username, role, group etc.)
-- **Label**: Label assigned to requests for the client feature (e,g; workload management feature will use 'workload_group' as label)
-- **Auto-tagging**: Process of assigning workload groups based on rules
-- **Pattern Specificity**: More specific patterns take precedence e,g; `logs-prod-2025` will match `logs-prod-*` pattern over `logs-*`
+Before diving into the details, let's understand the key components:
 
-## How to set up rule-based auto-tagging
-Now we will learn about how can we set up the auto-tagging in opensearch.
+- **Rule**: Defines matching criteria (attributes) and the value to be assigned
+- **Attributes**: Key-value pairs used for matching rules (e.g., index patterns, user roles, request types)
+- **Feature-specific Value**: The value to be assigned when a rule matches
+- **Pattern Matching**: How attribute values are matched (exact or pattern-based)
 
-### Before you begin
+## Rule structure and management
 
-- Ensure you have an OpenSearch cluster with the feature (e,g; workload-management uses this framework for autotagging) plugin installed
-- Verify you have administrative access to the cluster
+### Rule schema
+
+A rule is structured as follows:
+
+```json
+{
+    "_id": "fwehf8302582mglfio349==",  // System-generated unique identifier
+    "index_patterns": ["logs-prod-*"],  // Example attribute used by WLM
+    "other_attribute": ["value1", "value2"],  // Other matching attributes
+    "workload_group": "production_workload_id",  // Feature-specific value
+    "updated_at": 1683256789000  // System-generated timestamp
+}
+```
 
 ### Managing rules
+
+Here's how you can manage rules (using workload management as an example):
 
 Create or update a rule:
 ```http
 PUT /_rules/workload_group
 {
-    "description": "Production Logs Rule",
-    "index_pattern": ["prod-logs-*"],
-    "workload_group": "production_workload"
+    "index_patterns": ["prod-logs-*"],
+    "other_attribute": ["value1"],
+    "workload_group": "production_workload_id"
 }
 ```
 
-List all rules:
+List rules:
 ```http
 GET /_rules/workload_group
 ```
@@ -51,133 +63,136 @@ Delete a rule:
 DELETE /_rules/workload_group/{rule_id}
 ```
 
-### Rule structure
-```json
-{
-    "_id": "fwehf8302582mglfio349==",  // System-generated
-    "description": "Assign Workload Group for Index Logs123",
-    "index_pattern": ["logs123"],  // Exact match or prefix pattern only
-    "workload_group": "dev_workload_group_id",
-    "updated_at": "01-10-2025T21:23:21.456Z"  // System-generated timestamp
-}
-```
+## How attribute matching works
 
-## How pattern matching works
+The attribute matching system determines which rules apply to a given request. Different attributes can have different matching behaviors.
 
-### Supported pattern types
+### Attribute matching types
 
-1. Exact matches: `logs-2025-04`
-2. Prefix patterns: `logs-2025-*`
+Attributes can support various matching types depending on their nature:
 
-Note: This feature doesn't support suffix patterns (`*-logs`) or generic patterns (`*-logs-*`).
+1. Exact matching: Values must match exactly
+2. Pattern matching: Values can match patterns (e.g., index patterns in WLM)
+3. List matching: Values can match any item in a list
+4. Range matching: Values can fall within defined ranges
 
-### Pattern precedence
+For example, in workload management, index patterns support:
+- Exact matches: `logs-2025-04`
+- Prefix patterns: `logs-2025-*`
 
-1. Exact matches have highest priority
-2. Longer prefix patterns take precedence over shorter ones
-   Example: `logs-prod-2025-*` is more specific than `logs-prod-*`
+Note: The specific matching behavior depends on the attribute type and the feature using it.
+
+### Rule precedence
+
+When multiple rules match a request, precedence is determined by:
+
+1. More specific attribute matches take priority
+2. Feature-specific tie-breaking rules are applied
+
+For example, in workload management with index patterns:
+- `logs-prod-2025-*` is more specific than `logs-prod-*`
+- `logs-prod-*` is more specific than `logs-*`
 
 ### Evaluation process
 
-1. OpenSearch receives a search request
-2. The system compares request indices against defined rules
-3. The most specific matching rule's workload group is applied
-4. If no rules match, no workload group is assigned
+Here's how OpenSearch evaluates incoming requests:
+
+1. OpenSearch receives a request
+2. The system evaluates request attributes against defined rules
+3. The most specific matching rule's feature value is assigned
+4. If no rules match, no value is assigned
 
 ## Examples
 
-### Production vs development logs
+Let's look at some examples using workload management, which uses index patterns as its primary attribute:
+
+### Multiple attribute matching
 
 ```json
-// Rule 1: Production Logs
+// Rule with multiple attributes
 {
-    "description": "Production Logs",
-    "index_pattern": ["logs-prod-*"],
-    "workload_group": "production"
+    "index_patterns": ["logs-prod-*"],
+    "request_type": ["search", "count"], // it is used here just for demonstration purposes since WLM only supports index pattern at present
+    "workload_group": "production_search_workload_id"
 }
 
-// Rule 2: Development Logs
+// Rule with single attribute
 {
-    "description": "Development Logs",
-    "index_pattern": ["logs-dev-*"],
-    "workload_group": "development"
+    "index_patterns": ["logs-prod-*"],
+    "workload_group": "production_workload_id"
 }
-
-// Example: Production search
-GET /logs-prod-2025/_search
-// Result: Tagged with "production"
-
-// Example: Development search
-GET /logs-dev-2025/_search
-// Result: Tagged with "development"
 ```
 
-### Handling specificity
+### Attribute specificity
 
 ```json
-// Rule 1: General Logs
+// Rule 1: General matching
 {
-    "description": "General Logs",
-    "index_pattern": ["logs-*"],
-    "workload_group": "general"
+    "index_patterns": ["logs-*"],
+    "workload_group": "general_workload_id"
 }
 
-// Rule 2: Production Service Logs
+// Rule 2: More specific matching
 {
-    "description": "Production Service Logs",
-    "index_pattern": ["logs-prod-service-*"],
-    "workload_group": "prod_service"
+    "index_patterns": ["logs-prod-service-*"],
+    "workload_group": "prod_service_workload_id"
 }
-
-// Example: Specific production service search
-GET /logs-prod-service-2025/_search
-// Result: Tagged with "prod_service" (more specific match wins)
 ```
 
 ## Benefits of rule-based auto-tagging
 
-- Automates request tagging
-- Ensures consistent policy application
-- Scales to new attributes automatically
-- Reduces administrative overhead
-- Minimizes manual errors
-- Allows easy policy updates
+Rule-based auto-tagging offers several advantages:
+
+- Flexible attribute-based matching
+- Support for feature-specific matching logic
+- Consistent policy application
+- Automated request classification
+- Reduced administrative overhead
+- Centralized rule management
+- Easy policy updates
 
 ## Best practices
-The following best practices will help you familiarize with correct usage and avoid common pitfalls
+
+To get the most out of rule-based auto-tagging, consider these best practices:
 
 ### Designing rules
 
-1. Use specific prefix patterns for precise control
-2. Clearly document each rule's purpose
-3. Create a hierarchical pattern structure
+1. Identify the most relevant attributes for your use case
+2. Use specific attribute values for precise control
+3. Combine multiple attributes when needed
+4. Use consistent naming conventions
+5. Document attribute matching behavior
 
-### Creating patterns
+### Managing attributes
 
-1. Start with the most specific patterns needed
-2. Use consistent delimiters in index names
-3. Avoid unintended pattern overlaps
-4. Plan for future index naming conventions
+1. Understand each attribute's matching behavior
+2. Start with the most specific criteria needed
+3. Avoid overlapping rules unless intentional
+4. Plan for future attribute value patterns
 
 ### Operations
 
 1. Test new rules in a development environment
 2. Monitor rule matches in your logs
-3. Keep rule configurations documented
+3. Document rule configurations
 4. Regularly review rule effectiveness
+5. Clean up unused rules
 
 ## Troubleshooting
 
-**Common issues and solutions:**
+Common issues and their solutions:
 
-1. **No Label Assigned**: Ensure your index pattern is a valid prefix
-2. **Unexpected Feature Label**: Look for more specific matching patterns
-3. **Rule Not Working**: Verify the pattern follows the prefix-only format
+1. **No value assigned**: Verify all attribute values are correct
+2. **Unexpected value**: Check for more specific matching rules
+3. **Rule not working**: Confirm attribute matching behavior
 
-**To validate your setup:**
+To validate your setup:
 
+- Test rules with sample requests
+- Use the list rules API to verify configurations
+- Monitor rule evaluation in logs
 
-- Test new rules with sample requests before production use
-- Use the list rules API to verify pattern matching
-- Check the consuming feature specific logs/stats to verify the correctness
+## Learn more
+
+Rule-based auto-tagging provides a flexible framework for implementing feature-specific request handling. While we've used workload management as an example, the attribute-based matching system can be adapted for various use cases.
 
