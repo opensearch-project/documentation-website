@@ -121,7 +121,7 @@ The following examples demonstrate different ways to implement `scalar` subsearc
 
 #### Uncorrelated
 
-In the following example, the scalar subsearch is independent of the outer query. These subsearches retrieve a single value that can be used in calculations or comparisons:
+In the following example, the `scalar` subsearch is independent of the outer query. These subsearches retrieve a single value that can be used in calculations or comparisons:
 
 ```sql
 source = outer | eval m = [ source = inner | stats max(c) ] | fields m, a

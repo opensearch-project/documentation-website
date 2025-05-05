@@ -882,8 +882,8 @@ lookup <lookup-index> (<lookup-mapping-field> [as <source-mapping-field>])... [(
 Field | Description | Required | Default
 :--- | :--- | :--- | :---
 `lookup-index` | The name of lookup index (dimension table). | Yes | -
-`lookup-mapping-field`| A mapping key in `lookup-index`, analogous to a `join` key from right table. You can specify multiple `lookup-mapping-field` values with commas. | Yes | -
-`source-mapping-field`| A mapping key from source (left side), analogous to a `join` key from left side. | No | `lookup-mapping-field`
+`lookup-mapping-field`| A mapping key in the `lookup-index`, analogous to a `join` key from the right table. You can specify multiple `lookup-mapping-field` values with commas. | Yes | -
+`source-mapping-field`| A mapping key from the source (left side), analogous to a `join` key from the left side. | No | `lookup-mapping-field`
 `replace` \| `append` | The output strategies. When specifying `replace`, matched values in `lookup-index` field overwrite the values in result. If you specify `append`, matched values in `lookup-index` field only append to the missing values in result. | No | `replace`
 `input-field` | A field in `lookup-index` where matched values are applied to the result output. You can specify multiple `input-field` values with commas. If you don't specify any `input-field`, all fields except `lookup-mapping-field` from `lookup-index` where matched values are applied to the result output. | No |
 `output-field` | A field of output. You can specify zero or multiple `output-field` values. If you specify `output-field` with an existing field name in the source query, its values will be replaced or appended by the matched values from `input-field`. If the field specified in `output-field` is a new field, an extended new field will be applied to the results. | No | `input-field`
@@ -892,7 +892,7 @@ The following examples use the `workers` and `work_information` indexes.
 
 `workers`:
 
-| id | name | occupation | country | salary
+| ID | Name | Occupation | Country | Salary
 :--- | :--- | :--- | :--- | :---
 | 1000 | Jake | Engineer | England | 100000
 | 1001 | Hello | Artist | USA | 70000
@@ -903,7 +903,7 @@ The following examples use the `workers` and `work_information` indexes.
 
 `work_information`:
 
-| uid | name  | department | occupation
+| UID | Name  | Department | Occupation
 :--- | :--- | :--- | :---
 | 1000 | Jake  | IT | Engineer |
 | 1002 | John  | DATA | Scientist |
@@ -922,16 +922,16 @@ source = workers | lookup work_information uid as id append department
 | id | name | occupation | country | salary | department
 :--- | :--- | :--- | :--- | :--- | :---
 1000 | Jake | Engineer | England | 100000 | IT
-1001 | Hello | Artist | USA | 70000 | null
+1001 | Hello | Artist | USA | 70000 | Null
 1002 | John | Doctor | Canada | 120000 | DATA
-1003 | David | Doctor | null | 120000 | HR
-1004 | David | null | Canada | 0 | null
+1003 | David | Doctor | Null | 120000 | HR
+1004 | David | Null | Canada | 0 | Null
 1005 | Jane | Scientist | Canada | 90000 | DATA
 
 
 **Example 2: Look up workers and replace occupation and department**
 
-The following example looks up workers and replaces the occupation and department using their `work_information`:
+The following example looks up workers and replaces their occupation and department using their `work_information`:
 
 ```sql
 source = workers | lookup work_information uid as id, name
