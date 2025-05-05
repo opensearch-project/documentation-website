@@ -790,8 +790,8 @@ You can combine two datasets using the `join` command. The left side can be an i
 Field | Description | Type | Required | Default
 :--- |:--- | :--- | :--- | :---
 `join-type` | The type of join to perform. Valid values are `inner`, `left`, `right`, `full`, `cross`, `semi`, and `anti`.  | `String` | No   | `inner`
-`left-alias` | The subquery alias to use with the left join side in order to avoid ambiguous naming. Fixed pattern: `left = <left-alias>`    | `String` | No   |
-`right-alias` | The subquery alias to use with the right join side in order to avoid ambiguous naming. Fixed pattern: `right = <right-alias>` | `String` | No   |
+`left-alias` | The subquery alias to use with the left join side in order to avoid ambiguous naming. Fixed pattern: `left = <left-alias>`    | `String` | No   | N/A
+`right-alias` | The subquery alias to use with the right join side in order to avoid ambiguous naming. Fixed pattern: `right = <right-alias>` | `String` | No   | N/A
 `join-criteria` | Any comparison expression.  | `String` | Yes  | N/A
 `right-dataset` | Either an index or a subquery with/without alias.  | `String` | Yes  | N/A
 
@@ -856,7 +856,7 @@ search source = state_country as a
 | stats avg(salary) by span(age, 10) as age_span, b.country
 ```
 
-| avg(salary) | age_span | b.country
+avg(salary) | age_span | b.country
 :--- | :--- | :---
 null | 40 | null
 70000.0 | 30 | USA
@@ -937,7 +937,7 @@ The following example looks up workers and replaces their occupation and departm
 source = workers | lookup work_information uid as id, name
 ```
 
-| id | name | occupation | country | salary | department
+id | name | occupation | country | salary | department
 :--- | :--- |:-----------| :--- | :--- | :---
 1000 | Jake | Engineer   | England | 100000 | IT
 1001 | Hello | null       | USA | 70000 | null
@@ -954,7 +954,7 @@ The following example looks up workers and appends their occupation from `work_i
 source = workers | lookup work_information name replace occupation as new_occupation
 ```
 
-| id | name | occupation | country | salary | new_occupation
+id | name | occupation | country | salary | new_occupation
 :--- | :--- |:-----------| :--- | :--- | :---
 1000 | Jake | Engineer | England | 100000 | Engineer
 1001 | Hello | Artist | USA | 70000 | null
