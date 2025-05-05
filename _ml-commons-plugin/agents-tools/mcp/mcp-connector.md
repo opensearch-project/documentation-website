@@ -175,7 +175,7 @@ POST /_plugins/_ml/agents/_register
     "_llm_interface": "openai/v1/chat/completions",
     "mcp_connectors": [
       {
-        "mcp_connector_id": "<MCP_CONNECTOR_ID_FROM_STEP_1`>",
+        "mcp_connector_id": "<MCP_CONNECTOR_ID_FROM_STEP_1>",
         "tool_filters": [
           "^get_forecast",    
           "search_indices"    
