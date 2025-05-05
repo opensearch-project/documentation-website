@@ -805,7 +805,7 @@ The following examples use the `state_country` and `occupation` indexes.
 | Hello | 30  | New York   | USA
 | John  | 25  | Ontario    | Canada
 | Jane  | 20  | Quebec     | Canada
-| Jim   | 27  | B.C        | Canada
+| Jim   | 27  | B.C.        | Canada
 | Peter | 57  | B.C        | Canada
 | Rick  | 70  | B.C        | Canada
 | David | 40  | Washington | USA
