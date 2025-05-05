@@ -177,8 +177,6 @@ For more information, see pull request [#17573](https://github.com/opensearch-pr
 
 ### Query groups
 
-### Workload groups
-
 Query groups have been renamed to **workload groups**. Key changes include the following:
 
 - The `wlm/query_group` endpoint is now the `wlm/workload_group` endpoint.
