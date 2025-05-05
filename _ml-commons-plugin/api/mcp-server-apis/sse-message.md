@@ -10,6 +10,9 @@ nav_order: 40
 **Introduced 3.0**
 {: .label .label-purple }
 
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
+{: .warning}
+
 This endpoint handles standard message interactions for the Model Context Protocol (MCP). It enables communication with the MCP server in OpenSearch through Server-Sent Events (SSE).
 
 Most users won't need to interact with this API directly when using a standard MCP client. 
