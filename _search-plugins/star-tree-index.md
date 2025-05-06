@@ -181,7 +181,7 @@ Boolean queries in star-tree indexes follow specific rules for each clause type:
   - Support Term, Terms, and Range queries
 
 * `should` clauses:
-  - Must operate on the same dimension and cannot operate accross different dimensions
+  - Must operate on the same dimension and cannot operate across different dimensions
   - Can only use Term, Terms, and Range queries
 
 * `should` clauses inside `must` clauses:
@@ -192,7 +192,7 @@ Boolean queries in star-tree indexes follow specific rules for each clause type:
 * `must_not` clauses are not supported
 * Queries with the `minimum_should_match` parameter are not supported
 
-The following boolean query is **supported** because it follows these restrictions:
+The following Boolean query is **supported** because it follows these restrictions:
 
 ```json
 {
