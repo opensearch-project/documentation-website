@@ -1,12 +1,15 @@
 ---
 layout: default
 title: Build your own chatbot
-parent: Chatbots and agents
+parent: Chatbots
 grand_parent: Generative AI
-nav_order: 160
+has_children: false
+has_toc: false
+nav_order: 170
 redirect_from:
   - /ml-commons-plugin/tutorials/build-chatbot/
   - /vector-search/tutorials/chatbots/build-chatbot/
+  - /tutorials/gen-ai/chatbots/build-chatbot/ 
 ---
 
 # Build your own chatbot

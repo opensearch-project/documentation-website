@@ -28,7 +28,7 @@ assistant.text2viz.enabled: true
 
 ### Step 2: Create the agents
 
-To orchestrate text to visualization, you'll need to create the necessary [agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/#agents). Create a workflow template for creating all necessary text-to-visualization agents by sending the following request:
+To orchestrate text to visualization, you'll need to create the necessary [agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/). Create a workflow template for creating all necessary text-to-visualization agents by sending the following request:
 
 <details markdown="block">
   <summary>
