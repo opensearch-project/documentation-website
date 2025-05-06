@@ -8,7 +8,7 @@ permalink: /:path/
 opensearch_version: '3.0.0'
 opensearch_dashboards_version: '3.0.0'
 opensearch_major_minor_version: '3.0'
-lucene_version: '10_0_0'
+lucene_version: '10_1_0'
 
 # Build settings
 markdown: kramdown
