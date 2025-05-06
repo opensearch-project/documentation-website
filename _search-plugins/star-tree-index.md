@@ -168,10 +168,6 @@ To use a query with a star-tree index, the query's fields must be present in the
 
 #### Boolean query restrictions
 
-Boolean queries in star-tree indexes follow specific rules for each of the following clause types.
-
-#### Boolean query restrictions
-
 Boolean queries in star-tree indexes follow specific rules for each clause type:
 
 * `must` and `filter` clauses:
