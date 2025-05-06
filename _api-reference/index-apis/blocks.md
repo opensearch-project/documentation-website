@@ -44,6 +44,7 @@ The following example request disables any `write` operations made to the test i
 ```json
 PUT /test-index/_block/write
 ```
+{% include copy.html %}
 
 ## Example response
 
