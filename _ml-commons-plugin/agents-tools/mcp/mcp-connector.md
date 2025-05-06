@@ -140,7 +140,7 @@ To check the status of the operation, provide the task ID to the [Tasks API]({{s
 
 ## Step 3: Register an agent for accessing MCP tools
 
-Currently, MCP tools can only be used with [_conversational_ agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/#conversational-agents) or _plan, execute, and reflect_ agent types. 
+Currently, MCP tools can only be used with [_conversational_]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational/) or [_plan-execute-reflect_]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/) agent types. 
 
 To enable external MCP tools, include one or more MCP connectors in your agent's configuration.
 
