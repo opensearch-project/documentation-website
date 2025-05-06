@@ -3,7 +3,7 @@ layout: default
 title: Log Pattern Tool
 has_children: false
 has_toc: false
-nav_order: 70
+nav_order: 37
 parent: Tools
 grand_parent: Agents and tools
 ---
@@ -14,7 +14,17 @@ grand_parent: Agents and tools
 {: .label .label-purple }
 <!-- vale on -->
 
-The `LogPatternTool` analyzes log data retrieved through DSL or PPL queries to extract and identify recurring structural patterns across log messages. After grouping similar logs based on their shared templates, it returns the most common patterns, presenting each with representative sample logs and total count showing how frequently each pattern appears in your dataset.
+The `LogPatternTool` analyzes log data retrieved using [query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/) or [Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/) queries to extract and identify recurring structural patterns across log messages. After grouping similar logs based on their shared templates, it returns the most common patterns. Each pattern includes representative sample logs and the total count of log entries that match the pattern in your dataset.
+
+OpenSearch determines whether you're using a DSL or PPL query based on the presence of the `input` or `ppl` parameter in the request:
+
+- If the `input` parameter (a DSL query JSON as a string) is present, the tool interprets the request as a DSL query.
+
+- If the `ppl` parameter is present and `input` is not, the tool interprets the request as a PPL query.
+
+- If both are provided, the tool will prioritize the DSL query.
+
+To avoid ambiguity, provide only one of the two---`input` for DSL or `ppl` for PPL---in your request when you run the agent.
 
 ## Step 1: Register a flow agent that will run the LogPatternTool
 
@@ -41,14 +51,15 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %}
 
-OpenSearch responds with an agent ID, for example, as follows:
+For parameter descriptions, see [Register parameters](#register-parameters).
+
+OpenSearch responds with an agent ID:
 
 ```json
 {
   "agent_id": "OQutgJYBAc35E4_KvI1q"
 }
 ```
-{% include copy-curl.html %}
 
 ## Step 2: Run the agent
 
@@ -60,11 +71,12 @@ POST /_plugins/_ml/agents/OQutgJYBAc35E4_KvI1q/_execute
   "parameters": {
     "input": "{\"query\":{\"bool\":{\"filter\":[{\"range\":{\"bytes\":{\"from\":10,\"to\":null,\"include_lower\":true,\"include_upper\":true,\"boost\":1}}}],\"adjust_pure_negative\":true,\"boost\":1}}}",
     "index": "opensearch_dashboards_sample_data_logs"
+  }
 }
 ```
 {% include copy-curl.html %}
 
-OpenSearch returns a JSON response containing the most common log patterns found in your data, up to the specified limit. Each identified pattern is represented as a JSON object with three key components: the pattern template itself, representative sample logs matching that pattern, and a count indicating the pattern's frequency in your dataset. The structure follows this format: {"pattern": "...", "sample logs": [...], "total count": N}, as illustrated in the following example response:
+OpenSearch returns a JSON response containing the most common log patterns found in your data, up to the specified limit. Each identified pattern is represented as a JSON object with three key components: the pattern template, a set of representative sample logs that match the pattern, and a count indicating how often the pattern appears in your dataset. The structure follows the format `{"pattern": "...", "sample logs": [...], "total count": N}`, as illustrated in the following example response:
 
 ```json
 {
@@ -81,21 +93,21 @@ OpenSearch returns a JSON response containing the most common log patterns found
 }
 ```
 
-
 ## Register parameters
 
 The following table lists the available tool parameters for agent registration.
 
-Parameter	| Type    | Required/Optional                                    | Description	
-:--- |:--------|:-----------------------------------------------------| :---
-`index` | String  | Required for `DSL` (Domain Specific Language) query  | Specify the index to be searched for pattern analysis.
-`input` | String  | Required for `DSL` (Domain Specific Language) query  | `DSL` query JSON in string format
-`source_field` | String  | Optional                                             | Defines which document field(s) should be returned in the results. Can be a single field name or an array of field names (e.g., ["field1", "field2"]).
-`doc_size` | Integer | Optional                                             | The number of documents to fetch. Default is `2`.
-`top_n_pattern` | Integer | Optional                                             | Limits the output to the specified number of most frequent patterns. Default is `3`.
-`sample_log_size` | Integer | Optional                                             | Determines how many example logs to include for each detected pattern. Default is `20`.
-`pattern_field` | String  | Optional                                             | Explicitly designates which field to analyze for pattern detection. When not specified, the tool automatically selects the longest text field from the first document.
-`ppl` | String  | Required for `PPL` (Piped Processing Language) query | `PPL` query text. If both input `DSL` and `PPL` are provided, the tool will prioritize the `DSL` query.
+| Parameter         | Type     | Required/Optional                                | Description |
+|:-----------------|:---------|:-------------------------------------------------|:------------|
+| `index`          | String   | Required for DSL queries                         | The index to search for pattern analysis. |
+| `input`          | String   | Required for DSL queries                         | A DSL query JSON as a string. If both `input` and `ppl` are provided, `input` (DSL) is used. |
+| `ppl`            | String   | Required for PPL queries                         | A PPL query string. Ignored if `input` is also provided. |
+| `source_field`   | String   | Optional                                         | The field(s) to return in the result. Can be a single field or an array (for example, `["field1", "field2"]`). |
+| `doc_size`       | Integer  | Optional                                         | The number of documents to fetch. Default is `2`. |
+| `top_n_pattern`  | Integer  | Optional                                         | Limits the output to the specified number of most frequent patterns. Default is `3`. |
+| `sample_log_size`| Integer  | Optional                                         | The number of sample logs to include per pattern. Default is `20`. |
+| `pattern_field`  | String   | Optional                                         | The field to analyze for pattern detection. If not specified, the tool selects the longest text field from the first document. |
+
 
 ## Execute parameters
 
@@ -103,6 +115,6 @@ The following table lists the available tool parameters for running the agent.
 
 Parameter	| Type | Required/Optional      | Description	
 :--- | :--- |:-----------------------| :---
-`index` | String | Required for `DSL` (Domain Specific Language) query | Specify the index to be searched for pattern analysis.
-`input` | String | Required for `DSL` (Domain Specific Language) query | `DSL` query JSON in string format
-`ppl` | String | Required for `PPL` (Piped Processing Language) query | `PPL` query text. If both input `DSL` and `PPL` are provided, the tool will prioritize the `DSL` query.              
+| `index`   | String | Required for DSL queries | The index to search for pattern analysis. |
+| `input`   | String | Required for DSL queries | A DSL query JSON as a string. If both `input` and `ppl` are provided, `input` (DSL) takes precedence. |
+| `ppl`     | String | Required for PPL queries | A PPL query string. Ignored if `input` is also provided. |
