@@ -148,12 +148,13 @@ The `cluster.routing.search_replica.strict` setting supports the following optio
 
 Use the `auto_expand_search_replicas` index setting to automatically scale search replicas based on the number of available search nodes in the cluster. For more information, see [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#dynamic-index-level-index-settings).
 
-### Turn off write workloads: The `search_only` mode
+### Turn off write workloads with search-only mode
 
-You can use the `_scale` API to turn off primary shards and write replicas if you don't expect any writes to an index. In write-once, read-many scenarios (like log analytics), you can scale down primary and write replicas, leaving only search replicas active to free up resources.
+You can use the `_scale` API to turn off primary shards and write replicas for an index when you don't need to write to it. This approach works well for write-once, read-many scenarios like log analytics, where you can reduce resource usage by keeping only search replicas active.
 
-The following [scale]({{site.url}}{{site.baseurl}}/api-reference/index-apis/scale/) request turns off write replicas:
+Before enabling search-only mode, we recommend setting `cluster.remote_store.state.enabled` to `true`. For more information about recovery scenarios, see [Search replica recovery scenarios](#search-replica-recovery-scenarios).
 
+The following request turns on search-only mode by deactivating write replicas:
 
 ```json
 POST my_index/_scale 
@@ -163,7 +164,7 @@ POST my_index/_scale
 ```
 {% include copy-curl.html %}
 
-The following scale request turns on write replicas:
+The following request turns off search-only mode by activating write replicas:
 
 ```json
 POST my_index/_scale 
@@ -173,26 +174,22 @@ POST my_index/_scale
 ```
 {% include copy-curl.html %}
 
-**Important NOTE**
+#### Search replica recovery scenarios
 
-Along with the above prerequisites it is recommended to set the remote store state setting to true (`cluster.remote_store.state.enabled, true`) before enabling the `search_only` mode. Please check the following Search Replica Recovery Scenarios during `search_only` mode for more details. 
+OpenSearch handles recovery of search replicas in search-only mode differently depending on your configuration:
 
-### Search Replica Recovery Scenarios during `search_only` mode
+**Scenario 1: Persistent data directory with remote store state disabled**
 
-Depending on your configuration, OpenSearch handles recovery of search replicas in `search_only` mode differently. Below are scenarios that illustrate how search only replicas behave during restart or recovery operations.
+When you have persistent data and `cluster.remote_store.state.enabled` set to `false`, search replicas recover automatically after node restarts.
 
-**Scenario 1: With persistent data directory and remote store state set to false:**
+**Scenario 2: Remote store state enabled without persistent data directory**
 
-With persistent data and `cluster.remote_store.state.enabled: false`, search only replicas recover after node restarts.
+When `cluster.remote_store.state.enabled` is `true` but you don't have a persistent data directory, search replicas recover without primaries and write replicas. Because remote store state is enabled, OpenSearch remembers that the index exists after restart. The allocation logic skips checking for an active primary for search replicas, so search replicas are allocated and search queries remain functional.
 
-**Scenario 2: Remote store state enabled and no persistent data directory:**
+**Scenario 3: Remote store state enabled with persistent data directory**
 
-Search only replicas recover without primaries and replica. Since `cluster.remote_store.state.enabled: true`, OpenSearch remembers the index exists after restart. The allocation logic skips checking for an active primary for search only replicas, the search replicas will be allocated and search queries remain functional.
+This configuration provides seamless recovery. In search-only mode with a persistent data directory and `cluster.remote_store.state.enabled` set to `true`, OpenSearch correctly brings up only search replicas without primary and regular replicas.
 
-**Scenario 3: Remote store state enabled with persistent data directory — seamless recovery**
+**Scenario 4: No persistent data directory and remote store state disabled**
 
-In `search_only` mode with persistent data directoy and `cluster.remote_store.state.enabled: true`, OpenSearch correctly brings up only search replicas without primary and regular replicas.
-
-**Scenario 4: No persistent data directory and remote store state set to false: — Index is lost after restart**
-
-Without persistent data directory and `cluster.remote_store.state.enabled: false`, restarting OpenSearch loses all local state and the index becomes unrecoverable. This is because OpenSearch has no metadata reference and local state is wiped.
+Without a persistent data directory and with `cluster.remote_store.state.enabled` set to `false`, restarting OpenSearch loses all local state and the index becomes unrecoverable because OpenSearch has no metadata reference and local state is wiped.
