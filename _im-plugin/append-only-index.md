@@ -45,7 +45,9 @@ After an index is set to append-only, it cannot be changed to another index type
 {: .warning}
 
 
-If you want to append data from an existing index to the new append-only index, use the Reindex API. The following example reindexes documents from a source index (`logs`) into the new append-only index:
+To append data from an existing index to a new append-only index, use the Reindex API. Because append-only indexes don't support custom document IDs, you need to set the ctx._id of the source index to null. This allows documents to be added through reindexing.
+
+The following request reindexes documents from a source index into a new append-only index:  The following example reindexes documents from a source index (`my-source-index`) into the new append-only index:
 
 ```json
 POST /_reindex
@@ -58,3 +60,4 @@ POST /_reindex
   }
 }
 ```
+{% include copy-curl.html %}
