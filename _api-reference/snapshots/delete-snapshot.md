@@ -12,6 +12,8 @@ canonical_url: https://docs.opensearch.org/docs/latest/api-reference/snapshots/d
 
 Deletes a snapshot from a repository.
 
+Deleting a snapshot that is in progress stops the snapshot operation and deletes the partially created snapshot.
+
 * To learn more about snapshots, see [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index).
 
 * To view a list of your repositories, see [cat repositories]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-repositories).
