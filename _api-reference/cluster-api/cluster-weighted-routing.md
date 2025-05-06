@@ -66,7 +66,7 @@ The following table lists the available path parameters.
 ## Example request
 
 ```json
-PUT /_cluster/routing/awareness/zone//weights
+PUT /_cluster/routing/awareness/zone/weights
 {
   "weights": {
     "zone-1": 3,
