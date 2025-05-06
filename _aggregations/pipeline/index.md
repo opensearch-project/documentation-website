@@ -183,7 +183,7 @@ The results show stats about the *document counts* of the buckets:
 }
 ```
 
-# Data gaps
+## Data gaps
 
 Real-world data can be missing from nested aggregations for a number of reasons, including:
 

@@ -162,8 +162,77 @@ The following queries are supported as of OpenSearch 2.19:
 - [Terms query]({{site.url}}{{site.baseurl}}/query-dsl/term/terms/)
 - [Match all docs query]({{site.url}}{{site.baseurl}}/query-dsl/match-all/)
 - [Range query]({{site.url}}{{site.baseurl}}/query-dsl/term/range/)
+- [Boolean query]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/)
 
 To use a query with a star-tree index, the query's fields must be present in the `ordered_dimensions` section of the star-tree configuration. Queries must also be paired with a supported aggregation. Queries without aggregations cannot be used with a star-tree index. Currently, queries on `date` fields are not supported and will be added in later versions.
+
+#### Boolean query restrictions
+
+Boolean queries in star-tree indexes follow specific rules for each clause type:
+
+* `must` and `filter` clauses:
+  - Are both supported and treated the same way because `filter` does not affect scoring.
+  - Can operate across different dimensions.
+  - Allow only one condition per dimension across all `must`/`filter` clauses, including nested ones.
+  - Support term, terms, and range queries.
+
+* `should` clauses:
+  - Must operate on the same dimension and cannot operate across different dimensions
+  - Can only use term, terms, and range queries.
+
+* `should` clauses inside `must` clauses:
+  - Act as a required condition.
+  - When operating on the same dimension as outer `must`: The union of `should` conditions is intersected with the outer `must` conditions.
+  - When operating on a different dimension: Processed normally as a required condition.
+
+* `must_not` clauses are not supported.
+* Queries with the `minimum_should_match` parameter are not supported.
+
+The following Boolean query is **supported** because it follows these restrictions:
+
+```json
+{
+  "bool": {
+    "must": [
+      {"term": {"method": "GET"}}
+    ],
+    "filter": [
+      {"range": {"status": {"gte": 200, "lt": 300}}}
+    ],
+    "should": [
+      {"term": {"port": 443}},
+      {"term": {"port": 8443}}
+    ]
+  }
+}
+```
+{% include copy.html %}
+
+The following Boolean queries are **not** supported because they violate these restrictions:
+
+```json
+{
+  "bool": {
+    "should": [
+      {"term": {"status": 200}},
+      {"term": {"method": "GET"}}  // SHOULD across different dimensions
+    ]
+  }
+}
+```
+
+```json
+{
+  "bool": {
+    "must": [
+      {"term": {"status": 200}}
+    ],
+    "must_not": [  // MUST_NOT not supported
+      {"term": {"method": "DELETE"}}
+    ]
+  }
+}
+```
 
 ### Supported aggregations
 
