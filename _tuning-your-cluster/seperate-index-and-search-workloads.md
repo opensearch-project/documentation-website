@@ -59,7 +59,8 @@ For more information, see [Remote-backed storage]({{site.url}}{{site.baseurl}}/t
 
 **Important NOTE**
 
-Before enabling [search-only mode](#turn-off-write-workloads-with-search-only-mode), we recommend setting `cluster.remote_store.state.enabled` to `true`. For more information about recovery scenarios, see [Search replica recovery scenarios](#search-replica-recovery-scenarios).
+When separating index and search workloads, we recommend setting `cluster.remote_store.state.enabled` to `true` as part of your initial setup. This ensures that OpenSearch persists index metadata in the remote store, enabling seamless recovery of search replicas during [search-only mode](#turn-off-write-workloads-with-search-only-mode). For more information about recovery scenarios, see [Search replica recovery scenarios](#search-replica-recovery-scenarios).
+
 
 ### Step 3: Add search replicas to an index
 
