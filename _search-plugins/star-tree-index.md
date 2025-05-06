@@ -162,6 +162,63 @@ The following queries are supported as of OpenSearch 2.19:
 - [Terms query]({{site.url}}{{site.baseurl}}/query-dsl/term/terms/)
 - [Match all docs query]({{site.url}}{{site.baseurl}}/query-dsl/match-all/)
 - [Range query]({{site.url}}{{site.baseurl}}/query-dsl/term/range/)
+- [Boolean query]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/) with the following constraints:
+  - MUST and FILTER clauses:
+    * Both are supported and treated the same (as FILTER doesn't affect scoring)
+    * Can operate across different dimensions
+    * A dimension can have only one condition across all MUST/FILTER clauses (including nested ones)
+    * Supports Term, Terms, and Range queries
+  - SHOULD clause:
+      * All SHOULD clauses must operate on same dimension
+      * Only Term, Terms, and Range queries allowed
+      * Cannot have SHOULD clauses across different dimensions
+  - When SHOULD is inside a MUST clause:
+      * Acts as a required condition
+      * If operating on same dimension as outer MUST: Union of SHOULD conditions is intersected with outer MUST conditions
+      * If operating on different dimension than outer MUST: Processed normally as a required condition
+  - MUST_NOT clause is not supported
+  - Queries with `minimum_should_match` parameter are not supported
+
+For example, this boolean query is supported:
+```json
+{
+  "bool": {
+    "must": [
+      {"term": {"method": "GET"}}
+    ],
+    "filter": [
+      {"range": {"status": {"gte": 200, "lt": 300}}}
+    ],
+    "should": [
+      {"term": {"port": 443}},
+      {"term": {"port": 8443}}
+    ]
+  }
+}
+```
+But these boolean queries are not supported:
+```json
+{
+  "bool": {
+    "should": [
+      {"term": {"status": 200}},
+      {"term": {"method": "GET"}}  // SHOULD across different dimensions
+    ]
+  }
+}
+```
+```json
+{
+  "bool": {
+    "must": [
+      {"term": {"status": 200}}
+    ],
+    "must_not": [  // MUST_NOT not supported
+      {"term": {"method": "DELETE"}}
+    ]
+  }
+}
+```
 
 To use a query with a star-tree index, the query's fields must be present in the `ordered_dimensions` section of the star-tree configuration. Queries must also be paired with a supported aggregation. Queries without aggregations cannot be used with a star-tree index. Currently, queries on `date` fields are not supported and will be added in later versions.
 
