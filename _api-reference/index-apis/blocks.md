@@ -23,7 +23,7 @@ PUT /<index>/_block/<block>
 | Parameter | Data type | Description |
 :--- | :--- | :---
 | `index` | String | A comma-delimited list of index names. Wildcard expressions (`*`) are supported. To target all data streams and indexes in a cluster, use `_all` or `*`. Optional. |
-| `<block>` | String | Specifies the type of block to apply to the index. Valid values are: <br> `metadata`: Disables all metadata changes, such as closing the index. <br> `read`: Disables any read operations. <br> `read_only`: Disables any write operations and metadata changes. <br> `write`: Disables write operations. However, metadata changes are still allowed. |
+| `<block>` | String | Specifies the type of block to apply to the index. Valid values are: <br> `metadata`: Disables all metadata changes, such as closing the index. <br> `read`: Disables any read operations. <br> `read_only`: Disables any write operations and metadata changes. <br> `write`: Disables write operations. However, metadata changes are still allowed. <br> `search_only`: Disables all indexing and write operations while allowing read-only access through search replicas. Note: Do not set this block manually—OpenSearch automatically manages the `search_only` block via the `_scale` API as part of the reader-writer separation mechanism. |
 
 ## Query parameters
 
