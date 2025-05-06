@@ -163,20 +163,20 @@ The following queries are supported as of OpenSearch 2.19:
 - [Match all docs query]({{site.url}}{{site.baseurl}}/query-dsl/match-all/)
 - [Range query]({{site.url}}{{site.baseurl}}/query-dsl/term/range/)
 - [Boolean query]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/) with the following constraints:
-  - MUST and FILTER clauses:
-    * Both are supported and treated the same (as FILTER doesn't affect scoring)
+  - `must` and `filter` clauses:
+    * Both are supported and treated the same (as `filter` doesn't affect scoring)
     * Can operate across different dimensions
-    * A dimension can have only one condition across all MUST/FILTER clauses (including nested ones)
+    * A dimension can have only one condition across all `must`/`filter` clauses (including nested ones)
     * Supports Term, Terms, and Range queries
-  - SHOULD clause:
-      * All SHOULD clauses must operate on same dimension
-      * Only Term, Terms, and Range queries allowed
-      * Cannot have SHOULD clauses across different dimensions
-  - When SHOULD is inside a MUST clause:
+  - `should` clause:
+      * All `should` clauses must operate on same dimension
+      * Supports Term, Terms, and Range queries
+      * Cannot have `should` clauses across different dimensions
+  - When `should` is inside a `must` clause:
       * Acts as a required condition
-      * If operating on same dimension as outer MUST: Union of SHOULD conditions is intersected with outer MUST conditions
-      * If operating on different dimension than outer MUST: Processed normally as a required condition
-  - MUST_NOT clause is not supported
+      * If operating on same dimension as outer `must`: Union of `should` conditions is intersected with outer `must` conditions
+      * If operating on different dimension than outer `must`: Processed normally as a required condition
+  - `must_not` clause is not supported
   - Queries with `minimum_should_match` parameter are not supported
 
 For example, this boolean query is supported:
