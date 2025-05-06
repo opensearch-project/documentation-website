@@ -73,7 +73,7 @@ The plan-execute-reflect agent provides built-in function calling interfaces for
 - OpenAI GPT-4o model
 - DeepSeek-R1 model hosted on Amazon Bedrock
 
-To request default support for an LLM, create a feature request issue in [ml-commons](https://github.com/opensearch-project/ml-commons/issues).
+To request default support for an LLM, [create a feature request issue in the ML Commons repository](https://github.com/opensearch-project/ml-commons/issues).
 
 For a step-by-step tutorial on using a plan-execute-reflect agent, see [Building a plan-execute-reflect agent]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/agents/build-plan-execute-reflect-agent/).
 
