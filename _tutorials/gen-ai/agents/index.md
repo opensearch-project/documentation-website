@@ -10,14 +10,14 @@ redirect_from:
 flows:
   - heading: "Building a flow agent"
     link: /ml-commons-plugin/agents-tools/agents-tools-tutorial/
-    description: "Learn how to build a flow agent for RAG."
+    description: "Learn how to build a flow agent for RAG"
     list: 
       - "<b>Platform:</b> OpenSearch"
       - "<b>Model:</b> Anthropic Claude"  
       - "<b>Deployment:</b> Amazon Bedrock"  
   - heading: "Building a plan-execute-reflect agent"
     link: /tutorials/gen-ai/agents/build-plan-execute-reflect-agent/
-    description: "Learn how to build a powerful <i>plan-execute-reflect</i> agent for solving complex problems."
+    description: "Learn how to build a powerful <i>plan-execute-reflect</i> agent for solving complex problems"
     list: 
       - "<b>Platform:</b> OpenSearch"
       - "<b>Model:</b> Anthropic Claude 3.7 Sonnet"  

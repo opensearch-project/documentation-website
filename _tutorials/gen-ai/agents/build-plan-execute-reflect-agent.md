@@ -11,18 +11,18 @@ nav_order: 20
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/ml-commons/issues/3745).    
 {: .warning}
 
-This tutorial describes how to build and use a _plan-execute-reflect_ agent. This agent can be used to solve complex problems that benefit from multi-step execution and reasoning. In this example, we will ask the agent to analyze flight data in our OpenSearch index. For more information about this agent, see [Plan-execute-reflect agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/).
+This tutorial describes how to build and use a _plan-execute-reflect_ agent. This agent can be used to solve complex problems that benefit from multi-step execution and reasoning. In this example, you will ask the agent to analyze flight data in your OpenSearch index. For more information about this agent, see [Plan-execute-reflect agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/).
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}
 
 ## Prerequisite
 
-Log in to the OpenSearch Dashboards home page, select **Add sample data** and add the **Sample Flight data**. 
+Log in to the OpenSearch Dashboards home page, select **Add sample data**, and add the **Sample Flight data**. 
 
 ## Step 1: Prepare an LLM
 
-A plan-execute-reflect agent requires a large language model (LLM) to function. This tutorial uses the [Anthropic Claude 3.7 model hosted on Amazon Bedrock](https://aws.amazon.com/bedrock/claude/). You can also [use other supported LLMs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/#supported-llms).
+A plan-execute-reflect agent requires a large language model (LLM) in order to function. This tutorial uses the [Anthropic Claude 3.7 model hosted on Amazon Bedrock](https://aws.amazon.com/bedrock/claude/). You can also [use other supported LLMs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/#supported-llms).
 
 ### Step 1(a): Create a connector
 
@@ -99,16 +99,16 @@ PUT /_plugins/_ml/models/your_model_id
 
 ## Step 2: Create an agent
 
-Create a `plan_execute_and_reflect` agent, configured with the following information:
+Create a `plan_execute_and_reflect` agent configured with the following information:
 
 - Meta information: `name`, `type`, `description`.
-- LLM information: The agent uses an LLM to reason, devise a plan for completing the task, execute the steps in the plan using appropriate tools, and reflect on the intermediate results to optimize the plan.
+- LLM information: The agent uses an LLM to reason, devise a plan for completing the task, execute the steps in the plan using appropriate tools, and reflect on the intermediate results in order to optimize the plan.
 - Tools: A tool is a function that can be executed by the agent. Each tool can define its own `name`, `description`, `parameters` and `attributes`.
-- Memory: Stores chat messages. Currently, OpenSearch only supports one memory type: `conversation_index`.
+- Memory: Stores chat messages. OpenSearch currently only supports one memory type: `conversation_index`.
 
 For more information about all request fields, see [Register Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/#request-body-fields).
 
-To register the agent, send the following request. In this example, you'll create an agent with the `ListIndexTool`, `SearchIndexTool` and `IndexMappingTool`:
+To register the agent, send the following request. In this example, you'll create an agent with the `ListIndexTool`, `SearchIndexTool`, and `IndexMappingTool`:
 
 ```json
 POST _plugins/_ml/agents/_register
@@ -146,7 +146,7 @@ Note the agent ID; you'll use it in the next step.
 
 You can configure other tools that are relevant to your use case as needed. To configure other tools, make sure to provide the `attributes` field for the tool. This is crucial because `attributes` are used to inform the LLM of the expected input schema for executing the tool.
 
-`ListIndexTool`, `SearchIndexTool`, `IndexMappingTool` and `WebSearchTool` contain predefined attributes. For example, the `ListIndexTool` provides the following attributes:
+`ListIndexTool`, `SearchIndexTool`, `IndexMappingTool`, and `WebSearchTool` contain predefined attributes. For example, the `ListIndexTool` provides the following attributes:
 
 ```json
 tools: [{
@@ -178,7 +178,7 @@ Use the following tips to test your `plan_execute_and_reflect` agent effectively
   GET _plugins/_ml/memory/message/your_message_id/traces
   ```
 
-- **Mitigate hallucinations**: An LLM may hallucinate—selecting the wrong tool or misinterpreting the task, especially if the agent is configured with too many tools. To avoid hallucinations, try the following options:
+- **Mitigate hallucinations**: An LLM may "hallucinate" by selecting the wrong tool or misinterpreting the task, especially if the agent is configured with too many tools. To avoid hallucinations, try the following options:
   - Limit the number of tools configured in an agent.
   - Provide clear, specific descriptions for each tool.
   - Ensure the agent has access to all necessary tools for the task.
@@ -186,7 +186,7 @@ Use the following tips to test your `plan_execute_and_reflect` agent effectively
 
 - **Configure retries**: LLM calls can occasionally fail. Set up retries to improve reliability. For more information, see the `client_config` parameter in [Configuration parameters]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#configuration-parameters).
 
-To test the agent, run it using the [Execute Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/). Because this agent performs long-running tasks, we recommend running it asynchronously to avoid timeouts. Use the `async=true` query parameter to run the agent as separate task:
+To test the agent, run it using the [Execute Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/). Because this agent performs long-running tasks, we recommend running it asynchronously to avoid timeouts. Use the `async=true` query parameter to run the agent as a separate task:
 
 ```json
 POST _plugins/_ml/agents/your_agent_id/_execute?async=true
@@ -198,7 +198,7 @@ POST _plugins/_ml/agents/your_agent_id/_execute?async=true
 ```
 {% include copy-curl.html %}
 
-Note the `task_id` and `memory_id` in the response. You’ll use these to track progress and view results.
+Note the `task_id` and `memory_id` in the response. You'll use these to track progress and view results.
 
 Use the following request to check whether the task is still running or has completed:
 
@@ -293,7 +293,7 @@ The agent execution response includes several key fields:
 
 - `memory_id`: The ID of the memory that stores all messages exchanged between the `plan_execute_and_reflect` agent and the LLM.
 - `parent_interaction_id`: The `message_id` of the parent message that initiated the conversation in the planning agent.
-- `executor_agent_memory_id`: The ID of the memory that stores messages between the internal executor agent and the LLM.
+- `executor_agent_memory_id`: The ID of the memory that stores messages exchanged between the internal executor agent and the LLM.
 - `executor_agent_parent_interaction_id`: The `message_id` of the parent message in the executor agent's conversation.
 - `response`: The final result produced by the agent after all steps are executed.
 
@@ -330,5 +330,5 @@ POST _plugins/_ml/agents/your_agent_id/_execute?async=true
 
 ## Next steps
 
-- For information about using other models, see [Supported LLMs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/#supported-llms)
-- For information about creating agents with custom prompts, see [Modifying default prompts]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/#modifying-default-prompts)
+- For information about using other models, see [Supported LLMs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/#supported-llms).
+- For information about creating agents with custom prompts, see [Modifying default prompts]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/#modifying-default-prompts).

@@ -29,7 +29,7 @@ chatbots:
       - "<b>Deployment:</b> Amazon Bedrock"
 ---
 
-# Building chatbots tutorials
+# Tutorials: Building chatbots
 
 The following machine learning (ML) tutorials show you how to implement chatbots using agents.
 

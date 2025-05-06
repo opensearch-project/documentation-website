@@ -12,7 +12,7 @@ grand_parent: Agents and tools
 **Introduced 2.13**
 {: .label .label-purple }
 
-A flow agent is configured with a set of tools that it runs in order. For example, the following agent runs the `VectorDBTool` and then the `MLModelTool`. The agent coordinates the tools so that one tool's output can become another tool's input. In this example, the `VectorDBTool` queries the k-NN index and the agent passes its output `${parameters.VectorDBTool.output}` to the `MLModelTool` as context, along with the `${parameters.question}` (see the `prompt` parameter):
+A flow agent is configured with a set of tools that it runs in order. For example, the following agent runs the `VectorDBTool` and then the `MLModelTool`. The agent coordinates the tools so that one tool's output can become another tool's input. In this example, the `VectorDBTool` queries the k-NN index, and the agent passes its output `${parameters.VectorDBTool.output}` to the `MLModelTool` as context along with the `${parameters.question}` (see the `prompt` parameter):
 
 ```json
 POST /_plugins/_ml/agents/_register
