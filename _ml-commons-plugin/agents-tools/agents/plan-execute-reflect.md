@@ -15,7 +15,7 @@ grand_parent: Agents and tools
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/ml-commons/issues/3745).    
 {: .warning}
 
-Plan-execute-reflect agents are designed for solving complex tasks that require iterative reasoning and step-by-step execution. These agents use one LLM (the _planner_) to create and update a plan and another LLM (or the same one by default) to execute each individual step using a built-in conversational agent.
+Plan-execute-reflect agents are designed to solve complex tasks that require iterative reasoning and step-by-step execution. These agents use one large language model (LLM)---the _planner_---to create and update a plan and another LLM (or the same one by default) to execute each individual step using a built-in conversational agent.
 
 A plan-execute-reflect agent works in three phases:
 
@@ -71,7 +71,7 @@ The plan-execute-reflect agent provides built-in function calling interfaces for
 
 - [Anthropic Claude 3.7 model hosted on Amazon Bedrock](https://aws.amazon.com/bedrock/claude/)
 - OpenAI GPT-4o model
-- DeepSeek R1 model hosted on Amazon Bedrock
+- DeepSeek-R1 model hosted on Amazon Bedrock
 
 To request default support for an LLM, create a feature request issue in [ml-commons](https://github.com/opensearch-project/ml-commons/issues).
 
@@ -193,9 +193,9 @@ POST /_plugins/_ml/connectors/_create
 
 Then register the model and register an agent, specifying `openai/v1/chat/completions` in the `_llm_interface` field.
 
-### Deepseek R1 on Amazon Bedrock
+### Deepseek-R1 on Amazon Bedrock
 
-To create a connector for a DeepSeek R1 hosted on Amazon Bedrock, use the following request:
+To create a connector for a DeepSeek-R1 model hosted on Amazon Bedrock, use the following request:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -231,7 +231,7 @@ POST /_plugins/_ml/connectors/_create
 
 Then register the model and register an agent, specifying `bedrock/converse/deepseek_r1` in the `_llm_interface` field.
  
-Because the Deepseek R1 model hosted on Amazon Bedrock lacks default function-calling support, provide the following prompt as an `executor_system_prompt` during agent registration:
+Because the Deepseek-R1 model hosted on Amazon Bedrock lacks default function-calling support, provide the following prompt as an `executor_system_prompt` during agent registration:
 
 ```json
 "You are a helpful assistant. You can ask Human to use tools to look up information that may be helpful in answering the users original question. The tools the human can use are:\n[${parameters._tools.toString()}]\n\nIf need to use tool, return which tool should be used and the input to user is enough. User will run the tool to get information. To make it easier for user to parse the response to know whether they should invoke a tool or not, please also return \"stop_reason\", it only return one of two enum values: [end_turn, tool_use], add a random tool call id to differenciate in case same tool invoked multiple times. Tool call id follow this pattern \"tool_use_<random string>\". The random string should be some UUID.\n\nFor example, you should return a json like this if need to use tool:\n{\"stop_reason\": \"tool_use\", \"tool_calls\": [{\"id\":\"tool_use_IIHBxMgOTjGb6ascCiOILg\",tool_name\":\"search_opensearch_index\",\"input\": {\"index\":\"population_data\",\"query\":{\"query\":{\"match\":{\"city\":\"New York City\"}}}}}]}\n\nIf don't need to use tool, return a json like this:\n{\"stop_reason\": \"end_turn\", \"message\": {\"role\":\"user\",\"content\":[{\"text\":\"What is the most popular song on WZPZ?\"}]}}\n\nNOTE: Don't wrap response in markdown ```json<response>```. For example don't return ```json\\n{\"stop_reason\": \"end_turn\", \"message\": {\"role\":\"user\",\"content\":[{\"text\":\"What is the most popular song on WZPZ?\"}]}}```\n"
@@ -263,7 +263,7 @@ For the given objective, come up with a simple step by step plan. This plan shou
 
 ### Planner prompt with a history template
 
-To create a custom planner prompt with history template, modify the `planner_with_history_template` parameter.
+To create a custom planner prompt with a history template, modify the `planner_with_history_template` parameter.
 The following template is used when `memory_id` is provided during agent execution to give the LLM context about the previous task:
 
 ```json
@@ -304,7 +304,7 @@ The following is the executor system prompt:
 You are a dedicated helper agent working as part of a plan‑execute‑reflect framework. Your role is to receive a discrete task, execute all necessary internal reasoning or tool calls, and return a single, final response that fully addresses the task. You must never return an empty response. If you are unable to complete the task or retrieve meaningful information, you must respond with a clear explanation of the issue or what was missing. Under no circumstances should you end your reply with a question or ask for more information. If you search any index, always include the raw documents in the final result instead of summarizing the content. This is critical to give visibility into what the query retrieved.
 ```
 
-We recommend never modifying `${parameters.plan_execute_reflect_response_format}` and always including it towards the end of your prompt templates.
+We recommend never modifying `${parameters.plan_execute_reflect_response_format}` and always including it toward the end of your prompt templates.
 {: .tip}
 
 ## Modifying default prompts
@@ -368,6 +368,6 @@ POST _plugins/_ml/agents/your_agent_id/_execute?async=true
 
 - To learn more about registering agents, see [Register Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/).
 - For a list of supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
-- For a step-by-step tutorial on using a plan-execute-reflect agent, see [Building a plan-execute-reflect agent]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/agents/build-plan-execute-reflect-agent/)
+- For a step-by-step tutorial on using a plan-execute-reflect agent, see [Building a plan-execute-reflect agent]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/agents/build-plan-execute-reflect-agent/).
 - For supported APIs, see [Agent APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/).
 - To use agents and tools in configuration automation, see [Automating configurations]({{site.url}}{{site.baseurl}}/automating-configurations/index/).
