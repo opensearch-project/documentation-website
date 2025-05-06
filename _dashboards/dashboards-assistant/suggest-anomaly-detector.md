@@ -36,7 +36,7 @@ assistant.smartAnomalyDetector.enabled: true
 
 ### Step 2: Create an anomaly detector suggestion agent
 
-To orchestrate anomaly detector suggestions, create an anomaly detector suggestion [agent]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/#agents). To create an agent, send a `POST /_plugins/_flow_framework/workflow?provision=true` request and provide the agent template as a payload. For more information, see [Configuring OpenSearch Assistant]({{site.url}}{{site.baseurl}}/dashboards/dashboards-assistant/index/#configuring-opensearch-assistant).
+To orchestrate anomaly detector suggestions, create an anomaly detector suggestion [agent]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/). To create an agent, send a `POST /_plugins/_flow_framework/workflow?provision=true` request and provide the agent template as a payload. For more information, see [Configuring OpenSearch Assistant]({{site.url}}{{site.baseurl}}/dashboards/dashboards-assistant/index/#configuring-opensearch-assistant).
 
 For sample agent templates, see [Flow Framework sample templates](https://github.com/opensearch-project/flow-framework/tree/2.x/sample-templates). Note the agent ID; you'll use it in the following step.
 
