@@ -57,6 +57,10 @@ node.attr.remote_store.repository.my-repository.settings.region: <Region>
 
 For more information, see [Remote-backed storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/).
 
+**Important NOTE**
+
+Before enabling [search-only mode](#turn-off-write-workloads-with-search-only-mode), we recommend setting `cluster.remote_store.state.enabled` to `true`. For more information about recovery scenarios, see [Search replica recovery scenarios](#search-replica-recovery-scenarios).
+
 ### Step 3: Add search replicas to an index
 
 After configuring your nodes and the remote store, you need to set up search replicas for your indexes. Search replicas are copies of your index that are dedicated to handling search requests, allowing you to scale your search capacity independently of your indexing capacity.
@@ -151,8 +155,6 @@ Use the `auto_expand_search_replicas` index setting to automatically scale searc
 ### Turn off write workloads with search-only mode
 
 You can use the `_scale` API to turn off primary shards and write replicas for an index when you don't need to write to it. This approach works well for write-once, read-many scenarios like log analytics, where you can reduce resource usage by keeping only search replicas active.
-
-Before enabling search-only mode, we recommend setting `cluster.remote_store.state.enabled` to `true`. For more information about recovery scenarios, see [Search replica recovery scenarios](#search-replica-recovery-scenarios).
 
 The following request turns on search-only mode by deactivating write replicas:
 
