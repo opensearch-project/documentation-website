@@ -4,12 +4,16 @@ title: Asynchronous batch ingestion
 parent: ML Commons APIs
 has_children: false
 has_toc: false
-nav_order: 35
+nav_order: 80
 ---
 
 # Asynchronous batch ingestion
-**Introduced 2.17**
-{: .label .label-purple }
+**Deprecated 3.0**
+{: .label .label-red }
+
+This feature is deprecated. For similar functionality, use [OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/). If you'd like to see this feature reinstated, [create an issue](https://github.com/opensearch-project/ml-commons/issues) in the ML Commons repository.
+{: .warning}
+
 
 Use the Asynchronous Batch Ingestion API to ingest data into your OpenSearch cluster from your files on remote file servers, such as Amazon Simple Storage Service (Amazon S3) or OpenAI. For detailed configuration steps, see [Asynchronous batch ingestion]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/async-batch-ingestion/).
 
