@@ -1,7 +1,7 @@
 ---
 layout: default
 title: MCP SSE message 
-parent: MCP Server APIs
+parent: MCP server APIs
 grand_parent: ML Commons APIs
 nav_order: 40
 ---
