@@ -9,13 +9,15 @@ nav_order: 40
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Asynchronous Search Stats API provides statistical information about asynchronous search operations across the cluster. This API helps monitor usage patterns, resource consumption, and the overall health of asynchronous search functionality by returning detailed metrics on both running and completed searches.
 
-These statistics can be valuable for the following actions:
-- Performance monitoring and tuning
-- Troubleshooting asynchronous search issues
-- Capacity planning and resource allocation
-- Understanding usage patterns for asynchronous searches
+The Asynchronous Search Stats API provides statistics about asynchronous search activity across the cluster. Use this API to monitor performance, track usage trends, and evaluate the resource impact of running and completed asynchronous searches.
+
+The following list describes common use cases for this API:
+
+- Monitoring and tuning performance.
+- Troubleshooting search issues.
+- Planning cluster capacity.
+- Understanding how asynchronous search is used.
 
 <!-- spec_insert_start
 api: asynchronous_search.get

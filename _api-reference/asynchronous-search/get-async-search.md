@@ -9,15 +9,15 @@ nav_order: 20
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Get Asynchronous Search API allows you to retrieve the status or results of a previously submitted asynchronous search operation. You can use this API to check whether a search has completed, retrieve partial results while it's still running, or access the final results after completion.
+The Get Asynchronous Search API retrieves the status or results of a previously submitted asynchronous search. You can use this API to:
 
-This API is particularly useful in workflows where you need to:
-- Monitor the progress of long-running searches
-- Retrieve partial results to display incremental updates to users
-- Access the final search results when ready
-- Extend the expiration time of stored search results
+- Monitor the progress of a long-running search.
+- Retrieve partial results while the search is still running.
+- Access the final search results after completion.
+- Extend the expiration time of stored search results.
 
-The API returns both metadata about the search status and any available results, with the same format as the standard search response.
+This API returns both search status metadata and any available results in the same format as a standard search response.
+
 
 <!-- spec_insert_start
 api: asynchronous_search.get
@@ -35,7 +35,7 @@ The following table lists the available path parameters.
 
 | Parameter | Required | Data type | Description |
 | :--- | :--- | :--- | :--- |
-| `id` | **Required** | String | The ID of the asynchronous search to retrieve. This is the ID returned when the search was created. |
+| `id` | **Required** | String | The unique ID of the asynchronous search to retrieve. This ID is returned when the search is created. |
 
 ## Query parameters
 
@@ -43,12 +43,12 @@ The following table lists the available query parameters. All query parameters a
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
-| `keep_alive` | String | Extends the expiration time of the search results. For example, passing `2d` will extend the expiration by 2 days from the current time. If not specified, the expiration time remains unchanged. |
-| `wait_for_completion_timeout` | String | The amount of time to wait for the search to complete before returning partial results. Maximum value is 300 seconds. If not specified, returns results immediately based on the current state. |
+| `keep_alive` | String | Extends the expiration time of the search results. For example, 2d extends the expiration by two days from the current time. |
+| `wait_for_completion_timeout` | String | 	The maximum amount of time to wait for the search to complete before returning a response. Maximum is 300s. If not specified, the API returns results immediately based on the current search state. |
 
 ## Example request
 
-The following request retrieves an asynchronous search with ID `FFj38GhYw82NsHg7` and extends its expiration time by 1 hour:
+The following request retrieves an asynchronous search with ID `FFj38GhYw82NsHg7` and extends its expiration time by one hour:
 
 ```json
 GET /_plugins/_asynchronous_search/Fj38GhYw82NsHg7keep_alive=1h
@@ -100,11 +100,11 @@ GET /_plugins/_asynchronous_search/Fj38GhYw82NsHg7keep_alive=1h
 
 The response body is a JSON object with the following fields.
 
-| Property | Data type | Description |
-| :--- | :--- | :--- |
-| `expiration_time_in_millis` | Long | The UNIX timestamp in milliseconds when the asynchronous search results will expire and be deleted from the cluster. |
-| `id` | String | The unique identifier for the asynchronous search request. Use this ID to check the status, get results, or delete the search. |
-| `response` | Object | Contains the search results (if available) in the same format as a standard search response. May be empty if no results are available yet. |
-| `start_time_in_millis` | Long | The UNIX timestamp in milliseconds when the asynchronous search was started. |
-| `state` | String | The current state of the asynchronous search. Possible values include `RUNNING`, `SUCCEEDED`, `FAILED`, or `PERSISTED`. |
-| `took` | Integer | The time in milliseconds that the search took to execute so far. |
+| Field  | Data type | Description  |
+| :---| :---- | :--- |
+| `id`     | String    | The ID of the asynchronous search.      |
+| `state`    | String    | The current state of the search. Possible values: `RUNNING`, `SUCCEEDED`, `FAILED`, or `PERSISTED`.   |
+| `start_time_in_millis`  | Long   | The time the search started, in UNIX epoch milliseconds.     |
+| `expiration_time_in_millis` | Long   | The time the results will expire, in UNIX epoch milliseconds.  |
+| `took`   | Integer   | The time the search has taken so far, in milliseconds.    |
+| `response`  | Object    | The search response object, returned in the same format as a standard search. This field may be empty if no results are available yet. |

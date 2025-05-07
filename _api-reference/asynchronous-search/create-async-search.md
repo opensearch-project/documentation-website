@@ -9,16 +9,15 @@ nav_order: 10
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Create Asynchronous Search API allows you to run search operations in the background and retrieve results later. This is especially useful for resource-intensive searches that may take a long time to complete, helping you avoid request timeouts and providing a better experience for operations involving large data volumes or complex aggregations.
 
-Unlike standard search operations that maintain an open HTTP connection until completion, asynchronous searches let you:
+The Create Asynchronous Search API lets you run a search in the background and retrieve results later. This is useful for large or complex queries that might time out if executed synchronously. Asynchronous searches perform the following actions:
 
-- Submit a search request that runs in the background
-- Receive a search ID immediately 
-- Check status or retrieve partial results as they become available
-- Access the complete results once the search finishes
+- Run in the background.
+- Return a search ID immediately.
+- Let you check the status or get partial results while the search is running.
+- Allow access to full results once complete.
 
-You can also configure how long the search results are stored in the cluster after completion, enabling flexible retrieval based on your application's needs.
+You can configure how long the search results are stored in the cluster after completion.
 
 
 <!-- spec_insert_start
@@ -50,42 +49,43 @@ The following table lists the available query parameters. All query parameters a
 
 ## Request body fields
 
-The request body follows the standard OpenSearch Search API format using the Query DSL.
+## Request body fields
 
-The request body is optional. It is a JSON object with the following fields.
+The request body follows the standard [Search API format]({{site.url}}{{site.baseurl}}/query-dsl/) using the Query DSL. The body is optional.
 
-| Property | Data type | Description |
+| Field | Data type | Description |
 | :--- | :--- | :--- |
-| `_source` | All | Defines how to fetch a source. Fetching can be disabled entirely, or the source can be filtered. |
-| `aggregations` | Object | Defines the aggregations that are run as part of the search request. |
-| `collapse` | Object | The field to collapse search results on. |
-| `docvalue_fields` | Array of objects or strings | An array of wildcard (`*`) patterns. The request returns doc values for field names matching these patterns in the `hits.fields` property of the response. |
-| `explain` | Boolean | When `true`, returns detailed information about score computation as part of a hit. |
-| `ext` | Object | Configuration of search extensions defined by OpenSearch plugins. |
-| `fields` | Array of object or strings | Array of wildcard (`*`) patterns. The request returns values for field names matching these patterns in the `hits.fields` property of the response. |
-| `from` | Float | Starting document offset. Needs to be non-negative. By default, you cannot page through more than 10,000 hits using the `from` and `size` parameters. To page through more hits, use the `search_after` parameter. |
-| `highlight` | Object | Highlighting configuration for matched fields. |
-| `indices_boost` | Array of objects | Boosts the `_score` of documents from specified indexes. |
-| `min_score` | Float | Minimum `_score` for matching documents. Documents with a lower `_score` are not included in the search results. |
-| `pit` | Object | Point-in-time context for search operations. |
-| `post_filter` | Object | Filter that runs after the query and aggregations. |
-| `profile` | Boolean | Set to `true` to return detailed timing information about the execution of individual components in a search request. NOTE: This is a debugging tool and adds significant overhead to search execution. |
-| `query` | Object | The query definition using the Query DSL. |
-| `rank` | Object | The container for ranking configuration. |
-| `script_fields` | Object | Retrieve a script evaluation (based on different fields) for each hit. |
-| `search_after` | Array of Booleans, float, or strings | Enables pagination of search results beyond the 10,000 document limit of from/size. |
-| `seq_no_primary_term` | Boolean | When `true`, returns sequence number and primary term of the last modification of each hit. |
-| `size` | Float | The number of hits to return. By default, you cannot page through more than 10,000 hits using the `from` and `size` parameters. To page through more hits, use the `search_after` parameter. |
-| `slice` | Object | The configuration for a sliced scroll request. |
-| `sort` | Array of objects or strings | Valid values are: <br> - `_score`: Sort by document score. <br> - `_doc`: Sort by document index order. |
-| `stats` | Array of Strings | The statistics groups to associate with the search. Each group maintains a statistics aggregation for its associated searches. You can retrieve these stats using the indexes stats API. |
-| `stored_fields` | Array of strings | A list of stored fields to retrieve. |
-| `suggest` | Object | Suggests a configuration for similar looking terms. |
-| `terminate_after` | Integer | The maximum number of documents to collect for each shard. If a query reaches this limit, OpenSearch terminates the query early. OpenSearch collects documents before sorting. Use with caution. OpenSearch applies this parameter to each shard handling the request. When possible, let OpenSearch perform early termination automatically. Avoid specifying this parameter for requests that target data streams with backing indexes across multiple data tiers. If set to `0` (default), the query does not terminate early. |
-| `timeout` | String | Specifies the period of time to wait for a response from each shard. If no response is received before the timeout expires, the request fails and returns an error. Default is no timeout. |
-| `track_scores` | Boolean | When `true`, calculate and return document scores, even if the scores are not used for sorting. |
-| `track_total_hits` | Boolean or integer | The number of hits matching the query. When `true`, the exact number of hits is returned at the cost of some performance. When `false`, the response does not include the total number of hits matching the query. Default is `10,000` hits. |
-| `version` | Boolean | When `true`, returns document version as part of a hit. |
+| `_source` | All | Controls how the `_source` field is returned. You can disable fetching or filter specific fields. |
+| `aggregations` | Object | Defines aggregation operations to perform during the search. |
+| `collapse` | Object | Collapses search results based on a field value. |
+| `docvalue_fields` | Array | Returns doc values for matching fields in the `hits.fields` section. Accepts wildcards. |
+| `explain` | Boolean | When `true`, includes score explanation for each hit. |
+| `ext` | Object | Plugin-specific search extensions. |
+| `fields` | Array | Returns values for matching fields in `hits.fields`. Accepts wildcards. |
+| `from` | Integer | Offset for the first result to return. Used for pagination. |
+| `highlight` | Object | Configures field highlighting in the response. |
+| `indices_boost` | Array | Boosts relevance scores for specified indices. |
+| `min_score` | Float | Excludes documents with a `_score` below this threshold. |
+| `pit` | Object | Defines a point-in-time (PIT) context for consistent snapshots. |
+| `post_filter` | Object | Applies a filter after aggregations are computed. |
+| `profile` | Boolean | When `true`, includes profiling data for debugging. |
+| `query` | Object | Defines the search criteria using the Query DSL. |
+| `rank` | Object | Configures ranking algorithms or features. |
+| `script_fields` | Object | Returns custom script-based values for each hit. |
+| `search_after` | Array | Enables pagination beyond 10,000 results using sort values. |
+| `seq_no_primary_term` | Boolean | When `true`, includes sequence number and primary term metadata. |
+| `size` | Integer | Number of hits to return. |
+| `slice` | Object | Enables parallel execution of a sliced scroll request. |
+| `sort` | Array | Sorts results by specified fields. Valid values: `_score`, `_doc`. |
+| `stats` | Array | Assigns search statistics to named groups. |
+| `stored_fields` | Array | Specifies stored fields to return in the response. |
+| `suggest` | Object | Provides term or phrase suggestions based on input text. |
+| `terminate_after` | Integer | Stops collecting results after a specified number per shard. |
+| `timeout` | String | Maximum time to wait for shard responses before failing the request. |
+| `track_scores` | Boolean | When `true`, calculates scores even if not used for sorting. |
+| `track_total_hits` | Boolean or Integer | Controls total hit count calculation. `true` for exact count; `false` disables it. |
+| `version` | Boolean | When `true`, includes the document version in hits. |
+
 
 
 ## Example requests

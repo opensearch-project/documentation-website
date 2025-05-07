@@ -9,13 +9,13 @@ nav_order: 30
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Delete Asynchronous Search API allows you to manually delete an asynchronous search by its ID before its configured expiration time. This is useful for cleaning up searches that are no longer needed, freeing up resources, or removing stored results that contain sensitive information.
+The Delete Asynchronous Search API deletes an asynchronous search by its ID before its configured expiration time. Use this API to clean up searches that are no longer needed, free up cluster resources, or remove stored results that may contain sensitive data.
 
-When you delete an asynchronous search:
+The following list describes what happens when you delete an asynchronous search:
 
-- If the search is still running, the operation is canceled
-- Any stored partial or complete results are immediately removed from the cluster
-- Resources associated with the search are released
+- If the search is still running, the operation is canceled.
+- Any stored partial or complete results are immediately removed from the cluster.
+- Resources associated with the search are released.
 
 <!-- spec_insert_start
 api: asynchronous_search.delete
@@ -33,7 +33,7 @@ The following table lists the available path parameters.
 
 | Parameter | Required | Data type | Description |
 | :--- | :--- | :--- | :--- |
-| `id` | **Required** | String | The ID of the asynchronous search to delete. This is the ID returned when the search was created. |
+| `id` | **Required** | String | The ID of the asynchronous search to delete. This is the same ID returned when the search was created. |
 
 ## Example request
 
