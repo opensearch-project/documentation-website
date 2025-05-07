@@ -16,8 +16,6 @@ The Authentication APIs include the following operations:
 
 - [Authentication Information API]({{site.url}}{{site.baseurl}}/api-reference/security/authentication/auth-info/): Returns information about the currently authenticated user, including roles, backend roles, and tenant memberships. Useful for debugging authentication issues, verifying permissions, and retrieving user context for applications.
 
-- [Authentication Token API]({{site.url}}{{site.baseurl}}/api-reference/security/authentication/auth-token/): Generates authentication tokens for use in place of basic authentication. Ideal for applications and scripts that require secure access without storing plaintext credentials.
-
 - [Change Password API]({{site.url}}{{site.baseurl}}/api-reference/security/authentication/change-password/): Lets users update their own passwords securely. Requires verification of the current password and does not require administrator involvement.
 
 ## Authentication workflows

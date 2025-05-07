@@ -30,9 +30,9 @@ Use the Configuration APIs to perform the following actions:
 
 ## Available APIs
 
-- [Upgrade Check API]({{site.url}}{{site.baseurl}}/security/api/configuration/upgrade-check/): Checks your current configuration for compatibility with your OpenSearch version and identifies components that need upgrading.
+- [Upgrade Check API]({{site.url}}{{site.baseurl}}/api-reference/security/configuration/upgrade-check/): Checks your current configuration for compatibility with your OpenSearch version and identifies components that need upgrading.
 
-- [Upgrade Perform API]({{site.url}}{{site.baseurl}}/security/api/configuration/upgrade-perform/): Applies updates to the security configuration, based on the results of the Upgrade Check API.
+- [Upgrade Perform API]({{site.url}}{{site.baseurl}}/api-reference/security/upgrade-perform/): Applies updates to the security configuration, based on the results of the Upgrade Check API.
 
 ## Configuration components
 
