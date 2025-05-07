@@ -25,7 +25,6 @@ The Authentication APIs include the following operations:
 These APIs support the following common authentication workflows:
 
 - **User verification**: Confirm a user’s identity and permissions before executing sensitive operations.
-- **Service-to-service communication**: Use tokens to enable secure communication between applications and OpenSearch.
 - **Self-service password management**: Allow users to change their passwords independently.
 - **Multi-tenant access**: Determine a user's accessible tenants and associated permissions.
 
