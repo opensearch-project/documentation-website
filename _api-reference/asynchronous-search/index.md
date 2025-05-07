@@ -21,7 +21,7 @@ OpenSearch provides the following APIs for working with asynchronous searches.
 | [Create asynchronous search]({{site.url}}{{site.baseurl}}/api-reference/asynchronous-search/create-async-search/) | Submits a search that runs in the background |
 | [Get asynchronous search]({{site.url}}{{site.baseurl}}/api-reference/asynchronous-search/get-async-search/) | Retrieves status and results of a previously submitted search |
 | [Delete asynchronous search]({{site.url}}{{site.baseurl}}/api-reference/asynchronous-search/delete-async-search/) | Removes a stored asynchronous search |
-| [Asynchronous search stats]({{site.url}}{{site.baseurl}}/api-reference/asynchronous-search/asynch-search-stats/) | Provides statistics about asynchronous search operations |
+| [Asynchronous search stats]({{site.url}}{{site.baseurl}}/api-reference/asynchronous-search/async-search-stats/) | Provides statistics about asynchronous search operations |
 
 
 ## Performance considerations
