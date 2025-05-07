@@ -79,7 +79,7 @@ The response body is a JSON object with the following fields:
 | :--- | :--- | :--- |
 | `status` | String | The status of the request. A successful request returns "OK". |
 | `upgradeAvailable` | Boolean | Indicates whether any configuration components need to be upgraded. |
-| `upgradeActions` | Object | A detailed breakdown of which configuration components need to be updated. The object contains arrays for each component type (roles, rolesmapping, actiongroups, config, internalusers, tenants) with upgrade status indicators. |
+| `upgradeActions` | Object | A detailed breakdown of which configuration components need to be updated. The object contains arrays for each component type (`roles`, `rolesmapping`, `actiongroups`, `config`, `internalusers`, `tenants`) with upgrade status indicators. |
 
 ## Usage notes
 
