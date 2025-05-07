@@ -7,15 +7,7 @@ nav_order: 60
 
 # Query insights dashboards
 
-You can interact with the query insights feature using the Query Insights Dashboards plugin. This plugin gives you real-time and historical insights into query performance, providing analytics and monitoring to improve how queries are run in your cluster.
-
-## Prerequisites
-
-The Query Insights Dashboards plugin requires [OpenSearch 2.19 or later]({{site.url}}{{site.baseurl}}/install-and-configure/).
-
-## Installing the plugin
-
-To install the Query Insights Dashboards plugin, see [Managing OpenSearch Dashboards plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/).
+You can interact with the query insights feature in OpenSearch Dashboards. This gives you real-time and historical insights into query performance, providing analytics and monitoring to improve how queries are run in your cluster.
 
 ## Navigation
 
@@ -82,15 +74,15 @@ The metrics table dynamically adapts based on your **Type** filter selection (**
 
 When you select **queries only**, the table displays individual metrics, including **Latency**, **CPU Time**, and **Memory Usage**. The **Query Count** column isn't displayed because each row represents a single query, as shown in the following image.
 
-![Column Display for Query Selected](../../images/Query-Insights/OnlyQueryColDisplay.png)
+![Column Display for Query Selected]({{site.url}}{{site.baseurl}}/images/Query-Insights/OnlyQueryColDisplay.png)
 
 When you select **groups only**, the table displays aggregated metrics, including **Average Latency**, **Average CPU Time**, and **Average Memory Usage**. The **Query Count** column shows how many queries are in each group, as shown in the following image.
 
-![Column Display for Group Selected](../../images/Query-Insights/OnlyGroupColDisplay.png)
+![Column Display for Group Selected]({{site.url}}{{site.baseurl}}/images/Query-Insights/OnlyGroupColDisplay.png)
 
 When you select both **groups** and **queries**, the table displays combined metrics, including both averaged and raw values, as shown in the following image.
 
-![Column Display for Both Selected](../../images/Query-Insights/BothColDisplay.png)
+![Column Display for Both Selected]({{site.url}}{{site.baseurl}}/images/Query-Insights/BothColDisplay.png)
 
 The following table provides descriptions for each metric and the metric's related query and group when selected.
 
