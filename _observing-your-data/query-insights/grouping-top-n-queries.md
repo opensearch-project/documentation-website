@@ -174,7 +174,7 @@ Set the desired grouping method by updating the following cluster setting:
 PUT _cluster/settings
 {
   "persistent" : {
-    "search.insights.top_queries.group_by" : "similarity"
+    "search.insights.top_queries.grouping.group_by" : "similarity"
   }
 }
 ```
@@ -192,7 +192,7 @@ To limit tracking to 100 query groups, send the following request:
 PUT _cluster/settings
 {
   "persistent" : {
-    "search.insights.top_queries.max_groups_excluding_topn" : 100
+    "search.insights.top_queries.grouping.max_groups_excluding_topn" : 100
   }
 }
 ```
