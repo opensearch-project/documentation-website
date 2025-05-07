@@ -16,7 +16,7 @@ assist with capacity planning or detecting performance regressions.
 ### Usage
 To perform a redline test, use the `execute-test` command with the `--redline-test` flag, using a timed test procedure.
 
-An example test procedure would be:
+Example of a timed test procedure:
 ```json
 {
   "name": "timed-mode-test-procedure",
@@ -55,12 +55,14 @@ When the --redline-test flag is used:
     - WorkerCoordinatorActor: Aggregates and forwards client states to the FeedbackActor.
     - FeedbackActor: Scales up clients until request errors are detected, then pauses clients and enters a sleep period before resuming.
 
-### Additional Options
+<img src="../../../images/benchmark/osb-actor-system.png" alt="Redline Overview" width="600">
+
+### Additional Notes
 - The number of clients to scale up can be customized using `--redline-test=<int>`. For example, `--redline-test=1500` sets the maximum number of clients to 1500.
 
 - Upon detecting a request error, the new `FeedbackActor` will pause clients and enter a 30 second sleep period before attempting to scale up again
 
-- OSB provides detailed logs, like scaling scaling decisions and request failures during a redline test
+- OSB provides detailed logs, like scaling decisions and request failures during a redline test
 
 ### Results
 At the end of the test, OSB logs the maximum number of clients the cluster supported without errors.
