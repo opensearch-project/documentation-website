@@ -42,7 +42,7 @@ The following table lists the available query parameters. All query parameters a
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | `index` | String | The name of the index to be searched. Can be an individual name, a comma-separated list of indexes, or a wildcard expression of index names. |
-| `keep_alive` | String | The amount of time that the result is saved in the cluster. For example, `2d` means that the results are stored in the cluster for 48 hours.  The saved search results are deleted after this period or if the search is canceled. Note that this includes the query execution time.  If the query exceeds this amount of time, the process cancels this query automatically. |
+| `keep_alive` | String | The amount of time that the result is saved in the cluster. For example, `2d` means that the results are stored in the cluster for 48 hours. The saved search results are deleted after this period or if the search is canceled. Note that this includes the query execution time. If the query exceeds this amount of time, the process cancels this query automatically. |
 | `keep_on_completion` | Boolean | Whether to save the results in the cluster after the search is complete. You can examine the stored results at a later time. |
 | `wait_for_completion_timeout` | String | The amount of time to wait for the results. You can poll the remaining results based on an ID. The maximum value is 300 seconds. Default is `1s`. |
 
