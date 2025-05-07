@@ -7,6 +7,8 @@ nav_order: 20
 ---
 
 # Authentication Token API
+**Introduced 1.0**
+{: .label .label-purple }
 
 The **Authentication Token API** generates authentication tokens for OpenSearch users. Tokens allow clients—such as applications or scripts—to authenticate without repeatedly sending username and password credentials. This approach improves security by reducing the need to store or transmit plain-text credentials.
 

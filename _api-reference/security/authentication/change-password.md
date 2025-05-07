@@ -7,6 +7,8 @@ nav_order: 30
 ---
 
 # Change Password API
+**Introduced 1.0**
+{: .label .label-purple }
 
 The Change Password API allows users to update their own passwords. This API provides a secure way for users to manage their credentials without requiring administrator intervention. Users must provide their current password for verification before the password change is allowed.
 

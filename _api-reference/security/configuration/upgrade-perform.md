@@ -7,6 +7,8 @@ nav_order: 20
 ---
 
 # Upgrade Perform API
+**Introduced 1.0**
+{: .label .label-purple }
 
 The Upgrade Perform API allows you to execute upgrades to your Security plugin configuration components. This API is typically used after identifying necessary upgrades with the [Upgrade Check API]({{site.url}}{{site.baseurl}}/security/api/configuration/upgrade-check/). It updates your configuration components to ensure compatibility with the current version of the Security plugin.
 

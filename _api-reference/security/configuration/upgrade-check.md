@@ -7,6 +7,8 @@ nav_order: 10
 ---
 
 # Upgrade Check API
+**Introduced 1.0**
+{: .label .label-purple }
 
 The Upgrade Check API allows you to check if your Security plugin configuration requires any upgrades. This is particularly useful after upgrading OpenSearch to a new version, as it helps identify if any security configuration components need to be updated to maintain compatibility or take advantage of new features.
 

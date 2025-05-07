@@ -7,6 +7,8 @@ nav_order: 10
 ---
 
 # Authentication Information API
+**Introduced 1.0**
+{: .label .label-purple }
 
 The Authentication Information API returns information about the currently authenticated user. This includes the user's name, roles, backend roles, custom attributes, and tenant memberships. This API is useful for debugging authentication issues, verifying user permissions, and building applications that need to understand the current user's access levels.
 
