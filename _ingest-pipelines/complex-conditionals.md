@@ -422,3 +422,21 @@ Expected output:
   ]
 }
 ```
+
+## Null-safe notation
+
+Null-safe navigation notation (`?.`) should be used to check if the field is `null`, however, this notation can return `null` silently, therefore it is recommended to first check if the returned value is `null` and then use operations like `.contains` or `==`.
+
+Not safe syntax:
+
+```
+"if": "ctx.message?.contains('debug')"
+```
+
+If the field `message` does not exist in the document, this will return `null_pointer_exception` with error `Cannot invoke "Object.getClass()" because "value" is null`
+
+Safe syntax:
+
+```
+"if": "ctx.message != null && ctx.message.contains('debug')"
+```
