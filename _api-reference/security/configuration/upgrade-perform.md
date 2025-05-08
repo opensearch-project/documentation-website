@@ -10,7 +10,7 @@ nav_order: 20
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Upgrade Perform API allows you to execute upgrades to your Security plugin configuration components. This API is typically used after identifying necessary upgrades with the [Upgrade Check API]({{site.url}}{{site.baseurl}}/api-reference/security/configuration/upgrade-check/). It updates your configuration components to ensure compatibility with the current version of the Security plugin.
+The Upgrade Perform API allows you to upgrade your Security plugin configuration components. This API is typically used after identifying necessary upgrades with the [Upgrade Check API]({{site.url}}{{site.baseurl}}/api-reference/security/configuration/upgrade-check/). It updates your configuration components to ensure compatibility with the current version of the Security plugin.
 
 <!-- spec_insert_start
 api: security.config_upgrade_perform
@@ -28,11 +28,11 @@ The request body is optional. It is a JSON object with the following fields.
 
 | Property | Data type | Description |
 | :--- | :--- | :--- |
-| `config` | Array of Strings | A list of specific configuration components to upgrade. If omitted, all components that require upgrades will be processed. Valid values include: `roles`, `rolesmapping`, `actiongroups`, `config`, `internalusers`, and `tenants`. |
+| `config` | Array of Strings | A list of specific configuration components to upgrade. If omitted, all components requiring upgrades will be processed. Valid values include `roles`, `rolesmapping`, `actiongroups`, `config`, `internalusers`, and `tenants`. |
 
 ## Example request
 
-The following example performs upgrades on only the `roles` and `config` components:
+The following example request performs upgrades on only the `roles` and `config` components:
 
 ```json
 POST /_plugins/_security/api/_upgrade_perform
@@ -42,7 +42,7 @@ POST /_plugins/_security/api/_upgrade_perform
 ```
 {% include copy-curl.html %}
 
-To perform upgrades on all components that require it, you can omit the request body,
+To upgrade all components requiring it, you can omit the request body.
 
 ## Example response
 
@@ -75,7 +75,7 @@ If no components require upgrades, you'll receive a response similar to the foll
 
 ## Response body fields
 
-The response body is a JSON object with the following fields:
+The response body is a JSON object with the following fields.
 
 | Property | Data type | Description |
 | :--- | :--- | :--- |
@@ -86,9 +86,9 @@ The response body is a JSON object with the following fields:
 
 Consider the following important points when using this API:
 
-- Before performing upgrades, it's recommended to first run the Upgrade Check API to identify which components need updates.
+- Before performing upgrades, we recommend first running the Upgrade Check API to identify which components need to be upgraded.
 - Always back up your security configuration before performing upgrades.
 - You must have administrator privileges to use this API.
-- This API makes actual changes to your configuration, unlike the Upgrade Check API which only identifies needed changes.
-- For clusters in production environments, consider testing the upgrade process in a staging environment first.
+- This API makes actual changes to your configuration, unlike the Upgrade Check API, which only identifies required changes.
+- For clusters in production environments, consider first testing the upgrade process in a staging environment.
 - After performing upgrades, verify that your security settings still work as expected.

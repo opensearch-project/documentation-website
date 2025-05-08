@@ -8,7 +8,7 @@ nav_order: 10
 
 # Authentication APIs
 
-Authentication is a fundamental aspect of security in OpenSearch, verifying the identity of users and services before granting access to protected resources. The Security plugin provides several APIs to manage authentication, obtain user information, and handle credentials.
+Authentication is a fundamental aspect of security in OpenSearch, verifying the identity of users and services before granting access to protected resources. The Security plugin provides several APIs you can use to manage authentication, obtain user information, and handle credentials.
 
 ## Available APIs
 
@@ -22,7 +22,7 @@ The Authentication APIs include the following operations:
 
 These APIs support the following common authentication workflows:
 
-- **User verification**: Confirm a user’s identity and permissions before executing sensitive operations.
+- **User verification**: Confirm a user's identity and permissions before executing sensitive operations.
 - **Self-service password management**: Allow users to change their passwords independently.
 - **Multi-tenant access**: Determine a user's accessible tenants and associated permissions.
 
@@ -30,9 +30,9 @@ These APIs support the following common authentication workflows:
 
 The Security plugin supports [multiple authentication methods]({{site.url}}{{site.baseurl}}/security/authentication-backends/authc-index/), including:
 
-- Basic authentication (username and password)
-- Token-based authentication
-- Certificate-based authentication
-- Single sign-on (SSO) methods, such as SAML and OpenID Connect
+- Basic authentication (username and password).
+- Token-based authentication.
+- Certificate-based authentication.
+- Single sign-on (SSO) methods, such as SAML and OpenID Connect.
 
 The APIs in this section are compatible with all supported authentication methods and offer a consistent interface for managing authentication in OpenSearch.

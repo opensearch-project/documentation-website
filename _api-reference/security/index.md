@@ -13,7 +13,7 @@ The Security plugin provides numerous REST APIs for managing its resources. Thes
 
 All Security APIs use the base path of `_plugins/_security/` followed by the specific path for each operation. For example, the path for the Role API would be `_plugins/_security/api/roles/`.
 
-Many Security API operations are available through both REST API calls and settings in OpenSearch Dashboards. This documentation focuses on the REST APIs, which offer the most flexibility for programmatic access and automation.
+Many Security API operations are available through both REST API calls and OpenSearch Dashboards settings. This documentation focuses on the REST APIs, which offer the most flexibility for programmatic access and automation.
 
 ## API format
 
@@ -31,12 +31,12 @@ For most resource types, the APIs support standard CRUD operations:
 - **Create**: PUT or POST with a request body containing the resource definition
 - **Read**: GET to retrieve the current configuration 
 - **Update**: PUT with a request body containing the new configuration
-- **Delete**: DELETE a specific resource
+- **Delete**: DELETE to remove a specific resource
 
 
 ## Authentication
 
-Most Security API calls require HTTP basic authentication with admin credentials. Make sure to include appropriate authentication headers with your requests.
+Most Security API calls require HTTP basic authentication with admin credentials. Make sure to include appropriate authentication headers in your requests.
 
 The following example shows a basic HTTP authentication call:
 
@@ -50,4 +50,4 @@ The Security plugin ships with a default demo configuration for testing purposes
 
 ## Next steps
 
-For more information about the Security plugin and security best practices, see the [Security documentation]({{site.url}}{{site.baseurl}}/security/).
+For more information about the Security plugin and security best practices, see the [security documentation]({{site.url}}{{site.baseurl}}/security/).

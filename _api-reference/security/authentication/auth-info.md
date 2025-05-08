@@ -40,7 +40,7 @@ The following table lists the available query parameters. All query parameters a
 
 ## Example request
 
-The following example retrieves authentication information for the currently authenticated user:
+The following example request retrieves authentication information for the currently authenticated user:
 
 ```bash
 GET /_plugins/_security/authinfo
@@ -109,11 +109,11 @@ For a verbose response, additional fields are included:
 
 ## Response body fields
 
-The response body is a JSON object with the following fields:
+The response body is a JSON object with the following fields.
 
 | Property | Data type | Description |
 | :--- | :--- | :--- |
-| `user` | String | String representation of the user object, including the username and backend roles. |
+| `user` | String | A string representation of the user object, including the username and backend roles. |
 | `user_name` | String | The username of the authenticated user. |
 | `backend_roles` | Array of strings | The backend roles associated with the user, typically obtained from an external authentication system. |
 | `roles` | Array of strings | The OpenSearch Security roles assigned to the user, determining their permissions. |
@@ -123,12 +123,12 @@ The response body is a JSON object with the following fields:
 | `sso_logout_url` | String | The logout URL for single sign-on (SSO) authentication, if applicable. |
 | `remote_address` | String | The IP address and port of the client making the request. |
 
-When requesting a verbose response, these additional fields are included:
+When requesting a verbose response, the following additional fields are included.
 
 | Property | Data type | Description |
 | :--- | :--- | :--- |
 | `custom_attribute_names` | Array of strings | The names of any custom attributes associated with the user. |
 | `size_of_user` | String | The size of the user object in memory, in bytes. |
-| `size_of_backendroles` | String | The size of the user's backend roles in bytes. |
-| `size_of_custom_attributes` | String | The size of the user's custom attributes in bytes. |
+| `size_of_backendroles` | String | The size of the user's backend roles, in bytes. |
+| `size_of_custom_attributes` | String | The size of the user's custom attributes, in bytes. |
 | `user_requested_tenant` |  String | The name of the tenant the user has requested to switch to, if any. |

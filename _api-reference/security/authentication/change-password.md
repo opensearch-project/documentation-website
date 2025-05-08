@@ -10,7 +10,7 @@ nav_order: 30
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Change Password API allows users to update their own passwords.  Users must provide their current password for verification before the password change is allowed.
+The Change Password API allows users to update their own passwords. Users must provide their current password for verification before the password change is allowed.
 
 <!-- spec_insert_start
 api: security.change_password
@@ -73,7 +73,7 @@ If the current password is incorrect, the API returns an error:
 
 ## Response body fields
 
-The response body is a JSON object with the following fields:
+The response body is a JSON object with the following fields.
 
 | Property | Data type | Description |
 | :--- | :--- | :--- |

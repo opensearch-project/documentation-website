@@ -10,7 +10,7 @@ nav_order: 20
 **Introduced 1.0**
 {: .label .label-purple }
 
-The **Configuration APIs** provide programmatic access to manage, validate, and upgrade Security plugin configuration components. These APIs help ensure that your security settings remain compatible and effective as your OpenSearch cluster evolves.
+The Configuration APIs provide programmatic access for managing, validating, and upgrading Security plugin configuration components. These APIs help ensure that your security settings remain compatible and effective as your OpenSearch cluster evolves.
 
 Security configurations may require updates in the following scenarios:
 
@@ -23,14 +23,14 @@ Security configurations may require updates in the following scenarios:
 
 Use the Configuration APIs to perform the following actions:
 
-- Identify outdated or incompatible configuration components
-- Perform automatic upgrades to maintain compatibility
-- Validate the structure and integrity of your security configuration
-- Manage versioning of security settings
+- Identify outdated or incompatible configuration components.
+- Perform automatic upgrades to maintain compatibility.
+- Validate the structure and integrity of your security configuration.
+- Manage versioning of security settings.
 
 ## Available APIs
 
-- [Upgrade Check API]({{site.url}}{{site.baseurl}}/api-reference/security/configuration/upgrade-check/): Checks your current configuration for compatibility with your OpenSearch version and identifies components that need upgrading.
+- [Upgrade Check API]({{site.url}}{{site.baseurl}}/api-reference/security/configuration/upgrade-check/): Checks your current configuration for compatibility with your OpenSearch version and identifies components that need to be upgraded.
 
 - [Upgrade Perform API]({{site.url}}{{site.baseurl}}/api-reference/security/configuration/upgrade-perform/): Applies updates to the security configuration, based on the results of the Upgrade Check API.
 
