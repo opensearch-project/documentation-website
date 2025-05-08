@@ -1,6 +1,6 @@
 ---
 layout: default
-grand_title: Change Password API
+title: Change Password API
 grand_parent: Security APIs
 parent: Authentication APIs
 nav_order: 30
