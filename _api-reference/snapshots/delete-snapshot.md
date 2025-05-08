@@ -15,10 +15,8 @@ The Delete Snapshot API permanently removes a snapshot from a repository. Deleti
 * To view a list of your repositories, see [Cat Repositories]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-repositories/).
 * To view a list of your snapshots, see [Cat Snapshots]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-snapshots/).
 
-<!-- spec_insert_start
-api: snapshot.delete
-component: endpoints
--->
+
+
 ## Endpoints
 ```json
 DELETE /_snapshot/{repository}/{snapshot}

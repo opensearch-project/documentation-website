@@ -7,6 +7,7 @@ has_toc: false
 nav_order: 20
 redirect_from: 
   - /ml-commons-plugin/extensibility/index/
+  - /ml-commons-plugin/agents-tools/tools/
 ---
 
 # Tools
@@ -47,6 +48,7 @@ Each tool takes a list of parameters specific to that tool. In the preceding exa
 |[`SearchMonitorsTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/search-monitors-tool/)	| Searches for alerting monitors.	|
 |[`VectorDBTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/vector-db-tool/)	|Performs dense vector retrieval.	|
 |[`VisualizationTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/visualization-tool/)	|Finds visualizations in OpenSearch Dashboards.	|
+|[`WebSearchTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/web-search-tool/)	|Answers a user's question using a web search.	|
 
 ## Developer information
 
