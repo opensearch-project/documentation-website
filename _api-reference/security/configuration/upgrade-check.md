@@ -13,26 +13,14 @@ nav_order: 10
 The Upgrade Check API allows you to check whether your Security plugin configuration requires any upgrades. This is particularly useful after upgrading OpenSearch to a new version because it helps identify any security configuration components that need to be updated to maintain compatibility or take advantage of new features.
 
 <!-- spec_insert_start
-api: security.config_upgrade_perform
+api: security.config_upgrade_check
 component: endpoints
 -->
 ## Endpoints
 ```json
-POST /_plugins/_security/api/_upgrade_perform
+POST /_plugins/_security/api/_upgrade_check
 ```
 <!-- spec_insert_end -->
-
-<!-- spec_insert_start
-api: security.config_upgrade_perform
-component: request_body_parameters
--->
-## Request body fields
-
-The request body is optional. It is a JSON object with the following fields.
-
-| Property | Data type | Description |
-| :--- | :--- | :--- |
-| `config` | Array of Strings | A list of configurations to upgrade. |
 
 
 ## Example request
