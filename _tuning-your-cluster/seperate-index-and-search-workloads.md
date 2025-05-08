@@ -178,7 +178,7 @@ POST my_index/_scale
 
 #### Search replica recovery scenarios
 
-OpenSearch handles recovery of search replicas in search-only mode differently depending on the configuration:
+OpenSearch handles recovery of search replicas in search-only mode differently depending on the configuration.
 
 ##### Scenario 1: Persistent data directory with remote store state disabled
 
@@ -186,11 +186,11 @@ When you use a persistent data directory and set `cluster.remote_store.state.ena
 
 ##### Scenario 2: Remote store state enabled without a persistent data directory
 
-When `cluster.remote_store.state.enabled` is `true` and there is no persistent data directory, OpenSearch recovers search replicas without requiring primaries or write replicas. Because remote store state is enabled, OpenSearch retains the index metadata after a restart. The allocation logic skips the active primary check for search replicas, allowing them to be allocated so search queries remain functional.
+When `cluster.remote_store.state.enabled` is set to `true` and there is no persistent data directory, OpenSearch recovers search replicas without requiring primaries or write replicas. Because remote store state is enabled, OpenSearch retains the index metadata after a restart. The allocation logic skips the active primary check for search replicas, allowing them to be allocated so that search queries remain functional.
 
 ##### Scenario 3: Remote store state enabled with a persistent data directory
 
-This configuration provides seamless recovery. In search-only mode, with both a persistent data directory and `cluster.remote_store.state.enabled` set to `true`, OpenSearch starts only search replicas—excluding primaries and write replicas—ensuring the index remains queryable after restart.
+This configuration provides seamless recovery. In search-only mode, with both a persistent data directory and `cluster.remote_store.state.enabled` set to `true`, OpenSearch starts only search replicas—excluding primaries and write replicas—ensuring the index can be queried after restart.
 
 ##### Scenario 4: No persistent data directory and remote store state disabled
 
