@@ -38,8 +38,8 @@ Use the Configuration APIs to perform the following actions:
 
 These APIs manage the following configuration components:
 
-- **Roles**: Define permissions for actions users can perform
-- **Role mappings**: Associate users or backend roles with specific roles
+- **Roles**: Permissions for actions users can perform
+- **Role mappings**: Mappings for users or backend roles with specific roles
 - **Action groups**: Collections of permissions used to simplify role definitions
 - **Internal users**: User credentials stored directly in OpenSearch
 - **Tenants**: Isolated workspaces that support multi-tenancy
