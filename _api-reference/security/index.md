@@ -11,7 +11,7 @@ redirect_from:
 
 The Security plugin provides numerous REST APIs for managing its resources. These APIs are similar to the OpenSearch REST APIs and consist of HTTP requests that include the resource path, HTTP method (GET, PUT, POST, DELETE), request body, and output response fields. 
 
-All Security APIs use the base path of `_plugins/_security/` followed by the specific path for each operation. For example, the path for the Role API would be `_plugins/_security/api/roles/`.
+All Security APIs use the base path of `_plugins/_security/` followed by the specific path for each operation. For example, the path for the Upgrade Perform API would be `/_plugins/_security/api/_upgrade_perform`.
 
 Many Security API operations are available through both REST API calls and OpenSearch Dashboards settings. This documentation focuses on the REST APIs, which offer the most flexibility for programmatic access and automation.
 
