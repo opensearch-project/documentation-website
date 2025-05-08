@@ -9,7 +9,6 @@ The OpenSearch 3.0.0 documentation includes the following additions and updates.
 - Adding documentation for append only indices [#9809](https://github.com/opensearch-project/documentation-website/pull/9809)
 - add web search tool documentation [#9807](https://github.com/opensearch-project/documentation-website/pull/9807)
 - Add Warm node role for searchable snapshots [#9804](https://github.com/opensearch-project/documentation-website/pull/9804)
-- [rule-based autotagging] Add rule lifecycle api documentation [#9801](https://github.com/opensearch-project/documentation-website/pull/9801)
 - Adding reader writer separation doc page [#9795](https://github.com/opensearch-project/documentation-website/pull/9795)
 - Replace CatIndexTool with ListIndexTool [#9792](https://github.com/opensearch-project/documentation-website/pull/9792)
 - Added documentation for settings limiting total shards and primary shards per node at both cluster and index level. [#9791](https://github.com/opensearch-project/documentation-website/pull/9791)
