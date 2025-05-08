@@ -57,9 +57,8 @@ node.attr.remote_store.repository.my-repository.settings.region: <Region>
 
 For more information, see [Remote-backed storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/).
 
-**Important NOTE**
-
-When separating index and search workloads, we recommend setting `cluster.remote_store.state.enabled` to `true` as part of your initial setup. This ensures that OpenSearch persists index metadata in the remote store, enabling seamless recovery of search replicas during [search-only mode](#turn-off-write-workloads-with-search-only-mode). For more information about recovery scenarios, see [Search replica recovery scenarios](#search-replica-recovery-scenarios).
+When separating index and search workloads, set `cluster.remote_store.state.enabled` to `true` during initial setup. This setting ensures that OpenSearch stores index metadata in the remote store, enabling seamless recovery of search replicas in [search-only mode](#turn-off-write-workloads-with-search-only-mode). For more information, see [Search replica recovery scenarios](#search-replica-recovery-scenarios).
+{: .note}
 
 
 ### Step 3: Add search replicas to an index
@@ -179,20 +178,21 @@ POST my_index/_scale
 
 #### Search replica recovery scenarios
 
-OpenSearch handles recovery of search replicas in search-only mode differently depending on your configuration:
+OpenSearch handles recovery of search replicas in search-only mode differently depending on the configuration:
 
-**Scenario 1: Persistent data directory with remote store state disabled**
+##### Scenario 1: Persistent data directory with remote store state disabled
 
-When you have persistent data and `cluster.remote_store.state.enabled` set to `false`, search replicas recover automatically after node restarts.
+When you use a persistent data directory and set `cluster.remote_store.state.enabled` to `false`, search replicas recover automatically after node restarts.
 
-**Scenario 2: Remote store state enabled without persistent data directory**
+##### Scenario 2: Remote store state enabled without a persistent data directory
 
-When `cluster.remote_store.state.enabled` is `true` but you don't have a persistent data directory, search replicas recover without primaries and write replicas. Because remote store state is enabled, OpenSearch remembers that the index exists after restart. The allocation logic skips checking for an active primary for search replicas, so search replicas are allocated and search queries remain functional.
+When `cluster.remote_store.state.enabled` is `true` and there is no persistent data directory, OpenSearch recovers search replicas without requiring primaries or write replicas. Because remote store state is enabled, OpenSearch retains the index metadata after a restart. The allocation logic skips the active primary check for search replicas, allowing them to be allocated so search queries remain functional.
 
-**Scenario 3: Remote store state enabled with persistent data directory**
+##### Scenario 3: Remote store state enabled with a persistent data directory
 
-This configuration provides seamless recovery. In search-only mode with a persistent data directory and `cluster.remote_store.state.enabled` set to `true`, OpenSearch correctly brings up only search replicas without primary and regular replicas.
+This configuration provides seamless recovery. In search-only mode, with both a persistent data directory and `cluster.remote_store.state.enabled` set to `true`, OpenSearch starts only search replicas—excluding primaries and write replicas—ensuring the index remains queryable after restart.
 
-**Scenario 4: No persistent data directory and remote store state disabled**
+##### Scenario 4: No persistent data directory and remote store state disabled
 
-Without a persistent data directory and with `cluster.remote_store.state.enabled` set to `false`, restarting OpenSearch loses all local state and the index becomes unrecoverable because OpenSearch has no metadata reference and local state is wiped.
+When both the persistent data directory is missing and `cluster.remote_store.state.enabled` is set to `false`, all local state is lost on restart. OpenSearch has no metadata reference, so the index becomes unrecoverable.
+
