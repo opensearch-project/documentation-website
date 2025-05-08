@@ -43,23 +43,22 @@ The request body is **required**. It is a JSON object with the following fields:
 
 | Property | Data type | Description |
 | :--- | :--- | :--- |
-| `auth_failure_listeners` | Object | Configuration for handling authentication failures, including thresholds and actions. |
-| `authc` | Object | Authentication configuration domains, defining how users are authenticated. |
-| `authz` | Object | Authorization configuration, defining how permissions are evaluated. |
-| `disable_intertransport_auth` | Boolean | When `true`, disables authentication for internal node-to-node communication. |
+| `auth_failure_listeners` | Object | The configuration for handling authentication failures, including thresholds and actions. |
+| `authc` | Object | The authentication configuration domains, defining how users are authenticated. For more information, see [authc]({{site.url}}{{site.baseurl}}/api-reference/security/configuration/index/#authc). |
+| `authz` | Object | The authorization configuration, defining how to extract backend roles when using LDAP for authentication. For more information, see [authz]({{site.url}}{{site.baseurl}}/api-reference/security/configuration/index/#authz). |
 | `disable_rest_auth` | Boolean | When `true`, disables authentication for REST API requests (dangerous). |
-| `do_not_fail_on_forbidden` | Boolean | When `true`, returns empty results instead of forbidden error for unauthorized access. |
+| `do_not_fail_on_forbidden` | Boolean | When `true`, returns empty results instead of a forbidden error settings the user is not authorized to access. Instead, failures are stored in the application logs. |
 | `do_not_fail_on_forbidden_empty` | Boolean | Similar to `do_not_fail_on_forbidden` but with specific behavior for empty results. |
 | `filtered_alias_mode` | String | Controls how document field filtering is applied on aliases. |
 | `hosts_resolver_mode` | String | Determines how hostname resolution is performed for security operations. |
-| `http` | Object | HTTP-specific security configurations. |
-| `kibana` | Object | Legacy settings for Kibana integration (deprecated). |
-| `multi_rolespan_enabled` | Boolean | When `true`, enables spanning permissions across multiple roles. |
-| `on_behalf_of` | Object | Configuration for trusted users to impersonate other users (advanced). |
-| `opensearch-dashboards` | Object | Configuration for OpenSearch Dashboards integration. |
+| `http` | Object | The HTTP-specific security configurations. |
+| `on_behalf_of` | Object | Configures a temporary access token for the duration of a user's session (advanced). |
+| `kibana` | Object | The configuration for OpenSearch Dashboards integration. |
 | `respect_request_indices_options` | Boolean | When `true`, respects index options specified in requests. |
 
+
 </details>
+
 
 ## Example request
 
@@ -67,7 +66,6 @@ The following example updates the security configuration to configure basic auth
 
 ```json
 PUT /_plugins/_security/api/securityconfig/config
-PUT _plugins/_security/api/securityconfig/config
 {
   "dynamic": {
     "filtered_alias_mode": "warn",

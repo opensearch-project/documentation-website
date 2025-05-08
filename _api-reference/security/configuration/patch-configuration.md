@@ -123,18 +123,22 @@ The Patch Configuration API provides more granular control over configuration up
 
 ## Enabling this API
 
-By default, this API is disabled for security reasons. To enable it, you need to:
+By default, this API is disabled for security reasons. To enable it, perform the following steps:
 
 1. Update the `opensearch.yml` file with:
+
    ```
    plugins.security.unsupported.restapi.allow_securityconfig_modification: true
    ```
+   {% include copy.html %}
 
 2. Update the Security plugin's `config.yml` file with:
+
    ```
    plugins.security.restapi.endpoints_disabled.securityconfig: "false"
    ```
+   {% include copy.html %}
 
-3. Restart your OpenSearch cluster
+3. Restart your OpenSearch cluster.
 
 Due to the potential security implications, enabling this API is generally not recommended for production environments.
