@@ -1,6 +1,6 @@
 ---
 layout: default
-title: REST API reference
+title: API reference
 nav_order: 1
 has_toc: false
 has_children: true
