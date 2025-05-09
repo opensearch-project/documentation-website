@@ -5,31 +5,67 @@ parent: Snapshot APIs
 nav_order: 6
 ---
 
-# Get snapshot.
+# Get snapshot
 **Introduced 1.0**
 {: .label .label-purple }
 
-Retrieves information about a snapshot.
+The Get Snapshot API retrieves information about one or more snapshots within a repository. This information includes details about snapshot creation, included indexes, and status.
 
+* For more information about snapshots, see [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/).
+* To view a list of your repositories, see [Get Snapshot Repository]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot-repository/).
+
+
+<!-- spec_insert_start
+api: snapshot.get
+component: endpoints
+-->
 ## Endpoints
-
 ```json
-GET _snapshot/<repository>/<snapshot>/
+GET /_snapshot/{repository}/{snapshot}
 ```
+<!-- spec_insert_end -->
 
+
+<!-- spec_insert_start
+api: snapshot.get
+component: path_parameters
+-->
 ## Path parameters
+
+The following table lists the available path parameters.
+
+| Parameter | Required | Data type | Description |
+| :--- | :--- | :--- | :--- |
+| `repository` | **Required** | String | A comma-separated list of snapshot repository names used to limit the request. Wildcard (*) expressions are supported. |
+| `snapshot` | **Required** | List or String | A comma-separated list of snapshot names to retrieve. Also accepts wildcard expressions. (`*`). - To get information about all snapshots in a registered repository, use a wildcard (`*`) or `_all`. - To get information about any snapshots that are currently running, use `_current`. |
+
+<!-- spec_insert_end -->
+
+<!-- spec_insert_start
+api: snapshot.get
+component: query_parameters
+include_deprecated: false
+-->
+## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
-| repository | String | The repository that contains the snapshot to retrieve. |
-| snapshot | String | Snapshot to retrieve.
+| `cluster_manager_timeout` | String | The amount of time to wait for a response from the cluster manager node. For more information about supported time units, see [Common parameters]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). |
+| `ignore_unavailable` | Boolean | When `false`, the request returns an error for any snapshots that are unavailable. _(Default: `false`)_ |
+| `verbose` | Boolean | When `true`, returns additional information about each snapshot such as the version of OpenSearch which took the snapshot, the start and end times of the snapshot, and the number of shards contained in the snapshot. |
 
-## Query parameters
+<!-- spec_insert_end -->
 
-| Parameter | Data type | Description | 
-:--- | :--- | :---
-| verbose | Boolean | Whether to show all, or just basic snapshot information. If `true`, returns all information. If `false`, omits information like start/end times, failures, and shards. Optional, defaults to `true`.|
-| ignore_unavailable | Boolean | How to handle snapshots that are unavailable (corrupted or otherwise temporarily can't be returned). If `true` and the snapshot is unavailable, the request does not return the snapshot. If `false` and the snapshot is unavailable, the request returns an error. Optional, defaults to `false`.|
+<!-- spec_insert_start
+api: snapshot.get
+component: request_body_parameters
+-->
+<!-- API snapshot.get does NOT have a request_body_parameters component -->
+<!-- spec_insert_end -->
+
+
 
 ## Example request
 
@@ -42,59 +78,112 @@ GET _snapshot/my-opensearch-repo/my-first-snapshot
 
 ## Example response
 
-Upon success, the response returns snapshot information:
-
-````json
+```json
 {
-  "snapshots" : [
+  "snapshots": [
     {
-      "snapshot" : "my-first-snapshot",
-      "uuid" : "3P7Qa-M8RU6l16Od5n7Lxg",
-      "version_id" : 136217927,
-      "version" : "2.0.1",
-      "indices" : [
-        ".opensearch-observability",
-        ".opendistro-reports-instances",
-        ".opensearch-notifications-config",
-        "shakespeare",
-        ".opendistro-reports-definitions",
-        "opensearch_dashboards_sample_data_flights",
-        ".kibana_1"
+      "snapshot": "my-snapshot",
+      "uuid": "XYZ4Zv7cSnuYev2JpLMJGw",
+      "version_id": 136217927,
+      "version": "2.0.1",
+      "indices": [
+        "index-1",
+        "index-2",
+        ".opensearch-observability"
       ],
-      "data_streams" : [ ],
-      "include_global_state" : true,
-      "state" : "SUCCESS",
-      "start_time" : "2022-08-11T20:30:00.399Z",
-      "start_time_in_millis" : 1660249800399,
-      "end_time" : "2022-08-11T20:30:14.851Z",
-      "end_time_in_millis" : 1660249814851,
-      "duration_in_millis" : 14452,
-      "failures" : [ ],
-      "shards" : {
-        "total" : 7,
-        "failed" : 0,
-        "successful" : 7
+      "data_streams": [],
+      "include_global_state": true,
+      "state": "SUCCESS",
+      "start_time": "2022-08-10T16:52:15.277Z",
+      "start_time_in_millis": 1660150335277,
+      "end_time": "2022-08-10T16:52:18.699Z",
+      "end_time_in_millis": 1660150338699,
+      "duration_in_millis": 3422,
+      "failures": [],
+      "shards": {
+        "total": 5,
+        "failed": 0,
+        "successful": 5
       }
     }
   ]
 }
-````
+```
+
 ## Response body fields
 
-| Field | Data type | Description |
-| :--- | :--- | :--- | 
-| snapshot | string | Snapshot name. |
-| uuid | string | Snapshot's universally unique identifier (UUID). |
-| version_id | int | Build ID of the Open Search version that created the snapshot. |
-| version | float | Open Search version that created the snapshot. |
-| indices | array | Indices in the snapshot. |
-| data_streams | array | Data streams in the snapshot. |
-| include_global_state | boolean | Whether the current cluster state is included in the snapshot. |
-| start_time | string | Date/time when the snapshot creation process began. |
-| start_time_in_millis | long | Time (in milliseconds) when the snapshot creation process began. |
-| end_time | string | Date/time when the snapshot creation process ended. |
-| end_time_in_millis | long | Time (in milliseconds) when the snapshot creation process ended. |
-| duration_in_millis | long | Total time (in milliseconds) that the snapshot creation process lasted. |
-| failures | array | Failures, if any, that occured during snapshot creation. |
-| shards | object | Total number of shards created along with number of successful and failed shards. |
-| state | string | Snapshot status. Possible values: `IN_PROGRESS`, `SUCCESS`, `FAILED`, `PARTIAL`. |
+The response body is a JSON object with the following fields:
+
+| Property | Required | Data type | Description |
+| :--- | :--- | :--- | :--- |
+| `snapshots` | **Required** | Array of Objects | Array of snapshot status objects. |
+
+Each snapshot object in the `snapshots` array contains the following information:
+
+| Property | Data type | Description |
+| :--- | :--- | :--- |
+| `snapshot` | String | The name of the snapshot. |
+| `repository` | String | The name of the repository containing the snapshot. |
+| `uuid` | String | The universally unique identifier for the snapshot. |
+| `version_id` | Integer | The build ID of the OpenSearch version that created the snapshot. |
+| `version` | String | The OpenSearch version that created the snapshot. |
+| `indices` | Array of Strings | The list of indexes included in the snapshot. |
+| `data_streams` | Array of Strings | The list of data streams included in the snapshot. |
+| `state` | String | The current state of the snapshot. Possible values include `IN_PROGRESS`, `SUCCESS`, `FAILED`, and `PARTIAL`. |
+| `include_global_state` | Boolean | Whether the snapshot includes the cluster state. |
+| `start_time` | String | The date and time when the snapshot creation process began. |
+| `start_time_in_millis` | Long | The time (in milliseconds) when the snapshot creation process began. |
+| `end_time` | String | The date and time when the snapshot creation process ended. |
+| `end_time_in_millis` | Long | The time (in milliseconds) when the snapshot creation process ended. |
+| `duration_in_millis` | Long | The total time (in milliseconds) that the snapshot creation process lasted. |
+| `failures` | Array of Objects | Any failures that occurred during snapshot creation. |
+| `shards` | Object | Statistics about the shards included in the snapshot. |
+
+<details markdown="block">
+  <summary>
+    Shard stats fields
+  </summary>
+  {: .text-delta}
+
+The `shards` object contains the following fields:
+
+| Property | Data type | Description |
+| :--- | :--- | :--- |
+| `total` | Integer | The total number of shards included in the snapshot. |
+| `failed` | Integer | The number of shards that failed to be stored in the repository. |
+| `successful` | Integer | The number of shards successfully stored in the repository. |
+
+</details>
+
+<details markdown="block">
+  <summary>
+    Snapshot statistics fields
+  </summary>
+  {: .text-delta}
+
+The `stats` object contains the following fields:
+
+| Property | Data type | Description |
+| :--- | :--- | :--- |
+| `incremental` | Object | Statistics about incremental snapshot data, including `file_count` and `size_in_bytes`. |
+| `total` | Object | Statistics about total snapshot data, including `file_count` and `size_in_bytes`. |
+| `start_time_in_millis` | Integer | The time (in milliseconds) when the snapshot process began. |
+| `time_in_millis` | Integer | Total time (in milliseconds) the snapshot process took. |
+
+</details>
+
+<details markdown="block">
+  <summary>
+    Index details fields
+  </summary>
+  {: .text-delta}
+
+For each index in the `indices` object, the response includes:
+
+| Property | Data type | Description |
+| :--- | :--- | :--- |
+| `shards_stats` | Object | Statistics about index shards, including counts for various states. |
+| `stats` | Object | Detailed statistics about the index snapshot. |
+| `shards` | Object | Information about individual shards, including their stage and statistics. |
+
+</details>
