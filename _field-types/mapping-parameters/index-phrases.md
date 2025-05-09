@@ -10,7 +10,7 @@ has_toc: false
 
 # Index phrases
 
-The `index_phrases` mapping parameter determines whether a field’s text is additionally processed to generate phrase tokens. When enabled, the system creates extra tokens that represent consecutive word sequences. This can significantly improve the performance and accuracy of phrase queries. However, it also increases the index size and the time needed to index documents.
+The `index_phrases` mapping parameter determines whether a field’s text is additionally processed to generate phrase tokens. When enabled, the system creates extra tokens representing sequences of exactly two consecutive words (`bigrams`). This can significantly improve the performance and accuracy of phrase queries. However, it also increases the index size and the time needed to index documents.
 
 By default, `index_phrases` is set to `false`, to maintain a leaner index and faster document ingestion.
 
@@ -33,13 +33,12 @@ PUT /blog
 ```
 {% include copy-curl.html %}
 
-
 Index a document using the following command:
 
 ```json
 PUT /blog/_doc/1
 {
-  "content": "The quick brown fox jumps over the lazy dog."
+  "content": "The slow green turtle swims past the whale"
 }
 ```
 {% include copy-curl.html %}
@@ -51,14 +50,14 @@ POST /blog/_search
 {
   "query": {
     "match_phrase": {
-      "content": "quick brown fox"
+      "content": "slow green"
     }
   }
 }
 ```
 {% include copy-curl.html %}
 
-Expected result:
+The query returns the stored document:
 
 ```json
 {
@@ -82,10 +81,16 @@ Expected result:
         "_id": "1",
         "_score": 0.5753642,
         "_source": {
-          "content": "The quick brown fox jumps over the lazy dog."
+          "content": "The slow green turtle swims past the whale"
         }
       }
     ]
   }
 }
 ```
+
+Although the returned hit is possible without using `index_phrases` mapping parameter, using this parameter ensures that the query:
+
+- Uses the `.index_phrases` field internally.
+- Matches pre-tokenized `bigrams` such as "slow green", "green turtle", "turtle swims".
+- Bypasses position lookups and is faster, especially at scale.
