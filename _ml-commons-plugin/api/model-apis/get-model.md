@@ -41,7 +41,7 @@ GET /_plugins/_ml/models/N8AE1osB0jLkkocYjz7D
   "algorithm" : "TEXT_EMBEDDING",
   "version" : "1",
   "model_format" : "TORCH_SCRIPT",
-  "model_state" : "LOADED",
+  "model_state" : "DEPLOYED",
   "model_content_size_in_bytes" : 83408741,
   "model_content_hash_value" : "9376c2ebd7c83f99ec2526323786c348d2382e6d86576f750c89ea544d6bbb14",
   "model_config" : {
@@ -56,3 +56,19 @@ GET /_plugins/_ml/models/N8AE1osB0jLkkocYjz7D
   "total_chunks" : 9
 }
 ```
+
+## Valid model states
+
+When a model is registered, deployed, or undeployed in OpenSearch, it transitions through various model states that reflect its availability. These states help you track the model's readiness for use, loading status, or failure conditions.
+
+The following table lists all valid model states.
+
+| Model state          | Description                                                                                              |
+|:---------------------|:---------------------------------------------------------------------------------------------------------|
+| `REGISTERING `       | The model is in the process of being registered to the cluster.                                          |
+| `REGISTERED`         | The model metadata is registered to the cluster but not yet deployed.                                    |
+| `DEPLOYED`           | The model has been successfully deployed/loaded to all eligible worker nodes and is ready for inference. |
+| `DEPLOYING`          | The model is in the process of being deployed to memory.                                                 |
+| `PARTIALLY_DEPLOYED` | The model has been deployed to some of the eligible worker nodes.                                        |
+| `UNDEPLOYED`         | The model has been successfully unloaded/undeployed from memory on all the nodes.                        |
+| `DEPLOY_FAILED`      | An error occurred while trying to deploy the model to the cluster nodes.                              |

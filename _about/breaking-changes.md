@@ -43,6 +43,11 @@ A Lucene upgrade forced OpenSearch to drop support for JDK 8. As a consequence, 
 
 OpenSearch 2.5 contains a bug fix that corrects the behavior of the `case_insensitive` parameter for the `wildcard` query on text fields. As a result, a wildcard query on text fields that ignored case sensitivity and erroneously returned results prior to the bug fix will not return the same results. For more information, see issue [#8711](https://github.com/opensearch-project/OpenSearch/issues/8711).
 
+## 2.19.0
+
+### Nested value support in the text embedding processor
+The `text_embedding` processor no longer replaces nested values like `_ingest._value` when evaluating fields like `title_tmp:_ingest._value.title_embedding`. Instead, you must directly specify the nested key as `books.title:title_embedding` to achieve the desired output. For more information, see issue [#1243](https://github.com/opensearch-project/neural-search/issues/1243).
+
 ## 3.0.0
 
 ### JDK requirement
@@ -159,3 +164,28 @@ The legacy notebooks feature has been removed from `dashboards-observability`. K
 - You must migrate your notebooks to the new storage system before upgrading to version 3.0.
 
 For more information, see issue [#2350](https://github.com/opensearch-project/dashboards-observability/issues/2350).
+
+### Searchable snapshots node role
+
+Nodes that use searchable snapshots must have the `warm` node role. Key changes include the following:
+
+- The `search` role no longer supports searchable snapshots.
+- Nodes that handle searchable snapshot shards must be assigned the warm role.
+- You must update node role configurations before upgrading to version 3.0 if your cluster uses searchable snapshots.
+
+For more information, see pull request [#17573](https://github.com/opensearch-project/OpenSearch/pull/17573).
+
+### Query groups
+
+Query groups have been renamed to **workload groups**. Key changes include the following:
+
+- The `wlm/query_group` endpoint is now the `wlm/workload_group` endpoint.
+- The API responds with a `workloadGroupID` instead of a `queryGroupID`.
+- All workload management cluster settings are now prepended with `wlm.workload_group`.
+
+For more information, see pull request [#9813](https://github.com/opensearch-project/OpenSearch/pull/17901).
+
+### ML Commons plugin
+
+- The `CatIndexTool` is removed in favor of the `ListIndexTool`.
+
