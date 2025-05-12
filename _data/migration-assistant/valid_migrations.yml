@@ -4,21 +4,30 @@ migration_paths:
     targets: 
       - "OpenSearch 1.3"
       - "OpenSearch 2.19"
+      - "OpenSearch 3.0"
   - source: "Elasticsearch 6.8"
     targets:
       - "OpenSearch 1.3"
       - "OpenSearch 2.19"
+      - "OpenSearch 3.0"
   - source: "Elasticsearch 7.10"
     targets:
       - "OpenSearch 1.3"
       - "OpenSearch 2.19"
+      - "OpenSearch 3.0"
   - source: "Elasticsearch 7.17"
     targets:
       - "OpenSearch 1.3"
       - "OpenSearch 2.19"
+      - "OpenSearch 3.0"
   - source: "OpenSearch 1.3"
     targets:
       - "OpenSearch 2.19"
+      - "OpenSearch 3.0"
   - source: "OpenSearch 2.19"
     targets:
       - "OpenSearch 2.19"
+      - "OpenSearch 3.0"
+  - source: "OpenSearch 3.0"
+    targets:
+      - "OpenSearch 3.0"
