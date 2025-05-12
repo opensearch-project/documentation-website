@@ -98,9 +98,9 @@ The response body is a JSON object with the following fields:
 | `status` | String | The status of the request. A successful request returns "OK". |
 | `message` | String | A message describing the result of the operation. |
 
-## JSON Patch operations
+## JSON patch operations
 
-The API supports the following JSON Patch operations:
+The API supports the following JSON patch operations:
 
 - **add**: Adds a value to an object or inserts it into an array. For existing properties, the value is replaced.
 - **remove**: Removes a value from an object or array.
