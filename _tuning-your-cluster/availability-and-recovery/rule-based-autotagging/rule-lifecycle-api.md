@@ -206,4 +206,3 @@ To retrieve the next page, include the `search_after` value in the next `GET` re
 | `<attribute_key>` | Array | The attribute values used to match incoming queries. |
 | `<feature_type>` | String | The value assigned to the feature type if the rule matches. |
 | `search_after` | Array | The token for paginating additional results. Present only if more results exist. |
-                                                                                                                                                                                                            

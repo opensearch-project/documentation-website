@@ -22,10 +22,6 @@ PUT /_plugins/_security/api/account
 ```
 <!-- spec_insert_end -->
 
-<!-- spec_insert_start
-api: security.change_password
-component: query_parameters
--->
 
 <!-- spec_insert_start
 api: security.change_password
@@ -39,6 +35,8 @@ The request body is __required__. It is a JSON object with the following fields.
 | :--- | :--- | :--- | :--- |
 | `current_password` | **Required** | String | The current password. |
 | `password` | **Required** | String | The new password to set. |
+
+<!-- spec_insert_end -->
 
 ## Example request
 
