@@ -17,7 +17,7 @@ The `routes` processor requires the following fields.
 | Field | Required | Description |
 | :--- | :--- | :--- |
 | `default` | No   | A list of processor names to run if no route expressions match. If `default` is not specified and no expressions match, the event is dropped. |
-| `routes`  | Yes    | A map where each key is a [Data Prepper expression language]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-language/) condition, and each value is a list of processors to apply if the condition evaluates to true. |
+| `routes`  | Yes    | A map where each key is a [Data Prepper expression language]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/) condition, and each value is a list of processors to apply if the condition evaluates to true. |
 
 Each expression is evaluated independently. Events can match multiple routes and be sent through multiple paths.
 
