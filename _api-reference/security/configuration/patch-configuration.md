@@ -27,11 +27,11 @@ PATCH /_plugins/_security/api/securityconfig
 
 ## Request body fields
 
-The request body is **required**. It is an **array of JSON objects** (NDJSON). Each object has the following fields:
+The request body is **required**. It is an **array of JSON objects** (NDJSON). Each object has the following fields.
 
 | Property | Required | Data type | Description |
 | :--- | :--- | :--- | :--- |
-| `op` | **Required** | String | The operation to perform. Valid values are: `add`, `remove`, `replace`, `move`, `copy`, and `test`. |
+| `op` | **Required** | String | The operation to perform. Valid values are `add`, `remove`, `replace`, `move`, `copy`, and `test`. |
 | `path` | **Required** | String | The JSON pointer path to the location in the configuration to modify. |
 | `value` | Optional | Object | The value to use for the operation. Required for `add`, `replace`, and `test` operations. |
 
@@ -91,7 +91,7 @@ PATCH /_plugins/_security/api/securityconfig
 
 ## Response body fields
 
-The response body is a JSON object with the following fields:
+The response body is a JSON object with the following fields.
 
 | Property | Data type | Description |
 | :--- | :--- | :--- |
@@ -111,7 +111,7 @@ The API supports the following JSON patch operations:
 
 ## Usage notes
 
-The Patch Configuration API provides more granular control over configuration updates than the Update Configuration API, but still comes with significant risks:
+The Patch Configuration API provides more granular control over configuration updates than the Update Configuration API but still comes with potential risks:
 
 - **Path format**: Paths start with `/config` followed by the JSON pointer path to the specific configuration element you want to modify.
 
@@ -119,20 +119,20 @@ The Patch Configuration API provides more granular control over configuration up
 
 - **Backup configuration**: Always back up your current security configuration before making changes.
 
-- **Testing**: Test configuration changes in a development environment before applying to production.
+- **Testing**: Test configuration changes in a development environment before deploying them to production.
 
 ## Enabling this API
 
 By default, this API is disabled for security reasons. To enable it, perform the following steps:
 
-1. Update the `opensearch.yml` file with:
+1. Update the `opensearch.yml` file with the following:
 
    ```
    plugins.security.unsupported.restapi.allow_securityconfig_modification: true
    ```
    {% include copy.html %}
 
-2. Update the Security plugin's `config.yml` file with:
+2. Update the Security plugin's `config.yml` file with the following:
 
    ```
    plugins.security.restapi.endpoints_disabled.securityconfig: "false"

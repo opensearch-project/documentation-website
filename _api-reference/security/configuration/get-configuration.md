@@ -10,7 +10,7 @@ nav_order: 40
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Get Security Configuration API retrieves the current Security configuration. This configuration includes authentication domains and other security-related configurations.
+The Get Security Configuration API retrieves the current security configuration. This configuration includes authentication domains and other security-related configurations.
 
 <!-- spec_insert_start
 api: security.get_configuration
@@ -75,7 +75,7 @@ GET /_plugins/_security/api/securityconfig
 
 ## Response body fields
 
-The response body is a JSON object with the following fields:
+The response body is a JSON object with the following fields.
 
 | Property | Data type | Description |
 | :--- | :--- | :--- |
@@ -87,7 +87,7 @@ The response body is a JSON object with the following fields:
   </summary>
   {: .text-delta}
 
-`config` is a JSON object that contains the following fields:
+`config` is a JSON object that contains the following fields.
 
 | Property | Data type | Description |
 | :--- | :--- | :--- |
@@ -101,7 +101,7 @@ The Get Configuration API provides a way to inspect the current security configu
 
 - **Read-only operation**: This API only retrieves the configuration and does not modify it.
 
-- **Access control**: Access to this API should be restricted to administrators, as the configuration contains sensitive information about your security setup.
+- **Access control**: Access to this API should be restricted to administrators because the configuration contains sensitive information about your security setup.
 
 ## Security considerations
 
@@ -112,4 +112,4 @@ The security configuration contains sensitive information about your authenticat
 
 ## Permissions
 
-Any users with roles defined in the `plugins.security.restapi.roles_enabled: ["all_access", "security_rest_api_access"]` have access to this API.
+Any users with roles defined in `plugins.security.restapi.roles_enabled: ["all_access", "security_rest_api_access"]` have access to this API.

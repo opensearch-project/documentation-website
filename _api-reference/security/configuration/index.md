@@ -34,11 +34,11 @@ Use the Configuration APIs to perform the following actions:
 
 - [Upgrade Perform API]({{site.url}}{{site.baseurl}}/api-reference/security/configuration/upgrade-perform/): Applies updates to the security configuration, based on the results of the Upgrade Check API.
 
-- [Update Security Configuration API]({{site.url}}{{site.baseurl}}/api-reference/security/configuration/update-configuration/): Creates or updates the Security configuration.
+- [Update Security Configuration API]({{site.url}}{{site.baseurl}}/api-reference/security/configuration/update-configuration/): Creates or updates the security configuration.
 
-- [Patch Security Configuration API]({{site.url}}{{site.baseurl}}/api-reference/security/configuration/patch-configuration/): Update specific fields of the Security configuration without replacing the entire configuration document. 
+- [Patch Security Configuration API]({{site.url}}{{site.baseurl}}/api-reference/security/configuration/patch-configuration/): Updates specific fields of the security configuration without replacing the entire configuration document. 
 
-- [Get Security Configuration API]({{site.url}}{{site.baseurl}}/api-reference/security/configuration/get-configuration/): Retrieves the current Security configuration.
+- [Get Security Configuration API]({{site.url}}{{site.baseurl}}/api-reference/security/configuration/get-configuration/): Retrieves the current security configuration.
 
 ## `authc`
 
@@ -95,12 +95,12 @@ You can then use the extracted backend roles in role mappings. The following con
 
 ## `authz`
 
-The `authz` section handles authorization by retrieving backend roles from external sources such as LDAP. This allows OpenSearch to authenticate users using one method (for example, basic authentication or SAML) and authorize them based on role information stored in a separate directory.
+The `authz` section handles authorization by retrieving backend roles from external sources such as LDAP. This allows OpenSearch to authenticate users through one method (for example, basic authentication or SAML) and authorize them based on role information stored in a separate directory.
 
-A typical authz configuration includes the following elements:
+A typical `authz` configuration includes the following elements:
 
 - `roles_search_filter`: The LDAP search filter used to find roles for a user
-- `rolebase`: The DN (Distinguished Name) where to search for roles
+- `rolebase`: The Distinguished Name (DN) to search for roles
 - `rolesearch`: The search pattern to use when looking for roles
 - `rolename`: The attribute that contains the role name
 
@@ -132,7 +132,7 @@ The following example connects to an LDAP directory, uses the `rolesearch` filte
 {% include copy.html %}
 
 
-The following example shows how to map an LDAP group to an OpenSearch role. If a user belongs to the LDAP group `cn=analysts,ou=groups,dc=example,dc=com`, the backend role analysts is extracted and mapped to the `data_access_role`:
+The following example shows how to map an LDAP group to an OpenSearch role. If a user belongs to the LDAP group `cn=analysts,ou=groups,dc=example,dc=com`, the backend role `analysts` is extracted and mapped to the `data_access_role`:
 
 ```json
 {

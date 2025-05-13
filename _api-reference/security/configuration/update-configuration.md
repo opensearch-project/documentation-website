@@ -10,7 +10,7 @@ nav_order: 30
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Update Security Configuration API creates or updates the Security plugin's configuration directly through the REST API. This configuration manages core security settings including authentication methods, authorization rules, and access controls.
+The Update Security Configuration API creates or updates the Security plugin's configuration directly through the REST API. This configuration manages core security settings, including authentication methods, authorization rules, and access controls.
 
 This operation can easily break your existing security configuration. We strongly recommend using the `securityadmin.sh` script instead, which includes validations and safeguards to prevent misconfiguration.
 {: .warning}
@@ -27,7 +27,7 @@ PUT /_plugins/_security/api/securityconfig/config
 
 ## Request body fields
 
-The request body is **required**. It is a JSON object with the following fields:
+The request body is **required**. It is a JSON object with the following fields.
 
 | Property | Required | Data type | Description |
 | :--- | :--- | :--- | :--- |
@@ -39,16 +39,16 @@ The request body is **required**. It is a JSON object with the following fields:
   </summary>
   {: .text-delta}
 
-`dynamic` is a JSON object with the following fields:
+`dynamic` is a JSON object with the following fields.
 
 | Property | Data type | Description |
 | :--- | :--- | :--- |
 | `auth_failure_listeners` | Object | The configuration for handling authentication failures, including thresholds and actions. |
-| `authc` | Object | The authentication configuration domains, defining how users are authenticated. For more information, see [authc]({{site.url}}{{site.baseurl}}/api-reference/security/configuration/index/#authc). |
-| `authz` | Object | The authorization configuration, defining how to extract backend roles when using LDAP for authentication. For more information, see [authz]({{site.url}}{{site.baseurl}}/api-reference/security/configuration/index/#authz). |
-| `do_not_fail_on_forbidden` | Boolean | When `true`, returns empty results instead of a forbidden error settings the user is not authorized to access. Instead, failures are stored in the application logs. |
+| `authc` | Object | The authentication configuration domains that define how users are authenticated. For more information, see [authc]({{site.url}}{{site.baseurl}}/api-reference/security/configuration/index/#authc). |
+| `authz` | Object | The authorization configuration that defines how to extract backend roles when using LDAP for authentication. For more information, see [authz]({{site.url}}{{site.baseurl}}/api-reference/security/configuration/index/#authz). |
+| `do_not_fail_on_forbidden` | Boolean | When `true`, returns empty results instead of a forbidden error. Instead, failures are stored in the application logs. |
 | `do_not_fail_on_forbidden_empty` | Boolean | Similar to `do_not_fail_on_forbidden` but with specific behavior for empty results. |
-| `filtered_alias_mode` | String | Controls how document field filtering is applied on aliases. |
+| `filtered_alias_mode` | String | Controls how document field filtering is applied to aliases. |
 | `hosts_resolver_mode` | String | Determines how hostname resolution is performed for security operations. |
 | `http` | Object | The HTTP-specific security configurations. |
 | `on_behalf_of` | Object | Configures a temporary access token for the duration of a user's session (advanced). |
@@ -61,7 +61,7 @@ The request body is **required**. It is a JSON object with the following fields:
 
 ## Example request
 
-The following example updates the security configuration to configure basic authentication and internal user database:
+The following example updates the security configuration to configure basic authentication and an internal user database:
 
 ```json
 PUT /_plugins/_security/api/securityconfig/config
@@ -117,34 +117,34 @@ PUT /_plugins/_security/api/securityconfig/config
 
 ## Response body fields
 
-The response body is a JSON object with the following fields:
+The response body is a JSON object with the following fields.
 
 | Property | Data type | Description |
 | :--- | :--- | :--- |
-| `status` | String | Status of the request. A successful request returns "OK". |
+| `status` | String | The status of the request. A successful request returns "OK". |
 | `message` | String | A message describing the result of the operation. |
 
 ## Usage notes
 
-The Update Configuration API provides direct access to modify the Security plugin's core configuration, but comes with significant risks:
+The Update Configuration API allows you to directly modify the Security plugin's core configuration but comes with potential risks:
 
-- **Prefer `securityadmin.sh`**: In most cases, you should use the `securityadmin.sh` script instead, which includes validation and safeguards.
+- **Prefer `securityadmin.sh`**: In most cases, you should use the `securityadmin.sh` script instead, which includes validations and safeguards to prevent misconfiguration.
   
 - **Backup configuration**: Always back up your current security configuration before making changes.
   
-- **Access control**: Enable access to this API only for trusted administrators, as it can potentially disable security for your entire cluster.
+- **Access control**: Enable access to this API only for trusted administrators, as it can potentially disable the security configuration for your entire cluster.
   
-- **Testing**: Test the security configuration changes in a development environment before applying to production.
+- **Testing**: Test the security configuration changes in a development environment before deploying them to production.
 
 - **Complete configuration**: You must provide a complete configuration when updating, as partial updates will replace the entire configuration.
   
-- **Validation**: This API has minimal validation, so incorrect configurations might not be caught until they cause operational issues.
+- **Validation**: This API has minimal validation, so incorrect configurations might not be identified until they cause operational issues.
 
 ## Enabling this API
 
 By default, this API is disabled for security reasons. To enable it, you need to:
 
-1. Update the `config.yml` file of the Security plugin.
+1. Update the Security plugin's `config.yml` file.
 2. Add the setting `plugins.security.restapi.endpoints_disabled.securityconfig: "false"`.  
 3. Restart your OpenSearch cluster.
 
