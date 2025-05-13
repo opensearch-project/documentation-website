@@ -10,16 +10,16 @@ grand_parent: OpenSearch Benchmark Reference
 
 The `--redline-test` command enables OpenSearch Benchmark to automatically determine the maximum request throughput your OpenSearch cluster can handle under increasing load. It dynamically adjusts the number of active clients based on real-time cluster performance, helping with capacity planning and identifying performance regressions.
 
-When the `--redline-test` flag is used:
+When the `--redline-test` flag is used, OpenSearch Benchmark performs the following steps:
 
-1. **Client initialization**: OpenSearch Benchmark initializes a large number of clients (default: 1000). You can override this with `--redline-test=<int>`.
+1. **Client initialization**: OpenSearch Benchmark initializes a large number of clients (default: 1,000). You can override this with `--redline-test=<int>`.
 2. **Feedback mechanism**: OpenSearch Benchmark ramps up the number of active clients. A FeedbackActor monitors real-time request failures and adjusts the client count accordingly.
-3. **Shared state coordination**: OpenSearch Benchmark uses Python’s multiprocessing library to manage shared dictionaries and queues for inter-process communication:
+3. **Shared state coordination**: OpenSearch Benchmark uses Python's multiprocessing library to manage shared dictionaries and queues for inter-process communication:
    - **Workers** create and share client state maps with the WorkerCoordinatorActor.
-   - **WorkerCoordinatorActor** aggregates client state and forwards it to the FeedbackActor.
-   - **FeedbackActor** increases the number of clients until it detects request errors, then pauses clients, waits 30 seconds, and resumes testing.
+   - The **WorkerCoordinatorActor** aggregates client state and forwards it to the FeedbackActor.
+   - The **FeedbackActor** increases the number of clients until it detects request errors, then pauses clients, waits 30 seconds, and resumes testing.
   
-The following images gives a visual overview of the redline testing architecture:
+The following images provides a visual overview of the redline testing architecture.
 
 <img src="{{site.url}}{{site.baseurl}}/images/benchmark/osb-actor-system.png" alt="Redline Overview" width="600">
 
@@ -30,8 +30,8 @@ To perform a redline test, use the `execute-test` command with the `--redline-te
 
 This test procedure defines a timed workload using the keyword-terms operation. It runs in two phases:
 
-- **Warmup phase**: The test begins with a warmup period (warmup-time-period) to stabilize performance metrics before measurement begins. This helps avoid skewing results with cold-start effects.
-- **Measurement phase**: During the time-period, OpenSearch Benchmark sends requests at a target-throughput (requests per second) using a specified number of clients. The redline test logic will scale the number of active clients from this baseline to determine the cluster’s maximum sustainable load.
+- **Warmup phase**: The test begins with a warmup period (`warmup-time-period`) to stabilize performance metrics before measurement begins. This helps avoid skewing results with cold-start effects.
+- **Measurement phase**: During the `time-period`, OpenSearch Benchmark sends requests at a `target-throughput` (requests per second) using a specified number of clients. The redline test logic will scale the number of active clients from this baseline to determine the cluster's maximum sustainable load.
 
 The following example timed test procedure is used as input to a redline test, which then dynamically adjusts the client load to find the maximum request throughput your cluster can handle without errors:
 
