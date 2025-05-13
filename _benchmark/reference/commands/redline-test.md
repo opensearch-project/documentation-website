@@ -41,10 +41,10 @@ The following example timed test procedure is used as input to a redline test, w
   "schedule": [
     {
        "operation": "keyword-terms",
-       "warmup-time-period": {{ warmup_time | default(300) | tojson }},
-       "time-period": {{ time_period | default(900) | tojson }},
-       "target-throughput": {{ target_throughput | default(20) | tojson }},
-       "clients": {{ search_clients | default(20) }}
+       "warmup-time-period": {% raw %}{{ warmup_time | default(300) | tojson }}{% endraw %},
+       "time-period": {% raw %}{{ time_period | default(900) | tojson }}{% endraw %},
+       "target-throughput": {% raw %}{{ target_throughput | default(20) | tojson }}{% endraw %},
+       "clients": {% raw %}{{ search_clients | default(20) }}{% endraw %}
     }
   ]
 }
