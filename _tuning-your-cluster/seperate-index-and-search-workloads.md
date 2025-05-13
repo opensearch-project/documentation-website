@@ -57,6 +57,10 @@ node.attr.remote_store.repository.my-repository.settings.region: <Region>
 
 For more information, see [Remote-backed storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/).
 
+When separating index and search workloads, set `cluster.remote_store.state.enabled` to `true` during initial setup. This setting ensures that OpenSearch stores index metadata in the remote store, enabling seamless recovery of search replicas in [search-only mode](#turn-off-write-workloads-with-search-only-mode). For more information, see [Search replica recovery scenarios](#search-replica-recovery-scenarios).
+{: .note}
+
+
 ### Step 3: Add search replicas to an index
 
 After configuring your nodes and the remote store, you need to set up search replicas for your indexes. Search replicas are copies of your index that are dedicated to handling search requests, allowing you to scale your search capacity independently of your indexing capacity.
@@ -148,11 +152,11 @@ The `cluster.routing.search_replica.strict` setting supports the following optio
 
 Use the `auto_expand_search_replicas` index setting to automatically scale search replicas based on the number of available search nodes in the cluster. For more information, see [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#dynamic-index-level-index-settings).
 
-### Turn off write workloads
+### Turn off write workloads with search-only mode
 
-You can use the `_scale` API to turn off primary shards and write replicas if you don't expect any writes to an index. In write-once, read-many scenarios (like log analytics), you can scale down primary and write replicas, leaving only search replicas active to free up resources.
+You can use the `_scale` API to turn off primary shards and write replicas for an index when you don't need to write to it. This approach works well for write-once, read-many scenarios like log analytics, where you can reduce resource usage by keeping only search replicas active.
 
-The following [scale]({{site.url}}{{site.baseurl}}/api-reference/index-apis/scale/) request turns off write replicas:
+The following request turns on search-only mode by deactivating write replicas:
 
 ```json
 POST my_index/_scale 
@@ -162,7 +166,7 @@ POST my_index/_scale
 ```
 {% include copy-curl.html %}
 
-The following scale request turns on write replicas:
+The following request turns off search-only mode by activating write replicas:
 
 ```json
 POST my_index/_scale 
@@ -171,3 +175,24 @@ POST my_index/_scale
 }
 ```
 {% include copy-curl.html %}
+
+#### Search replica recovery scenarios
+
+OpenSearch handles recovery of search replicas in search-only mode differently depending on the configuration.
+
+##### Scenario 1: Persistent data directory with remote store state disabled
+
+When you use a persistent data directory and set `cluster.remote_store.state.enabled` to `false`, search replicas recover automatically after node restarts.
+
+##### Scenario 2: Remote store state enabled without a persistent data directory
+
+When `cluster.remote_store.state.enabled` is set to `true` and there is no persistent data directory, OpenSearch recovers search replicas without requiring primaries or write replicas. Because remote store state is enabled, OpenSearch retains the index metadata after a restart. The allocation logic skips the active primary check for search replicas, allowing them to be allocated so that search queries remain functional.
+
+##### Scenario 3: Remote store state enabled with a persistent data directory
+
+This configuration provides seamless recovery. In search-only mode, with both a persistent data directory and `cluster.remote_store.state.enabled` set to `true`, OpenSearch starts only search replicas—excluding primaries and write replicas—ensuring the index can be queried after restart.
+
+##### Scenario 4: No persistent data directory and remote store state disabled
+
+When both the persistent data directory is missing and `cluster.remote_store.state.enabled` is set to `false`, all local state is lost on restart. OpenSearch has no metadata reference, so the index becomes unrecoverable.
+

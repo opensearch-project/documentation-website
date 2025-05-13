@@ -28,6 +28,10 @@ breaking_changes:
     transformation:
       title: "Type Mapping Deprecation"
       url: "https://docs.opensearch.org/docs/latest/migration-assistant/migration-phases/planning-your-migration/handling-type-mapping-deprecation/"
+  - title: "OpenSearch 3.0: Breaking Changes"
+    url: "/docs/latest/breaking-changes/#300"
+    introducedIn: "OpenSearch 3.0"
+    comp: []
   - title: "OpenSearch Notifications Plugins"
     url: "https://docs.opensearch.org/docs/latest/breaking-changes/#add-opensearch-notifications-plugins"
     introducedIn: "OpenSearch 2.19"
