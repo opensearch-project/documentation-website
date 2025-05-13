@@ -4,19 +4,37 @@ title: redline-test
 nav_order: 85
 parent: Command reference
 grand_parent: OpenSearch Benchmark Reference
-redirect_from: 
-  - /benchmark/commands/redline-test/
 ---
 
-# Redline Testing
-The `--redline-test` command enables OpenSearch Benchmark to automatically determine the maximum request throughput your OpenSearch cluster
-can handle under increasing load. This dynamically adjusts the number of active clients based on real-time cluster performance, and can
-assist with capacity planning or detecting performance regressions.
+# Redline testing
 
-### Usage
-To perform a redline test, use the `execute-test` command with the `--redline-test` flag, using a timed test procedure.
+The `--redline-test` command enables OpenSearch Benchmark to automatically determine the maximum request throughput your OpenSearch cluster can handle under increasing load. It dynamically adjusts the number of active clients based on real-time cluster performance, helping with capacity planning and identifying performance regressions.
 
-Example of a timed test procedure:
+When the `--redline-test` flag is used:
+
+1. **Client initialization**: OpenSearch Benchmark initializes a large number of clients (default: 1000). You can override this with `--redline-test=<int>`.
+2. **Feedback mechanism**: OpenSearch Benchmark ramps up the number of active clients. A FeedbackActor monitors real-time request failures and adjusts the client count accordingly.
+3. **Shared state coordination**: OpenSearch Benchmark uses Python’s multiprocessing library to manage shared dictionaries and queues for inter-process communication:
+   - **Workers** create and share client state maps with the WorkerCoordinatorActor.
+   - **WorkerCoordinatorActor** aggregates client state and forwards it to the FeedbackActor.
+   - **FeedbackActor** increases the number of clients until it detects request errors, then pauses clients, waits 30 seconds, and resumes testing.
+  
+The following images gives a visual overview of the redline testing architecture:
+
+<img src="{{site.url}}{{site.baseurl}}/images/benchmark/osb-actor-system.png" alt="Redline Overview" width="600">
+
+
+## Usage
+
+To perform a redline test, use the `execute-test` command with the `--redline-test` flag and a timed test procedure.
+
+This test procedure defines a timed workload using the keyword-terms operation. It runs in two phases:
+
+- **Warmup phase**: The test begins with a warmup period (warmup-time-period) to stabilize performance metrics before measurement begins. This helps avoid skewing results with cold-start effects.
+- **Measurement phase**: During the time-period, OpenSearch Benchmark sends requests at a target-throughput (requests per second) using a specified number of clients. The redline test logic will scale the number of active clients from this baseline to determine the cluster’s maximum sustainable load.
+
+The following example timed test procedure is used as input to a redline test, which then dynamically adjusts the client load to find the maximum request throughput your cluster can handle without errors:
+
 ```json
 {
   "name": "timed-mode-test-procedure",
@@ -31,8 +49,10 @@ Example of a timed test procedure:
   ]
 }
 ```
+{% include copy.html %}
 
-which allows us to use:
+Run the following command to start a redline test using a timed test procedure against your OpenSearch cluster:
+
 ```bash
 opensearch-benchmark execute-test \
   --pipeline=benchmark-only \
@@ -41,32 +61,23 @@ opensearch-benchmark execute-test \
   --test-procedure=timed-mode-test-procedure \
   --redline-test
 ```
+{% include copy.html %}
 
-### How It Works
+## Results
 
-When the --redline-test flag is used:
+At the end of a redline test, OpenSearch Benchmark logs the maximum number of clients that your cluster supported without request errors.
 
-1. Client Initialization: OSB spawns a large number of clients (default is 1000, configurable via `--redline-test=<int>`).
+The following example log output indicates that the redline test detected a `15%` error rate for the keyword-terms operation and determined that the cluster's maximum stable client load before errors occurred was `410`:
 
-2. Feedback Mechanism: OSB will begin ramping up the number of active clients. A FeedbackActor monitors real-time request failures and adjusts the number of active clients accordingly.
-
-3. Shared State Coordination: OSB uses Python's multiprocessing library to manage shared dictionaries and queues for inter-process communication:
-    - Workers: Create and share client state maps with the WorkerCoordinatorActor.
-    - WorkerCoordinatorActor: Aggregates and forwards client states to the FeedbackActor.
-    - FeedbackActor: Scales up clients until request errors are detected, then pauses clients and enters a sleep period before resuming.
-
-<img src="../../../images/benchmark/osb-actor-system.png" alt="Redline Overview" width="600">
-
-### Additional Notes
-- The number of clients to scale up can be customized using `--redline-test=<int>`. For example, `--redline-test=1500` sets the maximum number of clients to 1500.
-
-- Upon detecting a request error, the new `FeedbackActor` will pause clients and enter a 30 second sleep period before attempting to scale up again
-
-- OSB provides detailed logs, like scaling decisions and request failures during a redline test
-
-### Results
-At the end of the test, OSB logs the maximum number of clients the cluster supported without errors.
 ```
 [WARNING] Error rate is 15.0 for operation 'keyword-terms'. Please check the logs.
 Redline test finished. Maximum stable client number reached: 410
 ```
+
+## Configuration tips and test behavior
+
+Use the following options and behaviors to better understand and customize redline test execution:
+
+- To set a custom client limit, use `--redline-test=<int>`. For example, `--redline-test=1500` sets the maximum to `1500` clients.
+- When errors are detected, the `FeedbackActor` pauses execution and waits 30 seconds before retrying.
+- OpenSearch Benchmark provides detailed logs with scaling decisions and request failures during the test.
