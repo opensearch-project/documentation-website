@@ -3,9 +3,6 @@ layout: default
 title: Extended stats bucket
 parent: Pipeline aggregations
 nav_order: 80
-redirect_from:
-  - /query-dsl/aggregations/pipeline-agg#stats_bucket-extended_stats_bucket/
-  - /query-dsl/aggregations/pipeline/extended-stats/
 ---
 
 # Extended stats bucket aggregation
