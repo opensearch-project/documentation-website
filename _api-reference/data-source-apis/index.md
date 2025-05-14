@@ -11,7 +11,6 @@ nav_order: 20
 
 The Data Source APIs enable you to create, manage, and interact with external data sources in OpenSearch. Data sources represent connections to external databases or services, allowing you to query data that lives outside your OpenSearch cluster. This query capability powers cross-database analytics, dashboards, and reporting.
 
-## What are data sources?
 
 Data sources in OpenSearch establish connections to external data repositories, such as:
 

@@ -133,7 +133,7 @@ The response body is a JSON object with the following fields:
 
 When updating data sources, consider these important points:
 
-- **Complete configuration**: You must provide a complete data source configuration in the update request. The update operation replaces the entire data source configuration, not just the changed fields.
+- **Complete configuration**: You must provide a complete data source configuration in the update request. The update operation replaces the entire data source configuration.
 
 - **Existing name**: The `name` parameter must match an existing data source. If no data source with the specified name exists, the update operation will fail.
 
