@@ -22,7 +22,7 @@ The `avg_bucket` aggregation takes the following parameters.
 
 | Parameter             | Required/Optional | Data type       | Description |
 | :--                   | :--               |  :--            | :--         |
-| `buckets_path`        | Required          | String          | The path of the aggregation buckets to aggregate. See [Pipeline aggregations]({{site.url}}{{site.baseurl}}/aggregations/pipeline/index#buckets-path-property). |
+| `buckets_path`        | Required          | String          | The path of the aggregation buckets to aggregate. See [Pipeline aggregations]({{site.url}}{{site.baseurl}}/aggregations/pipeline/index#buckets-path). |
 | `gap_policy`          | Optional          | String          | The policy to apply to missing data. Valid values are `skip`, `insert_zeros`, and `keep_values`. Default is `skip`. |
 | `format`              | Optional          | String          | A [DecimalFormat](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/text/DecimalFormat.html) formatting string. Returns the formatted output in the aggregation's `value_as_string` property. |
 | `percents`            | Optional          | List            | A list containing any number of numeric percentage values to be included in the output. Valid values are between 0.0 and 100.0, inclusive. Default is `[1.0, 5.0, 25.0, 50.0, 75.0, 95.0, 99.0]`. |
