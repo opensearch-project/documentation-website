@@ -12,7 +12,7 @@ redirect_from:
 
 # Creating custom workloads
 
-OpenSearch Benchmark (OSB) includes a set of [workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) that you can use to benchmark data from your cluster. Additionally, if you want to create a workload that is tailored to your own data, you can create a custom workload using one of the following options:
+OpenSearch Benchmark includes a set of [workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) that you can use to benchmark data from your cluster. Additionally, if you want to create a workload that is tailored to your own data, you can create a custom workload using one of the following options:
 
 - [Creating custom workloads](#creating-custom-workloads)
   - [Creating a workload from an existing cluster](#creating-a-workload-from-an-existing-cluster)
@@ -32,14 +32,14 @@ If you already have an OpenSearch cluster with indexed data, use the following s
 
 ### Prerequisites
 
-Before creating a custom OSB workload, make sure you have the following prerequisites in place:
+Before creating a custom OpenSearch Benchmark workload, make sure you have the following prerequisites in place:
 
 - An OpenSearch cluster with an index that contains 1000 or more documents. If your cluster's index does not contain at least 1000 documents, the workload can still run tests, however, you cannot run workloads using `--test-mode`.
 - You must have the correct permissions to access your OpenSearch cluster. For more information about cluster permissions, see [Permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/).
 
 ### Customizing the workload
 
-To begin creating a custom OSB workload, use the `opensearch-benchmark create-workload` command.
+To begin creating a custom OpenSearch Benchmark workload, use the `opensearch-benchmark create-workload` command.
 
 ```
 opensearch-benchmark create-workload \
@@ -81,7 +81,7 @@ Extracting documents for index [movies]...                    2000/2000 docs [10
 -------------------------------
 ```
 
-As part of workload creation, OSB generates the following files. You can access them in the directory specified by the `--output-path` option.
+As part of workload creation, OpenSearch Benchmark generates the following files. You can access them in the directory specified by the `--output-path` option.
 
 - `workload.json`: Contains general workload specifications.
 - `<index>.json`: Contains mappings and settings for the extracted indexes.

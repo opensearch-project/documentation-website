@@ -118,7 +118,26 @@ The following table lists the supported similarity algorithms.
 
 Algorithm | Description
 `BM25` | The default OpenSearch [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25) similarity algorithm. 
+`LegacyBM25` (Deprecated) | The older [LegacyBM25Similarity](https://github.com/opensearch-project/OpenSearch/blob/main/server/src/main/java/org/opensearch/lucene/similarity/LegacyBM25Similarity.java) implementation. Kept for backward compatibility.
 `boolean` | Assigns terms a score equal to their boost value. Use `boolean` similarity when you want the document scores to be based on the binary value of whether the terms match.
+
+
+### Important changes to BM25 scoring in OpenSearch 3.0
+
+In OpenSearch 3.0, the default similarity algorithm changed from `LegacyBM25Similarity` to Lucene's native `BM25Similarity`.
+
+This change improves alignment with Lucene standards and simplifies scoring behavior, but it introduces an important difference:
+
+- In `LegacyBM25Similarity`, scores included an extra constant factor of `k₁ + 1` in the numerator of the `BM25` formula.
+
+- In `BM25Similarity`, this constant was removed for cleaner normalization (see [BM25](https://en.wikipedia.org/wiki/Okapi_BM25) and the corresponding [Lucene GitHub issue](https://github.com/apache/lucene/issues/9609)).
+
+- Scores produced by `BM25Similarity` are lower than those produced by `LegacyBM25Similarity`, typically by a factor of about `2.2`.
+
+- Ranking is unaffected because the constant factor does not change the relative order of documents.
+
+- To retain the old scoring behavior, explicitly configure your field or index to use `LegacyBM25` (see [Configuring legacy BM25 similarity](#configuring-legacy-bm25-similarity)).
+
 
 ## Specifying similarity
 
@@ -172,6 +191,29 @@ Parameter | Data type | Description
 `k1` | Float | Determines non-linear term frequency normalization (saturation) properties. The default value is `1.2`.
 `b` | Float | Determines the degree to which document length normalizes TF values. The default value is `0.75`.
 `discount_overlaps` | Boolean | Determines whether overlap tokens (tokens with zero position increment) are ignored when computing the norm. Default is `true` (overlap tokens do not count when computing the norm). 
+
+
+## Configuring legacy BM25 similarity 
+
+If you want to retain the older similarity behavior, specify `LegacyBM25` as the similarity `type`:
+
+```json
+PUT /testindex
+{
+  "settings": {
+    "index": {
+      "similarity": {
+        "default": {
+          "type": "LegacyBM25",
+          "k1": 1.2,
+          "b": 0.75
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
 
 ---
 

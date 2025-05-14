@@ -135,7 +135,7 @@ PUT test-index
 
 ## Model IDs
 
-Model IDs are used when the underlying ANN algorithm requires a training step. As a prerequisite, the model must be created using the [Train API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-a-model). The model contains the information needed to initialize the native library segment files. To configure a model for a vector field, specify the `model_id`:
+Model IDs are used when the underlying ANN algorithm requires a training step. As a prerequisite, the model must be created using the [Train API]({{site.url}}{{site.baseurl}}/vector-search/api/knn#train-a-model). The model contains the information needed to initialize the native library segment files. To configure a model for a vector field, specify the `model_id`:
 
 ```json
 "my_vector": {

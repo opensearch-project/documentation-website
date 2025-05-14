@@ -39,6 +39,8 @@ OpenSearch supports the following advanced network settings for HTTP communicati
 
 - `http.compression` (Static, Boolean): Enables support for compression using `Accept-Encoding` when applicable. When `HTTPS` is enabled, the default is `false`, otherwise, the default is `true`. Disabling compression for HTTPS helps mitigate potential security risks, such as `BREACH` attacks. To enable compression for HTTPS traffic, explicitly set `http.compression` to `true`.
 
+- `http.max_header_size`: (Static, string) The maximum combined size of all HTTP headers allowed in a request. Default is `16KB`.
+
 ## Advanced transport settings
 
 OpenSearch supports the following advanced network settings for transport communication:
