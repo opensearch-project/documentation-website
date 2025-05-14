@@ -38,8 +38,8 @@ The Data Source APIs include:
 - [Create Data Source API]({{site.url}}{{site.baseurl}}/api-reference/data-source-apis/create-data-source/): Register a new external data source connection.
 - [List Data Sources API]({{site.url}}{{site.baseurl}}/api-reference/data-source-apis/list-data-source/): Retrieve information about all configured data sources.
 - [Get Data Source API]({{site.url}}{{site.baseurl}}/api-reference/data-source-apis/get-data-source/): Retrieve details about a specific data source.
-- [Update Data Source API]({{site.url}}{{site.baseurl}}/api-reference/data-source-apis/get-data-source/): Modify an existing data source configuration.
-- [Delete Data Source API]({{site.url}}{{site.baseurl}}/api-reference/data-source-apis/data-data-source/): Remove a data source that is no longer needed.
+- [Update Data Source API]({{site.url}}{{site.baseurl}}/api-reference/data-source-apis/update-data-source/): Modify an existing data source configuration.
+- [Delete Data Source API]({{site.url}}{{site.baseurl}}/api-reference/data-source-apis/delete-data-source/): Remove a data source that is no longer needed.
 
 ## Security considerations
 
