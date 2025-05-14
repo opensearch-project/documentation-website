@@ -9,28 +9,57 @@ nav_order: 7
 **Introduced 1.0**
 {: .label .label-purple }
 
-Deletes a snapshot from a repository.
+The Delete Snapshot API permanently removes a snapshot from a repository. Deleting snapshots that are no longer needed helps free up storage space and keep your repository organized.
 
-Deleting a snapshot that is in progress stops the snapshot operation and deletes the partially created snapshot.
+* For more information about snapshots, see [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/).
+* To view a list of your repositories, see [Cat Repositories]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-repositories/).
+* To view a list of your snapshots, see [Cat Snapshots]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-snapshots/).
 
-* To learn more about snapshots, see [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index).
 
-* To view a list of your repositories, see [cat repositories]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-repositories).
 
-* To view a list of your snapshots, see [cat snapshots]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-snapshots).
-
-## Path and HTTP method
-
+## Endpoints
 ```json
-DELETE _snapshot/<repository>/<snapshot>
+DELETE /_snapshot/{repository}/{snapshot}
 ```
+<!-- spec_insert_end -->
 
+
+<!-- spec_insert_start
+api: snapshot.delete
+component: path_parameters
+-->
 ## Path parameters
 
-Parameter | Data type | Description
-:--- | :--- | :---
-repository | String | Repository that contains the snapshot. |
-snapshot | String | Snapshot to delete. |
+The following table lists the available path parameters.
+
+| Parameter | Required | Data type | Description |
+| :--- | :--- | :--- | :--- |
+| `repository` | **Required** | String | The name of the repository containing the snapshot to delete. |
+| `snapshot` | **Required** | String | A comma-separated list of snapshot names to delete from the repository. |
+
+<!-- spec_insert_end -->
+
+<!-- spec_insert_start
+api: snapshot.delete
+component: query_parameters
+include_deprecated: false
+-->
+## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `cluster_manager_timeout` | String | The amount of time to wait for a response from the cluster manager node. For more information about supported time units, see [Common parameters]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). |
+
+<!-- spec_insert_end -->
+
+<!-- spec_insert_start
+api: snapshot.delete
+component: request_body_parameters
+-->
+<!-- API snapshot.delete does NOT have a request_body_parameters component -->
+<!-- spec_insert_end -->
 
 ## Example request
 
@@ -51,5 +80,5 @@ Upon success, the response returns the following JSON object:
 }
 ```
 
-To verify that the snapshot was deleted, use the [Get snapshot]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot) API, passing the snapshot name as the `snapshot` path parameter.
+To verify that the snapshot was deleted, use the [Get Snapshot]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot/) API, passing the repository name and snapshot name as path parameters.
 {: .note}
