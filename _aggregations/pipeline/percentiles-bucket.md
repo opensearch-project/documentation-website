@@ -3,7 +3,6 @@ layout: default
 title: Percentiles bucket
 parent: Pipeline aggregations
 nav_order: 160
-redirect_from:
 ---
 
 # Percentiles bucket aggregations
