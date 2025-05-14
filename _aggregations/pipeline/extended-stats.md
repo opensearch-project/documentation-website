@@ -39,7 +39,7 @@ The `extended_stats_bucket` aggregation takes the following parameters.
 | `buckets_path`        | Required          | String          | The path of the aggregation buckets to be aggregated. See [Pipeline aggregations]({{site.url}}{{site.baseurl}}/aggregations/pipeline/index#buckets-path). |
 | `gap_policy`          | Optional          | String          | The policy to apply to missing data. Valid values are `skip`, `insert_zeros`, and `keep_values`. Default is `skip`. |
 | `format`              | Optional          | String          | A [DecimalFormat](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/text/DecimalFormat.html) formatting string. Returns the formatted output in the aggregation's `<stat>_as_string` property. |
-| `sigma`   | Optional          | Double (non-negative) | The number of standard deviations above and below the mean used to calculate the `std_deviation_bounds` interval. Default is `2`. See [Defining bounds]({{site.url}}{{site.baseurl}}/query-dsl/aggregations/metric/extended_stats#defining-bounds) in `extended_stats`. |
+| `sigma`   | Optional          | Double (non-negative) | The number of standard deviations above and below the mean used to calculate the `std_deviation_bounds` interval. Default is `2`. See [Defining bounds]({{site.url}}{{site.baseurl}}/aggregations/metric/extended_stats#defining-bounds) in `extended_stats`. |
 
 ## Example
 
