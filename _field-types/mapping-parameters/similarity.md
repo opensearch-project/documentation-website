@@ -12,14 +12,14 @@ has_toc: false
 
 The `similarity` mapping parameter lets you customize how relevance scores are calculated for a text field during search. It defines the scoring algorithm used to rank matching documents, which directly impacts how results are ordered in search responses.
 
-## Supported similarities
+## Supported similarity types
 
-- `BM25` (default): Uses a modern, probabilistic ranking model that balances term frequency, document length, and inverse document frequency
+- `BM25` (default): Uses a modern, probabilistic ranking model that balances term frequency, document length, and inverse document frequency.
 - `boolean`: Returns constant scores (`1` or `0`), useful when you care only about matching—not relevance.
 
 ## Setting a custom similarity on a field
 
-The following request creates an index named `products` with a `title` field that uses the `boolean` similarity, which gives all matches the same score:
+The following request creates an index named `products` with a `title` field that uses the `boolean` similarity, which assigns all matches the same score:
 
 ```json
 PUT /products
@@ -38,7 +38,7 @@ PUT /products
 
 ## Indexing a document
 
-Use the following command to index sample document:
+Use the following command to index a sample document:
 
 ```json
 PUT /products/_doc/1
@@ -50,7 +50,7 @@ PUT /products/_doc/1
 
 ## Querying and inspecting scoring impact
 
-Use the following command to search by the `title` field and examine the score returned:
+Use the following command to search by the `title` field:
 
 ```json
 POST /products/_search
@@ -64,7 +64,7 @@ POST /products/_search
 ```
 {% include copy-curl.html %}
 
-Expected result:
+You can examine the score returned in the `_score` field of the response:
 
 ```json
 {
