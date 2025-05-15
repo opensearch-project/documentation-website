@@ -3,6 +3,8 @@ layout: default
 title: Separate index and search workloads
 nav_order: 42
 has_children: false
+redirect_from: 
+   - /tuning-your-cluster/seperate-index-and-search-workloads/
 ---
 
 # Separate index and search workloads
