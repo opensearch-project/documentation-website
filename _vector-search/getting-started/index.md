@@ -88,6 +88,8 @@ PUT /hotels-index
 ```
 {% include copy-curl.html %}
 
+Vector queries usually have a `size` > 0, so by default they don't enter the request cache. If you're using OpenSearch 2.19 or later and your workload will be mostly vector queries, you may want to set the dynamic cluster setting `indices.requests.cache.maximum_cacheable_size` to a larger value like `256`. This allows any queries with `size` up to 256 to enter the request cache, improving performance. For more information, see [related page]({{site.url}}{{site.baseurl}}/search-plugins/caching/request-cache).
+
 ## Step 2: Add data to your index
 
 Next, add data to your index. Each document represents a hotel. The `location` field in each document contains a two-dimensional vector specifying the hotel's location:
