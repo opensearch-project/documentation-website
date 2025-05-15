@@ -1,16 +1,16 @@
 ---
 layout: default
-title: Snapshot management APIs
+title: Snapshot Management APIs
 has_children: true
-nav_order: 80
+nav_order: 81
 ---
 
-# Snapshot management APIs
+# Snapshot Management APIs
 
 **Introduced in 2.4**
 {: .label .label-purple }
 
-Snapshot management APIs let you automate the scheduling, creation, retention, and lifecycle of snapshots in OpenSearch. These APIs help safeguard data, reduce storage costs, and simplify administrative tasks by using policies instead of manual snapshot operations.
+Snapshot Management APIs let you automate the scheduling, creation, retention, and lifecycle of snapshots in OpenSearch. These APIs help safeguard data, reduce storage costs, and simplify administrative tasks by using policies instead of manual snapshot operations.
 
 ## What is snapshot management?
 
@@ -41,7 +41,7 @@ Use the following APIs to manage snapshot policies:
 
 ## Security considerations
 
-Because snapshot policies can automate access to stored data:
+Because snapshot policies can automate access to stored data, keep the following security recommendations in mind:
 
 - Use fine-grained permissions to control who can manage policies.
 - Restrict start or modification actions to trusted users or roles.
@@ -49,7 +49,7 @@ Because snapshot policies can automate access to stored data:
 
 ## Best practices
 
-To optimize your use of snapshot management:
+To optimize your use of snapshot management, remember the following best practices:
 
 * **Start small** – Test policies on non-production data before applying them in production environments.
 * **Align with SLAs** – Set snapshot frequency and retention to meet recovery and compliance requirements.
