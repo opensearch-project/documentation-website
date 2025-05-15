@@ -1,14 +1,15 @@
 title: OpenSearch Documentation
 description: >- # this means to ignore newlines until "baseurl:"
   Documentation for OpenSearch, the Apache 2.0 search, analytics, and visualization suite with advanced security, alerting, SQL support, automated index management, deep performance analysis, and more.
-baseurl: "/docs/latest" # the subpath of your site, e.g. /blog
-url: "https://opensearch.org" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "/docs/latest" # The subpath of the current version. This is version-specific. For example, for 2.19, the base URL is /docs/2.19.
+latesturl: "/docs/latest" # The subpath of the latest version. Used for non-version-specific documentation, like Data Prepper, etc.
+url: "https://docs.opensearch.org" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: /:path/
 
-opensearch_version: '2.19.1'
-opensearch_dashboards_version: '2.19.1'
-opensearch_major_minor_version: '2.19'
-lucene_version: '9_12_0'
+opensearch_version: '3.0.0'
+opensearch_dashboards_version: '3.0.0'
+opensearch_major_minor_version: '3.0'
+lucene_version: '10_1_0'
 
 # Build settings
 markdown: kramdown
@@ -38,9 +39,6 @@ collections:
     permalink: /:collection/:path/
     output: true
   dashboards:
-    permalink: /:collection/:path/
-    output: true
-  integrations:
     permalink: /:collection/:path/
     output: true
   tuning-your-cluster:
@@ -146,6 +144,9 @@ opensearch_collection:
     install-and-configure:
       name: Install and upgrade
       nav_fold: true
+    tuning-your-cluster:
+      name: Creating and tuning your cluster
+      nav_fold: true
     im-plugin:
       name: Managing Indexes
       nav_fold: true
@@ -154,12 +155,6 @@ opensearch_collection:
       nav_fold: true
     dashboards:
       name: OpenSearch Dashboards
-      nav_fold: true
-    integrations:
-      name: OpenSearch Integrations
-      nav_fold: true
-    tuning-your-cluster:
-      name: Creating and tuning your cluster
       nav_fold: true
     security:
       name: Security in OpenSearch
