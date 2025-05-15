@@ -100,7 +100,7 @@ The configuration for the snapshot creation schedule.
 | Property | Required | Data type | Description |
 | :--- | :--- | :--- | :--- |
 | `expression` | **Required** | String | The standard cron expression that defines when snapshots should be created, such as `0 0 * * *` for daily at midnight. |
-| `timezone` | **Required** | String | The timezone used for interpreting the cron expression such as `UTC`, `America/Los_Angeles`. |
+| `timezone` | **Required** | String | The time zone used for interpreting the cron expression such as `UTC`, `America/Los_Angeles`. |
 
 </details>
 
@@ -214,12 +214,12 @@ The core configuration for how snapshots should be created and managed.
 | :--- | :--- | :--- | :--- |
 | `repository` | **Required** | String | The name of the repository where snapshots will be stored. |
 | `date_format` | Optional | String | Format string for the date portion of snapshot names. Default is `yyyy-MM-dd'T'HH:mm:ss`. |
-| `ignore_unavailable` | Optional | Boolean | Whether to ignore unavailable indices during snapshot creation. Default is `false`. |
+| `ignore_unavailable` | Optional | Boolean | Whether to ignore unavailable indexes during snapshot creation. Default is `false`. |
 | `include_global_state` | Optional | Boolean | Whether to include cluster state in snapshots. Default is `true`. |
-| `indexes` | Optional | String | Pattern specifying which indices to include in snapshots. Default is `*` (all indexes). |
+| `indices` | Optional | String | Pattern specifying which indexes to include in snapshots. Default is `*` (all indexes). |
 | `metadata` | Optional | Object | Custom metadata to attach to snapshots. |
 | `partial` | Optional | Boolean | Whether to allow partial snapshots if some shards fail. Default is `false`. |
-| `timezone` | Optional | String | Timezone for date formatting in snapshot names. Default is `UTC`. |
+| `timezone` | Optional | String | Time zone for date formatting in snapshot names. Default is `UTC`. |
 
 </details>
 
@@ -467,7 +467,7 @@ The complete snapshot management policy configuration.
 | Property | Required | Data type | Description |
 | :--- | :--- | :--- | :--- |
 | `expression` | **Required** | String | The cron expression defining when snapshots will be created. |
-| `timezone` | **Required** | String | The timezone used for interpreting the cron expression. |
+| `timezone` | **Required** | String | The time zone used for interpreting the cron expression. |
 
 </details>
 

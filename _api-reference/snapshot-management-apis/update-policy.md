@@ -108,7 +108,7 @@ The configuration for the snapshot creation schedule.
 | Property   | Required     | Data type | Description   |
 | :--- | :---- | :-------- | :---- |
 | `expression` | **Required** | String    | The standard cron expression that defines when snapshots should be created, such as `0 0 * * *` for daily at midnight. |
-| `timezone`   | **Required** | String    | The timezone used for interpreting the cron expression such as `UTC`, `America/Los_Angeles`.   |
+| `timezone`   | **Required** | String    | The time zone used for interpreting the cron expression such as `UTC`, `America/Los_Angeles`.   |
 
 </details>
 
