@@ -2329,8 +2329,6 @@ POST _plugins/_alerting/destinations/email_groups/_search
 </details>
 
 ## Create comment
-This is an experimental feature and is not recommended for use in a production environment.   
-{: .warning}
 
 Add comments to a specific alert, providing additional context or notes related to that alert, using the following request.
 
@@ -2371,8 +2369,6 @@ POST _plugins/_alerting/comments/<alert-id>
 </details>
 
 ## Update comment
-This is an experimental feature and is not recommended for use in a production environment.   
-{: .warning}
 
 Modify the content of a previously added comment associated with an alert using the following request.
 
@@ -2414,8 +2410,6 @@ PUT _plugins/_alerting/comments/<comment-id>
 </details>
 
 ## Search comment
-This is an experimental feature and is not recommended for use in a production environment.   
-{: .warning}
 
 Query and retrieve existing comments associated with alerts using the following request.
 
@@ -2496,8 +2490,6 @@ GET _plugins/_alerting/comments/_search
 </details>
 
 ## Delete comment
-This is an experimental feature and is not recommended for use in a production environment.   
-{: .warning}
 
 Remove a specific comment associated with an alert using the following request.
 

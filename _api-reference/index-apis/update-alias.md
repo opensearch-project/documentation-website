@@ -2,7 +2,7 @@
 layout: default
 title: Create or update alias
 parent: Index APIs
-nav_order: 5
+nav_order: 6
 ---
 
 # Create or Update Alias
