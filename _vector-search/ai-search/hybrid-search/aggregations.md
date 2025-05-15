@@ -4,7 +4,7 @@ title: Combining hybrid search and aggregations
 parent: Hybrid search
 grand_parent: AI search
 has_children: false
-nav_order: 20
+nav_order: 50
 ---
 
 # Combining hybrid search and aggregations

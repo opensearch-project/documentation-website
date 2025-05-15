@@ -16,22 +16,41 @@ There are also tools available for migrating cluster configuration, templates, a
 
 ## Migration paths
 
-| **Source Version**          | **Target Version**               |
-|-----------------------------|----------------------------------|
-| Elasticsearch 5.6           | OpenSearch 1.3                   |
-| Elasticsearch 5.6           | OpenSearch 2.19                  |
-| Elasticsearch 6.8           | OpenSearch 1.3                   |
-| Elasticsearch 6.8           | OpenSearch 2.19                  |
-| Elasticsearch 7.10.2        | OpenSearch 1.3                   |
-| Elasticsearch 7.10.2        | OpenSearch 2.19                  |
-| Elasticsearch 7.17          | OpenSearch 1.3                   |
-| Elasticsearch 7.17          | OpenSearch 2.19                  |
-| OpenSearch 1.3              | OpenSearch 2.19                  |
+{% comment %}First, collect all unique target versions{% endcomment %}
+{% assign all_targets = "" | split: "" %}
+{% for path in site.data.migration-assistant.valid_migrations.migration_paths %}
+  {% for target in path.targets %}
+    {% assign all_targets = all_targets | push: target %}
+  {% endfor %}
+{% endfor %}
+{% assign unique_targets = all_targets | uniq | sort %}
 
- 
-{: .note}
+<table class="migration-matrix">
+  <thead>
+    <tr>
+      <th></th>
+      {% for target in unique_targets %}
+        <th>{{ target }}</th>
+      {% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for path in site.data.migration-assistant.valid_migrations.migration_paths %}
+      <tr>
+        <th>{{ path.source }}</th>
+        {% for target_version in unique_targets %}
+          <td>
+            {% if path.targets contains target_version %}✓{% endif %}
+          </td>
+        {% endfor %}
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
 
 ### Supported source and target platforms
+
+The following source and target platforms are supported:
 
 * Self-managed (hosted by cloud provider or on-premises)
 * AWS OpenSearch
