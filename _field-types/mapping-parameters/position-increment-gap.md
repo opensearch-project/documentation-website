@@ -45,7 +45,23 @@ PUT /articles/_doc/1
 ```
 {% include copy-curl.html %}
 
-Expected result:
+## Searching using 
+
+Use the following `match_phrase` query to search for "machine learning" in the `tags` field:
+
+```json
+GET /articles/_search
+{
+  "query": {
+    "match_phrase": {
+      "tags": "machine learning"
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The result demonstrates that the phrase match succeeds because the `position_increment_gap` is set to `0`, allowing tokens from separate values to be treated as adjacent.
 
 ```json
 {
