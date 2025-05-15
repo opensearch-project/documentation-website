@@ -10,13 +10,13 @@ has_toc: false
 
 # Index phrases
 
-The `index_phrases` mapping parameter determines whether a field’s text is additionally processed to generate phrase tokens. When enabled, the system creates extra tokens representing sequences of exactly two consecutive words (`bigrams`). This can significantly improve the performance and accuracy of phrase queries. However, it also increases the index size and the time needed to index documents.
+The `index_phrases` mapping parameter determines whether a field's text is additionally processed to generate phrase tokens. When enabled, the system creates extra tokens representing sequences of exactly two consecutive words (_bigrams_). This can significantly improve the performance and accuracy of phrase queries. However, it also increases the index size and the time needed to index documents.
 
 By default, `index_phrases` is set to `false`, to maintain a leaner index and faster document ingestion.
 
 ## Enabling index phrases on a field
 
-The following example creates an index named `blog` where the `content` field is configured with `index_phrases`:
+The following example creates an index named `blog` in which the `content` field is configured with `index_phrases`:
 
 ```json
 PUT /blog
@@ -33,7 +33,7 @@ PUT /blog
 ```
 {% include copy-curl.html %}
 
-Index a document using the following command:
+Index a document using the following request:
 
 ```json
 PUT /blog/_doc/1
@@ -89,8 +89,8 @@ The query returns the stored document:
 }
 ```
 
-Although the returned hit is possible without using `index_phrases` mapping parameter, using this parameter ensures that the query:
+Although the same hit is returned when you don't provide the `index_phrases` mapping parameter, using this parameter ensures that the query performs as follows:
 
 - Uses the `.index_phrases` field internally.
-- Matches pre-tokenized `bigrams` such as "slow green", "green turtle", "turtle swims".
+- Matches pre-tokenized bigrams such as "slow green", "green turtle", "turtle swims".
 - Bypasses position lookups and is faster, especially at scale.
