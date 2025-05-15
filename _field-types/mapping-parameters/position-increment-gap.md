@@ -10,7 +10,7 @@ has_toc: false
 
 # Position increment gap
 
-The `position_increment_gap` mapping parameter defines the positional distance between tokens of multi-valued fields during indexing. This affects how [`match_phrase`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-phrase/) and [`span queries`]({{site.url}}{{site.baseurl}}/query-dsl/span/index/) behave when searching across multiple values of the same field.
+The `position_increment_gap` mapping parameter defines the positional distance between tokens of multi-valued fields during indexing. This affects how [`match_phrase`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-phrase/) and [`span`]({{site.url}}{{site.baseurl}}/query-dsl/span/index/) queries behave when searching across multiple values of the same field.
 
 By default, each new value in a multi-valued field is treated as if it is separated from the previous one by a gap of `100` positions. This helps prevent false positives when searching for phrases that may span across different field values.
 
@@ -35,7 +35,7 @@ PUT /articles
 
 ## Indexing a multi-valued field
 
-Use the following request to index a document where `tags` field contains multiple values:
+Use the following request to index a document in which the `tags` field contains multiple values:
 
 ```json
 PUT /articles/_doc/1
@@ -73,4 +73,4 @@ Expected result:
 }
 ```
 
-If the `position_increment_gap` remained at `100`, no hits would be returned as tokens `machine` and `learning` would be considered to be 100 positions away from each other.
+If the `position_increment_gap` remained at `100`, no hits would be returned because tokens `machine` and `learning` would be considered to be 100 positions away from each other.
