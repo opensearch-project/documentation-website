@@ -11,12 +11,13 @@ nav_order: 10
 
 The Create Snapshot Policy API allows you to define automated snapshot management policies in OpenSearch. 
 
-Snapshot policies help automate your backups by scheduling regular snapshots and managing their lifecycle. Each policy can specify the following:
-- A schedule for creating snapshots using cron expressions.
-- Which indexes to include in the snapshots.
-- How long to retain snapshots.
-- When to delete old snapshots.
-- Notification settings for success and failure events.
+Snapshot policies automate backups by scheduling snapshots and managing their lifecycle. Each policy can include the following:
+
+- A cron-based schedule for snapshot creation.
+- Index patterns to include in each snapshot.
+- Retention rules based on age or count.
+- Deletion schedules for expired snapshots.
+- Notification settings for snapshot events.
 
 
 <!-- spec_insert_start
@@ -51,8 +52,8 @@ The request body is optional. It is a JSON object with the following fields:
 | Property | Required | Data type | Description | Default |
 | :--- | :--- | :--- | :--- | :--- |
 | `creation` | **Required** | Object | Defines when and how often snapshots should be created. | N/A |
-| `snapshot_config` | **Required** | Object | Specifies the snapshot settings, including repository, indices to back up, and other snapshot options. | N/A |
-| `deletion` | Optional | Object | Configures automatic cleanup of old snapshots based on age or count conditions. | N/A |
+| `snapshot_config` | **Required** | Object | Specifies the snapshot settings, including repository settings, indexes to back up, and other snapshot options. | N/A |
+| `deletion` | Optional | Object | Configures the automatic cleanup of old snapshots based on age or count conditions. | N/A |
 | `description` | Optional | String | A human-readable description of the snapshot policy's purpose. | N/A |
 | `enabled` | Optional | Boolean | Whether the policy should start executing upon creation. | `true` |
 | `notification` | Optional | Object | Configures when and how to send notifications about snapshot operations. | N/A |
@@ -132,7 +133,7 @@ The configuration for snapshot deletion rules and schedule.
 | Property | Data type | Description |
 | :--- | :--- | :--- |
 | `max_age` | String | The maximum age of snapshots to retain. Older snapshots will be deleted. |
-| `max_count` | Integer | The naximum number of snapshots to retain. When exceeded, older snapshots will be deleted. |
+| `max_count` | Integer | The maximum number of snapshots to retain. When exceeded, older snapshots will be deleted. |
 | `min_count` | Integer | The minimum number of snapshots to retain, regardless of age. |
 
 </details>
@@ -380,8 +381,8 @@ The complete snapshot management policy configuration.
 | `snapshot_config` | **Required** | Object | The core snapshot configuration settings. |
 | `deletion` | Optional | Object | The configuration for automatic snapshot deletion. |
 | `enabled` | Optional | Boolean | Whether the policy is currently active. |
-| `enabled_time` | Optional | Integer | Unix timestamp (in milliseconds) when the policy was last enabled. |
-| `last_updated_time` | Optional | Integer | Unix timestamp (in milliseconds) when the policy was last modified. |
+| `enabled_time` | Optional | Integer | The unix timestamp (in milliseconds) when the policy was last enabled. |
+| `last_updated_time` | Optional | Integer | The unix timestamp (in milliseconds) when the policy was last modified. |
 | `notification` | Optional | Object | The notification settings for the policy. |
 | `schedule` | Optional | Object | The system-generated schedule metadata for policy execution. |
 | `schema_version` | Optional | Integer | The version of the policy schema being used. |
@@ -572,7 +573,7 @@ The complete snapshot management policy configuration.
 
 | Property | Data type | Description |
 | :--- | :--- | :--- |
-| `interval` | Object | System-generated interval settings for policy execution. |
+| `interval` | Object | The system-generated interval settings for the policy execution. |
 
 </details>
 
@@ -587,7 +588,7 @@ The complete snapshot management policy configuration.
 | Property | Required | Data type | Description |
 | :--- | :--- | :--- | :--- |
 | `period` | **Required** | Integer | The number of time units between policy executions. |
-| `start_time` | **Required** | Integer | Unix timestamp (in milliseconds) when the interval schedule begins. |
+| `start_time` | **Required** | Integer | The unix timestamp (in milliseconds) when the interval schedule begins. |
 | `unit` | **Required** | String | The time unit for the interval period (Days, Hours, or Minutes). |
 
 </details>
