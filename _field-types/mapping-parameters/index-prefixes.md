@@ -10,16 +10,16 @@ has_toc: false
 
 # Index prefixes
 
-The `index_prefixes` mapping parameter instructs the engine to generate additional index entries for the beginning segments of terms in a text field. When enabled, it builds a prefix index based on configurable minimum and maximum character lengths. This can significantly improve the performance of prefix queries, such as autocomplete or search-as-you-type, by allowing these queries to quickly match the pre-indexed term prefixes.
+The `index_prefixes` mapping parameter instructs the engine to generate additional index entries for the beginning segments of terms in a text field. When enabled, it builds a prefix index based on configurable minimum and maximum character lengths. This can significantly improve the performance of [prefix queries]({{site.url}}{{site.baseurl}}/query-dsl/term/prefix/), such as [autocomplete]({{site.url}}{{site.baseurl}}/opensearch/search/autocomplete/) or [search as you type]({{site.url}}{{site.baseurl}}/opensearch/search/autocomplete/#search-as-you-type), by allowing these queries to quickly match the pre-indexed term prefixes.
 
 By default, prefix indexing is not performed, keeping the index size minimal and indexing operations fast. However, if your application benefits from rapid prefix matching, enabling this parameter can provide a marked improvement in query efficiency.
 
 ## Index prefixes configuration
 
-Following configuration can be passed to `index_prefixes` mapping parameter:
+You can pass the following configuration parameters to the `index_prefixes` mapping parameter:
 
-- `min_chars`: Minimum length of the prefix that needs to be indexed. Minimum is `0`. Default is `2`.
-- `max_chars`: Maximum length of the prefix that needs to be indexed. Maximum is `20`. Default is `5`.
+- `min_chars`: The minimum length of the prefix that needs to be indexed. Minimum is `0`. Default is `2`.
+- `max_chars`: The maximum length of the prefix that needs to be indexed. Maximum is `20`. Default is `5`.
 
 ## Enabling index prefixes on a field
 
@@ -43,7 +43,7 @@ PUT /products
 ```
 {% include copy-curl.html %}
 
-Index a document using the following command:
+Index a document using the following request:
 
 ```json
 PUT /products/_doc/1
@@ -53,7 +53,7 @@ PUT /products/_doc/1
 ```
 {% include copy-curl.html %}
 
-The following search request demonstrates a prefix query that looks for documents where the `name` field starts with `ul`:
+The following search request demonstrates a prefix query that searches for documents in which the `name` field starts with `ul`:
 
 ```json
 POST /products/_search
@@ -67,7 +67,7 @@ POST /products/_search
 ```
 {% include copy-curl.html %}
 
-Expected result:
+The response contains the matching document:
 
 ```json
 {
@@ -94,7 +94,7 @@ Expected result:
 
 ## Using default parameters with index prefixes
 
-The following command creates an index named `products_default` using `index_prefixes` with default parameters:
+The following request creates an index named `products_default` using `index_prefixes` with default parameters:
 
 ```json
 PUT /products_default
