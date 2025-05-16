@@ -9,11 +9,11 @@ redirect_from:
 
 # Parent aggregations
 
-The `parent` aggregation is a bucket aggregation that creates one bucket of parent documents based on parent-child relationships defined in your documents. This aggregation enables you to perform analytics operations across parent documents that have the same matching child documents, allowing for powerful hierarchical data analysis.
+The `parent` aggregation is a bucket aggregation that creates a single bucket containing parent documents, based on parent-child relationships defined in your index. This aggregation enables you to perform analytics on parent documents that have the same matching child documents, allowing for powerful hierarchical data analysis.
 
 The `parent` aggregation works with the [`join` field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/), which establishes parent-child relationships within documents in the same index.
 
-The `parent` aggregation provides inverse functionality to the [children aggregation]({{site.url}}{{site.baseurl}}/aggregations/bucket/children/). The children aggregation identifies child documents based on matching parent documents; the parent aggregation identifies parent documents based on matching child documents.
+The `parent` aggregation identifies parent documents that have matching child documents, whereas the [`children` aggregation]({{site.url}}{{site.baseurl}}/aggregations/bucket/children/) identifies child documents that have matching parent documents. Both aggregations take the child relation name as input, but they operate in opposite directions across the parent-child relationship.
 
 
 ## Parameters
@@ -28,9 +28,7 @@ The `parent` aggregation takes the following parameters:
 
 The following example builds a small company database with three employees. The employee records each have a child `join` relationship with a parent department record.
 
-### Example: mappings
-
-First, this `PUT` request creates a `company` index with a `join` field that maps departments (parents) to employees (children):
+First, create a `company` index with a `join` field that maps departments (parents) to employees (children):
 
 ```json
 PUT /company
@@ -61,15 +59,15 @@ PUT /company
 ```
 {% include copy-curl.html %}
 
-### Example: data
-
-Next, this bulk `POST` request populates the data with three departments and three employees. The parent-child assignments are:
+Next, populate the data with three departments and three employees. The parent-child assignments are presented in the following table.
 
 | Department (parent) | Employees (children) |
 | :-- | :-- |
 | `Accounting` | `Abel Anderson`, `Betty Billings` |
 | `Engineering` | `Carl Carter` |
 | `HR` | none |
+
+The `routing` parameter ensures that both parent and child documents are stored on the same shard, which is required for parent-child relationships to function correctly in OpenSearch:
 
 ```json
 POST _bulk?routing=1
@@ -88,10 +86,7 @@ POST _bulk?routing=1
 ```
 {% include copy-curl.html %}
 
-
-## Example: parent relationship
-
-The following example aggregates all the departments that have a parent relationship with one or more employees:
+Lastly, run an aggregation of all the departments that have a parent relationship with one or more employees:
 
 ```json
 GET /company/_search
@@ -114,8 +109,6 @@ GET /company/_search
 }
 ```
 {% include copy-curl.html %}
-
-## Example result: parent relationship
 
 The `all_departments` parent aggregation returns all the departments with employee children documents. Note that the HR department is not represented:
 
