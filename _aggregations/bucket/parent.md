@@ -9,7 +9,7 @@ redirect_from:
 
 # Parent aggregations
 
-The `parent` aggregation is a bucket aggregation that creates parent buckets based on parent-child relationships defined in your documents. This aggregation enables you to perform analytics operations across parent documents that have matching child documents, allowing for powerful hierarchical data analysis.
+The `parent` aggregation is a bucket aggregation that creates one bucket of parent documents based on parent-child relationships defined in your documents. This aggregation enables you to perform analytics operations across parent documents that have the same matching child documents, allowing for powerful hierarchical data analysis.
 
 The `parent` aggregation works with the [`join` field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/), which establishes parent-child relationships within documents in the same index.
 
@@ -23,7 +23,6 @@ The `parent` aggregation takes the following parameters:
 | Parameter             | Required/Optional | Data type       | Description |
 | :--                   | :--               |  :--            | :--         |
 | `type`                | Required          | String          | The name of the child type from the `join` field. |
-| `aggs`                | Optional          | Object          | Sub-aggregations to run on the parent documents. |
 
 ## Example
 

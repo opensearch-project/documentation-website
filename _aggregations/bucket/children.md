@@ -9,7 +9,7 @@ redirect_from:
 
 # Children
 
-The `children` aggregation is a bucket aggregation that creates child buckets based on parent-child relationships defined in your documents. 
+The `children` aggregation is a bucket aggregation that creates one bucket of child documents based on parent-child relationships defined in your documents. 
 
 The `children` aggregation works with the [join field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) to aggregate child documents that are associated with parent documents.
 
@@ -23,7 +23,6 @@ The `children` aggregation takes the following parameters:
 | Parameter             | Required/Optional | Data type       | Description |
 | :--                   | :--               | :--             | :--         |
 | `type`                | Required          | String          | The name of the child type from the join field. This identifies the parent-child relationship to use. |
-| `aggs`                | Optional          | Object          | Sub-aggregations to run on the child documents. |
 
 
 ## Example
