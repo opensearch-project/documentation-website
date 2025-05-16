@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Serial diff
+title: Serial differencing
 parent: Pipeline aggregations
 nav_order: 190
 redirect_from:
@@ -8,11 +8,13 @@ redirect_from:
   - /query-dsl/aggregations/pipeline/serial-diff/
 ---
 
-# Serial diff aggregations
+# Serial differencing aggregations
 
-The `serial_diff` aggregation is a parent pipeline aggregation that computes a sequence of differences between values from current and previous aggregations. 
+The `serial_diff` aggregation is a parent pipeline aggregation that calculates the difference between metric values in the current bucket and a previous bucket. It stores the result in the current bucket.
 
-Use the `serial_diff` aggregation to compute changes between time periods with a specified lag. The `lag` parameter (a positive integer value) specifies which previous bucket to subtract from the current one. The default `lag` value is `1`, meaning `serial_diff` subtracts the immediately previous bucket from the current bucket.
+Unlike sibling pipeline aggregations, which operate across all buckets and produce a single output, parent pipeline aggregations process each bucket individually and write the result back into each bucket.
+
+Use the `serial_diff` aggregation to compute changes between time periods with a specified lag. The `lag` parameter (a positive integer value) specifies which previous bucket value to subtract from the current one. The default `lag` value is `1`, meaning `serial_diff` subtracts the value in the immediately previous bucket from the value in the current bucket.
 
 ## Parameters
 
@@ -20,7 +22,7 @@ The `serial_diff` aggregation takes the following parameters:
 
 | Parameter             | Required/Optional | Data type       | Description |
 | :--                   | :--               |  :--            | :--         |
-| `buckets_path`        | Required          | String          | The path of the aggregation buckets to be aggregated. See [Pipeline aggregations]({{site.url}}{{site.baseurl}}/aggregations/pipeline/index#pipeline-aggregation-syntax). |
+| `buckets_path`        | Required          | String          | The path of the aggregation buckets to be aggregated. See [Pipeline aggregations]({{site.url}}{{site.baseurl}}/aggregations/pipeline/index#buckets-path). |
 | `gap_policy`          | Optional          | String          | The policy to apply to missing data. Valid values are `skip`, `insert_zeros`, and `keep_values`. Default is `skip`. |
 | `format`              | Optional          | String          | A [DecimalFormat](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/text/DecimalFormat.html) formatting string. Returns the formatted output in the aggregation's `value_as_string` property. |
 | `lag`                 | Optional          | Integer         | The historical bucket to subtract from the current bucket. Must be a positive integer. Default is `1`. |
@@ -58,9 +60,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
-## Example response
-
-The result shows the month-to-month difference for the second and third month. (The first month `serial_diff` cannot be calculated because because there's no previous month to compare with.)
+The response contains the month-to-month difference for the second and third month. (The first month `serial_diff` cannot be calculated because there's no previous month to compare with):
 
 ```json
 {
@@ -119,6 +119,12 @@ The result shows the month-to-month difference for the second and third month. (
 }
 ```
 
+The following line chart shows the results of the `serial_diff` aggregation. The x-axis represents time, and the y-axis shows the month-over-month change in total bytes transferred. Each data point on the line reflects the difference between the total bytes in that month and the previous month. For example, a value of 5,000,000 means the system transferred 5 million more bytes than the prior month; a negative value indicates a decrease. The first month is excluded from the line because there’s no earlier bucket to compare against (the difference is undefined). The line starts with the second month and continues across all available data. 
+
+![Example serial difference aggregation visualization]({{site.url}}{{site.baseurl}}/images/serial-diff-agg-result.png)
+
+This visualization helps you quickly spot spikes, drops, or trends in data volume over time.
+
 ## Example: Multi-period differences
 
 Use a larger `lag` value to compare with buckets further back in time. The following example computes differences on weekly byte data with a lag of 4 (comparing each bucket with the bucket 4 weeks back). This has the effect of removing any variation with a period of four weeks:
@@ -152,9 +158,12 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
-## Example response: Multi-period differences
+The response contains a list of weekly buckets. Note that the `serial_diff` aggregation does not begin until the fifth bucket, when a bucket with a `lag` of `4` becomes available:
 
 <details open markdown="block">
+<summary>
+  Response
+</summary>
 
 ```json
 {
@@ -281,5 +290,3 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 </details>
-
-Note that the `serial_diff` aggregation does not begin until the fifth bucket, when a bucket with a `lag` of `4` becomes available.
