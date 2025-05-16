@@ -90,8 +90,6 @@ You can read or write to metadata fields such as the following:
 }
 ```
 
-Using `{% raw %}{{_id}}{% endraw %}` is not supported when document IDs are auto-generated.
-{: .note}
 
 ## Accessing ingest metadata fields
 
