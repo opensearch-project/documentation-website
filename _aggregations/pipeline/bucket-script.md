@@ -18,14 +18,14 @@ The `bucket_script` aggregation is a parent pipeline aggregation that executes a
 
 ## Parameters
 
-The `bucket_script` aggregation takes the following parameters:
+The `bucket_script` aggregation takes the following parameters.
 
 | Parameter             | Required/Optional | Data type       | Description |
 | :--                   | :--               |  :--            | :--         |
 | `buckets_path`        | Required          | Object          | A map of variable names to bucketed metrics that identify the metrics to be used in the script. The metrics must be numeric. See [Script variables](#script-variables). |
-| `script`              | Required          | String or Object | The script to execute. Can be an in-line script, stored script, or script file. The script has access to the variable names defined in the `buckets_path` parameter. Must return a numeric value. |
+| `script`              | Required          | String or Object | The script to execute. Can be an inline script, stored script, or script file. The script has access to the variable names defined in the `buckets_path` parameter. Must return a numeric value. |
 | `gap_policy`          | Optional          | String          | The policy to apply to missing data. Valid values are `skip`, `insert_zeros`, and `keep_values`. Default is `skip`. |
-| `format`              | Optional          | String          | A [DecimalFormat](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/text/DecimalFormat.html) formatting string. Returns the formatted output in the aggregation's `value_as_string` property. |
+| `format`              | Optional          | String          | A [DecimalFormat](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/text/DecimalFormat.html) formatting string. Returns the formatted output in the aggregation's `value_as_string` parameter. |
 
 ## Script variables
 
@@ -43,9 +43,9 @@ The mapped variables can be accessed from the `params` context. For example:
 - `params.total_sales`
 - `params.item_count` 
 
-## Enabling in-line scripting
+## Enabling inline scripting
 
-Use the script parameter to add your script. The script can be inline, in a file, or in an index. To enable in-line scripting, your `opensearch.yml` file in the `config` folder must contain the following:
+Use the `script` parameter to add your script. The script can be inline, in a file, or in an index. To enable inline scripting, your `opensearch.yml` file in the `config` folder must contain the following:
 
 ```yml
 script.inline: on
@@ -53,7 +53,7 @@ script.inline: on
 
 ## Example
 
-The following example creates a date histogram with a one-month interval from the OpenSearch Dashboards e-commerce sample data. The `total_sales` sub-aggregation sums the taxed price of all items sold for each month. The vendor_count aggregation counts the total number of unique vendors for the month. Finally, the `avg_vendor_spend` aggregation uses an in-line script to calculate the average amount spent per vendor each month:
+The following example creates a date histogram with a one-month interval from the OpenSearch Dashboards e-commerce sample data. The `total_sales` subaggregation sums the taxed price of all items sold for each month. The `vendor_count` aggregation counts the total number of unique vendors for the month. Finally, the `avg_vendor_spend` aggregation uses an inline script to calculate the average amount spent per vendor each month:
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
