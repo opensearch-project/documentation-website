@@ -67,7 +67,7 @@ PUT /_search/pipeline/<rrf-pipeline>
 }
 ```
 
-Apply custom `weights` for each subquery that will be used during combing the search results using rrf technique. The default value of `weights` for each subquery is equal i.e 1.
+Apply custom `weights` for each subquery that will be used during combing the search results using rrf technique. The default value of `weights` for each subquery is equal i.e 1. In the following example, weight for subquery 1 is set to 0.7 and subquery 2 is set to 0.3 respectively.
 
 ```json
 PUT /_search/pipeline/<rrf-pipeline>
