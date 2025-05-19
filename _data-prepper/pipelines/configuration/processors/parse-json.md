@@ -88,5 +88,3 @@ Using the same JSON message as the previous example, only the value at the point
   "inner_key": "inner_value"
 }
 ```
-
-
