@@ -110,15 +110,15 @@ The following table shows the settings required for each model.
 | `sum`               | None               |                 |         |             |
 | `unweightedAvg`     | None               |                 |         |             |
 | `linearWeightedAvg` | None               |                 |         |             |
-| `ewma`              | `alpha`            | [0, 1] | 0.3     | Decay parameter |
-| `holt`              | `alpha`            | [0, 1] | 0.3     | Decay parameter |
-| `holt`              | `beta`             | [0, 1] | 0.1     | Trend decay parameter |
-| `holt_winters`      | `alpha`            | [0, 1] | 0.3     | Decay parameter |
-| `holt_winters`      | `beta`             | [0, 1] | 0.3     | Trend decay parameter |
-| `holt_winters`      | `gamma`            | [0, 1] | 0.3     | Periodic decay parameter |
-| `holt_winters`      | `type`             | `add`, `mult`   | `add`   | How seasonality is incorporated |
-| `holt_winters`      | `period`           | Integer         | 1       | Number of buckets that comprise the period |
-| `holt_winters`      | `pad`              | Boolean         | true    | Whether to add a small offset to `0` values for `mult` type models to avoid a divide-by-zero error |
+| `ewma`              | `alpha`            | [0, 1] | 0.3     | The decay parameter. |
+| `holt`              | `alpha`            | [0, 1] | 0.3     | The decay parameter. |
+| `holt`              | `beta`             | [0, 1] | 0.1     | The trend decay parameter. |
+| `holt_winters`      | `alpha`            | [0, 1] | 0.3     | The decay parameter. |
+| `holt_winters`      | `beta`             | [0, 1] | 0.3     | The trend decay parameter. |
+| `holt_winters`      | `gamma`            | [0, 1] | 0.3     | The periodic decay parameter. |
+| `holt_winters`      | `type`             | `add`, `mult`   | `add`   | How seasonality is incorporated. |
+| `holt_winters`      | `period`           | Integer         | 1       | The number of buckets that comprise the period. |
+| `holt_winters`      | `pad`              | Boolean         | true    | Whether to add a small offset to `0` values for `mult` type models to avoid a divide-by-zero error. |
 | `stdDev`            | `avg`              | Any Double      | None    | Any Double value, but to compute a meaningful standard deviation use the mean of the sliding window array. Normally, `MovingFunctions.unweightedAvg(values)`. |
 
 The predefined functions do not support function signatures with missing parameters. You therefore must supply the extra parameters, even if using the default values.
