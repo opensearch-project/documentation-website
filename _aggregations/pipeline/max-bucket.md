@@ -3,9 +3,6 @@ layout: default
 title: Maximum bucket
 parent: Pipeline aggregations
 nav_order: 100
-redirect_from:
-  - /query-dsl/aggregations/pipeline-agg#avg_bucket-sum_bucket-min_bucket-max_bucket/
-  - /query-dsl/aggregations/pipeline/max-bucket/
 ---
 
 # Maximum bucket aggregations
@@ -20,13 +17,13 @@ The `max_bucket` aggregation takes the following parameters.
 
 | Parameter             | Required/Optional | Data type       | Description |
 | :--                   | :--               |  :--            | :--         |
-| `buckets_path`        | Required          | String          | The path of the aggregation buckets to be aggregated. See [Pipeline aggregations]({{site.url}}{{site.baseurl}}/aggregations/pipeline/index#pipeline-aggregation-syntax). |
-| `gap_policy`          | Optional          | String          | The policy to apply to missing data. Valid values are `skip`, `insert_zeros`, and `keep_values`. Default is `skip`. |
+| `buckets_path`        | Required          | String          | The path of the aggregation buckets to be aggregated. See [Buckets path]({{site.url}}{{site.baseurl}}/aggregations/pipeline/index#buckets-path). |
+| `gap_policy`          | Optional          | String          | The policy to apply to missing data. Valid values are `skip` and `insert_zeros`. Default is `skip`. For more information, see [Data gaps]({{site.url}}{{site.baseurl}}/aggregations/pipeline/index#data-gaps)|
 | `format`              | Optional          | String          | A [DecimalFormat](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/text/DecimalFormat.html) formatting string. Returns the formatted output in the aggregation's `value_as_string` property. |
 
 ## Example
 
-The following example creates a date histogram with a one-month interval from the OpenSearch Dashboards e-commerce sample data. The `sum` sub-aggregation calculates the sum of all bytes for each month. Finally, the `max_bucket` aggregation finds the maximum---the largest of these buckets:
+The following example creates a date histogram with a one-month interval from the OpenSearch Dashboards e-commerce sample data. The `sum` subaggregation calculates the sum of bytes for each month. Finally, the `max_bucket` aggregation finds the maximum---the largest of these buckets:
 
 ```json
 POST opensearch_dashboards_sample_data_logs/_search
@@ -58,7 +55,7 @@ POST opensearch_dashboards_sample_data_logs/_search
 
 ## Example response
 
-The aggregation returns the maximum number of bytes from the monthly buckets:
+The `max_bucket` aggregation returns the maximum value from a specified metric across multiple buckets. In this example, it calculates the maximum number of bytes per month from the `sum_of_bytes` metric inside `visits_per_month`. The `value` field shows the maximum value found across all buckets. The `keys` array contains the bucket keys where this maximum value was observed. It's an array because more than one bucket can have the same maximum value. In such cases, all matching bucket keys are included. This ensures the result is accurate even if multiple time periods (or terms) tied for the maximum:
 
 ```json
 {

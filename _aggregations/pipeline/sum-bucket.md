@@ -3,9 +3,6 @@ layout: default
 title: Sum bucket
 parent: Pipeline aggregations
 nav_order: 190
-redirect_from:
-  - /query-dsl/aggregations/pipeline-agg#avg_bucket-sum_bucket-min_bucket-max_bucket/
-  - /query-dsl/aggregations/pipeline/sum-bucket/
 ---
 
 # Sum bucket aggregations
@@ -20,13 +17,13 @@ The `sum_bucket` aggregation takes the following parameters.
 
 | Parameter             | Required/Optional | Data type       | Description |
 | :--                   | :--               |  :--            | :--         |
-| `buckets_path`        | Required          | String          | The path of the aggregation buckets to be aggregated. See [Pipeline aggregations]({{site.url}}{{site.baseurl}}/aggregations/pipeline/index#pipeline-aggregation-syntax). |
-| `gap_policy`          | Optional          | String          | The policy to apply to missing data. Valid values are `skip`, `insert_zeros`, and `keep_values`. Default is `skip`. |
+| `buckets_path`        | Required          | String          | The path of the aggregation buckets to be aggregated. See [Buckets path]({{site.url}}{{site.baseurl}}/aggregations/pipeline/index#buckets-path). |
+| `gap_policy`          | Optional          | String          | The policy to apply to missing data. Valid values are `skip` and `insert_zeros`. Default is `skip`. For more information, see [Data gaps]({{site.url}}{{site.baseurl}}/aggregations/pipeline/index#data-gaps)|
 | `format`              | Optional          | String          | A [DecimalFormat](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/text/DecimalFormat.html) formatting string. Returns the formatted output in the aggregation's `value_as_string` property. |
 
 ## Example
 
-The following example creates a date histogram with a one-month interval from the OpenSearch Dashboards e-commerce sample data. The `sum` sub-aggregation calculates the sum of all bytes for each month. Finally, the `sum_bucket` aggregation calculates the total number of bytes per month by adding up these sums:
+The following example creates a date histogram with a one-month interval from the OpenSearch Dashboards e-commerce sample data. The `sum` subaggregation calculates the sum of bytes for each month. Finally, the `sum_bucket` aggregation calculates the total number of bytes per month by adding up these sums:
 
 ```json
 POST opensearch_dashboards_sample_data_logs/_search
