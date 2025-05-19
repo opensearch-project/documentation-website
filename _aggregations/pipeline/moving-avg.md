@@ -14,7 +14,7 @@ A `moving_avg` aggregation is a parent pipeline aggregation that calculates a se
 
 To create a `moving_avg` aggregation you first create a `histogram` or `date_histogram` aggregation. Optionally, you then embed a metric aggregation in the histogram aggregation. Finally, embed the `moving_avg` aggreation in the histogram and set the `buckets_path` parameter to the embedded metric that you want to track. 
 
-A window’s size is the number of sequential data values in the window. On each iteration, the algorithm calculates the average for all data points in the window and then slides forward one data value, excluding the first value of the previous window and including the first value of the next window.
+A window's size is the number of sequential data values in the window. On each iteration, the algorithm calculates the average for all data points in the window and then slides forward one data value, excluding the first value of the previous window and including the first value of the next window.
 
 For example, given the data `[1, 5, 8, 23, 34, 28, 7, 23, 20, 19]`, a moving average with a window size of 5 is as follows:
 
@@ -26,7 +26,7 @@ and so on ...
 ```
 
 The `moving_avg` aggregation is typically applied to time-series data to smooth out noise or short-term fluctuations and to identify trends.
-Specify a small window size to smooth out small-scale fluctuations. Specify a larger window size  to smooth out high-frequency fluctuations or random noise, making lower frequency trends more visible.
+Specify a small window size to smooth out small-scale fluctuations. Specify a larger window size to smooth out high-frequency fluctuations or random noise, making lower frequency trends more visible.
 
 For more information about moving averages, see [Wikipedia](https://en.wikipedia.org/wiki/Moving_average).
 
@@ -36,7 +36,7 @@ The `moving_avg` aggregation takes the following parameters.
 
 | Parameter             | Required/Optional | Data type       | Description |
 | :--                   | :--               |  :--            | :--         |
-| `buckets_path`        | Required          | String          | The path of the buckets to be aggregated. See [Pipeline aggregations]({{site.url}}{{site.baseurl}}/aggregations/pipeline/index#pipeline-aggregation-syntax). |
+| `buckets_path`        | Required          | String          | The path of the buckets to be aggregated. See [Pipeline aggregations]({{site.url}}{{site.baseurl}}/aggregations/pipeline/index#buckets-path). |
 | `gap_policy`          | Optional          | String          | The policy to apply to missing data. Valid values are `skip`, `insert_zeros`, and `keep_values`. Default is `skip`. |
 | `format`              | Optional          | String          | A [DecimalFormat](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/text/DecimalFormat.html) formatting string. Returns the formatted output in the aggregation's `value_as_string` property. |
 | `window`              | Optional          | Numerical       | The number of data points contained in the window. Default is `5`. |
@@ -75,9 +75,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
-## Example response
-
-The aggregation returns the `moving_avg` value starting from the second bucket. The first bucket does not have a moving average value because there aren't enough previous data points to calculate it.
+The aggregation returns the `moving_avg` value starting from the second bucket. The first bucket does not have a moving average value because there aren't enough previous data points to calculate it:
 
 ```json
 {
@@ -137,7 +135,7 @@ The aggregation returns the `moving_avg` value starting from the second bucket. 
 ```
 
 
-## Example: prediction
+## Example: Prediction
 
 You can use the `moving_avg` aggregation to predict future buckets.
 
@@ -172,12 +170,12 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
-
-## Example response: prediction
-
 The response includes the five predictions. Note that the `doc_count` for the predicted buckets is `0`:
 
 <details open markdown="block">
+  <summary>
+    Response
+  </summary>
 
 ```json
 {
@@ -358,7 +356,7 @@ The response includes the five predictions. Note that the `doc_count` for the pr
 
 The `moving_avg` aggregation supports five models that differ in how they weight values in the moving window. 
 
-Use the `model` parameter to specify which model to use:
+Use the `model` parameter to specify which model to use.
 
 | Model | Model keyword | Weighting   |
 |-------|---------------|-------------|
@@ -374,15 +372,15 @@ Use the `settings` object to set the model's properties. The following table sho
 | :--              | :--         | :--             | :--     | :--         |
 | `simple`         | None        |                 |         |             |
 | `linear`         | None        |                 |         |             |
-| `ewma`           | `alpha`     | 0 - 1 inclusive | 0.3     | Decay parameter |
-| `holt`           | `alpha`     | 0 - 1 inclusive | 0.3     | Decay parameter |
-| `holt`           | `beta`      | 0 - 1 inclusive | 0.1     | Trend decay parameter |
-| `holt_winters`   | `alpha`     | 0 - 1 inclusive | 0.3     | Decay parameter |
-| `holt_winters`   | `beta`      | 0 - 1 inclusive | 0.3     | Trend decay parameter |
-| `holt_winters`   | `gamma`     | 0 - 1 inclusive | 0.3     | Periodic decay parameter |
-| `holt_winters`   | `type`      | `add`, `mult`   | `add`   | How seasonality is incorporated |
-| `holt_winters`   | `period`    | Integer         | 1       | Number of buckets that comprise the period |
-| `holt_winters`   | `pad`       | Boolean         | true    | Whether to add a small offset to `0` values for `mult` type models to avoid a divide-by-zero error |
+| `ewma`           | `alpha`     | [0, 1] | 0.3     | The decay parameter. |
+| `holt`           | `alpha`     | [0, 1] | 0.3     | The decay parameter. |
+| `holt`           | `beta`      | [0, 1] | 0.1     | The trend decay parameter. |
+| `holt_winters`   | `alpha`     | [0, 1] | 0.3     | The decay parameter. |
+| `holt_winters`   | `beta`      | [0, 1] | 0.3     | The trend decay parameter. |
+| `holt_winters`   | `gamma`     | [0, 1] | 0.3     | The periodic decay parameter. |
+| `holt_winters`   | `type`      | `add`, `mult`   | `add`   | How seasonality is incorporated. |
+| `holt_winters`   | `period`    | Integer         | 1       | The number of buckets that comprise the period. |
+| `holt_winters`   | `pad`       | Boolean         | true    | Whether to add a small offset to `0` values for `mult` type models to avoid a divide-by-zero error. |
 
 
 For a discussion of these models and their parameters, see [Wikipedia](https://en.wikipedia.org/wiki/Moving_average). 
@@ -425,12 +423,12 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
-
-### Example response: exponential model
-
 The moving average begins with the second bucket:
 
 <details open markdown="block">
+  <summary>
+    Response
+  </summary>
 
 ```json
 {
