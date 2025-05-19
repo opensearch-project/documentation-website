@@ -4,7 +4,7 @@ title: AI search workflows
 parent: Generative AI
 has_children: true
 has_toc: false
-nav_order: 30
+nav_order: 40
 redirect_from:
   - /tutorials/ai-search-flows/
   - /tutorials/gen-ai/ai-search-flows/
