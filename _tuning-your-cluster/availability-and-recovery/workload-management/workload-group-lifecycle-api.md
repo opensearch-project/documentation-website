@@ -21,7 +21,7 @@ component: endpoints
 omit_header: true
 -->
 ```json
-PUT /_wlm/workload_group
+PUT /_wlm/query_group
 ```
 <!-- spec_insert_end -->
 
@@ -33,7 +33,7 @@ component: endpoints
 omit_header: true
 -->
 ```json
-PUT /_wlm/workload_group
+PUT /_wlm/query_group
 ```
 <!-- spec_insert_end -->
 
@@ -45,8 +45,8 @@ component: endpoints
 omit_header: true
 -->
 ```json
-GET /_wlm/workload_group
-GET /_wlm/workload_group/{name}
+GET /_wlm/query_group
+GET /_wlm/query_group/{name}
 ```
 <!-- spec_insert_end -->
 
@@ -58,7 +58,7 @@ component: endpoints
 omit_header: true
 -->
 ```json
-PUT /_wlm/workload_group
+PUT /_wlm/query_group
 ```
 <!-- spec_insert_end -->
 
