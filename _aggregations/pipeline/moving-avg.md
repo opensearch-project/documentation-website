@@ -3,12 +3,12 @@ layout: default
 title: Moving average
 parent: Pipeline aggregations
 nav_order: 120
-redirect_from:
-  - /query-dsl/aggregations/pipeline-agg#moving_avg/
-  - /query-dsl/aggregations/pipeline/moving-avg/
 ---
 
 ## Moving average aggregations
+
+The `moving_avg` aggregation has been deprecated in favor of the `moving_fn` aggregation.
+{: .important}
 
 A `moving_avg` aggregation is a parent pipeline aggregation that calculates a sequence of averages of a metric contained in windows (adjacent subsets) of an ordered dataset. 
 
