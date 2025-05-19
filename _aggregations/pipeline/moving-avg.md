@@ -42,7 +42,7 @@ The `moving_avg` aggregation takes the following parameters.
 | `window`              | Optional          | Numerical       | The number of data points contained in the window. Default is `5`. |
 | `model`               | Optional          | String          | The weighted moving average model to use. Options are `ewma`, `holt`, `holt_winters`, `linear`, and `simple`. Default is `simple`. See [Models](#models). |
 | `settings`            | Optional          | Object          | Parameters for adjusting the window. See [Models](#models). |
-| `predict`             | Optional          | Numeical        | The number of predicted values to append to the end of the result. Default is `0`. |
+| `predict`             | Optional          | Numerical        | The number of predicted values to append to the end of the result. Default is `0`. |
 
 
 ## Example
