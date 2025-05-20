@@ -28,4 +28,4 @@ OpenSearch supports the following specialized queries:
 
 - [`script_score`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/script-score/): Calculates a custom score for matching documents using a script.
 
-- `wrapper`: Accepts other queries as JSON or YAML strings.
+- [`wrapper`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/wrapper/): Accepts other queries as JSON or YAML strings.
