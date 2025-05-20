@@ -9,7 +9,7 @@ nav_order: 130
 
 The `moving_fn` aggregation is a parent pipeline aggregation that executes a script over a sliding window. The sliding window moves over a sequence of values extracted from a parent `histogram` or `date histogram` aggregation. The window shifts left to right one bucket at a time; `moving_fn` runs the script each time the window shifts. 
 
-Use the `moving_fn` aggregation to script any numeric calculation you want on data within the sliding window. You can use `moving_fn` for the following purposes:
+Use the `moving_fn` aggregation to script any numeric calculation on data within the sliding window. You can use `moving_fn` for the following purposes:
 
 - Trend analysis
 - Outlier detection
@@ -29,7 +29,7 @@ The `moving_fn` aggregation takes the following parameters.
 | `window`              | Required          | Integer         | The number of buckets in the sliding window. Must be a positive integer. |
 | `gap_policy`          | Optional          | String          | The policy to apply to missing data. Valid values are `skip`, `insert_zeros`, and `keep_values`. Default is `skip`. |
 | `format`              | Optional          | String          | A [DecimalFormat](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/text/DecimalFormat.html) formatting string. Returns the formatted output in the aggregation's `value_as_string` property. |
-| `shift`               | Optional          | Integer         | The number of buckets to shift the window. Can be positive (shift right toward future buckles) or negative (toward past buckets). Default is `0`, which places the window immediately to the left of the current bucket. See [Shifting the window](#shifting-the-window). |
+| `shift`               | Optional          | Integer         | The number of buckets by which to shift the window. Can be positive (shift right toward future buckets) or negative (toward past buckets). Default is `0`, which places the window immediately to the left of the current bucket. See [Shifting the window](#shifting-the-window). |
 
 
 ## How moving function works
@@ -42,7 +42,7 @@ The `moving_fn` aggregation operates on a sliding window over an ordered sequenc
 4. Returns this value as the result for the current bucket.
 5. Moves forward one bucket and repeats this process.
 
-"Past" and "future" values imply time-series data, the most common use case for moving window functions. More generally, you can take them to refer to previous and upcoming values, respectively, in any ordered data sequence.
+"Past" and "future" values imply time-series data, the most common use case for moving window functions. More generally, they refer to previous and upcoming values, respectively, in any ordered data sequence.
 {: .note}
 
 The script applied by `moving_fn` can be a [predefined function](#predefined-functions) or a [custom script](#custom-scripts). Bucket values are provided to the script in the `values` array. The script returns a double value as the result. The result values `NaN` and `+/- Inf` are allowed, but `null` is not.
@@ -50,14 +50,14 @@ The script applied by `moving_fn` can be a [predefined function](#predefined-fun
 
 ### Window size
 
-The `window` parmeter specifies the number of buckets defining the size of the window.
+The `window` parameter specifies the number of buckets that define the size of the window.
 
 The array passed to the `script` function is zero-indexed. Its values are accessed within the script as `values[0]` to `values[n]`, where `n = values.length - 1`.
 
 
 ### Shifting the window
 
-The `shift` parameter controls where the moving window lies relative to the current bucket. Set `shift` based on whether your analysis requires historical context, current data, or future prediction. The default is `0`, which shows only past values (excluding the current bucket). 
+The `shift` parameter controls where the moving window is located relative to the current bucket. Set `shift` based on whether your analysis requires historical context, current data, or future prediction. The default is `0`, which shows only past values (excluding the current bucket). 
 
 Some commonly used values of `shift` are as follows:
 
@@ -83,7 +83,7 @@ When a window extends beyond available data at the beginning or end of a sequenc
 
 ## Predefined functions
 
-The `moving_fn` aggregation supports a number of predefined functions that can be used instead of a custom script. The functions are accessible from the `MovingFunctions` context. For example, access the `max` function as `MovingFunctions.max(values)`. 
+The `moving_fn` aggregation supports a number of predefined functions that can be used instead of a custom script. The functions are accessible from the `MovingFunctions` context. For example, you can access the `max` function as `MovingFunctions.max(values)`. 
 
 The following table describes the predefined functions.
 
@@ -117,9 +117,9 @@ The following table shows the settings required for each model.
 | `holt_winters`      | `beta`             | [0, 1] | 0.3     | The trend decay parameter. |
 | `holt_winters`      | `gamma`            | [0, 1] | 0.3     | The periodic decay parameter. |
 | `holt_winters`      | `type`             | `add`, `mult`   | `add`   | How seasonality is incorporated. |
-| `holt_winters`      | `period`           | Integer         | 1       | The number of buckets that comprise the period. |
+| `holt_winters`      | `period`           | Integer         | 1       | The number of buckets comprising the period. |
 | `holt_winters`      | `pad`              | Boolean         | true    | Whether to add a small offset to `0` values for `mult` type models to avoid a divide-by-zero error. |
-| `stdDev`            | `avg`              | Any Double      | None    | Any Double value, but to compute a meaningful standard deviation use the mean of the sliding window array. Normally, `MovingFunctions.unweightedAvg(values)`. |
+| `stdDev`            | `avg`              | Any double      | None    | Any double value, but to compute a meaningful standard deviation, use the mean of the sliding window array. Normally, `MovingFunctions.unweightedAvg(values)`. |
 
 The predefined functions do not support function signatures with missing parameters. You therefore must supply the extra parameters, even if using the default values.
 {: .important}  
@@ -309,7 +309,7 @@ You can supply an arbitrary custom script to calculate `moving_fn` results. Cust
 
 ### Example: Custom scripts
 
-The following example creates a date histogram with a one-week interval from the OpenSearch Dashboards e-commerce sample data. The `sum` sub-aggregation calculates the sum of all taxed revenue for each week. The `moving_fn` script then returns the greater of the two values previous to the current value, or NaN if two values are not available:
+The following example creates a date histogram with a one-week interval from the OpenSearch Dashboards e-commerce sample data. The `sum` sub-aggregation calculates the sum of all taxed revenue for each week. The `moving_fn` script then returns the greater of the two values previous to the current value or `NaN` if two values are not available:
 
 ```json
 POST /opensearch_dashboards_sample_data_ecommerce/_search
@@ -432,7 +432,7 @@ The example returns the results of the calculation starting in bucket three, whe
 
 ## Example: Moving average
 
-The `moving_fn` aggregation replaces the deprecated `moving_avg` aggregation. The `moving_fn` aggregation is similar to the `moving_avg` aggregation but is more versatile since it computes arbitrary functions, not only averages. All of the predefined `moving_avg` functions are implemented in `moving_fn` as well. 
+The `moving_fn` aggregation replaces the deprecated `moving_avg` aggregation. The `moving_fn` aggregation is similar to the `moving_avg` aggregation but is more versatile since it computes arbitrary functions instead of only averages. All of the predefined `moving_avg` functions are implemented in `moving_fn` as well. 
 
 The `holt` model is a moving average that uses exponentially decaying weights controlled by the `alpha` and `beta` parameters. The following example creates a date histogram with a one-week interval from the OpenSearch Dashboards logs sample data. The `sum` sub-aggregation calculates the sum of all bytes for each week. Finally, the `moving_fn` aggregation calculates a weighted average of the byte sum using a Holt model with a `window` size of `6`, the default `shift` of `0`, an `alpha` value of `0.3`, and a `beta` value of `0.1`:
 
