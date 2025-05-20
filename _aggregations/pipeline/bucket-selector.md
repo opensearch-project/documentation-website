@@ -20,14 +20,14 @@ The `bucket_selector` aggregation takes the following parameters.
 
 | Parameter             | Required/Optional | Data type       | Description |
 | :--                   | :--               |  :--            | :--         |
-| `buckets_path`        | Required          | Object          | A map of variable names to bucketed metrics that identify the metrics to be used in the script. The metrics must be numeric. See [Script variables]({{site.url}}{{site.baseurl}}/aggregations/pipeline/bucket-script#script-variables) as described in the `bucket_script` aggregation. |
+| `buckets_path`        | Required          | Object          | A map of variable names to bucketed metrics that identify the metrics to be used in the script. The metrics must be numeric. See [Script variables]({{site.url}}{{site.baseurl}}/aggregations/pipeline/bucket-script#script-variables). |
 | `script`              | Required          | String or Object | The script to execute. Can be an inline script, stored script, or script file. The script has access to the variable names defined in the `buckets_path` parameter. Must return a Boolean value. Buckets returning `false` are removed from the final output. |
 | `gap_policy`          | Optional          | String          | The policy to apply to missing data. Valid values are `skip`, `insert_zeros`, and `keep_values`. Default is `skip`. |
 
 
 ## Example
 
-The following example creates a date histogram with a one-week interval from the OpenSearch Dashboards e-commerce sample data. The `sum` subaggregation calculates the sum of all sales for each week. Finally, the `bucket_selector` aggregation filters the resulting weekly buckets, removing all the buckets that do not total more than $75,000:
+The following example creates a date histogram with a one-week interval from the OpenSearch Dashboards e-commerce sample data. The `sum` subaggregation calculates the sum of all sales for each week. Finally, the `bucket_selector` aggregation filters the resulting weekly buckets, removing all the buckets that do not have a sum of more than $75,000:
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
@@ -119,5 +119,5 @@ The aggregation returns the `sales_per_week` buckets that meet the scripted crit
 }
 ```
 
-Because it returns a Boolean rather than a numeric value, the `buckets_selector` aggregation does not take a `format` parameter. In this example, the formatted metrics are returned in the `value_as_string` result by the `sum` sub-aggregation. Contrast this with the example in the [`bucket_script` aggregation]({{site.url}}{{site.baseurl}}/aggregations/pipeline/bucket-script/).
+Because it returns a Boolean rather than a numeric value, the `buckets_selector` aggregation does not take a `format` parameter. In this example, the formatted metrics are returned in the `value_as_string` result by the `sum` subaggregation. Contrast this with the [example in the `bucket_script` aggregation]({{site.url}}{{site.baseurl}}/aggregations/pipeline/bucket-script/#example).
 {: .note}
