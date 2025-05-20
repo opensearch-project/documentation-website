@@ -105,21 +105,21 @@ The following table shows the settings required for each model.
 
 | Function            | Extra parameters   | Allowed values  | Default | Description |
 | :--                 | :--                | :--             | :--     | :--         |
-| `max`               | None               |                 |         |             |
-| `min`               | None               |                 |         |             |
-| `sum`               | None               |                 |         |             |
-| `unweightedAvg`     | None               |                 |         |             |
-| `linearWeightedAvg` | None               |                 |         |             |
-| `ewma`              | `alpha`            | [0, 1] | 0.3     | The decay parameter. |
-| `holt`              | `alpha`            | [0, 1] | 0.3     | The decay parameter. |
-| `holt`              | `beta`             | [0, 1] | 0.1     | The trend decay parameter. |
-| `holt_winters`      | `alpha`            | [0, 1] | 0.3     | The decay parameter. |
-| `holt_winters`      | `beta`             | [0, 1] | 0.3     | The trend decay parameter. |
-| `holt_winters`      | `gamma`            | [0, 1] | 0.3     | The periodic decay parameter. |
-| `holt_winters`      | `type`             | `add`, `mult`   | `add`   | How seasonality is incorporated. |
-| `holt_winters`      | `period`           | Integer         | 1       | The number of buckets comprising the period. |
-| `holt_winters`      | `pad`              | Boolean         | true    | Whether to add a small offset to `0` values for `mult` type models to avoid a divide-by-zero error. |
-| `stdDev`            | `avg`              | Any double      | None    | Any double value, but to compute a meaningful standard deviation, use the mean of the sliding window array. Normally, `MovingFunctions.unweightedAvg(values)`. |
+| `max`               | None               |   Numeric array   |   None   |  The maximum value of the window. |
+| `min`               | None               |    Numeric array   |   None   | The minimum value of the window. |
+| `sum`               | None               |    Numeric array |   None    | The sum of all values in the window. |
+| `unweightedAvg`     | None               |    Numeric array  |   None   | The arithmetic mean of all values in the window. |
+| `linearWeightedAvg` | None               |    Numeric array  |   None    | The weighted average of all values in the window, with more recent values weighted more heavily.|
+| `ewma`              | `alpha`            | [0, 1] | 0.3     | The decay parameter. Higher values give more weight to recent data points. |
+| `holt`              | `alpha`            | [0, 1] | 0.3     | The decay parameter for the level component. |
+|              | `beta`             | [0, 1] | 0.1     | The decay parameter for the trend component.|
+| `holt_winters`      | `alpha`            | [0, 1] | 0.3     | The decay parameter for the level component.  |
+|       | `beta`             | [0, 1] | 0.3     | The decay parameter for the trend component. |
+|       | `gamma`            | [0, 1] | 0.3     | The decay parameter for the seasonal component.  |
+|       | `type`             | `add`, `mult`   | `add`   | Defines how seasonality is modeled: additive or multiplicative. |
+|       | `period`           | Integer         | 1       | The number of buckets comprising the period. |
+|      | `pad`              | Boolean         | true    | Whether to add a small offset to `0` values for `mult` type models to avoid a divide-by-zero error. |
+| `stdDev`            | `avg`              | Any double      | None    | The standard deviation of the window. To compute a meaningful standard deviation, use the mean of the sliding window array, typically, `MovingFunctions.unweightedAvg(values)`. |
 
 The predefined functions do not support function signatures with missing parameters. You therefore must supply the extra parameters, even if using the default values.
 {: .important}  
