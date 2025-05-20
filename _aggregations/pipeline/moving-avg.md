@@ -364,23 +364,23 @@ Use the `model` parameter to specify which model to use.
 | Linear | `linear` | Uses a linear decay of weights, giving more importance to recent values. |
 | Exponentially Weighted Moving Average | `ewma` | Uses exponentially decreasing weights, giving more importance to recent values. |
 | Holt | `holt` | Uses a second exponential term to smooth long-term trends. |
-| Holt-Winters | `holt_wimnters` | Uses a third exponential term to smooth perioic (seasonal) effects. |
+| Holt-Winters | `holt_winters` | Uses a third exponential term to smooth perioic (seasonal) effects. |
 
-Use the `settings` object to set the model's properties. The following table shows the settings available for each model:
+Use the `settings` object to set the model's properties. The following table shows the settings available for each model.
 
 | Model            | Parameter   | Allowed values  | Default | Description |
 | :--              | :--         | :--             | :--     | :--         |
-| `simple`         | None        |                 |         |             |
-| `linear`         | None        |                 |         |             |
-| `ewma`           | `alpha`     | [0, 1] | 0.3     | The decay parameter. |
-| `holt`           | `alpha`     | [0, 1] | 0.3     | The decay parameter. |
-| `holt`           | `beta`      | [0, 1] | 0.1     | The trend decay parameter. |
-| `holt_winters`   | `alpha`     | [0, 1] | 0.3     | The decay parameter. |
-| `holt_winters`   | `beta`      | [0, 1] | 0.3     | The trend decay parameter. |
-| `holt_winters`   | `gamma`     | [0, 1] | 0.3     | The periodic decay parameter. |
-| `holt_winters`   | `type`      | `add`, `mult`   | `add`   | How seasonality is incorporated. |
-| `holt_winters`   | `period`    | Integer         | 1       | The number of buckets that comprise the period. |
-| `holt_winters`   | `pad`       | Boolean         | true    | Whether to add a small offset to `0` values for `mult` type models to avoid a divide-by-zero error. |
+| `simple`     | None               |    Numeric array  |   None   | The arithmetic mean of all values in the window. |
+| `linear` | None               |    Numeric array  |   None    | The weighted average of all values in the window, with more recent values weighted more heavily.|
+| `ewma`              | `alpha`            | [0, 1] | 0.3     | The decay parameter. Higher values give more weight to recent data points. |
+| `holt`              | `alpha`            | [0, 1] | 0.3     | The decay parameter for the level component. |
+|              | `beta`             | [0, 1] | 0.1     | The decay parameter for the trend component.|
+| `holt_winters`      | `alpha`            | [0, 1] | 0.3     | The decay parameter for the level component.  |
+|       | `beta`             | [0, 1] | 0.3     | The decay parameter for the trend component. |
+|       | `gamma`            | [0, 1] | 0.3     | The decay parameter for the seasonal component.  |
+|       | `type`             | `add`, `mult`   | `add`   | Defines how seasonality is modeled: additive or multiplicative. |
+|       | `period`           | Integer         | 1       | The number of buckets comprising the period. |
+|      | `pad`              | Boolean         | true    | Whether to add a small offset to `0` values for `mult` type models to avoid a divide-by-zero error. |
 
 
 For a discussion of these models and their parameters, see [Wikipedia](https://en.wikipedia.org/wiki/Moving_average). 
