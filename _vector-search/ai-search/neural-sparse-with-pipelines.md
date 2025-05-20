@@ -53,17 +53,25 @@ Choose the search mode and the appropriate model/tokenizer combination:
 
 - **Bi-encoder**: Use the `amazon/neural-sparse/opensearch-neural-sparse-encoding-v2-distill` model during both ingestion and search. 
 
-- **Doc-only**: Use the `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v2-distill` model during ingestion and the `amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1` tokenizer during search.
+- **Doc-only**: Use the `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v3-distill` model during ingestion and the `amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1` tokenizer during search.
 
-The following table provides a search relevance comparison for all available combinations of the two search modes so that you can choose the best combination for your use case.
+The following tables provide a search relevance comparison for all available combinations of the two search modes so that you can choose the best combination for your use case.
+
+**For English:**
 
 | Mode      | Ingestion model                                               | Search model                                                  | Avg search relevance on BEIR | Model parameters |
 |-----------|---------------------------------------------------------------|---------------------------------------------------------------|------------------------------|------------------|
 | Doc-only  | `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v1` | `amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1`    | 0.49                         | 133M             |
 | Doc-only  | `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v2-distill` | `amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1`    | 0.504                         | 67M             |
 | Doc-only  | `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v2-mini` | `amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1`    | 0.497                         | 23M             |
+| Doc-only  | `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v3-distill` | `amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1`    | 0.517                         | 67M             |
 | Bi-encoder| `amazon/neural-sparse/opensearch-neural-sparse-encoding-v1`     | `amazon/neural-sparse/opensearch-neural-sparse-encoding-v1`     | 0.524                        | 133M             |
 | Bi-encoder| `amazon/neural-sparse/opensearch-neural-sparse-encoding-v2-distill`     | `amazon/neural-sparse/opensearch-neural-sparse-encoding-v2-distill`     | 0.528                        | 67M             |
+
+**For Multilingual:**
+| Mode      | Ingestion model                                               | Search model                                                  | Avg search relevance on MIRACL | Model parameters |
+|-----------|---------------------------------------------------------------|---------------------------------------------------------------|------------------------------|------------------|
+| Doc-only  | `amazon/neural-sparse/opensearch-neural-sparse-encoding-multilingual-v1` | `amazon/neural-sparse/opensearch-neural-sparse-tokenizer-multilingual-v1`    | 0.629                         | 168M             |
 
 ### Step 1(b): Register the model/tokenizer
 
@@ -122,14 +130,14 @@ Note the `model_id` of the model you've created; you'll need it for the followin
 
 #### Doc-only mode
 
-When using doc-only mode, you need to register the `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v2-distill` model, which you'll use at ingestion time, and the `amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1` tokenizer, which you'll use at search time.
+When using doc-only mode, you need to register the `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v3-distill` model, which you'll use at ingestion time, and the `amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1` tokenizer, which you'll use at search time.
 
 Register the sparse encoding model:
 
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
 {
-  "name": "amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v2-distill",
+  "name": "amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v3-distill",
   "version": "1.0.0",
   "model_format": "TORCH_SCRIPT"
 }
