@@ -2,7 +2,7 @@
 layout: default
 title: Stats bucket
 parent: Pipeline aggregations
-nav_order: 180
+nav_order: 190
 ---
 
 # Stats bucket aggregation

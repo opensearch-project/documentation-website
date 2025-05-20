@@ -2,10 +2,7 @@
 layout: default
 title: Serial differencing
 parent: Pipeline aggregations
-nav_order: 190
-redirect_from:
-  - /query-dsl/aggregations/pipeline-agg#serial_diff/
-  - /query-dsl/aggregations/pipeline/serial-diff/
+nav_order: 180
 ---
 
 # Serial differencing aggregations

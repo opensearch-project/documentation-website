@@ -3,9 +3,6 @@ layout: default
 title: Bucket selector
 parent: Pipeline aggregations
 nav_order: 30
-redirect_from:
-  - /query-dsl/aggregations/pipeline-agg#bucket_script-bucket_selector/
-  - /query-dsl/aggregations/pipeline/bucket-selector/
 ---
 
 # Bucket selector aggregations
