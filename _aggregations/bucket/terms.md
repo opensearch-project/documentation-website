@@ -59,6 +59,9 @@ GET opensearch_dashboards_sample_data_logs/_search
 The values are returned with the key `key`.
 `doc_count` specifies the number of documents in each bucket. By default, the buckets are sorted in descending order of `doc-count`.
 
+It is possible to use `terms` to search for infrequent values by ordering the returned values by ascending count (`"order": {"count": "asc"}`). However, we strongly discourage this practice because it can lead to inaccurate results when multiple shards are involved. A term that is globally infrequent might not appear as infrequent on every individual shard or might be entirely absent from the least frequent results returned by some shards. Conversely, a term that appears infrequently on one shard might be common on another. In both scenarios, rare terms can be missed during shard-level aggregation, resulting in incorrect overall results. Instead of the `terms` aggregation, we recommend using the `rare_terms` aggregation, which is specifically designed to handle these cases more accurately.
+{: .warning}
+
 
 ## Size and shard size parameters
 
