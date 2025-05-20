@@ -13,7 +13,7 @@ The `children` aggregation is a bucket aggregation that creates a single bucket 
 
 The `children` aggregation works with the [join field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) to aggregate child documents that are associated with parent documents.
 
-The `parent` aggregation identifies child documents that have matching parent documents, whereas the [`parent` aggregation]({{site.url}}{{site.baseurl}}/aggregations/bucket/parent/) identifies parent documents that have matching child documents. Both aggregations take the child relation name as input, but they operate in opposite directions across the parent-child relationship.
+The `children` aggregation identifies child documents that match specific child relation name, whereas the [`parent` aggregation]({{site.url}}{{site.baseurl}}/aggregations/bucket/parent/) identifies parent documents that have matching child documents. Both aggregations take the child relation name as input.
 
 ## Parameters
 
