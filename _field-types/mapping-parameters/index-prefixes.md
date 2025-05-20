@@ -12,7 +12,7 @@ has_toc: false
 
 The `index_prefixes` mapping parameter instructs the engine to generate additional index entries for the beginning segments of terms in a text field. When enabled, it builds a prefix index based on configurable minimum and maximum character lengths. This can significantly improve the performance of [prefix queries]({{site.url}}{{site.baseurl}}/query-dsl/term/prefix/), such as [autocomplete]({{site.url}}{{site.baseurl}}/opensearch/search/autocomplete/) or [search as you type]({{site.url}}{{site.baseurl}}/opensearch/search/autocomplete/#search-as-you-type), by allowing these queries to quickly match the pre-indexed term prefixes.
 
-By default, prefix indexing is not performed, keeping the index size minimal and indexing operations fast. However, if your application benefits from rapid prefix matching, enabling this parameter can provide a marked improvement in query efficiency.
+By default, prefix indexing is not performed, maintaining minimal index size and fast indexing operations. However, if your application benefits from rapid prefix matching, enabling this parameter can provide a marked improvement in query efficiency.
 
 ## Index prefixes configuration
 
@@ -23,7 +23,7 @@ You can pass the following configuration parameters to the `index_prefixes` mapp
 
 ## Enabling index prefixes on a field
 
-The following request creates an index named `products` with the `name` field configured to build a prefix index with length between `2` and `10` characters:
+The following request creates an index named `products` with the `name` field configured to build a prefix index with a length of between `2` and `10` characters:
 
 ```json
 PUT /products
@@ -53,7 +53,7 @@ PUT /products/_doc/1
 ```
 {% include copy-curl.html %}
 
-The following search request demonstrates a prefix query that searches for documents in which the `name` field starts with `ul`:
+The following search request shows a prefix query that searches for documents in which the `name` field starts with `ul`:
 
 ```json
 POST /products/_search
