@@ -79,7 +79,7 @@ PUT _ingest/pipeline/drop_debug_env
 ```
 {% include copy-curl.html %}
 
-If the null-safe `?.` operator is not configured, indexing any document that doesn't contain `app.env` field will trigger the following null pointer exception:
+If the null-safe `?.` operator is not configured, indexing any document that doesn't contain the `app.env` field will trigger the following null pointer exception:
 
 ```json
 {
