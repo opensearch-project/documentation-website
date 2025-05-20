@@ -18,7 +18,7 @@ Use the `serial_diff` aggregation to compute changes between time periods with a
 
 ## Parameters
 
-The `serial_diff` aggregation takes the following parameters:
+The `serial_diff` aggregation takes the following parameters.
 
 | Parameter             | Required/Optional | Data type       | Description |
 | :--                   | :--               |  :--            | :--         |
@@ -29,7 +29,7 @@ The `serial_diff` aggregation takes the following parameters:
 
 ## Example
 
-The following example creates a date histogram with a one-month interval from the OpenSearch Dashboards logs sample data. The `sum` sub-aggregation calculates the sum of all bytes for each month. Finally, the `serial_diff` aggregation calculates month-to-month difference in total bytes from these sums:
+The following example creates a date histogram with a one-month interval from the OpenSearch Dashboards logs sample data. The `sum` subaggregation calculates the sum of all bytes for each month. Finally, the `serial_diff` aggregation calculates month-to-month difference in total bytes from these sums:
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -60,7 +60,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
-The response contains the month-to-month difference for the second and third month. (The first month `serial_diff` cannot be calculated because there's no previous month to compare with):
+The response contains the month-to-month difference for the second and third months. (The first month `serial_diff` cannot be calculated because there's no previous month against which to compare it):
 
 ```json
 {
@@ -119,7 +119,7 @@ The response contains the month-to-month difference for the second and third mon
 }
 ```
 
-The following line chart shows the results of the `serial_diff` aggregation. The x-axis represents time, and the y-axis shows the month-over-month change in total bytes transferred. Each data point on the line reflects the difference between the total bytes in that month and the previous month. For example, a value of 5,000,000 means the system transferred 5 million more bytes than the prior month; a negative value indicates a decrease. The first month is excluded from the line because there’s no earlier bucket to compare against (the difference is undefined). The line starts with the second month and continues across all available data. 
+The following line chart shows the results of the `serial_diff` aggregation. The x-axis represents time, and the y-axis shows the month-over-month change in total bytes transferred. Each data point on the line reflects the difference between the total bytes in that month and the previous month. For example, a value of 5,000,000 means that the system transferred 5 million more bytes than the prior month; a negative value indicates a decrease. The first month is excluded from the line because there's no previous bucket against which to compare it (the difference is undefined). The line starts with the second month and continues across all available data. 
 
 ![Example serial difference aggregation visualization]({{site.url}}{{site.baseurl}}/images/serial-diff-agg-result.png)
 
@@ -127,7 +127,7 @@ This visualization helps you quickly spot spikes, drops, or trends in data volum
 
 ## Example: Multi-period differences
 
-Use a larger `lag` value to compare with buckets further back in time. The following example computes differences on weekly byte data with a lag of 4 (comparing each bucket with the bucket 4 weeks back). This has the effect of removing any variation with a period of four weeks:
+Use a larger `lag` value to compare each bucket with one that occurred further in the past. The following example computes differences in weekly byte data with a lag of 4 (meaning each bucket is compared to the one from 4 weeks earlier). This has the effect of removing any variation with a period of 4 weeks:
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
