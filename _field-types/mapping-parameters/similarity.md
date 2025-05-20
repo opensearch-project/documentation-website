@@ -15,7 +15,7 @@ The `similarity` mapping parameter lets you customize how relevance scores are c
 ## Supported similarity types
 
 - `BM25` (default): Uses a modern, probabilistic ranking model that balances term frequency, document length, and inverse document frequency.
-- `boolean`: Returns constant scores (`1` or `0`), should be used if you care only about matching, not relevance.
+- `boolean`: Returns constant scores (`1` or `0`), so should be used if you care only about matching, not relevance.
 
 ## Setting a custom similarity on a field
 
