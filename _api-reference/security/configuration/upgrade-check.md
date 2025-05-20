@@ -18,7 +18,7 @@ component: endpoints
 -->
 ## Endpoints
 ```json
-POST /_plugins/_security/api/_upgrade_check
+GET /_plugins/_security/api/_upgrade_check
 ```
 <!-- spec_insert_end -->
 
