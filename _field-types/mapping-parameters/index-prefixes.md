@@ -94,7 +94,7 @@ The response contains the matching document:
 
 ## Using default parameters with index prefixes
 
-The following request creates an index named `products_default` using `index_prefixes` with default parameters:
+The following request creates an index named `products_default` using `index_prefixes` with the default parameters:
 
 ```json
 PUT /products_default
