@@ -12,8 +12,6 @@ redirect_from:
 
 The `serial_diff` aggregation is a parent pipeline aggregation that calculates the difference between metric values in the current bucket and a previous bucket. It stores the result in the current bucket.
 
-Unlike sibling pipeline aggregations, which operate across all buckets and produce a single output, parent pipeline aggregations process each bucket individually and write the result back into each bucket.
-
 Use the `serial_diff` aggregation to compute changes between time periods with a specified lag. The `lag` parameter (a positive integer value) specifies which previous bucket value to subtract from the current one. The default `lag` value is `1`, meaning `serial_diff` subtracts the value in the immediately previous bucket from the value in the current bucket.
 
 ## Parameters
