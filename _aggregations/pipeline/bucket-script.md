@@ -29,7 +29,12 @@ The `bucket_script` aggregation takes the following parameters.
 
 ## Script variables
 
-The `buckets_path` parameter maps script variable names to metrics from parent aggregations. These variables can then be used in the script. For example, the following `buckets_path` maps the `sales_sum` metric to the `total_sales` script variable and the `item_count` metric to the `item_count` script variable:
+The `buckets_path` parameter maps script variable names to metrics from parent aggregations. These variables can then be used in the script. 
+
+For the `bucket_script` and `bucket_selector` aggregations, the `buckets_path` parameter is an object rather than a string because it must refer to multiple bucket metrics. See the [Pipeline aggregations]({{site.url}}{{site.baseurl}}/aggregations/pipeline/index#buckets-path-property) page for a description of the string version of `buckets_path`.
+{: .note}
+
+The following `buckets_path` maps the `sales_sum` metric to the `total_sales` script variable and the `item_count` metric to the `item_count` script variable:
 
 ```json
 "buckets_path": {
