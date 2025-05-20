@@ -24,7 +24,7 @@ The `bucket_script` aggregation takes the following parameters.
 | :--                   | :--               |  :--            | :--         |
 | `buckets_path`        | Required          | Object          | A map of variable names to bucketed metrics that identify the metrics to be used in the script. The metrics must be numeric. See [Script variables](#script-variables). |
 | `script`              | Required          | String or Object | The script to execute. Can be an inline script, stored script, or script file. The script has access to the variable names defined in the `buckets_path` parameter. Must return a numeric value. |
-| `gap_policy`          | Optional          | String          | The policy to apply to missing data. Valid values are `skip`, `insert_zeros`, and `keep_values`. Default is `skip`. |
+| `gap_policy`          | Optional          | String          | The policy to apply to missing data. Valid values are `skip` and `insert_zeros`. Default is `skip`. See [Data gaps]({{site.url}}{{site.baseurl}}/aggregations/pipeline/#data-gaps). |
 | `format`              | Optional          | String          | A [DecimalFormat](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/text/DecimalFormat.html) formatting string. Returns the formatted output in the aggregation's `value_as_string` parameter. |
 
 ## Script variables

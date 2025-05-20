@@ -22,7 +22,7 @@ The `bucket_selector` aggregation takes the following parameters.
 | :--                   | :--               |  :--            | :--         |
 | `buckets_path`        | Required          | Object          | A map of variable names to bucketed metrics that identify the metrics to be used in the script. The metrics must be numeric. See [Script variables]({{site.url}}{{site.baseurl}}/aggregations/pipeline/bucket-script#script-variables). |
 | `script`              | Required          | String or Object | The script to execute. Can be an inline script, stored script, or script file. The script has access to the variable names defined in the `buckets_path` parameter. Must return a Boolean value. Buckets returning `false` are removed from the final output. |
-| `gap_policy`          | Optional          | String          | The policy to apply to missing data. Valid values are `skip`, `insert_zeros`, and `keep_values`. Default is `skip`. |
+| `gap_policy`          | Optional          | String          | The policy to apply to missing data. Valid values are `skip` and `insert_zeros`. Default is `skip`. See [Data gaps]({{site.url}}{{site.baseurl}}/aggregations/pipeline/#data-gaps).  |
 
 
 ## Example
