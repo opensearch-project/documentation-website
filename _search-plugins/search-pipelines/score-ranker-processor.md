@@ -26,7 +26,7 @@ Field | Data type | Description
 
 The following example demonstrates using a search pipeline with a `score-ranker-processor`.
 
-### Creating a search pipeline with `score-ranker-processor`
+### Creating a search pipeline with a score ranker processor`
 
 The following request creates a search pipeline containing a `score-ranker-processor` that uses the `rrf` combination technique:
 
@@ -46,9 +46,9 @@ PUT /_search/pipeline/<rrf-pipeline>
 }
 ```
 
-### Tuning the search pipeline with custom parameters
+### Tuning the search pipeline using custom parameters
 
-Apply custom `rank-constant` parameter in the search pipeline created in the previous section. The default value of `rank-constant` is 60. In the following example, `rank-constant` will be set to 40.
+Apply a custom `rank-constant` parameter in the search pipeline created in the previous section. The default value of `rank-constant` is 60. In the following example, `rank-constant` is set to 40:
 
 ```json
 PUT /_search/pipeline/<rrf-pipeline>
@@ -67,7 +67,7 @@ PUT /_search/pipeline/<rrf-pipeline>
 }
 ```
 
-Apply custom `weights` for each subquery that will be used during combing the search results using `rrf` technique. The default value of `weights` for each subquery is equal i.e 1. In the following example, weight for subquery 1 is set to 0.7 and subquery 2 is set to 0.3 respectively.
+Apply custom `weights` to each subquery when combing search results using the `rrf` technique. By default, each subquery is given an equal weight of 1. In the following example, subquery 1 has a weight of 0.7, and subquery 2 has a weight of 0.3:
 
 ```json
 PUT /_search/pipeline/<rrf-pipeline>
@@ -91,6 +91,7 @@ PUT /_search/pipeline/<rrf-pipeline>
   ]
 }
 ```
+{% include copy-curl.html %}
 
 For more information about setting up hybrid search, see [Hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/hybrid-search/).
 
