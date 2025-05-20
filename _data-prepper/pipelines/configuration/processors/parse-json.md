@@ -43,19 +43,18 @@ parse-json-pipeline:
   processor:
     - parse_json:
 ```
+{% include copy.html %}
 
-### Basic example
-
-This example parses a JSON message field and flattens the data into the event.
-
-For example, the following JSON message contains a key-value pair:
+All examples use the following JSON message for the event output:
 
 ```json
 {"outer_key": {"inner_key": "inner_value"}}
 ```
 {% include copy.html %}
 
-From the example event, the original `message` field remains, and the parsed content is added at the root level. 
+### Basic example
+
+This example parses a JSON message field and flattens the data into the event. From the example event, the original `message` field remains, and the parsed content is added at the root level, as shown in the following output: 
 
 ```json
 {
@@ -66,9 +65,35 @@ From the example event, the original `message` field remains, and the parsed con
 }
 ```
 
+### Delete a source
+
+If you want to remove the original field from the orginating JSON message, use the `delete_source` option, as shown in the following example pipeline:
+
+```yaml
+parse-json-pipeline:
+  source:
+    ...
+  ...
+  processor:
+    - parse_json:
+        delete_source: true
+```
+{% include copy.html %}
+
+In the following event, the `message` field is parsed and removed from the event, leaving only the structured output:
+
+```json
+{
+  "outer_key": {
+    "inner_key": "inner_value"
+  }
+}
+```
+
+
 ### Example using a JSON pointer
 
-You can use the `pointer` option to extract a specific nested field from the JSON data.
+You can use the `pointer` option to extract a specific nested field from the JSON data, as shown in the following example pipeline:
 
 ```yaml
 parse-json-pipeline:
@@ -79,10 +104,11 @@ parse-json-pipeline:
     - parse_json:
         pointer: "/outer_key/inner_key"
 ```
+{% include copy.html %}
 
-Using the same JSON message as the previous example, only the value at the pointer path `/outer_key/inner_key` is extracted and added to the event. If you set `destination`, the extracted value will be added under that field instead:
+Only the value at the pointer path `/outer_key/inner_key` is extracted and added to the event. If you set `destination`, the extracted value will be added under that field instead:
 
-```
+```json
 {
   "message": "{\"outer_key\": {\"inner_key\": \"inner_value\"}}",
   "inner_key": "inner_value"
